@@ -36,6 +36,7 @@ import com.todoroo.astrid.utility.AstridPreferences;
 
 public final class UpgradeService {
 
+    public static final int V3_8_0_2 = 188;
     public static final int V3_8_0 = 186;
     public static final int V3_7_7 = 184;
     public static final int V3_7_6 = 182;
@@ -144,6 +145,13 @@ public final class UpgradeService {
             });
         } else {
             // current message
+            if(from >= V3_8_0 && from < V3_8_0_2) {
+                newVersionString(changeLog, "3.8.0.2 (7/16/11)", new String[] {
+                        "Fix for due time lost during Astrid.com sync",
+                        "Fix for disappearing Producteev workspace editor",
+                        "Fix for crashes. Keep on reporting them!",
+                });
+            }
             if(from < V3_8_0) {
                 newVersionString(changeLog, "3.8.0 (7/15/11)", new String[] {
                         "Astrid.com: sync & share tasks / lists with others!",
@@ -153,72 +161,11 @@ public final class UpgradeService {
                         "New style for \"Task Edit\" page!",
                         "Purge completed or deleted tasks from settings menu!",
                 });
-
-                // clear gtasks token info because of new gtasks api
                 gtasksPreferenceService.setToken(null);
             }
-            if(from < V3_7_7) {
-                newVersionString(changeLog, "3.7.7 (6/22/11, bug fixes, usability, cosmetic)", new String[] {
-                        "Moved note viewing into quick action bar based on usability feedback",
-                        "Fix for repeats not working with weekly intervals over 1 week",
-                        "Fix for Producteev notes being cleared when new notes arrive",
-                        "Fix for default reminder settings not being applied to Google/Producteev tasks",
-                });
-            }
-            if(from >= V3_7_0 && from < V3_7_6) {
-                newVersionString(changeLog, "3.7.6 (6/13/11)", new String[] {
-                        "Fix for Astrid overwriting Google / Producteev values during sync",
-                        "No more snoozes for old repeating task iterations",
-                        "Fix for some alarms not being cancelled when due date changes",
-                });
-            }
-            if(from >= V3_7_0 && from < V3_7_5) {
-                newVersionString(changeLog, "3.7.5 (5/24/11)", new String[] {
-                        "Fix for custom filter not working with tags with apostrophes",
-                        "Fix for crashes when rearranging tasks in a Google list",
-                        "Fix for yellow line drawn when swiping",
-                        "Fix for various crashes",
-                });
-            }
-            if(from >= V3_7_0 && from < V3_7_4) {
-                newVersionString(changeLog, "3.7.4 (5/19/11)", new String[] {
-                        "Fix for Galaxy S preference issue duplicating intro tasks",
-                        "Fix for Producteev note order incorrect",
-                        "Fix for repeating tasks causing duplicates during sync",
-                        "Fix for quick-add tasks in a Producteev workspace not working",
-                        "Fix for repeat from completion date losing due time",
-                        "Fix for viewing a task causng local changes to overwrite during sync",
-                        "Integration with OpenCRX (opencrx.org)",
-                });
-                Preferences.setBoolean(Eula.PREFERENCE_EULA_ACCEPTED, true);
-            }
-            if(from >= V3_7_0 && from < V3_7_3) {
-                newVersionString(changeLog, "3.7.3 (4/26/11)", new String[] {
-                        "Fixed 'Show Notes' setting not working",
-                        "Added setting for transparent background in Astrid",
-                        "Google Tasks list no longer shows completed tasks",
-                        "Added Google Tasks lists to custom filter",
-                        "Fixed bugs and increased speed in Google Tasks sync",
-                });
-                if(gtasksPreferenceService.isLoggedIn())
-                    taskService.clearDetails(Criterion.all);
-            }
-            if(from >= V3_7_0 && from < V3_7_2) {
-                newVersionString(changeLog, "3.7.2 (3/04/11)", new String[] {
-                        "Added a 'Ring 5 times' setting to task reminders",
-                        "Added 'Copy Task' to the long-press menu",
-                        "Fixed crash for Motorola Xoom / Android Honeycomb users",
-                        "Fixed some Producteev-related errors and duplicated task issues.",
-                        "Fixed issue with importing repeating tasks from XML",
-                });
-            }
-            if(from >= V3_7_0 && from < V3_7_1) {
-                newVersionString(changeLog, "3.7.1 (2/17/11)", new String[] {
-                    "Fixed due date reminders not being displayed",
-                    "Added an 'About' screen for displaying current version.",
-                    "Fixed several user-reported crashes! Keep 'em coming :)",
-                });
-            }
+
+            // --- old messages
+
             if(from >= V3_0_0 && from < V3_7_0) {
                 newVersionString(changeLog, "3.7.0 (2/7/11)", new String[] {
                         "Improved UI for displaying task actions. Tap a task to " +
@@ -232,25 +179,9 @@ public final class UpgradeService {
                         "Fixed bug with custom filters & tasks being hidden.",
                 });
                 upgrade3To3_7();
-            }
-
-            // old messages
-            if(from >= V3_6_0 && from < V3_6_4) {
-                newVersionString(changeLog, "3.6.4 (12/28/10)", new String[] {
-                        "Fix crash occuring when using timers",
-                });
-            }
-            if(from >= V3_6_0 && from < V3_6_3) {
-                newVersionString(changeLog, "3.6.3 (12/18/10)", new String[] {
-                        "Added support for Producteev repeating tasks",
-                        "Fix for Producteev sync duplicate task issues",
-                });
-            }
-            if(from >= V3_6_0 && from < V3_6_2) {
-                newVersionString(changeLog, "3.6.2 (12/11/10)", new String[] {
-                        "Fix for Google Tasks crash on view list",
-                        "Fix for Producteev crash sometimes during sync",
-                });
+                if(gtasksPreferenceService.isLoggedIn())
+                    taskService.clearDetails(Criterion.all);
+                Preferences.setBoolean(Eula.PREFERENCE_EULA_ACCEPTED, true);
             }
             if(from >= V3_0_0 && from < V3_6_0) {
                 newVersionString(changeLog, "3.6.0 (11/13/10)", new String[] {
