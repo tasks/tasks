@@ -149,6 +149,7 @@ public final class UpgradeService {
                         "Astrid.com: sync & share tasks / lists with others!",
                         "GTasks Sync using Google's official task API! Gtasks users" +
                             "will need to perform a manual sync to set everything up.",
+                        "Renamed \"Tags\" to \"Lists\" (see blog.astrid.com for details)",
                         "New style for \"Task Edit\" page!",
                         "Purge completed or deleted tasks!",
                 });
