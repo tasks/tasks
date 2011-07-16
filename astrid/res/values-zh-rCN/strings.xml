@@ -851,7 +851,7 @@
     <string name="CFA_type_intersect">且</string>
     
     <!-- Filter Criteria Context Menu: chaining (%s chain type as above) -->
-    <string name="CFA_context_chain">% 含条件</string>
+    <string name="CFA_context_chain">%s 含条件</string>
     
     <!-- Filter Criteria Context Menu: delete -->
     <string name="CFA_context_delete">删除列</string>

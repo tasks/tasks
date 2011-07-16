@@ -5,7 +5,6 @@ package com.todoroo.andlib.test;
 import java.lang.reflect.Field;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
@@ -72,7 +71,19 @@ abstract public class TranslationTests extends TodorooTestCase {
 
         /** test that the characters match */
         public boolean matches(FormatStringData other) {
-            return Arrays.equals(characters, other.characters);
+            if(characters.length != other.characters.length)
+                return false;
+            outer: for(int i = 0; i < characters.length; i++) {
+                if(Character.isDigit(characters[i])) {
+                    for(int j = 0; j < other.characters.length; j++)
+                        if(characters[i] == other.characters[j])
+                            break outer;
+                    return false;
+                } else if(characters[i] != other.characters[i])
+                    return false;
+
+            }
+            return true;
         }
 
         @Override
