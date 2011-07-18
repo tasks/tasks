@@ -411,7 +411,7 @@ public class FilterListActivity extends ExpandableListActivity {
             @Override
             public void run() {
                 try {
-                    actFmSyncService.fetchTags();
+                    actFmSyncService.fetchTags(0);
 
                     adapter.clear();
                     adapter.getLists();

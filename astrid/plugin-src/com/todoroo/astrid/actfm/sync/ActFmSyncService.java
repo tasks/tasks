@@ -457,12 +457,14 @@ public final class ActFmSyncService {
 
     /**
      * Fetch all tags
+     * @param serverTime
      */
-    public void fetchTags() throws JSONException, IOException {
+    public void fetchTags(int serverTime) throws JSONException, IOException {
         if(!checkForToken())
             return;
 
-        JSONObject result = actFmInvoker.invoke("tag_list", "token", token);
+        JSONObject result = actFmInvoker.invoke("tag_list",
+                "token", token, "modified_after", serverTime);
         JSONArray tags = result.getJSONArray("list");
         HashSet<Long> remoteIds = new HashSet<Long>(tags.length());
         for(int i = 0; i < tags.length(); i++) {

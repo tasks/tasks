@@ -129,8 +129,7 @@ public class ActFmSyncProvider extends SyncProvider<ActFmTaskContainer> {
             int serverTime = Preferences.getInt(ActFmPreferenceService.PREF_SERVER_TIME, 0);
             ArrayList<ActFmTaskContainer> remoteTasks = new ArrayList<ActFmTaskContainer>();
 
-            serverTime = (int)(fetchRemoteTasks(serverTime, remoteTasks) - DateUtilities.now()/1000L);
-
+            int newServerTime = fetchRemoteTasks(serverTime, remoteTasks);
             fetchRemoteTagData(serverTime);
 
             SyncData<ActFmTaskContainer> syncData = populateSyncData(remoteTasks);
@@ -142,8 +141,7 @@ public class ActFmSyncProvider extends SyncProvider<ActFmTaskContainer> {
                 syncData.localUpdated.close();
             }
 
-            serverTime += DateUtilities.now()/1000L;
-            Preferences.setInt(ActFmPreferenceService.PREF_SERVER_TIME, serverTime);
+            Preferences.setInt(ActFmPreferenceService.PREF_SERVER_TIME, newServerTime);
             actFmPreferenceService.recordSuccessfulSync();
 
             syncSuccess = true;
@@ -165,7 +163,7 @@ public class ActFmSyncProvider extends SyncProvider<ActFmTaskContainer> {
      * @param serverTime last sync time
      */
     private void fetchRemoteTagData(int serverTime) throws ActFmServiceException, IOException, JSONException {
-        actFmSyncService.fetchTags();
+        actFmSyncService.fetchTags(serverTime);
     }
 
     /**
