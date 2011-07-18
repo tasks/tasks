@@ -250,6 +250,54 @@
         <category android:name="android.intent.category.DEFAULT" />
       </intent-filter>
     </receiver>    
+            
+    <!-- actfm -->
+    <activity android:name="com.todoroo.astrid.actfm.ActFmLoginActivity" />
+    <activity android:name="com.todoroo.astrid.actfm.OAuthLoginActivity" />
+    <activity android:name="com.todoroo.astrid.actfm.ActFmPreferences"
+              android:theme="@android:style/Theme"
+              android:label="@string/actfm_APr_header">
+      <meta-data android:name="category"
+                 android:resource="@string/SyP_label" />
+      <intent-filter>   
+        <action android:name="com.todoroo.astrid.SETTINGS" />
+        <category android:name="android.intent.category.DEFAULT" />
+      </intent-filter>
+    </activity>
+    <service android:name="com.todoroo.astrid.actfm.ActFmBackgroundService">
+      <intent-filter>
+        <action android:name="com.todoroo.astrid.actfm.SYNC" />
+        <category android:name="android.intent.category.DEFAULT" />
+      </intent-filter>
+    </service>
+    <receiver android:name="com.todoroo.astrid.actfm.ActFmSyncActionExposer">
+      <intent-filter>
+        <action android:name="com.todoroo.astrid.REQUEST_SYNC_ACTIONS" />
+        <category android:name="android.intent.category.DEFAULT" />
+      </intent-filter>
+    </receiver>    
+    <activity android:name="com.todoroo.astrid.actfm.TagViewActivity"
+              android:windowSoftInputMode="stateHidden"
+              android:theme="@style/Theme" />
+    <receiver android:name="com.todoroo.astrid.actfm.EditPeopleExposer">
+      <intent-filter>
+        <action android:name="com.todoroo.astrid.REQUEST_ACTIONS" />
+        <action android:name="com.todoroo.astrid.EDIT_PEOPLE" />
+        <category android:name="android.intent.category.DEFAULT" />
+      </intent-filter>
+    </receiver>
+    <receiver android:name="com.timsu.astrid.C2DMReceiver" permission="com.google.android.c2dm.permission.SEND">
+      <!-- Receive the actual message -->
+      <intent-filter>
+          <action android:name="com.google.android.c2dm.intent.RECEIVE" />
+          <category android:name="com.timsu.astrid" />
+      </intent-filter>
+      <!-- Receive the registration id -->
+      <intent-filter>
+          <action android:name="com.google.android.c2dm.intent.REGISTRATION" />
+          <category android:name="com.timsu.astrid" />
+      </intent-filter>
+    </receiver>                
     
     <!-- gtasks -->
     <activity android:name="com.todoroo.astrid.gtasks.GtasksListActivity"
@@ -413,55 +461,7 @@
         <action android:name="com.todoroo.astrid.EDIT_NOTES" />
         <category android:name="android.intent.category.DEFAULT" />
       </intent-filter>
-    </receiver>
-            
-    <!-- actfm -->
-    <activity android:name="com.todoroo.astrid.actfm.ActFmLoginActivity" />
-    <activity android:name="com.todoroo.astrid.actfm.OAuthLoginActivity" />
-    <activity android:name="com.todoroo.astrid.actfm.ActFmPreferences"
-              android:theme="@android:style/Theme"
-              android:label="@string/actfm_APr_header">
-      <meta-data android:name="category"
-                 android:resource="@string/SyP_label" />
-      <intent-filter>   
-        <action android:name="com.todoroo.astrid.SETTINGS" />
-        <category android:name="android.intent.category.DEFAULT" />
-      </intent-filter>
-    </activity>
-    <service android:name="com.todoroo.astrid.actfm.ActFmBackgroundService">
-      <intent-filter>
-        <action android:name="com.todoroo.astrid.actfm.SYNC" />
-        <category android:name="android.intent.category.DEFAULT" />
-      </intent-filter>
-    </service>
-    <receiver android:name="com.todoroo.astrid.actfm.ActFmSyncActionExposer">
-      <intent-filter>
-        <action android:name="com.todoroo.astrid.REQUEST_SYNC_ACTIONS" />
-        <category android:name="android.intent.category.DEFAULT" />
-      </intent-filter>
-    </receiver>    
-    <activity android:name="com.todoroo.astrid.actfm.TagViewActivity"
-              android:windowSoftInputMode="stateHidden"
-              android:theme="@style/Theme" />
-    <receiver android:name="com.todoroo.astrid.actfm.EditPeopleExposer">
-      <intent-filter>
-        <action android:name="com.todoroo.astrid.REQUEST_ACTIONS" />
-        <action android:name="com.todoroo.astrid.EDIT_PEOPLE" />
-        <category android:name="android.intent.category.DEFAULT" />
-      </intent-filter>
-    </receiver>
-    <receiver android:name="com.timsu.astrid.C2DMReceiver" permission="com.google.android.c2dm.permission.SEND">
-      <!-- Receive the actual message -->
-      <intent-filter>
-          <action android:name="com.google.android.c2dm.intent.RECEIVE" />
-          <category android:name="com.timsu.astrid" />
-      </intent-filter>
-      <!-- Receive the registration id -->
-      <intent-filter>
-          <action android:name="com.google.android.c2dm.intent.REGISTRATION" />
-          <category android:name="com.timsu.astrid" />
-      </intent-filter>
-    </receiver>                  
+    </receiver>      
                   
     <!-- timers -->
     <receiver android:name="com.todoroo.astrid.timers.TimerActionExposer">
