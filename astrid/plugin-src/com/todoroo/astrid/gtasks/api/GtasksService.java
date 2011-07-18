@@ -2,6 +2,9 @@ package com.todoroo.astrid.gtasks.api;
 
 import java.io.IOException;
 
+import android.app.Activity;
+import android.content.Context;
+
 import com.google.api.client.extensions.android2.AndroidHttp;
 import com.google.api.client.googleapis.auth.oauth2.draft10.GoogleAccessProtectedResource;
 import com.google.api.client.http.HttpResponseException;
@@ -13,6 +16,12 @@ import com.google.api.services.tasks.v1.Tasks.TasksOperations.Move;
 import com.google.api.services.tasks.v1.model.Task;
 import com.google.api.services.tasks.v1.model.TaskList;
 import com.google.api.services.tasks.v1.model.TaskLists;
+import com.timsu.astrid.R;
+import com.todoroo.andlib.service.Autowired;
+import com.todoroo.andlib.service.ContextManager;
+import com.todoroo.andlib.service.DependencyInjectionService;
+import com.todoroo.andlib.service.ExceptionService;
+import com.todoroo.andlib.utility.DialogUtilities;
 import com.todoroo.astrid.gtasks.auth.GtasksTokenValidator;
 
 /**
@@ -27,11 +36,14 @@ public class GtasksService {
     private GoogleAccessProtectedResource accessProtectedResource;
     private String token;
 
+    @Autowired ExceptionService exceptionService;
+
     private static final String API_KEY = "AIzaSyCIYZTBo6haRHxmiplZsfYdagFEpaiFnAk"; // non-production API key
 
     public static final String AUTH_TOKEN_TYPE = "oauth2:https://www.googleapis.com/auth/tasks";
 
     public GtasksService(String authToken) {
+        DependencyInjectionService.getInstance().inject(this);
         authenticate(authToken);
     }
 
@@ -45,7 +57,7 @@ public class GtasksService {
     }
 
     //If we get a 401 or 403, try revalidating the auth token before bailing
-    private synchronized void handleException(IOException e) {
+    private synchronized void handleException(IOException e) throws IOException {
         if (e instanceof HttpResponseException) {
             HttpResponseException h = (HttpResponseException)e;
             if (h.response.statusCode == 401 || h.response.statusCode == 403) {
@@ -53,6 +65,16 @@ public class GtasksService {
                 if (token != null) {
                     accessProtectedResource.setAccessToken(token);
                 }
+            } else if (h.response.statusCode == 503) { // 503 errors are generally either 1) quota limit reached or 2) problems on Google's end
+                final Context context = ContextManager.getContext();
+                String message = context.getString(R.string.gtasks_error_backend);
+                exceptionService.reportError(message, h);
+
+                if(context instanceof Activity) {
+                    DialogUtilities.okDialog((Activity)context,
+                            message, null);
+                }
+                throw h;
             }
         }
     }

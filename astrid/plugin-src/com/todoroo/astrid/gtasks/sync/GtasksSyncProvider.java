@@ -199,7 +199,7 @@ public class GtasksSyncProvider extends SyncProvider<GtasksTaskContainer> {
             syncSuccess = true;
         } catch (IllegalStateException e) {
         	// occurs when application was closed
-        } catch (Exception e) {
+        } catch (IOException e) {
             handleException("gtasks-sync", e, true); //$NON-NLS-1$
         } finally {
             StatisticsService.reportEvent("gtasks-sync-finished",
@@ -207,8 +207,7 @@ public class GtasksSyncProvider extends SyncProvider<GtasksTaskContainer> {
         }
     }
 
-    private void getActiveList(TaskLists taskView) throws JSONException,
-            IOException {
+    private void getActiveList(TaskLists taskView) throws IOException {
         String listId;
         if(taskView.items.size() == 0) {
             if(Constants.DEBUG)
@@ -298,7 +297,7 @@ public class GtasksSyncProvider extends SyncProvider<GtasksTaskContainer> {
      * Populate SyncData data structure
      * @throws JSONException
      */
-    private SyncData<GtasksTaskContainer> populateSyncData() throws JSONException, IOException {
+    private SyncData<GtasksTaskContainer> populateSyncData() throws IOException {
 
         // fetch remote tasks
         ArrayList<GtasksTaskContainer> remoteTasks = readAllRemoteTasks(false);

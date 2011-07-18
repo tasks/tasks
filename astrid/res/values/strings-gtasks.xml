@@ -66,7 +66,7 @@
 
     <!-- Error Message when we receive a HTTP 401 Unauthorized -->    
     <string name="gtasks_GLA_errorAuth">Error authenticating! Please check your username and password in your phone\'s account manager</string>
-
+    
     <!-- Error Message when we receive a HTTP 401 Unauthorized multiple times -->    
     <string name="gtasks_GLA_errorAuth_captcha">You may have encountered a captcha. 
     Try logging in from the browser, then come back to try again:</string>
@@ -84,6 +84,11 @@
     
     <!-- title for notification tray when synchronizing -->
     <string name="gtasks_notification_title">Astrid: Google Tasks</string>
+
+    <!-- Error Message when we receive a HTTP 503 error -->
+    <string name="gtasks_error_backend">Google\'s Task API is in beta and has encountered an error. The service may be down, please try again later.</string>
+
+    
         
 </resources>
 
