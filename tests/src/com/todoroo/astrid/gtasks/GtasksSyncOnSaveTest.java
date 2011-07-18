@@ -44,6 +44,7 @@ public class GtasksSyncOnSaveTest extends DatabaseTestCase {
 
 
     public void testSyncOnCreate() throws IOException {
+        if(bypassTests) return;
         performBasicCreation("");
     }
 
