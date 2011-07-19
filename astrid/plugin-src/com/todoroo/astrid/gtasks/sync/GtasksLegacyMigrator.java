@@ -75,10 +75,11 @@ public class GtasksLegacyMigrator {
                             defaultListId = list.id;
                         }
 
-                        Tasks allTasks = gtasksService.getAllGtasksFromListId(list.id, true);
+                        Tasks allTasks = gtasksService.getAllGtasksFromListId(list.id, false);
 
                         if (allTasks.items != null) {
                             for (com.google.api.services.tasks.v1.model.Task t : allTasks.items) {
+                                System.err.println("Constructing key with title: " + t.title);
                                 String key = constructKeyFromTitles(t.title, list.title);
                                 taskAndListTitlesToRemoteTaskIds.put(key, t.id);
                             }
@@ -86,21 +87,29 @@ public class GtasksLegacyMigrator {
                     }
 
                     //For each local task, check to see if its title paired with any list title has a match in the map
-                    while (!allTasksWithGtaskData.isLast()) {
-                        allTasksWithGtaskData.moveToNext();
+                    for (allTasksWithGtaskData.moveToFirst(); !allTasksWithGtaskData.isAfterLast(); allTasksWithGtaskData.moveToNext()) {
                         GtasksTaskContainer container = gtasksMetadataService.readTaskAndMetadata(allTasksWithGtaskData);
-
+                        System.err.println("Migrating task with title: " + container.task.getValue(Task.TITLE) +
+                                ", remote id: " + container.gtaskMetadata.getValue(GtasksMetadata.ID));
                         //Search through lists to see if one of them has match
                         String taskTitle = container.task.getValue(Task.TITLE);
                         for (com.google.api.services.tasks.v1.model.TaskList list : allLists.items) {
                             String expectedKey = constructKeyFromTitles(taskTitle, list.title);
 
                             if (taskAndListTitlesToRemoteTaskIds.containsKey(expectedKey)) {
+                                System.err.println("Found match");
                                 String newRemoteTaskId = taskAndListTitlesToRemoteTaskIds.get(expectedKey);
                                 String newRemoteListId = list.id;
 
                                 container.gtaskMetadata.setValue(GtasksMetadata.ID, newRemoteTaskId);
                                 container.gtaskMetadata.setValue(GtasksMetadata.LIST_ID, newRemoteListId);
+                                gtasksMetadataService.saveTaskAndMetadata(container);
+                                break;
+                            } else {
+                                System.err.println("Resetting metadata");
+                                //For non-matches, make the task look newly created
+                                container.gtaskMetadata.setValue(GtasksMetadata.ID, ""); //$NON-NLS-1$
+                                container.gtaskMetadata.setValue(GtasksMetadata.LIST_ID, list.id);
                                 gtasksMetadataService.saveTaskAndMetadata(container);
                                 break;
                             }

@@ -128,7 +128,8 @@ abstract public class SyncMetadataService<TYPE extends SyncContainer> {
      * @param left
      * @param right
      * @param matchingRows
-     * @param both - if false, returns left join, if true, returns both join
+     * @param both - if false, returns rows no right row exists, if true,
+     *        returns rows where both exist
      */
     private static void joinRows(TodorooCursor<?> left,
             TodorooCursor<?> right, ArrayList<Long> matchingRows,

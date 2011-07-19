@@ -61,11 +61,13 @@ public class GtasksService {
         if (e instanceof HttpResponseException) {
             HttpResponseException h = (HttpResponseException)e;
             if (h.response.statusCode == 401 || h.response.statusCode == 403) {
+                System.err.println("Encountered " + h.response.statusCode + " error");
                 token = GtasksTokenValidator.validateAuthToken(token);
                 if (token != null) {
                     accessProtectedResource.setAccessToken(token);
                 }
             } else if (h.response.statusCode == 503) { // 503 errors are generally either 1) quota limit reached or 2) problems on Google's end
+                System.err.println("Encountered 503 error");
                 final Context context = ContextManager.getContext();
                 String message = context.getString(R.string.gtasks_error_backend);
                 exceptionService.reportError(message, h);
@@ -79,6 +81,10 @@ public class GtasksService {
         }
     }
 
+    private static void log(String method, Object result) {
+        System.err.println("QUERY: " + method + ", RESULT: " + result);
+    }
+
     /**
      * A simple service query that will throw an exception if anything goes wrong.
      * Useful for checking if token needs revalidating or if there are network problems--
@@ -90,23 +96,27 @@ public class GtasksService {
     }
 
     public TaskLists allGtaskLists() throws IOException {
-        TaskLists toReturn;
+        TaskLists toReturn = null;
         try {
             toReturn = service.tasklists.list().execute();
         } catch (IOException e) {
             handleException(e);
             toReturn = service.tasklists.list().execute();
+        } finally {
+            log("All gtasks lists", toReturn);
         }
         return toReturn;
     }
 
     public TaskList getGtaskList(String id) throws IOException {
-        TaskList toReturn;
+        TaskList toReturn = null;
         try {
             toReturn = service.tasklists.get(id).execute();
         } catch (IOException e) {
             handleException(e);
             toReturn = service.tasklists.get(id).execute();
+        } finally {
+            log("Get gtask list, id: " + id, toReturn);
         }
         return toReturn;
     }
@@ -114,23 +124,27 @@ public class GtasksService {
     public TaskList createGtaskList(String title) throws IOException {
         TaskList newList = new TaskList();
         newList.title = title;
-        TaskList toReturn;
+        TaskList toReturn = null;
         try {
             toReturn = service.tasklists.insert(newList).execute();
         } catch (IOException e) {
             handleException(e);
             toReturn = service.tasklists.insert(newList).execute();
+        } finally {
+            log("Create gtask list, title: " + title, toReturn);
         }
         return toReturn;
     }
 
     public TaskList updateGtaskList(TaskList list) throws IOException {
-        TaskList toReturn;
+        TaskList toReturn = null;
         try {
             toReturn = service.tasklists.update(list.id, list).execute();
         } catch (IOException e) {
             handleException(e);
             toReturn = service.tasklists.update(list.id, list).execute();
+        } finally {
+            log("Update list, id: " + list.id, toReturn);
         }
         return toReturn;
     }
@@ -141,22 +155,17 @@ public class GtasksService {
         } catch (IOException e) {
             handleException(e);
             service.tasklists.delete(listId).execute();
+        } finally {
+            log("Delete list, id: " + listId, null);
         }
     }
 
     public com.google.api.services.tasks.v1.model.Tasks getAllGtasksFromTaskList(TaskList list, boolean includeDeleted) throws IOException {
-        com.google.api.services.tasks.v1.model.Tasks toReturn;
-        try {
-            toReturn = getAllGtasksFromListId(list.id, includeDeleted);
-        } catch (IOException e) {
-            handleException(e);
-            toReturn = getAllGtasksFromListId(list.id, includeDeleted);
-        }
-        return toReturn;
+        return getAllGtasksFromListId(list.id, includeDeleted);
     }
 
     public com.google.api.services.tasks.v1.model.Tasks getAllGtasksFromListId(String listId, boolean includeDeleted) throws IOException {
-        com.google.api.services.tasks.v1.model.Tasks toReturn;
+        com.google.api.services.tasks.v1.model.Tasks toReturn = null;
         List request = service.tasks.list(listId);
         request.showDeleted = includeDeleted;
         try {
@@ -164,17 +173,21 @@ public class GtasksService {
         } catch (IOException e) {
             handleException(e);
             toReturn = request.execute();
+        } finally {
+            log("Get all tasks, list: " + listId + ", include deleted: " + includeDeleted, toReturn);
         }
         return toReturn;
     }
 
     public Task getGtask(String listId, String taskId) throws IOException {
-        Task toReturn;
+        Task toReturn = null;
         try {
             toReturn = service.tasks.get(listId, taskId).execute();
         } catch (IOException e) {
             handleException(e);
             toReturn = service.tasks.get(listId, taskId).execute();
+        } finally {
+            log("Get gtask, id: " + taskId, toReturn);
         }
         return toReturn;
     }
@@ -197,23 +210,27 @@ public class GtasksService {
         insertOp.parent = parent;
         insertOp.previous = priorSiblingId;
 
-        Task toReturn;
+        Task toReturn = null;
         try {
             toReturn = insertOp.execute();
         } catch (IOException e) {
             handleException(e);
             toReturn = insertOp.execute();
+        } finally {
+            log("Creating gtask, title: " + task.title, toReturn);
         }
         return toReturn;
     }
 
     public Task updateGtask(String listId, Task task) throws IOException {
-        Task toReturn;
+        Task toReturn = null;
         try {
             toReturn = service.tasks.update(listId, task.id, task).execute();
         } catch (IOException e) {
             handleException(e);
             toReturn = service.tasks.update(listId, task.id, task).execute();
+        } finally {
+            log("Update gtask, title: " + task.title, toReturn);
         }
         return toReturn;
     }
@@ -223,12 +240,14 @@ public class GtasksService {
         move.parent = parentId;
         move.previous = previousId;
 
-        Task toReturn;
+        Task toReturn = null;
         try {
             toReturn = move.execute();
         } catch (IOException e) {
             handleException(e);
             toReturn = move.execute();
+        } finally {
+            log("Move task " + taskId + "to parent: " + parentId + ", prior sibling: " + previousId, toReturn);
         }
         return toReturn;
     }
@@ -239,6 +258,8 @@ public class GtasksService {
         } catch (IOException e) {
             handleException(e);
             service.tasks.delete(listId, taskId).execute();
+        } finally {
+            log("Delete task, id: " + taskId, null);
         }
     }
 
@@ -248,6 +269,8 @@ public class GtasksService {
         } catch (IOException e) {
             handleException(e);
             service.tasks.clear(listId).execute();
+        } finally {
+            log("Clear completed tasks, list id: " + listId, null);
         }
     }
 }
