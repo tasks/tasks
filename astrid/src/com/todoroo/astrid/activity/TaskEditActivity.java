@@ -258,8 +258,9 @@ public final class TaskEditActivity extends TabActivity {
             public void onTabChanged(String tabId) {
                 for (int i = 0; i < tabHost.getTabWidget().getChildCount(); i++)
                     tabHost.getTabWidget().getChildAt(i).setBackgroundResource(0);
-                tabHost.getTabWidget().getChildAt(tabHost.getCurrentTab())
-                        .setBackgroundColor(r.getColor(R.color.task_edit_selected));
+                View child = tabHost.getTabWidget().getChildAt(tabHost.getCurrentTab());
+                if(child != null)
+                    child.setBackgroundColor(r.getColor(R.color.task_edit_selected));
             }
         };
         tabChange.onTabChanged(null);

@@ -497,9 +497,13 @@ public class TaskListActivity extends ListActivity implements OnScrollListener,
     protected void onPause() {
         StatisticsService.sessionPause();
         super.onPause();
-        unregisterReceiver(detailReceiver);
-        unregisterReceiver(refreshReceiver);
-        unregisterReceiver(syncActionReceiver);
+        try {
+            unregisterReceiver(detailReceiver);
+            unregisterReceiver(refreshReceiver);
+            unregisterReceiver(syncActionReceiver);
+        } catch (IllegalArgumentException e) {
+            // might not have fully initialized
+        }
         backgroundTimer.cancel();
     }
 

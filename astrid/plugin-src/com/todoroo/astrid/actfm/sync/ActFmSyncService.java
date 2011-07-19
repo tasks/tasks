@@ -286,7 +286,7 @@ public final class ActFmSyncService {
      */
     public void pushTagDataOnSave(TagData tagData, ContentValues values) {
         long remoteId;
-        if(tagData.containsValue(TagData.REMOTE_ID))
+        if(tagData.containsNonNullValue(TagData.REMOTE_ID))
             remoteId = tagData.getValue(TagData.REMOTE_ID);
         else {
             TagData forRemote = tagDataService.fetchById(tagData.getId(), TagData.REMOTE_ID);
