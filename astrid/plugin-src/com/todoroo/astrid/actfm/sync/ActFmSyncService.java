@@ -260,8 +260,6 @@ public final class ActFmSyncService {
             JSONObject result = actFmInvoker.invoke("task_save", params.toArray(new Object[params.size()]));
             ArrayList<Metadata> metadata = new ArrayList<Metadata>();
             JsonHelper.taskFromJson(result, task, metadata);
-            task.setValue(Task.MODIFICATION_DATE, DateUtilities.now());
-            task.setValue(Task.LAST_SYNC, DateUtilities.now());
             Flags.set(Flags.ACTFM_SUPPRESS_SYNC);
             taskDao.saveExisting(task);
         } catch (JSONException e) {
@@ -831,6 +829,7 @@ public final class ActFmSyncService {
             model.setValue(Task.RECURRENCE, json.optString("repeat", ""));
             model.setValue(Task.NOTES, json.optString("notes", ""));
             model.setValue(Task.DETAILS_DATE, 0L);
+            model.setValue(Task.LAST_SYNC, DateUtilities.now() + 1000L);
 
             JSONArray tags = json.getJSONArray("tags");
             for(int i = 0; i < tags.length(); i++) {
