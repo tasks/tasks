@@ -154,7 +154,8 @@ public final class ProducteevDataService {
         task.metadata.add(task.pdvTask);
         metadataService.synchronizeMetadata(task.task.getId(), task.metadata,
                 Criterion.or(MetadataCriteria.withKey(ProducteevTask.METADATA_KEY),
-                        MetadataCriteria.withKey(TagService.KEY)));
+                        MetadataCriteria.withKey(TagService.KEY),
+                        MetadataCriteria.withKey(NoteMetadata.METADATA_KEY)));
     }
 
     /**
