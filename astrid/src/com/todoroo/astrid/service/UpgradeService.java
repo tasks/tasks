@@ -36,6 +36,7 @@ import com.todoroo.astrid.utility.AstridPreferences;
 
 public final class UpgradeService {
 
+    public static final int V3_8_0_3 = 189;
     public static final int V3_8_0_2 = 188;
     public static final int V3_8_0 = 186;
     public static final int V3_7_7 = 184;
@@ -145,6 +146,14 @@ public final class UpgradeService {
             });
         } else {
             // current message
+            if(from >= V3_8_0 && from < V3_8_0_3) {
+                newVersionString(changeLog, "3.8.0.3 (7/19/11)", new String[] {
+                        "Improved Google Tasks Sync migration process",
+                        "Handle service errors in Google Tasks sync gracefully",
+                        "Fixed Astrid.com sync would sometimes send unchanged tasks",
+                        "Fix for crashes. Keep on reporting them!",
+                });
+            }
             if(from >= V3_8_0 && from < V3_8_0_2) {
                 newVersionString(changeLog, "3.8.0.2 (7/16/11)", new String[] {
                         "Fix for due time lost during Astrid.com sync",
