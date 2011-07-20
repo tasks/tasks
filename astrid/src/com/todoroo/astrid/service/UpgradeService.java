@@ -135,115 +135,104 @@ public final class UpgradeService {
 
         StringBuilder changeLog = new StringBuilder();
 
-        if(from <= V2_14_4) {
-            newVersionString(changeLog, "3.7.2 (3/04/11)", new String[] {
-                    "Astrid is brand new inside and out! In addition to a new " +
-                    "look and feel, a new add-on system allows Astrid to become " +
-                    "more powerful, while other improvements have made it faster " +
-                    "and easier to use. Hope you like it!",
-                    "If you liked the old version, you can also go back by " +
-                    "<a href='http://bit.ly/oldastrid'>clicking here</a>",
+        // current message
+        if(from >= V3_8_0 && from < V3_8_0_3) {
+            newVersionString(changeLog, "3.8.0.3 (7/19/11)", new String[] {
+                    "Improved Google Tasks Sync migration process",
+                    "Handle service errors in Google Tasks sync gracefully",
+                    "Fixed Astrid.com sync would sometimes send unchanged tasks",
+                    "Fix for crashes. Keep on reporting them!",
             });
-        } else {
-            // current message
-            if(from >= V3_8_0 && from < V3_8_0_3) {
-                newVersionString(changeLog, "3.8.0.3 (7/19/11)", new String[] {
-                        "Improved Google Tasks Sync migration process",
-                        "Handle service errors in Google Tasks sync gracefully",
-                        "Fixed Astrid.com sync would sometimes send unchanged tasks",
-                        "Fix for crashes. Keep on reporting them!",
-                });
-            }
-            if(from >= V3_8_0 && from < V3_8_0_2) {
-                newVersionString(changeLog, "3.8.0.2 (7/16/11)", new String[] {
-                        "Fix for due time lost during Astrid.com sync",
-                        "Fix for disappearing Producteev workspace editor",
-                        "Fix for crashes. Keep on reporting them!",
-                });
-            }
-            if(from < V3_8_0) {
-                newVersionString(changeLog, "3.8.0 (7/15/11)", new String[] {
-                        "Astrid.com: sync & share tasks / lists with others!",
-                        "GTasks Sync using Google's official task API! Gtasks users " +
-                            "will need to perform a manual sync to set everything up.",
-                        "Renamed \"Tags\" to \"Lists\" (see blog.astrid.com for details)",
-                        "New style for \"Task Edit\" page!",
-                        "Purge completed or deleted tasks from settings menu!",
-                });
-                gtasksPreferenceService.setToken(null);
-            }
-
-            // --- old messages
-
-            if(from >= V3_0_0 && from < V3_7_0) {
-                newVersionString(changeLog, "3.7.0 (2/7/11)", new String[] {
-                        "Improved UI for displaying task actions. Tap a task to " +
-                            "bring up actions, tap again to dismiss.",
-                        "Task notes can be viewed by tapping the note icon to " +
-                            "the right of the task.",
-                        "Added Astrid as 'Send-To' choice in Android Browser and " +
-                            "other apps.",
-                        "Add tags and importance in quick-add, e.g. " +
-                            "\"call mom #family @phone !4\"",
-                        "Fixed bug with custom filters & tasks being hidden.",
-                });
-                upgrade3To3_7();
-                if(gtasksPreferenceService.isLoggedIn())
-                    taskService.clearDetails(Criterion.all);
-                Preferences.setBoolean(Eula.PREFERENCE_EULA_ACCEPTED, true);
-            }
-            if(from >= V3_0_0 && from < V3_6_0) {
-                newVersionString(changeLog, "3.6.0 (11/13/10)", new String[] {
-                        "Astrid Power Pack is now launched to the Android Market. " +
-                        "New Power Pack features include 4x2 and 4x4 widgets and voice " +
-                        "task reminders and creation. Go to the add-ons page to find out more!",
-                        "Fix for Google Tasks: due times got lost on sync, repeating tasks not repeated",
-                        "Fix for task alarms not always firing if multiple set",
-                        "Fix for various force closes",
-                });
-                upgrade3To3_6(context);
-            }
-            if(from >= V3_0_0 && from < V3_5_0)
-                newVersionString(changeLog, "3.5.0 (10/25/10)", new String[] {
-                        "Google Tasks Sync (beta!)",
-                        "Bug fix with RMilk & new tasks not getting synced",
-                        "Fixed Force Closes and other bugs",
-                });
-            if(from >= V3_0_0 && from < V3_4_0) {
-                newVersionString(changeLog, "3.4.0 (10/08/10)", new String[] {
-                        "End User License Agreement",
-                        "Option to disable usage statistics",
-                        "Bug fixes with Producteev",
-                });
-            }
-            if(from >= V3_0_0 && from < V3_3_0)
-                newVersionString(changeLog, "3.3.0 (9/17/10)", new String[] {
-                        "Fixed some RTM duplicated tasks issues",
-                        "UI updates based on your feedback",
-                        "Snooze now overrides other alarms",
-                        "Added preference option for selecting snooze style",
-                        "Hide until: now allows you to pick a specific time",
-                });
-            if(from >= V3_0_0 && from < V3_2_0)
-                newVersionString(changeLog, "3.2.0 (8/16/10)", new String[] {
-                        "Build your own custom filters from the Filter page",
-                        "Easy task sorting (in the task list menu)",
-                        "Create widgets from any of your filters",
-                        "Synchronize with Producteev! (producteev.com)",
-                        "Select tags by drop-down box",
-                        "Cosmetic improvements, calendar & sync bug fixes",
-                });
-            if(from >= V3_0_0 && from < V3_1_0)
-                newVersionString(changeLog, "3.1.0 (8/9/10)", new String[] {
-                        "Linkify phone numbers, e-mails, and web pages",
-                        "Swipe L => R to go from tasks to filters",
-                        "Moved task priority bar to left side",
-                        "Added ability to create fixed alerts for a task",
-                        "Restored tag hiding when tag begins with underscore (_)",
-                        "FROYO: disabled moving app to SD card, it would break alarms and widget",
-                        "Also gone: a couple force closes, bugs with repeating tasks",
-                });
         }
+        if(from >= V3_8_0 && from < V3_8_0_2) {
+            newVersionString(changeLog, "3.8.0.2 (7/16/11)", new String[] {
+                    "Fix for due time lost during Astrid.com sync",
+                    "Fix for disappearing Producteev workspace editor",
+                    "Fix for crashes. Keep on reporting them!",
+            });
+        }
+        if(from < V3_8_0) {
+            newVersionString(changeLog, "3.8.0 (7/15/11)", new String[] {
+                    "Astrid.com: sync & share tasks / lists with others!",
+                    "GTasks Sync using Google's official task API! Gtasks users " +
+                        "will need to perform a manual sync to set everything up.",
+                    "Renamed \"Tags\" to \"Lists\" (see blog.astrid.com for details)",
+                    "New style for \"Task Edit\" page!",
+                    "Purge completed or deleted tasks from settings menu!",
+            });
+            gtasksPreferenceService.setToken(null);
+        }
+
+        // --- old messages
+
+        if(from >= V3_0_0 && from < V3_7_0) {
+            newVersionString(changeLog, "3.7.0 (2/7/11)", new String[] {
+                    "Improved UI for displaying task actions. Tap a task to " +
+                        "bring up actions, tap again to dismiss.",
+                    "Task notes can be viewed by tapping the note icon to " +
+                        "the right of the task.",
+                    "Added Astrid as 'Send-To' choice in Android Browser and " +
+                        "other apps.",
+                    "Add tags and importance in quick-add, e.g. " +
+                        "\"call mom #family @phone !4\"",
+                    "Fixed bug with custom filters & tasks being hidden.",
+            });
+            upgrade3To3_7();
+            if(gtasksPreferenceService.isLoggedIn())
+                taskService.clearDetails(Criterion.all);
+            Preferences.setBoolean(Eula.PREFERENCE_EULA_ACCEPTED, true);
+        }
+        if(from >= V3_0_0 && from < V3_6_0) {
+            newVersionString(changeLog, "3.6.0 (11/13/10)", new String[] {
+                    "Astrid Power Pack is now launched to the Android Market. " +
+                    "New Power Pack features include 4x2 and 4x4 widgets and voice " +
+                    "task reminders and creation. Go to the add-ons page to find out more!",
+                    "Fix for Google Tasks: due times got lost on sync, repeating tasks not repeated",
+                    "Fix for task alarms not always firing if multiple set",
+                    "Fix for various force closes",
+            });
+            upgrade3To3_6(context);
+        }
+        if(from >= V3_0_0 && from < V3_5_0)
+            newVersionString(changeLog, "3.5.0 (10/25/10)", new String[] {
+                    "Google Tasks Sync (beta!)",
+                    "Bug fix with RMilk & new tasks not getting synced",
+                    "Fixed Force Closes and other bugs",
+            });
+        if(from >= V3_0_0 && from < V3_4_0) {
+            newVersionString(changeLog, "3.4.0 (10/08/10)", new String[] {
+                    "End User License Agreement",
+                    "Option to disable usage statistics",
+                    "Bug fixes with Producteev",
+            });
+        }
+        if(from >= V3_0_0 && from < V3_3_0)
+            newVersionString(changeLog, "3.3.0 (9/17/10)", new String[] {
+                    "Fixed some RTM duplicated tasks issues",
+                    "UI updates based on your feedback",
+                    "Snooze now overrides other alarms",
+                    "Added preference option for selecting snooze style",
+                    "Hide until: now allows you to pick a specific time",
+            });
+        if(from >= V3_0_0 && from < V3_2_0)
+            newVersionString(changeLog, "3.2.0 (8/16/10)", new String[] {
+                    "Build your own custom filters from the Filter page",
+                    "Easy task sorting (in the task list menu)",
+                    "Create widgets from any of your filters",
+                    "Synchronize with Producteev! (producteev.com)",
+                    "Select tags by drop-down box",
+                    "Cosmetic improvements, calendar & sync bug fixes",
+            });
+        if(from >= V3_0_0 && from < V3_1_0)
+            newVersionString(changeLog, "3.1.0 (8/9/10)", new String[] {
+                    "Linkify phone numbers, e-mails, and web pages",
+                    "Swipe L => R to go from tasks to filters",
+                    "Moved task priority bar to left side",
+                    "Added ability to create fixed alerts for a task",
+                    "Restored tag hiding when tag begins with underscore (_)",
+                    "FROYO: disabled moving app to SD card, it would break alarms and widget",
+                    "Also gone: a couple force closes, bugs with repeating tasks",
+            });
 
         if(changeLog.length() == 0)
             return;
