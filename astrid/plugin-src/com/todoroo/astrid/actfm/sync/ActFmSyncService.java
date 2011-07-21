@@ -50,6 +50,7 @@ import com.todoroo.astrid.data.TagData;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.data.Update;
 import com.todoroo.astrid.service.MetadataService;
+import com.todoroo.astrid.service.StartupService;
 import com.todoroo.astrid.service.StatisticsService;
 import com.todoroo.astrid.service.TagDataService;
 import com.todoroo.astrid.service.TaskService;
@@ -193,6 +194,14 @@ public final class ActFmSyncService {
 
         ArrayList<Object> params = new ArrayList<Object>();
 
+        // prevent creation of certain types of tasks
+        if(newlyCreated) {
+            if(task.getValue(Task.TITLE).length() == 0)
+                return;
+            if(task.getId() <= StartupService.INTRO_TASK_SIZE)
+                return;
+        }
+
         if(values.containsKey(Task.TITLE.name)) {
             params.add("title"); params.add(task.getValue(Task.TITLE));
         }
@@ -252,8 +261,7 @@ public final class ActFmSyncService {
 
         if(!newlyCreated) {
             params.add("id"); params.add(remoteId);
-        } else if(!params.contains(Task.TITLE.name))
-            return;
+        }
 
         try {
             params.add("token"); params.add(token);
