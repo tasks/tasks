@@ -488,15 +488,14 @@ public class TagViewActivity extends TaskListActivity implements OnTabChangeList
                     actFmSyncService.fetchTag(tagData);
                     if(noRemoteId && tagData.getValue(TagData.REMOTE_ID) > 0) {
                         refreshData(manual, true);
-
-                        runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-                                refreshUpdatesList();
-                                refreshSettingsPage();
-                            }
-                        });
                     }
+
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            refreshSettingsPage();
+                        }
+                    });
 
                     if(!oldName.equals(tagData.getValue(TagData.NAME))) {
                         TagService.getInstance().rename(oldName,
