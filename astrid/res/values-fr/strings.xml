@@ -1734,11 +1734,12 @@ Astrid is open-source and proudly maintained by Todoroo, Inc.</string>
   <string name="repeat_interval_prompt">Interval de répétition</string>
   
   <string-array name="repeat_interval">
-    <!-- repeat interval (days,weeks,months,hours) -->
+    <!-- repeat interval (days,weeks,months,hours,minutes) -->
     <item>Jour(s)</item>
     <item>Semaine(s)</item>
     <item>Mois</item>
     <item>Heure(s)</item>
+    <item>Minute(s)</item>
   </string-array>
   
   <string-array name="repeat_type">

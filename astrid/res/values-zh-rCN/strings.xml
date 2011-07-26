@@ -1717,11 +1717,12 @@
   <string name="repeat_interval_prompt">重复间隔</string>
   
   <string-array name="repeat_interval">
-    <!-- repeat interval (days,weeks,months,hours) -->
+    <!-- repeat interval (days,weeks,months,hours,minutes) -->
     <item>天</item>
     <item>周</item>
     <item>月</item>
     <item>小时</item>
+    <item>Minutes</item>
   </string-array>
   
   <string-array name="repeat_type">

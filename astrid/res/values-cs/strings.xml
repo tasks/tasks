@@ -1737,11 +1737,12 @@ Astrid is open-source and proudly maintained by Todoroo, Inc.</string>
   <string name="repeat_interval_prompt">Opakovací interval</string>
   
   <string-array name="repeat_interval">
-    <!-- repeat interval (days,weeks,months,hours) -->
+    <!-- repeat interval (days,weeks,months,hours,minutes) -->
     <item>Dnů</item>
     <item>Týdnů</item>
     <item>Měsíců</item>
     <item>Hodin</item>
+    <item>Minut</item>
   </string-array>
   
   <string-array name="repeat_type">

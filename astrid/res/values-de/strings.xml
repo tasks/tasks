@@ -1730,11 +1730,12 @@ Achtung: diese Aufgaben sind unwiederbringlich verloren, wenn Sie kein Backup ge
   <string name="repeat_interval_prompt">Wiederholungsintervall</string>
   
   <string-array name="repeat_interval">
-    <!-- repeat interval (days,weeks,months,hours) -->
+    <!-- repeat interval (days,weeks,months,hours,minutes) -->
     <item>Tag(e)</item>
     <item>Woche(n)</item>
     <item>Monat(e)</item>
     <item>Stunde(n)</item>
+    <item>Minute(n)</item>
   </string-array>
   
   <string-array name="repeat_type">

@@ -1741,11 +1741,12 @@ Astrid is open-source and proudly maintained by Todoroo, Inc.</string>
   <string name="repeat_interval_prompt">Gjentakelsesintervall</string>
   
   <string-array name="repeat_interval">
-    <!-- repeat interval (days,weeks,months,hours) -->
+    <!-- repeat interval (days,weeks,months,hours,minutes) -->
     <item>Dag(er)</item>
     <item>Uke(r)</item>
     <item>Måned(er)</item>
     <item>Time(r)</item>
+    <item>Minutt(er)</item>
   </string-array>
   
   <string-array name="repeat_type">
