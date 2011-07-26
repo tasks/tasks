@@ -189,7 +189,10 @@ public class NotificationActivity extends TaskListActivity implements OnTimeSetL
                 time += value * 7 * DateUtilities.ONE_DAY;
                 break;
             case RepeatControlSet.INTERVAL_MONTHS:
-                time += value * 30 * DateUtilities.ONE_DAY;
+                time = DateUtilities.addCalendarMonthsToUnixtime(time, 1);
+                break;
+            case RepeatControlSet.INTERVAL_YEARS:
+                time = DateUtilities.addCalendarMonthsToUnixtime(time, 12);
                 break;
             }
 

@@ -37,6 +37,42 @@ public class DateUtilities {
         return date.getTime();
     }
 
+    /**
+     * Add the specified amount of months to the given time.<br/>
+     * The day of month will stay the same.<br/>
+     *
+     * @param time the base-time (in milliseconds) to which the amount of months is added
+     * @param interval the amount of months to be added
+     * @return the calculated time in milliseconds
+     */
+    public static final long addCalendarMonthsToUnixtime(long time, int interval) {
+        long result = 0;
+        Date date = new Date(time);
+
+        int month = date.getMonth();
+        int year = date.getYear();
+
+        int yearsToAdd = interval / 12;
+        int monthsToAdd = interval % 12;
+
+        year += yearsToAdd;
+        month += monthsToAdd;
+
+        // correct month overflow
+        if (month > Calendar.DECEMBER) {
+            month = month - Calendar.DECEMBER - 1;
+            year++;
+        }
+
+        // the day stays the same, thats the point
+        // it's especially important for birthday-reminders
+        date.setMonth(month);
+        date.setYear(year);
+
+        result = date.getTime();
+        return result;
+    }
+
     /** Returns unixtime for current time */
     public static final long now() {
         return System.currentTimeMillis();
