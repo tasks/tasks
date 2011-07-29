@@ -413,8 +413,13 @@ public class FilterListActivity extends ExpandableListActivity {
                 try {
                     actFmSyncService.fetchTags(0);
 
-                    adapter.clear();
-                    adapter.getLists();
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            adapter.clear();
+                            adapter.getLists();
+                        }
+                    });
 
                 } catch (IOException e) {
                     exceptionService.displayAndReportError(FilterListActivity.this, "refresh-tags-io", e);
