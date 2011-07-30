@@ -1753,11 +1753,13 @@ Astrid might not let you know when your tasks are due.\n
   <string name="repeat_interval_prompt">Repeat Interval</string>
   
   <string-array name="repeat_interval">
-    <!-- repeat interval (days,weeks,months,hours) -->
+    <!-- repeat interval (days,weeks,months,hours,minutes,years) -->
     <item>Dia(s)</item>
     <item>Semana(s)</item>
     <item>Mês(es)</item>
     <item>Hora(s)</item>
+    <item>Minuto(s)</item>
+    <item>Year(s)</item>
   </string-array>
   
   <string-array name="repeat_type">

@@ -75,9 +75,13 @@ public class ContactsAutoComplete extends AutoCompleteTextView {
     // --- cursor stuff
 
     private void setUpContacts() {
-        adapter = new ContactListAdapter((Activity) getContext(), null);
-        adapter.setCompleteSharedTags(completeTags);
-        setAdapter(adapter);
+        try {
+            adapter = new ContactListAdapter((Activity) getContext(), null);
+            adapter.setCompleteSharedTags(completeTags);
+            setAdapter(adapter);
+        } catch (VerifyError ve) {
+            adapter = null;
+        }
     }
 
     // --- getters and setters
@@ -92,7 +96,8 @@ public class ContactsAutoComplete extends AutoCompleteTextView {
 
     public void setCompleteSharedTags(boolean value) {
         completeTags = value;
-        adapter.setCompleteSharedTags(value);
+        if (adapter != null)
+            adapter.setCompleteSharedTags(value);
     }
 
     public void setAllowMultiple(boolean allowMultiple) {

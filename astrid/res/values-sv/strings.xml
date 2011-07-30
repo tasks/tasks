@@ -1733,11 +1733,13 @@ Astrid is open-source and proudly maintained by Todoroo, Inc.</string>
   <string name="repeat_interval_prompt">Upprepningsintervall</string>
   
   <string-array name="repeat_interval">
-    <!-- repeat interval (days,weeks,months,hours) -->
+    <!-- repeat interval (days,weeks,months,hours,minutes,years) -->
     <item>Dag(ar)</item>
     <item>Vecka (veckor)</item>
     <item>Månad(er)</item>
     <item>Timme (timmar)</item>
+    <item>Minut(er)</item>
+    <item>Year(s)</item>
   </string-array>
   
   <string-array name="repeat_type">

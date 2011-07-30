@@ -80,6 +80,10 @@ public class RepeatDetailExposer extends BroadcastReceiver {
                 interval = r.getQuantityString(R.plurals.DUt_months, rrule.getInterval(),
                         rrule.getInterval());
                 break;
+            case YEARLY:
+                interval = r.getQuantityString(R.plurals.DUt_years, rrule.getInterval(),
+                        rrule.getInterval());
+                break;
             default:
                 // not designed to be used, only a fail-safe
                 interval = rrule.getInterval() + "-" + rrule.getFreq().name(); //$NON-NLS-1$

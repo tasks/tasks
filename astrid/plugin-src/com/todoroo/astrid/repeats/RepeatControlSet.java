@@ -49,6 +49,8 @@ public class RepeatControlSet implements TaskEditControlSet {
     public static final int INTERVAL_WEEKS = 1;
     public static final int INTERVAL_MONTHS = 2;
     public static final int INTERVAL_HOURS = 3;
+    public static final int INTERVAL_MINUTES = 4;
+    public static final int INTERVAL_YEARS = 5;
 
     private static final int TYPE_DUE_DATE = 0;
     private static final int TYPE_COMPLETION_DATE = 1;
@@ -199,6 +201,12 @@ public class RepeatControlSet implements TaskEditControlSet {
                 case HOURLY:
                     interval.setSelection(INTERVAL_HOURS);
                     break;
+                case MINUTELY:
+                    interval.setSelection(INTERVAL_MINUTES);
+                    break;
+                case YEARLY:
+                    interval.setSelection(INTERVAL_YEARS);
+                    break;
                 default:
                     // an unhandled recurrence
                     exceptionService.reportError("repeat-unhandled-rule",  //$NON-NLS-1$
@@ -265,6 +273,13 @@ public class RepeatControlSet implements TaskEditControlSet {
                 break;
             case INTERVAL_HOURS:
                 rrule.setFreq(Frequency.HOURLY);
+                break;
+            case INTERVAL_MINUTES:
+                rrule.setFreq(Frequency.MINUTELY);
+                break;
+            case INTERVAL_YEARS:
+                rrule.setFreq(Frequency.YEARLY);
+                break;
             }
 
             result = rrule.toIcal();

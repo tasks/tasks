@@ -97,6 +97,8 @@ public class RepeatTaskCompleteListener extends BroadcastReceiver {
 
         if(rrule.getFreq() == Frequency.HOURLY)
             return handleHourlyRepeat(original, rrule);
+        else if(rrule.getFreq() == Frequency.MINUTELY)
+            return handleMinutelyRepeat(original, rrule);
         else
             return invokeRecurrence(rrule, original, startDateAsDV);
     }
@@ -196,6 +198,13 @@ public class RepeatTaskCompleteListener extends BroadcastReceiver {
         long newDueDate;
         newDueDate = Task.createDueDate(Task.URGENCY_SPECIFIC_DAY_TIME,
                 startDate.getTime() + DateUtilities.ONE_HOUR * rrule.getInterval());
+        return newDueDate;
+    }
+
+    private static long handleMinutelyRepeat(Date startDate, RRule rrule) {
+        long newDueDate;
+        newDueDate = Task.createDueDate(Task.URGENCY_SPECIFIC_DAY_TIME,
+                startDate.getTime() + DateUtilities.ONE_MINUTE * rrule.getInterval());
         return newDueDate;
     }
 

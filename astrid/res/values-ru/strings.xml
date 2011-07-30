@@ -1734,11 +1734,13 @@ Astrid is open-source and proudly maintained by Todoroo, Inc.</string>
   <string name="repeat_interval_prompt">Интервал повтора</string>
   
   <string-array name="repeat_interval">
-    <!-- repeat interval (days,weeks,months,hours) -->
+    <!-- repeat interval (days,weeks,months,hours,minutes,years) -->
     <item>День(дней)</item>
     <item>Неделя(ль)</item>
     <item>Месяц(ев)</item>
     <item>Час(ов)</item>
+    <item>минут(а)</item>
+    <item>Year(s)</item>
   </string-array>
   
   <string-array name="repeat_type">
