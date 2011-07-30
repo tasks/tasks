@@ -182,7 +182,7 @@
             android:visibility="gone"
             android:layout_marginTop="10dip"
             android:padding="5dip"
-            android:background="@drawable/edit_header"
+            android:background="@drawable/footer_background"
             android:orientation="horizontal"
             android:baselineAligned="false">
             

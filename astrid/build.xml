@@ -170,6 +170,11 @@
                      replace="\1 true;" />
     </target>
 
+    <target name="obfuscate">
+      <property name="proguard.enabled" value="true" />
+      <antcall target="-obfuscate" />      
+    </target>
+
     <!-- build custom release package with updated version name -->
     <target name="release-custom">
       <fail message="need to set custom.version.name">

@@ -37,7 +37,7 @@
       android:layout_height="wrap_content"
       android:layout_marginTop="10dip"
       android:padding="5dip"
-      android:background="@drawable/edit_header"
+      android:background="@drawable/header_background"
       android:baselineAligned="false">
       
       <Button android:id="@+id/add"
