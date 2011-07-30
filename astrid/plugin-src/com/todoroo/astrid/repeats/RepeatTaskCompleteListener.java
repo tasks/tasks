@@ -96,9 +96,9 @@ public class RepeatTaskCompleteListener extends BroadcastReceiver {
         DateValue startDateAsDV = setUpStartDateAsDV(task, rrule, original, repeatAfterCompletion);
 
         if(rrule.getFreq() == Frequency.HOURLY)
-            return handleHourlyRepeat(original, rrule);
+            return handleSubdayRepeat(original, rrule, DateUtilities.ONE_HOUR);
         else if(rrule.getFreq() == Frequency.MINUTELY)
-            return handleMinutelyRepeat(original, rrule);
+            return handleSubdayRepeat(original, rrule, DateUtilities.ONE_MINUTE);
         else
             return invokeRecurrence(rrule, original, startDateAsDV);
     }
@@ -194,17 +194,10 @@ public class RepeatTaskCompleteListener extends BroadcastReceiver {
                     startDate.getMonth() + 1, startDate.getDate());
     }
 
-    private static long handleHourlyRepeat(Date startDate, RRule rrule) {
+    private static long handleSubdayRepeat(Date startDate, RRule rrule, long millis) {
         long newDueDate;
         newDueDate = Task.createDueDate(Task.URGENCY_SPECIFIC_DAY_TIME,
-                startDate.getTime() + DateUtilities.ONE_HOUR * rrule.getInterval());
-        return newDueDate;
-    }
-
-    private static long handleMinutelyRepeat(Date startDate, RRule rrule) {
-        long newDueDate;
-        newDueDate = Task.createDueDate(Task.URGENCY_SPECIFIC_DAY_TIME,
-                startDate.getTime() + DateUtilities.ONE_MINUTE * rrule.getInterval());
+                startDate.getTime() + millis * rrule.getInterval());
         return newDueDate;
     }
 

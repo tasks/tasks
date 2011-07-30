@@ -62,32 +62,8 @@ public class RepeatDetailExposer extends BroadcastReceiver {
             } catch (ParseException e) {
                 return null;
             }
-            String interval;
-            switch(rrule.getFreq()) {
-            case HOURLY:
-                interval = r.getQuantityString(R.plurals.DUt_hours, rrule.getInterval(),
-                        rrule.getInterval());
-                break;
-            case DAILY:
-                interval = r.getQuantityString(R.plurals.DUt_days, rrule.getInterval(),
-                        rrule.getInterval());
-                break;
-            case WEEKLY:
-                interval = r.getQuantityString(R.plurals.DUt_weeks, rrule.getInterval(),
-                        rrule.getInterval());
-                break;
-            case MONTHLY:
-                interval = r.getQuantityString(R.plurals.DUt_months, rrule.getInterval(),
-                        rrule.getInterval());
-                break;
-            case YEARLY:
-                interval = r.getQuantityString(R.plurals.DUt_years, rrule.getInterval(),
-                        rrule.getInterval());
-                break;
-            default:
-                // not designed to be used, only a fail-safe
-                interval = rrule.getInterval() + "-" + rrule.getFreq().name(); //$NON-NLS-1$
-            }
+
+            String interval = getIntervalFor(r, rrule);
 
             interval = "<b>" + interval + "</b>";  //$NON-NLS-1$//$NON-NLS-2$
             List<WeekdayNum> byDay = rrule.getByDay();
@@ -115,6 +91,29 @@ public class RepeatDetailExposer extends BroadcastReceiver {
             return "<img src='silk_date'/> " + detail; //$NON-NLS-1$
         }
         return null;
+    }
+
+    private String getIntervalFor(Resources r, RRule rrule) {
+        int plural;
+        switch(rrule.getFreq()) {
+        case MINUTELY:
+            plural = R.plurals.DUt_minutes; break;
+        case HOURLY:
+            plural = R.plurals.DUt_hours; break;
+        case DAILY:
+            plural = R.plurals.DUt_days; break;
+        case WEEKLY:
+            plural = R.plurals.DUt_weeks; break;
+        case MONTHLY:
+            plural = R.plurals.DUt_months; break;
+        case YEARLY:
+            plural = R.plurals.DUt_years; break;
+        default:
+            // not designed to be used, only a fail-safe
+            return rrule.getInterval() + "-" + rrule.getFreq().name(); //$NON-NLS-1$
+        }
+
+        return r.getQuantityString(plural, rrule.getInterval(), rrule.getInterval());
     }
 
     public String getPluginIdentifier() {
