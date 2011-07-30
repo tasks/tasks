@@ -145,6 +145,8 @@ public final class TagsControlSet implements TaskEditControlSet {
             tagItem = inflater.inflate(R.layout.tag_edit_row, null);
             tagsContainer.addView(tagItem);
         }
+        if(tagName == null)
+            tagName = ""; //$NON-NLS-1$
 
         final AutoCompleteTextView textView = (AutoCompleteTextView)tagItem.
             findViewById(R.id.text1);

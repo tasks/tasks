@@ -496,7 +496,7 @@ public final class TaskEditActivity extends TabActivity {
             return;
 
         String processedToast = addDueTimeToToast(toast.toString());
-        if(!onPause && !peopleControlSet.saveSharingSettings(processedToast))
+        if(!onPause && peopleControlSet != null && !peopleControlSet.saveSharingSettings(processedToast))
             return;
 
         finish();

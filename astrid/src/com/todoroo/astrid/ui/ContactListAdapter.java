@@ -70,7 +70,7 @@ public class ContactListAdapter extends CursorAdapter {
     public void bindView(View view, Context context, Cursor cursor) {
         TextView text1 = (TextView) view.findViewById(android.R.id.text1);
         TextView text2 = (TextView) view.findViewById(android.R.id.text2);
-        ImageView imageView = (ImageView) view.findViewById(android.R.id.icon);
+        ImageView imageView = (ImageView) view.findViewById(R.id.icon);
 
         if(cursor.getColumnNames().length == PEOPLE_PROJECTION.length) {
             int name = cursor.getColumnIndexOrThrow(ContactsContract.Contacts.DISPLAY_NAME);
