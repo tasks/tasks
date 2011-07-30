@@ -12,6 +12,7 @@ import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.andlib.sql.Criterion;
 import com.todoroo.andlib.sql.Query;
+import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.astrid.dao.MetadataDao;
 import com.todoroo.astrid.dao.MetadataDao.MetadataCriteria;
 import com.todoroo.astrid.data.Metadata;
@@ -101,6 +102,7 @@ public class MetadataService {
         HashSet<ContentValues> newMetadataValues = new HashSet<ContentValues>();
         for(Metadata metadatum : metadata) {
             metadatum.setValue(Metadata.TASK, taskId);
+            metadatum.clearValue(Metadata.CREATION_DATE);
             metadatum.clearValue(Metadata.ID);
 
             ContentValues values = metadatum.getMergedValues();
@@ -141,6 +143,7 @@ public class MetadataService {
         // everything that remains shall be written
         for(ContentValues values : newMetadataValues) {
             item.clear();
+            item.setValue(Metadata.CREATION_DATE, DateUtilities.now());
             item.mergeWith(values);
             metadataDao.persist(item);
             dirty = true;

@@ -380,7 +380,8 @@ public class EditPeopleControlSet implements TaskEditControlSet {
             if(userJson == null || userJson.optLong("id", -1) == 0) {
                 dirty = task.getValue(Task.USER_ID) == 0L ? dirty : true;
                 task.setValue(Task.USER_ID, 0L);
-                task.setValue(Task.USER, "{}");
+                if(!TextUtils.isEmpty(task.getValue(Task.USER)))
+                    task.setValue(Task.USER, "{}");
             } else {
                 String user = userJson.toString();
                 dirty = task.getValue(Task.USER).equals(user) ? dirty : true;
@@ -390,7 +391,8 @@ public class EditPeopleControlSet implements TaskEditControlSet {
 
             JSONObject sharedWith = parseSharedWithAndTags();
             dirty = sharedWith.has("p");
-            task.setValue(Task.SHARED_WITH, sharedWith.toString());
+            if(!TextUtils.isEmpty(task.getValue(Task.SHARED_WITH)) || sharedWith.length() != 0)
+                task.setValue(Task.SHARED_WITH, sharedWith.toString());
 
             if(dirty)
                 taskService.save(task);
