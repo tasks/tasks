@@ -51,11 +51,11 @@ public class AddOnActivity extends TabActivity {
                 tabHost.getTabContentView(), true);
         tabHost.addTab(tabHost.newTabSpec(r.getString(R.string.AOA_tab_installed)).
                 setIndicator(r.getString(R.string.AOA_tab_installed),
-                        r.getDrawable(R.drawable.tab_addons)).setContent(
+                        r.getDrawable(R.drawable.ic_menu_archive)).setContent(
                                 R.id.tab_installed));
         tabHost.addTab(tabHost.newTabSpec(r.getString(R.string.AOA_tab_available)).
                 setIndicator(r.getString(R.string.AOA_tab_available),
-                        r.getDrawable(R.drawable.tab_add)).setContent(
+                        r.getDrawable(R.drawable.gl_more)).setContent(
                                 R.id.tab_available));
         getTabWidget().setBackgroundColor(Color.BLACK);
 
