@@ -52,33 +52,30 @@ public class RepeatAfterCompleteTests extends TodorooTestCase {
         }
     }
 
-    public void testSuperDailyFreqs() throws ParseException {
+    public void testDailyAndGreaterFreqs() throws ParseException {
         task.setValue(Task.DUE_DATE, DateUtilities.now() - DateUtilities.ONE_WEEK);
         task.setFlag(Task.FLAGS, Task.FLAG_REPEAT_AFTER_COMPLETION, true);
 
-        for(Frequency freq : Frequency.values()) {
-            long interval = -1;
-            switch(freq) {
-            case DAILY:
-                interval = DateUtilities.ONE_DAY; break;
-            case WEEKLY:
-                interval = DateUtilities.ONE_WEEK; break;
-            case MONTHLY:
-                interval = DateUtilities.addCalendarMonthsToUnixtime(DateUtilities.now(), 1) -
-                DateUtilities.now(); break;
-            case YEARLY:
-                interval = 365 * DateUtilities.ONE_DAY; break;
-            default:
-                continue;
+        for(int interval = 1; interval < 7; interval++) {
+            for(Frequency freq : Frequency.values()) {
+                long next = DateUtilities.now();
+                switch(freq) {
+                case DAILY:
+                    next += interval * DateUtilities.ONE_DAY; break;
+                case WEEKLY:
+                    next += interval * DateUtilities.ONE_WEEK; break;
+                case MONTHLY:
+                    next = DateUtilities.addCalendarMonthsToUnixtime(next, interval); break;
+                case YEARLY:
+                    next = DateUtilities.addCalendarMonthsToUnixtime(next, interval * 12); break;
+                default:
+                    continue;
+                }
+
+                buildRRule(interval, freq);
+                nextDueDate = RepeatTaskCompleteListener.computeNextDueDate(task, rrule.toIcal());
+                assertDateEquals(freq.toString() + "x" + interval, next, nextDueDate);
             }
-
-            buildRRule(1, freq);
-            nextDueDate = RepeatTaskCompleteListener.computeNextDueDate(task, rrule.toIcal());
-            assertDateEquals(freq.toString() + "x1", DateUtilities.now() + interval, nextDueDate);
-
-            buildRRule(6, freq);
-            nextDueDate = RepeatTaskCompleteListener.computeNextDueDate(task, rrule.toIcal());
-            assertDateEquals(freq.toString() + "x6", DateUtilities.now() + 6 * interval, nextDueDate);
         }
     }
 
