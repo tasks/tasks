@@ -95,7 +95,7 @@ public class DateUtilities {
     public static long ONE_WEEK = 7 * ONE_DAY;
 
     /** Represents a single minute */
-    public static long ONE_MINUTE = ONE_HOUR / 60;
+    public static long ONE_MINUTE = 60000L;
 
     /* ======================================================================
      * =========================================================== formatters

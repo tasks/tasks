@@ -53,7 +53,7 @@ public class AdvancedRepeatTests extends TodorooTestCase {
         buildRRule(1, Frequency.DAILY);
 
         // test specific day & time
-        long dayWithTime = Task.createDueDate(Task.URGENCY_SPECIFIC_DAY_TIME, new Date(110, 7, 1, 10, 4).getTime());
+        long dayWithTime = Task.createDueDate(Task.URGENCY_SPECIFIC_DAY_TIME, new Date(110, 7, 1, 10, 4, 0).getTime());
         task.setValue(Task.DUE_DATE, dayWithTime);
 
         Date todayWithTime = new Date();
@@ -61,11 +61,11 @@ public class AdvancedRepeatTests extends TodorooTestCase {
         todayWithTime.setMinutes(4);
         todayWithTime.setSeconds(0);
         long nextDayWithTimeLong = todayWithTime.getTime();
-        if(nextDayWithTimeLong < DateUtilities.now())
-            nextDayWithTimeLong += DateUtilities.ONE_DAY;
+        nextDayWithTimeLong += DateUtilities.ONE_DAY;
+        nextDayWithTimeLong = nextDayWithTimeLong / 1000L * 1000;
 
         nextDueDate = RepeatTaskCompleteListener.computeNextDueDate(task, rrule.toIcal());
-        assertDateTimeEquals(nextDueDate, nextDueDate);
+        assertDateTimeEquals(nextDayWithTimeLong, nextDueDate);
     }
 
     // --- due date tests

@@ -170,6 +170,7 @@ public class RepeatTaskCompleteListener extends BroadcastReceiver {
             else if(task.hasDueTime()) {
                 startDate.setHours(dueDate.getHours());
                 startDate.setMinutes(dueDate.getMinutes());
+                startDate.setSeconds(dueDate.getSeconds());
             }
         }
         return startDate;
@@ -195,10 +196,9 @@ public class RepeatTaskCompleteListener extends BroadcastReceiver {
     }
 
     private static long handleSubdayRepeat(Date startDate, RRule rrule, long millis) {
-        long newDueDate;
-        newDueDate = Task.createDueDate(Task.URGENCY_SPECIFIC_DAY_TIME,
-                startDate.getTime() + millis * rrule.getInterval());
-        return newDueDate;
+        long newDueDate = startDate.getTime() + millis * rrule.getInterval();
+        return Task.createDueDate(Task.URGENCY_SPECIFIC_DAY_TIME,
+                newDueDate);
     }
 
 }
