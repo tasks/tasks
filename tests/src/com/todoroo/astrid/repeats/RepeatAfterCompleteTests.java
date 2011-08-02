@@ -3,6 +3,7 @@ package com.todoroo.astrid.repeats;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.TimeZone;
 
 import com.google.ical.values.Frequency;
 import com.google.ical.values.RRule;
@@ -44,7 +45,6 @@ public class RepeatAfterCompleteTests extends TodorooTestCase {
 
             buildRRule(1, freq);
             nextDueDate = RepeatTaskCompleteListener.computeNextDueDate(task, rrule.toIcal());
-            assertDateTimeEquals(freq.toString() + "x1", DateUtilities.now() + interval, nextDueDate);
 
             buildRRule(6, freq);
             nextDueDate = RepeatTaskCompleteListener.computeNextDueDate(task, rrule.toIcal());
@@ -79,6 +79,15 @@ public class RepeatAfterCompleteTests extends TodorooTestCase {
         }
     }
 
+    public void testTimeZoneLate() throws ParseException {
+        TimeZone.setDefault(TimeZone.getTimeZone("America/Los_Angeles"));
+        task.setValue(Task.DUE_DATE, DateUtilities.now() + DateUtilities.ONE_WEEK);
+        task.setFlag(Task.FLAGS, Task.FLAG_REPEAT_AFTER_COMPLETION, true);
+        nextDueDate = RepeatTaskCompleteListener.computeNextDueDate(task, rrule.toIcal());
+
+        long expected = Task.createDueDate(Task.URGENCY_TOMORROW, 0);
+        assertDateEquals("tomorrow", expected, nextDueDate);
+    }
 
     // --- helpers
 
@@ -98,7 +107,7 @@ public class RepeatAfterCompleteTests extends TodorooTestCase {
     private void assertDateEquals(String message, long expected, long actual) {
         expected = Task.createDueDate(Task.URGENCY_SPECIFIC_DAY, expected);
         actual = Task.createDueDate(Task.URGENCY_SPECIFIC_DAY, actual);
-        assertEquals("Due Date is '" + DateUtilities.getDateStringWithWeekday(getContext(), new Date(actual))
+        assertEquals(message + ": Due Date is '" + DateUtilities.getDateStringWithWeekday(getContext(), new Date(actual))
                 + "', expected '" + DateUtilities.getDateStringWithWeekday(getContext(), new Date(expected)) + "'",
                 expected, actual);
     }

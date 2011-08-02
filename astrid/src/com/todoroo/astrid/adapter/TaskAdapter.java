@@ -110,6 +110,7 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
         Task.DETAILS,
         Task.ELAPSED_SECONDS,
         Task.TIMER_START,
+        Task.RECURRENCE,
         Task.NOTES,
         Task.USER_ID,
         Task.USER

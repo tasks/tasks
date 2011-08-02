@@ -31,6 +31,8 @@ public class RepeatTaskCompleteListener extends BroadcastReceiver {
 
     @Autowired ActFmPreferenceService actFmPreferenceService;
 
+    private static boolean skipActFmCheck = false;
+
     @Override
     public void onReceive(Context context, Intent intent) {
         ContextManager.setContext(context);
@@ -64,7 +66,7 @@ public class RepeatTaskCompleteListener extends BroadcastReceiver {
             }
 
             // update repeat time when it repeats on the server
-            if(actFmPreferenceService.isLoggedIn()) {
+            if(actFmPreferenceService.isLoggedIn() && !skipActFmCheck) {
                 task.setValue(Task.COMPLETION_DATE, 0L);
                 task.setValue(Task.DUE_DATE, newDueDate);
                 task.setValue(Task.HIDE_UNTIL, hideUntil);
@@ -95,6 +97,11 @@ public class RepeatTaskCompleteListener extends BroadcastReceiver {
             context.sendOrderedBroadcast(broadcastIntent, null);
             Flags.set(Flags.REFRESH);
         }
+    }
+
+    /** for debug */
+    static void setSkipActFmCheck(boolean skipActFmCheck) {
+        RepeatTaskCompleteListener.skipActFmCheck = skipActFmCheck;
     }
 
     /** Compute next due date */

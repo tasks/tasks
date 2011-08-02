@@ -32,6 +32,7 @@ public class RepeatTests extends DatabaseTestCase {
     protected void setUp() throws Exception {
         super.setUp();
         Preferences.setStringFromInteger(R.string.p_default_urgency_key, 0);
+        RepeatTaskCompleteListener.setSkipActFmCheck(true);
     }
 
     /** test that completing a task w/ no repeats does nothing */
@@ -109,7 +110,7 @@ public class RepeatTests extends DatabaseTestCase {
         rrule.setFreq(Frequency.WEEKLY);
         task.setValue(Task.RECURRENCE, rrule.toIcal());
         long originalDueDate = (DateUtilities.now() - 3 * DateUtilities.ONE_DAY) / 1000L * 1000L;
-        task.setValue(Task.DUE_DATE, task.createDueDate(Task.URGENCY_SPECIFIC_DAY_TIME, originalDueDate));
+        task.setValue(Task.DUE_DATE, Task.createDueDate(Task.URGENCY_SPECIFIC_DAY_TIME, originalDueDate));
         taskDao.save(task);
 
         task.setValue(Task.COMPLETION_DATE, DateUtilities.now());
@@ -148,7 +149,7 @@ public class RepeatTests extends DatabaseTestCase {
         rrule.setFreq(Frequency.HOURLY);
         task.setValue(Task.RECURRENCE, rrule.toIcal());
         long originalDueDate = (DateUtilities.now() + DateUtilities.ONE_DAY) / 1000L * 1000L;
-        task.setValue(Task.DUE_DATE, task.createDueDate(Task.URGENCY_SPECIFIC_DAY_TIME, originalDueDate));
+        task.setValue(Task.DUE_DATE, Task.createDueDate(Task.URGENCY_SPECIFIC_DAY_TIME, originalDueDate));
         taskDao.save(task);
 
         task.setValue(Task.COMPLETION_DATE, DateUtilities.now());
@@ -187,7 +188,7 @@ public class RepeatTests extends DatabaseTestCase {
         rrule.setFreq(Frequency.WEEKLY);
         task.setValue(Task.RECURRENCE, rrule.toIcal());
         long originalDueDate = (DateUtilities.now() - 3 * DateUtilities.ONE_DAY) / 1000L * 1000L;
-        task.setValue(Task.DUE_DATE, task.createDueDate(Task.URGENCY_SPECIFIC_DAY, originalDueDate));
+        task.setValue(Task.DUE_DATE, Task.createDueDate(Task.URGENCY_SPECIFIC_DAY, originalDueDate));
         task.setFlag(Task.FLAGS, Task.FLAG_REPEAT_AFTER_COMPLETION, true);
         taskDao.save(task);
 
@@ -260,7 +261,7 @@ public class RepeatTests extends DatabaseTestCase {
         rrule.setInterval(1);
         rrule.setFreq(Frequency.WEEKLY);
         task.setValue(Task.RECURRENCE, rrule.toIcal());
-        task.setValue(Task.DUE_DATE, task.createDueDate(Task.URGENCY_TODAY, 0));
+        task.setValue(Task.DUE_DATE, Task.createDueDate(Task.URGENCY_TODAY, 0));
         task.setValue(Task.HIDE_UNTIL, task.createHideUntil(Task.HIDE_UNTIL_DAY_BEFORE, 0));
         taskDao.save(task);
 
