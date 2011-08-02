@@ -387,11 +387,10 @@ public class ProducteevSyncProvider extends SyncProvider<ProducteevTaskContainer
         JSONArray notes = remoteTask.getJSONArray("notes");
         for(int i = notes.length() - 1; i >= 0; i--) {
             JSONObject note = notes.getJSONObject(i).getJSONObject("note");
-            if(note.getLong("deleted") != 0) {
-                PluginServices.getMetadataService().deleteWhere(Criterion.and(Metadata.KEY.eq(NoteMetadata.METADATA_KEY),
-                                NoteMetadata.EXT_ID.eq(note.getString("id_note"))));
+            PluginServices.getMetadataService().deleteWhere(Criterion.and(Metadata.KEY.eq(NoteMetadata.METADATA_KEY),
+                    NoteMetadata.EXT_ID.eq(note.getString("id_note"))));
+            if(note.getLong("deleted") != 0)
                 continue;
-            }
 
             long creator = note.getLong("id_creator");
             metadata.add(ApiUtilities.createNoteMetadata(note, creatorName(container, creator)));
