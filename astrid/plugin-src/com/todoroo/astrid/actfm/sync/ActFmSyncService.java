@@ -261,7 +261,8 @@ public final class ActFmSyncService {
 
         if(!newlyCreated) {
             params.add("id"); params.add(remoteId);
-        }
+        } else if(!values.containsKey(Task.TITLE.name))
+            return;
 
         try {
             params.add("token"); params.add(token);

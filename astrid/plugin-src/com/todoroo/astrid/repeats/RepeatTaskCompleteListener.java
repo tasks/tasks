@@ -16,8 +16,11 @@ import com.google.ical.values.DateValue;
 import com.google.ical.values.DateValueImpl;
 import com.google.ical.values.Frequency;
 import com.google.ical.values.RRule;
+import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.ContextManager;
+import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.andlib.utility.DateUtilities;
+import com.todoroo.astrid.actfm.sync.ActFmPreferenceService;
 import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.core.PluginServices;
 import com.todoroo.astrid.data.Task;
@@ -26,9 +29,12 @@ import com.todoroo.astrid.utility.Flags;
 
 public class RepeatTaskCompleteListener extends BroadcastReceiver {
 
+    @Autowired ActFmPreferenceService actFmPreferenceService;
+
     @Override
     public void onReceive(Context context, Intent intent) {
         ContextManager.setContext(context);
+        DependencyInjectionService.getInstance().inject(this);
         long taskId = intent.getLongExtra(AstridApiConstants.EXTRAS_TASK_ID, -1);
         if(taskId == -1)
             return;
@@ -36,10 +42,6 @@ public class RepeatTaskCompleteListener extends BroadcastReceiver {
         Task task = PluginServices.getTaskService().fetchById(taskId, Task.ID, Task.RECURRENCE,
                 Task.DUE_DATE, Task.FLAGS, Task.HIDE_UNTIL, Task.REMOTE_ID);
         if(task == null)
-            return;
-
-        // don't repeat when it repeats on the server
-        if(task.getValue(Task.REMOTE_ID) > 0)
             return;
 
         String recurrence = task.getValue(Task.RECURRENCE);
@@ -59,6 +61,15 @@ public class RepeatTaskCompleteListener extends BroadcastReceiver {
             long hideUntil = task.getValue(Task.HIDE_UNTIL);
             if(hideUntil > 0 && task.getValue(Task.DUE_DATE) > 0) {
                 hideUntil += newDueDate - task.getValue(Task.DUE_DATE);
+            }
+
+            // update repeat time when it repeats on the server
+            if(actFmPreferenceService.isLoggedIn()) {
+                task.setValue(Task.COMPLETION_DATE, 0L);
+                task.setValue(Task.DUE_DATE, newDueDate);
+                task.setValue(Task.HIDE_UNTIL, hideUntil);
+                PluginServices.getTaskService().save(task);
+                return;
             }
 
             // clone to create new task

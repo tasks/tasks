@@ -106,7 +106,6 @@ public class TaskService {
             return new Task();
         newTask.clearValue(Task.ID);
         newTask.clearValue(Task.REMOTE_ID);
-        taskDao.createNew(newTask);
         TodorooCursor<Metadata> cursor = metadataDao.query(
                 Query.select(Metadata.PROPERTIES).where(MetadataCriteria.byTask(task.getId())));
         try {
