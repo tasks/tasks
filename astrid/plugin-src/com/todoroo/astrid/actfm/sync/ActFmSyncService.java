@@ -94,6 +94,8 @@ public final class ActFmSyncService {
                 final ContentValues setValues = model.getSetValues();
                 if(setValues == null || !checkForToken() || setValues.containsKey(RemoteModel.REMOTE_ID_PROPERTY_NAME))
                     return;
+                if(completedRepeatingTask(model))
+                    return;
 
                 new Thread(new Runnable() {
                     @Override
@@ -103,6 +105,10 @@ public final class ActFmSyncService {
                         pushTaskOnSave(model, setValues);
                     }
                 }).start();
+            }
+
+            private boolean completedRepeatingTask(Task model) {
+                return !TextUtils.isEmpty(model.getValue(Task.RECURRENCE)) && model.isCompleted();
             }
         });
 
