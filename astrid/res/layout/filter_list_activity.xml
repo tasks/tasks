@@ -19,7 +19,7 @@
             android:layout_width="wrap_content"
             android:layout_height="fill_parent"
             android:layout_weight="1"
-            android:src="@drawable/header_tags_active"
+            android:src="@drawable/header_tasks"
             android:scaleType="center" /> 
         
         <!-- Title -->
