@@ -3,12 +3,15 @@
  */
 package com.todoroo.astrid.adapter;
 
+import greendroid.widget.AsyncImageView;
+
 import java.util.ArrayList;
 import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 
 import android.app.Activity;
+import android.app.PendingIntent.CanceledException;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -16,15 +19,18 @@ import android.content.IntentFilter;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Parcelable;
+import android.text.TextUtils;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewGroup.LayoutParams;
 import android.widget.BaseExpandableListAdapter;
 import android.widget.Button;
 import android.widget.ExpandableListView;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.timsu.astrid.R;
@@ -34,11 +40,11 @@ import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.api.FilterCategory;
+import com.todoroo.astrid.api.FilterCategoryWithNewButton;
 import com.todoroo.astrid.api.FilterListHeader;
 import com.todoroo.astrid.api.FilterListItem;
-import com.todoroo.astrid.gtasks.GtasksListAdder;
+import com.todoroo.astrid.api.FilterWithUpdate;
 import com.todoroo.astrid.service.TaskService;
-import com.todoroo.astrid.tags.TagsPlugin;
 
 public class FilterAdapter extends BaseExpandableListAdapter {
 
@@ -162,8 +168,11 @@ public class FilterAdapter extends BaseExpandableListAdapter {
             viewHolder.view = convertView;
             viewHolder.expander = (ImageView)convertView.findViewById(R.id.expander);
             viewHolder.icon = (ImageView)convertView.findViewById(R.id.icon);
+            viewHolder.urlImage = (AsyncImageView)convertView.findViewById(R.id.url_image);
             viewHolder.name = (TextView)convertView.findViewById(R.id.name);
+            viewHolder.activity = (TextView)convertView.findViewById(R.id.activity);
             viewHolder.selected = (ImageView)convertView.findViewById(R.id.selected);
+            viewHolder.size = (TextView)convertView.findViewById(R.id.size);
             viewHolder.decoration = null;
             convertView.setTag(viewHolder);
         }
@@ -174,7 +183,10 @@ public class FilterAdapter extends BaseExpandableListAdapter {
         public FilterListItem item;
         public ImageView expander;
         public ImageView icon;
+        public AsyncImageView urlImage;
         public TextView name;
+        public TextView activity;
+        public TextView size;
         public ImageView selected;
         public View view;
         public View decoration;
@@ -209,7 +221,7 @@ public class FilterAdapter extends BaseExpandableListAdapter {
         convertView = newView(convertView, parent);
         ViewHolder viewHolder = (ViewHolder) convertView.getTag();
         viewHolder.item = (FilterListItem) getChild(groupPosition, childPosition);
-        populateView(viewHolder, true, false);
+        populateView(viewHolder, false);
 
         return convertView;
     }
@@ -237,7 +249,7 @@ public class FilterAdapter extends BaseExpandableListAdapter {
         convertView = newView(convertView, parent);
         ViewHolder viewHolder = (ViewHolder) convertView.getTag();
         viewHolder.item = (FilterListItem) getGroup(groupPosition);
-        populateView(viewHolder, false, isExpanded);
+        populateView(viewHolder, isExpanded);
         return convertView;
     }
 
@@ -390,40 +402,70 @@ public class FilterAdapter extends BaseExpandableListAdapter {
      * ================================================================ views
      * ====================================================================== */
 
-    public void populateView(ViewHolder viewHolder, boolean isChild, boolean isExpanded) {
+    public void populateView(ViewHolder viewHolder, boolean isExpanded) {
         FilterListItem filter = viewHolder.item;
         if(filter == null)
             return;
 
         viewHolder.view.setBackgroundResource(0);
-        viewHolder.expander.setVisibility(View.GONE);
 
         if(viewHolder.decoration != null) {
             ((ViewGroup)viewHolder.view).removeView(viewHolder.decoration);
             viewHolder.decoration = null;
         }
 
-        if(viewHolder.item instanceof FilterListHeader) {
+        if(viewHolder.item instanceof FilterListHeader || viewHolder.item instanceof FilterCategory) {
             viewHolder.name.setTextAppearance(activity, headerStyle);
             viewHolder.view.setBackgroundResource(R.drawable.edit_titlebar);
-            viewHolder.view.setPadding((int) ((isChild ? 33 : 7) * metrics.density), 5, 0, 5);
-        } else if(viewHolder.item instanceof FilterCategory) {
-            viewHolder.expander.setVisibility(View.VISIBLE);
-            if(isExpanded)
-                viewHolder.expander.setImageResource(R.drawable.expander_ic_maximized);
-            else
-                viewHolder.expander.setImageResource(R.drawable.expander_ic_minimized);
-            viewHolder.name.setTextAppearance(activity, categoryStyle);
-            viewHolder.view.setPadding((int)(7 * metrics.density), 8, 0, 8);
+            viewHolder.view.setPadding((int) (7 * metrics.density), 5, 0, 5);
+            viewHolder.view.getLayoutParams().height = (int) (40 * metrics.density);
         } else {
             viewHolder.name.setTextAppearance(activity, filterStyle);
-            viewHolder.view.setPadding((int) ((isChild ? 27 : 7) * metrics.density), 8, 0, 8);
+            viewHolder.view.setPadding((int) (7 * metrics.density), 8, 0, 8);
+            viewHolder.view.getLayoutParams().height = (int) (58 * metrics.density);
         }
 
-        viewHolder.icon.setVisibility(filter.listingIcon != null ? View.VISIBLE : View.GONE);
-        viewHolder.icon.setImageBitmap(filter.listingIcon);
+        if(viewHolder.item instanceof FilterCategory) {
+            viewHolder.expander.setVisibility(View.VISIBLE);
+            viewHolder.expander.setImageResource(isExpanded ?
+                    R.drawable.expander_ic_maximized : R.drawable.expander_ic_minimized);
+        } else
+            viewHolder.expander.setVisibility(View.GONE);
 
-        viewHolder.name.setText(filter.listingTitle);
+        // update with filter attributes (listing icon, url, update text, size)
+
+        viewHolder.urlImage.setVisibility(View.GONE);
+        viewHolder.activity.setVisibility(View.GONE);
+        viewHolder.icon.setVisibility(View.GONE);
+
+        if(filter.listingIcon != null) {
+            viewHolder.icon.setVisibility(View.VISIBLE);
+            viewHolder.icon.setImageBitmap(filter.listingIcon);
+        }
+
+        // title / size
+        if(filter.listingTitle.matches(".* \\(\\d+\\)$")) { //$NON-NLS-1$
+            viewHolder.size.setVisibility(View.VISIBLE);
+            viewHolder.size.setText(filter.listingTitle.substring(filter.listingTitle.lastIndexOf('(') + 1,
+                    filter.listingTitle.length() - 1));
+            viewHolder.name.setText(filter.listingTitle.substring(0, filter.listingTitle.lastIndexOf(' ')));
+        } else {
+            viewHolder.name.setText(filter.listingTitle);
+            viewHolder.size.setVisibility(View.GONE);
+        }
+
+        viewHolder.name.getLayoutParams().height = (int) (58 * metrics.density);
+        if(filter instanceof FilterWithUpdate) {
+            viewHolder.urlImage.setVisibility(View.VISIBLE);
+            viewHolder.urlImage.setDefaultImageResource(R.drawable.gl_list);
+            viewHolder.urlImage.setUrl(((FilterWithUpdate)filter).imageUrl);
+            if(!TextUtils.isEmpty(((FilterWithUpdate)filter).updateText)) {
+                viewHolder.activity.setText(((FilterWithUpdate)filter).updateText);
+                viewHolder.name.getLayoutParams().height = (int) (25 * metrics.density);
+                viewHolder.activity.setVisibility(View.VISIBLE);
+            }
+        }
+
         if(filter.color != 0)
             viewHolder.name.setTextColor(filter.color);
 
@@ -434,43 +476,33 @@ public class FilterAdapter extends BaseExpandableListAdapter {
         } else
             viewHolder.selected.setVisibility(View.GONE);
 
-        updateForActFm(viewHolder);
-        updateForGtasks(viewHolder);
+        if(filter instanceof FilterCategoryWithNewButton)
+            setupCustomHeader(viewHolder, (FilterCategoryWithNewButton) filter);
     }
 
-    private void setupCustomHeader(ViewHolder viewHolder, String forTitle, View.OnClickListener buttonListener) {
-        if(viewHolder.item instanceof FilterListHeader &&
-                viewHolder.item.listingTitle.equals(forTitle)) {
-            Button add = new Button(activity);
-            add.setText(R.string.tag_FEx_add_new);
-            add.setBackgroundResource(android.R.drawable.btn_default_small);
-            add.setCompoundDrawablesWithIntrinsicBounds(R.drawable.tango_add,0,0,0);
-            viewHolder.decoration = add;
-            add.setHeight((int)(35 * metrics.density));
-            ((ViewGroup)viewHolder.view).addView(add);
+    private void setupCustomHeader(ViewHolder viewHolder, final FilterCategoryWithNewButton filter) {
+        Button add = new Button(activity);
+        add.setBackgroundResource(R.drawable.filter_btn_background);
+        add.setCompoundDrawablesWithIntrinsicBounds(R.drawable.filter_new,0,0,0);
+        add.setTextColor(Color.WHITE);
+        add.setShadowLayer(1, 1, 1, Color.BLACK);
+        add.setText(filter.label);
+        RelativeLayout.LayoutParams lp = new RelativeLayout.LayoutParams(LayoutParams.WRAP_CONTENT,
+                (int)(32 * metrics.density));
+        lp.rightMargin = (int) (4 * metrics.density);
+        lp.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
+        add.setLayoutParams(lp);
+        ((ViewGroup)viewHolder.view).addView(add);
+        viewHolder.decoration = add;
 
-            add.setOnClickListener(buttonListener);
-        }
-    }
-
-    private void updateForActFm(ViewHolder viewHolder) {
-        setupCustomHeader(viewHolder,
-                activity.getString(R.string.tag_FEx_header),
-                new View.OnClickListener() {
+        add.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        new TagsPlugin().showNewTagDialog(activity);
-                    }
-                });
-    }
-
-    private void updateForGtasks(ViewHolder viewHolder) {
-        setupCustomHeader(viewHolder,
-                activity.getString(R.string.gtasks_FEx_header),
-                new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        new GtasksListAdder().showNewListDialog(activity);
+                        try {
+                            filter.intent.send();
+                        } catch (CanceledException e) {
+                            // do nothing
+                        }
                     }
                 });
     }

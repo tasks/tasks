@@ -11,6 +11,7 @@ import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.andlib.sql.Criterion;
 import com.todoroo.andlib.sql.Field;
+import com.todoroo.andlib.sql.Functions;
 import com.todoroo.andlib.sql.Join;
 import com.todoroo.andlib.sql.Order;
 import com.todoroo.andlib.sql.Query;
@@ -73,7 +74,7 @@ public final class TagService {
      * Property for retrieving count of aggregated rows
      */
     private static final CountProperty COUNT = new CountProperty();
-    public static final Order GROUPED_TAGS_BY_ALPHA = Order.asc(TAG);
+    public static final Order GROUPED_TAGS_BY_ALPHA = Order.asc(Functions.upper(TAG));
     public static final Order GROUPED_TAGS_BY_SIZE = Order.desc(COUNT);
 
     /**
@@ -84,13 +85,22 @@ public final class TagService {
      */
     public static final class Tag {
         public String tag;
-        int count;
-        long remoteId;
+        public int count;
+        public long remoteId;
+        public String image;
+        public String updateText;
 
         public Tag(String tag, int count, long remoteId) {
             this.tag = tag;
             this.count = count;
             this.remoteId = remoteId;
+        }
+
+        public Tag(TagData tagData) {
+            tag = tagData.getValue(TagData.NAME);
+            count = tagData.getValue(TagData.TASK_COUNT);
+            remoteId = tagData.getValue(TagData.REMOTE_ID);
+            image = tagData.getValue(TagData.PICTURE);
         }
 
         @Override

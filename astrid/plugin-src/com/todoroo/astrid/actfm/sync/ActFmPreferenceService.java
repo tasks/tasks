@@ -3,9 +3,12 @@ package com.todoroo.astrid.actfm.sync;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import android.text.TextUtils;
+
 import com.timsu.astrid.R;
 import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.astrid.data.RemoteModel;
+import com.todoroo.astrid.data.Update;
 import com.todoroo.astrid.sync.SyncProviderUtilities;
 
 /**
@@ -76,6 +79,19 @@ public class ActFmPreferenceService extends SyncProviderUtilities {
                 return new JSONObject();
             }
         }
+    }
+
+    @SuppressWarnings("nls")
+    public static String updateToString(Update update) {
+        JSONObject updateUser = ActFmPreferenceService.userFromModel(update);
+        String description = update.getValue(Update.ACTION);
+        String message = update.getValue(Update.MESSAGE);
+        if(update.getValue(Update.ACTION_CODE).equals("task_comment") ||
+                update.getValue(Update.ACTION_CODE).equals("tag_comment"))
+            description = message;
+        else if(!TextUtils.isEmpty(message))
+            description += " " + message;
+        return String.format("%s: %s", updateUser.optString("name"), description);
     }
 
     @SuppressWarnings("nls")

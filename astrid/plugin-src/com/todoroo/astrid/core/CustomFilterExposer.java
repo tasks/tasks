@@ -6,6 +6,7 @@ package com.todoroo.astrid.core;
 import android.app.Activity;
 import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
+import android.content.ContentValues;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -16,17 +17,22 @@ import android.os.Bundle;
 import com.timsu.astrid.R;
 import com.todoroo.andlib.data.TodorooCursor;
 import com.todoroo.andlib.service.DependencyInjectionService;
+import com.todoroo.andlib.sql.Criterion;
 import com.todoroo.andlib.sql.Order;
 import com.todoroo.andlib.sql.Query;
+import com.todoroo.andlib.sql.QueryTemplate;
+import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.andlib.utility.DialogUtilities;
 import com.todoroo.astrid.activity.FilterListActivity;
 import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.api.Filter;
-import com.todoroo.astrid.api.FilterCategory;
+import com.todoroo.astrid.api.FilterCategoryWithNewButton;
 import com.todoroo.astrid.api.FilterListItem;
-import com.todoroo.astrid.api.IntentFilter;
+import com.todoroo.astrid.api.PermaSql;
 import com.todoroo.astrid.dao.StoreObjectDao;
+import com.todoroo.astrid.dao.TaskDao.TaskCriteria;
 import com.todoroo.astrid.data.StoreObject;
+import com.todoroo.astrid.data.Task;
 
 /**
  * Exposes Astrid's built in filters to the {@link FilterListActivity}
@@ -45,21 +51,16 @@ public final class CustomFilterExposer extends BroadcastReceiver {
 
         PendingIntent customFilterIntent = PendingIntent.getActivity(context, 0,
                 new Intent(context, CustomFilterActivity.class), 0);
-        IntentFilter customFilter = new IntentFilter(r.getString(R.string.BFE_Custom),
-                customFilterIntent);
-        customFilter.listingIcon = ((BitmapDrawable)r.getDrawable(R.drawable.gnome_filter)).getBitmap();
 
-        Filter[] savedFilters = buildSavedFilters(context);
+        Filter[] savedFilters = buildSavedFilters(context, r);
 
-        FilterListItem[] list;
-        if(savedFilters.length == 0) {
-            list = new FilterListItem[1];
-        } else {
-            list = new FilterListItem[2];
-            list[1] = new FilterCategory(r.getString(R.string.BFE_Saved), savedFilters);
-        }
+        FilterCategoryWithNewButton heading = new FilterCategoryWithNewButton(r.getString(R.string.BFE_Saved), savedFilters);
+        heading.label = r.getString(R.string.tag_FEx_add_new);
+        heading.intent = customFilterIntent;
 
-        list[0] = customFilter;
+
+        FilterListItem[] list = new FilterListItem[1];
+        list[0] = heading;
 
         // transmit filter list
         Intent broadcastIntent = new Intent(AstridApiConstants.BROADCAST_SEND_FILTERS);
@@ -67,15 +68,36 @@ public final class CustomFilterExposer extends BroadcastReceiver {
         context.sendBroadcast(broadcastIntent, AstridApiConstants.PERMISSION_READ);
     }
 
-    private Filter[] buildSavedFilters(Context context) {
+    private Filter[] buildSavedFilters(Context context, Resources r) {
         StoreObjectDao dao = PluginServices.getStoreObjectDao();
         TodorooCursor<StoreObject> cursor = dao.query(Query.select(StoreObject.PROPERTIES).where(
                 StoreObject.TYPE.eq(SavedFilter.TYPE)).orderBy(Order.asc(SavedFilter.NAME)));
         try {
-            Filter[] list = new Filter[cursor.getCount()];
+            Filter[] list = new Filter[cursor.getCount() + 2];
+
+            // stock filters
+            String todayTitle = AndroidUtilities.capitalize(r.getString(R.string.today));
+            ContentValues todayValues = new ContentValues();
+            todayValues.put(Task.DUE_DATE.name, PermaSql.VALUE_EOD);
+            list[0] = new Filter(todayTitle,
+                    todayTitle,
+                    new QueryTemplate().where(
+                            Criterion.and(TaskCriteria.activeVisibleMine(),
+                                    Task.DUE_DATE.gt(0),
+                                    Task.DUE_DATE.lte(PermaSql.VALUE_EOD))),
+                    todayValues);
+            list[0].listingIcon = ((BitmapDrawable)r.getDrawable(R.drawable.filter_calendar)).getBitmap();
+
+            list[1] = new Filter(r.getString(R.string.BFE_Recent),
+                    r.getString(R.string.BFE_Recent),
+                    new QueryTemplate().where(
+                            TaskCriteria.ownedByMe()).orderBy(
+                                    Order.desc(Task.MODIFICATION_DATE)).limit(15),
+                    null);
+            list[1].listingIcon = ((BitmapDrawable)r.getDrawable(R.drawable.filter_pencil)).getBitmap();
 
             StoreObject savedFilter = new StoreObject();
-            for(int i = 0; i < list.length; i++) {
+            for(int i = 2; i < list.length; i++) {
                 cursor.moveToNext();
                 savedFilter.readFromCursor(cursor);
                 list[i] = SavedFilter.load(savedFilter);
@@ -85,6 +107,7 @@ public final class CustomFilterExposer extends BroadcastReceiver {
                 deleteIntent.putExtra(TOKEN_FILTER_NAME, list[i].title);
                 list[i].contextMenuLabels = new String[] { context.getString(R.string.BFE_Saved_delete) };
                 list[i].contextMenuIntents = new Intent[] { deleteIntent };
+                list[i].listingIcon = ((BitmapDrawable)r.getDrawable(R.drawable.filter_sliders)).getBitmap();
             }
 
             return list;

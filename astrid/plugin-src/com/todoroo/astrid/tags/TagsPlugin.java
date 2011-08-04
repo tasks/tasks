@@ -1,6 +1,5 @@
 package com.todoroo.astrid.tags;
 
-import android.app.Activity;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -29,11 +28,11 @@ public class TagsPlugin extends BroadcastReceiver {
      * Create new tag data
      * @param activity
      */
-    public void showNewTagDialog(final Activity activity) {
-        Intent intent = new Intent(activity, TagViewActivity.class);
+    public static Intent newTagDialog(Context context) {
+        Intent intent = new Intent(context, TagViewActivity.class);
         intent.putExtra(TagViewActivity.EXTRA_NEW_TAG, true);
         intent.putExtra(TagViewActivity.EXTRA_START_TAB, "settings"); //$NON-NLS-1$
-        activity.startActivity(intent);
+        return intent;
     }
 
 }

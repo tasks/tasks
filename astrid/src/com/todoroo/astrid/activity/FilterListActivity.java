@@ -329,7 +329,7 @@ public class FilterListActivity extends ExpandableListActivity {
         Bitmap emblem = filter.listingIcon;
         if(emblem == null)
             emblem = ((BitmapDrawable) getResources().getDrawable(
-                    R.drawable.filter_tags1)).getBitmap();
+                    R.drawable.gl_list)).getBitmap();
 
         // create icon by superimposing astrid w/ icon
         DisplayMetrics metrics = new DisplayMetrics();

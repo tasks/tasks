@@ -583,4 +583,13 @@ public class AndroidUtilities {
         return dest;
     }
 
+    /**
+     * Capitalize the first character
+     * @param string
+     * @return
+     */
+    public static String capitalize(String string) {
+        return string.substring(0, 1).toUpperCase() + string.substring(1);
+    }
+
 }

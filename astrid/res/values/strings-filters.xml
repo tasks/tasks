@@ -19,7 +19,7 @@
     <string name="BFE_Custom">Custom Filter...</string>
     
     <!-- Saved Filters Header -->
-    <string name="BFE_Saved">Saved Filters</string>
+    <string name="BFE_Saved">Filters</string>
     
     <!-- Saved Filters Context Menu: delete -->
     <string name="BFE_Saved_delete">Delete Filter</string>

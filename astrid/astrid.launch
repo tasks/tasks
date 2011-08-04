@@ -5,9 +5,9 @@
 <stringAttribute key="ch.zork.quicklaunch.icon" value="14.gif"/>
 <intAttribute key="ch.zork.quicklaunch.index" value="0"/>
 <stringAttribute key="ch.zork.quicklaunch.mode" value="run"/>
-<intAttribute key="com.android.ide.eclipse.adt.action" value="0"/>
+<intAttribute key="com.android.ide.eclipse.adt.action" value="1"/>
 <stringAttribute key="com.android.ide.eclipse.adt.activity" value="com.todoroo.astrid.activity.FilterListActivity"/>
-<stringAttribute key="com.android.ide.eclipse.adt.commandline" value="-scale 0.7 -partition-size 1024"/>
+<stringAttribute key="com.android.ide.eclipse.adt.commandline" value="-partition-size 1024"/>
 <intAttribute key="com.android.ide.eclipse.adt.delay" value="0"/>
 <booleanAttribute key="com.android.ide.eclipse.adt.nobootanim" value="true"/>
 <intAttribute key="com.android.ide.eclipse.adt.speed" value="0"/>

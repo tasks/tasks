@@ -4,9 +4,14 @@
 package com.todoroo.astrid.tags;
 
 import java.util.ArrayList;
-import java.util.HashSet;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map.Entry;
 
 import android.app.Activity;
+import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
 import android.content.ComponentName;
 import android.content.ContentValues;
@@ -32,16 +37,19 @@ import com.todoroo.andlib.sql.QueryTemplate;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.andlib.utility.DialogUtilities;
 import com.todoroo.astrid.actfm.TagViewActivity;
+import com.todoroo.astrid.actfm.sync.ActFmPreferenceService;
 import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.api.FilterCategory;
-import com.todoroo.astrid.api.FilterListHeader;
+import com.todoroo.astrid.api.FilterCategoryWithNewButton;
 import com.todoroo.astrid.api.FilterListItem;
 import com.todoroo.astrid.api.FilterWithCustomIntent;
+import com.todoroo.astrid.api.FilterWithUpdate;
 import com.todoroo.astrid.core.PluginServices;
 import com.todoroo.astrid.dao.TaskDao.TaskCriteria;
 import com.todoroo.astrid.data.Metadata;
 import com.todoroo.astrid.data.TagData;
+import com.todoroo.astrid.data.Update;
 import com.todoroo.astrid.service.AstridDependencyInjector;
 import com.todoroo.astrid.service.TagDataService;
 import com.todoroo.astrid.tags.TagService.Tag;
@@ -70,7 +78,7 @@ public class TagFilterExposer extends BroadcastReceiver {
         contentValues.put(Metadata.KEY.name, TagService.KEY);
         contentValues.put(TagService.TAG.name, tag.tag);
 
-        FilterWithCustomIntent filter = new FilterWithCustomIntent(listTitle,
+        FilterWithUpdate filter = new FilterWithUpdate(listTitle,
                 title, tagTemplate,
                 contentValues);
         if(tag.count == 0)
@@ -85,6 +93,10 @@ public class TagFilterExposer extends BroadcastReceiver {
                 newTagIntent(context, DeleteTagActivity.class, tag)
         };
         filter.customTaskList = new ComponentName(ContextManager.getContext(), TagViewActivity.class);
+        if(tag.image != null)
+            filter.imageUrl = tag.image;
+        if(tag.updateText != null)
+            filter.updateText = tag.updateText;
         Bundle extras = new Bundle();
         extras.putString(TagViewActivity.EXTRA_TAG_NAME, tag.tag);
         extras.putLong(TagViewActivity.EXTRA_TAG_REMOTE_ID, tag.remoteId);
@@ -113,21 +125,9 @@ public class TagFilterExposer extends BroadcastReceiver {
         ContextManager.setContext(context);
         tagService = TagService.getInstance();
 
-        Resources r = context.getResources();
         ArrayList<FilterListItem> list = new ArrayList<FilterListItem>();
 
-        // --- header
-        FilterListHeader tagsHeader = new FilterListHeader(context.getString(R.string.tag_FEx_header));
-        list.add(tagsHeader);
-
         // --- untagged
-        Filter untagged = new Filter(r.getString(R.string.tag_FEx_untagged),
-                r.getString(R.string.tag_FEx_untagged),
-                tagService.untaggedTemplate(),
-                null);
-        untagged.listingIcon = ((BitmapDrawable)r.getDrawable(R.drawable.filter_untagged)).getBitmap();
-        list.add(untagged);
-
         addTags(list);
 
         // transmit filter list
@@ -139,60 +139,71 @@ public class TagFilterExposer extends BroadcastReceiver {
     }
 
     private void addTags(ArrayList<FilterListItem> list) {
-        HashSet<String> tagNames = new HashSet<String>();
+        HashMap<String, Tag> tags = new HashMap<String, Tag>();
 
-        // active tags
-        Tag[] myTags = tagService.getGroupedTags(TagService.GROUPED_TAGS_BY_SIZE,
-                Criterion.and(TaskCriteria.ownedByMe(), TaskCriteria.activeAndVisible()));
-        for(Tag tag : myTags)
-            tagNames.add(tag.tag);
-        if(myTags.length > 0)
-            list.add(filterFromTags(myTags, R.string.tag_FEx_category_mine));
+        Tag[] tagsByAlpha = tagService.getGroupedTags(TagService.GROUPED_TAGS_BY_ALPHA,
+                TaskCriteria.activeAndVisible());
+        for(Tag tag : tagsByAlpha)
+            if(!TextUtils.isEmpty(tag.tag))
+                tags.put(tag.tag, tag);
 
-        // find all tag data not in active tag list
-        TodorooCursor<TagData> cursor = tagDataService.query(Query.select(
-                TagData.NAME, TagData.TASK_COUNT, TagData.REMOTE_ID).where(TagData.DELETION_DATE.eq(0)));
-        ArrayList<Tag> notListed = new ArrayList<Tag>();
+        TodorooCursor<TagData> cursor = tagDataService.query(Query.select(TagData.PROPERTIES));
         try {
-            ArrayList<Tag> sharedTags = new ArrayList<Tag>();
+            TagData tagData = new TagData();
             for(cursor.moveToFirst(); !cursor.isAfterLast(); cursor.moveToNext()) {
-                String tagName = cursor.get(TagData.NAME);
-                if(tagNames.contains(tagName))
+                tagData.readFromCursor(cursor);
+                String tagName = tagData.getValue(TagData.NAME).trim();
+                Tag tag = new Tag(tagData);
+                if(tagData.getValue(TagData.DELETION_DATE) > 0 && !tags.containsKey(tagName)) continue;
+                if(TextUtils.isEmpty(tag.tag))
                     continue;
-                Tag tag = new Tag(tagName, cursor.get(TagData.TASK_COUNT),
-                        cursor.get(TagData.REMOTE_ID));
-                if(tag.count > 0)
-                    sharedTags.add(tag);
-                else
-                    notListed.add(tag);
-                tagNames.add(tagName);
+                tags.put(tagName, tag);
+
+                Update update = tagDataService.getLatestUpdate(tagData);
+                if(update != null)
+                    tag.updateText = ActFmPreferenceService.updateToString(update);
             }
-            if(sharedTags.size() > 0)
-                list.add(filterFromTags(sharedTags.toArray(new Tag[sharedTags.size()]), R.string.tag_FEx_category_shared));
         } finally {
             cursor.close();
         }
 
-        // find inactive tags, intersect tag list
-        Tag[] inactiveTags = tagService.getGroupedTags(TagService.GROUPED_TAGS_BY_ALPHA,
-                Criterion.and(TaskCriteria.notDeleted(), Criterion.not(TaskCriteria.activeAndVisible())));
-        for(Tag tag : inactiveTags) {
-            if(!tagNames.contains(tag.tag) && !TextUtils.isEmpty(tag.tag)) {
-                notListed.add(tag);
-                tag.count = 0;
+        ArrayList<Tag> tagList = new ArrayList<Tag>(tags.values());
+        Collections.sort(tagList,
+                new Comparator<Tag>() {
+            @Override
+            public int compare(Tag object1, Tag object2) {
+                return object1.tag.compareTo(object2.tag);
             }
+        });
+        for(Iterator<Entry<String, Tag>> i = tags.entrySet().iterator(); i.hasNext(); ) {
+            Entry<String, Tag> entry = i.next();
+            if(TextUtils.isEmpty(entry.getValue().tag))
+                i.remove();
         }
-        if(notListed.size() > 0)
-            list.add(filterFromTags(notListed.toArray(new Tag[notListed.size()]),
-                    R.string.tag_FEx_category_inactive));
+
+        list.add(filterFromTags(tagList.toArray(new Tag[tagList.size()]),
+                R.string.tag_FEx_header));
     }
 
     private FilterCategory filterFromTags(Tag[] tags, int name) {
-        Filter[] filters = new Filter[tags.length];
+        Filter[] filters = new Filter[tags.length + 1];
+        Resources r = ContextManager.getContext().getResources();
+
+        Filter untagged = new Filter(r.getString(R.string.tag_FEx_untagged),
+                r.getString(R.string.tag_FEx_untagged),
+                tagService.untaggedTemplate(),
+                null);
+        untagged.listingIcon = ((BitmapDrawable)r.getDrawable(R.drawable.gl_lists)).getBitmap();
+        filters[0] = untagged;
+
         Context context = ContextManager.getContext();
         for(int i = 0; i < tags.length; i++)
-            filters[i] = filterFromTag(context, tags[i], TaskCriteria.activeAndVisible());
-        return new FilterCategory(context.getString(name), filters);
+            filters[i + 1] = filterFromTag(context, tags[i], TaskCriteria.activeAndVisible());
+        FilterCategoryWithNewButton filter = new FilterCategoryWithNewButton(context.getString(name), filters);
+        filter.label = r.getString(R.string.tag_FEx_add_new);
+        filter.intent = PendingIntent.getActivity(context, 0,
+                TagsPlugin.newTagDialog(context), 0);
+        return filter;
     }
 
     // --- tag manipulation activities

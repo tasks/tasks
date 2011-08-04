@@ -1,51 +1,84 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- See the file "LICENSE" for the full license governing this code. -->
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="58dip"
     android:background="@android:drawable/list_selector_background"
-    android:paddingTop="4dip"
-    android:paddingBottom="4dip"
-    android:paddingLeft="4dip"
+    android:paddingTop="5dip"
+    android:paddingBottom="5dip"
+    android:paddingLeft="7dip"
     android:paddingRight="6dip"
     android:orientation="horizontal">
         
     <!-- expander icon -->
     <ImageView android:id="@+id/expander"
-        android:layout_width="32dip"
-        android:layout_height="fill_parent"
-        android:layout_weight="1"
-        android:paddingLeft="5dip" 
-        android:paddingRight="5dip" 
+        android:layout_width="22dip"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="11dip"
         android:scaleType="fitCenter"
         android:visibility="gone"/>
         
     <!-- filter icon -->
     <ImageView android:id="@+id/icon"
-        android:layout_width="32dip"
-        android:layout_height="fill_parent"
-        android:layout_weight="1"
-        android:paddingLeft="5dip" 
-        android:paddingRight="5dip" 
+        android:layout_width="25dip"
+        android:layout_height="48dip"
+        android:layout_toRightOf="@id/expander"
+        android:layout_marginTop="4dp" 
+        android:layout_marginLeft="12dip"
+        android:scaleType="fitCenter"
+        android:visibility="gone"/>
+        
+    <!-- filter url image icon -->
+    <greendroid.widget.AsyncImageView android:id="@+id/url_image"
+        android:layout_width="30dip"
+        android:layout_height="48dip"
+        android:layout_toRightOf="@id/expander"
+        android:layout_marginTop="4dp" 
+        android:layout_marginLeft="10dip"
+        android:scaleType="fitCenter"
         android:visibility="gone"/>
             
     <!-- filter name -->
     <TextView android:id="@+id/name"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="100"
-        android:paddingLeft="5dip" 
-        android:gravity="center_vertical"/>
+        android:layout_marginLeft="55dp"
+        android:layout_marginTop="2dp"
+        android:paddingRight="30dp"
+        android:gravity="center_vertical" />
+        
+    <!-- size -->
+    <TextView android:id="@+id/size"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:background="@drawable/filter_count"
+        android:layout_marginRight="5dip"
+        android:layout_marginTop="15dip"
+        android:paddingLeft="7dip" 
+        android:paddingRight="7dip"
+        android:textColor="#ffffff"
+        android:gravity="center" />
         
     <!-- selected -->
     <ImageView android:id="@+id/selected"
         android:layout_width="24dip"
-        android:layout_height="fill_parent"
-        android:layout_weight="1"
+        android:layout_height="wrap_content"
+        android:layout_toLeftOf="@id/size"
         android:paddingLeft="5dip" 
         android:paddingRight="5dip" 
         android:src="@drawable/filter_selected_icon"
         android:scaleType="fitCenter"
         android:visibility="gone"/>
+        
+    <!-- activity text -->
+    <TextView android:id="@+id/activity"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="55dp"
+        android:layout_marginTop="29dp"
+        android:paddingRight="30dp"
+        android:gravity="center_vertical"
+        android:visibility="gone"/>
                     
-</LinearLayout>
+</RelativeLayout>

@@ -140,4 +140,27 @@ public class TagDataService {
                 orderBy(Order.desc(Update.CREATION_DATE)));
     }
 
+    /**
+     * Return update
+     * @param tagData
+     * @return
+     */
+    public Update getLatestUpdate(TagData tagData) {
+        if(tagData.getValue(Task.REMOTE_ID) < 1)
+            return null;
+
+        @SuppressWarnings("nls")
+        TodorooCursor<Update> updates = updateDao.query(Query.select(Update.PROPERTIES).where(
+                Update.TAGS.like("%," + tagData.getValue(Task.REMOTE_ID) + ",%")).
+                orderBy(Order.desc(Update.CREATION_DATE)).limit(1));
+        try {
+            if(updates.getCount() == 0)
+                return null;
+            updates.moveToFirst();
+            return new Update(updates);
+        } finally {
+            updates.close();
+        }
+    }
+
 }
