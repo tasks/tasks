@@ -70,7 +70,7 @@ Contributors workflow
 
 `git clone git@github.com:your-github-id/astrid.git` (your-github-id should obviously be replaced)
 
-`git remote add upstream git://github.com/todoroo/astrid.git`
+`git remote add upstream git@github.com:todoroo/astrid.git`
 
 **Working on new features/fixes:**
 
