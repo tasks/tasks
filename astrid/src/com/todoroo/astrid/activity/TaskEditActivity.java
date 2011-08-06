@@ -32,7 +32,6 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.res.Resources;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.speech.RecognizerIntent;
 import android.text.format.DateUtils;
@@ -75,6 +74,7 @@ import com.todoroo.astrid.service.MetadataService;
 import com.todoroo.astrid.service.StartupService;
 import com.todoroo.astrid.service.StatisticsService;
 import com.todoroo.astrid.service.TaskService;
+import com.todoroo.astrid.service.ThemeService;
 import com.todoroo.astrid.tags.TagsControlSet;
 import com.todoroo.astrid.timers.TimerControlSet;
 import com.todoroo.astrid.ui.EditTextControlSet;
@@ -200,6 +200,7 @@ public final class TaskEditActivity extends TabActivity {
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
+	    ThemeService.applyTheme(this);
 		super.onCreate(savedInstanceState);
 		new StartupService().onStartupApplication(this);
 
@@ -248,7 +249,8 @@ public final class TaskEditActivity extends TabActivity {
                 setIndicator(r.getString(R.string.TEA_tab_more),
                         r.getDrawable(R.drawable.gl_more)).setContent(
                                 R.id.tab_more));
-        getTabWidget().setBackgroundColor(Color.BLACK);
+        tabHost.setBackgroundDrawable(findViewById(R.id.taskEditParent).getBackground());
+        //getTabWidget().setBackgroundColor(Color.WHITE);
         AndroidUtilities.callApiMethod(8, getTabWidget(), "setStripEnabled", //$NON-NLS-1$
                 new Class<?>[] { boolean.class }, false);
         if(getIntent().hasExtra(TOKEN_TAB))

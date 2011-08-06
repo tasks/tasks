@@ -21,6 +21,7 @@ import android.content.res.Resources;
 import android.os.Bundle;
 import android.preference.CheckBoxPreference;
 import android.preference.Preference;
+import android.preference.Preference.OnPreferenceChangeListener;
 import android.preference.Preference.OnPreferenceClickListener;
 import android.preference.PreferenceCategory;
 import android.preference.PreferenceScreen;
@@ -58,6 +59,8 @@ public class EditPreferences extends TodorooPreferenceActivity {
 
     private static final int ABOUT_PREFERENCE = 0; // see preferences.xml for order of prefs
     private static final int POWER_PACK_PREFERENCE = 2;
+
+    public static final int RESULT_CODE_THEME_CHANGED = 1;
 
     // --- instance variables
 
@@ -228,7 +231,6 @@ public class EditPreferences extends TodorooPreferenceActivity {
     public void updatePreferences(final Preference preference, Object value) {
         final Resources r = getResources();
 
-
         if (r.getString(R.string.p_showNotes).equals(preference.getKey())) {
             if (value != null && !(Boolean)value)
                 preference.setSummary(R.string.EPr_showNotes_desc_disabled);
@@ -238,14 +240,17 @@ public class EditPreferences extends TodorooPreferenceActivity {
                 taskService.clearDetails(Criterion.all);
                 Flags.set(Flags.REFRESH);
             }
-        } else if (r.getString(R.string.p_transparent).equals(preference.getKey())) {
+        } else if (r.getString(R.string.p_theme).equals(preference.getKey())) {
             if(AndroidUtilities.getSdkVersion() < 5) {
                 preference.setEnabled(false);
-                preference.setSummary(R.string.EPr_transparent_desc_unsupported);
-            } else if (value != null && !(Boolean)value)
-                preference.setSummary(R.string.EPr_transparent_desc_disabled);
-            else
-                preference.setSummary(R.string.EPr_transparent_desc_enabled);
+                preference.setSummary(R.string.EPr_theme_desc_unsupported);
+            } else {
+                int index = 0;
+                if(value != null)
+                    index = AndroidUtilities.indexOf(r.getStringArray(R.array.EPr_theme_settings), (String)value);
+                preference.setSummary(getString(R.string.EPr_theme_desc,
+                        r.getStringArray(R.array.EPr_themes)[index]));
+            }
         }
 
 
@@ -292,9 +297,14 @@ public class EditPreferences extends TodorooPreferenceActivity {
     }
 
     public void addPreferenceListeners() {
-        //
+        findPreference(getString(R.string.p_theme)).setOnPreferenceChangeListener(new OnPreferenceChangeListener() {
+            @Override
+            public boolean onPreferenceChange(Preference preference, Object newValue) {
+                setResult(RESULT_CODE_THEME_CHANGED);
+                return true;
+            }
+        });
     }
-
 
     private void onVoiceReminderStatusChanged(final Preference preference, boolean newValue) {
         try {

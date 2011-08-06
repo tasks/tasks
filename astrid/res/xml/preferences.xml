@@ -18,10 +18,11 @@
             android:title="@string/EPr_showNotes_title"
             android:defaultValue="false" />
             
-        <CheckBoxPreference
-            android:key="@string/p_transparent"
-            android:title="@string/EPr_transparent_title"
-            android:defaultValue="false" />
+        <ListPreference
+            android:key="@string/p_theme"
+            android:entries="@array/EPr_themes"
+            android:entryValues="@array/EPr_theme_settings"
+            android:title="@string/EPr_theme_title" />
     </PreferenceCategory>
 
     <PreferenceCategory
