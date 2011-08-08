@@ -1,16 +1,22 @@
 package com.todoroo.astrid.gtasks;
 
+import android.app.ProgressDialog;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 
 import com.commonsware.cwac.tlv.TouchListView;
 import com.commonsware.cwac.tlv.TouchListView.DropListener;
 import com.commonsware.cwac.tlv.TouchListView.SwipeListener;
 import com.timsu.astrid.R;
 import com.todoroo.andlib.data.Property.IntegerProperty;
+import com.todoroo.andlib.data.TodorooCursor;
 import com.todoroo.andlib.service.Autowired;
+import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.andlib.utility.DialogUtilities;
 import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.astrid.activity.DraggableTaskListActivity;
+import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.gtasks.sync.GtasksSyncOnSaveService;
 
 public class GtasksListActivity extends DraggableTaskListActivity {
@@ -75,4 +81,61 @@ public class GtasksListActivity extends DraggableTaskListActivity {
         }
     };
 
+    @Override
+    public boolean onPrepareOptionsMenu(Menu menu) {
+        super.onPrepareOptionsMenu(menu);
+        MenuItem item = menu.add(Menu.NONE, MENU_SORT_ID, Menu.FIRST, "Clear completed");
+        item.setIcon(android.R.drawable.ic_input_delete); // Needs new icon
+        return true;
+    }
+
+    @Override
+    public boolean onMenuItemSelected(int featureId, final MenuItem item) {
+        if (item.getItemId() == MENU_SORT_ID) {
+            clearCompletedTasks();
+            return true;
+        } else {
+            return super.onMenuItemSelected(featureId, item);
+        }
+    }
+
+    private void clearCompletedTasks() {
+
+        final ProgressDialog pd = new ProgressDialog(this); //progressDialog(this, this.getString(R.string.gtasks_GLA_clearing))
+        final TodorooCursor<Task> tasks = taskService.fetchFiltered(filter.sqlQuery, null, Task.ID, Task.COMPLETION_DATE);
+        pd.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
+        pd.setMessage(this.getString(R.string.gtasks_GLA_clearing));pd.setMax(tasks.getCount());
+        pd.show();
+
+        new Thread() {
+            @Override
+            public void run() {
+                String listId = null;
+                try {
+                    for (tasks.moveToFirst(); !tasks.isAfterLast(); tasks.moveToNext()) {
+                        Task t = new Task(tasks);
+                        if (t.isCompleted()) {
+                            if (listId == null) {
+                                listId = gtasksMetadataService.getTaskMetadata(t.getId()).getValue(GtasksMetadata.LIST_ID);
+                            }
+                            t.setValue(Task.DELETION_DATE, DateUtilities.now());
+                            taskService.save(t);
+                        }
+                        pd.incrementProgressBy(1);
+                    }
+                } finally {
+                    tasks.close();
+                    pd.dismiss();
+                }
+                if (listId != null) {
+                    gtasksTaskListUpdater.correctMetadataForList(listId);
+                }
+                GtasksListActivity.this.runOnUiThread(new Runnable() {
+                    public void run() {
+                        loadTaskListContent(true);
+                    }
+                });
+            }
+        }.start();
+    }
 }

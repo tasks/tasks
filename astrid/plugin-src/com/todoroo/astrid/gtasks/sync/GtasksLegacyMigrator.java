@@ -73,7 +73,7 @@ public class GtasksLegacyMigrator {
                             defaultListId = list.id;
                         }
 
-                        Tasks allTasks = gtasksService.getAllGtasksFromListId(list.id, false);
+                        Tasks allTasks = gtasksService.getAllGtasksFromListId(list.id, false, false);
 
                         if (allTasks.items != null) {
                             for (com.google.api.services.tasks.v1.model.Task t : allTasks.items) {

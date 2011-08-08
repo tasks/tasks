@@ -245,7 +245,7 @@ public class GtasksSyncProvider extends SyncProvider<GtasksTaskContainer> {
 
         // first, pull all tasks. then we can write them
         // include deleted tasks so we can delete them in astrid
-        data.remoteUpdated = readAllRemoteTasks(true);
+        data.remoteUpdated = readAllRemoteTasks(true, true);
 
         for(GtasksTaskContainer remote : data.remoteUpdated) {
             if(remote.task.getId() < 1) {
@@ -300,7 +300,7 @@ public class GtasksSyncProvider extends SyncProvider<GtasksTaskContainer> {
     private SyncData<GtasksTaskContainer> populateSyncData() throws IOException {
 
         // fetch remote tasks
-        ArrayList<GtasksTaskContainer> remoteTasks = readAllRemoteTasks(false);
+        ArrayList<GtasksTaskContainer> remoteTasks = readAllRemoteTasks(false, false);
 
         // fetch locally created tasks
         TodorooCursor<Task> localCreated = gtasksMetadataService.getLocallyCreated(PROPERTIES);
@@ -315,7 +315,7 @@ public class GtasksSyncProvider extends SyncProvider<GtasksTaskContainer> {
     // ------------------------------------------------- create / push / pull
     // ----------------------------------------------------------------------
 
-    private ArrayList<GtasksTaskContainer> readAllRemoteTasks(final boolean includeDeleted) {
+    private ArrayList<GtasksTaskContainer> readAllRemoteTasks(final boolean includeDeleted, final boolean includeHidden) {
         final ArrayList<GtasksTaskContainer> list = new ArrayList<GtasksTaskContainer>();
         final Semaphore listsFinished = new Semaphore(0);
 
@@ -329,7 +329,7 @@ public class GtasksSyncProvider extends SyncProvider<GtasksTaskContainer> {
                         String listId = dashboard.getValue(GtasksList.REMOTE_ID);
                         if(Constants.DEBUG)
                             Log.e("gtasks-debug", "ACTION: getTasks, " + listId);
-                        List<com.google.api.services.tasks.v1.model.Task> remoteTasks = taskService.getAllGtasksFromListId(listId, includeDeleted).items;
+                        List<com.google.api.services.tasks.v1.model.Task> remoteTasks = taskService.getAllGtasksFromListId(listId, includeDeleted, includeHidden).items;
                         addRemoteTasksToList(remoteTasks, list);
                     } catch (Exception e) {
                         handleException("read-remotes", e, false);
@@ -530,7 +530,9 @@ public class GtasksSyncProvider extends SyncProvider<GtasksTaskContainer> {
         task.setValue(Task.COMPLETION_DATE, GtasksApiUtilities.gtasksCompletedTimeToUnixTime(remoteTask.completed, 0));
         if (remoteTask.deleted == null || !remoteTask.deleted.booleanValue())
             task.setValue(Task.DELETION_DATE, 0L);
-        else if (remoteTask.deleted)
+        else if (remoteTask.deleted.booleanValue())
+            task.setValue(Task.DELETION_DATE, DateUtilities.now());
+        if (remoteTask.hidden != null && remoteTask.hidden.booleanValue())
             task.setValue(Task.DELETION_DATE, DateUtilities.now());
 
         long dueDate = GtasksApiUtilities.gtasksDueTimeToUnixTime(remoteTask.due, 0);
