@@ -8,6 +8,15 @@
 
 package com.localytics.android;
 
+import android.Manifest.permission;
+import android.content.Context;
+import android.content.pm.PackageManager;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
+import android.os.Build;
+import android.telephony.TelephonyManager;
+import android.util.Log;
+
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -17,15 +26,6 @@ import java.io.UnsupportedEncodingException;
 import java.math.BigInteger;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
-
-import android.Manifest.permission;
-import android.content.Context;
-import android.content.pm.PackageManager;
-import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
-import android.os.Build;
-import android.telephony.TelephonyManager;
-import android.util.Log;
 
 /**
  * Provides a number of static functions to aid in the collection and formatting of datapoints.
@@ -46,7 +46,7 @@ import android.util.Log;
 
     /**
      * Private constructor prevents instantiation
-     *
+     * 
      * @throws UnsupportedOperationException because this class cannot be instantiated.
      */
     private DatapointHelper()
@@ -54,10 +54,34 @@ import android.util.Log;
         throw new UnsupportedOperationException("This class is non-instantiable"); //$NON-NLS-1$
     }
 
+    public static int getApiLevel()
+    {
+       try
+       {
+           // Although the Build.VERSION.SDK field has existed since API 1, it is deprecated and could be removed 
+    	   // in the future.  Therefore use reflection to retrieve it for maximum forward compatibility.
+           Class<?> buildClass = Build.VERSION.class;
+           String sdkString = (String) buildClass.getField("SDK").get(null); // $NON-NLS-1$
+           return Integer.valueOf(sdkString);
+       }
+       catch (Exception e)
+       {
+           // Although probably not necessary, protects from the aforementioned deprecation
+           try
+           {
+               Class<?> buildClass = Build.VERSION.class;
+               return buildClass.getField("SDK_INT").getInt(null); // $NON-NLS-1$
+           }
+           catch (Exception ignore) { }
+       }
+
+       return 3;
+    }
+
     /**
      * Gets a 1-way hashed value of the device's Android ID. This value is encoded using a SHA-256 one way hash and therefore
      * cannot be used to determine what device this data came from.
-     *
+     * 
      * @param context The context used to access the settings resolver
      * @return An 1-way hashed version of the {@link android.provider.Settings.Secure#ANDROID_ID}. May return null if an Android
      *         ID or the hashing algorithm is not available.
@@ -112,7 +136,7 @@ import android.util.Log;
      * therefore cannot be used to determine what device this data came from.
      * <p>
      * Note: {@link android.os.Build#SERIAL} was introduced in SDK 9. For older SDKs, this method will return null.
-     *
+     * 
      * @return An 1-way hashed version of the {@link android.os.Build#SERIAL}. May return null if a serial or the hashing
      *         algorithm is not available.
      */
@@ -126,7 +150,7 @@ import android.util.Log;
          * Obtain the device serial number using reflection, since serial number was added in SDK 9
          */
         String serialNumber = null;
-        if (Build.VERSION.SDK_INT >= 9)
+        if (Constants.CURRENT_API_LEVEL >= 9)
         {
             try
             {
@@ -154,17 +178,16 @@ import android.util.Log;
      * <p>
      * Note: this method will return null if {@link permission#READ_PHONE_STATE} is not available. This method will also return
      * null on devices that do not have telephony.
-     *
+     * 
      * @param context The context used to access the phone state.
      * @return An the {@link TelephonyManager#getDeviceId()}. Null if an ID is not available, or if
      *         {@link permission#READ_PHONE_STATE} is not available.
      */
     public static String getTelephonyDeviceIdOrNull(final Context context)
     {
-        if (Build.VERSION.SDK_INT >= 8)
+        if (Constants.CURRENT_API_LEVEL >= 8)
         {
-            final Boolean hasTelephony = ReflectionUtils.tryInvokeInstance(context.getPackageManager(), "hasSystemFeature", //$NON-NLS-1$
-                    new Class<?>[] { String.class }, new Object[] { "android.hardware.telephony" }); //$NON-NLS-1$
+            final Boolean hasTelephony = ReflectionUtils.tryInvokeInstance(context.getPackageManager(), "hasSystemFeature", new Class<?>[] { String.class }, new Object[] { "android.hardware.telephony" }); //$NON-NLS-1$//$NON-NLS-2$
 
             if (!hasTelephony)
             {
@@ -205,17 +228,16 @@ import android.util.Log;
      * Note: this method will return null if this is a non-telephony device.
      * <p>
      * Note: this method will return null if {@link permission#READ_PHONE_STATE} is not available.
-     *
+     * 
      * @param context The context used to access the phone state.
      * @return An 1-way hashed version of the {@link TelephonyManager#getDeviceId()}. Null if an ID or the hashing algorithm is
      *         not available, or if {@link permission#READ_PHONE_STATE} is not available.
      */
     public static String getTelephonyDeviceIdHashOrNull(final Context context)
     {
-        if (Build.VERSION.SDK_INT >= 8)
+        if (Constants.CURRENT_API_LEVEL >= 8)
         {
-            final Boolean hasTelephony = ReflectionUtils.tryInvokeInstance(context.getPackageManager(), "hasSystemFeature", //$NON-NLS-1$
-                    new Class<?>[] { String.class }, new Object[] { "android.hardware.telephony" }); //$NON-NLS-1$
+            final Boolean hasTelephony = ReflectionUtils.tryInvokeInstance(context.getPackageManager(), "hasSystemFeature", new Class<?>[] { String.class }, new Object[] { "android.hardware.telephony" }); //$NON-NLS-1$//$NON-NLS-2$
 
             if (!hasTelephony)
             {
@@ -256,7 +278,7 @@ import android.util.Log;
 
     /**
      * Determines the type of network this device is connected to.
-     *
+     * 
      * @param context the context used to access the device's WIFI
      * @param telephonyManager The manager used to access telephony info
      * @return The type of network, or unknown if the information is unavailable
@@ -283,8 +305,28 @@ import android.util.Log;
     }
 
     /**
-     * Gets the versionName of the application.
+     * Gets the device manufacturer's name
      *
+     * @return A string naming the manufacturer
+     */
+    public static String getManufacturer()
+    {
+        String mfg = "unknown"; // $NON-NLS-1$
+        if (Constants.CURRENT_API_LEVEL > 3)
+        {
+            try
+            {
+                Class<?> buildClass = Build.class;
+                mfg = (String) buildClass.getField("MANUFACTURER").get(null); // $NON-NLS-1$
+            }
+            catch (Exception ignore) {}
+        }
+        return mfg;
+    }
+    
+    /**
+     * Gets the versionName of the application.
+     * 
      * @param context {@link Context}. Cannot be null.
      * @return The application's version
      */
@@ -322,7 +364,7 @@ import android.util.Log;
 
     /**
      * Helper method to generate a SHA-256 hash of a given String
-     *
+     * 
      * @param string String to hash. Cannot be null.
      * @return hashed version of the string using SHA-256.
      */

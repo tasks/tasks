@@ -21,7 +21,7 @@ import android.text.format.DateUtils;
      * 2.0: New upload format.
      */
     //@formatter:on
-    public static final String LOCALYTICS_CLIENT_LIBRARY_VERSION = "2.0"; //$NON-NLS-1$
+    public static final String LOCALYTICS_CLIENT_LIBRARY_VERSION = "android_2.1"; //$NON-NLS-1$
 
     /**
      * The package name of the Localytics library.
@@ -71,6 +71,8 @@ import android.text.format.DateUtils;
      * Flag indicating whether runtime method parameter checking is performed.
      */
     public static boolean ENABLE_PARAMETER_CHECKING = true;
+
+    /*package*/ static final int CURRENT_API_LEVEL = DatapointHelper.getApiLevel();
 
     /**
      * Private constructor prevents instantiation

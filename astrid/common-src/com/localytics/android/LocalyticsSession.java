@@ -272,7 +272,7 @@ public final class LocalyticsSession
          * Note that getting the application context may have unpredictable results for apps sharing a process running Android 2.1
          * and earlier. See <http://code.google.com/p/android/issues/detail?id=4469> for details.
          */
-        mContext = !(context.getClass().getName().equals("android.test.RenamingDelegatingContext")) && Build.VERSION.SDK_INT >= 8 ? context.getApplicationContext() : context; //$NON-NLS-1$
+        mContext = !(context.getClass().getName().equals("android.test.RenamingDelegatingContext")) && Constants.CURRENT_API_LEVEL >= 8 ? context.getApplicationContext() : context; //$NON-NLS-1$
         mLocalyticsKey = key;
 
         mSessionHandler = new SessionHandler(mContext, mLocalyticsKey, sSessionHandlerThread.getLooper());
@@ -287,7 +287,7 @@ public final class LocalyticsSession
 
     /**
      * Sets the Localytics opt-out state for this application. This call is not necessary and is provided for people who wish to
-     * allow their users the ability to opt out of data collection. It can be called at any time. Passing false causes all further
+     * allow their users the ability to opt out of data collection. It can be called at any time. Passing true causes all further
      * data collection to stop, and an opt-out event to be sent to the server so the user's data is removed from the charts. <br>
      * There are very serious implications to the quality of your data when providing an opt out option. For example, users who
      * have opted out will appear as never returning, causing your new/returning chart to skew. <br>
@@ -1148,7 +1148,7 @@ public final class LocalyticsSession
                 values.put(SessionsDbColumns.SESSION_START_WALL_TIME, Long.valueOf(System.currentTimeMillis()));
                 values.put(SessionsDbColumns.UUID, UUID.randomUUID().toString());
                 values.put(SessionsDbColumns.APP_VERSION, DatapointHelper.getAppVersion(mContext));
-                values.put(SessionsDbColumns.ANDROID_SDK, Integer.valueOf(VERSION.SDK_INT));
+                values.put(SessionsDbColumns.ANDROID_SDK, Integer.valueOf(Constants.CURRENT_API_LEVEL));
                 values.put(SessionsDbColumns.ANDROID_VERSION, VERSION.RELEASE);
 
                 // Try and get the deviceId. If it is unavailable (or invalid) use the installation ID instead.
@@ -1176,7 +1176,7 @@ public final class LocalyticsSession
 
                 values.put(SessionsDbColumns.DEVICE_ANDROID_ID_HASH, deviceId);
                 values.put(SessionsDbColumns.DEVICE_COUNTRY, telephonyManager.getSimCountryIso());
-                values.put(SessionsDbColumns.DEVICE_MANUFACTURER, Build.MANUFACTURER);
+                values.put(SessionsDbColumns.DEVICE_MANUFACTURER, DatapointHelper.getManufacturer());
                 values.put(SessionsDbColumns.DEVICE_MODEL, Build.MODEL);
                 values.put(SessionsDbColumns.DEVICE_SERIAL_NUMBER_HASH, DatapointHelper.getSerialNumberHashOrNull());
                 values.put(SessionsDbColumns.DEVICE_TELEPHONY_ID, DatapointHelper.getTelephonyDeviceIdOrNull(mContext));
