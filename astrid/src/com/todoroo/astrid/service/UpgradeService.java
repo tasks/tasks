@@ -144,10 +144,15 @@ public final class UpgradeService {
 
         // current message
         if(from >= V3_8_0 && from < V3_8_2) {
-            if(Preferences.getBoolean(R.string.p_transparent_deprecated, false))
-                Preferences.setString(R.string.p_theme, "transparent");
-            else
-                Preferences.setString(R.string.p_theme, "black");
+            newVersionString(changeLog, "3.8.2 beta (8/8/11)", new String[] {
+                    "New theme options for Astrid - white, black, transparent with white or black text",
+                    "New style for filter list page - same great functionality",
+                    "Fix for failed Google Tasks migration sync",
+                    "Fix for Astrid.com deleting tag information when syncing",
+                    "Fix for repeating tasks and Astrid.com sync",
+                    "Fix for duplicated Producteev notes",
+                    "Astrid is now trimmed down by 25 percent in memory",
+            });
         }
         if(from >= V3_8_0 && from < V3_8_0_2) {
             newVersionString(changeLog, "3.8.0.2 (7/16/11)", new String[] {

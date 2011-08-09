@@ -1151,7 +1151,7 @@ public class TaskListActivity extends ListActivity implements OnScrollListener,
         startActivity(intent);
         AndroidUtilities.callApiMethod(5, this, "overridePendingTransition",
                 new Class<?>[] { Integer.TYPE, Integer.TYPE },
-                R.anim.slide_bottom_in, R.anim.slide_bottom_out);
+                R.anim.slide_bottom_in, R.anim.slide_none);
     }
 
     @Override

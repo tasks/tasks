@@ -12,6 +12,7 @@ import org.json.JSONObject;
 import android.app.ListActivity;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextUtils;
@@ -73,6 +74,7 @@ public class EditNoteActivity extends ListActivity {
     protected void onCreate(Bundle savedInstanceState) {
         DependencyInjectionService.getInstance().inject(this);
         super.onCreate(savedInstanceState);
+        setTheme(R.style.Theme_Dialog);
         setContentView(R.layout.edit_note_activity);
 
         long taskId = getIntent().getLongExtra(EXTRA_TASK_ID, -1);
@@ -145,7 +147,7 @@ public class EditNoteActivity extends ListActivity {
 
         if(!TextUtils.isEmpty(task.getValue(Task.NOTES))) {
             TextView notes = new TextView(this);
-            notes.setTextAppearance(this, R.style.TextAppearance_TAd_ItemTitle);
+            notes.setLinkTextColor(Color.rgb(100, 160, 255));
             notes.setTextSize(18);
             getListView().addHeaderView(notes);
             notes.setText(task.getValue(Task.NOTES));

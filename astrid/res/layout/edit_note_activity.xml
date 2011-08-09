@@ -19,7 +19,7 @@
             android:gravity="center"
             android:visibility="gone"
             android:text="@string/ENA_loading"
-            style="@style/TextAppearance.TLA_NoItems" />
+            android:textSize="20sp" />
         
         <ListView
             android:id="@android:id/list"

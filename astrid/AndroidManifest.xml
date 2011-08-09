@@ -74,8 +74,7 @@
         
     <!-- Activity that displays task list -->
     <activity android:name="com.todoroo.astrid.activity.TaskListActivity"
-              android:windowSoftInputMode="stateHidden"
-              android:theme="@style/Theme">
+              android:windowSoftInputMode="stateHidden">
       <intent-filter>
         <action android:name="android.intent.action.MAIN" />
         <category android:name="android.intent.category.LAUNCHER" />
@@ -111,8 +110,7 @@
     <!-- Activity that displays filter list -->
     <activity android:name="com.todoroo.astrid.activity.FilterListActivity"
               android:launchMode="singleTop"
-              android:finishOnTaskLaunch="true"
-              android:theme="@style/Theme">
+              android:finishOnTaskLaunch="true">
       <intent-filter>
         <action android:name="android.intent.action.SEARCH" />
         <category android:name="android.intent.category.DEFAULT" />
@@ -122,8 +120,7 @@
     </activity>
     <!-- Activity that creates or edits tasks -->
     <activity android:name="com.todoroo.astrid.activity.TaskEditActivity"
-              android:windowSoftInputMode="stateHidden"
-              android:theme="@style/Theme">
+              android:windowSoftInputMode="stateHidden">
       <intent-filter>
         <action android:name="android.intent.action.MAIN" />
         <category android:name="android.intent.category.DEFAULT" />
@@ -136,14 +133,12 @@
     </activity>    
     <!-- Activity that selects and installs add-ons -->
     <activity android:name="com.todoroo.astrid.activity.AddOnActivity"
-              android:windowSoftInputMode="stateHidden"
-              android:theme="@style/Theme" />
+              android:windowSoftInputMode="stateHidden" />
     <!-- Activity for preferences -->
     <activity android:name="com.todoroo.astrid.activity.EditPreferences" 
         android:theme="@android:style/Theme" />
     <!-- Activity that configures widget -->
-    <activity android:name="com.todoroo.astrid.widget.TasksWidget$ConfigActivity"
-              android:theme="@style/Theme">
+    <activity android:name="com.todoroo.astrid.widget.TasksWidget$ConfigActivity">
 	    <intent-filter>
 	        <action android:name="android.appwidget.action.APPWIDGET_CONFIGURE" />
 	    </intent-filter>
@@ -416,7 +411,7 @@
     <!-- backup -->
     <service android:name="com.todoroo.astrid.backup.BackupService"/>
     <activity android:name="com.todoroo.astrid.backup.BackupActivity"
-              android:theme="@android:style/Theme.Dialog" />
+              android:theme="@style/Theme.Dialog" />
     <activity android:name="com.todoroo.astrid.backup.BackupPreferences"
               android:theme="@android:style/Theme" 
               android:label="@string/backup_BPr_header">
@@ -455,7 +450,7 @@
       </intent-filter>
     </receiver>
     <activity android:name="com.todoroo.astrid.notes.EditNoteActivity" 
-              android:theme="@android:style/Theme.Dialog"/>
+              android:theme="@style/Theme.Dialog"/>
     <receiver android:name="com.todoroo.astrid.notes.EditNoteExposer">
       <intent-filter>
         <action android:name="com.todoroo.astrid.REQUEST_ACTIONS" />
@@ -533,7 +528,7 @@
       </intent-filter>
     </activity>
     <activity android:name="com.todoroo.astrid.producteev.ProducteevLoginActivity"
-              android:theme="@style/Theme" android:configChanges="orientation|keyboardHidden" />
+              android:configChanges="orientation|keyboardHidden" />
     <service android:name="com.todoroo.astrid.producteev.ProducteevBackgroundService">
       <intent-filter>
         <action android:name="com.todoroo.astrid.producteev.SYNC" />
