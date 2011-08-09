@@ -29,6 +29,12 @@
     <string name="CFC_gtasks_list_text">In List: ?</string>
 
     <string name="CFC_gtasks_list_name">In GTasks List...</string>
+    
+    <!-- Message while clearing completed tasks -->
+    <string name="gtasks_GTA_clearing">Clearing completed tasks...</string>
+    
+    <!-- Label for clear completed menu item -->
+    <string name="gtasks_GTA_clear_completed">Clear Completed</string>
         
     <!-- ============================================ GtasksLoginActivity == -->
     
@@ -70,9 +76,6 @@
     <!-- Error Message when we receive a HTTP 401 Unauthorized multiple times -->    
     <string name="gtasks_GLA_errorAuth_captcha">You may have encountered a captcha. 
     Try logging in from the browser, then come back to try again:</string>
-    
-    <!-- Message while clearing completed tasks -->
-    <string name="gtasks_GLA_clearing">Clearing completed tasks...</string>
     
     <!-- ============================================== GtasksPreferences == -->
 

@@ -16,10 +16,13 @@ import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.andlib.utility.DialogUtilities;
 import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.astrid.activity.DraggableTaskListActivity;
+import com.todoroo.astrid.adapter.TaskAdapter.OnCompletedTaskListener;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.gtasks.sync.GtasksSyncOnSaveService;
 
 public class GtasksListActivity extends DraggableTaskListActivity {
+
+    protected static final int MENU_CLEAR_COMPLETED_ID = MENU_ADDON_INTENT_ID + 1;
 
     @Autowired private GtasksTaskListUpdater gtasksTaskListUpdater;
 
@@ -46,6 +49,13 @@ public class GtasksListActivity extends DraggableTaskListActivity {
                     android.R.drawable.ic_dialog_info,
                     getString(R.string.gtasks_help_body), null);
         }
+
+        taskAdapter.addOnCompletedTaskListener(new OnCompletedTaskListener() {
+            @Override
+            public void onCompletedTask(Task item, boolean newState) {
+                setCompletedForItemAndSubtasks(item, newState);
+            }
+        });
     }
 
     private final TouchListView.DropListener dropListener = new DropListener() {
@@ -84,14 +94,14 @@ public class GtasksListActivity extends DraggableTaskListActivity {
     @Override
     public boolean onPrepareOptionsMenu(Menu menu) {
         super.onPrepareOptionsMenu(menu);
-        MenuItem item = menu.add(Menu.NONE, MENU_SORT_ID, Menu.FIRST, "Clear completed");
+        MenuItem item = menu.add(Menu.NONE, MENU_CLEAR_COMPLETED_ID, Menu.FIRST, this.getString(R.string.gtasks_GTA_clear_completed));
         item.setIcon(android.R.drawable.ic_input_delete); // Needs new icon
         return true;
     }
 
     @Override
     public boolean onMenuItemSelected(int featureId, final MenuItem item) {
-        if (item.getItemId() == MENU_SORT_ID) {
+        if (item.getItemId() == MENU_CLEAR_COMPLETED_ID) {
             clearCompletedTasks();
             return true;
         } else {
@@ -101,10 +111,9 @@ public class GtasksListActivity extends DraggableTaskListActivity {
 
     private void clearCompletedTasks() {
 
-        final ProgressDialog pd = new ProgressDialog(this); //progressDialog(this, this.getString(R.string.gtasks_GLA_clearing))
+        final ProgressDialog pd = new ProgressDialog(this);
         final TodorooCursor<Task> tasks = taskService.fetchFiltered(filter.sqlQuery, null, Task.ID, Task.COMPLETION_DATE);
-        pd.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
-        pd.setMessage(this.getString(R.string.gtasks_GLA_clearing));pd.setMax(tasks.getCount());
+        pd.setMessage(this.getString(R.string.gtasks_GTA_clearing));
         pd.show();
 
         new Thread() {
@@ -121,14 +130,55 @@ public class GtasksListActivity extends DraggableTaskListActivity {
                             t.setValue(Task.DELETION_DATE, DateUtilities.now());
                             taskService.save(t);
                         }
-                        pd.incrementProgressBy(1);
                     }
                 } finally {
                     tasks.close();
-                    pd.dismiss();
+                    DialogUtilities.dismissDialog(GtasksListActivity.this, pd);
                 }
                 if (listId != null) {
                     gtasksTaskListUpdater.correctMetadataForList(listId);
+                }
+                GtasksListActivity.this.runOnUiThread(new Runnable() {
+                    public void run() {
+                        loadTaskListContent(true);
+                    }
+                });
+            }
+        }.start();
+    }
+
+    private void setCompletedForItemAndSubtasks(Task item, boolean completedState) {
+        final TodorooCursor<Task> tasks = taskService.fetchFiltered(filter.sqlQuery, null, Task.ID, Task.COMPLETION_DATE);
+        final long itemId = item.getId();
+        final boolean completed = completedState;
+
+        new Thread() {
+            @Override
+            public void run() {
+                try {
+                    for (tasks.moveToFirst(); !tasks.isAfterLast(); tasks.moveToNext()) {
+                        Task curr = new Task(tasks);
+                        if (curr.getId() == itemId) {
+                            int itemIndent = gtasksMetadataService.getTaskMetadata(curr.getId()).getValue(GtasksMetadata.INDENT);
+                            tasks.moveToNext();
+                            while (!tasks.isAfterLast()) {
+                                Task next = new Task(tasks);
+                                int currIndent = gtasksMetadataService.getTaskMetadata(next.getId()).getValue(GtasksMetadata.INDENT);
+                                if (currIndent > itemIndent) {
+                                    if (completed)
+                                        next.setValue(Task.COMPLETION_DATE, DateUtilities.now());
+                                    else
+                                        next.setValue(Task.COMPLETION_DATE, 0L);
+                                    taskService.save(next);
+                                } else break;
+
+                                tasks.moveToNext();
+                            }
+                            break;
+                        }
+                    }
+                } finally {
+                    tasks.close();
                 }
                 GtasksListActivity.this.runOnUiThread(new Runnable() {
                     public void run() {
