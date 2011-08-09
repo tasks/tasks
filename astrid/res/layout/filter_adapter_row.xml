@@ -76,7 +76,7 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="55dp"
-        android:layout_marginTop="29dp"
+        android:layout_marginTop="26dp"
         style="@style/TextAppearance.TAd_ItemDetails"
         android:paddingRight="30dp"
         android:gravity="center_vertical"

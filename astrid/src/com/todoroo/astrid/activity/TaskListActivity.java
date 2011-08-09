@@ -206,10 +206,10 @@ public class TaskListActivity extends ListActivity implements OnScrollListener,
     protected void onCreate(Bundle savedInstanceState) {
         DependencyInjectionService.getInstance().inject(this);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
-        ThemeService.applyTheme(this);
         super.onCreate(savedInstanceState);
 
         new StartupService().onStartupApplication(this);
+        ThemeService.applyTheme(this);
         ViewGroup parent = (ViewGroup) getLayoutInflater().inflate(R.layout.task_list_activity, null);
         parent.addView(getListBody(parent), 1);
         setContentView(parent);

@@ -83,6 +83,13 @@ public final class UpgradeService {
         if(from == 135)
             AddOnService.recordOem();
 
+        if(from > 0 && from < V3_8_2) {
+            if(Preferences.getBoolean(R.string.p_transparent_deprecated, false))
+                Preferences.setString(R.string.p_theme, "transparent"); //$NON-NLS-1$
+            else
+                Preferences.setString(R.string.p_theme, "black"); //$NON-NLS-1$
+        }
+
         // long running tasks: pop up a progress dialog
         final ProgressDialog dialog;
         if(from < V3_0_0 && context instanceof Activity)
