@@ -370,7 +370,7 @@
   <string name="EPr_theme_title">Color Theme</string>
   <!-- Preference: Theme Description (%s => value) -->
   <string name="EPr_theme_desc">Currently: %s</string>  
-  <!-- Preference: Transparent Description (android 1.6) -->
+  <!-- Preference: Theme Description (android 1.6) -->
   <string name="EPr_theme_desc_unsupported">Setting requires Android 2.0+</string>
   
   <!-- Preference Category: Defaults Title -->
@@ -433,7 +433,8 @@
     <!-- theme_settings: labels for Theme preference menu -->
     <item>White</item>
     <item>Black</item>
-    <item>Transparent</item>
+    <item>Transparent (White Text)</item>
+    <item>Transparent (Black Text)</item>
   </string-array>
   
   <!-- ========================================== Task Management Settings == -->

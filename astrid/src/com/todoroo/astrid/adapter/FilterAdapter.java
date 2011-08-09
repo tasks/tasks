@@ -421,11 +421,13 @@ public class FilterAdapter extends BaseExpandableListAdapter {
 
         if(viewHolder.item instanceof FilterListHeader || viewHolder.item instanceof FilterCategory) {
             viewHolder.name.setTextAppearance(activity, headerStyle);
+            viewHolder.name.setShadowLayer(1, 1, 1, Color.BLACK);
             viewHolder.view.setBackgroundDrawable(headerBackground);
             viewHolder.view.setPadding((int) (7 * metrics.density), 5, 0, 5);
             viewHolder.view.getLayoutParams().height = (int) (40 * metrics.density);
         } else {
             viewHolder.name.setTextAppearance(activity, filterStyle);
+            viewHolder.name.setShadowLayer(0, 0, 0, 0);
             viewHolder.view.setPadding((int) (7 * metrics.density), 8, 0, 8);
             viewHolder.view.getLayoutParams().height = (int) (58 * metrics.density);
         }

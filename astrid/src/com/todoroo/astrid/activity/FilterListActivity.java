@@ -113,7 +113,7 @@ public class FilterListActivity extends ExpandableListActivity {
                 finish();
                 AndroidUtilities.callApiMethod(5, FilterListActivity.this, "overridePendingTransition", //$NON-NLS-1$
                         new Class<?>[] { Integer.TYPE, Integer.TYPE },
-                        R.anim.slide_left_in, R.anim.slide_left_out);
+                        R.anim.slide_bottom_out, 0);
             }
         });
 

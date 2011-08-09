@@ -70,6 +70,7 @@
                             android:layout_toRightOf="@id/picture"
                             android:layout_alignParentTop="true"
                             android:layout_marginTop="10dip"
+                            style="@style/TextAppearance.GEN_EditLabel"
                             android:text="@string/actfm_TVA_tag_label" />
                           
                         <EditText
@@ -92,6 +93,7 @@
                         android:layout_height="wrap_content"
                         android:paddingTop="10dip"
                         android:paddingBottom="5dip"
+                        style="@style/TextAppearance.GEN_EditLabel"
                         android:text="@string/actfm_TVA_members_label" />
                     
                     <com.todoroo.astrid.ui.PeopleContainer
@@ -119,6 +121,7 @@
                             android:layout_width="fill_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="10dip"
+                            style="@style/TextAppearance.GEN_EditLabel"
                             android:text="@string/actfm_TVA_tag_owner_label" />
                           
                         <TextView
@@ -134,6 +137,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginTop="10dip"
                             android:paddingLeft="45dip"
+                            style="@style/TextAppearance"
                             android:text="@string/actfm_TVA_silence_label" />
                             
                     </LinearLayout>

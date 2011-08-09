@@ -16,6 +16,8 @@ public class ThemeService {
             activity.setTheme(R.style.Theme);
         else if(preference != null && preference.equals("transparent"))
             activity.setTheme(R.style.Theme_Transparent);
+        else if(preference != null && preference.equals("transparent-white"))
+            activity.setTheme(R.style.Theme_TransparentWhite);
         else
             activity.setTheme(R.style.Theme_White);
 

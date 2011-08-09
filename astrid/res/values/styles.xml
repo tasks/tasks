@@ -25,10 +25,14 @@
         <item name="asContentBackground">@drawable/background_white</item>
         <item name="asHeaderBackground">@drawable/header_background_white</item>
         <item name="asTextColor">#ff000000</item>
-        <item name="asDetailsColor">#ff7777aa</item>
+        <item name="asDetailsColor">#ff6666aa</item>
         <item name="asDueDateColor">#ff000000</item>
         <item name="asFilterHeaderColor">#ffffff</item>
         <item name="asFilterHeaderBackground">@drawable/edit_titlebar_white</item>
+    </style>
+    
+    <style name="Theme.TransparentWhite" parent="Theme.White">
+        <item name="asContentBackground">@drawable/background_transparent</item>
     </style>
     
     <!--================================================== General == -->

@@ -172,7 +172,7 @@ public class TagFilterExposer extends BroadcastReceiver {
                 new Comparator<Tag>() {
             @Override
             public int compare(Tag object1, Tag object2) {
-                return object1.tag.compareTo(object2.tag);
+                return object1.tag.compareToIgnoreCase(object2.tag);
             }
         });
         for(Iterator<Entry<String, Tag>> i = tags.entrySet().iterator(); i.hasNext(); ) {

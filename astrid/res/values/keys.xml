@@ -172,6 +172,7 @@
     <item>white</item>
     <item>black</item>
     <item>transparent</item>
+    <item>transparent-white</item>
   </string-array>
     
   <string-array name="EPr_font_size">

@@ -23,7 +23,7 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="55dip"
         style="@android:attr/dropDownItemStyle"
-        android:textAppearance="@android:attr/textAppearanceLargeInverse"
+        android:textColor="?attr/asTextColor"
         android:singleLine="true"
         android:textSize="18sp"/>
         

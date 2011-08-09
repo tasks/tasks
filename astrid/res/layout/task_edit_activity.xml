@@ -299,7 +299,7 @@
         android:paddingTop="15dip"
         android:text="@string/actfm_EPA_intro"
         android:gravity="center"
-        android:textColor="#ffaa00" />
+        android:textColor="#ee9900" />
     </LinearLayout>
   </ScrollView>
 

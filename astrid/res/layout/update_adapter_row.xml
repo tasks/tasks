@@ -37,6 +37,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/title"
         android:layout_alignParentLeft="true"
+        style="@style/TextAppearance.TAd_ItemDetails"
         android:paddingLeft="50dip"
         android:textSize="14sp" />
         
