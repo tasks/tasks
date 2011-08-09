@@ -4,20 +4,47 @@
 
     <!-- ========================================================== General  -->
     
-    <style name="TextAppearance" parent="android:TextAppearance" />
+    <style name="Theme" parent="@style/Theme.GreenDroid">
+        <item name="android:windowBackground">@null</item>
+        <item name="asContentBackground">@drawable/background_gradient</item>
+        <item name="asHeaderBackground">@drawable/header_background</item>
+        <item name="asTextColor">#ffffffff</item>
+        <item name="asDetailsColor">#ff777777</item>
+        <item name="asDueDateColor">#ff7777aa</item>
+        <item name="asDueDateOverdueColor">#ffee5555</item>
+        <item name="asDueDateCompletedColor">#ff777777</item>
+    </style>
+    
+    <style name="Theme.Transparent">
+        <item name="asContentBackground">@drawable/background_transparent</item>
+    </style>
+    
+    <style name="Theme.White">
+        <item name="asContentBackground">@drawable/background_white</item>
+        <item name="asHeaderBackground">@drawable/header_background_white</item>
+        <item name="asTextColor">#ff000000</item>
+        <item name="asDetailsColor">#ff7777aa</item>
+        <item name="asDueDateColor">#ff000000</item>
+    </style>
+    
+    <!--================================================== Stuff == -->
+
+    <style name="Content">
+        <item name="android:background">?attr/asContentBackground</item>
+    </style>
+    
+    <style name="Header">
+        <item name="android:background">?attr/asHeaderBackground</item>
+    </style>
+    
+    <style name="TextAppearance" parent="android:TextAppearance">
+        <item name="android:textColor">?attr/asTextColor</item>    
+    </style>
     
     <!-- generic style for labels above edit boxes -->
     <style name="TextAppearance.GEN_EditLabel">
         <item name="android:textSize">14sp</item>
         <item name="android:textStyle">bold</item>
-    </style>
-    
-    <style name="Theme" parent="@style/Theme.GreenDroid">
-        <item name="android:windowBackground">@null</item>
-    </style>
-    
-    <style name="White" parent="android:Theme.Light">
-        <item name="android:windowBackground">@null</item>
     </style>
     
     <!--================================================== Custom Dialogs == -->
@@ -75,20 +102,20 @@
     </style>
 
     <style name="TextAppearance.TAd_ItemDetails">
-        <item name="android:textColor">#ff777777</item>
+        <item name="android:textColor">?attr/asDetailsColor</item>
         <item name="android:textColorLink">#ff88aaff</item>
     </style>
     
     <style name="TextAppearance.TAd_ItemDueDate" parent="TextAppearance.TAd_ItemDetails">
-        <item name="android:textColor">#ff7777aa</item>
+        <item name="android:textColor">?attr/asDueDateColor</item>
     </style>
     
     <style name="TextAppearance.TAd_ItemDueDate_Overdue" parent="TextAppearance.TAd_ItemDueDate">
-        <item name="android:textColor">#ffee5555</item>
+        <item name="android:textColor">?attr/asDueDateOverdueColor</item>
     </style>
     
     <style name="TextAppearance.TAd_ItemDueDate_Completed" parent="TextAppearance.TAd_ItemDueDate">
-        <item name="android:textColor">#ff777777</item>
+        <item name="android:textColor">?attr/asDueDateCompletedColor</item>
     </style>
 
     <!-- ============================================== FilterListAdapter == -->

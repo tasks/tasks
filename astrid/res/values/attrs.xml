@@ -1,5 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:android="http://schemas.android.com/apk/res/android">
+
+  <!-- theme attributes -->
+  <attr name="asContentBackground" format="reference"/>
+  <attr name="asHeaderBackground" format="reference"/>
+  <attr name="asTextColor" format="color"/>
+  <attr name="asDetailsColor" format="color"/>
+  <attr name="asDueDateColor" format="color"/>
+  <attr name="asDueDateOverdueColor" format="color"/>
+  <attr name="asDueDateCompletedColor" format="color"/>
+
   <declare-styleable name="ContactsAutoComplete">
     <attr name="allowMultiple" format="boolean"/>
     <attr name="completeTags" format="boolean"/>

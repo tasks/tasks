@@ -206,13 +206,13 @@ public class TaskListActivity extends ListActivity implements OnScrollListener,
     protected void onCreate(Bundle savedInstanceState) {
         DependencyInjectionService.getInstance().inject(this);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
+        ThemeService.applyTheme(this);
         super.onCreate(savedInstanceState);
 
         new StartupService().onStartupApplication(this);
         ViewGroup parent = (ViewGroup) getLayoutInflater().inflate(R.layout.task_list_activity, null);
         parent.addView(getListBody(parent), 1);
         setContentView(parent);
-        ThemeService.applyTheme(this);
 
         if(database == null)
             return;
@@ -605,8 +605,9 @@ public class TaskListActivity extends ListActivity implements OnScrollListener,
             return;
         }
 
-        if(requestCode == ACTIVITY_SETTINGS) {
-            ThemeService.applyTheme(this);
+        if(requestCode == ACTIVITY_SETTINGS && resultCode == EditPreferences.RESULT_CODE_THEME_CHANGED) {
+            finish();
+            startActivity(getIntent());
         }
 
         super.onActivityResult(requestCode, resultCode, data);

@@ -366,14 +366,12 @@
   <!-- Preference: Task List Show Notes Description (enabled) -->
   <string name="EPr_showNotes_desc_enabled">Notes will always be displayed</string>
   
-  <!-- Preference: Transparent -->
-  <string name="EPr_transparent_title">Transparency</string>
-  <!-- Preference: Transparent Description (disabled) -->
-  <string name="EPr_transparent_desc_disabled">Desktop wallpaper will not be shown</string>  
-  <!-- Preference: Transparent Description (enabled) -->
-  <string name="EPr_transparent_desc_enabled">Desktop wallpaper will be shown</string>
+  <!-- Preference: Theme -->
+  <string name="EPr_theme_title">Color Theme</string>
+  <!-- Preference: Theme Description (%s => value) -->
+  <string name="EPr_theme_desc">Currently: %s</string>  
   <!-- Preference: Transparent Description (android 1.6) -->
-  <string name="EPr_transparent_desc_unsupported">Setting requires Android 2.0+</string>
+  <string name="EPr_theme_desc_unsupported">Setting requires Android 2.0+</string>
   
   <!-- Preference Category: Defaults Title -->
   <string name="EPr_defaults_header">New Task Defaults</string>
@@ -429,6 +427,13 @@
       <item>At deadline</item>
       <item>When overdue</item>
       <item>At deadline or overdue</item>
+  </string-array>
+    
+  <string-array name="EPr_themes">
+    <!-- theme_settings: labels for Theme preference menu -->
+    <item>White</item>
+    <item>Black</item>
+    <item>Transparent</item>
   </string-array>
   
   <!-- ========================================== Task Management Settings == -->

@@ -2,9 +2,10 @@
 <RelativeLayout
   xmlns:android="http://schemas.android.com/apk/res/android"
   xmlns:astrid="http://schemas.android.com/apk/res/com.timsu.astrid"
+  android:id="@+id/taskEditParent"
   android:layout_width="fill_parent"
   android:layout_height="fill_parent"
-  android:background="@drawable/background_gradient">
+  style="@style/Content">
   
   <View
     android:layout_width="fill_parent"
@@ -272,6 +273,7 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content" />
       <CheckBox
+        style="@style/TextAppearance.GEN_EditLabel" 
         android:id="@+id/checkbox_facebook"
         android:text="@string/actfm_EPA_facebook"
         android:paddingLeft="45dip"
@@ -279,6 +281,7 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content" />
       <CheckBox
+        style="@style/TextAppearance.GEN_EditLabel" 
         android:id="@+id/checkbox_twitter"
         android:text="@string/actfm_EPA_twitter"
         android:paddingLeft="45dip"
@@ -318,6 +321,7 @@
         android:text="@string/TEA_reminder_label"
         style="@style/TextAppearance.GEN_EditLabel" />
       <CheckBox
+        style="@style/TextAppearance.GEN_EditLabel" 
         android:id="@+id/reminder_due"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
@@ -325,6 +329,7 @@
         android:button="@drawable/btn_check_small"       
         android:text="@string/TEA_reminder_due" />
       <CheckBox
+        style="@style/TextAppearance.GEN_EditLabel" 
         android:id="@+id/reminder_overdue"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
@@ -336,6 +341,7 @@
         android:layout_width="fill_parent"
         android:layout_height="fill_parent">
         <CheckBox
+          style="@style/TextAppearance.GEN_EditLabel"   
           android:id="@+id/reminder_random"
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"

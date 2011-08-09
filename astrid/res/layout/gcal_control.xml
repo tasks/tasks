@@ -19,7 +19,8 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="5dip"
-        android:button="@drawable/btn_check_small"       
+        android:button="@drawable/btn_check_small" 
+        style="@style/TextAppearance.GEN_EditLabel"       
         android:text="@string/gcal_TEA_addToCalendar_label" />
         
       <Spinner

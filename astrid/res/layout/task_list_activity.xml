@@ -4,16 +4,16 @@
     android:id="@+id/taskListParent"
     android:layout_width="fill_parent" 
     android:layout_height="fill_parent"
-    android:background="@drawable/background_gradient"
+    style="@style/Content"
     android:orientation="vertical">
     
     <!-- Header -->
     <LinearLayout
+        style="@style/Header"
         android:layout_width="fill_parent" 
         android:layout_height="43dip"
         android:layout_weight="1"
-        android:orientation="horizontal"
-        android:background="@drawable/header_background">
+        android:orientation="horizontal">
     
         <!-- Filters Button -->
         <ImageView android:id="@+id/back"
