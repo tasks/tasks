@@ -102,9 +102,9 @@ public class FilterListActivity extends ExpandableListActivity {
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         super.onCreate(savedInstanceState);
         new StartupService().onStartupApplication(this);
+        ThemeService.applyTheme(this);
 
         setContentView(R.layout.filter_list_activity);
-        ThemeService.applyTheme(this);
         setDefaultKeyMode(DEFAULT_KEYS_SEARCH_LOCAL);
 
         findViewById(R.id.back).setOnClickListener(new OnClickListener() {

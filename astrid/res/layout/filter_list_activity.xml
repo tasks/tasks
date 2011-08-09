@@ -3,7 +3,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent" 
     android:layout_height="fill_parent"
-    android:background="@drawable/background_gradient"
+    style="@style/Content"
     android:orientation="vertical">
 
     <!-- Header -->
@@ -12,7 +12,7 @@
         android:layout_height="43dip"
         android:layout_weight="1"
         android:orientation="horizontal"
-        android:background="@drawable/header_background">
+        style="@style/Header">
     
         <!-- Filters Button -->
         <ImageView android:id="@+id/back"

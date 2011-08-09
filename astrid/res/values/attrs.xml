@@ -9,6 +9,8 @@
   <attr name="asDueDateColor" format="color"/>
   <attr name="asDueDateOverdueColor" format="color"/>
   <attr name="asDueDateCompletedColor" format="color"/>
+  <attr name="asFilterHeaderColor" format="color"/>
+  <attr name="asFilterHeaderBackground" format="reference"/>
 
   <declare-styleable name="ContactsAutoComplete">
     <attr name="allowMultiple" format="boolean"/>

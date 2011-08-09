@@ -177,7 +177,6 @@ public final class LocaleEditAlerts extends ExpandableListActivity {
         };
         adapter.filterStyle = R.style.TextAppearance_LEA_Filter;
         adapter.headerStyle = R.style.TextAppearance_LEA_Header;
-        adapter.categoryStyle = R.style.TextAppearance_LEA_Category;
         setListAdapter(adapter);
 
         // check for plugin

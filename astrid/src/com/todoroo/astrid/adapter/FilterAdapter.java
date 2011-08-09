@@ -16,7 +16,9 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.res.TypedArray;
 import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.text.TextUtils;
@@ -51,7 +53,6 @@ public class FilterAdapter extends BaseExpandableListAdapter {
     // --- style constants
 
     public int filterStyle = R.style.TextAppearance_FLA_Filter;
-    public int categoryStyle = R.style.TextAppearance_FLA_Category;
     public int headerStyle = R.style.TextAppearance_FLA_Header;
 
     // --- instance variables
@@ -91,6 +92,7 @@ public class FilterAdapter extends BaseExpandableListAdapter {
     // if new filters are queued (obviously it cannot be garbage collected if it is possible for new filters to
     // be added).
     private final ThreadPoolExecutor filterExecutor = new ThreadPoolExecutor(0, 1, 1, TimeUnit.SECONDS, new LinkedBlockingQueue<Runnable>());
+    private final Drawable headerBackground;
 
     public FilterAdapter(Activity activity, ExpandableListView listView,
             int rowLayout, boolean skipIntentFilters) {
@@ -110,6 +112,9 @@ public class FilterAdapter extends BaseExpandableListAdapter {
         activity.getWindowManager().getDefaultDisplay().getMetrics(metrics);
         listView.setGroupIndicator(
                 activity.getResources().getDrawable(R.drawable.expander_group));
+
+        TypedArray a = activity.obtainStyledAttributes(new int[] { R.attr.asFilterHeaderBackground });
+        headerBackground = a.getDrawable(0);
     }
 
     private void offerFilter(final Filter filter) {
@@ -416,7 +421,7 @@ public class FilterAdapter extends BaseExpandableListAdapter {
 
         if(viewHolder.item instanceof FilterListHeader || viewHolder.item instanceof FilterCategory) {
             viewHolder.name.setTextAppearance(activity, headerStyle);
-            viewHolder.view.setBackgroundResource(R.drawable.edit_titlebar);
+            viewHolder.view.setBackgroundDrawable(headerBackground);
             viewHolder.view.setPadding((int) (7 * metrics.density), 5, 0, 5);
             viewHolder.view.getLayoutParams().height = (int) (40 * metrics.density);
         } else {
@@ -487,6 +492,7 @@ public class FilterAdapter extends BaseExpandableListAdapter {
         add.setTextColor(Color.WHITE);
         add.setShadowLayer(1, 1, 1, Color.BLACK);
         add.setText(filter.label);
+        add.setFocusable(false);
         RelativeLayout.LayoutParams lp = new RelativeLayout.LayoutParams(LayoutParams.WRAP_CONTENT,
                 (int)(32 * metrics.density));
         lp.rightMargin = (int) (4 * metrics.density);

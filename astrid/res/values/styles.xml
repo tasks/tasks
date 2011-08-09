@@ -13,6 +13,8 @@
         <item name="asDueDateColor">#ff7777aa</item>
         <item name="asDueDateOverdueColor">#ffee5555</item>
         <item name="asDueDateCompletedColor">#ff777777</item>
+        <item name="asFilterHeaderColor">#ffcccccc</item>
+        <item name="asFilterHeaderBackground">@drawable/edit_titlebar</item>
     </style>
     
     <style name="Theme.Transparent">
@@ -25,9 +27,11 @@
         <item name="asTextColor">#ff000000</item>
         <item name="asDetailsColor">#ff7777aa</item>
         <item name="asDueDateColor">#ff000000</item>
+        <item name="asFilterHeaderColor">#ffffff</item>
+        <item name="asFilterHeaderBackground">@drawable/edit_titlebar_white</item>
     </style>
     
-    <!--================================================== Stuff == -->
+    <!--================================================== General == -->
 
     <style name="Content">
         <item name="android:background">?attr/asContentBackground</item>
@@ -35,6 +39,7 @@
     
     <style name="Header">
         <item name="android:background">?attr/asHeaderBackground</item>
+        <item name="android:textColor">?attr/asTextColor</item>    
     </style>
     
     <style name="TextAppearance" parent="android:TextAppearance">
@@ -71,6 +76,7 @@
     <style name="TextAppearance.TLA_Header">
         <item name="android:textSize">18sp</item>
         <item name="android:gravity">center</item>
+        <item name="android:textColor">#ffffff</item>        
     </style>
     
     <style name="TextAppearance.TLA_Reminder">
@@ -123,15 +129,11 @@
     <style name="TextAppearance.FLA_Filter">
         <item name="android:textSize">18sp</item>
         <item name="android:textStyle">bold</item>
+        <item name="android:textColor">?attr/asTextColor</item>
     </style>
     
     <style name="TextAppearance.FLA_Header" parent="TextAppearance.FLA_Filter">
-        <item name="android:textColor">#ffcccccc</item>
-        <item name="android:textStyle"></item>
-    </style>
-    
-    <style name="TextAppearance.FLA_Category" parent="TextAppearance.FLA_Filter">
-        <item name="android:textColor">#ffdddddd</item>
+        <item name="android:textColor">?attr/asFilterHeaderColor</item>
         <item name="android:textStyle"></item>
     </style>
 
