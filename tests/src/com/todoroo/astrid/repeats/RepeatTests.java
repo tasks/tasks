@@ -177,6 +177,42 @@ public class RepeatTests extends DatabaseTestCase {
         }
     }
 
+    public void testMinutelyFromDueDate() throws Exception {
+        Task task = new Task();
+        task.setValue(Task.TITLE, "minutely");
+        RRule rrule = new RRule();
+        rrule.setInterval(30);
+        rrule.setFreq(Frequency.MINUTELY);
+        task.setValue(Task.RECURRENCE, rrule.toIcal());
+        long originalDueDate = (DateUtilities.now() + DateUtilities.ONE_DAY) / 1000L * 1000L;
+        task.setValue(Task.DUE_DATE, Task.createDueDate(Task.URGENCY_SPECIFIC_DAY_TIME, originalDueDate));
+        taskDao.save(task);
+
+        task.setValue(Task.COMPLETION_DATE, DateUtilities.now());
+        saveAndTriggerRepeatListener(task);
+
+        TodorooCursor<Task> cursor = taskDao.query(Query.select(Task.PROPERTIES));
+        try {
+            assertEquals(2, cursor.getCount());
+            cursor.moveToFirst();
+            task.readFromCursor(cursor);
+
+            assertEquals(originalDueDate, (long)task.getValue(Task.DUE_DATE));
+            assertTrue(task.isCompleted());
+
+            cursor.moveToNext();
+            task.readFromCursor(cursor);
+            assertFalse(task.isCompleted());
+            long dueDate = task.getValue(Task.DUE_DATE);
+            assertTrue(task.hasDueTime());
+            assertEquals("Due date is '" + new Date(dueDate) + "', expected exactly '" +
+                    new Date(originalDueDate + 4 * DateUtilities.ONE_HOUR) + "'",
+                originalDueDate + 30 * DateUtilities.ONE_MINUTE, dueDate);
+        } finally {
+            cursor.close();
+        }
+    }
+
     /** test after completion flag */
     public void testRepeatAfterComplete() throws Exception {
         // create a weekly task due a couple days in the past, but with the 'after completion'

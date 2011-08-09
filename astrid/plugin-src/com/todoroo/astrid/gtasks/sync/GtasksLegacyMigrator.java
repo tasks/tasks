@@ -53,8 +53,6 @@ public class GtasksLegacyMigrator {
     public void checkAndMigrateLegacy() throws IOException {
         if (!gtasksPreferenceService.migrationHasOccurred()) {
 
-            listService.migrateListIds(allLists);
-
             //Fetch all tasks that have associated gtask metadata
             String defaultListTitle = gtasksListService.getListName(Preferences.getStringValue(GtasksPreferenceService.PREF_DEFAULT_LIST));
             String defaultListId = null;
@@ -86,18 +84,36 @@ public class GtasksLegacyMigrator {
                         }
                     }
 
+                    if (defaultListId == null) {
+                        com.google.api.services.tasks.v1.model.TaskList defaultList = gtasksService.getGtaskList("@default"); //$NON-NLS-1$
+                        defaultListId = defaultList.id;
+                    }
+                    Preferences.setString(GtasksPreferenceService.PREF_DEFAULT_LIST, defaultListId);
+
                     //For each local task, check to see if its title paired with any list title has a match in the map
                     for (allTasksWithGtaskData.moveToFirst(); !allTasksWithGtaskData.isAfterLast(); allTasksWithGtaskData.moveToNext()) {
                         GtasksTaskContainer container = gtasksMetadataService.readTaskAndMetadata(allTasksWithGtaskData);
+                        // memorize the original listname for the case that the task is not matched,
+                        // then it should at least be recreated in the correct list
+                        String originalListName = gtasksListService.getListName(
+                                container.gtaskMetadata.getValue(GtasksMetadata.LIST_ID));
+                        String originalListId = null;
                         System.err.println("Migrating task with title: " + container.task.getValue(Task.TITLE) +
                                 ", remote id: " + container.gtaskMetadata.getValue(GtasksMetadata.ID));
                         //Search through lists to see if one of them has match
                         String taskTitle = container.task.getValue(Task.TITLE);
+                        boolean foundMatch = false;
                         for (com.google.api.services.tasks.v1.model.TaskList list : allLists.items) {
                             String expectedKey = constructKeyFromTitles(taskTitle, list.title);
 
+                            // save the new id of the current list
+                            // if it matches the listname of the current task
+                            if (list.title != null && list.title.equals(originalListName))
+                                originalListId = list.id;
+
                             if (taskAndListTitlesToRemoteTaskIds.containsKey(expectedKey)) {
                                 System.err.println("Found match");
+                                foundMatch = true;
                                 String newRemoteTaskId = taskAndListTitlesToRemoteTaskIds.get(expectedKey);
                                 String newRemoteListId = list.id;
 
@@ -105,22 +121,30 @@ public class GtasksLegacyMigrator {
                                 container.gtaskMetadata.setValue(GtasksMetadata.LIST_ID, newRemoteListId);
                                 gtasksMetadataService.saveTaskAndMetadata(container);
                                 break;
-                            } else {
-                                System.err.println("Resetting metadata");
-                                //For non-matches, make the task look newly created
-                                container.gtaskMetadata.setValue(GtasksMetadata.ID, ""); //$NON-NLS-1$
-                                container.gtaskMetadata.setValue(GtasksMetadata.LIST_ID, list.id);
-                                gtasksMetadataService.saveTaskAndMetadata(container);
-                                break;
                             }
                         }
+
+                        if (!foundMatch) {
+                            System.err.println("Resetting metadata");
+                            //For non-matches, make the task look newly created
+                            container.gtaskMetadata.setValue(GtasksMetadata.ID, ""); //$NON-NLS-1$
+                            if (originalListId != null) {
+                                // set the list-id based on the original listname, saved above during for-loop
+                                container.gtaskMetadata.setValue(GtasksMetadata.LIST_ID, originalListId);
+                            } else {
+                                // remote list or local list was renamed, so put this unmatched task in the default list
+                                container.gtaskMetadata.setValue(GtasksMetadata.LIST_ID, defaultListId);
+                            }
+                            gtasksMetadataService.saveTaskAndMetadata(container);
+                            break;
+                        }
                     }
-                    if (defaultListId == null) {
-                        com.google.api.services.tasks.v1.model.TaskList defaultList = gtasksService.getGtaskList("@default"); //$NON-NLS-1$
-                        defaultListId = defaultList.id;
-                    }
-                    Preferences.setString(GtasksPreferenceService.PREF_DEFAULT_LIST, defaultListId);
                 }
+
+                // migrate the list-id's afterwards, so that we can put the non-matched tasks in their original lists
+                // if the listnames didnt change before migration (defaultlist otherwise)
+                listService.migrateListIds(allLists);
+
             } finally {
                 allTasksWithGtaskData.close();
             }
