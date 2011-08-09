@@ -486,8 +486,10 @@ public final class ActFmSyncService {
             remoteIds.add(tagObject.getLong("id"));
         }
 
-        Long[] remoteIdArray = remoteIds.toArray(new Long[remoteIds.size()]);
-        tagDataService.deleteWhere(Criterion.not(TagData.REMOTE_ID.in(remoteIdArray)));
+        if(serverTime == 0) {
+            Long[] remoteIdArray = remoteIds.toArray(new Long[remoteIds.size()]);
+            tagDataService.deleteWhere(Criterion.not(TagData.REMOTE_ID.in(remoteIdArray)));
+        }
     }
 
     /**
