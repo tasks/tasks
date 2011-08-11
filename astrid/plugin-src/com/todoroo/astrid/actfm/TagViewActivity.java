@@ -97,6 +97,7 @@ public class TagViewActivity extends TaskListActivity implements OnTabChangeList
     protected static final int REQUEST_ACTFM_LOGIN = 3;
 
     private static final String MEMBERS_IN_PROGRESS = "members"; //$NON-NLS-1$
+    private static final String TAB_IN_PROGRESS = "tab"; //$NON-NLS-1$
 
     private TagData tagData;
 
@@ -161,6 +162,9 @@ public class TagViewActivity extends TaskListActivity implements OnTabChangeList
                     });
                 }
             }).start();
+        }
+        if(savedInstanceState != null && savedInstanceState.containsKey(TAB_IN_PROGRESS)) {
+            tabHost.setCurrentTab(savedInstanceState.getInt(TAB_IN_PROGRESS));
         }
     }
 
@@ -589,6 +593,7 @@ public class TagViewActivity extends TaskListActivity implements OnTabChangeList
             JSONArray members = tagMembers.toJSONArray();
             outState.putString(MEMBERS_IN_PROGRESS, members.toString());
         }
+        outState.putInt(TAB_IN_PROGRESS, tabHost.getCurrentTab());
     }
 
     // --- events
