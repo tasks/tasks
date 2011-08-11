@@ -436,10 +436,12 @@ public class GtasksSyncProvider extends SyncProvider<GtasksTaskContainer> {
             com.google.api.services.tasks.v1.model.Task model) {
         if(shouldTransmit(local, Task.TITLE, remote))
             model.title = local.task.getValue(Task.TITLE);
-        if(shouldTransmit(local, Task.DUE_DATE, remote))
-            model.due = GtasksApiUtilities.unixTimeToGtasksTime(local.task.getValue(Task.DUE_DATE));
+        if(shouldTransmit(local, Task.DUE_DATE, remote)) {
+            model.due = GtasksApiUtilities.unixTimeToGtasksDate(local.task.getValue(Task.DUE_DATE));
+            System.err.println("Setting model due time to: " + model.due);
+        }
         if(shouldTransmit(local, Task.COMPLETION_DATE, remote)) {
-            model.completed = GtasksApiUtilities.unixTimeToGtasksTime(local.task.getValue(Task.COMPLETION_DATE));
+            model.completed = GtasksApiUtilities.unixTimeToGtasksDate(local.task.getValue(Task.COMPLETION_DATE));
             model.status = (local.task.isCompleted() ? "completed" : "needsAction");
         }
         if(shouldTransmit(local, Task.DELETION_DATE, remote))

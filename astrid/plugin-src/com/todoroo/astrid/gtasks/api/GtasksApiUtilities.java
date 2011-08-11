@@ -46,6 +46,17 @@ public class GtasksApiUtilities {
         }
     }
 
+    public static String unixTimeToGtasksDate(long time) {
+        if (time == 0) return null;
+        synchronized(timeWriter) {
+            Date date = new Date(time);
+            date.setHours(0);
+            date.setMinutes(0);
+            date.setSeconds(0);
+            return new DateTime(date, TimeZone.getDefault()).toStringRfc3339();
+        }
+    }
+
     /*
      * The two methods below are useful for testing
      */

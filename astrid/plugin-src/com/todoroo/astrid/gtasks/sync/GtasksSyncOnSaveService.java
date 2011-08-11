@@ -208,11 +208,11 @@ public final class GtasksSyncOnSaveService {
             remoteModel.notes = task.getValue(Task.NOTES);
         }
         if (values.containsKey(Task.DUE_DATE.name)) {
-            remoteModel.due = GtasksApiUtilities.unixTimeToGtasksTime(task.getValue(Task.DUE_DATE));
+            remoteModel.due = GtasksApiUtilities.unixTimeToGtasksDate(task.getValue(Task.DUE_DATE));
         }
         if (values.containsKey(Task.COMPLETION_DATE.name)) {
             if (task.isCompleted()) {
-                remoteModel.completed = GtasksApiUtilities.unixTimeToGtasksTime(task.getValue(Task.COMPLETION_DATE));
+                remoteModel.completed = GtasksApiUtilities.unixTimeToGtasksDate(task.getValue(Task.COMPLETION_DATE));
                 remoteModel.status = "completed"; //$NON-NLS-1$
             } else {
                 remoteModel.completed = null;
