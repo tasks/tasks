@@ -16,6 +16,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.content.ContentValues;
+import android.content.Context;
 import android.graphics.Bitmap;
 import android.os.Handler;
 import android.os.Looper;
@@ -262,6 +263,7 @@ public final class ActFmSyncService {
             }
         }
 
+        System.err.println(values + " --- " + params);
         if(params.size() == 0 || !checkForToken())
             return;
 
@@ -359,7 +361,7 @@ public final class ActFmSyncService {
             params.add("id"); params.add(remoteId);
         }
 
-        boolean success;
+        String error = null;
         try {
             params.add("token"); params.add(token);
             JSONObject result = actFmInvoker.invoke("tag_save", params.toArray(new Object[params.size()]));
@@ -368,25 +370,44 @@ public final class ActFmSyncService {
                 Flags.set(Flags.ACTFM_SUPPRESS_SYNC);
                 tagDataDao.saveExisting(tagData);
             }
-            success = true;
+        } catch (ActFmServiceException e) {
+            handleException("tag-save", e);
+            error = e.getMessage();
+
+            try {
+                fetchTag(tagData);
+            } catch (IOException e1) {
+                handleException("refetch-error-tag", e);
+            } catch (JSONException e1) {
+                handleException("refetch-error-tag", e);
+            }
         } catch (IOException e) {
             handleException("tag-save", e);
-            success = false;
+            error = e.getMessage();
         }
         if(!Flags.checkAndClear(Flags.TOAST_ON_SAVE))
             return;
 
-        final boolean finalSuccess = success;
+        toastSuccessOrFailure(error);
+    }
+
+    /**
+     * Show a toast on success (error = nil) or failure
+     * @param error
+     */
+    private void toastSuccessOrFailure(String error) {
+        final String finalError = error;
         Handler handler = new Handler(Looper.getMainLooper());
         handler.post(new Runnable() {
             @Override
             public void run() {
-                if(finalSuccess)
-                    Toast.makeText(ContextManager.getContext(),
+                Context context = ContextManager.getContext();
+                if(finalError == null)
+                    Toast.makeText(context,
                             R.string.actfm_toast_success, Toast.LENGTH_LONG).show();
                 else
-                    Toast.makeText(ContextManager.getContext(),
-                            R.string.actfm_toast_error, Toast.LENGTH_LONG).show();
+                    Toast.makeText(context,
+                            context.getString(R.string.actfm_toast_error, finalError), Toast.LENGTH_LONG).show();
             }
         });
     }
