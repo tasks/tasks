@@ -14,8 +14,8 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2011-07-15 22:24+0000\n"
-"X-Generator: Launchpad (build 13405)\n"
+"X-Launchpad-Export-Date: 2011-08-11 05:04+0000\n"
+"X-Generator: Launchpad (build 13644)\n"
 
 #. People Editing Activity
 #: translations/strings.xml:8( name="EPE_action") translations/strings.xml:540( name="TEA_tab_share")
@@ -3390,68 +3390,3 @@ msgstr ""
 #: translations/strings.xml:2269(item)
 msgid "Translucent"
 msgstr ""
-
-#~ msgid "Ready to work?"
-#~ msgstr "Είσαι έτοιμος για δουλειά;"
-
-#~ msgid "Stop Timer"
-#~ msgstr "Διακοπή χρονομέτρησης"
-
-#~ msgid "Untagged"
-#~ msgstr "Χωρίς ετικέτα"
-
-#~ msgid "Start Timer"
-#~ msgstr "Εκκίνηση χρονομέτρησης"
-
-#~ msgid "Tag Name"
-#~ msgstr "όνομα ετικέτας"
-
-#~ msgid "Sorted By Size"
-#~ msgstr "Ταξινόμηση κατά μέγεθος"
-
-#~ msgid "Select a tag"
-#~ msgstr "Διάλεξε ετικέτα"
-
-#~ msgid "Tags"
-#~ msgstr "Ετικέτες"
-
-#~ msgid "Advanced"
-#~ msgstr "Για προχωρημένους"
-
-#~ msgid "No Add-ons Found!"
-#~ msgstr "Χωρίς Πρόσθετα"
-
-#~ msgid "Notes will always displayed"
-#~ msgstr "Σημειώσεις μόνιμα εμφανείς"
-
-#~ msgid "Notes will be displayed when you tap a task"
-#~ msgstr "Εμφάνιση των σημειώσεων με την επιλογή μιάς εργασίας"
-
-#~ msgid "Astrid: Preferences"
-#~ msgstr "Astrid: Προτιμήσεις"
-
-#~ msgid "Refresh Tags"
-#~ msgstr "Ανανέωση των tags"
-
-#~ msgid "Members"
-#~ msgstr "Μέλη"
-
-#~ msgid "Tag Owner:"
-#~ msgstr "Ιδιοκτήτης ετικέτας"
-
-#~ msgid "Tag Name:"
-#~ msgstr "Όνομα ετικέτας:"
-
-#~ msgid "Team Members:"
-#~ msgstr "Μέλη ομάδας"
-
-#~ msgid "Shared With:"
-#~ msgstr "Διαμοιρασμός με"
-
-#~ msgid "translator-credits"
-#~ msgstr ""
-#~ "Launchpad Contributions:\n"
-#~ "  Dimitris Papadimitriou https://launchpad.net/~papadi\n"
-#~ "  Tim Su https://launchpad.net/~tim-todoroo\n"
-#~ "  ionskotis https://launchpad.net/~ionskotis\n"
-#~ "  javment https://launchpad.net/~javment"

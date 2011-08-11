@@ -3,14 +3,14 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2011-07-14 18:38-0700\n"
-"PO-Revision-Date: 2011-07-10 15:14+0000\n"
+"PO-Revision-Date: 2011-07-21 16:22+0000\n"
 "Last-Translator: Alfred Spijker <Unknown>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2011-07-15 22:25+0000\n"
-"X-Generator: Launchpad (build 13405)\n"
+"X-Launchpad-Export-Date: 2011-08-11 05:04+0000\n"
+"X-Generator: Launchpad (build 13644)\n"
 
 #. People Editing Activity
 #: translations/strings.xml:8( name="EPE_action") translations/strings.xml:540( name="TEA_tab_share")
@@ -80,7 +80,7 @@ msgstr "Activiteit"
 #. Tab for showing setting
 #: translations/strings.xml:49(item)
 msgid "List Settings"
-msgstr ""
+msgstr "Instellingen weergeven"
 
 #. Tag View Menu: refresh
 #: translations/strings.xml:53( name="actfm_TVA_menu_refresh")
@@ -95,7 +95,7 @@ msgstr "Lijst naam:"
 #. Tag Settings: tag owner label
 #: translations/strings.xml:59( name="actfm_TVA_tag_owner_label")
 msgid "List Creator:"
-msgstr ""
+msgstr "Auteur weergeven:"
 
 #. Tag Settings: tag owner value when there is no owner
 #: translations/strings.xml:62( name="actfm_TVA_tag_owner_none")
@@ -105,7 +105,7 @@ msgstr "geen"
 #. Tag Settings: list collaborators label
 #: translations/strings.xml:65( name="actfm_TVA_members_label")
 msgid "Collaborators:"
-msgstr ""
+msgstr "Medewerkers:"
 
 #. Tag Settings: tag picture
 #: translations/strings.xml:68( name="actfm_TVA_tag_picture")
@@ -115,7 +115,7 @@ msgstr "Lijst afbeelding:"
 #. Tag Settings: silence notifications label
 #: translations/strings.xml:71( name="actfm_TVA_silence_label")
 msgid "Silence Notifications"
-msgstr ""
+msgstr "Stille waarschuwingen"
 
 #. task sharing dialog: intro
 #: translations/strings.xml:76( name="actfm_EPA_intro")
@@ -222,36 +222,38 @@ msgid ""
 "Astrid.com lets you access your tasks online, share, and delegate with "
 "others."
 msgstr ""
+"Astrid.com geeft online toegang tot de taken, waarbij deze gedeeld en "
+"gedelegeerd kunnen worden met anderen."
 
 #. share login: Sharing Login FB Prompt
 #: translations/strings.xml:142( name="actfm_ALA_fb_login")
 msgid "Sign in with Facebook"
-msgstr ""
+msgstr "Aanmelden bij Facebook"
 
 #. share login: Sharing Login GG Prompt
 #: translations/strings.xml:145( name="actfm_ALA_gg_login")
 msgid "Sign in with Google"
-msgstr ""
+msgstr "Aanmelden bij Google"
 
 #. share login: Sharing Footer Password Label
 #: translations/strings.xml:148( name="actfm_ALA_pw_login")
 msgid "Don't have a Google or Facebook Account?"
-msgstr ""
+msgstr "Nog geen Google of Facebook account?"
 
 #. share login: Sharing Password Link
 #: translations/strings.xml:151( name="actfm_ALA_pw_link")
 msgid "Sign In Here"
-msgstr ""
+msgstr "Registreer hier"
 
 #. share login: Password Are you a New User?
 #: translations/strings.xml:154( name="actfm_ALA_pw_new")
 msgid "Create a new account?"
-msgstr ""
+msgstr "Nieuw account aanmaken?"
 
 #. share login: Password Are you a Returning User?
 #: translations/strings.xml:157( name="actfm_ALA_pw_returning")
 msgid "Already have an account?"
-msgstr ""
+msgstr "Bestaand account?"
 
 #. share login: Name
 #: translations/strings.xml:160( name="actfm_ALA_name_label")
@@ -291,7 +293,7 @@ msgstr "A.u.b. met Google verbinden:"
 #. share login: Sharing notice
 #: translations/strings.xml:181( name="actfm_ALA_notice")
 msgid "Astrid won't send messages e-mails without permission."
-msgstr ""
+msgstr "Astrid stuurt geen e-mails zonder toestemming"
 
 #. Preferences Title: Act.fm
 #: translations/strings.xml:186( name="actfm_APr_header")
@@ -311,7 +313,7 @@ msgstr "Nieuw commentaar ontvangen; klik voor meer details"
 #. Task Edit Activity: Container Label
 #: translations/strings.xml:203( name="alarm_ACS_label") translations/strings.xml:543( name="TEA_tab_alarms")
 msgid "Alarms"
-msgstr "Alarmen"
+msgstr "Herinneringen"
 
 #. Task Edit Activity: Add New Alarm
 #: translations/strings.xml:206( name="alarm_ACS_button")
@@ -326,7 +328,7 @@ msgstr "Alarm!"
 #. Backup Preferences Title
 #: translations/strings.xml:223( name="backup_BPr_header")
 msgid "Backups"
-msgstr "Backups"
+msgstr "Back-ups"
 
 #. Backup: Status Header
 #: translations/strings.xml:226( name="backup_BPr_group_status") translations/strings.xml:2145( name="sync_SPr_group_status")
@@ -341,7 +343,7 @@ msgstr "Laatste: %s"
 #. Backup Status: last error failed. Keep it short!
 #: translations/strings.xml:231( name="backup_status_failed")
 msgid "Last Backup Failed"
-msgstr "Laatste backup mislukt"
+msgstr "Laatste back-up mislukt"
 
 #. Backup Status: error subtitle
 #: translations/strings.xml:233( name="backup_status_failed_subtitle")
@@ -351,7 +353,7 @@ msgstr "(tikken voor fout)"
 #. Backup Status: never backed up
 #: translations/strings.xml:235( name="backup_status_never")
 msgid "Never Backed Up!"
-msgstr "Backup nooit eerder gemaakt!"
+msgstr "Nooit eerder back-up van gemaakt!"
 
 #. Backup Options Group Label
 #: translations/strings.xml:238( name="backup_BPr_group_options") translations/strings.xml:2163( name="sync_SPr_group_options")
@@ -361,22 +363,22 @@ msgstr "Opties"
 #. Preference: Automatic Backup Title
 #: translations/strings.xml:241( name="backup_BPr_auto_title")
 msgid "Automatic Backups"
-msgstr "Automatische backups"
+msgstr "Automatische back-ups"
 
 #. Preference: Automatic Backup Description (when disabled)
 #: translations/strings.xml:243( name="backup_BPr_auto_disabled")
 msgid "Automatic Backups Disabled"
-msgstr "Automatische backups uitgeschakeld"
+msgstr "Automatische back-ups uitgeschakeld"
 
 #. Preference: Automatic Backup Description (when enabled)
 #: translations/strings.xml:245( name="backup_BPr_auto_enabled")
 msgid "Backup will occur daily"
-msgstr "Backup dagelijks uitvoeren"
+msgstr "Back-up dagelijks uitvoeren"
 
 #. Preference screen restoring Tasks Help
 #: translations/strings.xml:248( name="backup_BPr_how_to_restore")
 msgid "How do I restore backups?"
-msgstr "Hoe herstel ik Backups?"
+msgstr "Hoe back-ups te herstellen?"
 
 #. Preference screen Restoring Tasks Help Dialog Text
 #: translations/strings.xml:250( name="backup_BPr_how_to_restore_dialog")
@@ -384,7 +386,7 @@ msgid ""
 "You need to add the Astrid Power Pack to manage and restore your backups. As "
 "a favor, Astrid also automatically backs up your tasks, just in case."
 msgstr ""
-"Voor het beheren van Backups heeft u het Astrid Power Pack nodig. Astrid "
+"Voor het beheren van back-ups heeft u het Astrid Power Pack nodig. Astrid "
 "maakt voor de veiligheid wel altijd een automatische kopie van de taken, "
 "voor het geval dat."
 
@@ -396,7 +398,7 @@ msgstr "Back-ups beheren"
 #. backup activity title
 #: translations/strings.xml:258( name="backup_BAc_title")
 msgid "Manage Your Backups"
-msgstr "Mijn backups beheren"
+msgstr "Back-ups beheren"
 
 #. backup activity import button
 #: translations/strings.xml:261( name="backup_BAc_import")
@@ -415,7 +417,7 @@ msgstr "Importfout"
 
 #: translations/strings.xml:271( name="export_toast")
 msgid "Backed Up %1$s to %2$s."
-msgstr "%1$s gebackupped naar %2$s."
+msgstr "Back-up gemaakt van %1$s naar %2$s."
 
 #: translations/strings.xml:273( name="export_toast_no_tasks")
 msgid "No Tasks to Export."
@@ -429,7 +431,7 @@ msgstr "Exporteren..."
 #. Backup: Title of Import Summary Dialog
 #: translations/strings.xml:279( name="import_summary_title")
 msgid "Restore Summary"
-msgstr "Samenvatting herstellen:"
+msgstr "Samenvatting herstellen"
 
 #. Backup: Summary message for import. (%s => file name, %s => total # tasks, %s => imported, %s => skipped, %s => errors)
 #: translations/strings.xml:282( name="import_summary_message")
@@ -437,8 +439,8 @@ msgid ""
 "File %1$s contained %2$s.\\n\\n %3$s imported,\\n %4$s already exist\\n %5$s "
 "had errors\\n"
 msgstr ""
-"%1$s bestanden bevatten %2$s.\\n\\n %3$s geimporteerd,\\n %4$s bestaan al\\n "
-"%5$s hadden fouten\\n"
+"Bestand %1$s bevat %2$s.\\n\\n %3$s geïmporteerd,\\n %4$s bestaan al\\n %5$s "
+"hadden fouten\\n"
 
 #. Progress Dialog Title for importing
 #: translations/strings.xml:290( name="import_progress_title")
@@ -453,22 +455,22 @@ msgstr "Taak %d lezen..."
 #. Backup: Dialog when unable to open a file
 #: translations/strings.xml:296( name="DLG_error_opening")
 msgid "Could not find this item:"
-msgstr "Item niet gevonden"
+msgstr "Item niet gevonden:"
 
 #. Backup: Dialog when unable to open SD card folder (%s => folder)
 #: translations/strings.xml:299( name="DLG_error_sdcard")
 msgid "Cannot access folder: %s"
-msgstr "Toegang geweigerd: %s"
+msgstr "Toegang geweigerd tot map: %s"
 
 #. Backup: Dialog when unable to open SD card in general
 #: translations/strings.xml:302( name="DLG_error_sdcard_general")
 msgid "Cannot access your SD card!"
-msgstr "Toegang tot SD kaart geweigerd!"
+msgstr "Toegang tot SD-kaart geweigerd!"
 
 #. Backup: File Selector dialog for import
 #: translations/strings.xml:305( name="import_file_prompt")
 msgid "Select a File to Restore"
-msgstr "Kies een backup om te herstellen"
+msgstr "Selecteer een back-up om te herstellen"
 
 #. Application Name (shown on home screen & in launcher)
 #: translations/strings.xml:315( name="app_name")
@@ -478,17 +480,17 @@ msgstr "Astrid Taken"
 #. permission title for READ_TASKS
 #: translations/strings.xml:318( name="read_permission_label") translations/strings.xml:324( name="write_permission_label")
 msgid "Astrid Permission"
-msgstr "Astrid Rechten"
+msgstr "Astrid toestemmingen"
 
 #. permission description for READ_TASKS
 #: translations/strings.xml:321( name="read_permission_desc")
 msgid "read tasks, display task filters"
-msgstr "lees taken, toon taak filters"
+msgstr "taken lezen, taakfilters weergeven"
 
 #. permission description for READ_TASKS
 #: translations/strings.xml:327( name="write_permission_desc")
 msgid "create new tasks, edit existing tasks"
-msgstr "maak nieuwe taken, bewerk bestaande"
+msgstr "nieuwe taken maken, bestaande wijzigen"
 
 #. question for deleting tasks
 #: translations/strings.xml:332( name="DLG_delete_this_task_question")
@@ -597,12 +599,12 @@ msgstr "Uitbreidingen"
 #. Menu: Adjust Sort and Hidden Task Settings
 #: translations/strings.xml:400( name="TLA_menu_sort")
 msgid "Sort &amp; Hidden"
-msgstr "Sorteren verbergen"
+msgstr "Sorteren &amp; verbergen"
 
 #. Menu: Sync Now
 #: translations/strings.xml:403( name="TLA_menu_sync")
 msgid "Sync Now!"
-msgstr "Sync Nu!"
+msgstr "Synchroniseren"
 
 #. Menu: Settings
 #: translations/strings.xml:406( name="TLA_menu_settings")
@@ -687,22 +689,22 @@ msgstr "Sorteren en verborgen taken"
 #. Hidden Task Selection: show completed tasks
 #: translations/strings.xml:461( name="SSD_completed")
 msgid "Show Completed Tasks"
-msgstr "Voltooide taken tonen"
+msgstr "Voltooide taken weergeven"
 
 #. Hidden Task Selection: show hidden tasks
 #: translations/strings.xml:464( name="SSD_hidden")
 msgid "Show Hidden Tasks"
-msgstr "Verborgen taken tonen"
+msgstr "Verborgen taken weergeven"
 
 #. Hidden Task Selection: show deleted tasks
 #: translations/strings.xml:467( name="SSD_deleted")
 msgid "Show Deleted Tasks"
-msgstr "Verwijderde taken tonen"
+msgstr "Verwijderde taken weergeven"
 
 #. Sort Selection: sort options header
 #: translations/strings.xml:470( name="SSD_sort_header")
 msgid "Sort Options"
-msgstr "Sorteeropties"
+msgstr "Sorteer opties"
 
 #. Sort Selection: smart sort
 #: translations/strings.xml:473( name="SSD_sort_auto")
@@ -757,12 +759,12 @@ msgstr "Filters laden..."
 #. Context Menu: Create Shortcut
 #: translations/strings.xml:505( name="FLA_context_shortcut")
 msgid "Create Shortcut On Desktop"
-msgstr "Snelkoppeling op Desktop maken"
+msgstr "Snelkoppeling op bureaublad maken"
 
 #. Menu: Search
 #: translations/strings.xml:508( name="FLA_menu_search")
 msgid "Search Tasks..."
-msgstr "Taak zoeken..."
+msgstr "Taken zoeken..."
 
 #. Create Shortcut Dialog Title
 #: translations/strings.xml:514( name="FLA_shortcut_dialog_title")
@@ -772,7 +774,7 @@ msgstr "Snelkoppeling maken"
 #. Create Shortcut Dialog (asks to name shortcut)
 #: translations/strings.xml:517( name="FLA_shortcut_dialog")
 msgid "Name of shortcut:"
-msgstr "Naam snelkoppeling"
+msgstr "Naam snelkoppeling:"
 
 #. Search Hint
 #: translations/strings.xml:520( name="FLA_search_hint")
@@ -782,7 +784,7 @@ msgstr "Naar taken zoeken"
 #. Search Filter name (%s => query)
 #: translations/strings.xml:523( name="FLA_search_filter")
 msgid "Matching '%s'"
-msgstr "Met '%s'"
+msgstr "Bevat '%s'"
 
 #. Toast: created shortcut (%s => label)
 #: translations/strings.xml:526( name="FLA_toast_onCreateShortcut")
@@ -896,7 +898,7 @@ msgstr "Geen einddatum"
 
 #: translations/strings.xml:608(item)
 msgid "Specific Day"
-msgstr ""
+msgstr "Specifieke dag"
 
 #. today
 #: translations/strings.xml:609(item) translations/strings.xml:719(item) translations/strings.xml:899(item) translations/strings.xml:2082( name="today")
@@ -931,7 +933,7 @@ msgstr "Niet verbergen"
 
 #: translations/strings.xml:620(item) translations/strings.xml:728(item)
 msgid "Task is due"
-msgstr "Taak einddatum"
+msgstr "Taak heeft einddatum"
 
 #: translations/strings.xml:621(item) translations/strings.xml:729(item)
 msgid "Day before due"
@@ -953,7 +955,7 @@ msgstr "Meer functies"
 #. Add Ons button
 #: translations/strings.xml:630( name="TEA_addons_button")
 msgid "Get the Power Pack!"
-msgstr "Download het Power Pack!"
+msgstr "Power Pack downloaden"
 
 #. Introduction Window title
 #: translations/strings.xml:635( name="InA_title")
@@ -963,7 +965,7 @@ msgstr "Welkom bij Astrid!"
 #. Button to agree to EULA
 #: translations/strings.xml:638( name="InA_agree")
 msgid "I Agree!!"
-msgstr "Accoord!"
+msgstr "Accoord"
 
 #. Button to disagree with EULA
 #: translations/strings.xml:641( name="InA_disagree")
@@ -998,22 +1000,22 @@ msgstr "Uiterlijk"
 #. Preference: Task List Font Size Title
 #: translations/strings.xml:665( name="EPr_fontSize_title")
 msgid "Task List Size"
-msgstr "Taaklijst lettergrootte"
+msgstr "Taaklijst lettertypegrootte"
 
 #. Preference: Task List Font Size Description
 #: translations/strings.xml:667( name="EPr_fontSize_desc")
 msgid "Font size on the main listing page"
-msgstr "Lettergrootte takenlijst"
+msgstr "Lettertypegrootte takenlijst"
 
 #. Preference: Task List Show Notes
 #: translations/strings.xml:670( name="EPr_showNotes_title")
 msgid "Show Notes In Task"
-msgstr "Notities bij taak tonen"
+msgstr "Notities bij taak weergeven"
 
 #. Preference: Task List Show Notes Description (disabled)
 #: translations/strings.xml:672( name="EPr_showNotes_desc_disabled")
 msgid "Notes will be displayed in quick action bar"
-msgstr ""
+msgstr "Notities zullen in de snelle toegangsbalk worden weergegeven"
 
 #. Preference: Task List Show Notes Description (enabled)
 #: translations/strings.xml:674( name="EPr_showNotes_desc_enabled")
@@ -1048,7 +1050,7 @@ msgstr "Basisinstellingen nieuwe taak"
 #. Preference: Default Urgency Title
 #: translations/strings.xml:689( name="EPr_default_urgency_title")
 msgid "Default Urgency"
-msgstr "Standaard urgentie"
+msgstr "Standaard prioriteit"
 
 #. Preference: Default Urgency Description (%s => setting)
 #: translations/strings.xml:691( name="EPr_default_urgency_desc") translations/strings.xml:696( name="EPr_default_importance_desc") translations/strings.xml:701( name="EPr_default_hideUntil_desc") translations/strings.xml:706( name="EPr_default_reminders_desc")
@@ -1111,41 +1113,45 @@ msgstr "Op of na de einddatum"
 #. Preference Screen Header: Old Task Management
 #: translations/strings.xml:744( name="EPr_manage_header")
 msgid "Manage Old Tasks"
-msgstr ""
+msgstr "Oude taken beheren"
 
 #: translations/strings.xml:745( name="EPr_manage_delete_completed")
 msgid "Delete Completed Tasks"
-msgstr ""
+msgstr "Voltooide taken verwijderen"
 
 #: translations/strings.xml:746( name="EPr_manage_delete_completed_message")
 msgid "Do you really want to delete all your completed tasks?"
-msgstr ""
+msgstr "Alle voltooide taken werkelijk verwijderen?"
 
 #: translations/strings.xml:747( name="EPr_manage_delete_completed_summary")
 msgid "Deleted tasks can be undeleted one-by-one"
-msgstr ""
+msgstr "Verwijderde taken kunnen één-voor-één worden teruggehaald"
 
 #: translations/strings.xml:748( name="EPr_manage_delete_completed_status")
 msgid "Deleted %d tasks!"
-msgstr ""
+msgstr "%d taken verwijderd!"
 
 #: translations/strings.xml:749( name="EPr_manage_purge_deleted")
 msgid "Purge Deleted Tasks"
-msgstr ""
+msgstr "Verwijderde taken opschonen"
 
 #: translations/strings.xml:750( name="EPr_manage_purge_deleted_message")
 msgid ""
 "Do you really want to purge all your deleted tasks?\\n\\nThese tasks will be "
 "gone forever!"
 msgstr ""
+"Alle verwijderde taken werkelijk opschonen?\\n\\nDeze taken zijn dan "
+"definitief verwijderd!"
 
 #: translations/strings.xml:751( name="EPr_manage_purge_deleted_status")
 msgid "Purged %d tasks!"
-msgstr ""
+msgstr "%s verwijderde taken opgeschoond!"
 
 #: translations/strings.xml:752( name="EPr_manage_purge_deleted_summary")
 msgid "Caution! Purged tasks can't be recovered without backup file!"
 msgstr ""
+"Waarschuwing: Opgeschoonde verwijderde taken kunnen zonder backup-bestand "
+"niet worden hersteld!"
 
 #. Add Ons Activity Title
 #: translations/strings.xml:757( name="AOA_title")
@@ -1190,7 +1196,7 @@ msgstr "Lijst is leeg!"
 #. Widget configuration activity title: select a filter
 #: translations/strings.xml:786( name="WCA_title")
 msgid "Select tasks to view..."
-msgstr "Selecteer te bekijken taken"
+msgstr "Selecteer weer te geven taken..."
 
 #. Title of "About" option in settings
 #: translations/strings.xml:791( name="p_about")
@@ -1256,7 +1262,7 @@ msgstr "Onlangs aangepast"
 #. Build Your Own Filter
 #: translations/strings.xml:838( name="BFE_Custom")
 msgid "Custom Filter..."
-msgstr "Eigen filter..."
+msgstr "Aangepast filter..."
 
 #. Saved Filters Header
 #: translations/strings.xml:841( name="BFE_Saved")
@@ -1271,12 +1277,12 @@ msgstr "Filter verwijderen"
 #. Build Your Own Filter Activity Title
 #: translations/strings.xml:849( name="CFA_title")
 msgid "Custom Filter"
-msgstr "Eigen filter"
+msgstr "Aangepast filter"
 
 #. Filter Name edit box hint (if user types here, filter will be saved)
 #: translations/strings.xml:852( name="CFA_filterName_hint")
 msgid "Name this filter to save it..."
-msgstr "Omschrijf dit filter om op te slaan"
+msgstr "Naam geven om op te slaan..."
 
 #. Filter Name default for copied filters (%s => old filter name)
 #: translations/strings.xml:855( name="CFA_filterName_copy")
@@ -1316,7 +1322,7 @@ msgid ""
 msgstr ""
 "Met dit scherm kunnen nieuwe filters worden gemaakt. Criteria kunnen met "
 "onderstaande knop worden toegevoegd, kort of lang drukken om ze aan te "
-"passen en klik daarna op \"Bekijken!\""
+"passen en klik daarna op \"Weergeven\"."
 
 #. Filter Button: add new
 #: translations/strings.xml:881( name="CFA_button_add")
@@ -1326,22 +1332,22 @@ msgstr "Criteria toevoegen"
 #. Filter Button: view without saving
 #: translations/strings.xml:884( name="CFA_button_view")
 msgid "View"
-msgstr "Bekijken"
+msgstr "Weergeven"
 
 #. Filter Button: save & view filter
 #: translations/strings.xml:887( name="CFA_button_save")
 msgid "Save &amp; View"
-msgstr "Bewaren &amp; Bekijken"
+msgstr "Bewaren &amp; Weergeven"
 
 #. Criteria: due by X - display text (? -> user input)
 #: translations/strings.xml:892( name="CFC_dueBefore_text")
 msgid "Due By: ?"
-msgstr "Loopt af op: ?"
+msgstr "Einddatum: ?"
 
 #. Criteria: due by X - name of criteria
 #: translations/strings.xml:894( name="CFC_dueBefore_name")
 msgid "Due By..."
-msgstr "Loopt af op..."
+msgstr "Einddatum..."
 
 #. Criteria: due by X - options
 #: translations/strings.xml:897(item)
@@ -1356,12 +1362,12 @@ msgstr "Gisteren"
 #. Criteria: importance - display text (? -> user input)
 #: translations/strings.xml:907( name="CFC_importance_text")
 msgid "Importance at least ?"
-msgstr "Prioriteit tenminste?"
+msgstr "Belangrijkheid tenminste ?"
 
 #. Criteria: importance - name of criteria
 #: translations/strings.xml:909( name="CFC_importance_name")
 msgid "Importance..."
-msgstr "Prioriteit..."
+msgstr "Belangrijkheid..."
 
 #. Criteria: tag - display text (? -> user input)
 #: translations/strings.xml:912( name="CFC_tag_text")
@@ -1441,7 +1447,7 @@ msgstr "Google Taken"
 #. filter category for GTasks lists
 #: translations/strings.xml:973( name="gtasks_FEx_list")
 msgid "By List"
-msgstr "Per Lijst"
+msgstr "Op lijst"
 
 #. filter title for GTasks lists (%s => list name)
 #: translations/strings.xml:976( name="gtasks_FEx_title")
@@ -1456,7 +1462,7 @@ msgstr "Naam nieuwe lijst:"
 #. error to show when list creation fails
 #: translations/strings.xml:982( name="gtasks_FEx_create_list_error")
 msgid "Error creating new list"
-msgstr ""
+msgstr "Fout bij aanmaken nieuwe lijst"
 
 #. short help title for Gtasks
 #: translations/strings.xml:985( name="gtasks_help_title")
@@ -1470,7 +1476,7 @@ msgid ""
 "grabber left or right to change indentation."
 msgstr ""
 "Sleep de aanwijzer aan de linker kant van een taak om hem te verplaatsen. "
-"Schuif de aanwijzer naar links of recht om de inspring te wijzigen."
+"Schuif de aanwijzer naar links of recht om de inspringing te wijzigen."
 
 #: translations/strings.xml:991( name="CFC_gtasks_list_text")
 msgid "In List: ?"
@@ -1483,7 +1489,7 @@ msgstr "In GTasks lijst..."
 #. Activity Title: Gtasks Login
 #: translations/strings.xml:998( name="gtasks_GLA_title")
 msgid "Log In to Google Tasks"
-msgstr "Log in bij Google Tasks"
+msgstr "Aanmelden bij Google Taken"
 
 #. Instructions: Gtasks login
 #: translations/strings.xml:1001( name="gtasks_GLA_body")
@@ -1496,7 +1502,7 @@ msgstr ""
 
 #: translations/strings.xml:1004( name="gtasks_GLA_noaccounts")
 msgid "No available Google accounts to sync with."
-msgstr ""
+msgstr "Geen Google account beschikbaar voor synchronisatie"
 
 #. Instructions: Gtasks further help
 #: translations/strings.xml:1007( name="gtasks_GLA_further_help")
@@ -1505,9 +1511,9 @@ msgid ""
 "page and select a Google Tasks list. By default, Astrid uses its own sort "
 "settings for tasks."
 msgstr ""
-"Om je taken met inspring en behoud van volgorde te bekijken, gebruik "
-"daarvoor de Filters pagina en selecteer een Google Takenlijst. Astrid maakt "
-"normaliter gebruik van eigen instellingen."
+"Om taken met inspringing en behoud van volgorde weer te geven, gebruik de "
+"Filter pagina en selecteer een Google Takenlijst. Astrid gebruikt eigen "
+"instellingen om taken te sorteren."
 
 #. Sign In Button
 #: translations/strings.xml:1012( name="gtasks_GLA_signIn") translations/strings.xml:1225( name="opencrx_PLA_signIn") translations/strings.xml:1361( name="producteev_PLA_signIn")
@@ -1522,7 +1528,7 @@ msgstr "E-mail"
 #. Authenticating toast
 #: translations/strings.xml:1021( name="gtasks_GLA_authenticating")
 msgid "Authenticating..."
-msgstr ""
+msgstr "Verifiëren..."
 
 #. Google Apps for Domain checkbox
 #: translations/strings.xml:1024( name="gtasks_GLA_domain")
@@ -1555,11 +1561,11 @@ msgstr "Google Taken (Beta!)"
 
 #: translations/strings.xml:1041( name="gtasks_GPr_sync_on_save")
 msgid "Sync on Save"
-msgstr ""
+msgstr "Synchroniseren bij opslaan"
 
 #: translations/strings.xml:1043( name="gtasks_GPr_sync_on_save_summary")
 msgid "Sync individual tasks as they are saved"
-msgstr ""
+msgstr "Individuele taken synchroniseren als deze worden opgeslagen"
 
 #. title for notification tray when synchronizing
 #: translations/strings.xml:1048( name="gtasks_notification_title")
@@ -1574,7 +1580,7 @@ msgstr "Intro: Druk hier om notities weer te geven"
 #. Task 1 Summary
 #: translations/strings.xml:1062( name="intro_task_1_summary")
 msgid "Create your first task"
-msgstr "Maak je eerste taak"
+msgstr "Eerste taak aanmaken"
 
 #. Task 1 Note
 #: translations/strings.xml:1065( name="intro_task_1_note")
@@ -1585,17 +1591,17 @@ msgid ""
 "(due date, tags, notes) or set more advanced options. Save the task with the "
 "save button or your phone's back button.\\n\\n"
 msgstr ""
-"Twee manieren om een taak te maken:\\n 1] Snel toevoegen: Beschrijf de taak "
-"in de box onderin en druk op de + knop die aan de linker kant staat.\\n\\n "
-"2] Normaal toevoegen: Druk op de knop aan de rechter kant van de box "
-"onderin. Vul de standaard details in (datum, label, notitie) of gebruik de "
-"uitgebreide opties. Bewaar de taak met de bewaarknop of gebruik de 'terug' "
-"toets op je toestel.\\n\\n"
+"Twee manieren om een taak te maken:\\n 1) Snel toevoegen: Beschrijf de taak "
+"in het veld onderin en druk op de + knop aan de linker kant.\\n\\n 2) "
+"Normaal toevoegen: Druk op de knop aan de rechter kant van het veld onderin. "
+"Vul de standaard details in (einddatum, labels, notities) of gebruik de "
+"geavanceerde opties. Bewaar de taak met de bewaarknop of gebruik de 'Terug' "
+"toets op het toestel.\\n\\n"
 
 #. Task 2 Summary
 #: translations/strings.xml:1075( name="intro_task_2_summary")
 msgid "Add a widget to your desktop"
-msgstr "Voeg een widget toe aan je hoofdscherm"
+msgstr "Widget toevoegen aan het hoofdscherm"
 
 #. Task 2 Note
 #: translations/strings.xml:1078( name="intro_task_2_note")
@@ -1642,7 +1648,7 @@ msgstr "Astrid Filter waarschuwing"
 msgid ""
 "Astrid will send you a reminder when you have any tasks in the following "
 "filter:"
-msgstr "Astrid waarschuwt je als je een taak hebt met het volgende filter:"
+msgstr "Astrid zal waarschuwen als er een taak is met het volgende filter:"
 
 #. Locale Window Filter Picker UI
 #: translations/strings.xml:1115( name="locale_pick_filter")
@@ -1652,31 +1658,31 @@ msgstr "Filter:"
 #. Locale Window Interval Label
 #: translations/strings.xml:1118( name="locale_interval_label")
 msgid "Limit notifications to:"
-msgstr "Beperk mededelingen tot:"
+msgstr "Waarschuwingen beperken tot:"
 
 #: translations/strings.xml:1122(item)
 msgid "once an hour"
-msgstr "Eens per uur"
+msgstr "eens per uur"
 
 #: translations/strings.xml:1123(item)
 msgid "once every six hours"
-msgstr "Eens per 6 uur"
+msgstr "eens per 6 uur"
 
 #: translations/strings.xml:1124(item)
 msgid "once every twelve hours"
-msgstr "Eens per 12 uur"
+msgstr "eens per 12 uur"
 
 #: translations/strings.xml:1125(item)
 msgid "once a day"
-msgstr "Een keer per dag"
+msgstr "eens per dag"
 
 #: translations/strings.xml:1126(item)
 msgid "once every three days"
-msgstr "Een keer per drie dagen"
+msgstr "eens per 3 dagen"
 
 #: translations/strings.xml:1127(item)
 msgid "once a week"
-msgstr "Een keer per week"
+msgstr "eens per week"
 
 #. Locale Notification text
 #: translations/strings.xml:1131( name="locale_notification")
@@ -1716,7 +1722,7 @@ msgstr "van %s"
 #. replacement string for task edit "Notes" when using OpenCRX
 #: translations/strings.xml:1159( name="opencrx_TEA_notes") translations/strings.xml:1320( name="producteev_TEA_notes")
 msgid "Add a Comment"
-msgstr "Voeg commentaar toe"
+msgstr "Commentaar toevoegen"
 
 #: translations/strings.xml:1161( name="opencrx_creator_input_hint")
 msgid "Creator"
@@ -1834,12 +1840,12 @@ msgstr "Fout: Onjuiste gebruikersnaam of wachtwoord!"
 #. text for notification tray when synchronizing
 #: translations/strings.xml:1245( name="opencrx_notification_text") translations/strings.xml:1399( name="producteev_notification_text")
 msgid "%s tasks updated / click for more details"
-msgstr "%s taken geüpdated / click voor details"
+msgstr "%s taken bijgewerkt / klik voor details"
 
 #. Error msg when io exception
 #: translations/strings.xml:1248( name="opencrx_ioerror") translations/strings.xml:1402( name="producteev_ioerror") translations/strings.xml:2140( name="SyP_ioerror")
 msgid "Connection Error! Check your Internet connection."
-msgstr "Verbindingsfout! Controleer de verbinding met Internet"
+msgstr "Verbindingsfout! Controleer de internetverbinding"
 
 #. opencrx Login not specified
 #: translations/strings.xml:1251( name="opencrx_MLA_email_empty")
@@ -1849,12 +1855,12 @@ msgstr "Aanmelding niet gespecificeerd"
 #. opencrx password not specified
 #: translations/strings.xml:1254( name="opencrx_MLA_password_empty") translations/strings.xml:1408( name="producteev_MLA_password_empty")
 msgid "Password was not specified!"
-msgstr "Wachtwoord niet ingevuld!"
+msgstr "Wachtwoord niet ingevoerd!"
 
 #. label for task-assignment spinner on taskeditactivity
 #: translations/strings.xml:1259( name="opencrx_TEA_task_assign_label") translations/strings.xml:1413( name="producteev_TEA_task_assign_label")
 msgid "Assign this task to this person:"
-msgstr "Wijs taak aan deze persoon toe:"
+msgstr "Taak aan deze persoon toewijzen:"
 
 #. Spinner-item for unassigned tasks on taskeditactivity
 #: translations/strings.xml:1262( name="opencrx_TEA_task_unassigned") translations/strings.xml:1416( name="producteev_TEA_task_unassigned")
@@ -1895,12 +1901,12 @@ msgstr "Astrid Power Pack"
 #. Preference: Anonymous User Statistics
 #: translations/strings.xml:1288( name="EPr_statistics_title")
 msgid "Anonymous Usage Stats"
-msgstr "Anonieme Statistieken"
+msgstr "Anonieme statistieken"
 
 #. Preference: User Statistics (disabled)
 #: translations/strings.xml:1290( name="EPr_statistics_desc_disabled")
 msgid "No usage data will be reported"
-msgstr "Geen statistieken doorgeven"
+msgstr "Geen gebruikersgegevens doorgeven"
 
 #. Preference: User Statistics (enabled)
 #: translations/strings.xml:1292( name="EPr_statistics_desc_enabled")
@@ -2000,12 +2006,12 @@ msgstr "Fout: Wachtwoorden niet hetzelfde"
 #. Prod Login email not specified
 #: translations/strings.xml:1405( name="producteev_MLA_email_empty")
 msgid "E-Mail was not specified!"
-msgstr "E-Mail adres niet ingevuld!"
+msgstr "E-mailadres niet ingevoerd!"
 
 #. label for dashboard-assignment spinner on taskeditactivity
 #: translations/strings.xml:1419( name="producteev_TEA_dashboard_assign_label")
 msgid "Assign this task to this workspace:"
-msgstr "Taak hoort bij Workspace:"
+msgstr "Taak aan deze Workspace toewijzen:"
 
 #. Task Edit: Reminder header label
 #: translations/strings.xml:1441( name="TEA_reminder_label")
@@ -2030,12 +2036,12 @@ msgstr "eenmalig willekeurig"
 #. Task Edit: Reminder alarm clock label
 #: translations/strings.xml:1453( name="TEA_reminder_alarm_label")
 msgid "Ring/Vibrate Type:"
-msgstr "Audio / Trilstand:"
+msgstr "Geluid/Trillen:"
 
 #. Task Edit: Reminder mode: ring once
 #: translations/strings.xml:1456( name="TEA_reminder_mode_once")
 msgid "Ring Once"
-msgstr "Maak 1x geluid"
+msgstr "Eenmalig geluid maken"
 
 #. Task Edit: Reminder mode: ring five times
 #: translations/strings.xml:1459( name="TEA_reminder_mode_five")
@@ -2045,7 +2051,7 @@ msgstr "5 keer bellen"
 #. Task Edit: Reminder mode: ring nonstop
 #: translations/strings.xml:1462( name="TEA_reminder_mode_nonstop")
 msgid "Ring Until I Dismiss Alarm"
-msgstr "Maak geluid totdat ik uitzet"
+msgstr "Geluid maken tot het wordt uitgezet"
 
 #. random reminder choices for task edit page.
 #: translations/strings.xml:1466(item)
@@ -2062,7 +2068,7 @@ msgstr "eens per week"
 
 #: translations/strings.xml:1469(item)
 msgid "in two weeks"
-msgstr "eens per 14 dagen"
+msgstr "eens per 2 weken"
 
 #: translations/strings.xml:1470(item)
 msgid "a month"
@@ -2080,7 +2086,7 @@ msgstr "Herinnering!"
 #. Reminder: Task was already done
 #: translations/strings.xml:1480( name="rmd_NoA_done")
 msgid "Already Done!"
-msgstr "Al gedaan!"
+msgstr "Reeds voltooid!"
 
 #. Reminder: Snooze button (remind again later)
 #: translations/strings.xml:1483( name="rmd_NoA_snooze")
@@ -2090,12 +2096,12 @@ msgstr "Sluimeren..."
 #. Reminder: Cancel reminder
 #: translations/strings.xml:1486( name="rmd_NoA_goAway")
 msgid "Go Away!"
-msgstr "Ga Weg!"
+msgstr "Annuleren"
 
 #. Reminder Preference Screen Title
 #: translations/strings.xml:1491( name="rmd_EPr_alerts_header")
 msgid "Reminder Settings"
-msgstr "Instellingen Herinneringen"
+msgstr "Instellingen herinneringen"
 
 #. Reminder Preference: Quiet Hours Start Title
 #: translations/strings.xml:1494( name="rmd_EPr_quiet_hours_start_title")
@@ -2114,7 +2120,7 @@ msgstr ""
 #. Reminder Preference: Quiet Hours Start/End Description (disabled)
 #: translations/strings.xml:1498( name="rmd_EPr_quiet_hours_desc_none")
 msgid "Quiet hours is disabled"
-msgstr "Rustperiode negeren"
+msgstr "Rustperiode is uitgeschakeld"
 
 #. Reminder Preference: Quiet Hours End Title
 #: translations/strings.xml:1501( name="rmd_EPr_quiet_hours_end_title")
@@ -2144,7 +2150,7 @@ msgstr "Geluid voor herinneringen"
 #. Reminder Preference: Notification Ringtone Description (when custom tone is set)
 #: translations/strings.xml:1513( name="rmd_EPr_ringtone_desc_custom")
 msgid "Custom ringtone has been set"
-msgstr "Eigen geluid ingesteld"
+msgstr "Aangepast geluid ingesteld"
 
 #. Reminder Preference: Notification Ringtone Description (when silence is set)
 #: translations/strings.xml:1515( name="rmd_EPr_ringtone_desc_silent")
@@ -2154,52 +2160,52 @@ msgstr "Geluid op stil gezet"
 #. Reminder Preference: Notification Ringtone Description (when custom tone is not set)
 #: translations/strings.xml:1517( name="rmd_EPr_ringtone_desc_default")
 msgid "Default ringtone will be used"
-msgstr "Standaard geluid ingesteld"
+msgstr "Standaard geluid wordt gebruikt"
 
 #. Reminder Preference: Notification Persistence Title
 #: translations/strings.xml:1520( name="rmd_EPr_persistent_title")
 msgid "Notification Persistence"
-msgstr "Astrid's koppigheid"
+msgstr "Herinneringen aanhouden"
 
 #. Reminder Preference: Notification Persistence Description (true)
 #: translations/strings.xml:1522( name="rmd_EPr_persistent_desc_true")
 msgid "Notifications must be viewed individually to be cleared"
-msgstr "Herinneringen per stuk afmelden"
+msgstr "Herinneringen moeten individueel worden gewist"
 
 #. Reminder Preference: Notification Persistence Description (false)
 #: translations/strings.xml:1524( name="rmd_EPr_persistent_desc_false")
 msgid "Notifications can be cleared with \"Clear All\" button"
-msgstr "Herinneringen kunnen tegelijk met \"Alles weg\" knop uitgezet worden"
+msgstr "Herinneringen kunnen met de \"Alles wissen\" knop worden uitgezet"
 
 #. Reminder Preference: Notification Icon Title
 #: translations/strings.xml:1527( name="rmd_EPr_notificon_title")
 msgid "Notification Icon Set"
-msgstr "Icoon voor herinnering"
+msgstr "Herinneringen pictogram"
 
 #. Reminder Preference: Notification Icon Description
 #: translations/strings.xml:1529( name="rmd_Epr_notificon_desc")
 msgid "Choose Astrid's notification bar icon"
-msgstr "Kies het icoon voor Astrid in de notificatiebalk"
+msgstr "Selecteer Astrid pictogram in waarschuwingen balk"
 
 #. Reminder Preference: Max Volume for Multiple-Ring reminders Title
 #: translations/strings.xml:1532( name="rmd_EPr_multiple_maxvolume_title")
 msgid "Max volume for multiple-ring reminders"
-msgstr ""
+msgstr "Max. volume voor multiple-ring herinneringen"
 
 #. Reminder Preference: Max Volume for Multiple-Ring reminders Description (true)
 #: translations/strings.xml:1534( name="rmd_EPr_multiple_maxvolume_desc_true")
 msgid "Astrid will max out the volume for multiple-ring reminders"
-msgstr ""
+msgstr "Astrid zal het volume voor multi-ring herinneringen maximaliseren"
 
 #. Reminder Preference: Max Volume for Multiple-Ring reminders Description (false)
 #: translations/strings.xml:1536( name="rmd_EPr_multiple_maxvolume_desc_false")
 msgid "Astrid will use the system-setting for the volume"
-msgstr ""
+msgstr "Astrid zal de systeem-instellingen voor het volume gebruiken"
 
 #. Reminder Preference: Vibrate Title
 #: translations/strings.xml:1539( name="rmd_EPr_vibrate_title")
 msgid "Vibrate on Alert"
-msgstr "Trilstand bij herinnering aan"
+msgstr "Trillen bij herinnering"
 
 #. Reminder Preference: Vibrate Description (true)
 #: translations/strings.xml:1541( name="rmd_EPr_vibrate_desc_true")
@@ -2219,7 +2225,7 @@ msgstr "Astrid aanmoedigingen"
 #. Reminder Preference: Nagging Description (true)
 #: translations/strings.xml:1548( name="rmd_EPr_nagging_desc_true")
 msgid "Astrid will show up to give you an encouragement during reminders"
-msgstr "Astrid geeft je motiverend commentaar"
+msgstr "Astrid geeft motiverende herinneringen"
 
 #. Reminder Preference: Nagging Description (false)
 #: translations/strings.xml:1550( name="rmd_EPr_nagging_desc_false")
@@ -2229,17 +2235,17 @@ msgstr "Astrid geeft geen aanmoedigings berichten"
 #. Reminder Preference: Snooze Dialog Title
 #: translations/strings.xml:1553( name="rmd_EPr_snooze_dialog_title")
 msgid "Snooze Dialog HH:MM"
-msgstr "Snooze dialoog HH:MM"
+msgstr "Sluimeren dialoog UU:MM"
 
 #. Reminder Preference: Snooze Dialog Description (true)
 #: translations/strings.xml:1555( name="rmd_EPr_snooze_dialog_desc_true")
 msgid "Snooze by selecting new snooze time (HH:MM)"
-msgstr "Snooze door tijd in te stellen (HH:MM)"
+msgstr "Sluimeren door selecteren nieuwe sluimertijd (UU:MM)"
 
 #. Reminder Preference: Nagging Description (false)
 #: translations/strings.xml:1557( name="rmd_EPr_snooze_dialog_desc_false")
 msgid "Snooze by selecting # days/hours to snooze"
-msgstr "Snooze door het aantal dagen/uren snoozen in te stellen"
+msgstr "Sluimeren door selecteren aantal dagen/uren sluimertijd"
 
 #. Reminder Preference: Default Reminders Title
 #: translations/strings.xml:1560( name="rmd_EPr_defaultRemind_title")
@@ -2254,7 +2260,7 @@ msgstr "Nieuwe taken hebben geen willekeurige herinneringen"
 #. Reminder Preference: Default Reminders Setting (%s => setting)
 #: translations/strings.xml:1564( name="rmd_EPr_defaultRemind_desc")
 msgid "New tasks will remind randomly: %s"
-msgstr "Nieuwe taken herinneren willekeurig: %s"
+msgstr "Nieuwe taken willekeurig herinneren: %s"
 
 #. Reminder Preference: random reminder choices for preference page.
 #: translations/strings.xml:1571(item) translations/strings.xml:1582(item)
@@ -2263,7 +2269,7 @@ msgstr "uitgeschakeld"
 
 #: translations/strings.xml:1572(item)
 msgid "hourly"
-msgstr "elk uur"
+msgstr "uurlijks"
 
 #: translations/strings.xml:1573(item)
 msgid "daily"
@@ -2275,7 +2281,7 @@ msgstr "wekelijks"
 
 #: translations/strings.xml:1575(item)
 msgid "bi-weekly"
-msgstr "Tweewekelijks"
+msgstr "tweewekelijks"
 
 #: translations/strings.xml:1576(item)
 msgid "monthly"
@@ -2413,7 +2419,7 @@ msgstr "In je agenda:"
 
 #: translations/strings.xml:1676(item)
 msgid "Free for a moment?"
-msgstr "Niks te doen?"
+msgstr "Niets te doen?"
 
 #: translations/strings.xml:1677(item)
 msgid "Astrid here!"
@@ -2438,7 +2444,7 @@ msgstr "Tijd om te knallen!"
 
 #: translations/strings.xml:1686(item)
 msgid "Due date is here!"
-msgstr "Deadline in zicht!"
+msgstr "Einddatum in zicht!"
 
 #: translations/strings.xml:1687(item)
 msgid "Ready to start?"
@@ -2475,11 +2481,11 @@ msgstr "Niet lui zijn nu!"
 
 #: translations/strings.xml:1699(item)
 msgid "Snooze time is up!"
-msgstr "Uitgesnoozed!"
+msgstr "Uitgesluimerd!"
 
 #: translations/strings.xml:1700(item)
 msgid "No more snoozing!"
-msgstr "De tijd van snoozen is voorbij!"
+msgstr "Sluimertijd is voorbij!"
 
 #: translations/strings.xml:1701(item)
 msgid "Now are you ready?"
@@ -2556,7 +2562,7 @@ msgstr "Aaah, nog eentje dan? Alsjeblieft?"
 
 #: translations/strings.xml:1723(item)
 msgid "Time to shorten your todo list!"
-msgstr "Tijd om je todo lijst op te schonen!"
+msgstr "Tijd om je te-doen lijst op te schonen!"
 
 #. Astrid's nagging when user clicks postpone
 #: translations/strings.xml:1728(item)
@@ -2618,12 +2624,12 @@ msgstr "Ik kan je niet helpen als je me blijft negeren..."
 #. repeating plugin name
 #: translations/strings.xml:1751( name="repeat_plugin")
 msgid "Repeating Tasks"
-msgstr "Herhaalbare taken"
+msgstr "Herhalende taken"
 
 #. repeating plugin description
 #: translations/strings.xml:1754( name="repeat_plugin_desc")
 msgid "Allows tasks to repeat"
-msgstr "Taken kunnen herhalen"
+msgstr "Herhalende taken toestaan"
 
 #. checkbox for turning on/off repeats
 #: translations/strings.xml:1757( name="repeat_enabled")
@@ -2647,24 +2653,24 @@ msgstr "Dag(en)"
 
 #: translations/strings.xml:1768(item)
 msgid "Week(s)"
-msgstr "Week/Weken"
+msgstr "week/weken"
 
 #: translations/strings.xml:1769(item)
 msgid "Month(s)"
-msgstr "Maand(en)"
+msgstr "maand(en)"
 
 #: translations/strings.xml:1770(item)
 msgid "Hour(s)"
-msgstr "Uur/Uren"
+msgstr "uur/uren"
 
 #. repeat type (date to repeat from)
 #: translations/strings.xml:1775(item)
 msgid "from due date"
-msgstr "Vanaf einddatum"
+msgstr "vanaf einddatum"
 
 #: translations/strings.xml:1776(item)
 msgid "from completion date"
-msgstr "Vanaf voltooide datum"
+msgstr "vanaf datum voltooid"
 
 #. task detail weekly by day ($I -> interval, i.e. 1 week, $D -> days, i.e. Monday, Tuesday)
 #: translations/strings.xml:1780( name="repeat_detail_byday")
@@ -2679,7 +2685,7 @@ msgstr "Elke %s"
 #. task detail for repeat from completion date (%s -> interval)
 #: translations/strings.xml:1786( name="repeat_detail_completion")
 msgid "%s after completion"
-msgstr "%s na voltooien"
+msgstr "%s na voltooing"
 
 #. label for RMilk button in Task Edit Activity
 #: translations/strings.xml:1796( name="rmilk_EOE_button")
@@ -2689,12 +2695,12 @@ msgstr "Remember the Milk instellingen"
 #. task detail showing RTM repeat information
 #: translations/strings.xml:1799( name="rmilk_TLA_repeat")
 msgid "RTM Repeating Task"
-msgstr "RTM herhalingen taak"
+msgstr "RTM herhalende taak"
 
 #. task detail showing item needs to be synchronized
 #: translations/strings.xml:1802( name="rmilk_TLA_sync")
 msgid "Needs synchronization with RTM"
-msgstr "Moet gesynct worden met RTM"
+msgstr "Synchroniseren met RTM"
 
 #. filters header: RTM
 #: translations/strings.xml:1805( name="rmilk_FEx_header") translations/strings.xml:1816( name="rmilk_MEA_title") translations/strings.xml:1830( name="rmilk_MPr_header")
@@ -2709,36 +2715,34 @@ msgstr "Lijsten"
 #. RTM list filter title (%s => list)
 #: translations/strings.xml:1811( name="rmilk_FEx_list_title")
 msgid "RTM List '%s'"
-msgstr "RTM Lijst '%s'"
+msgstr "RTM-lijst '%s'"
 
 #. RTM edit List Edit Label
 #: translations/strings.xml:1819( name="rmilk_MEA_list_label")
 msgid "RTM List:"
-msgstr "RTM Lijst:"
+msgstr "RTM-lijst:"
 
 #. RTM edit Repeat Label
 #: translations/strings.xml:1822( name="rmilk_MEA_repeat_label")
 msgid "RTM Repeat Status:"
-msgstr "RTM Herhaal Status:"
+msgstr "RTM herhaal status:"
 
 #. RTM edit Repeat Hint
 #: translations/strings.xml:1825( name="rmilk_MEA_repeat_hint")
 msgid "i.e. every week, after 14 days"
-msgstr "Bijv. wekelijks, na 14 dagen"
+msgstr "bijv. wekelijks, over 14 dagen"
 
 #. RTM Login Instructions
 #: translations/strings.xml:1835( name="rmilk_MLA_label")
 msgid "Please Log In and Authorize Astrid:"
-msgstr "Aanmelden en Astrid toestaan:"
+msgstr "Aanmelden en Astrid autoriseren:"
 
 #. Login Error Dialog (%s => message)
 #: translations/strings.xml:1838( name="rmilk_MLA_error")
 msgid ""
 "Sorry, there was an error verifying your login. Please try again. \\n\\n "
 "Error Message: %s"
-msgstr ""
-"Helaas, er is iets misgegaan met aanmelden. Probeer het nog eens. \\n\\n "
-"Foutmelding: %s"
+msgstr "Fout bij het aanmelden. Probeer het nogmaals. \\n\\n Foutmelding: %s"
 
 #. title for notification tray when synchronizing
 #: translations/strings.xml:1847( name="rmilk_notification_title")
@@ -2751,7 +2755,7 @@ msgid ""
 "Connection Error! Check your Internet connection, or maybe RTM servers "
 "(status.rememberthemilk.com), for possible solutions."
 msgstr ""
-"Verbindingsfout! Controleer de verbinding met Internet of de RTM servers "
+"Verbindingsfout! Controleer de internetverbinding, of de RTM servers "
 "(status.rememberthemilk.com), voor mogelijke oplossingen."
 
 #. Tags label
@@ -2777,17 +2781,17 @@ msgstr "Lijst weergeven"
 #. Dialog: new list
 #: translations/strings.xml:1883( name="tag_new_list")
 msgid "New List"
-msgstr ""
+msgstr "Nieuwe lijst"
 
 #. Dialog: list saved
 #: translations/strings.xml:1886( name="tag_list_saved")
 msgid "List Saved"
-msgstr ""
+msgstr "Lijst opgeslagen"
 
 #. Dialog: task created without title
 #: translations/strings.xml:1889( name="tag_no_title_error")
 msgid "Please enter a name for this list first!"
-msgstr ""
+msgstr "Voer a.u.b. eerst een naam in voor deze lijst!"
 
 #. filter button to add tag
 #: translations/strings.xml:1894( name="tag_FEx_add_new")
@@ -2862,7 +2866,7 @@ msgstr "Klok stoppen"
 #. Android Notification Title (%s => # tasks)
 #: translations/strings.xml:1949( name="TPl_notification")
 msgid "Timers Active for %s!"
-msgstr "Timers actief voor %s!"
+msgstr "Timers ingeschakeld voor %s!"
 
 #. Filter Header for Timer plugin
 #: translations/strings.xml:1952( name="TFE_category")
@@ -2872,7 +2876,7 @@ msgstr "Timer filters"
 #. Filter for Timed Tasks
 #: translations/strings.xml:1955( name="TFE_workingOn")
 msgid "Tasks Being Timed"
-msgstr "Taken worden getimed"
+msgstr "Taken met timer"
 
 #. Voice Add Prompt Text
 #: translations/strings.xml:1963( name="voice_create_prompt")
@@ -2893,8 +2897,8 @@ msgid ""
 "Voice-input is not installed.\\nDo you want to go to the market and install "
 "it?"
 msgstr ""
-"Spraakmodule niet geïnstalleerd.\\nWil je naar de Android Market en de "
-"spraakmodule installeren?"
+"Spraakmodule niet geïnstalleerd.\\nWil je naar de Market gaan en deze "
+"installeren?"
 
 #. Preference: Task List recognition-service is not available for this system
 #: translations/strings.xml:1970( name="EPr_voiceInputUnavailable_dlg")
@@ -2911,8 +2915,8 @@ msgid ""
 "Unfortunately the market is not available for your system.\\nIf possible, "
 "try downloading voice search from another source."
 msgstr ""
-"Helaas is de Android Market niet beschikbaar voor je toestel.\\nIndien "
-"mogelijk, probeer Voice Search via je marktplaats te downloaden."
+"Helaas is de Android Market niet beschikbaar voor dit toestel.\\nIndien "
+"mogelijk, probeer Voice Search via een andere bron te downloaden."
 
 #. Preference: Task List Show Voice-button if recognition-service is available
 #: translations/strings.xml:1974( name="EPr_voiceInputEnabled_title")
@@ -2922,27 +2926,27 @@ msgstr "Spraakinvoer"
 #. Preference: voice button description (true)
 #: translations/strings.xml:1976( name="EPr_voiceInputEnabled_desc_enabled")
 msgid "Voice input button will be displayed in task list page"
-msgstr "Spraak knop laten zien in takenlijst"
+msgstr "Spraakinvoer knop weergeven in takenlijst"
 
 #. Preference: voice button description (false)
 #: translations/strings.xml:1978( name="EPr_voiceInputEnabled_desc_disabled")
 msgid "Voice input button will be hidden on task list page"
-msgstr "Spraak knop verbergen in takenlijst"
+msgstr "Spraakinvoer knop verbergen in takenlijst"
 
 #. Preference: Task List Voice-button directly creates tasks
 #: translations/strings.xml:1980( name="EPr_voiceInputCreatesTask_title")
 msgid "Directly Create Tasks"
-msgstr "Maak direct taken bij inspreken"
+msgstr "Direct taak maken bij inspreken"
 
 #. Preference: Task List Voice-creation description (true)
 #: translations/strings.xml:1982( name="EPr_voiceInputCreatesTask_desc_enabled")
 msgid "Tasks will automatically be created from voice input"
-msgstr "Taken worden gemaakt bij inspreken"
+msgstr "Taken worden automatisch gemaakt bij inspreken"
 
 #. Preference: Task List Voice-creation description (false)
 #: translations/strings.xml:1984( name="EPr_voiceInputCreatesTask_desc_disabled")
 msgid "You can edit the task title after voice input finishes"
-msgstr "Je kan de titel van de taak naderhand bewerken"
+msgstr "De titel van de taak kan achteraf worden gewijzigd"
 
 #. Preference: Voice reminders if TTS-service is available
 #: translations/strings.xml:1986( name="EPr_voiceRemindersEnabled_title")
@@ -2952,12 +2956,12 @@ msgstr "Gesproken herinneringen"
 #. Preference: Voice reminders description (true)
 #: translations/strings.xml:1988( name="EPr_voiceRemindersEnabled_desc_enabled")
 msgid "Astrid will speak task names during task reminders"
-msgstr "Astrid leest de herinnering voor"
+msgstr "Bij herinneringen zullen de taaknamen uitgesproken worden"
 
 #. Preference: Voice reminders description (false)
 #: translations/strings.xml:1990( name="EPr_voiceRemindersEnabled_desc_disabled")
 msgid "Astrid will sound a ringtone during task reminders"
-msgstr "Astrid laat een geluid horen voor een herinnering"
+msgstr "Er wordt een geluid weergegeven bij herinneringen"
 
 #. Preference Category: Voice Title
 #: translations/strings.xml:1993( name="EPr_voice_header")
@@ -3441,948 +3445,3 @@ msgstr "Blauw"
 #: translations/strings.xml:2269(item)
 msgid "Translucent"
 msgstr "Doorzichtig"
-
-#~ msgid "Astrid"
-#~ msgstr "Astrid"
-
-#~ msgid "1 Task"
-#~ msgstr "1 Taak"
-
-#~ msgid "!!!!"
-#~ msgstr "!!!!"
-
-#~ msgid "!"
-#~ msgstr "!"
-
-#~ msgid "D\\na\\ny\\ns"
-#~ msgstr "D\\na\\ng\\ne\\nn"
-
-#~ msgid "M/dd HH:mm"
-#~ msgstr "dd-M HH:mm"
-
-#~ msgid "%d / %d Active"
-#~ msgstr "%d / %d Actief"
-
-#~ msgid "%d Tasks"
-#~ msgstr "%d Taken"
-
-#~ msgid "H\\no\\nu\\nr\\ns"
-#~ msgstr "U\\nr\\ne\\nn"
-
-#~ msgid "Astrid:"
-#~ msgstr "Astrid:"
-
-#~ msgid "Ago"
-#~ msgstr "Geleden"
-
-#~ msgid "hidden"
-#~ msgstr "verborgen"
-
-#~ msgid "New Task"
-#~ msgstr "Nieuwe taak"
-
-#~ msgid "Finished"
-#~ msgstr "Afgerond"
-
-#~ msgid "Spent:"
-#~ msgstr "Besteed:"
-
-#~ msgid "Sort/Filters"
-#~ msgstr "Sorteer/Filters"
-
-#~ msgid "Tags:"
-#~ msgstr "Labels:"
-
-#~ msgid "Notes:"
-#~ msgstr "Notities:"
-
-#~ msgid "Tags"
-#~ msgstr "Labels"
-
-#~ msgid "Deleted"
-#~ msgstr "Verwijderd"
-
-#~ msgid "Sync"
-#~ msgstr "Sync"
-
-#~ msgid "Hidden/Blocked Tasks"
-#~ msgstr "Verborgen/Geblokkeerde Taken"
-
-#~ msgid "Completed Tasks"
-#~ msgstr "Afgeronde taken"
-
-#~ msgid "Postpone for how long?"
-#~ msgstr "Voor hoe lang uitstellen?"
-
-#~ msgid "Help (opens in Browser)"
-#~ msgstr "Help (Opent in Browser)"
-
-#~ msgid "\"Delete completed tasks older than # days:\""
-#~ msgstr "\"Verwijder voltooide taken ouder dan # dagen:\""
-
-#~ msgid "One Alarm"
-#~ msgstr "Een Alarm"
-
-#~ msgid "%d Alarms"
-#~ msgstr "%d Alarmen"
-
-#~ msgid "Two Alarms"
-#~ msgstr "Twee Alarmen"
-
-#~ msgid "%s Ago"
-#~ msgstr "%s Geleden"
-
-#~ msgid "H"
-#~ msgstr "V"
-
-#~ msgid "Repeats Every"
-#~ msgstr "Herhaald elke"
-
-#~ msgid "Next Alarm:"
-#~ msgstr "Volgend Alarm:"
-
-#~ msgid "Select an Action:"
-#~ msgstr "Selecteer een Actie:"
-
-#~ msgid "Times You\\'ve Postponed: %d"
-#~ msgstr "Aantal keren Uitgesteld: %d"
-
-#~ msgid "Hide Until This Date"
-#~ msgstr "Verberg tot deze datum"
-
-#~ msgid "Periodic Reminders"
-#~ msgstr "Periodieke Herinneringen"
-
-#~ msgid "Remind Me Every"
-#~ msgstr "Herinner mij Elke"
-
-#~ msgid "Fixed Reminders"
-#~ msgstr "Vaste Herinneringen"
-
-#~ msgid "Every"
-#~ msgstr "Elke"
-
-#~ msgid "Add New Reminder"
-#~ msgstr "Voeg nieuwe Herinnering toe"
-
-#~ msgid "MMM d"
-#~ msgstr "d MMM"
-
-#~ msgid "Untagged Tasks:"
-#~ msgstr "Zonder Tag:"
-
-#~ msgid "Tagged \\\"%s\\\":"
-#~ msgstr "Met Tag \\\"%s\\\":"
-
-#~ msgid "Tagged \\'%s\\'"
-#~ msgstr "Met Tag \\'%s\\'"
-
-#~ msgid "Auto Sort"
-#~ msgstr "Automatisch Sorteren"
-
-#~ msgid "Could Not Find Requested Tag!"
-#~ msgstr "Kon Tag Niet Vinden!"
-
-#~ msgid "Sort Reverse"
-#~ msgstr "Omgekeerd sorteren"
-
-#~ msgid "Hide Until This Task is Done"
-#~ msgstr "Verbergen totdat deze taak gedaan is"
-
-#~ msgid "No Repeat Set"
-#~ msgstr "Niet herhalen"
-
-#~ msgid "Absolute Deadline"
-#~ msgstr "Echte deadline"
-
-#~ msgid "Goal Deadline"
-#~ msgstr "Doel deadline"
-
-#~ msgid "Take Astrid\\'s Survey!"
-#~ msgstr "Doe de Astrid enquête"
-
-#~ msgid "Notify me..."
-#~ msgstr "Waarschuw me..."
-
-#~ msgid "Repeats On Remote Server"
-#~ msgstr "Herhalingen op externe server"
-
-#~ msgid "Repeat Every (0 to disable)"
-#~ msgstr "Herhaal elke"
-
-#~ msgid "Help: Astrid Repeats"
-#~ msgstr "Help: Astrid Herhalingen"
-
-#~ msgid ""
-#~ "To use repeats, set at least one of the deadlines above. When you complete "
-#~ "this task, the deadline will be automatically advanced. \\n\\n If you don\\"
-#~ "'t want to see the new task right after you complete the old one, you should "
-#~ "use the \"Hide Until\" field, which will also be advanced automatically. \\n"
-#~ msgstr ""
-#~ "Om herhalingen te gebruiken, schakel ten minste een van de deadlines "
-#~ "hierboven in. Als je de taak af hebt, zal de deadline automatisch "
-#~ "doorschuiven. \\n\\n Als je niet de volgende deadline wilt zien, direct na "
-#~ "het voltooien van de oude taak, gebruik dan de optie \"Verberg tot\". Deze "
-#~ "zal ook automatisch doorschuiven. \\n"
-
-#~ msgid "Discard"
-#~ msgstr "Annuleren"
-
-#~ msgid "%d Tags"
-#~ msgstr "%d Tags"
-
-#~ msgid "1 Tag"
-#~ msgstr "1 Tag"
-
-#~ msgid "Sort By Due Date"
-#~ msgstr "Sorteer op Datum"
-
-#~ msgid "Sort By Name"
-#~ msgstr "Sorteer op Naam"
-
-#~ msgid "Astrid: Editing"
-#~ msgstr "Astrid: Bewerken"
-
-#~ msgid "Astrid: Editing Task"
-#~ msgstr "Astrid: Taak wijzigen"
-
-#~ msgid "Add Task To Calendar"
-#~ msgstr "Voeg toe aan kalender"
-
-#~ msgid "How Important is it?"
-#~ msgstr "Hoe belangrijk is het?"
-
-#~ msgid "Task Name"
-#~ msgstr "Taak naam"
-
-#~ msgid "Repeat Every"
-#~ msgstr "Herhaal elke"
-
-#~ msgid "Enter Task Notes"
-#~ msgstr "Voeg notities toe"
-
-#~ msgid "Show on Home Page"
-#~ msgstr "Laat zien op Home Page"
-
-#~ msgid "Hide on Home Page"
-#~ msgstr "Verberg op Home Page"
-
-#~ msgid "Edit Tag"
-#~ msgstr "Tag bewerken"
-
-#~ msgid "Create Task With Tag"
-#~ msgstr "Maak taak met Tag"
-
-#~ msgid "Astrid: Tag View:"
-#~ msgstr "Astrid: Tag bekijken:"
-
-#~ msgid "Astrid says..."
-#~ msgstr "Astrid zegt..."
-
-#~ msgid "Task Saved: due %s ago"
-#~ msgstr "Taak opgeslagen: verwacht %s geleden"
-
-#~ msgid "Task Saved: due in %s"
-#~ msgstr "Taak opgeslagen: verwacht in %s"
-
-#~ msgid "Tag:"
-#~ msgstr "Tag:"
-
-#~ msgid "[untagged]"
-#~ msgstr "[zonder tag]"
-
-#~ msgid "Sort A-Z"
-#~ msgstr "Sorteer A-Z"
-
-#~ msgid "Sort by Size"
-#~ msgstr "Sorteer op Grootte"
-
-#~ msgid "Shortcut created on your home screen!"
-#~ msgstr "Shortcut gemaakt op home screen"
-
-#~ msgid "Synchronization Services"
-#~ msgstr "Synchronisatie Diensten"
-
-#~ msgid "Remember The Milk"
-#~ msgstr "Remember The Milk"
-
-#~ msgid "Auto-Sync Wifi Only"
-#~ msgstr "Auto-Sync alleen met WiFi"
-
-#~ msgid "If set, auto-sync only happens when Wifi is active"
-#~ msgstr "Als aangevinkt wordt auto-sync alleen gebruikt als WiFi actief is."
-
-#~ msgid "Sync Error! Sorry for the inconvenience! Error:"
-#~ msgstr "Sync Error! Excuses voor het ongemak! Error:"
-
-#~ msgid "Auto-Synchronize"
-#~ msgstr "Automatisch Synchroniseren"
-
-#~ msgid "http://www.rememberthemilk.com"
-#~ msgstr "http://www.rememberthemilk.com"
-
-#~ msgid "Main Menu Shortcut"
-#~ msgstr "Shortcut voor Hoofdmenu"
-
-#~ msgid "Hide Dialogs"
-#~ msgstr "Verberg dialoogschermen"
-
-#~ msgid "Show \\\"Synchronize\\\" in Astrid\\'s menu"
-#~ msgstr "Laat \\\"Synchronisatie\\\" zien in Astrid\\'s menu"
-
-#~ msgid ""
-#~ "Astrid 2.7 now performs synchronization with RTM in the background. You will "
-#~ "be directed to the preferences page to configure how often you want this to "
-#~ "occur (it is a minor drain on battery)."
-#~ msgstr ""
-#~ "Astrid 2.7 verzorgt de synchronisatie met RTM nu op de achtergrond. U wordt "
-#~ "doorverwezen naar de instellingen om aan te geven hoe vaak dit moet "
-#~ "voorkomen (dit verlaagt een beetje de accu capaciteit)."
-
-#~ msgid "Clear Personal Data"
-#~ msgstr "Wis persoonlijke informatie"
-
-#~ msgid "Clear data for selected services?"
-#~ msgstr "Wis gegevens voor de geselecteerde diensten?"
-
-#~ msgid "No Synchronizers Enabled!"
-#~ msgstr "Geen syncronisatie ingesteld!"
-
-#~ msgid "Last AutoSync Attempt: %s"
-#~ msgstr "Laatste AutoSync poging: %s"
-
-#~ msgid "Sync: Up to date!"
-#~ msgstr "Sync: Klaar!"
-
-#~ msgid "%s Results"
-#~ msgstr "%s resultaten"
-
-#~ msgid "never"
-#~ msgstr "nooit"
-
-#~ msgid "Last Sync Date: %s"
-#~ msgstr "Laaste synchronisatie: %s"
-
-#~ msgid "Reading List: %s"
-#~ msgstr "Lijst ophalen: %s"
-
-#~ msgid "Transmitting: %s"
-#~ msgstr "Verzenden: %s"
-
-#~ msgid "Synchronizing Repeating Task"
-#~ msgstr "Synchroniseer herhaalde taak"
-
-#~ msgid "Merged: %d"
-#~ msgstr "Samengevoegd %d"
-
-#~ msgid "Deleted: %d"
-#~ msgstr "Verwijderd: %d"
-
-#~ msgid "Updated: %d"
-#~ msgstr "Geüpdate: %d"
-
-#~ msgid "Created: %d"
-#~ msgstr "Gemaakt: %d"
-
-#~ msgid "Summary - Remote Server:"
-#~ msgstr "Overzicht - Externe Server:"
-
-#~ msgid "Summary - Astrid Tasks:"
-#~ msgstr "Overzicht - Astrid Taken:"
-
-#~ msgid "Reading Remote Data"
-#~ msgstr "Externe gegevens lezen"
-
-#~ msgid "Receiving: %s"
-#~ msgstr "Ontvangen: %s"
-
-#~ msgid "Locally Deleted Tasks"
-#~ msgstr "Lokaal verwijderde taken"
-
-#~ msgid "Please Log In to RTM..."
-#~ msgstr "Log in op RTM a.u.b...."
-
-#~ msgid "Updating List..."
-#~ msgstr "Lijst updaten..."
-
-#~ msgid ""
-#~ "Sorry, there was an error verifying your login. Please try again. \\n\\n "
-#~ "Error Message:"
-#~ msgstr ""
-#~ "Sorry, het inloggen is niet gelukt. Probeer opnieuw. \\n\\n Error bericht:"
-
-#~ msgid "View Task"
-#~ msgstr "Bekijk Taak"
-
-#~ msgid "Question"
-#~ msgstr "Vraag"
-
-#~ msgid ""
-#~ "Astrid will send you a reminder when you have uncompleted tasks with the "
-#~ "following criteria:"
-#~ msgstr ""
-#~ "Astrid geeft u een herinnering als u onafgeronde taken heeft met de volgende "
-#~ "criteria:"
-
-#~ msgid ""
-#~ "Some things you may not know about Astrid:\\n \\n - To create a task, just "
-#~ "start typing!\\n - While editing a task, hit \\'back\\' to save it\\n - "
-#~ "Select a task &amp; press 1-4 to quickly change it\\'s priority\\n - If a "
-#~ "task has a deadline, long-press to postpone it\\n \\n Thanks for using "
-#~ "Astrid!\\n"
-#~ msgstr ""
-#~ "Wat u wellicht nog niet wist over Astrid:\\n\\n\r\n"
-#~ "- Om een taak te maken, gewoon beginnen met typen!\\n\r\n"
-#~ "- Tijdens bewerken, druk op \\'back\\' om op te slaan\\n\r\n"
-#~ "- Selecteer een taak en druk op 1-4 (keyboard) om snel de prioriteit in te "
-#~ "stellen\\n\r\n"
-#~ "- Als een taak een deadline heeft, druk dan lang op de taak om uit te "
-#~ "stellen\\n\\n\r\n"
-#~ "Bedankt voor het gebruiken van Astrid!"
-
-#~ msgid "Snooze"
-#~ msgstr "Snooze"
-
-#~ msgid "Astrid Tag Alert"
-#~ msgstr "Astrid Tag Waarschuwing"
-
-#~ msgid "Stop the timer?"
-#~ msgstr "Stop de timer?"
-
-#~ msgid "Quit"
-#~ msgstr "Afsluiten"
-
-#~ msgid "Hours/minutes to snooze?"
-#~ msgstr "Uren/Minuten snoozen?"
-
-#~ msgid "Remove this tag from all tasks?"
-#~ msgstr "Verwijder deze Tag van alle taken?"
-
-#~ msgid "Couldn't find this item:"
-#~ msgstr "Kon dit item niet vinden:"
-
-#~ msgid "Working on:"
-#~ msgstr "Werkt nu aan:"
-
-#~ msgid "Goal Deadline!"
-#~ msgstr "Doel deadline!"
-
-#~ msgid "Absolute Deadline!"
-#~ msgstr "Echte deadline!"
-
-#~ msgid "Tagged with:"
-#~ msgstr "Met Tag:"
-
-#~ msgid "You have %d task(s) tagged %s!"
-#~ msgstr "U heeft %d taken getagged met %s!"
-
-#~ msgid "Notifications"
-#~ msgstr "Meldingen"
-
-#~ msgid "Starting hour when Astrid should be quiet (e.g. 22)"
-#~ msgstr "Astrid blijft stil vanaf (bijv. 22 uur)"
-
-#~ msgid "Choose a ringtone for Astrid\\'s alerts"
-#~ msgstr "Kies een geluid voor de berichten van Astrid"
-
-#~ msgid "Persistent Mode"
-#~ msgstr "Doorzeur stand"
-
-#~ msgid "Ending hour when Astrid should be quiet (e.g. 08)"
-#~ msgstr "Astrid mag u weer lastig vallen vanaf (bijv. 08 uur)"
-
-#~ msgid "Other"
-#~ msgstr "Overige"
-
-#~ msgid "Font on the main listing page (i.e. 22)"
-#~ msgstr "Lettertype grootte op hoofdpagina (bijv. 22)"
-
-#~ msgid "Colorize Task List"
-#~ msgstr "Kleur de takenlijst"
-
-#~ msgid "Task List Font"
-#~ msgstr "Takenlijst lettergrootte"
-
-#~ msgid "Different colors for different priorities"
-#~ msgstr "Verschillende kleuren voor prioriteiten"
-
-#~ msgid "Default Deadlines"
-#~ msgstr "Standaard deadlines"
-
-#~ msgid "Nag Messages"
-#~ msgstr "Zeur berichten"
-
-#~ msgid "Show Astrid\\'s comments when viewing reminders and postponing tasks?"
-#~ msgstr ""
-#~ "Laat Astrid\\'s commentaar horen bij het bekijken van berichten en "
-#~ "uitstellen van taken"
-
-#~ msgid "Tags associated with this task"
-#~ msgstr "Tags die horen bij deze taak"
-
-#~ msgid "Task importance indicator"
-#~ msgstr "Taak belangen indicatie"
-
-#~ msgid "Estimated &amp; Elapsed Times"
-#~ msgstr "Geschatte &amp; Bestede tijden"
-
-#~ msgid "Upcoming deadlines / completed date"
-#~ msgstr "Komende deadlines / einddatum"
-
-#~ msgid "Times"
-#~ msgstr "Tijdregistratie"
-
-#~ msgid "Task Title"
-#~ msgstr "Taak titel"
-
-#~ msgid "Task description"
-#~ msgstr "Taak omschrijving"
-
-#~ msgid "Displayed Fields"
-#~ msgstr "Weergegeven velden"
-
-#~ msgid "Select the fields to show in task list"
-#~ msgstr "Selecteer de velden om in de takenlijst weer te geven"
-
-#~ msgid "Displayed if this task has reminders"
-#~ msgstr "Weergegeven als deze taak herinneringen heeft"
-
-#~ msgid "Reminders"
-#~ msgstr "Herinneringen"
-
-#~ msgid "Task repeat information"
-#~ msgstr "Herhalingen bij deze taak"
-
-#~ msgid "Notes associated with this task"
-#~ msgstr "Notities die horen bij deze taak"
-
-#~ msgid ""
-#~ "Astrid is the highly-acclaimed open-source task list that is simple enough "
-#~ "to not get in your way, powerful enough to help you get stuff done! Tags, "
-#~ "reminders, RememberTheMilk sync, Locale plug-in &amp; more!"
-#~ msgstr ""
-#~ "Astrid is de veelgeprezen open-source takenlijst die simpel genoeg is om je "
-#~ "niet te frustreren, en krachtig genoeg om jou te helpen om je zaken gedaan "
-#~ "te krijgen. Tags, herinneringen, sychronisatie met \\'Remember The Milk\\', "
-#~ "agenda plug-in &amp; meer!"
-
-#~ msgid "Couldn't save:"
-#~ msgstr "Kon dit niet opslaan:"
-
-#~ msgid "Delete"
-#~ msgstr "Verwijderen"
-
-#~ msgid "1"
-#~ msgstr "1"
-
-#~ msgid "You have $NUM tagged $TAG!"
-#~ msgstr "Je hebt %NUM getagd als $TAG!"
-
-#~ msgid "5"
-#~ msgstr "5"
-
-#~ msgid "4"
-#~ msgstr "4"
-
-#~ msgid "3"
-#~ msgstr "3"
-
-#~ msgid "2"
-#~ msgstr "2"
-
-#~ msgid "For new tasks, in days (i.e. 7). Blank to disable"
-#~ msgstr ""
-#~ "Voor nieuwe taken, in dagen (bijv. 7).Uit te schakelen door niets in te "
-#~ "vullen."
-
-#~ msgid "Choose Astrid\\'s notification bar icon"
-#~ msgstr "Kies Astrid\\'s status bar icoon"
-
-#~ msgid "Notification Icons"
-#~ msgstr "Icoon voor herinneringen"
-
-#~ msgid "If checked, LED and notifications must be cleared one at a time"
-#~ msgstr ""
-#~ "Als aangevinkt, moeten de LED en de berichten één voor één afgehandeld worden"
-
-#~ msgid "If set, synchronization occurs automatically given interval"
-#~ msgstr ""
-#~ "Als aangevinkt, gebeurt de synchronisatie automatisch met een opgegeven "
-#~ "interval"
-
-#~ msgid "Hide the Sync Results dialogs"
-#~ msgstr "Verberg de SyncResultaten dialoog"
-
-#~ msgid "Click to Set"
-#~ msgstr "Stel in"
-
-#~ msgid "Dates"
-#~ msgstr "Wanneer"
-
-#~ msgid "Summary"
-#~ msgstr "Onderwerp"
-
-#~ msgid "Due in"
-#~ msgstr "Verwacht over"
-
-#~ msgid "Due on"
-#~ msgstr "Verwacht op"
-
-#~ msgid "Goal"
-#~ msgstr "Streef"
-
-#~ msgid "Estimated:"
-#~ msgstr "Geschat op:"
-
-#~ msgid "Add New Task"
-#~ msgstr "Taak Toevoegen"
-
-#~ msgid "Postpone"
-#~ msgstr "Later"
-
-#~ msgid "Quick Tips"
-#~ msgstr "Enkele tips"
-
-#~ msgid "Poke Every"
-#~ msgstr "Sein mij elke"
-
-#~ msgid "Clean Up Old Tasks"
-#~ msgstr "Oude taken opruimen"
-
-#~ msgid "After Absolute Deadline Passes"
-#~ msgstr "Na afloop deadline"
-
-#~ msgid "At Deadlines"
-#~ msgstr "Tijdens deadline"
-
-#~ msgid "As Deadlines Approach"
-#~ msgstr "Voor de deadline"
-
-#~ msgid "# of days from now to set new deadlines"
-#~ msgstr "Nieuwe deadline begint vanaf een x aantal dagen"
-
-#~ msgid "Alarm Clock Mode"
-#~ msgstr "Alarm klok modus"
-
-#~ msgid "Alerts"
-#~ msgstr "Alarm"
-
-#~ msgid "Don't Show Help Anymore"
-#~ msgstr "Verberg dit"
-
-#~ msgid "Created:"
-#~ msgstr "Gemaakt:"
-
-#~ msgid "Overdue by"
-#~ msgstr "Over tijd:"
-
-#~ msgid "View This Task"
-#~ msgstr "Bekijk Deze Taak"
-
-#~ msgid ""
-#~ "File %s contained %d tasks.\\n Restored %d tasks.\\n Skipped %d tasks.\\n"
-#~ msgstr "Bestand %s bevat %d taken. %d taken hersteld. %d taken overgeslagen."
-
-#~ msgid "Restore"
-#~ msgstr "Herstellen"
-
-#~ msgid "Backup Tasks"
-#~ msgstr "Back-up Taken"
-
-#~ msgid "Backed Up %s to %s."
-#~ msgstr "%s gebackupped naar %s."
-
-#~ msgid "Restore Tasks"
-#~ msgstr "Herstel Taken"
-
-#~ msgid "I Won\\'t Kill Astrid!"
-#~ msgstr "Ik Vermoord Astrid niet!"
-
-#~ msgid "Cancel"
-#~ msgstr "Annuleren"
-
-#~ msgid "Oops, looks like some trouble occurred! Here's what happened:\\n\\n%s"
-#~ msgstr "Oeps, er ging iets mis! Dit is wat er gebeurde:\\n\\n%s"
-
-#~ msgid "No Add-ons Found!"
-#~ msgstr "Geen toevoegingen gevonden!"
-
-#~ msgid "Get Some Add-ons"
-#~ msgstr "Zoek toevoegingen"
-
-#~ msgid "Astrid: Preferences"
-#~ msgstr "Astrid: Instellingen"
-
-#~ msgid "Advanced"
-#~ msgstr "Details"
-
-#~ msgid "No Time Set"
-#~ msgstr "Zonder tijdstip"
-
-#~ msgid "Tagged..."
-#~ msgstr "Label..."
-
-#~ msgid "Tagged: ?"
-#~ msgstr "Label: ?"
-
-#~ msgid "Tag contains..."
-#~ msgstr "Label bevat..."
-
-#~ msgid "Tag contains: ?"
-#~ msgstr "Label bevat: ?"
-
-#~ msgid "Intro: Press me to see details"
-#~ msgstr "Intro: Druk op mij voor details"
-
-#~ msgid ""
-#~ "A desktop widget is a great way to keep track of your what you have to do as "
-#~ "well as a way to quickly add new tasks.\\n\\n How to add a widget:\\n 1) "
-#~ "Long press on your phone's desktop.\\n 2) Choose \"Widget\" form resulting "
-#~ "menu\\n 3) Choose the Astrid widget.\\n 4) You can select a Astrid filter. "
-#~ "Choose \"Active Tasks\" for all your tasks\\n\\n Bonus: Use the widget to "
-#~ "add a task!"
-#~ msgstr ""
-#~ "Een widget op je hoofdscherm is een geweldige manier om je voortgang in de "
-#~ "gaten te houden.\\n\\n Zo installeer je een widget:\\n 1] Druk lang op het "
-#~ "hoofdscherm op een lege plek.\\n 2] Kies in het menu voor \"Widget\"\\n 3] "
-#~ "Kies in het widget overzicht voor de Astrid widget.\\n 4] Je kan een "
-#~ "specifiek filter toewijzen aan een widget voor bijvoorbeeld een overzicht "
-#~ "van alle 'actieve taken'.\\n\\n Bonus: gebruik de + in de widget om snel een "
-#~ "taak toe te voegen!"
-
-#~ msgid "Setup sync with Gmail Tasks or Producteev"
-#~ msgstr "Instellingen voor sync met Gmail Taken of Producteev"
-
-#~ msgid "Do Not Synchronize"
-#~ msgstr "Niet synchroniseren"
-
-#~ msgid "Remind me..."
-#~ msgstr "Herinner mij..."
-
-#~ msgid "... when task is due"
-#~ msgstr "... op deadline"
-
-#~ msgid "... when task is overdue"
-#~ msgstr "... na deadline"
-
-#~ msgid "... randomly once"
-#~ msgstr "... willekeurig"
-
-#~ msgid "No notifications will appear after %s"
-#~ msgstr "Herinneringen uitschakelen vanaf %s"
-
-#~ msgid "Astrid Reminders"
-#~ msgstr "Astrid herinneringen"
-
-#~ msgid "Delete Tag"
-#~ msgstr "Label verwijderen"
-
-#~ msgid "Untagged"
-#~ msgstr "Zonder label"
-
-#~ msgid "Tag Name"
-#~ msgstr "Label naam"
-
-#~ msgid "Rename Tag"
-#~ msgstr "Label hernoemen"
-
-#~ msgid "Delete this tag: %s? (No tasks will be deleted.)"
-#~ msgstr "Label %s verwijderen?"
-
-#~ msgid "Tagged '%s'"
-#~ msgstr "Gelabeld '%s'"
-
-#~ msgid "Select a tag"
-#~ msgstr "Kies een label"
-
-#~ msgid "Rename the tag %s to:"
-#~ msgstr "Naam label %s wijzigen naar:"
-
-#~ msgid "Tag %s removed from %d tasks"
-#~ msgstr "Label %s verwijderd van %d taken"
-
-#~ msgid "Replaced %s with %s on %d tasks"
-#~ msgstr "%s labels vervangen door %s van %d taken"
-
-#~ msgid "It\\s early, get something done!"
-#~ msgstr "Het is nog vroeg, zullen we wat doen?"
-
-#~ msgid ""
-#~ "File %s contained %s.\\n\\n %s imported,\\n %s already exist\\n %s had "
-#~ "errors\\n"
-#~ msgstr ""
-#~ "Bestand %s bevat %s taken.\\n\\n %s geïmporteerd,\\n %s bestaan al\\n %s "
-#~ "fouten\\n"
-
-#~ msgid "Notes will be displayed when you tap a task"
-#~ msgstr "Notities weergeven bij aantikken taak"
-
-#~ msgid ""
-#~ "Astrid makes it possible for you to sync your tasks with the simple task "
-#~ "list provided by Gmail. For more advanced task features we recommend "
-#~ "synchronization with Producteev.\\n\\n To enable sync from Astrid press "
-#~ "\"Menu\" -&gt; \"Settings\" -&gt; \"Synchronization\" and choose the sync "
-#~ "provider you prefer."
-#~ msgstr ""
-#~ "Astrid laat je je taken uitwisselen (synchroniseren) met de takenlijst in "
-#~ "Gmail. Voor meer complexere functionaliteiten raden we Producteev aan.\\n\\n "
-#~ "Om synchronisatie te gebruiken, druk de 'menu' toets op je toestel -&gt; "
-#~ "\"Instellingen\" -&gt; \"Synchronisatie\" en selecteer de synchronisatie "
-#~ "dienst van je voorkeur."
-
-#~ msgid "Share This Task"
-#~ msgstr "Deze taak delen"
-
-#~ msgid ""
-#~ "My Astrid lets you post tasks to the web to share with others. Let your "
-#~ "friends encourage and keep you accountable!"
-#~ msgstr ""
-#~ "My Astrid geeft je de mogelijkheid taken te delen met anderen op het web. "
-#~ "Laat je aanmoedigen door vrienden!"
-
-#~ msgid "Replaced %1$s with %2$s on %3$d tasks"
-#~ msgstr "%1$s vervangen door %2$s bij %3$d taken"
-
-#~ msgid ""
-#~ "Please log in to Google Tasks Sync (Beta!). Google Apps for Domain is "
-#~ "currently unsupported, we're working on that!"
-#~ msgstr ""
-#~ "Aanmelden bij Google Taken is vereist om te synchroniseren. Google Apps voor "
-#~ "domeinen wordt momenteel nog niet ondersteund, daar wordt aan gewerkt!"
-
-#~ msgid "Notifications will begin appearing starting at %s"
-#~ msgstr "Herinneringen inschakelen vanaf %s"
-
-#~ msgid "Astrid not give you any encouragement messages"
-#~ msgstr "Astrid geeft geen motiverende herinneringen"
-
-#~ msgid "Sign in using your Facebook or Google account:"
-#~ msgstr "Aanmelden met Facebook- of Google-account:"
-
-#~ msgid ""
-#~ "On the next page, you can choose how to share this task and choose "
-#~ "recipients."
-#~ msgstr ""
-#~ "Op de volgende pagina kan worden aangeven hoe en met wie deze taak wordt "
-#~ "gedeeld."
-
-#~ msgid "Task to Share:"
-#~ msgstr "Te delen taak:"
-
-#~ msgid "Sorted By Size"
-#~ msgstr "Sorteren op grootte"
-
-#~ msgid "Tag %1$s removed from %2$d tasks"
-#~ msgstr "Label %1$s verwijderd van %2$d taken"
-
-#~ msgid "Stop Timer"
-#~ msgstr "Timer stoppen"
-
-#~ msgid "Start Timer"
-#~ msgstr "Timer starten"
-
-#~ msgid "Notes will be displayed when you tap the notes icon"
-#~ msgstr "Notities weergeven bij aantikken taak"
-
-#~ msgid "Contact or Shared Tag"
-#~ msgstr "Contact of gedeeld label"
-
-#~ msgid "Members"
-#~ msgstr "Deelnemers"
-
-#~ msgid "Tag Owner:"
-#~ msgstr "Eigenaar label:"
-
-#~ msgid "Tag Name:"
-#~ msgstr "Labelnaam:"
-
-#~ msgid "Team Members:"
-#~ msgstr "Teamleden"
-
-#~ msgid "Tag Picture"
-#~ msgstr "Afbeelding labelen"
-
-#~ msgid "Shared With:"
-#~ msgstr "Gedeeld met:"
-
-#~ msgid "Sign Up"
-#~ msgstr "Aanmelden"
-
-#~ msgid "Tag Not Found: %s"
-#~ msgstr "Label niet gevonden: %s"
-
-#~ msgid ""
-#~ "Astrid.com lets you access your tasks online, share, and delegate with "
-#~ "others. Perfect for personal use, friends, family, and coworkers!"
-#~ msgstr ""
-#~ "Met Astrid.com kunnen taken online worden benaderd, gedeeld en aan andere "
-#~ "gedelegeerd. Perfect voor persoonlijk gebruik, vrienden, familie en "
-#~ "collega's!"
-
-#~ msgid "Login with Facebook"
-#~ msgstr "Aanmelden met Facebook"
-
-#~ msgid ""
-#~ "We promise not to post messages or send e-mails without your permission."
-#~ msgstr ""
-#~ "Wij beloven geen berichten te sturen of e-mails te verzenden zonder uw "
-#~ "toestemming."
-
-#~ msgid "No Comments"
-#~ msgstr "Geen opmerkingen"
-
-#~ msgid ""
-#~ "Default due reminder for today is in the past!\\nThe next reminder will be "
-#~ "%s."
-#~ msgstr ""
-#~ "Standaard verloopdatum herinnering voor vandaag valt in het verleden!\\nDe "
-#~ "volgende herinnering zal zijn %s"
-
-#~ msgid ""
-#~ "Default due reminder for today is in the past and its already quiet time!\\"
-#~ "nNo reminder scheduled for today."
-#~ msgstr ""
-#~ "Standaard verloopdatum herinnering voor vandaag valt in het verleden!\\nGeen "
-#~ "herinnering voor vandaag gepland"
-
-#~ msgid "Refresh Tags"
-#~ msgstr "Labels vernieuwen"
-
-#~ msgid "Please view shared tags to rename or delete them."
-#~ msgstr ""
-#~ "Bekijk a.u.b. de gedeelde labels om deze te hernoemen of te verwijderen"
-
-#~ msgid "My Tags"
-#~ msgstr "Mijn labels"
-
-#~ msgid "Show Tag"
-#~ msgstr "Label weergeven"
-
-#~ msgid "translator-credits"
-#~ msgstr ""
-#~ "Launchpad Contributions:\n"
-#~ "  Alfred Spijker https://launchpad.net/~aspijker\n"
-#~ "  Amedee Van Gasse https://launchpad.net/~amedee\n"
-#~ "  Clemens Tolboom https://launchpad.net/~clemens-build2be\n"
-#~ "  Ewout De cat https://launchpad.net/~lotrfanaat\n"
-#~ "  Gummie https://launchpad.net/~gummie-deactivatedaccount-"
-#~ "deactivatedaccount\n"
-#~ "  Joostkam https://launchpad.net/~joost-kam\n"
-#~ "  Nils https://launchpad.net/~bacardicoke\n"
-#~ "  Patrick Craenen https://launchpad.net/~bootpanic\n"
-#~ "  Patrick van Elk https://launchpad.net/~patrickvanelk\n"
-#~ "  Tim Su https://launchpad.net/~tim-todoroo\n"
-#~ "  Yentl https://launchpad.net/~yentlvt\n"
-#~ "  artens https://launchpad.net/~jef\n"
-#~ "  cumulus007 https://launchpad.net/~cumulus-007\n"
-#~ "  iBasch https://launchpad.net/~redrum666\n"
-#~ "  spmwinkel https://launchpad.net/~spmwinkel"
-
-#~ msgid "List Owner:"
-#~ msgstr "Lijst eigenaar:"
-
-#~ msgid "Google"
-#~ msgstr "Google"
-
-#~ msgid "Join Now"
-#~ msgstr "Nu deelnemen"

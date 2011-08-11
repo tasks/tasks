@@ -14,8 +14,8 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2011-07-15 22:24+0000\n"
-"X-Generator: Launchpad (build 13405)\n"
+"X-Launchpad-Export-Date: 2011-08-11 05:04+0000\n"
+"X-Generator: Launchpad (build 13644)\n"
 
 #. People Editing Activity
 #: translations/strings.xml:8( name="EPE_action") translations/strings.xml:540( name="TEA_tab_share")
@@ -3398,31 +3398,3 @@ msgstr ""
 #: translations/strings.xml:2269(item)
 msgid "Translucent"
 msgstr ""
-
-#~ msgid "Advanced"
-#~ msgstr "Edistynyt"
-
-#~ msgid "No Time Set"
-#~ msgstr "Ei aikaa asetettu"
-
-#~ msgid "Notes will be displayed when you tap a task"
-#~ msgstr "Muistiinpanot näytetään kun tehtävää koskettaessa"
-
-#~ msgid "Tagged..."
-#~ msgstr "Merkitty..."
-
-#~ msgid "Tagged: ?"
-#~ msgstr "Merkitty: ?"
-
-#~ msgid "Tag contains: ?"
-#~ msgstr "Merkintä sisältää: ?"
-
-#~ msgid "Tag contains..."
-#~ msgstr "Merkintä sisältää..."
-
-#~ msgid "translator-credits"
-#~ msgstr ""
-#~ "Launchpad Contributions:\n"
-#~ "  Jorma Könönen https://launchpad.net/~jkononen\n"
-#~ "  Pauliina A https://launchpad.net/~ie64424\n"
-#~ "  Tim Su https://launchpad.net/~tim-todoroo"

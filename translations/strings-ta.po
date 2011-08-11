@@ -14,8 +14,8 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2011-07-15 22:24+0000\n"
-"X-Generator: Launchpad (build 13405)\n"
+"X-Launchpad-Export-Date: 2011-08-11 05:04+0000\n"
+"X-Generator: Launchpad (build 13644)\n"
 
 #. Backup: Status Header
 #: translations/strings.xml:226( name="backup_BPr_group_status") translations/strings.xml:2145( name="sync_SPr_group_status")
@@ -3385,16 +3385,3 @@ msgstr ""
 #: translations/strings.xml:2269(item)
 msgid "Translucent"
 msgstr ""
-
-#~ msgid "translator-credits"
-#~ msgstr ""
-#~ "Launchpad Contributions:\n"
-#~ "  Arun Sabhapathi https://launchpad.net/~arunsabhapathi\n"
-#~ "  Ramesh https://launchpad.net/~rame20002007\n"
-#~ "  Uma Viswanathan https://launchpad.net/~umav1968"
-
-#~ msgid "Cancel"
-#~ msgstr "ரத்து"
-
-#~ msgid "Alarm %s"
-#~ msgstr "எச்சரிக்கை %s"

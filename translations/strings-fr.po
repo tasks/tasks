@@ -3,14 +3,14 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2011-07-14 18:38-0700\n"
-"PO-Revision-Date: 2011-07-04 08:07+0000\n"
-"Last-Translator: Matthieu Berthomé <Unknown>\n"
+"PO-Revision-Date: 2011-07-31 18:33+0000\n"
+"Last-Translator: Alexandre Roman <Unknown>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2011-07-15 22:25+0000\n"
-"X-Generator: Launchpad (build 13405)\n"
+"X-Launchpad-Export-Date: 2011-08-11 05:04+0000\n"
+"X-Generator: Launchpad (build 13644)\n"
 
 #. People Editing Activity
 #: translations/strings.xml:8( name="EPE_action") translations/strings.xml:540( name="TEA_tab_share")
@@ -70,12 +70,12 @@ msgstr "%1$s re: %2$s"
 #. Tab for showing tasks
 #: translations/strings.xml:45(item)
 msgid "Tasks"
-msgstr ""
+msgstr "Tâches"
 
 #. Tab for showing comments & updates
 #: translations/strings.xml:47(item)
 msgid "Activity"
-msgstr ""
+msgstr "Activité"
 
 #. Tab for showing setting
 #: translations/strings.xml:49(item)
@@ -85,12 +85,12 @@ msgstr ""
 #. Tag View Menu: refresh
 #: translations/strings.xml:53( name="actfm_TVA_menu_refresh")
 msgid "Refresh"
-msgstr ""
+msgstr "Mettre à jour"
 
 #. Tag Settings: tag name label
 #: translations/strings.xml:56( name="actfm_TVA_tag_label")
 msgid "List Name:"
-msgstr ""
+msgstr "Nom de la liste :"
 
 #. Tag Settings: tag owner label
 #: translations/strings.xml:59( name="actfm_TVA_tag_owner_label")
@@ -100,7 +100,7 @@ msgstr ""
 #. Tag Settings: tag owner value when there is no owner
 #: translations/strings.xml:62( name="actfm_TVA_tag_owner_none")
 msgid "none"
-msgstr ""
+msgstr "Aucun"
 
 #. Tag Settings: list collaborators label
 #: translations/strings.xml:65( name="actfm_TVA_members_label")
@@ -127,47 +127,47 @@ msgstr ""
 #. task sharing dialog: window title
 #: translations/strings.xml:79( name="actfm_EPA_title")
 msgid "Share / Assign"
-msgstr ""
+msgstr "Partager / Assigner"
 
 #. task sharing dialog: save button
 #: translations/strings.xml:82( name="actfm_EPA_save")
 msgid "Save &amp; Share"
-msgstr ""
+msgstr "Enregistrer &amp; Partager"
 
 #. task sharing dialog: assigned label
 #: translations/strings.xml:85( name="actfm_EPA_assign_label")
 msgid "Assigned to:"
-msgstr ""
+msgstr "Assignée à:"
 
 #. task sharing dialog: assigned to me
 #: translations/strings.xml:88( name="actfm_EPA_assign_me")
 msgid "Me"
-msgstr ""
+msgstr "Moi"
 
 #. task sharing dialog: custom email assignment
 #: translations/strings.xml:91( name="actfm_EPA_assign_custom")
 msgid "Custom..."
-msgstr ""
+msgstr "Personnalisé..."
 
 #. task sharing dialog: shared with label
 #: translations/strings.xml:94( name="actfm_EPA_share_with")
 msgid "Add Collaborators:"
-msgstr ""
+msgstr "Ajouter des contacts"
 
 #. task sharing dialog: collaborator list name (%s => name of list)
 #: translations/strings.xml:97( name="actfm_EPA_list") translations/strings.xml:1912( name="tag_FEx_name")
 msgid "List: %s"
-msgstr ""
+msgstr "Liste : %s"
 
 #. task sharing dialog: message label text
 #: translations/strings.xml:103( name="actfm_EPA_message_text")
 msgid "Invitation Message:"
-msgstr ""
+msgstr "Message d'invitation :"
 
 #. task sharing dialog: message body
 #: translations/strings.xml:106( name="actfm_EPA_message_body")
 msgid "Help me get this done!"
-msgstr ""
+msgstr "Aidez moi à terminer ce truc !"
 
 #. task sharing dialog: message hint
 #: translations/strings.xml:109( name="actfm_EPA_tag_label")
@@ -182,12 +182,12 @@ msgstr ""
 #. task sharing dialog: share with Facebook
 #: translations/strings.xml:115( name="actfm_EPA_facebook")
 msgid "Facebook"
-msgstr ""
+msgstr "Facebook"
 
 #. task sharing dialog: share with Twitter
 #: translations/strings.xml:118( name="actfm_EPA_twitter")
 msgid "Twitter"
-msgstr ""
+msgstr "Twitter"
 
 #. task sharing dialog: # of e-mails sent (%s => # people plural string)
 #: translations/strings.xml:121( name="actfm_EPA_emailed_toast")
@@ -202,17 +202,17 @@ msgstr ""
 #. task sharing dialog: invalid email (%s => email)
 #: translations/strings.xml:127( name="actfm_EPA_invalid_email")
 msgid "Invalid E-mail: %s"
-msgstr ""
+msgstr "E-mail incorrecte : %s"
 
 #. task sharing dialog: tag not found (%s => tag)
 #: translations/strings.xml:130( name="actfm_EPA_invalid_tag")
 msgid "List Not Found: %s"
-msgstr ""
+msgstr "Liste non trouvée : %s"
 
 #. share login: Title
 #: translations/strings.xml:135( name="actfm_ALA_title")
 msgid "Welcome to Astrid.com!"
-msgstr ""
+msgstr "Bienvenue sur Astrid.com !"
 
 #. share login: Sharing Description
 #: translations/strings.xml:138( name="actfm_ALA_body")
@@ -220,21 +220,23 @@ msgid ""
 "Astrid.com lets you access your tasks online, share, and delegate with "
 "others."
 msgstr ""
+"Astrid.com vous permet d'accéder à vos tâches en ligne, les partager et les "
+"transmettre à d'autres personnes."
 
 #. share login: Sharing Login FB Prompt
 #: translations/strings.xml:142( name="actfm_ALA_fb_login")
 msgid "Sign in with Facebook"
-msgstr ""
+msgstr "Connexion avec Facebook"
 
 #. share login: Sharing Login GG Prompt
 #: translations/strings.xml:145( name="actfm_ALA_gg_login")
 msgid "Sign in with Google"
-msgstr ""
+msgstr "Connexion avec Google"
 
 #. share login: Sharing Footer Password Label
 #: translations/strings.xml:148( name="actfm_ALA_pw_login")
 msgid "Don't have a Google or Facebook Account?"
-msgstr ""
+msgstr "Pas de compte Google ou Facebook ?"
 
 #. share login: Sharing Password Link
 #: translations/strings.xml:151( name="actfm_ALA_pw_link")
@@ -244,27 +246,27 @@ msgstr ""
 #. share login: Password Are you a New User?
 #: translations/strings.xml:154( name="actfm_ALA_pw_new")
 msgid "Create a new account?"
-msgstr ""
+msgstr "Créer un nouveau compte ?"
 
 #. share login: Password Are you a Returning User?
 #: translations/strings.xml:157( name="actfm_ALA_pw_returning")
 msgid "Already have an account?"
-msgstr ""
+msgstr "Vous avez déjà un compte ?"
 
 #. share login: Name
 #: translations/strings.xml:160( name="actfm_ALA_name_label")
 msgid "Name"
-msgstr ""
+msgstr "Nom"
 
 #. share login: Email
 #: translations/strings.xml:163( name="actfm_ALA_email_label")
 msgid "Email"
-msgstr ""
+msgstr "E-mail"
 
 #. share login: Username / Email
 #: translations/strings.xml:166( name="actfm_ALA_username_email_label")
 msgid "Username / Email"
-msgstr ""
+msgstr "Identifiant / E-mail"
 
 #. share login: Password
 #: translations/strings.xml:169( name="actfm_ALA_password_label") translations/strings.xml:1018( name="gtasks_GLA_password") translations/strings.xml:1231( name="opencrx_PLA_password") translations/strings.xml:1370( name="producteev_PLA_password")
@@ -274,7 +276,7 @@ msgstr "Mot de passe"
 #. share login: Sign Up Title
 #: translations/strings.xml:172( name="actfm_ALA_signup_title")
 msgid "Create New Account"
-msgstr ""
+msgstr "Créer un nouveau compte"
 
 #. share login: Login Title
 #: translations/strings.xml:175( name="actfm_ALA_login_title")
@@ -284,22 +286,22 @@ msgstr ""
 #. share login: OAUTH Login Prompt
 #: translations/strings.xml:178( name="actfm_OLA_prompt")
 msgid "Please connect to Google:"
-msgstr ""
+msgstr "Veuillez vous connecter sur Google :"
 
 #. share login: Sharing notice
 #: translations/strings.xml:181( name="actfm_ALA_notice")
 msgid "Astrid won't send messages e-mails without permission."
-msgstr ""
+msgstr "Astrid n'envoie pas de messages sans votre permission."
 
 #. Preferences Title: Act.fm
 #: translations/strings.xml:186( name="actfm_APr_header")
 msgid "Astrid.com (Beta!)"
-msgstr ""
+msgstr "Astrid.com (Beta !)"
 
 #. title for notification tray after synchronizing
 #: translations/strings.xml:189( name="actfm_notification_title")
 msgid "Astrid.com Sync"
-msgstr ""
+msgstr "Synchronisation Astrid.com"
 
 #. text for notification when comments are received
 #: translations/strings.xml:192( name="actfm_notification_comments")
@@ -389,7 +391,7 @@ msgstr ""
 #. backup activity label
 #: translations/strings.xml:255( name="backup_BAc_label")
 msgid "Manage Backups"
-msgstr ""
+msgstr "Gérer les sauvegardes"
 
 #. backup activity title
 #: translations/strings.xml:258( name="backup_BAc_title")
@@ -541,7 +543,7 @@ msgstr "Conditions d'utilisation d'Astrid"
 #. Progress Dialog generic text
 #: translations/strings.xml:361( name="DLG_please_wait")
 msgid "Please Wait"
-msgstr ""
+msgstr "Veuillez patienter"
 
 #. Label for DateButtons with no value
 #: translations/strings.xml:366( name="WID_dateButtonUnset")
@@ -566,12 +568,12 @@ msgstr "Notes"
 #. Note Exposer / Comments
 #: translations/strings.xml:380( name="ENE_label_comments")
 msgid "Comments"
-msgstr ""
+msgstr "Commentaires"
 
 #. EditNoteActivity - no comments
 #: translations/strings.xml:383( name="ENA_no_comments")
 msgid "Nothing To Show"
-msgstr ""
+msgstr "Rien à afficher"
 
 #. EditNoteActivity - loading
 #: translations/strings.xml:386( name="ENA_loading") translations/strings.xml:570(item) translations/strings.xml:783( name="TWi_loading")
@@ -581,7 +583,7 @@ msgstr "Chargement…"
 #. EditNoteActivity - refresh comments
 #: translations/strings.xml:389( name="ENA_refresh_comments")
 msgid "Refresh Comments"
-msgstr ""
+msgstr "Mettre à jour les commentaires"
 
 #. Task List: Displayed instead of list when no items present
 #: translations/strings.xml:394( name="TLA_no_items")
@@ -631,7 +633,7 @@ msgstr "Ajouter à cette liste…"
 #. Notification Volumne notification
 #: translations/strings.xml:421( name="TLA_notification_volume_low")
 msgid "Notifications are muted. You won't be able to hear Astrid!"
-msgstr ""
+msgstr "Les notifications sont désactivées. Astrid ne vous embêtera plus !"
 
 #. Format string to indicate task is hidden (%s => task name)
 #: translations/strings.xml:426( name="TAd_hiddenFormat")
@@ -661,7 +663,7 @@ msgstr "Modifier la tâche"
 #. Context Item: copy task
 #: translations/strings.xml:444( name="TAd_contextCopyTask")
 msgid "Copy Task"
-msgstr ""
+msgstr "Copier la tâche"
 
 #. Context Item: delete task
 #: translations/strings.xml:447( name="TAd_contextDeleteTask") translations/strings.xml:591( name="TEA_menu_delete")
@@ -836,7 +838,7 @@ msgstr "À une heure précise ?"
 #. Task urgency specific time title when specific time false
 #: translations/strings.xml:564( name="TEA_urgency_none")
 msgid "None"
-msgstr ""
+msgstr "Aucune"
 
 #. Task hide until label
 #: translations/strings.xml:567( name="TEA_hideUntil_label")
@@ -917,7 +919,7 @@ msgstr "Semaine prochaine"
 
 #: translations/strings.xml:613(item)
 msgid "In Two Weeks"
-msgstr ""
+msgstr "Dans deux semaines"
 
 #: translations/strings.xml:614(item) translations/strings.xml:903(item)
 msgid "Next Month"
@@ -1012,7 +1014,7 @@ msgstr "Afficher les notes des tâches"
 #. Preference: Task List Show Notes Description (disabled)
 #: translations/strings.xml:672( name="EPr_showNotes_desc_disabled")
 msgid "Notes will be displayed in quick action bar"
-msgstr ""
+msgstr "Les notes seront affichées dans la barre d'action rapide"
 
 #. Preference: Task List Show Notes Description (enabled)
 #: translations/strings.xml:674( name="EPr_showNotes_desc_enabled")
@@ -1022,22 +1024,22 @@ msgstr "Les notes seront toujours affichées"
 #. Preference: Transparent
 #: translations/strings.xml:677( name="EPr_transparent_title")
 msgid "Transparency"
-msgstr ""
+msgstr "Transparence"
 
 #. Preference: Transparent Description (disabled)
 #: translations/strings.xml:679( name="EPr_transparent_desc_disabled")
 msgid "Desktop wallpaper will not be shown"
-msgstr ""
+msgstr "Le fond d'écran du bureau ne sera pas affiché"
 
 #. Preference: Transparent Description (enabled)
 #: translations/strings.xml:681( name="EPr_transparent_desc_enabled")
 msgid "Desktop wallpaper will be shown"
-msgstr ""
+msgstr "Le fond d'écran du bureau sera affiché"
 
 #. Preference: Transparent Description (android 1.6)
 #: translations/strings.xml:683( name="EPr_transparent_desc_unsupported")
 msgid "Setting requires Android 2.0+"
-msgstr ""
+msgstr "Ce paramètre requiert Android 2.0+."
 
 #. Preference Category: Defaults Title
 #: translations/strings.xml:686( name="EPr_defaults_header") translations/strings.xml:1567( name="rmd_EPr_defaults_header")
@@ -1110,15 +1112,15 @@ msgstr "À la date limite ou après"
 #. Preference Screen Header: Old Task Management
 #: translations/strings.xml:744( name="EPr_manage_header")
 msgid "Manage Old Tasks"
-msgstr ""
+msgstr "Gérer les anciennes tâches"
 
 #: translations/strings.xml:745( name="EPr_manage_delete_completed")
 msgid "Delete Completed Tasks"
-msgstr ""
+msgstr "Supprimer les tâches terminées"
 
 #: translations/strings.xml:746( name="EPr_manage_delete_completed_message")
 msgid "Do you really want to delete all your completed tasks?"
-msgstr ""
+msgstr "Confirmer la suppression de toutes vos tâches ?"
 
 #: translations/strings.xml:747( name="EPr_manage_delete_completed_summary")
 msgid "Deleted tasks can be undeleted one-by-one"
@@ -1126,7 +1128,7 @@ msgstr ""
 
 #: translations/strings.xml:748( name="EPr_manage_delete_completed_status")
 msgid "Deleted %d tasks!"
-msgstr ""
+msgstr "%d tâches supprimées !"
 
 #: translations/strings.xml:749( name="EPr_manage_purge_deleted")
 msgid "Purge Deleted Tasks"
@@ -1194,7 +1196,7 @@ msgstr "Sélectionnez les tâches à afficher…"
 #. Title of "About" option in settings
 #: translations/strings.xml:791( name="p_about")
 msgid "About Astrid"
-msgstr ""
+msgstr "À propos d'Astrid"
 
 #. About text (%s => current version)
 #: translations/strings.xml:794( name="p_about_text")
@@ -1364,22 +1366,22 @@ msgstr "Importance..."
 #. Criteria: tag - display text (? -> user input)
 #: translations/strings.xml:912( name="CFC_tag_text")
 msgid "List: ?"
-msgstr ""
+msgstr "Liste : ?"
 
 #. Criteria: tag - name of criteria
 #: translations/strings.xml:914( name="CFC_tag_name")
 msgid "List..."
-msgstr ""
+msgstr "Liste..."
 
 #. Criteria: tag_contains - name of criteria
 #: translations/strings.xml:917( name="CFC_tag_contains_name")
 msgid "List name contains..."
-msgstr ""
+msgstr "Nom de liste contient..."
 
 #. Criteria: tag_contains - text (? -> user input)
 #: translations/strings.xml:919( name="CFC_tag_contains_text")
 msgid "List name contains: ?"
-msgstr ""
+msgstr "Nom de liste contient : ?"
 
 #. Criteria: title_contains - name of criteria
 #: translations/strings.xml:922( name="CFC_title_contains_name")
@@ -1449,12 +1451,12 @@ msgstr "Google Tasks: %s"
 #. dialog prompt for creating a new gtasks list
 #: translations/strings.xml:979( name="gtasks_FEx_create_list_dialog")
 msgid "New List Name:"
-msgstr ""
+msgstr "Nom de la nouvelle liste :"
 
 #. error to show when list creation fails
 #: translations/strings.xml:982( name="gtasks_FEx_create_list_error")
 msgid "Error creating new list"
-msgstr ""
+msgstr "Impossible de créer une nouvelle liste"
 
 #. short help title for Gtasks
 #: translations/strings.xml:985( name="gtasks_help_title")
@@ -1472,11 +1474,11 @@ msgstr ""
 
 #: translations/strings.xml:991( name="CFC_gtasks_list_text")
 msgid "In List: ?"
-msgstr ""
+msgstr "Dans la liste : ?"
 
 #: translations/strings.xml:993( name="CFC_gtasks_list_name")
 msgid "In GTasks List..."
-msgstr ""
+msgstr "Dans la liste GTasks..."
 
 #. Activity Title: Gtasks Login
 #: translations/strings.xml:998( name="gtasks_GLA_title")
@@ -1489,10 +1491,12 @@ msgid ""
 "Please log in to Google Tasks Sync (Beta!). Non-migrated Google Apps "
 "accounts are currently unsupported."
 msgstr ""
+"Veuillez vous connecter à Google Tasks Sync (Beta !). Les comptes Google "
+"Apps non migrés ne sont pas encore supportés."
 
 #: translations/strings.xml:1004( name="gtasks_GLA_noaccounts")
 msgid "No available Google accounts to sync with."
-msgstr ""
+msgstr "Aucun compte Google trouvé pour la synchronisation."
 
 #. Instructions: Gtasks further help
 #: translations/strings.xml:1007( name="gtasks_GLA_further_help")
@@ -1518,7 +1522,7 @@ msgstr "E-mail"
 #. Authenticating toast
 #: translations/strings.xml:1021( name="gtasks_GLA_authenticating")
 msgid "Authenticating..."
-msgstr ""
+msgstr "Authentification en cours..."
 
 #. Google Apps for Domain checkbox
 #: translations/strings.xml:1024( name="gtasks_GLA_domain")
@@ -1551,11 +1555,11 @@ msgstr "Google Tasks (Bêta !)"
 
 #: translations/strings.xml:1041( name="gtasks_GPr_sync_on_save")
 msgid "Sync on Save"
-msgstr ""
+msgstr "Synchroniser à l'enregistrement"
 
 #: translations/strings.xml:1043( name="gtasks_GPr_sync_on_save_summary")
 msgid "Sync individual tasks as they are saved"
-msgstr ""
+msgstr "Synchroniser chaque tâche à l'enregistrement"
 
 #. title for notification tray when synchronizing
 #: translations/strings.xml:1048( name="gtasks_notification_title")
@@ -1608,7 +1612,7 @@ msgstr ""
 #. Task 3 Summary
 #: translations/strings.xml:1091( name="intro_task_3_summary")
 msgid "Setup sync with Astrid.com"
-msgstr ""
+msgstr "Configurer la synchronisation avec Astrid.com"
 
 #. Task 3 Note
 #: translations/strings.xml:1094( name="intro_task_3_note")
@@ -1618,6 +1622,10 @@ msgid ""
 "\"Settings\" -&gt; \"Synchronization\" and choose the sync provider you "
 "prefer."
 msgstr ""
+"Astrid vous permet de synchroniser vos tâches avec Astrid.com, Google Tasks, "
+"et Producteev.\\n\\n Pour activer la synchronisation dans Astrid, appuyez "
+"sur \"Menu\" -&gt; \"Synchroniser !\" et sélectionnez votre service de "
+"synchronisation préféré."
 
 #. Locale Alert Editing Window Title
 #: translations/strings.xml:1108( name="locale_edit_alerts_title")
@@ -1709,11 +1717,11 @@ msgstr "Ajouter un commentaire"
 
 #: translations/strings.xml:1161( name="opencrx_creator_input_hint")
 msgid "Creator"
-msgstr ""
+msgstr "Auteur"
 
 #: translations/strings.xml:1163( name="opencrx_contact_input_hint")
 msgid "Assigned to"
-msgstr ""
+msgstr "Assignée à"
 
 #. creator title for tasks that are not synchronized
 #: translations/strings.xml:1170( name="opencrx_no_creator") translations/strings.xml:1331( name="producteev_no_dashboard")
@@ -1743,7 +1751,7 @@ msgstr ""
 #. preference description for OpenCRX host
 #: translations/strings.xml:1185( name="opencrx_host_title")
 msgid "Host"
-msgstr ""
+msgstr "Serveur"
 
 #. dialog title for OpenCRX host
 #: translations/strings.xml:1188( name="opencrx_host_dialog_title")
@@ -1808,7 +1816,7 @@ msgstr ""
 #. Login Label
 #: translations/strings.xml:1228( name="opencrx_PLA_login")
 msgid "Login"
-msgstr ""
+msgstr "Identifiant"
 
 #. Error Message when fields aren't filled out
 #: translations/strings.xml:1234( name="opencrx_PLA_errorEmpty")
@@ -2115,7 +2123,7 @@ msgstr ""
 #. Reminder Preference: Default Reminder Title
 #: translations/strings.xml:1506( name="rmd_EPr_rmd_time_title")
 msgid "Default Reminder"
-msgstr ""
+msgstr "Rappel par défaut"
 
 #. Reminder Preference: Default Reminder Description (%s => time set)
 #: translations/strings.xml:1508( name="rmd_EPr_rmd_time_desc")
@@ -2202,7 +2210,7 @@ msgstr "Astrid ne vibrera pas lors de l'envoi de notifications"
 #. Reminder Preference: Nagging Title
 #: translations/strings.xml:1546( name="rmd_EPr_nagging_title")
 msgid "Astrid Encouragements"
-msgstr ""
+msgstr "Encouragements Astrid"
 
 #. Reminder Preference: Nagging Description (true)
 #: translations/strings.xml:1548( name="rmd_EPr_nagging_desc_true")
@@ -2748,32 +2756,32 @@ msgstr ""
 #. Tags label
 #: translations/strings.xml:1864( name="TEA_tags_label")
 msgid "Add to List:"
-msgstr ""
+msgstr "Ajouter à la liste :"
 
 #. Tags hint
 #: translations/strings.xml:1867( name="TEA_tag_hint")
 msgid "List Name"
-msgstr ""
+msgstr "Nom de la liste"
 
 #. Tags dropdown
 #: translations/strings.xml:1870( name="TEA_tag_dropdown")
 msgid "Select a list"
-msgstr ""
+msgstr "Sélectionnez une liste"
 
 #. Context Item: show tag
 #: translations/strings.xml:1880( name="TAd_contextFilterByTag")
 msgid "Show List"
-msgstr ""
+msgstr "Afficher la liste"
 
 #. Dialog: new list
 #: translations/strings.xml:1883( name="tag_new_list")
 msgid "New List"
-msgstr ""
+msgstr "Nouvelle liste"
 
 #. Dialog: list saved
 #: translations/strings.xml:1886( name="tag_list_saved")
 msgid "List Saved"
-msgstr ""
+msgstr "Liste enregistrée"
 
 #. Dialog: task created without title
 #: translations/strings.xml:1889( name="tag_no_title_error")
@@ -2808,12 +2816,12 @@ msgstr ""
 #. context menu option to rename a tag
 #: translations/strings.xml:1915( name="tag_cm_rename")
 msgid "Rename List"
-msgstr ""
+msgstr "Renommer la liste"
 
 #. context menu option to delete a tag
 #: translations/strings.xml:1918( name="tag_cm_delete")
 msgid "Delete List"
-msgstr ""
+msgstr "Supprimer la liste"
 
 #. Dialog to confirm deletion of a tag
 #: translations/strings.xml:1921( name="DLG_delete_this_tag_question")
@@ -2843,12 +2851,12 @@ msgstr ""
 #. Task List: Start Timer button
 #: translations/strings.xml:1943( name="TAE_startTimer")
 msgid "Timer"
-msgstr ""
+msgstr "Minuteur"
 
 #. Task List: Stop Timer button
 #: translations/strings.xml:1946( name="TAE_stopTimer")
 msgid "Stop"
-msgstr ""
+msgstr "Arrêter"
 
 #. Android Notification Title (%s => # tasks)
 #: translations/strings.xml:1949( name="TPl_notification")
@@ -3083,12 +3091,12 @@ msgstr "%d tâches"
 #. plurals: people
 #: translations/strings.xml:2076( quantity="one")
 msgid "1 person"
-msgstr ""
+msgstr "1 personne"
 
 #. plurals: people
 #: translations/strings.xml:2078( quantity="other")
 msgid "%d people"
-msgstr ""
+msgstr "%d personnes"
 
 #. confirmation dialog title
 #: translations/strings.xml:2093( name="DLG_confirm_title")
@@ -3440,1023 +3448,3 @@ msgstr "Bleu"
 #: translations/strings.xml:2269(item)
 msgid "Translucent"
 msgstr "Translucide"
-
-#~ msgid "Astrid"
-#~ msgstr "Astrid"
-
-#~ msgid "!!!!"
-#~ msgstr "!!!!"
-
-#~ msgid "!"
-#~ msgstr "!"
-
-#~ msgid "%d Tags"
-#~ msgstr "%d Tags"
-
-#~ msgid "1 Tag"
-#~ msgstr "1 Tag"
-
-#~ msgid "%d / %d Active"
-#~ msgstr "%d / %d Active(s)"
-
-#~ msgid "1 Task"
-#~ msgstr "1 Tâche"
-
-#~ msgid "%d Tasks"
-#~ msgstr "%d Tâches"
-
-#~ msgid "hidden"
-#~ msgstr "cachée(s)"
-
-#~ msgid "H"
-#~ msgstr "C"
-
-#~ msgid "Goal"
-#~ msgstr "Objectif"
-
-#~ msgid "Sync"
-#~ msgstr "Synchroniser"
-
-#~ msgid "Sort/Filters"
-#~ msgstr "Tri / filtres"
-
-#~ msgid "Tags:"
-#~ msgstr "Étiquettes :"
-
-#~ msgid "Tags"
-#~ msgstr "Étiquettes"
-
-#~ msgid "Postpone"
-#~ msgstr "Reporter"
-
-#~ msgid "Help (opens in Browser)"
-#~ msgstr "Aide (ouvre le navigateur)"
-
-#~ msgid "Quick Tips"
-#~ msgstr "Astuces"
-
-#~ msgid "Sort By Name"
-#~ msgstr "Trier par nom"
-
-#~ msgid "Dates"
-#~ msgstr "Dates"
-
-#~ msgid "Summary"
-#~ msgstr "Résumé"
-
-#~ msgid "Alerts"
-#~ msgstr "Alertes"
-
-#~ msgid "Tag Name"
-#~ msgstr "Nom de l'étiquette"
-
-#~ msgid "Every"
-#~ msgstr "Tou(te)s le(s)"
-
-#~ msgid "Periodic Reminders"
-#~ msgstr "Rappels périodiques"
-
-#~ msgid "Add New Reminder"
-#~ msgstr "Ajouter un nouveau rappel"
-
-#~ msgid "Discard"
-#~ msgstr "Annuler"
-
-#~ msgid "Click to Set"
-#~ msgstr "Cliquez pour définir"
-
-#~ msgid "Delete"
-#~ msgstr "Supprimer"
-
-#~ msgid "Astrid says..."
-#~ msgstr "Astrid dit ..."
-
-#~ msgid "Show on Home Page"
-#~ msgstr "Afficher sur la page d'accueil"
-
-#~ msgid "Hide on Home Page"
-#~ msgstr "Masquer sur la page d'accueil"
-
-#~ msgid "Shortcut created on your home screen!"
-#~ msgstr "Raccourci créé sur votre page d'accueil"
-
-#~ msgid "Clear Personal Data"
-#~ msgstr "Effacer les données personnelles"
-
-#~ msgid "never"
-#~ msgstr "jamais"
-
-#~ msgid "http://www.rememberthemilk.com"
-#~ msgstr "http://www.rememberthemilk.com"
-
-#~ msgid "Deleted: %d"
-#~ msgstr "Supprimé : %d"
-
-#~ msgid "Updated: %d"
-#~ msgstr "Mise à jour : %d"
-
-#~ msgid "Created: %d"
-#~ msgstr "Créé : %d"
-
-#~ msgid "Transmitting: %s"
-#~ msgstr "Transmission : %s"
-
-#~ msgid "Receiving: %s"
-#~ msgstr "Réception : %s"
-
-#~ msgid "Merged: %d"
-#~ msgstr "Fusionné : %d"
-
-#~ msgid "View Task"
-#~ msgstr "Voir la tâche"
-
-#~ msgid "Question"
-#~ msgstr "Question"
-
-#~ msgid "Quit"
-#~ msgstr "Quitter"
-
-#~ msgid "Snooze"
-#~ msgstr "Veille"
-
-#~ msgid "Estimated:"
-#~ msgstr "Estimée à"
-
-#~ msgid "Overdue by"
-#~ msgstr "En retard de"
-
-#~ msgid "Finished"
-#~ msgstr "Terminée"
-
-#~ msgid "\"Delete completed tasks older than # days:\""
-#~ msgstr "\"Effacer les tachês accomplies il y a plus de # jours\""
-
-#~ msgid "Notify me..."
-#~ msgstr "Signalez moi..."
-
-#~ msgid "Fixed Reminders"
-#~ msgstr "Rappels prédéfinis"
-
-#~ msgid "After Absolute Deadline Passes"
-#~ msgstr "Après que la date limite soit passée"
-
-#~ msgid "Alarm Clock Mode"
-#~ msgstr "Mode Alarme"
-
-#~ msgid "Sort A-Z"
-#~ msgstr "Tri de A à Z"
-
-#~ msgid "Remember The Milk"
-#~ msgstr "Remember The Milk"
-
-#~ msgid "Auto-Sync Wifi Only"
-#~ msgstr "Synchro-Auto uniquement par Wi-Fi"
-
-#~ msgid "%s Results"
-#~ msgstr "%s Résultats"
-
-#~ msgid "Stop the timer?"
-#~ msgstr "Arrêter le chrono ?"
-
-#~ msgid "Couldn't find this item:"
-#~ msgstr "Impossible de trouver cet élément :"
-
-#~ msgid "Notifications"
-#~ msgstr "Notifications"
-
-#~ msgid "Other"
-#~ msgstr "Autre"
-
-#~ msgid "Task Title"
-#~ msgstr "Nom de la tâche"
-
-#~ msgid "Task description"
-#~ msgstr "Description de la tâche"
-
-#~ msgid "Reminders"
-#~ msgstr "Rappels"
-
-#~ msgid "Sort By Due Date"
-#~ msgstr "Trier par date d'échéance"
-
-#~ msgid "Enter Task Notes"
-#~ msgstr "Entrer les notes sur la tâche"
-
-#~ msgid ""
-#~ "Sorry, there was an error verifying your login. Please try again. \\n\\n "
-#~ "Error Message:"
-#~ msgstr ""
-#~ "Désolé, une erreur s'est produite en vérifiant votre identifiant. Veuillez "
-#~ "réessayer. \\n\\n Message d'erreur :"
-
-#~ msgid "Starting hour when Astrid should be quiet (e.g. 22)"
-#~ msgstr "Heure à partir de laquelle Astrid ne fera pas de bruit (ex : 22)"
-
-#~ msgid "Due on"
-#~ msgstr "Prévu le"
-
-#~ msgid "Auto Sort"
-#~ msgstr "Tri automatique"
-
-#~ msgid "Task Saved: due in %s"
-#~ msgstr "Tâche enregistrée : échéance dans %s"
-
-#~ msgid "Hide the Sync Results dialogs"
-#~ msgstr "Masquer les messages de synchronisation"
-
-#~ msgid ""
-#~ "Astrid 2.7 now performs synchronization with RTM in the background. You will "
-#~ "be directed to the preferences page to configure how often you want this to "
-#~ "occur (it is a minor drain on battery)."
-#~ msgstr ""
-#~ "Astrid 2.7 se synchronise désormais avec RTM en arrière plan. Vous allez "
-#~ "devoir choisir la fréquence à laquelle vous voulez que cela se produise "
-#~ "(faible cout d'énergie)."
-
-#~ msgid "Hide Dialogs"
-#~ msgstr "Masquer les messages"
-
-#~ msgid "Clear data for selected services?"
-#~ msgstr "Effacer les données pour les services sélectionnés ?"
-
-#~ msgid "Last AutoSync Attempt: %s"
-#~ msgstr "Dernier essai de synchronisation automatique : %s"
-
-#~ msgid "Last Sync Date: %s"
-#~ msgstr "Date de dernière synchronisation : %s"
-
-#~ msgid "Reading Remote Data"
-#~ msgstr "Lecture des données distantes"
-
-#~ msgid "Synchronizing Repeating Task"
-#~ msgstr "Synchronisation des tâches répétées"
-
-#~ msgid "Summary - Remote Server:"
-#~ msgstr "Résumé - Serveur distant :"
-
-#~ msgid "Summary - Astrid Tasks:"
-#~ msgstr "Résumé - Tâches Astrid :"
-
-#~ msgid "Sync: Up to date!"
-#~ msgstr "Synchronisation : Déjà à jour !"
-
-#~ msgid "Updating List..."
-#~ msgstr "Mise à jour de la liste"
-
-#~ msgid "Hours/minutes to snooze?"
-#~ msgstr "Durée de veille (heures/minutes)"
-
-#~ msgid "Working on:"
-#~ msgstr "Travaille sur :"
-
-#~ msgid "Couldn't save:"
-#~ msgstr "Impossible d'enregistrer :"
-
-#~ msgid "Choose a ringtone for Astrid\\'s alerts"
-#~ msgstr "Choissisez une sonnerie pour les alertes d\\'Astrid"
-
-#~ msgid "Persistent Mode"
-#~ msgstr "Mode persistant"
-
-#~ msgid "Displayed Fields"
-#~ msgstr "Champs affichés"
-
-#~ msgid "Select the fields to show in task list"
-#~ msgstr "Selectionnez les champs à afficher dans la liste des tâches"
-
-#~ msgid "Task repeat information"
-#~ msgstr "Information de répétition de la tâche"
-
-#~ msgid "Take Astrid\\'s Survey &amp; win a MyTouch 3G!"
-#~ msgstr "Répondez à l\\'enquête sur Astrid et gagnez un MyTouch 3G !"
-
-#~ msgid "Reading List: %s"
-#~ msgstr "Lecture de la liste"
-
-#~ msgid "Locally Deleted Tasks"
-#~ msgstr "Tâches locales supprimées"
-
-#~ msgid "Upcoming deadlines / completed date"
-#~ msgstr "Dates limites imminentes / Date d'achèvement"
-
-#~ msgid "Repeats On Remote Server"
-#~ msgstr "Répétitions sur le serveur distant"
-
-#~ msgid "Could Not Find Requested Tag!"
-#~ msgstr "Impossible de trouver le tag demandé"
-
-#~ msgid "Due in"
-#~ msgstr "Prévu dans"
-
-#~ msgid "Hidden/Blocked Tasks"
-#~ msgstr "Tâches masquées / bloquées"
-
-#~ msgid "Select an Action:"
-#~ msgstr "Sélectionner une action :"
-
-#~ msgid "Times You\\'ve Postponed: %d"
-#~ msgstr "Nombre de reports : %d"
-
-#~ msgid "Absolute Deadline"
-#~ msgstr "Date limite"
-
-#~ msgid "Goal Deadline"
-#~ msgstr "Date prévue"
-
-#~ msgid "As Deadlines Approach"
-#~ msgstr "Lorsque les dates limite/prévue approchent"
-
-#~ msgid "No Repeat Set"
-#~ msgstr "Pas de répétition"
-
-#~ msgid "Help: Astrid Repeats"
-#~ msgstr "Aide : répétitions"
-
-#~ msgid ""
-#~ "To use repeats, set at least one of the deadlines above. When you complete "
-#~ "this task, the deadline will be automatically advanced. \\n\\n If you don\\"
-#~ "'t want to see the new task right after you complete the old one, you should "
-#~ "use the \"Hide Until\" field, which will also be advanced automatically. \\n"
-#~ msgstr ""
-#~ "Pour utiliser les répétitions, renseignez la date limite et/ou la date "
-#~ "prévue. Lorsque cette tâche sera accomplie, la date limite/prévue sera "
-#~ "automatiquement avancée. \\n\\n Si vous ne désirez pas voir la nouvelle "
-#~ "tâche juste après avoir accompli la précédente, cochez le champ \"Masquez "
-#~ "jusqu\\'à\", qui sera lui aussi avancé automatiquement. \\n"
-
-#~ msgid "At Deadlines"
-#~ msgstr "Aux dates prévue/limite"
-
-#~ msgid "Task Saved: due %s ago"
-#~ msgstr "Tâche enregistrée : échue il y a %s"
-
-#~ msgid "Edit Tag"
-#~ msgstr "Modifier le tag"
-
-#~ msgid "Delete Tag"
-#~ msgstr "Effacer le tag"
-
-#~ msgid "Tag:"
-#~ msgstr "Tag :"
-
-#~ msgid "[untagged]"
-#~ msgstr "[pas de tag]"
-
-#~ msgid "Create Task With Tag"
-#~ msgstr "Créer une tâche avec tag"
-
-#~ msgid "Synchronization Services"
-#~ msgstr "Services de synchronisation"
-
-#~ msgid "Auto-Synchronize"
-#~ msgstr "Synchronisation automatique"
-
-#~ msgid "No Synchronizers Enabled!"
-#~ msgstr "Aucun service de synchronisation choisi !"
-
-#~ msgid "Please Log In to RTM..."
-#~ msgstr "Veuillez vous identifier sur RTM..."
-
-#~ msgid ""
-#~ "Astrid will send you a reminder when you have uncompleted tasks with the "
-#~ "following criteria:"
-#~ msgstr ""
-#~ "Astrid vous enverra un rappel quand il y aura des tâches non accomplies avec "
-#~ "les critères suivants :"
-
-#~ msgid ""
-#~ "Some things you may not know about Astrid:\\n \\n - To create a task, just "
-#~ "start typing!\\n - While editing a task, hit \\'back\\' to save it\\n - "
-#~ "Select a task &amp; press 1-4 to quickly change it\\'s priority\\n - If a "
-#~ "task has a deadline, long-press to postpone it\\n \\n Thanks for using "
-#~ "Astrid!\\n"
-#~ msgstr ""
-#~ "Quelques astuces à savoir sur Astrid :\\n \\n - Pour créer une tâche, "
-#~ "commencez juste à écrire !\\n - Pendant que vous modifiez une tâche, un "
-#~ "appui sur \\'précédent\\' suffit pour l\\'enregistrer.\\n - Sélectionnez une "
-#~ "tâche &amp; appuyez sur 1-4 rapidement pour changer sa priorité\\n - Si une "
-#~ "tâche a une date limite, appuyez longtemps pour la reporter.\\n \\n Merci d\\"
-#~ "'avoir choisi Astrid !\\n"
-
-#~ msgid "Goal Deadline!"
-#~ msgstr "Date prévue !"
-
-#~ msgid "Remove this tag from all tasks?"
-#~ msgstr "Enlever ce tag de toutes les tâches ?"
-
-#~ msgid "For new tasks, in days (i.e. 7). Blank to disable"
-#~ msgstr ""
-#~ "Pour les nouvelles tâches, en jours (ex : 7). Laissez vide pour désactiver."
-
-#~ msgid "Task List Font"
-#~ msgstr "Police de la liste des tâches"
-
-#~ msgid "Different colors for different priorities"
-#~ msgstr "Différentes couleurs pour différentes priorités"
-
-#~ msgid "Notification Icons"
-#~ msgstr "Icônes de notification"
-
-#~ msgid "Font on the main listing page (i.e. 22)"
-#~ msgstr ""
-#~ "Taille de la police de caractères sur la liste principale des tâches (ex : "
-#~ "22)"
-
-#~ msgid "Default Deadlines"
-#~ msgstr "Dates limite/prévue par défaut"
-
-#~ msgid "# of days from now to set new deadlines"
-#~ msgstr ""
-#~ "Nombre de jours (à partir de maintenant) où sont définies les dates "
-#~ "limite/prévue"
-
-#~ msgid "Nag Messages"
-#~ msgstr "Messages moqueurs"
-
-#~ msgid "Show Astrid\\'s comments when viewing reminders and postponing tasks?"
-#~ msgstr ""
-#~ "Afficher les commentaires d\\'Astrid lors des rappels et des tâches "
-#~ "reportées ?"
-
-#~ msgid "Displayed if this task has reminders"
-#~ msgstr "Afficher les rappels de la tâche"
-
-#~ msgid "Task importance indicator"
-#~ msgstr "Indice de priorité de la tâche"
-
-#~ msgid "Notes associated with this task"
-#~ msgstr "Notes associées à la tâche"
-
-#~ msgid "Astrid Tag Alert"
-#~ msgstr "Astrid : Alerte sur tags"
-
-#~ msgid "Choose Astrid\\'s notification bar icon"
-#~ msgstr "Choissisez l\\'icone d\\'Astrid pour la barre de notification"
-
-#~ msgid "Ago"
-#~ msgstr "%s de cela"
-
-#~ msgid "%s Ago"
-#~ msgstr "il y a %s"
-
-#~ msgid "Remind Me Every"
-#~ msgstr "Rappels tous les"
-
-#~ msgid "Repeat Every (0 to disable)"
-#~ msgstr "Répéter tous les (0 pour désactiver)"
-
-#~ msgid "Repeat Every"
-#~ msgstr "Répéter tous les"
-
-#~ msgid "New Task"
-#~ msgstr "Nouvelle tâche"
-
-#~ msgid "Poke Every"
-#~ msgstr "Rappeller tous les"
-
-#~ msgid "Tagged \\'%s\\'"
-#~ msgstr "Taguée \\'%s\\'"
-
-#~ msgid "How Important is it?"
-#~ msgstr "Quelle est la priorité ?"
-
-#~ msgid "Add Task To Calendar"
-#~ msgstr "Ajouter la tâche à l\\'agenda"
-
-#~ msgid "Task Name"
-#~ msgstr "Nom de la tâche"
-
-#~ msgid "Hide Until This Date"
-#~ msgstr "Masquer jusqu\\'à cette date"
-
-#~ msgid "Hide Until This Task is Done"
-#~ msgstr "Masquer jusqu\\'à que cette tâche soit accomplie"
-
-#~ msgid "Don't Show Help Anymore"
-#~ msgstr "Ne plus afficher l\\'aide"
-
-#~ msgid "Astrid: Tag View:"
-#~ msgstr "Astrid : Vue par tags :"
-
-#~ msgid "Sort by Size"
-#~ msgstr "Tri par nombre"
-
-#~ msgid "If set, synchronization occurs automatically given interval"
-#~ msgstr ""
-#~ "Activée, la synchronisation a lieu automatiquement à intervalles définis"
-
-#~ msgid "Main Menu Shortcut"
-#~ msgstr "Raccourci dans le menu"
-
-#~ msgid "If set, auto-sync only happens when Wifi is active"
-#~ msgstr ""
-#~ "Activée, la synchronisation automatique a lieu uniquement lorsque le Wi-Fi "
-#~ "est actif"
-
-#~ msgid "Sync Error! Sorry for the inconvenience! Error:"
-#~ msgstr "Erreur de synchronisation ! Excusez-nous du désagrément ! Erreur :"
-
-#~ msgid "Show \\\"Synchronize\\\" in Astrid\\'s menu"
-#~ msgstr "Afficher \\\"Synchroniser\\\" dans le menu principal d\\'Astrid"
-
-#~ msgid "Tagged with:"
-#~ msgstr "Taguée avec :"
-
-#~ msgid "Absolute Deadline!"
-#~ msgstr "Date limite !"
-
-#~ msgid "You have %d task(s) tagged %s!"
-#~ msgstr "Vous avez %d tâche(s) avec le tag \\\"%s\\\" !"
-
-#~ msgid "Ending hour when Astrid should be quiet (e.g. 08)"
-#~ msgstr "Heure jusqu\\'à laquelle Astrid ne fera pas de bruit (ex : 08)"
-
-#~ msgid "Colorize Task List"
-#~ msgstr "Liste des tâches en couleur"
-
-#~ msgid "If checked, LED and notifications must be cleared one at a time"
-#~ msgstr ""
-#~ "Activé, la LED et les notifications doivent être effacées une par une."
-
-#~ msgid "D\\na\\ny\\ns"
-#~ msgstr "j\\no\\nu\\nr\\ns"
-
-#~ msgid "H\\no\\nu\\nr\\ns"
-#~ msgstr "h\\ne\\nu\\nr\\ne\\ns"
-
-#~ msgid "Estimated &amp; Elapsed Times"
-#~ msgstr "Durée estimée et temps passé"
-
-#~ msgid "Times"
-#~ msgstr "Durées"
-
-#~ msgid "Tags associated with this task"
-#~ msgstr "Tags de la tâche"
-
-#~ msgid "Start Timer"
-#~ msgstr "Démarrer le chronomètre"
-
-#~ msgid "M/dd HH:mm"
-#~ msgstr "dd/MM HH:mm"
-
-#~ msgid "MMM d"
-#~ msgstr "dd MMM"
-
-#~ msgid "One Alarm"
-#~ msgstr "Une Alerte"
-
-#~ msgid "%d Alarms"
-#~ msgstr "%d Alertes"
-
-#~ msgid "Two Alarms"
-#~ msgstr "Deux Alertes"
-
-#~ msgid "Add New Task"
-#~ msgstr "Ajouter une nouvelle tâche"
-
-#~ msgid "You have $NUM tagged $TAG!"
-#~ msgstr "Vous avez $NUM tagué(e,s) $TAG"
-
-#~ msgid "1"
-#~ msgstr "1"
-
-#~ msgid "2"
-#~ msgstr "2"
-
-#~ msgid "5"
-#~ msgstr "5"
-
-#~ msgid "4"
-#~ msgstr "4"
-
-#~ msgid "3"
-#~ msgstr "3"
-
-#~ msgid "translator-credits"
-#~ msgstr ""
-#~ "Launchpad Contributions:\n"
-#~ "  65GYgzf https://launchpad.net/~65gygzf\n"
-#~ "  Anges https://launchpad.net/~az24\n"
-#~ "  Arnaud https://launchpad.net/~nekloth\n"
-#~ "  Axel Haustant https://launchpad.net/~noirbizarre\n"
-#~ "  Bernard Opic https://launchpad.net/~cpio\n"
-#~ "  Bonsoir https://launchpad.net/~bonsoir\n"
-#~ "  Christophe Paumelle https://launchpad.net/~christophepaumelle\n"
-#~ "  Delphine Ménard https://launchpad.net/~notafish\n"
-#~ "  Fabien Lisiecki https://launchpad.net/~fabien-lisiecki\n"
-#~ "  Isamu https://launchpad.net/~isamu\n"
-#~ "  Jeff Patzer https://launchpad.net/~jeffpat\n"
-#~ "  Jon Paris https://launchpad.net/~jon-todoroo\n"
-#~ "  Julien Nicoulaud https://launchpad.net/~julien-nicoulaud\n"
-#~ "  Matthieu Berthomé https://launchpad.net/~matthieu-berthome\n"
-#~ "  Matthieu Martin https://launchpad.net/~matthieu-martin\n"
-#~ "  Olivier Reuland https://launchpad.net/~olivier-reuland\n"
-#~ "  Ptitphysik https://launchpad.net/~amalpeyre\n"
-#~ "  SteelStyle https://launchpad.net/~steelstyle\n"
-#~ "  Sébastien Grenier https://launchpad.net/~sgrenier\n"
-#~ "  Thomas Grapperon https://launchpad.net/~tgrapperon\n"
-#~ "  Tim Su https://launchpad.net/~tim-todoroo\n"
-#~ "  anonymous https://launchpad.net/~anonymous-deactivatedaccount-"
-#~ "deactivatedaccount-deactivatedaccount\n"
-#~ "  axx https://launchpad.net/~axx\n"
-#~ "  cyrilphoenix https://launchpad.net/~phoenix-thenest\n"
-#~ "  dommy9111 https://launchpad.net/~bossboss9111\n"
-#~ "  satbadkd https://launchpad.net/~satbadkd"
-
-#~ msgid ""
-#~ "It looks like you are using an app that can kill processes (%s)! If you can, "
-#~ "add Astrid to the exclusion list so it doesn\\'t get killed. Otherwise, "
-#~ "Astrid might not let you know when your tasks are due.\\n"
-#~ msgstr ""
-#~ "Il semblerait que vous utilisiez une application capable de tuer les "
-#~ "processus (%s) ! Si possible, pensez à ajouter Astrid à la liste blanche "
-#~ "afin qu'elle ne se fasse pas tuer. Sinon, Astrid risque de ne pas être en "
-#~ "mesure de vous prévenir quand vos tâches sont à finir."
-
-#~ msgid "View This Task"
-#~ msgstr "Voir cette tâche"
-
-#~ msgid "End time to silence notifications"
-#~ msgstr "Arrêter le chronomètre pour rendre les notifications silencieuses."
-
-#~ msgid "For new tasks, default reminder in days (i.e. 7). Blank to disable"
-#~ msgstr ""
-#~ "Rappel par défaut, en jours (ex. 7),  pour les nouvelles tâches. Laisser "
-#~ "vide pour désactiver."
-
-#~ msgid "I Won\\'t Kill Astrid!"
-#~ msgstr "Je ne tuerai pas Astrid !"
-
-#~ msgid "Start time to silence notifications for periodic reminders"
-#~ msgstr ""
-#~ "Lancer le chronomètre pour rendre les notifications de rappels silencieuses."
-
-#~ msgid "If checked, Astrid will vibrate when sounding an alarm"
-#~ msgstr "Si coché, Astrid vibrera lors de la sonnerie de l'alarme."
-
-#~ msgid "Read Astrid tasks"
-#~ msgstr "Lire les tâches d'Astrid"
-
-#~ msgid "Untagged Tasks:"
-#~ msgstr "Tâches sans tags :"
-
-#~ msgid "Tagged \\\"%s\\\":"
-#~ msgstr "Taguées \\\"%s\\\" :"
-
-#~ msgid "Astrid:"
-#~ msgstr "Astrid :"
-
-#~ msgid "Spent:"
-#~ msgstr "Temps passé :"
-
-#~ msgid "Next Alarm:"
-#~ msgstr "Prochaine alerte :"
-
-#~ msgid "Created:"
-#~ msgstr "Créée le :"
-
-#~ msgid "Deleted"
-#~ msgstr "Supprimée le :"
-
-#~ msgid "Clean Up Old Tasks"
-#~ msgstr "Effacer les tâches obsolètes"
-
-#~ msgid "Take Astrid\\'s Survey!"
-#~ msgstr "Participer au sondage d\\'Astrid !"
-
-#~ msgid "Stop Timer"
-#~ msgstr "Arrêter le chronomètre"
-
-#~ msgid "Sort Reverse"
-#~ msgstr "Tri inversé"
-
-#~ msgid "Astrid: Editing Task"
-#~ msgstr "Astrid : modifier une tâche"
-
-#~ msgid "Postpone for how long?"
-#~ msgstr "Reporter de combien de temps ?"
-
-#~ msgid "Astrid: Editing"
-#~ msgstr "Astrid : modifier"
-
-#~ msgid "Notes:"
-#~ msgstr "Notes :"
-
-#~ msgid "Repeats Every"
-#~ msgstr "Répétition :"
-
-#~ msgid "Skipped task %d..."
-#~ msgstr "Tâche %d ignorée..."
-
-#~ msgid "Opening file..."
-#~ msgstr "Ouverture du fichier..."
-
-#~ msgid "Restore"
-#~ msgstr "Restauration"
-
-#~ msgid "Backup Tasks"
-#~ msgstr "Sauvegarder les tâches"
-
-#~ msgid "Restore Tasks"
-#~ msgstr "Restaurer les tâches"
-
-#~ msgid ""
-#~ "File %s contained %d tasks.\\n Restored %d tasks.\\n Skipped %d tasks.\\n"
-#~ msgstr ""
-#~ "Le fichier %s contient %d tâches.\\n %d tâches restaurées.\\n %d tâches "
-#~ "ignorées.\\n"
-
-#~ msgid "File opened..."
-#~ msgstr "Fichier ouvert..."
-
-#~ msgid "Could not save:s"
-#~ msgstr "Impossible de sauvegarder:s"
-
-#~ msgid "Last backup failed, could not read SD card"
-#~ msgstr ""
-#~ "La dernière sauvegarde a échouée, impossible de lire sur la carte SD."
-
-#~ msgid "Last backup failed: %s"
-#~ msgstr "Dernière sauvegarde échouée : %s"
-
-#~ msgid "Perform daily backups to sdcard."
-#~ msgstr "Sauvegarder quotidiennement sur la carte SD."
-
-#~ msgid "Latest backup was on %s"
-#~ msgstr "Date de dernière sauvegarde : %s"
-
-#~ msgid "Restored task %d..."
-#~ msgstr "Restauration de la tâche %d..."
-
-#~ msgid "Show \"Synchronize\" in Astrid's menu"
-#~ msgstr "Afficher \"Synchroniser\" dans le menu d\\'Astrid"
-
-#~ msgid ""
-#~ "File %s contained %s.\\n\\n %s imported,\\n %s already exist\\n %s had "
-#~ "errors\\n"
-#~ msgstr ""
-#~ "Le fichier %s contenait %s.\\n\\n %s importé,\\n %s existe déjà\\n %s "
-#~ "contenait des erreurs\\n"
-
-#~ msgid "Backed Up %s to %s."
-#~ msgstr "Sauvegardé(s) de %s à %s."
-
-#~ msgid "Cancel"
-#~ msgstr "Annuler"
-
-#~ msgid "Oops, looks like some trouble occurred! Here's what happened:\\n\\n%s"
-#~ msgstr ""
-#~ "Oups, il semble que des problèmes soient survenus ! voici le détail :\\n\\n%s"
-
-#~ msgid "Advanced"
-#~ msgstr "Avancé"
-
-#~ msgid "No Due Time"
-#~ msgstr "Aucune échéance"
-
-#~ msgid "Due at specific time?"
-#~ msgstr "Prévu pour une date précise ?"
-
-#~ msgid "Astrid: Preferences"
-#~ msgstr "Astrid : préférences"
-
-#~ msgid "Currently Set To: %s"
-#~ msgstr "Actuellement paramétrée sur : %s"
-
-#~ msgid ""
-#~ "Astrid is the highly-acclaimed open-source task list that is simple enough "
-#~ "to not get in your way, powerful enough to help you get stuff done! Tags, "
-#~ "reminders, RememberTheMilk sync, Locale plug-in &amp; more!"
-#~ msgstr ""
-#~ "Astrid est le plus populaire gestionnaire de tâches open-source. Très simple "
-#~ "d'utilisation et puissant, il vous permettra d'accomplir aisément vos "
-#~ "objectifs ! Étiquettes, rappels, synchronisation avec RememberTheMilk, "
-#~ "greffon pour Locale et bien plus !"
-
-#~ msgid "Completed Tasks"
-#~ msgstr "Tâches complétées"
-
-#~ msgid "Deleted Tasks"
-#~ msgstr "Tâches supprimées"
-
-#~ msgid "More..."
-#~ msgstr "Plus..."
-
-#~ msgid "Search"
-#~ msgstr "Rechercher"
-
-#~ msgid "Hidden Tasks"
-#~ msgstr "Tâches masquées"
-
-#~ msgid "... when it's time to start the task"
-#~ msgstr "... lorsqu'il est temps de commencer la tâche"
-
-#~ msgid "Remind me..."
-#~ msgstr "Me rappeler..."
-
-#~ msgid "... when task is overdue"
-#~ msgstr "... lorsque la tâche est en retard"
-
-#~ msgid "... randomly once"
-#~ msgstr "... aléatoirement une fois"
-
-#~ msgid "Notifications will begin appearing starting at %s"
-#~ msgstr "Les notifications commenceront à apparaître à partir de %s"
-
-#~ msgid "No notifications will appear after %s"
-#~ msgstr "Aucune notification apparaîtra après %s"
-
-#~ msgid "Astrid Reminders"
-#~ msgstr "Rappels Astrid"
-
-#~ msgid "Astrid not give you any encouragement messages"
-#~ msgstr "Astrid ne vous donnera aucun message d'encouragement"
-
-#~ msgid "Repeats every %s"
-#~ msgstr "Répéter tous les %s"
-
-#~ msgid "Repeats %s after completion"
-#~ msgstr "Répéter %s après complétion"
-
-#~ msgid "$N ($C)"
-#~ msgstr "$N ($C)"
-
-#~ msgid "RTM List: %s"
-#~ msgstr "Liste RTM : %s"
-
-#~ msgid "Please Log In To RTM!"
-#~ msgstr "Veuillez vous connecter à RTM !"
-
-#~ msgid "Clears all RTM synchronization data"
-#~ msgstr "Purger toutes les données de synchronisation RTM"
-
-#~ msgid "Alphabetical"
-#~ msgstr "Alphabétique"
-
-#~ msgid "By Size"
-#~ msgstr "Par taille"
-
-#~ msgid "Tags: %s"
-#~ msgstr "Étiquettes : %s"
-
-#~ msgid "$T ($C)"
-#~ msgstr "$T ($C)"
-
-#~ msgid "Tagged '%s'"
-#~ msgstr "Étiquetté '%s'"
-
-#~ msgid "Alarm %s"
-#~ msgstr "Alarme %s"
-
-#~ msgid "Do Not Synchronize"
-#~ msgstr "Ne Pas Synchroniser"
-
-#~ msgid "No Add-ons Found!"
-#~ msgstr "Aucune extension trouvée"
-
-#~ msgid "Notes will always displayed"
-#~ msgstr "Les notes seront toujours affichées."
-
-#~ msgid "Notes will be displayed when you tap a task"
-#~ msgstr "Les notes seront affichées lorsque vous appuierez sur la tâche"
-
-#~ msgid "No Time Set"
-#~ msgstr "Aucune heure définie"
-
-#~ msgid "Get Some Add-ons"
-#~ msgstr "Télécharger des extensions"
-
-#~ msgid "Tagged..."
-#~ msgstr "Étiqueté..."
-
-#~ msgid "Tagged: ?"
-#~ msgstr "Étiqueté : ?"
-
-#~ msgid "Tag contains: ?"
-#~ msgstr "L'étiquette contient : ?"
-
-#~ msgid "Tag contains..."
-#~ msgstr "L'étiquette contient..."
-
-#~ msgid ""
-#~ "Please log in to Google Tasks Sync (Beta!). Google Apps for Domain is "
-#~ "currently unsupported, we're working on that!"
-#~ msgstr ""
-#~ "Veuillez vous connecter à Google Tasks Sync (Bêta !). Google Apps pour votre "
-#~ "domaine n'est pas pris en charge pour l'instant, nous y travaillons !"
-
-#~ msgid "Intro: Press me to see details"
-#~ msgstr "Intro: Appuyez sur moi pour voir les détails"
-
-#~ msgid "Setup sync with Gmail Tasks or Producteev"
-#~ msgstr "Configurer la synchronisation avec Gmail Tasks ou Producteev"
-
-#~ msgid ""
-#~ "A desktop widget is a great way to keep track of your what you have to do as "
-#~ "well as a way to quickly add new tasks.\\n\\n How to add a widget:\\n 1) "
-#~ "Long press on your phone's desktop.\\n 2) Choose \"Widget\" form resulting "
-#~ "menu\\n 3) Choose the Astrid widget.\\n 4) You can select a Astrid filter. "
-#~ "Choose \"Active Tasks\" for all your tasks\\n\\n Bonus: Use the widget to "
-#~ "add a task!"
-#~ msgstr ""
-#~ "Un widget de bureau est une excellente façon de garder une trace de ce que "
-#~ "vous avez à faire ainsi qu'un moyen d'ajouter rapidement de nouvelles "
-#~ "tâches.\\n\\n Comment ajouter un widget :\\n 1) Appuyez longuement sur le "
-#~ "bureau de votre téléphone.\\n 2) Choisissez \"Widget\" dans le menu qui "
-#~ "apparait.\\n 3) Choisissez le widget Astrid.\\n 4) Vous pouvez sélectionner "
-#~ "un filtre Astrid. Choisissez \"Tâches actives\" pour toutes vos tâches.\\n\\"
-#~ "n Bonus : utilisez le widget pour ajouter une tâche !"
-
-#~ msgid "Sorted By Size"
-#~ msgstr "Trié par taille"
-
-#~ msgid "... when task is due"
-#~ msgstr "... lorsque la tâche est échue"
-
-#~ msgid "Rename the tag %s to:"
-#~ msgstr "Renommer l'étiquette %s en :"
-
-#~ msgid "Rename Tag"
-#~ msgstr "Renommer étiquette"
-
-#~ msgid "Delete this tag: %s? (No tasks will be deleted.)"
-#~ msgstr "Supprimer cette étiquette : %s? (Aucune tâche ne sera supprimée)"
-
-#~ msgid "Select a tag"
-#~ msgstr "Sélectionner une étiquette"
-
-#~ msgid "Tag %s removed from %d tasks"
-#~ msgstr "Étiquette %s supprimée de %d tâches"
-
-#~ msgid "Replaced %s with %s on %d tasks"
-#~ msgstr "Remplacement de %s par %s dans %d tâches"
-
-#~ msgid "Astrid 4x4 (beta!)"
-#~ msgstr "Astrid 4x4 (beta !)"
-
-#~ msgid "Astrid 4x2 (beta!)"
-#~ msgstr "Astrid 4x2 (beta !)"
-
-#~ msgid "It\\s early, get something done!"
-#~ msgstr "Il est tôt, fais quelque chose !"
-
-#~ msgid "Red"
-#~ msgstr "Rouge"
-
-#~ msgid "Speak to add a task"
-#~ msgstr "Parlez pour ajouter une tâche"
-
-#~ msgid "Speak to edit this task"
-#~ msgstr "Parlez pour éditer cette tâche"
-
-#~ msgid "Untagged"
-#~ msgstr "Non étiqueté"
-
-#~ msgid ""
-#~ "On the next page, you can choose how to share this task and choose "
-#~ "recipients."
-#~ msgstr ""
-#~ "Sur la page suivante, vous pourrez choisir comment partager cette tâche et "
-#~ "en choisir les destinataires."
-
-#~ msgid "Share This Task"
-#~ msgstr "Partager cette tâche"
-
-#~ msgid "Sign in using your Facebook or Google account:"
-#~ msgstr "Enregistrez-vous avec votre compte Facebook ou Google :"
-
-#~ msgid "Task to Share:"
-#~ msgstr "Tâche à partager"
-
-#~ msgid "Tag %1$s removed from %2$d tasks"
-#~ msgstr "Étiquette %1$ supprimée de %2$d tâches"
-
-#~ msgid "Replaced %1$s with %2$s on %3$d tasks"
-#~ msgstr "%1$s a été remplacé par %2$s sur %3$d tâches"
-
-#~ msgid ""
-#~ "Astrid makes it possible for you to sync your tasks with the simple task "
-#~ "list provided by Gmail. For more advanced task features we recommend "
-#~ "synchronization with Producteev.\\n\\n To enable sync from Astrid press "
-#~ "\"Menu\" -&gt; \"Settings\" -&gt; \"Synchronization\" and choose the sync "
-#~ "provider you prefer."
-#~ msgstr ""
-#~ "Astrid vous permet de synchroniser vos tâches grâce à la simple liste de "
-#~ "tâches de Gmail. Pour accéder à des fonctionnalités de tâches avancées, nous "
-#~ "recommandons la synchronisation avec Producteev.\\n\\n Afin d'activer la "
-#~ "synchronisation depuis Astrid, pressez « Menu » -&gt; « Paramètres » -&gt; "
-#~ "« Synchronisation » et choisissez le service de synchronisation souhaité."
-
-#~ msgid ""
-#~ "My Astrid lets you post tasks to the web to share with others. Let your "
-#~ "friends encourage and keep you accountable!"
-#~ msgstr ""
-#~ "My Astrid vous permet de partager vos tâches sur le web. Faites-vous "
-#~ "encourager et responsabiliser par vos amis !"
-
-#~ msgid "Refresh Tags"
-#~ msgstr "Rafraîchir les tags"
-
-#~ msgid "Please view shared tags to rename or delete them."
-#~ msgstr ""
-#~ "Merci d'aller dans les tags partagés pour les renommer ou les supprimer"

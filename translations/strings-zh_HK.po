@@ -14,8 +14,8 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2011-07-15 22:24+0000\n"
-"X-Generator: Launchpad (build 13405)\n"
+"X-Launchpad-Export-Date: 2011-08-11 05:04+0000\n"
+"X-Generator: Launchpad (build 13644)\n"
 
 #. People Editing Activity
 #: translations/strings.xml:8( name="EPE_action") translations/strings.xml:540( name="TEA_tab_share")
@@ -3385,14 +3385,3 @@ msgstr ""
 #: translations/strings.xml:2269(item)
 msgid "Translucent"
 msgstr ""
-
-#~ msgid "!!!!"
-#~ msgstr "!!!!"
-
-#~ msgid "!"
-#~ msgstr "1"
-
-#~ msgid "translator-credits"
-#~ msgstr ""
-#~ "Launchpad Contributions:\n"
-#~ "  Michael Chang https://launchpad.net/~mikchang"
