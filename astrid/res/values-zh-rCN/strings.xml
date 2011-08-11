@@ -11,16 +11,16 @@
   <string name="actfm_person_hint">联系人姓名</string>
   
   <!-- task sharing dialog: shared with hint -->
-  <string name="actfm_person_or_tag_hint">Contact or Shared List</string>
+  <string name="actfm_person_or_tag_hint">联系方式或共享列表</string>
 
   <!-- toast on transmit success -->
   <string name="actfm_toast_success">已储存至服务器</string>
 
-  <!-- toast on transmit error -->
-  <string name="actfm_toast_error">储存失败</string>
+  <!-- toast on transmit error (%s => error) -->
+  <string name="actfm_toast_error">Save Failed: %s</string>
 
   <!-- can't rename or delete shared tag message -->
-  <string name="actfm_tag_operation_disabled">Sorry, this operation is not yet supported for shared tags.</string>
+  <string name="actfm_tag_operation_disabled">对不起，此操作尚未支持已共享标签</string>
 
   <!-- menu item to take a picture -->
   <string name="actfm_picture_camera">照张照片</string>
@@ -37,7 +37,7 @@
   <string name="TVA_add_comment">添加注释...</string>
 
   <!-- Tag View Activity: task comment ($1 - user name, $2 - task title) -->    
-  <string name="UAd_title_comment">%1$s re: %2$s</string>
+  <string name="UAd_title_comment">%1$s 回复: %2$s</string>
   
   <!-- Tabs for Tag view -->
   <string-array name="TVA_tabs">
@@ -46,7 +46,7 @@
     <!-- Tab for showing comments & updates -->
     <item>活动</item>
     <!-- Tab for showing setting -->
-    <item>List Settings</item>
+    <item>列表设置</item>
   </string-array>
 
   <!-- Tag View Menu: refresh -->
@@ -56,24 +56,24 @@
   <string name="actfm_TVA_tag_label">列表名称：</string>
 
   <!-- Tag Settings: tag owner label -->
-  <string name="actfm_TVA_tag_owner_label">List Creator:</string>
+  <string name="actfm_TVA_tag_owner_label">列表所有者</string>
 
   <!-- Tag Settings: tag owner value when there is no owner -->
   <string name="actfm_TVA_tag_owner_none">无</string>
 
   <!-- Tag Settings: list collaborators label -->
-  <string name="actfm_TVA_members_label">Collaborators:</string>
+  <string name="actfm_TVA_members_label">合作人</string>
 
   <!-- Tag Settings: tag picture -->
-  <string name="actfm_TVA_tag_picture">List Picture</string>
+  <string name="actfm_TVA_tag_picture">列表图片</string>
 
   <!-- Tag Settings: silence notifications label -->
-  <string name="actfm_TVA_silence_label">Silence Notifications</string>
+  <string name="actfm_TVA_silence_label">静默通知</string>
 
   <!-- ============================================ edit people dialog == -->
 
   <!-- task sharing dialog: intro -->
-  <string name="actfm_EPA_intro">Use Astrid to share shopping lists, party plans, or team projects and instantly see when people get stuff done!</string>
+  <string name="actfm_EPA_intro">使用Astrid分享您的购物单，聚会和团队项目，就会发现人们可以迅速完成工作！</string>
     
   <!-- task sharing dialog: window title -->
   <string name="actfm_EPA_title">分享/指派</string>
@@ -106,7 +106,7 @@
   <string name="actfm_EPA_message_body">帮我办好这事！</string>
   
   <!-- task sharing dialog: message hint -->
-  <string name="actfm_EPA_tag_label">Create a shared tag?</string>
+  <string name="actfm_EPA_tag_label">请问是否创建共享标签？</string>
   
   <!-- task sharing dialog: message hint -->
   <string name="actfm_EPA_tag_hint">(例如宅男联谊会)</string>
@@ -121,7 +121,7 @@
   <string name="actfm_EPA_emailed_toast">已将任务分享给了 %s</string>
 
   <!-- task sharing dialog: edit people settings saved -->
-  <string name="actfm_EPA_saved_toast">People Settings Saved</string>
+  <string name="actfm_EPA_saved_toast">联系人设置已保存</string>
 
   <!-- task sharing dialog: invalid email (%s => email) -->
   <string name="actfm_EPA_invalid_email">电子邮箱无效： %s</string>
@@ -135,26 +135,25 @@
   <string name="actfm_ALA_title">欢迎光临 Astrid.com！</string>
 
   <!-- share login: Sharing Description -->
-  <string name="actfm_ALA_body">Astrid.com lets you access your tasks online,
-  share, and delegate with others.</string>
+  <string name="actfm_ALA_body">Astrid.com能让您轻松在线访问、共享和委托您的任务。</string>
 
   <!-- share login: Sharing Login FB Prompt -->
-  <string name="actfm_ALA_fb_login">Sign in with Facebook</string>
+  <string name="actfm_ALA_fb_login">使用Facebook帐号登录</string>
 
   <!-- share login: Sharing Login GG Prompt -->
-  <string name="actfm_ALA_gg_login">Sign in with Google</string>
+  <string name="actfm_ALA_gg_login">使用Google帐号登录</string>
 
   <!-- share login: Sharing Footer Password Label -->
-  <string name="actfm_ALA_pw_login">Don\'t have a Google or Facebook Account?</string>
+  <string name="actfm_ALA_pw_login">尚未拥有Google或Facebook帐号？</string>
 
   <!-- share login: Sharing Password Link -->
-  <string name="actfm_ALA_pw_link">Sign In Here</string>
+  <string name="actfm_ALA_pw_link">点此登录</string>
 
   <!-- share login: Password Are you a New User? -->
-  <string name="actfm_ALA_pw_new">Create a new account?</string>
+  <string name="actfm_ALA_pw_new">创建新帐户？</string>
 
   <!-- share login: Password Are you a Returning User? -->
-  <string name="actfm_ALA_pw_returning">Already have an account?</string>
+  <string name="actfm_ALA_pw_returning">已有账户？</string>
 
   <!-- share login: Name -->
   <string name="actfm_ALA_name_label">名字</string>
@@ -178,7 +177,7 @@
   <string name="actfm_OLA_prompt">请连接至 Google:</string>
 
   <!-- share login: Sharing notice -->
-  <string name="actfm_ALA_notice">Astrid won\'t send messages e-mails without permission.</string>
+  <string name="actfm_ALA_notice">Astrid未经您的允许绝不会发送信息邮件。</string>
 
   <!-- ================================================ Synchronization == -->
       
@@ -440,7 +439,7 @@
   <string name="TAd_contextDeleteTask">删除任务</string>
 
   <!-- Context Item: undelete task -->
-  <string name="TAd_contextUndeleteTask">还原任务删除</string>
+  <string name="TAd_contextUndeleteTask">未删除任务</string>
 
   <!-- Context Item: purge task -->
   <string name="TAd_contextPurgeTask">清除任务</string>
@@ -498,7 +497,7 @@
   <string name="FLA_context_shortcut">在桌面建立快捷方式</string>
   
   <!-- Menu: Search -->
-  <string name="FLA_menu_search">搜寻任务...</string>
+  <string name="FLA_menu_search">搜索任务中</string>
   
   <!-- Menu: Help -->    
   <string name="FLA_menu_help">帮助</string>
@@ -510,7 +509,7 @@
   <string name="FLA_shortcut_dialog">快捷方式名称</string>
   
   <!-- Search Hint-->
-  <string name="FLA_search_hint">任务搜寻</string>
+  <string name="FLA_search_hint">搜索任务</string>
   
   <!-- Search Filter name (%s => query) -->
   <string name="FLA_search_filter">比对 \'%s\'</string>
@@ -527,7 +526,7 @@
   <string name="TEA_view_titleNew">Astrid: 新任务</string>
   
   <!-- First Tab - basic task details -->
-  <string name="TEA_tab_basic">基本</string>
+  <string name="TEA_tab_basic">基本信息</string>
   
   <!-- Second Tab - extra details -->
   <string name="TEA_tab_share">分享</string>
@@ -584,13 +583,13 @@
   <string name="TEA_menu_delete">删除任务</string>
   
    <!-- Toast: task saved with deadline (%s => preposition + time units) -->
-  <string name="TEA_onTaskSave_due">任务已储存: %s 到期</string>
+  <string name="TEA_onTaskSave_due">已设截止日期的任务：按 %s</string>
   
   <!-- Toast: task saved without deadlines -->
   <string name="TEA_onTaskSave_notDue">任务已储存</string>
   
   <!-- Toast: task was not saved -->
-  <string name="TEA_onTaskCancel">编辑任务已取消</string>
+  <string name="TEA_onTaskCancel">任务编辑操作已被取消</string>
   
   <!-- Toast: task was deleted -->
   <string name="TEA_onTaskDelete">任务已删除!</string>
@@ -655,28 +654,26 @@
   <string name="EPr_appearance_header">外观</string>
   
   <!-- Preference: Task List Font Size Title -->
-  <string name="EPr_fontSize_title">任务清单大小</string>
+  <string name="EPr_fontSize_title">任务列表字体大小</string>
   <!-- Preference: Task List Font Size Description -->                                                                                                                                                  
   <string name="EPr_fontSize_desc">主列表页面字体大小</string>  
   
   <!-- Preference: Task List Show Notes -->
   <string name="EPr_showNotes_title">在任务显示备注</string>
   <!-- Preference: Task List Show Notes Description (disabled) -->
-  <string name="EPr_showNotes_desc_disabled">Notes will be displayed in quick action bar</string>  
+  <string name="EPr_showNotes_desc_disabled">笔记将会在快速行动条中显示</string>  
   <!-- Preference: Task List Show Notes Description (enabled) -->
   <string name="EPr_showNotes_desc_enabled">总是显示备注</string>
   
-  <!-- Preference: Transparent -->
-  <string name="EPr_transparent_title">透明度</string>
-  <!-- Preference: Transparent Description (disabled) -->
-  <string name="EPr_transparent_desc_disabled">不显示墙纸</string>  
-  <!-- Preference: Transparent Description (enabled) -->
-  <string name="EPr_transparent_desc_enabled">显示墙纸</string>
-  <!-- Preference: Transparent Description (android 1.6) -->
-  <string name="EPr_transparent_desc_unsupported">该设置需要 Android 2.0+</string>
+  <!-- Preference: Theme -->
+  <string name="EPr_theme_title">Color Theme</string>
+  <!-- Preference: Theme Description (%s => value) -->
+  <string name="EPr_theme_desc">当前: %s</string>  
+  <!-- Preference: Theme Description (android 1.6) -->
+  <string name="EPr_theme_desc_unsupported">该设置需要 Android 2.0+</string>
   
   <!-- Preference Category: Defaults Title -->
-  <string name="EPr_defaults_header">任务预设值</string>
+  <string name="EPr_defaults_header">新任务默认值</string>
   
   <!-- Preference: Default Urgency Title -->
   <string name="EPr_default_urgency_title">默认严重性</string>
@@ -684,7 +681,7 @@
   <string name="EPr_default_urgency_desc">当前: %s</string>
   
   <!-- Preference: Default Importance Title -->
-  <string name="EPr_default_importance_title">默认重要性</string>
+  <string name="EPr_default_importance_title">默认优先级</string>
   <!-- Preference: Default Importance Description (%s => setting) -->
   <string name="EPr_default_importance_desc">当前: %s</string>
   
@@ -730,19 +727,27 @@
       <item>过期时</item>
       <item>截止期限或过期时</item>
   </string-array>
+    
+  <string-array name="EPr_themes">
+    <!-- theme_settings: labels for Theme preference menu -->
+    <item>Day</item>
+    <item>Night</item>
+    <item>Transparent (White Text)</item>
+    <item>Transparent (Black Text)</item>
+  </string-array>
   
   <!-- ========================================== Task Management Settings == -->
 
   <!-- Preference Screen Header: Old Task Management -->
-  <string name="EPr_manage_header">Manage Old Tasks</string>
-  <string name="EPr_manage_delete_completed">Delete Completed Tasks</string>
-  <string name="EPr_manage_delete_completed_message">Do you really want to delete all your completed tasks?</string>
-  <string name="EPr_manage_delete_completed_summary">Deleted tasks can be undeleted one-by-one</string>
-  <string name="EPr_manage_delete_completed_status">Deleted %d tasks!</string>
-  <string name="EPr_manage_purge_deleted">Purge Deleted Tasks</string>
-  <string name="EPr_manage_purge_deleted_message">Do you really want to purge all your deleted tasks?\n\nThese tasks will be gone forever!</string>
-  <string name="EPr_manage_purge_deleted_status">Purged %d tasks!</string>
-  <string name="EPr_manage_purge_deleted_summary">Caution! Purged tasks can\'t be recovered without backup file!</string>
+  <string name="EPr_manage_header">管理旧任务</string>
+  <string name="EPr_manage_delete_completed">删除已完成任务</string>
+  <string name="EPr_manage_delete_completed_message">您真的要删除所有已完成任务吗？</string>
+  <string name="EPr_manage_delete_completed_summary">已删除任务可以被依次恢复</string>
+  <string name="EPr_manage_delete_completed_status">删除了 %d 个任务！</string>
+  <string name="EPr_manage_purge_deleted">清除已删除任务</string>
+  <string name="EPr_manage_purge_deleted_message">您真的要清楚所有已删除任务吗？ \n\n 这些任务将会被彻底永久删除！</string>
+  <string name="EPr_manage_purge_deleted_status">清除了 %d 个任务！</string>
+  <string name="EPr_manage_purge_deleted_summary">请注意！若事先没有备份，已清除的任务将无法恢复！</string>
       
   <!-- ==================================================== AddOnActivity == -->
   
@@ -776,7 +781,7 @@
   <string name="TWi_loading">载入中...</string>
 
   <!-- Widget configuration activity title: select a filter -->
-  <string name="WCA_title">选择任务显示...</string>
+  <string name="WCA_title">选择任务以显示...</string>
 
   <!-- ============================================================= About == -->
   
@@ -795,10 +800,10 @@
   <string name="task_killer_help_ok">我不会中止 Astrid!</string>
     
   <!-- Astrid's Android Marketplace title. It never appears in the app itself. -->
-  <string name="marketplace_title">Astricd任务/待办清单</string>
+  <string name="marketplace_title">Astricd任务/待办列表</string>
   
   <!-- Astrid's Android Marketplace description. It never appears in the app itself. -->
-  <string name="marketplace_description">Astrid任务管理是受到高度喜爱的开放源码应用程式且可以非常简单的完成任务。内含任务标签、提醒、同步 、本地端插件、widget和其他功能。</string>
+  <string name="marketplace_description">Astrid是一款开源并深受人们喜爱的TODO任务/列表管理器，旨在提高您处理事务的效率。Astrid包含提醒、标签、同步、区域插件、小工具等众多功能。</string>
   
 
 
@@ -822,7 +827,7 @@
     <string name="BFE_Custom">自定义筛选...</string>
     
     <!-- Saved Filters Header -->
-    <string name="BFE_Saved">保存过的筛选</string>
+    <string name="BFE_Saved">Filters</string>
     
     <!-- Saved Filters Context Menu: delete -->
     <string name="BFE_Saved_delete">删除筛选</string>
@@ -836,7 +841,7 @@
     <string name="CFA_filterName_hint">命名筛选并保存...</string>
     
     <!-- Filter Name default for copied filters (%s => old filter name) -->
-    <string name="CFA_filterName_copy">%s 副本</string>
+    <string name="CFA_filterName_copy">%s 的复件</string>
     
     <!-- Filter Starting Universe: all tasks -->
     <string name="CFA_universe_all">进行中的任务</string>
@@ -851,7 +856,7 @@
     <string name="CFA_type_intersect">且</string>
     
     <!-- Filter Criteria Context Menu: chaining (%s chain type as above) -->
-    <string name="CFA_context_chain">%s 含条件</string>
+    <string name="CFA_context_chain">% 含条件</string>
     
     <!-- Filter Criteria Context Menu: delete -->
     <string name="CFA_context_delete">删除列</string>
@@ -863,7 +868,7 @@
     <string name="CFA_button_add">加入条件</string>
     
     <!-- Filter Button: view without saving -->
-    <string name="CFA_button_view">查看</string>
+    <string name="CFA_button_view">预览</string>
     
     <!-- Filter Button: save & view filter -->
     <string name="CFA_button_save">保存 &amp; 查看</string>
@@ -915,7 +920,7 @@
   <!-- =============================================== Task Edit Controls == -->
   
   <!-- Error message for adding to calendar  -->
-  <string name="gcal_TEA_error">任务加入行事历错误</string>
+  <string name="gcal_TEA_error">添加任务到日历时失败！</string>
 
   <!-- Label for adding task to calendar -->
   <string name="gcal_TEA_calendar_label">日程表整合：</string>
@@ -958,10 +963,13 @@
     <string name="gtasks_FEx_title">Google Tasks: %s</string>
     
     <!-- dialog prompt for creating a new gtasks list -->
+    <string name="gtasks_FEx_creating_list">Creating list...</string>
+    
+    <!-- dialog prompt for creating a new gtasks list -->
     <string name="gtasks_FEx_create_list_dialog">新列表名：</string>
     
     <!-- error to show when list creation fails -->
-    <string name="gtasks_FEx_create_list_error">Error creating new list</string>
+    <string name="gtasks_FEx_create_list_error">创建新列表失败</string>
     
     <!-- short help title for Gtasks -->
     <string name="gtasks_help_title">欢迎使用Google Tasks!</string>
@@ -969,9 +977,15 @@
     <!-- short help for GTasks list activity -->
     <string name="gtasks_help_body">拖曳任务左侧的直条以重新排列。向左或向右滑动则可变更缩排。</string>
 
-    <string name="CFC_gtasks_list_text">In List: ?</string>
+    <string name="CFC_gtasks_list_text">列表内容: ?</string>
 
-    <string name="CFC_gtasks_list_name">In GTasks List...</string>
+    <string name="CFC_gtasks_list_name">在Google任务列表中...</string>
+    
+    <!-- Message while clearing completed tasks -->
+    <string name="gtasks_GTA_clearing">Clearing completed tasks...</string>
+    
+    <!-- Label for clear completed menu item -->
+    <string name="gtasks_GTA_clear_completed">Clear Completed</string>
         
     <!-- ============================================ GtasksLoginActivity == -->
     
@@ -979,13 +993,12 @@
     <string name="gtasks_GLA_title">登陆 Google Tasks</string>
 
     <!-- Instructions: Gtasks login -->    
-    <string name="gtasks_GLA_body">Please log in to Google Tasks Sync (Beta!). Non-migrated Google Apps
-    accounts are currently unsupported.</string>
+    <string name="gtasks_GLA_body">请登录到谷歌任务同步（Beta!）。目前不支持非迁移的“Google应用服务”帐户。</string>
     
-    <string name="gtasks_GLA_noaccounts">No available Google accounts to sync with.</string>
+    <string name="gtasks_GLA_noaccounts">没有可用的Google帐户同步。</string>
 
     <!-- Instructions: Gtasks further help -->    
-    <string name="gtasks_GLA_further_help">检视任务时若想保留缩排与排序，请到筛选页面选择Google Tasks的任务清单。Astrid预设采用自有的任务排序。</string>
+    <string name="gtasks_GLA_further_help">预览任务时若想保留缩进和排序，请到“筛选”页面选择 Google 任务列表。Astrid 默认采用自有的任务排序设置。</string>
 
     <!-- Sign In Button -->    
     <string name="gtasks_GLA_signIn">登陆</string>
@@ -997,7 +1010,7 @@
     <string name="gtasks_GLA_password">密码</string>
     
     <!--  Authenticating toast -->
-    <string name="gtasks_GLA_authenticating">Authenticating...</string>
+    <string name="gtasks_GLA_authenticating">正在认证...</string>
     
     <!-- Google Apps for Domain checkbox -->
     <string name="gtasks_GLA_domain">Google Apps for Domain 帐号</string>
@@ -1007,23 +1020,28 @@
 
     <!-- Error Message when we receive a HTTP 401 Unauthorized -->    
     <string name="gtasks_GLA_errorAuth">Error authenticating! Please check your username and password in your phone\'s account manager</string>
-
+    
     <!-- Error Message when we receive a HTTP 401 Unauthorized multiple times -->    
     <string name="gtasks_GLA_errorAuth_captcha">您可能需要输入验证码。尝试从浏览器登陆后再回来重试：</string>
-        
+    
     <!-- ============================================== GtasksPreferences == -->
 
     <!-- GTasks Preferences Title -->    
     <string name="gtasks_GPr_header">Google Tasks (测试版！)</string>
     
-    <string name="gtasks_GPr_sync_on_save">Sync on Save</string>
+    <string name="gtasks_GPr_sync_on_save">同步保存</string>
     
-    <string name="gtasks_GPr_sync_on_save_summary">Sync individual tasks as they are saved</string>
+    <string name="gtasks_GPr_sync_on_save_summary">保存并同步单个任务</string>
     
     <!-- ================================================ Synchronization == -->    
     
     <!-- title for notification tray when synchronizing -->
     <string name="gtasks_notification_title">Astrid: Google Tasks</string>
+
+    <!-- Error Message when we receive a HTTP 503 error -->
+    <string name="gtasks_error_backend">Google\'s Task API is in beta and has encountered an error. The service may be down, please try again later.</string>
+
+    
         
 
 
@@ -1037,7 +1055,7 @@
   <string name="intro_click_prompt">简介: 按我阅读注释</string>
   
   <!-- Task 1 Summary  -->
-  <string name="intro_task_1_summary">建立ˋ您的第一个任务</string>
+  <string name="intro_task_1_summary">建立您的第一个任务</string>
 
   <!-- Task 1 Note -->
   <string name="intro_task_1_note">两种新增任务的方式:\n 1)快速新增:只要在快速输入框中输入任务并按下左侧的+按钮。\n\n 2)一般新增:按下快速输入框右侧的按钮。加入一般细节(到期日、标签、备注)或设定更多进阶选项。按下储存按钮或是手机上的返回键将任务储存。</string>
@@ -1146,16 +1164,16 @@
     <string name="opencrx_host_summary">例如 <i>mydomain.com</i></string>
     
     <!--  preference description for OpenCRX segment -->
-    <string name="opencrx_segment_title">Segment</string>
+    <string name="opencrx_segment_title">段</string>
 
     <!--  dialog title for OpenCRX segment -->
-    <string name="opencrx_segment_dialog_title">Synchronized segment</string>
+    <string name="opencrx_segment_dialog_title">同步段</string>
     
     <!--  example for OpenCRX segment -->
-    <string name="opencrx_segment_summary">For example: <i>Standard</i></string>
+    <string name="opencrx_segment_summary">例如： <i> 标准 <i/></i></string>
     
     <!--  default value for OpenCRX segment -->
-    <string name="opencrx_segment_default">Standard</string>
+    <string name="opencrx_segment_default">标准值</string>
     
     <!--  preference description for OpenCRX provider -->
     <string name="opencrx_provider_title">提供者</string>
@@ -1263,7 +1281,7 @@
     <string name="producteev_FEx_responsible_byme">指派给</string>
     
     <!-- filter category for Producteev responsible person -->
-    <string name="producteev_FEx_responsible_byothers">Assigned by others to</string>
+    <string name="producteev_FEx_responsible_byothers">由他人分配给</string>
     
     <!--  Producteev responsible filter title (%s => responsiblename) -->
     <string name="producteev_FEx_responsible_title">指派给 \'%s\'</string>
@@ -1454,12 +1472,12 @@
   <!-- Reminder Preference: Quiet Hours End Title -->
   <string name="rmd_EPr_quiet_hours_end_title">无声时间结束</string>
   <!-- Reminder Preference: Quiet Hours End Description (%s => time set) -->
-  <string name="rmd_EPr_quiet_hours_end_desc">Notifications will stop being silent starting at %s</string>
+  <string name="rmd_EPr_quiet_hours_end_desc">通知将在 %s</string>
 
   <!-- Reminder Preference: Default Reminder Title -->
   <string name="rmd_EPr_rmd_time_title">默认提示</string>
   <!-- Reminder Preference: Default Reminder Description (%s => time set) -->
-  <string name="rmd_EPr_rmd_time_desc">Notifications for tasks without duetimes will appear at %s</string>
+  <string name="rmd_EPr_rmd_time_desc">未设定截止日期任务的通知会于 %s 出现</string>
 
   <!-- Reminder Preference: Notification Ringtone Title -->
   <string name="rmd_EPr_ringtone_title">提醒铃声</string>
@@ -1483,11 +1501,11 @@
   <string name="rmd_Epr_notificon_desc">选择 Astrid 通知列图标</string>
 
   <!-- Reminder Preference: Max Volume for Multiple-Ring reminders Title -->
-  <string name="rmd_EPr_multiple_maxvolume_title">Max volume for multiple-ring reminders</string>
+  <string name="rmd_EPr_multiple_maxvolume_title">多重提醒最大音量</string>
   <!-- Reminder Preference: Max Volume for Multiple-Ring reminders Description (true) -->
-  <string name="rmd_EPr_multiple_maxvolume_desc_true">Astrid will max out the volume for multiple-ring reminders</string>
+  <string name="rmd_EPr_multiple_maxvolume_desc_true">Astrid将会以最大音量进行多重提醒</string>
   <!-- Reminder Preference: Max Volume for Multiple-Ring reminders Description (false) -->
-  <string name="rmd_EPr_multiple_maxvolume_desc_false">Astrid will use the system-setting for the volume</string>
+  <string name="rmd_EPr_multiple_maxvolume_desc_false">Astrid使用系统音量设置</string>
 
   <!-- Reminder Preference: Vibrate Title -->
   <string name="rmd_EPr_vibrate_title">震动提醒</string>
@@ -1518,7 +1536,7 @@
   <string name="rmd_EPr_defaultRemind_desc">任务将随机提醒: %s</string>
   
   <!-- Defaults Title -->
-  <string name="rmd_EPr_defaults_header">任务预设值</string>
+  <string name="rmd_EPr_defaults_header">新任务默认值</string>
   
   <string-array name="EPr_reminder_random">
     <!-- Reminder Preference: random reminder choices for preference page. -->
@@ -1831,13 +1849,13 @@
   <string name="TAd_contextFilterByTag">显示列表</string>
   
     <!-- Dialog: new list -->
-  <string name="tag_new_list">New List</string>
+  <string name="tag_new_list">新列表</string>
   
     <!-- Dialog: list saved -->
-  <string name="tag_list_saved">List Saved</string>
+  <string name="tag_list_saved">列表已保存</string>
   
     <!-- Dialog: task created without title -->
-  <string name="tag_no_title_error">Please enter a name for this list first!</string>
+  <string name="tag_no_title_error">请先为此列表键入一个名称！</string>
   
   <!-- ========================================================== Filters == -->
   

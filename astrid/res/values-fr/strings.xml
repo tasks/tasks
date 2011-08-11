@@ -17,7 +17,7 @@
   <string name="actfm_toast_success">Enregistré sur le serveur</string>
 
   <!-- toast on transmit error -->
-  <string name="actfm_toast_error">Sauvegarde échouée</string>
+  <string name="actfm_toast_error">Sauvegarde échouée: %s</string>
 
   <!-- can't rename or delete shared tag message -->
   <string name="actfm_tag_operation_disabled">Sorry, this operation is not yet supported for shared tags.</string>
@@ -42,24 +42,24 @@
   <!-- Tabs for Tag view -->
   <string-array name="TVA_tabs">
     <!-- Tab for showing tasks -->
-    <item>Tasks</item>
+    <item>Tâches</item>
     <!-- Tab for showing comments & updates -->
-    <item>Activity</item>
+    <item>Activité</item>
     <!-- Tab for showing setting -->
     <item>List Settings</item>
   </string-array>
 
   <!-- Tag View Menu: refresh -->
-  <string name="actfm_TVA_menu_refresh">Refresh</string>
+  <string name="actfm_TVA_menu_refresh">Mettre à jour</string>
 
   <!-- Tag Settings: tag name label -->
-  <string name="actfm_TVA_tag_label">List Name:</string>
+  <string name="actfm_TVA_tag_label">Nom de la liste :</string>
 
   <!-- Tag Settings: tag owner label -->
   <string name="actfm_TVA_tag_owner_label">List Creator:</string>
 
   <!-- Tag Settings: tag owner value when there is no owner -->
-  <string name="actfm_TVA_tag_owner_none">none</string>
+  <string name="actfm_TVA_tag_owner_none">Aucun</string>
 
   <!-- Tag Settings: list collaborators label -->
   <string name="actfm_TVA_members_label">Collaborators:</string>
@@ -76,34 +76,34 @@
   <string name="actfm_EPA_intro">Use Astrid to share shopping lists, party plans, or team projects and instantly see when people get stuff done!</string>
     
   <!-- task sharing dialog: window title -->
-  <string name="actfm_EPA_title">Share / Assign</string>
+  <string name="actfm_EPA_title">Partager / Assigner</string>
     
   <!-- task sharing dialog: save button -->
-  <string name="actfm_EPA_save">Save &amp; Share</string>
+  <string name="actfm_EPA_save">Enregistrer &amp; Partager</string>
   
   <!-- task sharing dialog: assigned label -->
-  <string name="actfm_EPA_assign_label">Assigned to:</string>
+  <string name="actfm_EPA_assign_label">Assignée à:</string>
   
   <!-- task sharing dialog: assigned to me -->
-  <string name="actfm_EPA_assign_me">Me</string>
+  <string name="actfm_EPA_assign_me">Moi</string>
   
   <!-- task sharing dialog: custom email assignment -->
-  <string name="actfm_EPA_assign_custom">Custom...</string>
+  <string name="actfm_EPA_assign_custom">Personnalisé...</string>
   
   <!-- task sharing dialog: shared with label -->
-  <string name="actfm_EPA_share_with">Add Collaborators:</string>
+  <string name="actfm_EPA_share_with">Ajouter des contacts</string>
   
   <!-- task sharing dialog: collaborator list name (%s => name of list) -->
-  <string name="actfm_EPA_list">List: %s</string>
+  <string name="actfm_EPA_list">Liste : %s</string>
   
   <!-- task sharing dialog: assigned hint -->
   <string name="actfm_EPA_assigned_hint">Nom de contact</string>
   
   <!-- task sharing dialog: message label text -->
-  <string name="actfm_EPA_message_text">Invitation Message:</string>
+  <string name="actfm_EPA_message_text">Message d\'invitation :</string>
   
   <!-- task sharing dialog: message body -->
-  <string name="actfm_EPA_message_body">Help me get this done!</string>
+  <string name="actfm_EPA_message_body">Aidez moi à terminer ce truc !</string>
   
   <!-- task sharing dialog: message hint -->
   <string name="actfm_EPA_tag_label">Create a shared tag?</string>
@@ -124,69 +124,68 @@
   <string name="actfm_EPA_saved_toast">People Settings Saved</string>
 
   <!-- task sharing dialog: invalid email (%s => email) -->
-  <string name="actfm_EPA_invalid_email">Invalid E-mail: %s</string>
+  <string name="actfm_EPA_invalid_email">E-mail incorrecte : %s</string>
 
   <!-- task sharing dialog: tag not found (%s => tag) -->
-  <string name="actfm_EPA_invalid_tag">List Not Found: %s</string>
+  <string name="actfm_EPA_invalid_tag">Liste non trouvée : %s</string>
 
   <!-- ========================================= sharing login activity == -->
 
   <!-- share login: Title -->
-  <string name="actfm_ALA_title">Welcome to Astrid.com!</string>
+  <string name="actfm_ALA_title">Bienvenue sur Astrid.com !</string>
 
   <!-- share login: Sharing Description -->
-  <string name="actfm_ALA_body">Astrid.com lets you access your tasks online,
-  share, and delegate with others.</string>
+  <string name="actfm_ALA_body">Astrid.com vous permet d\'accéder à vos tâches en ligne, les partager et les transmettre à d\'autres personnes.</string>
 
   <!-- share login: Sharing Login FB Prompt -->
-  <string name="actfm_ALA_fb_login">Sign in with Facebook</string>
+  <string name="actfm_ALA_fb_login">Connexion avec Facebook</string>
 
   <!-- share login: Sharing Login GG Prompt -->
-  <string name="actfm_ALA_gg_login">Sign in with Google</string>
+  <string name="actfm_ALA_gg_login">Connexion avec Google</string>
 
   <!-- share login: Sharing Footer Password Label -->
-  <string name="actfm_ALA_pw_login">Don\'t have a Google or Facebook Account?</string>
+  <string name="actfm_ALA_pw_login">Pas de compte Google ou Facebook ?</string>
 
   <!-- share login: Sharing Password Link -->
   <string name="actfm_ALA_pw_link">Sign In Here</string>
 
   <!-- share login: Password Are you a New User? -->
-  <string name="actfm_ALA_pw_new">Create a new account?</string>
+  <string name="actfm_ALA_pw_new">Créer un nouveau compte ?</string>
 
   <!-- share login: Password Are you a Returning User? -->
-  <string name="actfm_ALA_pw_returning">Already have an account?</string>
+  <string name="actfm_ALA_pw_returning">Vous avez déjà un compte ?</string>
 
   <!-- share login: Name -->
-  <string name="actfm_ALA_name_label">Name</string>
+  <string name="actfm_ALA_name_label">Nom</string>
 
   <!-- share login: Email -->
-  <string name="actfm_ALA_email_label">Email</string>
+  <string name="actfm_ALA_email_label">E-mail</string>
 
   <!-- share login: Username / Email -->
-  <string name="actfm_ALA_username_email_label">Username / Email</string>
+  <string name="actfm_ALA_username_email_label">Identifiant / E-mail</string>
 
   <!-- share login: Password -->
   <string name="actfm_ALA_password_label">Mot de passe</string>
 
   <!-- share login: Sign Up Title -->
-  <string name="actfm_ALA_signup_title">Create New Account</string>
+  <string name="actfm_ALA_signup_title">Créer un nouveau compte</string>
 
   <!-- share login: Login Title -->
   <string name="actfm_ALA_login_title">Login to Astrid.com</string>
 
   <!-- share login: OAUTH Login Prompt -->
-  <string name="actfm_OLA_prompt">Please connect to Google:</string>
+  <string name="actfm_OLA_prompt">Veuillez vous connecter sur Google :</string>
 
   <!-- share login: Sharing notice -->
-  <string name="actfm_ALA_notice">Astrid won\'t send messages e-mails without permission.</string>
+  <string name="actfm_ALA_notice">Astrid n\'envoie pas de messages sans votre permission.</string>
 
   <!-- ================================================ Synchronization == -->
       
   <!-- Preferences Title: Act.fm -->    
-  <string name="actfm_APr_header">Astrid.com (Beta!)</string>
+  <string name="actfm_APr_header">Astrid.com (Beta !)</string>
 
   <!-- title for notification tray after synchronizing -->
-  <string name="actfm_notification_title">Astrid.com Sync</string>
+  <string name="actfm_notification_title">Synchronisation Astrid.com</string>
   
   <!-- text for notification when comments are received -->
   <string name="actfm_notification_comments">New comments received / click for more details</string>
@@ -252,7 +251,7 @@
   <!-- ================================================= BackupActivity == -->
 
   <!-- backup activity label -->
-  <string name="backup_BAc_label">Manage Backups</string>
+  <string name="backup_BAc_label">Gérer les sauvegardes</string>
 
   <!-- backup activity title -->
   <string name="backup_BAc_title">Gérer vos sauvegardes</string>
@@ -351,7 +350,7 @@
   <string name="DLG_eula_title">Conditions d\'utilisation d\'Astrid</string>
 
   <!-- Progress Dialog generic text -->
-  <string name="DLG_please_wait">Please Wait</string>
+  <string name="DLG_please_wait">Veuillez patienter</string>
   
   <!-- =============================================================== UI == -->
   
@@ -370,16 +369,16 @@
   <string name="ENE_label">Notes</string>
   
   <!-- Note Exposer / Comments -->    
-  <string name="ENE_label_comments">Comments</string>
+  <string name="ENE_label_comments">Commentaires</string>
   
   <!-- EditNoteActivity - no comments -->
-  <string name="ENA_no_comments">Nothing To Show</string>
+  <string name="ENA_no_comments">Rien à afficher</string>
   
   <!-- EditNoteActivity - loading -->
   <string name="ENA_loading">Chargement…</string>
   
   <!-- EditNoteActivity - refresh comments -->
-  <string name="ENA_refresh_comments">Refresh Comments</string>
+  <string name="ENA_refresh_comments">Mettre à jour les commentaires</string>
   
   <!-- ================================================= TaskListActivity == -->
   
@@ -411,7 +410,7 @@
   <string name="TLA_quick_add_hint">Ajouter à cette liste…</string>
   
   <!-- Notification Volumne notification-->
-  <string name="TLA_notification_volume_low">Notifications are muted. You won\'t be able to hear Astrid!</string>
+  <string name="TLA_notification_volume_low">Les notifications sont désactivées. Astrid ne vous embêtera plus !</string>
   
   <!-- ====================================================== TaskAdapter == -->
   
@@ -434,7 +433,7 @@
   <string name="TAd_contextEditTask">Modifier la tâche</string>
 
   <!-- Context Item: copy task -->
-  <string name="TAd_contextCopyTask">Copy Task</string>
+  <string name="TAd_contextCopyTask">Copier la tâche</string>
 
   <!-- Context Item: delete task -->
   <string name="TAd_contextDeleteTask">Supprimer la tâche</string>
@@ -554,10 +553,10 @@
   <string name="TEA_urgency_specific_time">À une heure précise ?</string>
   
   <!-- Task urgency specific time title when specific time false -->
-  <string name="TEA_urgency_none">None</string>
+  <string name="TEA_urgency_none">Aucune</string>
   
   <!-- Task hide until label -->
-  <string name="TEA_hideUntil_label">Masquer jusqu\'à</string>
+  <string name="TEA_hideUntil_label">Hide Task From List Until:</string>
   
   <!-- Task editing data being loaded label -->
   <string-array name="TEA_loading"><item>Chargement…</item></string-array>
@@ -603,7 +602,7 @@
       <item>Demain</item>
       <item>(jour d\'après)</item>
       <item>Semaine prochaine</item>
-      <item>In Two Weeks</item>
+      <item>Dans deux semaines</item>
       <item>Mois suivant</item>
   </string-array>
   
@@ -662,18 +661,16 @@
   <!-- Preference: Task List Show Notes -->
   <string name="EPr_showNotes_title">Afficher les notes des tâches</string>
   <!-- Preference: Task List Show Notes Description (disabled) -->
-  <string name="EPr_showNotes_desc_disabled">Les notes seront affichées lorsque vous appuierez sur la tâche</string>  
+  <string name="EPr_showNotes_desc_disabled">Les notes seront affichées dans la barre d\'action rapide</string>  
   <!-- Preference: Task List Show Notes Description (enabled) -->
   <string name="EPr_showNotes_desc_enabled">Les notes seront toujours affichées</string>
   
-  <!-- Preference: Transparent -->
-  <string name="EPr_transparent_title">Transparency</string>
-  <!-- Preference: Transparent Description (disabled) -->
-  <string name="EPr_transparent_desc_disabled">Desktop wallpaper will not be shown</string>  
-  <!-- Preference: Transparent Description (enabled) -->
-  <string name="EPr_transparent_desc_enabled">Desktop wallpaper will be shown</string>
-  <!-- Preference: Transparent Description (android 1.6) -->
-  <string name="EPr_transparent_desc_unsupported">Setting requires Android 2.0+</string>
+  <!-- Preference: Theme -->
+  <string name="EPr_theme_title">Color Theme</string>
+  <!-- Preference: Theme Description (%s => value) -->
+  <string name="EPr_theme_desc">Actuellement : %s</string>  
+  <!-- Preference: Theme Description (android 1.6) -->
+  <string name="EPr_theme_desc_unsupported">Ce paramètre requiert Android 2.0+.</string>
   
   <!-- Preference Category: Defaults Title -->
   <string name="EPr_defaults_header">Paramètres par défaut de la tâche</string>
@@ -730,15 +727,23 @@
       <item>En cas de retard</item>
       <item>À la date limite ou après</item>
   </string-array>
+    
+  <string-array name="EPr_themes">
+    <!-- theme_settings: labels for Theme preference menu -->
+    <item>Day</item>
+    <item>Night</item>
+    <item>Transparent (White Text)</item>
+    <item>Transparent (Black Text)</item>
+  </string-array>
   
   <!-- ========================================== Task Management Settings == -->
 
   <!-- Preference Screen Header: Old Task Management -->
-  <string name="EPr_manage_header">Manage Old Tasks</string>
-  <string name="EPr_manage_delete_completed">Delete Completed Tasks</string>
-  <string name="EPr_manage_delete_completed_message">Do you really want to delete all your completed tasks?</string>
+  <string name="EPr_manage_header">Gérer les anciennes tâches</string>
+  <string name="EPr_manage_delete_completed">Supprimer les tâches terminées</string>
+  <string name="EPr_manage_delete_completed_message">Confirmer la suppression de toutes vos tâches ?</string>
   <string name="EPr_manage_delete_completed_summary">Deleted tasks can be undeleted one-by-one</string>
-  <string name="EPr_manage_delete_completed_status">Deleted %d tasks!</string>
+  <string name="EPr_manage_delete_completed_status">%d tâches supprimées !</string>
   <string name="EPr_manage_purge_deleted">Purge Deleted Tasks</string>
   <string name="EPr_manage_purge_deleted_message">Do you really want to purge all your deleted tasks?\n\nThese tasks will be gone forever!</string>
   <string name="EPr_manage_purge_deleted_status">Purged %d tasks!</string>
@@ -781,7 +786,7 @@
   <!-- ============================================================= About == -->
   
   <!-- Title of "About" option in settings -->
-  <string name="p_about">About Astrid</string>
+  <string name="p_about">À propos d\'Astrid</string>
   
   <!-- About text (%s => current version)-->
 <string name="p_about_text">Current version: %s\n\n
@@ -824,7 +829,7 @@ Astrid is open-source and proudly maintained by Todoroo, Inc.</string>
     <string name="BFE_Custom">Filtre personnalisé</string>
     
     <!-- Saved Filters Header -->
-    <string name="BFE_Saved">Filtres enregistrés</string>
+    <string name="BFE_Saved">Filters</string>
     
     <!-- Saved Filters Context Menu: delete -->
     <string name="BFE_Saved_delete">Supprimer le filtre</string>
@@ -893,14 +898,14 @@ Astrid is open-source and proudly maintained by Todoroo, Inc.</string>
     <string name="CFC_importance_name">Importance...</string>        
     
     <!-- Criteria: tag - display text (? -> user input) -->
-    <string name="CFC_tag_text">List: ?</string>
+    <string name="CFC_tag_text">Liste : ?</string>
     <!-- Criteria: tag - name of criteria -->
-    <string name="CFC_tag_name">List...</string>
+    <string name="CFC_tag_name">Liste...</string>
     
     <!-- Criteria: tag_contains - name of criteria -->
-    <string name="CFC_tag_contains_name">List name contains...</string>
+    <string name="CFC_tag_contains_name">Nom de liste contient...</string>
     <!-- Criteria: tag_contains - text (? -> user input) -->
-    <string name="CFC_tag_contains_text">List name contains: ?</string>
+    <string name="CFC_tag_contains_text">Nom de liste contient : ?</string>
     
     <!-- Criteria: title_contains - name of criteria -->
     <string name="CFC_title_contains_name">Titre contient...</string>
@@ -960,10 +965,13 @@ Astrid is open-source and proudly maintained by Todoroo, Inc.</string>
     <string name="gtasks_FEx_title">Google Tasks: %s</string>
     
     <!-- dialog prompt for creating a new gtasks list -->
-    <string name="gtasks_FEx_create_list_dialog">New List Name:</string>
+    <string name="gtasks_FEx_creating_list">Creating list...</string>
+    
+    <!-- dialog prompt for creating a new gtasks list -->
+    <string name="gtasks_FEx_create_list_dialog">Nom de la nouvelle liste :</string>
     
     <!-- error to show when list creation fails -->
-    <string name="gtasks_FEx_create_list_error">Error creating new list</string>
+    <string name="gtasks_FEx_create_list_error">Impossible de créer une nouvelle liste</string>
     
     <!-- short help title for Gtasks -->
     <string name="gtasks_help_title">Bienvenue sur Google Tasks !</string>
@@ -971,9 +979,15 @@ Astrid is open-source and proudly maintained by Todoroo, Inc.</string>
     <!-- short help for GTasks list activity -->
     <string name="gtasks_help_body">Faites glisser la poignée sur la gauche d\'une tâche pour la repositionner. Glissez la poignée à droite ou à gauche pour changer l\'indentation.</string>
 
-    <string name="CFC_gtasks_list_text">In List: ?</string>
+    <string name="CFC_gtasks_list_text">Dans la liste : ?</string>
 
-    <string name="CFC_gtasks_list_name">In GTasks List...</string>
+    <string name="CFC_gtasks_list_name">Dans la liste GTasks...</string>
+    
+    <!-- Message while clearing completed tasks -->
+    <string name="gtasks_GTA_clearing">Clearing completed tasks...</string>
+    
+    <!-- Label for clear completed menu item -->
+    <string name="gtasks_GTA_clear_completed">Clear Completed</string>
         
     <!-- ============================================ GtasksLoginActivity == -->
     
@@ -981,10 +995,9 @@ Astrid is open-source and proudly maintained by Todoroo, Inc.</string>
     <string name="gtasks_GLA_title">Se connecter à Google Tasks</string>
 
     <!-- Instructions: Gtasks login -->    
-    <string name="gtasks_GLA_body">Please log in to Google Tasks Sync (Beta!). Non-migrated Google Apps
-    accounts are currently unsupported.</string>
+    <string name="gtasks_GLA_body">Veuillez vous connecter à Google Tasks Sync (Beta !). Les comptes Google Apps non migrés ne sont pas encore supportés.</string>
     
-    <string name="gtasks_GLA_noaccounts">No available Google accounts to sync with.</string>
+    <string name="gtasks_GLA_noaccounts">Aucun compte Google trouvé pour la synchronisation.</string>
 
     <!-- Instructions: Gtasks further help -->    
     <string name="gtasks_GLA_further_help">Pour afficher vos tâches avec l\'indentation et l\'ordre préservé, allez à la page Filtres et sélectionnez une liste Google Task. Par défaut, Astrid utilise ses propres paramètres de tri pour les tâches.</string>
@@ -999,7 +1012,7 @@ Astrid is open-source and proudly maintained by Todoroo, Inc.</string>
     <string name="gtasks_GLA_password">Mot de passe</string>
     
     <!--  Authenticating toast -->
-    <string name="gtasks_GLA_authenticating">Authenticating...</string>
+    <string name="gtasks_GLA_authenticating">Authentification en cours...</string>
     
     <!-- Google Apps for Domain checkbox -->
     <string name="gtasks_GLA_domain">Compte Google Apps pour votre domaine</string>
@@ -1009,23 +1022,28 @@ Astrid is open-source and proudly maintained by Todoroo, Inc.</string>
 
     <!-- Error Message when we receive a HTTP 401 Unauthorized -->    
     <string name="gtasks_GLA_errorAuth">Error authenticating! Please check your username and password in your phone\'s account manager</string>
-
+    
     <!-- Error Message when we receive a HTTP 401 Unauthorized multiple times -->    
     <string name="gtasks_GLA_errorAuth_captcha">Vous avez peut-être rencontré une captcha. Essayez de vous enregistrer à partir du navigateur et revenez pour essayer à nouveau :</string>
-        
+    
     <!-- ============================================== GtasksPreferences == -->
 
     <!-- GTasks Preferences Title -->    
     <string name="gtasks_GPr_header">Google Tasks (Bêta !)</string>
     
-    <string name="gtasks_GPr_sync_on_save">Sync on Save</string>
+    <string name="gtasks_GPr_sync_on_save">Synchroniser à l\'enregistrement</string>
     
-    <string name="gtasks_GPr_sync_on_save_summary">Sync individual tasks as they are saved</string>
+    <string name="gtasks_GPr_sync_on_save_summary">Synchroniser chaque tâche à l\'enregistrement</string>
     
     <!-- ================================================ Synchronization == -->    
     
     <!-- title for notification tray when synchronizing -->
     <string name="gtasks_notification_title">Astrid: Google Tasks</string>
+
+    <!-- Error Message when we receive a HTTP 503 error -->
+    <string name="gtasks_error_backend">Google\'s Task API is in beta and has encountered an error. The service may be down, please try again later.</string>
+
+    
         
 
 
@@ -1061,15 +1079,10 @@ Astrid is open-source and proudly maintained by Todoroo, Inc.</string>
 	Bonus: Use the widget to add a task!</string>
   
     <!-- Task 3 Summary  -->
-  <string name="intro_task_3_summary">Setup sync with Astrid.com</string>
+  <string name="intro_task_3_summary">Configurer la synchronisation avec Astrid.com</string>
 
   <!-- Task 3 Note -->
-  <string name="intro_task_3_note">Astrid makes it possible for you to sync 
-  	your tasks with Astrid.com, Google Tasks, and Producteev.\n\n
-
-	To enable sync from Astrid press \"Menu\" -&gt; \"Settings\" -&gt; \"Synchronization\" and 
-	choose the sync provider you prefer.
-	</string>
+  <string name="intro_task_3_note">Astrid vous permet de synchroniser vos tâches avec Astrid.com, Google Tasks, et Producteev.\n\n Pour activer la synchronisation dans Astrid, appuyez sur \"Menu\" -&gt; \"Synchroniser !\" et sélectionnez votre service de synchronisation préféré.</string>
 
 
 <!-- See the file "LICENSE" for the full license governing this code. -->
@@ -1130,9 +1143,9 @@ Astrid is open-source and proudly maintained by Todoroo, Inc.</string>
     <!-- replacement string for task edit "Notes" when using OpenCRX -->
     <string name="opencrx_TEA_notes">Ajouter un commentaire</string>
     
-    <string name="opencrx_creator_input_hint">Creator</string>
+    <string name="opencrx_creator_input_hint">Auteur</string>
 
-    <string name="opencrx_contact_input_hint">Assigned to</string>
+    <string name="opencrx_contact_input_hint">Assignée à</string>
     <!-- ==================================================== Preferences == -->
 
     <!-- Preferences Title: OpenCRX -->    
@@ -1154,7 +1167,7 @@ Astrid is open-source and proudly maintained by Todoroo, Inc.</string>
     <string name="opencrx_group">OpenCRX server</string>
 
     <!--  preference description for OpenCRX host -->
-    <string name="opencrx_host_title">Host</string>
+    <string name="opencrx_host_title">Serveur</string>
 
     <!--  dialog title for OpenCRX host -->
     <string name="opencrx_host_dialog_title">OpenCRX host</string>
@@ -1197,7 +1210,7 @@ Astrid is open-source and proudly maintained by Todoroo, Inc.</string>
     <string name="opencrx_PLA_signIn">S\'identifier</string>
 
     <!-- Login Label -->    
-    <string name="opencrx_PLA_login">Login</string>
+    <string name="opencrx_PLA_login">Identifiant</string>
 
     <!-- Password Label -->    
     <string name="opencrx_PLA_password">Mot de passe</string>
@@ -1829,13 +1842,13 @@ Astrid is open-source and proudly maintained by Todoroo, Inc.</string>
   <!-- =============================================== Task Edit Controls == -->
 
   <!-- Tags label -->
-  <string name="TEA_tags_label">Add to List:</string>
+  <string name="TEA_tags_label">Ajouter à la liste :</string>
   
   <!-- Tags hint -->
-  <string name="TEA_tag_hint">List Name</string>
+  <string name="TEA_tag_hint">Nom de la liste</string>
   
   <!-- Tags dropdown -->
-  <string name="TEA_tag_dropdown">Select a list</string>
+  <string name="TEA_tag_dropdown">Sélectionnez une liste</string>
     
   <!-- =============================================== Task List Controls == -->
   
@@ -1845,13 +1858,13 @@ Astrid is open-source and proudly maintained by Todoroo, Inc.</string>
   <!-- ========================================================== Extras == -->
   
     <!-- Context Item: show tag -->
-  <string name="TAd_contextFilterByTag">Show List</string>
+  <string name="TAd_contextFilterByTag">Afficher la liste</string>
   
     <!-- Dialog: new list -->
-  <string name="tag_new_list">New List</string>
+  <string name="tag_new_list">Nouvelle liste</string>
   
     <!-- Dialog: list saved -->
-  <string name="tag_list_saved">List Saved</string>
+  <string name="tag_list_saved">Liste enregistrée</string>
   
     <!-- Dialog: task created without title -->
   <string name="tag_no_title_error">Please enter a name for this list first!</string>
@@ -1877,13 +1890,13 @@ Astrid is open-source and proudly maintained by Todoroo, Inc.</string>
   <string name="tag_FEx_untagged">Not In Any List</string>
   
   <!-- %s => tag name -->
-  <string name="tag_FEx_name">List: %s</string>
+  <string name="tag_FEx_name">Liste : %s</string>
 
   <!-- context menu option to rename a tag -->
-  <string name="tag_cm_rename">Rename List</string>
+  <string name="tag_cm_rename">Renommer la liste</string>
 
   <!-- context menu option to delete a tag -->
-  <string name="tag_cm_delete">Delete List</string>
+  <string name="tag_cm_delete">Supprimer la liste</string>
 
   <!-- Dialog to confirm deletion of a tag -->
   <string name="DLG_delete_this_tag_question">Delete this list: %s? (No tasks will be deleted.)</string>
@@ -1908,10 +1921,10 @@ Astrid is open-source and proudly maintained by Todoroo, Inc.</string>
     <!-- Resources for built-in timers plug-in -->
     
     <!-- Task List: Start Timer button -->
-    <string name="TAE_startTimer">Timer</string>
+    <string name="TAE_startTimer">Minuteur</string>
     
     <!-- Task List: Stop Timer button -->
-    <string name="TAE_stopTimer">Stop</string>
+    <string name="TAE_stopTimer">Arrêter</string>
     
     <!-- Android Notification Title (%s => # tasks) -->
     <string name="TPl_notification">Chronomètre actif pour %s !</string>

@@ -8,7 +8,7 @@
   <string name="EPE_action">Share</string>
   
   <!-- task sharing dialog: assigned hint -->
-  <string name="actfm_person_hint">Contact Name</string>
+  <string name="actfm_person_hint">Contact Name or Email</string>
   
   <!-- task sharing dialog: shared with hint -->
   <string name="actfm_person_or_tag_hint">Contact or Shared List</string>
@@ -16,8 +16,8 @@
   <!-- toast on transmit success -->
   <string name="actfm_toast_success">Saved on Server</string>
 
-  <!-- toast on transmit error -->
-  <string name="actfm_toast_error">Save Unsuccessful</string>
+  <!-- toast on transmit error (%s => error) -->
+  <string name="actfm_toast_error">Save Failed: %s</string>
 
   <!-- can't rename or delete shared tag message -->
   <string name="actfm_tag_operation_disabled">Sorry, this operation is not yet supported for shared tags.</string>
@@ -668,14 +668,12 @@
   <!-- Preference: Task List Show Notes Description (enabled) -->
   <string name="EPr_showNotes_desc_enabled">メモは常に表示されます</string>
   
-  <!-- Preference: Transparent -->
-  <string name="EPr_transparent_title">半透明</string>
-  <!-- Preference: Transparent Description (disabled) -->
-  <string name="EPr_transparent_desc_disabled">ホーム画面の壁紙は表示されません</string>  
-  <!-- Preference: Transparent Description (enabled) -->
-  <string name="EPr_transparent_desc_enabled">ホーム画面の壁紙が表示されます</string>
-  <!-- Preference: Transparent Description (android 1.6) -->
-  <string name="EPr_transparent_desc_unsupported">Setting requires Android 2.0+</string>
+  <!-- Preference: Theme -->
+  <string name="EPr_theme_title">Color Theme</string>
+  <!-- Preference: Theme Description (%s => value) -->
+  <string name="EPr_theme_desc">現在の設定: %s</string>  
+  <!-- Preference: Theme Description (android 1.6) -->
+  <string name="EPr_theme_desc_unsupported">Setting requires Android 2.0+</string>
   
   <!-- Preference Category: Defaults Title -->
   <string name="EPr_defaults_header">タスクのデフォルト設定</string>
@@ -731,6 +729,14 @@
       <item>At deadline</item>
       <item>When overdue</item>
       <item>At deadline or overdue</item>
+  </string-array>
+    
+  <string-array name="EPr_themes">
+    <!-- theme_settings: labels for Theme preference menu -->
+    <item>Day</item>
+    <item>Night</item>
+    <item>Transparent (White Text)</item>
+    <item>Transparent (Black Text)</item>
   </string-array>
   
   <!-- ========================================== Task Management Settings == -->
@@ -829,7 +835,7 @@ you get stuff done. It features reminders, tags, sync, Locale plug-in, a widget 
     <string name="BFE_Custom">カスタムフィルタ</string>
     
     <!-- Saved Filters Header -->
-    <string name="BFE_Saved">保存済フィルタ</string>
+    <string name="BFE_Saved">Filters</string>
     
     <!-- Saved Filters Context Menu: delete -->
     <string name="BFE_Saved_delete">フィルタの削除</string>
@@ -905,7 +911,7 @@ you get stuff done. It features reminders, tags, sync, Locale plug-in, a widget 
     <!-- Criteria: tag_contains - name of criteria -->
     <string name="CFC_tag_contains_name">タグ中の語句</string>
     <!-- Criteria: tag_contains - text (? -> user input) -->
-    <string name="CFC_tag_contains_text">タグに ? を含む</string>
+    <string name="CFC_tag_contains_text">タグに ? を含む ?</string>
     
     <!-- Criteria: title_contains - name of criteria -->
     <string name="CFC_title_contains_name">タイトル中の語句</string>
@@ -965,6 +971,9 @@ you get stuff done. It features reminders, tags, sync, Locale plug-in, a widget 
     <string name="gtasks_FEx_title">Google Tasks: %s</string>
     
     <!-- dialog prompt for creating a new gtasks list -->
+    <string name="gtasks_FEx_creating_list">Creating list...</string>
+    
+    <!-- dialog prompt for creating a new gtasks list -->
     <string name="gtasks_FEx_create_list_dialog">New List Name:</string>
     
     <!-- error to show when list creation fails -->
@@ -979,6 +988,12 @@ you get stuff done. It features reminders, tags, sync, Locale plug-in, a widget 
     <string name="CFC_gtasks_list_text">In List: ?</string>
 
     <string name="CFC_gtasks_list_name">In GTasks List...</string>
+    
+    <!-- Message while clearing completed tasks -->
+    <string name="gtasks_GTA_clearing">Clearing completed tasks...</string>
+    
+    <!-- Label for clear completed menu item -->
+    <string name="gtasks_GTA_clear_completed">Clear Completed</string>
         
     <!-- ============================================ GtasksLoginActivity == -->
     
@@ -1015,12 +1030,12 @@ you get stuff done. It features reminders, tags, sync, Locale plug-in, a widget 
     <string name="gtasks_GLA_errorEmpty">エラー: すべての入力欄を入力してください</string>
 
     <!-- Error Message when we receive a HTTP 401 Unauthorized -->    
-    <string name="gtasks_GLA_errorAuth">エラー: メールアドレスかパスワードが正しくありません</string>
-
+    <string name="gtasks_GLA_errorAuth">Error authenticating! Please check your username and password in your phone\'s account manager</string>
+    
     <!-- Error Message when we receive a HTTP 401 Unauthorized multiple times -->    
     <string name="gtasks_GLA_errorAuth_captcha">You may have encountered a captcha. 
     Try logging in from the browser, then come back to try again:</string>
-        
+    
     <!-- ============================================== GtasksPreferences == -->
 
     <!-- GTasks Preferences Title -->    
@@ -1034,6 +1049,11 @@ you get stuff done. It features reminders, tags, sync, Locale plug-in, a widget 
     
     <!-- title for notification tray when synchronizing -->
     <string name="gtasks_notification_title">Astrid: Google Tasks</string>
+
+    <!-- Error Message when we receive a HTTP 503 error -->
+    <string name="gtasks_error_backend">Google\'s Task API is in beta and has encountered an error. The service may be down, please try again later.</string>
+
+    
         
 
 
