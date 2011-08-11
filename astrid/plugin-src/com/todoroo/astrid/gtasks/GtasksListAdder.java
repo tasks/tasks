@@ -3,7 +3,9 @@ package com.todoroo.astrid.gtasks;
 import java.io.IOException;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.DialogInterface;
+import android.os.Bundle;
 import android.text.TextUtils;
 import android.widget.EditText;
 import android.widget.FrameLayout;
@@ -17,12 +19,18 @@ import com.todoroo.astrid.data.StoreObject;
 import com.todoroo.astrid.gtasks.api.GtasksService;
 import com.todoroo.astrid.gtasks.auth.GtasksTokenValidator;
 
-public class GtasksListAdder {
+public class GtasksListAdder extends Activity {
 
     @Autowired GtasksPreferenceService gtasksPreferenceService;
     @Autowired GtasksListService gtasksListService;
 
-    public void showNewListDialog(final Activity activity) {
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        showNewListDialog(this);
+    }
+
+    private void showNewListDialog(final Activity activity) {
         DependencyInjectionService.getInstance().inject(this);
 
         FrameLayout frame = new FrameLayout(activity);
@@ -30,36 +38,51 @@ public class GtasksListAdder {
         frame.addView(editText);
         frame.setPadding(10, 0, 10, 0);
 
+        DialogInterface.OnClickListener onClick = new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                if (gtasksPreferenceService.isLoggedIn() && ! gtasksPreferenceService.isOngoing()) {
+                    final ProgressDialog pd = DialogUtilities.progressDialog(GtasksListAdder.this,
+                            GtasksListAdder.this.getString(R.string.gtasks_FEx_creating_list));
+                    pd.show();
+                    new Thread(new Runnable() {
+                        @Override
+                        public void run() {
+                            String token = gtasksPreferenceService.getToken();
+                            token = GtasksTokenValidator.validateAuthToken(token);
+                            GtasksService service = new GtasksService(token);
+                            try {
+                                String title = editText.getText().toString();
+                                if (TextUtils.isEmpty(title)) //Don't create a list without a title
+                                    return;
+                                StoreObject newList = gtasksListService.addNewList(service.createGtaskList(title));
+                                if (newList != null) {
+                                    FilterWithCustomIntent listFilter = (FilterWithCustomIntent) GtasksFilterExposer.filterFromList(activity, newList);
+                                    listFilter.start(activity);
+                                }
+
+                            } catch (IOException e) {
+                                DialogUtilities.okDialog(activity, activity.getString(R.string.gtasks_FEx_create_list_error), null);
+                            } finally {
+                                pd.dismiss();
+                                finish();
+                            }
+                        }
+                    }).start();
+                }
+            }
+        };
+
+        DialogInterface.OnClickListener onCancel = new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                finish();
+            }
+        };
+
         DialogUtilities.viewDialog(activity,
                 activity.getString(R.string.gtasks_FEx_create_list_dialog),
-                frame, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        if (gtasksPreferenceService.isLoggedIn() && ! gtasksPreferenceService.isOngoing()) {
-                            new Thread(new Runnable() {
-                                @Override
-                                public void run() {
-                                    String token = gtasksPreferenceService.getToken();
-                                    token = GtasksTokenValidator.validateAuthToken(token);
-                                    GtasksService service = new GtasksService(token);
-                                    try {
-                                        String title = editText.getText().toString();
-                                        if (TextUtils.isEmpty(title)) //Don't create a list without a title
-                                            return;
-                                        StoreObject newList = gtasksListService.addNewList(service.createGtaskList(title));
-                                        if (newList != null) {
-                                            FilterWithCustomIntent listFilter = (FilterWithCustomIntent) GtasksFilterExposer.filterFromList(activity, newList);
-                                            listFilter.start(activity);
-                                        }
-
-                                    } catch (IOException e) {
-                                        DialogUtilities.okDialog(activity, activity.getString(R.string.gtasks_FEx_create_list_error), null);
-                                    }
-                                }
-                            }).start();
-                        }
-                    }
-                }, null);
+                frame, onClick, onCancel);
     }
 
 }
