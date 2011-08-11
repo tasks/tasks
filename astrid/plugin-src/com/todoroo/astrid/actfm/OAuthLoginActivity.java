@@ -77,22 +77,31 @@ public class OAuthLoginActivity extends Activity {
         webView.setWebViewClient(new WebViewClient() {
 
             @Override
-            public void onPageFinished(WebView view, String url) {
+            public void onPageFinished(WebView view, final String url) {
                 super.onPageFinished(view, url);
-                String data;
-                try {
-                    data = restClient.get(url);
+                new Thread() {
+                    @Override
+                    public void run() {
+                        String data;
+                        try {
+                            data = restClient.get(url);
 
-                    if(data.startsWith("<!-- success -->")) { //$NON-NLS-1$
-                        data = data.substring(data.indexOf('{'), data.lastIndexOf('}') + 1);
-                        Intent intent = new Intent();
-                        intent.putExtra(DATA_RESPONSE, data);
-                        setResult(RESULT_OK, intent);
-                        finish();
+                            if(data.startsWith("<!-- success -->")) { //$NON-NLS-1$
+                                data = data.substring(data.indexOf('{'), data.lastIndexOf('}') + 1);
+                                Intent intent = new Intent();
+                                intent.putExtra(DATA_RESPONSE, data);
+                                setResult(RESULT_OK, intent);
+                                runOnUiThread(new Runnable() {
+                                    public void run() {
+                                        finish();
+                                    }
+                                });
+                            }
+                        } catch (IOException e) {
+                            Log.e("astrid", "error-load-url", e);
+                        }
                     }
-                } catch (IOException e) {
-                    Log.e("astrid", "error-load-url", e);
-                }
+                }.start();
             }
         });
 
