@@ -8,7 +8,7 @@
   <string name="EPE_action">Share</string>
   
   <!-- task sharing dialog: assigned hint -->
-  <string name="actfm_person_hint">Contact Name</string>
+  <string name="actfm_person_hint">Contact Name or Email</string>
   
   <!-- task sharing dialog: shared with hint -->
   <string name="actfm_person_or_tag_hint">Contact or Shared List</string>
