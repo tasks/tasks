@@ -438,7 +438,6 @@ public class GtasksSyncProvider extends SyncProvider<GtasksTaskContainer> {
             model.title = local.task.getValue(Task.TITLE);
         if(shouldTransmit(local, Task.DUE_DATE, remote)) {
             model.due = GtasksApiUtilities.unixTimeToGtasksDate(local.task.getValue(Task.DUE_DATE));
-            System.err.println("Setting model due time to: " + model.due);
         }
         if(shouldTransmit(local, Task.COMPLETION_DATE, remote)) {
             model.completed = GtasksApiUtilities.unixTimeToGtasksDate(local.task.getValue(Task.COMPLETION_DATE));
