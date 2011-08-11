@@ -148,7 +148,7 @@ public final class GtasksMetadataService extends SyncMetadataService<GtasksTaskC
             @Override
             public void processTask(long taskId, Metadata metadata) {
                 Task t = taskDao.fetch(taskId, Task.TITLE, Task.DELETION_DATE);
-                if (t.isDeleted()) return;
+                if (t == null || t.isDeleted()) return;
                 int currIndent = metadata.getValue(GtasksMetadata.INDENT).intValue();
                 long currParent = metadata.getValue(GtasksMetadata.PARENT_TASK);
 

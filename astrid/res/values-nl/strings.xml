@@ -746,7 +746,7 @@
   <string name="EPr_manage_delete_completed_status">%d taken verwijderd!</string>
   <string name="EPr_manage_purge_deleted">Verwijderde taken opschonen</string>
   <string name="EPr_manage_purge_deleted_message">Alle verwijderde taken werkelijk opschonen?\n\nDeze taken zijn dan definitief verwijderd!</string>
-  <string name="EPr_manage_purge_deleted_status">%s verwijderde taken opgeschoond!</string>
+  <string name="EPr_manage_purge_deleted_status">%d verwijderde taken opgeschoond!</string>
   <string name="EPr_manage_purge_deleted_summary">Waarschuwing: Opgeschoonde verwijderde taken kunnen zonder backup-bestand niet worden hersteld!</string>
       
   <!-- ==================================================== AddOnActivity == -->
@@ -1896,7 +1896,7 @@
   <string name="TEA_no_tags_modified">Niets gewijzigd</string>
 
   <!-- Toast notification that a tag has been deleted -->
-  <string name="TEA_tags_deleted">De lijst %1 is verwijderd, van invloed op %2$d taken</string>
+  <string name="TEA_tags_deleted">De lijst %1$s is verwijderd, van invloed op %2$d taken</string>
 
   <!-- Toast notification that a tag has been renamed -->
   <string name="TEA_tags_renamed">Taak %1$s hernoemd naar %2$s voor %3$d taken</string>

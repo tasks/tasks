@@ -207,8 +207,9 @@ public class TaskListActivity extends ListActivity implements OnScrollListener,
     /**  Called when loading up the activity */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        DependencyInjectionService.getInstance().inject(this);
+        ContextManager.setContext(this);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
+        DependencyInjectionService.getInstance().inject(this);
         super.onCreate(savedInstanceState);
 
         new StartupService().onStartupApplication(this);
