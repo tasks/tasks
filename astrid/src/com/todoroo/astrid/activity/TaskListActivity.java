@@ -14,6 +14,7 @@ import org.weloveastrid.rmilk.MilkUtilities;
 import android.app.AlertDialog;
 import android.app.ListActivity;
 import android.app.PendingIntent.CanceledException;
+import android.app.SearchManager;
 import android.content.BroadcastReceiver;
 import android.content.ContentValues;
 import android.content.Context;
@@ -61,6 +62,8 @@ import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.ContextManager;
 import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.andlib.service.ExceptionService;
+import com.todoroo.andlib.sql.Functions;
+import com.todoroo.andlib.sql.QueryTemplate;
 import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.andlib.utility.Preferences;
@@ -249,7 +252,19 @@ public class TaskListActivity extends ListActivity implements OnScrollListener,
         super.onNewIntent(intent);
 
         Bundle extras = intent.getExtras();
-        if(extras != null && extras.containsKey(TOKEN_FILTER)) {
+        String intentAction = intent.getAction();
+        if (Intent.ACTION_SEARCH.equals(intentAction)) {
+            String query = intent.getStringExtra(SearchManager.QUERY).trim();
+            Filter searchFilter = new Filter(null, getString(R.string.FLA_search_filter, query),
+                    new QueryTemplate().where(Functions.upper(Task.TITLE).like("%" + //$NON-NLS-1$
+                            query.toUpperCase() + "%")), //$NON-NLS-1$
+                    null);
+            intent = new Intent(this, TaskListActivity.class);
+            intent.putExtra(TaskListActivity.TOKEN_FILTER, searchFilter);
+            startActivity(intent);
+            finish();
+            return;
+        } else if(extras != null && extras.containsKey(TOKEN_FILTER)) {
             filter = extras.getParcelable(TOKEN_FILTER);
             isInbox = true;
         } else {
