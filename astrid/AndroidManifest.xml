@@ -351,6 +351,7 @@
         <category android:name="android.intent.category.DEFAULT" />
       </intent-filter>
     </receiver>
+    <activity android:name="com.todoroo.astrid.gtasks.GtasksListAdder"/>
     <receiver android:name="com.todoroo.astrid.gtasks.GtasksDetailExposer">
       <intent-filter>
         <action android:name="com.todoroo.astrid.REQUEST_DETAILS" />
