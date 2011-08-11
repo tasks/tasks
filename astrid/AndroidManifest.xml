@@ -496,7 +496,6 @@
       </intent-filter>
     </receiver>
     <activity android:name="com.todoroo.astrid.reminders.NotificationActivity"
-              android:taskAffinity="com.todoroo.astrid.reminders.NotificationActivity"
               android:launchMode="singleTask"
               android:screenOrientation="portrait"
               android:finishOnTaskLaunch="true"
