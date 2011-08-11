@@ -149,7 +149,6 @@
     
     <style name="TextAppearance.FLA_Header" parent="TextAppearance.FLA_Filter">
         <item name="android:textColor">?attr/asFilterHeaderColor</item>
-        <item name="android:textStyle"></item>
     </style>
 
     <!-- ========================================================= Widget == -->

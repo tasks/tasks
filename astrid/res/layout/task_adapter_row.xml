@@ -53,7 +53,7 @@
             <!-- assignee photo -->
             <greendroid.widget.AsyncImageView android:id="@+id/picture"
                 android:layout_width="35dip"
-                android:layout_height="fill_parent"
+                android:layout_height="35dip"
                 android:padding="5dip" 
                 android:scaleType="fitCenter"
                 astrid:defaultSrc="@drawable/ic_contact_picture_2"
@@ -67,6 +67,8 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/task_row"
             android:layout_alignParentRight="true"
+            android:layout_marginRight="4dip"
+            android:layout_marginTop="-5dip"
             android:singleLine="true"/>
           
         <!-- details line 1 -->
@@ -75,7 +77,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/task_row"
             android:layout_toRightOf="@id/completeBox"
-            android:layout_marginTop="-1dip"
+            android:layout_marginTop="-5dip"
             style="@style/TextAppearance.TAd_ItemDetails"
             android:visibility="gone" />
           
