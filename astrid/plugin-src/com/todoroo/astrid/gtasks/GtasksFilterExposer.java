@@ -62,7 +62,7 @@ public class GtasksFilterExposer extends BroadcastReceiver {
                 ContextManager.getString(R.string.gtasks_FEx_title, listName), new QueryTemplate().join(
                 Join.left(Metadata.TABLE, Task.ID.eq(Metadata.TASK))).where(Criterion.and(
                         MetadataCriteria.withKey(GtasksMetadata.METADATA_KEY),
-                        TaskCriteria.activeAndVisible(),
+                        TaskCriteria.notDeleted(),
                         GtasksMetadata.LIST_ID.eq(list.getValue(GtasksList.REMOTE_ID)))).orderBy(
                                 Order.asc(Functions.cast(GtasksMetadata.ORDER, "LONG"))).groupBy(Task.ID), //$NON-NLS-1$
                 values);

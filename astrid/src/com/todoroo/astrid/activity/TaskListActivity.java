@@ -152,7 +152,7 @@ public class TaskListActivity extends ListActivity implements OnScrollListener,
 
     @Autowired ExceptionService exceptionService;
 
-    @Autowired TaskService taskService;
+    @Autowired protected TaskService taskService;
 
     @Autowired MetadataService metadataService;
 

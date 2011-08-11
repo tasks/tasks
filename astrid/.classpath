@@ -22,7 +22,7 @@
 	<classpathentry exported="true" kind="lib" path="libs/jackson-core-asl-1.6.7.jar"/>
 	<classpathentry exported="true" kind="lib" path="libs/google-api-client-googleapis-extensions-android2-1.4.1-beta.jar"/>
 	<classpathentry exported="true" kind="lib" path="libs/google-api-client-extensions-android2-1.4.1-beta.jar"/>
-	<classpathentry kind="src" path="astridApi_src"/>
 	<classpathentry kind="src" path="facebook_src"/>
+	<classpathentry kind="src" path="astridApi_src"/>
 	<classpathentry kind="output" path="ecbuild"/>
 </classpath>

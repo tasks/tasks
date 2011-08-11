@@ -160,14 +160,15 @@ public class GtasksService {
         }
     }
 
-    public com.google.api.services.tasks.v1.model.Tasks getAllGtasksFromTaskList(TaskList list, boolean includeDeleted) throws IOException {
-        return getAllGtasksFromListId(list.id, includeDeleted);
+    public com.google.api.services.tasks.v1.model.Tasks getAllGtasksFromTaskList(TaskList list, boolean includeDeleted, boolean includeHidden) throws IOException {
+        return getAllGtasksFromListId(list.id, includeDeleted, includeHidden);
     }
 
-    public com.google.api.services.tasks.v1.model.Tasks getAllGtasksFromListId(String listId, boolean includeDeleted) throws IOException {
+    public com.google.api.services.tasks.v1.model.Tasks getAllGtasksFromListId(String listId, boolean includeDeleted, boolean includeHidden) throws IOException {
         com.google.api.services.tasks.v1.model.Tasks toReturn = null;
         List request = service.tasks.list(listId);
         request.showDeleted = includeDeleted;
+        request.showHidden = includeHidden;
         try {
             toReturn = request.execute();
         } catch (IOException e) {
