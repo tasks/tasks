@@ -142,7 +142,7 @@
   <string name="SyP_label">Synchronisatie</string>  
 
   <!-- Error msg when io exception  -->
-  <string name="SyP_ioerror">Verbindingsfout! Controleer de verbinding met Internet</string>
+  <string name="SyP_ioerror">Verbindingsfout! Controleer de internetverbinding</string>
 
   <!-- ================================================== SyncPreferences == -->
   

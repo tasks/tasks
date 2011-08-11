@@ -30,9 +30,9 @@
   </plurals>
   <plurals name="DUt_weekdays">
     <!-- plurals: days -->
-    <item quantity="one">1 个工作天</item>
+    <item quantity="one">1 个任务天</item>
     <!-- plurals: days -->
-    <item quantity="other">%d 个工作天</item>
+    <item quantity="other">%d 个任务天</item>
   </plurals>
   <plurals name="DUt_hours">
     <!-- plurals: hours -->
@@ -158,7 +158,7 @@
   <!-- Sync Status: failure status (%s -> last attempted sync date) -->    
   <string name="sync_status_failed">失败：%s</string>
   <!-- Sync Status: error status (%s -> last sync date) -->    
-  <string name="sync_status_errors">Sync w/ Errors: %s</string>
+  <string name="sync_status_errors">同步 w/ 错误： %s 上次同步日期</string>
   <!-- Sync Status: error subtitle (%s -> last successful sync date) -->    
   <string name="sync_status_failed_subtitle">上次成功同步：%s</string>
   <!-- Sync Status: never sync'd -->    

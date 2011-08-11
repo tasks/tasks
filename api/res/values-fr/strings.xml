@@ -78,9 +78,9 @@
   </plurals>
   <plurals name="Npeople">
     <!-- plurals: people -->
-    <item quantity="one">1 person</item>
+    <item quantity="one">1 personne</item>
     <!-- plurals: people -->
-    <item quantity="other">%d people</item>
+    <item quantity="other">%d personnes</item>
   </plurals>
   
   <!-- today -->
