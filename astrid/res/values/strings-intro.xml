@@ -12,38 +12,37 @@
 
   <!-- Task 1 Note -->
   <string name="intro_task_1_note">Two ways to add a task:\n
-  1) Quick Add: Just type the task into the quick entry box and press the + 
-  button that appears on the left.\n\n
-  
-  2) Regular add: Press the button to the right of the quick entry box. 
-  Add basic details (due date, tags, notes) or set more advanced options. 
-  Save the task with the save button or your phone\'s back button.\n\n
+  \n
+  1) Quick Add: Type the task into the quick entry box at bottom of screen and press the + button on the right.\n
+  \n
+  2) Regular Add: Press the + button of the quick entry box. Add as much detail as you want. Then press \"Save\" or use your phone\'s back button.\n
+  \n
   </string>
   
   <!-- Task 2 Summary  -->
   <string name="intro_task_2_summary">Add a widget to your desktop</string>
 
   <!-- Task 2 Note -->
-  <string name="intro_task_2_note">A desktop widget is a great way to keep 
-  	track of your what you have to do as well as a way to quickly add new 
-  	tasks.\n\n
-	How to add a widget:\n
-	1) Long press on your phone\'s desktop.\n
-	2) Choose \"Widget\" from resulting menu\n
-	3) Choose the Astrid widget.\n
-	4) You can select a Astrid filter. Choose \"Active Tasks\" for all your 
-	tasks\n\n
-
-	Bonus: Use the widget to add a task!</string>
+  <string name="intro_task_2_note">A desktop widget is a great way to keep track of your to-dos and a quick way to add tasks.\n
+  \n
+  How to add a widget:\n
+  1) Long Press on your phone\'s desktop\n
+  2) Chose \"Widget\"\n
+  3) Choose the Astrid widget\n
+  4) Select a list to display (choose \"Active Tasks\" for all your tasks)\n
+  \n
+  </string>
   
     <!-- Task 3 Summary  -->
   <string name="intro_task_3_summary">Setup sync with Astrid.com</string>
 
   <!-- Task 3 Note -->
-  <string name="intro_task_3_note">Astrid makes it possible for you to sync 
-  	your tasks with Astrid.com, Google Tasks, and Producteev.\n\n
-
-	To enable sync from Astrid press \"Menu\" -> \"Settings\" -> \"Synchronization\" and 
-	choose the sync provider you prefer.
-	</string>
+  <string name="intro_task_3_note">Back up and sync your tasks with Astrid.com for free:\n
+    \n
+    1) Press your Menu button\n
+    2) Choose \"Sync Now\"\n
+    3) Select \"Astrid.com\"\n
+    4) Log In &amp; Synchronize!\n
+    \n
+  </string>
 </resources>

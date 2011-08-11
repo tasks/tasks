@@ -144,14 +144,19 @@ public final class UpgradeService {
 
         // current message
         if(from >= V3_8_0 && from < V3_8_2) {
-            newVersionString(changeLog, "3.8.2 beta (8/8/11)", new String[] {
+            newVersionString(changeLog, "3.8.2 (8/10/11)", new String[] {
                     "New theme options for Astrid - white, black, transparent with white or black text",
                     "New style for filter list page - same great functionality",
+                    "Search for tasks by pressing the search hardware button",
                     "Fix for failed Google Tasks migration sync",
+                    "Fix for Google Tasks sync date-off-by-one error",
                     "Fix for Astrid.com deleting tag information when syncing",
-                    "Fix for repeating tasks and Astrid.com sync",
+                    "Fix for Astrid.com and repeat-after-complete",
+                    "Fix for some Astrid.com timeout and task sync errors",
                     "Fix for duplicated Producteev notes",
-                    "Astrid is now trimmed down by 25 percent in memory",
+                    "Fix for reported market crashes",
+                    "Updated translations to latest",
+                    "And, Astrid has trimmed down by 25 percent in memory size!",
             });
         }
         if(from >= V3_8_0 && from < V3_8_0_2) {
