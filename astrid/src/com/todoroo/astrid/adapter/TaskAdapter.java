@@ -759,7 +759,7 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
                 viewHolder.decorations = null;
             }
             if(viewHolder.task.getId() == mostRecentlyMade)
-                viewHolder.view.setBackgroundColor(Color.argb(20, 255, 255, 255));
+                viewHolder.view.setBackgroundColor(Color.argb(30, 150, 150, 150));
             else
                 viewHolder.view.setBackgroundResource(android.R.drawable.list_selector_background);
         }

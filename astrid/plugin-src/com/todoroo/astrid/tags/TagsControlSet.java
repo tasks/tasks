@@ -49,7 +49,7 @@ public final class TagsControlSet implements TaskEditControlSet {
     private final Activity activity;
 
     public TagsControlSet(Activity activity, int tagsContainer) {
-        allTags = tagService.getGroupedTags(TagService.GROUPED_TAGS_BY_SIZE, Criterion.all);
+        allTags = tagService.getGroupedTags(TagService.GROUPED_TAGS_BY_ALPHA, Criterion.all);
         this.activity = activity;
         this.tagsContainer = (LinearLayout) activity.findViewById(tagsContainer);
         this.tagSpinner = (Spinner) activity.findViewById(R.id.tags_dropdown);

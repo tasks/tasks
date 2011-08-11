@@ -206,7 +206,6 @@ public class EditPeopleControlSet implements TaskEditControlSet {
                         continue;
                     userIds.add(id);
 
-                    System.err.println("inflated person: " + person);
                     View contact = activity.getLayoutInflater().inflate(R.layout.contact_adapter_row, collaborators, false);
                     AsyncImageView icon = (AsyncImageView) contact.findViewById(R.id.icon);
                     TextView name = (TextView) contact.findViewById(android.R.id.text1);
@@ -214,7 +213,7 @@ public class EditPeopleControlSet implements TaskEditControlSet {
 
                     icon.setUrl(person.optString("picture"));
                     name.setText(person.optString("name"));
-                    name.setTextAppearance(activity, android.R.style.TextAppearance_Medium);
+                    name.setTextAppearance(activity, R.style.TextAppearance_Medium);
                     tag.setText(activity.getString(R.string.actfm_EPA_list, person.optString("tag")));
                     tag.setTextAppearance(activity, android.R.style.TextAppearance);
 
