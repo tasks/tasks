@@ -167,7 +167,7 @@ public final class TagService {
      */
     public TodorooCursor<Metadata> getTags(long taskId) {
         Query query = Query.select(TAG, REMOTE_ID).where(Criterion.and(MetadataCriteria.withKey(KEY),
-                MetadataCriteria.byTask(taskId)));
+                MetadataCriteria.byTask(taskId))).orderBy(Order.asc(TAG));
         return metadataDao.query(query);
     }
 
