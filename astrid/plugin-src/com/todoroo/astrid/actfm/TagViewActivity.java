@@ -683,8 +683,11 @@ public class TagViewActivity extends TaskListActivity implements OnTabChangeList
                 picture.setImageBitmap(bitmap);
                 uploadTagPicture(bitmap);
             }
-        } else if(requestCode == REQUEST_ACTFM_LOGIN && resultCode == Activity.RESULT_OK)
+        } else if(requestCode == REQUEST_ACTFM_LOGIN && resultCode == Activity.RESULT_OK) {
             saveSettings();
+        } else {
+            super.onActivityResult(requestCode, resultCode, data);
+        }
     }
 
     private void uploadTagPicture(final Bitmap bitmap) {

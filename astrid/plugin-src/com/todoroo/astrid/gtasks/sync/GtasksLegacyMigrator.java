@@ -127,6 +127,7 @@ public class GtasksLegacyMigrator {
                         if (!foundMatch) {
                             System.err.println("Resetting metadata");
                             //For non-matches, make the task look newly created
+                            container.gtaskMetadata = GtasksMetadata.createEmptyMetadata(container.task.getId());
                             container.gtaskMetadata.setValue(GtasksMetadata.ID, ""); //$NON-NLS-1$
                             if (originalListId != null) {
                                 // set the list-id based on the original listname, saved above during for-loop
