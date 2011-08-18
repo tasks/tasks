@@ -42,7 +42,7 @@ public class RepeatTaskCompleteListener extends BroadcastReceiver {
             return;
 
         Task task = PluginServices.getTaskService().fetchById(taskId, Task.ID, Task.RECURRENCE,
-                Task.DUE_DATE, Task.FLAGS, Task.HIDE_UNTIL, Task.REMOTE_ID);
+                Task.DUE_DATE, Task.FLAGS, Task.HIDE_UNTIL, Task.REMOTE_ID, Task.COMPLETION_DATE);
         if(task == null)
             return;
 
@@ -75,6 +75,8 @@ public class RepeatTaskCompleteListener extends BroadcastReceiver {
             }
 
             // clone to create new task
+            Flags.set(Flags.ACTFM_SUPPRESS_SYNC);
+            Flags.set(Flags.GTASKS_SUPPRESS_SYNC);
             Task clone = PluginServices.getTaskService().clone(task);
             clone.setValue(Task.DUE_DATE, newDueDate);
             clone.setValue(Task.HIDE_UNTIL, hideUntil);
@@ -110,7 +112,7 @@ public class RepeatTaskCompleteListener extends BroadcastReceiver {
         RRule rrule = initRRule(recurrence);
 
         // initialize startDateAsDV
-        Date original = setUpStartDate(task, repeatAfterCompletion);
+        Date original = setUpStartDate(task, repeatAfterCompletion, rrule.getFreq());
         DateValue startDateAsDV = setUpStartDateAsDV(task, rrule, original, repeatAfterCompletion);
 
         if(rrule.getFreq() == Frequency.HOURLY)
@@ -178,14 +180,18 @@ public class RepeatTaskCompleteListener extends BroadcastReceiver {
         return rrule;
     }
 
-    /** Set up repeat start date */
-    private static Date setUpStartDate(Task task, boolean repeatAfterCompletion) {
+    /** Set up repeat start date
+     * @param frequency */
+    private static Date setUpStartDate(Task task, boolean repeatAfterCompletion, Frequency frequency) {
         Date startDate = new Date();
         if(task.hasDueDate()) {
             Date dueDate = new Date(task.getValue(Task.DUE_DATE));
-            if(!repeatAfterCompletion)
+            if(repeatAfterCompletion)
+                startDate = new Date(task.getValue(Task.COMPLETION_DATE));
+            else
                 startDate = dueDate;
-            else if(task.hasDueTime()) {
+
+            if(task.hasDueTime() && frequency != Frequency.HOURLY && frequency != Frequency.MINUTELY) {
                 startDate.setHours(dueDate.getHours());
                 startDate.setMinutes(dueDate.getMinutes());
                 startDate.setSeconds(dueDate.getSeconds());
@@ -199,8 +205,7 @@ public class RepeatTaskCompleteListener extends BroadcastReceiver {
 
         // if repeat after completion with weekdays, pre-compute
         if(repeatAfterCompletion && rrule.getByDay().size() > 0) {
-            startDate = new Date(startDate.getTime() + DateUtilities.ONE_WEEK * rrule.getInterval() -
-                    DateUtilities.ONE_DAY);
+            startDate = new Date(startDate.getTime() + DateUtilities.ONE_WEEK * rrule.getInterval());
             rrule.setInterval(1);
         }
 

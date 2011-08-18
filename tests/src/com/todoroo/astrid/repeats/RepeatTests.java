@@ -43,7 +43,6 @@ public class RepeatTests extends DatabaseTestCase {
 
         task.setValue(Task.COMPLETION_DATE, DateUtilities.now());
         saveAndTriggerRepeatListener(task);
-
         TodorooCursor<Task> cursor = taskDao.query(Query.select(Task.ID));
         try {
             assertEquals(1, cursor.getCount());

@@ -111,6 +111,7 @@ public class TaskService {
         try {
             if(cursor.getCount() > 0) {
                 Metadata metadata = new Metadata();
+                taskDao.save(newTask);
                 long newId = newTask.getId();
                 for(cursor.moveToFirst(); !cursor.isAfterLast(); cursor.moveToNext()) {
                     metadata.readFromCursor(cursor);
@@ -119,7 +120,7 @@ public class TaskService {
                         continue;
 
                     if(GtasksMetadata.METADATA_KEY.equals(metadata.getValue(Metadata.KEY)))
-                        metadata.setValue(GtasksMetadata.ID, "0"); //$NON-NLS-1$
+                        metadata.setValue(GtasksMetadata.ID, "");
                     if(ProducteevTask.METADATA_KEY.equals(metadata.getValue(Metadata.KEY)))
                         metadata.setValue(ProducteevTask.ID, 0L);
                     if(MilkTaskFields.METADATA_KEY.equals(metadata.getValue(Metadata.KEY))) {

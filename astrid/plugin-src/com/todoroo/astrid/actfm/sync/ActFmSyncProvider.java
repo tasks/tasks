@@ -270,6 +270,20 @@ public class ActFmSyncProvider extends SyncProvider<ActFmTaskContainer> {
         return local;
     }
 
+    @Override
+    protected void readRemotelyUpdated(SyncData<ActFmTaskContainer> data) throws IOException {
+        int serverTime = Preferences.getInt(ActFmPreferenceService.PREF_SERVER_TIME, 0);
+        ArrayList<ActFmTaskContainer> remoteTasks = new ArrayList<ActFmTaskContainer>();
+
+        try {
+            fetchRemoteTasks(serverTime, remoteTasks);
+            data.remoteUpdated = remoteTasks;
+        } catch (JSONException e) {
+            // Ingnored
+        }
+        super.readRemotelyUpdated(data);
+    }
+
     // ----------------------------------------------------------------------
     // --------------------------------------------------------- read / write
     // ----------------------------------------------------------------------

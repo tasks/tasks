@@ -1098,6 +1098,8 @@ public class TaskListActivity extends ListActivity implements OnScrollListener,
             Task original = new Task();
             original.setId(itemId);
 
+            Flags.set(Flags.ACTFM_SUPPRESS_SYNC);
+            Flags.set(Flags.GTASKS_SUPPRESS_SYNC);
             Task clone = taskService.clone(original);
             clone.setValue(Task.CREATION_DATE, DateUtilities.now());
             clone.setValue(Task.COMPLETION_DATE, 0L);
