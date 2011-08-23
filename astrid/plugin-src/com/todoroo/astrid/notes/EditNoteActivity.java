@@ -35,7 +35,6 @@ import com.timsu.astrid.R;
 import com.todoroo.andlib.data.TodorooCursor;
 import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.DependencyInjectionService;
-import com.todoroo.andlib.sql.Order;
 import com.todoroo.andlib.sql.Query;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.andlib.utility.DialogUtilities;
@@ -162,7 +161,7 @@ public class EditNoteActivity extends ListActivity {
         TodorooCursor<Metadata> notes = metadataService.query(
                 Query.select(Metadata.PROPERTIES).where(
                         MetadataCriteria.byTaskAndwithKey(task.getId(),
-                                NoteMetadata.METADATA_KEY)).orderBy(Order.desc(Metadata.CREATION_DATE)));
+                                NoteMetadata.METADATA_KEY)));
         try {
             Metadata metadata = new Metadata();
             for(notes.moveToFirst(); !notes.isAfterLast(); notes.moveToNext()) {
@@ -175,7 +174,7 @@ public class EditNoteActivity extends ListActivity {
 
         if(task.getValue(Task.REMOTE_ID) > 0) {
             TodorooCursor<Update> updates = updateDao.query(Query.select(Update.PROPERTIES).where(
-                            Update.TASK.eq(task.getValue(Task.REMOTE_ID))).orderBy(Order.desc(Update.CREATION_DATE)));
+                            Update.TASK.eq(task.getValue(Task.REMOTE_ID))));
             try {
                 Update update = new Update();
                 for(updates.moveToFirst(); !updates.isAfterLast(); updates.moveToNext()) {
@@ -190,11 +189,18 @@ public class EditNoteActivity extends ListActivity {
         Collections.sort(items, new Comparator<NoteOrUpdate>() {
             @Override
             public int compare(NoteOrUpdate a, NoteOrUpdate b) {
-                return (int)(b.createdAt - a.createdAt);
+                if(a.createdAt > b.createdAt)
+                    return 1;
+                else if (a.createdAt == b.createdAt)
+                    return 0;
+                else
+                    return -1;
             }
         });
         adapter = new NoteAdapter(this, R.id.name, items);
         setListAdapter(adapter);
+
+        getListView().setSelection(items.size() - 1);
     }
 
     @Override
