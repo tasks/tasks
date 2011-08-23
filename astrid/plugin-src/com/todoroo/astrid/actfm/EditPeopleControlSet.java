@@ -509,9 +509,9 @@ public class EditPeopleControlSet implements TaskEditControlSet {
                     Intent broadcastIntent = new Intent(AstridApiConstants.BROADCAST_EVENT_REFRESH);
                     ContextManager.getContext().sendBroadcast(broadcastIntent, AstridApiConstants.PERMISSION_READ);
 
+                    DialogUtilities.dismissDialog(activity, pd);
                     activity.runOnUiThread(new Runnable() {
                         public void run() {
-                            DialogUtilities.dismissDialog(activity, pd);
                             showSaveToast();
                             activity.finish();
                         }
@@ -525,11 +525,7 @@ public class EditPeopleControlSet implements TaskEditControlSet {
                             activity.getString(R.string.SyP_ioerror),
                             android.R.drawable.ic_dialog_alert, e.toString(), null);
                 } finally {
-                    activity.runOnUiThread(new Runnable() {
-                        public void run() {
-                            DialogUtilities.dismissDialog(activity, pd);
-                        }
-                    });
+                    DialogUtilities.dismissDialog(activity, pd);
                 }
             }
 
