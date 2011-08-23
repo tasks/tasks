@@ -76,7 +76,7 @@
     
     <!--================================================== Custom Dialogs == -->
     
-     <style name="DialogTitle" parent="android:WindowTitle">
+     <style name="DialogTitle">
         <item name="android:textSize">18sp</item>
         <item name="android:background">#323331</item>
     </style>
