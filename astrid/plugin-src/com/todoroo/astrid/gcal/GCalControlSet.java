@@ -22,10 +22,13 @@ import android.widget.Toast;
 
 import com.timsu.astrid.R;
 import com.todoroo.andlib.service.Autowired;
+import com.todoroo.andlib.service.ContextManager;
 import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.andlib.service.ExceptionService;
 import com.todoroo.andlib.utility.DateUtilities;
+import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.astrid.activity.TaskEditActivity.TaskEditControlSet;
+import com.todoroo.astrid.core.PluginServices;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.gcal.Calendars.CalendarResult;
 import com.todoroo.astrid.service.StatisticsService;
@@ -115,6 +118,34 @@ public class GCalControlSet implements TaskEditControlSet {
         });
     }
 
+    public static void deleteTaskEvent(Task task) {
+        String uri = task.getValue(Task.CALENDAR_URI);
+        Uri calendarUri = null;
+
+        if (TextUtils.isEmpty(uri)) {
+            task = PluginServices.getTaskService().fetchById(task.getId(), Task.ID, Task.CALENDAR_URI);
+            uri = task.getValue(Task.CALENDAR_URI);
+        }
+
+        if(!TextUtils.isEmpty(uri)) {
+            try {
+                calendarUri = Uri.parse(uri);
+
+                // try to load calendar
+                ContentResolver cr = ContextManager.getContext().getContentResolver();
+                Cursor cursor = cr.query(calendarUri, new String[] { "dtstart" }, null, null, null); //$NON-NLS-1$
+                boolean deleted = cursor.getCount() == 0;
+                cursor.close();
+
+                if (!deleted) {
+                    cr.delete(calendarUri, null, null);
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
     @Override
     public void readFromTask(Task task) {
         this.myTask = task;
@@ -146,7 +177,9 @@ public class GCalControlSet implements TaskEditControlSet {
     @SuppressWarnings("nls")
     @Override
     public String writeToModel(Task task) {
-        if(addToCalendar.isChecked() && calendarUri == null) {
+        if (((Preferences.getBoolean(R.string.p_default_addtocalendar_key, false) && !task.isSaved())
+                || addToCalendar.isChecked()) &&
+                calendarUri == null) {
             StatisticsService.reportEvent("create-calendar-event");
 
             try{
@@ -166,13 +199,19 @@ public class GCalControlSet implements TaskEditControlSet {
                 createStartAndEndDate(task, values);
 
                 calendarUri = cr.insert(uri, values);
+                cr.notifyChange(uri, null);
                 task.setValue(Task.CALENDAR_URI, calendarUri.toString());
 
-                // pop up the new event
-                Intent intent = new Intent(Intent.ACTION_EDIT, calendarUri);
-                intent.putExtra("beginTime", values.getAsLong("dtstart"));
-                intent.putExtra("endTime", values.getAsLong("dtend"));
-                activity.startActivity(intent);
+                // if the default-setting says so, create the gcal-event silently
+                if (!Preferences.getBoolean(R.string.p_default_addtocalendar_key, false) ||
+                        (addToCalendar.isChecked() && addToCalendar.isShown())) {
+                    // pop up the new event
+                    Intent intent = new Intent(Intent.ACTION_EDIT, calendarUri);
+                    intent.putExtra("beginTime", values.getAsLong("dtstart"));
+                    intent.putExtra("endTime", values.getAsLong("dtend"));
+                    activity.startActivity(intent);
+                }
+
             } catch (Exception e) {
                 exceptionService.displayAndReportError(activity,
                         activity.getString(R.string.gcal_TEA_error), e);
@@ -205,6 +244,7 @@ public class GCalControlSet implements TaskEditControlSet {
     @SuppressWarnings("nls")
     private void createStartAndEndDate(Task task, ContentValues values) {
         long dueDate = task.getValue(Task.DUE_DATE);
+        // FIXME: doesnt respect timezones, see story 17443653
         if(task.hasDueDate()) {
             if(task.hasDueTime()) {
                 long estimatedTime = task.getValue(Task.ESTIMATED_SECONDS);

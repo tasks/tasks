@@ -693,9 +693,12 @@
   
   <!-- Preference: Default Reminders Title -->
   <string name="EPr_default_reminders_title">Standarderinnerungen</string>
-  <!-- Preference: Default Hide Until Description (%s => setting) -->
+  <!-- Preference: Default Reminders Description (%s => setting) -->
   <string name="EPr_default_reminders_desc">Momentan: %s</string>
   
+  <!-- Preference: Default Add To Calendar Title -->
+  <string name="EPr_default_addtocalendar_title">Standard Kalendereintrag</string>
+
   <string-array name="EPr_default_importance">
       <!-- importance: labels for "Task Defaults" preference item. -->
       <item>!!!! (Höchste)</item>
