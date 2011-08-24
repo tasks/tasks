@@ -1,8 +1,6 @@
 package com.todoroo.astrid.gtasks.api;
 
-import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.Locale;
 import java.util.TimeZone;
 
 import com.google.api.client.util.DateTime;
@@ -11,61 +9,53 @@ import com.google.api.services.tasks.v1.model.Task;
 @SuppressWarnings("nls")
 public class GtasksApiUtilities {
 
-    private static SimpleDateFormat timeWriter = new SimpleDateFormat("yyyy-MM-dd'T'hh:m:ss.SSSZ", Locale.US);
+    public static String unixTimeToGtasksCompletionTime(long time) {
+        if (time == 0) return null;
+        return new DateTime(new Date(time), TimeZone.getDefault()).toStringRfc3339();
+    }
 
-    //When setting completion date, gtasks api will convert to UTC AND change hours/minutes/seconds to match
+
     public static long gtasksCompletedTimeToUnixTime(String gtasksCompletedTime, long defaultValue) {
         if (gtasksCompletedTime == null) return defaultValue;
-        synchronized(timeWriter) {
-            try {
-                long utcTime = DateTime.parseRfc3339(gtasksCompletedTime).value;
-                return new DateTime(new Date(utcTime), TimeZone.getDefault()).value;
-            } catch (NumberFormatException e) {
-                return defaultValue;
-            }
+        try {
+            long utcTime = DateTime.parseRfc3339(gtasksCompletedTime).value;
+            Date date = new Date(utcTime);
+            return date.getTime();
+        } catch (NumberFormatException e) {
+            return defaultValue;
         }
     }
 
-    //When setting due date, gtasks api will convert to UTC time without changing hours/minutes/seconds
+    /**
+     * Google deals only in dates for due times, so on the server side they normalize to utc time
+     * and then truncate h:m:s to 0. This can lead to a loss of date information for
+     * us, so we adjust here by doing the normalizing/truncating ourselves and
+     * then correcting the date we get back in a similar way.
+     * @param time
+     * @return
+     */
+    public static String unixTimeToGtasksDueDate(long time) {
+        if (time == 0) return null;
+        Date date = new Date(time);
+        date.setHours(0);
+        date.setMinutes(0);
+        date.setSeconds(0);
+        date.setTime(date.getTime() - date.getTimezoneOffset() * 60000);
+        DateTime dateTime = new DateTime(date, TimeZone.getTimeZone("UTC"));
+        return dateTime.toStringRfc3339();
+    }
+
+    //Adjust for google's rounding
     public static long gtasksDueTimeToUnixTime(String gtasksDueTime, long defaultValue) {
         if (gtasksDueTime == null) return defaultValue;
-        synchronized(timeWriter) {
-            try {
-                long utcTime = DateTime.parseRfc3339(gtasksDueTime).value;
-                return utcTime - TimeZone.getDefault().getOffset(utcTime);
-            } catch (NumberFormatException e) {
-                return defaultValue;
-            }
+        try {
+            long utcTime = DateTime.parseRfc3339(gtasksDueTime).value;
+            Date date = new Date(utcTime);
+            Date returnDate = new Date(date.getTime() + date.getTimezoneOffset() * 60000);
+            return returnDate.getTime();
+        } catch (NumberFormatException e) {
+            return defaultValue;
         }
-    }
-
-    public static String unixTimeToGtasksTime(long time) {
-        if (time == 0) return null;
-        synchronized(timeWriter) {
-            return new DateTime(new Date(time), TimeZone.getDefault()).toStringRfc3339();
-        }
-    }
-
-    public static String unixTimeToGtasksDate(long time) {
-        if (time == 0) return null;
-        synchronized(timeWriter) {
-            Date date = new Date(time);
-            date.setHours(0);
-            date.setMinutes(0);
-            date.setSeconds(0);
-            return new DateTime(date, TimeZone.getDefault()).toStringRfc3339();
-        }
-    }
-
-    /*
-     * The two methods below are useful for testing
-     */
-    public static String gtasksCompletedTimeStringToLocalTimeString(String gtasksTime) {
-        return GtasksApiUtilities.unixTimeToGtasksTime(GtasksApiUtilities.gtasksCompletedTimeToUnixTime(gtasksTime, 0));
-    }
-
-    public static String gtasksDueTimeStringToLocalTimeString(String gtasksTime) {
-        return GtasksApiUtilities.unixTimeToGtasksTime(GtasksApiUtilities.gtasksDueTimeToUnixTime(gtasksTime, 0));
     }
 
     public static String extractListIdFromSelfLink(Task task) {
