@@ -437,10 +437,10 @@ public class GtasksSyncProvider extends SyncProvider<GtasksTaskContainer> {
         if(shouldTransmit(local, Task.TITLE, remote))
             model.title = local.task.getValue(Task.TITLE);
         if(shouldTransmit(local, Task.DUE_DATE, remote)) {
-            model.due = GtasksApiUtilities.unixTimeToGtasksDate(local.task.getValue(Task.DUE_DATE));
+            model.due = GtasksApiUtilities.unixTimeToGtasksDueDate(local.task.getValue(Task.DUE_DATE));
         }
         if(shouldTransmit(local, Task.COMPLETION_DATE, remote)) {
-            model.completed = GtasksApiUtilities.unixTimeToGtasksDate(local.task.getValue(Task.COMPLETION_DATE));
+            model.completed = GtasksApiUtilities.unixTimeToGtasksCompletionTime(local.task.getValue(Task.COMPLETION_DATE));
             model.status = (local.task.isCompleted() ? "completed" : "needsAction");
         }
         if(shouldTransmit(local, Task.DELETION_DATE, remote))
