@@ -21,7 +21,7 @@ import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.andlib.utility.DialogUtilities;
 import com.todoroo.andlib.utility.TodorooPreferenceActivity;
 import com.todoroo.astrid.data.Task;
-import com.todoroo.astrid.gcal.GCalControlSet;
+import com.todoroo.astrid.gcal.GCalHelper;
 import com.todoroo.astrid.service.MetadataService;
 import com.todoroo.astrid.service.TaskService;
 
@@ -85,7 +85,7 @@ public class OldTaskPreferences extends TodorooPreferenceActivity {
                                     for(int i = 0; i < length; i++) {
                                         cursor.moveToNext();
                                         task.readFromCursor(cursor);
-                                        GCalControlSet.deleteTaskEvent(task);
+                                        GCalHelper.deleteTaskEvent(task);
                                     }
                                 } finally {
                                     cursor.close();
@@ -124,7 +124,7 @@ public class OldTaskPreferences extends TodorooPreferenceActivity {
                                     for(int i = 0; i < length; i++) {
                                         cursor.moveToNext();
                                         task.readFromCursor(cursor);
-                                        GCalControlSet.deleteTaskEvent(task);
+                                        GCalHelper.deleteTaskEvent(task);
                                     }
                                 } finally {
                                     cursor.close();

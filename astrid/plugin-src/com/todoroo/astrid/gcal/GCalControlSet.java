@@ -22,13 +22,11 @@ import android.widget.Toast;
 
 import com.timsu.astrid.R;
 import com.todoroo.andlib.service.Autowired;
-import com.todoroo.andlib.service.ContextManager;
 import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.andlib.service.ExceptionService;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.astrid.activity.TaskEditActivity.TaskEditControlSet;
-import com.todoroo.astrid.core.PluginServices;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.gcal.Calendars.CalendarResult;
 import com.todoroo.astrid.service.StatisticsService;
@@ -116,34 +114,6 @@ public class GCalControlSet implements TaskEditControlSet {
                 activity.startActivity(intent);
             }
         });
-    }
-
-    public static void deleteTaskEvent(Task task) {
-        String uri = task.getValue(Task.CALENDAR_URI);
-        Uri calendarUri = null;
-
-        if (TextUtils.isEmpty(uri)) {
-            task = PluginServices.getTaskService().fetchById(task.getId(), Task.ID, Task.CALENDAR_URI);
-            uri = task.getValue(Task.CALENDAR_URI);
-        }
-
-        if(!TextUtils.isEmpty(uri)) {
-            try {
-                calendarUri = Uri.parse(uri);
-
-                // try to load calendar
-                ContentResolver cr = ContextManager.getContext().getContentResolver();
-                Cursor cursor = cr.query(calendarUri, new String[] { "dtstart" }, null, null, null); //$NON-NLS-1$
-                boolean deleted = cursor.getCount() == 0;
-                cursor.close();
-
-                if (!deleted) {
-                    cr.delete(calendarUri, null, null);
-                }
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
     }
 
     @Override
