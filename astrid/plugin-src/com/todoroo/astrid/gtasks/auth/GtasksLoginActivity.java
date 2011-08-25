@@ -20,12 +20,14 @@
 package com.todoroo.astrid.gtasks.auth;
 
 import java.util.ArrayList;
+import java.util.concurrent.TimeUnit;
 
 import android.accounts.Account;
 import android.accounts.AccountManager;
 import android.accounts.AccountManagerCallback;
 import android.accounts.AccountManagerFuture;
 import android.app.ListActivity;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -38,6 +40,7 @@ import com.timsu.astrid.R;
 import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.ContextManager;
 import com.todoroo.andlib.service.DependencyInjectionService;
+import com.todoroo.andlib.utility.DialogUtilities;
 import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.astrid.gtasks.GtasksBackgroundService;
 import com.todoroo.astrid.gtasks.GtasksPreferenceService;
@@ -94,23 +97,40 @@ public class GtasksLoginActivity extends ListActivity {
     @Override
     protected void onListItemClick(ListView l, View v, int position, long id) {
         super.onListItemClick(l, v, position, id);
-        Toast.makeText(this, R.string.gtasks_GLA_authenticating, Toast.LENGTH_LONG);
+        final ProgressDialog pd = DialogUtilities.progressDialog(this, this.getString(R.string.gtasks_GLA_authenticating));
+        pd.show();
         final Account a = accountManager.getAccountByName(nameArray[position]);
         accountName = a.name;
+        getAuthToken(a, pd);
+    }
+
+    private void getAuthToken(Account a, final ProgressDialog pd) {
         AccountManagerCallback<Bundle> callback = new AccountManagerCallback<Bundle>() {
-            public void run(AccountManagerFuture<Bundle> future) {
-                try {
-                    Bundle bundle = future.getResult();
-                    if (bundle.containsKey(AccountManager.KEY_INTENT)) {
-                        Intent i = (Intent) bundle.get(AccountManager.KEY_INTENT);
-                        startActivityForResult(i, REQUEST_AUTHENTICATE);
-                    } else if (bundle.containsKey(AccountManager.KEY_AUTHTOKEN)) {
-                        authToken = bundle.getString(AccountManager.KEY_AUTHTOKEN);
-                        onAuthTokenSuccess();
+            public void run(final AccountManagerFuture<Bundle> future) {
+                new Thread() {
+                    @Override
+                    public void run() {
+                        try {
+                            Bundle bundle = future.getResult(60, TimeUnit.SECONDS);
+                            if (bundle.containsKey(AccountManager.KEY_INTENT)) {
+                                Intent i = (Intent) bundle.get(AccountManager.KEY_INTENT);
+                                startActivityForResult(i, REQUEST_AUTHENTICATE);
+                            } else if (bundle.containsKey(AccountManager.KEY_AUTHTOKEN)) {
+                                authToken = bundle.getString(AccountManager.KEY_AUTHTOKEN);
+                                onAuthTokenSuccess();
+                            }
+                        } catch (Exception e) {
+                            GtasksLoginActivity.this.runOnUiThread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    Toast.makeText(GtasksLoginActivity.this, R.string.gtasks_GLA_errorAuth, Toast.LENGTH_LONG).show();
+                                }
+                            });
+                        } finally {
+                            pd.dismiss();
+                        }
                     }
-                } catch (Exception e) {
-                    onAuthCancel();
-                }
+                }.start();
             }
         };
         accountManager.manager.getAuthToken(a, GtasksService.AUTH_TOKEN_TYPE, true, callback, null);
@@ -133,6 +153,7 @@ public class GtasksLoginActivity extends ListActivity {
     protected void synchronize() {
         startService(new Intent(null, null,
                 this, GtasksBackgroundService.class));
+        setResult(RESULT_OK);
         finish();
     }
 
@@ -154,8 +175,10 @@ public class GtasksLoginActivity extends ListActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if(requestCode == REQUEST_AUTHENTICATE && resultCode == RESULT_OK){
-            //User gave permission--huzzah!
-
+            final ProgressDialog pd = DialogUtilities.progressDialog(this, this.getString(R.string.gtasks_GLA_authenticating));
+            pd.show();
+            final Account a = accountManager.getAccountByName(accountName);
+            getAuthToken(a, pd);
         } else {
             //User didn't give permission--cancel
             onAuthCancel();
