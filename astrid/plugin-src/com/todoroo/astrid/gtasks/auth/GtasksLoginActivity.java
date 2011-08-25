@@ -127,7 +127,7 @@ public class GtasksLoginActivity extends ListActivity {
                                 }
                             });
                         } finally {
-                            pd.dismiss();
+                            DialogUtilities.dismissDialog(GtasksLoginActivity.this, pd);
                         }
                     }
                 }.start();
