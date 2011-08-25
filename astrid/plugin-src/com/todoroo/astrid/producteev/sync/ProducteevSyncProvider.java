@@ -228,6 +228,8 @@ public class ProducteevSyncProvider extends SyncProvider<ProducteevTaskContainer
             SyncData<ProducteevTaskContainer> syncData = populateSyncData(remoteTasks);
             try {
                 synchronizeTasks(syncData);
+                AndroidUtilities.sleepDeep(3000L);
+                checkForCreatedDuringSync();
             } finally {
                 syncData.localCreated.close();
                 syncData.localUpdated.close();
@@ -250,6 +252,19 @@ public class ProducteevSyncProvider extends SyncProvider<ProducteevTaskContainer
         } finally {
             StatisticsService.reportEvent("pdv-sync-finished",
                     "success", Boolean.toString(syncSuccess)); //$NON-NLS-1$
+        }
+    }
+
+    private void checkForCreatedDuringSync() {
+        TodorooCursor<Task> localCreated = dataService.getLocallyCreated(PROPERTIES);
+        try {
+            SyncData<ProducteevTaskContainer> localCreatedData = new SyncData<ProducteevTaskContainer>(null, localCreated, null);
+            sendLocallyCreated(localCreatedData, new HashMap<String, Integer>());
+        } catch (IOException e) {
+            handleException("gtasks-sync", e, true);
+        } finally {
+            System.err.println("Sent " + localCreated.getCount() + " new tasks");
+            localCreated.close();
         }
     }
 
@@ -592,7 +607,8 @@ public class ProducteevSyncProvider extends SyncProvider<ProducteevTaskContainer
     @Override
     protected void write(ProducteevTaskContainer task) throws IOException {
         if(task.task.isSaved()) {
-            Task local = PluginServices.getTaskService().fetchById(task.task.getId(), Task.COMPLETION_DATE);
+            Task local = PluginServices.getTaskService().fetchById(task.task.getId(), Task.COMPLETION_DATE, Task.FLAGS);
+            task.task.setFlag(Task.FLAGS, Task.FLAG_REPEAT_AFTER_COMPLETION, local.getFlag(Task.FLAGS, Task.FLAG_REPEAT_AFTER_COMPLETION));
             if(task.task.isCompleted() && !local.isCompleted())
                 StatisticsService.reportEvent("pdv-task-completed"); //$NON-NLS-1$
         }

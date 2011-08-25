@@ -183,6 +183,8 @@ public class GtasksSyncProvider extends SyncProvider<GtasksTaskContainer> {
             SyncData<GtasksTaskContainer> syncData = populateSyncData();
             try {
                 synchronizeTasks(syncData);
+                AndroidUtilities.sleepDeep(3000L); // Wait for changes to be saved (i.e. for repeating tasks to be cloned)
+                checkForCreatedDuringSync();
             } finally {
                 syncData.localCreated.close();
                 syncData.localUpdated.close();
@@ -204,6 +206,19 @@ public class GtasksSyncProvider extends SyncProvider<GtasksTaskContainer> {
         } finally {
             StatisticsService.reportEvent("gtasks-sync-finished",
                     "success", Boolean.toString(syncSuccess)); //$NON-NLS-1$
+        }
+    }
+
+    private void checkForCreatedDuringSync() {
+        TodorooCursor<Task> localCreated = gtasksMetadataService.getLocallyCreated(PROPERTIES);
+        try {
+            SyncData<GtasksTaskContainer> localCreatedData = new SyncData<GtasksTaskContainer>(null, localCreated, null);
+            sendLocallyCreated(localCreatedData, new HashMap<String, Integer>());
+        } catch (IOException e) {
+            handleException("gtasks-sync", e, true);
+        } finally {
+            System.err.println("Sent " + localCreated.getCount() + " new tasks");
+            localCreated.close();
         }
     }
 
