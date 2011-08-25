@@ -225,7 +225,7 @@ public class ActFmSyncProvider extends SyncProvider<ActFmTaskContainer> {
      * @throws JSONException */
     private ActFmTaskContainer parseRemoteTask(JSONObject remoteTask) throws JSONException {
         Task task = new Task();
-        TaskDao.setDefaultReminders(task);
+
         ArrayList<Metadata> metadata = new ArrayList<Metadata>();
 
         JsonHelper.taskFromJson(remoteTask, task, metadata);
@@ -285,6 +285,8 @@ public class ActFmSyncProvider extends SyncProvider<ActFmTaskContainer> {
             Task local = PluginServices.getTaskService().fetchById(task.task.getId(), Task.COMPLETION_DATE);
             if(task.task.isCompleted() && !local.isCompleted())
                 StatisticsService.reportEvent("actfm-task-completed"); //$NON-NLS-1$
+        } else { // Set default reminders for remotely created tasks
+            TaskDao.setDefaultReminders(task.task);
         }
         actFmDataService.saveTaskAndMetadata(task);
     }

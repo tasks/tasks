@@ -522,7 +522,6 @@ public class GtasksSyncProvider extends SyncProvider<GtasksTaskContainer> {
      * @throws JSONException */
     private GtasksTaskContainer parseRemoteTask(com.google.api.services.tasks.v1.model.Task remoteTask) {
         Task task = new Task();
-        TaskDao.setDefaultReminders(task);
 
         ArrayList<Metadata> metadata = new ArrayList<Metadata>();
 
@@ -594,6 +593,8 @@ public class GtasksSyncProvider extends SyncProvider<GtasksTaskContainer> {
             mergeDates(task.task, local);
             if(task.task.isCompleted() && !local.isCompleted())
                 StatisticsService.reportEvent("gtasks-task-completed"); //$NON-NLS-1$
+        } else { // Set default reminders for remotely created tasks
+            TaskDao.setDefaultReminders(task.task);
         }
         gtasksMetadataService.saveTaskAndMetadata(task);
     }

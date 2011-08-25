@@ -352,7 +352,7 @@ public class ProducteevSyncProvider extends SyncProvider<ProducteevTaskContainer
      * @throws JSONException */
     private ProducteevTaskContainer parseRemoteTask(JSONObject remoteTask) throws JSONException {
         Task task = new Task();
-        TaskDao.setDefaultReminders(task);
+
         ArrayList<Metadata> metadata = new ArrayList<Metadata>();
 
         if(remoteTask.has("task"))
@@ -595,6 +595,8 @@ public class ProducteevSyncProvider extends SyncProvider<ProducteevTaskContainer
             Task local = PluginServices.getTaskService().fetchById(task.task.getId(), Task.COMPLETION_DATE);
             if(task.task.isCompleted() && !local.isCompleted())
                 StatisticsService.reportEvent("pdv-task-completed"); //$NON-NLS-1$
+        } else { // Set default reminders for remotely created tasks
+            TaskDao.setDefaultReminders(task.task);
         }
         dataService.saveTaskAndMetadata(task);
     }
