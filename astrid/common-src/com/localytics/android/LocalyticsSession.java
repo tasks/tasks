@@ -8,23 +8,6 @@
 
 package com.localytics.android;
 
-import android.Manifest.permission;
-import android.content.ContentValues;
-import android.content.Context;
-import android.database.Cursor;
-import android.database.CursorJoiner;
-import android.os.Build;
-import android.os.Build.VERSION;
-import android.os.Handler;
-import android.os.HandlerThread;
-import android.os.Looper;
-import android.os.Message;
-import android.os.SystemClock;
-import android.telephony.TelephonyManager;
-import android.text.TextUtils;
-import android.text.format.DateUtils;
-import android.util.Log;
-
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
@@ -50,6 +33,23 @@ import org.apache.http.impl.client.DefaultHttpClient;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import android.Manifest.permission;
+import android.content.ContentValues;
+import android.content.Context;
+import android.database.Cursor;
+import android.database.CursorJoiner;
+import android.os.Build;
+import android.os.Build.VERSION;
+import android.os.Handler;
+import android.os.HandlerThread;
+import android.os.Looper;
+import android.os.Message;
+import android.os.SystemClock;
+import android.telephony.TelephonyManager;
+import android.text.TextUtils;
+import android.text.format.DateUtils;
+import android.util.Log;
 
 import com.localytics.android.JsonObjects.BlobHeader;
 import com.localytics.android.LocalyticsProvider.ApiKeysDbColumns;
@@ -104,39 +104,39 @@ import com.localytics.android.LocalyticsProvider.UploadBlobsDbColumns;
  * </ul>
  * <p>
  * This class is thread-safe.
- * 
+ *
  * @version 2.0
  */
 public final class LocalyticsSession
 {
     /*
      * DESIGN NOTES
-     * 
+     *
      * The LocalyticsSession stores all of its state as a SQLite database in the parent application's private database storage
      * directory.
-     * 
+     *
      * Every action performed within (open, close, opt-in, opt-out, customer events) are all treated as events by the library.
      * Events are given a package prefix to ensure a namespace without collisions. Events internal to the library are flagged with
      * the Localytics package name, while events from the customer's code are flagged with the customer's package name. There's no
      * need to worry about the customer changing the package name and disrupting the naming convention, as changing the package
      * name means that a new user is created in Android and the app with a new package name gets its own storage directory.
-     * 
-     * 
+     *
+     *
      * MULTI-THREADING
-     * 
+     *
      * The LocalyticsSession stores all of its state as a SQLite database in the parent application's private database storage
      * directory. Disk access is slow and can block the UI in Android, so the LocalyticsSession object is a wrapper around a pair
      * of Handler objects, with each Handler object running on its own separate thread.
-     * 
+     *
      * All requests made of the LocalyticsSession are passed along to the mSessionHandler object, which does most of the work. The
      * mSessionHandler will pass off upload requests to the mUploadHandler, to prevent the mSessionHandler from being blocked by
      * network traffic.
-     * 
+     *
      * If an upload request is made, the mSessionHandler will set a flag that an upload is in progress (this flag is important for
      * thread-safety of the session data stored on disk). Then the upload request is passed to the mUploadHandler's queue. If a
      * second upload request is made while the first one is underway, the mSessionHandler notifies the mUploadHandler, which will
      * notify the mSessionHandler to retry that upload request when the first upload is completed.
-     * 
+     *
      * Although each LocalyticsSession object will have its own unique instance of mSessionHandler, thread-safety is handled by
      * using a single sSessionHandlerThread.
      */
@@ -193,7 +193,7 @@ public final class LocalyticsSession
 
     /**
      * Helper to obtain a new {@link HandlerThread}.
-     * 
+     *
      * @param name to give to the HandlerThread. Useful for debugging, as the thread name is shown in DDMS.
      * @return HandlerThread whose {@link HandlerThread#start()} method has already been called.
      */
@@ -242,7 +242,7 @@ public final class LocalyticsSession
 
     /**
      * Constructs a new {@link LocalyticsSession} object.
-     * 
+     *
      * @param context The context used to access resources on behalf of the app. It is recommended to use
      *            {@link Context#getApplicationContext()} to avoid the potential memory leak incurred by maintaining references to
      *            {@code Activity} instances. Cannot be null.
@@ -265,10 +265,10 @@ public final class LocalyticsSession
          * Get the application context to avoid having the Localytics object holding onto an Activity object. Using application
          * context is very important to prevent the customer from giving the library multiple different contexts with different
          * package names, which would corrupt the events in the database.
-         * 
+         *
          * Although RenamingDelegatingContext is part of the Android SDK, the class isn't present in the ClassLoader unless the
          * process is being run as a unit test. For that reason, comparing class names is necessary instead of doing instanceof.
-         * 
+         *
          * Note that getting the application context may have unpredictable results for apps sharing a process running Android 2.1
          * and earlier. See <http://code.google.com/p/android/issues/detail?id=4469> for details.
          */
@@ -296,7 +296,7 @@ public final class LocalyticsSession
      * If a session was started while the app was opted out, the session open event has already been lost. For this reason, all
      * sessions started while opted out will not collect data even after the user opts back in or else it taints the comparisons
      * of session lengths and other metrics.
-     * 
+     *
      * @param isOptedOut True if the user should be be opted out and have all his Localytics data deleted.
      */
     public void setOptOut(final boolean isOptedOut)
@@ -347,7 +347,7 @@ public final class LocalyticsSession
      * and uploaded.</li>
      * </ul>
      * <br>
-     * 
+     *
      * @param event The name of the event which occurred. Cannot be null or empty string.
      * @throws IllegalArgumentException if {@code event} is null.
      * @throws IllegalArgumentException if {@code event} is empty.
@@ -371,7 +371,7 @@ public final class LocalyticsSession
      * and uploaded.</li>
      * </ul>
      * <br>
-     * 
+     *
      * @param event The name of the event which occurred.
      * @param attributes The collection of attributes for this particular event. If this parameter is null or empty, then calling
      *            this method has the same effect as calling {@link #tagEvent(String)}. This parameter may not contain null or
@@ -458,7 +458,7 @@ public final class LocalyticsSession
      * Note: This implementation will perform duplicate suppression on two identical screen events that occur in a row within a
      * single session. For example, in the set of screens {"Screen 1", "Screen 1"} the second screen would be suppressed. However
      * in the set {"Screen 1", "Screen 2", "Screen 1"}, no duplicate suppression would occur.
-     * 
+     *
      * @param screen Name of the screen that was entered. Cannot be null or the empty string.
      * @throws IllegalArgumentException if {@code event} is null.
      * @throws IllegalArgumentException if {@code event} is empty.
@@ -512,7 +512,7 @@ public final class LocalyticsSession
      * values are inclusive, and in the instance where (max - min + 1) is not evenly divisible by step size, the method guarantees
      * only the minimum and the step size to be accurate to specification, with the new maximum will be moved to the next regular
      * step.
-     * 
+     *
      * @param actualValue The int value to be sorted.
      * @param minValue The int value representing the inclusive minimum interval.
      * @param maxValue The int value representing the inclusive maximum interval.
@@ -555,7 +555,7 @@ public final class LocalyticsSession
      * The array must be sorted in ascending order, with the first element representing the inclusive lower bound and the last
      * element representing the exclusive upper bound. For instance, the array [0,1,3,10] will provide the following buckets: less
      * than 0, 0, 1-2, 3-9, 10 or greater.
-     * 
+     *
      * @param actualValue The int value to be bucketed.
      * @param steps The sorted int array representing the bucketing intervals.
      * @return String representation of {@code actualValue} that has been bucketed into the range provided by {@code steps}.
@@ -579,12 +579,12 @@ public final class LocalyticsSession
         // if less than smallest value
         if (actualValue < steps[0])
         {
-            bucket = "less than " + steps[0];
+            bucket = "less than " + steps[0]; //$NON-NLS-1$
         }
         // if greater than largest value
         else if (actualValue >= steps[steps.length - 1])
         {
-            bucket = steps[steps.length - 1] + " and above";
+            bucket = steps[steps.length - 1] + " and above"; //$NON-NLS-1$
         }
         else
         {
@@ -708,7 +708,7 @@ public final class LocalyticsSession
 
         /**
          * Constructs a new Handler that runs on the given looper.
-         * 
+         *
          * @param context The context used to access resources on behalf of the app. It is recommended to use
          *            {@link Context#getApplicationContext()} to avoid the potential memory leak incurred by maintaining
          *            references to {@code Activity} instances. Cannot be null.
@@ -861,7 +861,7 @@ public final class LocalyticsSession
          * <p>
          * Note: This method is a private implementation detail. It is only made public for unit testing purposes. The public
          * interface is to send {@link #MESSAGE_INIT} to the Handler.
-         * 
+         *
          * @see #MESSAGE_INIT
          */
         public void init()
@@ -935,7 +935,7 @@ public final class LocalyticsSession
          * <p>
          * Note: This method is a private implementation detail. It is only made package accessible for unit testing purposes. The
          * public interface is to send {@link #MESSAGE_OPT_OUT} to the Handler.
-         * 
+         *
          * @param isOptingOut true if the user is opting out. False if the user is opting back in.
          * @see #MESSAGE_OPT_OUT
          */
@@ -991,7 +991,7 @@ public final class LocalyticsSession
          * <p>
          * Note: This method is a private implementation detail. It is only made public for unit testing purposes. The public
          * interface is to send {@link #MESSAGE_OPEN} to the Handler.
-         * 
+         *
          * @param ignoreLimits true to ignore limits on the number of sessions. False to enforce limits.
          * @see #MESSAGE_OPEN
          */
@@ -1133,7 +1133,7 @@ public final class LocalyticsSession
 
         /**
          * Opens a new session. This is a helper method to {@link #open(boolean)}.
-         * 
+         *
          * @effects Updates the database by creating a new entry in the {@link SessionsDbColumns} table.
          */
         private void openNewSession()
@@ -1209,7 +1209,7 @@ public final class LocalyticsSession
 
         /**
          * Reopens a previous session. This is a helper method to {@link #open(boolean)}.
-         * 
+         *
          * @param closeEventId The last close event which is to be deleted so that the old session can be reopened
          * @effects Updates the database by deleting the last close event and sets {@link #mSessionId} to the session id of the
          *          last close event
@@ -1261,7 +1261,7 @@ public final class LocalyticsSession
          * <p>
          * Note: This method is a private implementation detail. It is only made public for unit testing purposes. The public
          * interface is to send {@link #MESSAGE_CLOSE} to the Handler.
-         * 
+         *
          * @see #MESSAGE_OPEN
          */
         public void close()
@@ -1288,7 +1288,7 @@ public final class LocalyticsSession
          * <p>
          * Note: This method is a private implementation detail. It is only made public for unit testing purposes. The public
          * interface is to send {@link #MESSAGE_TAG_EVENT} to the Handler.
-         * 
+         *
          * @param event The name of the event which occurred.
          * @param attributes The collection of attributes for this particular event. If this parameter is null, then calling this
          *            method has the same effect as calling {@link #tagEvent(String)}.
@@ -1418,7 +1418,7 @@ public final class LocalyticsSession
          * <p>
          * Note: This method is a private implementation detail. It is only made public for unit testing purposes. The public
          * interface is to send {@link #MESSAGE_TAG_SCREEN} to the Handler.
-         * 
+         *
          * @param screen The name of the screen which occurred. Cannot be null or empty.
          * @see #MESSAGE_TAG_SCREEN
          */
@@ -1543,7 +1543,7 @@ public final class LocalyticsSession
 
         /**
          * Builds upload blobs for all events.
-         * 
+         *
          * @effects Mutates the database by creating a new upload blob for all events that are unassociated at the time this
          *          method is called.
          */
@@ -1650,7 +1650,7 @@ public final class LocalyticsSession
          * <p>
          * Note: This method is a private implementation detail. It is only made public for unit testing purposes. The public
          * interface is to send {@link #MESSAGE_UPLOAD} to the Handler.
-         * 
+         *
          * @param callback An optional callback to perform once the upload completes. May be null for no callback.
          * @see #MESSAGE_UPLOAD
          */
@@ -1755,7 +1755,7 @@ public final class LocalyticsSession
          * Constructs a new Handler that runs on {@code looper}.
          * <p>
          * Note: This constructor may perform disk access.
-         * 
+         *
          * @param context Application context. Cannot be null.
          * @param sessionHandler Parent {@link SessionHandler} object to notify when uploads are completed. Cannot be null.
          * @param apiKey Localytics API key. Cannot be null.
@@ -1853,7 +1853,7 @@ public final class LocalyticsSession
 
         /**
          * Uploads the post Body to the webservice
-         * 
+         *
          * @param url where {@code body} will be posted to. Cannot be null.
          * @param body upload body as a string. This should be a plain old string. Cannot be null.
          * @return True on success, false on failure.
@@ -1956,7 +1956,7 @@ public final class LocalyticsSession
 
         /**
          * Helper that converts blobs in the database into a JSON representation for upload.
-         * 
+         *
          * @return A list of JSON objecs to upload to the server
          */
         /* package */List<JSONObject> convertDatabaseToJson()
@@ -2006,7 +2006,7 @@ public final class LocalyticsSession
                         }
                     }
                     catch (final JSONException e)
-                    {
+                    { //
                     }
                 }
             }
@@ -2030,7 +2030,7 @@ public final class LocalyticsSession
          * Deletes all blobs and sessions/events/attributes associated with those blobs.
          * <p>
          * This should be called after a successful upload completes.
-         * 
+         *
          * @param provider Localytics database provider. Cannot be null.
          */
         /* package */static void deleteBlobsAndSessions(final LocalyticsProvider provider)
@@ -2131,7 +2131,7 @@ public final class LocalyticsSession
 
         /**
          * Gets the creation time for an API key.
-         * 
+         *
          * @param provider Localytics database provider. Cannot be null.
          * @param key Localytics API key. Cannot be null.
          * @return The time in seconds since the Unix Epoch when the API key entry was created in the database.
@@ -2165,7 +2165,7 @@ public final class LocalyticsSession
 
         /**
          * Helper method to generate the attributes object for a session
-         * 
+         *
          * @param provider Instance of the Localytics database provider. Cannot be null.
          * @param apiKey Localytics API key. Cannot be null.
          * @param sessionId The {@link SessionsDbColumns#_ID} of the session.
@@ -2223,7 +2223,7 @@ public final class LocalyticsSession
          * There are three types of events: open, close, and application. Open and close events are Localytics events, while
          * application events are generated by the app. The return value of this method will vary based on the type of event that
          * is being converted.
-         * 
+         *
          * @param provider Localytics database instance. Cannot be null.
          * @param context Application context. Cannot be null.
          * @param eventId {@link EventsDbColumns#_ID} of the event to convert.
@@ -2441,7 +2441,7 @@ public final class LocalyticsSession
 
         /**
          * Private helper to get the {@link SessionsDbColumns#_ID} for a given {@link EventsDbColumns#_ID}.
-         * 
+         *
          * @param provider Localytics database instance. Cannot be null.
          * @param eventId {@link EventsDbColumns#_ID} of the event to look up
          * @return The {@link SessionsDbColumns#_ID} of the session that owns the event.
@@ -2475,7 +2475,7 @@ public final class LocalyticsSession
 
         /**
          * Private helper to get the {@link SessionsDbColumns#UUID} for a given {@link SessionsDbColumns#_ID}.
-         * 
+         *
          * @param provider Localytics database instance. Cannot be null.
          * @param sessionId {@link SessionsDbColumns#_ID} of the event to look up
          * @return The {@link SessionsDbColumns#UUID} of the session.
@@ -2509,7 +2509,7 @@ public final class LocalyticsSession
 
         /**
          * Private helper to get the {@link SessionsDbColumns#SESSION_START_WALL_TIME} for a given {@link SessionsDbColumns#_ID}.
-         * 
+         *
          * @param provider Localytics database instance. Cannot be null.
          * @param sessionId {@link SessionsDbColumns#_ID} of the event to look up
          * @return The {@link SessionsDbColumns#SESSION_START_WALL_TIME} of the session.
@@ -2543,7 +2543,7 @@ public final class LocalyticsSession
 
         /**
          * Private helper to convert an event's attributes into a {@link JSONObject} representation.
-         * 
+         *
          * @param provider Localytics database instance. Cannot be null.
          * @param eventId {@link EventsDbColumns#_ID} of the event whose attributes are to be loaded.
          * @return {@link JSONObject} representing the attributes of the event. The order of attributes is undefined and may
@@ -2584,7 +2584,7 @@ public final class LocalyticsSession
 
         /**
          * Given an id of an upload blob, get the session id associated with that blob.
-         * 
+         *
          * @param blobId {@link UploadBlobsDbColumns#_ID} of the upload blob.
          * @return id of the parent session.
          */

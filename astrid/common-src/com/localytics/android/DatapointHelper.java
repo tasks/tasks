@@ -8,15 +8,6 @@
 
 package com.localytics.android;
 
-import android.Manifest.permission;
-import android.content.Context;
-import android.content.pm.PackageManager;
-import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
-import android.os.Build;
-import android.telephony.TelephonyManager;
-import android.util.Log;
-
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -27,11 +18,21 @@ import java.math.BigInteger;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
+import android.Manifest.permission;
+import android.content.Context;
+import android.content.pm.PackageManager;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
+import android.os.Build;
+import android.telephony.TelephonyManager;
+import android.util.Log;
+
 /**
  * Provides a number of static functions to aid in the collection and formatting of datapoints.
  * <p>
  * Note: this is not a public API.
  */
+@SuppressWarnings("nls")
 /* package */final class DatapointHelper
 {
     /**
@@ -46,7 +47,7 @@ import java.security.NoSuchAlgorithmException;
 
     /**
      * Private constructor prevents instantiation
-     * 
+     *
      * @throws UnsupportedOperationException because this class cannot be instantiated.
      */
     private DatapointHelper()
@@ -58,7 +59,7 @@ import java.security.NoSuchAlgorithmException;
     {
        try
        {
-           // Although the Build.VERSION.SDK field has existed since API 1, it is deprecated and could be removed 
+           // Although the Build.VERSION.SDK field has existed since API 1, it is deprecated and could be removed
     	   // in the future.  Therefore use reflection to retrieve it for maximum forward compatibility.
            Class<?> buildClass = Build.VERSION.class;
            String sdkString = (String) buildClass.getField("SDK").get(null); // $NON-NLS-1$
@@ -72,7 +73,7 @@ import java.security.NoSuchAlgorithmException;
                Class<?> buildClass = Build.VERSION.class;
                return buildClass.getField("SDK_INT").getInt(null); // $NON-NLS-1$
            }
-           catch (Exception ignore) { }
+           catch (Exception ignore) { /**/ }
        }
 
        return 3;
@@ -81,7 +82,7 @@ import java.security.NoSuchAlgorithmException;
     /**
      * Gets a 1-way hashed value of the device's Android ID. This value is encoded using a SHA-256 one way hash and therefore
      * cannot be used to determine what device this data came from.
-     * 
+     *
      * @param context The context used to access the settings resolver
      * @return An 1-way hashed version of the {@link android.provider.Settings.Secure#ANDROID_ID}. May return null if an Android
      *         ID or the hashing algorithm is not available.
@@ -107,7 +108,7 @@ import java.security.NoSuchAlgorithmException;
                     return deviceId;
                 }
                 catch (final FileNotFoundException e)
-                {
+                { //
                 }
                 finally
                 {
@@ -118,7 +119,7 @@ import java.security.NoSuchAlgorithmException;
                 }
             }
             catch (final IOException e)
-            {
+            { //
             }
         }
 
@@ -136,7 +137,7 @@ import java.security.NoSuchAlgorithmException;
      * therefore cannot be used to determine what device this data came from.
      * <p>
      * Note: {@link android.os.Build#SERIAL} was introduced in SDK 9. For older SDKs, this method will return null.
-     * 
+     *
      * @return An 1-way hashed version of the {@link android.os.Build#SERIAL}. May return null if a serial or the hashing
      *         algorithm is not available.
      */
@@ -178,7 +179,7 @@ import java.security.NoSuchAlgorithmException;
      * <p>
      * Note: this method will return null if {@link permission#READ_PHONE_STATE} is not available. This method will also return
      * null on devices that do not have telephony.
-     * 
+     *
      * @param context The context used to access the phone state.
      * @return An the {@link TelephonyManager#getDeviceId()}. Null if an ID is not available, or if
      *         {@link permission#READ_PHONE_STATE} is not available.
@@ -228,7 +229,7 @@ import java.security.NoSuchAlgorithmException;
      * Note: this method will return null if this is a non-telephony device.
      * <p>
      * Note: this method will return null if {@link permission#READ_PHONE_STATE} is not available.
-     * 
+     *
      * @param context The context used to access the phone state.
      * @return An 1-way hashed version of the {@link TelephonyManager#getDeviceId()}. Null if an ID or the hashing algorithm is
      *         not available, or if {@link permission#READ_PHONE_STATE} is not available.
@@ -278,7 +279,7 @@ import java.security.NoSuchAlgorithmException;
 
     /**
      * Determines the type of network this device is connected to.
-     * 
+     *
      * @param context the context used to access the device's WIFI
      * @param telephonyManager The manager used to access telephony info
      * @return The type of network, or unknown if the information is unavailable
@@ -323,10 +324,10 @@ import java.security.NoSuchAlgorithmException;
         }
         return mfg;
     }
-    
+
     /**
      * Gets the versionName of the application.
-     * 
+     *
      * @param context {@link Context}. Cannot be null.
      * @return The application's version
      */
@@ -364,7 +365,7 @@ import java.security.NoSuchAlgorithmException;
 
     /**
      * Helper method to generate a SHA-256 hash of a given String
-     * 
+     *
      * @param string String to hash. Cannot be null.
      * @return hashed version of the string using SHA-256.
      */

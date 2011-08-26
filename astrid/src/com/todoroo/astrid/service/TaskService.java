@@ -121,7 +121,7 @@ public class TaskService {
                         continue;
 
                     if(GtasksMetadata.METADATA_KEY.equals(metadata.getValue(Metadata.KEY)))
-                        metadata.setValue(GtasksMetadata.ID, "");
+                        metadata.setValue(GtasksMetadata.ID, ""); //$NON-NLS-1$
                     if(ProducteevTask.METADATA_KEY.equals(metadata.getValue(Metadata.KEY)))
                         metadata.setValue(ProducteevTask.ID, 0L);
                     if(MilkTaskFields.METADATA_KEY.equals(metadata.getValue(Metadata.KEY))) {
@@ -152,7 +152,6 @@ public class TaskService {
         if(!item.isSaved())
             return;
         else if(item.containsValue(Task.TITLE) && item.getValue(Task.TITLE).length() == 0) {
-            GCalHelper.deleteTaskEvent(item);
             taskDao.delete(item.getId());
             item.setId(Task.NO_ID);
         } else {
