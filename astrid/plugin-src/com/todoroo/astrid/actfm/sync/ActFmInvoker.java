@@ -162,8 +162,17 @@ public class ActFmInvoker {
         params.add(new Pair<String, Object>("app_id", APP_ID));
         params.add(new Pair<String, Object>("time", System.currentTimeMillis() / 1000L));
         params.add(new Pair<String, Object>("api", API_VERSION));
-        if(token != null)
-            params.add(new Pair<String, Object>("token", token));
+        if(token != null) {
+            boolean foundTokenKey = false;
+            for (Pair<String, Object> curr : params) {
+                if (curr.getLeft().equals("token")) {
+                    foundTokenKey = true;
+                    break;
+                }
+            }
+            if (!foundTokenKey)
+                params.add(new Pair<String, Object>("token", token));
+        }
 
         Collections.sort(params, new Comparator<Pair<String, Object>>() {
             @Override

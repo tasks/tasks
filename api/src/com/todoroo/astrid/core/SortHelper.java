@@ -45,28 +45,7 @@ public class SortHelper {
         if(originalSql == null)
             originalSql = "";
         if(!originalSql.toUpperCase().contains("ORDER BY")) {
-            Order order;
-            switch(sort) {
-            case SORT_ALPHA:
-                order = Order.asc(Functions.upper(Task.TITLE));
-                break;
-            case SORT_DUE:
-                order = Order.asc(Functions.caseStatement(Task.DUE_DATE.eq(0),
-                        DateUtilities.now()*2, Task.DUE_DATE) + "+" + Task.IMPORTANCE +
-                        "+3*" + Task.COMPLETION_DATE);
-                break;
-            case SORT_IMPORTANCE:
-                order = Order.asc(Task.IMPORTANCE + "*" + (2*DateUtilities.now()) + //$NON-NLS-1$
-                        "+" + Functions.caseStatement(Task.DUE_DATE.eq(0), //$NON-NLS-1$
-                                Functions.now() + "+" + DateUtilities.ONE_WEEK, //$NON-NLS-1$
-                                Task.DUE_DATE) + "+8*" + Task.COMPLETION_DATE);
-                break;
-            case SORT_MODIFIED:
-                order = Order.desc(Task.MODIFICATION_DATE);
-                break;
-            default:
-                order = defaultTaskOrder();
-            }
+            Order order = orderForSortType(sort);
 
             if((flags & FLAG_REVERSE_SORT) > 0)
                 order = order.reverse();
@@ -87,6 +66,32 @@ public class SortHelper {
         return originalSql;
     }
 
+
+    public static Order orderForSortType(int sortType) {
+        Order order;
+        switch(sortType) {
+        case SORT_ALPHA:
+            order = Order.asc(Functions.upper(Task.TITLE));
+            break;
+        case SORT_DUE:
+            order = Order.asc(Functions.caseStatement(Task.DUE_DATE.eq(0),
+                    DateUtilities.now()*2, Task.DUE_DATE) + "+" + Task.IMPORTANCE +
+                    "+3*" + Task.COMPLETION_DATE);
+            break;
+        case SORT_IMPORTANCE:
+            order = Order.asc(Task.IMPORTANCE + "*" + (2*DateUtilities.now()) + //$NON-NLS-1$
+                    "+" + Functions.caseStatement(Task.DUE_DATE.eq(0), //$NON-NLS-1$
+                            Functions.now() + "+" + DateUtilities.ONE_WEEK, //$NON-NLS-1$
+                            Task.DUE_DATE) + "+8*" + Task.COMPLETION_DATE);
+            break;
+        case SORT_MODIFIED:
+            order = Order.desc(Task.MODIFICATION_DATE);
+            break;
+        default:
+            order = defaultTaskOrder();
+        }
+        return order;
+    }
 
     /**
      * Returns SQL task ordering that is astrid's default algorithm
