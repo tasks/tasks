@@ -34,7 +34,8 @@
     
         <Preference 
             android:key="@string/sync_SPr_sync_key"
-            android:title="@string/sync_SPr_sync" />
+            android:title="@string/sync_SPr_sync" 
+            android:summary=""/>
     
         <Preference 
             android:key="@string/sync_SPr_forget_key"

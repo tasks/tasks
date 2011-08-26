@@ -51,6 +51,9 @@ abstract public class SyncProviderUtilities {
         return getPrefs().getString(getIdentifier() + PREF_TOKEN, null);
     }
 
+    /** Returns something like "Logged in as: user@gmail.com" */
+    abstract public String getLoggedInUserName();
+
     /** Sets the authentication token. Set to null to clear. */
     public void setToken(String setting) {
         Editor editor = getPrefs().edit();

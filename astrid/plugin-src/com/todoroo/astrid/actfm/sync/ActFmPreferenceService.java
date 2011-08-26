@@ -111,4 +111,9 @@ public class ActFmPreferenceService extends SyncProviderUtilities {
         return user;
     }
 
+    @Override
+    public String getLoggedInUserName() {
+        return Preferences.getStringValue(PREF_NAME);
+    }
+
 }

@@ -71,4 +71,9 @@ public class ProducteevUtilities extends SyncProviderUtilities {
         // prevent instantiation
     }
 
+    @Override
+    public String getLoggedInUserName() {
+        return Preferences.getStringValue(R.string.producteev_PPr_email);
+    }
+
 }

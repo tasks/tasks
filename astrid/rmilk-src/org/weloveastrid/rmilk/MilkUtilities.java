@@ -64,4 +64,9 @@ public class MilkUtilities extends SyncProviderUtilities {
         return R.string.rmilk_MPr_interval_key;
     }
 
+    @Override
+    public String getLoggedInUserName() {
+        return "";
+    }
+
 }
