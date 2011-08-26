@@ -21,11 +21,7 @@ public class RepeatTestsGtasksSyncRemote extends RepeatTestsGtasksSync {
             completionDate = dueDate - DateUtilities.ONE_DAY;
         else
             completionDate = dueDate + DateUtilities.ONE_DAY;
-<<<<<<< HEAD
         remoteModel.completed = GtasksApiUtilities.unixTimeToGtasksCompletionTime(completionDate);
-=======
-        remoteModel.completed = GtasksApiUtilities.unixTimeToGtasksDate(completionDate);
->>>>>>> sbosley/110818_sb_repeat_tests
         remoteModel.status = "completed";
         try {
             gtasksService.updateGtask(GtasksApiUtilities.extractListIdFromSelfLink(remoteModel), remoteModel);
