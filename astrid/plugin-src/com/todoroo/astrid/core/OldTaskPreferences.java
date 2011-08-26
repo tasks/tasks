@@ -12,12 +12,16 @@ import android.preference.Preference.OnPreferenceClickListener;
 import android.preference.PreferenceScreen;
 
 import com.timsu.astrid.R;
+import com.todoroo.andlib.data.TodorooCursor;
 import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.DependencyInjectionService;
+import com.todoroo.andlib.sql.Criterion;
+import com.todoroo.andlib.sql.Query;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.andlib.utility.DialogUtilities;
 import com.todoroo.andlib.utility.TodorooPreferenceActivity;
 import com.todoroo.astrid.data.Task;
+import com.todoroo.astrid.gcal.GCalHelper;
 import com.todoroo.astrid.service.MetadataService;
 import com.todoroo.astrid.service.TaskService;
 
@@ -73,6 +77,19 @@ public class OldTaskPreferences extends TodorooPreferenceActivity {
                         runWithDialog(new Runnable() {
                             @Override
                             public void run() {
+                                TodorooCursor<Task> cursor = taskService.query(Query.select(Task.ID, Task.CALENDAR_URI).where(
+                                        Criterion.and(Task.COMPLETION_DATE.gt(0), Task.CALENDAR_URI.isNotNull())));
+                                try {
+                                    Task task = new Task();
+                                    int length = cursor.getCount();
+                                    for(int i = 0; i < length; i++) {
+                                        cursor.moveToNext();
+                                        task.readFromCursor(cursor);
+                                        GCalHelper.deleteTaskEvent(task);
+                                    }
+                                } finally {
+                                    cursor.close();
+                                }
                                 Task template = new Task();
                                 template.setValue(Task.DELETION_DATE,
                                         DateUtilities.now());
@@ -99,6 +116,19 @@ public class OldTaskPreferences extends TodorooPreferenceActivity {
                         runWithDialog(new Runnable() {
                             @Override
                             public void run() {
+                                TodorooCursor<Task> cursor = taskService.query(Query.select(Task.ID, Task.TITLE, Task.CALENDAR_URI).where(
+                                        Criterion.and(Task.DELETION_DATE.gt(0), Task.CALENDAR_URI.isNotNull())));
+                                try {
+                                    Task task = new Task();
+                                    int length = cursor.getCount();
+                                    for(int i = 0; i < length; i++) {
+                                        cursor.moveToNext();
+                                        task.readFromCursor(cursor);
+                                        GCalHelper.deleteTaskEvent(task);
+                                    }
+                                } finally {
+                                    cursor.close();
+                                }
                                 int result = taskService.deleteWhere(Task.DELETION_DATE.gt(0));
                                 metadataService.cleanup();
                                 showResult(

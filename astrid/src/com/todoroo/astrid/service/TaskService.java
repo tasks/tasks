@@ -24,6 +24,7 @@ import com.todoroo.astrid.dao.TaskDao;
 import com.todoroo.astrid.dao.TaskDao.TaskCriteria;
 import com.todoroo.astrid.data.Metadata;
 import com.todoroo.astrid.data.Task;
+import com.todoroo.astrid.gcal.GCalHelper;
 import com.todoroo.astrid.gtasks.GtasksMetadata;
 import com.todoroo.astrid.opencrx.OpencrxCoreUtils;
 import com.todoroo.astrid.producteev.ProducteevUtilities;
@@ -151,12 +152,14 @@ public class TaskService {
         if(!item.isSaved())
             return;
         else if(item.containsValue(Task.TITLE) && item.getValue(Task.TITLE).length() == 0) {
+            GCalHelper.deleteTaskEvent(item);
             taskDao.delete(item.getId());
             item.setId(Task.NO_ID);
         } else {
             long id = item.getId();
             item.clear();
             item.setId(id);
+            GCalHelper.deleteTaskEvent(item);
             item.setValue(Task.DELETION_DATE, DateUtilities.now());
             taskDao.save(item);
         }

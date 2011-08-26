@@ -241,6 +241,9 @@
   <!-- default reminders setting (corresponds to reminder flags) -->
   <string name="p_default_reminders_key">p_def_reminders</string>
   
+  <!-- default Add To Calendar setting (corresponds to entry in gcal_TEA_addToCalendar) -->
+  <string name="p_default_addtocalendar_key">p_def_addtocalendar</string>
+  
   <!-- ============================================================ SYNC == -->
   
     <string-array name="sync_SPr_interval_values">
