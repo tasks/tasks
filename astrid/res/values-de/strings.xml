@@ -696,6 +696,11 @@
   <!-- Preference: Default Reminders Description (%s => setting) -->
   <string name="EPr_default_reminders_desc">Momentan: %s</string>
   
+  <!-- Preference: Default Reminders Mode Title -->
+  <string name="EPr_default_reminders_mode_title">Standard Klingeln/Vibrieren Typ</string>
+  <!-- Preference: Default Reminders Mode Description (%s => setting) -->
+  <string name="EPr_default_reminders_mode_desc">Momentan: %s</string>
+  
   <!-- Preference: Default Add To Calendar Title -->
   <string name="EPr_default_addtocalendar_title">Standard Kalendereintrag</string>
 

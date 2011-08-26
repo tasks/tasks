@@ -27,6 +27,11 @@
         android:title="@string/rmd_EPr_defaultRemind_title"
         android:entries="@array/EPr_reminder_random"
         android:entryValues="@array/EPr_reminder_random_hours" />
+    <ListPreference
+        android:key="@string/p_default_reminders_mode_key"
+        android:title="@string/EPr_default_reminders_mode_title"
+        android:entries="@array/EPr_default_reminders_mode"
+        android:entryValues="@array/EPr_default_reminders_mode_values" />
     <CheckBoxPreference
         android:title="@string/EPr_default_addtocalendar_title"
         android:key="@string/p_default_addtocalendar_key"

@@ -9,6 +9,7 @@ import com.timsu.astrid.R;
 import com.todoroo.andlib.service.ContextManager;
 import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.astrid.api.AstridApiConstants;
+import com.todoroo.astrid.data.Task;
 
 public class AstridPreferences {
 
@@ -26,7 +27,7 @@ public class AstridPreferences {
         Preferences.setIfUnset(prefs, editor, r, R.string.p_default_urgency_key, 0);
         Preferences.setIfUnset(prefs, editor, r, R.string.p_default_importance_key, 2);
         Preferences.setIfUnset(prefs, editor, r, R.string.p_default_hideUntil_key, 0);
-        Preferences.setIfUnset(prefs, editor, r, R.string.p_default_reminders_key, 6);
+        Preferences.setIfUnset(prefs, editor, r, R.string.p_default_reminders_key, Task.NOTIFY_AT_DEADLINE | Task.NOTIFY_AFTER_DEADLINE);
         Preferences.setIfUnset(prefs, editor, r, R.string.p_rmd_default_random_hours, 0);
         Preferences.setIfUnset(prefs, editor, r, R.string.p_fontSize, 20);
         Preferences.setIfUnset(prefs, editor, r, R.string.p_showNotes, false);

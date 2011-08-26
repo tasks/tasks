@@ -6,6 +6,7 @@ import android.widget.CheckBox;
 import android.widget.Spinner;
 
 import com.timsu.astrid.R;
+import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.astrid.activity.TaskEditActivity.TaskEditControlSet;
 import com.todoroo.astrid.data.Task;
 
@@ -45,9 +46,15 @@ public class ReminderControlSet implements TaskEditControlSet {
         after.setChecked((flags &
                 Task.NOTIFY_AFTER_DEADLINE) > 0);
 
+        int rmd_mode_default = Preferences.getIntegerFromString(R.string.p_default_reminders_mode_key, 0);
+
         if((flags & Task.NOTIFY_MODE_NONSTOP) > 0)
             mode.setSelection(2);
         else if((flags & Task.NOTIFY_MODE_FIVE) > 0)
+            mode.setSelection(1);
+        else if((rmd_mode_default & Task.NOTIFY_MODE_NONSTOP) > 0)
+            mode.setSelection(2);
+        else if((rmd_mode_default & Task.NOTIFY_MODE_FIVE) > 0)
             mode.setSelection(1);
         else
             mode.setSelection(0);
