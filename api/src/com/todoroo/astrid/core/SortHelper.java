@@ -81,7 +81,7 @@ public class SortHelper {
         case SORT_IMPORTANCE:
             order = Order.asc(Task.IMPORTANCE + "*" + (2*DateUtilities.now()) + //$NON-NLS-1$
                     "+" + Functions.caseStatement(Task.DUE_DATE.eq(0), //$NON-NLS-1$
-                            Functions.now() + "+" + DateUtilities.ONE_WEEK, //$NON-NLS-1$
+                            2 * DateUtilities.now(),
                             Task.DUE_DATE) + "+8*" + Task.COMPLETION_DATE);
             break;
         case SORT_MODIFIED:
@@ -100,7 +100,7 @@ public class SortHelper {
     @SuppressWarnings("nls")
     public static Order defaultTaskOrder() {
         return Order.asc(Functions.caseStatement(Task.DUE_DATE.eq(0),
-                DateUtilities.now() + DateUtilities.ONE_WEEK,
+                DateUtilities.now() * 2,
                 Task.DUE_DATE) + " + 200000000 * " +
                 Task.IMPORTANCE + " + 2*" + Task.COMPLETION_DATE);
     }
