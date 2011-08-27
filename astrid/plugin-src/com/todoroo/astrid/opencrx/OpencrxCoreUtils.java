@@ -120,5 +120,8 @@ public class OpencrxCoreUtils extends SyncProviderUtilities{
         return 0;
     }
 
-
+    @Override
+    public String getLoggedInUserName() {
+        return "";
+    }
 }

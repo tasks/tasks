@@ -189,6 +189,9 @@
   <!-- Synchronize Now Button if not logged in-->    
   <string name="sync_SPr_sync_log_in">Log In &amp; Synchronize!</string>
   
+  <!-- Sync: Prefix string before logged in identifier -->
+  <string name="sync_SPr_logged_in_prefix">Logged in as:</string>
+  
   <!-- Sync: Clear Data Title -->
   <string name="sync_SPr_forget">Log Out</string>
   <!-- Sync: Clear Data Description -->

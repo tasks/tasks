@@ -185,8 +185,12 @@ abstract public class SyncProviderPreferences extends TodorooPreferenceActivity 
                     return true;
                 }
             });
-            if(!loggedIn)
+            if(!loggedIn) {
                 preference.setTitle(R.string.sync_SPr_sync_log_in);
+                preference.setSummary("");
+            }
+            else
+                preference.setSummary(r.getString(R.string.sync_SPr_logged_in_prefix) + " " + getUtilities().getLoggedInUserName());
         }
 
         // log out button

@@ -48,4 +48,9 @@ public class GtasksPreferenceService extends SyncProviderUtilities {
     /** Pref that is set once migration to new GTasks API has occurred */
     public static final String PREF_MIGRATION_HAS_OCCURRED = IDENTIFIER + "_migrated"; //$NON-NLS-1$
 
+    @Override
+    public String getLoggedInUserName() {
+        return Preferences.getStringValue(PREF_USER_NAME);
+    }
+
 }
