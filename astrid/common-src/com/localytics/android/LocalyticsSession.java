@@ -8,6 +8,23 @@
 
 package com.localytics.android;
 
+import android.Manifest.permission;
+import android.content.ContentValues;
+import android.content.Context;
+import android.database.Cursor;
+import android.database.CursorJoiner;
+import android.os.Build;
+import android.os.Build.VERSION;
+import android.os.Handler;
+import android.os.HandlerThread;
+import android.os.Looper;
+import android.os.Message;
+import android.os.SystemClock;
+import android.telephony.TelephonyManager;
+import android.text.TextUtils;
+import android.text.format.DateUtils;
+import android.util.Log;
+
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
@@ -33,23 +50,6 @@ import org.apache.http.impl.client.DefaultHttpClient;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
-import android.Manifest.permission;
-import android.content.ContentValues;
-import android.content.Context;
-import android.database.Cursor;
-import android.database.CursorJoiner;
-import android.os.Build;
-import android.os.Build.VERSION;
-import android.os.Handler;
-import android.os.HandlerThread;
-import android.os.Looper;
-import android.os.Message;
-import android.os.SystemClock;
-import android.telephony.TelephonyManager;
-import android.text.TextUtils;
-import android.text.format.DateUtils;
-import android.util.Log;
 
 import com.localytics.android.JsonObjects.BlobHeader;
 import com.localytics.android.LocalyticsProvider.ApiKeysDbColumns;
@@ -579,12 +579,12 @@ public final class LocalyticsSession
         // if less than smallest value
         if (actualValue < steps[0])
         {
-            bucket = "less than " + steps[0]; //$NON-NLS-1$
+            bucket = "less than " + steps[0];
         }
         // if greater than largest value
         else if (actualValue >= steps[steps.length - 1])
         {
-            bucket = steps[steps.length - 1] + " and above"; //$NON-NLS-1$
+            bucket = steps[steps.length - 1] + " and above";
         }
         else
         {
@@ -663,6 +663,20 @@ public final class LocalyticsSession
          * {@link Message#obj} is a string representing the screen visited.
          */
         public static final int MESSAGE_TAG_SCREEN = 7;
+
+        /**
+         * Sort order for the upload blobs.
+         * <p>
+         * This is a workaround for Android bug 3707 <http://code.google.com/p/android/issues/detail?id=3707>.
+         */
+        private static final String UPLOAD_BLOBS_EVENTS_SORT_ORDER = String.format("CAST(%s AS TEXT)", UploadBlobEventsDbColumns.EVENTS_KEY_REF); //$NON-NLS-1$
+
+        /**
+         * Sort order for the events.
+         * <p>
+         * This is a workaround for Android bug 3707 <http://code.google.com/p/android/issues/detail?id=3707>.
+         */
+        private static final String EVENTS_SORT_ORDER = String.format("CAST(%s as TEXT)", EventsDbColumns._ID); //$NON-NLS-1$
 
         /**
          * Application context
@@ -952,29 +966,30 @@ public final class LocalyticsSession
                 return;
             }
 
-            /*
-             * Update the database. Note that there is a possible data loss condition: if the OPT_OUT flag is written in the API
-             * keys table but the process terminates before the opt-out event is written, then the client will stop collecting new
-             * data but the server won't ever receive the opt-out message which will cause data to be deleted. This is not
-             * expected to be likely, and generally still meets user expectations because no new data will be uploaded.
-             */
-            final ContentValues values = new ContentValues();
-            values.put(ApiKeysDbColumns.OPT_OUT, Boolean.valueOf(isOptingOut));
-            mProvider.update(ApiKeysDbColumns.TABLE_NAME, values, String.format("%s = ?", ApiKeysDbColumns._ID), new String[] { Long.toString(mApiKeyId) }); //$NON-NLS-1$
+            mProvider.runBatchTransaction(new Runnable()
+            {
+                @Override
+                public void run()
+                {
+                    final ContentValues values = new ContentValues();
+                    values.put(ApiKeysDbColumns.OPT_OUT, Boolean.valueOf(isOptingOut));
+                    mProvider.update(ApiKeysDbColumns.TABLE_NAME, values, String.format("%s = ?", ApiKeysDbColumns._ID), new String[] { Long.toString(mApiKeyId) }); //$NON-NLS-1$
 
-            if (!mIsSessionOpen)
-            {
-                /*
-                 * Force a session to contain the opt event
-                 */
-                open(true);
-                tagEvent(isOptingOut ? OPT_OUT_EVENT : OPT_IN_EVENT, null);
-                close();
-            }
-            else
-            {
-                tagEvent(isOptingOut ? OPT_OUT_EVENT : OPT_IN_EVENT, null);
-            }
+                    if (!mIsSessionOpen)
+                    {
+                        /*
+                         * Force a session to contain the opt event
+                         */
+                        open(true);
+                        tagEvent(isOptingOut ? OPT_OUT_EVENT : OPT_IN_EVENT, null);
+                        close();
+                    }
+                    else
+                    {
+                        tagEvent(isOptingOut ? OPT_OUT_EVENT : OPT_IN_EVENT, null);
+                    }
+                }
+            });
 
             /*
              * Update the in-memory representation. It is important for the in-memory representation to be updated after the
@@ -989,13 +1004,13 @@ public final class LocalyticsSession
          * <p>
          * This method must only be called after {@link #init()} is called.
          * <p>
-         * Note: This method is a private implementation detail. It is only made public for unit testing purposes. The public
-         * interface is to send {@link #MESSAGE_OPEN} to the Handler.
+         * Note: This method is a private implementation detail. It is only made package accessible for unit testing purposes. The
+         * public interface is to send {@link #MESSAGE_OPEN} to the Handler.
          *
          * @param ignoreLimits true to ignore limits on the number of sessions. False to enforce limits.
          * @see #MESSAGE_OPEN
          */
-        public void open(final boolean ignoreLimits)
+        /* package */void open(final boolean ignoreLimits)
         {
             if (mIsSessionOpen)
             {
@@ -1017,40 +1032,8 @@ public final class LocalyticsSession
             }
 
             /*
-             * Check that the maximum number of sessions hasn't been exceeded
-             */
-            if (!ignoreLimits)
-            {
-                Cursor cursor = null;
-                try
-                {
-                    cursor = mProvider.query(SessionsDbColumns.TABLE_NAME, new String[]
-                        { SessionsDbColumns._ID }, null, null, null);
-
-                    if (cursor.getCount() >= Constants.MAX_NUM_SESSIONS)
-                    {
-                        if (Constants.IS_LOGGABLE)
-                        {
-                            Log.w(Constants.LOG_TAG, "Maximum number of sessions are already on disk--not writing any new sessions until old sessions are cleared out.  Try calling upload() to store more sessions."); //$NON-NLS-1$
-                        }
-                        return;
-                    }
-                }
-                finally
-                {
-                    if (cursor != null)
-                    {
-                        cursor.close();
-                        cursor = null;
-                    }
-                }
-            }
-
-            mIsSessionOpen = true;
-
-            /*
-             * There are two cases: 1. New session and 2. Re-connect to old session. The way to test whether reconnecting to an
-             * old session should occur is by the age of the last close event
+             * There are two cases: 1. New session and 2. Re-connect to old session. There are two ways to reconnect to an old
+             * session. One is by the age of the close event, and the other is by the age of the open event.
              */
 
             long closeEventId = -1; // sentinel value
@@ -1061,11 +1044,9 @@ public final class LocalyticsSession
                 try
                 {
                     eventsCursor = mProvider.query(EventsDbColumns.TABLE_NAME, new String[]
-                        {
-                            EventsDbColumns._ID,
-                            EventsDbColumns.WALL_TIME }, String.format("%s = ?", EventsDbColumns.EVENT_NAME), new String[] { CLOSE_EVENT }, EventsDbColumns._ID); //$NON-NLS-1$
+                        { EventsDbColumns._ID }, String.format("%s = ? AND %s >= ?", EventsDbColumns.EVENT_NAME, EventsDbColumns.WALL_TIME), new String[] { CLOSE_EVENT, Long.toString(System.currentTimeMillis() - Constants.SESSION_EXPIRATION) }, EVENTS_SORT_ORDER); //$NON-NLS-1$
                     blob_eventsCursor = mProvider.query(UploadBlobEventsDbColumns.TABLE_NAME, new String[]
-                        { UploadBlobEventsDbColumns.EVENTS_KEY_REF }, null, null, UploadBlobEventsDbColumns.EVENTS_KEY_REF);
+                        { UploadBlobEventsDbColumns.EVENTS_KEY_REF }, null, null, UPLOAD_BLOBS_EVENTS_SORT_ORDER);
 
                     final int idColumn = eventsCursor.getColumnIndexOrThrow(EventsDbColumns._ID);
                     final CursorJoiner joiner = new CursorJoiner(eventsCursor, new String[]
@@ -1078,20 +1059,27 @@ public final class LocalyticsSession
                         {
                             case LEFT:
                             {
-                                if (System.currentTimeMillis() - eventsCursor.getLong(eventsCursor.getColumnIndexOrThrow(EventsDbColumns.WALL_TIME)) < Constants.SESSION_EXPIRATION)
+
+                                if (-1 != closeEventId)
                                 {
-                                    if (closeEventId != -1)
+                                    /*
+                                     * This should never happen
+                                     */
+                                    if (Constants.IS_LOGGABLE)
                                     {
-                                        /*
-                                         * This should never happen
-                                         */
-                                        if (Constants.IS_LOGGABLE)
-                                        {
-                                            Log.w(Constants.LOG_TAG, "There were multiple close events within SESSION_EXPIRATION"); //$NON-NLS-1$
-                                        }
+                                        Log.w(Constants.LOG_TAG, "There were multiple close events within SESSION_EXPIRATION"); //$NON-NLS-1$
                                     }
+
+                                    long newClose = eventsCursor.getLong(eventsCursor.getColumnIndexOrThrow(EventsDbColumns._ID));
+                                    if (newClose > closeEventId)
+                                    {
+                                        closeEventId = newClose;
+                                    }
+                                }
+
+                                if (-1 == closeEventId)
+                                {
                                     closeEventId = eventsCursor.getLong(idColumn);
-                                    break;
                                 }
 
                                 break;
@@ -1119,15 +1107,102 @@ public final class LocalyticsSession
                 }
             }
 
-            if (closeEventId == -1)
+            if (-1 != closeEventId)
             {
-                Log.v(Constants.LOG_TAG, "Opening new session"); //$NON-NLS-1$
-                openNewSession();
+                Log.v(Constants.LOG_TAG, "Opening old closed session and reconnecting"); //$NON-NLS-1$
+                mIsSessionOpen = true;
+
+                openClosedSession(closeEventId);
             }
             else
             {
-                Log.v(Constants.LOG_TAG, "Opening old session and reconnecting"); //$NON-NLS-1$
-                openOldSession(closeEventId);
+                Cursor sessionsCursor = null;
+                try
+                {
+                    sessionsCursor = mProvider.query(SessionsDbColumns.TABLE_NAME, new String[]
+                        {
+                            SessionsDbColumns._ID,
+                            SessionsDbColumns.SESSION_START_WALL_TIME }, null, null, SessionsDbColumns._ID);
+
+                    if (sessionsCursor.moveToLast())
+                    {
+                        if (sessionsCursor.getLong(sessionsCursor.getColumnIndexOrThrow(SessionsDbColumns.SESSION_START_WALL_TIME)) >= System.currentTimeMillis()
+                                - Constants.SESSION_EXPIRATION)
+                        {
+                            // reconnect
+                            Log.v(Constants.LOG_TAG, "Opening old unclosed session and reconnecting"); //$NON-NLS-1$
+                            mIsSessionOpen = true;
+                            mSessionId = sessionsCursor.getLong(sessionsCursor.getColumnIndexOrThrow(SessionsDbColumns._ID));
+                            return;
+                        }
+
+                        // delete empties
+                        Cursor eventsCursor = null;
+                        try
+                        {
+                            String sessionId = Long.toString(sessionsCursor.getLong(sessionsCursor.getColumnIndexOrThrow(SessionsDbColumns._ID)));
+                            eventsCursor = mProvider.query(EventsDbColumns.TABLE_NAME, new String[]
+                                { EventsDbColumns._ID }, String.format("%s = ?", EventsDbColumns.SESSION_KEY_REF), new String[] //$NON-NLS-1$
+                                { sessionId }, null);
+
+                            if (eventsCursor.getCount() == 0)
+                            {
+                                mProvider.delete(SessionsDbColumns.TABLE_NAME, String.format("%s = ?", SessionsDbColumns._ID), new String[] { sessionId }); //$NON-NLS-1$
+                            }
+                        }
+                        finally
+                        {
+                            if (null != eventsCursor)
+                            {
+                                eventsCursor.close();
+                                eventsCursor = null;
+                            }
+                        }
+                    }
+                }
+                finally
+                {
+                    if (null != sessionsCursor)
+                    {
+                        sessionsCursor.close();
+                        sessionsCursor = null;
+                    }
+                }
+
+                /*
+                 * Check that the maximum number of sessions hasn't been exceeded
+                 */
+                if (!ignoreLimits)
+                {
+                    Cursor cursor = null;
+                    try
+                    {
+                        cursor = mProvider.query(SessionsDbColumns.TABLE_NAME, new String[]
+                            { SessionsDbColumns._ID }, null, null, null);
+
+                        if (cursor.getCount() >= Constants.MAX_NUM_SESSIONS)
+                        {
+                            if (Constants.IS_LOGGABLE)
+                            {
+                                Log.w(Constants.LOG_TAG, "Maximum number of sessions are already on disk--not writing any new sessions until old sessions are cleared out.  Try calling upload() to store more sessions."); //$NON-NLS-1$
+                            }
+                            return;
+                        }
+                    }
+                    finally
+                    {
+                        if (cursor != null)
+                        {
+                            cursor.close();
+                            cursor = null;
+                        }
+                    }
+                }
+
+                Log.v(Constants.LOG_TAG, "Opening new session"); //$NON-NLS-1$
+                mIsSessionOpen = true;
+
+                openNewSession();
             }
         }
 
@@ -1138,68 +1213,71 @@ public final class LocalyticsSession
          */
         private void openNewSession()
         {
-            // first insert the session
+            final TelephonyManager telephonyManager = (TelephonyManager) mContext.getSystemService(Context.TELEPHONY_SERVICE);
+
+            final ContentValues values = new ContentValues();
+            values.put(SessionsDbColumns.API_KEY_REF, Long.valueOf(mApiKeyId));
+            values.put(SessionsDbColumns.SESSION_START_WALL_TIME, Long.valueOf(System.currentTimeMillis()));
+            values.put(SessionsDbColumns.UUID, UUID.randomUUID().toString());
+            values.put(SessionsDbColumns.APP_VERSION, DatapointHelper.getAppVersion(mContext));
+            values.put(SessionsDbColumns.ANDROID_SDK, Integer.valueOf(Constants.CURRENT_API_LEVEL));
+            values.put(SessionsDbColumns.ANDROID_VERSION, VERSION.RELEASE);
+
+            // Try and get the deviceId. If it is unavailable (or invalid) use the installation ID instead.
+            String deviceId = DatapointHelper.getAndroidIdHashOrNull(mContext);
+            if (deviceId == null)
             {
-
-                final TelephonyManager telephonyManager = (TelephonyManager) mContext.getSystemService(Context.TELEPHONY_SERVICE);
-
-                final ContentValues values = new ContentValues();
-                values.put(SessionsDbColumns.API_KEY_REF, Long.valueOf(mApiKeyId));
-                values.put(SessionsDbColumns.SESSION_START_WALL_TIME, Long.valueOf(System.currentTimeMillis()));
-                values.put(SessionsDbColumns.UUID, UUID.randomUUID().toString());
-                values.put(SessionsDbColumns.APP_VERSION, DatapointHelper.getAppVersion(mContext));
-                values.put(SessionsDbColumns.ANDROID_SDK, Integer.valueOf(Constants.CURRENT_API_LEVEL));
-                values.put(SessionsDbColumns.ANDROID_VERSION, VERSION.RELEASE);
-
-                // Try and get the deviceId. If it is unavailable (or invalid) use the installation ID instead.
-                String deviceId = DatapointHelper.getAndroidIdHashOrNull(mContext);
-                if (deviceId == null)
+                Cursor cursor = null;
+                try
                 {
-                    Cursor cursor = null;
-                    try
+                    cursor = mProvider.query(ApiKeysDbColumns.TABLE_NAME, null, String.format("%s = ?", ApiKeysDbColumns.API_KEY), new String[] { mApiKey }, null); //$NON-NLS-1$
+                    if (cursor.moveToFirst())
                     {
-                        cursor = mProvider.query(ApiKeysDbColumns.TABLE_NAME, null, String.format("%s = ?", ApiKeysDbColumns.API_KEY), new String[] { mApiKey }, null); //$NON-NLS-1$
-                        if (cursor.moveToFirst())
-                        {
-                            deviceId = cursor.getString(cursor.getColumnIndexOrThrow(ApiKeysDbColumns.UUID));
-                        }
-                    }
-                    finally
-                    {
-                        if (null != cursor)
-                        {
-                            cursor.close();
-                            cursor = null;
-                        }
+                        deviceId = cursor.getString(cursor.getColumnIndexOrThrow(ApiKeysDbColumns.UUID));
                     }
                 }
-
-                values.put(SessionsDbColumns.DEVICE_ANDROID_ID_HASH, deviceId);
-                values.put(SessionsDbColumns.DEVICE_COUNTRY, telephonyManager.getSimCountryIso());
-                values.put(SessionsDbColumns.DEVICE_MANUFACTURER, DatapointHelper.getManufacturer());
-                values.put(SessionsDbColumns.DEVICE_MODEL, Build.MODEL);
-                values.put(SessionsDbColumns.DEVICE_SERIAL_NUMBER_HASH, DatapointHelper.getSerialNumberHashOrNull());
-                values.put(SessionsDbColumns.DEVICE_TELEPHONY_ID, DatapointHelper.getTelephonyDeviceIdOrNull(mContext));
-                values.put(SessionsDbColumns.DEVICE_TELEPHONY_ID_HASH, DatapointHelper.getTelephonyDeviceIdHashOrNull(mContext));
-                values.put(SessionsDbColumns.LOCALE_COUNTRY, Locale.getDefault().getCountry());
-                values.put(SessionsDbColumns.LOCALE_LANGUAGE, Locale.getDefault().getLanguage());
-                values.put(SessionsDbColumns.LOCALYTICS_LIBRARY_VERSION, Constants.LOCALYTICS_CLIENT_LIBRARY_VERSION);
-
-                values.putNull(SessionsDbColumns.LATITUDE);
-                values.putNull(SessionsDbColumns.LONGITUDE);
-                values.put(SessionsDbColumns.NETWORK_CARRIER, telephonyManager.getNetworkOperatorName());
-                values.put(SessionsDbColumns.NETWORK_COUNTRY, telephonyManager.getNetworkCountryIso());
-                values.put(SessionsDbColumns.NETWORK_TYPE, DatapointHelper.getNetworkType(mContext, telephonyManager));
-
-                mSessionId = mProvider.insert(SessionsDbColumns.TABLE_NAME, values);
-
-                if (mSessionId == -1)
+                finally
                 {
-                    throw new RuntimeException("session insert failed"); //$NON-NLS-1$
+                    if (null != cursor)
+                    {
+                        cursor.close();
+                        cursor = null;
+                    }
                 }
             }
 
-            tagEvent(OPEN_EVENT, null);
+            values.put(SessionsDbColumns.DEVICE_ANDROID_ID_HASH, deviceId);
+            values.put(SessionsDbColumns.DEVICE_COUNTRY, telephonyManager.getSimCountryIso());
+            values.put(SessionsDbColumns.DEVICE_MANUFACTURER, DatapointHelper.getManufacturer());
+            values.put(SessionsDbColumns.DEVICE_MODEL, Build.MODEL);
+            values.put(SessionsDbColumns.DEVICE_SERIAL_NUMBER_HASH, DatapointHelper.getSerialNumberHashOrNull());
+            values.put(SessionsDbColumns.DEVICE_TELEPHONY_ID, DatapointHelper.getTelephonyDeviceIdOrNull(mContext));
+            values.put(SessionsDbColumns.DEVICE_TELEPHONY_ID_HASH, DatapointHelper.getTelephonyDeviceIdHashOrNull(mContext));
+            values.put(SessionsDbColumns.LOCALE_COUNTRY, Locale.getDefault().getCountry());
+            values.put(SessionsDbColumns.LOCALE_LANGUAGE, Locale.getDefault().getLanguage());
+            values.put(SessionsDbColumns.LOCALYTICS_LIBRARY_VERSION, Constants.LOCALYTICS_CLIENT_LIBRARY_VERSION);
+
+            values.putNull(SessionsDbColumns.LATITUDE);
+            values.putNull(SessionsDbColumns.LONGITUDE);
+            values.put(SessionsDbColumns.NETWORK_CARRIER, telephonyManager.getNetworkOperatorName());
+            values.put(SessionsDbColumns.NETWORK_COUNTRY, telephonyManager.getNetworkCountryIso());
+            values.put(SessionsDbColumns.NETWORK_TYPE, DatapointHelper.getNetworkType(mContext, telephonyManager));
+
+            mProvider.runBatchTransaction(new Runnable()
+            {
+                @Override
+                public void run()
+                {
+                    mSessionId = mProvider.insert(SessionsDbColumns.TABLE_NAME, values);
+                    if (mSessionId == -1)
+                    {
+                        throw new RuntimeException("session insert failed"); //$NON-NLS-1$
+                    }
+
+                    tagEvent(OPEN_EVENT, null);
+                }
+
+            });
 
             /*
              * This is placed here so that the DatapointHelper has a chance to retrieve the old UUID before it is deleted.
@@ -1214,10 +1292,8 @@ public final class LocalyticsSession
          * @effects Updates the database by deleting the last close event and sets {@link #mSessionId} to the session id of the
          *          last close event
          */
-        private void openOldSession(final long closeEventId)
+        private void openClosedSession(final long closeEventId)
         {
-            // reconnect old session
-
             Cursor eventCursor = null;
             try
             {
@@ -1259,14 +1335,14 @@ public final class LocalyticsSession
          * <p>
          * This method must only be called after {@link #init()} is called.
          * <p>
-         * Note: This method is a private implementation detail. It is only made public for unit testing purposes. The public
-         * interface is to send {@link #MESSAGE_CLOSE} to the Handler.
+         * Note: This method is a private implementation detail. It is only made package accessible for unit testing purposes. The
+         * public interface is to send {@link #MESSAGE_CLOSE} to the Handler.
          *
          * @see #MESSAGE_OPEN
          */
-        public void close()
+        /* package */void close()
         {
-            if (mIsSessionOpen == false) // do nothing if session is not open
+            if (!mIsSessionOpen) // do nothing if session is not open
             {
                 if (Constants.IS_LOGGABLE)
                 {
@@ -1286,15 +1362,15 @@ public final class LocalyticsSession
          * <p>
          * This method must only be called after {@link #init()} is called.
          * <p>
-         * Note: This method is a private implementation detail. It is only made public for unit testing purposes. The public
-         * interface is to send {@link #MESSAGE_TAG_EVENT} to the Handler.
+         * Note: This method is a private implementation detail. It is only made package accessible for unit testing purposes. The
+         * public interface is to send {@link #MESSAGE_TAG_EVENT} to the Handler.
          *
          * @param event The name of the event which occurred.
          * @param attributes The collection of attributes for this particular event. If this parameter is null, then calling this
          *            method has the same effect as calling {@link #tagEvent(String)}.
          * @see #MESSAGE_TAG_EVENT
          */
-        public void tagEvent(final String event, final Map<String, String> attributes)
+        /* package */void tagEvent(final String event, final Map<String, String> attributes)
         {
             if (!mIsSessionOpen)
             {
@@ -1444,16 +1520,13 @@ public final class LocalyticsSession
 
                 if (cursor.moveToFirst())
                 {
-                    if (cursor.moveToFirst())
+                    if (screen.equals(cursor.getString(cursor.getColumnIndexOrThrow(EventHistoryDbColumns.NAME))))
                     {
-                        if (screen.equals(cursor.getString(cursor.getColumnIndexOrThrow(EventHistoryDbColumns.NAME))))
+                        if (Constants.IS_LOGGABLE)
                         {
-                            if (Constants.IS_LOGGABLE)
-                            {
-                                Log.v(Constants.LOG_TAG, String.format("Suppressed duplicate screen %s", screen)); //$NON-NLS-1$
-                            }
-                            return;
+                            Log.v(Constants.LOG_TAG, String.format("Suppressed duplicate screen %s", screen)); //$NON-NLS-1$
                         }
+                        return;
                     }
                 }
             }
@@ -1482,7 +1555,7 @@ public final class LocalyticsSession
         /**
          * Conditionally adds a flow event if no flow event exists in the current upload blob.
          */
-        /* package */void conditionallyAddFlowEvent()
+        private void conditionallyAddFlowEvent()
         {
             /*
              * Creating a flow "event" is required to act as a placeholder so that the uploader will know that an upload needs to
@@ -1496,10 +1569,11 @@ public final class LocalyticsSession
             try
             {
                 eventsCursor = mProvider.query(EventsDbColumns.TABLE_NAME, new String[]
-                    { EventsDbColumns._ID }, String.format("%s = ?", EventsDbColumns.EVENT_NAME), new String[] { FLOW_EVENT }, EventsDbColumns._ID); //$NON-NLS-1$
+                    { EventsDbColumns._ID }, String.format("%s = ?", EventsDbColumns.EVENT_NAME), new String[] //$NON-NLS-1$
+                    { FLOW_EVENT }, EVENTS_SORT_ORDER);
 
                 blob_eventsCursor = mProvider.query(UploadBlobEventsDbColumns.TABLE_NAME, new String[]
-                    { UploadBlobEventsDbColumns.EVENTS_KEY_REF }, null, null, UploadBlobEventsDbColumns.EVENTS_KEY_REF);
+                    { UploadBlobEventsDbColumns.EVENTS_KEY_REF }, null, null, UPLOAD_BLOBS_EVENTS_SORT_ORDER);
 
                 final CursorJoiner joiner = new CursorJoiner(eventsCursor, new String[]
                     { EventsDbColumns._ID }, blob_eventsCursor, new String[]
@@ -1547,7 +1621,7 @@ public final class LocalyticsSession
          * @effects Mutates the database by creating a new upload blob for all events that are unassociated at the time this
          *          method is called.
          */
-        public void preUploadBuildBlobs()
+        /* package */void preUploadBuildBlobs()
         {
             /*
              * Group all events that aren't part of an upload blob into a new blob. While this process is a linear algorithm that
@@ -1568,11 +1642,10 @@ public final class LocalyticsSession
                     {
                         EventsDbColumns._ID,
                         EventsDbColumns.EVENT_NAME,
-                        EventsDbColumns.WALL_TIME }, null, null, EventsDbColumns._ID);
+                        EventsDbColumns.WALL_TIME }, null, null, EVENTS_SORT_ORDER);
 
-                // eventsCursor = mProvider.query(EventsDbColumns.TABLE_NAME, new String[] {EventsDbColumns._ID}, String.format("%s != ? AND %s < ?", EventsDbColumns.EVENT_NAME,  EventsDbColumns.WALL_TIME), new String[] {CLOSE_EVENT, Long.toString(System.currentTimeMillis() - Constants.SESSION_EXPIRATION)}, EventsDbColumns._ID); //$NON-NLS-1$
                 blob_eventsCursor = mProvider.query(UploadBlobEventsDbColumns.TABLE_NAME, new String[]
-                    { UploadBlobEventsDbColumns.EVENTS_KEY_REF }, null, null, UploadBlobEventsDbColumns.EVENTS_KEY_REF);
+                    { UploadBlobEventsDbColumns.EVENTS_KEY_REF }, null, null, UPLOAD_BLOBS_EVENTS_SORT_ORDER);
 
                 final int idColumn = eventsCursor.getColumnIndexOrThrow(EventsDbColumns._ID);
                 final CursorJoiner joiner = new CursorJoiner(eventsCursor, new String[]
@@ -1648,13 +1721,13 @@ public final class LocalyticsSession
          * This method must only be called after {@link #init()} is called. The session does not need to be open for an upload to
          * occur.
          * <p>
-         * Note: This method is a private implementation detail. It is only made public for unit testing purposes. The public
-         * interface is to send {@link #MESSAGE_UPLOAD} to the Handler.
+         * Note: This method is a private implementation detail. It is only made package accessible for unit testing purposes. The
+         * public interface is to send {@link #MESSAGE_UPLOAD} to the Handler.
          *
          * @param callback An optional callback to perform once the upload completes. May be null for no callback.
          * @see #MESSAGE_UPLOAD
          */
-        public void upload(final Runnable callback)
+        /* package */void upload(final Runnable callback)
         {
             if (sIsUploadingMap.get(mApiKey).booleanValue())
             {
@@ -1671,7 +1744,6 @@ public final class LocalyticsSession
             {
                 mProvider.runBatchTransaction(new Runnable()
                 {
-                    @Override
                     public void run()
                     {
                         preUploadBuildBlobs();
@@ -1697,7 +1769,7 @@ public final class LocalyticsSession
                      * Note that a new thread is created for the callback. This ensures that client code can't affect the
                      * performance of the SessionHandler's thread.
                      */
-                    new Thread(callback).start();
+                    new Thread(callback, UploadHandler.UPLOAD_CALLBACK_THREAD_NAME).start();
                 }
             }
         }
@@ -1708,6 +1780,11 @@ public final class LocalyticsSession
      */
     /* package */static final class UploadHandler extends Handler
     {
+
+        /**
+         * Thread name that the upload callback runnable is executed on.
+         */
+        private static final String UPLOAD_CALLBACK_THREAD_NAME = "upload_callback"; //$NON-NLS-1$
 
         /**
          * Localytics upload URL, as a format string that contains a format for the API key.
@@ -1800,14 +1877,13 @@ public final class LocalyticsSession
                             for (final JSONObject json : toUpload)
                             {
                                 builder.append(json.toString());
-                                builder.append("\n"); //$NON-NLS-1$
+                                builder.append('\n');
                             }
 
                             if (uploadSessions(String.format(ANALYTICS_URL, mApiKey), builder.toString()))
                             {
                                 mProvider.runBatchTransaction(new Runnable()
                                 {
-                                    @Override
                                     public void run()
                                     {
                                         deleteBlobsAndSessions(mProvider);
@@ -1824,7 +1900,7 @@ public final class LocalyticsSession
                              * Execute the callback on a separate thread, to avoid exposing this thread to the client of the
                              * library
                              */
-                            new Thread(callback).start();
+                            new Thread(callback, UPLOAD_CALLBACK_THREAD_NAME).start();
                         }
 
                         mSessionHandler.sendEmptyMessage(SessionHandler.MESSAGE_UPLOAD_COMPLETE);
@@ -1948,7 +2024,10 @@ public final class LocalyticsSession
                     }
                     catch (final IOException e)
                     {
-                        // there's nothing to be done if this occurs
+                        if (Constants.IS_LOGGABLE)
+                        {
+                            Log.w(Constants.LOG_TAG, "Caught exception", e); //$NON-NLS-1$
+                        }
                     }
                 }
             }
@@ -2006,7 +2085,11 @@ public final class LocalyticsSession
                         }
                     }
                     catch (final JSONException e)
-                    { //
+                    {
+                        if (Constants.IS_LOGGABLE)
+                        {
+                            Log.w(Constants.LOG_TAG, "Caught exception", e); //$NON-NLS-1$
+                        }
                     }
                 }
             }

@@ -8,6 +8,15 @@
 
 package com.localytics.android;
 
+import android.Manifest.permission;
+import android.content.Context;
+import android.content.pm.PackageManager;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
+import android.os.Build;
+import android.telephony.TelephonyManager;
+import android.util.Log;
+
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -18,21 +27,11 @@ import java.math.BigInteger;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
-import android.Manifest.permission;
-import android.content.Context;
-import android.content.pm.PackageManager;
-import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
-import android.os.Build;
-import android.telephony.TelephonyManager;
-import android.util.Log;
-
 /**
  * Provides a number of static functions to aid in the collection and formatting of datapoints.
  * <p>
  * Note: this is not a public API.
  */
-@SuppressWarnings("nls")
 /* package */final class DatapointHelper
 {
     /**
@@ -55,28 +54,40 @@ import android.util.Log;
         throw new UnsupportedOperationException("This class is non-instantiable"); //$NON-NLS-1$
     }
 
-    public static int getApiLevel()
+    /**
+     * @return current Android API level.
+     */
+    /* package */static int getApiLevel()
     {
-       try
-       {
-           // Although the Build.VERSION.SDK field has existed since API 1, it is deprecated and could be removed
-    	   // in the future.  Therefore use reflection to retrieve it for maximum forward compatibility.
-           Class<?> buildClass = Build.VERSION.class;
-           String sdkString = (String) buildClass.getField("SDK").get(null); // $NON-NLS-1$
-           return Integer.valueOf(sdkString);
-       }
-       catch (Exception e)
-       {
-           // Although probably not necessary, protects from the aforementioned deprecation
-           try
-           {
-               Class<?> buildClass = Build.VERSION.class;
-               return buildClass.getField("SDK_INT").getInt(null); // $NON-NLS-1$
-           }
-           catch (Exception ignore) { /**/ }
-       }
+        try
+        {
+            // Although the Build.VERSION.SDK field has existed since API 1, it is deprecated and could be removed
+            // in the future. Therefore use reflection to retrieve it for maximum forward compatibility.
+            final Class<?> buildClass = Build.VERSION.class;
+            final String sdkString = (String) buildClass.getField("SDK").get(null); //$NON-NLS-1$
+            return Integer.parseInt(sdkString);
+        }
+        catch (final Exception e)
+        {
+            Log.w(Constants.LOG_TAG, "Caught exception", e); //$NON-NLS-1$
 
-       return 3;
+            // Although probably not necessary, protects from the aforementioned deprecation
+            try
+            {
+                final Class<?> buildClass = Build.VERSION.class;
+                return buildClass.getField("SDK_INT").getInt(null); //$NON-NLS-1$
+            }
+            catch (final Exception ignore)
+            {
+                if (Constants.IS_LOGGABLE)
+                {
+                    Log.w(Constants.LOG_TAG, "Caught exception", ignore); //$NON-NLS-1$
+                }
+            }
+        }
+
+        // Worse-case scenario, assume Cupcake
+        return 3;
     }
 
     /**
@@ -108,7 +119,11 @@ import android.util.Log;
                     return deviceId;
                 }
                 catch (final FileNotFoundException e)
-                { //
+                {
+                    if (Constants.IS_LOGGABLE)
+                    {
+                        Log.w(Constants.LOG_TAG, "Caught exception", e); //$NON-NLS-1$
+                    }
                 }
                 finally
                 {
@@ -119,7 +134,11 @@ import android.util.Log;
                 }
             }
             catch (final IOException e)
-            { //
+            {
+                if (Constants.IS_LOGGABLE)
+                {
+                    Log.w(Constants.LOG_TAG, "Caught exception", e); //$NON-NLS-1$
+                }
             }
         }
 
@@ -190,7 +209,7 @@ import android.util.Log;
         {
             final Boolean hasTelephony = ReflectionUtils.tryInvokeInstance(context.getPackageManager(), "hasSystemFeature", new Class<?>[] { String.class }, new Object[] { "android.hardware.telephony" }); //$NON-NLS-1$//$NON-NLS-2$
 
-            if (!hasTelephony)
+            if (!hasTelephony.booleanValue())
             {
                 if (Constants.IS_LOGGABLE)
                 {
@@ -236,40 +255,9 @@ import android.util.Log;
      */
     public static String getTelephonyDeviceIdHashOrNull(final Context context)
     {
-        if (Constants.CURRENT_API_LEVEL >= 8)
-        {
-            final Boolean hasTelephony = ReflectionUtils.tryInvokeInstance(context.getPackageManager(), "hasSystemFeature", new Class<?>[] { String.class }, new Object[] { "android.hardware.telephony" }); //$NON-NLS-1$//$NON-NLS-2$
+        final String id = getTelephonyDeviceIdOrNull(context);
 
-            if (!hasTelephony)
-            {
-                if (Constants.IS_LOGGABLE)
-                {
-                    Log.i(Constants.LOG_TAG, "Device does not have telephony; cannot read telephony id"); //$NON-NLS-1$
-                }
-
-                return null;
-            }
-        }
-
-        /*
-         * Note: Sometimes Android will deny a package READ_PHONE_STATE permissions, even if the package has the permission. It
-         * appears to be a race condition that primarily occurs during installation.
-         */
-        String id = null;
-        if (context.getPackageManager().checkPermission(permission.READ_PHONE_STATE, context.getPackageName()) == PackageManager.PERMISSION_GRANTED)
-        {
-            final TelephonyManager manager = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
-            id = manager.getDeviceId();
-        }
-        else
-        {
-            if (Constants.IS_LOGGABLE)
-            {
-                Log.w(Constants.LOG_TAG, "Application does not have permission READ_PHONE_STATE; determining device id is not possible.  Please consider requesting READ_PHONE_STATE in the AndroidManifest"); //$NON-NLS-1$
-            }
-        }
-
-        if (id == null)
+        if (null == id)
         {
             return null;
         }
@@ -306,21 +294,28 @@ import android.util.Log;
     }
 
     /**
-     * Gets the device manufacturer's name
+     * Gets the device manufacturer's name. This is only available on SDK 4 or greater, so on SDK 3 this method returns the
+     * constant string "unknown".
      *
      * @return A string naming the manufacturer
      */
     public static String getManufacturer()
     {
-        String mfg = "unknown"; // $NON-NLS-1$
+        String mfg = "unknown"; //$NON-NLS-1$
         if (Constants.CURRENT_API_LEVEL > 3)
         {
             try
             {
-                Class<?> buildClass = Build.class;
-                mfg = (String) buildClass.getField("MANUFACTURER").get(null); // $NON-NLS-1$
+                final Class<?> buildClass = Build.class;
+                mfg = (String) buildClass.getField("MANUFACTURER").get(null); //$NON-NLS-1$
             }
-            catch (Exception ignore) {}
+            catch (final Exception ignore)
+            {
+                if (Constants.IS_LOGGABLE)
+                {
+                    Log.w(Constants.LOG_TAG, "Caught exception", ignore); //$NON-NLS-1$
+                }
+            }
         }
         return mfg;
     }

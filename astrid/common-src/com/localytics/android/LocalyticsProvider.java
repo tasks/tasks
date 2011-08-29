@@ -43,9 +43,10 @@ import java.util.Set;
      * Version history:
      * <ol>
      * <li>1: Initial version</li>
+     * <li>2: No format changes--just deleting bad data stranded in the database</li>
      * </ol>
      */
-    private static final int DATABASE_VERSION = 1;
+    private static final int DATABASE_VERSION = 2;
 
     /**
      * Singleton instance of the {@link LocalyticsProvider}. Lazily initialized via {@link #getInstance(Context, String)}.
@@ -76,13 +77,13 @@ import java.util.Set;
      * <p>
      * Note: if {@code context} is an instance of {@link android.test.RenamingDelegatingContext}, then a new object will be
      * returned every time. This is not a "public" API, but is documented here as it aids unit testing.
-     * 
+     *
      * @param context Application context. Cannot be null.
      * @param apiKey TODO
      * @return An instance of {@link LocalyticsProvider}.
      * @throws IllegalArgumentException if {@code context} is null
      */
-    public static LocalyticsProvider getInstance(final Context context, String apiKey)
+    public static LocalyticsProvider getInstance(final Context context, final String apiKey)
     {
         /*
          * Note: Don't call getApplicationContext() on the context, as that would return a different context and defeat useful
@@ -124,7 +125,7 @@ import java.util.Set;
      * Constructs a new Localytics Provider.
      * <p>
      * Note: this method may perform disk operations.
-     * 
+     *
      * @param context application context. Cannot be null.
      */
     private LocalyticsProvider(final Context context, final String apiKey)
@@ -143,7 +144,7 @@ import java.util.Set;
      * Inserts a new record.
      * <p>
      * Note: this method may perform disk operations.
-     * 
+     *
      * @param tableName name of the table operate on. Must be one of the recognized tables. Cannot be null.
      * @param values ContentValues to insert. Cannot be null.
      * @return the {@link BaseColumns#_ID} of the inserted row or -1 if an error occurred.
@@ -184,7 +185,7 @@ import java.util.Set;
      * Performs a query.
      * <p>
      * Note: this method may perform disk operations.
-     * 
+     *
      * @param tableName name of the table operate on. Must be one of the recognized tables. Cannot be null.
      * @param projection The list of columns to include. If null, then all columns are included by default.
      * @param selection A filter to apply to all rows, like the SQLite WHERE clause. Passing null will query all rows. This param
@@ -226,7 +227,7 @@ import java.util.Set;
      * Updates row(s).
      * <p>
      * Note: this method may perform disk operations.
-     * 
+     *
      * @param tableName name of the table operate on. Must be one of the recognized tables. Cannot be null.
      * @param values A ContentValues mapping from column names (see the associated BaseColumns class for the table) to new column
      *            values.
@@ -258,7 +259,7 @@ import java.util.Set;
      * Deletes row(s).
      * <p>
      * Note: this method may perform disk operations.
-     * 
+     *
      * @param tableName name of the table operate on. Must be one of the recognized tables. Cannot be null.
      * @param selection A filter to limit which rows are deleted, like the SQLite WHERE clause. Passing null implies all rows.
      *            This param may contain ? symbols, which will be replaced by values from the {@code selectionArgs} param.
@@ -301,14 +302,14 @@ import java.util.Set;
 
     /**
      * Executes an arbitrary runnable with exclusive access to the database, essentially allowing an atomic transaction.
-     * 
+     *
      * @param runnable Runnable to execute. Cannot be null.
      * @throws IllegalArgumentException if {@code runnable} is null
      */
     /*
      * This implementation is sort of a hack. In the future, it would be better model this after applyBatch() with a list of
      * ContentProviderOperation objects. But that API isn't available until Android 2.0.
-     * 
+     *
      * An alternative implementation would have been to expose the begin/end transaction methods on the Provider object. While
      * that would work, it makes it harder to transition to a ContentProviderOperation model in the future.
      */
@@ -337,7 +338,7 @@ import java.util.Set;
 
     /**
      * Private helper to test whether a given table name is valid
-     * 
+     *
      * @param table name of a table to check. This param may be null.
      * @return true if the table is valid, false if the table is invalid. If {@code table} is null, returns false.
      */
@@ -358,7 +359,7 @@ import java.util.Set;
 
     /**
      * Private helper that knows all the tables that {@link LocalyticsProvider} can operate on.
-     * 
+     *
      * @return returns a set of the valid tables.
      */
     private static Set<String> getValidTables()
@@ -380,7 +381,7 @@ import java.util.Set;
      * Private helper that deletes files from older versions of the Localytics library.
      * <p>
      * Note: This is a private method that is only made package-accessible for unit testing.
-     * 
+     *
      * @param context application context
      * @throws IllegalArgumentException if {@code context} is null
      */
@@ -399,7 +400,7 @@ import java.util.Set;
 
     /**
      * Private helper to delete a directory, regardless of whether the directory is empty.
-     * 
+     *
      * @param directory Directory or file to delete. Cannot be null.
      * @return true if deletion was successful. False if deletion failed.
      */
@@ -452,7 +453,7 @@ import java.util.Set;
          * <p>
          * If an error occurs during initialization and an exception is thrown, {@link SQLiteDatabase#close()} will not be called
          * by this method. That responsibility is left to the caller.
-         * 
+         *
          * @param db The database to perform post-creation processing on. db cannot not be null
          * @throws IllegalArgumentException if db is null
          */
@@ -524,15 +525,56 @@ import java.util.Set;
         }
 
         @Override
-        public void onUpgrade(final SQLiteDatabase arg0, final int oldVersion, final int newVersion)
+        public void onUpgrade(final SQLiteDatabase db, final int oldVersion, final int newVersion)
         {
-            // initial version; no upgrades needed at this time
+            if (1 == oldVersion)
+            {
+                // delete stranded sessions that don't have any events
+                Cursor sessionsCursor = null;
+                try
+                {
+                    sessionsCursor = db.query(SessionsDbColumns.TABLE_NAME, new String[]
+                        { SessionsDbColumns._ID }, null, null, null, null, null);
+
+                    while (sessionsCursor.moveToNext())
+                    {
+                        Cursor eventsCursor = null;
+                        try
+                        {
+                            String sessionId = Long.toString(sessionsCursor.getLong(sessionsCursor.getColumnIndexOrThrow(SessionsDbColumns._ID)));
+                            eventsCursor = db.query(EventsDbColumns.TABLE_NAME, new String[]
+                                { EventsDbColumns._ID }, String.format("%s = ?", EventsDbColumns.SESSION_KEY_REF), new String[] //$NON-NLS-1$
+                                { sessionId }, null, null, null);
+
+                            if (eventsCursor.getCount() == 0)
+                            {
+                                db.delete(SessionsDbColumns.TABLE_NAME, String.format("%s = ?", SessionsDbColumns._ID), new String[] { sessionId }); //$NON-NLS-1$
+                            }
+                        }
+                        finally
+                        {
+                            if (null != eventsCursor)
+                            {
+                                eventsCursor.close();
+                                eventsCursor = null;
+                            }
+                        }
+                    }
+                }
+                finally
+                {
+                    if (null != sessionsCursor)
+                    {
+                        sessionsCursor.close();
+                        sessionsCursor = null;
+                    }
+                }
+            }
         }
 
         // @Override
         // public void onDowngrade(SQLiteDatabase db, int oldVersion, int newVersion)
         // {
-        // // initial version; no downgrades needed at this time
         // }
     }
 
@@ -541,11 +583,11 @@ import java.util.Set;
      * <p>
      * This is not a public API.
      */
-    public final class ApiKeysDbColumns implements BaseColumns
+    public static final class ApiKeysDbColumns implements BaseColumns
     {
         /**
          * Private constructor prevents instantiation
-         * 
+         *
          * @throws UnsupportedOperationException because this class cannot be instantiated.
          */
         private ApiKeysDbColumns()
@@ -606,7 +648,7 @@ import java.util.Set;
     {
         /**
          * Private constructor prevents instantiation
-         * 
+         *
          * @throws UnsupportedOperationException because this class cannot be instantiated.
          */
         private AttributesDbColumns()
@@ -658,7 +700,7 @@ import java.util.Set;
     {
         /**
          * Private constructor prevents instantiation
-         * 
+         *
          * @throws UnsupportedOperationException because this class cannot be instantiated.
          */
         private EventsDbColumns()
@@ -728,7 +770,7 @@ import java.util.Set;
     {
         /**
          * Private constructor prevents instantiation
-         * 
+         *
          * @throws UnsupportedOperationException because this class cannot be instantiated.
          */
         private EventHistoryDbColumns()
@@ -797,7 +839,7 @@ import java.util.Set;
     {
         /**
          * Private constructor prevents instantiation
-         * 
+         *
          * @throws UnsupportedOperationException because this class cannot be instantiated.
          */
         private SessionsDbColumns()
@@ -845,7 +887,7 @@ import java.util.Set;
          * TYPE: {@code String}
          * <p>
          * Version of the Localytics client library.
-         * 
+         *
          * @see Constants#LOCALYTICS_CLIENT_LIBRARY_VERSION
          */
         public static final String LOCALYTICS_LIBRARY_VERSION = "localytics_library_version"; //$NON-NLS-1$
@@ -875,7 +917,7 @@ import java.util.Set;
          * <p>
          * Constraints: Must be an integer and cannot be null.
          * 
-         * @see android.os.Build.VERSION#SDK_INT
+         * @see android.os.Build.VERSION#SDK
          */
         public static final String ANDROID_SDK = "android_sdk"; //$NON-NLS-1$
 
@@ -885,7 +927,7 @@ import java.util.Set;
          * String representing the device model
          * <p>
          * Constraints: None
-         * 
+         *
          * @see android.os.Build#MODEL
          */
         public static final String DEVICE_MODEL = "device_model"; //$NON-NLS-1$
@@ -896,7 +938,7 @@ import java.util.Set;
          * String representing the device manufacturer
          * <p>
          * Constraints: None
-         * 
+         *
          * @see android.os.Build#MANUFACTURER
          */
         public static final String DEVICE_MANUFACTURER = "device_manufacturer"; //$NON-NLS-1$
@@ -907,7 +949,7 @@ import java.util.Set;
          * String representing a hash of the device Android ID
          * <p>
          * Constraints: None
-         * 
+         *
          * @see android.provider.Settings.Secure#ANDROID_ID
          */
         public static final String DEVICE_ANDROID_ID_HASH = "device_android_id_hash"; //$NON-NLS-1$
@@ -919,7 +961,7 @@ import java.util.Set;
          * parent application doesn't have {@link android.Manifest.permission#READ_PHONE_STATE}.
          * <p>
          * Constraints: None
-         * 
+         *
          * @see android.telephony.TelephonyManager#getDeviceId()
          */
         public static final String DEVICE_TELEPHONY_ID = "device_telephony_id"; //$NON-NLS-1$
@@ -931,7 +973,7 @@ import java.util.Set;
          * if the parent application doesn't have {@link android.Manifest.permission#READ_PHONE_STATE}.
          * <p>
          * Constraints: None
-         * 
+         *
          * @see android.telephony.TelephonyManager#getDeviceId()
          */
         public static final String DEVICE_TELEPHONY_ID_HASH = "device_telephony_id_hash"; //$NON-NLS-1$
@@ -997,7 +1039,7 @@ import java.util.Set;
          * networks, Ethernet, etc.
          * <p>
          * Constraints: None
-         * 
+         *
          * @see android.telephony.TelephonyManager
          */
         public static final String NETWORK_TYPE = "network_type"; //$NON-NLS-1$
@@ -1033,7 +1075,7 @@ import java.util.Set;
     {
         /**
          * Private constructor prevents instantiation
-         * 
+         *
          * @throws UnsupportedOperationException because this class cannot be instantiated.
          */
         private UploadBlobEventsDbColumns()
@@ -1076,7 +1118,7 @@ import java.util.Set;
     {
         /**
          * Private constructor prevents instantiation
-         * 
+         *
          * @throws UnsupportedOperationException because this class cannot be instantiated.
          */
         private UploadBlobsDbColumns()
