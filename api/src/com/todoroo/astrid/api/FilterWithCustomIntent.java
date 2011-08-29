@@ -1,9 +1,9 @@
 package com.todoroo.astrid.api;
 
 
+import android.app.Activity;
 import android.content.ComponentName;
 import android.content.ContentValues;
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Parcel;
@@ -37,13 +37,13 @@ public class FilterWithCustomIntent extends Filter {
         super(listingTitle, title, sqlQuery, valuesForNewTasks);
     }
 
-    public void start(Context context) {
+    public void start(Activity activity, int resultCode) {
         Intent intent = new Intent();
         intent.putExtra("filter", this); //$NON-NLS-1$
         intent.setComponent(customTaskList);
         if(customExtras != null)
             intent.putExtras(customExtras);
-        context.startActivity(intent);
+        activity.startActivityForResult(intent, resultCode);
     }
 
     // --- parcelable

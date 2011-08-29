@@ -71,18 +71,20 @@ public class TagFilterExposer extends BroadcastReceiver {
     /** Create filter from new tag object */
     @SuppressWarnings("nls")
     public static FilterWithCustomIntent filterFromTag(Context context, Tag tag, Criterion criterion) {
-        String listTitle = tag.tag + " (" + tag.count + ")";
         String title = context.getString(R.string.tag_FEx_name, tag.tag);
         QueryTemplate tagTemplate = tag.queryTemplate(criterion);
         ContentValues contentValues = new ContentValues();
         contentValues.put(Metadata.KEY.name, TagService.KEY);
         contentValues.put(TagService.TAG.name, tag.tag);
 
-        FilterWithUpdate filter = new FilterWithUpdate(listTitle,
+        FilterWithUpdate filter = new FilterWithUpdate(tag.tag,
                 title, tagTemplate,
                 contentValues);
-        if(tag.count == 0)
-            filter.color = Color.GRAY;
+        if(tag.remoteId > 0) {
+            filter.listingTitle += " (" + tag.count + ")";
+            if(tag.count == 0)
+                filter.color = Color.GRAY;
+        }
 
         filter.contextMenuLabels = new String[] {
             context.getString(R.string.tag_cm_rename),

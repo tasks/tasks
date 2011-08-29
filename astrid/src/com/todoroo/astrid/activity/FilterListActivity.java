@@ -79,6 +79,7 @@ public class FilterListActivity extends ExpandableListActivity {
     private static final int CONTEXT_MENU_INTENT = Menu.FIRST + 4;
 
     private static final int REQUEST_CUSTOM_INTENT = 1;
+    private static final int REQUEST_VIEW_TASKS = 2;
 
     // --- instance variables
 
@@ -231,11 +232,11 @@ public class FilterListActivity extends ExpandableListActivity {
             Filter filter = (Filter)item;
             if(filter instanceof FilterWithCustomIntent) {
                 FilterWithCustomIntent customFilter = ((FilterWithCustomIntent)filter);
-                customFilter.start(this);
+                customFilter.start(this, REQUEST_VIEW_TASKS);
             } else {
                 Intent intent = new Intent(FilterListActivity.this, TaskListActivity.class);
                 intent.putExtra(TaskListActivity.TOKEN_FILTER, filter);
-                startActivity(intent);
+                startActivityForResult(intent, REQUEST_VIEW_TASKS);
             }
             AndroidUtilities.callApiMethod(5, this, "overridePendingTransition", //$NON-NLS-1$
                     new Class<?>[] { Integer.TYPE, Integer.TYPE },
@@ -479,9 +480,8 @@ public class FilterListActivity extends ExpandableListActivity {
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if(resultCode != RESULT_CANCELED)
-            adapter.clear();
         // will get lists automatically
+        adapter.clear();
 
         super.onActivityResult(requestCode, resultCode, data);
     }

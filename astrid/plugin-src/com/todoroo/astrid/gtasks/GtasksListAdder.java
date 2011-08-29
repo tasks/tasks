@@ -58,7 +58,7 @@ public class GtasksListAdder extends Activity {
                                 StoreObject newList = gtasksListService.addNewList(service.createGtaskList(title));
                                 if (newList != null) {
                                     FilterWithCustomIntent listFilter = (FilterWithCustomIntent) GtasksFilterExposer.filterFromList(activity, newList);
-                                    listFilter.start(activity);
+                                    listFilter.start(activity, 0);
                                 }
 
                             } catch (IOException e) {
