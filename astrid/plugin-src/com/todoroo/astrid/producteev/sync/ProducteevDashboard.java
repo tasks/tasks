@@ -100,6 +100,9 @@ public class ProducteevDashboard {
      * @return the users
      */
     public ArrayList<ProducteevUser> getUsers() {
+        if (users == null) {
+            return new ArrayList<ProducteevUser>(); // Don't return null
+        }
         return users;
     }
 
