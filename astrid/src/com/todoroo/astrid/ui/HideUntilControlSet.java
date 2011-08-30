@@ -208,15 +208,19 @@ public class HideUntilControlSet implements TaskEditControlSet,
         long date = task.getValue(Task.HIDE_UNTIL);
 
         Date dueDay = new Date(task.getValue(Task.DUE_DATE)/1000L*1000L);
+
         dueDay.setHours(0);
         dueDay.setMinutes(0);
         dueDay.setSeconds(0);
+
+        // For the hide until due case, we need the time component
+        long dueTime = task.hasDueTime() ? task.getValue(Task.DUE_DATE)/1000L*1000L : dueDay.getTime();
 
         int selection = 0;
         if(date == 0) {
             selection = 0;
             date = 0;
-        } else if(date == dueDay.getTime()) {
+        } else if(date == dueTime) {
             selection = 1;
             date = 0;
         } else if(date + DateUtilities.ONE_DAY == dueDay.getTime()) {
