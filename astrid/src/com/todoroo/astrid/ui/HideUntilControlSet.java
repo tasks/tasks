@@ -15,6 +15,7 @@ import android.widget.TimePicker;
 
 import com.timsu.astrid.R;
 import com.todoroo.andlib.utility.DateUtilities;
+import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.astrid.activity.TaskEditActivity.TaskEditControlSet;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.ui.DeadlineTimePickerDialog.OnDeadlineTimeSetListener;
@@ -202,6 +203,12 @@ public class HideUntilControlSet implements TaskEditControlSet,
     }
 
     // --- setting up values
+
+    public void setDefaults() {
+        int setting = Preferences.getIntegerFromString(R.string.p_default_hideUntil_key,
+                Task.HIDE_UNTIL_NONE);
+        spinner.setSelection(setting);
+    }
 
     @Override
     public void readFromTask(Task task) {
