@@ -140,8 +140,10 @@ public class Notifications extends BroadcastReceiver {
             return true;
 
         // task due date was changed, but alarm wasn't rescheduled
+        boolean dueInFuture = task.hasDueTime() && task.getValue(Task.DUE_DATE) > DateUtilities.now() ||
+            !task.hasDueTime() && task.getValue(Task.DUE_DATE) - DateUtilities.now() > DateUtilities.ONE_DAY;
         if((type == ReminderService.TYPE_DUE || type == ReminderService.TYPE_OVERDUE) &&
-                (!task.hasDueDate() || task.getValue(Task.DUE_DATE) > DateUtilities.now()))
+                (!task.hasDueDate() || dueInFuture))
             return true;
 
         // read properties
