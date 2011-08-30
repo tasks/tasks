@@ -95,10 +95,11 @@ public class RepeatControlSet implements TaskEditControlSet {
         LayoutParams lp = new LinearLayout.LayoutParams(LayoutParams.FILL_PARENT, LayoutParams.WRAP_CONTENT, 1.0f/7);
         for(int i = 0; i < 7; i++) {
             CheckBox checkBox = new CheckBox(activity);
+            checkBox.setTextAppearance(activity, R.style.TextAppearance);
             int dayOfWeek = calendar.get(Calendar.DAY_OF_WEEK);
             checkBox.setText(dfs.getShortWeekdays()[dayOfWeek].substring(0, 1));
             checkBox.setLayoutParams(lp);
-            checkBox.setTextSize(10);
+            checkBox.setTextSize(8);
             checkBox.setTag(Weekday.values()[dayOfWeek - 1]);
 
             daysOfWeek[i] = checkBox;
