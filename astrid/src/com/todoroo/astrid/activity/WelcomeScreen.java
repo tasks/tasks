@@ -12,6 +12,7 @@ import com.timsu.astrid.R;
 import com.todoroo.andlib.service.ContextManager;
 import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.astrid.actfm.ActFmLoginActivity;
+import com.todoroo.astrid.service.StartupService;
 
 public class WelcomeScreen extends Activity implements Eula.EulaCallback {
 
@@ -21,6 +22,7 @@ public class WelcomeScreen extends Activity implements Eula.EulaCallback {
         requestWindowFeature(Window.FEATURE_NO_TITLE);
 
         super.onCreate(savedInstanceState);
+        new StartupService().onStartupApplication(this);
         setContentView(R.layout.welcome_screen);
 
         if(Preferences.getBoolean(Eula.PREFERENCE_EULA_ACCEPTED, false)) {
