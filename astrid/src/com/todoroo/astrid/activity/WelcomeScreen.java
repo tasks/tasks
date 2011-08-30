@@ -1,0 +1,54 @@
+package com.todoroo.astrid.activity;
+
+import android.app.Activity;
+import android.content.Intent;
+import android.os.Bundle;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.view.Window;
+import android.widget.Button;
+
+import com.timsu.astrid.R;
+import com.todoroo.andlib.service.ContextManager;
+import com.todoroo.andlib.utility.Preferences;
+import com.todoroo.astrid.actfm.ActFmLoginActivity;
+
+public class WelcomeScreen extends Activity implements Eula.EulaCallback {
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        ContextManager.setContext(this);
+        requestWindowFeature(Window.FEATURE_NO_TITLE);
+
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.welcome_screen);
+
+        if(Preferences.getBoolean(Eula.PREFERENCE_EULA_ACCEPTED, false)) {
+            Intent taskListStartup = new Intent(this, TaskListActivity.class);
+            startActivity(taskListStartup);
+            finish();
+            return;
+        }
+
+        Button showEula = (Button) findViewById(R.id.show_eula);
+        showEula.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                 Eula.showEula(WelcomeScreen.this);
+            }
+        });
+    }
+
+    @Override
+    public void eulaAccepted() {
+        Intent login = new Intent(this, ActFmLoginActivity.class);
+        login.putExtra(ActFmLoginActivity.KEY_SHOW_LATER_BUTTON, true);
+        startActivity(login);
+        finish();
+    }
+
+    @Override
+    public void eulaRefused() {
+        // Do nothing
+    }
+}

@@ -95,12 +95,23 @@ public final class Eula {
 
     @SuppressWarnings("unused")
     private static void accept(Activity activity) {
+        if (activity instanceof EulaCallback) {
+            ((EulaCallback)activity).eulaAccepted();
+        }
         Preferences.setBoolean(PREFERENCE_EULA_ACCEPTED, true);
         StatisticsService.reportEvent("eula-accepted"); //$NON-NLS-1$
     }
 
     private static void refuse(Activity activity) {
+        if (activity instanceof EulaCallback) {
+            ((EulaCallback)activity).eulaRefused();
+        }
         activity.finish();
+    }
+
+    public static interface EulaCallback {
+        public void eulaAccepted();
+        public void eulaRefused();
     }
 
     private Eula() {

@@ -144,6 +144,12 @@
   <!-- share login: Sharing Login GG Prompt -->
   <string name="actfm_ALA_gg_login">Sign in with Google</string>
 
+  <!-- share login: Login later button -->
+  <string name="actfm_ALA_login_later">Later</string>
+  
+  <!-- share login: Login later button -->
+  <string name="actfm_ALA_confirm_later_dialog">Are you sure you don\'t want to login now?</string>
+  
   <!-- share login: Sharing Footer Password Label -->
   <string name="actfm_ALA_pw_login">Don\'t have a Google or Facebook Account?</string>
 
