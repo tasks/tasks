@@ -428,7 +428,7 @@ public final class Task extends RemoteModel {
             return date;
 
         Date hideUntil = new Date(date / 1000L * 1000L); // get rid of millis
-        if(setting != HIDE_UNTIL_SPECIFIC_DAY_TIME) {
+        if(setting != HIDE_UNTIL_SPECIFIC_DAY_TIME && !(setting == HIDE_UNTIL_DUE && this.hasDueTime())) {
             hideUntil.setHours(0);
             hideUntil.setMinutes(0);
             hideUntil.setSeconds(0);

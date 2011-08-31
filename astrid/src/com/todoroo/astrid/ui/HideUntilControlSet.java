@@ -15,6 +15,7 @@ import android.widget.TimePicker;
 
 import com.timsu.astrid.R;
 import com.todoroo.andlib.utility.DateUtilities;
+import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.astrid.activity.TaskEditActivity.TaskEditControlSet;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.ui.DeadlineTimePickerDialog.OnDeadlineTimeSetListener;
@@ -203,20 +204,30 @@ public class HideUntilControlSet implements TaskEditControlSet,
 
     // --- setting up values
 
+    public void setDefaults() {
+        int setting = Preferences.getIntegerFromString(R.string.p_default_hideUntil_key,
+                Task.HIDE_UNTIL_NONE);
+        spinner.setSelection(setting);
+    }
+
     @Override
     public void readFromTask(Task task) {
         long date = task.getValue(Task.HIDE_UNTIL);
 
         Date dueDay = new Date(task.getValue(Task.DUE_DATE)/1000L*1000L);
+
         dueDay.setHours(0);
         dueDay.setMinutes(0);
         dueDay.setSeconds(0);
+
+        // For the hide until due case, we need the time component
+        long dueTime = task.hasDueTime() ? task.getValue(Task.DUE_DATE)/1000L*1000L : dueDay.getTime();
 
         int selection = 0;
         if(date == 0) {
             selection = 0;
             date = 0;
-        } else if(date == dueDay.getTime()) {
+        } else if(date == dueTime) {
             selection = 1;
             date = 0;
         } else if(date + DateUtilities.ONE_DAY == dueDay.getTime()) {

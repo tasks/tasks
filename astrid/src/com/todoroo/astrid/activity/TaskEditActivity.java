@@ -377,7 +377,8 @@ public final class TaskEditActivity extends TabActivity {
                     R.id.reminder_due, R.id.reminder_overdue, R.id.reminder_alarm));
             controls.add(new RandomReminderControlSet(TaskEditActivity.this,
                     R.id.reminder_random, R.id.reminder_random_interval));
-            controls.add(new HideUntilControlSet(TaskEditActivity.this, R.id.hideUntil));
+            HideUntilControlSet hideUntilControls = new HideUntilControlSet(TaskEditActivity.this, R.id.hideUntil);
+            controls.add(hideUntilControls);
             controls.add(peopleControlSet = new EditPeopleControlSet(
                     TaskEditActivity.this, REQUEST_LOG_IN));
 
@@ -385,6 +386,9 @@ public final class TaskEditActivity extends TabActivity {
             synchronized(controls) {
                 for(TaskEditControlSet controlSet : controls)
                     controlSet.readFromTask(model);
+                if (isNewTask) {
+                    hideUntilControls.setDefaults();
+                }
             }
         }
 
