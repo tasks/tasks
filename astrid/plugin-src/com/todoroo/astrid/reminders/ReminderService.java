@@ -49,6 +49,7 @@ public final class ReminderService  {
         Task.REMINDER_LAST,
         Task.REMINDER_SNOOZE,
         Task.FLAGS,
+        Task.IMPORTANCE
     };
 
     /** flag for due date reminder */
@@ -245,7 +246,9 @@ public final class ReminderService  {
                 return DateUtilities.now();
 
             if(DateUtilities.now() - lastReminder < 6 * DateUtilities.ONE_HOUR)
-                return DateUtilities.now() + (long)((1.0f + 3f * random.nextFloat()) * DateUtilities.ONE_HOUR);
+                return DateUtilities.now() + (long)((2.0f +
+                        task.getValue(Task.IMPORTANCE) +
+                        6f * random.nextFloat()) * DateUtilities.ONE_HOUR);
 
             return DateUtilities.now();
         }
@@ -418,7 +421,6 @@ public final class ReminderService  {
         public void createAlarm(Task task, long time, int type) {
             if(task.getId() == Task.NO_ID)
                 return;
-
             Context context = ContextManager.getContext();
             Intent intent = new Intent(context, Notifications.class);
             intent.setType(Long.toString(task.getId()));
