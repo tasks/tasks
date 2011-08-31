@@ -45,4 +45,19 @@
     4) Log In &amp; Synchronize!\n
     \n
   </string>
+  
+  <!-- NEW USER EXPERIENCE, help bubbles -->
+  <!-- Shown the first time a user sees the task list activity -->
+  <string name="help_popover_add_task">Add a task here</string>
+
+  <!-- Shown the first time a user adds a task to a list -->  
+  <string name="help_popover_tap_task">Tap task to edit and share</string>
+  
+  <!-- Shown the first time a user sees the list activity -->
+  <string name="help_popover_list_settings">Tap list settings to share the entire list</string>
+  
+  <!-- Shown the first time a user sees the list settings tab -->
+  <string name="help_popover_collaborators">Collaborators can help you build your list or finish tasks</string>
+  
+  
 </resources>

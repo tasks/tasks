@@ -1,4 +1,4 @@
-package com.todoroo.astrid.activity;
+package com.todoroo.astrid.welcome;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -12,9 +12,13 @@ import com.timsu.astrid.R;
 import com.todoroo.andlib.service.ContextManager;
 import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.astrid.actfm.ActFmLoginActivity;
+import com.todoroo.astrid.activity.Eula;
+import com.todoroo.astrid.activity.TaskListActivity;
 import com.todoroo.astrid.service.StartupService;
 
 public class WelcomeScreen extends Activity implements Eula.EulaCallback {
+
+    Button showEula;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,7 +36,7 @@ public class WelcomeScreen extends Activity implements Eula.EulaCallback {
             return;
         }
 
-        Button showEula = (Button) findViewById(R.id.show_eula);
+        showEula = (Button) findViewById(R.id.show_eula);
         showEula.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {

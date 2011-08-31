@@ -73,7 +73,7 @@
     <!-- ====================================================== Activities = -->
         
     <!-- Activity that displays task list -->
-    <activity android:name="com.todoroo.astrid.activity.WelcomeScreen"
+    <activity android:name="com.todoroo.astrid.welcome.WelcomeScreen"
               android:windowSoftInputMode="stateHidden">    
       <intent-filter>
         <action android:name="android.intent.action.MAIN" />

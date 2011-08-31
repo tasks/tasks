@@ -49,7 +49,7 @@ public final class Eula {
      * @param activity
      *            The Activity to finish if the user rejects the EULA
      */
-    static void showEula(final Activity activity) {
+    public static void showEula(final Activity activity) {
         if(!new Eula().shouldShowEula(activity))
             return;
 

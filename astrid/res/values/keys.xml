@@ -300,6 +300,13 @@
   <!-- Anonymous usage statistics -->
   <string name="p_statistics">statistics</string>
   
+  <!-- ================================================= NEW USER EXPERIENCE -->
+  <!-- Preference Keys (do not translate) -->
+  <string name="p_showed_add_task_help">showed_add_task_help</string>
+  <string name="p_showed_tap_task_help">showed_tap_task_help</string>
+  <string name="p_showed_list_settings_help">showed_list_settings_help</string>
+  <string name="p_showed_collaborators_help">showed_collaborators_help</string>
+  
   <!-- ============================================================ OTHER == -->
   
     <!-- Preference Key (do not translate) -->
