@@ -78,6 +78,7 @@ import com.todoroo.astrid.tags.TagService;
 import com.todoroo.astrid.tags.TagService.Tag;
 import com.todoroo.astrid.ui.PeopleContainer;
 import com.todoroo.astrid.utility.Flags;
+import com.todoroo.astrid.welcome.HelpInfoPopover;
 
 public class TagViewActivity extends TaskListActivity implements OnTabChangeListener {
 
@@ -201,8 +202,14 @@ public class TagViewActivity extends TaskListActivity implements OnTabChangeList
     @SuppressWarnings("nls")
     @Override
     public void onTabChanged(String tabId) {
-        if(tabId.equals("tasks"))
+        if(tabId.equals("tasks")) {
             findViewById(R.id.taskListFooter).setVisibility(View.VISIBLE);
+            if (!Preferences.getBoolean(R.string.p_showed_list_settings_help, false)) {
+                View tabView = tabWidget.getChildTabViewAt(tabWidget.getTabCount() - 1);
+                HelpInfoPopover.showPopover(this, tabView, R.string.help_popover_list_settings);
+                Preferences.setBoolean(R.string.p_showed_list_settings_help, true);
+            }
+        }
         else
             findViewById(R.id.taskListFooter).setVisibility(View.GONE);
 
@@ -211,8 +218,14 @@ public class TagViewActivity extends TaskListActivity implements OnTabChangeList
         else
             findViewById(R.id.updatesFooter).setVisibility(View.GONE);
 
-        if(tabId.equals("settings"))
+        if(tabId.equals("settings")) {
             findViewById(R.id.membersFooter).setVisibility(View.VISIBLE);
+            if (!Preferences.getBoolean(R.string.p_showed_collaborators_help, false)) {
+                View members = findViewById(R.id.members_container);
+                HelpInfoPopover.showPopover(this, members, R.string.help_popover_collaborators);
+                Preferences.setBoolean(R.string.p_showed_collaborators_help, true);
+            }
+        }
         else
             findViewById(R.id.membersFooter).setVisibility(View.GONE);
     }
