@@ -98,6 +98,9 @@ public class ActFmLoginActivity extends Activity implements AuthListener {
     private TextView errors;
     private boolean noSync = false;
 
+    // True if this screen was shown as part of new user experience
+    private boolean shownFromWelcome = false;
+
     // --- ui initialization
 
     private static final int REQUEST_CODE_GOOGLE_ACCOUNTS = 1;
@@ -149,7 +152,8 @@ public class ActFmLoginActivity extends Activity implements AuthListener {
     }
 
     private void initializeUI() {
-        if (getIntent().getBooleanExtra(KEY_SHOW_LATER_BUTTON, false)) {
+        shownFromWelcome = getIntent().getBooleanExtra(KEY_SHOW_LATER_BUTTON, false);
+        if (shownFromWelcome) {
             Button loginLater = (Button)findViewById(R.id.login_later);
             loginLater.setVisibility(View.VISIBLE);
             loginLater.setOnClickListener(loginLaterListener);
@@ -387,6 +391,10 @@ public class ActFmLoginActivity extends Activity implements AuthListener {
         Preferences.setString(ActFmPreferenceService.PREF_PICTURE, result.optString("picture"));
 
         setResult(RESULT_OK);
+        if (shownFromWelcome) {
+            Intent taskListStartup = new Intent(ActFmLoginActivity.this, TaskListActivity.class);
+            this.startActivity(taskListStartup);
+        }
         finish();
 
         if(!noSync) {
