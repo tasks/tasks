@@ -131,6 +131,8 @@ public class Notifications extends BroadcastReceiver {
             return false;
         }
 
+        if (!Preferences.getBoolean(R.string.p_rmd_enabled, true))
+            return false;
         // you're done, or not yours - don't sound, do delete
         if(task.isCompleted() || task.isDeleted() || task.getValue(Task.USER_ID) != 0)
             return false;

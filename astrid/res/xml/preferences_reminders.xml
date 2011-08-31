@@ -43,5 +43,9 @@
         android:ringtoneType="notification"
 		android:showDefault="true"
 		android:showSilent="true" />
+	<CheckBoxPreference
+        android:key="@string/p_rmd_enabled"
+        android:title="@string/rmd_EPr_enabled_title"
+        android:defaultValue="true"/>
        
 </PreferenceScreen>

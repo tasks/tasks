@@ -109,7 +109,9 @@ public class StartupService {
         if(context instanceof Activity) {
             AudioManager audioManager = (AudioManager)context.getSystemService(
                 Context.AUDIO_SERVICE);
-            if(audioManager.getStreamVolume(AudioManager.STREAM_NOTIFICATION) == 0)
+            if(!Preferences.getBoolean(R.string.p_rmd_enabled, true))
+                Toast.makeText(context, R.string.TLA_notification_disabled, Toast.LENGTH_LONG).show();
+            else if(audioManager.getStreamVolume(AudioManager.STREAM_NOTIFICATION) == 0)
                 Toast.makeText(context, R.string.TLA_notification_volume_low, Toast.LENGTH_LONG).show();
         }
 

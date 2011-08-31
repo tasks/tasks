@@ -59,6 +59,13 @@
   <!-- Reminder Preference Screen Title -->
   <string name="rmd_EPr_alerts_header">Reminder Settings</string>
     
+  <!-- Reminder Preference: Reminders Enabled Title -->
+  <string name="rmd_EPr_enabled_title">Show Reminders</string>
+  <!-- Reminder Preference Reminders Enabled Description (true) -->
+  <string name="rmd_EPr_enabled_desc_true">Astrid reminders are enabled</string>
+  <!-- Reminder Preference Reminders Enabled Description (false) -->
+  <string name="rmd_EPr_enabled_desc_false">Astrid reminders will never appear</string>  
+    
   <!-- Reminder Preference: Quiet Hours Start Title -->
   <string name="rmd_EPr_quiet_hours_start_title">Quiet Hours Start</string>
   <!-- Reminder Preference: Quiet Hours Start Description (%s => time set) -->

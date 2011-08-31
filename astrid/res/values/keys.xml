@@ -7,6 +7,9 @@
  
   <!-- ======================================================== REMINDERS == -->
 
+  <!-- whether reminders should appear at all -->
+  <string name="p_rmd_enabled">notif_enabled</string>
+  
   <!-- hour to start quiet hours (inclusive) -->
   <string name="p_rmd_quietStart">notif_qstart</string>
   

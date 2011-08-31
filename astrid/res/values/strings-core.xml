@@ -113,6 +113,9 @@
   <!-- Notification Volumne notification-->
   <string name="TLA_notification_volume_low">Notifications are muted. You won\'t be able to hear Astrid!</string>
   
+  <!-- Notifications disabled warning -->
+  <string name="TLA_notification_disabled">Astrid reminders are disabled! You will not receive any reminders</string>
+  
   <!-- ====================================================== TaskAdapter == -->
   
   <!-- Format string to indicate task is hidden (%s => task name) -->
