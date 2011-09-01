@@ -16,12 +16,12 @@ import android.text.format.DateUtils;
     //@formatter:off
     /*
      * Version history:
-     * 
+     *
      * 1.6: Fixed network type reporting.  Added reporting of app signature, device SDK level, device manufacturer, serial number.
      * 2.0: New upload format.
      */
     //@formatter:on
-    public static final String LOCALYTICS_CLIENT_LIBRARY_VERSION = "android_2.1"; //$NON-NLS-1$
+    public static final String LOCALYTICS_CLIENT_LIBRARY_VERSION = "android_2.2"; //$NON-NLS-1$
 
     /**
      * The package name of the Localytics library.
@@ -72,11 +72,16 @@ import android.text.format.DateUtils;
      */
     public static boolean ENABLE_PARAMETER_CHECKING = true;
 
+    /**
+     * Cached copy of the current Android API level
+     * 
+     * @see DatapointHelper#getApiLevel()
+     */
     /*package*/ static final int CURRENT_API_LEVEL = DatapointHelper.getApiLevel();
 
     /**
      * Private constructor prevents instantiation
-     * 
+     *
      * @throws UnsupportedOperationException because this class cannot be instantiated.
      */
     private Constants()

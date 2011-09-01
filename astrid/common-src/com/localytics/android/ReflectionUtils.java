@@ -12,7 +12,7 @@ public final class ReflectionUtils
 {
     /**
      * Private constructor prevents instantiation
-     * 
+     *
      * @throws UnsupportedOperationException because this class cannot be instantiated.
      */
     private ReflectionUtils()
@@ -22,7 +22,7 @@ public final class ReflectionUtils
 
     /**
      * Use reflection to invoke a static method for a class object and method name
-     * 
+     *
      * @param <T> Type that the method should return
      * @param classObject Class on which to invoke {@code methodName}. Cannot be null.
      * @param methodName Name of the method to invoke. Cannot be null.
@@ -31,15 +31,14 @@ public final class ReflectionUtils
      * @return The result of invoking the named method on the given class for the args
      * @throws RuntimeException if the class or method doesn't exist
      */
-    @SuppressWarnings("unchecked")
     public static <T> T tryInvokeStatic(final Class<?> classObject, final String methodName, final Class<?>[] types, final Object[] args)
     {
-        return (T) helper(null, classObject, null, methodName, types, args);
+        return helper(null, classObject, null, methodName, types, args);
     }
 
     /**
      * Use reflection to invoke a static method for a class object and method name
-     * 
+     *
      * @param <T> Type that the method should return
      * @param className Name of the class on which to invoke {@code methodName}. Cannot be null.
      * @param methodName Name of the method to invoke. Cannot be null.
@@ -48,15 +47,14 @@ public final class ReflectionUtils
      * @return The result of invoking the named method on the given class for the args
      * @throws RuntimeException if the class or method doesn't exist
      */
-    @SuppressWarnings("unchecked")
     public static <T> T tryInvokeStatic(final String className, final String methodName, final Class<?>[] types, final Object[] args)
     {
-        return (T) helper(className, null, null, methodName, types, args);
+        return helper(className, null, null, methodName, types, args);
     }
 
     /**
      * Use reflection to invoke a static method for a class object and method name
-     * 
+     *
      * @param <T> Type that the method should return
      * @param target Object instance on which to invoke {@code methodName}. Cannot be null.
      * @param methodName Name of the method to invoke. Cannot be null.
@@ -65,10 +63,9 @@ public final class ReflectionUtils
      * @return The result of invoking the named method on the given class for the args
      * @throws RuntimeException if the class or method doesn't exist
      */
-    @SuppressWarnings("unchecked")
     public static <T> T tryInvokeInstance(final Object target, final String methodName, final Class<?>[] types, final Object[] args)
     {
-        return (T) helper(target, null, null, methodName, types, args);
+        return helper(target, null, null, methodName, types, args);
     }
 
     @SuppressWarnings("unchecked")

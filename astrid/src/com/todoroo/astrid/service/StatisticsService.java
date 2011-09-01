@@ -26,8 +26,10 @@ public class StatisticsService {
         if(dontCollectStatistics())
             return;
 
-        if(localyticsSession != null)
+        if(localyticsSession != null) {
+            localyticsSession.open(); // Multiple calls to open are ok, we just need to make sure it gets reopened after pause
             return;
+        }
 
         localyticsSession = new LocalyticsSession(context.getApplicationContext(),
                 Constants.LOCALYTICS_KEY);
@@ -55,8 +57,9 @@ public class StatisticsService {
         if(dontCollectStatistics())
             return;
 
-        if(localyticsSession != null)
+        if(localyticsSession != null) {
             localyticsSession.close();
+        }
     }
 
     /**

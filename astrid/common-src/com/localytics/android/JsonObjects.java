@@ -11,7 +11,7 @@ import org.json.JSONArray;
 {
     /**
      * Private constructor prevents instantiation
-     * 
+     *
      * @throws UnsupportedOperationException because this class cannot be instantiated.
      */
     private JsonObjects()
@@ -26,7 +26,7 @@ import org.json.JSONArray;
     {
         /**
          * Private constructor prevents instantiation
-         * 
+         *
          * @throws UnsupportedOperationException because this class cannot be instantiated.
          */
         private BlobHeader()
@@ -36,7 +36,7 @@ import org.json.JSONArray;
 
         /**
          * Data type for the JSON object.
-         * 
+         *
          * @see #VALUE_DATA_TYPE
          */
         public static final String KEY_DATA_TYPE = "dt"; //$NON-NLS-1$
@@ -75,7 +75,7 @@ import org.json.JSONArray;
         {
             /**
              * Private constructor prevents instantiation
-             * 
+             *
              * @throws UnsupportedOperationException because this class cannot be instantiated.
              */
             private Attributes()
@@ -155,8 +155,8 @@ import org.json.JSONArray;
              * Type: {@code int}
              * <p>
              * SDK compatibility level of the device.
-             * 
-             * @see android.os.Build.VERSION#SDK_INT
+             *
+             * @see android.os.Build.VERSION#SDK
              */
             public static final String KEY_DEVICE_SDK_LEVEL = "dsdk"; //$NON-NLS-1$
 
@@ -193,7 +193,7 @@ import org.json.JSONArray;
              * Type: {@code String}
              * <p>
              * Localytics library version
-             * 
+             *
              * @see Constants#LOCALYTICS_CLIENT_LIBRARY_VERSION
              */
             public static final String KEY_LOCALYTICS_CLIENT_LIBRARY_VERSION = "lv"; //$NON-NLS-1$
@@ -202,7 +202,7 @@ import org.json.JSONArray;
              * Type: {@code String}
              * <p>
              * Data type for the JSON object.
-             * 
+             *
              * @see #VALUE_DATA_TYPE
              */
             public static final String KEY_LOCALYTICS_DATA_TYPE = "dt"; //$NON-NLS-1$
@@ -228,7 +228,7 @@ import org.json.JSONArray;
 
             /**
              * Value for the platform.
-             * 
+             *
              * @see #KEY_DEVICE_PLATFORM
              */
             public static final String VALUE_PLATFORM = "Android"; //$NON-NLS-1$
@@ -242,7 +242,7 @@ import org.json.JSONArray;
     {
         /**
          * Private constructor prevents instantiation
-         * 
+         *
          * @throws UnsupportedOperationException because this class cannot be instantiated.
          */
         private SessionOpen()
@@ -254,7 +254,7 @@ import org.json.JSONArray;
          * Type: {@code String}
          * <p>
          * Data type for the JSON object.
-         * 
+         *
          * @see #VALUE_DATA_TYPE
          */
         public static final String KEY_DATA_TYPE = "dt"; //$NON-NLS-1$
@@ -293,7 +293,7 @@ import org.json.JSONArray;
     {
         /**
          * Private constructor prevents instantiation
-         * 
+         *
          * @throws UnsupportedOperationException because this class cannot be instantiated.
          */
         private SessionClose()
@@ -305,7 +305,7 @@ import org.json.JSONArray;
          * Type: {@code String}
          * <p>
          * Data type for the JSON object.
-         * 
+         *
          * @see #VALUE_DATA_TYPE
          */
         public static final String KEY_DATA_TYPE = "dt"; //$NON-NLS-1$
@@ -354,7 +354,7 @@ import org.json.JSONArray;
 
         /**
          * Data type for close events.
-         * 
+         *
          * @see #KEY_DATA_TYPE
          */
         public static final String VALUE_DATA_TYPE = "c"; //$NON-NLS-1$
@@ -367,7 +367,7 @@ import org.json.JSONArray;
     {
         /**
          * Private constructor prevents instantiation
-         * 
+         *
          * @throws UnsupportedOperationException because this class cannot be instantiated.
          */
         private SessionEvent()
@@ -379,14 +379,14 @@ import org.json.JSONArray;
          * Type: {@code String}
          * <p>
          * Data type for the JSON object.
-         * 
+         *
          * @see #VALUE_DATA_TYPE
          */
         public static final String KEY_DATA_TYPE = "dt"; //$NON-NLS-1$
 
         /**
          * Data type for application events.
-         * 
+         *
          * @see #KEY_DATA_TYPE
          */
         public static final String VALUE_DATA_TYPE = "e"; //$NON-NLS-1$
@@ -437,7 +437,7 @@ import org.json.JSONArray;
     {
         /**
          * Private constructor prevents instantiation
-         * 
+         *
          * @throws UnsupportedOperationException because this class cannot be instantiated.
          */
         private OptEvent()
@@ -449,14 +449,14 @@ import org.json.JSONArray;
          * Type: {@code String}
          * <p>
          * Data type for the JSON object.
-         * 
+         *
          * @see #VALUE_DATA_TYPE
          */
         public static final String KEY_DATA_TYPE = "dt"; //$NON-NLS-1$
 
         /**
          * Data type for opt in/out events.
-         * 
+         *
          * @see #KEY_DATA_TYPE
          */
         public static final String VALUE_DATA_TYPE = "o"; //$NON-NLS-1$
@@ -490,7 +490,7 @@ import org.json.JSONArray;
     {
         /**
          * Private constructor prevents instantiation
-         * 
+         *
          * @throws UnsupportedOperationException because this class cannot be instantiated.
          */
         private EventFlow()
@@ -502,7 +502,7 @@ import org.json.JSONArray;
          * Type: {@code String}
          * <p>
          * Data type for the JSON object.
-         * 
+         *
          * @see #VALUE_DATA_TYPE
          */
         public static final String KEY_DATA_TYPE = "dt"; //$NON-NLS-1$
@@ -547,7 +547,7 @@ import org.json.JSONArray;
         {
             /**
              * Private constructor prevents instantiation
-             * 
+             *
              * @throws UnsupportedOperationException because this class cannot be instantiated.
              */
             private Element()
