@@ -753,6 +753,7 @@ public class TaskListActivity extends ListActivity implements OnScrollListener,
             currentCursor.moveToPosition(i);
             if(currentCursor.get(Task.ID) == withCustomId) {
                 getListView().setSelection(i);
+                showHelpPopover();
                 return;
             }
         }
@@ -779,8 +780,21 @@ public class TaskListActivity extends ListActivity implements OnScrollListener,
             currentCursor.moveToPosition(i);
             if(currentCursor.get(Task.ID) == withCustomId) {
                 getListView().setSelection(i);
+                showHelpPopover();
                 break;
             }
+        }
+    }
+
+    private void showHelpPopover() {
+        if (!Preferences.getBoolean(R.string.p_showed_tap_task_help, false)) {
+            getListView().postDelayed(new Runnable() {
+                public void run() {
+                    View view = getListView().getChildAt(getListView().getChildCount() - 1);
+                    HelpInfoPopover.showPopover(TaskListActivity.this, view, R.string.help_popover_tap_task);
+                }
+            }, 1000L);
+
         }
     }
 
