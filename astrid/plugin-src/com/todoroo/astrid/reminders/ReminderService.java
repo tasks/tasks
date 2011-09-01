@@ -209,7 +209,6 @@ public final class ReminderService  {
             now += 30 * DateUtilities.ONE_MINUTE; // Prevents overdue tasks from being scheduled all at once
         }
 
-
         // if random reminders are too close to due date, favor due date
         if(whenRandom != NO_ALARM && whenDueDate - whenRandom < DateUtilities.ONE_DAY)
             whenRandom = NO_ALARM;
@@ -293,12 +292,12 @@ public final class ReminderService  {
             long dueDate = task.getValue(Task.DUE_DATE);
             long lastReminder = task.getValue(Task.REMINDER_LAST);
 
-            long dueDateAlarm;
+            long dueDateAlarm = NO_ALARM;
 
             if(task.hasDueTime())
                 // return due date straight up
                 dueDateAlarm = dueDate;
-            else {
+            else if (DateUtilities.now() > lastReminder + DateUtilities.ONE_DAY) {
                 // return notification time on this day
                 Date date = new Date(dueDate);
                 date.setHours(Preferences.getIntegerFromString(R.string.p_rmd_time, 18));
