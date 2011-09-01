@@ -381,7 +381,7 @@ File %1$s contained %2$s.\n\n
   <string name="ENA_no_comments">Nothing To Show</string>
   
   <!-- EditNoteActivity - loading -->
-  <string name="ENA_loading">Cargando...</string>
+  <string name="DLG_loading">Cargando...</string>
   
   <!-- EditNoteActivity - refresh comments -->
   <string name="ENA_refresh_comments">Refresh Comments</string>

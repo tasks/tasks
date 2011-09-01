@@ -378,7 +378,7 @@
   <string name="ENA_no_comments">Nothing To Show</string>
   
   <!-- EditNoteActivity - loading -->
-  <string name="ENA_loading">読み込み中...</string>
+  <string name="DLG_loading">読み込み中...</string>
   
   <!-- EditNoteActivity - refresh comments -->
   <string name="ENA_refresh_comments">Refresh Comments</string>

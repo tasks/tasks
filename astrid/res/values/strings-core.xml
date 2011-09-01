@@ -53,6 +53,9 @@
   <!-- Progress Dialog generic text -->
   <string name="DLG_please_wait">Please Wait</string>
   
+  <!-- Dialog - loading -->
+  <string name="DLG_loading">Loading...</string>
+  
   <!-- =============================================================== UI == -->
   
   <!-- Label for DateButtons with no value -->
@@ -79,9 +82,6 @@
   
   <!-- EditNoteActivity - no comments -->
   <string name="ENA_no_comments">Nothing To Show</string>
-  
-  <!-- EditNoteActivity - loading -->
-  <string name="ENA_loading">Loading...</string>
   
   <!-- EditNoteActivity - refresh comments -->
   <string name="ENA_refresh_comments">Refresh Comments</string>

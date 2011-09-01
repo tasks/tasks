@@ -375,7 +375,7 @@
   <string name="ENA_no_comments">没有要显示的</string>
   
   <!-- EditNoteActivity - loading -->
-  <string name="ENA_loading">载入中...</string>
+  <string name="DLG_loading">载入中...</string>
   
   <!-- EditNoteActivity - refresh comments -->
   <string name="ENA_refresh_comments">刷新留言</string>

@@ -375,7 +375,7 @@
   <string name="ENA_no_comments">Rien à afficher</string>
   
   <!-- EditNoteActivity - loading -->
-  <string name="ENA_loading">Chargement…</string>
+  <string name="DLG_loading">Chargement…</string>
   
   <!-- EditNoteActivity - refresh comments -->
   <string name="ENA_refresh_comments">Mettre à jour les commentaires</string>

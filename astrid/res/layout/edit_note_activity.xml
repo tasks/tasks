@@ -18,7 +18,7 @@
             android:layout_weight="100"
             android:gravity="center"
             android:visibility="gone"
-            android:text="@string/ENA_loading"
+            android:text="@string/DLG_loading"
             android:textSize="20sp" />
         
         <ListView

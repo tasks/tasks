@@ -169,6 +169,9 @@ public class TagViewActivity extends TaskListActivity implements OnTabChangeList
         }
     }
 
+    /* (non-Javadoc)
+     * @see com.todoroo.astrid.activity.TaskListActivity#getListBody(android.view.ViewGroup)
+     */
     @SuppressWarnings("nls")
     @Override
     protected View getListBody(ViewGroup root) {
@@ -181,6 +184,7 @@ public class TagViewActivity extends TaskListActivity implements OnTabChangeList
         tabHost.setup();
 
         taskListView = super.getListBody(parent);
+        ((TextView)taskListView.findViewById(android.R.id.empty)).setText(R.string.DLG_loading);
         tabContent.addView(taskListView);
 
         addTab(taskListView.getId(), "tasks", tabLabels[0]);
@@ -486,6 +490,8 @@ public class TagViewActivity extends TaskListActivity implements OnTabChangeList
         tagMembers.addPerson(""); //$NON-NLS-1$
     }
 
+    // --------------------------------------------------------- refresh data
+
     /** refresh the list with latest data from the web */
     private void refreshData(final boolean manual, boolean bypassTagShow) {
         final boolean noRemoteId = tagData.getValue(TagData.REMOTE_ID) == 0;
@@ -539,6 +545,7 @@ public class TagViewActivity extends TaskListActivity implements OnTabChangeList
                     @Override
                     public void run() {
                         loadTaskListContent(true);
+                        ((TextView)taskListView.findViewById(android.R.id.empty)).setText(R.string.TLA_no_items);
                         DialogUtilities.dismissDialog(TagViewActivity.this, progressDialog);
                     }
                 });
