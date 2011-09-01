@@ -72,6 +72,8 @@ public final class ReminderService  {
 
     private AlarmScheduler scheduler = new ReminderAlarmScheduler();
 
+    private long now = -1; // For tracking when reminders might be scheduled all at once
+
     private ReminderService() {
         DependencyInjectionService.getInstance().inject(this);
         setPreferenceDefaults();
@@ -121,6 +123,7 @@ public final class ReminderService  {
         TodorooCursor<Task> cursor = getTasksWithReminders(PROPERTIES);
         try {
             Task task = new Task();
+            now = DateUtilities.now(); // Before mass scheduling, initialize now variable
             for(cursor.moveToFirst(); !cursor.isAfterLast(); cursor.moveToNext()) {
                 task.readFromCursor(cursor);
                 scheduleAlarm(task, false);
@@ -129,7 +132,13 @@ public final class ReminderService  {
             // suppress
         } finally {
             cursor.close();
+            now = -1; // Signal done with now variable
         }
+    }
+
+    private long getNowValue() {
+        // If we're in the midst of mass scheduling, use the prestored now var
+        return (now == -1 ? DateUtilities.now() : now);
     }
 
     private static final long NO_ALARM = Long.MAX_VALUE;
@@ -189,8 +198,17 @@ public final class ReminderService  {
         // notifications at due date
         long whenDueDate = calculateNextDueDateReminder(task);
 
+
         // notifications after due date
         long whenOverdue = calculateNextOverdueReminder(task);
+
+        // For alarms around/before now, increment the now value so the next one will be later
+        if (whenDueDate <= now || whenOverdue <= now) {
+            whenDueDate = now;
+            whenOverdue = now;
+            now += 30 * DateUtilities.ONE_MINUTE; // Prevents overdue tasks from being scheduled all at once
+        }
+
 
         // if random reminders are too close to due date, favor due date
         if(whenRandom != NO_ALARM && whenDueDate - whenRandom < DateUtilities.ONE_DAY)
@@ -235,22 +253,23 @@ public final class ReminderService  {
      * @return
      */
     private long calculateNextOverdueReminder(Task task) {
+     // Uses getNowValue() instead of DateUtilities.now()
         if(task.hasDueDate() && task.getFlag(Task.REMINDER_FLAGS, Task.NOTIFY_AFTER_DEADLINE)) {
             long dueDate = task.getValue(Task.DUE_DATE);
             long lastReminder = task.getValue(Task.REMINDER_LAST);
 
-            if(dueDate > DateUtilities.now())
+            if(dueDate > getNowValue())
                 return dueDate + (long)((0.5f + 2f * random.nextFloat()) * DateUtilities.ONE_HOUR);
 
             if(lastReminder < dueDate)
-                return DateUtilities.now();
+                return getNowValue();
 
-            if(DateUtilities.now() - lastReminder < 6 * DateUtilities.ONE_HOUR)
-                return DateUtilities.now() + (long)((2.0f +
+            if(getNowValue() - lastReminder < 6 * DateUtilities.ONE_HOUR)
+                return getNowValue() + (long)((2.0f +
                         task.getValue(Task.IMPORTANCE) +
                         6f * random.nextFloat()) * DateUtilities.ONE_HOUR);
 
-            return DateUtilities.now();
+            return getNowValue();
         }
         return NO_ALARM;
     }
@@ -269,9 +288,10 @@ public final class ReminderService  {
      * @return
      */
     private long calculateNextDueDateReminder(Task task) {
+        // Uses getNowValue() instead of DateUtilities.now()
         if(task.hasDueDate() && task.getFlag(Task.REMINDER_FLAGS, Task.NOTIFY_AT_DEADLINE)) {
             long dueDate = task.getValue(Task.DUE_DATE);
-            long lastReminder = task.getValue(Task.REMINDER_LAST);;
+            long lastReminder = task.getValue(Task.REMINDER_LAST);
 
             long dueDateAlarm;
 
@@ -285,7 +305,7 @@ public final class ReminderService  {
                 date.setMinutes(0);
                 date.setSeconds(0);
                 dueDateAlarm = date.getTime();
-                if (dueDate > DateUtilities.now() && dueDateAlarm < DateUtilities.now()) {
+                if (dueDate > getNowValue() && dueDateAlarm < getNowValue()) {
                     // this only happens for tasks due today, cause dueDateAlarm wouldnt be in the past otherwise
                     // if the default reminder is in the past, then reschedule it
                     // on this day before start of quiet hours or after quiet hours
@@ -302,8 +322,8 @@ public final class ReminderService  {
                     quietHoursEndDate.setMinutes(0);
                     quietHoursEndDate.setSeconds(0);
 
-                    long millisToQuiet = quietHoursStartDate.getTime() - DateUtilities.now();
-                    long millisToEndOfDay = dueDate - DateUtilities.now();
+                    long millisToQuiet = quietHoursStartDate.getTime() - getNowValue();
+                    long millisToEndOfDay = dueDate - getNowValue();
 
                     //
                     int periodDivFactor = 4;
@@ -318,17 +338,17 @@ public final class ReminderService  {
                                 dueDateAlarm = date.getTime();
                             } else if (hour < quietHoursStart) {
                                 // quietHours didnt start yet
-                                millisToQuiet = quietHoursStartDate.getTime() - DateUtilities.now();
+                                millisToQuiet = quietHoursStartDate.getTime() - getNowValue();
                                 long millisAfterQuiet = dueDate - quietHoursEndDate.getTime();
 
                                 // if there is more time after quiethours today, select quiethours-end for reminder
                                 if (millisAfterQuiet > (millisToQuiet / ((float)(1-(1/periodDivFactor))) ))
                                     dueDateAlarm = quietHoursEndDate.getTime();
                                 else
-                                    dueDateAlarm = DateUtilities.now() + (long)(millisToQuiet / periodDivFactor);
+                                    dueDateAlarm = getNowValue() + (long)(millisToQuiet / periodDivFactor);
                             } else {
                                 // after quietHours, reuse dueDate for end of day
-                                dueDateAlarm = DateUtilities.now() + (long)(millisToEndOfDay / periodDivFactor);
+                                dueDateAlarm = getNowValue() + (long)(millisToEndOfDay / periodDivFactor);
                             }
                         } else { // wrap across 24/hour boundary
                             if(hour >= quietHoursStart) {
@@ -339,16 +359,16 @@ public final class ReminderService  {
                                 dueDateAlarm = date.getTime();
                             } else {
                                 // quietHours didnt start yet
-                                millisToQuiet = quietHoursStartDate.getTime() - DateUtilities.now();
-                                dueDateAlarm = DateUtilities.now() + (long)(millisToQuiet / periodDivFactor);
+                                millisToQuiet = quietHoursStartDate.getTime() - getNowValue();
+                                dueDateAlarm = getNowValue() + (long)(millisToQuiet / periodDivFactor);
                             }
                         }
                     } else {
                         // Quiet hours not activated, simply schedule the reminder on 1/periodDivFactor towards the end of day
-                        dueDateAlarm = DateUtilities.now() + (long)(millisToEndOfDay / periodDivFactor);
+                        dueDateAlarm = getNowValue() + (long)(millisToEndOfDay / periodDivFactor);
                     }
 
-                    if(dueDate > DateUtilities.now() && dueDateAlarm < DateUtilities.now())
+                    if(dueDate > getNowValue() && dueDateAlarm < getNowValue())
                         dueDateAlarm = dueDate;
                 }
             }
