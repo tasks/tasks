@@ -23,13 +23,11 @@
   <string name="intro_task_2_summary">Add a widget to your desktop</string>
 
   <!-- Task 2 Note -->
-  <string name="intro_task_2_note">A desktop widget is a great way to keep track of your to-dos and a quick way to add tasks.\n
-  \n
-  How to add a widget:\n
+  <string name="intro_task_2_note">\n
   1) Long Press on your phone\'s desktop\n
-  2) Chose \"Widget\"\n
+  2) Choose \"Widget\"\n
   3) Choose the Astrid widget\n
-  4) Select a list to display (choose \"Active Tasks\" for all your tasks)\n
+  4) Select the list you want and press OK.\n
   \n
   </string>
   
@@ -37,8 +35,7 @@
   <string name="intro_task_3_summary">Setup sync with Astrid.com</string>
 
   <!-- Task 3 Note -->
-  <string name="intro_task_3_note">Back up and sync your tasks with Astrid.com for free:\n
-    \n
+  <string name="intro_task_3_note">\n
     1) Press your Menu button\n
     2) Choose \"Sync Now\"\n
     3) Select \"Astrid.com\"\n
