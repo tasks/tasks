@@ -98,6 +98,7 @@ import com.todoroo.astrid.service.StartupService;
 import com.todoroo.astrid.service.StatisticsService;
 import com.todoroo.astrid.service.TaskService;
 import com.todoroo.astrid.service.ThemeService;
+import com.todoroo.astrid.service.UpgradeService;
 import com.todoroo.astrid.utility.AstridPreferences;
 import com.todoroo.astrid.utility.Constants;
 import com.todoroo.astrid.utility.Flags;
@@ -161,6 +162,8 @@ public class TaskListActivity extends ListActivity implements OnScrollListener,
     @Autowired Database database;
 
     @Autowired AddOnService addOnService;
+
+    @Autowired UpgradeService upgradeService;
 
     private final TaskContextActionExposer[] contextItemExposers = new TaskContextActionExposer[] {
             new ReminderDebugContextActions.MakeNotification(),
@@ -226,6 +229,9 @@ public class TaskListActivity extends ListActivity implements OnScrollListener,
         database.openForWriting();
         setUpUiComponents();
         onNewIntent(getIntent());
+
+        if(Preferences.getInt(AstridPreferences.P_UPGRADE_FROM, -1) > -1)
+            upgradeService.showChangeLog(this, Preferences.getInt(AstridPreferences.P_UPGRADE_FROM, -1));
 
         if (!Preferences.getBoolean(R.string.p_showed_add_task_help, false)) {
             HelpInfoPopover.showPopover(TaskListActivity.this, quickAddBox, R.string.help_popover_add_task);

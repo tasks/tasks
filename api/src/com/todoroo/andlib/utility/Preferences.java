@@ -268,4 +268,15 @@ public class Preferences {
         editor.commit();
     }
 
+    /**
+     * Clears a preference
+     * @param key
+     */
+    public static void clear(String key) {
+        Context context = ContextManager.getContext();
+        Editor editor = getPrefs(context).edit();
+        editor.remove(key);
+        editor.commit();
+    }
+
 }

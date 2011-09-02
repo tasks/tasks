@@ -23,7 +23,6 @@ import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.andlib.utility.DialogUtilities;
 import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.astrid.activity.Eula;
-import com.todoroo.astrid.activity.TaskListActivity;
 import com.todoroo.astrid.core.SortHelper;
 import com.todoroo.astrid.dao.Database;
 import com.todoroo.astrid.data.Metadata;
@@ -99,6 +98,7 @@ public final class UpgradeService {
         else
             dialog = null;
 
+        Preferences.setInt(AstridPreferences.P_UPGRADE_FROM, from);
         new Thread(new Runnable() {
             @Override
             public void run() {
@@ -110,18 +110,7 @@ public final class UpgradeService {
                         new Astrid2To3UpgradeHelper().upgrade3To3_1(context, from);
 
                 } finally {
-                    if(context instanceof Activity) {
-                        ((Activity)context).runOnUiThread(new Runnable() {
-                            public void run() {
-                                DialogUtilities.dismissDialog((Activity)context, dialog);
-
-                                // display changelog
-                                showChangeLog(context, from);
-                                if(context instanceof TaskListActivity)
-                                    ((TaskListActivity)context).loadTaskListContent(true);
-                            }
-                        });
-                    }
+                    DialogUtilities.dismissDialog((Activity)context, dialog);
                 }
             }
 
@@ -141,6 +130,7 @@ public final class UpgradeService {
         if(!(context instanceof Activity) || from == 0)
             return;
 
+        Preferences.clear(AstridPreferences.P_UPGRADE_FROM);
         StringBuilder changeLog = new StringBuilder();
 
         // current message
@@ -267,7 +257,7 @@ public final class UpgradeService {
         if(changeLog.length() == 0)
             return;
 
-        changeLog.append("Astrid thinks you are very special!</body></html>");
+        changeLog.append("Go get 'em, tiger!</body></html>");
         String changeLogHtml = "<html><body style='color: white'>" + changeLog;
 
         DialogUtilities.htmlDialog(context, changeLogHtml,
