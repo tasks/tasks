@@ -36,6 +36,7 @@ import com.todoroo.astrid.utility.AstridPreferences;
 
 public final class UpgradeService {
 
+    public static final int V3_8_3 = 192;
     public static final int V3_8_2 = 191;
     public static final int V3_8_0_2 = 188;
     public static final int V3_8_0 = 186;
@@ -143,6 +144,20 @@ public final class UpgradeService {
         StringBuilder changeLog = new StringBuilder();
 
         // current message
+        if(from >= V3_8_0 && from < V3_8_3) {
+            newVersionString(changeLog, "3.8.3 (9/02/11)", new String[] {
+                    "Several Google Tasks sync bug fixes / improvements",
+                    "Fixed voice-add while viewing lists",
+                    "Fix for Astrid.com keyboard covers up newest comments",
+                    "Fixed issues with repeat-after-complete hourly and minutely",
+                    "Google Calendar integration now deletes events when you delete tasks",
+                    "Sync preference page now shows who you are logged in as",
+                    "List task counts are working again",
+                    "Fixed reminders for tasks without due time notifying repeatedly",
+                    "Fixed day-of-week checkboxes not having labels",
+                    "Added 'default add to calendar' setting for new task creation",
+            });
+        }
         if(from >= V3_8_0 && from < V3_8_2) {
             newVersionString(changeLog, "3.8.2 (8/10/11)", new String[] {
                     "New theme options for Astrid - white, black, transparent with white or black text",
