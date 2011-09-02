@@ -7,16 +7,9 @@
     android:orientation="vertical">
 
     <ImageView android:id="@+id/welcome_image"
-        android:src="@drawable/welcome_screen"
+        android:src="@drawable/welcome_android_overlay"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         android:layout_weight="1"/>
-    
-    <Button android:id="@+id/show_eula"
-        android:layout_width="fill_parent"
-        android:text="@string/welcome_show_eula"
-        android:layout_height="45dp"
-        android:layout_weight="1"
-        android:layout_alignParentBottom="true"/>
 
 </RelativeLayout>

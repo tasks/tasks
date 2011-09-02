@@ -122,20 +122,8 @@ public class DialogUtilities {
     public static void okCancelDialog(final Activity activity, final String title,
             final String text, final DialogInterface.OnClickListener okListener,
             final DialogInterface.OnClickListener cancelListener) {
-        if(activity.isFinishing())
-            return;
 
-        tryOnUiThread(activity, new Runnable() {
-            public void run() {
-                new AlertDialog.Builder(activity)
-                .setTitle(title)
-                .setMessage(text)
-                .setIcon(android.R.drawable.ic_dialog_alert)
-                .setPositiveButton(android.R.string.ok, okListener)
-                .setNegativeButton(android.R.string.cancel, cancelListener)
-                .show().setOwnerActivity(activity);
-            }
-        });
+        okCancelCustomDialog(activity, title, text, android.R.string.ok, android.R.string.cancel, okListener, cancelListener);
     }
 
     /**
@@ -149,6 +137,19 @@ public class DialogUtilities {
     public static void okCancelDialog(final Activity activity, final String text,
             final DialogInterface.OnClickListener okListener,
             final DialogInterface.OnClickListener cancelListener) {
+
+        okCancelCustomDialog(activity, activity.getString(R.string.DLG_confirm_title), text, android.R.string.ok, android.R.string.cancel, okListener, cancelListener);
+
+    }
+
+    /**
+    * Displays a dialog box with custom titled OK and cancel button titles
+    */
+
+    public static void okCancelCustomDialog(final Activity activity, final String title, final String text,
+            final int okTitleId, final int cancelTitleId,
+            final DialogInterface.OnClickListener okListener,
+            final DialogInterface.OnClickListener cancelListener) {
         if(activity.isFinishing())
             return;
 
@@ -157,9 +158,10 @@ public class DialogUtilities {
                 new AlertDialog.Builder(activity)
                 .setTitle(R.string.DLG_confirm_title)
                 .setMessage(text)
+                .setTitle(title)
                 .setIcon(android.R.drawable.ic_dialog_alert)
-                .setPositiveButton(android.R.string.ok, okListener)
-                .setNegativeButton(android.R.string.cancel, cancelListener)
+                .setPositiveButton(okTitleId, okListener)
+                .setNegativeButton(cancelTitleId, cancelListener)
                 .show().setOwnerActivity(activity);
             }
         });

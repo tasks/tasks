@@ -35,15 +35,10 @@ import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.Color;
 import android.graphics.PixelFormat;
 import android.os.Build;
 import android.os.Bundle;
-import android.text.SpannableString;
-import android.text.Spanned;
-import android.text.TextPaint;
 import android.text.method.PasswordTransformationMethod;
-import android.text.style.ClickableSpan;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.WindowManager;
@@ -72,7 +67,6 @@ import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.astrid.actfm.sync.ActFmInvoker;
 import com.todoroo.astrid.actfm.sync.ActFmPreferenceService;
 import com.todoroo.astrid.actfm.sync.ActFmSyncProvider;
-import com.todoroo.astrid.activity.TaskListActivity;
 import com.todoroo.astrid.gtasks.auth.ModernAuthManager;
 import com.todoroo.astrid.service.AstridDependencyInjector;
 import com.todoroo.astrid.service.StatisticsService;
@@ -88,25 +82,20 @@ public class ActFmLoginActivity extends Activity implements AuthListener {
 
     public static final String APP_ID = "183862944961271"; //$NON-NLS-1$
 
-    @Autowired ExceptionService exceptionService;
-    @Autowired TaskService taskService;
-    @Autowired ActFmPreferenceService actFmPreferenceService;
+    @Autowired protected ExceptionService exceptionService;
+    @Autowired protected TaskService taskService;
+    @Autowired protected ActFmPreferenceService actFmPreferenceService;
     private final ActFmInvoker actFmInvoker = new ActFmInvoker();
 
     private Facebook facebook;
     private AsyncFacebookRunner facebookRunner;
     private TextView errors;
-    private boolean noSync = false;
-
-    // True if this screen was shown as part of new user experience
-    private boolean shownFromWelcome = false;
+    protected boolean noSync = false;
 
     // --- ui initialization
 
     private static final int REQUEST_CODE_GOOGLE_ACCOUNTS = 1;
     private static final int REQUEST_CODE_OAUTH = 2;
-
-    public static final String KEY_SHOW_LATER_BUTTON = "actfm_login_show_later";
 
     static {
         AstridDependencyInjector.initialize();
@@ -114,9 +103,21 @@ public class ActFmLoginActivity extends Activity implements AuthListener {
 
     public static final String EXTRA_DO_NOT_SYNC = "nosync"; //$NON-NLS-1$
 
+    protected int getContentViewResource() {
+        return R.layout.actfm_login_activity;
+    }
+
+    protected int getTitleResource() {
+        return R.string.actfm_ALA_title;
+    }
+
     public ActFmLoginActivity() {
         super();
         DependencyInjectionService.getInstance().inject(this);
+    }
+
+    protected void finishAndShowNext() {
+        finish();
     }
 
     @SuppressWarnings("nls")
@@ -125,8 +126,8 @@ public class ActFmLoginActivity extends Activity implements AuthListener {
         super.onCreate(savedInstanceState);
         ContextManager.setContext(this);
 
-        setContentView(R.layout.actfm_login_activity);
-        setTitle(R.string.actfm_ALA_title);
+        setContentView(getContentViewResource());
+        setTitle(getTitleResource());
 
         noSync = getIntent().getBooleanExtra(EXTRA_DO_NOT_SYNC, false);
 
@@ -151,18 +152,12 @@ public class ActFmLoginActivity extends Activity implements AuthListener {
         setResult(RESULT_CANCELED);
     }
 
-    private void initializeUI() {
-        shownFromWelcome = getIntent().getBooleanExtra(KEY_SHOW_LATER_BUTTON, false);
-        if (shownFromWelcome) {
-            Button loginLater = (Button)findViewById(R.id.login_later);
-            loginLater.setVisibility(View.VISIBLE);
-            loginLater.setOnClickListener(loginLaterListener);
-        }
+    protected void initializeUI() {
         findViewById(R.id.gg_login).setOnClickListener(googleListener);
-        TextView pwLogin = (TextView) findViewById(R.id.pw_login);
+        Button pwLogin = (Button) findViewById(R.id.pw_login);
         pwLogin.setOnClickListener(signUpListener);
 
-        String pwLoginBase = getString(R.string.actfm_ALA_pw_login);
+        /*String pwLoginBase = getString(R.string.actfm_ALA_pw_login);
         SpannableString link = new SpannableString(String.format("%s %s", //$NON-NLS-1$
                 pwLoginBase, getString(R.string.actfm_ALA_pw_link)));
         ClickableSpan linkSpan = new ClickableSpan() {
@@ -175,31 +170,15 @@ public class ActFmLoginActivity extends Activity implements AuthListener {
                 ds.setUnderlineText(true);
                 ds.setColor(Color.rgb(255, 96, 0));
             }
+
         };
         link.setSpan(linkSpan, pwLoginBase.length() + 1, link.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-        pwLogin.setText(link);
+        pwLogin.setText(link);//*/
     }
 
     // --- event handler
 
-    private final OnClickListener loginLaterListener = new OnClickListener() {
-        @Override
-        public void onClick(View arg0) {
-            String confirmLater = ActFmLoginActivity.this.getString(R.string.actfm_ALA_confirm_later_dialog);
-            DialogUtilities.okCancelDialog(ActFmLoginActivity.this, confirmLater, confirmLaterListener, null);
-        }
-
-        private final DialogInterface.OnClickListener confirmLaterListener = new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                Intent taskListStartup = new Intent(ActFmLoginActivity.this, TaskListActivity.class);
-                ActFmLoginActivity.this.startActivity(taskListStartup);
-                ActFmLoginActivity.this.finish();
-            }
-        };
-    };
-
-    private final OnClickListener googleListener = new OnClickListener() {
+    protected final OnClickListener googleListener = new OnClickListener() {
         @Override
         @SuppressWarnings("nls")
         public void onClick(View arg0) {
@@ -216,7 +195,7 @@ public class ActFmLoginActivity extends Activity implements AuthListener {
         }
     };
 
-    private final OnClickListener signUpListener = new OnClickListener() {
+    protected final OnClickListener signUpListener = new OnClickListener() {
         @Override
         public void onClick(View arg0) {
             final LinearLayout body = new LinearLayout(ActFmLoginActivity.this);
@@ -381,7 +360,7 @@ public class ActFmLoginActivity extends Activity implements AuthListener {
     }
 
     @SuppressWarnings("nls")
-    private void postAuthenticate(JSONObject result, String token) {
+    protected void postAuthenticate(JSONObject result, String token) {
         actFmPreferenceService.setToken(token);
 
         Preferences.setLong(ActFmPreferenceService.PREF_USER_ID,
@@ -391,11 +370,7 @@ public class ActFmLoginActivity extends Activity implements AuthListener {
         Preferences.setString(ActFmPreferenceService.PREF_PICTURE, result.optString("picture"));
 
         setResult(RESULT_OK);
-        if (shownFromWelcome) {
-            Intent taskListStartup = new Intent(ActFmLoginActivity.this, TaskListActivity.class);
-            this.startActivity(taskListStartup);
-        }
-        finish();
+        finishAndShowNext();
 
         if(!noSync) {
             new ActFmSyncProvider().synchronize(this);

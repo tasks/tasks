@@ -139,19 +139,13 @@
   share, and delegate with others.</string>
 
   <!-- share login: Sharing Login FB Prompt -->
-  <string name="actfm_ALA_fb_login">Sign in with Facebook</string>
+  <string name="actfm_ALA_fb_login">Login with Facebook</string>
 
   <!-- share login: Sharing Login GG Prompt -->
-  <string name="actfm_ALA_gg_login">Sign in with Google</string>
-
-  <!-- share login: Login later button -->
-  <string name="actfm_ALA_login_later">Later</string>
-  
-  <!-- share login: Login later button -->
-  <string name="actfm_ALA_confirm_later_dialog">Are you sure you don\'t want to login now?</string>
+  <string name="actfm_ALA_gg_login">Login with Google</string>
   
   <!-- share login: Sharing Footer Password Label -->
-  <string name="actfm_ALA_pw_login">Don\'t have a Google or Facebook Account?</string>
+  <string name="actfm_ALA_pw_login">Don\'t use Google or Facebook?</string>
 
   <!-- share login: Sharing Password Link -->
   <string name="actfm_ALA_pw_link">Sign In Here</string>

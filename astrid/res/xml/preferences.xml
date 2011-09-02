@@ -16,7 +16,7 @@
         <CheckBoxPreference
             android:key="@string/p_showNotes"
             android:title="@string/EPr_showNotes_title"
-            android:defaultValue="false" />
+            android:defaultValue="true" />
             
         <ListPreference
             android:key="@string/p_theme"

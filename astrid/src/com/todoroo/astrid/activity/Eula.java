@@ -80,6 +80,14 @@ public final class Eula {
         builder.show();
     }
 
+    public static void showEulaBasic(Activity activity) {
+        final AlertDialog.Builder builder = new AlertDialog.Builder(activity);
+        builder.setTitle(R.string.DLG_eula_title);
+        builder.setMessage(AndroidUtilities.readFile(activity, R.raw.eula));
+        builder.setNeutralButton(android.R.string.ok, null);
+        builder.show();
+    }
+
     private boolean shouldShowEula(Activity activity) {
         if(Preferences.getBoolean(PREFERENCE_EULA_ACCEPTED, false))
             return false;

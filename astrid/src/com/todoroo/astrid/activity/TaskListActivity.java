@@ -226,8 +226,6 @@ public class TaskListActivity extends ListActivity implements OnScrollListener,
         setUpUiComponents();
         onNewIntent(getIntent());
 
-        Eula.showEula(this);
-
         if (!Preferences.getBoolean(R.string.p_showed_add_task_help, false)) {
             HelpInfoPopover.showPopover(TaskListActivity.this, quickAddBox, R.string.help_popover_add_task);
             Preferences.setBoolean(R.string.p_showed_add_task_help, true);

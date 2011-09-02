@@ -1,108 +1,108 @@
 <?xml version="1.0" encoding="utf-8"?>
-
-  <RelativeLayout
+  <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:paddingLeft="4px"
-    android:paddingRight="4px"
-    android:background="@drawable/astrid_com_gradient">
+    android:paddingLeft="4dip"
+    android:paddingRight="4dip"
+    android:background="@drawable/astrid_com_gradient"
+    android:orientation="vertical">
 
     <TextView
       android:id="@+id/intro"
       android:layout_width="fill_parent"
       android:layout_height="wrap_content"
       android:gravity="center"
-      android:layout_alignParentTop="true"
       android:layout_alignParentLeft="true"
       android:textSize="16sp"
       android:paddingTop="20dip"
       android:textColor="#ffffff"
       android:text="@string/actfm_ALA_body" />
+
+    <ImageView
+      android:id="@+id/logo"
+      android:layout_width="fill_parent"
+      android:layout_height="110dip"
+      android:scaleType="fitCenter"
+      android:paddingLeft="20dip"
+      android:paddingRight="20dip"
+      android:paddingBottom="10dip"
+      android:src="@drawable/astrid_com_logo" />
       
     <TextView
       android:id="@+id/error"
       android:layout_width="fill_parent"
       android:layout_height="wrap_content"
-      android:layout_below="@id/intro"
-      android:layout_alignParentLeft="true"
       android:gravity="center"
-      android:paddingTop="5dip"
       android:textColor="#ff0000"
       android:textSize="16sp"
       android:textStyle="bold" />
-      
-    <ImageView
+    
+    <RelativeLayout
       android:layout_width="fill_parent"
       android:layout_height="fill_parent"
-      android:layout_alignParentTop="true"
-      android:layout_alignParentLeft="true"
-      android:scaleType="fitCenter"
-      android:paddingLeft="20dip"
-      android:paddingRight="20dip"
-      android:layout_marginBottom="95dip"
-      android:src="@drawable/astrid_com_logo" />
-      
-    <TextView
-      android:id="@+id/pw_login"
-      android:layout_width="fill_parent"
-      android:layout_height="wrap_content"
-      android:layout_alignParentBottom="true"
-      android:layout_alignParentLeft="true"
-      android:gravity="center"
-      android:layout_marginBottom="10dip"
-      android:textSize="12sp"
-      android:textColor="#cccccc" />
-      
-    <TextView
-      android:id="@+id/notice"
-      android:layout_width="fill_parent"
-      android:layout_height="wrap_content"
-      android:layout_above="@id/pw_login"
-      android:layout_alignParentLeft="true"
-      android:gravity="center"
-      android:layout_marginBottom="5dip"
-      android:textSize="12sp"
-      android:textColor="#cccccc"
-      android:text="@string/actfm_ALA_notice" />
-  
-    <Button
-      android:id="@+id/login_later"
-      android:layout_weight="1"
-      android:layout_width="fill_parent"
-      android:layout_height="45dip"
-      android:layout_above="@id/notice"
-      android:paddingLeft="20dip"
-      android:paddingRight="20dip"
-      android:layout_marginBottom="20dip"
-      android:textSize="16sp"
-      android:text="@string/actfm_ALA_login_later" 
-      android:visibility="gone" />
-      
-  
-    <com.facebook.android.LoginButton
-      android:id="@+id/fb_login"
-      android:layout_weight="1"
-      android:layout_width="fill_parent"
-      android:layout_height="45dip"
-      android:layout_above="@id/login_later"
-      android:paddingLeft="20dip"
-      android:paddingRight="20dip"
-      android:layout_marginBottom="20dip"
-      android:textSize="16sp"
-      android:drawableLeft="@drawable/facebook"
-      android:text="@string/actfm_ALA_fb_login" />
-                        
-    <Button
-      android:id="@+id/gg_login"
-      android:layout_weight="1"
-      android:layout_width="fill_parent"
-      android:layout_height="45dip"
-      android:layout_above="@id/fb_login"
-      android:paddingLeft="20dip"
-      android:paddingRight="20dip"
-      android:textSize="16sp"
-      android:drawableLeft="@drawable/google"
-      android:text="@string/actfm_ALA_gg_login" />
+      android:paddingTop="5dip">
             
+    
+        <TextView
+	      android:id="@+id/notice"
+	      android:layout_width="fill_parent"
+	      android:layout_height="wrap_content"
+	      android:layout_alignParentBottom="true"
+	      android:layout_alignParentLeft="true"
+	      android:gravity="center"
+	      android:layout_marginBottom="5dip"
+	      android:textSize="12sp"
+	      android:textColor="#cccccc"
+	      android:text="@string/actfm_ALA_notice" />
+      
+        <Button
+          android:id="@+id/pw_login"
+          android:layout_width="fill_parent"
+          android:layout_height="45dip"
+          android:layout_above="@id/notice"
+          android:paddingLeft="20dip"
+          android:paddingRight="20dip"
+          android:layout_marginLeft="15dip"
+          android:layout_marginRight="15dip"
+          android:textSize="16sp" 
+          android:text="@string/welcome_login_pw"/>    
+      
+        <com.facebook.android.LoginButton
+          android:id="@+id/fb_login"
+          android:layout_width="fill_parent"
+          android:layout_height="45dip"
+          android:layout_above="@id/pw_login"
+          android:paddingLeft="20dip"
+          android:paddingRight="20dip"
+          android:layout_marginLeft="15dip"
+          android:layout_marginRight="15dip"
+          android:textSize="16sp"
+          android:drawableLeft="@drawable/facebook"
+          android:text="@string/actfm_ALA_fb_login" />
+                            
+        <Button
+          android:id="@+id/gg_login"
+          android:layout_width="fill_parent"
+          android:layout_height="45dip"
+          android:layout_above="@id/fb_login"
+          android:paddingLeft="20dip"
+          android:paddingRight="20dip"
+          android:layout_marginLeft="15dip"
+          android:layout_marginRight="15dip"
+          android:textSize="16sp"
+          android:drawableLeft="@drawable/google"
+          android:text="@string/actfm_ALA_gg_login" />
+          
+        <TextView
+          android:id="@+id/tos"
+          android:layout_width="fill_parent"
+          android:layout_height="35dip"
+          android:layout_above="@id/gg_login"
+          android:gravity="center"
+          android:paddingLeft="20dip"
+          android:paddingRight="20dip"
+          android:textSize="12.5sp"
+          android:textColor="#ffffff" />   
   </RelativeLayout>
+</LinearLayout>
