@@ -184,7 +184,8 @@ public class TagViewActivity extends TaskListActivity implements OnTabChangeList
         tabHost.setup();
 
         taskListView = super.getListBody(parent);
-        ((TextView)taskListView.findViewById(android.R.id.empty)).setText(R.string.DLG_loading);
+        if(actFmPreferenceService.isLoggedIn())
+            ((TextView)taskListView.findViewById(android.R.id.empty)).setText(R.string.DLG_loading);
         tabContent.addView(taskListView);
 
         addTab(taskListView.getId(), "tasks", tabLabels[0]);

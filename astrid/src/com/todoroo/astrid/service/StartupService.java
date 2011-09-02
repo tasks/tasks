@@ -220,21 +220,18 @@ public class StartupService {
     private static final int[] INTRO_TASKS = new int[] {
         R.string.intro_task_2_summary,
         R.string.intro_task_2_note,
-        R.string.intro_task_2_due_setting,
+        Task.URGENCY_DAY_AFTER,
         R.string.intro_task_3_summary,
         R.string.intro_task_3_note,
-        R.string.intro_task_3_due_setting,
+        Task.URGENCY_NONE,
     };
     public static final int INTRO_TASK_SIZE = INTRO_TASKS.length / 3;
 
     private void addIntroTask(Resources r, int summary, int note, int dueSetting) {
         Task task = new Task();
         task.setValue(Task.TITLE, r.getString(summary));
-        //task.setValue(Task.DETAILS, r.getString(R.string.intro_click_prompt));
-        //task.setValue(Task.DETAILS_DATE, 2*DateUtilities.now());
         task.setValue(Task.NOTES, r.getString(note));
-        int dueSettingParse = Integer.parseInt(r.getString(dueSetting));
-        long dueDate = Task.createDueDate(dueSettingParse, 0);
+        long dueDate = Task.createDueDate(dueSetting, 0);
         task.setValue(Task.DUE_DATE, dueDate);
         taskService.save(task);
     }

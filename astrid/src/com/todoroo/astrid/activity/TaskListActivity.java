@@ -43,6 +43,7 @@ import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
 import android.view.inputmethod.EditorInfo;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.AbsListView;
 import android.widget.AbsListView.OnScrollListener;
 import android.widget.AdapterView.AdapterContextMenuInfo;
@@ -786,10 +787,12 @@ public class TaskListActivity extends ListActivity implements OnScrollListener,
 
     private void showHelpPopover() {
         if (!Preferences.getBoolean(R.string.p_showed_tap_task_help, false)) {
+            InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+            imm.hideSoftInputFromWindow(quickAddBox.getWindowToken(), 0);
             getListView().postDelayed(new Runnable() {
                 public void run() {
-                    View view = getListView().getChildAt(getListView().getChildCount() - 1);
-                    HelpInfoPopover.showPopover(TaskListActivity.this, view, R.string.help_popover_tap_task);
+                    final View view = getListView().getChildAt(getListView().getChildCount() - 1);
+                    HelpInfoPopover popover = HelpInfoPopover.showPopover(TaskListActivity.this, view, R.string.help_popover_tap_task);
                 }
             }, 1000L);
 

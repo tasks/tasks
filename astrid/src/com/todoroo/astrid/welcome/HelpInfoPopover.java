@@ -16,16 +16,24 @@ import android.widget.TextView;
 
 import com.timsu.astrid.R;
 
+/**
+ * Displays a popover with some help text for first time users.
+ *
+ * @author Sam Bosley <sam@astrid.com>
+ *
+ */
 public class HelpInfoPopover extends QuickActionWidget {
 
-    public static void showPopover(final Activity activity, final View parent, final int textId) {
+    public static HelpInfoPopover showPopover(final Activity activity, final View parent,
+            final int textId) {
+        final HelpInfoPopover toShow = new HelpInfoPopover(activity, textId);
         parent.post(new Runnable() {
             @Override
             public void run() {
-                HelpInfoPopover toShow = new HelpInfoPopover(activity, textId);
                 toShow.show(parent);
             }
         });
+        return toShow;
     }
 
     public HelpInfoPopover(Context context, int textId) {
@@ -33,6 +41,8 @@ public class HelpInfoPopover extends QuickActionWidget {
         setContentView(R.layout.help_popover);
         TextView message = (TextView)getContentView().findViewById(R.id.gdi_message);
         message.setText(textId);
+        setFocusable(false);
+        setTouchable(true);
     }
 
     @Override
