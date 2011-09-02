@@ -5,7 +5,7 @@
     <PreferenceCategory
         android:title="@string/backup_BPr_group_status">
     
-        <Preference 
+        <com.todoroo.astrid.ui.MultilinePreference
             android:layout="@layout/status_preference"
             android:key="@string/backup_BPr_status_key"  
             android:textSize="24sp"
@@ -16,14 +16,14 @@
     <PreferenceCategory
         android:title="@string/backup_BPr_group_options">
     
-        <CheckBoxPreference  
+        <com.todoroo.astrid.ui.MultilineCheckboxPreference  
             android:key="@string/backup_BPr_auto_key"   
             android:title="@string/backup_BPr_auto_title" 
             android:defaultValue="true" />
             
     </PreferenceCategory>
     
-    <Preference
+    <com.todoroo.astrid.ui.MultilinePreference
             android:key="@string/backup_BAc_label" 
             android:title="@string/backup_BAc_label" 
             android:textSize="24sp"

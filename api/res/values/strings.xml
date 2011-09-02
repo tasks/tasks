@@ -154,7 +154,7 @@
   <!-- Status: ongoing -->    
   <string name="sync_status_ongoing">Sync Ongoing...</string>
   <!-- Sync Status: success status (%s -> last sync date). Keep it short!-->    
-  <string name="sync_status_success">Last Sync: %s</string>
+  <string name="sync_status_success">Last Sync:\n%s</string>
   <!-- Sync Status: failure status (%s -> last attempted sync date) -->    
   <string name="sync_status_failed">Failed On: %s</string>
   <!-- Sync Status: error status (%s -> last sync date) -->    

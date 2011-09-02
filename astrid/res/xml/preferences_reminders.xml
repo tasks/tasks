@@ -3,37 +3,37 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:title="@string/rmd_EPr_alerts_header">
 
-    <ListPreference
+    <com.todoroo.astrid.ui.MultilineListPreference
         android:key="@string/p_rmd_quietStart"
         android:entries="@array/EPr_quiet_hours_start"
         android:entryValues="@array/EPr_quiet_hours_start_values"
         android:title="@string/rmd_EPr_quiet_hours_start_title"/>
-    <ListPreference
+    <com.todoroo.astrid.ui.MultilineListPreference
         android:key="@string/p_rmd_quietEnd"
         android:entries="@array/EPr_quiet_hours_end"
         android:entryValues="@array/EPr_quiet_hours_end_values"
         android:title="@string/rmd_EPr_quiet_hours_end_title"/>
-    <ListPreference
+    <com.todoroo.astrid.ui.MultilineListPreference
         android:key="@string/p_rmd_time"
         android:entries="@array/EPr_rmd_time"
         android:entryValues="@array/EPr_rmd_time_values"
         android:title="@string/rmd_EPr_rmd_time_title"/>
-    <CheckBoxPreference
+    <com.todoroo.astrid.ui.MultilineCheckboxPreference
         android:key="@string/p_rmd_persistent"
         android:title="@string/rmd_EPr_persistent_title"/>
-    <CheckBoxPreference
+    <com.todoroo.astrid.ui.MultilineCheckboxPreference
         android:key="@string/p_rmd_maxvolume"
         android:title="@string/rmd_EPr_multiple_maxvolume_title"
         android:defaultValue="false"  />
-    <CheckBoxPreference
+    <com.todoroo.astrid.ui.MultilineCheckboxPreference
         android:key="@string/p_rmd_vibrate"
         android:title="@string/rmd_EPr_vibrate_title"
         android:defaultValue="true"  />
-    <CheckBoxPreference
+    <com.todoroo.astrid.ui.MultilineCheckboxPreference
        android:key="@string/p_rmd_nagging"
        android:title="@string/rmd_EPr_nagging_title"
        android:defaultValue="true"  />
-    <CheckBoxPreference
+    <com.todoroo.astrid.ui.MultilineCheckboxPreference
        android:key="@string/p_rmd_snooze_dialog"
        android:title="@string/rmd_EPr_snooze_dialog_title"
        android:defaultValue="false"  />
@@ -43,7 +43,7 @@
         android:ringtoneType="notification"
 		android:showDefault="true"
 		android:showSilent="true" />
-	<CheckBoxPreference
+	<com.todoroo.astrid.ui.MultilineCheckboxPreference
         android:key="@string/p_rmd_enabled"
         android:title="@string/rmd_EPr_enabled_title"
         android:defaultValue="true"/>

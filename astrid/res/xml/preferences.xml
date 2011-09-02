@@ -6,19 +6,19 @@
     <PreferenceScreen android:title="" android:key="@string/p_about" />
     <PreferenceCategory
         android:title="@string/EPr_appearance_header">
-        <ListPreference
+        <com.todoroo.astrid.ui.MultilineListPreference
             android:key="@string/p_fontSize"
             android:entries="@array/EPr_font_size"
             android:entryValues="@array/EPr_font_size"
             android:title="@string/EPr_fontSize_title"
             android:summary="@string/EPr_fontSize_desc" />
             
-        <CheckBoxPreference
+        <com.todoroo.astrid.ui.MultilineCheckboxPreference
             android:key="@string/p_showNotes"
             android:title="@string/EPr_showNotes_title"
             android:defaultValue="true" />
             
-        <ListPreference
+        <com.todoroo.astrid.ui.MultilineListPreference
             android:key="@string/p_theme"
             android:entries="@array/EPr_themes"
             android:entryValues="@array/EPr_theme_settings"
@@ -30,16 +30,16 @@
         <PreferenceScreen
             android:title="@string/EPr_voice_header">
             
-            <CheckBoxPreference
+            <com.todoroo.astrid.ui.MultilineCheckboxPreference
                 android:key="@string/p_voiceInputEnabled"
                 android:title="@string/EPr_voiceInputEnabled_title"
                 android:defaultValue="true" />
-            <CheckBoxPreference
+            <com.todoroo.astrid.ui.MultilineCheckboxPreference
                 android:key="@string/p_voiceInputCreatesTask"
                 android:title="@string/EPr_voiceInputCreatesTask_title"
                 android:dependency="@string/p_voiceInputEnabled"
                 android:defaultValue="false" />
-            <CheckBoxPreference
+            <com.todoroo.astrid.ui.MultilineCheckboxPreference
                 android:key="@string/p_voiceRemindersEnabled"
                 android:title="@string/EPr_voiceRemindersEnabled_title"
                 android:defaultValue="false" />
@@ -47,7 +47,7 @@
         </PreferenceScreen>
     </PreferenceCategory>
 
-    <CheckBoxPreference
+    <com.todoroo.astrid.ui.MultilineCheckboxPreference
         android:key="@string/p_statistics"
         android:title="@string/EPr_statistics_title"
         android:defaultValue="true" />   

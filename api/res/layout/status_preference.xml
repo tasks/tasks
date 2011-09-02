@@ -35,9 +35,9 @@
         <TextView android:id="@+android:id/title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:singleLine="true"
+            android:singleLine="false"
             android:textAppearance="?android:attr/textAppearanceLarge"
-            android:ellipsize="marquee"
+            android:ellipsize="none"
             android:fadingEdge="horizontal" />
             
         <TextView android:id="@+android:id/summary"

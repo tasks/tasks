@@ -674,7 +674,7 @@
   <string name="EPr_theme_desc_unsupported">Setting requires Android 2.0+</string>
   
   <!-- Preference Category: Defaults Title -->
-  <string name="EPr_defaults_header">Standardeinstellungen für neue Aufgaben</string>
+  <string name="EPr_defaults_header">Neue Aufgabenstandards</string>
   
   <!-- Preference: Default Urgency Title -->
   <string name="EPr_default_urgency_title">Standard Dringlichkeit</string>
