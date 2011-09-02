@@ -29,7 +29,7 @@ public class AstridPreferences {
         Preferences.setIfUnset(prefs, editor, r, R.string.p_default_reminders_key, 6);
         Preferences.setIfUnset(prefs, editor, r, R.string.p_rmd_default_random_hours, 0);
         Preferences.setIfUnset(prefs, editor, r, R.string.p_fontSize, 20);
-        Preferences.setIfUnset(prefs, editor, r, R.string.p_showNotes, false);
+        Preferences.setIfUnset(prefs, editor, r, R.string.p_showNotes, true);
 
         editor.commit();
     }

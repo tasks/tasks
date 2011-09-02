@@ -19,6 +19,9 @@
   \n
   </string>
   
+  <!-- Task 1 due date setting. Corresponds to Task.URGENCY_TOMORROW -->
+  <string name="intro_task_1_due_setting">2</string>
+  
   <!-- Task 2 Summary  -->
   <string name="intro_task_2_summary">Add a widget to your desktop</string>
 
@@ -31,6 +34,9 @@
   \n
   </string>
   
+  <!-- Task 2 due date setting. Corresponds to Task.URGENCY_DAY_AFTER -->
+  <string name="intro_task_2_due_setting">3</string>
+  
     <!-- Task 3 Summary  -->
   <string name="intro_task_3_summary">Setup sync with Astrid.com</string>
 
@@ -42,6 +48,11 @@
     4) Log In &amp; Synchronize!\n
     \n
   </string>
+  
+  <!-- Task 1 due date setting. Corresponds to Task.URGENCY_NONE -->
+  <string name="intro_task_3_due_setting">0</string>
+ 
+  <!-- NEW USER EXPERIENCE -->
   
   <!-- NEW USER EXPERIENCE, help bubbles -->
   <!-- Shown the first time a user sees the task list activity -->
@@ -56,5 +67,25 @@
   <!-- Shown the first time a user sees the list settings tab -->
   <string name="help_popover_collaborators">Collaborators can help you build your list or finish tasks</string>
   
+  <!-- Login activity -->
+  <string name="welcome_login_title">Welcome to Astrid!</string>
+  
+  <string name="welcome_login_intro"></string>
+  
+  <string name="welcome_login_tos_base">By using Astrid you agree to the</string>
+  
+  <string name="welcome_login_tos_link">\"Terms of Service\"</string>
+  
+  <string name="welcome_login_pw">Login with Username/Password</string>
+  
+  <string name="welcome_login_later">Login Later</string>
+  
+  <string name="welcome_login_confirm_later_title">Why not sign in?</string>
+  
+  <string name="welcome_login_confirm_later_ok">I\'ll do it!</string>
+  
+  <string name="welcome_login_confirm_later_cancel">No thanks</string>
+  
+  <string name="welcome_login_confirm_later_dialog">Sign-in to get the most out of Astrid! For free you get online backup, full synchronization with with Astrid.com the ability to add tasks via email and you can even share tasks lists with friends!</string>
   
 </resources>

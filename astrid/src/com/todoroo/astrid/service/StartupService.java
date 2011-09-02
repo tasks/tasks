@@ -28,7 +28,6 @@ import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.andlib.service.ExceptionService;
 import com.todoroo.andlib.service.ExceptionService.TodorooUncaughtExceptionHandler;
 import com.todoroo.andlib.utility.AndroidUtilities;
-import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.astrid.actfm.sync.ActFmPreferenceService;
 import com.todoroo.astrid.actfm.sync.ActFmSyncService;
@@ -208,9 +207,10 @@ public class StartupService {
                     if(taskService.countTasks() > 0)
                         return;
 
-                    for(int i = 0; i < INTRO_TASKS.length; i += 2)
-                        addIntroTask(r, INTRO_TASKS[i], INTRO_TASKS[i + 1]);
+                    for(int i = 0; i < INTRO_TASKS.length; i += 3)
+                        addIntroTask(r, INTRO_TASKS[i], INTRO_TASKS[i + 1], INTRO_TASKS[i + 2]);
                 }
+
             }).start();
         } catch (Exception e) {
             exceptionService.reportError("on-first-time", e); //$NON-NLS-1$
@@ -218,21 +218,24 @@ public class StartupService {
     }
 
     private static final int[] INTRO_TASKS = new int[] {
-        R.string.intro_task_1_summary,
-        R.string.intro_task_1_note,
         R.string.intro_task_2_summary,
         R.string.intro_task_2_note,
+        R.string.intro_task_2_due_setting,
         R.string.intro_task_3_summary,
         R.string.intro_task_3_note,
+        R.string.intro_task_3_due_setting,
     };
-    public static final int INTRO_TASK_SIZE = INTRO_TASKS.length / 2;
+    public static final int INTRO_TASK_SIZE = INTRO_TASKS.length / 3;
 
-    private void addIntroTask(Resources r, int summary, int note) {
+    private void addIntroTask(Resources r, int summary, int note, int dueSetting) {
         Task task = new Task();
         task.setValue(Task.TITLE, r.getString(summary));
-        task.setValue(Task.DETAILS, r.getString(R.string.intro_click_prompt));
-        task.setValue(Task.DETAILS_DATE, 2*DateUtilities.now());
+        //task.setValue(Task.DETAILS, r.getString(R.string.intro_click_prompt));
+        //task.setValue(Task.DETAILS_DATE, 2*DateUtilities.now());
         task.setValue(Task.NOTES, r.getString(note));
+        int dueSettingParse = Integer.parseInt(r.getString(dueSetting));
+        long dueDate = Task.createDueDate(dueSettingParse, 0);
+        task.setValue(Task.DUE_DATE, dueDate);
         taskService.save(task);
     }
 
