@@ -101,7 +101,7 @@ public class SortHelper {
     public static Order defaultTaskOrder() {
         return Order.asc(Functions.caseStatement(Task.DUE_DATE.eq(0),
                 DateUtilities.now() * 2,
-                Task.DUE_DATE) + " + 200000000 * " +
+                Task.DUE_DATE) + " + " + (2 * DateUtilities.ONE_DAY) + " * " +
                 Task.IMPORTANCE + " + 2*" + Task.COMPLETION_DATE);
     }
 
