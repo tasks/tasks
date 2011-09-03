@@ -42,10 +42,10 @@ import android.test.suitebuilder.TestSuiteBuilder;
  *   -e class com.example.android.apis.os.MorseCodeConverterTest#testCharacterS \
  *   com.example.android.apis.tests/android.test.InstrumentationTestRunner
  */
-public class AllTests extends TestSuite {
+public class ContinuousTests extends TestSuite {
 
     public static Test suite() {
-        return new TestSuiteBuilder(AllTests.class)
+        return new TestSuiteBuilder(ContinuousTests.class)
             .excludePackages(
                 "com.todoroo.astrid.gtasks",
                 "com.todoroo.astrid.producteev",

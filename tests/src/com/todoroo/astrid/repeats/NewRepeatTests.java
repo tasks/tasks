@@ -29,10 +29,10 @@ import com.todoroo.astrid.utility.Flags;
 public class NewRepeatTests<REMOTE_MODEL> extends DatabaseTestCase {
 
     @Autowired
-    TaskDao taskDao;
+    protected TaskDao taskDao;
 
     @Autowired
-    MetadataDao metadataDao;
+    protected MetadataDao metadataDao;
 
     @Override
     protected void setUp() throws Exception {
@@ -66,6 +66,9 @@ public class NewRepeatTests<REMOTE_MODEL> extends DatabaseTestCase {
         return null;
     }
 
+    /**
+     * @param t task
+     */
     protected void assertTaskCompletedRemotely(Task t) {
         // Subclasses can override this to check the status of the corresponding remote task
     }

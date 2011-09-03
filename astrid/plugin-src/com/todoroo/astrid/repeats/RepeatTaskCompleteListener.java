@@ -102,7 +102,7 @@ public class RepeatTaskCompleteListener extends BroadcastReceiver {
     }
 
     /** for debug */
-    static void setSkipActFmCheck(boolean skipActFmCheck) {
+    public static void setSkipActFmCheck(boolean skipActFmCheck) {
         RepeatTaskCompleteListener.skipActFmCheck = skipActFmCheck;
     }
 

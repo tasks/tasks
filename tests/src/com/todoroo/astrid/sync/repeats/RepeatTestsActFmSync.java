@@ -1,4 +1,4 @@
-package com.todoroo.astrid.repeats;
+package com.todoroo.astrid.sync.repeats;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -23,6 +23,8 @@ import com.todoroo.astrid.actfm.sync.ActFmSyncService;
 import com.todoroo.astrid.dao.TaskDao.TaskCriteria;
 import com.todoroo.astrid.data.Metadata;
 import com.todoroo.astrid.data.Task;
+import com.todoroo.astrid.repeats.NewRepeatTests;
+import com.todoroo.astrid.repeats.RepeatTaskCompleteListener;
 import com.todoroo.astrid.service.MetadataService;
 import com.todoroo.astrid.service.StartupService;
 

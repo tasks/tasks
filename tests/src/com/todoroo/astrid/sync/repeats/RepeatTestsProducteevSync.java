@@ -1,4 +1,4 @@
-package com.todoroo.astrid.repeats;
+package com.todoroo.astrid.sync.repeats;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -14,6 +14,7 @@ import com.todoroo.astrid.producteev.api.ProducteevInvoker;
 import com.todoroo.astrid.producteev.sync.ProducteevDataService;
 import com.todoroo.astrid.producteev.sync.ProducteevSyncProvider;
 import com.todoroo.astrid.producteev.sync.ProducteevTask;
+import com.todoroo.astrid.repeats.NewRepeatTests;
 import com.todoroo.astrid.service.MetadataService;
 import com.todoroo.astrid.service.TaskService;
 import com.todoroo.astrid.tags.TagService;

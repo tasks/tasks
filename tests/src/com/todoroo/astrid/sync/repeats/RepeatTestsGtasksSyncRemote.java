@@ -1,4 +1,4 @@
-package com.todoroo.astrid.repeats;
+package com.todoroo.astrid.sync.repeats;
 
 import java.io.IOException;
 import java.util.Date;
