@@ -24,6 +24,7 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.timsu.astrid.R;
 import com.todoroo.andlib.data.AbstractModel;
 import com.todoroo.andlib.data.DatabaseDao;
 import com.todoroo.andlib.data.DatabaseDao.ModelUpdateListener;
@@ -798,8 +799,8 @@ public final class ActFmSyncService {
 
         public static void readUser(JSONObject user, AbstractModel model, LongProperty idProperty,
                 StringProperty userProperty) throws JSONException {
-            long id = user.getLong("id");
-            if(id == ActFmPreferenceService.userId()) {
+            long id = user.optLong("id", -1);
+            if(id == -1 || id == ActFmPreferenceService.userId()) {
                 model.setValue(idProperty, 0L);
                 if(userProperty != null)
                     model.setValue(userProperty, "");
