@@ -1,8 +1,10 @@
 package com.todoroo.astrid.repeats;
 
 import java.text.ParseException;
+import java.util.Calendar;
 import java.util.Collections;
 import java.util.Date;
+import java.util.List;
 import java.util.TimeZone;
 
 import android.content.BroadcastReceiver;
@@ -16,6 +18,7 @@ import com.google.ical.values.DateValue;
 import com.google.ical.values.DateValueImpl;
 import com.google.ical.values.Frequency;
 import com.google.ical.values.RRule;
+import com.google.ical.values.WeekdayNum;
 import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.ContextManager;
 import com.todoroo.andlib.service.DependencyInjectionService;
@@ -115,12 +118,26 @@ public class RepeatTaskCompleteListener extends BroadcastReceiver {
         Date original = setUpStartDate(task, repeatAfterCompletion, rrule.getFreq());
         DateValue startDateAsDV = setUpStartDateAsDV(task, rrule, original, repeatAfterCompletion);
 
-        if(rrule.getFreq() == Frequency.HOURLY)
-            return handleSubdayRepeat(original, rrule, DateUtilities.ONE_HOUR);
-        else if(rrule.getFreq() == Frequency.MINUTELY)
-            return handleSubdayRepeat(original, rrule, DateUtilities.ONE_MINUTE);
+        if(rrule.getFreq() == Frequency.HOURLY || rrule.getFreq() == Frequency.MINUTELY)
+            return handleSubdayRepeat(original, rrule);
+        else if(rrule.getByDay().size() > 0 && repeatAfterCompletion)
+            return handleWeeklyRepeatAfterComplete(rrule, original, startDateAsDV);
         else
             return invokeRecurrence(rrule, original, startDateAsDV);
+    }
+
+    private static long handleWeeklyRepeatAfterComplete(RRule rrule, Date original, DateValue startDateAsDV) {
+        List<WeekdayNum> byDay = rrule.getByDay();
+        rrule.setByDay(Collections.EMPTY_LIST);
+        Calendar date = Calendar.getInstance();
+        date.setTimeInMillis(invokeRecurrence(rrule, original, startDateAsDV));
+        outer: while(true) {
+            for(WeekdayNum weekdayNum : byDay)
+                if(weekdayNum.wday.javaDayNum == date.get(Calendar.DAY_OF_WEEK))
+                    break outer;
+            date.add(Calendar.DATE, 1);
+        }
+        return date.getTimeInMillis();
     }
 
     private static long invokeRecurrence(RRule rrule, Date original,
@@ -202,13 +219,6 @@ public class RepeatTaskCompleteListener extends BroadcastReceiver {
 
     private static DateValue setUpStartDateAsDV(Task task, RRule rrule, Date startDate,
             boolean repeatAfterCompletion) {
-
-        // if repeat after completion with weekdays, pre-compute
-        if(repeatAfterCompletion && rrule.getByDay().size() > 0) {
-            startDate = new Date(startDate.getTime() + DateUtilities.ONE_WEEK * rrule.getInterval());
-            rrule.setInterval(1);
-        }
-
         if(task.hasDueTime())
             return new DateTimeValueImpl(startDate.getYear() + 1900,
                     startDate.getMonth() + 1, startDate.getDate(),
@@ -218,7 +228,18 @@ public class RepeatTaskCompleteListener extends BroadcastReceiver {
                     startDate.getMonth() + 1, startDate.getDate());
     }
 
-    private static long handleSubdayRepeat(Date startDate, RRule rrule, long millis) {
+    private static long handleSubdayRepeat(Date startDate, RRule rrule) {
+        long millis;
+        switch(rrule.getFreq()) {
+        case HOURLY:
+            millis = DateUtilities.ONE_HOUR;
+            break;
+        case MINUTELY:
+            millis = DateUtilities.ONE_MINUTE;
+            break;
+        default:
+            throw new RuntimeException("Error handing subday repeat: " + rrule.getFreq()); //$NON-NLS-1$
+        }
         long newDueDate = startDate.getTime() + millis * rrule.getInterval();
         return Task.createDueDate(Task.URGENCY_SPECIFIC_DAY_TIME,
                 newDueDate);

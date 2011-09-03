@@ -145,6 +145,7 @@ public final class UpgradeService {
                     "List task counts are working again",
                     "Fixed reminders for tasks without due time notifying repeatedly",
                     "Fixed day-of-week checkboxes not having labels",
+                    "Fixed completing repeating tasks from powerpack widget broken",
                     "Added 'default add to calendar' setting for new task creation",
             });
         }

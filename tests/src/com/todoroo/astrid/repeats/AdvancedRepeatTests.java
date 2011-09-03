@@ -30,6 +30,7 @@ public class AdvancedRepeatTests extends TodorooTestCase {
     protected void setUp() throws Exception {
         super.setUp();
         task = new Task();
+        task.setValue(Task.COMPLETION_DATE, DateUtilities.now());
         rrule = new RRule();
     }
 
@@ -257,11 +258,10 @@ public class AdvancedRepeatTests extends TodorooTestCase {
         c.setTimeInMillis(start);
         int direction = which > 0 ? 1 : -1;
 
-        which = Math.abs(which);
-        while(which-- > 1)
-            c.add(Calendar.DAY_OF_MONTH, direction * 7);
-        while(c.get(Calendar.DAY_OF_WEEK) != dayOfWeek)
+        while(c.get(Calendar.DAY_OF_WEEK) != dayOfWeek) {
             c.add(Calendar.DAY_OF_MONTH, direction);
+        }
+        c.add(Calendar.DAY_OF_MONTH, (Math.abs(which) - 1) * direction * 7);
         return Task.createDueDate(Task.URGENCY_SPECIFIC_DAY, c.getTimeInMillis());
     }
 

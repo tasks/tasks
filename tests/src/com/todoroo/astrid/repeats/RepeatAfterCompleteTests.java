@@ -23,6 +23,7 @@ public class RepeatAfterCompleteTests extends TodorooTestCase {
     protected void setUp() throws Exception {
         super.setUp();
         task = new Task();
+        task.setValue(Task.COMPLETION_DATE, DateUtilities.now());
         rrule = new RRule();
     }
 
@@ -98,8 +99,8 @@ public class RepeatAfterCompleteTests extends TodorooTestCase {
     }
 
     public static void assertDateTimeEquals(String message, long expected, long actual) {
-        expected = expected / 1000L * 1000;
-        actual = actual / 1000L * 1000;
+        expected = expected / 60000L * 60000;
+        actual = actual / 60000L * 60000;
         assertEquals(message + ": Expected: " + new Date(expected) + ", Actual: " + new Date(actual),
                 expected, actual);
     }
