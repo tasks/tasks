@@ -77,8 +77,10 @@
         <run-tests-helper emma.enabled="true">
             <extra-instrument-args>
                 <arg value="-e" />
-                   <arg value="coverageFile" />
-                   <arg value="${emma.dump.file}" />
+                <arg value="coverageFile" />
+                <arg value="${emma.dump.file}" />
+                <arg value="class" />
+                <arg value="com.todoroo.astrid.ContinuousTests" />
             </extra-instrument-args>
         </run-tests-helper>
 
