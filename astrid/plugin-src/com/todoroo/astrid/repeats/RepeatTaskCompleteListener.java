@@ -43,7 +43,7 @@ public class RepeatTaskCompleteListener extends BroadcastReceiver {
 
         Task task = PluginServices.getTaskService().fetchById(taskId, Task.ID, Task.RECURRENCE,
                 Task.DUE_DATE, Task.FLAGS, Task.HIDE_UNTIL, Task.REMOTE_ID, Task.COMPLETION_DATE);
-        if(task == null)
+        if(task == null || !task.isCompleted())
             return;
 
         String recurrence = task.getValue(Task.RECURRENCE);
