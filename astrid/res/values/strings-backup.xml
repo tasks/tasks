@@ -13,7 +13,7 @@
     <string name="backup_BPr_group_status">Status</string>
     
     <!-- Backup Status: last backup was a success (%s -> last date). Keep it short! -->    
-    <string name="backup_status_success">Latest: %s</string>
+    <string name="backup_status_success">Latest backup:\n%s</string>
     <!-- Backup Status: last error failed. Keep it short! -->    
     <string name="backup_status_failed">Last Backup Failed</string>
     <!-- Backup Status: error subtitle -->    
