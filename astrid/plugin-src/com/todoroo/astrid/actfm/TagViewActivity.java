@@ -243,10 +243,10 @@ public class TagViewActivity extends TaskListActivity implements OnTabChangeList
 
     @SuppressWarnings("nls")
     private void showPopovers() {
-        if(tabHost.getCurrentTabTag().equals("tasks"))
-            showListTabPopover();
-        else if(tabHost.getCurrentTabTag().equals("settings"))
+        if(tabHost.getCurrentTabTag().equals("settings"))
             showCollaboratorsPopover();
+        else
+            showListTabPopover();
     }
 
     /**
@@ -636,10 +636,12 @@ public class TagViewActivity extends TaskListActivity implements OnTabChangeList
         String oldName = tagData.getValue(TagData.NAME);
         String newName = tagName.getText().toString();
 
-        if(!oldName.equals(newName)) {
+        boolean nameChanged = !oldName.equals(newName);
+        if (nameChanged) {
             tagData.setValue(TagData.NAME, newName);
             TagService.getInstance().rename(oldName, newName);
             tagData.setFlag(TagData.FLAGS, TagData.FLAG_EMERGENT, false);
+
         }
 
         if(newName.length() > 0 && oldName.length() == 0) {
@@ -664,6 +666,12 @@ public class TagViewActivity extends TaskListActivity implements OnTabChangeList
             Toast.makeText(this, R.string.tag_list_saved, Toast.LENGTH_LONG).show();
 
         tagDataService.save(tagData);
+
+        if (nameChanged) {
+            filter = TagFilterExposer.filterFromTagData(this, tagData);
+            taskAdapter = null;
+            loadTaskListContent(true);
+        }
 
         refreshSettingsPage();
     }
