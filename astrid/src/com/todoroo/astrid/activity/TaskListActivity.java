@@ -793,12 +793,13 @@ public class TaskListActivity extends ListActivity implements OnScrollListener,
 
     private void showHelpPopover() {
         if (!Preferences.getBoolean(R.string.p_showed_tap_task_help, false)) {
+            Preferences.setBoolean(R.string.p_showed_tap_task_help, true);
             InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
             imm.hideSoftInputFromWindow(quickAddBox.getWindowToken(), 0);
             getListView().postDelayed(new Runnable() {
                 public void run() {
                     final View view = getListView().getChildAt(getListView().getChildCount() - 1);
-                    HelpInfoPopover popover = HelpInfoPopover.showPopover(TaskListActivity.this, view, R.string.help_popover_tap_task);
+                     HelpInfoPopover.showPopover(TaskListActivity.this, view, R.string.help_popover_tap_task);
                 }
             }, 1000L);
 
