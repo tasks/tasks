@@ -147,33 +147,19 @@ public class ActFmLoginActivity extends Activity implements AuthListener {
         getWindow().setFormat(PixelFormat.RGBA_8888);
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_DITHER);
 
-        StatisticsService.reportEvent("actfm-login-show"); //$NON-NLS-1$
+        recordPageView();
 
         setResult(RESULT_CANCELED);
+    }
+
+    protected void recordPageView() {
+        StatisticsService.reportEvent("actfm-login-show"); //$NON-NLS-1$
     }
 
     protected void initializeUI() {
         findViewById(R.id.gg_login).setOnClickListener(googleListener);
         Button pwLogin = (Button) findViewById(R.id.pw_login);
         pwLogin.setOnClickListener(signUpListener);
-
-        /*String pwLoginBase = getString(R.string.actfm_ALA_pw_login);
-        SpannableString link = new SpannableString(String.format("%s %s", //$NON-NLS-1$
-                pwLoginBase, getString(R.string.actfm_ALA_pw_link)));
-        ClickableSpan linkSpan = new ClickableSpan() {
-            @Override
-            public void onClick(View widget) {
-                signUpListener.onClick(widget);
-            }
-            @Override
-            public void updateDrawState(TextPaint ds) {
-                ds.setUnderlineText(true);
-                ds.setColor(Color.rgb(255, 96, 0));
-            }
-
-        };
-        link.setSpan(linkSpan, pwLoginBase.length() + 1, link.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-        pwLogin.setText(link);//*/
     }
 
     // --- event handler
@@ -187,6 +173,7 @@ public class ActFmLoginActivity extends Activity implements AuthListener {
                 String url = actFmInvoker.createFetchUrl("user_oauth", "provider", "google");
                 intent.putExtra(OAuthLoginActivity.URL_TOKEN, url);
                 startActivityForResult(intent, REQUEST_CODE_OAUTH);
+                StatisticsService.reportEvent("actfm-login-gl-start"); //$NON-NLS-1$
             } catch (UnsupportedEncodingException e) {
                 handleError(e);
             } catch (NoSuchAlgorithmException e) {
@@ -433,6 +420,7 @@ public class ActFmLoginActivity extends Activity implements AuthListener {
             try {
                 JSONObject json = new JSONObject(result);
                 postAuthenticate(json, json.getString("token"));
+                StatisticsService.reportEvent("actfm-login-gl-success"); //$NON-NLS-1$
             } catch (JSONException e) {
                 handleError(e);
             }

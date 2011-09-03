@@ -54,6 +54,11 @@ public class WelcomeLogin extends ActFmLoginActivity implements AuthListener {
     }
 
     @Override
+    protected void recordPageView() {
+        // don't record, every new user hits this page
+    }
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         super.onCreate(savedInstanceState);
