@@ -24,7 +24,6 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.widget.Toast;
 
-import com.timsu.astrid.R;
 import com.todoroo.andlib.data.AbstractModel;
 import com.todoroo.andlib.data.DatabaseDao;
 import com.todoroo.andlib.data.DatabaseDao.ModelUpdateListener;
@@ -263,7 +262,6 @@ public final class ActFmSyncService {
             }
         }
 
-        System.err.println(values + " --- " + params);
         if(params.size() == 0 || !checkForToken())
             return;
 
