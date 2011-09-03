@@ -204,17 +204,27 @@ public class TagViewActivity extends TaskListActivity implements OnTabChangeList
         tabHost.addTab(spec);
     }
 
+    private void showListTabPopover() {
+        if (!Preferences.getBoolean(R.string.p_showed_list_settings_help, false)) {
+            View tabView = tabWidget.getChildTabViewAt(tabWidget.getTabCount() - 1);
+            HelpInfoPopover.showPopover(this, tabView, R.string.help_popover_list_settings);
+            Preferences.setBoolean(R.string.p_showed_list_settings_help, true);
+        }
+    }
+
+    private void showCollaboratorsPopover() {
+        if (!Preferences.getBoolean(R.string.p_showed_collaborators_help, false)) {
+            View members = findViewById(R.id.members_container);
+            HelpInfoPopover.showPopover(this, members, R.string.help_popover_collaborators);
+            Preferences.setBoolean(R.string.p_showed_collaborators_help, true);
+        }
+    }
+
     @SuppressWarnings("nls")
     @Override
     public void onTabChanged(String tabId) {
-        if(tabId.equals("tasks")) {
+        if(tabId.equals("tasks"))
             findViewById(R.id.taskListFooter).setVisibility(View.VISIBLE);
-            if (!Preferences.getBoolean(R.string.p_showed_list_settings_help, false)) {
-                View tabView = tabWidget.getChildTabViewAt(tabWidget.getTabCount() - 1);
-                HelpInfoPopover.showPopover(this, tabView, R.string.help_popover_list_settings);
-                Preferences.setBoolean(R.string.p_showed_list_settings_help, true);
-            }
-        }
         else
             findViewById(R.id.taskListFooter).setVisibility(View.GONE);
 
@@ -223,18 +233,21 @@ public class TagViewActivity extends TaskListActivity implements OnTabChangeList
         else
             findViewById(R.id.updatesFooter).setVisibility(View.GONE);
 
-        if(tabId.equals("settings")) {
+        if(tabId.equals("settings"))
             findViewById(R.id.membersFooter).setVisibility(View.VISIBLE);
-            if (!Preferences.getBoolean(R.string.p_showed_collaborators_help, false)) {
-                View members = findViewById(R.id.members_container);
-                HelpInfoPopover.showPopover(this, members, R.string.help_popover_collaborators);
-                Preferences.setBoolean(R.string.p_showed_collaborators_help, true);
-            }
-        }
         else
             findViewById(R.id.membersFooter).setVisibility(View.GONE);
+
+        showPopovers();
     }
 
+    @SuppressWarnings("nls")
+    private void showPopovers() {
+        if(tabHost.getCurrentTabTag().equals("tasks"))
+            showListTabPopover();
+        else if(tabHost.getCurrentTabTag().equals("settings"))
+            showCollaboratorsPopover();
+    }
 
     /**
      * Create options menu (displayed when user presses menu key)
