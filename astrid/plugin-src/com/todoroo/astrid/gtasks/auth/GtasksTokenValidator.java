@@ -29,8 +29,12 @@ public class GtasksTokenValidator {
             testService.ping();
             return token;
         } catch (IOException i) { //If fail, token may have expired -- get a new one and return that
+            String accountName = Preferences.getStringValue(GtasksPreferenceService.PREF_USER_NAME);
             Account a = accountManager.getAccountByName(Preferences.getStringValue(GtasksPreferenceService.PREF_USER_NAME));
-            if (a == null) return null;
+            if (a == null) {
+                System.err.println("Account for name: " + accountName + " not found");
+                return null;
+            }
 
             accountManager.invalidateAuthToken(token);
             AccountManagerFuture<Bundle> future = accountManager.manager.getAuthToken(a, GtasksService.AUTH_TOKEN_TYPE, true, null, null);
@@ -44,8 +48,11 @@ public class GtasksTokenValidator {
                         testService.ping();
                         return token;
                     } catch (IOException i2) {
+                        i2.printStackTrace();
                         return null;
                     }
+                } else {
+                    System.err.println("Future did not have key for authtoken");
                 }
             } catch (Exception e) {
                 e.printStackTrace();
@@ -54,6 +61,7 @@ public class GtasksTokenValidator {
 
         }
 
+        System.err.println("Gtasks token validation fell through all logic");
         return null;
     }
 
