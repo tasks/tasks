@@ -59,4 +59,11 @@
         
     </LinearLayout>
     
+    <Button android:id="@+id/dismiss_comments"
+        android:layout_width="fill_parent"
+        android:layout_height="50dip"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:text="@string/DLG_dismiss" />
+    
 </LinearLayout>

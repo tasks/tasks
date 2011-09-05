@@ -76,6 +76,8 @@ public class EditNoteActivity extends ListActivity {
         setTheme(R.style.Theme_Dialog);
         setContentView(R.layout.edit_note_activity);
 
+        findViewById(R.id.dismiss_comments).setOnClickListener(dismissCommentsListener);
+
         long taskId = getIntent().getLongExtra(EXTRA_TASK_ID, -1);
         task = PluginServices.getTaskService().fetchById(taskId, Task.NOTES, Task.ID, Task.REMOTE_ID, Task.TITLE);
         if(task == null) {
@@ -271,6 +273,13 @@ public class EditNoteActivity extends ListActivity {
 
         StatisticsService.reportEvent("actfm-task-comment"); //$NON-NLS-1$
     }
+
+    private final OnClickListener dismissCommentsListener = new OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            finish();
+        }
+    };
 
     @Override
     public boolean onMenuItemSelected(int featureId, MenuItem item) {

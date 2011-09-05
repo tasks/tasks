@@ -56,6 +56,9 @@
   <!-- Dialog - loading -->
   <string name="DLG_loading">Loading...</string>
   
+  <!-- Dialog - dismiss -->
+  <string name="DLG_dismiss">Dismiss</string>
+  
   <!-- =============================================================== UI == -->
   
   <!-- Label for DateButtons with no value -->
