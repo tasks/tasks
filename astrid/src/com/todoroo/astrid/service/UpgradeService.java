@@ -35,6 +35,7 @@ import com.todoroo.astrid.utility.AstridPreferences;
 
 public final class UpgradeService {
 
+    public static final int V3_8_3_1 = 193;
     public static final int V3_8_3 = 192;
     public static final int V3_8_2 = 191;
     public static final int V3_8_0_2 = 188;
@@ -134,6 +135,12 @@ public final class UpgradeService {
         StringBuilder changeLog = new StringBuilder();
 
         // current message
+        if (from >= V3_8_0 && from < V3_8_3_1) {
+            newVersionString(changeLog, "3.8.3.1 (9/06/11)", new String[] {
+               "A few bug fixes from the last version",
+               "Have a great week!",
+            });
+        }
         if(from >= V3_8_0 && from < V3_8_3) {
             newVersionString(changeLog, "3.8.3 (9/02/11)", new String[] {
                     "Several Google Tasks sync bug fixes / improvements",
