@@ -75,13 +75,13 @@
     <!-- Activity that displays task list -->
     <activity android:name="com.todoroo.astrid.welcome.WelcomeLogin"
               android:windowSoftInputMode="stateHidden">
+    </activity>
+    <activity android:name="com.todoroo.astrid.welcome.WelcomeScreen"
+              android:windowSoftInputMode="stateHidden">    
       <intent-filter>
         <action android:name="android.intent.action.MAIN" />
         <category android:name="android.intent.category.LAUNCHER" />
       </intent-filter>              
-    </activity>
-    <activity android:name="com.todoroo.astrid.welcome.WelcomeScreen"
-              android:windowSoftInputMode="stateHidden">    
     </activity>
     <activity android:name="com.todoroo.astrid.activity.TaskListActivity"
               android:windowSoftInputMode="stateHidden">

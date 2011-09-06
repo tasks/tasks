@@ -12,6 +12,7 @@ import com.timsu.astrid.R;
 import com.todoroo.andlib.service.ContextManager;
 import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.andlib.utility.Preferences;
+import com.todoroo.astrid.activity.Eula;
 import com.todoroo.astrid.activity.TaskListActivity;
 import com.todoroo.astrid.service.StartupService;
 
@@ -27,6 +28,8 @@ public class WelcomeScreen extends Activity {
         super.onCreate(savedInstanceState);
         new StartupService().onStartupApplication(this);
         setContentView(R.layout.welcome_screen);
+
+        Eula.showEula(this);
 
         final ImageView image = (ImageView)findViewById(R.id.welcome_image);
         image.setOnClickListener(new OnClickListener() {
