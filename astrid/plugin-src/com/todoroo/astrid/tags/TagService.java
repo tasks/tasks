@@ -1,6 +1,7 @@
 package com.todoroo.astrid.tags;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.LinkedHashSet;
 
 import com.todoroo.andlib.data.Property.CountProperty;
@@ -116,16 +117,23 @@ public final class TagService {
          */
         public QueryTemplate queryTemplate(Criterion criterion) {
             return new QueryTemplate().join(Join.inner(Metadata.TABLE,
-                    Task.ID.eq(Metadata.TASK))).where(tagEq(tag, criterion));
+                    Task.ID.eq(Metadata.TASK))).where(tagEqIgnoreCase(tag, criterion));
         }
 
     }
 
-    private static Criterion tagEq(String tag, Criterion additionalCriterion) {
+    public static Criterion tagEq(String tag, Criterion additionalCriterion) {
         return Criterion.and(
                 MetadataCriteria.withKey(KEY), TAG.eq(tag),
                 additionalCriterion);
     }
+
+    public static Criterion tagEqIgnoreCase(String tag, Criterion additionalCriterion) {
+        return Criterion.and(
+                MetadataCriteria.withKey(KEY), TAG.eqCaseInsensitive(tag),
+                additionalCriterion);
+    }
+
     public QueryTemplate untaggedTemplate() {
         return new QueryTemplate().where(Criterion.and(
                 Criterion.not(Task.ID.in(Query.select(Metadata.TASK).from(Metadata.TABLE).where(MetadataCriteria.withKey(KEY)))),
@@ -214,12 +222,17 @@ public final class TagService {
     public boolean synchronizeTags(long taskId, LinkedHashSet<String> tags) {
         MetadataService service = PluginServices.getMetadataService();
 
+        HashSet<String> addedTags = new HashSet<String>();
         ArrayList<Metadata> metadata = new ArrayList<Metadata>();
         for(String tag : tags) {
+            String tagWithCase = getTagWithCase(tag); // Find if any tag exists that matches with case ignore
+            if (addedTags.contains(tagWithCase)) // Prevent two identical tags from being added twice (e.g. don't add "Tag, tag" as "tag, tag")
+                continue;
+            addedTags.add(tagWithCase);
             Metadata item = new Metadata();
             item.setValue(Metadata.KEY, KEY);
-            item.setValue(TAG, tag);
-            TagData tagData = tagDataService.getTag(tag, TagData.REMOTE_ID);
+            item.setValue(TAG, tagWithCase);
+            TagData tagData = tagDataService.getTag(tagWithCase, TagData.REMOTE_ID);
             if(tagData != null)
                 item.setValue(REMOTE_ID, tagData.getValue(TagData.REMOTE_ID));
 
@@ -229,13 +242,53 @@ public final class TagService {
         return service.synchronizeMetadata(taskId, metadata, Metadata.KEY.eq(KEY));
     }
 
+    /**
+     * If a tag already exists in the database that case insensitively matches the
+     * given tag, return that. Otherwise, return the argument
+     * @param tag
+     * @return
+     */
+    public String getTagWithCase(String tag) {
+        MetadataService service = PluginServices.getMetadataService();
+        String tagWithCase = tag;
+        TodorooCursor<Metadata> tagMetadata = service.query(Query.select(TAG).where(TagService.tagEqIgnoreCase(tag, Criterion.all)).limit(1));
+        try {
+            if (tagMetadata.getCount() > 0) {
+                tagMetadata.moveToFirst();
+                Metadata tagMatch = new Metadata(tagMetadata);
+                tagWithCase = tagMatch.getValue(TagService.TAG);
+            } else {
+                TodorooCursor<TagData> tagData = tagDataService.query(Query.select(TagData.NAME).where(TagData.NAME.eqCaseInsensitive(tag)));
+                try {
+                    if (tagData.getCount() > 0) {
+                        tagData.moveToFirst();
+                        tagWithCase = new TagData(tagData).getValue(TagData.NAME);
+                    }
+                } finally {
+                    tagData.close();
+                }
+            }
+        } finally {
+            tagMetadata.close();
+        }
+        return tagWithCase;
+    }
+
     public int delete(String tag) {
         invalidateTaskCache(tag);
-        return PluginServices.getMetadataService().deleteWhere(tagEq(tag, Criterion.all));
+        return PluginServices.getMetadataService().deleteWhere(tagEqIgnoreCase(tag, Criterion.all));
     }
 
     public int rename(String oldTag, String newTag) {
-        // First remove newTag from all tasks that have both oldTag and newTag.
+        return renameHelper(oldTag, newTag, false);
+    }
+
+    public int renameCaseSensitive(String oldTag, String newTag) { // Need this for tag case migration process
+        return renameHelper(oldTag, newTag, true);
+    }
+
+    private int renameHelper(String oldTag, String newTag, boolean caseSensitive) {
+     // First remove newTag from all tasks that have both oldTag and newTag.
         MetadataService metadataService = PluginServices.getMetadataService();
         metadataService.deleteWhere(
                 Criterion.and(
@@ -245,10 +298,15 @@ public final class TagService {
         // Then rename all instances of oldTag to newTag.
         Metadata metadata = new Metadata();
         metadata.setValue(TAG, newTag);
-        int ret = metadataService.update(tagEq(oldTag, Criterion.all), metadata);
+        int ret;
+        if (caseSensitive)
+            ret = metadataService.update(tagEq(oldTag, Criterion.all), metadata);
+        else
+            ret = metadataService.update(tagEqIgnoreCase(oldTag, Criterion.all), metadata);
         invalidateTaskCache(newTag);
         return ret;
     }
+
 
     private Query rowsWithTag(String tag, Field... projections) {
         return Query.select(projections).from(Metadata.TABLE).where(Metadata.VALUE1.eq(tag));

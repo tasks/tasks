@@ -80,7 +80,7 @@ public class TagDataService {
      * @return null if doesn't exist
      */
     public TagData getTag(String name, Property<?>... properties) {
-        TodorooCursor<TagData> cursor = tagDataDao.query(Query.select(properties).where(TagData.NAME.eq(name)));
+        TodorooCursor<TagData> cursor = tagDataDao.query(Query.select(properties).where(TagData.NAME.eqCaseInsensitive(name)));
         try {
             if(cursor.getCount() == 0)
                 return null;
