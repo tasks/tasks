@@ -27,8 +27,4 @@
         android:title="@string/rmd_EPr_defaultRemind_title"
         android:entries="@array/EPr_reminder_random"
         android:entryValues="@array/EPr_reminder_random_hours" />
-    <com.todoroo.astrid.ui.MultilineCheckboxPreference
-        android:title="@string/EPr_default_addtocalendar_title"
-        android:key="@string/p_default_addtocalendar_key"
-        android:defaultValue="false"/>
 </PreferenceScreen>
