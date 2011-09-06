@@ -799,7 +799,9 @@ public class TaskListActivity extends ListActivity implements OnScrollListener,
             getListView().postDelayed(new Runnable() {
                 public void run() {
                     final View view = getListView().getChildAt(getListView().getChildCount() - 1);
-                     HelpInfoPopover.showPopover(TaskListActivity.this, view, R.string.help_popover_tap_task);
+                    if (view != null) {
+                        HelpInfoPopover.showPopover(TaskListActivity.this, view, R.string.help_popover_tap_task);
+                    }
                 }
             }, 1000L);
 
