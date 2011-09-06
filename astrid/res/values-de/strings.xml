@@ -226,7 +226,7 @@
     <string name="backup_BPr_group_status">Status</string>
     
     <!-- Backup Status: last backup was a success (%s -> last date). Keep it short! -->    
-    <string name="backup_status_success">Letztes Backup: %s</string>
+    <string name="backup_status_success">Letztes Backup:\n%s</string>
     <!-- Backup Status: last error failed. Keep it short! -->    
     <string name="backup_status_failed">Backup fehlgeschlagen</string>
     <!-- Backup Status: error subtitle -->    
@@ -674,7 +674,7 @@
   <string name="EPr_theme_desc_unsupported">Setting requires Android 2.0+</string>
   
   <!-- Preference Category: Defaults Title -->
-  <string name="EPr_defaults_header">Standardeinstellungen für neue Aufgaben</string>
+  <string name="EPr_defaults_header">Neue Aufgabenstandards</string>
   
   <!-- Preference: Default Urgency Title -->
   <string name="EPr_default_urgency_title">Standard Dringlichkeit</string>

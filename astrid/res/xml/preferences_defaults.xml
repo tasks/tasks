@@ -2,32 +2,32 @@
 <PreferenceScreen
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:title="@string/EPr_defaults_header">
-    <ListPreference
+    <com.todoroo.astrid.ui.MultilineListPreference
         android:key="@string/p_default_importance_key"
         android:entries="@array/EPr_default_importance"
         android:entryValues="@array/EPr_default_importance_values"
         android:title="@string/EPr_default_importance_title" />
-    <ListPreference
+    <com.todoroo.astrid.ui.MultilineListPreference
         android:key="@string/p_default_urgency_key"
         android:entries="@array/EPr_default_urgency"
         android:entryValues="@array/EPr_default_urgency_values"
         android:title="@string/EPr_default_urgency_title" />
-    <ListPreference
+    <com.todoroo.astrid.ui.MultilineListPreference
         android:key="@string/p_default_hideUntil_key"
         android:entries="@array/EPr_default_hideUntil"
         android:entryValues="@array/EPr_default_hideUntil_values"
         android:title="@string/EPr_default_hideUntil_title" />
-    <ListPreference
+    <com.todoroo.astrid.ui.MultilineListPreference
         android:key="@string/p_default_reminders_key"
         android:entries="@array/EPr_default_reminders"
         android:entryValues="@array/EPr_default_reminders_values"
         android:title="@string/EPr_default_reminders_title" />
-    <ListPreference
+    <com.todoroo.astrid.ui.MultilineListPreference
         android:key="@string/p_rmd_default_random_hours"
         android:title="@string/rmd_EPr_defaultRemind_title"
         android:entries="@array/EPr_reminder_random"
         android:entryValues="@array/EPr_reminder_random_hours" />
-    <CheckBoxPreference
+    <com.todoroo.astrid.ui.MultilineCheckboxPreference
         android:title="@string/EPr_default_addtocalendar_title"
         android:key="@string/p_default_addtocalendar_key"
         android:defaultValue="false"/>
