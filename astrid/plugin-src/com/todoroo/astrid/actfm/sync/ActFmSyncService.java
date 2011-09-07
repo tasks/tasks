@@ -8,6 +8,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.LinkedList;
+import java.util.Queue;
 
 import org.apache.http.entity.mime.MultipartEntity;
 import org.apache.http.entity.mime.content.ByteArrayBody;
@@ -86,7 +88,28 @@ public final class ActFmSyncService {
         DependencyInjectionService.getInstance().inject(this);
     }
 
+    private final Queue<Long> failedPushes = new LinkedList<Long>();
+
     public void initialize() {
+        new Thread(new Runnable() {
+            public void run() {
+                while (true) {
+                    AndroidUtilities.sleepDeep(5000 * 60); // 5 minutes between tries
+                    if(failedPushes.size() > 0) {
+                        Queue<Long> toTry = new LinkedList<Long>(); // Copy into a second queue so we don't end up infinitely retrying in the same loop
+                        while(failedPushes.size() > 0) {
+                            toTry.add(failedPushes.remove());
+                        }
+                        while(toTry.size() > 0) {
+                            if (!actFmPreferenceService.isOngoing()) {
+                                pushTask(toTry.remove());
+                            }
+                        }
+                    }
+                }
+            }
+         }).start();
+
         taskDao.addListener(new ModelUpdateListener<Task>() {
             @Override
             public void onModelUpdated(final Task model) {
@@ -281,8 +304,12 @@ public final class ActFmSyncService {
             Flags.set(Flags.ACTFM_SUPPRESS_SYNC);
             taskDao.saveExisting(task);
         } catch (JSONException e) {
+            if (!failedPushes.contains(task.getId()))
+                failedPushes.add(task.getId());
             handleException("task-save-json", e);
         } catch (IOException e) {
+            if (!failedPushes.contains(task.getId()))
+                failedPushes.add(task.getId());
             handleException("task-save-io", e);
         }
     }
