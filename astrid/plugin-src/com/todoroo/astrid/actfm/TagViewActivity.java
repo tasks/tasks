@@ -71,6 +71,7 @@ import com.todoroo.astrid.dao.UpdateDao;
 import com.todoroo.astrid.data.TagData;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.data.Update;
+import com.todoroo.astrid.service.StatisticsConstants;
 import com.todoroo.astrid.service.StatisticsService;
 import com.todoroo.astrid.service.TagDataService;
 import com.todoroo.astrid.tags.TagFilterExposer;
@@ -668,6 +669,10 @@ public class TagViewActivity extends TaskListActivity implements OnTabChangeList
             return;
         }
 
+        int oldMemberCount = tagData.getValue(TagData.MEMBER_COUNT);
+        if (members.length() > oldMemberCount) {
+            StatisticsService.reportEvent(StatisticsConstants.ACTFM_LIST_SHARED);
+        }
         tagData.setValue(TagData.MEMBERS, members.toString());
         tagData.setValue(TagData.MEMBER_COUNT, members.length());
         tagData.setFlag(TagData.FLAGS, TagData.FLAG_SILENT, isSilent.isChecked());
@@ -777,7 +782,7 @@ public class TagViewActivity extends TaskListActivity implements OnTabChangeList
         addCommentField.setText(""); //$NON-NLS-1$
         refreshUpdatesList();
 
-        StatisticsService.reportEvent("actfm-tag-comment"); //$NON-NLS-1$
+        StatisticsService.reportEvent(StatisticsConstants.ACTFM_TAG_COMMENT);
     }
 
     @Override

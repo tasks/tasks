@@ -17,6 +17,7 @@ import com.todoroo.astrid.adapter.FilterAdapter;
 import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.api.FilterCategory;
 import com.todoroo.astrid.api.FilterListItem;
+import com.todoroo.astrid.service.StatisticsConstants;
 import com.todoroo.astrid.service.StatisticsService;
 
 @SuppressWarnings("nls")
@@ -71,7 +72,7 @@ abstract public class WidgetConfigActivity extends ExpandableListActivity {
         Button button = (Button)findViewById(R.id.ok);
         button.setOnClickListener(mOnClickListener);
 
-        StatisticsService.reportEvent("widget-config"); //$NON-NLS-1$
+        StatisticsService.reportEvent(StatisticsConstants.WIDGET_CONFIG);
     }
 
     View.OnClickListener mOnClickListener = new View.OnClickListener() {
@@ -121,19 +122,20 @@ abstract public class WidgetConfigActivity extends ExpandableListActivity {
     @Override
     protected void onResume() {
         super.onResume();
+        StatisticsService.sessionStart(this);
         adapter.registerRecevier();
     }
 
     @Override
     protected void onPause() {
         super.onPause();
+        StatisticsService.sessionPause();
         adapter.unregisterRecevier();
     }
 
     @Override
     protected void onStart() {
         super.onStart();
-        StatisticsService.sessionStart(this);
     }
 
     @Override

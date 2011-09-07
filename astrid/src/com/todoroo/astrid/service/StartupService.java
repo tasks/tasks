@@ -41,6 +41,7 @@ import com.todoroo.astrid.gtasks.sync.GtasksSyncOnSaveService;
 import com.todoroo.astrid.opencrx.OpencrxCoreUtils;
 import com.todoroo.astrid.producteev.ProducteevUtilities;
 import com.todoroo.astrid.reminders.ReminderStartupReceiver;
+import com.todoroo.astrid.service.abtesting.FeatureFlipper;
 import com.todoroo.astrid.utility.AstridPreferences;
 import com.todoroo.astrid.utility.Constants;
 import com.todoroo.astrid.widget.TasksWidget.WidgetUpdateService;
@@ -179,6 +180,9 @@ public class StartupService {
 
                 // get and display update messages
                 new UpdateMessageService().processUpdates(context);
+
+                // Check for feature flips
+                new FeatureFlipper().updateFeatures();
             }
         }).start();
 
@@ -252,7 +256,7 @@ public class StartupService {
                 if(children.length > 0) {
                     StatisticsService.sessionStart(context);
                     TasksXmlImporter.importTasks(context, children[0].getAbsolutePath(), null);
-                    StatisticsService.reportEvent("lost-tasks-restored"); //$NON-NLS-1$
+                    StatisticsService.reportEvent(StatisticsConstants.LOST_TASKS_RESTORED);
                 }
             }
         } catch (Exception e) {

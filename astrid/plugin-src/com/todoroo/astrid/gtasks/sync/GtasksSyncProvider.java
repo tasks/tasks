@@ -59,6 +59,7 @@ import com.todoroo.astrid.gtasks.api.UpdateRequest;
 import com.todoroo.astrid.gtasks.auth.GtasksLoginActivity;
 import com.todoroo.astrid.gtasks.auth.GtasksTokenValidator;
 import com.todoroo.astrid.service.AstridDependencyInjector;
+import com.todoroo.astrid.service.StatisticsConstants;
 import com.todoroo.astrid.service.StatisticsService;
 import com.todoroo.astrid.sync.SyncContainer;
 import com.todoroo.astrid.sync.SyncProvider;
@@ -204,7 +205,7 @@ public class GtasksSyncProvider extends SyncProvider<GtasksTaskContainer> {
         } catch (IOException e) {
             handleException("gtasks-sync", e, true); //$NON-NLS-1$
         } finally {
-            StatisticsService.reportEvent("gtasks-sync-finished",
+            StatisticsService.reportEvent(StatisticsConstants.GTASKS_SYNC_FINISHED,
                     "success", Boolean.toString(syncSuccess)); //$NON-NLS-1$
         }
     }
@@ -607,7 +608,7 @@ public class GtasksSyncProvider extends SyncProvider<GtasksTaskContainer> {
             Task local = PluginServices.getTaskService().fetchById(task.task.getId(), Task.DUE_DATE, Task.COMPLETION_DATE);
             mergeDates(task.task, local);
             if(task.task.isCompleted() && !local.isCompleted())
-                StatisticsService.reportEvent("gtasks-task-completed"); //$NON-NLS-1$
+                StatisticsService.reportEvent(StatisticsConstants.GTASKS_TASK_COMPLETED);
         } else { // Set default reminders for remotely created tasks
             TaskDao.setDefaultReminders(task.task);
         }

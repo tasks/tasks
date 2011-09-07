@@ -161,7 +161,18 @@ public class GtasksLoginActivity extends ListActivity {
     @Override
     protected void onStart() {
         super.onStart();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
         StatisticsService.sessionStart(this);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        StatisticsService.sessionPause();
     }
 
     @Override

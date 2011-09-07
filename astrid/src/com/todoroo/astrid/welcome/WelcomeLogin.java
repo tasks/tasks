@@ -23,25 +23,13 @@ import com.todoroo.andlib.utility.DialogUtilities;
 import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.astrid.actfm.ActFmLoginActivity;
 import com.todoroo.astrid.activity.Eula;
-import com.todoroo.astrid.activity.TaskListActivity;
 import com.todoroo.astrid.data.Task;
-import com.todoroo.astrid.service.AstridDependencyInjector;
-import com.todoroo.astrid.service.StartupService;
-import com.todoroo.astrid.utility.AstridPreferences;
 
 public class WelcomeLogin extends ActFmLoginActivity implements AuthListener {
 
     // --- ui initialization
 
     public static final String KEY_SHOWED_WELCOME_LOGIN = "key_showed_welcome_login"; //$NON-NLS-1$
-
-    public static final String KEY_IS_NEW_INSTALL = "key_is_new_install";  //$NON-NLS-1$
-
-    private boolean shouldShowWelcomeScreen = true;
-
-    static {
-        AstridDependencyInjector.initialize();
-    }
 
     @Override
     protected int getContentViewResource() {
@@ -62,29 +50,20 @@ public class WelcomeLogin extends ActFmLoginActivity implements AuthListener {
     protected void onCreate(Bundle savedInstanceState) {
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         super.onCreate(savedInstanceState);
-        int latestSetVersion = AstridPreferences.getCurrentVersion();
-        shouldShowWelcomeScreen = (latestSetVersion == 0);
-        new StartupService().onStartupApplication(this);
         ContextManager.setContext(this);
-
-        if (latestSetVersion !=0 || Preferences.getBoolean(KEY_SHOWED_WELCOME_LOGIN, false)) {
+        if (Preferences.getBoolean(KEY_SHOWED_WELCOME_LOGIN, false)) {
             finishAndShowNext();
         }
+
         initializeUI();
     }
 
     @Override
     protected void finishAndShowNext() {
-        if (shouldShowWelcomeScreen) {
-            Intent welcomeScreen = new Intent(this, WelcomeScreen.class);
-            startActivity(welcomeScreen);
-            finish();
-            Preferences.setBoolean(KEY_SHOWED_WELCOME_LOGIN, true);
-        } else {
-            Intent taskListStartup = new Intent(this, TaskListActivity.class);
-            startActivity(taskListStartup);
-            finish();
-        }
+        Intent welcomeScreen = new Intent(this, WelcomeGraphic.class);
+        startActivity(welcomeScreen);
+        finish();
+        Preferences.setBoolean(KEY_SHOWED_WELCOME_LOGIN, true);
     }
 
     @Override

@@ -30,6 +30,7 @@ import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.andlib.service.ExceptionService;
 import com.todoroo.astrid.activity.TaskEditActivity.TaskEditControlSet;
 import com.todoroo.astrid.data.Task;
+import com.todoroo.astrid.service.StatisticsConstants;
 import com.todoroo.astrid.service.StatisticsService;
 import com.todoroo.astrid.ui.NumberPicker;
 import com.todoroo.astrid.ui.NumberPickerDialog;
@@ -250,7 +251,7 @@ public class RepeatControlSet implements TaskEditControlSet {
             result = ""; //$NON-NLS-1$
         else {
             if(TextUtils.isEmpty(task.getValue(Task.RECURRENCE))) {
-                StatisticsService.reportEvent("repeat-task-create"); //$NON-NLS-1$
+                StatisticsService.reportEvent(StatisticsConstants.REPEAT_TASK_CREATE);
             }
 
             RRule rrule = new RRule();

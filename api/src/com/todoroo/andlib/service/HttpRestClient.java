@@ -36,12 +36,18 @@ public class HttpRestClient implements RestClient {
 
     private static final int TIMEOUT_MILLIS = 30000;
 
-    private static WeakReference<HttpClient> httpClient = null;
+    private WeakReference<HttpClient> httpClient = null;
 
     protected boolean debug = false;
+    private int timeout = TIMEOUT_MILLIS;
 
     public HttpRestClient() {
         DependencyInjectionService.getInstance().inject(this);
+    }
+
+    public HttpRestClient(int timeout) {
+        super();
+        this.timeout = timeout;
     }
 
     private static String convertStreamToString(InputStream is) {
@@ -72,11 +78,11 @@ public class HttpRestClient implements RestClient {
         return sb.toString();
     }
 
-    private synchronized static HttpClient getClient() {
+    private synchronized HttpClient getClient() {
         if (httpClient == null || httpClient.get() == null) {
             HttpParams params = new BasicHttpParams();
-            HttpConnectionParams.setConnectionTimeout(params, TIMEOUT_MILLIS);
-            HttpConnectionParams.setSoTimeout(params, TIMEOUT_MILLIS);
+            HttpConnectionParams.setConnectionTimeout(params, timeout);
+            HttpConnectionParams.setSoTimeout(params, timeout);
             HttpClient client = new DefaultHttpClient(params);
             httpClient = new WeakReference<HttpClient>(client);
             return client;

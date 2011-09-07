@@ -21,6 +21,7 @@ import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.data.TaskApiDao;
 import com.todoroo.astrid.reminders.Notifications;
 import com.todoroo.astrid.reminders.ReminderService;
+import com.todoroo.astrid.service.StatisticsConstants;
 import com.todoroo.astrid.service.StatisticsService;
 import com.todoroo.astrid.utility.AstridPreferences;
 import com.todoroo.astrid.utility.Flags;
@@ -205,7 +206,7 @@ public class TaskDao extends DatabaseDao<Task> {
         boolean result = super.createNew(item);
         if(result) {
             if(Preferences.getBoolean(AstridPreferences.P_FIRST_ACTION, false)) {
-                StatisticsService.reportEvent("user-first-task"); //$NON-NLS-1$
+                StatisticsService.reportEvent(StatisticsConstants.USER_FIRST_TASK);
                 Preferences.setBoolean(AstridPreferences.P_FIRST_ACTION, false);
             }
             afterSave(item, values);

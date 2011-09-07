@@ -29,6 +29,7 @@ import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.astrid.activity.TaskEditActivity.TaskEditControlSet;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.gcal.Calendars.CalendarResult;
+import com.todoroo.astrid.service.StatisticsConstants;
 import com.todoroo.astrid.service.StatisticsService;
 
 /**
@@ -150,7 +151,7 @@ public class GCalControlSet implements TaskEditControlSet {
         if (((Preferences.getBoolean(R.string.p_default_addtocalendar_key, false) && !task.isSaved())
                 || addToCalendar.isChecked()) &&
                 calendarUri == null) {
-            StatisticsService.reportEvent("create-calendar-event");
+            StatisticsService.reportEvent(StatisticsConstants.CREATE_CALENDAR_EVENT);
 
             try{
                 Uri uri = Calendars.getCalendarContentUri(Calendars.CALENDAR_CONTENT_EVENTS);

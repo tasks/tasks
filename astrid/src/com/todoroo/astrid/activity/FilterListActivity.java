@@ -34,6 +34,7 @@ import android.widget.EditText;
 import android.widget.ExpandableListView;
 import android.widget.ExpandableListView.ExpandableListContextMenuInfo;
 import android.widget.FrameLayout;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.TextView.OnEditorActionListener;
 import android.widget.Toast;
@@ -57,6 +58,7 @@ import com.todoroo.astrid.api.IntentFilter;
 import com.todoroo.astrid.core.SearchFilter;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.service.StartupService;
+import com.todoroo.astrid.service.StatisticsConstants;
 import com.todoroo.astrid.service.StatisticsService;
 import com.todoroo.astrid.service.ThemeService;
 
@@ -68,6 +70,9 @@ import com.todoroo.astrid.service.ThemeService;
  *
  */
 public class FilterListActivity extends ExpandableListActivity {
+
+    // -- extra codes
+    public static final String SHOW_BACK_BUTTON = "show_back"; //$NON-NLS-1$
 
     // --- menu codes
 
@@ -106,9 +111,14 @@ public class FilterListActivity extends ExpandableListActivity {
         ThemeService.applyTheme(this);
 
         setContentView(R.layout.filter_list_activity);
+        ImageView backButton = (ImageView) findViewById(R.id.back);
+        if (!getIntent().getBooleanExtra(SHOW_BACK_BUTTON, true)) {
+            backButton.setVisibility(View.GONE);
+            findViewById(R.id.listLabel).setPadding(0, 0, 0, 0);
+        }
         setDefaultKeyMode(DEFAULT_KEYS_SEARCH_LOCAL);
 
-        findViewById(R.id.back).setOnClickListener(new OnClickListener() {
+        backButton.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
                 finish();
@@ -183,7 +193,6 @@ public class FilterListActivity extends ExpandableListActivity {
     @Override
     protected void onStart() {
         super.onStart();
-        StatisticsService.sessionStart(this);
     }
 
     @Override
@@ -195,6 +204,7 @@ public class FilterListActivity extends ExpandableListActivity {
     @Override
     protected void onResume() {
         super.onResume();
+        StatisticsService.sessionStart(this);
         if(adapter != null)
             adapter.registerRecevier();
     }
@@ -241,11 +251,11 @@ public class FilterListActivity extends ExpandableListActivity {
             AndroidUtilities.callApiMethod(5, this, "overridePendingTransition", //$NON-NLS-1$
                     new Class<?>[] { Integer.TYPE, Integer.TYPE },
                     R.anim.slide_left_in, R.anim.slide_left_out);
-            StatisticsService.reportEvent("filter-list"); //$NON-NLS-1$
+            StatisticsService.reportEvent(StatisticsConstants.FILTER_LIST);
             return true;
         } else if(item instanceof SearchFilter) {
             onSearchRequested();
-            StatisticsService.reportEvent("filter-search"); //$NON-NLS-1$
+            StatisticsService.reportEvent(StatisticsConstants.FILTER_SEARCH);
         } else if(item instanceof IntentFilter) {
             try {
                 ((IntentFilter)item).intent.send();

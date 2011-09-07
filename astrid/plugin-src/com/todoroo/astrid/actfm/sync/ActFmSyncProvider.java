@@ -35,6 +35,7 @@ import com.todoroo.astrid.data.Metadata;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.notes.NoteMetadata;
 import com.todoroo.astrid.service.AstridDependencyInjector;
+import com.todoroo.astrid.service.StatisticsConstants;
 import com.todoroo.astrid.service.StatisticsService;
 import com.todoroo.astrid.sync.SyncProvider;
 import com.todoroo.astrid.sync.SyncProviderUtilities;
@@ -153,7 +154,7 @@ public class ActFmSyncProvider extends SyncProvider<ActFmTaskContainer> {
         } catch (Exception e) {
             handleException("actfm-sync", e, true); //$NON-NLS-1$
         } finally {
-            StatisticsService.reportEvent("actfm-sync-finished",
+            StatisticsService.reportEvent(StatisticsConstants.ACTFM_SYNC_FINISHED,
                     "success", Boolean.toString(syncSuccess)); //$NON-NLS-1$
         }
     }
@@ -298,7 +299,7 @@ public class ActFmSyncProvider extends SyncProvider<ActFmTaskContainer> {
         if(task.task.isSaved()) {
             Task local = PluginServices.getTaskService().fetchById(task.task.getId(), Task.COMPLETION_DATE);
             if(task.task.isCompleted() && !local.isCompleted())
-                StatisticsService.reportEvent("actfm-task-completed"); //$NON-NLS-1$
+                StatisticsService.reportEvent(StatisticsConstants.ACTFM_TASK_COMPLETED);
         } else { // Set default reminders for remotely created tasks
             TaskDao.setDefaultReminders(task.task);
         }

@@ -47,6 +47,7 @@ import com.todoroo.astrid.data.TagData;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.service.AstridDependencyInjector;
 import com.todoroo.astrid.service.MetadataService;
+import com.todoroo.astrid.service.StatisticsConstants;
 import com.todoroo.astrid.service.StatisticsService;
 import com.todoroo.astrid.service.TagDataService;
 import com.todoroo.astrid.service.TaskService;
@@ -503,7 +504,7 @@ public class EditPeopleControlSet implements TaskEditControlSet {
                         saveToast += "\n" +
                             activity.getString(R.string.actfm_EPA_emailed_toast,
                             activity.getResources().getQuantityString(R.plurals.Npeople, count, count));
-                        StatisticsService.reportEvent("actfm-task-shared"); //$NON-NLS-1$
+                        StatisticsService.reportEvent(StatisticsConstants.ACTFM_TASK_SHARED);
                     }
 
                     Intent broadcastIntent = new Intent(AstridApiConstants.BROADCAST_EVENT_REFRESH);

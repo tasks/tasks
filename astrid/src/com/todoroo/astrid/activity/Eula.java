@@ -26,6 +26,7 @@ import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.astrid.service.StartupService;
+import com.todoroo.astrid.service.StatisticsConstants;
 import com.todoroo.astrid.service.StatisticsService;
 import com.todoroo.astrid.service.TaskService;
 
@@ -107,7 +108,7 @@ public final class Eula {
             ((EulaCallback)activity).eulaAccepted();
         }
         Preferences.setBoolean(PREFERENCE_EULA_ACCEPTED, true);
-        StatisticsService.reportEvent("eula-accepted"); //$NON-NLS-1$
+        StatisticsService.reportEvent(StatisticsConstants.EULA_ACCEPTED);
     }
 
     private static void refuse(Activity activity) {

@@ -42,6 +42,7 @@ import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.astrid.producteev.api.ApiAuthenticationException;
 import com.todoroo.astrid.producteev.api.ProducteevInvoker;
 import com.todoroo.astrid.producteev.sync.ProducteevSyncProvider;
+import com.todoroo.astrid.service.StatisticsConstants;
 import com.todoroo.astrid.service.StatisticsService;
 
 /**
@@ -157,7 +158,7 @@ public class ProducteevLoginActivity extends Activity {
                     Preferences.setString(R.string.producteev_PPr_password, password);
                     ProducteevUtilities.INSTANCE.setToken(invoker.getToken());
 
-                    StatisticsService.reportEvent("producteev-login"); //$NON-NLS-1$
+                    StatisticsService.reportEvent(StatisticsConstants.PRODUCTEEV_LOGIN);
 
                     synchronize();
                 } catch (ApiAuthenticationException e) {
@@ -198,7 +199,7 @@ public class ProducteevLoginActivity extends Activity {
                     Preferences.setString(R.string.producteev_PPr_password, password);
                     ProducteevUtilities.INSTANCE.setToken(invoker.getToken());
 
-                    StatisticsService.reportEvent("producteev-signup"); //$NON-NLS-1$
+                    StatisticsService.reportEvent(StatisticsConstants.PRODUCTEEV_SIGNUP);
 
                     synchronize();
                 } catch (Exception e) {
@@ -230,7 +231,18 @@ public class ProducteevLoginActivity extends Activity {
     @Override
     protected void onStart() {
         super.onStart();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
         StatisticsService.sessionStart(this);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        StatisticsService.sessionPause();
     }
 
     @Override

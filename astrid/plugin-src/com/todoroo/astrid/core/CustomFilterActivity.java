@@ -241,7 +241,6 @@ public class CustomFilterActivity extends ListActivity {
     @Override
     protected void onStart() {
         super.onStart();
-        StatisticsService.sessionStart(this);
     }
 
     @Override
@@ -253,6 +252,7 @@ public class CustomFilterActivity extends ListActivity {
     @Override
     protected void onResume() {
         super.onResume();
+        StatisticsService.sessionStart(this);
         registerReceiver(filterCriteriaReceiver, new IntentFilter(AstridApiConstants.BROADCAST_SEND_CUSTOM_FILTER_CRITERIA));
         populateCriteria();
     }

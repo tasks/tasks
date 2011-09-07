@@ -40,7 +40,7 @@
  
   <!-- NEW USER EXPERIENCE -->
   
-  <!-- NEW USER EXPERIENCE, help bubbles -->
+  <!-- help bubbles -->
   <!-- Shown the first time a user sees the task list activity -->
   <string name="help_popover_add_task">Add a task here</string>
 

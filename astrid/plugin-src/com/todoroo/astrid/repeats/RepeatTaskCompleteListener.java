@@ -27,6 +27,7 @@ import com.todoroo.astrid.actfm.sync.ActFmPreferenceService;
 import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.core.PluginServices;
 import com.todoroo.astrid.data.Task;
+import com.todoroo.astrid.service.StatisticsConstants;
 import com.todoroo.astrid.service.StatisticsService;
 import com.todoroo.astrid.utility.Flags;
 
@@ -61,7 +62,7 @@ public class RepeatTaskCompleteListener extends BroadcastReceiver {
                 return;
             }
 
-            StatisticsService.reportEvent("v2-task-repeat"); //$NON-NLS-1$
+            StatisticsService.reportEvent(StatisticsConstants.V2_TASK_REPEAT);
 
             long hideUntil = task.getValue(Task.HIDE_UNTIL);
             if(hideUntil > 0 && task.getValue(Task.DUE_DATE) > 0) {

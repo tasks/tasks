@@ -56,6 +56,7 @@ import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.data.Update;
 import com.todoroo.astrid.service.MetadataService;
 import com.todoroo.astrid.service.StartupService;
+import com.todoroo.astrid.service.StatisticsConstants;
 import com.todoroo.astrid.service.StatisticsService;
 import com.todoroo.astrid.service.TagDataService;
 import com.todoroo.astrid.service.TaskService;
@@ -633,9 +634,9 @@ public final class ActFmSyncService {
 
                     if(remote.getValue(Task.USER_ID) == 0) {
                         if(!remote.isSaved())
-                            StatisticsService.reportEvent("actfm-task-created");
+                            StatisticsService.reportEvent(StatisticsConstants.ACTFM_TASK_CREATED);
                         else if(remote.isCompleted())
-                            StatisticsService.reportEvent("actfm-task-completed");
+                            StatisticsService.reportEvent(StatisticsConstants.ACTFM_TASK_COMPLETED);
                     }
 
 

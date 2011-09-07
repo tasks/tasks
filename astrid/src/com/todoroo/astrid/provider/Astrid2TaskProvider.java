@@ -25,6 +25,7 @@ import com.todoroo.astrid.dao.TaskDao.TaskCriteria;
 import com.todoroo.astrid.data.Metadata;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.service.AstridDependencyInjector;
+import com.todoroo.astrid.service.StatisticsConstants;
 import com.todoroo.astrid.service.StatisticsService;
 import com.todoroo.astrid.service.TaskService;
 import com.todoroo.astrid.tags.TagService;
@@ -268,7 +269,7 @@ public class Astrid2TaskProvider extends ContentProvider {
                 task.setValue(Task.COMPLETION_DATE,
                         values.getAsBoolean(COMPLETED) ? DateUtilities.now() : 0);
                 if(task.isCompleted())
-                    StatisticsService.reportEvent("task-completed-api2");
+                    StatisticsService.reportEvent(StatisticsConstants.TASK_COMPLETED_API2);
             }
 
             // map selection criteria

@@ -50,6 +50,7 @@ import com.todoroo.astrid.producteev.api.ApiServiceException;
 import com.todoroo.astrid.producteev.api.ApiUtilities;
 import com.todoroo.astrid.producteev.api.ProducteevInvoker;
 import com.todoroo.astrid.service.AstridDependencyInjector;
+import com.todoroo.astrid.service.StatisticsConstants;
 import com.todoroo.astrid.service.StatisticsService;
 import com.todoroo.astrid.sync.SyncContainer;
 import com.todoroo.astrid.sync.SyncProvider;
@@ -250,7 +251,7 @@ public class ProducteevSyncProvider extends SyncProvider<ProducteevTaskContainer
         } catch (Exception e) {
             handleException("pdv-sync", e, true); //$NON-NLS-1$
         } finally {
-            StatisticsService.reportEvent("pdv-sync-finished",
+            StatisticsService.reportEvent(StatisticsConstants.PDV_SYNC_FINISHED,
                     "success", Boolean.toString(syncSuccess)); //$NON-NLS-1$
         }
     }
@@ -610,7 +611,7 @@ public class ProducteevSyncProvider extends SyncProvider<ProducteevTaskContainer
             Task local = PluginServices.getTaskService().fetchById(task.task.getId(), Task.COMPLETION_DATE, Task.FLAGS);
             task.task.setFlag(Task.FLAGS, Task.FLAG_REPEAT_AFTER_COMPLETION, local.getFlag(Task.FLAGS, Task.FLAG_REPEAT_AFTER_COMPLETION));
             if(task.task.isCompleted() && !local.isCompleted())
-                StatisticsService.reportEvent("pdv-task-completed"); //$NON-NLS-1$
+                StatisticsService.reportEvent(StatisticsConstants.PDV_TASK_COMPLETED);
         } else { // Set default reminders for remotely created tasks
             TaskDao.setDefaultReminders(task.task);
         }
