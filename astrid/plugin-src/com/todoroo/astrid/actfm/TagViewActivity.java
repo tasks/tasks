@@ -637,16 +637,22 @@ public class TagViewActivity extends TaskListActivity implements OnTabChangeList
         String newName = tagName.getText().toString();
 
         boolean nameChanged = !oldName.equals(newName);
+        TagService service = TagService.getInstance();
         if (nameChanged) {
-            TagService service = TagService.getInstance();
-            newName = service.getTagWithCase(newName);
-            tagName.setText(newName);
-            if (!newName.equals(oldName)) {
+            if (oldName.equalsIgnoreCase(newName)) { // Change the capitalization of a list manually
                 tagData.setValue(TagData.NAME, newName);
-                service.rename(oldName, newName);
+                service.renameCaseSensitive(oldName, newName);
                 tagData.setFlag(TagData.FLAGS, TagData.FLAG_EMERGENT, false);
-            } else {
-                nameChanged = false;
+            } else { // Rename list--check for existing name
+                newName = service.getTagWithCase(newName);
+                tagName.setText(newName);
+                if (!newName.equals(oldName)) {
+                    tagData.setValue(TagData.NAME, newName);
+                    service.rename(oldName, newName);
+                    tagData.setFlag(TagData.FLAGS, TagData.FLAG_EMERGENT, false);
+                } else {
+                    nameChanged = false;
+                }
             }
         }
 
