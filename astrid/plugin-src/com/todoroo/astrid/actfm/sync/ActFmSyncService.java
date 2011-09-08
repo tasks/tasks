@@ -26,6 +26,7 @@ import android.os.Handler;
 import android.os.Looper;
 import android.text.TextUtils;
 import android.util.Log;
+import android.util.Pair;
 import android.widget.Toast;
 
 import com.timsu.astrid.R;
@@ -86,13 +87,17 @@ public final class ActFmSyncService {
 
     public static final long TIME_BETWEEN_TRIES = 5000 * 60; // 5 minutes between tries for failed pushes
 
+    private static final int PUSH_TYPE_TASK = 0;
+    private static final int PUSH_TYPE_TAG = 1;
+    private static final int PUSH_TYPE_UPDATE = 2;
+
     private String token;
 
     public ActFmSyncService() {
         DependencyInjectionService.getInstance().inject(this);
     }
 
-    private final List<Long> failedPushes = Collections.synchronizedList(new LinkedList<Long>());
+    private final List<Pair<Integer, Long>> failedPushes = Collections.synchronizedList(new LinkedList<Pair<Integer, Long>>());
 
     public void initialize() {
         new Thread(new Runnable() {
@@ -100,13 +105,25 @@ public final class ActFmSyncService {
                 while (true) {
                     AndroidUtilities.sleepDeep(TIME_BETWEEN_TRIES);
                     if(failedPushes.size() > 0) {
-                        Queue<Long> toTry = new LinkedList<Long>(); // Copy into a second queue so we don't end up infinitely retrying in the same loop
+                        Queue<Pair<Integer, Long>> toTry = new LinkedList<Pair<Integer, Long>>(); // Copy into a second queue so we don't end up infinitely retrying in the same loop
                         while(failedPushes.size() > 0) {
                             toTry.add(failedPushes.remove(0));
                         }
                         while(toTry.size() > 0) {
                             if (!actFmPreferenceService.isOngoing()) {
-                                pushTask(toTry.remove());
+                                Pair<Integer, Long> pushOp = toTry.remove();
+                                long id = pushOp.second;
+                                switch(pushOp.first.intValue()) {
+                                case PUSH_TYPE_TASK:
+                                    pushTask(id);
+                                    break;
+                                case PUSH_TYPE_TAG:
+                                    pushTag(id);
+                                    break;
+                                case PUSH_TYPE_UPDATE:
+                                    pushUpdate(id);
+                                    break;
+                                }
                             } else { // If normal sync ongoing/starts, let it deal with remaining sync
                                 break;
                             }
@@ -209,6 +226,7 @@ public final class ActFmSyncService {
             update.setValue(Update.REMOTE_ID, result.optLong("id"));
             updateDao.saveExisting(update);
         } catch (IOException e) {
+            failedPushes.add(new Pair<Integer, Long>(PUSH_TYPE_UPDATE, update.getId()));
             handleException("task-save", e);
         }
     }
@@ -311,22 +329,40 @@ public final class ActFmSyncService {
             taskDao.saveExisting(task);
         } catch (JSONException e) {
             if (!failedPushes.contains(task.getId()))
-                failedPushes.add(task.getId());
+                failedPushes.add(new Pair<Integer, Long>(PUSH_TYPE_TASK, task.getId()));
             handleException("task-save-json", e);
         } catch (IOException e) {
             if (!failedPushes.contains(task.getId()))
-                failedPushes.add(task.getId());
+                failedPushes.add(new Pair<Integer, Long>(PUSH_TYPE_TASK, task.getId()));
             handleException("task-save-io", e);
         }
     }
 
     /**
      * Synchronize complete task with server
-     * @param task
+     * @param task id
      */
     public void pushTask(long taskId) {
         Task task = taskService.fetchById(taskId, Task.PROPERTIES);
         pushTaskOnSave(task, task.getMergedValues());
+    }
+
+    /**
+     * Synchronize complete tag with server
+     * @param tagdata id
+     */
+    public void pushTag(long tagId) {
+        TagData tagData = tagDataService.fetchById(tagId, TagData.PROPERTIES);
+        pushTagDataOnSave(tagData, tagData.getMergedValues());
+    }
+
+    /**
+     * Synchronize complete update with server
+     * @param update id
+     */
+    public void pushUpdate(long updateId) {
+        Update update = updateDao.fetch(updateId, Update.PROPERTIES);
+        pushUpdateOnSave(update, update.getMergedValues());
     }
 
     /**
@@ -405,6 +441,7 @@ public final class ActFmSyncService {
                 tagDataDao.saveExisting(tagData);
             }
         } catch (ActFmServiceException e) {
+            failedPushes.add(new Pair<Integer, Long>(PUSH_TYPE_TAG, tagData.getId()));
             handleException("tag-save", e);
             error = e.getMessage();
 
@@ -416,6 +453,7 @@ public final class ActFmSyncService {
                 handleException("refetch-error-tag", e);
             }
         } catch (IOException e) {
+            failedPushes.add(new Pair<Integer, Long>(PUSH_TYPE_TAG, tagData.getId()));
             handleException("tag-save", e);
             error = e.getMessage();
         }
