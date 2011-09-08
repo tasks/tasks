@@ -2,7 +2,9 @@ package com.todoroo.astrid.tags;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashSet;
 import java.util.LinkedHashSet;
+import java.util.Set;
 
 import android.app.Activity;
 import android.text.Editable;
@@ -24,11 +26,16 @@ import android.widget.TextView.OnEditorActionListener;
 import com.timsu.astrid.R;
 import com.todoroo.andlib.data.AbstractModel;
 import com.todoroo.andlib.data.TodorooCursor;
+import com.todoroo.andlib.service.Autowired;
+import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.andlib.sql.Criterion;
+import com.todoroo.andlib.sql.Query;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.astrid.activity.TaskEditActivity.TaskEditControlSet;
 import com.todoroo.astrid.data.Metadata;
+import com.todoroo.astrid.data.TagData;
 import com.todoroo.astrid.data.Task;
+import com.todoroo.astrid.service.TagDataService;
 import com.todoroo.astrid.tags.TagService.Tag;
 import com.todoroo.astrid.utility.Flags;
 
@@ -43,13 +50,15 @@ public final class TagsControlSet implements TaskEditControlSet {
     // --- instance variables
 
     private final Spinner tagSpinner;
+    @Autowired private TagDataService tagDataService;
     private final TagService tagService = TagService.getInstance();
     private final Tag[] allTags;
     private final LinearLayout tagsContainer;
     private final Activity activity;
 
     public TagsControlSet(Activity activity, int tagsContainer) {
-        allTags = tagService.getGroupedTags(TagService.GROUPED_TAGS_BY_ALPHA, Criterion.all);
+        DependencyInjectionService.getInstance().inject(this);
+        allTags = getTagArray();
         this.activity = activity;
         this.tagsContainer = (LinearLayout) activity.findViewById(tagsContainer);
         this.tagSpinner = (Spinner) activity.findViewById(R.id.tags_dropdown);
@@ -82,6 +91,33 @@ public final class TagsControlSet implements TaskEditControlSet {
                 }
             });
         }
+    }
+
+    private Tag[] getTagArray() {
+        //Get metadata tags
+        ArrayList<Tag> tagsList = new ArrayList<Tag>();
+        Tag[] groupedTags = tagService.getGroupedTags(TagService.GROUPED_TAGS_BY_ALPHA, Criterion.all);
+        Set<String> tagNames = new HashSet<String>();
+        for (Tag t : groupedTags) {
+            tagNames.add(t.tag);
+            tagsList.add(t);
+        }
+
+        // Get tag data tags to include those tags that aren't in metadata
+        TodorooCursor<TagData> tagDataTags = tagDataService.query(Query.select(TagData.NAME, TagData.TASK_COUNT, TagData.REMOTE_ID, TagData.PICTURE));
+        try {
+            for (tagDataTags.moveToFirst(); !tagDataTags.isAfterLast(); tagDataTags.moveToNext()) {
+                TagData tagData = new TagData(tagDataTags);
+                String name = tagData.getValue(TagData.NAME);
+                if (!tagNames.contains(name)) {
+                    tagNames.add(name);
+                    tagsList.add(new Tag(tagData));
+                }
+            }
+        } finally {
+            tagDataTags.close();
+        }
+        return tagsList.toArray(new Tag[tagsList.size()]);
     }
 
     @Override
