@@ -24,6 +24,8 @@ import com.todoroo.andlib.sql.QueryTemplate;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.astrid.actfm.TagViewActivity;
+import com.todoroo.astrid.actfm.sync.ActFmPreferenceService;
+import com.todoroo.astrid.actfm.sync.ActFmSyncProvider;
 import com.todoroo.astrid.actfm.sync.ActFmSyncService;
 import com.todoroo.astrid.activity.ShortcutActivity;
 import com.todoroo.astrid.activity.TaskListActivity;
@@ -50,10 +52,13 @@ public class C2DMReceiver extends BroadcastReceiver {
     private static final String PREF_REGISTRATION = "c2dm_key";
     private static final String PREF_LAST_C2DM = "c2dm_last";
 
+    private static final long FULL_SYNC_TIME_INTERVAL = 5000 * 60; // Min 5 minutes between full syncs
+
     @Autowired ActFmSyncService actFmSyncService;
     @Autowired TaskService taskService;
     @Autowired TagDataService tagDataService;
     @Autowired UpdateDao updateDao;
+    @Autowired ActFmPreferenceService actFmPreferenceService;
 
     static {
         AstridDependencyInjector.initialize();
@@ -70,7 +75,10 @@ public class C2DMReceiver extends BroadcastReceiver {
                 @Override
                 public void run() {
                     if(intent.hasExtra("web_update"))
-                        handleWebUpdate(intent);
+                        if (DateUtilities.now() - actFmPreferenceService.getLastSyncDate() > FULL_SYNC_TIME_INTERVAL)
+                            new ActFmSyncProvider().synchronize(ContextManager.getContext());
+                        else
+                            handleWebUpdate(intent);
                     else
                         handleMessage(intent);
                 }

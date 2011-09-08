@@ -6,9 +6,11 @@ package com.todoroo.astrid.actfm.sync;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedList;
+import java.util.List;
 import java.util.Queue;
 
 import org.apache.http.entity.mime.MultipartEntity;
@@ -82,27 +84,31 @@ public final class ActFmSyncService {
     @Autowired UpdateDao updateDao;
     @Autowired MetadataDao metadataDao;
 
+    public static final long TIME_BETWEEN_TRIES = 5000 * 60; // 5 minutes between tries for failed pushes
+
     private String token;
 
     public ActFmSyncService() {
         DependencyInjectionService.getInstance().inject(this);
     }
 
-    private final Queue<Long> failedPushes = new LinkedList<Long>();
+    private final List<Long> failedPushes = Collections.synchronizedList(new LinkedList<Long>());
 
     public void initialize() {
         new Thread(new Runnable() {
             public void run() {
                 while (true) {
-                    AndroidUtilities.sleepDeep(5000 * 60); // 5 minutes between tries
+                    AndroidUtilities.sleepDeep(TIME_BETWEEN_TRIES);
                     if(failedPushes.size() > 0) {
                         Queue<Long> toTry = new LinkedList<Long>(); // Copy into a second queue so we don't end up infinitely retrying in the same loop
                         while(failedPushes.size() > 0) {
-                            toTry.add(failedPushes.remove());
+                            toTry.add(failedPushes.remove(0));
                         }
                         while(toTry.size() > 0) {
                             if (!actFmPreferenceService.isOngoing()) {
                                 pushTask(toTry.remove());
+                            } else { // If normal sync ongoing/starts, let it deal with remaining sync
+                                break;
                             }
                         }
                     }
