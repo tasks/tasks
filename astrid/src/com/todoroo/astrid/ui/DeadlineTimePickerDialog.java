@@ -82,9 +82,9 @@ public class DeadlineTimePickerDialog extends AlertDialog implements OnClickList
      */
     public DeadlineTimePickerDialog(Context context,
             OnDeadlineTimeSetListener callBack,
-            int hourOfDay, int minute, boolean is24HourView, boolean hasTime) {
+            int hourOfDay, int minute, boolean is24HourView) {
         this(context, android.R.style.Theme_Dialog,
-                callBack, hourOfDay, minute, is24HourView, hasTime);
+                callBack, hourOfDay, minute, is24HourView);
     }
 
     /**
@@ -98,7 +98,7 @@ public class DeadlineTimePickerDialog extends AlertDialog implements OnClickList
     public DeadlineTimePickerDialog(Context context,
             int theme,
             OnDeadlineTimeSetListener callBack,
-            int hourOfDay, int minute, boolean is24HourView, boolean hasTime) {
+            int hourOfDay, int minute, boolean is24HourView) {
         super(context, theme);
         mCallback = callBack;
         mInitialHourOfDay = hourOfDay;
@@ -130,8 +130,8 @@ public class DeadlineTimePickerDialog extends AlertDialog implements OnClickList
             }
         };
         mHasTime.setOnCheckedChangeListener(listener);
-        mHasTime.setChecked(hasTime);
-        listener.onCheckedChanged(null, hasTime);
+        mHasTime.setChecked(true);
+        listener.onCheckedChanged(null, true);
 
         // initialize state
         mTimePicker.setCurrentHour(mInitialHourOfDay);
