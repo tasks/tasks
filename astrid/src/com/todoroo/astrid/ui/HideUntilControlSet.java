@@ -164,7 +164,7 @@ public class HideUntilControlSet implements TaskEditControlSet,
 
         DeadlineTimePickerDialog timePicker = new DeadlineTimePickerDialog(activity, this,
                 existingDateHour, existingDateMinutes,
-                DateUtilities.is24HourFormat(activity));
+                DateUtilities.is24HourFormat(activity), true);
 
         timePicker.setOnCancelListener(this);
         timePicker.show();

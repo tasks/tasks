@@ -97,7 +97,7 @@ public class UrgencyControlSet implements TaskEditControlSet,
             DeadlineTimePickerDialog timePicker = new DeadlineTimePickerDialog(activity,
                     UrgencyControlSet.this,
                     hour, minute,
-                    DateUtilities.is24HourFormat(activity));
+                    DateUtilities.is24HourFormat(activity), true);
 
             timePicker.show();
         }
