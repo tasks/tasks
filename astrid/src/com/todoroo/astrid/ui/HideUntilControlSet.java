@@ -157,7 +157,6 @@ public class HideUntilControlSet implements TaskEditControlSet,
     private void setDate(CalendarDialog calendarDialog) {
         customDate = calendarDialog.getCalendarDate();
 
-        boolean specificTime = existingDateHour != SPECIFIC_DATE;
         if(existingDateHour < 0) {
             existingDateHour = customDate.getHours();
             existingDateMinutes= customDate.getMinutes();
@@ -165,8 +164,7 @@ public class HideUntilControlSet implements TaskEditControlSet,
 
         DeadlineTimePickerDialog timePicker = new DeadlineTimePickerDialog(activity, this,
                 existingDateHour, existingDateMinutes,
-                DateUtilities.is24HourFormat(activity),
-                specificTime);
+                DateUtilities.is24HourFormat(activity), true);
 
         timePicker.setOnCancelListener(this);
         timePicker.show();
