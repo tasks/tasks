@@ -4,11 +4,6 @@
 package com.todoroo.astrid.tags;
 
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Map.Entry;
 
 import android.app.Activity;
 import android.app.PendingIntent;
@@ -22,22 +17,18 @@ import android.content.res.Resources;
 import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
-import android.text.TextUtils;
 import android.widget.EditText;
 import android.widget.Toast;
 
 import com.timsu.astrid.R;
-import com.todoroo.andlib.data.TodorooCursor;
 import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.ContextManager;
 import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.andlib.sql.Criterion;
-import com.todoroo.andlib.sql.Query;
 import com.todoroo.andlib.sql.QueryTemplate;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.andlib.utility.DialogUtilities;
 import com.todoroo.astrid.actfm.TagViewActivity;
-import com.todoroo.astrid.actfm.sync.ActFmPreferenceService;
 import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.api.FilterCategory;
@@ -49,7 +40,6 @@ import com.todoroo.astrid.core.PluginServices;
 import com.todoroo.astrid.dao.TaskDao.TaskCriteria;
 import com.todoroo.astrid.data.Metadata;
 import com.todoroo.astrid.data.TagData;
-import com.todoroo.astrid.data.Update;
 import com.todoroo.astrid.service.AstridDependencyInjector;
 import com.todoroo.astrid.service.TagDataService;
 import com.todoroo.astrid.tags.TagService.Tag;
@@ -141,48 +131,7 @@ public class TagFilterExposer extends BroadcastReceiver {
     }
 
     private void addTags(ArrayList<FilterListItem> list) {
-        HashMap<String, Tag> tags = new HashMap<String, Tag>();
-
-        Tag[] tagsByAlpha = tagService.getGroupedTags(TagService.GROUPED_TAGS_BY_ALPHA,
-                TaskCriteria.activeAndVisible());
-        for(Tag tag : tagsByAlpha)
-            if(!TextUtils.isEmpty(tag.tag))
-                tags.put(tag.tag, tag);
-
-        TodorooCursor<TagData> cursor = tagDataService.query(Query.select(TagData.PROPERTIES));
-        try {
-            TagData tagData = new TagData();
-            for(cursor.moveToFirst(); !cursor.isAfterLast(); cursor.moveToNext()) {
-                tagData.readFromCursor(cursor);
-                String tagName = tagData.getValue(TagData.NAME).trim();
-                Tag tag = new Tag(tagData);
-                if(tagData.getValue(TagData.DELETION_DATE) > 0 && !tags.containsKey(tagName)) continue;
-                if(TextUtils.isEmpty(tag.tag))
-                    continue;
-                tags.put(tagName, tag);
-
-                Update update = tagDataService.getLatestUpdate(tagData);
-                if(update != null)
-                    tag.updateText = ActFmPreferenceService.updateToString(update);
-            }
-        } finally {
-            cursor.close();
-        }
-
-        ArrayList<Tag> tagList = new ArrayList<Tag>(tags.values());
-        Collections.sort(tagList,
-                new Comparator<Tag>() {
-            @Override
-            public int compare(Tag object1, Tag object2) {
-                return object1.tag.compareToIgnoreCase(object2.tag);
-            }
-        });
-        for(Iterator<Entry<String, Tag>> i = tags.entrySet().iterator(); i.hasNext(); ) {
-            Entry<String, Tag> entry = i.next();
-            if(TextUtils.isEmpty(entry.getValue().tag))
-                i.remove();
-        }
-
+        ArrayList<Tag> tagList = TagService.getInstance().getTagList();
         list.add(filterFromTags(tagList.toArray(new Tag[tagList.size()]),
                 R.string.tag_FEx_header));
     }

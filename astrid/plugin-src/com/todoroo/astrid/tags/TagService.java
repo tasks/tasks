@@ -1,8 +1,13 @@
 package com.todoroo.astrid.tags;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedHashSet;
+
+import android.text.TextUtils;
 
 import com.todoroo.andlib.data.Property.CountProperty;
 import com.todoroo.andlib.data.Property.LongProperty;
@@ -17,6 +22,7 @@ import com.todoroo.andlib.sql.Join;
 import com.todoroo.andlib.sql.Order;
 import com.todoroo.andlib.sql.Query;
 import com.todoroo.andlib.sql.QueryTemplate;
+import com.todoroo.astrid.actfm.sync.ActFmPreferenceService;
 import com.todoroo.astrid.core.PluginServices;
 import com.todoroo.astrid.dao.MetadataDao;
 import com.todoroo.astrid.dao.MetadataDao.MetadataCriteria;
@@ -24,6 +30,7 @@ import com.todoroo.astrid.dao.TaskDao.TaskCriteria;
 import com.todoroo.astrid.data.Metadata;
 import com.todoroo.astrid.data.TagData;
 import com.todoroo.astrid.data.Task;
+import com.todoroo.astrid.data.Update;
 import com.todoroo.astrid.service.MetadataService;
 import com.todoroo.astrid.service.TagDataService;
 import com.todoroo.astrid.service.TaskService;
@@ -212,6 +219,49 @@ public final class TagService {
             tags.close();
         }
         return tagBuilder.toString();
+    }
+
+    /**
+     * Return all tags (including metadata tags and TagData tags) in an array list
+     * @return
+     */
+    public ArrayList<Tag> getTagList() {
+        HashMap<String, Tag> tags = new HashMap<String, Tag>();
+
+        Tag[] tagsByAlpha = getGroupedTags(TagService.GROUPED_TAGS_BY_ALPHA,
+                TaskCriteria.activeAndVisible());
+        for(Tag tag : tagsByAlpha)
+            if(!TextUtils.isEmpty(tag.tag))
+                tags.put(tag.tag, tag);
+
+        TodorooCursor<TagData> cursor = tagDataService.query(Query.select(TagData.PROPERTIES));
+        try {
+            TagData tagData = new TagData();
+            for(cursor.moveToFirst(); !cursor.isAfterLast(); cursor.moveToNext()) {
+                tagData.readFromCursor(cursor);
+                String tagName = tagData.getValue(TagData.NAME).trim();
+                Tag tag = new Tag(tagData);
+                if(tagData.getValue(TagData.DELETION_DATE) > 0 && !tags.containsKey(tagName)) continue;
+                if(TextUtils.isEmpty(tag.tag))
+                    continue;
+                tags.put(tagName, tag);
+
+                Update update = tagDataService.getLatestUpdate(tagData);
+                if(update != null)
+                    tag.updateText = ActFmPreferenceService.updateToString(update);
+            }
+        } finally {
+            cursor.close();
+        }
+        ArrayList<Tag> tagList = new ArrayList<Tag>(tags.values());
+        Collections.sort(tagList,
+                new Comparator<Tag>() {
+            @Override
+            public int compare(Tag object1, Tag object2) {
+                return object1.tag.compareToIgnoreCase(object2.tag);
+            }
+        });
+        return tagList;
     }
 
     /**
