@@ -52,7 +52,7 @@ public class C2DMReceiver extends BroadcastReceiver {
     private static final String PREF_REGISTRATION = "c2dm_key";
     private static final String PREF_LAST_C2DM = "c2dm_last";
 
-    private static final long FULL_SYNC_TIME_INTERVAL = 5000 * 60; // Min 5 minutes between full syncs
+    private static final long MIN_MILLIS_BETWEEN_FULL_SYNCS = 5 * DateUtilities.ONE_MINUTE;
 
     @Autowired ActFmSyncService actFmSyncService;
     @Autowired TaskService taskService;
@@ -75,7 +75,7 @@ public class C2DMReceiver extends BroadcastReceiver {
                 @Override
                 public void run() {
                     if(intent.hasExtra("web_update"))
-                        if (DateUtilities.now() - actFmPreferenceService.getLastSyncDate() > FULL_SYNC_TIME_INTERVAL)
+                        if (DateUtilities.now() - actFmPreferenceService.getLastSyncDate() > MIN_MILLIS_BETWEEN_FULL_SYNCS)
                             new ActFmSyncProvider().synchronize(ContextManager.getContext());
                         else
                             handleWebUpdate(intent);
