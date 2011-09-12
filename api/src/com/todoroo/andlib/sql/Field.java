@@ -33,6 +33,8 @@ public class Field extends DBObject<Field> {
      */
     @SuppressWarnings("nls")
     public Criterion eqCaseInsensitive(String value) {
+    	if(value == null)
+            return UnaryCriterion.isNull(this);
         String escaped = value.replace("\\", "\\\\").replace("%", "\\%").replace("_", "\\_");
         return UnaryCriterion.like(this, escaped, "\\");
     }

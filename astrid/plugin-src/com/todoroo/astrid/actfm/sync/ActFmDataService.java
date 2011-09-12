@@ -174,7 +174,7 @@ public final class ActFmDataService {
         TodorooCursor<TagData> cursor = tagDataService.query(Query.select(TagData.PROPERTIES).where(
                 Criterion.or(TagData.REMOTE_ID.eq(tagObject.get("id")),
                         Criterion.and(TagData.REMOTE_ID.eq(0),
-                        TagData.NAME.eq(tagObject.getString("name"))))));
+                        TagData.NAME.eqCaseInsensitive(tagObject.getString("name"))))));
         try {
             cursor.moveToNext();
             TagData tagData = new TagData();

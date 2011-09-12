@@ -30,6 +30,7 @@ import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.gtasks.GtasksPreferenceService;
 import com.todoroo.astrid.notes.NoteMetadata;
 import com.todoroo.astrid.producteev.sync.ProducteevDataService;
+import com.todoroo.astrid.tags.TagCaseMigrator;
 import com.todoroo.astrid.utility.AstridPreferences;
 
 
@@ -109,6 +110,9 @@ public final class UpgradeService {
 
                     if(from < V3_1_0)
                         new Astrid2To3UpgradeHelper().upgrade3To3_1(context, from);
+
+                    if (from <= V3_8_3_1)
+                        new TagCaseMigrator().performTagCaseMigration();
 
                 } finally {
                     DialogUtilities.dismissDialog((Activity)context, dialog);

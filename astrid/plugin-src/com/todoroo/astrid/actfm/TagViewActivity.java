@@ -397,7 +397,7 @@ public class TagViewActivity extends TaskListActivity implements OnTabChangeList
         if(newTag)
             getIntent().putExtra(TOKEN_FILTER, Filter.emptyFilter(getString(R.string.tag_new_list)));
 
-        TodorooCursor<TagData> cursor = tagDataService.query(Query.select(TagData.PROPERTIES).where(Criterion.or(TagData.NAME.eq(tag),
+        TodorooCursor<TagData> cursor = tagDataService.query(Query.select(TagData.PROPERTIES).where(Criterion.or(TagData.NAME.eqCaseInsensitive(tag),
                 Criterion.and(TagData.REMOTE_ID.gt(0), TagData.REMOTE_ID.eq(remoteId)))));
         try {
             tagData = new TagData();
@@ -637,11 +637,23 @@ public class TagViewActivity extends TaskListActivity implements OnTabChangeList
         String newName = tagName.getText().toString();
 
         boolean nameChanged = !oldName.equals(newName);
+        TagService service = TagService.getInstance();
         if (nameChanged) {
-            tagData.setValue(TagData.NAME, newName);
-            TagService.getInstance().rename(oldName, newName);
-            tagData.setFlag(TagData.FLAGS, TagData.FLAG_EMERGENT, false);
-
+            if (oldName.equalsIgnoreCase(newName)) { // Change the capitalization of a list manually
+                tagData.setValue(TagData.NAME, newName);
+                service.renameCaseSensitive(oldName, newName);
+                tagData.setFlag(TagData.FLAGS, TagData.FLAG_EMERGENT, false);
+            } else { // Rename list--check for existing name
+                newName = service.getTagWithCase(newName);
+                tagName.setText(newName);
+                if (!newName.equals(oldName)) {
+                    tagData.setValue(TagData.NAME, newName);
+                    service.rename(oldName, newName);
+                    tagData.setFlag(TagData.FLAGS, TagData.FLAG_EMERGENT, false);
+                } else {
+                    nameChanged = false;
+                }
+            }
         }
 
         if(newName.length() > 0 && oldName.length() == 0) {
