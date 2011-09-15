@@ -276,6 +276,11 @@ public class TagFilterExposer extends BroadcastReceiver {
                 return false;
             } else {
                 int renamed = tagService.rename(tag, text);
+                TagData tagData = tagDataService.getTag(tag, TagData.ID, TagData.NAME);
+                if (tagData != null) {
+                    tagData.setValue(TagData.NAME, text);
+                    tagDataService.save(tagData);
+                }
                 Toast.makeText(this, getString(R.string.TEA_tags_renamed, tag, text, renamed),
                         Toast.LENGTH_SHORT).show();
                 return true;
