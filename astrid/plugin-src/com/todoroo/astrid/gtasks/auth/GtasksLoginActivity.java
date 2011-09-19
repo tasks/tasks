@@ -111,7 +111,7 @@ public class GtasksLoginActivity extends ListActivity {
                     @Override
                     public void run() {
                         try {
-                            Bundle bundle = future.getResult(60, TimeUnit.SECONDS);
+                            Bundle bundle = future.getResult(30, TimeUnit.SECONDS);
                             if (bundle.containsKey(AccountManager.KEY_INTENT)) {
                                 Intent i = (Intent) bundle.get(AccountManager.KEY_INTENT);
                                 startActivityForResult(i, REQUEST_AUTHENTICATE);
@@ -120,6 +120,7 @@ public class GtasksLoginActivity extends ListActivity {
                                 onAuthTokenSuccess();
                             }
                         } catch (Exception e) {
+                            e.printStackTrace();
                             GtasksLoginActivity.this.runOnUiThread(new Runnable() {
                                 @Override
                                 public void run() {
