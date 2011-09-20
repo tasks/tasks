@@ -6,6 +6,7 @@ package com.todoroo.astrid.service;
 
 import java.util.HashMap;
 
+import android.app.Activity;
 import android.content.Context;
 
 import com.localytics.android.LocalyticsSession;
@@ -28,13 +29,15 @@ public class StatisticsService {
 
         if(localyticsSession != null) {
             localyticsSession.open(); // Multiple calls to open are ok, we just need to make sure it gets reopened after pause
-            return;
+        } else {
+            localyticsSession = new LocalyticsSession(context.getApplicationContext(),
+                    Constants.LOCALYTICS_KEY);
+            localyticsSession.open();
+            localyticsSession.upload();
         }
 
-        localyticsSession = new LocalyticsSession(context.getApplicationContext(),
-                Constants.LOCALYTICS_KEY);
-        localyticsSession.open();
-        localyticsSession.upload();
+        if (context instanceof Activity)
+            localyticsSession.tagScreen(context.getClass().getSimpleName());
     }
 
     /**
