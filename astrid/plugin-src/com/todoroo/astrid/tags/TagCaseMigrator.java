@@ -2,12 +2,17 @@ package com.todoroo.astrid.tags;
 
 import java.util.HashMap;
 
+import android.app.Activity;
+import android.content.Context;
+
+import com.timsu.astrid.R;
 import com.todoroo.andlib.data.TodorooCursor;
 import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.andlib.sql.Criterion;
 import com.todoroo.andlib.sql.Join;
 import com.todoroo.andlib.sql.Query;
+import com.todoroo.andlib.utility.DialogUtilities;
 import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.astrid.data.Metadata;
 import com.todoroo.astrid.data.TagData;
@@ -32,15 +37,17 @@ public class TagCaseMigrator {
     private final HashMap<String, Long> nameToRemoteId = new HashMap<String, Long>();
     private final HashMap<String, Integer> nameCountMap = new HashMap<String, Integer>();
 
-    public void performTagCaseMigration() {
+    public void performTagCaseMigration(Context context) {
         if (!Preferences.getBoolean(PREF_CASE_MIGRATION_PERFORMED, false)) {
             TagService.Tag[] allTagData = TagService.getInstance().getGroupedTags(TagService.GROUPED_TAGS_BY_ALPHA, Criterion.all);
 
+            boolean shouldShowDialog = false;
             for (int i = 0; i < allTagData.length - 1; i++) {
                 TagService.Tag first = allTagData[i];
                 TagService.Tag second = allTagData[i+1];
 
                 if (first.tag.equalsIgnoreCase(second.tag)) {
+                    shouldShowDialog = true;
                     markForRenaming(first.tag, first.remoteId);
                     markForRenaming(second.tag, second.remoteId);
                 }
@@ -52,6 +59,9 @@ public class TagCaseMigrator {
             }
 
             Preferences.setBoolean(PREF_CASE_MIGRATION_PERFORMED, true);
+            if (context instanceof Activity && shouldShowDialog) {
+                DialogUtilities.okDialog((Activity)context, context.getString(R.string.tag_case_migration_notice), null);
+            }
         }
     }
 
@@ -97,12 +107,12 @@ public class TagCaseMigrator {
 
     private void addTasksToTargetTag(String tag, String target) {
         TodorooCursor<Task> tasks = taskService.query(Query.select(Task.ID).join(Join.inner(Metadata.TABLE,
-                    Task.ID.eq(Metadata.TASK))).where(TagService.tagEq(tag, null)));
+                    Task.ID.eq(Metadata.TASK))).where(TagService.tagEq(tag, Criterion.all)));
         try {
             for (tasks.moveToFirst(); !tasks.isAfterLast(); tasks.moveToNext()) {
                 Task curr = new Task(tasks);
                 TodorooCursor<Metadata> tagMetadata = metadataService.query(Query.select(TagService.TAG)
-                                                                 .where(Criterion.and(TagService.TAG.eq(target), Metadata.KEY.eq(TagService.KEY))));
+                                                                 .where(Criterion.and(TagService.TAG.eq(target), Metadata.KEY.eq(TagService.KEY), Metadata.TASK.eq(curr.getId()))));
                 try {
                     if (tagMetadata.getCount() == 0) {
                         Metadata newTag = new Metadata();

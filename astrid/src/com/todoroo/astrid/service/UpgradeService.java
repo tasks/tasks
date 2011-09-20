@@ -105,6 +105,10 @@ public final class UpgradeService {
             dialog = null;
 
         Preferences.setInt(AstridPreferences.P_UPGRADE_FROM, from);
+
+        if (from <= V3_8_3_1) // This needs to happen synchronously
+            abChooser.setChoiceForOption(ABOptions.AB_OPTION_FIRST_ACTIVITY, 0);
+
         new Thread(new Runnable() {
             @Override
             public void run() {
@@ -115,10 +119,8 @@ public final class UpgradeService {
                     if(from < V3_1_0)
                         new Astrid2To3UpgradeHelper().upgrade3To3_1(context, from);
 
-                    if (from <= V3_8_3_1) {
-                        new TagCaseMigrator().performTagCaseMigration();
-                        abChooser.setChoiceForOption(ABOptions.AB_OPTION_FIRST_ACTIVITY, 0);
-                    }
+                    if (from <= V3_8_3_1)
+                        new TagCaseMigrator().performTagCaseMigration(context);
                 } finally {
                     DialogUtilities.dismissDialog((Activity)context, dialog);
                 }
