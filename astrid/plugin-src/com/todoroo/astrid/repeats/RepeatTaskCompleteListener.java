@@ -87,6 +87,7 @@ public class RepeatTaskCompleteListener extends BroadcastReceiver {
             clone.setValue(Task.TIMER_START, 0L);
             clone.setValue(Task.ELAPSED_SECONDS, 0);
             clone.setValue(Task.REMINDER_SNOOZE, 0L);
+            clone.setValue(Task.REMINDER_LAST, 0L);
             PluginServices.getTaskService().save(clone);
 
             // clear recurrence from completed task so it can be re-completed
