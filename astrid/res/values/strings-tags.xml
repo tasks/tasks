@@ -52,7 +52,10 @@
   <string name="tag_FEx_category_inactive">Inactive</string>
   
   <!-- filter for untagged tasks -->
-  <string name="tag_FEx_untagged">Not In Any List</string>
+  <string name="tag_FEx_untagged">Not in any List</string>
+  
+  <!-- clarifying title for people who have Google and Astrid lists -->
+  <string name="tag_FEx_untagged_w_astrid">Not in an Astrid List</string>
   
   <!-- %s => tag name -->
   <string name="tag_FEx_name">List: %s</string>

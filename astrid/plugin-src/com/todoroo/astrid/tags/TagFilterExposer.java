@@ -40,6 +40,7 @@ import com.todoroo.astrid.core.PluginServices;
 import com.todoroo.astrid.dao.TaskDao.TaskCriteria;
 import com.todoroo.astrid.data.Metadata;
 import com.todoroo.astrid.data.TagData;
+import com.todoroo.astrid.gtasks.GtasksPreferenceService;
 import com.todoroo.astrid.service.AstridDependencyInjector;
 import com.todoroo.astrid.service.TagDataService;
 import com.todoroo.astrid.tags.TagService.Tag;
@@ -55,6 +56,7 @@ public class TagFilterExposer extends BroadcastReceiver {
     private static final String TAG = "tag"; //$NON-NLS-1$
 
     @Autowired TagDataService tagDataService;
+    @Autowired GtasksPreferenceService gtasksPreferenceService;
 
     private TagService tagService;
 
@@ -140,11 +142,13 @@ public class TagFilterExposer extends BroadcastReceiver {
         Filter[] filters = new Filter[tags.length + 1];
         Resources r = ContextManager.getContext().getResources();
 
-        Filter untagged = new Filter(r.getString(R.string.tag_FEx_untagged),
+        int untaggedLabel = gtasksPreferenceService.isLoggedIn() ?
+            R.string.tag_FEx_untagged_w_astrid : R.string.tag_FEx_untagged;
+        Filter untagged = new Filter(r.getString(untaggedLabel),
                 r.getString(R.string.tag_FEx_untagged),
                 tagService.untaggedTemplate(),
                 null);
-        untagged.listingIcon = ((BitmapDrawable)r.getDrawable(R.drawable.gl_lists)).getBitmap();
+            untagged.listingIcon = ((BitmapDrawable)r.getDrawable(R.drawable.gl_lists)).getBitmap();
         filters[0] = untagged;
 
         Context context = ContextManager.getContext();
