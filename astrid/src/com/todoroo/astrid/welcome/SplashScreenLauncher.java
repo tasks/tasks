@@ -9,7 +9,6 @@ import com.timsu.astrid.R;
 import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.ContextManager;
 import com.todoroo.andlib.service.DependencyInjectionService;
-import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.astrid.activity.FilterListActivity;
 import com.todoroo.astrid.activity.TaskListActivity;
 import com.todoroo.astrid.service.AstridDependencyInjector;
@@ -21,7 +20,7 @@ import com.todoroo.astrid.utility.AstridPreferences;
 
 public class SplashScreenLauncher extends Activity {
 
-    private boolean shouldGoThroughWelcome = false;
+    private boolean isNewUser = false;
     private int latestSetVersion = 0;
 
     @Autowired ABChooser abChooser;
@@ -37,9 +36,9 @@ public class SplashScreenLauncher extends Activity {
         DependencyInjectionService.getInstance().inject(this);
         setContentView(R.layout.splash_screen_launcher);
         latestSetVersion = AstridPreferences.getCurrentVersion();
-        shouldGoThroughWelcome = ((latestSetVersion == 0) || !Preferences.getBoolean(WelcomeLogin.KEY_SHOWED_WELCOME_LOGIN, false));
+        isNewUser = (latestSetVersion == 0);
         ContextManager.setContext(this);
-        if (latestSetVersion == 0) {
+        if (isNewUser) {
             new Thread() {
                 @Override
                 public void run() {
@@ -47,20 +46,23 @@ public class SplashScreenLauncher extends Activity {
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                            new StartupService().onStartupApplication(SplashScreenLauncher.this);
-                            finishAndShowNext();
+                            startupServiceAndFinish();
                         }
                     });
                 }
             }.start();
         } else {
-            new StartupService().onStartupApplication(this);
-            finishAndShowNext();
+            startupServiceAndFinish();
         }
     }
 
+    private void startupServiceAndFinish() {
+        new StartupService().onStartupApplication(this);
+        finishAndShowNext();
+    }
+
     private void finishAndShowNext() {
-        if (shouldGoThroughWelcome) {
+        if (isNewUser) {
             int welcomeLoginChoice = abChooser.getChoiceForOption(ABOptions.AB_OPTION_WELCOME_LOGIN);
             welcomeLoginPath(welcomeLoginChoice);
         } else {
