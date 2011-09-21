@@ -37,7 +37,7 @@ public class GtasksTokenValidator {
             }
 
             accountManager.invalidateAuthToken(token);
-            AccountManagerFuture<Bundle> future = accountManager.manager.getAuthToken(a, GtasksService.AUTH_TOKEN_TYPE, true, null, null);
+            AccountManagerFuture<Bundle> future = accountManager.manager.getAuthToken(a, GtasksService.AUTH_TOKEN_TYPE, false, null, null);
 
             try {
                 if (future.getResult().containsKey(AccountManager.KEY_AUTHTOKEN)) {

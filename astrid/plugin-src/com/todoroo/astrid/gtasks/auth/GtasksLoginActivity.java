@@ -20,6 +20,7 @@
 package com.todoroo.astrid.gtasks.auth;
 
 import java.util.ArrayList;
+import java.util.Locale;
 import java.util.concurrent.TimeUnit;
 
 import android.accounts.Account;
@@ -112,10 +113,7 @@ public class GtasksLoginActivity extends ListActivity {
                     public void run() {
                         try {
                             Bundle bundle = future.getResult(30, TimeUnit.SECONDS);
-                            if (bundle.containsKey(AccountManager.KEY_INTENT)) {
-                                Intent i = (Intent) bundle.get(AccountManager.KEY_INTENT);
-                                startActivityForResult(i, REQUEST_AUTHENTICATE);
-                            } else if (bundle.containsKey(AccountManager.KEY_AUTHTOKEN)) {
+                            if (bundle.containsKey(AccountManager.KEY_AUTHTOKEN)) {
                                 authToken = bundle.getString(AccountManager.KEY_AUTHTOKEN);
                                 onAuthTokenSuccess();
                             }
@@ -134,7 +132,7 @@ public class GtasksLoginActivity extends ListActivity {
                 }.start();
             }
         };
-        accountManager.manager.getAuthToken(a, GtasksService.AUTH_TOKEN_TYPE, true, callback, null);
+        accountManager.manager.getAuthToken(a, GtasksService.AUTH_TOKEN_TYPE, null, this, callback, null);
     }
 
     private void onAuthCancel() {

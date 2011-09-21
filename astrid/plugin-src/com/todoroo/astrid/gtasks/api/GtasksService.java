@@ -2,7 +2,6 @@ package com.todoroo.astrid.gtasks.api;
 
 import java.io.IOException;
 
-import android.app.Activity;
 import android.content.Context;
 
 import com.google.api.client.extensions.android2.AndroidHttp;
@@ -21,7 +20,6 @@ import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.ContextManager;
 import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.andlib.service.ExceptionService;
-import com.todoroo.andlib.utility.DialogUtilities;
 import com.todoroo.astrid.gtasks.auth.GtasksTokenValidator;
 
 /**
@@ -71,11 +69,6 @@ public class GtasksService {
                 final Context context = ContextManager.getContext();
                 String message = context.getString(R.string.gtasks_error_backend);
                 exceptionService.reportError(message, h);
-
-                if(context instanceof Activity) {
-                    DialogUtilities.okDialog((Activity)context,
-                            message, null);
-                }
                 throw h;
             }
         }
