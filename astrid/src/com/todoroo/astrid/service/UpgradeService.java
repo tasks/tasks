@@ -1,5 +1,7 @@
 package com.todoroo.astrid.service;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 
 import org.weloveastrid.rmilk.data.MilkNoteHelper;
@@ -38,6 +40,7 @@ import com.todoroo.astrid.utility.AstridPreferences;
 
 public final class UpgradeService {
 
+    public static final int V3_8_4 = 195;
     public static final int V3_8_3_1 = 194;
     public static final int V3_8_3 = 192;
     public static final int V3_8_2 = 191;
@@ -142,10 +145,24 @@ public final class UpgradeService {
         if(!(context instanceof Activity) || from == 0)
             return;
 
+        boolean showTagCaseMigration = Preferences.getBoolean(TagCaseMigrator.PREF_SHOW_MIGRATION_ALERT, false);
+        Preferences.clear(TagCaseMigrator.PREF_SHOW_MIGRATION_ALERT);
+
         Preferences.clear(AstridPreferences.P_UPGRADE_FROM);
         StringBuilder changeLog = new StringBuilder();
 
         // current message
+        if (from >= V3_8_0 && from < V3_8_4) {
+            String[] base = new String[] {
+                    "Bug fixes"
+            };
+            ArrayList<String> stringList = new ArrayList<String>();
+            Collections.addAll(stringList, base);
+            if (showTagCaseMigration)
+                stringList.add(0, context.getString(R.string.tag_case_migration_notice));
+
+            newVersionString(changeLog, "3.8.4 (9/20/11)", stringList.toArray(new String[stringList.size()]));
+        }
         if (from >= V3_8_0 && from < V3_8_3_1) {
             newVersionString(changeLog, "3.8.3.1 (9/06/11)", new String[] {
                "A few bug fixes from the last version",

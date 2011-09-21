@@ -2,17 +2,14 @@ package com.todoroo.astrid.tags;
 
 import java.util.HashMap;
 
-import android.app.Activity;
 import android.content.Context;
 
-import com.timsu.astrid.R;
 import com.todoroo.andlib.data.TodorooCursor;
 import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.andlib.sql.Criterion;
 import com.todoroo.andlib.sql.Join;
 import com.todoroo.andlib.sql.Query;
-import com.todoroo.andlib.utility.DialogUtilities;
 import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.astrid.data.Metadata;
 import com.todoroo.astrid.data.TagData;
@@ -27,6 +24,7 @@ public class TagCaseMigrator {
     @Autowired TagDataService tagDataService;
     @Autowired MetadataService metadataService;
 
+    public static final String PREF_SHOW_MIGRATION_ALERT = "tag_case_migration_alert"; //$NON-NLS-1$
     private static final String PREF_CASE_MIGRATION_PERFORMED = "tag_case_migration"; //$NON-NLS-1$
 
     public TagCaseMigrator() {
@@ -59,9 +57,7 @@ public class TagCaseMigrator {
             }
 
             Preferences.setBoolean(PREF_CASE_MIGRATION_PERFORMED, true);
-            if (context instanceof Activity && shouldShowDialog) {
-                DialogUtilities.okDialog((Activity)context, context.getString(R.string.tag_case_migration_notice), null);
-            }
+            Preferences.setBoolean(PREF_SHOW_MIGRATION_ALERT, shouldShowDialog);
         }
     }
 
