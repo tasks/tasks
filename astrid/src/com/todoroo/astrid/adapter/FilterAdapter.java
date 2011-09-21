@@ -11,6 +11,7 @@ import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 
 import android.app.Activity;
+import android.app.PendingIntent;
 import android.app.PendingIntent.CanceledException;
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -39,6 +40,7 @@ import com.timsu.astrid.R;
 import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.andlib.utility.Preferences;
+import com.todoroo.astrid.activity.FilterListActivity;
 import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.api.FilterCategory;
@@ -507,7 +509,17 @@ public class FilterAdapter extends BaseExpandableListAdapter {
                     @Override
                     public void onClick(View v) {
                         try {
-                            filter.intent.send();
+                            filter.intent.send(FilterListActivity.REQUEST_NEW_BUTTON, new PendingIntent.OnFinished() {
+                                @Override
+                                public void onSendFinished(PendingIntent pendingIntent, Intent intent,
+                                        int resultCode, String resultData, Bundle resultExtras) {
+                                    activity.runOnUiThread(new Runnable() {
+                                        public void run() {
+                                            clear();
+                                        }
+                                    });
+                                }
+                            }, null);
                         } catch (CanceledException e) {
                             // do nothing
                         }

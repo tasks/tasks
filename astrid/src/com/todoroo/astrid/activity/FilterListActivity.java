@@ -85,6 +85,7 @@ public class FilterListActivity extends ExpandableListActivity {
 
     private static final int REQUEST_CUSTOM_INTENT = 1;
     private static final int REQUEST_VIEW_TASKS = 2;
+    public static final int REQUEST_NEW_BUTTON = 3;
 
     // --- instance variables
 
