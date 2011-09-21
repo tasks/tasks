@@ -307,7 +307,10 @@ public final class ActFmSyncService {
             params.add("importance"); params.add(task.getValue(Task.IMPORTANCE));
         }
         if(values.containsKey(Task.RECURRENCE.name)) {
-            params.add("repeat"); params.add(task.getValue(Task.RECURRENCE));
+            String recurrence = task.getValue(Task.RECURRENCE);
+            if(!TextUtils.isEmpty(recurrence) && task.getFlag(Task.FLAGS, Task.FLAG_REPEAT_AFTER_COMPLETION))
+                recurrence = recurrence + ";FROM=COMPLETION";
+            params.add("repeat"); params.add(recurrence);
         }
         if(values.containsKey(Task.USER_ID.name) && task.getValue(Task.USER_ID) >= 0) {
             params.add("user_id");
@@ -965,6 +968,10 @@ public final class ActFmSyncService {
             model.setValue(Task.CREATION_DATE, readDate(json, "created_at"));
             model.setValue(Task.DELETION_DATE, readDate(json, "deleted_at"));
             model.setValue(Task.RECURRENCE, json.optString("repeat", ""));
+            if(json.optString("repeat", "").contains("FROM=COMPLETION"))
+                model.setFlag(Task.FLAGS, Task.FLAG_REPEAT_AFTER_COMPLETION, true);
+            else
+                model.setFlag(Task.FLAGS, Task.FLAG_REPEAT_AFTER_COMPLETION, false);
             model.setValue(Task.NOTES, json.optString("notes", ""));
             model.setValue(Task.DETAILS_DATE, 0L);
             model.setValue(Task.LAST_SYNC, DateUtilities.now() + 1000L);
