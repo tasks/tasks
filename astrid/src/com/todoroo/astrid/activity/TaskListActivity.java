@@ -30,7 +30,6 @@ import android.graphics.PixelFormat;
 import android.net.Uri;
 import android.os.Bundle;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
 import android.view.KeyEvent;
@@ -225,17 +224,12 @@ public class TaskListActivity extends ListActivity implements OnScrollListener,
         parent.addView(getListBody(parent), 1);
         setContentView(parent);
 
-        System.err.println("is the database null? " + database + " and " + taskService);
-
         if(database == null)
             return;
 
         database.openForWriting();
-        System.err.println("i'm here, son!");
         setUpUiComponents();
-        System.err.println("i'm here, son! # 2");
         onNewIntent(getIntent());
-        System.err.println("i'm here, son! # 3");
 
         if(Preferences.getInt(AstridPreferences.P_UPGRADE_FROM, -1) > -1)
             upgradeService.showChangeLog(this, Preferences.getInt(AstridPreferences.P_UPGRADE_FROM, -1));
@@ -270,8 +264,6 @@ public class TaskListActivity extends ListActivity implements OnScrollListener,
     protected void onNewIntent(Intent intent) {
         super.onNewIntent(intent);
 
-        Log.w("funky", "new intent - ", new Throwable());
-
         Bundle extras = intent.getExtras();
         String intentAction = intent.getAction();
         if (Intent.ACTION_SEARCH.equals(intentAction)) {
@@ -287,7 +279,6 @@ public class TaskListActivity extends ListActivity implements OnScrollListener,
             return;
         } else if(extras != null && extras.containsKey(TOKEN_FILTER)) {
             filter = extras.getParcelable(TOKEN_FILTER);
-            System.err.println("/FILTER: " + filter.sqlQuery);
             isInbox = true;
         } else {
             filter = CoreFilterExposer.buildInboxFilter(getResources());
