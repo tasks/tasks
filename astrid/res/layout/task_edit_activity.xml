@@ -67,7 +67,8 @@
         android:hint="@string/TEA_title_hint"
         android:autoText="true"
         android:text=""
-        android:capitalize="sentences" />
+        android:capitalize="sentences" 
+        android:freezesText="true"/>
       <!-- importance -->
       <TextView
         android:layout_width="wrap_content"
@@ -157,7 +158,8 @@
           android:hint="@string/TEA_notes_hint"
           android:autoText="true"
           android:capitalize="sentences"
-          android:singleLine="false" />
+          android:singleLine="false"
+          android:freezesText="true" />
       </LinearLayout>
     </LinearLayout>
   </ScrollView>

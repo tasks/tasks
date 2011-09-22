@@ -23,7 +23,7 @@ public class EditTextControlSet implements TaskEditControlSet {
 
     @Override
     public void readFromTask(Task task) {
-        editText.setText(task.getValue(property));
+        editText.setTextKeepState(task.getValue(property));
     }
 
     @Override
