@@ -115,7 +115,7 @@ public class FilterListActivity extends ExpandableListActivity {
         ImageView backButton = (ImageView) findViewById(R.id.back);
         if (!getIntent().getBooleanExtra(SHOW_BACK_BUTTON, true)) {
             backButton.setVisibility(View.GONE);
-            findViewById(R.id.listLabel).setPadding(0, 0, 0, 0);
+            findViewById(R.id.headerLogo).setPadding(0, 0, 0, 0);
         }
         setDefaultKeyMode(DEFAULT_KEYS_SEARCH_LOCAL);
 

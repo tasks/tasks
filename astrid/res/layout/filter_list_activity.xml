@@ -21,16 +21,16 @@
             android:layout_weight="1"
             android:src="@drawable/header_tasks"
             android:scaleType="center" /> 
-        
-        <!-- Title -->
-        <TextView android:id="@+id/listLabel"
+
+        <!-- Header Logo -->
+        <ImageView android:id="@+id/headerLogo"
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
             android:layout_weight="100"
             android:gravity="center"
             android:paddingRight="50dip"
-            android:text="@string/FLA_title"
-            style="@style/TextAppearance.TLA_Header"/>
+            android:src="@drawable/header_logo"
+            android:scaleType="center"/>
 
     </LinearLayout>
     
