@@ -246,9 +246,6 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
         // add UI component listeners
         addListeners(view);
 
-        // populate view content
-        bindView(view, context, cursor);
-
         return view;
     }
 
