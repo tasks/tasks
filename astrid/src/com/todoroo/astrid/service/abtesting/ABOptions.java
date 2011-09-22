@@ -177,7 +177,7 @@ public class ABOptions {
 
 
     public static final String AB_OPTION_FIRST_ACTIVITY = "ab_first_activity";
-    private static final int[] AB_OPTION_FIRST_ACTIVITY_PROBS = { 1, 1 };
+    private static final int[] AB_OPTION_FIRST_ACTIVITY_PROBS = { 9, 1 };
     private static final String[] AB_OPTION_FIRST_ACTIVITY_DESCRIPTIONS = { "ab-show-tasks-first", "ab-show-lists-first" };
     private static final String[] AB_OPTION_FIRST_ACTIVITY_RELEVANT_EVENTS = { StatisticsConstants.CREATE_TASK,
                                                                          StatisticsConstants.TASK_CREATED_TASKLIST,
@@ -186,7 +186,7 @@ public class ABOptions {
                                                                          StatisticsConstants.ACTFM_NEW_USER };//*/
 
     public static final String AB_OPTION_WELCOME_LOGIN = "ab_welcome_login";
-    private static final int[] AB_OPTION_WELCOME_LOGIN_PROBS = { 0, 1 };
+    private static final int[] AB_OPTION_WELCOME_LOGIN_PROBS = { 9, 1 };
     private static final String[] AB_OPTION_WELCOME_LOGIN_DESCRIPTIONS = { "ab-welcome-login-show", "ab-welcome-login-skip" };
     private static final String[] AB_OPTION_WELCOME_LOGIN_RELEVANT_EVENTS = { StatisticsConstants.CREATE_TASK,
                                                                         StatisticsConstants.TASK_CREATED_TASKLIST,

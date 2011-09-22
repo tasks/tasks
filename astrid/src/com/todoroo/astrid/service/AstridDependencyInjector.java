@@ -25,6 +25,7 @@ import com.todoroo.astrid.gtasks.GtasksTaskListUpdater;
 import com.todoroo.astrid.gtasks.sync.GtasksSyncOnSaveService;
 import com.todoroo.astrid.service.abtesting.ABChooser;
 import com.todoroo.astrid.service.abtesting.ABOptions;
+import com.todoroo.astrid.service.abtesting.FeatureFlipper;
 import com.todoroo.astrid.tags.TagService;
 import com.todoroo.astrid.utility.Constants;
 
@@ -96,6 +97,7 @@ public class AstridDependencyInjector extends AbstractDependencyInjector {
         // AB testing
         injectables.put("abChooser", ABChooser.class);
         injectables.put("abOptions", new ABOptions());
+        injectables.put("featureFlipper", FeatureFlipper.class);
 
         // com.todoroo.astrid.tags
         injectables.put("tagService", TagService.class);

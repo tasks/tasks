@@ -82,6 +82,8 @@ public class StartupService {
 
     @Autowired GtasksSyncOnSaveService gtasksSyncOnSaveService;
 
+    @Autowired FeatureFlipper featureFlipper;
+
     /**
      * bit to prevent multiple initializations
      */
@@ -182,7 +184,7 @@ public class StartupService {
                 new UpdateMessageService().processUpdates(context);
 
                 // Check for feature flips
-                new FeatureFlipper().updateFeatures();
+                featureFlipper.updateFeatures();
             }
         }).start();
 

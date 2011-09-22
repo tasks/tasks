@@ -15,7 +15,6 @@ import android.text.TextUtils;
 import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.ContextManager;
 import com.todoroo.andlib.service.DependencyInjectionService;
-import com.todoroo.andlib.service.HttpRestClient;
 import com.todoroo.andlib.service.RestClient;
 import com.todoroo.astrid.utility.Constants;
 
@@ -28,7 +27,7 @@ public class FeatureFlipper {
     private static final String KEY_SET_OPTION = "setOption";
     private static final String KEY_PROBABILITIES = "probabilities";
 
-    private final RestClient restClient = new HttpRestClient(4000);
+    @Autowired private RestClient restClient;
     @Autowired private ABChooser abChooser;
     @Autowired private ABOptions abOptions;
 
@@ -41,7 +40,7 @@ public class FeatureFlipper {
      * parses the result, and updates the AB settings for the corresponding features
      * @throws JSONException
      */
-    public void updateFeatures() {
+    public synchronized void updateFeatures() {
         JSONArray settingsBundle = requestOverrideSettings();
         if (settingsBundle == null || settingsBundle.length() == 0)
             return;
@@ -76,7 +75,7 @@ public class FeatureFlipper {
             PackageInfo pi = pm.getPackageInfo(Constants.PACKAGE, PackageManager.GET_META_DATA);
             int versionCode = pi.versionCode;
             String result = restClient.get(URL + "?version=" + versionCode + "&" +
-                    "language=" + Locale.getDefault().getISO3Language()); //$NON-NLS-1$
+                    "language=" + Locale.getDefault().getISO3Language());
             if(TextUtils.isEmpty(result))
                 return null;
 

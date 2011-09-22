@@ -15,13 +15,9 @@ import com.todoroo.astrid.service.AstridDependencyInjector;
 import com.todoroo.astrid.service.StartupService;
 import com.todoroo.astrid.service.abtesting.ABChooser;
 import com.todoroo.astrid.service.abtesting.ABOptions;
-import com.todoroo.astrid.service.abtesting.FeatureFlipper;
 import com.todoroo.astrid.utility.AstridPreferences;
 
 public class SplashScreenLauncher extends Activity {
-
-    private boolean isNewUser = false;
-    private int latestSetVersion = 0;
 
     @Autowired ABChooser abChooser;
 
@@ -35,33 +31,14 @@ public class SplashScreenLauncher extends Activity {
         super.onCreate(savedInstanceState);
         DependencyInjectionService.getInstance().inject(this);
         setContentView(R.layout.splash_screen_launcher);
-        latestSetVersion = AstridPreferences.getCurrentVersion();
-        isNewUser = (latestSetVersion == 0);
+        int latestSetVersion = AstridPreferences.getCurrentVersion();
+        boolean isNewUser = (latestSetVersion == 0);
         ContextManager.setContext(this);
-        if (isNewUser) {
-            new Thread() {
-                @Override
-                public void run() {
-                    new FeatureFlipper().updateFeatures();
-                    runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            startupServiceAndFinish();
-                        }
-                    });
-                }
-            }.start();
-        } else {
-            startupServiceAndFinish();
-        }
-    }
-
-    private void startupServiceAndFinish() {
         new StartupService().onStartupApplication(this);
-        finishAndShowNext();
+        finishAndShowNext(isNewUser);
     }
 
-    private void finishAndShowNext() {
+    private void finishAndShowNext(boolean isNewUser) {
         if (isNewUser) {
             int welcomeLoginChoice = abChooser.getChoiceForOption(ABOptions.AB_OPTION_WELCOME_LOGIN);
             welcomeLoginPath(welcomeLoginChoice);
