@@ -9,6 +9,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
+import android.os.Bundle;
 import android.os.IBinder;
 import android.util.DisplayMetrics;
 import android.util.Log;
@@ -204,14 +205,21 @@ public class TasksWidget extends AppWidgetProvider {
             updateForScreenSize(views);
 
             Intent listIntent = new Intent(context, TaskListActivity.class);
-            listIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_MULTIPLE_TASK);
-            listIntent.putExtra(TaskListActivity.TOKEN_SOURCE, Constants.SOURCE_WIDGET);
-            if(filter != null) {
-                listIntent.putExtra(TaskListActivity.TOKEN_FILTER, filter);
-                listIntent.setType(filter.sqlQuery);
+            String customIntent = Preferences.getStringValue(WidgetConfigActivity.PREF_CUSTOM_INTENT
+                    + widgetId);
+            if(customIntent != null) {
+                listIntent.setComponent(ComponentName.unflattenFromString(customIntent));
+                String serializedExtras = Preferences.getStringValue(WidgetConfigActivity.PREF_CUSTOM_EXTRAS
+                        + widgetId);
+                Bundle extras = AndroidUtilities.bundleFromSerializedString(serializedExtras);
+                listIntent.putExtras(extras);
             }
-            PendingIntent pendingIntent = PendingIntent.getActivity(context, 0,
-                    listIntent, 0);
+            listIntent.putExtra(TaskListActivity.TOKEN_SOURCE, Constants.SOURCE_WIDGET);
+            listIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_MULTIPLE_TASK);
+            listIntent.putExtra(TaskListActivity.TOKEN_FILTER, filter);
+            listIntent.setAction("L" + widgetId + filter.sqlQuery);
+            PendingIntent pendingIntent = PendingIntent.getActivity(context, widgetId,
+                    listIntent, PendingIntent.FLAG_CANCEL_CURRENT);
             views.setOnClickPendingIntent(R.id.taskbody, pendingIntent);
 
             Intent editIntent = new Intent(context, TaskEditActivity.class);

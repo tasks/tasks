@@ -168,6 +168,10 @@ public class TagViewActivity extends TaskListActivity implements OnTabChangeList
         if(savedInstanceState != null && savedInstanceState.containsKey(TAB_IN_PROGRESS)) {
             tabHost.setCurrentTab(savedInstanceState.getInt(TAB_IN_PROGRESS));
         }
+
+        System.err.println("hey my intent is " + getIntent().getExtras());
+
+        onNewIntent(getIntent());
     }
 
     /* (non-Javadoc)

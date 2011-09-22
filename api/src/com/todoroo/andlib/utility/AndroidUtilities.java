@@ -31,6 +31,7 @@ import android.graphics.BitmapFactory;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.NetworkInfo.State;
+import android.os.Bundle;
 import android.text.InputType;
 import android.util.Log;
 import android.view.MotionEvent;
@@ -160,6 +161,8 @@ public class AndroidUtilities {
                     value.getClass());
     }
 
+    // --- serialization
+
     /**
      * Rips apart a content value into two string arrays, keys and value
      */
@@ -192,20 +195,36 @@ public class AndroidUtilities {
     public static String contentValuesToSerializedString(ContentValues source) {
         StringBuilder result = new StringBuilder();
         for(Entry<String, Object> entry : source.valueSet()) {
-            result.append(entry.getKey().replace(SERIALIZATION_SEPARATOR, SEPARATOR_ESCAPE)).append(
-                    SERIALIZATION_SEPARATOR);
-            Object value = entry.getValue();
-            if(value instanceof Integer)
-                result.append('i').append(value);
-            else if(value instanceof Double)
-                result.append('d').append(value);
-            else if(value instanceof Long)
-                result.append('l').append(value);
-            else if(value instanceof String)
-                result.append('s').append(value.toString());
-            else
-                throw new UnsupportedOperationException(value.getClass().toString());
-            result.append(SERIALIZATION_SEPARATOR);
+            addSerialized(result, entry.getKey(), entry.getValue());
+        }
+        return result.toString();
+    }
+
+    /** add serialized helper */
+    private static void addSerialized(StringBuilder result,
+            String key, Object value) {
+        result.append(key.replace(SERIALIZATION_SEPARATOR, SEPARATOR_ESCAPE)).append(
+                SERIALIZATION_SEPARATOR);
+        if(value instanceof Integer)
+            result.append('i').append(value);
+        else if(value instanceof Double)
+            result.append('d').append(value);
+        else if(value instanceof Long)
+            result.append('l').append(value);
+        else if(value instanceof String)
+            result.append('s').append(value.toString().replace(SERIALIZATION_SEPARATOR, SEPARATOR_ESCAPE));
+        else
+            throw new UnsupportedOperationException(value.getClass().toString());
+        result.append(SERIALIZATION_SEPARATOR);
+    }
+
+    /**
+     * Serializes a {@link android.os.Bundle} into a string
+     */
+    public static String bundleToSerializedString(Bundle source) {
+        StringBuilder result = new StringBuilder();
+        for(String key : source.keySet()) {
+            addSerialized(result, key, source.get(key));
         }
         return result.toString();
     }
@@ -219,33 +238,79 @@ public class AndroidUtilities {
         if(string == null)
             return new ContentValues();
 
-        String[] pairs = string.split("\\" + SERIALIZATION_SEPARATOR); //$NON-NLS-1$
         ContentValues result = new ContentValues();
+        fromSerialized(string, result, new SerializedPut<ContentValues>() {
+            public void put(ContentValues object, String key, char type, String value) throws NumberFormatException {
+                switch(type) {
+                case 'i':
+                    object.put(key, Integer.parseInt(value));
+                    break;
+                case 'd':
+                    object.put(key, Double.parseDouble(value));
+                    break;
+                case 'l':
+                    object.put(key, Long.parseLong(value));
+                    break;
+                case 's':
+                    object.put(key, value.replace(SEPARATOR_ESCAPE, SERIALIZATION_SEPARATOR));
+                    break;
+                }
+            }
+        });
+        return result;
+    }
+
+    /**
+     * Turn {@link android.os.Bundle} into a string
+     * @param string
+     * @return
+     */
+    public static Bundle bundleFromSerializedString(String string) {
+        if(string == null)
+            return new Bundle();
+
+        Bundle result = new Bundle();
+        fromSerialized(string, result, new SerializedPut<Bundle>() {
+            public void put(Bundle object, String key, char type, String value) throws NumberFormatException {
+                switch(type) {
+                case 'i':
+                    object.putInt(key, Integer.parseInt(value));
+                    break;
+                case 'd':
+                    object.putDouble(key, Double.parseDouble(value));
+                    break;
+                case 'l':
+                    object.putLong(key, Long.parseLong(value));
+                    break;
+                case 's':
+                    object.putString(key, value.replace(SEPARATOR_ESCAPE, SERIALIZATION_SEPARATOR));
+                    break;
+                }
+            }
+        });
+        return result;
+    }
+
+    public interface SerializedPut<T> {
+        public void put(T object, String key, char type, String value) throws NumberFormatException;
+    }
+
+    private static <T> void fromSerialized(String string, T object, SerializedPut<T> putter) {
+        String[] pairs = string.split("\\" + SERIALIZATION_SEPARATOR); //$NON-NLS-1$
         for(int i = 0; i < pairs.length; i += 2) {
             String key = pairs[i].replaceAll(SEPARATOR_ESCAPE, SERIALIZATION_SEPARATOR);
             String value = pairs[i+1].substring(1);
             try {
-                switch(pairs[i+1].charAt(0)) {
-                case 'i':
-                    result.put(key, Integer.parseInt(value));
-                    break;
-                case 'd':
-                    result.put(key, Double.parseDouble(value));
-                    break;
-                case 'l':
-                    result.put(key, Long.parseLong(value));
-                    break;
-                case 's':
-                    result.put(key, value.replace(SEPARATOR_ESCAPE, SERIALIZATION_SEPARATOR));
-                    break;
-                }
+                putter.put(object, key, pairs[i+1].charAt(0), value);
             } catch (NumberFormatException e) {
-                // failed parse to number, try to put a string
-                result.put(key, value);
+                // failed parse to number
+                putter.put(object, key, 's', value);
             }
         }
-        return result;
     }
+
+
+
 
     /**
      * Turn ContentValues into a string

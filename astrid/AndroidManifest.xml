@@ -315,7 +315,12 @@
     </receiver>    
     <activity android:name="com.todoroo.astrid.actfm.TagViewActivity"
               android:windowSoftInputMode="stateHidden"
-              android:theme="@style/Theme" />
+              android:theme="@style/Theme">
+        <intent-filter>
+          <action android:name="android.intent.action.VIEW" />
+          <category android:name="android.intent.category.DEFAULT" />
+      </intent-filter>
+    </activity>
     <receiver android:name="com.todoroo.astrid.actfm.EditPeopleExposer">
       <intent-filter>
         <action android:name="com.todoroo.astrid.REQUEST_ACTIONS" />

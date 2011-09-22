@@ -17,6 +17,7 @@ import com.todoroo.astrid.adapter.FilterAdapter;
 import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.api.FilterCategory;
 import com.todoroo.astrid.api.FilterListItem;
+import com.todoroo.astrid.api.FilterWithCustomIntent;
 import com.todoroo.astrid.service.StatisticsConstants;
 import com.todoroo.astrid.service.StatisticsService;
 
@@ -26,7 +27,8 @@ abstract public class WidgetConfigActivity extends ExpandableListActivity {
     static final String PREF_TITLE = "widget-title-";
     static final String PREF_SQL = "widget-sql-";
     static final String PREF_VALUES = "widget-values-";
-
+    static final String PREF_CUSTOM_INTENT = "widget-intent-";
+    static final String PREF_CUSTOM_EXTRAS = "widget-extras-";
 
     int mAppWidgetId = AppWidgetManager.INVALID_APPWIDGET_ID;
 
@@ -161,6 +163,15 @@ abstract public class WidgetConfigActivity extends ExpandableListActivity {
         Preferences.setString(WidgetConfigActivity.PREF_TITLE + mAppWidgetId, title);
         Preferences.setString(WidgetConfigActivity.PREF_SQL + mAppWidgetId, sql);
         Preferences.setString(WidgetConfigActivity.PREF_VALUES + mAppWidgetId, contentValuesString);
+
+        if(filterListItem instanceof FilterWithCustomIntent) {
+            String flattenedName = ((FilterWithCustomIntent)filterListItem).customTaskList.flattenToString();
+            Preferences.setString(WidgetConfigActivity.PREF_CUSTOM_INTENT + mAppWidgetId,
+                    flattenedName);
+            String flattenedExtras = AndroidUtilities.bundleToSerializedString(((FilterWithCustomIntent)filterListItem).customExtras);
+            Preferences.setString(WidgetConfigActivity.PREF_CUSTOM_EXTRAS + mAppWidgetId,
+                    flattenedExtras);
+        }
     }
 
 }
