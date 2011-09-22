@@ -223,6 +223,9 @@ public class AndroidUtilities {
      */
     public static String bundleToSerializedString(Bundle source) {
         StringBuilder result = new StringBuilder();
+        if (source == null)
+            return null;
+
         for(String key : source.keySet()) {
             addSerialized(result, key, source.get(key));
         }

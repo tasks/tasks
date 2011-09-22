@@ -169,8 +169,9 @@ abstract public class WidgetConfigActivity extends ExpandableListActivity {
             Preferences.setString(WidgetConfigActivity.PREF_CUSTOM_INTENT + mAppWidgetId,
                     flattenedName);
             String flattenedExtras = AndroidUtilities.bundleToSerializedString(((FilterWithCustomIntent)filterListItem).customExtras);
-            Preferences.setString(WidgetConfigActivity.PREF_CUSTOM_EXTRAS + mAppWidgetId,
-                    flattenedExtras);
+            if (flattenedExtras != null)
+                Preferences.setString(WidgetConfigActivity.PREF_CUSTOM_EXTRAS + mAppWidgetId,
+                        flattenedExtras);
         }
     }
 
