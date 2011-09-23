@@ -8,6 +8,7 @@
         <item name="android:windowBackground">@null</item>
         <item name="asContentBackground">@drawable/background_gradient</item>
         <item name="asHeaderBackground">@drawable/header_background</item>
+        <item name="asHeaderButtonBackground">@drawable/header_button</item>
         <item name="asTextColor">#ffffffff</item>
         <item name="asDetailsColor">#ff777777</item>
         <item name="asDueDateColor">#ff7777aa</item>
@@ -15,6 +16,8 @@
         <item name="asDueDateCompletedColor">#ff777777</item>
         <item name="asFilterHeaderColor">#ffcccccc</item>
         <item name="asFilterHeaderBackground">@drawable/edit_titlebar</item>
+        <item name="asMembersHeaderBackground">@drawable/ios_fabric_480_dark</item>
+        <item name="asMembersHeaderArrow">@drawable/members_arrow</item>
     </style>
     
     <style name="Theme.Transparent">
@@ -26,11 +29,14 @@
     <style name="Theme.White">
         <item name="asContentBackground">@drawable/background_white</item>
         <item name="asHeaderBackground">@drawable/header_background_white</item>
+        <item name="asHeaderButtonBackground">@drawable/header_button_white</item>
         <item name="asTextColor">#ff000000</item>
         <item name="asDetailsColor">#ff6666aa</item>
         <item name="asDueDateColor">#ff000000</item>
         <item name="asFilterHeaderColor">#ffffff</item>
         <item name="asFilterHeaderBackground">@drawable/edit_titlebar_white</item>
+        <item name="asMembersHeaderBackground">@drawable/ios_fabric_480</item>
+        <item name="asMembersHeaderArrow">@drawable/members_arrow_white</item>
     </style>
     
     <style name="Theme.TransparentWhite" parent="@style/Theme.White">

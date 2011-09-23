@@ -296,7 +296,7 @@ public class C2DMReceiver extends BroadcastReceiver {
             }
 
             FilterWithCustomIntent filter = (FilterWithCustomIntent)TagFilterExposer.filterFromTagData(context, tagData);
-            filter.customExtras.putString(TagViewActivity.EXTRA_START_TAB, "updates");
+            //filter.customExtras.putString(TagViewActivity.EXTRA_START_TAB, "updates");
             if(intent.hasExtra("activity_id")) {
                 try {
                     Update update = new Update();

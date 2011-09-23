@@ -152,7 +152,7 @@ public final class ActFmSyncService {
                 new Thread(new Runnable() {
                     @Override
                     public void run() {
-                        pushUpdateOnSave(model, setValues);
+                        pushUpdateOnSave(model, setValues, null);
                     }
                 }).start();
             }
@@ -227,7 +227,7 @@ public final class ActFmSyncService {
     /**
      * Synchronize with server when data changes
      */
-    public void pushUpdateOnSave(Update update, ContentValues values) {
+    public void pushUpdateOnSave(Update update, ContentValues values, Bitmap imageData) {
         if(!values.containsKey(Update.MESSAGE.name))
             return;
 
@@ -243,13 +243,22 @@ public final class ActFmSyncService {
         if(update.getValue(Update.TASK) > 0) {
             params.add("task_id"); params.add(update.getValue(Update.TASK));
         }
+        MultipartEntity picture = null;
+        if (imageData != null) {
+            picture = buildPictureData(imageData);
+        }
         if(!checkForToken())
             return;
 
         try {
             params.add("token"); params.add(token);
-            JSONObject result = actFmInvoker.invoke("comment_add", params.toArray(new Object[params.size()]));
+            JSONObject result;
+            if (picture == null)
+                result = actFmInvoker.invoke("comment_add", params.toArray(new Object[params.size()]));
+            else
+                result = actFmInvoker.post("comment_add", picture, params.toArray(new Object[params.size()]));
             update.setValue(Update.REMOTE_ID, result.optLong("id"));
+            update.setValue(Update.PICTURE, result.optString("picture"));
             updateDao.saveExisting(update);
         } catch (IOException e) {
             if (notPermanentError(e))
@@ -394,7 +403,16 @@ public final class ActFmSyncService {
      */
     public void pushUpdate(long updateId) {
         Update update = updateDao.fetch(updateId, Update.PROPERTIES);
-        pushUpdateOnSave(update, update.getMergedValues());
+        pushUpdateOnSave(update, update.getMergedValues(), null);
+    }
+
+    /**
+     * Push complete update with new image to server (used for new comments)
+     */
+
+    public void pushUpdate(long updateId, Bitmap imageData) {
+        Update update = updateDao.fetch(updateId, Update.PROPERTIES);
+        pushUpdateOnSave(update, update.getMergedValues(), imageData);
     }
 
     /**
@@ -745,6 +763,12 @@ public final class ActFmSyncService {
         if(!checkForToken())
             return null;
 
+        MultipartEntity data = buildPictureData(bitmap);
+        JSONObject result = actFmInvoker.post("tag_save", data, "id", tagId, "token", token);
+        return result.optString("picture");
+    }
+
+    private MultipartEntity buildPictureData(Bitmap bitmap) {
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         if(bitmap.getWidth() > 512 || bitmap.getHeight() > 512) {
             float scale = Math.min(512f / bitmap.getWidth(), 512f / bitmap.getHeight());
@@ -755,8 +779,7 @@ public final class ActFmSyncService {
         byte[] bytes = baos.toByteArray();
         MultipartEntity data = new MultipartEntity();
         data.addPart("picture", new ByteArrayBody(bytes, "image/jpg", "image.jpg"));
-        JSONObject result = actFmInvoker.post("tag_save", data, "id", tagId, "token", token);
-        return result.optString("picture");
+        return data;
     }
 
     // --- generic invokation
@@ -892,7 +915,7 @@ public final class ActFmSyncService {
                 model.setValue(Update.MESSAGE, "");
             else
                 model.setValue(Update.MESSAGE, json.getString("message"));
-            model.setValue(Update.PICTURE, json.getString("picture"));
+            model.setValue(Update.PICTURE, json.optString("picture", ""));
             model.setValue(Update.CREATION_DATE, readDate(json, "created_at"));
             String tagIds = "," + json.optString("tag_ids", "") + ",";
             model.setValue(Update.TAGS, tagIds);

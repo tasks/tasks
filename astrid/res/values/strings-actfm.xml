@@ -27,6 +27,9 @@
 
   <!-- menu item to select from gallery -->
   <string name="actfm_picture_gallery">Pick from Gallery</string>
+  
+  <!-- menu item to clear picture selection -->
+  <string name="actfm_picture_clear">Clear Picture</string>
 
   <!-- filter list activity: refresh tags -->
   <string name="actfm_FLA_menu_refresh">Refresh Lists</string>
@@ -48,6 +51,12 @@
     <!-- Tab for showing setting -->
     <item>List Settings</item>
   </string-array>
+  
+  <!-- Tag View: filtered by assigned to user -->
+  <string name="actfm_TVA_filtered_by_assign">%s\'s tasks. Tap for all.</string>
+
+  <!-- Tag View: list is private, no members -->
+  <string name="actfm_TVA_no_members_alert">Private: tap to share this list</string>
 
   <!-- Tag View Menu: refresh -->
   <string name="actfm_TVA_menu_refresh">Refresh</string>

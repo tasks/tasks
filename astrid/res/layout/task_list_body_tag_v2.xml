@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  android:orientation="vertical"
+  android:layout_width="fill_parent"
+  android:layout_height="wrap_content"
+  android:layout_weight="100">
+  
+  <LinearLayout
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+  
+	  <LinearLayout
+	    android:layout_width="fill_parent"
+	    android:layout_height="43dip"
+	    android:layout_weight="1"
+	    android:background="?attr/asMembersHeaderBackground">
+		  <HorizontalScrollView
+		    android:layout_width="fill_parent"
+		    android:layout_height="43dip"
+		    android:layout_weight="15"
+		    android:scrollbars="none">
+		    <LinearLayout
+		       android:id="@+id/shared_with"
+		       android:layout_width="wrap_content"
+		       android:layout_height="fill_parent">
+		       <TextView
+		          android:id="@+id/no_members"
+		          android:layout_width="fill_parent"
+		          android:layout_height="fill_parent"
+		          android:gravity="center_vertical"
+		          android:layout_marginLeft="10dip"
+		          style="@style/TextAppearance"
+		          android:textStyle="bold"
+		          android:text="@string/actfm_TVA_no_members_alert"/>
+		    </LinearLayout>
+		  </HorizontalScrollView>
+		  <ImageView 
+		    android:id="@+id/members_edit"
+		    android:layout_width="fill_parent"
+		    android:layout_height="fill_parent"
+		    android:layout_weight="85"
+		    android:padding="7dip"
+		    android:src="?attr/asMembersHeaderArrow"
+		    android:scaleType="fitCenter"/>
+	  </LinearLayout>
+	  
+	  <TextView
+	    android:id="@+id/filter_assigned"
+	    android:layout_width="fill_parent"
+	    android:layout_height="wrap_content"
+	    android:layout_weight="1"
+	    android:gravity="center"
+	    android:paddingTop="3dip"
+        android:paddingBottom="3dip"
+	    style="@style/TextAppearance"
+	    android:background="@android:color/darker_gray"
+	    android:visibility="gone"/>
+	  
+  </LinearLayout>
+  
+  <!-- List body goes here -->
+    
+</LinearLayout>

@@ -86,6 +86,10 @@ public class Update extends RemoteModel {
     /** List of all properties for this model */
     public static final Property<?>[] PROPERTIES = generateProperties(Update.class);
 
+    // --- constants
+
+    public static final String PICTURE_LOADING = "<loading>";
+
     // --- defaults
 
     /** Default values container */

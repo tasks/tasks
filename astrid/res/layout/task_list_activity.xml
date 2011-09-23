@@ -7,44 +7,98 @@
     style="@style/Content"
     android:orientation="vertical">
     
-    <!-- Header -->
-    <LinearLayout
-        style="@style/Header"
-        android:layout_width="fill_parent" 
-        android:layout_height="43dip"
-        android:layout_weight="1"
-        android:orientation="horizontal">
     
-        <!-- Filters Button -->
-        <ImageView android:id="@+id/back"
-            android:layout_width="wrap_content"
-            android:layout_height="fill_parent"
-            android:layout_weight="1"
-            android:src="@drawable/header_tags"
-            android:scaleType="center" /> 
-        
-        <!-- List Label -->
-        <TextView android:id="@+id/listLabel"
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
-            android:layout_weight="100"
-            android:gravity="center"
-            android:singleLine="true"
-            android:paddingRight="50dip"
-            android:ellipsize="start"
-            style="@style/TextAppearance.TLA_Header"/>
-        
-        <!-- Header Logo -->
-        <ImageView android:id="@+id/headerLogo"
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
-            android:layout_weight="100"
-            android:gravity="center"
-            android:paddingRight="50dip"
-            android:src="@drawable/header_logo"
-            android:scaleType="center"
-            android:visibility="gone"/>
+    <!-- Header -->
+    <LinearLayout 
+	    android:layout_width="fill_parent" 
+	    android:layout_height="43dip"
+	    android:layout_weight="1"
+	    android:orientation="horizontal">
+    
+       <!-- Filters Button -->
+       <ImageView android:id="@+id/back"
+           android:layout_width="43dip"
+           android:layout_height="fill_parent"
+           android:background="?attr/asHeaderButtonBackground"
+           android:padding="7dip"
+           android:src="@drawable/icn_lists"
+           android:scaleType="fitCenter" />
+       <View 
+           android:layout_width="0.5dip"
+           android:layout_height="fill_parent"
+           android:background="#ff222222"/> 
 
+	    <LinearLayout
+	        style="@style/Header"
+	        android:layout_width="fill_parent" 
+	        android:layout_height="fill_parent"
+	        android:layout_weight="1"
+	        android:orientation="horizontal">
+	    
+	        
+	        <!-- Header Logo -->
+	        <ImageView android:id="@+id/headerLogo"
+	            android:layout_width="fill_parent"
+	            android:layout_height="fill_parent"
+	            android:layout_weight="100"
+	            android:gravity="center"
+	            android:paddingRight="43dip"
+	            android:src="@drawable/header_logo_new"
+	            android:scaleType="center"
+	            android:visibility="gone"/>
+	           
+	        <!-- List Label -->
+	        <TextView android:id="@+id/listLabel"
+	            android:layout_width="fill_parent"
+	            android:layout_height="fill_parent"
+	            android:layout_marginLeft="5dip"
+	            android:layout_marginRight="5dip"
+	            android:paddingRight="50dip"
+	            android:layout_weight="100"
+	            android:singleLine="true"
+	            android:ellipsize="end"
+	            android:gravity="center"
+	            style="@style/TextAppearance.TLA_Header"/>    
+	            
+	    </LinearLayout>
+	   
+	   <LinearLayout android:id="@+id/activityContainer"
+           android:layout_width="wrap_content"
+           android:layout_height="fill_parent"
+           android:visibility="gone">
+            <View 
+               android:layout_width="0.5dip"
+               android:layout_height="fill_parent"
+               android:background="#ff222222"/>
+               
+            <ImageView android:id="@+id/activity"
+                android:layout_height="fill_parent"
+                android:layout_width="43dip"
+                android:background="?attr/asHeaderButtonBackground"
+                android:padding="7dip"
+                android:src="@drawable/icn_cmmt_off"
+                android:scaleType="fitCenter" /> 
+        </LinearLayout>
+	   
+	    <LinearLayout android:id="@+id/settingsContainer"
+	       android:layout_width="wrap_content"
+	       android:layout_height="fill_parent"
+	       android:visibility="gone">
+		    <View 
+	           android:layout_width="0.5dip"
+	           android:layout_height="fill_parent"
+	           android:background="#ff222222"/>
+	           
+	        <ImageView
+	           android:id="@+id/settings"
+	           android:layout_height="fill_parent"
+	           android:layout_width="43dip"
+	           android:background="?attr/asHeaderButtonBackground"
+	           android:padding="7dip"
+	           android:src="@drawable/icn_settings"
+	           android:scaleType="fitCenter" />
+        </LinearLayout> 
+	    
     </LinearLayout>
     
     <!-- Body goes here -->

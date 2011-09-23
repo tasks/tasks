@@ -4,7 +4,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 
-import com.todoroo.astrid.actfm.TagViewActivity;
+import com.todoroo.astrid.actfm.TagSettingsActivity;
 import com.todoroo.astrid.api.Addon;
 import com.todoroo.astrid.api.AstridApiConstants;
 
@@ -29,9 +29,7 @@ public class TagsPlugin extends BroadcastReceiver {
      * @param activity
      */
     public static Intent newTagDialog(Context context) {
-        Intent intent = new Intent(context, TagViewActivity.class);
-        intent.putExtra(TagViewActivity.EXTRA_NEW_TAG, true);
-        intent.putExtra(TagViewActivity.EXTRA_START_TAB, "settings"); //$NON-NLS-1$
+        Intent intent = new Intent(context, TagSettingsActivity.class);
         return intent;
     }
 

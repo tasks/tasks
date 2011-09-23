@@ -4,6 +4,7 @@
   <!-- theme attributes -->
   <attr name="asContentBackground" format="reference"/>
   <attr name="asHeaderBackground" format="reference"/>
+  <attr name="asHeaderButtonBackground" format="reference"/>
   <attr name="asTextColor" format="color"/>
   <attr name="asDetailsColor" format="color"/>
   <attr name="asDueDateColor" format="color"/>
@@ -12,9 +13,12 @@
   <attr name="asFilterHeaderColor" format="color"/>
   <attr name="asFilterHeaderBackground" format="reference"/>
   <attr name="asFilterCountColor" format="color"/>
+  <attr name="asMembersHeaderBackground" format="reference"/>
+  <attr name="asMembersHeaderArrow" format="reference"/>
 
   <declare-styleable name="ContactsAutoComplete">
     <attr name="allowMultiple" format="boolean"/>
     <attr name="completeTags" format="boolean"/>
   </declare-styleable>
+    
 </resources>

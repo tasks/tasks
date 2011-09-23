@@ -8,25 +8,15 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import android.app.Activity;
-import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.BroadcastReceiver;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.database.Cursor;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.net.Uri;
 import android.os.Bundle;
-import android.provider.MediaStore;
-import android.text.Editable;
 import android.text.TextUtils;
-import android.text.TextWatcher;
+import android.util.DisplayMetrics;
 import android.util.Log;
-import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MotionEvent;
@@ -34,18 +24,10 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.View.OnTouchListener;
 import android.view.ViewGroup;
-import android.view.inputmethod.EditorInfo;
-import android.widget.ArrayAdapter;
-import android.widget.CheckBox;
 import android.widget.EditText;
-import android.widget.ImageButton;
-import android.widget.ListView;
-import android.widget.TabHost;
-import android.widget.TabHost.OnTabChangeListener;
-import android.widget.TabWidget;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.TextView.OnEditorActionListener;
-import android.widget.Toast;
 
 import com.timsu.astrid.R;
 import com.todoroo.andlib.data.TodorooCursor;
@@ -55,33 +37,25 @@ import com.todoroo.andlib.service.NotificationManager;
 import com.todoroo.andlib.service.NotificationManager.AndroidNotificationManager;
 import com.todoroo.andlib.sql.Criterion;
 import com.todoroo.andlib.sql.Query;
-import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.andlib.utility.DialogUtilities;
 import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.astrid.actfm.sync.ActFmPreferenceService;
 import com.todoroo.astrid.actfm.sync.ActFmSyncService;
 import com.todoroo.astrid.activity.TaskListActivity;
-import com.todoroo.astrid.adapter.UpdateAdapter;
 import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.core.SortHelper;
 import com.todoroo.astrid.dao.TaskDao.TaskCriteria;
-import com.todoroo.astrid.dao.UpdateDao;
 import com.todoroo.astrid.data.TagData;
 import com.todoroo.astrid.data.Task;
-import com.todoroo.astrid.data.Update;
-import com.todoroo.astrid.service.StatisticsConstants;
-import com.todoroo.astrid.service.StatisticsService;
 import com.todoroo.astrid.service.TagDataService;
 import com.todoroo.astrid.tags.TagFilterExposer;
 import com.todoroo.astrid.tags.TagService;
 import com.todoroo.astrid.tags.TagService.Tag;
-import com.todoroo.astrid.ui.PeopleContainer;
-import com.todoroo.astrid.utility.Flags;
 import com.todoroo.astrid.welcome.HelpInfoPopover;
 
-public class TagViewActivity extends TaskListActivity implements OnTabChangeListener {
+public class TagViewActivity extends TaskListActivity {
 
     private static final String LAST_FETCH_KEY = "tag-fetch-"; //$NON-NLS-1$
 
@@ -89,17 +63,12 @@ public class TagViewActivity extends TaskListActivity implements OnTabChangeList
 
     public static final String EXTRA_TAG_NAME = "tag"; //$NON-NLS-1$
     public static final String EXTRA_TAG_REMOTE_ID = "remoteId"; //$NON-NLS-1$
-    public static final String EXTRA_START_TAB = "tab"; //$NON-NLS-1$
-    public static final String EXTRA_NEW_TAG = "new"; //$NON-NLS-1$
+
+    public static final String EXTRA_TAG_DATA = "tagData"; //$NON-NLS-1$
 
     protected static final int MENU_REFRESH_ID = MENU_SYNC_ID;
 
-    protected static final int REQUEST_CODE_CAMERA = 1;
-    protected static final int REQUEST_CODE_PICTURE = 2;
-    protected static final int REQUEST_ACTFM_LOGIN = 3;
-
-    private static final String MEMBERS_IN_PROGRESS = "members"; //$NON-NLS-1$
-    private static final String TAB_IN_PROGRESS = "tab"; //$NON-NLS-1$
+    private static final int REQUEST_CODE_SETTINGS = 0;
 
     private TagData tagData;
 
@@ -109,24 +78,16 @@ public class TagViewActivity extends TaskListActivity implements OnTabChangeList
 
     @Autowired ActFmPreferenceService actFmPreferenceService;
 
-    @Autowired UpdateDao updateDao;
-
-    private UpdateAdapter updateAdapter;
-    private PeopleContainer tagMembers;
-    private EditText addCommentField;
-    private AsyncImageView picture;
-    private EditText tagName;
     private View taskListView;
-    private CheckBox isSilent;
-
-    private TabHost tabHost;
-    private TabWidget tabWidget;
-    private String[] tabLabels;
 
     private boolean dataLoaded = false;
 
-    private boolean updatesTabAdded = false;
+    private long currentId;
+    private JSONObject currentMember;
 
+    private Filter originalFilter;
+
+    //private ImageAdapter galleryAdapter;
 
     // --- UI initialization
 
@@ -145,111 +106,67 @@ public class TagViewActivity extends TaskListActivity implements OnTabChangeList
             }
         };
         ((EditText) findViewById(R.id.quickAddText)).setOnTouchListener(onTouch);
-        ((EditText) findViewById(R.id.commentField)).setOnTouchListener(onTouch);
 
-        if(getIntent().hasExtra(EXTRA_START_TAB))
-            tabHost.setCurrentTabByTag(getIntent().getStringExtra(EXTRA_START_TAB));
+        View settingsContainer = findViewById(R.id.settingsContainer);
+        settingsContainer.setVisibility(View.VISIBLE);
 
-        if(savedInstanceState != null && savedInstanceState.containsKey(MEMBERS_IN_PROGRESS)) {
-            final String members = savedInstanceState.getString(MEMBERS_IN_PROGRESS);
-            new Thread(new Runnable() {
+        View settingsButton = findViewById(R.id.settings);
+        settingsButton.setOnClickListener(settingsListener);
+
+        View membersEdit = findViewById(R.id.members_edit);
+        membersEdit.setOnClickListener(settingsListener);
+
+        findViewById(R.id.listLabel).setPadding(0, 0, 0, 0);
+
+        if (actFmPreferenceService.isLoggedIn()) {
+            View activityContainer = findViewById(R.id.activityContainer);
+            activityContainer.setVisibility(View.VISIBLE);
+
+            ImageView activity = (ImageView) findViewById(R.id.activity);
+            activity.setOnClickListener(new View.OnClickListener() {
                 @Override
-                public void run() {
-                    AndroidUtilities.sleepDeep(500);
-                    runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            updateMembers(members);
-                        }
-                    });
+                public void onClick(View v) {
+                    Intent intent = new Intent(TagViewActivity.this, TagUpdatesActivity.class);
+                    intent.putExtra(EXTRA_TAG_DATA, tagData);
+                    startActivity(intent);
                 }
-            }).start();
-        }
-        if(savedInstanceState != null && savedInstanceState.containsKey(TAB_IN_PROGRESS)) {
-            tabHost.setCurrentTab(savedInstanceState.getInt(TAB_IN_PROGRESS));
+            });
         }
 
-        onNewIntent(getIntent());
+        originalFilter = filter;
+        showListSettingsPopover();
     }
+
+    private final OnClickListener settingsListener = new OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            Intent intent = new Intent(TagViewActivity.this, TagSettingsActivity.class);
+            intent.putExtra(EXTRA_TAG_DATA, tagData);
+            startActivityForResult(intent, REQUEST_CODE_SETTINGS);
+        }
+    };
 
     /* (non-Javadoc)
      * @see com.todoroo.astrid.activity.TaskListActivity#getListBody(android.view.ViewGroup)
      */
-    @SuppressWarnings("nls")
     @Override
     protected View getListBody(ViewGroup root) {
-        ViewGroup parent = (ViewGroup) getLayoutInflater().inflate(R.layout.task_list_body_tag, root, false);
-        ViewGroup tabContent = (ViewGroup) parent.findViewById(android.R.id.tabcontent);
-
-        tabLabels = getResources().getStringArray(R.array.TVA_tabs);
-        tabHost = (TabHost) parent.findViewById(android.R.id.tabhost);
-        tabWidget = (TabWidget) parent.findViewById(android.R.id.tabs);
-        tabHost.setup();
+        ViewGroup parent = (ViewGroup) getLayoutInflater().inflate(R.layout.task_list_body_tag_v2, root, false);
 
         taskListView = super.getListBody(parent);
         if(actFmPreferenceService.isLoggedIn())
             ((TextView)taskListView.findViewById(android.R.id.empty)).setText(R.string.DLG_loading);
-        tabContent.addView(taskListView);
-
-        addTab(taskListView.getId(), "tasks", tabLabels[0]);
-
-        tabHost.setOnTabChangedListener(this);
+        parent.addView(taskListView);
 
         return parent;
     }
 
-    private void addTab(int contentId, String id, String label) {
-        TabHost.TabSpec spec = tabHost.newTabSpec(id);
-        spec.setContent(contentId);
-        TextView textIndicator = (TextView) getLayoutInflater().inflate(R.layout.gd_tab_indicator, tabWidget, false);
-        textIndicator.setText(label);
-        spec.setIndicator(textIndicator);
-        tabHost.addTab(spec);
-    }
-
-    private void showListTabPopover() {
+    private void showListSettingsPopover() {
         if (!Preferences.getBoolean(R.string.p_showed_list_settings_help, false)) {
-            View tabView = tabWidget.getChildTabViewAt(tabWidget.getTabCount() - 1);
+            View tabView = findViewById(R.id.settings);
             HelpInfoPopover.showPopover(this, tabView, R.string.help_popover_list_settings);
             Preferences.setBoolean(R.string.p_showed_list_settings_help, true);
         }
-    }
-
-    private void showCollaboratorsPopover() {
-        if (!Preferences.getBoolean(R.string.p_showed_collaborators_help, false)) {
-            View members = findViewById(R.id.members_container);
-            HelpInfoPopover.showPopover(this, members, R.string.help_popover_collaborators);
-            Preferences.setBoolean(R.string.p_showed_collaborators_help, true);
-        }
-    }
-
-    @SuppressWarnings("nls")
-    @Override
-    public void onTabChanged(String tabId) {
-        if(tabId.equals("tasks"))
-            findViewById(R.id.taskListFooter).setVisibility(View.VISIBLE);
-        else
-            findViewById(R.id.taskListFooter).setVisibility(View.GONE);
-
-        if(tabId.equals("updates"))
-            findViewById(R.id.updatesFooter).setVisibility(View.VISIBLE);
-        else
-            findViewById(R.id.updatesFooter).setVisibility(View.GONE);
-
-        if(tabId.equals("settings"))
-            findViewById(R.id.membersFooter).setVisibility(View.VISIBLE);
-        else
-            findViewById(R.id.membersFooter).setVisibility(View.GONE);
-
-        showPopovers();
-    }
-
-    @SuppressWarnings("nls")
-    private void showPopovers() {
-        if(tabHost.getCurrentTabTag().equals("settings"))
-            showCollaboratorsPopover();
-        else
-            showListTabPopover();
     }
 
     /**
@@ -289,97 +206,6 @@ public class TagViewActivity extends TaskListActivity implements OnTabChangeList
         return true;
     }
 
-    protected void setUpSettingsPage() {
-        addTab(R.id.tab_settings, "settings", tabLabels[2]); //$NON-NLS-1$
-        tagMembers = (PeopleContainer) findViewById(R.id.members_container);
-        tagName = (EditText) findViewById(R.id.tag_name);
-        picture = (AsyncImageView) findViewById(R.id.picture);
-        isSilent = (CheckBox) findViewById(R.id.tag_silenced);
-
-        if(actFmPreferenceService.isLoggedIn()) {
-            picture.setVisibility(View.VISIBLE);
-            findViewById(R.id.listSettingsMore).setVisibility(View.VISIBLE);
-        }
-
-        picture.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View arg0) {
-                ArrayAdapter<String> adapter = new ArrayAdapter<String>(TagViewActivity.this,
-                        android.R.layout.simple_spinner_dropdown_item, new String[] {
-                            getString(R.string.actfm_picture_camera),
-                            getString(R.string.actfm_picture_gallery),
-                });
-
-                DialogInterface.OnClickListener listener = new DialogInterface.OnClickListener() {
-                    @SuppressWarnings("nls")
-                    @Override
-                    public void onClick(DialogInterface d, int which) {
-                        if(which == 0) {
-                            Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-                            startActivityForResult(intent, REQUEST_CODE_CAMERA);
-                        } else {
-                            Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
-                            intent.setType("image/*");
-                            startActivityForResult(Intent.createChooser(intent,
-                                    getString(R.string.actfm_TVA_tag_picture)), REQUEST_CODE_PICTURE);
-                        }
-                    }
-                };
-
-                // show a menu of available options
-                new AlertDialog.Builder(TagViewActivity.this)
-                .setAdapter(adapter, listener)
-                .show().setOwnerActivity(TagViewActivity.this);
-            }
-        });
-
-        findViewById(R.id.saveMembers).setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View arg0) {
-                saveSettings();
-            }
-        });
-
-        refreshSettingsPage();
-    }
-
-    protected void setUpUpdateList() {
-        final ImageButton quickAddButton = (ImageButton) findViewById(R.id.commentButton);
-        addCommentField = (EditText) findViewById(R.id.commentField);
-        addCommentField.setOnEditorActionListener(new OnEditorActionListener() {
-            @Override
-            public boolean onEditorAction(TextView view, int actionId, KeyEvent event) {
-                if(actionId == EditorInfo.IME_NULL && addCommentField.getText().length() > 0) {
-                    addComment();
-                    return true;
-                }
-                return false;
-            }
-        });
-        addCommentField.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void afterTextChanged(Editable s) {
-                quickAddButton.setVisibility((s.length() > 0) ? View.VISIBLE : View.GONE);
-            }
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-                //
-            }
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                //
-            }
-        });
-        quickAddButton.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                addComment();
-            }
-        });
-
-        refreshUpdatesList();
-    }
-
     // --- data loading
 
     @Override
@@ -392,13 +218,9 @@ public class TagViewActivity extends TaskListActivity implements OnTabChangeList
 
         String tag = getIntent().getStringExtra(EXTRA_TAG_NAME);
         long remoteId = getIntent().getLongExtra(EXTRA_TAG_REMOTE_ID, 0);
-        boolean newTag = getIntent().getBooleanExtra(EXTRA_NEW_TAG, false);
 
-        if(tag == null && remoteId == 0 && !newTag)
+        if(tag == null && remoteId == 0)
             return;
-
-        if(newTag)
-            getIntent().putExtra(TOKEN_FILTER, Filter.emptyFilter(getString(R.string.tag_new_list)));
 
         TodorooCursor<TagData> cursor = tagDataService.query(Query.select(TagData.PROPERTIES).where(Criterion.or(TagData.NAME.eqCaseInsensitive(tag),
                 Criterion.and(TagData.REMOTE_ID.gt(0), TagData.REMOTE_ID.eq(remoteId)))));
@@ -425,32 +247,9 @@ public class TagViewActivity extends TaskListActivity implements OnTabChangeList
             }
         }
 
+        setUpMembersGallery();
+
         super.onNewIntent(intent);
-        setUpUpdateList();
-        setUpSettingsPage();
-    }
-
-    private void refreshUpdatesList() {
-        if(!actFmPreferenceService.isLoggedIn() || tagData.getValue(Task.REMOTE_ID) <= 0)
-            return;
-
-        if(!updatesTabAdded ) {
-            updatesTabAdded = true;
-            addTab(R.id.tab_updates, "updates", tabLabels[1]); //$NON-NLS-1$
-        }
-
-        if(updateAdapter == null) {
-            TodorooCursor<Update> currentCursor = tagDataService.getUpdates(tagData);
-            startManagingCursor(currentCursor);
-
-            updateAdapter = new UpdateAdapter(this, R.layout.update_adapter_row,
-                    currentCursor, false, null);
-            ((ListView)findViewById(R.id.tab_updates)).setAdapter(updateAdapter);
-        } else {
-            Cursor cursor = updateAdapter.getCursor();
-            cursor.requery();
-            startManagingCursor(cursor);
-        }
     }
 
     @Override
@@ -463,48 +262,6 @@ public class TagViewActivity extends TaskListActivity implements OnTabChangeList
             tagData.setValue(TagData.TASK_COUNT, count);
             tagDataService.save(tagData);
         }
-    }
-
-    @SuppressWarnings("nls")
-    private void refreshSettingsPage() {
-        tagName.setText(tagData.getValue(TagData.NAME));
-        picture.setUrl(tagData.getValue(TagData.PICTURE));
-        setTitle(getString(R.string.tag_FEx_name, tagData.getValue(TagData.NAME)));
-
-        TextView ownerLabel = (TextView) findViewById(R.id.tag_owner);
-        try {
-            if(tagData.getFlag(TagData.FLAGS, TagData.FLAG_EMERGENT)) {
-                ownerLabel.setText(String.format("<%s>", getString(R.string.actfm_TVA_tag_owner_none)));
-            } else if(tagData.getValue(TagData.USER_ID) == 0) {
-                ownerLabel.setText(Preferences.getStringValue(ActFmPreferenceService.PREF_NAME));
-            } else {
-                JSONObject owner = new JSONObject(tagData.getValue(TagData.USER));
-                ownerLabel.setText(owner.getString("name"));
-            }
-        } catch (JSONException e) {
-            Log.e("tag-view-activity", "json error refresh owner", e);
-            ownerLabel.setText("<error>");
-            System.err.println(tagData.getValue(TagData.USER));
-        }
-
-        String peopleJson = tagData.getValue(TagData.MEMBERS);
-        updateMembers(peopleJson);
-    }
-
-    @SuppressWarnings("nls")
-    private void updateMembers(String peopleJson) {
-        tagMembers.removeAllViews();
-        if(!TextUtils.isEmpty(peopleJson)) {
-            try {
-                JSONArray people = new JSONArray(peopleJson);
-                tagMembers.fromJSONArray(people);
-            } catch (JSONException e) {
-                System.err.println(peopleJson);
-                Log.e("tag-view-activity", "json error refresh members", e);
-            }
-        }
-
-        tagMembers.addPerson(""); //$NON-NLS-1$
     }
 
     // --------------------------------------------------------- refresh data
@@ -533,7 +290,6 @@ public class TagViewActivity extends TaskListActivity implements OnTabChangeList
                         public void run() {
                             if(noRemoteId && tagData.getValue(TagData.REMOTE_ID) > 0)
                                 refreshData(manual, true);
-                            refreshSettingsPage();
                         }
                     });
 
@@ -555,6 +311,7 @@ public class TagViewActivity extends TaskListActivity implements OnTabChangeList
         if(noRemoteId)
             return;
 
+        setUpMembersGallery();
         actFmSyncService.fetchTasksForTag(tagData, manual, new Runnable() {
             @Override
             public void run() {
@@ -575,12 +332,137 @@ public class TagViewActivity extends TaskListActivity implements OnTabChangeList
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        refreshUpdatesList();
+                        //refreshUpdatesList();
                         DialogUtilities.dismissDialog(TagViewActivity.this, progressDialog);
                     }
                 });
             }
         });
+
+    }
+
+    private void setUpMembersGallery() {
+        LinearLayout membersView = (LinearLayout)findViewById(R.id.shared_with);
+        membersView.setOnClickListener(settingsListener);
+        try {
+            String membersString = tagData.getValue(TagData.MEMBERS);
+            JSONArray members = new JSONArray(membersString);
+            if (members.length() > 0) {
+                membersView.setOnClickListener(null);
+                membersView.removeAllViews();
+                for (int i = 0; i < members.length(); i++) {
+                    JSONObject member = members.getJSONObject(i);
+                    addImageForMember(membersView, member);
+                }
+                // Handle creator
+                if(tagData.getValue(TagData.USER_ID) != 0) {
+                    JSONObject owner = new JSONObject(tagData.getValue(TagData.USER));
+                    addImageForMember(membersView, owner);
+                }
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        findViewById(R.id.filter_assigned).setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                resetAssignedFilter();
+            }
+        });
+    }
+
+    @SuppressWarnings("nls")
+    private void addImageForMember(LinearLayout membersView, JSONObject member) {
+        DisplayMetrics displayMetrics = new DisplayMetrics();
+        getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
+        AsyncImageView image = new AsyncImageView(this);
+        image.setLayoutParams(new LinearLayout.LayoutParams((int)(50 * displayMetrics.density),
+                (int)(50 * displayMetrics.density)));
+        image.setDefaultImageResource(R.drawable.ic_contact_picture_2);
+        image.setScaleType(ImageView.ScaleType.FIT_XY);
+        try {
+            final long id = member.getLong("id");
+            if (id == ActFmPreferenceService.userId())
+                member = ActFmPreferenceService.thisUser();
+            final JSONObject memberToUse = member;
+
+            final String memberName = displayName(memberToUse);
+            if (memberToUse.has("picture")) {
+                image.setUrl(memberToUse.getString("picture"));
+            }
+            image.setOnClickListener(listenerForImage(memberToUse, id, memberName));
+        } catch (JSONException e) {
+            System.err.println("Unable to create listener");
+            e.printStackTrace();
+        }
+        membersView.addView(image);
+    }
+
+    private OnClickListener listenerForImage(final JSONObject member, final long id, final String displayName) {
+        return new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (currentId == id) {
+                    // Back to all
+                    resetAssignedFilter();
+                } else {
+                    // New filter
+                    currentId = id;
+                    currentMember = member;
+                    Criterion assigned = Criterion.and(TaskCriteria.activeAndVisible(), Task.USER_ID.eq(id));
+                    filter = TagFilterExposer.filterFromTag(TagViewActivity.this, new Tag(tagData), assigned);
+                    TextView filterByAssigned = (TextView) findViewById(R.id.filter_assigned);
+                    filterByAssigned.setVisibility(View.VISIBLE);
+                    filterByAssigned.setText(getString(R.string.actfm_TVA_filtered_by_assign, displayName));
+                    setUpTaskList();
+                }
+            }
+        };
+    }
+
+    @Override
+    protected Intent getOnClickQuickAddIntent(Task t) {
+        Intent intent = super.getOnClickQuickAddIntent(t);
+        // Customize extras
+        return intent;
+    }
+
+    @Override
+    protected Intent getOnLongClickQuickAddIntent(Task t) {
+        Intent intent = super.getOnClickQuickAddIntent(t);
+        // Customize extras
+        return intent;
+    }
+
+    private void resetAssignedFilter() {
+        currentId = -1;
+        currentMember = null;
+        filter = originalFilter;
+        findViewById(R.id.filter_assigned).setVisibility(View.GONE);
+        setUpTaskList();
+    }
+
+    @SuppressWarnings("nls")
+    private String displayName(JSONObject user) {
+        String name = user.optString("name");
+        if (!TextUtils.isEmpty(name) && !"null".equals(name)) {
+            name = name.trim();
+            int index = name.indexOf(' ');
+            if (index > 0) {
+                return name.substring(0, index);
+            } else {
+                return name;
+            }
+        } else {
+            String email = user.optString("email");
+            email = email.trim();
+            int index = email.indexOf('@');
+            if (index > 0) {
+                return email.substring(0, index);
+            } else {
+                return email;
+            }
+        }
     }
 
     // --- receivers
@@ -597,7 +479,7 @@ public class TagViewActivity extends TaskListActivity implements OnTabChangeList
             runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
-                    refreshUpdatesList();
+                    //refreshUpdatesList();
                 }
             });
             refreshData(false, true);
@@ -623,79 +505,6 @@ public class TagViewActivity extends TaskListActivity implements OnTabChangeList
     }
 
     @Override
-    protected void onSaveInstanceState(Bundle outState) {
-        super.onSaveInstanceState(outState);
-
-        if(tagMembers.getChildCount() > 1) {
-            JSONArray members = tagMembers.toJSONArray();
-            outState.putString(MEMBERS_IN_PROGRESS, members.toString());
-        }
-        outState.putInt(TAB_IN_PROGRESS, tabHost.getCurrentTab());
-    }
-
-    // --- events
-
-    private void saveSettings() {
-        String oldName = tagData.getValue(TagData.NAME);
-        String newName = tagName.getText().toString();
-
-        boolean nameChanged = !oldName.equals(newName);
-        TagService service = TagService.getInstance();
-        if (nameChanged) {
-            if (oldName.equalsIgnoreCase(newName)) { // Change the capitalization of a list manually
-                tagData.setValue(TagData.NAME, newName);
-                service.renameCaseSensitive(oldName, newName);
-                tagData.setFlag(TagData.FLAGS, TagData.FLAG_EMERGENT, false);
-            } else { // Rename list--check for existing name
-                newName = service.getTagWithCase(newName);
-                tagName.setText(newName);
-                if (!newName.equals(oldName)) {
-                    tagData.setValue(TagData.NAME, newName);
-                    service.rename(oldName, newName);
-                    tagData.setFlag(TagData.FLAGS, TagData.FLAG_EMERGENT, false);
-                } else {
-                    nameChanged = false;
-                }
-            }
-        }
-
-        if(newName.length() > 0 && oldName.length() == 0) {
-            tagDataService.save(tagData);
-            setUpNewTag(newName);
-        }
-
-        JSONArray members = tagMembers.toJSONArray();
-        if(members.length() > 0 && !actFmPreferenceService.isLoggedIn()) {
-            startActivityForResult(new Intent(this, ActFmLoginActivity.class),
-                        REQUEST_ACTFM_LOGIN);
-            return;
-        }
-
-        int oldMemberCount = tagData.getValue(TagData.MEMBER_COUNT);
-        if (members.length() > oldMemberCount) {
-            StatisticsService.reportEvent(StatisticsConstants.ACTFM_LIST_SHARED);
-        }
-        tagData.setValue(TagData.MEMBERS, members.toString());
-        tagData.setValue(TagData.MEMBER_COUNT, members.length());
-        tagData.setFlag(TagData.FLAGS, TagData.FLAG_SILENT, isSilent.isChecked());
-
-        if(actFmPreferenceService.isLoggedIn())
-            Flags.set(Flags.TOAST_ON_SAVE);
-        else
-            Toast.makeText(this, R.string.tag_list_saved, Toast.LENGTH_LONG).show();
-
-        tagDataService.save(tagData);
-
-        if (nameChanged) {
-            filter = TagFilterExposer.filterFromTagData(this, tagData);
-            taskAdapter = null;
-            loadTaskListContent(true);
-        }
-
-        refreshSettingsPage();
-    }
-
-    @Override
     protected Task quickAddTask(String title, boolean selectNewTask) {
         if(tagData.getValue(TagData.NAME).length() == 0) {
             DialogUtilities.okDialog(this, getString(R.string.tag_no_title_error), null);
@@ -704,87 +513,16 @@ public class TagViewActivity extends TaskListActivity implements OnTabChangeList
         return super.quickAddTask(title, selectNewTask);
     }
 
-    private void setUpNewTag(String name) {
-        filter = TagFilterExposer.filterFromTag(this, new Tag(name, 0, 0),
-                TaskCriteria.activeAndVisible());
-        getIntent().putExtra(TOKEN_FILTER, filter);
-        super.onNewIntent(getIntent());
-    }
-
-    @SuppressWarnings("nls")
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if(requestCode == REQUEST_CODE_CAMERA && resultCode == RESULT_OK) {
-            Bitmap bitmap = data.getParcelableExtra("data");
-            if(bitmap != null) {
-                picture.setImageBitmap(bitmap);
-                uploadTagPicture(bitmap);
-            }
-        } else if(requestCode == REQUEST_CODE_PICTURE && resultCode == RESULT_OK) {
-            Uri uri = data.getData();
-            String[] projection = { MediaStore.Images.Media.DATA };
-            Cursor cursor = managedQuery(uri, projection, null, null, null);
-            String path;
-
-            if(cursor != null) {
-                try {
-                    int column_index = cursor
-                            .getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
-                    cursor.moveToFirst();
-                    path = cursor.getString(column_index);
-                } finally {
-                    cursor.close();
-                }
-            } else {
-                path = uri.getPath();
-            }
-
-            Bitmap bitmap = BitmapFactory.decodeFile(path);
-            if(bitmap != null) {
-                picture.setImageBitmap(bitmap);
-                uploadTagPicture(bitmap);
-            }
-        } else if(requestCode == REQUEST_ACTFM_LOGIN && resultCode == Activity.RESULT_OK) {
-            saveSettings();
+        if (requestCode == REQUEST_CODE_SETTINGS && resultCode == RESULT_OK) {
+            tagData = tagDataService.fetchById(tagData.getId(), TagData.PROPERTIES);
+            filter = TagFilterExposer.filterFromTagData(this, tagData);
+            taskAdapter = null;
+            loadTaskListContent(true);
         } else {
             super.onActivityResult(requestCode, resultCode, data);
         }
-    }
-
-    private void uploadTagPicture(final Bitmap bitmap) {
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                try {
-                    String url = actFmSyncService.setTagPicture(tagData.getValue(TagData.REMOTE_ID), bitmap);
-                    tagData.setValue(TagData.PICTURE, url);
-                    Flags.set(Flags.ACTFM_SUPPRESS_SYNC);
-                    tagDataService.save(tagData);
-                } catch (IOException e) {
-                    DialogUtilities.okDialog(TagViewActivity.this, e.toString(), null);
-                }
-            }
-        }).start();
-    }
-
-    @SuppressWarnings("nls")
-    private void addComment() {
-        if(tagData.getValue(TagData.REMOTE_ID) == 0L)
-            return;
-
-        Update update = new Update();
-        update.setValue(Update.MESSAGE, addCommentField.getText().toString());
-        update.setValue(Update.ACTION_CODE, "tag_comment");
-        update.setValue(Update.USER_ID, 0L);
-        update.setValue(Update.TAGS, "," + tagData.getValue(TagData.REMOTE_ID) + ",");
-        update.setValue(Update.CREATION_DATE, DateUtilities.now());
-        Flags.checkAndClear(Flags.ACTFM_SUPPRESS_SYNC);
-        updateDao.createNew(update);
-
-        addCommentField.setText(""); //$NON-NLS-1$
-        refreshUpdatesList();
-
-        StatisticsService.reportEvent(StatisticsConstants.ACTFM_TAG_COMMENT);
     }
 
     @Override

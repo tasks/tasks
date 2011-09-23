@@ -95,8 +95,7 @@ public class FilterByTagExposer extends BroadcastReceiver {
                 Tag tag = new Tag(tags.get(which), 0, 0);
 
                 String listTitle = tag.tag;
-                String title = ContextManager.getString(
-                        R.string.tag_FEx_name, tag.tag);
+                String title = tag.tag;
                 Criterion criterion = TaskCriteria.activeAndVisible();
                 QueryTemplate tagTemplate = tag.queryTemplate(criterion);
                 ContentValues contentValues = new ContentValues();

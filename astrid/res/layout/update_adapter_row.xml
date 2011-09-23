@@ -1,57 +1,77 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- See the file "LICENSE" for the full license governing this code. -->
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:astrid="http://schemas.android.com/apk/res/com.timsu.astrid"
     android:layout_width="fill_parent"
     android:layout_height="wrap_content"
-    android:background="@android:drawable/list_selector_background"
-    android:paddingTop="4dip"
-    android:paddingBottom="4dip"
-    android:paddingLeft="4dip"
-    android:paddingRight="6dip">
-        
+    android:orientation="vertical">
+	
+	<RelativeLayout
+	    android:layout_width="fill_parent"
+	    android:layout_height="wrap_content"
+	    android:background="@android:drawable/list_selector_background"
+	    android:paddingTop="4dip"
+	    android:paddingBottom="4dip"
+	    android:paddingLeft="4dip"
+	    android:paddingRight="6dip">
+	        
+	    <!-- picture -->
+	    <greendroid.widget.AsyncImageView android:id="@+id/picture"
+	        android:layout_width="40dip"
+	        android:layout_height="40dip"
+	        android:layout_alignParentTop="true"
+	        android:layout_alignParentLeft="true"
+	        android:paddingTop="5dip" 
+	        astrid:defaultSrc="@drawable/ic_contact_picture_2"
+	        android:scaleType="fitCenter" />
+	        
+	    <!-- title -->
+	    <TextView android:id="@+id/title"
+	        android:layout_width="fill_parent"
+	        android:layout_height="wrap_content"
+	        android:layout_alignParentTop="true"
+	        android:layout_alignParentLeft="true"
+	        android:paddingLeft="50dip" 
+	        android:paddingRight="75dip" 
+	        style="@style/TextAppearance.TAd_ItemTitle"
+	        android:textSize="16sp"/>
+	    
+	        
+	    <!-- action description -->
+	    <TextView android:id="@+id/description"
+	        android:layout_width="fill_parent"
+	        android:layout_height="wrap_content"
+	        android:layout_below="@id/title"
+	        android:layout_alignParentLeft="true"
+	        style="@style/TextAppearance.TAd_ItemDetails"
+	        android:paddingLeft="50dip"
+	        android:textSize="14sp" />
+	        
+	    <!-- activity date -->
+	    <TextView android:id="@+id/date"
+	        android:layout_width="75dip"
+	        android:layout_height="wrap_content"
+	        android:layout_alignParentTop="true"
+	        android:layout_alignParentRight="true"        
+	        android:paddingTop="3dip"
+	        style="@style/TextAppearance.TAd_ItemDueDate"
+	        android:gravity="right"
+	        android:ellipsize="end"
+	        android:textSize="12sp"
+	        android:singleLine="true"/>
+	        
+	</RelativeLayout>
+    
     <!-- picture -->
-    <greendroid.widget.AsyncImageView android:id="@+id/picture"
-        android:layout_width="40dip"
-        android:layout_height="40dip"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentLeft="true"
-        android:paddingTop="5dip" 
-        astrid:defaultSrc="@drawable/ic_contact_picture_2"
-        android:scaleType="fitCenter" />
+    <greendroid.widget.AsyncImageView
+        android:id="@+id/comment_picture"
+        android:layout_width="50dip"
+        android:layout_height="50dip"
+        android:layout_alignParentBottom="true"
+        android:layout_marginLeft="50dip"
+        android:layout_marginBottom="4dip"
+        android:visibility="gone"
+        astrid:defaultSrc="@android:drawable/ic_menu_gallery"
+        android:scaleType="fitCenter"/>
         
-    <!-- title -->
-    <TextView android:id="@+id/title"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentLeft="true"
-        android:paddingLeft="50dip" 
-        android:paddingRight="75dip" 
-        style="@style/TextAppearance.TAd_ItemTitle"
-        android:textSize="16sp"/>
-        
-    <!-- action description -->
-    <TextView android:id="@+id/description"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/title"
-        android:layout_alignParentLeft="true"
-        style="@style/TextAppearance.TAd_ItemDetails"
-        android:paddingLeft="50dip"
-        android:textSize="14sp" />
-        
-    <!-- activity date -->
-    <TextView android:id="@+id/date"
-        android:layout_width="75dip"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentRight="true"        
-        android:paddingTop="3dip"
-        style="@style/TextAppearance.TAd_ItemDueDate"
-        android:gravity="right"
-        android:ellipsize="end"
-        android:textSize="12sp"
-        android:singleLine="true"/>
-        
-</RelativeLayout>
+</LinearLayout>

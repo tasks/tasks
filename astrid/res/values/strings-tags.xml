@@ -85,5 +85,11 @@
   <string name="tag_case_migration_notice">We\'ve noticed that you have some lists that have the same name with different capitalizations. We think you may have intended them to 
   be the same list, so we\'ve combined the duplicates. Don\'t worry though: the original lists are simply renamed with numbers (e.g. Shopping_1, Shopping_2). If you don\'t want this, you
   can simply delete the new combined list!</string>
+  
+  <!-- Header for tag settings -->
+  <string name="tag_settings_title">Settings: %s</string>
+  
+  <!-- Header for tag activity -->
+  <string name="tag_updates_title">Activity: %s</string>
 
 </resources>

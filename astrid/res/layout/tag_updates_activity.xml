@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  android:orientation="vertical"
+  android:layout_width="fill_parent"
+  android:layout_height="fill_parent"
+  style="@style/Content">
+  
+    <LinearLayout
+        style="@style/Header"
+        android:layout_width="fill_parent" 
+        android:layout_height="43dip"
+        android:layout_weight="1"
+        android:orientation="horizontal">
+        
+        <!-- List Label -->
+        <TextView android:id="@+id/listLabel"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_weight="100"
+            android:gravity="center"
+            android:singleLine="true"
+            android:ellipsize="start"
+            style="@style/TextAppearance.TLA_Header"/>
+    </LinearLayout>
+  
+    <ListView 
+        android:id="@android:id/list"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent" 
+        android:layout_weight="100"/>
+    
+    
+    <!-- Footer -->
+    <LinearLayout
+        android:id="@+id/updatesFooter"
+        android:layout_width="fill_parent" 
+        android:layout_height="wrap_content"
+        android:minHeight="47dip"
+        android:layout_weight="1"
+        android:background="@drawable/footer_background"
+        android:padding="3dip"
+        android:orientation="horizontal">
+        
+        <!-- Voice Add Button -->
+        <ImageButton android:id="@+id/picture"
+            android:layout_width="39dip"
+            android:layout_height="39dip"
+            android:layout_gravity="top"
+            android:layout_marginRight="3dip"
+            android:paddingLeft="7dip"
+            android:paddingRight="7dip"
+            android:paddingBottom="2dip"
+            android:layout_weight="1"
+            android:background="@drawable/footer_button"
+            android:src="@drawable/icn_camera"
+            android:scaleType="fitCenter"/> 
+    
+        <!-- Quick Add Task -->
+        <EditText android:id="@+id/commentField"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="3dip"
+            android:layout_weight="100"
+            android:background="@drawable/footer_edittext"
+            android:hint="@string/TVA_add_comment"
+            android:textSize="16sp"
+            android:autoText="true"
+            android:capitalize="sentences"/>
+        
+        <!-- Extended Add Button -->
+        <ImageButton android:id="@+id/commentButton"
+            android:layout_width="wrap_content"
+            android:layout_height="39dip"
+            android:layout_gravity="top"
+            android:layout_marginRight="3dip"
+            android:layout_weight="1"
+            android:background="@drawable/footer_button"
+            android:src="@drawable/ic_footer_add"
+            android:scaleType="center"/> 
+    </LinearLayout>
+    
+</LinearLayout>

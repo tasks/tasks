@@ -179,9 +179,9 @@ public class PeopleContainer extends LinearLayout {
 
             if(person.has("id") && person.getLong("id") == ActFmPreferenceService.userId())
                 textView = addPerson(Preferences.getStringValue(ActFmPreferenceService.PREF_NAME));
-            else if(!TextUtils.isEmpty(person.optString("name")))
+            else if(!TextUtils.isEmpty(person.optString("name")) && !"null".equals(person.optString("name")))
                 textView = addPerson(person.getString("name"));
-            else if(!TextUtils.isEmpty(person.optString("email")))
+            else if(!TextUtils.isEmpty(person.optString("email")) && !"null".equals(person.optString("email")))
                 textView = addPerson(person.getString("email"));
 
             if(textView != null) {
