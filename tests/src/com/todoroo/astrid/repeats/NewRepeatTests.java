@@ -132,7 +132,7 @@ public class NewRepeatTests<REMOTE_MODEL> extends DatabaseTestCase {
         if (rrule == null) {
             rrule = new RRule();
             rrule.setFreq(frequency);
-            int interval = 5;
+            int interval = 2;
             rrule.setInterval(interval);
         }
         t.setValue(Task.RECURRENCE, rrule.toIcal());
@@ -228,7 +228,7 @@ public class NewRepeatTests<REMOTE_MODEL> extends DatabaseTestCase {
         }
 
         if (fromCompletion) {
-            result += DateUtilities.ONE_WEEK * rrule.getInterval();
+            result += DateUtilities.ONE_WEEK * (rrule.getInterval() - 1);
         }
         result += DateUtilities.ONE_DAY * daysToAdd;
         return result;

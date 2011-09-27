@@ -3,6 +3,7 @@ package com.todoroo.astrid.repeats;
 import java.text.ParseException;
 import java.util.Calendar;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
 import java.util.TimeZone;
@@ -130,16 +131,38 @@ public class RepeatTaskCompleteListener extends BroadcastReceiver {
 
     private static long handleWeeklyRepeatAfterComplete(RRule rrule, Date original, DateValue startDateAsDV) {
         List<WeekdayNum> byDay = rrule.getByDay();
-        rrule.setByDay(Collections.EMPTY_LIST);
+        long newDate = original.getTime();
+        newDate += DateUtilities.ONE_WEEK * (rrule.getInterval() - 1);
         Calendar date = Calendar.getInstance();
-        date.setTimeInMillis(invokeRecurrence(rrule, original, startDateAsDV));
-        outer: while(true) {
-            for(WeekdayNum weekdayNum : byDay)
-                if(weekdayNum.wday.javaDayNum == date.get(Calendar.DAY_OF_WEEK))
-                    break outer;
+        date.setTimeInMillis(newDate);
+
+        Collections.sort(byDay, weekdayCompare);
+        WeekdayNum next = findNextWeekday(byDay, date);
+
+        do {
             date.add(Calendar.DATE, 1);
-        }
+        } while (date.get(Calendar.DAY_OF_WEEK) != next.wday.javaDayNum);
         return date.getTimeInMillis();
+    }
+
+    private static Comparator<WeekdayNum> weekdayCompare = new Comparator<WeekdayNum>() {
+        @Override
+        public int compare(WeekdayNum object1, WeekdayNum object2) {
+            return object1.wday.javaDayNum - object2.wday.javaDayNum;
+        }
+
+    };
+
+    private static WeekdayNum findNextWeekday(List<WeekdayNum> byDay,
+            Calendar date) {
+        WeekdayNum next = byDay.get(0);
+        for (int i = 0; i < byDay.size(); i++) {
+            WeekdayNum weekday = byDay.get(i);
+            if (weekday.wday.javaDayNum > date.get(Calendar.DAY_OF_WEEK)) {
+                return weekday;
+            }
+        }
+        return next;
     }
 
     private static long invokeRecurrence(RRule rrule, Date original,

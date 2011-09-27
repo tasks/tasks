@@ -168,7 +168,8 @@ public class AdvancedRepeatTests extends TodorooTestCase {
         for(Weekday wday : Weekday.values()) {
             buildRRule(1, Frequency.WEEKLY, wday);
             computeNextDueDate();
-            long expected = getDate(DateUtilities.now(), NEXT, wday.javaDayNum);
+            long expected = getDate(DateUtilities.now() + DateUtilities.ONE_DAY, THIS, wday.javaDayNum);
+            nextDueDate = Task.createDueDate(Task.URGENCY_SPECIFIC_DAY, nextDueDate);
             assertDateEquals(nextDueDate, expected);
         }
 
@@ -178,9 +179,10 @@ public class AdvancedRepeatTests extends TodorooTestCase {
                     continue;
 
                 buildRRule(1, Frequency.WEEKLY, wday1, wday2);
-                long nextOne = getDate(DateUtilities.now(), NEXT, wday1.javaDayNum);
-                long nextTwo = getDate(DateUtilities.now(), NEXT, wday2.javaDayNum);
+                long nextOne = getDate(DateUtilities.now() + DateUtilities.ONE_DAY, THIS, wday1.javaDayNum);
+                long nextTwo = getDate(DateUtilities.now() + DateUtilities.ONE_DAY, THIS, wday2.javaDayNum);
                 computeNextDueDate();
+                nextDueDate = Task.createDueDate(Task.URGENCY_SPECIFIC_DAY, nextDueDate);
                 assertDateEquals(nextDueDate, Math.min(nextOne, nextTwo));
             }
         }
@@ -193,7 +195,8 @@ public class AdvancedRepeatTests extends TodorooTestCase {
         for(Weekday wday : Weekday.values()) {
             buildRRule(2, Frequency.WEEKLY, wday);
             computeNextDueDate();
-            long expected = getDate(DateUtilities.now(), NEXT_NEXT, wday.javaDayNum);
+            long expected = getDate(DateUtilities.now() + DateUtilities.ONE_DAY, NEXT, wday.javaDayNum);
+            nextDueDate = Task.createDueDate(Task.URGENCY_SPECIFIC_DAY, nextDueDate);
             assertDateEquals(nextDueDate, expected);
         }
 
@@ -203,9 +206,10 @@ public class AdvancedRepeatTests extends TodorooTestCase {
                     continue;
 
                 buildRRule(2, Frequency.WEEKLY, wday1, wday2);
-                long nextOne = getDate(DateUtilities.now(), NEXT_NEXT, wday1.javaDayNum);
-                long nextTwo = getDate(DateUtilities.now(), NEXT_NEXT, wday2.javaDayNum);
+                long nextOne = getDate(DateUtilities.now() + DateUtilities.ONE_DAY, NEXT, wday1.javaDayNum);
+                long nextTwo = getDate(DateUtilities.now() + DateUtilities.ONE_DAY, NEXT, wday2.javaDayNum);
                 computeNextDueDate();
+                nextDueDate = Task.createDueDate(Task.URGENCY_SPECIFIC_DAY, nextDueDate);
                 assertDateEquals(nextDueDate, Math.min(nextOne, nextTwo));
             }
         }
