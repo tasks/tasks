@@ -36,12 +36,15 @@ import android.text.Spanned;
 import android.text.TextUtils;
 import android.util.DisplayMetrics;
 import android.util.Log;
+import android.util.Pair;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.View.OnCreateContextMenuListener;
+import android.view.View.OnTouchListener;
 import android.view.ViewGroup;
 import android.view.ViewGroup.LayoutParams;
 import android.view.ViewGroup.MarginLayoutParams;
@@ -438,6 +441,8 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
 
     protected TaskRowListener listener = new TaskRowListener();
 
+    private Pair<Float, Float> lastTouchYRawY = new Pair<Float, Float>(0f, 0f);
+
     /**
      * Set listeners for this view. This is called once per view when it is
      * created.
@@ -446,13 +451,17 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
         final ViewHolder viewHolder = (ViewHolder)container.getTag();
 
         // check box listener
-        viewHolder.completeBox.setOnClickListener(completeBoxListener);
-        viewHolder.completeArea.setOnClickListener(new OnClickListener() {
+        OnTouchListener otl = new OnTouchListener() {
             @Override
-            public void onClick(View v) {
-                viewHolder.completeBox.performClick();
+            public boolean onTouch(View v, MotionEvent event) {
+                lastTouchYRawY = new Pair<Float, Float>(event.getY(), event.getRawY());
+                return false;
             }
-        });
+        };
+        viewHolder.completeBox.setOnTouchListener(otl);
+        viewHolder.completeArea.setOnTouchListener(otl);
+        viewHolder.completeBox.setOnClickListener(completeBoxListener);
+        viewHolder.completeArea.setOnClickListener(completeBoxListener);
 
         if(applyListenersToRowBody) {
             viewHolder.rowBody.setOnCreateContextMenuListener(listener);
@@ -850,10 +859,19 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
 
     protected final View.OnClickListener completeBoxListener = new View.OnClickListener() {
         public void onClick(View v) {
+
+            int[] location = new int[2];
+            v.getLocationOnScreen(location);
             ViewHolder viewHolder = (ViewHolder)((View)v.getParent().getParent()).getTag();
+
+            if(Math.abs(location[1] + lastTouchYRawY.first - lastTouchYRawY.second) > 10) {
+                viewHolder.completeBox.setChecked(!viewHolder.completeBox.isChecked());
+                return;
+            }
+
             Task task = viewHolder.task;
 
-            completeTask(task, ((CheckBox)v).isChecked());
+            completeTask(task, viewHolder.completeBox.isChecked());
 
             // set check box to actual action item state
             setTaskAppearance(viewHolder, task);
