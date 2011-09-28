@@ -28,6 +28,8 @@ import com.todoroo.astrid.data.Task;
  */
 public class NotesDetailExposer extends BroadcastReceiver {
 
+    private static final int NOTE_MAX = 200;
+
     @Override
     public void onReceive(Context context, Intent intent) {
         // get tags associated with this task
@@ -59,8 +61,14 @@ public class NotesDetailExposer extends BroadcastReceiver {
         StringBuilder notesBuilder = new StringBuilder();
 
         String notes = task.getValue(Task.NOTES);
-        if(!TextUtils.isEmpty(notes))
+        if(!TextUtils.isEmpty(notes)) {
+            if(notes.length() > NOTE_MAX) {
+                int lastSpace = notes.lastIndexOf(' ', NOTE_MAX);
+                notes = notes.substring(0, Math.max(lastSpace, NOTE_MAX - 20));
+                notesBuilder.append("...");
+            }
             notesBuilder.append(notes);
+        }
 
         TodorooCursor<Metadata> cursor = PluginServices.getMetadataService().query(
                 Query.select(Metadata.PROPERTIES).where(

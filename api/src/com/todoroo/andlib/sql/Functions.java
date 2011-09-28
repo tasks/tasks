@@ -1,5 +1,7 @@
 package com.todoroo.andlib.sql;
 
+import com.todoroo.andlib.data.Property.StringProperty;
+
 
 
 
@@ -38,6 +40,10 @@ public final class Functions {
 
     public static Field count() {
         return new Field("COUNT(1)");
+    }
+
+    public static Field length(StringProperty field) {
+        return new Field("LENGTH(" + field.toString() + ")");
     }
 
 }

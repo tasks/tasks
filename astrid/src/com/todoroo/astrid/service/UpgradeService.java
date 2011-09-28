@@ -20,6 +20,7 @@ import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.ContextManager;
 import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.andlib.sql.Criterion;
+import com.todoroo.andlib.sql.Functions;
 import com.todoroo.andlib.sql.Query;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.andlib.utility.DialogUtilities;
@@ -122,8 +123,11 @@ public final class UpgradeService {
                     if(from < V3_1_0)
                         new Astrid2To3UpgradeHelper().upgrade3To3_1(context, from);
 
-                    if (from <= V3_8_3_1)
+                    if(from < V3_8_3_1)
                         new TagCaseMigrator().performTagCaseMigration(context);
+
+                    if(from < V3_8_4)
+                        taskService.clearDetails(Functions.length(Task.NOTES).gt(170));
                 } finally {
                     DialogUtilities.dismissDialog((Activity)context, dialog);
                 }
