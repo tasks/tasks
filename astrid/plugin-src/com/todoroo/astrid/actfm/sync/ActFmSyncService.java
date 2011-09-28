@@ -967,7 +967,7 @@ public final class ActFmSyncService {
             model.setValue(Task.COMPLETION_DATE, readDate(json, "completed_at"));
             model.setValue(Task.CREATION_DATE, readDate(json, "created_at"));
             model.setValue(Task.DELETION_DATE, readDate(json, "deleted_at"));
-            model.setValue(Task.RECURRENCE, json.optString("repeat", ""));
+            model.setValue(Task.RECURRENCE, filterRepeat(json.optString("repeat", "")));
             if(json.optString("repeat", "").contains("FROM=COMPLETION"))
                 model.setFlag(Task.FLAGS, Task.FLAG_REPEAT_AFTER_COMPLETION, true);
             else
@@ -988,6 +988,11 @@ public final class ActFmSyncService {
                 tagMetadata.setValue(TagService.REMOTE_ID, tag.getLong("id"));
                 metadata.add(tagMetadata);
             }
+        }
+
+        /** Filter out FROM */
+        private static String filterRepeat(String repeat) {
+            return repeat.replaceAll("BYDAY=;","").replaceAll(";?FROM=[^;]*", "");
         }
     }
 

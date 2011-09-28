@@ -60,6 +60,7 @@ public class RepeatDetailExposer extends BroadcastReceiver {
             try {
                 rrule = new RRule(recurrence);
             } catch (ParseException e) {
+                System.err.println(e.toString());
                 return null;
             }
 
