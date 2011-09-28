@@ -152,7 +152,7 @@ public abstract class SyncProvider<TYPE extends SyncContainer> {
     public void synchronize(final Context context) {
         // display toast
         if(context instanceof Activity) {
-            if(getUtilities().isLoggedIn()) {
+            if(getUtilities().isLoggedIn() && getUtilities().shouldShowToast()) {
                 ((Activity) context).runOnUiThread(new Runnable() {
                     @Override
                     public void run() {

@@ -10,6 +10,7 @@ import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.astrid.data.RemoteModel;
 import com.todoroo.astrid.data.Update;
 import com.todoroo.astrid.sync.SyncProviderUtilities;
+import com.todoroo.astrid.utility.AstridPreferences;
 
 /**
  * Methods for working with GTasks preferences
@@ -36,6 +37,13 @@ public class ActFmPreferenceService extends SyncProviderUtilities {
     public void clearLastSyncDate() {
         super.clearLastSyncDate();
         Preferences.setInt(ActFmPreferenceService.PREF_SERVER_TIME, 0);
+    }
+
+    @Override
+    public boolean shouldShowToast() {
+        if(Preferences.getBoolean(AstridPreferences.P_FIRST_ACTION, false))
+            return false;
+        return super.shouldShowToast();
     }
 
     // --- user management
