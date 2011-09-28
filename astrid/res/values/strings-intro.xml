@@ -72,8 +72,8 @@
   
   <string name="welcome_login_confirm_later_cancel">No thanks</string>
   
-  <string name="welcome_login_confirm_later_dialog">Sign-in to get the most out of Astrid! 
-  For free you get online backup, full synchronization with with Astrid.com the 
-  ability to add tasks via email and you can even share tasks lists with friends!</string>
+  <string name="welcome_login_confirm_later_dialog">Sign in to get the most out of Astrid! 
+  For free, you get online backup, full synchronization with Astrid.com, the 
+  ability to add tasks via email, and you can even share task lists with friends!</string>
   
 </resources>
