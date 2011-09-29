@@ -651,6 +651,8 @@
   <!-- Preference Window Title -->
   <string name="EPr_title">Astrid: Einstellungen</string>
 
+  <string name="EPr_deactivated">deaktiviert</string>
+
   <!-- Preference Category: Appearance Title -->
   <string name="EPr_appearance_header">Erscheinungsbild</string>
   

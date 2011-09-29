@@ -247,6 +247,11 @@
   <!-- default Add To Calendar setting (corresponds to entry in gcal_TEA_addToCalendar) -->
   <string name="p_default_addtocalendar_key">p_def_addtocalendar</string>
   
+  <string-array name="EPr_default_addtocalendar_values">
+    <!-- addtocalendar: labels that map EPr_default_addtocalendar items to calendar selection in settings. -->
+    <item>-1</item>
+  </string-array>
+
   <!-- ============================================================ SYNC == -->
   
     <string-array name="sync_SPr_interval_values">

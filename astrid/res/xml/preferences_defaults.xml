@@ -27,4 +27,9 @@
         android:title="@string/rmd_EPr_defaultRemind_title"
         android:entries="@array/EPr_reminder_random"
         android:entryValues="@array/EPr_reminder_random_hours" />
+    <com.todoroo.astrid.ui.MultilineListPreference
+        android:title="@string/EPr_default_addtocalendar_title"
+        android:key="@string/gcal_p_default"
+        android:entries="@array/EPr_default_addtocalendar"
+        android:entryValues="@array/EPr_default_addtocalendar_values" />
 </PreferenceScreen>

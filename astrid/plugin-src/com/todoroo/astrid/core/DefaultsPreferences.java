@@ -5,12 +5,15 @@ package com.todoroo.astrid.core;
 
 import android.content.SharedPreferences.Editor;
 import android.content.res.Resources;
+import android.os.Bundle;
+import android.preference.ListPreference;
 import android.preference.Preference;
 
 import com.timsu.astrid.R;
 import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.andlib.utility.TodorooPreferenceActivity;
+import com.todoroo.astrid.gcal.Calendars;
 
 /**
  * Displays the preference screen for users to edit their preferences
@@ -23,6 +26,14 @@ public class DefaultsPreferences extends TodorooPreferenceActivity {
     @Override
     public int getPreferenceResource() {
         return R.xml.preferences_defaults;
+    }
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        ListPreference defaultCalendarPreference = (ListPreference) findPreference(getString(R.string.gcal_p_default));
+        Calendars.initCalendarsPreference(this, defaultCalendarPreference);
     }
 
     /**
@@ -53,6 +64,15 @@ public class DefaultsPreferences extends TodorooPreferenceActivity {
             else {
                 String setting = r.getStringArray(R.array.EPr_reminder_random)[index];
                 preference.setSummary(r.getString(R.string.rmd_EPr_defaultRemind_desc, setting));
+            }
+        } else if(r.getString(R.string.gcal_p_default).equals(preference.getKey())) {
+            ListPreference listPreference = (ListPreference) preference;
+            int index = AndroidUtilities.indexOf(listPreference.getEntryValues(), (String)value);
+            if(index <= 0)
+                preference.setSummary(r.getString(R.string.EPr_default_addtocalendar_desc_disabled));
+            else {
+                String setting = listPreference.getEntries()[index].toString();
+                preference.setSummary(r.getString(R.string.EPr_default_addtocalendar_desc, setting));
             }
         }
     }

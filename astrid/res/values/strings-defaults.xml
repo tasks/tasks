@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+   <!-- Preference Category: Defaults Title -->
+  <string name="EPr_defaults_header">New Task Defaults</string>
+  
+  <!-- Preference: Default Urgency Title -->
+  <string name="EPr_default_urgency_title">Default Urgency</string>
+  <!-- Preference: Default Urgency Description (%s => setting) -->
+  <string name="EPr_default_urgency_desc">Currently: %s</string>
+  
+  <!-- Preference: Default Importance Title -->
+  <string name="EPr_default_importance_title">Default Importance</string>
+  <!-- Preference: Default Importance Description (%s => setting) -->
+  <string name="EPr_default_importance_desc">Currently: %s</string>
+  
+  <!-- Preference: Default Hide Until Title -->
+  <string name="EPr_default_hideUntil_title">Default Hide Until</string>
+  <!-- Preference: Default Hide Until Description (%s => setting) -->
+  <string name="EPr_default_hideUntil_desc">Currently: %s</string>
+  
+  <!-- Preference: Default Reminders Title -->
+  <string name="EPr_default_reminders_title">Default Reminders</string>
+  <!-- Preference: Default Reminders Description (%s => setting) -->
+  <string name="EPr_default_reminders_desc">Currently: %s</string>
+  
+  <!-- Preference: Default Add To Calendar Title -->
+  <string name="EPr_default_addtocalendar_title">Default Add To Calendar</string>
+  <!-- Preference: Default Add To Calendar Setting Description (disabled) -->
+  <string name="EPr_default_addtocalendar_desc_disabled">New tasks will not create an event in the Google Calendar</string>
+  <!-- Preference: Default Add To Calendar Setting Description (%s => setting) -->
+  <string name="EPr_default_addtocalendar_desc">New tasks will be in the calendar: \"%s\"</string>
+  
+  <string-array name="EPr_default_importance">
+      <!-- importance: labels for "Task Defaults" preference item. -->
+      <item>!!!! (Highest)</item>
+      <item>!!!</item>
+      <item>!!</item>
+      <item>! (Lowest)</item>
+  </string-array>
+  
+  <string-array name="EPr_default_urgency">
+      <!-- urgency: labels for "Task Defaults" preference item. -->
+      <item>No Deadline</item>
+      <item>Today</item>
+      <item>Tomorrow</item>
+      <item>Day After Tomorrow</item>
+      <item>Next Week</item>
+  </string-array>
+  
+  <string-array name="EPr_default_hideUntil">
+      <!-- hideUntil: labels for "Task Defaults" preference item. -->
+      <item>Don\'t hide</item>
+      <item>Task is due</item>
+      <item>Day before due</item>
+      <item>Week before due</item>
+  </string-array>
+  
+  <string-array name="EPr_default_reminders">
+      <!-- reminders: labels for "Task Defaults" preference item. -->
+      <item>No deadline reminders</item>
+      <item>At deadline</item>
+      <item>When overdue</item>
+      <item>At deadline or overdue</item>
+  </string-array>
+  
+    <string-array name="EPr_default_addtocalendar">
+      <!-- addtocalendar: labels for "Task Defaults" preference item. -->
+      <item>@string/EPr_deactivated</item>
+  </string-array>      
+</resources>
