@@ -8,13 +8,22 @@ import java.lang.ref.WeakReference;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
+import org.apache.http.HttpVersion;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
+import org.apache.http.conn.params.ConnManagerPNames;
+import org.apache.http.conn.params.ConnPerRouteBean;
+import org.apache.http.conn.scheme.PlainSocketFactory;
+import org.apache.http.conn.scheme.Scheme;
+import org.apache.http.conn.scheme.SchemeRegistry;
+import org.apache.http.conn.ssl.SSLSocketFactory;
 import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.impl.conn.tsccm.ThreadSafeClientConnManager;
 import org.apache.http.params.BasicHttpParams;
 import org.apache.http.params.HttpConnectionParams;
 import org.apache.http.params.HttpParams;
+import org.apache.http.params.HttpProtocolParams;
 
 import android.util.Log;
 
@@ -78,12 +87,23 @@ public class HttpRestClient implements RestClient {
         return sb.toString();
     }
 
+    @SuppressWarnings("nls")
     private synchronized HttpClient getClient() {
         if (httpClient == null || httpClient.get() == null) {
+            SchemeRegistry schemeRegistry = new SchemeRegistry();
+            schemeRegistry.register(new Scheme("http", PlainSocketFactory.getSocketFactory(), 80));
+            schemeRegistry.register(new Scheme("https", SSLSocketFactory.getSocketFactory(), 443));
+
             HttpParams params = new BasicHttpParams();
             HttpConnectionParams.setConnectionTimeout(params, timeout);
             HttpConnectionParams.setSoTimeout(params, timeout);
-            HttpClient client = new DefaultHttpClient(params);
+            params.setParameter(ConnManagerPNames.MAX_TOTAL_CONNECTIONS, 30);
+            params.setParameter(ConnManagerPNames.MAX_CONNECTIONS_PER_ROUTE, new ConnPerRouteBean(30));
+            params.setParameter(HttpProtocolParams.USE_EXPECT_CONTINUE, false);
+            HttpProtocolParams.setVersion(params, HttpVersion.HTTP_1_1);
+
+            ThreadSafeClientConnManager cm = new ThreadSafeClientConnManager(params, schemeRegistry);
+            HttpClient client = new DefaultHttpClient(cm, params);
             httpClient = new WeakReference<HttpClient>(client);
             return client;
         } else {
