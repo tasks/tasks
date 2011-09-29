@@ -173,6 +173,18 @@ public final class UpgradeService {
                "Have a great week!",
             });
         }
+        if(from >= V3_8_0 && from < V3_8_4) {
+            newVersionString(changeLog, "3.8.4 (9/28/11)", new String[] {
+                    "Lists are now case insensitive. If you have existing lists with the same " +
+                        "name, except for capitalization, they will be renamed to avoid collision.",
+                    "Repeating tasks don't lose reminders anymore",
+                    "Repeat from completion date now synced to Astrid.com",
+                    "Empty lists should now show up in the dropdown menu on task edit page",
+                    "Widgets created from tags should launch the app",
+                    "Fixed google tasks login on non-US Samsung phones",
+                    "Fixed bug where wrong task would get checked when completing a task",
+            });
+        }
         if(from >= V3_8_0 && from < V3_8_3) {
             newVersionString(changeLog, "3.8.3 (9/02/11)", new String[] {
                     "Several Google Tasks sync bug fixes / improvements",
