@@ -750,7 +750,7 @@
   <!-- ========================================== Task Management Settings == -->
 
   <!-- Preference Screen Header: Old Task Management -->
-  <string name="EPr_manage_header">Erweitert</string>
+  <string name="EPr_manage_header">Alte Aufgaben verwalten</string>
   <string name="EPr_manage_delete_completed">Alle erledigten Aufgaben löschen</string>
   <string name="EPr_manage_delete_completed_message">Wollen Sie wirklich alle erledigten Aufgaben löschen?</string>
   <string name="EPr_manage_delete_completed_summary">Hiermit gelöschte Aufgaben können einzeln wiederhergestellt werden</string>
