@@ -959,7 +959,6 @@ public final class ActFmSyncService {
             model.setValue(Task.REMOTE_ID, json.getLong("id"));
             readUser(json.getJSONObject("user"), model, Task.USER_ID, Task.USER);
             readUser(json.getJSONObject("creator"), model, Task.CREATOR_ID, null);
-            model.setValue(Task.COMMENT_COUNT, json.getInt("comment_count"));
             model.setValue(Task.TITLE, json.getString("title"));
             model.setValue(Task.IMPORTANCE, json.getInt("importance"));
             int urgency = json.getBoolean("has_due_time") ? Task.URGENCY_SPECIFIC_DAY_TIME : Task.URGENCY_SPECIFIC_DAY;
@@ -975,7 +974,11 @@ public final class ActFmSyncService {
             model.setValue(Task.NOTES, json.optString("notes", ""));
             model.setValue(Task.DETAILS_DATE, 0L);
             model.setValue(Task.LAST_SYNC, DateUtilities.now() + 1000L);
-            model.setValue(Task.DETAILS, null);
+
+            if(model.isModified())
+                model.setValue(Task.DETAILS, null);
+
+            model.setValue(Task.COMMENT_COUNT, json.getInt("comment_count"));
 
             JSONArray tags = json.getJSONArray("tags");
             for(int i = 0; i < tags.length(); i++) {
