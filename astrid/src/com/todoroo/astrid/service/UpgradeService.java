@@ -20,7 +20,6 @@ import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.ContextManager;
 import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.andlib.sql.Criterion;
-import com.todoroo.andlib.sql.Functions;
 import com.todoroo.andlib.sql.Query;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.andlib.utility.DialogUtilities;
@@ -126,8 +125,8 @@ public final class UpgradeService {
                     if(from < V3_8_3_1)
                         new TagCaseMigrator().performTagCaseMigration(context);
 
-                    if(from < V3_8_4)
-                        taskService.clearDetails(Functions.length(Task.NOTES).gt(170));
+                    if(from < V3_8_4 && Preferences.getBoolean(R.string.p_showNotes, true))
+                        taskService.clearDetails(Task.NOTES.neq("")); //$NON-NLS-1$
                 } finally {
                     DialogUtilities.dismissDialog((Activity)context, dialog);
                 }
