@@ -355,26 +355,43 @@ public class ActFmLoginActivity extends Activity implements AuthListener {
     // --- utilities
 
     @SuppressWarnings("nls")
-    public void authenticate(String email, String name, String provider,
-            String secret) {
+    public void authenticate(final String email, final String name, final String provider,
+            final String secret) {
         if (progressDialog == null)
             progressDialog = DialogUtilities.progressDialog(this,
                     getString(R.string.DLG_please_wait));
 
-        try {
-            JSONObject result = actFmInvoker.authenticate(email, name,
-                    provider, secret);
-            String token = actFmInvoker.getToken();
+        new Thread() {
+            @Override
+            public void run() {
+                try {
+                    final JSONObject result = actFmInvoker.authenticate(email, name,
+                            provider, secret);
+                    final String token = actFmInvoker.getToken();
 
-            if (result.optBoolean("new")) { // Report new user statistic
-                StatisticsService.reportEvent(StatisticsConstants.ACTFM_NEW_USER, "provider", provider);
+                    if (result.optBoolean("new")) { // Report new user statistic
+                        StatisticsService.reportEvent(StatisticsConstants.ACTFM_NEW_USER, "provider", provider);
+                    }
+                    runOnUiThread(new Runnable() {
+                        public void run() {
+                            DialogUtilities.dismissDialog(ActFmLoginActivity.this, progressDialog);
+                            progressDialog = null;
+                            postAuthenticate(result, token);
+                        }
+                    });
+                } catch (IOException e) {
+                    handleError(e);
+                } finally {
+                    runOnUiThread(new Runnable() {
+                        public void run() {
+                            if (progressDialog != null) {
+                                DialogUtilities.dismissDialog(ActFmLoginActivity.this, progressDialog);
+                            }
+                        }
+                    });
+                }
             }
-            postAuthenticate(result, token);
-        } catch (IOException e) {
-            handleError(e);
-        } finally {
-            DialogUtilities.dismissDialog(this, progressDialog);
-        }
+        }.start();
     }
 
     @SuppressWarnings("nls")
@@ -394,7 +411,7 @@ public class ActFmLoginActivity extends Activity implements AuthListener {
         finishAndShowNext();
 
         if (!noSync) {
-            new ActFmSyncProvider().synchronize(this);
+            new ActFmSyncProvider().synchronize(ActFmLoginActivity.this);
         }
 
         try {

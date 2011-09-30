@@ -61,6 +61,8 @@ public class WelcomeLogin extends ActFmLoginActivity implements AuthListener {
     @Override
     protected void finishAndShowNext() {
         Intent welcomeScreen = new Intent(this, WelcomeGraphic.class);
+        welcomeScreen.putExtra(WelcomeGraphic.START_SYNC, true);
+        noSync = true; // For superclass
         startActivity(welcomeScreen);
         finish();
         Preferences.setBoolean(KEY_SHOWED_WELCOME_LOGIN, true);
