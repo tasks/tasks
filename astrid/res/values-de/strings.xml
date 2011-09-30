@@ -1455,10 +1455,10 @@ Achtung: diese Aufgaben sind unwiederbringlich verloren, wenn Sie kein Backup ge
   <string name="TEA_reminder_mode_once">Einmal klingeln</string>
 
   <!-- Task Edit: Reminder mode: ring five times -->  
-  <string name="TEA_reminder_mode_five">Ring Five Times</string>
+  <string name="TEA_reminder_mode_five">Fünfmal klingeln</string>
 
   <!-- Task Edit: Reminder mode: ring nonstop -->  
-  <string name="TEA_reminder_mode_nonstop">Klingeln, bis ich den Arlarm abschalte</string>
+  <string name="TEA_reminder_mode_nonstop">Klingeln, bis ich den Alarm abschalte</string>
 
   <string-array name="TEA_reminder_random">
     <!-- random reminder choices for task edit page. -->
