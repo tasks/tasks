@@ -43,7 +43,7 @@ public class HttpRestClient implements RestClient {
     private static final int HTTP_UNAVAILABLE_START = 500;
     private static final int HTTP_OK = 200;
 
-    private static final int TIMEOUT_MILLIS = 30000;
+    private static final int TIMEOUT_MILLIS = 60000;
 
     private WeakReference<HttpClient> httpClient = null;
 
