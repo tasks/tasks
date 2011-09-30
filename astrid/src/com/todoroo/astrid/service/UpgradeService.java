@@ -158,23 +158,6 @@ public final class UpgradeService {
         // current message
         if (from >= V3_8_0 && from < V3_8_4) {
             String[] base = new String[] {
-                    "Bug fixes"
-            };
-            ArrayList<String> stringList = new ArrayList<String>();
-            Collections.addAll(stringList, base);
-            if (showTagCaseMigration)
-                stringList.add(0, context.getString(R.string.tag_case_migration_notice));
-
-            newVersionString(changeLog, "3.8.4 (9/20/11)", stringList.toArray(new String[stringList.size()]));
-        }
-        if (from >= V3_8_0 && from < V3_8_3_1) {
-            newVersionString(changeLog, "3.8.3.1 (9/06/11)", new String[] {
-               "A few bug fixes from the last version",
-               "Have a great week!",
-            });
-        }
-        if(from >= V3_8_0 && from < V3_8_4) {
-            newVersionString(changeLog, "3.8.4 (9/28/11)", new String[] {
                     "Lists are now case insensitive. If you have existing lists with the same " +
                         "name, except for capitalization, they will be renamed to avoid collision.",
                     "Repeating tasks don't lose reminders anymore",
@@ -183,7 +166,13 @@ public final class UpgradeService {
                     "Widgets created from tags should launch the app",
                     "Fixed google tasks login on non-US Samsung phones",
                     "Fixed bug where wrong task would get checked when completing a task",
-            });
+            };
+            ArrayList<String> stringList = new ArrayList<String>();
+            Collections.addAll(stringList, base);
+            if (showTagCaseMigration)
+                stringList.add(0, context.getString(R.string.tag_case_migration_notice));
+
+            newVersionString(changeLog, "3.8.4 (9/28/11)", stringList.toArray(new String[stringList.size()]));
         }
         if(from >= V3_8_0 && from < V3_8_3) {
             newVersionString(changeLog, "3.8.3 (9/02/11)", new String[] {
