@@ -975,6 +975,7 @@ public final class ActFmSyncService {
             model.setValue(Task.NOTES, json.optString("notes", ""));
             model.setValue(Task.DETAILS_DATE, 0L);
             model.setValue(Task.LAST_SYNC, DateUtilities.now() + 1000L);
+            model.setValue(Task.DETAILS, null);
 
             JSONArray tags = json.getJSONArray("tags");
             for(int i = 0; i < tags.length(); i++) {
