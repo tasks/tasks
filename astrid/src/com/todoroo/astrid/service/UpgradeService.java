@@ -40,6 +40,7 @@ import com.todoroo.astrid.utility.AstridPreferences;
 
 public final class UpgradeService {
 
+    public static final int V3_8_4_1 = 196;
     public static final int V3_8_4 = 195;
     public static final int V3_8_3_1 = 194;
     public static final int V3_8_3 = 192;
@@ -155,23 +156,32 @@ public final class UpgradeService {
         StringBuilder changeLog = new StringBuilder();
 
         // current message
-        if (from >= V3_8_0 && from < V3_8_4) {
+        if(from >= V3_8_4 && from < V3_8_4_1) {
+            newVersionString(changeLog, "3.8.4.1 (9/30/11)", new String[] {
+                    "Fixed a but where completing weekly repeat-after-complete tasks set due time",
+            });
+        }
+        if (from < V3_8_4) {
             String[] base = new String[] {
                     "Lists are now case insensitive. If you have existing lists with the same " +
                         "name, except for capitalization, they will be renamed to avoid collision.",
-                    "Repeating tasks don't lose reminders anymore",
-                    "Repeat from completion date now synced to Astrid.com",
-                    "Empty lists should now show up in the dropdown menu on task edit page",
-                    "Widgets created from tags should launch the app",
                     "Fixed google tasks login on non-US Samsung phones",
+                    "Astrid.com sync now occurring over HTTPS",
+                    "Repeat from completion date now synced to Astrid.com",
+                    "Added ability to post a picture in list comments with Astrid.com",
+                    "Reorganized list view when synchronizing with Astrid.com to highlight shared/private lists",
+                    "Added default notification type, fixed default calendar in task default settings",
                     "Fixed bug where wrong task would get checked when completing a task",
+                    "Fixed widgets created from lists not launching the app",
+                    "Repeating tasks don't lose reminders anymore",
+                    "Empty lists should now show up in the dropdown menu on task edit page",
             };
             ArrayList<String> stringList = new ArrayList<String>();
             Collections.addAll(stringList, base);
             if (showTagCaseMigration)
                 stringList.add(0, context.getString(R.string.tag_case_migration_notice));
 
-            newVersionString(changeLog, "3.8.4 (9/28/11)", stringList.toArray(new String[stringList.size()]));
+            newVersionString(changeLog, "3.8.4 (9/30/11)", stringList.toArray(new String[stringList.size()]));
         }
         if(from >= V3_8_0 && from < V3_8_3) {
             newVersionString(changeLog, "3.8.3 (9/02/11)", new String[] {
