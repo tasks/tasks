@@ -64,8 +64,7 @@ public class NotesDetailExposer extends BroadcastReceiver {
         if(!TextUtils.isEmpty(notes)) {
             if(notes.length() > NOTE_MAX) {
                 int lastSpace = notes.lastIndexOf(' ', NOTE_MAX);
-                notes = notes.substring(0, Math.max(lastSpace, NOTE_MAX - 20));
-                notesBuilder.append("...");
+                notes = notes.substring(0, Math.max(lastSpace, NOTE_MAX - 20)) + "...";
             }
             notesBuilder.append(notes);
         }
