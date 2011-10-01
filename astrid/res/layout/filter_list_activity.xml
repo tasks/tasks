@@ -29,7 +29,7 @@
             android:layout_weight="100"
             android:gravity="center"
             android:paddingRight="50dip"
-            android:src="@drawable/header_logo"
+            android:src="@drawable/header_logo_new"
             android:scaleType="center"/>
 
     </LinearLayout>

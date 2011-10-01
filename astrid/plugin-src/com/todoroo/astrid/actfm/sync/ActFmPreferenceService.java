@@ -103,7 +103,7 @@ public class ActFmPreferenceService extends SyncProviderUtilities {
     }
 
     @SuppressWarnings("nls")
-    private synchronized static JSONObject thisUser() {
+    public synchronized static JSONObject thisUser() {
         if(user == null) {
             user = new JSONObject();
             try {

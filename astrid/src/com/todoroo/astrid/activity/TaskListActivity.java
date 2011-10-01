@@ -417,8 +417,7 @@ public class TaskListActivity extends ListActivity implements OnScrollListener,
             public void onClick(View v) {
                 Task task = quickAddTask(quickAddBox.getText().toString(), true);
                 if(task != null && task.getValue(Task.TITLE).length() == 0) {
-                    Intent intent = new Intent(TaskListActivity.this, TaskEditActivity.class);
-                    intent.putExtra(TaskEditActivity.TOKEN_ID, task.getId());
+                    Intent intent = getOnClickQuickAddIntent(task);
                     startActivityForResult(intent, ACTIVITY_EDIT_TASK);
                 }
             }
@@ -439,8 +438,7 @@ public class TaskListActivity extends ListActivity implements OnScrollListener,
                 Task task = quickAddTask(quickAddBox.getText().toString(), false);
                 if(task == null)
                     return true;
-                Intent intent = new Intent(TaskListActivity.this, TaskEditActivity.class);
-                intent.putExtra(TaskEditActivity.TOKEN_ID, task.getId());
+                Intent intent = getOnLongClickQuickAddIntent(task);
                 startActivityForResult(intent, ACTIVITY_EDIT_TASK);
                 return true;
             }
@@ -460,6 +458,19 @@ public class TaskListActivity extends ListActivity implements OnScrollListener,
         // dithering
         getWindow().setFormat(PixelFormat.RGBA_8888);
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_DITHER);
+    }
+
+    // Subclasses can override these to customize extras in quickadd intent
+    protected Intent getOnClickQuickAddIntent(Task t) {
+        Intent intent = new Intent(TaskListActivity.this, TaskEditActivity.class);
+        intent.putExtra(TaskEditActivity.TOKEN_ID, t.getId());
+        return intent;
+    }
+
+    protected Intent getOnLongClickQuickAddIntent(Task t) {
+        Intent intent = new Intent(TaskListActivity.this, TaskEditActivity.class);
+        intent.putExtra(TaskEditActivity.TOKEN_ID, t.getId());
+        return intent;
     }
 
     private void setUpBackgroundJobs() {

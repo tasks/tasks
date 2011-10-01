@@ -59,6 +59,10 @@
   <!-- Dialog - dismiss -->
   <string name="DLG_dismiss">Dismiss</string>
   
+  <string name="DLG_ok">OK</string>
+  
+  <string name="DLG_cancel">Cancel</string>
+  
   <!-- =============================================================== UI == -->
   
   <!-- Label for DateButtons with no value -->
@@ -117,6 +121,9 @@
   
   <!-- Quick Add Edit Box Hint-->
   <string name="TLA_quick_add_hint">Add to this list...</string>
+  
+  <!-- Quick Add Edit Box Hint for assigning -->
+  <string name="TLA_quick_add_hint_assign">Tap to assign %s a task</string>
   
   <!-- Notification Volumne notification-->
   <string name="TLA_notification_volume_low">Notifications are muted. You won\'t be able to hear Astrid!</string>

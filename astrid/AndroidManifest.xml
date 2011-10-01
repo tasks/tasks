@@ -321,6 +321,12 @@
           <category android:name="android.intent.category.DEFAULT" />
       </intent-filter>
     </activity>
+    <activity android:name="com.todoroo.astrid.actfm.TagCreateActivity"
+              android:theme="@android:style/Theme.Dialog"/>
+    <activity android:name="com.todoroo.astrid.actfm.TagSettingsActivity"
+              android:windowSoftInputMode="stateHidden"/>
+    <activity android:name="com.todoroo.astrid.actfm.TagUpdatesActivity"
+              android:windowSoftInputMode="stateHidden"/>
     <receiver android:name="com.todoroo.astrid.actfm.EditPeopleExposer">
       <intent-filter>
         <action android:name="com.todoroo.astrid.REQUEST_ACTIONS" />
@@ -365,7 +371,8 @@
         <category android:name="android.intent.category.DEFAULT" />
       </intent-filter>
     </receiver>
-    <activity android:name="com.todoroo.astrid.gtasks.GtasksListAdder"/>
+    <activity android:name="com.todoroo.astrid.gtasks.GtasksListAdder"
+              android:theme="@android:style/Theme.Dialog"/>
     <receiver android:name="com.todoroo.astrid.gtasks.GtasksDetailExposer">
       <intent-filter>
         <action android:name="com.todoroo.astrid.REQUEST_DETAILS" />

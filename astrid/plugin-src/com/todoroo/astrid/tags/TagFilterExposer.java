@@ -63,7 +63,7 @@ public class TagFilterExposer extends BroadcastReceiver {
     /** Create filter from new tag object */
     @SuppressWarnings("nls")
     public static FilterWithCustomIntent filterFromTag(Context context, Tag tag, Criterion criterion) {
-        String title = context.getString(R.string.tag_FEx_name, tag.tag);
+        String title = tag.tag;
         QueryTemplate tagTemplate = tag.queryTemplate(criterion);
         ContentValues contentValues = new ContentValues();
         contentValues.put(Metadata.KEY.name, TagService.KEY);

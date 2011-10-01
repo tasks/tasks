@@ -4,15 +4,19 @@ import greendroid.widget.AsyncImageView;
 
 import org.json.JSONObject;
 
+import android.app.AlertDialog;
 import android.app.ListActivity;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.res.Resources;
 import android.database.Cursor;
 import android.text.TextUtils;
 import android.text.format.DateUtils;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.view.ViewGroup.LayoutParams;
 import android.widget.CursorAdapter;
 import android.widget.TextView;
 
@@ -56,10 +60,10 @@ public class UpdateAdapter extends CursorAdapter {
             OnCompletedTaskListener onCompletedTaskListener) {
         super(activity, c, autoRequery);
         DependencyInjectionService.getInstance().inject(this);
-    
+
         inflater = (LayoutInflater) activity.getSystemService(
                 Context.LAYOUT_INFLATER_SERVICE);
-    
+
         this.resource = resource;
         this.activity = activity;
     }
@@ -102,6 +106,38 @@ public class UpdateAdapter extends CursorAdapter {
         final AsyncImageView pictureView = (AsyncImageView)view.findViewById(R.id.picture); {
             String pictureUrl = user.optString("picture");
             pictureView.setUrl(pictureUrl);
+        }
+
+        final AsyncImageView commentPictureView = (AsyncImageView)view.findViewById(R.id.comment_picture); {
+            final String updatePicture = update.getValue(Update.PICTURE);
+            if (!TextUtils.isEmpty(updatePicture) && !"null".equals(updatePicture)) {
+                commentPictureView.setVisibility(View.VISIBLE);
+                commentPictureView.setUrl(updatePicture);
+
+                final String message = update.getValue(Update.MESSAGE);
+                view.setOnClickListener(new OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        AlertDialog image = new AlertDialog.Builder(activity).create();
+                        AsyncImageView imageView = new AsyncImageView(activity);
+                        imageView.setLayoutParams(new LayoutParams(LayoutParams.FILL_PARENT, LayoutParams.WRAP_CONTENT));
+                        imageView.setDefaultImageResource(android.R.drawable.ic_menu_gallery);
+                        imageView.setUrl(updatePicture);
+                        image.setView(imageView);
+
+                        image.setMessage(message);
+                        image.setButton(activity.getString(R.string.DLG_close), new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                return;
+                            }
+                        });
+                        image.show();
+                    }
+                });
+            } else {
+                commentPictureView.setVisibility(View.GONE);
+            }
         }
 
         // name
