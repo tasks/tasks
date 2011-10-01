@@ -172,6 +172,8 @@ public final class UpgradeService {
                     "Reorganized list view when synchronizing with Astrid.com to highlight shared/private lists",
                     "Added default notification type, fixed default calendar in task default settings",
                     "Fixed bug where wrong task would get checked when completing a task",
+                    "Allow adding a picture when commenting on a list",
+                    "Added task default settings for reminder type, fixed default add to calendar",
                     "Fixed widgets created from lists not launching the app",
                     "Repeating tasks don't lose reminders anymore",
                     "Empty lists should now show up in the dropdown menu on task edit page",
