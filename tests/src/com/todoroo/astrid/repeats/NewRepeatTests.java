@@ -114,7 +114,8 @@ public class NewRepeatTests<REMOTE_MODEL> extends DatabaseTestCase {
         }
     }
 
-    protected void testRepeating(boolean completeBefore, boolean fromCompletion, RRule rrule, Frequency frequency, String title) {
+    protected void testRepeating(boolean completeBefore, boolean fromCompletion,
+            RRule rrule, Frequency frequency, String title) {
         for (int i = 0; i < StartupService.INTRO_TASK_SIZE; i++) { // Create startup tasks so sync services don't miss the test tasks
             Task temp = new Task();
             temp.setValue(Task.TITLE, "" + i);

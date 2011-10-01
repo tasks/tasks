@@ -46,31 +46,10 @@ public class DateUtilities {
      * @return the calculated time in milliseconds
      */
     public static final long addCalendarMonthsToUnixtime(long time, int interval) {
-        long result = 0;
-        Date date = new Date(time);
-
-        int month = date.getMonth();
-        int year = date.getYear();
-
-        int yearsToAdd = interval / 12;
-        int monthsToAdd = interval % 12;
-
-        year += yearsToAdd;
-        month += monthsToAdd;
-
-        // correct month overflow
-        if (month > Calendar.DECEMBER) {
-            month = month - Calendar.DECEMBER - 1;
-            year++;
-        }
-
-        // the day stays the same, thats the point
-        // it's especially important for birthday-reminders
-        date.setMonth(month);
-        date.setYear(year);
-
-        result = date.getTime();
-        return result;
+        Calendar c = Calendar.getInstance();
+        c.setTimeInMillis(time);
+        c.add(Calendar.MONTH, interval);
+        return c.getTimeInMillis();
     }
 
     /** Returns unixtime for current time */

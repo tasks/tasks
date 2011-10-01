@@ -97,8 +97,9 @@ public class RepeatTaskCompleteListener extends BroadcastReceiver {
             clone.setValue(Task.REMINDER_SNOOZE, 0L);
             clone.setValue(Task.REMINDER_LAST, 0L);
 
-            boolean gcalCreateEventEnabled = Preferences.getStringValue(R.string.gcal_p_default) != null &&
-                                            !Preferences.getStringValue(R.string.gcal_p_default).equals("-1");
+            boolean gcalCreateEventEnabled = Preferences.getStringValue(R.string.gcal_p_default) != null
+                    && !Preferences.getStringValue(R.string.gcal_p_default).
+                    equals("-1"); //$NON-NLS-1$
             if (gcalCreateEventEnabled) {
                 ContentResolver cr = ContextManager.getContext().getContentResolver();
                 Uri calendarUri = GCalHelper.createTaskEvent(clone, cr, new ContentValues());
@@ -139,13 +140,14 @@ public class RepeatTaskCompleteListener extends BroadcastReceiver {
 
         if(rrule.getFreq() == Frequency.HOURLY || rrule.getFreq() == Frequency.MINUTELY)
             return handleSubdayRepeat(original, rrule);
-        else if(rrule.getByDay().size() > 0 && repeatAfterCompletion)
-            return handleWeeklyRepeatAfterComplete(rrule, original);
+        else if(rrule.getFreq() == Frequency.WEEKLY && rrule.getByDay().size() > 0 && repeatAfterCompletion)
+            return handleWeeklyRepeatAfterComplete(rrule, original, task.hasDueTime());
         else
             return invokeRecurrence(rrule, original, startDateAsDV);
     }
 
-    private static long handleWeeklyRepeatAfterComplete(RRule rrule, Date original) {
+    private static long handleWeeklyRepeatAfterComplete(RRule rrule, Date original,
+            boolean hasDueTime) {
         List<WeekdayNum> byDay = rrule.getByDay();
         long newDate = original.getTime();
         newDate += DateUtilities.ONE_WEEK * (rrule.getInterval() - 1);
@@ -158,7 +160,12 @@ public class RepeatTaskCompleteListener extends BroadcastReceiver {
         do {
             date.add(Calendar.DATE, 1);
         } while (date.get(Calendar.DAY_OF_WEEK) != next.wday.javaDayNum);
-        return date.getTimeInMillis();
+
+        long time = date.getTimeInMillis();
+        if(hasDueTime)
+            return Task.createDueDate(Task.URGENCY_SPECIFIC_DAY_TIME, time);
+        else
+            return Task.createDueDate(Task.URGENCY_SPECIFIC_DAY, time);
     }
 
     private static Comparator<WeekdayNum> weekdayCompare = new Comparator<WeekdayNum>() {

@@ -50,11 +50,15 @@ public class RepeatAfterCompleteTests extends TodorooTestCase {
             buildRRule(6, freq);
             nextDueDate = RepeatTaskCompleteListener.computeNextDueDate(task, rrule.toIcal());
             assertDateTimeEquals(freq.toString() + "x6", DateUtilities.now() + 6 * interval, nextDueDate);
+            task.setValue(Task.DUE_DATE, nextDueDate);
+            assertTrue(task.hasDueTime());
         }
     }
 
     public void testDailyAndGreaterFreqs() throws ParseException {
-        task.setValue(Task.DUE_DATE, DateUtilities.now() - DateUtilities.ONE_WEEK);
+        task.setValue(Task.DUE_DATE,
+                Task.createDueDate(Task.URGENCY_SPECIFIC_DAY,
+                        DateUtilities.now() - DateUtilities.ONE_WEEK));
         task.setFlag(Task.FLAGS, Task.FLAG_REPEAT_AFTER_COMPLETION, true);
 
         for(int interval = 1; interval < 7; interval++) {
@@ -76,6 +80,8 @@ public class RepeatAfterCompleteTests extends TodorooTestCase {
                 buildRRule(interval, freq);
                 nextDueDate = RepeatTaskCompleteListener.computeNextDueDate(task, rrule.toIcal());
                 assertDateEquals(freq.toString() + "x" + interval, next, nextDueDate);
+                task.setValue(Task.DUE_DATE, nextDueDate);
+                assertFalse(task.hasDueTime());
             }
         }
     }
