@@ -13,6 +13,7 @@ import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.ContextManager;
 import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.andlib.utility.AndroidUtilities;
+import com.todoroo.astrid.actfm.sync.ActFmSyncProvider;
 import com.todoroo.astrid.activity.Eula;
 import com.todoroo.astrid.activity.FilterListActivity;
 import com.todoroo.astrid.activity.TaskListActivity;
@@ -24,6 +25,8 @@ import com.todoroo.astrid.service.abtesting.ABOptions;
 public class WelcomeGraphic extends Activity {
 
     public static final String KEY_SHOW_EULA = "show_eula"; //$NON-NLS-1$
+
+    public static final String START_SYNC = "start_sync"; //$NON-NLS-1$
 
     @Autowired ABChooser abChooser;
 
@@ -39,6 +42,7 @@ public class WelcomeGraphic extends Activity {
 
         if (getIntent().getBooleanExtra(KEY_SHOW_EULA, false))
             Eula.showEula(this);
+
 
         final ImageView image = (ImageView)findViewById(R.id.welcome_image);
         image.setOnClickListener(new OnClickListener() {
@@ -59,6 +63,9 @@ public class WelcomeGraphic extends Activity {
                 }.start();
             }
         });
+
+        if (getIntent().getBooleanExtra(START_SYNC, false))
+            new ActFmSyncProvider().synchronize(this);
     }
 
     @Override
