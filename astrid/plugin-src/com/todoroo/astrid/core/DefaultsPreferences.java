@@ -46,6 +46,9 @@ public class DefaultsPreferences extends TodorooPreferenceActivity {
         } else if(r.getString(R.string.p_default_reminders_key).equals(preference.getKey())) {
             updateTaskListPreference(preference, value, r, R.array.EPr_default_reminders,
                     R.array.EPr_default_reminders_values, R.string.EPr_default_reminders_desc);
+        } else if(r.getString(R.string.p_default_reminders_mode_key).equals(preference.getKey())) {
+            updateTaskListPreference(preference, value, r, R.array.EPr_default_reminders_mode,
+                    R.array.EPr_default_reminders_mode_values, R.string.EPr_default_reminders_mode_desc);
         } else if(r.getString(R.string.p_rmd_default_random_hours).equals(preference.getKey())) {
             int index = AndroidUtilities.indexOf(r.getStringArray(R.array.EPr_reminder_random_hours), (String)value);
             if(index <= 0)

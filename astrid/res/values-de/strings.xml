@@ -696,6 +696,11 @@
   <!-- Preference: Default Reminders Description (%s => setting) -->
   <string name="EPr_default_reminders_desc">Momentan: %s</string>
   
+  <!-- Preference: Default Reminders Mode Title -->
+  <string name="EPr_default_reminders_mode_title">Standard Klingeln/Vibrieren Typ</string>
+  <!-- Preference: Default Reminders Mode Description (%s => setting) -->
+  <string name="EPr_default_reminders_mode_desc">Momentan: %s</string>
+  
   <!-- Preference: Default Add To Calendar Title -->
   <string name="EPr_default_addtocalendar_title">Standard Kalendereintrag</string>
 
@@ -1450,10 +1455,10 @@ Achtung: diese Aufgaben sind unwiederbringlich verloren, wenn Sie kein Backup ge
   <string name="TEA_reminder_mode_once">Einmal klingeln</string>
 
   <!-- Task Edit: Reminder mode: ring five times -->  
-  <string name="TEA_reminder_mode_five">Ring Five Times</string>
+  <string name="TEA_reminder_mode_five">Fünfmal klingeln</string>
 
   <!-- Task Edit: Reminder mode: ring nonstop -->  
-  <string name="TEA_reminder_mode_nonstop">Klingeln, bis ich den Arlarm abschalte</string>
+  <string name="TEA_reminder_mode_nonstop">Klingeln, bis ich den Alarm abschalte</string>
 
   <string-array name="TEA_reminder_random">
     <!-- random reminder choices for task edit page. -->

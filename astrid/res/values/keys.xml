@@ -235,6 +235,13 @@
     <item>6</item>
   </string-array>
   
+  <string-array name="EPr_default_reminders_mode_values">
+    <!-- reminders: values that map EPr_default_reminders items to reminder flags. -->
+    <item>0</item>
+    <item>16</item>
+    <item>8</item>
+  </string-array>
+  
   <!-- default importance setting (corresponds to task setting) -->
   <string name="p_default_importance_key">p_def_imp</string>
   
@@ -246,6 +253,9 @@
   
   <!-- default Add To Calendar setting (corresponds to entry in gcal_TEA_addToCalendar) -->
   <string name="p_default_addtocalendar_key">p_def_addtocalendar</string>
+  
+  <!-- default reminder mode setting (corresponds to entry in TEA_reminder_mode_once, TEA_reminder_mode_five, TEA_reminder_mode_nonstop) -->
+  <string name="p_default_reminders_mode_key">rmd_default_reminder_mode</string>
   
   <!-- ============================================================ SYNC == -->
   

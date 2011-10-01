@@ -304,17 +304,6 @@ public final class Task extends RemoteModel {
         return getValue(DUE_DATE) > 0;
     }
 
-    /**
-     * Returns the set state of the given flag on the given property
-     * @param property
-     * @param flag
-     * @return
-     */
-    @Override
-    public boolean getFlag(IntegerProperty property, int flag) {
-        return (getValue(property) & flag) > 0;
-    }
-
     // --- due and hide until date management
 
     /** urgency array index -> significance */

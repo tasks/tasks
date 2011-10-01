@@ -225,9 +225,10 @@ public class TaskDao extends DatabaseDao<Task> {
                             0));
         }
         if(!item.containsValue(Task.REMINDER_FLAGS)) {
-            item.setValue(Task.REMINDER_FLAGS,
-                    Preferences.getIntegerFromString(R.string.p_default_reminders_key,
-                            Task.NOTIFY_AT_DEADLINE | Task.NOTIFY_AFTER_DEADLINE));
+            int reminder_flags = Preferences.getIntegerFromString(R.string.p_default_reminders_key,
+                    Task.NOTIFY_AT_DEADLINE | Task.NOTIFY_AFTER_DEADLINE) |
+                    Preferences.getIntegerFromString(R.string.p_default_reminders_mode_key, 0);
+            item.setValue(Task.REMINDER_FLAGS, reminder_flags);
         }
     }
 

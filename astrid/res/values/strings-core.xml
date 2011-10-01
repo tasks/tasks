@@ -414,6 +414,11 @@
   <!-- Preference: Default Reminders Description (%s => setting) -->
   <string name="EPr_default_reminders_desc">Currently: %s</string>
   
+  <!-- Reminder Mode Preference: Default Reminders Duration -->
+  <string name="EPr_default_reminders_mode_title">Default Ring/Vibrate type</string>
+  <!-- Preference: Default Reminders Description (%s => setting) -->
+  <string name="EPr_default_reminders_mode_desc">Currently: %s</string>
+
   <!-- Preference: Default Add To Calendar Title -->
   <string name="EPr_default_addtocalendar_title">Default Add To Calendar</string>
   
@@ -448,6 +453,13 @@
       <item>At deadline</item>
       <item>When overdue</item>
       <item>At deadline or overdue</item>
+  </string-array>
+    
+  <string-array name="EPr_default_reminders_mode">
+      <!-- reminders duration: labels for "Task Defaults" preference item. -->
+      <item>@string/TEA_reminder_mode_once</item>
+      <item>@string/TEA_reminder_mode_five</item>
+      <item>@string/TEA_reminder_mode_nonstop</item>
   </string-array>
     
   <string-array name="EPr_themes">
