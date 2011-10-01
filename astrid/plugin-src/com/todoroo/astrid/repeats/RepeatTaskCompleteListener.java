@@ -9,8 +9,11 @@ import java.util.List;
 import java.util.TimeZone;
 
 import android.content.BroadcastReceiver;
+import android.content.ContentResolver;
+import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 
 import com.google.ical.iter.RecurrenceIterator;
 import com.google.ical.iter.RecurrenceIteratorFactory;
@@ -20,14 +23,17 @@ import com.google.ical.values.DateValueImpl;
 import com.google.ical.values.Frequency;
 import com.google.ical.values.RRule;
 import com.google.ical.values.WeekdayNum;
+import com.timsu.astrid.R;
 import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.ContextManager;
 import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.andlib.utility.DateUtilities;
+import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.astrid.actfm.sync.ActFmPreferenceService;
 import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.core.PluginServices;
 import com.todoroo.astrid.data.Task;
+import com.todoroo.astrid.gcal.GCalHelper;
 import com.todoroo.astrid.service.StatisticsConstants;
 import com.todoroo.astrid.service.StatisticsService;
 import com.todoroo.astrid.utility.Flags;
@@ -46,8 +52,7 @@ public class RepeatTaskCompleteListener extends BroadcastReceiver {
         if(taskId == -1)
             return;
 
-        Task task = PluginServices.getTaskService().fetchById(taskId, Task.ID, Task.RECURRENCE,
-                Task.DUE_DATE, Task.FLAGS, Task.HIDE_UNTIL, Task.REMOTE_ID, Task.COMPLETION_DATE);
+        Task task = PluginServices.getTaskService().fetchById(taskId, Task.PROPERTIES);
         if(task == null || !task.isCompleted())
             return;
 
@@ -91,11 +96,21 @@ public class RepeatTaskCompleteListener extends BroadcastReceiver {
             clone.setValue(Task.ELAPSED_SECONDS, 0);
             clone.setValue(Task.REMINDER_SNOOZE, 0L);
             clone.setValue(Task.REMINDER_LAST, 0L);
+
+            boolean gcalCreateEventEnabled = Preferences.getStringValue(R.string.gcal_p_default) != null &&
+                                            !Preferences.getStringValue(R.string.gcal_p_default).equals("-1");
+            if (gcalCreateEventEnabled) {
+                ContentResolver cr = ContextManager.getContext().getContentResolver();
+                Uri calendarUri = GCalHelper.createTaskEvent(clone, cr, new ContentValues());
+                clone.setValue(Task.CALENDAR_URI, calendarUri.toString());
+            }
             PluginServices.getTaskService().save(clone);
 
             // clear recurrence from completed task so it can be re-completed
             task.setValue(Task.RECURRENCE, ""); //$NON-NLS-1$
             task.setValue(Task.DETAILS_DATE, 0L);
+
+            GCalHelper.deleteTaskEvent(task);
             PluginServices.getTaskService().save(task);
 
             // send a broadcast

@@ -87,6 +87,7 @@ import com.todoroo.astrid.dao.Database;
 import com.todoroo.astrid.dao.TaskDao.TaskCriteria;
 import com.todoroo.astrid.data.Metadata;
 import com.todoroo.astrid.data.Task;
+import com.todoroo.astrid.gcal.GCalHelper;
 import com.todoroo.astrid.helper.MetadataHelper;
 import com.todoroo.astrid.helper.TaskListContextMenuExtensionLoader;
 import com.todoroo.astrid.helper.TaskListContextMenuExtensionLoader.ContextMenuItem;
@@ -847,6 +848,14 @@ public class TaskListActivity extends ListActivity implements OnScrollListener,
                 title = title.trim();
             Task task = createWithValues(filter.valuesForNewTasks,
                     title, taskService, metadataService);
+
+            boolean gcalCreateEventEnabled = Preferences.getStringValue(R.string.gcal_p_default) != null &&
+                                             !Preferences.getStringValue(R.string.gcal_p_default).equals("-1");
+            if (title.length()>0 && gcalCreateEventEnabled) {
+                Uri calendarUri = GCalHelper.createTaskEvent(task, getContentResolver(), new ContentValues());
+                task.setValue(Task.CALENDAR_URI, calendarUri.toString());
+                taskService.save(task);
+            }
 
             TextView quickAdd = (TextView)findViewById(R.id.quickAddText);
             quickAdd.setText(""); //$NON-NLS-1$

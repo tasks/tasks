@@ -24,7 +24,6 @@ import com.timsu.astrid.R;
 import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.andlib.service.ExceptionService;
-import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.astrid.activity.TaskEditActivity.TaskEditControlSet;
 import com.todoroo.astrid.data.Task;
@@ -39,9 +38,6 @@ import com.todoroo.astrid.service.StatisticsService;
  *
  */
 public class GCalControlSet implements TaskEditControlSet {
-
-    /** If task has no estimated time, how early to set a task in calendar (seconds)*/
-    private static final long DEFAULT_CAL_TIME = DateUtilities.ONE_HOUR;
 
     // --- instance variables
 
@@ -120,7 +116,7 @@ public class GCalControlSet implements TaskEditControlSet {
     @Override
     public void readFromTask(Task task) {
         this.myTask = task;
-        String uri = task.getValue(Task.CALENDAR_URI);
+        String uri = GCalHelper.getTaskEventUri(task);
         if(!TextUtils.isEmpty(uri)) {
             try {
                 calendarUri = Uri.parse(uri);
@@ -148,34 +144,23 @@ public class GCalControlSet implements TaskEditControlSet {
     @SuppressWarnings("nls")
     @Override
     public String writeToModel(Task task) {
-        if (((Preferences.getBoolean(R.string.p_default_addtocalendar_key, false) && !task.isSaved())
-                || addToCalendar.isChecked()) &&
+        boolean gcalCreateEventEnabled = Preferences.getStringValue(R.string.gcal_p_default) != null &&
+                                        !Preferences.getStringValue(R.string.gcal_p_default).equals("-1");
+        if ((gcalCreateEventEnabled || addToCalendar.isChecked()) &&
                 calendarUri == null) {
             StatisticsService.reportEvent(StatisticsConstants.CREATE_CALENDAR_EVENT);
 
             try{
-                Uri uri = Calendars.getCalendarContentUri(Calendars.CALENDAR_CONTENT_EVENTS);
                 ContentResolver cr = activity.getContentResolver();
 
                 ContentValues values = new ContentValues();
-                values.put("title", task.getValue(Task.TITLE));
                 String calendarId = calendars.calendarIds[calendarSelector.getSelectedItemPosition()];
-                Calendars.setDefaultCalendar(calendarId);
                 values.put("calendar_id", calendarId);
-                values.put("description", task.getValue(Task.NOTES));
-                values.put("hasAlarm", 0);
-                values.put("transparency", 0);
-                values.put("visibility", 0);
 
-                createStartAndEndDate(task, values);
-
-                calendarUri = cr.insert(uri, values);
-                cr.notifyChange(uri, null);
+                calendarUri = GCalHelper.createTaskEvent(task, cr, values);
                 task.setValue(Task.CALENDAR_URI, calendarUri.toString());
 
-                // if the default-setting says so, create the gcal-event silently
-                if (!Preferences.getBoolean(R.string.p_default_addtocalendar_key, false) ||
-                        (addToCalendar.isChecked() && addToCalendar.isShown())) {
+                if (addToCalendar.isChecked() && addToCalendar.isShown()) {
                     // pop up the new event
                     Intent intent = new Intent(Intent.ACTION_EDIT, calendarUri);
                     intent.putExtra("beginTime", values.getAsLong("dtstart"));
@@ -197,8 +182,8 @@ public class GCalControlSet implements TaskEditControlSet {
                     updateValues.put("title", task.getValue(Task.TITLE));
                 if(setValues.containsKey(Task.NOTES.name))
                     updateValues.put("description", task.getValue(Task.NOTES));
-                if(setValues.containsKey(Task.DUE_DATE.name))
-                    createStartAndEndDate(task, updateValues);
+                if(setValues.containsKey(Task.DUE_DATE.name) || setValues.containsKey(Task.ESTIMATED_SECONDS.name))
+                    GCalHelper.createStartAndEndDate(task, updateValues);
 
                 ContentResolver cr = activity.getContentResolver();
                 if(cr.update(calendarUri, updateValues, null, null) > 0)
@@ -210,29 +195,5 @@ public class GCalControlSet implements TaskEditControlSet {
         }
 
         return null;
-    }
-
-    @SuppressWarnings("nls")
-    private void createStartAndEndDate(Task task, ContentValues values) {
-        long dueDate = task.getValue(Task.DUE_DATE);
-        // FIXME: doesnt respect timezones, see story 17443653
-        if(task.hasDueDate()) {
-            if(task.hasDueTime()) {
-                long estimatedTime = task.getValue(Task.ESTIMATED_SECONDS);
-                if(estimatedTime <= 0)
-                    estimatedTime = DEFAULT_CAL_TIME;
-                values.put("dtstart", dueDate - estimatedTime);
-                values.put("dtend", dueDate);
-            } else {
-                // calendar thinks 23:59:59 is next day, move it back
-                values.put("dtstart", dueDate - DateUtilities.ONE_DAY + 1000L);
-                values.put("dtend", dueDate - DateUtilities.ONE_DAY + 1000L);
-                values.put("allDay", "1");
-            }
-        } else {
-            values.put("dtstart", DateUtilities.now());
-            values.put("dtend", DateUtilities.now());
-            values.put("allDay", "1");
-        }
     }
 }

@@ -332,7 +332,6 @@ public final class TaskEditActivity extends TabActivity {
                     (LinearLayout) findViewById(R.id.addons_urgency)));
             LinearLayout alarmsAddons = (LinearLayout) findViewById(R.id.addons_alarms);
             LinearLayout moreAddons = (LinearLayout) findViewById(R.id.addons_more);
-            controls.add(new GCalControlSet(TaskEditActivity.this, moreAddons));
 
 
             try {
@@ -357,6 +356,7 @@ public final class TaskEditActivity extends TabActivity {
 
             controls.add(new TimerControlSet(TaskEditActivity.this, moreAddons));
             controls.add(new AlarmControlSet(TaskEditActivity.this, alarmsAddons));
+            controls.add(new GCalControlSet(TaskEditActivity.this, moreAddons));
 
             if(!Constants.MARKET_DISABLED && !addOnService.hasPowerPack()) {
                 // show add-on help if necessary
@@ -486,6 +486,9 @@ public final class TaskEditActivity extends TabActivity {
 
     /** Save task model from values in UI components */
     private void save(boolean onPause) {
+        if(title.getText().length() > 0)
+            model.setValue(Task.DELETION_DATE, 0L);
+
         StringBuilder toast = new StringBuilder();
         synchronized(controls) {
             for(TaskEditControlSet controlSet : controls) {
@@ -494,9 +497,6 @@ public final class TaskEditActivity extends TabActivity {
                     toast.append('\n').append(toastText);
             }
         }
-
-        if(title.getText().length() > 0)
-            model.setValue(Task.DELETION_DATE, 0L);
 
         taskService.save(model);
         if(title.getText().length() == 0)
