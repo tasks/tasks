@@ -34,8 +34,12 @@ public class Flags {
     /**
      * If set, indicates to suppress the next gtasks sync attempt
      */
-
     public static final int GTASKS_SUPPRESS_SYNC = 1 << 5;
+
+    /**
+     * If set, indicates next task was a completed repeating task
+     */
+    public static final int ACTFM_REPEATED_TASK = 1 << 6;
 
     public static boolean checkAndClear(int flag) {
         boolean set = (state & flag) > 0;

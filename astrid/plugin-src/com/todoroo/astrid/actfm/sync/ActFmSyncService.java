@@ -300,7 +300,9 @@ public final class ActFmSyncService {
         if(values.containsKey(Task.DELETION_DATE.name)) {
             params.add("deleted_at"); params.add(task.getValue(Task.DELETION_DATE) / 1000L);
         }
-        if(values.containsKey(Task.COMPLETION_DATE.name)) {
+        if(Flags.checkAndClear(Flags.ACTFM_REPEATED_TASK)) {
+            params.add("completed"); params.add(DateUtilities.now() / 1000L);
+        } else if(values.containsKey(Task.COMPLETION_DATE.name)) {
             params.add("completed"); params.add(task.getValue(Task.COMPLETION_DATE) / 1000L);
         }
         if(values.containsKey(Task.IMPORTANCE.name)) {

@@ -75,6 +75,7 @@ public class RepeatTaskCompleteListener extends BroadcastReceiver {
                 task.setValue(Task.COMPLETION_DATE, 0L);
                 task.setValue(Task.DUE_DATE, newDueDate);
                 task.setValue(Task.HIDE_UNTIL, hideUntil);
+                Flags.set(Flags.ACTFM_REPEATED_TASK);
                 PluginServices.getTaskService().save(task);
                 return;
             }
@@ -119,17 +120,17 @@ public class RepeatTaskCompleteListener extends BroadcastReceiver {
 
         // initialize startDateAsDV
         Date original = setUpStartDate(task, repeatAfterCompletion, rrule.getFreq());
-        DateValue startDateAsDV = setUpStartDateAsDV(task, rrule, original, repeatAfterCompletion);
+        DateValue startDateAsDV = setUpStartDateAsDV(task, original);
 
         if(rrule.getFreq() == Frequency.HOURLY || rrule.getFreq() == Frequency.MINUTELY)
             return handleSubdayRepeat(original, rrule);
         else if(rrule.getByDay().size() > 0 && repeatAfterCompletion)
-            return handleWeeklyRepeatAfterComplete(rrule, original, startDateAsDV);
+            return handleWeeklyRepeatAfterComplete(rrule, original);
         else
             return invokeRecurrence(rrule, original, startDateAsDV);
     }
 
-    private static long handleWeeklyRepeatAfterComplete(RRule rrule, Date original, DateValue startDateAsDV) {
+    private static long handleWeeklyRepeatAfterComplete(RRule rrule, Date original) {
         List<WeekdayNum> byDay = rrule.getByDay();
         long newDate = original.getTime();
         newDate += DateUtilities.ONE_WEEK * (rrule.getInterval() - 1);
@@ -242,8 +243,7 @@ public class RepeatTaskCompleteListener extends BroadcastReceiver {
         return startDate;
     }
 
-    private static DateValue setUpStartDateAsDV(Task task, RRule rrule, Date startDate,
-            boolean repeatAfterCompletion) {
+    private static DateValue setUpStartDateAsDV(Task task, Date startDate) {
         if(task.hasDueTime())
             return new DateTimeValueImpl(startDate.getYear() + 1900,
                     startDate.getMonth() + 1, startDate.getDate(),
