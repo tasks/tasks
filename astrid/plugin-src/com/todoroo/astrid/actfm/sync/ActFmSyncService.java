@@ -317,7 +317,8 @@ public final class ActFmSyncService {
         if(values.containsKey(Task.IMPORTANCE.name)) {
             params.add("importance"); params.add(task.getValue(Task.IMPORTANCE));
         }
-        if(values.containsKey(Task.RECURRENCE.name)) {
+        if(values.containsKey(Task.RECURRENCE.name) ||
+                (values.containsKey(Task.FLAGS.name) && task.containsNonNullValue(Task.RECURRENCE))) {
             String recurrence = task.getValue(Task.RECURRENCE);
             if(!TextUtils.isEmpty(recurrence) && task.getFlag(Task.FLAGS, Task.FLAG_REPEAT_AFTER_COMPLETION))
                 recurrence = recurrence + ";FROM=COMPLETION";
