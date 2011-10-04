@@ -153,7 +153,7 @@ public final class GtasksSyncOnSaveService {
         AndroidUtilities.sleepDeep(1000L); //Wait for metadata to be saved
 
         Metadata gtasksMetadata = gtasksMetadataService.getTaskMetadata(task.getId());
-        com.google.api.services.tasks.v1.model.Task remoteModel = null;
+        com.google.api.services.tasks.model.Task remoteModel = null;
         boolean newlyCreated = false;
 
         //Initialize the gtasks api service
@@ -168,7 +168,7 @@ public final class GtasksSyncOnSaveService {
         String remoteId = null;
         String listId = Preferences.getStringValue(GtasksPreferenceService.PREF_DEFAULT_LIST);
         if (listId == null) {
-            listId = gtasksService.getGtaskList("@default").id; //$NON-NLS-1$
+            listId = gtasksService.getGtaskList("@default").getId(); //$NON-NLS-1$
             Preferences.setString(GtasksPreferenceService.PREF_DEFAULT_LIST, listId);
         }
 
@@ -181,7 +181,7 @@ public final class GtasksSyncOnSaveService {
                 listId = gtasksMetadata.getValue(GtasksMetadata.LIST_ID);
             }
 
-            remoteModel = new com.google.api.services.tasks.v1.model.Task();
+            remoteModel = new com.google.api.services.tasks.model.Task();
             newlyCreated = true;
         } else { //update case
             remoteId = gtasksMetadata.getValue(GtasksMetadata.ID);
@@ -198,25 +198,25 @@ public final class GtasksSyncOnSaveService {
 
         //Update the remote model's changed properties
         if (values.containsKey(Task.DELETION_DATE.name) && task.isDeleted()) {
-            remoteModel.deleted = true;
+            remoteModel.setDeleted(true);
         }
 
         if (values.containsKey(Task.TITLE.name)) {
-            remoteModel.title = task.getValue(Task.TITLE);
+            remoteModel.setTitle(task.getValue(Task.TITLE));
         }
         if (values.containsKey(Task.NOTES.name)) {
-            remoteModel.notes = task.getValue(Task.NOTES);
+            remoteModel.setNotes(task.getValue(Task.NOTES));
         }
         if (values.containsKey(Task.DUE_DATE.name)) {
-            remoteModel.due = GtasksApiUtilities.unixTimeToGtasksDueDate(task.getValue(Task.DUE_DATE));
+            remoteModel.setDue(GtasksApiUtilities.unixTimeToGtasksDueDate(task.getValue(Task.DUE_DATE)));
         }
         if (values.containsKey(Task.COMPLETION_DATE.name)) {
             if (task.isCompleted()) {
-                remoteModel.completed = GtasksApiUtilities.unixTimeToGtasksCompletionTime(task.getValue(Task.COMPLETION_DATE));
-                remoteModel.status = "completed"; //$NON-NLS-1$
+                remoteModel.setCompleted(GtasksApiUtilities.unixTimeToGtasksCompletionTime(task.getValue(Task.COMPLETION_DATE)));
+                remoteModel.setStatus("completed"); //$NON-NLS-1$
             } else {
-                remoteModel.completed = null;
-                remoteModel.status = "needsAction"; //$NON-NLS-1$
+                remoteModel.setCompleted(null);
+                remoteModel.setStatus("needsAction"); //$NON-NLS-1$
             }
         }
 
@@ -228,8 +228,8 @@ public final class GtasksSyncOnSaveService {
 
             try { //Make sure the parent task exists on the target list
                 if (parent != null) {
-                    com.google.api.services.tasks.v1.model.Task remoteParent = gtasksService.getGtask(listId, parent);
-                    if (remoteParent == null || (remoteParent.deleted != null && remoteParent.deleted))
+                    com.google.api.services.tasks.model.Task remoteParent = gtasksService.getGtask(listId, parent);
+                    if (remoteParent == null || (remoteParent.getDeleted() != null && remoteParent.getDeleted().booleanValue()))
                         parent = null;
                 }
             } catch (IOException e) {
@@ -238,8 +238,8 @@ public final class GtasksSyncOnSaveService {
 
             try {
                 if (priorSibling != null) {
-                    com.google.api.services.tasks.v1.model.Task remoteSibling = gtasksService.getGtask(listId, priorSibling);
-                    if (remoteSibling == null || (remoteSibling.deleted != null && remoteSibling.deleted))
+                    com.google.api.services.tasks.model.Task remoteSibling = gtasksService.getGtask(listId, priorSibling);
+                    if (remoteSibling == null || (remoteSibling.getDeleted() != null && remoteSibling.getDeleted().booleanValue()))
                         priorSibling = null;
                 }
             } catch (IOException e) {
@@ -247,10 +247,10 @@ public final class GtasksSyncOnSaveService {
             }
 
 
-            com.google.api.services.tasks.v1.model.Task created = gtasksService.createGtask(listId, remoteModel, parent, priorSibling);
+            com.google.api.services.tasks.model.Task created = gtasksService.createGtask(listId, remoteModel, parent, priorSibling);
 
             //Update the metadata for the newly created task
-            gtasksMetadata.setValue(GtasksMetadata.ID, created.id);
+            gtasksMetadata.setValue(GtasksMetadata.ID, created.getId());
             gtasksMetadata.setValue(GtasksMetadata.LIST_ID, listId);
             metadataService.save(gtasksMetadata);
         }
@@ -279,8 +279,8 @@ public final class GtasksSyncOnSaveService {
 
         try { //Make sure the parent task exists on the target list
             if (parent != null) {
-                com.google.api.services.tasks.v1.model.Task remoteParent = gtasksService.getGtask(listId, parent);
-                if (remoteParent == null || (remoteParent.deleted != null && remoteParent.deleted))
+                com.google.api.services.tasks.model.Task remoteParent = gtasksService.getGtask(listId, parent);
+                if (remoteParent == null || (remoteParent.getDeleted() != null && remoteParent.getDeleted().booleanValue()))
                     parent = null;
             }
         } catch (IOException e) {
@@ -289,8 +289,8 @@ public final class GtasksSyncOnSaveService {
 
         try {
             if (priorSibling != null) {
-                com.google.api.services.tasks.v1.model.Task remoteSibling = gtasksService.getGtask(listId, priorSibling);
-                if (remoteSibling == null || (remoteSibling.deleted != null && remoteSibling.deleted))
+                com.google.api.services.tasks.model.Task remoteSibling = gtasksService.getGtask(listId, priorSibling);
+                if (remoteSibling == null || (remoteSibling.getDeleted() != null && remoteSibling.getDeleted().booleanValue()))
                     priorSibling = null;
             }
         } catch (IOException e) {

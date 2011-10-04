@@ -15,14 +15,14 @@ public class RepeatTestsGtasksSyncRemote extends RepeatTestsGtasksSync {
 
     @Override
     protected long setCompletionDate(boolean completeBefore, Task t,
-            com.google.api.services.tasks.v1.model.Task remoteModel, long dueDate) {
+            com.google.api.services.tasks.model.Task remoteModel, long dueDate) {
         long completionDate;
         if (completeBefore)
             completionDate = dueDate - DateUtilities.ONE_DAY;
         else
             completionDate = dueDate + DateUtilities.ONE_DAY;
-        remoteModel.completed = GtasksApiUtilities.unixTimeToGtasksCompletionTime(completionDate);
-        remoteModel.status = "completed";
+        remoteModel.setCompleted(GtasksApiUtilities.unixTimeToGtasksCompletionTime(completionDate));
+        remoteModel.setStatus("completed");
         try {
             gtasksService.updateGtask(GtasksApiUtilities.extractListIdFromSelfLink(remoteModel), remoteModel);
         } catch (IOException e) {

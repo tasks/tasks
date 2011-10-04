@@ -8,8 +8,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 
-import com.google.api.services.tasks.v1.model.TaskList;
-import com.google.api.services.tasks.v1.model.TaskLists;
+import com.google.api.services.tasks.model.TaskList;
+import com.google.api.services.tasks.model.TaskLists;
 import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.astrid.api.AstridApiConstants;
@@ -93,14 +93,14 @@ public class GtasksDetailExposerTest extends DatabaseTestCase {
         TaskLists lists = new TaskLists();
         List<TaskList> newLists = new ArrayList<TaskList>();
         TaskList list = new TaskList();
-        list.id = "listone-id";
-        list.title = "List One"; //new GoogleTaskListInfo("listone-id", "List One");
+        list.setId("listone-id");
+        list.setTitle("List One"); //new GoogleTaskListInfo("listone-id", "List One");
         newLists.add(list);
         list = new TaskList();
-        list.id = "listtwo-id";
-        list.title = "List Two"; //("listtwo-id", "List Two");
+        list.setId("listtwo-id");
+        list.setTitle("List Two"); //("listtwo-id", "List Two");
         newLists.add(list);
-        lists.items = newLists;
+        lists.setItems(newLists);
         gtasksListService.updateLists(lists);
     }
 

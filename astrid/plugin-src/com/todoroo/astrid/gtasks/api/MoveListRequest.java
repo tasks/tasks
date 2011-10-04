@@ -2,7 +2,7 @@ package com.todoroo.astrid.gtasks.api;
 
 import java.io.IOException;
 
-import com.google.api.services.tasks.v1.model.Task;
+import com.google.api.services.tasks.model.Task;
 /**
  * Encapsulates a request to the api to move a task from one list to another
  * @author Sam Bosley
@@ -30,15 +30,15 @@ public class MoveListRequest extends PushRequest {
     }
 
     private void transferProperties(Task local) {
-        toPush.completed = local.completed;
-        toPush.deleted = local.deleted;
-        toPush.due = local.due;
-        toPush.hidden = local.hidden;
-        toPush.notes = local.notes;
-        toPush.status = local.status;
-        toPush.title = local.title;
+        toPush.setCompleted(local.getCompleted());
+        toPush.setDeleted(local.getDeleted());
+        toPush.setDue(local.getDue());
+        toPush.setHidden(local.getHidden());
+        toPush.setNotes(local.getNotes());
+        toPush.setStatus(local.getStatus());
+        toPush.setTitle(local.getTitle());
 
-        toPush.parent = newParent;
+        toPush.setParent(newParent);
     }
 
     public String getIdTaskToMove() {

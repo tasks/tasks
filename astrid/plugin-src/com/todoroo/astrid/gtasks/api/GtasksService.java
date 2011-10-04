@@ -7,14 +7,16 @@ import android.content.Context;
 import com.google.api.client.extensions.android2.AndroidHttp;
 import com.google.api.client.googleapis.auth.oauth2.draft10.GoogleAccessProtectedResource;
 import com.google.api.client.http.HttpResponseException;
-import com.google.api.client.json.jackson.JacksonFactory;
-import com.google.api.services.tasks.v1.Tasks;
-import com.google.api.services.tasks.v1.Tasks.TasksOperations.Insert;
-import com.google.api.services.tasks.v1.Tasks.TasksOperations.List;
-import com.google.api.services.tasks.v1.Tasks.TasksOperations.Move;
-import com.google.api.services.tasks.v1.model.Task;
-import com.google.api.services.tasks.v1.model.TaskList;
-import com.google.api.services.tasks.v1.model.TaskLists;
+import com.google.api.client.json.JsonFactory;
+import com.google.api.client.json.gson.GsonFactory;
+import com.google.api.client.util.DateTime;
+import com.google.api.services.tasks.Tasks;
+import com.google.api.services.tasks.Tasks.TasksOperations.Insert;
+import com.google.api.services.tasks.Tasks.TasksOperations.List;
+import com.google.api.services.tasks.Tasks.TasksOperations.Move;
+import com.google.api.services.tasks.model.Task;
+import com.google.api.services.tasks.model.TaskList;
+import com.google.api.services.tasks.model.TaskLists;
 import com.timsu.astrid.R;
 import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.ContextManager;
@@ -33,6 +35,7 @@ public class GtasksService {
     private Tasks service;
     private GoogleAccessProtectedResource accessProtectedResource;
     private String token;
+    private JsonFactory jsonFactory;
 
     @Autowired ExceptionService exceptionService;
 
@@ -49,8 +52,9 @@ public class GtasksService {
         this.token = authToken;
         accessProtectedResource = new GoogleAccessProtectedResource(authToken);
 
-        service = new Tasks(AndroidHttp.newCompatibleTransport(), accessProtectedResource, new JacksonFactory());
-        service.accessKey = API_KEY;
+        jsonFactory = new GsonFactory();
+        service = new Tasks(AndroidHttp.newCompatibleTransport(), accessProtectedResource, jsonFactory);
+        service.setKey(API_KEY);
         service.setApplicationName("Astrid");
     }
 
@@ -58,13 +62,14 @@ public class GtasksService {
     private synchronized void handleException(IOException e) throws IOException {
         if (e instanceof HttpResponseException) {
             HttpResponseException h = (HttpResponseException)e;
-            if (h.response.statusCode == 401 || h.response.statusCode == 403) {
-                System.err.println("Encountered " + h.response.statusCode + " error");
+            int statusCode = h.getResponse().getStatusCode();
+            if (statusCode == 401 || statusCode == 403) {
+                System.err.println("Encountered " + statusCode + " error");
                 token = GtasksTokenValidator.validateAuthToken(token);
                 if (token != null) {
                     accessProtectedResource.setAccessToken(token);
                 }
-            } else if (h.response.statusCode == 503) { // 503 errors are generally either 1) quota limit reached or 2) problems on Google's end
+            } else if (statusCode == 503) { // 503 errors are generally either 1) quota limit reached or 2) problems on Google's end
                 System.err.println("Encountered 503 error");
                 final Context context = ContextManager.getContext();
                 String message = context.getString(R.string.gtasks_error_backend);
@@ -116,7 +121,7 @@ public class GtasksService {
 
     public TaskList createGtaskList(String title) throws IOException {
         TaskList newList = new TaskList();
-        newList.title = title;
+        newList.setTitle(title);
         TaskList toReturn = null;
         try {
             toReturn = service.tasklists.insert(newList).execute();
@@ -132,12 +137,12 @@ public class GtasksService {
     public TaskList updateGtaskList(TaskList list) throws IOException {
         TaskList toReturn = null;
         try {
-            toReturn = service.tasklists.update(list.id, list).execute();
+            toReturn = service.tasklists.update(list.getId(), list).execute();
         } catch (IOException e) {
             handleException(e);
-            toReturn = service.tasklists.update(list.id, list).execute();
+            toReturn = service.tasklists.update(list.getId(), list).execute();
         } finally {
-            log("Update list, id: " + list.id, toReturn);
+            log("Update list, id: " + list.getId(), toReturn);
         }
         return toReturn;
     }
@@ -153,15 +158,15 @@ public class GtasksService {
         }
     }
 
-    public com.google.api.services.tasks.v1.model.Tasks getAllGtasksFromTaskList(TaskList list, boolean includeDeleted, boolean includeHidden) throws IOException {
-        return getAllGtasksFromListId(list.id, includeDeleted, includeHidden);
+    public com.google.api.services.tasks.model.Tasks getAllGtasksFromTaskList(TaskList list, boolean includeDeleted, boolean includeHidden) throws IOException {
+        return getAllGtasksFromListId(list.getId(), includeDeleted, includeHidden);
     }
 
-    public com.google.api.services.tasks.v1.model.Tasks getAllGtasksFromListId(String listId, boolean includeDeleted, boolean includeHidden) throws IOException {
-        com.google.api.services.tasks.v1.model.Tasks toReturn = null;
+    public com.google.api.services.tasks.model.Tasks getAllGtasksFromListId(String listId, boolean includeDeleted, boolean includeHidden) throws IOException {
+        com.google.api.services.tasks.model.Tasks toReturn = null;
         List request = service.tasks.list(listId);
-        request.showDeleted = includeDeleted;
-        request.showHidden = includeHidden;
+        request.setShowDeleted(includeDeleted);
+        request.setShowHidden(includeHidden);
         try {
             toReturn = request.execute();
         } catch (IOException e) {
@@ -186,11 +191,11 @@ public class GtasksService {
         return toReturn;
     }
 
-    public Task createGtask(String listId, String title, String notes, String due) throws IOException {
+    public Task createGtask(String listId, String title, String notes, DateTime due) throws IOException {
         Task newGtask = new Task();
-        newGtask.title = title;
-        newGtask.notes = notes;
-        newGtask.due = due;
+        newGtask.setTitle(title);
+        newGtask.setNotes(notes);
+        newGtask.setDue(due);
 
         return createGtask(listId, newGtask);
     }
@@ -201,8 +206,8 @@ public class GtasksService {
 
     public Task createGtask(String listId, Task task, String parent, String priorSiblingId) throws IOException {
         Insert insertOp = service.tasks.insert(listId, task);
-        insertOp.parent = parent;
-        insertOp.previous = priorSiblingId;
+        insertOp.setParent(parent);
+        insertOp.setPrevious(priorSiblingId);
 
         Task toReturn = null;
         try {
@@ -211,7 +216,7 @@ public class GtasksService {
             handleException(e);
             toReturn = insertOp.execute();
         } finally {
-            log("Creating gtask, title: " + task.title, toReturn);
+            log("Creating gtask, title: " + task.getTitle(), toReturn);
         }
         return toReturn;
     }
@@ -219,20 +224,20 @@ public class GtasksService {
     public Task updateGtask(String listId, Task task) throws IOException {
         Task toReturn = null;
         try {
-            toReturn = service.tasks.update(listId, task.id, task).execute();
+            toReturn = service.tasks.update(listId, task.getId(), task).execute();
         } catch (IOException e) {
             handleException(e);
-            toReturn = service.tasks.update(listId, task.id, task).execute();
+            toReturn = service.tasks.update(listId, task.getId(), task).execute();
         } finally {
-            log("Update gtask, title: " + task.title, toReturn);
+            log("Update gtask, title: " + task.getTitle(), toReturn);
         }
         return toReturn;
     }
 
     public Task moveGtask(String listId, String taskId, String parentId, String previousId) throws IOException {
         Move move = service.tasks.move(listId, taskId);
-        move.parent = parentId;
-        move.previous = previousId;
+        move.setParent(parentId);
+        move.setPrevious(previousId);
 
         Task toReturn = null;
         try {
@@ -266,5 +271,9 @@ public class GtasksService {
         } finally {
             log("Clear completed tasks, list id: " + listId, null);
         }
+    }
+
+    public JsonFactory getJsonFactory() {
+        return jsonFactory;
     }
 }

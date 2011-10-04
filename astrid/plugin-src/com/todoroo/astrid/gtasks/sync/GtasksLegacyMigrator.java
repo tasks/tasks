@@ -2,9 +2,11 @@ package com.todoroo.astrid.gtasks.sync;
 
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.List;
 
-import com.google.api.services.tasks.v1.model.TaskLists;
-import com.google.api.services.tasks.v1.model.Tasks;
+import com.google.api.services.tasks.model.TaskList;
+import com.google.api.services.tasks.model.TaskLists;
+import com.google.api.services.tasks.model.Tasks;
 import com.todoroo.andlib.data.TodorooCursor;
 import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.DependencyInjectionService;
@@ -68,25 +70,27 @@ public class GtasksLegacyMigrator {
                     //and map their titles to their real remote ids
                     HashMap<String, String> taskAndListTitlesToRemoteTaskIds = new HashMap<String, String>();
 
-                    for (com.google.api.services.tasks.v1.model.TaskList list : allLists.items) {
-                        if (list.title.equals(defaultListTitle)) {
-                            defaultListId = list.id;
+                    List<TaskList> items = allLists.getItems();
+                    for (TaskList list : items) {
+                        if (list.getTitle().equals(defaultListTitle)) {
+                            defaultListId = list.getId();
                         }
 
-                        Tasks allTasks = gtasksService.getAllGtasksFromListId(list.id, false, false);
+                        Tasks allTasks = gtasksService.getAllGtasksFromListId(list.getId(), false, false);
 
-                        if (allTasks.items != null) {
-                            for (com.google.api.services.tasks.v1.model.Task t : allTasks.items) {
-                                System.err.println("Constructing key with title: " + t.title);
-                                String key = constructKeyFromTitles(t.title, list.title);
-                                taskAndListTitlesToRemoteTaskIds.put(key, t.id);
+                        List<com.google.api.services.tasks.model.Task> tasksItems = allTasks.getItems();
+                        if (tasksItems != null) {
+                            for (com.google.api.services.tasks.model.Task t : tasksItems) {
+                                System.err.println("Constructing key with title: " + t.getTitle());
+                                String key = constructKeyFromTitles(t.getTitle(), list.getTitle());
+                                taskAndListTitlesToRemoteTaskIds.put(key, t.getId());
                             }
                         }
                     }
 
                     if (defaultListId == null) {
-                        com.google.api.services.tasks.v1.model.TaskList defaultList = gtasksService.getGtaskList("@default"); //$NON-NLS-1$
-                        defaultListId = defaultList.id;
+                        com.google.api.services.tasks.model.TaskList defaultList = gtasksService.getGtaskList("@default"); //$NON-NLS-1$
+                        defaultListId = defaultList.getId();
                     }
                     Preferences.setString(GtasksPreferenceService.PREF_DEFAULT_LIST, defaultListId);
 
@@ -103,19 +107,20 @@ public class GtasksLegacyMigrator {
                         //Search through lists to see if one of them has match
                         String taskTitle = container.task.getValue(Task.TITLE);
                         boolean foundMatch = false;
-                        for (com.google.api.services.tasks.v1.model.TaskList list : allLists.items) {
-                            String expectedKey = constructKeyFromTitles(taskTitle, list.title);
+                        items = allLists.getItems();
+                        for (TaskList list : items) {
+                            String expectedKey = constructKeyFromTitles(taskTitle, list.getTitle());
 
                             // save the new id of the current list
                             // if it matches the listname of the current task
-                            if (list.title != null && list.title.equals(originalListName))
-                                originalListId = list.id;
+                            if (list.getTitle() != null && list.getTitle().equals(originalListName))
+                                originalListId = list.getId();
 
                             if (taskAndListTitlesToRemoteTaskIds.containsKey(expectedKey)) {
                                 System.err.println("Found match");
                                 foundMatch = true;
                                 String newRemoteTaskId = taskAndListTitlesToRemoteTaskIds.get(expectedKey);
-                                String newRemoteListId = list.id;
+                                String newRemoteListId = list.getId();
 
                                 container.gtaskMetadata.setValue(GtasksMetadata.ID, newRemoteTaskId);
                                 container.gtaskMetadata.setValue(GtasksMetadata.LIST_ID, newRemoteListId);

@@ -23,8 +23,8 @@ import android.content.Intent;
 import android.text.TextUtils;
 import android.util.Log;
 
-import com.google.api.services.tasks.v1.model.TaskList;
-import com.google.api.services.tasks.v1.model.TaskLists;
+import com.google.api.services.tasks.model.TaskList;
+import com.google.api.services.tasks.model.TaskLists;
 import com.timsu.astrid.R;
 import com.todoroo.andlib.data.AbstractModel;
 import com.todoroo.andlib.data.Property;
@@ -225,15 +225,15 @@ public class GtasksSyncProvider extends SyncProvider<GtasksTaskContainer> {
 
     private void getActiveList(TaskLists taskView) throws IOException {
         String listId;
-        if(taskView.items.size() == 0) {
+        if(taskView.getItems().size() == 0) {
             if(Constants.DEBUG)
                 Log.e("gtasks-debug", "ACTION: createList(4)");
             TaskList newList = taskService.createGtaskList(ContextManager.getString(R.string.app_name));
-            listId = newList.id;
+            listId = newList.getId();
         } else if (Preferences.getStringValue(GtasksPreferenceService.PREF_DEFAULT_LIST) != null) {
             listId = Preferences.getStringValue(GtasksPreferenceService.PREF_DEFAULT_LIST);
         } else {
-            listId = taskService.getGtaskList("@default").id;
+            listId = taskService.getGtaskList("@default").getId();
         }
 
         Preferences.setString(GtasksPreferenceService.PREF_DEFAULT_LIST, listId);
@@ -345,7 +345,7 @@ public class GtasksSyncProvider extends SyncProvider<GtasksTaskContainer> {
                         String listId = dashboard.getValue(GtasksList.REMOTE_ID);
                         if(Constants.DEBUG)
                             Log.e("gtasks-debug", "ACTION: getTasks, " + listId);
-                        List<com.google.api.services.tasks.v1.model.Task> remoteTasks = taskService.getAllGtasksFromListId(listId, includeDeleted, includeHidden).items;
+                        List<com.google.api.services.tasks.model.Task> remoteTasks = taskService.getAllGtasksFromListId(listId, includeDeleted, includeHidden).getItems();
                         addRemoteTasksToList(remoteTasks, list);
                     } catch (Exception e) {
                         handleException("read-remotes", e, false);
@@ -364,31 +364,31 @@ public class GtasksSyncProvider extends SyncProvider<GtasksTaskContainer> {
         return list;
     }
 
-    private void addRemoteTasksToList(List<com.google.api.services.tasks.v1.model.Task> remoteTasks,
+    private void addRemoteTasksToList(List<com.google.api.services.tasks.model.Task> remoteTasks,
             ArrayList<GtasksTaskContainer> list) {
 
         if (remoteTasks != null) {
             long order = 0;
-            HashMap<String, com.google.api.services.tasks.v1.model.Task> idsToTasks = new HashMap<String, com.google.api.services.tasks.v1.model.Task>();
+            HashMap<String, com.google.api.services.tasks.model.Task> idsToTasks = new HashMap<String, com.google.api.services.tasks.model.Task>();
             HashMap<String, Integer> indentation = new HashMap<String, Integer>();
             HashMap<String, String> parentToPriorSiblingMap = new HashMap<String, String>();
 
 
             //Build map of String ids to task objects
-            for (com.google.api.services.tasks.v1.model.Task task : remoteTasks) {
-                String id = task.id;
+            for (com.google.api.services.tasks.model.Task task : remoteTasks) {
+                String id = task.getId();
                 idsToTasks.put(id, task);
             }
 
-            for(com.google.api.services.tasks.v1.model.Task remoteTask : remoteTasks) {
-                if(TextUtils.isEmpty(remoteTask.title))
+            for(com.google.api.services.tasks.model.Task remoteTask : remoteTasks) {
+                if(TextUtils.isEmpty(remoteTask.getTitle()))
                     continue;
 
                 GtasksTaskContainer container = parseRemoteTask(remoteTask);
-                String id = remoteTask.id;
+                String id = remoteTask.getId();
 
                 // update parents, prior sibling
-                String parent = remoteTask.parent; // can be null, which means top level task
+                String parent = remoteTask.getParent(); // can be null, which means top level task
                 container.parentId = parent;
                 if(parentToPriorSiblingMap.containsKey(parent))
                     container.priorSiblingId = parentToPriorSiblingMap.get(parent);
@@ -412,16 +412,16 @@ public class GtasksSyncProvider extends SyncProvider<GtasksTaskContainer> {
         }
     }
 
-    private int findIndentation(HashMap<String, com.google.api.services.tasks.v1.model.Task> idsToTasks,
-            HashMap<String, Integer> indentation, com.google.api.services.tasks.v1.model.Task task) {
+    private int findIndentation(HashMap<String, com.google.api.services.tasks.model.Task> idsToTasks,
+            HashMap<String, Integer> indentation, com.google.api.services.tasks.model.Task task) {
         if (task == null) return 0; //TODO: Not sure why this is happening...
-        if(indentation.containsKey(task.id))
-            return indentation.get(task.id);
+        if(indentation.containsKey(task.getId()))
+            return indentation.get(task.getId());
 
-        if(TextUtils.isEmpty(task.parent))
+        if(TextUtils.isEmpty(task.getParent()))
             return 0;
 
-        return findIndentation(idsToTasks, indentation, idsToTasks.get(task.parent)) + 1;
+        return findIndentation(idsToTasks, indentation, idsToTasks.get(task.getParent())) + 1;
     }
 
     @Override
@@ -435,34 +435,33 @@ public class GtasksSyncProvider extends SyncProvider<GtasksTaskContainer> {
 
         createdWithoutId.add(local);
         createdWithoutOrder.add(local);
-
-        com.google.api.services.tasks.v1.model.Task createdTask = new com.google.api.services.tasks.v1.model.Task();
+        com.google.api.services.tasks.model.Task createdTask = new com.google.api.services.tasks.model.Task();
 
         CreateRequest createRequest = new CreateRequest(taskService, listId, createdTask, local.parentId, local.priorSiblingId);
         //updateTaskHelper(local, null, createRequest);
         localPropertiesToModel(local, null, createRequest.getToPush());
-        com.google.api.services.tasks.v1.model.Task createResult = createRequest.executePush();
-        String newIdTask = createResult.id;
+        com.google.api.services.tasks.model.Task createResult = createRequest.executePush();
+        String newIdTask = createResult.getId();
         local.gtaskMetadata.setValue(GtasksMetadata.ID, newIdTask);
 
         return local;
     }//*/
 
     private void localPropertiesToModel(GtasksTaskContainer local, GtasksTaskContainer remote,
-            com.google.api.services.tasks.v1.model.Task model) {
+            com.google.api.services.tasks.model.Task model) {
         if(shouldTransmit(local, Task.TITLE, remote))
-            model.title = local.task.getValue(Task.TITLE);
+            model.setTitle(local.task.getValue(Task.TITLE));
         if(shouldTransmit(local, Task.DUE_DATE, remote)) {
-            model.due = GtasksApiUtilities.unixTimeToGtasksDueDate(local.task.getValue(Task.DUE_DATE));
+            model.setDue(GtasksApiUtilities.unixTimeToGtasksDueDate(local.task.getValue(Task.DUE_DATE)));
         }
         if(shouldTransmit(local, Task.COMPLETION_DATE, remote)) {
-            model.completed = GtasksApiUtilities.unixTimeToGtasksCompletionTime(local.task.getValue(Task.COMPLETION_DATE));
-            model.status = (local.task.isCompleted() ? "completed" : "needsAction");
+            model.setCompleted(GtasksApiUtilities.unixTimeToGtasksCompletionTime(local.task.getValue(Task.COMPLETION_DATE)));
+            model.setStatus((local.task.isCompleted() ? "completed" : "needsAction"));
         }
         if(shouldTransmit(local, Task.DELETION_DATE, remote))
-            model.deleted = local.task.isDeleted();
+            model.setDeleted(local.task.isDeleted());
         if(shouldTransmit(local, Task.NOTES, remote))
-            model.notes = local.task.getValue(Task.NOTES);
+            model.setNotes(local.task.getValue(Task.NOTES));
     }
 
     private void updateTaskHelper(final GtasksTaskContainer local,
@@ -517,9 +516,9 @@ public class GtasksSyncProvider extends SyncProvider<GtasksTaskContainer> {
                                 Log.e("gtasks-debug", "ACTION: moveTask(5), " + newIdTask + ", " + idList + " to " +
                                     remote.gtaskMetadata.getValue(GtasksMetadata.LIST_ID));
                             MoveListRequest moveList = new MoveListRequest(taskService, newIdTask, remote.gtaskMetadata.getValue(GtasksMetadata.LIST_ID), idList, null);
-                            com.google.api.services.tasks.v1.model.Task result = moveList.executePush();
-                            local.gtaskMetadata.setValue(GtasksMetadata.ID, result.id);
-                            remote.gtaskMetadata.setValue(GtasksMetadata.ID, result.id);
+                            com.google.api.services.tasks.model.Task result = moveList.executePush();
+                            local.gtaskMetadata.setValue(GtasksMetadata.ID, result.getId());
+                            remote.gtaskMetadata.setValue(GtasksMetadata.ID, result.getId());
                         }
                     } catch (IOException e) {
                         handleException("update-task", e, false);
@@ -536,28 +535,28 @@ public class GtasksSyncProvider extends SyncProvider<GtasksTaskContainer> {
 
     /** Create a task container for the given remote task
      * @throws JSONException */
-    private GtasksTaskContainer parseRemoteTask(com.google.api.services.tasks.v1.model.Task remoteTask) {
+    private GtasksTaskContainer parseRemoteTask(com.google.api.services.tasks.model.Task remoteTask) {
         Task task = new Task();
 
         ArrayList<Metadata> metadata = new ArrayList<Metadata>();
 
-        task.setValue(Task.TITLE, remoteTask.title);
+        task.setValue(Task.TITLE, remoteTask.getTitle());
         task.setValue(Task.CREATION_DATE, DateUtilities.now());
-        task.setValue(Task.COMPLETION_DATE, GtasksApiUtilities.gtasksCompletedTimeToUnixTime(remoteTask.completed, 0));
-        if (remoteTask.deleted == null || !remoteTask.deleted.booleanValue())
+        task.setValue(Task.COMPLETION_DATE, GtasksApiUtilities.gtasksCompletedTimeToUnixTime(remoteTask.getCompleted(), 0));
+        if (remoteTask.getDeleted() == null || !remoteTask.getDeleted().booleanValue())
             task.setValue(Task.DELETION_DATE, 0L);
-        else if (remoteTask.deleted.booleanValue())
+        else if (remoteTask.getDeleted().booleanValue())
             task.setValue(Task.DELETION_DATE, DateUtilities.now());
-        if (remoteTask.hidden != null && remoteTask.hidden.booleanValue())
+        if (remoteTask.getHidden() != null && remoteTask.getHidden().booleanValue())
             task.setValue(Task.DELETION_DATE, DateUtilities.now());
 
-        long dueDate = GtasksApiUtilities.gtasksDueTimeToUnixTime(remoteTask.due, 0);
+        long dueDate = GtasksApiUtilities.gtasksDueTimeToUnixTime(remoteTask.getDue(), 0);
         long createdDate = Task.createDueDate(Task.URGENCY_SPECIFIC_DAY, dueDate);
         task.setValue(Task.DUE_DATE, createdDate);
-        task.setValue(Task.NOTES, remoteTask.notes);
+        task.setValue(Task.NOTES, remoteTask.getNotes());
 
         Metadata gtasksMetadata = GtasksMetadata.createEmptyMetadata(AbstractModel.NO_ID);
-        gtasksMetadata.setValue(GtasksMetadata.ID, remoteTask.id);
+        gtasksMetadata.setValue(GtasksMetadata.ID, remoteTask.getId());
         gtasksMetadata.setValue(GtasksMetadata.LIST_ID, GtasksApiUtilities.extractListIdFromSelfLink(remoteTask));
 
         GtasksTaskContainer container = new GtasksTaskContainer(task, metadata,
@@ -585,7 +584,7 @@ public class GtasksSyncProvider extends SyncProvider<GtasksTaskContainer> {
         if(Constants.DEBUG)
             Log.e("gtasks-debug", "ACTION: modifyTask(3) - " + id);
 
-        com.google.api.services.tasks.v1.model.Task toUpdate = taskService.getGtask(local.gtaskMetadata.getValue(GtasksMetadata.LIST_ID), id);
+        com.google.api.services.tasks.model.Task toUpdate = taskService.getGtask(local.gtaskMetadata.getValue(GtasksMetadata.LIST_ID), id);
         UpdateRequest modifyTask = new UpdateRequest(taskService, local.gtaskMetadata.getValue(GtasksMetadata.LIST_ID), toUpdate);
         updateTaskHelper(local, remote, modifyTask);
 

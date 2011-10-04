@@ -3,8 +3,8 @@ package com.todoroo.astrid.gtasks;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.google.api.services.tasks.v1.model.TaskList;
-import com.google.api.services.tasks.v1.model.TaskLists;
+import com.google.api.services.tasks.model.TaskList;
+import com.google.api.services.tasks.model.TaskLists;
 import com.todoroo.andlib.service.Autowired;
 import com.todoroo.astrid.core.PluginServices;
 import com.todoroo.astrid.data.Metadata;
@@ -237,10 +237,10 @@ public class GtasksTaskMovingTest extends DatabaseTestCase {
         TaskLists lists = new TaskLists();
         List<TaskList> items = new ArrayList<TaskList>();
         TaskList list = new TaskList();
-        list.id = "1";
-        list.title = "Tim's Tasks";
+        list.setId("1");
+        list.setTitle("Tim's Tasks");
         items.add(list);
-        lists.items = items;
+        lists.setItems(items);
         gtasksListService.updateLists(lists);
     }
 
