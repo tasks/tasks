@@ -401,7 +401,7 @@
   <string name="TLA_menu_settings">設定</string>
   
   <!-- Menu: Help -->    
-  <string name="TLA_menu_help">ヘルプ</string>
+  <string name="p_help">ヘルプ</string>
   
   <!-- Search Label-->
   <string name="TLA_search_label">このリストの検索</string>

@@ -399,7 +399,7 @@
   <string name="TLA_menu_settings">설정</string>
   
   <!-- Menu: Help -->    
-  <string name="TLA_menu_help">도움말</string>
+  <string name="p_help">도움말</string>
   
   <!-- Search Label-->
   <string name="TLA_search_label">이 목록 검색</string>

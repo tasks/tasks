@@ -90,11 +90,6 @@ public class StartupService {
      */
     private static boolean hasStartedUp = false;
 
-    private static final String CRITTERCISM_APP_ID = "4e8a796fddf5203b6f0097c5"; //$NON-NLS-1$
-
-    private static final String CRITTERCISM_SECRET = "9mhdwlu85lc6sovpxkabq1cbzzmxe2oi"; //$NON-NLS-1$
-
-    private static final String CRITTERCISM_OATH_KEY = "4e8a796fddf5203b6f0097c5nn35ziwt"; //$NON-NLS-1$
     /**
      * Call to skip initialization steps (i.e. if only a notification screen is needed)
      */
@@ -110,8 +105,8 @@ public class StartupService {
         // sets up context manager
         ContextManager.setContext(context);
 
-        Crittercism.init(context.getApplicationContext(), CRITTERCISM_APP_ID, CRITTERCISM_OATH_KEY, CRITTERCISM_SECRET);
-
+        Crittercism.init(context.getApplicationContext(), Constants.CRITTERCISM_APP_ID,
+                Constants.CRITTERCISM_OATH_KEY, Constants.CRITTERCISM_SECRET);
 
         // show notification if reminders are silenced
         if(context instanceof Activity) {

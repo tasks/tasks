@@ -406,7 +406,7 @@ File %1$s contained %2$s.\n\n
   <string name="TLA_menu_settings">ตั้งค่า</string>
   
   <!-- Menu: Help -->    
-  <string name="TLA_menu_help">ความช่วยเหลือ</string>
+  <string name="p_help">ความช่วยเหลือ</string>
   
   <!-- Search Label-->
   <string name="TLA_search_label">ค้นหาในรายการนี้</string>

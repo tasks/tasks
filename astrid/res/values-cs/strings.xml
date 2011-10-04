@@ -399,7 +399,7 @@
   <string name="TLA_menu_settings">Nastavení</string>
   
   <!-- Menu: Help -->    
-  <string name="TLA_menu_help">Nápověda</string>
+  <string name="p_help">Nápověda</string>
   
   <!-- Search Label-->
   <string name="TLA_search_label">Hledat v tomto seznamu</string>

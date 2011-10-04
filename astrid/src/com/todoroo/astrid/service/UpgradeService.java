@@ -159,7 +159,8 @@ public final class UpgradeService {
         // current message
         if (from >= V3_8_4 && from < V3_8_4_2) {
             newVersionString(changeLog, "3.8.4.2 (10/03/11)", new String[] {
-                    "Updated Google Tasks API libraries to 1.2.2"
+                    "Updated Google Tasks API libraries to 1.2.2. This may fix some of your Google Task sync issues",
+                    "Added a new way for easy bug reporting. Just tap the Menu key, Support."
             });
         }
         if(from >= V3_8_4 && from < V3_8_4_1) {

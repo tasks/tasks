@@ -404,7 +404,7 @@ File %1$s contained %2$s.\n\n
   <string name="TLA_menu_settings">Paràmetres</string>
   
   <!-- Menu: Help -->    
-  <string name="TLA_menu_help">Ajuda</string>
+  <string name="p_help">Ajuda</string>
   
   <!-- Search Label-->
   <string name="TLA_search_label">Busca en aquesta llista</string>

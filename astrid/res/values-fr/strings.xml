@@ -398,7 +398,7 @@
   <string name="TLA_menu_settings">Paramètres</string>
   
   <!-- Menu: Help -->    
-  <string name="TLA_menu_help">Aide</string>
+  <string name="p_help">Aide</string>
   
   <!-- Search Label-->
   <string name="TLA_search_label">Rechercher dans cette liste</string>

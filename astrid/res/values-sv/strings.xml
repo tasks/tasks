@@ -399,7 +399,7 @@
   <string name="TLA_menu_settings">Inställningar</string>
   
   <!-- Menu: Help -->    
-  <string name="TLA_menu_help">Hjälp</string>
+  <string name="p_help">Hjälp</string>
   
   <!-- Search Label-->
   <string name="TLA_search_label">Sök i denna lista</string>

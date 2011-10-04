@@ -399,7 +399,7 @@
   <string name="TLA_menu_settings">Параметры</string>
   
   <!-- Menu: Help -->    
-  <string name="TLA_menu_help">Справка</string>
+  <string name="p_help">Справка</string>
   
   <!-- Search Label-->
   <string name="TLA_search_label">Поиск по списку</string>

@@ -169,41 +169,15 @@ public class TagViewActivity extends TaskListActivity {
         }
     }
 
-    /**
-     * Create options menu (displayed when user presses menu key)
-     *
-     * @return true if menu should be displayed
-     */
     @Override
-    public boolean onPrepareOptionsMenu(Menu menu) {
-        if(menu.size() > 0)
-            menu.clear();
-
-        MenuItem item;
-
-        item = menu.add(Menu.NONE, MENU_ADDONS_ID, Menu.NONE,
-                R.string.TLA_menu_addons);
-        item.setIcon(android.R.drawable.ic_menu_set_as);
-
-        item = menu.add(Menu.NONE, MENU_SETTINGS_ID, Menu.NONE,
-                R.string.TLA_menu_settings);
-        item.setIcon(android.R.drawable.ic_menu_preferences);
-
-        item = menu.add(Menu.NONE, MENU_SORT_ID, Menu.NONE,
-                R.string.TLA_menu_sort);
-        item.setIcon(android.R.drawable.ic_menu_sort_by_size);
-
+    protected void addSyncRefreshMenuItem(Menu menu) {
         if(actFmPreferenceService.isLoggedIn()) {
-            item = menu.add(Menu.NONE, MENU_REFRESH_ID, Menu.NONE,
+            MenuItem item = menu.add(Menu.NONE, MENU_REFRESH_ID, Menu.NONE,
                     R.string.actfm_TVA_menu_refresh);
             item.setIcon(R.drawable.ic_menu_refresh);
+        } else {
+            super.addSyncRefreshMenuItem(menu);
         }
-
-        item = menu.add(Menu.NONE, MENU_HELP_ID, Menu.NONE,
-                R.string.TLA_menu_help);
-        item.setIcon(android.R.drawable.ic_menu_help);
-
-        return true;
     }
 
     // --- data loading

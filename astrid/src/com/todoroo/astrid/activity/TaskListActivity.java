@@ -135,7 +135,7 @@ public class TaskListActivity extends ListActivity implements OnScrollListener,
     protected static final int MENU_SETTINGS_ID = Menu.FIRST + 3;
     protected static final int MENU_SORT_ID = Menu.FIRST + 4;
     protected static final int MENU_SYNC_ID = Menu.FIRST + 5;
-    protected static final int MENU_HELP_ID = Menu.FIRST + 6;
+    protected static final int MENU_SUPPORT_ID = Menu.FIRST + 6;
     protected static final int MENU_ADDON_INTENT_ID = Menu.FIRST + 7;
 
     protected static final int CONTEXT_MENU_EDIT_TASK_ID = Menu.FIRST + 20;
@@ -296,6 +296,12 @@ public class TaskListActivity extends ListActivity implements OnScrollListener,
         contextMenuExtensionLoader.loadInNewThread(this);
     }
 
+    protected void addSyncRefreshMenuItem(Menu menu) {
+        MenuItem item = menu.add(Menu.NONE, MENU_SYNC_ID, Menu.NONE,
+                R.string.TLA_menu_sync);
+        item.setIcon(R.drawable.ic_menu_refresh);
+    }
+
     /**
      * Create options menu (displayed when user presses menu key)
      *
@@ -314,10 +320,6 @@ public class TaskListActivity extends ListActivity implements OnScrollListener,
             item.setIcon(android.R.drawable.ic_menu_sort_by_size);
         }
 
-        item = menu.add(Menu.NONE, MENU_SYNC_ID, Menu.NONE,
-                R.string.TLA_menu_sync);
-        item.setIcon(R.drawable.ic_menu_refresh);
-
         item = menu.add(Menu.NONE, MENU_LISTS_ID, Menu.NONE,
                 R.string.tag_TLA_menu);
         item.setIcon(R.drawable.ic_menu_lists);
@@ -328,7 +330,7 @@ public class TaskListActivity extends ListActivity implements OnScrollListener,
             item.setIcon(android.R.drawable.ic_menu_set_as);
         }
 
-        item = menu.add(Menu.NONE, MENU_HELP_ID, Menu.NONE,
+        item = menu.add(Menu.NONE, MENU_SUPPORT_ID, Menu.NONE,
                 R.string.TLA_menu_support);
         item.setIcon(android.R.drawable.ic_menu_help);
 
@@ -1117,7 +1119,7 @@ public class TaskListActivity extends ListActivity implements OnScrollListener,
             StatisticsService.reportEvent(StatisticsConstants.TLA_MENU_SYNC);
             performSyncAction();
             return true;
-        case MENU_HELP_ID:
+        case MENU_SUPPORT_ID:
             StatisticsService.reportEvent(StatisticsConstants.TLA_MENU_HELP);
             intent = new Intent(this, FeedbackActivity.class);
             startActivity(intent);

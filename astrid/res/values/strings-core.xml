@@ -110,9 +110,6 @@
   <!-- Menu: Settings -->    
   <string name="TLA_menu_settings">Settings</string>
   
-  <!-- Menu: Help -->    
-  <string name="TLA_menu_help">Help</string>
-  
   <!-- Menu: Support -->
   <string name="TLA_menu_support">Support</string>
   

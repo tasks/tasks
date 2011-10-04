@@ -67,6 +67,11 @@ public final class Constants {
     /** Notification Manager id for astrid.com */
     public static final int NOTIFICATION_ACTFM = -5;
 
+    // --- crittercism
 
+    public static final String CRITTERCISM_APP_ID = "4e8a796fddf5203b6f0097c5"; //$NON-NLS-1$
 
+    public static final String CRITTERCISM_SECRET = "9mhdwlu85lc6sovpxkabq1cbzzmxe2oi"; //$NON-NLS-1$
+
+    public static final String CRITTERCISM_OATH_KEY = "4e8a796fddf5203b6f0097c5nn35ziwt"; //$NON-NLS-1$
 }
