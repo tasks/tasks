@@ -159,7 +159,7 @@ public final class UpgradeService {
         // current message
         if (from >= V3_8_4 && from < V3_8_4_2) {
             newVersionString(changeLog, "3.8.4.2 (10/03/11)", new String[] {
-                    "Fixes and updates for Google Tasks sync"
+                    "Updated Google Tasks API libraries to 1.2.2"
             });
         }
         if(from >= V3_8_4 && from < V3_8_4_1) {
