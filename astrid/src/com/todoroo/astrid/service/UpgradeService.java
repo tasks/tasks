@@ -40,6 +40,7 @@ import com.todoroo.astrid.utility.AstridPreferences;
 
 public final class UpgradeService {
 
+    public static final int V3_8_4_2 = 197;
     public static final int V3_8_4_1 = 196;
     public static final int V3_8_4 = 195;
     public static final int V3_8_3_1 = 194;
@@ -156,6 +157,11 @@ public final class UpgradeService {
         StringBuilder changeLog = new StringBuilder();
 
         // current message
+        if (from >= V3_8_4 && from < V3_8_4_2) {
+            newVersionString(changeLog, "3.8.4.2 (10/03/11)", new String[] {
+                    "Updated Google Tasks API libraries to 1.2.2"
+            });
+        }
         if(from >= V3_8_4 && from < V3_8_4_1) {
             newVersionString(changeLog, "3.8.4.1 (9/30/11)", new String[] {
                     "Fixed a but where completing weekly repeat-after-complete tasks set due time",

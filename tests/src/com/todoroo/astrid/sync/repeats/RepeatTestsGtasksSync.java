@@ -2,6 +2,7 @@ package com.todoroo.astrid.sync.repeats;
 
 import java.io.IOException;
 import java.util.Date;
+import java.util.List;
 
 import android.accounts.Account;
 import android.accounts.AccountManager;
@@ -10,7 +11,7 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import com.google.api.client.googleapis.extensions.android2.auth.GoogleAccountManager;
-import com.google.api.services.tasks.v1.model.Tasks;
+import com.google.api.services.tasks.model.Tasks;
 import com.timsu.astrid.R;
 import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.ContextManager;
@@ -29,7 +30,7 @@ import com.todoroo.astrid.repeats.NewRepeatTests;
 import com.todoroo.astrid.repeats.RepeatTaskCompleteListener;
 import com.todoroo.astrid.service.MetadataService;
 
-public class RepeatTestsGtasksSync extends NewRepeatTests<com.google.api.services.tasks.v1.model.Task> {
+public class RepeatTestsGtasksSync extends NewRepeatTests<com.google.api.services.tasks.model.Task> {
 
     @Autowired MetadataService metadataService;
     @Autowired GtasksMetadataService gtasksMetadataService;
@@ -62,12 +63,12 @@ public class RepeatTestsGtasksSync extends NewRepeatTests<com.google.api.service
     }
 
     @Override
-    protected com.google.api.services.tasks.v1.model.Task assertTaskExistsRemotely(Task t, long expectedRemoteTime) {
+    protected com.google.api.services.tasks.model.Task assertTaskExistsRemotely(Task t, long expectedRemoteTime) {
         Metadata metadata = gtasksMetadataService.getTaskMetadata(t.getId());
         assertNotNull(metadata);
         String listId = metadata.getValue(GtasksMetadata.LIST_ID);
         String taskId = metadata.getValue(GtasksMetadata.ID);
-        com.google.api.services.tasks.v1.model.Task remote = null;
+        com.google.api.services.tasks.model.Task remote = null;
         try {
             remote = gtasksService.getGtask(listId, taskId);
         } catch (IOException e){
@@ -75,14 +76,14 @@ public class RepeatTestsGtasksSync extends NewRepeatTests<com.google.api.service
             fail("Exception in gtasks service");
         }
         assertNotNull(remote);
-        assertEquals(t.getValue(Task.TITLE), remote.title);
+        assertEquals(t.getValue(Task.TITLE), remote.getTitle());
 
         Date expected = new Date(expectedRemoteTime);
         expected.setHours(0);
         expected.setMinutes(0);
         expected.setSeconds(0);
 
-        long gtasksTime = GtasksApiUtilities.gtasksDueTimeToUnixTime(remote.due, 0);
+        long gtasksTime = GtasksApiUtilities.gtasksDueTimeToUnixTime(remote.getDue(), 0);
         assertEquals(expected.getTime(), gtasksTime);
         return remote;
     }
@@ -93,7 +94,7 @@ public class RepeatTestsGtasksSync extends NewRepeatTests<com.google.api.service
         assertNotNull(metadata);
         String listId = metadata.getValue(GtasksMetadata.LIST_ID);
         String taskId = metadata.getValue(GtasksMetadata.ID);
-        com.google.api.services.tasks.v1.model.Task remote = null;
+        com.google.api.services.tasks.model.Task remote = null;
         try {
             remote = gtasksService.getGtask(listId, taskId);
         } catch (IOException e) {
@@ -102,9 +103,9 @@ public class RepeatTestsGtasksSync extends NewRepeatTests<com.google.api.service
         }
 
         assertNotNull(remote);
-        assertEquals(t.getValue(Task.TITLE), remote.title);
+        assertEquals(t.getValue(Task.TITLE), remote.getTitle());
 
-        assertEquals("completed", remote.status);
+        assertEquals("completed", remote.getStatus());
     }
 
     private void initializeTestService() throws Exception {
@@ -145,9 +146,10 @@ public class RepeatTestsGtasksSync extends NewRepeatTests<com.google.api.service
 
     private void setupTestList() throws Exception {
         Tasks defaultListTasks = gtasksService.getAllGtasksFromListId(DEFAULT_LIST, false, false);
-        if (defaultListTasks.items != null) {
-            for (com.google.api.services.tasks.v1.model.Task t : defaultListTasks.items) {
-                gtasksService.deleteGtask(DEFAULT_LIST, t.id);
+        List<com.google.api.services.tasks.model.Task> items = defaultListTasks.getItems();
+        if (items != null) {
+            for (com.google.api.services.tasks.model.Task t : items) {
+                gtasksService.deleteGtask(DEFAULT_LIST, t.getId());
             }
         }
     }

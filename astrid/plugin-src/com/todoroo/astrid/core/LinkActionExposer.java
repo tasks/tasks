@@ -43,6 +43,7 @@ public class LinkActionExposer extends BroadcastReceiver {
             return;
 
         Task task = PluginServices.getTaskService().fetchById(taskId, Task.ID, Task.TITLE);
+        if (task == null) return;
 
         Spannable titleSpan = Spannable.Factory.getInstance().newSpannable(task.getValue(Task.TITLE));
         Linkify.addLinks(titleSpan, Linkify.ALL);

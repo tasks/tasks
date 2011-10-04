@@ -4,6 +4,7 @@
     android:title="@string/EPr_title">
 
     <PreferenceScreen android:title="" android:key="@string/p_about" />
+    <PreferenceScreen android:title="" android:key="@string/p_help"/>
     <PreferenceCategory
         android:title="@string/EPr_appearance_header">
         <com.todoroo.astrid.ui.MultilineListPreference

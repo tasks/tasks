@@ -15,14 +15,20 @@
 	<classpathentry exported="true" kind="lib" path="libs/httpmime-4.1.1.jar"/>
 	<classpathentry exported="true" kind="lib" path="libs/rfc2445-4Mar2011.jar"/>
 	<classpathentry kind="src" path="GreenDroid_src"/>
-	<classpathentry exported="true" kind="lib" path="libs/google-api-client-1.4.1-beta.jar"/>
-	<classpathentry exported="true" kind="lib" path="libs/google-api-client-googleapis-1.4.1-beta.jar"/>
-	<classpathentry exported="true" kind="lib" path="libs/google-api-services-tasks-v1-1.0.0-beta.jar"/>
 	<classpathentry exported="true" kind="lib" path="libs/guava-r09.jar"/>
 	<classpathentry exported="true" kind="lib" path="libs/jackson-core-asl-1.6.7.jar"/>
-	<classpathentry exported="true" kind="lib" path="libs/google-api-client-googleapis-extensions-android2-1.4.1-beta.jar"/>
-	<classpathentry exported="true" kind="lib" path="libs/google-api-client-extensions-android2-1.4.1-beta.jar"/>
 	<classpathentry kind="src" path="astridApi_src"/>
 	<classpathentry kind="src" path="facebook_src"/>
+	<classpathentry exported="true" kind="lib" path="libs/google-api-services-tasks-v1-1.2.2-beta.jar" sourcepath="libs/google-api-services-tasks-v1-1.2.2-beta-sources.jar"/>
+	<classpathentry exported="true" kind="lib" path="libs/google-api-client-1.5.0-beta.jar"/>
+	<classpathentry kind="lib" path="libs/google-api-client-extensions-1.5.0-beta.jar"/>
+	<classpathentry exported="true" kind="lib" path="libs/google-api-client-extensions-android2-1.5.0-beta.jar"/>
+	<classpathentry exported="true" kind="lib" path="libs/google-http-client-1.5.0-beta.jar" sourcepath="libs/google-http-client-1.5.0-beta-sources.jar"/>
+	<classpathentry kind="lib" path="libs/google-http-client-extensions-1.5.0-beta.jar"/>
+	<classpathentry kind="lib" path="libs/google-http-client-extensions-android2-1.5.0-beta.jar"/>
+	<classpathentry kind="lib" path="libs/google-oauth-client-1.5.0-beta.jar"/>
+	<classpathentry kind="lib" path="libs/google-oauth-client-extensions-1.5.0-beta.jar"/>
+	<classpathentry kind="lib" path="libs/gson-1.6.jar"/>
+	<classpathentry kind="lib" path="libs/crittercism0.79.jar"/>
 	<classpathentry kind="output" path="ecbuild"/>
 </classpath>

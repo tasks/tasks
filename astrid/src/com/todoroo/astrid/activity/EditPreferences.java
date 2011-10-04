@@ -18,6 +18,7 @@ import android.content.pm.PackageManager;
 import android.content.pm.PackageManager.NameNotFoundException;
 import android.content.pm.ResolveInfo;
 import android.content.res.Resources;
+import android.net.Uri;
 import android.os.Bundle;
 import android.preference.CheckBoxPreference;
 import android.preference.Preference;
@@ -42,6 +43,8 @@ import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.helper.MetadataHelper;
 import com.todoroo.astrid.service.AddOnService;
 import com.todoroo.astrid.service.StartupService;
+import com.todoroo.astrid.service.StatisticsConstants;
+import com.todoroo.astrid.service.StatisticsService;
 import com.todoroo.astrid.service.TaskService;
 import com.todoroo.astrid.ui.ContactListAdapter;
 import com.todoroo.astrid.utility.Constants;
@@ -58,7 +61,8 @@ import com.todoroo.astrid.voice.VoiceOutputService;
 public class EditPreferences extends TodorooPreferenceActivity {
 
     private static final int ABOUT_PREFERENCE = 0; // see preferences.xml for order of prefs
-    private static final int POWER_PACK_PREFERENCE = 2;
+    private static final int HELP_PREFERENCE = 1;
+    private static final int POWER_PACK_PREFERENCE = 3;
 
     public static final int RESULT_CODE_THEME_CHANGED = 1;
 
@@ -105,6 +109,16 @@ public class EditPreferences extends TodorooPreferenceActivity {
             }
         });
 
+        Preference helpPref = screen.getPreference(HELP_PREFERENCE);
+        helpPref.setTitle(r.getString(R.string.p_help));
+        helpPref.setOnPreferenceClickListener(new OnPreferenceClickListener() {
+            @Override
+            public boolean onPreferenceClick(Preference p) {
+                showHelp();
+                return true;
+            }
+        });
+
         addDebugPreferences();
 
         addPreferenceListeners();
@@ -119,6 +133,13 @@ public class EditPreferences extends TodorooPreferenceActivity {
             // sadness
         }
         About.showAbout(this, version);
+    }
+
+    private void showHelp() {
+        StatisticsService.reportEvent(StatisticsConstants.TLA_MENU_HELP);
+        Intent intent = new Intent(Intent.ACTION_VIEW,
+                Uri.parse(Constants.HELP_URL));
+        startActivity(intent);
     }
 
     private void addPluginPreferences(PreferenceScreen screen) {
@@ -359,6 +380,29 @@ public class EditPreferences extends TodorooPreferenceActivity {
                         });
             }
         }
+    }
+
+    @Override
+    protected void onPause() {
+        StatisticsService.sessionPause();
+        super.onPause();
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        StatisticsService.sessionStart(this);
+    }
+
+    @Override
+    protected void onStop() {
+        StatisticsService.sessionStop(this);
+        super.onStop();
     }
 
 }

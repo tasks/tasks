@@ -21,12 +21,12 @@ import android.media.AudioManager;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.crittercism.app.Crittercism;
 import com.timsu.astrid.R;
 import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.ContextManager;
 import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.andlib.service.ExceptionService;
-import com.todoroo.andlib.service.ExceptionService.TodorooUncaughtExceptionHandler;
 import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.astrid.actfm.sync.ActFmPreferenceService;
@@ -53,6 +53,7 @@ import com.todoroo.astrid.widget.TasksWidget.WidgetUpdateService;
  *
  */
 public class StartupService {
+
 
     static {
         AstridDependencyInjector.initialize();
@@ -89,6 +90,11 @@ public class StartupService {
      */
     private static boolean hasStartedUp = false;
 
+    private static final String CRITTERCISM_APP_ID = "4e8a796fddf5203b6f0097c5"; //$NON-NLS-1$
+
+    private static final String CRITTERCISM_SECRET = "9mhdwlu85lc6sovpxkabq1cbzzmxe2oi"; //$NON-NLS-1$
+
+    private static final String CRITTERCISM_OATH_KEY = "4e8a796fddf5203b6f0097c5nn35ziwt"; //$NON-NLS-1$
     /**
      * Call to skip initialization steps (i.e. if only a notification screen is needed)
      */
@@ -101,11 +107,11 @@ public class StartupService {
         if(hasStartedUp)
             return;
 
-        // set uncaught exception handler
-        Thread.setDefaultUncaughtExceptionHandler(new TodorooUncaughtExceptionHandler());
-
         // sets up context manager
         ContextManager.setContext(context);
+
+        Crittercism.init(context.getApplicationContext(), CRITTERCISM_APP_ID, CRITTERCISM_OATH_KEY, CRITTERCISM_SECRET);
+
 
         // show notification if reminders are silenced
         if(context instanceof Activity) {

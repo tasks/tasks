@@ -113,6 +113,9 @@
   <!-- Menu: Help -->    
   <string name="TLA_menu_help">Help</string>
   
+  <!-- Menu: Support -->
+  <string name="TLA_menu_support">Support</string>
+  
   <!-- Search Label-->
   <string name="TLA_search_label">Search This List</string>
   
@@ -464,6 +467,9 @@
 <string name="p_about_text">Current version: %s\n\n
 
 Astrid is open-source and proudly maintained by Todoroo, Inc.</string>
+
+  <!-- Title of "Help" option in settings -->
+  <string name="p_help">Help</string>
   
   <!-- ============================================================= Misc == -->
   

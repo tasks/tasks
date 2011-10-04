@@ -2,6 +2,7 @@ package com.todoroo.astrid.gtasks;
 
 import java.io.IOException;
 import java.util.Date;
+import java.util.List;
 
 import android.accounts.Account;
 import android.accounts.AccountManager;
@@ -10,7 +11,7 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import com.google.api.client.googleapis.extensions.android2.auth.GoogleAccountManager;
-import com.google.api.services.tasks.v1.model.Tasks;
+import com.google.api.services.tasks.model.Tasks;
 import com.timsu.astrid.R;
 import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.ContextManager;
@@ -55,8 +56,8 @@ public class GtasksSyncOnSaveTest extends DatabaseTestCase {
 
         AndroidUtilities.sleepDeep(TIME_TO_WAIT);
 
-        com.google.api.services.tasks.v1.model.Task remoteTask = getRemoteTaskForLocalId(localTask.getId());
-        assertEquals(title, remoteTask.title);
+        com.google.api.services.tasks.model.Task remoteTask = getRemoteTaskForLocalId(localTask.getId());
+        assertEquals(title, remoteTask.getTitle());
         return localTask;
     }
 
@@ -66,10 +67,10 @@ public class GtasksSyncOnSaveTest extends DatabaseTestCase {
         return localTask;
     }
 
-    private com.google.api.services.tasks.v1.model.Task getRemoteTaskForLocalId(long localId) throws IOException {
+    private com.google.api.services.tasks.model.Task getRemoteTaskForLocalId(long localId) throws IOException {
         Metadata gtasksMetadata = gtasksMetadataService.getTaskMetadata(localId);
         assertNotNull(gtasksMetadata);
-        com.google.api.services.tasks.v1.model.Task remoteTask = gtasksService.getGtask(DEFAULT_LIST, gtasksMetadata.getValue(GtasksMetadata.ID));
+        com.google.api.services.tasks.model.Task remoteTask = gtasksService.getGtask(DEFAULT_LIST, gtasksMetadata.getValue(GtasksMetadata.ID));
         assertNotNull(remoteTask);
         return remoteTask;
     }
@@ -84,8 +85,8 @@ public class GtasksSyncOnSaveTest extends DatabaseTestCase {
 
         AndroidUtilities.sleepDeep(TIME_TO_WAIT);
 
-        com.google.api.services.tasks.v1.model.Task remoteTask = getRemoteTaskForLocalId(localTask.getId());
-        assertEquals(newTitle, remoteTask.title);
+        com.google.api.services.tasks.model.Task remoteTask = getRemoteTaskForLocalId(localTask.getId());
+        assertEquals(newTitle, remoteTask.getTitle());
     }
 
     public void testSyncOnDueDateUpdate() throws IOException {
@@ -98,8 +99,8 @@ public class GtasksSyncOnSaveTest extends DatabaseTestCase {
 
         AndroidUtilities.sleepDeep(TIME_TO_WAIT);
 
-        com.google.api.services.tasks.v1.model.Task remoteTask = getRemoteTaskForLocalId(localTask.getId());
-        assertEquals(dueDate, GtasksApiUtilities.gtasksDueTimeToUnixTime(remoteTask.due, 0));
+        com.google.api.services.tasks.model.Task remoteTask = getRemoteTaskForLocalId(localTask.getId());
+        assertEquals(dueDate, GtasksApiUtilities.gtasksDueTimeToUnixTime(remoteTask.getDue(), 0));
     }
 
     public void testSyncOnNotesUpdate() throws IOException {
@@ -112,23 +113,23 @@ public class GtasksSyncOnSaveTest extends DatabaseTestCase {
 
         AndroidUtilities.sleepDeep(TIME_TO_WAIT);
 
-        com.google.api.services.tasks.v1.model.Task remoteTask = getRemoteTaskForLocalId(localTask.getId());
-        assertEquals(notes, remoteTask.notes);
+        com.google.api.services.tasks.model.Task remoteTask = getRemoteTaskForLocalId(localTask.getId());
+        assertEquals(notes, remoteTask.getNotes());
     }
 
     public void testSyncOnCompleted() throws IOException {
         if(bypassTests) return;
         Task localTask = performBasicCreation("-will be completed");
 
-        long completionDate = DateUtilities.now();
+        long completionDate = (DateUtilities.now() / 1000L) * 1000L;
         localTask.setValue(Task.COMPLETION_DATE, completionDate);
         taskService.save(localTask);
 
         AndroidUtilities.sleepDeep(TIME_TO_WAIT);
 
-        com.google.api.services.tasks.v1.model.Task remoteTask = getRemoteTaskForLocalId(localTask.getId());
-        assertEquals("completed", remoteTask.status);
-        assertEquals(completionDate, GtasksApiUtilities.gtasksCompletedTimeToUnixTime(remoteTask.completed, 0));
+        com.google.api.services.tasks.model.Task remoteTask = getRemoteTaskForLocalId(localTask.getId());
+        assertEquals("completed", remoteTask.getStatus());
+        assertEquals(completionDate, GtasksApiUtilities.gtasksCompletedTimeToUnixTime(remoteTask.getCompleted(), 0));
     }
 
     public void testSyncOnDeleted() throws IOException {
@@ -141,16 +142,17 @@ public class GtasksSyncOnSaveTest extends DatabaseTestCase {
 
         AndroidUtilities.sleepDeep(TIME_TO_WAIT);
 
-        com.google.api.services.tasks.v1.model.Task remoteTask = getRemoteTaskForLocalId(localTask.getId());
-        assertTrue(remoteTask.deleted);
+        com.google.api.services.tasks.model.Task remoteTask = getRemoteTaskForLocalId(localTask.getId());
+        assertTrue(remoteTask.getDeleted());
         assertFalse(taskWithTitleExists(localTask.getValue(Task.TITLE)));
     }
 
     private boolean taskWithTitleExists(String title) throws IOException {
         Tasks allTasks = gtasksService.getAllGtasksFromListId(DEFAULT_LIST, false, false);
-        if (allTasks.items != null) {
-            for (com.google.api.services.tasks.v1.model.Task t : allTasks.items) {
-                if (t.title.equals(title))
+        List<com.google.api.services.tasks.model.Task> items = allTasks.getItems();
+        if (items != null) {
+            for (com.google.api.services.tasks.model.Task t : items) {
+                if (t.getTitle().equals(title))
                     return true;
             }
         }
@@ -210,9 +212,10 @@ public class GtasksSyncOnSaveTest extends DatabaseTestCase {
 
     private void setupTestList() throws Exception {
         Tasks defaultListTasks = gtasksService.getAllGtasksFromListId(DEFAULT_LIST, false, false);
-        if (defaultListTasks.items != null) {
-            for (com.google.api.services.tasks.v1.model.Task t : defaultListTasks.items) {
-                gtasksService.deleteGtask(DEFAULT_LIST, t.id);
+        List<com.google.api.services.tasks.model.Task> items = defaultListTasks.getItems();
+        if (items != null) {
+            for (com.google.api.services.tasks.model.Task t : items) {
+                gtasksService.deleteGtask(DEFAULT_LIST, t.getId());
             }
         }
     }

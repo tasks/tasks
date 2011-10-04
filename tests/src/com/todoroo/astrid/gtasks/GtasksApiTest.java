@@ -1,6 +1,7 @@
 package com.todoroo.astrid.gtasks;
 
 import java.util.Date;
+import java.util.List;
 
 import android.accounts.Account;
 import android.accounts.AccountManager;
@@ -9,10 +10,11 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import com.google.api.client.googleapis.extensions.android2.auth.GoogleAccountManager;
-import com.google.api.services.tasks.v1.model.Task;
-import com.google.api.services.tasks.v1.model.TaskList;
-import com.google.api.services.tasks.v1.model.TaskLists;
-import com.google.api.services.tasks.v1.model.Tasks;
+import com.google.api.client.util.DateTime;
+import com.google.api.services.tasks.model.Task;
+import com.google.api.services.tasks.model.TaskList;
+import com.google.api.services.tasks.model.TaskLists;
+import com.google.api.services.tasks.model.Tasks;
 import com.todoroo.andlib.service.ContextManager;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.andlib.utility.Preferences;
@@ -34,8 +36,9 @@ public class GtasksApiTest extends DatabaseTestCase {
     public void testCreateTask() throws Exception {
         if(bypassTests) return;
         Task newTask = new Task();
-        String title = newTask.title = "New task";
-
+        String title = "New task";
+        newTask.setTitle(title);
+        
         service.createGtask(DEFAULT_LIST, newTask);
         assertTrue(taskWithTitleExists(title));
     }
@@ -43,12 +46,14 @@ public class GtasksApiTest extends DatabaseTestCase {
     public void testUpdateTaskProperties() throws Exception {
         if(bypassTests) return;
         Task newTask = new Task();
-        String title = newTask.title = "This title will change";
+        String title = "This title will change";
+        newTask.setTitle(title);
 
         newTask = service.createGtask(DEFAULT_LIST, newTask);
         assertTrue(taskWithTitleExists(title));
 
-        String title2 = newTask.title = "Changed Title";
+        String title2 = "Changed Title";
+        newTask.setTitle(title2);
         service.updateGtask(DEFAULT_LIST, newTask);
         assertTrue(taskWithTitleExists(title2));
         assertFalse(taskWithTitleExists(title));
@@ -56,69 +61,75 @@ public class GtasksApiTest extends DatabaseTestCase {
 
     public void testTaskDateFormatting2() throws Exception {
         Task newTask = new Task();
-        String title = newTask.title = "Due date will change";
+        String title = "Due date will change";
+        newTask.setTitle(title);
 
         newTask = service.createGtask(DEFAULT_LIST, newTask);
         assertTrue(taskWithTitleExists(title));
-        newTask = service.getGtask(DEFAULT_LIST, newTask.id);
-        System.err.println("Newtask A: " + newTask.due);
+        newTask = service.getGtask(DEFAULT_LIST, newTask.getId());
+        System.err.println("Newtask A: " + newTask.getDue());
 
         long now = DateUtilities.now();
-        newTask.due = GtasksApiUtilities.unixTimeToGtasksDueDate(now);
-        System.err.println("Newtask B: " + newTask.due);
+        newTask.setDue(GtasksApiUtilities.unixTimeToGtasksDueDate(now));
+        System.err.println("Newtask B: " + newTask.getDue());
         newTask = service.updateGtask(DEFAULT_LIST, newTask);
-        System.err.println("Newtask C: " + newTask.due);
+        System.err.println("Newtask C: " + newTask.getDue());
 
        long complete = now + DateUtilities.ONE_DAY;
-       newTask.completed = GtasksApiUtilities.unixTimeToGtasksCompletionTime(complete);
-       System.err.println("Newtask D: " + newTask.completed);
-       newTask.status = "completed";
+       newTask.setCompleted(GtasksApiUtilities.unixTimeToGtasksCompletionTime(complete));
+       System.err.println("Newtask D: " + newTask.getCompleted());
+       newTask.setStatus("completed");
        newTask = service.updateGtask(DEFAULT_LIST, newTask);
-       System.err.println("Newtask E: " + newTask.completed);
+       System.err.println("Newtask E: " + newTask.getCompleted());
     }
 
     public void testTaskDateFormatting() throws Exception {
         if(bypassTests) return;
         Task newTask = new Task();
-        String title = newTask.title = "Due date will change";
+        String title = "Due date will change";
+        newTask.setTitle(title);
 
         newTask = service.createGtask(DEFAULT_LIST, newTask);
         assertTrue(taskWithTitleExists(title));
 
         long dueTime = new Date(114, 1, 13).getTime();
-        String dueTimeString = GtasksApiUtilities.unixTimeToGtasksDueDate(dueTime);
-        newTask.due = dueTimeString;
+        DateTime dueTimeString = GtasksApiUtilities.unixTimeToGtasksDueDate(dueTime);
+        newTask.setDue(dueTimeString);
         newTask = service.updateGtask(DEFAULT_LIST, newTask);
         //assertEquals(dueTimeString, GtasksApiUtilities.gtasksDueTimeStringToLocalTimeString(newTask.due));
-        assertEquals(dueTime, GtasksApiUtilities.gtasksDueTimeToUnixTime(newTask.due, 0));
+        assertEquals(dueTime, GtasksApiUtilities.gtasksDueTimeToUnixTime(newTask.getDue(), 0));
 
         long compTime = new Date(115, 2, 14).getTime();
-        String compTimeString = GtasksApiUtilities.unixTimeToGtasksCompletionTime(compTime);
-        newTask.completed = compTimeString;
-        newTask.status = "completed";
+        DateTime compTimeString = GtasksApiUtilities.unixTimeToGtasksCompletionTime(compTime);
+        newTask.setCompleted(compTimeString);
+        newTask.setStatus("completed");
         newTask = service.updateGtask(DEFAULT_LIST, newTask);
         //assertEquals(compTimeString, GtasksApiUtilities.gtasksCompletedTimeStringToLocalTimeString(newTask.completed));
-        assertEquals(compTime, GtasksApiUtilities.gtasksCompletedTimeToUnixTime(newTask.completed, 0));
+        assertEquals(compTime, GtasksApiUtilities.gtasksCompletedTimeToUnixTime(newTask.getCompleted(), 0));
     }
 
     public void testTaskDeleted() throws Exception {
         if(bypassTests) return;
         Task newTask = new Task();
-        String title = newTask.title = "This task will be deleted";
+        String title = "This task will be deleted";
+        newTask.setTitle(title);
 
         newTask = service.createGtask(DEFAULT_LIST, newTask);
         assertTrue(taskWithTitleExists(title));
 
-        service.deleteGtask(DEFAULT_LIST, newTask.id);
+        service.deleteGtask(DEFAULT_LIST, newTask.getId());
         assertFalse(taskWithTitleExists(title));
     }
 
     public void testTaskMoved() throws Exception {
         if(bypassTests) return;
         Task newTask1 = new Task();
-        String title1 = newTask1.title = "Task 1";
+        String title1 = "Task 1";
+        newTask1.setTitle(title1);
+
         Task newTask2 = new Task();
-        String title2 = newTask2.title = "Task 2";
+        String title2 = "Task 2";
+        newTask2.setTitle(title2);
 
         newTask1 = service.createGtask(DEFAULT_LIST, newTask1);
         newTask2 = service.createGtask(DEFAULT_LIST, newTask2);
@@ -126,27 +137,28 @@ public class GtasksApiTest extends DatabaseTestCase {
         assertTrue(taskWithTitleExists(title1));
         assertTrue(taskWithTitleExists(title2));
 
-        System.err.println("Task 1 id: " + newTask1.id);
-        System.err.println("Task 2 id: " + newTask2.id);
+        System.err.println("Task 1 id: " + newTask1.getId());
+        System.err.println("Task 2 id: " + newTask2.getId());
 
-        service.moveGtask(DEFAULT_LIST, newTask1.id, newTask2.id, null);
-        newTask1 = service.getGtask(DEFAULT_LIST, newTask1.id);
-        newTask2 = service.getGtask(DEFAULT_LIST, newTask2.id);
+        service.moveGtask(DEFAULT_LIST, newTask1.getId(), newTask2.getId(), null);
+        newTask1 = service.getGtask(DEFAULT_LIST, newTask1.getId());
+        newTask2 = service.getGtask(DEFAULT_LIST, newTask2.getId());
 
-        assertEquals(newTask1.parent, newTask2.id);
+        assertEquals(newTask1.getParent(), newTask2.getId());
 
-        service.moveGtask(DEFAULT_LIST, newTask1.id, null, newTask2.id);
-        newTask1 = service.getGtask(DEFAULT_LIST, newTask1.id);
-        newTask2 = service.getGtask(DEFAULT_LIST, newTask2.id);
+        service.moveGtask(DEFAULT_LIST, newTask1.getId(), null, newTask2.getId());
+        newTask1 = service.getGtask(DEFAULT_LIST, newTask1.getId());
+        newTask2 = service.getGtask(DEFAULT_LIST, newTask2.getId());
 
-        assertNull(newTask1.parent);
-        assertTrue(newTask2.position.compareTo(newTask1.position) < 0);
+        assertNull(newTask1.getParent());
+        assertTrue(newTask2.getPosition().compareTo(newTask1.getPosition()) < 0);
     }
 
     public void testMoveBetweenLists() throws Exception {
         if(bypassTests) return;
         Task newTask = new Task();
-        String title = newTask.title = "This task will move lists";
+        String title = "This task will move lists";
+        newTask.setTitle(title);
 
         newTask = service.createGtask(DEFAULT_LIST, newTask);
         assertTrue(taskWithTitleExists(title));
@@ -157,18 +169,19 @@ public class GtasksApiTest extends DatabaseTestCase {
 
         assertNotNull(newList = listWithTitle(listTitle));
 
-        MoveListRequest moveTask = new MoveListRequest(service, newTask.id, DEFAULT_LIST, newList.id, null);
+        MoveListRequest moveTask = new MoveListRequest(service, newTask.getId(), DEFAULT_LIST, newList.getId(), null);
         moveTask.executePush();
 
         assertFalse(taskWithTitleExists(title));
-        assertTrue(listHasTaskWithTitle(newList.id, title));
+        assertTrue(listHasTaskWithTitle(newList.getId(), title));
     }
 
     private boolean listHasTaskWithTitle(String listId, String title) throws Exception {
-        com.google.api.services.tasks.v1.model.Tasks newListTasks = service.getAllGtasksFromListId(listId, false, false);
-        if (newListTasks.items != null) {
-            for (Task t : newListTasks.items) {
-                if (t.title.equals(title)) {
+        com.google.api.services.tasks.model.Tasks newListTasks = service.getAllGtasksFromListId(listId, false, false);
+        List<Task> items = newListTasks.getItems();
+        if (items != null) {
+            for (Task t : items) {
+                if (t.getTitle().equals(title)) {
                     return true;
                 }
             }
@@ -178,9 +191,10 @@ public class GtasksApiTest extends DatabaseTestCase {
 
     private boolean taskWithTitleExists(String title) throws Exception {
         Tasks defaultList = service.getAllGtasksFromListId(DEFAULT_LIST, false, false);
-        if (defaultList.items != null) {
-            for (Task t : defaultList.items) {
-                if (t.title.equals(title))
+        List<Task> items = defaultList.getItems();
+        if (items != null) {
+            for (Task t : items) {
+                if (t.getTitle().equals(title))
                     return true;
             }
         }
@@ -205,7 +219,7 @@ public class GtasksApiTest extends DatabaseTestCase {
         TaskList t = service.createGtaskList(title);
         assertNotNull(listWithTitle(title));
 
-        service.deleteGtaskList(t.id);
+        service.deleteGtaskList(t.getId());
         assertNull(listWithTitle(title));
     }
 
@@ -215,7 +229,8 @@ public class GtasksApiTest extends DatabaseTestCase {
         TaskList t = service.createGtaskList(title1);
         assertNotNull(listWithTitle(title1));
 
-        String title2 = t.title = "New title";
+        String title2 = "New title";
+        t.setTitle(title2);
         service.updateGtaskList(t);
         assertNotNull(listWithTitle(title2));
         assertNull(listWithTitle(title1));
@@ -223,8 +238,9 @@ public class GtasksApiTest extends DatabaseTestCase {
 
     private TaskList listWithTitle(String title) throws Exception {
         TaskLists allLists = service.allGtaskLists();
-        for (TaskList t : allLists.items) {
-            if (t.title.equals(title))
+        List<TaskList> items = allLists.getItems();
+        for (TaskList t : items) {
+            if (t.getTitle().equals(title))
                 return t;
         }
         return null;
@@ -276,9 +292,10 @@ public class GtasksApiTest extends DatabaseTestCase {
     private void deleteAllLists() {
         try {
             TaskLists allLists = service.allGtaskLists();
-            for (TaskList t : allLists.items) {
-                if (!t.title.equals("Default List"))
-                    service.deleteGtaskList(t.id);
+            List<TaskList> items = allLists.getItems();
+            for (TaskList t : items) {
+                if (!t.getTitle().equals("Default List"))
+                    service.deleteGtaskList(t.getId());
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -289,9 +306,10 @@ public class GtasksApiTest extends DatabaseTestCase {
     private void clearDefaultList() {
         try {
             Tasks tasks = service.getAllGtasksFromListId(DEFAULT_LIST, false, false);
-            if (tasks.items != null) {
-                for (Task t : tasks.items) {
-                    service.deleteGtask(DEFAULT_LIST, t.id);
+            List<Task> items = tasks.getItems();
+            if (items != null) {
+                for (Task t : items) {
+                    service.deleteGtask(DEFAULT_LIST, t.getId());
                 }
             }
         } catch (Exception e) {
