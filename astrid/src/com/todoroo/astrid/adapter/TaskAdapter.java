@@ -74,7 +74,6 @@ import com.todoroo.astrid.api.TaskDecorationExposer;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.helper.TaskAdapterAddOnManager;
 import com.todoroo.astrid.notes.NotesDecorationExposer;
-import com.todoroo.astrid.notes.NotesPlugin;
 import com.todoroo.astrid.service.StatisticsConstants;
 import com.todoroo.astrid.service.StatisticsService;
 import com.todoroo.astrid.service.TaskService;
@@ -798,9 +797,6 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
 
         @Override
         public synchronized void addNew(long taskId, String addOn, final TaskAction item, ViewHolder thisViewHolder) {
-            if(isIntroTask(taskId) && !NotesPlugin.IDENTIFIER.equals(addOn))
-                return;
-
             addIfNotExists(taskId, addOn, item);
             if(mBar != null) {
                 ListView listView = activity.getListView();
@@ -914,7 +910,7 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
                 mBar.dismiss();
             mBar = null;
 
-            if(position == 0 && !isIntroTask(taskId)) {
+            if(position == 0) {
                 Intent intent = new Intent(activity, TaskEditActivity.class);
                 intent.putExtra(TaskEditActivity.TOKEN_ID, taskId);
                 activity.startActivityForResult(intent, TaskListActivity.ACTIVITY_EDIT_TASK);
@@ -943,8 +939,7 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
                     activity.getString(R.string.TAd_actionEditTask));
             mBarListener.initialize(viewHolder.task.getId());
 
-            if(!isIntroTask(viewHolder.task.getId()))
-                mBarListener.addWithAction(editAction, null);
+            mBarListener.addWithAction(editAction, null);
 
             if(collection != null) {
                 for(TaskAction item : collection) {
@@ -978,12 +973,6 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
 
             notifyDataSetChanged();
         }
-    }
-
-    private boolean isIntroTask(long taskId) {
-        /*if(taskId <= StartupService.INTRO_TASK_SIZE)
-            return true;//*/
-        return false;
     }
 
     /**

@@ -102,7 +102,6 @@ public final class Eula {
         return true;
     }
 
-    @SuppressWarnings("unused")
     private static void accept(Activity activity) {
         if (activity instanceof EulaCallback) {
             ((EulaCallback)activity).eulaAccepted();

@@ -216,8 +216,10 @@ public class TasksWidget extends AppWidgetProvider {
             }
             listIntent.putExtra(TaskListActivity.TOKEN_SOURCE, Constants.SOURCE_WIDGET);
             listIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_MULTIPLE_TASK);
-            listIntent.putExtra(TaskListActivity.TOKEN_FILTER, filter);
-            listIntent.setAction("L" + widgetId + filter.sqlQuery);
+            if(filter != null) {
+                listIntent.putExtra(TaskListActivity.TOKEN_FILTER, filter);
+                listIntent.setAction("L" + widgetId + filter.sqlQuery);
+            }
             PendingIntent pendingIntent = PendingIntent.getActivity(context, widgetId,
                     listIntent, PendingIntent.FLAG_CANCEL_CURRENT);
             views.setOnClickPendingIntent(R.id.taskbody, pendingIntent);
