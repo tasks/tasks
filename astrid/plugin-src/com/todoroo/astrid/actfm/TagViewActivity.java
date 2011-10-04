@@ -83,7 +83,6 @@ public class TagViewActivity extends TaskListActivity {
     private boolean dataLoaded = false;
 
     private long currentId;
-    private JSONObject currentMember;
 
     private Filter originalFilter;
 
@@ -372,6 +371,7 @@ public class TagViewActivity extends TaskListActivity {
         membersView.addView(image);
     }
 
+    @SuppressWarnings("unused")
     private OnClickListener listenerForImage(final JSONObject member, final long id, final String displayName) {
         return new OnClickListener() {
             @Override
@@ -382,7 +382,6 @@ public class TagViewActivity extends TaskListActivity {
                 } else {
                     // New filter
                     currentId = id;
-                    currentMember = member;
                     Criterion assigned = Criterion.and(TaskCriteria.activeAndVisible(), Task.USER_ID.eq(id));
                     filter = TagFilterExposer.filterFromTag(TagViewActivity.this, new Tag(tagData), assigned);
                     TextView filterByAssigned = (TextView) findViewById(R.id.filter_assigned);
@@ -410,7 +409,6 @@ public class TagViewActivity extends TaskListActivity {
 
     private void resetAssignedFilter() {
         currentId = -1;
-        currentMember = null;
         filter = originalFilter;
         findViewById(R.id.filter_assigned).setVisibility(View.GONE);
         setUpTaskList();

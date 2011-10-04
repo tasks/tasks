@@ -320,6 +320,8 @@ public class TaskListActivity extends ListActivity implements OnScrollListener,
             item.setIcon(android.R.drawable.ic_menu_sort_by_size);
         }
 
+        addSyncRefreshMenuItem(menu);
+
         item = menu.add(Menu.NONE, MENU_LISTS_ID, Menu.NONE,
                 R.string.tag_TLA_menu);
         item.setIcon(R.drawable.ic_menu_lists);
