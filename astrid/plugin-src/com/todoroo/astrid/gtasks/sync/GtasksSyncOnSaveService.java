@@ -9,6 +9,7 @@ import android.text.TextUtils;
 import com.todoroo.andlib.data.DatabaseDao.ModelUpdateListener;
 import com.todoroo.andlib.data.Property;
 import com.todoroo.andlib.service.Autowired;
+import com.todoroo.andlib.service.ContextManager;
 import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.andlib.utility.DateUtilities;
@@ -21,7 +22,6 @@ import com.todoroo.astrid.gtasks.GtasksMetadata;
 import com.todoroo.astrid.gtasks.GtasksMetadataService;
 import com.todoroo.astrid.gtasks.GtasksPreferenceService;
 import com.todoroo.astrid.gtasks.GtasksTaskListUpdater;
-import com.todoroo.astrid.gtasks.api.GoogleTasksException;
 import com.todoroo.astrid.gtasks.api.GtasksApiUtilities;
 import com.todoroo.astrid.gtasks.api.GtasksService;
 import com.todoroo.astrid.gtasks.api.MoveRequest;
@@ -158,10 +158,7 @@ public final class GtasksSyncOnSaveService {
 
         //Initialize the gtasks api service
         String token = gtasksPreferenceService.getToken();
-        token = GtasksTokenValidator.validateAuthToken(token);
-        if (token == null) {
-            throw new GoogleTasksException("Failed to establish connection for sync on save"); //$NON-NLS-1$
-        }
+        token = GtasksTokenValidator.validateAuthToken(ContextManager.getContext(), token);
         gtasksPreferenceService.setToken(token);
         GtasksService gtasksService = new GtasksService(token);
 
@@ -265,10 +262,7 @@ public final class GtasksSyncOnSaveService {
         AndroidUtilities.sleepDeep(1000L);
         //Initialize the gtasks api service
         String token = gtasksPreferenceService.getToken();
-        token = GtasksTokenValidator.validateAuthToken(token);
-        if (token == null) {
-            throw new GoogleTasksException("Failed to establish connection for sync on save"); //$NON-NLS-1$
-        }
+        token = GtasksTokenValidator.validateAuthToken(ContextManager.getContext(), token);
         gtasksPreferenceService.setToken(token);
         GtasksService gtasksService = new GtasksService(token);
 

@@ -5,12 +5,15 @@ import java.io.IOException;
 import android.accounts.Account;
 import android.accounts.AccountManager;
 import android.accounts.AccountManagerFuture;
+import android.content.Context;
 import android.os.Bundle;
 
 import com.google.api.client.googleapis.extensions.android2.auth.GoogleAccountManager;
+import com.timsu.astrid.R;
 import com.todoroo.andlib.service.ContextManager;
 import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.astrid.gtasks.GtasksPreferenceService;
+import com.todoroo.astrid.gtasks.api.GoogleTasksException;
 import com.todoroo.astrid.gtasks.api.GtasksService;
 
 public class GtasksTokenValidator {
@@ -21,7 +24,7 @@ public class GtasksTokenValidator {
      * @param token
      * @return valid token on success, null on failure
      */
-    public static String validateAuthToken(String token) {
+    public static String validateAuthToken(Context c, String token) throws GoogleTasksException {
         GoogleAccountManager accountManager = new GoogleAccountManager(ContextManager.getContext());
 
         GtasksService testService = new GtasksService(token);
@@ -30,10 +33,9 @@ public class GtasksTokenValidator {
             return token;
         } catch (IOException i) { //If fail, token may have expired -- get a new one and return that
             String accountName = Preferences.getStringValue(GtasksPreferenceService.PREF_USER_NAME);
-            Account a = accountManager.getAccountByName(Preferences.getStringValue(GtasksPreferenceService.PREF_USER_NAME));
+            Account a = accountManager.getAccountByName(accountName);
             if (a == null) {
-                System.err.println("Account for name: " + accountName + " not found");
-                return null;
+                throw new GoogleTasksException(c.getString(R.string.gtasks_error_accountNotFound, accountName));
             }
 
             accountManager.invalidateAuthToken(token);
@@ -49,20 +51,16 @@ public class GtasksTokenValidator {
                         return token;
                     } catch (IOException i2) {
                         i2.printStackTrace();
-                        return null;
+                        throw new GoogleTasksException(c.getString(R.string.gtasks_error_authRefresh));
                     }
                 } else {
-                    System.err.println("Future did not have key for authtoken");
+                    throw new GoogleTasksException(c.getString(R.string.gtasks_error_accountManager));
                 }
             } catch (Exception e) {
-                e.printStackTrace();
-                return null;
+                throw new GoogleTasksException(e.getLocalizedMessage());
             }
 
         }
-
-        System.err.println("Gtasks token validation fell through all logic");
-        return null;
     }
 
 }

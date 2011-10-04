@@ -96,6 +96,15 @@
 
     <!-- Error Message when we receive a HTTP 503 error -->
     <string name="gtasks_error_backend">Google\'s Task API is in beta and has encountered an error. The service may be down, please try again later.</string>
+    
+    <!-- Error for account not found -->
+    <string name="gtasks_error_accountNotFound">Account %s not found--please log out and log back in from the Google Tasks settings.</string>
+    
+    <!-- Error when ping after refreshing token fails -->
+    <string name="gtasks_error_authRefresh">Unable to authenticate with Google Tasks. Please check your account password or try again later.</string>
+    
+    <!-- Error when account manager returns no auth token or throws exception -->
+    <string name="gtasks_error_accountManager">Error in your phone\'s account manager. Please log out and log back in from the Google Tasks settings.</string>
 
     
         

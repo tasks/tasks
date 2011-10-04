@@ -49,9 +49,9 @@ public class GtasksListAdder extends Activity {
                         @Override
                         public void run() {
                             String token = gtasksPreferenceService.getToken();
-                            token = GtasksTokenValidator.validateAuthToken(token);
-                            GtasksService service = new GtasksService(token);
                             try {
+                                token = GtasksTokenValidator.validateAuthToken(activity, token);
+                                GtasksService service = new GtasksService(token);
                                 String title = editText.getText().toString();
                                 if (TextUtils.isEmpty(title)) //Don't create a list without a title
                                     return;
