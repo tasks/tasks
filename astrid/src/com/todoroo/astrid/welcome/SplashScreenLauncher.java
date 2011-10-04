@@ -13,6 +13,7 @@ import com.todoroo.astrid.activity.FilterListActivity;
 import com.todoroo.astrid.activity.TaskListActivity;
 import com.todoroo.astrid.service.AstridDependencyInjector;
 import com.todoroo.astrid.service.StartupService;
+import com.todoroo.astrid.service.StatisticsService;
 import com.todoroo.astrid.service.abtesting.ABChooser;
 import com.todoroo.astrid.service.abtesting.ABOptions;
 import com.todoroo.astrid.utility.AstridPreferences;
@@ -35,7 +36,9 @@ public class SplashScreenLauncher extends Activity {
         boolean isNewUser = (latestSetVersion == 0);
         ContextManager.setContext(this);
         new StartupService().onStartupApplication(this);
+        StatisticsService.sessionStart(this);
         finishAndShowNext(isNewUser);
+        StatisticsService.sessionStop(this);
     }
 
     private void finishAndShowNext(boolean isNewUser) {
