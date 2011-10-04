@@ -105,8 +105,12 @@ public class StartupService {
         // sets up context manager
         ContextManager.setContext(context);
 
-        Crittercism.init(context.getApplicationContext(), Constants.CRITTERCISM_APP_ID,
+        try {
+            Crittercism.init(context.getApplicationContext(), Constants.CRITTERCISM_APP_ID,
                 Constants.CRITTERCISM_OATH_KEY, Constants.CRITTERCISM_SECRET);
+        } catch (Exception e) {
+            // Sad times
+        }
 
         // show notification if reminders are silenced
         if(context instanceof Activity) {

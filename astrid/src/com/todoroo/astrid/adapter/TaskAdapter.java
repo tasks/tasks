@@ -36,7 +36,6 @@ import android.text.Spanned;
 import android.text.TextUtils;
 import android.util.DisplayMetrics;
 import android.util.Log;
-import android.util.Pair;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
 import android.view.LayoutInflater;
@@ -64,6 +63,7 @@ import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.andlib.service.ExceptionService;
 import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.andlib.utility.DateUtilities;
+import com.todoroo.andlib.utility.Pair;
 import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.astrid.activity.TaskEditActivity;
 import com.todoroo.astrid.activity.TaskListActivity;
@@ -860,7 +860,7 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
             v.getLocationOnScreen(location);
             ViewHolder viewHolder = (ViewHolder)((View)v.getParent().getParent()).getTag();
 
-            if(Math.abs(location[1] + lastTouchYRawY.first - lastTouchYRawY.second) > 10) {
+            if(Math.abs(location[1] + lastTouchYRawY.getLeft() - lastTouchYRawY.getRight()) > 10) {
                 viewHolder.completeBox.setChecked(!viewHolder.completeBox.isChecked());
                 return;
             }
