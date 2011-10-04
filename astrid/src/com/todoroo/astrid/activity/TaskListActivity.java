@@ -56,6 +56,7 @@ import android.widget.TextView;
 import android.widget.TextView.OnEditorActionListener;
 import android.widget.Toast;
 
+import com.crittercism.FeedbackActivity;
 import com.timsu.astrid.R;
 import com.todoroo.andlib.data.Property;
 import com.todoroo.andlib.data.TodorooCursor;
@@ -328,7 +329,7 @@ public class TaskListActivity extends ListActivity implements OnScrollListener,
         }
 
         item = menu.add(Menu.NONE, MENU_HELP_ID, Menu.NONE,
-                R.string.TLA_menu_help);
+                R.string.TLA_menu_support);
         item.setIcon(android.R.drawable.ic_menu_help);
 
         item = menu.add(Menu.NONE, MENU_SETTINGS_ID, Menu.NONE,
@@ -1118,8 +1119,7 @@ public class TaskListActivity extends ListActivity implements OnScrollListener,
             return true;
         case MENU_HELP_ID:
             StatisticsService.reportEvent(StatisticsConstants.TLA_MENU_HELP);
-            intent = new Intent(Intent.ACTION_VIEW,
-                    Uri.parse(Constants.HELP_URL));
+            intent = new Intent(this, FeedbackActivity.class);
             startActivity(intent);
             return true;
         case MENU_ADDON_INTENT_ID:

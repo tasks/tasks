@@ -33,6 +33,7 @@ public class StatisticsConstants {
     public static final String TLA_MENU_SETTINGS = "tla-menu-settings";
     public static final String TLA_MENU_SORT = "tla-menu-sort";
     public static final String TLA_MENU_SYNC = "tla-menu-sync";
+    public static final String TLA_CRITTERCISM = "tla-crittercism";
     public static final String TLA_MENU_HELP = "tla-menu-help";
     public static final String V2_TASK_REPEAT = "v2-task-repeat";
     public static final String TASK_COMPLETED_INBOX = "task-completed-inbox";
