@@ -51,7 +51,31 @@ public class GtasksTokenValidator {
                         return token;
                     } catch (IOException i2) {
                         i2.printStackTrace();
-                        throw new GoogleTasksException(c.getString(R.string.gtasks_error_authRefresh));
+                        String manufacturer = android.os.Build.MANUFACTURER.toLowerCase();
+                        if (!manufacturer.contains("samsung")) { // Try with the notifyAuthFailure set to true in case it was that that broke things
+                            accountManager.invalidateAuthToken(token);
+                            future = accountManager.manager.getAuthToken(a, GtasksService.AUTH_TOKEN_TYPE, true, null, null);
+                            try {
+                                if (future.getResult().containsKey(AccountManager.KEY_AUTHTOKEN)) {
+                                    result = future.getResult();
+                                    token = result.getString(AccountManager.KEY_AUTHTOKEN);
+                                    testService = new GtasksService(token);
+                                    try {
+                                        testService.ping();
+                                        return token;
+                                    } catch (IOException i3) {
+                                        i3.printStackTrace();
+                                        throw new GoogleTasksException(c.getString(R.string.gtasks_error_authRefresh));
+                                    }
+                                } else {
+                                    throw new GoogleTasksException(c.getString(R.string.gtasks_error_accountManager));
+                                }
+                            } catch (Exception e) {
+                                throw new GoogleTasksException(e.getLocalizedMessage());
+                            }
+                        } else {
+                            throw new GoogleTasksException(c.getString(R.string.gtasks_error_authRefresh));
+                        }
                     }
                 } else {
                     throw new GoogleTasksException(c.getString(R.string.gtasks_error_accountManager));
@@ -62,5 +86,4 @@ public class GtasksTokenValidator {
 
         }
     }
-
 }
