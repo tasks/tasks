@@ -184,7 +184,7 @@ public class Notifications extends BroadcastReceiver {
             notificationManager = new AndroidNotificationManager(context);
 
         // quiet hours? unless alarm clock
-        boolean quietHours = ringTimes < 0 ? false : isQuietHours();
+        boolean quietHours = (type == ReminderService.TYPE_ALARM || type == ReminderService.TYPE_DUE) ? false : isQuietHours();
 
         PendingIntent pendingIntent = PendingIntent.getActivity(context,
                 notificationId, intent, PendingIntent.FLAG_UPDATE_CURRENT);
