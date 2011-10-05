@@ -59,7 +59,7 @@ public class Astrid2TaskProvider extends ContentProvider {
 
 	private static final UriMatcher URI_MATCHER = new UriMatcher(UriMatcher.NO_MATCH);
 
-	private static final int MAX_NUMBER_OF_TASKS = 30;
+	private static final int MAX_NUMBER_OF_TASKS = 100;
 
 	private final static String NAME = "name";
 	private final static String IMPORTANCE_COLOR = "importance_color";
