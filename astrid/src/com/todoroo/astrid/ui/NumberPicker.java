@@ -450,6 +450,8 @@ public class NumberPicker extends LinearLayout implements OnClickListener,
      * @return the current value.
      */
     public int getCurrent() {
+        String str = String.valueOf(((TextView) mText).getText());
+        validateCurrentView(str);
         return mCurrent;
     }
 }
