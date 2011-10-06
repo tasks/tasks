@@ -183,6 +183,10 @@ public class Notifications extends BroadcastReceiver {
         if(notificationManager == null)
             notificationManager = new AndroidNotificationManager(context);
 
+        // don't ring multiple times if random reminder
+        if(type == ReminderService.TYPE_RANDOM)
+            ringTimes = 1;
+
         // quiet hours? unless alarm clock
         boolean quietHours = (type == ReminderService.TYPE_ALARM || type == ReminderService.TYPE_DUE) ? false : isQuietHours();
 
