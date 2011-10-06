@@ -40,6 +40,7 @@ import com.todoroo.astrid.utility.AstridPreferences;
 
 public final class UpgradeService {
 
+    public static final int V3_8_4_3 = 198;
     public static final int V3_8_4_2 = 197;
     public static final int V3_8_4_1 = 196;
     public static final int V3_8_4 = 195;
@@ -157,6 +158,14 @@ public final class UpgradeService {
         StringBuilder changeLog = new StringBuilder();
 
         // current message
+        if (from >= V3_8_4 && from < V3_8_4_3) {
+            newVersionString(changeLog, "3.8.4.3 (10/05/11)", new String[] {
+                    "Additional fixes to Google Tasks API, and added better error messages to " +
+                        "help troubleshoot errors some of you are having",
+                    "Fix for Astrid not working on Android 1.6.",
+                    "\"Ring until I dismiss\" type random reminders now ring only once and respect quiet hours",
+            });
+        }
         if (from >= V3_8_4 && from < V3_8_4_2) {
             newVersionString(changeLog, "3.8.4.2 (10/03/11)", new String[] {
                     "Updated Google Tasks API libraries to 1.2.2. This may fix some of your Google Task sync issues",
