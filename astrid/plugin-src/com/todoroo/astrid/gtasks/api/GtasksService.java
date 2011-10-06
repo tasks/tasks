@@ -41,7 +41,7 @@ public class GtasksService {
 
     private static final String API_KEY = "AIzaSyCIYZTBo6haRHxmiplZsfYdagFEpaiFnAk"; // non-production API key
 
-    public static final String AUTH_TOKEN_TYPE = "oauth2:https://www.googleapis.com/auth/tasks";
+    public static final String AUTH_TOKEN_TYPE = "Manage your tasks"; //"oauth2:https://www.googleapis.com/auth/tasks";
 
     public GtasksService(String authToken) {
         DependencyInjectionService.getInstance().inject(this);
@@ -65,7 +65,7 @@ public class GtasksService {
             int statusCode = h.getResponse().getStatusCode();
             if (statusCode == 401 || statusCode == 403) {
                 System.err.println("Encountered " + statusCode + " error");
-                token = GtasksTokenValidator.validateAuthToken(token);
+                token = GtasksTokenValidator.validateAuthToken(ContextManager.getContext(), token);
                 if (token != null) {
                     accessProtectedResource.setAccessToken(token);
                 }

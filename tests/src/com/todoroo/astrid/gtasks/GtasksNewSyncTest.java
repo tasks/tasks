@@ -519,7 +519,7 @@ public class GtasksNewSyncTest extends DatabaseTestCase {
             return;
         }
         String authToken = authTokenBundle.getString(AccountManager.KEY_AUTHTOKEN);
-        authToken = GtasksTokenValidator.validateAuthToken(authToken);
+        authToken = GtasksTokenValidator.validateAuthToken(getContext(), authToken);
         gtasksPreferenceService.setToken(authToken);
 
         gtasksService = new GtasksService(authToken);

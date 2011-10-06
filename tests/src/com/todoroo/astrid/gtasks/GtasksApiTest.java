@@ -38,7 +38,7 @@ public class GtasksApiTest extends DatabaseTestCase {
         Task newTask = new Task();
         String title = "New task";
         newTask.setTitle(title);
-        
+
         service.createGtask(DEFAULT_LIST, newTask);
         assertTrue(taskWithTitleExists(title));
     }
@@ -279,7 +279,7 @@ public class GtasksApiTest extends DatabaseTestCase {
             }
 
             String authToken = authTokenBundle.getString(AccountManager.KEY_AUTHTOKEN);
-            authToken = GtasksTokenValidator.validateAuthToken(authToken);
+            authToken = GtasksTokenValidator.validateAuthToken(getContext(), authToken);
 
             service = new GtasksService(authToken);
 
