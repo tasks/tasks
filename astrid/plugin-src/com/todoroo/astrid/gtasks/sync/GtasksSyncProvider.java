@@ -430,14 +430,14 @@ public class GtasksSyncProvider extends SyncProvider<GtasksTaskContainer> {
         local.gtaskMetadata.setValue(GtasksMetadata.ID, null);
         local.gtaskMetadata.setValue(GtasksMetadata.LIST_ID, listId);
 
-        createdWithoutId.add(local);
-        createdWithoutOrder.add(local);
         com.google.api.services.tasks.model.Task createdTask = new com.google.api.services.tasks.model.Task();
 
         CreateRequest createRequest = new CreateRequest(taskService, listId, createdTask, local.parentId, local.priorSiblingId);
         //updateTaskHelper(local, null, createRequest);
         localPropertiesToModel(local, null, createRequest.getToPush());
         com.google.api.services.tasks.model.Task createResult = createRequest.executePush();
+        createdWithoutId.add(local);
+        createdWithoutOrder.add(local);
         String newIdTask = createResult.getId();
         local.gtaskMetadata.setValue(GtasksMetadata.ID, newIdTask);
 
