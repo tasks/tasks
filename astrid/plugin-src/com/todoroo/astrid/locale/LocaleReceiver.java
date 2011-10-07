@@ -4,6 +4,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
+import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
 
@@ -50,10 +51,12 @@ public class LocaleReceiver extends BroadcastReceiver {
                 if(!PluginServices.getAddOnService().hasLocalePlugin())
                     return;
 
-                final String title = intent.getStringExtra(LocaleEditAlerts.KEY_FILTER_TITLE);
-                final String sql = intent.getStringExtra(LocaleEditAlerts.KEY_SQL);
-                final String values = intent.getStringExtra(LocaleEditAlerts.KEY_VALUES);
-                final int interval = intent.getIntExtra(LocaleEditAlerts.KEY_INTERVAL, 24*3600);
+                final Bundle forwardedBundle = intent.getBundleExtra(com.twofortyfouram.Intent.EXTRA_BUNDLE);
+
+                final String title = forwardedBundle.getString(LocaleEditAlerts.KEY_FILTER_TITLE);
+                final String sql = forwardedBundle.getString(LocaleEditAlerts.KEY_SQL);
+                final String values = forwardedBundle.getString(LocaleEditAlerts.KEY_VALUES);
+                final int interval = forwardedBundle.getInt(LocaleEditAlerts.KEY_INTERVAL, 24*3600);
 
                 if(TextUtils.isEmpty(title) || TextUtils.isEmpty(sql) ||
                         sql.contains("--") || sql.contains(";") || interval == 0)

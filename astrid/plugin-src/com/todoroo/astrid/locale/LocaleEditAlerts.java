@@ -139,14 +139,14 @@ public final class LocaleEditAlerts extends ExpandableListActivity {
                  */
                 if (forwardedBundle != null)
                 {
-                    final int intervalValue = getIntent().getIntExtra(KEY_INTERVAL, INTERVALS[interval.getSelectedItemPosition()]);
+                    final int intervalValue = forwardedBundle.getInt(KEY_INTERVAL, INTERVALS[interval.getSelectedItemPosition()]);
                     for(int i = 0; i < INTERVALS.length; i++) {
                         if(intervalValue == INTERVALS[i]) {
                             interval.setSelection(i);
                             break;
                         }
                     }
-                    selectionToMatch = getIntent().getStringExtra(KEY_SQL);
+                    selectionToMatch = forwardedBundle.getString(KEY_SQL);
                 }
             }
         } catch (Exception e) {
