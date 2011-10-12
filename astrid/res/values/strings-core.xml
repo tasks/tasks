@@ -420,6 +420,16 @@
   <string name="EPr_manage_purge_deleted_message">Do you really want to purge all your deleted tasks?\n\nThese tasks will be gone forever!</string>
   <string name="EPr_manage_purge_deleted_status">Purged %d tasks!</string>
   <string name="EPr_manage_purge_deleted_summary">Caution! Purged tasks can\'t be recovered without backup file!</string>
+
+  <string name="EPr_manage_delete_completed_gcal">Delete Calendar Events for Completed Tasks</string>
+  <string name="EPr_manage_delete_completed_gcal_message">Do you really want to delete all your events for completed tasks?</string>
+  <string name="EPr_manage_delete_completed_gcal_summary"></string>
+  <string name="EPr_manage_delete_completed_gcal_status">Deleted %d calendar events!</string>
+      
+  <string name="EPr_manage_delete_all_gcal">Delete All Calendar Events for Tasks</string>
+  <string name="EPr_manage_delete_all_gcal_message">Do you really want to delete all your events for tasks?</string>
+  <string name="EPr_manage_delete_all_gcal_summary"></string>
+  <string name="EPr_manage_delete_all_gcal_status">Deleted %d calendar events!</string>
       
   <!-- ==================================================== AddOnActivity == -->
   

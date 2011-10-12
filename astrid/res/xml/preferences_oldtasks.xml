@@ -12,5 +12,15 @@
         android:title="@string/EPr_manage_purge_deleted"
         android:key="@string/EPr_manage_purge_deleted" 
         android:summary="@string/EPr_manage_purge_deleted_summary"/>
+
+    <com.todoroo.astrid.ui.MultilinePreference
+        android:title="@string/EPr_manage_delete_completed_gcal"
+        android:key="@string/EPr_manage_delete_completed_gcal" 
+        android:summary="@string/EPr_manage_delete_completed_gcal_summary"/>
         
+    <com.todoroo.astrid.ui.MultilinePreference
+        android:title="@string/EPr_manage_delete_all_gcal"
+        android:key="@string/EPr_manage_delete_all_gcal" 
+        android:summary="@string/EPr_manage_delete_all_gcal_summary"/>
+
 </PreferenceScreen>

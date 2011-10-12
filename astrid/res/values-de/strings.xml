@@ -760,7 +760,16 @@
 Achtung: diese Aufgaben sind unwiederbringlich verloren, wenn Sie kein Backup gemacht haben!</string>
   <string name="EPr_manage_purge_deleted_summary">Achtung: diese Aufgaben können nur mit der Backupfunktion wiederhergestellt werden!</string>
   <string name="EPr_manage_purge_deleted_status">Es wurden %d gelöschte Aufgaben endgültig entfernt!</string>
+  
+  <string name="EPr_manage_delete_completed_gcal">Kalendereinträge von erledigten Aufgaben löschen</string>
+  <string name="EPr_manage_delete_completed_gcal_message">Wollen Sie wirklich alle Kalendereinträge von erledigten Aufgaben löschen?</string>
+  <string name="EPr_manage_delete_completed_gcal_summary"></string>
+  <string name="EPr_manage_delete_completed_gcal_status">Es wurden %d Kalendereinträge gelöscht!</string>
 
+  <string name="EPr_manage_delete_all_gcal">Alle von Astrid erzeugten Kalendereinträge löschen</string>
+  <string name="EPr_manage_delete_all_gcal_message">Wollen Sie wirklich alle von Astrid erzeugten Kalendereinträge löschen?</string>
+  <string name="EPr_manage_delete_all_gcal_summary"></string>
+  <string name="EPr_manage_delete_all_gcal_status">Es wurden %d Kalendereinträge gelöscht!</string>
 
   <!-- ==================================================== AddOnActivity == -->
   
