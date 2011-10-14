@@ -16,6 +16,7 @@ import com.todoroo.andlib.sql.Criterion;
 import com.todoroo.andlib.sql.QueryTemplate;
 import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.astrid.api.AstridApiConstants;
+import com.todoroo.astrid.api.AstridFilterExposer;
 import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.api.FilterCategory;
 import com.todoroo.astrid.api.FilterListHeader;
@@ -35,7 +36,7 @@ import com.todoroo.astrid.producteev.sync.ProducteevUser;
  * @author Arne Jans <arne.jans@gmail.com>
  *
  */
-public class ProducteevFilterExposer extends BroadcastReceiver {
+public class ProducteevFilterExposer extends BroadcastReceiver implements AstridFilterExposer {
 
     /**
      * @param context
@@ -113,15 +114,24 @@ public class ProducteevFilterExposer extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
         ContextManager.setContext(context);
+        FilterListItem[] list = prepareFilters(context);
+
+        Intent broadcastIntent = new Intent(AstridApiConstants.BROADCAST_SEND_FILTERS);
+        broadcastIntent.putExtra(AstridApiConstants.EXTRAS_ADDON, ProducteevUtilities.IDENTIFIER);
+        broadcastIntent.putExtra(AstridApiConstants.EXTRAS_RESPONSE, list);
+        context.sendBroadcast(broadcastIntent, AstridApiConstants.PERMISSION_READ);
+    }
+
+    private FilterListItem[] prepareFilters(Context context) {
         // if we aren't logged in, don't expose features
         if(!ProducteevUtilities.INSTANCE.isLoggedIn())
-            return;
+            return null;
 
         StoreObject[] dashboards = ProducteevDataService.getInstance().getDashboards();
 
         // If user does not have any dashboards, don't show this section at all
         if(dashboards.length == 0)
-            return;
+            return null;
 
         FilterListHeader producteevHeader = new FilterListHeader(context.getString(R.string.producteev_FEx_header));
 
@@ -157,10 +167,7 @@ public class ProducteevFilterExposer extends BroadcastReceiver {
         list[1] = producteevDashboards;
         list[2] = producteevUsersByMeCategory;
         list[3] = producteevUsersByOthersCategory;
-        Intent broadcastIntent = new Intent(AstridApiConstants.BROADCAST_SEND_FILTERS);
-        broadcastIntent.putExtra(AstridApiConstants.EXTRAS_ADDON, ProducteevUtilities.IDENTIFIER);
-        broadcastIntent.putExtra(AstridApiConstants.EXTRAS_RESPONSE, list);
-        context.sendBroadcast(broadcastIntent, AstridApiConstants.PERMISSION_READ);
+        return list;
     }
 
     /**
@@ -175,6 +182,14 @@ public class ProducteevFilterExposer extends BroadcastReceiver {
         }
 
         return users;
+    }
+
+    @Override
+    public FilterListItem[] getFilters() {
+        if (ContextManager.getContext() == null)
+            return null;
+
+        return prepareFilters(ContextManager.getContext());
     }
 
 }

@@ -6,6 +6,7 @@ package com.todoroo.astrid.adapter;
 import greendroid.widget.AsyncImageView;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
@@ -17,9 +18,12 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.pm.PackageManager;
+import android.content.pm.ResolveInfo;
 import android.content.res.TypedArray;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
+import android.os.BadParcelableException;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.text.TextUtils;
@@ -38,10 +42,12 @@ import android.widget.TextView;
 
 import com.timsu.astrid.R;
 import com.todoroo.andlib.service.Autowired;
+import com.todoroo.andlib.service.ContextManager;
 import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.astrid.activity.FilterListActivity;
 import com.todoroo.astrid.api.AstridApiConstants;
+import com.todoroo.astrid.api.AstridFilterExposer;
 import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.api.FilterCategory;
 import com.todoroo.astrid.api.FilterCategoryWithNewButton;
@@ -49,8 +55,19 @@ import com.todoroo.astrid.api.FilterListHeader;
 import com.todoroo.astrid.api.FilterListItem;
 import com.todoroo.astrid.api.FilterWithUpdate;
 import com.todoroo.astrid.service.TaskService;
+import com.todoroo.astrid.utility.Constants;
 
 public class FilterAdapter extends BaseExpandableListAdapter {
+
+    private static List<ResolveInfo> filterExposerList;
+
+    static {
+        // query astrids AndroidManifest.xml for all registered default-receivers to expose filters
+        PackageManager pm = ContextManager.getContext().getPackageManager();
+        filterExposerList = pm.queryBroadcastReceivers(
+                new Intent(AstridApiConstants.BROADCAST_REQUEST_FILTERS),
+                PackageManager.MATCH_DEFAULT_ONLY);
+    }
 
     // --- style constants
 
@@ -76,6 +93,7 @@ public class FilterAdapter extends BaseExpandableListAdapter {
 
     /** receiver for new filters */
     private final FilterReceiver filterReceiver = new FilterReceiver();
+    private final BladeFilterReceiver bladeFilterReceiver = new BladeFilterReceiver();
 
     /** row layout to inflate */
     private final int layout;
@@ -309,32 +327,88 @@ public class FilterAdapter extends BaseExpandableListAdapter {
     public class FilterReceiver extends BroadcastReceiver {
         @Override
         public void onReceive(Context context, Intent intent) {
+            if (Constants.DEBUG_BLADE) {
+                // emulate the bug in the zte blade to not load the parcelable-array due to classloader-problems
+                try {
+                    // normally caused by (with another message of course):
+                    // final Parcelable[] filters = extras.getParcelableArray(AstridApiConstants.EXTRAS_RESPONSE);
+                    throw new BadParcelableException(new ClassNotFoundException("ZTE Blade debug test!"));
+                } catch (Exception e) {
+                    Log.e("receive-filter-" +  //$NON-NLS-1$
+                            intent.getStringExtra(AstridApiConstants.EXTRAS_ADDON),
+                            e.toString(), e);
+                }
+
+//                setResultCode(Activity.RESULT_OK);
+                return;
+            }
+
             try {
                 Bundle extras = intent.getExtras();
                 extras.setClassLoader(FilterListHeader.class.getClassLoader());
                 final Parcelable[] filters = extras.getParcelableArray(AstridApiConstants.EXTRAS_RESPONSE);
-                for (Parcelable item : filters) {
-                    FilterListItem filter = (FilterListItem) item;
-                    if(skipIntentFilters && !(filter instanceof Filter ||
-                                filter instanceof FilterListHeader ||
-                                filter instanceof FilterCategory))
-                        continue;
-
-                    add((FilterListItem)item);
-                    onReceiveFilter((FilterListItem)item);
-                }
-                notifyDataSetChanged();
-
-                activity.runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        expandList(filters);
-                    }
-                });
+                populateFiltersToAdapter(filters);
             } catch (Exception e) {
                 Log.e("receive-filter-" +  //$NON-NLS-1$
                         intent.getStringExtra(AstridApiConstants.EXTRAS_ADDON),
                         e.toString(), e);
+            }
+        }
+
+        protected void populateFiltersToAdapter(final Parcelable[] filters) {
+            if (filters == null)
+                return;
+
+            for (Parcelable item : filters) {
+                FilterListItem filter = (FilterListItem) item;
+                if(skipIntentFilters && !(filter instanceof Filter ||
+                            filter instanceof FilterListHeader ||
+                            filter instanceof FilterCategory))
+                    continue;
+
+                add((FilterListItem)item);
+                onReceiveFilter((FilterListItem)item);
+            }
+            notifyDataSetChanged();
+
+            activity.runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    expandList(filters);
+                }
+            });
+        }
+    }
+
+    /**
+     * Receiver which gets called after the FilterReceiver
+     * and checks if the filters are populated.
+     * If they aren't (e.g. due to the bug in the ZTE Blade's Parcelable-system throwing a
+     * ClassNotFoundExeption), the filters are fetched manually.
+     *
+     * @author Arne Jans <arne@astrid.com>
+     *
+     */
+    public class BladeFilterReceiver extends FilterReceiver {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            if (getGroupCount() == 0 && filterExposerList != null && filterExposerList.size()>0) {
+                try {
+                    for (ResolveInfo filterExposerInfo : filterExposerList) {
+                        Log.d("BladeFilterReceiver", filterExposerInfo.toString());
+                        String className = filterExposerInfo.activityInfo.name;
+                        AstridFilterExposer filterExposer = null;
+                            filterExposer = (AstridFilterExposer) Class.forName(className, true, FilterAdapter.class.getClassLoader()).newInstance();
+
+                        if (filterExposer != null) {
+                            populateFiltersToAdapter(filterExposer.getFilters());
+                        }
+                    }
+                } catch (Exception e) {
+                    Log.e("receive-bladefilter-" +  //$NON-NLS-1$
+                            intent.getStringExtra(AstridApiConstants.EXTRAS_ADDON),
+                            e.toString(), e);
+                }
             }
         }
     }
@@ -377,7 +451,15 @@ public class FilterAdapter extends BaseExpandableListAdapter {
      */
     public void getLists() {
         Intent broadcastIntent = new Intent(AstridApiConstants.BROADCAST_REQUEST_FILTERS);
-        activity.sendOrderedBroadcast(broadcastIntent, AstridApiConstants.PERMISSION_READ);
+//        activity.sendOrderedBroadcast(broadcastIntent, AstridApiConstants.PERMISSION_READ);
+        // the bladeFilterReceiver will be called after the usual FilterReceiver has finished (to handle the empty list)
+        activity.sendOrderedBroadcast(broadcastIntent,
+                AstridApiConstants.PERMISSION_READ,
+                bladeFilterReceiver,
+                null,
+                Activity.RESULT_OK,
+                null,
+                null);
     }
 
     /**
@@ -385,6 +467,8 @@ public class FilterAdapter extends BaseExpandableListAdapter {
      */
     public void registerRecevier() {
         activity.registerReceiver(filterReceiver,
+                new IntentFilter(AstridApiConstants.BROADCAST_SEND_FILTERS));
+        activity.registerReceiver(bladeFilterReceiver,
                 new IntentFilter(AstridApiConstants.BROADCAST_SEND_FILTERS));
         if(getGroupCount() == 0)
             getLists();
@@ -395,6 +479,7 @@ public class FilterAdapter extends BaseExpandableListAdapter {
      */
     public void unregisterRecevier() {
         activity.unregisterReceiver(filterReceiver);
+        activity.unregisterReceiver(bladeFilterReceiver);
     }
 
     /**

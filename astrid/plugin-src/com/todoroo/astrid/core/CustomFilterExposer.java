@@ -16,6 +16,7 @@ import android.os.Bundle;
 
 import com.timsu.astrid.R;
 import com.todoroo.andlib.data.TodorooCursor;
+import com.todoroo.andlib.service.ContextManager;
 import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.andlib.sql.Criterion;
 import com.todoroo.andlib.sql.Order;
@@ -25,6 +26,7 @@ import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.andlib.utility.DialogUtilities;
 import com.todoroo.astrid.activity.FilterListActivity;
 import com.todoroo.astrid.api.AstridApiConstants;
+import com.todoroo.astrid.api.AstridFilterExposer;
 import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.api.FilterCategoryWithNewButton;
 import com.todoroo.astrid.api.FilterListItem;
@@ -40,13 +42,22 @@ import com.todoroo.astrid.data.Task;
  * @author Tim Su <tim@todoroo.com>
  *
  */
-public final class CustomFilterExposer extends BroadcastReceiver {
+public final class CustomFilterExposer extends BroadcastReceiver implements AstridFilterExposer {
 
     private static final String TOKEN_FILTER_ID = "id"; //$NON-NLS-1$
     private static final String TOKEN_FILTER_NAME = "name"; //$NON-NLS-1$
 
     @Override
     public void onReceive(Context context, Intent intent) {
+        FilterListItem[] list = prepareFilters(context);
+
+        // transmit filter list
+        Intent broadcastIntent = new Intent(AstridApiConstants.BROADCAST_SEND_FILTERS);
+        broadcastIntent.putExtra(AstridApiConstants.EXTRAS_RESPONSE, list);
+        context.sendBroadcast(broadcastIntent, AstridApiConstants.PERMISSION_READ);
+    }
+
+    private FilterListItem[] prepareFilters(Context context) {
         Resources r = context.getResources();
 
         PendingIntent customFilterIntent = PendingIntent.getActivity(context, 0,
@@ -61,11 +72,7 @@ public final class CustomFilterExposer extends BroadcastReceiver {
 
         FilterListItem[] list = new FilterListItem[1];
         list[0] = heading;
-
-        // transmit filter list
-        Intent broadcastIntent = new Intent(AstridApiConstants.BROADCAST_SEND_FILTERS);
-        broadcastIntent.putExtra(AstridApiConstants.EXTRAS_RESPONSE, list);
-        context.sendBroadcast(broadcastIntent, AstridApiConstants.PERMISSION_READ);
+        return list;
     }
 
     private Filter[] buildSavedFilters(Context context, Resources r) {
@@ -156,6 +163,14 @@ public final class CustomFilterExposer extends BroadcastReceiver {
                         }
                     });
         }
+    }
+
+    @Override
+    public FilterListItem[] getFilters() {
+        if (ContextManager.getContext() == null)
+            return null;
+
+        return prepareFilters(ContextManager.getContext());
     }
 
 }
