@@ -16,6 +16,7 @@ import com.todoroo.andlib.sql.Query;
 import com.todoroo.andlib.sql.QueryTemplate;
 import com.todoroo.astrid.activity.FilterListActivity;
 import com.todoroo.astrid.api.AstridApiConstants;
+import com.todoroo.astrid.api.AstridFilterExposer;
 import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.api.FilterListItem;
 import com.todoroo.astrid.dao.MetadataDao.MetadataCriteria;
@@ -30,13 +31,20 @@ import com.todoroo.astrid.tags.TagService;
  * @author Tim Su <tim@todoroo.com>
  *
  */
-public final class CoreFilterExposer extends BroadcastReceiver {
+public final class CoreFilterExposer extends BroadcastReceiver implements AstridFilterExposer {
 
     @Override
     public void onReceive(Context context, Intent intent) {
         Resources r = context.getResources();
         ContextManager.setContext(context);
 
+        FilterListItem[] list = prepareFilters(r);
+        Intent broadcastIntent = new Intent(AstridApiConstants.BROADCAST_SEND_FILTERS);
+        broadcastIntent.putExtra(AstridApiConstants.EXTRAS_RESPONSE, list);
+        context.sendBroadcast(broadcastIntent, AstridApiConstants.PERMISSION_READ);
+    }
+
+    private FilterListItem[] prepareFilters(Resources r) {
         // core filters
         Filter inbox = buildInboxFilter(r);
 
@@ -44,9 +52,7 @@ public final class CoreFilterExposer extends BroadcastReceiver {
         // transmit filter list
         FilterListItem[] list = new FilterListItem[1];
         list[0] = inbox;
-        Intent broadcastIntent = new Intent(AstridApiConstants.BROADCAST_SEND_FILTERS);
-        broadcastIntent.putExtra(AstridApiConstants.EXTRAS_RESPONSE, list);
-        context.sendBroadcast(broadcastIntent, AstridApiConstants.PERMISSION_READ);
+        return list;
     }
 
     /**
@@ -63,6 +69,15 @@ public final class CoreFilterExposer extends BroadcastReceiver {
                 null);
         inbox.listingIcon = ((BitmapDrawable)r.getDrawable(R.drawable.filter_inbox)).getBitmap();
         return inbox;
+    }
+
+    @Override
+    public FilterListItem[] getFilters() {
+        if (ContextManager.getContext() == null || ContextManager.getContext().getResources() == null)
+            return null;
+
+        Resources r = ContextManager.getContext().getResources();
+        return prepareFilters(r);
     }
 
 }

@@ -22,6 +22,7 @@ import com.todoroo.andlib.sql.Join;
 import com.todoroo.andlib.sql.Order;
 import com.todoroo.andlib.sql.QueryTemplate;
 import com.todoroo.astrid.api.AstridApiConstants;
+import com.todoroo.astrid.api.AstridFilterExposer;
 import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.api.FilterCategoryWithNewButton;
 import com.todoroo.astrid.api.FilterListItem;
@@ -40,7 +41,7 @@ import com.todoroo.astrid.service.AstridDependencyInjector;
  * @author Tim Su <tim@todoroo.com>
  *
  */
-public class GtasksFilterExposer extends BroadcastReceiver {
+public class GtasksFilterExposer extends BroadcastReceiver implements AstridFilterExposer {
 
     @Autowired private GtasksListService gtasksListService;
     @Autowired private GtasksPreferenceService gtasksPreferenceService;
@@ -75,17 +76,25 @@ public class GtasksFilterExposer extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
         ContextManager.setContext(context);
+        FilterListItem[] list = prepareFilters(context);
+        Intent broadcastIntent = new Intent(AstridApiConstants.BROADCAST_SEND_FILTERS);
+        broadcastIntent.putExtra(AstridApiConstants.EXTRAS_ADDON, GtasksPreferenceService.IDENTIFIER);
+        broadcastIntent.putExtra(AstridApiConstants.EXTRAS_RESPONSE, list);
+        context.sendBroadcast(broadcastIntent, AstridApiConstants.PERMISSION_READ);
+    }
+
+    private FilterListItem[] prepareFilters(Context context) {
         DependencyInjectionService.getInstance().inject(this);
 
         // if we aren't logged in, don't expose features
         if(!gtasksPreferenceService.isLoggedIn())
-            return;
+            return null;
 
         lists = gtasksListService.getLists();
 
         // If user does not have any lists, don't show this section at all
         if(noListsToShow())
-            return;
+            return null;
 
         Filter[] listFilters = new Filter[lists.length];
         for(int i = 0; i < lists.length; i++)
@@ -99,14 +108,19 @@ public class GtasksFilterExposer extends BroadcastReceiver {
         // transmit filter list
         FilterListItem[] list = new FilterListItem[1];
         list[0] = listsCategory;
-        Intent broadcastIntent = new Intent(AstridApiConstants.BROADCAST_SEND_FILTERS);
-        broadcastIntent.putExtra(AstridApiConstants.EXTRAS_ADDON, GtasksPreferenceService.IDENTIFIER);
-        broadcastIntent.putExtra(AstridApiConstants.EXTRAS_RESPONSE, list);
-        context.sendBroadcast(broadcastIntent, AstridApiConstants.PERMISSION_READ);
+        return list;
     }
 
     private boolean noListsToShow() {
         return lists.length == 0;
+    }
+
+    @Override
+    public FilterListItem[] getFilters() {
+        if (ContextManager.getContext() == null)
+            return null;
+
+        return prepareFilters(ContextManager.getContext());
     }
 
 }

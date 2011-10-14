@@ -37,6 +37,12 @@ public final class Constants {
     public static final boolean DEBUG = false;
 
     /**
+     * Whether to turn on debugging for an emulated zte blade error (in the FilterReceiver)
+     * Only for testing purposes. Remember to set this to false for a standard release!
+     */
+    public static final boolean DEBUG_BLADE = false;
+
+    /**
      * Astrid Help URL
      */
     public static final String HELP_URL = "http://weloveastrid.com/help-user-guide-astrid-v3/active-tasks/"; //$NON-NLS-1$

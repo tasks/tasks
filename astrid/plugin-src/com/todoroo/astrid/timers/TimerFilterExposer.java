@@ -16,6 +16,7 @@ import com.todoroo.andlib.sql.Query;
 import com.todoroo.andlib.sql.QueryTemplate;
 import com.todoroo.astrid.activity.FilterListActivity;
 import com.todoroo.astrid.api.AstridApiConstants;
+import com.todoroo.astrid.api.AstridFilterExposer;
 import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.api.FilterListItem;
 import com.todoroo.astrid.core.PluginServices;
@@ -27,23 +28,29 @@ import com.todoroo.astrid.data.Task;
  * @author Tim Su <tim@todoroo.com>
  *
  */
-public final class TimerFilterExposer extends BroadcastReceiver {
+public final class TimerFilterExposer extends BroadcastReceiver implements AstridFilterExposer {
 
     @Override
     public void onReceive(Context context, Intent intent) {
         ContextManager.setContext(context);
+        FilterListItem[] list = prepareFilters(context);
+
+        Intent broadcastIntent = new Intent(AstridApiConstants.BROADCAST_SEND_FILTERS);
+        broadcastIntent.putExtra(AstridApiConstants.EXTRAS_RESPONSE, list);
+        context.sendBroadcast(broadcastIntent, AstridApiConstants.PERMISSION_READ);
+    }
+
+    private FilterListItem[] prepareFilters(Context context) {
         if(PluginServices.getTaskService().count(Query.select(Task.ID).
                 where(Task.TIMER_START.gt(0))) == 0)
-            return;
+            return null;
 
         Filter workingOn = createFilter(context);
 
         // transmit filter list
         FilterListItem[] list = new FilterListItem[1];
         list[0] = workingOn;
-        Intent broadcastIntent = new Intent(AstridApiConstants.BROADCAST_SEND_FILTERS);
-        broadcastIntent.putExtra(AstridApiConstants.EXTRAS_RESPONSE, list);
-        context.sendBroadcast(broadcastIntent, AstridApiConstants.PERMISSION_READ);
+        return list;
     }
 
     public static Filter createFilter(Context context) {
@@ -56,6 +63,14 @@ public final class TimerFilterExposer extends BroadcastReceiver {
                 values);
         workingOn.listingIcon = ((BitmapDrawable)r.getDrawable(R.drawable.tango_clock)).getBitmap();
         return workingOn;
+    }
+
+    @Override
+    public FilterListItem[] getFilters() {
+        if (ContextManager.getContext() == null)
+            return null;
+
+        return prepareFilters(ContextManager.getContext());
     }
 
 }

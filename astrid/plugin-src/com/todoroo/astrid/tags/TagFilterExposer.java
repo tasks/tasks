@@ -30,6 +30,7 @@ import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.andlib.utility.DialogUtilities;
 import com.todoroo.astrid.actfm.TagViewActivity;
 import com.todoroo.astrid.api.AstridApiConstants;
+import com.todoroo.astrid.api.AstridFilterExposer;
 import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.api.FilterCategory;
 import com.todoroo.astrid.api.FilterCategoryWithNewButton;
@@ -51,7 +52,7 @@ import com.todoroo.astrid.tags.TagService.Tag;
  * @author Tim Su <tim@todoroo.com>
  *
  */
-public class TagFilterExposer extends BroadcastReceiver {
+public class TagFilterExposer extends BroadcastReceiver implements AstridFilterExposer {
 
     private static final String TAG = "tag"; //$NON-NLS-1$
 
@@ -115,6 +116,15 @@ public class TagFilterExposer extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {
+        FilterListItem[] listAsArray = prepareFilters(context);
+
+        Intent broadcastIntent = new Intent(AstridApiConstants.BROADCAST_SEND_FILTERS);
+        broadcastIntent.putExtra(AstridApiConstants.EXTRAS_RESPONSE, listAsArray);
+        broadcastIntent.putExtra(AstridApiConstants.EXTRAS_ADDON, TagsPlugin.IDENTIFIER);
+        context.sendBroadcast(broadcastIntent, AstridApiConstants.PERMISSION_READ);
+    }
+
+    private FilterListItem[] prepareFilters(Context context) {
         DependencyInjectionService.getInstance().inject(this);
         ContextManager.setContext(context);
         tagService = TagService.getInstance();
@@ -126,10 +136,7 @@ public class TagFilterExposer extends BroadcastReceiver {
 
         // transmit filter list
         FilterListItem[] listAsArray = list.toArray(new FilterListItem[list.size()]);
-        Intent broadcastIntent = new Intent(AstridApiConstants.BROADCAST_SEND_FILTERS);
-        broadcastIntent.putExtra(AstridApiConstants.EXTRAS_RESPONSE, listAsArray);
-        broadcastIntent.putExtra(AstridApiConstants.EXTRAS_ADDON, TagsPlugin.IDENTIFIER);
-        context.sendBroadcast(broadcastIntent, AstridApiConstants.PERMISSION_READ);
+        return listAsArray;
     }
 
     private void addTags(ArrayList<FilterListItem> list) {
@@ -290,6 +297,14 @@ public class TagFilterExposer extends BroadcastReceiver {
                 return true;
             }
         }
+    }
+
+    @Override
+    public FilterListItem[] getFilters() {
+        if (ContextManager.getContext() == null)
+            return null;
+
+        return prepareFilters(ContextManager.getContext());
     }
 
 }
