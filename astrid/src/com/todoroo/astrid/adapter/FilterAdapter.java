@@ -23,7 +23,6 @@ import android.content.pm.ResolveInfo;
 import android.content.res.TypedArray;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
-import android.os.BadParcelableException;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.text.TextUtils;
@@ -55,19 +54,8 @@ import com.todoroo.astrid.api.FilterListHeader;
 import com.todoroo.astrid.api.FilterListItem;
 import com.todoroo.astrid.api.FilterWithUpdate;
 import com.todoroo.astrid.service.TaskService;
-import com.todoroo.astrid.utility.Constants;
 
 public class FilterAdapter extends BaseExpandableListAdapter {
-
-    private static List<ResolveInfo> filterExposerList;
-
-    static {
-        // query astrids AndroidManifest.xml for all registered default-receivers to expose filters
-        PackageManager pm = ContextManager.getContext().getPackageManager();
-        filterExposerList = pm.queryBroadcastReceivers(
-                new Intent(AstridApiConstants.BROADCAST_REQUEST_FILTERS),
-                PackageManager.MATCH_DEFAULT_ONLY);
-    }
 
     // --- style constants
 
@@ -327,22 +315,6 @@ public class FilterAdapter extends BaseExpandableListAdapter {
     public class FilterReceiver extends BroadcastReceiver {
         @Override
         public void onReceive(Context context, Intent intent) {
-            if (Constants.DEBUG_BLADE) {
-                // emulate the bug in the zte blade to not load the parcelable-array due to classloader-problems
-                try {
-                    // normally caused by (with another message of course):
-                    // final Parcelable[] filters = extras.getParcelableArray(AstridApiConstants.EXTRAS_RESPONSE);
-                    throw new BadParcelableException(new ClassNotFoundException("ZTE Blade debug test!"));
-                } catch (Exception e) {
-                    Log.e("receive-filter-" +  //$NON-NLS-1$
-                            intent.getStringExtra(AstridApiConstants.EXTRAS_ADDON),
-                            e.toString(), e);
-                }
-
-//                setResultCode(Activity.RESULT_OK);
-                return;
-            }
-
             try {
                 Bundle extras = intent.getExtras();
                 extras.setClassLoader(FilterListHeader.class.getClassLoader());
@@ -390,6 +362,16 @@ public class FilterAdapter extends BaseExpandableListAdapter {
      *
      */
     public class BladeFilterReceiver extends FilterReceiver {
+        private final List<ResolveInfo> filterExposerList;
+
+        public BladeFilterReceiver() {
+            // query astrids AndroidManifest.xml for all registered default-receivers to expose filters
+            PackageManager pm = ContextManager.getContext().getPackageManager();
+            filterExposerList = pm.queryBroadcastReceivers(
+                    new Intent(AstridApiConstants.BROADCAST_REQUEST_FILTERS),
+                    PackageManager.MATCH_DEFAULT_ONLY);
+        }
+
         @Override
         public void onReceive(Context context, Intent intent) {
             if (getGroupCount() == 0 && filterExposerList != null && filterExposerList.size()>0) {
