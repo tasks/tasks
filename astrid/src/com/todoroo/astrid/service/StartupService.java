@@ -203,8 +203,6 @@ public class StartupService {
      */
     private void onFirstTime() {
         final Resources r = ContextManager.getResources();
-        Preferences.setBoolean(AstridPreferences.P_FIRST_ACTION, true);
-
         try {
             new Thread(new Runnable() {
                 @Override
@@ -216,8 +214,8 @@ public class StartupService {
 
                     for(int i = 0; i < INTRO_TASKS.length; i += 3)
                         addIntroTask(r, INTRO_TASKS[i], INTRO_TASKS[i + 1], INTRO_TASKS[i + 2]);
+                    Preferences.setBoolean(AstridPreferences.P_FIRST_ACTION, true);
                 }
-
             }).start();
         } catch (Exception e) {
             exceptionService.reportError("on-first-time", e); //$NON-NLS-1$
