@@ -8,16 +8,16 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.AdapterView.OnItemClickListener;
 
 import com.timsu.astrid.R;
-import com.todoroo.andlib.data.TodorooCursor;
 import com.todoroo.andlib.data.Property.LongProperty;
 import com.todoroo.andlib.data.Property.StringProperty;
+import com.todoroo.andlib.data.TodorooCursor;
 import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.andlib.sql.Query;
@@ -26,9 +26,9 @@ import com.todoroo.astrid.activity.TaskEditActivity.TaskEditControlSet;
 import com.todoroo.astrid.dao.StoreObjectDao;
 import com.todoroo.astrid.dao.StoreObjectDao.StoreObjectCriteria;
 import com.todoroo.astrid.data.Metadata;
+import com.todoroo.astrid.data.MetadataApiDao.MetadataCriteria;
 import com.todoroo.astrid.data.StoreObject;
 import com.todoroo.astrid.data.Task;
-import com.todoroo.astrid.data.MetadataApiDao.MetadataCriteria;
 import com.todoroo.astrid.service.MetadataService;
 
 /**
@@ -228,7 +228,7 @@ public class OpencrxControlSet implements TaskEditControlSet {
 
         Metadata metadata = getTaskMetadata(task.getId());
         if(metadata == null)
-            metadata = OpencrxCoreUtils.INSTANCE.newMetadata();
+            metadata = OpencrxCoreUtils.INSTANCE.newMetadata(task.getId());
 
         // Fill the dashboard-spinner and set the current dashboard
         long dashboardId = OpencrxCoreUtils.INSTANCE.getDefaultCreator();
@@ -344,7 +344,7 @@ public class OpencrxControlSet implements TaskEditControlSet {
         Metadata metadata = getTaskMetadata(task.getId());
         try {
             if (metadata == null) {
-                metadata = OpencrxCoreUtils.INSTANCE.newMetadata();
+                metadata = OpencrxCoreUtils.INSTANCE.newMetadata(task.getId());
             }
 
             OpencrxActivityCreator dashboard = (OpencrxActivityCreator) creatorSelector.getSelectedItem();
