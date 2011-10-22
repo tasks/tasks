@@ -37,9 +37,10 @@ public class OpencrxCoreUtils extends SyncProviderUtilities{
         // prevent instantiation
     }
 
-    public Metadata newMetadata() {
+    public Metadata newMetadata(long forTask) {
         Metadata metadata = new Metadata();
         metadata.setValue(Metadata.KEY, OPENCRX_ACTIVITY_METADATA_KEY);
+        metadata.setValue(Metadata.TASK, forTask);
         metadata.setValue(ACTIVITY_ID, 0L);
         metadata.setValue(ACTIVITY_CREATOR_ID, getDefaultCreator());
         metadata.setValue(ACTIVITY_USERCREATOR_ID, getDefaultAssignedUser());
