@@ -478,7 +478,8 @@ public class TagViewActivity extends TaskListActivity {
 
     @Override
     protected Task quickAddTask(String title, boolean selectNewTask) {
-        if(tagData.getValue(TagData.NAME).length() == 0) {
+        if(!tagData.containsNonNullValue(TagData.NAME) ||
+                tagData.getValue(TagData.NAME).length() == 0) {
             DialogUtilities.okDialog(this, getString(R.string.tag_no_title_error), null);
             return null;
         }
