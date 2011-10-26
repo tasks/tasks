@@ -295,6 +295,22 @@ public class EditPeopleControlSet implements TaskEditControlSet {
 
         spinnerValues.add(new AssignedToUser(activity.getString(R.string.actfm_EPA_assign_custom), null));
 
+        String assignedStr = task.getValue(Task.USER);
+        int assignedIndex = 0;
+        if (!TextUtils.isEmpty(assignedStr)) {
+            JSONObject assigned = new JSONObject(assignedStr);
+            long assignedId = assigned.optLong("id", -1);
+            String assignedEmail = assigned.optString("email");
+            for (int i = 0; i < spinnerValues.size(); i++) {
+                JSONObject user = spinnerValues.get(i).user;
+                if (user != null) {
+                    if (user.optLong("id") == assignedId || (user.optString("email").equals(assignedEmail) && !(TextUtils.isEmpty(assignedEmail))))
+                        assignedIndex = i;
+                }
+            }
+        }
+
+        final int selected = assignedIndex;
         final ArrayAdapter<AssignedToUser> usersAdapter = new ArrayAdapter<AssignedToUser>(activity,
                 android.R.layout.simple_spinner_item, spinnerValues);
         usersAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -303,6 +319,7 @@ public class EditPeopleControlSet implements TaskEditControlSet {
             @Override
             public void run() {
                 assignedSpinner.setAdapter(usersAdapter);
+                assignedSpinner.setSelection(selected);
             }
         });
     }
@@ -384,13 +401,23 @@ public class EditPeopleControlSet implements TaskEditControlSet {
                     task.setValue(Task.USER, "{}");
             } else {
                 String user = userJson.toString();
-                dirty = task.getValue(Task.USER).equals(user) ? dirty : true;
+                JSONObject taskUser = new JSONObject(task.getValue(Task.USER));
+                long userId = userJson.optLong("id", -1);
+                String userEmail = userJson.optString("email");
+
+                long taskUserId = taskUser.optLong("id", -1);
+                String taskUserEmail = taskUser.optString("email");
+
+                boolean match = (userId == taskUserId && userId != -1);
+                match = match || (userEmail.equals(taskUserEmail) && !TextUtils.isEmpty(userEmail));
+
+                dirty = match ? dirty : true;
                 task.setValue(Task.USER_ID, userJson.optLong("id", -1));
                 task.setValue(Task.USER, user);
             }
 
             JSONObject sharedWith = parseSharedWithAndTags();
-            dirty = sharedWith.has("p");
+            dirty = dirty || sharedWith.has("p");
             if(!TextUtils.isEmpty(task.getValue(Task.SHARED_WITH)) || sharedWith.length() != 0)
                 task.setValue(Task.SHARED_WITH, sharedWith.toString());
 
