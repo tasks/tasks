@@ -297,6 +297,13 @@
       <item>A little snack after you finish this?</item>
       <item>Just this one task? Please?</item>
       <item>Time to shorten your todo list!</item>
+      <item>Are you on Team Order or Team Chaos? Team Order! Let\'s go!</item>
+      <item>Have I mentioned you are awesome recently? Keep it up!</item>
+      <item>A task a day keeps the clutter away... Goodbye clutter!</item>
+      <item>How do you do it!  Wow, I\'m impressed!</item>
+      <item>You can\'t just get by on your good looks. Let\'s get to it!</item>
+      <item>Lovely weather for a job like this, isn\'t it?</item>
+      <item>A spot of tea while you work on this?</item>
   </string-array>
 
   <string-array name="postpone_nags">
