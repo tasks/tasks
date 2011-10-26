@@ -9,9 +9,12 @@ import org.json.JSONException;
 
 import android.app.AlertDialog;
 import android.app.ExpandableListActivity;
+import android.app.Notification;
+import android.app.PendingIntent;
 import android.app.PendingIntent.CanceledException;
 import android.app.ProgressDialog;
 import android.app.SearchManager;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -43,10 +46,14 @@ import com.timsu.astrid.R;
 import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.andlib.service.ExceptionService;
+import com.todoroo.andlib.service.NotificationManager;
 import com.todoroo.andlib.sql.Functions;
 import com.todoroo.andlib.sql.QueryTemplate;
 import com.todoroo.andlib.utility.AndroidUtilities;
+import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.andlib.utility.DialogUtilities;
+import com.todoroo.andlib.utility.Preferences;
+import com.todoroo.astrid.actfm.ActFmPreferences;
 import com.todoroo.astrid.actfm.sync.ActFmPreferenceService;
 import com.todoroo.astrid.actfm.sync.ActFmSyncService;
 import com.todoroo.astrid.adapter.FilterAdapter;
@@ -61,6 +68,7 @@ import com.todoroo.astrid.service.StartupService;
 import com.todoroo.astrid.service.StatisticsConstants;
 import com.todoroo.astrid.service.StatisticsService;
 import com.todoroo.astrid.service.ThemeService;
+import com.todoroo.astrid.utility.Constants;
 
 /**
  * Activity that displays a user's task lists and allows users
@@ -79,6 +87,8 @@ public class FilterListActivity extends ExpandableListActivity {
     private static final int MENU_SEARCH_ID = Menu.FIRST + 0;
     private static final int MENU_HELP_ID = Menu.FIRST + 1;
     private static final int MENU_REFRESH_ID = Menu.FIRST + 2;
+
+    private static final String LAST_TAG_REFRESH_KEY = "last_tag_refresh"; //$NON-NLS-1$
 
     private static final int CONTEXT_MENU_SHORTCUT = Menu.FIRST + 3;
     private static final int CONTEXT_MENU_INTENT = Menu.FIRST + 4;
@@ -155,6 +165,8 @@ public class FilterListActivity extends ExpandableListActivity {
             startActivity(intent);
         } else {
             setUpList();
+            if (actFmPreferenceService.isLoggedIn())
+                onRefreshRequested(false);
         }
     }
 
@@ -380,7 +392,7 @@ public class FilterListActivity extends ExpandableListActivity {
         }
 
         case MENU_REFRESH_ID: {
-            onRefreshRequested();
+            onRefreshRequested(true);
             return true;
         }
 
@@ -415,8 +427,26 @@ public class FilterListActivity extends ExpandableListActivity {
     /**
      * Refresh user tags
      */
-    private void onRefreshRequested() {
-        final ProgressDialog progressDialog = DialogUtilities.progressDialog(this, getString(R.string.DLG_please_wait));
+    private void onRefreshRequested(final boolean manual) {
+        if (!manual) {
+            long lastFetchDate = Preferences.getLong(LAST_TAG_REFRESH_KEY, 0);
+            if(DateUtilities.now() < lastFetchDate + 300000L) {
+                return;
+            }
+        }
+        final ProgressDialog progressDialog;
+
+        final NotificationManager nm = new NotificationManager.AndroidNotificationManager(this);
+        final Notification notification = new Notification(android.R.drawable.stat_notify_sync, null, System.currentTimeMillis());
+        final int notificationId = updateNotification(this, notification);
+        notification.flags |= Notification.FLAG_ONGOING_EVENT;
+
+        if (manual) {
+            progressDialog = DialogUtilities.progressDialog(this, getString(R.string.DLG_please_wait));
+        } else {
+            progressDialog = null;
+            nm.notify(notificationId, notification);
+        }
 
         new Thread(new Runnable() {
             @SuppressWarnings("nls")
@@ -428,6 +458,7 @@ public class FilterListActivity extends ExpandableListActivity {
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
+                            Preferences.setLong(LAST_TAG_REFRESH_KEY, DateUtilities.now());
                             adapter.clear();
                             adapter.getLists();
                         }
@@ -438,10 +469,24 @@ public class FilterListActivity extends ExpandableListActivity {
                 } catch (JSONException e) {
                     exceptionService.displayAndReportError(FilterListActivity.this, "refresh-tags-json", e);
                 } finally {
-                    DialogUtilities.dismissDialog(FilterListActivity.this, progressDialog);
+                    if (manual)
+                        DialogUtilities.dismissDialog(FilterListActivity.this, progressDialog);
+                    else
+                        nm.cancel(notificationId);
                 }
             }
         }).start();
+    }
+
+    private int updateNotification(Context context, Notification notification) {
+        String notificationTitle = context.getString(R.string.actfm_notification_title);
+        Intent intent = new Intent(context, ActFmPreferences.class);
+        PendingIntent notificationIntent = PendingIntent.getActivity(context, 0,
+                intent, 0);
+        notification.setLatestEventInfo(context,
+                notificationTitle, context.getString(R.string.SyP_progress),
+                notificationIntent);
+        return Constants.NOTIFICATION_SYNC;
     }
 
     private void showCreateShortcutDialog(final Intent shortcutIntent,

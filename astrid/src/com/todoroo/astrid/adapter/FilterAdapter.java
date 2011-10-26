@@ -80,7 +80,7 @@ public class FilterAdapter extends BaseExpandableListAdapter {
     private final DisplayMetrics metrics = new DisplayMetrics();
 
     /** receiver for new filters */
-    private final FilterReceiver filterReceiver = new FilterReceiver();
+    //private final FilterReceiver filterReceiver = new FilterReceiver();
     private final BladeFilterReceiver bladeFilterReceiver = new BladeFilterReceiver();
 
     /** row layout to inflate */
@@ -448,8 +448,8 @@ public class FilterAdapter extends BaseExpandableListAdapter {
      * Call this method from your activity's onResume() method
      */
     public void registerRecevier() {
-        activity.registerReceiver(filterReceiver,
-                new IntentFilter(AstridApiConstants.BROADCAST_SEND_FILTERS));
+        /*activity.registerReceiver(filterReceiver,
+                new IntentFilter(AstridApiConstants.BROADCAST_SEND_FILTERS));//*/
         activity.registerReceiver(bladeFilterReceiver,
                 new IntentFilter(AstridApiConstants.BROADCAST_SEND_FILTERS));
         if(getGroupCount() == 0)
@@ -460,7 +460,7 @@ public class FilterAdapter extends BaseExpandableListAdapter {
      * Call this method from your activity's onResume() method
      */
     public void unregisterRecevier() {
-        activity.unregisterReceiver(filterReceiver);
+        //activity.unregisterReceiver(filterReceiver);
         activity.unregisterReceiver(bladeFilterReceiver);
     }
 

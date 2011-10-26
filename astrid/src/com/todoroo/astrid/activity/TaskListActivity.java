@@ -71,6 +71,8 @@ import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.andlib.widget.GestureService;
 import com.todoroo.andlib.widget.GestureService.GestureInterface;
+import com.todoroo.astrid.actfm.sync.ActFmPreferenceService;
+import com.todoroo.astrid.actfm.sync.ActFmSyncProvider;
 import com.todoroo.astrid.activity.SortSelectionActivity.OnSortSelectedListener;
 import com.todoroo.astrid.adapter.TaskAdapter;
 import com.todoroo.astrid.adapter.TaskAdapter.OnCompletedTaskListener;
@@ -168,6 +170,8 @@ public class TaskListActivity extends ListActivity implements OnScrollListener,
 
     @Autowired UpgradeService upgradeService;
 
+    @Autowired ActFmPreferenceService actFmPreferenceService;
+
     private final TaskContextActionExposer[] contextItemExposers = new TaskContextActionExposer[] {
             new ReminderDebugContextActions.MakeNotification(),
             new ReminderDebugContextActions.WhenReminder(),
@@ -187,7 +191,7 @@ public class TaskListActivity extends ListActivity implements OnScrollListener,
     private EditText quickAddBox;
     private Timer backgroundTimer;
     private final LinkedHashSet<SyncAction> syncActions = new LinkedHashSet<SyncAction>();
-    private boolean isInbox;
+    private boolean isFilter;
 
     private final TaskListContextMenuExtensionLoader contextMenuExtensionLoader = new TaskListContextMenuExtensionLoader();
     private VoiceInputAssistant voiceInputAssistant;
@@ -281,12 +285,12 @@ public class TaskListActivity extends ListActivity implements OnScrollListener,
             return;
         } else if(extras != null && extras.containsKey(TOKEN_FILTER)) {
             filter = extras.getParcelable(TOKEN_FILTER);
-            isInbox = true;
+            isFilter = true;
         } else {
             filter = CoreFilterExposer.buildInboxFilter(getResources());
             findViewById(R.id.headerLogo).setVisibility(View.VISIBLE);
             findViewById(R.id.listLabel).setVisibility(View.GONE);
-            isInbox = false;
+            isFilter = false;
         }
 
         setUpTaskList();
@@ -466,6 +470,19 @@ public class TaskListActivity extends ListActivity implements OnScrollListener,
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_DITHER);
     }
 
+    private void initiateAutomaticSync() {
+        if (!actFmPreferenceService.isLoggedIn()) return;
+        long lastFetchDate = actFmPreferenceService.getLastSyncDate();
+        if(DateUtilities.now() < lastFetchDate + 300000L)
+            return;
+        new Thread() {
+            @Override
+            public void run() {
+                new ActFmSyncProvider().synchronize(TaskListActivity.this);
+            }
+        }.start();
+    }
+
     // Subclasses can override these to customize extras in quickadd intent
     protected Intent getOnClickQuickAddIntent(Task t) {
         Intent intent = new Intent(TaskListActivity.this, TaskEditActivity.class);
@@ -536,6 +553,10 @@ public class TaskListActivity extends ListActivity implements OnScrollListener,
         registerReceiver(syncActionReceiver,
                 new IntentFilter(AstridApiConstants.BROADCAST_SEND_SYNC_ACTIONS));
         setUpBackgroundJobs();
+
+        if (filter.title.equals(getString(R.string.BFE_Active))) {
+            initiateAutomaticSync();
+        }
     }
 
     @Override
@@ -835,7 +856,7 @@ public class TaskListActivity extends ListActivity implements OnScrollListener,
      * @param item task that was completed
      */
     protected void onTaskCompleted(Task item) {
-        if(isInbox)
+        if(isFilter)
             StatisticsService.reportEvent(StatisticsConstants.TASK_COMPLETED_INBOX);
         else
             StatisticsService.reportEvent(StatisticsConstants.TASK_COMPLETED_FILTER);
