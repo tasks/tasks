@@ -80,8 +80,9 @@ public class FilterAdapter extends BaseExpandableListAdapter {
     private final DisplayMetrics metrics = new DisplayMetrics();
 
     /** receiver for new filters */
-    //private final FilterReceiver filterReceiver = new FilterReceiver();
+    private final FilterReceiver filterReceiver = new FilterReceiver();
     private final BladeFilterReceiver bladeFilterReceiver = new BladeFilterReceiver();
+    private boolean shouldUseBladeFilter = true;
 
     /** row layout to inflate */
     private final int layout;
@@ -319,6 +320,7 @@ public class FilterAdapter extends BaseExpandableListAdapter {
                 Bundle extras = intent.getExtras();
                 extras.setClassLoader(FilterListHeader.class.getClassLoader());
                 final Parcelable[] filters = extras.getParcelableArray(AstridApiConstants.EXTRAS_RESPONSE);
+                shouldUseBladeFilter = false;
                 populateFiltersToAdapter(filters);
             } catch (Exception e) {
                 Log.e("receive-filter-" +  //$NON-NLS-1$
@@ -374,7 +376,7 @@ public class FilterAdapter extends BaseExpandableListAdapter {
 
         @Override
         public void onReceive(Context context, Intent intent) {
-            if (getGroupCount() == 0 && filterExposerList != null && filterExposerList.size()>0) {
+            if (shouldUseBladeFilter && getGroupCount() == 0 && filterExposerList != null && filterExposerList.size()>0) {
                 try {
                     for (ResolveInfo filterExposerInfo : filterExposerList) {
                         Log.d("BladeFilterReceiver", filterExposerInfo.toString());
@@ -448,10 +450,12 @@ public class FilterAdapter extends BaseExpandableListAdapter {
      * Call this method from your activity's onResume() method
      */
     public void registerRecevier() {
-        /*activity.registerReceiver(filterReceiver,
-                new IntentFilter(AstridApiConstants.BROADCAST_SEND_FILTERS));//*/
-        activity.registerReceiver(bladeFilterReceiver,
-                new IntentFilter(AstridApiConstants.BROADCAST_SEND_FILTERS));
+        IntentFilter regularFilter = new IntentFilter(AstridApiConstants.BROADCAST_SEND_FILTERS);
+        regularFilter.setPriority(2);
+        activity.registerReceiver(filterReceiver, regularFilter);
+        IntentFilter bladeFilter = new IntentFilter(AstridApiConstants.BROADCAST_SEND_FILTERS);
+        bladeFilter.setPriority(1);
+        activity.registerReceiver(bladeFilterReceiver, bladeFilter);
         if(getGroupCount() == 0)
             getLists();
     }
@@ -460,7 +464,7 @@ public class FilterAdapter extends BaseExpandableListAdapter {
      * Call this method from your activity's onResume() method
      */
     public void unregisterRecevier() {
-        //activity.unregisterReceiver(filterReceiver);
+        activity.unregisterReceiver(filterReceiver);
         activity.unregisterReceiver(bladeFilterReceiver);
     }
 
