@@ -6,7 +6,6 @@
 package com.todoroo.astrid.dao;
 
 import android.content.ContentValues;
-import android.util.Log;
 
 import com.timsu.astrid.R;
 import com.todoroo.andlib.data.DatabaseDao;
@@ -170,12 +169,9 @@ public class TaskDao extends DatabaseDao<Task> {
      */
     public boolean save(Task task) {
         boolean saveSuccessful;
-        Log.e("SAVING", "SAVING - " + task.getSetValues().toString(), new Throwable());
         if (task.getId() == Task.NO_ID) {
-            System.err.println("Creating new");
             saveSuccessful = createNew(task);
         } else {
-            System.err.println("Saving existing");
             saveSuccessful = saveExisting(task);
         }
 
