@@ -308,7 +308,8 @@
     </receiver>    
             
     <!-- actfm -->
-    <activity android:name="com.todoroo.astrid.actfm.ActFmLoginActivity" />
+    <activity android:name="com.todoroo.astrid.actfm.ActFmLoginActivity"
+              android:configChanges="keyboardHidden|orientation"/>
     <activity android:name="com.todoroo.astrid.actfm.OAuthLoginActivity" />
     <activity android:name="com.todoroo.astrid.actfm.ActFmPreferences"
               android:theme="@android:style/Theme"

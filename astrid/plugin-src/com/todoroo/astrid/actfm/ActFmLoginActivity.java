@@ -35,6 +35,7 @@ import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.graphics.PixelFormat;
 import android.os.Build;
 import android.os.Bundle;
@@ -151,6 +152,16 @@ public class ActFmLoginActivity extends Activity implements AuthListener {
         recordPageView();
 
         setResult(RESULT_CANCELED);
+    }
+
+
+    /* (non-Javadoc)
+     * @see android.app.Activity#onConfigurationChanged(android.content.res.Configuration)
+     */
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+        setContentView(getContentViewResource());
     }
 
     @Override
