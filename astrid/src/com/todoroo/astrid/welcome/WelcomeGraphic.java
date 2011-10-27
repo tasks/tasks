@@ -15,12 +15,10 @@ import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.astrid.actfm.sync.ActFmSyncProvider;
 import com.todoroo.astrid.activity.Eula;
-import com.todoroo.astrid.activity.FilterListActivity;
 import com.todoroo.astrid.activity.TaskListActivity;
 import com.todoroo.astrid.service.StartupService;
 import com.todoroo.astrid.service.StatisticsService;
 import com.todoroo.astrid.service.abtesting.ABChooser;
-import com.todoroo.astrid.service.abtesting.ABOptions;
 
 public class WelcomeGraphic extends Activity {
 
@@ -99,18 +97,7 @@ public class WelcomeGraphic extends Activity {
 
     private Intent getNextIntent() {
         Intent intent = new Intent();
-        int choice = abChooser.getChoiceForOption(ABOptions.AB_OPTION_FIRST_ACTIVITY);
-        switch (choice) {
-        case 0:
-            intent.setClass(this, TaskListActivity.class);
-            break;
-        case 1:
-            intent.setClass(this, FilterListActivity.class);
-            intent.putExtra(FilterListActivity.SHOW_BACK_BUTTON, false);
-            break;
-        default:
-            intent.setClass(this, TaskListActivity.class);
-        }
+        intent.setClass(this, TaskListActivity.class);
         return intent;
     }
 }
