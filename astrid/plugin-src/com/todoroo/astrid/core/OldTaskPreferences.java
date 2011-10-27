@@ -72,8 +72,7 @@ public class OldTaskPreferences extends TodorooPreferenceActivity {
      */
     @Override
     protected void onPause() {
-        if (pd != null)
-            pd.dismiss();
+        DialogUtilities.dismissDialog(this, pd);
 
         super.onPause();
     }
