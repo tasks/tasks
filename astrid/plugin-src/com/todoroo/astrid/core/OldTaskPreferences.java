@@ -36,6 +36,8 @@ public class OldTaskPreferences extends TodorooPreferenceActivity {
     @Autowired private TaskService taskService;
     @Autowired private MetadataService metadataService;
 
+    ProgressDialog pd;
+
     @Override
     public int getPreferenceResource() {
         return R.xml.preferences_oldtasks;
@@ -63,6 +65,17 @@ public class OldTaskPreferences extends TodorooPreferenceActivity {
                 return true;
             }
         });
+    }
+
+    /* (non-Javadoc)
+     * @see android.app.Activity#onPause()
+     */
+    @Override
+    protected void onPause() {
+        if (pd != null)
+            pd.dismiss();
+
+        super.onPause();
     }
 
     /** Show the dialog to delete completed tasks */
@@ -142,7 +155,7 @@ public class OldTaskPreferences extends TodorooPreferenceActivity {
 
     /** Run runnable with progress dialog */
     protected void runWithDialog(final Runnable runnable) {
-        final ProgressDialog pd = DialogUtilities.progressDialog(this, getString(R.string.DLG_please_wait));
+        pd = DialogUtilities.progressDialog(this, getString(R.string.DLG_please_wait));
         new Thread(new Runnable() {
             @Override
             public void run() {
