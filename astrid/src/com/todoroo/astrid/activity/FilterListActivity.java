@@ -453,21 +453,23 @@ public class FilterListActivity extends ExpandableListActivity {
             @Override
             public void run() {
                 try {
+                    Preferences.setLong(LAST_TAG_REFRESH_KEY, DateUtilities.now());
                     actFmSyncService.fetchTags(0);
 
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                            Preferences.setLong(LAST_TAG_REFRESH_KEY, DateUtilities.now());
                             adapter.clear();
                             adapter.getLists();
                         }
                     });
 
                 } catch (IOException e) {
-                    exceptionService.displayAndReportError(FilterListActivity.this, "refresh-tags-io", e);
+                    if (manual)
+                        exceptionService.displayAndReportError(FilterListActivity.this, "refresh-tags-io", e);
                 } catch (JSONException e) {
-                    exceptionService.displayAndReportError(FilterListActivity.this, "refresh-tags-json", e);
+                    if (manual)
+                        exceptionService.displayAndReportError(FilterListActivity.this, "refresh-tags-json", e);
                 } finally {
                     if (manual)
                         DialogUtilities.dismissDialog(FilterListActivity.this, progressDialog);

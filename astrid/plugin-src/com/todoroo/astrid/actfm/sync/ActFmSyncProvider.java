@@ -93,7 +93,7 @@ public class ActFmSyncProvider extends SyncProvider<ActFmTaskContainer> {
         } catch (IllegalStateException e) {
             // occurs when application was closed
         } catch (Exception e) {
-            handleException("actfm-authenticate", e, true);
+            handleException("actfm-authenticate", e, false);
         } finally {
             actFmPreferenceService.stopOngoing();
         }
@@ -152,7 +152,7 @@ public class ActFmSyncProvider extends SyncProvider<ActFmTaskContainer> {
         } catch (IllegalStateException e) {
         	// occurs when application was closed
         } catch (Exception e) {
-            handleException("actfm-sync", e, true); //$NON-NLS-1$
+            handleException("actfm-sync", e, false); //$NON-NLS-1$
         } finally {
             StatisticsService.reportEvent(StatisticsConstants.ACTFM_SYNC_FINISHED,
                     "success", Boolean.toString(syncSuccess)); //$NON-NLS-1$

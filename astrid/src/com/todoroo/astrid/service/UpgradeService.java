@@ -40,6 +40,8 @@ import com.todoroo.astrid.utility.AstridPreferences;
 
 public final class UpgradeService {
 
+    public static final int V3_8_5 = 200;
+    public static final int V3_8_4_4 = 199;
     public static final int V3_8_4_3 = 198;
     public static final int V3_8_4_2 = 197;
     public static final int V3_8_4_1 = 196;
@@ -158,6 +160,16 @@ public final class UpgradeService {
         StringBuilder changeLog = new StringBuilder();
 
         // current message
+        if (from < V3_8_5) {
+            newVersionString(changeLog, "3.8.5 (10/27/11)", new String[] {
+                    "All new reminders and nudges!",
+                    "Share lists and tasks with iPhone users!",
+                    "Better sync with Chrome App and Astrid.com",
+                    "Numerous bugs destroyed",
+                    "Have a spectacular day!",
+            });
+        }
+
         if (from >= V3_8_4 && from < V3_8_4_3) {
             newVersionString(changeLog, "3.8.4.3 (10/05/11)", new String[] {
                     "Additional fixes to Google Tasks API, and added better error messages to " +

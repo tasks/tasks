@@ -156,6 +156,8 @@ public class TaskListActivity extends ListActivity implements OnScrollListener,
     /** token for indicating source of TLA launch */
     public static final String TOKEN_SOURCE = "source"; //$NON-NLS-1$
 
+    private static final String LAST_AUTOSYNC_ATTEMPT = "last-autosync"; //$NON-NLS-1$
+
     // --- instance variables
 
     @Autowired ExceptionService exceptionService;
@@ -473,11 +475,15 @@ public class TaskListActivity extends ListActivity implements OnScrollListener,
     private void initiateAutomaticSync() {
         if (!actFmPreferenceService.isLoggedIn()) return;
         long lastFetchDate = actFmPreferenceService.getLastSyncDate();
-        if(DateUtilities.now() < lastFetchDate + 300000L)
+        long lastAutosyncAttempt = Preferences.getLong(LAST_AUTOSYNC_ATTEMPT, 0);
+
+        long lastTry = Math.max(lastFetchDate, lastAutosyncAttempt);
+        if(DateUtilities.now() < lastTry + 300000L)
             return;
         new Thread() {
             @Override
             public void run() {
+                Preferences.setLong(LAST_AUTOSYNC_ATTEMPT, DateUtilities.now());
                 new ActFmSyncProvider().synchronize(TaskListActivity.this);
             }
         }.start();
