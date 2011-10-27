@@ -401,12 +401,19 @@ public class EditPeopleControlSet implements TaskEditControlSet {
                     task.setValue(Task.USER, "{}");
             } else {
                 String user = userJson.toString();
-                JSONObject taskUser = new JSONObject(task.getValue(Task.USER));
+
+                long taskUserId = -1;
+                String taskUserEmail = "";
+                try {
+                    JSONObject taskUser = new JSONObject(task.getValue(Task.USER));
+                    taskUserId = taskUser.optLong("id", -1);
+                    taskUserEmail = taskUser.optString("email");
+                } catch (JSONException e) {
+                    // sad times
+                }
                 long userId = userJson.optLong("id", -1);
                 String userEmail = userJson.optString("email");
 
-                long taskUserId = taskUser.optLong("id", -1);
-                String taskUserEmail = taskUser.optString("email");
 
                 boolean match = (userId == taskUserId && userId != -1);
                 match = match || (userEmail.equals(taskUserEmail) && !TextUtils.isEmpty(userEmail));
