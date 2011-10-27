@@ -55,7 +55,6 @@ import com.todoroo.astrid.data.TagData;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.data.Update;
 import com.todoroo.astrid.service.MetadataService;
-import com.todoroo.astrid.service.StartupService;
 import com.todoroo.astrid.service.StatisticsConstants;
 import com.todoroo.astrid.service.StatisticsService;
 import com.todoroo.astrid.service.TagDataService;
@@ -292,8 +291,13 @@ public final class ActFmSyncService {
         if(newlyCreated) {
             if(task.getValue(Task.TITLE).length() == 0)
                 return;
-            if(task.getId() <= StartupService.INTRO_TASK_SIZE)
-                return;
+            for(int taskTitle : new int[] { R.string.intro_task_1_summary,
+                    R.string.intro_task_2_summary, R.string.intro_task_3_summary }) {
+                String title = ContextManager.getString(taskTitle);
+                if(task.getValue(Task.TITLE).equals(title))
+                    return;
+            }
+            values = task.getMergedValues();
         }
 
         if(values.containsKey(Task.TITLE.name)) {

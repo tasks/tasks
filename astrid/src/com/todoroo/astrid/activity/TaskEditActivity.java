@@ -506,8 +506,10 @@ public final class TaskEditActivity extends TabActivity {
         if(!onPause && peopleControlSet != null && !peopleControlSet.saveSharingSettings(processedToast))
             return;
 
-        if (!onPause) // Saving during on pause could cause a double finish
+        if (!onPause) { // Saving during on pause could cause a double finish
+            shouldSaveState = false;
             finish();
+        }
     }
 
     @Override
