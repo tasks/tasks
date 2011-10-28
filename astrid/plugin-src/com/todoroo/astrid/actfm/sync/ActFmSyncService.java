@@ -275,9 +275,9 @@ public final class ActFmSyncService {
      */
     public void pushTaskOnSave(Task task, ContentValues values) {
         long remoteId;
-        if(task.containsValue(Task.REMOTE_ID))
+        if(task.containsValue(Task.REMOTE_ID)) {
             remoteId = task.getValue(Task.REMOTE_ID);
-        else {
+        } else {
             Task taskForRemote = taskService.fetchById(task.getId(), Task.REMOTE_ID);
             if(taskForRemote == null)
                 return;

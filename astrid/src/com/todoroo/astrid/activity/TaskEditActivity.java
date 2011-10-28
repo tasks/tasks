@@ -433,6 +433,7 @@ public final class TaskEditActivity extends TabActivity {
         database.openForReading();
         if(idParam > -1L) {
             model = taskService.fetchById(idParam, Task.PROPERTIES);
+            model.clearValue(Task.REMOTE_ID); // Having this can screw up autosync
         }
 
         // not found by id or was never passed an id
