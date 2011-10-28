@@ -34,7 +34,6 @@ import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.core.PluginServices;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.gcal.GCalHelper;
-import com.todoroo.astrid.reminders.ReminderService;
 import com.todoroo.astrid.service.StatisticsConstants;
 import com.todoroo.astrid.service.StatisticsService;
 import com.todoroo.astrid.utility.Flags;
@@ -83,8 +82,6 @@ public class RepeatTaskCompleteListener extends BroadcastReceiver {
                 task.setValue(Task.HIDE_UNTIL, hideUntil);
                 Flags.set(Flags.ACTFM_REPEATED_TASK);
                 PluginServices.getTaskService().save(task);
-                ReminderService.getInstance().clearAllAlarms(task);
-                ReminderService.getInstance().scheduleAlarm(task);
                 return;
             }
 
@@ -116,9 +113,6 @@ public class RepeatTaskCompleteListener extends BroadcastReceiver {
 
             GCalHelper.deleteTaskEvent(task);
             PluginServices.getTaskService().save(task);
-
-            ReminderService.getInstance().clearAllAlarms(task);
-            ReminderService.getInstance().scheduleAlarm(clone);
 
             // send a broadcast
             Intent broadcastIntent = new Intent(AstridApiConstants.BROADCAST_EVENT_TASK_REPEATED);
