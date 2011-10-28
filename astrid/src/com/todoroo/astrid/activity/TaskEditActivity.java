@@ -34,6 +34,7 @@ import android.content.IntentFilter;
 import android.content.res.Resources;
 import android.os.Bundle;
 import android.speech.RecognizerIntent;
+import android.text.TextUtils;
 import android.text.format.DateUtils;
 import android.util.Log;
 import android.view.KeyEvent;
@@ -601,7 +602,7 @@ public final class TaskEditActivity extends TabActivity {
         shouldSaveState = false;
 
         // abandon editing in this case
-        if(title.getText().length() == 0) {
+        if(title.getText().length() == 0 || TextUtils.isEmpty(model.getValue(Task.TITLE))) {
             if(isNewTask)
                 taskService.delete(model);
         }
