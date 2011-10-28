@@ -118,6 +118,8 @@ public final class ActFmSyncService {
             public void onModelUpdated(final Task model) {
                 if(Flags.checkAndClear(Flags.ACTFM_SUPPRESS_SYNC))
                     return;
+                if (actFmPreferenceService.isOngoing())
+                    return;
                 final ContentValues setValues = model.getSetValues();
                 if(setValues == null || !checkForToken() || setValues.containsKey(RemoteModel.REMOTE_ID_PROPERTY_NAME))
                     return;
@@ -144,6 +146,8 @@ public final class ActFmSyncService {
             public void onModelUpdated(final Update model) {
                 if(Flags.checkAndClear(Flags.ACTFM_SUPPRESS_SYNC))
                     return;
+                if (actFmPreferenceService.isOngoing())
+                    return;
                 final ContentValues setValues = model.getSetValues();
                 if(setValues == null || !checkForToken() || model.getValue(Update.REMOTE_ID) > 0)
                     return;
@@ -161,6 +165,8 @@ public final class ActFmSyncService {
             @Override
             public void onModelUpdated(final TagData model) {
                 if(Flags.checkAndClear(Flags.ACTFM_SUPPRESS_SYNC))
+                    return;
+                if (actFmPreferenceService.isOngoing())
                     return;
                 final ContentValues setValues = model.getSetValues();
                 if(setValues == null || !checkForToken() || setValues.containsKey(RemoteModel.REMOTE_ID_PROPERTY_NAME))
