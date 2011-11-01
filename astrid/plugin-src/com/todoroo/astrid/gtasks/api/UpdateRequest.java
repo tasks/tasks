@@ -20,4 +20,9 @@ public class UpdateRequest extends PushRequest {
         return service.updateGtask(listId, toPush);
     }
 
+    @Override
+    protected void recover() {
+        //If there's a good way to recover, put it here
+    }
+
 }

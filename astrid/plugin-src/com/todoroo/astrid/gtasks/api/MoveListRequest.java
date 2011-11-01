@@ -29,6 +29,11 @@ public class MoveListRequest extends PushRequest {
         return service.createGtask(dstList, toPush);
     }
 
+    @Override
+    protected void recover() {
+        //If there's a good way to recover, put it here
+    }
+
     private void transferProperties(Task local) {
         toPush.setCompleted(local.getCompleted());
         toPush.setDeleted(local.getDeleted());

@@ -34,6 +34,12 @@ public class MoveRequest extends PushRequest {
         return service.moveGtask(super.listId, taskId, parentId, priorSiblingId);
     }
 
+    @Override
+    protected void recover() {
+        parentId = null;
+        priorSiblingId = null;
+    }
+
     public String getParentId() {
         return parentId;
     }

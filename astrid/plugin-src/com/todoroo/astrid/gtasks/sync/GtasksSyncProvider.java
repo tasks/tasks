@@ -294,7 +294,7 @@ public class GtasksSyncProvider extends SyncProvider<GtasksTaskContainer> {
             String remoteSibling = gtasksMetadataService.getRemoteSiblingId(listId, t.gtaskMetadata);
 
             MoveRequest move = new MoveRequest(taskService, toMove, listId, remoteParent, remoteSibling);
-            move.executePush();
+            move.push();
         }
     }
 
@@ -435,7 +435,7 @@ public class GtasksSyncProvider extends SyncProvider<GtasksTaskContainer> {
         CreateRequest createRequest = new CreateRequest(taskService, listId, createdTask, local.parentId, local.priorSiblingId);
         //updateTaskHelper(local, null, createRequest);
         localPropertiesToModel(local, null, createRequest.getToPush());
-        com.google.api.services.tasks.model.Task createResult = createRequest.executePush();
+        com.google.api.services.tasks.model.Task createResult = createRequest.push();
         createdWithoutId.add(local);
         createdWithoutOrder.add(local);
         String newIdTask = createResult.getId();
@@ -499,11 +499,11 @@ public class GtasksSyncProvider extends SyncProvider<GtasksTaskContainer> {
                                 Log.e("gtasks-debug", "ACTION: move(1) - " + newIdTask + ", " + local.parentId + ", " + local.priorSiblingId);
                             //This case basically defaults to whatever local settings are. Future versions could try and merge better
                             MoveRequest moveRequest = new MoveRequest(taskService, newIdTask, idList, local.parentId, local.priorSiblingId);
-                            moveRequest.executePush();
+                            moveRequest.push();
 
                         }
                         if (request instanceof UpdateRequest) {
-                            request.executePush();
+                            request.push();
                         }
 
                         //Strategy--delete, migrate properties, recreate, update local AND remote ids; happens in MoveListRequest
@@ -513,7 +513,7 @@ public class GtasksSyncProvider extends SyncProvider<GtasksTaskContainer> {
                                 Log.e("gtasks-debug", "ACTION: moveTask(5), " + newIdTask + ", " + idList + " to " +
                                     remote.gtaskMetadata.getValue(GtasksMetadata.LIST_ID));
                             MoveListRequest moveList = new MoveListRequest(taskService, newIdTask, remote.gtaskMetadata.getValue(GtasksMetadata.LIST_ID), idList, null);
-                            com.google.api.services.tasks.model.Task result = moveList.executePush();
+                            com.google.api.services.tasks.model.Task result = moveList.push();
                             local.gtaskMetadata.setValue(GtasksMetadata.ID, result.getId());
                             remote.gtaskMetadata.setValue(GtasksMetadata.ID, result.getId());
                         }

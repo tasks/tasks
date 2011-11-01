@@ -41,5 +41,16 @@ public abstract class PushRequest {
         this.service = service;
     }
 
-    public abstract Task executePush() throws IOException;
+    public Task push() throws IOException {
+        try {
+            return executePush();
+        } catch (IOException e) {
+            recover();
+            return executePush();
+        }
+    }
+
+    protected abstract Task executePush() throws IOException;
+
+    protected abstract void recover();
 }
