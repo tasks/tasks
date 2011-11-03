@@ -389,10 +389,18 @@ public class EditPeopleControlSet implements TaskEditControlSet {
         boolean dirty = false;
         try {
             JSONObject userJson = null;
-            if(assignedCustom.getVisibility() == View.VISIBLE)
+            TextView assignedView = null;
+            if(assignedCustom.getVisibility() == View.VISIBLE) {
                 userJson = PeopleContainer.createUserJson(assignedCustom);
-            else if(assignedSpinner.getSelectedItem() != null)
+                assignedView = assignedCustom;
+            } else if(assignedSpinner.getSelectedItem() != null) {
                 userJson = ((AssignedToUser) assignedSpinner.getSelectedItem()).user;
+            }
+
+            if (userJson != null && userJson.optString("email").indexOf('@') == -1) {
+                throw new ParseSharedException(assignedView,
+                        activity.getString(R.string.actfm_EPA_invalid_email, userJson.optString("email")));
+            }
 
             if(userJson == null || userJson.optLong("id", -1) == 0) {
                 dirty = task.getValue(Task.USER_ID) == 0L ? dirty : true;
@@ -446,8 +454,10 @@ public class EditPeopleControlSet implements TaskEditControlSet {
         } catch (JSONException e) {
             exceptionService.displayAndReportError(activity, "save-people", e);
         } catch (ParseSharedException e) {
-            e.view.setTextColor(Color.RED);
-            e.view.requestFocus();
+            if(e.view != null) {
+                e.view.setTextColor(Color.RED);
+                e.view.requestFocus();
+            }
             DialogUtilities.okDialog(activity, e.message, null);
         }
         return false;
@@ -613,7 +623,11 @@ public class EditPeopleControlSet implements TaskEditControlSet {
                 values.add(task.getValue(Task.USER_ID));
             else {
                 JSONObject user = new JSONObject(task.getValue(Task.USER));
-                values.add(user.getString("email"));
+                String userEmail = user.getString("email");
+                if (userEmail.indexOf('@') == -1)
+                    values.add("");
+                else
+                    values.add(user.getString("email"));
             }
         }
 

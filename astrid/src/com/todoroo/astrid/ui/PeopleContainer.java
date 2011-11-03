@@ -191,6 +191,11 @@ public class PeopleContainer extends LinearLayout {
         }
     }
 
+    /**
+     * Warning: user json may not have a valid email address.
+     * @param textView
+     * @return
+     */
     @SuppressWarnings("nls")
     public static JSONObject createUserJson(TextView textView) {
         if(textView.isEnabled() == false)
