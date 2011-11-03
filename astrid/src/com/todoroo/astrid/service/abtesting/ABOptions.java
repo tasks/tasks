@@ -4,8 +4,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-import com.todoroo.astrid.service.StatisticsConstants;
-
 /**
  * Helper class to define options with their probabilities and descriptions
  * @author Sam Bosley <sam@astrid.com>
@@ -168,29 +166,7 @@ public class ABOptions {
     }
 
     private void initialize() { // Set up
-        addOption(AB_OPTION_FIRST_ACTIVITY, AB_OPTION_FIRST_ACTIVITY_PROBS,
-                AB_OPTION_FIRST_ACTIVITY_DESCRIPTIONS, AB_OPTION_FIRST_ACTIVITY_RELEVANT_EVENTS);
-
-        addOption(AB_OPTION_WELCOME_LOGIN, AB_OPTION_WELCOME_LOGIN_PROBS,
-                AB_OPTION_WELCOME_LOGIN_DESCRIPTIONS, AB_OPTION_WELCOME_LOGIN_RELEVANT_EVENTS);
+        //Calls to addOption go here
     }
 
-
-    public static final String AB_OPTION_FIRST_ACTIVITY = "ab_first_activity";
-    private static final int[] AB_OPTION_FIRST_ACTIVITY_PROBS = { 9, 1 };
-    private static final String[] AB_OPTION_FIRST_ACTIVITY_DESCRIPTIONS = { "ab-show-tasks-first", "ab-show-lists-first" };
-    private static final String[] AB_OPTION_FIRST_ACTIVITY_RELEVANT_EVENTS = { StatisticsConstants.CREATE_TASK,
-                                                                         StatisticsConstants.TASK_CREATED_TASKLIST,
-                                                                         StatisticsConstants.USER_FIRST_TASK,
-                                                                         StatisticsConstants.ACTFM_LIST_SHARED,
-                                                                         StatisticsConstants.ACTFM_NEW_USER };//*/
-
-    public static final String AB_OPTION_WELCOME_LOGIN = "ab_welcome_login";
-    private static final int[] AB_OPTION_WELCOME_LOGIN_PROBS = { 9, 1 };
-    private static final String[] AB_OPTION_WELCOME_LOGIN_DESCRIPTIONS = { "ab-welcome-login-show", "ab-welcome-login-skip" };
-    private static final String[] AB_OPTION_WELCOME_LOGIN_RELEVANT_EVENTS = { StatisticsConstants.CREATE_TASK,
-                                                                        StatisticsConstants.TASK_CREATED_TASKLIST,
-                                                                        StatisticsConstants.USER_FIRST_TASK,
-                                                                        StatisticsConstants.ACTFM_LIST_SHARED,
-                                                                        StatisticsConstants.ACTFM_NEW_USER };//*/
 }

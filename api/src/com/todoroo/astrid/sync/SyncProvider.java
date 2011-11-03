@@ -11,7 +11,6 @@ import java.util.HashMap;
 
 import android.app.Activity;
 import android.app.Notification;
-import android.app.Service;
 import android.content.Context;
 import android.widget.Toast;
 
@@ -162,7 +161,7 @@ public abstract class SyncProvider<TYPE extends SyncContainer> {
                 });
             }
             initiateManual((Activity)context);
-        } else if(context instanceof Service) {
+        } else if(context instanceof SyncBackgroundService) {
             // display notification
             final int notificationId = updateNotification(context, notification);
             final NotificationManager nm = new NotificationManager.AndroidNotificationManager(context);
@@ -175,6 +174,7 @@ public abstract class SyncProvider<TYPE extends SyncContainer> {
                         initiateBackground();
                     } finally {
                         nm.cancel(notificationId);
+                        ((SyncBackgroundService)context).stop();
                     }
                 }
             }).start();

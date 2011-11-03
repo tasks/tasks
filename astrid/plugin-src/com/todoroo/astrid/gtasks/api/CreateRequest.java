@@ -24,6 +24,12 @@ public class CreateRequest extends PushRequest {
         return service.createGtask(listId, toPush, parent, priorSiblingId);
     }
 
+    @Override
+    protected void recover() {
+        parent = null;
+        priorSiblingId = null;
+    }
+
     public String getParent() {
         return parent;
     }

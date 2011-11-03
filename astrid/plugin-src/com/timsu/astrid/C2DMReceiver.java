@@ -74,8 +74,8 @@ public class C2DMReceiver extends BroadcastReceiver {
             new Thread(new Runnable() {
                 @Override
                 public void run() {
-                    if(intent.hasExtra("web_update"))
-                        if (DateUtilities.now() - actFmPreferenceService.getLastSyncDate() > MIN_MILLIS_BETWEEN_FULL_SYNCS)
+                    if(intent.hasExtra("web_update") && actFmPreferenceService.isLoggedIn())
+                        if (DateUtilities.now() - actFmPreferenceService.getLastSyncDate() > MIN_MILLIS_BETWEEN_FULL_SYNCS && !actFmPreferenceService.isOngoing())
                             new ActFmSyncProvider().synchronize(ContextManager.getContext());
                         else
                             handleWebUpdate(intent);

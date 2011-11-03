@@ -467,9 +467,13 @@ public class FilterListActivity extends ExpandableListActivity {
                 } catch (IOException e) {
                     if (manual)
                         exceptionService.displayAndReportError(FilterListActivity.this, "refresh-tags-io", e);
+                    else
+                        exceptionService.reportError("refresh-tags-io", e);
                 } catch (JSONException e) {
                     if (manual)
                         exceptionService.displayAndReportError(FilterListActivity.this, "refresh-tags-json", e);
+                    else
+                        exceptionService.reportError("refresh-tags-io", e);
                 } finally {
                     if (manual)
                         DialogUtilities.dismissDialog(FilterListActivity.this, progressDialog);

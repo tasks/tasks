@@ -55,7 +55,6 @@ import com.todoroo.astrid.data.TagData;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.data.Update;
 import com.todoroo.astrid.service.MetadataService;
-import com.todoroo.astrid.service.StartupService;
 import com.todoroo.astrid.service.StatisticsConstants;
 import com.todoroo.astrid.service.StatisticsService;
 import com.todoroo.astrid.service.TagDataService;
@@ -119,6 +118,8 @@ public final class ActFmSyncService {
             public void onModelUpdated(final Task model) {
                 if(Flags.checkAndClear(Flags.ACTFM_SUPPRESS_SYNC))
                     return;
+                if (actFmPreferenceService.isOngoing())
+                    return;
                 final ContentValues setValues = model.getSetValues();
                 if(setValues == null || !checkForToken() || setValues.containsKey(RemoteModel.REMOTE_ID_PROPERTY_NAME))
                     return;
@@ -145,6 +146,8 @@ public final class ActFmSyncService {
             public void onModelUpdated(final Update model) {
                 if(Flags.checkAndClear(Flags.ACTFM_SUPPRESS_SYNC))
                     return;
+                if (actFmPreferenceService.isOngoing())
+                    return;
                 final ContentValues setValues = model.getSetValues();
                 if(setValues == null || !checkForToken() || model.getValue(Update.REMOTE_ID) > 0)
                     return;
@@ -162,6 +165,8 @@ public final class ActFmSyncService {
             @Override
             public void onModelUpdated(final TagData model) {
                 if(Flags.checkAndClear(Flags.ACTFM_SUPPRESS_SYNC))
+                    return;
+                if (actFmPreferenceService.isOngoing())
                     return;
                 final ContentValues setValues = model.getSetValues();
                 if(setValues == null || !checkForToken() || setValues.containsKey(RemoteModel.REMOTE_ID_PROPERTY_NAME))
@@ -276,9 +281,9 @@ public final class ActFmSyncService {
      */
     public void pushTaskOnSave(Task task, ContentValues values) {
         long remoteId;
-        if(task.containsValue(Task.REMOTE_ID))
+        if(task.containsValue(Task.REMOTE_ID)) {
             remoteId = task.getValue(Task.REMOTE_ID);
-        else {
+        } else {
             Task taskForRemote = taskService.fetchById(task.getId(), Task.REMOTE_ID);
             if(taskForRemote == null)
                 return;
@@ -292,8 +297,13 @@ public final class ActFmSyncService {
         if(newlyCreated) {
             if(task.getValue(Task.TITLE).length() == 0)
                 return;
-            if(task.getId() <= StartupService.INTRO_TASK_SIZE)
-                return;
+            for(int taskTitle : new int[] { R.string.intro_task_1_summary,
+                    R.string.intro_task_2_summary, R.string.intro_task_3_summary }) {
+                String title = ContextManager.getString(taskTitle);
+                if(task.getValue(Task.TITLE).equals(title))
+                    return;
+            }
+            values = task.getMergedValues();
         }
 
         if(values.containsKey(Task.TITLE.name)) {

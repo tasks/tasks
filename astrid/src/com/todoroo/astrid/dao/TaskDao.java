@@ -169,7 +169,6 @@ public class TaskDao extends DatabaseDao<Task> {
      */
     public boolean save(Task task) {
         boolean saveSuccessful;
-
         if (task.getId() == Task.NO_ID) {
             saveSuccessful = createNew(task);
         } else {

@@ -34,6 +34,7 @@ import android.content.IntentFilter;
 import android.content.res.Resources;
 import android.os.Bundle;
 import android.speech.RecognizerIntent;
+import android.text.TextUtils;
 import android.text.format.DateUtils;
 import android.util.Log;
 import android.view.KeyEvent;
@@ -432,6 +433,7 @@ public final class TaskEditActivity extends TabActivity {
         database.openForReading();
         if(idParam > -1L) {
             model = taskService.fetchById(idParam, Task.PROPERTIES);
+            model.clearValue(Task.REMOTE_ID); // Having this can screw up autosync
         }
 
         // not found by id or was never passed an id
@@ -506,8 +508,10 @@ public final class TaskEditActivity extends TabActivity {
         if(!onPause && peopleControlSet != null && !peopleControlSet.saveSharingSettings(processedToast))
             return;
 
-        if (!onPause) // Saving during on pause could cause a double finish
+        if (!onPause) { // Saving during on pause could cause a double finish
+            shouldSaveState = false;
             finish();
+        }
     }
 
     @Override
@@ -599,7 +603,7 @@ public final class TaskEditActivity extends TabActivity {
         shouldSaveState = false;
 
         // abandon editing in this case
-        if(title.getText().length() == 0) {
+        if(title.getText().length() == 0 || TextUtils.isEmpty(model.getValue(Task.TITLE))) {
             if(isNewTask)
                 taskService.delete(model);
         }

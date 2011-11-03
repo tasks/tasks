@@ -1,5 +1,7 @@
 package com.todoroo.astrid.sync;
 
+import java.util.concurrent.atomic.AtomicBoolean;
+
 import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.app.Service;
@@ -45,12 +47,15 @@ abstract public class SyncBackgroundService extends Service {
         DependencyInjectionService.getInstance().inject(this);
     }
 
+    private final AtomicBoolean started = new AtomicBoolean(false);
+
     /** Receive the alarm - start the synchronize service! */
     @Override
     public void onStart(Intent intent, int startId) {
         try {
-            if(intent != null)
+            if(intent != null && !started.getAndSet(true)) {
                 startSynchronization(this);
+            }
         } catch (Exception e) {
             exceptionService.reportError(getSyncUtilities().getIdentifier() + "-bg-sync", e); //$NON-NLS-1$
         }
@@ -67,13 +72,16 @@ abstract public class SyncBackgroundService extends Service {
             return;
 
         getSyncProvider().synchronize(context);
-
-        stopSelf();
     }
 
     @Override
     public IBinder onBind(Intent intent) {
         return null;
+    }
+
+    public synchronized void stop() {
+        started.set(false);
+        stopSelf();
     }
 
     // --- alarm management

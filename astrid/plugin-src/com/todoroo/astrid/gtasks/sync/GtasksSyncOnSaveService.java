@@ -292,7 +292,7 @@ public final class GtasksSyncOnSaveService {
         }
 
         MoveRequest move = new MoveRequest(gtasksService, taskId, listId, parent, priorSibling);
-        move.executePush();
+        move.push();
     }
 
     private boolean syncOnSaveEnabled() {

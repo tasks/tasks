@@ -24,6 +24,7 @@ import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.MalformedURLException;
 import java.security.NoSuchAlgorithmException;
+import java.util.Random;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicReference;
 
@@ -63,6 +64,7 @@ import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.ContextManager;
 import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.andlib.service.ExceptionService;
+import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.andlib.utility.DialogUtilities;
 import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.astrid.actfm.sync.ActFmInvoker;
@@ -91,6 +93,7 @@ public class ActFmLoginActivity extends Activity implements AuthListener {
     @Autowired
     protected ActFmPreferenceService actFmPreferenceService;
     private final ActFmInvoker actFmInvoker = new ActFmInvoker();
+    private Random rand;
 
     private Facebook facebook;
     private AsyncFacebookRunner facebookRunner;
@@ -133,6 +136,8 @@ public class ActFmLoginActivity extends Activity implements AuthListener {
 
         setContentView(getContentViewResource());
         setTitle(getTitleResource());
+
+        rand = new Random(DateUtilities.now());
 
         noSync = getIntent().getBooleanExtra(EXTRA_DO_NOT_SYNC, false);
 
@@ -233,6 +238,7 @@ public class ActFmLoginActivity extends Activity implements AuthListener {
                     isNew.set(!isNew.get());
                     int nameIndex = body.indexOfChild(name);
                     int visibility = isNew.get() ? View.VISIBLE : View.GONE;
+                    int passwordVisibility = isNew.get() ? View.GONE : View.VISIBLE;
                     toggleNew.setText(isNew.get() ? R.string.actfm_ALA_pw_returning
                             : R.string.actfm_ALA_pw_new);
                     dialog.get().setTitle(
@@ -240,6 +246,12 @@ public class ActFmLoginActivity extends Activity implements AuthListener {
                                     : R.string.actfm_ALA_login_title);
                     body.getChildAt(nameIndex - 1).setVisibility(visibility);
                     body.getChildAt(nameIndex).setVisibility(visibility);
+
+                    EditText password = (EditText) body.getChildAt(nameIndex + 4);
+                    String passwordText = isNew.get() ? generateRandomPassword() : ""; //$NON-NLS-1$
+                    password.setText(passwordText);
+                    body.getChildAt(nameIndex + 3).setVisibility(passwordVisibility);
+                    body.getChildAt(nameIndex + 4).setVisibility(passwordVisibility);
                 }
             });
             toggleNew.setText(R.string.actfm_ALA_pw_returning);
@@ -258,6 +270,10 @@ public class ActFmLoginActivity extends Activity implements AuthListener {
             final EditText password = addEditField(body,
                     R.string.actfm_ALA_password_label);
             password.setTransformationMethod(new PasswordTransformationMethod());
+
+            password.setText(generateRandomPassword());
+            body.getChildAt(body.indexOfChild(password) - 1).setVisibility(View.GONE);
+            password.setVisibility(View.GONE);
 
             dialog.set(new AlertDialog.Builder(ActFmLoginActivity.this).setView(
                     body).setIcon(R.drawable.icon_32).setTitle(
@@ -281,6 +297,35 @@ public class ActFmLoginActivity extends Activity implements AuthListener {
             dialog.get().setOwnerActivity(ActFmLoginActivity.this);
         }
     };
+
+    private String generateRandomPassword() {
+        String acceptable = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890!@#$%^&*(),."; //$NON-NLS-1$
+        char[] chars = new char[8];
+        char last = 'a';
+        for (int i = 0; i < chars.length; i++) {
+            char r = acceptable.charAt(rand.nextInt(acceptable.length()));
+            while (checkSimilar(last, r))
+                r = acceptable.charAt(rand.nextInt(acceptable.length()));
+            last = r;
+            chars[i] = r;
+        }
+        return new String(chars);
+    }
+
+    @SuppressWarnings("nls")
+    private boolean checkSimilar(char last, char check) {
+        String iSimilar = "ijl1!";
+        String oSimilar = "oO0";
+        String puncSimilar = ".,";
+
+        boolean match =  (iSimilar.indexOf(last) > 0 && iSimilar.indexOf(check) > 0)
+                        || (oSimilar.indexOf(last) > 0 && oSimilar.indexOf(check) > 0)
+                        || (puncSimilar.indexOf(last) > 0 && puncSimilar.indexOf(check) > 0);
+
+        if (match)
+            return false;
+        return true;
+    }
 
     private EditText addEditField(LinearLayout body, int hint) {
         TextView label = new TextView(ActFmLoginActivity.this);
