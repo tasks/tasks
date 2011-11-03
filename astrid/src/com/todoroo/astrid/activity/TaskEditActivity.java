@@ -35,7 +35,6 @@ import android.content.res.Resources;
 import android.os.Bundle;
 import android.speech.RecognizerIntent;
 import android.text.TextUtils;
-import android.text.format.DateUtils;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
@@ -590,7 +589,7 @@ public final class TaskEditActivity extends TabActivity {
         if (due != 0) {
             stringResource = R.string.TEA_onTaskSave_due;
             CharSequence formattedDate =
-                DateUtils.getRelativeTimeSpanString(due);
+                DateUtilities.getRelativeDay(this, due);
             toastMessage = getString(stringResource, formattedDate);
         } else {
             toastMessage = getString(R.string.TEA_onTaskSave_notDue);
