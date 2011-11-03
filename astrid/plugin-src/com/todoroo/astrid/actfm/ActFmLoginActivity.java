@@ -301,11 +301,30 @@ public class ActFmLoginActivity extends Activity implements AuthListener {
     private String generateRandomPassword() {
         String acceptable = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890!@#$%^&*(),."; //$NON-NLS-1$
         char[] chars = new char[8];
+        char last = 'a';
         for (int i = 0; i < chars.length; i++) {
             char r = acceptable.charAt(rand.nextInt(acceptable.length()));
+            while (checkSimilar(last, r))
+                r = acceptable.charAt(rand.nextInt(acceptable.length()));
+            last = r;
             chars[i] = r;
         }
         return new String(chars);
+    }
+
+    @SuppressWarnings("nls")
+    private boolean checkSimilar(char last, char check) {
+        String iSimilar = "ijl1!";
+        String oSimilar = "oO0";
+        String puncSimilar = ".,";
+
+        boolean match =  (iSimilar.indexOf(last) > 0 && iSimilar.indexOf(check) > 0)
+                        || (oSimilar.indexOf(last) > 0 && oSimilar.indexOf(check) > 0)
+                        || (puncSimilar.indexOf(last) > 0 && puncSimilar.indexOf(check) > 0);
+
+        if (match)
+            return false;
+        return true;
     }
 
     private EditText addEditField(LinearLayout body, int hint) {

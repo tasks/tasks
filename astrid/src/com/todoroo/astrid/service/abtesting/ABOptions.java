@@ -169,14 +169,4 @@ public class ABOptions {
         //Calls to addOption go here
     }
 
-//    Declare AB options like this:
-//    public static final String AB_OPTION_FIRST_ACTIVITY = "ab_first_activity";
-//    private static final int[] AB_OPTION_FIRST_ACTIVITY_PROBS = { 9, 1 };
-//    private static final String[] AB_OPTION_FIRST_ACTIVITY_DESCRIPTIONS = { "ab-show-tasks-first", "ab-show-lists-first" };
-//    private static final String[] AB_OPTION_FIRST_ACTIVITY_RELEVANT_EVENTS = { StatisticsConstants.CREATE_TASK,
-//                                                                         StatisticsConstants.TASK_CREATED_TASKLIST,
-//                                                                         StatisticsConstants.USER_FIRST_TASK,
-//                                                                         StatisticsConstants.ACTFM_LIST_SHARED,
-//                                                                         StatisticsConstants.ACTFM_NEW_USER };//*/
-
 }
