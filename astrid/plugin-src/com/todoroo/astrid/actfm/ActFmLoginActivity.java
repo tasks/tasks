@@ -304,7 +304,7 @@ public class ActFmLoginActivity extends Activity implements AuthListener {
         char last = 'a';
         for (int i = 0; i < chars.length; i++) {
             char r = acceptable.charAt(rand.nextInt(acceptable.length()));
-            while (checkSimilar(last, r))
+            while (!checkSimilar(last, r))
                 r = acceptable.charAt(rand.nextInt(acceptable.length()));
             last = r;
             chars[i] = r;
