@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "POT-Creation-Date: 2011-09-02 21:13-0700\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Last-Translator: LUKAS HAVELKA <KRODUK.LUKE@GMAIL.COM>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -3372,39 +3372,39 @@ msgid "disable"
 msgstr ""
 
 #: translations/strings.xml:2271(item)
-msgid "every fifteen minutes"
+msgid "každých 15 minut"
 msgstr ""
 
 #: translations/strings.xml:2272(item)
-msgid "every thirty minutes"
+msgid "každých 30 minut"
 msgstr ""
 
 #: translations/strings.xml:2273(item)
-msgid "every hour"
+msgid "každou hodinu"
 msgstr ""
 
 #: translations/strings.xml:2274(item)
-msgid "every three hours"
+msgid "každé 3 hodiny"
 msgstr ""
 
 #: translations/strings.xml:2275(item)
-msgid "every six hours"
+msgid "každých 6 hodin"
 msgstr ""
 
 #: translations/strings.xml:2276(item)
-msgid "every twelve hours"
+msgid "každých 12 hodin"
 msgstr ""
 
 #: translations/strings.xml:2277(item)
-msgid "every day"
+msgid "každý den"
 msgstr ""
 
 #: translations/strings.xml:2278(item)
-msgid "every three days"
+msgid "každé 3 dny"
 msgstr ""
 
 #: translations/strings.xml:2279(item)
-msgid "every week"
+msgid "každý víkend"
 msgstr ""
 
 #: translations/strings.xml:2289( name="PPW_widget_42_label")
@@ -3420,15 +3420,15 @@ msgid "Astrid 4x4"
 msgstr ""
 
 #: translations/strings.xml:2293( name="PPW_configure_title")
-msgid "Configure Widget"
+msgid "Nastav Widget"
 msgstr ""
 
 #: translations/strings.xml:2295( name="PPW_color")
-msgid "Widget color"
+msgid "Barva Widgetu"
 msgstr ""
 
 #: translations/strings.xml:2296( name="PPW_enable_calendar")
-msgid "Show calendar events"
+msgid "Ukaž události v kalendáři"
 msgstr ""
 
 #: translations/strings.xml:2297( name="PPW_disable_encouragements")
@@ -3449,7 +3449,7 @@ msgstr ""
 
 #: translations/strings.xml:2303( name="PPW_old_astrid_notice")
 msgid ""
-"You need at least version 3.6 of Astrid in order to use this widget. Sorry!"
+"Potřebujete Astrid minimálně ve verzi 3.6 k použití tohoto widgetu. Omlouváme se!"
 msgstr ""
 
 #: translations/strings.xml:2308(item)
@@ -3465,27 +3465,27 @@ msgid "Gosh, you are looking suave today!"
 msgstr ""
 
 #: translations/strings.xml:2311(item)
-msgid "Do something great today!"
+msgid "Udělej dneska něco skvělýho!"
 msgstr ""
 
 #: translations/strings.xml:2312(item)
-msgid "Make me proud today!"
+msgid "Udělej mě pyšným!"
 msgstr ""
 
 #: translations/strings.xml:2313(item)
-msgid "How are you doing today?"
+msgid "Jak se dneska máš?"
 msgstr ""
 
 #: translations/strings.xml:2318(item)
-msgid "Good morning!"
+msgid "Dobré ráno!"
 msgstr ""
 
 #: translations/strings.xml:2319(item)
-msgid "Good afternoon!"
+msgid "Dobré odpoledne!"
 msgstr ""
 
 #: translations/strings.xml:2320(item)
-msgid "Good evening!"
+msgid "Dobrý večer!"
 msgstr ""
 
 #: translations/strings.xml:2321(item)
@@ -3493,49 +3493,49 @@ msgid "Late night?"
 msgstr ""
 
 #: translations/strings.xml:2322(item)
-msgid "It's early, get something done!"
+msgid "Je brzo, udělej ještě něco!"
 msgstr ""
 
 #: translations/strings.xml:2323(item)
-msgid "Afternoon tea, perhaps?"
+msgid "Odpolední čaj, možná?"
 msgstr ""
 
 #: translations/strings.xml:2324(item)
-msgid "Enjoy the evening!"
+msgid "Užij si večer!"
 msgstr ""
 
 #: translations/strings.xml:2325(item)
-msgid "Sleep is good for you, you know!"
+msgid "Spánek je pro tebe dobrej!"
 msgstr ""
 
 #: translations/strings.xml:2330(item)
-msgid "You've already completed %d tasks!"
+msgid "Už si splnil %d úkolů!"
 msgstr ""
 
 #: translations/strings.xml:2331(item)
-msgid "Score in life: %d tasks completed"
+msgid "Životní skóre: %d úkolů splněno"
 msgstr ""
 
 #: translations/strings.xml:2332(item)
-msgid "Smile! You've already finished %d tasks!"
+msgid "Usměj se! You've already finished %d tasks!"
 msgstr ""
 
 #: translations/strings.xml:2334( name="PPW_encouragements_none_completed")
-msgid "You haven't completed any tasks yet! Shall we?"
+msgid "Ještě si nesplnil žádný úkol! Shall we?"
 msgstr ""
 
 #: translations/strings.xml:2339(item)
-msgid "Black"
+msgid "Černá"
 msgstr ""
 
 #: translations/strings.xml:2340(item)
-msgid "White"
+msgid "Bílá"
 msgstr ""
 
 #: translations/strings.xml:2341(item)
-msgid "Blue"
+msgid "Modrá"
 msgstr ""
 
 #: translations/strings.xml:2342(item)
-msgid "Translucent"
+msgid "Průhledná"
 msgstr ""
