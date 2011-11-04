@@ -20,7 +20,6 @@
 package com.todoroo.astrid.gtasks.auth;
 
 import java.util.ArrayList;
-import java.util.Locale;
 import java.util.concurrent.TimeUnit;
 
 import android.accounts.Account;
@@ -83,6 +82,7 @@ public class GtasksLoginActivity extends ListActivity {
         ContextManager.setContext(this);
 
         setTitle(R.string.gtasks_GLA_title);
+        getListView().setBackgroundColor(getResources().getColor(android.R.color.background_dark));
         accountManager = new GoogleAccountManager(this);
         Account[] accounts = accountManager.getAccounts();
         ArrayList<String> accountNames = new ArrayList<String>();
