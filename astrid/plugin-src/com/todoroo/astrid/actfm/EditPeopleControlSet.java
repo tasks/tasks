@@ -435,17 +435,18 @@ public class EditPeopleControlSet implements TaskEditControlSet {
 
             JSONObject sharedWith = parseSharedWithAndTags();
             dirty = dirty || sharedWith.has("p");
+            if(dirty && !actFmPreferenceService.isLoggedIn()) {
+                activity.startActivityForResult(new Intent(activity, ActFmLoginActivity.class),
+                        loginRequestCode);
+                return false;
+            }
+
             if(!TextUtils.isEmpty(task.getValue(Task.SHARED_WITH)) || sharedWith.length() != 0)
                 task.setValue(Task.SHARED_WITH, sharedWith.toString());
 
             if(dirty)
                 taskService.save(task);
 
-            if(dirty && !actFmPreferenceService.isLoggedIn()) {
-                activity.startActivityForResult(new Intent(activity, ActFmLoginActivity.class),
-                        loginRequestCode);
-                return false;
-            }
 
             if(dirty)
                 shareTask(sharedWith);
