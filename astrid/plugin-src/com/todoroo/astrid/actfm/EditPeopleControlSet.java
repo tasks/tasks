@@ -397,8 +397,10 @@ public class EditPeopleControlSet implements TaskEditControlSet {
                 userJson = ((AssignedToUser) assignedSpinner.getSelectedItem()).user;
             }
 
-            if (userJson != null && userJson.optString("email").indexOf('@') == -1) {
-                throw new ParseSharedException(assignedView,
+            if (userJson != null) {
+                String email = userJson.optString("email");
+                if (!TextUtils.isEmpty(email) && email.indexOf('@') == -1)
+                    throw new ParseSharedException(assignedView,
                         activity.getString(R.string.actfm_EPA_invalid_email, userJson.optString("email")));
             }
 

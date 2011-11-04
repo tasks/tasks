@@ -25,6 +25,7 @@ import com.todoroo.astrid.producteev.ProducteevUtilities;
 public class ImportanceControlSet implements TaskEditControlSet {
     private final List<CompoundButton> buttons = new LinkedList<CompoundButton>();
     private final int[] colors;
+    private final int grayColor;
 
     public ImportanceControlSet(Activity activity, int containerId) {
         LinearLayout layout = (LinearLayout)activity.findViewById(containerId);
@@ -32,8 +33,11 @@ public class ImportanceControlSet implements TaskEditControlSet {
 
         int min = Task.IMPORTANCE_MOST;
         int max = Task.IMPORTANCE_LEAST;
+        grayColor = colors[max];
         if(ProducteevUtilities.INSTANCE.isLoggedIn() || OpencrxCoreUtils.INSTANCE.isLoggedIn())
             max = 5;
+        else
+            colors[max] = activity.getResources().getColor(android.R.color.white);
 
         for(int i = min; i <= max; i++) {
             final ToggleButton button = new ToggleButton(activity);
@@ -44,7 +48,9 @@ public class ImportanceControlSet implements TaskEditControlSet {
             if(ProducteevUtilities.INSTANCE.isLoggedIn() || OpencrxCoreUtils.INSTANCE.isLoggedIn())
                 label.append(5 - i).append("\n\u2605"); //$NON-NLS-1$
             else {
-                for(int j = Task.IMPORTANCE_LEAST; j >= i; j--)
+                if (i == max)
+                    label.append('\u25CB');
+                for(int j = Task.IMPORTANCE_LEAST - 1; j >= i; j--)
                     label.append('!');
             }
 
@@ -69,10 +75,13 @@ public class ImportanceControlSet implements TaskEditControlSet {
             if(b.getTag() == i) {
                 b.setTextSize(24);
                 b.setChecked(true);
+                if (i.intValue() == Task.IMPORTANCE_LEAST)
+                    b.setTextColor(grayColor);
                 b.setBackgroundResource(R.drawable.btn_selected);
             } else {
                 b.setTextSize(16);
                 b.setChecked(false);
+                b.setTextColor(colors[(Integer)b.getTag()]);
                 b.setBackgroundResource(android.R.drawable.btn_default);
             }
         }
