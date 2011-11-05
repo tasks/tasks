@@ -1185,6 +1185,9 @@ public class TaskListActivity extends ListActivity implements OnScrollListener,
             clone.setValue(Task.CREATION_DATE, DateUtilities.now());
             clone.setValue(Task.COMPLETION_DATE, 0L);
             clone.setValue(Task.DELETION_DATE, 0L);
+
+            clone.setValue(Task.CALENDAR_URI, ""); //$NON-NLS-1$
+            GCalHelper.createTaskEventIfEnabled(clone);
             taskService.save(clone);
 
             intent = new Intent(TaskListActivity.this, TaskEditActivity.class);

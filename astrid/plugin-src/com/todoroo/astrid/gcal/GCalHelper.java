@@ -9,8 +9,10 @@ import android.net.Uri;
 import android.text.TextUtils;
 import android.util.Log;
 
+import com.timsu.astrid.R;
 import com.todoroo.andlib.service.ContextManager;
 import com.todoroo.andlib.utility.DateUtilities;
+import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.astrid.core.PluginServices;
 import com.todoroo.astrid.data.Task;
 
@@ -30,6 +32,16 @@ public class GCalHelper {
         }
 
         return uri;
+    }
+
+    public static void createTaskEventIfEnabled(Task t) {
+        boolean gcalCreateEventEnabled = Preferences.getStringValue(R.string.gcal_p_default) != null
+            && !Preferences.getStringValue(R.string.gcal_p_default).equals("-1"); //$NON-NLS-1$
+        if (gcalCreateEventEnabled) {
+            ContentResolver cr = ContextManager.getContext().getContentResolver();
+            Uri calendarUri = GCalHelper.createTaskEvent(t, cr, new ContentValues());
+            t.setValue(Task.CALENDAR_URI, calendarUri.toString());
+        }
     }
 
     public static Uri createTaskEvent(Task task, ContentResolver cr, ContentValues values) {
