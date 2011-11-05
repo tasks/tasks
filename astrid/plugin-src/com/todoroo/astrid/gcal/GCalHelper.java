@@ -40,7 +40,8 @@ public class GCalHelper {
         if (gcalCreateEventEnabled) {
             ContentResolver cr = ContextManager.getContext().getContentResolver();
             Uri calendarUri = GCalHelper.createTaskEvent(t, cr, new ContentValues());
-            t.setValue(Task.CALENDAR_URI, calendarUri.toString());
+            if (calendarUri != null)
+                t.setValue(Task.CALENDAR_URI, calendarUri.toString());
         }
     }
 
