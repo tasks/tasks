@@ -49,5 +49,19 @@
       <target name="release-custom" />
     </subant>
   </target>
+
+  <target name="debug">
+    <subant>
+      <fileset file="astrid/build.xml" />
+      <target name="debug" />
+    </subant>
+  <target>
+
+  <target name="install">
+    <subant>
+      <fileset file="astrid/build.xml" />
+      <target name="install" />
+    </subant>
+  <target>
 </project>
 
