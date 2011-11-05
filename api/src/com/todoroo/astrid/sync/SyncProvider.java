@@ -218,6 +218,18 @@ public abstract class SyncProvider<TYPE extends SyncContainer> {
         readRemotelyUpdated(data);
     }
 
+    @SuppressWarnings("nls")
+    protected String getFinalSyncStatus() {
+        if (getUtilities().getLastError() != null || getUtilities().getLastAttemptedSyncDate() != 0) {
+            if (getUtilities().getLastAttemptedSyncDate() == 0)
+                return "errors";
+            else
+                return "failed";
+        } else {
+            return "success";
+        }
+    }
+
     protected void readRemotelyUpdated(SyncData<TYPE> data) throws IOException {
         int length;
         // Rearrange remoteTasks so completed tasks get synchronized first.

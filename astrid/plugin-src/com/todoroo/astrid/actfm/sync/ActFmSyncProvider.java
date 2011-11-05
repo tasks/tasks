@@ -124,7 +124,7 @@ public class ActFmSyncProvider extends SyncProvider<ActFmTaskContainer> {
 
     protected void performSync() {
         actFmPreferenceService.recordSyncStart();
-        boolean syncSuccess = false;
+        String syncSuccess = "failed";
 
         try {
             int serverTime = Preferences.getInt(ActFmPreferenceService.PREF_SERVER_TIME, 0);
@@ -145,7 +145,7 @@ public class ActFmSyncProvider extends SyncProvider<ActFmTaskContainer> {
             Preferences.setInt(ActFmPreferenceService.PREF_SERVER_TIME, newServerTime);
             actFmPreferenceService.recordSuccessfulSync();
 
-            syncSuccess = true;
+            syncSuccess = getFinalSyncStatus();
             Intent broadcastIntent = new Intent(AstridApiConstants.BROADCAST_EVENT_REFRESH);
             ContextManager.getContext().sendBroadcast(broadcastIntent, AstridApiConstants.PERMISSION_READ);
 
@@ -155,7 +155,7 @@ public class ActFmSyncProvider extends SyncProvider<ActFmTaskContainer> {
             handleException("actfm-sync", e, false); //$NON-NLS-1$
         } finally {
             StatisticsService.reportEvent(StatisticsConstants.ACTFM_SYNC_FINISHED,
-                    "success", Boolean.toString(syncSuccess)); //$NON-NLS-1$
+                    "success", syncSuccess); //$NON-NLS-1$
         }
     }
 

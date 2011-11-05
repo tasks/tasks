@@ -159,7 +159,7 @@ public class GtasksSyncProvider extends SyncProvider<GtasksTaskContainer> {
     // ----------------------------------------------------------------------
 
     protected void performSync() {
-        boolean syncSuccess = false;
+        String syncSuccess = "failed";
         gtasksPreferenceService.recordSyncStart();
         if(Constants.DEBUG)
             Log.e("gtasks-debug", "- -------- SYNC STARTED");
@@ -196,14 +196,15 @@ public class GtasksSyncProvider extends SyncProvider<GtasksTaskContainer> {
             ContextManager.getContext().sendBroadcast(broadcastIntent, AstridApiConstants.PERMISSION_READ);
             if(Constants.DEBUG)
                 Log.e("gtasks-debug", "- ------ SYNC FINISHED");
-            syncSuccess = true;
+
+            syncSuccess = getFinalSyncStatus();
         } catch (IllegalStateException e) {
         	// occurs when application was closed
         } catch (IOException e) {
             handleException("gtasks-sync", e, true); //$NON-NLS-1$
         } finally {
             StatisticsService.reportEvent(StatisticsConstants.GTASKS_SYNC_FINISHED,
-                    "success", Boolean.toString(syncSuccess)); //$NON-NLS-1$
+                    "success", syncSuccess); //$NON-NLS-1$
         }
     }
 

@@ -180,7 +180,7 @@ public class ProducteevSyncProvider extends SyncProvider<ProducteevTaskContainer
 
     protected void performSync() {
         preferences.recordSyncStart();
-        boolean syncSuccess = false;
+        String syncSuccess = "failed";
 
         try {
             // load user information
@@ -245,14 +245,14 @@ public class ProducteevSyncProvider extends SyncProvider<ProducteevTaskContainer
             // notification/activities stuff
             processNotifications();
 
-            syncSuccess = true;
+            syncSuccess = getFinalSyncStatus();
         } catch (IllegalStateException e) {
         	// occurs when application was closed
         } catch (Exception e) {
             handleException("pdv-sync", e, true); //$NON-NLS-1$
         } finally {
             StatisticsService.reportEvent(StatisticsConstants.PDV_SYNC_FINISHED,
-                    "success", Boolean.toString(syncSuccess)); //$NON-NLS-1$
+                    "success", syncSuccess); //$NON-NLS-1$
         }
     }
 
