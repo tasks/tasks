@@ -185,6 +185,9 @@ public class ActFmInvoker {
             }
         });
 
+        String url = URL;
+        if (method.startsWith("/"))
+            url = url.replaceAll("/api.*", "");
         StringBuilder requestBuilder = new StringBuilder(URL).append(method).append('?');
         StringBuilder sigBuilder = new StringBuilder();
         for(Pair<String, Object> entry : params) {
