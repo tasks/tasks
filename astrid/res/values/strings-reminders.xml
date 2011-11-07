@@ -304,6 +304,9 @@
       <item>You can\'t just get by on your good looks. Let\'s get to it!</item>
       <item>Lovely weather for a job like this, isn\'t it?</item>
       <item>A spot of tea while you work on this?</item>
+      <item>If only you had already done this, then you could go outside and play.</item>
+      <item>It\’s time. You can’t put off the inevitable.</item>
+      <item>I die a little every time you ignore me.</item>
   </string-array>
 
   <string-array name="postpone_nags">
