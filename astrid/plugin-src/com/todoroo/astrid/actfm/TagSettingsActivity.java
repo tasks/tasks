@@ -163,13 +163,12 @@ public class TagSettingsActivity extends Activity {
             }
         }
 
-        if(newName.length() > 0 && oldName.length() == 0) {
-            tagDataService.save(tagData);
-            //setUpNewTag(newName);
-        }
-
         JSONArray members = tagMembers.toJSONArray();
+
         if(members.length() > 0 && !actFmPreferenceService.isLoggedIn()) {
+            if(newName.length() > 0 && oldName.length() == 0) {
+                tagDataService.save(tagData);
+            }
             startActivityForResult(new Intent(this, ActFmLoginActivity.class),
                         REQUEST_ACTFM_LOGIN);
             return;
