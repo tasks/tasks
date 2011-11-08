@@ -4,6 +4,7 @@
 package com.todoroo.astrid.gtasks;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicLong;
 import java.util.concurrent.atomic.AtomicReference;
@@ -72,6 +73,22 @@ public final class GtasksMetadataService extends SyncMetadataService<GtasksTaskC
     @Override
     public Criterion getMetadataWithRemoteId() {
         return GtasksMetadata.ID.neq(""); //$NON-NLS-1$
+    }
+
+    @Override
+    protected TodorooCursor<Task> filterLocallyUpdated(TodorooCursor<Task> tasks, long lastSyncDate) {
+        HashSet<Long> taskIds = new HashSet<Long>();
+        for(tasks.moveToFirst(); !tasks.isAfterLast(); tasks.moveToNext())
+            taskIds.add(tasks.get(Task.ID));
+
+        TodorooCursor<Metadata> metadata = metadataDao.query(Query.select(Metadata.TASK).where(
+                Criterion.and(MetadataCriteria.withKey(GtasksSyncMetadata.METADATA_KEY),
+                GtasksSyncMetadata.LAST_SYNC.lt(lastSyncDate))));
+        for(metadata.moveToFirst(); !metadata.isAfterLast(); metadata.moveToNext())
+            taskIds.remove(metadata.get(Metadata.TASK));
+
+        return taskDao.query(Query.select(Task.ID).where(
+                Task.ID.in(taskIds.toArray(new Long[taskIds.size()]))));
     }
 
     // --- list iterating helpers

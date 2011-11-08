@@ -21,6 +21,7 @@ import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.gtasks.GtasksMetadata;
 import com.todoroo.astrid.gtasks.GtasksMetadataService;
 import com.todoroo.astrid.gtasks.GtasksPreferenceService;
+import com.todoroo.astrid.gtasks.GtasksSyncMetadata;
 import com.todoroo.astrid.gtasks.GtasksTaskListUpdater;
 import com.todoroo.astrid.gtasks.api.GtasksApiUtilities;
 import com.todoroo.astrid.gtasks.api.GtasksService;
@@ -253,7 +254,7 @@ public final class GtasksSyncOnSaveService {
         }
 
         task.setValue(Task.MODIFICATION_DATE, DateUtilities.now());
-        task.setValue(Task.LAST_SYNC, DateUtilities.now());
+        GtasksSyncMetadata.set(metadataDao, task.getId(), GtasksSyncMetadata.LAST_SYNC, DateUtilities.now());
         Flags.set(Flags.GTASKS_SUPPRESS_SYNC);
         taskDao.saveExisting(task);
     }
