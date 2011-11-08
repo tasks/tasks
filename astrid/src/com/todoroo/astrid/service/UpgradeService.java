@@ -158,20 +158,23 @@ public final class UpgradeService {
         StringBuilder changeLog = new StringBuilder();
 
         // current message
-        if (from < V3_8_5) {
-            String[] base = new String[] {
-                    "Share lists and tasks with iPhone users!",
-                    "Better sync with Chrome App and Astrid.com",
-                    "All new reminders and nudges!",
-                    "Improvements to error recovery in Google Tasks sync",
-                    "Numerous bugs destroyed",
-                    "Have a spectacular day!",
-            };
-            ArrayList<String> stringList = new ArrayList<String>();
-            Collections.addAll(stringList, base);
+        if (from < V3_8_5 || true) {
+            String iPhoneAnnouncement = "The Astrid team is proud to announce that Astrid is now available for iPhone! ";
             if (!addOnService.hasPowerPack())
-                stringList.add(0, "Buy the Power Pack or get it free by sharing with friends!");
-            newVersionString(changeLog, "3.8.5 (11/08/11)", stringList.toArray(new String[stringList.size()]));
+                iPhoneAnnouncement += "To celebrate, <b>get the Astrid Power Pack for free when " +
+                    "you invite three or more new users</b> to join Astrid.com by " +
+                    "sharing a list or task with them";
+            else
+                iPhoneAnnouncement += "Make sure to let all of your friends know!";
+
+            newVersionString(changeLog, "3.8.5 (11/08/11)", new String[] {
+                     iPhoneAnnouncement,
+                    "Improvements to sync with Astrid's Google Chrome App and Astrid.com",
+                    "Improvements to error recovery in Google Tasks sync",
+                    "Improvements to Power Pack widget - voice and quick add of tasks",
+                    "Fixed duplicate task issues during sync with Astrid.com",
+                    "Fixed crashes that users have been experiencing",
+            });
         }
 
         if (from >= V3_8_4 && from < V3_8_4_3) {
@@ -341,7 +344,7 @@ public final class UpgradeService {
         if(changeLog.length() == 0)
             return;
 
-        changeLog.append("Go get 'em, tiger!</body></html>");
+        changeLog.append("Have a spectacular day!</body></html>");
         String changeLogHtml = "<html><body style='color: white'>" + changeLog;
 
         DialogUtilities.htmlDialog(context, changeLogHtml,
