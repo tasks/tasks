@@ -93,6 +93,9 @@ public class FilterAdapter extends BaseExpandableListAdapter {
     /** whether to skip Filters that launch intents instead of being real filters */
     private final boolean skipIntentFilters;
 
+    /** whether rows are selectable */
+    private final boolean selectable;
+
     // Previous solution involved a queue of filters and a filterSizeLoadingThread. The filterSizeLoadingThread had
     // a few problems: how to make sure that the thread is resumed when the controlling activity is resumed, and
     // how to make sure that the the filterQueue does not accumulate filters without being processed. I am replacing
@@ -105,6 +108,11 @@ public class FilterAdapter extends BaseExpandableListAdapter {
 
     public FilterAdapter(Activity activity, ExpandableListView listView,
             int rowLayout, boolean skipIntentFilters) {
+        this(activity, listView, rowLayout, skipIntentFilters, false);
+    }
+
+    public FilterAdapter(Activity activity, ExpandableListView listView,
+            int rowLayout, boolean skipIntentFilters, boolean selectable) {
         super();
 
         DependencyInjectionService.getInstance().inject(this);
@@ -114,6 +122,7 @@ public class FilterAdapter extends BaseExpandableListAdapter {
         this.listView = listView;
         this.layout = rowLayout;
         this.skipIntentFilters = skipIntentFilters;
+        this.selectable = selectable;
 
         inflater = (LayoutInflater) activity.getSystemService(
                 Context.LAYOUT_INFLATER_SERVICE);
@@ -127,6 +136,8 @@ public class FilterAdapter extends BaseExpandableListAdapter {
     }
 
     private void offerFilter(final Filter filter) {
+        if(selectable && selection == null)
+            setSelection(filter);
         filterExecutor.submit(new Runnable() {
             @Override
             public void run() {

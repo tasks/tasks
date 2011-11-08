@@ -68,7 +68,7 @@ abstract public class WidgetConfigActivity extends ExpandableListActivity {
 
         // set up ui
         adapter = new FilterAdapter(this, getExpandableListView(),
-                R.layout.filter_adapter_row, true);
+                R.layout.filter_adapter_row, true, true);
         setListAdapter(adapter);
 
         Button button = (Button)findViewById(R.id.ok);
