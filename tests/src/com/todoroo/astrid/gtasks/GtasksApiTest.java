@@ -60,6 +60,7 @@ public class GtasksApiTest extends DatabaseTestCase {
     }
 
     public void testTaskDateFormatting2() throws Exception {
+        if(bypassTests) return;
         Task newTask = new Task();
         String title = "Due date will change";
         newTask.setTitle(title);
