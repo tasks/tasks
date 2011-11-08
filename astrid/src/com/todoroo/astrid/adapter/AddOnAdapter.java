@@ -68,12 +68,10 @@ public class AddOnAdapter extends ArrayAdapter<AddOn> {
             viewHolder.free = (TextView) convertView.findViewById(R.id.free);
             viewHolder.title = (TextView) convertView.findViewById(R.id.title);
             viewHolder.description = (TextView) convertView.findViewById(R.id.description);
-            viewHolder.web = (ImageButton) convertView.findViewById(R.id.button_web);
             viewHolder.market = (ImageButton) convertView.findViewById(R.id.button_market);
             viewHolder.installedIcon = (ImageView) convertView.findViewById(R.id.check);
             convertView.setTag(viewHolder);
 
-            viewHolder.web.setOnClickListener(intentClickListener);
             viewHolder.market.setOnClickListener(intentClickListener);
 
         }
@@ -89,7 +87,6 @@ public class AddOnAdapter extends ArrayAdapter<AddOn> {
         public TextView free;
         public TextView title;
         public TextView description;
-        public ImageButton web;
         public ImageButton market;
         public ImageView installedIcon;
     }
@@ -113,21 +110,6 @@ public class AddOnAdapter extends ArrayAdapter<AddOn> {
         viewHolder.free.setVisibility(item.isFree() && !installed ? View.VISIBLE : View.GONE);
 
         // populate buttons
-        if(item.getWebPage() != null) {
-            viewHolder.web.setVisibility(View.VISIBLE);
-            Intent webPageIntent = new Intent(Intent.ACTION_VIEW,
-                    Uri.parse(item.getWebPage()));
-            viewHolder.web.setTag(new ButtonTag("web-" + item.getPackageName(), //$NON-NLS-1$
-                    webPageIntent));
-            Drawable icon = getIntentIcon(webPageIntent);
-            if(icon == null)
-                viewHolder.web.setImageResource(
-                        android.R.drawable.presence_online);
-            else
-                viewHolder.web.setImageDrawable(icon);
-        } else {
-            viewHolder.web.setVisibility(View.GONE);
-        }
 
         if(installed) {
             viewHolder.market.setVisibility(View.GONE);

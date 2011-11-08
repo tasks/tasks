@@ -65,12 +65,6 @@
     </LinearLayout>
           
     <!-- buttons -->
-    
-    <ImageButton android:id="@+id/button_web"
-        android:layout_width="48dip"
-        android:layout_height="48dip"
-        android:scaleType="fitCenter"
-        android:layout_gravity="center" />
         
     <ImageButton android:id="@+id/button_market"
         android:layout_width="48dip"
