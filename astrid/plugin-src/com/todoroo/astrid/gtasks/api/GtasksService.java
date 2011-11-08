@@ -74,7 +74,6 @@ public class GtasksService {
                 final Context context = ContextManager.getContext();
                 String message = context.getString(R.string.gtasks_error_backend);
                 exceptionService.reportError(message, h);
-                throw h;
             } else if (statusCode == 400 || statusCode == 500) {
                 System.err.println("Encountered " + statusCode + " error");
                 System.err.println(h.getResponse().getStatusMessage());

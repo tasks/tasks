@@ -80,6 +80,8 @@ public final class UpgradeService {
 
     @Autowired ABChooser abChooser;
 
+    @Autowired AddOnService addOnService;
+
     public UpgradeService() {
         DependencyInjectionService.getInstance().inject(this);
     }
@@ -157,13 +159,19 @@ public final class UpgradeService {
 
         // current message
         if (from < V3_8_5) {
-            newVersionString(changeLog, "3.8.5 (10/27/11)", new String[] {
-                    "All new reminders and nudges!",
+            String[] base = new String[] {
                     "Share lists and tasks with iPhone users!",
                     "Better sync with Chrome App and Astrid.com",
+                    "All new reminders and nudges!",
+                    "Improvements to error recovery in Google Tasks sync",
                     "Numerous bugs destroyed",
                     "Have a spectacular day!",
-            });
+            };
+            ArrayList<String> stringList = new ArrayList<String>();
+            Collections.addAll(stringList, base);
+            if (!addOnService.hasPowerPack())
+                stringList.add(0, "Buy the Power Pack or get it free by sharing with friends!");
+            newVersionString(changeLog, "3.8.5 (11/08/11)", stringList.toArray(new String[stringList.size()]));
         }
 
         if (from >= V3_8_4 && from < V3_8_4_3) {

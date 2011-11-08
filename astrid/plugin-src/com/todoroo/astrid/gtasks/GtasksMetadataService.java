@@ -83,7 +83,7 @@ public final class GtasksMetadataService extends SyncMetadataService<GtasksTaskC
 
         TodorooCursor<Metadata> metadata = metadataDao.query(Query.select(Metadata.TASK).where(
                 Criterion.and(MetadataCriteria.withKey(GtasksSyncMetadata.METADATA_KEY),
-                GtasksSyncMetadata.LAST_SYNC.lt(lastSyncDate))));
+                GtasksSyncMetadata.LAST_SYNC.gt(lastSyncDate))));
         for(metadata.moveToFirst(); !metadata.isAfterLast(); metadata.moveToNext())
             taskIds.remove(metadata.get(Metadata.TASK));
 

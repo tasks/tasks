@@ -320,8 +320,8 @@ public class FilterAdapter extends BaseExpandableListAdapter {
                 Bundle extras = intent.getExtras();
                 extras.setClassLoader(FilterListHeader.class.getClassLoader());
                 final Parcelable[] filters = extras.getParcelableArray(AstridApiConstants.EXTRAS_RESPONSE);
-                shouldUseBladeFilter = false;
                 populateFiltersToAdapter(filters);
+                shouldUseBladeFilter = false;
             } catch (Exception e) {
                 Log.e("receive-filter-" +  //$NON-NLS-1$
                         intent.getStringExtra(AstridApiConstants.EXTRAS_ADDON),
