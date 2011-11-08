@@ -26,7 +26,7 @@ import com.todoroo.astrid.service.MetadataService;
 import com.todoroo.astrid.service.TaskService;
 
 /**
- * Displays the preference screen for users to edit their preferences
+ * Displays the preference screen for users to manage their old tasks and events
  *
  * @author Tim Su <tim@todoroo.com>
  *
@@ -50,18 +50,34 @@ public class OldTaskPreferences extends TodorooPreferenceActivity {
         DependencyInjectionService.getInstance().inject(this);
 
         // Extended prefs
-        Preference extpreference_completed = screen.findPreference(getString(R.string.EPr_manage_delete_completed));
-        extpreference_completed.setOnPreferenceClickListener(new OnPreferenceClickListener() {
+        Preference preference_delete_completed = screen.findPreference(getString(R.string.EPr_manage_delete_completed));
+        preference_delete_completed.setOnPreferenceClickListener(new OnPreferenceClickListener() {
             public boolean onPreferenceClick(Preference p) {
                 showDeleteCompletedDialog();
                 return true;
             }
         });
 
-        Preference extpreference_purged = screen.findPreference(getString(R.string.EPr_manage_purge_deleted));
-        extpreference_purged.setOnPreferenceClickListener(new OnPreferenceClickListener() {
+        Preference preference_purge_deleted = screen.findPreference(getString(R.string.EPr_manage_purge_deleted));
+        preference_purge_deleted.setOnPreferenceClickListener(new OnPreferenceClickListener() {
             public boolean onPreferenceClick(Preference p) {
                 showPurgeDeletedDialog();
+                return true;
+            }
+        });
+
+        Preference preference_delete_completed_events = screen.findPreference(getString(R.string.EPr_manage_delete_completed_gcal));
+        preference_delete_completed_events.setOnPreferenceClickListener(new OnPreferenceClickListener() {
+            public boolean onPreferenceClick(Preference p) {
+                showDeleteCompletedEventsDialog();
+                return true;
+            }
+        });
+
+        Preference preference_delete_all_events = screen.findPreference(getString(R.string.EPr_manage_delete_all_gcal));
+        preference_delete_all_events.setOnPreferenceClickListener(new OnPreferenceClickListener() {
+            public boolean onPreferenceClick(Preference p) {
+                showDeleteAllEventsDialog();
                 return true;
             }
         });
@@ -146,6 +162,88 @@ public class OldTaskPreferences extends TodorooPreferenceActivity {
                                 showResult(
                                         R.string.EPr_manage_purge_deleted_status,
                                         result);
+                            }
+                        });
+                    }
+                }, null);
+    }
+
+    /** Show the dialog to delete completed events */
+    private void showDeleteCompletedEventsDialog() {
+        DialogUtilities.okCancelDialog(
+                this,
+                getResources().getString(
+                        R.string.EPr_manage_delete_completed_gcal_message),
+                new OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        runWithDialog(new Runnable() {
+                            @Override
+                            public void run() {
+                                int deletedEventCount = 0;
+                                TodorooCursor<Task> cursor = taskService.query(Query.select(Task.ID, Task.CALENDAR_URI).where(
+                                        Criterion.and(Task.COMPLETION_DATE.gt(0), Task.CALENDAR_URI.isNotNull())));
+                                try {
+                                    Task task = new Task();
+                                    int length = cursor.getCount();
+                                    for(int i = 0; i < length; i++) {
+                                        cursor.moveToNext();
+                                        task.readFromCursor(cursor);
+                                        if (GCalHelper.deleteTaskEvent(task))
+                                            deletedEventCount++;
+                                    }
+                                } finally {
+                                    cursor.close();
+                                }
+                                // mass update the CALENDAR_URI here,
+                                // since the GCalHelper doesnt save it due to performance-reasons
+                                Task template = new Task();
+                                template.setValue(Task.CALENDAR_URI, "");
+                                int result = taskService.update(
+                                        Criterion.and(Task.COMPLETION_DATE.gt(0), Task.CALENDAR_URI.isNotNull()),
+                                        template);
+                                showResult(R.string.EPr_manage_delete_completed_gcal_status, deletedEventCount);
+                            }
+                        });
+                    }
+                }, null);
+    }
+
+    /** Show the dialog to delete all events */
+    private void showDeleteAllEventsDialog() {
+        DialogUtilities.okCancelDialog(
+                this,
+                getResources().getString(
+                        R.string.EPr_manage_delete_all_gcal_message),
+                new OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        runWithDialog(new Runnable() {
+                            @Override
+                            public void run() {
+                                int deletedEventCount = 0;
+                                TodorooCursor<Task> cursor = taskService.query(Query.select(Task.ID, Task.CALENDAR_URI).where(
+                                        Task.CALENDAR_URI.isNotNull()));
+                                try {
+                                    Task task = new Task();
+                                    int length = cursor.getCount();
+                                    for(int i = 0; i < length; i++) {
+                                        cursor.moveToNext();
+                                        task.readFromCursor(cursor);
+                                        if (GCalHelper.deleteTaskEvent(task))
+                                            deletedEventCount++;
+                                    }
+                                } finally {
+                                    cursor.close();
+                                }
+                                // mass update the CALENDAR_URI here,
+                                // since the GCalHelper doesnt save it due to performance-reasons
+                                Task template = new Task();
+                                template.setValue(Task.CALENDAR_URI, "");
+                                int result = taskService.update(
+                                        Task.CALENDAR_URI.isNotNull(),
+                                        template);
+                                showResult(R.string.EPr_manage_delete_all_gcal_status, deletedEventCount);
                             }
                         });
                     }

@@ -83,14 +83,15 @@ public class GCalHelper {
         return null;
     }
 
-    public static void deleteTaskEvent(Task task) {
+    public static boolean deleteTaskEvent(Task task) {
+        boolean eventDeleted = false;
         String uri;
         if(task.containsNonNullValue(Task.CALENDAR_URI))
             uri = task.getValue(Task.CALENDAR_URI);
         else {
             task = PluginServices.getTaskService().fetchById(task.getId(), Task.CALENDAR_URI);
             if(task == null)
-                return;
+                return false;
             uri = task.getValue(Task.CALENDAR_URI);
         }
 
@@ -101,11 +102,12 @@ public class GCalHelper {
                 // try to load calendar
                 ContentResolver cr = ContextManager.getContext().getContentResolver();
                 Cursor cursor = cr.query(calendarUri, new String[] { "dtstart" }, null, null, null); //$NON-NLS-1$
-                boolean deleted = cursor.getCount() == 0;
+                boolean alreadydeleted = cursor.getCount() == 0;
                 cursor.close();
 
-                if (!deleted) {
+                if (!alreadydeleted) {
                     cr.delete(calendarUri, null, null);
+                    eventDeleted = true;
                 }
 
                 task.setValue(Task.CALENDAR_URI,"");
@@ -113,6 +115,8 @@ public class GCalHelper {
                 Log.e("astrid-gcal", "error-deleting-calendar-event", e); //$NON-NLS-1$ //$NON-NLS-2$
             }
         }
+
+        return eventDeleted;
     }
 
     @SuppressWarnings("nls")
