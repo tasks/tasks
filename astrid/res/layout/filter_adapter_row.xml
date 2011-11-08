@@ -63,7 +63,7 @@
     <!-- selected -->
     <ImageView android:id="@+id/selected"
         android:layout_width="24dip"
-        android:layout_height="wrap_content"
+        android:layout_height="fill_parent"
         android:layout_toLeftOf="@id/size"
         android:paddingLeft="5dip" 
         android:paddingRight="5dip" 
