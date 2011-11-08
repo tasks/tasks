@@ -29,6 +29,7 @@ import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.astrid.activity.TaskEditActivity;
 import com.todoroo.astrid.activity.TaskListActivity;
 import com.todoroo.astrid.api.Filter;
+import com.todoroo.astrid.api.PermaSql;
 import com.todoroo.astrid.core.CoreFilterExposer;
 import com.todoroo.astrid.core.SortHelper;
 import com.todoroo.astrid.dao.Database;
@@ -219,21 +220,28 @@ public class TasksWidget extends AppWidgetProvider {
             if(filter != null) {
                 listIntent.putExtra(TaskListActivity.TOKEN_FILTER, filter);
                 listIntent.setAction("L" + widgetId + filter.sqlQuery);
+            } else {
+                listIntent.setAction("L" + widgetId);
             }
-            PendingIntent pendingIntent = PendingIntent.getActivity(context, widgetId,
+            PendingIntent pListIntent = PendingIntent.getActivity(context, widgetId,
                     listIntent, PendingIntent.FLAG_CANCEL_CURRENT);
-            views.setOnClickPendingIntent(R.id.taskbody, pendingIntent);
+            views.setOnClickPendingIntent(R.id.taskbody, pListIntent);
+
 
             Intent editIntent = new Intent(context, TaskEditActivity.class);
-            editIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_RESET_TASK_IF_NEEDED);
+            editIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_MULTIPLE_TASK);
             if(filter != null && filter.valuesForNewTasks != null) {
                 String values = AndroidUtilities.contentValuesToSerializedString(filter.valuesForNewTasks);
+                values = PermaSql.replacePlaceholders(values);
                 editIntent.putExtra(TaskEditActivity.TOKEN_VALUES, values);
-                editIntent.setType(values);
+                editIntent.setAction("E" + widgetId + values);
+            } else {
+                editIntent.setAction("E" + widgetId);
             }
-            pendingIntent = PendingIntent.getActivity(context, 0,
+            PendingIntent pEditIntent = PendingIntent.getActivity(context, -widgetId,
                     editIntent, 0);
-            views.setOnClickPendingIntent(R.id.widget_button, pendingIntent);
+            views.setOnClickPendingIntent(R.id.widget_button, pEditIntent);
+            views.setOnClickPendingIntent(R.id.widget_title, pEditIntent);
 
             return views;
         }
