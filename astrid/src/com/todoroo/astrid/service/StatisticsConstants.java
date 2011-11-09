@@ -8,6 +8,7 @@ public class StatisticsConstants {
     public static final String ACTFM_NEW_USER = "actfm-new-user";
     public static final String TASK_COMPLETED_V2 = "task-completed-v2";
     public static final String USER_FIRST_TASK = "user-first-task";
+    public static final String USER_FIRST_LIST = "user-first-list";
     public static final String LOST_TASKS_RESTORED = "lost-tasks-restored";
     public static final String CREATE_TASK = "create-task";
     public static final String EDIT_TASK = "edit-task";

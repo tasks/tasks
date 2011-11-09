@@ -215,6 +215,7 @@ public class StartupService {
                     for(int i = 0; i < INTRO_TASKS.length; i += 3)
                         addIntroTask(r, INTRO_TASKS[i], INTRO_TASKS[i + 1], INTRO_TASKS[i + 2]);
                     Preferences.setBoolean(AstridPreferences.P_FIRST_ACTION, true);
+                    Preferences.setBoolean(AstridPreferences.P_FIRST_LIST, true);
                 }
             }).start();
         } catch (Exception e) {

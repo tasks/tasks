@@ -73,10 +73,17 @@ public class AddOnActivity extends TabActivity {
         ArrayList<AddOn> available = new ArrayList<AddOn>();
 
         for(AddOn addOn : list) {
-            if(addOnService.isInstalled(addOn))
-                installed.add(addOn);
-            else
-                available.add(addOn);
+            if (AddOnService.POWER_PACK_PACKAGE.equals(addOn.getPackageName())) {
+                if (addOnService.hasPowerPack())
+                    installed.add(addOn);
+                else
+                    available.add(addOn);
+            } else {
+                if(addOnService.isInstalled(addOn))
+                    installed.add(addOn);
+                else
+                    available.add(addOn);
+            }
         }
         if(installed.size() == 0 || getIntent().getBooleanExtra(TOKEN_START_WITH_AVAILABLE, false))
             getTabHost().setCurrentTab(1);

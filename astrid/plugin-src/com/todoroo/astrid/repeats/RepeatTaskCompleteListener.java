@@ -91,6 +91,7 @@ public class RepeatTaskCompleteListener extends BroadcastReceiver {
             clone.setValue(Task.ELAPSED_SECONDS, 0);
             clone.setValue(Task.REMINDER_SNOOZE, 0L);
             clone.setValue(Task.REMINDER_LAST, 0L);
+            clone.setValue(Task.CALENDAR_URI, ""); //$NON-NLS-1$
 
             GCalHelper.createTaskEventIfEnabled(clone);
             PluginServices.getTaskService().save(clone);
@@ -99,7 +100,6 @@ public class RepeatTaskCompleteListener extends BroadcastReceiver {
             task.setValue(Task.RECURRENCE, ""); //$NON-NLS-1$
             task.setValue(Task.DETAILS_DATE, 0L);
 
-            GCalHelper.deleteTaskEvent(task);
             PluginServices.getTaskService().save(task);
 
             // send a broadcast

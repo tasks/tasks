@@ -309,8 +309,35 @@ public final class TaskEditActivity extends TabActivity {
             Button saveButtonGeneral = (Button) findViewById(R.id.save);
             saveButtonGeneral.setOnClickListener(mSaveListener);
 
+            Button saveButton2 = (Button) findViewById(R.id.save2);
+            Button saveButton3 = (Button) findViewById(R.id.save3);
+            Button saveButton4 = (Button) findViewById(R.id.save4);
+            if (saveButton2 != null) {
+                saveButton2.setOnClickListener(mSaveListener);
+            }
+            if (saveButton3 != null) {
+                saveButton3.setOnClickListener(mSaveListener);
+            }
+            if (saveButton4 != null) {
+                saveButton4.setOnClickListener(mSaveListener);
+            }
+
+
             Button discardButtonGeneral = (Button) findViewById(R.id.discard);
             discardButtonGeneral.setOnClickListener(mDiscardListener);
+
+            Button discardButton2 = (Button) findViewById(R.id.discard2);
+            Button discardButton3 = (Button) findViewById(R.id.discard3);
+            Button discardButton4 = (Button) findViewById(R.id.discard4);
+            if (discardButton2 != null) {
+                discardButton2.setOnClickListener(mDiscardListener);
+            }
+            if (discardButton3 != null) {
+                discardButton3.setOnClickListener(mDiscardListener);
+            }
+            if (discardButton4 != null) {
+                discardButton4.setOnClickListener(mDiscardListener);
+            }
         } catch (Exception e) {
             // error loading the proper activity
         }

@@ -17,6 +17,8 @@ public class AstridPreferences {
 
     public static final String P_FIRST_ACTION = "fa"; //$NON-NLS-1$
 
+    public static final String P_FIRST_LIST = "fl"; //$NON-NLS-1$
+
     public static final String P_UPGRADE_FROM = "uf"; //$NON-NLS-1$
 
     /** Set preference defaults, if unset. called at startup */
