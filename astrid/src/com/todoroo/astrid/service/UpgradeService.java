@@ -39,6 +39,7 @@ import com.todoroo.astrid.utility.AstridPreferences;
 
 public final class UpgradeService {
 
+    public static final int V3_8_5_1 = 201;
     public static final int V3_8_5 = 200;
     public static final int V3_8_4_4 = 199;
     public static final int V3_8_4_3 = 198;
@@ -158,17 +159,25 @@ public final class UpgradeService {
         StringBuilder changeLog = new StringBuilder();
 
         // current message
-        if (from < V3_8_5 || true) {
+        if (from >= V3_8_5 && from < V3_8_5_1) {
+            newVersionString(changeLog, "3.8.5.1 (11/09/11)", new String[] {
+                    "Fixed an issue where shared lists could accidentally be sent to the wrong people",
+                    "For small screens, don't let save and cancel buttons hover over task edit page",
+                    "Fix for null pointer crash when adding power pack widget",
+                    "Minor tweaks to margins and background of power pack widget",
+            });
+        }
+        if (from < V3_8_5) {
             String iPhoneAnnouncement = "The Astrid team is proud to announce that Astrid is now available for iPhone! ";
             if (!addOnService.hasPowerPack())
                 iPhoneAnnouncement += "To celebrate, <b>get the Astrid Power Pack for free when " +
-                    "you invite three or more new users</b> to join Astrid.com by " +
-                    "sharing a list or task with them";
+                "you invite three or more new users</b> to join Astrid.com by " +
+                "sharing a list or task with them";
             else
                 iPhoneAnnouncement += "Make sure to let all of your friends know!";
 
             newVersionString(changeLog, "3.8.5 (11/08/11)", new String[] {
-                     iPhoneAnnouncement,
+                    iPhoneAnnouncement,
                     "Improvements to sync with Astrid's Google Chrome App and Astrid.com",
                     "Improvements to error recovery in Google Tasks sync",
                     "Improvements to Power Pack widget - voice and quick add of tasks",
@@ -177,26 +186,7 @@ public final class UpgradeService {
             });
         }
 
-        if (from >= V3_8_4 && from < V3_8_4_3) {
-            newVersionString(changeLog, "3.8.4.3 (10/05/11)", new String[] {
-                    "Additional fixes to Google Tasks API, and added better error messages to " +
-                        "help troubleshoot errors some of you are having",
-                    "Fix for Astrid not working on Android 1.6.",
-                    "\"Ring until I dismiss\" type random reminders now ring only once and respect quiet hours",
-            });
-        }
-        if (from >= V3_8_4 && from < V3_8_4_2) {
-            newVersionString(changeLog, "3.8.4.2 (10/03/11)", new String[] {
-                    "Updated Google Tasks API libraries to 1.2.2. This may fix some of your Google Task sync issues",
-                    "Added a new way for easy bug reporting. Just tap the Menu key, Support."
-            });
-        }
-        if(from >= V3_8_4 && from < V3_8_4_1) {
-            newVersionString(changeLog, "3.8.4.1 (9/30/11)", new String[] {
-                    "Fixed a but where completing weekly repeat-after-complete tasks set due time",
-            });
-        }
-        if (from < V3_8_4) {
+        if (from >= V3_8_0 && from < V3_8_4) {
             String[] base = new String[] {
                     "Lists are now case insensitive. If you have existing lists with the same " +
                         "name, except for capitalization, they will be renamed to avoid collision.",
