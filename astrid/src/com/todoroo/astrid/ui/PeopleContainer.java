@@ -161,8 +161,11 @@ public class PeopleContainer extends LinearLayout {
         for(int i = 0; i < getChildCount(); i++) {
             TextView textView = getTextView(i);
             JSONObject person = PeopleContainer.createUserJson(textView);
-            if(person != null)
-                people.put(person);
+            if(person != null) {
+                String email = person.optString("email"); //$NON-NLS-1$
+                if (email.indexOf('@') != -1)
+                    people.put(person);
+            }
         }
         return people;
     }
