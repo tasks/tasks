@@ -1,6 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- See the file "LICENSE" for the full license governing this code. -->
-<merge xmlns:android="http://schemas.android.com/apk/res/android">
+<LinearLayout 
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical"
+    android:paddingLeft="5dip"
+    android:paddingRight="5dip">
     
     <!-- producteev task assignment controlset -->
     <LinearLayout
@@ -12,7 +18,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/producteev_TEA_dashboard_assign_label"
-        style="@style/TextAppearance.GEN_EditLabel" />
+        style="@style/TextAppearance.GEN_EditLabel.DLG_EditLabel" />
         
       <Spinner
         android:id="@+id/producteev_TEA_dashboard_assign"
@@ -25,7 +31,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/producteev_TEA_task_assign_label"
-        style="@style/TextAppearance.GEN_EditLabel" />
+        style="@style/TextAppearance.GEN_EditLabel.DLG_EditLabel" />
         
       <Spinner
         android:id="@+id/producteev_TEA_task_assign"
@@ -40,5 +46,5 @@
         android:padding="5dip"
         android:background="@android:drawable/divider_horizontal_dark" />
   
-</merge>
+</LinearLayout>
 

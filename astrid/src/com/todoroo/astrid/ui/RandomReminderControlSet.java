@@ -10,8 +10,8 @@ import android.widget.Spinner;
 
 import com.timsu.astrid.R;
 import com.todoroo.andlib.utility.DateUtilities;
-import com.todoroo.astrid.activity.TaskEditActivity.TaskEditControlSet;
 import com.todoroo.astrid.data.Task;
+import com.todoroo.astrid.helper.TaskEditControlSet;
 
 /**
  * Control set dealing with random reminder settings
@@ -19,7 +19,7 @@ import com.todoroo.astrid.data.Task;
  * @author Tim Su <tim@todoroo.com>
  *
  */
-public class RandomReminderControlSet implements TaskEditControlSet {
+public class RandomReminderControlSet extends TaskEditControlSet {
     /** default interval for spinner if date is unselected */
     private final long DEFAULT_INTERVAL = DateUtilities.ONE_WEEK * 2;
 
@@ -29,9 +29,10 @@ public class RandomReminderControlSet implements TaskEditControlSet {
     private boolean periodSpinnerInitialized = false;
     private final int[] hours;
 
-    public RandomReminderControlSet(Activity activity, int settingCheckboxId, int periodButtonId) {
-        settingCheckbox = (CheckBox)activity.findViewById(settingCheckboxId);
-        periodSpinner = (Spinner)activity.findViewById(periodButtonId);
+    public RandomReminderControlSet(Activity activity, View parentView, int layout) {
+        super(activity, layout);
+        settingCheckbox = (CheckBox) parentView.findViewById(R.id.reminder_random);
+        periodSpinner = (Spinner) parentView.findViewById(R.id.reminder_random_interval);
         periodSpinner.setOnItemSelectedListener(new OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> arg0, View arg1,

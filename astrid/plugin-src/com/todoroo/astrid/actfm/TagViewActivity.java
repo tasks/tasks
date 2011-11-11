@@ -218,6 +218,8 @@ public class TagViewActivity extends TaskListActivity {
                 refreshData(false, false);
                 Preferences.setLong(fetchKey, DateUtilities.now());
             }
+        } else {
+            ((TextView)taskListView.findViewById(android.R.id.empty)).setText(R.string.TLA_no_items);
         }
 
         setUpMembersGallery();
@@ -281,8 +283,10 @@ public class TagViewActivity extends TaskListActivity {
         if(!bypassTagShow)
             tagShowThread.start();
 
-        if(noRemoteId)
+        if(noRemoteId) {
+            ((TextView)taskListView.findViewById(android.R.id.empty)).setText(R.string.TLA_no_items);
             return;
+        }
 
         setUpMembersGallery();
         actFmSyncService.fetchTasksForTag(tagData, manual, new Runnable() {

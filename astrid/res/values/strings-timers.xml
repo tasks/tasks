@@ -18,5 +18,8 @@
     
     <!-- Filter for Timed Tasks -->
     <string name="TFE_workingOn">Tasks Being Timed</string>
-      
+    
+    <!-- Title for TEA -->
+    <string name="TEA_timer_controls">Timer Controls</string>
+    
 </resources>

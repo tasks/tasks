@@ -13,7 +13,12 @@
             android:entryValues="@array/EPr_font_size"
             android:title="@string/EPr_fontSize_title"
             android:summary="@string/EPr_fontSize_desc" />
-            
+        
+        <com.todoroo.astrid.ui.MultilineCheckboxPreference
+            android:key="@string/p_beastMode"
+            android:title="@string/EPr_beastMode_title"
+            android:defaultValue="false"/>
+        
         <com.todoroo.astrid.ui.MultilineCheckboxPreference
             android:key="@string/p_showNotes"
             android:title="@string/EPr_showNotes_title"

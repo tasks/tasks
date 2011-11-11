@@ -56,6 +56,7 @@ public class TimerPlugin extends BroadcastReceiver {
                 task.setValue(Task.TIMER_START, 0L);
                 task.setValue(Task.ELAPSED_SECONDS,
                         task.getValue(Task.ELAPSED_SECONDS) + newElapsed);
+                System.err.println("Elapsed: " + task.getValue(Task.ELAPSED_SECONDS));
                 StatisticsService.reportEvent(StatisticsConstants.TIMER_STOP);
             }
         }

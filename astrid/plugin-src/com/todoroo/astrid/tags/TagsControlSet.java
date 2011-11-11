@@ -1,7 +1,7 @@
 package com.todoroo.astrid.tags;
 
 import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.HashMap;
 import java.util.LinkedHashSet;
 
 import android.app.Activity;
@@ -11,27 +11,23 @@ import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
-import android.widget.AdapterView;
-import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
-import android.widget.Spinner;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.TextView.OnEditorActionListener;
 
 import com.timsu.astrid.R;
 import com.todoroo.andlib.data.AbstractModel;
 import com.todoroo.andlib.data.TodorooCursor;
-import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.andlib.utility.DateUtilities;
-import com.todoroo.astrid.activity.TaskEditActivity.TaskEditControlSet;
 import com.todoroo.astrid.data.Metadata;
 import com.todoroo.astrid.data.Task;
-import com.todoroo.astrid.service.TagDataService;
 import com.todoroo.astrid.tags.TagService.Tag;
+import com.todoroo.astrid.ui.PopupControlSet;
 import com.todoroo.astrid.utility.Flags;
 
 /**
@@ -40,52 +36,41 @@ import com.todoroo.astrid.utility.Flags;
  * @author Tim Su <tim@todoroo.com>
  *
  */
-public final class TagsControlSet implements TaskEditControlSet {
+public final class TagsControlSet extends PopupControlSet {
 
     // --- instance variables
 
-    private final Spinner tagSpinner;
-    @Autowired private TagDataService tagDataService;
+    //private final Spinner tagSpinner;
+    //@Autowired private TagDataService tagDataService;
     private final TagService tagService = TagService.getInstance();
     private final Tag[] allTags;
-    private final LinearLayout tagsContainer;
+    private final String[] allTagNames;
+
+    private final LinearLayout newTags;
+    private final ListView selectedTags;
+    private boolean populated = false;
+    private final HashMap<String, Integer> tagIndices;
+
+    //private final LinearLayout tagsContainer;
     private final Activity activity;
+    private final TextView tagsDisplay;
 
-    public TagsControlSet(Activity activity, int tagsContainer) {
+    public TagsControlSet(Activity activity, int viewLayout, int displayViewLayout, int title) {
+        super(activity, viewLayout, displayViewLayout, title);
         DependencyInjectionService.getInstance().inject(this);
-        allTags = getTagArray();
         this.activity = activity;
-        this.tagsContainer = (LinearLayout) activity.findViewById(tagsContainer);
-        this.tagSpinner = (Spinner) activity.findViewById(R.id.tags_dropdown);
+        allTags = getTagArray();
+        allTagNames = getTagNames(allTags);
+        tagIndices = buildTagIndices(allTagNames);
 
-        if(allTags.length == 0) {
-            tagSpinner.setVisibility(View.GONE);
-        } else {
-            ArrayList<Tag> dropDownList = new ArrayList<Tag>(Arrays.asList(allTags));
-            dropDownList.add(0, new Tag(activity.getString(R.string.TEA_tag_dropdown), 0, 0));
-            ArrayAdapter<Tag> tagAdapter = new ArrayAdapter<Tag>(activity,
-                    android.R.layout.simple_spinner_item,
-                    dropDownList);
-            tagAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-            tagSpinner.setAdapter(tagAdapter);
-            tagSpinner.setSelection(0);
+        selectedTags = (ListView) getView().findViewById(R.id.existingTags);
+        selectedTags.setAdapter(new ArrayAdapter<String>(activity,
+                android.R.layout.simple_list_item_multiple_choice, allTagNames));
+        selectedTags.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
 
-            tagSpinner.setOnItemSelectedListener(new OnItemSelectedListener() {
-                @Override
-                public void onItemSelected(AdapterView<?> arg0, View arg1,
-                        int position, long arg3) {
-                    if(position == 0 || position > allTags.length)
-                        return;
-                    addTag(allTags[position - 1].tag, true);
-                    tagSpinner.setSelection(0);
-                }
+        this.newTags = (LinearLayout) getView().findViewById(R.id.newTags);
 
-                @Override
-                public void onNothingSelected(AdapterView<?> arg0) {
-                    // nothing!
-                }
-            });
-        }
+        tagsDisplay = (TextView) getDisplayView().findViewById(R.id.tags_display);
     }
 
     private Tag[] getTagArray() {
@@ -93,45 +78,58 @@ public final class TagsControlSet implements TaskEditControlSet {
         return tagsList.toArray(new Tag[tagsList.size()]);
     }
 
-    @Override
-    public void readFromTask(Task task) {
-        tagsContainer.removeAllViews();
-
-        if(task.getId() != AbstractModel.NO_ID) {
-            TodorooCursor<Metadata> cursor = tagService.getTags(task.getId());
-            try {
-                for(cursor.moveToFirst(); !cursor.isAfterLast(); cursor.moveToNext()) {
-                    String tag = cursor.get(TagService.TAG);
-                    addTag(tag, true);
-                }
-            } finally {
-                cursor.close();
-            }
+    private HashMap<String, Integer> buildTagIndices(String[] tagNames) {
+        HashMap<String, Integer> indices = new HashMap<String, Integer>();
+        for (int i = 0; i < tagNames.length; i++) {
+            indices.put(tagNames[i], i);
         }
-        addTag("", false); //$NON-NLS-1$
+        return indices;
     }
 
-    @Override
-    public String writeToModel(Task task) {
-        // this is a case where we're asked to save but the UI was not yet populated
-        if(tagsContainer.getChildCount() == 0)
-            return null;
+    private String[] getTagNames(Tag[] tags) {
+        String[] names = new String[tags.length];
+        for (int i = 0; i < tags.length; i++) {
+            names[i] = tags[i].toString();
+        }
+        return names;
+    }
 
+    private String buildTagString() {
+        StringBuilder builder = new StringBuilder();
+
+        LinkedHashSet<String> tags = getTagSet();
+        for (String tag : tags) {
+            if (builder.length() != 0)
+                builder.append(", ");
+            builder.append(tag);
+        }
+
+        if (builder.length() == 0)
+            builder.append(activity.getString(R.string.TEA_tags_none));
+        return builder.toString();
+    }
+
+
+    private void setTagSelected(String tag) {
+        int index = tagIndices.get(tag);
+        selectedTags.setItemChecked(index, true);
+    }
+
+    private LinkedHashSet<String> getTagSet() {
         LinkedHashSet<String> tags = new LinkedHashSet<String>();
-        for(int i = 0; i < tagsContainer.getChildCount(); i++) {
-            TextView tagName = (TextView)tagsContainer.getChildAt(i).findViewById(R.id.text1);
+        for(int i = 0; i < selectedTags.getAdapter().getCount(); i++) {
+            if (selectedTags.isItemChecked(i))
+                tags.add(allTagNames[i]);
+        }
+
+        for(int i = 0; i < newTags.getChildCount(); i++) {
+            TextView tagName = (TextView) newTags.getChildAt(i).findViewById(R.id.text1);
             if(tagName.getText().length() == 0)
                 continue;
 
             tags.add(tagName.getText().toString());
         }
-
-        if(TagService.getInstance().synchronizeTags(task.getId(), tags)) {
-            Flags.set(Flags.TAGS_CHANGED);
-            task.setValue(Task.MODIFICATION_DATE, DateUtilities.now());
-        }
-
-        return null;
+        return tags;
     }
 
     /** Adds a tag to the tag field */
@@ -140,8 +138,8 @@ public final class TagsControlSet implements TaskEditControlSet {
 
         // check if already exists
         TextView lastText = null;
-        for(int i = 0; i < tagsContainer.getChildCount(); i++) {
-            View view = tagsContainer.getChildAt(i);
+        for(int i = 0; i < newTags.getChildCount(); i++) {
+            View view = newTags.getChildAt(i);
             lastText = (TextView) view.findViewById(R.id.text1);
             if(lastText.getText().equals(tagName))
                 return false;
@@ -152,7 +150,7 @@ public final class TagsControlSet implements TaskEditControlSet {
             tagItem = (View) lastText.getParent();
         } else {
             tagItem = inflater.inflate(R.layout.tag_edit_row, null);
-            tagsContainer.addView(tagItem);
+            newTags.addView(tagItem);
         }
         if(tagName == null)
             tagName = ""; //$NON-NLS-1$
@@ -160,10 +158,6 @@ public final class TagsControlSet implements TaskEditControlSet {
         final AutoCompleteTextView textView = (AutoCompleteTextView)tagItem.
             findViewById(R.id.text1);
         textView.setText(tagName);
-        ArrayAdapter<Tag> tagsAdapter =
-            new ArrayAdapter<Tag>(activity,
-                    android.R.layout.simple_dropdown_item_1line, allTags);
-        textView.setAdapter(tagsAdapter);
 
         textView.addTextChangedListener(new TextWatcher() {
             @Override
@@ -178,7 +172,7 @@ public final class TagsControlSet implements TaskEditControlSet {
             @Override
             public void onTextChanged(CharSequence s, int start, int before,
                     int count) {
-                if(count > 0 && tagsContainer.getChildAt(tagsContainer.getChildCount()-1) ==
+                if(count > 0 && newTags.getChildAt(newTags.getChildCount()-1) ==
                         tagItem)
                     addTag("", false); //$NON-NLS-1$
             }
@@ -204,8 +198,8 @@ public final class TagsControlSet implements TaskEditControlSet {
                 if(lastView == textView && textView.getText().length() == 0)
                     return;
 
-                if(tagsContainer.getChildCount() > 1)
-                    tagsContainer.removeView(tagItem);
+                if(newTags.getChildCount() > 1)
+                    newTags.removeView(tagItem);
                 else
                     textView.setText(""); //$NON-NLS-1$
             }
@@ -219,10 +213,52 @@ public final class TagsControlSet implements TaskEditControlSet {
      * @return
      */
     private TextView getLastTextView() {
-        if(tagsContainer.getChildCount() == 0)
+        if(newTags.getChildCount() == 0)
             return null;
-        View lastItem = tagsContainer.getChildAt(tagsContainer.getChildCount()-1);
+        View lastItem = newTags.getChildAt(newTags.getChildCount()-1);
         TextView lastText = (TextView) lastItem.findViewById(R.id.text1);
         return lastText;
     }
+
+    @Override
+    public void readFromTask(Task task) {
+        newTags.removeAllViews();
+
+        if(task.getId() != AbstractModel.NO_ID) {
+            TodorooCursor<Metadata> cursor = tagService.getTags(task.getId());
+            try {
+                for(cursor.moveToFirst(); !cursor.isAfterLast(); cursor.moveToNext()) {
+                    String tag = cursor.get(TagService.TAG);
+                    setTagSelected(tag);
+                }
+            } finally {
+                cursor.close();
+            }
+        }
+        addTag("", false);
+        refreshDisplayView();
+        populated = true;
+    }
+
+    @Override
+    public String writeToModel(Task task) {
+        // this is a case where we're asked to save but the UI was not yet populated
+        if(!populated)
+            return null;
+
+        LinkedHashSet<String> tags = getTagSet();
+
+        if(TagService.getInstance().synchronizeTags(task.getId(), tags)) {
+            Flags.set(Flags.TAGS_CHANGED);
+            task.setValue(Task.MODIFICATION_DATE, DateUtilities.now());
+        }
+
+        return null;
+    }
+
+    @Override
+    protected void refreshDisplayView() {
+        tagsDisplay.setText(buildTagString());
+    }
+
 }

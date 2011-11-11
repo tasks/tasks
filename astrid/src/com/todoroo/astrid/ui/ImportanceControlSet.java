@@ -5,14 +5,13 @@ import java.util.List;
 
 import android.app.Activity;
 import android.view.View;
-import android.view.ViewGroup.LayoutParams;
 import android.widget.CompoundButton;
 import android.widget.LinearLayout;
 import android.widget.ToggleButton;
 
 import com.timsu.astrid.R;
-import com.todoroo.astrid.activity.TaskEditActivity.TaskEditControlSet;
 import com.todoroo.astrid.data.Task;
+import com.todoroo.astrid.helper.TaskEditControlSet;
 import com.todoroo.astrid.opencrx.OpencrxCoreUtils;
 import com.todoroo.astrid.producteev.ProducteevUtilities;
 
@@ -22,27 +21,37 @@ import com.todoroo.astrid.producteev.ProducteevUtilities;
  * @author Tim Su <tim@todoroo.com>
  *
  */
-public class ImportanceControlSet implements TaskEditControlSet {
+public class ImportanceControlSet extends TaskEditControlSet {
     private final List<CompoundButton> buttons = new LinkedList<CompoundButton>();
     private final int[] colors;
-    private final int grayColor;
+    //private final int grayColor;
+    private final List<ImportanceChangedListener> listeners = new LinkedList<ImportanceChangedListener>();
 
-    public ImportanceControlSet(Activity activity, int containerId) {
-        LinearLayout layout = (LinearLayout)activity.findViewById(containerId);
+    public interface ImportanceChangedListener {
+        public void importanceChanged(int i, int color);
+    }
+
+    public ImportanceControlSet(Activity activity, int layout) {
+        super(activity, layout);
+        LinearLayout container = (LinearLayout) getView().findViewById(R.id.importance_container);
         colors = Task.getImportanceColors(activity.getResources());
 
         int min = Task.IMPORTANCE_MOST;
         int max = Task.IMPORTANCE_LEAST;
-        grayColor = colors[max];
+        //grayColor = colors[max];
         if(ProducteevUtilities.INSTANCE.isLoggedIn() || OpencrxCoreUtils.INSTANCE.isLoggedIn())
             max = 5;
-        else
-            colors[max] = activity.getResources().getColor(android.R.color.white);
+        //else
+            //colors[max] = activity.getResources().getColor(android.R.color.white);
 
         for(int i = min; i <= max; i++) {
             final ToggleButton button = new ToggleButton(activity);
-            button.setLayoutParams(new LinearLayout.LayoutParams(
-                    LayoutParams.FILL_PARENT, LayoutParams.WRAP_CONTENT, 1));
+            LinearLayout.LayoutParams params;
+            if (ProducteevUtilities.INSTANCE.isLoggedIn())
+                params = new LinearLayout.LayoutParams(55, 55);
+            else
+                params = new LinearLayout.LayoutParams(60, 60);
+            button.setLayoutParams(params);
 
             StringBuilder label = new StringBuilder();
             if(ProducteevUtilities.INSTANCE.isLoggedIn() || OpencrxCoreUtils.INSTANCE.isLoggedIn())
@@ -57,6 +66,7 @@ public class ImportanceControlSet implements TaskEditControlSet {
             button.setTextColor(colors[i]);
             button.setTextOff(label);
             button.setTextOn(label);
+            button.setPadding(0, 1, 0, 0);
 
             button.setOnClickListener(new View.OnClickListener() {
                 public void onClick(View v) {
@@ -66,25 +76,36 @@ public class ImportanceControlSet implements TaskEditControlSet {
             button.setTag(i);
 
             buttons.add(button);
-            layout.addView(button);
+            container.addView(button);
         }
     }
 
     public void setImportance(Integer i) {
         for(CompoundButton b : buttons) {
             if(b.getTag() == i) {
-                b.setTextSize(24);
+                b.setTextSize(getTextSize());
                 b.setChecked(true);
-                if (i.intValue() == Task.IMPORTANCE_LEAST)
-                    b.setTextColor(grayColor);
-                b.setBackgroundResource(R.drawable.btn_selected);
+                //if (i.intValue() == Task.IMPORTANCE_LEAST)
+                //    b.setTextColor(grayColor);
+                b.setBackgroundResource(R.drawable.importance_background_selected);
             } else {
-                b.setTextSize(16);
+                b.setTextSize(getTextSize());
                 b.setChecked(false);
                 b.setTextColor(colors[(Integer)b.getTag()]);
-                b.setBackgroundResource(android.R.drawable.btn_default);
+                b.setBackgroundResource(0);
             }
         }
+
+        for (ImportanceChangedListener l : listeners) {
+            l.importanceChanged(i, colors[i]);
+        }
+    }
+
+    private int getTextSize() {
+        if (ProducteevUtilities.INSTANCE.isLoggedIn())
+            return 14;
+        else
+            return 24;
     }
 
     public Integer getImportance() {
@@ -92,6 +113,15 @@ public class ImportanceControlSet implements TaskEditControlSet {
             if(b.isChecked())
                 return (Integer) b.getTag();
         return null;
+    }
+
+    public void addListener(ImportanceChangedListener listener) {
+        listeners.add(listener);
+    }
+
+    public void removeListener(ImportanceChangedListener listener) {
+        if (listeners.contains(listener))
+            listeners.remove(listener);
     }
 
     @Override

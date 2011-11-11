@@ -164,6 +164,7 @@
   <string name="p_colorize">colorize</string>
   <string name="p_fontSize">font_size</string>
   <string name="p_showNotes">notesVisible</string>
+  <string name="p_beastMode">beastMode</string>
   <string name="p_transparent_deprecated">transparent</string>
   <string name="p_theme">theme</string>
   <string name="p_voiceInputEnabled">voiceInputEnabled</string>
@@ -286,6 +287,9 @@
     <string name="sync_SPr_sync_key">sync_sync</string>
     <!-- Preference Key (do not translate) -->
     <string name="sync_SPr_forget_key">sync_forget</string>
+    
+  <!-- ===========================================================ACTFM == -->
+  <string name="actfm_https_key">actfmHttps</string>
         
   <!-- ============================================================ MILK == -->
 

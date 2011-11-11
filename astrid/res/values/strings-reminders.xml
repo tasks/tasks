@@ -6,6 +6,9 @@
     
   <!-- =============================================== task edit activity == -->
 
+  <!-- Task Edit: Reminder group label -->  
+  <string name="TEA_reminders_group_label">Reminders</string>
+
   <!-- Task Edit: Reminder header label -->  
   <string name="TEA_reminder_label">Remind Me:</string>
 

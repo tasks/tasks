@@ -7,16 +7,18 @@ import android.content.DialogInterface;
 import android.content.DialogInterface.OnCancelListener;
 import android.content.DialogInterface.OnDismissListener;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
+import android.widget.LinearLayout;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.TimePicker;
 
 import com.timsu.astrid.R;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.andlib.utility.Preferences;
-import com.todoroo.astrid.activity.TaskEditActivity.TaskEditControlSet;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.ui.DeadlineTimePickerDialog.OnDeadlineTimeSetListener;
 
@@ -26,13 +28,14 @@ import com.todoroo.astrid.ui.DeadlineTimePickerDialog.OnDeadlineTimeSetListener;
  * @author Tim Su <tim@todoroo.com>
  *
  */
-public class HideUntilControlSet implements TaskEditControlSet,
-        OnItemSelectedListener, OnCancelListener,
+public class HideUntilControlSet extends PopupControlSet
+       implements OnItemSelectedListener, OnCancelListener,
         OnDeadlineTimeSetListener {
 
     private static final int SPECIFIC_DATE = -1;
     private static final int EXISTING_TIME_UNSET = -2;
 
+    //private final CheckBox enabled;
     private final Spinner spinner;
     private int previousSetting = Task.HIDE_UNTIL_NONE;
 
@@ -40,13 +43,14 @@ public class HideUntilControlSet implements TaskEditControlSet,
     private int existingDateHour = EXISTING_TIME_UNSET;
     private int existingDateMinutes = EXISTING_TIME_UNSET;
 
-    private final Activity activity;
     private boolean cancelled = false;
 
-    public HideUntilControlSet(Activity activity, int hideUntil) {
-        this.activity = activity;
-        this.spinner = (Spinner) activity.findViewById(hideUntil);
+    public HideUntilControlSet(Activity activity, int viewLayout, int displayViewLayout, int title) {
+        super(activity, viewLayout, displayViewLayout, title);
+        this.spinner = (Spinner) getView().findViewById(R.id.hideUntil);
         this.spinner.setOnItemSelectedListener(this);
+        this.spinner.setPromptId(title);
+        ((LinearLayout) getDisplayView()).addView(getView()); // hack to make listeners work
     }
 
     private ArrayAdapter<HideUntilValue> adapter;
@@ -145,6 +149,7 @@ public class HideUntilControlSet implements TaskEditControlSet,
         } else {
             previousSetting = position;
         }
+        refreshDisplayView();
     }
 
     @Override
@@ -188,6 +193,7 @@ public class HideUntilControlSet implements TaskEditControlSet,
     public void onCancel(DialogInterface dialog) {
         // user canceled, restore previous choice
         spinner.setSelection(previousSetting);
+        refreshDisplayView();
     }
 
     private void customDateFinished() {
@@ -198,6 +204,7 @@ public class HideUntilControlSet implements TaskEditControlSet,
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(adapter);
         spinner.setSelection(0);
+        refreshDisplayView();
     }
 
     // --- setting up values
@@ -206,6 +213,24 @@ public class HideUntilControlSet implements TaskEditControlSet,
         int setting = Preferences.getIntegerFromString(R.string.p_default_hideUntil_key,
                 Task.HIDE_UNTIL_NONE);
         spinner.setSelection(setting);
+        refreshDisplayView();
+    }
+
+    @Override
+    protected OnClickListener getDisplayClickListener() {
+        return new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                spinner.performClick();
+            }
+        };
+    }
+
+    @Override
+    protected void refreshDisplayView() {
+        HideUntilValue value = adapter.getItem(spinner.getSelectedItemPosition());
+        TextView auxDisplay = (TextView) getDisplayView().findViewById(R.id.hide_until_display);
+        auxDisplay.setText(value.toString());
     }
 
     @Override
@@ -236,6 +261,14 @@ public class HideUntilControlSet implements TaskEditControlSet,
             date = 0;
         }
 
+        if (selection == 0) {
+            //enabled.setChecked(false);
+            //spinner.setVisibility(View.GONE);
+        } else {
+            //enabled.setChecked(true);
+            //spinner.setVisibility(View.VISIBLE);
+        }
+
         HideUntilValue[] list = createHideUntilList(date);
         adapter = new ArrayAdapter<HideUntilValue>(
                 activity, android.R.layout.simple_spinner_item, list);
@@ -243,6 +276,7 @@ public class HideUntilControlSet implements TaskEditControlSet,
         spinner.setAdapter(adapter);
 
         spinner.setSelection(selection);
+        refreshDisplayView();
     }
 
     @Override

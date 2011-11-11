@@ -6,19 +6,19 @@ import java.util.Calendar;
 import java.util.Date;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.text.TextUtils;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.ViewGroup.LayoutParams;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
-import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
+import android.widget.TextView;
 
 import com.google.ical.values.Frequency;
 import com.google.ical.values.RRule;
@@ -28,13 +28,13 @@ import com.timsu.astrid.R;
 import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.andlib.service.ExceptionService;
-import com.todoroo.astrid.activity.TaskEditActivity.TaskEditControlSet;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.service.StatisticsConstants;
 import com.todoroo.astrid.service.StatisticsService;
 import com.todoroo.astrid.ui.NumberPicker;
 import com.todoroo.astrid.ui.NumberPickerDialog;
 import com.todoroo.astrid.ui.NumberPickerDialog.OnNumberPickedListener;
+import com.todoroo.astrid.ui.PopupControlSet;
 
 /**
  * Control Set for managing repeats
@@ -42,7 +42,7 @@ import com.todoroo.astrid.ui.NumberPickerDialog.OnNumberPickedListener;
  * @author Tim Su <tim@todoroo.com>
  *
  */
-public class RepeatControlSet implements TaskEditControlSet {
+public class RepeatControlSet extends PopupControlSet {
 
     // --- spinner constants
 
@@ -59,7 +59,8 @@ public class RepeatControlSet implements TaskEditControlSet {
     // --- instance variables
 
     private final Activity activity;
-    private final CheckBox enabled;
+    //private final CheckBox enabled;
+    private boolean doRepeat = true;
     private final Button value;
     private final Spinner interval;
     private final Spinner type;
@@ -75,18 +76,17 @@ public class RepeatControlSet implements TaskEditControlSet {
 
     // --- implementation
 
-    public RepeatControlSet(final Activity activity, ViewGroup parent) {
+    public RepeatControlSet(Activity activity, int viewLayout, int displayViewLayout, int title) {
+        super(activity, viewLayout, displayViewLayout, title);
         DependencyInjectionService.getInstance().inject(this);
 
         this.activity = activity;
-        LayoutInflater.from(activity).inflate(R.layout.repeat_control, parent, true);
 
-        enabled = (CheckBox) activity.findViewById(R.id.repeatEnabled);
-        value = (Button) activity.findViewById(R.id.repeatValue);
-        interval = (Spinner) activity.findViewById(R.id.repeatInterval);
-        type = (Spinner) activity.findViewById(R.id.repeatType);
-        repeatContainer = (LinearLayout) activity.findViewById(R.id.repeatContainer);
-        daysOfWeekContainer = (LinearLayout) activity.findViewById(R.id.repeatDayOfWeekContainer);
+        value = (Button) getView().findViewById(R.id.repeatValue);
+        interval = (Spinner) getView().findViewById(R.id.repeatInterval);
+        type = (Spinner) getView().findViewById(R.id.repeatType);
+        repeatContainer = (LinearLayout) getView().findViewById(R.id.repeatContainer);
+        daysOfWeekContainer = (LinearLayout) getView().findViewById(R.id.repeatDayOfWeekContainer);
         setRepeatValue(1);
 
         // set up days of week
@@ -109,12 +109,6 @@ public class RepeatControlSet implements TaskEditControlSet {
         }
 
         // set up listeners
-        enabled.setOnCheckedChangeListener(new OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                repeatContainer.setVisibility(isChecked ? View.VISIBLE : View.GONE);
-            }
-        });
         value.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 repeatValueClick();
@@ -233,21 +227,22 @@ public class RepeatControlSet implements TaskEditControlSet {
                 exceptionService.reportError("repeat-parse-exception", e);
             }
         }
-        enabled.setChecked(recurrence.length() > 0);
-        repeatContainer.setVisibility(enabled.isChecked() ? View.VISIBLE : View.GONE);
+        doRepeat = recurrence.length() > 0;
 
         // read flag
         if(task.getFlag(Task.FLAGS, Task.FLAG_REPEAT_AFTER_COMPLETION))
             type.setSelection(TYPE_COMPLETION_DATE);
         else
             type.setSelection(TYPE_DUE_DATE);
+
+        refreshDisplayView();
     }
 
 
     @Override
     public String writeToModel(Task task) {
         String result;
-        if(!enabled.isChecked())
+        if(!doRepeat)
             result = ""; //$NON-NLS-1$
         else {
             if(TextUtils.isEmpty(task.getValue(Task.RECURRENCE))) {
@@ -299,5 +294,37 @@ public class RepeatControlSet implements TaskEditControlSet {
         if(task.getFlag(Task.FLAGS, Task.FLAG_REPEAT_AFTER_COMPLETION))
             type.setSelection(1);
         return null;
+    }
+
+    @Override
+    protected void refreshDisplayView() {
+        TextView repeatDisplay = (TextView) getDisplayView().findViewById(R.id.repeat_display);
+        if (doRepeat) {
+            repeatDisplay.setText(R.string.repeat_enabled);
+        } else {
+            repeatDisplay.setText(R.string.repeat_never);
+        }
+    }
+
+    @Override
+    protected AlertDialog.Builder getDialogBuilder(int title, DialogInterface.OnClickListener okListener, DialogInterface.OnCancelListener cancelListener) {
+        DialogInterface.OnClickListener dontRepeatButton = new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                doRepeat = false;
+                refreshDisplayView();
+            }
+        };
+
+        DialogInterface.OnClickListener doRepeatButton = new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                doRepeat = true;
+                refreshDisplayView();
+            }
+        };
+        return super.getDialogBuilder(title, okListener, cancelListener)
+                .setNegativeButton(R.string.repeat_dont, dontRepeatButton)
+                .setPositiveButton(android.R.string.ok, doRepeatButton);
     }
 }

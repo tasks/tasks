@@ -12,19 +12,22 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Color;
 import android.text.TextUtils;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.AdapterView;
-import android.widget.AdapterView.OnItemSelectedListener;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.LinearLayout;
-import android.widget.Spinner;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -39,7 +42,6 @@ import com.todoroo.astrid.actfm.sync.ActFmInvoker;
 import com.todoroo.astrid.actfm.sync.ActFmPreferenceService;
 import com.todoroo.astrid.actfm.sync.ActFmSyncService;
 import com.todoroo.astrid.actfm.sync.ActFmSyncService.JsonHelper;
-import com.todoroo.astrid.activity.TaskEditActivity.TaskEditControlSet;
 import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.dao.MetadataDao.MetadataCriteria;
 import com.todoroo.astrid.data.Metadata;
@@ -54,9 +56,10 @@ import com.todoroo.astrid.service.TaskService;
 import com.todoroo.astrid.tags.TagService;
 import com.todoroo.astrid.ui.PeopleContainer;
 import com.todoroo.astrid.ui.PeopleContainer.OnAddNewPersonListener;
+import com.todoroo.astrid.ui.PopupControlSet;
 import com.todoroo.astrid.utility.Flags;
 
-public class EditPeopleControlSet implements TaskEditControlSet {
+public class EditPeopleControlSet extends PopupControlSet {
 
     public static final String EXTRA_TASK_ID = "task"; //$NON-NLS-1$
 
@@ -82,13 +85,19 @@ public class EditPeopleControlSet implements TaskEditControlSet {
 
     private final CheckBox cbTwitter;
 
-    private final Spinner assignedSpinner;
+    private final View sharedWithRow;
+
+    private final View sharedWithView;
+
+    private final Dialog sharedWithDialog;
+
+    private final ListView assignedList;
+
+    private final TextView assignedDisplay;
 
     private final EditText assignedCustom;
 
-    private final ArrayList<AssignedToUser> spinnerValues = new ArrayList<AssignedToUser>();
-
-    private final Activity activity;
+    private final ArrayList<AssignedToUser> listValues = new ArrayList<AssignedToUser>();
 
     private String saveToast = null;
 
@@ -100,16 +109,28 @@ public class EditPeopleControlSet implements TaskEditControlSet {
 
     // --- UI initialization
 
-    public EditPeopleControlSet(Activity activity, int loginRequestCode) {
+    public EditPeopleControlSet(Activity activity, int viewLayout, int displayViewLayout, int title, int loginRequestCode) {
+        super(activity, viewLayout, displayViewLayout, title);
         DependencyInjectionService.getInstance().inject(this);
-        this.activity = activity;
         this.loginRequestCode = loginRequestCode;
 
-        sharedWithContainer = (PeopleContainer) activity.findViewById(R.id.share_container);
-        assignedCustom = (EditText) activity.findViewById(R.id.assigned_custom);
-        assignedSpinner = (Spinner) activity.findViewById(R.id.assigned_spinner);
-        cbFacebook = (CheckBox) activity.findViewById(R.id.checkbox_facebook);
-        cbTwitter = (CheckBox) activity.findViewById(R.id.checkbox_twitter);
+        sharedWithRow = LayoutInflater.from(activity).inflate(R.layout.control_set_collaborators_display, null);
+        sharedWithView = LayoutInflater.from(activity).inflate(R.layout.control_set_collaborators, null);
+        sharedWithDialog = new AlertDialog.Builder(this.activity)
+        .setTitle(R.string.actfm_EPA_collaborators_header)
+        .setView(getSharedWithView())
+        .setPositiveButton(android.R.string.ok, null).create();
+        sharedWithDialog.setOwnerActivity(this.activity);
+
+        assignedCustom = (EditText) getView().findViewById(R.id.assigned_custom);
+        assignedList = (ListView) getView().findViewById(R.id.assigned_list);
+        assignedList.setChoiceMode(ListView.CHOICE_MODE_SINGLE);
+        assignedList.setItemsCanFocus(false);
+
+        assignedDisplay = (TextView) getDisplayView().findViewById(R.id.assigned_display);
+        sharedWithContainer = (PeopleContainer) getSharedWithView().findViewById(R.id.share_container);
+        cbFacebook = (CheckBox) getSharedWithView().findViewById(R.id.checkbox_facebook);
+        cbTwitter = (CheckBox) getSharedWithView().findViewById(R.id.checkbox_twitter);
 
         sharedWithContainer.addPerson(""); //$NON-NLS-1$
         setUpListeners();
@@ -119,6 +140,14 @@ public class EditPeopleControlSet implements TaskEditControlSet {
     public void readFromTask(Task sourceTask) {
         task = sourceTask;
         setUpData();
+    }
+
+    public View getSharedWithRow() {
+        return sharedWithRow;
+    }
+
+    private View getSharedWithView() {
+        return sharedWithView;
     }
 
     @SuppressWarnings("nls")
@@ -197,7 +226,7 @@ public class EditPeopleControlSet implements TaskEditControlSet {
             @Override
             public void run() {
                 HashSet<Long> userIds = new HashSet<Long>();
-                LinearLayout collaborators = (LinearLayout) activity.findViewById(R.id.collaborators);
+                LinearLayout collaborators = (LinearLayout) getSharedWithView().findViewById(R.id.collaborators);
 
                 for(JSONObject person : sharedPeople) {
                     if(person == null)
@@ -256,7 +285,7 @@ public class EditPeopleControlSet implements TaskEditControlSet {
         sharedPeople.add(0, myself);
 
         // de-duplicate by user id and/or email
-        spinnerValues.clear();
+        listValues.clear();
         for(int i = 0; i < sharedPeople.size(); i++) {
             JSONObject person = sharedPeople.get(i);
             if(person == null)
@@ -275,7 +304,7 @@ public class EditPeopleControlSet implements TaskEditControlSet {
             if(id == 0)
                 name = activity.getString(R.string.actfm_EPA_assign_me);
             AssignedToUser atu = new AssignedToUser(name, person);
-            spinnerValues.add(atu);
+            listValues.add(atu);
             if(names.containsKey(name)) {
                 AssignedToUser user = names.get(name);
                 if(user != null && user.user.has("email")) {
@@ -288,12 +317,10 @@ public class EditPeopleControlSet implements TaskEditControlSet {
                 if(!TextUtils.isEmpty("email"))
                     atu.label = email;
                 else
-                    spinnerValues.remove(atu);
+                    listValues.remove(atu);
             } else
                 names.put(name, atu);
         }
-
-        spinnerValues.add(new AssignedToUser(activity.getString(R.string.actfm_EPA_assign_custom), null));
 
         String assignedStr = task.getValue(Task.USER);
         int assignedIndex = 0;
@@ -301,8 +328,8 @@ public class EditPeopleControlSet implements TaskEditControlSet {
             JSONObject assigned = new JSONObject(assignedStr);
             long assignedId = assigned.optLong("id", -1);
             String assignedEmail = assigned.optString("email");
-            for (int i = 0; i < spinnerValues.size(); i++) {
-                JSONObject user = spinnerValues.get(i).user;
+            for (int i = 0; i < listValues.size(); i++) {
+                JSONObject user = listValues.get(i).user;
                 if (user != null) {
                     if (user.optLong("id") == assignedId || (user.optString("email").equals(assignedEmail) && !(TextUtils.isEmpty(assignedEmail))))
                         assignedIndex = i;
@@ -312,57 +339,57 @@ public class EditPeopleControlSet implements TaskEditControlSet {
 
         final int selected = assignedIndex;
         final ArrayAdapter<AssignedToUser> usersAdapter = new ArrayAdapter<AssignedToUser>(activity,
-                android.R.layout.simple_spinner_item, spinnerValues);
-        usersAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                android.R.layout.simple_list_item_single_choice, listValues);
 
         activity.runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                assignedSpinner.setAdapter(usersAdapter);
-                assignedSpinner.setSelection(selected);
+                assignedList.setAdapter(usersAdapter);
+                assignedList.setItemChecked(selected, true);
+                refreshDisplayView();
             }
         });
     }
 
     private void setUpListeners() {
-        final View assignedClear = activity.findViewById(R.id.assigned_clear);
+        final View assignedClear = getView().findViewById(R.id.assigned_clear);
 
-        assignedSpinner.setOnItemSelectedListener(new OnItemSelectedListener() {
+        assignedList.setOnItemClickListener(new OnItemClickListener() {
             @Override
-            public void onItemSelected(AdapterView<?> parent, View v,
-                    int index, long id) {
-                if(index == spinnerValues.size() - 1) {
-                    assignedCustom.setVisibility(View.VISIBLE);
-                    assignedClear.setVisibility(View.VISIBLE);
-                    assignedSpinner.setVisibility(View.GONE);
-                    assignedCustom.requestFocus();
-                }
+            public void onItemClick(AdapterView<?> arg0, View arg1, int position,
+                    long id) {
+                AssignedToUser user = (AssignedToUser) assignedList.getAdapter().getItem(position);
+                assignedDisplay.setText(user.toString());
+                assignedCustom.setText("");
+                refreshDisplayView();
+                DialogUtilities.dismissDialog(activity, dialog);
             }
-            @Override
-            public void onNothingSelected(AdapterView<?> arg0) {
-                //
-            }
+
         });
 
         assignedClear.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                assignedCustom.setVisibility(View.GONE);
-                assignedClear.setVisibility(View.GONE);
-                assignedCustom.setText(""); //$NON-NLS-1$
-                assignedSpinner.setVisibility(View.VISIBLE);
-                assignedSpinner.setSelection(0);
+                  assignedCustom.setText("");
+                  assignedList.setItemChecked(0, true);
             }
         });
 
         sharedWithContainer.setOnAddNewPerson(new OnAddNewPersonListener() {
             @Override
             public void textChanged(String text) {
-                activity.findViewById(R.id.share_additional).setVisibility(View.VISIBLE);
+                getSharedWithView().findViewById(R.id.share_additional).setVisibility(View.VISIBLE);
                 if(text.indexOf('@') > -1) {
-                    activity.findViewById(R.id.tag_label).setVisibility(View.VISIBLE);
-                    activity.findViewById(R.id.tag_name).setVisibility(View.VISIBLE);
+                    getSharedWithView().findViewById(R.id.tag_label).setVisibility(View.VISIBLE);
+                    getSharedWithView().findViewById(R.id.tag_name).setVisibility(View.VISIBLE);
                 }
+            }
+        });
+
+        sharedWithRow.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                sharedWithDialog.show();
             }
         });
     }
@@ -390,11 +417,13 @@ public class EditPeopleControlSet implements TaskEditControlSet {
         try {
             JSONObject userJson = null;
             TextView assignedView = null;
-            if(assignedCustom.getVisibility() == View.VISIBLE) {
+            if(!TextUtils.isEmpty(assignedCustom.getText())) {
                 userJson = PeopleContainer.createUserJson(assignedCustom);
                 assignedView = assignedCustom;
-            } else if(assignedSpinner.getSelectedItem() != null) {
-                userJson = ((AssignedToUser) assignedSpinner.getSelectedItem()).user;
+            } else {
+                AssignedToUser item = (AssignedToUser) assignedList.getAdapter().getItem(assignedList.getCheckedItemPosition());
+                if (item != null)
+                    userJson = item.user;
             }
 
             if (userJson != null) {
@@ -634,13 +663,13 @@ public class EditPeopleControlSet implements TaskEditControlSet {
             }
         }
 
-        String message = ((TextView) activity.findViewById(R.id.message)).getText().toString();
-        if(!TextUtils.isEmpty(message) && activity.findViewById(R.id.share_additional).getVisibility() == View.VISIBLE) {
+        String message = ((TextView) getSharedWithView().findViewById(R.id.message)).getText().toString();
+        if(!TextUtils.isEmpty(message) && getSharedWithView().findViewById(R.id.share_additional).getVisibility() == View.VISIBLE) {
             values.add("message");
             values.add(message);
         }
 
-        String tag = ((TextView) activity.findViewById(R.id.tag_name)).getText().toString();
+        String tag = ((TextView) getSharedWithView().findViewById(R.id.tag_name)).getText().toString();
         if(!TextUtils.isEmpty(tag)) {
             values.add("tag");
             values.add(tag);
@@ -654,5 +683,17 @@ public class EditPeopleControlSet implements TaskEditControlSet {
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         if(requestCode == loginRequestCode && resultCode == Activity.RESULT_OK)
             saveSharingSettings(saveToast);
+    }
+
+    @Override
+    protected void refreshDisplayView() {
+        if (!TextUtils.isEmpty(assignedCustom.getText())) {
+            assignedDisplay.setText(assignedCustom.getText());
+        } else {
+            AssignedToUser user = (AssignedToUser) assignedList.getAdapter().getItem(assignedList.getCheckedItemPosition());
+            if (user == null)
+                user = (AssignedToUser) assignedList.getAdapter().getItem(0);
+            assignedDisplay.setText(user.toString());
+        }
     }
 }

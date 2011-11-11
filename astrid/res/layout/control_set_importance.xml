@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  android:orientation="vertical"
+  android:layout_width="fill_parent"
+  android:layout_height="fill_parent">
+  
+      <LinearLayout
+        android:id="@+id/importance_container"
+        android:orientation="horizontal"
+        android:paddingTop="5dip"
+        android:paddingBottom="5dip"
+        android:gravity="center_vertical"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content">
+          <ImageView 
+             style="@style/EditRowImage"
+             android:src="@drawable/icn_edit_priority"/>
+	      <TextView
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:text="@string/TEA_importance_label"
+	        style="@style/TextAppearance.GEN_EditLabel" />
+	      <View 
+	          android:layout_height="wrap_content"
+	          android:layout_width="wrap_content"
+	          android:layout_weight="1"/>
+      </LinearLayout>
+      
+      <View
+	      android:layout_width="fill_parent"
+	      android:layout_height="1dip"
+	      android:padding="5dip"
+	      style="@style/TEA_Separator" />
+    
+</LinearLayout>

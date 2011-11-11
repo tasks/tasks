@@ -4,9 +4,7 @@ import java.util.ArrayList;
 
 import android.app.Activity;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
@@ -22,7 +20,6 @@ import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.andlib.sql.Query;
 import com.todoroo.andlib.utility.DateUtilities;
-import com.todoroo.astrid.activity.TaskEditActivity.TaskEditControlSet;
 import com.todoroo.astrid.dao.StoreObjectDao;
 import com.todoroo.astrid.dao.StoreObjectDao.StoreObjectCriteria;
 import com.todoroo.astrid.data.Metadata;
@@ -30,6 +27,7 @@ import com.todoroo.astrid.data.MetadataApiDao.MetadataCriteria;
 import com.todoroo.astrid.data.StoreObject;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.service.MetadataService;
+import com.todoroo.astrid.ui.PopupControlSet;
 
 /**
  * Control Set for managing contact/creator assignments in OpenCRX
@@ -37,7 +35,7 @@ import com.todoroo.astrid.service.MetadataService;
  * @author Andrey Marchenko <igendou@gmail.com>
  *
  */
-public class OpencrxControlSet implements TaskEditControlSet {
+public class OpencrxControlSet extends PopupControlSet {
 
     /**
      * Class that represents OpenCRX ActivityCreator. Duplicates some functionality of OpenCRX plugin.
@@ -203,22 +201,23 @@ public class OpencrxControlSet implements TaskEditControlSet {
     private StoreObjectDao storeObjectDao;
 
     @SuppressWarnings("unused")
-    public OpencrxControlSet(final Activity activity, ViewGroup parent) {
+    public OpencrxControlSet(final Activity activity, int viewLayout, int displayViewLayout, int title) {
+        super(activity, viewLayout, displayViewLayout, title);
         DependencyInjectionService.getInstance().inject(this);
 
         this.activity = activity;
 
-        View view = LayoutInflater.from(activity).inflate(R.layout.opencrx_control, parent, true);
+        //View view = LayoutInflater.from(activity).inflate(R.layout.opencrx_control, parent, true);
 
-        this.assignedToSelector = (Spinner) activity.findViewById(R.id.opencrx_TEA_task_assign);
+        this.assignedToSelector = (Spinner) getView().findViewById(R.id.opencrx_TEA_task_assign);
         TextView emptyView = new TextView(activity);
         emptyView.setText(activity.getText(R.string.opencrx_no_creator));
         assignedToSelector.setEmptyView(emptyView);
 
-        this.creatorSelector = (Spinner) activity.findViewById(R.id.opencrx_TEA_dashboard_assign);
+        this.creatorSelector = (Spinner) getView().findViewById(R.id.opencrx_TEA_dashboard_assign);
 
-        this.assignedToTextInput = (AutoCompleteTextView) activity.findViewById(R.id.opencrx_TEA_contact_textinput);
-        this.creatorTextInput = (AutoCompleteTextView) activity.findViewById(R.id.opencrx_TEA_creator_textinput);
+        this.assignedToTextInput = (AutoCompleteTextView) getView().findViewById(R.id.opencrx_TEA_contact_textinput);
+        this.creatorTextInput = (AutoCompleteTextView) getView().findViewById(R.id.opencrx_TEA_creator_textinput);
 
     }
 
@@ -401,6 +400,11 @@ public class OpencrxControlSet implements TaskEditControlSet {
         }
 
         return ret;
+    }
+
+    @Override
+    protected void refreshDisplayView() {
+        // Nothing to do
     }
 
 }

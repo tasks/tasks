@@ -205,7 +205,7 @@ public class CustomFilterActivity extends ListActivity {
                             Integer.toString(Task.IMPORTANCE_NONE),
                     };
             String[] entries = new String[] {
-                    "!!!!", "!!!", "!!", "!"
+                    "!!!", "!!", "!", "o"
             };
             ContentValues values = new ContentValues();
             values.put(Task.IMPORTANCE.name, "?");

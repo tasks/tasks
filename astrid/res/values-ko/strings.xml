@@ -699,9 +699,9 @@
   <string-array name="EPr_default_importance">
       <!-- importance: labels for "Task Defaults" preference item. -->
       <item>!!! (최고 중요도)</item>
-      <item>!!!</item>
       <item>!!</item>
-      <item>! (최저 중요도)</item>
+      <item>!</item>
+      <item>o (최저 중요도)</item>
   </string-array>
   
   <string-array name="EPr_default_urgency">

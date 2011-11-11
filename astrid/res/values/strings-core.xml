@@ -275,7 +275,7 @@
   <string name="TEA_urgency_none">None</string>
   
   <!-- Task hide until label -->
-  <string name="TEA_hideUntil_label">Hide Task From List Until:</string>
+  <string name="TEA_hideUntil_label">Show Task</string>
   
   <!-- Task editing data being loaded label -->
   <string-array name="TEA_loading"><item>Loading...</item></string-array>
@@ -327,12 +327,14 @@
   
   <string-array name="TEA_hideUntil">
       <!-- hideUntil: labels for edit page. -->
-      <item>Don\'t hide</item>
-      <item>Task is due</item>
+      <item>Always</item>
+      <item>At due date</item>
       <item>Day before due</item>
       <item>Week before due</item>
       <item>Specific Day/Time</item>
   </string-array>
+  
+  <string name="hide_until_prompt">Show in my list</string>
   
   <!-- Add Ons tab when no add-ons found -->
   <string name="TEA_addons_text">Looking for more features?</string>
@@ -340,6 +342,11 @@
   <!-- Add Ons button -->
   <string name="TEA_addons_button">Get the Power Pack!</string>
   
+  <!-- More row -->
+  <string name="TEA_more">More</string>
+  
+  <!-- When controls dialog -->
+  <string name="TEA_when_dialog_title">When is this due?</string>
   <!-- ============================================= IntroductionActivity == -->
   
   <!-- Introduction Window title -->
@@ -381,6 +388,11 @@
   
   <!-- Preference: Task List Show Notes -->
   <string name="EPr_showNotes_title">Show Notes In Task</string>
+  <!-- Preference: Beast mode (auto-expand edit page) -->
+  <string name="EPr_beastMode_title">Beast Mode</string>
+  <string name="EPr_beastMode_desc_disabled">Adavnced task edit settings will start hidden</string>
+  <string name="EPr_beastMode_desc_enabled">Adavnced task edit settings will show automatically</string>
+      
   <!-- Preference: Task List Show Notes Description (disabled) -->
   <string name="EPr_showNotes_desc_disabled">Notes will be displayed in quick action bar</string>  
   <!-- Preference: Task List Show Notes Description (enabled) -->

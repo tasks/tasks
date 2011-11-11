@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  android:orientation="vertical"
+  android:layout_width="fill_parent"
+  android:layout_height="fill_parent">
+  
+  <!-- notes -->
+  <LinearLayout
+    android:orientation="horizontal"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content">
+    <!-- Voice Add Note Button -->
+    <ImageButton
+      android:id="@+id/voiceAddNoteButton"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_weight="1"
+      android:src="@drawable/tango_microphone"
+      android:scaleType="fitCenter"
+      android:visibility="gone" />
+    <EditText
+      android:id="@+id/notes"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginLeft="9dip"
+      android:layout_marginRight="9dip"
+      android:layout_weight="100"
+      android:scrollbars="vertical"
+      android:gravity="top"
+      android:hint="@string/TEA_notes_hint"
+      android:autoText="true"
+      android:capitalize="sentences"
+      android:singleLine="false"
+      android:freezesText="true" />
+  </LinearLayout>
+</LinearLayout>

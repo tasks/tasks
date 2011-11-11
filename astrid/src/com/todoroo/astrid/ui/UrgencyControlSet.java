@@ -13,22 +13,23 @@ import android.text.format.DateUtils;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.TimePicker;
 
 import com.timsu.astrid.R;
 import com.todoroo.andlib.utility.DateUtilities;
-import com.todoroo.astrid.activity.TaskEditActivity.TaskEditControlSet;
 import com.todoroo.astrid.data.Task;
+import com.todoroo.astrid.helper.TaskEditControlSet;
 import com.todoroo.astrid.ui.DeadlineTimePickerDialog.OnDeadlineTimeSetListener;
 
-public class UrgencyControlSet implements TaskEditControlSet,
-        OnDeadlineTimeSetListener {
+public class UrgencyControlSet extends TaskEditControlSet implements OnDeadlineTimeSetListener {
 
     private static final int SPECIFIC_DATE = -1;
 
     private final Button dateButton;
     private final Button timeButton;
     private ArrayAdapter<UrgencyValue> urgencyAdapter;
+    private final TextView auxDisplay;
 
     private final Activity activity;
 
@@ -64,10 +65,24 @@ public class UrgencyControlSet implements TaskEditControlSet,
         }
     }
 
-    public UrgencyControlSet(Activity activity, int date, int time) {
+    public UrgencyControlSet(Activity activity, int layout, int extensionViewId, int auxDisplayId, int...quickWhenIds) {
+        super(activity, layout);
         this.activity = activity;
-        this.dateButton = (Button)activity.findViewById(date);
-        this.timeButton = (Button)activity.findViewById(time);
+        this.dateButton = (Button) getView().findViewById(R.id.urgency_date);
+        this.timeButton = (Button) getView().findViewById(R.id.urgency_time);
+        View extensionView = activity.findViewById(extensionViewId);
+        for (int id : quickWhenIds) {
+            View quickWhen = extensionView.findViewById(id);
+            if (quickWhen != null) {
+                quickWhen.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        dateButton.performClick();
+                    }
+                });
+            }
+        }
+        auxDisplay = (TextView) extensionView.findViewById(auxDisplayId);
 
         dateButton.setOnClickListener(dateButtonClick);
 
@@ -230,12 +245,14 @@ public class UrgencyControlSet implements TaskEditControlSet,
     }
 
     private void updateButtons() {
+        String auxString = "";
         if(dueDateValue == 0) {
             dateButton.setCompoundDrawablesWithIntrinsicBounds(R.drawable.gl_date, 0, 0, 0);
             dateButton.setText(R.string.TEA_urgency_none);
         } else {
             dateButton.setCompoundDrawablesWithIntrinsicBounds(R.drawable.gl_date_blue, 0, 0, 0);
             dateButton.setText(DateUtilities.getDateString(activity, new Date(dueDateValue)));
+            auxString += dateButton.getText();
         }
 
         if(dueTimeValue == 0 || !Task.hasDueTime(dueTimeValue)) {
@@ -244,6 +261,11 @@ public class UrgencyControlSet implements TaskEditControlSet,
         } else {
             timeButton.setCompoundDrawablesWithIntrinsicBounds(R.drawable.gl_time_blue, 0, 0, 0);
             timeButton.setText(DateUtilities.getTimeString(activity, new Date(dueTimeValue)));
+            auxString += (", " + timeButton.getText());
+        }
+
+        if (auxDisplay != null) {
+            auxDisplay.setText(auxString);
         }
     }
 

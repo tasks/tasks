@@ -698,10 +698,10 @@
   
   <string-array name="EPr_default_importance">
       <!-- importance: labels for "Task Defaults" preference item. -->
-      <item>!!!! (Highest)</item>
-      <item>!!!</item>
+      <item>!!! (Highest)</item>
       <item>!!</item>
-      <item>! (Lowest)</item>
+      <item>!</item>
+      <item>o (Lowest)</item>
   </string-array>
   
   <string-array name="EPr_default_urgency">

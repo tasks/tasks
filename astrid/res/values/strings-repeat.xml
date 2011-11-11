@@ -19,6 +19,10 @@
   <!-- hint when opening repeat interval -->
   <string name="repeat_interval_prompt">Repeat Interval</string>
   
+  <string name="repeat_never">Never</string>
+  
+  <string name="repeat_dont">Don\'t repeat</string>
+      
   <string-array name="repeat_interval">
     <!-- repeat interval (days,weeks,months,hours,minutes,years) -->
     <item>Day(s)</item>

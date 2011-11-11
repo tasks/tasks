@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  android:orientation="vertical"
+  android:layout_width="fill_parent"
+  android:layout_height="fill_parent">
+  
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content">
+  		<com.todoroo.astrid.ui.ContactsAutoComplete
+          android:id="@+id/assigned_custom"
+          android:layout_width="fill_parent"
+          android:layout_height="wrap_content"
+          android:layout_marginTop="2dip"
+          android:layout_weight="1"
+          android:hint="@string/actfm_person_hint" />
+        <ImageButton
+          android:id="@+id/assigned_clear"
+          style="?android:attr/buttonStyleInset"
+          android:src="@android:drawable/ic_delete"
+          android:layout_width="40dip"
+          android:layout_height="fill_parent"
+          android:layout_marginTop="4dip"
+          android:layout_marginRight="2dip"
+          android:layout_marginBottom="2dip"
+          android:gravity="center_vertical" />
+    </LinearLayout>
+    
+	<ListView
+	    android:id="@+id/assigned_list"
+	    android:layout_width="fill_parent"
+	    android:layout_height="fill_parent"/>
+    
+</LinearLayout>

@@ -15,16 +15,18 @@ import org.json.JSONObject;
 
 import android.util.Log;
 
+import com.timsu.astrid.R;
 import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.andlib.service.RestClient;
 import com.todoroo.andlib.utility.Pair;
+import com.todoroo.andlib.utility.Preferences;
 
 @SuppressWarnings("nls")
 public class ActFmInvoker {
 
     /** NOTE: these values are development values & will not work on production */
-    private static final String URL = "http://10.0.2.2:3000/api/";
+    private static final String URL = "//10.0.0.2:3000/api/";
     private static final String APP_ID = "a4732a32859dbcd3e684331acd36432c";
     private static final String APP_SECRET = "e389bfc82a0d932332f9a8bd8203735f";
 
@@ -187,7 +189,12 @@ public class ActFmInvoker {
 
         String url = URL;
         if (method.startsWith("/"))
-            url = url.replaceAll("/api/", "");
+            url = url.replaceFirst("/api/", "");
+        if (Preferences.getBoolean(R.string.actfm_https_key, false))
+            url = "https:" + url;
+        else
+            url = "http:" + url;
+
         StringBuilder requestBuilder = new StringBuilder(url).append(method).append('?');
         StringBuilder sigBuilder = new StringBuilder();
         for(Pair<String, Object> entry : params) {

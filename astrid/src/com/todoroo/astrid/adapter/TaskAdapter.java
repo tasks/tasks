@@ -18,8 +18,10 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.app.ListActivity;
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.res.Resources;
 import android.database.Cursor;
 import android.graphics.Bitmap;
@@ -966,13 +968,44 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
             Collection<TaskAction> actions = taskActionManager.get(taskId);
             prepareQuickActionBar(viewHolder, actions);
             //mBarAnchor = v;
-            if(actions != null && !viewHolder.task.getFlag(Task.FLAGS, Task.FLAG_IS_READONLY))
-                mBar.show(v);
+            if(actions != null && !viewHolder.task.getFlag(Task.FLAGS, Task.FLAG_IS_READONLY)) {
+                if (actions.size() > 0)
+                    mBar.show(v);
+                else {
+                    Intent intent = new Intent(activity, TaskEditActivity.class);
+                    intent.putExtra(TaskEditActivity.TOKEN_ID, taskId);
+                    activity.startActivityForResult(intent, TaskListActivity.ACTIVITY_EDIT_TASK);
+                }
+            } else {
+                // Register a temporary receiver in case we clicked a task with no actions forthcoming and should start
+                IntentFilter filter = new IntentFilter(AstridApiConstants.BROADCAST_REQUEST_ACTIONS);
+                filter.setPriority(-1);
+                activity.registerReceiver(new TaskActionsFinishedReceiver(), filter);
+            }
             taskActionManager.request(viewHolder);
 
 
             notifyDataSetChanged();
         }
+    }
+
+    private class TaskActionsFinishedReceiver extends BroadcastReceiver {
+
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            AndroidUtilities.sleepDeep(10L); // Allow preemption for send_actions to be delivered
+            long taskId = intent.getLongExtra(AstridApiConstants.EXTRAS_TASK_ID, -1);
+            if (taskId != -1) {
+                Collection<TaskAction> actions = taskActionManager.get(taskId);
+                if (actions != null && actions.size() == 0) {
+                    Intent editIntent = new Intent(activity, TaskEditActivity.class);
+                    editIntent.putExtra(TaskEditActivity.TOKEN_ID, taskId);
+                    activity.startActivityForResult(editIntent, TaskListActivity.ACTIVITY_EDIT_TASK);
+                }
+            }
+            activity.unregisterReceiver(this);
+        }
+
     }
 
     /**

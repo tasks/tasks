@@ -4,21 +4,22 @@ import android.app.Activity;
 import android.widget.EditText;
 
 import com.todoroo.andlib.data.Property.StringProperty;
-import com.todoroo.astrid.activity.TaskEditActivity.TaskEditControlSet;
 import com.todoroo.astrid.data.Task;
+import com.todoroo.astrid.helper.TaskEditControlSet;
 
 /**
  * Control set for mapping a Property to an EditText
  * @author Tim Su <tim@todoroo.com>
  *
  */
-public class EditTextControlSet implements TaskEditControlSet {
+public class EditTextControlSet extends TaskEditControlSet {
     private final EditText editText;
     private final StringProperty property;
 
-    public EditTextControlSet(Activity activity, StringProperty property, int editText) {
+    public EditTextControlSet(Activity activity, int layout, StringProperty property, int editText) {
+        super(activity, layout);
         this.property = property;
-        this.editText = (EditText)activity.findViewById(editText);
+        this.editText = (EditText) getView().findViewById(editText);
     }
 
     @Override

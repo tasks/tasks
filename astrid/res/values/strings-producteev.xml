@@ -115,6 +115,9 @@
     
     <!-- ================================================ labels for layout-elements == -->
     
+    <!-- Label for Producteev control set row -->
+    <string name="producteev_TEA_control_set_display">Producteev Assignment</string>
+    
     <!-- label for task-assignment spinner on taskeditactivity -->
     <string name="producteev_TEA_task_assign_label">Assign this task to this person:</string>
     

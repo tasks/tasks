@@ -8,7 +8,7 @@
   <string name="EPE_action">Share</string>
   
   <!-- task sharing dialog: assigned hint -->
-  <string name="actfm_person_hint">Contact Name or Email</string>
+  <string name="actfm_person_hint">Contact or Email</string>
   
   <!-- task sharing dialog: shared with hint -->
   <string name="actfm_person_or_tag_hint">Contact or Shared List</string>
@@ -91,7 +91,7 @@
   <string name="actfm_EPA_save">Save &amp; Share</string>
   
   <!-- task sharing dialog: assigned label -->
-  <string name="actfm_EPA_assign_label">Assigned to:</string>
+  <string name="actfm_EPA_assign_label">Who</string>
   
   <!-- task sharing dialog: assigned to me -->
   <string name="actfm_EPA_assign_me">Me</string>
@@ -102,7 +102,10 @@
   <!-- task sharing dialog: shared with label -->
   <string name="actfm_EPA_share_with">Add Collaborators:</string>
   
-  <!-- task sharing dialog: collaborator list name (%s => name of list) -->
+  <!-- task sharing dialog: shared with label -->
+  <string name="actfm_EPA_collaborators_header">Share with Friends</string>
+
+      <!-- task sharing dialog: collaborator list name (%s => name of list) -->
   <string name="actfm_EPA_list">List: %s</string>
   
   <!-- task sharing dialog: assigned hint -->
@@ -193,6 +196,10 @@
       
   <!-- Preferences Title: Act.fm -->    
   <string name="actfm_APr_header">Astrid.com (Beta!)</string>
+  
+  <string name="actfm_https_title">Use HTTPS</string>
+  <string name="actfm_https_enabled">HTTPS enabled (slower)</string>
+  <string name="actfm_https_disabled">HTTPS disabled (faster)</string>
 
   <!-- title for notification tray after synchronizing -->
   <string name="actfm_notification_title">Astrid.com Sync</string>

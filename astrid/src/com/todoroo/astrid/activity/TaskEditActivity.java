@@ -23,8 +23,9 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import android.app.Activity;
 import android.app.AlertDialog;
-import android.app.TabActivity;
+import android.app.Dialog;
 import android.content.BroadcastReceiver;
 import android.content.ContentValues;
 import android.content.Context;
@@ -41,13 +42,13 @@ import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup.LayoutParams;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.RemoteViews;
-import android.widget.TabHost;
-import android.widget.TabHost.OnTabChangeListener;
+import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -57,12 +58,14 @@ import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.andlib.service.ExceptionService;
 import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.andlib.utility.DateUtilities;
+import com.todoroo.andlib.utility.DialogUtilities;
+import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.astrid.actfm.EditPeopleControlSet;
-import com.todoroo.astrid.alarms.AlarmControlSet;
 import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.dao.Database;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.gcal.GCalControlSet;
+import com.todoroo.astrid.helper.TaskEditControlSet;
 import com.todoroo.astrid.opencrx.OpencrxControlSet;
 import com.todoroo.astrid.opencrx.OpencrxCoreUtils;
 import com.todoroo.astrid.producteev.ProducteevControlSet;
@@ -77,14 +80,14 @@ import com.todoroo.astrid.service.StatisticsService;
 import com.todoroo.astrid.service.TaskService;
 import com.todoroo.astrid.service.ThemeService;
 import com.todoroo.astrid.tags.TagsControlSet;
+import com.todoroo.astrid.timers.TimerActionControlSet;
 import com.todoroo.astrid.timers.TimerControlSet;
-import com.todoroo.astrid.ui.EditTextControlSet;
+import com.todoroo.astrid.ui.EditNotesControlSet;
+import com.todoroo.astrid.ui.EditTitleControlSet;
 import com.todoroo.astrid.ui.HideUntilControlSet;
 import com.todoroo.astrid.ui.ImportanceControlSet;
-import com.todoroo.astrid.ui.RandomReminderControlSet;
 import com.todoroo.astrid.ui.ReminderControlSet;
 import com.todoroo.astrid.ui.UrgencyControlSet;
-import com.todoroo.astrid.utility.Constants;
 import com.todoroo.astrid.voice.VoiceInputAssistant;
 
 /**
@@ -95,7 +98,7 @@ import com.todoroo.astrid.voice.VoiceInputAssistant;
  * @author timsu
  *
  */
-public final class TaskEditActivity extends TabActivity {
+public final class TaskEditActivity extends Activity {
 
     // --- bundle tokens
 
@@ -166,7 +169,8 @@ public final class TaskEditActivity extends TabActivity {
     private ImageButton voiceAddNoteButton;
 
     private EditPeopleControlSet peopleControlSet = null;
-    private EditTextControlSet notesControlSet = null;
+    private EditNotesControlSet notesControlSet = null;
+    private HideUntilControlSet hideUntilControls = null;
     private EditText title;
 
     private final List<TaskEditControlSet> controls =
@@ -187,9 +191,12 @@ public final class TaskEditActivity extends TabActivity {
 	private final ControlReceiver controlReceiver = new ControlReceiver();
 
     /** voice assistant for notes-creation */
-    private VoiceInputAssistant voiceNoteAssistant = null;
+    private VoiceInputAssistant voiceNoteAssistant;
 
     private EditText notesEditText;
+    private ScrollView scrollView;
+
+    private Dialog whenDialog;
 
     /* ======================================================================
      * ======================================================= initialization
@@ -227,67 +234,108 @@ public final class TaskEditActivity extends TabActivity {
 
     /** Initialize UI components */
     private void setUpUIComponents() {
-        final Resources r = getResources();
+        setContentView(R.layout.task_edit_activity_new);
 
-        // set up tab host
-        final TabHost tabHost = getTabHost();
-        tabHost.setPadding(0, 4, 0, 0);
-        LayoutInflater.from(this).inflate(R.layout.task_edit_activity,
-                tabHost.getTabContentView(), true);
-        tabHost.addTab(tabHost.newTabSpec(TAB_BASIC).
-                setIndicator(r.getString(R.string.TEA_tab_basic),
-                        r.getDrawable(R.drawable.gl_pencil)).setContent(
-                                R.id.tab_basic));
-        tabHost.addTab(tabHost.newTabSpec(TAB_SHARE).
-                setIndicator(r.getString(R.string.TEA_tab_share),
-                        r.getDrawable(R.drawable.gl_group)).setContent(
-                                R.id.tab_share));
-        tabHost.addTab(tabHost.newTabSpec(TAB_ALARMS).
-                setIndicator(r.getString(R.string.TEA_tab_alarms),
-                        r.getDrawable(R.drawable.gl_alarm)).setContent(
-                                R.id.tab_alarms));
-        tabHost.addTab(tabHost.newTabSpec(TAB_MORE).
-                setIndicator(r.getString(R.string.TEA_tab_more),
-                        r.getDrawable(R.drawable.gl_more)).setContent(
-                                R.id.tab_more));
-        tabHost.setBackgroundDrawable(findViewById(R.id.taskEditParent).getBackground());
-        //getTabWidget().setBackgroundColor(Color.WHITE);
-        AndroidUtilities.callApiMethod(8, getTabWidget(), "setStripEnabled", //$NON-NLS-1$
-                new Class<?>[] { boolean.class }, false);
-        if(getIntent().hasExtra(TOKEN_TAB))
-            tabHost.setCurrentTabByTag(getIntent().getStringExtra(TOKEN_TAB));
-        OnTabChangeListener tabChange = new OnTabChangeListener() {
-            @Override
-            public void onTabChanged(String tabId) {
-                for (int i = 0; i < tabHost.getTabWidget().getChildCount(); i++)
-                    tabHost.getTabWidget().getChildAt(i).setBackgroundResource(0);
-                View child = tabHost.getTabWidget().getChildAt(tabHost.getCurrentTab());
-                if(child != null)
-                    child.setBackgroundColor(r.getColor(R.color.task_edit_selected));
-            }
-        };
-        tabChange.onTabChanged(null);
-        tabHost.setOnTabChangedListener(tabChange);
+        scrollView = (ScrollView) findViewById(R.id.edit_scroll);
+
+
+        LinearLayout basicControls = (LinearLayout) findViewById(R.id.basic_controls);
+        LinearLayout whenDialogView = (LinearLayout) LayoutInflater.from(this).inflate(R.layout.task_edit_when_controls, null);
+        LinearLayout whenControls = (LinearLayout) whenDialogView.findViewById(R.id.when_controls);
+        LinearLayout moreControls = (LinearLayout) findViewById(R.id.more_controls);
+
+        constructWhenDialog(whenDialogView);
 
         // populate control set
-        title = (EditText) findViewById(R.id.title);
-        controls.add(new EditTextControlSet(this, Task.TITLE, R.id.title));
-        controls.add(new ImportanceControlSet(this, R.id.importance_container));
-        controls.add(new UrgencyControlSet(this, R.id.urgency_date, R.id.urgency_time));
-        notesEditText = (EditText) findViewById(R.id.notes);
+        EditTitleControlSet editTitle = new EditTitleControlSet(this, R.layout.control_set_title, Task.TITLE, R.id.title);
+        title = (EditText) editTitle.getView().findViewById(R.id.title);
+        controls.add(editTitle);
+        basicControls.addView(editTitle.getView());
 
-        // prepare and set listener for voice-button
-        if(addOnService.hasPowerPack()) {
-            voiceAddNoteButton = (ImageButton) findViewById(R.id.voiceAddNoteButton);
-            voiceAddNoteButton.setVisibility(View.VISIBLE);
-            int prompt = R.string.voice_edit_note_prompt;
-            voiceNoteAssistant = new VoiceInputAssistant(this, voiceAddNoteButton,
-                    notesEditText, REQUEST_VOICE_RECOG);
-            voiceNoteAssistant.setAppend(true);
-            voiceNoteAssistant.setLanguageModel(RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);
-            voiceNoteAssistant.configureMicrophoneButton(prompt);
+        TimerActionControlSet timerAction = new TimerActionControlSet(this, editTitle.getView());
+        controls.add(timerAction);
+
+        controls.add(peopleControlSet = new EditPeopleControlSet(TaskEditActivity.this, R.layout.control_set_assigned, R.layout.control_set_assigned_display, R.string.actfm_EPA_assign_label, REQUEST_LOG_IN));
+        basicControls.addView(peopleControlSet.getDisplayView());
+
+        UrgencyControlSet urgencyControl = new UrgencyControlSet(TaskEditActivity.this, R.layout.control_set_urgency, R.id.when_header, R.id.aux_date, R.id.when_label, R.id.when_image);
+        controls.add(urgencyControl);
+        whenControls.addView(urgencyControl.getView());
+
+
+        RepeatControlSet repeatControls = new RepeatControlSet(TaskEditActivity.this, R.layout.control_set_repeat, R.layout.control_set_repeat_display, R.string.repeat_enabled);
+        controls.add(repeatControls);
+        whenControls.addView(repeatControls.getDisplayView());
+
+        GCalControlSet gcalControl = new GCalControlSet(TaskEditActivity.this, R.layout.control_set_gcal, R.layout.control_set_gcal_display, R.string.gcal_TEA_addToCalendar_label);
+        controls.add(gcalControl);
+        whenControls.addView(gcalControl.getDisplayView());
+
+        hideUntilControls = new HideUntilControlSet(TaskEditActivity.this, R.layout.control_set_hide, R.layout.control_set_hide_display, R.string.hide_until_prompt);
+        controls.add(hideUntilControls);
+        whenControls.addView(hideUntilControls.getDisplayView());
+
+        ImportanceControlSet importanceControl = new ImportanceControlSet(TaskEditActivity.this, R.layout.control_set_importance);
+        controls.add(importanceControl);
+        importanceControl.addListener(editTitle);
+        moreControls.addView(importanceControl.getView());
+
+        TagsControlSet tagsControl = new TagsControlSet(TaskEditActivity.this, R.layout.control_set_tags, R.layout.control_set_tags_display, R.string.TEA_tags_label);
+        controls.add(tagsControl);
+        moreControls.addView(tagsControl.getDisplayView());
+
+        notesControlSet = new EditNotesControlSet(TaskEditActivity.this, R.layout.control_set_notes, R.layout.control_set_notes_display);
+        notesEditText = (EditText) notesControlSet.getView().findViewById(R.id.notes);
+        controls.add(notesControlSet);
+        moreControls.addView(notesControlSet.getDisplayView());
+
+        ReminderControlSet reminderControl = new ReminderControlSet(TaskEditActivity.this, R.layout.control_set_reminders, R.layout.control_set_reminders_display);
+        controls.add(reminderControl);
+        moreControls.addView(reminderControl.getDisplayView());
+
+        TimerControlSet timerControl = new TimerControlSet(TaskEditActivity.this, R.layout.control_set_timers, R.layout.control_set_timers_extras_display, R.string.TEA_timer_controls);
+        timerAction.setListener(timerControl);
+        controls.add(timerControl);
+        moreControls.addView(timerControl.getDisplayView());
+
+        moreControls.addView(peopleControlSet.getSharedWithRow());
+
+        try {
+            if(ProducteevUtilities.INSTANCE.isLoggedIn()) {
+                ProducteevControlSet producteevControl = new ProducteevControlSet(TaskEditActivity.this, R.layout.control_set_producteev, R.layout.control_set_producteev_display, R.string.producteev_TEA_control_set_display);
+                controls.add(producteevControl);
+                basicControls.addView(producteevControl.getDisplayView());
+                notesEditText.setHint(R.string.producteev_TEA_notes);
+                ((TextView) notesControlSet.getView().findViewById(R.id.notes_label)).setHint(R.string.producteev_TEA_notes);
+            }
+        } catch (Exception e) {
+            Log.e("astrid-error", "loading-control-set", e); //$NON-NLS-1$ //$NON-NLS-2$
         }
 
+        try {
+            if(OpencrxCoreUtils.INSTANCE.isLoggedIn()) {
+                OpencrxControlSet ocrxControl = new OpencrxControlSet(TaskEditActivity.this, R.layout.control_set_opencrx, R.layout.control_set_opencrx_display, R.string.opencrx_TEA_opencrx_title);
+                controls.add(ocrxControl);
+                basicControls.addView(ocrxControl.getDisplayView());
+                notesEditText.setHint(R.string.opencrx_TEA_notes);
+                ((TextView) notesControlSet.getView().findViewById(R.id.notes_label)).setHint(R.string.opencrx_TEA_notes);
+            }
+        } catch (Exception e) {
+            Log.e("astrid-error", "loading-control-set", e); //$NON-NLS-1$ //$NON-NLS-2$
+        }
+
+        boolean beastMode = Preferences.getBoolean(R.string.p_beastMode, false);
+        if (beastMode) {
+            LinearLayout whenHeader = (LinearLayout) findViewById(R.id.when_header);
+            LinearLayout moreHeader = (LinearLayout) findViewById(R.id.more_header);
+            whenHeader.setVisibility(View.GONE);
+            moreHeader.setVisibility(View.GONE);
+
+            whenControls.setVisibility(View.VISIBLE);
+            moreControls.setVisibility(View.VISIBLE);
+        }
+
+        // Load task data in background
         new TaskEditBackgroundLoader().start();
     }
 
@@ -301,6 +349,30 @@ public final class TaskEditActivity extends TabActivity {
         final View.OnClickListener mDiscardListener = new View.OnClickListener() {
             public void onClick(View v) {
                 discardButtonClick();
+            }
+        };
+        final View.OnClickListener mExpandWhenListener = new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                /*View whenView = findViewById(R.id.when_controls);
+                View whenHeader = findViewById(R.id.when_header);
+                if (whenView.getVisibility() == View.GONE) {
+                    whenView.setVisibility(View.VISIBLE);
+                    whenHeader.setVisibility(View.GONE);
+                }//*/
+                if (whenDialog != null)
+                    whenDialog.show();
+            }
+        };
+        final View.OnClickListener mExpandMoreListener = new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                View moreView = findViewById(R.id.more_controls);
+                View moreHeader = findViewById(R.id.more_header);
+                if (moreView.getVisibility() == View.GONE) {
+                    moreView.setVisibility(View.VISIBLE);
+                    moreHeader.setVisibility(View.GONE);
+                }
             }
         };
 
@@ -338,9 +410,34 @@ public final class TaskEditActivity extends TabActivity {
             if (discardButton4 != null) {
                 discardButton4.setOnClickListener(mDiscardListener);
             }
+
+            findViewById(R.id.when_header).setOnClickListener(mExpandWhenListener);
+
+            findViewById(R.id.more_header).setOnClickListener(mExpandMoreListener);
         } catch (Exception e) {
             // error loading the proper activity
         }
+    }
+
+    private void constructWhenDialog(View whenDialogView) {
+        int theme = ThemeService.getTheme();
+        if (theme == R.style.Theme || theme == R.style.Theme_Transparent) {
+            whenDialog = new Dialog(this, R.style.Theme_WhenDialog);
+            whenDialogView.setBackgroundColor(getResources().getColor(android.R.color.black));
+        } else {
+            whenDialog = new Dialog(this, R.style.Theme_White_WhenDialog);
+            whenDialogView.setBackgroundColor(getResources().getColor(android.R.color.white));
+        }
+
+        Button dismissDialogButton = (Button) whenDialogView.findViewById(R.id.when_dismiss);
+        dismissDialogButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                DialogUtilities.dismissDialog(TaskEditActivity.this, whenDialog);
+            }
+        });
+        whenDialog.setTitle(R.string.TEA_when_dialog_title);
+        whenDialog.addContentView(whenDialogView, new LayoutParams(LayoutParams.FILL_PARENT, LayoutParams.FILL_PARENT));
     }
 
     /**
@@ -352,63 +449,34 @@ public final class TaskEditActivity extends TabActivity {
     class TaskEditBackgroundLoader extends Thread {
 
         public void onUiThread() {
-            // internal add-ins
-            controls.add(new TagsControlSet(TaskEditActivity.this, R.id.tags_container));
-
-            controls.add(new RepeatControlSet(TaskEditActivity.this,
-                    (LinearLayout) findViewById(R.id.addons_urgency)));
-            LinearLayout alarmsAddons = (LinearLayout) findViewById(R.id.addons_alarms);
-            LinearLayout moreAddons = (LinearLayout) findViewById(R.id.addons_more);
-
-
-            try {
-                if(ProducteevUtilities.INSTANCE.isLoggedIn()) {
-                    controls.add(new ProducteevControlSet(TaskEditActivity.this, moreAddons));
-                    notesEditText.setHint(R.string.producteev_TEA_notes);
-                    ((TextView)findViewById(R.id.notes_label)).setHint(R.string.producteev_TEA_notes);
-                }
-            } catch (Exception e) {
-                Log.e("astrid-error", "loading-control-set", e); //$NON-NLS-1$ //$NON-NLS-2$
+            // prepare and set listener for voice-button
+            if(addOnService.hasPowerPack()) {
+                voiceAddNoteButton = (ImageButton) notesControlSet.getView().findViewById(R.id.voiceAddNoteButton);
+                voiceAddNoteButton.setVisibility(View.VISIBLE);
+                int prompt = R.string.voice_edit_note_prompt;
+                voiceNoteAssistant = new VoiceInputAssistant(TaskEditActivity.this, voiceAddNoteButton,
+                        notesEditText, REQUEST_VOICE_RECOG);
+                voiceNoteAssistant.setAppend(true);
+                voiceNoteAssistant.setLanguageModel(RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);
+                voiceNoteAssistant.configureMicrophoneButton(prompt);
             }
 
-            try {
-                if(OpencrxCoreUtils.INSTANCE.isLoggedIn()) {
-                    controls.add(new OpencrxControlSet(TaskEditActivity.this, moreAddons));
-                    notesEditText.setHint(R.string.opencrx_TEA_notes);
-                    ((TextView)findViewById(R.id.notes_label)).setHint(R.string.opencrx_TEA_notes);
-                }
-            } catch (Exception e) {
-                Log.e("astrid-error", "loading-control-set", e); //$NON-NLS-1$ //$NON-NLS-2$
-            }
+//            if(!Constants.MARKET_DISABLED && !addOnService.hasPowerPack()) {
+//                // show add-on help if necessary
+//                View addonsEmpty = findViewById(R.id.addons_empty);
+//                addonsEmpty.setVisibility(View.VISIBLE);
+//                moreAddons.removeView(addonsEmpty);
+//                moreAddons.addView(addonsEmpty);
+//                ((Button)findViewById(R.id.addons_button)).setOnClickListener(new View.OnClickListener() {
+//                    @Override
+//                    public void onClick(View v) {
+//                        Intent addOnActivity = new Intent(TaskEditActivity.this, AddOnActivity.class);
+//                        addOnActivity.putExtra(AddOnActivity.TOKEN_START_WITH_AVAILABLE, true);
+//                        startActivity(addOnActivity);
+//                    }
+//                });
+//            }
 
-            controls.add(new TimerControlSet(TaskEditActivity.this, moreAddons));
-            controls.add(new AlarmControlSet(TaskEditActivity.this, alarmsAddons));
-            controls.add(new GCalControlSet(TaskEditActivity.this, moreAddons));
-
-            if(!Constants.MARKET_DISABLED && !addOnService.hasPowerPack()) {
-                // show add-on help if necessary
-                View addonsEmpty = findViewById(R.id.addons_empty);
-                addonsEmpty.setVisibility(View.VISIBLE);
-                moreAddons.removeView(addonsEmpty);
-                moreAddons.addView(addonsEmpty);
-                ((Button)findViewById(R.id.addons_button)).setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        Intent addOnActivity = new Intent(TaskEditActivity.this, AddOnActivity.class);
-                        addOnActivity.putExtra(AddOnActivity.TOKEN_START_WITH_AVAILABLE, true);
-                        startActivity(addOnActivity);
-                    }
-                });
-            }
-
-            controls.add(new ReminderControlSet(TaskEditActivity.this,
-                    R.id.reminder_due, R.id.reminder_overdue, R.id.reminder_alarm));
-            controls.add(new RandomReminderControlSet(TaskEditActivity.this,
-                    R.id.reminder_random, R.id.reminder_random_interval));
-            HideUntilControlSet hideUntilControls = new HideUntilControlSet(TaskEditActivity.this, R.id.hideUntil);
-            controls.add(hideUntilControls);
-            controls.add(peopleControlSet = new EditPeopleControlSet(
-                    TaskEditActivity.this, REQUEST_LOG_IN));
 
             // re-read all
             synchronized(controls) {
@@ -429,9 +497,6 @@ public final class TaskEditActivity extends TabActivity {
                     onUiThread();
                 }
             });
-
-            notesControlSet = new EditTextControlSet(TaskEditActivity.this, Task.NOTES, R.id.notes);
-            controls.add(notesControlSet);
 
             // set up listeners
             setUpListeners();
@@ -517,6 +582,9 @@ public final class TaskEditActivity extends TabActivity {
         if(title.getText().length() > 0)
             model.setValue(Task.DELETION_DATE, 0L);
 
+        if(title.getText().length() == 0)
+            return;
+
         StringBuilder toast = new StringBuilder();
         synchronized(controls) {
             for(TaskEditControlSet controlSet : controls) {
@@ -527,8 +595,6 @@ public final class TaskEditActivity extends TabActivity {
         }
 
         taskService.save(model);
-        if(title.getText().length() == 0)
-            return;
 
         String processedToast = addDueTimeToToast(toast.toString());
         if(!onPause && peopleControlSet != null && !peopleControlSet.saveSharingSettings(processedToast))
@@ -771,23 +837,5 @@ public final class TaskEditActivity extends TabActivity {
     /* ======================================================================
      * ========================================== UI component helper classes
      * ====================================================================== */
-
-    // --- interface
-
-    /**
-     * Interface for working with controls that alter task data
-     */
-    public interface TaskEditControlSet {
-        /**
-         * Read data from model to update the control set
-         */
-        public void readFromTask(Task task);
-
-        /**
-         * Write data from control set to model
-         * @return text appended to the toast
-         */
-        public String writeToModel(Task task);
-    }
 
 }

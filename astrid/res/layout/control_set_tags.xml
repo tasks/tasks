@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  android:orientation="vertical"
+  android:layout_width="fill_parent"
+  android:layout_height="fill_parent">
+  
+  <LinearLayout
+      android:id="@+id/newTags"
+      android:orientation="vertical"
+      android:layout_width="fill_parent"
+      android:layout_height="wrap_content"
+      android:layout_marginTop="2dip"
+      android:layout_marginBottom="5dip"
+      android:paddingLeft="5dip"
+      android:paddingRight="3dip"/>
+  
+  <View
+      android:layout_width="fill_parent"
+      android:layout_height="1dip"
+      android:padding="5dip"
+      android:background="@android:drawable/divider_horizontal_dark"/>  
+  <ListView
+      android:id="@+id/existingTags"
+      android:layout_width="fill_parent"
+      android:layout_height="fill_parent"/>
+    
+</LinearLayout>

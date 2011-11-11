@@ -699,9 +699,9 @@
   <string-array name="EPr_default_importance">
       <!-- importance: labels for "Task Defaults" preference item. -->
       <item>!!! (Наивысшая)</item>
-      <item>!!!</item>
       <item>!!</item>
-      <item>! (Низшая)</item>
+      <item>!</item>
+      <item>o (Низшая)</item>
   </string-array>
   
   <string-array name="EPr_default_urgency">

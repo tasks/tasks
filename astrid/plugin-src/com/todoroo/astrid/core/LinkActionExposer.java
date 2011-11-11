@@ -26,7 +26,7 @@ import com.todoroo.astrid.api.TaskDecoration;
 import com.todoroo.astrid.data.Task;
 
 /**
- * Exposes {@link TaskDecoration} for timers
+ * Exposes {@link TaskDecoration} for phone numbers, emails, urls, etc
  *
  * @author Tim Su <tim@todoroo.com>
  *

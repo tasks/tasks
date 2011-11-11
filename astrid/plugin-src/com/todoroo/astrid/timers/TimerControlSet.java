@@ -1,14 +1,14 @@
 package com.todoroo.astrid.timers;
 
 import android.app.Activity;
-import android.view.LayoutInflater;
-import android.view.ViewGroup;
+import android.view.View;
 
 import com.timsu.astrid.R;
 import com.todoroo.andlib.data.Property.IntegerProperty;
-import com.todoroo.andlib.service.DependencyInjectionService;
-import com.todoroo.astrid.activity.TaskEditActivity.TaskEditControlSet;
 import com.todoroo.astrid.data.Task;
+import com.todoroo.astrid.helper.TaskEditControlSet;
+import com.todoroo.astrid.timers.TimerActionControlSet.TimerStoppedListener;
+import com.todoroo.astrid.ui.PopupControlSet;
 import com.todoroo.astrid.ui.TimeDurationControlSet;
 
 /**
@@ -17,22 +17,17 @@ import com.todoroo.astrid.ui.TimeDurationControlSet;
  * @author Tim Su <tim@todoroo.com>
  *
  */
-public class TimerControlSet implements TaskEditControlSet {
-
-    private final Activity activity;
+public class TimerControlSet extends PopupControlSet implements TimerStoppedListener {
 
     TaskEditControlSet estimated, elapsed;
 
-    public TimerControlSet(final Activity activity, ViewGroup parent) {
-        DependencyInjectionService.getInstance().inject(this);
+    public TimerControlSet(final Activity activity, int viewLayout, int displayViewLayout, int title) {
+        super(activity, viewLayout, displayViewLayout, title);
 
-        this.activity = activity;
-        LayoutInflater.from(activity).inflate(R.layout.timer_control, parent, true);
-
-        estimated = new TimeDurationTaskEditControlSet(Task.ESTIMATED_SECONDS,
+        estimated = new TimeDurationTaskEditControlSet(activity, getView(), Task.ESTIMATED_SECONDS,
                 R.id.estimatedDuration, 0, R.string.DLG_hour_minutes
                 );
-        elapsed = new TimeDurationTaskEditControlSet(Task.ELAPSED_SECONDS, R.id.elapsedDuration,
+        elapsed = new TimeDurationTaskEditControlSet(activity, getView(), Task.ELAPSED_SECONDS, R.id.elapsedDuration,
                 0, R.string.DLG_hour_minutes
                 );
     }
@@ -57,14 +52,15 @@ public class TimerControlSet implements TaskEditControlSet {
      * @author Tim Su <tim@todoroo.com>
      *
      */
-    public class TimeDurationTaskEditControlSet implements TaskEditControlSet {
+    public class TimeDurationTaskEditControlSet extends TaskEditControlSet {
         private final TimeDurationControlSet controlSet;
         private final IntegerProperty property;
 
-        public TimeDurationTaskEditControlSet(IntegerProperty property, int timeButtonId,
+        public TimeDurationTaskEditControlSet(Activity activity, View v, IntegerProperty property, int timeButtonId,
                 int prefixResource, int titleResource) {
+            super(activity, -1);
             this.property = property;
-            this.controlSet = new TimeDurationControlSet(activity,
+            this.controlSet = new TimeDurationControlSet(activity, v,
                     timeButtonId, prefixResource, titleResource);
         }
 
@@ -78,6 +74,16 @@ public class TimerControlSet implements TaskEditControlSet {
             task.setValue(property, controlSet.getTimeDurationInSeconds());
             return null;
         }
+    }
+
+    @Override
+    protected void refreshDisplayView() {
+        // Nothing to do here yet
+    }
+
+    @Override
+    public void timerStopped(Task task) {
+        elapsed.readFromTask(task);
     }
 
 }

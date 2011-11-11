@@ -7,10 +7,13 @@
   <!-- =============================================== Task Edit Controls == -->
 
   <!-- Tags label -->
-  <string name="TEA_tags_label">Add to List:</string>
+  <string name="TEA_tags_label">Lists</string>
   
+  <!-- Tags none -->
+  <string name="TEA_tags_none">None</string>
+
   <!-- Tags hint -->
-  <string name="TEA_tag_hint">List Name</string>
+  <string name="TEA_tag_hint">New list</string>
   
   <!-- Tags dropdown -->
   <string name="TEA_tag_dropdown">Select a list</string>

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/when_dialog"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical"    
+    android:padding="10dip">
+	<LinearLayout 
+	    android:id="@+id/when_controls"
+	    android:layout_width="fill_parent"
+	    android:layout_height="fill_parent"
+	    android:layout_weight="100"
+	    android:orientation="vertical">
+	</LinearLayout>
+	<Button 
+	    android:id="@+id/when_dismiss"
+	    android:layout_width="150dip"
+	    android:layout_height="50dip"
+	    android:layout_weight="1"
+	    android:layout_gravity="center_horizontal"
+	    android:text="@string/DLG_ok"/>
+</LinearLayout>

@@ -272,9 +272,12 @@ public class EditPreferences extends TodorooPreferenceActivity {
                 preference.setSummary(getString(R.string.EPr_theme_desc,
                         r.getStringArray(R.array.EPr_themes)[index]));
             }
+        } else if (r.getString(R.string.p_beastMode).equals(preference.getKey())) {
+            if (value != null && !(Boolean)value)
+                preference.setSummary(R.string.EPr_beastMode_desc_disabled);
+            else
+                preference.setSummary(R.string.EPr_beastMode_desc_enabled);
         }
-
-
         // statistics service
         else if (r.getString(R.string.p_statistics).equals(preference.getKey())) {
             if (value != null && !(Boolean)value)

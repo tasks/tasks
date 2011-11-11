@@ -11,18 +11,22 @@ public class ThemeService {
 
     @SuppressWarnings("nls")
     public static void applyTheme(Activity activity) {
-        String preference = Preferences.getStringValue(R.string.p_theme);
-        if(preference != null && preference.equals("black"))
-            activity.setTheme(R.style.Theme);
-        else if(preference != null && preference.equals("transparent"))
-            activity.setTheme(R.style.Theme_Transparent);
-        else if(preference != null && preference.equals("transparent-white"))
-            activity.setTheme(R.style.Theme_TransparentWhite);
-        else
-            activity.setTheme(R.style.Theme_White);
+        activity.setTheme(getTheme());
 
         activity.getWindow().setFormat(PixelFormat.RGBA_8888);
         activity.getWindow().addFlags(WindowManager.LayoutParams.FLAG_DITHER);
+    }
+
+    public static int getTheme() {
+        String preference = Preferences.getStringValue(R.string.p_theme);
+        if(preference != null && preference.equals("black"))
+            return R.style.Theme;
+        else if(preference != null && preference.equals("transparent"))
+            return R.style.Theme_Transparent;
+        else if(preference != null && preference.equals("transparent-white"))
+            return R.style.Theme_TransparentWhite;
+        else
+            return R.style.Theme_White;
     }
 
 }

@@ -700,10 +700,10 @@
   
   <string-array name="EPr_default_importance">
       <!-- importance: labels for "Task Defaults" preference item. -->
-      <item>!!!! （最重要）</item>
-      <item>!!!</item>
+      <item>!!! （最重要）</item>
       <item>!!</item>
-      <item>! （最低）</item>
+      <item>!</item>
+      <item>o （最低）</item>
   </string-array>
   
   <string-array name="EPr_default_urgency">

@@ -3,10 +3,11 @@ package com.todoroo.astrid.ui;
 import android.app.Activity;
 import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
+import android.widget.LinearLayout;
 import android.widget.Spinner;
 
 import com.timsu.astrid.R;
-import com.todoroo.astrid.activity.TaskEditActivity.TaskEditControlSet;
+import com.todoroo.astrid.alarms.AlarmControlSet;
 import com.todoroo.astrid.data.Task;
 
 /**
@@ -15,14 +16,24 @@ import com.todoroo.astrid.data.Task;
  * @author Tim Su <tim@todoroo.com>
  *
  */
-public class ReminderControlSet implements TaskEditControlSet {
+public class ReminderControlSet extends PopupControlSet {
     private final CheckBox during, after;
     private final Spinner mode;
 
-    public ReminderControlSet(Activity activity, int duringId, int afterId, int modeId) {
-        during = (CheckBox)activity.findViewById(duringId);
-        after = (CheckBox)activity.findViewById(afterId);
-        mode = (Spinner)activity.findViewById(modeId);
+    private final RandomReminderControlSet randomControlSet;
+    private final AlarmControlSet alarmControl;
+
+    public ReminderControlSet(Activity activity, int viewLayout, int displayViewLayout) {
+        super(activity, viewLayout, displayViewLayout, R.string.TEA_reminders_group_label);
+        during = (CheckBox) getView().findViewById(R.id.reminder_due);
+        after = (CheckBox) getView().findViewById(R.id.reminder_overdue);
+        mode = (Spinner) getView().findViewById(R.id.reminder_alarm);
+
+        randomControlSet = new RandomReminderControlSet(activity, getView(), -1);
+        alarmControl = new AlarmControlSet(activity, R.layout.control_set_alarms);
+
+        LinearLayout body = (LinearLayout) getView().findViewById(R.id.reminders_body);
+        body.addView(alarmControl.getView());
 
         String[] list = new String[] {
                 activity.getString(R.string.TEA_reminder_mode_once),
@@ -72,6 +83,8 @@ public class ReminderControlSet implements TaskEditControlSet {
     @Override
     public void readFromTask(Task task) {
         setValue(task.getValue(Task.REMINDER_FLAGS));
+        randomControlSet.readFromTask(task);
+        alarmControl.readFromTask(task);
     }
 
     @Override
@@ -79,6 +92,14 @@ public class ReminderControlSet implements TaskEditControlSet {
         task.setValue(Task.REMINDER_FLAGS, getValue());
         // clear snooze if task is being edited
         task.setValue(Task.REMINDER_SNOOZE, 0L);
+
+        randomControlSet.writeToModel(task);
+        alarmControl.writeToModel(task);
         return null;
+    }
+
+    @Override
+    protected void refreshDisplayView() {
+        // Nothing to do here
     }
 }

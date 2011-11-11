@@ -131,6 +131,8 @@
     <!-- Spinner-item for default dashboard on taskeditactivity -->
     <string name="opencrx_TEA_dashboard_default">&lt;Default&gt;</string>
 
+    <string name="opencrx_TEA_opencrx_title">OpenCRX Controls</string>
+        
     <string name="CFC_opencrx_in_workspace_text">In workspace: ?</string>
 
     <string name="CFC_opencrx_in_workspace_name">In workspace...</string>

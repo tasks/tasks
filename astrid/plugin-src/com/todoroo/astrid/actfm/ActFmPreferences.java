@@ -1,5 +1,8 @@
 package com.todoroo.astrid.actfm;
 
+import android.content.res.Resources;
+import android.preference.Preference;
+
 import com.timsu.astrid.R;
 import com.todoroo.andlib.service.Autowired;
 import com.todoroo.astrid.actfm.sync.ActFmPreferenceService;
@@ -43,6 +46,20 @@ public class ActFmPreferences extends SyncProviderPreferences {
     protected void onPause() {
         super.onPause();
         new ActFmBackgroundService().scheduleService();
+    }
+
+    @Override
+    public void updatePreferences(Preference preference, Object value) {
+        final Resources r = getResources();
+
+        if (r.getString(R.string.actfm_https_key).equals(preference.getKey())) {
+            if ((Boolean)value)
+                preference.setSummary(R.string.actfm_https_enabled);
+            else
+                preference.setSummary(R.string.actfm_https_disabled);
+        } else {
+            super.updatePreferences(preference, value);
+        }
     }
 
 }

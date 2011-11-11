@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  android:orientation="vertical"
+  android:layout_width="fill_parent"
+  android:layout_height="fill_parent"
+  android:layout_weight="100">
+
+	<LinearLayout
+      android:layout_width="fill_parent"
+      android:layout_height="wrap_content"
+      android:layout_marginTop="8dip"
+      android:layout_marginBottom="14dip">
+      
+        <ImageView
+          android:id="@+id/importance"
+          android:layout_width="4dip"
+          android:layout_height="fill_parent"
+          android:layout_weight="1"/>
+		<com.todoroo.astrid.ui.ErrorCatchingEditText
+		  android:id="@+id/title"
+		  android:layout_width="fill_parent"
+		  android:layout_height="wrap_content"
+		  android:layout_weight="100"
+		  android:hint="@string/TEA_title_hint"
+		  android:autoText="true"
+		  android:paddingTop="8dip"
+		  android:paddingBottom="8dip"
+		  android:paddingLeft="5dip"
+		  android:text=""
+		  android:background="@drawable/edit_title_background"
+		  android:capitalize="sentences" 
+		  android:freezesText="true"/>
+		<Button
+		    android:id="@+id/timer_button"
+		    android:layout_width="35dip"
+		    android:layout_height="35dip"
+		    android:layout_marginLeft="10dip"
+		    android:layout_gravity="center_vertical"
+		    android:layout_weight="1"/>
+	</LinearLayout>
+	
+	<View
+      android:layout_width="fill_parent"
+      android:layout_height="1dip"
+      android:padding="5dip"
+      style="@style/TEA_Separator" />
+</LinearLayout>

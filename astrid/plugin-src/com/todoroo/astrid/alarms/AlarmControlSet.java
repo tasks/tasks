@@ -6,7 +6,6 @@ import java.util.LinkedHashSet;
 import android.app.Activity;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
@@ -15,9 +14,9 @@ import com.timsu.astrid.R;
 import com.todoroo.andlib.data.TodorooCursor;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.andlib.widget.DateControlSet;
-import com.todoroo.astrid.activity.TaskEditActivity.TaskEditControlSet;
 import com.todoroo.astrid.data.Metadata;
 import com.todoroo.astrid.data.Task;
+import com.todoroo.astrid.helper.TaskEditControlSet;
 
 /**
  * Control set to manage adding and removing tags
@@ -25,19 +24,19 @@ import com.todoroo.astrid.data.Task;
  * @author Tim Su <tim@todoroo.com>
  *
  */
-public final class AlarmControlSet implements TaskEditControlSet {
+public final class AlarmControlSet extends TaskEditControlSet {
 
     // --- instance variables
 
     private final LinearLayout alertsContainer;
     private final Activity activity;
 
-    public AlarmControlSet(Activity activity, ViewGroup parent) {
-        View v = LayoutInflater.from(activity).inflate(R.layout.alarm_control, parent, true);
-
+    public AlarmControlSet(Activity activity, int layout) {
+        //View v = LayoutInflater.from(activity).inflate(R.layout.alarm_control, parent, true);
+        super(activity, layout);
         this.activity = activity;
-        this.alertsContainer = (LinearLayout) v.findViewById(R.id.alert_container);
-        v.findViewById(R.id.alarms_add).setOnClickListener(new View.OnClickListener() {
+        this.alertsContainer = (LinearLayout) getView().findViewById(R.id.alert_container);
+        getView().findViewById(R.id.alarms_add).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View arg0) {
                 addAlarm(new Date());

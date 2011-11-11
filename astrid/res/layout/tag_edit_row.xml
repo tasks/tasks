@@ -20,16 +20,15 @@
     
     <AutoCompleteTextView android:id="@+id/text1"
         android:hint="@string/TEA_tag_hint"
-        android:layout_width="0dip"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_weight="1"
         android:layout_gravity="center_vertical"/>
         
     <ImageButton android:id="@+id/button1"
-        android:background="@drawable/btn_dismiss"
         android:layout_width="32dip"
         android:layout_height="32dip"
-        android:layout_gravity="center"
-        android:layout_margin="4dip"
-    />
+        android:background="@drawable/btn_dismiss"
+        android:layout_gravity="center_vertical"
+        android:layout_margin="4dip"/>
 </LinearLayout>

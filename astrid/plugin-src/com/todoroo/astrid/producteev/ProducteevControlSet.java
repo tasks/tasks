@@ -9,9 +9,7 @@ import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
@@ -26,7 +24,6 @@ import com.todoroo.andlib.service.ExceptionService;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.andlib.utility.DialogUtilities;
 import com.todoroo.andlib.utility.Preferences;
-import com.todoroo.astrid.activity.TaskEditActivity.TaskEditControlSet;
 import com.todoroo.astrid.data.Metadata;
 import com.todoroo.astrid.data.StoreObject;
 import com.todoroo.astrid.data.Task;
@@ -36,6 +33,7 @@ import com.todoroo.astrid.producteev.sync.ProducteevSyncProvider;
 import com.todoroo.astrid.producteev.sync.ProducteevTask;
 import com.todoroo.astrid.producteev.sync.ProducteevUser;
 import com.todoroo.astrid.service.MetadataService;
+import com.todoroo.astrid.ui.PopupControlSet;
 
 /**
  * Control Set for managing task/dashboard assignments in Producteev
@@ -43,13 +41,13 @@ import com.todoroo.astrid.service.MetadataService;
  * @author Arne Jans <arne.jans@gmail.com>
  *
  */
-public class ProducteevControlSet implements TaskEditControlSet {
+public class ProducteevControlSet extends PopupControlSet {
 
     // --- instance variables
 
     private final Activity activity;
 
-    private final View view;
+    //private final View view;
     private Task myTask;
     private final Spinner responsibleSelector;
     private final Spinner dashboardSelector;
@@ -62,19 +60,20 @@ public class ProducteevControlSet implements TaskEditControlSet {
 
     private int lastDashboardSelection = 0;
 
-    public ProducteevControlSet(final Activity activity, ViewGroup parent) {
+    public ProducteevControlSet(final Activity activity, int layout, int displayViewLayout, int title) {
+        super(activity, layout, displayViewLayout, title);
         DependencyInjectionService.getInstance().inject(this);
 
         this.activity = activity;
 
-        view = LayoutInflater.from(activity).inflate(R.layout.producteev_control, parent, true);
+        //view = LayoutInflater.from(activity).inflate(R.layout.producteev_control, parent, true);
 
-        this.responsibleSelector = (Spinner) activity.findViewById(R.id.producteev_TEA_task_assign);
+        this.responsibleSelector = (Spinner) getView().findViewById(R.id.producteev_TEA_task_assign);
         TextView emptyView = new TextView(activity);
         emptyView.setText(activity.getText(R.string.producteev_no_dashboard));
         responsibleSelector.setEmptyView(emptyView);
 
-        this.dashboardSelector = (Spinner) activity.findViewById(R.id.producteev_TEA_dashboard_assign);
+        this.dashboardSelector = (Spinner) getView().findViewById(R.id.producteev_TEA_dashboard_assign);
         this.dashboardSelector.setOnItemSelectedListener(new OnItemSelectedListener() {
 
             @Override
@@ -176,7 +175,7 @@ public class ProducteevControlSet implements TaskEditControlSet {
 
         int visibility = newUsers == null ? View.GONE : View.VISIBLE;
 
-        view.findViewById(R.id.producteev_TEA_task_assign_label).setVisibility(visibility);
+        getView().findViewById(R.id.producteev_TEA_task_assign_label).setVisibility(visibility);
         responsibleSelector.setVisibility(visibility);
 
         int responsibleSpinnerIndex = 0;
@@ -233,7 +232,7 @@ public class ProducteevControlSet implements TaskEditControlSet {
                 || ownerDashboard.getId() == ProducteevUtilities.DASHBOARD_CREATE) {
             responsibleSelector.setEnabled(false);
             responsibleSelector.setAdapter(null);
-            view.findViewById(R.id.producteev_TEA_task_assign_label).setVisibility(View.GONE);
+            getView().findViewById(R.id.producteev_TEA_task_assign_label).setVisibility(View.GONE);
             return;
         }
 
@@ -274,5 +273,11 @@ public class ProducteevControlSet implements TaskEditControlSet {
             Log.e("error-saving-pdv", "Error Saving Metadata", e); //$NON-NLS-1$ //$NON-NLS-2$
         }
         return null;
+    }
+
+    @Override
+    protected void refreshDisplayView() {
+        // TODO Auto-generated method stub
+
     }
 }

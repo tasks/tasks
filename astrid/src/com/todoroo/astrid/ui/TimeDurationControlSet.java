@@ -41,7 +41,7 @@ public class TimeDurationControlSet implements OnNNumberPickedListener,
     private final int titleResource;
     private NNumberPickerDialog dialog = null;
 
-    public TimeDurationControlSet(Activity activity, int timeButtonId,
+    public TimeDurationControlSet(Activity activity, View view, int timeButtonId,
             int prefixResource, int titleResource) {
         DependencyInjectionService.getInstance().inject(this);
 
@@ -49,7 +49,7 @@ public class TimeDurationControlSet implements OnNNumberPickedListener,
         this.prefixResource = prefixResource;
         this.titleResource = titleResource;
 
-        timeButton = (Button)activity.findViewById(timeButtonId);
+        timeButton = (Button)view.findViewById(timeButtonId);
         timeButton.setOnClickListener(this);
     }
 

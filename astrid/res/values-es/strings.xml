@@ -703,10 +703,10 @@ File %1$s contained %2$s.\n\n
   
   <string-array name="EPr_default_importance">
       <!-- importance: labels for "Task Defaults" preference item. -->
-      <item>!!!! (Alto)</item>
-      <item>!!!</item>
+      <item>!!! (Alto)</item>
       <item>!!</item>
-      <item>! (Bajo)</item>
+      <item>!</item>
+      <item>o (Bajo)</item>
   </string-array>
   
   <string-array name="EPr_default_urgency">
