@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project name="api" default="help">
+<project name="facebook" default="help">
 
     <!-- The local.properties file is created and updated by the 'android' tool.
          It contains the path to the SDK. It should *NOT* be checked into
@@ -79,23 +79,7 @@
          In all cases you must update the value of version-tag below to read 'custom' instead of an integer,
          in order to avoid having your file be overridden by tools such as "android update project"
     -->
-    <!-- version-tag: custom -->
-
-    <target name="javadoc">
-        <javadoc access="public" author="true" classpath="." destdir="doc" 
-                 doctitle="Astrid API Project" nodeprecated="false" 
-                 nodeprecatedlist="false" noindex="false" nonavbar="false" 
-                 notree="false" source="1.6" splitindex="true" 
-                 use="true" version="true">
-          <sourcefiles>
-            <fileset dir="." includes="src/**/*" />
-          </sourcefiles>
-          <classpath>
-            <fileset dir="${sdk.dir}/platforms/${target}" includes="android.jar" />
-          </classpath>
-        </javadoc>
-    </target>
-
+    <!-- version-tag: 1 -->
     <import file="${sdk.dir}/tools/ant/build.xml" />
 
 </project>
