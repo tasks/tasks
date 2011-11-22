@@ -26,10 +26,7 @@
 	<classpathentry kind="lib" path="libs/google-oauth-client-1.5.0-beta.jar"/>
 	<classpathentry kind="lib" path="libs/google-oauth-client-extensions-1.5.0-beta.jar"/>
 	<classpathentry kind="lib" path="libs/gson-1.6.jar"/>
-	<classpathentry kind="src" path="GreenDroid_src"/>
-	<classpathentry kind="src" path="astridApi_src"/>
-	<classpathentry kind="src" path="facebook_src"/>
 	<classpathentry exported="true" kind="lib" path="libs/google-api-services-tasks-v1-1.2.5-beta.jar"/>
 	<classpathentry kind="con" path="com.android.ide.eclipse.adt.LIBRARIES"/>
-	<classpathentry kind="output" path="ecbuild"/>
+	<classpathentry kind="output" path="bin/classes"/>
 </classpath>
