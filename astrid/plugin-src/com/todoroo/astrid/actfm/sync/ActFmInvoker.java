@@ -34,7 +34,7 @@ public class ActFmInvoker {
     public static final String PROVIDER_GOOGLE= "google";
     public static final String PROVIDER_PASSWORD = "password";
 
-    private static final int API_VERSION = 3;
+    private static final int API_VERSION = 5;
 
     @Autowired private RestClient restClient;
 

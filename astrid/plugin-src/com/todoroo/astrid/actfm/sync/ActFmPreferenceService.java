@@ -52,7 +52,7 @@ public class ActFmPreferenceService extends SyncProviderUtilities {
      * @return get user id
      */
     public static long userId() {
-        return Preferences.getLong(PREF_USER_ID, -1L);
+        return Preferences.getLong(PREF_USER_ID, -2L);
     }
 
     /** Act.fm current user id */

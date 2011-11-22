@@ -334,7 +334,8 @@ public final class ActFmSyncService {
                 recurrence = recurrence + ";FROM=COMPLETION";
             params.add("repeat"); params.add(recurrence);
         }
-        if(values.containsKey(Task.USER_ID.name) && task.getValue(Task.USER_ID) >= 0) {
+        long userId = task.getValue(Task.USER_ID);
+        if(values.containsKey(Task.USER_ID.name) && userId >= 0 || userId == -1) {
             params.add("user_id");
             if(task.getValue(Task.USER_ID) == 0)
                 params.add(ActFmPreferenceService.userId());

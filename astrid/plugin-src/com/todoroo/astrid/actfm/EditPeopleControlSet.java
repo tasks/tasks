@@ -284,14 +284,18 @@ public class EditPeopleControlSet extends PopupControlSet {
         myself.put("id", 0L);
         sharedPeople.add(0, myself);
 
+        JSONObject unassigned = new JSONObject();
+        unassigned.put("id", -1L);
+        sharedPeople.add(1, unassigned);
+
         // de-duplicate by user id and/or email
         listValues.clear();
         for(int i = 0; i < sharedPeople.size(); i++) {
             JSONObject person = sharedPeople.get(i);
             if(person == null)
                 continue;
-            long id = person.optLong("id", -1);
-            if(id == ActFmPreferenceService.userId() || (id > -1 && userIds.contains(id)))
+            long id = person.optLong("id", -2);
+            if(id == ActFmPreferenceService.userId() || (id >= -1 && userIds.contains(id)))
                 continue;
             userIds.add(id);
 
@@ -303,6 +307,9 @@ public class EditPeopleControlSet extends PopupControlSet {
             String name = person.optString("name");
             if(id == 0)
                 name = activity.getString(R.string.actfm_EPA_assign_me);
+            if (id == -1)
+                name = activity.getString(R.string.actfm_EPA_unassigned);
+
             AssignedToUser atu = new AssignedToUser(name, person);
             listValues.add(atu);
             if(names.containsKey(name)) {
@@ -326,7 +333,7 @@ public class EditPeopleControlSet extends PopupControlSet {
         int assignedIndex = 0;
         if (!TextUtils.isEmpty(assignedStr)) {
             JSONObject assigned = new JSONObject(assignedStr);
-            long assignedId = assigned.optLong("id", -1);
+            long assignedId = assigned.optLong("id", -2);
             String assignedEmail = assigned.optString("email");
             for (int i = 0; i < listValues.size(); i++) {
                 JSONObject user = listValues.get(i).user;
@@ -433,7 +440,7 @@ public class EditPeopleControlSet extends PopupControlSet {
                         activity.getString(R.string.actfm_EPA_invalid_email, userJson.optString("email")));
             }
 
-            if(userJson == null || userJson.optLong("id", -1) == 0) {
+            if(userJson == null || userJson.optLong("id", -2) == 0) {
                 dirty = task.getValue(Task.USER_ID) == 0L ? dirty : true;
                 task.setValue(Task.USER_ID, 0L);
                 if(!TextUtils.isEmpty(task.getValue(Task.USER)))
@@ -441,24 +448,24 @@ public class EditPeopleControlSet extends PopupControlSet {
             } else {
                 String user = userJson.toString();
 
-                long taskUserId = -1;
+                long taskUserId = -2;
                 String taskUserEmail = "";
                 try {
                     JSONObject taskUser = new JSONObject(task.getValue(Task.USER));
-                    taskUserId = taskUser.optLong("id", -1);
+                    taskUserId = taskUser.optLong("id", -2);
                     taskUserEmail = taskUser.optString("email");
                 } catch (JSONException e) {
                     // sad times
                 }
-                long userId = userJson.optLong("id", -1);
+                long userId = userJson.optLong("id", -2);
                 String userEmail = userJson.optString("email");
 
 
-                boolean match = (userId == taskUserId && userId != -1);
+                boolean match = (userId == taskUserId && userId != -2);
                 match = match || (userEmail.equals(taskUserEmail) && !TextUtils.isEmpty(userEmail));
 
                 dirty = match ? dirty : true;
-                task.setValue(Task.USER_ID, userJson.optLong("id", -1));
+                task.setValue(Task.USER_ID, userJson.optLong("id", -2));
                 task.setValue(Task.USER, user);
             }
 
@@ -647,13 +654,16 @@ public class EditPeopleControlSet extends PopupControlSet {
             }
         }
 
-        values.add("assignee");
         if(task.getValue(Task.USER_ID) == 0) {
-            values.add("");
+            values.add("assign_id");
+            values.add(ActFmPreferenceService.userId());
         } else {
-            if(task.getValue(Task.USER_ID) > 0)
+            long id = task.getValue(Task.USER_ID);
+            if(id > 0 || id == -1) {
+                values.add("assign_id");
                 values.add(task.getValue(Task.USER_ID));
-            else {
+            } else {
+                values.add("assign_email");
                 JSONObject user = new JSONObject(task.getValue(Task.USER));
                 String userEmail = user.getString("email");
                 if (userEmail.indexOf('@') == -1)
