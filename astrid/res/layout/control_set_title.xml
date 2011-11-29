@@ -12,25 +12,33 @@
       android:layout_marginTop="8dip"
       android:layout_marginBottom="14dip">
       
-        <ImageView
-          android:id="@+id/importance"
-          android:layout_width="4dip"
-          android:layout_height="fill_parent"
-          android:layout_weight="1"/>
-		<com.todoroo.astrid.ui.ErrorCatchingEditText
-		  android:id="@+id/title"
-		  android:layout_width="fill_parent"
-		  android:layout_height="wrap_content"
-		  android:layout_weight="100"
-		  android:hint="@string/TEA_title_hint"
-		  android:autoText="true"
-		  android:paddingTop="8dip"
-		  android:paddingBottom="8dip"
-		  android:paddingLeft="5dip"
-		  android:text=""
-		  android:background="@drawable/edit_title_background"
-		  android:capitalize="sentences" 
-		  android:freezesText="true"/>
+	    <LinearLayout
+	        android:layout_width="fill_parent"
+	        android:layout_height="wrap_content"
+	        android:background="@drawable/edit_title_background">
+	        <ImageView
+	          android:id="@+id/importance"
+	          android:paddingTop="1dip"
+	          android:paddingBottom="1dip"
+	          android:layout_marginLeft="1dip"
+	          android:layout_width="4dip"
+	          android:layout_height="fill_parent"
+	          android:layout_weight="1"/>
+			<com.todoroo.astrid.ui.ErrorCatchingEditText
+			  android:id="@+id/title"
+			  android:layout_width="fill_parent"
+			  android:layout_height="wrap_content"
+			  android:layout_weight="100"
+			  android:hint="@string/TEA_title_hint"
+			  android:autoText="true"
+			  android:paddingTop="8dip"
+			  android:paddingBottom="8dip"
+			  android:paddingLeft="5dip"
+			  android:text=""
+			  android:background="@android:color/transparent"
+			  android:capitalize="sentences" 
+			  android:freezesText="true"/>
+		</LinearLayout>
 		<Button
 		    android:id="@+id/timer_button"
 		    android:layout_width="35dip"

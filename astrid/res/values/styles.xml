@@ -19,7 +19,7 @@
         <item name="asFilterHeaderBackground">@drawable/edit_titlebar</item>
         <item name="asMembersHeaderBackground">@drawable/ios_fabric_480_dark</item>
         <item name="asMembersHeaderArrow">@drawable/members_arrow</item>
-        <item name="asSeparatorBackground">#ffffff</item>
+        <item name="asSeparatorBackground">#888888</item>
     </style>
     
     <style name="Theme.Transparent">
@@ -40,7 +40,6 @@
         <item name="asFilterHeaderBackground">@drawable/edit_titlebar_white</item>
         <item name="asMembersHeaderBackground">@drawable/ios_fabric_480</item>
         <item name="asMembersHeaderArrow">@drawable/members_arrow_white</item>
-        <item name="asSeparatorBackground">#aaaaaa</item>
     </style>
     
     <style name="Theme.TransparentWhite" parent="@style/Theme.White">
