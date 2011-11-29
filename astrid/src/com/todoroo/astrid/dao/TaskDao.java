@@ -99,10 +99,25 @@ public class TaskDao extends DatabaseDao<Task> {
     	            Task.DELETION_DATE.eq(0));
     	}
 
+    	/** @return tasks that are due within the next 24 hours */
+    	public static Criterion dueToday() {
+    	    return Criterion.and(TaskCriteria.activeAndVisible(), Task.DUE_DATE.gt(0), Task.DUE_DATE.lt(Functions.fromNow(DateUtilities.ONE_DAY)));
+    	}
+
+    	/** @return tasks that are due within the next 72 hours */
+    	public static Criterion dueSoon() {
+    	    return Criterion.and(TaskCriteria.activeAndVisible(), Task.DUE_DATE.gt(0), Task.DUE_DATE.lt(Functions.fromNow(3 * DateUtilities.ONE_DAY)));
+    	}
+
     	/** @return tasks that are not hidden at current time */
     	public static Criterion isVisible() {
     	    return Task.HIDE_UNTIL.lt(Functions.now());
         }
+
+    	/** @return tasks that are hidden at the current time */
+    	public static Criterion isHidden() {
+    	    return Task.HIDE_UNTIL.gt(Functions.now());
+    	}
 
     	/** @return tasks that have a due date */
     	public static Criterion hasDeadlines() {

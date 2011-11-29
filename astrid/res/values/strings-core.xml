@@ -131,6 +131,15 @@
   <!-- Notifications disabled warning -->
   <string name="TLA_notification_disabled">Astrid reminders are disabled! You will not receive any reminders</string>
   
+  <string-array name="TLA_filters">
+      <item>Active</item>
+      <item>Today</item>
+      <item>Soon</item>
+      <item>Late</item>
+      <item>Done</item>
+      <item>Hidden</item>      
+  </string-array>
+  
   <!-- ====================================================== TaskAdapter == -->
   
   <!-- Format string to indicate task is hidden (%s => task name) -->
