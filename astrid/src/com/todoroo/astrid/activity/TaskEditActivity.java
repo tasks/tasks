@@ -32,7 +32,6 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.content.res.Resources;
 import android.os.Bundle;
 import android.speech.RecognizerIntent;
 import android.text.TextUtils;
@@ -43,6 +42,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup.LayoutParams;
+import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -61,11 +61,14 @@ import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.andlib.utility.DialogUtilities;
 import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.astrid.actfm.EditPeopleControlSet;
+import com.todoroo.astrid.actfm.sync.ActFmPreferenceService;
 import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.dao.Database;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.gcal.GCalControlSet;
 import com.todoroo.astrid.helper.TaskEditControlSet;
+import com.todoroo.astrid.notes.EditNoteActivity;
+import com.todoroo.astrid.notes.NotesPlugin;
 import com.todoroo.astrid.opencrx.OpencrxControlSet;
 import com.todoroo.astrid.opencrx.OpencrxCoreUtils;
 import com.todoroo.astrid.producteev.ProducteevControlSet;
@@ -164,6 +167,9 @@ public final class TaskEditActivity extends Activity {
     @Autowired
     private AddOnService addOnService;
 
+    @Autowired
+    private ActFmPreferenceService actFmPreferenceService;
+
 	// --- UI components
 
     private ImageButton voiceAddNoteButton;
@@ -209,6 +215,7 @@ public final class TaskEditActivity extends Activity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 	    ThemeService.applyTheme(this);
+	    requestWindowFeature(Window.FEATURE_NO_TITLE);
 		super.onCreate(savedInstanceState);
 		new StartupService().onStartupApplication(this);
 
@@ -235,9 +242,7 @@ public final class TaskEditActivity extends Activity {
     /** Initialize UI components */
     private void setUpUIComponents() {
         setContentView(R.layout.task_edit_activity_new);
-
         scrollView = (ScrollView) findViewById(R.id.edit_scroll);
-
 
         LinearLayout basicControls = (LinearLayout) findViewById(R.id.basic_controls);
         LinearLayout whenDialogView = (LinearLayout) LayoutInflater.from(this).inflate(R.layout.task_edit_when_controls, null);
@@ -414,6 +419,15 @@ public final class TaskEditActivity extends Activity {
             findViewById(R.id.when_header).setOnClickListener(mExpandWhenListener);
 
             findViewById(R.id.more_header).setOnClickListener(mExpandMoreListener);
+
+            findViewById(R.id.activity).setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent launchIntent = new Intent(TaskEditActivity.this, EditNoteActivity.class);
+                    launchIntent.putExtra(EditNoteActivity.EXTRA_TASK_ID, model.getId());
+                    startActivity(launchIntent);
+                }
+            });
         } catch (Exception e) {
             // error loading the proper activity
         }
@@ -557,19 +571,25 @@ public final class TaskEditActivity extends Activity {
             return;
         }
 
+        if (!isNewTask) {
+            if (actFmPreferenceService.isLoggedIn() || NotesPlugin.hasNotes(model)) {
+                findViewById(R.id.activityContainer).setVisibility(View.VISIBLE);
+            }
+        }
+
         // clear notification
         Notifications.cancelNotifications(model.getId());
     }
 
     /** Populate UI component values from the model */
     private void populateFields() {
-        Resources r = getResources();
         loadItem(getIntent());
 
+        TextView titleText = (TextView) findViewById(R.id.taskLabel);
         if(isNewTask)
-            setTitle(R.string.TEA_view_titleNew);
+            titleText.setText(R.string.TEA_view_titleNew);
         else
-            setTitle(r.getString(R.string.TEA_view_title, model.getValue(Task.TITLE)));
+            titleText.setText(model.getValue(Task.TITLE));
 
         synchronized(controls) {
             for(TaskEditControlSet controlSet : controls)

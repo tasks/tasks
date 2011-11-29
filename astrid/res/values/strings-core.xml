@@ -242,7 +242,7 @@
   <string name="TEA_view_title">Astrid: Editing \'%s\'</string>
   
   <!-- Title when creating a new task -->
-  <string name="TEA_view_titleNew">Astrid: New Task</string>
+  <string name="TEA_view_titleNew">New Task</string>
   
   <!-- First Tab - basic task details -->
   <string name="TEA_tab_basic">Basic</string>

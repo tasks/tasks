@@ -7,6 +7,66 @@
   android:layout_height="fill_parent"
   style="@style/Content">
   
+  	<!-- Header -->
+    <LinearLayout 
+        android:id="@+id/edit_header"
+	    android:layout_width="fill_parent" 
+	    android:layout_height="43dip"
+	    android:layout_weight="1"
+	    android:orientation="horizontal"
+	    android:layout_alignParentTop="true">
+
+	    <LinearLayout
+	        style="@style/Header"
+	        android:layout_width="fill_parent" 
+	        android:layout_height="fill_parent"
+	        android:layout_weight="1"
+	        android:orientation="horizontal">
+	    
+	        
+	        <!-- Header Logo -->
+	        <ImageView android:id="@+id/headerLogo"
+	            android:layout_width="fill_parent"
+	            android:layout_height="fill_parent"
+	            android:layout_weight="100"
+	            android:gravity="center"
+	            android:paddingRight="43dip"
+	            android:src="@drawable/header_logo_new"
+	            android:scaleType="center"
+	            android:visibility="gone"/>
+	           
+	        <!-- List Label -->
+	        <TextView android:id="@+id/taskLabel"
+	            android:layout_width="fill_parent"
+	            android:layout_height="fill_parent"
+	            android:layout_weight="100"
+	            android:singleLine="true"
+	            android:ellipsize="end"
+	            android:gravity="center"
+	            style="@style/TextAppearance.TLA_Header"/>    
+	            
+	    </LinearLayout>
+	   
+	   <LinearLayout android:id="@+id/activityContainer"
+           android:layout_width="wrap_content"
+           android:layout_height="fill_parent"
+           android:visibility="gone">
+            <View 
+               android:layout_width="0.5dip"
+               android:layout_height="fill_parent"
+               android:background="#ff222222"/>
+               
+            <ImageView android:id="@+id/activity"
+                android:layout_height="fill_parent"
+                android:layout_width="43dip"
+                android:background="?attr/asHeaderButtonBackground"
+                android:padding="7dip"
+                android:src="@drawable/icn_cmmt_off"
+                android:scaleType="fitCenter" /> 
+        </LinearLayout>
+	    
+    </LinearLayout>
+  
     <!-- buttons -->
 	<LinearLayout android:id="@+id/edit_footer"
 	  android:orientation="horizontal"
@@ -40,6 +100,7 @@
         
 	<ScrollView
 	  android:id="@+id/edit_scroll"
+	  android:layout_below="@id/edit_header"
 	  android:layout_above="@id/edit_footer"
 	  android:layout_width="fill_parent"
 	  android:layout_height="fill_parent"
