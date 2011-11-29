@@ -386,8 +386,14 @@ public class TagViewActivity extends TaskListActivity {
                 } else {
                     // New filter
                     currentId = id;
-                    Criterion assigned = Criterion.and(TaskCriteria.activeAndVisible(), Task.USER_ID.eq(id));
+                    Criterion assignedCriterion;
+                    if (currentId == ActFmPreferenceService.userId())
+                        assignedCriterion = Criterion.or(Task.USER_ID.eq(0), Task.USER_ID.eq(id));
+                    else
+                        assignedCriterion = Task.USER_ID.eq(id);
+                    Criterion assigned = Criterion.and(TaskCriteria.activeAndVisible(), assignedCriterion);
                     filter = TagFilterExposer.filterFromTag(TagViewActivity.this, new Tag(tagData), assigned);
+                    System.err.println("Filter: " + filter.sqlQuery);
                     TextView filterByAssigned = (TextView) findViewById(R.id.filter_assigned);
                     filterByAssigned.setVisibility(View.VISIBLE);
                     filterByAssigned.setText(getString(R.string.actfm_TVA_filtered_by_assign, displayName));
