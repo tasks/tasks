@@ -4,7 +4,6 @@
 package com.todoroo.astrid.core;
 
 import android.app.Activity;
-import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
 import android.content.ContentValues;
 import android.content.Context;
@@ -28,7 +27,6 @@ import com.todoroo.astrid.activity.FilterListActivity;
 import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.api.AstridFilterExposer;
 import com.todoroo.astrid.api.Filter;
-import com.todoroo.astrid.api.FilterCategoryWithNewButton;
 import com.todoroo.astrid.api.FilterListItem;
 import com.todoroo.astrid.api.PermaSql;
 import com.todoroo.astrid.dao.StoreObjectDao;
@@ -60,19 +58,19 @@ public final class CustomFilterExposer extends BroadcastReceiver implements Astr
     private FilterListItem[] prepareFilters(Context context) {
         Resources r = context.getResources();
 
-        PendingIntent customFilterIntent = PendingIntent.getActivity(context, 0,
-                new Intent(context, CustomFilterActivity.class), 0);
+        //PendingIntent customFilterIntent = PendingIntent.getActivity(context, 0,
+        //        new Intent(context, CustomFilterActivity.class), 0);
 
         Filter[] savedFilters = buildSavedFilters(context, r);
 
-        FilterCategoryWithNewButton heading = new FilterCategoryWithNewButton(r.getString(R.string.BFE_Saved), savedFilters);
-        heading.label = r.getString(R.string.tag_FEx_add_new);
-        heading.intent = customFilterIntent;
+        //FilterCategoryWithNewButton heading = new FilterCategoryWithNewButton(r.getString(R.string.BFE_Saved), savedFilters);
+        //heading.label = r.getString(R.string.tag_FEx_add_new);
+        //heading.intent = customFilterIntent;
 
 
-        FilterListItem[] list = new FilterListItem[1];
-        list[0] = heading;
-        return list;
+        //FilterListItem[] list = new FilterListItem[1];
+        //list[0] = heading;
+        return savedFilters;
     }
 
     private Filter[] buildSavedFilters(Context context, Resources r) {

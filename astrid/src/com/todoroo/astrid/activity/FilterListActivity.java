@@ -74,6 +74,7 @@ import com.todoroo.astrid.api.FilterListItem;
 import com.todoroo.astrid.api.FilterWithCustomIntent;
 import com.todoroo.astrid.api.IntentFilter;
 import com.todoroo.astrid.api.SyncAction;
+import com.todoroo.astrid.core.CustomFilterActivity;
 import com.todoroo.astrid.core.SearchFilter;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.helper.MetadataHelper;
@@ -100,11 +101,12 @@ public class FilterListActivity extends ExpandableListActivity {
     private static final int MENU_SEARCH_ID = Menu.FIRST + 0;
     private static final int MENU_HELP_ID = Menu.FIRST + 1;
     private static final int MENU_REFRESH_ID = Menu.FIRST + 2;
+    private static final int MENU_NEW_FILTER_ID = Menu.FIRST + 3;
 
     private static final String LAST_TAG_REFRESH_KEY = "last_tag_refresh"; //$NON-NLS-1$
 
-    private static final int CONTEXT_MENU_SHORTCUT = Menu.FIRST + 3;
-    private static final int CONTEXT_MENU_INTENT = Menu.FIRST + 4;
+    private static final int CONTEXT_MENU_SHORTCUT = Menu.FIRST + 4;
+    private static final int CONTEXT_MENU_INTENT = Menu.FIRST + 5;
 
     private static final int REQUEST_CUSTOM_INTENT = 1;
     private static final int REQUEST_VIEW_TASKS = 2;
@@ -197,15 +199,17 @@ public class FilterListActivity extends ExpandableListActivity {
 
         MenuItem item;
 
+        item = menu.add(Menu.NONE, MENU_NEW_FILTER_ID, Menu.NONE,
+                R.string.FLA_new_filter);
+        item.setIcon(android.R.drawable.ic_menu_add);
+
         item = menu.add(Menu.NONE, MENU_SEARCH_ID, Menu.NONE,
                 R.string.FLA_menu_search);
         item.setIcon(android.R.drawable.ic_menu_search);
 
-        //if(actFmPreferenceService.isLoggedIn()) {
-            item = menu.add(Menu.NONE, MENU_REFRESH_ID, Menu.NONE,
-                    R.string.TLA_menu_sync);
-            item.setIcon(R.drawable.ic_menu_refresh);
-        //}
+        item = menu.add(Menu.NONE, MENU_REFRESH_ID, Menu.NONE,
+                R.string.TLA_menu_sync);
+        item.setIcon(R.drawable.ic_menu_refresh);
 
         item = menu.add(Menu.NONE, MENU_HELP_ID, Menu.NONE,
                 R.string.FLA_menu_help);
@@ -422,6 +426,12 @@ public class FilterListActivity extends ExpandableListActivity {
         case MENU_HELP_ID: {
             Intent intent = new Intent(Intent.ACTION_VIEW,
                     Uri.parse("http://weloveastrid.com/help-user-guide-astrid-v3/filters/")); //$NON-NLS-1$
+            startActivity(intent);
+            return true;
+        }
+
+        case MENU_NEW_FILTER_ID : {
+            Intent intent = new Intent(this, CustomFilterActivity.class);
             startActivity(intent);
             return true;
         }
