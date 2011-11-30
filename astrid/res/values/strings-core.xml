@@ -120,7 +120,7 @@
   <string name="TLA_custom">Custom</string>
   
   <!-- Quick Add Edit Box Hint-->
-  <string name="TLA_quick_add_hint">Add to this list...</string>
+  <string name="TLA_quick_add_hint">Add a task</string>
   
   <!-- Quick Add Edit Box Hint for assigning -->
   <string name="TLA_quick_add_hint_assign">Tap to assign %s a task</string>
@@ -324,7 +324,7 @@
   
   <string-array name="TEA_urgency">
       <!-- urgency: labels for edit page. item #4 -> auto filled -->
-      <item>No Deadline</item>
+      <item>None</item>
       <item>Specific Day</item>
       <item>Today</item>
       <item>Tomorrow</item>

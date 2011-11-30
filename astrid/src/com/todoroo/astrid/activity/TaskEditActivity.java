@@ -43,6 +43,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup.LayoutParams;
 import android.view.Window;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -331,9 +333,7 @@ public final class TaskEditActivity extends Activity {
 
         boolean beastMode = Preferences.getBoolean(R.string.p_beastMode, false);
         if (beastMode) {
-            LinearLayout whenHeader = (LinearLayout) findViewById(R.id.when_header);
             LinearLayout moreHeader = (LinearLayout) findViewById(R.id.more_header);
-            whenHeader.setVisibility(View.GONE);
             moreHeader.setVisibility(View.GONE);
 
             whenControls.setVisibility(View.VISIBLE);
@@ -359,24 +359,24 @@ public final class TaskEditActivity extends Activity {
         final View.OnClickListener mExpandWhenListener = new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                /*View whenView = findViewById(R.id.when_controls);
-                View whenHeader = findViewById(R.id.when_header);
-                if (whenView.getVisibility() == View.GONE) {
-                    whenView.setVisibility(View.VISIBLE);
-                    whenHeader.setVisibility(View.GONE);
-                }//*/
                 if (whenDialog != null)
                     whenDialog.show();
             }
         };
         final View.OnClickListener mExpandMoreListener = new View.OnClickListener() {
+            final Animation fadeIn = AnimationUtils.loadAnimation(TaskEditActivity.this, android.R.anim.fade_in);
+            final Animation fadeOut = AnimationUtils.loadAnimation(TaskEditActivity.this, android.R.anim.fade_out);
             @Override
             public void onClick(View v) {
+                fadeIn.setDuration(350);
+                fadeOut.setDuration(350);
                 View moreView = findViewById(R.id.more_controls);
                 View moreHeader = findViewById(R.id.more_header);
                 if (moreView.getVisibility() == View.GONE) {
                     moreView.setVisibility(View.VISIBLE);
+                    moreView.startAnimation(fadeIn);
                     moreHeader.setVisibility(View.GONE);
+                    moreHeader.startAnimation(fadeOut);
                 }
             }
         };
