@@ -177,6 +177,9 @@ public class ABOptions {
     private static final String[] AB_THEME_DESCRIPTIONS = { "ab-theme-white", "ab-theme-black" };
     private static final String[] AB_THEME_EVENTS = { StatisticsConstants.USER_FIRST_TASK,
                                                       StatisticsConstants.USER_FIRST_LIST,
-                                                      StatisticsConstants.ACTFM_NEW_USER };
+                                                      StatisticsConstants.ACTFM_NEW_USER,
+                                                      StatisticsConstants.TASK_ONE_WEEK,
+                                                      StatisticsConstants.TASK_TWO_WEEKS,
+                                                      StatisticsConstants.TASK_THREE_WEEKS };
 
 }

@@ -58,5 +58,9 @@ public class StatisticsConstants {
     public static final String REPEAT_TASK_CREATE = "repeat-task-create";
     public static final String ACTFM_LIST_SHARED = "actfm-list-shared";
 
+    public static final String TASK_ONE_WEEK = "task-created-one-week";
+    public static final String TASK_TWO_WEEKS = "task-created-two-weeks";
+    public static final String TASK_THREE_WEEKS = "task-created-three-weeks";
+
 
 }

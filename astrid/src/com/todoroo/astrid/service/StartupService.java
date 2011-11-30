@@ -28,6 +28,7 @@ import com.todoroo.andlib.service.ContextManager;
 import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.andlib.service.ExceptionService;
 import com.todoroo.andlib.utility.AndroidUtilities;
+import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.astrid.actfm.sync.ActFmPreferenceService;
 import com.todoroo.astrid.actfm.sync.ActFmSyncService;
@@ -131,6 +132,10 @@ public class StartupService {
         }
 
         if (latestSetVersion == 0) {
+            if (Preferences.getLong(AstridPreferences.P_FIRST_LAUNCH, -1) < 0) {
+                Preferences.setLong(AstridPreferences.P_FIRST_LAUNCH, DateUtilities.now());
+            }
+
             int defaultTheme = abChooser.getChoiceForOption(ABOptions.AB_THEME_KEY);
             if (defaultTheme == 0)
                 Preferences.setString(R.string.p_theme, "white");
@@ -138,6 +143,7 @@ public class StartupService {
                 Preferences.setString(R.string.p_theme, "black");
         } else {
             abChooser.setChoiceForOption(ABOptions.AB_THEME_KEY, 0);
+            Preferences.setLong(AstridPreferences.P_FIRST_LAUNCH, 0);
         }
 
         int version = 0;
