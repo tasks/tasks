@@ -121,10 +121,10 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
     };
 
     private static int[] IMPORTANCE_RESOURCES = new int[] {
-        R.drawable.task_indicator_0,
-        R.drawable.task_indicator_1,
-        R.drawable.task_indicator_2,
-        R.drawable.task_indicator_3,
+        R.drawable.importance_1, //task_indicator_0,
+        R.drawable.importance_2, //task_indicator_1,
+        R.drawable.importance_3, //task_indicator_2,
+        R.drawable.importance_4, //task_indicator_3,
     };
 
     // --- instance variables
