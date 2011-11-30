@@ -219,13 +219,31 @@ public class TaskDao extends DatabaseDao<Task> {
         ContentValues values = item.getSetValues();
         boolean result = super.createNew(item);
         if(result) {
-            if(Preferences.getBoolean(AstridPreferences.P_FIRST_ACTION, false)) {
-                StatisticsService.reportEvent(StatisticsConstants.USER_FIRST_TASK);
-                Preferences.setBoolean(AstridPreferences.P_FIRST_ACTION, false);
-            }
+            userRetentionMetrics();
             afterSave(item, values);
         }
         return result;
+    }
+
+    private void userRetentionMetrics() {
+        if(Preferences.getBoolean(AstridPreferences.P_FIRST_ACTION, false)) {
+            StatisticsService.reportEvent(StatisticsConstants.USER_FIRST_TASK);
+            Preferences.setBoolean(AstridPreferences.P_FIRST_ACTION, false);
+        }
+
+        long firstLaunchTime = Preferences.getLong(AstridPreferences.P_FIRST_LAUNCH, 0);
+        long now = DateUtilities.now();
+        long timeSinceFirst = now - firstLaunchTime;
+        if (timeSinceFirst < DateUtilities.ONE_WEEK && !Preferences.getBoolean(StatisticsConstants.TASK_ONE_WEEK, false)) {
+            StatisticsService.reportEvent(StatisticsConstants.TASK_ONE_WEEK);
+            Preferences.setBoolean(StatisticsConstants.TASK_ONE_WEEK, true);
+        } else if (timeSinceFirst < 2 * DateUtilities.ONE_WEEK && !Preferences.getBoolean(StatisticsConstants.TASK_TWO_WEEKS, false)) {
+            StatisticsService.reportEvent(StatisticsConstants.TASK_TWO_WEEKS);
+            Preferences.setBoolean(StatisticsConstants.TASK_TWO_WEEKS, true);
+        } else if (timeSinceFirst < 3 * DateUtilities.ONE_WEEK && !Preferences.getBoolean(StatisticsConstants.TASK_THREE_WEEKS, false)) {
+            StatisticsService.reportEvent(StatisticsConstants.TASK_THREE_WEEKS);
+            Preferences.setBoolean(StatisticsConstants.TASK_THREE_WEEKS, true);
+        }
     }
 
     /**

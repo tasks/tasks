@@ -28,6 +28,7 @@ import com.todoroo.andlib.service.ContextManager;
 import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.andlib.service.ExceptionService;
 import com.todoroo.andlib.utility.AndroidUtilities;
+import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.astrid.actfm.sync.ActFmPreferenceService;
 import com.todoroo.astrid.actfm.sync.ActFmSyncService;
@@ -41,6 +42,8 @@ import com.todoroo.astrid.gtasks.sync.GtasksSyncOnSaveService;
 import com.todoroo.astrid.opencrx.OpencrxCoreUtils;
 import com.todoroo.astrid.producteev.ProducteevUtilities;
 import com.todoroo.astrid.reminders.ReminderStartupReceiver;
+import com.todoroo.astrid.service.abtesting.ABChooser;
+import com.todoroo.astrid.service.abtesting.ABOptions;
 import com.todoroo.astrid.service.abtesting.FeatureFlipper;
 import com.todoroo.astrid.utility.AstridPreferences;
 import com.todoroo.astrid.utility.Constants;
@@ -85,6 +88,8 @@ public class StartupService {
 
     @Autowired FeatureFlipper featureFlipper;
 
+    @Autowired ABChooser abChooser;
+
     /**
      * bit to prevent multiple initializations
      */
@@ -126,6 +131,21 @@ public class StartupService {
             exceptionService.reportError("astrid-startup-version-read", e); //$NON-NLS-1$
         }
 
+        if (latestSetVersion == 0) {
+            if (Preferences.getLong(AstridPreferences.P_FIRST_LAUNCH, -1) < 0) {
+                Preferences.setLong(AstridPreferences.P_FIRST_LAUNCH, DateUtilities.now());
+            }
+
+            int defaultTheme = abChooser.getChoiceForOption(ABOptions.AB_THEME_KEY);
+            if (defaultTheme == 0)
+                Preferences.setString(R.string.p_theme, "white");
+            else
+                Preferences.setString(R.string.p_theme, "black");
+        } else {
+            abChooser.setChoiceForOption(ABOptions.AB_THEME_KEY, 0);
+            Preferences.setLong(AstridPreferences.P_FIRST_LAUNCH, 0);
+        }
+
         int version = 0;
         try {
             PackageManager pm = context.getPackageManager();
@@ -143,8 +163,9 @@ public class StartupService {
         // invoke upgrade service
         boolean justUpgraded = latestSetVersion != version;
         if(justUpgraded && version > 0) {
-            if(latestSetVersion > 0)
+            if(latestSetVersion > 0) {
                 upgradeService.performUpgrade(context, latestSetVersion);
+            }
             AstridPreferences.setCurrentVersion(version);
         }
         if(latestSetVersion == 0) {

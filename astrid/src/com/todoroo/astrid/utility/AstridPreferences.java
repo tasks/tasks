@@ -21,6 +21,8 @@ public class AstridPreferences {
 
     public static final String P_UPGRADE_FROM = "uf"; //$NON-NLS-1$
 
+    public static final String P_FIRST_LAUNCH = "fltime";  //$NON-NLS-1$
+
     /** Set preference defaults, if unset. called at startup */
     public static void setPreferenceDefaults() {
         Context context = ContextManager.getContext();
