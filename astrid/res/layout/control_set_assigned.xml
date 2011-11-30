@@ -17,13 +17,12 @@
           android:hint="@string/actfm_person_hint" />
         <ImageButton
           android:id="@+id/assigned_clear"
-          style="?android:attr/buttonStyleInset"
-          android:src="@android:drawable/ic_delete"
-          android:layout_width="40dip"
-          android:layout_height="fill_parent"
-          android:layout_marginTop="4dip"
-          android:layout_marginRight="2dip"
-          android:layout_marginBottom="2dip"
+		  android:background="@drawable/btn_dismiss"
+          android:layout_width="32dip"
+          android:layout_height="32dip"
+          android:layout_gravity="center"
+          android:layout_marginRight="7dip"
+          android:layout_marginLeft="4dip"
           android:gravity="center_vertical" />
     </LinearLayout>
     
