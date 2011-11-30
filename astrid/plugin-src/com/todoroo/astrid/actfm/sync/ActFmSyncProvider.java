@@ -22,6 +22,8 @@ import com.timsu.astrid.R;
 import com.todoroo.andlib.data.TodorooCursor;
 import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.ContextManager;
+import com.todoroo.andlib.sql.Criterion;
+import com.todoroo.andlib.sql.Query;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.astrid.actfm.ActFmBackgroundService;
@@ -30,8 +32,10 @@ import com.todoroo.astrid.actfm.ActFmPreferences;
 import com.todoroo.astrid.actfm.sync.ActFmSyncService.JsonHelper;
 import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.core.PluginServices;
+import com.todoroo.astrid.dao.TagDataDao;
 import com.todoroo.astrid.dao.TaskDao;
 import com.todoroo.astrid.data.Metadata;
+import com.todoroo.astrid.data.TagData;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.notes.NoteMetadata;
 import com.todoroo.astrid.service.AstridDependencyInjector;
@@ -49,6 +53,7 @@ public class ActFmSyncProvider extends SyncProvider<ActFmTaskContainer> {
     @Autowired ActFmDataService actFmDataService;
     @Autowired ActFmSyncService actFmSyncService;
     @Autowired ActFmPreferenceService actFmPreferenceService;
+    @Autowired TagDataDao tagDataDao;
 
     static {
         AstridDependencyInjector.initialize();
@@ -131,6 +136,9 @@ public class ActFmSyncProvider extends SyncProvider<ActFmTaskContainer> {
             ArrayList<ActFmTaskContainer> remoteTasks = new ArrayList<ActFmTaskContainer>();
 
             int newServerTime = fetchRemoteTasks(serverTime, remoteTasks);
+            if (serverTime == 0) { // If we've never synced, we may lose some empty tags
+                pushUnsavedTagData();
+            }
             fetchRemoteTagData(serverTime);
 
             SyncData<ActFmTaskContainer> syncData = populateSyncData(remoteTasks);
@@ -156,6 +164,16 @@ public class ActFmSyncProvider extends SyncProvider<ActFmTaskContainer> {
         } finally {
             StatisticsService.reportEvent(StatisticsConstants.ACTFM_SYNC_FINISHED,
                     "success", syncSuccess); //$NON-NLS-1$
+        }
+    }
+
+    //Pushes unsaved, empty tag data, which will otherwise be deleted by the fetch tags call
+    private void pushUnsavedTagData() {
+        TodorooCursor<TagData> unsavedTagData = tagDataDao.query(Query.select(TagData.ID, TagData.TASK_COUNT).where(Criterion.and(TagData.TASK_COUNT.eq(0), TagData.REMOTE_ID.eq(0))));
+        TagData data = new TagData();
+        for (unsavedTagData.moveToFirst(); !unsavedTagData.isAfterLast(); unsavedTagData.moveToNext()) {
+            data.readFromCursor(unsavedTagData);
+            actFmSyncService.pushTag(data.getId());
         }
     }
 
