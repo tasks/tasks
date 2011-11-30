@@ -173,7 +173,7 @@ public class ABOptions {
     }
 
     public static final String AB_THEME_KEY = "ab-theme";
-    private static final int[] AB_THEME_PROBS = { 9, 1 };
+    private static final int[] AB_THEME_PROBS = { 1, 1 };
     private static final String[] AB_THEME_DESCRIPTIONS = { "ab-theme-white", "ab-theme-black" };
     private static final String[] AB_THEME_EVENTS = { StatisticsConstants.USER_FIRST_TASK,
                                                       StatisticsConstants.USER_FIRST_LIST,
