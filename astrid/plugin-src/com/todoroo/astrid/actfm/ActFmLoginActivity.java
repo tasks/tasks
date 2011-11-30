@@ -299,7 +299,7 @@ public class ActFmLoginActivity extends Activity implements AuthListener {
     };
 
     private String generateRandomPassword() {
-        String acceptable = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890!@#$%^&*(),."; //$NON-NLS-1$
+        String acceptable = "abcdefghijklmnopqrstuvwxyz1234567890"; //$NON-NLS-1$
         char[] chars = new char[8];
         char last = 'a';
         for (int i = 0; i < chars.length; i++) {
