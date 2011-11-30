@@ -938,10 +938,14 @@ public final class ActFmSyncService {
 
         public static void readUser(JSONObject user, AbstractModel model, LongProperty idProperty,
                 StringProperty userProperty) throws JSONException {
-            long id = user.optLong("id", -1);
-            if(id == -1 || id == ActFmPreferenceService.userId()) {
-                model.setValue(idProperty, 0L);
+            long id = user.optLong("id", -2);
+            if(id == -2) {
+                model.setValue(idProperty, -1L);
                 if(userProperty != null)
+                    model.setValue(userProperty, "");
+            } else if (id == ActFmPreferenceService.userId()) {
+                model.setValue(idProperty, 0L);
+                if (userProperty != null)
                     model.setValue(userProperty, "");
             } else {
                 model.setValue(idProperty, id);
