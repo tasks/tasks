@@ -18,12 +18,12 @@
 
     <!-- Enabled states -->
         
-    <!-- <item android:state_checked="true" android:state_pressed="true"
+    <item android:state_checked="true" android:state_pressed="true"
           android:state_enabled="true"
-          android:drawable="@drawable/btn_check_pressed" />
+          android:drawable="@drawable/icn_check_over" />
     <item android:state_checked="false" android:state_pressed="true"
           android:state_enabled="true"
-          android:drawable="@drawable/btn_check_pressed" /> -->
+          android:drawable="@drawable/icn_check_over" />
 
     <item android:state_checked="false"
           android:state_enabled="true"
