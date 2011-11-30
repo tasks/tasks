@@ -41,7 +41,7 @@ public class TagDetailExposer extends BroadcastReceiver {
         if(tagList.length() == 0)
             return null;
 
-        return "<img src='silk_tag_pink'/> " + tagList; //$NON-NLS-1$
+        return /*"<img src='silk_tag_pink'/> " +*/ tagList;
     }
 
 }

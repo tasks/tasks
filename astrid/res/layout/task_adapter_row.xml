@@ -78,6 +78,7 @@
             android:layout_below="@id/task_row"
             android:layout_toRightOf="@id/completeBox"
             android:layout_marginTop="-5dip"
+            android:layout_marginLeft="5dip"
             style="@style/TextAppearance.TAd_ItemDetails"
             android:visibility="gone" />
           
@@ -87,6 +88,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/details1"
             android:layout_toRightOf="@id/completeBox"
+            android:layout_marginLeft="5dip"
             style="@style/TextAppearance.TAd_ItemDetails"
             android:visibility="gone" />
             
