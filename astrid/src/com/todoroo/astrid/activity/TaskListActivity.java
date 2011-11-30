@@ -1016,7 +1016,7 @@ public class TaskListActivity extends ListActivity implements OnScrollListener,
      * Intent object with custom label returned by toString.
      * @author joshuagross <joshua.gross@gmail.com>
      */
-    private class IntentWithLabel extends Intent {
+    protected static class IntentWithLabel extends Intent {
         private final String label;
         public IntentWithLabel (Intent in, String labelIn) {
             super(in);

@@ -4,8 +4,13 @@
 package com.todoroo.astrid.activity;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.LinkedHashSet;
+import java.util.List;
 
 import org.json.JSONException;
+import org.weloveastrid.rmilk.MilkPreferences;
+import org.weloveastrid.rmilk.MilkUtilities;
 
 import android.app.AlertDialog;
 import android.app.ExpandableListActivity;
@@ -14,9 +19,12 @@ import android.app.PendingIntent;
 import android.app.PendingIntent.CanceledException;
 import android.app.ProgressDialog;
 import android.app.SearchManager;
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.content.pm.ResolveInfo;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Rect;
@@ -33,6 +41,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.Window;
 import android.view.inputmethod.EditorInfo;
+import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ExpandableListView;
 import android.widget.ExpandableListView.ExpandableListContextMenuInfo;
@@ -56,14 +65,18 @@ import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.astrid.actfm.ActFmPreferences;
 import com.todoroo.astrid.actfm.sync.ActFmPreferenceService;
 import com.todoroo.astrid.actfm.sync.ActFmSyncService;
+import com.todoroo.astrid.activity.TaskListActivity.IntentWithLabel;
 import com.todoroo.astrid.adapter.FilterAdapter;
+import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.api.FilterCategory;
 import com.todoroo.astrid.api.FilterListItem;
 import com.todoroo.astrid.api.FilterWithCustomIntent;
 import com.todoroo.astrid.api.IntentFilter;
+import com.todoroo.astrid.api.SyncAction;
 import com.todoroo.astrid.core.SearchFilter;
 import com.todoroo.astrid.data.Task;
+import com.todoroo.astrid.helper.MetadataHelper;
 import com.todoroo.astrid.service.StartupService;
 import com.todoroo.astrid.service.StatisticsConstants;
 import com.todoroo.astrid.service.StatisticsService;
@@ -103,6 +116,8 @@ public class FilterListActivity extends ExpandableListActivity {
     @Autowired ActFmPreferenceService actFmPreferenceService;
     @Autowired ActFmSyncService actFmSyncService;
 
+    protected SyncActionReceiver syncActionReceiver = new SyncActionReceiver();
+    private final LinkedHashSet<SyncAction> syncActions = new LinkedHashSet<SyncAction>();
     protected FilterAdapter adapter = null;
 
     /* ======================================================================
@@ -186,11 +201,11 @@ public class FilterListActivity extends ExpandableListActivity {
                 R.string.FLA_menu_search);
         item.setIcon(android.R.drawable.ic_menu_search);
 
-        if(actFmPreferenceService.isLoggedIn()) {
+        //if(actFmPreferenceService.isLoggedIn()) {
             item = menu.add(Menu.NONE, MENU_REFRESH_ID, Menu.NONE,
-                    R.string.actfm_FLA_menu_refresh);
+                    R.string.TLA_menu_sync);
             item.setIcon(R.drawable.ic_menu_refresh);
-        }
+        //}
 
         item = menu.add(Menu.NONE, MENU_HELP_ID, Menu.NONE,
                 R.string.FLA_menu_help);
@@ -220,6 +235,12 @@ public class FilterListActivity extends ExpandableListActivity {
         StatisticsService.sessionStart(this);
         if(adapter != null)
             adapter.registerRecevier();
+
+        // also load sync actions
+        registerReceiver(syncActionReceiver, new android.content.IntentFilter(AstridApiConstants.BROADCAST_SEND_SYNC_ACTIONS));
+        syncActions.clear();
+        Intent broadcastIntent = new Intent(AstridApiConstants.BROADCAST_REQUEST_SYNC_ACTIONS);
+        sendOrderedBroadcast(broadcastIntent, AstridApiConstants.PERMISSION_READ);
     }
 
     @Override
@@ -228,6 +249,7 @@ public class FilterListActivity extends ExpandableListActivity {
         super.onPause();
         if(adapter != null)
             adapter.unregisterRecevier();
+        unregisterReceiver(syncActionReceiver);
     }
 
     /* ======================================================================
@@ -392,7 +414,8 @@ public class FilterListActivity extends ExpandableListActivity {
         }
 
         case MENU_REFRESH_ID: {
-            onRefreshRequested(true);
+            performSyncAction();
+            //onRefreshRequested(true);
             return true;
         }
 
@@ -546,6 +569,127 @@ public class FilterListActivity extends ExpandableListActivity {
         adapter.clear();
 
         super.onActivityResult(requestCode, resultCode, data);
+    }
+
+    /**
+     * Receiver which receives sync provider intents
+     *
+     * @author Tim Su <tim@todoroo.com>
+     *
+     */
+    protected class SyncActionReceiver extends BroadcastReceiver {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            if(intent == null || !AstridApiConstants.BROADCAST_SEND_SYNC_ACTIONS.equals(intent.getAction()))
+                return;
+
+            try {
+                Bundle extras = intent.getExtras();
+                SyncAction syncAction = extras.getParcelable(AstridApiConstants.EXTRAS_RESPONSE);
+                syncActions.add(syncAction);
+            } catch (Exception e) {
+                exceptionService.reportError("receive-sync-action-" + //$NON-NLS-1$
+                        intent.getStringExtra(AstridApiConstants.EXTRAS_ADDON), e);
+            }
+        }
+    }
+
+    private void performSyncAction() {
+        if (syncActions.size() == 0) {
+            String desiredCategory = getString(R.string.SyP_label);
+
+            // Get a list of all sync plugins and bring user to the prefs pane
+            // for one of them
+            Intent queryIntent = new Intent(AstridApiConstants.ACTION_SETTINGS);
+            PackageManager pm = getPackageManager();
+            List<ResolveInfo> resolveInfoList = pm.queryIntentActivities(
+                    queryIntent, PackageManager.GET_META_DATA);
+            int length = resolveInfoList.size();
+            ArrayList<Intent> syncIntents = new ArrayList<Intent>();
+
+            // Loop through a list of all packages (including plugins, addons)
+            // that have a settings action: filter to sync actions
+            for (int i = 0; i < length; i++) {
+                ResolveInfo resolveInfo = resolveInfoList.get(i);
+                Intent intent = new Intent(AstridApiConstants.ACTION_SETTINGS);
+                intent.setClassName(resolveInfo.activityInfo.packageName,
+                        resolveInfo.activityInfo.name);
+
+                String category = MetadataHelper.resolveActivityCategoryName(resolveInfo, pm);
+                if(MilkPreferences.class.getName().equals(resolveInfo.activityInfo.name) &&
+                        !MilkUtilities.INSTANCE.isLoggedIn())
+                    continue;
+
+                if (category.equals(desiredCategory)) {
+                    syncIntents.add(new IntentWithLabel(intent,
+                            resolveInfo.activityInfo.loadLabel(pm).toString()));
+                }
+            }
+
+            final Intent[] actions = syncIntents.toArray(new Intent[syncIntents.size()]);
+            DialogInterface.OnClickListener listener = new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface click, int which) {
+                    startActivity(actions[which]);
+                }
+            };
+
+            showSyncOptionMenu(actions, listener);
+        }
+        else if(syncActions.size() == 1) {
+            SyncAction syncAction = syncActions.iterator().next();
+            try {
+                if (actFmPreferenceService.isLoggedIn())
+                    onRefreshRequested(true);
+                else {
+                    syncAction.intent.send();
+                    Toast.makeText(this, R.string.SyP_progress_toast,
+                            Toast.LENGTH_LONG).show();
+                }
+            } catch (CanceledException e) {
+                //
+            }
+        } else {
+            // We have >1 sync actions, pop up a dialogue so the user can
+            // select just one of them (only sync one at a time)
+            final SyncAction[] actions = syncActions.toArray(new SyncAction[syncActions.size()]);
+            DialogInterface.OnClickListener listener = new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface click, int which) {
+                    try {
+                        SyncAction action = actions[which];
+                        if (action.label.contains("Astrid"))
+                            onRefreshRequested(true);
+                        else {
+                            action.intent.send();
+                            Toast.makeText(FilterListActivity.this, R.string.SyP_progress_toast,
+                                    Toast.LENGTH_LONG).show();
+                        }
+                    } catch (CanceledException e) {
+                        //
+                    }
+                }
+            };
+            showSyncOptionMenu(actions, listener);
+        }
+    }
+
+    /**
+     * Show menu of sync options. This is shown when you're not logged into any services, or logged into
+     * more than one.
+     * @param <TYPE>
+     * @param items
+     * @param listener
+     */
+    private <TYPE> void showSyncOptionMenu(TYPE[] items, DialogInterface.OnClickListener listener) {
+        ArrayAdapter<TYPE> syncAdapter = new ArrayAdapter<TYPE>(this,
+                android.R.layout.simple_spinner_dropdown_item, items);
+
+        // show a menu of available options
+        new AlertDialog.Builder(this)
+        .setTitle(R.string.SyP_label)
+        .setAdapter(syncAdapter, listener)
+        .show().setOwnerActivity(this);
     }
 
 }
