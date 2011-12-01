@@ -916,6 +916,9 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
                 Intent intent = new Intent(activity, TaskEditActivity.class);
                 intent.putExtra(TaskEditActivity.TOKEN_ID, taskId);
                 activity.startActivityForResult(intent, TaskListActivity.ACTIVITY_EDIT_TASK);
+                AndroidUtilities.callApiMethod(5, activity, "overridePendingTransition",
+                        new Class<?>[] { Integer.TYPE, Integer.TYPE },
+                        R.anim.slide_left_in, R.anim.slide_left_out);
             } else {
                 flushSpecific(taskId);
                 try {
@@ -975,6 +978,9 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
                     Intent intent = new Intent(activity, TaskEditActivity.class);
                     intent.putExtra(TaskEditActivity.TOKEN_ID, taskId);
                     activity.startActivityForResult(intent, TaskListActivity.ACTIVITY_EDIT_TASK);
+                    AndroidUtilities.callApiMethod(5, activity, "overridePendingTransition",
+                            new Class<?>[] { Integer.TYPE, Integer.TYPE },
+                            R.anim.slide_left_in, R.anim.slide_left_out);
                 }
             } else {
                 // Register a temporary receiver in case we clicked a task with no actions forthcoming and should start
@@ -1001,6 +1007,9 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
                     Intent editIntent = new Intent(activity, TaskEditActivity.class);
                     editIntent.putExtra(TaskEditActivity.TOKEN_ID, taskId);
                     activity.startActivityForResult(editIntent, TaskListActivity.ACTIVITY_EDIT_TASK);
+                    AndroidUtilities.callApiMethod(5, activity, "overridePendingTransition",
+                            new Class<?>[] { Integer.TYPE, Integer.TYPE },
+                            R.anim.slide_left_in, R.anim.slide_left_out);
                 }
             }
             activity.unregisterReceiver(this);

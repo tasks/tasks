@@ -150,13 +150,18 @@ public class FilterListActivity extends ExpandableListActivity {
             @Override
             public void onClick(View v) {
                 finish();
-                AndroidUtilities.callApiMethod(5, FilterListActivity.this, "overridePendingTransition", //$NON-NLS-1$
-                        new Class<?>[] { Integer.TYPE, Integer.TYPE },
-                        R.anim.slide_none, R.anim.slide_bottom_out);
             }
         });
 
         onNewIntent(getIntent());
+    }
+
+    @Override
+    public void finish() {
+        super.finish();
+        AndroidUtilities.callApiMethod(5, FilterListActivity.this, "overridePendingTransition", //$NON-NLS-1$
+                new Class<?>[] { Integer.TYPE, Integer.TYPE },
+                R.anim.slide_left_in, R.anim.slide_left_out);
     }
 
     /**
@@ -285,6 +290,7 @@ public class FilterListActivity extends ExpandableListActivity {
             } else {
                 Intent intent = new Intent(FilterListActivity.this, TaskListActivity.class);
                 intent.putExtra(TaskListActivity.TOKEN_FILTER, filter);
+                intent.putExtra(TaskListActivity.TOKEN_OVERRIDE_ANIM, true);
                 startActivityForResult(intent, REQUEST_VIEW_TASKS);
             }
             AndroidUtilities.callApiMethod(5, this, "overridePendingTransition", //$NON-NLS-1$

@@ -152,6 +152,8 @@ public final class TaskEditActivity extends Activity {
 
     public static final String TAB_MORE = "more"; //$NON-NLS-1$
 
+    public static final String OVERRIDE_FINISH_ANIM = "finishAnim";
+
     // --- services
 
     @Autowired
@@ -206,6 +208,8 @@ public final class TaskEditActivity extends Activity {
 
     private Dialog whenDialog;
 
+    private boolean overrideFinishAnim;
+
     /* ======================================================================
      * ======================================================= initialization
      * ====================================================================== */
@@ -225,6 +229,7 @@ public final class TaskEditActivity extends Activity {
 
 		// disable keyboard until user requests it
 		AndroidUtilities.suppressVirtualKeyboard(title);
+		overrideFinishAnim = getIntent().getBooleanExtra(OVERRIDE_FINISH_ANIM, true);
 
 		// if we were editing a task already, restore it
 		if(savedInstanceState != null && savedInstanceState.containsKey(TASK_IN_PROGRESS)) {
@@ -641,6 +646,11 @@ public final class TaskEditActivity extends Activity {
 
         // abandon editing and delete the newly created task if
         // no title was entered
+        if (overrideFinishAnim) {
+            AndroidUtilities.callApiMethod(5, this, "overridePendingTransition",
+                    new Class<?>[] { Integer.TYPE, Integer.TYPE },
+                    R.anim.slide_right_in, R.anim.slide_right_out);
+        }
 
         if(title.getText().length() == 0 && isNewTask && model.isSaved()) {
             taskService.delete(model);

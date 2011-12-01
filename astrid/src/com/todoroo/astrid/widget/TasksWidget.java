@@ -230,6 +230,7 @@ public class TasksWidget extends AppWidgetProvider {
 
             Intent editIntent = new Intent(context, TaskEditActivity.class);
             editIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_MULTIPLE_TASK);
+            editIntent.putExtra(TaskEditActivity.OVERRIDE_FINISH_ANIM, false);
             if(filter != null && filter.valuesForNewTasks != null) {
                 String values = AndroidUtilities.contentValuesToSerializedString(filter.valuesForNewTasks);
                 values = PermaSql.replacePlaceholders(values);

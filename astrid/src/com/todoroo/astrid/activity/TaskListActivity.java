@@ -156,6 +156,8 @@ public class TaskListActivity extends ListActivity implements OnScrollListener,
     /** token for indicating source of TLA launch */
     public static final String TOKEN_SOURCE = "source"; //$NON-NLS-1$
 
+    public static final String TOKEN_OVERRIDE_ANIM = "finishAnim"; //$NON-NLS-1$
+
     private static final String LAST_AUTOSYNC_ATTEMPT = "last-autosync"; //$NON-NLS-1$
 
     // --- instance variables
@@ -187,6 +189,7 @@ public class TaskListActivity extends ListActivity implements OnScrollListener,
     protected Filter filter;
     protected int sortFlags;
     protected int sortSort;
+    protected boolean overrideFinishAnim;
 
     private ImageButton voiceAddButton;
     private ImageButton quickAddButton;
@@ -273,6 +276,11 @@ public class TaskListActivity extends ListActivity implements OnScrollListener,
         super.onNewIntent(intent);
 
         Bundle extras = intent.getExtras();
+        if (extras != null) {
+            overrideFinishAnim = extras.getBoolean(TOKEN_OVERRIDE_ANIM);
+        } else {
+            overrideFinishAnim = false;
+        }
         String intentAction = intent.getAction();
         if (Intent.ACTION_SEARCH.equals(intentAction)) {
             String query = intent.getStringExtra(SearchManager.QUERY).trim();
@@ -431,6 +439,7 @@ public class TaskListActivity extends ListActivity implements OnScrollListener,
                 if(task != null && task.getValue(Task.TITLE).length() == 0) {
                     Intent intent = getOnClickQuickAddIntent(task);
                     startActivityForResult(intent, ACTIVITY_EDIT_TASK);
+                    transitionForTaskEdit();
                 }
             }
         });
@@ -452,6 +461,7 @@ public class TaskListActivity extends ListActivity implements OnScrollListener,
                     return true;
                 Intent intent = getOnLongClickQuickAddIntent(task);
                 startActivityForResult(intent, ACTIVITY_EDIT_TASK);
+                transitionForTaskEdit();
                 return true;
             }
         });
@@ -500,6 +510,12 @@ public class TaskListActivity extends ListActivity implements OnScrollListener,
         Intent intent = new Intent(TaskListActivity.this, TaskEditActivity.class);
         intent.putExtra(TaskEditActivity.TOKEN_ID, t.getId());
         return intent;
+    }
+
+    public void transitionForTaskEdit() {
+        AndroidUtilities.callApiMethod(5, this, "overridePendingTransition",
+                new Class<?>[] { Integer.TYPE, Integer.TYPE },
+                R.anim.slide_left_in, R.anim.slide_left_out);
     }
 
     private void setUpBackgroundJobs() {
@@ -577,6 +593,16 @@ public class TaskListActivity extends ListActivity implements OnScrollListener,
             // might not have fully initialized
         }
         backgroundTimer.cancel();
+    }
+
+    @Override
+    public void finish() {
+        super.finish();
+        if (overrideFinishAnim) {
+            AndroidUtilities.callApiMethod(5, this, "overridePendingTransition",
+                    new Class<?>[] { Integer.TYPE, Integer.TYPE },
+                    R.anim.slide_right_in, R.anim.slide_right_out);
+        }
     }
 
     /**
@@ -1171,6 +1197,7 @@ public class TaskListActivity extends ListActivity implements OnScrollListener,
             intent = new Intent(TaskListActivity.this, TaskEditActivity.class);
             intent.putExtra(TaskEditActivity.TOKEN_ID, itemId);
             startActivityForResult(intent, ACTIVITY_EDIT_TASK);
+            transitionForTaskEdit();
             return true;
         }
 
@@ -1193,6 +1220,7 @@ public class TaskListActivity extends ListActivity implements OnScrollListener,
             intent = new Intent(TaskListActivity.this, TaskEditActivity.class);
             intent.putExtra(TaskEditActivity.TOKEN_ID, clone.getId());
             startActivityForResult(intent, ACTIVITY_EDIT_TASK);
+            transitionForTaskEdit();
 
             return true;
         }
@@ -1253,7 +1281,7 @@ public class TaskListActivity extends ListActivity implements OnScrollListener,
         startActivity(intent);
         AndroidUtilities.callApiMethod(5, this, "overridePendingTransition",
                 new Class<?>[] { Integer.TYPE, Integer.TYPE },
-                R.anim.slide_bottom_in, R.anim.slide_none);
+                R.anim.slide_right_in, R.anim.slide_right_out);
     }
 
     @Override
