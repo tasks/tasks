@@ -199,6 +199,7 @@ public class TagSettingsActivity extends Activity {
         }
 
         refreshSettingsPage();
+        finish();
     }
 
     @SuppressWarnings("nls")

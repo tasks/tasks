@@ -10,6 +10,7 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.drawable.BitmapDrawable;
+import android.os.Bundle;
 
 import com.timsu.astrid.R;
 import com.todoroo.andlib.data.AbstractModel;
@@ -21,6 +22,7 @@ import com.todoroo.andlib.sql.Functions;
 import com.todoroo.andlib.sql.Join;
 import com.todoroo.andlib.sql.Order;
 import com.todoroo.andlib.sql.QueryTemplate;
+import com.todoroo.astrid.activity.TaskListActivity;
 import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.api.AstridFilterExposer;
 import com.todoroo.astrid.api.Filter;
@@ -69,6 +71,9 @@ public class GtasksFilterExposer extends BroadcastReceiver implements AstridFilt
                 values);
         filter.listingIcon = ((BitmapDrawable)context.getResources().getDrawable(R.drawable.gtasks_icon)).getBitmap();
         filter.customTaskList = new ComponentName(ContextManager.getContext(), GtasksListActivity.class);
+        Bundle extras = new Bundle();
+        extras.putBoolean(TaskListActivity.TOKEN_OVERRIDE_ANIM, true);
+        filter.customExtras = extras;
 
         return filter;
     }

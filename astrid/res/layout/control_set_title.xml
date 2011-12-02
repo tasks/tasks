@@ -35,9 +35,11 @@
 			  android:paddingTop="8dip"
 			  android:paddingBottom="8dip"
 			  android:paddingLeft="5dip"
+			  android:singleLine="false"
+			  android:scrollbars="vertical"
 			  android:text=""
 			  android:background="@android:color/transparent"
-			  android:capitalize="sentences" 
+			  android:capitalize="sentences"
 			  android:freezesText="true"/>
 		</LinearLayout>
 		<Button

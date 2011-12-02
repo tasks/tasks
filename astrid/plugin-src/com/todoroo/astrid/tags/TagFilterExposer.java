@@ -29,6 +29,7 @@ import com.todoroo.andlib.sql.QueryTemplate;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.andlib.utility.DialogUtilities;
 import com.todoroo.astrid.actfm.TagViewActivity;
+import com.todoroo.astrid.activity.TaskListActivity;
 import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.api.AstridFilterExposer;
 import com.todoroo.astrid.api.Filter;
@@ -95,6 +96,7 @@ public class TagFilterExposer extends BroadcastReceiver implements AstridFilterE
         Bundle extras = new Bundle();
         extras.putString(TagViewActivity.EXTRA_TAG_NAME, tag.tag);
         extras.putLong(TagViewActivity.EXTRA_TAG_REMOTE_ID, tag.remoteId);
+        extras.putBoolean(TaskListActivity.TOKEN_OVERRIDE_ANIM, true);
         filter.customExtras = extras;
 
         return filter;

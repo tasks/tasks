@@ -7,7 +7,8 @@
   
     <LinearLayout
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:padding="5dip">
   		<com.todoroo.astrid.ui.ContactsAutoComplete
           android:id="@+id/assigned_custom"
           android:layout_width="fill_parent"
@@ -21,7 +22,7 @@
           android:layout_width="32dip"
           android:layout_height="32dip"
           android:layout_gravity="center"
-          android:layout_marginRight="7dip"
+          android:layout_marginRight="3dip"
           android:layout_marginLeft="4dip"
           android:gravity="center_vertical" />
     </LinearLayout>

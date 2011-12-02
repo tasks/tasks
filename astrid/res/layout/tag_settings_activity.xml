@@ -148,12 +148,15 @@
             android:orientation="horizontal"
             android:baselineAligned="false">
             
-            <ImageButton
-                android:id="@+id/saveMembers"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:src="@drawable/tango_save" />
+	    <Button 
+	        android:id="@+id/saveMembers"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_weight="1"
+            android:layout_gravity="center"
+            style="@style/TextAppearance.TEA_action"
+            android:textStyle="bold"
+            android:text="@string/DLG_save"/>
               
     </LinearLayout>
 	
