@@ -13,14 +13,18 @@
         android:layout_weight="1"
         android:orientation="horizontal"
         style="@style/Header">
-    
-        <!-- Filters Button -->
+        
         <ImageView android:id="@+id/back"
-            android:layout_width="wrap_content"
-            android:layout_height="fill_parent"
-            android:layout_weight="1"
-            android:src="@drawable/header_tasks"
-            android:scaleType="center" /> 
+           android:layout_width="43dip"
+           android:layout_height="fill_parent"
+           android:background="?attr/asHeaderButtonBackground"
+           android:padding="7dip"
+           android:src="@drawable/icn_tasks"
+           android:scaleType="fitCenter" />
+       	<View 
+           android:layout_width="0.5dip"
+           android:layout_height="fill_parent"
+           android:background="#ff222222"/>
 
         <!-- Header Logo -->
         <ImageView android:id="@+id/headerLogo"
@@ -28,7 +32,7 @@
             android:layout_height="fill_parent"
             android:layout_weight="100"
             android:gravity="center"
-            android:paddingRight="50dip"
+            android:paddingRight="43dip"
             android:src="@drawable/header_logo_new"
             android:scaleType="center"/>
 
