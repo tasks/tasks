@@ -13,6 +13,7 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
@@ -57,6 +58,8 @@ public class GCalControlSet extends PopupControlSet {
     public GCalControlSet(final Activity activity, int viewLayout, int displayViewLayout, int title) {
         super(activity, viewLayout, displayViewLayout, title);
         DependencyInjectionService.getInstance().inject(this);
+        ViewGroup parent = (ViewGroup) getView().getParent();
+        parent.removeView(getView());
         ((LinearLayout) getDisplayView()).addView(getView()); //hack for spinner
 
         this.activity = activity;

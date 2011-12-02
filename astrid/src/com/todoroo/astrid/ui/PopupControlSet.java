@@ -1,13 +1,17 @@
 package com.todoroo.astrid.ui;
 
 import android.app.Activity;
-import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
+import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.ViewGroup.LayoutParams;
+import android.widget.Button;
 
+import com.timsu.astrid.R;
+import com.todoroo.andlib.utility.DialogUtilities;
 import com.todoroo.astrid.helper.TaskEditControlSet;
 
 public abstract class PopupControlSet extends TaskEditControlSet {
@@ -25,14 +29,14 @@ public abstract class PopupControlSet extends TaskEditControlSet {
 
         final DialogInterface.OnClickListener okListener = new DialogInterface.OnClickListener() {
             @Override
-            public void onClick(DialogInterface dialog, int which) {
+            public void onClick(DialogInterface d, int which) {
                 refreshDisplayView();
             }
         };
 
         final DialogInterface.OnCancelListener cancelListener = new DialogInterface.OnCancelListener() {
             @Override
-            public void onCancel(DialogInterface dialog) {
+            public void onCancel(DialogInterface d) {
                 refreshDisplayView();
             }
         };
@@ -40,8 +44,8 @@ public abstract class PopupControlSet extends TaskEditControlSet {
         this.activity = activity;
 
 
-        dialog = getDialogBuilder(title, okListener, cancelListener).create();
-        dialog.setOwnerActivity(PopupControlSet.this.activity);
+        dialog = buildDialog(title, okListener, cancelListener);
+
 
         if (displayView != null) {
             displayView.setOnClickListener(getDisplayClickListener());
@@ -52,12 +56,26 @@ public abstract class PopupControlSet extends TaskEditControlSet {
         return displayView;
     }
 
-    protected AlertDialog.Builder getDialogBuilder(int title, DialogInterface.OnClickListener okListener, DialogInterface.OnCancelListener cancelListener) {
-        return new AlertDialog.Builder(this.activity)
-        .setTitle(title)
-        .setView(getView())
-        .setPositiveButton(android.R.string.ok, okListener)
-        .setOnCancelListener(cancelListener);
+    protected Dialog buildDialog(int title, final DialogInterface.OnClickListener okListener, DialogInterface.OnCancelListener cancelListener) {
+        final Dialog d= new Dialog(activity, 0);
+        d.setTitle(title);
+        View v = getView();
+        DisplayMetrics metrics = new DisplayMetrics();
+        activity.getWindowManager().getDefaultDisplay().getMetrics(metrics);
+        d.setContentView(v, new LayoutParams(metrics.widthPixels - (int)(30 * metrics.density), LayoutParams.WRAP_CONTENT));
+        Button dismiss = (Button) v.findViewById(R.id.edit_dlg_ok);
+        if (dismiss != null) {
+            dismiss.setOnClickListener(new OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    okListener.onClick(d, 0);
+                    DialogUtilities.dismissDialog(activity, d);
+                }
+            });
+        }
+        d.setOnCancelListener(cancelListener);
+        d.setOwnerActivity(PopupControlSet.this.activity);
+        return d;
     }
 
     protected OnClickListener getDisplayClickListener() {

@@ -34,4 +34,5 @@
       android:singleLine="false"
       android:freezesText="true" />
   </LinearLayout>
+  <include layout="@layout/control_dialog_ok"/>
 </LinearLayout>

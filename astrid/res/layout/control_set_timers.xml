@@ -29,6 +29,7 @@
       android:id="@+id/elapsedDuration"
       android:layout_width="fill_parent"
       android:layout_height="wrap_content" />
+    <include layout="@layout/control_dialog_ok"/>
   
 </LinearLayout>
 

@@ -12,7 +12,7 @@
         android:paddingBottom="5dip"
         android:gravity="center_vertical"
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="50dip">
           <ImageView 
              style="@style/EditRowImage"
              android:src="@drawable/icn_edit_priority"/>

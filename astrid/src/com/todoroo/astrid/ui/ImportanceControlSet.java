@@ -4,6 +4,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 import android.app.Activity;
+import android.util.DisplayMetrics;
 import android.view.View;
 import android.widget.CompoundButton;
 import android.widget.LinearLayout;
@@ -47,10 +48,13 @@ public class ImportanceControlSet extends TaskEditControlSet {
         for(int i = min; i <= max; i++) {
             final ToggleButton button = new ToggleButton(activity);
             LinearLayout.LayoutParams params;
+            DisplayMetrics metrics = new DisplayMetrics();
+            activity.getWindowManager().getDefaultDisplay().getMetrics(metrics);
+
             if (ProducteevUtilities.INSTANCE.isLoggedIn())
-                params = new LinearLayout.LayoutParams(55, 55);
+                params = new LinearLayout.LayoutParams((int) (metrics.density * 30), (int) (metrics.density * 30));
             else
-                params = new LinearLayout.LayoutParams(60, 60);
+                params = new LinearLayout.LayoutParams((int) (metrics.density * 40), (int) (metrics.density * 40));
             button.setLayoutParams(params);
 
             StringBuilder label = new StringBuilder();

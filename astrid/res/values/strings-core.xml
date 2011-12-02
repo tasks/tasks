@@ -402,8 +402,8 @@
   <string name="EPr_showNotes_title">Show Notes In Task</string>
   <!-- Preference: Beast mode (auto-expand edit page) -->
   <string name="EPr_beastMode_title">Beast Mode</string>
-  <string name="EPr_beastMode_desc_disabled">Adavnced task edit settings will start hidden</string>
-  <string name="EPr_beastMode_desc_enabled">Adavnced task edit settings will show automatically</string>
+  <string name="EPr_beastMode_desc_disabled">Advanced task edit settings will start hidden</string>
+  <string name="EPr_beastMode_desc_enabled">Advanced task edit settings will show automatically</string>
       
   <!-- Preference: Task List Show Notes Description (disabled) -->
   <string name="EPr_showNotes_desc_disabled">Notes will be displayed in quick action bar</string>  

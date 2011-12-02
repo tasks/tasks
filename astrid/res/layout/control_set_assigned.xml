@@ -30,5 +30,6 @@
 	    android:id="@+id/assigned_list"
 	    android:layout_width="fill_parent"
 	    android:layout_height="fill_parent"/>
+	<include layout="@layout/control_dialog_ok"/>
     
 </LinearLayout>

@@ -19,7 +19,7 @@
 	    android:layout_height="wrap_content"
 	    android:layout_marginRight="15dip"
 	    android:text="@string/repeat_enabled"
-	    style="@style/TextAppearance.GEN_EditLabel" />
+	    style="@style/TextAppearance.GEN_EditLabel.DLG_EditLabel" />
 	  <TextView
 	      android:id="@+id/repeat_display"
 	      android:layout_width="fill_parent"

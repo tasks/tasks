@@ -19,7 +19,7 @@
 	    android:layout_height="wrap_content"
 	    android:layout_marginRight="15dip"
 	    android:text="@string/gcal_TEA_addToCalendar_label"
-	    style="@style/TextAppearance.GEN_EditLabel" />
+	    style="@style/TextAppearance.GEN_EditLabel.DLG_EditLabel" />
 	  <TextView
 	      android:id="@+id/calendar_display_which"
 	      android:layout_width="fill_parent"

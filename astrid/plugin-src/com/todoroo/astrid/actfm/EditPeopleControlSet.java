@@ -12,18 +12,20 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.app.Activity;
-import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Color;
 import android.text.TextUtils;
+import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.ViewGroup.LayoutParams;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.LinearLayout;
@@ -116,10 +118,22 @@ public class EditPeopleControlSet extends PopupControlSet {
 
         sharedWithRow = LayoutInflater.from(activity).inflate(R.layout.control_set_collaborators_display, null);
         sharedWithView = LayoutInflater.from(activity).inflate(R.layout.control_set_collaborators, null);
-        sharedWithDialog = new AlertDialog.Builder(this.activity)
-        .setTitle(R.string.actfm_EPA_collaborators_header)
-        .setView(getSharedWithView())
-        .setPositiveButton(android.R.string.ok, null).create();
+
+        sharedWithDialog = new Dialog(activity, 0);
+        sharedWithDialog.setTitle(R.string.actfm_EPA_collaborators_header);
+        View v = getSharedWithView();
+        DisplayMetrics metrics = new DisplayMetrics();
+        activity.getWindowManager().getDefaultDisplay().getMetrics(metrics);
+        sharedWithDialog.setContentView(v, new LayoutParams(metrics.widthPixels - (int)(30 * metrics.density), LayoutParams.WRAP_CONTENT));
+        Button dismiss = (Button) v.findViewById(R.id.edit_dlg_ok);
+        if (dismiss != null) {
+            dismiss.setOnClickListener(new OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    DialogUtilities.dismissDialog(EditPeopleControlSet.this.activity, sharedWithDialog);
+                }
+            });
+        }
         sharedWithDialog.setOwnerActivity(this.activity);
 
         assignedCustom = (EditText) getView().findViewById(R.id.assigned_custom);

@@ -6,7 +6,7 @@ import java.util.Calendar;
 import java.util.Date;
 
 import android.app.Activity;
-import android.app.AlertDialog;
+import android.app.Dialog;
 import android.content.DialogInterface;
 import android.text.TextUtils;
 import android.view.View;
@@ -28,6 +28,7 @@ import com.timsu.astrid.R;
 import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.andlib.service.ExceptionService;
+import com.todoroo.andlib.utility.DialogUtilities;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.service.StatisticsConstants;
 import com.todoroo.astrid.service.StatisticsService;
@@ -96,7 +97,8 @@ public class RepeatControlSet extends PopupControlSet {
         LayoutParams lp = new LinearLayout.LayoutParams(LayoutParams.FILL_PARENT, LayoutParams.WRAP_CONTENT, 1.0f/7);
         for(int i = 0; i < 7; i++) {
             CheckBox checkBox = new CheckBox(activity);
-            checkBox.setTextAppearance(activity, R.style.TextAppearance);
+            checkBox.setTextAppearance(activity, android.R.style.TextAppearance);
+            checkBox.setTextColor(activity.getResources().getColor(android.R.color.white));
             int dayOfWeek = calendar.get(Calendar.DAY_OF_WEEK);
             checkBox.setText(dfs.getShortWeekdays()[dayOfWeek].substring(0, 1));
             checkBox.setLayoutParams(lp);
@@ -307,24 +309,26 @@ public class RepeatControlSet extends PopupControlSet {
     }
 
     @Override
-    protected AlertDialog.Builder getDialogBuilder(int title, DialogInterface.OnClickListener okListener, DialogInterface.OnCancelListener cancelListener) {
-        DialogInterface.OnClickListener dontRepeatButton = new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                doRepeat = false;
-                refreshDisplayView();
-            }
-        };
+    protected Dialog buildDialog(int title, final DialogInterface.OnClickListener okListener, final DialogInterface.OnCancelListener cancelListener) {
 
         DialogInterface.OnClickListener doRepeatButton = new DialogInterface.OnClickListener() {
             @Override
-            public void onClick(DialogInterface dialog, int which) {
+            public void onClick(DialogInterface d, int which) {
                 doRepeat = true;
-                refreshDisplayView();
+                okListener.onClick(d, which);
             }
         };
-        return super.getDialogBuilder(title, okListener, cancelListener)
-                .setNegativeButton(R.string.repeat_dont, dontRepeatButton)
-                .setPositiveButton(android.R.string.ok, doRepeatButton);
+        final Dialog d = super.buildDialog(title, doRepeatButton, cancelListener);
+
+        View.OnClickListener dontRepeatButton = new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                doRepeat = false;
+                refreshDisplayView();
+                DialogUtilities.dismissDialog(activity, d);
+            }
+        };
+        getView().findViewById(R.id.edit_dont_repeat).setOnClickListener(dontRepeatButton);
+        return d;
     }
 }

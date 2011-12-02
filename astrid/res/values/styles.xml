@@ -146,8 +146,8 @@
    	</style>
    	    
    	<style name="TEA_WhenDialog_Anim">
-   	    <item name="android:windowEnterAnimation">@android:anim/fade_in</item>
-        <item name="android:windowExitAnimation">@android:anim/fade_out</item>
+   	    <item name="android:windowEnterAnimation">@anim/slide_left_in</item>
+        <item name="android:windowExitAnimation">@anim/slide_right_out</item>
    	</style>
     <!-- ==================================================== TaskAdapter == -->
 

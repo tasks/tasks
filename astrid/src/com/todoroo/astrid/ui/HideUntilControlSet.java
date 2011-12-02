@@ -8,6 +8,7 @@ import android.content.DialogInterface.OnCancelListener;
 import android.content.DialogInterface.OnDismissListener;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
@@ -50,6 +51,8 @@ public class HideUntilControlSet extends PopupControlSet
         this.spinner = (Spinner) getView().findViewById(R.id.hideUntil);
         this.spinner.setOnItemSelectedListener(this);
         this.spinner.setPromptId(title);
+        ViewGroup parent = (ViewGroup) getView().getParent();
+        parent.removeView(getView());
         ((LinearLayout) getDisplayView()).addView(getView()); // hack to make listeners work
     }
 

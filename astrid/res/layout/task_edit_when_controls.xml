@@ -17,6 +17,7 @@
 	    android:id="@+id/when_dismiss"
 	    android:layout_width="150dip"
 	    android:layout_height="50dip"
+	    android:layout_marginTop="15dip"
 	    android:layout_weight="1"
 	    android:layout_gravity="center_horizontal"
 	    android:text="@string/DLG_ok"/>

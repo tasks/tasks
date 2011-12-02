@@ -35,6 +35,7 @@ import android.content.IntentFilter;
 import android.os.Bundle;
 import android.speech.RecognizerIntent;
 import android.text.TextUtils;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
@@ -70,7 +71,6 @@ import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.gcal.GCalControlSet;
 import com.todoroo.astrid.helper.TaskEditControlSet;
 import com.todoroo.astrid.notes.EditNoteActivity;
-import com.todoroo.astrid.notes.NotesPlugin;
 import com.todoroo.astrid.opencrx.OpencrxControlSet;
 import com.todoroo.astrid.opencrx.OpencrxCoreUtils;
 import com.todoroo.astrid.producteev.ProducteevControlSet;
@@ -373,8 +373,8 @@ public final class TaskEditActivity extends Activity {
             final Animation fadeOut = AnimationUtils.loadAnimation(TaskEditActivity.this, android.R.anim.fade_out);
             @Override
             public void onClick(View v) {
-                fadeIn.setDuration(350);
-                fadeOut.setDuration(350);
+                fadeIn.setDuration(300);
+                fadeOut.setDuration(300);
                 View moreView = findViewById(R.id.more_controls);
                 View moreHeader = findViewById(R.id.more_header);
                 if (moreView.getVisibility() == View.GONE) {
@@ -441,11 +441,11 @@ public final class TaskEditActivity extends Activity {
     private void constructWhenDialog(View whenDialogView) {
         int theme = ThemeService.getTheme();
         if (theme == R.style.Theme || theme == R.style.Theme_Transparent) {
-            whenDialog = new Dialog(this, R.style.Theme_WhenDialog);
-            whenDialogView.setBackgroundColor(getResources().getColor(android.R.color.black));
+            whenDialog = new Dialog(this, 0);//R.style.Theme_WhenDialog
+            //whenDialogView.setBackgroundColor(getResources().getColor(android.R.color.black));
         } else {
-            whenDialog = new Dialog(this, R.style.Theme_White_WhenDialog);
-            whenDialogView.setBackgroundColor(getResources().getColor(android.R.color.white));
+            whenDialog = new Dialog(this, 0); //R.style.Theme_White_WhenDialog
+            //whenDialogView.setBackgroundColor(getResources().getColor(android.R.color.white));
         }
 
         Button dismissDialogButton = (Button) whenDialogView.findViewById(R.id.when_dismiss);
@@ -455,8 +455,11 @@ public final class TaskEditActivity extends Activity {
                 DialogUtilities.dismissDialog(TaskEditActivity.this, whenDialog);
             }
         });
+
+        DisplayMetrics metrics = new DisplayMetrics();
+        this.getWindowManager().getDefaultDisplay().getMetrics(metrics);
         whenDialog.setTitle(R.string.TEA_when_dialog_title);
-        whenDialog.addContentView(whenDialogView, new LayoutParams(LayoutParams.FILL_PARENT, LayoutParams.FILL_PARENT));
+        whenDialog.addContentView(whenDialogView, new LayoutParams(metrics.widthPixels - (int)(30 * metrics.density), LayoutParams.WRAP_CONTENT));
     }
 
     /**
@@ -577,7 +580,7 @@ public final class TaskEditActivity extends Activity {
         }
 
         if (!isNewTask) {
-            if (actFmPreferenceService.isLoggedIn() || NotesPlugin.hasNotes(model)) {
+            if (actFmPreferenceService.isLoggedIn()) {
                 findViewById(R.id.activityContainer).setVisibility(View.VISIBLE);
             }
         }
