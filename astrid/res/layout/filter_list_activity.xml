@@ -21,7 +21,7 @@
             android:layout_height="fill_parent"
             android:layout_weight="100"
             android:gravity="center"
-            android:paddingRight="43dip"
+            android:paddingLeft="43dip"
             android:src="@drawable/header_logo_new"
             android:scaleType="center"/>
 
