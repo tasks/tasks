@@ -326,12 +326,28 @@ public class C2DMReceiver extends BroadcastReceiver {
             Intent launchIntent = new Intent();
             launchIntent.putExtra(TaskListActivity.TOKEN_FILTER, filter);
             launchIntent.setComponent(filter.customTaskList);
+            filter.customExtras.putBoolean(TagViewActivity.TOKEN_START_ACTIVITY, shouldLaunchActivity(intent));
             launchIntent.putExtras(filter.customExtras);
 
             return launchIntent;
         } finally {
             cursor.close();
         }
+    }
+
+    private boolean shouldLaunchActivity(Intent intent) {
+        if(intent.hasExtra("type")) {
+            String type = intent.getStringExtra("type");
+            if("f".equals(type)) return true;
+            if("s".equals(type)) return false;
+            if("l".equals(type)) return false;
+        } else {
+            String message = intent.getStringExtra("alert");
+            if(message.contains(" finished ")) return true;
+            if(message.contains(" invited you to ")) return false;
+            if(message.contains(" sent you ")) return false;
+        }
+        return true;
     }
 
     private void handleRegistration(Intent intent) {

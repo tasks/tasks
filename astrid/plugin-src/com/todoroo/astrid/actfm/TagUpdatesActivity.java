@@ -141,6 +141,7 @@ public class TagUpdatesActivity extends ListActivity {
         });
 
         refreshUpdatesList();
+        refreshActivity(null); // start a pull in the background
     }
 
     private void refreshUpdatesList() {
@@ -193,23 +194,28 @@ public class TagUpdatesActivity extends ListActivity {
         case MENU_REFRESH_ID: {
 
             final ProgressDialog progressDialog = DialogUtilities.progressDialog(this, getString(R.string.DLG_please_wait));
-            actFmSyncService.fetchUpdatesForTag(tagData, true, new Runnable() {
-                @Override
-                public void run() {
-                    runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            refreshUpdatesList();
-                            DialogUtilities.dismissDialog(TagUpdatesActivity.this, progressDialog);
-                        }
-                    });
-                }
-            });
+            refreshActivity(progressDialog);
             return true;
         }
 
         default: return false;
         }
+    }
+
+    private void refreshActivity(final ProgressDialog progressDialog) {
+        actFmSyncService.fetchUpdatesForTag(tagData, true, new Runnable() {
+            @Override
+            public void run() {
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        refreshUpdatesList();
+                        if (progressDialog != null)
+                            DialogUtilities.dismissDialog(TagUpdatesActivity.this, progressDialog);
+                    }
+                });
+            }
+        });
     }
 
     @SuppressWarnings("nls")
