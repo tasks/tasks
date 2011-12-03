@@ -14,6 +14,7 @@ import org.json.JSONObject;
 import android.app.Activity;
 import android.app.Dialog;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.text.TextUtils;
@@ -21,12 +22,14 @@ import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.ViewGroup;
 import android.view.ViewGroup.LayoutParams;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.CheckedTextView;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ListView;
@@ -267,7 +270,7 @@ public class EditPeopleControlSet extends PopupControlSet {
         });
     }
 
-    private class AssignedToUser {
+    public static class AssignedToUser {
         public String label;
         public JSONObject user;
 
@@ -359,9 +362,10 @@ public class EditPeopleControlSet extends PopupControlSet {
         }
 
         final int selected = assignedIndex;
-        final ArrayAdapter<AssignedToUser> usersAdapter = new ArrayAdapter<AssignedToUser>(activity,
-                android.R.layout.simple_list_item_single_choice, listValues);
+//        final ArrayAdapter<AssignedToUser> usersAdapter = new ArrayAdapter<AssignedToUser>(activity,
+//                android.R.layout.simple_list_item_single_choice, listValues);
 
+        final AssignedUserAdapter usersAdapter = new AssignedUserAdapter(activity, listValues);
         activity.runOnUiThread(new Runnable() {
             @Override
             public void run() {
@@ -370,6 +374,29 @@ public class EditPeopleControlSet extends PopupControlSet {
                 refreshDisplayView();
             }
         });
+    }
+
+    private class AssignedUserAdapter extends ArrayAdapter<AssignedToUser> {
+
+        public AssignedUserAdapter(Context context, ArrayList<AssignedToUser> people)  {
+            super(context, R.layout.assigned_adapter_row, people);
+        }
+
+        @Override
+        public View getView(int position, View convertView, ViewGroup parent) {
+            if(convertView == null)
+                convertView = activity.getLayoutInflater().inflate(R.layout.assigned_adapter_row, parent, false);
+            CheckedTextView ctv = (CheckedTextView) convertView.findViewById(android.R.id.text1);
+            super.getView(position, ctv, parent);
+            AsyncImageView image = (AsyncImageView) convertView.findViewById(R.id.person_image);
+            if (position <= 1) {
+                image.setVisibility(View.GONE);
+            } else {
+                image.setVisibility(View.VISIBLE);
+                image.setUrl(getItem(position).user.optString("picture"));
+            }
+            return convertView;
+        }
     }
 
     private void setUpListeners() {
