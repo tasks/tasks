@@ -37,6 +37,7 @@ import com.todoroo.andlib.service.NotificationManager;
 import com.todoroo.andlib.service.NotificationManager.AndroidNotificationManager;
 import com.todoroo.andlib.sql.Criterion;
 import com.todoroo.andlib.sql.Query;
+import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.andlib.utility.DialogUtilities;
 import com.todoroo.andlib.utility.Preferences;
@@ -128,6 +129,9 @@ public class TagViewActivity extends TaskListActivity {
                     Intent intent = new Intent(TagViewActivity.this, TagUpdatesActivity.class);
                     intent.putExtra(EXTRA_TAG_DATA, tagData);
                     startActivity(intent);
+                    AndroidUtilities.callApiMethod(5, TagViewActivity.this, "overridePendingTransition", //$NON-NLS-1$
+                            new Class<?>[] { Integer.TYPE, Integer.TYPE },
+                            R.anim.slide_left_in, R.anim.slide_left_out);
                 }
             });
         }
@@ -142,6 +146,9 @@ public class TagViewActivity extends TaskListActivity {
             Intent intent = new Intent(TagViewActivity.this, TagSettingsActivity.class);
             intent.putExtra(EXTRA_TAG_DATA, tagData);
             startActivityForResult(intent, REQUEST_CODE_SETTINGS);
+            AndroidUtilities.callApiMethod(5, TagViewActivity.this, "overridePendingTransition", //$NON-NLS-1$
+                    new Class<?>[] { Integer.TYPE, Integer.TYPE },
+                    R.anim.slide_left_in, R.anim.slide_left_out);
         }
     };
 

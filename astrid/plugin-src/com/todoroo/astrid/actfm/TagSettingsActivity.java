@@ -193,13 +193,34 @@ public class TagSettingsActivity extends Activity {
             Intent intent = new Intent(this, TagViewActivity.class);
             intent.putExtra(TagViewActivity.EXTRA_TAG_NAME, newName);
             intent.putExtra(TagViewActivity.TOKEN_FILTER, TagFilterExposer.filterFromTagData(this, tagData));
-            finish();
+            super.finish();
             startActivity(intent);
+            AndroidUtilities.callApiMethod(5, this, "overridePendingTransition", //$NON-NLS-1$
+                    new Class<?>[] { Integer.TYPE, Integer.TYPE },
+                    R.anim.slide_left_in, R.anim.slide_left_out);
             return;
         }
 
         refreshSettingsPage();
         finish();
+    }
+
+    @Override
+    public void finish() {
+        finishWithAnimation(true);
+    }
+
+    private void finishWithAnimation(boolean backAnimation) {
+        super.finish();
+        if (backAnimation) {
+            AndroidUtilities.callApiMethod(5, this, "overridePendingTransition", //$NON-NLS-1$
+                    new Class<?>[] { Integer.TYPE, Integer.TYPE },
+                    R.anim.slide_right_in, R.anim.slide_right_out);
+        } else {
+            AndroidUtilities.callApiMethod(5, this, "overridePendingTransition", //$NON-NLS-1$
+                    new Class<?>[] { Integer.TYPE, Integer.TYPE },
+                    R.anim.slide_left_in, R.anim.slide_left_out);
+        }
     }
 
     @SuppressWarnings("nls")

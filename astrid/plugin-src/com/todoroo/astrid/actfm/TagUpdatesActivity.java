@@ -26,6 +26,7 @@ import com.timsu.astrid.R;
 import com.todoroo.andlib.data.TodorooCursor;
 import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.DependencyInjectionService;
+import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.andlib.utility.DialogUtilities;
 import com.todoroo.astrid.actfm.ActFmCameraModule.CameraResultCallback;
@@ -174,6 +175,14 @@ public class TagUpdatesActivity extends ListActivity {
         }
 
         return true;
+    }
+
+    @Override
+    public void finish() {
+        super.finish();
+        AndroidUtilities.callApiMethod(5, this, "overridePendingTransition", //$NON-NLS-1$
+                new Class<?>[] { Integer.TYPE, Integer.TYPE },
+                R.anim.slide_right_in, R.anim.slide_right_out);
     }
 
     @Override
