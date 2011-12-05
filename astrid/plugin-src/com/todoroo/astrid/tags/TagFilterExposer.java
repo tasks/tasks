@@ -186,7 +186,6 @@ public class TagFilterExposer extends BroadcastReceiver implements AstridFilterE
         @Override
         protected void onCreate(Bundle savedInstanceState) {
             super.onCreate(savedInstanceState);
-            setTheme(android.R.style.Theme_Dialog);
 
             tag = getIntent().getStringExtra(TAG);
             if(tag == null) {

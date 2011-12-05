@@ -290,9 +290,9 @@
       </intent-filter>
     </receiver>
     <activity android:name="com.todoroo.astrid.core.CustomFilterActivity" />
-    <activity android:name="com.todoroo.astrid.core.CustomFilterExposer$DeleteActivity" />
-    <activity android:name="com.todoroo.astrid.tags.TagFilterExposer$DeleteTagActivity" />
-    <activity android:name="com.todoroo.astrid.tags.TagFilterExposer$RenameTagActivity" />
+    <activity android:name="com.todoroo.astrid.core.CustomFilterExposer$DeleteActivity" android:theme="@style/Theme.FullTransparent" />
+    <activity android:name="com.todoroo.astrid.tags.TagFilterExposer$DeleteTagActivity" android:theme="@style/Theme.FullTransparent" />
+    <activity android:name="com.todoroo.astrid.tags.TagFilterExposer$RenameTagActivity" android:theme="@style/Theme.FullTransparent" />
 
     <!-- alarms -->
     <receiver android:name="com.todoroo.astrid.alarms.AlarmTaskRepeatListener">
