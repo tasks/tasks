@@ -33,7 +33,7 @@
   </LinearLayout>
   <View
       android:layout_width="fill_parent"
-      android:layout_height="1dip"
+      android:layout_height="1px"
       android:padding="5dip"
       style="@style/TEA_Separator" />
     

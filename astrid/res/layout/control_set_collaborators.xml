@@ -36,7 +36,7 @@
 		        android:layout_height="wrap_content">
 		        <View
 		          android:layout_width="fill_parent"
-		          android:layout_height="1dip"
+		          android:layout_height="1px"
 		          android:background="@android:drawable/divider_horizontal_dark" />
 		        <TextView
 		          android:layout_width="fill_parent"
@@ -68,7 +68,7 @@
 		          android:hint="@string/actfm_EPA_tag_hint" />
 		        <View
 		          android:layout_width="fill_parent"
-		          android:layout_height="1dip"
+		          android:layout_height="1px"
 		          android:background="@android:drawable/divider_horizontal_dark" />
 		      </LinearLayout>
 		      <LinearLayout
@@ -95,7 +95,7 @@
 		        android:layout_height="wrap_content" />
 		      <View
 		        android:layout_width="fill_parent"
-		        android:layout_height="1dip"
+		        android:layout_height="1px"
 		        android:layout_margin="15dip"
 		        android:visibility="gone"
 		        android:background="@android:drawable/divider_horizontal_dark" />
