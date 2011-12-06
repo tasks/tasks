@@ -94,20 +94,28 @@ public class RepeatControlSet extends PopupControlSet {
         DateFormatSymbols dfs = new DateFormatSymbols();
         Calendar calendar = Calendar.getInstance();
         calendar.set(Calendar.DAY_OF_WEEK, calendar.getFirstDayOfWeek());
-        LayoutParams lp = new LinearLayout.LayoutParams(LayoutParams.FILL_PARENT, LayoutParams.WRAP_CONTENT, 1.0f/7);
+        LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(LayoutParams.FILL_PARENT, LayoutParams.WRAP_CONTENT, 1.0f/14);
+        LinearLayout.LayoutParams textLp = new LinearLayout.LayoutParams(LayoutParams.FILL_PARENT, LayoutParams.WRAP_CONTENT, 1.0f/14);
         for(int i = 0; i < 7; i++) {
             CheckBox checkBox = new CheckBox(activity);
-            checkBox.setTextAppearance(activity, android.R.style.TextAppearance);
             checkBox.setTextColor(activity.getResources().getColor(android.R.color.white));
             int dayOfWeek = calendar.get(Calendar.DAY_OF_WEEK);
-            checkBox.setText(dfs.getShortWeekdays()[dayOfWeek].substring(0, 1));
+            checkBox.setPadding(0, 0, 0, 0);
             checkBox.setLayoutParams(lp);
-            checkBox.setTextSize(8);
+            checkBox.setBackgroundResource(0);
             checkBox.setTag(Weekday.values()[dayOfWeek - 1]);
+            checkBox.setButtonDrawable(R.drawable.btn_check_small);
+
+            TextView label = new TextView(activity);
+            label.setTextAppearance(activity, android.R.style.TextAppearance);
+            label.setLayoutParams(textLp);
+            label.setTextSize(14);
+            label.setText(dfs.getShortWeekdays()[dayOfWeek].substring(0, 1));
 
             daysOfWeek[i] = checkBox;
             calendar.add(Calendar.DATE, 1);
             daysOfWeekContainer.addView(checkBox);
+            daysOfWeekContainer.addView(label);
         }
 
         // set up listeners

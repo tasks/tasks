@@ -96,8 +96,8 @@
   <!-- task sharing dialog: assigned to me -->
   <string name="actfm_EPA_assign_me">Me</string>
   
-  <!-- task sharing dialog: unassigned -->
-  <string name="actfm_EPA_unassigned">Unassigned</string>
+  <!-- task sharing dialog: anyone -->
+  <string name="actfm_EPA_unassigned">Anyone</string>
   
   <!-- task sharing dialog: custom email assignment -->
   <string name="actfm_EPA_assign_custom">Custom...</string>
