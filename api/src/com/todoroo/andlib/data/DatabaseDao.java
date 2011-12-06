@@ -83,8 +83,9 @@ public class DatabaseDao<TYPE extends AbstractModel> {
     }
 
     protected void onModelUpdated(TYPE model) {
+        TYPE modelCopy = (TYPE) model.clone();
         for(ModelUpdateListener<TYPE> listener : listeners) {
-            listener.onModelUpdated(model);
+            listener.onModelUpdated(modelCopy);
         }
     }
 

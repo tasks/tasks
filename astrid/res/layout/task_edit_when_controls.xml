@@ -6,13 +6,17 @@
     android:layout_height="fill_parent"
     android:orientation="vertical"    
     android:padding="10dip">
-	<LinearLayout 
-	    android:id="@+id/when_controls"
-	    android:layout_width="fill_parent"
-	    android:layout_height="fill_parent"
-	    android:layout_weight="100"
-	    android:orientation="vertical">
-	</LinearLayout>
+    <ScrollView
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+	    android:layout_weight="100">
+		<LinearLayout 
+		    android:id="@+id/when_controls"
+		    android:layout_width="fill_parent"
+		    android:layout_height="fill_parent"
+		    android:orientation="vertical">
+		</LinearLayout>
+	</ScrollView>
 	<Button 
 	    android:id="@+id/when_dismiss"
 	    android:layout_width="150dip"

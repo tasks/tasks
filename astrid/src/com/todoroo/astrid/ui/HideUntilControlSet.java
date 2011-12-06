@@ -3,9 +3,6 @@ package com.todoroo.astrid.ui;
 import java.util.Date;
 
 import android.app.Activity;
-import android.content.DialogInterface;
-import android.content.DialogInterface.OnCancelListener;
-import android.content.DialogInterface.OnDismissListener;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
@@ -15,13 +12,12 @@ import android.widget.ArrayAdapter;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.TimePicker;
 
 import com.timsu.astrid.R;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.astrid.data.Task;
-import com.todoroo.astrid.ui.DeadlineTimePickerDialog.OnDeadlineTimeSetListener;
+import com.todoroo.astrid.ui.DateAndTimeDialog.DateAndTimeDialogListener;
 
 /**
  * Control set for specifying when a task should be hidden
@@ -29,9 +25,7 @@ import com.todoroo.astrid.ui.DeadlineTimePickerDialog.OnDeadlineTimeSetListener;
  * @author Tim Su <tim@todoroo.com>
  *
  */
-public class HideUntilControlSet extends PopupControlSet
-       implements OnItemSelectedListener, OnCancelListener,
-        OnDeadlineTimeSetListener {
+public class HideUntilControlSet extends PopupControlSet implements OnItemSelectedListener {
 
     private static final int SPECIFIC_DATE = -1;
     private static final int EXISTING_TIME_UNSET = -2;
@@ -43,8 +37,6 @@ public class HideUntilControlSet extends PopupControlSet
     private long existingDate = EXISTING_TIME_UNSET;
     private int existingDateHour = EXISTING_TIME_UNSET;
     private int existingDateMinutes = EXISTING_TIME_UNSET;
-
-    private boolean cancelled = false;
 
     public HideUntilControlSet(Activity activity, int viewLayout, int displayViewLayout, int title) {
         super(activity, viewLayout, displayViewLayout, title);
@@ -129,22 +121,27 @@ public class HideUntilControlSet extends PopupControlSet
             customDate = new Date(existingDate == EXISTING_TIME_UNSET ? DateUtilities.now() : existingDate);
             customDate.setSeconds(0);
 
-            final CalendarDialog calendarDialog = new CalendarDialog(activity, customDate);
-            calendarDialog.show();
-            calendarDialog.setOnDismissListener(new OnDismissListener() {
+            final DateAndTimeDialog dateAndTimeDialog = new DateAndTimeDialog(activity, customDate.getTime());
+            dateAndTimeDialog.show();
+            dateAndTimeDialog.setDateAndTimeDialogListener(new DateAndTimeDialogListener() {
                 @Override
-                public void onDismiss(DialogInterface arg0) {
-                    if (!cancelled) {
-                        setDate(calendarDialog);
+                public void onDateAndTimeSelected(long date) {
+                    if (date > 0) {
+                        customDate = new Date(date);
+                        if (!dateAndTimeDialog.hasTime()) {
+                            customDate.setHours(0);
+                            customDate.setMinutes(0);
+                            customDate.setSeconds(0);
+                        }
+                        customDateFinished();
                     }
-                    cancelled = false;
                 }
-            });
 
-            calendarDialog.setOnCancelListener(new OnCancelListener() {
                 @Override
-                public void onCancel(DialogInterface arg0) {
-                    cancelled = true;
+                public void onDateAndTimeCancelled() {
+                    // user canceled, restore previous choice
+                    spinner.setSelection(previousSetting);
+                    refreshDisplayView();
                 }
             });
 
@@ -161,43 +158,6 @@ public class HideUntilControlSet extends PopupControlSet
     }
 
     Date customDate;
-
-    private void setDate(CalendarDialog calendarDialog) {
-        customDate = calendarDialog.getCalendarDate();
-
-        if(existingDateHour < 0) {
-            existingDateHour = customDate.getHours();
-            existingDateMinutes= customDate.getMinutes();
-        }
-
-        DeadlineTimePickerDialog timePicker = new DeadlineTimePickerDialog(activity, this,
-                existingDateHour, existingDateMinutes,
-                DateUtilities.is24HourFormat(activity), true);
-
-        timePicker.setOnCancelListener(this);
-        timePicker.show();
-    }
-
-    public void onTimeSet(TimePicker view, boolean hasTime, int hourOfDay, int minute) {
-        if(!hasTime) {
-            customDate.setHours(0);
-            customDate.setMinutes(0);
-            customDate.setSeconds(0);
-        } else {
-            customDate.setHours(hourOfDay);
-            customDate.setMinutes(minute);
-            existingDateHour = hourOfDay;
-            existingDateMinutes = minute;
-        }
-        customDateFinished();
-    }
-
-    @Override
-    public void onCancel(DialogInterface dialog) {
-        // user canceled, restore previous choice
-        spinner.setSelection(previousSetting);
-        refreshDisplayView();
-    }
 
     private void customDateFinished() {
         HideUntilValue[] list = createHideUntilList(customDate.getTime());

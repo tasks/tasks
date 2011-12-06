@@ -271,6 +271,9 @@
   <!-- Task title label -->
   <string name="TEA_title_label">Title</string>
   
+  <!-- Task when label (note the <u> tags - be sure to leave those in when localizing! -->
+  <string name="TEA_when_header_label"><u>When</u></string>
+  
   <!-- Task title hint (displayed when edit box is empty) -->
   <string name="TEA_title_hint">Task Summary</string>
   
@@ -327,7 +330,7 @@
   
   <string-array name="TEA_urgency">
       <!-- urgency: labels for edit page. item #4 -> auto filled -->
-      <item>None</item>
+      <item>No deadline</item>
       <item>Specific Day</item>
       <item>Today</item>
       <item>Tomorrow</item>
@@ -337,6 +340,8 @@
       <item>Next Month</item>
   </string-array>
   
+  <string name="TEA_no_time">No time</string>
+      
   <string-array name="TEA_hideUntil">
       <!-- hideUntil: labels for edit page. -->
       <item>Always</item>
@@ -385,6 +390,8 @@
   
   <!-- When controls dialog -->
   <string name="TEA_when_dialog_title">When is this due?</string>
+  
+  <string name="TEA_date_and_time">Date/Time</string>
   <!-- ============================================= IntroductionActivity == -->
   
   <!-- Introduction Window title -->

@@ -16,11 +16,9 @@
 
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <item android:state_pressed="false" android:state_enabled="true"
-          android:state_focused="false" android:drawable="@drawable/icn_arrow_right" />
-    <item android:state_pressed="true" android:state_enabled="true"
-          android:drawable="@drawable/icn_arrow_over" />
-    <item android:state_pressed="false" android:state_enabled="true"
-          android:state_focused="true" android:drawable="@drawable/icn_arrow_over" />
+    <item android:state_pressed="false"
+          android:drawable="@drawable/deadline_timepicker_button_bl_off" />
+    <item android:state_pressed="true"
+          android:drawable="@drawable/deadline_timepicker_button_bl_on" />
 
 </selector>

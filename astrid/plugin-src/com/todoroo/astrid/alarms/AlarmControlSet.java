@@ -6,17 +6,19 @@ import java.util.LinkedHashSet;
 import android.app.Activity;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.Button;
+import android.view.View.OnClickListener;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.timsu.astrid.R;
 import com.todoroo.andlib.data.TodorooCursor;
 import com.todoroo.andlib.utility.DateUtilities;
-import com.todoroo.andlib.widget.DateControlSet;
 import com.todoroo.astrid.data.Metadata;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.helper.TaskEditControlSet;
+import com.todoroo.astrid.ui.DateAndTimeDialog;
+import com.todoroo.astrid.ui.DateAndTimeDialog.DateAndTimeDialogListener;
 
 /**
  * Control set to manage adding and removing tags
@@ -30,6 +32,7 @@ public final class AlarmControlSet extends TaskEditControlSet {
 
     private final LinearLayout alertsContainer;
     private final Activity activity;
+    private final DateAndTimeDialog pickerDialog;
 
     public AlarmControlSet(Activity activity, int layout) {
         //View v = LayoutInflater.from(activity).inflate(R.layout.alarm_control, parent, true);
@@ -42,6 +45,8 @@ public final class AlarmControlSet extends TaskEditControlSet {
                 addAlarm(new Date());
             }
         });
+
+        pickerDialog = new DateAndTimeDialog(activity, 0);
     }
 
     @Override
@@ -60,12 +65,10 @@ public final class AlarmControlSet extends TaskEditControlSet {
     public String writeToModel(Task task) {
         LinkedHashSet<Long> alarms = new LinkedHashSet<Long>();
         for(int i = 0; i < alertsContainer.getChildCount(); i++) {
-            DateControlSet set = (DateControlSet) alertsContainer.getChildAt(i).getTag();
-            if(set == null)
+            Long dateValue = (Long) alertsContainer.getChildAt(i).getTag();
+            if(dateValue == null)
                 continue;
-            Date date = set.getDate();
-            if(date != null)
-                alarms.add(set.getDate().getTime());
+            alarms.add(dateValue);
         }
 
         if(AlarmService.getInstance().synchronizeAlarms(task.getId(), alarms))
@@ -78,10 +81,39 @@ public final class AlarmControlSet extends TaskEditControlSet {
         final View alertItem = LayoutInflater.from(activity).inflate(R.layout.alarm_edit_row, null);
         alertsContainer.addView(alertItem);
 
-        DateControlSet dcs = new DateControlSet(activity, (Button)alertItem.findViewById(R.id.date),
-                (Button)alertItem.findViewById(R.id.time));
-        dcs.setDate(alert);
-        alertItem.setTag(dcs);
+        alertItem.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(final View v) {
+                pickerDialog.setSelectedDateAndTime((Long) alertItem.getTag());
+                pickerDialog.setDateAndTimeDialogListener(new DateAndTimeDialogListener() {
+                    @Override
+                    public void onDateAndTimeSelected(long date) {
+                        if (date > 0) {
+                            if (!pickerDialog.hasTime()) {
+                                Date d = new Date(date);
+                                d.setHours(18);
+                                d.setMinutes(0);
+                                d.setSeconds(0);
+                                date = d.getTime();
+                            }
+                            v.setTag(date);
+                            TextView label = (TextView) v.findViewById(R.id.alarm_string);
+                            label.setText(pickerDialog.getDisplayString(activity, date));
+                        }
+                    }
+
+                    @Override
+                    public void onDateAndTimeCancelled() {
+                        // Do nothing
+                    }
+                });
+                pickerDialog.show();
+            }
+        });
+
+        alertItem.setTag(alert.getTime());
+        TextView display = (TextView) alertItem.findViewById(R.id.alarm_string);
+        display.setText(pickerDialog.getDisplayString(activity, alert.getTime()));
 
         ImageButton reminderRemoveButton;
         reminderRemoveButton = (ImageButton)alertItem.findViewById(R.id.button1);

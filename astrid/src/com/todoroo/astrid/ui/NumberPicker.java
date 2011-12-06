@@ -119,11 +119,15 @@ public class NumberPicker extends LinearLayout implements OnClickListener,
         this(context, attrs, 0);
     }
 
+    protected int getLayout() {
+        return R.layout.number_picker;
+    }
+
     public NumberPicker(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs);
         setOrientation(VERTICAL);
         mInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        mInflater.inflate(R.layout.number_picker, this, true);
+        mInflater.inflate(getLayout(), this, true);
         mHandler = new Handler();
         mInputFilter = new NumberPickerInputFilter();
         mNumberInputFilter = new NumberRangeKeyListener();
@@ -276,7 +280,7 @@ public class NumberPicker extends LinearLayout implements OnClickListener,
 
     }
 
-    private void updateView() {
+    public void updateView() {
 
         /*
          * If we don't have displayed values then use the current number else
@@ -444,6 +448,14 @@ public class NumberPicker extends LinearLayout implements OnClickListener,
             }
         }
         return mStart;
+    }
+
+    /**
+     * Override the number picker's text
+     * @param text
+     */
+    public void setText(String text) {
+        mText.setText(text);
     }
 
     /**

@@ -45,16 +45,24 @@ public class ImportanceControlSet extends TaskEditControlSet {
         //else
             //colors[max] = activity.getResources().getColor(android.R.color.white);
 
+        DisplayMetrics metrics = new DisplayMetrics();
+        activity.getWindowManager().getDefaultDisplay().getMetrics(metrics);
+
+        int width = (int) (metrics.widthPixels / metrics.density) - 20;
+        int usedWidth = 0;
+
         for(int i = min; i <= max; i++) {
             final ToggleButton button = new ToggleButton(activity);
             LinearLayout.LayoutParams params;
-            DisplayMetrics metrics = new DisplayMetrics();
-            activity.getWindowManager().getDefaultDisplay().getMetrics(metrics);
 
-            if (ProducteevUtilities.INSTANCE.isLoggedIn())
-                params = new LinearLayout.LayoutParams((int) (metrics.density * 30), (int) (metrics.density * 30));
-            else
-                params = new LinearLayout.LayoutParams((int) (metrics.density * 40), (int) (metrics.density * 40));
+            int dimension;
+            if (ProducteevUtilities.INSTANCE.isLoggedIn()) {
+                dimension = 38;
+            } else {
+                dimension = 38;
+            }
+            params = new LinearLayout.LayoutParams((int) (metrics.density * dimension), (int) (metrics.density * dimension));
+            usedWidth += dimension;
             button.setLayoutParams(params);
 
             StringBuilder label = new StringBuilder();
@@ -81,6 +89,10 @@ public class ImportanceControlSet extends TaskEditControlSet {
 
             buttons.add(button);
             container.addView(button);
+        }
+
+        if (usedWidth > width * 2 /3 ) {
+            getView().findViewById(R.id.importance_label).setVisibility(View.GONE);
         }
     }
 

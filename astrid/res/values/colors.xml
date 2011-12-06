@@ -23,6 +23,8 @@
     <color name="view_table_overdue">#ffff0000</color>
     
     <color name="task_edit_selected">#438cb6</color>
-
+    
+    <color name="task_edit_date_shortcuts_bg">#0b78a5</color>
+        
 </resources>
 

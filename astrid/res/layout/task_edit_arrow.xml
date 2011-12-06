@@ -4,4 +4,4 @@
     android:layout_height="20dip"
     android:layout_marginTop="1dip"
     android:layout_marginLeft="7dip"
-    android:src="@drawable/icn_arrow" />
+    android:src="@drawable/icn_arrow_right" />

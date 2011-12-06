@@ -24,7 +24,8 @@
 	  <Button android:id="@+id/alarms_add"
 	          android:text="+"
 	          android:layout_width="50dip"
-	          android:layout_height="50dip"/>
+	          android:layout_height="50dip"
+	          android:layout_marginTop="10dip"/>
   	  <TextView
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"

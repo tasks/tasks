@@ -158,6 +158,25 @@
    	    <item name="android:windowEnterAnimation">@anim/slide_left_in</item>
         <item name="android:windowExitAnimation">@anim/slide_right_out</item>
    	</style>
+   	
+   	<style name="Theme.TEA_Dialog">
+	    <item name="android:windowFrame">@null</item>
+	    <item name="android:windowTitleStyle">@style/TEA_DialogWindowTitle</item>
+	    <item name="android:windowBackground">@drawable/task_edit_dialog_background</item>
+	    <item name="android:windowIsFloating">true</item>
+	    <item name="android:windowContentOverlay">@null</item>
+	    <item name="android:windowAnimationStyle">@android:style/Animation.Dialog</item>
+	    <item name="android:windowSoftInputMode">stateUnspecified|adjustPan</item>
+	</style>
+	
+    <style name="TEA_DialogWindowTitle">
+            <item name="android:maxLines">1</item>
+            <item name="android:scrollHorizontally">true</item>
+            <item name="android:textSize">18sp</item>
+            <item name="android:textStyle">normal</item>
+            <item name="android:textColor">#ffffff</item>
+    </style>
+   	    
     <!-- ==================================================== TaskAdapter == -->
 
     <style name="TextAppearance.TAd_ItemTitle">

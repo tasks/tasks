@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup.LayoutParams;
+import android.view.Window;
 import android.widget.Button;
 
 import com.timsu.astrid.R;
@@ -52,13 +53,17 @@ public abstract class PopupControlSet extends TaskEditControlSet {
         }
     }
 
+    @Override
     public View getDisplayView() {
         return displayView;
     }
 
     protected Dialog buildDialog(int title, final DialogInterface.OnClickListener okListener, DialogInterface.OnCancelListener cancelListener) {
-        final Dialog d= new Dialog(activity, 0);
-        d.setTitle(title);
+        final Dialog d = new Dialog(activity, R.style.Theme_TEA_Dialog);
+        if (title == 0)
+            d.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        else
+            d.setTitle(title);
         View v = getView();
         DisplayMetrics metrics = new DisplayMetrics();
         activity.getWindowManager().getDefaultDisplay().getMetrics(metrics);

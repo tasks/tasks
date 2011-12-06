@@ -17,6 +17,7 @@
              style="@style/EditRowImage"
              android:src="@drawable/icn_edit_priority"/>
 	      <TextView
+	        android:id="@+id/importance_label"
 	        android:layout_width="wrap_content"
 	        android:layout_height="wrap_content"
 	        android:text="@string/TEA_importance_label"

@@ -88,12 +88,12 @@ import com.todoroo.astrid.service.ThemeService;
 import com.todoroo.astrid.tags.TagsControlSet;
 import com.todoroo.astrid.timers.TimerActionControlSet;
 import com.todoroo.astrid.timers.TimerControlSet;
+import com.todoroo.astrid.ui.DeadlineControlSet;
 import com.todoroo.astrid.ui.EditNotesControlSet;
 import com.todoroo.astrid.ui.EditTitleControlSet;
 import com.todoroo.astrid.ui.HideUntilControlSet;
 import com.todoroo.astrid.ui.ImportanceControlSet;
 import com.todoroo.astrid.ui.ReminderControlSet;
-import com.todoroo.astrid.ui.UrgencyControlSet;
 import com.todoroo.astrid.voice.VoiceInputAssistant;
 
 /**
@@ -255,6 +255,7 @@ public final class TaskEditActivity extends Activity {
         LinearLayout basicControls = (LinearLayout) findViewById(R.id.basic_controls);
         LinearLayout whenDialogView = (LinearLayout) LayoutInflater.from(this).inflate(R.layout.task_edit_when_controls, null);
         LinearLayout whenControls = (LinearLayout) whenDialogView.findViewById(R.id.when_controls);
+        LinearLayout whenHeader = (LinearLayout) findViewById(R.id.when_header);
         LinearLayout moreControls = (LinearLayout) findViewById(R.id.more_controls);
 
         constructWhenDialog(whenDialogView);
@@ -275,10 +276,9 @@ public final class TaskEditActivity extends Activity {
         //basicControls.addView(peopleControlSet.getDisplayView());
         controlSetMap.put(getString(R.string.TEA_control_who), peopleControlSet);
 
-        UrgencyControlSet urgencyControl = new UrgencyControlSet(TaskEditActivity.this, R.layout.control_set_urgency, R.id.when_header, R.id.aux_date, R.id.when_label, R.id.when_image);
-        controls.add(urgencyControl);
-        whenControls.addView(urgencyControl.getDisplayView());
-
+        DeadlineControlSet deadlineControl = new DeadlineControlSet(TaskEditActivity.this, R.layout.control_set_deadline, R.layout.control_set_deadline_display, whenHeader, R.id.aux_date, R.id.when_shortcut_container, R.id.when_label, R.id.when_image);
+        controls.add(deadlineControl);
+        whenControls.addView(deadlineControl.getDisplayView());
 
         RepeatControlSet repeatControls = new RepeatControlSet(TaskEditActivity.this, R.layout.control_set_repeat, R.layout.control_set_repeat_display, R.string.repeat_enabled);
         controls.add(repeatControls);
@@ -328,7 +328,7 @@ public final class TaskEditActivity extends Activity {
                 controls.add(producteevControl);
                 basicControls.addView(producteevControl.getDisplayView());
                 notesEditText.setHint(R.string.producteev_TEA_notes);
-                ((TextView) notesControlSet.getView().findViewById(R.id.notes_label)).setHint(R.string.producteev_TEA_notes);
+                //((TextView) notesControlSet.getView().findViewById(R.id.notes_label)).setHint(R.string.producteev_TEA_notes);
             }
         } catch (Exception e) {
             Log.e("astrid-error", "loading-control-set", e); //$NON-NLS-1$ //$NON-NLS-2$
@@ -340,7 +340,7 @@ public final class TaskEditActivity extends Activity {
                 controls.add(ocrxControl);
                 basicControls.addView(ocrxControl.getDisplayView());
                 notesEditText.setHint(R.string.opencrx_TEA_notes);
-                ((TextView) notesControlSet.getView().findViewById(R.id.notes_label)).setHint(R.string.opencrx_TEA_notes);
+                //((TextView) notesControlSet.getView().findViewById(R.id.notes_label)).setHint(R.string.opencrx_TEA_notes);
             }
         } catch (Exception e) {
             Log.e("astrid-error", "loading-control-set", e); //$NON-NLS-1$ //$NON-NLS-2$
@@ -475,10 +475,10 @@ public final class TaskEditActivity extends Activity {
     private void constructWhenDialog(View whenDialogView) {
         int theme = ThemeService.getTheme();
         if (theme == R.style.Theme || theme == R.style.Theme_Transparent) {
-            whenDialog = new Dialog(this, 0);//R.style.Theme_WhenDialog
+            whenDialog = new Dialog(this, R.style.Theme_TEA_Dialog);//R.style.Theme_WhenDialog
             //whenDialogView.setBackgroundColor(getResources().getColor(android.R.color.black));
         } else {
-            whenDialog = new Dialog(this, 0); //R.style.Theme_White_WhenDialog
+            whenDialog = new Dialog(this, R.style.Theme_TEA_Dialog); //R.style.Theme_White_WhenDialog
             //whenDialogView.setBackgroundColor(getResources().getColor(android.R.color.white));
         }
 

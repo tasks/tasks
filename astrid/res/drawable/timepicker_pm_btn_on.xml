@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shape xmlns:android="http://schemas.android.com/apk/res/android" 
+    android:shape="rectangle">
+    <stroke
+        android:width="2dip"
+        android:color="@android:color/darker_gray"/>
+	<solid
+	    android:color="@color/task_edit_date_shortcuts_bg"/>
+	<corners
+	    android:topRightRadius="5dip"
+	    android:bottomLeftRadius="5dip"/>
+</shape>
