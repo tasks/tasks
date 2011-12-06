@@ -11,7 +11,7 @@
         android:gravity="center"
         android:layout_gravity="center_vertical"
         android:scaleType="fitCenter"
-        astrid:defaultSrc="@drawable/ic_contact_picture_2" />
+        astrid:defaultSrc="@drawable/icn_default_person_image" />
     <include layout="@android:layout/simple_list_item_single_choice"
         android:layout_toRightOf="@id/person_image"/>
 

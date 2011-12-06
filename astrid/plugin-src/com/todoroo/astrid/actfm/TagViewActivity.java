@@ -378,7 +378,7 @@ public class TagViewActivity extends TaskListActivity {
         AsyncImageView image = new AsyncImageView(this);
         image.setLayoutParams(new LinearLayout.LayoutParams((int)(50 * displayMetrics.density),
                 (int)(50 * displayMetrics.density)));
-        image.setDefaultImageResource(R.drawable.ic_contact_picture_2);
+        image.setDefaultImageResource(R.drawable.icn_default_person_image);
         image.setScaleType(ImageView.ScaleType.FIT_XY);
         try {
             final long id = member.getLong("id");

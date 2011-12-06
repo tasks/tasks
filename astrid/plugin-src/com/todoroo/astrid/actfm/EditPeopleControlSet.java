@@ -389,10 +389,13 @@ public class EditPeopleControlSet extends PopupControlSet {
             CheckedTextView ctv = (CheckedTextView) convertView.findViewById(android.R.id.text1);
             super.getView(position, ctv, parent);
             AsyncImageView image = (AsyncImageView) convertView.findViewById(R.id.person_image);
-            if (position <= 1) {
-                image.setVisibility(View.GONE);
+            image.setDefaultImageResource(R.drawable.icn_default_person_image);
+            if (position == 0) {
+                image.setUrl(ActFmPreferenceService.thisUser().optString("picture"));
+            } else if (position == 1) {
+                image.setUrl("");
+                image.setDefaultImageResource(R.drawable.icn_anyone);
             } else {
-                image.setVisibility(View.VISIBLE);
                 image.setUrl(getItem(position).user.optString("picture"));
             }
             return convertView;

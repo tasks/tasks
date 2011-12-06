@@ -56,7 +56,7 @@
                 android:layout_height="35dip"
                 android:padding="5dip" 
                 android:scaleType="fitCenter"
-                astrid:defaultSrc="@drawable/ic_contact_picture_2"
+                astrid:defaultSrc="@drawable/icn_default_person_image"
                 android:visibility="gone"/>
     
         </LinearLayout>
