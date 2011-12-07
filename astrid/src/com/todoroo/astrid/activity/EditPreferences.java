@@ -62,6 +62,7 @@ public class EditPreferences extends TodorooPreferenceActivity {
 
     private static final int ABOUT_PREFERENCE = 0; // see preferences.xml for order of prefs
     private static final int HELP_PREFERENCE = 1;
+    private static final int APPEARANCE_PREFERENCE = 2;
     private static final int POWER_PACK_PREFERENCE = 3;
 
     public static final int RESULT_CODE_THEME_CHANGED = 1;
@@ -119,6 +120,17 @@ public class EditPreferences extends TodorooPreferenceActivity {
             }
         });
 
+        PreferenceCategory appearance = (PreferenceCategory) screen.getPreference(APPEARANCE_PREFERENCE);
+        Preference beastMode = appearance.getPreference(1);
+        beastMode.setTitle(r.getString(R.string.EPr_beastMode_title));
+        beastMode.setOnPreferenceClickListener(new OnPreferenceClickListener() {
+            @Override
+            public boolean onPreferenceClick(Preference p) {
+                showBeastMode();
+                return true;
+            }
+        });
+
         addDebugPreferences();
 
         addPreferenceListeners();
@@ -139,6 +151,12 @@ public class EditPreferences extends TodorooPreferenceActivity {
         StatisticsService.reportEvent(StatisticsConstants.TLA_MENU_HELP);
         Intent intent = new Intent(Intent.ACTION_VIEW,
                 Uri.parse(Constants.HELP_URL));
+        startActivity(intent);
+    }
+
+    private void showBeastMode() {
+        Intent intent = new Intent(this, BeastModePreferenceActivity.class);
+        intent.setAction(AstridApiConstants.ACTION_SETTINGS);
         startActivity(intent);
     }
 
@@ -272,11 +290,6 @@ public class EditPreferences extends TodorooPreferenceActivity {
                 preference.setSummary(getString(R.string.EPr_theme_desc,
                         r.getStringArray(R.array.EPr_themes)[index]));
             }
-        } else if (r.getString(R.string.p_beastMode).equals(preference.getKey())) {
-            if (value != null && !(Boolean)value)
-                preference.setSummary(R.string.EPr_beastMode_desc_disabled);
-            else
-                preference.setSummary(R.string.EPr_beastMode_desc_enabled);
         }
         // statistics service
         else if (r.getString(R.string.p_statistics).equals(preference.getKey())) {

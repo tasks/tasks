@@ -14,10 +14,7 @@
             android:title="@string/EPr_fontSize_title"
             android:summary="@string/EPr_fontSize_desc" />
         
-        <com.todoroo.astrid.ui.MultilineCheckboxPreference
-            android:key="@string/p_beastMode"
-            android:title="@string/EPr_beastMode_title"
-            android:defaultValue="false"/>
+        <PreferenceScreen android:title="" android:key="@string/p_beastMode" android:summary="@string/EPr_beastMode_desc"/>
         
         <com.todoroo.astrid.ui.MultilineCheckboxPreference
             android:key="@string/p_showNotes"

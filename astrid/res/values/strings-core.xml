@@ -346,6 +346,32 @@
       <item>Specific Day/Time</item>
   </string-array>
   
+  <!-- Task edit control set descriptors -->
+  <string name="TEA_control_title">Task Title</string>
+  <string name="TEA_control_who">Who</string>
+  <string name="TEA_control_when">When</string>
+  <string name="TEA_control_more_section">More Section</string>
+  <string name="TEA_control_importance">Importance</string>  
+  <string name="TEA_control_lists">Lists</string>  
+  <string name="TEA_control_notes">Notes</string>  
+  <string name="TEA_control_reminders">Reminders</string>
+  <string name="TEA_control_timer">Timer Controls</string>
+  <string name="TEA_control_share">Share With Friends</string>
+  
+      
+  <string-array name="TEA_control_sets">
+      <item>@string/TEA_control_title</item>
+      <item>@string/TEA_control_who</item>
+      <item>@string/TEA_control_when</item>
+      <item>@string/TEA_control_more_section</item>
+      <item>@string/TEA_control_importance</item>
+      <item>@string/TEA_control_lists</item>
+      <item>@string/TEA_control_notes</item>
+      <item>@string/TEA_control_reminders</item>
+      <item>@string/TEA_control_timer</item>
+      <item>@string/TEA_control_share</item>
+  </string-array>
+  
   <string name="hide_until_prompt">Show in my list</string>
   
   <!-- Add Ons tab when no add-ons found -->
@@ -402,8 +428,8 @@
   <string name="EPr_showNotes_title">Show Notes In Task</string>
   <!-- Preference: Beast mode (auto-expand edit page) -->
   <string name="EPr_beastMode_title">Beast Mode</string>
-  <string name="EPr_beastMode_desc_disabled">Advanced task edit settings will start hidden</string>
-  <string name="EPr_beastMode_desc_enabled">Advanced task edit settings will show automatically</string>
+  <string name="EPr_beastMode_desc">Customize the layout of the Task Edit Page</string>
+  <string name="EPr_beastMode_reset">Reset to defaults</string>
       
   <!-- Preference: Task List Show Notes Description (disabled) -->
   <string name="EPr_showNotes_desc_disabled">Notes will be displayed in quick action bar</string>  

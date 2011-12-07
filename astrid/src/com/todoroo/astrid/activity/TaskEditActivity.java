@@ -21,6 +21,7 @@ package com.todoroo.astrid.activity;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
 
 import android.app.Activity;
@@ -258,21 +259,25 @@ public final class TaskEditActivity extends Activity {
 
         constructWhenDialog(whenDialogView);
 
+        HashMap<String, TaskEditControlSet> controlSetMap = new HashMap<String, TaskEditControlSet>();
+
         // populate control set
         EditTitleControlSet editTitle = new EditTitleControlSet(this, R.layout.control_set_title, Task.TITLE, R.id.title);
         title = (EditText) editTitle.getView().findViewById(R.id.title);
         controls.add(editTitle);
-        basicControls.addView(editTitle.getView());
+        //basicControls.addView(editTitle.getDisplayView());
+        controlSetMap.put(getString(R.string.TEA_control_title), editTitle);
 
         TimerActionControlSet timerAction = new TimerActionControlSet(this, editTitle.getView());
         controls.add(timerAction);
 
         controls.add(peopleControlSet = new EditPeopleControlSet(TaskEditActivity.this, R.layout.control_set_assigned, R.layout.control_set_assigned_display, R.string.actfm_EPA_assign_label, REQUEST_LOG_IN));
-        basicControls.addView(peopleControlSet.getDisplayView());
+        //basicControls.addView(peopleControlSet.getDisplayView());
+        controlSetMap.put(getString(R.string.TEA_control_who), peopleControlSet);
 
         UrgencyControlSet urgencyControl = new UrgencyControlSet(TaskEditActivity.this, R.layout.control_set_urgency, R.id.when_header, R.id.aux_date, R.id.when_label, R.id.when_image);
         controls.add(urgencyControl);
-        whenControls.addView(urgencyControl.getView());
+        whenControls.addView(urgencyControl.getDisplayView());
 
 
         RepeatControlSet repeatControls = new RepeatControlSet(TaskEditActivity.this, R.layout.control_set_repeat, R.layout.control_set_repeat_display, R.string.repeat_enabled);
@@ -290,27 +295,32 @@ public final class TaskEditActivity extends Activity {
         ImportanceControlSet importanceControl = new ImportanceControlSet(TaskEditActivity.this, R.layout.control_set_importance);
         controls.add(importanceControl);
         importanceControl.addListener(editTitle);
-        moreControls.addView(importanceControl.getView());
+        //moreControls.addView(importanceControl.getDisplayView());
+        controlSetMap.put(getString(R.string.TEA_control_importance), importanceControl);
 
         TagsControlSet tagsControl = new TagsControlSet(TaskEditActivity.this, R.layout.control_set_tags, R.layout.control_set_tags_display, R.string.TEA_tags_label);
         controls.add(tagsControl);
-        moreControls.addView(tagsControl.getDisplayView());
+        //moreControls.addView(tagsControl.getDisplayView());
+        controlSetMap.put(getString(R.string.TEA_control_lists), tagsControl);
 
         notesControlSet = new EditNotesControlSet(TaskEditActivity.this, R.layout.control_set_notes, R.layout.control_set_notes_display);
         notesEditText = (EditText) notesControlSet.getView().findViewById(R.id.notes);
         controls.add(notesControlSet);
-        moreControls.addView(notesControlSet.getDisplayView());
+        //moreControls.addView(notesControlSet.getDisplayView());
+        controlSetMap.put(getString(R.string.TEA_control_notes), notesControlSet);
 
         ReminderControlSet reminderControl = new ReminderControlSet(TaskEditActivity.this, R.layout.control_set_reminders, R.layout.control_set_reminders_display);
         controls.add(reminderControl);
-        moreControls.addView(reminderControl.getDisplayView());
+        //moreControls.addView(reminderControl.getDisplayView());
+        controlSetMap.put(getString(R.string.TEA_control_reminders), reminderControl);
 
         TimerControlSet timerControl = new TimerControlSet(TaskEditActivity.this, R.layout.control_set_timers, R.layout.control_set_timers_extras_display, R.string.TEA_timer_controls);
         timerAction.setListener(timerControl);
         controls.add(timerControl);
-        moreControls.addView(timerControl.getDisplayView());
+        //moreControls.addView(timerControl.getDisplayView());
+        controlSetMap.put(getString(R.string.TEA_control_timer), timerControl);
 
-        moreControls.addView(peopleControlSet.getSharedWithRow());
+        //moreControls.addView(peopleControlSet.getSharedWithRow());
 
         try {
             if(ProducteevUtilities.INSTANCE.isLoggedIn()) {
@@ -336,14 +346,38 @@ public final class TaskEditActivity extends Activity {
             Log.e("astrid-error", "loading-control-set", e); //$NON-NLS-1$ //$NON-NLS-2$
         }
 
-        boolean beastMode = Preferences.getBoolean(R.string.p_beastMode, false);
-        if (beastMode) {
-            LinearLayout moreHeader = (LinearLayout) findViewById(R.id.more_header);
-            moreHeader.setVisibility(View.GONE);
 
-            whenControls.setVisibility(View.VISIBLE);
-            moreControls.setVisibility(View.VISIBLE);
+        String[] itemOrder;
+        String orderPreference = Preferences.getStringValue(BeastModePreferenceActivity.BEAST_MODE_ORDER_PREF);
+        if (orderPreference != null)
+            itemOrder = orderPreference.split(BeastModePreferenceActivity.BEAST_MODE_PREF_ITEM_SEPARATOR);
+        else
+            itemOrder = getResources().getStringArray(R.array.TEA_control_sets);
+        String moreSectionTrigger = getString(R.string.TEA_control_more_section);
+        String whenViewDescriptor = getString(R.string.TEA_control_when);
+        View whenView = findViewById(R.id.when_container);
+        String shareViewDescriptor = getString(R.string.TEA_control_share);
+        LinearLayout section = basicControls;
+        for (int i = 0; i < itemOrder.length; i++) {
+            String item = itemOrder[i];
+            if (item.equals(moreSectionTrigger)) {
+                section = moreControls;
+            } else {
+                TaskEditControlSet curr = controlSetMap.get(item);
+                if (item.equals(shareViewDescriptor))
+                    section.addView(peopleControlSet.getSharedWithRow());
+                else if (item.equals(whenViewDescriptor)) {
+                    LinearLayout parent = (LinearLayout) whenView.getParent();
+                    parent.removeView(whenView);
+                    section.addView(whenView);
+                } else if (curr != null)
+                    section.addView(curr.getDisplayView());
+            }
         }
+        if (moreControls.getChildCount() == 0)
+            findViewById(R.id.more_header).setVisibility(View.GONE);
+
+
 
         // Load task data in background
         new TaskEditBackgroundLoader().start();

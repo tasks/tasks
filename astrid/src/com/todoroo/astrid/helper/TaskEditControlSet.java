@@ -26,6 +26,10 @@ public abstract class TaskEditControlSet {
         return view;
     }
 
+    public View getDisplayView() {
+        return getView();
+    }
+
     /**
      * Read data from model to update the control set
      */
