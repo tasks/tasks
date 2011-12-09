@@ -88,6 +88,7 @@ public class AstridTimePicker extends LinearLayout {
                 noTimeCheck.setChecked(false);
                 amButton.setChecked(true);
                 pmButton.setChecked(false);
+                lastSelectionWasPm = false;
             }
         });
 
@@ -97,6 +98,7 @@ public class AstridTimePicker extends LinearLayout {
                 noTimeCheck.setChecked(false);
                 amButton.setChecked(false);
                 pmButton.setChecked(true);
+                lastSelectionWasPm = true;
             }
         });
 
@@ -178,9 +180,11 @@ public class AstridTimePicker extends LinearLayout {
             if (toReturn == 12) {
                 if (amButton.isChecked())
                     toReturn = 0;
-            } else if (pmButton.isChecked())
+            } else if (pmButton.isChecked()) {
                 toReturn += 12;
+            }
         }
+        System.err.println("Returning hours: " + toReturn);
         return toReturn;
     }
 
