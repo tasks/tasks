@@ -36,21 +36,4 @@
 		<nature>org.eclipse.jdt.core.javanature</nature>
 		<nature>org.eclipse.wst.common.project.facet.core.nature</nature>
 	</natures>
-	<linkedResources>
-		<link>
-			<name>GreenDroid_src</name>
-			<type>2</type>
-			<locationURI>_android_GreenDroid_612cb559/src</locationURI>
-		</link>
-		<link>
-			<name>astridApi_src</name>
-			<type>2</type>
-			<locationURI>_android_astridApi_98e6a2cf/src</locationURI>
-		</link>
-		<link>
-			<name>facebook_src</name>
-			<type>2</type>
-			<locationURI>_android_facebook_1da19ac6/src</locationURI>
-		</link>
-	</linkedResources>
 </projectDescription>
