@@ -9,6 +9,7 @@ import android.content.res.Resources;
 import android.database.Cursor;
 import android.net.Uri;
 import android.preference.ListPreference;
+import android.provider.CalendarContract;
 import android.util.Log;
 
 import com.timsu.astrid.R;
@@ -23,8 +24,11 @@ public class Calendars {
     public static final String CALENDAR_CONTENT_EVENTS = "events";
 
 	private static final String ID_COLUMN_NAME = "_id";
-	private static final String DISPLAY_COLUMN_NAME = "displayName";
-	private static final String ACCES_LEVEL_COLUMN_NAME = "access_level";
+	private static final boolean USE_ICS_NAMES = AndroidUtilities.getSdkVersion() >= 14;
+	private static final String ICS_CALENDAR_PREFIX = "calendar_";
+	private static final String DISPLAY_COLUMN_NAME = (USE_ICS_NAMES ? ICS_CALENDAR_PREFIX : "") + "displayName";
+	private static final String ACCES_LEVEL_COLUMN_NAME = (USE_ICS_NAMES ? ICS_CALENDAR_PREFIX : "") + "access_level";
+
 
 	private static final String[] CALENDARS_PROJECTION = new String[] {
 			ID_COLUMN_NAME, // Calendars._ID,
@@ -35,7 +39,7 @@ public class Calendars {
 	// corresponds to Calendars.CONTRIBUTOR_ACCESS
 	private static final String CALENDARS_WHERE = ACCES_LEVEL_COLUMN_NAME + ">= 500";
 
-	private static final String CALENDARS_SORT = "displayName ASC";
+	private static final String CALENDARS_SORT = DISPLAY_COLUMN_NAME + " ASC";
 
 	// --- api access
 
@@ -43,10 +47,22 @@ public class Calendars {
 	 * @param table provider table, something like calendars, events
 	 */
 	public static Uri getCalendarContentUri(String table) {
+	    if (AndroidUtilities.getSdkVersion() >= 14) {
+	        return getIcsUri(table);
+	    }
+
 	    if(AndroidUtilities.getSdkVersion() >= 8)
 	        return Uri.parse("content://com.android.calendar/" + table);
 	    else
 	        return Uri.parse("content://calendar/" + table);
+	}
+
+	private static Uri getIcsUri(String table) {
+	    if (CALENDAR_CONTENT_CALENDARS.equals(table))
+	        return CalendarContract.Calendars.CONTENT_URI;
+	    else if (CALENDAR_CONTENT_EVENTS.equals(table))
+	        return CalendarContract.Events.CONTENT_URI;
+	    return null;
 	}
 
 	/** Return calendar package name */
@@ -85,6 +101,7 @@ public class Calendars {
 	    Context context = ContextManager.getContext();
 		ContentResolver cr = context.getContentResolver();
 		Resources r = context.getResources();
+
 		Cursor c = cr.query(getCalendarContentUri(CALENDAR_CONTENT_CALENDARS), CALENDARS_PROJECTION,
 				CALENDARS_WHERE, null, CALENDARS_SORT);
 		try {
