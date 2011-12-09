@@ -292,7 +292,7 @@ public class EditPeopleControlSet extends PopupControlSet {
         HashSet<String> emails = new HashSet<String>();
         HashMap<String, AssignedToUser> names = new HashMap<String, AssignedToUser>();
 
-        if(task.getValue(Task.USER_ID) != 0) {
+        if(task.getValue(Task.USER_ID) > 0) {
             JSONObject user = new JSONObject(task.getValue(Task.USER));
             sharedPeople.add(0, user);
         }

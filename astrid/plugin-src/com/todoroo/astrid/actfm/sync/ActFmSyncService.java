@@ -941,8 +941,11 @@ public final class ActFmSyncService {
             long id = user.optLong("id", -2);
             if(id == -2) {
                 model.setValue(idProperty, -1L);
-                if(userProperty != null)
-                    model.setValue(userProperty, "");
+                if(userProperty != null) {
+                    JSONObject unassigned = new JSONObject();
+                    unassigned.put("id", -1L);
+                    model.setValue(userProperty, unassigned.toString());
+                }
             } else if (id == ActFmPreferenceService.userId()) {
                 model.setValue(idProperty, 0L);
                 if (userProperty != null)
