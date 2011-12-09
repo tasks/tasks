@@ -344,7 +344,7 @@ public class GtasksSyncProvider extends SyncProvider<GtasksTaskContainer> {
                         if(Constants.DEBUG)
                             Log.e("gtasks-debug", "ACTION: getTasks, " + listId);
                         List<com.google.api.services.tasks.model.Task> remoteTasks = taskService.getAllGtasksFromListId(listId, includeDeleted, includeHidden).getItems();
-                        addRemoteTasksToList(remoteTasks, list);
+                        addRemoteTasksToList(remoteTasks, listId, list);
                     } catch (Exception e) {
                         handleException("read-remotes", e, false);
                     } finally {
@@ -362,8 +362,7 @@ public class GtasksSyncProvider extends SyncProvider<GtasksTaskContainer> {
         return list;
     }
 
-    private void addRemoteTasksToList(List<com.google.api.services.tasks.model.Task> remoteTasks,
-            ArrayList<GtasksTaskContainer> list) {
+    private void addRemoteTasksToList(List<com.google.api.services.tasks.model.Task> remoteTasks, String listId, ArrayList<GtasksTaskContainer> list) {
 
         if (remoteTasks != null) {
             long order = 0;
@@ -382,7 +381,7 @@ public class GtasksSyncProvider extends SyncProvider<GtasksTaskContainer> {
                 if(TextUtils.isEmpty(remoteTask.getTitle()))
                     continue;
 
-                GtasksTaskContainer container = parseRemoteTask(remoteTask);
+                GtasksTaskContainer container = parseRemoteTask(remoteTask, listId);
                 String id = remoteTask.getId();
 
                 // update parents, prior sibling
@@ -533,7 +532,7 @@ public class GtasksSyncProvider extends SyncProvider<GtasksTaskContainer> {
 
     /** Create a task container for the given remote task
      * @throws JSONException */
-    private GtasksTaskContainer parseRemoteTask(com.google.api.services.tasks.model.Task remoteTask) {
+    private GtasksTaskContainer parseRemoteTask(com.google.api.services.tasks.model.Task remoteTask, String listId) {
         Task task = new Task();
 
         ArrayList<Metadata> metadata = new ArrayList<Metadata>();
@@ -555,7 +554,7 @@ public class GtasksSyncProvider extends SyncProvider<GtasksTaskContainer> {
 
         Metadata gtasksMetadata = GtasksMetadata.createEmptyMetadata(AbstractModel.NO_ID);
         gtasksMetadata.setValue(GtasksMetadata.ID, remoteTask.getId());
-        gtasksMetadata.setValue(GtasksMetadata.LIST_ID, GtasksApiUtilities.extractListIdFromSelfLink(remoteTask));
+        gtasksMetadata.setValue(GtasksMetadata.LIST_ID, listId);
 
         GtasksTaskContainer container = new GtasksTaskContainer(task, metadata,
                 gtasksMetadata);

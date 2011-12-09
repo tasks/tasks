@@ -4,7 +4,6 @@ import java.util.Date;
 import java.util.TimeZone;
 
 import com.google.api.client.util.DateTime;
-import com.google.api.services.tasks.model.Task;
 
 @SuppressWarnings("nls")
 public class GtasksApiUtilities {
@@ -78,10 +77,4 @@ public class GtasksApiUtilities {
 //        return gtasksDueTime.getValue();
 //    }
 
-    public static String extractListIdFromSelfLink(Task task) {
-        String selfLink = task.getSelfLink();
-        String [] urlComponents = selfLink.split("/");
-        int listIdIndex = urlComponents.length - 3;
-        return urlComponents[listIdIndex];
-    }
 }

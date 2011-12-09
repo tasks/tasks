@@ -190,7 +190,7 @@ public class GtasksService {
             handleException(e);
             toReturn = service.tasks.get(listId, taskId).execute();
         } finally {
-            log("Get gtask, id: " + taskId, toReturn);
+            log("Get gtask, id: " + taskId + ", list id: " + listId, toReturn);
         }
         return toReturn;
     }
