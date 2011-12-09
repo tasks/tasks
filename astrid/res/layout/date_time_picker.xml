@@ -16,7 +16,7 @@
 		  <com.todoroo.astrid.ui.CalendarView
             android:id="@+id/calendar"
             android:layout_width="fill_parent"
-            android:layout_height="300dip"
+            android:layout_height="280dip"
             android:layout_weight="1" />
 		  <LinearLayout
 		      android:layout_width="fill_parent"

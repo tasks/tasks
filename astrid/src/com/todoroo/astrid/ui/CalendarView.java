@@ -244,7 +244,7 @@ public class CalendarView extends View {
         // Month border -- Start
         RectF rectF = new RectF();
 
-        float monthTitleHeight = (MONTH_TEXT_SIZE + 30) * density;
+        float monthTitleHeight = (MONTH_TEXT_SIZE + 10) * density;
         rectF.set(15, 15, getMeasuredWidth() - 15, monthTitleHeight);
         canvas.drawRoundRect(rectF, CURVE_RADIUS, CURVE_RADIUS, backColorPaint);
 
@@ -257,7 +257,7 @@ public class CalendarView extends View {
         leftArrowHeight = (int)(leftArrow.getHeight()*density / 2);
         leftArrowWidth = (int)(leftArrow.getWidth()*density / 2);
         leftArrowX = 5;
-        leftArrowY = 8 + (int)((monthTitleHeight / 2 - leftArrowHeight/2));
+        leftArrowY = 4 + (int)((monthTitleHeight / 2 - leftArrowHeight/2));
         canvas.drawBitmap(leftArrow, new Rect(0,0,leftArrow.getWidth(),leftArrow.getHeight()),
                 new Rect(leftArrowX, leftArrowY, leftArrowX + leftArrowWidth,
                         leftArrowY + leftArrowHeight), null);
@@ -268,7 +268,7 @@ public class CalendarView extends View {
         rightArrowHeight = (int)(rightArrow.getHeight()*density / 2);
         rightArrowWidth = (int)(rightArrow.getWidth()*density / 2);
         rightArrowX = (int) (getMeasuredWidth() - (2 * density) - (PADDING*3) - rightArrow.getWidth());
-        rightArrowY = 8 + (int)((monthTitleHeight / 2 - rightArrowHeight/2));
+        rightArrowY = 4 + (int)((monthTitleHeight / 2 - rightArrowHeight/2));
         canvas.drawBitmap(rightArrow, new Rect(0,0,rightArrow.getWidth(),rightArrow.getHeight()),
                 new Rect(rightArrowX, rightArrowY, rightArrowX + rightArrowWidth,
                         rightArrowY + rightArrowHeight), null);

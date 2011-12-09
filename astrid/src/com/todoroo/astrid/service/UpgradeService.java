@@ -39,6 +39,7 @@ import com.todoroo.astrid.utility.AstridPreferences;
 
 public final class UpgradeService {
 
+    public static final int V3_9 = 202;
     public static final int V3_8_5_1 = 201;
     public static final int V3_8_5 = 200;
     public static final int V3_8_4_4 = 199;
@@ -157,6 +158,18 @@ public final class UpgradeService {
 
         Preferences.clear(AstridPreferences.P_UPGRADE_FROM);
         StringBuilder changeLog = new StringBuilder();
+
+        if (from < V3_9) {
+            newVersionString(changeLog, "3.9 (12/09/11)", new String[] {
+                    "Cleaner design (especially the task edit page)!",
+                    "Customize the edit page (\"Beast Mode\" in preferences)",
+                    "Make shared lists with tasks open to anyone (perfect for potlucks, road trips etc)",
+                    "Fixes for some ICS crashes (full support coming soon)",
+                    "Google Tasks sync improvement - Note: If you have been experiencing \"Sync with errors\", try logging out and logging back in to Google Tasks.",
+                    "Other minor bug fixes",
+                    "Feedback welcomed!"
+            });
+        }
 
         // current message
         if (from >= V3_8_5 && from < V3_8_5_1) {
