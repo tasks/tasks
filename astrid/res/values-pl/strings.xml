@@ -846,7 +846,7 @@
   <string name="p_about">O Astrid</string>
   
   <!-- About text (%s => current version)-->
-<string name="p_about_text">Bieżąca wersja: %\n\n Astrid is open-source and proudly maintained by Todoroo, Inc.</string>
+<string name="p_about_text">Bieżąca wersja: %s\n\n Astrid is open-source and proudly maintained by Todoroo, Inc.</string>
 
   <!-- Title of "Help" option in settings -->
   <string name="p_help">Pomoc</string>
@@ -1694,7 +1694,7 @@
   <!-- Reminder Preference: Default Reminder Title -->
   <string name="rmd_EPr_rmd_time_title">Domyślne przypomnienie</string>
   <!-- Reminder Preference: Default Reminder Description (%s => time set) -->
-  <string name="rmd_EPr_rmd_time_desc">Powiadomienia zadań bez odpowiedniego czasu pojawi się na% s</string>
+  <string name="rmd_EPr_rmd_time_desc">Powiadomienia zadań bez odpowiedniego czasu pojawi się na %s</string>
 
   <!-- Reminder Preference: Notification Ringtone Title -->
   <string name="rmd_EPr_ringtone_title">Dźwięk powiadomienia</string>
