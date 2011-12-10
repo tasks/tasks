@@ -37,7 +37,7 @@ public class RepeatTestsGtasksSync extends NewRepeatTests<com.google.api.service
     @Autowired GtasksPreferenceService gtasksPreferenceService;
 
     private static final String TEST_ACCOUNT = "sync_tester2@astrid.com";
-    private static final String DEFAULT_LIST = "@default";
+    public static final String DEFAULT_LIST = "@default";
 
     private static boolean initialized = false;
     protected static GtasksService gtasksService;

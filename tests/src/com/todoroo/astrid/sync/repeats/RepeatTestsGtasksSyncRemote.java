@@ -1,5 +1,7 @@
 package com.todoroo.astrid.sync.repeats;
 
+import static com.todoroo.astrid.sync.repeats.RepeatTestsGtasksSync.DEFAULT_LIST;
+
 import java.io.IOException;
 import java.util.Date;
 
@@ -24,7 +26,7 @@ public class RepeatTestsGtasksSyncRemote extends RepeatTestsGtasksSync {
         remoteModel.setCompleted(GtasksApiUtilities.unixTimeToGtasksCompletionTime(completionDate));
         remoteModel.setStatus("completed");
         try {
-            gtasksService.updateGtask(GtasksApiUtilities.extractListIdFromSelfLink(remoteModel), remoteModel);
+            gtasksService.updateGtask(DEFAULT_LIST, remoteModel);
         } catch (IOException e) {
             e.printStackTrace();
             fail("Exception in gtasks service");

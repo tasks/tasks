@@ -425,7 +425,7 @@
   <string name="EPr_beastMode_reset">Reset to defaults</string>
       
   <!-- Preference: Task List Show Notes Description (disabled) -->
-  <string name="EPr_showNotes_desc_disabled">Notes will be displayed in quick action bar</string>  
+  <string name="EPr_showNotes_desc_disabled">Notes will be accessible from the Task Edit Page</string>  
   <!-- Preference: Task List Show Notes Description (enabled) -->
   <string name="EPr_showNotes_desc_enabled">Notes will always be displayed</string>
   

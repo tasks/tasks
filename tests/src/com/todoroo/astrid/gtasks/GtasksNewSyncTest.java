@@ -446,7 +446,7 @@ public class GtasksNewSyncTest extends DatabaseTestCase {
     }
 
     private com.google.api.services.tasks.model.Task refetchRemoteTask(com.google.api.services.tasks.model.Task remoteTask) throws Exception {
-        return gtasksService.getGtask(GtasksApiUtilities.extractListIdFromSelfLink(remoteTask), remoteTask.getId());
+        return gtasksService.getGtask(DEFAULT_LIST, remoteTask.getId());
     }
 
     private long localIdForTask(com.google.api.services.tasks.model.Task remoteTask) {
