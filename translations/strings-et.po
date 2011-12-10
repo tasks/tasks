@@ -8,14 +8,14 @@ msgstr ""
 "Project-Id-Version: astrid\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2011-07-14 18:38-0700\n"
-"PO-Revision-Date: 2011-07-08 22:36+0000\n"
-"Last-Translator: Tim Su <tim@todoroo.com>\n"
+"PO-Revision-Date: 2011-11-01 18:23+0000\n"
+"Last-Translator: Eraser <Unknown>\n"
 "Language-Team: Estonian <et@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2011-08-11 05:04+0000\n"
-"X-Generator: Launchpad (build 13644)\n"
+"X-Launchpad-Export-Date: 2011-12-10 00:28+0000\n"
+"X-Generator: Launchpad (build 14450)\n"
 
 #. People Editing Activity
 #: translations/strings.xml:8( name="EPE_action") translations/strings.xml:540( name="TEA_tab_share")
@@ -25,22 +25,22 @@ msgstr "Jaga"
 #. task sharing dialog: assigned hint
 #: translations/strings.xml:11( name="actfm_person_hint") translations/strings.xml:100( name="actfm_EPA_assigned_hint")
 msgid "Contact Name"
-msgstr ""
+msgstr "Kontakti nimi"
 
 #. task sharing dialog: shared with hint
 #: translations/strings.xml:14( name="actfm_person_or_tag_hint")
 msgid "Contact or Shared List"
-msgstr ""
+msgstr "Kontakt või jagatud nimekiri"
 
 #. toast on transmit success
 #: translations/strings.xml:17( name="actfm_toast_success")
 msgid "Saved on Server"
-msgstr ""
+msgstr "Salvestatud serverisse"
 
 #. toast on transmit error
 #: translations/strings.xml:20( name="actfm_toast_error")
 msgid "Save Unsuccessful"
-msgstr ""
+msgstr "Salvestamine ebaõnnestus"
 
 #. can't rename or delete shared tag message
 #: translations/strings.xml:23( name="actfm_tag_operation_disabled")
@@ -50,62 +50,62 @@ msgstr ""
 #. menu item to take a picture
 #: translations/strings.xml:26( name="actfm_picture_camera")
 msgid "Take a Picture"
-msgstr ""
+msgstr "Tee pilt"
 
 #. menu item to select from gallery
 #: translations/strings.xml:29( name="actfm_picture_gallery")
 msgid "Pick from Gallery"
-msgstr ""
+msgstr "Vali galeriist"
 
 #. filter list activity: refresh tags
 #: translations/strings.xml:32( name="actfm_FLA_menu_refresh")
 msgid "Refresh Lists"
-msgstr ""
+msgstr "Värskenda nimekirjasid"
 
 #. Tag View Activity: Add Comment hint
 #: translations/strings.xml:37( name="TVA_add_comment")
 msgid "Add a comment..."
-msgstr ""
+msgstr "Lisa kommentaar..."
 
 #. Tag View Activity: task comment ($1 - user name, $2 - task title)
 #: translations/strings.xml:40( name="UAd_title_comment")
 msgid "%1$s re: %2$s"
-msgstr ""
+msgstr "%1$s vastus: %2$s"
 
 #. Tab for showing tasks
 #: translations/strings.xml:45(item)
 msgid "Tasks"
-msgstr ""
+msgstr "Ülesanded"
 
 #. Tab for showing comments & updates
 #: translations/strings.xml:47(item)
 msgid "Activity"
-msgstr ""
+msgstr "Tegevus"
 
 #. Tab for showing setting
 #: translations/strings.xml:49(item)
 msgid "List Settings"
-msgstr ""
+msgstr "Nimekirja seaded"
 
 #. Tag View Menu: refresh
 #: translations/strings.xml:53( name="actfm_TVA_menu_refresh")
 msgid "Refresh"
-msgstr ""
+msgstr "Värskenda"
 
 #. Tag Settings: tag name label
 #: translations/strings.xml:56( name="actfm_TVA_tag_label")
 msgid "List Name:"
-msgstr ""
+msgstr "Nimekirja nimi:"
 
 #. Tag Settings: tag owner label
 #: translations/strings.xml:59( name="actfm_TVA_tag_owner_label")
 msgid "List Creator:"
-msgstr ""
+msgstr "Nimekirja looja:"
 
 #. Tag Settings: tag owner value when there is no owner
 #: translations/strings.xml:62( name="actfm_TVA_tag_owner_none")
 msgid "none"
-msgstr ""
+msgstr "puudub"
 
 #. Tag Settings: list collaborators label
 #: translations/strings.xml:65( name="actfm_TVA_members_label")
@@ -115,12 +115,12 @@ msgstr ""
 #. Tag Settings: tag picture
 #: translations/strings.xml:68( name="actfm_TVA_tag_picture")
 msgid "List Picture"
-msgstr ""
+msgstr "Nimekirja pilt"
 
 #. Tag Settings: silence notifications label
 #: translations/strings.xml:71( name="actfm_TVA_silence_label")
 msgid "Silence Notifications"
-msgstr ""
+msgstr "Vaiksed teavitused"
 
 #. task sharing dialog: intro
 #: translations/strings.xml:76( name="actfm_EPA_intro")
@@ -132,27 +132,27 @@ msgstr ""
 #. task sharing dialog: window title
 #: translations/strings.xml:79( name="actfm_EPA_title")
 msgid "Share / Assign"
-msgstr ""
+msgstr "Jaga / Määra"
 
 #. task sharing dialog: save button
 #: translations/strings.xml:82( name="actfm_EPA_save")
 msgid "Save &amp; Share"
-msgstr ""
+msgstr "Salvesta &amp; Jaga"
 
 #. task sharing dialog: assigned label
 #: translations/strings.xml:85( name="actfm_EPA_assign_label")
 msgid "Assigned to:"
-msgstr ""
+msgstr "Määratud:"
 
 #. task sharing dialog: assigned to me
 #: translations/strings.xml:88( name="actfm_EPA_assign_me")
 msgid "Me"
-msgstr ""
+msgstr "Mina"
 
 #. task sharing dialog: custom email assignment
 #: translations/strings.xml:91( name="actfm_EPA_assign_custom")
 msgid "Custom..."
-msgstr ""
+msgstr "Kohandatud..."
 
 #. task sharing dialog: shared with label
 #: translations/strings.xml:94( name="actfm_EPA_share_with")
@@ -162,12 +162,12 @@ msgstr ""
 #. task sharing dialog: collaborator list name (%s => name of list)
 #: translations/strings.xml:97( name="actfm_EPA_list") translations/strings.xml:1912( name="tag_FEx_name")
 msgid "List: %s"
-msgstr ""
+msgstr "Nimekiri: %s"
 
 #. task sharing dialog: message label text
 #: translations/strings.xml:103( name="actfm_EPA_message_text")
 msgid "Invitation Message:"
-msgstr ""
+msgstr "Kutse sõnum:"
 
 #. task sharing dialog: message body
 #: translations/strings.xml:106( name="actfm_EPA_message_body")
@@ -177,7 +177,7 @@ msgstr ""
 #. task sharing dialog: message hint
 #: translations/strings.xml:109( name="actfm_EPA_tag_label")
 msgid "Create a shared tag?"
-msgstr ""
+msgstr "Luua jagatud silt?"
 
 #. task sharing dialog: message hint
 #: translations/strings.xml:112( name="actfm_EPA_tag_hint")
@@ -187,12 +187,12 @@ msgstr ""
 #. task sharing dialog: share with Facebook
 #: translations/strings.xml:115( name="actfm_EPA_facebook")
 msgid "Facebook"
-msgstr ""
+msgstr "Facebook"
 
 #. task sharing dialog: share with Twitter
 #: translations/strings.xml:118( name="actfm_EPA_twitter")
 msgid "Twitter"
-msgstr ""
+msgstr "Twitter"
 
 #. task sharing dialog: # of e-mails sent (%s => # people plural string)
 #: translations/strings.xml:121( name="actfm_EPA_emailed_toast")
@@ -207,12 +207,12 @@ msgstr ""
 #. task sharing dialog: invalid email (%s => email)
 #: translations/strings.xml:127( name="actfm_EPA_invalid_email")
 msgid "Invalid E-mail: %s"
-msgstr ""
+msgstr "Vigane e-post: %s"
 
 #. task sharing dialog: tag not found (%s => tag)
 #: translations/strings.xml:130( name="actfm_EPA_invalid_tag")
 msgid "List Not Found: %s"
-msgstr ""
+msgstr "Nimekirja ei leitud: %s"
 
 #. share login: Title
 #: translations/strings.xml:135( name="actfm_ALA_title")
@@ -229,47 +229,47 @@ msgstr ""
 #. share login: Sharing Login FB Prompt
 #: translations/strings.xml:142( name="actfm_ALA_fb_login")
 msgid "Sign in with Facebook"
-msgstr ""
+msgstr "Logi sisse Facebookiga"
 
 #. share login: Sharing Login GG Prompt
 #: translations/strings.xml:145( name="actfm_ALA_gg_login")
 msgid "Sign in with Google"
-msgstr ""
+msgstr "Logi sisse Google'iga"
 
 #. share login: Sharing Footer Password Label
 #: translations/strings.xml:148( name="actfm_ALA_pw_login")
 msgid "Don't have a Google or Facebook Account?"
-msgstr ""
+msgstr "Sul pole veel Google'i või Facebooki kontot?"
 
 #. share login: Sharing Password Link
 #: translations/strings.xml:151( name="actfm_ALA_pw_link")
 msgid "Sign In Here"
-msgstr ""
+msgstr "Logi siit sisse"
 
 #. share login: Password Are you a New User?
 #: translations/strings.xml:154( name="actfm_ALA_pw_new")
 msgid "Create a new account?"
-msgstr ""
+msgstr "Luua uus konto?"
 
 #. share login: Password Are you a Returning User?
 #: translations/strings.xml:157( name="actfm_ALA_pw_returning")
 msgid "Already have an account?"
-msgstr ""
+msgstr "Sul juba on konto?"
 
 #. share login: Name
 #: translations/strings.xml:160( name="actfm_ALA_name_label")
 msgid "Name"
-msgstr ""
+msgstr "Nimi"
 
 #. share login: Email
 #: translations/strings.xml:163( name="actfm_ALA_email_label")
 msgid "Email"
-msgstr ""
+msgstr "E-post"
 
 #. share login: Username / Email
 #: translations/strings.xml:166( name="actfm_ALA_username_email_label")
 msgid "Username / Email"
-msgstr ""
+msgstr "Kasutajanimi / E-post"
 
 #. share login: Password
 #: translations/strings.xml:169( name="actfm_ALA_password_label") translations/strings.xml:1018( name="gtasks_GLA_password") translations/strings.xml:1231( name="opencrx_PLA_password") translations/strings.xml:1370( name="producteev_PLA_password")
@@ -279,17 +279,17 @@ msgstr "Salasõna"
 #. share login: Sign Up Title
 #: translations/strings.xml:172( name="actfm_ALA_signup_title")
 msgid "Create New Account"
-msgstr ""
+msgstr "Loo uus konto"
 
 #. share login: Login Title
 #: translations/strings.xml:175( name="actfm_ALA_login_title")
 msgid "Login to Astrid.com"
-msgstr ""
+msgstr "Logi sisse Astrid.com-i"
 
 #. share login: OAUTH Login Prompt
 #: translations/strings.xml:178( name="actfm_OLA_prompt")
 msgid "Please connect to Google:"
-msgstr ""
+msgstr "Palun ühenda Googlega:"
 
 #. share login: Sharing notice
 #: translations/strings.xml:181( name="actfm_ALA_notice")
@@ -299,12 +299,12 @@ msgstr ""
 #. Preferences Title: Act.fm
 #: translations/strings.xml:186( name="actfm_APr_header")
 msgid "Astrid.com (Beta!)"
-msgstr ""
+msgstr "Astrid.com (Beeta!)"
 
 #. title for notification tray after synchronizing
 #: translations/strings.xml:189( name="actfm_notification_title")
 msgid "Astrid.com Sync"
-msgstr ""
+msgstr "Astrid.com sünk"
 
 #. text for notification when comments are received
 #: translations/strings.xml:192( name="actfm_notification_comments")
@@ -391,7 +391,7 @@ msgstr ""
 #. backup activity label
 #: translations/strings.xml:255( name="backup_BAc_label")
 msgid "Manage Backups"
-msgstr ""
+msgstr "Varukoopiate haldamine"
 
 #. backup activity title
 #: translations/strings.xml:258( name="backup_BAc_title")
@@ -540,7 +540,7 @@ msgstr "Astridi kasutustingimused"
 #. Progress Dialog generic text
 #: translations/strings.xml:361( name="DLG_please_wait")
 msgid "Please Wait"
-msgstr ""
+msgstr "Palun oota"
 
 #. Label for DateButtons with no value
 #: translations/strings.xml:366( name="WID_dateButtonUnset")
@@ -550,7 +550,7 @@ msgstr "Kliki valimiseks"
 #. String formatter for DateButtons ($D => date, $T => time)
 #: translations/strings.xml:369( name="WID_dateButtonLabel")
 msgid "$D $T"
-msgstr ""
+msgstr "$D $T"
 
 #. String formatter for Disable button
 #: translations/strings.xml:372( name="WID_disableButton")
@@ -565,7 +565,7 @@ msgstr "Märkused"
 #. Note Exposer / Comments
 #: translations/strings.xml:380( name="ENE_label_comments")
 msgid "Comments"
-msgstr ""
+msgstr "Kommentaarid"
 
 #. EditNoteActivity - no comments
 #: translations/strings.xml:383( name="ENA_no_comments")
@@ -835,7 +835,7 @@ msgstr "Konkreetsel ajal?"
 #. Task urgency specific time title when specific time false
 #: translations/strings.xml:564( name="TEA_urgency_none")
 msgid "None"
-msgstr ""
+msgstr "Pole"
 
 #. Task hide until label
 #: translations/strings.xml:567( name="TEA_hideUntil_label")
@@ -894,7 +894,7 @@ msgstr "Ilma tähtajata"
 
 #: translations/strings.xml:608(item)
 msgid "Specific Day"
-msgstr ""
+msgstr "Konkreetne kuupäev"
 
 #. today
 #: translations/strings.xml:609(item) translations/strings.xml:719(item) translations/strings.xml:899(item) translations/strings.xml:2082( name="today")
@@ -1021,7 +1021,7 @@ msgstr "Märkmed kuvatakse alati"
 #. Preference: Transparent
 #: translations/strings.xml:677( name="EPr_transparent_title")
 msgid "Transparency"
-msgstr ""
+msgstr "Läbipaistvus"
 
 #. Preference: Transparent Description (disabled)
 #: translations/strings.xml:679( name="EPr_transparent_desc_disabled")
@@ -1109,11 +1109,11 @@ msgstr "Tähtajal või selle ületamisel"
 #. Preference Screen Header: Old Task Management
 #: translations/strings.xml:744( name="EPr_manage_header")
 msgid "Manage Old Tasks"
-msgstr ""
+msgstr "Vanade ülesannete haldamine"
 
 #: translations/strings.xml:745( name="EPr_manage_delete_completed")
 msgid "Delete Completed Tasks"
-msgstr ""
+msgstr "Kustuta täidetud ülesanded"
 
 #: translations/strings.xml:746( name="EPr_manage_delete_completed_message")
 msgid "Do you really want to delete all your completed tasks?"
@@ -1125,11 +1125,11 @@ msgstr ""
 
 #: translations/strings.xml:748( name="EPr_manage_delete_completed_status")
 msgid "Deleted %d tasks!"
-msgstr ""
+msgstr "Kustutati %d ülesannet!"
 
 #: translations/strings.xml:749( name="EPr_manage_purge_deleted")
 msgid "Purge Deleted Tasks"
-msgstr ""
+msgstr "Eemalda kustutatud ülesanded"
 
 #: translations/strings.xml:750( name="EPr_manage_purge_deleted_message")
 msgid ""
@@ -1355,12 +1355,12 @@ msgstr "Tähtsus..."
 #. Criteria: tag - display text (? -> user input)
 #: translations/strings.xml:912( name="CFC_tag_text")
 msgid "List: ?"
-msgstr ""
+msgstr "Nimekiri: ?"
 
 #. Criteria: tag - name of criteria
 #: translations/strings.xml:914( name="CFC_tag_name")
 msgid "List..."
-msgstr ""
+msgstr "Nimekiri..."
 
 #. Criteria: tag_contains - name of criteria
 #: translations/strings.xml:917( name="CFC_tag_contains_name")
@@ -1440,7 +1440,7 @@ msgstr "Google Ülesanded: %s"
 #. dialog prompt for creating a new gtasks list
 #: translations/strings.xml:979( name="gtasks_FEx_create_list_dialog")
 msgid "New List Name:"
-msgstr ""
+msgstr "Uus nimekirja nimi:"
 
 #. error to show when list creation fails
 #: translations/strings.xml:982( name="gtasks_FEx_create_list_error")
@@ -1461,7 +1461,7 @@ msgstr ""
 
 #: translations/strings.xml:991( name="CFC_gtasks_list_text")
 msgid "In List: ?"
-msgstr ""
+msgstr "Nimekirjas ?"
 
 #: translations/strings.xml:993( name="CFC_gtasks_list_name")
 msgid "In GTasks List..."
@@ -1504,7 +1504,7 @@ msgstr "E-mail"
 #. Authenticating toast
 #: translations/strings.xml:1021( name="gtasks_GLA_authenticating")
 msgid "Authenticating..."
-msgstr ""
+msgstr "Autentimine..."
 
 #. Google Apps for Domain checkbox
 #: translations/strings.xml:1024( name="gtasks_GLA_domain")
@@ -1657,12 +1657,12 @@ msgstr "Palun paigalda Astridi Locale pistikrakendus!"
 #. filters header: OpenCRX
 #: translations/strings.xml:1144( name="opencrx_FEx_header") translations/strings.xml:1167( name="opencrx_PPr_header") translations/strings.xml:1242( name="opencrx_notification_title")
 msgid "OpenCRX"
-msgstr ""
+msgstr "OpenCRX"
 
 #. filter category for OpenCRX ActivityCreators
 #: translations/strings.xml:1147( name="opencrx_FEx_dashboard") translations/strings.xml:1305( name="producteev_FEx_dashboard")
 msgid "Workspaces"
-msgstr ""
+msgstr "Tööruumid"
 
 #. filter category for OpenCRX responsible person
 #: translations/strings.xml:1150( name="opencrx_FEx_responsible")
@@ -1686,11 +1686,11 @@ msgstr "Lisa kommentaar"
 
 #: translations/strings.xml:1161( name="opencrx_creator_input_hint")
 msgid "Creator"
-msgstr ""
+msgstr "Looja"
 
 #: translations/strings.xml:1163( name="opencrx_contact_input_hint")
 msgid "Assigned to"
-msgstr ""
+msgstr "Määratud"
 
 #. creator title for tasks that are not synchronized
 #: translations/strings.xml:1170( name="opencrx_no_creator") translations/strings.xml:1331( name="producteev_no_dashboard")
@@ -1715,27 +1715,27 @@ msgstr ""
 #. OpenCRX host and segment group name
 #: translations/strings.xml:1182( name="opencrx_group")
 msgid "OpenCRX server"
-msgstr ""
+msgstr "OpenCRX server"
 
 #. preference description for OpenCRX host
 #: translations/strings.xml:1185( name="opencrx_host_title")
 msgid "Host"
-msgstr ""
+msgstr "Host"
 
 #. dialog title for OpenCRX host
 #: translations/strings.xml:1188( name="opencrx_host_dialog_title")
 msgid "OpenCRX host"
-msgstr ""
+msgstr "OpenCRX--i host"
 
 #. example for OpenCRX host
 #: translations/strings.xml:1191( name="opencrx_host_summary")
 msgid "For example: <i>mydomain.com</i>"
-msgstr ""
+msgstr "Näiteks: <i>minudomeen.ee</i>"
 
 #. preference description for OpenCRX segment
 #: translations/strings.xml:1194( name="opencrx_segment_title")
 msgid "Segment"
-msgstr ""
+msgstr "Lõik"
 
 #. dialog title for OpenCRX segment
 #: translations/strings.xml:1197( name="opencrx_segment_dialog_title")
@@ -1745,17 +1745,17 @@ msgstr ""
 #. example for OpenCRX segment
 #: translations/strings.xml:1200( name="opencrx_segment_summary")
 msgid "For example: <i>Standard</i>"
-msgstr ""
+msgstr "Näiteks: <i>Standardne</i>"
 
 #. default value for OpenCRX segment
 #: translations/strings.xml:1203( name="opencrx_segment_default")
 msgid "Standard"
-msgstr ""
+msgstr "Standardne"
 
 #. preference description for OpenCRX provider
 #: translations/strings.xml:1206( name="opencrx_provider_title")
 msgid "Provider"
-msgstr ""
+msgstr "Teenusepakkuja"
 
 #. dialog title for OpenCRX provider
 #: translations/strings.xml:1209( name="opencrx_provider_dialog_title")
@@ -1770,7 +1770,7 @@ msgstr ""
 #. default value for OpenCRX provider
 #: translations/strings.xml:1215( name="opencrx_provider_default")
 msgid "CRX"
-msgstr ""
+msgstr "CRX"
 
 #. Activity Title: Opencrx Login
 #: translations/strings.xml:1219( name="opencrx_PLA_title")
@@ -1785,7 +1785,7 @@ msgstr ""
 #. Login Label
 #: translations/strings.xml:1228( name="opencrx_PLA_login")
 msgid "Login"
-msgstr ""
+msgstr "Logi sisse"
 
 #. Error Message when fields aren't filled out
 #: translations/strings.xml:1234( name="opencrx_PLA_errorEmpty")
@@ -1982,12 +1982,12 @@ msgstr ""
 #. Task Edit: Reminder after deadline
 #: translations/strings.xml:1447( name="TEA_reminder_overdue")
 msgid "When task is overdue"
-msgstr ""
+msgstr "Kui ülesanne on tähtaja ületanud"
 
 #. Task Edit: Reminder at random times (%s => time plural)
 #: translations/strings.xml:1450( name="TEA_reminder_random")
 msgid "Randomly once"
-msgstr ""
+msgstr "Juhuslikult korra"
 
 #. Task Edit: Reminder alarm clock label
 #: translations/strings.xml:1453( name="TEA_reminder_alarm_label")
@@ -2002,7 +2002,7 @@ msgstr "Helise üks kord"
 #. Task Edit: Reminder mode: ring five times
 #: translations/strings.xml:1459( name="TEA_reminder_mode_five")
 msgid "Ring Five Times"
-msgstr ""
+msgstr "Helista viis korda"
 
 #. Task Edit: Reminder mode: ring nonstop
 #: translations/strings.xml:1462( name="TEA_reminder_mode_nonstop")
@@ -2012,7 +2012,7 @@ msgstr "Helise kuni lõpetan alarmi"
 #. random reminder choices for task edit page.
 #: translations/strings.xml:1466(item)
 msgid "an hour"
-msgstr ""
+msgstr "tund"
 
 #: translations/strings.xml:1467(item)
 msgid "a day"
@@ -2089,7 +2089,7 @@ msgstr ""
 #. Reminder Preference: Default Reminder Title
 #: translations/strings.xml:1506( name="rmd_EPr_rmd_time_title")
 msgid "Default Reminder"
-msgstr ""
+msgstr "Vaikimisi meelespea"
 
 #. Reminder Preference: Default Reminder Description (%s => time set)
 #: translations/strings.xml:1508( name="rmd_EPr_rmd_time_desc")
@@ -2134,7 +2134,7 @@ msgstr "Meeldetuletusi saab kustutada \"Puhasta Kõik\" nupuga"
 #. Reminder Preference: Notification Icon Title
 #: translations/strings.xml:1527( name="rmd_EPr_notificon_title")
 msgid "Notification Icon Set"
-msgstr ""
+msgstr "Teavituste ikoonikomplekt"
 
 #. Reminder Preference: Notification Icon Description
 #: translations/strings.xml:1529( name="rmd_Epr_notificon_desc")
@@ -2263,7 +2263,7 @@ msgstr "23:00"
 
 #: translations/strings.xml:1587(item) translations/strings.xml:1626(item) translations/strings.xml:1654(item)
 msgid "12 AM"
-msgstr ""
+msgstr "12 EL"
 
 #: translations/strings.xml:1588(item) translations/strings.xml:1627(item) translations/strings.xml:1655(item)
 msgid "1 AM"
@@ -2312,7 +2312,7 @@ msgstr "11:00"
 
 #: translations/strings.xml:1599(item) translations/strings.xml:1614(item) translations/strings.xml:1642(item)
 msgid "12 PM"
-msgstr ""
+msgstr "12 PL"
 
 #: translations/strings.xml:1600(item) translations/strings.xml:1615(item) translations/strings.xml:1643(item)
 msgid "1 PM"
@@ -2714,32 +2714,32 @@ msgstr ""
 #. Tags label
 #: translations/strings.xml:1864( name="TEA_tags_label")
 msgid "Add to List:"
-msgstr ""
+msgstr "Lisa nimekirja:"
 
 #. Tags hint
 #: translations/strings.xml:1867( name="TEA_tag_hint")
 msgid "List Name"
-msgstr ""
+msgstr "Nimekirja nimi"
 
 #. Tags dropdown
 #: translations/strings.xml:1870( name="TEA_tag_dropdown")
 msgid "Select a list"
-msgstr ""
+msgstr "Vali nimekiri"
 
 #. Context Item: show tag
 #: translations/strings.xml:1880( name="TAd_contextFilterByTag")
 msgid "Show List"
-msgstr ""
+msgstr "Näita nimekirja"
 
 #. Dialog: new list
 #: translations/strings.xml:1883( name="tag_new_list")
 msgid "New List"
-msgstr ""
+msgstr "Uus nimekiri"
 
 #. Dialog: list saved
 #: translations/strings.xml:1886( name="tag_list_saved")
 msgid "List Saved"
-msgstr ""
+msgstr "Nimekiri on salvestatud"
 
 #. Dialog: task created without title
 #: translations/strings.xml:1889( name="tag_no_title_error")
@@ -2749,37 +2749,37 @@ msgstr ""
 #. filter button to add tag
 #: translations/strings.xml:1894( name="tag_FEx_add_new")
 msgid "New"
-msgstr ""
+msgstr "Uus"
 
 #. filter header for tags user created
 #: translations/strings.xml:1900( name="tag_FEx_category_mine")
 msgid "My Lists"
-msgstr ""
+msgstr "Minu nimekirjad"
 
 #. filter header for tags, shared with user
 #: translations/strings.xml:1903( name="tag_FEx_category_shared")
 msgid "Shared With Me"
-msgstr ""
+msgstr "Minuga jagatud"
 
 #. filter header for tags which have no active tasks
 #: translations/strings.xml:1906( name="tag_FEx_category_inactive")
 msgid "Inactive"
-msgstr ""
+msgstr "Mitteaktiivne"
 
 #. filter for untagged tasks
 #: translations/strings.xml:1909( name="tag_FEx_untagged")
 msgid "Not In Any List"
-msgstr ""
+msgstr "Pole üheski nimekirjas"
 
 #. context menu option to rename a tag
 #: translations/strings.xml:1915( name="tag_cm_rename")
 msgid "Rename List"
-msgstr ""
+msgstr "Nimeta nimekiri ümber"
 
 #. context menu option to delete a tag
 #: translations/strings.xml:1918( name="tag_cm_delete")
 msgid "Delete List"
-msgstr ""
+msgstr "Kustuta nimekiri"
 
 #. Dialog to confirm deletion of a tag
 #: translations/strings.xml:1921( name="DLG_delete_this_tag_question")
@@ -2809,12 +2809,12 @@ msgstr ""
 #. Task List: Start Timer button
 #: translations/strings.xml:1943( name="TAE_startTimer")
 msgid "Timer"
-msgstr ""
+msgstr "Taimer"
 
 #. Task List: Stop Timer button
 #: translations/strings.xml:1946( name="TAE_stopTimer")
 msgid "Stop"
-msgstr ""
+msgstr "Peata"
 
 #. Android Notification Title (%s => # tasks)
 #: translations/strings.xml:1949( name="TPl_notification")
@@ -2923,7 +2923,7 @@ msgstr "1 aasta"
 #. plurals: years
 #: translations/strings.xml:2006( quantity="other")
 msgid "%d Years"
-msgstr ""
+msgstr "%d aastat"
 
 #. plurals: months
 #: translations/strings.xml:2010( quantity="one")
@@ -2933,7 +2933,7 @@ msgstr "1 kuu"
 #. plurals: months
 #: translations/strings.xml:2012( quantity="other")
 msgid "%d Months"
-msgstr ""
+msgstr "%d kuud"
 
 #. plurals: days
 #: translations/strings.xml:2016( quantity="one")
@@ -2943,7 +2943,7 @@ msgstr "1 nädal"
 #. plurals: days
 #: translations/strings.xml:2018( quantity="other")
 msgid "%d Weeks"
-msgstr ""
+msgstr "%d nädalat"
 
 #. plurals: days
 #: translations/strings.xml:2022( quantity="one")
@@ -2958,12 +2958,12 @@ msgstr "%d päeva"
 #. plurals: days
 #: translations/strings.xml:2028( quantity="one")
 msgid "1 Weekday"
-msgstr ""
+msgstr "1 nädalapäev"
 
 #. plurals: days
 #: translations/strings.xml:2030( quantity="other")
 msgid "%d Weekdays"
-msgstr ""
+msgstr "%d nädalapäeva"
 
 #. plurals: hours
 #: translations/strings.xml:2034( quantity="one")
@@ -3033,17 +3033,17 @@ msgstr "1 ülesanne"
 #. plurals: tasks
 #: translations/strings.xml:2072( quantity="other")
 msgid "%d tasks"
-msgstr ""
+msgstr "%d ülesannet"
 
 #. plurals: people
 #: translations/strings.xml:2076( quantity="one")
 msgid "1 person"
-msgstr ""
+msgstr "1 inimene"
 
 #. plurals: people
 #: translations/strings.xml:2078( quantity="other")
 msgid "%d people"
-msgstr ""
+msgstr "%d inimest"
 
 #. confirmation dialog title
 #: translations/strings.xml:2093( name="DLG_confirm_title")
@@ -3063,7 +3063,7 @@ msgstr "Info"
 #. error dialog title
 #: translations/strings.xml:2102( name="DLG_error_title")
 msgid "Error!"
-msgstr ""
+msgstr "Viga!"
 
 #. general dialog save
 #: translations/strings.xml:2105( name="DLG_save")
@@ -3113,7 +3113,7 @@ msgstr ""
 #. Sync Notification: toast when sync activated from activity
 #: translations/strings.xml:2134( name="SyP_progress_toast")
 msgid "Synchronizing..."
-msgstr ""
+msgstr "Sünkroniseerimine..."
 
 #. Sync Label: used in menu to denote synchronization
 #: translations/strings.xml:2137( name="SyP_label")
@@ -3259,39 +3259,39 @@ msgstr "iga nädal"
 #. Resources for power pack widget
 #: translations/strings.xml:2216( name="PPW_widget_42_label")
 msgid "Astrid 4x2"
-msgstr ""
+msgstr "Astrid 4x2"
 
 #: translations/strings.xml:2217( name="PPW_widget_43_label")
 msgid "Astrid 4x3"
-msgstr ""
+msgstr "Astrid 4x3"
 
 #: translations/strings.xml:2218( name="PPW_widget_44_label")
 msgid "Astrid 4x4"
-msgstr ""
+msgstr "Astrid 4x4"
 
 #: translations/strings.xml:2220( name="PPW_configure_title")
 msgid "Configure Widget"
-msgstr ""
+msgstr "Seadista vidinat"
 
 #: translations/strings.xml:2222( name="PPW_color")
 msgid "Widget color"
-msgstr ""
+msgstr "Vidina värv"
 
 #: translations/strings.xml:2223( name="PPW_enable_calendar")
 msgid "Show calendar events"
-msgstr ""
+msgstr "Näita kalendri sündmusi"
 
 #: translations/strings.xml:2224( name="PPW_disable_encouragements")
 msgid "Hide encouragements"
-msgstr ""
+msgstr "Peida innustamised"
 
 #: translations/strings.xml:2225( name="PPW_filter")
 msgid "Select Filter"
-msgstr ""
+msgstr "Vali filter"
 
 #: translations/strings.xml:2227( name="PPW_due")
 msgid "Due:"
-msgstr ""
+msgstr "Tähtaeg:"
 
 #: translations/strings.xml:2228( name="PPW_past_due")
 msgid "Past Due:"
@@ -3305,7 +3305,7 @@ msgstr ""
 #. general encouragements
 #: translations/strings.xml:2235(item)
 msgid "Hi there!"
-msgstr ""
+msgstr "Tere!"
 
 #: translations/strings.xml:2236(item)
 msgid "Have time to finish something?"
@@ -3338,7 +3338,7 @@ msgstr ""
 
 #: translations/strings.xml:2247(item)
 msgid "Good evening!"
-msgstr ""
+msgstr "Tere õhtust!"
 
 #: translations/strings.xml:2248(item)
 msgid "Late night?"
@@ -3379,16 +3379,16 @@ msgstr ""
 
 #: translations/strings.xml:2266(item)
 msgid "Black"
-msgstr ""
+msgstr "Must"
 
 #: translations/strings.xml:2267(item)
 msgid "White"
-msgstr ""
+msgstr "Valge"
 
 #: translations/strings.xml:2268(item)
 msgid "Blue"
-msgstr ""
+msgstr "Sinine"
 
 #: translations/strings.xml:2269(item)
 msgid "Translucent"
-msgstr ""
+msgstr "Läbipaistev"

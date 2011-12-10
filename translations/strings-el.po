@@ -8,14 +8,14 @@ msgstr ""
 "Project-Id-Version: astrid\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2011-07-14 18:38-0700\n"
-"PO-Revision-Date: 2011-07-08 22:37+0000\n"
-"Last-Translator: Tim Su <tim@todoroo.com>\n"
+"PO-Revision-Date: 2011-09-19 08:38+0000\n"
+"Last-Translator: Christos Spyroglou <Unknown>\n"
 "Language-Team: Greek <el@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2011-08-11 05:04+0000\n"
-"X-Generator: Launchpad (build 13644)\n"
+"X-Launchpad-Export-Date: 2011-12-10 00:28+0000\n"
+"X-Generator: Launchpad (build 14450)\n"
 
 #. People Editing Activity
 #: translations/strings.xml:8( name="EPE_action") translations/strings.xml:540( name="TEA_tab_share")
@@ -339,7 +339,7 @@ msgstr "Κατάσταση"
 #. Backup Status: last backup was a success (%s -> last date). Keep it short!
 #: translations/strings.xml:229( name="backup_status_success")
 msgid "Latest: %s"
-msgstr ""
+msgstr "Τελευταίο: %s"
 
 #. Backup Status: last error failed. Keep it short!
 #: translations/strings.xml:231( name="backup_status_failed")
@@ -688,7 +688,7 @@ msgstr ""
 #. Hidden Task Selection: show completed tasks
 #: translations/strings.xml:461( name="SSD_completed")
 msgid "Show Completed Tasks"
-msgstr "Εμφάνιση περαιωμένω εργασιών"
+msgstr "Εμφάνιση ολοκληρωμένων εργασιών"
 
 #. Hidden Task Selection: show hidden tasks
 #: translations/strings.xml:464( name="SSD_hidden")

@@ -8,24 +8,24 @@ msgstr ""
 "Project-Id-Version: astrid\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2011-07-14 18:38-0700\n"
-"PO-Revision-Date: 2011-02-08 19:54+0000\n"
+"PO-Revision-Date: 2011-09-04 12:43+0000\n"
 "Last-Translator: Cédric VALMARY (Tot en òc) <cvalmary@yahoo.fr>\n"
 "Language-Team: Occitan (post 1500) <oc@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2011-08-11 05:04+0000\n"
-"X-Generator: Launchpad (build 13644)\n"
+"X-Launchpad-Export-Date: 2011-12-10 00:28+0000\n"
+"X-Generator: Launchpad (build 14450)\n"
 
 #. People Editing Activity
 #: translations/strings.xml:8( name="EPE_action") translations/strings.xml:540( name="TEA_tab_share")
 msgid "Share"
-msgstr ""
+msgstr "Partejar"
 
 #. task sharing dialog: assigned hint
 #: translations/strings.xml:11( name="actfm_person_hint") translations/strings.xml:100( name="actfm_EPA_assigned_hint")
 msgid "Contact Name"
-msgstr ""
+msgstr "Nom de contacte"
 
 #. task sharing dialog: shared with hint
 #: translations/strings.xml:14( name="actfm_person_or_tag_hint")
@@ -35,12 +35,12 @@ msgstr ""
 #. toast on transmit success
 #: translations/strings.xml:17( name="actfm_toast_success")
 msgid "Saved on Server"
-msgstr ""
+msgstr "Enregistrat sul servidor"
 
 #. toast on transmit error
 #: translations/strings.xml:20( name="actfm_toast_error")
 msgid "Save Unsuccessful"
-msgstr ""
+msgstr "Salvament fracassat"
 
 #. can't rename or delete shared tag message
 #: translations/strings.xml:23( name="actfm_tag_operation_disabled")
@@ -50,7 +50,7 @@ msgstr ""
 #. menu item to take a picture
 #: translations/strings.xml:26( name="actfm_picture_camera")
 msgid "Take a Picture"
-msgstr ""
+msgstr "Prene una fòto"
 
 #. menu item to select from gallery
 #: translations/strings.xml:29( name="actfm_picture_gallery")
@@ -65,52 +65,52 @@ msgstr ""
 #. Tag View Activity: Add Comment hint
 #: translations/strings.xml:37( name="TVA_add_comment")
 msgid "Add a comment..."
-msgstr ""
+msgstr "Apondre un comentari"
 
 #. Tag View Activity: task comment ($1 - user name, $2 - task title)
 #: translations/strings.xml:40( name="UAd_title_comment")
 msgid "%1$s re: %2$s"
-msgstr ""
+msgstr "%1$s re: %2$s"
 
 #. Tab for showing tasks
 #: translations/strings.xml:45(item)
 msgid "Tasks"
-msgstr ""
+msgstr "Prètzfaches"
 
 #. Tab for showing comments & updates
 #: translations/strings.xml:47(item)
 msgid "Activity"
-msgstr ""
+msgstr "Activitat"
 
 #. Tab for showing setting
 #: translations/strings.xml:49(item)
 msgid "List Settings"
-msgstr ""
+msgstr "Opcions de la lista"
 
 #. Tag View Menu: refresh
 #: translations/strings.xml:53( name="actfm_TVA_menu_refresh")
 msgid "Refresh"
-msgstr ""
+msgstr "Actualizar"
 
 #. Tag Settings: tag name label
 #: translations/strings.xml:56( name="actfm_TVA_tag_label")
 msgid "List Name:"
-msgstr ""
+msgstr "Nom de la lista :"
 
 #. Tag Settings: tag owner label
 #: translations/strings.xml:59( name="actfm_TVA_tag_owner_label")
 msgid "List Creator:"
-msgstr ""
+msgstr "Creator de la Lista :"
 
 #. Tag Settings: tag owner value when there is no owner
 #: translations/strings.xml:62( name="actfm_TVA_tag_owner_none")
 msgid "none"
-msgstr ""
+msgstr "pas cap"
 
 #. Tag Settings: list collaborators label
 #: translations/strings.xml:65( name="actfm_TVA_members_label")
 msgid "Collaborators:"
-msgstr ""
+msgstr "Collaborators :"
 
 #. Tag Settings: tag picture
 #: translations/strings.xml:68( name="actfm_TVA_tag_picture")
@@ -132,42 +132,42 @@ msgstr ""
 #. task sharing dialog: window title
 #: translations/strings.xml:79( name="actfm_EPA_title")
 msgid "Share / Assign"
-msgstr ""
+msgstr "Partejar / Assignar"
 
 #. task sharing dialog: save button
 #: translations/strings.xml:82( name="actfm_EPA_save")
 msgid "Save &amp; Share"
-msgstr ""
+msgstr "Enregistrar &amp; Partejar"
 
 #. task sharing dialog: assigned label
 #: translations/strings.xml:85( name="actfm_EPA_assign_label")
 msgid "Assigned to:"
-msgstr ""
+msgstr "Assignada a :"
 
 #. task sharing dialog: assigned to me
 #: translations/strings.xml:88( name="actfm_EPA_assign_me")
 msgid "Me"
-msgstr ""
+msgstr "Ieu"
 
 #. task sharing dialog: custom email assignment
 #: translations/strings.xml:91( name="actfm_EPA_assign_custom")
 msgid "Custom..."
-msgstr ""
+msgstr "Personalizar..."
 
 #. task sharing dialog: shared with label
 #: translations/strings.xml:94( name="actfm_EPA_share_with")
 msgid "Add Collaborators:"
-msgstr ""
+msgstr "Apondre de contactes"
 
 #. task sharing dialog: collaborator list name (%s => name of list)
 #: translations/strings.xml:97( name="actfm_EPA_list") translations/strings.xml:1912( name="tag_FEx_name")
 msgid "List: %s"
-msgstr ""
+msgstr "Lista : %s"
 
 #. task sharing dialog: message label text
 #: translations/strings.xml:103( name="actfm_EPA_message_text")
 msgid "Invitation Message:"
-msgstr ""
+msgstr "Messatge de convit :"
 
 #. task sharing dialog: message body
 #: translations/strings.xml:106( name="actfm_EPA_message_body")
@@ -187,12 +187,12 @@ msgstr ""
 #. task sharing dialog: share with Facebook
 #: translations/strings.xml:115( name="actfm_EPA_facebook")
 msgid "Facebook"
-msgstr ""
+msgstr "Facebook"
 
 #. task sharing dialog: share with Twitter
 #: translations/strings.xml:118( name="actfm_EPA_twitter")
 msgid "Twitter"
-msgstr ""
+msgstr "Twitter"
 
 #. task sharing dialog: # of e-mails sent (%s => # people plural string)
 #: translations/strings.xml:121( name="actfm_EPA_emailed_toast")
@@ -207,17 +207,17 @@ msgstr ""
 #. task sharing dialog: invalid email (%s => email)
 #: translations/strings.xml:127( name="actfm_EPA_invalid_email")
 msgid "Invalid E-mail: %s"
-msgstr ""
+msgstr "E-mail incorrècte : %s"
 
 #. task sharing dialog: tag not found (%s => tag)
 #: translations/strings.xml:130( name="actfm_EPA_invalid_tag")
 msgid "List Not Found: %s"
-msgstr ""
+msgstr "Lista pas troobada : %s"
 
 #. share login: Title
 #: translations/strings.xml:135( name="actfm_ALA_title")
 msgid "Welcome to Astrid.com!"
-msgstr ""
+msgstr "Benvenguda sus Astrid.com !"
 
 #. share login: Sharing Description
 #: translations/strings.xml:138( name="actfm_ALA_body")
@@ -229,17 +229,17 @@ msgstr ""
 #. share login: Sharing Login FB Prompt
 #: translations/strings.xml:142( name="actfm_ALA_fb_login")
 msgid "Sign in with Facebook"
-msgstr ""
+msgstr "Connexion amb Facebook"
 
 #. share login: Sharing Login GG Prompt
 #: translations/strings.xml:145( name="actfm_ALA_gg_login")
 msgid "Sign in with Google"
-msgstr ""
+msgstr "Connexion amb Google"
 
 #. share login: Sharing Footer Password Label
 #: translations/strings.xml:148( name="actfm_ALA_pw_login")
 msgid "Don't have a Google or Facebook Account?"
-msgstr ""
+msgstr "Pas de compte Google o Facebook ?"
 
 #. share login: Sharing Password Link
 #: translations/strings.xml:151( name="actfm_ALA_pw_link")
@@ -259,32 +259,32 @@ msgstr ""
 #. share login: Name
 #: translations/strings.xml:160( name="actfm_ALA_name_label")
 msgid "Name"
-msgstr ""
+msgstr "Nom"
 
 #. share login: Email
 #: translations/strings.xml:163( name="actfm_ALA_email_label")
 msgid "Email"
-msgstr ""
+msgstr "Adreça electronica"
 
 #. share login: Username / Email
 #: translations/strings.xml:166( name="actfm_ALA_username_email_label")
 msgid "Username / Email"
-msgstr ""
+msgstr "Identificant / E-mail"
 
 #. share login: Password
 #: translations/strings.xml:169( name="actfm_ALA_password_label") translations/strings.xml:1018( name="gtasks_GLA_password") translations/strings.xml:1231( name="opencrx_PLA_password") translations/strings.xml:1370( name="producteev_PLA_password")
 msgid "Password"
-msgstr ""
+msgstr "Senhal"
 
 #. share login: Sign Up Title
 #: translations/strings.xml:172( name="actfm_ALA_signup_title")
 msgid "Create New Account"
-msgstr ""
+msgstr "Crear un compte novèl"
 
 #. share login: Login Title
 #: translations/strings.xml:175( name="actfm_ALA_login_title")
 msgid "Login to Astrid.com"
-msgstr ""
+msgstr "Connexion sus Astrid.com"
 
 #. share login: OAUTH Login Prompt
 #: translations/strings.xml:178( name="actfm_OLA_prompt")
@@ -299,12 +299,12 @@ msgstr ""
 #. Preferences Title: Act.fm
 #: translations/strings.xml:186( name="actfm_APr_header")
 msgid "Astrid.com (Beta!)"
-msgstr ""
+msgstr "Astrid.com (Beta !)"
 
 #. title for notification tray after synchronizing
 #: translations/strings.xml:189( name="actfm_notification_title")
 msgid "Astrid.com Sync"
-msgstr ""
+msgstr "Sincronizacion Astrid.com"
 
 #. text for notification when comments are received
 #: translations/strings.xml:192( name="actfm_notification_comments")
@@ -314,32 +314,32 @@ msgstr ""
 #. Task Edit Activity: Container Label
 #: translations/strings.xml:203( name="alarm_ACS_label") translations/strings.xml:543( name="TEA_tab_alarms")
 msgid "Alarms"
-msgstr ""
+msgstr "Alarmas"
 
 #. Task Edit Activity: Add New Alarm
 #: translations/strings.xml:206( name="alarm_ACS_button")
 msgid "Add an Alarm"
-msgstr ""
+msgstr "Apondre una alarma"
 
 #. reminders related to alarm
 #: translations/strings.xml:210(item)
 msgid "Alarm!"
-msgstr ""
+msgstr "Alarma !"
 
 #. Backup Preferences Title
 #: translations/strings.xml:223( name="backup_BPr_header")
 msgid "Backups"
-msgstr ""
+msgstr "Salvaments"
 
 #. Backup: Status Header
 #: translations/strings.xml:226( name="backup_BPr_group_status") translations/strings.xml:2145( name="sync_SPr_group_status")
 msgid "Status"
-msgstr ""
+msgstr "Estatut"
 
 #. Backup Status: last backup was a success (%s -> last date). Keep it short!
 #: translations/strings.xml:229( name="backup_status_success")
 msgid "Latest: %s"
-msgstr ""
+msgstr "Darrièra : %s"
 
 #. Backup Status: last error failed. Keep it short!
 #: translations/strings.xml:231( name="backup_status_failed")
@@ -364,7 +364,7 @@ msgstr "Opcions"
 #. Preference: Automatic Backup Title
 #: translations/strings.xml:241( name="backup_BPr_auto_title")
 msgid "Automatic Backups"
-msgstr ""
+msgstr "Salvaments automatics"
 
 #. Preference: Automatic Backup Description (when disabled)
 #: translations/strings.xml:243( name="backup_BPr_auto_disabled")
@@ -424,7 +424,7 @@ msgstr ""
 #. Progress Dialog Title for exporting
 #: translations/strings.xml:276( name="export_progress_title")
 msgid "Exporting..."
-msgstr ""
+msgstr "Exportacion en cors..."
 
 #. Backup: Title of Import Summary Dialog
 #: translations/strings.xml:279( name="import_summary_title")
@@ -441,7 +441,7 @@ msgstr ""
 #. Progress Dialog Title for importing
 #: translations/strings.xml:290( name="import_progress_title")
 msgid "Importing..."
-msgstr ""
+msgstr "Importacion en cors..."
 
 #. Progress Dialog text for import reading task (%d -> task number)
 #: translations/strings.xml:293( name="import_progress_read")
@@ -451,7 +451,7 @@ msgstr ""
 #. Backup: Dialog when unable to open a file
 #: translations/strings.xml:296( name="DLG_error_opening")
 msgid "Could not find this item:"
-msgstr ""
+msgstr "Impossible de trobar :"
 
 #. Backup: Dialog when unable to open SD card folder (%s => folder)
 #: translations/strings.xml:299( name="DLG_error_sdcard")
@@ -476,7 +476,7 @@ msgstr ""
 #. permission title for READ_TASKS
 #: translations/strings.xml:318( name="read_permission_label") translations/strings.xml:324( name="write_permission_label")
 msgid "Astrid Permission"
-msgstr ""
+msgstr "Permission d'Astrid"
 
 #. permission description for READ_TASKS
 #: translations/strings.xml:321( name="read_permission_desc")
@@ -523,12 +523,12 @@ msgstr ""
 #. Button for accepting EULA
 #: translations/strings.xml:352( name="DLG_accept")
 msgid "I Accept"
-msgstr ""
+msgstr "Accèpti"
 
 #. Button for declining EULA
 #: translations/strings.xml:355( name="DLG_decline")
 msgid "I Decline"
-msgstr ""
+msgstr "Refusi"
 
 #. EULA title
 #: translations/strings.xml:358( name="DLG_eula_title")
@@ -538,7 +538,7 @@ msgstr ""
 #. Progress Dialog generic text
 #: translations/strings.xml:361( name="DLG_please_wait")
 msgid "Please Wait"
-msgstr ""
+msgstr "Esperatz"
 
 #. Label for DateButtons with no value
 #: translations/strings.xml:366( name="WID_dateButtonUnset")
@@ -548,12 +548,12 @@ msgstr ""
 #. String formatter for DateButtons ($D => date, $T => time)
 #: translations/strings.xml:369( name="WID_dateButtonLabel")
 msgid "$D $T"
-msgstr ""
+msgstr "$D $T"
 
 #. String formatter for Disable button
 #: translations/strings.xml:372( name="WID_disableButton")
 msgid "Disable"
-msgstr ""
+msgstr "Desactivar"
 
 #. Note Exposer
 #: translations/strings.xml:377( name="ENE_label") translations/strings.xml:573( name="TEA_note_label")
@@ -563,7 +563,7 @@ msgstr "Nòtas"
 #. Note Exposer / Comments
 #: translations/strings.xml:380( name="ENE_label_comments")
 msgid "Comments"
-msgstr ""
+msgstr "Comentaris"
 
 #. EditNoteActivity - no comments
 #: translations/strings.xml:383( name="ENA_no_comments")
@@ -588,7 +588,7 @@ msgstr ""
 #. Menu: Add-ons
 #: translations/strings.xml:397( name="TLA_menu_addons")
 msgid "Add-ons"
-msgstr ""
+msgstr "Empeutons"
 
 #. Menu: Adjust Sort and Hidden Task Settings
 #: translations/strings.xml:400( name="TLA_menu_sort")
@@ -608,7 +608,7 @@ msgstr "Configuracion"
 #. Menu: Help
 #: translations/strings.xml:409( name="TLA_menu_help") translations/strings.xml:511( name="FLA_menu_help")
 msgid "Help"
-msgstr ""
+msgstr "Ajuda"
 
 #. Search Label
 #: translations/strings.xml:412( name="TLA_search_label")
@@ -618,7 +618,7 @@ msgstr ""
 #. Window title for displaying Custom Filter
 #: translations/strings.xml:415( name="TLA_custom")
 msgid "Custom"
-msgstr ""
+msgstr "Personalizat"
 
 #. Quick Add Edit Box Hint
 #: translations/strings.xml:418( name="TLA_quick_add_hint")
@@ -698,7 +698,7 @@ msgstr ""
 #. Sort Selection: sort options header
 #: translations/strings.xml:470( name="SSD_sort_header")
 msgid "Sort Options"
-msgstr ""
+msgstr "Opcions de triada"
 
 #. Sort Selection: smart sort
 #: translations/strings.xml:473( name="SSD_sort_auto")
@@ -738,7 +738,7 @@ msgstr ""
 #. Sort Button: sort permanently
 #: translations/strings.xml:494( name="SSD_save_always")
 msgid "Always"
-msgstr ""
+msgstr "Totjorn"
 
 #. Filter List Activity Title
 #: translations/strings.xml:499( name="FLA_title")
@@ -798,7 +798,7 @@ msgstr ""
 #. First Tab - basic task details
 #: translations/strings.xml:537( name="TEA_tab_basic")
 msgid "Basic"
-msgstr ""
+msgstr "Basic"
 
 #. Third Tab - add-ons
 #: translations/strings.xml:546( name="TEA_tab_more")
@@ -808,7 +808,7 @@ msgstr "Mai"
 #. Task title label
 #: translations/strings.xml:549( name="TEA_title_label")
 msgid "Title"
-msgstr ""
+msgstr "Títol"
 
 #. Task title hint (displayed when edit box is empty)
 #: translations/strings.xml:552( name="TEA_title_hint")
@@ -823,7 +823,7 @@ msgstr ""
 #. Task urgency label
 #: translations/strings.xml:558( name="TEA_urgency_label")
 msgid "Deadline"
-msgstr ""
+msgstr "Data limita"
 
 #. Task urgency specific time checkbox
 #: translations/strings.xml:561( name="TEA_urgency_specific_time")
@@ -833,7 +833,7 @@ msgstr ""
 #. Task urgency specific time title when specific time false
 #: translations/strings.xml:564( name="TEA_urgency_none")
 msgid "None"
-msgstr ""
+msgstr "Pas cap"
 
 #. Task hide until label
 #: translations/strings.xml:567( name="TEA_hideUntil_label")
@@ -858,12 +858,12 @@ msgstr ""
 #. Menu: Save
 #: translations/strings.xml:585( name="TEA_menu_save")
 msgid "Save Changes"
-msgstr ""
+msgstr "Enregistrar las modificacions"
 
 #. Menu: Don't Save
 #: translations/strings.xml:588( name="TEA_menu_discard")
 msgid "Don't Save"
-msgstr ""
+msgstr "Enregistrar pas"
 
 #. Toast: task saved with deadline (%s => preposition + time units)
 #: translations/strings.xml:594( name="TEA_onTaskSave_due")
@@ -897,12 +897,12 @@ msgstr ""
 #. today
 #: translations/strings.xml:609(item) translations/strings.xml:719(item) translations/strings.xml:899(item) translations/strings.xml:2082( name="today")
 msgid "Today"
-msgstr ""
+msgstr "Uèi"
 
 #. tomorrow
 #: translations/strings.xml:610(item) translations/strings.xml:720(item) translations/strings.xml:900(item) translations/strings.xml:2085( name="tomorrow")
 msgid "Tomorrow"
-msgstr ""
+msgstr "Deman"
 
 #: translations/strings.xml:611(item)
 msgid "(day after)"
@@ -959,12 +959,12 @@ msgstr ""
 #. Button to agree to EULA
 #: translations/strings.xml:638( name="InA_agree")
 msgid "I Agree!!"
-msgstr ""
+msgstr "Accèpti"
 
 #. Button to disagree with EULA
 #: translations/strings.xml:641( name="InA_disagree")
 msgid "I Disagree"
-msgstr ""
+msgstr "Refusi"
 
 #. Help: Button to get support from our website
 #: translations/strings.xml:646( name="HlA_get_support")
@@ -984,7 +984,7 @@ msgstr ""
 #. Preference Window Title
 #: translations/strings.xml:659( name="EPr_title")
 msgid "Astrid: Settings"
-msgstr ""
+msgstr "Astrid : Paramètres"
 
 #. Preference Category: Appearance Title
 #: translations/strings.xml:662( name="EPr_appearance_header")
@@ -1019,7 +1019,7 @@ msgstr ""
 #. Preference: Transparent
 #: translations/strings.xml:677( name="EPr_transparent_title")
 msgid "Transparency"
-msgstr ""
+msgstr "Transparéncia"
 
 #. Preference: Transparent Description (disabled)
 #: translations/strings.xml:679( name="EPr_transparent_desc_disabled")
@@ -1049,7 +1049,7 @@ msgstr ""
 #. Preference: Default Urgency Description (%s => setting)
 #: translations/strings.xml:691( name="EPr_default_urgency_desc") translations/strings.xml:696( name="EPr_default_importance_desc") translations/strings.xml:701( name="EPr_default_hideUntil_desc") translations/strings.xml:706( name="EPr_default_reminders_desc")
 msgid "Currently: %s"
-msgstr ""
+msgstr "Actualament : %s"
 
 #. Preference: Default Importance Title
 #: translations/strings.xml:694( name="EPr_default_importance_title")
@@ -1146,42 +1146,42 @@ msgstr ""
 #. Add Ons Activity Title
 #: translations/strings.xml:757( name="AOA_title")
 msgid "Astrid: Add Ons"
-msgstr ""
+msgstr "Astrid : empeutons"
 
 #. Add-on Activity: author for internal authors
 #: translations/strings.xml:760( name="AOA_internal_author")
 msgid "Astrid Team"
-msgstr ""
+msgstr "L'equipa d'Astrid"
 
 #. Add-on Activity: installed add-ons tab
 #: translations/strings.xml:763( name="AOA_tab_installed")
 msgid "Installed"
-msgstr ""
+msgstr "Installat"
 
 #. Add-on Activity - available add-ons tab
 #: translations/strings.xml:766( name="AOA_tab_available")
 msgid "Available"
-msgstr ""
+msgstr "Dispo"
 
 #. Add-on Activity - free add-ons label
 #: translations/strings.xml:769( name="AOA_free")
 msgid "Free"
-msgstr ""
+msgstr "Liure"
 
 #. Add-on Activity - menu item to visit add-on website
 #: translations/strings.xml:772( name="AOA_visit_website")
 msgid "Visit Website"
-msgstr ""
+msgstr "Visitar lo site Web"
 
 #. Add-on Activity - menu item to visit android market
 #: translations/strings.xml:775( name="AOA_visit_market")
 msgid "Android Market"
-msgstr ""
+msgstr "Android Market"
 
 #. Add-on Activity - when list is empty
 #: translations/strings.xml:778( name="AOA_no_addons")
 msgid "Empty List!"
-msgstr ""
+msgstr "Lista void !"
 
 #. Widget configuration activity title: select a filter
 #: translations/strings.xml:786( name="WCA_title")
@@ -1191,7 +1191,7 @@ msgstr ""
 #. Title of "About" option in settings
 #: translations/strings.xml:791( name="p_about")
 msgid "About Astrid"
-msgstr ""
+msgstr "A prepaus d'Astrid"
 
 #. About text (%s => current version)
 #: translations/strings.xml:794( name="p_about_text")
@@ -1229,12 +1229,12 @@ msgstr ""
 #. Active Tasks Filter
 #: translations/strings.xml:829( name="BFE_Active") translations/strings.xml:858( name="CFA_universe_all")
 msgid "Active Tasks"
-msgstr ""
+msgstr "Prètzfaches actius"
 
 #. Search Filter
 #: translations/strings.xml:832( name="BFE_Search")
 msgid "Search..."
-msgstr ""
+msgstr "Recercar..."
 
 #. Recently Modified
 #: translations/strings.xml:835( name="BFE_Recent")
@@ -1249,7 +1249,7 @@ msgstr ""
 #. Saved Filters Header
 #: translations/strings.xml:841( name="BFE_Saved")
 msgid "Saved Filters"
-msgstr ""
+msgstr "Filtres enregistrats"
 
 #. Saved Filters Context Menu: delete
 #: translations/strings.xml:844( name="BFE_Saved_delete")
@@ -1269,22 +1269,22 @@ msgstr ""
 #. Filter Name default for copied filters (%s => old filter name)
 #: translations/strings.xml:855( name="CFA_filterName_copy")
 msgid "Copy of %s"
-msgstr ""
+msgstr "Còpia de %s"
 
 #. Filter Criteria Type: add (at the begging of title of the criteria)
 #: translations/strings.xml:861( name="CFA_type_add")
 msgid "or"
-msgstr ""
+msgstr "o"
 
 #. Filter Criteria Type: subtract (at the begging of title of the criteria)
 #: translations/strings.xml:864( name="CFA_type_subtract")
 msgid "not"
-msgstr ""
+msgstr "non"
 
 #. Filter Criteria Type: intersect (at the begging of title of the criteria)
 #: translations/strings.xml:867( name="CFA_type_intersect")
 msgid "also"
-msgstr ""
+msgstr "tanben"
 
 #. Filter Criteria Context Menu: chaining (%s chain type as above)
 #: translations/strings.xml:870( name="CFA_context_chain")
@@ -1294,7 +1294,7 @@ msgstr ""
 #. Filter Criteria Context Menu: delete
 #: translations/strings.xml:873( name="CFA_context_delete")
 msgid "Delete Row"
-msgstr ""
+msgstr "Suprimir una linha"
 
 #. Filter Screen Help Text
 #: translations/strings.xml:876( name="CFA_help")
@@ -1306,12 +1306,12 @@ msgstr ""
 #. Filter Button: add new
 #: translations/strings.xml:881( name="CFA_button_add")
 msgid "Add Criteria"
-msgstr ""
+msgstr "Apondre un critèri"
 
 #. Filter Button: view without saving
 #: translations/strings.xml:884( name="CFA_button_view")
 msgid "View"
-msgstr ""
+msgstr "Afichar"
 
 #. Filter Button: save & view filter
 #: translations/strings.xml:887( name="CFA_button_save")
@@ -1336,7 +1336,7 @@ msgstr ""
 #. today
 #: translations/strings.xml:898(item) translations/strings.xml:2088( name="yesterday")
 msgid "Yesterday"
-msgstr ""
+msgstr "Ièr"
 
 #. Criteria: importance - display text (? -> user input)
 #: translations/strings.xml:907( name="CFC_importance_text")
@@ -1346,17 +1346,17 @@ msgstr ""
 #. Criteria: importance - name of criteria
 #: translations/strings.xml:909( name="CFC_importance_name")
 msgid "Importance..."
-msgstr ""
+msgstr "Importància..."
 
 #. Criteria: tag - display text (? -> user input)
 #: translations/strings.xml:912( name="CFC_tag_text")
 msgid "List: ?"
-msgstr ""
+msgstr "Lista : ?"
 
 #. Criteria: tag - name of criteria
 #: translations/strings.xml:914( name="CFC_tag_name")
 msgid "List..."
-msgstr ""
+msgstr "Lista..."
 
 #. Criteria: tag_contains - name of criteria
 #: translations/strings.xml:917( name="CFC_tag_contains_name")
@@ -1411,27 +1411,27 @@ msgstr ""
 #. Calendar event name when task is completed (%s => task title)
 #: translations/strings.xml:956( name="gcal_completed_title")
 msgid "%s (completed)"
-msgstr ""
+msgstr "%s (efectuat)"
 
 #. System Default Calendar (displayed if we can't figure out calendars)
 #: translations/strings.xml:959( name="gcal_GCP_default")
 msgid "Default Calendar"
-msgstr ""
+msgstr "Agenda per defaut"
 
 #. filters header: GTasks
 #: translations/strings.xml:970( name="gtasks_FEx_header")
 msgid "Google Tasks"
-msgstr ""
+msgstr "Google Tasks"
 
 #. filter category for GTasks lists
 #: translations/strings.xml:973( name="gtasks_FEx_list")
 msgid "By List"
-msgstr ""
+msgstr "Per lista"
 
 #. filter title for GTasks lists (%s => list name)
 #: translations/strings.xml:976( name="gtasks_FEx_title")
 msgid "Google Tasks: %s"
-msgstr ""
+msgstr "Google Tasks: %s"
 
 #. dialog prompt for creating a new gtasks list
 #: translations/strings.xml:979( name="gtasks_FEx_create_list_dialog")
@@ -1466,7 +1466,7 @@ msgstr ""
 #. Activity Title: Gtasks Login
 #: translations/strings.xml:998( name="gtasks_GLA_title")
 msgid "Log In to Google Tasks"
-msgstr ""
+msgstr "Se connectar a Google Tasks"
 
 #. Instructions: Gtasks login
 #: translations/strings.xml:1001( name="gtasks_GLA_body")
@@ -1490,17 +1490,17 @@ msgstr ""
 #. Sign In Button
 #: translations/strings.xml:1012( name="gtasks_GLA_signIn") translations/strings.xml:1225( name="opencrx_PLA_signIn") translations/strings.xml:1361( name="producteev_PLA_signIn")
 msgid "Sign In"
-msgstr ""
+msgstr "S’identificar"
 
 #. E-mail Address Label
 #: translations/strings.xml:1015( name="gtasks_GLA_email") translations/strings.xml:1367( name="producteev_PLA_email")
 msgid "E-mail"
-msgstr ""
+msgstr "Corrièl"
 
 #. Authenticating toast
 #: translations/strings.xml:1021( name="gtasks_GLA_authenticating")
 msgid "Authenticating..."
-msgstr ""
+msgstr "Autentificacion en cors..."
 
 #. Google Apps for Domain checkbox
 #: translations/strings.xml:1024( name="gtasks_GLA_domain")
@@ -1527,7 +1527,7 @@ msgstr ""
 #. GTasks Preferences Title
 #: translations/strings.xml:1039( name="gtasks_GPr_header")
 msgid "Google Tasks (Beta!)"
-msgstr ""
+msgstr "Google Tasks (Beta!)"
 
 #: translations/strings.xml:1041( name="gtasks_GPr_sync_on_save")
 msgid "Sync on Save"
@@ -1540,7 +1540,7 @@ msgstr ""
 #. title for notification tray when synchronizing
 #: translations/strings.xml:1048( name="gtasks_notification_title")
 msgid "Astrid: Google Tasks"
-msgstr ""
+msgstr "Astrid: Google Tasks"
 
 #. Intro Tag or click prompt
 #: translations/strings.xml:1059( name="intro_click_prompt")
@@ -1595,7 +1595,7 @@ msgstr ""
 #. Locale Alert Editing Window Title
 #: translations/strings.xml:1108( name="locale_edit_alerts_title")
 msgid "Astrid Filter Alert"
-msgstr ""
+msgstr "Filtre d'alèrtas Astrid"
 
 #. Locale Window Help
 #: translations/strings.xml:1111( name="locale_edit_intro")
@@ -1607,7 +1607,7 @@ msgstr ""
 #. Locale Window Filter Picker UI
 #: translations/strings.xml:1115( name="locale_pick_filter")
 msgid "Filter:"
-msgstr ""
+msgstr "Filtrar :"
 
 #. Locale Window Interval Label
 #: translations/strings.xml:1118( name="locale_interval_label")
@@ -1624,15 +1624,15 @@ msgstr ""
 
 #: translations/strings.xml:1124(item)
 msgid "once every twelve hours"
-msgstr ""
+msgstr "un còp cada dotze oras"
 
 #: translations/strings.xml:1125(item)
 msgid "once a day"
-msgstr ""
+msgstr "un còp per jorn"
 
 #: translations/strings.xml:1126(item)
 msgid "once every three days"
-msgstr ""
+msgstr "un còp cada tres jorns"
 
 #: translations/strings.xml:1127(item)
 msgid "once a week"
@@ -1651,12 +1651,12 @@ msgstr ""
 #. filters header: OpenCRX
 #: translations/strings.xml:1144( name="opencrx_FEx_header") translations/strings.xml:1167( name="opencrx_PPr_header") translations/strings.xml:1242( name="opencrx_notification_title")
 msgid "OpenCRX"
-msgstr ""
+msgstr "OpenCRX"
 
 #. filter category for OpenCRX ActivityCreators
 #: translations/strings.xml:1147( name="opencrx_FEx_dashboard") translations/strings.xml:1305( name="producteev_FEx_dashboard")
 msgid "Workspaces"
-msgstr ""
+msgstr "Espacis de trabalh"
 
 #. filter category for OpenCRX responsible person
 #: translations/strings.xml:1150( name="opencrx_FEx_responsible")
@@ -1671,7 +1671,7 @@ msgstr ""
 #. detail for showing tasks created by someone else (%s => person name)
 #: translations/strings.xml:1156( name="opencrx_PDE_task_from") translations/strings.xml:1317( name="producteev_PDE_task_from")
 msgid "from %s"
-msgstr ""
+msgstr "de %s"
 
 #. replacement string for task edit "Notes" when using OpenCRX
 #: translations/strings.xml:1159( name="opencrx_TEA_notes") translations/strings.xml:1320( name="producteev_TEA_notes")
@@ -1680,7 +1680,7 @@ msgstr ""
 
 #: translations/strings.xml:1161( name="opencrx_creator_input_hint")
 msgid "Creator"
-msgstr ""
+msgstr "Autor"
 
 #: translations/strings.xml:1163( name="opencrx_contact_input_hint")
 msgid "Assigned to"
@@ -1714,7 +1714,7 @@ msgstr ""
 #. preference description for OpenCRX host
 #: translations/strings.xml:1185( name="opencrx_host_title")
 msgid "Host"
-msgstr ""
+msgstr "Òste"
 
 #. dialog title for OpenCRX host
 #: translations/strings.xml:1188( name="opencrx_host_dialog_title")
@@ -1729,7 +1729,7 @@ msgstr ""
 #. preference description for OpenCRX segment
 #: translations/strings.xml:1194( name="opencrx_segment_title")
 msgid "Segment"
-msgstr ""
+msgstr "Segmentacion"
 
 #. dialog title for OpenCRX segment
 #: translations/strings.xml:1197( name="opencrx_segment_dialog_title")
@@ -1744,12 +1744,12 @@ msgstr ""
 #. default value for OpenCRX segment
 #: translations/strings.xml:1203( name="opencrx_segment_default")
 msgid "Standard"
-msgstr ""
+msgstr "Estandard"
 
 #. preference description for OpenCRX provider
 #: translations/strings.xml:1206( name="opencrx_provider_title")
 msgid "Provider"
-msgstr ""
+msgstr "Provesidor"
 
 #. dialog title for OpenCRX provider
 #: translations/strings.xml:1209( name="opencrx_provider_dialog_title")
@@ -1779,7 +1779,7 @@ msgstr ""
 #. Login Label
 #: translations/strings.xml:1228( name="opencrx_PLA_login")
 msgid "Login"
-msgstr ""
+msgstr "Identificant"
 
 #. Error Message when fields aren't filled out
 #: translations/strings.xml:1234( name="opencrx_PLA_errorEmpty")
@@ -1829,23 +1829,23 @@ msgstr ""
 #. Spinner-item for default dashboard on taskeditactivity
 #: translations/strings.xml:1268( name="opencrx_TEA_dashboard_default") translations/strings.xml:1422( name="producteev_TEA_dashboard_default")
 msgid "&lt;Default&gt;"
-msgstr ""
+msgstr "&lt;Per defaut&gt;"
 
 #: translations/strings.xml:1270( name="CFC_opencrx_in_workspace_text") translations/strings.xml:1424( name="CFC_producteev_in_workspace_text")
 msgid "In workspace: ?"
-msgstr ""
+msgstr "Dins l'espaci de trabalh : ?"
 
 #: translations/strings.xml:1272( name="CFC_opencrx_in_workspace_name") translations/strings.xml:1426( name="CFC_producteev_in_workspace_name")
 msgid "In workspace..."
-msgstr ""
+msgstr "Dins l'espaci de trabalh..."
 
 #: translations/strings.xml:1274( name="CFC_opencrx_assigned_to_text") translations/strings.xml:1428( name="CFC_producteev_assigned_to_text")
 msgid "Assigned to: ?"
-msgstr ""
+msgstr "Atribuit a : ?"
 
 #: translations/strings.xml:1276( name="CFC_opencrx_assigned_to_name") translations/strings.xml:1430( name="CFC_producteev_assigned_to_name")
 msgid "Assigned to..."
-msgstr ""
+msgstr "Atribuit a..."
 
 #. Preference Category: Power Pack
 #: translations/strings.xml:1285( name="EPr_powerpack_header") translations/strings.xml:2275( name="app_name")
@@ -1870,7 +1870,7 @@ msgstr ""
 #. filters header: Producteev
 #: translations/strings.xml:1302( name="producteev_FEx_header") translations/strings.xml:1325( name="producteev_PPr_header") translations/strings.xml:1396( name="producteev_notification_title")
 msgid "Producteev"
-msgstr ""
+msgstr "Producteev"
 
 #. filter category for Producteev responsible person
 #: translations/strings.xml:1308( name="producteev_FEx_responsible_byme")
@@ -1910,7 +1910,7 @@ msgstr ""
 #. Activity Title: Producteev Login
 #: translations/strings.xml:1351( name="producteev_PLA_title")
 msgid "Log In to Producteev"
-msgstr ""
+msgstr "Se Connectar a Producteev"
 
 #. Instructions: Producteev login
 #: translations/strings.xml:1354( name="producteev_PLA_body")
@@ -1926,27 +1926,27 @@ msgstr ""
 #. Create New User Button
 #: translations/strings.xml:1364( name="producteev_PLA_createNew")
 msgid "Create New User"
-msgstr ""
+msgstr "Crear un utilizaire novèl"
 
 #. Timezone Spinner
 #: translations/strings.xml:1373( name="producteev_PLA_timezone")
 msgid "Timezone"
-msgstr ""
+msgstr "Fus orari"
 
 #. Confirm Password Label
 #: translations/strings.xml:1376( name="producteev_PLA_confirmPassword")
 msgid "Confirm Password"
-msgstr ""
+msgstr "Confirmacion del senhal"
 
 #. First Name Label
 #: translations/strings.xml:1379( name="producteev_PLA_firstName")
 msgid "First Name"
-msgstr ""
+msgstr "Pichon nom"
 
 #. Last Name Label
 #: translations/strings.xml:1382( name="producteev_PLA_lastName")
 msgid "Last Name"
-msgstr ""
+msgstr "Nom d'ostal"
 
 #. Error Message when passwords don't match
 #: translations/strings.xml:1388( name="producteev_PLA_errorMatch")
@@ -2006,32 +2006,32 @@ msgstr ""
 #. random reminder choices for task edit page.
 #: translations/strings.xml:1466(item)
 msgid "an hour"
-msgstr ""
+msgstr "una ora"
 
 #: translations/strings.xml:1467(item)
 msgid "a day"
-msgstr ""
+msgstr "un jorn"
 
 #: translations/strings.xml:1468(item)
 msgid "a week"
-msgstr ""
+msgstr "una setmana"
 
 #: translations/strings.xml:1469(item)
 msgid "in two weeks"
-msgstr ""
+msgstr "dins doas setmanas"
 
 #: translations/strings.xml:1470(item)
 msgid "a month"
-msgstr ""
+msgstr "un mes"
 
 #: translations/strings.xml:1471(item)
 msgid "in two months"
-msgstr ""
+msgstr "dins dos meses"
 
 #. Name of filter when viewing a reminder
 #: translations/strings.xml:1477( name="rmd_NoA_filter")
 msgid "Reminder!"
-msgstr ""
+msgstr "Rapèl !"
 
 #. Reminder: Task was already done
 #: translations/strings.xml:1480( name="rmd_NoA_done")
@@ -2046,12 +2046,12 @@ msgstr ""
 #. Reminder: Cancel reminder
 #: translations/strings.xml:1486( name="rmd_NoA_goAway")
 msgid "Go Away!"
-msgstr ""
+msgstr "Vai t'en !"
 
 #. Reminder Preference Screen Title
 #: translations/strings.xml:1491( name="rmd_EPr_alerts_header")
 msgid "Reminder Settings"
-msgstr ""
+msgstr "Paramètres de rapèl"
 
 #. Reminder Preference: Quiet Hours Start Title
 #: translations/strings.xml:1494( name="rmd_EPr_quiet_hours_start_title")
@@ -2168,7 +2168,7 @@ msgstr ""
 #. Reminder Preference: Nagging Title
 #: translations/strings.xml:1546( name="rmd_EPr_nagging_title")
 msgid "Astrid Encouragements"
-msgstr ""
+msgstr "Encorajaments Astrid"
 
 #. Reminder Preference: Nagging Description (true)
 #: translations/strings.xml:1548( name="rmd_EPr_nagging_desc_true")
@@ -2213,19 +2213,19 @@ msgstr ""
 #. Reminder Preference: random reminder choices for preference page.
 #: translations/strings.xml:1571(item) translations/strings.xml:1582(item)
 msgid "disabled"
-msgstr ""
+msgstr "desactivat"
 
 #: translations/strings.xml:1572(item)
 msgid "hourly"
-msgstr ""
+msgstr "cada ora"
 
 #: translations/strings.xml:1573(item)
 msgid "daily"
-msgstr ""
+msgstr "cada jorn"
 
 #: translations/strings.xml:1574(item)
 msgid "weekly"
-msgstr ""
+msgstr "cada setmana"
 
 #: translations/strings.xml:1575(item)
 msgid "bi-weekly"
@@ -2233,7 +2233,7 @@ msgstr ""
 
 #: translations/strings.xml:1576(item)
 msgid "monthly"
-msgstr ""
+msgstr "cada mes"
 
 #: translations/strings.xml:1577(item)
 msgid "bi-monthly"
@@ -2241,100 +2241,100 @@ msgstr ""
 
 #: translations/strings.xml:1583(item) translations/strings.xml:1622(item) translations/strings.xml:1650(item)
 msgid "8 PM"
-msgstr ""
+msgstr "20 h"
 
 #: translations/strings.xml:1584(item) translations/strings.xml:1623(item) translations/strings.xml:1651(item)
 msgid "9 PM"
-msgstr ""
+msgstr "21 h"
 
 #: translations/strings.xml:1585(item) translations/strings.xml:1624(item) translations/strings.xml:1652(item)
 msgid "10 PM"
-msgstr ""
+msgstr "22 h"
 
 #: translations/strings.xml:1586(item) translations/strings.xml:1625(item) translations/strings.xml:1653(item)
 msgid "11 PM"
-msgstr ""
+msgstr "23 h"
 
 #: translations/strings.xml:1587(item) translations/strings.xml:1626(item) translations/strings.xml:1654(item)
 msgid "12 AM"
-msgstr ""
+msgstr "24 h"
 
 #: translations/strings.xml:1588(item) translations/strings.xml:1627(item) translations/strings.xml:1655(item)
 msgid "1 AM"
-msgstr ""
+msgstr "1 h"
 
 #: translations/strings.xml:1589(item) translations/strings.xml:1628(item) translations/strings.xml:1656(item)
 msgid "2 AM"
-msgstr ""
+msgstr "2 h"
 
 #: translations/strings.xml:1590(item) translations/strings.xml:1629(item) translations/strings.xml:1657(item)
 msgid "3 AM"
-msgstr ""
+msgstr "3 h"
 
 #: translations/strings.xml:1591(item) translations/strings.xml:1630(item) translations/strings.xml:1658(item)
 msgid "4 AM"
-msgstr ""
+msgstr "4 h"
 
 #: translations/strings.xml:1592(item) translations/strings.xml:1631(item) translations/strings.xml:1659(item)
 msgid "5 AM"
-msgstr ""
+msgstr "5 h"
 
 #: translations/strings.xml:1593(item) translations/strings.xml:1632(item) translations/strings.xml:1660(item)
 msgid "6 AM"
-msgstr ""
+msgstr "6 h"
 
 #: translations/strings.xml:1594(item) translations/strings.xml:1633(item) translations/strings.xml:1661(item)
 msgid "7 AM"
-msgstr ""
+msgstr "7 h"
 
 #: translations/strings.xml:1595(item) translations/strings.xml:1634(item) translations/strings.xml:1662(item)
 msgid "8 AM"
-msgstr ""
+msgstr "8 h"
 
 #. Reminder Preference: quiet_hours_end: options for preference menu. Translate but don't change the times!
 #: translations/strings.xml:1596(item) translations/strings.xml:1611(item) translations/strings.xml:1639(item)
 msgid "9 AM"
-msgstr ""
+msgstr "9 h"
 
 #: translations/strings.xml:1597(item) translations/strings.xml:1612(item) translations/strings.xml:1640(item)
 msgid "10 AM"
-msgstr ""
+msgstr "10 h"
 
 #: translations/strings.xml:1598(item) translations/strings.xml:1613(item) translations/strings.xml:1641(item)
 msgid "11 AM"
-msgstr ""
+msgstr "11 h"
 
 #: translations/strings.xml:1599(item) translations/strings.xml:1614(item) translations/strings.xml:1642(item)
 msgid "12 PM"
-msgstr ""
+msgstr "12 h"
 
 #: translations/strings.xml:1600(item) translations/strings.xml:1615(item) translations/strings.xml:1643(item)
 msgid "1 PM"
-msgstr ""
+msgstr "13 h"
 
 #: translations/strings.xml:1601(item) translations/strings.xml:1616(item) translations/strings.xml:1644(item)
 msgid "2 PM"
-msgstr ""
+msgstr "14 h"
 
 #: translations/strings.xml:1602(item) translations/strings.xml:1617(item) translations/strings.xml:1645(item)
 msgid "3 PM"
-msgstr ""
+msgstr "15 h"
 
 #: translations/strings.xml:1603(item) translations/strings.xml:1618(item) translations/strings.xml:1646(item)
 msgid "4 PM"
-msgstr ""
+msgstr "16 h"
 
 #: translations/strings.xml:1604(item) translations/strings.xml:1619(item) translations/strings.xml:1647(item)
 msgid "5 PM"
-msgstr ""
+msgstr "17 h"
 
 #: translations/strings.xml:1605(item) translations/strings.xml:1620(item) translations/strings.xml:1648(item)
 msgid "6 PM"
-msgstr ""
+msgstr "18 h"
 
 #: translations/strings.xml:1606(item) translations/strings.xml:1621(item) translations/strings.xml:1649(item)
 msgid "7 PM"
-msgstr ""
+msgstr "19 h"
 
 #. reminders: Make these < 20 chars so the task name is displayed
 #: translations/strings.xml:1669(item)
@@ -2371,7 +2371,7 @@ msgstr ""
 
 #: translations/strings.xml:1677(item)
 msgid "Astrid here!"
-msgstr ""
+msgstr "Soi Astrid !"
 
 #: translations/strings.xml:1678(item)
 msgid "Hi! Can I bug you?"
@@ -2623,7 +2623,7 @@ msgstr ""
 #. task detail weekly by day ($I -> interval, i.e. 1 week, $D -> days, i.e. Monday, Tuesday)
 #: translations/strings.xml:1780( name="repeat_detail_byday")
 msgid "$I on $D"
-msgstr ""
+msgstr "$I sus $D"
 
 #. task detail for repeat from due date (%s -> interval)
 #: translations/strings.xml:1783( name="repeat_detail_duedate")
@@ -2658,17 +2658,17 @@ msgstr ""
 #. filter category for RTM lists
 #: translations/strings.xml:1808( name="rmilk_FEx_list") translations/strings.xml:1875( name="tag_TLA_menu") translations/strings.xml:1897( name="tag_FEx_header")
 msgid "Lists"
-msgstr ""
+msgstr "Listas"
 
 #. RTM list filter title (%s => list)
 #: translations/strings.xml:1811( name="rmilk_FEx_list_title")
 msgid "RTM List '%s'"
-msgstr ""
+msgstr "Lista RTM '%s'"
 
 #. RTM edit List Edit Label
 #: translations/strings.xml:1819( name="rmilk_MEA_list_label")
 msgid "RTM List:"
-msgstr ""
+msgstr "Lista RTM :"
 
 #. RTM edit Repeat Label
 #: translations/strings.xml:1822( name="rmilk_MEA_repeat_label")
@@ -2712,7 +2712,7 @@ msgstr ""
 #. Tags hint
 #: translations/strings.xml:1867( name="TEA_tag_hint")
 msgid "List Name"
-msgstr ""
+msgstr "Nom de la lista"
 
 #. Tags dropdown
 #: translations/strings.xml:1870( name="TEA_tag_dropdown")
@@ -2722,12 +2722,12 @@ msgstr ""
 #. Context Item: show tag
 #: translations/strings.xml:1880( name="TAd_contextFilterByTag")
 msgid "Show List"
-msgstr ""
+msgstr "Afichar la lista"
 
 #. Dialog: new list
 #: translations/strings.xml:1883( name="tag_new_list")
 msgid "New List"
-msgstr ""
+msgstr "Lista novèla"
 
 #. Dialog: list saved
 #: translations/strings.xml:1886( name="tag_list_saved")
@@ -2742,12 +2742,12 @@ msgstr ""
 #. filter button to add tag
 #: translations/strings.xml:1894( name="tag_FEx_add_new")
 msgid "New"
-msgstr ""
+msgstr "Novèl"
 
 #. filter header for tags user created
 #: translations/strings.xml:1900( name="tag_FEx_category_mine")
 msgid "My Lists"
-msgstr ""
+msgstr "Mas listas"
 
 #. filter header for tags, shared with user
 #: translations/strings.xml:1903( name="tag_FEx_category_shared")
@@ -2802,12 +2802,12 @@ msgstr ""
 #. Task List: Start Timer button
 #: translations/strings.xml:1943( name="TAE_startTimer")
 msgid "Timer"
-msgstr ""
+msgstr "Cronomètre"
 
 #. Task List: Stop Timer button
 #: translations/strings.xml:1946( name="TAE_stopTimer")
 msgid "Stop"
-msgstr ""
+msgstr "Arrestar"
 
 #. Android Notification Title (%s => # tasks)
 #: translations/strings.xml:1949( name="TPl_notification")
@@ -2817,7 +2817,7 @@ msgstr ""
 #. Filter Header for Timer plugin
 #: translations/strings.xml:1952( name="TFE_category")
 msgid "Timer Filters"
-msgstr ""
+msgstr "Filtres de cronomètre"
 
 #. Filter for Timed Tasks
 #: translations/strings.xml:1955( name="TFE_workingOn")
@@ -2861,7 +2861,7 @@ msgstr ""
 #. Preference: Task List Show Voice-button if recognition-service is available
 #: translations/strings.xml:1974( name="EPr_voiceInputEnabled_title")
 msgid "Voice Input"
-msgstr ""
+msgstr "Entrada votz"
 
 #. Preference: voice button description (true)
 #: translations/strings.xml:1976( name="EPr_voiceInputEnabled_desc_enabled")
@@ -2911,32 +2911,32 @@ msgstr ""
 #. plurals: years
 #: translations/strings.xml:2004( quantity="one")
 msgid "1 Year"
-msgstr ""
+msgstr "1 annada"
 
 #. plurals: years
 #: translations/strings.xml:2006( quantity="other")
 msgid "%d Years"
-msgstr ""
+msgstr "%d annadas"
 
 #. plurals: months
 #: translations/strings.xml:2010( quantity="one")
 msgid "1 Month"
-msgstr ""
+msgstr "Un mes"
 
 #. plurals: months
 #: translations/strings.xml:2012( quantity="other")
 msgid "%d Months"
-msgstr ""
+msgstr "%d meses"
 
 #. plurals: days
 #: translations/strings.xml:2016( quantity="one")
 msgid "1 Week"
-msgstr ""
+msgstr "Una setmana"
 
 #. plurals: days
 #: translations/strings.xml:2018( quantity="other")
 msgid "%d Weeks"
-msgstr ""
+msgstr "%d setmanas"
 
 #. plurals: days
 #: translations/strings.xml:2022( quantity="one")
@@ -3031,22 +3031,22 @@ msgstr ""
 #. plurals: people
 #: translations/strings.xml:2076( quantity="one")
 msgid "1 person"
-msgstr ""
+msgstr "1 persona"
 
 #. plurals: people
 #: translations/strings.xml:2078( quantity="other")
 msgid "%d people"
-msgstr ""
+msgstr "%d personas"
 
 #. confirmation dialog title
 #: translations/strings.xml:2093( name="DLG_confirm_title")
 msgid "Confirm?"
-msgstr ""
+msgstr "Confirmar ?"
 
 #. question dialog title
 #: translations/strings.xml:2096( name="DLG_question_title")
 msgid "Question:"
-msgstr ""
+msgstr "Question :"
 
 #. information dialog title
 #: translations/strings.xml:2099( name="DLG_information_title")
@@ -3056,7 +3056,7 @@ msgstr "Informacion"
 #. error dialog title
 #: translations/strings.xml:2102( name="DLG_error_title")
 msgid "Error!"
-msgstr ""
+msgstr "Error !"
 
 #. general dialog save
 #: translations/strings.xml:2105( name="DLG_save")
@@ -3066,17 +3066,17 @@ msgstr "Enregistrar"
 #. general dialog yes
 #: translations/strings.xml:2108( name="DLG_yes")
 msgid "Yes"
-msgstr ""
+msgstr "Òc"
 
 #. general dialog no
 #: translations/strings.xml:2111( name="DLG_no")
 msgid "No"
-msgstr ""
+msgstr "Non"
 
 #. general dialog close
 #: translations/strings.xml:2114( name="DLG_close")
 msgid "Close"
-msgstr ""
+msgstr "Tampar"
 
 #. general dialog done
 #: translations/strings.xml:2117( name="DLG_done")
@@ -3096,7 +3096,7 @@ msgstr ""
 #. Progress dialog shown when doing something slow
 #: translations/strings.xml:2126( name="DLG_wait")
 msgid "Please wait..."
-msgstr ""
+msgstr "Esperatz..."
 
 #. Sync Notification: message when sync service active
 #: translations/strings.xml:2131( name="SyP_progress")
@@ -3106,7 +3106,7 @@ msgstr ""
 #. Sync Notification: toast when sync activated from activity
 #: translations/strings.xml:2134( name="SyP_progress_toast")
 msgid "Synchronizing..."
-msgstr ""
+msgstr "Sincronizacion..."
 
 #. Sync Label: used in menu to denote synchronization
 #: translations/strings.xml:2137( name="SyP_label")
@@ -3116,7 +3116,7 @@ msgstr "Sincronizacion"
 #. Sync Status: log in
 #: translations/strings.xml:2148( name="sync_status_loggedout")
 msgid "Not Logged In!"
-msgstr ""
+msgstr "Pas connectat !"
 
 #. Status: ongoing
 #: translations/strings.xml:2150( name="sync_status_ongoing")
@@ -3166,7 +3166,7 @@ msgstr ""
 #. Preference: Background Wifi Title
 #: translations/strings.xml:2173( name="sync_SPr_bgwifi_title")
 msgid "Wifi Only Setting"
-msgstr ""
+msgstr "Paramètre Wifi sol"
 
 #. Preference: Background Wifi Description (enabled)
 #: translations/strings.xml:2175( name="sync_SPr_bgwifi_desc_enabled")
@@ -3196,7 +3196,7 @@ msgstr ""
 #. Sync: Clear Data Title
 #: translations/strings.xml:2188( name="sync_SPr_forget")
 msgid "Log Out"
-msgstr ""
+msgstr "Desconnexion"
 
 #. Sync: Clear Data Description
 #: translations/strings.xml:2190( name="sync_SPr_forget_description")
@@ -3211,7 +3211,7 @@ msgstr ""
 #. sync_SPr_interval_entries: Synchronization Intervals
 #: translations/strings.xml:2197(item)
 msgid "disable"
-msgstr ""
+msgstr "desactivar"
 
 #: translations/strings.xml:2198(item)
 msgid "every fifteen minutes"
@@ -3252,15 +3252,15 @@ msgstr ""
 #. Resources for power pack widget
 #: translations/strings.xml:2216( name="PPW_widget_42_label")
 msgid "Astrid 4x2"
-msgstr ""
+msgstr "Astrid 4x2"
 
 #: translations/strings.xml:2217( name="PPW_widget_43_label")
 msgid "Astrid 4x3"
-msgstr ""
+msgstr "Astrid 4x3"
 
 #: translations/strings.xml:2218( name="PPW_widget_44_label")
 msgid "Astrid 4x4"
-msgstr ""
+msgstr "Astrid 4x4"
 
 #: translations/strings.xml:2220( name="PPW_configure_title")
 msgid "Configure Widget"
@@ -3284,7 +3284,7 @@ msgstr ""
 
 #: translations/strings.xml:2227( name="PPW_due")
 msgid "Due:"
-msgstr ""
+msgstr "Escasença :"
 
 #: translations/strings.xml:2228( name="PPW_past_due")
 msgid "Past Due:"
@@ -3331,11 +3331,11 @@ msgstr ""
 
 #: translations/strings.xml:2247(item)
 msgid "Good evening!"
-msgstr ""
+msgstr "Bona serada !"
 
 #: translations/strings.xml:2248(item)
 msgid "Late night?"
-msgstr ""
+msgstr "Longa nuèch ?"
 
 #: translations/strings.xml:2249(item)
 msgid "It's early, get something done!"
@@ -3372,16 +3372,16 @@ msgstr ""
 
 #: translations/strings.xml:2266(item)
 msgid "Black"
-msgstr ""
+msgstr "Negre"
 
 #: translations/strings.xml:2267(item)
 msgid "White"
-msgstr ""
+msgstr "Blanc"
 
 #: translations/strings.xml:2268(item)
 msgid "Blue"
-msgstr ""
+msgstr "Blau"
 
 #: translations/strings.xml:2269(item)
 msgid "Translucent"
-msgstr ""
+msgstr "Transparent"
