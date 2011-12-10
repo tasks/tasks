@@ -213,6 +213,8 @@ public class AndroidUtilities {
             result.append('l').append(value);
         else if(value instanceof String)
             result.append('s').append(value.toString().replace(SERIALIZATION_SEPARATOR, SEPARATOR_ESCAPE));
+        else if (value instanceof Boolean)
+            result.append('b').append(value);
         else
             throw new UnsupportedOperationException(value.getClass().toString());
         result.append(SERIALIZATION_SEPARATOR);
@@ -257,6 +259,9 @@ public class AndroidUtilities {
                 case 's':
                     object.put(key, value.replace(SEPARATOR_ESCAPE, SERIALIZATION_SEPARATOR));
                     break;
+                case 'b':
+                    object.put(key, Boolean.parseBoolean(value));
+                    break;
                 }
             }
         });
@@ -287,6 +292,9 @@ public class AndroidUtilities {
                     break;
                 case 's':
                     object.putString(key, value.replace(SEPARATOR_ESCAPE, SERIALIZATION_SEPARATOR));
+                    break;
+                case 'b':
+                    object.putBoolean(key, Boolean.parseBoolean(value));
                     break;
                 }
             }
