@@ -39,6 +39,7 @@ import com.todoroo.astrid.utility.AstridPreferences;
 
 public final class UpgradeService {
 
+    public static final int V3_9_0_1 = 203;
     public static final int V3_9 = 202;
     public static final int V3_8_5_1 = 201;
     public static final int V3_8_5 = 200;
@@ -158,6 +159,13 @@ public final class UpgradeService {
 
         Preferences.clear(AstridPreferences.P_UPGRADE_FROM);
         StringBuilder changeLog = new StringBuilder();
+
+        if (from >= V3_9 && from < V3_9_0_1) {
+            newVersionString(changeLog, "3.9.0.1 (12/09/11)", new String[] {
+                    "Fix for a bug when adding premium widgets for Google Tasks lists",
+                    "Updated with new translations",
+            });
+        }
 
         if (from < V3_9) {
             newVersionString(changeLog, "3.9 (12/09/11)", new String[] {
