@@ -154,7 +154,7 @@
   <!-- Status: ongoing -->    
   <string name="sync_status_ongoing">同期中</string>
   <!-- Sync Status: success status (%s -> last sync date). Keep it short!-->    
-  <string name="sync_status_success">前回の同期: %s</string>
+  <string name="sync_status_success">前回の同期:\n%s</string>
   <!-- Sync Status: failure status (%s -> last attempted sync date) -->    
   <string name="sync_status_failed">失敗: %s</string>
   <!-- Sync Status: error status (%s -> last sync date) -->    
@@ -188,6 +188,9 @@
   <string name="sync_SPr_sync">すぐに同期!</string>
   <!-- Synchronize Now Button if not logged in-->    
   <string name="sync_SPr_sync_log_in">ログインと同期</string>
+  
+  <!-- Sync: Prefix string before logged in identifier -->
+  <string name="sync_SPr_logged_in_prefix">Logged in as:</string>
   
   <!-- Sync: Clear Data Title -->
   <string name="sync_SPr_forget">ログアウト</string>

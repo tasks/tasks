@@ -154,7 +154,7 @@
   <!-- Status: ongoing -->    
   <string name="sync_status_ongoing">Synchronisatie bezig...</string>
   <!-- Sync Status: success status (%s -> last sync date). Keep it short!-->    
-  <string name="sync_status_success">Vorige: %s</string>
+  <string name="sync_status_success">Vorige:\n%s</string>
   <!-- Sync Status: failure status (%s -> last attempted sync date) -->    
   <string name="sync_status_failed">Mislukt op: %s</string>
   <!-- Sync Status: error status (%s -> last sync date) -->    
@@ -188,6 +188,9 @@
   <string name="sync_SPr_sync">Synchroniseren</string>
   <!-- Synchronize Now Button if not logged in-->    
   <string name="sync_SPr_sync_log_in">Aanmelden &amp; Sync.</string>
+  
+  <!-- Sync: Prefix string before logged in identifier -->
+  <string name="sync_SPr_logged_in_prefix">Logged in as:</string>
   
   <!-- Sync: Clear Data Title -->
   <string name="sync_SPr_forget">Afmelden</string>

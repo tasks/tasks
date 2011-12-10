@@ -154,11 +154,11 @@
   <!-- Status: ongoing -->    
   <string name="sync_status_ongoing">Synchronisation en cours...</string>
   <!-- Sync Status: success status (%s -> last sync date). Keep it short!-->    
-  <string name="sync_status_success">Dernière synchro. : %s</string>
+  <string name="sync_status_success">Dernière synchro. :\n%s</string>
   <!-- Sync Status: failure status (%s -> last attempted sync date) -->    
   <string name="sync_status_failed">Échec sur : %s</string>
   <!-- Sync Status: error status (%s -> last sync date) -->    
-  <string name="sync_status_errors">Sync w/ Errors: %s</string>
+  <string name="sync_status_errors">Synchro avec Erreurs: %s</string>
   <!-- Sync Status: error subtitle (%s -> last successful sync date) -->    
   <string name="sync_status_failed_subtitle">Dernière synchro. réussie : %s</string>
   <!-- Sync Status: never sync'd -->    
@@ -188,6 +188,9 @@
   <string name="sync_SPr_sync">Synchroniser maintenant !</string>
   <!-- Synchronize Now Button if not logged in-->    
   <string name="sync_SPr_sync_log_in">Se connecter et synchroniser !</string>
+  
+  <!-- Sync: Prefix string before logged in identifier -->
+  <string name="sync_SPr_logged_in_prefix">Logged in as:</string>
   
   <!-- Sync: Clear Data Title -->
   <string name="sync_SPr_forget">Se déconnecter</string>

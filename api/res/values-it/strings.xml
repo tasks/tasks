@@ -154,7 +154,7 @@
   <!-- Status: ongoing -->    
   <string name="sync_status_ongoing">Sincronizzazione in corso ...</string>
   <!-- Sync Status: success status (%s -> last sync date). Keep it short!-->    
-  <string name="sync_status_success">Ultima Sincronizzazione: %s</string>
+  <string name="sync_status_success">Ultima Sincronizzazione:\n%s</string>
   <!-- Sync Status: failure status (%s -> last attempted sync date) -->    
   <string name="sync_status_failed">Fallita Su: %s</string>
   <!-- Sync Status: error status (%s -> last sync date) -->    
@@ -188,6 +188,9 @@
   <string name="sync_SPr_sync">Sincronizza Ora!</string>
   <!-- Synchronize Now Button if not logged in-->    
   <string name="sync_SPr_sync_log_in">Esegui l\'accesso &amp; Sincronizza!</string>
+  
+  <!-- Sync: Prefix string before logged in identifier -->
+  <string name="sync_SPr_logged_in_prefix">Logged in as:</string>
   
   <!-- Sync: Clear Data Title -->
   <string name="sync_SPr_forget">Esci</string>

@@ -30,9 +30,9 @@
   </plurals>
   <plurals name="DUt_weekdays">
     <!-- plurals: days -->
-    <item quantity="one">1 Weekday</item>
+    <item quantity="one">1 dzień roboczy</item>
     <!-- plurals: days -->
-    <item quantity="other">%d Weekdays</item>
+    <item quantity="other">%d dni roboczych</item>
   </plurals>
   <plurals name="DUt_hours">
     <!-- plurals: hours -->
@@ -78,9 +78,9 @@
   </plurals>
   <plurals name="Npeople">
     <!-- plurals: people -->
-    <item quantity="one">1 person</item>
+    <item quantity="one">1 osoba</item>
     <!-- plurals: people -->
-    <item quantity="other">%d people</item>
+    <item quantity="other">%d osób</item>
   </plurals>
   
   <!-- today -->
@@ -154,11 +154,11 @@
   <!-- Status: ongoing -->    
   <string name="sync_status_ongoing">Synchronizacja trwa...</string>
   <!-- Sync Status: success status (%s -> last sync date). Keep it short!-->    
-  <string name="sync_status_success">Ostatnia synchronizacja: %s</string>
+  <string name="sync_status_success">Ostatnia synchronizacja:\n%s</string>
   <!-- Sync Status: failure status (%s -> last attempted sync date) -->    
   <string name="sync_status_failed">Nieudana: %s</string>
   <!-- Sync Status: error status (%s -> last sync date) -->    
-  <string name="sync_status_errors">Sync w/ Errors: %s</string>
+  <string name="sync_status_errors">Synch w/ Błędy: %s</string>
   <!-- Sync Status: error subtitle (%s -> last successful sync date) -->    
   <string name="sync_status_failed_subtitle">Ostatnia udana synchronizacja: %s</string>
   <!-- Sync Status: never sync'd -->    
@@ -188,6 +188,9 @@
   <string name="sync_SPr_sync">Synchronizuj teraz!</string>
   <!-- Synchronize Now Button if not logged in-->    
   <string name="sync_SPr_sync_log_in">Zaloguj &amp; Synchronizuj!</string>
+  
+  <!-- Sync: Prefix string before logged in identifier -->
+  <string name="sync_SPr_logged_in_prefix">Logged in as:</string>
   
   <!-- Sync: Clear Data Title -->
   <string name="sync_SPr_forget">Wyloguj</string>

@@ -42,13 +42,13 @@
   </plurals>
   <plurals name="DUt_minutes">
     <!-- plurals: minutes -->
-    <item quantity="one">1 Minute</item>
+    <item quantity="one">Eine Minute</item>
     <!-- plurals: minutes -->
     <item quantity="other">%d Minuten</item>
   </plurals>
   <plurals name="DUt_seconds">
     <!-- plurals: seconds -->
-    <item quantity="one">1 Sekunde</item>
+    <item quantity="one">Eine Sekunde</item>
     <!-- plurals: seconds -->
     <item quantity="other">%d Sekunden</item>
   </plurals>
@@ -78,7 +78,7 @@
   </plurals>
   <plurals name="Npeople">
     <!-- plurals: people -->
-    <item quantity="one">1 Person</item>
+    <item quantity="one">Eine Person</item>
     <!-- plurals: people -->
     <item quantity="other">%d Personen</item>
   </plurals>
@@ -95,7 +95,7 @@
   <!-- ================================================== Generic Dialogs == -->
   
   <!-- confirmation dialog title -->
-  <string name="DLG_confirm_title">Bestätigen</string>
+  <string name="DLG_confirm_title">Bestätigen?</string>
   
   <!-- question dialog title -->
   <string name="DLG_question_title">Frage:</string>
@@ -139,7 +139,7 @@
   <string name="SyP_progress_toast">Synchronisiere…</string>
   
   <!-- Sync Label: used in menu to denote synchronization -->
-  <string name="SyP_label">Abgleich</string>  
+  <string name="SyP_label">Synchronisation</string>  
 
   <!-- Error msg when io exception  -->
   <string name="SyP_ioerror">Verbindungsfehler! Überprüfen Sie Ihre Internetverbindung.</string>
@@ -158,14 +158,14 @@
   <!-- Sync Status: failure status (%s -> last attempted sync date) -->    
   <string name="sync_status_failed">Fehlgeschlagen am: %s</string>
   <!-- Sync Status: error status (%s -> last sync date) -->    
-  <string name="sync_status_errors">Sync w/ Errors: %s</string>
+  <string name="sync_status_errors">Synchronisation w/ Fehler: %s</string>
   <!-- Sync Status: error subtitle (%s -> last successful sync date) -->    
   <string name="sync_status_failed_subtitle">Letzte erfolgreiche Synchronisierung: %s</string>
   <!-- Sync Status: never sync'd -->    
   <string name="sync_status_never">Noch nie synchronisiert!</string>
 
   <!-- Options Group Label -->    
-  <string name="sync_SPr_group_options">Einstellungen</string>
+  <string name="sync_SPr_group_options">Optionen</string>
 
   <!-- Preference: Synchronization Interval Title -->    
   <string name="sync_SPr_interval_title">Hintergrund-Synchronisierung</string>
@@ -185,9 +185,12 @@
   <string name="sync_SPr_group_actions">Aktionen</string>
 
   <!-- Synchronize Now Button -->    
-  <string name="sync_SPr_sync">Jetzt abgleichen!</string>
+  <string name="sync_SPr_sync">Jetzt synchronisieren!</string>
   <!-- Synchronize Now Button if not logged in-->    
   <string name="sync_SPr_sync_log_in">Einloggen &amp; Synchroniseren!</string>
+  
+  <!-- Sync: Prefix string before logged in identifier -->
+  <string name="sync_SPr_logged_in_prefix">Logged in as:</string>
   
   <!-- Sync: Clear Data Title -->
   <string name="sync_SPr_forget">Abmelden</string>
