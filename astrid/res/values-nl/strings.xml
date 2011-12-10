@@ -27,6 +27,9 @@
 
   <!-- menu item to select from gallery -->
   <string name="actfm_picture_gallery">Uit galerij halen</string>
+  
+  <!-- menu item to clear picture selection -->
+  <string name="actfm_picture_clear">Clear Picture</string>
 
   <!-- filter list activity: refresh tags -->
   <string name="actfm_FLA_menu_refresh">Lijsten vernieuwen</string>
@@ -48,6 +51,12 @@
     <!-- Tab for showing setting -->
     <item>Instellingen weergeven</item>
   </string-array>
+  
+  <!-- Tag View: filtered by assigned to user -->
+  <string name="actfm_TVA_filtered_by_assign">%s\'s tasks. Tap for all.</string>
+
+  <!-- Tag View: list is private, no members -->
+  <string name="actfm_TVA_no_members_alert">Private: tap to share this list</string>
 
   <!-- Tag View Menu: refresh -->
   <string name="actfm_TVA_menu_refresh">Vernieuwen</string>
@@ -87,13 +96,19 @@
   <!-- task sharing dialog: assigned to me -->
   <string name="actfm_EPA_assign_me">Mijzelf</string>
   
+  <!-- task sharing dialog: anyone -->
+  <string name="actfm_EPA_unassigned">Anyone</string>
+  
   <!-- task sharing dialog: custom email assignment -->
   <string name="actfm_EPA_assign_custom">Aangepast...</string>
   
   <!-- task sharing dialog: shared with label -->
   <string name="actfm_EPA_share_with">Medewerkers toevoegen</string>
   
-  <!-- task sharing dialog: collaborator list name (%s => name of list) -->
+  <!-- task sharing dialog: shared with label -->
+  <string name="actfm_EPA_collaborators_header">Share with Friends</string>
+
+      <!-- task sharing dialog: collaborator list name (%s => name of list) -->
   <string name="actfm_EPA_list">Lijst: %s</string>
   
   <!-- task sharing dialog: assigned hint -->
@@ -183,6 +198,10 @@
       
   <!-- Preferences Title: Act.fm -->    
   <string name="actfm_APr_header">Astrid.com (Beta!)</string>
+  
+  <string name="actfm_https_title">Use HTTPS</string>
+  <string name="actfm_https_enabled">HTTPS enabled (slower)</string>
+  <string name="actfm_https_disabled">HTTPS disabled (faster)</string>
 
   <!-- title for notification tray after synchronizing -->
   <string name="actfm_notification_title">Astrid.com synchronisatie</string>
@@ -352,6 +371,16 @@
   <!-- Progress Dialog generic text -->
   <string name="DLG_please_wait">Even geduld a.u.b.</string>
   
+  <!-- Dialog - loading -->
+  <string name="DLG_loading">Laden…</string>
+  
+  <!-- Dialog - dismiss -->
+  <string name="DLG_dismiss">Dismiss</string>
+  
+  <string name="DLG_ok">OK</string>
+  
+  <string name="DLG_cancel">Cancel</string>
+  
   <!-- =============================================================== UI == -->
   
   <!-- Label for DateButtons with no value -->
@@ -363,6 +392,11 @@
   <!-- String formatter for Disable button -->
   <string name="WID_disableButton">Uitschakelen</string>
   
+  <!-- =================================================== Welcome screen == -->
+  <!-- Label for DateButtons with no value -->
+  <string name="welcome_show_eula">Accept EULA to get started!</string>
+  
+  
   <!--  ============================================================= notes -->
   
   <!-- Note Exposer -->    
@@ -373,9 +407,6 @@
   
   <!-- EditNoteActivity - no comments -->
   <string name="ENA_no_comments">Niets om weer te geven</string>
-  
-  <!-- EditNoteActivity - loading -->
-  <string name="DLG_loading">Laden…</string>
   
   <!-- EditNoteActivity - refresh comments -->
   <string name="ENA_refresh_comments">Opmerkingen vernieuwen</string>
@@ -397,8 +428,8 @@
   <!-- Menu: Settings -->    
   <string name="TLA_menu_settings">Instellingen</string>
   
-  <!-- Menu: Help -->    
-  <string name="p_help">Help</string>
+  <!-- Menu: Support -->
+  <string name="TLA_menu_support">Support</string>
   
   <!-- Search Label-->
   <string name="TLA_search_label">In deze lijst zoeken</string>
@@ -407,10 +438,25 @@
   <string name="TLA_custom">Aangepast</string>
   
   <!-- Quick Add Edit Box Hint-->
-  <string name="TLA_quick_add_hint">Aan deze lijst toevoegen...</string>
+  <string name="TLA_quick_add_hint">Add a task</string>
+  
+  <!-- Quick Add Edit Box Hint for assigning -->
+  <string name="TLA_quick_add_hint_assign">Tap to assign %s a task</string>
   
   <!-- Notification Volumne notification-->
   <string name="TLA_notification_volume_low">Meldingsgeluid uitgeschakeld. U kunt Astrid niet horen!</string>
+  
+  <!-- Notifications disabled warning -->
+  <string name="TLA_notification_disabled">Astrid reminders are disabled! You will not receive any reminders</string>
+  
+  <string-array name="TLA_filters">
+      <item>Active</item>
+      <item>Vandaag</item>
+      <item>Soon</item>
+      <item>Late</item>
+      <item>Gereed</item>
+      <item>Hidden</item>      
+  </string-array>
   
   <!-- ====================================================== TaskAdapter == -->
   
@@ -517,13 +563,16 @@
   <!-- Toast: created shortcut (%s => label) -->
   <string name="FLA_toast_onCreateShortcut">Gemaakte snelkoppeling: %s</string>
   
+  <!-- Menu: new filter -->
+  <string name="FLA_new_filter">New Filter</string>
+  
   <!-- ================================================= TaskEditActivity == -->
   
   <!-- Title when editing a task (%s => task title) -->
   <string name="TEA_view_title">Astrid: \'%s\' bewerken</string>
   
   <!-- Title when creating a new task -->
-  <string name="TEA_view_titleNew">Astrid: Nieuwe taak</string>
+  <string name="TEA_view_titleNew">Nieuwe taak</string>
   
   <!-- First Tab - basic task details -->
   <string name="TEA_tab_basic">Algemeen</string>
@@ -539,6 +588,9 @@
   
   <!-- Task title label -->
   <string name="TEA_title_label">Titel</string>
+  
+  <!-- Task when label (note the <u> tags - be sure to leave those in when localizing! -->
+  <string name="TEA_when_header_label"><u>When</u></string>
   
   <!-- Task title hint (displayed when edit box is empty) -->
   <string name="TEA_title_hint">Samenvatting taak</string>
@@ -606,14 +658,44 @@
       <item>Volgende maand</item>
   </string-array>
   
+  <string name="TEA_no_time">No time</string>
+      
   <string-array name="TEA_hideUntil">
       <!-- hideUntil: labels for edit page. -->
-      <item>Niet verbergen</item>
-      <item>Taak heeft einddatum</item>
+      <item>Altijd</item>
+      <item>At due date</item>
       <item>Dag voor einddatum</item>
       <item>Week voor einddatum</item>
       <item>Specifieke dag/tijd</item>
   </string-array>
+  
+  <!-- Task edit control set descriptors -->
+  <string name="TEA_control_title">Task Title</string>
+  <string name="TEA_control_who">Who</string>
+  <string name="TEA_control_when">When</string>
+  <string name="TEA_control_more_section">More Section</string>
+  <string name="TEA_control_importance">Belangrijkheid</string>  
+  <string name="TEA_control_lists">Lijsten</string>  
+  <string name="TEA_control_notes">Notities</string>  
+  <string name="TEA_control_reminders">Reminders</string>
+  <string name="TEA_control_timer">Timer Controls</string>
+  <string name="TEA_control_share">Share With Friends</string>
+  
+      
+  <string-array name="TEA_control_sets">
+      <item>@string/TEA_control_title</item>
+      <item>@string/TEA_control_who</item>
+      <item>@string/TEA_control_when</item>
+      <item>@string/TEA_control_more_section</item>
+      <item>@string/TEA_control_importance</item>
+      <item>@string/TEA_control_lists</item>
+      <item>@string/TEA_control_notes</item>
+      <item>@string/TEA_control_reminders</item>
+      <item>@string/TEA_control_timer</item>
+      <item>@string/TEA_control_share</item>
+  </string-array>
+  
+  <string name="hide_until_prompt">Show in my list</string>
   
   <!-- Add Ons tab when no add-ons found -->
   <string name="TEA_addons_text">Meer functies</string>
@@ -621,6 +703,13 @@
   <!-- Add Ons button -->
   <string name="TEA_addons_button">Power Pack downloaden</string>
   
+  <!-- More row -->
+  <string name="TEA_more">Meer</string>
+  
+  <!-- When controls dialog -->
+  <string name="TEA_when_dialog_title">When is this due?</string>
+  
+  <string name="TEA_date_and_time">Date/Time</string>
   <!-- ============================================= IntroductionActivity == -->
   
   <!-- Introduction Window title -->
@@ -649,6 +738,8 @@
     
   <!-- Preference Window Title -->
   <string name="EPr_title">Astrid: Instellingen</string>
+  
+  <string name="EPr_deactivated">deactivated</string>
 
   <!-- Preference Category: Appearance Title -->
   <string name="EPr_appearance_header">Uiterlijk</string>
@@ -660,6 +751,11 @@
   
   <!-- Preference: Task List Show Notes -->
   <string name="EPr_showNotes_title">Notities bij taak weergeven</string>
+  <!-- Preference: Beast mode (auto-expand edit page) -->
+  <string name="EPr_beastMode_title">Beast Mode</string>
+  <string name="EPr_beastMode_desc">Customize the layout of the Task Edit Page</string>
+  <string name="EPr_beastMode_reset">Reset to defaults</string>
+      
   <!-- Preference: Task List Show Notes Description (disabled) -->
   <string name="EPr_showNotes_desc_disabled">Notities zullen in de snelle toegangsbalk worden weergegeven</string>  
   <!-- Preference: Task List Show Notes Description (enabled) -->
@@ -671,61 +767,12 @@
   <string name="EPr_theme_desc">Nu: %s</string>  
   <!-- Preference: Theme Description (android 1.6) -->
   <string name="EPr_theme_desc_unsupported">Instelllingen vereisen Android 2.0+</string>
-  
-  <!-- Preference Category: Defaults Title -->
-  <string name="EPr_defaults_header">Basisinstellingen nieuwe taak</string>
-  
-  <!-- Preference: Default Urgency Title -->
-  <string name="EPr_default_urgency_title">Standaard prioriteit</string>
-  <!-- Preference: Default Urgency Description (%s => setting) -->
-  <string name="EPr_default_urgency_desc">Nu: %s</string>
-  
-  <!-- Preference: Default Importance Title -->
-  <string name="EPr_default_importance_title">Standaard prioriteit</string>
-  <!-- Preference: Default Importance Description (%s => setting) -->
-  <string name="EPr_default_importance_desc">Nu: %s</string>
-  
-  <!-- Preference: Default Hide Until Title -->
-  <string name="EPr_default_hideUntil_title">Standaard verbergen tot</string>
-  <!-- Preference: Default Hide Until Description (%s => setting) -->
-  <string name="EPr_default_hideUntil_desc">Nu: %s</string>
-  
-  <!-- Preference: Default Reminders Title -->
-  <string name="EPr_default_reminders_title">Standaard herinneringen</string>
-  <!-- Preference: Default Hide Until Description (%s => setting) -->
-  <string name="EPr_default_reminders_desc">Nu: %s</string>
-  
-  <string-array name="EPr_default_importance">
-      <!-- importance: labels for "Task Defaults" preference item. -->
-      <item>!!! (Hoogste)</item>
-      <item>!!</item>
-      <item>!</item>
-      <item>o (Laagste)</item>
-  </string-array>
-  
-  <string-array name="EPr_default_urgency">
-      <!-- urgency: labels for "Task Defaults" preference item. -->
-      <item>Geen einddatum</item>
-      <item>Vandaag</item>
-      <item>Morgen</item>
-      <item>Overmorgen</item>
-      <item>Volgende week</item>
-  </string-array>
-  
-  <string-array name="EPr_default_hideUntil">
-      <!-- hideUntil: labels for "Task Defaults" preference item. -->
-      <item>Niet verbergen</item>
-      <item>Taak heeft einddatum</item>
-      <item>Dag voor einddatum</item>
-      <item>Week voor einddatum</item>
-  </string-array>
-  
-  <string-array name="EPr_default_reminders">
-      <!-- reminders: labels for "Task Defaults" preference item. -->
-      <item>Herinneringen zonder einddatum</item>
-      <item>Op de einddatum</item>
-      <item>Na de einddatum</item>
-      <item>Op of na de einddatum</item>
+    
+  <string-array name="EPr_default_reminders_mode">
+      <!-- reminders duration: labels for "Task Defaults" preference item. -->
+      <item>@string/TEA_reminder_mode_once</item>
+      <item>@string/TEA_reminder_mode_five</item>
+      <item>@string/TEA_reminder_mode_nonstop</item>
   </string-array>
     
   <string-array name="EPr_themes">
@@ -748,6 +795,16 @@
   <string name="EPr_manage_purge_deleted_message">Alle verwijderde taken werkelijk opschonen?\n\nDeze taken zijn dan definitief verwijderd!</string>
   <string name="EPr_manage_purge_deleted_status">%d verwijderde taken opgeschoond!</string>
   <string name="EPr_manage_purge_deleted_summary">Waarschuwing: Opgeschoonde verwijderde taken kunnen zonder backup-bestand niet worden hersteld!</string>
+
+  <string name="EPr_manage_delete_completed_gcal">Delete Calendar Events for Completed Tasks</string>
+  <string name="EPr_manage_delete_completed_gcal_message">Do you really want to delete all your events for completed tasks?</string>
+  <string name="EPr_manage_delete_completed_gcal_summary"/>
+  <string name="EPr_manage_delete_completed_gcal_status">Deleted %d calendar events!</string>
+      
+  <string name="EPr_manage_delete_all_gcal">Delete All Calendar Events for Tasks</string>
+  <string name="EPr_manage_delete_all_gcal_message">Do you really want to delete all your events for tasks?</string>
+  <string name="EPr_manage_delete_all_gcal_summary"/>
+  <string name="EPr_manage_delete_all_gcal_status">Deleted %d calendar events!</string>
       
   <!-- ==================================================== AddOnActivity == -->
   
@@ -790,6 +847,9 @@
   
   <!-- About text (%s => current version)-->
 <string name="p_about_text">Huidige versie: %s\n\n Astrid is open-source en wordt onderhouden door Todoroo, Inc.</string>
+
+  <!-- Title of "Help" option in settings -->
+  <string name="p_help">Help</string>
   
   <!-- ============================================================= Misc == -->
   
@@ -805,6 +865,82 @@
   <!-- Astrid's Android Marketplace description. It never appears in the app itself. -->
   <string name="marketplace_description">Astrid is de geliefde open-source Takenbeheerder, ontworpen om je taken gedaan te krijgen. Astrid heeft functies als herinneringen, bundelen van taken, synchronisatie, LBS plug-ins, widgets en nog veel meer!</string>
   
+
+
+
+
+   <!-- Preference Category: Defaults Title -->
+  <string name="EPr_defaults_header">Basisinstellingen nieuwe taak</string>
+  
+  <!-- Preference: Default Urgency Title -->
+  <string name="EPr_default_urgency_title">Standaard prioriteit</string>
+  <!-- Preference: Default Urgency Description (%s => setting) -->
+  <string name="EPr_default_urgency_desc">Nu: %s</string>
+  
+  <!-- Preference: Default Importance Title -->
+  <string name="EPr_default_importance_title">Standaard prioriteit</string>
+  <!-- Preference: Default Importance Description (%s => setting) -->
+  <string name="EPr_default_importance_desc">Nu: %s</string>
+  
+  <!-- Preference: Default Hide Until Title -->
+  <string name="EPr_default_hideUntil_title">Standaard verbergen tot</string>
+  <!-- Preference: Default Hide Until Description (%s => setting) -->
+  <string name="EPr_default_hideUntil_desc">Nu: %s</string>
+  
+  <!-- Preference: Default Reminders Title -->
+  <string name="EPr_default_reminders_title">Standaard herinneringen</string>
+  <!-- Preference: Default Reminders Description (%s => setting) -->
+  <string name="EPr_default_reminders_desc">Nu: %s</string>
+  
+  <!-- Preference: Default Add To Calendar Title -->
+  <string name="EPr_default_addtocalendar_title">Default Add To Calendar</string>
+  <!-- Preference: Default Add To Calendar Setting Description (disabled) -->
+  <string name="EPr_default_addtocalendar_desc_disabled">New tasks will not create an event in the Google Calendar</string>
+  <!-- Preference: Default Add To Calendar Setting Description (%s => setting) -->
+  <string name="EPr_default_addtocalendar_desc">New tasks will be in the calendar: \"%s\"</string>
+  
+  <!-- Reminder Mode Preference: Default Reminders Duration -->
+  <string name="EPr_default_reminders_mode_title">Default Ring/Vibrate type</string>
+  <!-- Preference: Default Reminders Description (%s => setting) -->
+  <string name="EPr_default_reminders_mode_desc">Nu: %s</string>
+  
+  <string-array name="EPr_default_importance">
+      <!-- importance: labels for "Task Defaults" preference item. -->
+      <item>!!! (Highest)</item>
+      <item>!!</item>
+      <item>!</item>
+      <item>o (Lowest)</item>
+  </string-array>
+  
+  <string-array name="EPr_default_urgency">
+      <!-- urgency: labels for "Task Defaults" preference item. -->
+      <item>Geen einddatum</item>
+      <item>Vandaag</item>
+      <item>Morgen</item>
+      <item>Overmorgen</item>
+      <item>Volgende week</item>
+  </string-array>
+  
+  <string-array name="EPr_default_hideUntil">
+      <!-- hideUntil: labels for "Task Defaults" preference item. -->
+      <item>Niet verbergen</item>
+      <item>Taak heeft einddatum</item>
+      <item>Dag voor einddatum</item>
+      <item>Week voor einddatum</item>
+  </string-array>
+  
+  <string-array name="EPr_default_reminders">
+      <!-- reminders: labels for "Task Defaults" preference item. -->
+      <item>Herinneringen zonder einddatum</item>
+      <item>Op de einddatum</item>
+      <item>Na de einddatum</item>
+      <item>Op of na de einddatum</item>
+  </string-array>
+  
+    <string-array name="EPr_default_addtocalendar">
+      <!-- addtocalendar: labels for "Task Defaults" preference item. -->
+      <item>@string/EPr_deactivated</item>
+  </string-array>      
 
 
 <!-- See the file "LICENSE" for the full license governing this code. -->
@@ -937,6 +1073,9 @@
   <!-- Toast when calendar event updated because task changed -->
   <string name="gcal_TEA_calendar_updated">Gebeurtenis ook bijgewerkt!</string>
   
+  <!-- No calendar label (don't add option) -->
+  <string name="gcal_TEA_nocal">Don\'t add</string>
+  
   <!-- ======================================================== Calendars == -->
   
   <!-- Calendar event name when task is completed (%s => task title) -->
@@ -1040,6 +1179,15 @@
 
     <!-- Error Message when we receive a HTTP 503 error -->
     <string name="gtasks_error_backend">Google\'s Task API is in beta and has encountered an error. The service may be down, please try again later.</string>
+    
+    <!-- Error for account not found -->
+    <string name="gtasks_error_accountNotFound">Account %s not found--please log out and log back in from the Google Tasks settings.</string>
+    
+    <!-- Error when ping after refreshing token fails -->
+    <string name="gtasks_error_authRefresh">Unable to authenticate with Google Tasks. Please check your account password or try again later.</string>
+    
+    <!-- Error when account manager returns no auth token or throws exception -->
+    <string name="gtasks_error_accountManager">Error in your phone\'s account manager. Please log out and log back in from the Google Tasks settings.</string>
 
     
         
@@ -1240,6 +1388,8 @@
     <!-- Spinner-item for default dashboard on taskeditactivity -->
     <string name="opencrx_TEA_dashboard_default">&lt;Standaard&gt;</string>
 
+    <string name="opencrx_TEA_opencrx_title">OpenCRX Controls</string>
+        
     <string name="CFC_opencrx_in_workspace_text">In Workspace: ?</string>
 
     <string name="CFC_opencrx_in_workspace_name">In Workspace...</string>
@@ -1247,6 +1397,7 @@
     <string name="CFC_opencrx_assigned_to_text">Toegewezen aan: ?</string>
 
     <string name="CFC_opencrx_assigned_to_name">Toegewezen aan...</string>
+
 
 
 <!-- See the file "LICENSE" for the full license governing this code. -->
@@ -1381,6 +1532,9 @@
     
     <!-- ================================================ labels for layout-elements == -->
     
+    <!-- Label for Producteev control set row -->
+    <string name="producteev_TEA_control_set_display">Producteev Assignment</string>
+    
     <!-- label for task-assignment spinner on taskeditactivity -->
     <string name="producteev_TEA_task_assign_label">Taak aan deze persoon toewijzen:</string>
     
@@ -1402,12 +1556,16 @@
     <string name="CFC_producteev_assigned_to_name">Toegewezen aan...</string>
 
 
+
 <!-- See the file "LICENSE" for the full license governing this code. -->
 
 
   <!-- Resources for built-in reminders plug-in -->
     
   <!-- =============================================== task edit activity == -->
+
+  <!-- Task Edit: Reminder group label -->  
+  <string name="TEA_reminders_group_label">Reminders</string>
 
   <!-- Task Edit: Reminder header label -->  
   <string name="TEA_reminder_label">Herinneren:</string>
@@ -1461,6 +1619,13 @@
   
   <!-- Reminder Preference Screen Title -->
   <string name="rmd_EPr_alerts_header">Instellingen herinneringen</string>
+    
+  <!-- Reminder Preference: Reminders Enabled Title -->
+  <string name="rmd_EPr_enabled_title">Reminders Enabled?</string>
+  <!-- Reminder Preference Reminders Enabled Description (true) -->
+  <string name="rmd_EPr_enabled_desc_true">Astrid reminders are enabled (this is normal)</string>
+  <!-- Reminder Preference Reminders Enabled Description (false) -->
+  <string name="rmd_EPr_enabled_desc_false">Astrid reminders will never appear on your phone</string>  
     
   <!-- Reminder Preference: Quiet Hours Start Title -->
   <string name="rmd_EPr_quiet_hours_start_title">Rustperiode begint</string>
@@ -1693,6 +1858,16 @@
       <item>Kopje koffie hierna?</item>
       <item>Aaah, nog eentje dan? Alsjeblieft?</item>
       <item>Tijd om je te-doen lijst op te schonen!</item>
+      <item>Are you on Team Order or Team Chaos? Team Order! Let\'s go!</item>
+      <item>Have I mentioned you are awesome recently? Keep it up!</item>
+      <item>A task a day keeps the clutter away... Goodbye clutter!</item>
+      <item>How do you do it?  Wow, I\'m impressed!</item>
+      <item>You can\'t just get by on your good looks. Let\'s get to it!</item>
+      <item>Lovely weather for a job like this, isn\'t it?</item>
+      <item>A spot of tea while you work on this?</item>
+      <item>If only you had already done this, then you could go outside and play.</item>
+      <item>It\’s time. You can\’t put off the inevitable.</item>
+      <item>I die a little every time you ignore me.</item>
   </string-array>
 
   <string-array name="postpone_nags">
@@ -1734,6 +1909,10 @@
   <!-- hint when opening repeat interval -->
   <string name="repeat_interval_prompt">Herhaal interval</string>
   
+  <string name="repeat_never">Never</string>
+  
+  <string name="repeat_dont">Don\'t repeat</string>
+      
   <string-array name="repeat_interval">
     <!-- repeat interval (days,weeks,months,hours,minutes,years) -->
     <item>Dag(en)</item>
@@ -1830,10 +2009,13 @@
   <!-- =============================================== Task Edit Controls == -->
 
   <!-- Tags label -->
-  <string name="TEA_tags_label">Aan lijst toevoegen:</string>
+  <string name="TEA_tags_label">Lijsten</string>
   
+  <!-- Tags none -->
+  <string name="TEA_tags_none">Geen</string>
+
   <!-- Tags hint -->
-  <string name="TEA_tag_hint">Lijst naam</string>
+  <string name="TEA_tag_hint">New list</string>
   
   <!-- Tags dropdown -->
   <string name="TEA_tag_dropdown">Selecteer een lijst</string>
@@ -1875,7 +2057,10 @@
   <string name="tag_FEx_category_inactive">Niet actief</string>
   
   <!-- filter for untagged tasks -->
-  <string name="tag_FEx_untagged">In geen enkele lijst</string>
+  <string name="tag_FEx_untagged">Not in any List</string>
+  
+  <!-- clarifying title for people who have Google and Astrid lists -->
+  <string name="tag_FEx_untagged_w_astrid">Not in an Astrid List</string>
   
   <!-- %s => tag name -->
   <string name="tag_FEx_name">Lijst: %s</string>
@@ -1896,10 +2081,21 @@
   <string name="TEA_no_tags_modified">Niets gewijzigd</string>
 
   <!-- Toast notification that a tag has been deleted -->
-  <string name="TEA_tags_deleted">De lijst %1$s is verwijderd, van invloed op %2$d taken</string>
+  <string name="TEA_tags_deleted">De lijst %1 is verwijderd, van invloed op %2$d taken</string>
 
   <!-- Toast notification that a tag has been renamed -->
   <string name="TEA_tags_renamed">Taak %1$s hernoemd naar %2$s voor %3$d taken</string>
+  
+  <!-- Tag case migration -->
+  <string name="tag_case_migration_notice">We\'ve noticed that you have some lists that have the same name with different capitalizations. We think you may have intended them to 
+  be the same list, so we\'ve combined the duplicates. Don\'t worry though: the original lists are simply renamed with numbers (e.g. Shopping_1, Shopping_2). If you don\'t want this, you
+  can simply delete the new combined list!</string>
+  
+  <!-- Header for tag settings -->
+  <string name="tag_settings_title">Settings: %s</string>
+  
+  <!-- Header for tag activity -->
+  <string name="tag_updates_title">Activity: %s</string>
 
 
 
@@ -1922,7 +2118,10 @@
     
     <!-- Filter for Timed Tasks -->
     <string name="TFE_workingOn">Taken met timer</string>
-      
+    
+    <!-- Title for TEA -->
+    <string name="TEA_timer_controls">Timer Controls</string>
+    
 
 
 <!-- See the file "LICENSE" for the full license governing this code. -->
