@@ -5,10 +5,10 @@
   <!-- ================================================== general terms == -->
 
   <!-- People Editing Activity -->    
-  <string name="EPE_action">Udostęp</string>
+  <string name="EPE_action">Udostępnij</string>
   
   <!-- task sharing dialog: assigned hint -->
-  <string name="actfm_person_hint">Contact or Email</string>
+  <string name="actfm_person_hint">Kontakt lub e-mail</string>
   
   <!-- task sharing dialog: shared with hint -->
   <string name="actfm_person_or_tag_hint">Kontakt lub lista udostępionych</string>
@@ -17,7 +17,7 @@
   <string name="actfm_toast_success">Zapisano na serwerze</string>
 
   <!-- toast on transmit error (%s => error) -->
-  <string name="actfm_toast_error">Save Failed: %s</string>
+  <string name="actfm_toast_error">Błąd zapisu: %s</string>
 
   <!-- can't rename or delete shared tag message -->
   <string name="actfm_tag_operation_disabled">Niestety, ale ta operacja nie jest jeszcze obsługiwana przez udostepnione tagi.</string>
@@ -26,10 +26,10 @@
   <string name="actfm_picture_camera">Zrób zdjęcie</string>
 
   <!-- menu item to select from gallery -->
-  <string name="actfm_picture_gallery">Wynierz z galerii</string>
+  <string name="actfm_picture_gallery">Wybierz z galerii</string>
   
   <!-- menu item to clear picture selection -->
-  <string name="actfm_picture_clear">Clear Picture</string>
+  <string name="actfm_picture_clear">Usuń obrazek</string>
 
   <!-- filter list activity: refresh tags -->
   <string name="actfm_FLA_menu_refresh">Odśwież listy</string>
@@ -56,7 +56,7 @@
   <string name="actfm_TVA_filtered_by_assign">%s\'s tasks. Tap for all.</string>
 
   <!-- Tag View: list is private, no members -->
-  <string name="actfm_TVA_no_members_alert">Private: tap to share this list</string>
+  <string name="actfm_TVA_no_members_alert">Prywatna: puknij by udostępnić</string>
 
   <!-- Tag View Menu: refresh -->
   <string name="actfm_TVA_menu_refresh">Odśwież</string>
@@ -91,13 +91,13 @@
   <string name="actfm_EPA_save">Zapisz i udostępnij</string>
   
   <!-- task sharing dialog: assigned label -->
-  <string name="actfm_EPA_assign_label">Who</string>
+  <string name="actfm_EPA_assign_label">Kto</string>
   
   <!-- task sharing dialog: assigned to me -->
   <string name="actfm_EPA_assign_me">Ja</string>
   
   <!-- task sharing dialog: anyone -->
-  <string name="actfm_EPA_unassigned">Anyone</string>
+  <string name="actfm_EPA_unassigned">Ktokolwiek</string>
   
   <!-- task sharing dialog: custom email assignment -->
   <string name="actfm_EPA_assign_custom">Inny...</string>
@@ -106,7 +106,7 @@
   <string name="actfm_EPA_share_with">Dodaj współpracowników:</string>
   
   <!-- task sharing dialog: shared with label -->
-  <string name="actfm_EPA_collaborators_header">Share with Friends</string>
+  <string name="actfm_EPA_collaborators_header">Udostępnij znajomym</string>
 
       <!-- task sharing dialog: collaborator list name (%s => name of list) -->
   <string name="actfm_EPA_list">Lista: %s</string>
@@ -118,7 +118,7 @@
   <string name="actfm_EPA_message_text">Widomość zaproszenia:</string>
   
   <!-- task sharing dialog: message body -->
-  <string name="actfm_EPA_message_body">Pomoc mi to zrobić!</string>
+  <string name="actfm_EPA_message_body">Pomóż mi to zrobić!</string>
   
   <!-- task sharing dialog: message hint -->
   <string name="actfm_EPA_tag_label">Utwórz tag udostępnienia?</string>
@@ -153,13 +153,13 @@
   <string name="actfm_ALA_body">Astrid.com umożliwia dostęp do zadań online, udostępniania i przekazywania innym.</string>
 
   <!-- share login: Sharing Login FB Prompt -->
-  <string name="actfm_ALA_fb_login">Login with Facebook</string>
+  <string name="actfm_ALA_fb_login">Zaloguj przez Facebook</string>
 
   <!-- share login: Sharing Login GG Prompt -->
-  <string name="actfm_ALA_gg_login">Login with Google</string>
+  <string name="actfm_ALA_gg_login">Zaloguj przez Google</string>
   
   <!-- share login: Sharing Footer Password Label -->
-  <string name="actfm_ALA_pw_login">Don\'t use Google or Facebook?</string>
+  <string name="actfm_ALA_pw_login">Nie używasz Google ani Facebooka?</string>
 
   <!-- share login: Sharing Password Link -->
   <string name="actfm_ALA_pw_link">Zarejestruj się tutaj</string>
@@ -186,28 +186,28 @@
   <string name="actfm_ALA_signup_title">Utwórz nowe konto</string>
 
   <!-- share login: Login Title -->
-  <string name="actfm_ALA_login_title">Zalogój sie do Astrid.com</string>
+  <string name="actfm_ALA_login_title">Zaloguj sie do Astrid.com</string>
 
   <!-- share login: OAUTH Login Prompt -->
   <string name="actfm_OLA_prompt">Proszę połączyć się z Google:</string>
 
   <!-- share login: Sharing notice -->
-  <string name="actfm_ALA_notice">Astrid nie wysyła wiadomości email bez zezwolenia.</string>
+  <string name="actfm_ALA_notice">Astrid nie wysyła wiadomości e-mail bez zezwolenia.</string>
 
   <!-- ================================================ Synchronization == -->
       
   <!-- Preferences Title: Act.fm -->    
   <string name="actfm_APr_header">Astrid.com (Beta!)</string>
   
-  <string name="actfm_https_title">Use HTTPS</string>
-  <string name="actfm_https_enabled">HTTPS enabled (slower)</string>
-  <string name="actfm_https_disabled">HTTPS disabled (faster)</string>
+  <string name="actfm_https_title">Użycie HTTPS</string>
+  <string name="actfm_https_enabled">HTTPS włączone (wolniej)</string>
+  <string name="actfm_https_disabled">HTTPS wyłączone (szybciej)</string>
 
   <!-- title for notification tray after synchronizing -->
   <string name="actfm_notification_title">Synchronizuj</string>
   
   <!-- text for notification when comments are received -->
-  <string name="actfm_notification_comments">Nowe komentarze otrzymano / kliknij po więcej informacji</string>
+  <string name="actfm_notification_comments">Otrzymano nowe komentarze / kliknij po więcej informacji</string>
     
 
 
@@ -244,9 +244,9 @@
     <string name="backup_BPr_group_status">Stan</string>
     
     <!-- Backup Status: last backup was a success (%s -> last date). Keep it short! -->    
-    <string name="backup_status_success">Latest backup:\n%s</string>
+    <string name="backup_status_success">Ostatnia kopia zapasowa:\n%s</string>
     <!-- Backup Status: last error failed. Keep it short! -->    
-    <string name="backup_status_failed">Ostatnie niepowodzenie kopii zapasowej</string>
+    <string name="backup_status_failed">Błąd zapisu ostatniej kopii</string>
     <!-- Backup Status: error subtitle -->    
     <string name="backup_status_failed_subtitle">(dotknij, aby zobaczyć błąd)</string>
     <!-- Backup Status: never backed up -->    
@@ -375,11 +375,11 @@
   <string name="DLG_loading">Ładowanie...</string>
   
   <!-- Dialog - dismiss -->
-  <string name="DLG_dismiss">Dismiss</string>
+  <string name="DLG_dismiss">Porzuć</string>
   
   <string name="DLG_ok">OK</string>
   
-  <string name="DLG_cancel">Cancel</string>
+  <string name="DLG_cancel">Anuluj</string>
   
   <!-- =============================================================== UI == -->
   
@@ -394,7 +394,7 @@
   
   <!-- =================================================== Welcome screen == -->
   <!-- Label for DateButtons with no value -->
-  <string name="welcome_show_eula">Accept EULA to get started!</string>
+  <string name="welcome_show_eula">Zaakceptuj EULA by rozpocząć!</string>
   
   
   <!--  ============================================================= notes -->
@@ -406,7 +406,7 @@
   <string name="ENE_label_comments">Komentarze</string>
   
   <!-- EditNoteActivity - no comments -->
-  <string name="ENA_no_comments">Nic do pokazania</string>
+  <string name="ENA_no_comments">Brak komentarzy</string>
   
   <!-- EditNoteActivity - refresh comments -->
   <string name="ENA_refresh_comments">Odśwież komentarze</string>
@@ -429,7 +429,7 @@
   <string name="TLA_menu_settings">Ustawienia</string>
   
   <!-- Menu: Support -->
-  <string name="TLA_menu_support">Support</string>
+  <string name="TLA_menu_support">Wsparcie</string>
   
   <!-- Search Label-->
   <string name="TLA_search_label">Przeszukaj tą listę</string>
@@ -438,7 +438,7 @@
   <string name="TLA_custom">Własny filtr</string>
   
   <!-- Quick Add Edit Box Hint-->
-  <string name="TLA_quick_add_hint">Add a task</string>
+  <string name="TLA_quick_add_hint">Dodaj zadanie</string>
   
   <!-- Quick Add Edit Box Hint for assigning -->
   <string name="TLA_quick_add_hint_assign">Tap to assign %s a task</string>
@@ -447,15 +447,15 @@
   <string name="TLA_notification_volume_low">Powiadomienia są wyciszone. Nie będziesz w stanie usłyszeć Astrid!</string>
   
   <!-- Notifications disabled warning -->
-  <string name="TLA_notification_disabled">Astrid reminders are disabled! You will not receive any reminders</string>
+  <string name="TLA_notification_disabled">Powiadomienia są wyłączone! Nie otrzymasz żadnych powiadomień</string>
   
   <string-array name="TLA_filters">
-      <item>Active</item>
+      <item>Aktywne</item>
       <item>Dzisiaj</item>
-      <item>Soon</item>
-      <item>Late</item>
+      <item>Wkrótce</item>
+      <item>Spóźnione</item>
       <item>Gotowe</item>
-      <item>Hidden</item>      
+      <item>Ukryte</item>      
   </string-array>
   
   <!-- ====================================================== TaskAdapter == -->
@@ -485,7 +485,7 @@
   <string name="TAd_contextDeleteTask">Usuń zadanie</string>
 
   <!-- Context Item: undelete task -->
-  <string name="TAd_contextUndeleteTask">Przywrócone zadanie</string>
+  <string name="TAd_contextUndeleteTask">Przywróć zadanie</string>
 
   <!-- Context Item: purge task -->
   <string name="TAd_contextPurgeTask">Usuń zadanie na trwałe</string>
@@ -564,7 +564,7 @@
   <string name="FLA_toast_onCreateShortcut">Utworzono skrót: %s</string>
   
   <!-- Menu: new filter -->
-  <string name="FLA_new_filter">New Filter</string>
+  <string name="FLA_new_filter">Nowy filtr</string>
   
   <!-- ================================================= TaskEditActivity == -->
   
@@ -578,7 +578,7 @@
   <string name="TEA_tab_basic">Podstawowe</string>
   
   <!-- Second Tab - extra details -->
-  <string name="TEA_tab_share">Udostęp</string>
+  <string name="TEA_tab_share">Udostępnij</string>
   
   <!-- Second Tab - extra details -->
   <string name="TEA_tab_alarms">Alarmy</string>
@@ -590,7 +590,7 @@
   <string name="TEA_title_label">Tytuł</string>
   
   <!-- Task when label (note the <u> tags - be sure to leave those in when localizing! -->
-  <string name="TEA_when_header_label"><u>When</u></string>
+  <string name="TEA_when_header_label"><u>Kiedy</u></string>
   
   <!-- Task title hint (displayed when edit box is empty) -->
   <string name="TEA_title_hint">Podsumowanie zadania</string>
@@ -608,7 +608,7 @@
   <string name="TEA_urgency_none">Brak</string>
   
   <!-- Task hide until label -->
-  <string name="TEA_hideUntil_label">Show Task</string>
+  <string name="TEA_hideUntil_label">Pokaż zadanie</string>
   
   <!-- Task editing data being loaded label -->
   <string-array name="TEA_loading"><item>Ładowanie...</item></string-array>
@@ -658,28 +658,28 @@
       <item>Przyszły miesiąc</item>
   </string-array>
   
-  <string name="TEA_no_time">No time</string>
+  <string name="TEA_no_time">Bez godziny</string>
       
   <string-array name="TEA_hideUntil">
       <!-- hideUntil: labels for edit page. -->
       <item>Zawsze</item>
-      <item>At due date</item>
-      <item>Dzień przez wymaganiem</item>
-      <item>Tydzień przed wymaganiem</item>
+      <item>W terminie</item>
+      <item>Dzień przed terminem</item>
+      <item>Tydzień przed terminem</item>
       <item>Konkretny dzień/godzina</item>
   </string-array>
   
   <!-- Task edit control set descriptors -->
-  <string name="TEA_control_title">Task Title</string>
-  <string name="TEA_control_who">Who</string>
-  <string name="TEA_control_when">When</string>
-  <string name="TEA_control_more_section">More Section</string>
+  <string name="TEA_control_title">Tytuł zadania</string>
+  <string name="TEA_control_who">Kto</string>
+  <string name="TEA_control_when">Kiedy</string>
+  <string name="TEA_control_more_section">Sekcja "Więcej"</string>
   <string name="TEA_control_importance">Skala ważności</string>  
   <string name="TEA_control_lists">Listy</string>  
   <string name="TEA_control_notes">Notatki</string>  
-  <string name="TEA_control_reminders">Reminders</string>
-  <string name="TEA_control_timer">Timer Controls</string>
-  <string name="TEA_control_share">Share With Friends</string>
+  <string name="TEA_control_reminders">Przypomnienia</string>
+  <string name="TEA_control_timer">Kontrola czasu</string>
+  <string name="TEA_control_share">Udostępnij</string>
   
       
   <string-array name="TEA_control_sets">
@@ -695,7 +695,7 @@
       <item>@string/TEA_control_share</item>
   </string-array>
   
-  <string name="hide_until_prompt">Show in my list</string>
+  <string name="hide_until_prompt">Pokaż na mojej liście</string>
   
   <!-- Add Ons tab when no add-ons found -->
   <string name="TEA_addons_text">Szukasz więcej funkcji?</string>
@@ -707,9 +707,9 @@
   <string name="TEA_more">Więcej</string>
   
   <!-- When controls dialog -->
-  <string name="TEA_when_dialog_title">When is this due?</string>
+  <string name="TEA_when_dialog_title">Na kiedy ma być zrobione?</string>
   
-  <string name="TEA_date_and_time">Date/Time</string>
+  <string name="TEA_date_and_time">Data/Godzina</string>
   <!-- ============================================= IntroductionActivity == -->
   
   <!-- Introduction Window title -->
@@ -739,7 +739,7 @@
   <!-- Preference Window Title -->
   <string name="EPr_title">Astrid: Właściwości</string>
   
-  <string name="EPr_deactivated">deactivated</string>
+  <string name="EPr_deactivated">nieaktywne</string>
 
   <!-- Preference Category: Appearance Title -->
   <string name="EPr_appearance_header">Wygląd</string>
@@ -752,9 +752,9 @@
   <!-- Preference: Task List Show Notes -->
   <string name="EPr_showNotes_title">Pokaż notatki w zadaniu</string>
   <!-- Preference: Beast mode (auto-expand edit page) -->
-  <string name="EPr_beastMode_title">Beast Mode</string>
-  <string name="EPr_beastMode_desc">Customize the layout of the Task Edit Page</string>
-  <string name="EPr_beastMode_reset">Reset to defaults</string>
+  <string name="EPr_beastMode_title">Tryb "Beast"</string>
+  <string name="EPr_beastMode_desc">Dostosuj układ strony edycji zadania</string>
+  <string name="EPr_beastMode_reset">Powrót domyślne</string>
       
   <!-- Preference: Task List Show Notes Description (disabled) -->
   <string name="EPr_showNotes_desc_disabled">Notatki będą wyświetlane na pasku szybkiego działania</string>  
@@ -762,7 +762,7 @@
   <string name="EPr_showNotes_desc_enabled">Notatki będą zawsze wyświetlane</string>
   
   <!-- Preference: Theme -->
-  <string name="EPr_theme_title">Color Theme</string>
+  <string name="EPr_theme_title">Kolorystyka</string>
   <!-- Preference: Theme Description (%s => value) -->
   <string name="EPr_theme_desc">Aktualnie: %s</string>  
   <!-- Preference: Theme Description (android 1.6) -->
@@ -777,10 +777,10 @@
     
   <string-array name="EPr_themes">
     <!-- theme_settings: labels for Theme preference menu -->
-    <item>Day</item>
-    <item>Night</item>
-    <item>Transparent (White Text)</item>
-    <item>Transparent (Black Text)</item>
+    <item>Dzień</item>
+    <item>Noc</item>
+    <item>Przezroczysty (biały tekst)</item>
+    <item>Przezroczysty (czarny tekst)</item>
   </string-array>
   
   <!-- ========================================== Task Management Settings == -->
@@ -796,15 +796,15 @@
   <string name="EPr_manage_purge_deleted_status">Oczyszczone %d zadań!</string>
   <string name="EPr_manage_purge_deleted_summary">Uwaga! Oczyszczone zadania nie mogą być odzyskane bez pliku kopii zapasowej!</string>
 
-  <string name="EPr_manage_delete_completed_gcal">Delete Calendar Events for Completed Tasks</string>
-  <string name="EPr_manage_delete_completed_gcal_message">Do you really want to delete all your events for completed tasks?</string>
+  <string name="EPr_manage_delete_completed_gcal">Usuń wydarzenia kalendarza dla zakończonych zadań</string>
+  <string name="EPr_manage_delete_completed_gcal_message">Na pewno chcesz usunąć wszystkie wydarzenia dla zakończonych zadań?</string>
   <string name="EPr_manage_delete_completed_gcal_summary"/>
-  <string name="EPr_manage_delete_completed_gcal_status">Deleted %d calendar events!</string>
+  <string name="EPr_manage_delete_completed_gcal_status">Usunięto %d wydarzeń kalendarza!</string>
       
-  <string name="EPr_manage_delete_all_gcal">Delete All Calendar Events for Tasks</string>
-  <string name="EPr_manage_delete_all_gcal_message">Do you really want to delete all your events for tasks?</string>
+  <string name="EPr_manage_delete_all_gcal">Usuń wszystkie zdarzenia kalendarza dla zadań</string>
+  <string name="EPr_manage_delete_all_gcal_message">Na pewno chcesz usunąć wszystkie wydarzenia dla zadań?</string>
   <string name="EPr_manage_delete_all_gcal_summary"/>
-  <string name="EPr_manage_delete_all_gcal_status">Deleted %d calendar events!</string>
+  <string name="EPr_manage_delete_all_gcal_status">Usunięto %d wydarzeń kalendarza!</string>
       
   <!-- ==================================================== AddOnActivity == -->
   
@@ -846,7 +846,7 @@
   <string name="p_about">O Astrid</string>
   
   <!-- About text (%s => current version)-->
-<string name="p_about_text">Bieżąca wersja: %s\n\n Astrid is open-source and proudly maintained by Todoroo, Inc.</string>
+<string name="p_about_text">Bieżąca wersja: %s\n\n Astrid ma otwarte źródła i jest zarządzana z dumą przez Todoroo, Inc.</string>
 
   <!-- Title of "Help" option in settings -->
   <string name="p_help">Pomoc</string>
@@ -893,14 +893,14 @@
   <string name="EPr_default_reminders_desc">Aktualnie: %s</string>
   
   <!-- Preference: Default Add To Calendar Title -->
-  <string name="EPr_default_addtocalendar_title">Default Add To Calendar</string>
+  <string name="EPr_default_addtocalendar_title">Domyślnie dodawaj do kalendarza</string>
   <!-- Preference: Default Add To Calendar Setting Description (disabled) -->
-  <string name="EPr_default_addtocalendar_desc_disabled">New tasks will not create an event in the Google Calendar</string>
+  <string name="EPr_default_addtocalendar_desc_disabled">Nowe zadania nie utworzą wydarzeń w Kalendarzu Google</string>
   <!-- Preference: Default Add To Calendar Setting Description (%s => setting) -->
-  <string name="EPr_default_addtocalendar_desc">New tasks will be in the calendar: \"%s\"</string>
+  <string name="EPr_default_addtocalendar_desc">Nowe zadania będą w kalendarzu: \"%s\"</string>
   
   <!-- Reminder Mode Preference: Default Reminders Duration -->
-  <string name="EPr_default_reminders_mode_title">Default Ring/Vibrate type</string>
+  <string name="EPr_default_reminders_mode_title">Domyślny dzwonek/wibracja</string>
   <!-- Preference: Default Reminders Description (%s => setting) -->
   <string name="EPr_default_reminders_mode_desc">Aktualnie: %s</string>
   
@@ -924,17 +924,17 @@
   <string-array name="EPr_default_hideUntil">
       <!-- hideUntil: labels for "Task Defaults" preference item. -->
       <item>Nie ukrywaj</item>
-      <item>Zadanie jest wymagane</item>
-      <item>Dzień przez wymaganiem</item>
-      <item>Tydzień przed wymaganiem</item>
+      <item>Do terminu zadania</item>
+      <item>Do dnia przed terminem</item>
+      <item>Do tygodnia przed terminem</item>
   </string-array>
   
   <string-array name="EPr_default_reminders">
       <!-- reminders: labels for "Task Defaults" preference item. -->
-      <item>Brak przypomnień dla terminu nieprzekraczalnego</item>
-      <item>W dniu terminu nieprzekraczalnego</item>
+      <item>Brak przypomnień</item>
+      <item>W dniu terminu</item>
       <item>Gdy zaległe</item>
-      <item>W nieprzekraczalnym terminie lub gdy zaległe</item>
+      <item>W terminie lub gdy zaległe</item>
   </string-array>
   
     <string-array name="EPr_default_addtocalendar">
@@ -963,7 +963,7 @@
     <string name="BFE_Custom">Własny filtr...</string>
     
     <!-- Saved Filters Header -->
-    <string name="BFE_Saved">Filters</string>
+    <string name="BFE_Saved">Filtry</string>
     
     <!-- Saved Filters Context Menu: delete -->
     <string name="BFE_Saved_delete">Usuń filtr</string>
@@ -1062,19 +1062,19 @@
   <string name="gcal_TEA_calendar_label">Integracja z kalendarzem:</string>
 
   <!-- Label for adding task to calendar -->
-  <string name="gcal_TEA_addToCalendar_label">Add to Calendar</string>
+  <string name="gcal_TEA_addToCalendar_label">Dodaj do kalendarza</string>
   
   <!-- Label when calendar event already exists -->
-  <string name="gcal_TEA_showCalendar_label">Otwórz zdarzenie kalendarza</string>
+  <string name="gcal_TEA_showCalendar_label">Otwórz wydarzenie kalendarza</string>
   
   <!-- Toast when unable to open calendar event -->
-  <string name="gcal_TEA_calendar_error">Błąd podczas otwierania zdarzenia!</string>
+  <string name="gcal_TEA_calendar_error">Błąd podczas otwierania wydarzenia!</string>
   
   <!-- Toast when calendar event updated because task changed -->
-  <string name="gcal_TEA_calendar_updated">Zdarzenie kalendarza również uaktualnione!</string>
+  <string name="gcal_TEA_calendar_updated">Wydarzenie kalendarza również uaktualnione!</string>
   
   <!-- No calendar label (don't add option) -->
-  <string name="gcal_TEA_nocal">Don\'t add</string>
+  <string name="gcal_TEA_nocal">Nie dodawaj</string>
   
   <!-- ======================================================== Calendars == -->
   
@@ -1102,7 +1102,7 @@
     <string name="gtasks_FEx_title">Zadania Google: %s</string>
     
     <!-- dialog prompt for creating a new gtasks list -->
-    <string name="gtasks_FEx_creating_list">Creating list...</string>
+    <string name="gtasks_FEx_creating_list">Tworzenie listy...</string>
     
     <!-- dialog prompt for creating a new gtasks list -->
     <string name="gtasks_FEx_create_list_dialog">Nowa nazwa listy:</string>
@@ -1121,10 +1121,10 @@
     <string name="CFC_gtasks_list_name">Na liście GTasks...</string>
     
     <!-- Message while clearing completed tasks -->
-    <string name="gtasks_GTA_clearing">Clearing completed tasks...</string>
+    <string name="gtasks_GTA_clearing">Czyszczenie zakończonych zadań...</string>
     
     <!-- Label for clear completed menu item -->
-    <string name="gtasks_GTA_clear_completed">Clear Completed</string>
+    <string name="gtasks_GTA_clear_completed">Wyczyść zakończone</string>
         
     <!-- ============================================ GtasksLoginActivity == -->
     
@@ -1168,9 +1168,9 @@
     <!-- GTasks Preferences Title -->    
     <string name="gtasks_GPr_header">Google Tasks (Beta!)</string>
     
-    <string name="gtasks_GPr_sync_on_save">Synch przy Zapisie</string>
+    <string name="gtasks_GPr_sync_on_save">Synch. przy Zapisie</string>
     
-    <string name="gtasks_GPr_sync_on_save_summary">Synch poszczególne zadania, ponieważ są one zapisane</string>
+    <string name="gtasks_GPr_sync_on_save_summary">Synch. poszczególne zadania, gdy są one zapisane</string>
     
     <!-- ================================================ Synchronization == -->    
     
@@ -1178,16 +1178,16 @@
     <string name="gtasks_notification_title">Astrid: Zadania Google</string>
 
     <!-- Error Message when we receive a HTTP 503 error -->
-    <string name="gtasks_error_backend">Google\'s Task API is in beta and has encountered an error. The service may be down, please try again later.</string>
+    <string name="gtasks_error_backend">API Zadań Google jest w fazie beta i napotkano błąd. Serwis może być niedostępny, spróbuj ponownie później.</string>
     
     <!-- Error for account not found -->
-    <string name="gtasks_error_accountNotFound">Account %s not found--please log out and log back in from the Google Tasks settings.</string>
+    <string name="gtasks_error_accountNotFound">Nie znaleziono konta %s --proszę wyloguj się i zaloguj ponownie w ustawieniach Google Zadań.</string>
     
     <!-- Error when ping after refreshing token fails -->
-    <string name="gtasks_error_authRefresh">Unable to authenticate with Google Tasks. Please check your account password or try again later.</string>
+    <string name="gtasks_error_authRefresh">Uwierzytelnienie w Google Zadania nieudane. Proszę, sprawdź poprawność swego hasła lub spróbuj ponownie później.</string>
     
     <!-- Error when account manager returns no auth token or throws exception -->
-    <string name="gtasks_error_accountManager">Error in your phone\'s account manager. Please log out and log back in from the Google Tasks settings.</string>
+    <string name="gtasks_error_accountManager">Błąd w menadżerze kont Twojego telefonu. Proszę, wyloguj się i zaloguj ponownie w ustawieniach Google Zadań.</string>
 
     
         
@@ -1223,7 +1223,7 @@
   </string>
   
     <!-- Task 3 Summary  -->
-  <string name="intro_task_3_summary">Ustaw synch z Astrid.com</string>
+  <string name="intro_task_3_summary">Ustaw synch. z Astrid.com</string>
 
   <!-- Task 3 Note -->
   <string name="intro_task_3_note">
@@ -1237,39 +1237,39 @@
   
   <!-- help bubbles -->
   <!-- Shown the first time a user sees the task list activity -->
-  <string name="help_popover_add_task">Add a task here</string>
+  <string name="help_popover_add_task">Dodaj zadanie tutaj</string>
 
   <!-- Shown the first time a user adds a task to a list -->  
-  <string name="help_popover_tap_task">Tap task to edit and share</string>
+  <string name="help_popover_tap_task">Puknij zadanie by je edytować i udostępnić</string>
   
   <!-- Shown the first time a user sees the list activity -->
-  <string name="help_popover_list_settings">Tap list settings to share the entire list</string>
+  <string name="help_popover_list_settings">Puknij ustawienia listy by udostępnić całą listę</string>
   
   <!-- Shown the first time a user sees the list settings tab -->
-  <string name="help_popover_collaborators">Collaborators can help you build your list or finish tasks</string>
+  <string name="help_popover_collaborators">Współpracownicy mogą Ci pomóc stworzyć listę lub wykonać zadania</string>
   
   <!-- Login activity -->
   <string name="welcome_login_title">Witaj w Astrid!</string>
   
   <string name="welcome_login_intro"/>
   
-  <string name="welcome_login_tos_base">By using Astrid you agree to the</string>
+  <string name="welcome_login_tos_base">Używając Astrid zgadzasz się na</string>
   
-  <string name="welcome_login_tos_link">\"Terms of Service\"</string>
+  <string name="welcome_login_tos_link">\"Warunki korzystania z usług\"</string>
   
-  <string name="welcome_login_pw">Login with Username/Password</string>
+  <string name="welcome_login_pw">Zaloguj za pomocą loginu/hasła</string>
   
-  <string name="welcome_login_later">Login Later</string>
+  <string name="welcome_login_later">Zaloguj później</string>
   
-  <string name="welcome_login_confirm_later_title">Why not sign in?</string>
+  <string name="welcome_login_confirm_later_title">Czemu by się nie zalogować?</string>
   
-  <string name="welcome_login_confirm_later_ok">I\'ll do it!</string>
+  <string name="welcome_login_confirm_later_ok">Zrobię to!</string>
   
-  <string name="welcome_login_confirm_later_cancel">No thanks</string>
+  <string name="welcome_login_confirm_later_cancel">Nie, dzięki</string>
   
-  <string name="welcome_login_confirm_later_dialog">Sign in to get the most out of Astrid! 
-  For free, you get online backup, full synchronization with Astrid.com, the 
-  ability to add tasks via email, and you can even share task lists with friends!</string>
+  <string name="welcome_login_confirm_later_dialog">Zaloguj się by wyciągnąć z Astrid jeszcze więcej!
+  Za darmo otrzymasz kopię zapasową online, pełną synchronizację z Astrid.com,
+  możliwość dodawania zadań przez e-mail i będziesz mógł dzielić się swoimi listami zadań ze znajomymi!</string>
   
 
 
@@ -1389,7 +1389,7 @@
     <!-- ================================================= Login Activity == -->
 
     <!-- Activity Title: Opencrx Login -->    
-    <string name="opencrx_PLA_title">Zalogój do OpenCRX</string>
+    <string name="opencrx_PLA_title">Zaloguj do OpenCRX</string>
 
     <!-- Instructions: Opencrx login -->    
     <string name="opencrx_PLA_body">Zaloguj się na konto OpenCRX</string>
@@ -1617,7 +1617,7 @@
   <!-- =============================================== task edit activity == -->
 
   <!-- Task Edit: Reminder group label -->  
-  <string name="TEA_reminders_group_label">Reminders</string>
+  <string name="TEA_reminders_group_label">Przypomnienia</string>
 
   <!-- Task Edit: Reminder header label -->  
   <string name="TEA_reminder_label">Przypomnij mi:</string>
@@ -1673,11 +1673,11 @@
   <string name="rmd_EPr_alerts_header">Ustawienia przypomnienia</string>
     
   <!-- Reminder Preference: Reminders Enabled Title -->
-  <string name="rmd_EPr_enabled_title">Reminders Enabled?</string>
+  <string name="rmd_EPr_enabled_title">Przypomnienia włączone?</string>
   <!-- Reminder Preference Reminders Enabled Description (true) -->
-  <string name="rmd_EPr_enabled_desc_true">Astrid reminders are enabled (this is normal)</string>
+  <string name="rmd_EPr_enabled_desc_true">Przypomnienia Astrid są włączone (to normalne)</string>
   <!-- Reminder Preference Reminders Enabled Description (false) -->
-  <string name="rmd_EPr_enabled_desc_false">Astrid reminders will never appear on your phone</string>  
+  <string name="rmd_EPr_enabled_desc_false">Przypomnienia Astrid nigdy nie pojawią się na Twoim telefonie</string>  
     
   <!-- Reminder Preference: Quiet Hours Start Title -->
   <string name="rmd_EPr_quiet_hours_start_title">Początek czasu wyciszenia</string>
@@ -1732,7 +1732,7 @@
   <string name="rmd_EPr_vibrate_desc_false">Astrid nie będzie powiadamiał wibracjami podczas wysyłania powiadomienia</string>
 
   <!-- Reminder Preference: Nagging Title -->  
-  <string name="rmd_EPr_nagging_title">Astrid Zachęta</string>
+  <string name="rmd_EPr_nagging_title">Zachęta Astrid</string>
   <!-- Reminder Preference: Nagging Description (true) -->
   <string name="rmd_EPr_nagging_desc_true">Astrid pojawi się podczas przypomnienia</string>
   <!-- Reminder Preference: Nagging Description (false) -->
@@ -1961,9 +1961,9 @@
   <!-- hint when opening repeat interval -->
   <string name="repeat_interval_prompt">Odstęp powtarzania</string>
   
-  <string name="repeat_never">Never</string>
+  <string name="repeat_never">Nigdy</string>
   
-  <string name="repeat_dont">Don\'t repeat</string>
+  <string name="repeat_dont">Nie powtarzaj</string>
       
   <string-array name="repeat_interval">
     <!-- repeat interval (days,weeks,months,hours,minutes,years) -->
@@ -2112,7 +2112,7 @@
   <string name="tag_FEx_untagged">Not in any List</string>
   
   <!-- clarifying title for people who have Google and Astrid lists -->
-  <string name="tag_FEx_untagged_w_astrid">Not in an Astrid List</string>
+  <string name="tag_FEx_untagged_w_astrid">Poza listą Astrid</string>
   
   <!-- %s => tag name -->
   <string name="tag_FEx_name">Lista: %s</string>
