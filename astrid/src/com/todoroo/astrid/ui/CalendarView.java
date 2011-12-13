@@ -279,7 +279,7 @@ public class CalendarView extends View {
         // Month text -- Start
         int monthX = getMeasuredWidth() / 2;
         int monthY = (int) (monthTitleHeight / 2 + 15);
-        String monthYear = (String) DateFormat.format("MMMM yyyy", calendarDate.getTime() == 0 ? calendar.getTime() : calendarDate); //$NON-NLS-1$
+        String monthYear = (String) DateFormat.format("MMMM yyyy", getCoercedDate(calendar.getTime(), calendarDate)); //calendarDate.getTime() == 0 ? calendar.getTime() : calendarDate); //$NON-NLS-1$
         canvas.drawText(monthYear, monthX, monthY, whiteCenterAlignLargePaint);
         // Month text -- End
 
@@ -309,7 +309,7 @@ public class CalendarView extends View {
         // Day heading -- End
 
         // Calendar -- Start
-        calendar.setTime(calendarDate.getTime() == 0 ? calendar.getTime() : calendarDate);
+        calendar.setTime(getCoercedDate(calendar.getTime(), calendarDate)); //calendarDate.getTime() == 0 ? calendar.getTime() : calendarDate);
 
         if (currentHighlightDay == -1) {
         	currentHighlightDay = calendarDate.getTime() == 0 ? 0 : calendar.get(Calendar.DATE);
@@ -390,7 +390,7 @@ public class CalendarView extends View {
         if ((x > leftArrowX && x < (leftArrowX + leftArrowWidth * 2))
                 && (y > leftArrowY - leftArrowHeight / 2 && y < (leftArrowY + 3 * leftArrowHeight / 2))) {
             Calendar calendar = Calendar.getInstance();
-            calendar.setTime(calendarDate);
+            calendar.setTime(getCoercedDate(getToday(calendar), calendarDate));
             int currentDay = calendar.get(Calendar.DATE);
             calendar.set(Calendar.DATE, 1);
             calendar.add(Calendar.MONTH, -1);
@@ -405,7 +405,7 @@ public class CalendarView extends View {
         } else if ((x > rightArrowX - rightArrowWidth && x < (rightArrowX + rightArrowWidth))
                 && (y > rightArrowY - rightArrowHeight / 2 && y < (rightArrowY + 3 * rightArrowHeight / 2))) {
             Calendar calendar = Calendar.getInstance();
-            calendar.setTime(calendarDate);
+            calendar.setTime(getCoercedDate(getToday(calendar), calendarDate));
             int currentDay = calendar.get(Calendar.DATE);
             calendar.set(Calendar.DATE, 1);
             calendar.add(Calendar.MONTH, 1);
@@ -428,12 +428,8 @@ public class CalendarView extends View {
 				if ((x > dayLeftArr[i] && x < dayLeftArr[i]+boxWidth) && (y > dayTopArr[i] && y < dayTopArr[i] + boxHeight)) {
 					currentHighlightDay = i+1;
 					Calendar calendar = Calendar.getInstance();
-					Date today = calendar.getTime();
-					today.setTime(today.getTime() / 1000L * 1000L);
-					today.setHours(23);
-					today.setMinutes(59);
-					today.setSeconds(59);
-					calendar.setTime(calendarDate.getTime() == 0 ? today : calendarDate);
+					Date today = getToday(calendar);
+					calendar.setTime(getCoercedDate(today, calendarDate)); //calendarDate.getTime() == 0 ? today : calendarDate);
 					calendar.set(Calendar.DATE, currentHighlightDay);
 
 					calendarDate = calendar.getTime();
@@ -444,6 +440,19 @@ public class CalendarView extends View {
 				}
 			}
 		}
+    }
+
+    private Date getToday(Calendar calendar) {
+        Date today = calendar.getTime();
+        today.setTime(today.getTime() / 1000L * 1000L);
+        today.setHours(23);
+        today.setMinutes(59);
+        today.setSeconds(59);
+        return today;
+    }
+
+    public Date getCoercedDate(Date ifZero, Date ifNotZero) {
+        return (calendarDate.getTime() == 0 ? ifZero : ifNotZero);
     }
 
     public Date getCalendarDate() {
