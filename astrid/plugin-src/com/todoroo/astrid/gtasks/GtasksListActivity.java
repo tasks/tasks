@@ -2,8 +2,9 @@ package com.todoroo.astrid.gtasks;
 
 import android.app.ProgressDialog;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
+import android.support.v4.view.Menu;
+import android.support.v4.view.MenuItem;
+import android.view.MenuInflater;
 
 import com.commonsware.cwac.tlv.TouchListView;
 import com.commonsware.cwac.tlv.TouchListView.DropListener;
@@ -44,7 +45,7 @@ public class GtasksListActivity extends DraggableTaskListActivity {
 
         if(!Preferences.getBoolean(GtasksPreferenceService.PREF_SHOWN_LIST_HELP, false)) {
             Preferences.setBoolean(GtasksPreferenceService.PREF_SHOWN_LIST_HELP, true);
-            DialogUtilities.okDialog(this,
+            DialogUtilities.okDialog(getActivity(),
                     getString(R.string.gtasks_help_title),
                     android.R.drawable.ic_dialog_info,
                     getString(R.string.gtasks_help_body), null);
@@ -92,26 +93,25 @@ public class GtasksListActivity extends DraggableTaskListActivity {
     };
 
     @Override
-    public boolean onPrepareOptionsMenu(Menu menu) {
-        super.onPrepareOptionsMenu(menu);
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        super.onCreateOptionsMenu(menu, inflater);
         MenuItem item = menu.add(Menu.NONE, MENU_CLEAR_COMPLETED_ID, Menu.FIRST, this.getString(R.string.gtasks_GTA_clear_completed));
         item.setIcon(android.R.drawable.ic_input_delete); // Needs new icon
-        return true;
     }
 
     @Override
-    public boolean onMenuItemSelected(int featureId, final MenuItem item) {
+    public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == MENU_CLEAR_COMPLETED_ID) {
             clearCompletedTasks();
             return true;
         } else {
-            return super.onMenuItemSelected(featureId, item);
+            return super.onOptionsItemSelected(item);
         }
     }
 
     private void clearCompletedTasks() {
 
-        final ProgressDialog pd = new ProgressDialog(this);
+        final ProgressDialog pd = new ProgressDialog(getActivity());
         final TodorooCursor<Task> tasks = taskService.fetchFiltered(filter.sqlQuery, null, Task.ID, Task.COMPLETION_DATE);
         pd.setMessage(this.getString(R.string.gtasks_GTA_clearing));
         pd.show();
@@ -133,12 +133,12 @@ public class GtasksListActivity extends DraggableTaskListActivity {
                     }
                 } finally {
                     tasks.close();
-                    DialogUtilities.dismissDialog(GtasksListActivity.this, pd);
+                    DialogUtilities.dismissDialog(getActivity(), pd);
                 }
                 if (listId != null) {
                     gtasksTaskListUpdater.correctMetadataForList(listId);
                 }
-                GtasksListActivity.this.runOnUiThread(new Runnable() {
+                getActivity().runOnUiThread(new Runnable() {
                     public void run() {
                         loadTaskListContent(true);
                     }
@@ -180,7 +180,7 @@ public class GtasksListActivity extends DraggableTaskListActivity {
                 } finally {
                     tasks.close();
                 }
-                GtasksListActivity.this.runOnUiThread(new Runnable() {
+                getActivity().runOnUiThread(new Runnable() {
                     public void run() {
                         loadTaskListContent(true);
                     }

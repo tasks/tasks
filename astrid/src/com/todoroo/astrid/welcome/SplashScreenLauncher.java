@@ -9,7 +9,7 @@ import com.timsu.astrid.R;
 import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.ContextManager;
 import com.todoroo.andlib.service.DependencyInjectionService;
-import com.todoroo.astrid.activity.TaskListActivity;
+import com.todoroo.astrid.activity.TaskListWrapperActivity;
 import com.todoroo.astrid.service.AstridDependencyInjector;
 import com.todoroo.astrid.service.StartupService;
 import com.todoroo.astrid.service.StatisticsService;
@@ -56,7 +56,7 @@ public class SplashScreenLauncher extends Activity {
 
     private void mainActivityPath() {
         Intent intent = new Intent();
-        intent.setClass(this, TaskListActivity.class); // Go to task list activity
+        intent.setClass(this, TaskListWrapperActivity.class); // Go to task list activity
         startActivity(intent);
         finish();
     }

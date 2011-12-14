@@ -12,8 +12,8 @@ import org.json.JSONException;
 import org.weloveastrid.rmilk.MilkPreferences;
 import org.weloveastrid.rmilk.MilkUtilities;
 
+import android.app.Activity;
 import android.app.AlertDialog;
-import android.app.ExpandableListActivity;
 import android.app.Notification;
 import android.app.PendingIntent;
 import android.app.PendingIntent.CanceledException;
@@ -35,11 +35,12 @@ import android.util.DisplayMetrics;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
 import android.view.KeyEvent;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.view.Window;
+import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
@@ -47,6 +48,7 @@ import android.widget.ExpandableListView;
 import android.widget.ExpandableListView.ExpandableListContextMenuInfo;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.TextView.OnEditorActionListener;
 import android.widget.Toast;
@@ -91,22 +93,22 @@ import com.todoroo.astrid.utility.Constants;
  * @author Tim Su <tim@todoroo.com>
  *
  */
-public class FilterListActivity extends ExpandableListActivity {
+public class FilterListActivity extends ExpandableListFragment {
 
     // -- extra codes
     public static final String SHOW_BACK_BUTTON = "show_back"; //$NON-NLS-1$
 
     // --- menu codes
 
-    private static final int MENU_SEARCH_ID = Menu.FIRST + 0;
-    private static final int MENU_HELP_ID = Menu.FIRST + 1;
-    private static final int MENU_REFRESH_ID = Menu.FIRST + 2;
-    private static final int MENU_NEW_FILTER_ID = Menu.FIRST + 3;
+    private static final int MENU_SEARCH_ID = R.string.FLA_menu_search;
+    private static final int MENU_HELP_ID = R.string.FLA_menu_help;
+    private static final int MENU_REFRESH_ID = R.string.actfm_FLA_menu_refresh;
+    private static final int MENU_NEW_FILTER_ID = R.string.FLA_new_filter;
 
     private static final String LAST_TAG_REFRESH_KEY = "last_tag_refresh"; //$NON-NLS-1$
 
-    private static final int CONTEXT_MENU_SHORTCUT = Menu.FIRST + 4;
-    private static final int CONTEXT_MENU_INTENT = Menu.FIRST + 5;
+    private static final int CONTEXT_MENU_SHORTCUT = R.string.FLA_context_shortcut;
+    private static final int CONTEXT_MENU_INTENT = Menu.FIRST + 4;
 
     private static final int REQUEST_CUSTOM_INTENT = 1;
     private static final int REQUEST_VIEW_TASKS = 2;
@@ -121,6 +123,7 @@ public class FilterListActivity extends ExpandableListActivity {
     protected SyncActionReceiver syncActionReceiver = new SyncActionReceiver();
     private final LinkedHashSet<SyncAction> syncActions = new LinkedHashSet<SyncAction>();
     protected FilterAdapter adapter = null;
+    private boolean mDualFragments;
 
     /* ======================================================================
      * ======================================================= initialization
@@ -132,13 +135,34 @@ public class FilterListActivity extends ExpandableListActivity {
 
     /**  Called when loading up the activity */
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        requestWindowFeature(Window.FEATURE_NO_TITLE);
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        new StartupService().onStartupApplication(this);
-        ThemeService.applyTheme(this);
 
-        setContentView(R.layout.filter_list_activity);
+        // Tell the framework to try to keep this fragment around
+        // during a configuration change.
+        setRetainInstance(true);
+
+        new StartupService().onStartupApplication(getActivity());
+    }
+
+    /* (non-Javadoc)
+     * @see com.todoroo.astrid.fragment.ExpandableListFragment#onCreateView(android.view.LayoutInflater, android.view.ViewGroup, android.os.Bundle)
+     */
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+            Bundle savedInstanceState) {
+        ViewGroup parent = (ViewGroup) getActivity().getLayoutInflater().inflate(R.layout.filter_list_activity, container, false);
+        ThemeService.applyTheme(parent);
+        return parent;
+    }
+
+    @Override
+    public void onActivityCreated(Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        getActivity().setDefaultKeyMode(Activity.DEFAULT_KEYS_SEARCH_LOCAL);
+        // We have a menu item to show in action bar.
+        setHasOptionsMenu(true);
+
         ImageView backButton = (ImageView) findViewById(R.id.back);
         if (!getIntent().getBooleanExtra(SHOW_BACK_BUTTON, true)) {
             backButton.setVisibility(View.GONE);
@@ -153,7 +177,17 @@ public class FilterListActivity extends ExpandableListActivity {
             }
         });
 
-        onNewIntent(getIntent());
+        onContentChanged();
+
+        onNewIntent(getActivity().getIntent());
+
+        Fragment tasklistFrame = getFragmentManager().findFragmentById(R.id.tasklist_fragment);
+        mDualPane = (tasklistFrame != null) && tasklistFrame.isInLayout();
+
+        if (mDualPane) {
+            // In dual-pane mode, the list view highlights the selected item.
+            getExpandableListView().setChoiceMode(ListView.CHOICE_MODE_SINGLE);
+        }
     }
 
     @Override

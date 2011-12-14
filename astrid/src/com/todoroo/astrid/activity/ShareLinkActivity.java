@@ -19,10 +19,10 @@ public final class ShareLinkActivity extends TaskListActivity {
     }
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        Intent callerIntent = getIntent();
+        Intent callerIntent = getActivity().getIntent();
 
         String subject = callerIntent.getStringExtra(Intent.EXTRA_SUBJECT);
         if(subject == null)
@@ -30,7 +30,7 @@ public final class ShareLinkActivity extends TaskListActivity {
         Task task = quickAddTask(subject, false);
         task.setValue(Task.NOTES, callerIntent.getStringExtra(Intent.EXTRA_TEXT));
         taskService.save(task);
-        Intent intent = new Intent(this, TaskEditActivity.class);
+        Intent intent = new Intent(getActivity(), TaskEditActivity.class);
         intent.putExtra(TaskEditActivity.TOKEN_ID, task.getId());
         startActivityForResult(intent, ACTIVITY_EDIT_TASK);
     }

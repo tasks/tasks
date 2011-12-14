@@ -39,6 +39,7 @@ import com.todoroo.andlib.sql.Field;
 import com.todoroo.andlib.sql.Query;
 import com.todoroo.andlib.sql.UnaryCriterion;
 import com.todoroo.astrid.activity.TaskListActivity;
+import com.todoroo.astrid.activity.TaskListWrapperActivity;
 import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.api.CustomFilterCriterion;
 import com.todoroo.astrid.api.Filter;
@@ -412,7 +413,7 @@ public class CustomFilterActivity extends ListActivity {
 
         // view
         Filter filter = new Filter(title, title, sql.toString(), values);
-        Intent taskListActivity = new Intent(this, TaskListActivity.class);
+        Intent taskListActivity = new Intent(this, TaskListWrapperActivity.class);
         taskListActivity.putExtra(TaskListActivity.TOKEN_FILTER, filter);
         startActivity(taskListActivity);
     }

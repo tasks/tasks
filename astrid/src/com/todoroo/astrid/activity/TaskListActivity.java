@@ -11,8 +11,8 @@ import java.util.concurrent.atomic.AtomicReference;
 import org.weloveastrid.rmilk.MilkPreferences;
 import org.weloveastrid.rmilk.MilkUtilities;
 
+import android.app.Activity;
 import android.app.AlertDialog;
-import android.app.ListActivity;
 import android.app.PendingIntent.CanceledException;
 import android.app.SearchManager;
 import android.content.BroadcastReceiver;
@@ -26,22 +26,23 @@ import android.content.SharedPreferences.Editor;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.database.Cursor;
-import android.graphics.PixelFormat;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.v4.app.ListFragment;
+import android.support.v4.app.SupportActivity;
+import android.support.v4.view.Menu;
+import android.support.v4.view.MenuItem;
 import android.text.TextUtils;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
 import android.view.KeyEvent;
-import android.view.Menu;
-import android.view.MenuItem;
+import android.view.LayoutInflater;
+import android.view.MenuInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.View.OnKeyListener;
 import android.view.View.OnLongClickListener;
 import android.view.ViewGroup;
-import android.view.Window;
-import android.view.WindowManager;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.AbsListView;
@@ -118,7 +119,7 @@ import com.todoroo.astrid.widget.TasksWidget;
  * @author Tim Su <tim@todoroo.com>
  *
  */
-public class TaskListActivity extends ListActivity implements OnScrollListener,
+public class TaskListActivity extends ListFragment implements OnScrollListener,
         GestureInterface, OnSortSelectedListener {
 
     // --- activities
@@ -132,19 +133,19 @@ public class TaskListActivity extends ListActivity implements OnScrollListener,
 
     // --- menu codes
 
-    protected static final int MENU_LISTS_ID = Menu.FIRST + 1;
-    protected static final int MENU_ADDONS_ID = Menu.FIRST + 2;
-    protected static final int MENU_SETTINGS_ID = Menu.FIRST + 3;
-    protected static final int MENU_SORT_ID = Menu.FIRST + 4;
-    protected static final int MENU_SYNC_ID = Menu.FIRST + 5;
-    protected static final int MENU_SUPPORT_ID = Menu.FIRST + 6;
-    protected static final int MENU_ADDON_INTENT_ID = Menu.FIRST + 7;
+    protected static final int MENU_LISTS_ID = R.string.tag_TLA_menu;
+    protected static final int MENU_ADDONS_ID = R.string.TLA_menu_addons;
+    protected static final int MENU_SETTINGS_ID = R.string.TLA_menu_settings;
+    protected static final int MENU_SORT_ID = R.string.TLA_menu_sort;
+    protected static final int MENU_SYNC_ID = R.string.TLA_menu_sync;
+    protected static final int MENU_SUPPORT_ID = R.string.TLA_menu_support;
+    protected static final int MENU_ADDON_INTENT_ID = Menu.FIRST + 199;
 
-    protected static final int CONTEXT_MENU_EDIT_TASK_ID = Menu.FIRST + 20;
-    protected static final int CONTEXT_MENU_COPY_TASK_ID = Menu.FIRST + 21;
-    protected static final int CONTEXT_MENU_DELETE_TASK_ID = Menu.FIRST + 22;
-    protected static final int CONTEXT_MENU_UNDELETE_TASK_ID = Menu.FIRST + 23;
-    protected static final int CONTEXT_MENU_PURGE_TASK_ID = Menu.FIRST + 24;
+    protected static final int CONTEXT_MENU_EDIT_TASK_ID = R.string.TAd_contextEditTask;
+    protected static final int CONTEXT_MENU_COPY_TASK_ID = R.string.TAd_contextCopyTask;
+    protected static final int CONTEXT_MENU_DELETE_TASK_ID = R.string.TAd_contextDeleteTask;
+    protected static final int CONTEXT_MENU_UNDELETE_TASK_ID = R.string.TAd_contextUndeleteTask;
+    protected static final int CONTEXT_MENU_PURGE_TASK_ID = R.string.TAd_contextPurgeTask;
     protected static final int CONTEXT_MENU_BROADCAST_INTENT_ID = Menu.FIRST + 25;
     protected static final int CONTEXT_MENU_PLUGIN_ID_FIRST = Menu.FIRST + 26;
 
@@ -201,12 +202,35 @@ public class TaskListActivity extends ListActivity implements OnScrollListener,
     private final TaskListContextMenuExtensionLoader contextMenuExtensionLoader = new TaskListContextMenuExtensionLoader();
     private VoiceInputAssistant voiceInputAssistant;
 
+    // --- fragment handling variables
+    OnItemSelectedListener mListener;
+    private final boolean mDualFragments = false;
+
     /* ======================================================================
      * ======================================================= initialization
      * ====================================================================== */
 
     static {
         AstridDependencyInjector.initialize();
+    }
+
+    /** Container Activity must implement this interface and we ensure
+     * that it does during the onAttach() callback
+     */
+    public interface OnItemSelectedListener {
+        public void onItemSelected(int category, int position);
+    }
+
+    @Override
+    public void onAttach(SupportActivity activity) {
+        super.onAttach(activity);
+        // Check that the container activity has implemented the callback interface
+        try {
+            mListener = (OnItemSelectedListener) activity;
+        } catch (ClassCastException e) {
+            throw new ClassCastException(activity.toString()
+                    + " must implement OnItemSelectedListener"); //$NON-NLS-1$
+        }
     }
 
     /**
@@ -216,42 +240,72 @@ public class TaskListActivity extends ListActivity implements OnScrollListener,
      */
     protected View getListBody(ViewGroup root) {
         if(AndroidUtilities.getSdkVersion() > 3)
-            return getLayoutInflater().inflate(R.layout.task_list_body_standard, root, false);
+            return getActivity().getLayoutInflater().inflate(R.layout.task_list_body_standard, root, false);
         else
-            return getLayoutInflater().inflate(R.layout.task_list_body_api3, root, false);
+            return getActivity().getLayoutInflater().inflate(R.layout.task_list_body_api3, root, false);
     }
 
     /**  Called when loading up the activity */
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        ContextManager.setContext(this);
-        requestWindowFeature(Window.FEATURE_NO_TITLE);
+    public void onCreate(Bundle savedInstanceState) {
         DependencyInjectionService.getInstance().inject(this);
         super.onCreate(savedInstanceState);
+        // Tell the framework to try to keep this fragment around
+        // during a configuration change.
+        setRetainInstance(true);
 
-        new StartupService().onStartupApplication(this);
-        ThemeService.applyTheme(this);
-        ViewGroup parent = (ViewGroup) getLayoutInflater().inflate(R.layout.task_list_activity, null);
-        parent.addView(getListBody(parent), 1);
-        setContentView(parent);
+        new StartupService().onStartupApplication(getActivity());
 
         if(database == null)
             return;
 
         database.openForWriting();
+    }
+
+
+    /* (non-Javadoc)
+     * @see android.support.v4.app.Fragment#onCreateView(android.view.LayoutInflater, android.view.ViewGroup, android.os.Bundle)
+     */
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+            Bundle savedInstanceState) {
+        ViewGroup parent = (ViewGroup) getActivity().getLayoutInflater().inflate(
+                R.layout.task_list_activity, container, false);
+        parent.addView(getListBody(parent), 1);
+        ThemeService.applyTheme(getActivity());
+
+        return parent;
+    }
+
+    @Override
+    public void onActivityCreated(Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        // We have a menu item to show in action bar.
+        setHasOptionsMenu(true);
+
         setUpUiComponents();
-        onNewIntent(getIntent());
+        onNewIntent(getActivity().getIntent());
+
+        // FIXME move this code into the TaskListWrapperActivity
+//        Fragment filterFrame = getFragmentManager().findFragmentById(R.id.filterlist_fragment);
+//        mDualPane = (filterFrame != null) &amp;&amp; filterFrame.isInLayout();
+//
+//        if (mDualPane) {
+//            // In dual-pane mode, the list view highlights the selected item.
+//            getListView().setChoiceMode(ListView.CHOICE_MODE_SINGLE);
+//        }
+        // end of FIXME
 
         if(Preferences.getInt(AstridPreferences.P_UPGRADE_FROM, -1) > -1)
-            upgradeService.showChangeLog(this, Preferences.getInt(AstridPreferences.P_UPGRADE_FROM, -1));
+            upgradeService.showChangeLog(getActivity(), Preferences.getInt(AstridPreferences.P_UPGRADE_FROM, -1));
 
         if (!Preferences.getBoolean(R.string.p_showed_add_task_help, false)) {
-            HelpInfoPopover.showPopover(TaskListActivity.this, quickAddBox, R.string.help_popover_add_task);
+            HelpInfoPopover.showPopover(getActivity(), quickAddBox, R.string.help_popover_add_task);
             Preferences.setBoolean(R.string.p_showed_add_task_help, true);
         }
 
-        if(getIntent().hasExtra(TOKEN_SOURCE)) {
-            switch(getIntent().getIntExtra(TOKEN_SOURCE, Constants.SOURCE_DEFAULT)) {
+        if(getActivity().getIntent().hasExtra(TOKEN_SOURCE)) {
+            switch(getActivity().getIntent().getIntExtra(TOKEN_SOURCE, Constants.SOURCE_DEFAULT)) {
             case Constants.SOURCE_NOTIFICATION:
                 StatisticsService.reportEvent(StatisticsConstants.LAUNCH_FROM_NOTIFICATION);
                 break;
@@ -271,10 +325,7 @@ public class TaskListActivity extends ListActivity implements OnScrollListener,
         }
     }
 
-    @Override
     protected void onNewIntent(Intent intent) {
-        super.onNewIntent(intent);
-
         Bundle extras = intent.getExtras();
         if (extras != null) {
             overrideFinishAnim = extras.getBoolean(TOKEN_OVERRIDE_ANIM);
@@ -282,32 +333,34 @@ public class TaskListActivity extends ListActivity implements OnScrollListener,
             overrideFinishAnim = false;
         }
         String intentAction = intent.getAction();
+        // FIXME maybe SEARCH has to go into the Wrapper-activity and forward to the filterFragment
         if (Intent.ACTION_SEARCH.equals(intentAction)) {
             String query = intent.getStringExtra(SearchManager.QUERY).trim();
             Filter searchFilter = new Filter(null, getString(R.string.FLA_search_filter, query),
                     new QueryTemplate().where(Functions.upper(Task.TITLE).like("%" + //$NON-NLS-1$
                             query.toUpperCase() + "%")), //$NON-NLS-1$
                     null);
-            intent = new Intent(this, TaskListActivity.class);
+            intent = new Intent(getActivity(), TaskListActivity.class);
             intent.putExtra(TaskListActivity.TOKEN_FILTER, searchFilter);
             startActivity(intent);
-            finish();
+//            finish();
             return;
         } else if(extras != null && extras.containsKey(TOKEN_FILTER)) {
             filter = extras.getParcelable(TOKEN_FILTER);
             isFilter = true;
         } else {
             filter = CoreFilterExposer.buildInboxFilter(getResources());
-            findViewById(R.id.headerLogo).setVisibility(View.VISIBLE);
-            findViewById(R.id.listLabel).setVisibility(View.GONE);
+            getView().findViewById(R.id.headerLogo).setVisibility(View.VISIBLE);
+            getView().findViewById(R.id.listLabel).setVisibility(View.GONE);
             isFilter = false;
         }
 
         setUpTaskList();
-        if(Constants.DEBUG)
-            setTitle("[D] " + filter.title); //$NON-NLS-1$
+        // FIXME put this into the wrapper activity
+//        if(Constants.DEBUG)
+//            setTitle("[D] " + filter.title); //$NON-NLS-1$
 
-        contextMenuExtensionLoader.loadInNewThread(this);
+        contextMenuExtensionLoader.loadInNewThread(getActivity());
     }
 
     protected void addSyncRefreshMenuItem(Menu menu) {
@@ -322,10 +375,7 @@ public class TaskListActivity extends ListActivity implements OnScrollListener,
      * @return true if menu should be displayed
      */
     @Override
-    public boolean onPrepareOptionsMenu(Menu menu) {
-        if(menu.size() > 0)
-            menu.clear();
-
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         MenuItem item;
 
         if(!(this instanceof DraggableTaskListActivity)) {
@@ -339,6 +389,7 @@ public class TaskListActivity extends ListActivity implements OnScrollListener,
         item = menu.add(Menu.NONE, MENU_LISTS_ID, Menu.NONE,
                 R.string.tag_TLA_menu);
         item.setIcon(R.drawable.ic_menu_lists);
+        item.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
 
         if(!Constants.MARKET_DISABLED) {
             item = menu.add(Menu.NONE, MENU_ADDONS_ID, Menu.NONE,
@@ -356,7 +407,7 @@ public class TaskListActivity extends ListActivity implements OnScrollListener,
 
         // ask about plug-ins
         Intent queryIntent = new Intent(AstridApiConstants.ACTION_TASK_LIST_MENU);
-        PackageManager pm = getPackageManager();
+        PackageManager pm = getActivity().getPackageManager();
         List<ResolveInfo> resolveInfoList = pm.queryIntentActivities(queryIntent, 0);
         int length = resolveInfoList.size();
         for(int i = 0; i < length; i++) {
@@ -370,16 +421,17 @@ public class TaskListActivity extends ListActivity implements OnScrollListener,
                     resolveInfo.activityInfo.name);
             item.setIntent(intent);
         }
-
-        return true;
     }
 
     private void setUpUiComponents() {
-        ((ImageView)findViewById(R.id.back)).setOnClickListener(new OnClickListener() {
-            public void onClick(View v) {
-                showFilterListActivity();
-            }
-        });
+        ImageView backButton = (ImageView)getView().findViewById(R.id.back);
+        if (backButton != null) {
+            backButton.setOnClickListener(new OnClickListener() {
+                public void onClick(View v) {
+                    showFilterListActivity();
+                }
+            });
+        }
 
         // set listener for quick-changing task priority
         getListView().setOnKeyListener(new OnKeyListener() {
@@ -414,7 +466,7 @@ public class TaskListActivity extends ListActivity implements OnScrollListener,
         });
 
         // set listener for pressing enter in quick-add box
-        quickAddBox = (EditText) findViewById(R.id.quickAddText);
+        quickAddBox = (EditText) getView().findViewById(R.id.quickAddText);
         quickAddBox.setOnEditorActionListener(new OnEditorActionListener() {
             /**
              * When user presses enter, quick-add the task
@@ -430,7 +482,7 @@ public class TaskListActivity extends ListActivity implements OnScrollListener,
         });
 
 
-        quickAddButton = ((ImageButton)findViewById(R.id.quickAddButton));
+        quickAddButton = ((ImageButton)getView().findViewById(R.id.quickAddButton));
 
         // set listener for quick add button
         quickAddButton.setOnClickListener(new OnClickListener() {
@@ -445,11 +497,11 @@ public class TaskListActivity extends ListActivity implements OnScrollListener,
         });
 
         // prepare and set listener for voice add button
-        voiceAddButton = (ImageButton) findViewById(R.id.voiceAddButton);
+        voiceAddButton = (ImageButton) getView().findViewById(R.id.voiceAddButton);
         int prompt = R.string.voice_edit_title_prompt;
         if (Preferences.getBoolean(R.string.p_voiceInputCreatesTask, false))
             prompt = R.string.voice_create_prompt;
-        voiceInputAssistant = new VoiceInputAssistant(this,voiceAddButton,quickAddBox);
+        voiceInputAssistant = new VoiceInputAssistant(getActivity(),voiceAddButton,quickAddBox);
         voiceInputAssistant.configureMicrophoneButton(prompt);
 
         // set listener for extended addbutton
@@ -468,18 +520,14 @@ public class TaskListActivity extends ListActivity implements OnScrollListener,
 
         // gestures / animation
         try {
-            GestureService.registerGestureDetector(this, R.id.gestures, R.raw.gestures, this);
+            GestureService.registerGestureDetector(getActivity(), R.id.gestures, R.raw.gestures, this);
         } catch (VerifyError e) {
             // failed check, no gestures :P
         }
 
-        SharedPreferences publicPrefs = AstridPreferences.getPublicPrefs(this);
+        SharedPreferences publicPrefs = AstridPreferences.getPublicPrefs(getActivity());
         sortFlags = publicPrefs.getInt(SortHelper.PREF_SORT_FLAGS, 0);
         sortSort = publicPrefs.getInt(SortHelper.PREF_SORT_SORT, 0);
-
-        // dithering
-        getWindow().setFormat(PixelFormat.RGBA_8888);
-        getWindow().addFlags(WindowManager.LayoutParams.FLAG_DITHER);
     }
 
     private void initiateAutomaticSync() {
@@ -494,20 +542,20 @@ public class TaskListActivity extends ListActivity implements OnScrollListener,
             @Override
             public void run() {
                 Preferences.setLong(LAST_AUTOSYNC_ATTEMPT, DateUtilities.now());
-                new ActFmSyncProvider().synchronize(TaskListActivity.this);
+                new ActFmSyncProvider().synchronize(getActivity());
             }
         }.start();
     }
 
     // Subclasses can override these to customize extras in quickadd intent
     protected Intent getOnClickQuickAddIntent(Task t) {
-        Intent intent = new Intent(TaskListActivity.this, TaskEditActivity.class);
+        Intent intent = new Intent(getActivity(), TaskEditActivity.class);
         intent.putExtra(TaskEditActivity.TOKEN_ID, t.getId());
         return intent;
     }
 
     protected Intent getOnLongClickQuickAddIntent(Task t) {
-        Intent intent = new Intent(TaskListActivity.this, TaskEditActivity.class);
+        Intent intent = new Intent(getActivity(), TaskEditActivity.class);
         intent.putExtra(TaskEditActivity.TOKEN_ID, t.getId());
         return intent;
     }
@@ -527,7 +575,7 @@ public class TaskListActivity extends ListActivity implements OnScrollListener,
             public void run() {
                 // refresh if conditions match
                 Flags.checkAndClear(Flags.REFRESH);
-                runOnUiThread(new Runnable() {
+                getActivity().runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
                         loadTaskListContent(true);
@@ -542,20 +590,20 @@ public class TaskListActivity extends ListActivity implements OnScrollListener,
      * ====================================================================== */
 
     @Override
-    protected void onStart() {
+    public void onStart() {
         super.onStart();
     }
 
     @Override
-    protected void onStop() {
-        StatisticsService.sessionStop(this);
+    public void onStop() {
+        StatisticsService.sessionStop(getActivity());
         super.onStop();
     }
 
     @Override
-    protected void onResume() {
+    public void onResume() {
         super.onResume();
-        StatisticsService.sessionStart(this);
+        StatisticsService.sessionStart(getActivity());
         if (addOnService.hasPowerPack() &&
                 Preferences.getBoolean(R.string.p_voiceInputEnabled, true) &&
                 voiceInputAssistant.isVoiceInputAvailable()) {
@@ -564,15 +612,15 @@ public class TaskListActivity extends ListActivity implements OnScrollListener,
             voiceAddButton.setVisibility(View.GONE);
         }
 
-        registerReceiver(detailReceiver,
+        getActivity().registerReceiver(detailReceiver,
                 new IntentFilter(AstridApiConstants.BROADCAST_SEND_DETAILS));
-        registerReceiver(detailReceiver,
+        getActivity().registerReceiver(detailReceiver,
                 new IntentFilter(AstridApiConstants.BROADCAST_SEND_DECORATIONS));
-        registerReceiver(detailReceiver,
+        getActivity().registerReceiver(detailReceiver,
                 new IntentFilter(AstridApiConstants.BROADCAST_SEND_ACTIONS));
-        registerReceiver(refreshReceiver,
+        getActivity().registerReceiver(refreshReceiver,
                 new IntentFilter(AstridApiConstants.BROADCAST_EVENT_REFRESH));
-        registerReceiver(syncActionReceiver,
+        getActivity().registerReceiver(syncActionReceiver,
                 new IntentFilter(AstridApiConstants.BROADCAST_SEND_SYNC_ACTIONS));
         setUpBackgroundJobs();
 
@@ -582,13 +630,13 @@ public class TaskListActivity extends ListActivity implements OnScrollListener,
     }
 
     @Override
-    protected void onPause() {
+    public void onPause() {
         super.onPause();
         StatisticsService.sessionPause();
         try {
-            unregisterReceiver(detailReceiver);
-            unregisterReceiver(refreshReceiver);
-            unregisterReceiver(syncActionReceiver);
+        	getActivity().unregisterReceiver(detailReceiver);
+        	getActivity().unregisterReceiver(refreshReceiver);
+        	getActivity().unregisterReceiver(syncActionReceiver);
         } catch (IllegalArgumentException e) {
             // might not have fully initialized
         }
@@ -617,7 +665,7 @@ public class TaskListActivity extends ListActivity implements OnScrollListener,
             if(intent == null || !AstridApiConstants.BROADCAST_EVENT_REFRESH.equals(intent.getAction()))
                 return;
 
-            runOnUiThread(new Runnable() {
+            getActivity().runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
                     taskAdapter.flushCaches();
@@ -681,9 +729,9 @@ public class TaskListActivity extends ListActivity implements OnScrollListener,
         }
     }
 
-    @Override
     public void onWindowFocusChanged(boolean hasFocus) {
-        super.onWindowFocusChanged(hasFocus);
+        // FIXME: move to parent Activity
+//      super.onWindowFocusChanged(hasFocus);
         if(hasFocus && Flags.checkAndClear(Flags.REFRESH)) {
             taskAdapter.flushCaches();
             loadTaskListContent(true);
@@ -691,7 +739,7 @@ public class TaskListActivity extends ListActivity implements OnScrollListener,
     }
 
     @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
         // handle the result of voice recognition, put it into the textfield
         if (voiceInputAssistant.handleActivityResult(requestCode, resultCode, data)) {
             // if user wants, create the task directly (with defaultvalues) after saying it
@@ -704,13 +752,13 @@ public class TaskListActivity extends ListActivity implements OnScrollListener,
         }
 
         if(requestCode == ACTIVITY_SETTINGS && resultCode == EditPreferences.RESULT_CODE_THEME_CHANGED) {
-            finish();
-            startActivity(getIntent());
+            getActivity().finish();
+            getActivity().startActivity(getActivity().getIntent());
         }
 
         super.onActivityResult(requestCode, resultCode, data);
 
-        if(resultCode != RESULT_CANCELED) {
+        if(resultCode != Activity.RESULT_CANCELED) {
             taskAdapter.flushCaches();
             loadTaskListContent(true);
             taskService.cleanup();
@@ -766,7 +814,7 @@ public class TaskListActivity extends ListActivity implements OnScrollListener,
             taskAdapter.flushCaches();
             taskAdapter.notifyDataSetChanged();
         }
-        startManagingCursor(taskCursor);
+        getActivity().startManagingCursor(taskCursor);
 
         if(oldListItemSelected != ListView.INVALID_POSITION &&
                 oldListItemSelected < taskCursor.getCount())
@@ -775,13 +823,14 @@ public class TaskListActivity extends ListActivity implements OnScrollListener,
         // also load sync actions
         syncActions.clear();
         Intent broadcastIntent = new Intent(AstridApiConstants.BROADCAST_REQUEST_SYNC_ACTIONS);
-        sendOrderedBroadcast(broadcastIntent, AstridApiConstants.PERMISSION_READ);
+        getActivity().sendOrderedBroadcast(broadcastIntent, AstridApiConstants.PERMISSION_READ);
     }
 
-    @Override
-    public void setTitle(CharSequence title) {
-        ((TextView)findViewById(R.id.listLabel)).setText(title);
-    }
+    // FIXME: put this into the wrapper-activity eventually
+//    @Override
+//    public void setTitle(CharSequence title) {
+//        ((TextView)findViewById(R.id.listLabel)).setText(title);
+//    }
 
     /**
      * Fill in the Task List with current items
@@ -793,12 +842,13 @@ public class TaskListActivity extends ListActivity implements OnScrollListener,
 
         sqlQueryTemplate.set(SortHelper.adjustQueryForFlagsAndSort(filter.sqlQuery,
                 sortFlags, sortSort));
-        setTitle(filter.title);
+        // FIXME: put this into the wrapper-activity eventually
+//        setTitle(filter.title);
 
         // perform query
         TodorooCursor<Task> currentCursor = taskService.fetchFiltered(
                 sqlQueryTemplate.get(), null, TaskAdapter.PROPERTIES);
-        startManagingCursor(currentCursor);
+        getActivity().startManagingCursor(currentCursor);
 
         // set up list adapters
         taskAdapter = new TaskAdapter(this, R.layout.task_adapter_row,
@@ -843,13 +893,13 @@ public class TaskListActivity extends ListActivity implements OnScrollListener,
 
         currentCursor = taskService.fetchFiltered(sqlQueryTemplate.get(), null, TaskAdapter.PROPERTIES);
         getListView().setFilterText("");
-        startManagingCursor(currentCursor);
+        getActivity().startManagingCursor(currentCursor);
 
         taskAdapter.changeCursor(currentCursor);
 
         // update title
         filter.title = getString(R.string.TLA_custom);
-        ((TextView)findViewById(R.id.listLabel)).setText(filter.title);
+        ((TextView)getView().findViewById(R.id.listLabel)).setText(filter.title);
 
         // try selecting again
         for(int i = 0; i < currentCursor.getCount(); i++) {
@@ -865,13 +915,13 @@ public class TaskListActivity extends ListActivity implements OnScrollListener,
     private void showHelpPopover() {
         if (!Preferences.getBoolean(R.string.p_showed_tap_task_help, false)) {
             Preferences.setBoolean(R.string.p_showed_tap_task_help, true);
-            InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+            InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
             imm.hideSoftInputFromWindow(quickAddBox.getWindowToken(), 0);
             getListView().postDelayed(new Runnable() {
                 public void run() {
                     final View view = getListView().getChildAt(getListView().getChildCount() - 1);
                     if (view != null) {
-                        HelpInfoPopover.showPopover(TaskListActivity.this, view, R.string.help_popover_tap_task);
+                        HelpInfoPopover.showPopover(getActivity(), view, R.string.help_popover_tap_task);
                     }
                 }
             }, 1000L);
@@ -910,12 +960,12 @@ public class TaskListActivity extends ListActivity implements OnScrollListener,
             boolean gcalCreateEventEnabled = Preferences.getStringValue(R.string.gcal_p_default) != null &&
                                              !Preferences.getStringValue(R.string.gcal_p_default).equals("-1");
             if (title.length()>0 && gcalCreateEventEnabled) {
-                Uri calendarUri = GCalHelper.createTaskEvent(task, getContentResolver(), new ContentValues());
+                Uri calendarUri = GCalHelper.createTaskEvent(task, getActivity().getContentResolver(), new ContentValues());
                 task.setValue(Task.CALENDAR_URI, calendarUri.toString());
                 taskService.save(task);
             }
 
-            TextView quickAdd = (TextView)findViewById(R.id.quickAddText);
+            TextView quickAdd = (TextView)getView().findViewById(R.id.quickAddText);
             quickAdd.setText(""); //$NON-NLS-1$
 
             if(selectNewTask) {
@@ -926,7 +976,7 @@ public class TaskListActivity extends ListActivity implements OnScrollListener,
             StatisticsService.reportEvent(StatisticsConstants.TASK_CREATED_TASKLIST);
             return task;
         } catch (Exception e) {
-            exceptionService.displayAndReportError(this, "quick-add-task", e);
+            exceptionService.displayAndReportError(getActivity(), "quick-add-task", e);
             return new Task();
         }
     }
@@ -1010,7 +1060,7 @@ public class TaskListActivity extends ListActivity implements OnScrollListener,
 
             long taskId = task.getId();
             for(ContextMenuItem item : contextMenuExtensionLoader.getList()) {
-                MenuItem menuItem = menu.add(id, CONTEXT_MENU_BROADCAST_INTENT_ID, Menu.NONE,
+                android.view.MenuItem menuItem = menu.add(id, CONTEXT_MENU_BROADCAST_INTENT_ID, Menu.NONE,
                         item.title);
                 item.intent.putExtra(AstridApiConstants.EXTRAS_TASK_ID, taskId);
                 menuItem.setIntent(item.intent);
@@ -1024,7 +1074,7 @@ public class TaskListActivity extends ListActivity implements OnScrollListener,
 
     /** Show a dialog box and delete the task specified */
     private void deleteTask(final Task task) {
-        new AlertDialog.Builder(this).setTitle(R.string.DLG_confirm_title)
+        new AlertDialog.Builder(getActivity()).setTitle(R.string.DLG_confirm_title)
                 .setMessage(R.string.DLG_delete_this_task_question).setIcon(
                         android.R.drawable.ic_dialog_alert).setPositiveButton(
                         android.R.string.ok,
@@ -1061,7 +1111,7 @@ public class TaskListActivity extends ListActivity implements OnScrollListener,
             // Get a list of all sync plugins and bring user to the prefs pane
             // for one of them
             Intent queryIntent = new Intent(AstridApiConstants.ACTION_SETTINGS);
-            PackageManager pm = getPackageManager();
+            PackageManager pm = getActivity().getPackageManager();
             List<ResolveInfo> resolveInfoList = pm.queryIntentActivities(
                     queryIntent, PackageManager.GET_META_DATA);
             int length = resolveInfoList.size();
@@ -1100,7 +1150,7 @@ public class TaskListActivity extends ListActivity implements OnScrollListener,
             SyncAction syncAction = syncActions.iterator().next();
             try {
                 syncAction.intent.send();
-                Toast.makeText(this, R.string.SyP_progress_toast,
+                Toast.makeText(getActivity(), R.string.SyP_progress_toast,
                         Toast.LENGTH_LONG).show();
             } catch (CanceledException e) {
                 //
@@ -1114,7 +1164,7 @@ public class TaskListActivity extends ListActivity implements OnScrollListener,
                 public void onClick(DialogInterface click, int which) {
                     try {
                         actions[which].intent.send();
-                        Toast.makeText(TaskListActivity.this, R.string.SyP_progress_toast,
+                        Toast.makeText(getActivity(), R.string.SyP_progress_toast,
                                 Toast.LENGTH_LONG).show();
                     } catch (CanceledException e) {
                         //
@@ -1133,18 +1183,24 @@ public class TaskListActivity extends ListActivity implements OnScrollListener,
      * @param listener
      */
     private <TYPE> void showSyncOptionMenu(TYPE[] items, DialogInterface.OnClickListener listener) {
-        ArrayAdapter<TYPE> adapter = new ArrayAdapter<TYPE>(this,
+        ArrayAdapter<TYPE> adapter = new ArrayAdapter<TYPE>(getActivity(),
                 android.R.layout.simple_spinner_dropdown_item, items);
 
         // show a menu of available options
-        new AlertDialog.Builder(this)
+        new AlertDialog.Builder(getActivity())
         .setTitle(R.string.SyP_label)
         .setAdapter(adapter, listener)
-        .show().setOwnerActivity(this);
+        .show().setOwnerActivity(getActivity());
     }
 
     @Override
-    public boolean onMenuItemSelected(int featureId, final MenuItem item) {
+    public boolean onContextItemSelected(MenuItem item) {
+        // called when context menu appears
+        return onOptionsItemSelected(item);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(final MenuItem item) {
         Intent intent;
         long itemId;
 
@@ -1156,17 +1212,17 @@ public class TaskListActivity extends ListActivity implements OnScrollListener,
             return true;
         case MENU_ADDONS_ID:
             StatisticsService.reportEvent(StatisticsConstants.TLA_MENU_ADDONS);
-            intent = new Intent(this, AddOnActivity.class);
+            intent = new Intent(getActivity(), AddOnActivity.class);
             startActivityForResult(intent, ACTIVITY_ADDONS);
             return true;
         case MENU_SETTINGS_ID:
             StatisticsService.reportEvent(StatisticsConstants.TLA_MENU_SETTINGS);
-            intent = new Intent(this, EditPreferences.class);
+            intent = new Intent(getActivity(), EditPreferences.class);
             startActivityForResult(intent, ACTIVITY_SETTINGS);
             return true;
         case MENU_SORT_ID:
             StatisticsService.reportEvent(StatisticsConstants.TLA_MENU_SORT);
-            AlertDialog dialog = SortSelectionActivity.createDialog(this,
+            AlertDialog dialog = SortSelectionActivity.createDialog(getActivity(),
                     this, sortFlags, sortSort);
             dialog.show();
             return true;
@@ -1176,25 +1232,25 @@ public class TaskListActivity extends ListActivity implements OnScrollListener,
             return true;
         case MENU_SUPPORT_ID:
             StatisticsService.reportEvent(StatisticsConstants.TLA_MENU_HELP);
-            intent = new Intent(this, FeedbackActivity.class);
+            intent = new Intent(getActivity(), FeedbackActivity.class);
             startActivity(intent);
             return true;
         case MENU_ADDON_INTENT_ID:
             intent = item.getIntent();
-            AndroidUtilities.startExternalIntent(this, intent, ACTIVITY_MENU_EXTERNAL);
+            AndroidUtilities.startExternalIntent(getActivity(), intent, ACTIVITY_MENU_EXTERNAL);
             return true;
 
         // --- context menu items
 
         case CONTEXT_MENU_BROADCAST_INTENT_ID: {
             intent = item.getIntent();
-            sendBroadcast(intent);
+            getActivity().sendBroadcast(intent);
             return true;
         }
 
         case CONTEXT_MENU_EDIT_TASK_ID: {
             itemId = item.getGroupId();
-            intent = new Intent(TaskListActivity.this, TaskEditActivity.class);
+            intent = new Intent(getActivity(), TaskEditActivity.class);
             intent.putExtra(TaskEditActivity.TOKEN_ID, itemId);
             startActivityForResult(intent, ACTIVITY_EDIT_TASK);
             transitionForTaskEdit();
@@ -1217,7 +1273,7 @@ public class TaskListActivity extends ListActivity implements OnScrollListener,
             GCalHelper.createTaskEventIfEnabled(clone);
             taskService.save(clone);
 
-            intent = new Intent(TaskListActivity.this, TaskEditActivity.class);
+            intent = new Intent(getActivity(), TaskEditActivity.class);
             intent.putExtra(TaskEditActivity.TOKEN_ID, clone.getId());
             startActivityForResult(intent, ACTIVITY_EDIT_TASK);
             transitionForTaskEdit();
@@ -1276,9 +1332,10 @@ public class TaskListActivity extends ListActivity implements OnScrollListener,
 
     @SuppressWarnings("nls")
     private void showFilterListActivity() {
-        Intent intent = new Intent(TaskListActivity.this,
+        Intent intent = new Intent(getActivity(),
                 FilterListActivity.class);
         startActivity(intent);
+        // FIXME animations
         AndroidUtilities.callApiMethod(5, this, "overridePendingTransition",
                 new Class<?>[] { Integer.TYPE, Integer.TYPE },
                 R.anim.slide_right_in, R.anim.slide_right_out);
@@ -1290,7 +1347,7 @@ public class TaskListActivity extends ListActivity implements OnScrollListener,
         sortSort = sort;
 
         if(always) {
-            SharedPreferences publicPrefs = AstridPreferences.getPublicPrefs(this);
+            SharedPreferences publicPrefs = AstridPreferences.getPublicPrefs(getActivity());
             Editor editor = publicPrefs.edit();
             editor.putInt(SortHelper.PREF_SORT_FLAGS, flags);
             editor.putInt(SortHelper.PREF_SORT_SORT, sort);

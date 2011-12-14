@@ -87,7 +87,7 @@
     <activity android:name="com.todoroo.astrid.welcome.WelcomeGraphic"
               android:windowSoftInputMode="stateHidden">    
     </activity>
-    <activity android:name="com.todoroo.astrid.activity.TaskListActivity"
+    <activity android:name="com.todoroo.astrid.activity.TaskListWrapperActivity"
               android:windowSoftInputMode="stateHidden">
       <intent-filter>
         <action android:name="android.intent.action.VIEW" />
@@ -124,7 +124,7 @@
         </intent-filter>
     </activity>
     <!-- Activity that displays filter list -->
-    <activity android:name="com.todoroo.astrid.activity.FilterListActivity"
+    <activity android:name="com.todoroo.astrid.activity.FilterListWrapperActivity"
               android:launchMode="singleTop"
               android:finishOnTaskLaunch="true">
       <intent-filter>
@@ -343,7 +343,7 @@
         <category android:name="android.intent.category.DEFAULT" />
       </intent-filter>
     </receiver>    
-    <activity android:name="com.todoroo.astrid.actfm.TagViewActivity"
+    <activity android:name="com.todoroo.astrid.actfm.TagViewWrapperActivity"
               android:windowSoftInputMode="stateHidden"
               android:theme="@style/Theme">
         <intent-filter>
