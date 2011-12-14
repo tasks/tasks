@@ -103,7 +103,6 @@ import com.todoroo.astrid.service.StartupService;
 import com.todoroo.astrid.service.StatisticsConstants;
 import com.todoroo.astrid.service.StatisticsService;
 import com.todoroo.astrid.service.TaskService;
-import com.todoroo.astrid.service.ThemeService;
 import com.todoroo.astrid.service.UpgradeService;
 import com.todoroo.astrid.utility.AstridPreferences;
 import com.todoroo.astrid.utility.Constants;
@@ -203,7 +202,7 @@ public class TaskListActivity extends ListFragment implements OnScrollListener,
     private VoiceInputAssistant voiceInputAssistant;
 
     // --- fragment handling variables
-    OnItemSelectedListener mListener;
+    OnTaskListItemClickedListener mListener;
     private final boolean mDualFragments = false;
 
     /* ======================================================================
@@ -217,8 +216,8 @@ public class TaskListActivity extends ListFragment implements OnScrollListener,
     /** Container Activity must implement this interface and we ensure
      * that it does during the onAttach() callback
      */
-    public interface OnItemSelectedListener {
-        public void onItemSelected(int category, int position);
+    public interface OnTaskListItemClickedListener {
+        public void onTaskListItemClicked(int category, int position);
     }
 
     @Override
@@ -226,7 +225,7 @@ public class TaskListActivity extends ListFragment implements OnScrollListener,
         super.onAttach(activity);
         // Check that the container activity has implemented the callback interface
         try {
-            mListener = (OnItemSelectedListener) activity;
+            mListener = (OnTaskListItemClickedListener) activity;
         } catch (ClassCastException e) {
             throw new ClassCastException(activity.toString()
                     + " must implement OnItemSelectedListener"); //$NON-NLS-1$
@@ -272,7 +271,6 @@ public class TaskListActivity extends ListFragment implements OnScrollListener,
         ViewGroup parent = (ViewGroup) getActivity().getLayoutInflater().inflate(
                 R.layout.task_list_activity, container, false);
         parent.addView(getListBody(parent), 1);
-        ThemeService.applyTheme(getActivity());
 
         return parent;
     }
@@ -340,10 +338,15 @@ public class TaskListActivity extends ListFragment implements OnScrollListener,
                     new QueryTemplate().where(Functions.upper(Task.TITLE).like("%" + //$NON-NLS-1$
                             query.toUpperCase() + "%")), //$NON-NLS-1$
                     null);
-            intent = new Intent(getActivity(), TaskListActivity.class);
+            intent = new Intent(getActivity(), TaskListWrapperActivity.class);
             intent.putExtra(TaskListActivity.TOKEN_FILTER, searchFilter);
             startActivity(intent);
-//            finish();
+            getActivity().finish();
+            if (overrideFinishAnim) {
+                AndroidUtilities.callApiMethod(5, this, "overridePendingTransition",
+                        new Class<?>[] { Integer.TYPE, Integer.TYPE },
+                        R.anim.slide_right_in, R.anim.slide_right_out);
+            }
             return;
         } else if(extras != null && extras.containsKey(TOKEN_FILTER)) {
             filter = extras.getParcelable(TOKEN_FILTER);
@@ -376,6 +379,9 @@ public class TaskListActivity extends ListFragment implements OnScrollListener,
      */
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        if (getActivity() == null)
+            return;
+
         MenuItem item;
 
         if(!(this instanceof DraggableTaskListActivity)) {
@@ -407,6 +413,7 @@ public class TaskListActivity extends ListFragment implements OnScrollListener,
 
         // ask about plug-ins
         Intent queryIntent = new Intent(AstridApiConstants.ACTION_TASK_LIST_MENU);
+
         PackageManager pm = getActivity().getPackageManager();
         List<ResolveInfo> resolveInfoList = pm.queryIntentActivities(queryIntent, 0);
         int length = resolveInfoList.size();
@@ -643,16 +650,6 @@ public class TaskListActivity extends ListFragment implements OnScrollListener,
         backgroundTimer.cancel();
     }
 
-    @Override
-    public void finish() {
-        super.finish();
-        if (overrideFinishAnim) {
-            AndroidUtilities.callApiMethod(5, this, "overridePendingTransition",
-                    new Class<?>[] { Integer.TYPE, Integer.TYPE },
-                    R.anim.slide_right_in, R.anim.slide_right_out);
-        }
-    }
-
     /**
      * Receiver which receives refresh intents
      *
@@ -753,6 +750,11 @@ public class TaskListActivity extends ListFragment implements OnScrollListener,
 
         if(requestCode == ACTIVITY_SETTINGS && resultCode == EditPreferences.RESULT_CODE_THEME_CHANGED) {
             getActivity().finish();
+            if (overrideFinishAnim) {
+                AndroidUtilities.callApiMethod(5, this, "overridePendingTransition",
+                        new Class<?>[] { Integer.TYPE, Integer.TYPE },
+                        R.anim.slide_right_in, R.anim.slide_right_out);
+            }
             getActivity().startActivity(getActivity().getIntent());
         }
 
@@ -1193,6 +1195,16 @@ public class TaskListActivity extends ListFragment implements OnScrollListener,
         .show().setOwnerActivity(getActivity());
     }
 
+    /* (non-Javadoc)
+     * @see android.support.v4.app.ListFragment#onListItemClick(android.widget.ListView, android.view.View, int, long)
+     */
+    @Override
+    public void onListItemClick(ListView l, View v, int position, long id) {
+        super.onListItemClick(l, v, position, id);
+        if (mDualFragments)
+            setSelection(position);
+    }
+
     @Override
     public boolean onContextItemSelected(MenuItem item) {
         // called when context menu appears
@@ -1333,10 +1345,10 @@ public class TaskListActivity extends ListFragment implements OnScrollListener,
     @SuppressWarnings("nls")
     private void showFilterListActivity() {
         Intent intent = new Intent(getActivity(),
-                FilterListActivity.class);
+                FilterListWrapperActivity.class);
         startActivity(intent);
         // FIXME animations
-        AndroidUtilities.callApiMethod(5, this, "overridePendingTransition",
+        AndroidUtilities.callApiMethod(5, getActivity(), "overridePendingTransition",
                 new Class<?>[] { Integer.TYPE, Integer.TYPE },
                 R.anim.slide_right_in, R.anim.slide_right_out);
     }

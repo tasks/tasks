@@ -28,6 +28,7 @@ import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.astrid.activity.TaskEditActivity;
 import com.todoroo.astrid.activity.TaskListActivity;
+import com.todoroo.astrid.activity.TaskListWrapperActivity;
 import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.api.PermaSql;
 import com.todoroo.astrid.core.CoreFilterExposer;
@@ -205,7 +206,7 @@ public class TasksWidget extends AppWidgetProvider {
 
             updateForScreenSize(views);
 
-            Intent listIntent = new Intent(context, TaskListActivity.class);
+            Intent listIntent = new Intent(context, TaskListWrapperActivity.class);
             String customIntent = Preferences.getStringValue(WidgetConfigActivity.PREF_CUSTOM_INTENT
                     + widgetId);
             if(customIntent != null) {

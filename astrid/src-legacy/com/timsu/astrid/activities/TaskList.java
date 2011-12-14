@@ -25,6 +25,7 @@ import android.os.Bundle;
 
 import com.todoroo.andlib.service.ContextManager;
 import com.todoroo.astrid.activity.TaskListActivity;
+import com.todoroo.astrid.activity.TaskListWrapperActivity;
 
 /**
  * Legacy task shortcut, takes users to the updated {@link TaskListActivity}.
@@ -58,7 +59,7 @@ public class TaskList extends Activity {
      * @param intent
      */
     private void launchTaskList(Intent intent) {
-        Intent taskListIntent = new Intent(this, TaskListActivity.class);
+        Intent taskListIntent = new Intent(this, TaskListWrapperActivity.class);
         startActivity(taskListIntent);
         finish();
     }

@@ -15,7 +15,7 @@ import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.astrid.actfm.sync.ActFmSyncProvider;
 import com.todoroo.astrid.activity.Eula;
-import com.todoroo.astrid.activity.TaskListActivity;
+import com.todoroo.astrid.activity.TaskListWrapperActivity;
 import com.todoroo.astrid.service.StartupService;
 import com.todoroo.astrid.service.StatisticsService;
 import com.todoroo.astrid.service.abtesting.ABChooser;
@@ -97,7 +97,7 @@ public class WelcomeGraphic extends Activity {
 
     private Intent getNextIntent() {
         Intent intent = new Intent();
-        intent.setClass(this, TaskListActivity.class);
+        intent.setClass(this, TaskListWrapperActivity.class);
         return intent;
     }
 }

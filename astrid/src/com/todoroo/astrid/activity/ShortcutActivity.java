@@ -85,7 +85,7 @@ public class ShortcutActivity extends Activity {
     private void launchTaskList(Intent intent) {
         Bundle extras = intent.getExtras();
 
-        Intent taskListIntent = new Intent(this, TaskListActivity.class);
+        Intent taskListIntent = new Intent(this, TaskListWrapperActivity.class);
 
         if(extras != null && extras.containsKey(TaskListActivity.TOKEN_SOURCE))
                 taskListIntent.putExtra(TaskListActivity.TOKEN_SOURCE, extras.getInt(TaskListActivity.TOKEN_SOURCE));

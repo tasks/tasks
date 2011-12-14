@@ -37,13 +37,18 @@ public class FilterWithCustomIntent extends Filter {
         super(listingTitle, title, sqlQuery, valuesForNewTasks);
     }
 
-    public void start(Activity activity, int resultCode) {
+    public Intent getCustomIntent() {
         Intent intent = new Intent();
         intent.putExtra("filter", this); //$NON-NLS-1$
         intent.setComponent(customTaskList);
         if(customExtras != null)
             intent.putExtras(customExtras);
-        activity.startActivityForResult(intent, resultCode);
+
+        return intent;
+    }
+
+    public void start(Activity activity, int resultCode) {
+        activity.startActivityForResult(getCustomIntent(), resultCode);
     }
 
     // --- parcelable

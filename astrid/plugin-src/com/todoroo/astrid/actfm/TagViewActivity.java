@@ -237,10 +237,10 @@ public class TagViewActivity extends TaskListActivity {
         super.onNewIntent(intent);
 
         if (intent.getBooleanExtra(TOKEN_START_ACTIVITY, false)) {
-            findViewById(R.id.activity).postDelayed(new Runnable() {
+            getView().findViewById(R.id.activity).postDelayed(new Runnable() {
                 @Override
                 public void run() {
-                    Intent i = new Intent(TagViewActivity.this, TagUpdatesActivity.class);
+                    Intent i = new Intent(getActivity(), TagUpdatesActivity.class);
                     i.putExtra(EXTRA_TAG_DATA, tagData);
                     startActivity(i);
                     AndroidUtilities.callApiMethod(5, TagViewActivity.this, "overridePendingTransition", //$NON-NLS-1$
