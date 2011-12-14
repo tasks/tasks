@@ -326,7 +326,7 @@ public final class TaskEditActivity extends Activity {
                 controls.add(producteevControl);
                 basicControls.addView(producteevControl.getDisplayView());
                 notesEditText.setHint(R.string.producteev_TEA_notes);
-                //((TextView) notesControlSet.getView().findViewById(R.id.notes_label)).setHint(R.string.producteev_TEA_notes);
+                //((TextView) notesControlSet.getView().findViewById(R.id.notes)).setHint(R.string.producteev_TEA_notes);
             }
         } catch (Exception e) {
             Log.e("astrid-error", "loading-control-set", e); //$NON-NLS-1$ //$NON-NLS-2$
@@ -338,7 +338,7 @@ public final class TaskEditActivity extends Activity {
                 controls.add(ocrxControl);
                 basicControls.addView(ocrxControl.getDisplayView());
                 notesEditText.setHint(R.string.opencrx_TEA_notes);
-                //((TextView) notesControlSet.getView().findViewById(R.id.notes_label)).setHint(R.string.opencrx_TEA_notes);
+                //((TextView) notesControlSet.getView().findViewById(R.id.notes)).setHint(R.string.opencrx_TEA_notes);
             }
         } catch (Exception e) {
             Log.e("astrid-error", "loading-control-set", e); //$NON-NLS-1$ //$NON-NLS-2$
