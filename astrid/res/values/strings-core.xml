@@ -355,7 +355,7 @@
   <string name="TEA_control_title">Task Title</string>
   <string name="TEA_control_who">Who</string>
   <string name="TEA_control_when">When</string>
-  <string name="TEA_control_more_section">More Section</string>
+  <string name="TEA_control_more_section">----More Section----</string>
   <string name="TEA_control_importance">Importance</string>  
   <string name="TEA_control_lists">Lists</string>  
   <string name="TEA_control_notes">Notes</string>  

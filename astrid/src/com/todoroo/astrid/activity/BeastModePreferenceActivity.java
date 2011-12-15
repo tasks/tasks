@@ -3,6 +3,7 @@ package com.todoroo.astrid.activity;
 import java.util.ArrayList;
 
 import android.app.ListActivity;
+import android.content.Context;
 import android.os.Bundle;
 import android.view.MotionEvent;
 import android.view.View;
@@ -25,6 +26,65 @@ public class BeastModePreferenceActivity extends ListActivity {
     public static final String BEAST_MODE_ORDER_PREF = "beast_mode_order"; //$NON-NLS-1$
 
     public static final String BEAST_MODE_PREF_ITEM_SEPARATOR = ";"; //$NON-NLS-1$
+
+    private static final String BEAST_MODE_MORE_ITEM_SPECIAL_CHAR = "-*"; //$NON-NLS-1$
+
+    private static final String BEAST_MODE_MIGRATE_PREF = "beast_mode_migrate"; //$NON-NLS-1$
+
+    // Migration function to fix the fact that I stupidly chose to use the control
+    // set names (which are localized and subject to change) as the values in the beast
+    // mode preferences
+    public static void migrateBeastModePreferences(Context context) {
+        boolean hasMigratedBeastMode = Preferences.getBoolean(BEAST_MODE_MIGRATE_PREF, false);
+        if (hasMigratedBeastMode) return;
+        String setPref = Preferences.getStringValue(BEAST_MODE_ORDER_PREF);
+        if (setPref == null) {
+            Preferences.setBoolean(BEAST_MODE_MIGRATE_PREF, true);
+            return;
+        }
+
+        ArrayList<String> defaults = new ArrayList<String>();
+        String[] defaultOrder = context.getResources().getStringArray(R.array.TEA_control_sets);
+        for (String s : defaultOrder) {
+            if (s.contains(BEAST_MODE_MORE_ITEM_SPECIAL_CHAR)) {
+                String[] stripped = s.split(BEAST_MODE_MORE_ITEM_SPECIAL_CHAR);
+                s = stripped[0];
+            }
+            defaults.add(s);
+        }
+
+        ArrayList<String> setOrder = new ArrayList<String>();
+        String[] setOrderArray = setPref.split(BEAST_MODE_PREF_ITEM_SEPARATOR);
+        for (String s : setOrderArray) {
+            setOrder.add(s);
+        }
+
+        String[] prefKeys = context.getResources().getStringArray(R.array.TEA_control_sets_prefs);
+
+        StringBuilder newPref = new StringBuilder();
+
+        //Try to match old preference string to new preference string by index in defaults array
+        for (String pref : setOrder) {
+            int index = defaults.indexOf(pref);
+            if (index > -1 && index < prefKeys.length) {
+                newPref.append(prefKeys[index]);
+                newPref.append(BEAST_MODE_PREF_ITEM_SEPARATOR);
+            } else { // Should never get here--weird error if we do
+                // Failed to successfully migrate--reset to defaults
+                StringBuilder resetToDefaults = new StringBuilder();
+                for (String s : prefKeys) {
+                    resetToDefaults.append(s);
+                    resetToDefaults.append(BEAST_MODE_PREF_ITEM_SEPARATOR);
+                }
+                Preferences.setString(BEAST_MODE_ORDER_PREF, resetToDefaults.toString());
+                Preferences.setBoolean(BEAST_MODE_MIGRATE_PREF, true);
+                return;
+            }
+        }
+
+        Preferences.setString(BEAST_MODE_ORDER_PREF, newPref.toString());
+        Preferences.setBoolean(BEAST_MODE_MIGRATE_PREF, true);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
