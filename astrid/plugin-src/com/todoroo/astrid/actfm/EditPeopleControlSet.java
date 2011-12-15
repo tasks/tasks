@@ -388,6 +388,11 @@ public class EditPeopleControlSet extends PopupControlSet {
                 convertView = activity.getLayoutInflater().inflate(R.layout.assigned_adapter_row, parent, false);
             CheckedTextView ctv = (CheckedTextView) convertView.findViewById(android.R.id.text1);
             super.getView(position, ctv, parent);
+            if (assignedList.getCheckedItemPosition() == position) {
+                ctv.setChecked(true);
+            } else {
+                ctv.setChecked(false);
+            }
             AsyncImageView image = (AsyncImageView) convertView.findViewById(R.id.person_image);
             image.setDefaultImageResource(R.drawable.icn_default_person_image);
             if (position == 0) {
