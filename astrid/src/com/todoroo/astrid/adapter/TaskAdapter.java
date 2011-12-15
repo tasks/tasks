@@ -49,6 +49,8 @@ import android.view.View.OnTouchListener;
 import android.view.ViewGroup;
 import android.view.ViewGroup.LayoutParams;
 import android.view.ViewGroup.MarginLayoutParams;
+import android.view.animation.Animation;
+import android.view.animation.ScaleAnimation;
 import android.widget.CheckBox;
 import android.widget.CursorAdapter;
 import android.widget.Filterable;
@@ -145,6 +147,7 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
     private int fontSize;
     protected boolean applyListenersToRowBody = false;
     private long mostRecentlyMade = -1;
+    private final ScaleAnimation scaleAnimation;
 
     private final AtomicReference<String> query;
 
@@ -198,6 +201,10 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
 
         decorationManager = new DecorationManager();
         taskActionManager = new TaskActionManager();
+
+        scaleAnimation = new ScaleAnimation(1.6f, 1.0f, 1.6f, 1.0f,
+                Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
+        scaleAnimation.setDuration(100);
     }
 
     /* ======================================================================
@@ -873,6 +880,7 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
 
             // set check box to actual action item state
             setTaskAppearance(viewHolder, task);
+            viewHolder.completeBox.startAnimation(scaleAnimation);
         }
     };
 
