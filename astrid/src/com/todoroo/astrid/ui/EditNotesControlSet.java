@@ -1,9 +1,12 @@
 package com.todoroo.astrid.ui;
 
 import android.app.Activity;
+import android.content.Context;
 import android.graphics.Color;
 import android.text.TextUtils;
 import android.text.util.Linkify;
+import android.view.WindowManager;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.TextView;
 
@@ -19,6 +22,8 @@ public class EditNotesControlSet extends PopupControlSet {
         super(activity, viewLayout, displayViewLayout, R.string.TEA_note_label);
         editText = (EditText) getView().findViewById(R.id.notes);
         notesPreview = (TextView) getDisplayView().findViewById(R.id.notes_display);
+        dialog.getWindow()
+              .setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE | WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
     }
 
     @Override
@@ -46,6 +51,20 @@ public class EditNotesControlSet extends PopupControlSet {
     public String writeToModel(Task task) {
         task.setValue(Task.NOTES, editText.getText().toString());
         return null;
+    }
+
+    @Override
+    protected void onOkClick() {
+        super.onOkClick();
+        InputMethodManager imm = (InputMethodManager)activity.getSystemService(Context.INPUT_METHOD_SERVICE);
+        imm.hideSoftInputFromWindow(editText.getWindowToken(), 0);
+    }
+
+    @Override
+    protected void onCancelClick() {
+        super.onCancelClick();
+        InputMethodManager imm = (InputMethodManager)activity.getSystemService(Context.INPUT_METHOD_SERVICE);
+        imm.hideSoftInputFromWindow(editText.getWindowToken(), 0);
     }
 
     public boolean hasNotes() {

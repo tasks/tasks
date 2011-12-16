@@ -32,14 +32,14 @@ public abstract class PopupControlSet extends TaskEditControlSet {
         final DialogInterface.OnClickListener okListener = new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface d, int which) {
-                refreshDisplayView();
+                onOkClick();
             }
         };
 
         final DialogInterface.OnCancelListener cancelListener = new DialogInterface.OnCancelListener() {
             @Override
             public void onCancel(DialogInterface d) {
-                refreshDisplayView();
+                onCancelClick();
             }
         };
 
@@ -92,6 +92,14 @@ public abstract class PopupControlSet extends TaskEditControlSet {
                 dialog.show();
             }
         };
+    }
+
+    protected void onOkClick() {
+        refreshDisplayView();
+    }
+
+    protected void onCancelClick() {
+        refreshDisplayView();
     }
 
     protected abstract void refreshDisplayView();
