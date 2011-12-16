@@ -71,7 +71,7 @@
   <string name="actfm_TVA_tag_owner_none">none</string>
 
   <!-- Tag Settings: list collaborators label -->
-  <string name="actfm_TVA_members_label">Collaborators:</string>
+  <string name="actfm_TVA_members_label">Shared With:</string>
 
   <!-- Tag Settings: tag picture -->
   <string name="actfm_TVA_tag_picture">List Picture</string>
@@ -103,7 +103,7 @@
   <string name="actfm_EPA_assign_custom">Custom...</string>
   
   <!-- task sharing dialog: shared with label -->
-  <string name="actfm_EPA_share_with">Add Collaborators:</string>
+  <string name="actfm_EPA_share_with">Share with:</string>
   
   <!-- task sharing dialog: shared with label -->
   <string name="actfm_EPA_collaborators_header">Share with Friends</string>
