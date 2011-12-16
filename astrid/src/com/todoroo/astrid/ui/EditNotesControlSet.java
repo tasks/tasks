@@ -23,6 +23,7 @@ public class EditNotesControlSet extends PopupControlSet {
 
     @Override
     protected void refreshDisplayView() {
+        notesPreview.setText("");
         notesPreview.setText(editText.getText());
         linkifyDisplayView();
     }
