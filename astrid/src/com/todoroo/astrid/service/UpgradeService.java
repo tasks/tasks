@@ -131,7 +131,7 @@ public final class UpgradeService {
                     if(from < V3_8_3_1)
                         new TagCaseMigrator().performTagCaseMigration(context);
 
-                    if(from < V3_8_4 && Preferences.getBoolean(R.string.p_showNotes, true))
+                    if(from < V3_8_4 && Preferences.getBoolean(R.string.p_showNotes, false))
                         taskService.clearDetails(Task.NOTES.neq("")); //$NON-NLS-1$
                 } finally {
                     DialogUtilities.dismissDialog((Activity)context, dialog);

@@ -24,7 +24,7 @@ public class NotesDecorationExposer implements TaskDecorationExposer {
 
     @Override
     public TaskDecoration expose(Task task) {
-        if(Preferences.getBoolean(R.string.p_showNotes, true))
+        if(Preferences.getBoolean(R.string.p_showNotes, false))
             return null;
         if(task == null || !NotesPlugin.hasNotes(task))
             return null;

@@ -19,7 +19,7 @@
         <com.todoroo.astrid.ui.MultilineCheckboxPreference
             android:key="@string/p_showNotes"
             android:title="@string/EPr_showNotes_title"
-            android:defaultValue="true" />
+            android:defaultValue="false" />
             
         <com.todoroo.astrid.ui.MultilineListPreference
             android:key="@string/p_theme"
