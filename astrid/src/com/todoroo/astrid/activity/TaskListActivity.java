@@ -299,8 +299,8 @@ public class TaskListActivity extends ListActivity implements OnScrollListener,
             isFilter = true;
         } else {
             filter = CoreFilterExposer.buildInboxFilter(getResources());
-            findViewById(R.id.headerLogo).setVisibility(View.VISIBLE);
-            findViewById(R.id.listLabel).setVisibility(View.GONE);
+            //findViewById(R.id.headerLogo).setVisibility(View.VISIBLE);
+            //findViewById(R.id.listLabel).setVisibility(View.GONE);
             isFilter = false;
         }
 

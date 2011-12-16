@@ -16,7 +16,7 @@
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:layout_weight="1"
-      android:src="@drawable/tango_microphone"
+      android:src="@android:drawable/ic_btn_speak_now"
       android:scaleType="fitCenter"
       android:visibility="gone" />
     <EditText

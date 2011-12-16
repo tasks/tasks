@@ -94,7 +94,7 @@ import com.todoroo.astrid.utility.Constants;
 public class FilterListActivity extends ExpandableListActivity {
 
     // -- extra codes
-    public static final String SHOW_BACK_BUTTON = "show_back"; //$NON-NLS-1$
+    //public static final String SHOW_BACK_BUTTON = "show_back"; //$NON-NLS-1$
 
     // --- menu codes
 
@@ -140,10 +140,6 @@ public class FilterListActivity extends ExpandableListActivity {
 
         setContentView(R.layout.filter_list_activity);
         ImageView backButton = (ImageView) findViewById(R.id.back);
-        if (!getIntent().getBooleanExtra(SHOW_BACK_BUTTON, true)) {
-            backButton.setVisibility(View.GONE);
-            findViewById(R.id.headerLogo).setPadding(0, 0, 0, 0);
-        }
         setDefaultKeyMode(DEFAULT_KEYS_SEARCH_LOCAL);
 
         backButton.setOnClickListener(new OnClickListener() {

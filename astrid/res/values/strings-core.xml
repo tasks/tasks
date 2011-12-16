@@ -216,7 +216,7 @@
   <!-- =============================================== FilterListActivity == -->
 
   <!-- Filter List Activity Title -->    
-  <string name="FLA_title">Astrid: Filters</string>
+  <string name="FLA_title">Lists</string>
   
   <!-- Displayed when loading filters -->    
   <string name="FLA_loading">Loading Filters...</string>
