@@ -182,6 +182,7 @@ public final class TaskEditActivity extends Activity {
     private EditPeopleControlSet peopleControlSet = null;
     private EditNotesControlSet notesControlSet = null;
     private HideUntilControlSet hideUntilControls = null;
+    private TagsControlSet tagsControlSet = null;
     private EditText title;
 
     private final List<TaskEditControlSet> controls =
@@ -296,10 +297,10 @@ public final class TaskEditActivity extends Activity {
         //moreControls.addView(importanceControl.getDisplayView());
         controlSetMap.put(getString(R.string.TEA_ctrl_importance_pref), importanceControl);
 
-        TagsControlSet tagsControl = new TagsControlSet(TaskEditActivity.this, R.layout.control_set_tags, R.layout.control_set_tags_display, R.string.TEA_tags_label);
-        controls.add(tagsControl);
+        tagsControlSet = new TagsControlSet(TaskEditActivity.this, R.layout.control_set_tags, R.layout.control_set_tags_display, R.string.TEA_tags_label);
+        controls.add(tagsControlSet);
         //moreControls.addView(tagsControl.getDisplayView());
-        controlSetMap.put(getString(R.string.TEA_ctrl_lists_pref), tagsControl);
+        controlSetMap.put(getString(R.string.TEA_ctrl_lists_pref), tagsControlSet);
 
         notesControlSet = new EditNotesControlSet(TaskEditActivity.this, R.layout.control_set_notes, R.layout.control_set_notes_display);
         notesEditText = (EditText) notesControlSet.getView().findViewById(R.id.notes);
@@ -533,6 +534,18 @@ public final class TaskEditActivity extends Activity {
                 if (isNewTask) {
                     hideUntilControls.setDefaults();
                 }
+                autoExpand();
+            }
+        }
+
+        private void autoExpand() {
+            LinearLayout moreControls = (LinearLayout) findViewById(R.id.more_controls);
+            LinearLayout moreHeader = (LinearLayout) findViewById(R.id.more_header);
+
+            if (notesControlSet.hasNotes() && notesControlSet.getDisplayView().getParent() == moreControls) {
+                moreHeader.performClick();
+            } else if (tagsControlSet.hasLists() && tagsControlSet.getDisplayView().getParent() == moreControls) {
+                moreHeader.performClick();
             }
         }
 

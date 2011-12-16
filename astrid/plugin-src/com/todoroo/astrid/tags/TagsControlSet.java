@@ -266,4 +266,9 @@ public final class TagsControlSet extends PopupControlSet {
         tagsDisplay.setText(buildTagString());
     }
 
+    public boolean hasLists() {
+        LinkedHashSet<String> tags = getTagSet();
+        return !tags.isEmpty();
+    }
+
 }

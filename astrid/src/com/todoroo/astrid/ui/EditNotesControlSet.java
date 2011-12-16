@@ -48,4 +48,8 @@ public class EditNotesControlSet extends PopupControlSet {
         return null;
     }
 
+    public boolean hasNotes() {
+        return !TextUtils.isEmpty(editText.getText());
+    }
+
 }
