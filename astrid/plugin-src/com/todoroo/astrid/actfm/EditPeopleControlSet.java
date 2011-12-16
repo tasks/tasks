@@ -58,6 +58,7 @@ import com.todoroo.astrid.service.StatisticsConstants;
 import com.todoroo.astrid.service.StatisticsService;
 import com.todoroo.astrid.service.TagDataService;
 import com.todoroo.astrid.service.TaskService;
+import com.todoroo.astrid.service.ThemeService;
 import com.todoroo.astrid.tags.TagService;
 import com.todoroo.astrid.ui.PeopleContainer;
 import com.todoroo.astrid.ui.PeopleContainer.OnAddNewPersonListener;
@@ -122,7 +123,7 @@ public class EditPeopleControlSet extends PopupControlSet {
         sharedWithRow = LayoutInflater.from(activity).inflate(R.layout.control_set_collaborators_display, null);
         sharedWithView = LayoutInflater.from(activity).inflate(R.layout.control_set_collaborators, null);
 
-        sharedWithDialog = new Dialog(activity, 0);
+        sharedWithDialog = new Dialog(activity, ThemeService.getDialogTheme());
         sharedWithDialog.setTitle(R.string.actfm_EPA_collaborators_header);
         View v = getSharedWithView();
         DisplayMetrics metrics = new DisplayMetrics();
@@ -262,7 +263,6 @@ public class EditPeopleControlSet extends PopupControlSet {
                     name.setText(person.optString("name"));
                     name.setTextAppearance(activity, R.style.TextAppearance_Medium);
                     tag.setText(activity.getString(R.string.actfm_EPA_list, person.optString("tag")));
-                    tag.setTextAppearance(activity, android.R.style.TextAppearance);
 
                     collaborators.addView(contact);
                 }

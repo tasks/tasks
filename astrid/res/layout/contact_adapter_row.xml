@@ -34,7 +34,8 @@
         android:layout_marginLeft="55dip"
         android:layout_below="@android:id/text1"
         style="@android:attr/dropDownItemStyle"
-        android:textAppearance="@android:attr/textAppearanceInverse"
+        android:textAppearance="@android:attr/textAppearance"
+        android:textColor="?attr/asTextColor"
         android:singleLine="true"
         android:textSize="14sp"/>
         

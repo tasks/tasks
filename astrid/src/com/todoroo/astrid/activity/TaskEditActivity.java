@@ -350,7 +350,7 @@ public final class TaskEditActivity extends Activity {
         if (orderPreference != null)
             itemOrder = orderPreference.split(BeastModePreferenceActivity.BEAST_MODE_PREF_ITEM_SEPARATOR);
         else
-            itemOrder = getResources().getStringArray(R.array.TEA_control_sets);
+            itemOrder = getResources().getStringArray(R.array.TEA_control_sets_prefs);
         String moreSectionTrigger = getString(R.string.TEA_ctrl_more_pref);
         String whenViewDescriptor = getString(R.string.TEA_ctrl_when_pref);
         View whenView = findViewById(R.id.when_container);
@@ -471,14 +471,8 @@ public final class TaskEditActivity extends Activity {
     }
 
     private void constructWhenDialog(View whenDialogView) {
-        int theme = ThemeService.getTheme();
-        if (theme == R.style.Theme || theme == R.style.Theme_Transparent) {
-            whenDialog = new Dialog(this, R.style.Theme_TEA_Dialog);//R.style.Theme_WhenDialog
-            //whenDialogView.setBackgroundColor(getResources().getColor(android.R.color.black));
-        } else {
-            whenDialog = new Dialog(this, R.style.Theme_TEA_Dialog); //R.style.Theme_White_WhenDialog
-            //whenDialogView.setBackgroundColor(getResources().getColor(android.R.color.white));
-        }
+        int theme = ThemeService.getDialogTheme();
+        whenDialog = new Dialog(this, theme);
 
         Button dismissDialogButton = (Button) whenDialogView.findViewById(R.id.when_dismiss);
         dismissDialogButton.setOnClickListener(new View.OnClickListener() {

@@ -14,6 +14,7 @@ import android.widget.Button;
 import com.timsu.astrid.R;
 import com.todoroo.andlib.utility.DialogUtilities;
 import com.todoroo.astrid.helper.TaskEditControlSet;
+import com.todoroo.astrid.service.ThemeService;
 
 public abstract class PopupControlSet extends TaskEditControlSet {
 
@@ -59,7 +60,8 @@ public abstract class PopupControlSet extends TaskEditControlSet {
     }
 
     protected Dialog buildDialog(int title, final DialogInterface.OnClickListener okListener, DialogInterface.OnCancelListener cancelListener) {
-        final Dialog d = new Dialog(activity, R.style.Theme_TEA_Dialog);
+        int theme = ThemeService.getDialogTheme();
+        final Dialog d = new Dialog(activity, theme);
         if (title == 0)
             d.requestWindowFeature(Window.FEATURE_NO_TITLE);
         else

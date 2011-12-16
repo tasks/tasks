@@ -12,7 +12,16 @@
         android:layout_gravity="center_vertical"
         android:scaleType="fitCenter"
         astrid:defaultSrc="@drawable/icn_default_person_image" />
-    <include layout="@android:layout/simple_list_item_single_choice"
-        android:layout_toRightOf="@id/person_image"/>
+	<CheckedTextView
+		android:id="@android:id/text1"
+		android:layout_width="match_parent"
+		android:layout_height="?android:attr/listPreferredItemHeight"
+		android:textAppearance="?android:attr/textAppearanceLarge"
+		android:textColor="?attr/asTextColor"
+		android:gravity="center_vertical"
+		android:checkMark="?android:attr/listChoiceIndicatorSingle"
+		android:paddingLeft="6dip"
+		android:paddingRight="6dip"
+	    android:layout_toRightOf="@id/person_image"/>
 
 </LinearLayout>

@@ -64,7 +64,7 @@ public final class TagsControlSet extends PopupControlSet {
 
         selectedTags = (ListView) getView().findViewById(R.id.existingTags);
         selectedTags.setAdapter(new ArrayAdapter<String>(activity,
-                android.R.layout.simple_list_item_multiple_choice, allTagNames));
+                R.layout.simple_list_item_multiple_choice_themed, allTagNames));
         selectedTags.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
 
         this.newTags = (LinearLayout) getView().findViewById(R.id.newTags);

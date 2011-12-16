@@ -9,6 +9,7 @@ import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.graphics.Paint.Style;
 import android.graphics.Rect;
 import android.graphics.RectF;
 import android.graphics.drawable.BitmapDrawable;
@@ -38,14 +39,14 @@ public class CalendarView extends View {
     private boolean ignoreNextTouch;
 
 	private Paint borderPaint;
-	private Paint borderRightAlignPaint;
-	private Paint backColorPaint;
-	private Paint whiteCenterAlignLargePaint;
+	private Paint calendarNumberRightAlignPaint;
+	private Paint calendarSelectedNumberRightAlignPaint;
+	private Paint backgroundColorPaint;
+	private Paint monthCenterAlignLargePaint;
 	private Paint centerAlignPaint;
 	private Paint todayCalendarPaint;
 	private Paint selectedCalendarPaint;
 	private Paint dayPaint;
-	private Paint calendarPaint;
 	private float density;
 
 	private int leftArrowHeight;
@@ -103,45 +104,48 @@ public class CalendarView extends View {
 
     	borderPaint = new Paint();
     	borderPaint.setAntiAlias(true);
-    	borderPaint.setColor(Color.WHITE);
+    	borderPaint.setColor(r.getColor(R.color.task_edit_deadline_gray));
+    	borderPaint.setStyle(Style.STROKE);
 
-    	borderRightAlignPaint = new Paint();
-    	borderRightAlignPaint.setAntiAlias(true);
-    	borderRightAlignPaint.setColor(Color.WHITE);
-    	borderRightAlignPaint.setTextSize(TEXT_SIZE * density);
-    	borderRightAlignPaint.setTextAlign(Paint.Align.RIGHT);
+    	calendarNumberRightAlignPaint = new Paint();
+    	calendarNumberRightAlignPaint.setAntiAlias(true);
+    	calendarNumberRightAlignPaint.setColor(r.getColor(R.color.task_edit_deadline_gray));
+    	calendarNumberRightAlignPaint.setTextSize(TEXT_SIZE * density);
+    	calendarNumberRightAlignPaint.setTextAlign(Paint.Align.RIGHT);
+
+    	calendarSelectedNumberRightAlignPaint = new Paint();
+        calendarSelectedNumberRightAlignPaint.setAntiAlias(true);
+        calendarSelectedNumberRightAlignPaint.setColor(Color.WHITE);
+        calendarSelectedNumberRightAlignPaint.setTextSize(TEXT_SIZE * density);
+        calendarSelectedNumberRightAlignPaint.setTextAlign(Paint.Align.RIGHT);
 
     	dayPaint = new Paint();
     	dayPaint.setAntiAlias(true);
     	dayPaint.setColor(Color.rgb(137, 135, 132));
 
-    	calendarPaint = new Paint();
-    	calendarPaint.setAntiAlias(true);
-    	calendarPaint.setColor(Color.BLACK);
-
-    	whiteCenterAlignLargePaint = new Paint();
-    	whiteCenterAlignLargePaint.setAntiAlias(true);
-    	whiteCenterAlignLargePaint.setColor(Color.WHITE);
-    	whiteCenterAlignLargePaint.setTextAlign(Paint.Align.CENTER);
-    	whiteCenterAlignLargePaint.setTextSize(MONTH_TEXT_SIZE * density);
+    	monthCenterAlignLargePaint = new Paint();
+    	monthCenterAlignLargePaint.setAntiAlias(true);
+    	monthCenterAlignLargePaint.setColor(r.getColor(R.color.task_edit_deadline_gray));
+    	monthCenterAlignLargePaint.setTextAlign(Paint.Align.CENTER);
+    	monthCenterAlignLargePaint.setTextSize(MONTH_TEXT_SIZE * density);
 
     	centerAlignPaint = new Paint();
     	centerAlignPaint.setAntiAlias(true);
-    	centerAlignPaint.setColor(Color.WHITE);
+    	centerAlignPaint.setColor(r.getColor(R.color.task_edit_deadline_gray));
     	centerAlignPaint.setTextAlign(Paint.Align.CENTER);
     	centerAlignPaint.setTextSize(TEXT_SIZE * density);
 
     	todayCalendarPaint = new Paint();
     	todayCalendarPaint.setAntiAlias(true);
-    	todayCalendarPaint.setColor(r.getColor(android.R.color.darker_gray));
+    	todayCalendarPaint.setColor(r.getColor(R.color.task_edit_deadline_gray));
 
     	selectedCalendarPaint = new Paint();
     	selectedCalendarPaint.setAntiAlias(true);
     	selectedCalendarPaint.setColor(r.getColor(R.color.task_edit_date_shortcuts_bg));
 
-    	backColorPaint = new Paint();
-    	backColorPaint.setAntiAlias(true);
-    	backColorPaint.setColor(Color.BLACK);
+    	backgroundColorPaint = new Paint();
+    	backgroundColorPaint.setAntiAlias(true);
+    	backgroundColorPaint.setColor(Color.TRANSPARENT);
 
         setPadding(PADDING, PADDING, PADDING, PADDING);
 
@@ -229,7 +233,7 @@ public class CalendarView extends View {
         super.onDraw(canvas);
 
         // Background
-        canvas.drawRect(0, 0, getMeasuredWidth(), getMeasuredHeight(), backColorPaint);
+        canvas.drawRect(0, 0, getMeasuredWidth(), getMeasuredHeight(), backgroundColorPaint);
 
         // Outermost border -- Start
 //        RectF outerMostBorder = new RectF();
@@ -246,7 +250,7 @@ public class CalendarView extends View {
 
         float monthTitleHeight = (MONTH_TEXT_SIZE + 10) * density;
         rectF.set(15, 15, getMeasuredWidth() - 15, monthTitleHeight);
-        canvas.drawRoundRect(rectF, CURVE_RADIUS, CURVE_RADIUS, backColorPaint);
+        canvas.drawRoundRect(rectF, CURVE_RADIUS, CURVE_RADIUS, backgroundColorPaint);
 
         rectF.set(16, 16, getMeasuredWidth() - 16, monthTitleHeight - 1);
         // canvas.drawRoundRect(rectF, CURVE_RADIUS, CURVE_RADIUS, backColorPaint);
@@ -280,7 +284,7 @@ public class CalendarView extends View {
         int monthX = getMeasuredWidth() / 2;
         int monthY = (int) (monthTitleHeight / 2 + 15);
         String monthYear = (String) DateFormat.format("MMMM yyyy", getCoercedDate(calendar.getTime(), calendarDate)); //calendarDate.getTime() == 0 ? calendar.getTime() : calendarDate); //$NON-NLS-1$
-        canvas.drawText(monthYear, monthX, monthY, whiteCenterAlignLargePaint);
+        canvas.drawText(monthYear, monthX, monthY, monthCenterAlignLargePaint);
         // Month text -- End
 
         // Day heading -- Start
@@ -329,6 +333,7 @@ public class CalendarView extends View {
         boolean firstTime = true;
         int dayOfMonth = 1;
         Paint colorPaint;
+        Paint textPaint;
 
         dayLeftArr = new int[lastDateOfThisMonth];
         dayTopArr = new int[lastDateOfThisMonth];
@@ -346,10 +351,13 @@ public class CalendarView extends View {
 				if (dayOfMonth <= lastDateOfThisMonth) {
 					if (currentHighlightDay == dayOfMonth) {
 						colorPaint = selectedCalendarPaint;
+						textPaint = calendarSelectedNumberRightAlignPaint;
 					} else if(today == dayOfMonth) {
 					    colorPaint = todayCalendarPaint;
+					    textPaint = calendarSelectedNumberRightAlignPaint;
 					} else {
-						colorPaint = calendarPaint;
+						colorPaint = backgroundColorPaint;
+						textPaint = calendarNumberRightAlignPaint;
 					}
 					dayLeftArr[dayOfMonth-1] = dayLeft;
 					dayTopArr[dayOfMonth-1] = dayTop;
@@ -360,8 +368,8 @@ public class CalendarView extends View {
 		            canvas.drawRoundRect(rectF, CURVE_RADIUS, CURVE_RADIUS, colorPaint);
 
 		            textX = dayLeft + boxWidth - TEXT_PADDING * 3;
-		            textY = dayTop + borderRightAlignPaint.getTextSize() + TEXT_PADDING;
-		            canvas.drawText(String.valueOf(dayOfMonth), textX, textY, borderRightAlignPaint);
+		            textY = dayTop + calendarNumberRightAlignPaint.getTextSize() + TEXT_PADDING;
+		            canvas.drawText(String.valueOf(dayOfMonth), textX, textY, textPaint);
 
 		            dayLeft += boxWidth + PADDING;
 

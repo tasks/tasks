@@ -100,7 +100,7 @@
     
     
    	<style name="TextAppearance.GEN_EditLabel.DLG_EditLabel">
-   	    <item name="android:textColor">@android:color/white</item>
+   	    <!--  <item name="android:textColor">@android:color/white</item> -->
    	</style>
     
     <!--================================================== Custom Dialogs == -->
@@ -167,14 +167,20 @@
 	    <item name="android:windowContentOverlay">@null</item>
 	    <item name="android:windowAnimationStyle">@android:style/Animation.Dialog</item>
 	    <item name="android:windowSoftInputMode">stateUnspecified|adjustPan</item>
+	    <item name="asTextColor">#ffffff</item>
 	</style>
 	
+   	<style name="Theme.TEA_Dialog.White">
+   	    <item name="android:windowBackground">@drawable/task_edit_dialog_background_white</item>
+   	    <item name="asTextColor">#000000</item>
+   	</style>
+	
     <style name="TEA_DialogWindowTitle">
-            <item name="android:maxLines">1</item>
-            <item name="android:scrollHorizontally">true</item>
-            <item name="android:textSize">18sp</item>
-            <item name="android:textStyle">normal</item>
-            <item name="android:textColor">#ffffff</item>
+        <item name="android:maxLines">1</item>
+        <item name="android:scrollHorizontally">true</item>
+        <item name="android:textSize">18sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">?attr/asTextColor</item>
     </style>
    	    
     <!-- ==================================================== TaskAdapter == -->
