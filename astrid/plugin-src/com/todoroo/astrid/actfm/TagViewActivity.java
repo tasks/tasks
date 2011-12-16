@@ -109,12 +109,6 @@ public class TagViewActivity extends TaskListActivity {
         };
         ((EditText) findViewById(R.id.quickAddText)).setOnTouchListener(onTouch);
 
-        View settingsContainer = findViewById(R.id.settingsContainer);
-        settingsContainer.setVisibility(View.VISIBLE);
-
-        View settingsButton = findViewById(R.id.settings);
-        settingsButton.setOnClickListener(settingsListener);
-
         View membersEdit = findViewById(R.id.members_edit);
         membersEdit.setOnClickListener(settingsListener);
 
