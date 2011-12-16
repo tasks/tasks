@@ -42,6 +42,7 @@ import android.view.View.OnClickListener;
 import android.view.Window;
 import android.view.inputmethod.EditorInfo;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ExpandableListView;
 import android.widget.ExpandableListView.ExpandableListContextMenuInfo;
@@ -82,6 +83,7 @@ import com.todoroo.astrid.service.StartupService;
 import com.todoroo.astrid.service.StatisticsConstants;
 import com.todoroo.astrid.service.StatisticsService;
 import com.todoroo.astrid.service.ThemeService;
+import com.todoroo.astrid.tags.TagsPlugin;
 import com.todoroo.astrid.utility.Constants;
 
 /**
@@ -140,12 +142,24 @@ public class FilterListActivity extends ExpandableListActivity {
 
         setContentView(R.layout.filter_list_activity);
         ImageView backButton = (ImageView) findViewById(R.id.back);
+        Button newListButton = (Button) findViewById(R.id.new_list_button);
         setDefaultKeyMode(DEFAULT_KEYS_SEARCH_LOCAL);
 
         backButton.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
                 finish();
+            }
+        });
+
+        newListButton.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = TagsPlugin.newTagDialog(FilterListActivity.this);
+                startActivity(intent);
+                AndroidUtilities.callApiMethod(5, FilterListActivity.this, "overridePendingTransition",
+                        new Class<?>[] { Integer.TYPE, Integer.TYPE },
+                        R.anim.slide_left_in, R.anim.slide_left_out);
             }
         });
 
