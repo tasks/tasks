@@ -170,9 +170,10 @@ public class StartupService {
             }
             AstridPreferences.setCurrentVersion(version);
         }
-        if(latestSetVersion == 0) {
-            onFirstTime();
-        }
+        //Startup tasks
+//        if(latestSetVersion == 0) {
+//            onFirstTime();
+//        }
 
         upgradeService.performSecondaryUpgrade(context);
 
