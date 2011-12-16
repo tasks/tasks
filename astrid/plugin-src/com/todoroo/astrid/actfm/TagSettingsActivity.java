@@ -9,6 +9,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
@@ -17,6 +18,7 @@ import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.Window;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -188,6 +190,8 @@ public class TagSettingsActivity extends Activity {
             Toast.makeText(this, R.string.tag_list_saved, Toast.LENGTH_LONG).show();
 
         tagDataService.save(tagData);
+        InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+        imm.hideSoftInputFromWindow(tagName.getWindowToken(), 0);
 
         if (isNewTag) {
             Intent intent = new Intent(this, TagViewActivity.class);
