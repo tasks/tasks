@@ -9,7 +9,8 @@
   <LinearLayout
       android:id="@+id/notes_body"
       android:layout_width="fill_parent"
-      android:layout_height="50dip"
+      android:minHeight="50dip"
+      android:layout_height="wrap_content"
       android:gravity="center_vertical">
       <ImageView 
         style="@style/EditRowImage"
@@ -26,7 +27,6 @@
 	      android:layout_height="wrap_content"
 	      android:layout_weight="1"
 	      android:gravity="right"
-	      android:maxLines="2"
 	      android:paddingLeft="10dip"
 	      style="@style/TextAppearance.EditRowDisplay" />
 	  <include layout="@layout/task_edit_arrow"/>

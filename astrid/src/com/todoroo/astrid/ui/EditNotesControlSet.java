@@ -1,6 +1,9 @@
 package com.todoroo.astrid.ui;
 
 import android.app.Activity;
+import android.graphics.Color;
+import android.text.TextUtils;
+import android.text.util.Linkify;
 import android.widget.EditText;
 import android.widget.TextView;
 
@@ -21,12 +24,21 @@ public class EditNotesControlSet extends PopupControlSet {
     @Override
     protected void refreshDisplayView() {
         notesPreview.setText(editText.getText());
+        linkifyDisplayView();
+    }
+
+    private void linkifyDisplayView() {
+        if(!TextUtils.isEmpty(notesPreview.getText())) {
+            notesPreview.setLinkTextColor(Color.rgb(100, 160, 255));
+            Linkify.addLinks(notesPreview, Linkify.ALL);
+        }
     }
 
     @Override
     public void readFromTask(Task task) {
         editText.setTextKeepState(task.getValue(Task.NOTES));
         notesPreview.setText(task.getValue(Task.NOTES));
+        linkifyDisplayView();
     }
 
     @Override
