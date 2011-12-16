@@ -495,6 +495,7 @@ public class TaskListActivity extends ListActivity implements OnScrollListener,
             @Override
             public void run() {
                 Preferences.setLong(LAST_AUTOSYNC_ATTEMPT, DateUtilities.now());
+                Flags.set(Flags.ACTFM_SUPPRESS_SYNC_TOAST);
                 new ActFmSyncProvider().synchronize(TaskListActivity.this);
             }
         }.start();
