@@ -109,6 +109,7 @@ import com.todoroo.astrid.utility.Constants;
 import com.todoroo.astrid.utility.Flags;
 import com.todoroo.astrid.voice.VoiceInputAssistant;
 import com.todoroo.astrid.welcome.HelpInfoPopover;
+import com.todoroo.astrid.welcome.WelcomeLogin;
 import com.todoroo.astrid.widget.TasksWidget;
 
 /**
@@ -575,6 +576,13 @@ public class TaskListActivity extends ListActivity implements OnScrollListener,
         registerReceiver(syncActionReceiver,
                 new IntentFilter(AstridApiConstants.BROADCAST_SEND_SYNC_ACTIONS));
         setUpBackgroundJobs();
+
+        if (!Preferences.getBoolean(WelcomeLogin.KEY_SHOWED_WELCOME_LOGIN, false)) {
+            Intent showWelcomeLogin = new Intent(this, WelcomeLogin.class);
+            startActivity(showWelcomeLogin);
+            Preferences.setBoolean(WelcomeLogin.KEY_SHOWED_WELCOME_LOGIN, true);
+            return;
+        }
 
         if (filter.title.equals(getString(R.string.BFE_Active))) {
             initiateAutomaticSync();

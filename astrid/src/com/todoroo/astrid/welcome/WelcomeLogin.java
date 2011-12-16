@@ -3,7 +3,6 @@ package com.todoroo.astrid.welcome;
 import org.json.JSONObject;
 
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.text.SpannableString;
@@ -20,7 +19,6 @@ import com.facebook.android.AuthListener;
 import com.timsu.astrid.R;
 import com.todoroo.andlib.service.ContextManager;
 import com.todoroo.andlib.utility.DialogUtilities;
-import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.astrid.actfm.ActFmLoginActivity;
 import com.todoroo.astrid.activity.Eula;
 import com.todoroo.astrid.data.Task;
@@ -51,23 +49,8 @@ public class WelcomeLogin extends ActFmLoginActivity implements AuthListener {
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         super.onCreate(savedInstanceState);
         ContextManager.setContext(this);
-        if (Preferences.getBoolean(KEY_SHOWED_WELCOME_LOGIN, false)) {
-            finishAndShowNext();
-        }
 
         initializeUI();
-    }
-
-    @Override
-    protected void finishAndShowNext() {
-        Intent welcomeScreen = new Intent(this, WelcomeGraphic.class);
-        if (actFmPreferenceService.isLoggedIn()) {
-            welcomeScreen.putExtra(WelcomeGraphic.START_SYNC, true);
-            noSync = true; // For superclass
-        }
-        startActivity(welcomeScreen);
-        finish();
-        Preferences.setBoolean(KEY_SHOWED_WELCOME_LOGIN, true);
     }
 
     @Override
@@ -155,7 +138,7 @@ public class WelcomeLogin extends ActFmLoginActivity implements AuthListener {
         private final DialogInterface.OnClickListener confirmLaterListener = new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                finishAndShowNext();
+                finish();
             }
         };
     };

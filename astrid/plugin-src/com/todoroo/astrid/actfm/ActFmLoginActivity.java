@@ -124,10 +124,6 @@ public class ActFmLoginActivity extends Activity implements AuthListener {
         DependencyInjectionService.getInstance().inject(this);
     }
 
-    protected void finishAndShowNext() {
-        finish();
-    }
-
     @SuppressWarnings("nls")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -464,7 +460,7 @@ public class ActFmLoginActivity extends Activity implements AuthListener {
                 result.optString("picture"));
 
         setResult(RESULT_OK);
-        finishAndShowNext();
+        finish();
 
         if (!noSync) {
             new ActFmSyncProvider().synchronize(ActFmLoginActivity.this);
