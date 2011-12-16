@@ -338,7 +338,7 @@
       </intent-filter>
     </receiver>    
     <activity android:name="com.todoroo.astrid.actfm.TagViewActivity"
-              android:windowSoftInputMode="stateHidden"
+              android:windowSoftInputMode="stateHidden|adjustResize"
               android:theme="@style/Theme">
         <intent-filter>
           <action android:name="android.intent.action.VIEW" />
@@ -373,7 +373,7 @@
     
     <!-- gtasks -->
     <activity android:name="com.todoroo.astrid.gtasks.GtasksListActivity"
-              android:windowSoftInputMode="stateHidden"
+              android:windowSoftInputMode="stateHidden|adjustResize"
               android:theme="@style/Theme">
       <intent-filter>
         <action android:name="android.intent.action.MAIN" />
