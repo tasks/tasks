@@ -270,6 +270,12 @@ public class TaskListActivity extends ListActivity implements OnScrollListener,
                 break;
             }
         }
+
+        runOnUiThread(new Runnable() {
+           public void run() {
+               Thread.currentThread().setPriority(Thread.MAX_PRIORITY);
+           }
+        });
     }
 
     @Override

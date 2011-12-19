@@ -205,6 +205,7 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
         scaleAnimation = new ScaleAnimation(1.6f, 1.0f, 1.6f, 1.0f,
                 Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
         scaleAnimation.setDuration(100);
+
     }
 
     /* ======================================================================
@@ -393,9 +394,13 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
                 viewHolder.details2.setVisibility(View.GONE);
             } else {
                 viewHolder.details1.setVisibility(View.VISIBLE);
-                while(details.startsWith(DETAIL_SEPARATOR))
-                    details = details.substring(DETAIL_SEPARATOR.length());
-
+                if (details.startsWith(DETAIL_SEPARATOR)) {
+                    StringBuffer buffer = new StringBuffer(details);
+                    int length = DETAIL_SEPARATOR.length();
+                    while(buffer.lastIndexOf(DETAIL_SEPARATOR, length) == 0)
+                        buffer.delete(0, length);
+                    details = buffer.toString(); //details.substring(DETAIL_SEPARATOR.length());
+                }
                 drawDetails(viewHolder, details, dueDateTextWidth);
             }
         }
@@ -403,7 +408,7 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
         if(Math.abs(DateUtilities.now() - task.getValue(Task.MODIFICATION_DATE)) < 2000L)
             mostRecentlyMade = task.getId();
 
-        // details and decorations, expanded
+//        // details and decorations, expanded
         decorationManager.request(viewHolder);
     }
 
