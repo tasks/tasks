@@ -7,6 +7,7 @@
 	<ScrollView
 	  android:layout_width="fill_parent"
 	  android:layout_height="fill_parent"
+	  android:layout_weight="100"
 	  android:minWidth="320dip"
 	  android:paddingLeft="5dip"
 	  android:paddingRight="5dip">

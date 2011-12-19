@@ -6,7 +6,8 @@
   android:orientation="vertical">
 	<ScrollView
 	  android:layout_width="fill_parent"
-	  android:layout_height="fill_parent">
+	  android:layout_height="fill_parent"
+	  android:layout_weight="100">
 		<LinearLayout
 		  android:orientation="vertical"
 		  android:layout_width="fill_parent"
