@@ -16,17 +16,6 @@
         android:layout_alignParentTop="true"
         style="@style/Header">
         
-
-        <!-- Header Logo -->
-        <!-- <ImageView android:id="@+id/headerLogo"
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
-            android:layout_weight="100"
-            android:gravity="center"
-            android:paddingLeft="43dip"
-            android:src="@drawable/header_logo_new"
-            android:scaleType="center"/>  -->
-        
         <!-- List Label -->
         <TextView android:id="@+id/listLabel"
             android:layout_width="fill_parent"
@@ -61,19 +50,19 @@
         android:layout_width="fill_parent" 
         android:layout_height="50dip"
         android:layout_weight="1"
+        android:padding="5dip"
         android:orientation="horizontal"
         android:layout_alignParentBottom="true">
         
         <Button
-            android:id="@+id/new_list_button"
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
-            android:paddingLeft="10dip"
-            android:paddingRight="10dip"
-            android:paddingTop="5dip"
-            android:paddingBottom="5dip"
-            android:text="New list"
-            android:textColor="@android:color/white"/>
+		    android:id="@+id/new_list_button"
+		    android:layout_width="fill_parent"
+		    android:layout_height="fill_parent"
+		    android:background="@drawable/footer_editbutton"
+		    android:gravity="center"
+		    android:text="@string/FLA_new_filter"
+		    android:textStyle="bold"
+		    style="@style/TextAppearance.TEA_action"/>
         
     </LinearLayout>
         
