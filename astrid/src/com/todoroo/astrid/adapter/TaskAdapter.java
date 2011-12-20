@@ -995,7 +995,7 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
                             new Class<?>[] { Integer.TYPE, Integer.TYPE },
                             R.anim.slide_left_in, R.anim.slide_left_out);
                 }
-            } else {
+            } else if (!viewHolder.task.getFlag(Task.FLAGS, Task.FLAG_IS_READONLY)) {
                 // Register a temporary receiver in case we clicked a task with no actions forthcoming and should start
                 IntentFilter filter = new IntentFilter(AstridApiConstants.BROADCAST_REQUEST_ACTIONS);
                 filter.setPriority(-1);
