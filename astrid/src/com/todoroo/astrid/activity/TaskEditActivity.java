@@ -265,14 +265,12 @@ public final class TaskEditActivity extends Activity {
         EditTitleControlSet editTitle = new EditTitleControlSet(this, R.layout.control_set_title, Task.TITLE, R.id.title);
         title = (EditText) editTitle.getView().findViewById(R.id.title);
         controls.add(editTitle);
-        //basicControls.addView(editTitle.getDisplayView());
         controlSetMap.put(getString(R.string.TEA_ctrl_title_pref), editTitle);
 
         TimerActionControlSet timerAction = new TimerActionControlSet(this, editTitle.getView());
         controls.add(timerAction);
 
         controls.add(peopleControlSet = new EditPeopleControlSet(TaskEditActivity.this, R.layout.control_set_assigned, R.layout.control_set_assigned_display, R.string.actfm_EPA_assign_label, REQUEST_LOG_IN));
-        //basicControls.addView(peopleControlSet.getDisplayView());
         controlSetMap.put(getString(R.string.TEA_ctrl_who_pref), peopleControlSet);
 
         DeadlineControlSet deadlineControl = new DeadlineControlSet(TaskEditActivity.this, R.layout.control_set_deadline, R.layout.control_set_deadline_display, whenHeader, R.id.aux_date, R.id.when_shortcut_container, R.id.when_label, R.id.when_image);
@@ -294,32 +292,25 @@ public final class TaskEditActivity extends Activity {
         ImportanceControlSet importanceControl = new ImportanceControlSet(TaskEditActivity.this, R.layout.control_set_importance);
         controls.add(importanceControl);
         importanceControl.addListener(editTitle);
-        //moreControls.addView(importanceControl.getDisplayView());
         controlSetMap.put(getString(R.string.TEA_ctrl_importance_pref), importanceControl);
 
         tagsControlSet = new TagsControlSet(TaskEditActivity.this, R.layout.control_set_tags, R.layout.control_set_tags_display, R.string.TEA_tags_label);
         controls.add(tagsControlSet);
-        //moreControls.addView(tagsControl.getDisplayView());
         controlSetMap.put(getString(R.string.TEA_ctrl_lists_pref), tagsControlSet);
 
         notesControlSet = new EditNotesControlSet(TaskEditActivity.this, R.layout.control_set_notes, R.layout.control_set_notes_display);
         notesEditText = (EditText) notesControlSet.getView().findViewById(R.id.notes);
         controls.add(notesControlSet);
-        //moreControls.addView(notesControlSet.getDisplayView());
         controlSetMap.put(getString(R.string.TEA_ctrl_notes_pref), notesControlSet);
 
         ReminderControlSet reminderControl = new ReminderControlSet(TaskEditActivity.this, R.layout.control_set_reminders, R.layout.control_set_reminders_display);
         controls.add(reminderControl);
-        //moreControls.addView(reminderControl.getDisplayView());
         controlSetMap.put(getString(R.string.TEA_ctrl_reminders_pref), reminderControl);
 
         TimerControlSet timerControl = new TimerControlSet(TaskEditActivity.this, R.layout.control_set_timers, R.layout.control_set_timers_extras_display, R.string.TEA_timer_controls);
         timerAction.setListener(timerControl);
         controls.add(timerControl);
-        //moreControls.addView(timerControl.getDisplayView());
         controlSetMap.put(getString(R.string.TEA_ctrl_timer_pref), timerControl);
-
-        //moreControls.addView(peopleControlSet.getSharedWithRow());
 
         try {
             if(ProducteevUtilities.INSTANCE.isLoggedIn()) {
