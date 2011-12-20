@@ -61,9 +61,7 @@ public class AstridWrapperActivity extends FragmentActivity
                     intent.putExtra(TaskListActivity.TOKEN_OVERRIDE_ANIM, true);
                     startActivityForResult(intent, FilterListActivity.REQUEST_VIEW_TASKS);
                 }
-                AndroidUtilities.callApiMethod(5, this, "overridePendingTransition", //$NON-NLS-1$
-                        new Class<?>[] { Integer.TYPE, Integer.TYPE },
-                        R.anim.slide_left_in, R.anim.slide_left_out);
+                AndroidUtilities.callOverridePendingTransition(this, R.anim.slide_left_in, R.anim.slide_left_out);
                 StatisticsService.reportEvent(StatisticsConstants.FILTER_LIST);
                 return true;
             } else if(item instanceof SearchFilter) {
@@ -93,9 +91,8 @@ public class AstridWrapperActivity extends FragmentActivity
 
                     tasklist.onNewIntent(intent);
                 }
-                AndroidUtilities.callApiMethod(5, this, "overridePendingTransition", //$NON-NLS-1$
-                        new Class<?>[] { Integer.TYPE, Integer.TYPE },
-                        0, 0);
+                // no animation for dualpane-layout
+                AndroidUtilities.callOverridePendingTransition(this, 0, 0);
                 StatisticsService.reportEvent(StatisticsConstants.FILTER_LIST);
                 return true;
             } else if(item instanceof IntentFilter) {

@@ -132,9 +132,7 @@ public class TagViewActivity extends TaskListActivity {
                     Intent intent = new Intent(getActivity(), TagUpdatesActivity.class);
                     intent.putExtra(EXTRA_TAG_DATA, tagData);
                     startActivity(intent);
-                    AndroidUtilities.callApiMethod(5, TagViewActivity.this, "overridePendingTransition", //$NON-NLS-1$
-                            new Class<?>[] { Integer.TYPE, Integer.TYPE },
-                            R.anim.slide_left_in, R.anim.slide_left_out);
+                    AndroidUtilities.callOverridePendingTransition(getActivity(), R.anim.slide_left_in, R.anim.slide_left_out);
                 }
             });
         }
@@ -149,9 +147,7 @@ public class TagViewActivity extends TaskListActivity {
             Intent intent = new Intent(getActivity(), TagSettingsActivity.class);
             intent.putExtra(EXTRA_TAG_DATA, tagData);
             startActivityForResult(intent, REQUEST_CODE_SETTINGS);
-            AndroidUtilities.callApiMethod(5, TagViewActivity.this, "overridePendingTransition", //$NON-NLS-1$
-                    new Class<?>[] { Integer.TYPE, Integer.TYPE },
-                    R.anim.slide_left_in, R.anim.slide_left_out);
+            AndroidUtilities.callOverridePendingTransition(getActivity(), R.anim.slide_left_in, R.anim.slide_left_out);
         }
     };
 
@@ -243,9 +239,7 @@ public class TagViewActivity extends TaskListActivity {
                     Intent i = new Intent(getActivity(), TagUpdatesActivity.class);
                     i.putExtra(EXTRA_TAG_DATA, tagData);
                     startActivity(i);
-                    AndroidUtilities.callApiMethod(5, TagViewActivity.this, "overridePendingTransition", //$NON-NLS-1$
-                            new Class<?>[] { Integer.TYPE, Integer.TYPE },
-                            R.anim.slide_left_in, R.anim.slide_left_out);
+                    AndroidUtilities.callOverridePendingTransition(getActivity(), R.anim.slide_left_in, R.anim.slide_left_out);
                 }
             }, 500);
         }

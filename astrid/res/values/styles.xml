@@ -232,7 +232,7 @@
 	<!-- ====================================================== Actionbar == -->
 
     <style name="customActionBarStyle"  parent="@style/Theme.Sherlock">
-        <item name="android:background">@drawable/actionbar_background</item>
+        <item name="android:background">@drawable/header_background</item>
     </style>
 
 </resources>

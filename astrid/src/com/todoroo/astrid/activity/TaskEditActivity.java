@@ -738,9 +738,7 @@ public final class TaskEditActivity extends Fragment {
         // abandon editing and delete the newly created task if
         // no title was entered
         if (overrideFinishAnim) {
-            AndroidUtilities.callApiMethod(5, this, "overridePendingTransition",
-                    new Class<?>[] { Integer.TYPE, Integer.TYPE },
-                    R.anim.slide_right_in, R.anim.slide_right_out);
+            AndroidUtilities.callOverridePendingTransition(getActivity(), R.anim.slide_right_in, R.anim.slide_right_out);
         }
 
         if(title.getText().length() == 0 && isNewTask && model.isSaved()) {

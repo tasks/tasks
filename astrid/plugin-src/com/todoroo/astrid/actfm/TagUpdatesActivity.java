@@ -181,9 +181,7 @@ public class TagUpdatesActivity extends ListActivity {
     @Override
     public void finish() {
         super.finish();
-        AndroidUtilities.callApiMethod(5, this, "overridePendingTransition", //$NON-NLS-1$
-                new Class<?>[] { Integer.TYPE, Integer.TYPE },
-                R.anim.slide_right_in, R.anim.slide_right_out);
+        AndroidUtilities.callOverridePendingTransition(this, R.anim.slide_right_in, R.anim.slide_right_out);
     }
 
     @Override

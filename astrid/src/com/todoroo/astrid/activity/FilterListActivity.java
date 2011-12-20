@@ -191,9 +191,7 @@ public class FilterListActivity extends ExpandableListFragment {
             @Override
             public void onClick(View v) {
                 getActivity().finish();
-                AndroidUtilities.callApiMethod(5, getActivity(), "overridePendingTransition", //$NON-NLS-1$
-                        new Class<?>[] { Integer.TYPE, Integer.TYPE },
-                        R.anim.slide_left_in, R.anim.slide_left_out);
+                AndroidUtilities.callOverridePendingTransition(getActivity(), R.anim.slide_left_in, R.anim.slide_left_out);
             }
         });
 

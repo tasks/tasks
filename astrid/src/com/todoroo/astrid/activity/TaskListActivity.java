@@ -343,9 +343,7 @@ public class TaskListActivity extends ListFragment implements OnScrollListener,
             startActivity(intent);
             getActivity().finish();
             if (overrideFinishAnim) {
-                AndroidUtilities.callApiMethod(5, this, "overridePendingTransition",
-                        new Class<?>[] { Integer.TYPE, Integer.TYPE },
-                        R.anim.slide_right_in, R.anim.slide_right_out);
+                AndroidUtilities.callOverridePendingTransition(getActivity(), R.anim.slide_right_in, R.anim.slide_right_out);
             }
             return;
         } else if(extras != null && extras.containsKey(TOKEN_FILTER)) {
@@ -570,9 +568,7 @@ public class TaskListActivity extends ListFragment implements OnScrollListener,
     }
 
     public void transitionForTaskEdit() {
-        AndroidUtilities.callApiMethod(5, this, "overridePendingTransition",
-                new Class<?>[] { Integer.TYPE, Integer.TYPE },
-                R.anim.slide_left_in, R.anim.slide_left_out);
+        AndroidUtilities.callOverridePendingTransition(getActivity(), R.anim.slide_left_in, R.anim.slide_left_out);
     }
 
     private void setUpBackgroundJobs() {
@@ -753,9 +749,7 @@ public class TaskListActivity extends ListFragment implements OnScrollListener,
         if(requestCode == ACTIVITY_SETTINGS && resultCode == EditPreferences.RESULT_CODE_THEME_CHANGED) {
             getActivity().finish();
             if (overrideFinishAnim) {
-                AndroidUtilities.callApiMethod(5, this, "overridePendingTransition",
-                        new Class<?>[] { Integer.TYPE, Integer.TYPE },
-                        R.anim.slide_right_in, R.anim.slide_right_out);
+                AndroidUtilities.callOverridePendingTransition(getActivity(), R.anim.slide_right_in, R.anim.slide_right_out);
             }
             getActivity().startActivity(getActivity().getIntent());
         }
@@ -1349,10 +1343,7 @@ public class TaskListActivity extends ListFragment implements OnScrollListener,
         Intent intent = new Intent(getActivity(),
                 FilterListWrapperActivity.class);
         startActivity(intent);
-        // FIXME animations
-        AndroidUtilities.callApiMethod(5, getActivity(), "overridePendingTransition",
-                new Class<?>[] { Integer.TYPE, Integer.TYPE },
-                R.anim.slide_right_in, R.anim.slide_right_out);
+        AndroidUtilities.callOverridePendingTransition(getActivity(), R.anim.slide_right_in, R.anim.slide_right_out);
     }
 
     @Override

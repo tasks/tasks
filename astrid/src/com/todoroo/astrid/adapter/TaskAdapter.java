@@ -918,9 +918,7 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
                 Intent intent = new Intent(fragment.getActivity(), TaskEditWrapperActivity.class);
                 intent.putExtra(TaskEditActivity.TOKEN_ID, taskId);
                 fragment.startActivityForResult(intent, TaskListActivity.ACTIVITY_EDIT_TASK);
-                AndroidUtilities.callApiMethod(5, fragment, "overridePendingTransition",
-                        new Class<?>[] { Integer.TYPE, Integer.TYPE },
-                        R.anim.slide_left_in, R.anim.slide_left_out);
+                AndroidUtilities.callOverridePendingTransition(fragment.getActivity(), R.anim.slide_left_in, R.anim.slide_left_out);
             } else {
                 flushSpecific(taskId);
                 try {
@@ -980,9 +978,7 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
                     Intent intent = new Intent(fragment.getActivity(), TaskEditWrapperActivity.class);
                     intent.putExtra(TaskEditActivity.TOKEN_ID, taskId);
                     fragment.getActivity().startActivityForResult(intent, TaskListActivity.ACTIVITY_EDIT_TASK);
-                    AndroidUtilities.callApiMethod(5, fragment, "overridePendingTransition",
-                            new Class<?>[] { Integer.TYPE, Integer.TYPE },
-                            R.anim.slide_left_in, R.anim.slide_left_out);
+                    AndroidUtilities.callOverridePendingTransition(fragment.getActivity(), R.anim.slide_left_in, R.anim.slide_left_out);
                 }
             } else if (!viewHolder.task.getFlag(Task.FLAGS, Task.FLAG_IS_READONLY)) {
                 // Register a temporary receiver in case we clicked a task with no actions forthcoming and should start
@@ -1009,9 +1005,7 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
                     Intent editIntent = new Intent(fragment.getActivity(), TaskEditWrapperActivity.class);
                     editIntent.putExtra(TaskEditActivity.TOKEN_ID, taskId);
                     fragment.getActivity().startActivityForResult(editIntent, TaskListActivity.ACTIVITY_EDIT_TASK);
-                    AndroidUtilities.callApiMethod(5, fragment, "overridePendingTransition",
-                            new Class<?>[] { Integer.TYPE, Integer.TYPE },
-                            R.anim.slide_left_in, R.anim.slide_left_out);
+                    AndroidUtilities.callOverridePendingTransition(fragment.getActivity(), R.anim.slide_left_in, R.anim.slide_left_out);
                 }
             }
             fragment.getActivity().unregisterReceiver(this);

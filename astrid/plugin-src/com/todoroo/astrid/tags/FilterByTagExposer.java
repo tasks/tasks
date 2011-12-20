@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
@@ -110,11 +111,8 @@ public class FilterByTagExposer extends BroadcastReceiver {
                 tagIntent.putExtra(TaskListActivity.TOKEN_FILTER, tagFilter);
 
                 ContextManager.getContext().startActivity(tagIntent);
-                AndroidUtilities.callApiMethod(5,
-                        this,
-                        "overridePendingTransition", //$NON-NLS-1$
-                        new Class<?>[] { Integer.TYPE, Integer.TYPE },
-                        R.anim.slide_left_in, R.anim.slide_left_out);
+                if (ContextManager.getContext() instanceof Activity)
+                    AndroidUtilities.callOverridePendingTransition((Activity) ContextManager.getContext(), R.anim.slide_left_in, R.anim.slide_left_out);
             }
         };
 

@@ -500,6 +500,14 @@ public class AndroidUtilities {
         }
     }
 
+    public static void callOverridePendingTransition(Activity activity, int enterAnim, int exitAnim) {
+        callApiMethod(5,
+                activity,
+                "overridePendingTransition", //$NON-NLS-1$
+                new Class<?>[] { Integer.TYPE, Integer.TYPE },
+                enterAnim, exitAnim);
+    }
+
     /**
      * Call a method via reflection if API level is at least minSdk
      * @param minSdk minimum sdk number (i.e. 8)
