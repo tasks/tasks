@@ -14,7 +14,6 @@
   <attr name="asFilterHeaderBackground" format="reference"/>
   <attr name="asFilterCountColor" format="color"/>
   <attr name="asMembersHeaderBackground" format="reference"/>
-  <attr name="asMembersHeaderArrow" format="reference"/>
   <attr name="asSeparatorBackground" format="color"/>
 
   <declare-styleable name="ContactsAutoComplete">

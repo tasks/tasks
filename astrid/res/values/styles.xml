@@ -18,7 +18,6 @@
         <item name="asFilterHeaderColor">#ffcccccc</item>
         <item name="asFilterHeaderBackground">@drawable/edit_titlebar</item>
         <item name="asMembersHeaderBackground">@drawable/ios_fabric_480_dark</item>
-        <item name="asMembersHeaderArrow">@drawable/members_arrow</item>
         <item name="asSeparatorBackground">#888888</item>
     </style>
     
@@ -48,7 +47,6 @@
         <item name="asFilterHeaderColor">#ffffff</item>
         <item name="asFilterHeaderBackground">@drawable/edit_titlebar_white</item>
         <item name="asMembersHeaderBackground">@drawable/ios_fabric_480</item>
-        <item name="asMembersHeaderArrow">@drawable/members_arrow_white</item>
     </style>
     
     <style name="Theme.TransparentWhite" parent="@style/Theme.White">
@@ -56,7 +54,6 @@
         <item name="android:windowIsTranslucent">true</item>
         <item name="android:windowAnimationStyle">@android:style/Animation.Translucent</item>
         <item name="asMembersHeaderBackground">@android:color/transparent</item>
-        <item name="asMembersHeaderArrow">@drawable/members_arrow_white</item>
     </style>
     
     <style name="Theme.Dialog">

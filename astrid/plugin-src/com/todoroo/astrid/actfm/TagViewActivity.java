@@ -112,11 +112,11 @@ public class TagViewActivity extends TaskListActivity {
         View membersEdit = findViewById(R.id.members_edit);
         membersEdit.setOnClickListener(settingsListener);
 
-        findViewById(R.id.listLabel).setPadding(0, 0, 0, 0);
-
         if (actFmPreferenceService.isLoggedIn()) {
             View activityContainer = findViewById(R.id.activityContainer);
             activityContainer.setVisibility(View.VISIBLE);
+
+            findViewById(R.id.listLabel).setPadding(0, 0, 0, 0);
 
             ImageView activity = (ImageView) findViewById(R.id.activity);
             activity.setOnClickListener(new View.OnClickListener() {
@@ -153,7 +153,7 @@ public class TagViewActivity extends TaskListActivity {
      */
     @Override
     protected View getListBody(ViewGroup root) {
-        ViewGroup parent = (ViewGroup) getLayoutInflater().inflate(R.layout.task_list_body_tag_v2, root, false);
+        ViewGroup parent = (ViewGroup) getLayoutInflater().inflate(R.layout.task_list_body_tag, root, false);
 
         taskListView = super.getListBody(parent);
         if(actFmPreferenceService.isLoggedIn())
