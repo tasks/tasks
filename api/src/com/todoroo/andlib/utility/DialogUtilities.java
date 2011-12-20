@@ -123,7 +123,7 @@ public class DialogUtilities {
             final String text, final DialogInterface.OnClickListener okListener,
             final DialogInterface.OnClickListener cancelListener) {
 
-        okCancelCustomDialog(activity, title, text, android.R.string.ok, android.R.string.cancel, okListener, cancelListener);
+        okCancelCustomDialog(activity, title, text, android.R.string.ok, android.R.string.cancel, android.R.drawable.ic_dialog_alert, okListener, cancelListener);
     }
 
     /**
@@ -138,7 +138,7 @@ public class DialogUtilities {
             final DialogInterface.OnClickListener okListener,
             final DialogInterface.OnClickListener cancelListener) {
 
-        okCancelCustomDialog(activity, activity.getString(R.string.DLG_confirm_title), text, android.R.string.ok, android.R.string.cancel, okListener, cancelListener);
+        okCancelCustomDialog(activity, activity.getString(R.string.DLG_confirm_title), text, android.R.string.ok, android.R.string.cancel, android.R.drawable.ic_dialog_alert, okListener, cancelListener);
 
     }
 
@@ -148,6 +148,7 @@ public class DialogUtilities {
 
     public static void okCancelCustomDialog(final Activity activity, final String title, final String text,
             final int okTitleId, final int cancelTitleId,
+            final int icon,
             final DialogInterface.OnClickListener okListener,
             final DialogInterface.OnClickListener cancelListener) {
         if(activity.isFinishing())
@@ -159,7 +160,7 @@ public class DialogUtilities {
                 .setTitle(R.string.DLG_confirm_title)
                 .setMessage(text)
                 .setTitle(title)
-                .setIcon(android.R.drawable.ic_dialog_alert)
+                .setIcon(icon)
                 .setPositiveButton(okTitleId, okListener)
                 .setNegativeButton(cancelTitleId, cancelListener)
                 .show().setOwnerActivity(activity);

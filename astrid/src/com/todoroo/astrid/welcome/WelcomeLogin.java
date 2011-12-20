@@ -132,6 +132,7 @@ public class WelcomeLogin extends ActFmLoginActivity implements AuthListener {
             DialogUtilities.okCancelCustomDialog(WelcomeLogin.this, title, confirmLater,
                     R.string.welcome_login_confirm_later_ok,
                     R.string.welcome_login_confirm_later_cancel,
+                    android.R.drawable.ic_dialog_alert,
                     null, confirmLaterListener);
         }
 

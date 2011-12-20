@@ -547,7 +547,9 @@ public class EditPeopleControlSet extends PopupControlSet {
                         task.setValue(Task.USER, me.user.toString());
                     }
                 };
-                DialogUtilities.okCancelCustomDialog(activity, activity.getString(R.string.actfm_EPA_login_button), activity.getString(R.string.actfm_EPA_login_to_share), R.string.actfm_EPA_login_button, R.string.actfm_EPA_dont_share_button, okListener, cancelListener);
+                DialogUtilities.okCancelCustomDialog(activity, activity.getString(R.string.actfm_EPA_login_button),
+                        activity.getString(R.string.actfm_EPA_login_to_share), R.string.actfm_EPA_login_button,
+                        R.string.actfm_EPA_dont_share_button, android.R.drawable.ic_dialog_alert, okListener, cancelListener);
 
                 return false;
             }
