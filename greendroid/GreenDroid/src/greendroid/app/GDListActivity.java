@@ -16,7 +16,7 @@
 package greendroid.app;
 
 import greendroid.util.Config;
-import greendroid.widget.ActionBar;
+import greendroid.widget.GDActionBar;
 import android.app.ListActivity;
 import android.os.Handler;
 import android.util.Log;
@@ -54,7 +54,7 @@ public class GDListActivity extends GDActivity {
         super();
     }
 
-    public GDListActivity(ActionBar.Type actionBarType) {
+    public GDListActivity(GDActionBar.Type actionBarType) {
         super(actionBarType);
     }
 

@@ -32,7 +32,7 @@ import android.widget.TextView;
 
 import com.cyrilmottier.android.greendroid.R;
 
-public class ActionBar extends LinearLayout {
+public class GDActionBar extends LinearLayout {
 
     public static final int NONE = 0;
     private static final int MAX_ITEMS_COUNT = 3;
@@ -63,7 +63,7 @@ public class ActionBar extends LinearLayout {
     private boolean mMerging = false;
 
     private CharSequence mTitle;
-    private ActionBar.Type mType;
+    private GDActionBar.Type mType;
     private OnActionBarListener mOnActionBarListener;
     private LinkedList<ActionBarItem> mItems;
 
@@ -71,15 +71,15 @@ public class ActionBar extends LinearLayout {
     private Drawable mHomeDrawable;
     private int mDividerWidth;
 
-    public ActionBar(Context context) {
+    public GDActionBar(Context context) {
         this(context, null);
     }
 
-    public ActionBar(Context context, AttributeSet attrs) {
+    public GDActionBar(Context context, AttributeSet attrs) {
         this(context, attrs, R.attr.gdActionBarStyle);
     }
 
-    public ActionBar(Context context, AttributeSet attrs, int defStyle) {
+    public GDActionBar(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs);
 
         initActionBar();

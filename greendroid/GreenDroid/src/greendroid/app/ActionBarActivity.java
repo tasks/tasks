@@ -15,7 +15,7 @@
  */
 package greendroid.app;
 
-import greendroid.widget.ActionBar;
+import greendroid.widget.GDActionBar;
 import greendroid.widget.ActionBarItem;
 import android.app.Activity;
 import android.app.Application;
@@ -23,7 +23,7 @@ import android.view.View;
 import android.widget.FrameLayout;
 
 /**
- * Defines all methods related to Activities embedding an {@link ActionBar}
+ * Defines all methods related to Activities embedding an {@link GDActionBar}
  * 
  * @author Cyril Mottier
  */
@@ -63,14 +63,14 @@ public interface ActionBarActivity {
     /**
      * Returns the content view. Please note the content view is not the entire
      * view but a {@link FrameLayout} that contains everything but the
-     * {@link ActionBar}.
+     * {@link GDActionBar}.
      * 
      * @return The content view
      */
     FrameLayout getContentView();
 
     /**
-     * Returns the {@link ActionBar}. Listening to {@link ActionBar} events
+     * Returns the {@link GDActionBar}. Listening to {@link GDActionBar} events
      * should be done via the
      * {@link ActionBarActivity#onHandleActionBarItemClick(ActionBarItem, int)}
      * method. Most of the time, this method don't need to be used directly.
@@ -78,9 +78,9 @@ public interface ActionBarActivity {
      * @see {@link ActionBarActivity#onHandleActionBarItemClick(ActionBarItem, int)}
      * @see {@link ActionBarActivity#addActionBarItem(ActionBarItem)}
      * @see {@link ActionBarActivity#addActionBarItem(greendroid.widget.ActionBarItem.Type)}
-     * @return The {@link ActionBar} currently displayed on screen
+     * @return The {@link GDActionBar} currently displayed on screen
      */
-    ActionBar getActionBar();
+    GDActionBar getGDActionBar();
 
     /**
      * A simple utility method that casts the {@link Application} returned by
@@ -91,33 +91,33 @@ public interface ActionBarActivity {
     GDApplication getGDApplication();
 
     /**
-     * Add a new item to the {@link ActionBar}.
+     * Add a new item to the {@link GDActionBar}.
      * 
-     * @param item The item to add to the {@link ActionBar}
+     * @param item The item to add to the {@link GDActionBar}
      */
     ActionBarItem addActionBarItem(ActionBarItem item);
 
     /**
-     * Add a new item to the {@link ActionBar}.
+     * Add a new item to the {@link GDActionBar}.
      * 
-     * @param item The item to add to the {@link ActionBar}
-     * @param itemId Unique item ID. Use {@link ActionBar#NONE} if you do not
+     * @param item The item to add to the {@link GDActionBar}
+     * @param itemId Unique item ID. Use {@link GDActionBar#NONE} if you do not
      *            need a unique ID.
      */
     ActionBarItem addActionBarItem(ActionBarItem item, int itemId);
 
     /**
-     * Adds a new item of type <em>type</em> to the {@link ActionBar}.
+     * Adds a new item of type <em>type</em> to the {@link GDActionBar}.
      * 
-     * @param actionBarItemType The item to add to the {@link ActionBar}
+     * @param actionBarItemType The item to add to the {@link GDActionBar}
      */
     ActionBarItem addActionBarItem(ActionBarItem.Type actionBarItemType);
 
     /**
-     * Adds a new item of type <em>type</em> to the {@link ActionBar}.
+     * Adds a new item of type <em>type</em> to the {@link GDActionBar}.
      * 
-     * @param actionBarItemType The item to add to the {@link ActionBar}
-     * @param itemId Unique item ID. Use {@link ActionBar#NONE} if you do not
+     * @param actionBarItemType The item to add to the {@link GDActionBar}
+     * @param itemId Unique item ID. Use {@link GDActionBar#NONE} if you do not
      *            need a unique ID.
      */
     ActionBarItem addActionBarItem(ActionBarItem.Type actionBarItemType, int itemId);

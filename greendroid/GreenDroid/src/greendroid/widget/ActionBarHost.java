@@ -24,7 +24,7 @@ import com.cyrilmottier.android.greendroid.R;
 
 public class ActionBarHost extends LinearLayout {
 
-    private ActionBar mActionBar;
+    private GDActionBar mActionBar;
     private FrameLayout mContentView;
 
     public ActionBarHost(Context context) {
@@ -40,8 +40,8 @@ public class ActionBarHost extends LinearLayout {
     protected void onFinishInflate() {
         super.onFinishInflate();
 
-        mActionBar = (ActionBar) findViewById(R.id.gd_action_bar);
-        if (mActionBar == null || !(mActionBar instanceof ActionBar)) {
+        mActionBar = (GDActionBar) findViewById(R.id.gd_action_bar);
+        if (mActionBar == null || !(mActionBar instanceof GDActionBar)) {
             throw new IllegalArgumentException("No ActionBar with the id R.id.gd_action_bar found in the layout.");
         }
 
@@ -51,7 +51,7 @@ public class ActionBarHost extends LinearLayout {
         }
     }
 
-    public ActionBar getActionBar() {
+    public GDActionBar getActionBar() {
         return mActionBar;
     }
 
