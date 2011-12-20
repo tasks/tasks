@@ -28,6 +28,7 @@ import android.content.pm.ResolveInfo;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.ListFragment;
 import android.support.v4.app.SupportActivity;
 import android.support.v4.view.Menu;
@@ -203,7 +204,7 @@ public class TaskListActivity extends ListFragment implements OnScrollListener,
 
     // --- fragment handling variables
     OnTaskListItemClickedListener mListener;
-    private final boolean mDualFragments = false;
+    private boolean mDualFragments = false;
 
     /* ======================================================================
      * ======================================================= initialization
@@ -228,7 +229,7 @@ public class TaskListActivity extends ListFragment implements OnScrollListener,
             mListener = (OnTaskListItemClickedListener) activity;
         } catch (ClassCastException e) {
             throw new ClassCastException(activity.toString()
-                    + " must implement OnItemSelectedListener"); //$NON-NLS-1$
+                    + " must implement OnTaskListItemClickedListener"); //$NON-NLS-1$
         }
     }
 
@@ -284,15 +285,14 @@ public class TaskListActivity extends ListFragment implements OnScrollListener,
         setUpUiComponents();
         onNewIntent(getActivity().getIntent());
 
-        // FIXME move this code into the TaskListWrapperActivity
-//        Fragment filterFrame = getFragmentManager().findFragmentById(R.id.filterlist_fragment);
-//        mDualPane = (filterFrame != null) &amp;&amp; filterFrame.isInLayout();
-//
-//        if (mDualPane) {
-//            // In dual-pane mode, the list view highlights the selected item.
-//            getListView().setChoiceMode(ListView.CHOICE_MODE_SINGLE);
-//        }
-        // end of FIXME
+        Fragment filterlistFrame = getFragmentManager().findFragmentById(R.id.filterlist_fragment);
+        mDualFragments = (filterlistFrame != null) && filterlistFrame.isInLayout();
+
+        if (mDualFragments) {
+            // In dual-pane mode, the list view highlights the selected item.
+            getListView().setChoiceMode(ListView.CHOICE_MODE_SINGLE);
+            getListView().setItemsCanFocus(false);
+        }
 
         if(Preferences.getInt(AstridPreferences.P_UPGRADE_FROM, -1) > -1)
             upgradeService.showChangeLog(getActivity(), Preferences.getInt(AstridPreferences.P_UPGRADE_FROM, -1));
@@ -392,10 +392,12 @@ public class TaskListActivity extends ListFragment implements OnScrollListener,
 
         addSyncRefreshMenuItem(menu);
 
-        item = menu.add(Menu.NONE, MENU_LISTS_ID, Menu.NONE,
-                R.string.tag_TLA_menu);
-        item.setIcon(R.drawable.ic_menu_lists);
-        item.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
+        if (!mDualFragments) {
+            item = menu.add(Menu.NONE, MENU_LISTS_ID, Menu.NONE,
+                    R.string.tag_TLA_menu);
+            item.setIcon(R.drawable.ic_menu_lists);
+            item.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
+        }
 
         if(!Constants.MARKET_DISABLED) {
             item = menu.add(Menu.NONE, MENU_ADDONS_ID, Menu.NONE,
@@ -556,13 +558,13 @@ public class TaskListActivity extends ListFragment implements OnScrollListener,
 
     // Subclasses can override these to customize extras in quickadd intent
     protected Intent getOnClickQuickAddIntent(Task t) {
-        Intent intent = new Intent(getActivity(), TaskEditActivity.class);
+        Intent intent = new Intent(getActivity(), TaskEditWrapperActivity.class);
         intent.putExtra(TaskEditActivity.TOKEN_ID, t.getId());
         return intent;
     }
 
     protected Intent getOnLongClickQuickAddIntent(Task t) {
-        Intent intent = new Intent(getActivity(), TaskEditActivity.class);
+        Intent intent = new Intent(getActivity(), TaskEditWrapperActivity.class);
         intent.putExtra(TaskEditActivity.TOKEN_ID, t.getId());
         return intent;
     }
@@ -1262,7 +1264,7 @@ public class TaskListActivity extends ListFragment implements OnScrollListener,
 
         case CONTEXT_MENU_EDIT_TASK_ID: {
             itemId = item.getGroupId();
-            intent = new Intent(getActivity(), TaskEditActivity.class);
+            intent = new Intent(getActivity(), TaskEditWrapperActivity.class);
             intent.putExtra(TaskEditActivity.TOKEN_ID, itemId);
             startActivityForResult(intent, ACTIVITY_EDIT_TASK);
             transitionForTaskEdit();
@@ -1285,7 +1287,7 @@ public class TaskListActivity extends ListFragment implements OnScrollListener,
             GCalHelper.createTaskEventIfEnabled(clone);
             taskService.save(clone);
 
-            intent = new Intent(getActivity(), TaskEditActivity.class);
+            intent = new Intent(getActivity(), TaskEditWrapperActivity.class);
             intent.putExtra(TaskEditActivity.TOKEN_ID, clone.getId());
             startActivityForResult(intent, ACTIVITY_EDIT_TASK);
             transitionForTaskEdit();

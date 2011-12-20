@@ -27,7 +27,10 @@ import com.todoroo.astrid.service.StatisticsService;
  *
  */
 public class AstridWrapperActivity extends FragmentActivity
-    implements FilterListActivity.OnFilterItemClickedListener, TaskListActivity.OnTaskListItemClickedListener  {
+    implements FilterListActivity.OnFilterItemClickedListener,
+    TaskListActivity.OnTaskListItemClickedListener,
+    TaskEditActivity.OnTaskEditDetailsClickedListener {
+
     /** This flag shows if the landscape-multipane layouts are active.
      * If a multipane-layout with two fragments is active, the callbacks implemented here
      * should not start a new activity, but update the target-fragment directly instead.
@@ -108,6 +111,10 @@ public class AstridWrapperActivity extends FragmentActivity
 
     @Override
     public void onTaskListItemClicked(int category, int position) {
+    }
+
+    @Override
+    public void onTaskEditDetailsClicked(int category, int position) {
         // TODO Auto-generated method stub
 
     }

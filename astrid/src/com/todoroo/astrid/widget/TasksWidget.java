@@ -27,6 +27,7 @@ import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.astrid.activity.TaskEditActivity;
+import com.todoroo.astrid.activity.TaskEditWrapperActivity;
 import com.todoroo.astrid.activity.TaskListActivity;
 import com.todoroo.astrid.activity.TaskListWrapperActivity;
 import com.todoroo.astrid.api.Filter;
@@ -229,7 +230,7 @@ public class TasksWidget extends AppWidgetProvider {
             views.setOnClickPendingIntent(R.id.taskbody, pListIntent);
 
 
-            Intent editIntent = new Intent(context, TaskEditActivity.class);
+            Intent editIntent = new Intent(context, TaskEditWrapperActivity.class);
             editIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_MULTIPLE_TASK);
             editIntent.putExtra(TaskEditActivity.OVERRIDE_FINISH_ANIM, false);
             if(filter != null && filter.valuesForNewTasks != null) {

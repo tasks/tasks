@@ -8,7 +8,6 @@
 
     <!-- Header -->
     <LinearLayout
-        android:visibility="gone"
         android:layout_width="fill_parent" 
         android:layout_height="43dip"
         android:layout_weight="1"

@@ -2,8 +2,6 @@ package com.todoroo.astrid.activity;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.ListFragment;
-import android.widget.ListView;
 
 import com.timsu.astrid.R;
 import com.todoroo.astrid.service.ThemeService;
@@ -24,7 +22,6 @@ public class FilterListWrapperActivity extends AstridWrapperActivity {
         if (frag != null)
         {
             mMultipleFragments = true;
-            ((ListFragment) frag).getListView().setChoiceMode(ListView.CHOICE_MODE_SINGLE);
         }
 	}
 }

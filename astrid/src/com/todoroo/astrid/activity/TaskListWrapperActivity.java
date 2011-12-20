@@ -2,7 +2,6 @@ package com.todoroo.astrid.activity;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.widget.ListView;
 
 import com.timsu.astrid.R;
 import com.todoroo.astrid.service.ThemeService;
@@ -19,10 +18,9 @@ public class TaskListWrapperActivity extends AstridWrapperActivity {
 
         Fragment frag = (Fragment) getSupportFragmentManager()
                 .findFragmentById(R.id.filterlist_fragment);
-        if (frag != null)
+        if (frag != null && frag.isInLayout())
         {
             mMultipleFragments = true;
-            ((ExpandableListFragment) frag).getExpandableListView().setChoiceMode(ListView.CHOICE_MODE_SINGLE);
         }
 	}
 }

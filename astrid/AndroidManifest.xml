@@ -135,7 +135,7 @@
                  android:resource="@xml/filter_list_searchable" />
     </activity>
     <!-- Activity that creates or edits tasks -->
-    <activity android:name="com.todoroo.astrid.activity.TaskEditActivity"
+    <activity android:name="com.todoroo.astrid.activity.TaskEditWrapperActivity"
               android:windowSoftInputMode="stateHidden">
       <intent-filter>
         <action android:name="android.intent.action.MAIN" />

@@ -69,6 +69,7 @@ import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.andlib.utility.Pair;
 import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.astrid.activity.TaskEditActivity;
+import com.todoroo.astrid.activity.TaskEditWrapperActivity;
 import com.todoroo.astrid.activity.TaskListActivity;
 import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.api.TaskAction;
@@ -914,7 +915,7 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
             mBar = null;
 
             if(position == 0) {
-                Intent intent = new Intent(fragment.getActivity(), TaskEditActivity.class);
+                Intent intent = new Intent(fragment.getActivity(), TaskEditWrapperActivity.class);
                 intent.putExtra(TaskEditActivity.TOKEN_ID, taskId);
                 fragment.startActivityForResult(intent, TaskListActivity.ACTIVITY_EDIT_TASK);
                 AndroidUtilities.callApiMethod(5, fragment, "overridePendingTransition",
@@ -976,7 +977,7 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
                 if (actions.size() > 0)
                     mBar.show(v);
                 else {
-                    Intent intent = new Intent(fragment.getActivity(), TaskEditActivity.class);
+                    Intent intent = new Intent(fragment.getActivity(), TaskEditWrapperActivity.class);
                     intent.putExtra(TaskEditActivity.TOKEN_ID, taskId);
                     fragment.getActivity().startActivityForResult(intent, TaskListActivity.ACTIVITY_EDIT_TASK);
                     AndroidUtilities.callApiMethod(5, fragment, "overridePendingTransition",
@@ -1005,7 +1006,7 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
             if (taskId != -1) {
                 Collection<TaskAction> actions = taskActionManager.get(taskId);
                 if (actions != null && actions.size() == 0) {
-                    Intent editIntent = new Intent(fragment.getActivity(), TaskEditActivity.class);
+                    Intent editIntent = new Intent(fragment.getActivity(), TaskEditWrapperActivity.class);
                     editIntent.putExtra(TaskEditActivity.TOKEN_ID, taskId);
                     fragment.getActivity().startActivityForResult(editIntent, TaskListActivity.ACTIVITY_EDIT_TASK);
                     AndroidUtilities.callApiMethod(5, fragment, "overridePendingTransition",

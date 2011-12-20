@@ -148,7 +148,7 @@ public class FilterListActivity extends ExpandableListFragment {
             mListener = (OnFilterItemClickedListener) activity;
         } catch (ClassCastException e) {
             throw new ClassCastException(activity.toString()
-                    + " must implement OnItemClickedListener"); //$NON-NLS-1$
+                    + " must implement OnFilterItemClickedListener"); //$NON-NLS-1$
         }
     }
 
@@ -177,7 +177,6 @@ public class FilterListActivity extends ExpandableListFragment {
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        getActivity().setDefaultKeyMode(Activity.DEFAULT_KEYS_SEARCH_LOCAL);
         // We have a menu item to show in action bar.
         setHasOptionsMenu(true);
 
@@ -323,11 +322,11 @@ public class FilterListActivity extends ExpandableListFragment {
     @Override
     public boolean onChildClick(ExpandableListView parent, View v,
             int groupPosition, int childPosition, long id) {
-        if (mDualFragments)
-        {
-            setSelectedChild(groupPosition, childPosition, false);
+//        if (mDualFragments)
+//        {
+//            setSelectedChild(groupPosition, childPosition, false);
 //            setItemChecked((int) getSelectedPosition(), true);
-        }
+//        }
         FilterListItem item = (FilterListItem) adapter.getChild(groupPosition,
                 childPosition);
         return mListener.onFilterItemClicked(item);
