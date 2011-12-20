@@ -248,7 +248,7 @@ public final class TaskEditActivity extends Activity {
 
     /** Initialize UI components */
     private void setUpUIComponents() {
-        setContentView(R.layout.task_edit_activity_new);
+        setContentView(R.layout.task_edit_activity);
         scrollView = (ScrollView) findViewById(R.id.edit_scroll);
 
         LinearLayout basicControls = (LinearLayout) findViewById(R.id.basic_controls);
@@ -415,35 +415,8 @@ public final class TaskEditActivity extends Activity {
             Button saveButtonGeneral = (Button) findViewById(R.id.save);
             saveButtonGeneral.setOnClickListener(mSaveListener);
 
-            Button saveButton2 = (Button) findViewById(R.id.save2);
-            Button saveButton3 = (Button) findViewById(R.id.save3);
-            Button saveButton4 = (Button) findViewById(R.id.save4);
-            if (saveButton2 != null) {
-                saveButton2.setOnClickListener(mSaveListener);
-            }
-            if (saveButton3 != null) {
-                saveButton3.setOnClickListener(mSaveListener);
-            }
-            if (saveButton4 != null) {
-                saveButton4.setOnClickListener(mSaveListener);
-            }
-
-
             Button discardButtonGeneral = (Button) findViewById(R.id.discard);
             discardButtonGeneral.setOnClickListener(mDiscardListener);
-
-            Button discardButton2 = (Button) findViewById(R.id.discard2);
-            Button discardButton3 = (Button) findViewById(R.id.discard3);
-            Button discardButton4 = (Button) findViewById(R.id.discard4);
-            if (discardButton2 != null) {
-                discardButton2.setOnClickListener(mDiscardListener);
-            }
-            if (discardButton3 != null) {
-                discardButton3.setOnClickListener(mDiscardListener);
-            }
-            if (discardButton4 != null) {
-                discardButton4.setOnClickListener(mDiscardListener);
-            }
 
             findViewById(R.id.when_header).setOnClickListener(mExpandWhenListener);
 
@@ -500,23 +473,6 @@ public final class TaskEditActivity extends Activity {
                 voiceNoteAssistant.setLanguageModel(RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);
                 voiceNoteAssistant.configureMicrophoneButton(prompt);
             }
-
-//            if(!Constants.MARKET_DISABLED && !addOnService.hasPowerPack()) {
-//                // show add-on help if necessary
-//                View addonsEmpty = findViewById(R.id.addons_empty);
-//                addonsEmpty.setVisibility(View.VISIBLE);
-//                moreAddons.removeView(addonsEmpty);
-//                moreAddons.addView(addonsEmpty);
-//                ((Button)findViewById(R.id.addons_button)).setOnClickListener(new View.OnClickListener() {
-//                    @Override
-//                    public void onClick(View v) {
-//                        Intent addOnActivity = new Intent(TaskEditActivity.this, AddOnActivity.class);
-//                        addOnActivity.putExtra(AddOnActivity.TOKEN_START_WITH_AVAILABLE, true);
-//                        startActivity(addOnActivity);
-//                    }
-//                });
-//            }
-
 
             // re-read all
             synchronized(controls) {
@@ -711,10 +667,6 @@ public final class TaskEditActivity extends Activity {
                 View separator = new View(TaskEditActivity.this);
                 separator.setPadding(5, 5, 5, 5);
                 separator.setBackgroundResource(android.R.drawable.divider_horizontal_dark);
-
-                LinearLayout dest = (LinearLayout)findViewById(R.id.addons_more);
-                dest.addView(separator);
-                view.apply(TaskEditActivity.this, dest);
 
             } catch (Exception e) {
                 exceptionService.reportError("receive-detail-" + //$NON-NLS-1$
