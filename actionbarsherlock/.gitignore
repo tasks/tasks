@@ -1,5 +1,6 @@
 #Android generated
 bin
+library/bin
 gen
 
 #Eclipse

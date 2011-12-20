@@ -2,7 +2,7 @@
 
 <resources>
     <style name="Theme.Sherlock" parent="android:Theme.Holo">
-        <item name="actionBarSize">56dip</item>
+        <item name="actionBarSize">@dimen/abs__action_bar_default_height</item>
         <item name="actionBarTabStyle">@style/Widget.Sherlock.ActionBar.TabView</item>
         <item name="actionBarTabBarStyle">@style/Widget.Sherlock.ActionBar.TabBar</item>
         <item name="actionBarTabTextStyle">@style/Widget.Sherlock.ActionBar.TabText</item>
@@ -20,7 +20,9 @@
         <item name="popupMenuStyle">@style/Widget.Sherlock.PopupMenu</item>
         <item name="selectableItemBackground">@drawable/abs__item_background_holo_dark</item>
         <item name="windowActionBar">true</item>
+        <item name="windowActionBarOverlay">false</item>
         <item name="windowActionModeOverlay">false</item>
+        <item name="windowNoTitle">false</item>
 
         <!-- These should be in `Widget.Sherlock.ActionBar` but there is no way to then -->
         <!-- reference them as sibling attributes to their native counterparts. See: -->
@@ -61,7 +63,9 @@
         <item name="android:popupMenuStyle">?popupMenuStyle</item>
         <item name="android:selectableItemBackground">?selectableItemBackground</item>
         <item name="android:windowActionBar">?windowActionBar</item>
+        <item name="android:windowActionBarOverlay">?windowActionBarOverlay</item>
         <item name="android:windowActionModeOverlay">?windowActionModeOverlay</item>
+        <item name="android:windowNoTitle">?windowNoTitle</item>
     </style>
 
     <style name="Internal.Widget.Sherlock.ActionBar" parent="android:Widget.Holo.ActionBar">
@@ -96,7 +100,7 @@
 	
 	
     <style name="Theme.Sherlock.Light" parent="android:Theme.Holo.Light">
-        <item name="actionBarSize">56dip</item>
+        <item name="actionBarSize">@dimen/abs__action_bar_default_height</item>
         <item name="actionBarTabStyle">@style/Widget.Sherlock.Light.ActionBar.TabView</item>
         <item name="actionBarTabBarStyle">@style/Widget.Sherlock.Light.ActionBar.TabBar</item>
         <item name="actionBarTabTextStyle">@style/Widget.Sherlock.Light.ActionBar.TabText</item>
@@ -114,7 +118,9 @@
         <item name="popupMenuStyle">@style/Widget.Sherlock.Light.PopupMenu</item>
         <item name="selectableItemBackground">@drawable/abs__item_background_holo_light</item>
         <item name="windowActionBar">true</item>
+        <item name="windowActionBarOverlay">false</item>
         <item name="windowActionModeOverlay">false</item>
+        <item name="windowNoTitle">false</item>
 
         <!-- These should be in `Widget.Sherlock.ActionBar` but there is no way to then -->
         <!-- reference them as sibling attributes to their native counterparts. See: -->
@@ -154,7 +160,9 @@
         <item name="android:popupMenuStyle">?popupMenuStyle</item>
         <item name="android:selectableItemBackground">?selectableItemBackground</item>
         <item name="android:windowActionBar">?windowActionBar</item>
+        <item name="android:windowActionBarOverlay">?windowActionBarOverlay</item>
         <item name="android:windowActionModeOverlay">?windowActionModeOverlay</item>
+        <item name="android:windowNoTitle">?windowNoTitle</item>
     </style>
     
     <style name="Internal.Widget.Sherlock.Light.ActionBar" parent="android:Widget.Holo.Light.ActionBar">
