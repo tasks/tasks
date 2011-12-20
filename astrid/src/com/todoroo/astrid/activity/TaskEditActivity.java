@@ -228,8 +228,6 @@ public final class TaskEditActivity extends Activity {
 
         setUpUIComponents();
 
-		// disable keyboard until user requests it
-		AndroidUtilities.suppressVirtualKeyboard(title);
 		overrideFinishAnim = getIntent().getBooleanExtra(OVERRIDE_FINISH_ANIM, true);
 
 		// if we were editing a task already, restore it
