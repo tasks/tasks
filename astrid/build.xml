@@ -115,7 +115,7 @@
     </target>
 
     <!-- update api keys that require release signing -->
-    <target name="updatekeys-release" if="build.mode.release" 
+    <target name="updatekeys-release" if="build.is.mode.release" 
             description="update release-only api key values">
       <property file="${apikey.keyfile}" />
       <replaceregexp file="${source.dir}/com/todoroo/astrid/actfm/ActFmLoginActivity.java"
