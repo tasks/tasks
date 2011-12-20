@@ -141,7 +141,7 @@ public class CalendarView extends View {
 
     	selectedCalendarPaint = new Paint();
     	selectedCalendarPaint.setAntiAlias(true);
-    	selectedCalendarPaint.setColor(r.getColor(R.color.task_edit_date_shortcuts_bg));
+    	selectedCalendarPaint.setColor(r.getColor(R.color.task_edit_details));
 
     	backgroundColorPaint = new Paint();
     	backgroundColorPaint.setAntiAlias(true);

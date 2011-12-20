@@ -135,12 +135,12 @@
    	</style>
    	
    	<style name="TextAppearance.EditRowDisplay">
-   	    <item name="android:textColor">#0b78a5</item>
+   	    <item name="android:textColor">@color/task_edit_details</item>
    	</style>
 
    	<style name="TextAppearance.TEA_action">
         <item name="android:textSize">16sp</item>
-        <item name="android:textColor">#0b78a5</item>        
+        <item name="android:textColor">@color/task_edit_details</item>        
     </style>
    	
    	<style name="Theme.WhenDialog">

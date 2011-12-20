@@ -24,7 +24,7 @@
     
     <color name="task_edit_selected">#438cb6</color>
     
-    <color name="task_edit_date_shortcuts_bg">#0b78a5</color>
+    <color name="task_edit_details">#0b78a5</color>
     <color name="task_edit_deadline_gray">#888888</color>
         
 </resources>
