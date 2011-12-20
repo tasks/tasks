@@ -133,6 +133,13 @@ public class TagSettingsActivity extends Activity {
             }
         });
 
+        findViewById(R.id.cancel).setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View arg0) {
+                finish();
+            }
+        });
+
         refreshSettingsPage();
     }
 
