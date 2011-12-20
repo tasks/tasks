@@ -28,6 +28,7 @@ import android.preference.PreferenceCategory;
 import android.preference.PreferenceScreen;
 import android.widget.Toast;
 
+import com.crittercism.app.Crittercism;
 import com.timsu.astrid.R;
 import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.ContextManager;
@@ -338,6 +339,20 @@ public class EditPreferences extends TodorooPreferenceActivity {
             @Override
             public boolean onPreferenceChange(Preference preference, Object newValue) {
                 setResult(RESULT_CODE_THEME_CHANGED);
+                return true;
+            }
+        });
+
+        findPreference(getString(R.string.p_statistics)).setOnPreferenceChangeListener(new OnPreferenceChangeListener() {
+            @Override
+            public boolean onPreferenceChange(Preference preference, Object newValue) {
+                Boolean value = (Boolean) newValue;
+                if (!value.booleanValue()) {
+                    //Crittercism.shutDown();
+                } else {
+                    Crittercism.init(getApplicationContext(), Constants.CRITTERCISM_APP_ID,
+                            Constants.CRITTERCISM_OATH_KEY, Constants.CRITTERCISM_SECRET);
+                }
                 return true;
             }
         });
