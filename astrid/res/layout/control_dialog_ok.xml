@@ -2,7 +2,7 @@
 <Button xmlns:android="http://schemas.android.com/apk/res/android"
 	    android:id="@+id/edit_dlg_ok"
 	    android:layout_width="150dip"
-	    android:layout_height="50dip"
+	    android:layout_height="45dip"
 	    android:layout_marginTop="10dip"
 	    android:layout_marginBottom="5dip"
 	    android:layout_weight="1"

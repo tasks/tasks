@@ -23,7 +23,7 @@ public class EditNotesControlSet extends PopupControlSet {
         editText = (EditText) getView().findViewById(R.id.notes);
         notesPreview = (TextView) getDisplayView().findViewById(R.id.notes_display);
         dialog.getWindow()
-              .setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE | WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
+              .setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE | WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
     }
 
     @Override
