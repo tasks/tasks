@@ -593,7 +593,7 @@ public class TaskListActivity extends ListActivity implements OnScrollListener,
             Preferences.setBoolean(R.string.p_showed_add_task_help, true);
         }
 
-        if (filter.title.equals(getString(R.string.BFE_Active))) {
+        if (filter.title != null && filter.title.equals(getString(R.string.BFE_Active))) {
             initiateAutomaticSync();
         }
     }
