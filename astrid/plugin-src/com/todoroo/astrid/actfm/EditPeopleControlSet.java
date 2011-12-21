@@ -661,10 +661,18 @@ public class EditPeopleControlSet extends PopupControlSet {
                     task.setValue(Task.DETAILS_DATE, 0L);
 
                     readTagData(result.getJSONArray("tags"));
-                    JsonHelper.readUser(result.getJSONObject("assignee"),
+                    JSONObject assignee = result.getJSONObject("assignee");
+                    JsonHelper.readUser(assignee,
                             task, Task.USER_ID, Task.USER);
                     Flags.set(Flags.ACTFM_SUPPRESS_SYNC);
                     taskService.save(task);
+
+                    String assignedName = assignee.optString("name");
+                    long id = assignee.optLong("id", -2);
+                    if (!(id == -2 || id == ActFmPreferenceService.userId() || assignedName == null)) {
+                        saveToast += "\n" +
+                                activity.getString(R.string.actfm_EPA_assigned_toast, assignedName);
+                    }
 
                     int count = result.optInt("shared", 0);
                     if(count > 0) {

@@ -1267,7 +1267,7 @@ you get stuff done. It features reminders, tags, sync, Locale plug-in, a widget 
   <string name="help_popover_tap_task">Tap task to edit and share</string>
   
   <!-- Shown the first time a user sees the list activity -->
-  <string name="help_popover_list_settings">Tap list settings to share the entire list</string>
+  <string name="help_popover_list_settings">Tap to edit or share this list</string>
   
   <!-- Shown the first time a user sees the list settings tab -->
   <string name="help_popover_collaborators">Collaborators can help you build your list or finish tasks</string>

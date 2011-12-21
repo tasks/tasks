@@ -17,12 +17,16 @@
 		    android:orientation="vertical">
 		</LinearLayout>
 	</ScrollView>
-	<Button 
+	<Button
 	    android:id="@+id/when_dismiss"
 	    android:layout_width="150dip"
-	    android:layout_height="50dip"
-	    android:layout_marginTop="15dip"
+	    android:layout_height="45dip"
+	    android:layout_marginTop="10dip"
+	    android:layout_marginBottom="5dip"
 	    android:layout_weight="1"
 	    android:layout_gravity="center_horizontal"
+	    android:background="@drawable/footer_editbutton"
+	    android:textStyle="bold"
+	    android:layout_alignParentBottom="true"
 	    android:text="@string/DLG_ok"/>
 </LinearLayout>

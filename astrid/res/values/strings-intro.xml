@@ -48,11 +48,18 @@
   <string name="help_popover_tap_task">Tap task to edit and share</string>
   
   <!-- Shown the first time a user sees the list activity -->
-  <string name="help_popover_list_settings">Tap list settings to share the entire list</string>
+  <string name="help_popover_list_settings">Tap to edit or share this list</string>
   
   <!-- Shown the first time a user sees the list settings tab -->
   <string name="help_popover_collaborators">People you share with can help you build your list or finish tasks</string>
   
+  <!-- Shown after user adds a task -->
+  <string name="help_popover_lists">Tap to edit or share lists</string>
+  
+  <string name="help_popover_when_shortcut">Tap this shortcut to quick select date and time</string>
+  
+  <string name="help_popover_when_row">Tap anywhere on this row to access options like repeat</string>
+      
   <!-- Login activity -->
   <string name="welcome_login_title">Welcome to Astrid!</string>
   

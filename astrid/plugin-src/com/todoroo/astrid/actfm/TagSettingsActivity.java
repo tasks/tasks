@@ -103,7 +103,7 @@ public class TagSettingsActivity extends Activity {
     private void showCollaboratorsPopover() {
         if (!Preferences.getBoolean(R.string.p_showed_collaborators_help, false)) {
             View members = findViewById(R.id.members_container);
-            HelpInfoPopover.showPopover(this, members, R.string.help_popover_collaborators);
+            HelpInfoPopover.showPopover(this, members, R.string.help_popover_collaborators, null);
             Preferences.setBoolean(R.string.p_showed_collaborators_help, true);
         }
     }

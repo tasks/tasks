@@ -292,6 +292,9 @@
   <!-- Task hide until label -->
   <string name="TEA_hideUntil_label">Show Task</string>
   
+  <!-- Task hide until toast -->
+  <string name="TEA_hideUntil_message">Task will be hidden until %s</string>
+  
   <!-- Task editing data being loaded label -->
   <string-array name="TEA_loading"><item>Loading...</item></string-array>
   

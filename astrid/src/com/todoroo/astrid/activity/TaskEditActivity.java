@@ -95,6 +95,7 @@ import com.todoroo.astrid.ui.HideUntilControlSet;
 import com.todoroo.astrid.ui.ImportanceControlSet;
 import com.todoroo.astrid.ui.ReminderControlSet;
 import com.todoroo.astrid.voice.VoiceInputAssistant;
+import com.todoroo.astrid.welcome.HelpInfoPopover;
 
 /**
  * This activity is responsible for creating new tasks and editing existing
@@ -390,6 +391,7 @@ public final class TaskEditActivity extends Activity {
             public void onClick(View v) {
                 if (whenDialog != null)
                     whenDialog.show();
+                Preferences.setBoolean(R.string.p_showed_when_row, true);
             }
         };
         final View.OnClickListener mExpandMoreListener = new View.OnClickListener() {
@@ -443,7 +445,15 @@ public final class TaskEditActivity extends Activity {
         dismissDialogButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                showWhenShortcutHelp();
                 DialogUtilities.dismissDialog(TaskEditActivity.this, whenDialog);
+            }
+        });
+
+        whenDialog.setOnCancelListener(new DialogInterface.OnCancelListener() {
+            @Override
+            public void onCancel(DialogInterface dialog) {
+                showWhenShortcutHelp();
             }
         });
 
@@ -451,6 +461,14 @@ public final class TaskEditActivity extends Activity {
         this.getWindowManager().getDefaultDisplay().getMetrics(metrics);
         whenDialog.setTitle(R.string.TEA_when_dialog_title);
         whenDialog.addContentView(whenDialogView, new LayoutParams(metrics.widthPixels - (int)(30 * metrics.density), LayoutParams.WRAP_CONTENT));
+    }
+
+    private void showWhenShortcutHelp() {
+        if (!Preferences.getBoolean(R.string.p_showed_when_shortcut, false)) {
+            Preferences.setBoolean(R.string.p_showed_when_shortcut, true);
+            Preferences.setBoolean(R.string.p_showed_when_row, true);
+            HelpInfoPopover.showPopover(this, findViewById(R.id.when_shortcut_container), R.string.help_popover_when_shortcut, null);
+        }
     }
 
     /**

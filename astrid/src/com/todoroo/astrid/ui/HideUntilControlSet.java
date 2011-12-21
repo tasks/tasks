@@ -251,7 +251,9 @@ public class HideUntilControlSet extends PopupControlSet implements OnItemSelect
             return null;
         long value = task.createHideUntil(item.setting, item.date);
         task.setValue(Task.HIDE_UNTIL, value);
-        return null;
+
+        String message = activity.getString(R.string.TEA_hideUntil_message, DateAndTimePicker.getDisplayString(activity, value));
+        return message;
     }
 
 }

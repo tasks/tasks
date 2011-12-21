@@ -52,6 +52,7 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.PopupWindow.OnDismissListener;
 import android.widget.TextView;
 import android.widget.TextView.OnEditorActionListener;
 import android.widget.Toast;
@@ -246,11 +247,6 @@ public class TaskListActivity extends ListActivity implements OnScrollListener,
         if(Preferences.getInt(AstridPreferences.P_UPGRADE_FROM, -1) > -1)
             upgradeService.showChangeLog(this, Preferences.getInt(AstridPreferences.P_UPGRADE_FROM, -1));
 
-        if (!Preferences.getBoolean(R.string.p_showed_add_task_help, false)) {
-            HelpInfoPopover.showPopover(TaskListActivity.this, quickAddBox, R.string.help_popover_add_task);
-            Preferences.setBoolean(R.string.p_showed_add_task_help, true);
-        }
-
         if(getIntent().hasExtra(TOKEN_SOURCE)) {
             switch(getIntent().getIntExtra(TOKEN_SOURCE, Constants.SOURCE_DEFAULT)) {
             case Constants.SOURCE_NOTIFICATION:
@@ -384,6 +380,7 @@ public class TaskListActivity extends ListActivity implements OnScrollListener,
     private void setUpUiComponents() {
         ((ImageView)findViewById(R.id.back)).setOnClickListener(new OnClickListener() {
             public void onClick(View v) {
+                Preferences.setBoolean(R.string.p_showed_lists_help, true);
                 showFilterListActivity();
             }
         });
@@ -591,6 +588,11 @@ public class TaskListActivity extends ListActivity implements OnScrollListener,
             return;
         }
 
+        if (!Preferences.getBoolean(R.string.p_showed_add_task_help, false)) {
+            HelpInfoPopover.showPopover(TaskListActivity.this, quickAddBox, R.string.help_popover_add_task, null);
+            Preferences.setBoolean(R.string.p_showed_add_task_help, true);
+        }
+
         if (filter.title.equals(getString(R.string.BFE_Active))) {
             initiateAutomaticSync();
         }
@@ -724,6 +726,11 @@ public class TaskListActivity extends ListActivity implements OnScrollListener,
         }
 
         super.onActivityResult(requestCode, resultCode, data);
+
+        if (!Preferences.getBoolean(R.string.p_showed_add_task_help, false)) {
+            HelpInfoPopover.showPopover(TaskListActivity.this, quickAddBox, R.string.help_popover_add_task, null);
+            Preferences.setBoolean(R.string.p_showed_add_task_help, true);
+        }
 
         if(resultCode != RESULT_CANCELED) {
             taskAdapter.flushCaches();
@@ -886,7 +893,16 @@ public class TaskListActivity extends ListActivity implements OnScrollListener,
                 public void run() {
                     final View view = getListView().getChildAt(getListView().getChildCount() - 1);
                     if (view != null) {
-                        HelpInfoPopover.showPopover(TaskListActivity.this, view, R.string.help_popover_tap_task);
+                        OnDismissListener onDismiss = new OnDismissListener() {
+                            @Override
+                            public void onDismiss() {
+                                if (!Preferences.getBoolean(R.string.p_showed_lists_help, false)) {
+                                    Preferences.setBoolean(R.string.p_showed_lists_help, true);
+                                    HelpInfoPopover.showPopover(TaskListActivity.this, findViewById(R.id.back), R.string.help_popover_lists, null);
+                                }
+                            }
+                        };
+                        HelpInfoPopover.showPopover(TaskListActivity.this, view, R.string.help_popover_tap_task, onDismiss);
                     }
                 }
             }, 1000L);

@@ -323,8 +323,11 @@
   <!-- Preference Keys (do not translate) -->
   <string name="p_showed_add_task_help">showed_add_task_help</string>
   <string name="p_showed_tap_task_help">showed_tap_task_help</string>
+  <string name="p_showed_lists_help">showed_lists_help</string>
   <string name="p_showed_list_settings_help">showed_list_settings_help</string>
   <string name="p_showed_collaborators_help">showed_collaborators_help</string>
+  <string name="p_showed_when_shortcut">showed_when_shortcut</string>
+  <string name="p_showed_when_row">showed_when_row</string>
   
   <!-- ============================================================ OTHER == -->
   

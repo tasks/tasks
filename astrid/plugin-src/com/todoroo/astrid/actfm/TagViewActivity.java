@@ -166,7 +166,7 @@ public class TagViewActivity extends TaskListActivity {
     private void showListSettingsPopover() {
         if (!Preferences.getBoolean(R.string.p_showed_list_settings_help, false)) {
             View tabView = findViewById(R.id.members_edit);
-            HelpInfoPopover.showPopover(this, tabView, R.string.help_popover_list_settings);
+            HelpInfoPopover.showPopover(this, tabView, R.string.help_popover_list_settings, null);
             Preferences.setBoolean(R.string.p_showed_list_settings_help, true);
         }
     }

@@ -18,7 +18,7 @@ import com.todoroo.astrid.service.ThemeService;
 
 public abstract class PopupControlSet extends TaskEditControlSet {
 
-    private final View displayView;
+    protected final View displayView;
     protected final Activity activity;
     protected final Dialog dialog;
 
