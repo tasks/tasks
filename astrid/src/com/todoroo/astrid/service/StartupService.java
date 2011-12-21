@@ -111,10 +111,8 @@ public class StartupService {
         // sets up context manager
         ContextManager.setContext(context);
 
-        if (!StatisticsService.dontCollectStatistics()) {
-            Crittercism.init(context.getApplicationContext(), Constants.CRITTERCISM_APP_ID,
-                    Constants.CRITTERCISM_OATH_KEY, Constants.CRITTERCISM_SECRET);
-        }
+        Crittercism.init(context.getApplicationContext(), Constants.CRITTERCISM_APP_ID,
+                Constants.CRITTERCISM_OATH_KEY, Constants.CRITTERCISM_SECRET, StatisticsService.dontCollectStatistics());
 
         // show notification if reminders are silenced
         if(context instanceof Activity) {

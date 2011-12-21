@@ -27,6 +27,6 @@
 	<classpathentry exported="true" kind="lib" path="libs/gson-1.6.jar"/>
 	<classpathentry exported="true" kind="lib" path="libs/google-api-services-tasks-v1-1.2.5-beta.jar"/>
 	<classpathentry exported="true" kind="con" path="com.android.ide.eclipse.adt.LIBRARIES"/>
-	<classpathentry exported="true" kind="lib" path="libs/crittercism_v1_1_1.jar"/>
+	<classpathentry kind="lib" path="libs/crittercism_v1_1_3.jar"/>
 	<classpathentry kind="output" path="bin/classes"/>
 </classpath>

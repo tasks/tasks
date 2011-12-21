@@ -348,10 +348,9 @@ public class EditPreferences extends TodorooPreferenceActivity {
             public boolean onPreferenceChange(Preference preference, Object newValue) {
                 Boolean value = (Boolean) newValue;
                 if (!value.booleanValue()) {
-                    //Crittercism.shutDown();
+                    Crittercism.setOptOutStatus(true);
                 } else {
-                    Crittercism.init(getApplicationContext(), Constants.CRITTERCISM_APP_ID,
-                            Constants.CRITTERCISM_OATH_KEY, Constants.CRITTERCISM_SECRET);
+                    Crittercism.setOptOutStatus(false);
                 }
                 return true;
             }
