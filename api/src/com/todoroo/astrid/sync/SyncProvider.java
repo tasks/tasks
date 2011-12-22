@@ -155,8 +155,7 @@ public abstract class SyncProvider<TYPE extends SyncContainer> {
                 ((Activity) context).runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        Toast.makeText(context, R.string.SyP_progress_toast,
-                                Toast.LENGTH_LONG).show();
+                        makeSyncToast(context);
                     }
                 });
             }
@@ -182,6 +181,11 @@ public abstract class SyncProvider<TYPE extends SyncContainer> {
             // unit test
             initiateBackground();
         }
+    }
+
+    protected void makeSyncToast(Context context) {
+        Toast.makeText(context, R.string.SyP_progress_toast,
+                Toast.LENGTH_LONG).show();
     }
 
     // --- synchronization logic

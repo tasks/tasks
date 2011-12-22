@@ -15,6 +15,7 @@ import android.app.Activity;
 import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.text.TextUtils;
@@ -58,6 +59,7 @@ import com.todoroo.astrid.service.StatisticsConstants;
 import com.todoroo.astrid.service.StatisticsService;
 import com.todoroo.astrid.service.TagDataService;
 import com.todoroo.astrid.service.TaskService;
+import com.todoroo.astrid.service.ThemeService;
 import com.todoroo.astrid.tags.TagService;
 import com.todoroo.astrid.ui.PeopleContainer;
 import com.todoroo.astrid.ui.PeopleContainer.OnAddNewPersonListener;
@@ -102,6 +104,8 @@ public class EditPeopleControlSet extends PopupControlSet {
 
     private final EditText assignedCustom;
 
+    private final View assignedClear;
+
     private final ArrayList<AssignedToUser> listValues = new ArrayList<AssignedToUser>();
 
     private String saveToast = null;
@@ -122,7 +126,7 @@ public class EditPeopleControlSet extends PopupControlSet {
         sharedWithRow = LayoutInflater.from(activity).inflate(R.layout.control_set_collaborators_display, null);
         sharedWithView = LayoutInflater.from(activity).inflate(R.layout.control_set_collaborators, null);
 
-        sharedWithDialog = new Dialog(activity, 0);
+        sharedWithDialog = new Dialog(activity, ThemeService.getDialogTheme());
         sharedWithDialog.setTitle(R.string.actfm_EPA_collaborators_header);
         View v = getSharedWithView();
         DisplayMetrics metrics = new DisplayMetrics();
@@ -143,6 +147,7 @@ public class EditPeopleControlSet extends PopupControlSet {
         assignedList = (ListView) getView().findViewById(R.id.assigned_list);
         assignedList.setChoiceMode(ListView.CHOICE_MODE_SINGLE);
         assignedList.setItemsCanFocus(false);
+        assignedClear = getView().findViewById(R.id.assigned_clear);
 
         assignedDisplay = (TextView) getDisplayView().findViewById(R.id.assigned_display);
         sharedWithContainer = (PeopleContainer) getSharedWithView().findViewById(R.id.share_container);
@@ -262,7 +267,6 @@ public class EditPeopleControlSet extends PopupControlSet {
                     name.setText(person.optString("name"));
                     name.setTextAppearance(activity, R.style.TextAppearance_Medium);
                     tag.setText(activity.getString(R.string.actfm_EPA_list, person.optString("tag")));
-                    tag.setTextAppearance(activity, android.R.style.TextAppearance);
 
                     collaborators.addView(contact);
                 }
@@ -301,9 +305,11 @@ public class EditPeopleControlSet extends PopupControlSet {
         myself.put("id", 0L);
         sharedPeople.add(0, myself);
 
-        JSONObject unassigned = new JSONObject();
-        unassigned.put("id", -1L);
-        sharedPeople.add(1, unassigned);
+        if (actFmPreferenceService.isLoggedIn()) {
+            JSONObject unassigned = new JSONObject();
+            unassigned.put("id", -1L);
+            sharedPeople.add(1, unassigned);
+        }
 
         // de-duplicate by user id and/or email
         listValues.clear();
@@ -388,6 +394,11 @@ public class EditPeopleControlSet extends PopupControlSet {
                 convertView = activity.getLayoutInflater().inflate(R.layout.assigned_adapter_row, parent, false);
             CheckedTextView ctv = (CheckedTextView) convertView.findViewById(android.R.id.text1);
             super.getView(position, ctv, parent);
+            if (assignedList.getCheckedItemPosition() == position) {
+                ctv.setChecked(true);
+            } else {
+                ctv.setChecked(false);
+            }
             AsyncImageView image = (AsyncImageView) convertView.findViewById(R.id.person_image);
             image.setDefaultImageResource(R.drawable.icn_default_person_image);
             if (position == 0) {
@@ -402,8 +413,11 @@ public class EditPeopleControlSet extends PopupControlSet {
         }
     }
 
+    private void assignToMe() {
+        assignedClear.performClick();
+    }
+
     private void setUpListeners() {
-        final View assignedClear = getView().findViewById(R.id.assigned_clear);
 
         assignedList.setOnItemClickListener(new OnItemClickListener() {
             @Override
@@ -516,8 +530,27 @@ public class EditPeopleControlSet extends PopupControlSet {
             JSONObject sharedWith = parseSharedWithAndTags();
             dirty = dirty || sharedWith.has("p");
             if(dirty && !actFmPreferenceService.isLoggedIn()) {
-                activity.startActivityForResult(new Intent(activity, ActFmLoginActivity.class),
-                        loginRequestCode);
+                DialogInterface.OnClickListener okListener = new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface d, int which) {
+                        activity.startActivityForResult(new Intent(activity, ActFmLoginActivity.class),
+                                loginRequestCode);
+                    }
+                };
+
+                DialogInterface.OnClickListener cancelListener = new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface d, int which) {
+                        makePrivateTask();
+                        AssignedToUser me = (AssignedToUser) assignedList.getAdapter().getItem(0);
+                        task.setValue(Task.USER_ID, me.user.optLong("id", -2));
+                        task.setValue(Task.USER, me.user.toString());
+                    }
+                };
+                DialogUtilities.okCancelCustomDialog(activity, activity.getString(R.string.actfm_EPA_login_button),
+                        activity.getString(R.string.actfm_EPA_login_to_share), R.string.actfm_EPA_login_button,
+                        R.string.actfm_EPA_dont_share_button, android.R.drawable.ic_dialog_alert, okListener, cancelListener);
+
                 return false;
             }
 
@@ -544,6 +577,13 @@ public class EditPeopleControlSet extends PopupControlSet {
             DialogUtilities.okDialog(activity, e.message, null);
         }
         return false;
+    }
+
+    private void makePrivateTask() {
+        assignToMe();
+        sharedWithContainer.removeAllViews();
+        sharedWithContainer.addPerson("");
+        refreshDisplayView();
     }
 
     private void showSaveToast() {
@@ -621,10 +661,18 @@ public class EditPeopleControlSet extends PopupControlSet {
                     task.setValue(Task.DETAILS_DATE, 0L);
 
                     readTagData(result.getJSONArray("tags"));
-                    JsonHelper.readUser(result.getJSONObject("assignee"),
+                    JSONObject assignee = result.getJSONObject("assignee");
+                    JsonHelper.readUser(assignee,
                             task, Task.USER_ID, Task.USER);
                     Flags.set(Flags.ACTFM_SUPPRESS_SYNC);
                     taskService.save(task);
+
+                    String assignedName = assignee.optString("name");
+                    long id = assignee.optLong("id", -2);
+                    if (!(id == -2 || id == ActFmPreferenceService.userId() || assignedName == null)) {
+                        saveToast += "\n" +
+                                activity.getString(R.string.actfm_EPA_assigned_toast, assignedName);
+                    }
 
                     int count = result.optInt("shared", 0);
                     if(count > 0) {
@@ -737,6 +785,8 @@ public class EditPeopleControlSet extends PopupControlSet {
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         if(requestCode == loginRequestCode && resultCode == Activity.RESULT_OK)
             saveSharingSettings(saveToast);
+        else if (requestCode == loginRequestCode)
+            makePrivateTask();
     }
 
     @Override

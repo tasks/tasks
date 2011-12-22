@@ -2,8 +2,8 @@
 <shape xmlns:android="http://schemas.android.com/apk/res/android" 
     android:shape="rectangle">
     <solid
-	    android:color="@color/task_edit_date_shortcuts_bg"/>
+	    android:color="@color/task_edit_details"/>
 	<stroke
 	    android:width="2dip"
-	    android:color="@android:color/darker_gray"/>
+	    android:color="@color/task_edit_deadline_gray"/>
 </shape>

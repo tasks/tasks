@@ -32,7 +32,7 @@
     	    android:id="@+id/timepicker_left_border"
     	    android:layout_height="fill_parent"
     	    android:layout_width="2dip"
-    	    android:background="@android:color/darker_gray"
+    	    android:background="@color/task_edit_deadline_gray"
     	    android:visibility="gone"
     	    />
         
@@ -44,14 +44,14 @@
             android:gravity="center"
             android:inputType="phone"
             android:textSize="30sp"
-            android:textColor="@android:color/white"
+            android:textColor="@color/task_edit_deadline_gray"
             android:background="@android:color/transparent"
             />
         <View 
     	    android:id="@+id/timepicker_right_border"
     	    android:layout_height="fill_parent"
     	    android:layout_width="2dip"
-    	    android:background="@android:color/darker_gray"
+    	    android:background="@color/task_edit_deadline_gray"
     	    android:visibility="gone"
     	    />
     </LinearLayout>

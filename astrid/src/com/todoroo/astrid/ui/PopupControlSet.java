@@ -14,10 +14,11 @@ import android.widget.Button;
 import com.timsu.astrid.R;
 import com.todoroo.andlib.utility.DialogUtilities;
 import com.todoroo.astrid.helper.TaskEditControlSet;
+import com.todoroo.astrid.service.ThemeService;
 
 public abstract class PopupControlSet extends TaskEditControlSet {
 
-    private final View displayView;
+    protected final View displayView;
     protected final Activity activity;
     protected final Dialog dialog;
 
@@ -31,14 +32,14 @@ public abstract class PopupControlSet extends TaskEditControlSet {
         final DialogInterface.OnClickListener okListener = new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface d, int which) {
-                refreshDisplayView();
+                onOkClick();
             }
         };
 
         final DialogInterface.OnCancelListener cancelListener = new DialogInterface.OnCancelListener() {
             @Override
             public void onCancel(DialogInterface d) {
-                refreshDisplayView();
+                onCancelClick();
             }
         };
 
@@ -59,7 +60,8 @@ public abstract class PopupControlSet extends TaskEditControlSet {
     }
 
     protected Dialog buildDialog(int title, final DialogInterface.OnClickListener okListener, DialogInterface.OnCancelListener cancelListener) {
-        final Dialog d = new Dialog(activity, R.style.Theme_TEA_Dialog);
+        int theme = ThemeService.getDialogTheme();
+        final Dialog d = new Dialog(activity, theme);
         if (title == 0)
             d.requestWindowFeature(Window.FEATURE_NO_TITLE);
         else
@@ -90,6 +92,14 @@ public abstract class PopupControlSet extends TaskEditControlSet {
                 dialog.show();
             }
         };
+    }
+
+    protected void onOkClick() {
+        refreshDisplayView();
+    }
+
+    protected void onCancelClick() {
+        refreshDisplayView();
     }
 
     protected abstract void refreshDisplayView();

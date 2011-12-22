@@ -39,6 +39,7 @@ import com.todoroo.astrid.utility.AstridPreferences;
 
 public final class UpgradeService {
 
+    public static final int V3_9_0_2 = 204;
     public static final int V3_9_0_1 = 203;
     public static final int V3_9 = 202;
     public static final int V3_8_5_1 = 201;
@@ -131,7 +132,7 @@ public final class UpgradeService {
                     if(from < V3_8_3_1)
                         new TagCaseMigrator().performTagCaseMigration(context);
 
-                    if(from < V3_8_4 && Preferences.getBoolean(R.string.p_showNotes, true))
+                    if(from < V3_8_4 && Preferences.getBoolean(R.string.p_showNotes, false))
                         taskService.clearDetails(Task.NOTES.neq("")); //$NON-NLS-1$
                 } finally {
                     DialogUtilities.dismissDialog((Activity)context, dialog);
@@ -159,6 +160,15 @@ public final class UpgradeService {
 
         Preferences.clear(AstridPreferences.P_UPGRADE_FROM);
         StringBuilder changeLog = new StringBuilder();
+
+        if (from >= V3_9 && from < V3_9_0_2) {
+            newVersionString(changeLog, "3.9.0.2 (12/21/11)", new String[] {
+                    "UI enhancements, better scrolling performance, and themed task edit dialogs",
+                    "Clickable links in task notes",
+                    "Fixed fields that were getting hidden under the keyboard",
+                    "Other small UI improvements and bug fixes"
+            });
+        }
 
         if (from >= V3_9 && from < V3_9_0_1) {
             newVersionString(changeLog, "3.9.0.1 (12/09/11)", new String[] {

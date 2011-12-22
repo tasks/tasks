@@ -106,7 +106,7 @@ public class StatisticsService {
         }
     }
 
-    private static boolean dontCollectStatistics() {
+    public static boolean dontCollectStatistics() {
         return !Preferences.getBoolean(R.string.p_statistics, true);
     }
 

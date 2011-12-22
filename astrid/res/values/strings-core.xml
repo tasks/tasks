@@ -216,7 +216,7 @@
   <!-- =============================================== FilterListActivity == -->
 
   <!-- Filter List Activity Title -->    
-  <string name="FLA_title">Astrid: Filters</string>
+  <string name="FLA_title">Lists</string>
   
   <!-- Displayed when loading filters -->    
   <string name="FLA_loading">Loading Filters...</string>
@@ -246,7 +246,7 @@
   <string name="FLA_toast_onCreateShortcut">Created Shortcut: %s</string>
   
   <!-- Menu: new filter -->
-  <string name="FLA_new_filter">New Filter</string>
+  <string name="FLA_new_filter">New List</string>
   
   <!-- ================================================= TaskEditActivity == -->
   
@@ -291,6 +291,9 @@
   
   <!-- Task hide until label -->
   <string name="TEA_hideUntil_label">Show Task</string>
+  
+  <!-- Task hide until toast -->
+  <string name="TEA_hideUntil_message">Task will be hidden until %s</string>
   
   <!-- Task editing data being loaded label -->
   <string-array name="TEA_loading"><item>Loading...</item></string-array>
@@ -355,7 +358,7 @@
   <string name="TEA_control_title">Task Title</string>
   <string name="TEA_control_who">Who</string>
   <string name="TEA_control_when">When</string>
-  <string name="TEA_control_more_section">More Section</string>
+  <string name="TEA_control_more_section">----More Section----</string>
   <string name="TEA_control_importance">Importance</string>  
   <string name="TEA_control_lists">Lists</string>  
   <string name="TEA_control_notes">Notes</string>  

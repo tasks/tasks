@@ -43,8 +43,7 @@ public final class TagsControlSet extends PopupControlSet {
     //private final Spinner tagSpinner;
     //@Autowired private TagDataService tagDataService;
     private final TagService tagService = TagService.getInstance();
-    private final Tag[] allTags;
-    private final String[] allTagNames;
+    private final ArrayList<String> allTagNames;
 
     private final LinearLayout newTags;
     private final ListView selectedTags;
@@ -59,13 +58,13 @@ public final class TagsControlSet extends PopupControlSet {
         super(activity, viewLayout, displayViewLayout, title);
         DependencyInjectionService.getInstance().inject(this);
         this.activity = activity;
-        allTags = getTagArray();
+        Tag[] allTags = getTagArray();
         allTagNames = getTagNames(allTags);
         tagIndices = buildTagIndices(allTagNames);
 
         selectedTags = (ListView) getView().findViewById(R.id.existingTags);
         selectedTags.setAdapter(new ArrayAdapter<String>(activity,
-                android.R.layout.simple_list_item_multiple_choice, allTagNames));
+                R.layout.simple_list_item_multiple_choice_themed, allTagNames));
         selectedTags.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
 
         this.newTags = (LinearLayout) getView().findViewById(R.id.newTags);
@@ -78,18 +77,18 @@ public final class TagsControlSet extends PopupControlSet {
         return tagsList.toArray(new Tag[tagsList.size()]);
     }
 
-    private HashMap<String, Integer> buildTagIndices(String[] tagNames) {
+    private HashMap<String, Integer> buildTagIndices(ArrayList<String> tagNames) {
         HashMap<String, Integer> indices = new HashMap<String, Integer>();
-        for (int i = 0; i < tagNames.length; i++) {
-            indices.put(tagNames[i], i);
+        for (int i = 0; i < tagNames.size(); i++) {
+            indices.put(tagNames.get(i), i);
         }
         return indices;
     }
 
-    private String[] getTagNames(Tag[] tags) {
-        String[] names = new String[tags.length];
+    private ArrayList<String> getTagNames(Tag[] tags) {
+        ArrayList<String> names = new ArrayList<String>();
         for (int i = 0; i < tags.length; i++) {
-            names[i] = tags[i].toString();
+            names.add(tags[i].toString());
         }
         return names;
     }
@@ -111,15 +110,21 @@ public final class TagsControlSet extends PopupControlSet {
 
 
     private void setTagSelected(String tag) {
-        int index = tagIndices.get(tag);
-        selectedTags.setItemChecked(index, true);
+        Integer index = tagIndices.get(tag);
+        if (index != null) {
+            selectedTags.setItemChecked(index, true);
+        } else {
+            allTagNames.add(tag);
+            tagIndices.put(tag, allTagNames.size() - 1);
+            ((ArrayAdapter<String>)selectedTags.getAdapter()).notifyDataSetChanged();
+        }
     }
 
     private LinkedHashSet<String> getTagSet() {
         LinkedHashSet<String> tags = new LinkedHashSet<String>();
         for(int i = 0; i < selectedTags.getAdapter().getCount(); i++) {
             if (selectedTags.isItemChecked(i))
-                tags.add(allTagNames[i]);
+                tags.add(allTagNames.get(i));
         }
 
         for(int i = 0; i < newTags.getChildCount(); i++) {
@@ -259,6 +264,11 @@ public final class TagsControlSet extends PopupControlSet {
     @Override
     protected void refreshDisplayView() {
         tagsDisplay.setText(buildTagString());
+    }
+
+    public boolean hasLists() {
+        LinkedHashSet<String> tags = getTagSet();
+        return !tags.isEmpty();
     }
 
 }

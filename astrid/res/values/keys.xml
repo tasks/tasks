@@ -323,8 +323,11 @@
   <!-- Preference Keys (do not translate) -->
   <string name="p_showed_add_task_help">showed_add_task_help</string>
   <string name="p_showed_tap_task_help">showed_tap_task_help</string>
+  <string name="p_showed_lists_help">showed_lists_help</string>
   <string name="p_showed_list_settings_help">showed_list_settings_help</string>
   <string name="p_showed_collaborators_help">showed_collaborators_help</string>
+  <string name="p_showed_when_shortcut">showed_when_shortcut</string>
+  <string name="p_showed_when_row">showed_when_row</string>
   
   <!-- ============================================================ OTHER == -->
   
@@ -350,6 +353,31 @@
       <item>@string/TEA_control_reminders</item>
       <item>@string/TEA_control_timer</item>
       <item>@string/TEA_control_share</item>
+  </string-array>
+  
+      
+  <string name="TEA_ctrl_title_pref">TEA_ctrl_title_pref</string>
+  <string name="TEA_ctrl_who_pref">TEA_ctrl_who_pref</string>
+  <string name="TEA_ctrl_when_pref">TEA_ctrl_when_pref</string>
+  <string name="TEA_ctrl_more_pref">TEA_ctrl_more_pref</string>
+  <string name="TEA_ctrl_importance_pref">TEA_ctrl_importance_pref</string>
+  <string name="TEA_ctrl_lists_pref">TEA_ctrl_lists_pref</string>
+  <string name="TEA_ctrl_notes_pref">TEA_ctrl_notes_pref</string>
+  <string name="TEA_ctrl_reminders_pref">TEA_ctrl_reminders_pref</string>
+  <string name="TEA_ctrl_timer_pref">TEA_ctrl_timer_pref</string>
+  <string name="TEA_ctrl_share_pref">TEA_ctrl_share_pref</string>
+      
+  <string-array name="TEA_control_sets_prefs">
+      <item>@string/TEA_ctrl_title_pref</item>
+      <item>@string/TEA_ctrl_who_pref</item>
+      <item>@string/TEA_ctrl_when_pref</item>
+      <item>@string/TEA_ctrl_more_pref</item>
+      <item>@string/TEA_ctrl_importance_pref</item>
+      <item>@string/TEA_ctrl_lists_pref</item>
+      <item>@string/TEA_ctrl_notes_pref</item>
+      <item>@string/TEA_ctrl_reminders_pref</item>
+      <item>@string/TEA_ctrl_timer_pref</item>
+      <item>@string/TEA_ctrl_share_pref</item>
   </string-array>
   
 </resources>

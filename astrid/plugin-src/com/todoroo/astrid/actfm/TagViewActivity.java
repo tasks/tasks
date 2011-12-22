@@ -110,20 +110,14 @@ public class TagViewActivity extends TaskListActivity {
         };
         ((EditText) getView().findViewById(R.id.quickAddText)).setOnTouchListener(onTouch);
 
-        View settingsContainer = getView().findViewById(R.id.settingsContainer);
-        settingsContainer.setVisibility(View.VISIBLE);
-
-        View settingsButton = getView().findViewById(R.id.settings);
-        settingsButton.setOnClickListener(settingsListener);
-
         View membersEdit = getView().findViewById(R.id.members_edit);
         membersEdit.setOnClickListener(settingsListener);
-
-        getView().findViewById(R.id.listLabel).setPadding(0, 0, 0, 0);
 
         if (actFmPreferenceService.isLoggedIn()) {
             View activityContainer = getView().findViewById(R.id.activityContainer);
             activityContainer.setVisibility(View.VISIBLE);
+
+            getView().findViewById(R.id.listLabel).setPadding(0, 0, 0, 0);
 
             ImageView activity = (ImageView) getView().findViewById(R.id.activity);
             activity.setOnClickListener(new View.OnClickListener() {
@@ -156,7 +150,7 @@ public class TagViewActivity extends TaskListActivity {
      */
     @Override
     protected View getListBody(ViewGroup root) {
-        ViewGroup parent = (ViewGroup) getActivity().getLayoutInflater().inflate(R.layout.task_list_body_tag_v2, root, false);
+        ViewGroup parent = (ViewGroup) getActivity().getLayoutInflater().inflate(R.layout.task_list_body_tag, root, false);
 
         taskListView = super.getListBody(parent);
         if(actFmPreferenceService.isLoggedIn())
@@ -168,8 +162,8 @@ public class TagViewActivity extends TaskListActivity {
 
     private void showListSettingsPopover() {
         if (!Preferences.getBoolean(R.string.p_showed_list_settings_help, false)) {
-            View tabView = getView().findViewById(R.id.settings);
-            HelpInfoPopover.showPopover(getActivity(), tabView, R.string.help_popover_list_settings);
+            View tabView = getView().findViewById(R.id.members_edit);
+            HelpInfoPopover.showPopover(getActivity(), tabView, R.string.help_popover_list_settings, null);
             Preferences.setBoolean(R.string.p_showed_list_settings_help, true);
         }
     }

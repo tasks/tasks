@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- See the file "LICENSE" for the full license governing this code. -->
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent" 
     android:layout_height="fill_parent"
     style="@style/Content"
@@ -8,22 +8,27 @@
 
     <!-- Header -->
     <LinearLayout
+        android:id="@+id/lists_header"
         android:layout_width="fill_parent" 
         android:layout_height="43dip"
         android:layout_weight="1"
         android:orientation="horizontal"
+        android:layout_alignParentTop="true"
         style="@style/Header">
         
-
-        <!-- Header Logo -->
-        <ImageView android:id="@+id/headerLogo"
+        <!-- List Label -->
+        <TextView android:id="@+id/listLabel"
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
-            android:layout_weight="100"
-            android:gravity="center"
+            android:layout_marginLeft="5dip"
+            android:layout_marginRight="5dip"
             android:paddingLeft="43dip"
-            android:src="@drawable/header_logo_new"
-            android:scaleType="center"/>
+            android:layout_weight="100"
+            android:singleLine="true"
+            android:ellipsize="end"
+            android:gravity="center"
+            android:text="@string/FLA_title"
+            style="@style/TextAppearance.TLA_Header"/>    
 
        	<View 
            android:layout_width="0.5dip"
@@ -38,15 +43,39 @@
            android:scaleType="fitCenter" />
 
     </LinearLayout>
-    
+
+    <!-- Footer -->
+    <LinearLayout
+        android:id="@+id/lists_footer"
+        android:layout_width="fill_parent" 
+        android:layout_height="50dip"
+        android:layout_weight="1"
+        android:padding="5dip"
+        android:orientation="horizontal"
+        android:layout_alignParentBottom="true">
+        
+        <Button
+		    android:id="@+id/new_list_button"
+		    android:layout_width="fill_parent"
+		    android:layout_height="fill_parent"
+		    android:background="@drawable/footer_editbutton"
+		    android:gravity="center"
+		    android:text="@string/FLA_new_filter"
+		    android:textStyle="bold"
+		    style="@style/TextAppearance.TEA_action"/>
+        
+    </LinearLayout>
+        
 
     <!-- List -->
     <ExpandableListView android:id="@android:id/list"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         android:layout_weight="100"
+        android:layout_below="@id/lists_header"
+        android:layout_above="@id/lists_footer"
         android:scrollbars="vertical"
         android:cacheColorHint="#00000000"/>
     
-</LinearLayout>
+</RelativeLayout>
     

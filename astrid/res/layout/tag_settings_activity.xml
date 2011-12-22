@@ -95,70 +95,77 @@
 		  
 		
 		    <!-- Footer -->
-		        <LinearLayout
-		            android:id="@+id/listSettingsMore"
-		            android:layout_width="fill_parent" 
-		            android:layout_height="wrap_content"
-		            android:layout_marginTop="10dip"
-		            android:orientation="vertical"
-		            android:visibility="gone">
-		            
-		            <View
-		                android:layout_width="fill_parent"
-		                android:layout_height="1dip"
-		                android:background="@android:drawable/divider_horizontal_dark" />
-		    
-		            <TextView 
-		                android:layout_width="fill_parent"
-		                android:layout_height="wrap_content"
-		                android:layout_marginTop="10dip"
-		                style="@style/TextAppearance.GEN_EditLabel"
-		                android:text="@string/actfm_TVA_tag_owner_label" />
-		              
-		            <TextView
-		                android:id="@+id/tag_owner"
-		                android:layout_width="fill_parent"
-		                android:layout_height="wrap_content" 
-		                android:layout_marginBottom="10dip" 
-		                android:textSize="20sp"/>
-		    
-		            <CheckBox 
-		                android:id="@+id/tag_silenced"
-		                android:layout_width="fill_parent"
-		                android:layout_height="wrap_content"
-		                android:layout_marginTop="10dip"
-		                android:paddingLeft="45dip"
-		                style="@style/TextAppearance"
-		                android:text="@string/actfm_TVA_silence_label" />
-		                
-		        </LinearLayout>
+	        <LinearLayout
+	            android:id="@+id/listSettingsMore"
+	            android:layout_width="fill_parent" 
+	            android:layout_height="wrap_content"
+	            android:layout_marginTop="10dip"
+	            android:orientation="vertical"
+	            android:visibility="gone">
+	            
+	            <View
+	                android:layout_width="fill_parent"
+	                android:layout_height="1dip"
+	                android:background="@android:drawable/divider_horizontal_dark" />
+	    
+	            <TextView 
+	                android:layout_width="fill_parent"
+	                android:layout_height="wrap_content"
+	                android:layout_marginTop="10dip"
+	                style="@style/TextAppearance.GEN_EditLabel"
+	                android:text="@string/actfm_TVA_tag_owner_label" />
+	              
+	            <TextView
+	                android:id="@+id/tag_owner"
+	                android:layout_width="fill_parent"
+	                android:layout_height="wrap_content" 
+	                android:layout_marginBottom="10dip" 
+	                android:textSize="20sp"/>
+	    
+	            <CheckBox 
+	                android:id="@+id/tag_silenced"
+	                android:layout_width="fill_parent"
+	                android:layout_height="wrap_content"
+	                android:layout_marginTop="10dip"
+	                android:paddingLeft="45dip"
+	                style="@style/TextAppearance"
+	                android:text="@string/actfm_TVA_silence_label" />
+	                
+	        </LinearLayout>
 		                            
-		    </LinearLayout>
+	    </LinearLayout>
 	  
 	</ScrollView>
 	
-	<LinearLayout
-            android:id="@+id/membersFooter"
-            android:layout_width="fill_parent" 
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:layout_marginTop="10dip"
-            android:padding="5dip"
-            android:background="@drawable/footer_background"
-            android:orientation="horizontal"
-            android:baselineAligned="false">
-            
-	    <Button 
-	        android:id="@+id/saveMembers"
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
-            android:layout_weight="1"
-            android:layout_gravity="center"
-            style="@style/TextAppearance.TEA_action"
-            android:textStyle="bold"
-            android:text="@string/DLG_save"/>
-              
-    </LinearLayout>
+	<LinearLayout android:id="@+id/membersFooter"
+	  android:orientation="horizontal"
+	  android:layout_width="fill_parent"
+	  android:layout_height="48dip"
+	  android:layout_alignParentBottom="true"
+	  android:padding="5dip"
+	  android:background="@drawable/footer_background"
+	  android:baselineAligned="false">
+	  <Button
+	    android:id="@+id/saveMembers"
+	    android:layout_width="fill_parent"
+	    android:layout_height="fill_parent"
+	    android:layout_marginRight="5dip"
+	    android:background="@drawable/footer_editbutton"
+	    android:text="@string/DLG_save"
+	    android:textStyle="bold"
+	    style="@style/TextAppearance.TEA_action"
+	    android:layout_weight="1" />
+	  <Button
+	    android:id="@+id/cancel"
+	    android:layout_width="fill_parent"
+	    android:layout_height="fill_parent"
+	    android:layout_marginLeft="5dip"
+	    android:background="@drawable/footer_editbutton"
+	    android:text="@android:string/cancel"
+	    style="@style/TextAppearance.TEA_action"
+	    android:textColor="#000000"
+	    android:layout_weight="1" />
+	</LinearLayout>
 	
 </LinearLayout>
 	

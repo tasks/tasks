@@ -3,7 +3,8 @@
     android:shape="rectangle">
 	<stroke
         android:width="2dip"
-        android:color="@android:color/darker_gray"/>
+        android:color="@color/task_edit_deadline_gray"/>
 	<corners 
 	    android:topRightRadius="5dip"/>
+	<solid android:color="@android:color/transparent"/>
 </shape>

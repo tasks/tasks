@@ -3,7 +3,7 @@
     xmlns:astrid="http://schemas.android.com/apk/res/com.timsu.astrid"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:paddingLeft="5dip">
+    android:paddingLeft="8dip">
 
     <greendroid.widget.AsyncImageView android:id="@+id/person_image"
         android:layout_width="40dip"
@@ -12,7 +12,16 @@
         android:layout_gravity="center_vertical"
         android:scaleType="fitCenter"
         astrid:defaultSrc="@drawable/icn_default_person_image" />
-    <include layout="@android:layout/simple_list_item_single_choice"
-        android:layout_toRightOf="@id/person_image"/>
+	<CheckedTextView
+		android:id="@android:id/text1"
+		android:layout_width="match_parent"
+		android:layout_height="?android:attr/listPreferredItemHeight"
+		android:textAppearance="?android:attr/textAppearanceLarge"
+		android:textColor="?attr/asTextColor"
+		android:gravity="center_vertical"
+		android:checkMark="?android:attr/listChoiceIndicatorSingle"
+		android:paddingLeft="6dip"
+		android:paddingRight="6dip"
+	    android:layout_toRightOf="@id/person_image"/>
 
 </LinearLayout>

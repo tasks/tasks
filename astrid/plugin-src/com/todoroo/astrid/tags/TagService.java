@@ -141,7 +141,7 @@ public final class TagService {
                 additionalCriterion);
     }
 
-    public QueryTemplate untaggedTemplate() {
+    public static QueryTemplate untaggedTemplate() {
         return new QueryTemplate().where(Criterion.and(
                 Criterion.not(Task.ID.in(Query.select(Metadata.TASK).from(Metadata.TABLE).where(MetadataCriteria.withKey(KEY)))),
                 TaskCriteria.isActive(),

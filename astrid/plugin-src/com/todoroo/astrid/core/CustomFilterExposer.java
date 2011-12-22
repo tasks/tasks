@@ -15,6 +15,7 @@ import android.os.Bundle;
 
 import com.timsu.astrid.R;
 import com.todoroo.andlib.data.TodorooCursor;
+import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.ContextManager;
 import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.andlib.sql.Criterion;
@@ -33,6 +34,9 @@ import com.todoroo.astrid.dao.StoreObjectDao;
 import com.todoroo.astrid.dao.TaskDao.TaskCriteria;
 import com.todoroo.astrid.data.StoreObject;
 import com.todoroo.astrid.data.Task;
+import com.todoroo.astrid.gtasks.GtasksPreferenceService;
+import com.todoroo.astrid.service.TagDataService;
+import com.todoroo.astrid.tags.TagService;
 
 /**
  * Exposes Astrid's built in filters to the {@link FilterListActivity}
@@ -45,6 +49,9 @@ public final class CustomFilterExposer extends BroadcastReceiver implements Astr
     private static final String TOKEN_FILTER_ID = "id"; //$NON-NLS-1$
     private static final String TOKEN_FILTER_NAME = "name"; //$NON-NLS-1$
 
+    @Autowired TagDataService tagDataService;
+    @Autowired GtasksPreferenceService gtasksPreferenceService;
+
     @Override
     public void onReceive(Context context, Intent intent) {
         FilterListItem[] list = prepareFilters(context);
@@ -56,6 +63,7 @@ public final class CustomFilterExposer extends BroadcastReceiver implements Astr
     }
 
     private FilterListItem[] prepareFilters(Context context) {
+        DependencyInjectionService.getInstance().inject(this);
         Resources r = context.getResources();
 
         //PendingIntent customFilterIntent = PendingIntent.getActivity(context, 0,
@@ -78,7 +86,7 @@ public final class CustomFilterExposer extends BroadcastReceiver implements Astr
         TodorooCursor<StoreObject> cursor = dao.query(Query.select(StoreObject.PROPERTIES).where(
                 StoreObject.TYPE.eq(SavedFilter.TYPE)).orderBy(Order.asc(SavedFilter.NAME)));
         try {
-            Filter[] list = new Filter[cursor.getCount() + 2];
+            Filter[] list = new Filter[cursor.getCount() + 3];
 
             // stock filters
             String todayTitle = AndroidUtilities.capitalize(r.getString(R.string.today));
@@ -101,8 +109,16 @@ public final class CustomFilterExposer extends BroadcastReceiver implements Astr
                     null);
             list[1].listingIcon = ((BitmapDrawable)r.getDrawable(R.drawable.filter_pencil)).getBitmap();
 
+            int untaggedLabel = gtasksPreferenceService.isLoggedIn() ?
+                    R.string.tag_FEx_untagged_w_astrid : R.string.tag_FEx_untagged;
+            list[2] = new Filter(r.getString(untaggedLabel),
+                    r.getString(R.string.tag_FEx_untagged),
+                    TagService.untaggedTemplate(),
+                    null);;
+            list[2].listingIcon = ((BitmapDrawable)r.getDrawable(R.drawable.gl_lists)).getBitmap();
+
             StoreObject savedFilter = new StoreObject();
-            for(int i = 2; i < list.length; i++) {
+            for(int i = 3; i < list.length; i++) {
                 cursor.moveToNext();
                 savedFilter.readFromCursor(cursor);
                 list[i] = SavedFilter.load(savedFilter);

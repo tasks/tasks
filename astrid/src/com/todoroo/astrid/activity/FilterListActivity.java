@@ -46,6 +46,7 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ExpandableListView;
 import android.widget.ExpandableListView.ExpandableListContextMenuInfo;
@@ -82,6 +83,7 @@ import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.helper.MetadataHelper;
 import com.todoroo.astrid.service.StartupService;
 import com.todoroo.astrid.service.StatisticsService;
+import com.todoroo.astrid.tags.TagsPlugin;
 import com.todoroo.astrid.utility.Constants;
 
 /**
@@ -94,7 +96,7 @@ import com.todoroo.astrid.utility.Constants;
 public class FilterListActivity extends ExpandableListFragment {
 
     // -- extra codes
-    public static final String SHOW_BACK_BUTTON = "show_back"; //$NON-NLS-1$
+    //public static final String SHOW_BACK_BUTTON = "show_back"; //$NON-NLS-1$
 
     // --- menu codes
 
@@ -180,18 +182,26 @@ public class FilterListActivity extends ExpandableListFragment {
         // We have a menu item to show in action bar.
         setHasOptionsMenu(true);
 
-        ImageView backButton = (ImageView) getView().findViewById(R.id.back);
-        if (!getActivity().getIntent().getBooleanExtra(SHOW_BACK_BUTTON, true)) {
-            backButton.setVisibility(View.GONE);
-            getView().findViewById(R.id.headerLogo).setPadding(0, 0, 0, 0);
-        }
         getActivity().setDefaultKeyMode(Activity.DEFAULT_KEYS_SEARCH_LOCAL);
+        ImageView backButton = (ImageView) getView().findViewById(R.id.back);
+        Button newListButton = (Button) getView().findViewById(R.id.new_list_button);
 
         backButton.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
                 getActivity().finish();
                 AndroidUtilities.callOverridePendingTransition(getActivity(), R.anim.slide_left_in, R.anim.slide_left_out);
+            }
+        });
+
+        newListButton.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = TagsPlugin.newTagDialog(getActivity());
+                startActivity(intent);
+                AndroidUtilities.callApiMethod(5, FilterListActivity.this, "overridePendingTransition",
+                        new Class<?>[] { Integer.TYPE, Integer.TYPE },
+                        R.anim.slide_left_in, R.anim.slide_left_out);
             }
         });
 

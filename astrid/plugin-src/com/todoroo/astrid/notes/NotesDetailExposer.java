@@ -51,7 +51,7 @@ public class NotesDetailExposer extends BroadcastReceiver {
 
     @SuppressWarnings("nls")
     public String getTaskDetails(long id) {
-        if(!Preferences.getBoolean(R.string.p_showNotes, true))
+        if(!Preferences.getBoolean(R.string.p_showNotes, false))
             return null;
 
         Task task = PluginServices.getTaskService().fetchById(id, Task.ID, Task.NOTES);

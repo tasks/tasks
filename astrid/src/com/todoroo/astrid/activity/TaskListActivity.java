@@ -54,6 +54,7 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.PopupWindow.OnDismissListener;
 import android.widget.TextView;
 import android.widget.TextView.OnEditorActionListener;
 import android.widget.Toast;
@@ -110,6 +111,7 @@ import com.todoroo.astrid.utility.Constants;
 import com.todoroo.astrid.utility.Flags;
 import com.todoroo.astrid.voice.VoiceInputAssistant;
 import com.todoroo.astrid.welcome.HelpInfoPopover;
+import com.todoroo.astrid.welcome.WelcomeLogin;
 import com.todoroo.astrid.widget.TasksWidget;
 
 /**
@@ -297,11 +299,6 @@ public class TaskListActivity extends ListFragment implements OnScrollListener,
         if(Preferences.getInt(AstridPreferences.P_UPGRADE_FROM, -1) > -1)
             upgradeService.showChangeLog(getActivity(), Preferences.getInt(AstridPreferences.P_UPGRADE_FROM, -1));
 
-        if (!Preferences.getBoolean(R.string.p_showed_add_task_help, false)) {
-            HelpInfoPopover.showPopover(getActivity(), quickAddBox, R.string.help_popover_add_task);
-            Preferences.setBoolean(R.string.p_showed_add_task_help, true);
-        }
-
         if(getActivity().getIntent().hasExtra(TOKEN_SOURCE)) {
             switch(getActivity().getIntent().getIntExtra(TOKEN_SOURCE, Constants.SOURCE_DEFAULT)) {
             case Constants.SOURCE_NOTIFICATION:
@@ -321,6 +318,12 @@ public class TaskListActivity extends ListFragment implements OnScrollListener,
                 break;
             }
         }
+
+        getActivity().runOnUiThread(new Runnable() {
+           public void run() {
+               Thread.currentThread().setPriority(Thread.MAX_PRIORITY);
+           }
+        });
     }
 
     protected void onNewIntent(Intent intent) {
@@ -351,8 +354,8 @@ public class TaskListActivity extends ListFragment implements OnScrollListener,
             isFilter = true;
         } else {
             filter = CoreFilterExposer.buildInboxFilter(getResources());
-            getView().findViewById(R.id.headerLogo).setVisibility(View.VISIBLE);
-            getView().findViewById(R.id.listLabel).setVisibility(View.GONE);
+            //getView().findViewById(R.id.headerLogo).setVisibility(View.VISIBLE);
+            //getView().findViewById(R.id.listLabel).setVisibility(View.GONE);
             isFilter = false;
         }
 
@@ -431,14 +434,12 @@ public class TaskListActivity extends ListFragment implements OnScrollListener,
     }
 
     private void setUpUiComponents() {
-        ImageView backButton = (ImageView)getView().findViewById(R.id.back);
-        if (backButton != null) {
-            backButton.setOnClickListener(new OnClickListener() {
-                public void onClick(View v) {
-                    showFilterListActivity();
-                }
-            });
-        }
+        ((ImageView)getView().findViewById(R.id.back)).setOnClickListener(new OnClickListener() {
+            public void onClick(View v) {
+                Preferences.setBoolean(R.string.p_showed_lists_help, true);
+                showFilterListActivity();
+            }
+        });
 
         // set listener for quick-changing task priority
         getListView().setOnKeyListener(new OnKeyListener() {
@@ -549,6 +550,7 @@ public class TaskListActivity extends ListFragment implements OnScrollListener,
             @Override
             public void run() {
                 Preferences.setLong(LAST_AUTOSYNC_ATTEMPT, DateUtilities.now());
+                Flags.set(Flags.ACTFM_SUPPRESS_SYNC_TOAST);
                 new ActFmSyncProvider().synchronize(getActivity());
             }
         }.start();
@@ -629,7 +631,19 @@ public class TaskListActivity extends ListFragment implements OnScrollListener,
                 new IntentFilter(AstridApiConstants.BROADCAST_SEND_SYNC_ACTIONS));
         setUpBackgroundJobs();
 
-        if (filter.title.equals(getString(R.string.BFE_Active))) {
+        if (!Preferences.getBoolean(WelcomeLogin.KEY_SHOWED_WELCOME_LOGIN, false)) {
+            Intent showWelcomeLogin = new Intent(getActivity(), WelcomeLogin.class);
+            startActivity(showWelcomeLogin);
+            Preferences.setBoolean(WelcomeLogin.KEY_SHOWED_WELCOME_LOGIN, true);
+            return;
+        }
+
+        if (!Preferences.getBoolean(R.string.p_showed_add_task_help, false)) {
+            HelpInfoPopover.showPopover(getActivity(), quickAddBox, R.string.help_popover_add_task, null);
+            Preferences.setBoolean(R.string.p_showed_add_task_help, true);
+        }
+
+        if (filter.title != null && filter.title.equals(getString(R.string.BFE_Active))) {
             initiateAutomaticSync();
         }
     }
@@ -755,6 +769,11 @@ public class TaskListActivity extends ListFragment implements OnScrollListener,
         }
 
         super.onActivityResult(requestCode, resultCode, data);
+
+        if (!Preferences.getBoolean(R.string.p_showed_add_task_help, false)) {
+            HelpInfoPopover.showPopover(getActivity(), quickAddBox, R.string.help_popover_add_task, null);
+            Preferences.setBoolean(R.string.p_showed_add_task_help, true);
+        }
 
         if(resultCode != Activity.RESULT_CANCELED) {
             taskAdapter.flushCaches();
@@ -919,7 +938,16 @@ public class TaskListActivity extends ListFragment implements OnScrollListener,
                 public void run() {
                     final View view = getListView().getChildAt(getListView().getChildCount() - 1);
                     if (view != null) {
-                        HelpInfoPopover.showPopover(getActivity(), view, R.string.help_popover_tap_task);
+                        OnDismissListener onDismiss = new OnDismissListener() {
+                            @Override
+                            public void onDismiss() {
+                                if (!Preferences.getBoolean(R.string.p_showed_lists_help, false)) {
+                                    Preferences.setBoolean(R.string.p_showed_lists_help, true);
+                                    HelpInfoPopover.showPopover(getActivity(), getView().findViewById(R.id.back), R.string.help_popover_lists, null);
+                                }
+                            }
+                        };
+                        HelpInfoPopover.showPopover(getActivity(), view, R.string.help_popover_tap_task, onDismiss);
                     }
                 }
             }, 1000L);

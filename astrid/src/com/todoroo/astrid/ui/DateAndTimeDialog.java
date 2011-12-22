@@ -9,6 +9,7 @@ import android.view.WindowManager.LayoutParams;
 import android.widget.Button;
 
 import com.timsu.astrid.R;
+import com.todoroo.astrid.service.ThemeService;
 
 public class DateAndTimeDialog extends Dialog {
 
@@ -25,7 +26,7 @@ public class DateAndTimeDialog extends Dialog {
     private DateAndTimeDialogListener listener;
 
     public DateAndTimeDialog(Context context, long startDate) {
-        super(context);
+        super(context, ThemeService.getDialogTheme());
 
         /** 'Window.FEATURE_NO_TITLE' - Used to hide the title */
         requestWindowFeature(Window.FEATURE_NO_TITLE);

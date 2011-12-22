@@ -56,7 +56,7 @@
   <string name="actfm_TVA_filtered_by_assign">%s\'s tasks. Tap for all.</string>
 
   <!-- Tag View: list is private, no members -->
-  <string name="actfm_TVA_no_members_alert">Private: tap to share this list</string>
+  <string name="actfm_TVA_no_members_alert">Private: tap to share or edit</string>
 
   <!-- Tag View Menu: refresh -->
   <string name="actfm_TVA_menu_refresh">Refresh</string>
@@ -71,7 +71,7 @@
   <string name="actfm_TVA_tag_owner_none">none</string>
 
   <!-- Tag Settings: list collaborators label -->
-  <string name="actfm_TVA_members_label">Collaborators:</string>
+  <string name="actfm_TVA_members_label">Shared With:</string>
 
   <!-- Tag Settings: tag picture -->
   <string name="actfm_TVA_tag_picture">List Picture</string>
@@ -103,7 +103,10 @@
   <string name="actfm_EPA_assign_custom">Custom...</string>
   
   <!-- task sharing dialog: shared with label -->
-  <string name="actfm_EPA_share_with">Add Collaborators:</string>
+  <string name="actfm_EPA_share_with">Share with:</string>
+  
+  <!-- Toast when assigning a task -->
+  <string name="actfm_EPA_assigned_toast">Sent to %2$s (you can see on a new shared list between you and %2$s).</string>
   
   <!-- task sharing dialog: shared with label -->
   <string name="actfm_EPA_collaborators_header">Share with Friends</string>
@@ -143,6 +146,13 @@
 
   <!-- task sharing dialog: tag not found (%s => tag) -->
   <string name="actfm_EPA_invalid_tag">List Not Found: %s</string>
+  
+  <!-- task sharing login prompt -->
+  <string name="actfm_EPA_login_to_share">You need to be logged in to Astrid.com to share tasks! Please log in or make this a private task.</string>
+  
+  <string name="actfm_EPA_login_button">Log in</string>
+  
+  <string name="actfm_EPA_dont_share_button">Make private</string>
 
   <!-- ========================================= sharing login activity == -->
 

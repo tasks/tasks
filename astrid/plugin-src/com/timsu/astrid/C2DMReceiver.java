@@ -351,19 +351,24 @@ public class C2DMReceiver extends BroadcastReceiver {
     }
 
     private void handleRegistration(Intent intent) {
-        String registration = intent.getStringExtra("registration_id");
+        final String registration = intent.getStringExtra("registration_id");
         if (intent.getStringExtra("error") != null) {
             Log.w("astrid-actfm", "error-c2dm: " + intent.getStringExtra("error"));
         } else if (intent.getStringExtra("unregistered") != null) {
             // un-registration done
         } else if (registration != null) {
-            try {
-                DependencyInjectionService.getInstance().inject(this);
-                actFmSyncService.invoke("user_set_c2dm", "c2dm", registration);
-                Preferences.setString(PREF_REGISTRATION, registration);
-            } catch (IOException e) {
-                Log.e("astrid-actfm", "error-c2dm-transfer", e);
-            }
+            DependencyInjectionService.getInstance().inject(this);
+            new Thread() {
+                @Override
+                public void run() {
+                    try {
+                        actFmSyncService.invoke("user_set_c2dm", "c2dm", registration);
+                        Preferences.setString(PREF_REGISTRATION, registration);
+                    } catch (IOException e) {
+                        Log.e("astrid-actfm", "error-c2dm-transfer", e);
+                    }
+                }
+            }.start();
         }
     }
 
@@ -372,11 +377,16 @@ public class C2DMReceiver extends BroadcastReceiver {
         if(Preferences.getStringValue(PREF_REGISTRATION) != null)
             return;
 
-        Context context = ContextManager.getContext();
-        Intent registrationIntent = new Intent("com.google.android.c2dm.intent.REGISTER");
-        registrationIntent.putExtra("app", PendingIntent.getBroadcast(context, 0, new Intent(), 0)); // boilerplate
-        registrationIntent.putExtra("sender", C2DM_SENDER);
-        context.startService(registrationIntent);
+        new Thread() {
+            @Override
+            public void run() {
+                Context context = ContextManager.getContext();
+                Intent registrationIntent = new Intent("com.google.android.c2dm.intent.REGISTER");
+                registrationIntent.putExtra("app", PendingIntent.getBroadcast(context, 0, new Intent(), 0)); // boilerplate
+                registrationIntent.putExtra("sender", C2DM_SENDER);
+                context.startService(registrationIntent);
+            }
+        }.start();
     }
 
     /** unregister with c2dm service */

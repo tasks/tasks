@@ -32,6 +32,7 @@ import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.astrid.actfm.sync.ActFmPreferenceService;
 import com.todoroo.astrid.actfm.sync.ActFmSyncService;
+import com.todoroo.astrid.activity.BeastModePreferenceActivity;
 import com.todoroo.astrid.backup.BackupConstants;
 import com.todoroo.astrid.backup.BackupService;
 import com.todoroo.astrid.backup.TasksXmlImporter;
@@ -111,7 +112,7 @@ public class StartupService {
         ContextManager.setContext(context);
 
         Crittercism.init(context.getApplicationContext(), Constants.CRITTERCISM_APP_ID,
-                Constants.CRITTERCISM_OATH_KEY, Constants.CRITTERCISM_SECRET);
+                Constants.CRITTERCISM_OATH_KEY, Constants.CRITTERCISM_SECRET, StatisticsService.dontCollectStatistics());
 
         // show notification if reminders are silenced
         if(context instanceof Activity) {
@@ -145,6 +146,7 @@ public class StartupService {
             abChooser.setChoiceForOption(ABOptions.AB_THEME_KEY, 0);
             Preferences.setLong(AstridPreferences.P_FIRST_LAUNCH, 0);
         }
+        BeastModePreferenceActivity.migrateBeastModePreferences(context);
 
         int version = 0;
         try {
@@ -168,9 +170,10 @@ public class StartupService {
             }
             AstridPreferences.setCurrentVersion(version);
         }
-        if(latestSetVersion == 0) {
-            onFirstTime();
-        }
+        //Startup tasks
+//        if(latestSetVersion == 0) {
+//            onFirstTime();
+//        }
 
         upgradeService.performSecondaryUpgrade(context);
 

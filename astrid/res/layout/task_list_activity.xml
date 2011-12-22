@@ -37,7 +37,7 @@
 	    
 	        
 	        <!-- Header Logo -->
-	        <ImageView android:id="@+id/headerLogo"
+	        <!-- <ImageView android:id="@+id/headerLogo"
 	            android:layout_width="fill_parent"
 	            android:layout_height="fill_parent"
 	            android:layout_weight="100"
@@ -45,7 +45,7 @@
 	            android:paddingRight="43dip"
 	            android:src="@drawable/header_logo_new"
 	            android:scaleType="center"
-	            android:visibility="gone"/>
+	            android:visibility="gone"/>  -->
 	           
 	        <!-- List Label -->
 	        <TextView android:id="@+id/listLabel"
@@ -79,25 +79,6 @@
                 android:src="@drawable/icn_cmmt_off"
                 android:scaleType="fitCenter" /> 
         </LinearLayout>
-	   
-	    <LinearLayout android:id="@+id/settingsContainer"
-	       android:layout_width="wrap_content"
-	       android:layout_height="fill_parent"
-	       android:visibility="gone">
-		    <View 
-	           android:layout_width="0.5dip"
-	           android:layout_height="fill_parent"
-	           android:background="#ff222222"/>
-	           
-	        <ImageView
-	           android:id="@+id/settings"
-	           android:layout_height="fill_parent"
-	           android:layout_width="43dip"
-	           android:background="?attr/asHeaderButtonBackground"
-	           android:padding="7dip"
-	           android:src="@drawable/icn_settings"
-	           android:scaleType="fitCenter" />
-        </LinearLayout> 
 	    
     </LinearLayout>
     

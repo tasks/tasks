@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
           package="com.timsu.astrid"
-          android:versionName="3.9.0.1"
-          android:versionCode="203">
+          android:versionName="3.9.0.2"
+          android:versionCode="204">
           
   <!-- widgets, alarms, and services will break if Astrid is installed on SD card -->
   <!--    android:installLocation="internalOnly"> -->
@@ -73,22 +73,16 @@
     <!-- ====================================================== Activities = -->
         
     <!-- Activity that displays task list -->
-    <activity android:name="com.todoroo.astrid.welcome.SplashScreenLauncher"
-              android:windowSoftInputMode="stateHidden">    
-      <intent-filter>
-        <action android:name="android.intent.action.MAIN" />
-        <category android:name="android.intent.category.LAUNCHER" />
-      </intent-filter>              
-    </activity>
     <activity android:name="com.todoroo.astrid.welcome.WelcomeLogin"
               android:windowSoftInputMode="stateHidden"
               android:screenOrientation="portrait">
     </activity>
-    <activity android:name="com.todoroo.astrid.welcome.WelcomeGraphic"
-              android:windowSoftInputMode="stateHidden">    
-    </activity>
     <activity android:name="com.todoroo.astrid.activity.TaskListWrapperActivity"
-              android:windowSoftInputMode="stateHidden">
+              android:windowSoftInputMode="stateHidden|adjustResize">
+      <intent-filter>
+        <action android:name="android.intent.action.MAIN" />
+        <category android:name="android.intent.category.LAUNCHER" />
+      </intent-filter>
       <intent-filter>
         <action android:name="android.intent.action.VIEW" />
         <category android:name="android.intent.category.DEFAULT" />
@@ -344,7 +338,7 @@
       </intent-filter>
     </receiver>    
     <activity android:name="com.todoroo.astrid.actfm.TagViewWrapperActivity"
-              android:windowSoftInputMode="stateHidden"
+              android:windowSoftInputMode="stateHidden|adjustResize"
               android:theme="@style/Theme">
         <intent-filter>
           <action android:name="android.intent.action.VIEW" />
@@ -379,7 +373,7 @@
     
     <!-- gtasks -->
     <activity android:name="com.todoroo.astrid.gtasks.GtasksListActivity"
-              android:windowSoftInputMode="stateHidden"
+              android:windowSoftInputMode="stateHidden|adjustResize"
               android:theme="@style/Theme">
       <intent-filter>
         <action android:name="android.intent.action.MAIN" />

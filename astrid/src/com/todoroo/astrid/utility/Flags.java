@@ -41,6 +41,11 @@ public class Flags {
      */
     public static final int ACTFM_REPEATED_TASK = 1 << 6;
 
+    /**
+     * If set, indicates to suppress the toast when synchronizing (used for act.fm autosync)
+     */
+    public static final int ACTFM_SUPPRESS_SYNC_TOAST = 1 << 7;
+
     public static boolean checkAndClear(int flag) {
         boolean set = (state & flag) > 0;
         state &= ~flag;

@@ -98,6 +98,7 @@ import com.todoroo.astrid.ui.HideUntilControlSet;
 import com.todoroo.astrid.ui.ImportanceControlSet;
 import com.todoroo.astrid.ui.ReminderControlSet;
 import com.todoroo.astrid.voice.VoiceInputAssistant;
+import com.todoroo.astrid.welcome.HelpInfoPopover;
 
 /**
  * This activity is responsible for creating new tasks and editing existing
@@ -185,6 +186,7 @@ public final class TaskEditActivity extends Fragment {
     private EditPeopleControlSet peopleControlSet = null;
     private EditNotesControlSet notesControlSet = null;
     private HideUntilControlSet hideUntilControls = null;
+    private TagsControlSet tagsControlSet = null;
     private EditText title;
 
     private final List<TaskEditControlSet> controls =
@@ -277,7 +279,7 @@ public final class TaskEditActivity extends Fragment {
             Bundle savedInstanceState) {
         super.onCreateView(inflater, container, savedInstanceState);
 
-        View v = inflater.inflate(R.layout.task_edit_activity_new,
+        View v = inflater.inflate(R.layout.task_edit_activity,
               container, false);
 
         return v;
@@ -317,15 +319,13 @@ public final class TaskEditActivity extends Fragment {
         EditTitleControlSet editTitle = new EditTitleControlSet(getActivity(), R.layout.control_set_title, Task.TITLE, R.id.title);
         title = (EditText) editTitle.getView().findViewById(R.id.title);
         controls.add(editTitle);
-        //basicControls.addView(editTitle.getDisplayView());
-        controlSetMap.put(getString(R.string.TEA_control_title), editTitle);
+        controlSetMap.put(getString(R.string.TEA_ctrl_title_pref), editTitle);
 
         TimerActionControlSet timerAction = new TimerActionControlSet(getActivity(), editTitle.getView());
         controls.add(timerAction);
 
         controls.add(peopleControlSet = new EditPeopleControlSet(getActivity(), R.layout.control_set_assigned, R.layout.control_set_assigned_display, R.string.actfm_EPA_assign_label, REQUEST_LOG_IN));
-        //basicControls.addView(peopleControlSet.getDisplayView());
-        controlSetMap.put(getString(R.string.TEA_control_who), peopleControlSet);
+        controlSetMap.put(getString(R.string.TEA_ctrl_who_pref), peopleControlSet);
 
         DeadlineControlSet deadlineControl = new DeadlineControlSet(getActivity(), R.layout.control_set_deadline, R.layout.control_set_deadline_display, whenHeader, R.id.aux_date, R.id.when_shortcut_container, R.id.when_label, R.id.when_image);
         controls.add(deadlineControl);
@@ -346,32 +346,25 @@ public final class TaskEditActivity extends Fragment {
         ImportanceControlSet importanceControl = new ImportanceControlSet(getActivity(), R.layout.control_set_importance);
         controls.add(importanceControl);
         importanceControl.addListener(editTitle);
-        //moreControls.addView(importanceControl.getDisplayView());
-        controlSetMap.put(getString(R.string.TEA_control_importance), importanceControl);
+        controlSetMap.put(getString(R.string.TEA_ctrl_importance_pref), importanceControl);
 
-        TagsControlSet tagsControl = new TagsControlSet(getActivity(), R.layout.control_set_tags, R.layout.control_set_tags_display, R.string.TEA_tags_label);
-        controls.add(tagsControl);
-        //moreControls.addView(tagsControl.getDisplayView());
-        controlSetMap.put(getString(R.string.TEA_control_lists), tagsControl);
+        tagsControlSet = new TagsControlSet(getActivity(), R.layout.control_set_tags, R.layout.control_set_tags_display, R.string.TEA_tags_label);
+        controls.add(tagsControlSet);
+        controlSetMap.put(getString(R.string.TEA_ctrl_lists_pref), tagsControlSet);
 
         notesControlSet = new EditNotesControlSet(getActivity(), R.layout.control_set_notes, R.layout.control_set_notes_display);
         notesEditText = (EditText) notesControlSet.getView().findViewById(R.id.notes);
         controls.add(notesControlSet);
-        //moreControls.addView(notesControlSet.getDisplayView());
-        controlSetMap.put(getString(R.string.TEA_control_notes), notesControlSet);
+        controlSetMap.put(getString(R.string.TEA_ctrl_notes_pref), notesControlSet);
 
         ReminderControlSet reminderControl = new ReminderControlSet(getActivity(), R.layout.control_set_reminders, R.layout.control_set_reminders_display);
         controls.add(reminderControl);
-        //moreControls.addView(reminderControl.getDisplayView());
-        controlSetMap.put(getString(R.string.TEA_control_reminders), reminderControl);
+        controlSetMap.put(getString(R.string.TEA_ctrl_reminders_pref), reminderControl);
 
         TimerControlSet timerControl = new TimerControlSet(getActivity(), R.layout.control_set_timers, R.layout.control_set_timers_extras_display, R.string.TEA_timer_controls);
         timerAction.setListener(timerControl);
         controls.add(timerControl);
-        //moreControls.addView(timerControl.getDisplayView());
-        controlSetMap.put(getString(R.string.TEA_control_timer), timerControl);
-
-        //moreControls.addView(peopleControlSet.getSharedWithRow());
+        controlSetMap.put(getString(R.string.TEA_ctrl_timer_pref), timerControl);
 
         try {
             if(ProducteevUtilities.INSTANCE.isLoggedIn()) {
@@ -402,11 +395,11 @@ public final class TaskEditActivity extends Fragment {
         if (orderPreference != null)
             itemOrder = orderPreference.split(BeastModePreferenceActivity.BEAST_MODE_PREF_ITEM_SEPARATOR);
         else
-            itemOrder = getResources().getStringArray(R.array.TEA_control_sets);
-        String moreSectionTrigger = getString(R.string.TEA_control_more_section);
-        String whenViewDescriptor = getString(R.string.TEA_control_when);
+            itemOrder = getResources().getStringArray(R.array.TEA_control_sets_prefs);
+        String moreSectionTrigger = getString(R.string.TEA_ctrl_more_pref);
+        String whenViewDescriptor = getString(R.string.TEA_ctrl_when_pref);
         View whenView = getView().findViewById(R.id.when_container);
-        String shareViewDescriptor = getString(R.string.TEA_control_share);
+        String shareViewDescriptor = getString(R.string.TEA_ctrl_share_pref);
         LinearLayout section = basicControls;
         for (int i = 0; i < itemOrder.length; i++) {
             String item = itemOrder[i];
@@ -450,6 +443,7 @@ public final class TaskEditActivity extends Fragment {
             public void onClick(View v) {
                 if (whenDialog != null)
                     whenDialog.show();
+                Preferences.setBoolean(R.string.p_showed_when_row, true);
             }
         };
         final View.OnClickListener mExpandMoreListener = new View.OnClickListener() {
@@ -475,35 +469,8 @@ public final class TaskEditActivity extends Fragment {
             Button saveButtonGeneral = (Button) getView().findViewById(R.id.save);
             saveButtonGeneral.setOnClickListener(mSaveListener);
 
-            Button saveButton2 = (Button) getView().findViewById(R.id.save2);
-            Button saveButton3 = (Button) getView().findViewById(R.id.save3);
-            Button saveButton4 = (Button) getView().findViewById(R.id.save4);
-            if (saveButton2 != null) {
-                saveButton2.setOnClickListener(mSaveListener);
-            }
-            if (saveButton3 != null) {
-                saveButton3.setOnClickListener(mSaveListener);
-            }
-            if (saveButton4 != null) {
-                saveButton4.setOnClickListener(mSaveListener);
-            }
-
-
             Button discardButtonGeneral = (Button) getView().findViewById(R.id.discard);
             discardButtonGeneral.setOnClickListener(mDiscardListener);
-
-            Button discardButton2 = (Button) getView().findViewById(R.id.discard2);
-            Button discardButton3 = (Button) getView().findViewById(R.id.discard3);
-            Button discardButton4 = (Button) getView().findViewById(R.id.discard4);
-            if (discardButton2 != null) {
-                discardButton2.setOnClickListener(mDiscardListener);
-            }
-            if (discardButton3 != null) {
-                discardButton3.setOnClickListener(mDiscardListener);
-            }
-            if (discardButton4 != null) {
-                discardButton4.setOnClickListener(mDiscardListener);
-            }
 
             getView().findViewById(R.id.when_header).setOnClickListener(mExpandWhenListener);
 
@@ -523,20 +490,22 @@ public final class TaskEditActivity extends Fragment {
     }
 
     private void constructWhenDialog(View whenDialogView) {
-        int theme = ThemeService.getTheme();
-        if (theme == R.style.Theme || theme == R.style.Theme_Transparent) {
-            whenDialog = new Dialog(getActivity(), R.style.Theme_TEA_Dialog);//R.style.Theme_WhenDialog
-            //whenDialogView.setBackgroundColor(getResources().getColor(android.R.color.black));
-        } else {
-            whenDialog = new Dialog(getActivity(), R.style.Theme_TEA_Dialog); //R.style.Theme_White_WhenDialog
-            //whenDialogView.setBackgroundColor(getResources().getColor(android.R.color.white));
-        }
+        int theme = ThemeService.getDialogTheme();
+        whenDialog = new Dialog(getActivity(), theme);
 
         Button dismissDialogButton = (Button) whenDialogView.findViewById(R.id.when_dismiss);
         dismissDialogButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                showWhenShortcutHelp();
                 DialogUtilities.dismissDialog(getActivity(), whenDialog);
+            }
+        });
+
+        whenDialog.setOnCancelListener(new DialogInterface.OnCancelListener() {
+            @Override
+            public void onCancel(DialogInterface dialog) {
+                showWhenShortcutHelp();
             }
         });
 
@@ -544,6 +513,14 @@ public final class TaskEditActivity extends Fragment {
         getActivity().getWindowManager().getDefaultDisplay().getMetrics(metrics);
         whenDialog.setTitle(R.string.TEA_when_dialog_title);
         whenDialog.addContentView(whenDialogView, new LayoutParams(metrics.widthPixels - (int)(30 * metrics.density), LayoutParams.WRAP_CONTENT));
+    }
+
+    private void showWhenShortcutHelp() {
+        if (!Preferences.getBoolean(R.string.p_showed_when_shortcut, false)) {
+            Preferences.setBoolean(R.string.p_showed_when_shortcut, true);
+            Preferences.setBoolean(R.string.p_showed_when_row, true);
+            HelpInfoPopover.showPopover(getActivity(), getView().findViewById(R.id.when_shortcut_container), R.string.help_popover_when_shortcut, null);
+        }
     }
 
     /**
@@ -567,23 +544,6 @@ public final class TaskEditActivity extends Fragment {
                 voiceNoteAssistant.configureMicrophoneButton(prompt);
             }
 
-//            if(!Constants.MARKET_DISABLED && !addOnService.hasPowerPack()) {
-//                // show add-on help if necessary
-//                View addonsEmpty = findViewById(R.id.addons_empty);
-//                addonsEmpty.setVisibility(View.VISIBLE);
-//                moreAddons.removeView(addonsEmpty);
-//                moreAddons.addView(addonsEmpty);
-//                ((Button)findViewById(R.id.addons_button)).setOnClickListener(new View.OnClickListener() {
-//                    @Override
-//                    public void onClick(View v) {
-//                        Intent addOnActivity = new Intent(TaskEditActivity.this, AddOnActivity.class);
-//                        addOnActivity.putExtra(AddOnActivity.TOKEN_START_WITH_AVAILABLE, true);
-//                        startActivity(addOnActivity);
-//                    }
-//                });
-//            }
-
-
             // re-read all
             synchronized(controls) {
                 for(TaskEditControlSet controlSet : controls)
@@ -591,6 +551,18 @@ public final class TaskEditActivity extends Fragment {
                 if (isNewTask) {
                     hideUntilControls.setDefaults();
                 }
+                autoExpand();
+            }
+        }
+
+        private void autoExpand() {
+            LinearLayout moreControls = (LinearLayout) getView().findViewById(R.id.more_controls);
+            LinearLayout moreHeader = (LinearLayout) getView().findViewById(R.id.more_header);
+
+            if (notesControlSet.hasNotes() && notesControlSet.getDisplayView().getParent() == moreControls) {
+                moreHeader.performClick();
+            } else if (tagsControlSet.hasLists() && tagsControlSet.getDisplayView().getParent() == moreControls) {
+                moreHeader.performClick();
             }
         }
 
@@ -767,10 +739,6 @@ public final class TaskEditActivity extends Fragment {
                 View separator = new View(getActivity());
                 separator.setPadding(5, 5, 5, 5);
                 separator.setBackgroundResource(android.R.drawable.divider_horizontal_dark);
-
-                LinearLayout dest = (LinearLayout)getView().findViewById(R.id.addons_more);
-                dest.addView(separator);
-                view.apply(getActivity(), dest);
 
             } catch (Exception e) {
                 exceptionService.reportError("receive-detail-" + //$NON-NLS-1$

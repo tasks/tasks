@@ -25,8 +25,11 @@ import com.timsu.astrid.R;
 public class HelpInfoPopover extends QuickActionWidget {
 
     public static HelpInfoPopover showPopover(final Activity activity, final View parent,
-            final int textId) {
+            final int textId, OnDismissListener dismissListener) {
         final HelpInfoPopover toShow = new HelpInfoPopover(activity, textId);
+        if (dismissListener != null) {
+            toShow.setOnDismissListener(dismissListener);
+        }
         parent.post(new Runnable() {
             @Override
             public void run() {
@@ -36,7 +39,7 @@ public class HelpInfoPopover extends QuickActionWidget {
         return toShow;
     }
 
-    public HelpInfoPopover(Context context, int textId) {
+    private HelpInfoPopover(Context context, int textId) {
         super(context);
         setContentView(R.layout.help_popover);
         TextView message = (TextView)getContentView().findViewById(R.id.gdi_message);
