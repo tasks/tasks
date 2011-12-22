@@ -591,6 +591,8 @@ public class TaskListActivity extends ListActivity implements OnScrollListener,
         if (!Preferences.getBoolean(R.string.p_showed_add_task_help, false)) {
             HelpInfoPopover.showPopover(TaskListActivity.this, quickAddBox, R.string.help_popover_add_task, null);
             Preferences.setBoolean(R.string.p_showed_add_task_help, true);
+        } else if (!Preferences.getBoolean(R.string.p_showed_tap_task_help, false)) {
+            showTaskEditHelpPopover();
         } else if (Preferences.isSet(getString(R.string.p_showed_lists_help)) &&
                 !Preferences.getBoolean(R.string.p_showed_lists_help, false)) {
             HelpInfoPopover.showPopover(TaskListActivity.this, findViewById(R.id.back), R.string.help_popover_lists, null);
@@ -855,7 +857,7 @@ public class TaskListActivity extends ListActivity implements OnScrollListener,
             currentCursor.moveToPosition(i);
             if(currentCursor.get(Task.ID) == withCustomId) {
                 getListView().setSelection(i);
-                showHelpPopover();
+                showTaskEditHelpPopover();
                 return;
             }
         }
@@ -882,13 +884,13 @@ public class TaskListActivity extends ListActivity implements OnScrollListener,
             currentCursor.moveToPosition(i);
             if(currentCursor.get(Task.ID) == withCustomId) {
                 getListView().setSelection(i);
-                showHelpPopover();
+                showTaskEditHelpPopover();
                 break;
             }
         }
     }
 
-    private void showHelpPopover() {
+    private void showTaskEditHelpPopover() {
         if (!Preferences.getBoolean(R.string.p_showed_tap_task_help, false)) {
             Preferences.setBoolean(R.string.p_showed_tap_task_help, true);
             InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
