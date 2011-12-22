@@ -591,6 +591,10 @@ public class TaskListActivity extends ListActivity implements OnScrollListener,
         if (!Preferences.getBoolean(R.string.p_showed_add_task_help, false)) {
             HelpInfoPopover.showPopover(TaskListActivity.this, quickAddBox, R.string.help_popover_add_task, null);
             Preferences.setBoolean(R.string.p_showed_add_task_help, true);
+        } else if (Preferences.isSet(getString(R.string.p_showed_lists_help)) &&
+                !Preferences.getBoolean(R.string.p_showed_lists_help, false)) {
+            HelpInfoPopover.showPopover(TaskListActivity.this, findViewById(R.id.back), R.string.help_popover_lists, null);
+            Preferences.setBoolean(R.string.p_showed_lists_help, true);
         }
 
         if (filter.title != null && filter.title.equals(getString(R.string.BFE_Active))) {
@@ -896,7 +900,9 @@ public class TaskListActivity extends ListActivity implements OnScrollListener,
                         OnDismissListener onDismiss = new OnDismissListener() {
                             @Override
                             public void onDismiss() {
-                                if (!Preferences.getBoolean(R.string.p_showed_lists_help, false)) {
+                                if (!Preferences.isSet(getString(R.string.p_showed_lists_help))) {
+                                    Preferences.setBoolean(R.string.p_showed_lists_help, false);
+                                } else if (!Preferences.getBoolean(R.string.p_showed_lists_help, false)) {
                                     Preferences.setBoolean(R.string.p_showed_lists_help, true);
                                     HelpInfoPopover.showPopover(TaskListActivity.this, findViewById(R.id.back), R.string.help_popover_lists, null);
                                 }
