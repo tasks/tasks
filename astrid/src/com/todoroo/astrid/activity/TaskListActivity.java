@@ -354,15 +354,15 @@ public class TaskListActivity extends ListFragment implements OnScrollListener,
             isFilter = true;
         } else {
             filter = CoreFilterExposer.buildInboxFilter(getResources());
-            //getView().findViewById(R.id.headerLogo).setVisibility(View.VISIBLE);
-            //getView().findViewById(R.id.listLabel).setVisibility(View.GONE);
+//            getView().findViewById(R.id.headerLogo).setVisibility(View.VISIBLE);
+//            getView().findViewById(R.id.listLabel).setVisibility(View.GONE);
             isFilter = false;
         }
 
         setUpTaskList();
         // FIXME put this into the wrapper activity
-//        if(Constants.DEBUG)
-//            setTitle("[D] " + filter.title); //$NON-NLS-1$
+        if(Constants.DEBUG)
+            getActivity().setTitle("[D] " + filter.title); //$NON-NLS-1$
 
         contextMenuExtensionLoader.loadInNewThread(getActivity());
     }
@@ -843,12 +843,6 @@ public class TaskListActivity extends ListFragment implements OnScrollListener,
         getActivity().sendOrderedBroadcast(broadcastIntent, AstridApiConstants.PERMISSION_READ);
     }
 
-    // FIXME: put this into the wrapper-activity eventually
-//    @Override
-//    public void setTitle(CharSequence title) {
-//        ((TextView)findViewById(R.id.listLabel)).setText(title);
-//    }
-
     /**
      * Fill in the Task List with current items
      * @param withCustomId force task with given custom id to be part of list
@@ -859,8 +853,7 @@ public class TaskListActivity extends ListFragment implements OnScrollListener,
 
         sqlQueryTemplate.set(SortHelper.adjustQueryForFlagsAndSort(filter.sqlQuery,
                 sortFlags, sortSort));
-        // FIXME: put this into the wrapper-activity eventually
-//        setTitle(filter.title);
+        getActivity().setTitle(filter.title);
 
         // perform query
         TodorooCursor<Task> currentCursor = taskService.fetchFiltered(

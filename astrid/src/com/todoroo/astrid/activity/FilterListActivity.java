@@ -199,7 +199,7 @@ public class FilterListActivity extends ExpandableListFragment {
             public void onClick(View v) {
                 Intent intent = TagsPlugin.newTagDialog(getActivity());
                 startActivity(intent);
-                AndroidUtilities.callApiMethod(5, FilterListActivity.this, "overridePendingTransition",
+                AndroidUtilities.callApiMethod(5, getActivity(), "overridePendingTransition",
                         new Class<?>[] { Integer.TYPE, Integer.TYPE },
                         R.anim.slide_left_in, R.anim.slide_left_out);
             }
