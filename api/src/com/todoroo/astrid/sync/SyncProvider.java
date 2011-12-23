@@ -149,7 +149,7 @@ public abstract class SyncProvider<TYPE extends SyncContainer> {
     }
 
     /**
-     * Synchronize this providerwith sync toast
+     * Synchronize this provider with sync toast
      * @param context
      */
     public void synchronize(final Context context) {
