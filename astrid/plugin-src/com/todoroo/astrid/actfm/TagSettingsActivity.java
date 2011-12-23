@@ -201,7 +201,7 @@ public class TagSettingsActivity extends Activity {
         imm.hideSoftInputFromWindow(tagName.getWindowToken(), 0);
 
         if (isNewTag) {
-            Intent intent = new Intent(this, TagViewActivity.class);
+            Intent intent = new Intent(this, TagViewWrapperActivity.class);
             intent.putExtra(TagViewActivity.EXTRA_TAG_NAME, newName);
             intent.putExtra(TagViewActivity.TOKEN_FILTER, TagFilterExposer.filterFromTagData(this, tagData));
             super.finish();
