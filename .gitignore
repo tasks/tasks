@@ -4,8 +4,9 @@
 org.eclipse.ltk.core.refactoring.prefs
 gen
 local.properties
-ecbuild
+antbuild
 astrid/bin
+astrid/ecbuild
 astrid/src-combined
 release
 dev

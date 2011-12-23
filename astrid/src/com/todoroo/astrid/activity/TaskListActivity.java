@@ -550,8 +550,7 @@ public class TaskListActivity extends ListFragment implements OnScrollListener,
             @Override
             public void run() {
                 Preferences.setLong(LAST_AUTOSYNC_ATTEMPT, DateUtilities.now());
-                Flags.set(Flags.ACTFM_SUPPRESS_SYNC_TOAST);
-                new ActFmSyncProvider().synchronize(getActivity());
+                new ActFmSyncProvider().synchronize(getActivity(), false);
             }
         }.start();
     }
@@ -641,6 +640,12 @@ public class TaskListActivity extends ListFragment implements OnScrollListener,
         if (!Preferences.getBoolean(R.string.p_showed_add_task_help, false)) {
             HelpInfoPopover.showPopover(getActivity(), quickAddBox, R.string.help_popover_add_task, null);
             Preferences.setBoolean(R.string.p_showed_add_task_help, true);
+        } else if (!Preferences.getBoolean(R.string.p_showed_tap_task_help, false)) {
+            showTaskEditHelpPopover();
+        } else if (Preferences.isSet(getString(R.string.p_showed_lists_help)) &&
+                !Preferences.getBoolean(R.string.p_showed_lists_help, false)) {
+            HelpInfoPopover.showPopover(getActivity(), getView().findViewById(R.id.back), R.string.help_popover_lists, null);
+            Preferences.setBoolean(R.string.p_showed_lists_help, true);
         }
 
         if (filter.title != null && filter.title.equals(getString(R.string.BFE_Active))) {
@@ -889,7 +894,7 @@ public class TaskListActivity extends ListFragment implements OnScrollListener,
             currentCursor.moveToPosition(i);
             if(currentCursor.get(Task.ID) == withCustomId) {
                 getListView().setSelection(i);
-                showHelpPopover();
+                showTaskEditHelpPopover();
                 return;
             }
         }
@@ -916,31 +921,35 @@ public class TaskListActivity extends ListFragment implements OnScrollListener,
             currentCursor.moveToPosition(i);
             if(currentCursor.get(Task.ID) == withCustomId) {
                 getListView().setSelection(i);
-                showHelpPopover();
+                showTaskEditHelpPopover();
                 break;
             }
         }
     }
 
-    private void showHelpPopover() {
+    private void showTaskEditHelpPopover() {
         if (!Preferences.getBoolean(R.string.p_showed_tap_task_help, false)) {
             Preferences.setBoolean(R.string.p_showed_tap_task_help, true);
             InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
             imm.hideSoftInputFromWindow(quickAddBox.getWindowToken(), 0);
             getListView().postDelayed(new Runnable() {
                 public void run() {
-                    final View view = getListView().getChildAt(getListView().getChildCount() - 1);
-                    if (view != null) {
-                        OnDismissListener onDismiss = new OnDismissListener() {
-                            @Override
-                            public void onDismiss() {
-                                if (!Preferences.getBoolean(R.string.p_showed_lists_help, false)) {
-                                    Preferences.setBoolean(R.string.p_showed_lists_help, true);
-                                    HelpInfoPopover.showPopover(getActivity(), getView().findViewById(R.id.back), R.string.help_popover_lists, null);
+                    if (taskAdapter.getCount() > 0) {
+                        final View view = getListView().getChildAt(getListView().getChildCount() - 1);
+                        if (view != null) {
+                            OnDismissListener onDismiss = new OnDismissListener() {
+                                @Override
+                                public void onDismiss() {
+                                    if (!Preferences.isSet(getString(R.string.p_showed_lists_help))) {
+                                        Preferences.setBoolean(R.string.p_showed_lists_help, false);
+                                    } else if (!Preferences.getBoolean(R.string.p_showed_lists_help, false)) {
+                                        Preferences.setBoolean(R.string.p_showed_lists_help, true);
+                                        HelpInfoPopover.showPopover(getActivity(), getView().findViewById(R.id.back), R.string.help_popover_lists, null);
+                                    }
                                 }
-                            }
-                        };
-                        HelpInfoPopover.showPopover(getActivity(), view, R.string.help_popover_tap_task, onDismiss);
+                            };
+                            HelpInfoPopover.showPopover(getActivity(), view, R.string.help_popover_tap_task, onDismiss);
+                        }
                     }
                 }
             }, 1000L);

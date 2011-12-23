@@ -381,7 +381,6 @@ public class TagViewActivity extends TaskListActivity {
             }
             image.setOnClickListener(listenerForImage(memberToUse, id, memberName));
         } catch (JSONException e) {
-            System.err.println("Unable to create listener");
             e.printStackTrace();
         }
         membersView.addView(image);
@@ -405,7 +404,6 @@ public class TagViewActivity extends TaskListActivity {
                         assignedCriterion = Task.USER_ID.eq(id);
                     Criterion assigned = Criterion.and(TaskCriteria.activeAndVisible(), assignedCriterion);
                     filter = TagFilterExposer.filterFromTag(getActivity(), new Tag(tagData), assigned);
-                    System.err.println("Filter: " + filter.sqlQuery); //$NON-NLS-1$
                     TextView filterByAssigned = (TextView) getView().findViewById(R.id.filter_assigned);
                     filterByAssigned.setVisibility(View.VISIBLE);
                     filterByAssigned.setText(getString(R.string.actfm_TVA_filtered_by_assign, displayName));

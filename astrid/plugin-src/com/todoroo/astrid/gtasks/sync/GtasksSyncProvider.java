@@ -216,7 +216,6 @@ public class GtasksSyncProvider extends SyncProvider<GtasksTaskContainer> {
         } catch (IOException e) {
             handleException("gtasks-sync", e, true);
         } finally {
-            System.err.println("Sent " + localCreated.getCount() + " new tasks");
             localCreated.close();
         }
     }

@@ -27,24 +27,9 @@ public class Flags {
     public static final int ACTFM_SUPPRESS_SYNC = 1 << 3;
 
     /**
-     * If set, indicates save hooks should be suppressed
-     */
-    public static final int SUPPRESS_HOOKS = 1 << 4;
-
-    /**
      * If set, indicates to suppress the next gtasks sync attempt
      */
-    public static final int GTASKS_SUPPRESS_SYNC = 1 << 5;
-
-    /**
-     * If set, indicates next task was a completed repeating task
-     */
-    public static final int ACTFM_REPEATED_TASK = 1 << 6;
-
-    /**
-     * If set, indicates to suppress the toast when synchronizing (used for act.fm autosync)
-     */
-    public static final int ACTFM_SUPPRESS_SYNC_TOAST = 1 << 7;
+    public static final int GTASKS_SUPPRESS_SYNC = 1 << 4;
 
     public static boolean checkAndClear(int flag) {
         boolean set = (state & flag) > 0;

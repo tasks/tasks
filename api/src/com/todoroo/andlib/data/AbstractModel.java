@@ -10,6 +10,7 @@ import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 
 import android.content.ContentValues;
 import android.os.Parcel;
@@ -66,6 +67,9 @@ public abstract class AbstractModel implements Parcelable, Cloneable {
 
     /** Values from database */
     protected ContentValues values = null;
+
+    /** Transitory Metadata (not saved in database) */
+    protected HashMap<String, Object> transitoryData = null;
 
     /** Get database-read values for this object */
     public ContentValues getDatabaseValues() {
@@ -160,6 +164,7 @@ public abstract class AbstractModel implements Parcelable, Cloneable {
 
         // clears user-set values
         setValues = null;
+        transitoryData = null;
 
         for (Property<?> property : cursor.getProperties()) {
             try {
@@ -343,6 +348,21 @@ public abstract class AbstractModel implements Parcelable, Cloneable {
      */
     public boolean getFlag(IntegerProperty property, int flag) {
         return (getValue(property) & flag) > 0;
+    }
+
+
+    // --- setting and retrieving flags
+
+    public synchronized void putTransitory(String key, Object value) {
+        if(transitoryData == null)
+            transitoryData = new HashMap<String, Object>();
+        transitoryData.put(key, value);
+    }
+
+    public Object getTransitory(String key) {
+        if(transitoryData == null)
+            return null;
+        return transitoryData.get(key);
     }
 
     // --- property management

@@ -42,7 +42,7 @@ public class NewRepeatTests<REMOTE_MODEL> extends DatabaseTestCase {
     }
 
     private void saveAndTriggerRepeatListener(Task task) {
-        Flags.set(Flags.SUPPRESS_HOOKS);
+        Flags.set(Flags.ACTFM_SUPPRESS_SYNC);
         if(task.isSaved())
             taskDao.saveExisting(task);
         else

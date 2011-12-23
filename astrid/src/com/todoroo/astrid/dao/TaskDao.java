@@ -24,7 +24,6 @@ import com.todoroo.astrid.reminders.ReminderService;
 import com.todoroo.astrid.service.StatisticsConstants;
 import com.todoroo.astrid.service.StatisticsService;
 import com.todoroo.astrid.utility.AstridPreferences;
-import com.todoroo.astrid.utility.Flags;
 
 /**
  * Data Access layer for {@link Task}-related operations.
@@ -286,7 +285,7 @@ public class TaskDao extends DatabaseDao<Task> {
      * Astrid. Order matters here!
      */
     public static void afterSave(Task task, ContentValues values) {
-        if(values == null || Flags.checkAndClear(Flags.SUPPRESS_HOOKS))
+        if(values == null)
             return;
 
         task.markSaved();

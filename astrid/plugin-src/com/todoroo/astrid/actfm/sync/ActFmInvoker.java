@@ -26,7 +26,7 @@ import com.todoroo.andlib.utility.Preferences;
 public class ActFmInvoker {
 
     /** NOTE: these values are development values & will not work on production */
-    private static final String URL = "//10.0.0.2:3000/api/";
+    private static final String URL = "//10.0.2.2:3000/api/";
     private static final String APP_ID = "a4732a32859dbcd3e684331acd36432c";
     private static final String APP_SECRET = "e389bfc82a0d932332f9a8bd8203735f";
 
@@ -211,7 +211,6 @@ public class ActFmInvoker {
         }
 
         sigBuilder.append(APP_SECRET);
-        System.err.println("SIG: " + sigBuilder);
         String signature = DigestUtils.md5Hex(sigBuilder.toString());
         requestBuilder.append("sig").append('=').append(signature);
         return requestBuilder.toString();

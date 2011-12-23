@@ -246,7 +246,10 @@
   <string name="FLA_toast_onCreateShortcut">Created Shortcut: %s</string>
   
   <!-- Menu: new filter -->
-  <string name="FLA_new_filter">New List</string>
+  <string name="FLA_new_filter">New Filter</string>
+  
+  <!-- Button: new list -->
+  <string name="FLA_new_list">New List</string>
   
   <!-- ================================================= TaskEditActivity == -->
   

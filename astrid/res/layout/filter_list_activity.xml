@@ -60,7 +60,7 @@
 		    android:layout_height="fill_parent"
 		    android:background="@drawable/footer_editbutton"
 		    android:gravity="center"
-		    android:text="@string/FLA_new_filter"
+		    android:text="@string/FLA_new_list"
 		    android:textStyle="bold"
 		    style="@style/TextAppearance.TEA_action"/>
         
