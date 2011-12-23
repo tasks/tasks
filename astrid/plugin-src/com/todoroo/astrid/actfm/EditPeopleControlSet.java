@@ -564,7 +564,7 @@ public class EditPeopleControlSet extends PopupControlSet {
             task.putTransitory("task-assigned", true);
 
             if(sharedToast != null)
-                toast = (toast == null) ? toast + "\n" + sharedToast : sharedToast + "\n";
+                toast = (toast != null) ? toast + "\n" + sharedToast : sharedToast + "\n";
             showSaveToast(toast);
 
             return true;
@@ -692,7 +692,6 @@ public class EditPeopleControlSet extends PopupControlSet {
             // clear user values & reset them to trigger a save
             task.clearValue(Task.USER_ID);
             task.clearValue(Task.USER);
-            saveSharingSettings(null);
         }
         else if (requestCode == loginRequestCode)
             makePrivateTask();
