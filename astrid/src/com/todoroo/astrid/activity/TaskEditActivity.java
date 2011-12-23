@@ -51,8 +51,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
-import android.widget.RemoteViews;
-import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -154,7 +152,7 @@ public final class TaskEditActivity extends Activity {
 
     public static final String TAB_MORE = "more"; //$NON-NLS-1$
 
-    public static final String OVERRIDE_FINISH_ANIM = "finishAnim";
+    public static final String OVERRIDE_FINISH_ANIM = "finishAnim"; //$NON-NLS-1$
 
     // --- services
 
@@ -207,7 +205,6 @@ public final class TaskEditActivity extends Activity {
     private VoiceInputAssistant voiceNoteAssistant;
 
     private EditText notesEditText;
-    private ScrollView scrollView;
 
     private Dialog whenDialog;
 
@@ -250,10 +247,10 @@ public final class TaskEditActivity extends Activity {
     /** Initialize UI components */
     private void setUpUIComponents() {
         setContentView(R.layout.task_edit_activity);
-        scrollView = (ScrollView) findViewById(R.id.edit_scroll);
 
         LinearLayout basicControls = (LinearLayout) findViewById(R.id.basic_controls);
-        LinearLayout whenDialogView = (LinearLayout) LayoutInflater.from(this).inflate(R.layout.task_edit_when_controls, null);
+        LinearLayout whenDialogView = (LinearLayout) LayoutInflater.from(this).inflate(
+                R.layout.task_edit_when_controls, null);
         LinearLayout whenControls = (LinearLayout) whenDialogView.findViewById(R.id.when_controls);
         LinearLayout whenHeader = (LinearLayout) findViewById(R.id.when_header);
         LinearLayout moreControls = (LinearLayout) findViewById(R.id.more_controls);
@@ -263,52 +260,82 @@ public final class TaskEditActivity extends Activity {
         HashMap<String, TaskEditControlSet> controlSetMap = new HashMap<String, TaskEditControlSet>();
 
         // populate control set
-        EditTitleControlSet editTitle = new EditTitleControlSet(this, R.layout.control_set_title, Task.TITLE, R.id.title);
+        EditTitleControlSet editTitle = new EditTitleControlSet(this,
+                R.layout.control_set_title, Task.TITLE, R.id.title);
         title = (EditText) editTitle.getView().findViewById(R.id.title);
         controls.add(editTitle);
         controlSetMap.put(getString(R.string.TEA_ctrl_title_pref), editTitle);
 
-        TimerActionControlSet timerAction = new TimerActionControlSet(this, editTitle.getView());
+        TimerActionControlSet timerAction = new TimerActionControlSet(this,
+                editTitle.getView());
         controls.add(timerAction);
 
-        controls.add(peopleControlSet = new EditPeopleControlSet(TaskEditActivity.this, R.layout.control_set_assigned, R.layout.control_set_assigned_display, R.string.actfm_EPA_assign_label, REQUEST_LOG_IN));
-        controlSetMap.put(getString(R.string.TEA_ctrl_who_pref), peopleControlSet);
+        controls.add(peopleControlSet = new EditPeopleControlSet(
+                TaskEditActivity.this, R.layout.control_set_assigned,
+                R.layout.control_set_assigned_display,
+                R.string.actfm_EPA_assign_label, REQUEST_LOG_IN));
+        controlSetMap.put(getString(R.string.TEA_ctrl_who_pref),
+                peopleControlSet);
 
-        DeadlineControlSet deadlineControl = new DeadlineControlSet(TaskEditActivity.this, R.layout.control_set_deadline, R.layout.control_set_deadline_display, whenHeader, R.id.aux_date, R.id.when_shortcut_container, R.id.when_label, R.id.when_image);
+        DeadlineControlSet deadlineControl = new DeadlineControlSet(
+                TaskEditActivity.this, R.layout.control_set_deadline,
+                R.layout.control_set_deadline_display, whenHeader,
+                R.id.aux_date, R.id.when_shortcut_container, R.id.when_label,
+                R.id.when_image);
         controls.add(deadlineControl);
         whenControls.addView(deadlineControl.getDisplayView());
 
-        RepeatControlSet repeatControls = new RepeatControlSet(TaskEditActivity.this, R.layout.control_set_repeat, R.layout.control_set_repeat_display, R.string.repeat_enabled);
+        RepeatControlSet repeatControls = new RepeatControlSet(
+                TaskEditActivity.this, R.layout.control_set_repeat,
+                R.layout.control_set_repeat_display, R.string.repeat_enabled);
         controls.add(repeatControls);
         whenControls.addView(repeatControls.getDisplayView());
 
-        GCalControlSet gcalControl = new GCalControlSet(TaskEditActivity.this, R.layout.control_set_gcal, R.layout.control_set_gcal_display, R.string.gcal_TEA_addToCalendar_label);
+        GCalControlSet gcalControl = new GCalControlSet(TaskEditActivity.this,
+                R.layout.control_set_gcal, R.layout.control_set_gcal_display,
+                R.string.gcal_TEA_addToCalendar_label);
         controls.add(gcalControl);
         whenControls.addView(gcalControl.getDisplayView());
 
-        hideUntilControls = new HideUntilControlSet(TaskEditActivity.this, R.layout.control_set_hide, R.layout.control_set_hide_display, R.string.hide_until_prompt);
+        hideUntilControls = new HideUntilControlSet(TaskEditActivity.this,
+                R.layout.control_set_hide, R.layout.control_set_hide_display,
+                R.string.hide_until_prompt);
         controls.add(hideUntilControls);
         whenControls.addView(hideUntilControls.getDisplayView());
 
-        ImportanceControlSet importanceControl = new ImportanceControlSet(TaskEditActivity.this, R.layout.control_set_importance);
+        ImportanceControlSet importanceControl = new ImportanceControlSet(
+                TaskEditActivity.this, R.layout.control_set_importance);
         controls.add(importanceControl);
         importanceControl.addListener(editTitle);
-        controlSetMap.put(getString(R.string.TEA_ctrl_importance_pref), importanceControl);
+        controlSetMap.put(getString(R.string.TEA_ctrl_importance_pref),
+                importanceControl);
 
-        tagsControlSet = new TagsControlSet(TaskEditActivity.this, R.layout.control_set_tags, R.layout.control_set_tags_display, R.string.TEA_tags_label);
+        tagsControlSet = new TagsControlSet(TaskEditActivity.this,
+                R.layout.control_set_tags, R.layout.control_set_tags_display,
+                R.string.TEA_tags_label);
         controls.add(tagsControlSet);
-        controlSetMap.put(getString(R.string.TEA_ctrl_lists_pref), tagsControlSet);
+        controlSetMap.put(getString(R.string.TEA_ctrl_lists_pref),
+                tagsControlSet);
 
-        notesControlSet = new EditNotesControlSet(TaskEditActivity.this, R.layout.control_set_notes, R.layout.control_set_notes_display);
-        notesEditText = (EditText) notesControlSet.getView().findViewById(R.id.notes);
+        notesControlSet = new EditNotesControlSet(TaskEditActivity.this,
+                R.layout.control_set_notes, R.layout.control_set_notes_display);
+        notesEditText = (EditText) notesControlSet.getView().findViewById(
+                R.id.notes);
         controls.add(notesControlSet);
-        controlSetMap.put(getString(R.string.TEA_ctrl_notes_pref), notesControlSet);
+        controlSetMap.put(getString(R.string.TEA_ctrl_notes_pref),
+                notesControlSet);
 
-        ReminderControlSet reminderControl = new ReminderControlSet(TaskEditActivity.this, R.layout.control_set_reminders, R.layout.control_set_reminders_display);
+        ReminderControlSet reminderControl = new ReminderControlSet(
+                TaskEditActivity.this, R.layout.control_set_reminders,
+                R.layout.control_set_reminders_display);
         controls.add(reminderControl);
-        controlSetMap.put(getString(R.string.TEA_ctrl_reminders_pref), reminderControl);
+        controlSetMap.put(getString(R.string.TEA_ctrl_reminders_pref),
+                reminderControl);
 
-        TimerControlSet timerControl = new TimerControlSet(TaskEditActivity.this, R.layout.control_set_timers, R.layout.control_set_timers_extras_display, R.string.TEA_timer_controls);
+        TimerControlSet timerControl = new TimerControlSet(
+                TaskEditActivity.this, R.layout.control_set_timers,
+                R.layout.control_set_timers_extras_display,
+                R.string.TEA_timer_controls);
         timerAction.setListener(timerControl);
         controls.add(timerControl);
         controlSetMap.put(getString(R.string.TEA_ctrl_timer_pref), timerControl);
@@ -319,7 +346,6 @@ public final class TaskEditActivity extends Activity {
                 controls.add(producteevControl);
                 basicControls.addView(producteevControl.getDisplayView());
                 notesEditText.setHint(R.string.producteev_TEA_notes);
-                //((TextView) notesControlSet.getView().findViewById(R.id.notes_label)).setHint(R.string.producteev_TEA_notes);
             }
         } catch (Exception e) {
             Log.e("astrid-error", "loading-control-set", e); //$NON-NLS-1$ //$NON-NLS-2$
@@ -331,7 +357,6 @@ public final class TaskEditActivity extends Activity {
                 controls.add(ocrxControl);
                 basicControls.addView(ocrxControl.getDisplayView());
                 notesEditText.setHint(R.string.opencrx_TEA_notes);
-                //((TextView) notesControlSet.getView().findViewById(R.id.notes_label)).setHint(R.string.opencrx_TEA_notes);
             }
         } catch (Exception e) {
             Log.e("astrid-error", "loading-control-set", e); //$NON-NLS-1$ //$NON-NLS-2$
@@ -654,7 +679,7 @@ public final class TaskEditActivity extends Activity {
         // abandon editing and delete the newly created task if
         // no title was entered
         if (overrideFinishAnim) {
-            AndroidUtilities.callApiMethod(5, this, "overridePendingTransition",
+            AndroidUtilities.callApiMethod(5, this, "overridePendingTransition", //$NON-NLS-1$
                     new Class<?>[] { Integer.TYPE, Integer.TYPE },
                     R.anim.slide_right_in, R.anim.slide_right_out);
         }
@@ -678,9 +703,6 @@ public final class TaskEditActivity extends Activity {
         @Override
         public void onReceive(Context context, Intent intent) {
             try {
-                Bundle extras = intent.getExtras();
-                RemoteViews view = extras.getParcelable(AstridApiConstants.EXTRAS_RESPONSE);
-
                 // add a separator
                 View separator = new View(TaskEditActivity.this);
                 separator.setPadding(5, 5, 5, 5);
