@@ -40,6 +40,7 @@ import android.content.res.Configuration;
 import android.graphics.PixelFormat;
 import android.os.Build;
 import android.os.Bundle;
+import android.text.InputType;
 import android.text.method.PasswordTransformationMethod;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -224,6 +225,9 @@ public class ActFmLoginActivity extends Activity implements AuthListener {
 
             final EditText name = addEditField(body,
                     R.string.actfm_ALA_name_label);
+            name.setInputType(InputType.TYPE_CLASS_TEXT |
+                    InputType.TYPE_TEXT_VARIATION_PERSON_NAME |
+                    InputType.TYPE_TEXT_FLAG_CAP_WORDS);
 
             final AtomicReference<AlertDialog> dialog = new AtomicReference<AlertDialog>();
             final AtomicBoolean isNew = new AtomicBoolean(true);
@@ -255,6 +259,8 @@ public class ActFmLoginActivity extends Activity implements AuthListener {
 
             final EditText email = addEditField(body,
                     R.string.actfm_ALA_email_label);
+            email.setInputType(InputType.TYPE_CLASS_TEXT |
+                    InputType.TYPE_TEXT_VARIATION_EMAIL_ADDRESS);
             getCredentials(new OnGetCredentials() {
                 @Override
                 public void getCredentials(String[] accounts) {
@@ -265,6 +271,8 @@ public class ActFmLoginActivity extends Activity implements AuthListener {
 
             final EditText password = addEditField(body,
                     R.string.actfm_ALA_password_label);
+            password.setInputType(InputType.TYPE_CLASS_TEXT |
+                    InputType.TYPE_TEXT_VARIATION_PASSWORD);
             password.setTransformationMethod(new PasswordTransformationMethod());
 
             password.setText(generateRandomPassword());
