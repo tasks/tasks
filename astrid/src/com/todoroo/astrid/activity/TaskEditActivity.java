@@ -863,6 +863,9 @@ public final class TaskEditActivity extends Fragment {
         case MENU_DELETE_ID:
             deleteButtonClick();
             return true;
+        case android.R.id.home:
+            saveButtonClick();
+            return true;
         }
 
         return super.onOptionsItemSelected(item);
@@ -875,12 +878,15 @@ public final class TaskEditActivity extends Fragment {
 
         item = menu.add(Menu.NONE, MENU_SAVE_ID, 0, R.string.TEA_menu_save);
         item.setIcon(android.R.drawable.ic_menu_save);
+        item.setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
 
         item = menu.add(Menu.NONE, MENU_DISCARD_ID, 0, R.string.TEA_menu_discard);
         item.setIcon(android.R.drawable.ic_menu_close_clear_cancel);
+        item.setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
 
         item = menu.add(Menu.NONE, MENU_DELETE_ID, 0, R.string.TEA_menu_delete);
         item.setIcon(android.R.drawable.ic_menu_delete);
+        item.setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
     }
 
     @Override

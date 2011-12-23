@@ -99,10 +99,7 @@
 	
 	
 	<style name="Theme.GreenDroid.NoTitleBar" parent="@style/Theme.GreenDroid">
-	
 		<item name="android:windowContentOverlay">@null</item>
-		<item name="android:windowNoTitle">true</item>
-	
 	</style>
 	
 </resources>

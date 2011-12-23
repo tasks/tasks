@@ -256,11 +256,12 @@ public class FilterListActivity extends ExpandableListFragment {
         item = menu.add(Menu.NONE, MENU_NEW_FILTER_ID, Menu.NONE,
                 R.string.FLA_new_filter);
         item.setIcon(android.R.drawable.ic_menu_add);
+        item.setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
 
         item = menu.add(Menu.NONE, MENU_SEARCH_ID, Menu.NONE,
                 R.string.FLA_menu_search);
-        item.setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
         item.setIcon(android.R.drawable.ic_menu_search);
+        item.setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
 
         item = menu.add(Menu.NONE, MENU_REFRESH_ID, Menu.NONE,
                 R.string.TLA_menu_sync);
@@ -468,6 +469,10 @@ public class FilterListActivity extends ExpandableListFragment {
             case CONTEXT_MENU_INTENT: {
                 Intent intent = item.getIntent();
                 startActivityForResult(intent, REQUEST_CUSTOM_INTENT);
+                return true;
+            }
+            case android.R.id.home: {
+                // TODO: maybe invoke a dashboard later
                 return true;
             }
             default: {

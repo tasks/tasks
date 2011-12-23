@@ -389,6 +389,7 @@ public class TaskListActivity extends ListFragment implements OnScrollListener,
             item = menu.add(Menu.NONE, MENU_SORT_ID, Menu.NONE,
                     R.string.TLA_menu_sort);
             item.setIcon(android.R.drawable.ic_menu_sort_by_size);
+            item.setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
         }
 
         addSyncRefreshMenuItem(menu);
@@ -397,7 +398,6 @@ public class TaskListActivity extends ListFragment implements OnScrollListener,
             item = menu.add(Menu.NONE, MENU_LISTS_ID, Menu.NONE,
                     R.string.tag_TLA_menu);
             item.setIcon(R.drawable.ic_menu_lists);
-            item.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
         }
 
         if(!Constants.MARKET_DISABLED) {
@@ -1277,6 +1277,13 @@ public class TaskListActivity extends ListFragment implements OnScrollListener,
             intent = item.getIntent();
             AndroidUtilities.startExternalIntent(getActivity(), intent, ACTIVITY_MENU_EXTERNAL);
             return true;
+        case android.R.id.home: {
+            if (!mDualFragments) {
+                // switch back to the filterlist
+                showFilterListActivity();
+            }
+            return true;
+        }
 
         // --- context menu items
 
