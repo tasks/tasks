@@ -2,7 +2,6 @@ package com.todoroo.astrid.actfm;
 
 import greendroid.widget.AsyncImageView;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -13,7 +12,6 @@ import org.json.JSONObject;
 
 import android.app.Activity;
 import android.app.Dialog;
-import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -40,23 +38,16 @@ import android.widget.Toast;
 import com.timsu.astrid.R;
 import com.todoroo.andlib.data.TodorooCursor;
 import com.todoroo.andlib.service.Autowired;
-import com.todoroo.andlib.service.ContextManager;
 import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.andlib.service.ExceptionService;
 import com.todoroo.andlib.utility.DialogUtilities;
-import com.todoroo.astrid.actfm.sync.ActFmInvoker;
 import com.todoroo.astrid.actfm.sync.ActFmPreferenceService;
 import com.todoroo.astrid.actfm.sync.ActFmSyncService;
-import com.todoroo.astrid.actfm.sync.ActFmSyncService.JsonHelper;
-import com.todoroo.astrid.api.AstridApiConstants;
-import com.todoroo.astrid.dao.MetadataDao.MetadataCriteria;
 import com.todoroo.astrid.data.Metadata;
 import com.todoroo.astrid.data.TagData;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.service.AstridDependencyInjector;
 import com.todoroo.astrid.service.MetadataService;
-import com.todoroo.astrid.service.StatisticsConstants;
-import com.todoroo.astrid.service.StatisticsService;
 import com.todoroo.astrid.service.TagDataService;
 import com.todoroo.astrid.service.TaskService;
 import com.todoroo.astrid.service.ThemeService;
@@ -64,7 +55,6 @@ import com.todoroo.astrid.tags.TagService;
 import com.todoroo.astrid.ui.PeopleContainer;
 import com.todoroo.astrid.ui.PeopleContainer.OnAddNewPersonListener;
 import com.todoroo.astrid.ui.PopupControlSet;
-import com.todoroo.astrid.utility.Flags;
 
 public class EditPeopleControlSet extends PopupControlSet {
 
@@ -302,12 +292,14 @@ public class EditPeopleControlSet extends PopupControlSet {
         }
 
         JSONObject myself = new JSONObject();
-        myself.put("id", 0L);
+        myself.put("id", Task.USER_ID_SELF);
         sharedPeople.add(0, myself);
 
-        if (actFmPreferenceService.isLoggedIn()) {
+        boolean hasTags = task.getTransitory("tags") != null &&
+                ((HashSet<String>)task.getTransitory("tags")).size() > 0;
+        if (actFmPreferenceService.isLoggedIn() && hasTags) {
             JSONObject unassigned = new JSONObject();
-            unassigned.put("id", -1L);
+            unassigned.put("id", Task.USER_ID_UNASSIGNED);
             sharedPeople.add(1, unassigned);
         }
 
@@ -361,15 +353,15 @@ public class EditPeopleControlSet extends PopupControlSet {
             for (int i = 0; i < listValues.size(); i++) {
                 JSONObject user = listValues.get(i).user;
                 if (user != null) {
-                    if (user.optLong("id") == assignedId || (user.optString("email").equals(assignedEmail) && !(TextUtils.isEmpty(assignedEmail))))
+                    if (user.optLong("id") == assignedId ||
+                            (user.optString("email").equals(assignedEmail) &&
+                                    !(TextUtils.isEmpty(assignedEmail))))
                         assignedIndex = i;
                 }
             }
         }
 
         final int selected = assignedIndex;
-//        final ArrayAdapter<AssignedToUser> usersAdapter = new ArrayAdapter<AssignedToUser>(activity,
-//                android.R.layout.simple_list_item_single_choice, listValues);
 
         final AssignedUserAdapter usersAdapter = new AssignedUserAdapter(activity, listValues);
         activity.runOnUiThread(new Runnable() {
@@ -388,6 +380,7 @@ public class EditPeopleControlSet extends PopupControlSet {
             super(context, R.layout.assigned_adapter_row, people);
         }
 
+        @SuppressWarnings("nls")
         @Override
         public View getView(int position, View convertView, ViewGroup parent) {
             if(convertView == null)
@@ -425,7 +418,7 @@ public class EditPeopleControlSet extends PopupControlSet {
                     long id) {
                 AssignedToUser user = (AssignedToUser) assignedList.getAdapter().getItem(position);
                 assignedDisplay.setText(user.toString());
-                assignedCustom.setText("");
+                assignedCustom.setText(""); //$NON-NLS-1$
                 refreshDisplayView();
                 DialogUtilities.dismissDialog(activity, dialog);
             }
@@ -435,7 +428,7 @@ public class EditPeopleControlSet extends PopupControlSet {
         assignedClear.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                  assignedCustom.setText("");
+                  assignedCustom.setText(""); //$NON-NLS-1$
                   assignedList.setItemChecked(0, true);
             }
         });
@@ -503,6 +496,9 @@ public class EditPeopleControlSet extends PopupControlSet {
                 task.setValue(Task.USER_ID, Task.USER_ID_SELF);
                 if(!TextUtils.isEmpty(task.getValue(Task.USER)))
                     task.setValue(Task.USER, "");
+            } else if(userJson.optLong("id") == Task.USER_ID_UNASSIGNED) {
+                dirty = task.getValue(Task.USER_ID) == Task.USER_ID_UNASSIGNED ? dirty : true;
+                task.setValue(Task.USER_ID, Task.USER_ID_UNASSIGNED);
             } else {
                 String user = userJson.toString();
 
@@ -525,6 +521,13 @@ public class EditPeopleControlSet extends PopupControlSet {
                 dirty = match ? dirty : true;
                 task.setValue(Task.USER_ID, userJson.optLong("id", Task.USER_ID_EMAIL));
                 task.setValue(Task.USER, user);
+
+                String assignedName = userJson.optString("name", userEmail);
+
+                if(task.getTransitory("tags") == null ||
+                        ((HashSet<String>)task.getTransitory("tags")).size() == 0)
+                    saveToast = activity.getString(R.string.actfm_EPA_assigned_toast, assignedName,
+                            assignedName);
             }
 
             JSONObject sharedWith = parseSharedWithAndTags();
@@ -549,7 +552,8 @@ public class EditPeopleControlSet extends PopupControlSet {
                 };
                 DialogUtilities.okCancelCustomDialog(activity, activity.getString(R.string.actfm_EPA_login_button),
                         activity.getString(R.string.actfm_EPA_login_to_share), R.string.actfm_EPA_login_button,
-                        R.string.actfm_EPA_dont_share_button, android.R.drawable.ic_dialog_alert, okListener, cancelListener);
+                        R.string.actfm_EPA_dont_share_button, android.R.drawable.ic_dialog_alert,
+                        okListener, cancelListener);
 
                 return false;
             }
@@ -557,7 +561,8 @@ public class EditPeopleControlSet extends PopupControlSet {
             if(!TextUtils.isEmpty(task.getValue(Task.SHARED_WITH)) || sharedWith.length() != 0)
                 task.setValue(Task.SHARED_WITH, sharedWith.toString());
 
-            task.setModelFlag("task-assigned");
+            task.putTransitory("task-assigned", true);
+
             showSaveToast();
 
             return true;
@@ -625,107 +630,6 @@ public class EditPeopleControlSet extends PopupControlSet {
     }
 
     @SuppressWarnings("nls")
-    private void shareTask(final JSONObject sharedWith) {
-        final JSONArray emails = sharedWith.optJSONArray("p");
-
-        final ProgressDialog pd = DialogUtilities.progressDialog(activity,
-                activity.getString(R.string.DLG_please_wait));
-        new Thread() {
-            @Override
-            public void run() {
-                ActFmInvoker invoker = new ActFmInvoker(actFmPreferenceService.getToken());
-                try {
-                    if(task.getValue(Task.REMOTE_ID) == 0) {
-                        actFmSyncService.pushTask(task.getId());
-                        task.setValue(Task.REMOTE_ID, taskService.fetchById(task.getId(),
-                                Task.REMOTE_ID).getValue(Task.REMOTE_ID));
-                    }
-                    if(task.getValue(Task.REMOTE_ID) == 0) {
-                        DialogUtilities.okDialog(activity, "We had an error saving " +
-                                "this task to Astrid.com. Could you let us know why this happened?", null);
-                        return;
-                    }
-
-                    Object[] args = buildSharingArgs(emails);
-                    JSONObject result = invoker.invoke("task_share", args);
-
-                    sharedWith.remove("p");
-                    task.setValue(Task.SHARED_WITH, sharedWith.toString());
-                    task.setValue(Task.DETAILS_DATE, 0L);
-
-                    readTagData(result.getJSONArray("tags"));
-                    JSONObject assignee = result.getJSONObject("user");
-                    JsonHelper.readUser(assignee,
-                            task, Task.USER_ID, Task.USER);
-                    Flags.set(Flags.ACTFM_SUPPRESS_SYNC);
-                    taskService.save(task);
-
-                    String assignedName = assignee.optString("name");
-                    if (TextUtils.isEmpty(assignedName)) {
-                        assignedName = assignee.optString("email");
-                    }
-                    long id = assignee.optLong("id", -2);
-                    if (!(id == -2 || id == ActFmPreferenceService.userId() || TextUtils.isEmpty(assignedName))) {
-                        saveToast += "\n" +
-                                activity.getString(R.string.actfm_EPA_assigned_toast, assignedName, assignedName);
-                    }
-
-                    int count = result.optInt("shared", 0);
-                    if(count > 0) {
-                        saveToast += "\n" +
-                            activity.getString(R.string.actfm_EPA_emailed_toast,
-                            activity.getResources().getQuantityString(R.plurals.Npeople, count, count));
-                        StatisticsService.reportEvent(StatisticsConstants.ACTFM_TASK_SHARED);
-                    }
-
-                    Intent broadcastIntent = new Intent(AstridApiConstants.BROADCAST_EVENT_REFRESH);
-                    ContextManager.getContext().sendBroadcast(broadcastIntent, AstridApiConstants.PERMISSION_READ);
-
-                    DialogUtilities.dismissDialog(activity, pd);
-                    activity.runOnUiThread(new Runnable() {
-                        public void run() {
-                            showSaveToast();
-                            activity.finish();
-                        }
-                    });
-                } catch (IOException e) {
-                    DialogUtilities.okDialog(activity,
-                            activity.getString(R.string.SyP_ioerror),
-                            android.R.drawable.ic_dialog_alert, e.toString(), null);
-                } catch (JSONException e) {
-                    DialogUtilities.okDialog(activity,
-                            activity.getString(R.string.SyP_ioerror),
-                            android.R.drawable.ic_dialog_alert, e.toString(), null);
-                } finally {
-                    DialogUtilities.dismissDialog(activity, pd);
-                }
-            }
-
-        }.start();
-    }
-
-    @SuppressWarnings("nls")
-    private void readTagData(JSONArray tags) throws JSONException {
-        ArrayList<Metadata> metadata = new ArrayList<Metadata>();
-        for(int i = 0; i < tags.length(); i++) {
-            JSONObject tagObject = tags.getJSONObject(i);
-            TagData tagData = tagDataService.getTag(tagObject.getString("name"), TagData.ID);
-            if(tagData == null)
-                tagData = new TagData();
-            ActFmSyncService.JsonHelper.tagFromJson(tagObject, tagData);
-            tagDataService.save(tagData);
-
-            Metadata tagMeta = new Metadata();
-            tagMeta.setValue(Metadata.KEY, TagService.KEY);
-            tagMeta.setValue(TagService.TAG, tagData.getValue(TagData.NAME));
-            tagMeta.setValue(TagService.REMOTE_ID, tagData.getValue(TagData.REMOTE_ID));
-            metadata.add(tagMeta);
-        }
-
-        metadataService.synchronizeMetadata(task.getId(), metadata, MetadataCriteria.withKey(TagService.KEY));
-    }
-
-    @SuppressWarnings("nls")
     protected Object[] buildSharingArgs(JSONArray emails) throws JSONException {
         ArrayList<Object> values = new ArrayList<Object>();
         long currentTaskID = task.getValue(Task.REMOTE_ID);
@@ -780,8 +684,6 @@ public class EditPeopleControlSet extends PopupControlSet {
      * @param data */
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         if(requestCode == loginRequestCode && resultCode == Activity.RESULT_OK) {
-            task.setValue(Task.USER_ID, -2L);
-            task.setValue(Task.USER, "{}");
             saveSharingSettings(saveToast);
         }
         else if (requestCode == loginRequestCode)

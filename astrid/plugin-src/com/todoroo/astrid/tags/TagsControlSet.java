@@ -2,6 +2,7 @@ package com.todoroo.astrid.tags;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.LinkedHashSet;
 
 import android.app.Activity;
@@ -99,7 +100,7 @@ public final class TagsControlSet extends PopupControlSet {
         LinkedHashSet<String> tags = getTagSet();
         for (String tag : tags) {
             if (builder.length() != 0)
-                builder.append(", ");
+                builder.append(", "); //$NON-NLS-1$
             builder.append(tag);
         }
 
@@ -231,16 +232,19 @@ public final class TagsControlSet extends PopupControlSet {
 
         if(task.getId() != AbstractModel.NO_ID) {
             TodorooCursor<Metadata> cursor = tagService.getTags(task.getId());
+            HashSet<String> tags = new HashSet<String>(cursor.getCount());
             try {
                 for(cursor.moveToFirst(); !cursor.isAfterLast(); cursor.moveToNext()) {
                     String tag = cursor.get(TagService.TAG);
                     setTagSelected(tag);
+                    tags.add(tag);
                 }
             } finally {
                 cursor.close();
             }
+            task.putTransitory("tags", tags); //$NON-NLS-1$
         }
-        addTag("", false);
+        addTag("", false); //$NON-NLS-1$
         refreshDisplayView();
         populated = true;
     }

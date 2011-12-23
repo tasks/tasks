@@ -234,7 +234,7 @@ public class C2DMReceiver extends BroadcastReceiver {
             if(cursor.getCount() == 0) {
                 task.setValue(Task.TITLE, intent.getStringExtra("title"));
                 task.setValue(Task.REMOTE_ID, Long.parseLong(intent.getStringExtra("task_id")));
-                task.setValue(Task.USER_ID, -1L); // set it to invalid number because we don't know whose it is
+                task.setValue(Task.USER_ID, Task.USER_ID_UNASSIGNED);
                 Flags.set(Flags.ACTFM_SUPPRESS_SYNC);
                 taskService.save(task);
 

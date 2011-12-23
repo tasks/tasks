@@ -10,7 +10,7 @@ import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashSet;
+import java.util.HashMap;
 
 import android.content.ContentValues;
 import android.os.Parcel;
@@ -68,8 +68,8 @@ public abstract class AbstractModel implements Parcelable, Cloneable {
     /** Values from database */
     protected ContentValues values = null;
 
-    /** Model Flags(not saved in database) */
-    protected HashSet<String> modelFlags = null;
+    /** Transitory Metadata (not saved in database) */
+    protected HashMap<String, Object> transitoryData = null;
 
     /** Get database-read values for this object */
     public ContentValues getDatabaseValues() {
@@ -164,7 +164,7 @@ public abstract class AbstractModel implements Parcelable, Cloneable {
 
         // clears user-set values
         setValues = null;
-        modelFlags = null;
+        transitoryData = null;
 
         for (Property<?> property : cursor.getProperties()) {
             try {
@@ -353,16 +353,16 @@ public abstract class AbstractModel implements Parcelable, Cloneable {
 
     // --- setting and retrieving flags
 
-    public synchronized void setModelFlag(String flag) {
-        if(modelFlags == null)
-            modelFlags = new HashSet<String>();
-        modelFlags.add(flag);
+    public synchronized void putTransitory(String key, Object value) {
+        if(transitoryData == null)
+            transitoryData = new HashMap<String, Object>();
+        transitoryData.put(key, value);
     }
 
-    public boolean checkModelFlag(String flag) {
-        if(modelFlags == null)
-            return false;
-        return modelFlags.contains(flag);
+    public Object getTransitory(String key) {
+        if(transitoryData == null)
+            return null;
+        return transitoryData.get(key);
     }
 
     // --- property management
