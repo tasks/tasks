@@ -211,7 +211,6 @@ public class ActFmInvoker {
         }
 
         sigBuilder.append(APP_SECRET);
-        System.err.println("SIG: " + sigBuilder);
         String signature = DigestUtils.md5Hex(sigBuilder.toString());
         requestBuilder.append("sig").append('=').append(signature);
         return requestBuilder.toString();

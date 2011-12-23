@@ -111,7 +111,6 @@ public class ActFmPreferenceService extends SyncProviderUtilities {
                 user.put("email", Preferences.getStringValue(PREF_EMAIL));
                 user.put("picture", Preferences.getStringValue(PREF_PICTURE));
                 user.put("id", Preferences.getLong(PREF_USER_ID, 0));
-                System.err.println(user);
             } catch (JSONException e) {
                 throw new RuntimeException(e);
             }

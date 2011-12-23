@@ -184,7 +184,6 @@ public class AstridTimePicker extends LinearLayout {
                 toReturn += 12;
             }
         }
-        System.err.println("Returning hours: " + toReturn);
         return toReturn;
     }
 

@@ -258,7 +258,6 @@ public class TagSettingsActivity extends Activity {
         } catch (JSONException e) {
             Log.e("tag-view-activity", "json error refresh owner", e);
             ownerLabel.setText("<error>");
-            System.err.println(tagData.getValue(TagData.USER));
         }
 
         String peopleJson = tagData.getValue(TagData.MEMBERS);
@@ -273,8 +272,7 @@ public class TagSettingsActivity extends Activity {
                 JSONArray people = new JSONArray(peopleJson);
                 tagMembers.fromJSONArray(people);
             } catch (JSONException e) {
-                System.err.println(peopleJson);
-                Log.e("tag-view-activity", "json error refresh members", e);
+                Log.e("tag-view-activity", "json error refresh members - " + peopleJson, e);
             }
         }
 
