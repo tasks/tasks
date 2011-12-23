@@ -212,11 +212,13 @@
 
       <!-- Zip aligns the APK -->
       <mkdir dir="../release" />
-      <property name="out.final.package"
+      <property name="out.final.file" location="${out.absolute.dir}/${ant.project.name}-release.apk" />
+      <property name="out.release.file"
                 location="../release/${ant.project.name}-${manifest.version.code}-${manifest.version.name}-release.apk" />
       <zipalign-helper in.package="${out.unaligned.file}"
-                       out.package="${out.final.package}" />
-      <echo>Final Release Package: ${out.final.package}</echo>
+                       out.package="${out.final.file}" />
+      <copy file="${out.final.file}" tofile="${out.release.file}" />
+      <echo>Final Release Package: ${out.release.file}</echo>
       <record-build-info />
     </target>
 
