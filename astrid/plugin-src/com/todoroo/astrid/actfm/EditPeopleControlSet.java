@@ -788,7 +788,7 @@ public class EditPeopleControlSet extends PopupControlSet {
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         if(requestCode == loginRequestCode && resultCode == Activity.RESULT_OK) {
             task.setValue(Task.USER_ID, -2L);
-            task.setValue(Task.USER, "");
+            task.setValue(Task.USER, "{}");
             saveSharingSettings(saveToast);
         }
         else if (requestCode == loginRequestCode)
