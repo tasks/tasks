@@ -98,8 +98,6 @@ public class EditPeopleControlSet extends PopupControlSet {
 
     private final ArrayList<AssignedToUser> listValues = new ArrayList<AssignedToUser>();
 
-    private String saveToast = null;
-
     private final int loginRequestCode;
 
     static {
@@ -470,8 +468,8 @@ public class EditPeopleControlSet extends PopupControlSet {
         if(task == null)
             return false;
 
-        saveToast = toast;
         boolean dirty = false;
+        String sharedToast = null;
         try {
             JSONObject userJson = null;
             TextView assignedView = null;
@@ -525,9 +523,10 @@ public class EditPeopleControlSet extends PopupControlSet {
                 String assignedName = userJson.optString("name", userEmail);
 
                 if(task.getTransitory("tags") == null ||
-                        ((HashSet<String>)task.getTransitory("tags")).size() == 0)
-                    saveToast = activity.getString(R.string.actfm_EPA_assigned_toast, assignedName,
+                        ((HashSet<String>)task.getTransitory("tags")).size() == 0) {
+                    sharedToast = activity.getString(R.string.actfm_EPA_assigned_toast, assignedName,
                             assignedName);
+                }
             }
 
             JSONObject sharedWith = parseSharedWithAndTags();
@@ -554,6 +553,7 @@ public class EditPeopleControlSet extends PopupControlSet {
                         activity.getString(R.string.actfm_EPA_login_to_share), R.string.actfm_EPA_login_button,
                         R.string.actfm_EPA_dont_share_button, android.R.drawable.ic_dialog_alert,
                         okListener, cancelListener);
+                showSaveToast(toast);
 
                 return false;
             }
@@ -563,7 +563,9 @@ public class EditPeopleControlSet extends PopupControlSet {
 
             task.putTransitory("task-assigned", true);
 
-            showSaveToast();
+            if(sharedToast != null)
+                toast = (toast == null) ? toast + "\n" + sharedToast : sharedToast + "\n";
+            showSaveToast(toast);
 
             return true;
         } catch (JSONException e) {
@@ -585,8 +587,11 @@ public class EditPeopleControlSet extends PopupControlSet {
         refreshDisplayView();
     }
 
-    private void showSaveToast() {
-        Toast.makeText(activity, saveToast, Toast.LENGTH_LONG).show();
+    private void showSaveToast(String saveToast) {
+        if(saveToast == null) return;
+        int length = saveToast.contains("\n") ? //$NON-NLS-1$
+                Toast.LENGTH_LONG : Toast.LENGTH_SHORT;
+        Toast.makeText(activity, saveToast, length).show();
     }
 
     private class ParseSharedException extends Exception {
@@ -684,7 +689,10 @@ public class EditPeopleControlSet extends PopupControlSet {
      * @param data */
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         if(requestCode == loginRequestCode && resultCode == Activity.RESULT_OK) {
-            saveSharingSettings(saveToast);
+            // clear user values & reset them to trigger a save
+            task.clearValue(Task.USER_ID);
+            task.clearValue(Task.USER);
+            saveSharingSettings(null);
         }
         else if (requestCode == loginRequestCode)
             makePrivateTask();
