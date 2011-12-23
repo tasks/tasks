@@ -1,0 +1,8 @@
+com.todoroo.andlib.data
+com.todoroo.andlib.service
+com.todoroo.andlib.sql
+com.todoroo.andlib.utility
+com.todoroo.astrid.api
+com.todoroo.astrid.core
+com.todoroo.astrid.data
+com.todoroo.astrid.sync
