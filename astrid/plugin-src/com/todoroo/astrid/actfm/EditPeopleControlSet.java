@@ -498,11 +498,11 @@ public class EditPeopleControlSet extends PopupControlSet {
                         activity.getString(R.string.actfm_EPA_invalid_email, userJson.optString("email")));
             }
 
-            if(userJson == null || userJson.optLong("id", -2) == 0) {
-                dirty = task.getValue(Task.USER_ID) == 0L ? dirty : true;
-                task.setValue(Task.USER_ID, 0L);
+            if(userJson == null || userJson.optLong("id", Task.USER_ID_EMAIL) == Task.USER_ID_SELF) {
+                dirty = task.getValue(Task.USER_ID) == Task.USER_ID_SELF ? dirty : true;
+                task.setValue(Task.USER_ID, Task.USER_ID_SELF);
                 if(!TextUtils.isEmpty(task.getValue(Task.USER)))
-                    task.setValue(Task.USER, "{}");
+                    task.setValue(Task.USER, "");
             } else {
                 String user = userJson.toString();
 
@@ -510,20 +510,20 @@ public class EditPeopleControlSet extends PopupControlSet {
                 String taskUserEmail = "";
                 try {
                     JSONObject taskUser = new JSONObject(task.getValue(Task.USER));
-                    taskUserId = taskUser.optLong("id", -2);
+                    taskUserId = taskUser.optLong("id", Task.USER_ID_EMAIL);
                     taskUserEmail = taskUser.optString("email");
                 } catch (JSONException e) {
                     // sad times
                 }
-                long userId = userJson.optLong("id", -2);
+                long userId = userJson.optLong("id", Task.USER_ID_EMAIL);
                 String userEmail = userJson.optString("email");
 
 
-                boolean match = (userId == taskUserId && userId != -2);
+                boolean match = (userId == taskUserId && userId != Task.USER_ID_EMAIL);
                 match = match || (userEmail.equals(taskUserEmail) && !TextUtils.isEmpty(userEmail));
 
                 dirty = match ? dirty : true;
-                task.setValue(Task.USER_ID, userJson.optLong("id", -2));
+                task.setValue(Task.USER_ID, userJson.optLong("id", Task.USER_ID_EMAIL));
                 task.setValue(Task.USER, user);
             }
 
@@ -543,7 +543,7 @@ public class EditPeopleControlSet extends PopupControlSet {
                     public void onClick(DialogInterface d, int which) {
                         makePrivateTask();
                         AssignedToUser me = (AssignedToUser) assignedList.getAdapter().getItem(0);
-                        task.setValue(Task.USER_ID, me.user.optLong("id", -2));
+                        task.setValue(Task.USER_ID, me.user.optLong("id", Task.USER_ID_EMAIL));
                         task.setValue(Task.USER, me.user.toString());
                     }
                 };
@@ -557,14 +557,8 @@ public class EditPeopleControlSet extends PopupControlSet {
             if(!TextUtils.isEmpty(task.getValue(Task.SHARED_WITH)) || sharedWith.length() != 0)
                 task.setValue(Task.SHARED_WITH, sharedWith.toString());
 
-            if(dirty)
-                taskService.save(task);
-
-
-            if(dirty)
-                shareTask(sharedWith);
-            else
-                showSaveToast();
+            task.setModelFlag("task-assigned");
+            showSaveToast();
 
             return true;
         } catch (JSONException e) {
@@ -582,13 +576,12 @@ public class EditPeopleControlSet extends PopupControlSet {
     private void makePrivateTask() {
         assignToMe();
         sharedWithContainer.removeAllViews();
-        sharedWithContainer.addPerson("");
+        sharedWithContainer.addPerson(""); //$NON-NLS-1$
         refreshDisplayView();
     }
 
     private void showSaveToast() {
-        int length = saveToast.indexOf('\n') > -1 ? Toast.LENGTH_LONG : Toast.LENGTH_SHORT;
-        Toast.makeText(activity, saveToast, length).show();
+        Toast.makeText(activity, saveToast, Toast.LENGTH_LONG).show();
     }
 
     private class ParseSharedException extends Exception {

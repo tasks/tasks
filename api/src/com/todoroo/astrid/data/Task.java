@@ -171,6 +171,17 @@ public final class Task extends RemoteModel {
     /** whether task is read-only */
     public static final int FLAG_IS_READONLY = 1 << 2;
 
+    // --- user id special values
+
+    /** user id = read user email value */
+    public static final long USER_ID_EMAIL = -2L;
+
+    /** user id = unassigned */
+    public static final long USER_ID_UNASSIGNED = -1L;
+
+    /** user id = myself */
+    public static final long USER_ID_SELF = 0L;
+
     // --- notification flags
 
     /** whether to send a reminder at deadline */

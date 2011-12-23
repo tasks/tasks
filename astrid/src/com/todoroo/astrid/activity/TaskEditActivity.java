@@ -651,13 +651,14 @@ public final class TaskEditActivity extends Activity {
             }
         }
 
-        taskService.save(model);
 
         String processedToast = addDueTimeToToast(toast.toString());
-        if(!onPause && peopleControlSet != null && !peopleControlSet.saveSharingSettings(processedToast))
-            return;
+        boolean cancelFinish = !onPause && peopleControlSet != null &&
+            !peopleControlSet.saveSharingSettings(processedToast);
 
-        if (!onPause) { // Saving during on pause could cause a double finish
+        taskService.save(model);
+
+        if (!onPause && !cancelFinish) {
             shouldSaveState = false;
             finish();
         }

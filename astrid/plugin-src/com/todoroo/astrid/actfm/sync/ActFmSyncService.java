@@ -319,7 +319,7 @@ public final class ActFmSyncService {
         if(values.containsKey(Task.DELETION_DATE.name)) {
             params.add("deleted_at"); params.add(task.getValue(Task.DELETION_DATE) / 1000L);
         }
-        if(Flags.checkAndClear(Flags.ACTFM_REPEATED_TASK)) {
+        if(task.checkModelFlag("repeat-complete")) {
             params.add("completed"); params.add(DateUtilities.now() / 1000L);
         } else if(values.containsKey(Task.COMPLETION_DATE.name)) {
             params.add("completed"); params.add(task.getValue(Task.COMPLETION_DATE) / 1000L);
@@ -334,14 +334,25 @@ public final class ActFmSyncService {
                 recurrence = recurrence + ";FROM=COMPLETION";
             params.add("repeat"); params.add(recurrence);
         }
-        long userId = task.getValue(Task.USER_ID);
-        if(values.containsKey(Task.USER_ID.name) && userId >= 0 || userId == -1) {
-            params.add("user_id");
-            if(task.getValue(Task.USER_ID) == 0)
-                params.add(ActFmPreferenceService.userId());
-            else
-                params.add(task.getValue(Task.USER_ID));
+
+        if(values.containsKey(Task.USER_ID.name) && task.checkModelFlag("task-assigned")) {
+            if(task.getValue(Task.USER_ID) == Task.USER_ID_EMAIL) {
+                try {
+                    JSONObject user = new JSONObject(task.getValue(Task.USER));
+                    params.add("user_email");
+                    params.add(user.get("email"));
+                } catch (JSONException e) {
+                    Log.e("Error parsing user", task.getValue(Task.USER), e);
+                }
+            } else {
+                params.add("user_id");
+                if(task.getValue(Task.USER_ID) == Task.USER_ID_SELF)
+                    params.add(ActFmPreferenceService.userId());
+                else
+                    params.add(task.getValue(Task.USER_ID));
+            }
         }
+
         if(Flags.checkAndClear(Flags.TAGS_CHANGED) || newlyCreated) {
             TodorooCursor<Metadata> cursor = TagService.getInstance().getTags(task.getId());
             try {

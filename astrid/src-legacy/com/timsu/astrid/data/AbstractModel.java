@@ -41,10 +41,10 @@ public abstract class AbstractModel {
     protected ContentValues setValues = new ContentValues();
 
     /** Cached values from database */
-    private final ContentValues   values    = new ContentValues();
+    private final ContentValues values = new ContentValues();
 
     /** Cursor into the database */
-    private Cursor          cursor    = null;
+    private Cursor cursor = null;
 
     // --- constructors
 
