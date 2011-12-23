@@ -44,7 +44,6 @@ import com.todoroo.astrid.service.StatisticsService;
 import com.todoroo.astrid.sync.SyncProvider;
 import com.todoroo.astrid.sync.SyncProviderUtilities;
 import com.todoroo.astrid.utility.Constants;
-import com.todoroo.astrid.utility.Flags;
 
 @SuppressWarnings("nls")
 public class ActFmSyncProvider extends SyncProvider<ActFmTaskContainer> {
@@ -121,12 +120,6 @@ public class ActFmSyncProvider extends SyncProvider<ActFmTaskContainer> {
         } else {
             activity.startService(new Intent(null, null,
                     activity, ActFmBackgroundService.class));
-        }
-    }
-
-    protected void makeSyncToast(Context context) {
-        if (!Flags.checkAndClear(Flags.ACTFM_SUPPRESS_SYNC_TOAST)) {
-            super.makeSyncToast(context);
         }
     }
 

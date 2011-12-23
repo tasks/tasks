@@ -75,7 +75,7 @@ public class RepeatTaskCompleteListener extends BroadcastReceiver {
                 task.setValue(Task.COMPLETION_DATE, 0L);
                 task.setValue(Task.DUE_DATE, newDueDate);
                 task.setValue(Task.HIDE_UNTIL, hideUntil);
-                Flags.set(Flags.ACTFM_REPEATED_TASK);
+                task.setModelFlag("repeat-complete"); //$NON-NLS-1$
                 PluginServices.getTaskService().save(task);
                 return;
             }

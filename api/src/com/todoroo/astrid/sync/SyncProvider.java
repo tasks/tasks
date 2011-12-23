@@ -148,14 +148,28 @@ public abstract class SyncProvider<TYPE extends SyncContainer> {
         notification.flags |= Notification.FLAG_ONGOING_EVENT;
     }
 
+    /**
+     * Synchronize this providerwith sync toast
+     * @param context
+     */
     public void synchronize(final Context context) {
+        synchronize(context, true);
+    }
+
+    /**
+     * Synchronize this provider
+     * @param context
+     * @param showSyncToast should we toast to indicate synchronizing?
+     */
+    public void synchronize(final Context context, final boolean showSyncToast) {
         // display toast
         if(context instanceof Activity) {
             if(getUtilities().isLoggedIn() && getUtilities().shouldShowToast()) {
                 ((Activity) context).runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        makeSyncToast(context);
+                        if(showSyncToast)
+                            makeSyncToast(context);
                     }
                 });
             }
