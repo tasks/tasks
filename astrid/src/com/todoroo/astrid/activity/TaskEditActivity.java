@@ -656,6 +656,7 @@ public final class TaskEditActivity extends Activity {
         boolean cancelFinish = !onPause && peopleControlSet != null &&
             !peopleControlSet.saveSharingSettings(processedToast);
 
+        model.putTransitory("task-edit-save", true); //$NON-NLS-1$
         taskService.save(model);
 
         if (!onPause && !cancelFinish) {

@@ -118,7 +118,7 @@ public final class ActFmSyncService {
             public void onModelUpdated(final Task model) {
                 if(Flags.checkAndClear(Flags.ACTFM_SUPPRESS_SYNC))
                     return;
-                if (actFmPreferenceService.isOngoing())
+                if (actFmPreferenceService.isOngoing() && model.getTransitory("task-edit-save") == null)
                     return;
                 final ContentValues setValues = model.getSetValues();
                 if(setValues == null || !checkForToken() || setValues.containsKey(RemoteModel.REMOTE_ID_PROPERTY_NAME))
