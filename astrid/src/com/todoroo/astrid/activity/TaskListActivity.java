@@ -896,20 +896,22 @@ public class TaskListActivity extends ListActivity implements OnScrollListener,
             imm.hideSoftInputFromWindow(quickAddBox.getWindowToken(), 0);
             getListView().postDelayed(new Runnable() {
                 public void run() {
-                    final View view = getListView().getChildAt(getListView().getChildCount() - 1);
-                    if (view != null) {
-                        OnDismissListener onDismiss = new OnDismissListener() {
-                            @Override
-                            public void onDismiss() {
-                                if (!Preferences.isSet(getString(R.string.p_showed_lists_help))) {
-                                    Preferences.setBoolean(R.string.p_showed_lists_help, false);
-                                } else if (!Preferences.getBoolean(R.string.p_showed_lists_help, false)) {
-                                    Preferences.setBoolean(R.string.p_showed_lists_help, true);
-                                    HelpInfoPopover.showPopover(TaskListActivity.this, findViewById(R.id.back), R.string.help_popover_lists, null);
+                    if (taskAdapter.getCount() > 0) {
+                        final View view = getListView().getChildAt(getListView().getChildCount() - 1);
+                        if (view != null) {
+                            OnDismissListener onDismiss = new OnDismissListener() {
+                                @Override
+                                public void onDismiss() {
+                                    if (!Preferences.isSet(getString(R.string.p_showed_lists_help))) {
+                                        Preferences.setBoolean(R.string.p_showed_lists_help, false);
+                                    } else if (!Preferences.getBoolean(R.string.p_showed_lists_help, false)) {
+                                        Preferences.setBoolean(R.string.p_showed_lists_help, true);
+                                        HelpInfoPopover.showPopover(TaskListActivity.this, findViewById(R.id.back), R.string.help_popover_lists, null);
+                                    }
                                 }
-                            }
-                        };
-                        HelpInfoPopover.showPopover(TaskListActivity.this, view, R.string.help_popover_tap_task, onDismiss);
+                            };
+                            HelpInfoPopover.showPopover(TaskListActivity.this, view, R.string.help_popover_tap_task, onDismiss);
+                        }
                     }
                 }
             }, 1000L);

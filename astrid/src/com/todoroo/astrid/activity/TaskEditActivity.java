@@ -226,6 +226,7 @@ public final class TaskEditActivity extends Activity {
 		new StartupService().onStartupApplication(this);
 
         setUpUIComponents();
+        adjustInfoPopovers();
 
 		overrideFinishAnim = getIntent().getBooleanExtra(OVERRIDE_FINISH_ANIM, true);
 
@@ -889,6 +890,12 @@ public final class TaskEditActivity extends Activity {
     protected void onStop() {
         super.onStop();
         StatisticsService.sessionStop(this);
+    }
+
+    private void adjustInfoPopovers() {
+        Preferences.setBoolean(R.string.p_showed_tap_task_help, true);
+        if (!Preferences.isSet(getString(R.string.p_showed_lists_help)))
+            Preferences.setBoolean(R.string.p_showed_lists_help, false);
     }
 
     /* ======================================================================
