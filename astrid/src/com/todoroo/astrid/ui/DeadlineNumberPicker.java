@@ -24,4 +24,8 @@ public class DeadlineNumberPicker extends NumberPicker {
         return R.layout.deadline_number_picker;
     }
 
+    @Override
+    protected int getMaxDigits() {
+        return 2;
+    }
 }

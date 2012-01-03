@@ -23,6 +23,7 @@ import android.content.Context;
 import android.os.Handler;
 import android.text.InputFilter;
 import android.text.Spanned;
+import android.text.TextUtils;
 import android.text.method.NumberKeyListener;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
@@ -121,6 +122,14 @@ public class NumberPicker extends LinearLayout implements OnClickListener,
 
     protected int getLayout() {
         return R.layout.number_picker;
+    }
+
+    /**
+     * @return The number of allowable digits that can be typed in (-1 for unlimited)
+     * e.g. return 2 if you don't want to allow 00002 even if 2 is in range.
+     */
+    protected int getMaxDigits() {
+        return -1;
     }
 
     public NumberPicker(Context context, AttributeSet attrs, int defStyle) {
@@ -294,12 +303,22 @@ public class NumberPicker extends LinearLayout implements OnClickListener,
         }
     }
 
-    private void validateCurrentView(CharSequence str) {
+    public void validateAndUpdate() {
+        String str = String.valueOf(mText.getText());
+        if (TextUtils.isEmpty(str)) {
+            updateView();
+        } else {
+            validateCurrentView(str, false);
+        }
+    }
+
+    private void validateCurrentView(CharSequence str, boolean notifyChange) {
         int val = getSelectedPos(str.toString());
         if ((val >= mStart) && (val <= mEnd)) {
             mPrevious = mCurrent;
             mCurrent = val;
-            notifyChange(mCurrent);
+            if (notifyChange)
+                notifyChange(mCurrent);
         }
         updateView();
     }
@@ -318,7 +337,7 @@ public class NumberPicker extends LinearLayout implements OnClickListener,
             } else {
 
                 // Check the new value and ensure it's in range
-                validateCurrentView(str);
+                validateCurrentView(str, true);
             }
         }
     }
@@ -404,6 +423,10 @@ public class NumberPicker extends LinearLayout implements OnClickListener,
             if ("".equals(result)) {
                 return result;
             }
+
+            if (getMaxDigits() > 0 && result.length() > getMaxDigits())
+                return "";
+
             int val = getSelectedPos(result);
 
             /*
@@ -463,7 +486,7 @@ public class NumberPicker extends LinearLayout implements OnClickListener,
      */
     public int getCurrent() {
         String str = String.valueOf(((TextView) mText).getText());
-        validateCurrentView(str);
+        validateCurrentView(str, true);
         return mCurrent;
     }
 }

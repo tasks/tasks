@@ -137,8 +137,8 @@ public class AstridTimePicker extends LinearLayout {
             amButton.setChecked(false);
             pmButton.setChecked(false);
         } else {
-            hours.updateView();
-            minutes.updateView();
+            hours.validateAndUpdate();
+            minutes.validateAndUpdate();
 
             amButton.setChecked(!lastSelectionWasPm);
             pmButton.setChecked(lastSelectionWasPm);
