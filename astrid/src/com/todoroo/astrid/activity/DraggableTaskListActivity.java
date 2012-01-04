@@ -55,6 +55,12 @@ public class DraggableTaskListActivity extends TaskListActivity {
         return getLayoutInflater().inflate(R.layout.task_list_body_draggable, root, false);
     }
 
+    @Override
+    protected void setUpUiComponents() {
+        super.setUpUiComponents();
+        findViewById(R.id.sortContainer).setVisibility(View.GONE);
+    }
+
     // --- task adapter
 
     /**

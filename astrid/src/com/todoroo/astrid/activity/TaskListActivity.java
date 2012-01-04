@@ -137,7 +137,6 @@ public class TaskListActivity extends ListActivity implements OnScrollListener,
     protected static final int MENU_LISTS_ID = Menu.FIRST + 1;
     protected static final int MENU_ADDONS_ID = Menu.FIRST + 2;
     protected static final int MENU_SETTINGS_ID = Menu.FIRST + 3;
-    protected static final int MENU_SORT_ID = Menu.FIRST + 4;
     protected static final int MENU_SYNC_ID = Menu.FIRST + 5;
     protected static final int MENU_SUPPORT_ID = Menu.FIRST + 6;
     protected static final int MENU_ADDON_INTENT_ID = Menu.FIRST + 7;
@@ -301,8 +300,6 @@ public class TaskListActivity extends ListActivity implements OnScrollListener,
             isFilter = true;
         } else {
             filter = CoreFilterExposer.buildInboxFilter(getResources());
-            //findViewById(R.id.headerLogo).setVisibility(View.VISIBLE);
-            //findViewById(R.id.listLabel).setVisibility(View.GONE);
             isFilter = false;
         }
 
@@ -330,12 +327,6 @@ public class TaskListActivity extends ListActivity implements OnScrollListener,
             menu.clear();
 
         MenuItem item;
-
-        if(!(this instanceof DraggableTaskListActivity)) {
-            item = menu.add(Menu.NONE, MENU_SORT_ID, Menu.NONE,
-                    R.string.TLA_menu_sort);
-            item.setIcon(android.R.drawable.ic_menu_sort_by_size);
-        }
 
         addSyncRefreshMenuItem(menu);
 
@@ -377,11 +368,21 @@ public class TaskListActivity extends ListActivity implements OnScrollListener,
         return true;
     }
 
-    private void setUpUiComponents() {
+    protected void setUpUiComponents() {
         ((ImageView)findViewById(R.id.back)).setOnClickListener(new OnClickListener() {
             public void onClick(View v) {
                 Preferences.setBoolean(R.string.p_showed_lists_help, true);
                 showFilterListActivity();
+            }
+        });
+
+        findViewById(R.id.sort_settings).setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                StatisticsService.reportEvent(StatisticsConstants.TLA_MENU_SORT);
+                AlertDialog dialog = SortSelectionActivity.createDialog(TaskListActivity.this,
+                        TaskListActivity.this, sortFlags, sortSort);
+                dialog.show();
             }
         });
 
@@ -1203,12 +1204,6 @@ public class TaskListActivity extends ListActivity implements OnScrollListener,
             StatisticsService.reportEvent(StatisticsConstants.TLA_MENU_SETTINGS);
             intent = new Intent(this, EditPreferences.class);
             startActivityForResult(intent, ACTIVITY_SETTINGS);
-            return true;
-        case MENU_SORT_ID:
-            StatisticsService.reportEvent(StatisticsConstants.TLA_MENU_SORT);
-            AlertDialog dialog = SortSelectionActivity.createDialog(this,
-                    this, sortFlags, sortSort);
-            dialog.show();
             return true;
         case MENU_SYNC_ID:
             StatisticsService.reportEvent(StatisticsConstants.TLA_MENU_SYNC);
