@@ -113,6 +113,7 @@ public class TagSettingsActivity extends Activity {
         tagName = (EditText) findViewById(R.id.tag_name);
         picture = (AsyncImageView) findViewById(R.id.picture);
         isSilent = (CheckBox) findViewById(R.id.tag_silenced);
+        isSilent.setChecked(tagData.getFlag(TagData.FLAGS, TagData.FLAG_SILENT));
 
         if(actFmPreferenceService.isLoggedIn()) {
             picture.setVisibility(View.VISIBLE);
