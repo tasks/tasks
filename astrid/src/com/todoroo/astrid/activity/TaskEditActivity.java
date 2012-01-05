@@ -154,6 +154,8 @@ public final class TaskEditActivity extends Activity {
 
     public static final String OVERRIDE_FINISH_ANIM = "finishAnim"; //$NON-NLS-1$
 
+    public static final String TASK_WAS_ASSIGNED = "task_assigned"; //$NON-NLS-1$
+
     // --- services
 
     @Autowired
@@ -660,7 +662,14 @@ public final class TaskEditActivity extends Activity {
         model.putTransitory("task-edit-save", true); //$NON-NLS-1$
         taskService.save(model);
 
+
         if (!onPause && !cancelFinish) {
+            if (!peopleControlSet.isAssignedToMe()) {
+                Intent data = new Intent();
+                data.putExtra(TASK_WAS_ASSIGNED, true);
+                setResult(RESULT_OK, data);
+            }
+
             shouldSaveState = false;
             finish();
         }

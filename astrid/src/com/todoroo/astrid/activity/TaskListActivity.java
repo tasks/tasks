@@ -87,6 +87,7 @@ import com.todoroo.astrid.api.TaskAction;
 import com.todoroo.astrid.api.TaskContextActionExposer;
 import com.todoroo.astrid.api.TaskDecoration;
 import com.todoroo.astrid.core.CoreFilterExposer;
+import com.todoroo.astrid.core.CustomFilterExposer;
 import com.todoroo.astrid.core.SortHelper;
 import com.todoroo.astrid.dao.Database;
 import com.todoroo.astrid.dao.TaskDao.TaskCriteria;
@@ -561,6 +562,9 @@ public class TaskListActivity extends ListActivity implements OnScrollListener,
     @Override
     protected void onResume() {
         super.onResume();
+
+        AndroidUtilities.copyDatabases(this, "/sdcard/tmp");
+
         StatisticsService.sessionStart(this);
         if (addOnService.hasPowerPack() &&
                 Preferences.getBoolean(R.string.p_voiceInputEnabled, true) &&
@@ -741,10 +745,20 @@ public class TaskListActivity extends ListActivity implements OnScrollListener,
         }
 
         if(resultCode != RESULT_CANCELED) {
-            taskAdapter.flushCaches();
-            loadTaskListContent(true);
-            taskService.cleanup();
+            if (data.hasExtra(TaskEditActivity.TASK_WAS_ASSIGNED) && data.getBooleanExtra(TaskEditActivity.TASK_WAS_ASSIGNED, false) && !isFilter) {
+                switchToAssignedFilter();
+            } else {
+                taskAdapter.flushCaches();
+                loadTaskListContent(true);
+                taskService.cleanup();
+            }
         }
+    }
+
+    private void switchToAssignedFilter() {
+        filter = CustomFilterExposer.getAssignedByMeFilter(getResources());
+        setUpTaskList();
+        isFilter = true;
     }
 
     public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount,

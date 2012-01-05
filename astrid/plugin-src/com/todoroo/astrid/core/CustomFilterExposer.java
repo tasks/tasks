@@ -110,13 +110,7 @@ public final class CustomFilterExposer extends BroadcastReceiver implements Astr
                     null);
             list[1].listingIcon = ((BitmapDrawable)r.getDrawable(R.drawable.filter_pencil)).getBitmap();
 
-            list[2] = new Filter(r.getString(R.string.BFE_Assigned),
-                    r.getString(R.string.BFE_Assigned),
-                    new QueryTemplate().where(Criterion.and(TaskCriteria.isActive(),
-                            Criterion.or(Task.CREATOR_ID.eq(0), Task.CREATOR_ID.eq(ActFmPreferenceService.userId())),
-                            Task.USER_ID.neq(0))),
-                            null);
-            list[2].listingIcon = ((BitmapDrawable)r.getDrawable(R.drawable.filter_assigned)).getBitmap();
+            list[2] = getAssignedByMeFilter(r);
 
             int untaggedLabel = gtasksPreferenceService.isLoggedIn() ?
                     R.string.tag_FEx_untagged_w_astrid : R.string.tag_FEx_untagged;
@@ -145,6 +139,17 @@ public final class CustomFilterExposer extends BroadcastReceiver implements Astr
         } finally {
             cursor.close();
         }
+    }
+
+    public static Filter getAssignedByMeFilter(Resources r) {
+        Filter f = new Filter(r.getString(R.string.BFE_Assigned),
+                r.getString(R.string.BFE_Assigned),
+                new QueryTemplate().where(Criterion.and(TaskCriteria.isActive(),
+                        Criterion.or(Task.CREATOR_ID.eq(0), Task.CREATOR_ID.eq(ActFmPreferenceService.userId())),
+                        Task.USER_ID.neq(0))),
+                        null);
+        f.listingIcon = ((BitmapDrawable)r.getDrawable(R.drawable.filter_assigned)).getBitmap();
+        return f;
     }
 
     /**
