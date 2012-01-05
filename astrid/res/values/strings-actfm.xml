@@ -33,6 +33,18 @@
 
   <!-- filter list activity: refresh tags -->
   <string name="actfm_FLA_menu_refresh">Refresh Lists</string>
+  
+  <!-- Title for prompt after sharing a task -->
+  <string name="actfm_view_task_title">View Task?</string>
+
+  <!-- Text for prompt after sharing a task -->
+  <string name="actfm_view_task_text">Task was sent to %s. Would you like to view it?</string>
+  
+  <!-- Ok button for task view prompt -->
+  <string name="actfm_view_task_ok">View</string>
+      
+  <!-- Cancel button for task view prompt -->
+  <string name="actfm_view_task_cancel">Don\'t View</string>
 
   <!-- ================================================== TagViewActivity == -->  
 

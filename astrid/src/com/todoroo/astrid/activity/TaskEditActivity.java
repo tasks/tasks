@@ -154,7 +154,9 @@ public final class TaskEditActivity extends Activity {
 
     public static final String OVERRIDE_FINISH_ANIM = "finishAnim"; //$NON-NLS-1$
 
-    public static final String TASK_WAS_ASSIGNED = "task_assigned"; //$NON-NLS-1$
+    public static final String TOKEN_TASK_WAS_ASSIGNED = "task_assigned"; //$NON-NLS-1$
+
+    public static final String TOKEN_ASSIGNED_TO = "task_assigned_to"; //$NON-NLS-1$
 
     // --- services
 
@@ -666,7 +668,8 @@ public final class TaskEditActivity extends Activity {
         if (!onPause && !cancelFinish) {
             if (!peopleControlSet.isAssignedToMe()) {
                 Intent data = new Intent();
-                data.putExtra(TASK_WAS_ASSIGNED, true);
+                data.putExtra(TOKEN_TASK_WAS_ASSIGNED, true);
+                data.putExtra(TOKEN_ASSIGNED_TO, peopleControlSet.getAssignedToString());
                 setResult(RESULT_OK, data);
             }
 

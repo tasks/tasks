@@ -69,6 +69,7 @@ import com.todoroo.andlib.sql.Functions;
 import com.todoroo.andlib.sql.QueryTemplate;
 import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.andlib.utility.DateUtilities;
+import com.todoroo.andlib.utility.DialogUtilities;
 import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.andlib.widget.GestureService;
 import com.todoroo.andlib.widget.GestureService.GestureInterface;
@@ -745,8 +746,9 @@ public class TaskListActivity extends ListActivity implements OnScrollListener,
         }
 
         if(resultCode != RESULT_CANCELED) {
-            if (data.hasExtra(TaskEditActivity.TASK_WAS_ASSIGNED) && data.getBooleanExtra(TaskEditActivity.TASK_WAS_ASSIGNED, false) && !isFilter) {
-                switchToAssignedFilter();
+            if (data.hasExtra(TaskEditActivity.TOKEN_TASK_WAS_ASSIGNED) && data.getBooleanExtra(TaskEditActivity.TOKEN_TASK_WAS_ASSIGNED, false) && !isFilter) {
+                String assignedTo = data.getStringExtra(TaskEditActivity.TOKEN_ASSIGNED_TO);
+                switchToAssignedFilter(assignedTo);
             } else {
                 taskAdapter.flushCaches();
                 loadTaskListContent(true);
@@ -755,23 +757,21 @@ public class TaskListActivity extends ListActivity implements OnScrollListener,
         }
     }
 
-    private void switchToAssignedFilter() {
-        new Thread(new Runnable() {
+    private void switchToAssignedFilter(final String assignedEmail) {
+        DialogInterface.OnClickListener okListener = new DialogInterface.OnClickListener() {
             @Override
-            public void run() {
-                AndroidUtilities.sleepDeep(250);
-                runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        Intent intent = new Intent(TaskListActivity.this, TaskListActivity.class);
-                        intent.putExtra(TaskListActivity.TOKEN_FILTER, CustomFilterExposer.getAssignedByMeFilter(getResources()));
-                        intent.putExtra(TaskListActivity.TOKEN_OVERRIDE_ANIM, true);
-                        startActivityForResult(intent, 0);
-                        transitionForTaskEdit();
-                    }
-                });
+            public void onClick(DialogInterface dialog, int which) {
+                Intent intent = new Intent(TaskListActivity.this, TaskListActivity.class);
+                intent.putExtra(TaskListActivity.TOKEN_FILTER, CustomFilterExposer.getAssignedByMeFilter(getResources()));
+                intent.putExtra(TaskListActivity.TOKEN_OVERRIDE_ANIM, true);
+                startActivityForResult(intent, 0);
+                transitionForTaskEdit();
             }
-        }).start();
+        };
+        DialogUtilities.okCancelCustomDialog(this,
+                getString(R.string.actfm_view_task_title), getString(R.string.actfm_view_task_text, assignedEmail),
+                R.string.actfm_view_task_ok, R.string.actfm_view_task_cancel, 0,
+                okListener, null);
     }
 
     public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount,

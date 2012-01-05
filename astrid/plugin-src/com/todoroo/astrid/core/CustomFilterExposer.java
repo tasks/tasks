@@ -29,6 +29,7 @@ import com.todoroo.astrid.activity.FilterListActivity;
 import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.api.AstridFilterExposer;
 import com.todoroo.astrid.api.Filter;
+import com.todoroo.astrid.api.FilterCategory;
 import com.todoroo.astrid.api.FilterListItem;
 import com.todoroo.astrid.api.PermaSql;
 import com.todoroo.astrid.dao.StoreObjectDao;
@@ -67,19 +68,12 @@ public final class CustomFilterExposer extends BroadcastReceiver implements Astr
         DependencyInjectionService.getInstance().inject(this);
         Resources r = context.getResources();
 
-        //PendingIntent customFilterIntent = PendingIntent.getActivity(context, 0,
-        //        new Intent(context, CustomFilterActivity.class), 0);
-
         Filter[] savedFilters = buildSavedFilters(context, r);
+        FilterCategory heading = new FilterCategory(r.getString(R.string.BFE_Saved), savedFilters);
 
-        //FilterCategoryWithNewButton heading = new FilterCategoryWithNewButton(r.getString(R.string.BFE_Saved), savedFilters);
-        //heading.label = r.getString(R.string.tag_FEx_add_new);
-        //heading.intent = customFilterIntent;
-
-
-        //FilterListItem[] list = new FilterListItem[1];
-        //list[0] = heading;
-        return savedFilters;
+        FilterListItem[] list = new FilterListItem[1];
+        list[0] = heading;
+        return list;
     }
 
     private Filter[] buildSavedFilters(Context context, Resources r) {

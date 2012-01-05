@@ -697,6 +697,10 @@ public class EditPeopleControlSet extends PopupControlSet {
         return assignedToMe;
     }
 
+    public String getAssignedToString() {
+        return assignedDisplay.getText().toString();
+    }
+
     /** Resume save
      * @param data */
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
