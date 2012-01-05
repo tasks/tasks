@@ -98,7 +98,6 @@ public class RepeatControlSet extends PopupControlSet {
         LinearLayout.LayoutParams textLp = new LinearLayout.LayoutParams(LayoutParams.FILL_PARENT, LayoutParams.WRAP_CONTENT, 1.0f/14);
         for(int i = 0; i < 7; i++) {
             CheckBox checkBox = new CheckBox(activity);
-            checkBox.setTextColor(activity.getResources().getColor(android.R.color.white));
             int dayOfWeek = calendar.get(Calendar.DAY_OF_WEEK);
             checkBox.setPadding(0, 0, 0, 0);
             checkBox.setLayoutParams(lp);
@@ -107,7 +106,7 @@ public class RepeatControlSet extends PopupControlSet {
             checkBox.setButtonDrawable(R.drawable.btn_check_small);
 
             TextView label = new TextView(activity);
-            label.setTextAppearance(activity, android.R.style.TextAppearance);
+            label.setTextAppearance(activity, R.style.TextAppearance_GEN_EditLabel);
             label.setLayoutParams(textLp);
             label.setTextSize(14);
             label.setText(dfs.getShortWeekdays()[dayOfWeek].substring(0, 1));
