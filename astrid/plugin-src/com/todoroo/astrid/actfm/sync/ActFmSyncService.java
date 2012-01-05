@@ -412,7 +412,8 @@ public final class ActFmSyncService {
      */
     public void pushTask(long taskId) {
         Task task = taskService.fetchById(taskId, Task.PROPERTIES);
-        pushTaskOnSave(task, task.getMergedValues());
+        if (task != null)
+            pushTaskOnSave(task, task.getMergedValues());
     }
 
     /**
@@ -421,7 +422,8 @@ public final class ActFmSyncService {
      */
     public void pushTag(long tagId) {
         TagData tagData = tagDataService.fetchById(tagId, TagData.PROPERTIES);
-        pushTagDataOnSave(tagData, tagData.getMergedValues());
+        if (tagData != null)
+            pushTagDataOnSave(tagData, tagData.getMergedValues());
     }
 
     /**
@@ -430,7 +432,8 @@ public final class ActFmSyncService {
      */
     public void pushUpdate(long updateId) {
         Update update = updateDao.fetch(updateId, Update.PROPERTIES);
-        pushUpdateOnSave(update, update.getMergedValues(), null);
+        if (update != null)
+            pushUpdateOnSave(update, update.getMergedValues(), null);
     }
 
     /**
