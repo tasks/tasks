@@ -756,9 +756,22 @@ public class TaskListActivity extends ListActivity implements OnScrollListener,
     }
 
     private void switchToAssignedFilter() {
-        filter = CustomFilterExposer.getAssignedByMeFilter(getResources());
-        setUpTaskList();
-        isFilter = true;
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                AndroidUtilities.sleepDeep(250);
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        Intent intent = new Intent(TaskListActivity.this, TaskListActivity.class);
+                        intent.putExtra(TaskListActivity.TOKEN_FILTER, CustomFilterExposer.getAssignedByMeFilter(getResources()));
+                        intent.putExtra(TaskListActivity.TOKEN_OVERRIDE_ANIM, true);
+                        startActivityForResult(intent, 0);
+                        transitionForTaskEdit();
+                    }
+                });
+            }
+        }).start();
     }
 
     public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount,
