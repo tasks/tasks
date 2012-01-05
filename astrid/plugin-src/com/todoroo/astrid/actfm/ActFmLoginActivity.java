@@ -65,6 +65,7 @@ import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.ContextManager;
 import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.andlib.service.ExceptionService;
+import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.andlib.utility.DialogUtilities;
 import com.todoroo.andlib.utility.Preferences;
@@ -100,6 +101,9 @@ public class ActFmLoginActivity extends Activity implements AuthListener {
     private AsyncFacebookRunner facebookRunner;
     private TextView errors;
     protected boolean noSync = false;
+
+    public static final String SHOW_TOAST = "show_toast";
+    private boolean showToast;
 
     // --- ui initialization
 
@@ -137,6 +141,8 @@ public class ActFmLoginActivity extends Activity implements AuthListener {
         rand = new Random(DateUtilities.now());
 
         noSync = getIntent().getBooleanExtra(EXTRA_DO_NOT_SYNC, false);
+        showToast = getIntent().getBooleanExtra(SHOW_TOAST, true);
+
 
         facebook = new Facebook(APP_ID);
         facebookRunner = new AsyncFacebookRunner(facebook);
@@ -287,6 +293,7 @@ public class ActFmLoginActivity extends Activity implements AuthListener {
                         public void onClick(DialogInterface dlg, int which) {
                             String nameString = isNew.get() ? name.getText().toString()
                                     : null;
+                            AndroidUtilities.hideSoftInputForViews(ActFmLoginActivity.this, name, email, password);
                             authenticate(email.getText().toString(),
                                     nameString, ActFmInvoker.PROVIDER_PASSWORD,
                                     password.getText().toString());
@@ -296,7 +303,12 @@ public class ActFmLoginActivity extends Activity implements AuthListener {
                             else
                                 StatisticsService.reportEvent(StatisticsConstants.ACTFM_SIGNUP_PW);
                         }
-                    }).setNegativeButton(android.R.string.cancel, null).show());
+                    }).setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dlg, int which) {
+                            AndroidUtilities.hideSoftInputForViews(ActFmLoginActivity.this, name, email, password);
+                        }
+                    }).show());
 
             dialog.get().setOwnerActivity(ActFmLoginActivity.this);
         }
@@ -471,7 +483,7 @@ public class ActFmLoginActivity extends Activity implements AuthListener {
         finish();
 
         if (!noSync) {
-            new ActFmSyncProvider().synchronize(ActFmLoginActivity.this);
+            new ActFmSyncProvider().synchronize(ActFmLoginActivity.this, showToast);
         }
 
         try {

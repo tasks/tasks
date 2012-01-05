@@ -72,6 +72,7 @@ import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.andlib.widget.GestureService;
 import com.todoroo.andlib.widget.GestureService.GestureInterface;
+import com.todoroo.astrid.actfm.ActFmLoginActivity;
 import com.todoroo.astrid.actfm.sync.ActFmPreferenceService;
 import com.todoroo.astrid.actfm.sync.ActFmSyncProvider;
 import com.todoroo.astrid.activity.SortSelectionActivity.OnSortSelectedListener;
@@ -583,6 +584,7 @@ public class TaskListActivity extends ListActivity implements OnScrollListener,
 
         if (!Preferences.getBoolean(WelcomeLogin.KEY_SHOWED_WELCOME_LOGIN, false)) {
             Intent showWelcomeLogin = new Intent(this, WelcomeLogin.class);
+            showWelcomeLogin.putExtra(ActFmLoginActivity.SHOW_TOAST, false);
             startActivity(showWelcomeLogin);
             Preferences.setBoolean(WelcomeLogin.KEY_SHOWED_WELCOME_LOGIN, true);
             return;
