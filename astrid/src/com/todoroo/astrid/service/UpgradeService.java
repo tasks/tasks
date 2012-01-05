@@ -39,7 +39,8 @@ import com.todoroo.astrid.utility.AstridPreferences;
 
 public final class UpgradeService {
 
-    public static final int V3_9_1 = 204;
+    public static final int V3_9_1 = 205;
+    public static final int V3_9_0_2 = 204;
     public static final int V3_9_0_1 = 203;
     public static final int V3_9 = 202;
     public static final int V3_8_5_1 = 201;
@@ -161,8 +162,17 @@ public final class UpgradeService {
         Preferences.clear(AstridPreferences.P_UPGRADE_FROM);
         StringBuilder changeLog = new StringBuilder();
 
-        if (from >= V3_9 && from < V3_9_1) {
-            newVersionString(changeLog, "3.9.1 (12/23/11)", new String[] {
+        if (from < V3_9_1) {
+            newVersionString(changeLog, "3.9.1 (01/04/12)", new String[] {
+                    "Improvements to new user experience",
+                    "Bug fixes for task sharing",
+                    "Bug fixes for the time picker",
+                    "Fixes for some common crashes"
+            });
+        }
+
+        if (from >= V3_9 && from < V3_9_0_2) {
+            newVersionString(changeLog, "3.9.0.2 (12/23/11)", new String[] {
                     "UI enhancements, better scrolling performance, and themed task edit dialogs",
                     "Clickable links in task notes",
                     "Fixed fields that were getting hidden under the keyboard",
