@@ -24,6 +24,7 @@ import com.todoroo.andlib.sql.Query;
 import com.todoroo.andlib.sql.QueryTemplate;
 import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.andlib.utility.DialogUtilities;
+import com.todoroo.astrid.actfm.sync.ActFmPreferenceService;
 import com.todoroo.astrid.activity.FilterListActivity;
 import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.api.AstridFilterExposer;
@@ -86,7 +87,7 @@ public final class CustomFilterExposer extends BroadcastReceiver implements Astr
         TodorooCursor<StoreObject> cursor = dao.query(Query.select(StoreObject.PROPERTIES).where(
                 StoreObject.TYPE.eq(SavedFilter.TYPE)).orderBy(Order.asc(SavedFilter.NAME)));
         try {
-            Filter[] list = new Filter[cursor.getCount() + 3];
+            Filter[] list = new Filter[cursor.getCount() + 4];
 
             // stock filters
             String todayTitle = AndroidUtilities.capitalize(r.getString(R.string.today));
@@ -109,16 +110,25 @@ public final class CustomFilterExposer extends BroadcastReceiver implements Astr
                     null);
             list[1].listingIcon = ((BitmapDrawable)r.getDrawable(R.drawable.filter_pencil)).getBitmap();
 
+            list[2] = new Filter(r.getString(R.string.BFE_Assigned),
+                    r.getString(R.string.BFE_Assigned),
+                    new QueryTemplate().where(Criterion.and(TaskCriteria.isActive(),
+                            Criterion.or(Task.CREATOR_ID.eq(0), Task.CREATOR_ID.eq(ActFmPreferenceService.userId())),
+                            Task.USER_ID.neq(0))),
+                            null);
+            list[2].listingIcon = ((BitmapDrawable)r.getDrawable(R.drawable.filter_assigned)).getBitmap();
+
             int untaggedLabel = gtasksPreferenceService.isLoggedIn() ?
                     R.string.tag_FEx_untagged_w_astrid : R.string.tag_FEx_untagged;
-            list[2] = new Filter(r.getString(untaggedLabel),
+            list[3] = new Filter(r.getString(untaggedLabel),
                     r.getString(R.string.tag_FEx_untagged),
                     TagService.untaggedTemplate(),
                     null);;
-            list[2].listingIcon = ((BitmapDrawable)r.getDrawable(R.drawable.gl_lists)).getBitmap();
+            list[3].listingIcon = ((BitmapDrawable)r.getDrawable(R.drawable.gl_lists)).getBitmap();
+
 
             StoreObject savedFilter = new StoreObject();
-            for(int i = 3; i < list.length; i++) {
+            for(int i = 4; i < list.length; i++) {
                 cursor.moveToNext();
                 savedFilter.readFromCursor(cursor);
                 list[i] = SavedFilter.load(savedFilter);

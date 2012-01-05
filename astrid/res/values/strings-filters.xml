@@ -15,6 +15,9 @@
     <!-- Recently Modified -->
     <string name="BFE_Recent">Recently Modified</string>
     
+    <!-- I've assigned -->
+    <string name="BFE_Assigned">I\'ve Assigned</string>
+    
     <!-- Build Your Own Filter -->
     <string name="BFE_Custom">Custom Filter...</string>
     
