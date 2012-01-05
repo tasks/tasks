@@ -12,7 +12,6 @@ import com.todoroo.andlib.data.DatabaseDao;
 import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.andlib.sql.Criterion;
-import com.todoroo.andlib.sql.Field;
 import com.todoroo.andlib.sql.Functions;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.andlib.utility.Preferences;
@@ -63,13 +62,6 @@ public class TaskDao extends DatabaseDao<Task> {
     	    return Task.DELETION_DATE.neq(0);
     	}
 
-    	/** Check if a given task belongs to someone else & is read-only */
-        public static Criterion ownedByMe() {
-             return Criterion.and(Field.field(Task.FLAGS.name+ " & " + //$NON-NLS-1$
-                     Task.FLAG_IS_READONLY).eq(0),
-                     Task.USER_ID.eq(0));
-    	}
-
     	/** @return tasks that were not deleted */
     	public static Criterion notDeleted() {
     	    return Task.DELETION_DATE.eq(0);
@@ -80,16 +72,6 @@ public class TaskDao extends DatabaseDao<Task> {
     	    return Criterion.and(Task.COMPLETION_DATE.eq(0),
     	            Task.DELETION_DATE.eq(0),
     	            Task.HIDE_UNTIL.lt(Functions.now()));
-    	}
-
-    	/** @return tasks that have not yet been completed or deleted */
-    	public static Criterion activeVisibleMine() {
-            return Criterion.and(Task.COMPLETION_DATE.eq(0),
-                    Task.DELETION_DATE.eq(0),
-                    Task.HIDE_UNTIL.lt(Functions.now()),
-                    Field.field(Task.FLAGS.name + " & " + //$NON-NLS-1$
-                            Task.FLAG_IS_READONLY).eq(0),
-                    Task.USER_ID.eq(0));
     	}
 
     	/** @return tasks that have not yet been completed or deleted */
