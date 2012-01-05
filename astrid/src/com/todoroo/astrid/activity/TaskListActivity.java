@@ -770,7 +770,8 @@ public class TaskListActivity extends ListActivity implements OnScrollListener,
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 String nameLike = "%" + assignedEmail + "%";
-                TodorooCursor<TagData> c = tagDataService.query(Query.select(TagData.NAME, TagData.TASK_COUNT, TagData.REMOTE_ID).where(Criterion.and(TagData.FLAGS.gte(TagData.FLAG_EMERGENT), TagData.MEMBERS.like(nameLike))));
+                TodorooCursor<TagData> c = tagDataService.query(Query.select(TagData.NAME, TagData.TASK_COUNT, TagData.REMOTE_ID).where(Criterion.and(
+                        Functions.bitwiseAnd(TagData.FLAGS, TagData.FLAG_EMERGENT).gt(0), TagData.MEMBERS.like(nameLike))));
                 try {
                     if (c.getCount() > 0) {
                         c.moveToFirst();

@@ -1,5 +1,6 @@
 package com.todoroo.andlib.sql;
 
+import com.todoroo.andlib.data.Property.IntegerProperty;
 import com.todoroo.andlib.data.Property.StringProperty;
 
 
@@ -48,6 +49,10 @@ public final class Functions {
 
     public static Field length(StringProperty field) {
         return new Field("LENGTH(" + field.toString() + ")");
+    }
+
+    public static Field bitwiseAnd(IntegerProperty field, int value) {
+        return new Field(field.toString() + " & " + value);
     }
 
 }
