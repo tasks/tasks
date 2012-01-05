@@ -195,8 +195,10 @@ public final class ActFmSyncService {
                     }
                     if(failedPushes.size() > 0) {
                         // Copy into a second queue so we don't end up infinitely retrying in the same loop
-                        Queue<FailedPush> toTry = new LinkedList<FailedPush>(failedPushes);
-                        failedPushes.clear();
+                        Queue<FailedPush> toTry = new LinkedList<FailedPush>();
+                        while (failedPushes.size() > 0) {
+                            toTry.add(failedPushes.remove(0));
+                        }
                         while(!toTry.isEmpty() && !actFmPreferenceService.isOngoing()) {
                             FailedPush pushOp = toTry.remove();
                             switch(pushOp.pushType) {
