@@ -426,7 +426,7 @@ public class TaskListActivity extends ListActivity implements OnScrollListener,
              */
             @Override
             public boolean onEditorAction(TextView view, int actionId, KeyEvent event) {
-                if(actionId == EditorInfo.IME_NULL && quickAddBox.getText().length() > 0) {
+                if(actionId == EditorInfo.IME_NULL && !TextUtils.isEmpty(quickAddBox.getText().toString().trim())) {
                     quickAddTask(quickAddBox.getText().toString(), true);
                     return true;
                 }
