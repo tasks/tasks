@@ -38,13 +38,13 @@
   <string name="actfm_view_task_title">View Task?</string>
 
   <!-- Text for prompt after sharing a task -->
-  <string name="actfm_view_task_text">Task was sent to %s. Would you like to view it?</string>
+  <string name="actfm_view_task_text">Task was sent to %s! You\'re currently viewing your own tasks. Do you want to view this and other tasks you\'ve assigned?</string>
   
   <!-- Ok button for task view prompt -->
-  <string name="actfm_view_task_ok">View</string>
+  <string name="actfm_view_task_ok">View Assigned</string>
       
   <!-- Cancel button for task view prompt -->
-  <string name="actfm_view_task_cancel">Don\'t View</string>
+  <string name="actfm_view_task_cancel">Stay Here</string>
 
   <!-- ================================================== TagViewActivity == -->  
 
