@@ -14,6 +14,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.Color;
+import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -127,7 +128,6 @@ public class TagFilterExposer extends BroadcastReceiver implements AstridFilterE
 
         ArrayList<FilterListItem> list = new ArrayList<FilterListItem>();
 
-        // --- untagged
         addTags(list);
 
         // transmit filter list
@@ -142,12 +142,23 @@ public class TagFilterExposer extends BroadcastReceiver implements AstridFilterE
     }
 
     private FilterCategory filterFromTags(Tag[] tags, int name) {
-        Filter[] filters = new Filter[tags.length];
-        Resources r = ContextManager.getContext().getResources();
+        Filter[] filters = new Filter[tags.length + 1];
 
         Context context = ContextManager.getContext();
-        for(int i = 0; i < tags.length; i++)
-            filters[i] = filterFromTag(context, tags[i], TaskCriteria.activeAndVisible());
+        Resources r = context.getResources();
+
+        // --- untagged
+        int untaggedLabel = gtasksPreferenceService.isLoggedIn() ?
+                R.string.tag_FEx_untagged_w_astrid : R.string.tag_FEx_untagged;
+        Filter untagged = new Filter(r.getString(untaggedLabel),
+                r.getString(R.string.tag_FEx_untagged),
+                TagService.untaggedTemplate(),
+                null);
+        untagged.listingIcon = ((BitmapDrawable)r.getDrawable(R.drawable.gl_lists)).getBitmap();
+        filters[0] = untagged;
+
+        for(int i = 1; i < tags.length; i++)
+            filters[i] = filterFromTag(context, tags[i - 1], TaskCriteria.activeAndVisible());
         FilterCategory filter = new FilterCategory(context.getString(name), filters);
         return filter;
     }

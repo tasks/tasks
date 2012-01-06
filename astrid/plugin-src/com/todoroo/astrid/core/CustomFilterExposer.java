@@ -29,7 +29,6 @@ import com.todoroo.astrid.activity.FilterListActivity;
 import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.api.AstridFilterExposer;
 import com.todoroo.astrid.api.Filter;
-import com.todoroo.astrid.api.FilterCategory;
 import com.todoroo.astrid.api.FilterListItem;
 import com.todoroo.astrid.api.PermaSql;
 import com.todoroo.astrid.dao.StoreObjectDao;
@@ -38,7 +37,6 @@ import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.data.TaskApiDao.TaskCriteria;
 import com.todoroo.astrid.gtasks.GtasksPreferenceService;
 import com.todoroo.astrid.service.TagDataService;
-import com.todoroo.astrid.tags.TagService;
 
 /**
  * Exposes Astrid's built in filters to the {@link FilterListActivity}
@@ -69,11 +67,7 @@ public final class CustomFilterExposer extends BroadcastReceiver implements Astr
         Resources r = context.getResources();
 
         Filter[] savedFilters = buildSavedFilters(context, r);
-        FilterCategory heading = new FilterCategory(r.getString(R.string.BFE_Saved), savedFilters);
-
-        FilterListItem[] list = new FilterListItem[1];
-        list[0] = heading;
-        return list;
+        return savedFilters;
     }
 
     private Filter[] buildSavedFilters(Context context, Resources r) {
@@ -81,7 +75,7 @@ public final class CustomFilterExposer extends BroadcastReceiver implements Astr
         TodorooCursor<StoreObject> cursor = dao.query(Query.select(StoreObject.PROPERTIES).where(
                 StoreObject.TYPE.eq(SavedFilter.TYPE)).orderBy(Order.asc(SavedFilter.NAME)));
         try {
-            Filter[] list = new Filter[cursor.getCount() + 4];
+            Filter[] list = new Filter[cursor.getCount() + 3];
 
             // stock filters
             String todayTitle = AndroidUtilities.capitalize(r.getString(R.string.today));
@@ -106,17 +100,8 @@ public final class CustomFilterExposer extends BroadcastReceiver implements Astr
 
             list[2] = getAssignedByMeFilter(r);
 
-            int untaggedLabel = gtasksPreferenceService.isLoggedIn() ?
-                    R.string.tag_FEx_untagged_w_astrid : R.string.tag_FEx_untagged;
-            list[3] = new Filter(r.getString(untaggedLabel),
-                    r.getString(R.string.tag_FEx_untagged),
-                    TagService.untaggedTemplate(),
-                    null);;
-            list[3].listingIcon = ((BitmapDrawable)r.getDrawable(R.drawable.gl_lists)).getBitmap();
-
-
             StoreObject savedFilter = new StoreObject();
-            for(int i = 4; i < list.length; i++) {
+            for(int i = 3; i < list.length; i++) {
                 cursor.moveToNext();
                 savedFilter.readFromCursor(cursor);
                 list[i] = SavedFilter.load(savedFilter);

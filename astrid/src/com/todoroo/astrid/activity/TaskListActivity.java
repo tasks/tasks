@@ -65,9 +65,7 @@ import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.ContextManager;
 import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.andlib.service.ExceptionService;
-import com.todoroo.andlib.sql.Criterion;
 import com.todoroo.andlib.sql.Functions;
-import com.todoroo.andlib.sql.Query;
 import com.todoroo.andlib.sql.QueryTemplate;
 import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.andlib.utility.DateUtilities;
@@ -84,7 +82,6 @@ import com.todoroo.astrid.adapter.TaskAdapter.OnCompletedTaskListener;
 import com.todoroo.astrid.adapter.TaskAdapter.ViewHolder;
 import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.api.Filter;
-import com.todoroo.astrid.api.FilterWithCustomIntent;
 import com.todoroo.astrid.api.PermaSql;
 import com.todoroo.astrid.api.SyncAction;
 import com.todoroo.astrid.api.TaskAction;
@@ -96,7 +93,6 @@ import com.todoroo.astrid.core.SortHelper;
 import com.todoroo.astrid.dao.Database;
 import com.todoroo.astrid.dao.TaskDao.TaskCriteria;
 import com.todoroo.astrid.data.Metadata;
-import com.todoroo.astrid.data.TagData;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.gcal.GCalHelper;
 import com.todoroo.astrid.helper.MetadataHelper;
@@ -113,7 +109,6 @@ import com.todoroo.astrid.service.TagDataService;
 import com.todoroo.astrid.service.TaskService;
 import com.todoroo.astrid.service.ThemeService;
 import com.todoroo.astrid.service.UpgradeService;
-import com.todoroo.astrid.tags.TagFilterExposer;
 import com.todoroo.astrid.utility.AstridPreferences;
 import com.todoroo.astrid.utility.Constants;
 import com.todoroo.astrid.utility.Flags;
@@ -769,27 +764,12 @@ public class TaskListActivity extends ListActivity implements OnScrollListener,
         DialogInterface.OnClickListener okListener = new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                String nameLike = "%" + assignedEmail + "%";
-                TodorooCursor<TagData> c = tagDataService.query(Query.select(TagData.NAME, TagData.TASK_COUNT, TagData.REMOTE_ID).where(Criterion.and(
-                        Functions.bitwiseAnd(TagData.FLAGS, TagData.FLAG_EMERGENT).gt(0), TagData.MEMBERS.like(nameLike))));
-                try {
-                    if (c.getCount() > 0) {
-                        c.moveToFirst();
-                        TagData tagData = new TagData(c);
-                        FilterWithCustomIntent emergentTagFilter = (FilterWithCustomIntent) TagFilterExposer.filterFromTagData(TaskListActivity.this, tagData);
-                        emergentTagFilter.start(TaskListActivity.this, 0);
-                    } else {
-                        Filter assignedFilter = CustomFilterExposer.getAssignedByMeFilter(getResources());
+                Filter assignedFilter = CustomFilterExposer.getAssignedByMeFilter(getResources());
 
-                        Intent intent = new Intent(TaskListActivity.this, TaskListActivity.class);
-                        intent.putExtra(TaskListActivity.TOKEN_FILTER, assignedFilter);
-                        intent.putExtra(TaskListActivity.TOKEN_OVERRIDE_ANIM, true);
-                        startActivityForResult(intent, 0);
-                    }
-                } finally {
-                    c.close();
-                }
-
+                Intent intent = new Intent(TaskListActivity.this, TaskListActivity.class);
+                intent.putExtra(TaskListActivity.TOKEN_FILTER, assignedFilter);
+                intent.putExtra(TaskListActivity.TOKEN_OVERRIDE_ANIM, true);
+                startActivityForResult(intent, 0);
                 transitionForTaskEdit();
             }
         };
