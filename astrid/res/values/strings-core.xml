@@ -96,7 +96,7 @@
   <!-- ================================================= TaskListActivity == -->
   
   <!-- Task List: Displayed instead of list when no items present -->    
-  <string name="TLA_no_items">No Tasks!</string>
+  <string name="TLA_no_items">You have no tasks! Want to add something?</string>
   
   <!-- Menu: Add-ons -->    
   <string name="TLA_menu_addons">Add-ons</string>
