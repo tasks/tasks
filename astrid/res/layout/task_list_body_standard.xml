@@ -12,7 +12,6 @@
     android:orientation="vertical">
         
     <!-- No Tasks label -->
-    
 	<TextView android:id="@android:id/empty"
 	    android:drawableTop="@drawable/icon"
 	    android:layout_width="wrap_content" 

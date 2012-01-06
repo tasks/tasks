@@ -90,6 +90,12 @@
 
   <!-- Tag Settings: silence notifications label -->
   <string name="actfm_TVA_silence_label">Silence Notifications</string>
+  
+  <!-- Tag Settings: list icon label -->
+  <string name="actfm_TVA_list_icon_label">List Icon:</string>
+  
+  <!-- Tag Settings: list description label -->
+  <string name="actfm_TVA_tag_description_label">Description:</string>
 
   <!-- ============================================ edit people dialog == -->
 

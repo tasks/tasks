@@ -92,8 +92,47 @@
 		        android:orientation="vertical"
 		        android:layout_width="fill_parent"
 		        android:layout_height="wrap_content" />
-		  
-		
+		    
+		    <LinearLayout
+		        android:orientation="horizontal"
+		        android:layout_width="fill_parent"
+		        android:layout_height="wrap_content"
+		        android:paddingTop="10dip"
+		        android:paddingBottom="5dip">
+		    
+			    <TextView android:id="@+id/list_icon"
+			        android:drawableBottom="@drawable/icon_blank"
+			        android:layout_width="wrap_content"
+			        android:layout_height="wrap_content"
+			        android:paddingTop="10dip"
+			        android:paddingBottom="10dip"
+			        android:paddingRight="10dip"
+			        style="@style/TextAppearance.GEN_EditLabel"
+			        android:text="@string/actfm_TVA_list_icon_label" />
+		    
+			    <RelativeLayout
+			        android:layout_width="fill_parent"
+			        android:layout_height="wrap_content"
+			        android:paddingBottom="10dip"
+			        android:paddingLeft="10dip"
+			        android:layout_gravity="right">
+				    <TextView 
+				            android:id="@+id/description_label"
+				            android:layout_width="wrap_content"
+				            android:layout_height="wrap_content"
+				            android:layout_alignParentTop="true"
+				            android:layout_marginTop="10dip"
+				            style="@style/TextAppearance.GEN_EditLabel"
+				            android:text="@string/actfm_TVA_tag_description_label" />
+				    <EditText
+				            android:id="@+id/tag_description"
+				            android:layout_width="fill_parent"
+				            android:layout_height="wrap_content" 
+				            android:layout_below="@id/description_label"
+				            android:layout_marginTop="10dip" />
+			    </RelativeLayout>
+		    </LinearLayout>
+		    
 		    <!-- Footer -->
 	        <LinearLayout
 	            android:id="@+id/listSettingsMore"
