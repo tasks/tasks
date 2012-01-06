@@ -749,7 +749,7 @@ public class TaskListActivity extends ListActivity implements OnScrollListener,
         }
 
         if(resultCode != RESULT_CANCELED) {
-            if (data.hasExtra(TaskEditActivity.TOKEN_TASK_WAS_ASSIGNED) && data.getBooleanExtra(TaskEditActivity.TOKEN_TASK_WAS_ASSIGNED, false) && !isFilter) {
+            if (data != null && data.hasExtra(TaskEditActivity.TOKEN_TASK_WAS_ASSIGNED) && data.getBooleanExtra(TaskEditActivity.TOKEN_TASK_WAS_ASSIGNED, false) && !isFilter) {
                 String assignedTo = data.getStringExtra(TaskEditActivity.TOKEN_ASSIGNED_TO);
                 switchToAssignedFilter(assignedTo);
             } else {
