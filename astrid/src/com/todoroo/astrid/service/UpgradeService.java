@@ -39,6 +39,7 @@ import com.todoroo.astrid.utility.AstridPreferences;
 
 public final class UpgradeService {
 
+    public static final int V3_9_1_1 = 206;
     public static final int V3_9_1 = 205;
     public static final int V3_9_0_2 = 204;
     public static final int V3_9_0_1 = 203;
@@ -161,6 +162,15 @@ public final class UpgradeService {
 
         Preferences.clear(AstridPreferences.P_UPGRADE_FROM);
         StringBuilder changeLog = new StringBuilder();
+
+        if (from >= V3_9_1 && from < V3_9_1_1) {
+            newVersionString(changeLog, "3.9.1.1 (01/06/12)", new String[] {
+                "Fixed few bugs:",
+                " Crash when selecting certain  lists",
+                " Some lists not displayed",
+                " Wrong text color when assigning tasks in Night theme"
+            });
+        }
 
         if (from < V3_9_1) {
             newVersionString(changeLog, "3.9.1 (01/04/12)", new String[] {
