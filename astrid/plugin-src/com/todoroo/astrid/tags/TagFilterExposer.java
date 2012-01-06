@@ -157,8 +157,8 @@ public class TagFilterExposer extends BroadcastReceiver implements AstridFilterE
         untagged.listingIcon = ((BitmapDrawable)r.getDrawable(R.drawable.gl_lists)).getBitmap();
         filters[0] = untagged;
 
-        for(int i = 1; i < tags.length; i++)
-            filters[i] = filterFromTag(context, tags[i - 1], TaskCriteria.activeAndVisible());
+        for(int i = 0; i < tags.length; i++)
+            filters[i+1] = filterFromTag(context, tags[i], TaskCriteria.activeAndVisible());
         FilterCategory filter = new FilterCategory(context.getString(name), filters);
         return filter;
     }
