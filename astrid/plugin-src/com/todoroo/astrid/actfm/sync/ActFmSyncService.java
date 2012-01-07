@@ -471,6 +471,10 @@ public final class ActFmSyncService {
             params.add("deleted_at"); params.add(tagData.getValue(TagData.DELETION_DATE));
         }
 
+        if(values.containsKey(TagData.TAG_DESCRIPTION.name)) {
+            params.add("description"); params.add(tagData.getValue(TagData.TAG_DESCRIPTION));
+        }
+
         if(values.containsKey(TagData.MEMBERS.name)) {
             params.add("members");
             try {
@@ -995,6 +999,9 @@ public final class ActFmSyncService {
 
             if(json.has("emergent"))
                 model.setFlag(TagData.FLAGS, TagData.FLAG_EMERGENT,json.getBoolean("emergent"));
+
+            if(json.has("description"))
+                model.setValue(TagData.TAG_DESCRIPTION,json.getString("description"));
 
             if(json.has("members")) {
                 JSONArray members = json.getJSONArray("members");

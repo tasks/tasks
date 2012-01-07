@@ -477,6 +477,15 @@ public class TaskListActivity extends ListActivity implements OnScrollListener,
             }
         });
 
+        //set listener for astrid icon
+        ((TextView)findViewById(android.R.id.empty)).setOnClickListener( new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                quickAddButton.performClick();
+            }
+         });
+
+
         // gestures / animation
         try {
             GestureService.registerGestureDetector(this, R.id.gestures, R.raw.gestures, this);

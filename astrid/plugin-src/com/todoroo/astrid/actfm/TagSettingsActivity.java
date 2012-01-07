@@ -61,6 +61,7 @@ public class TagSettingsActivity extends Activity {
     private PeopleContainer tagMembers;
     private AsyncImageView picture;
     private EditText tagName;
+    private EditText tagDescription;
     private CheckBox isSilent;
 
     boolean isNewTag = false;
@@ -111,6 +112,7 @@ public class TagSettingsActivity extends Activity {
     protected void setUpSettingsPage() {
         tagMembers = (PeopleContainer) findViewById(R.id.members_container);
         tagName = (EditText) findViewById(R.id.tag_name);
+        tagDescription = (EditText) findViewById(R.id.tag_description);
         picture = (AsyncImageView) findViewById(R.id.picture);
         isSilent = (CheckBox) findViewById(R.id.tag_silenced);
         isSilent.setChecked(tagData.getFlag(TagData.FLAGS, TagData.FLAG_SILENT));
@@ -172,6 +174,10 @@ public class TagSettingsActivity extends Activity {
                 }
             }
         }
+        //handles description part
+        String newDesc = tagDescription.getText().toString();
+
+        tagData.setValue(TagData.TAG_DESCRIPTION, newDesc);
 
         JSONArray members = tagMembers.toJSONArray();
 
@@ -212,6 +218,8 @@ public class TagSettingsActivity extends Activity {
                     R.anim.slide_left_in, R.anim.slide_left_out);
             return;
         }
+
+
 
         refreshSettingsPage();
         finish();
@@ -263,6 +271,9 @@ public class TagSettingsActivity extends Activity {
 
         String peopleJson = tagData.getValue(TagData.MEMBERS);
         updateMembers(peopleJson);
+
+        tagDescription.setText(tagData.getValue(TagData.TAG_DESCRIPTION));
+
     }
 
     @SuppressWarnings("nls")

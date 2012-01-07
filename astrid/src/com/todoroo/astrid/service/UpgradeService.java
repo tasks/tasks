@@ -24,6 +24,7 @@ import com.todoroo.andlib.sql.Query;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.andlib.utility.DialogUtilities;
 import com.todoroo.andlib.utility.Preferences;
+import com.todoroo.astrid.actfm.sync.ActFmPreferenceService;
 import com.todoroo.astrid.activity.Eula;
 import com.todoroo.astrid.core.SortHelper;
 import com.todoroo.astrid.dao.Database;
@@ -88,6 +89,8 @@ public final class UpgradeService {
 
     @Autowired AddOnService addOnService;
 
+    @Autowired ActFmPreferenceService actFmPreferenceService;
+
     public UpgradeService() {
         DependencyInjectionService.getInstance().inject(this);
     }
@@ -109,6 +112,10 @@ public final class UpgradeService {
                 Preferences.setString(R.string.p_theme, "transparent"); //$NON-NLS-1$
             else
                 Preferences.setString(R.string.p_theme, "black"); //$NON-NLS-1$
+        }
+
+        if( from<= V3_9_1_1) {
+            actFmPreferenceService.clearLastSyncDate();
         }
 
         // long running tasks: pop up a progress dialog
