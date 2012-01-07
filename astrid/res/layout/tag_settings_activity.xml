@@ -93,6 +93,11 @@
 		        android:layout_width="fill_parent"
 		        android:layout_height="wrap_content" />
 		    
+		    <View
+		        android:layout_width="fill_parent"
+		        android:layout_height="1dip"
+		        android:background="@android:drawable/divider_horizontal_dark" />
+		    
 		    <LinearLayout
 		        android:orientation="horizontal"
 		        android:layout_width="fill_parent"
@@ -116,6 +121,7 @@
 			        android:paddingBottom="10dip"
 			        android:paddingLeft="10dip"
 			        android:layout_gravity="right">
+			        
 				    <TextView 
 				            android:id="@+id/description_label"
 				            android:layout_width="wrap_content"
@@ -131,6 +137,7 @@
 				            android:layout_below="@id/description_label"
 				            android:layout_marginTop="10dip" />
 			    </RelativeLayout>
+			    
 		    </LinearLayout>
 		    
 		    <!-- Footer -->

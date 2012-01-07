@@ -223,7 +223,6 @@ public class TagViewActivity extends TaskListActivity {
             }
         } else {
             ((TextView)taskListView.findViewById(android.R.id.empty)).setText(R.string.TLA_no_items);
-
         }
 
         setUpMembersGallery();
