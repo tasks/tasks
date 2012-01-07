@@ -150,7 +150,7 @@ public class TagSettingsActivity extends Activity {
     private void saveSettings() {
         setResult(RESULT_OK);
         String oldName = tagData.getValue(TagData.NAME);
-        String newName = tagName.getText().toString();
+        String newName = tagName.getText().toString().trim();
 
         if (TextUtils.isEmpty(newName)) {
             return;
