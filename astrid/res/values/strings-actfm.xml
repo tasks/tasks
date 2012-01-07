@@ -97,6 +97,9 @@
   <!-- Tag Settings: list description label -->
   <string name="actfm_TVA_tag_description_label">Description:</string>
 
+  <!-- Tag Settings: list description hint -->
+  <string name="actfm_TVA_tag_description_hint">List description</string>
+      
   <!-- ============================================ edit people dialog == -->
 
   <!-- task sharing dialog: intro -->

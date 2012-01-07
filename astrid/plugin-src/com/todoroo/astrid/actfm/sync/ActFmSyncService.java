@@ -1000,8 +1000,8 @@ public final class ActFmSyncService {
             if(json.has("emergent"))
                 model.setFlag(TagData.FLAGS, TagData.FLAG_EMERGENT,json.getBoolean("emergent"));
 
-            if(json.has("description"))
-                model.setValue(TagData.TAG_DESCRIPTION,json.getString("description"));
+            if(!json.isNull("description"))
+                model.setValue(TagData.TAG_DESCRIPTION, json.getString("description"));
 
             if(json.has("members")) {
                 JSONArray members = json.getJSONArray("members");

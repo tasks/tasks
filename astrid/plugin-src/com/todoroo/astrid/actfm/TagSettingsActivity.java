@@ -119,6 +119,7 @@ public class TagSettingsActivity extends Activity {
 
         if(actFmPreferenceService.isLoggedIn()) {
             picture.setVisibility(View.VISIBLE);
+            findViewById(R.id.picture_label).setVisibility(View.VISIBLE);
             findViewById(R.id.listSettingsMore).setVisibility(View.VISIBLE);
         }
 

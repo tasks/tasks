@@ -576,8 +576,6 @@ public class TaskListActivity extends ListActivity implements OnScrollListener,
     protected void onResume() {
         super.onResume();
 
-        AndroidUtilities.copyDatabases(this, "/sdcard/tmp");
-
         StatisticsService.sessionStart(this);
         if (addOnService.hasPowerPack() &&
                 Preferences.getBoolean(R.string.p_voiceInputEnabled, true) &&
