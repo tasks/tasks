@@ -580,7 +580,8 @@ public final class TaskEditActivity extends Activity {
         database.openForReading();
         if(idParam > -1L) {
             model = taskService.fetchById(idParam, Task.PROPERTIES);
-            model.clearValue(Task.REMOTE_ID); // Having this can screw up autosync
+            if (model != null)
+                model.clearValue(Task.REMOTE_ID); // Having this can screw up autosync
         }
 
         // not found by id or was never passed an id
