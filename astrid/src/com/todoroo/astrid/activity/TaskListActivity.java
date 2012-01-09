@@ -250,6 +250,7 @@ public class TaskListActivity extends ListFragment implements OnScrollListener,
     /**  Called when loading up the activity */
     @Override
     public void onCreate(Bundle savedInstanceState) {
+        ContextManager.setContext(getActivity());
         DependencyInjectionService.getInstance().inject(this);
         super.onCreate(savedInstanceState);
         // Tell the framework to try to keep this fragment around
