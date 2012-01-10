@@ -33,7 +33,11 @@ public class HelpInfoPopover extends QuickActionWidget {
         parent.post(new Runnable() {
             @Override
             public void run() {
-                toShow.show(parent);
+                try {
+                    toShow.show(parent);
+                } catch (Exception e) {
+                    //Activity wasn't running or something like that
+                }
             }
         });
         return toShow;

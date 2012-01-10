@@ -77,6 +77,15 @@ public class NotificationActivity extends TaskListActivity implements OnTimeSetL
         StartupService.bypassInitialization();
 
         super.onCreate(savedInstanceState);
+    }
+
+    /* (non-Javadoc)
+     * @see com.todoroo.astrid.activity.TaskListActivity#onActivityCreated(android.os.Bundle)
+     */
+    @Override
+    public void onActivityCreated(Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+
         displayNotificationPopup();
     }
 

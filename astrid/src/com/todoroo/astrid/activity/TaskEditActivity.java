@@ -157,6 +157,10 @@ public final class TaskEditActivity extends Fragment {
 
     public static final String OVERRIDE_FINISH_ANIM = "finishAnim"; //$NON-NLS-1$
 
+    public static final String TOKEN_TASK_WAS_ASSIGNED = "task_assigned"; //$NON-NLS-1$
+
+    public static final String TOKEN_ASSIGNED_TO = "task_assigned_to"; //$NON-NLS-1$
+
     // --- services
 
     @Autowired
@@ -627,7 +631,8 @@ public final class TaskEditActivity extends Fragment {
         database.openForReading();
         if(idParam > -1L) {
             model = taskService.fetchById(idParam, Task.PROPERTIES);
-            model.clearValue(Task.REMOTE_ID); // Having this can screw up autosync
+            if (model != null)
+                model.clearValue(Task.REMOTE_ID); // Having this can screw up autosync
         }
 
         // not found by id or was never passed an id
@@ -716,7 +721,15 @@ public final class TaskEditActivity extends Fragment {
         model.putTransitory("task-edit-save", true); //$NON-NLS-1$
         taskService.save(model);
 
+
         if (!onPause && !cancelFinish) {
+            if (!peopleControlSet.isAssignedToMe()) {
+                Intent data = new Intent();
+                data.putExtra(TOKEN_TASK_WAS_ASSIGNED, true);
+                data.putExtra(TOKEN_ASSIGNED_TO, peopleControlSet.getAssignedToString());
+                getActivity().setResult(Activity.RESULT_OK, data);
+            }
+
             shouldSaveState = false;
             getActivity().finish();
         }

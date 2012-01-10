@@ -24,6 +24,7 @@ import com.todoroo.andlib.sql.Query;
 import com.todoroo.andlib.sql.QueryTemplate;
 import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.andlib.utility.DialogUtilities;
+import com.todoroo.astrid.actfm.sync.ActFmPreferenceService;
 import com.todoroo.astrid.activity.FilterListActivity;
 import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.api.AstridFilterExposer;
@@ -31,12 +32,11 @@ import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.api.FilterListItem;
 import com.todoroo.astrid.api.PermaSql;
 import com.todoroo.astrid.dao.StoreObjectDao;
-import com.todoroo.astrid.dao.TaskDao.TaskCriteria;
 import com.todoroo.astrid.data.StoreObject;
 import com.todoroo.astrid.data.Task;
+import com.todoroo.astrid.data.TaskApiDao.TaskCriteria;
 import com.todoroo.astrid.gtasks.GtasksPreferenceService;
 import com.todoroo.astrid.service.TagDataService;
-import com.todoroo.astrid.tags.TagService;
 
 /**
  * Exposes Astrid's built in filters to the {@link FilterListActivity}
@@ -66,18 +66,7 @@ public final class CustomFilterExposer extends BroadcastReceiver implements Astr
         DependencyInjectionService.getInstance().inject(this);
         Resources r = context.getResources();
 
-        //PendingIntent customFilterIntent = PendingIntent.getActivity(context, 0,
-        //        new Intent(context, CustomFilterActivity.class), 0);
-
         Filter[] savedFilters = buildSavedFilters(context, r);
-
-        //FilterCategoryWithNewButton heading = new FilterCategoryWithNewButton(r.getString(R.string.BFE_Saved), savedFilters);
-        //heading.label = r.getString(R.string.tag_FEx_add_new);
-        //heading.intent = customFilterIntent;
-
-
-        //FilterListItem[] list = new FilterListItem[1];
-        //list[0] = heading;
         return savedFilters;
     }
 
@@ -109,13 +98,7 @@ public final class CustomFilterExposer extends BroadcastReceiver implements Astr
                     null);
             list[1].listingIcon = ((BitmapDrawable)r.getDrawable(R.drawable.filter_pencil)).getBitmap();
 
-            int untaggedLabel = gtasksPreferenceService.isLoggedIn() ?
-                    R.string.tag_FEx_untagged_w_astrid : R.string.tag_FEx_untagged;
-            list[2] = new Filter(r.getString(untaggedLabel),
-                    r.getString(R.string.tag_FEx_untagged),
-                    TagService.untaggedTemplate(),
-                    null);;
-            list[2].listingIcon = ((BitmapDrawable)r.getDrawable(R.drawable.gl_lists)).getBitmap();
+            list[2] = getAssignedByMeFilter(r);
 
             StoreObject savedFilter = new StoreObject();
             for(int i = 3; i < list.length; i++) {
@@ -135,6 +118,17 @@ public final class CustomFilterExposer extends BroadcastReceiver implements Astr
         } finally {
             cursor.close();
         }
+    }
+
+    public static Filter getAssignedByMeFilter(Resources r) {
+        Filter f = new Filter(r.getString(R.string.BFE_Assigned),
+                r.getString(R.string.BFE_Assigned),
+                new QueryTemplate().where(Criterion.and(TaskCriteria.isActive(),
+                        Criterion.or(Task.CREATOR_ID.eq(0), Task.CREATOR_ID.eq(ActFmPreferenceService.userId())),
+                        Task.USER_ID.neq(0))),
+                        null);
+        f.listingIcon = ((BitmapDrawable)r.getDrawable(R.drawable.filter_assigned)).getBitmap();
+        return f;
     }
 
     /**

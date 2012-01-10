@@ -4,6 +4,9 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
+    android:paddingLeft="5dip"
+    android:paddingRight="5dip"
+    android:paddingBottom="5dip"
     android:orientation="vertical">
       
   <LinearLayout android:id="@+id/repeatContainer"
@@ -48,16 +51,21 @@
       android:layout_weight="1"
       android:layout_marginTop="15dip"
       android:layout_marginBottom="-15dip">
-	  <include layout="@layout/control_dialog_ok"/>
+	  <include layout="@layout/control_dialog_ok"
+	      android:layout_marginRight="3dip"/>
 	  <Button xmlns:android="http://schemas.android.com/apk/res/android"
 	    android:id="@+id/edit_dont_repeat"
+	    android:text="@string/repeat_dont"	    
 	    android:layout_width="150dip"
-	    android:layout_height="50dip"
-	    android:layout_marginTop="15dip"
-	    android:layout_marginBottom="10dip"
+	    android:layout_height="45dip"
+	    android:layout_marginTop="10dip"
+	    android:layout_marginBottom="5dip"
 	    android:layout_weight="1"
 	    android:layout_gravity="center_horizontal"
-	    android:text="@string/repeat_dont"/>
+	    android:layout_marginLeft="3dip"
+	    android:background="@drawable/footer_editbutton"
+	    android:textStyle="bold"
+	    android:layout_alignParentBottom="true" />
   </LinearLayout>
   
 </LinearLayout>

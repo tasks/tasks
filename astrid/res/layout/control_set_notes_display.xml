@@ -21,7 +21,7 @@
 	    android:layout_marginRight="15dip"
 	    android:text="@string/TEA_note_label"
 	    style="@style/TextAppearance.GEN_EditLabel" />
-	  <TextView
+	  <com.todoroo.astrid.ui.TextViewWithMeasureListener
 	      android:id="@+id/notes_display"
 	      android:layout_width="fill_parent"
 	      android:layout_height="wrap_content"

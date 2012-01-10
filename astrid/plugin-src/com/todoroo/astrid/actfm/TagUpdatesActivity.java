@@ -234,13 +234,15 @@ public class TagUpdatesActivity extends ListActivity {
         updateDao.createNew(update);
 
         final long updateId = update.getId();
+        final Bitmap tempPicture = picture;
         new Thread() {
             @Override
             public void run() {
-                actFmSyncService.pushUpdate(updateId, picture);
+                actFmSyncService.pushUpdate(updateId, tempPicture);
             }
         }.start();
         addCommentField.setText(""); //$NON-NLS-1$
+        picture = null;
         pictureButton.setImageResource(R.drawable.icn_camera);
         refreshUpdatesList();
 

@@ -24,6 +24,7 @@ import com.todoroo.andlib.sql.Query;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.andlib.utility.DialogUtilities;
 import com.todoroo.andlib.utility.Preferences;
+import com.todoroo.astrid.actfm.sync.ActFmPreferenceService;
 import com.todoroo.astrid.activity.Eula;
 import com.todoroo.astrid.core.SortHelper;
 import com.todoroo.astrid.dao.Database;
@@ -39,7 +40,9 @@ import com.todoroo.astrid.utility.AstridPreferences;
 
 public final class UpgradeService {
 
-    public static final int V3_9_1 = 204;
+    public static final int V3_9_1_1 = 206;
+    public static final int V3_9_1 = 205;
+    public static final int V3_9_0_2 = 204;
     public static final int V3_9_0_1 = 203;
     public static final int V3_9 = 202;
     public static final int V3_8_5_1 = 201;
@@ -86,6 +89,8 @@ public final class UpgradeService {
 
     @Autowired AddOnService addOnService;
 
+    @Autowired ActFmPreferenceService actFmPreferenceService;
+
     public UpgradeService() {
         DependencyInjectionService.getInstance().inject(this);
     }
@@ -107,6 +112,10 @@ public final class UpgradeService {
                 Preferences.setString(R.string.p_theme, "transparent"); //$NON-NLS-1$
             else
                 Preferences.setString(R.string.p_theme, "black"); //$NON-NLS-1$
+        }
+
+        if( from<= V3_9_1_1) {
+            actFmPreferenceService.clearLastSyncDate();
         }
 
         // long running tasks: pop up a progress dialog
@@ -161,8 +170,26 @@ public final class UpgradeService {
         Preferences.clear(AstridPreferences.P_UPGRADE_FROM);
         StringBuilder changeLog = new StringBuilder();
 
-        if (from >= V3_9 && from < V3_9_1) {
-            newVersionString(changeLog, "3.9.1 (12/23/11)", new String[] {
+        if (from >= V3_9_1 && from < V3_9_1_1) {
+            newVersionString(changeLog, "3.9.1.1 (01/06/12)", new String[] {
+                "Fixed a few bugs:",
+                " Crash when selecting certain  lists",
+                " Some lists not displayed",
+                " Wrong text color when assigning tasks in Night theme"
+            });
+        }
+
+        if (from < V3_9_1) {
+            newVersionString(changeLog, "3.9.1 (01/04/12)", new String[] {
+                    "Improvements to new user experience",
+                    "Bug fixes for task sharing",
+                    "Bug fixes for the time picker",
+                    "Fixes for some common crashes"
+            });
+        }
+
+        if (from >= V3_9 && from < V3_9_0_2) {
+            newVersionString(changeLog, "3.9.0.2 (12/23/11)", new String[] {
                     "UI enhancements, better scrolling performance, and themed task edit dialogs",
                     "Clickable links in task notes",
                     "Fixed fields that were getting hidden under the keyboard",

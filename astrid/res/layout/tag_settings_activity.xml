@@ -42,23 +42,11 @@
 		        android:layout_width="fill_parent"
 		        android:layout_height="wrap_content"
 		        android:paddingBottom="10dip">
-		    
-		        <greendroid.widget.AsyncImageView 
-		            android:id="@+id/picture"
-		            android:layout_width="80dip"
-		            android:layout_height="80dip"
-		            android:layout_alignParentLeft="true"
-		            android:layout_alignParentTop="true"
-		            android:scaleType="fitCenter"
-		            android:paddingRight="10dip"
-		            android:visibility="gone"
-		            astrid:defaultSrc="@android:drawable/ic_menu_gallery" />
 		      
 		        <TextView 
 		            android:id="@+id/tag_label"
 		            android:layout_width="wrap_content"
 		            android:layout_height="wrap_content"
-		            android:layout_toRightOf="@id/picture"
 		            android:layout_alignParentTop="true"
 		            android:layout_marginTop="10dip"
 		            style="@style/TextAppearance.GEN_EditLabel"
@@ -68,7 +56,6 @@
 		            android:id="@+id/tag_name"
 		            android:layout_width="fill_parent"
 		            android:layout_height="wrap_content" 
-		            android:layout_toRightOf="@id/picture"
 		            android:layout_below="@id/tag_label"
 		            android:layout_marginTop="10dip" />
 		          
@@ -92,8 +79,59 @@
 		        android:orientation="vertical"
 		        android:layout_width="fill_parent"
 		        android:layout_height="wrap_content" />
-		  
-		
+		    
+		    <View
+		        android:layout_width="fill_parent"
+		        android:layout_height="1dip"
+		        android:background="@android:drawable/divider_horizontal_dark" />
+		    
+		    <RelativeLayout
+		        android:orientation="horizontal"
+		        android:layout_width="fill_parent"
+		        android:layout_height="wrap_content"
+		        android:gravity="center_vertical">
+		    
+                <TextView
+                    android:id="@+id/picture_label"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_marginTop="10dip"
+                    android:visibility="gone"
+                    style="@style/TextAppearance.GEN_EditLabel"
+                    android:text="@string/actfm_TVA_list_icon_label"/>
+                
+                <greendroid.widget.AsyncImageView 
+                    android:id="@+id/picture"
+                    android:layout_width="80dip"
+                    android:layout_height="80dip"
+                    android:layout_alignParentLeft="true"
+                    android:scaleType="fitCenter"
+                    android:paddingRight="10dip"
+                    android:visibility="gone"
+                    android:layout_below="@id/picture_label"
+                    astrid:defaultSrc="@android:drawable/ic_menu_gallery" />
+                
+			    <TextView 
+		            android:id="@+id/description_label"
+		            android:layout_width="wrap_content"
+		            android:layout_height="wrap_content"
+		            android:layout_alignParentTop="true"
+		            android:layout_toRightOf="@id/picture"
+		            android:layout_marginTop="10dip"
+		            style="@style/TextAppearance.GEN_EditLabel"
+		            android:text="@string/actfm_TVA_tag_description_label" />
+			    <EditText
+		            android:id="@+id/tag_description"
+		            android:layout_width="fill_parent"
+		            android:layout_height="wrap_content" 
+		            android:layout_toRightOf="@id/picture"
+		            android:layout_below="@id/description_label"
+		            android:layout_marginTop="10dip" 
+		            android:hint="@string/actfm_TVA_tag_description_hint" />
+			    
+		    </RelativeLayout>
+		    
 		    <!-- Footer -->
 	        <LinearLayout
 	            android:id="@+id/listSettingsMore"

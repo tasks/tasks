@@ -38,6 +38,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnTouchListener;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.TextView;
 
 import com.todoroo.andlib.data.Property;
@@ -682,6 +683,18 @@ public class AndroidUtilities {
      */
     public static String capitalize(String string) {
         return string.substring(0, 1).toUpperCase() + string.substring(1);
+    }
+
+    /**
+     * Dismiss the keyboard if it is displayed by any of the listed views
+     * @param context
+     * @param views - a list of views that might potentially be displaying the keyboard
+     */
+    public static void hideSoftInputForViews(Context context, View...views) {
+        InputMethodManager imm = (InputMethodManager)context.getSystemService(Context.INPUT_METHOD_SERVICE);
+        for (View v : views) {
+            imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
+        }
     }
 
 }

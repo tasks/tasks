@@ -25,14 +25,13 @@ public class Calendars {
 
 	private static final String ID_COLUMN_NAME = "_id";
 	private static final boolean USE_ICS_NAMES = AndroidUtilities.getSdkVersion() >= 14;
-	private static final String ICS_CALENDAR_PREFIX = "calendar_";
-	private static final String DISPLAY_COLUMN_NAME = (USE_ICS_NAMES ? ICS_CALENDAR_PREFIX : "") + "displayName";
-	private static final String ACCES_LEVEL_COLUMN_NAME = (USE_ICS_NAMES ? ICS_CALENDAR_PREFIX : "") + "access_level";
+	private static final String DISPLAY_COLUMN_NAME = (USE_ICS_NAMES ? CalendarContract.Calendars.CALENDAR_DISPLAY_NAME : "displayName");
+	private static final String ACCES_LEVEL_COLUMN_NAME = (USE_ICS_NAMES ? CalendarContract.Calendars.CALENDAR_ACCESS_LEVEL : "access_level");
 
 
 	private static final String[] CALENDARS_PROJECTION = new String[] {
-			ID_COLUMN_NAME, // Calendars._ID,
-			DISPLAY_COLUMN_NAME // Calendars.DISPLAY_NAME
+			ID_COLUMN_NAME,
+			DISPLAY_COLUMN_NAME,
 	};
 
 	// Only show calendars that the user can modify. Access level 500

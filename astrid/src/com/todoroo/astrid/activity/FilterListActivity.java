@@ -161,7 +161,7 @@ public class FilterListActivity extends ExpandableListFragment {
 
         // Tell the framework to try to keep this fragment around
         // during a configuration change.
-        setRetainInstance(true);
+//        setRetainInstance(true);
 
         new StartupService().onStartupApplication(getActivity());
     }
@@ -256,7 +256,6 @@ public class FilterListActivity extends ExpandableListFragment {
         item = menu.add(Menu.NONE, MENU_NEW_FILTER_ID, Menu.NONE,
                 R.string.FLA_new_filter);
         item.setIcon(android.R.drawable.ic_menu_add);
-        item.setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
 
         item = menu.add(Menu.NONE, MENU_SEARCH_ID, Menu.NONE,
                 R.string.FLA_menu_search);
@@ -476,8 +475,7 @@ public class FilterListActivity extends ExpandableListFragment {
                 return true;
             }
             default: {
-                TaskListActivity tasklist = (TaskListActivity) getSupportFragmentManager()
-                .findFragmentById(R.id.tasklist_fragment);
+                Fragment tasklist = getSupportFragmentManager().findFragmentById(R.id.tasklist_fragment);
                 if (tasklist != null && tasklist.isInLayout())
                     return tasklist.onOptionsItemSelected(item);
             }

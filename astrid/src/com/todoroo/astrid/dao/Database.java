@@ -37,7 +37,7 @@ public class Database extends AbstractDatabase {
      * Database version number. This variable must be updated when database
      * tables are updated, as it determines whether a database needs updating.
      */
-    public static final int VERSION = 17;
+    public static final int VERSION = 18;
 
     /**
      * Database name (must be unique)
@@ -223,6 +223,12 @@ public class Database extends AbstractDatabase {
         case 16: try {
             database.execSQL("ALTER TABLE " + Task.TABLE.name + " ADD " +
                     Task.CREATOR_ID.accept(visitor, null) + " DEFAULT 0");
+        } catch (SQLiteException e) {
+            Log.e("astrid", "db-upgrade-" + oldVersion + "-" + newVersion, e);
+        }
+        case 17: try {
+            database.execSQL("ALTER TABLE " + TagData.TABLE.name + " ADD " +
+                    TagData.TAG_DESCRIPTION.accept(visitor, null));
         } catch (SQLiteException e) {
             Log.e("astrid", "db-upgrade-" + oldVersion + "-" + newVersion, e);
         }

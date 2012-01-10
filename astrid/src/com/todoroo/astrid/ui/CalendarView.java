@@ -283,7 +283,7 @@ public class CalendarView extends View {
         // Month text -- Start
         int monthX = getMeasuredWidth() / 2;
         int monthY = (int) (monthTitleHeight / 2 + 15);
-        String monthYear = (String) DateFormat.format("MMMM yyyy", getCoercedDate(calendar.getTime(), calendarDate)); //calendarDate.getTime() == 0 ? calendar.getTime() : calendarDate); //$NON-NLS-1$
+        String monthYear = (String) DateFormat.format("MMMM yyyy", getCoercedDate(calendar.getTime(), calendarDate)); //$NON-NLS-1$
         canvas.drawText(monthYear, monthX, monthY, monthCenterAlignLargePaint);
         // Month text -- End
 
@@ -313,7 +313,7 @@ public class CalendarView extends View {
         // Day heading -- End
 
         // Calendar -- Start
-        calendar.setTime(getCoercedDate(calendar.getTime(), calendarDate)); //calendarDate.getTime() == 0 ? calendar.getTime() : calendarDate);
+        calendar.setTime(getCoercedDate(calendar.getTime(), calendarDate));
 
         if (currentHighlightDay == -1) {
         	currentHighlightDay = calendarDate.getTime() == 0 ? 0 : calendar.get(Calendar.DATE);
@@ -437,7 +437,7 @@ public class CalendarView extends View {
 					currentHighlightDay = i+1;
 					Calendar calendar = Calendar.getInstance();
 					Date today = getToday(calendar);
-					calendar.setTime(getCoercedDate(today, calendarDate)); //calendarDate.getTime() == 0 ? today : calendarDate);
+					calendar.setTime(getCoercedDate(today, calendarDate));
 					calendar.set(Calendar.DATE, currentHighlightDay);
 
 					calendarDate = calendar.getTime();

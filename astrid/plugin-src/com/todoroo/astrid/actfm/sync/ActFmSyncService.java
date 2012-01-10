@@ -195,8 +195,10 @@ public final class ActFmSyncService {
                     }
                     if(failedPushes.size() > 0) {
                         // Copy into a second queue so we don't end up infinitely retrying in the same loop
-                        Queue<FailedPush> toTry = new LinkedList<FailedPush>(failedPushes);
-                        failedPushes.clear();
+                        Queue<FailedPush> toTry = new LinkedList<FailedPush>();
+                        while (failedPushes.size() > 0) {
+                            toTry.add(failedPushes.remove(0));
+                        }
                         while(!toTry.isEmpty() && !actFmPreferenceService.isOngoing()) {
                             FailedPush pushOp = toTry.remove();
                             switch(pushOp.pushType) {
@@ -410,7 +412,8 @@ public final class ActFmSyncService {
      */
     public void pushTask(long taskId) {
         Task task = taskService.fetchById(taskId, Task.PROPERTIES);
-        pushTaskOnSave(task, task.getMergedValues());
+        if (task != null)
+            pushTaskOnSave(task, task.getMergedValues());
     }
 
     /**
@@ -419,7 +422,8 @@ public final class ActFmSyncService {
      */
     public void pushTag(long tagId) {
         TagData tagData = tagDataService.fetchById(tagId, TagData.PROPERTIES);
-        pushTagDataOnSave(tagData, tagData.getMergedValues());
+        if (tagData != null)
+            pushTagDataOnSave(tagData, tagData.getMergedValues());
     }
 
     /**
@@ -428,7 +432,8 @@ public final class ActFmSyncService {
      */
     public void pushUpdate(long updateId) {
         Update update = updateDao.fetch(updateId, Update.PROPERTIES);
-        pushUpdateOnSave(update, update.getMergedValues(), null);
+        if (update != null)
+            pushUpdateOnSave(update, update.getMergedValues(), null);
     }
 
     /**
@@ -464,6 +469,10 @@ public final class ActFmSyncService {
 
         if(values.containsKey(TagData.DELETION_DATE.name)) {
             params.add("deleted_at"); params.add(tagData.getValue(TagData.DELETION_DATE));
+        }
+
+        if(values.containsKey(TagData.TAG_DESCRIPTION.name)) {
+            params.add("description"); params.add(tagData.getValue(TagData.TAG_DESCRIPTION));
         }
 
         if(values.containsKey(TagData.MEMBERS.name)) {
@@ -990,6 +999,9 @@ public final class ActFmSyncService {
 
             if(json.has("emergent"))
                 model.setFlag(TagData.FLAGS, TagData.FLAG_EMERGENT,json.getBoolean("emergent"));
+
+            if(!json.isNull("description"))
+                model.setValue(TagData.TAG_DESCRIPTION, json.getString("description"));
 
             if(json.has("members")) {
                 JSONArray members = json.getJSONArray("members");

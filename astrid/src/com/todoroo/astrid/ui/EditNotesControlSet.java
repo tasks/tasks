@@ -5,31 +5,43 @@ import android.content.Context;
 import android.graphics.Color;
 import android.text.TextUtils;
 import android.text.util.Linkify;
+import android.util.DisplayMetrics;
+import android.view.Gravity;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
-import android.widget.TextView;
+import android.widget.LinearLayout;
 
 import com.timsu.astrid.R;
 import com.todoroo.astrid.data.Task;
+import com.todoroo.astrid.ui.TextViewWithMeasureListener.OnTextMeasureListener;
 
 public class EditNotesControlSet extends PopupControlSet {
 
     private final EditText editText;
-    private final TextView notesPreview;
+    private final TextViewWithMeasureListener notesPreview;
+    private final LinearLayout notesBody;
 
     public EditNotesControlSet(Activity activity, int viewLayout, int displayViewLayout) {
         super(activity, viewLayout, displayViewLayout, R.string.TEA_note_label);
         editText = (EditText) getView().findViewById(R.id.notes);
-        notesPreview = (TextView) getDisplayView().findViewById(R.id.notes_display);
+        notesPreview = (TextViewWithMeasureListener) getDisplayView().findViewById(R.id.notes_display);
+        notesBody = (LinearLayout) getDisplayView().findViewById(R.id.notes_body);
         dialog.getWindow()
               .setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE | WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
+        notesPreview.setOnTextSizeChangedListener(new OnTextMeasureListener() {
+            @Override
+            public void onTextSizeChanged() {
+                setupGravity();
+            }
+        });
     }
 
     @Override
     protected void refreshDisplayView() {
         notesPreview.setText("");
         notesPreview.setText(editText.getText());
+        setupGravity();
         linkifyDisplayView();
     }
 
@@ -69,6 +81,17 @@ public class EditNotesControlSet extends PopupControlSet {
 
     public boolean hasNotes() {
         return !TextUtils.isEmpty(editText.getText());
+    }
+
+    private void setupGravity() {
+        DisplayMetrics metrics = activity.getResources().getDisplayMetrics();
+        if (hasNotes() && notesPreview.getLineCount() > 2) {
+            notesBody.setGravity(Gravity.TOP);
+            notesBody.setPadding(0, (int) (metrics.density * 8), 0, (int) (metrics.density * 8));
+        } else {
+            notesBody.setGravity(Gravity.CENTER_VERTICAL);
+            notesBody.setPadding(0, 0, 0, 0);
+        }
     }
 
 }

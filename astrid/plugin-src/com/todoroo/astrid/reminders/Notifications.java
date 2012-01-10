@@ -162,7 +162,7 @@ public class Notifications extends BroadcastReceiver {
         String title = context.getString(R.string.app_name);
         String text = reminder + " " + taskTitle; //$NON-NLS-1$
 
-        Intent notifyIntent = new Intent(context, NotificationActivity.class);
+        Intent notifyIntent = new Intent(context, NotificationWrapperActivity.class);
         notifyIntent.setAction("NOTIFY" + id); //$NON-NLS-1$
         notifyIntent.putExtra(NotificationActivity.TOKEN_ID, id);
         notifyIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_MULTIPLE_TASK);

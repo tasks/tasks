@@ -100,6 +100,8 @@ public class EditPeopleControlSet extends PopupControlSet {
 
     private final int loginRequestCode;
 
+    private boolean assignedToMe = false;
+
     static {
         AstridDependencyInjector.initialize();
     }
@@ -494,6 +496,8 @@ public class EditPeopleControlSet extends PopupControlSet {
                 task.setValue(Task.USER_ID, Task.USER_ID_SELF);
                 if(!TextUtils.isEmpty(task.getValue(Task.USER)))
                     task.setValue(Task.USER, "");
+
+                assignedToMe = true;
             } else if(userJson.optLong("id") == Task.USER_ID_UNASSIGNED) {
                 dirty = task.getValue(Task.USER_ID) == Task.USER_ID_UNASSIGNED ? dirty : true;
                 task.setValue(Task.USER_ID, Task.USER_ID_UNASSIGNED);
@@ -683,6 +687,18 @@ public class EditPeopleControlSet extends PopupControlSet {
         }
 
         return values.toArray(new Object[values.size()]);
+    }
+
+    /**
+     * Warning - only valid after a call to saveSharingSettings
+     * @return
+     */
+    public boolean isAssignedToMe() {
+        return assignedToMe;
+    }
+
+    public String getAssignedToString() {
+        return assignedDisplay.getText().toString();
     }
 
     /** Resume save

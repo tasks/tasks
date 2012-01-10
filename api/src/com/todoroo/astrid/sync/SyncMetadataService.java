@@ -81,7 +81,7 @@ abstract public class SyncMetadataService<TYPE extends SyncContainer> {
      */
     public TodorooCursor<Task> getLocallyCreated(Property<?>... properties) {
         TodorooCursor<Task> tasks = taskDao.query(Query.select(Task.ID).where(
-                TaskCriteria.isActive()).orderBy(Order.asc(Task.ID)));
+                Criterion.and(TaskCriteria.isActive(), TaskCriteria.ownedByMe())).orderBy(Order.asc(Task.ID)));
 
         return joinWithMetadata(tasks, false, properties);
     }
@@ -97,8 +97,8 @@ abstract public class SyncMetadataService<TYPE extends SyncContainer> {
         if(lastSyncDate == 0)
             tasks = taskDao.query(Query.select(Task.ID).where(Criterion.none));
         else
-            tasks = taskDao.query(Query.select(Task.ID).where(
-                    Task.MODIFICATION_DATE.gt(lastSyncDate)).orderBy(Order.asc(Task.ID)));
+            tasks = taskDao.query(Query.select(Task.ID).where(Criterion.and(TaskCriteria.ownedByMe(), Task.MODIFICATION_DATE.gt(lastSyncDate)))
+                    .orderBy(Order.asc(Task.ID)));
         tasks = filterLocallyUpdated(tasks, lastSyncDate);
 
         return joinWithMetadata(tasks, true, properties);
