@@ -19,6 +19,7 @@ import com.todoroo.andlib.data.Property;
 import com.todoroo.andlib.data.Property.IntegerProperty;
 import com.todoroo.andlib.data.TodorooCursor;
 import com.todoroo.astrid.adapter.TaskAdapter;
+import com.todoroo.astrid.adapter.TaskAdapter.OnCompletedTaskListener;
 import com.todoroo.astrid.core.SortHelper;
 import com.todoroo.astrid.data.Task;
 
@@ -59,12 +60,6 @@ public class DraggableTaskListActivity extends TaskListActivity {
     protected void setUpUiComponents() {
         super.setUpUiComponents();
         getView().findViewById(R.id.sortContainer).setVisibility(View.GONE);
-    }
-
-    @Override
-    protected void setUpUiComponents() {
-        super.setUpUiComponents();
-        findViewById(R.id.sortContainer).setVisibility(View.GONE);
     }
 
     // --- task adapter

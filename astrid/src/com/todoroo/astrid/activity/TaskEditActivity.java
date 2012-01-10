@@ -344,7 +344,7 @@ public final class TaskEditActivity extends Fragment {
         //NOTE: we add the gcalControl to the list AFTER the deadline control, because
         //otherwise the correct date may not be written to the calendar event. Order matters!
         DeadlineControlSet deadlineControl = new DeadlineControlSet(
-                TaskEditActivity.this, R.layout.control_set_deadline,
+                getActivity(), R.layout.control_set_deadline,
                 R.layout.control_set_deadline_display, repeatControls.getDisplayView(), gcalControl.getDisplayView());
         controls.add(deadlineControl);
         controlSetMap.put(getString(R.string.TEA_ctrl_when_pref), deadlineControl);
@@ -384,7 +384,7 @@ public final class TaskEditActivity extends Fragment {
         controlSetMap.put(getString(R.string.TEA_ctrl_reminders_pref),
                 reminderControl);
 
-        hideUntilControls = new HideUntilControlSet(TaskEditActivity.this,
+        hideUntilControls = new HideUntilControlSet(getActivity(),
                 R.layout.control_set_hide, R.layout.control_set_hide_display,
                 R.string.hide_until_prompt);
         controls.add(hideUntilControls);
@@ -704,7 +704,6 @@ public final class TaskEditActivity extends Fragment {
                 Intent data = new Intent();
                 data.putExtra(TOKEN_TASK_WAS_ASSIGNED, true);
                 data.putExtra(TOKEN_ASSIGNED_TO, peopleControlSet.getAssignedToString());
-                setResult(RESULT_OK, data);
                 getActivity().setResult(Activity.RESULT_OK, data);
             }
 

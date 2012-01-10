@@ -444,7 +444,7 @@ public class TaskListActivity extends ListFragment implements OnScrollListener,
             public void onClick(View v) {
                 StatisticsService.reportEvent(StatisticsConstants.TLA_MENU_SORT);
                 AlertDialog dialog = SortSelectionActivity.createDialog(getActivity(),
-                        getActivity(), sortFlags, sortSort);
+                        TaskListActivity.this, sortFlags, sortSort);
                 dialog.show();
             }
         });
