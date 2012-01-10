@@ -35,20 +35,28 @@ public class GCalHelper {
     }
 
     public static void createTaskEventIfEnabled(Task t) {
+        createTaskEventIfEnabled(t, true);
+    }
+
+    public static void createTaskEventIfEnabled(Task t, boolean deleteEventIfExists) {
         boolean gcalCreateEventEnabled = Preferences.getStringValue(R.string.gcal_p_default) != null
             && !Preferences.getStringValue(R.string.gcal_p_default).equals("-1"); //$NON-NLS-1$
         if (gcalCreateEventEnabled) {
             ContentResolver cr = ContextManager.getContext().getContentResolver();
-            Uri calendarUri = GCalHelper.createTaskEvent(t, cr, new ContentValues());
+            Uri calendarUri = GCalHelper.createTaskEvent(t, cr, new ContentValues(), deleteEventIfExists);
             if (calendarUri != null)
                 t.setValue(Task.CALENDAR_URI, calendarUri.toString());
         }
     }
 
     public static Uri createTaskEvent(Task task, ContentResolver cr, ContentValues values) {
+        return createTaskEvent(task, cr, values, true);
+    }
+
+    public static Uri createTaskEvent(Task task, ContentResolver cr, ContentValues values, boolean deleteEventIfExists) {
         String eventuri = getTaskEventUri(task);
 
-        if(!TextUtils.isEmpty(eventuri)) {
+        if(!TextUtils.isEmpty(eventuri) && deleteEventIfExists) {
             deleteTaskEvent(task);
         }
 

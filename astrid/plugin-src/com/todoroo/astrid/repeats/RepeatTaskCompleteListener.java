@@ -76,6 +76,7 @@ public class RepeatTaskCompleteListener extends BroadcastReceiver {
                 task.setValue(Task.DUE_DATE, newDueDate);
                 task.setValue(Task.HIDE_UNTIL, hideUntil);
                 task.putTransitory("repeat-complete", true); //$NON-NLS-1$
+                GCalHelper.createTaskEventIfEnabled(task, false);
                 PluginServices.getTaskService().save(task);
                 return;
             }
@@ -93,7 +94,7 @@ public class RepeatTaskCompleteListener extends BroadcastReceiver {
             clone.setValue(Task.REMINDER_LAST, 0L);
             clone.setValue(Task.CALENDAR_URI, ""); //$NON-NLS-1$
 
-            GCalHelper.createTaskEventIfEnabled(clone);
+            GCalHelper.createTaskEventIfEnabled(clone, false);
             PluginServices.getTaskService().save(clone);
 
             // clear recurrence from completed task so it can be re-completed

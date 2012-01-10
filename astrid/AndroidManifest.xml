@@ -440,7 +440,7 @@
       </intent-filter>
     </receiver>    
     <receiver android:name="com.todoroo.astrid.repeats.RepeatTaskCompleteListener">
-      <intent-filter>
+      <intent-filter android:priority="1">
         <action android:name="com.todoroo.astrid.TASK_COMPLETED" />
         <category android:name="android.intent.category.DEFAULT" />
       </intent-filter>
@@ -454,7 +454,7 @@
     
     <!-- calendar -->
     <receiver android:name="com.todoroo.astrid.gcal.GCalTaskCompleteListener">
-      <intent-filter>
+      <intent-filter android:priority="2">
         <action android:name="com.todoroo.astrid.TASK_COMPLETED" />
         <category android:name="android.intent.category.DEFAULT" />
       </intent-filter>
