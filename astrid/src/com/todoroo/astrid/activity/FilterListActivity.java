@@ -12,8 +12,8 @@ import org.json.JSONException;
 import org.weloveastrid.rmilk.MilkPreferences;
 import org.weloveastrid.rmilk.MilkUtilities;
 
+import android.app.Activity;
 import android.app.AlertDialog;
-import android.app.ExpandableListActivity;
 import android.app.Notification;
 import android.app.PendingIntent;
 import android.app.PendingIntent.CanceledException;
@@ -31,15 +31,19 @@ import android.graphics.Rect;
 import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.SupportActivity;
+import android.support.v4.view.Menu;
+import android.support.v4.view.MenuItem;
 import android.util.DisplayMetrics;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
 import android.view.KeyEvent;
-import android.view.Menu;
-import android.view.MenuItem;
+import android.view.LayoutInflater;
+import android.view.MenuInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.view.Window;
+import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -48,6 +52,7 @@ import android.widget.ExpandableListView;
 import android.widget.ExpandableListView.ExpandableListContextMenuInfo;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.TextView.OnEditorActionListener;
 import android.widget.Toast;
@@ -72,17 +77,12 @@ import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.api.FilterCategory;
 import com.todoroo.astrid.api.FilterListItem;
-import com.todoroo.astrid.api.FilterWithCustomIntent;
-import com.todoroo.astrid.api.IntentFilter;
 import com.todoroo.astrid.api.SyncAction;
 import com.todoroo.astrid.core.CustomFilterActivity;
-import com.todoroo.astrid.core.SearchFilter;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.helper.MetadataHelper;
 import com.todoroo.astrid.service.StartupService;
-import com.todoroo.astrid.service.StatisticsConstants;
 import com.todoroo.astrid.service.StatisticsService;
-import com.todoroo.astrid.service.ThemeService;
 import com.todoroo.astrid.tags.TagsPlugin;
 import com.todoroo.astrid.utility.Constants;
 
@@ -93,25 +93,25 @@ import com.todoroo.astrid.utility.Constants;
  * @author Tim Su <tim@todoroo.com>
  *
  */
-public class FilterListActivity extends ExpandableListActivity {
+public class FilterListActivity extends ExpandableListFragment {
 
     // -- extra codes
     //public static final String SHOW_BACK_BUTTON = "show_back"; //$NON-NLS-1$
 
     // --- menu codes
 
-    private static final int MENU_SEARCH_ID = Menu.FIRST + 0;
-    private static final int MENU_HELP_ID = Menu.FIRST + 1;
-    private static final int MENU_REFRESH_ID = Menu.FIRST + 2;
-    private static final int MENU_NEW_FILTER_ID = Menu.FIRST + 3;
+    private static final int MENU_SEARCH_ID = R.string.FLA_menu_search;
+    private static final int MENU_HELP_ID = R.string.FLA_menu_help;
+    private static final int MENU_REFRESH_ID = R.string.actfm_FLA_menu_refresh;
+    private static final int MENU_NEW_FILTER_ID = R.string.FLA_new_filter;
 
     private static final String LAST_TAG_REFRESH_KEY = "last_tag_refresh"; //$NON-NLS-1$
 
-    private static final int CONTEXT_MENU_SHORTCUT = Menu.FIRST + 4;
-    private static final int CONTEXT_MENU_INTENT = Menu.FIRST + 5;
+    private static final int CONTEXT_MENU_SHORTCUT = R.string.FLA_context_shortcut;
+    private static final int CONTEXT_MENU_INTENT = Menu.FIRST + 4;
 
     private static final int REQUEST_CUSTOM_INTENT = 1;
-    private static final int REQUEST_VIEW_TASKS = 2;
+    static final int REQUEST_VIEW_TASKS = 2;
     public static final int REQUEST_NEW_BUTTON = 3;
 
     // --- instance variables
@@ -123,55 +123,100 @@ public class FilterListActivity extends ExpandableListActivity {
     protected SyncActionReceiver syncActionReceiver = new SyncActionReceiver();
     private final LinkedHashSet<SyncAction> syncActions = new LinkedHashSet<SyncAction>();
     protected FilterAdapter adapter = null;
+    private boolean mDualFragments;
+
+    private OnFilterItemClickedListener mListener;
 
     /* ======================================================================
      * ======================================================= initialization
      * ====================================================================== */
 
+    /** Container Activity must implement this interface and we ensure
+     * that it does during the onAttach() callback
+     */
+    public interface OnFilterItemClickedListener {
+        public boolean onFilterItemClicked(FilterListItem item);
+    }
+
     public FilterListActivity() {
         DependencyInjectionService.getInstance().inject(this);
     }
 
+    @Override
+    public void onAttach(SupportActivity activity) {
+        super.onAttach(activity);
+        // Check that the container activity has implemented the callback interface
+        try {
+            mListener = (OnFilterItemClickedListener) activity;
+        } catch (ClassCastException e) {
+            throw new ClassCastException(activity.toString()
+                    + " must implement OnFilterItemClickedListener"); //$NON-NLS-1$
+        }
+    }
+
     /**  Called when loading up the activity */
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        requestWindowFeature(Window.FEATURE_NO_TITLE);
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        new StartupService().onStartupApplication(this);
-        ThemeService.applyTheme(this);
 
-        setContentView(R.layout.filter_list_activity);
-        ImageView backButton = (ImageView) findViewById(R.id.back);
-        Button newListButton = (Button) findViewById(R.id.new_list_button);
-        setDefaultKeyMode(DEFAULT_KEYS_SEARCH_LOCAL);
+        // Tell the framework to try to keep this fragment around
+        // during a configuration change.
+//        setRetainInstance(true);
+
+        new StartupService().onStartupApplication(getActivity());
+    }
+
+    /* (non-Javadoc)
+     * @see com.todoroo.astrid.fragment.ExpandableListFragment#onCreateView(android.view.LayoutInflater, android.view.ViewGroup, android.os.Bundle)
+     */
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+            Bundle savedInstanceState) {
+        ViewGroup parent = (ViewGroup) getActivity().getLayoutInflater().inflate(R.layout.filter_list_activity, container, false);
+        return parent;
+    }
+
+    @Override
+    public void onActivityCreated(Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        // We have a menu item to show in action bar.
+        setHasOptionsMenu(true);
+
+        getActivity().setDefaultKeyMode(Activity.DEFAULT_KEYS_SEARCH_LOCAL);
+        ImageView backButton = (ImageView) getView().findViewById(R.id.back);
+        Button newListButton = (Button) getView().findViewById(R.id.new_list_button);
 
         backButton.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                finish();
+                getActivity().finish();
+                AndroidUtilities.callOverridePendingTransition(getActivity(), R.anim.slide_left_in, R.anim.slide_left_out);
             }
         });
 
         newListButton.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = TagsPlugin.newTagDialog(FilterListActivity.this);
+                Intent intent = TagsPlugin.newTagDialog(getActivity());
                 startActivity(intent);
-                AndroidUtilities.callApiMethod(5, FilterListActivity.this, "overridePendingTransition",
+                AndroidUtilities.callApiMethod(5, getActivity(), "overridePendingTransition",
                         new Class<?>[] { Integer.TYPE, Integer.TYPE },
                         R.anim.slide_left_in, R.anim.slide_left_out);
             }
         });
 
-        onNewIntent(getIntent());
-    }
+        onContentChanged();
 
-    @Override
-    public void finish() {
-        super.finish();
-        AndroidUtilities.callApiMethod(5, FilterListActivity.this, "overridePendingTransition", //$NON-NLS-1$
-                new Class<?>[] { Integer.TYPE, Integer.TYPE },
-                R.anim.slide_left_in, R.anim.slide_left_out);
+        onNewIntent(getActivity().getIntent());
+
+        Fragment tasklistFrame = getFragmentManager().findFragmentById(R.id.tasklist_fragment);
+        mDualFragments = (tasklistFrame != null) && tasklistFrame.isInLayout();
+
+        if (mDualFragments) {
+            // In dual-pane mode, the list view highlights the selected item.
+            getExpandableListView().setChoiceMode(ListView.CHOICE_MODE_SINGLE);
+            getExpandableListView().setItemsCanFocus(false);
+        }
     }
 
     /**
@@ -181,10 +226,7 @@ public class FilterListActivity extends ExpandableListActivity {
      * <li>ACTION_ADD_LIST - adds new lists to the merge adapter
      * </ul>
      */
-    @Override
-    protected void onNewIntent(Intent intent) {
-        super.onNewIntent(intent);
-
+    public void onNewIntent(Intent intent) {
         final String intentAction = intent.getAction();
         if (Intent.ACTION_SEARCH.equals(intentAction)) {
             String query = intent.getStringExtra(SearchManager.QUERY).trim();
@@ -192,7 +234,7 @@ public class FilterListActivity extends ExpandableListActivity {
                     new QueryTemplate().where(Functions.upper(Task.TITLE).like("%" + //$NON-NLS-1$
                             query.toUpperCase() + "%")), //$NON-NLS-1$
                     null);
-            intent = new Intent(FilterListActivity.this, TaskListActivity.class);
+            intent = new Intent(getActivity(), TaskListWrapperActivity.class);
             intent.putExtra(TaskListActivity.TOKEN_FILTER, filter);
             startActivity(intent);
         } else {
@@ -208,10 +250,7 @@ public class FilterListActivity extends ExpandableListActivity {
      * @return true if menu should be displayed
      */
     @Override
-    public boolean onPrepareOptionsMenu(Menu menu) {
-        if(menu.size() > 0)
-            return true;
-
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         MenuItem item;
 
         item = menu.add(Menu.NONE, MENU_NEW_FILTER_ID, Menu.NONE,
@@ -221,16 +260,16 @@ public class FilterListActivity extends ExpandableListActivity {
         item = menu.add(Menu.NONE, MENU_SEARCH_ID, Menu.NONE,
                 R.string.FLA_menu_search);
         item.setIcon(android.R.drawable.ic_menu_search);
+        item.setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
 
         item = menu.add(Menu.NONE, MENU_REFRESH_ID, Menu.NONE,
                 R.string.TLA_menu_sync);
         item.setIcon(R.drawable.ic_menu_refresh);
+        item.setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
 
-        item = menu.add(Menu.NONE, MENU_HELP_ID, Menu.NONE,
+        item = menu.add(Menu.NONE, MENU_HELP_ID, 1,
                 R.string.FLA_menu_help);
         item.setIcon(android.R.drawable.ic_menu_help);
-
-        return true;
     }
 
     /* ======================================================================
@@ -238,37 +277,37 @@ public class FilterListActivity extends ExpandableListActivity {
      * ====================================================================== */
 
     @Override
-    protected void onStart() {
+    public void onStart() {
         super.onStart();
     }
 
     @Override
-    protected void onStop() {
-        StatisticsService.sessionStop(this);
+    public void onStop() {
+        StatisticsService.sessionStop(getActivity());
         super.onStop();
     }
 
     @Override
-    protected void onResume() {
+    public void onResume() {
         super.onResume();
-        StatisticsService.sessionStart(this);
+        StatisticsService.sessionStart(getActivity());
         if(adapter != null)
             adapter.registerRecevier();
 
         // also load sync actions
-        registerReceiver(syncActionReceiver, new android.content.IntentFilter(AstridApiConstants.BROADCAST_SEND_SYNC_ACTIONS));
+        getActivity().registerReceiver(syncActionReceiver, new android.content.IntentFilter(AstridApiConstants.BROADCAST_SEND_SYNC_ACTIONS));
         syncActions.clear();
         Intent broadcastIntent = new Intent(AstridApiConstants.BROADCAST_REQUEST_SYNC_ACTIONS);
-        sendOrderedBroadcast(broadcastIntent, AstridApiConstants.PERMISSION_READ);
+        getActivity().sendOrderedBroadcast(broadcastIntent, AstridApiConstants.PERMISSION_READ);
     }
 
     @Override
-    protected void onPause() {
+    public void onPause() {
         StatisticsService.sessionPause();
         super.onPause();
         if(adapter != null)
             adapter.unregisterRecevier();
-        unregisterReceiver(syncActionReceiver);
+        getActivity().unregisterReceiver(syncActionReceiver);
     }
 
     /* ======================================================================
@@ -277,7 +316,7 @@ public class FilterListActivity extends ExpandableListActivity {
 
     /** Sets up the coach list adapter */
     protected void setUpList() {
-        adapter = new FilterAdapter(this, getExpandableListView(),
+        adapter = new FilterAdapter(getActivity(), getExpandableListView(),
                 R.layout.filter_adapter_row, false);
         setListAdapter(adapter);
 
@@ -288,51 +327,23 @@ public class FilterListActivity extends ExpandableListActivity {
      * ============================================================== actions
      * ====================================================================== */
 
-    /**
-     * Handles items being clicked. Return true if item is handled.
-     */
-    protected boolean onItemClicked(FilterListItem item) {
-        if(item instanceof Filter) {
-            Filter filter = (Filter)item;
-            if(filter instanceof FilterWithCustomIntent) {
-                FilterWithCustomIntent customFilter = ((FilterWithCustomIntent)filter);
-                customFilter.start(this, REQUEST_VIEW_TASKS);
-            } else {
-                Intent intent = new Intent(FilterListActivity.this, TaskListActivity.class);
-                intent.putExtra(TaskListActivity.TOKEN_FILTER, filter);
-                intent.putExtra(TaskListActivity.TOKEN_OVERRIDE_ANIM, true);
-                startActivityForResult(intent, REQUEST_VIEW_TASKS);
-            }
-            AndroidUtilities.callApiMethod(5, this, "overridePendingTransition", //$NON-NLS-1$
-                    new Class<?>[] { Integer.TYPE, Integer.TYPE },
-                    R.anim.slide_left_in, R.anim.slide_left_out);
-            StatisticsService.reportEvent(StatisticsConstants.FILTER_LIST);
-            return true;
-        } else if(item instanceof SearchFilter) {
-            onSearchRequested();
-            StatisticsService.reportEvent(StatisticsConstants.FILTER_SEARCH);
-        } else if(item instanceof IntentFilter) {
-            try {
-                ((IntentFilter)item).intent.send();
-            } catch (CanceledException e) {
-                // ignore
-            }
-        }
-        return false;
-    }
-
     @Override
     public boolean onChildClick(ExpandableListView parent, View v,
             int groupPosition, int childPosition, long id) {
+//        if (mDualFragments)
+//        {
+//            setSelectedChild(groupPosition, childPosition, false);
+//            setItemChecked((int) getSelectedPosition(), true);
+//        }
         FilterListItem item = (FilterListItem) adapter.getChild(groupPosition,
                 childPosition);
-        return onItemClicked(item);
+        return mListener.onFilterItemClicked(item);
     }
 
     @Override
     public void onGroupExpand(int groupPosition) {
         FilterListItem item = (FilterListItem) adapter.getGroup(groupPosition);
-        onItemClicked(item);
+        mListener.onFilterItemClicked(item);
         if(item instanceof FilterCategory)
             adapter.saveExpansionSetting((FilterCategory) item, true);
     }
@@ -340,7 +351,7 @@ public class FilterListActivity extends ExpandableListActivity {
     @Override
     public void onGroupCollapse(int groupPosition) {
         FilterListItem item = (FilterListItem) adapter.getGroup(groupPosition);
-        onItemClicked(item);
+        mListener.onFilterItemClicked(item);
         if(item instanceof FilterCategory)
             adapter.saveExpansionSetting((FilterCategory) item, false);
     }
@@ -363,7 +374,7 @@ public class FilterListActivity extends ExpandableListActivity {
             return;
         }
 
-        MenuItem menuItem;
+        android.view.MenuItem menuItem;
 
         if(item instanceof Filter) {
             Filter filter = (Filter) item;
@@ -399,7 +410,7 @@ public class FilterListActivity extends ExpandableListActivity {
 
         // create icon by superimposing astrid w/ icon
         DisplayMetrics metrics = new DisplayMetrics();
-        getWindowManager().getDefaultDisplay().getMetrics(metrics);
+        getActivity().getWindowManager().getDefaultDisplay().getMetrics(metrics);
         Bitmap bitmap = ((BitmapDrawable) getResources().getDrawable(
                 R.drawable.icon_blank)).getBitmap();
         bitmap = bitmap.copy(bitmap.getConfig(), true);
@@ -415,61 +426,60 @@ public class FilterListActivity extends ExpandableListActivity {
         createShortcutIntent.putExtra(Intent.EXTRA_SHORTCUT_ICON, bitmap);
         createShortcutIntent.setAction("com.android.launcher.action.INSTALL_SHORTCUT"); //$NON-NLS-1$
 
-        sendBroadcast(createShortcutIntent);
-        Toast.makeText(
-                FilterListActivity.this,
-                getString(
-                        R.string.FLA_toast_onCreateShortcut,
-                        label), Toast.LENGTH_LONG).show();
+        getActivity().sendBroadcast(createShortcutIntent);
+        Toast.makeText(getActivity(),
+                getString(R.string.FLA_toast_onCreateShortcut, label), Toast.LENGTH_LONG).show();
     }
 
     @Override
-    public boolean onMenuItemSelected(int featureId, final MenuItem item) {
-
+    public boolean onOptionsItemSelected(final MenuItem item) {
         // handle my own menus
         switch (item.getItemId()) {
-        case MENU_SEARCH_ID: {
-            onSearchRequested();
-            return true;
+            case MENU_REFRESH_ID: {
+                performSyncAction();
+                //onRefreshRequested(true);
+                return true;
+            }
+            case MENU_SEARCH_ID: {
+                getActivity().onSearchRequested();
+                return true;
+            }
+            case MENU_HELP_ID: {
+                Intent intent = new Intent(Intent.ACTION_VIEW,
+                        Uri.parse("http://weloveastrid.com/help-user-guide-astrid-v3/filters/")); //$NON-NLS-1$
+                startActivity(intent);
+                return true;
+            }
+            case MENU_NEW_FILTER_ID : {
+                Intent intent = new Intent(getActivity(), CustomFilterActivity.class);
+                startActivity(intent);
+                return true;
+            }
+            case CONTEXT_MENU_SHORTCUT: {
+                ExpandableListContextMenuInfo info = (ExpandableListContextMenuInfo)item.getMenuInfo();
+
+                final Intent shortcutIntent = item.getIntent();
+                FilterListItem filter = ((FilterAdapter.ViewHolder)info.targetView.getTag()).item;
+                if(filter instanceof Filter)
+                    showCreateShortcutDialog(shortcutIntent, (Filter)filter);
+
+                return true;
+            }
+            case CONTEXT_MENU_INTENT: {
+                Intent intent = item.getIntent();
+                startActivityForResult(intent, REQUEST_CUSTOM_INTENT);
+                return true;
+            }
+            case android.R.id.home: {
+                // TODO: maybe invoke a dashboard later
+                return true;
+            }
+            default: {
+                Fragment tasklist = getSupportFragmentManager().findFragmentById(R.id.tasklist_fragment);
+                if (tasklist != null && tasklist.isInLayout())
+                    return tasklist.onOptionsItemSelected(item);
+            }
         }
-
-        case MENU_REFRESH_ID: {
-            performSyncAction();
-            //onRefreshRequested(true);
-            return true;
-        }
-
-        case MENU_HELP_ID: {
-            Intent intent = new Intent(Intent.ACTION_VIEW,
-                    Uri.parse("http://weloveastrid.com/help-user-guide-astrid-v3/filters/")); //$NON-NLS-1$
-            startActivity(intent);
-            return true;
-        }
-
-        case MENU_NEW_FILTER_ID : {
-            Intent intent = new Intent(this, CustomFilterActivity.class);
-            startActivity(intent);
-            return true;
-        }
-
-        case CONTEXT_MENU_SHORTCUT: {
-            ExpandableListContextMenuInfo info = (ExpandableListContextMenuInfo)item.getMenuInfo();
-
-            final Intent shortcutIntent = item.getIntent();
-            FilterListItem filter = ((FilterAdapter.ViewHolder)info.targetView.getTag()).item;
-            if(filter instanceof Filter)
-                showCreateShortcutDialog(shortcutIntent, (Filter)filter);
-
-            return true;
-        }
-
-        case CONTEXT_MENU_INTENT: {
-            Intent intent = item.getIntent();
-            startActivityForResult(intent, REQUEST_CUSTOM_INTENT);
-            return true;
-        }
-        }
-
         return false;
     }
 
@@ -485,13 +495,13 @@ public class FilterListActivity extends ExpandableListActivity {
         }
         final ProgressDialog progressDialog;
 
-        final NotificationManager nm = new NotificationManager.AndroidNotificationManager(this);
+        final NotificationManager nm = new NotificationManager.AndroidNotificationManager(getActivity());
         final Notification notification = new Notification(android.R.drawable.stat_notify_sync, null, System.currentTimeMillis());
-        final int notificationId = updateNotification(this, notification);
+        final int notificationId = updateNotification(getActivity(), notification);
         notification.flags |= Notification.FLAG_ONGOING_EVENT;
 
         if (manual) {
-            progressDialog = DialogUtilities.progressDialog(this, getString(R.string.DLG_please_wait));
+            progressDialog = DialogUtilities.progressDialog(getActivity(), getString(R.string.DLG_please_wait));
         } else {
             progressDialog = null;
             nm.notify(notificationId, notification);
@@ -505,7 +515,7 @@ public class FilterListActivity extends ExpandableListActivity {
                     Preferences.setLong(LAST_TAG_REFRESH_KEY, DateUtilities.now());
                     actFmSyncService.fetchTags(0);
 
-                    runOnUiThread(new Runnable() {
+                    getActivity().runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
                             adapter.clear();
@@ -515,17 +525,17 @@ public class FilterListActivity extends ExpandableListActivity {
 
                 } catch (IOException e) {
                     if (manual)
-                        exceptionService.displayAndReportError(FilterListActivity.this, "refresh-tags-io", e);
+                        exceptionService.displayAndReportError(getActivity(), "refresh-tags-io", e);
                     else
                         exceptionService.reportError("refresh-tags-io", e);
                 } catch (JSONException e) {
                     if (manual)
-                        exceptionService.displayAndReportError(FilterListActivity.this, "refresh-tags-json", e);
+                        exceptionService.displayAndReportError(getActivity(), "refresh-tags-json", e);
                     else
                         exceptionService.reportError("refresh-tags-io", e);
                 } finally {
                     if (manual)
-                        DialogUtilities.dismissDialog(FilterListActivity.this, progressDialog);
+                        DialogUtilities.dismissDialog(getActivity(), progressDialog);
                     else
                         nm.cancel(notificationId);
                 }
@@ -546,9 +556,9 @@ public class FilterListActivity extends ExpandableListActivity {
 
     private void showCreateShortcutDialog(final Intent shortcutIntent,
             final Filter filter) {
-        FrameLayout frameLayout = new FrameLayout(this);
+        FrameLayout frameLayout = new FrameLayout(getActivity());
         frameLayout.setPadding(10, 0, 10, 0);
-        final EditText editText = new EditText(this);
+        final EditText editText = new EditText(getActivity());
         if(filter.listingTitle == null)
             filter.listingTitle = ""; //$NON-NLS-1$
         editText.setText(filter.listingTitle.
@@ -575,7 +585,7 @@ public class FilterListActivity extends ExpandableListActivity {
             }
         });
 
-        new AlertDialog.Builder(this)
+        new AlertDialog.Builder(getActivity())
         .setTitle(R.string.FLA_shortcut_dialog_title)
         .setMessage(R.string.FLA_shortcut_dialog)
         .setView(frameLayout)
@@ -586,13 +596,14 @@ public class FilterListActivity extends ExpandableListActivity {
             }
         })
         .setNegativeButton(android.R.string.cancel, null)
-        .show().setOwnerActivity(this);
+        .show().setOwnerActivity(getActivity());
     }
 
     @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        // will get lists automatically
-        adapter.clear();
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if(resultCode != Activity.RESULT_CANCELED)
+            // will get lists automatically
+            adapter.clear();
 
         super.onActivityResult(requestCode, resultCode, data);
     }
@@ -627,7 +638,7 @@ public class FilterListActivity extends ExpandableListActivity {
             // Get a list of all sync plugins and bring user to the prefs pane
             // for one of them
             Intent queryIntent = new Intent(AstridApiConstants.ACTION_SETTINGS);
-            PackageManager pm = getPackageManager();
+            PackageManager pm = getActivity().getPackageManager();
             List<ResolveInfo> resolveInfoList = pm.queryIntentActivities(
                     queryIntent, PackageManager.GET_META_DATA);
             int length = resolveInfoList.size();
@@ -669,7 +680,7 @@ public class FilterListActivity extends ExpandableListActivity {
                     onRefreshRequested(true);
                 else {
                     syncAction.intent.send();
-                    Toast.makeText(this, R.string.SyP_progress_toast,
+                    Toast.makeText(getActivity(), R.string.SyP_progress_toast,
                             Toast.LENGTH_LONG).show();
                 }
             } catch (CanceledException e) {
@@ -688,7 +699,7 @@ public class FilterListActivity extends ExpandableListActivity {
                             onRefreshRequested(true);
                         else {
                             action.intent.send();
-                            Toast.makeText(FilterListActivity.this, R.string.SyP_progress_toast,
+                            Toast.makeText(getActivity(), R.string.SyP_progress_toast,
                                     Toast.LENGTH_LONG).show();
                         }
                     } catch (CanceledException e) {
@@ -708,14 +719,14 @@ public class FilterListActivity extends ExpandableListActivity {
      * @param listener
      */
     private <TYPE> void showSyncOptionMenu(TYPE[] items, DialogInterface.OnClickListener listener) {
-        ArrayAdapter<TYPE> syncAdapter = new ArrayAdapter<TYPE>(this,
+        ArrayAdapter<TYPE> syncAdapter = new ArrayAdapter<TYPE>(getActivity(),
                 android.R.layout.simple_spinner_dropdown_item, items);
 
         // show a menu of available options
-        new AlertDialog.Builder(this)
+        new AlertDialog.Builder(getActivity())
         .setTitle(R.string.SyP_label)
         .setAdapter(syncAdapter, listener)
-        .show().setOwnerActivity(this);
+        .show().setOwnerActivity(getActivity());
     }
 
 }

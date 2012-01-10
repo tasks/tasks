@@ -9,8 +9,8 @@ import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-import android.app.ListActivity;
 import android.content.Intent;
+import android.support.v4.app.ListFragment;
 import android.widget.ListView;
 
 import com.todoroo.astrid.adapter.TaskAdapter.ViewHolder;
@@ -19,13 +19,13 @@ import com.todoroo.astrid.data.Task;
 
 abstract public class TaskAdapterAddOnManager<TYPE> {
 
-    private final ListActivity activity;
+    private final ListFragment fragment;
 
     /**
      * @param taskAdapter
      */
-    protected TaskAdapterAddOnManager(ListActivity activity) {
-        this.activity = activity;
+    protected TaskAdapterAddOnManager(ListFragment fragment) {
+        this.fragment = fragment;
     }
 
     private final Map<Long, LinkedHashMap<String, TYPE>> cache =
@@ -50,7 +50,7 @@ abstract public class TaskAdapterAddOnManager<TYPE> {
         draw(viewHolder, taskId, get(taskId));
         Intent broadcastIntent = createBroadcastIntent(viewHolder.task);
         if(broadcastIntent != null)
-            activity.sendOrderedBroadcast(broadcastIntent, AstridApiConstants.PERMISSION_READ);
+            fragment.getActivity().sendOrderedBroadcast(broadcastIntent, AstridApiConstants.PERMISSION_READ);
         return true;
     }
 
@@ -73,7 +73,7 @@ abstract public class TaskAdapterAddOnManager<TYPE> {
             if(thisViewHolder != null)
                 draw(thisViewHolder, taskId, cacheList);
             else {
-                ListView listView = activity.getListView();
+                ListView listView = fragment.getListView();
                 // update view if it is visible
                 int length = listView.getChildCount();
                 for(int i = 0; i < length; i++) {

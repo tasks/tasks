@@ -77,6 +77,15 @@ public class NotificationActivity extends TaskListActivity implements OnTimeSetL
         StartupService.bypassInitialization();
 
         super.onCreate(savedInstanceState);
+    }
+
+    /* (non-Javadoc)
+     * @see com.todoroo.astrid.activity.TaskListActivity#onActivityCreated(android.os.Bundle)
+     */
+    @Override
+    public void onActivityCreated(Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+
         displayNotificationPopup();
     }
 
@@ -108,43 +117,43 @@ public class NotificationActivity extends TaskListActivity implements OnTimeSetL
      */
     private void displayNotificationPopup() {
         // hide quick add
-        findViewById(R.id.taskListFooter).setVisibility(View.GONE);
+        getView().findViewById(R.id.taskListFooter).setVisibility(View.GONE);
 
         // instantiate reminder window
-        ViewGroup parent = (ViewGroup) findViewById(R.id.taskListParent);
-        getLayoutInflater().inflate(R.layout.notification_control, parent, true);
+        ViewGroup parent = (ViewGroup) getView().findViewById(R.id.taskListParent);
+        getActivity().getLayoutInflater().inflate(R.layout.notification_control, parent, true);
 
         String reminder = Notifications.getRandomReminder(getResources().getStringArray(R.array.reminder_responses));
 
         if(Preferences.getBoolean(R.string.p_rmd_nagging, true))
-            ((TextView)findViewById(R.id.reminderLabel)).setText(reminder);
+            ((TextView)getView().findViewById(R.id.reminderLabel)).setText(reminder);
         else {
-            findViewById(R.id.reminderLabel).setVisibility(View.GONE);
-            findViewById(R.id.astridIcon).setVisibility(View.GONE);
+            getView().findViewById(R.id.reminderLabel).setVisibility(View.GONE);
+            getView().findViewById(R.id.astridIcon).setVisibility(View.GONE);
         }
 
         // set up listeners
-        ((Button)findViewById(R.id.goAway)).setOnClickListener(new OnClickListener() {
+        ((Button)getView().findViewById(R.id.goAway)).setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View arg0) {
-                finish();
+                getActivity().finish();
             }
         });
 
-        ((Button)findViewById(R.id.snooze)).setOnClickListener(new OnClickListener() {
+        ((Button)getView().findViewById(R.id.snooze)).setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View arg0) {
                 snooze();
             }
         });
 
-        ((Button)findViewById(R.id.done)).setOnClickListener(new OnClickListener() {
+        ((Button)getView().findViewById(R.id.done)).setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View arg0) {
                 Task task = new Task();
                 task.setId(taskId);
                 PluginServices.getTaskService().setComplete(task, true);
-                finish();
+                getActivity().finish();
             }
         });
     }
@@ -157,10 +166,10 @@ public class NotificationActivity extends TaskListActivity implements OnTimeSetL
         NotificationActivity parent;
 
         public SnoozeDialog(NotificationActivity parent) {
-            super(parent);
+            super(parent.getActivity());
             this.parent = parent;
 
-            LayoutInflater mInflater = (LayoutInflater) parent.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            LayoutInflater mInflater = (LayoutInflater) parent.getActivity().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             mInflater.inflate(R.layout.snooze_dialog, this, true);
 
             snoozePicker = (LinearLayout) findViewById(R.id.snoozePicker);
@@ -211,18 +220,18 @@ public class NotificationActivity extends TaskListActivity implements OnTimeSetL
             now.setHours(now.getHours() + 1);
             int hour = now.getHours();
             int minute = now.getMinutes();
-            TimePickerDialog tpd = new TimePickerDialog(this, this, hour, minute,
-                    DateUtilities.is24HourFormat(this));
+            TimePickerDialog tpd = new TimePickerDialog(getActivity(), this, hour, minute,
+                    DateUtilities.is24HourFormat(getActivity()));
             tpd.show();
-            tpd.setOwnerActivity(this);
+            tpd.setOwnerActivity(getActivity());
         } else {
             SnoozeDialog sd = new SnoozeDialog(this);
-            new AlertDialog.Builder(this)
+            new AlertDialog.Builder(getActivity())
                 .setTitle(R.string.rmd_NoA_snooze)
                 .setView(sd)
                 .setPositiveButton(android.R.string.ok, sd)
                 .setNegativeButton(android.R.string.cancel, null)
-                .show().setOwnerActivity(this);
+                .show().setOwnerActivity(getActivity());
         }
     }
 
@@ -242,7 +251,7 @@ public class NotificationActivity extends TaskListActivity implements OnTimeSetL
         task.setId(taskId);
         task.setValue(Task.REMINDER_SNOOZE, time);
         PluginServices.getTaskService().save(task);
-        finish();
+        getActivity().finish();
         StatisticsService.reportEvent(StatisticsConstants.TASK_SNOOZE);
     }
 

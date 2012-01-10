@@ -502,6 +502,22 @@ public class AndroidUtilities {
     }
 
     /**
+     * If you want to set a transition, please use this method rather than <code>callApiMethod</code> to ensure
+     * you really pass an Activity-instance.
+     *
+     * @param activity the activity-instance for which to set the finish-transition
+     * @param enterAnim the incoming-transition of the next activity
+     * @param exitAnim the outgoing-transition of this activity
+     */
+    public static void callOverridePendingTransition(Activity activity, int enterAnim, int exitAnim) {
+        callApiMethod(5,
+                activity,
+                "overridePendingTransition", //$NON-NLS-1$
+                new Class<?>[] { Integer.TYPE, Integer.TYPE },
+                enterAnim, exitAnim);
+    }
+
+    /**
      * Call a method via reflection if API level is at least minSdk
      * @param minSdk minimum sdk number (i.e. 8)
      * @param receiver object to call method on

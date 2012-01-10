@@ -23,7 +23,7 @@ import android.view.View;
 import com.cyrilmottier.android.greendroid.R;
 
 /**
- * Base class representing an {@link ActionBarItem} used in {@link ActionBar}s.
+ * Base class representing an {@link ActionBarItem} used in {@link GDActionBar}s.
  * The base implementation exposes a single Drawable as well as a content
  * description.
  * 
@@ -67,11 +67,11 @@ public abstract class ActionBarItem {
     protected View mItemView;
 
     protected Context mContext;
-    protected ActionBar mActionBar;
+    protected GDActionBar mActionBar;
 
     private int mItemId;
 
-    void setActionBar(ActionBar actionBar) {
+    void setActionBar(GDActionBar actionBar) {
         mContext = actionBar.getContext();
         mActionBar = actionBar;
     }
@@ -142,7 +142,7 @@ public abstract class ActionBarItem {
         return mItemId;
     }
 
-    static ActionBarItem createWithType(ActionBar actionBar, ActionBarItem.Type type) {
+    static ActionBarItem createWithType(GDActionBar actionBar, ActionBarItem.Type type) {
 
         int drawableId = 0;
         int descriptionId = 0;

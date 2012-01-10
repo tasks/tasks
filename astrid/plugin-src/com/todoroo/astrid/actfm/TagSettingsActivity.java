@@ -209,14 +209,12 @@ public class TagSettingsActivity extends Activity {
         imm.hideSoftInputFromWindow(tagName.getWindowToken(), 0);
 
         if (isNewTag) {
-            Intent intent = new Intent(this, TagViewActivity.class);
+            Intent intent = new Intent(this, TagViewWrapperActivity.class);
             intent.putExtra(TagViewActivity.EXTRA_TAG_NAME, newName);
             intent.putExtra(TagViewActivity.TOKEN_FILTER, TagFilterExposer.filterFromTagData(this, tagData));
             super.finish();
             startActivity(intent);
-            AndroidUtilities.callApiMethod(5, this, "overridePendingTransition", //$NON-NLS-1$
-                    new Class<?>[] { Integer.TYPE, Integer.TYPE },
-                    R.anim.slide_left_in, R.anim.slide_left_out);
+            AndroidUtilities.callOverridePendingTransition(this, R.anim.slide_left_in, R.anim.slide_left_out);
             return;
         }
 
@@ -234,13 +232,9 @@ public class TagSettingsActivity extends Activity {
     private void finishWithAnimation(boolean backAnimation) {
         super.finish();
         if (backAnimation) {
-            AndroidUtilities.callApiMethod(5, this, "overridePendingTransition", //$NON-NLS-1$
-                    new Class<?>[] { Integer.TYPE, Integer.TYPE },
-                    R.anim.slide_right_in, R.anim.slide_right_out);
+            AndroidUtilities.callOverridePendingTransition(this, R.anim.slide_right_in, R.anim.slide_right_out);
         } else {
-            AndroidUtilities.callApiMethod(5, this, "overridePendingTransition", //$NON-NLS-1$
-                    new Class<?>[] { Integer.TYPE, Integer.TYPE },
-                    R.anim.slide_left_in, R.anim.slide_left_out);
+            AndroidUtilities.callOverridePendingTransition(this, R.anim.slide_left_in, R.anim.slide_left_out);
         }
     }
 

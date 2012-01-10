@@ -35,16 +35,19 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
 import android.speech.RecognizerIntent;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.SupportActivity;
+import android.support.v4.view.Menu;
+import android.support.v4.view.MenuItem;
 import android.text.TextUtils;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuItem;
+import android.view.MenuInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.ViewGroup.LayoutParams;
-import android.view.Window;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
@@ -102,7 +105,7 @@ import com.todoroo.astrid.voice.VoiceInputAssistant;
  * @author timsu
  *
  */
-public final class TaskEditActivity extends Activity {
+public final class TaskEditActivity extends Fragment {
 
     // --- bundle tokens
 
@@ -133,15 +136,15 @@ public final class TaskEditActivity extends Activity {
 
     // --- menu codes
 
-    private static final int MENU_SAVE_ID = Menu.FIRST;
-    private static final int MENU_DISCARD_ID = Menu.FIRST + 1;
-    private static final int MENU_DELETE_ID = Menu.FIRST + 2;
+    private static final int MENU_SAVE_ID = R.string.TEA_menu_save;
+    private static final int MENU_DISCARD_ID = R.string.TEA_menu_discard;
+    private static final int MENU_DELETE_ID = R.string.TEA_menu_delete;
 
     // --- result codes
 
-    public static final int RESULT_CODE_SAVED = RESULT_FIRST_USER;
-    public static final int RESULT_CODE_DISCARDED = RESULT_FIRST_USER + 1;
-    public static final int RESULT_CODE_DELETED = RESULT_FIRST_USER + 2;
+    public static final int RESULT_CODE_SAVED = Activity.RESULT_FIRST_USER;
+    public static final int RESULT_CODE_DISCARDED = Activity.RESULT_FIRST_USER + 1;
+    public static final int RESULT_CODE_DELETED = Activity.RESULT_FIRST_USER + 2;
 
     public static final String TAB_BASIC = "basic"; //$NON-NLS-1$
 
@@ -213,25 +216,46 @@ public final class TaskEditActivity extends Activity {
 
     private boolean overrideFinishAnim;
 
+    // --- fragment handling variables
+    OnTaskEditDetailsClickedListener mListener;
+    private boolean mDualFragments = false;
+
     /* ======================================================================
      * ======================================================= initialization
      * ====================================================================== */
+
+    /** Container Activity must implement this interface and we ensure
+     * that it does during the onAttach() callback
+     */
+    public interface OnTaskEditDetailsClickedListener {
+        public void onTaskEditDetailsClicked(int category, int position);
+    }
+
+
+    @Override
+    public void onAttach(SupportActivity activity) {
+        super.onAttach(activity);
+        // Check that the container activity has implemented the callback interface
+        try {
+            mListener = (OnTaskEditDetailsClickedListener) activity;
+        } catch (ClassCastException e) {
+            throw new ClassCastException(activity.toString()
+                    + " must implement OnTaskEditDetailsClickedListener"); //$NON-NLS-1$
+        }
+    }
 
     public TaskEditActivity() {
         DependencyInjectionService.getInstance().inject(this);
     }
 
 	@Override
-	protected void onCreate(Bundle savedInstanceState) {
-	    ThemeService.applyTheme(this);
-	    requestWindowFeature(Window.FEATURE_NO_TITLE);
+	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		new StartupService().onStartupApplication(this);
+        // Tell the framework to try to keep this fragment around
+        // during a configuration change.
+        setRetainInstance(true);
 
-        setUpUIComponents();
-        adjustInfoPopovers();
-
-		overrideFinishAnim = getIntent().getBooleanExtra(OVERRIDE_FINISH_ANIM, true);
+		new StartupService().onStartupApplication(getActivity());
 
 		// if we were editing a task already, restore it
 		if(savedInstanceState != null && savedInstanceState.containsKey(TASK_IN_PROGRESS)) {
@@ -241,50 +265,78 @@ public final class TaskEditActivity extends Activity {
 		    }
 		}
 
-		setResult(RESULT_OK);
+		getActivity().setResult(Activity.RESULT_OK);
     }
 
     /* ======================================================================
      * ==================================================== UI initialization
      * ====================================================================== */
 
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+            Bundle savedInstanceState) {
+        super.onCreateView(inflater, container, savedInstanceState);
+
+        View v = inflater.inflate(R.layout.task_edit_activity,
+              container, false);
+
+        return v;
+    }
+
+    @Override
+    public void onActivityCreated(Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        // We have a menu item to show in action bar.
+        setHasOptionsMenu(true);
+        getSupportActivity().getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        Fragment tasklistFrame = getFragmentManager().findFragmentById(R.id.tasklist_fragment);
+        mDualFragments = (tasklistFrame != null) && tasklistFrame.isInLayout();
+
+        setUpUIComponents();
+        adjustInfoPopovers();
+
+        overrideFinishAnim = getActivity().getIntent().getBooleanExtra(OVERRIDE_FINISH_ANIM, true);
+
+        // disable keyboard until user requests it
+        AndroidUtilities.suppressVirtualKeyboard(title);
+    }
+
     /** Initialize UI components */
     private void setUpUIComponents() {
-        setContentView(R.layout.task_edit_activity);
-
-        LinearLayout basicControls = (LinearLayout) findViewById(R.id.basic_controls);
-        LinearLayout whenDialogView = (LinearLayout) LayoutInflater.from(this).inflate(
+        LinearLayout basicControls = (LinearLayout) getView().findViewById(R.id.basic_controls);
+        LinearLayout whenDialogView = (LinearLayout) LayoutInflater.from(getActivity()).inflate(
                 R.layout.task_edit_when_controls, null);
-        LinearLayout moreControls = (LinearLayout) findViewById(R.id.more_controls);
+        LinearLayout moreControls = (LinearLayout) getView().findViewById(R.id.more_controls);
 
         constructWhenDialog(whenDialogView);
 
         HashMap<String, TaskEditControlSet> controlSetMap = new HashMap<String, TaskEditControlSet>();
 
         // populate control set
-        EditTitleControlSet editTitle = new EditTitleControlSet(this,
+        EditTitleControlSet editTitle = new EditTitleControlSet(getActivity(),
                 R.layout.control_set_title, Task.TITLE, R.id.title);
         title = (EditText) editTitle.getView().findViewById(R.id.title);
         controls.add(editTitle);
         controlSetMap.put(getString(R.string.TEA_ctrl_title_pref), editTitle);
 
-        TimerActionControlSet timerAction = new TimerActionControlSet(this,
+        TimerActionControlSet timerAction = new TimerActionControlSet(getActivity(),
                 editTitle.getView());
         controls.add(timerAction);
 
         controls.add(peopleControlSet = new EditPeopleControlSet(
-                TaskEditActivity.this, R.layout.control_set_assigned,
+                getActivity(), R.layout.control_set_assigned,
                 R.layout.control_set_assigned_display,
                 R.string.actfm_EPA_assign_label, REQUEST_LOG_IN));
         controlSetMap.put(getString(R.string.TEA_ctrl_who_pref),
                 peopleControlSet);
 
         RepeatControlSet repeatControls = new RepeatControlSet(
-                TaskEditActivity.this, R.layout.control_set_repeat,
+                getActivity(), R.layout.control_set_repeat,
                 R.layout.control_set_repeat_display, R.string.repeat_enabled);
         controls.add(repeatControls);
 
-        GCalControlSet gcalControl = new GCalControlSet(TaskEditActivity.this,
+        GCalControlSet gcalControl = new GCalControlSet(getActivity(),
                 R.layout.control_set_gcal, R.layout.control_set_gcal_display,
                 R.string.gcal_TEA_addToCalendar_label);
 
@@ -298,21 +350,26 @@ public final class TaskEditActivity extends Activity {
         controlSetMap.put(getString(R.string.TEA_ctrl_when_pref), deadlineControl);
         controls.add(gcalControl);
 
+        hideUntilControls = new HideUntilControlSet(getActivity(),
+                R.layout.control_set_hide, R.layout.control_set_hide_display,
+                R.string.hide_until_prompt);
+        controls.add(hideUntilControls);
+
         ImportanceControlSet importanceControl = new ImportanceControlSet(
-                TaskEditActivity.this, R.layout.control_set_importance);
+                getActivity(), R.layout.control_set_importance);
         controls.add(importanceControl);
         importanceControl.addListener(editTitle);
         controlSetMap.put(getString(R.string.TEA_ctrl_importance_pref),
                 importanceControl);
 
-        tagsControlSet = new TagsControlSet(TaskEditActivity.this,
+        tagsControlSet = new TagsControlSet(getActivity(),
                 R.layout.control_set_tags, R.layout.control_set_tags_display,
                 R.string.TEA_tags_label);
         controls.add(tagsControlSet);
         controlSetMap.put(getString(R.string.TEA_ctrl_lists_pref),
                 tagsControlSet);
 
-        notesControlSet = new EditNotesControlSet(TaskEditActivity.this,
+        notesControlSet = new EditNotesControlSet(getActivity(),
                 R.layout.control_set_notes, R.layout.control_set_notes_display);
         notesEditText = (EditText) notesControlSet.getView().findViewById(
                 R.id.notes);
@@ -321,7 +378,7 @@ public final class TaskEditActivity extends Activity {
                 notesControlSet);
 
         ReminderControlSet reminderControl = new ReminderControlSet(
-                TaskEditActivity.this, R.layout.control_set_reminders,
+                getActivity(), R.layout.control_set_reminders,
                 R.layout.control_set_reminders_display);
         controls.add(reminderControl);
         controlSetMap.put(getString(R.string.TEA_ctrl_reminders_pref),
@@ -334,7 +391,7 @@ public final class TaskEditActivity extends Activity {
         reminderControl.addViewToBody(hideUntilControls.getDisplayView());
 
         TimerControlSet timerControl = new TimerControlSet(
-                TaskEditActivity.this, R.layout.control_set_timers,
+                getActivity(), R.layout.control_set_timers,
                 R.layout.control_set_timers_extras_display,
                 R.string.TEA_timer_controls);
         timerAction.setListener(timerControl);
@@ -343,7 +400,7 @@ public final class TaskEditActivity extends Activity {
 
         try {
             if(ProducteevUtilities.INSTANCE.isLoggedIn()) {
-                ProducteevControlSet producteevControl = new ProducteevControlSet(TaskEditActivity.this, R.layout.control_set_producteev, R.layout.control_set_producteev_display, R.string.producteev_TEA_control_set_display);
+                ProducteevControlSet producteevControl = new ProducteevControlSet(getActivity(), R.layout.control_set_producteev, R.layout.control_set_producteev_display, R.string.producteev_TEA_control_set_display);
                 controls.add(producteevControl);
                 basicControls.addView(producteevControl.getDisplayView());
                 notesEditText.setHint(R.string.producteev_TEA_notes);
@@ -354,7 +411,7 @@ public final class TaskEditActivity extends Activity {
 
         try {
             if(OpencrxCoreUtils.INSTANCE.isLoggedIn()) {
-                OpencrxControlSet ocrxControl = new OpencrxControlSet(TaskEditActivity.this, R.layout.control_set_opencrx, R.layout.control_set_opencrx_display, R.string.opencrx_TEA_opencrx_title);
+                OpencrxControlSet ocrxControl = new OpencrxControlSet(getActivity(), R.layout.control_set_opencrx, R.layout.control_set_opencrx_display, R.string.opencrx_TEA_opencrx_title);
                 controls.add(ocrxControl);
                 basicControls.addView(ocrxControl.getDisplayView());
                 notesEditText.setHint(R.string.opencrx_TEA_notes);
@@ -362,7 +419,6 @@ public final class TaskEditActivity extends Activity {
         } catch (Exception e) {
             Log.e("astrid-error", "loading-control-set", e); //$NON-NLS-1$ //$NON-NLS-2$
         }
-
 
         String[] itemOrder;
         String orderPreference = Preferences.getStringValue(BeastModePreferenceActivity.BEAST_MODE_ORDER_PREF);
@@ -386,7 +442,7 @@ public final class TaskEditActivity extends Activity {
             }
         }
         if (moreControls.getChildCount() == 0)
-            findViewById(R.id.more_header).setVisibility(View.GONE);
+            getView().findViewById(R.id.more_header).setVisibility(View.GONE);
 
 
 
@@ -415,14 +471,14 @@ public final class TaskEditActivity extends Activity {
             }
         };
         final View.OnClickListener mExpandMoreListener = new View.OnClickListener() {
-            final Animation fadeIn = AnimationUtils.loadAnimation(TaskEditActivity.this, android.R.anim.fade_in);
-            final Animation fadeOut = AnimationUtils.loadAnimation(TaskEditActivity.this, android.R.anim.fade_out);
+            final Animation fadeIn = AnimationUtils.loadAnimation(getActivity(), android.R.anim.fade_in);
+            final Animation fadeOut = AnimationUtils.loadAnimation(getActivity(), android.R.anim.fade_out);
             @Override
             public void onClick(View v) {
                 fadeIn.setDuration(300);
                 fadeOut.setDuration(300);
-                View moreView = findViewById(R.id.more_controls);
-                View moreHeader = findViewById(R.id.more_header);
+                View moreView = getView().findViewById(R.id.more_controls);
+                View moreHeader = getView().findViewById(R.id.more_header);
                 if (moreView.getVisibility() == View.GONE) {
                     moreView.setVisibility(View.VISIBLE);
                     moreView.startAnimation(fadeIn);
@@ -434,18 +490,18 @@ public final class TaskEditActivity extends Activity {
 
         // set up save, cancel, and delete buttons
         try {
-            Button saveButtonGeneral = (Button) findViewById(R.id.save);
+            Button saveButtonGeneral = (Button) getView().findViewById(R.id.save);
             saveButtonGeneral.setOnClickListener(mSaveListener);
 
-            Button discardButtonGeneral = (Button) findViewById(R.id.discard);
+            Button discardButtonGeneral = (Button) getView().findViewById(R.id.discard);
             discardButtonGeneral.setOnClickListener(mDiscardListener);
 
-            findViewById(R.id.more_header).setOnClickListener(mExpandMoreListener);
+            getView().findViewById(R.id.more_header).setOnClickListener(mExpandMoreListener);
 
-            findViewById(R.id.activity).setOnClickListener(new View.OnClickListener() {
+            getView().findViewById(R.id.activity).setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Intent launchIntent = new Intent(TaskEditActivity.this, EditNoteActivity.class);
+                    Intent launchIntent = new Intent(getActivity(), EditNoteActivity.class);
                     launchIntent.putExtra(EditNoteActivity.EXTRA_TASK_ID, model.getId());
                     startActivity(launchIntent);
                 }
@@ -457,18 +513,18 @@ public final class TaskEditActivity extends Activity {
 
     private void constructWhenDialog(View whenDialogView) {
         int theme = ThemeService.getDialogTheme();
-        whenDialog = new Dialog(this, theme);
+        whenDialog = new Dialog(getActivity(), theme);
 
         Button dismissDialogButton = (Button) whenDialogView.findViewById(R.id.when_dismiss);
         dismissDialogButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                DialogUtilities.dismissDialog(TaskEditActivity.this, whenDialog);
+                DialogUtilities.dismissDialog(getActivity(), whenDialog);
             }
         });
 
         DisplayMetrics metrics = new DisplayMetrics();
-        this.getWindowManager().getDefaultDisplay().getMetrics(metrics);
+        getActivity().getWindowManager().getDefaultDisplay().getMetrics(metrics);
         whenDialog.setTitle(R.string.TEA_when_dialog_title);
         whenDialog.addContentView(whenDialogView, new LayoutParams(metrics.widthPixels - (int)(30 * metrics.density), LayoutParams.WRAP_CONTENT));
     }
@@ -487,7 +543,7 @@ public final class TaskEditActivity extends Activity {
                 voiceAddNoteButton = (ImageButton) notesControlSet.getView().findViewById(R.id.voiceAddNoteButton);
                 voiceAddNoteButton.setVisibility(View.VISIBLE);
                 int prompt = R.string.voice_edit_note_prompt;
-                voiceNoteAssistant = new VoiceInputAssistant(TaskEditActivity.this, voiceAddNoteButton,
+                voiceNoteAssistant = new VoiceInputAssistant(getActivity(), voiceAddNoteButton,
                         notesEditText, REQUEST_VOICE_RECOG);
                 voiceNoteAssistant.setAppend(true);
                 voiceNoteAssistant.setLanguageModel(RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);
@@ -506,8 +562,8 @@ public final class TaskEditActivity extends Activity {
         }
 
         private void autoExpand() {
-            LinearLayout moreControls = (LinearLayout) findViewById(R.id.more_controls);
-            LinearLayout moreHeader = (LinearLayout) findViewById(R.id.more_header);
+            LinearLayout moreControls = (LinearLayout) getView().findViewById(R.id.more_controls);
+            LinearLayout moreHeader = (LinearLayout) getView().findViewById(R.id.more_header);
 
             if (notesControlSet.hasNotes() && notesControlSet.getDisplayView().getParent() == moreControls) {
                 moreHeader.performClick();
@@ -520,7 +576,7 @@ public final class TaskEditActivity extends Activity {
         public void run() {
             AndroidUtilities.sleepDeep(500L);
 
-            runOnUiThread(new Runnable() {
+            getActivity().runOnUiThread(new Runnable() {
                 public void run() {
                     onUiThread();
                 }
@@ -582,13 +638,13 @@ public final class TaskEditActivity extends Activity {
         if(model == null) {
             exceptionService.reportError("task-edit-no-task",
                     new NullPointerException("model"));
-            finish();
+            getActivity().finish();
             return;
         }
 
         if (!isNewTask) {
             if (actFmPreferenceService.isLoggedIn()) {
-                findViewById(R.id.activityContainer).setVisibility(View.VISIBLE);
+                getView().findViewById(R.id.activityContainer).setVisibility(View.VISIBLE);
             }
         }
 
@@ -597,10 +653,10 @@ public final class TaskEditActivity extends Activity {
     }
 
     /** Populate UI component values from the model */
-    private void populateFields() {
-        loadItem(getIntent());
+    public void populateFields(Intent intent) {
+        loadItem(intent);
 
-        TextView titleText = (TextView) findViewById(R.id.taskLabel);
+        TextView titleText = (TextView) getView().findViewById(R.id.taskLabel);
         if(isNewTask)
             titleText.setText(R.string.TEA_view_titleNew);
         else
@@ -610,6 +666,11 @@ public final class TaskEditActivity extends Activity {
             for(TaskEditControlSet controlSet : controls)
                 controlSet.readFromTask(model);
         }
+    }
+
+    /** Populate UI component values from the model */
+    private void populateFields() {
+        populateFields(getActivity().getIntent());
     }
 
     /** Save task model from values in UI components */
@@ -644,32 +705,30 @@ public final class TaskEditActivity extends Activity {
                 data.putExtra(TOKEN_TASK_WAS_ASSIGNED, true);
                 data.putExtra(TOKEN_ASSIGNED_TO, peopleControlSet.getAssignedToString());
                 setResult(RESULT_OK, data);
+                getActivity().setResult(Activity.RESULT_OK, data);
             }
 
             shouldSaveState = false;
-            finish();
+            getActivity().finish();
         }
     }
 
-    @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if (keyCode == KeyEvent.KEYCODE_BACK) {
             save(false);
             return true;
         }
-        return super.onKeyDown(keyCode, event);
+        return false;
     }
 
     @Override
-    public void finish() {
-        super.finish();
+    public void onDetach() {
+        super.onDetach();
 
         // abandon editing and delete the newly created task if
         // no title was entered
         if (overrideFinishAnim) {
-            AndroidUtilities.callApiMethod(5, this, "overridePendingTransition", //$NON-NLS-1$
-                    new Class<?>[] { Integer.TYPE, Integer.TYPE },
-                    R.anim.slide_right_in, R.anim.slide_right_out);
+            AndroidUtilities.callOverridePendingTransition(getActivity(), R.anim.slide_right_in, R.anim.slide_right_out);
         }
 
         if(title.getText().length() == 0 && isNewTask && model.isSaved()) {
@@ -692,7 +751,7 @@ public final class TaskEditActivity extends Activity {
         public void onReceive(Context context, Intent intent) {
             try {
                 // add a separator
-                View separator = new View(TaskEditActivity.this);
+                View separator = new View(getActivity());
                 separator.setPadding(5, 5, 5, 5);
                 separator.setBackgroundResource(android.R.drawable.divider_horizontal_dark);
 
@@ -725,7 +784,7 @@ public final class TaskEditActivity extends Activity {
         if (due != 0) {
             stringResource = R.string.TEA_onTaskSave_due;
             CharSequence formattedDate =
-                DateUtilities.getRelativeDay(this, due);
+                DateUtilities.getRelativeDay(getActivity(), due);
             toastMessage = getString(stringResource, formattedDate);
         } else {
             toastMessage = getString(R.string.TEA_onTaskSave_notDue);
@@ -744,20 +803,20 @@ public final class TaskEditActivity extends Activity {
         }
 
         showCancelToast();
-        setResult(RESULT_CANCELED);
-        finish();
+        getActivity().setResult(Activity.RESULT_CANCELED);
+        getActivity().finish();
     }
 
     /**
      * Show toast for task edit canceling
      */
     private void showCancelToast() {
-        Toast.makeText(this, R.string.TEA_onTaskCancel,
+        Toast.makeText(getActivity(), R.string.TEA_onTaskCancel,
                 Toast.LENGTH_SHORT).show();
     }
 
     protected void deleteButtonClick() {
-        new AlertDialog.Builder(this)
+        new AlertDialog.Builder(getActivity())
             .setTitle(R.string.DLG_confirm_title)
             .setMessage(R.string.DLG_delete_this_task_question)
             .setIcon(android.R.drawable.ic_dialog_alert)
@@ -767,8 +826,8 @@ public final class TaskEditActivity extends Activity {
                     taskService.delete(model);
                     shouldSaveState = false;
                     showDeleteToast();
-                    setResult(RESULT_CANCELED);
-                    finish();
+                    getActivity().setResult(Activity.RESULT_CANCELED);
+                    getActivity().finish();
                 }
             })
             .setNegativeButton(android.R.string.cancel, null)
@@ -779,12 +838,12 @@ public final class TaskEditActivity extends Activity {
      * Show toast for task edit deleting
      */
     private void showDeleteToast() {
-        Toast.makeText(this, R.string.TEA_onTaskDelete,
+        Toast.makeText(getActivity(), R.string.TEA_onTaskDelete,
                 Toast.LENGTH_SHORT).show();
     }
 
     @Override
-    public boolean onMenuItemSelected(int featureId, MenuItem item) {
+    public boolean onOptionsItemSelected(MenuItem item) {
         switch(item.getItemId()) {
         case MENU_SAVE_ID:
             saveButtonClick();
@@ -795,50 +854,54 @@ public final class TaskEditActivity extends Activity {
         case MENU_DELETE_ID:
             deleteButtonClick();
             return true;
+        case android.R.id.home:
+            saveButtonClick();
+            return true;
         }
 
-        return super.onMenuItemSelected(featureId, item);
+        return super.onOptionsItemSelected(item);
     }
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        super.onCreateOptionsMenu(menu);
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        super.onCreateOptionsMenu(menu, inflater);
         MenuItem item;
 
         item = menu.add(Menu.NONE, MENU_SAVE_ID, 0, R.string.TEA_menu_save);
         item.setIcon(android.R.drawable.ic_menu_save);
+        item.setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
 
         item = menu.add(Menu.NONE, MENU_DISCARD_ID, 0, R.string.TEA_menu_discard);
         item.setIcon(android.R.drawable.ic_menu_close_clear_cancel);
+        item.setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
 
         item = menu.add(Menu.NONE, MENU_DELETE_ID, 0, R.string.TEA_menu_delete);
         item.setIcon(android.R.drawable.ic_menu_delete);
-
-        return true;
+        item.setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
     }
 
     @Override
-    protected void onPause() {
+    public void onPause() {
         super.onPause();
         StatisticsService.sessionPause();
-        unregisterReceiver(controlReceiver);
+        getActivity().unregisterReceiver(controlReceiver);
 
         if(shouldSaveState)
             save(true);
     }
 
     @Override
-    protected void onResume() {
+    public void onResume() {
         super.onResume();
-        StatisticsService.sessionStart(this);
-        registerReceiver(controlReceiver,
+        StatisticsService.sessionStart(getActivity());
+        getActivity().registerReceiver(controlReceiver,
                 new IntentFilter(AstridApiConstants.BROADCAST_SEND_EDIT_CONTROLS));
         populateFields();
     }
 
     @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if(requestCode == REQUEST_VOICE_RECOG && resultCode == RESULT_OK) {
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if(requestCode == REQUEST_VOICE_RECOG && resultCode == Activity.RESULT_OK) {
             // handle the result of voice recognition, put it into the appropiate textfield
             voiceNoteAssistant.handleActivityResult(requestCode, resultCode, data);
 
@@ -854,7 +917,7 @@ public final class TaskEditActivity extends Activity {
     }
 
     @Override
-    protected void onSaveInstanceState(Bundle outState) {
+    public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
 
         // stick our task into the outState
@@ -862,19 +925,14 @@ public final class TaskEditActivity extends Activity {
     }
 
     @Override
-    protected void onRestoreInstanceState(Bundle inState) {
-        super.onRestoreInstanceState(inState);
-    }
-
-    @Override
-    protected void onStart() {
+    public void onStart() {
         super.onStart();
     }
 
     @Override
-    protected void onStop() {
+    public void onStop() {
         super.onStop();
-        StatisticsService.sessionStop(this);
+        StatisticsService.sessionStop(getActivity());
     }
 
     private void adjustInfoPopovers() {

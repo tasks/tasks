@@ -77,7 +77,7 @@
               android:windowSoftInputMode="stateHidden"
               android:screenOrientation="portrait">
     </activity>
-    <activity android:name="com.todoroo.astrid.activity.TaskListActivity"
+    <activity android:name="com.todoroo.astrid.activity.TaskListWrapperActivity"
               android:windowSoftInputMode="stateHidden|adjustResize">
       <intent-filter>
         <action android:name="android.intent.action.MAIN" />
@@ -118,7 +118,7 @@
         </intent-filter>
     </activity>
     <!-- Activity that displays filter list -->
-    <activity android:name="com.todoroo.astrid.activity.FilterListActivity"
+    <activity android:name="com.todoroo.astrid.activity.FilterListWrapperActivity"
               android:launchMode="singleTop"
               android:finishOnTaskLaunch="true">
       <intent-filter>
@@ -129,7 +129,7 @@
                  android:resource="@xml/filter_list_searchable" />
     </activity>
     <!-- Activity that creates or edits tasks -->
-    <activity android:name="com.todoroo.astrid.activity.TaskEditActivity"
+    <activity android:name="com.todoroo.astrid.activity.TaskEditWrapperActivity"
               android:windowSoftInputMode="stateHidden">
       <intent-filter>
         <action android:name="android.intent.action.MAIN" />
@@ -337,7 +337,7 @@
         <category android:name="android.intent.category.DEFAULT" />
       </intent-filter>
     </receiver>    
-    <activity android:name="com.todoroo.astrid.actfm.TagViewActivity"
+    <activity android:name="com.todoroo.astrid.actfm.TagViewWrapperActivity"
               android:windowSoftInputMode="stateHidden|adjustResize"
               android:theme="@style/Theme">
         <intent-filter>
@@ -547,9 +547,8 @@
         <category android:name="android.intent.category.DEFAULT" />
       </intent-filter>
     </receiver>
-    <activity android:name="com.todoroo.astrid.reminders.NotificationActivity"
+    <activity android:name="com.todoroo.astrid.reminders.NotificationWrapperActivity"
               android:launchMode="singleTask"
-              android:screenOrientation="portrait"
               android:finishOnTaskLaunch="true"
               android:clearTaskOnLaunch="true">
     </activity>

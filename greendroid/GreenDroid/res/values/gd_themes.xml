@@ -19,7 +19,7 @@
 
 <resources>
 
-	<style name="Theme.GreenDroid" parent="@android:style/Theme">
+	<style name="Theme.GreenDroid" parent="@style/Theme.Sherlock">
 	
 		<item name="gdTextAppearance">@style/TextAppearance</item>
 		<item name="gdTextAppearanceLarge">@style/TextAppearance.Large</item>
@@ -99,10 +99,7 @@
 	
 	
 	<style name="Theme.GreenDroid.NoTitleBar" parent="@style/Theme.GreenDroid">
-	
 		<item name="android:windowContentOverlay">@null</item>
-		<item name="android:windowNoTitle">true</item>
-	
 	</style>
 	
 </resources>

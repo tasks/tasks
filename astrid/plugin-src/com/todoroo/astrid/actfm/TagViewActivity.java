@@ -8,17 +8,18 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
+import android.support.v4.view.Menu;
+import android.support.v4.view.MenuItem;
 import android.text.TextUtils;
 import android.util.DisplayMetrics;
 import android.util.Log;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -94,7 +95,7 @@ public class TagViewActivity extends TaskListActivity {
     // --- UI initialization
 
     @Override
-    protected void onCreate(final Bundle savedInstanceState) {
+    public void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         getListView().setOnKeyListener(null);
@@ -107,27 +108,25 @@ public class TagViewActivity extends TaskListActivity {
                 return false;
             }
         };
-        ((EditText) findViewById(R.id.quickAddText)).setOnTouchListener(onTouch);
+        ((EditText) getView().findViewById(R.id.quickAddText)).setOnTouchListener(onTouch);
 
-        View membersEdit = findViewById(R.id.members_edit);
+        View membersEdit = getView().findViewById(R.id.members_edit);
         membersEdit.setOnClickListener(settingsListener);
 
         if (actFmPreferenceService.isLoggedIn()) {
-            View activityContainer = findViewById(R.id.activityContainer);
+            View activityContainer = getView().findViewById(R.id.activityContainer);
             activityContainer.setVisibility(View.VISIBLE);
 
-            findViewById(R.id.listLabel).setPadding(0, 0, 0, 0);
+            getView().findViewById(R.id.listLabel).setPadding(0, 0, 0, 0);
 
-            ImageView activity = (ImageView) findViewById(R.id.activity);
+            ImageView activity = (ImageView) getView().findViewById(R.id.activity);
             activity.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Intent intent = new Intent(TagViewActivity.this, TagUpdatesActivity.class);
+                    Intent intent = new Intent(getActivity(), TagUpdatesActivity.class);
                     intent.putExtra(EXTRA_TAG_DATA, tagData);
                     startActivity(intent);
-                    AndroidUtilities.callApiMethod(5, TagViewActivity.this, "overridePendingTransition", //$NON-NLS-1$
-                            new Class<?>[] { Integer.TYPE, Integer.TYPE },
-                            R.anim.slide_left_in, R.anim.slide_left_out);
+                    AndroidUtilities.callOverridePendingTransition(getActivity(), R.anim.slide_left_in, R.anim.slide_left_out);
                 }
             });
         }
@@ -139,12 +138,10 @@ public class TagViewActivity extends TaskListActivity {
     private final OnClickListener settingsListener = new OnClickListener() {
         @Override
         public void onClick(View v) {
-            Intent intent = new Intent(TagViewActivity.this, TagSettingsActivity.class);
+            Intent intent = new Intent(getActivity(), TagSettingsActivity.class);
             intent.putExtra(EXTRA_TAG_DATA, tagData);
             startActivityForResult(intent, REQUEST_CODE_SETTINGS);
-            AndroidUtilities.callApiMethod(5, TagViewActivity.this, "overridePendingTransition", //$NON-NLS-1$
-                    new Class<?>[] { Integer.TYPE, Integer.TYPE },
-                    R.anim.slide_left_in, R.anim.slide_left_out);
+            AndroidUtilities.callOverridePendingTransition(getActivity(), R.anim.slide_left_in, R.anim.slide_left_out);
         }
     };
 
@@ -153,7 +150,7 @@ public class TagViewActivity extends TaskListActivity {
      */
     @Override
     protected View getListBody(ViewGroup root) {
-        ViewGroup parent = (ViewGroup) getLayoutInflater().inflate(R.layout.task_list_body_tag, root, false);
+        ViewGroup parent = (ViewGroup) getActivity().getLayoutInflater().inflate(R.layout.task_list_body_tag, root, false);
 
         taskListView = super.getListBody(parent);
         if(actFmPreferenceService.isLoggedIn())
@@ -165,8 +162,8 @@ public class TagViewActivity extends TaskListActivity {
 
     private void showListSettingsPopover() {
         if (!Preferences.getBoolean(R.string.p_showed_list_settings_help, false)) {
-            View tabView = findViewById(R.id.members_edit);
-            HelpInfoPopover.showPopover(this, tabView, R.string.help_popover_list_settings, null);
+            View tabView = getView().findViewById(R.id.members_edit);
+            HelpInfoPopover.showPopover(getActivity(), tabView, R.string.help_popover_list_settings, null);
             Preferences.setBoolean(R.string.p_showed_list_settings_help, true);
         }
     }
@@ -192,8 +189,8 @@ public class TagViewActivity extends TaskListActivity {
             dataLoaded = true;
         }
 
-        String tag = getIntent().getStringExtra(EXTRA_TAG_NAME);
-        long remoteId = getIntent().getLongExtra(EXTRA_TAG_REMOTE_ID, 0);
+        String tag = getActivity().getIntent().getStringExtra(EXTRA_TAG_NAME);
+        long remoteId = getActivity().getIntent().getLongExtra(EXTRA_TAG_REMOTE_ID, 0);
 
         if(tag == null && remoteId == 0)
             return;
@@ -230,15 +227,13 @@ public class TagViewActivity extends TaskListActivity {
         super.onNewIntent(intent);
 
         if (intent.getBooleanExtra(TOKEN_START_ACTIVITY, false)) {
-            findViewById(R.id.activity).postDelayed(new Runnable() {
+            getView().findViewById(R.id.activity).postDelayed(new Runnable() {
                 @Override
                 public void run() {
-                    Intent i = new Intent(TagViewActivity.this, TagUpdatesActivity.class);
+                    Intent i = new Intent(getActivity(), TagUpdatesActivity.class);
                     i.putExtra(EXTRA_TAG_DATA, tagData);
                     startActivity(i);
-                    AndroidUtilities.callApiMethod(5, TagViewActivity.this, "overridePendingTransition", //$NON-NLS-1$
-                            new Class<?>[] { Integer.TYPE, Integer.TYPE },
-                            R.anim.slide_left_in, R.anim.slide_left_out);
+                    AndroidUtilities.callOverridePendingTransition(getActivity(), R.anim.slide_left_in, R.anim.slide_left_out);
                 }
             }, 500);
         }
@@ -264,7 +259,7 @@ public class TagViewActivity extends TaskListActivity {
 
         final ProgressDialog progressDialog;
         if(manual && !noRemoteId)
-            progressDialog = DialogUtilities.progressDialog(this, getString(R.string.DLG_please_wait));
+            progressDialog = DialogUtilities.progressDialog(getActivity(), getString(R.string.DLG_please_wait));
         else
             progressDialog = null;
 
@@ -276,8 +271,8 @@ public class TagViewActivity extends TaskListActivity {
                     String oldName = tagData.getValue(TagData.NAME);
                     actFmSyncService.fetchTag(tagData);
 
-                    DialogUtilities.dismissDialog(TagViewActivity.this, progressDialog);
-                    runOnUiThread(new Runnable() {
+                    DialogUtilities.dismissDialog(getActivity(), progressDialog);
+                    getActivity().runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
                             if(noRemoteId && tagData.getValue(TagData.REMOTE_ID) > 0)
@@ -309,12 +304,12 @@ public class TagViewActivity extends TaskListActivity {
         actFmSyncService.fetchTasksForTag(tagData, manual, new Runnable() {
             @Override
             public void run() {
-                runOnUiThread(new Runnable() {
+                getActivity().runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
                         loadTaskListContent(true);
                         ((TextView)taskListView.findViewById(android.R.id.empty)).setText(R.string.TLA_no_items);
-                        DialogUtilities.dismissDialog(TagViewActivity.this, progressDialog);
+                        DialogUtilities.dismissDialog(getActivity(), progressDialog);
                     }
                 });
             }
@@ -323,11 +318,11 @@ public class TagViewActivity extends TaskListActivity {
         actFmSyncService.fetchUpdatesForTag(tagData, manual, new Runnable() {
             @Override
             public void run() {
-                runOnUiThread(new Runnable() {
+                getActivity().runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
                         //refreshUpdatesList();
-                        DialogUtilities.dismissDialog(TagViewActivity.this, progressDialog);
+                        DialogUtilities.dismissDialog(getActivity(), progressDialog);
                     }
                 });
             }
@@ -336,7 +331,7 @@ public class TagViewActivity extends TaskListActivity {
     }
 
     private void setUpMembersGallery() {
-        LinearLayout membersView = (LinearLayout)findViewById(R.id.shared_with);
+        LinearLayout membersView = (LinearLayout)getView().findViewById(R.id.shared_with);
         membersView.setOnClickListener(settingsListener);
         try {
             String membersString = tagData.getValue(TagData.MEMBERS);
@@ -357,7 +352,7 @@ public class TagViewActivity extends TaskListActivity {
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        findViewById(R.id.filter_assigned).setOnClickListener(new OnClickListener() {
+        getActivity().findViewById(R.id.filter_assigned).setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
                 resetAssignedFilter();
@@ -368,8 +363,8 @@ public class TagViewActivity extends TaskListActivity {
     @SuppressWarnings("nls")
     private void addImageForMember(LinearLayout membersView, JSONObject member) {
         DisplayMetrics displayMetrics = new DisplayMetrics();
-        getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
-        AsyncImageView image = new AsyncImageView(this);
+        getActivity().getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
+        AsyncImageView image = new AsyncImageView(getActivity());
         image.setLayoutParams(new LinearLayout.LayoutParams((int)(50 * displayMetrics.density),
                 (int)(50 * displayMetrics.density)));
         image.setDefaultImageResource(R.drawable.icn_default_person_image);
@@ -408,8 +403,8 @@ public class TagViewActivity extends TaskListActivity {
                     else
                         assignedCriterion = Task.USER_ID.eq(id);
                     Criterion assigned = Criterion.and(TaskCriteria.activeAndVisible(), assignedCriterion);
-                    filter = TagFilterExposer.filterFromTag(TagViewActivity.this, new Tag(tagData), assigned);
-                    TextView filterByAssigned = (TextView) findViewById(R.id.filter_assigned);
+                    filter = TagFilterExposer.filterFromTag(getActivity(), new Tag(tagData), assigned);
+                    TextView filterByAssigned = (TextView) getView().findViewById(R.id.filter_assigned);
                     filterByAssigned.setVisibility(View.VISIBLE);
                     filterByAssigned.setText(getString(R.string.actfm_TVA_filtered_by_assign, displayName));
                     setUpTaskList();
@@ -435,7 +430,7 @@ public class TagViewActivity extends TaskListActivity {
     private void resetAssignedFilter() {
         currentId = -1;
         filter = originalFilter;
-        findViewById(R.id.filter_assigned).setVisibility(View.GONE);
+        getView().findViewById(R.id.filter_assigned).setVisibility(View.GONE);
         setUpTaskList();
     }
 
@@ -473,7 +468,7 @@ public class TagViewActivity extends TaskListActivity {
             if(!Long.toString(tagData.getValue(TagData.REMOTE_ID)).equals(intent.getStringExtra("tag_id")))
                 return;
 
-            runOnUiThread(new Runnable() {
+            getActivity().runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
                     //refreshUpdatesList();
@@ -487,35 +482,35 @@ public class TagViewActivity extends TaskListActivity {
     };
 
     @Override
-    protected void onResume() {
+    public void onResume() {
         super.onResume();
 
         IntentFilter intentFilter = new IntentFilter(BROADCAST_TAG_ACTIVITY);
-        registerReceiver(notifyReceiver, intentFilter);
+        getActivity().registerReceiver(notifyReceiver, intentFilter);
     }
 
     @Override
-    protected void onPause() {
+    public void onPause() {
         super.onPause();
 
-        unregisterReceiver(notifyReceiver);
+        getActivity().unregisterReceiver(notifyReceiver);
     }
 
     @Override
     protected Task quickAddTask(String title, boolean selectNewTask) {
         if(!tagData.containsNonNullValue(TagData.NAME) ||
                 tagData.getValue(TagData.NAME).length() == 0) {
-            DialogUtilities.okDialog(this, getString(R.string.tag_no_title_error), null);
+            DialogUtilities.okDialog(getActivity(), getString(R.string.tag_no_title_error), null);
             return null;
         }
         return super.quickAddTask(title, selectNewTask);
     }
 
     @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (requestCode == REQUEST_CODE_SETTINGS && resultCode == RESULT_OK) {
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == REQUEST_CODE_SETTINGS && resultCode == Activity.RESULT_OK) {
             tagData = tagDataService.fetchById(tagData.getId(), TagData.PROPERTIES);
-            filter = TagFilterExposer.filterFromTagData(this, tagData);
+            filter = TagFilterExposer.filterFromTagData(getActivity(), tagData);
             taskAdapter = null;
             loadTaskListContent(true);
         } else {
@@ -524,7 +519,7 @@ public class TagViewActivity extends TaskListActivity {
     }
 
     @Override
-    public boolean onMenuItemSelected(int featureId, final MenuItem item) {
+    public boolean onOptionsItemSelected(MenuItem item) {
         // handle my own menus
         switch (item.getItemId()) {
         case MENU_REFRESH_ID:
@@ -532,7 +527,7 @@ public class TagViewActivity extends TaskListActivity {
             return true;
         }
 
-        return super.onMenuItemSelected(featureId, item);
+        return super.onOptionsItemSelected(item);
     }
 
 }

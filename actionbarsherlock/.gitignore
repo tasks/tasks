@@ -1,0 +1,30 @@
+#Android generated
+bin
+library/bin
+gen
+
+#Eclipse
+.project
+.classpath
+.settings
+
+#IntelliJ IDEA
+.idea
+*.iml
+*.ipr
+*.iws
+
+#Maven
+target
+release.properties
+pom.xml.*
+
+website/_site
+
+#Ant
+build.xml
+local.properties
+proguard.cfg
+
+#OSX
+.DS_Store
