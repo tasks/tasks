@@ -5,6 +5,7 @@ import android.support.v4.app.Fragment;
 import android.view.KeyEvent;
 
 import com.timsu.astrid.R;
+import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.astrid.service.ThemeService;
 
 public class TaskEditWrapperActivity extends AstridWrapperActivity {
@@ -41,5 +42,11 @@ public class TaskEditWrapperActivity extends AstridWrapperActivity {
         if (frag != null && frag.isInLayout())
             return frag.onKeyDown(keyCode, event);
         return super.onKeyDown(keyCode, event);
+    }
+
+    @Override
+    public void finish() {
+        super.finish();
+        AndroidUtilities.callOverridePendingTransition(this, R.anim.slide_right_in, R.anim.slide_right_out);
     }
 }

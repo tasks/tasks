@@ -13,7 +13,11 @@
 	    android:layout_weight="67">
         <!-- Preview: layout=@layout/task_list_activity -->
 	</fragment>
-	    <fragment
+	<View 
+        android:layout_width="1px"
+        android:layout_height="match_parent"
+        android:background="#000000"/>
+	<fragment
 	    xmlns:android="http://schemas.android.com/apk/res/android"
 	    android:name="com.todoroo.astrid.activity.TaskEditActivity"
 	    android:layout_width="match_parent"
