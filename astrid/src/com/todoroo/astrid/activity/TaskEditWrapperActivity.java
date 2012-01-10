@@ -3,6 +3,7 @@ package com.todoroo.astrid.activity;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.KeyEvent;
+import android.widget.TextView;
 
 import com.timsu.astrid.R;
 import com.todoroo.andlib.utility.AndroidUtilities;
@@ -42,6 +43,16 @@ public class TaskEditWrapperActivity extends AstridWrapperActivity {
         if (frag != null && frag.isInLayout())
             return frag.onKeyDown(keyCode, event);
         return super.onKeyDown(keyCode, event);
+    }
+
+    @Override
+    public void setTitle(CharSequence title) {
+        Fragment frag = (Fragment) getSupportFragmentManager()
+                .findFragmentById(R.id.tasklist_fragment);
+        if (frag != null && frag.isInLayout())
+            ((TextView)frag.getView().findViewById(R.id.listLabel)).setText(title);
+        // update the actionbar-title
+        getSupportActionBar().setTitle(title);
     }
 
     @Override
