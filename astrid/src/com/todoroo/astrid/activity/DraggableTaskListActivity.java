@@ -6,7 +6,6 @@ import java.util.concurrent.atomic.AtomicReference;
 
 import android.database.Cursor;
 import android.os.Bundle;
-import android.support.v4.app.ListFragment;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnTouchListener;
@@ -19,7 +18,6 @@ import com.todoroo.andlib.data.Property;
 import com.todoroo.andlib.data.Property.IntegerProperty;
 import com.todoroo.andlib.data.TodorooCursor;
 import com.todoroo.astrid.adapter.TaskAdapter;
-import com.todoroo.astrid.adapter.TaskAdapter.OnCompletedTaskListener;
 import com.todoroo.astrid.core.SortHelper;
 import com.todoroo.astrid.data.Task;
 
@@ -107,7 +105,7 @@ public class DraggableTaskListActivity extends TaskListActivity {
 
     private final class DraggableTaskAdapter extends TaskAdapter {
 
-        private DraggableTaskAdapter(ListFragment activity, int resource,
+        private DraggableTaskAdapter(TaskListActivity activity, int resource,
                 Cursor c, AtomicReference<String> query, boolean autoRequery,
                 OnCompletedTaskListener onCompletedTaskListener) {
             super(activity, resource, c, query, autoRequery,

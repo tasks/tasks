@@ -372,6 +372,10 @@ public class TaskListActivity extends ListFragment implements OnScrollListener,
         contextMenuExtensionLoader.loadInNewThread(getActivity());
     }
 
+    public Filter getFilter() {
+        return filter;
+    }
+
     protected void addSyncRefreshMenuItem(Menu menu) {
         MenuItem item = menu.add(Menu.NONE, MENU_SYNC_ID, Menu.NONE,
                 R.string.TLA_menu_sync);
@@ -576,12 +580,14 @@ public class TaskListActivity extends ListFragment implements OnScrollListener,
     protected Intent getOnClickQuickAddIntent(Task t) {
         Intent intent = new Intent(getActivity(), TaskEditWrapperActivity.class);
         intent.putExtra(TaskEditActivity.TOKEN_ID, t.getId());
+        intent.putExtra(TOKEN_FILTER, filter);
         return intent;
     }
 
     protected Intent getOnLongClickQuickAddIntent(Task t) {
         Intent intent = new Intent(getActivity(), TaskEditWrapperActivity.class);
         intent.putExtra(TaskEditActivity.TOKEN_ID, t.getId());
+        intent.putExtra(TOKEN_FILTER, filter);
         return intent;
     }
 
@@ -683,6 +689,7 @@ public class TaskListActivity extends ListFragment implements OnScrollListener,
         } catch (IllegalArgumentException e) {
             // might not have fully initialized
         }
+        getActivity().getIntent().putExtra(TOKEN_FILTER, filter); // Remember current filter for when activity is restarted (i.e. after orientation change)
         backgroundTimer.cancel();
     }
 
@@ -1334,6 +1341,7 @@ public class TaskListActivity extends ListFragment implements OnScrollListener,
             itemId = item.getGroupId();
             intent = new Intent(getActivity(), TaskEditWrapperActivity.class);
             intent.putExtra(TaskEditActivity.TOKEN_ID, itemId);
+            intent.putExtra(TOKEN_FILTER, filter);
             startActivityForResult(intent, ACTIVITY_EDIT_TASK);
             transitionForTaskEdit();
             return true;
@@ -1357,6 +1365,7 @@ public class TaskListActivity extends ListFragment implements OnScrollListener,
 
             intent = new Intent(getActivity(), TaskEditWrapperActivity.class);
             intent.putExtra(TaskEditActivity.TOKEN_ID, clone.getId());
+            intent.putExtra(TOKEN_FILTER, filter);
             startActivityForResult(intent, ACTIVITY_EDIT_TASK);
             transitionForTaskEdit();
 

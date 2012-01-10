@@ -28,7 +28,6 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
-import android.support.v4.app.ListFragment;
 import android.text.Html;
 import android.text.Html.ImageGetter;
 import android.text.Html.TagHandler;
@@ -139,7 +138,7 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
     @Autowired
     private TaskService taskService;
 
-    protected final ListFragment fragment;
+    protected final TaskListActivity fragment;
     protected final HashMap<Long, Boolean> completedItems = new HashMap<Long, Boolean>(0);
     protected OnCompletedTaskListener onCompletedTaskListener = null;
     public boolean isFling = false;
@@ -179,7 +178,7 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
      * @param onCompletedTaskListener
      *            task listener. can be null
      */
-    public TaskAdapter(ListFragment fragment, int resource,
+    public TaskAdapter(TaskListActivity fragment, int resource,
             Cursor c, AtomicReference<String> query, boolean autoRequery,
             OnCompletedTaskListener onCompletedTaskListener) {
         super(ContextManager.getContext(), c, autoRequery);
@@ -930,6 +929,7 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
             if(position == 0) {
                 Intent intent = new Intent(fragment.getActivity(), TaskEditWrapperActivity.class);
                 intent.putExtra(TaskEditActivity.TOKEN_ID, taskId);
+                intent.putExtra(TaskListActivity.TOKEN_FILTER, fragment.getFilter());
                 fragment.startActivityForResult(intent, TaskListActivity.ACTIVITY_EDIT_TASK);
                 AndroidUtilities.callOverridePendingTransition(fragment.getActivity(), R.anim.slide_left_in, R.anim.slide_left_out);
             } else {
@@ -990,6 +990,7 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
                 else {
                     Intent intent = new Intent(fragment.getActivity(), TaskEditWrapperActivity.class);
                     intent.putExtra(TaskEditActivity.TOKEN_ID, taskId);
+                    intent.putExtra(TaskListActivity.TOKEN_FILTER, fragment.getFilter());
                     fragment.getActivity().startActivityForResult(intent, TaskListActivity.ACTIVITY_EDIT_TASK);
                     AndroidUtilities.callOverridePendingTransition(fragment.getActivity(), R.anim.slide_left_in, R.anim.slide_left_out);
                 }
@@ -1017,6 +1018,7 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
                 if (actions != null && actions.size() == 0) {
                     Intent editIntent = new Intent(fragment.getActivity(), TaskEditWrapperActivity.class);
                     editIntent.putExtra(TaskEditActivity.TOKEN_ID, taskId);
+                    editIntent.putExtra(TaskListActivity.TOKEN_FILTER, fragment.getFilter());
                     fragment.getActivity().startActivityForResult(editIntent, TaskListActivity.ACTIVITY_EDIT_TASK);
                     AndroidUtilities.callOverridePendingTransition(fragment.getActivity(), R.anim.slide_left_in, R.anim.slide_left_out);
                 }
