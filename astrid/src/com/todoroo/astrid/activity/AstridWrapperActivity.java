@@ -37,12 +37,43 @@ public class AstridWrapperActivity extends FragmentActivity
      */
     protected boolean mMultipleFragments = false;
 
+    protected FilterListActivity getFilterListFragment() {
+        FilterListActivity frag = (FilterListActivity) getSupportFragmentManager()
+                .findFragmentById(R.id.filterlist_fragment);
+        if (frag == null || !frag.isInLayout())
+            return null;
+
+        return frag;
+    }
+
+    protected TaskListActivity getTaskListFragment() {
+        TaskListActivity frag = (TaskListActivity) getSupportFragmentManager()
+                .findFragmentById(R.id.tasklist_fragment);
+        if (frag == null || !frag.isInLayout())
+            return null;
+
+        return frag;
+    }
+
     /* (non-Javadoc)
      * @see android.support.v4.app.FragmentActivity#onCreate(android.os.Bundle)
      */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+    }
+
+    /* (non-Javadoc)
+     * @see android.app.Activity#onNewIntent(android.content.Intent)
+     */
+    @Override
+    protected void onNewIntent(Intent intent) {
+        super.onNewIntent(intent);
+        FilterListActivity frag = getFilterListFragment();
+        if (frag != null) {
+            // forwarding for search-requests
+            frag.onNewIntent(intent);
+        }
     }
 
     /**
