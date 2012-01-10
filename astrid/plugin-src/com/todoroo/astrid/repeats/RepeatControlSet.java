@@ -101,7 +101,6 @@ public class RepeatControlSet extends PopupControlSet {
             int dayOfWeek = calendar.get(Calendar.DAY_OF_WEEK);
             checkBox.setPadding(0, 0, 0, 0);
             checkBox.setLayoutParams(lp);
-            checkBox.setBackgroundResource(0);
             checkBox.setTag(Weekday.values()[dayOfWeek - 1]);
             checkBox.setButtonDrawable(R.drawable.btn_check_small);
 
