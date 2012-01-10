@@ -33,9 +33,9 @@ public class ThemeService {
         int themeSetting = ThemeService.getTheme();
         int theme;
         if (themeSetting == R.style.Theme || themeSetting == R.style.Theme_Transparent) {
-            theme = R.style.Theme_TEA_Dialog;
+            theme = R.style.TEA_Dialog;
         } else {
-            theme = R.style.Theme_TEA_Dialog_White;
+            theme = R.style.TEA_Dialog_White;
         }
         return theme;
     }

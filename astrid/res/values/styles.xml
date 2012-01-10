@@ -155,7 +155,7 @@
         <item name="android:windowExitAnimation">@anim/slide_right_out</item>
    	</style>
    	
-   	<style name="Theme.TEA_Dialog">
+   	<style name="TEA_Dialog" parent="@android:style/Theme.Dialog">
 	    <item name="android:windowFrame">@null</item>
 	    <item name="android:windowTitleStyle">@style/TEA_DialogWindowTitle</item>
 	    <item name="android:windowBackground">@drawable/task_edit_dialog_background</item>
@@ -166,7 +166,7 @@
 	    <item name="asTextColor">#ffffff</item>
 	</style>
 	
-   	<style name="Theme.TEA_Dialog.White">
+   	<style name="TEA_Dialog.White">
    	    <item name="android:windowBackground">@drawable/task_edit_dialog_background_white</item>
    	    <item name="asTextColor">#000000</item>
    	</style>

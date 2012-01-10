@@ -3,6 +3,8 @@ package com.todoroo.astrid.ui;
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.DialogInterface;
+import android.content.res.Configuration;
+import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -11,6 +13,7 @@ import android.view.Window;
 import android.widget.Button;
 
 import com.timsu.astrid.R;
+import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.andlib.utility.DialogUtilities;
 import com.todoroo.astrid.helper.TaskEditControlSet;
 import com.todoroo.astrid.service.ThemeService;
@@ -77,9 +80,16 @@ public abstract class PopupControlSet extends TaskEditControlSet {
                 }
             });
         }
+
         LayoutParams params = d.getWindow().getAttributes();
         params.width = LayoutParams.FILL_PARENT;
         params.height = LayoutParams.WRAP_CONTENT;
+        Configuration config = activity.getResources().getConfiguration();
+        int size = config.screenLayout & Configuration.SCREENLAYOUT_SIZE_MASK;
+        if (AndroidUtilities.getSdkVersion() >= 9 && size == Configuration.SCREENLAYOUT_SIZE_XLARGE) {
+            DisplayMetrics metrics = activity.getResources().getDisplayMetrics();
+            params.width = metrics.widthPixels / 2;
+        }
         d.getWindow().setAttributes((android.view.WindowManager.LayoutParams) params);
 
         d.setOnCancelListener(cancelListener);
