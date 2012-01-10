@@ -64,11 +64,11 @@
 
   <uses-sdk android:targetSdkVersion="10"
             android:minSdkVersion="7" />
-  <supports-screens />
+  <supports-screens android:xlargeScreens="true" android:largeScreens="true"/>
   
   <application android:icon="@drawable/icon" android:label="@string/app_name"
                android:theme="@style/Theme"
-               android:name="greendroid.app.GDApplication">
+               android:name="greendroid.app.GDApplication" android:hardwareAccelerated="true" android:manageSpaceActivity="com.todoroo.astrid.core.OldTaskPreferences">
                
     <!-- ====================================================== Activities = -->
         
