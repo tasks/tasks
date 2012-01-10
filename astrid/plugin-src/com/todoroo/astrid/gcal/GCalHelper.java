@@ -7,10 +7,12 @@ import android.content.ContentValues;
 import android.database.Cursor;
 import android.net.Uri;
 import android.text.TextUtils;
+import android.text.format.Time;
 import android.util.Log;
 
 import com.timsu.astrid.R;
 import com.todoroo.andlib.service.ContextManager;
+import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.astrid.core.PluginServices;
@@ -63,11 +65,14 @@ public class GCalHelper {
         try{
             // FIXME test this with empty quickadd and full quickadd and taskedit-page
             Uri uri = Calendars.getCalendarContentUri(Calendars.CALENDAR_CONTENT_EVENTS);
+            System.err.println("URI: " + uri);
             values.put("title", task.getValue(Task.TITLE));
             values.put("description", task.getValue(Task.NOTES));
             values.put("hasAlarm", 0);
-            values.put("transparency", 0);
-            values.put("visibility", 0);
+            if (AndroidUtilities.getSdkVersion() < 14) {
+                values.put("transparency", 0);
+                values.put("visibility", 0);
+            }
             boolean valuesContainCalendarId = (values.containsKey("calendar_id") &&
                     !TextUtils.isEmpty(values.getAsString("calendar_id")));
             if (!valuesContainCalendarId) {
@@ -77,8 +82,10 @@ public class GCalHelper {
                 }
             }
 
+            System.err.println("Creating start and end date");
             createStartAndEndDate(task, values);
 
+            System.err.println("Inserting event");
             Uri eventUri = cr.insert(uri, values);
             cr.notifyChange(eventUri, null);
 
@@ -86,6 +93,7 @@ public class GCalHelper {
 
         } catch (Exception e) {
             Log.e("astrid-gcal", "error-creating-calendar-event", e); //$NON-NLS-1$ //$NON-NLS-2$
+            e.printStackTrace();
         }
 
         return null;
@@ -151,6 +159,17 @@ public class GCalHelper {
             values.put("dtstart", tzCorrectedDueDateNow);
             values.put("dtend", tzCorrectedDueDateNow);
             values.put("allDay", "1");
+        }
+        adjustDateForIcs(task, values);
+    }
+
+    private static void adjustDateForIcs(Task task, ContentValues values) {
+        if (AndroidUtilities.getSdkVersion() >= 14) {
+            if ("1".equals(values.get("allDay"))) {
+                values.put("eventTimezone", Time.TIMEZONE_UTC);
+            } else {
+                values.put("eventTimezone", TimeZone.getDefault().getID());
+            }
         }
     }
 }
