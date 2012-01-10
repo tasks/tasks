@@ -16,14 +16,23 @@ public class TaskEditWrapperActivity extends AstridWrapperActivity {
         ThemeService.applyTheme(this);
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.task_edit_wrapper_activity);
+	}
+
+    /* (non-Javadoc)
+     * @see android.support.v4.app.FragmentActivity#onResume()
+     */
+    @Override
+    protected void onResume() {
+        super.onResume();
 
         Fragment frag = (Fragment) getSupportFragmentManager()
-                .findFragmentById(R.id.taskedit_fragment);
-        if (frag != null)
-        {
+                .findFragmentById(R.id.tasklist_fragment);
+        if (frag != null) {
             mMultipleFragments = true;
+        } else {
+            mMultipleFragments = false;
         }
-	}
+    }
 
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {

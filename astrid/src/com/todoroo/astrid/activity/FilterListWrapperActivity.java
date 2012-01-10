@@ -17,14 +17,23 @@ public class FilterListWrapperActivity extends AstridWrapperActivity {
         ThemeService.applyTheme(this);
 		super.onCreate(savedInstanceState);
         setContentView(R.layout.filter_list_wrapper_activity);
+	}
+
+    /* (non-Javadoc)
+     * @see android.support.v4.app.FragmentActivity#onResume()
+     */
+    @Override
+    protected void onResume() {
+        super.onResume();
 
         Fragment frag = (Fragment) getSupportFragmentManager()
                 .findFragmentById(R.id.tasklist_fragment);
-        if (frag != null)
-        {
+        if (frag != null && frag.isInLayout()) {
             mMultipleFragments = true;
+        } else {
+            mMultipleFragments = false;
         }
-	}
+    }
 
     @Override
     public void setTitle(CharSequence title) {
