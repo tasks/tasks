@@ -3,7 +3,6 @@ package com.todoroo.astrid.ui;
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.DialogInterface;
-import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -67,9 +66,7 @@ public abstract class PopupControlSet extends TaskEditControlSet {
         else
             d.setTitle(title);
         View v = getView();
-        DisplayMetrics metrics = new DisplayMetrics();
-        activity.getWindowManager().getDefaultDisplay().getMetrics(metrics);
-        d.setContentView(v, new LayoutParams(metrics.widthPixels - (int)(30 * metrics.density), LayoutParams.WRAP_CONTENT));
+        d.setContentView(v, new LayoutParams(LayoutParams.FILL_PARENT, LayoutParams.WRAP_CONTENT));
         Button dismiss = (Button) v.findViewById(R.id.edit_dlg_ok);
         if (dismiss != null) {
             dismiss.setOnClickListener(new OnClickListener() {
@@ -80,6 +77,11 @@ public abstract class PopupControlSet extends TaskEditControlSet {
                 }
             });
         }
+        LayoutParams params = d.getWindow().getAttributes();
+        params.width = LayoutParams.FILL_PARENT;
+        params.height = LayoutParams.WRAP_CONTENT;
+        d.getWindow().setAttributes((android.view.WindowManager.LayoutParams) params);
+
         d.setOnCancelListener(cancelListener);
         d.setOwnerActivity(PopupControlSet.this.activity);
         return d;

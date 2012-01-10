@@ -1,6 +1,7 @@
 package com.todoroo.astrid.ui;
 
 import android.app.Activity;
+import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
 import android.widget.LinearLayout;
@@ -19,6 +20,7 @@ import com.todoroo.astrid.data.Task;
 public class ReminderControlSet extends PopupControlSet {
     private final CheckBox during, after;
     private final Spinner mode;
+    private final LinearLayout remindersBody;
 
     private final RandomReminderControlSet randomControlSet;
     private final AlarmControlSet alarmControl;
@@ -32,8 +34,8 @@ public class ReminderControlSet extends PopupControlSet {
         randomControlSet = new RandomReminderControlSet(activity, getView(), -1);
         alarmControl = new AlarmControlSet(activity, R.layout.control_set_alarms);
 
-        LinearLayout body = (LinearLayout) getView().findViewById(R.id.reminders_body);
-        body.addView(alarmControl.getView());
+        remindersBody = (LinearLayout) getView().findViewById(R.id.reminders_body);
+        remindersBody.addView(alarmControl.getView());
 
         String[] list = new String[] {
                 activity.getString(R.string.TEA_reminder_mode_once),
@@ -49,6 +51,10 @@ public class ReminderControlSet extends PopupControlSet {
                 mode.setAdapter(adapter);
             }
         });
+    }
+
+    public void addViewToBody(View v) {
+        remindersBody.addView(v, 0);
     }
 
     public void setValue(int flags) {

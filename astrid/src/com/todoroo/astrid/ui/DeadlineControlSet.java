@@ -1,53 +1,39 @@
 package com.todoroo.astrid.ui;
 
 import android.app.Activity;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnClickListener;
+import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.timsu.astrid.R;
-import com.todoroo.andlib.utility.Preferences;
+import com.todoroo.andlib.utility.DialogUtilities;
 import com.todoroo.astrid.data.Task;
-import com.todoroo.astrid.ui.DateAndTimePicker.OnDateChangedListener;
-import com.todoroo.astrid.welcome.HelpInfoPopover;
 
 public class DeadlineControlSet extends PopupControlSet {
 
     private final DateAndTimePicker dateAndTimePicker;
-    private final TextView auxDisplay;
-    private View shortcutView;
 
-    public DeadlineControlSet(Activity activity, int viewLayout, int displayViewLayout, View extensionView, int auxDisplayId, int...dateShortcutViews) {
+    public DeadlineControlSet(Activity activity, int viewLayout, int displayViewLayout, View...extraViews) {
         super(activity, viewLayout, displayViewLayout, 0);
 
         dateAndTimePicker = (DateAndTimePicker) getView().findViewById(R.id.date_and_time);
-        auxDisplay = (TextView) extensionView.findViewById(auxDisplayId);
-        setUpListeners(dateShortcutViews);
-    }
+        LinearLayout body = (LinearLayout) getView().findViewById(R.id.datetime_body);
+        for (View v : extraViews) {
+            body.addView(v);
+        }
 
-    private void setUpListeners(int[] dateShortcutViews) {
-
-        dateAndTimePicker.setOnDateChangedListener(new OnDateChangedListener() {
-            @Override
-            public void onDateChanged() {
-                refreshDisplayView();
-            }
-        });
-
-        View.OnClickListener dateShortcutListener = new View.OnClickListener() {
+        Button okButton = (Button) LayoutInflater.from(activity).inflate(R.layout.control_dialog_ok, null);
+        okButton.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                dialog.show();
-                Preferences.setBoolean(R.string.p_showed_when_shortcut, true);
+                onOkClick();
+                DialogUtilities.dismissDialog(DeadlineControlSet.this.activity, DeadlineControlSet.this.dialog);
             }
-        };
-
-        for (int i : dateShortcutViews) {
-            View v = activity.findViewById(i);
-            if (v != null) {
-                shortcutView = v;
-                v.setOnClickListener(dateShortcutListener);
-            }
-        }
+        });
+        body.addView(okButton);
     }
 
     @Override
@@ -55,7 +41,6 @@ public class DeadlineControlSet extends PopupControlSet {
         TextView dateDisplay = (TextView) getDisplayView().findViewById(R.id.deadline_display);
         String toDisplay = dateAndTimePicker.getDisplayString(activity);
         dateDisplay.setText(toDisplay);
-        auxDisplay.setText(toDisplay);
     }
 
     @Override
@@ -71,35 +56,4 @@ public class DeadlineControlSet extends PopupControlSet {
         task.setValue(Task.DUE_DATE, dueDate);
         return null;
     }
-
-    @Override
-    protected void onOkClick() {
-        super.onOkClick();
-        showHelp();
-    }
-
-    @Override
-    protected void onCancelClick() {
-        super.onCancelClick();
-        showHelp();
-    }
-
-    private void showHelp() {
-        if (!Preferences.getBoolean(R.string.p_showed_when_shortcut, false)) {
-            if (shortcutView != null) {
-                Preferences.setBoolean(R.string.p_showed_when_shortcut, true);
-                Preferences.setBoolean(R.string.p_showed_when_row, true);
-                HelpInfoPopover.showPopover(activity, shortcutView, R.string.help_popover_when_shortcut, null);
-            }
-        }
-
-        if (!Preferences.getBoolean(R.string.p_showed_when_row, false)) {
-            if (displayView != null) {
-                Preferences.setBoolean(R.string.p_showed_when_shortcut, true);
-                Preferences.setBoolean(R.string.p_showed_when_row, true);
-                HelpInfoPopover.showPopover(activity, activity.findViewById(R.id.when_container), R.string.help_popover_when_row, null);
-            }
-        }
-    }
-
 }

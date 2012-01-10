@@ -120,52 +120,6 @@
 		  android:layout_height="fill_parent"
 		  android:orientation="vertical">
 		</LinearLayout>
-	    
-	    <LinearLayout
-	      android:id="@+id/when_container"
-	      android:layout_width="fill_parent"
-	      android:layout_height="wrap_content"
-	      android:orientation="vertical">
-	       
-	        <LinearLayout
-	          android:id="@+id/when_header"
-	          android:layout_width="fill_parent"
-	          android:layout_height="50dip"
-	          android:gravity="center_vertical">
-	          <LinearLayout
-	              android:id="@+id/when_shortcut_container"
-	              android:layout_width="wrap_content"
-	              android:layout_height="fill_parent"
-	              android:orientation="horizontal"
-	              android:gravity="center_vertical">
-		          <ImageView 
-		             android:id="@+id/when_image"
-		             style="@style/EditRowImage"
-		             android:src="@drawable/icn_edit_when"/>
-		          <TextView
-		            android:id="@+id/when_label"
-		            android:layout_width="wrap_content"
-		            android:layout_height="wrap_content"
-		            style="@style/TextAppearance.GEN_EditLabel"
-		            android:text="@string/TEA_when_header_label"/>
-	          </LinearLayout>
-	          <TextView
-	            android:id="@+id/aux_date"
-	            android:layout_width="fill_parent"
-	            android:layout_height="wrap_content"
-	            android:layout_weight="100"
-	            android:gravity="right"
-	            style="@style/TextAppearance.EditRowDisplay"/>
-	          <include layout="@layout/task_edit_arrow"/>
-	        </LinearLayout>
-	      
-	        <View
-		      android:layout_width="fill_parent"
-		      android:layout_height="1px"
-		      android:padding="5dip"
-		      style="@style/TEA_Separator" />
-			  
-		</LinearLayout>
 		
 		<LinearLayout
 	      android:layout_width="fill_parent"

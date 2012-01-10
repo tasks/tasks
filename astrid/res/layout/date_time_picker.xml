@@ -3,13 +3,13 @@
     <ScrollView
 	  android:layout_width="fill_parent"
 	  android:layout_height="fill_parent"
-	  android:minWidth="320dip"
+	  android:layout_weight="100"
 	  android:paddingLeft="10dip"
 	  android:paddingRight="10dip"
 	  android:paddingTop="5dip"
 	  android:paddingBottom="5dip">
 		<LinearLayout
-		  android:id="@+id/reminders_body"
+		  android:id="@+id/datetime_body"
 		  android:orientation="vertical"
 		  android:layout_width="fill_parent"
 		  android:layout_height="fill_parent">
@@ -21,6 +21,7 @@
 		  <LinearLayout
 		      android:layout_width="fill_parent"
 		      android:layout_height="wrap_content"
+		      android:layout_marginBottom="10dip"
 		      android:orientation="horizontal"
 		      android:layout_weight="1">
 	          <LinearLayout
@@ -39,7 +40,13 @@
 			      android:layout_marginLeft="5dip"
 	          	  android:layout_weight="1"
 	          	  android:orientation="vertical"/>
+
 		  </LinearLayout>
+	      <View
+             android:layout_width="fill_parent"
+             android:layout_height="1px"
+             android:padding="5dip"
+             style="@style/TEA_Separator" />
 		</LinearLayout>
 	</ScrollView>
 </merge>

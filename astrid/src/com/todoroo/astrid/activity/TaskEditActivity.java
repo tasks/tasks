@@ -93,7 +93,6 @@ import com.todoroo.astrid.ui.HideUntilControlSet;
 import com.todoroo.astrid.ui.ImportanceControlSet;
 import com.todoroo.astrid.ui.ReminderControlSet;
 import com.todoroo.astrid.voice.VoiceInputAssistant;
-import com.todoroo.astrid.welcome.HelpInfoPopover;
 
 /**
  * This activity is responsible for creating new tasks and editing existing
@@ -256,8 +255,6 @@ public final class TaskEditActivity extends Activity {
         LinearLayout basicControls = (LinearLayout) findViewById(R.id.basic_controls);
         LinearLayout whenDialogView = (LinearLayout) LayoutInflater.from(this).inflate(
                 R.layout.task_edit_when_controls, null);
-        LinearLayout whenControls = (LinearLayout) whenDialogView.findViewById(R.id.when_controls);
-        LinearLayout whenHeader = (LinearLayout) findViewById(R.id.when_header);
         LinearLayout moreControls = (LinearLayout) findViewById(R.id.more_controls);
 
         constructWhenDialog(whenDialogView);
@@ -282,31 +279,21 @@ public final class TaskEditActivity extends Activity {
         controlSetMap.put(getString(R.string.TEA_ctrl_who_pref),
                 peopleControlSet);
 
-        DeadlineControlSet deadlineControl = new DeadlineControlSet(
-                TaskEditActivity.this, R.layout.control_set_deadline,
-                R.layout.control_set_deadline_display, whenHeader,
-                R.id.aux_date, R.id.when_shortcut_container, R.id.when_label,
-                R.id.when_image);
-        controls.add(deadlineControl);
-        whenControls.addView(deadlineControl.getDisplayView());
-
         RepeatControlSet repeatControls = new RepeatControlSet(
                 TaskEditActivity.this, R.layout.control_set_repeat,
                 R.layout.control_set_repeat_display, R.string.repeat_enabled);
         controls.add(repeatControls);
-        whenControls.addView(repeatControls.getDisplayView());
 
         GCalControlSet gcalControl = new GCalControlSet(TaskEditActivity.this,
                 R.layout.control_set_gcal, R.layout.control_set_gcal_display,
                 R.string.gcal_TEA_addToCalendar_label);
         controls.add(gcalControl);
-        whenControls.addView(gcalControl.getDisplayView());
 
-        hideUntilControls = new HideUntilControlSet(TaskEditActivity.this,
-                R.layout.control_set_hide, R.layout.control_set_hide_display,
-                R.string.hide_until_prompt);
-        controls.add(hideUntilControls);
-        whenControls.addView(hideUntilControls.getDisplayView());
+        DeadlineControlSet deadlineControl = new DeadlineControlSet(
+                TaskEditActivity.this, R.layout.control_set_deadline,
+                R.layout.control_set_deadline_display, repeatControls.getDisplayView(), gcalControl.getDisplayView());
+        controls.add(deadlineControl);
+        controlSetMap.put(getString(R.string.TEA_ctrl_when_pref), deadlineControl);
 
         ImportanceControlSet importanceControl = new ImportanceControlSet(
                 TaskEditActivity.this, R.layout.control_set_importance);
@@ -336,6 +323,12 @@ public final class TaskEditActivity extends Activity {
         controls.add(reminderControl);
         controlSetMap.put(getString(R.string.TEA_ctrl_reminders_pref),
                 reminderControl);
+
+        hideUntilControls = new HideUntilControlSet(TaskEditActivity.this,
+                R.layout.control_set_hide, R.layout.control_set_hide_display,
+                R.string.hide_until_prompt);
+        controls.add(hideUntilControls);
+        reminderControl.addViewToBody(hideUntilControls.getDisplayView());
 
         TimerControlSet timerControl = new TimerControlSet(
                 TaskEditActivity.this, R.layout.control_set_timers,
@@ -375,8 +368,6 @@ public final class TaskEditActivity extends Activity {
         else
             itemOrder = getResources().getStringArray(R.array.TEA_control_sets_prefs);
         String moreSectionTrigger = getString(R.string.TEA_ctrl_more_pref);
-        String whenViewDescriptor = getString(R.string.TEA_ctrl_when_pref);
-        View whenView = findViewById(R.id.when_container);
         String shareViewDescriptor = getString(R.string.TEA_ctrl_share_pref);
         LinearLayout section = basicControls;
         for (int i = 0; i < itemOrder.length; i++) {
@@ -387,11 +378,7 @@ public final class TaskEditActivity extends Activity {
                 TaskEditControlSet curr = controlSetMap.get(item);
                 if (item.equals(shareViewDescriptor))
                     section.addView(peopleControlSet.getSharedWithRow());
-                else if (item.equals(whenViewDescriptor)) {
-                    LinearLayout parent = (LinearLayout) whenView.getParent();
-                    parent.removeView(whenView);
-                    section.addView(whenView);
-                } else if (curr != null)
+                else if (curr != null)
                     section.addView(curr.getDisplayView());
             }
         }
@@ -450,8 +437,6 @@ public final class TaskEditActivity extends Activity {
             Button discardButtonGeneral = (Button) findViewById(R.id.discard);
             discardButtonGeneral.setOnClickListener(mDiscardListener);
 
-            findViewById(R.id.when_header).setOnClickListener(mExpandWhenListener);
-
             findViewById(R.id.more_header).setOnClickListener(mExpandMoreListener);
 
             findViewById(R.id.activity).setOnClickListener(new View.OnClickListener() {
@@ -475,15 +460,7 @@ public final class TaskEditActivity extends Activity {
         dismissDialogButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                showWhenShortcutHelp();
                 DialogUtilities.dismissDialog(TaskEditActivity.this, whenDialog);
-            }
-        });
-
-        whenDialog.setOnCancelListener(new DialogInterface.OnCancelListener() {
-            @Override
-            public void onCancel(DialogInterface dialog) {
-                showWhenShortcutHelp();
             }
         });
 
@@ -491,14 +468,6 @@ public final class TaskEditActivity extends Activity {
         this.getWindowManager().getDefaultDisplay().getMetrics(metrics);
         whenDialog.setTitle(R.string.TEA_when_dialog_title);
         whenDialog.addContentView(whenDialogView, new LayoutParams(metrics.widthPixels - (int)(30 * metrics.density), LayoutParams.WRAP_CONTENT));
-    }
-
-    private void showWhenShortcutHelp() {
-        if (!Preferences.getBoolean(R.string.p_showed_when_shortcut, false)) {
-            Preferences.setBoolean(R.string.p_showed_when_shortcut, true);
-            Preferences.setBoolean(R.string.p_showed_when_row, true);
-            HelpInfoPopover.showPopover(this, findViewById(R.id.when_shortcut_container), R.string.help_popover_when_shortcut, null);
-        }
     }
 
     /**

@@ -13,12 +13,12 @@
       android:gravity="center_vertical">
       <ImageView 
         style="@style/EditRowImage"
-        android:src="@drawable/icn_edit_reminders"/>
+        android:src="@drawable/icn_edit_when"/>
 	  <TextView
 	    android:layout_width="wrap_content"
 	    android:layout_height="wrap_content"
 	    android:layout_marginRight="15dip"
-	    android:text="@string/TEA_date_and_time"
+	    android:text="@string/TEA_when_header_label"
 	    style="@style/TextAppearance.GEN_EditLabel.DLG_EditLabel" />
 	  <TextView
 	      android:id="@+id/deadline_display"
