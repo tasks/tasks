@@ -11,6 +11,7 @@ import android.content.BroadcastReceiver;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.Resources;
 
 import com.timsu.astrid.R;
 import com.todoroo.andlib.service.Autowired;
@@ -20,6 +21,7 @@ import com.todoroo.andlib.sql.Criterion;
 import com.todoroo.andlib.sql.Join;
 import com.todoroo.andlib.sql.QueryTemplate;
 import com.todoroo.astrid.api.AstridApiConstants;
+import com.todoroo.astrid.api.AstridFilterExposer;
 import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.api.FilterCategory;
 import com.todoroo.astrid.api.FilterListHeader;
@@ -36,7 +38,7 @@ import com.todoroo.astrid.data.TaskApiDao.TaskCriteria;
  * @author Tim Su <tim@todoroo.com>
  *
  */
-public class MilkFilterExposer extends BroadcastReceiver {
+public class MilkFilterExposer extends BroadcastReceiver implements AstridFilterExposer {
 
     @Autowired private MilkListService milkListService;
 
@@ -66,11 +68,20 @@ public class MilkFilterExposer extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {
+        Resources r = context.getResources();
         ContextManager.setContext(context);
 
+        FilterListItem[] list = prepareFilters(r);
+        Intent broadcastIntent = new Intent(AstridApiConstants.BROADCAST_SEND_FILTERS);
+        broadcastIntent.putExtra(AstridApiConstants.EXTRAS_ADDON, MilkUtilities.IDENTIFIER);
+        broadcastIntent.putExtra(AstridApiConstants.EXTRAS_RESPONSE, list);
+        context.sendBroadcast(broadcastIntent, AstridApiConstants.PERMISSION_READ);
+    }
+
+    private FilterListItem[] prepareFilters(Resources r) {
         // if we aren't logged in, don't expose features
         if(!MilkUtilities.INSTANCE.isLoggedIn())
-            return;
+            return null;
 
         DependencyInjectionService.getInstance().inject(this);
 
@@ -78,24 +89,31 @@ public class MilkFilterExposer extends BroadcastReceiver {
 
         // If user does not have any tags, don't show this section at all
         if(lists.length == 0)
-            return;
+            return null;
 
         Filter[] listFilters = new Filter[lists.length];
         for(int i = 0; i < lists.length; i++)
-            listFilters[i] = filterFromList(context, lists[i]);
+            listFilters[i] = filterFromList(ContextManager.getContext(), lists[i]);
 
-        FilterListHeader rtmHeader = new FilterListHeader(context.getString(R.string.rmilk_FEx_header));
-        FilterCategory rtmLists = new FilterCategory(context.getString(R.string.rmilk_FEx_list),
+        FilterListHeader rtmHeader = new FilterListHeader(ContextManager.getContext().getString(R.string.rmilk_FEx_header));
+        FilterCategory rtmLists = new FilterCategory(ContextManager.getContext().getString(R.string.rmilk_FEx_list),
                 listFilters);
 
         // transmit filter list
         FilterListItem[] list = new FilterListItem[2];
         list[0] = rtmHeader;
         list[1] = rtmLists;
-        Intent broadcastIntent = new Intent(AstridApiConstants.BROADCAST_SEND_FILTERS);
-        broadcastIntent.putExtra(AstridApiConstants.EXTRAS_ADDON, MilkUtilities.IDENTIFIER);
-        broadcastIntent.putExtra(AstridApiConstants.EXTRAS_RESPONSE, list);
-        context.sendBroadcast(broadcastIntent, AstridApiConstants.PERMISSION_READ);
+
+        return list;
+    }
+
+    @Override
+    public FilterListItem[] getFilters() {
+        if (ContextManager.getContext() == null || ContextManager.getContext().getResources() == null)
+            return null;
+
+        Resources r = ContextManager.getContext().getResources();
+        return prepareFilters(r);
     }
 
 }

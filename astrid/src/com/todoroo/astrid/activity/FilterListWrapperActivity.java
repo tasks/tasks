@@ -26,9 +26,8 @@ public class FilterListWrapperActivity extends AstridWrapperActivity {
     protected void onResume() {
         super.onResume();
 
-        Fragment frag = (Fragment) getSupportFragmentManager()
-                .findFragmentById(R.id.tasklist_fragment);
-        if (frag != null && frag.isInLayout()) {
+        Fragment frag = getTaskListFragment();
+        if (frag != null) {
             mMultipleFragments = true;
         } else {
             mMultipleFragments = false;
@@ -37,9 +36,8 @@ public class FilterListWrapperActivity extends AstridWrapperActivity {
 
     @Override
     public void setTitle(CharSequence title) {
-        Fragment frag = (Fragment) getSupportFragmentManager()
-                .findFragmentById(R.id.tasklist_fragment);
-        if (frag != null && frag.isInLayout())
+        Fragment frag = getTaskListFragment();
+        if (frag != null)
             ((TextView)frag.getView().findViewById(R.id.listLabel)).setText(title);
         // update the actionbar-title
         getSupportActionBar().setTitle(title);
