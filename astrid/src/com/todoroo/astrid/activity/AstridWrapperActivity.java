@@ -48,7 +48,7 @@ public class AstridWrapperActivity extends FragmentActivity
 
     protected TaskListActivity getTaskListFragment() {
         TaskListActivity frag = (TaskListActivity) getSupportFragmentManager()
-                .findFragmentById(R.id.tasklist_fragment);
+                .findFragmentByTag(TaskListActivity.TAG_TASKLIST_FRAGMENT);
         if (frag == null || !frag.isInLayout())
             return null;
 
@@ -109,7 +109,7 @@ public class AstridWrapperActivity extends FragmentActivity
         } else {
             // If showing both fragments, directly update the tasklist-fragment
             TaskListActivity tasklist = (TaskListActivity) getSupportFragmentManager()
-                    .findFragmentById(R.id.tasklist_fragment);
+                    .findFragmentByTag(TaskListActivity.TAG_TASKLIST_FRAGMENT);
 
             if(item instanceof Filter) {
                 Filter filter = (Filter)item;

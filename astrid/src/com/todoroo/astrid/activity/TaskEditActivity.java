@@ -107,6 +107,8 @@ import com.todoroo.astrid.voice.VoiceInputAssistant;
  */
 public final class TaskEditActivity extends Fragment {
 
+    public static final String TAG_TASKEDIT_FRAGMENT = "taskedit_fragment";
+
     // --- bundle tokens
 
     /**
@@ -290,7 +292,7 @@ public final class TaskEditActivity extends Fragment {
         setHasOptionsMenu(true);
         getSupportActivity().getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        Fragment tasklistFrame = getFragmentManager().findFragmentById(R.id.tasklist_fragment);
+        Fragment tasklistFrame = getFragmentManager().findFragmentByTag(TaskListActivity.TAG_TASKLIST_FRAGMENT);
         mDualFragments = (tasklistFrame != null) && tasklistFrame.isInLayout();
 
         setUpUIComponents();

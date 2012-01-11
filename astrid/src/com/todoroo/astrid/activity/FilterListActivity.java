@@ -95,6 +95,8 @@ import com.todoroo.astrid.utility.Constants;
  */
 public class FilterListActivity extends ExpandableListFragment {
 
+    public static final String TAG_FILTERLIST_FRAGMENT = "filterlist_fragment";
+
     // -- extra codes
     //public static final String SHOW_BACK_BUTTON = "show_back"; //$NON-NLS-1$
 
@@ -207,7 +209,7 @@ public class FilterListActivity extends ExpandableListFragment {
 
         onNewIntent(getActivity().getIntent());
 
-        Fragment tasklistFrame = getFragmentManager().findFragmentById(R.id.tasklist_fragment);
+        Fragment tasklistFrame = getFragmentManager().findFragmentByTag(TaskListActivity.TAG_TASKLIST_FRAGMENT);
         mDualFragments = (tasklistFrame != null) && tasklistFrame.isInLayout();
 
         if (mDualFragments) {
@@ -473,7 +475,7 @@ public class FilterListActivity extends ExpandableListFragment {
                 return true;
             }
             default: {
-                Fragment tasklist = getSupportFragmentManager().findFragmentById(R.id.tasklist_fragment);
+                Fragment tasklist = getSupportFragmentManager().findFragmentByTag(TaskListActivity.TAG_TASKLIST_FRAGMENT);
                 if (tasklist != null && tasklist.isInLayout())
                     return tasklist.onOptionsItemSelected(item);
             }

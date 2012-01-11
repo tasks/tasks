@@ -28,7 +28,7 @@ public class TaskEditWrapperActivity extends AstridWrapperActivity {
         super.onResume();
 
         Fragment frag = (Fragment) getSupportFragmentManager()
-                .findFragmentById(R.id.tasklist_fragment);
+                .findFragmentByTag(TaskListActivity.TAG_TASKLIST_FRAGMENT);
         if (frag != null) {
             mMultipleFragments = true;
         } else {
@@ -39,7 +39,7 @@ public class TaskEditWrapperActivity extends AstridWrapperActivity {
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         TaskEditActivity frag = (TaskEditActivity) getSupportFragmentManager()
-                .findFragmentById(R.id.taskedit_fragment);
+                .findFragmentByTag(TaskEditActivity.TAG_TASKEDIT_FRAGMENT);
         if (frag != null && frag.isInLayout())
             return frag.onKeyDown(keyCode, event);
         return super.onKeyDown(keyCode, event);
@@ -48,7 +48,7 @@ public class TaskEditWrapperActivity extends AstridWrapperActivity {
     @Override
     public void setTitle(CharSequence title) {
         Fragment frag = (Fragment) getSupportFragmentManager()
-                .findFragmentById(R.id.tasklist_fragment);
+                .findFragmentByTag(TaskListActivity.TAG_TASKLIST_FRAGMENT);
         if (frag != null && frag.isInLayout())
             ((TextView)frag.getView().findViewById(R.id.listLabel)).setText(title);
         // update the actionbar-title

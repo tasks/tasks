@@ -128,6 +128,8 @@ import com.todoroo.astrid.widget.TasksWidget;
 public class TaskListActivity extends ListFragment implements OnScrollListener,
         GestureInterface, OnSortSelectedListener {
 
+    public static final String TAG_TASKLIST_FRAGMENT = "tasklist_fragment";
+
     // --- activities
 
     private static final long BACKGROUND_REFRESH_INTERVAL = 120000L;
