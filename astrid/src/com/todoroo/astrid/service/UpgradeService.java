@@ -40,6 +40,7 @@ import com.todoroo.astrid.utility.AstridPreferences;
 
 public final class UpgradeService {
 
+    public static final int V3_9_2 = 207;
     public static final int V3_9_1_1 = 206;
     public static final int V3_9_1 = 205;
     public static final int V3_9_0_2 = 204;
@@ -169,6 +170,15 @@ public final class UpgradeService {
 
         Preferences.clear(AstridPreferences.P_UPGRADE_FROM);
         StringBuilder changeLog = new StringBuilder();
+
+        if (from >= V3_9_1_1 && from < V3_9_2) {
+            newVersionString(changeLog, "3.9.2 (01/13/12)", new String[] {
+                "Made selecting dates and times easier:",
+                "New tutorial walkthrough for new users",
+                "Stomped on a few bugs",
+                "Feedback welcomed!"
+            });
+        }
 
         if (from >= V3_9_1 && from < V3_9_1_1) {
             newVersionString(changeLog, "3.9.1.1 (01/06/12)", new String[] {

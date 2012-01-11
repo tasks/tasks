@@ -185,10 +185,10 @@
   share, and delegate with others.</string>
 
   <!-- share login: Sharing Login FB Prompt -->
-  <string name="actfm_ALA_fb_login">Login with Facebook</string>
+  <string name="actfm_ALA_fb_login">Connect with Facebook</string>
 
   <!-- share login: Sharing Login GG Prompt -->
-  <string name="actfm_ALA_gg_login">Login with Google</string>
+  <string name="actfm_ALA_gg_login">Connect with Google</string>
   
   <!-- share login: Sharing Footer Password Label -->
   <string name="actfm_ALA_pw_login">Don\'t use Google or Facebook?</string>

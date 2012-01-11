@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+  <LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:paddingLeft="4dip"
+    android:paddingRight="4dip"
+    android:background="@drawable/welcome_walkthrough_fabric"
+    android:orientation="vertical">
+
+    <TextView
+      android:id="@+id/logo"
+      android:layout_width="fill_parent"
+      android:layout_height="110dip"
+      android:gravity="center_horizontal"
+      android:paddingBottom="10dip"
+      android:layout_marginTop="30dip"
+      android:text="Connect now\nto get started!"
+      android:textColor="#444444"
+      android:textSize="40dip"
+      android:textStyle="bold"
+      android:shadowRadius="2"
+      android:shadowDy="1"
+      android:shadowColor="@android:color/white" />
+    
+    <TextView
+      android:id="@+id/error"
+      android:layout_width="fill_parent"
+      android:layout_height="wrap_content"
+      android:gravity="center"
+      android:textColor="#ff0000"
+      android:textSize="16sp"
+      android:textStyle="bold" />
+    
+	<RelativeLayout
+	    android:layout_width="fill_parent"
+	    android:layout_height="253dp"
+	    android:paddingTop="5dip" >
+	
+	    <TextView
+	      android:id="@+id/login_later"
+	      android:layout_width="fill_parent"
+	      android:layout_height="45dip"
+	      android:gravity="center"
+	      android:layout_alignParentBottom="true"
+	      android:paddingLeft="20dip"
+	      android:paddingRight="20dip"
+	      android:paddingBottom="5dip"
+	      android:textSize="16sp"
+	      android:textColor="#ffffff" />
+	  
+	    <Button
+	      android:id="@+id/pw_login"
+	      android:layout_width="fill_parent"
+	      android:layout_height="45dip"
+	      android:layout_above="@id/login_later"
+	      android:paddingLeft="20dip"
+          android:paddingRight="20dip"
+          android:layout_marginLeft="15dip"
+          android:layout_marginRight="15dip"
+	      android:textSize="16sp" 
+	      android:text="@string/welcome_login_pw"/>    
+	  
+	    <com.facebook.android.LoginButton
+	      android:id="@+id/fb_login"
+	      android:layout_width="fill_parent"
+	      android:layout_height="45dip"
+	      android:layout_above="@id/pw_login"
+	      android:paddingLeft="20dip"
+	      android:paddingRight="20dip"
+          android:layout_marginLeft="15dip"
+          android:layout_marginRight="15dip"
+	      android:textSize="16sp"
+	      android:drawableLeft="@drawable/facebook"
+	      android:text="@string/actfm_ALA_fb_login" />
+	                        
+	    <Button
+	      android:id="@+id/gg_login"
+	      android:layout_width="fill_parent"
+	      android:layout_height="45dip"
+	      android:layout_above="@id/fb_login"
+	      android:paddingLeft="20dip"
+	      android:paddingRight="20dip"
+          android:layout_marginLeft="15dip"
+          android:layout_marginRight="15dip"
+	      android:textSize="16sp"
+	      android:drawableLeft="@drawable/google"
+	      android:text="@string/actfm_ALA_gg_login" />
+	      
+	    <TextView
+	      android:id="@+id/tos"
+	      android:layout_width="fill_parent"
+	      android:layout_height="35dip"
+	      android:layout_above="@id/gg_login"
+	      android:gravity="center"
+	      android:paddingLeft="20dip"
+	      android:paddingRight="20dip"
+	      android:textSize="12.5sp"
+	      android:textColor="#ffffff" />   
+  </RelativeLayout>
+</LinearLayout>

@@ -115,6 +115,7 @@ import com.todoroo.astrid.utility.Flags;
 import com.todoroo.astrid.voice.VoiceInputAssistant;
 import com.todoroo.astrid.welcome.HelpInfoPopover;
 import com.todoroo.astrid.welcome.WelcomeLogin;
+import com.todoroo.astrid.welcome.tutorial.WelcomeWalkthrough;
 import com.todoroo.astrid.widget.TasksWidget;
 
 /**
@@ -578,8 +579,10 @@ public class TaskListActivity extends ListActivity implements OnScrollListener,
                 new IntentFilter(AstridApiConstants.BROADCAST_SEND_SYNC_ACTIONS));
         setUpBackgroundJobs();
 
+        //TODO REMOVE THIS GUY
+        //if (true){
         if (!Preferences.getBoolean(WelcomeLogin.KEY_SHOWED_WELCOME_LOGIN, false)) {
-            Intent showWelcomeLogin = new Intent(this, WelcomeLogin.class);
+            Intent showWelcomeLogin = new Intent(this, WelcomeWalkthrough.class);
             showWelcomeLogin.putExtra(ActFmLoginActivity.SHOW_TOAST, false);
             startActivity(showWelcomeLogin);
             Preferences.setBoolean(WelcomeLogin.KEY_SHOWED_WELCOME_LOGIN, true);

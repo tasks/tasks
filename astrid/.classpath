@@ -29,5 +29,6 @@
 	<classpathentry exported="true" kind="lib" path="libs/google-api-services-tasks-v1-1.2.5-beta.jar"/>
 	<classpathentry kind="lib" path="libs/crittercism_v1_1_3.jar"/>
 	<classpathentry kind="lib" path="libs/jchronic-0.2.3.jar"/>
+	<classpathentry kind="lib" path="libs/android-support-v4.jar"/>
 	<classpathentry kind="output" path="bin/classes"/>
 </classpath>

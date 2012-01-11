@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
           package="com.timsu.astrid"
-          android:versionName="3.9.1.1"
-          android:versionCode="206">
+          android:versionName="3.9.2"
+          android:versionCode="207">
           
   <!-- widgets, alarms, and services will break if Astrid is installed on SD card -->
   <!--    android:installLocation="internalOnly"> -->
@@ -649,6 +649,9 @@
         <category android:name="android.intent.category.DEFAULT" />
       </intent-filter>
     </receiver>
+    <activity android:name="com.todoroo.astrid.welcome.tutorial.WelcomeWalkthrough"
+              android:windowSoftInputMode="stateHidden"
+              android:screenOrientation="portrait"></activity>
     
   </application>
 
