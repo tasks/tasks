@@ -26,12 +26,5 @@
 	    android:layout_height="match_parent"
         android:layout_weight="33"
         android:id="@+id/tasklist_fragment_container">
-	    <fragment
-		    android:name="com.todoroo.astrid.activity.TaskListActivity"
-		    android:layout_width="match_parent"
-		    android:layout_height="match_parent"
-		    android:tag="tasklist_fragment">
-	        <!-- Preview: layout=@layout/task_list_activity -->
-		</fragment>
 	</FrameLayout>
 </LinearLayout>

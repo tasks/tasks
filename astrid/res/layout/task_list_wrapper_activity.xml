@@ -4,10 +4,4 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:id="@+id/tasklist_fragment_container">
-	<fragment
-	    android:name="com.todoroo.astrid.activity.TaskListActivity"
-	    android:layout_width="match_parent"
-	    android:layout_height="match_parent"
-	    android:tag="tasklist_fragment">
-	</fragment>
 </FrameLayout>

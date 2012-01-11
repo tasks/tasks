@@ -691,7 +691,6 @@ public class TaskListActivity extends ListFragment implements OnScrollListener,
         } catch (IllegalArgumentException e) {
             // might not have fully initialized
         }
-        getActivity().getIntent().putExtra(TOKEN_FILTER, filter); // Remember current filter for when activity is restarted (i.e. after orientation change)
         backgroundTimer.cancel();
     }
 
@@ -930,7 +929,7 @@ public class TaskListActivity extends ListFragment implements OnScrollListener,
         getListView().setOnScrollListener(this);
         registerForContextMenu(getListView());
 
-        loadTaskListContent(false);
+        loadTaskListContent(true);
     }
 
     /**

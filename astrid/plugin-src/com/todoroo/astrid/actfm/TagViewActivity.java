@@ -95,8 +95,8 @@ public class TagViewActivity extends TaskListActivity {
     // --- UI initialization
 
     @Override
-    public void onCreate(final Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+    public void onActivityCreated(final Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
 
         getListView().setOnKeyListener(null);
 
