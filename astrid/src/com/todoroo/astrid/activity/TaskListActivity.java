@@ -16,6 +16,7 @@ import android.app.AlertDialog;
 import android.app.PendingIntent.CanceledException;
 import android.app.SearchManager;
 import android.content.BroadcastReceiver;
+import android.content.ComponentName;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -1424,8 +1425,8 @@ public class TaskListActivity extends ListFragment implements OnScrollListener,
 
     @SuppressWarnings("nls")
     private void showFilterListActivity() {
-        Intent intent = new Intent(getActivity(),
-                FilterListWrapperActivity.class);
+        Intent intent = (Intent) getActivity().getIntent().clone();
+        intent.setComponent(new ComponentName(getActivity(), FilterListWrapperActivity.class));
         startActivity(intent);
         AndroidUtilities.callOverridePendingTransition(getActivity(), R.anim.slide_right_in, R.anim.slide_right_out);
     }

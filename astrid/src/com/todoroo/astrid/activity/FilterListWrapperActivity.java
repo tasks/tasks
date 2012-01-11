@@ -6,6 +6,7 @@ import android.widget.TextView;
 
 import com.timsu.astrid.R;
 import com.todoroo.andlib.utility.AndroidUtilities;
+import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.service.ThemeService;
 
 public class FilterListWrapperActivity extends AstridWrapperActivity {
@@ -18,6 +19,8 @@ public class FilterListWrapperActivity extends AstridWrapperActivity {
         ThemeService.applyTheme(this);
 		super.onCreate(savedInstanceState);
         setContentView(R.layout.filter_list_wrapper_activity);
+        if (findViewById(R.id.tasklist_fragment_container) != null)
+            setupTasklistFragmentWithFilter((Filter)getIntent().getParcelableExtra(TaskListActivity.TOKEN_FILTER));
 	}
 
     /* (non-Javadoc)

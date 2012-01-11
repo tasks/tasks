@@ -515,13 +515,16 @@ public class FilterListActivity extends ExpandableListFragment {
                     Preferences.setLong(LAST_TAG_REFRESH_KEY, DateUtilities.now());
                     actFmSyncService.fetchTags(0);
 
-                    getActivity().runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            adapter.clear();
-                            adapter.getLists();
-                        }
-                    });
+                    Activity activity = getActivity();
+                    if (activity != null) {
+                        getActivity().runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                adapter.clear();
+                                adapter.getLists();
+                            }
+                        });
+                    }
 
                 } catch (IOException e) {
                     if (manual)

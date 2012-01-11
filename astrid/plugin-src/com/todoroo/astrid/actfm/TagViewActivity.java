@@ -361,7 +361,7 @@ public class TagViewActivity extends TaskListActivity {
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        getActivity().findViewById(R.id.filter_assigned).setOnClickListener(new OnClickListener() {
+        getView().findViewById(R.id.filter_assigned).setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
                 resetAssignedFilter();

@@ -15,7 +15,7 @@ public class TaskListWrapperActivity extends AstridWrapperActivity {
 	 */
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
-        ThemeService.applyTheme(this);
+	    ThemeService.applyTheme(this);
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.task_list_wrapper_activity);
 
