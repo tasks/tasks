@@ -39,16 +39,23 @@ public class AstridWrapperActivity extends FragmentActivity
      */
     protected boolean mMultipleFragments = false;
 
-    protected FilterListActivity getFilterListFragment() {
+    public FilterListActivity getFilterListFragment() {
         FilterListActivity frag = (FilterListActivity) getSupportFragmentManager()
                 .findFragmentById(R.id.filterlist_fragment);
 
         return frag;
     }
 
-    protected TaskListActivity getTaskListFragment() {
+    public TaskListActivity getTaskListFragment() {
         TaskListActivity frag = (TaskListActivity) getSupportFragmentManager()
                 .findFragmentByTag(TaskListActivity.TAG_TASKLIST_FRAGMENT);
+
+        return frag;
+    }
+
+    public TaskEditActivity getTaskEditFragment() {
+        TaskEditActivity frag = (TaskEditActivity) getSupportFragmentManager()
+                .findFragmentByTag(TaskEditActivity.TAG_TASKEDIT_FRAGMENT);
 
         return frag;
     }
@@ -157,6 +164,7 @@ public class AstridWrapperActivity extends FragmentActivity
 
     @Override
     public void onTaskListItemClicked(int category, int position) {
+
     }
 
     @Override

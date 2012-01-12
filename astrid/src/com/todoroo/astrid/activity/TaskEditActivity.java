@@ -654,6 +654,12 @@ public final class TaskEditActivity extends Fragment {
         Notifications.cancelNotifications(model.getId());
     }
 
+    /** Convenience method to populate fields after setting model to null */
+    public void repopulateFromScratch(Intent intent) {
+        model = null;
+        populateFields(intent);
+    }
+
     /** Populate UI component values from the model */
     public void populateFields(Intent intent) {
         loadItem(intent);
@@ -676,7 +682,7 @@ public final class TaskEditActivity extends Fragment {
     }
 
     /** Save task model from values in UI components */
-    private void save(boolean onPause) {
+    public void save(boolean onPause) {
         if(title.getText().length() > 0)
             model.setValue(Task.DELETION_DATE, 0L);
 
