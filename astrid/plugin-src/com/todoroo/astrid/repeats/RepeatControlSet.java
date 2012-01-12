@@ -352,7 +352,7 @@ public class RepeatControlSet extends PopupControlSet {
     }
 
     @Override
-    protected Dialog buildDialog(int title, final DialogInterface.OnClickListener okListener, final DialogInterface.OnCancelListener cancelListener) {
+    protected Dialog buildDialog(String title, final DialogInterface.OnClickListener okListener, final DialogInterface.OnCancelListener cancelListener) {
 
         DialogInterface.OnClickListener doRepeatButton = new DialogInterface.OnClickListener() {
             @Override

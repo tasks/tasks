@@ -103,6 +103,17 @@ public class OAuthLoginActivity extends FragmentActivity {
                                     }
                                 });
                             }
+                            else if (url.contains("access_token=")){
+                                String token = url.substring(url.indexOf("access_token="), url.length());
+                                Intent intent = new Intent();
+                                intent.putExtra(DATA_RESPONSE, token);
+                                setResult(RESULT_OK, intent);
+                                runOnUiThread(new Runnable() {
+                                    public void run() {
+                                        finish();
+                                    }
+                                });
+                            }
                         } catch (IOException e) {
                             Log.e("astrid", "error-load-url", e);
                         }

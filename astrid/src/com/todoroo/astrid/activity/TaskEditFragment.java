@@ -88,6 +88,7 @@ import com.todoroo.astrid.service.StatisticsService;
 import com.todoroo.astrid.service.TaskService;
 import com.todoroo.astrid.service.ThemeService;
 import com.todoroo.astrid.tags.TagsControlSet;
+import com.todoroo.astrid.taskrabbit.TaskRabbitControlSet;
 import com.todoroo.astrid.timers.TimerActionControlSet;
 import com.todoroo.astrid.timers.TimerControlSet;
 import com.todoroo.astrid.ui.DeadlineControlSet;
@@ -112,7 +113,7 @@ import com.viewpagerindicator.TabPageIndicator;
  *
  */
 public final class TaskEditFragment extends Fragment implements
-        ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
+ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
 
     public static final String TAG_TASKEDIT_FRAGMENT = "taskedit_fragment"; //$NON-NLS-1$
 
@@ -201,6 +202,7 @@ public final class TaskEditFragment extends Fragment implements
     private ImageButton voiceAddNoteButton;
 
     private EditPeopleControlSet peopleControlSet = null;
+    private TaskRabbitControlSet taskRabbitControl = null;
     private EditNotesControlSet notesControlSet = null;
     private HideUntilControlSet hideUntilControls = null;
     private TagsControlSet tagsControlSet = null;
@@ -505,12 +507,18 @@ public final class TaskEditFragment extends Fragment implements
 
         // EditPeopleControlSet relies on the "tags" transitory created by the
         // TagsControlSet, so we put the tags control before the people control
+
+        taskRabbitControl = new TaskRabbitControlSet(this, R.layout.task_rabbit_enter, R.layout.control_set_default_display);
+        controls.add(taskRabbitControl);
+
         controls.add(peopleControlSet = new EditPeopleControlSet(getActivity(), this,
                 R.layout.control_set_assigned,
                 R.layout.control_set_default_display,
                 R.string.actfm_EPA_assign_label_long, REQUEST_LOG_IN));
         controlSetMap.put(getString(R.string.TEA_ctrl_who_pref),
                 peopleControlSet);
+            peopleControlSet.addListener(taskRabbitControl);
+
 
         RepeatControlSet repeatControls = new RepeatControlSet(getActivity(),
                 R.layout.control_set_repeat,
@@ -617,6 +625,9 @@ public final class TaskEditFragment extends Fragment implements
             String item = itemOrder[i];
             if (item.equals(moreSectionTrigger)) {
                 section = moreControls;
+                taskRabbitControl.getDisplayView().setVisibility(View.GONE);
+                section.addView(taskRabbitControl.getDisplayView());
+
             } else {
                 View control_set = null;
                 TaskEditControlSet curr = controlSetMap.get(item);
@@ -782,7 +793,7 @@ public final class TaskEditFragment extends Fragment implements
             if (model != null) {
                 remoteId = model.getValue(Task.REMOTE_ID);
                 model.clearValue(Task.REMOTE_ID); // Having this can screw up
-                                                  // autosync
+                // autosync
             }
         }
 
@@ -868,7 +879,7 @@ public final class TaskEditFragment extends Fragment implements
 
         String processedToast = addDueTimeToToast(toast.toString());
         boolean cancelFinish = !onPause && peopleControlSet != null
-                && !peopleControlSet.saveSharingSettings(processedToast);
+        && !peopleControlSet.saveSharingSettings(processedToast);
 
         model.putTransitory("task-edit-save", true); //$NON-NLS-1$
         taskService.save(model);
@@ -984,17 +995,17 @@ public final class TaskEditFragment extends Fragment implements
     protected void deleteButtonClick() {
         new AlertDialog.Builder(getActivity()).setTitle(
                 R.string.DLG_confirm_title).setMessage(
-                R.string.DLG_delete_this_task_question).setIcon(
-                android.R.drawable.ic_dialog_alert).setPositiveButton(
-                android.R.string.ok, new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int which) {
-                        taskService.delete(model);
-                        shouldSaveState = false;
-                        showDeleteToast();
-                        getActivity().setResult(Activity.RESULT_CANCELED);
-                        getActivity().onBackPressed();
-                    }
-                }).setNegativeButton(android.R.string.cancel, null).show();
+                        R.string.DLG_delete_this_task_question).setIcon(
+                                android.R.drawable.ic_dialog_alert).setPositiveButton(
+                                        android.R.string.ok, new DialogInterface.OnClickListener() {
+                                            public void onClick(DialogInterface dialog, int which) {
+                                                taskService.delete(model);
+                                                shouldSaveState = false;
+                                                showDeleteToast();
+                                                getActivity().setResult(Activity.RESULT_CANCELED);
+                                                getActivity().onBackPressed();
+                                            }
+                                        }).setNegativeButton(android.R.string.cancel, null).show();
     }
 
     /**
@@ -1094,7 +1105,10 @@ public final class TaskEditFragment extends Fragment implements
         if (editNotes != null && editNotes.activityResult(requestCode, resultCode, data)) {
             return;
         }
-        if (requestCode == REQUEST_VOICE_RECOG
+        else if (taskRabbitControl != null && taskRabbitControl.activityResult(requestCode, resultCode, data)) {
+            return;
+        }
+        else if (requestCode == REQUEST_VOICE_RECOG
                 && resultCode == Activity.RESULT_OK) {
             // handle the result of voice recognition, put it into the
             // appropiate textfield

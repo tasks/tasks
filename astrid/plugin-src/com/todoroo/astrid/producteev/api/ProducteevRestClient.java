@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 
+import org.apache.http.Header;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
@@ -148,9 +149,10 @@ public class ProducteevRestClient implements RestClient {
      * @param url
      * @param data
      *            url-encoded data
+     * @param headers
      * @throws IOException
      */
-    public synchronized String post(String url, HttpEntity data) throws IOException {
+    public synchronized String post(String url, HttpEntity data, Header... headers) throws IOException {
         initializeHttpClient();
 
         if(Constants.DEBUG)

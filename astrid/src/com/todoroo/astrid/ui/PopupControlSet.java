@@ -57,6 +57,47 @@ public abstract class PopupControlSet extends TaskEditControlSet {
         this.activity = activity;
 
 
+        String titleString = (title > 0) ? activity.getString(title) : "";
+
+        dialog = buildDialog(titleString, okListener, cancelListener);
+
+
+        if (displayView != null) {
+            displayView.setOnClickListener(getDisplayClickListener());
+        }
+    }
+
+    public PopupControlSet(Activity activity, int viewLayout, int displayViewLayout, String title) {
+        super(activity, viewLayout);
+        if (displayViewLayout != -1){
+            this.displayView = LayoutInflater.from(activity).inflate(displayViewLayout, null);
+            displayText = (TextView) displayView.findViewById(R.id.display_row_title);
+            if (displayText != null) {
+            displayText.setMaxLines(2);
+            }
+        }
+        else {
+            this.displayView = null;
+            this.displayText = null;
+        }
+
+        final DialogInterface.OnClickListener okListener = new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface d, int which) {
+                onOkClick();
+            }
+        };
+
+        final DialogInterface.OnCancelListener cancelListener = new DialogInterface.OnCancelListener() {
+            @Override
+            public void onCancel(DialogInterface d) {
+                onCancelClick();
+            }
+        };
+
+        this.activity = activity;
+
+
         dialog = buildDialog(title, okListener, cancelListener);
 
 
@@ -70,10 +111,10 @@ public abstract class PopupControlSet extends TaskEditControlSet {
         return displayView;
     }
 
-    protected Dialog buildDialog(int title, final DialogInterface.OnClickListener okListener, DialogInterface.OnCancelListener cancelListener) {
+    protected Dialog buildDialog(String title, final DialogInterface.OnClickListener okListener, DialogInterface.OnCancelListener cancelListener) {
         int theme = ThemeService.getEditDialogTheme();
         final Dialog d = new Dialog(activity, theme);
-        if (title == 0)
+        if (title.length() == 0)
             d.requestWindowFeature(Window.FEATURE_NO_TITLE);
         else
             d.setTitle(title);

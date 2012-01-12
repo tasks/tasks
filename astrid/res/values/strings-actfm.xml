@@ -133,6 +133,9 @@
   <!-- task sharing dialog: anyone -->
   <string name="actfm_EPA_unassigned">Unassigned</string>
   
+  <!-- task sharing dialog: use task rabbit -->
+  <string name="actfm_EPA_task_rabbit">Outsource it!</string>
+  
   <!-- task sharing dialog: custom email assignment -->
   <string name="actfm_EPA_assign_custom">Custom...</string>
   

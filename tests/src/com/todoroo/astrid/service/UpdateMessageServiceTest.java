@@ -2,6 +2,7 @@ package com.todoroo.astrid.service;
 
 import java.io.IOException;
 
+import org.apache.http.Header;
 import org.apache.http.HttpEntity;
 import org.json.JSONArray;
 import org.weloveastrid.rmilk.MilkUtilities;
@@ -234,7 +235,7 @@ public class UpdateMessageServiceTest extends DatabaseTestCase {
             super();
             restClient = new RestClient() {
 
-                public String post(String url, HttpEntity data) throws IOException {
+                public String post(String url, HttpEntity data, Header... headers) throws IOException {
                     return null;
                 }
 

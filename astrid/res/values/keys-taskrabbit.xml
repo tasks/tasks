@@ -1,0 +1,373 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  This file contains preference keys and preference list values.
+  These should not be translated 
+-->
+<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+
+    <!-- ============================================================ MILK == -->
+
+    <string-array name="tr_preset_types">
+        <item>@string/tr_type_virtual</item>
+        <item>@string/tr_type_food_delivery</item>
+        <item>@string/tr_type_cleaning</item>
+        <item>@string/tr_type_donations</item>
+        <item>@string/tr_type_delivery</item>
+        <item>@string/tr_type_handyman</item>
+        <item>@string/tr_type_shopping</item>
+        <item>@string/tr_type_something_else</item>
+    </string-array>
+
+    <!-- Preference Key (do not translate) -->
+    <string name="tr_type_virtual">Virtual task</string>
+    <string name="tr_type_food_delivery">Food Delivery</string>
+    <string name="tr_type_cleaning">Cleaning</string>
+    <string name="tr_type_donations">Donations</string>
+    <string name="tr_type_delivery">Delivery</string>
+    <string name="tr_type_handyman">Handyman</string>
+    <string name="tr_type_shopping">Shopping</string>
+    <string name="tr_type_something_else">Something else</string>
+    
+    
+    <array name="tr_default_type_array">
+        <item>@array/tr_default_type_virtual</item>
+        <item>@array/tr_default_type_food_delivery</item>
+        <item>@array/tr_default_type_cleaning</item>
+        <item>@array/tr_default_type_donations</item>
+        <item>@array/tr_default_type_delivery</item>
+        <item>@array/tr_default_type_handyman</item>
+        <item>@array/tr_default_type_shopping</item>
+    </array>
+    
+    <array name="tr_default_type_virtual">
+        <item>0</item>
+        <item>-1</item>
+        <item>-1</item>
+        <item>4</item>
+        <item>1</item>
+        <item>-1</item>
+        <item>10</item>
+        <item>-1</item>
+        <item>0</item>
+        <item>25</item>
+    </array>
+    <array name="tr_default_type_food_delivery">
+        <item>1</item>
+        <item>0</item>
+        <item>-1</item>
+        <item>-1</item>
+        <item>-1</item>
+        <item>-1</item>
+        <item>10</item>
+        <item>0</item>
+        <item>1</item>
+        <item>20</item>
+    </array>
+    <array name="tr_default_type_cleaning">
+        <item>2</item>
+        <item>-1</item>
+        <item>0</item>
+        <item>-1</item>
+        <item>-1</item>
+        <item>0</item>
+        <item>10</item>
+        <item>-1</item>
+        <item>0</item>
+        <item>25</item>
+    </array>
+    <array name="tr_default_type_donations">
+        <item>3</item>
+        <item>-1</item>
+        <item>0</item>
+        <item>-1</item>
+        <item>-1</item>
+        <item>-1</item>
+        <item>10</item>
+        <item>0</item>
+        <item>0</item>
+        <item>25</item>
+    </array>
+    <array name="tr_default_type_delivery">
+        <item>4</item>
+        <item>-1</item>
+        <item>0</item>
+        <item>-1</item>
+        <item>-1</item>
+        <item>-1</item>
+        <item>10</item>
+        <item>0</item>
+        <item>0</item>
+        <item>25</item>
+    </array>
+    <array name="tr_default_type_handyman">
+        <item>5</item>
+        <item>-1</item>
+        <item>0</item>
+        <item>2</item>
+        <item>-1</item>
+        <item>-1</item>
+        <item>10</item>
+        <item>-1</item>
+        <item>1</item>
+        <item>50</item>
+    </array>
+    <array name="tr_default_type_shopping">
+        <item>6</item>
+        <item>-1</item>
+        <item>0</item>
+        <item>-1</item>
+        <item>-1</item>
+        <item>-1</item>
+        <item>10</item>
+        <item>0</item>
+        <item>2</item>
+        <item>20</item>
+    </array>
+    
+    <array name="tr_default_type_something_else">
+        <item>7</item>
+        <item>0</item>
+        <item>0</item>
+        <item>-1</item>
+        <item>-1</item>
+        <item>-1</item>
+        <item>10</item>
+        <item>0</item>
+        <item>2</item>
+        <item>20</item>
+    </array>
+    
+    
+    
+
+    <!-- Preference Key (do not translate) -->
+    <string name="tr_attr_name">name</string>
+    <string name="tr_attr_id">id</string>
+
+    <!-- Preference Key (do not translate) -->
+    <string name="tr_attr_state">state</string>
+    <string name="tr_attr_state_label">state_label</string>
+
+    <!-- Preference Key (do not translate) -->
+    <string name="tr_attr_city">city</string>
+    <string name="tr_attr_city_id">city_id</string>
+    <string name="tr_attr_city_name">name</string>
+    <string name="tr_attr_city_lng">lng</string>
+    <string name="tr_attr_city_lat">lat</string>
+    <string name="tr_attr_city_virtual">virtual</string>
+    
+
+    
+    <string-array name="tr_default_set">
+        <item>@string/tr_set_type</item>
+        <item>@string/tr_set_name</item>
+        <item>@string/tr_set_location</item>
+        <item>@string/tr_set_skill_required</item>
+        <item>@string/tr_set_duration</item>
+        <item>@string/tr_set_supplies</item>
+        <item>@string/tr_set_deadline</item>
+        <item>@string/tr_set_drop_off</item>
+        <item>@string/tr_set_cost_in_cents</item>
+        <item>@string/tr_set_named_price</item>
+    </string-array>
+    
+    <!-- Control set title (do not translate) -->
+    <string name="tr_set_type">Type</string>
+    <string name="tr_set_name">Name</string>
+    <string name="tr_set_location">Location</string>
+    <string name="tr_set_skill_required">Skill Required</string>
+    <string name="tr_set_duration">Duration</string>
+    <string name="tr_set_supplies">Supplies</string>
+    <string name="tr_set_deadline">Deadline</string>
+    <string name="tr_set_drop_off">Dropoff</string>
+    <string name="tr_set_cost_in_cents">Expenses</string>
+    <string name="tr_set_named_price">I will Pay</string>
+    
+        
+    <string-array name="tr_default_set_key">
+        <item>@string/tr_set_key_type</item>
+        <item>@string/tr_set_key_name</item>
+        <item>@string/tr_set_key_location</item>
+        <item>@string/tr_set_key_skill_required</item>
+        <item>@string/tr_set_key_duration</item>
+        <item>@string/tr_set_key_supplies</item>
+        <item>@string/tr_set_key_deadline</item>
+        <item>@string/tr_set_key_drop_off</item>
+        <item>@string/tr_set_key_cost_in_cents</item>
+        <item>@string/tr_set_key_named_price</item>
+    </string-array>
+    
+    <!-- Control set key for json (do not translate) -->
+    <string name="tr_set_key_type">name</string>
+    <string name="tr_set_key_name">name:specific</string>
+    <string name="tr_set_key_location">location</string>
+    <string name="tr_set_key_skill_required">description:skill_required</string>
+    <string name="tr_set_key_duration">description:duration</string>
+    <string name="tr_set_key_supplies">description:supplies</string>
+    <string name="tr_set_key_deadline">complete_by_time</string>
+    <string name="tr_set_key_drop_off">location</string>
+    <string name="tr_set_key_cost_in_cents">cost_in_cents</string>
+    <string name="tr_set_key_named_price">named_price</string>
+    <string name="tr_set_key_description">description</string>
+    
+    
+    <array name="tr_default_array">
+        <item>@array/tr_empty_string_array</item>
+        <item>@array/tr_empty_string_array</item>
+        <item>@string/tr_location</item>
+        <item>@array/tr_default_skill</item>
+        <item>@array/tr_default_duration</item>
+        <item>@array/tr_default_supplies</item>
+        <item>@string/tr_deadline</item>
+        <item>@string/tr_location</item>
+        <item>@array/tr_default_cost_in_cents</item>
+        <item>@array/tr_default_named_price</item>
+    </array>
+    
+    
+    <!-- Default options -->
+    
+    
+    <string-array name="tr_default_skill">
+        <item>@string/tr_default_skill_research</item>
+        <item>@string/tr_default_skill_phone_calls</item>
+        <item>@string/tr_default_skill_event_planning</item>
+        <item>@string/tr_default_skill_usability_testing</item>
+        <item>@string/tr_default_skill_craigslist</item>
+        <item>@string/tr_default_skill_help</item>
+        <item>@string/tr_default_skill_ebay_help</item>
+    </string-array>
+    
+    <!-- Skills Needed -->
+    <string name="tr_default_skill_research">Research</string>
+    <string name="tr_default_skill_phone_calls">Phone Calls</string>
+    <string name="tr_default_skill_event_planning">Event Planning</string>
+    <string name="tr_default_skill_usability_testing">Usability Testing</string>
+    <string name="tr_default_skill_craigslist">Craigslist</string>
+    <string name="tr_default_skill_help">Help</string>
+    <string name="tr_default_skill_ebay_help">eBay Help</string>
+    <string name="tr_default_skill_carpentry">Carpentry</string>
+    <string name="tr_default_skill_assembly_repair">Assembly and Repair</string>
+    <string name="tr_default_skill_plumbing">Plumbing</string>
+    <string name="tr_default_skill_ikea_assembly">IKEA assembly</string>
+    <string name="tr_default_skill_heavy_lifting">Heavy lifting</string>
+    
+    
+    <string-array name="tr_default_supplies">
+        <item>@string/tr_default_supplies_provided</item>
+        <item>@string/tr_default_supplies_not_provided</item>
+    </string-array>
+    
+    <!-- Supplies provided -->
+    <string name="tr_default_supplies_provided">Supplies will be provided</string>
+    <string name="tr_default_supplies_not_provided">Supplies will NOT be provided</string>
+    
+    
+    <string-array name="tr_default_cost_in_cents">
+        <item>@string/tr_default_cost_in_cents_0</item>
+        <item>@string/tr_default_cost_in_cents_25</item>
+        <item>@string/tr_default_cost_in_cents_50</item>
+        <item>@string/tr_default_cost_in_cents_100</item>
+        <item>@string/tr_default_cost_in_cents_101</item>
+    </string-array>
+    
+    <!-- cost_in_cents -->
+    <string name="tr_default_cost_in_cents_0">$0</string>
+    <string name="tr_default_cost_in_cents_25">Less than $25</string>
+    <string name="tr_default_cost_in_cents_50">Less than $50</string>
+    <string name="tr_default_cost_in_cents_100">Less than $100</string>
+    <string name="tr_default_cost_in_cents_101">More than $100</string>
+    
+    
+    <string-array name="tr_default_named_price">
+        <item>@string/tr_default_named_price_10</item>
+        <item>@string/tr_default_named_price_20</item>
+        <item>@string/tr_default_named_price_30</item>
+        <item>@string/tr_default_named_price_40</item>
+    </string-array>
+    <!-- named_price -->
+    <string name="tr_default_named_price_10">$10</string>
+    <string name="tr_default_named_price_20">$20</string>
+    <string name="tr_default_named_price_30">$30</string>
+    <string name="tr_default_named_price_40">$40</string>
+    <string name="tr_default_named_price_50">$50</string>
+    <string name="tr_default_named_price_60">$60</string>
+    <string name="tr_default_named_price_70">$70</string>
+    
+    
+    <string-array name="tr_default_duration">
+        <item>@string/tr_default_duration_0</item>
+        <item>@string/tr_default_duration_1</item>
+        <item>@string/tr_default_duration_3</item>
+        <item>@string/tr_default_duration_6</item>
+        <item>@string/tr_default_duration_10</item>
+    </string-array>
+    <!-- Duration -->
+    <string name="tr_default_duration_0">Less than 1 hour</string>
+    <string name="tr_default_duration_1">1 - 3 hours</string>
+    <string name="tr_default_duration_3">3 - 6 hours</string>
+    <string name="tr_default_duration_6">More than 6 hours</string>
+    <string name="tr_default_duration_10">I do not know</string>
+    
+  
+    <string-array name="tr_empty_string_array"></string-array>
+    <string name="tr_location">tr_location</string>
+    <string name="tr_deadline">tr_deadline</string>
+    <string name="tr_name">tr_name</string>
+    
+    
+    
+    
+    
+    
+    <array name="tr_default_price_type_array">
+        <item>@array/tr_type_default_price_virtual</item>
+        <item>@array/tr_type_default_price_food_delivery</item>
+        <item>@array/tr_type_default_price_cleaning</item>
+        <item>@array/tr_type_default_price_food_delivery</item>
+        <item>@array/tr_type_default_price_food_delivery</item>
+        <item>@array/tr_type_default_price_handyman</item>
+        <item>@array/tr_type_default_price_food_delivery</item>
+        <item>@array/tr_type_default_price_food_delivery</item>
+    </array>
+
+    <string-array name="tr_type_default_price_virtual">
+        <item>$15</item>
+        <item>$20</item>
+        <item>$25</item>
+        <item>$30</item>
+        <item>$35</item>
+        <item>$45</item>
+        <item>$55</item>
+    </string-array>
+    
+    <string-array name="tr_type_default_price_food_delivery">
+        <item>$10</item>
+        <item>$15</item>
+        <item>$20</item>
+        <item>$25</item>
+        <item>$30</item>
+        <item>$40</item>
+        <item>$50</item>
+    </string-array>
+    <string-array name="tr_type_default_price_cleaning">
+        <item>$40</item>
+        <item>$50</item>
+        <item>$60</item>
+        <item>$70</item>
+        <item>$80</item>
+        <item>$90</item>
+        <item>$100</item>
+    </string-array>
+    <string-array name="tr_type_default_price_handyman">
+        <item>$20</item>
+        <item>$30</item>
+        <item>$40</item>
+        <item>$45</item>
+        <item>$50</item>
+        <item>$70</item>
+        <item>$95</item>
+    </string-array>
+    
+
+</resources>

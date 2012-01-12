@@ -374,6 +374,7 @@
   <string name="TEA_ctrl_title_pref">TEA_ctrl_title_pref</string> <!-- Deprecated -->
   <string name="TEA_ctrl_who_pref">TEA_ctrl_who_pref</string>
   <string name="TEA_ctrl_when_pref">TEA_ctrl_when_pref</string>
+  <string name="TEA_ctrl_task_rabbit_pref">TEA_ctrl_task_rabbit_pref</string>
   <string name="TEA_ctrl_more_pref">TEA_ctrl_more_pref</string>
   <string name="TEA_ctrl_importance_pref">TEA_ctrl_importance_pref</string>
   <string name="TEA_ctrl_lists_pref">TEA_ctrl_lists_pref</string>

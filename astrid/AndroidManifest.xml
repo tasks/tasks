@@ -6,6 +6,7 @@
           
   <!-- widgets, alarms, and services will break if Astrid is installed on SD card -->
   <!--    android:installLocation="internalOnly"> -->
+       
       
   <!-- ================================================== Used Permissions = -->
 
@@ -22,6 +23,7 @@
   <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />    
   <!-- for analytics -->
   <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+  <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
   <!-- for google tasks -->
   <uses-permission android:name="android.permission.GET_ACCOUNTS" />
   <uses-permission android:name="android.permission.USE_CREDENTIALS" />
@@ -70,6 +72,7 @@
                android:theme="@style/Theme"
                android:name="greendroid.app.GDApplication" android:hardwareAccelerated="true" android:manageSpaceActivity="com.todoroo.astrid.core.OldTaskPreferences">
                
+  
     <!-- ====================================================== Activities = -->
         
     <!-- Activity that displays task list -->
@@ -620,10 +623,16 @@
         <category android:name="android.intent.category.DEFAULT" />
       </intent-filter>
     </receiver>
+    <activity android:name="com.todoroo.astrid.taskrabbit.TaskRabbitControlSet"></activity>
+    <activity android:name="com.todoroo.astrid.taskrabbit.TaskRabbitMapActivity"></activity>
     <activity android:name="com.todoroo.astrid.welcome.tutorial.WelcomeWalkthrough"
               android:windowSoftInputMode="stateHidden"
               android:screenOrientation="portrait"></activity>
     
+  <!-- Uses Library -->
+      
+  <uses-library android:name="com.google.android.maps" /> 
+  
   </application>
 
 </manifest>

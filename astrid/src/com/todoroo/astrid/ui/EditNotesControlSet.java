@@ -18,8 +18,8 @@ import com.todoroo.astrid.ui.TextViewWithMeasureListener.OnTextMeasureListener;
 
 public class EditNotesControlSet extends PopupControlSet {
 
-    private final EditText editText;
-    private final TextViewWithMeasureListener notesPreview;
+    protected final EditText editText;
+    protected final TextViewWithMeasureListener notesPreview;
     private final LinearLayout notesBody;
 
     public EditNotesControlSet(Activity activity, int viewLayout, int displayViewLayout) {

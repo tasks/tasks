@@ -2,6 +2,7 @@ package com.todoroo.andlib.service;
 
 import java.io.IOException;
 
+import org.apache.http.Header;
 import org.apache.http.HttpEntity;
 
 /**
@@ -12,5 +13,5 @@ import org.apache.http.HttpEntity;
  */
 public interface RestClient {
     public String get(String url) throws IOException;
-    public String post(String url, HttpEntity data) throws IOException;
+    public String post(String url, HttpEntity data, Header... headers) throws IOException;
 }

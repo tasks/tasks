@@ -6,6 +6,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.lang.ref.WeakReference;
 
+import org.apache.http.Header;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.HttpVersion;
@@ -171,13 +172,15 @@ public class HttpRestClient implements RestClient {
      *            url-encoded data
      * @throws IOException
      */
-    public synchronized String post(String url, HttpEntity data) throws IOException {
+    public synchronized String post(String url, HttpEntity data, Header... headers) throws IOException {
         if(debug)
             Log.d("http-rest-client-post", url + " | " + data); //$NON-NLS-1$ //$NON-NLS-2$
 
         try {
             HttpPost httpPost = new HttpPost(url);
             httpPost.setEntity(data);
+            for(Header header : headers)
+                httpPost.addHeader(header);
             HttpResponse response = getClient().execute(httpPost);
 
             return processHttpResponse(response);

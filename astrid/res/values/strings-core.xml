@@ -193,7 +193,7 @@
   <string name="TAd_contextCopyTask">Copy Task</string>
 
   <!-- Context Item: delete task -->
-  <string name="TAd_contextDeleteTask">Delete Task</string>
+  <string name="TAd_contextHelpTask">Get help</string><string name="TAd_contextDeleteTask">Delete Task</string>
 
   <!-- Context Item: undelete task -->
   <string name="TAd_contextUndeleteTask">Undelete Task</string>
@@ -589,5 +589,6 @@ Astrid might not let you know when your tasks are due.\n
 Astrid is the much loved open-source todo list / task manager designed to help 
 you get stuff done. It features reminders, tags, sync, Locale plug-in, a widget and more. 
   </string>
+  
   
 </resources>

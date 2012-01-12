@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+    <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:astrid="http://schemas.android.com/apk/res/com.timsu.astrid"
+        android:id="@+id/edit_scroll"
+        style="@style/Content_EditScroll"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_weight="100" >
+
+        <LinearLayout
+            android:id="@+id/task_rabbit_parent"
+            style="@style/Content"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:orientation="vertical" >
+
+            <TextView
+                style="@style/TextAppearance.GEN_EditLabel.DLG_EditLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/TEA_reminder_alarm_label" />
+
+            <Spinner
+                android:id="@+id/task_type"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content" />
+
+            <LinearLayout
+                android:id="@+id/task_controls"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical" />
+
+            <EditText
+                android:id="@+id/task_description"
+                android:layout_width="match_parent"
+                android:layout_height="300dip"
+                android:hint="Description" />
+
+            <Button
+                android:id="@+id/task_button"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Send Task!" />
+        </LinearLayout>
+
+    </ScrollView>
