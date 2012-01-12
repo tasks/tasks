@@ -25,7 +25,6 @@ public class FilterListWrapperActivity extends AstridWrapperActivity {
             setupTasklistFragmentWithFilter((Filter)getIntent().getParcelableExtra(TaskListActivity.TOKEN_FILTER));
         else {
             Fragment tla = getTaskListFragment();
-
             if (tla != null) {
                 FragmentManager manager = getSupportFragmentManager();
                 FragmentTransaction transaction = manager.beginTransaction();
