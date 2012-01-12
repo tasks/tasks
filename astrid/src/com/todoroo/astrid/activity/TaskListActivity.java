@@ -16,7 +16,6 @@ import android.app.AlertDialog;
 import android.app.PendingIntent.CanceledException;
 import android.app.SearchManager;
 import android.content.BroadcastReceiver;
-import android.content.ComponentName;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -53,7 +52,6 @@ import android.widget.AdapterView.AdapterContextMenuInfo;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ImageButton;
-import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.PopupWindow.OnDismissListener;
 import android.widget.TextView;
@@ -283,7 +281,7 @@ public class TaskListActivity extends ListFragment implements OnScrollListener,
             Bundle savedInstanceState) {
         ViewGroup parent = (ViewGroup) getActivity().getLayoutInflater().inflate(
                 R.layout.task_list_activity, container, false);
-        parent.addView(getListBody(parent), 1);
+        parent.addView(getListBody(parent), 0);
 
         return parent;
     }
@@ -297,7 +295,7 @@ public class TaskListActivity extends ListFragment implements OnScrollListener,
         setUpUiComponents();
         onNewIntent(getActivity().getIntent());
 
-        Fragment filterlistFrame = getFragmentManager().findFragmentById(R.id.filterlist_fragment);
+        Fragment filterlistFrame = getFragmentManager().findFragmentByTag(FilterListActivity.TAG_FILTERLIST_FRAGMENT);
         mDualFragments = (filterlistFrame != null) && filterlistFrame.isInLayout();
 
         if (mDualFragments) {
@@ -439,22 +437,22 @@ public class TaskListActivity extends ListFragment implements OnScrollListener,
     }
 
     protected void setUpUiComponents() {
-        ((ImageView)getView().findViewById(R.id.back)).setOnClickListener(new OnClickListener() {
-            public void onClick(View v) {
-                Preferences.setBoolean(R.string.p_showed_lists_help, true);
-                showFilterListActivity();
-            }
-        });
+//        ((ImageView)getView().findViewById(R.id.back)).setOnClickListener(new OnClickListener() {
+//            public void onClick(View v) {
+//                Preferences.setBoolean(R.string.p_showed_lists_help, true);
+//                showFilterListActivity();
+//            }
+//        });
 
-        getView().findViewById(R.id.sort_settings).setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                StatisticsService.reportEvent(StatisticsConstants.TLA_MENU_SORT);
-                AlertDialog dialog = SortSelectionActivity.createDialog(getActivity(),
-                        TaskListActivity.this, sortFlags, sortSort);
-                dialog.show();
-            }
-        });
+//        getView().findViewById(R.id.sort_settings).setOnClickListener(new OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                StatisticsService.reportEvent(StatisticsConstants.TLA_MENU_SORT);
+//                AlertDialog dialog = SortSelectionActivity.createDialog(getActivity(),
+//                        TaskListActivity.this, sortFlags, sortSort);
+//                dialog.show();
+//            }
+//        });
 
         // set listener for quick-changing task priority
         getListView().setOnKeyListener(new OnKeyListener() {
@@ -672,7 +670,7 @@ public class TaskListActivity extends ListFragment implements OnScrollListener,
             showTaskEditHelpPopover();
         } else if (Preferences.isSet(getString(R.string.p_showed_lists_help)) &&
                 !Preferences.getBoolean(R.string.p_showed_lists_help, false)) {
-            HelpInfoPopover.showPopover(getActivity(), getView().findViewById(R.id.back), R.string.help_popover_lists, null);
+            //HelpInfoPopover.showPopover(getActivity(), getView().findViewById(R.id.back), R.string.help_popover_lists, null);
             Preferences.setBoolean(R.string.p_showed_lists_help, true);
         }
 
@@ -910,7 +908,7 @@ public class TaskListActivity extends ListFragment implements OnScrollListener,
 
         sqlQueryTemplate.set(SortHelper.adjustQueryForFlagsAndSort(filter.sqlQuery,
                 sortFlags, sortSort));
-        getActivity().setTitle(filter.title);
+        //getActivity().setTitle(filter.title);
 
         // perform query
         TodorooCursor<Task> currentCursor = taskService.fetchFiltered(
@@ -996,7 +994,7 @@ public class TaskListActivity extends ListFragment implements OnScrollListener,
                                         Preferences.setBoolean(R.string.p_showed_lists_help, false);
                                     } else if (!Preferences.getBoolean(R.string.p_showed_lists_help, false)) {
                                         Preferences.setBoolean(R.string.p_showed_lists_help, true);
-                                        HelpInfoPopover.showPopover(getActivity(), getView().findViewById(R.id.back), R.string.help_popover_lists, null);
+                                        //HelpInfoPopover.showPopover(getActivity(), getView().findViewById(R.id.back), R.string.help_popover_lists, null);
                                     }
                                 }
                             };
@@ -1419,17 +1417,17 @@ public class TaskListActivity extends ListFragment implements OnScrollListener,
     @Override
     public void gesturePerformed(String gesture) {
         if("nav_right".equals(gesture)) {
-            showFilterListActivity();
+            //showFilterListActivity();
         }
     }
 
     @SuppressWarnings("nls")
     private void showFilterListActivity() {
-        Intent intent = (Intent) getActivity().getIntent().clone();
-        intent.setComponent(new ComponentName(getActivity(), FilterListWrapperActivity.class));
-        intent.setFlags(0);
-        startActivity(intent);
-        AndroidUtilities.callOverridePendingTransition(getActivity(), R.anim.slide_right_in, R.anim.slide_right_out);
+//        Intent intent = (Intent) getActivity().getIntent().clone();
+//        intent.setComponent(new ComponentName(getActivity(), FilterListWrapperActivity.class));
+//        intent.setFlags(0);
+//        startActivity(intent);
+//        AndroidUtilities.callOverridePendingTransition(getActivity(), R.anim.slide_right_in, R.anim.slide_right_out);
     }
 
     @Override

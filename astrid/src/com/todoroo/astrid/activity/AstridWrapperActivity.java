@@ -41,7 +41,7 @@ public class AstridWrapperActivity extends FragmentActivity
 
     public FilterListActivity getFilterListFragment() {
         FilterListActivity frag = (FilterListActivity) getSupportFragmentManager()
-                .findFragmentById(R.id.filterlist_fragment);
+                .findFragmentByTag(FilterListActivity.TAG_FILTERLIST_FRAGMENT);
 
         return frag;
     }
@@ -85,6 +85,10 @@ public class AstridWrapperActivity extends FragmentActivity
      * Handles items being clicked from the filterlist-fragment. Return true if item is handled.
      */
     public boolean onFilterItemClicked(FilterListItem item) {
+        if (this instanceof TaskListWrapperActivity) {
+            int selectedPosition = ((TaskListWrapperActivity) this).getFilterItemPosition(item);
+            getSupportActionBar().setSelectedNavigationItem(selectedPosition);
+        }
         if (!mMultipleFragments || (item instanceof SearchFilter)) {
             if(item instanceof Filter) {
                 Filter filter = (Filter)item;
@@ -160,6 +164,20 @@ public class AstridWrapperActivity extends FragmentActivity
         } catch (Exception e) {
             e.printStackTrace(); //Uh ohs
         }
+    }
+
+    protected void setupFilterlistFragment() {
+        FragmentManager manager = getSupportFragmentManager();
+        FragmentTransaction transaction = manager.beginTransaction();
+        FilterListActivity newFragment = new FilterListActivity();
+        if (findViewById(R.id.filterlist_fragment_container) != null) {
+            transaction.replace(R.id.filterlist_fragment_container, newFragment, FilterListActivity.TAG_FILTERLIST_FRAGMENT);
+        } else {
+            if (getFilterListFragment() != null)
+                return;
+            transaction.add(newFragment, FilterListActivity.TAG_FILTERLIST_FRAGMENT);
+        }
+        transaction.commit();
     }
 
     @Override

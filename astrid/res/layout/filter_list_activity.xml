@@ -6,44 +6,6 @@
     style="@style/Content"
     android:orientation="vertical">
 
-    <!-- Header -->
-    <LinearLayout
-        android:id="@+id/lists_header"
-        android:layout_width="fill_parent" 
-        android:layout_height="43dip"
-        android:layout_weight="1"
-        android:orientation="horizontal"
-        android:layout_alignParentTop="true"
-        style="@style/Header">
-        
-        <!-- List Label -->
-        <TextView android:id="@+id/listLabel"
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
-            android:layout_marginLeft="5dip"
-            android:layout_marginRight="5dip"
-            android:paddingLeft="43dip"
-            android:layout_weight="100"
-            android:singleLine="true"
-            android:ellipsize="end"
-            android:gravity="center"
-            android:text="@string/FLA_title"
-            style="@style/TextAppearance.TLA_Header"/>    
-
-       	<View 
-           android:layout_width="0.5dip"
-           android:layout_height="fill_parent"
-           android:background="#ff222222"/>
-        <ImageView android:id="@+id/back"
-           android:layout_width="43dip"
-           android:layout_height="fill_parent"
-           android:background="?attr/asHeaderButtonBackground"
-           android:padding="7dip"
-           android:src="@drawable/icn_tasks"
-           android:scaleType="fitCenter" />
-
-    </LinearLayout>
-
     <!-- Footer -->
     <LinearLayout
         android:id="@+id/lists_footer"
@@ -72,7 +34,7 @@
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         android:layout_weight="100"
-        android:layout_below="@id/lists_header"
+        android:layout_alignParentTop="true"
         android:layout_above="@id/lists_footer"
         android:scrollbars="vertical"
         android:cacheColorHint="#00000000"/>

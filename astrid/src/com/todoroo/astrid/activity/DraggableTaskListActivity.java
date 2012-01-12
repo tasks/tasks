@@ -57,7 +57,7 @@ public class DraggableTaskListActivity extends TaskListActivity {
     @Override
     protected void setUpUiComponents() {
         super.setUpUiComponents();
-        getView().findViewById(R.id.sortContainer).setVisibility(View.GONE);
+        //getView().findViewById(R.id.sortContainer).setVisibility(View.GONE);
     }
 
     // --- task adapter

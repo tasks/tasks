@@ -32,6 +32,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewGroup.LayoutParams;
+import android.widget.ArrayAdapter;
 import android.widget.BaseExpandableListAdapter;
 import android.widget.Button;
 import android.widget.ExpandableListView;
@@ -45,6 +46,7 @@ import com.todoroo.andlib.service.ContextManager;
 import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.astrid.activity.FilterListActivity;
+import com.todoroo.astrid.activity.TaskListWrapperActivity;
 import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.api.AstridFilterExposer;
 import com.todoroo.astrid.api.Filter;
@@ -75,6 +77,7 @@ public class FilterAdapter extends BaseExpandableListAdapter {
 
     /** list of filters */
     private final ArrayList<FilterListItem> items;
+    private final FilterArrayAdapter arrayAdapter;
 
     /** display metrics for scaling icons */
     private final DisplayMetrics metrics = new DisplayMetrics();
@@ -123,6 +126,8 @@ public class FilterAdapter extends BaseExpandableListAdapter {
         this.layout = rowLayout;
         this.skipIntentFilters = skipIntentFilters;
         this.selectable = selectable;
+
+        arrayAdapter = new FilterArrayAdapter(activity);
 
         inflater = (LayoutInflater) activity.getSystemService(
                 Context.LAYOUT_INFLATER_SERVICE);
@@ -177,6 +182,7 @@ public class FilterAdapter extends BaseExpandableListAdapter {
 
     public void clear() {
         items.clear();
+        arrayAdapter.clear();
         notifyDataSetInvalidated();
     }
 
@@ -353,6 +359,12 @@ public class FilterAdapter extends BaseExpandableListAdapter {
 
                 add((FilterListItem)item);
                 onReceiveFilter((FilterListItem)item);
+
+                if (filter instanceof FilterCategory) {
+                    arrayAdapter.addAll(((FilterCategory) filter).children);
+                } else {
+                    arrayAdapter.add(filter);
+                }
             }
             notifyDataSetChanged();
 
@@ -360,6 +372,9 @@ public class FilterAdapter extends BaseExpandableListAdapter {
                 @Override
                 public void run() {
                     expandList(filters);
+                    if (activity instanceof TaskListWrapperActivity) {
+                        ((TaskListWrapperActivity) activity).updateDropdownNav(arrayAdapter);
+                    }
                 }
             });
         }
@@ -598,6 +613,7 @@ public class FilterAdapter extends BaseExpandableListAdapter {
                                     activity.runOnUiThread(new Runnable() {
                                         public void run() {
                                             clear();
+                                            arrayAdapter.clear();
                                         }
                                     });
                                 }
@@ -607,6 +623,28 @@ public class FilterAdapter extends BaseExpandableListAdapter {
                         }
                     }
                 });
+    }
+
+    private class FilterArrayAdapter extends ArrayAdapter<FilterListItem> {
+
+        public FilterArrayAdapter(Context context) {
+            super(context, 0);
+        }
+
+        @Override
+        public View getView(int position, View convertView, ViewGroup parent) {
+            convertView = newView(convertView, parent);
+            ViewHolder viewHolder = (ViewHolder) convertView.getTag();
+            viewHolder.item = (FilterListItem) getItem(position);
+            populateView(viewHolder, false);
+
+            return convertView;
+        }
+
+        @Override
+        public View getDropDownView(int position, View convertView, ViewGroup parent) {
+            return getView(position, convertView, parent);
+        }
     }
 
 }

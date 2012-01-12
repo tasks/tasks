@@ -51,7 +51,6 @@ import android.widget.EditText;
 import android.widget.ExpandableListView;
 import android.widget.ExpandableListView.ExpandableListContextMenuInfo;
 import android.widget.FrameLayout;
-import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.TextView.OnEditorActionListener;
@@ -185,16 +184,16 @@ public class FilterListActivity extends ExpandableListFragment {
         setHasOptionsMenu(true);
 
         getActivity().setDefaultKeyMode(Activity.DEFAULT_KEYS_SEARCH_LOCAL);
-        ImageView backButton = (ImageView) getView().findViewById(R.id.back);
+        //ImageView backButton = (ImageView) getView().findViewById(R.id.back);
         Button newListButton = (Button) getView().findViewById(R.id.new_list_button);
 
-        backButton.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                getActivity().finish();
-                AndroidUtilities.callOverridePendingTransition(getActivity(), R.anim.slide_left_in, R.anim.slide_left_out);
-            }
-        });
+//        backButton.setOnClickListener(new OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                getActivity().finish();
+//                AndroidUtilities.callOverridePendingTransition(getActivity(), R.anim.slide_left_in, R.anim.slide_left_out);
+//            }
+//        });
 
         newListButton.setOnClickListener(new OnClickListener() {
             @Override
