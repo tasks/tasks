@@ -28,8 +28,8 @@ import com.todoroo.andlib.sql.QueryTemplate;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.andlib.utility.DialogUtilities;
 import com.todoroo.astrid.actfm.TagViewActivity;
-import com.todoroo.astrid.actfm.TagViewWrapperActivity;
 import com.todoroo.astrid.activity.TaskListActivity;
+import com.todoroo.astrid.activity.TaskListWrapperActivity;
 import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.api.AstridFilterExposer;
 import com.todoroo.astrid.api.Filter;
@@ -85,7 +85,8 @@ public class TagFilterExposer extends BroadcastReceiver implements AstridFilterE
                 newTagIntent(context, RenameTagActivity.class, tag),
                 newTagIntent(context, DeleteTagActivity.class, tag)
         };
-        filter.customTaskList = new ComponentName(ContextManager.getContext(), TagViewWrapperActivity.class);
+        filter.customTaskList = new ComponentName(ContextManager.getContext(), TagViewActivity.class);
+        filter.customWrapperActivity = new ComponentName(ContextManager.getContext(), TaskListWrapperActivity.class);
         if(tag.image != null)
             filter.imageUrl = tag.image;
         if(tag.updateText != null)

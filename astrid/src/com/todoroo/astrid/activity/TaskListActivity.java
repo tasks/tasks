@@ -16,6 +16,7 @@ import android.app.AlertDialog;
 import android.app.PendingIntent.CanceledException;
 import android.app.SearchManager;
 import android.content.BroadcastReceiver;
+import android.content.ComponentName;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -127,6 +128,8 @@ import com.todoroo.astrid.widget.TasksWidget;
  */
 public class TaskListActivity extends ListFragment implements OnScrollListener,
         GestureInterface, OnSortSelectedListener {
+
+    public static final String TAG_TASKLIST_FRAGMENT = "tasklist_fragment";
 
     // --- activities
 
@@ -372,6 +375,10 @@ public class TaskListActivity extends ListFragment implements OnScrollListener,
         contextMenuExtensionLoader.loadInNewThread(getActivity());
     }
 
+    public Filter getFilter() {
+        return filter;
+    }
+
     protected void addSyncRefreshMenuItem(Menu menu) {
         MenuItem item = menu.add(Menu.NONE, MENU_SYNC_ID, Menu.NONE,
                 R.string.TLA_menu_sync);
@@ -576,12 +583,14 @@ public class TaskListActivity extends ListFragment implements OnScrollListener,
     protected Intent getOnClickQuickAddIntent(Task t) {
         Intent intent = new Intent(getActivity(), TaskEditWrapperActivity.class);
         intent.putExtra(TaskEditActivity.TOKEN_ID, t.getId());
+        intent.putExtra(TOKEN_FILTER, filter);
         return intent;
     }
 
     protected Intent getOnLongClickQuickAddIntent(Task t) {
         Intent intent = new Intent(getActivity(), TaskEditWrapperActivity.class);
         intent.putExtra(TaskEditActivity.TOKEN_ID, t.getId());
+        intent.putExtra(TOKEN_FILTER, filter);
         return intent;
     }
 
@@ -921,7 +930,7 @@ public class TaskListActivity extends ListFragment implements OnScrollListener,
         getListView().setOnScrollListener(this);
         registerForContextMenu(getListView());
 
-        loadTaskListContent(false);
+        loadTaskListContent(true);
     }
 
     /**
@@ -1334,6 +1343,7 @@ public class TaskListActivity extends ListFragment implements OnScrollListener,
             itemId = item.getGroupId();
             intent = new Intent(getActivity(), TaskEditWrapperActivity.class);
             intent.putExtra(TaskEditActivity.TOKEN_ID, itemId);
+            intent.putExtra(TOKEN_FILTER, filter);
             startActivityForResult(intent, ACTIVITY_EDIT_TASK);
             transitionForTaskEdit();
             return true;
@@ -1357,6 +1367,7 @@ public class TaskListActivity extends ListFragment implements OnScrollListener,
 
             intent = new Intent(getActivity(), TaskEditWrapperActivity.class);
             intent.putExtra(TaskEditActivity.TOKEN_ID, clone.getId());
+            intent.putExtra(TOKEN_FILTER, filter);
             startActivityForResult(intent, ACTIVITY_EDIT_TASK);
             transitionForTaskEdit();
 
@@ -1414,8 +1425,9 @@ public class TaskListActivity extends ListFragment implements OnScrollListener,
 
     @SuppressWarnings("nls")
     private void showFilterListActivity() {
-        Intent intent = new Intent(getActivity(),
-                FilterListWrapperActivity.class);
+        Intent intent = (Intent) getActivity().getIntent().clone();
+        intent.setComponent(new ComponentName(getActivity(), FilterListWrapperActivity.class));
+        intent.setFlags(0);
         startActivity(intent);
         AndroidUtilities.callOverridePendingTransition(getActivity(), R.anim.slide_right_in, R.anim.slide_right_out);
     }

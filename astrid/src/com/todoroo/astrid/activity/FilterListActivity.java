@@ -95,6 +95,8 @@ import com.todoroo.astrid.utility.Constants;
  */
 public class FilterListActivity extends ExpandableListFragment {
 
+    public static final String TAG_FILTERLIST_FRAGMENT = "filterlist_fragment";
+
     // -- extra codes
     //public static final String SHOW_BACK_BUTTON = "show_back"; //$NON-NLS-1$
 
@@ -199,9 +201,7 @@ public class FilterListActivity extends ExpandableListFragment {
             public void onClick(View v) {
                 Intent intent = TagsPlugin.newTagDialog(getActivity());
                 startActivity(intent);
-                AndroidUtilities.callApiMethod(5, getActivity(), "overridePendingTransition",
-                        new Class<?>[] { Integer.TYPE, Integer.TYPE },
-                        R.anim.slide_left_in, R.anim.slide_left_out);
+                AndroidUtilities.callOverridePendingTransition(getActivity(), R.anim.slide_left_in, R.anim.slide_left_out);
             }
         });
 
@@ -209,7 +209,7 @@ public class FilterListActivity extends ExpandableListFragment {
 
         onNewIntent(getActivity().getIntent());
 
-        Fragment tasklistFrame = getFragmentManager().findFragmentById(R.id.tasklist_fragment);
+        Fragment tasklistFrame = getFragmentManager().findFragmentByTag(TaskListActivity.TAG_TASKLIST_FRAGMENT);
         mDualFragments = (tasklistFrame != null) && tasklistFrame.isInLayout();
 
         if (mDualFragments) {
@@ -475,7 +475,7 @@ public class FilterListActivity extends ExpandableListFragment {
                 return true;
             }
             default: {
-                Fragment tasklist = getSupportFragmentManager().findFragmentById(R.id.tasklist_fragment);
+                Fragment tasklist = getSupportFragmentManager().findFragmentByTag(TaskListActivity.TAG_TASKLIST_FRAGMENT);
                 if (tasklist != null && tasklist.isInLayout())
                     return tasklist.onOptionsItemSelected(item);
             }
@@ -515,13 +515,16 @@ public class FilterListActivity extends ExpandableListFragment {
                     Preferences.setLong(LAST_TAG_REFRESH_KEY, DateUtilities.now());
                     actFmSyncService.fetchTags(0);
 
-                    getActivity().runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            adapter.clear();
-                            adapter.getLists();
-                        }
-                    });
+                    Activity activity = getActivity();
+                    if (activity != null) {
+                        getActivity().runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                adapter.clear();
+                                adapter.getLists();
+                            }
+                        });
+                    }
 
                 } catch (IOException e) {
                     if (manual)

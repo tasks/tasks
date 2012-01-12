@@ -4,6 +4,8 @@ import android.app.PendingIntent.CanceledException;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 
 import com.timsu.astrid.R;
 import com.todoroo.andlib.utility.AndroidUtilities;
@@ -37,20 +39,23 @@ public class AstridWrapperActivity extends FragmentActivity
      */
     protected boolean mMultipleFragments = false;
 
-    protected FilterListActivity getFilterListFragment() {
+    public FilterListActivity getFilterListFragment() {
         FilterListActivity frag = (FilterListActivity) getSupportFragmentManager()
                 .findFragmentById(R.id.filterlist_fragment);
-        if (frag == null || !frag.isInLayout())
-            return null;
 
         return frag;
     }
 
-    protected TaskListActivity getTaskListFragment() {
+    public TaskListActivity getTaskListFragment() {
         TaskListActivity frag = (TaskListActivity) getSupportFragmentManager()
-                .findFragmentById(R.id.tasklist_fragment);
-        if (frag == null || !frag.isInLayout())
-            return null;
+                .findFragmentByTag(TaskListActivity.TAG_TASKLIST_FRAGMENT);
+
+        return frag;
+    }
+
+    public TaskEditActivity getTaskEditFragment() {
+        TaskEditActivity frag = (TaskEditActivity) getSupportFragmentManager()
+                .findFragmentByTag(TaskEditActivity.TAG_TASKEDIT_FRAGMENT);
 
         return frag;
     }
@@ -108,20 +113,19 @@ public class AstridWrapperActivity extends FragmentActivity
             return false;
         } else {
             // If showing both fragments, directly update the tasklist-fragment
-            TaskListActivity tasklist = (TaskListActivity) getSupportFragmentManager()
-                    .findFragmentById(R.id.tasklist_fragment);
+            Intent intent = getIntent();
 
             if(item instanceof Filter) {
                 Filter filter = (Filter)item;
                 if(filter instanceof FilterWithCustomIntent) {
-                    FilterWithCustomIntent customFilter = ((FilterWithCustomIntent)filter);
-                    tasklist.onNewIntent(customFilter.getCustomIntent());
+                    intent = ((FilterWithCustomIntent)filter).getCustomIntent();
                 } else {
-                    Intent intent = new Intent(this, TaskListWrapperActivity.class);
                     intent.putExtra(TaskListActivity.TOKEN_FILTER, filter);
-
-                    tasklist.onNewIntent(intent);
                 }
+
+                setIntent(intent);
+
+                setupTasklistFragmentWithFilter(filter);
                 // no animation for dualpane-layout
                 AndroidUtilities.callOverridePendingTransition(this, 0, 0);
                 StatisticsService.reportEvent(StatisticsConstants.FILTER_LIST);
@@ -137,8 +141,30 @@ public class AstridWrapperActivity extends FragmentActivity
         }
     }
 
+    protected void setupTasklistFragmentWithFilter(Filter filter) {
+        Class<?> component = TaskListActivity.class;
+        if (filter instanceof FilterWithCustomIntent) {
+            try {
+                component = Class.forName(((FilterWithCustomIntent) filter).customTaskList.getClassName());
+            } catch (Exception e) {
+                // Invalid
+            }
+        }
+        FragmentManager manager = getSupportFragmentManager();
+        FragmentTransaction transaction = manager.beginTransaction();
+
+        try {
+            TaskListActivity newFragment = (TaskListActivity) component.newInstance();
+            transaction.replace(R.id.tasklist_fragment_container, newFragment, TaskListActivity.TAG_TASKLIST_FRAGMENT);
+            transaction.commit();
+        } catch (Exception e) {
+            e.printStackTrace(); //Uh ohs
+        }
+    }
+
     @Override
     public void onTaskListItemClicked(int category, int position) {
+
     }
 
     @Override

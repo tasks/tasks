@@ -23,6 +23,7 @@ import com.todoroo.andlib.sql.Join;
 import com.todoroo.andlib.sql.Order;
 import com.todoroo.andlib.sql.QueryTemplate;
 import com.todoroo.astrid.activity.TaskListActivity;
+import com.todoroo.astrid.activity.TaskListWrapperActivity;
 import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.api.AstridFilterExposer;
 import com.todoroo.astrid.api.Filter;
@@ -71,6 +72,7 @@ public class GtasksFilterExposer extends BroadcastReceiver implements AstridFilt
                 values);
         filter.listingIcon = ((BitmapDrawable)context.getResources().getDrawable(R.drawable.gtasks_icon)).getBitmap();
         filter.customTaskList = new ComponentName(ContextManager.getContext(), GtasksListActivity.class);
+        filter.customWrapperActivity = new ComponentName(ContextManager.getContext(), TaskListWrapperActivity.class);
         Bundle extras = new Bundle();
         extras.putBoolean(TaskListActivity.TOKEN_OVERRIDE_ANIM, true);
         filter.customExtras = extras;

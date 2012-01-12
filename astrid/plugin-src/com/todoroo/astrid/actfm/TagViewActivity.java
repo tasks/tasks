@@ -95,8 +95,8 @@ public class TagViewActivity extends TaskListActivity {
     // --- UI initialization
 
     @Override
-    public void onCreate(final Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+    public void onActivityCreated(final Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
 
         getListView().setOnKeyListener(null);
 
@@ -271,14 +271,17 @@ public class TagViewActivity extends TaskListActivity {
                     String oldName = tagData.getValue(TagData.NAME);
                     actFmSyncService.fetchTag(tagData);
 
-                    DialogUtilities.dismissDialog(getActivity(), progressDialog);
-                    getActivity().runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            if(noRemoteId && tagData.getValue(TagData.REMOTE_ID) > 0)
-                                refreshData(manual, true);
-                        }
-                    });
+                    Activity activity = getActivity();
+                    if (activity != null) {
+                        DialogUtilities.dismissDialog(activity, progressDialog);
+                        activity.runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                if(noRemoteId && tagData.getValue(TagData.REMOTE_ID) > 0)
+                                    refreshData(manual, true);
+                            }
+                        });
+                    }
 
                     if(!oldName.equals(tagData.getValue(TagData.NAME))) {
                         TagService.getInstance().rename(oldName,
@@ -304,27 +307,33 @@ public class TagViewActivity extends TaskListActivity {
         actFmSyncService.fetchTasksForTag(tagData, manual, new Runnable() {
             @Override
             public void run() {
-                getActivity().runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        loadTaskListContent(true);
-                        ((TextView)taskListView.findViewById(android.R.id.empty)).setText(R.string.TLA_no_items);
-                        DialogUtilities.dismissDialog(getActivity(), progressDialog);
-                    }
-                });
+                final Activity activity = getActivity();
+                if (activity != null) {
+                    activity.runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            loadTaskListContent(true);
+                            ((TextView)taskListView.findViewById(android.R.id.empty)).setText(R.string.TLA_no_items);
+                            DialogUtilities.dismissDialog(activity, progressDialog);
+                        }
+                    });
+                }
             }
         });
 
         actFmSyncService.fetchUpdatesForTag(tagData, manual, new Runnable() {
             @Override
             public void run() {
-                getActivity().runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        //refreshUpdatesList();
-                        DialogUtilities.dismissDialog(getActivity(), progressDialog);
-                    }
-                });
+                final Activity activity = getActivity();
+                if (activity != null) {
+                    getActivity().runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            //refreshUpdatesList();
+                            DialogUtilities.dismissDialog(activity, progressDialog);
+                        }
+                    });
+                }
             }
         });
 
@@ -352,7 +361,7 @@ public class TagViewActivity extends TaskListActivity {
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        getActivity().findViewById(R.id.filter_assigned).setOnClickListener(new OnClickListener() {
+        getView().findViewById(R.id.filter_assigned).setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
                 resetAssignedFilter();

@@ -4,22 +4,34 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="horizontal">
-    <fragment
-	    xmlns:android="http://schemas.android.com/apk/res/android"
-	    android:name="com.todoroo.astrid.activity.TaskListActivity"
+    <FrameLayout
 	    android:layout_width="match_parent"
 	    android:layout_height="match_parent"
-	    android:id="@+id/tasklist_fragment"
-	    android:layout_weight="67">
-        <!-- Preview: layout=@layout/task_list_activity -->
-	</fragment>
+	    android:layout_weight="67"
+        android:id="@+id/tasklist_fragment_container">
 	    <fragment
-	    xmlns:android="http://schemas.android.com/apk/res/android"
-	    android:name="com.todoroo.astrid.activity.TaskEditActivity"
+		    android:name="com.todoroo.astrid.activity.TaskListActivity"
+		    android:layout_width="match_parent"
+		    android:layout_height="match_parent"
+		    android:tag="tasklist_fragment">
+	        <!-- Preview: layout=@layout/task_list_activity -->
+		</fragment>
+	</FrameLayout>
+	<View 
+        android:layout_width="1px"
+        android:layout_height="match_parent"
+        android:background="#000000"/>
+	<FrameLayout
 	    android:layout_width="match_parent"
 	    android:layout_height="match_parent"
-	    android:id="@+id/taskedit_fragment"
-	    android:layout_weight="33">
-        <!-- Preview: layout=@layout/task_edit_activity -->
-	</fragment>
+        android:layout_weight="33"	    
+        android:id="@+id/taskedit_fragment_container">
+		<fragment
+		    android:name="com.todoroo.astrid.activity.TaskEditActivity"
+		    android:layout_width="match_parent"
+		    android:layout_height="match_parent"
+		    android:tag="taskedit_fragment">
+	        <!-- Preview: layout=@layout/task_edit_activity -->
+		</fragment>
+	</FrameLayout>
 </LinearLayout>
