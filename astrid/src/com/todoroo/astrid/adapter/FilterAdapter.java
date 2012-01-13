@@ -365,8 +365,8 @@ public class FilterAdapter extends BaseExpandableListAdapter {
                     for (Filter f : children) {
                         arrayAdapter.add(f);
                     }
-                } else {
-                    arrayAdapter.add(filter);
+                } else if (filter instanceof Filter){
+                    arrayAdapter.add((Filter) filter);
                 }
             }
             notifyDataSetChanged();
@@ -628,7 +628,7 @@ public class FilterAdapter extends BaseExpandableListAdapter {
                 });
     }
 
-    private class FilterArrayAdapter extends ArrayAdapter<FilterListItem> {
+    private class FilterArrayAdapter extends ArrayAdapter<Filter> {
 
         public FilterArrayAdapter(Context context) {
             super(context, 0);
@@ -640,6 +640,7 @@ public class FilterAdapter extends BaseExpandableListAdapter {
             ViewHolder viewHolder = (ViewHolder) convertView.getTag();
             viewHolder.item = (FilterListItem) getItem(position);
             populateView(viewHolder, false);
+            viewHolder.name.setTextColor(Color.WHITE);
 
             return convertView;
         }

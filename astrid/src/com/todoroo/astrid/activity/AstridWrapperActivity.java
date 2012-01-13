@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.view.ViewGroup;
 
 import com.timsu.astrid.R;
 import com.todoroo.andlib.utility.AndroidUtilities;
@@ -85,8 +86,8 @@ public class AstridWrapperActivity extends FragmentActivity
      * Handles items being clicked from the filterlist-fragment. Return true if item is handled.
      */
     public boolean onFilterItemClicked(FilterListItem item) {
-        if (this instanceof TaskListWrapperActivity) {
-            ((TaskListWrapperActivity) this).setSelectedItem(item);
+        if (this instanceof TaskListWrapperActivity && (item instanceof Filter) ) {
+            ((TaskListWrapperActivity) this).setSelectedItem((Filter) item);
         }
         if (!mMultipleFragments || (item instanceof SearchFilter)) {
             if(item instanceof Filter) {
@@ -168,13 +169,20 @@ public class AstridWrapperActivity extends FragmentActivity
     protected void setupFilterlistFragment() {
         FragmentManager manager = getSupportFragmentManager();
         FragmentTransaction transaction = manager.beginTransaction();
-        FilterListActivity newFragment = new FilterListActivity();
-        if (findViewById(R.id.filterlist_fragment_container) != null) {
-            transaction.replace(R.id.filterlist_fragment_container, newFragment, FilterListActivity.TAG_FILTERLIST_FRAGMENT);
+        FilterListActivity frag = getFilterListFragment();
+        if (frag == null)
+            frag = new FilterListActivity();
+
+        ViewGroup container = (ViewGroup) findViewById(R.id.filterlist_fragment_container);
+        if (container != null) {
+            if (container.getChildCount() > 0)
+                transaction.replace(R.id.filterlist_fragment_container, frag, FilterListActivity.TAG_FILTERLIST_FRAGMENT);
+            else
+                transaction.add(R.id.filterlist_fragment_container, frag, FilterListActivity.TAG_FILTERLIST_FRAGMENT);
         } else {
             if (getFilterListFragment() != null)
                 return;
-            transaction.add(newFragment, FilterListActivity.TAG_FILTERLIST_FRAGMENT);
+            transaction.add(frag, FilterListActivity.TAG_FILTERLIST_FRAGMENT);
         }
         transaction.commit();
     }
