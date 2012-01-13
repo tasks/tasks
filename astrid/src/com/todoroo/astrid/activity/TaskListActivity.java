@@ -1322,13 +1322,6 @@ public class TaskListActivity extends ListFragment implements OnScrollListener,
             intent = item.getIntent();
             AndroidUtilities.startExternalIntent(getActivity(), intent, ACTIVITY_MENU_EXTERNAL);
             return true;
-        case android.R.id.home: {
-            if (!mDualFragments) {
-                // switch back to the filterlist
-                showFilterListActivity();
-            }
-            return true;
-        }
 
         // --- context menu items
 
