@@ -19,22 +19,34 @@
         <item name="asFilterHeaderBackground">@drawable/edit_titlebar</item>
         <item name="asMembersHeaderBackground">@drawable/ios_fabric_480_dark</item>
         <item name="asSeparatorBackground">#888888</item>
+        <!-- actionbar-styling -->
+        <item name="abBackground">@drawable/header_background</item>
+        <item name="abDisplayOptions">useLogo|showHome|showTitle</item>
+        <item name="abLogo">@drawable/icon_48</item>
     </style>
     
-    <style name="Theme.Transparent" parent="@style/Theme.Sherlock">
-        <item name="asContentBackground">@drawable/background_transparent</item>
+    <style name="Theme.Transparent" parent="@style/Theme">
+		<item name="asContentBackground">@drawable/background_transparent</item>
         <item name="android:windowIsTranslucent">true</item>
         <item name="android:windowAnimationStyle">@android:style/Animation.Translucent</item>
         <item name="asMembersHeaderBackground">@android:color/transparent</item>
+        <!-- actionbar-styling -->
+        <item name="abBackground">@drawable/header_background</item>
+        <item name="abDisplayOptions">useLogo|showHome|showTitle</item>
+        <item name="abLogo">@drawable/icon_48</item>
     </style>
     
     <style name="Theme.FullTransparent" parent="@style/Theme.Sherlock">
-	    <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowIsTranslucent">true</item>
 	    <item name="android:windowBackground">@android:color/transparent</item>
 	    <item name="android:windowContentOverlay">@null</item>
 	    <item name="android:windowIsFloating">true</item>
 	    <item name="android:backgroundDimEnabled">false</item>
-  	</style>
+        <!-- actionbar-styling -->
+        <item name="abBackground">@drawable/header_background</item>
+        <item name="abDisplayOptions">useLogo|showHome|showTitle</item>
+        <item name="abLogo">@drawable/icon_48</item>
+	</style>
         
     <style name="Theme.White" parent="@style/Theme.Sherlock.Light">
         <item name="asContentBackground">@drawable/background_white</item>
@@ -46,6 +58,10 @@
         <item name="asFilterHeaderColor">#ffffff</item>
         <item name="asFilterHeaderBackground">@drawable/edit_titlebar_white</item>
         <item name="asMembersHeaderBackground">@drawable/ios_fabric_480</item>
+        <!-- actionbar-styling -->
+        <item name="abBackground">@drawable/header_background_white</item>
+        <item name="abDisplayOptions">useLogo|showHome|showTitle</item>
+        <item name="abLogo">@drawable/icon_48</item>
     </style>
     
     <style name="Theme.TransparentWhite" parent="@style/Theme.White">
@@ -53,6 +69,10 @@
         <item name="android:windowIsTranslucent">true</item>
         <item name="android:windowAnimationStyle">@android:style/Animation.Translucent</item>
         <item name="asMembersHeaderBackground">@android:color/transparent</item>
+        <!-- actionbar-styling -->
+        <item name="abBackground">@drawable/header_background_white</item>
+        <item name="abDisplayOptions">useLogo|showHome|showTitle</item>
+        <item name="abLogo">@drawable/icon_48</item>
     </style>
     
     <style name="Theme.Dialog">
@@ -230,11 +250,4 @@
         <item name="android:textSize">14sp</item>                                                                                                                                                                    
         <item name="android:textColor">@android:color/black</item>                                                                                                                                                   
     </style> 
-
-	<!-- ====================================================== Actionbar == -->
-
-    <style name="customActionBarStyle"  parent="@style/Theme.Sherlock">
-        <item name="android:background">@drawable/header_background</item>
-    </style>
-
 </resources>
