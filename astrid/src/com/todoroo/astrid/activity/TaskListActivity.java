@@ -127,7 +127,7 @@ import com.todoroo.astrid.widget.TasksWidget;
 public class TaskListActivity extends ListFragment implements OnScrollListener,
         GestureInterface, OnSortSelectedListener {
 
-    public static final String TAG_TASKLIST_FRAGMENT = "tasklist_fragment";
+    public static final String TAG_TASKLIST_FRAGMENT = "tasklist_fragment"; //$NON-NLS-1$
 
     // --- activities
 
@@ -140,7 +140,6 @@ public class TaskListActivity extends ListFragment implements OnScrollListener,
 
     // --- menu codes
 
-    protected static final int MENU_LISTS_ID = R.string.tag_TLA_menu;
     protected static final int MENU_ADDONS_ID = R.string.TLA_menu_addons;
     protected static final int MENU_SETTINGS_ID = R.string.TLA_menu_settings;
     protected static final int MENU_SORT_ID = R.string.TLA_menu_sort;
@@ -396,13 +395,13 @@ public class TaskListActivity extends ListFragment implements OnScrollListener,
 
         MenuItem item;
 
-        addSyncRefreshMenuItem(menu);
+        if (!(this instanceof DraggableTaskListActivity)) {
+            item = menu.add(Menu.NONE, MENU_SORT_ID, Menu.NONE, R.string.TLA_menu_sort);
+            item.setIcon(android.R.drawable.ic_menu_sort_by_size);
+            item.setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
+        }
 
-//        if (!mDualFragments) {
-//            item = menu.add(Menu.NONE, MENU_LISTS_ID, Menu.NONE,
-//                    R.string.tag_TLA_menu);
-//            item.setIcon(R.drawable.ic_menu_lists);
-//        }
+        addSyncRefreshMenuItem(menu);
 
         if(!Constants.MARKET_DISABLED) {
             item = menu.add(Menu.NONE, MENU_ADDONS_ID, Menu.NONE,
@@ -1295,10 +1294,6 @@ public class TaskListActivity extends ListFragment implements OnScrollListener,
 
         // handle my own menus
         switch (item.getItemId()) {
-        case MENU_LISTS_ID:
-            StatisticsService.reportEvent(StatisticsConstants.TLA_MENU_LISTS);
-            showFilterListActivity();
-            return true;
         case MENU_ADDONS_ID:
             StatisticsService.reportEvent(StatisticsConstants.TLA_MENU_ADDONS);
             intent = new Intent(getActivity(), AddOnActivity.class);
@@ -1308,6 +1303,12 @@ public class TaskListActivity extends ListFragment implements OnScrollListener,
             StatisticsService.reportEvent(StatisticsConstants.TLA_MENU_SETTINGS);
             intent = new Intent(getActivity(), EditPreferences.class);
             startActivityForResult(intent, ACTIVITY_SETTINGS);
+            return true;
+        case MENU_SORT_ID:
+            StatisticsService.reportEvent(StatisticsConstants.TLA_MENU_SORT);
+            AlertDialog dialog = SortSelectionActivity.createDialog(getActivity(),
+                    this, sortFlags, sortSort);
+            dialog.show();
             return true;
         case MENU_SYNC_ID:
             StatisticsService.reportEvent(StatisticsConstants.TLA_MENU_SYNC);
@@ -1413,15 +1414,6 @@ public class TaskListActivity extends ListFragment implements OnScrollListener,
         if("nav_right".equals(gesture)) {
             //showFilterListActivity();
         }
-    }
-
-    @SuppressWarnings("nls")
-    private void showFilterListActivity() {
-//        Intent intent = (Intent) getActivity().getIntent().clone();
-//        intent.setComponent(new ComponentName(getActivity(), FilterListWrapperActivity.class));
-//        intent.setFlags(0);
-//        startActivity(intent);
-//        AndroidUtilities.callOverridePendingTransition(getActivity(), R.anim.slide_right_in, R.anim.slide_right_out);
     }
 
     @Override
