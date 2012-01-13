@@ -65,8 +65,7 @@ public class TaskListWrapperActivity extends AstridWrapperActivity {
                 return true;
             }
         });
-        if (selectionToSet != -1 && selectionToSet < listDropdownAdapter.getCount()) {
-            selectionToSet = -1;
+        if (selectionToSet < listDropdownAdapter.getCount()) {
             getSupportActionBar().setSelectedNavigationItem(selectionToSet);
         }
     }
