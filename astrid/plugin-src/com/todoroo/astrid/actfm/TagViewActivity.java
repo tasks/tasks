@@ -113,23 +113,23 @@ public class TagViewActivity extends TaskListActivity {
         View membersEdit = getView().findViewById(R.id.members_edit);
         membersEdit.setOnClickListener(settingsListener);
 
-        if (actFmPreferenceService.isLoggedIn()) {
-            View activityContainer = getView().findViewById(R.id.activityContainer);
-            activityContainer.setVisibility(View.VISIBLE);
-
-            getView().findViewById(R.id.listLabel).setPadding(0, 0, 0, 0);
-
-            ImageView activity = (ImageView) getView().findViewById(R.id.activity);
-            activity.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Intent intent = new Intent(getActivity(), TagUpdatesActivity.class);
-                    intent.putExtra(EXTRA_TAG_DATA, tagData);
-                    startActivity(intent);
-                    AndroidUtilities.callOverridePendingTransition(getActivity(), R.anim.slide_left_in, R.anim.slide_left_out);
-                }
-            });
-        }
+//        if (actFmPreferenceService.isLoggedIn()) {
+//            View activityContainer = getView().findViewById(R.id.activityContainer);
+//            activityContainer.setVisibility(View.VISIBLE);
+//
+//            getView().findViewById(R.id.listLabel).setPadding(0, 0, 0, 0);
+//
+//            ImageView activity = (ImageView) getView().findViewById(R.id.activity);
+//            activity.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View v) {
+//                    Intent intent = new Intent(getActivity(), TagUpdatesActivity.class);
+//                    intent.putExtra(EXTRA_TAG_DATA, tagData);
+//                    startActivity(intent);
+//                    AndroidUtilities.callOverridePendingTransition(getActivity(), R.anim.slide_left_in, R.anim.slide_left_out);
+//                }
+//            });
+//        }
 
         originalFilter = filter;
         showListSettingsPopover();
