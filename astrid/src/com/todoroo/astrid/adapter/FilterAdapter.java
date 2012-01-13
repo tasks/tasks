@@ -361,7 +361,10 @@ public class FilterAdapter extends BaseExpandableListAdapter {
                 onReceiveFilter((FilterListItem)item);
 
                 if (filter instanceof FilterCategory) {
-                    arrayAdapter.addAll(((FilterCategory) filter).children);
+                    Filter[] children = ((FilterCategory) filter).children;
+                    for (Filter f : children) {
+                        arrayAdapter.add(f);
+                    }
                 } else {
                     arrayAdapter.add(filter);
                 }
