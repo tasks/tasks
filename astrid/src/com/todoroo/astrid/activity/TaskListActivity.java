@@ -42,6 +42,7 @@ import android.view.View.OnLongClickListener;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
+import android.view.animation.AlphaAnimation;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.AbsListView;
@@ -53,6 +54,7 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.PopupWindow.OnDismissListener;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.TextView.OnEditorActionListener;
 import android.widget.Toast;
@@ -74,8 +76,6 @@ import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.andlib.widget.GestureService;
 import com.todoroo.andlib.widget.GestureService.GestureInterface;
 import com.todoroo.astrid.actfm.ActFmLoginActivity;
-import com.todoroo.astrid.actfm.sync.ActFmPreferenceService;
-import com.todoroo.astrid.actfm.sync.ActFmSyncProvider;
 import com.todoroo.astrid.activity.SortSelectionActivity.OnSortSelectedListener;
 import com.todoroo.astrid.adapter.TaskAdapter;
 import com.todoroo.astrid.adapter.TaskAdapter.OnCompletedTaskListener;
@@ -105,6 +105,8 @@ import com.todoroo.astrid.service.MetadataService;
 import com.todoroo.astrid.service.StartupService;
 import com.todoroo.astrid.service.StatisticsConstants;
 import com.todoroo.astrid.service.StatisticsService;
+import com.todoroo.astrid.service.SyncV2Service;
+import com.todoroo.astrid.service.SyncV2Service.SyncResultCallback;
 import com.todoroo.astrid.service.TagDataService;
 import com.todoroo.astrid.service.TaskService;
 import com.todoroo.astrid.service.ThemeService;
@@ -163,8 +165,6 @@ public class TaskListActivity extends ListActivity implements OnScrollListener,
 
     public static final String TOKEN_OVERRIDE_ANIM = "finishAnim"; //$NON-NLS-1$
 
-    private static final String LAST_AUTOSYNC_ATTEMPT = "last-autosync"; //$NON-NLS-1$
-
     // --- instance variables
 
     @Autowired ExceptionService exceptionService;
@@ -179,7 +179,7 @@ public class TaskListActivity extends ListActivity implements OnScrollListener,
 
     @Autowired UpgradeService upgradeService;
 
-    @Autowired ActFmPreferenceService actFmPreferenceService;
+    @Autowired protected SyncV2Service syncService;
 
     @Autowired TagDataService tagDataService;
 
@@ -239,7 +239,7 @@ public class TaskListActivity extends ListActivity implements OnScrollListener,
         new StartupService().onStartupApplication(this);
         ThemeService.applyTheme(this);
         ViewGroup parent = (ViewGroup) getLayoutInflater().inflate(R.layout.task_list_activity, null);
-        parent.addView(getListBody(parent), 1);
+        parent.addView(getListBody(parent), 2);
         setContentView(parent);
 
         if(database == null)
@@ -500,23 +500,6 @@ public class TaskListActivity extends ListActivity implements OnScrollListener,
         // dithering
         getWindow().setFormat(PixelFormat.RGBA_8888);
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_DITHER);
-    }
-
-    private void initiateAutomaticSync() {
-        if (!actFmPreferenceService.isLoggedIn()) return;
-        long lastFetchDate = actFmPreferenceService.getLastSyncDate();
-        long lastAutosyncAttempt = Preferences.getLong(LAST_AUTOSYNC_ATTEMPT, 0);
-
-        long lastTry = Math.max(lastFetchDate, lastAutosyncAttempt);
-        if(DateUtilities.now() < lastTry + 300000L)
-            return;
-        new Thread() {
-            @Override
-            public void run() {
-                Preferences.setLong(LAST_AUTOSYNC_ATTEMPT, DateUtilities.now());
-                new ActFmSyncProvider().synchronize(TaskListActivity.this, false);
-            }
-        }.start();
     }
 
     // Subclasses can override these to customize extras in quickadd intent
@@ -1136,8 +1119,94 @@ public class TaskListActivity extends ListActivity implements OnScrollListener,
         }
     }
 
+    private class TaskListSyncResultCallback implements SyncResultCallback {
+
+        private final ProgressBar progressBar;
+        private int providers = 0;
+
+        public TaskListSyncResultCallback() {
+            progressBar = (ProgressBar) findViewById(R.id.progressBar);
+            progressBar.setProgress(0);
+            progressBar.setMax(0);
+        }
+
+        @Override
+        public void finished() {
+            providers--;
+            if(providers == 0) {
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        progressBar.setMax(100);
+                        progressBar.setProgress(100);
+                        AlphaAnimation animation = new AlphaAnimation(1, 0);
+                        animation.setFillAfter(true);
+                        animation.setDuration(1000L);
+                        progressBar.startAnimation(animation);
+
+                        loadTaskListContent(true);
+                    }
+                });
+                new Thread() {
+                    @Override
+                    public void run() {
+                        AndroidUtilities.sleepDeep(1000);
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                progressBar.setVisibility(View.GONE);
+                            }
+                        });
+                    }
+                }.start();
+            }
+        }
+
+        @Override
+        public void incrementMax(final int incrementBy) {
+            runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    progressBar.setMax(progressBar.getMax() + incrementBy);
+                }
+            });
+        }
+
+        @Override
+        public void incrementProgress(final int incrementBy) {
+            runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    progressBar.incrementProgressBy(incrementBy);
+                }
+            });
+        }
+
+        @Override
+        public void started() {
+            if(providers == 0) {
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        progressBar.setVisibility(View.VISIBLE);
+                        AlphaAnimation animation = new AlphaAnimation(0, 1);
+                        animation.setFillAfter(true);
+                        animation.setDuration(1000L);
+                        progressBar.startAnimation(animation);
+                    }
+                });
+            }
+
+            providers++;
+        }
+    }
+
+    private void initiateAutomaticSync() {
+        syncService.synchronizeActiveTasks(false, new TaskListSyncResultCallback());
+    }
+
     private void performSyncAction() {
-        if (syncActions.size() == 0) {
+        if (syncActions.size() == 0 && !syncService.isActive()) {
             String desiredCategory = getString(R.string.SyP_label);
 
             // Get a list of all sync plugins and bring user to the prefs pane
@@ -1178,32 +1247,20 @@ public class TaskListActivity extends ListActivity implements OnScrollListener,
 
             showSyncOptionMenu(actions, listener);
         }
-        else if(syncActions.size() == 1) {
-            SyncAction syncAction = syncActions.iterator().next();
-            try {
-                syncAction.intent.send();
-                Toast.makeText(this, R.string.SyP_progress_toast,
-                        Toast.LENGTH_LONG).show();
-            } catch (CanceledException e) {
-                //
-            }
-        } else {
-            // We have >1 sync actions, pop up a dialogue so the user can
-            // select just one of them (only sync one at a time)
-            final SyncAction[] actions = syncActions.toArray(new SyncAction[syncActions.size()]);
-            DialogInterface.OnClickListener listener = new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface click, int which) {
+        else {
+            syncService.synchronizeActiveTasks(true, new TaskListSyncResultCallback());
+
+            if(syncActions.size() > 0) {
+                for(SyncAction syncAction : syncActions) {
                     try {
-                        actions[which].intent.send();
-                        Toast.makeText(TaskListActivity.this, R.string.SyP_progress_toast,
-                                Toast.LENGTH_LONG).show();
+                        syncAction.intent.send();
                     } catch (CanceledException e) {
                         //
                     }
                 }
-            };
-            showSyncOptionMenu(actions, listener);
+                Toast.makeText(TaskListActivity.this, R.string.SyP_progress_toast,
+                        Toast.LENGTH_LONG).show();
+            }
         }
     }
 

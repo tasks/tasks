@@ -73,6 +73,7 @@ public class AstridDependencyInjector extends AbstractDependencyInjector {
         injectables.put("tagDataService", TagDataService.class);
         injectables.put("upgradeService", UpgradeService.class);
         injectables.put("addOnService", AddOnService.class);
+        injectables.put("syncService", SyncV2Service.class);
 
         // com.timsu.astrid.data
         injectables.put("tasksTable", "tasks");
