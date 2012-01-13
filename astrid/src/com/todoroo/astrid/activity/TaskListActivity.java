@@ -1427,7 +1427,7 @@ public class TaskListActivity extends ListFragment implements OnScrollListener,
     private void showFilterListActivity() {
         Intent intent = (Intent) getActivity().getIntent().clone();
         intent.setComponent(new ComponentName(getActivity(), FilterListWrapperActivity.class));
-        intent.setFlags(0);
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(intent);
         AndroidUtilities.callOverridePendingTransition(getActivity(), R.anim.slide_right_in, R.anim.slide_right_out);
     }

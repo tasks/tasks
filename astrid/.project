@@ -36,4 +36,11 @@
 		<nature>org.eclipse.jdt.core.javanature</nature>
 		<nature>org.eclipse.wst.common.project.facet.core.nature</nature>
 	</natures>
+	<linkedResources>
+		<link>
+			<name>abs_src</name>
+			<type>2</type>
+			<locationURI>PARENT_LOC/astrid/actionbarsherlock/library/src</locationURI>
+		</link>
+	</linkedResources>
 </projectDescription>

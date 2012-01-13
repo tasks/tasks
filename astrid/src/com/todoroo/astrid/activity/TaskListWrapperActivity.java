@@ -19,7 +19,9 @@ public class TaskListWrapperActivity extends AstridWrapperActivity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.task_list_wrapper_activity);
 
-		Filter savedFilter = getIntent().getParcelableExtra(TaskListActivity.TOKEN_FILTER);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        Filter savedFilter = getIntent().getParcelableExtra(TaskListActivity.TOKEN_FILTER);
 		setupTasklistFragmentWithFilter(savedFilter);
 	}
 
@@ -33,8 +35,10 @@ public class TaskListWrapperActivity extends AstridWrapperActivity {
         Fragment frag = getFilterListFragment();
         if (frag != null) {
             mMultipleFragments = true;
+            getSupportActionBar().setDisplayHomeAsUpEnabled(false);
         } else {
             mMultipleFragments = false;
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }
     }
 

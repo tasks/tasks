@@ -18,6 +18,8 @@ public class TaskEditWrapperActivity extends AstridWrapperActivity {
         ThemeService.applyTheme(this);
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.task_edit_wrapper_activity);
+
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 	}
 
     /* (non-Javadoc)
