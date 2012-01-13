@@ -321,6 +321,7 @@ public class ActFmSyncProvider extends SyncProvider<ActFmTaskContainer> {
         } else { // Set default reminders for remotely created tasks
             TaskDao.setDefaultReminders(task.task);
         }
+        task.task.setValue(Task.LAST_SYNC, DateUtilities.now() + 1000);
         actFmDataService.saveTaskAndMetadata(task);
     }
 

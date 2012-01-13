@@ -1201,8 +1201,14 @@ public class TaskListActivity extends ListActivity implements OnScrollListener,
         }
     }
 
+    private static final String PREF_LAST_AUTO_SYNC = "taskListLastAutoSync"; //$NON-NLS-1$
+
     private void initiateAutomaticSync() {
-        syncService.synchronizeActiveTasks(false, new TaskListSyncResultCallback());
+        long lastAutoSync = Preferences.getLong(PREF_LAST_AUTO_SYNC, 0);
+        if(DateUtilities.now() - lastAutoSync > DateUtilities.ONE_HOUR) {
+            syncService.synchronizeActiveTasks(false, new TaskListSyncResultCallback());
+            Preferences.setLong(PREF_LAST_AUTO_SYNC, DateUtilities.now());
+        }
     }
 
     private void performSyncAction() {
@@ -1249,6 +1255,7 @@ public class TaskListActivity extends ListActivity implements OnScrollListener,
         }
         else {
             syncService.synchronizeActiveTasks(true, new TaskListSyncResultCallback());
+            Preferences.setLong(PREF_LAST_AUTO_SYNC, DateUtilities.now());
 
             if(syncActions.size() > 0) {
                 for(SyncAction syncAction : syncActions) {
