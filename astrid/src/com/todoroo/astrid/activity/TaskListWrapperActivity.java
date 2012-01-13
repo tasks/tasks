@@ -13,6 +13,9 @@ import com.todoroo.astrid.service.ThemeService;
 
 public class TaskListWrapperActivity extends AstridWrapperActivity {
 
+    public static final String TOKEN_SELECTED_FILTER = "selectedFilter";
+    private int selectionToSet;
+
     private ArrayAdapter<FilterListItem> listDropdownAdapter;
     /**
 	 * @see android.app.Activity#onCreate(Bundle)
@@ -30,6 +33,11 @@ public class TaskListWrapperActivity extends AstridWrapperActivity {
 		ActionBar actionBar = getSupportActionBar();
 		actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_LIST);
 		actionBar.setDisplayOptions(0, ActionBar.DISPLAY_SHOW_TITLE);
+
+		if (savedInstanceState != null) {
+		    selectionToSet = savedInstanceState.getInt(TOKEN_SELECTED_FILTER);
+		}
+
 	}
 
     /* (non-Javadoc)
@@ -57,10 +65,21 @@ public class TaskListWrapperActivity extends AstridWrapperActivity {
                 return true;
             }
         });
+        if (selectionToSet != -1 && selectionToSet < listDropdownAdapter.getCount()) {
+            selectionToSet = -1;
+            getSupportActionBar().setSelectedNavigationItem(selectionToSet);
+        }
     }
 
-    public int getFilterItemPosition(FilterListItem item) {
-        return listDropdownAdapter.getPosition(item);
+    @Override
+    protected void onSaveInstanceState(Bundle icicle) {
+        icicle.putInt(TOKEN_SELECTED_FILTER, getSupportActionBar().getSelectedNavigationIndex());
+        super.onSaveInstanceState(icicle);
+    }
+
+    public void setSelectedItem(FilterListItem item) {
+        int position = listDropdownAdapter.getPosition(item);
+        getSupportActionBar().setSelectedNavigationItem(position);
     }
 
     @Override

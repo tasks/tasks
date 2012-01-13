@@ -86,8 +86,7 @@ public class AstridWrapperActivity extends FragmentActivity
      */
     public boolean onFilterItemClicked(FilterListItem item) {
         if (this instanceof TaskListWrapperActivity) {
-            int selectedPosition = ((TaskListWrapperActivity) this).getFilterItemPosition(item);
-            getSupportActionBar().setSelectedNavigationItem(selectedPosition);
+            ((TaskListWrapperActivity) this).setSelectedItem(item);
         }
         if (!mMultipleFragments || (item instanceof SearchFilter)) {
             if(item instanceof Filter) {
