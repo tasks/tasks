@@ -105,6 +105,7 @@ public class FilterListActivity extends ExpandableListFragment {
     private static final int MENU_HELP_ID = R.string.FLA_menu_help;
     private static final int MENU_REFRESH_ID = R.string.actfm_FLA_menu_refresh;
     private static final int MENU_NEW_FILTER_ID = R.string.FLA_new_filter;
+    private static final int MENU_NEW_LIST_ID = R.string.FLA_new_list;
 
     private static final String LAST_TAG_REFRESH_KEY = "last_tag_refresh"; //$NON-NLS-1$
 
@@ -256,19 +257,23 @@ public class FilterListActivity extends ExpandableListFragment {
                 R.string.FLA_new_filter);
         item.setIcon(android.R.drawable.ic_menu_add);
 
+        item = menu.add(Menu.NONE, MENU_NEW_LIST_ID, Menu.NONE,
+                R.string.FLA_new_list);
+        item.setIcon(android.R.drawable.ic_menu_add);
+
         item = menu.add(Menu.NONE, MENU_SEARCH_ID, Menu.NONE,
                 R.string.FLA_menu_search);
         item.setIcon(android.R.drawable.ic_menu_search);
         item.setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
 
-        item = menu.add(Menu.NONE, MENU_REFRESH_ID, Menu.NONE,
-                R.string.TLA_menu_sync);
-        item.setIcon(R.drawable.ic_menu_refresh);
-        item.setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
+//        item = menu.add(Menu.NONE, MENU_REFRESH_ID, Menu.NONE,
+//                R.string.TLA_menu_sync);
+//        item.setIcon(R.drawable.ic_menu_refresh);
+//        item.setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
 
-        item = menu.add(Menu.NONE, MENU_HELP_ID, 1,
-                R.string.FLA_menu_help);
-        item.setIcon(android.R.drawable.ic_menu_help);
+//        item = menu.add(Menu.NONE, MENU_HELP_ID, 1,
+//                R.string.FLA_menu_help);
+//        item.setIcon(android.R.drawable.ic_menu_help);
     }
 
     /* ======================================================================
@@ -452,6 +457,12 @@ public class FilterListActivity extends ExpandableListFragment {
             case MENU_NEW_FILTER_ID : {
                 Intent intent = new Intent(getActivity(), CustomFilterActivity.class);
                 startActivity(intent);
+                return true;
+            }
+            case MENU_NEW_LIST_ID : {
+                Intent intent = TagsPlugin.newTagDialog(getActivity());
+                startActivity(intent);
+                AndroidUtilities.callOverridePendingTransition(getActivity(), R.anim.slide_left_in, R.anim.slide_left_out);
                 return true;
             }
             case CONTEXT_MENU_SHORTCUT: {

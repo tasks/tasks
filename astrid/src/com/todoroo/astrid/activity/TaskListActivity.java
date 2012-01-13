@@ -381,6 +381,7 @@ public class TaskListActivity extends ListFragment implements OnScrollListener,
         MenuItem item = menu.add(Menu.NONE, MENU_SYNC_ID, Menu.NONE,
                 R.string.TLA_menu_sync);
         item.setIcon(R.drawable.ic_menu_refresh);
+        item.setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
     }
 
     /**
@@ -397,11 +398,11 @@ public class TaskListActivity extends ListFragment implements OnScrollListener,
 
         addSyncRefreshMenuItem(menu);
 
-        if (!mDualFragments) {
-            item = menu.add(Menu.NONE, MENU_LISTS_ID, Menu.NONE,
-                    R.string.tag_TLA_menu);
-            item.setIcon(R.drawable.ic_menu_lists);
-        }
+//        if (!mDualFragments) {
+//            item = menu.add(Menu.NONE, MENU_LISTS_ID, Menu.NONE,
+//                    R.string.tag_TLA_menu);
+//            item.setIcon(R.drawable.ic_menu_lists);
+//        }
 
         if(!Constants.MARKET_DISABLED) {
             item = menu.add(Menu.NONE, MENU_ADDONS_ID, Menu.NONE,
