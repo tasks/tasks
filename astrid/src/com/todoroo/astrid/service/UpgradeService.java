@@ -6,13 +6,13 @@ import java.util.Date;
 
 import org.weloveastrid.rmilk.data.MilkNoteHelper;
 
+import android.R;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 
-import com.timsu.astrid.R;
 import com.todoroo.andlib.data.Property.LongProperty;
 import com.todoroo.andlib.data.Property.StringProperty;
 import com.todoroo.andlib.data.TodorooCursor;
@@ -171,7 +171,7 @@ public final class UpgradeService {
         Preferences.clear(AstridPreferences.P_UPGRADE_FROM);
         StringBuilder changeLog = new StringBuilder();
 
-        if (from >= V3_9_1_1 && from < V3_9_2) {
+        if (from < V3_9_2) {
             newVersionString(changeLog, "3.9.2 (01/13/12)", new String[] {
                 "Made selecting dates and times easier:",
                 "New tutorial walkthrough for new users",
