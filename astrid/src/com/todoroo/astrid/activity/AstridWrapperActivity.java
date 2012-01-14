@@ -170,6 +170,11 @@ public class AstridWrapperActivity extends FragmentActivity
         FragmentTransaction transaction = manager.beginTransaction();
         FilterListActivity newFragment = new FilterListActivity();
         if (findViewById(R.id.filterlist_fragment_container) != null) {
+            if (getFilterListFragment() != null) {
+                transaction.remove(getFilterListFragment());
+                transaction.commit();
+                transaction = manager.beginTransaction();
+            }
             transaction.replace(R.id.filterlist_fragment_container, newFragment, FilterListActivity.TAG_FILTERLIST_FRAGMENT);
         } else {
             if (getFilterListFragment() != null)
