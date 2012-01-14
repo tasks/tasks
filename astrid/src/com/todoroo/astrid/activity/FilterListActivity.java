@@ -222,10 +222,6 @@ public class FilterListActivity extends ExpandableListActivity {
                 R.string.FLA_menu_search);
         item.setIcon(android.R.drawable.ic_menu_search);
 
-        item = menu.add(Menu.NONE, MENU_REFRESH_ID, Menu.NONE,
-                R.string.TLA_menu_sync);
-        item.setIcon(R.drawable.ic_menu_refresh);
-
         item = menu.add(Menu.NONE, MENU_HELP_ID, Menu.NONE,
                 R.string.FLA_menu_help);
         item.setIcon(android.R.drawable.ic_menu_help);
