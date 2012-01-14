@@ -395,15 +395,17 @@ public final class ActFmSyncService {
             JSONObject result = actFmInvoker.invoke("task_save", params.toArray(new Object[params.size()]));
             ArrayList<Metadata> metadata = new ArrayList<Metadata>();
             JsonHelper.taskFromJson(result, task, metadata);
-            Flags.set(Flags.ACTFM_SUPPRESS_SYNC);
-            taskDao.saveExisting(task);
         } catch (JSONException e) {
             handleException("task-save-json", e);
         } catch (IOException e) {
             if (notPermanentError(e))
                 addFailedPush(new FailedPush(PUSH_TYPE_TASK, task.getId()));
             handleException("task-save-io", e);
+            task.setValue(Task.LAST_SYNC, DateUtilities.now() + 1000L);
         }
+
+        Flags.set(Flags.ACTFM_SUPPRESS_SYNC);
+        taskDao.saveExisting(task);
     }
 
     /**
@@ -647,10 +649,11 @@ public final class ActFmSyncService {
     /**
      * Fetch all tags
      * @param serverTime
+     * @return new serverTime
      */
-    public void fetchTags(int serverTime) throws JSONException, IOException {
+    public int fetchTags(int serverTime) throws JSONException, IOException {
         if(!checkForToken())
-            return;
+            return 0;
 
         JSONObject result = actFmInvoker.invoke("tag_list",
                 "token", token, "modified_after", serverTime);
@@ -666,6 +669,53 @@ public final class ActFmSyncService {
             Long[] remoteIdArray = remoteIds.toArray(new Long[remoteIds.size()]);
             tagDataService.deleteWhere(Criterion.not(TagData.REMOTE_ID.in(remoteIdArray)));
         }
+
+        return result.optInt("time", 0);
+    }
+
+    /**
+     * Fetch active tasks asynchronously
+     * @param manual
+     * @param done
+     */
+    public void fetchActiveTasks(final boolean manual, Runnable done) {
+        invokeFetchList("task", manual, new ListItemProcessor<Task>() {
+            @Override
+            protected void mergeAndSave(JSONArray list, HashMap<Long,Long> locals) throws JSONException {
+                Task remote = new Task();
+
+                ArrayList<Metadata> metadata = new ArrayList<Metadata>();
+                for(int i = 0; i < list.length(); i++) {
+                    JSONObject item = list.getJSONObject(i);
+                    readIds(locals, item, remote);
+                    JsonHelper.taskFromJson(item, remote, metadata);
+
+                    if(remote.getValue(Task.USER_ID) == 0) {
+                        if(!remote.isSaved())
+                            StatisticsService.reportEvent(StatisticsConstants.ACTFM_TASK_CREATED);
+                        else if(remote.isCompleted())
+                            StatisticsService.reportEvent(StatisticsConstants.ACTFM_TASK_COMPLETED);
+                    }
+
+                    if(!remote.isSaved() && remote.hasDueDate() &&
+                            remote.getValue(Task.DUE_DATE) < DateUtilities.now())
+                        remote.setFlag(Task.REMINDER_FLAGS, Task.NOTIFY_AFTER_DEADLINE, false);
+
+                    Flags.set(Flags.ACTFM_SUPPRESS_SYNC);
+                    taskService.save(remote);
+                    metadataService.synchronizeMetadata(remote.getId(), metadata, MetadataCriteria.withKey(TagService.KEY));
+                    remote.clear();
+                }
+            }
+
+            @Override
+            protected HashMap<Long, Long> getLocalModels() {
+                TodorooCursor<Task> cursor = taskService.query(Query.select(Task.ID,
+                        Task.REMOTE_ID).where(Task.REMOTE_ID.in(remoteIds)).orderBy(
+                                Order.asc(Task.REMOTE_ID)));
+                return cursorToMap(cursor, taskDao, Task.REMOTE_ID, Task.ID);
+            }
+        }, done, "active_tasks");
     }
 
     /**

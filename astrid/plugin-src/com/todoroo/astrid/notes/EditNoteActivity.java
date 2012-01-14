@@ -10,7 +10,6 @@ import java.util.List;
 import org.json.JSONObject;
 
 import android.app.ListActivity;
-import android.app.ProgressDialog;
 import android.content.Context;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -37,7 +36,6 @@ import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.andlib.sql.Query;
 import com.todoroo.andlib.utility.DateUtilities;
-import com.todoroo.andlib.utility.DialogUtilities;
 import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.astrid.actfm.sync.ActFmPreferenceService;
 import com.todoroo.astrid.actfm.sync.ActFmSyncService;
@@ -47,9 +45,11 @@ import com.todoroo.astrid.dao.UpdateDao;
 import com.todoroo.astrid.data.Metadata;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.data.Update;
+import com.todoroo.astrid.helper.ProgressBarSyncResultCallback;
 import com.todoroo.astrid.service.MetadataService;
 import com.todoroo.astrid.service.StatisticsConstants;
 import com.todoroo.astrid.service.StatisticsService;
+import com.todoroo.astrid.service.SyncV2Service.SyncResultCallback;
 import com.todoroo.astrid.utility.Flags;
 
 public class EditNoteActivity extends ListActivity {
@@ -95,12 +95,12 @@ public class EditNoteActivity extends ListActivity {
             findViewById(R.id.add_comment).setVisibility(View.VISIBLE);
 
             if(task.getValue(Task.REMOTE_ID) == 0)
-                refreshData(true);
+                refreshData(true, null);
             else {
                 String fetchKey = LAST_FETCH_KEY + task.getId();
                 long lastFetchDate = Preferences.getLong(fetchKey, 0);
                 if(DateUtilities.now() > lastFetchDate + 300000L) {
-                    refreshData(false);
+                    refreshData(false, null);
                     Preferences.setLong(fetchKey, DateUtilities.now());
                 } else {
                     loadingText.setText(R.string.ENA_no_comments);
@@ -223,21 +223,32 @@ public class EditNoteActivity extends ListActivity {
 
     // --- events
 
-    private void refreshData(boolean manual) {
-        final ProgressDialog progressDialog;
-        if(manual)
-            progressDialog = DialogUtilities.progressDialog(this, getString(R.string.DLG_please_wait));
-        else
-            progressDialog = null;
+    private void refreshData(boolean manual, SyncResultCallback existingCallback) {
+        final SyncResultCallback callback;
+        if(existingCallback != null)
+            callback = existingCallback;
+        else {
+            callback = new ProgressBarSyncResultCallback(
+                    this, R.id.progressBar, new Runnable() {
+               @Override
+                public void run() {
+                   setUpListAdapter();
+                   loadingText.setText(R.string.ENA_no_comments);
+                   loadingText.setVisibility(items.size() == 0 ? View.VISIBLE : View.GONE);
+                }
+            });
 
+            callback.started();
+            callback.incrementMax(100);
+        }
+
+        // push task if it hasn't been pushed
         if(task.getValue(Task.REMOTE_ID) == 0) {
-            // push task if it hasn't been pushed
             new Thread(new Runnable() {
                 @Override
                 public void run() {
                     actFmSyncService.pushTask(task.getId());
-                    refreshData(false);
-                    DialogUtilities.dismissDialog(EditNoteActivity.this, progressDialog);
+                    refreshData(false, callback);
                 }
             }).start();
             return;
@@ -246,17 +257,11 @@ public class EditNoteActivity extends ListActivity {
         actFmSyncService.fetchUpdatesForTask(task, manual, new Runnable() {
             @Override
             public void run() {
-                runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        setUpListAdapter();
-                        loadingText.setText(R.string.ENA_no_comments);
-                        loadingText.setVisibility(items.size() == 0 ? View.VISIBLE : View.GONE);
-                        DialogUtilities.dismissDialog(EditNoteActivity.this, progressDialog);
-                    }
-                });
+                callback.incrementProgress(50);
+                callback.finished();
             }
         });
+        callback.incrementProgress(50);
     }
 
     private void addComment() {
@@ -288,7 +293,7 @@ public class EditNoteActivity extends ListActivity {
         switch (item.getItemId()) {
 
         case MENU_REFRESH_ID: {
-            refreshData(true);
+            refreshData(true, null);
             return true;
         }
 

@@ -133,15 +133,16 @@ public class ActFmSyncProvider extends SyncProvider<ActFmTaskContainer> {
 
         try {
             int serverTime = Preferences.getInt(ActFmPreferenceService.PREF_SERVER_TIME, 0);
+
             ArrayList<ActFmTaskContainer> remoteTasks = new ArrayList<ActFmTaskContainer>();
 
-            int newServerTime = fetchRemoteTasks(serverTime, remoteTasks);
+            // int newServerTime = fetchRemoteTasks(serverTime, remoteTasks);
             if (serverTime == 0) { // If we've never synced, we may lose some empty tags
                 pushUnsavedTagData();
             }
-            fetchRemoteTagData(serverTime);
+            // fetchRemoteTagData(serverTime);
 
-            SyncData<ActFmTaskContainer> syncData = populateSyncData(remoteTasks);
+            /* SyncData<ActFmTaskContainer> syncData = populateSyncData(remoteTasks);
 
             try {
                 synchronizeTasks(syncData);
@@ -150,7 +151,8 @@ public class ActFmSyncProvider extends SyncProvider<ActFmTaskContainer> {
                 syncData.localUpdated.close();
             }
 
-            Preferences.setInt(ActFmPreferenceService.PREF_SERVER_TIME, newServerTime);
+            Preferences.setInt(ActFmPreferenceService.PREF_SERVER_TIME, newServerTime); */
+
             actFmPreferenceService.recordSuccessfulSync();
 
             syncSuccess = getFinalSyncStatus();
@@ -321,6 +323,7 @@ public class ActFmSyncProvider extends SyncProvider<ActFmTaskContainer> {
         } else { // Set default reminders for remotely created tasks
             TaskDao.setDefaultReminders(task.task);
         }
+        task.task.setValue(Task.LAST_SYNC, DateUtilities.now() + 1000);
         actFmDataService.saveTaskAndMetadata(task);
     }
 

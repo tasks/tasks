@@ -74,8 +74,6 @@ import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.andlib.widget.GestureService;
 import com.todoroo.andlib.widget.GestureService.GestureInterface;
 import com.todoroo.astrid.actfm.ActFmLoginActivity;
-import com.todoroo.astrid.actfm.sync.ActFmPreferenceService;
-import com.todoroo.astrid.actfm.sync.ActFmSyncProvider;
 import com.todoroo.astrid.activity.SortSelectionActivity.OnSortSelectedListener;
 import com.todoroo.astrid.adapter.TaskAdapter;
 import com.todoroo.astrid.adapter.TaskAdapter.OnCompletedTaskListener;
@@ -96,6 +94,7 @@ import com.todoroo.astrid.data.Metadata;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.gcal.GCalHelper;
 import com.todoroo.astrid.helper.MetadataHelper;
+import com.todoroo.astrid.helper.ProgressBarSyncResultCallback;
 import com.todoroo.astrid.helper.TaskListContextMenuExtensionLoader;
 import com.todoroo.astrid.helper.TaskListContextMenuExtensionLoader.ContextMenuItem;
 import com.todoroo.astrid.reminders.ReminderDebugContextActions;
@@ -105,6 +104,7 @@ import com.todoroo.astrid.service.MetadataService;
 import com.todoroo.astrid.service.StartupService;
 import com.todoroo.astrid.service.StatisticsConstants;
 import com.todoroo.astrid.service.StatisticsService;
+import com.todoroo.astrid.service.SyncV2Service;
 import com.todoroo.astrid.service.TagDataService;
 import com.todoroo.astrid.service.TaskService;
 import com.todoroo.astrid.service.ThemeService;
@@ -163,8 +163,6 @@ public class TaskListActivity extends ListActivity implements OnScrollListener,
 
     public static final String TOKEN_OVERRIDE_ANIM = "finishAnim"; //$NON-NLS-1$
 
-    private static final String LAST_AUTOSYNC_ATTEMPT = "last-autosync"; //$NON-NLS-1$
-
     // --- instance variables
 
     @Autowired ExceptionService exceptionService;
@@ -179,7 +177,7 @@ public class TaskListActivity extends ListActivity implements OnScrollListener,
 
     @Autowired UpgradeService upgradeService;
 
-    @Autowired ActFmPreferenceService actFmPreferenceService;
+    @Autowired protected SyncV2Service syncService;
 
     @Autowired TagDataService tagDataService;
 
@@ -239,7 +237,7 @@ public class TaskListActivity extends ListActivity implements OnScrollListener,
         new StartupService().onStartupApplication(this);
         ThemeService.applyTheme(this);
         ViewGroup parent = (ViewGroup) getLayoutInflater().inflate(R.layout.task_list_activity, null);
-        parent.addView(getListBody(parent), 1);
+        parent.addView(getListBody(parent), 2);
         setContentView(parent);
 
         if(database == null)
@@ -502,23 +500,6 @@ public class TaskListActivity extends ListActivity implements OnScrollListener,
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_DITHER);
     }
 
-    private void initiateAutomaticSync() {
-        if (!actFmPreferenceService.isLoggedIn()) return;
-        long lastFetchDate = actFmPreferenceService.getLastSyncDate();
-        long lastAutosyncAttempt = Preferences.getLong(LAST_AUTOSYNC_ATTEMPT, 0);
-
-        long lastTry = Math.max(lastFetchDate, lastAutosyncAttempt);
-        if(DateUtilities.now() < lastTry + 300000L)
-            return;
-        new Thread() {
-            @Override
-            public void run() {
-                Preferences.setLong(LAST_AUTOSYNC_ATTEMPT, DateUtilities.now());
-                new ActFmSyncProvider().synchronize(TaskListActivity.this, false);
-            }
-        }.start();
-    }
-
     // Subclasses can override these to customize extras in quickadd intent
     protected Intent getOnClickQuickAddIntent(Task t) {
         Intent intent = new Intent(TaskListActivity.this, TaskEditActivity.class);
@@ -616,9 +597,7 @@ public class TaskListActivity extends ListActivity implements OnScrollListener,
             Preferences.setBoolean(R.string.p_showed_lists_help, true);
         }
 
-        if (filter.title != null && filter.title.equals(getString(R.string.BFE_Active))) {
-            initiateAutomaticSync();
-        }
+        initiateAutomaticSync();
     }
 
     @Override
@@ -1136,8 +1115,31 @@ public class TaskListActivity extends ListActivity implements OnScrollListener,
         }
     }
 
-    private void performSyncAction() {
-        if (syncActions.size() == 0) {
+    private static final String PREF_LAST_AUTO_SYNC = "taskListLastAutoSync"; //$NON-NLS-1$
+
+    protected void initiateAutomaticSync() {
+        if (filter.title == null || !filter.title.equals(getString(R.string.BFE_Active)))
+            return;
+
+        long lastAutoSync = Preferences.getLong(PREF_LAST_AUTO_SYNC, 0);
+        if(DateUtilities.now() - lastAutoSync > DateUtilities.ONE_HOUR) {
+            performSyncServiceV2Sync(false);
+        }
+    }
+
+    protected void performSyncServiceV2Sync(boolean manual) {
+        syncService.synchronizeActiveTasks(manual, new ProgressBarSyncResultCallback(this,
+                R.id.progressBar, new Runnable() {
+            @Override
+            public void run() {
+                loadTaskListContent(true);
+            }
+        }));
+        Preferences.setLong(PREF_LAST_AUTO_SYNC, DateUtilities.now());
+    }
+
+    protected void performSyncAction() {
+        if (syncActions.size() == 0 && !syncService.isActive()) {
             String desiredCategory = getString(R.string.SyP_label);
 
             // Get a list of all sync plugins and bring user to the prefs pane
@@ -1178,32 +1180,20 @@ public class TaskListActivity extends ListActivity implements OnScrollListener,
 
             showSyncOptionMenu(actions, listener);
         }
-        else if(syncActions.size() == 1) {
-            SyncAction syncAction = syncActions.iterator().next();
-            try {
-                syncAction.intent.send();
-                Toast.makeText(this, R.string.SyP_progress_toast,
-                        Toast.LENGTH_LONG).show();
-            } catch (CanceledException e) {
-                //
-            }
-        } else {
-            // We have >1 sync actions, pop up a dialogue so the user can
-            // select just one of them (only sync one at a time)
-            final SyncAction[] actions = syncActions.toArray(new SyncAction[syncActions.size()]);
-            DialogInterface.OnClickListener listener = new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface click, int which) {
+        else {
+            performSyncServiceV2Sync(true);
+
+            if(syncActions.size() > 0) {
+                for(SyncAction syncAction : syncActions) {
                     try {
-                        actions[which].intent.send();
-                        Toast.makeText(TaskListActivity.this, R.string.SyP_progress_toast,
-                                Toast.LENGTH_LONG).show();
+                        syncAction.intent.send();
                     } catch (CanceledException e) {
                         //
                     }
                 }
-            };
-            showSyncOptionMenu(actions, listener);
+                Toast.makeText(TaskListActivity.this, R.string.SyP_progress_toast,
+                        Toast.LENGTH_LONG).show();
+            }
         }
     }
 
