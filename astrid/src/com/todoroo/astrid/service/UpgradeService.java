@@ -6,13 +6,13 @@ import java.util.Date;
 
 import org.weloveastrid.rmilk.data.MilkNoteHelper;
 
-import android.R;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 
+import com.timsu.astrid.R;
 import com.todoroo.andlib.data.Property.LongProperty;
 import com.todoroo.andlib.data.Property.StringProperty;
 import com.todoroo.andlib.data.TodorooCursor;
