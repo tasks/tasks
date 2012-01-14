@@ -69,7 +69,7 @@ public class TitleParser {
     private static void priorityHelper(Task task) {
         String inputText = task.getValue(Task.TITLE);
         String[] importanceStrings = {
-                "()((^|[^\\w!])!+|(^|[^\\w!])0|(^|[^\\w!])!\\d)($|[^\\w!])",
+                "()((^|[^\\w!])!+|(^|[^\\w!])!\\d)($|[^\\w!])",
                 "()(?i)((\\s?bang){1,})$",
                 "(?i)(\\spriority\\s?(\\d)$)",
                 "(?i)(\\sbang\\s?(\\d)$)",
@@ -92,12 +92,12 @@ public class TitleParser {
 
     //helper for dayHelper. Converts am/pm to an int 0/1.
     private static int ampm_to_number(String am_pm_string) {
-        int time = 0;
+        int time = Calendar.PM;
         if (am_pm_string == null){
             return time;
         }
         String text = am_pm_string.toLowerCase().trim();
-        if (text.equals ("am") || text.equals ("a.m.") || text.equals("a"))
+        if (text.equals ("am") || text.equals ("a.m") || text.equals("a"))
             time = Calendar.AM;
         if (text.equals ("pm") || text.equals ("p.m") || text.equals("p"))
             time = Calendar.PM;
@@ -116,13 +116,12 @@ public class TitleParser {
                 "(?i)\\b(today)\\b",
                 "(?i)\\b(tomorrow)\\b",
                 "(?i)\\b(mon(day\\b|\\.))",
-                "(?i)\\b(tues(day\\b|\\.))",
+                "(?i)\\b(tue(sday\\b|\\.))",
                 "(?i)\\b(wed(nesday\\b|\\.))",
                 "(?i)\\b(thu(rsday\\b|\\.))",
                 "(?i)\\b(fri(day\\b|\\.))",
                 "(?i)\\b(sat(urday\\b|\\.))",
-                "(?i)\\b(sun(day\\b|\\.))",
-                "(?i)\\b(next (month|week|year))\\b" };
+        "(?i)\\b(sun(day\\b|\\.))" };
 
         for (String date : days_of_week){
             Pattern pattern = Pattern.compile(date);
@@ -136,18 +135,18 @@ public class TitleParser {
 
         String ds = "3[0-1]|[0-2]?[0-9]"; //day string for date regexes
         String[] dates = {
-                "(?i)\\b(jan(\\.|uary))(\\s(3[0-1]|[0-2]?[0-9])),? (\\d{4}|\\d{2})?",
-                "(?i)\\b(feb(\\.|ruary))(\\s(3[0-1]|[0-2]?[0-9])),? (\\d{4}|\\d{2})?",
-                "(?i)\\b(mar(\\.|ch))(\\s(3[0-1]|[0-2]?[0-9])),? (\\d{4}|\\d{2})?",
-                "(?i)\\b(apr(\\.|il))(\\s(3[0-1]|[0-2]?[0-9])),? (\\d{4}|\\d{2})?",
-                "(?i)\\b(may)(\\s(3[0-1]|[0-2]?[0-9])),? (\\d{4}|\\d{2})?",
-                "(?i)\\b(jun(\\.|e))(\\s(3[0-1]|[0-2]?[0-9])),? (\\d{4}|\\d{2})?",
-                "(?i)\\b(jul(\\.|y))(\\s(3[0-1]|[0-2]?[0-9])),? (\\d{4}|\\d{2})?",
-                "(?i)\\b(aug(\\.|ust))(\\s(3[0-1]|[0-2]?[0-9])),? (\\d{4}|\\d{2})?",
-                "(?i)\\b(sep(\\.|tember))(\\s(3[0-1]|[0-2]?[0-9])),? (\\d{4}|\\d{2})?",
-                "(?i)\\b(oct(\\.|ober))(\\s(3[0-1]|[0-2]?[0-9])),? (\\d{4}|\\d{2})?",
-                "(?i)\\b(nov(\\.|ember))(\\s(3[0-1]|[0-2]?[0-9])),? (\\d{4}|\\d{2})?",
-                "(?i)\\b(dec(\\.|ember))(\\s(3[0-1]|[0-2]?[0-9])),? (\\d{4}|\\d{2})?"};
+                "(?i)\\b(jan(\\.|uary))(\\s(3[0-1]|[0-2]?[0-9])),?( (\\d{4}|\\d{2}))?",
+                "(?i)\\b(feb(\\.|ruary))(\\s(3[0-1]|[0-2]?[0-9])),?( (\\d{4}|\\d{2}))?",
+                "(?i)\\b(mar(\\.|ch))(\\s(3[0-1]|[0-2]?[0-9])),?( (\\d{4}|\\d{2}))?",
+                "(?i)\\b(apr(\\.|il))(\\s(3[0-1]|[0-2]?[0-9])),?( (\\d{4}|\\d{2}))?",
+                "(?i)\\b(may())(\\s(3[0-1]|[0-2]?[0-9])),?( (\\d{4}|\\d{2}))?",
+                "(?i)\\b(jun(\\.|e))(\\s(3[0-1]|[0-2]?[0-9])),?( (\\d{4}|\\d{2}))?",
+                "(?i)\\b(jul(\\.|y))(\\s(3[0-1]|[0-2]?[0-9])),?( (\\d{4}|\\d{2}))?",
+                "(?i)\\b(aug(\\.|ust))(\\s(3[0-1]|[0-2]?[0-9])),?( (\\d{4}|\\d{2}))?",
+                "(?i)\\b(sep(\\.|tember))(\\s(3[0-1]|[0-2]?[0-9])),?( (\\d{4}|\\d{2}))?",
+                "(?i)\\b(oct(\\.|ober))(\\s(3[0-1]|[0-2]?[0-9])),?( (\\d{4}|\\d{2}))?",
+                "(?i)\\b(nov(\\.|ember))(\\s(3[0-1]|[0-2]?[0-9])),?( (\\d{4}|\\d{2}))?",
+        "(?i)\\b(dec(\\.|ember))(\\s(3[0-1]|[0-2]?[0-9])),?( (\\d{4}|\\d{2}))?"};
 
         // m.group(1) = "month"
         //m.group(4) = "day"
@@ -157,17 +156,17 @@ public class TitleParser {
 
             if (m.find()){
                 Calendar dateCal = Chronic.parse(m.group(1)).getBeginCalendar();
-                if (m.group(4)!= null){
+                if (m.group(4) != null){
                     dateCal.set(Calendar.DAY_OF_MONTH, Integer.parseInt(m.group(4)));
                 }
                 Calendar today = Calendar.getInstance();
-                if (m.group(5)!=null){
-                    dateCal.set(Calendar.YEAR, Integer.parseInt(m.group(5)));
+                if (m.group(5) != null){
+                    dateCal.set(Calendar.YEAR, Integer.parseInt(m.group(5).trim()));
                 }
                 else if (today.get(Calendar.MONTH) - dateCal.get(Calendar.MONTH) > 1){ //if more than a month in the past
                     dateCal.set(Calendar.YEAR, dateCal.get(Calendar.YEAR)+1);
                 }
-                if (cal==null){
+                if (cal == null){
                     cal = dateCal;
                 }
                 else{
@@ -179,7 +178,7 @@ public class TitleParser {
         }
 
         // for dates in the format MM/DD
-        Pattern p = Pattern.compile("(?i)\\b(1[0-2]|[1-9])(\\/|-)(3[0-1]|[0-2]?[0-9])(\\/|-)?(\\d{4}|\\d{2})?");
+        Pattern p = Pattern.compile("(?i)\\b(1[0-2]|0?[1-9])(\\/|-)(3[0-1]|[0-2]?[0-9])(\\/|-)?(\\d{4}|\\d{2})?");
         Matcher match = p.matcher(inputText);
         if (match.find()){
             Calendar dCal = Calendar.getInstance();
@@ -210,12 +209,12 @@ public class TitleParser {
         dayTimes.put("(?i)\\bsupper\\b" ,18);
         dayTimes.put("(?i)\\bdinner\\b",18);
         dayTimes.put("(?i)\\bbrunch\\b", 10);
+        dayTimes.put("(?i)\\bmorning\\b", 8);
         dayTimes.put("(?i)\\bafternoon\\b", 15);
         dayTimes.put("(?i)\\bevening\\b" , 19);
         dayTimes.put("(?i)\\bnight\\b" , 19);
         dayTimes.put("(?i)\\bmidnight\\b" , 24);
         dayTimes.put("(?i)\\bnoon\\b" , 12);
-
 
         for (String dayTime: dayTimes.keySet()){
             Pattern pattern = Pattern.compile(dayTime);
@@ -237,10 +236,10 @@ public class TitleParser {
         }
 
         String[] times = {
+                //[time] am/pm
+                "(?i)(\\b)([01]?\\d):?([0-5]\\d)? ?([ap]\\.?m?\\.?)\\b",
                 //army time
                 "(?i)\\b(([0-2]?[0-9]):([0-5][0-9]))(\\b)",
-                //[time] am/pm
-                "(\\b)([01]?\\d)(:[0-5]\\d)? ?([ap]\\.?m\\.?)\\b",
                 //[int] o'clock
                 "(?i)\\b(([01]?\\d)() ?o'? ?clock) ?([ap]\\.?m\\.?)?\\b",
                 //at [int]
@@ -256,16 +255,32 @@ public class TitleParser {
             Matcher m = pattern.matcher(inputText);
             if (m.find()){
                 containsSpecificTime = true;
+                Calendar today = Calendar.getInstance();
                 Calendar timeCal = Calendar.getInstance();
                 setCalendarToDefaultTime(timeCal);
                 timeCal.set(Calendar.HOUR, Integer.parseInt(m.group(2)));
+
                 if (m.group(3) != null && !m.group(3).trim().equals(""))
                     timeCal.set(Calendar.MINUTE, Integer.parseInt(m.group(3)));
                 else
                     timeCal.set(Calendar.MINUTE, 0);
-                System.err.println(m.group(4));
-                System.err.println(ampm_to_number(m.group(4)));
-                timeCal.set(Calendar.AM_PM, ampm_to_number(m.group(4)));
+                if (Integer.parseInt(m.group(2)) <= 12)
+                    timeCal.set(Calendar.AM_PM, ampm_to_number(m.group(4)));
+
+                //sets it to the next occurrence of that hour if no am/pm is provided. doesn't include military time
+                if ( Integer.parseInt(m.group(2))<= 12 && (m.group(4)==null || (m.group(4).trim()).equals(""))) {
+                    while (timeCal.getTime().getTime() < today.getTime().getTime()){
+                        timeCal.set(Calendar.HOUR_OF_DAY, timeCal.get(Calendar.HOUR_OF_DAY)+12);
+                    }
+                }
+                else { //if am/pm is provided and the time is in the past, set it to the next day. Military time included.
+                    if (timeCal.get(Calendar.HOUR) !=0 && (timeCal.getTime().getTime() < today.getTime().getTime())) {
+                        timeCal.set(Calendar.DAY_OF_MONTH, timeCal.get(Calendar.DAY_OF_MONTH) + 1);
+                    }
+                    if (timeCal.get(Calendar.HOUR) == 0){
+                        timeCal.set(Calendar.HOUR, 12);
+                    }
+                }
 
                 if (cal == null){
                     cal = timeCal;
@@ -276,7 +291,6 @@ public class TitleParser {
                     cal.set(Calendar.SECOND, timeCal.get(Calendar.SECOND));
                     cal.set(Calendar.AM_PM, timeCal.get(Calendar.AM_PM));
                 }
-
                 break;
             }
         }
@@ -291,7 +305,6 @@ public class TitleParser {
                 task.setValue(Task.DUE_DATE, dueDate);
             }
         }
-
     }
     //---------------------DATE--------------------------
 
@@ -299,7 +312,11 @@ public class TitleParser {
     private static void repeatHelper(Task task) {
         String inputText = task.getValue(Task.TITLE);
         HashMap<String, Frequency> repeatTimes = new HashMap();
-        repeatTimes.put("(?i)\\bevery ?\\w{0,6} ?days?\\b" , Frequency.DAILY);
+        repeatTimes.put("(?i)\\bevery ?\\w{0,6} days?\\b" , Frequency.DAILY);
+        repeatTimes.put("(?i)\\bevery ?\\w{0,6} nights?\\b" , Frequency.DAILY);
+        repeatTimes.put("(?i)\\bevery ?\\w{0,6} ?mornings?\\b" , Frequency.DAILY);
+        repeatTimes.put("(?i)\\bevery ?\\w{0,6} ?evenings?\\b" , Frequency.DAILY);
+        repeatTimes.put("(?i)\\bevery ?\\w{0,6} ?afternoons?\\b" , Frequency.DAILY);
         repeatTimes.put("(?i)\\bevery \\w{0,6} ?weeks?\\b", Frequency.WEEKLY);
         repeatTimes.put("(?i)\\bevery \\w{0,6} ?(mon|tues|wednes|thurs|fri|satur|sun)days?\\b", Frequency.WEEKLY);
         repeatTimes.put("(?i)\\bevery \\w{0,6} ?months?\\b", Frequency.MONTHLY);
@@ -308,6 +325,7 @@ public class TitleParser {
         HashMap<String, Frequency> repeatTimesIntervalOne = new HashMap();
         //pre-determined intervals of 1
         repeatTimesIntervalOne.put( "(?i)\\bdaily\\b" , Frequency.DAILY);
+        repeatTimesIntervalOne.put( "(?i)\\beveryday\\b" , Frequency.DAILY);
         repeatTimesIntervalOne.put( "(?i)\\bweekly\\b" , Frequency.WEEKLY);
         repeatTimesIntervalOne.put( "(?i)\\bmonthly\\b" ,Frequency.MONTHLY);
         repeatTimesIntervalOne.put( "(?i)\\byearly\\b" , Frequency.YEARLY);
@@ -327,7 +345,6 @@ public class TitleParser {
         for (String repeatTimeIntervalOne:repeatTimesIntervalOne.keySet()){
             Pattern pattern = Pattern.compile(repeatTimeIntervalOne);
             Matcher m = pattern.matcher(inputText);
-            //if (m.find() && map.get("time")==null){
             if (m.find()) {
                 Frequency rtime = repeatTimesIntervalOne.get(repeatTimeIntervalOne);
                 RRule rrule = new RRule();
@@ -366,6 +383,7 @@ public class TitleParser {
     //helper method for DayHelper. Resets the time on the calendar to 00:00:00 am
     private static void setCalendarToDefaultTime(Calendar cal){
         cal.set(Calendar.HOUR, 0);
+        cal.set(Calendar.HOUR_OF_DAY, 0);
         cal.set(Calendar.MINUTE, 0);
         cal.set(Calendar.SECOND, 0);
         cal.set(Calendar.AM_PM, Calendar.AM);
