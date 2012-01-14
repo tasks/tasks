@@ -4,8 +4,6 @@
     xmlns:astrid="http://schemas.android.com/apk/res/com.timsu.astrid"
     android:layout_width="fill_parent"
     android:layout_height="wrap_content"
-    android:paddingLeft="4dip"
-    android:paddingRight="4dip"
     android:minHeight="40dip"
     android:orientation="horizontal">
     
