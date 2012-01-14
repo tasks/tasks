@@ -2,13 +2,10 @@ package com.todoroo.astrid.actfm;
 
 import greendroid.widget.AsyncImageView;
 
-import java.io.IOException;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import android.app.ProgressDialog;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -16,7 +13,6 @@ import android.content.IntentFilter;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.DisplayMetrics;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MotionEvent;
@@ -50,9 +46,9 @@ import com.todoroo.astrid.core.SortHelper;
 import com.todoroo.astrid.dao.TaskDao.TaskCriteria;
 import com.todoroo.astrid.data.TagData;
 import com.todoroo.astrid.data.Task;
+import com.todoroo.astrid.helper.ProgressBarSyncResultCallback;
 import com.todoroo.astrid.service.TagDataService;
 import com.todoroo.astrid.tags.TagFilterExposer;
-import com.todoroo.astrid.tags.TagService;
 import com.todoroo.astrid.tags.TagService.Tag;
 import com.todoroo.astrid.welcome.HelpInfoPopover;
 
@@ -71,7 +67,7 @@ public class TagViewActivity extends TaskListActivity {
 
     private static final int REQUEST_CODE_SETTINGS = 0;
 
-    public static final String TOKEN_START_ACTIVITY = "startActivity";
+    public static final String TOKEN_START_ACTIVITY = "startActivity"; //$NON-NLS-1$
 
     private TagData tagData;
 
@@ -214,17 +210,6 @@ public class TagViewActivity extends TaskListActivity {
             cursor.close();
         }
 
-        if(tagData.getValue(TagData.REMOTE_ID) > 0) {
-            String fetchKey = LAST_FETCH_KEY + tagData.getId();
-            long lastFetchDate = Preferences.getLong(fetchKey, 0);
-            if(DateUtilities.now() > lastFetchDate + 300000L) {
-                refreshData(false, false);
-                Preferences.setLong(fetchKey, DateUtilities.now());
-            }
-        } else {
-            ((TextView)taskListView.findViewById(android.R.id.empty)).setText(R.string.TLA_no_items);
-        }
-
         setUpMembersGallery();
 
         super.onNewIntent(intent);
@@ -258,81 +243,33 @@ public class TagViewActivity extends TaskListActivity {
 
     // --------------------------------------------------------- refresh data
 
+
+    @Override
+    protected void initiateAutomaticSync() {
+        long lastAutoSync = Preferences.getLong(LAST_FETCH_KEY + tagData.getId(), 0);
+        if(DateUtilities.now() - lastAutoSync > DateUtilities.ONE_HOUR)
+            refreshData(false);
+    }
+
     /** refresh the list with latest data from the web */
-    private void refreshData(final boolean manual, boolean bypassTagShow) {
+    private void refreshData(final boolean manual) {
+        ((TextView)taskListView.findViewById(android.R.id.empty)).setText(R.string.DLG_loading);
+
+        syncService.synchronizeList(tagData, manual, new ProgressBarSyncResultCallback(this,
+                R.id.progressBar, new Runnable() {
+            @Override
+            public void run() {
+                setUpMembersGallery();
+                loadTaskListContent(true);
+                ((TextView)taskListView.findViewById(android.R.id.empty)).setText(R.string.TLA_no_items);
+            }
+        }));
+        Preferences.setLong(LAST_FETCH_KEY + tagData.getId(), DateUtilities.now());
+
         final boolean noRemoteId = tagData.getValue(TagData.REMOTE_ID) == 0;
 
-        final ProgressDialog progressDialog;
-        if(manual && !noRemoteId)
-            progressDialog = DialogUtilities.progressDialog(this, getString(R.string.DLG_please_wait));
-        else
-            progressDialog = null;
-
-        Thread tagShowThread = new Thread(new Runnable() {
-            @SuppressWarnings("nls")
-            @Override
-            public void run() {
-                try {
-                    String oldName = tagData.getValue(TagData.NAME);
-                    actFmSyncService.fetchTag(tagData);
-
-                    DialogUtilities.dismissDialog(TagViewActivity.this, progressDialog);
-                    runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            if(noRemoteId && tagData.getValue(TagData.REMOTE_ID) > 0)
-                                refreshData(manual, true);
-                        }
-                    });
-
-                    if(!oldName.equals(tagData.getValue(TagData.NAME))) {
-                        TagService.getInstance().rename(oldName,
-                                tagData.getValue(TagData.NAME));
-                    }
-
-                } catch (IOException e) {
-                    Log.e("tag-view-activity", "error-fetching-task-io", e);
-                } catch (JSONException e) {
-                    Log.e("tag-view-activity", "error-fetching-task", e);
-                }
-            }
-        });
-        if(!bypassTagShow)
-            tagShowThread.start();
-
-        if(noRemoteId) {
+        if(noRemoteId && !manual)
             ((TextView)taskListView.findViewById(android.R.id.empty)).setText(R.string.TLA_no_items);
-            return;
-        }
-
-        setUpMembersGallery();
-        actFmSyncService.fetchTasksForTag(tagData, manual, new Runnable() {
-            @Override
-            public void run() {
-                runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        loadTaskListContent(true);
-                        ((TextView)taskListView.findViewById(android.R.id.empty)).setText(R.string.TLA_no_items);
-                        DialogUtilities.dismissDialog(TagViewActivity.this, progressDialog);
-                    }
-                });
-            }
-        });
-
-        actFmSyncService.fetchUpdatesForTag(tagData, manual, new Runnable() {
-            @Override
-            public void run() {
-                runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        //refreshUpdatesList();
-                        DialogUtilities.dismissDialog(TagViewActivity.this, progressDialog);
-                    }
-                });
-            }
-        });
-
     }
 
     private void setUpMembersGallery() {
@@ -479,7 +416,7 @@ public class TagViewActivity extends TaskListActivity {
                     //refreshUpdatesList();
                 }
             });
-            refreshData(false, true);
+            refreshData(false);
 
             NotificationManager nm = new AndroidNotificationManager(ContextManager.getContext());
             nm.cancel(tagData.getValue(TagData.REMOTE_ID).intValue());
@@ -528,7 +465,7 @@ public class TagViewActivity extends TaskListActivity {
         // handle my own menus
         switch (item.getItemId()) {
         case MENU_REFRESH_ID:
-            refreshData(true, false);
+            refreshData(true);
             return true;
         }
 

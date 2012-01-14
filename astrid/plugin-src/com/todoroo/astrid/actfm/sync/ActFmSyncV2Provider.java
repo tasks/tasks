@@ -16,12 +16,14 @@ import com.todoroo.andlib.sql.Criterion;
 import com.todoroo.andlib.sql.Query;
 import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.astrid.dao.TaskDao.TaskCriteria;
+import com.todoroo.astrid.data.TagData;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.service.AstridDependencyInjector;
 import com.todoroo.astrid.service.StartupService;
 import com.todoroo.astrid.service.SyncV2Service.SyncResultCallback;
 import com.todoroo.astrid.service.SyncV2Service.SyncV2Provider;
 import com.todoroo.astrid.service.TaskService;
+import com.todoroo.astrid.tags.TagService;
 
 /**
  * Exposes sync action
@@ -52,30 +54,30 @@ public class ActFmSyncV2Provider implements SyncV2Provider {
 
     private static final String LAST_TAG_FETCH_TIME = "actfm_lastTag"; //$NON-NLS-1$
 
-    // --- synchronize active
+    // --- synchronize active tasks
 
     @Override
     public void synchronizeActiveTasks(boolean manual,
             final SyncResultCallback callback) {
 
-        if(!manual)
-            return;
-
         callback.started();
-        callback.incrementMax(50);
+        callback.incrementMax(100);
 
         final AtomicInteger finisher = new AtomicInteger(2);
 
-        new Thread(tagFetcher(callback, finisher)).start();
+        startTagFetcher(callback, finisher);
 
         startTaskFetcher(manual, callback, finisher);
 
         pushQueued(callback, finisher);
+
+        callback.incrementProgress(50);
     }
 
-    private Runnable tagFetcher(final SyncResultCallback callback,
+    /** fetch changes to tags */
+    private void startTagFetcher(final SyncResultCallback callback,
             final AtomicInteger finisher) {
-        return new Runnable() {
+        new Thread(new Runnable() {
             @Override
             public void run() {
                 int time = Preferences.getInt(LAST_TAG_FETCH_TIME, 0);
@@ -92,9 +94,10 @@ public class ActFmSyncV2Provider implements SyncV2Provider {
                         callback.finished();
                 }
             }
-        };
+        }).start();
     }
 
+    /** @return runnable to fetch changes to tags */
     private void startTaskFetcher(final boolean manual, final SyncResultCallback callback,
             final AtomicInteger finisher) {
         actFmSyncService.fetchActiveTasks(manual, new Runnable() {
@@ -140,6 +143,92 @@ public class ActFmSyncV2Provider implements SyncV2Provider {
         } finally {
             cursor.close();
         }
+    }
+
+    // --- synchronize list
+
+    @Override
+    public void synchronizeList(Object list, boolean manual,
+            final SyncResultCallback callback) {
+
+        if(!(list instanceof TagData))
+            return;
+
+        TagData tagData = (TagData) list;
+        final boolean noRemoteId = tagData.getValue(TagData.REMOTE_ID) == 0;
+
+        if(noRemoteId && !manual)
+            return;
+
+        callback.started();
+        callback.incrementMax(100);
+
+        final AtomicInteger finisher = new AtomicInteger(3);
+
+        fetchTagData(tagData, noRemoteId, manual, callback, finisher);
+
+        if(!noRemoteId) {
+            fetchTasksForTag(tagData, manual, callback, finisher);
+            fetchUpdatesForTag(tagData, manual, callback, finisher);
+        }
+
+        callback.incrementProgress(50);
+    }
+
+    private void fetchTagData(final TagData tagData, final boolean noRemoteId,
+            final boolean manual, final SyncResultCallback callback,
+            final AtomicInteger finisher) {
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                String oldName = tagData.getValue(TagData.NAME);
+                try {
+                    actFmSyncService.fetchTag(tagData);
+
+                    if(noRemoteId) {
+                        fetchTasksForTag(tagData, manual, callback, finisher);
+                        fetchUpdatesForTag(tagData, manual, callback, finisher);
+                    }
+
+                    if(!oldName.equals(tagData.getValue(TagData.NAME))) {
+                        TagService.getInstance().rename(oldName,
+                                tagData.getValue(TagData.NAME));
+                    }
+                } catch (IOException e) {
+                    exceptionService.reportError("sync-io", e); //$NON-NLS-1$
+                } catch (JSONException e) {
+                    exceptionService.reportError("sync-json", e); //$NON-NLS-1$
+                } finally {
+                    callback.incrementProgress(20);
+                    if(finisher.decrementAndGet() == 0)
+                        callback.finished();
+                }
+            }
+        }).start();
+    }
+
+    private void fetchUpdatesForTag(TagData tagData, boolean manual, final SyncResultCallback callback,
+            final AtomicInteger finisher) {
+        actFmSyncService.fetchUpdatesForTag(tagData, manual, new Runnable() {
+            @Override
+            public void run() {
+                callback.incrementProgress(20);
+                if(finisher.decrementAndGet() == 0)
+                    callback.finished();
+            }
+        });
+    }
+
+    private void fetchTasksForTag(TagData tagData, boolean manual, final SyncResultCallback callback,
+            final AtomicInteger finisher) {
+        actFmSyncService.fetchTasksForTag(tagData, manual, new Runnable() {
+            @Override
+            public void run() {
+                callback.incrementProgress(30);
+                if(finisher.decrementAndGet() == 0)
+                    callback.finished();
+            }
+        });
     }
 
 }

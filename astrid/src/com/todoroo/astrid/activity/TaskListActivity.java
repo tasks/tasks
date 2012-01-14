@@ -42,7 +42,6 @@ import android.view.View.OnLongClickListener;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
-import android.view.animation.AlphaAnimation;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.AbsListView;
@@ -54,7 +53,6 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.PopupWindow.OnDismissListener;
-import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.TextView.OnEditorActionListener;
 import android.widget.Toast;
@@ -96,6 +94,7 @@ import com.todoroo.astrid.data.Metadata;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.gcal.GCalHelper;
 import com.todoroo.astrid.helper.MetadataHelper;
+import com.todoroo.astrid.helper.ProgressBarSyncResultCallback;
 import com.todoroo.astrid.helper.TaskListContextMenuExtensionLoader;
 import com.todoroo.astrid.helper.TaskListContextMenuExtensionLoader.ContextMenuItem;
 import com.todoroo.astrid.reminders.ReminderDebugContextActions;
@@ -106,7 +105,6 @@ import com.todoroo.astrid.service.StartupService;
 import com.todoroo.astrid.service.StatisticsConstants;
 import com.todoroo.astrid.service.StatisticsService;
 import com.todoroo.astrid.service.SyncV2Service;
-import com.todoroo.astrid.service.SyncV2Service.SyncResultCallback;
 import com.todoroo.astrid.service.TagDataService;
 import com.todoroo.astrid.service.TaskService;
 import com.todoroo.astrid.service.ThemeService;
@@ -599,9 +597,7 @@ public class TaskListActivity extends ListActivity implements OnScrollListener,
             Preferences.setBoolean(R.string.p_showed_lists_help, true);
         }
 
-        if (filter.title != null && filter.title.equals(getString(R.string.BFE_Active))) {
-            initiateAutomaticSync();
-        }
+        initiateAutomaticSync();
     }
 
     @Override
@@ -1119,99 +1115,30 @@ public class TaskListActivity extends ListActivity implements OnScrollListener,
         }
     }
 
-    private class TaskListSyncResultCallback implements SyncResultCallback {
-
-        private final ProgressBar progressBar;
-        private int providers = 0;
-
-        public TaskListSyncResultCallback() {
-            progressBar = (ProgressBar) findViewById(R.id.progressBar);
-            progressBar.setProgress(0);
-            progressBar.setMax(0);
-        }
-
-        @Override
-        public void finished() {
-            providers--;
-            if(providers == 0) {
-                runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        progressBar.setMax(100);
-                        progressBar.setProgress(100);
-                        AlphaAnimation animation = new AlphaAnimation(1, 0);
-                        animation.setFillAfter(true);
-                        animation.setDuration(1000L);
-                        progressBar.startAnimation(animation);
-
-                        loadTaskListContent(true);
-                    }
-                });
-                new Thread() {
-                    @Override
-                    public void run() {
-                        AndroidUtilities.sleepDeep(1000);
-                        runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-                                progressBar.setVisibility(View.GONE);
-                            }
-                        });
-                    }
-                }.start();
-            }
-        }
-
-        @Override
-        public void incrementMax(final int incrementBy) {
-            runOnUiThread(new Runnable() {
-                @Override
-                public void run() {
-                    progressBar.setMax(progressBar.getMax() + incrementBy);
-                }
-            });
-        }
-
-        @Override
-        public void incrementProgress(final int incrementBy) {
-            runOnUiThread(new Runnable() {
-                @Override
-                public void run() {
-                    progressBar.incrementProgressBy(incrementBy);
-                }
-            });
-        }
-
-        @Override
-        public void started() {
-            if(providers == 0) {
-                runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        progressBar.setVisibility(View.VISIBLE);
-                        AlphaAnimation animation = new AlphaAnimation(0, 1);
-                        animation.setFillAfter(true);
-                        animation.setDuration(1000L);
-                        progressBar.startAnimation(animation);
-                    }
-                });
-            }
-
-            providers++;
-        }
-    }
-
     private static final String PREF_LAST_AUTO_SYNC = "taskListLastAutoSync"; //$NON-NLS-1$
 
-    private void initiateAutomaticSync() {
+    protected void initiateAutomaticSync() {
+        if (filter.title == null || !filter.title.equals(getString(R.string.BFE_Active)))
+            return;
+
         long lastAutoSync = Preferences.getLong(PREF_LAST_AUTO_SYNC, 0);
         if(DateUtilities.now() - lastAutoSync > DateUtilities.ONE_HOUR) {
-            syncService.synchronizeActiveTasks(false, new TaskListSyncResultCallback());
-            Preferences.setLong(PREF_LAST_AUTO_SYNC, DateUtilities.now());
+            performSyncServiceV2Sync(false);
         }
     }
 
-    private void performSyncAction() {
+    protected void performSyncServiceV2Sync(boolean manual) {
+        syncService.synchronizeActiveTasks(manual, new ProgressBarSyncResultCallback(this,
+                R.id.progressBar, new Runnable() {
+            @Override
+            public void run() {
+                loadTaskListContent(true);
+            }
+        }));
+        Preferences.setLong(PREF_LAST_AUTO_SYNC, DateUtilities.now());
+    }
+
+    protected void performSyncAction() {
         if (syncActions.size() == 0 && !syncService.isActive()) {
             String desiredCategory = getString(R.string.SyP_label);
 
@@ -1254,8 +1181,7 @@ public class TaskListActivity extends ListActivity implements OnScrollListener,
             showSyncOptionMenu(actions, listener);
         }
         else {
-            syncService.synchronizeActiveTasks(true, new TaskListSyncResultCallback());
-            Preferences.setLong(PREF_LAST_AUTO_SYNC, DateUtilities.now());
+            performSyncServiceV2Sync(true);
 
             if(syncActions.size() > 0) {
                 for(SyncAction syncAction : syncActions) {

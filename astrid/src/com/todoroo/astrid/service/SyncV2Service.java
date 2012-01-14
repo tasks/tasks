@@ -38,6 +38,7 @@ public class SyncV2Service {
     public interface SyncV2Provider {
         public boolean isActive();
         public void synchronizeActiveTasks(boolean manual, SyncResultCallback callback);
+        public void synchronizeList(Object list, boolean manual, SyncResultCallback callback);
     }
 
     /*
@@ -72,6 +73,20 @@ public class SyncV2Service {
         for(SyncV2Provider provider : providers) {
             if(provider.isActive())
                 provider.synchronizeActiveTasks(manual, callback);
+        }
+    }
+
+    /**
+     * Initiate synchronization of task list
+     *
+     * @param list list object
+     * @param manual if manual sync
+     * @param callback result callback
+     */
+    public void synchronizeList(Object list, boolean manual, SyncResultCallback callback) {
+        for(SyncV2Provider provider : providers) {
+            if(provider.isActive())
+                provider.synchronizeList(list, manual, callback);
         }
     }
 
