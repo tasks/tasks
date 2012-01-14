@@ -348,7 +348,7 @@ public class TaskService {
 
     @SuppressWarnings("nls")
     public static void parseQuickAddMarkup(Task task, ArrayList<String> tags) {
-        TitleParser parse = new TitleParser(task, tags);
+        new TitleParser(task, tags).parse();
     }
 
 

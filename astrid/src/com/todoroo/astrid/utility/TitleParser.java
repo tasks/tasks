@@ -19,10 +19,9 @@ public class TitleParser {
     public TitleParser(Task task, ArrayList<String> tags){
         this.task = task;
         this.tags = tags;
-        runAllHelpers();
     }
 
-    private void runAllHelpers(){
+    public void parse(){
         repeatHelper(task);
         dayHelper(task);
         listHelper(task,tags);
@@ -52,15 +51,16 @@ public class TitleParser {
     }
 
     //helper method for priorityHelper. converts the string to a Task Importance
+    @SuppressWarnings("nls")
     private static int str_to_priority(String priority_str) {
         if (priority_str!=null)
             priority_str.toLowerCase().trim();
         int priority = Task.IMPORTANCE_DO_OR_DIE;
-        if (priority_str.equals ("0") || priority_str.equals ("!0") || priority_str.equals("least") ||  priority_str.equals("lowest"))
+        if ("0".equals(priority_str) || "!0".equals(priority_str) || "least".equals(priority_str) ||  "lowest".equals(priority_str))
             priority = Task.IMPORTANCE_NONE;
-        if (priority_str.equals ("!") || priority_str.equals ("!1") || priority_str.equals("bang") || priority_str.equals("1") || priority_str.equals("low"))
+        if ("!".equals(priority_str) || "!1".equals(priority_str) || "bang".equals(priority_str) || "1".equals(priority_str) || "low".equals(priority_str))
             priority = Task.IMPORTANCE_SHOULD_DO;
-        if (priority_str.equals("!!") || priority_str.equals ("!2") || priority_str.equals("bang bang") || priority_str.equals("2") || priority_str.equals("high"))
+        if ("!!".equals(priority_str) || "!2".equals(priority_str) || "bang bang".equals(priority_str) || "2".equals(priority_str) || "high".equals(priority_str))
             priority = Task.IMPORTANCE_MUST_DO;
         return priority;
     }
@@ -108,6 +108,7 @@ public class TitleParser {
     //Handles setting the task's date.
     //Day of week (e.g. Monday, Tuesday,..) is overridden by a set date (e.g. October 23 2013).
     //Vague times (e.g. breakfast, night) are overridden by a set time (9 am, at 10, 17:00)
+    @SuppressWarnings("nls")
     private static void dayHelper(Task task ) {
         String inputText = task.getValue(Task.TITLE);
         Calendar cal = null;
@@ -121,19 +122,18 @@ public class TitleParser {
                 "(?i)\\b(thu(rsday\\b|\\.))",
                 "(?i)\\b(fri(day\\b|\\.))",
                 "(?i)\\b(sat(urday\\b|\\.))",
-        "(?i)\\b(sun(day\\b|\\.))" };
+                "(?i)\\b(sun(day\\b|\\.))" };
 
         for (String date : days_of_week){
             Pattern pattern = Pattern.compile(date);
             Matcher m = pattern.matcher(inputText);
             if (m.find()) {
                 Calendar dayCal = Chronic.parse(m.group(0)).getBeginCalendar();
-                cal= dayCal;
+                cal = dayCal;
                 //then put it into task
             }
         }
 
-        String ds = "3[0-1]|[0-2]?[0-9]"; //day string for date regexes
         String[] dates = {
                 "(?i)\\b(jan(\\.|uary))(\\s(3[0-1]|[0-2]?[0-9])),?( (\\d{4}|\\d{2}))?",
                 "(?i)\\b(feb(\\.|ruary))(\\s(3[0-1]|[0-2]?[0-9])),?( (\\d{4}|\\d{2}))?",
@@ -146,7 +146,7 @@ public class TitleParser {
                 "(?i)\\b(sep(\\.|tember))(\\s(3[0-1]|[0-2]?[0-9])),?( (\\d{4}|\\d{2}))?",
                 "(?i)\\b(oct(\\.|ober))(\\s(3[0-1]|[0-2]?[0-9])),?( (\\d{4}|\\d{2}))?",
                 "(?i)\\b(nov(\\.|ember))(\\s(3[0-1]|[0-2]?[0-9])),?( (\\d{4}|\\d{2}))?",
-        "(?i)\\b(dec(\\.|ember))(\\s(3[0-1]|[0-2]?[0-9])),?( (\\d{4}|\\d{2}))?"};
+                "(?i)\\b(dec(\\.|ember))(\\s(3[0-1]|[0-2]?[0-9])),?( (\\d{4}|\\d{2}))?"};
 
         // m.group(1) = "month"
         //m.group(4) = "day"
@@ -203,7 +203,7 @@ public class TitleParser {
             }
         }
 
-        HashMap<String, Integer> dayTimes = new HashMap();
+        HashMap<String, Integer> dayTimes = new HashMap<String, Integer>();
         dayTimes.put("(?i)\\bbreakfast\\b", 8);
         dayTimes.put("(?i)\\blunch\\b", 12);
         dayTimes.put("(?i)\\bsupper\\b" ,18);
@@ -213,7 +213,7 @@ public class TitleParser {
         dayTimes.put("(?i)\\bafternoon\\b", 15);
         dayTimes.put("(?i)\\bevening\\b" , 19);
         dayTimes.put("(?i)\\bnight\\b" , 19);
-        dayTimes.put("(?i)\\bmidnight\\b" , 24);
+        dayTimes.put("(?i)\\bmidnight\\b" , 0);
         dayTimes.put("(?i)\\bnoon\\b" , 12);
 
         for (String dayTime: dayTimes.keySet()){
@@ -297,23 +297,21 @@ public class TitleParser {
 
         if( cal!= null ){ //if at least one of the above has been called, write to task. else do nothing.
             if (containsSpecificTime) {
-                Long dueDate = Task.createDueDate(Task.URGENCY_SPECIFIC_DAY_TIME, cal.getTime().getTime());
-                task.setValue(Task.DUE_DATE, dueDate);
-            }
-            else {
-                Long dueDate = Task.createDueDate(Task.URGENCY_SPECIFIC_DAY, cal.getTime().getTime());
-                task.setValue(Task.DUE_DATE, dueDate);
+                task.setValue(Task.DUE_DATE, Task.createDueDate(Task.URGENCY_SPECIFIC_DAY_TIME, cal.getTime().getTime()));
+            } else {
+                task.setValue(Task.DUE_DATE, Task.createDueDate(Task.URGENCY_SPECIFIC_DAY, cal.getTime().getTime()));
             }
         }
     }
     //---------------------DATE--------------------------
 
     //Parses through the text and sets the frequency of the task.
+    @SuppressWarnings("nls")
     private static void repeatHelper(Task task) {
         String inputText = task.getValue(Task.TITLE);
-        HashMap<String, Frequency> repeatTimes = new HashMap();
+        HashMap<String, Frequency> repeatTimes = new HashMap<String, Frequency>();
         repeatTimes.put("(?i)\\bevery ?\\w{0,6} days?\\b" , Frequency.DAILY);
-        repeatTimes.put("(?i)\\bevery ?\\w{0,6} nights?\\b" , Frequency.DAILY);
+        repeatTimes.put("(?i)\\bevery ?\\w{0,6} ?nights?\\b" , Frequency.DAILY);
         repeatTimes.put("(?i)\\bevery ?\\w{0,6} ?mornings?\\b" , Frequency.DAILY);
         repeatTimes.put("(?i)\\bevery ?\\w{0,6} ?evenings?\\b" , Frequency.DAILY);
         repeatTimes.put("(?i)\\bevery ?\\w{0,6} ?afternoons?\\b" , Frequency.DAILY);
@@ -322,7 +320,7 @@ public class TitleParser {
         repeatTimes.put("(?i)\\bevery \\w{0,6} ?months?\\b", Frequency.MONTHLY);
         repeatTimes.put("(?i)\\bevery \\w{0,6} ?years?\\b", Frequency.YEARLY);
 
-        HashMap<String, Frequency> repeatTimesIntervalOne = new HashMap();
+        HashMap<String, Frequency> repeatTimesIntervalOne = new HashMap<String, Frequency>();
         //pre-determined intervals of 1
         repeatTimesIntervalOne.put( "(?i)\\bdaily\\b" , Frequency.DAILY);
         repeatTimesIntervalOne.put( "(?i)\\beveryday\\b" , Frequency.DAILY);
@@ -339,6 +337,7 @@ public class TitleParser {
                 rrule.setFreq(rtime);
                 rrule.setInterval(findInterval(inputText));
                 task.setValue(Task.RECURRENCE, rrule.toIcal());
+                return;
             }
         }
 
@@ -352,6 +351,7 @@ public class TitleParser {
                 rrule.setInterval(1);
                 String thing = rrule.toIcal();
                 task.setValue(Task.RECURRENCE, thing);
+                return;
             }
         }
     }
@@ -376,6 +376,13 @@ public class TitleParser {
             String interval_str = m.group(1);
             if (words_to_num.containsKey(interval_str))
                 interval = words_to_num.get(interval_str);
+            else {
+                try {
+                    interval = Integer.parseInt(interval_str);
+                } catch (NumberFormatException e) {
+                    // Ah well
+                }
+            }
         }
         return interval;
     }
