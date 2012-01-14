@@ -395,15 +395,17 @@ public final class ActFmSyncService {
             JSONObject result = actFmInvoker.invoke("task_save", params.toArray(new Object[params.size()]));
             ArrayList<Metadata> metadata = new ArrayList<Metadata>();
             JsonHelper.taskFromJson(result, task, metadata);
-            Flags.set(Flags.ACTFM_SUPPRESS_SYNC);
-            taskDao.saveExisting(task);
         } catch (JSONException e) {
             handleException("task-save-json", e);
         } catch (IOException e) {
             if (notPermanentError(e))
                 addFailedPush(new FailedPush(PUSH_TYPE_TASK, task.getId()));
             handleException("task-save-io", e);
+            task.setValue(Task.LAST_SYNC, DateUtilities.now() + 1000L);
         }
+
+        Flags.set(Flags.ACTFM_SUPPRESS_SYNC);
+        taskDao.saveExisting(task);
     }
 
     /**
@@ -695,6 +697,9 @@ public final class ActFmSyncService {
                             StatisticsService.reportEvent(StatisticsConstants.ACTFM_TASK_COMPLETED);
                     }
 
+                    if(!remote.isSaved() && remote.hasDueDate() &&
+                            remote.getValue(Task.DUE_DATE) < DateUtilities.now())
+                        remote.setFlag(Task.REMINDER_FLAGS, Task.NOTIFY_AFTER_DEADLINE, false);
 
                     Flags.set(Flags.ACTFM_SUPPRESS_SYNC);
                     taskService.save(remote);
