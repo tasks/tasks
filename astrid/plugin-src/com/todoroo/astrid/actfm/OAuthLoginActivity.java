@@ -21,9 +21,10 @@ package com.todoroo.astrid.actfm;
 
 import java.io.IOException;
 
-import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.FragmentActivity;
 import android.util.Log;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
@@ -32,6 +33,7 @@ import com.timsu.astrid.R;
 import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.andlib.service.RestClient;
+import com.todoroo.andlib.utility.DialogUtilities;
 
 /**
  * This activity displays a <code>WebView</code> that allows users to log in to the
@@ -41,7 +43,7 @@ import com.todoroo.andlib.service.RestClient;
  * @author timsu
  *
  */
-public class OAuthLoginActivity extends Activity {
+public class OAuthLoginActivity extends FragmentActivity {
 
     /**
      * URL to display
@@ -55,6 +57,8 @@ public class OAuthLoginActivity extends Activity {
 
     @Autowired RestClient restClient;
 
+    ProgressDialog pd;
+
     // --- ui initialization
 
     @SuppressWarnings("nls")
@@ -65,7 +69,7 @@ public class OAuthLoginActivity extends Activity {
         DependencyInjectionService.getInstance().inject(this);
 
         setContentView(R.layout.oauth_login_activity);
-        setTitle(R.string.actfm_ALA_login_title);
+        getSupportActionBar().setTitle(R.string.actfm_OLA_prompt);
 
         final String urlParam = getIntent().getStringExtra(URL_TOKEN);
 
@@ -73,12 +77,14 @@ public class OAuthLoginActivity extends Activity {
 
         webView.getSettings().setJavaScriptEnabled(true);
         webView.getSettings().setSavePassword(false);
+        webView.getSettings().setBuiltInZoomControls(true);
         webView.getSettings().setSupportZoom(true);
         webView.setWebViewClient(new WebViewClient() {
 
             @Override
             public void onPageFinished(WebView view, final String url) {
                 super.onPageFinished(view, url);
+                pd.dismiss();
                 new Thread() {
                     @Override
                     public void run() {
@@ -105,7 +111,7 @@ public class OAuthLoginActivity extends Activity {
             }
         });
 
-
+        pd = DialogUtilities.progressDialog(this, getString(R.string.DLG_wait));
         webView.loadUrl(urlParam);
     }
 

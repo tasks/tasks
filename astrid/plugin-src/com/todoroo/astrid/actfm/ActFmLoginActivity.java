@@ -31,7 +31,6 @@ import java.util.concurrent.atomic.AtomicReference;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
@@ -40,6 +39,7 @@ import android.content.res.Configuration;
 import android.graphics.PixelFormat;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.v4.app.FragmentActivity;
 import android.text.InputType;
 import android.text.method.PasswordTransformationMethod;
 import android.view.View;
@@ -84,7 +84,7 @@ import com.todoroo.astrid.service.TaskService;
  * @author arne.jans
  *
  */
-public class ActFmLoginActivity extends Activity implements AuthListener {
+public class ActFmLoginActivity extends FragmentActivity implements AuthListener {
 
     public static final String APP_ID = "183862944961271"; //$NON-NLS-1$
 
@@ -137,6 +137,8 @@ public class ActFmLoginActivity extends Activity implements AuthListener {
 
         setContentView(getContentViewResource());
         setTitle(getTitleResource());
+
+        getSupportActionBar().hide();
 
         rand = new Random(DateUtilities.now());
 

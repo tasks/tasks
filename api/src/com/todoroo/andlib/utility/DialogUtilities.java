@@ -168,6 +168,26 @@ public class DialogUtilities {
         });
     }
 
+    /** Run runnable with progress dialog */
+    public static ProgressDialog runWithProgressDialog(final Activity activity, final Runnable runnable) {
+        final ProgressDialog progressdiag = progressDialog(activity, activity.getString(R.string.DLG_wait));
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    runnable.run();
+                } catch (Exception e) {
+                    DialogUtilities.okDialog(activity,
+                            activity.getString(R.string.DLG_error, e.toString()), null);
+                } finally {
+                    DialogUtilities.dismissDialog(activity, progressdiag);
+                }
+            }
+        }).start();
+
+        return progressdiag;
+    }
+
     /**
      * Displays a progress dialog. Must be run on the UI thread
      * @param context
