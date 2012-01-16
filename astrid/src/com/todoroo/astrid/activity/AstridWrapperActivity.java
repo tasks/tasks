@@ -88,31 +88,9 @@ public class AstridWrapperActivity extends FragmentActivity
         if (this instanceof TaskListWrapperActivity && (item instanceof Filter) ) {
             ((TaskListWrapperActivity) this).setSelectedItem((Filter) item);
         }
-        if (!mMultipleFragments || (item instanceof SearchFilter)) {
-            if(item instanceof Filter) {
-                Filter filter = (Filter)item;
-                if(filter instanceof FilterWithCustomIntent) {
-                    FilterWithCustomIntent customFilter = ((FilterWithCustomIntent)filter);
-                    customFilter.start(this, FilterListActivity.REQUEST_VIEW_TASKS);
-                } else {
-                    Intent intent = new Intent(this, TaskListWrapperActivity.class);
-                    intent.putExtra(TaskListActivity.TOKEN_FILTER, filter);
-                    intent.putExtra(TaskListActivity.TOKEN_OVERRIDE_ANIM, true);
-                    startActivityForResult(intent, FilterListActivity.REQUEST_VIEW_TASKS);
-                }
-                AndroidUtilities.callOverridePendingTransition(this, R.anim.slide_left_in, R.anim.slide_left_out);
-                StatisticsService.reportEvent(StatisticsConstants.FILTER_LIST);
-                return true;
-            } else if(item instanceof SearchFilter) {
-                onSearchRequested();
-                StatisticsService.reportEvent(StatisticsConstants.FILTER_SEARCH);
-            } else if(item instanceof IntentFilter) {
-                try {
-                    ((IntentFilter)item).intent.send();
-                } catch (CanceledException e) {
-                    // ignore
-                }
-            }
+        if (item instanceof SearchFilter) {
+            onSearchRequested();
+            StatisticsService.reportEvent(StatisticsConstants.FILTER_SEARCH);
             return false;
         } else {
             // If showing both fragments, directly update the tasklist-fragment
