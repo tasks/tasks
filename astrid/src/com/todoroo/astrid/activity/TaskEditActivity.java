@@ -454,24 +454,6 @@ public final class TaskEditActivity extends Fragment {
 
     /** Set up button listeners */
     private void setUpListeners() {
-        final View.OnClickListener mSaveListener = new View.OnClickListener() {
-            public void onClick(View v) {
-                saveButtonClick();
-            }
-        };
-        final View.OnClickListener mDiscardListener = new View.OnClickListener() {
-            public void onClick(View v) {
-                discardButtonClick();
-            }
-        };
-        final View.OnClickListener mExpandWhenListener = new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (whenDialog != null)
-                    whenDialog.show();
-                Preferences.setBoolean(R.string.p_showed_when_row, true);
-            }
-        };
         final View.OnClickListener mExpandMoreListener = new View.OnClickListener() {
             final Animation fadeIn = AnimationUtils.loadAnimation(getActivity(), android.R.anim.fade_in);
             final Animation fadeOut = AnimationUtils.loadAnimation(getActivity(), android.R.anim.fade_out);
@@ -492,14 +474,7 @@ public final class TaskEditActivity extends Fragment {
 
         // set up save, cancel, and delete buttons
         try {
-            Button saveButtonGeneral = (Button) getView().findViewById(R.id.save);
-            saveButtonGeneral.setOnClickListener(mSaveListener);
-
-            Button discardButtonGeneral = (Button) getView().findViewById(R.id.discard);
-            discardButtonGeneral.setOnClickListener(mDiscardListener);
-
             getView().findViewById(R.id.more_header).setOnClickListener(mExpandMoreListener);
-
         } catch (Exception e) {
             // error loading the proper activity
         }
