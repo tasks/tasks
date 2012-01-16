@@ -74,8 +74,7 @@
         
     <!-- Activity that displays task list -->
     <activity android:name="com.todoroo.astrid.welcome.WelcomeLogin"
-              android:windowSoftInputMode="stateHidden"
-              android:screenOrientation="portrait">
+              android:windowSoftInputMode="stateHidden">
     </activity>
     <activity android:name="com.todoroo.astrid.activity.TaskListWrapperActivity"
               android:windowSoftInputMode="stateHidden|adjustResize">

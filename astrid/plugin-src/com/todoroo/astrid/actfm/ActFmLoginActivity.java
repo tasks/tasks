@@ -138,7 +138,8 @@ public class ActFmLoginActivity extends FragmentActivity implements AuthListener
         setContentView(getContentViewResource());
         setTitle(getTitleResource());
 
-        getSupportActionBar().hide();
+        if (getSupportActionBar() != null)
+            getSupportActionBar().hide();
 
         rand = new Random(DateUtilities.now());
 
