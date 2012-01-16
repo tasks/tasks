@@ -102,7 +102,7 @@ public class OldTaskPreferences extends TodorooPreferenceActivity {
                 new OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        runWithDialog(new Runnable() {
+                        pd = DialogUtilities.runWithProgressDialog(OldTaskPreferences.this, new Runnable() {
                             @Override
                             public void run() {
                                 TodorooCursor<Task> cursor = taskService.query(Query.select(Task.ID, Task.CALENDAR_URI).where(
@@ -141,7 +141,7 @@ public class OldTaskPreferences extends TodorooPreferenceActivity {
                 new OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        runWithDialog(new Runnable() {
+                        pd = DialogUtilities.runWithProgressDialog(OldTaskPreferences.this, new Runnable() {
                             @Override
                             public void run() {
                                 TodorooCursor<Task> cursor = taskService.query(Query.select(Task.ID, Task.TITLE, Task.CALENDAR_URI).where(
@@ -177,7 +177,7 @@ public class OldTaskPreferences extends TodorooPreferenceActivity {
                 new OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        runWithDialog(new Runnable() {
+                        pd = DialogUtilities.runWithProgressDialog(OldTaskPreferences.this, new Runnable() {
                             @Override
                             public void run() {
                                 int deletedEventCount = 0;
@@ -218,7 +218,7 @@ public class OldTaskPreferences extends TodorooPreferenceActivity {
                 new OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        runWithDialog(new Runnable() {
+                        pd = DialogUtilities.runWithProgressDialog(OldTaskPreferences.this, new Runnable() {
                             @Override
                             public void run() {
                                 int deletedEventCount = 0;
@@ -248,24 +248,6 @@ public class OldTaskPreferences extends TodorooPreferenceActivity {
                         });
                     }
                 }, null);
-    }
-
-    /** Run runnable with progress dialog */
-    protected void runWithDialog(final Runnable runnable) {
-        pd = DialogUtilities.progressDialog(this, getString(R.string.DLG_please_wait));
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                try {
-                    runnable.run();
-                } catch (Exception e) {
-                    DialogUtilities.okDialog(OldTaskPreferences.this,
-                            getString(R.string.DLG_error, e.toString()), null);
-                } finally {
-                    DialogUtilities.dismissDialog(OldTaskPreferences.this, pd);
-                }
-            }
-        }).start();
     }
 
     protected void showResult(int resourceText, int result) {

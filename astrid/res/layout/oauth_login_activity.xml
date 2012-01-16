@@ -4,15 +4,8 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent">
     
-    <TextView
-        android:layout_weight="1"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/actfm_OLA_prompt"/>
-        
     <WebView android:id="@+id/browser"
-        android:layout_weight="100"
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content"/>
+        android:layout_height="fill_parent"/>
         
 </LinearLayout>
