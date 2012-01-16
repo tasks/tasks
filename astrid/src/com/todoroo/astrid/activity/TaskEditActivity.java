@@ -54,7 +54,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.timsu.astrid.R;
@@ -141,6 +140,7 @@ public final class TaskEditActivity extends Fragment {
     private static final int MENU_SAVE_ID = R.string.TEA_menu_save;
     private static final int MENU_DISCARD_ID = R.string.TEA_menu_discard;
     private static final int MENU_DELETE_ID = R.string.TEA_menu_delete;
+    private static final int MENU_COMMENTS_ID = R.string.TEA_menu_comments;
 
     // --- result codes
 
@@ -500,14 +500,6 @@ public final class TaskEditActivity extends Fragment {
 
             getView().findViewById(R.id.more_header).setOnClickListener(mExpandMoreListener);
 
-            getView().findViewById(R.id.activity).setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Intent launchIntent = new Intent(getActivity(), EditNoteActivity.class);
-                    launchIntent.putExtra(EditNoteActivity.EXTRA_TASK_ID, model.getId());
-                    startActivity(launchIntent);
-                }
-            });
         } catch (Exception e) {
             // error loading the proper activity
         }
@@ -644,12 +636,6 @@ public final class TaskEditActivity extends Fragment {
             return;
         }
 
-        if (!isNewTask) {
-            if (actFmPreferenceService.isLoggedIn()) {
-                getView().findViewById(R.id.activityContainer).setVisibility(View.VISIBLE);
-            }
-        }
-
         // clear notification
         Notifications.cancelNotifications(model.getId());
     }
@@ -663,12 +649,6 @@ public final class TaskEditActivity extends Fragment {
     /** Populate UI component values from the model */
     public void populateFields(Intent intent) {
         loadItem(intent);
-
-        TextView titleText = (TextView) getView().findViewById(R.id.taskLabel);
-        if(isNewTask)
-            titleText.setText(R.string.TEA_view_titleNew);
-        else
-            titleText.setText(model.getValue(Task.TITLE));
 
         synchronized(controls) {
             for(TaskEditControlSet controlSet : controls)
@@ -849,6 +829,12 @@ public final class TaskEditActivity extends Fragment {
                 Toast.LENGTH_SHORT).show();
     }
 
+    protected void commentsButtonClick() {
+        Intent launchIntent = new Intent(getActivity(), EditNoteActivity.class);
+        launchIntent.putExtra(EditNoteActivity.EXTRA_TASK_ID, model.getId());
+        startActivity(launchIntent);
+    }
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch(item.getItemId()) {
@@ -860,6 +846,9 @@ public final class TaskEditActivity extends Fragment {
             return true;
         case MENU_DELETE_ID:
             deleteButtonClick();
+            return true;
+        case MENU_COMMENTS_ID:
+            commentsButtonClick();
             return true;
         case android.R.id.home:
             saveButtonClick();
@@ -884,6 +873,10 @@ public final class TaskEditActivity extends Fragment {
 
         item = menu.add(Menu.NONE, MENU_DELETE_ID, 0, R.string.TEA_menu_delete);
         item.setIcon(android.R.drawable.ic_menu_delete);
+        item.setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
+
+        item = menu.add(Menu.NONE, MENU_COMMENTS_ID, 0, R.string.TEA_menu_comments);
+        item.setIcon(R.drawable.icn_cmmt_off);
         item.setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
     }
 

@@ -75,7 +75,26 @@
         <item name="abLogo">@drawable/icon_48</item>
     </style>
     
-    <style name="Theme.Dialog">
+    <style name="Theme_Dialog" parent="@android:style/Theme.Dialog">
+        <item name="android:windowBackground">@null</item>
+        <item name="asContentBackground">@drawable/background_gradient</item>
+        <item name="asHeaderBackground">@drawable/header_background</item>
+        <item name="asHeaderButtonBackground">@drawable/header_button</item>
+        <item name="asSeparatorBackground">@android:drawable/divider_horizontal_dark</item>
+        <item name="asTextColor">#ffffffff</item>
+        <item name="asDetailsColor">#ff777777</item>
+        <item name="asDueDateColor">#ff7777aa</item>
+        <item name="asDueDateOverdueColor">#ffee5555</item>
+        <item name="asDueDateCompletedColor">#ff777777</item>
+        <item name="asFilterHeaderColor">#ffcccccc</item>
+        <item name="asFilterHeaderBackground">@drawable/edit_titlebar</item>
+        <item name="asMembersHeaderBackground">@drawable/ios_fabric_480_dark</item>
+        <item name="asSeparatorBackground">#888888</item>
+        <!-- actionbar-styling -->
+        <item name="abBackground">@drawable/header_background</item>
+        <item name="abDisplayOptions">useLogo|showHome|showTitle</item>
+        <item name="abLogo">@drawable/icon_48</item>
+        
         <item name="android:windowIsFloating">true</item>
         <item name="android:windowBackground">@drawable/panel_background</item>
         <item name="android:windowContentOverlay">@null</item>

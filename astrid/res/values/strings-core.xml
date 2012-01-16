@@ -322,6 +322,9 @@
   <!-- Menu: Delete Task -->
   <string name="TEA_menu_delete">Delete Task</string>
   
+  <!-- Menu: Task comments -->
+  <string name="TEA_menu_comments">Comments</string>
+  
    <!-- Toast: task saved with deadline (%s => preposition + time units) -->
   <string name="TEA_onTaskSave_due">Task Saved: due %s</string>
   

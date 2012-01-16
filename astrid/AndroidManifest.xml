@@ -450,7 +450,7 @@
     <!-- backup -->
     <service android:name="com.todoroo.astrid.backup.BackupService"/>
     <activity android:name="com.todoroo.astrid.backup.BackupActivity"
-              android:theme="@style/Theme.Dialog" />
+              android:theme="@style/Theme_Dialog" />
     <activity android:name="com.todoroo.astrid.backup.BackupPreferences"
               android:theme="@android:style/Theme" 
               android:label="@string/backup_BPr_header">
@@ -489,7 +489,7 @@
       </intent-filter>
     </receiver>
     <activity android:name="com.todoroo.astrid.notes.EditNoteActivity" 
-              android:theme="@style/Theme.Dialog"/>
+              android:theme="@style/Theme_Dialog"/>
     <!-- <receiver android:name="com.todoroo.astrid.notes.EditNoteExposer">
       <intent-filter>
         <action android:name="com.todoroo.astrid.REQUEST_ACTIONS" />
