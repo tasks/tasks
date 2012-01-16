@@ -42,6 +42,7 @@
             android:hint="@string/TLA_quick_add_hint"
             android:textSize="16sp"
             android:autoText="true"
+            android:textColor="@android:color/black"
             android:capitalize="sentences"/>
         
         <!-- Extended Add Button -->
