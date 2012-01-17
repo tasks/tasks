@@ -9,24 +9,6 @@
     android:layout_height="fill_parent"
     style="@style/Content">
 
-    <LinearLayout
-        style="@style/Header"
-        android:layout_width="fill_parent" 
-        android:layout_height="43dip"
-        android:layout_weight="1"
-        android:orientation="horizontal">
-        
-        <!-- List Label -->
-        <TextView android:id="@+id/listLabel"
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
-            android:layout_weight="100"
-            android:gravity="center"
-            android:singleLine="true"
-            android:ellipsize="start"
-            style="@style/TextAppearance.TLA_Header"/>
-    </LinearLayout>
-
 	<ScrollView
 	    android:layout_width="fill_parent"
 	    android:layout_height="wrap_content"
@@ -174,36 +156,6 @@
 	    </LinearLayout>
 	  
 	</ScrollView>
-	
-	<LinearLayout android:id="@+id/membersFooter"
-	  android:orientation="horizontal"
-	  android:layout_width="fill_parent"
-	  android:layout_height="48dip"
-	  android:layout_alignParentBottom="true"
-	  android:padding="5dip"
-	  android:background="@drawable/footer_background"
-	  android:baselineAligned="false">
-	  <Button
-	    android:id="@+id/saveMembers"
-	    android:layout_width="fill_parent"
-	    android:layout_height="fill_parent"
-	    android:layout_marginRight="5dip"
-	    android:background="@drawable/footer_editbutton"
-	    android:text="@string/DLG_save"
-	    android:textStyle="bold"
-	    style="@style/TextAppearance.TEA_action"
-	    android:layout_weight="1" />
-	  <Button
-	    android:id="@+id/cancel"
-	    android:layout_width="fill_parent"
-	    android:layout_height="fill_parent"
-	    android:layout_marginLeft="5dip"
-	    android:background="@drawable/footer_editbutton"
-	    android:text="@android:string/cancel"
-	    style="@style/TextAppearance.TEA_action"
-	    android:textColor="#000000"
-	    android:layout_weight="1" />
-	</LinearLayout>
 	
 </LinearLayout>
 	

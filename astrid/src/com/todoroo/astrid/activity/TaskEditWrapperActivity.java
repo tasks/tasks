@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.v4.app.ActionBar;
 import android.support.v4.app.Fragment;
 import android.view.KeyEvent;
+import android.widget.TextView;
 
 import com.timsu.astrid.R;
 import com.todoroo.andlib.utility.AndroidUtilities;
@@ -24,7 +25,8 @@ public class TaskEditWrapperActivity extends AstridWrapperActivity {
 		actionBar.setDisplayShowTitleEnabled(false);
 
 		actionBar.setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
-		actionBar.setCustomView(R.layout.header_edit_views);
+		actionBar.setCustomView(R.layout.header_title_view);
+		((TextView) actionBar.getCustomView().findViewById(R.id.title)).setText(R.string.TAd_contextEditTask);
 	}
 
     /* (non-Javadoc)

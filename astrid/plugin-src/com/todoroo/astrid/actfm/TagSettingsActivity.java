@@ -13,11 +13,14 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.support.v4.app.ActionBar;
+import android.support.v4.app.FragmentActivity;
+import android.support.v4.view.Menu;
+import android.support.v4.view.MenuItem;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.view.Window;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.CheckBox;
 import android.widget.EditText;
@@ -44,7 +47,10 @@ import com.todoroo.astrid.ui.PeopleContainer;
 import com.todoroo.astrid.utility.Flags;
 import com.todoroo.astrid.welcome.HelpInfoPopover;
 
-public class TagSettingsActivity extends Activity {
+public class TagSettingsActivity extends FragmentActivity {
+
+    private static final int MENU_SAVE_ID = R.string.TEA_menu_save;
+    private static final int MENU_DISCARD_ID = R.string.TEA_menu_discard;
 
     protected static final int REQUEST_ACTFM_LOGIN = 3;
 
@@ -72,15 +78,20 @@ public class TagSettingsActivity extends Activity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        requestWindowFeature(Window.FEATURE_NO_TITLE);
-        super.onCreate(savedInstanceState);
         ThemeService.applyTheme(this);
+        super.onCreate(savedInstanceState);
         setContentView(R.layout.tag_settings_activity);
         tagData = getIntent().getParcelableExtra(TagViewActivity.EXTRA_TAG_DATA);
         if (tagData == null) {
             isNewTag = true;
             tagData = new TagData();
         }
+
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.setDisplayOptions(0, ActionBar.DISPLAY_SHOW_TITLE);
+        actionBar.setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
+        actionBar.setCustomView(R.layout.header_title_view);
+
         setUpSettingsPage();
 
         if(savedInstanceState != null && savedInstanceState.containsKey(MEMBERS_IN_PROGRESS)) {
@@ -99,6 +110,7 @@ public class TagSettingsActivity extends Activity {
             }).start();
         }
         showCollaboratorsPopover();
+
     }
 
     private void showCollaboratorsPopover() {
@@ -127,20 +139,6 @@ public class TagSettingsActivity extends Activity {
             @Override
             public void onClick(View arg0) {
                 ActFmCameraModule.showPictureLauncher(TagSettingsActivity.this, null);
-            }
-        });
-
-        findViewById(R.id.saveMembers).setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View arg0) {
-                saveSettings();
-            }
-        });
-
-        findViewById(R.id.cancel).setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View arg0) {
-                finish();
             }
         });
 
@@ -241,10 +239,13 @@ public class TagSettingsActivity extends Activity {
     @SuppressWarnings("nls")
     private void refreshSettingsPage() {
         tagName.setText(tagData.getValue(TagData.NAME));
+        ActionBar ab = getSupportActionBar();
+        View customView = ab.getCustomView();
+        TextView titleView = (TextView) customView.findViewById(R.id.title);
         if (isNewTag) {
-            ((TextView)findViewById(R.id.listLabel)).setText(getString(R.string.tag_new_list));
+            titleView.setText(getString(R.string.tag_new_list));
         } else {
-            ((TextView) findViewById(R.id.listLabel)).setText(this.getString(R.string.tag_settings_title, tagData.getValue(TagData.NAME)));
+            titleView.setText(this.getString(R.string.tag_settings_title, tagData.getValue(TagData.NAME)));
         }
         picture.setUrl(tagData.getValue(TagData.PICTURE));
         setTitle(tagData.getValue(TagData.NAME));
@@ -328,5 +329,37 @@ public class TagSettingsActivity extends Activity {
             super.onActivityResult(requestCode, resultCode, data);
         }
     }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuItem item;
+        item = menu.add(Menu.NONE, MENU_DISCARD_ID, 0, R.string.TEA_menu_discard);
+        item.setIcon(android.R.drawable.ic_menu_close_clear_cancel);
+        item.setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
+
+        item = menu.add(Menu.NONE, MENU_SAVE_ID, 0, R.string.TEA_menu_save);
+        item.setIcon(android.R.drawable.ic_menu_save);
+        item.setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch(item.getItemId()) {
+        case MENU_DISCARD_ID:
+            finish();
+            break;
+        case MENU_SAVE_ID:
+            saveSettings();
+            break;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+
+
+
+
+
 
 }

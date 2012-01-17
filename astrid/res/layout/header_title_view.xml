@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <TextView
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/list_title"
+    android:id="@+id/title"
     android:layout_width="wrap_content"
     android:layout_height="match_parent"
     android:paddingLeft="10dip"
     android:gravity="center_vertical"
-    android:text="@string/TAd_contextEditTask"
     style="@style/TextAppearance.ActionBar_ListsHeader"/>
