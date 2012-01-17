@@ -23,11 +23,14 @@ import android.graphics.drawable.Drawable;
 import android.support.v4.view.MenuItem;
 import android.support.v4.view.SubMenu;
 import android.util.Log;
+import android.view.ActionProvider;
 import android.view.ContextMenu.ContextMenuInfo;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewDebug;
 import android.widget.LinearLayout;
+
+import com.actionbarsherlock.internal.view.menu.MenuView.ItemView;
 
 /**
  * @hide
@@ -572,5 +575,43 @@ public final class MenuItemImpl implements MenuItem {
         } else {
             return null;
         }
+    }
+
+    // --- added automatically
+
+    @Override
+    public boolean collapseActionView() {
+        return false;
+    }
+
+    @Override
+    public boolean expandActionView() {
+        return false;
+    }
+
+    @Override
+    public ActionProvider getActionProvider() {
+        return null;
+    }
+
+    @Override
+    public boolean isActionViewExpanded() {
+        return false;
+    }
+
+    @Override
+    public android.view.MenuItem setActionProvider(ActionProvider arg0) {
+        return null;
+    }
+
+    @Override
+    public android.view.MenuItem setOnActionExpandListener(
+            OnActionExpandListener arg0) {
+        return null;
+    }
+
+    @Override
+    public android.view.MenuItem setShowAsActionFlags(int arg0) {
+        return null;
     }
 }

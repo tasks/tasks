@@ -21,8 +21,9 @@ import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.support.v4.view.MenuItem;
 import android.support.v4.view.SubMenu;
-import android.view.View;
+import android.view.ActionProvider;
 import android.view.ContextMenu.ContextMenuInfo;
+import android.view.View;
 
 /**
  * <p>Interface for direct access to a previously created menu item.</p>
@@ -311,5 +312,49 @@ public final class MenuItemWrapper implements MenuItem {
     public MenuItem setVisible(boolean visible) {
         mMenuItem.setVisible(visible);
         return this;
+    }
+
+    // --- added automatically
+
+    @Override
+    public boolean collapseActionView() {
+        return false;
+    }
+
+
+    @Override
+    public boolean expandActionView() {
+        return false;
+    }
+
+
+    @Override
+    public ActionProvider getActionProvider() {
+        return null;
+    }
+
+
+    @Override
+    public boolean isActionViewExpanded() {
+        return false;
+    }
+
+
+    @Override
+    public android.view.MenuItem setActionProvider(ActionProvider arg0) {
+        return null;
+    }
+
+
+    @Override
+    public android.view.MenuItem setOnActionExpandListener(
+            OnActionExpandListener arg0) {
+        return null;
+    }
+
+
+    @Override
+    public android.view.MenuItem setShowAsActionFlags(int arg0) {
+        return null;
     }
 }
