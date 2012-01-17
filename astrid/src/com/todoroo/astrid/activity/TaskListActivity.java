@@ -579,13 +579,11 @@ public class TaskListActivity extends ListActivity implements OnScrollListener,
                 new IntentFilter(AstridApiConstants.BROADCAST_SEND_SYNC_ACTIONS));
         setUpBackgroundJobs();
 
-        //TODO REMOVE THIS GUY
-        //if (true){
         if (!Preferences.getBoolean(WelcomeLogin.KEY_SHOWED_WELCOME_LOGIN, false)) {
+            Preferences.setBoolean(WelcomeLogin.KEY_SHOWED_WELCOME_LOGIN, true);
             Intent showWelcomeLogin = new Intent(this, WelcomeWalkthrough.class);
             showWelcomeLogin.putExtra(ActFmLoginActivity.SHOW_TOAST, false);
             startActivity(showWelcomeLogin);
-            Preferences.setBoolean(WelcomeLogin.KEY_SHOWED_WELCOME_LOGIN, true);
             return;
         }
 
