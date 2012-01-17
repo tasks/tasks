@@ -10,6 +10,7 @@ import com.todoroo.andlib.data.Property;
 import com.todoroo.andlib.data.TodorooCursor;
 import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.DependencyInjectionService;
+import com.todoroo.andlib.service.ExceptionService;
 import com.todoroo.andlib.sql.Criterion;
 import com.todoroo.andlib.sql.Functions;
 import com.todoroo.andlib.sql.Query;
@@ -43,6 +44,9 @@ public class TaskService {
 
     @Autowired
     private MetadataDao metadataDao;
+
+    @Autowired
+    private ExceptionService exceptionService;
 
     public TaskService() {
         DependencyInjectionService.getInstance().inject(this);
@@ -334,7 +338,11 @@ public class TaskService {
      */
     public void quickAdd(Task task) {
         ArrayList<String> tags = new ArrayList<String>();
-        parseQuickAddMarkup(task, tags);
+        try {
+            parseQuickAddMarkup(task, tags);
+        } catch (Throwable e) {
+            exceptionService.reportError("parse-quick-add", e); //$NON-NLS-1$
+        }
         save(task);
 
         Metadata metadata = new Metadata();
@@ -346,7 +354,6 @@ public class TaskService {
         }
     }
 
-    @SuppressWarnings("nls")
     public static void parseQuickAddMarkup(Task task, ArrayList<String> tags) {
         new TitleParser(task, tags).parse();
     }
