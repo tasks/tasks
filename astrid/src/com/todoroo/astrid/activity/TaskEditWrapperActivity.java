@@ -1,6 +1,7 @@
 package com.todoroo.astrid.activity;
 
 import android.os.Bundle;
+import android.support.v4.app.ActionBar;
 import android.support.v4.app.Fragment;
 import android.view.KeyEvent;
 
@@ -18,7 +19,12 @@ public class TaskEditWrapperActivity extends AstridWrapperActivity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.task_edit_wrapper_activity);
 
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+		ActionBar actionBar = getSupportActionBar();
+		actionBar.setDisplayShowHomeEnabled(false);
+		actionBar.setDisplayShowTitleEnabled(false);
+
+		actionBar.setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
+		actionBar.setCustomView(R.layout.header_edit_views);
 	}
 
     /* (non-Javadoc)

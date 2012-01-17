@@ -677,7 +677,10 @@ public final class TaskEditActivity extends Fragment {
 
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if (keyCode == KeyEvent.KEYCODE_BACK) {
-            save(false);
+            if (title.getText().length() == 0)
+                discardButtonClick();
+            else
+                saveButtonClick();
             return true;
         }
         return false;
@@ -826,7 +829,10 @@ public final class TaskEditActivity extends Fragment {
             commentsButtonClick();
             return true;
         case android.R.id.home:
-            saveButtonClick();
+            if (title.getText().length() == 0)
+                discardButtonClick();
+            else
+                saveButtonClick();
             return true;
         }
 
@@ -838,21 +844,23 @@ public final class TaskEditActivity extends Fragment {
         super.onCreateOptionsMenu(menu, inflater);
         MenuItem item;
 
-        item = menu.add(Menu.NONE, MENU_SAVE_ID, 0, R.string.TEA_menu_save);
-        item.setIcon(android.R.drawable.ic_menu_save);
-        item.setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
-
         item = menu.add(Menu.NONE, MENU_DISCARD_ID, 0, R.string.TEA_menu_discard);
         item.setIcon(android.R.drawable.ic_menu_close_clear_cancel);
         item.setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
 
+        item = menu.add(Menu.NONE, MENU_SAVE_ID, 0, R.string.TEA_menu_save);
+        item.setIcon(android.R.drawable.ic_menu_save);
+        item.setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
+
         item = menu.add(Menu.NONE, MENU_DELETE_ID, 0, R.string.TEA_menu_delete);
         item.setIcon(android.R.drawable.ic_menu_delete);
-        item.setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
+        if (((AstridWrapperActivity) getActivity()).isMultipleFragments())
+            item.setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
 
         item = menu.add(Menu.NONE, MENU_COMMENTS_ID, 0, R.string.TEA_menu_comments);
         item.setIcon(R.drawable.icn_cmmt_off);
-        item.setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
+        if (((AstridWrapperActivity) getActivity()).isMultipleFragments())
+            item.setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
     }
 
     @Override

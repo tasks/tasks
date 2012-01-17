@@ -380,7 +380,8 @@ public class TaskListActivity extends ListFragment implements OnScrollListener,
         MenuItem item = menu.add(Menu.NONE, MENU_SYNC_ID, Menu.NONE,
                 R.string.TLA_menu_sync);
         item.setIcon(R.drawable.ic_menu_refresh);
-        item.setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
+        if (((AstridWrapperActivity) getActivity()).isMultipleFragments())
+            item.setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
     }
 
     /**
@@ -398,7 +399,8 @@ public class TaskListActivity extends ListFragment implements OnScrollListener,
         if (!(this instanceof DraggableTaskListActivity)) {
             item = menu.add(Menu.NONE, MENU_SORT_ID, Menu.NONE, R.string.TLA_menu_sort);
             item.setIcon(android.R.drawable.ic_menu_sort_by_size);
-            item.setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
+            if (((AstridWrapperActivity) getActivity()).isMultipleFragments())
+                item.setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
         }
 
         addSyncRefreshMenuItem(menu);

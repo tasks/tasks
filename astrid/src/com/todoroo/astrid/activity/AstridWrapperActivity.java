@@ -162,6 +162,10 @@ public class AstridWrapperActivity extends FragmentActivity
         transaction.commit();
     }
 
+    public boolean isMultipleFragments() {
+        return mMultipleFragments;
+    }
+
     @Override
     public void onTaskListItemClicked(int category, int position) {
 
