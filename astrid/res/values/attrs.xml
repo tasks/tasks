@@ -15,6 +15,7 @@
   <attr name="asFilterCountColor" format="color"/>
   <attr name="asMembersHeaderBackground" format="reference"/>
   <attr name="asSeparatorBackground" format="color"/>
+  <attr name="asAbTextColor" format="color"/>
 
   <declare-styleable name="ContactsAutoComplete">
     <attr name="allowMultiple" format="boolean"/>

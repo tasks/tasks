@@ -23,6 +23,7 @@
         <item name="abBackground">@drawable/header_background</item>
         <item name="abDisplayOptions">useLogo|showHome|showTitle</item>
         <item name="abLogo">@drawable/icon_48</item>
+        <item name="asAbTextColor">@android:color/darker_gray</item>
     </style>
     
     <style name="Theme.Transparent" parent="@style/Theme">
@@ -59,9 +60,10 @@
         <item name="asFilterHeaderBackground">@drawable/edit_titlebar_white</item>
         <item name="asMembersHeaderBackground">@drawable/ios_fabric_480</item>
         <!-- actionbar-styling -->
-        <item name="abBackground">@drawable/header_background_white</item>
+        <item name="abBackground">@android:color/white</item>
         <item name="abDisplayOptions">useLogo|showHome|showTitle</item>
         <item name="abLogo">@drawable/icon_48</item>
+        <item name="asAbTextColor">#d00000</item>
     </style>
     
     <style name="Theme.TransparentWhite" parent="@style/Theme.White">
@@ -70,9 +72,10 @@
         <item name="android:windowAnimationStyle">@android:style/Animation.Translucent</item>
         <item name="asMembersHeaderBackground">@android:color/transparent</item>
         <!-- actionbar-styling -->
-        <item name="abBackground">@drawable/header_background_white</item>
+        <item name="abBackground">@android:color/white</item>
         <item name="abDisplayOptions">useLogo|showHome|showTitle</item>
         <item name="abLogo">@drawable/icon_48</item>
+        <item name="asAbTextColor">#d00000</item>
     </style>
     
     <style name="Theme_Dialog" parent="@android:style/Theme.Dialog">
@@ -137,7 +140,18 @@
    	<style name="TextAppearance.GEN_EditLabel.DLG_EditLabel">
    	    <!--  <item name="android:textColor">@android:color/white</item> -->
    	</style>
-    
+   	
+   	<style name="TextAppearance.ActionBar_ListsHeader">
+   	    <item name="android:background">@android:color/transparent</item>
+   	    <item name="android:textColor">?attr/asAbTextColor</item>
+   	    <item name="android:textSize">20dip</item>
+   	    <item name="android:textStyle">bold</item>
+   	</style>
+   	
+   	<style name="TextAppearance.ActionBar_ListsHeader.Selected">   	    
+   	    <item name="android:textColor">@android:color/white</item>
+   	</style>
+   	
     <!--================================================== Custom Dialogs == -->
     
      <style name="DialogTitle">

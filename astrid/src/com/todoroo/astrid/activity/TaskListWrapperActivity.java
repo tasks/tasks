@@ -1,6 +1,5 @@
 package com.todoroo.astrid.activity;
 
-import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.ActionBar;
 import android.view.View;
@@ -39,7 +38,7 @@ public class TaskListWrapperActivity extends AstridWrapperActivity {
     private final OnClickListener popupMenuClickListener = new OnClickListener() {
         @Override
         public void onClick(View v) {
-            listsNav.setBackgroundColor(Color.RED);
+            setListsDropdownSelected(true);
             popover.show(v);
         }
     };
@@ -61,7 +60,7 @@ public class TaskListWrapperActivity extends AstridWrapperActivity {
         popover.setOnDismissListener(new OnDismissListener() {
             @Override
             public void onDismiss() {
-                listsNav.setBackgroundColor(Color.TRANSPARENT);
+                setListsDropdownSelected(false);
             }
         });
 
@@ -86,6 +85,13 @@ public class TaskListWrapperActivity extends AstridWrapperActivity {
 		    lists.setText(savedFilter.title);
 		setupFilterlistFragment();
 
+	}
+
+	private void setListsDropdownSelected(boolean selected) {
+	    int oldTextColor = lists.getTextColors().getDefaultColor();
+	    int textStyle = (selected ? R.style.TextAppearance_ActionBar_ListsHeader_Selected : R.style.TextAppearance_ActionBar_ListsHeader);
+	    lists.setTextAppearance(this, textStyle);
+	    listsNav.setBackgroundColor(selected ? oldTextColor : android.R.color.transparent);
 	}
 
     /* (non-Javadoc)

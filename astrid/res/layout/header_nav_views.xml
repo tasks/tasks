@@ -17,8 +17,7 @@
         android:layout_height="wrap_content"
         android:gravity="center_vertical"
         android:text="@string/BFE_Active"
-        style="@style/TextAppearance.GEN_EditLabel"
-        android:textSize="20dip"/>
+        style="@style/TextAppearance.ActionBar_ListsHeader"/>
     
     <ImageView
         android:id="@+id/list_disclosure_arrow"
