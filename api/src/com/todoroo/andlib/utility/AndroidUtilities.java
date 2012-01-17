@@ -526,16 +526,55 @@ public class AndroidUtilities {
      * @param args arguments
      * @return method return value, or null if nothing was called or exception
      */
-    @SuppressWarnings("nls")
     public static Object callApiMethod(int minSdk, Object receiver,
             String methodName, Class<?>[] params, Object... args) {
         if(getSdkVersion() < minSdk)
             return null;
 
-        Method method;
+        return AndroidUtilities.callMethod(receiver.getClass(),
+                receiver, methodName, params, args);
+    }
+
+    /**
+     * Call a static method via reflection if API level is at least minSdk
+     * @param minSdk minimum sdk number (i.e. 8)
+     * @param className fully qualified class to call method on
+     * @param methodName method name to call
+     * @param params method parameter types
+     * @param args arguments
+     * @return method return value, or null if nothing was called or exception
+     */
+    @SuppressWarnings("nls")
+    public static Object callApiStaticMethod(int minSdk, String className,
+            String methodName, Class<?>[] params, Object... args) {
+        if(getSdkVersion() < minSdk)
+            return null;
+
         try {
-            method = receiver.getClass().getMethod(methodName, params);
-            return method.invoke(receiver, args);
+            return AndroidUtilities.callMethod(Class.forName(className),
+                    null, methodName, params, args);
+        } catch (ClassNotFoundException e) {
+            getExceptionService().reportError("call-method", e);
+            return null;
+        }
+    }
+
+    /**
+     * Call a method via reflection
+     * @param class class to call method on
+     * @param receiver object to call method on (can be null)
+     * @param methodName method name to call
+     * @param params method parameter types
+     * @param args arguments
+     * @return method return value, or null if nothing was called or exception
+     */
+    @SuppressWarnings("nls")
+    public static Object callMethod(Class<?> cls, Object receiver,
+            String methodName, Class<?>[] params, Object... args) {
+        try {
+            Method method = cls.getMethod(methodName, params);
+            Object result = method.invoke(receiver, args);
+            return result;
         } catch (SecurityException e) {
             getExceptionService().reportError("call-method", e);
         } catch (NoSuchMethodException e) {

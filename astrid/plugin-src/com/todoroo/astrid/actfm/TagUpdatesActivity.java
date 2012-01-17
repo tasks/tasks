@@ -1,7 +1,6 @@
 package com.todoroo.astrid.actfm;
 
 import android.app.ListActivity;
-import android.app.ProgressDialog;
 import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
@@ -28,7 +27,6 @@ import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.andlib.utility.DateUtilities;
-import com.todoroo.andlib.utility.DialogUtilities;
 import com.todoroo.astrid.actfm.ActFmCameraModule.CameraResultCallback;
 import com.todoroo.astrid.actfm.ActFmCameraModule.ClearImageCallback;
 import com.todoroo.astrid.actfm.sync.ActFmPreferenceService;
@@ -38,6 +36,7 @@ import com.todoroo.astrid.dao.UpdateDao;
 import com.todoroo.astrid.data.TagData;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.data.Update;
+import com.todoroo.astrid.helper.ProgressBarSyncResultCallback;
 import com.todoroo.astrid.service.StatisticsConstants;
 import com.todoroo.astrid.service.StatisticsService;
 import com.todoroo.astrid.service.TagDataService;
@@ -141,7 +140,7 @@ public class TagUpdatesActivity extends ListActivity {
         });
 
         refreshUpdatesList();
-        refreshActivity(null); // start a pull in the background
+        refreshActivity(false); // start a pull in the background
     }
 
     private void refreshUpdatesList() {
@@ -191,8 +190,7 @@ public class TagUpdatesActivity extends ListActivity {
 
         case MENU_REFRESH_ID: {
 
-            final ProgressDialog progressDialog = DialogUtilities.progressDialog(this, getString(R.string.DLG_please_wait));
-            refreshActivity(progressDialog);
+            refreshActivity(true);
             return true;
         }
 
@@ -200,20 +198,25 @@ public class TagUpdatesActivity extends ListActivity {
         }
     }
 
-    private void refreshActivity(final ProgressDialog progressDialog) {
-        actFmSyncService.fetchUpdatesForTag(tagData, true, new Runnable() {
-            @Override
+    private void refreshActivity(boolean manual) {
+        final ProgressBarSyncResultCallback callback = new ProgressBarSyncResultCallback(
+                this, R.id.progressBar, new Runnable() {
+           @Override
             public void run() {
-                runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        refreshUpdatesList();
-                        if (progressDialog != null)
-                            DialogUtilities.dismissDialog(TagUpdatesActivity.this, progressDialog);
-                    }
-                });
+               refreshUpdatesList();
             }
         });
+
+        callback.started();
+        callback.incrementMax(100);
+        actFmSyncService.fetchUpdatesForTag(tagData, manual, new Runnable() {
+            @Override
+            public void run() {
+                callback.incrementProgress(50);
+                callback.finished();
+            }
+        });
+        callback.incrementProgress(50);
     }
 
     @SuppressWarnings("nls")

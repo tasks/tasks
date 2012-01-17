@@ -5,6 +5,15 @@
     android:layout_height="fill_parent"
     android:orientation="vertical"
     android:background="@drawable/background_gradient">
+    
+    <ProgressBar
+        android:id="@+id/progressBar"
+        android:layout_width="fill_parent" 
+        android:layout_height="5dip"
+        style="@android:style/Widget.ProgressBar.Horizontal"
+        android:visibility="gone"
+        android:layout_weight="1" />
+    
               
     <FrameLayout 
         android:layout_width="fill_parent"

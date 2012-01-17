@@ -1,8 +1,6 @@
 package com.todoroo.astrid.service;
 
 import java.util.ArrayList;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 import org.weloveastrid.rmilk.data.MilkTaskFields;
 
@@ -12,6 +10,7 @@ import com.todoroo.andlib.data.Property;
 import com.todoroo.andlib.data.TodorooCursor;
 import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.DependencyInjectionService;
+import com.todoroo.andlib.service.ExceptionService;
 import com.todoroo.andlib.sql.Criterion;
 import com.todoroo.andlib.sql.Functions;
 import com.todoroo.andlib.sql.Query;
@@ -27,9 +26,10 @@ import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.gcal.GCalHelper;
 import com.todoroo.astrid.gtasks.GtasksMetadata;
 import com.todoroo.astrid.opencrx.OpencrxCoreUtils;
-import com.todoroo.astrid.producteev.ProducteevUtilities;
 import com.todoroo.astrid.producteev.sync.ProducteevTask;
 import com.todoroo.astrid.tags.TagService;
+import com.todoroo.astrid.utility.TitleParser;
+
 
 /**
  * Service layer for {@link Task}-centered activities.
@@ -44,6 +44,9 @@ public class TaskService {
 
     @Autowired
     private MetadataDao metadataDao;
+
+    @Autowired
+    private ExceptionService exceptionService;
 
     public TaskService() {
         DependencyInjectionService.getInstance().inject(this);
@@ -335,7 +338,11 @@ public class TaskService {
      */
     public void quickAdd(Task task) {
         ArrayList<String> tags = new ArrayList<String>();
-        parseQuickAddMarkup(task, tags);
+        try {
+            parseQuickAddMarkup(task, tags);
+        } catch (Throwable e) {
+            exceptionService.reportError("parse-quick-add", e); //$NON-NLS-1$
+        }
         save(task);
 
         Metadata metadata = new Metadata();
@@ -347,40 +354,10 @@ public class TaskService {
         }
     }
 
-    @SuppressWarnings("nls")
     public static void parseQuickAddMarkup(Task task, ArrayList<String> tags) {
-        String title = task.getValue(Task.TITLE);
-
-        Pattern tagPattern = Pattern.compile("(\\s|^)#([^\\s]+)");
-        Pattern contextPattern = Pattern.compile("(\\s|^)(@[^\\s]+)");
-        Pattern importancePattern = Pattern.compile("(\\s|^)!(\\d)(\\s|$)");
-        while(true) {
-            Matcher m = tagPattern.matcher(title);
-            if(m.find()) {
-                tags.add(m.group(2));
-            } else {
-                m = contextPattern.matcher(title);
-                if(m.find()) {
-                    tags.add(m.group(2));
-                } else {
-                    m = importancePattern.matcher(title);
-                    if(m.find()) {
-                        int value = Integer.parseInt(m.group(2));
-                        // not in producteev world: !1 to !4 => importance 3 to 0
-                        int importance = Math.max(Task.IMPORTANCE_MOST, Task.IMPORTANCE_LEAST + 1 - value);
-                        // in the producteev world, !1 to !4 => importance 4 to 1
-                        if(ProducteevUtilities.INSTANCE.isLoggedIn() || OpencrxCoreUtils.INSTANCE.isLoggedIn())
-                            importance++;
-
-                        task.setValue(Task.IMPORTANCE, importance);
-                    } else
-                        break;
-                }
-            }
-
-            title = title.substring(0, m.start()) + title.substring(m.end());
-        }
-        task.setValue(Task.TITLE, title.trim());
+        new TitleParser(task, tags).parse();
     }
+
+
 
 }

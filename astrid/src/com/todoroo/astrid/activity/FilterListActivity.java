@@ -267,10 +267,6 @@ public class FilterListActivity extends ExpandableListFragment {
         if (((AstridWrapperActivity) getActivity()).isMultipleFragments())
             item.setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
 
-//        item = menu.add(Menu.NONE, MENU_REFRESH_ID, Menu.NONE,
-//                R.string.TLA_menu_sync);
-//        item.setIcon(R.drawable.ic_menu_refresh);
-//        item.setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
 
 //        item = menu.add(Menu.NONE, MENU_HELP_ID, 1,
 //                R.string.FLA_menu_help);

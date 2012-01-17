@@ -8,6 +8,9 @@
 
   <target name="clean">
     <delete dir="release" />
+    <subant target="clean">
+      <fileset file="astrid/build.xml" />
+    </subant>
   </target>
 
   <target name="get-version">

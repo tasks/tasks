@@ -8,23 +8,6 @@
 
 package com.localytics.android;
 
-import android.Manifest.permission;
-import android.content.ContentValues;
-import android.content.Context;
-import android.database.Cursor;
-import android.database.CursorJoiner;
-import android.os.Build;
-import android.os.Build.VERSION;
-import android.os.Handler;
-import android.os.HandlerThread;
-import android.os.Looper;
-import android.os.Message;
-import android.os.SystemClock;
-import android.telephony.TelephonyManager;
-import android.text.TextUtils;
-import android.text.format.DateUtils;
-import android.util.Log;
-
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
@@ -50,6 +33,23 @@ import org.apache.http.impl.client.DefaultHttpClient;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import android.Manifest.permission;
+import android.content.ContentValues;
+import android.content.Context;
+import android.database.Cursor;
+import android.database.CursorJoiner;
+import android.os.Build;
+import android.os.Build.VERSION;
+import android.os.Handler;
+import android.os.HandlerThread;
+import android.os.Looper;
+import android.os.Message;
+import android.os.SystemClock;
+import android.telephony.TelephonyManager;
+import android.text.TextUtils;
+import android.text.format.DateUtils;
+import android.util.Log;
 
 import com.localytics.android.JsonObjects.BlobHeader;
 import com.localytics.android.LocalyticsProvider.ApiKeysDbColumns;

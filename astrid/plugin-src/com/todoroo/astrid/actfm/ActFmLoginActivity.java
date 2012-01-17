@@ -136,7 +136,8 @@ public class ActFmLoginActivity extends FragmentActivity implements AuthListener
         ContextManager.setContext(this);
 
         setContentView(getContentViewResource());
-        setTitle(getTitleResource());
+        if(getTitleResource() != 0)
+            setTitle(getTitleResource());
 
         if (getSupportActionBar() != null)
             getSupportActionBar().hide();
@@ -145,15 +146,6 @@ public class ActFmLoginActivity extends FragmentActivity implements AuthListener
 
         noSync = getIntent().getBooleanExtra(EXTRA_DO_NOT_SYNC, false);
         showToast = getIntent().getBooleanExtra(SHOW_TOAST, true);
-
-
-        facebook = new Facebook(APP_ID);
-        facebookRunner = new AsyncFacebookRunner(facebook);
-
-        errors = (TextView) findViewById(R.id.error);
-        LoginButton loginButton = (LoginButton) findViewById(R.id.fb_login);
-        loginButton.init(this, facebook, this, new String[] { "email",
-                "offline_access", "publish_stream" });
 
         initializeUI();
 
@@ -198,6 +190,14 @@ public class ActFmLoginActivity extends FragmentActivity implements AuthListener
     }
 
     protected void initializeUI() {
+        facebook = new Facebook(APP_ID);
+        facebookRunner = new AsyncFacebookRunner(facebook);
+
+        errors = (TextView) findViewById(R.id.error);
+        LoginButton loginButton = (LoginButton) findViewById(R.id.fb_login);
+        loginButton.init(this, facebook, this, new String[] { "email",
+                "offline_access", "publish_stream" });
+
         findViewById(R.id.gg_login).setOnClickListener(googleListener);
         Button pwLogin = (Button) findViewById(R.id.pw_login);
         pwLogin.setOnClickListener(signUpListener);

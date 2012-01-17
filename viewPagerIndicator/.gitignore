@@ -1,0 +1,12 @@
+#Android generated
+bin
+gen
+
+#IntelliJ IDEA
+.idea
+*.iml
+
+#Maven
+target
+release.properties
+pom.xml.*

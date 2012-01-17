@@ -142,7 +142,7 @@
                      replace="\1 true;" />
     </target>
 
-    <target name="obfuscate">
+    <target name="obfuscate" depends="-setup">
       <property name="proguard.enabled" value="true" />
       <antcall target="-obfuscate" />      
     </target>

@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical" 
+    android:background="@drawable/welcome_walkthrough_fabric">
+
+    <TextView
+        android:id="@+id/welcome_walkthrough_title"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="27dp"
+        android:gravity="center_horizontal"
+        android:text="Hello"
+        android:textColor="#444444"
+        android:textSize="40dip"
+        android:textStyle="bold"
+        android:shadowRadius="2"
+        android:shadowDy="1"
+        android:shadowColor="@android:color/white" />
+    <ImageView
+        android:id="@+id/welcome_walkthrough_image"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_weight="1"
+        android:src="@drawable/welcome_walkthrough_1" 
+        android:scaleType="fitCenter"/>
+
+    <TextView
+        android:id="@+id/welcome_walkthrough_body"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="75dp"
+        android:gravity="center_horizontal"
+        android:text="Hello"
+        android:textColor="#444444"
+        android:textSize="20dip"
+        android:textStyle="bold"
+        android:shadowRadius="2"
+        android:shadowDy="1"
+        android:shadowColor="@android:color/white" />
+
+
+</LinearLayout>

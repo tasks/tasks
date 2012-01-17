@@ -1,8 +1,8 @@
 package com.localytics.android;
 
-import android.Manifest.permission;
-
 import org.json.JSONArray;
+
+import android.Manifest.permission;
 
 /**
  * Set of constants for building JSON objects that get sent to the Localytics web service.

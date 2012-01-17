@@ -59,7 +59,7 @@ public class WelcomeLogin extends ActFmLoginActivity implements AuthListener {
         setupLoginLater();
     }
 
-    private SpannableString getLinkStringWithCustomInterval(String base, String linkComponent,
+    protected SpannableString getLinkStringWithCustomInterval(String base, String linkComponent,
                                                             int start, int endOffset, final OnClickListener listener) {
         SpannableString link = new SpannableString (String.format("%s %s", //$NON-NLS-1$
                 base, linkComponent));
@@ -78,7 +78,7 @@ public class WelcomeLogin extends ActFmLoginActivity implements AuthListener {
         return link;
     }
 
-    private void setupTermsOfService() {
+    protected void setupTermsOfService() {
         TextView tos = (TextView)findViewById(R.id.tos);
         tos.setOnClickListener(showTosListener);
 
@@ -88,12 +88,12 @@ public class WelcomeLogin extends ActFmLoginActivity implements AuthListener {
         tos.setText(link);
     }
 
-    private void setupPWLogin() {
+    protected void setupPWLogin() {
         Button pwLogin = (Button) findViewById(R.id.pw_login);
         pwLogin.setOnClickListener(signUpListener);
     }
 
-    private void setupLoginLater() {
+    protected void setupLoginLater() {
         TextView loginLater = (TextView)findViewById(R.id.login_later);
         loginLater.setOnClickListener(loginLaterListener);
         String loginLaterBase = getString(R.string.welcome_login_later);
@@ -115,14 +115,14 @@ public class WelcomeLogin extends ActFmLoginActivity implements AuthListener {
 
     // --- event handler
 
-    private final OnClickListener showTosListener = new OnClickListener() {
+    protected final OnClickListener showTosListener = new OnClickListener() {
         @Override
         public void onClick(View v) {
             Eula.showEulaBasic(WelcomeLogin.this);
         }
     };
 
-    private final OnClickListener loginLaterListener = new OnClickListener() {
+    protected final OnClickListener loginLaterListener = new OnClickListener() {
         @Override
         public void onClick(View arg0) {
             String title = getString(R.string.welcome_login_confirm_later_title);

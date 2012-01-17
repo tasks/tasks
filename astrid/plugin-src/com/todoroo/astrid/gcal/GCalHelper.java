@@ -7,10 +7,12 @@ import android.content.ContentValues;
 import android.database.Cursor;
 import android.net.Uri;
 import android.text.TextUtils;
+import android.text.format.Time;
 import android.util.Log;
 
 import com.timsu.astrid.R;
 import com.todoroo.andlib.service.ContextManager;
+import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.astrid.core.PluginServices;
@@ -66,8 +68,10 @@ public class GCalHelper {
             values.put("title", task.getValue(Task.TITLE));
             values.put("description", task.getValue(Task.NOTES));
             values.put("hasAlarm", 0);
-            values.put("transparency", 0);
-            values.put("visibility", 0);
+            if (AndroidUtilities.getSdkVersion() < 14) {
+                values.put("transparency", 0);
+                values.put("visibility", 0);
+            }
             boolean valuesContainCalendarId = (values.containsKey("calendar_id") &&
                     !TextUtils.isEmpty(values.getAsString("calendar_id")));
             if (!valuesContainCalendarId) {
@@ -151,6 +155,17 @@ public class GCalHelper {
             values.put("dtstart", tzCorrectedDueDateNow);
             values.put("dtend", tzCorrectedDueDateNow);
             values.put("allDay", "1");
+        }
+        adjustDateForIcs(task, values);
+    }
+
+    private static void adjustDateForIcs(Task task, ContentValues values) {
+        if (AndroidUtilities.getSdkVersion() >= 14) {
+            if ("1".equals(values.get("allDay"))) {
+                values.put("eventTimezone", Time.TIMEZONE_UTC);
+            } else {
+                values.put("eventTimezone", TimeZone.getDefault().getID());
+            }
         }
     }
 }

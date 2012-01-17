@@ -7,6 +7,14 @@
     style="@style/Content"
     android:orientation="vertical">
     
+    <ProgressBar
+        android:id="@+id/progressBar"
+        android:layout_width="fill_parent" 
+        android:layout_height="5dip"
+        style="@android:style/Widget.ProgressBar.Horizontal"
+        android:visibility="gone"
+        android:layout_weight="1" />
+        
     <!-- Body goes here -->
         
     <!-- Footer -->
