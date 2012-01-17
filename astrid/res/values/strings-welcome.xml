@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+      
+    <string name="welcome_show_eula">Accept EULA to get started!</string>
+    
+    <string name="welcome_title_1">Welcome to Astrid!</string>
+    <string name="welcome_title_2">Make lists</string>
+    <string name="welcome_title_3">Share lists</string>
+    <string name="welcome_title_4">Divvy up tasks</string>
+    <string name="welcome_title_5">Provide details</string>
+    <string name="welcome_title_6">Discover</string>
+    <string name="welcome_title_7">Login</string>
+    
+    <string name="welcome_body_1">The perfect personal\nto-do list that works great\nwith friends</string>
+    <string name="welcome_body_2">Perfect for any list:\nto read, to watch, to buy,\nto visit, to do!</string>
+    <string name="welcome_body_3">Share lists\nwith friends, housemates,\nor your sweetheart!</string>
+    <string name="welcome_body_4">Never wonder who\'s\nbringing dessert!</string>
+    <string name="welcome_body_5">Tap to add notes,\nset reminders,\nand much more!</string>
+    <string name="welcome_body_6">Additional features,\nproductivity tips, and\nsuggestions from friends</string>
+    <string name="welcome_body_7">Login</string>
+    
+</resources>

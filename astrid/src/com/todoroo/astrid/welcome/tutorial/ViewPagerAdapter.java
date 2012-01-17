@@ -26,25 +26,25 @@ public class ViewPagerAdapter extends PagerAdapter
                                               R.drawable.welcome_walkthrough_6,
                                               R.drawable.welcome_screen
                                           };
-    private static String[] title = new String[]
+    private static int[] title = new int[]
                                           {
-                                              "Welcome to Astrid!",
-                                              "Make lists",
-                                              "Share lists",
-                                              "Divvy up tasks",
-                                              "Provide details",
-                                              "Discover",
-                                              "Login"
+                                              R.string.welcome_title_1,
+                                              R.string.welcome_title_2,
+                                              R.string.welcome_title_3,
+                                              R.string.welcome_title_4,
+                                              R.string.welcome_title_5,
+                                              R.string.welcome_title_6,
+                                              R.string.welcome_title_7,
                                           };
-    private static String[] body = new String[]
+    private static int[] body = new int[]
                                           {
-        "The perfect personal\nto-do list that works great\nwith friends",
-        "Perfect for any list:\nto read, to watch, to buy,\nto visit, to do!",
-        "Share lists\nwith friends, housemates,\nor your sweetheart!",
-        "Never wonder who's\nbringing dessert!",
-        "Tap to add notes,\nset reminders,\nand much more!",
-        "Additional features,\nproductivity tips, and\nsuggestions from friends",
-        "Login"
+                                              R.string.welcome_body_1,
+                                              R.string.welcome_body_2,
+                                              R.string.welcome_body_3,
+                                              R.string.welcome_body_4,
+                                              R.string.welcome_body_5,
+                                              R.string.welcome_body_6,
+                                              R.string.welcome_body_7,
                                           };
     private static int[] layouts = new int[]
                                           {
@@ -83,8 +83,6 @@ public class ViewPagerAdapter extends PagerAdapter
         if (position != getCount()-1){
         ImageView imageView = (ImageView) pageView.findViewById(R.id.welcome_walkthrough_image);
         imageView.setImageResource(images[position]);
-        ImageView fabricImage = (ImageView) pageView.findViewById(R.id.welcome_walkthrough_fabric);
-        fabricImage.setScaleType(ImageView.ScaleType.FIT_XY);
 
         TextView titleView = (TextView) pageView.findViewById(R.id.welcome_walkthrough_title);
         titleView.setText(title[position]);
