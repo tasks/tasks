@@ -178,6 +178,7 @@ public class StartupService {
         upgradeService.performSecondaryUpgrade(context);
 
         // perform startup activities in a background thread
+        final int finalLatestVersion = latestSetVersion;
         new Thread(new Runnable() {
             public void run() {
                 // start widget updating alarm
@@ -206,7 +207,8 @@ public class StartupService {
                 gtasksSyncOnSaveService.initialize();
 
                 // get and display update messages
-                new UpdateMessageService().processUpdates(context);
+                if (finalLatestVersion != 0)
+                    new UpdateMessageService().processUpdates(context);
 
                 // Check for feature flips
                 featureFlipper.updateFeatures();

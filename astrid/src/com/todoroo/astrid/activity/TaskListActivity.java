@@ -732,6 +732,7 @@ public class TaskListActivity extends ListActivity implements OnScrollListener,
 
         super.onActivityResult(requestCode, resultCode, data);
 
+
         if (!Preferences.getBoolean(R.string.p_showed_add_task_help, false)) {
             HelpInfoPopover.showPopover(TaskListActivity.this, quickAddBox, R.string.help_popover_add_task, null);
             Preferences.setBoolean(R.string.p_showed_add_task_help, true);
