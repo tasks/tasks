@@ -20,7 +20,6 @@ import com.todoroo.astrid.ui.ListDropdownPopover;
 public class TaskListWrapperActivity extends AstridWrapperActivity {
 
     public static final String TOKEN_SELECTED_FILTER = "selectedFilter";
-    private int currSelection;
     private View listsNav;
     private TextView lists;
 
@@ -31,7 +30,6 @@ public class TaskListWrapperActivity extends AstridWrapperActivity {
         @Override
         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
             Filter item = listDropdownAdapter.getItem(position);
-            currSelection = position;
             onFilterItemClicked(item);
             popover.dismiss();
             lists.setText(item.title);
@@ -69,7 +67,6 @@ public class TaskListWrapperActivity extends AstridWrapperActivity {
 
         listsNav = actionBar.getCustomView().findViewById(R.id.lists_nav);
 		lists = (TextView) actionBar.getCustomView().findViewById(R.id.list_title);
-		currSelection = 0;
 
 		View container = findViewById(R.id.filterlist_fragment_container);
 		if (container != null) {
@@ -85,11 +82,9 @@ public class TaskListWrapperActivity extends AstridWrapperActivity {
 
 		Filter savedFilter = getIntent().getParcelableExtra(TaskListActivity.TOKEN_FILTER);
 		setupTasklistFragmentWithFilter(savedFilter);
+		if (savedFilter != null)
+		    lists.setText(savedFilter.title);
 		setupFilterlistFragment();
-
-		if (savedInstanceState != null) {
-		    currSelection = savedInstanceState.getInt(TOKEN_SELECTED_FILTER);
-		}
 
 	}
 
@@ -104,9 +99,6 @@ public class TaskListWrapperActivity extends AstridWrapperActivity {
     public void updateDropdownNav(ArrayAdapter<Filter> arrayAdapter) {
         listDropdownAdapter = arrayAdapter;
         popover.setAdapter(listDropdownAdapter, listClickListener);
-        if (currSelection < listDropdownAdapter.getCount()) {
-            lists.setText(listDropdownAdapter.getItem(currSelection).title);
-        }
     }
 
     @Override
@@ -117,12 +109,10 @@ public class TaskListWrapperActivity extends AstridWrapperActivity {
 
     @Override
     protected void onSaveInstanceState(Bundle icicle) {
-        icicle.putInt(TOKEN_SELECTED_FILTER, currSelection);
         super.onSaveInstanceState(icicle);
     }
 
     public void setSelectedItem(Filter item) {
-       currSelection = listDropdownAdapter.getPosition(item);
        lists.setText(item.title);
     }
 

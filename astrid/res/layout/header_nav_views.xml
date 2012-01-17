@@ -16,6 +16,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:gravity="center_vertical"
+        android:text="@string/BFE_Active"
         style="@style/TextAppearance.GEN_EditLabel"
         android:textSize="20dip"/>
     
