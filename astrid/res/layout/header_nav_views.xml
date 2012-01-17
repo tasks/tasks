@@ -1,16 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/lists_nav"
     android:layout_width="wrap_content"
     android:layout_height="match_parent"
-    android:orientation="horizontal">
+    android:orientation="horizontal"
+    android:layout_marginLeft="5dip"
+    android:layout_marginTop="5dip"
+    android:layout_marginBottom="5dip"
+    android:paddingRight="5dip"
+    android:paddingLeft="5dip"
+    android:gravity="center_vertical">
     
     <TextView
         android:id="@+id/list_title"
         android:layout_width="wrap_content"
-        android:layout_height="fill_parent"
+        android:layout_height="wrap_content"
         android:gravity="center_vertical"
         style="@style/TextAppearance.GEN_EditLabel"
         android:textSize="20dip"/>
+    
+    <ImageView
+        android:id="@+id/list_disclosure_arrow"
+        android:layout_width="12dip"
+        android:layout_height="12dip"
+        android:layout_marginLeft="10dip" 
+        android:layout_toRightOf="@id/list_title"
+        android:layout_alignBottom="@id/list_title"
+        android:src="@drawable/list_disclosure"
+        android:scaleType="fitCenter"/>
 
-</LinearLayout>
+</RelativeLayout>

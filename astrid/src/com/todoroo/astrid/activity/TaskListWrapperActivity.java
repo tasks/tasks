@@ -75,6 +75,7 @@ public class TaskListWrapperActivity extends AstridWrapperActivity {
 		if (container != null) {
 		    mMultipleFragments = true;
 		    actionBar.setDisplayHomeAsUpEnabled(false);
+		    actionBar.getCustomView().findViewById(R.id.list_disclosure_arrow).setVisibility(View.GONE);
 		    listsNav.setOnClickListener(null);
 		} else {
 		    mMultipleFragments = false;
