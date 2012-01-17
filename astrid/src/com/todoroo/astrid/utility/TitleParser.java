@@ -8,6 +8,7 @@ import java.util.regex.Pattern;
 
 import com.google.ical.values.Frequency;
 import com.google.ical.values.RRule;
+import com.mdimension.jchronic.AstridChronic;
 import com.mdimension.jchronic.Chronic;
 import com.todoroo.astrid.data.Task;
 
@@ -128,7 +129,7 @@ public class TitleParser {
             Pattern pattern = Pattern.compile(date);
             Matcher m = pattern.matcher(inputText);
             if (m.find()) {
-                Calendar dayCal = Chronic.parse(m.group(0)).getBeginCalendar();
+                Calendar dayCal = AstridChronic.parse(m.group(0)).getBeginCalendar();
                 cal = dayCal;
                 //then put it into task
             }
