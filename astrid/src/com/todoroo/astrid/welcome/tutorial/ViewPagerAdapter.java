@@ -13,8 +13,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.timsu.astrid.R;
+import com.viewpagerindicator.TitleProvider;
 
-public class ViewPagerAdapter extends PagerAdapter
+public class ViewPagerAdapter extends PagerAdapter implements TitleProvider
 {
     private static int[] images = new int[]
                                           {
@@ -120,4 +121,11 @@ public class ViewPagerAdapter extends PagerAdapter
 
     @Override
     public void startUpdate( View view ) {}
+
+
+    @Override
+    public String getTitle(int position) {
+        return context.getString(title[position]);
+    }
+
 }

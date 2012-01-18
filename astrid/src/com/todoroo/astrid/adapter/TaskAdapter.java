@@ -1025,7 +1025,12 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
                             R.anim.slide_left_in, R.anim.slide_left_out);
                 }
             }
-            activity.unregisterReceiver(this);
+
+            try {
+                activity.unregisterReceiver(this);
+            } catch (IllegalArgumentException e) {
+                // ignore
+            }
         }
 
     }

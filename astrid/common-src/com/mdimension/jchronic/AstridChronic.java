@@ -82,21 +82,12 @@ public class AstridChronic {
         throw new RuntimeException("Failed to scan tokens.", e);
     }
 
-    List<Class> scannerClasses = new LinkedList<Class>();
-    scannerClasses.add(Grabber.class);
-    scannerClasses.add(Pointer.class);
-    scannerClasses.add(Scalar.class);
-    scannerClasses.add(Ordinal.class);
-    scannerClasses.add(Separator.class);
-    scannerClasses.add(TimeZone.class);
-    for (Class scannerClass : scannerClasses) {
-      try {
-        tokens = (List<Token>) scannerClass.getMethod("scan", List.class, Options.class).invoke(null, tokens, options);
-      }
-      catch (Throwable e) {
-        throw new RuntimeException("Failed to scan tokens.", e);
-      }
-    }
+    tokens = Grabber.scan(tokens, options);
+    tokens = Pointer.scan(tokens, options);
+    tokens = Scalar.scan(tokens, options);
+    tokens = Ordinal.scan(tokens, options);
+    tokens = Separator.scan(tokens, options);
+    tokens = TimeZone.scan(tokens, options);
 
     List<Token> taggedTokens = new LinkedList<Token>();
     for (Token token : tokens) {

@@ -21,7 +21,8 @@ public class EditTitleControlSet extends EditTextControlSet implements Importanc
 
     @Override
     public void importanceChanged(int i, int color) {
-        importance.setImageResource(IMPORTANCE_DRAWABLES[i]);
+        if(importance != null)
+            importance.setImageResource(IMPORTANCE_DRAWABLES[i]);
     }
 
 }
