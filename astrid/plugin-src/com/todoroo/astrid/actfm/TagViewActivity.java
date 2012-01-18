@@ -6,6 +6,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import android.app.Activity;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -15,8 +16,6 @@ import android.support.v4.view.Menu;
 import android.support.v4.view.MenuItem;
 import android.text.TextUtils;
 import android.util.DisplayMetrics;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -251,7 +250,7 @@ public class TagViewActivity extends TaskListActivity {
     private void refreshData(final boolean manual) {
         ((TextView)taskListView.findViewById(android.R.id.empty)).setText(R.string.DLG_loading);
 
-        syncService.synchronizeList(tagData, manual, new ProgressBarSyncResultCallback(this,
+        syncService.synchronizeList(tagData, manual, new ProgressBarSyncResultCallback(getActivity(),
                 R.id.progressBar, new Runnable() {
             @Override
             public void run() {

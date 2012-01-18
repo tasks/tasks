@@ -641,7 +641,7 @@ public class TaskListActivity extends ListFragment implements OnScrollListener,
 
         if (!Preferences.getBoolean(WelcomeLogin.KEY_SHOWED_WELCOME_LOGIN, false)) {
             Preferences.setBoolean(WelcomeLogin.KEY_SHOWED_WELCOME_LOGIN, true);
-            Intent showWelcomeLogin = new Intent(this, WelcomeWalkthrough.class);
+            Intent showWelcomeLogin = new Intent(getActivity(), WelcomeWalkthrough.class);
             showWelcomeLogin.putExtra(ActFmLoginActivity.SHOW_TOAST, false);
             startActivity(showWelcomeLogin);
             return;
@@ -1178,7 +1178,7 @@ public class TaskListActivity extends ListFragment implements OnScrollListener,
     }
 
     protected void performSyncServiceV2Sync(boolean manual) {
-        syncService.synchronizeActiveTasks(manual, new ProgressBarSyncResultCallback(this,
+        syncService.synchronizeActiveTasks(manual, new ProgressBarSyncResultCallback(getActivity(),
                 R.id.progressBar, new Runnable() {
             @Override
             public void run() {
@@ -1241,7 +1241,7 @@ public class TaskListActivity extends ListFragment implements OnScrollListener,
                         //
                     }
                 }
-                Toast.makeText(TaskListActivity.this, R.string.SyP_progress_toast,
+                Toast.makeText(getActivity(), R.string.SyP_progress_toast,
                         Toast.LENGTH_LONG).show();
             }
         }
