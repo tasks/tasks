@@ -54,7 +54,12 @@
 <!-- extension targets. Uncomment the ones where you want to do custom work
      in between standard targets -->
 
-    <target name="-pre-build" depends="clean, get-version, copy-sources, updatekeys, updatekeys-release, disable-market">
+    <target name="-set-mode-check" depends="clean">                                                                                                   
+        <fail if="build.is.mode.set"                                                                                                  
+              message="Cannot run two different modes at the same time. If you are running more than one debug/release/instrument type targets, call them from different Ant calls." />                                                                                  
+    </target>  
+
+    <target name="-pre-build" depends="get-version, copy-sources, updatekeys, updatekeys-release, disable-market">
       <mkdir dir="gen" />
     </target>
 
