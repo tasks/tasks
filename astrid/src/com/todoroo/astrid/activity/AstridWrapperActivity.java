@@ -167,8 +167,19 @@ public class AstridWrapperActivity extends FragmentActivity
     }
 
     @Override
-    public void onTaskListItemClicked(int category, int position) {
-
+    public void onTaskListItemClicked(long taskId) {
+        Intent intent = new Intent(this, TaskEditWrapperActivity.class);
+        intent.putExtra(TaskEditActivity.TOKEN_ID, taskId);
+        if (intent.hasExtra(TaskListActivity.TOKEN_FILTER))
+            intent.putExtra(TaskListActivity.TOKEN_FILTER, intent.getParcelableExtra(TaskListActivity.TOKEN_FILTER));
+        if (this instanceof TaskEditWrapperActivity) {
+            TaskEditActivity editActivity = getTaskEditFragment();
+            editActivity.save(true);
+            editActivity.repopulateFromScratch(intent);
+        } else {
+            startActivityForResult(intent, TaskListActivity.ACTIVITY_EDIT_TASK);
+            AndroidUtilities.callOverridePendingTransition(this, R.anim.slide_left_in, R.anim.slide_left_out);
+        }
     }
 
     @Override

@@ -225,7 +225,7 @@ public class TaskListActivity extends ListFragment implements OnScrollListener,
      * that it does during the onAttach() callback
      */
     public interface OnTaskListItemClickedListener {
-        public void onTaskListItemClicked(int category, int position);
+        public void onTaskListItemClicked(long taskId);
     }
 
     @Override
@@ -369,10 +369,6 @@ public class TaskListActivity extends ListFragment implements OnScrollListener,
             getActivity().setTitle("[D] " + filter.title); //$NON-NLS-1$
 
         contextMenuExtensionLoader.loadInNewThread(getActivity());
-    }
-
-    public Filter getFilter() {
-        return filter;
     }
 
     protected void addSyncRefreshMenuItem(Menu menu) {
@@ -1328,11 +1324,7 @@ public class TaskListActivity extends ListFragment implements OnScrollListener,
 
         case CONTEXT_MENU_EDIT_TASK_ID: {
             itemId = item.getGroupId();
-            intent = new Intent(getActivity(), TaskEditWrapperActivity.class);
-            intent.putExtra(TaskEditActivity.TOKEN_ID, itemId);
-            intent.putExtra(TOKEN_FILTER, filter);
-            startActivityForResult(intent, ACTIVITY_EDIT_TASK);
-            transitionForTaskEdit();
+            mListener.onTaskListItemClicked(itemId);
             return true;
         }
 
@@ -1400,6 +1392,10 @@ public class TaskListActivity extends ListFragment implements OnScrollListener,
         }
 
         }
+    }
+
+    public void onTaskListItemClicked(long taskId) {
+        mListener.onTaskListItemClicked(taskId);
     }
 
     @SuppressWarnings("nls")

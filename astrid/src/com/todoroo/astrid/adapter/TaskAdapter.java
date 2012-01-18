@@ -17,9 +17,7 @@ import java.util.concurrent.atomic.AtomicReference;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import android.app.Activity;
 import android.content.BroadcastReceiver;
-import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
@@ -71,8 +69,6 @@ import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.andlib.utility.Pair;
 import com.todoroo.andlib.utility.Preferences;
-import com.todoroo.astrid.activity.TaskEditActivity;
-import com.todoroo.astrid.activity.TaskEditWrapperActivity;
 import com.todoroo.astrid.activity.TaskListActivity;
 import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.api.TaskAction;
@@ -1019,19 +1015,7 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
     }
 
     private void editTask(long taskId) {
-        Activity activity = fragment.getActivity();
-        Intent intent = (Intent) activity.getIntent().clone();
-        intent.setComponent(new ComponentName(activity, TaskEditWrapperActivity.class));
-        intent.putExtra(TaskEditActivity.TOKEN_ID, taskId);
-        intent.putExtra(TaskListActivity.TOKEN_FILTER, fragment.getFilter());
-        if (activity instanceof TaskEditWrapperActivity) {
-            TaskEditActivity editActivity = ((TaskEditWrapperActivity) activity).getTaskEditFragment();
-            editActivity.save(true);
-            editActivity.repopulateFromScratch(intent);
-        } else {
-            fragment.startActivityForResult(intent, TaskListActivity.ACTIVITY_EDIT_TASK);
-            AndroidUtilities.callOverridePendingTransition(fragment.getActivity(), R.anim.slide_left_in, R.anim.slide_left_out);
-        }
+        fragment.onTaskListItemClicked(taskId);
     }
 
     /**
