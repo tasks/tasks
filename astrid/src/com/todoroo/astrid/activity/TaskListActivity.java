@@ -686,11 +686,20 @@ public class TaskListActivity extends ListFragment implements OnScrollListener,
             getActivity().runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
-                    taskAdapter.flushCaches();
-                    loadTaskListContent(true);
+                    refresh();
                 }
             });
         }
+    }
+
+
+    /**
+     * Called by the RefreshReceiver when the task list receives a refresh
+     * broadcast. Subclasses should override this.
+     */
+    protected void refresh() {
+        taskAdapter.flushCaches();
+        loadTaskListContent(true);
     }
 
     /**
@@ -1178,7 +1187,7 @@ public class TaskListActivity extends ListFragment implements OnScrollListener,
                 R.id.progressBar, new Runnable() {
             @Override
             public void run() {
-                loadTaskListContent(true);
+                ContextManager.getContext().sendBroadcast(new Intent(AstridApiConstants.BROADCAST_EVENT_REFRESH));
             }
         }));
         Preferences.setLong(PREF_LAST_AUTO_SYNC, DateUtilities.now());
