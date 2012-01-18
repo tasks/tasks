@@ -47,7 +47,7 @@
 	      android:paddingRight="20dip"
 	      android:paddingBottom="5dip"
 	      android:textSize="16sp"
-	      android:textColor="#ffffff" />
+	      android:textColor="#444444" />
 	  
 	    <Button
 	      android:id="@+id/pw_login"
@@ -96,6 +96,6 @@
 	      android:paddingLeft="20dip"
 	      android:paddingRight="20dip"
 	      android:textSize="12.5sp"
-	      android:textColor="#ffffff" />   
+	      android:textColor="#444444" />   
   </RelativeLayout>
 </LinearLayout>

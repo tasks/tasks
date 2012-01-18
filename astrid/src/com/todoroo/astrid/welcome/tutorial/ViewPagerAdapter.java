@@ -24,7 +24,7 @@ public class ViewPagerAdapter extends PagerAdapter
                                               R.drawable.welcome_walkthrough_4,
                                               R.drawable.welcome_walkthrough_5,
                                               R.drawable.welcome_walkthrough_6,
-                                              R.drawable.welcome_screen
+                                              0
                                           };
     private static int[] title = new int[]
                                           {
