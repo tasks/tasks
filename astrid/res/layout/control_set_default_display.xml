@@ -3,37 +3,36 @@
   xmlns:android="http://schemas.android.com/apk/res/android"
   android:orientation="vertical"
   android:layout_width="fill_parent"
-  android:layout_height="fill_parent">
-  	 <!-- Assigned to -->
+  android:layout_height="wrap_content">
       <LinearLayout
+        android:id="@+id/display_row_body"
         android:orientation="horizontal"
         android:layout_width="fill_parent"
         android:layout_height="50dip"
+        android:paddingLeft="10dip"
+        android:paddingRight="10dip"
         android:gravity="center_vertical">
         
-         <ImageView 
-             style="@style/EditRowImage"
-             android:src="@drawable/icn_edit_who"/> 
 	     <TextView
+	         android:id="@+id/display_row_title"
 		     android:layout_width="wrap_content"
 		     android:layout_height="wrap_content"
 		     android:layout_marginRight="15dip"
-		     style="@style/TextAppearance.GEN_EditLabel"
-		     android:text="@string/actfm_EPA_assign_label" />
+		     style="@style/TextAppearance.GEN_EditLabel" />
 	     <TextView
-	         android:id="@+id/assigned_display"
+	         android:id="@+id/display_row_edit"
 		     android:layout_width="fill_parent"
-		     android:layout_height="fill_parent"
+	         android:layout_height="wrap_content"
 		     android:layout_weight="1"
-		     android:gravity="center_vertical|right"
+	         android:gravity="right"
+	         android:paddingLeft="10dip"
 		     style="@style/TextAppearance.EditRowDisplay" />
-	     <include layout="@layout/task_edit_arrow"/>
       </LinearLayout>
-        
-      <View
+               <View
+	      android:id="@+id/TEA_Separator"
 	      android:layout_width="fill_parent"
 	      android:layout_height="1px"
-	      android:padding="5dip"
 	      style="@style/TEA_Separator" />
+
     
 </LinearLayout>

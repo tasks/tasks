@@ -8,6 +8,5 @@
         android:id="@android:id/text1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:gravity="center"
-        style="?attr/vpiTabTextStyle" />
+        android:gravity="center" />
 </view>

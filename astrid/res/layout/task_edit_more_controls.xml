@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.todoroo.astrid.ui.TaskEditMoreControls xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/more_controls"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical" >
+
+</com.todoroo.astrid.ui.TaskEditMoreControls>

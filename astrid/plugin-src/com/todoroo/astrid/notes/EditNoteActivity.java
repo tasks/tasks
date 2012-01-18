@@ -5,28 +5,28 @@ import greendroid.widget.AsyncImageView;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.LinkedList;
 import java.util.List;
 
 import org.json.JSONObject;
 
-import android.app.ListActivity;
+import android.app.Activity;
 import android.content.Context;
 import android.graphics.Color;
-import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.text.format.DateUtils;
 import android.text.util.Linkify;
+import android.view.Gravity;
 import android.view.KeyEvent;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
-import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.TextView.OnEditorActionListener;
 
@@ -52,10 +52,11 @@ import com.todoroo.astrid.service.StatisticsService;
 import com.todoroo.astrid.service.SyncV2Service.SyncResultCallback;
 import com.todoroo.astrid.utility.Flags;
 
-public class EditNoteActivity extends ListActivity {
+public class EditNoteActivity extends LinearLayout {
+
+
 
     public static final String EXTRA_TASK_ID = "task"; //$NON-NLS-1$
-    private static final int MENU_REFRESH_ID = Menu.FIRST;
     private static final String LAST_FETCH_KEY = "task-fetch-"; //$NON-NLS-1$
 
     private Task task;
@@ -66,34 +67,40 @@ public class EditNoteActivity extends ListActivity {
     @Autowired UpdateDao updateDao;
 
     private final ArrayList<NoteOrUpdate> items = new ArrayList<NoteOrUpdate>();
-    private NoteAdapter adapter;
     private EditText commentField;
     private TextView loadingText;
+    private final View commentsBar;
+    private final View parentView;
+    private int commentItems = 10;
+    private final List<UpdatesChangedListener> listeners = new LinkedList<UpdatesChangedListener>();
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public interface UpdatesChangedListener {
+        public void updatesChanged();
+    }
+
+    public EditNoteActivity(Context context, View parent, long t) {
+        super(context);
+
         DependencyInjectionService.getInstance().inject(this);
-        super.onCreate(savedInstanceState);
-        setTheme(R.style.Theme_Dialog);
-        setContentView(R.layout.edit_note_activity);
+        setOrientation(VERTICAL);
 
-        findViewById(R.id.dismiss_comments).setOnClickListener(dismissCommentsListener);
+        commentsBar = parent.findViewById(R.id.updatesFooter);
+        parentView = parent;
 
-        long taskId = getIntent().getLongExtra(EXTRA_TASK_ID, -1);
-        task = PluginServices.getTaskService().fetchById(taskId, Task.NOTES, Task.ID, Task.REMOTE_ID, Task.TITLE);
+
+        loadViewForTaskID(t);
+    }
+
+    public void loadViewForTaskID(long t){
+
+        task = PluginServices.getTaskService().fetchById(t, Task.NOTES, Task.ID, Task.REMOTE_ID, Task.TITLE);
         if(task == null) {
-            finish();
             return;
         }
-
-        setTitle(task.getValue(Task.TITLE));
-
         setUpInterface();
         setUpListAdapter();
 
         if(actFmPreferenceService.isLoggedIn()) {
-            findViewById(R.id.add_comment).setVisibility(View.VISIBLE);
-
             if(task.getValue(Task.REMOTE_ID) == 0)
                 refreshData(true, null);
             else {
@@ -111,11 +118,13 @@ public class EditNoteActivity extends ListActivity {
         }
     }
 
+
+
     // --- UI preparation
 
     private void setUpInterface() {
-        final View commentButton = findViewById(R.id.commentButton);
-        commentField = (EditText) findViewById(R.id.commentField);
+        final View commentButton = commentsBar.findViewById(R.id.commentButton);
+        commentField = (EditText) commentsBar.findViewById(R.id.commentField);
         commentField.setOnEditorActionListener(new OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView view, int actionId, KeyEvent event) {
@@ -148,19 +157,21 @@ public class EditNoteActivity extends ListActivity {
         });
 
         if(!TextUtils.isEmpty(task.getValue(Task.NOTES))) {
-            TextView notes = new TextView(this);
+            TextView notes = new TextView(getContext());
             notes.setLinkTextColor(Color.rgb(100, 160, 255));
             notes.setTextSize(18);
-            getListView().addHeaderView(notes);
             notes.setText(task.getValue(Task.NOTES));
             notes.setPadding(5, 10, 5, 10);
             Linkify.addLinks(notes, Linkify.ALL);
         }
-        loadingText = (TextView) findViewById(R.id.loading);
+        //TODO add loading text back in
+        //        loadingText = (TextView) findViewById(R.id.loading);
+        loadingText = new TextView(getContext());
     }
 
     private void setUpListAdapter() {
         items.clear();
+        this.removeAllViews();
         TodorooCursor<Metadata> notes = metadataService.query(
                 Query.select(Metadata.PROPERTIES).where(
                         MetadataCriteria.byTaskAndwithKey(task.getId(),
@@ -177,7 +188,7 @@ public class EditNoteActivity extends ListActivity {
 
         if(task.getValue(Task.REMOTE_ID) > 0) {
             TodorooCursor<Update> updates = updateDao.query(Query.select(Update.PROPERTIES).where(
-                            Update.TASK.eq(task.getValue(Task.REMOTE_ID))));
+                    Update.TASK.eq(task.getValue(Task.REMOTE_ID))));
             try {
                 Update update = new Update();
                 for(updates.moveToFirst(); !updates.isAfterLast(); updates.moveToNext()) {
@@ -192,7 +203,7 @@ public class EditNoteActivity extends ListActivity {
         Collections.sort(items, new Comparator<NoteOrUpdate>() {
             @Override
             public int compare(NoteOrUpdate a, NoteOrUpdate b) {
-                if(a.createdAt > b.createdAt)
+                if(a.createdAt < b.createdAt)
                     return 1;
                 else if (a.createdAt == b.createdAt)
                     return 0;
@@ -200,12 +211,84 @@ public class EditNoteActivity extends ListActivity {
                     return -1;
             }
         });
-        adapter = new NoteAdapter(this, R.id.name, items);
-        setListAdapter(adapter);
 
-        getListView().setSelection(items.size() - 1);
+        for (int i = 0; i < Math.min(items.size(), commentItems); i++) {
+            View notesView = this.getUpdateNotes(items.get(i), this);
+            this.addView(notesView);
+        }
+
+
+        if ( items.size() > commentItems) {
+            Button loadMore = new Button(getContext());
+            loadMore.setText(R.string.TEA_load_more);
+            loadMore.setBackgroundColor(Color.alpha(0));
+            loadMore.setOnClickListener(new View.OnClickListener() {
+                public void onClick(View v) {
+                    // Perform action on click
+                    commentItems += 10;
+                    setUpListAdapter();
+                }
+            });
+            this.addView(loadMore);
+        }
+        else if (items.size() == 0) {
+            TextView noUpdates = new TextView(getContext());
+            noUpdates.setText(R.string.TEA_no_activity);
+            noUpdates.setLayoutParams(new LayoutParams(LayoutParams.FILL_PARENT,
+                    LayoutParams.WRAP_CONTENT));
+            noUpdates.setPadding(10, 10, 10, 10);
+            noUpdates.setGravity(Gravity.CENTER);
+            noUpdates.setTextSize(20);
+            this.addView(noUpdates);
+        }
+
+
+        for (UpdatesChangedListener l : listeners) {
+            l.updatesChanged();
+        }
     }
 
+
+
+    public View getUpdateNotes(NoteOrUpdate note, ViewGroup parent) {
+        View convertView = ((Activity)getContext()).getLayoutInflater().inflate(R.layout.update_adapter_row, parent, false);
+
+        bindView(convertView, note);
+        return convertView;
+    }
+
+    /** Helper method to set the contents and visibility of each field */
+    public synchronized void bindView(View view, NoteOrUpdate item) {
+        // picture
+        final AsyncImageView pictureView = (AsyncImageView)view.findViewById(R.id.picture); {
+            if(TextUtils.isEmpty(item.picture))
+                pictureView.setVisibility(View.GONE);
+            else {
+                pictureView.setVisibility(View.VISIBLE);
+                pictureView.setUrl(item.picture);
+            }
+        }
+
+        // name
+        final TextView nameView = (TextView)view.findViewById(R.id.title); {
+            nameView.setText(item.title);
+        }
+
+        // description
+        final TextView descriptionView = (TextView)view.findViewById(R.id.description); {
+            descriptionView.setText(item.body);
+            Linkify.addLinks(descriptionView, Linkify.ALL);
+        }
+
+        // date
+        final TextView date = (TextView)view.findViewById(R.id.date); {
+            CharSequence dateString = DateUtils.getRelativeTimeSpanString(item.createdAt,
+                    DateUtilities.now(), DateUtils.MINUTE_IN_MILLIS,
+                    DateUtils.FORMAT_ABBREV_RELATIVE);
+            date.setText(dateString);
+        }
+    }
+    /*
     @Override
     public boolean onPrepareOptionsMenu(Menu menu) {
         if(menu.size() > 0)
@@ -219,7 +302,7 @@ public class EditNoteActivity extends ListActivity {
         }
 
         return true;
-    }
+    }*/
 
     // --- events
 
@@ -229,14 +312,14 @@ public class EditNoteActivity extends ListActivity {
             callback = existingCallback;
         else {
             callback = new ProgressBarSyncResultCallback(
-                    this, R.id.progressBar, new Runnable() {
-               @Override
-                public void run() {
-                   setUpListAdapter();
-                   loadingText.setText(R.string.ENA_no_comments);
-                   loadingText.setVisibility(items.size() == 0 ? View.VISIBLE : View.GONE);
-                }
-            });
+                    ((Activity)getContext()), (ProgressBar)parentView.findViewById(R.id.progressBar), R.id.progressBar, new Runnable() {
+                        @Override
+                        public void run() {
+                            setUpListAdapter();
+                            loadingText.setText(R.string.ENA_no_comments);
+                            loadingText.setVisibility(items.size() == 0 ? View.VISIBLE : View.GONE);
+                        }
+                    });
 
             callback.started();
             callback.incrementMax(100);
@@ -280,6 +363,11 @@ public class EditNoteActivity extends ListActivity {
         StatisticsService.reportEvent(StatisticsConstants.ACTFM_TASK_COMMENT);
     }
 
+    public int numberOfComments() {
+        return items.size();
+    }
+    //TODO figure out what to do with menu
+    /*
     private final OnClickListener dismissCommentsListener = new OnClickListener() {
         @Override
         public void onClick(View v) {
@@ -299,7 +387,7 @@ public class EditNoteActivity extends ListActivity {
 
         default: return false;
         }
-    }
+    }*/
 
     // --- adapter
 
@@ -351,51 +439,12 @@ public class EditNoteActivity extends ListActivity {
         }
     }
 
-    private class NoteAdapter extends ArrayAdapter<NoteOrUpdate> {
+    public void addListener(UpdatesChangedListener listener) {
+        listeners.add(listener);
+    }
 
-        public NoteAdapter(Context context, int textViewResourceId, List<NoteOrUpdate> list) {
-            super(context, textViewResourceId, list);
-        }
-
-        @Override
-        public View getView(int position, View convertView, ViewGroup parent) {
-            if(convertView == null) {
-                convertView = getLayoutInflater().inflate(R.layout.update_adapter_row, parent, false);
-            }
-            bindView(convertView, items.get(position));
-            return convertView;
-        }
-
-        /** Helper method to set the contents and visibility of each field */
-        public synchronized void bindView(View view, NoteOrUpdate item) {
-            // picture
-            final AsyncImageView pictureView = (AsyncImageView)view.findViewById(R.id.picture); {
-                if(TextUtils.isEmpty(item.picture))
-                    pictureView.setVisibility(View.GONE);
-                else {
-                    pictureView.setVisibility(View.VISIBLE);
-                    pictureView.setUrl(item.picture);
-                }
-            }
-
-            // name
-            final TextView nameView = (TextView)view.findViewById(R.id.title); {
-                nameView.setText(item.title);
-            }
-
-            // description
-            final TextView descriptionView = (TextView)view.findViewById(R.id.description); {
-                descriptionView.setText(item.body);
-                Linkify.addLinks(descriptionView, Linkify.ALL);
-            }
-
-            // date
-            final TextView date = (TextView)view.findViewById(R.id.date); {
-                CharSequence dateString = DateUtils.getRelativeTimeSpanString(item.createdAt,
-                        DateUtilities.now(), DateUtils.MINUTE_IN_MILLIS,
-                        DateUtils.FORMAT_ABBREV_RELATIVE);
-                date.setText(dateString);
-            }
-        }
+    public void removeListener(UpdatesChangedListener listener) {
+        if (listeners.contains(listener))
+            listeners.remove(listener);
     }
 }

@@ -4,6 +4,8 @@ import java.text.DateFormatSymbols;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.LinkedList;
+import java.util.List;
 
 import android.app.Activity;
 import android.app.Dialog;
@@ -70,6 +72,13 @@ public class RepeatControlSet extends PopupControlSet {
     private final CompoundButton[] daysOfWeek = new CompoundButton[7];
     private Task model;
 
+
+    private final List<RepeatChangedListener> listeners = new LinkedList<RepeatChangedListener>();
+
+    public interface RepeatChangedListener {
+        public void RepeatChanged(boolean repeat);
+    }
+
     @Autowired
     ExceptionService exceptionService;
 
@@ -82,7 +91,6 @@ public class RepeatControlSet extends PopupControlSet {
         DependencyInjectionService.getInstance().inject(this);
 
         this.activity = activity;
-
         value = (Button) getView().findViewById(R.id.repeatValue);
         interval = (Spinner) getView().findViewById(R.id.repeatInterval);
         type = (Spinner) getView().findViewById(R.id.repeatType);
@@ -164,6 +172,16 @@ public class RepeatControlSet extends PopupControlSet {
         };
 
         openDialogRunnable.run();
+    }
+
+
+    public void addListener(RepeatChangedListener listener) {
+        listeners.add(listener);
+    }
+
+    public void removeListener(RepeatChangedListener listener) {
+        if (listeners.contains(listener))
+            listeners.remove(listener);
     }
 
 
@@ -306,7 +324,7 @@ public class RepeatControlSet extends PopupControlSet {
 
     @Override
     protected void refreshDisplayView() {
-        TextView repeatDisplay = (TextView) getDisplayView().findViewById(R.id.repeat_display);
+        TextView repeatDisplay = (TextView) getDisplayView().findViewById(R.id.display_row_edit);
         if (doRepeat) {
             repeatDisplay.setText(R.string.repeat_enabled);
         } else {
@@ -322,6 +340,10 @@ public class RepeatControlSet extends PopupControlSet {
             public void onClick(DialogInterface d, int which) {
                 doRepeat = true;
                 okListener.onClick(d, which);
+
+                for (RepeatChangedListener l : listeners) {
+                    l.RepeatChanged(doRepeat);
+                }
             }
         };
         final Dialog d = super.buildDialog(title, doRepeatButton, cancelListener);
@@ -332,9 +354,14 @@ public class RepeatControlSet extends PopupControlSet {
                 doRepeat = false;
                 refreshDisplayView();
                 DialogUtilities.dismissDialog(activity, d);
+
+                for (RepeatChangedListener l : listeners) {
+                    l.RepeatChanged(doRepeat);
+                }
             }
         };
         getView().findViewById(R.id.edit_dont_repeat).setOnClickListener(dontRepeatButton);
+
         return d;
     }
 }

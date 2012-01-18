@@ -52,7 +52,8 @@ public class BeastModePreferenceActivity extends ListActivity {
 
         ArrayList<String> defaults = new ArrayList<String>();
         String[] defaultOrder = context.getResources().getStringArray(R.array.TEA_control_sets);
-        for (String s : defaultOrder) {
+        for (int i = 1; i < defaultOrder.length; i++) {
+            String s = defaultOrder[i];
             if (s.contains(BEAST_MODE_MORE_ITEM_SPECIAL_CHAR)) {
                 String[] split = s.split(BEAST_MODE_MORE_ITEM_SPECIAL_CHAR);
                 for (String component : split) {
@@ -68,6 +69,7 @@ public class BeastModePreferenceActivity extends ListActivity {
         ArrayList<String> setOrder = new ArrayList<String>();
         String[] setOrderArray = setPref.split(BEAST_MODE_PREF_ITEM_SEPARATOR);
         for (String s : setOrderArray) {
+
             setOrder.add(s);
         }
 
@@ -118,7 +120,10 @@ public class BeastModePreferenceActivity extends ListActivity {
 
         items = new ArrayList<String>();
         for (String s : itemsArray) {
+
+            if (!s.equals(getResources().getString(R.string.TEA_control_title))){
             items.add(s);
+            }
         }
 
         adapter = new ArrayAdapter<String>(this, R.layout.preference_draggable_row, R.id.text, items) {

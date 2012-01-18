@@ -24,6 +24,8 @@
         <item name="abDisplayOptions">useLogo|showHome|showTitle</item>
         <item name="abLogo">@drawable/icon_48</item>
         <item name="asAbTextColor">@android:color/darker_gray</item>
+        <item name="vpiTabPageIndicatorStyle">@style/CustomTabPageIndicator</item>
+        <item name="vpiTabTextStyle">@style/CustomTabPageIndicator.Text</item>
     </style>
     
     <style name="Theme.Transparent" parent="@style/Theme">
@@ -152,7 +154,7 @@
     
     <!-- generic style for labels above edit boxes -->
     <style name="TextAppearance.GEN_EditLabel">
-        <item name="android:textSize">14sp</item>
+        <item name="android:textSize">15sp</item>
         <item name="android:textStyle">bold</item>
     </style>
     
@@ -308,6 +310,9 @@
         <item name="android:textSize">14sp</item>                                                                                                                                                                    
         <item name="android:textColor">@android:color/black</item>                                                                                                                                                   
     </style>
+
+    <!-- ========================================================= ViewPager == -->
+
     <style name="CustomCirclePageIndicator">
         <item name="fillColor">#333333</item>
         <item name="strokeColor">#333333</item>
@@ -316,4 +321,16 @@
         <item name="centered">true</item>
         <item name="android:background">#333333</item>
     </style> 
+    
+    <style name="CustomTabPageIndicator" parent="Widget.TabPageIndicator">
+        <item name="android:background">@drawable/custom_tab_indicator</item>
+    </style>
+    <style name="CustomTabPageIndicator.Text" parent="Widget.TabPageIndicator.Text">
+        <item name="android:textColor">#FF555555</item>
+        <item name="android:textSize">15sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:layout_marginLeft">5dip</item>
+        <item name="android:layout_marginRight">5dip</item>
+    </style>
+    
 </resources>

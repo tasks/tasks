@@ -70,7 +70,8 @@ public final class TagsControlSet extends PopupControlSet {
 
         this.newTags = (LinearLayout) getView().findViewById(R.id.newTags);
 
-        tagsDisplay = (TextView) getDisplayView().findViewById(R.id.tags_display);
+        tagsDisplay = (TextView) getDisplayView().findViewById(R.id.display_row_edit);
+        this.displayText.setText(activity.getString(R.string.TEA_tags_label));
     }
 
     private Tag[] getTagArray() {

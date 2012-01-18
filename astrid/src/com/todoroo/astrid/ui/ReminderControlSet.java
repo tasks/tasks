@@ -37,6 +37,7 @@ public class ReminderControlSet extends PopupControlSet {
         remindersBody = (LinearLayout) getView().findViewById(R.id.reminders_body);
         remindersBody.addView(alarmControl.getView());
 
+        displayText.setText(activity.getString(R.string.TEA_reminders_group_label));
         String[] list = new String[] {
                 activity.getString(R.string.TEA_reminder_mode_once),
                 activity.getString(R.string.TEA_reminder_mode_five),

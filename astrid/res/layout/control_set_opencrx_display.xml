@@ -10,6 +10,8 @@
       android:id="@+id/opencrx_body"
       android:layout_width="fill_parent"
       android:layout_height="50dip"
+        android:paddingLeft="10dip"
+        android:paddingRight="10dip"
       android:gravity="center_vertical">
 	  <TextView
 	    android:layout_width="wrap_content"
@@ -19,9 +21,9 @@
 	    style="@style/TextAppearance.GEN_EditLabel" />
   </LinearLayout>
   <View
+	  android:id="@+id/TEA_Separator"
       android:layout_width="fill_parent"
       android:layout_height="1px"
-      android:padding="5dip"
       style="@style/TEA_Separator" />
     
 </LinearLayout>

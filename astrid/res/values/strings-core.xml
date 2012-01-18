@@ -378,6 +378,12 @@
   <!-- More row -->
   <string name="TEA_more">More</string>
   
+  <!-- Text when no activity to show -->
+  <string name="TEA_no_activity">No Activity to Show.</string>
+  
+  <!-- Text to load more activity -->
+  <string name="TEA_load_more">Load more...</string>
+  
   <!-- When controls dialog -->
   <string name="TEA_when_dialog_title">When is this due?</string>
   

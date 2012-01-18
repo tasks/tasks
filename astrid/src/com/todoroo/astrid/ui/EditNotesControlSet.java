@@ -87,10 +87,10 @@ public class EditNotesControlSet extends PopupControlSet {
         DisplayMetrics metrics = activity.getResources().getDisplayMetrics();
         if (hasNotes() && notesPreview.getLineCount() > 2) {
             notesBody.setGravity(Gravity.TOP);
-            notesBody.setPadding(0, (int) (metrics.density * 8), 0, (int) (metrics.density * 8));
+            notesBody.setPadding( notesBody.getPaddingLeft(), (int) (metrics.density * 8),  notesBody.getPaddingRight(), (int) (metrics.density * 8));
         } else {
             notesBody.setGravity(Gravity.CENTER_VERTICAL);
-            notesBody.setPadding(0, 0, 0, 0);
+            notesBody.setPadding( notesBody.getPaddingLeft(), 0,  notesBody.getPaddingRight(), 0);
         }
     }
 

@@ -73,5 +73,12 @@
         android:visibility="gone"
         astrid:defaultSrc="@android:drawable/ic_menu_gallery"
         android:scaleType="fitCenter"/>
+    
+    <View
+        android:id="@+id/TEA_Separator"
+        style="@style/TEA_Separator"
+        android:layout_width="fill_parent"
+        android:layout_height="1px" />
+    
         
 </LinearLayout>

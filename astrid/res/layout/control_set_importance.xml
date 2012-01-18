@@ -12,12 +12,11 @@
         android:paddingBottom="5dip"
         android:gravity="center_vertical"
         android:layout_width="fill_parent"
+        android:paddingLeft="10dip"
+        android:paddingRight="10dip"
         android:layout_height="50dip">
-          <ImageView 
-             style="@style/EditRowImage"
-             android:src="@drawable/icn_edit_priority"/>
 	      <TextView
-	        android:id="@+id/importance_label"
+	        android:id="@+id/display_row_title"
 	        android:layout_width="wrap_content"
 	        android:layout_height="wrap_content"
 	        android:text="@string/TEA_importance_label"
@@ -29,9 +28,9 @@
       </LinearLayout>
       
       <View
+	      android:id="@+id/TEA_Separator"
 	      android:layout_width="fill_parent"
 	      android:layout_height="1px"
-	      android:padding="5dip"
 	      style="@style/TEA_Separator" />
     
 </LinearLayout>

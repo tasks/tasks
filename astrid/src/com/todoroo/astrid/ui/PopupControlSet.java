@@ -11,6 +11,7 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup.LayoutParams;
 import android.view.Window;
 import android.widget.Button;
+import android.widget.TextView;
 
 import com.timsu.astrid.R;
 import com.todoroo.andlib.utility.AndroidUtilities;
@@ -23,13 +24,21 @@ public abstract class PopupControlSet extends TaskEditControlSet {
     protected final View displayView;
     protected final Activity activity;
     protected final Dialog dialog;
+    protected final TextView displayText;
 
     public PopupControlSet(Activity activity, int viewLayout, int displayViewLayout, final int title) {
         super(activity, viewLayout);
-        if (displayViewLayout != -1)
+        if (displayViewLayout != -1){
             this.displayView = LayoutInflater.from(activity).inflate(displayViewLayout, null);
-        else
+            displayText = (TextView) displayView.findViewById(R.id.display_row_title);
+            if (displayText != null) {
+            displayText.setMaxLines(2);
+            }
+        }
+        else {
             this.displayView = null;
+            this.displayText = null;
+        }
 
         final DialogInterface.OnClickListener okListener = new DialogInterface.OnClickListener() {
             @Override

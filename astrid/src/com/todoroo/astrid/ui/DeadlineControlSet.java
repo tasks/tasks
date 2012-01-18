@@ -22,6 +22,7 @@ public class DeadlineControlSet extends PopupControlSet {
 
         dateAndTimePicker = (DateAndTimePicker) getView().findViewById(R.id.date_and_time);
         LinearLayout extras = (LinearLayout) getView().findViewById(R.id.datetime_extras);
+        this.displayText.setText(activity.getString(R.string.TEA_when_header_label));
         for (View v : extraViews) {
             LayoutParams lp = new LinearLayout.LayoutParams(LayoutParams.FILL_PARENT, LayoutParams.WRAP_CONTENT, 1.0f);
             extras.addView(v, lp);
@@ -41,7 +42,7 @@ public class DeadlineControlSet extends PopupControlSet {
 
     @Override
     protected void refreshDisplayView() {
-        TextView dateDisplay = (TextView) getDisplayView().findViewById(R.id.deadline_display);
+        TextView dateDisplay = (TextView) getDisplayView().findViewById(R.id.display_row_edit);
         String toDisplay = dateAndTimePicker.getDisplayString(activity);
         dateDisplay.setText(toDisplay);
     }

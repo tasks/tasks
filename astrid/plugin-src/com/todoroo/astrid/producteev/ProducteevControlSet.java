@@ -65,6 +65,7 @@ public class ProducteevControlSet extends PopupControlSet {
         DependencyInjectionService.getInstance().inject(this);
 
         this.activity = activity;
+        this.displayText.setText(activity.getString(R.string.producteev_TEA_control_set_display));
 
         //view = LayoutInflater.from(activity).inflate(R.layout.producteev_control, parent, true);
 

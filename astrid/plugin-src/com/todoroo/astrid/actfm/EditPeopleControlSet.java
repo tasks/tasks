@@ -112,9 +112,12 @@ public class EditPeopleControlSet extends PopupControlSet {
         super(activity, viewLayout, displayViewLayout, title);
         DependencyInjectionService.getInstance().inject(this);
         this.loginRequestCode = loginRequestCode;
+        displayText.setText(activity.getString(R.string.TEA_control_who));
 
-        sharedWithRow = LayoutInflater.from(activity).inflate(R.layout.control_set_collaborators_display, null);
+        sharedWithRow = LayoutInflater.from(activity).inflate(R.layout.control_set_default_display, null);
         sharedWithView = LayoutInflater.from(activity).inflate(R.layout.control_set_collaborators, null);
+        TextView sharedRowDisplayText = (TextView)sharedWithRow.findViewById(R.id.display_row_title);
+        sharedRowDisplayText.setText(activity.getString(R.string.actfm_EPA_collaborators_header));
 
         sharedWithDialog = new Dialog(activity, ThemeService.getEditDialogTheme());
         sharedWithDialog.setTitle(R.string.actfm_EPA_collaborators_header);
@@ -139,7 +142,7 @@ public class EditPeopleControlSet extends PopupControlSet {
         assignedList.setItemsCanFocus(false);
         assignedClear = getView().findViewById(R.id.assigned_clear);
 
-        assignedDisplay = (TextView) getDisplayView().findViewById(R.id.assigned_display);
+        assignedDisplay = (TextView) getDisplayView().findViewById(R.id.display_row_edit);
         sharedWithContainer = (PeopleContainer) getSharedWithView().findViewById(R.id.share_container);
         cbFacebook = (CheckBox) getSharedWithView().findViewById(R.id.checkbox_facebook);
         cbTwitter = (CheckBox) getSharedWithView().findViewById(R.id.checkbox_twitter);

@@ -43,6 +43,7 @@ public class HideUntilControlSet extends PopupControlSet implements OnItemSelect
         this.spinner = (Spinner) getView().findViewById(R.id.hideUntil);
         this.spinner.setOnItemSelectedListener(this);
         this.spinner.setPromptId(title);
+        this.displayText.setText(activity.getString(R.string.TEA_hideUntil_label));
         ViewGroup parent = (ViewGroup) getView().getParent();
         parent.removeView(getView());
         ((LinearLayout) getDisplayView()).addView(getView()); // hack to make listeners work
@@ -192,7 +193,7 @@ public class HideUntilControlSet extends PopupControlSet implements OnItemSelect
     @Override
     protected void refreshDisplayView() {
         HideUntilValue value = adapter.getItem(spinner.getSelectedItemPosition());
-        TextView auxDisplay = (TextView) getDisplayView().findViewById(R.id.hide_until_display);
+        TextView auxDisplay = (TextView) getDisplayView().findViewById(R.id.display_row_edit);
         auxDisplay.setText(value.toString());
     }
 

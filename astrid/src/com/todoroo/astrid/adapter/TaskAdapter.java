@@ -121,14 +121,14 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
         Task.USER
     };
 
-    private static int[] IMPORTANCE_RESOURCES = new int[] {
+    public static int[] IMPORTANCE_RESOURCES = new int[] {
         R.drawable.importance_check_1, //task_indicator_0,
         R.drawable.importance_check_2, //task_indicator_1,
         R.drawable.importance_check_3, //task_indicator_2,
         R.drawable.importance_check_4, //task_indicator_3,
     };
 
-    private static int[] IMPORTANCE_REPEAT_RESOURCES = new int[] {
+    public static int[] IMPORTANCE_REPEAT_RESOURCES = new int[] {
         R.drawable.importance_check_repeat_1, //task_indicator_0,
         R.drawable.importance_check_repeat_2, //task_indicator_1,
         R.drawable.importance_check_repeat_3, //task_indicator_2,
@@ -382,14 +382,18 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
         final CheckBox checkBoxView = viewHolder.completeBox; {
             int value = task.getValue(Task.IMPORTANCE);
             if(value < IMPORTANCE_RESOURCES.length)
-                if (!TextUtils.isEmpty(task.getValue(Task.RECURRENCE))) {
+            {
+                if (!TextUtils.isEmpty(task.getValue(Task.RECURRENCE)))
+                {
                     checkBoxView.setButtonDrawable(IMPORTANCE_REPEAT_RESOURCES[value]);
                     pictureView.setBackgroundResource(IMPORTANCE_REPEAT_RESOURCES[value]);
                 }
-                else {
+                else
+                {
                     checkBoxView.setButtonDrawable(IMPORTANCE_RESOURCES[value]);
                     pictureView.setBackgroundResource(IMPORTANCE_RESOURCES[value]);
                 }
+            }
             else
             {
                 checkBoxView.setBackgroundResource(R.drawable.btn_check);
@@ -397,7 +401,8 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
             if (pictureView.getVisibility() == View.VISIBLE){
                 checkBoxView.setVisibility(View.INVISIBLE);
             }
-            else {
+            else
+            {
                 checkBoxView.setVisibility(View.VISIBLE);
             }
         }

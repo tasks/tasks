@@ -24,6 +24,7 @@ public class TimerControlSet extends PopupControlSet implements TimerStoppedList
     public TimerControlSet(final Activity activity, int viewLayout, int displayViewLayout, int title) {
         super(activity, viewLayout, displayViewLayout, title);
 
+        this.displayText.setText(activity.getString(R.string.TEA_timer_controls));
         estimated = new TimeDurationTaskEditControlSet(activity, getView(), Task.ESTIMATED_SECONDS,
                 R.id.estimatedDuration, 0, R.string.DLG_hour_minutes
                 );

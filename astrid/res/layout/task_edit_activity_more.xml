@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+		      android:id="@+id/more_controls"
+		      android:layout_width="fill_parent"
+		      android:layout_height="fill_parent"
+		      android:background="@drawable/task_edit_background"
+		      android:padding="5dip"
+		      android:layout_margin="3dip"
+		      android:layout_marginTop="10dip" >
+    
+</LinearLayout>
