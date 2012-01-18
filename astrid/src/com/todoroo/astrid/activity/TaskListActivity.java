@@ -639,11 +639,20 @@ public class TaskListActivity extends ListActivity implements OnScrollListener,
             runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
-                    taskAdapter.flushCaches();
-                    loadTaskListContent(true);
+                    refresh();
                 }
             });
         }
+    }
+
+
+    /**
+     * Called by the RefreshReceiver when the task list receives a refresh
+     * broadcast. Subclasses should override this.
+     */
+    protected void refresh() {
+        taskAdapter.flushCaches();
+        loadTaskListContent(true);
     }
 
     /**
@@ -1133,12 +1142,7 @@ public class TaskListActivity extends ListActivity implements OnScrollListener,
                 R.id.progressBar, new Runnable() {
             @Override
             public void run() {
-                try {
-                    loadTaskListContent(true);
-                } catch (IllegalStateException e) {
-                    // Activity was killed, maybe by a rotation or list switch or something.
-                    // Don't worry about it
-                }
+                ContextManager.getContext().sendBroadcast(new Intent(AstridApiConstants.BROADCAST_EVENT_REFRESH));
             }
         }));
         Preferences.setLong(PREF_LAST_AUTO_SYNC, DateUtilities.now());

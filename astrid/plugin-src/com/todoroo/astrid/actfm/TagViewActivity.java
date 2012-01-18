@@ -259,9 +259,7 @@ public class TagViewActivity extends TaskListActivity {
                 R.id.progressBar, new Runnable() {
             @Override
             public void run() {
-                setUpMembersGallery();
-                loadTaskListContent(true);
-                ((TextView)taskListView.findViewById(android.R.id.empty)).setText(R.string.TLA_no_items);
+                ContextManager.getContext().sendBroadcast(new Intent(AstridApiConstants.BROADCAST_EVENT_REFRESH));
             }
         }));
         Preferences.setLong(LAST_FETCH_KEY + tagData.getId(), DateUtilities.now());
@@ -470,6 +468,13 @@ public class TagViewActivity extends TaskListActivity {
         }
 
         return super.onMenuItemSelected(featureId, item);
+    }
+
+    @Override
+    protected void refresh() {
+        setUpMembersGallery();
+        loadTaskListContent(true);
+        ((TextView)taskListView.findViewById(android.R.id.empty)).setText(R.string.TLA_no_items);
     }
 
 }
