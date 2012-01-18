@@ -6,8 +6,6 @@
     android:layout_height="52dip"
     android:paddingTop="2dip"
     android:paddingBottom="2dip"
-    android:paddingLeft="4dip"
-    android:paddingRight="4dip"
     android:orientation="horizontal">
     
     <!-- importance -->
