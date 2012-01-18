@@ -85,7 +85,8 @@ public class UpdateMessageService {
         if(activity == null)
             return;
 
-        final String html = "<html><body style='color: white'>" +
+        String color = (AndroidUtilities.getSdkVersion() >= 14 ? "black" : "white");
+        final String html = "<html><body style='color: " + color + "'>" +
             builder.append("</body></html>").toString();
 
         activity.runOnUiThread(new Runnable() {

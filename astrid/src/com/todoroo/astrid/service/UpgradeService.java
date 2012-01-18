@@ -21,6 +21,7 @@ import com.todoroo.andlib.service.ContextManager;
 import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.andlib.sql.Criterion;
 import com.todoroo.andlib.sql.Query;
+import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.andlib.utility.DialogUtilities;
 import com.todoroo.andlib.utility.Preferences;
@@ -403,7 +404,8 @@ public final class UpgradeService {
             return;
 
         changeLog.append("Have a spectacular day!</body></html>");
-        String changeLogHtml = "<html><body style='color: white'>" + changeLog;
+        String color = (AndroidUtilities.getSdkVersion() >= 14 ? "black" : "white");
+        String changeLogHtml = "<html><body style='color: " + color +"'>" + changeLog;
 
         DialogUtilities.htmlDialog(context, changeLogHtml,
                 R.string.UpS_changelog_title);
