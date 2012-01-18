@@ -54,7 +54,7 @@
 <!-- extension targets. Uncomment the ones where you want to do custom work
      in between standard targets -->
 
-    <target name="-pre-build" depends="get-version, copy-sources, updatekeys, updatekeys-release, disable-market">
+    <target name="-pre-build" depends="clean, get-version, copy-sources, updatekeys, updatekeys-release, disable-market">
       <mkdir dir="gen" />
     </target>
 

@@ -29,5 +29,6 @@
 	<classpathentry kind="lib" path="libs/crittercism_v1_2_5.jar"/>
 	<classpathentry kind="lib" path="libs/jchronic-0.2.3.jar"/>
 	<classpathentry kind="lib" path="libs/android-support-v4.jar"/>
+	<classpathentry kind="lib" path="libs/guava-11.0.1.jar"/>
 	<classpathentry kind="output" path="bin/classes"/>
 </classpath>
