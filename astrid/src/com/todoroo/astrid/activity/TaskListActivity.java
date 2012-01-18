@@ -1133,7 +1133,12 @@ public class TaskListActivity extends ListActivity implements OnScrollListener,
                 R.id.progressBar, new Runnable() {
             @Override
             public void run() {
-                loadTaskListContent(true);
+                try {
+                    loadTaskListContent(true);
+                } catch (IllegalStateException e) {
+                    // Activity was killed, maybe by a rotation or list switch or something.
+                    // Don't worry about it
+                }
             }
         }));
         Preferences.setLong(PREF_LAST_AUTO_SYNC, DateUtilities.now());
