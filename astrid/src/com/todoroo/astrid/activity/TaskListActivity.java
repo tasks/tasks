@@ -636,7 +636,7 @@ public class TaskListActivity extends ListFragment implements OnScrollListener,
 
         if (!Preferences.getBoolean(WelcomeWalkthrough.KEY_SHOWED_WELCOME_LOGIN, false)) {
             Preferences.setBoolean(WelcomeWalkthrough.KEY_SHOWED_WELCOME_LOGIN, true);
-            Intent showWelcomeLogin = new Intent(this, WelcomeWalkthrough.class);
+            Intent showWelcomeLogin = new Intent(getActivity(), WelcomeWalkthrough.class);
             showWelcomeLogin.putExtra(ActFmLoginActivity.SHOW_TOAST, false);
             startActivity(showWelcomeLogin);
             return;
