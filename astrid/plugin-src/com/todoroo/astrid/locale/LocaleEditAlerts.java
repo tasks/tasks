@@ -2,7 +2,7 @@ package com.todoroo.astrid.locale;
 
 import android.app.Activity;
 import android.app.AlertDialog;
-import android.app.ExpandableListActivity;
+import android.app.ListActivity;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
@@ -10,8 +10,8 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.ExpandableListView;
 import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.Spinner;
 
 import com.timsu.astrid.R;
@@ -33,7 +33,7 @@ import com.twofortyfouram.SharedResources;
  * @author Tim Su <tim@todoroo.com>
  *
  */
-public final class LocaleEditAlerts extends ExpandableListActivity {
+public final class LocaleEditAlerts extends ListActivity {
 
     // --- locale constants
 
@@ -156,7 +156,7 @@ public final class LocaleEditAlerts extends ExpandableListActivity {
 
         // if we match a selection, make it selected
         final String finalSelection = selectionToMatch;
-        adapter = new FilterAdapter(this, getExpandableListView(), R.layout.filter_adapter_row, true) {
+        adapter = new FilterAdapter(this, getListView(), R.layout.filter_adapter_row, true) {
             @Override
             public void onReceiveFilter(FilterListItem item) {
                 if(adapter.getSelection() != null || finalSelection == null)
@@ -197,32 +197,9 @@ public final class LocaleEditAlerts extends ExpandableListActivity {
     }
 
     @Override
-    public boolean onChildClick(ExpandableListView parent, View v,
-            int groupPosition, int childPosition, long id) {
-        FilterListItem item = (FilterListItem) adapter.getChild(groupPosition,
-                childPosition);
-        if(item instanceof Filter) {
-            adapter.setSelection(item);
-        }
-        return true;
-    }
-
-    @Override
-    public void onGroupExpand(int groupPosition) {
-        FilterListItem item = (FilterListItem) adapter.getGroup(groupPosition);
-        if(item instanceof Filter)
-            adapter.setSelection(item);
-        else if(item instanceof FilterCategory)
-            adapter.saveExpansionSetting((FilterCategory) item, true);
-    }
-
-    @Override
-    public void onGroupCollapse(int groupPosition) {
-        FilterListItem item = (FilterListItem) adapter.getGroup(groupPosition);
-        if(item instanceof Filter)
-            adapter.setSelection(item);
-        else if(item instanceof FilterCategory)
-            adapter.saveExpansionSetting((FilterCategory) item, false);
+    public void onListItemClick(ListView parent, View v, int position, long id) {
+        Filter item = adapter.getItem(position);
+        adapter.setSelection(item);
     }
 
     /**

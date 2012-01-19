@@ -1,6 +1,6 @@
 package com.todoroo.astrid.widget;
 
-import android.app.ExpandableListActivity;
+import android.app.ListActivity;
 import android.appwidget.AppWidgetManager;
 import android.content.ContentValues;
 import android.content.Intent;
@@ -8,21 +8,20 @@ import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ExpandableListView;
+import android.widget.ListView;
 
 import com.timsu.astrid.R;
 import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.astrid.adapter.FilterAdapter;
 import com.todoroo.astrid.api.Filter;
-import com.todoroo.astrid.api.FilterCategory;
 import com.todoroo.astrid.api.FilterListItem;
 import com.todoroo.astrid.api.FilterWithCustomIntent;
 import com.todoroo.astrid.service.StatisticsConstants;
 import com.todoroo.astrid.service.StatisticsService;
 
 @SuppressWarnings("nls")
-abstract public class WidgetConfigActivity extends ExpandableListActivity {
+abstract public class WidgetConfigActivity extends ListActivity {
 
     static final String PREF_TITLE = "widget-title-";
     static final String PREF_SQL = "widget-sql-";
@@ -67,7 +66,7 @@ abstract public class WidgetConfigActivity extends ExpandableListActivity {
         }
 
         // set up ui
-        adapter = new FilterAdapter(this, getExpandableListView(),
+        adapter = new FilterAdapter(this, getListView(),
                 R.layout.filter_adapter_row, true, true);
         setListAdapter(adapter);
 
@@ -92,33 +91,13 @@ abstract public class WidgetConfigActivity extends ExpandableListActivity {
         }
     };
 
-    @Override
-    public boolean onChildClick(ExpandableListView parent, View v,
-            int groupPosition, int childPosition, long id) {
-        FilterListItem item = (FilterListItem) adapter.getChild(groupPosition,
-                childPosition);
-        if(item instanceof Filter) {
-            adapter.setSelection(item);
-        }
-        return true;
-    }
+
 
     @Override
-    public void onGroupExpand(int groupPosition) {
-        FilterListItem item = (FilterListItem) adapter.getGroup(groupPosition);
-        if(item instanceof Filter)
-            adapter.setSelection(item);
-        else if(item instanceof FilterCategory)
-            adapter.saveExpansionSetting((FilterCategory) item, true);
-    }
-
-    @Override
-    public void onGroupCollapse(int groupPosition) {
-        FilterListItem item = (FilterListItem) adapter.getGroup(groupPosition);
-        if(item instanceof Filter)
-            adapter.setSelection(item);
-        else if(item instanceof FilterCategory)
-            adapter.saveExpansionSetting((FilterCategory) item, false);
+    protected void onListItemClick(ListView l, View v, int position, long id) {
+        super.onListItemClick(l, v, position, id);
+        Filter item = adapter.getItem(position);
+        adapter.setSelection(item);
     }
 
     @Override

@@ -6,12 +6,12 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
-import android.widget.ArrayAdapter;
 import android.widget.PopupWindow.OnDismissListener;
 import android.widget.TextView;
 
 import com.timsu.astrid.R;
 import com.todoroo.andlib.utility.AndroidUtilities;
+import com.todoroo.astrid.adapter.FilterAdapter;
 import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.service.ThemeService;
 import com.todoroo.astrid.ui.ListDropdownPopover;
@@ -22,7 +22,7 @@ public class TaskListWrapperActivity extends AstridWrapperActivity {
     private View listsNav;
     private TextView lists;
 
-    private ArrayAdapter<Filter> listDropdownAdapter;
+    private FilterAdapter listDropdownAdapter;
     private ListDropdownPopover popover;
 
     private final OnItemClickListener listClickListener = new OnItemClickListener() {
@@ -102,7 +102,7 @@ public class TaskListWrapperActivity extends AstridWrapperActivity {
         super.onResume();
     }
 
-    public void updateDropdownNav(ArrayAdapter<Filter> arrayAdapter) {
+    public void setPopoverAdapter(FilterAdapter arrayAdapter) {
         listDropdownAdapter = arrayAdapter;
         popover.setAdapter(listDropdownAdapter, listClickListener);
     }

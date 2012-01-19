@@ -20,9 +20,7 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
-import android.content.res.TypedArray;
 import android.graphics.Color;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.text.TextUtils;
@@ -33,10 +31,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewGroup.LayoutParams;
 import android.widget.ArrayAdapter;
-import android.widget.BaseExpandableListAdapter;
 import android.widget.Button;
-import android.widget.ExpandableListView;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -44,9 +41,7 @@ import com.timsu.astrid.R;
 import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.ContextManager;
 import com.todoroo.andlib.service.DependencyInjectionService;
-import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.astrid.activity.FilterListActivity;
-import com.todoroo.astrid.activity.TaskListWrapperActivity;
 import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.api.AstridFilterExposer;
 import com.todoroo.astrid.api.Filter;
@@ -57,7 +52,7 @@ import com.todoroo.astrid.api.FilterListItem;
 import com.todoroo.astrid.api.FilterWithUpdate;
 import com.todoroo.astrid.service.TaskService;
 
-public class FilterAdapter extends BaseExpandableListAdapter {
+public class FilterAdapter extends ArrayAdapter<Filter> {
 
     // --- style constants
 
@@ -73,11 +68,10 @@ public class FilterAdapter extends BaseExpandableListAdapter {
     protected final Activity activity;
 
     /** owner listview */
-    protected final ExpandableListView listView;
+    protected final ListView listView;
 
     /** list of filters */
     private final ArrayList<FilterListItem> items;
-    private final FilterArrayAdapter arrayAdapter;
 
     /** display metrics for scaling icons */
     private final DisplayMetrics metrics = new DisplayMetrics();
@@ -107,16 +101,15 @@ public class FilterAdapter extends BaseExpandableListAdapter {
     // if new filters are queued (obviously it cannot be garbage collected if it is possible for new filters to
     // be added).
     private final ThreadPoolExecutor filterExecutor = new ThreadPoolExecutor(0, 1, 1, TimeUnit.SECONDS, new LinkedBlockingQueue<Runnable>());
-    private final Drawable headerBackground;
 
-    public FilterAdapter(Activity activity, ExpandableListView listView,
+    public FilterAdapter(Activity activity, ListView listView,
             int rowLayout, boolean skipIntentFilters) {
         this(activity, listView, rowLayout, skipIntentFilters, false);
     }
 
-    public FilterAdapter(Activity activity, ExpandableListView listView,
+    public FilterAdapter(Activity activity, ListView listView,
             int rowLayout, boolean skipIntentFilters, boolean selectable) {
-        super();
+        super(activity, 0);
 
         DependencyInjectionService.getInstance().inject(this);
 
@@ -127,17 +120,10 @@ public class FilterAdapter extends BaseExpandableListAdapter {
         this.skipIntentFilters = skipIntentFilters;
         this.selectable = selectable;
 
-        arrayAdapter = new FilterArrayAdapter(activity);
-
         inflater = (LayoutInflater) activity.getSystemService(
                 Context.LAYOUT_INFLATER_SERVICE);
 
         activity.getWindowManager().getDefaultDisplay().getMetrics(metrics);
-        listView.setGroupIndicator(
-                activity.getResources().getDrawable(R.drawable.expander_group));
-
-        TypedArray a = activity.obtainStyledAttributes(new int[] { R.attr.asFilterHeaderBackground });
-        headerBackground = a.getDrawable(0);
     }
 
     private void offerFilter(final Filter filter) {
@@ -164,6 +150,7 @@ public class FilterAdapter extends BaseExpandableListAdapter {
         });
     }
 
+    @Override
     public boolean hasStableIds() {
         return true;
     }
@@ -180,9 +167,9 @@ public class FilterAdapter extends BaseExpandableListAdapter {
         }
     }
 
+    @Override
     public void clear() {
         items.clear();
-        arrayAdapter.clear();
         notifyDataSetInvalidated();
     }
 
@@ -223,71 +210,22 @@ public class FilterAdapter extends BaseExpandableListAdapter {
         public View decoration;
     }
 
-    /* ======================================================================
-     * ========================================================== child nodes
-     * ====================================================================== */
 
-    public Object getChild(int groupPosition, int childPosition) {
-        FilterListItem item = items.get(groupPosition);
-        if(!(item instanceof FilterCategory) || ((FilterCategory)item).children == null)
-            return null;
-
-        return ((FilterCategory)item).children[childPosition];
-    }
-
-    public long getChildId(int groupPosition, int childPosition) {
-        return childPosition;
-    }
-
-    public int getChildrenCount(int groupPosition) {
-        FilterListItem item = items.get(groupPosition);
-        if(!(item instanceof FilterCategory))
-            return 0;
-        return ((FilterCategory)item).children.length;
-    }
-
-    public View getChildView(int groupPosition, int childPosition, boolean isLastChild,
-            View convertView, ViewGroup parent) {
+    @Override
+    public View getView(int position, View convertView, ViewGroup parent) {
 
         convertView = newView(convertView, parent);
         ViewHolder viewHolder = (ViewHolder) convertView.getTag();
-        viewHolder.item = (FilterListItem) getChild(groupPosition, childPosition);
+        viewHolder.item = (FilterListItem) getItem(position);
         populateView(viewHolder, false);
 
         return convertView;
     }
 
-    /* ======================================================================
-     * ========================================================= parent nodes
-     * ====================================================================== */
-
-    public Object getGroup(int groupPosition) {
-        if(groupPosition >= items.size())
-            return null;
-        return items.get(groupPosition);
+    @Override
+    public View getDropDownView(int position, View convertView, ViewGroup parent) {
+        return getView(position, convertView, parent);
     }
-
-    public int getGroupCount() {
-        return items.size();
-    }
-
-    public long getGroupId(int groupPosition) {
-        return groupPosition;
-    }
-
-    public View getGroupView(int groupPosition, boolean isExpanded, View convertView,
-            ViewGroup parent) {
-        convertView = newView(convertView, parent);
-        ViewHolder viewHolder = (ViewHolder) convertView.getTag();
-        viewHolder.item = (FilterListItem) getGroup(groupPosition);
-        populateView(viewHolder, isExpanded);
-        return convertView;
-    }
-
-    public boolean isChildSelectable(int groupPosition, int childPosition) {
-        return true;
-    }
-
     /* ======================================================================
      * ============================================================ selection
      * ====================================================================== */
@@ -363,23 +301,13 @@ public class FilterAdapter extends BaseExpandableListAdapter {
                 if (filter instanceof FilterCategory) {
                     Filter[] children = ((FilterCategory) filter).children;
                     for (Filter f : children) {
-                        arrayAdapter.add(f);
+                        add(f);
                     }
                 } else if (filter instanceof Filter){
-                    arrayAdapter.add((Filter) filter);
+                    add((Filter) filter);
                 }
             }
             notifyDataSetChanged();
-
-            activity.runOnUiThread(new Runnable() {
-                @Override
-                public void run() {
-                    expandList(filters);
-                    if (activity instanceof TaskListWrapperActivity) {
-                        ((TaskListWrapperActivity) activity).updateDropdownNav(arrayAdapter);
-                    }
-                }
-            });
         }
     }
 
@@ -405,7 +333,7 @@ public class FilterAdapter extends BaseExpandableListAdapter {
 
         @Override
         public void onReceive(Context context, Intent intent) {
-            if (shouldUseBladeFilter && getGroupCount() == 0 && filterExposerList != null && filterExposerList.size()>0) {
+            if (shouldUseBladeFilter && getCount() == 0 && filterExposerList != null && filterExposerList.size()>0) {
                 try {
                     for (ResolveInfo filterExposerInfo : filterExposerList) {
                         Log.d("BladeFilterReceiver", filterExposerInfo.toString());
@@ -424,37 +352,6 @@ public class FilterAdapter extends BaseExpandableListAdapter {
                 }
             }
         }
-    }
-
-    /**
-     * Expand the category filters in this group according to preference
-     * @param filters
-     */
-    protected void expandList(Parcelable[] filters) {
-        for(Parcelable filter : filters) {
-            if(filter instanceof FilterCategory) {
-                String preference = createExpansionPreference((FilterCategory) filter);
-                if(!Preferences.getBoolean(preference, true))
-                    continue;
-
-                int count = getGroupCount();
-                for(int i = 0; i < count; i++)
-                    if(getGroup(i) == filter) {
-                        listView.expandGroup(i);
-                        break;
-                    }
-            }
-        }
-    }
-
-    /**
-     * Call to save user preference for whether a node is expanded
-     * @param category
-     * @param expanded
-     */
-    public void saveExpansionSetting(FilterCategory category, boolean expanded) {
-        String preference = createExpansionPreference(category);
-        Preferences.setBoolean(preference, expanded);
     }
 
     /**
@@ -485,7 +382,7 @@ public class FilterAdapter extends BaseExpandableListAdapter {
         IntentFilter bladeFilter = new IntentFilter(AstridApiConstants.BROADCAST_SEND_FILTERS);
         bladeFilter.setPriority(1);
         activity.registerReceiver(bladeFilterReceiver, bladeFilter);
-        if(getGroupCount() == 0)
+        if(getCount() == 0)
             getLists();
     }
 
@@ -524,7 +421,6 @@ public class FilterAdapter extends BaseExpandableListAdapter {
         if(viewHolder.item instanceof FilterListHeader || viewHolder.item instanceof FilterCategory) {
             viewHolder.name.setTextAppearance(activity, headerStyle);
             viewHolder.name.setShadowLayer(1, 1, 1, Color.BLACK);
-            viewHolder.view.setBackgroundDrawable(headerBackground);
             viewHolder.view.setPadding((int) (7 * metrics.density), 5, 0, 5);
             viewHolder.view.getLayoutParams().height = (int) (40 * metrics.density);
         } else {
@@ -616,7 +512,6 @@ public class FilterAdapter extends BaseExpandableListAdapter {
                                     activity.runOnUiThread(new Runnable() {
                                         public void run() {
                                             clear();
-                                            arrayAdapter.clear();
                                         }
                                     });
                                 }
@@ -627,28 +522,4 @@ public class FilterAdapter extends BaseExpandableListAdapter {
                     }
                 });
     }
-
-    private class FilterArrayAdapter extends ArrayAdapter<Filter> {
-
-        public FilterArrayAdapter(Context context) {
-            super(context, 0);
-        }
-
-        @Override
-        public View getView(int position, View convertView, ViewGroup parent) {
-            convertView = newView(convertView, parent);
-            ViewHolder viewHolder = (ViewHolder) convertView.getTag();
-            viewHolder.item = (FilterListItem) getItem(position);
-            populateView(viewHolder, false);
-            viewHolder.name.setTextColor(Color.WHITE);
-
-            return convertView;
-        }
-
-        @Override
-        public View getDropDownView(int position, View convertView, ViewGroup parent) {
-            return getView(position, convertView, parent);
-        }
-    }
-
 }

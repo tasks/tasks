@@ -15,6 +15,7 @@ import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.ListFragment;
 import android.support.v4.app.SupportActivity;
 import android.support.v4.view.Menu;
 import android.support.v4.view.MenuItem;
@@ -28,11 +29,11 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
+import android.widget.AdapterView.AdapterContextMenuInfo;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ExpandableListView;
-import android.widget.ExpandableListView.ExpandableListContextMenuInfo;
 import android.widget.FrameLayout;
+import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.TextView.OnEditorActionListener;
@@ -48,7 +49,6 @@ import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.astrid.adapter.FilterAdapter;
 import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.api.Filter;
-import com.todoroo.astrid.api.FilterCategory;
 import com.todoroo.astrid.api.FilterListItem;
 import com.todoroo.astrid.core.CustomFilterActivity;
 import com.todoroo.astrid.data.Task;
@@ -63,7 +63,7 @@ import com.todoroo.astrid.tags.TagsPlugin;
  * @author Tim Su <tim@todoroo.com>
  *
  */
-public class FilterListActivity extends ExpandableListFragment {
+public class FilterListActivity extends ListFragment {
 
     public static final String TAG_FILTERLIST_FRAGMENT = "filterlist_fragment";
 
@@ -172,8 +172,6 @@ public class FilterListActivity extends ExpandableListFragment {
             }
         });
 
-        onContentChanged();
-
         onNewIntent(getActivity().getIntent());
 
         Fragment tasklistFrame = getFragmentManager().findFragmentByTag(TaskListActivity.TAG_TASKLIST_FRAGMENT);
@@ -181,8 +179,8 @@ public class FilterListActivity extends ExpandableListFragment {
 
         if (mDualFragments) {
             // In dual-pane mode, the list view highlights the selected item.
-            getExpandableListView().setChoiceMode(ListView.CHOICE_MODE_SINGLE);
-            getExpandableListView().setItemsCanFocus(false);
+            getListView().setChoiceMode(ListView.CHOICE_MODE_SINGLE);
+            getListView().setItemsCanFocus(false);
         }
     }
 
@@ -279,63 +277,45 @@ public class FilterListActivity extends ExpandableListFragment {
 
     /** Sets up the coach list adapter */
     protected void setUpList() {
-        adapter = new FilterAdapter(getActivity(), getExpandableListView(),
+        adapter = new FilterAdapter(getActivity(), getListView(),
                 R.layout.filter_adapter_row, false);
         setListAdapter(adapter);
 
-        registerForContextMenu(getExpandableListView());
+        registerForContextMenu(getListView());
     }
+
+    @Override
+    public void setListAdapter(ListAdapter adapter) {
+        super.setListAdapter(adapter);
+        Activity activity = getActivity();
+        if (activity instanceof TaskListWrapperActivity && adapter instanceof FilterAdapter) {
+            ((TaskListWrapperActivity) activity).setPopoverAdapter((FilterAdapter) adapter);
+        }
+    }
+
 
     /* ======================================================================
      * ============================================================== actions
      * ====================================================================== */
 
+
     @Override
-    public boolean onChildClick(ExpandableListView parent, View v,
-            int groupPosition, int childPosition, long id) {
+    public void onListItemClick(ListView parent, View v, int position, long id) {
 //        if (mDualFragments)
 //        {
 //            setSelectedChild(groupPosition, childPosition, false);
 //            setItemChecked((int) getSelectedPosition(), true);
 //        }
-        FilterListItem item = (FilterListItem) adapter.getChild(groupPosition,
-                childPosition);
-        return mListener.onFilterItemClicked(item);
-    }
-
-    @Override
-    public void onGroupExpand(int groupPosition) {
-        FilterListItem item = (FilterListItem) adapter.getGroup(groupPosition);
+        Filter item = adapter.getItem(position);
         mListener.onFilterItemClicked(item);
-        if(item instanceof FilterCategory)
-            adapter.saveExpansionSetting((FilterCategory) item, true);
-    }
-
-    @Override
-    public void onGroupCollapse(int groupPosition) {
-        FilterListItem item = (FilterListItem) adapter.getGroup(groupPosition);
-        mListener.onFilterItemClicked(item);
-        if(item instanceof FilterCategory)
-            adapter.saveExpansionSetting((FilterCategory) item, false);
     }
 
     @Override
     public void onCreateContextMenu(ContextMenu menu, View v,
             ContextMenuInfo menuInfo) {
-        ExpandableListContextMenuInfo info = (ExpandableListContextMenuInfo) menuInfo;
+        AdapterContextMenuInfo info = (AdapterContextMenuInfo) menuInfo;
 
-        int type = ExpandableListView.getPackedPositionType(info.packedPosition);
-        FilterListItem item;
-        if (type == ExpandableListView.PACKED_POSITION_TYPE_CHILD) {
-            int groupPos = ExpandableListView.getPackedPositionGroup(info.packedPosition);
-            int childPos = ExpandableListView.getPackedPositionChild(info.packedPosition);
-            item = (FilterListItem) adapter.getChild(groupPos, childPos);
-        } else if (type == ExpandableListView.PACKED_POSITION_TYPE_GROUP) {
-            int groupPos = ExpandableListView.getPackedPositionGroup(info.packedPosition);
-            item = (FilterListItem) adapter.getGroup(groupPos);
-        } else {
-            return;
-        }
+        Filter item = adapter.getItem(info.position);
 
         android.view.MenuItem menuItem;
 
@@ -420,7 +400,7 @@ public class FilterListActivity extends ExpandableListFragment {
                 return true;
             }
             case CONTEXT_MENU_SHORTCUT: {
-                ExpandableListContextMenuInfo info = (ExpandableListContextMenuInfo)item.getMenuInfo();
+                AdapterContextMenuInfo info = (AdapterContextMenuInfo)item.getMenuInfo();
                 final Intent shortcutIntent = item.getIntent();
                 FilterListItem filter = ((FilterAdapter.ViewHolder)info.targetView.getTag()).item;
                 if(filter instanceof Filter)

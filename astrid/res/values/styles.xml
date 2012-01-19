@@ -270,7 +270,7 @@
     <style name="TextAppearance.FLA_Filter">
         <item name="android:textSize">18sp</item>
         <item name="android:textStyle">bold</item>
-        <item name="android:textColor">?attr/asTextColor</item>
+        <item name="android:textColor">@android:color/white</item>
     </style>
     
     <style name="TextAppearance.FLA_Header" parent="TextAppearance.FLA_Filter">

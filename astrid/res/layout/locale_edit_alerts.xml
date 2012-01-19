@@ -28,7 +28,7 @@
                 android:layout_margin="10px"
                 android:background="@drawable/locale_border">
     
-                <ExpandableListView android:id="@android:id/list"
+                <ListView android:id="@android:id/list"
                     android:layout_width="fill_parent"
                     android:layout_height="fill_parent"
                     android:scrollbars="vertical"
