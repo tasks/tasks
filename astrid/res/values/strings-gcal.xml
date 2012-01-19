@@ -27,6 +27,8 @@
   <!-- No calendar label (don't add option) -->
   <string name="gcal_TEA_nocal">Don\'t add</string>
   
+  <string name="gcal_TEA_none_selected">Add to cal...</string>
+  
   <!-- ======================================================== Calendars == -->
   
   <!-- Calendar event name when task is completed (%s => task title) -->

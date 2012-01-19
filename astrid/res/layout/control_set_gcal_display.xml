@@ -9,28 +9,21 @@
       android:id="@+id/gcal_body"
       android:layout_width="fill_parent"
       android:layout_height="50dip"
+      android:paddingLeft="5dip"
       android:gravity="center_vertical">
       <ImageView 
         style="@style/EditRowImage"
         android:src="@drawable/icn_edit_calendar"/>
 	  <TextView
-	    android:id="@+id/calendar_display_title"
-	    android:layout_width="wrap_content"
-	    android:layout_height="wrap_content"
-	    android:layout_marginRight="15dip"
-	    android:text="@string/gcal_TEA_addToCalendar_label"
-	    style="@style/TextAppearance.GEN_EditLabel.DLG_EditLabel" />
-	  <TextView
 	      android:id="@+id/calendar_display_which"
 	      android:layout_width="fill_parent"
 	      android:layout_height="wrap_content"
 	      android:layout_weight="1"
-	      android:gravity="right"
+	      android:gravity="left"
 	      android:maxLines="1"
 	      android:ellipsize="end"
-	      android:paddingLeft="10dip"
+	      android:paddingLeft="5dip"
 	      style="@style/TextAppearance.EditRowDisplay" />
-	  <include layout="@layout/task_edit_arrow"/>
   </LinearLayout>
   <View
       android:layout_width="fill_parent"

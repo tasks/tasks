@@ -206,17 +206,11 @@ public class GCalControlSet extends PopupControlSet {
 
     @Override
     protected void refreshDisplayView() {
-        TextView t = (TextView) getDisplayView().findViewById(R.id.calendar_display_title);
-        if (hasEvent) {
-            t.setText(R.string.gcal_TEA_showCalendar_label);
+        TextView calendar = (TextView) getDisplayView().findViewById(R.id.calendar_display_which);
+        if (calendarSelector.getSelectedItemPosition() != 0) {
+            calendar.setText((String)calendarSelector.getSelectedItem());
         } else {
-            t.setText(R.string.gcal_TEA_addToCalendar_label);
-            TextView calendar = (TextView) getDisplayView().findViewById(R.id.calendar_display_which);
-            if (calendarSelector.getSelectedItemPosition() != 0) {
-                calendar.setText((String)calendarSelector.getSelectedItem());
-            } else {
-                calendar.setText("");
-            }
+            calendar.setText(R.string.gcal_TEA_none_selected);
         }
     }
 
