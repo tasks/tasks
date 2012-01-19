@@ -6,8 +6,11 @@ package com.todoroo.astrid.activity;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.SearchManager;
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Rect;
@@ -73,11 +76,9 @@ public class FilterListActivity extends ListFragment {
 
     private static final int MENU_SEARCH_ID = R.string.FLA_menu_search;
     private static final int MENU_HELP_ID = R.string.FLA_menu_help;
-    private static final int MENU_REFRESH_ID = R.string.actfm_FLA_menu_refresh;
     private static final int MENU_NEW_FILTER_ID = R.string.FLA_new_filter;
     private static final int MENU_NEW_LIST_ID = R.string.FLA_new_list;
 
-    private static final String LAST_TAG_REFRESH_KEY = "last_tag_refresh"; //$NON-NLS-1$
 
     private static final int CONTEXT_MENU_SHORTCUT = R.string.FLA_context_shortcut;
     private static final int CONTEXT_MENU_INTENT = Menu.FIRST + 4;
@@ -92,6 +93,8 @@ public class FilterListActivity extends ListFragment {
 
     protected FilterAdapter adapter = null;
     private boolean mDualFragments;
+
+    private final RefreshReceiver refreshReceiver = new RefreshReceiver();
 
     private OnFilterItemClickedListener mListener;
 
@@ -268,6 +271,9 @@ public class FilterListActivity extends ListFragment {
             ((TaskListWrapperActivity) activity).setupPopoverWithFilterList(this);
         }
 
+        activity.registerReceiver(refreshReceiver,
+                new IntentFilter(AstridApiConstants.BROADCAST_EVENT_REFRESH));
+
     }
 
     @Override
@@ -276,6 +282,11 @@ public class FilterListActivity extends ListFragment {
         super.onPause();
         if(adapter != null)
             adapter.unregisterRecevier();
+        try {
+            getActivity().unregisterReceiver(refreshReceiver);
+        } catch (IllegalArgumentException e) {
+            // Might not have fully initialized
+        }
     }
 
     /* ======================================================================
@@ -476,5 +487,27 @@ public class FilterListActivity extends ListFragment {
             adapter.clear();
 
         super.onActivityResult(requestCode, resultCode, data);
+    }
+
+    /**
+     * Receiver which receives refresh intents
+     *
+     * @author Tim Su <tim@todoroo.com>
+     *
+     */
+    protected class RefreshReceiver extends BroadcastReceiver {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            if(intent == null || !AstridApiConstants.BROADCAST_EVENT_REFRESH.equals(intent.getAction()))
+                return;
+
+            getActivity().runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    adapter.clear();
+                    adapter.getLists();
+                }
+            });
+        }
     }
 }

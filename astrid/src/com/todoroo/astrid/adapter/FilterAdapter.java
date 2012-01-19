@@ -5,7 +5,6 @@ package com.todoroo.astrid.adapter;
 
 import greendroid.widget.AsyncImageView;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.ThreadPoolExecutor;
@@ -70,9 +69,6 @@ public class FilterAdapter extends ArrayAdapter<Filter> {
     /** owner listview */
     protected final ListView listView;
 
-    /** list of filters */
-    private final ArrayList<FilterListItem> items;
-
     /** display metrics for scaling icons */
     private final DisplayMetrics metrics = new DisplayMetrics();
 
@@ -114,7 +110,6 @@ public class FilterAdapter extends ArrayAdapter<Filter> {
         DependencyInjectionService.getInstance().inject(this);
 
         this.activity = activity;
-        this.items = new ArrayList<FilterListItem>();
         this.listView = listView;
         this.layout = rowLayout;
         this.skipIntentFilters = skipIntentFilters;
@@ -155,23 +150,14 @@ public class FilterAdapter extends ArrayAdapter<Filter> {
         return true;
     }
 
-    public void add(FilterListItem item) {
-        items.add(item);
+    @Override
+    public void add(Filter item) {
+        super.add(item);
 
         // load sizes
-        if(item instanceof Filter) {
-            offerFilter((Filter)item);
-        } else if(item instanceof FilterCategory) {
-            for(Filter filter : ((FilterCategory)item).children)
-                offerFilter(filter);
-        }
+        offerFilter(item);
     }
 
-    @Override
-    public void clear() {
-        items.clear();
-        notifyDataSetInvalidated();
-    }
 
     /**
      * Create or reuse a view
@@ -294,8 +280,6 @@ public class FilterAdapter extends ArrayAdapter<Filter> {
                             filter instanceof FilterListHeader ||
                             filter instanceof FilterCategory))
                     continue;
-
-                add((FilterListItem)item);
                 onReceiveFilter((FilterListItem)item);
 
                 if (filter instanceof FilterCategory) {
