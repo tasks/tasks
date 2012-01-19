@@ -15,20 +15,17 @@
         style="@style/EditRowImage"
         android:src="@drawable/icn_edit_repeats"/>
 	  <TextView
-	    android:layout_width="wrap_content"
-	    android:layout_height="wrap_content"
-	    android:layout_marginRight="15dip"
-	    android:text="@string/repeat_enabled"
-	    style="@style/TextAppearance.GEN_EditLabel.DLG_EditLabel" />
-	  <TextView
 	      android:id="@+id/repeat_display"
 	      android:layout_width="fill_parent"
 	      android:layout_height="wrap_content"
 	      android:layout_weight="1"
-	      android:gravity="right"
-	      android:paddingLeft="10dip"
+	      android:gravity="left"
+	      android:paddingLeft="5dip"
 	      style="@style/TextAppearance.EditRowDisplay" />
-	  <include layout="@layout/task_edit_arrow"/>
+	  <View
+	      android:layout_width="1px"
+	      android:layout_height="fill_parent"
+	      style="@style/TEA_Separator" />
   </LinearLayout>
   <View
       android:layout_width="fill_parent"

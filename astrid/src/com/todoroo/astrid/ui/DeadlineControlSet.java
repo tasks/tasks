@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.ViewGroup.LayoutParams;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -20,9 +21,10 @@ public class DeadlineControlSet extends PopupControlSet {
         super(activity, viewLayout, displayViewLayout, 0);
 
         dateAndTimePicker = (DateAndTimePicker) getView().findViewById(R.id.date_and_time);
-        LinearLayout body = (LinearLayout) getView().findViewById(R.id.datetime_body);
+        LinearLayout extras = (LinearLayout) getView().findViewById(R.id.datetime_extras);
         for (View v : extraViews) {
-            body.addView(v);
+            LayoutParams lp = new LinearLayout.LayoutParams(LayoutParams.FILL_PARENT, LayoutParams.WRAP_CONTENT, 1.0f);
+            extras.addView(v, lp);
         }
 
         Button okButton = (Button) LayoutInflater.from(activity).inflate(R.layout.control_dialog_ok, null);
@@ -33,6 +35,7 @@ public class DeadlineControlSet extends PopupControlSet {
                 DialogUtilities.dismissDialog(DeadlineControlSet.this.activity, DeadlineControlSet.this.dialog);
             }
         });
+        LinearLayout body = (LinearLayout) getView().findViewById(R.id.datetime_body);
         body.addView(okButton);
     }
 

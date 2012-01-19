@@ -15,7 +15,7 @@
       android:gravity="center_horizontal"
       android:paddingBottom="10dip"
       android:layout_marginTop="30dip"
-      android:text="Connect now\nto get started!"
+      android:text="@string/welcome_title_7"
       android:textColor="#444444"
       android:textSize="40dip"
       android:textStyle="bold"
@@ -47,7 +47,7 @@
 	      android:paddingRight="20dip"
 	      android:paddingBottom="5dip"
 	      android:textSize="16sp"
-	      android:textColor="#ffffff" />
+	      android:textColor="#444444" />
 	  
 	    <Button
 	      android:id="@+id/pw_login"
@@ -96,6 +96,6 @@
 	      android:paddingLeft="20dip"
 	      android:paddingRight="20dip"
 	      android:textSize="12.5sp"
-	      android:textColor="#ffffff" />   
+	      android:textColor="#444444" />   
   </RelativeLayout>
 </LinearLayout>

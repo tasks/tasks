@@ -54,6 +54,11 @@
 <!-- extension targets. Uncomment the ones where you want to do custom work
      in between standard targets -->
 
+    <target name="-set-mode-check" depends="clean">                                                                                                   
+        <fail if="build.is.mode.set"                                                                                                  
+              message="Cannot run two different modes at the same time. If you are running more than one debug/release/instrument type targets, call them from different Ant calls." />                                                                                  
+    </target>  
+
     <target name="-pre-build" depends="get-version, copy-sources, updatekeys, updatekeys-release, disable-market">
       <mkdir dir="gen" />
     </target>
@@ -142,10 +147,10 @@
                      replace="\1 true;" />
     </target>
 
-    <target name="obfuscate" depends="-setup">
-      <property name="proguard.enabled" value="true" />
-      <antcall target="-obfuscate" />      
-    </target>
+    <target name="obfuscate" depends="-set-debug-files, -set-debug-mode, nodeps, -build-setup, 
+                                      -set-release-mode, -release-obfuscation-check, -obfuscate" />
+
+    <target name="dex" depends="obfuscate, -dex" />
 
     <!-- build custom release package with updated version name -->
     <target name="release-custom">

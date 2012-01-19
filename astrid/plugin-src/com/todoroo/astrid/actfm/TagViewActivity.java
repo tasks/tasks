@@ -472,4 +472,11 @@ public class TagViewActivity extends TaskListActivity {
         ((TextView)taskListView.findViewById(android.R.id.empty)).setText(R.string.TLA_no_items);
     }
 
+    @Override
+    protected void refresh() {
+        setUpMembersGallery();
+        loadTaskListContent(true);
+        ((TextView)taskListView.findViewById(android.R.id.empty)).setText(R.string.TLA_no_items);
+    }
+
 }

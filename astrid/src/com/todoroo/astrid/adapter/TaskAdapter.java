@@ -1009,7 +1009,12 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
                     editTask(taskId);
                 }
             }
-            fragment.getActivity().unregisterReceiver(this);
+
+            try {
+                fragment.getActivity().unregisterReceiver(this);
+            } catch (IllegalArgumentException e) {
+                // ignore
+            }
         }
 
     }
