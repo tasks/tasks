@@ -1019,7 +1019,7 @@ public final class ActFmSyncService {
             } else if (id == ActFmPreferenceService.userId()) {
                 model.setValue(idProperty, 0L);
                 if (userProperty != null)
-                    model.setValue(userProperty, "");
+                    model.setValue(userProperty, ActFmPreferenceService.thisUser().toString());
             } else {
                 model.setValue(idProperty, id);
                 if(userProperty != null)
