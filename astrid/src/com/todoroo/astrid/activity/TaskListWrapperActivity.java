@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
+import android.widget.FrameLayout;
 import android.widget.PopupWindow.OnDismissListener;
 import android.widget.TextView;
 
@@ -13,6 +14,7 @@ import com.timsu.astrid.R;
 import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.astrid.adapter.FilterAdapter;
 import com.todoroo.astrid.api.Filter;
+import com.todoroo.astrid.api.FilterListItem;
 import com.todoroo.astrid.service.ThemeService;
 import com.todoroo.astrid.ui.ListDropdownPopover;
 
@@ -56,14 +58,6 @@ public class TaskListWrapperActivity extends AstridWrapperActivity {
 		actionBar.setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
 		actionBar.setCustomView(R.layout.header_nav_views);
 
-        popover = new ListDropdownPopover(TaskListWrapperActivity.this, R.layout.list_dropdown_popover);
-        popover.setOnDismissListener(new OnDismissListener() {
-            @Override
-            public void onDismiss() {
-                setListsDropdownSelected(false);
-            }
-        });
-
         listsNav = actionBar.getCustomView().findViewById(R.id.lists_nav);
 		lists = (TextView) actionBar.getCustomView().findViewById(R.id.list_title);
 
@@ -77,6 +71,7 @@ public class TaskListWrapperActivity extends AstridWrapperActivity {
 		    mMultipleFragments = false;
 		    actionBar.setDisplayHomeAsUpEnabled(true);
 		    listsNav.setOnClickListener(popupMenuClickListener);
+		    createPopover();
 		}
 
 		Filter savedFilter = getIntent().getParcelableExtra(TaskListActivity.TOKEN_FILTER);
@@ -84,7 +79,35 @@ public class TaskListWrapperActivity extends AstridWrapperActivity {
 		if (savedFilter != null)
 		    lists.setText(savedFilter.title);
 		setupFilterlistFragment();
+	}
 
+	private void createPopover() {
+	    popover = new ListDropdownPopover(TaskListWrapperActivity.this);
+        popover.setOnDismissListener(new OnDismissListener() {
+            @Override
+            public void onDismiss() {
+                setListsDropdownSelected(false);
+            }
+        });
+	}
+
+	public void setupPopoverWithFilterList(FilterListActivity fla) {
+	    if (popover != null) {
+	        View view = fla.getView();
+	        if (view != null) {
+	            FrameLayout parent = (FrameLayout) view.getParent();
+	            if (parent != null)
+	                parent.removeView(view);
+	            popover.setContent(view);
+	        }
+	    }
+	}
+
+	@Override
+	public boolean onFilterItemClicked(FilterListItem item) {
+	    if (popover != null)
+	        popover.dismiss();
+	    return super.onFilterItemClicked(item);
 	}
 
 	private void setListsDropdownSelected(boolean selected) {
@@ -102,15 +125,11 @@ public class TaskListWrapperActivity extends AstridWrapperActivity {
         super.onResume();
     }
 
-    public void setPopoverAdapter(FilterAdapter arrayAdapter) {
-        listDropdownAdapter = arrayAdapter;
-        popover.setAdapter(listDropdownAdapter, listClickListener);
-    }
-
     @Override
     protected void onPause() {
         super.onPause();
-        popover.dismiss();
+        if (popover != null)
+            popover.dismiss();
     }
 
     @Override

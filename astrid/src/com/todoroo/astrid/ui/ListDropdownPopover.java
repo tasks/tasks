@@ -5,35 +5,29 @@ import greendroid.widget.QuickActionWidget;
 
 import java.util.List;
 
-import android.R;
 import android.content.Context;
 import android.graphics.Rect;
 import android.view.View;
 import android.view.View.MeasureSpec;
 import android.view.ViewGroup;
-import android.widget.AdapterView.OnItemClickListener;
 import android.widget.FrameLayout;
-import android.widget.ListAdapter;
-import android.widget.ListView;
+
+import com.timsu.astrid.R;
 
 
 public class ListDropdownPopover extends QuickActionWidget {
 
-    private final ListView listView;
-
-    public ListDropdownPopover(Context context, int layout) {
+    public ListDropdownPopover(Context context) {
         super(context);
-        setContentView(layout);
-
-        listView = (ListView) getContentView().findViewById(R.id.list);
+        setContentView(R.layout.list_dropdown_popover);
 
         setFocusable(true);
         setTouchable(true);
     }
 
-    public void setAdapter(ListAdapter adapter, OnItemClickListener listener) {
-        listView.setAdapter(adapter);
-        listView.setOnItemClickListener(listener);
+    public void setContent(View content) {
+        FrameLayout contentContainer = (FrameLayout) getContentView().findViewById(R.id.content);
+        contentContainer.addView(content);
     }
 
     @Override

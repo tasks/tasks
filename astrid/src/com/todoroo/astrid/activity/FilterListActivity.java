@@ -33,7 +33,6 @@ import android.widget.AdapterView.AdapterContextMenuInfo;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.FrameLayout;
-import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.TextView.OnEditorActionListener;
@@ -141,7 +140,8 @@ public class FilterListActivity extends ListFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
             Bundle savedInstanceState) {
-        ViewGroup parent = (ViewGroup) getActivity().getLayoutInflater().inflate(R.layout.filter_list_activity, container, false);
+        Activity activity = getActivity();
+        ViewGroup parent = (ViewGroup) activity.getLayoutInflater().inflate(R.layout.filter_list_activity, container, false);
         return parent;
     }
 
@@ -259,8 +259,15 @@ public class FilterListActivity extends ListFragment {
             adapter.registerRecevier();
 
         // also load sync actions
+        Activity activity = getActivity();
+
         Intent broadcastIntent = new Intent(AstridApiConstants.BROADCAST_REQUEST_SYNC_ACTIONS);
-        getActivity().sendOrderedBroadcast(broadcastIntent, AstridApiConstants.PERMISSION_READ);
+        activity.sendOrderedBroadcast(broadcastIntent, AstridApiConstants.PERMISSION_READ);
+
+        if (activity instanceof TaskListWrapperActivity) {
+            ((TaskListWrapperActivity) activity).setupPopoverWithFilterList(this);
+        }
+
     }
 
     @Override
@@ -282,15 +289,6 @@ public class FilterListActivity extends ListFragment {
         setListAdapter(adapter);
 
         registerForContextMenu(getListView());
-    }
-
-    @Override
-    public void setListAdapter(ListAdapter adapter) {
-        super.setListAdapter(adapter);
-        Activity activity = getActivity();
-        if (activity instanceof TaskListWrapperActivity && adapter instanceof FilterAdapter) {
-            ((TaskListWrapperActivity) activity).setPopoverAdapter((FilterAdapter) adapter);
-        }
     }
 
 
