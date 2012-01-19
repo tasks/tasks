@@ -38,6 +38,7 @@ import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.andlib.utility.DialogUtilities;
 import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.andlib.utility.TodorooPreferenceActivity;
+import com.todoroo.astrid.actfm.ActFmLoginActivity;
 import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.dao.Database;
 import com.todoroo.astrid.data.Task;
@@ -52,6 +53,7 @@ import com.todoroo.astrid.utility.Constants;
 import com.todoroo.astrid.utility.Flags;
 import com.todoroo.astrid.voice.VoiceInputAssistant;
 import com.todoroo.astrid.voice.VoiceOutputService;
+import com.todoroo.astrid.welcome.tutorial.WelcomeWalkthrough;
 
 /**
  * Displays the preference screen for users to edit their preferences
@@ -61,10 +63,8 @@ import com.todoroo.astrid.voice.VoiceOutputService;
  */
 public class EditPreferences extends TodorooPreferenceActivity {
 
-    private static final int ABOUT_PREFERENCE = 0; // see preferences.xml for order of prefs
-    private static final int HELP_PREFERENCE = 1;
-    private static final int APPEARANCE_PREFERENCE = 2;
-    private static final int POWER_PACK_PREFERENCE = 3;
+    private static final int APPEARANCE_PREFERENCE = 3;
+    private static final int POWER_PACK_PREFERENCE = 4;
 
     public static final int RESULT_CODE_THEME_CHANGED = 1;
 
@@ -101,9 +101,9 @@ public class EditPreferences extends TodorooPreferenceActivity {
         screen.getPreference(POWER_PACK_PREFERENCE).setEnabled(addOnService.hasPowerPack());
 
         final Resources r = getResources();
-        // About pref
-        Preference preference = screen.getPreference(ABOUT_PREFERENCE);
-        preference.setTitle(r.getString(R.string.p_about));
+
+        // first-order preferences
+        Preference preference = screen.findPreference(getString(R.string.p_about));
         preference.setOnPreferenceClickListener(new OnPreferenceClickListener() {
             public boolean onPreferenceClick(Preference p) {
                 showAbout();
@@ -111,9 +111,20 @@ public class EditPreferences extends TodorooPreferenceActivity {
             }
         });
 
-        Preference helpPref = screen.getPreference(HELP_PREFERENCE);
-        helpPref.setTitle(r.getString(R.string.p_help));
-        helpPref.setOnPreferenceClickListener(new OnPreferenceClickListener() {
+        preference = screen.findPreference(getString(R.string.p_tutorial));
+        preference.setOnPreferenceClickListener(new OnPreferenceClickListener() {
+            @Override
+            public boolean onPreferenceClick(Preference p) {
+                Intent showWelcomeLogin = new Intent(EditPreferences.this, WelcomeWalkthrough.class);
+                showWelcomeLogin.putExtra(ActFmLoginActivity.SHOW_TOAST, false);
+                showWelcomeLogin.putExtra(WelcomeWalkthrough.TOKEN_MANUAL_SHOW, true);
+                startActivity(showWelcomeLogin);
+                return true;
+            }
+        });
+
+        preference = screen.findPreference(getString(R.string.p_help));
+        preference.setOnPreferenceClickListener(new OnPreferenceClickListener() {
             @Override
             public boolean onPreferenceClick(Preference p) {
                 showHelp();
