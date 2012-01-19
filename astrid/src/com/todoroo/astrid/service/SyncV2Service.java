@@ -1,5 +1,9 @@
 package com.todoroo.astrid.service;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
 import com.todoroo.astrid.actfm.sync.ActFmSyncV2Provider;
 
 /**
@@ -35,10 +39,36 @@ public class SyncV2Service {
         public void finished();
     }
 
-    public interface SyncV2Provider {
-        public boolean isActive();
-        public void synchronizeActiveTasks(boolean manual, SyncResultCallback callback);
-        public void synchronizeList(Object list, boolean manual, SyncResultCallback callback);
+    abstract public static class SyncV2Provider {
+        /**
+         * @return sync provider name (displayed in sync menu)
+         */
+        abstract public String getName();
+
+        /**
+         * @return true if this provider is logged in
+         */
+        abstract public boolean isActive();
+
+        /**
+         * Synchronize all of user's active tasks
+         * @param manual whether manually triggered
+         * @param callback callback object
+         */
+        abstract public void synchronizeActiveTasks(boolean manual, SyncResultCallback callback);
+
+        /**
+         * Synchronize a single list
+         * @param list object representing list (TaskListActivity-dependent)
+         * @param manual whether was manually triggered
+         * @param callback callback object
+         */
+        abstract public void synchronizeList(Object list, boolean manual, SyncResultCallback callback);
+
+        @Override
+        public String toString() {
+            return getName();
+        }
     }
 
     /*
@@ -51,16 +81,17 @@ public class SyncV2Service {
     };
 
     /**
-     * Determine if synchronization is available
+     * Returns active sync providers
      *
      * @param callback
      */
-    public boolean isActive() {
+    public List<SyncV2Provider> activeProviders() {
+        ArrayList<SyncV2Provider> actives = new ArrayList<SyncV2Provider>();
         for(SyncV2Provider provider : providers) {
             if(provider.isActive())
-                return true;
+                actives.add(provider);
         }
-        return false;
+        return Collections.unmodifiableList(actives);
     }
 
     /**

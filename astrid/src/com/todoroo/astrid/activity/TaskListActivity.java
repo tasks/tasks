@@ -105,6 +105,8 @@ import com.todoroo.astrid.service.StartupService;
 import com.todoroo.astrid.service.StatisticsConstants;
 import com.todoroo.astrid.service.StatisticsService;
 import com.todoroo.astrid.service.SyncV2Service;
+import com.todoroo.astrid.service.SyncV2Service.SyncResultCallback;
+import com.todoroo.astrid.service.SyncV2Service.SyncV2Provider;
 import com.todoroo.astrid.service.TagDataService;
 import com.todoroo.astrid.service.TaskService;
 import com.todoroo.astrid.service.ThemeService;
@@ -204,6 +206,8 @@ public class TaskListActivity extends ListActivity implements OnScrollListener,
     private boolean isFilter;
 
     private final TaskListContextMenuExtensionLoader contextMenuExtensionLoader = new TaskListContextMenuExtensionLoader();
+
+    private SyncResultCallback syncResultCallback;
     private VoiceInputAssistant voiceInputAssistant;
 
     /* ======================================================================
@@ -498,6 +502,14 @@ public class TaskListActivity extends ListActivity implements OnScrollListener,
         // dithering
         getWindow().setFormat(PixelFormat.RGBA_8888);
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_DITHER);
+
+        syncResultCallback = new ProgressBarSyncResultCallback(this,
+                R.id.progressBar, new Runnable() {
+            @Override
+            public void run() {
+                ContextManager.getContext().sendBroadcast(new Intent(AstridApiConstants.BROADCAST_EVENT_REFRESH));
+            }
+        });
     }
 
     // Subclasses can override these to customize extras in quickadd intent
@@ -514,9 +526,7 @@ public class TaskListActivity extends ListActivity implements OnScrollListener,
     }
 
     public void transitionForTaskEdit() {
-        AndroidUtilities.callApiMethod(5, this, "overridePendingTransition",
-                new Class<?>[] { Integer.TYPE, Integer.TYPE },
-                R.anim.slide_left_in, R.anim.slide_left_out);
+        overridePendingTransition(R.anim.slide_left_in, R.anim.slide_left_out);
     }
 
     private void setUpBackgroundJobs() {
@@ -618,9 +628,7 @@ public class TaskListActivity extends ListActivity implements OnScrollListener,
     public void finish() {
         super.finish();
         if (overrideFinishAnim) {
-            AndroidUtilities.callApiMethod(5, this, "overridePendingTransition",
-                    new Class<?>[] { Integer.TYPE, Integer.TYPE },
-                    R.anim.slide_right_in, R.anim.slide_right_out);
+            overridePendingTransition(R.anim.slide_right_in, R.anim.slide_right_out);
         }
     }
 
@@ -1138,18 +1146,15 @@ public class TaskListActivity extends ListActivity implements OnScrollListener,
     }
 
     protected void performSyncServiceV2Sync(boolean manual) {
-        syncService.synchronizeActiveTasks(manual, new ProgressBarSyncResultCallback(this,
-                R.id.progressBar, new Runnable() {
-            @Override
-            public void run() {
-                ContextManager.getContext().sendBroadcast(new Intent(AstridApiConstants.BROADCAST_EVENT_REFRESH));
-            }
-        }));
+        syncService.synchronizeActiveTasks(manual, syncResultCallback);
         Preferences.setLong(PREF_LAST_AUTO_SYNC, DateUtilities.now());
     }
 
     protected void performSyncAction() {
-        if (syncActions.size() == 0 && !syncService.isActive()) {
+        List<SyncV2Provider> activeV2Providers = syncService.activeProviders();
+        int activeSyncs = syncActions.size() + activeV2Providers.size();
+
+        if (activeSyncs == 0) {
             String desiredCategory = getString(R.string.SyP_label);
 
             // Get a list of all sync plugins and bring user to the prefs pane
@@ -1189,21 +1194,35 @@ public class TaskListActivity extends ListActivity implements OnScrollListener,
             };
 
             showSyncOptionMenu(actions, listener);
-        }
-        else {
-            performSyncServiceV2Sync(true);
 
-            if(syncActions.size() > 0) {
-                for(SyncAction syncAction : syncActions) {
-                    try {
-                        syncAction.intent.send();
-                    } catch (CanceledException e) {
-                        //
+        } else {
+            // We have sync actions, pop up a dialogue so the user can
+            // select just one of them (only sync one at a time)
+            final Object[] actions = new Object[activeSyncs];
+
+            int i;
+            for(i = 0; i < activeV2Providers.size(); i++)
+                actions[i] = activeV2Providers.get(i);
+            for(SyncAction syncAction : syncActions)
+                actions[i++] = syncAction;
+
+            DialogInterface.OnClickListener listener = new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface click, int which) {
+                    if(actions[which] instanceof SyncAction) {
+                        try {
+                            ((SyncAction)actions[which]).intent.send();
+                            Toast.makeText(TaskListActivity.this, R.string.SyP_progress_toast,
+                                    Toast.LENGTH_LONG).show();
+                        } catch (CanceledException e) {
+                            //
+                        }
+                    } else {
+                        ((SyncV2Provider)actions[which]).synchronizeActiveTasks(true, syncResultCallback);
                     }
                 }
-                Toast.makeText(TaskListActivity.this, R.string.SyP_progress_toast,
-                        Toast.LENGTH_LONG).show();
-            }
+            };
+            showSyncOptionMenu(actions, listener);
         }
     }
 
@@ -1215,6 +1234,11 @@ public class TaskListActivity extends ListActivity implements OnScrollListener,
      * @param listener
      */
     private <TYPE> void showSyncOptionMenu(TYPE[] items, DialogInterface.OnClickListener listener) {
+        if(items.length == 1) {
+            listener.onClick(null, 0);
+            return;
+        }
+
         ArrayAdapter<TYPE> adapter = new ArrayAdapter<TYPE>(this,
                 android.R.layout.simple_spinner_dropdown_item, items);
 
