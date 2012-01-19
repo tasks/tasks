@@ -63,6 +63,7 @@ public class TagSettingsActivity extends Activity {
     private EditText tagName;
     private EditText tagDescription;
     private CheckBox isSilent;
+    private Bitmap setBitmap;
 
     boolean isNewTag = false;
 
@@ -204,23 +205,44 @@ public class TagSettingsActivity extends Activity {
         else
             Toast.makeText(this, R.string.tag_list_saved, Toast.LENGTH_LONG).show();
 
-        tagDataService.save(tagData);
         InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
         imm.hideSoftInputFromWindow(tagName.getWindowToken(), 0);
 
         if (isNewTag) {
-            Intent intent = new Intent(this, TagViewActivity.class);
-            intent.putExtra(TagViewActivity.EXTRA_TAG_NAME, newName);
-            intent.putExtra(TagViewActivity.TOKEN_FILTER, TagFilterExposer.filterFromTagData(this, tagData));
-            super.finish();
-            startActivity(intent);
-            AndroidUtilities.callApiMethod(5, this, "overridePendingTransition", //$NON-NLS-1$
-                    new Class<?>[] { Integer.TYPE, Integer.TYPE },
-                    R.anim.slide_left_in, R.anim.slide_left_out);
+            Flags.set(Flags.ACTFM_SUPPRESS_SYNC);
+            tagDataService.save(tagData);
+
+            final String name = newName;
+            final Runnable loadTag = new Runnable() {
+                @Override
+                public void run() {
+                    Intent intent = new Intent(TagSettingsActivity.this, TagViewActivity.class);
+                    intent.putExtra(TagViewActivity.EXTRA_TAG_NAME, name);
+                    intent.putExtra(TagViewActivity.TOKEN_FILTER,
+                            TagFilterExposer.filterFromTagData(TagSettingsActivity.this, tagData));
+                    finish();
+                    startActivity(intent);
+                }
+            };
+
+            if(actFmPreferenceService.isLoggedIn()) {
+                new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        actFmSyncService.pushTagDataOnSave(tagData, tagData.getMergedValues());
+                        if(setBitmap != null && tagData.getValue(TagData.REMOTE_ID) > 0)
+                            uploadTagPicture(setBitmap);
+                        runOnUiThread(loadTag);
+                    }
+                }).start();
+            } else {
+                loadTag.run();
+            }
+
             return;
+        } else {
+            tagDataService.save(tagData);
         }
-
-
 
         refreshSettingsPage();
         finish();
@@ -234,13 +256,9 @@ public class TagSettingsActivity extends Activity {
     private void finishWithAnimation(boolean backAnimation) {
         super.finish();
         if (backAnimation) {
-            AndroidUtilities.callApiMethod(5, this, "overridePendingTransition", //$NON-NLS-1$
-                    new Class<?>[] { Integer.TYPE, Integer.TYPE },
-                    R.anim.slide_right_in, R.anim.slide_right_out);
+            overridePendingTransition(R.anim.slide_right_in, R.anim.slide_right_out);
         } else {
-            AndroidUtilities.callApiMethod(5, this, "overridePendingTransition", //$NON-NLS-1$
-                    new Class<?>[] { Integer.TYPE, Integer.TYPE },
-                    R.anim.slide_left_in, R.anim.slide_left_out);
+            overridePendingTransition(R.anim.slide_left_in, R.anim.slide_left_out);
         }
     }
 
@@ -323,7 +341,9 @@ public class TagSettingsActivity extends Activity {
             @Override
             public void handleCameraResult(Bitmap bitmap) {
                 picture.setImageBitmap(bitmap);
-                uploadTagPicture(bitmap);
+                setBitmap = bitmap;
+                if(tagData.getValue(TagData.REMOTE_ID) > 0)
+                    uploadTagPicture(bitmap);
             }
         };
         if (ActFmCameraModule.activityResult(this, requestCode, resultCode, data, callback)) {
