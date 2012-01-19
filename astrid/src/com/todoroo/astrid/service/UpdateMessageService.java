@@ -14,6 +14,7 @@ import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.PackageManager.NameNotFoundException;
 import android.text.TextUtils;
+import android.view.WindowManager.BadTokenException;
 
 import com.timsu.astrid.R;
 import com.todoroo.andlib.data.Property.StringProperty;
@@ -92,8 +93,20 @@ public class UpdateMessageService {
         activity.runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                DialogUtilities.htmlDialog(activity,
-                        html, R.string.UpS_updates_title);
+                try {
+                    DialogUtilities.htmlDialog(activity,
+                            html, R.string.UpS_updates_title);
+                } catch (BadTokenException bt) {
+                    try {
+                        Activity current = (Activity) ContextManager.getContext();
+                        DialogUtilities.htmlDialog(current,
+                                html, R.string.UpS_updates_title);
+                    } catch (ClassCastException c) {
+                        // Oh well, context wasn't an activity
+                    } catch (BadTokenException bt2) {
+                        // Oh well, activity isn't running
+                    }
+                }
             }
         });
     }

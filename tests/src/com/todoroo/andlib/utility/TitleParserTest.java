@@ -1,6 +1,7 @@
 package com.todoroo.andlib.utility;
 
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -10,6 +11,7 @@ import com.timsu.astrid.R;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.service.TaskService;
 import com.todoroo.astrid.test.DatabaseTestCase;
+import com.todoroo.astrid.utility.TitleParser;
 
 public class TitleParserTest extends DatabaseTestCase {
 
@@ -504,6 +506,48 @@ public class TitleParserTest extends DatabaseTestCase {
 //----------------Repeats end----------------//
 
 
+    //----------------Tags begin----------------//
+    /** tests all words using priority 0 */
+    public void testTagsPound() throws Exception {
+        String[] acceptedStrings = {
+                "#tag",
+                "#a",
+                "#(a cool tag)",
+                "#(cool)"
+        };
+        TaskService taskService = new TaskService();
+        Task task = new Task();
+        for (String acceptedString:acceptedStrings){
+            task = new Task();
+            task.setValue(Task.TITLE, "Jog " + acceptedString); //test at end of task. should set importance.
+            ArrayList<String> tags = new ArrayList<String>();
+            TitleParser.listHelper(task, tags);
+            assertTrue("test pound at failed for string: " + acceptedString + " for tags: " + tags.toString(),tags.contains(TitleParser.trimParenthesis(acceptedString)));
+        }
+    }
+
+    /** tests all words using priority 0 */
+    public void testTagsAt() throws Exception {
+        String[] acceptedStrings = {
+                "@tag",
+                "@a",
+                "@(a cool tag)",
+                "@(cool)"
+        };
+        TaskService taskService = new TaskService();
+        Task task = new Task();
+        for (String acceptedString:acceptedStrings){
+            task = new Task();
+            task.setValue(Task.TITLE, "Jog " + acceptedString); //test at end of task. should set importance.
+            ArrayList<String> tags = new ArrayList<String>();
+            TitleParser.listHelper(task, tags);
+            assertTrue("testTagsAt failed for string: " + acceptedString+ " for tags: " + tags.toString(),tags.contains(TitleParser.trimParenthesis(acceptedString)));
+        }
+    }
+
+
+
+    //----------------Priority end----------------//
 
 
 }

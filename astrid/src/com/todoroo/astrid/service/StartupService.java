@@ -16,7 +16,6 @@ import android.content.DialogInterface.OnClickListener;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
-import android.content.res.Resources;
 import android.media.AudioManager;
 import android.util.Log;
 import android.widget.Toast;
@@ -37,7 +36,6 @@ import com.todoroo.astrid.backup.BackupConstants;
 import com.todoroo.astrid.backup.BackupService;
 import com.todoroo.astrid.backup.TasksXmlImporter;
 import com.todoroo.astrid.dao.Database;
-import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.gtasks.GtasksPreferenceService;
 import com.todoroo.astrid.gtasks.sync.GtasksSyncOnSaveService;
 import com.todoroo.astrid.opencrx.OpencrxCoreUtils;
@@ -139,9 +137,9 @@ public class StartupService {
 
             int defaultTheme = abChooser.getChoiceForOption(ABOptions.AB_THEME_KEY);
             if (defaultTheme == 0)
-                Preferences.setString(R.string.p_theme, "white");
+                Preferences.setString(R.string.p_theme, "white"); //$NON-NLS-1$
             else
-                Preferences.setString(R.string.p_theme, "black");
+                Preferences.setString(R.string.p_theme, "black"); //$NON-NLS-1$
         } else {
             abChooser.setChoiceForOption(ABOptions.AB_THEME_KEY, 0);
             Preferences.setLong(AstridPreferences.P_FIRST_LAUNCH, 0);
@@ -170,10 +168,6 @@ public class StartupService {
             }
             AstridPreferences.setCurrentVersion(version);
         }
-        //Startup tasks
-//        if(latestSetVersion == 0) {
-//            onFirstTime();
-//        }
 
         upgradeService.performSecondaryUpgrade(context);
 
@@ -224,49 +218,7 @@ public class StartupService {
         hasStartedUp = true;
     }
 
-    /**
-     * Create tasks for first time users
-     */
-    private void onFirstTime() {
-        final Resources r = ContextManager.getResources();
-        try {
-            new Thread(new Runnable() {
-                @Override
-                public void run() {
-                    database.openForWriting();
-
-                    if(taskService.countTasks() > 0)
-                        return;
-
-                    for(int i = 0; i < INTRO_TASKS.length; i += 3)
-                        addIntroTask(r, INTRO_TASKS[i], INTRO_TASKS[i + 1], INTRO_TASKS[i + 2]);
-                    Preferences.setBoolean(AstridPreferences.P_FIRST_ACTION, true);
-                    Preferences.setBoolean(AstridPreferences.P_FIRST_LIST, true);
-                }
-            }).start();
-        } catch (Exception e) {
-            exceptionService.reportError("on-first-time", e); //$NON-NLS-1$
-        }
-    }
-
-    private static final int[] INTRO_TASKS = new int[] {
-        R.string.intro_task_2_summary,
-        R.string.intro_task_2_note,
-        Task.URGENCY_DAY_AFTER,
-        R.string.intro_task_3_summary,
-        R.string.intro_task_3_note,
-        Task.URGENCY_NONE,
-    };
-    public static final int INTRO_TASK_SIZE = INTRO_TASKS.length / 3;
-
-    private void addIntroTask(Resources r, int summary, int note, int dueSetting) {
-        Task task = new Task();
-        task.setValue(Task.TITLE, r.getString(summary));
-        task.setValue(Task.NOTES, r.getString(note));
-        long dueDate = Task.createDueDate(dueSetting, 0);
-        task.setValue(Task.DUE_DATE, dueDate);
-        taskService.save(task);
-    }
+    public static final int INTRO_TASK_SIZE = 0;
 
     /**
      * If database exists, no tasks but metadata, and a backup file exists, restore it

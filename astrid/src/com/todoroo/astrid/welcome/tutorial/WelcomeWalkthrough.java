@@ -31,12 +31,14 @@ public class WelcomeWalkthrough extends ActFmLoginActivity {
 
     public static final String KEY_SHOWED_WELCOME_LOGIN = "key_showed_welcome_login"; //$NON-NLS-1$
 
+    public static final String TOKEN_MANUAL_SHOW = "manual"; //$NON-NLS-1$
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         super.onCreate(savedInstanceState);
 
-        mAdapter = new ViewPagerAdapter(this);
+        mAdapter = new ViewPagerAdapter(this, getIntent().hasExtra(TOKEN_MANUAL_SHOW));
         mAdapter.parent = this;
 
         mPager = (ViewPager)findViewById(R.id.pager);
@@ -44,6 +46,7 @@ public class WelcomeWalkthrough extends ActFmLoginActivity {
 
         mIndicator = (CirclePageIndicator)findViewById(R.id.indicator);
         mIndicator.setViewPager(mPager);
+
     }
     @Override
     protected int getContentViewResource() {
@@ -68,10 +71,22 @@ public class WelcomeWalkthrough extends ActFmLoginActivity {
     protected void initializeUI() {
         if(mAdapter == null)
             return;
-        if(currentPage == mAdapter.getCount()-1){
-            super.initializeUI();
-            setupTermsOfService();
-            setupLoginLater();
+        if(currentPage == mAdapter.getCount()-1) {
+            if(findViewById(R.id.fb_login) != null) {
+                super.initializeUI();
+                setupTermsOfService();
+                setupLoginLater();
+            } else {
+                OnClickListener done = new OnClickListener() {
+                    @Override
+                    public void onClick(View arg0) {
+                        finish();
+                    }
+                };
+                currentView.findViewById(R.id.welcome_walkthrough_title).setOnClickListener(done);
+                currentView.findViewById(R.id.welcome_walkthrough_image).setOnClickListener(done);
+            }
+
         }
     }
 
@@ -106,12 +121,6 @@ public class WelcomeWalkthrough extends ActFmLoginActivity {
         Button pwLogin = (Button) findViewById(R.id.pw_login);
         pwLogin.setOnClickListener(signUpListener);
     }
-    /*
-    protected void setupWalkthroughLogin() {
-        Button loginButton = (Button)currentView.findViewById(R.id.walkthrough_login);
-        loginButton.setOnClickListener(showWalkthroughLoginListener);
-    }*/
-
 
     protected void setupLoginLater() {
         TextView loginLater = (TextView)currentView.findViewById(R.id.login_later);

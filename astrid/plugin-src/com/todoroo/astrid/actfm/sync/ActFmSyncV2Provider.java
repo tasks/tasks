@@ -8,8 +8,10 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 import org.json.JSONException;
 
+import com.timsu.astrid.R;
 import com.todoroo.andlib.data.TodorooCursor;
 import com.todoroo.andlib.service.Autowired;
+import com.todoroo.andlib.service.ContextManager;
 import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.andlib.service.ExceptionService;
 import com.todoroo.andlib.sql.Criterion;
@@ -29,7 +31,7 @@ import com.todoroo.astrid.tags.TagService;
  * Exposes sync action
  *
  */
-public class ActFmSyncV2Provider implements SyncV2Provider {
+public class ActFmSyncV2Provider extends SyncV2Provider {
 
     @Autowired ActFmPreferenceService actFmPreferenceService;
 
@@ -45,6 +47,11 @@ public class ActFmSyncV2Provider implements SyncV2Provider {
 
     public ActFmSyncV2Provider() {
         DependencyInjectionService.getInstance().inject(this);
+    }
+
+    @Override
+    public String getName() {
+        return ContextManager.getString(R.string.actfm_APr_header);
     }
 
     @Override

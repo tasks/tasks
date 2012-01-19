@@ -3,7 +3,6 @@
  */
 package com.todoroo.astrid.actfm;
 
-import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -38,11 +37,8 @@ public class ActFmSyncActionExposer extends BroadcastReceiver {
         if(!actFmPreferenceService.isLoggedIn())
             return;
 
-        Intent syncIntent = new Intent(null, null,
-                context, ActFmBackgroundService.class);
-        PendingIntent pendingIntent = PendingIntent.getService(context, 0, syncIntent, PendingIntent.FLAG_UPDATE_CURRENT);
         SyncAction syncAction = new SyncAction(context.getString(R.string.actfm_APr_header),
-                pendingIntent);
+                null);
 
         Intent broadcastIntent = new Intent(AstridApiConstants.BROADCAST_SEND_SYNC_ACTIONS);
         broadcastIntent.putExtra(AstridApiConstants.EXTRAS_ADDON, ActFmPreferenceService.IDENTIFIER);
