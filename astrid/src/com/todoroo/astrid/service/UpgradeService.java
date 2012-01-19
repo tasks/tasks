@@ -41,6 +41,8 @@ import com.todoroo.astrid.utility.AstridPreferences;
 
 public final class UpgradeService {
 
+    public static final int V3_9_2_2 = 209;
+    public static final int V3_9_2_1 = 208;
     public static final int V3_9_2 = 207;
     public static final int V3_9_1_1 = 206;
     public static final int V3_9_1 = 205;
@@ -171,6 +173,13 @@ public final class UpgradeService {
 
         Preferences.clear(AstridPreferences.P_UPGRADE_FROM);
         StringBuilder changeLog = new StringBuilder();
+
+        if (from >= V3_9_2 && from < V3_9_2_2) {
+            newVersionString(changeLog, "3.9.2.2", new String[] {
+                 "Reduced APK size",
+                 "Fixed bugs with Google Task sync",
+            });
+        }
 
         if (from < V3_9_2) {
             newVersionString(changeLog, "3.9.2 (01/13/12)", new String[] {
