@@ -29,19 +29,28 @@ public class TitleParser {
         priorityHelper(task);
     }
 
-    private static void listHelper(Task task, ArrayList<String> tags) {
+    public static String trimParenthesis(String pattern){
+        if (pattern.charAt(0) == '#' || pattern.charAt(0) == '@') {
+            pattern = pattern.substring(1);
+        }
+        if ('(' == pattern.charAt(0)) {
+            return pattern.substring(1, pattern.length()-2);
+        }
+        return pattern;
+    }
+    public static void listHelper(Task task, ArrayList<String> tags) {
         String inputText = task.getValue(Task.TITLE);
-        Pattern tagPattern = Pattern.compile("(\\s|^)#([^\\s]+)");
-        Pattern contextPattern = Pattern.compile("(\\s|^)(@[^\\s]+)");
+        Pattern tagPattern = Pattern.compile("(\\s|^)#(\\(.*\\)|[^\\s]+)");
+        Pattern contextPattern = Pattern.compile("(\\s|^)@(\\(.*\\)|[^\\s]+)");
 
         while(true) {
             Matcher m = tagPattern.matcher(inputText);
             if(m.find()) {
-                tags.add(m.group(2));
+                tags.add(TitleParser.trimParenthesis(m.group(2)));
             } else {
                 m = contextPattern.matcher(inputText);
                 if(m.find()) {
-                    tags.add(m.group(2));
+                    tags.add(TitleParser.trimParenthesis(m.group(2)));
                 }else{
                     break;
                 }
