@@ -22,7 +22,6 @@ import android.content.pm.ResolveInfo;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Parcelable;
-import android.text.TextUtils;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -170,11 +169,9 @@ public class FilterAdapter extends ArrayAdapter<Filter> {
             convertView = inflater.inflate(layout, parent, false);
             ViewHolder viewHolder = new ViewHolder();
             viewHolder.view = convertView;
-            viewHolder.expander = (ImageView)convertView.findViewById(R.id.expander);
             viewHolder.icon = (ImageView)convertView.findViewById(R.id.icon);
             viewHolder.urlImage = (AsyncImageView)convertView.findViewById(R.id.url_image);
             viewHolder.name = (TextView)convertView.findViewById(R.id.name);
-            viewHolder.activity = (TextView)convertView.findViewById(R.id.activity);
             viewHolder.selected = (ImageView)convertView.findViewById(R.id.selected);
             viewHolder.size = (TextView)convertView.findViewById(R.id.size);
             viewHolder.decoration = null;
@@ -185,11 +182,9 @@ public class FilterAdapter extends ArrayAdapter<Filter> {
 
     public static class ViewHolder {
         public FilterListItem item;
-        public ImageView expander;
         public ImageView icon;
         public AsyncImageView urlImage;
         public TextView name;
-        public TextView activity;
         public TextView size;
         public ImageView selected;
         public View view;
@@ -414,17 +409,9 @@ public class FilterAdapter extends ArrayAdapter<Filter> {
             viewHolder.view.getLayoutParams().height = (int) (58 * metrics.density);
         }
 
-        if(viewHolder.item instanceof FilterCategory) {
-            viewHolder.expander.setVisibility(View.VISIBLE);
-            viewHolder.expander.setImageResource(isExpanded ?
-                    R.drawable.expander_ic_maximized : R.drawable.expander_ic_minimized);
-        } else
-            viewHolder.expander.setVisibility(View.GONE);
-
         // update with filter attributes (listing icon, url, update text, size)
 
         viewHolder.urlImage.setVisibility(View.GONE);
-        viewHolder.activity.setVisibility(View.GONE);
         viewHolder.icon.setVisibility(View.GONE);
 
         if(filter.listingIcon != null) {
@@ -448,11 +435,6 @@ public class FilterAdapter extends ArrayAdapter<Filter> {
             viewHolder.urlImage.setVisibility(View.VISIBLE);
             viewHolder.urlImage.setDefaultImageResource(R.drawable.gl_list);
             viewHolder.urlImage.setUrl(((FilterWithUpdate)filter).imageUrl);
-            if(!TextUtils.isEmpty(((FilterWithUpdate)filter).updateText)) {
-                viewHolder.activity.setText(((FilterWithUpdate)filter).updateText);
-                viewHolder.name.getLayoutParams().height = (int) (25 * metrics.density);
-                viewHolder.activity.setVisibility(View.VISIBLE);
-            }
         }
 
         if(filter.color != 0)

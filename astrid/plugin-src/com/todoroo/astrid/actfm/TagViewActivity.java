@@ -211,17 +211,17 @@ public class TagViewActivity extends TaskListActivity {
 
         super.onNewIntent(intent);
 
-        if (intent.getBooleanExtra(TOKEN_START_ACTIVITY, false)) {
-            getView().findViewById(R.id.activity).postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    Intent i = new Intent(getActivity(), TagUpdatesActivity.class);
-                    i.putExtra(EXTRA_TAG_DATA, tagData);
-                    startActivity(i);
-                    AndroidUtilities.callOverridePendingTransition(getActivity(), R.anim.slide_left_in, R.anim.slide_left_out);
-                }
-            }, 500);
-        }
+//        if (intent.getBooleanExtra(TOKEN_START_ACTIVITY, false)) {
+//            getView().findViewById(R.id.activity).postDelayed(new Runnable() {
+//                @Override
+//                public void run() {
+//                    Intent i = new Intent(getActivity(), TagUpdatesActivity.class);
+//                    i.putExtra(EXTRA_TAG_DATA, tagData);
+//                    startActivity(i);
+//                    AndroidUtilities.callOverridePendingTransition(getActivity(), R.anim.slide_left_in, R.anim.slide_left_out);
+//                }
+//            }, 500);
+//        }
     }
 
     @Override
