@@ -126,6 +126,9 @@
         <item name="android:background">?attr/asSeparatorBackground</item>
     </style>
     
+    <style name="FLA_Separator" parent="TEA_Separator">
+    </style>
+    
     <style name="TextAppearance" parent="android:TextAppearance">
         <item name="android:textColor">?attr/asTextColor</item>    
     </style>
@@ -271,6 +274,10 @@
         <item name="android:textSize">18sp</item>
         <item name="android:textStyle">bold</item>
         <item name="android:textColor">@android:color/white</item>
+    </style>
+    
+    <style name="TextAppearance.FLA_Button" parent="TextAppearance.FLA_Filter">
+        <item name="android:textColor">@color/new_list_button_text</item>
     </style>
     
     <style name="TextAppearance.FLA_Header" parent="TextAppearance.FLA_Filter">

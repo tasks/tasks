@@ -33,7 +33,6 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
 import android.widget.AdapterView.AdapterContextMenuInfo;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.ListView;
@@ -161,7 +160,7 @@ public class FilterListActivity extends ListFragment {
 
         getActivity().setDefaultKeyMode(Activity.DEFAULT_KEYS_SEARCH_LOCAL);
         //ImageView backButton = (ImageView) getView().findViewById(R.id.back);
-        Button newListButton = (Button) getView().findViewById(R.id.new_list_button);
+        View newListButton = getView().findViewById(R.id.new_list_button);
 
 //        backButton.setOnClickListener(new OnClickListener() {
 //            @Override
