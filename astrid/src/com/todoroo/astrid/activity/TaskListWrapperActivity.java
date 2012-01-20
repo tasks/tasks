@@ -62,6 +62,7 @@ public class TaskListWrapperActivity extends AstridWrapperActivity {
 		    listsNav.setOnClickListener(popupMenuClickListener);
 		    createPopover();
 		}
+		setupFilterlistFragment();
 
 	}
 
@@ -112,7 +113,6 @@ public class TaskListWrapperActivity extends AstridWrapperActivity {
         setupTasklistFragmentWithFilter(savedFilter);
         if (savedFilter != null)
             lists.setText(savedFilter.title);
-        setupFilterlistFragment();
         FilterListActivity fla = getFilterListFragment();
         if (fla != null) {
             fla.adapter.clear();
