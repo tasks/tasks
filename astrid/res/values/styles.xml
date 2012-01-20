@@ -63,7 +63,7 @@
         <item name="abBackground">@android:color/white</item>
         <item name="abDisplayOptions">useLogo|showHome|showTitle</item>
         <item name="abLogo">@drawable/icon_48</item>
-        <item name="asAbTextColor">#d00000</item>
+        <item name="asAbTextColor">@color/red_text_color</item>
     </style>
     
     <style name="Theme.TransparentWhite" parent="@style/Theme.White">
@@ -75,7 +75,7 @@
         <item name="abBackground">@android:color/white</item>
         <item name="abDisplayOptions">useLogo|showHome|showTitle</item>
         <item name="abLogo">@drawable/icon_48</item>
-        <item name="asAbTextColor">#d00000</item>
+        <item name="asAbTextColor">@color/red_text_color</item>
     </style>
     
     <style name="Theme_Dialog" parent="@android:style/Theme.Dialog">

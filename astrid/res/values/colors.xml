@@ -26,6 +26,10 @@
     
     <color name="task_edit_details">#0b78a5</color>
     <color name="task_edit_deadline_gray">#888888</color>
+    
+    <color name="red_text_color">#d00000</color>
+    <color name="tablet_list_bg">#292929</color>
+    <color name="tablet_list_selected">#101010</color>
         
 </resources>
 

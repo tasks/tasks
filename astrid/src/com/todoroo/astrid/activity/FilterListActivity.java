@@ -69,6 +69,8 @@ public class FilterListActivity extends ListFragment {
 
     public static final String TAG_FILTERLIST_FRAGMENT = "filterlist_fragment";
 
+    public static final String TOKEN_LAST_SELECTED = "lastSelected";
+
     // -- extra codes
     //public static final String SHOW_BACK_BUTTON = "show_back"; //$NON-NLS-1$
 
@@ -92,11 +94,14 @@ public class FilterListActivity extends ListFragment {
     @Autowired ExceptionService exceptionService;
 
     protected FilterAdapter adapter = null;
-    private boolean mDualFragments;
 
     private final RefreshReceiver refreshReceiver = new RefreshReceiver();
 
     private OnFilterItemClickedListener mListener;
+
+    private boolean mDualFragments;
+
+    private int mSelectedIndex;
 
     /* ======================================================================
      * ======================================================= initialization
@@ -175,10 +180,11 @@ public class FilterListActivity extends ListFragment {
             }
         });
 
-        onNewIntent(getActivity().getIntent());
-
-        Fragment tasklistFrame = getFragmentManager().findFragmentByTag(TaskListActivity.TAG_TASKLIST_FRAGMENT);
-        mDualFragments = (tasklistFrame != null) && tasklistFrame.isInLayout();
+        AstridWrapperActivity activity = (AstridWrapperActivity) getActivity();
+        mDualFragments = activity.isMultipleFragments();
+        if (mDualFragments)
+            mSelectedIndex = activity.getIntent().getIntExtra(TOKEN_LAST_SELECTED, 0);
+        onNewIntent(activity.getIntent());
 
         if (mDualFragments) {
             // In dual-pane mode, the list view highlights the selected item.
@@ -299,6 +305,8 @@ public class FilterListActivity extends ListFragment {
                 R.layout.filter_adapter_row, false);
         setListAdapter(adapter);
 
+        adapter.setLastSelected(mSelectedIndex);
+
         registerForContextMenu(getListView());
     }
 
@@ -310,12 +318,12 @@ public class FilterListActivity extends ListFragment {
 
     @Override
     public void onListItemClick(ListView parent, View v, int position, long id) {
-//        if (mDualFragments)
-//        {
-//            setSelectedChild(groupPosition, childPosition, false);
-//            setItemChecked((int) getSelectedPosition(), true);
-//        }
+        if (mDualFragments)
+            getListView().setItemChecked(position, true);
         Filter item = adapter.getItem(position);
+        mSelectedIndex = position;
+        adapter.setLastSelected(mSelectedIndex);
+        getActivity().getIntent().putExtra(TOKEN_LAST_SELECTED, mSelectedIndex);
         mListener.onFilterItemClicked(item);
     }
 

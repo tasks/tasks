@@ -37,6 +37,7 @@
         android:layout_alignParentTop="true"
         android:layout_above="@id/lists_footer"
         android:scrollbars="vertical"
+        android:divider="@android:color/transparent"
         android:cacheColorHint="#00000000"/>
     
 </RelativeLayout>

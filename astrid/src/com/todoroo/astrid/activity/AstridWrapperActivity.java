@@ -99,7 +99,9 @@ public class AstridWrapperActivity extends FragmentActivity
             if(item instanceof Filter) {
                 Filter filter = (Filter)item;
                 if(filter instanceof FilterWithCustomIntent) {
+                    int lastSelectedList = intent.getIntExtra(FilterListActivity.TOKEN_LAST_SELECTED, 0);
                     intent = ((FilterWithCustomIntent)filter).getCustomIntent();
+                    intent.putExtra(FilterListActivity.TOKEN_LAST_SELECTED, lastSelectedList);
                 } else {
                     intent.putExtra(TaskListActivity.TOKEN_FILTER, filter);
                 }

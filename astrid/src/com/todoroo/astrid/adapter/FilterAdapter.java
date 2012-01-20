@@ -88,6 +88,8 @@ public class FilterAdapter extends ArrayAdapter<Filter> {
     /** whether rows are selectable */
     private final boolean selectable;
 
+    private int mSelectedIndex;
+
     // Previous solution involved a queue of filters and a filterSizeLoadingThread. The filterSizeLoadingThread had
     // a few problems: how to make sure that the thread is resumed when the controlling activity is resumed, and
     // how to make sure that the the filterQueue does not accumulate filters without being processed. I am replacing
@@ -157,6 +159,10 @@ public class FilterAdapter extends ArrayAdapter<Filter> {
         offerFilter(item);
     }
 
+    public void setLastSelected(int lastSelected) {
+        mSelectedIndex = lastSelected;
+    }
+
 
     /**
      * Create or reuse a view
@@ -199,6 +205,12 @@ public class FilterAdapter extends ArrayAdapter<Filter> {
         ViewHolder viewHolder = (ViewHolder) convertView.getTag();
         viewHolder.item = (FilterListItem) getItem(position);
         populateView(viewHolder, false);
+
+        if (listView.isItemChecked(position)) {
+            convertView.setBackgroundColor(activity.getResources().getColor(R.color.tablet_list_selected));
+        } else {
+            convertView.setBackgroundColor(activity.getResources().getColor(android.R.color.transparent));
+        }
 
         return convertView;
     }
@@ -285,6 +297,10 @@ public class FilterAdapter extends ArrayAdapter<Filter> {
                 } else if (filter instanceof Filter){
                     add((Filter) filter);
                 }
+            }
+
+            if (mSelectedIndex < getCount()) {
+                listView.setItemChecked(mSelectedIndex, true);
             }
             notifyDataSetChanged();
         }

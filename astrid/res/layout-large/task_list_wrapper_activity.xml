@@ -8,6 +8,7 @@
 	    android:layout_width="match_parent"
 	    android:layout_height="match_parent"
 	    android:layout_weight="67"
+	    android:background="@android:color/white"
 	    android:id="@+id/filterlist_fragment_container">
 	</FrameLayout>
 	<View 

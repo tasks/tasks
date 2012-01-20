@@ -13,6 +13,7 @@
         android:layout_height="200dip"
         android:layout_alignParentTop="true"
         android:scrollbars="vertical"
+        android:divider="@android:color/transparent"
         android:cacheColorHint="#00000000"/>
     
     <!-- Footer -->

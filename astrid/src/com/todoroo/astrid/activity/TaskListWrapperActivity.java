@@ -4,15 +4,12 @@ import android.os.Bundle;
 import android.support.v4.app.ActionBar;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.widget.AdapterView;
-import android.widget.AdapterView.OnItemClickListener;
 import android.widget.FrameLayout;
 import android.widget.PopupWindow.OnDismissListener;
 import android.widget.TextView;
 
 import com.timsu.astrid.R;
 import com.todoroo.andlib.utility.AndroidUtilities;
-import com.todoroo.astrid.adapter.FilterAdapter;
 import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.api.FilterListItem;
 import com.todoroo.astrid.service.ThemeService;
@@ -24,18 +21,7 @@ public class TaskListWrapperActivity extends AstridWrapperActivity {
     private View listsNav;
     private TextView lists;
 
-    private FilterAdapter listDropdownAdapter;
     private ListDropdownPopover popover;
-
-    private final OnItemClickListener listClickListener = new OnItemClickListener() {
-        @Override
-        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-            Filter item = listDropdownAdapter.getItem(position);
-            onFilterItemClicked(item);
-            popover.dismiss();
-            lists.setText(item.title);
-        }
-    };
 
     private final OnClickListener popupMenuClickListener = new OnClickListener() {
         @Override
