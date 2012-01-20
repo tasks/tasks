@@ -87,6 +87,7 @@ public class FilterListActivity extends ListFragment {
     private static final int REQUEST_CUSTOM_INTENT = 1;
     static final int REQUEST_VIEW_TASKS = 2;
     public static final int REQUEST_NEW_BUTTON = 3;
+    public static final int REQUEST_NEW_LIST = 4;
 
     // --- instance variables
 
@@ -174,7 +175,7 @@ public class FilterListActivity extends ListFragment {
             @Override
             public void onClick(View v) {
                 Intent intent = TagsPlugin.newTagDialog(getActivity());
-                startActivity(intent);
+                getActivity().startActivityForResult(intent, REQUEST_NEW_LIST);
                 AndroidUtilities.callOverridePendingTransition(getActivity(), R.anim.slide_left_in, R.anim.slide_left_out);
             }
         });
@@ -487,13 +488,9 @@ public class FilterListActivity extends ListFragment {
         .show().setOwnerActivity(getActivity());
     }
 
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if(resultCode != Activity.RESULT_CANCELED)
-            // will get lists automatically
-            adapter.clear();
-
-        super.onActivityResult(requestCode, resultCode, data);
+    public void refresh() {
+        adapter.clear();
+        adapter.getLists();
     }
 
     /**
@@ -511,8 +508,7 @@ public class FilterListActivity extends ListFragment {
             getActivity().runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
-                    adapter.clear();
-                    adapter.getLists();
+                    refresh();
                 }
             });
         }

@@ -241,9 +241,11 @@ public class TagViewActivity extends TaskListActivity {
 
     @Override
     protected void initiateAutomaticSync() {
-        long lastAutoSync = Preferences.getLong(LAST_FETCH_KEY + tagData.getId(), 0);
-        if(DateUtilities.now() - lastAutoSync > DateUtilities.ONE_HOUR)
-            refreshData(false);
+        if (tagData != null) {
+            long lastAutoSync = Preferences.getLong(LAST_FETCH_KEY + tagData.getId(), 0);
+            if(DateUtilities.now() - lastAutoSync > DateUtilities.ONE_HOUR)
+                refreshData(false);
+        }
     }
 
     /** refresh the list with latest data from the web */

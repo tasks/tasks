@@ -49,6 +49,8 @@ import com.todoroo.astrid.welcome.HelpInfoPopover;
 
 public class TagSettingsActivity extends FragmentActivity {
 
+    public static final String TOKEN_NEW_FILTER = "newFilter";
+
     private static final int MENU_SAVE_ID = R.string.TEA_menu_save;
     private static final int MENU_DISCARD_ID = R.string.TEA_menu_discard;
 
@@ -210,16 +212,11 @@ public class TagSettingsActivity extends FragmentActivity {
             Flags.set(Flags.ACTFM_SUPPRESS_SYNC);
             tagDataService.save(tagData);
 
-            final String name = newName;
             final Runnable loadTag = new Runnable() {
                 @Override
                 public void run() {
-                    Intent intent = new Intent(TagSettingsActivity.this, TagViewActivity.class);
-                    intent.putExtra(TagViewActivity.EXTRA_TAG_NAME, name);
-                    intent.putExtra(TagViewActivity.TOKEN_FILTER,
-                            TagFilterExposer.filterFromTagData(TagSettingsActivity.this, tagData));
+                    setResult(RESULT_OK, new Intent().putExtra(TOKEN_NEW_FILTER, TagFilterExposer.filterFromTagData(TagSettingsActivity.this, tagData)));
                     finish();
-                    startActivity(intent);
                 }
             };
 

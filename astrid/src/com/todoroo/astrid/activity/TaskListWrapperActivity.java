@@ -1,5 +1,7 @@
 package com.todoroo.astrid.activity;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.ActionBar;
 import android.view.View;
@@ -10,6 +12,7 @@ import android.widget.TextView;
 
 import com.timsu.astrid.R;
 import com.todoroo.andlib.utility.AndroidUtilities;
+import com.todoroo.astrid.actfm.TagSettingsActivity;
 import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.api.FilterListItem;
 import com.todoroo.astrid.service.ThemeService;
@@ -44,7 +47,7 @@ public class TaskListWrapperActivity extends AstridWrapperActivity {
 		actionBar.setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
 		actionBar.setCustomView(R.layout.header_nav_views);
 
-        listsNav = actionBar.getCustomView().findViewById(R.id.lists_nav);
+		listsNav = actionBar.getCustomView().findViewById(R.id.lists_nav);
 		lists = (TextView) actionBar.getCustomView().findViewById(R.id.list_title);
 
 		View container = findViewById(R.id.filterlist_fragment_container);
@@ -60,11 +63,6 @@ public class TaskListWrapperActivity extends AstridWrapperActivity {
 		    createPopover();
 		}
 
-		Filter savedFilter = getIntent().getParcelableExtra(TaskListActivity.TOKEN_FILTER);
-		setupTasklistFragmentWithFilter(savedFilter);
-		if (savedFilter != null)
-		    lists.setText(savedFilter.title);
-		setupFilterlistFragment();
 	}
 
 	private void createPopover() {
@@ -109,6 +107,16 @@ public class TaskListWrapperActivity extends AstridWrapperActivity {
     @Override
     protected void onResume() {
         super.onResume();
+
+        Filter savedFilter = getIntent().getParcelableExtra(TaskListActivity.TOKEN_FILTER);
+        setupTasklistFragmentWithFilter(savedFilter);
+        if (savedFilter != null)
+            lists.setText(savedFilter.title);
+        setupFilterlistFragment();
+        FilterListActivity fla = getFilterListFragment();
+        if (fla != null) {
+            fla.adapter.clear();
+        }
     }
 
     @Override
@@ -131,5 +139,17 @@ public class TaskListWrapperActivity extends AstridWrapperActivity {
     public void finish() {
         super.finish();
         AndroidUtilities.callOverridePendingTransition(this, R.anim.slide_right_in, R.anim.slide_right_out);
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == FilterListActivity.REQUEST_NEW_LIST && resultCode == Activity.RESULT_OK) {
+            Filter newList = data.getParcelableExtra(TagSettingsActivity.TOKEN_NEW_FILTER);
+            if (newList != null) {
+                getIntent().putExtra(TaskListActivity.TOKEN_FILTER, newList);
+            }
+        }
+
+        super.onActivityResult(requestCode, resultCode, data);
     }
 }

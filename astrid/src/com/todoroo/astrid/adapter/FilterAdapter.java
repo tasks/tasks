@@ -251,10 +251,6 @@ public class FilterAdapter extends ArrayAdapter<Filter> {
      * ============================================================= receiver
      * ====================================================================== */
 
-    private static final String createExpansionPreference(FilterCategory category) {
-        return "Expansion:" + category.listingTitle; //$NON-NLS-1$
-    }
-
     /**
      * Receiver which receives intents to add items to the filter list
      *
