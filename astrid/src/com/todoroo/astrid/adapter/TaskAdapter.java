@@ -129,7 +129,10 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
     };
 
     private static int[] IMPORTANCE_REPEAT_RESOURCES = new int[] {
-        // stuff will go here
+        R.drawable.importance_check_repeat_1, //task_indicator_0,
+        R.drawable.importance_check_repeat_2, //task_indicator_1,
+        R.drawable.importance_check_repeat_3, //task_indicator_2,
+        R.drawable.importance_check_repeat_4, //task_indicator_3,
     };
 
     // --- instance variables
@@ -377,12 +380,24 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
         final CheckBox checkBoxView = viewHolder.completeBox; {
             int value = task.getValue(Task.IMPORTANCE);
             if(value < IMPORTANCE_RESOURCES.length)
-                if (!TextUtils.isEmpty(task.getValue(Task.RECURRENCE)))
+                if (!TextUtils.isEmpty(task.getValue(Task.RECURRENCE))) {
+                    checkBoxView.setButtonDrawable(IMPORTANCE_REPEAT_RESOURCES[value]);
+                    pictureView.setBackgroundResource(IMPORTANCE_REPEAT_RESOURCES[value]);
+                }
+                else {
                     checkBoxView.setButtonDrawable(IMPORTANCE_RESOURCES[value]);
-                else
-                    checkBoxView.setButtonDrawable(IMPORTANCE_RESOURCES[value]);
+                    pictureView.setBackgroundResource(IMPORTANCE_RESOURCES[value]);
+                }
             else
+            {
                 checkBoxView.setBackgroundResource(R.drawable.btn_check);
+            }
+            if (pictureView.getVisibility() == View.VISIBLE){
+                checkBoxView.setVisibility(View.INVISIBLE);
+            }
+            else {
+                checkBoxView.setVisibility(View.VISIBLE);
+            }
         }
 
         String details;
@@ -410,7 +425,7 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
         if(Math.abs(DateUtilities.now() - task.getValue(Task.MODIFICATION_DATE)) < 2000L)
             mostRecentlyMade = task.getId();
 
-//        // details and decorations, expanded
+        //        // details and decorations, expanded
         decorationManager.request(viewHolder);
     }
 
@@ -424,7 +439,7 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
         viewHolder.completeBox.measure(View.MeasureSpec.UNSPECIFIED, View.MeasureSpec.UNSPECIFIED);
         rightWidth = rightWidth + viewHolder.dueDate.getPaddingRight();
         float left = viewHolder.completeBox.getMeasuredWidth() +
-            ((MarginLayoutParams)viewHolder.completeBox.getLayoutParams()).leftMargin;
+        ((MarginLayoutParams)viewHolder.completeBox.getLayoutParams()).leftMargin;
         int availableWidth = (int) (displayMetrics.widthPixels - left - (rightWidth + 16) * displayMetrics.density);
 
         int i = 0;
@@ -555,8 +570,8 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
                         continue;
                     } else if(Constants.DEBUG) {
                         System.err.println("Forced loading of details: " + task.getId() + //$NON-NLS-1$
-                        		"\n  details: " + new Date(task.getValue(Task.DETAILS_DATE)) + //$NON-NLS-1$
-                        		"\n  modified: " + new Date(task.getValue(Task.MODIFICATION_DATE))); //$NON-NLS-1$
+                                "\n  details: " + new Date(task.getValue(Task.DETAILS_DATE)) + //$NON-NLS-1$
+                                "\n  modified: " + new Date(task.getValue(Task.MODIFICATION_DATE))); //$NON-NLS-1$
                     }
                     addTaskToLoadingArray(task);
 
@@ -583,7 +598,7 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
 
         private boolean detailsAreRecentAndUpToDate(Task task) {
             return task.getValue(Task.DETAILS_DATE) >= task.getValue(Task.MODIFICATION_DATE) &&
-                !TextUtils.isEmpty(task.getValue(Task.DETAILS));
+            !TextUtils.isEmpty(task.getValue(Task.DETAILS));
         }
 
         private void addTaskToLoadingArray(Task task) {
@@ -650,8 +665,8 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
                 return null;
             Drawable d;
             if(!cache.containsKey(drawable)) {
-                 d = r.getDrawable(drawable);
-                 d.setBounds(0,0,d.getIntrinsicWidth(),d.getIntrinsicHeight());
+                d = r.getDrawable(drawable);
+                d.setBounds(0,0,d.getIntrinsicWidth(),d.getIntrinsicHeight());
                 cache.put(drawable, d);
             } else
                 d = cache.get(drawable);
