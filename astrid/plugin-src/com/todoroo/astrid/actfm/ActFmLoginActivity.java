@@ -69,11 +69,13 @@ import com.todoroo.andlib.utility.DialogUtilities;
 import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.astrid.actfm.sync.ActFmInvoker;
 import com.todoroo.astrid.actfm.sync.ActFmPreferenceService;
-import com.todoroo.astrid.actfm.sync.ActFmSyncProvider;
+import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.gtasks.auth.ModernAuthManager;
+import com.todoroo.astrid.helper.SyncResultCallbackAdapter;
 import com.todoroo.astrid.service.AstridDependencyInjector;
 import com.todoroo.astrid.service.StatisticsConstants;
 import com.todoroo.astrid.service.StatisticsService;
+import com.todoroo.astrid.service.SyncV2Service;
 import com.todoroo.astrid.service.TaskService;
 
 /**
@@ -92,6 +94,8 @@ public class ActFmLoginActivity extends FragmentActivity implements AuthListener
     protected TaskService taskService;
     @Autowired
     protected ActFmPreferenceService actFmPreferenceService;
+
+    @Autowired protected SyncV2Service syncService;
     private final ActFmInvoker actFmInvoker = new ActFmInvoker();
     private Random rand;
 
@@ -475,7 +479,17 @@ public class ActFmLoginActivity extends FragmentActivity implements AuthListener
         finish();
 
         if (!noSync) {
-            new ActFmSyncProvider().synchronize(ActFmLoginActivity.this, showToast);
+            new Thread() {
+                @Override
+                public void run() {
+                    syncService.synchronizeActiveTasks(false, new SyncResultCallbackAdapter() {
+                        @Override
+                        public void finished() {
+                            ContextManager.getContext().sendBroadcast(new Intent(AstridApiConstants.BROADCAST_EVENT_REFRESH));
+                        }
+                    });
+                }
+            }.start();
         }
 
         try {

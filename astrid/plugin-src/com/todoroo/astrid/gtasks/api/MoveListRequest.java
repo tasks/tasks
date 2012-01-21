@@ -14,7 +14,7 @@ public class MoveListRequest extends PushRequest {
     private String dstList;
     private final String newParent;
 
-    public MoveListRequest(GtasksService service, String idTask, String srcList, String dstList, String newParent) {
+    public MoveListRequest(GtasksInvoker service, String idTask, String srcList, String dstList, String newParent) {
         super(service, srcList, new Task());
         this.idTaskToMove = idTask;
         this.dstList = dstList;

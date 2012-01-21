@@ -10,10 +10,15 @@ import java.util.concurrent.atomic.AtomicReference;
 import android.text.TextUtils;
 import android.util.Log;
 
+import com.todoroo.andlib.data.TodorooCursor;
 import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.DependencyInjectionService;
+import com.todoroo.andlib.sql.Criterion;
+import com.todoroo.andlib.sql.Order;
+import com.todoroo.andlib.sql.Query;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.astrid.core.PluginServices;
+import com.todoroo.astrid.dao.MetadataDao;
 import com.todoroo.astrid.data.Metadata;
 import com.todoroo.astrid.data.StoreObject;
 import com.todoroo.astrid.data.Task;
@@ -23,6 +28,7 @@ public class GtasksTaskListUpdater {
 
     @Autowired private GtasksListService gtasksListService;
     @Autowired private GtasksMetadataService gtasksMetadataService;
+    @Autowired private MetadataDao metadataDao;
 
     /** map of task -> parent task */
     final HashMap<Long, Long> parents = new HashMap<Long, Long>();
@@ -319,6 +325,28 @@ public class GtasksTaskListUpdater {
                 previousIndent.set(indent);
             }
         });
+    }
+
+    public void correctOrderAndIndentForList(String listId) {
+        orderAndIndentHelper(listId, new AtomicLong(0L), Task.NO_ID, 0);
+    }
+
+    private void orderAndIndentHelper(String listId, AtomicLong order, long parent, int indentLevel) {
+        TodorooCursor<Metadata> metadata = metadataDao.query(Query.select(Metadata.PROPERTIES)
+                .where(Criterion.and(Metadata.KEY.eq(GtasksMetadata.METADATA_KEY), GtasksMetadata.LIST_ID.eq(listId), GtasksMetadata.PARENT_TASK.eq(parent)))
+                .orderBy(Order.asc(GtasksMetadata.GTASKS_ORDER)));
+
+        if (metadata.getCount() > 0) {
+            Metadata curr = new Metadata();
+            for (metadata.moveToFirst(); !metadata.isAfterLast(); metadata.moveToNext()) {
+                curr.readFromCursor(metadata);
+                curr.setValue(GtasksMetadata.INDENT, indentLevel);
+                curr.setValue(GtasksMetadata.ORDER, order.getAndIncrement());
+                metadataDao.saveExisting(curr);
+
+                orderAndIndentHelper(listId, order, curr.getValue(Metadata.TASK), indentLevel + 1);
+            }
+        }
     }
 
     /**

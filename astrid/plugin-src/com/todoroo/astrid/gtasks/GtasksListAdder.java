@@ -16,7 +16,7 @@ import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.andlib.utility.DialogUtilities;
 import com.todoroo.astrid.api.FilterWithCustomIntent;
 import com.todoroo.astrid.data.StoreObject;
-import com.todoroo.astrid.gtasks.api.GtasksService;
+import com.todoroo.astrid.gtasks.api.GtasksInvoker;
 import com.todoroo.astrid.gtasks.auth.GtasksTokenValidator;
 
 public class GtasksListAdder extends Activity {
@@ -51,7 +51,7 @@ public class GtasksListAdder extends Activity {
                             String token = gtasksPreferenceService.getToken();
                             try {
                                 token = GtasksTokenValidator.validateAuthToken(activity, token);
-                                GtasksService service = new GtasksService(token);
+                                GtasksInvoker service = new GtasksInvoker(token);
                                 String title = editText.getText().toString();
                                 if (TextUtils.isEmpty(title)) //Don't create a list without a title
                                     return;

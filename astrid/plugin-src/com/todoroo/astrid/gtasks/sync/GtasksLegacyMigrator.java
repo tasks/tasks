@@ -18,7 +18,7 @@ import com.todoroo.astrid.gtasks.GtasksListService;
 import com.todoroo.astrid.gtasks.GtasksMetadata;
 import com.todoroo.astrid.gtasks.GtasksMetadataService;
 import com.todoroo.astrid.gtasks.GtasksPreferenceService;
-import com.todoroo.astrid.gtasks.api.GtasksService;
+import com.todoroo.astrid.gtasks.api.GtasksInvoker;
 import com.todoroo.astrid.service.AstridDependencyInjector;
 import com.todoroo.astrid.service.MetadataService;
 import com.todoroo.astrid.service.TaskService;
@@ -37,7 +37,7 @@ public class GtasksLegacyMigrator {
     @Autowired GtasksListService gtasksListService;
     @Autowired GtasksPreferenceService gtasksPreferenceService;
 
-    private final GtasksService gtasksService;
+    private final GtasksInvoker gtasksService;
     private final GtasksListService listService;
     private final TaskLists allLists;
 
@@ -45,7 +45,7 @@ public class GtasksLegacyMigrator {
         AstridDependencyInjector.initialize();
     }
 
-    public GtasksLegacyMigrator(GtasksService service,GtasksListService listService, TaskLists allLists) {
+    public GtasksLegacyMigrator(GtasksInvoker service,GtasksListService listService, TaskLists allLists) {
         DependencyInjectionService.getInstance().inject(this);
         this.gtasksService = service;
         this.listService = listService;
@@ -76,7 +76,7 @@ public class GtasksLegacyMigrator {
                             defaultListId = list.getId();
                         }
 
-                        Tasks allTasks = gtasksService.getAllGtasksFromListId(list.getId(), false, false);
+                        Tasks allTasks = gtasksService.getAllGtasksFromListId(list.getId(), false, false, 0);
 
                         List<com.google.api.services.tasks.model.Task> tasksItems = allTasks.getItems();
                         if (tasksItems != null) {

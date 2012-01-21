@@ -9,7 +9,6 @@ import android.text.TextUtils;
 import com.todoroo.andlib.data.DatabaseDao.ModelUpdateListener;
 import com.todoroo.andlib.data.Property;
 import com.todoroo.andlib.service.Autowired;
-import com.todoroo.andlib.service.ContextManager;
 import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.andlib.utility.DateUtilities;
@@ -21,16 +20,15 @@ import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.gtasks.GtasksMetadata;
 import com.todoroo.astrid.gtasks.GtasksMetadataService;
 import com.todoroo.astrid.gtasks.GtasksPreferenceService;
-import com.todoroo.astrid.gtasks.GtasksSyncMetadata;
 import com.todoroo.astrid.gtasks.GtasksTaskListUpdater;
+import com.todoroo.astrid.gtasks.api.CreateRequest;
 import com.todoroo.astrid.gtasks.api.GtasksApiUtilities;
-import com.todoroo.astrid.gtasks.api.GtasksService;
+import com.todoroo.astrid.gtasks.api.GtasksInvoker;
 import com.todoroo.astrid.gtasks.api.MoveRequest;
-import com.todoroo.astrid.gtasks.auth.GtasksTokenValidator;
 import com.todoroo.astrid.service.MetadataService;
 import com.todoroo.astrid.utility.Flags;
 
-public final class GtasksSyncOnSaveService {
+public final class GtasksSyncService {
 
     @Autowired MetadataService metadataService;
     @Autowired MetadataDao metadataDao;
@@ -39,7 +37,7 @@ public final class GtasksSyncOnSaveService {
     @Autowired GtasksPreferenceService gtasksPreferenceService;
     @Autowired GtasksTaskListUpdater gtasksTaskListUpdater;
 
-    public GtasksSyncOnSaveService() {
+    public GtasksSyncService() {
         DependencyInjectionService.getInstance().inject(this);
     }
 
@@ -75,13 +73,14 @@ public final class GtasksSyncOnSaveService {
                        continue;
                    }
                    try {
-                       if (syncOnSaveEnabled() && !gtasksPreferenceService.isOngoing()) {
+                       if (!gtasksPreferenceService.isOngoing()) {
+                           GtasksInvoker invoker = new GtasksInvoker(gtasksPreferenceService.getToken());
                            if (op instanceof TaskPushOp) {
                                TaskPushOp taskPush = (TaskPushOp)op;
-                               pushTaskOnSave(taskPush.model, taskPush.model.getSetValues());
+                               pushTaskOnSave(taskPush.model, taskPush.model.getSetValues(), invoker, true);
                            } else if (op instanceof MoveOp) {
                                MoveOp move = (MoveOp)op;
-                               pushMetadataOnSave(move.metadata);
+                               pushMetadataOnSave(move.metadata, invoker);
                            }
                        }
                    } catch (IOException e){
@@ -93,7 +92,7 @@ public final class GtasksSyncOnSaveService {
 
         taskDao.addListener(new ModelUpdateListener<Task>() {
             public void onModelUpdated(final Task model) {
-                if (!syncOnSaveEnabled())
+                if(Flags.checkAndClear(Flags.GTASKS_SUPPRESS_SYNC))
                     return;
                 if (gtasksPreferenceService.isOngoing()) //Don't try and sync changes that occur during a normal sync
                     return;
@@ -101,8 +100,6 @@ public final class GtasksSyncOnSaveService {
                 if(setValues == null || !checkForToken())
                     return;
                 if (!checkValuesForProperties(setValues, TASK_PROPERTIES)) //None of the properties we sync were updated
-                    return;
-                if(Flags.checkAndClear(Flags.GTASKS_SUPPRESS_SYNC))
                     return;
 
                 operationQueue.offer(new TaskPushOp((Task)model.clone()));
@@ -133,15 +130,13 @@ public final class GtasksSyncOnSaveService {
 
 
     public void triggerMoveForMetadata(final Metadata metadata) {
-        if (!syncOnSaveEnabled())
+        if (Flags.checkAndClear(Flags.GTASKS_SUPPRESS_SYNC))
             return;
         if (!metadata.getValue(Metadata.KEY).equals(GtasksMetadata.METADATA_KEY)) //Don't care about non-gtasks metadata
             return;
         if (gtasksPreferenceService.isOngoing()) //Don't try and sync changes that occur during a normal sync
             return;
         if (!checkForToken())
-            return;
-        if (Flags.checkAndClear(Flags.GTASKS_SUPPRESS_SYNC))
             return;
 
         operationQueue.offer(new MoveOp(metadata));
@@ -150,23 +145,18 @@ public final class GtasksSyncOnSaveService {
     /**
      * Synchronize with server when data changes
      */
-    private void pushTaskOnSave(Task task, ContentValues values) throws IOException {
-        AndroidUtilities.sleepDeep(1000L); //Wait for metadata to be saved
+    public void pushTaskOnSave(Task task, ContentValues values, GtasksInvoker invoker, boolean sleep) throws IOException {
+        if (sleep)
+            AndroidUtilities.sleepDeep(1000L); //Wait for metadata to be saved
 
         Metadata gtasksMetadata = gtasksMetadataService.getTaskMetadata(task.getId());
         com.google.api.services.tasks.model.Task remoteModel = null;
         boolean newlyCreated = false;
 
-        //Initialize the gtasks api service
-        String token = gtasksPreferenceService.getToken();
-        token = GtasksTokenValidator.validateAuthToken(ContextManager.getContext(), token);
-        gtasksPreferenceService.setToken(token);
-        GtasksService gtasksService = new GtasksService(token);
-
         String remoteId = null;
         String listId = Preferences.getStringValue(GtasksPreferenceService.PREF_DEFAULT_LIST);
         if (listId == null) {
-            listId = gtasksService.getGtaskList("@default").getId(); //$NON-NLS-1$
+            listId = "@default"; //$NON-NLS-1$
             Preferences.setString(GtasksPreferenceService.PREF_DEFAULT_LIST, listId);
         }
 
@@ -184,7 +174,7 @@ public final class GtasksSyncOnSaveService {
         } else { //update case
             remoteId = gtasksMetadata.getValue(GtasksMetadata.ID);
             listId = gtasksMetadata.getValue(GtasksMetadata.LIST_ID);
-            remoteModel = gtasksService.getGtask(listId, remoteId);
+            remoteModel = invoker.getGtask(listId, remoteId);
         }
 
         //If task was newly created but without a title, don't sync--we're in the middle of
@@ -205,7 +195,7 @@ public final class GtasksSyncOnSaveService {
         if (values.containsKey(Task.NOTES.name)) {
             remoteModel.setNotes(task.getValue(Task.NOTES));
         }
-        if (values.containsKey(Task.DUE_DATE.name)) {
+        if (values.containsKey(Task.DUE_DATE.name) && task.hasDueDate()) {
             remoteModel.setDue(GtasksApiUtilities.unixTimeToGtasksDueDate(task.getValue(Task.DUE_DATE)));
         }
         if (values.containsKey(Task.COMPLETION_DATE.name)) {
@@ -219,85 +209,44 @@ public final class GtasksSyncOnSaveService {
         }
 
         if (!newlyCreated) {
-            gtasksService.updateGtask(listId, remoteModel);
+            invoker.updateGtask(listId, remoteModel);
         } else {
             String parent = gtasksMetadataService.getRemoteParentId(gtasksMetadata);
             String priorSibling = gtasksMetadataService.getRemoteSiblingId(listId, gtasksMetadata);
 
-            try { //Make sure the parent task exists on the target list
-                if (parent != null) {
-                    com.google.api.services.tasks.model.Task remoteParent = gtasksService.getGtask(listId, parent);
-                    if (remoteParent == null || (remoteParent.getDeleted() != null && remoteParent.getDeleted().booleanValue()))
-                        parent = null;
-                }
-            } catch (IOException e) {
-                parent = null;
-            }
+            CreateRequest create = new CreateRequest(invoker, listId, remoteModel, parent, priorSibling);
+            com.google.api.services.tasks.model.Task created = create.executePush();
 
-            try {
-                if (priorSibling != null) {
-                    com.google.api.services.tasks.model.Task remoteSibling = gtasksService.getGtask(listId, priorSibling);
-                    if (remoteSibling == null || (remoteSibling.getDeleted() != null && remoteSibling.getDeleted().booleanValue()))
-                        priorSibling = null;
-                }
-            } catch (IOException e) {
-                priorSibling = null;
-            }
-
-
-            com.google.api.services.tasks.model.Task created = gtasksService.createGtask(listId, remoteModel, parent, priorSibling);
-
-            //Update the metadata for the newly created task
-            gtasksMetadata.setValue(GtasksMetadata.ID, created.getId());
-            gtasksMetadata.setValue(GtasksMetadata.LIST_ID, listId);
-            metadataService.save(gtasksMetadata);
+            if (created != null) {
+                //Update the metadata for the newly created task
+                gtasksMetadata.setValue(GtasksMetadata.ID, created.getId());
+                gtasksMetadata.setValue(GtasksMetadata.LIST_ID, listId);
+            } else return;
         }
 
         task.setValue(Task.MODIFICATION_DATE, DateUtilities.now());
-        GtasksSyncMetadata.set(metadataDao, task.getId(), GtasksSyncMetadata.LAST_SYNC, DateUtilities.now());
+        gtasksMetadata.setValue(GtasksMetadata.LAST_SYNC, DateUtilities.now());
+        metadataService.save(gtasksMetadata);
         Flags.set(Flags.GTASKS_SUPPRESS_SYNC);
         taskDao.saveExisting(task);
     }
 
-    private void pushMetadataOnSave(Metadata model) throws IOException {
+    public void pushMetadataOnSave(Metadata model, GtasksInvoker invoker) throws IOException {
         AndroidUtilities.sleepDeep(1000L);
-        //Initialize the gtasks api service
-        String token = gtasksPreferenceService.getToken();
-        token = GtasksTokenValidator.validateAuthToken(ContextManager.getContext(), token);
-        gtasksPreferenceService.setToken(token);
-        GtasksService gtasksService = new GtasksService(token);
 
         String taskId = model.getValue(GtasksMetadata.ID);
         String listId = model.getValue(GtasksMetadata.LIST_ID);
         String parent = gtasksMetadataService.getRemoteParentId(model);
         String priorSibling = gtasksMetadataService.getRemoteSiblingId(listId, model);
 
-        try { //Make sure the parent task exists on the target list
-            if (parent != null) {
-                com.google.api.services.tasks.model.Task remoteParent = gtasksService.getGtask(listId, parent);
-                if (remoteParent == null || (remoteParent.getDeleted() != null && remoteParent.getDeleted().booleanValue()))
-                    parent = null;
-            }
-        } catch (IOException e) {
-            parent = null;
+        MoveRequest move = new MoveRequest(invoker, taskId, listId, parent, priorSibling);
+        com.google.api.services.tasks.model.Task result = move.push();
+        // Update order metadata from result
+        if (result != null) {
+            model.setValue(GtasksMetadata.GTASKS_ORDER, Long.parseLong(result.getPosition()));
+            Flags.set(Flags.GTASKS_SUPPRESS_SYNC);
+            metadataDao.saveExisting(model);
         }
-
-        try {
-            if (priorSibling != null) {
-                com.google.api.services.tasks.model.Task remoteSibling = gtasksService.getGtask(listId, priorSibling);
-                if (remoteSibling == null || (remoteSibling.getDeleted() != null && remoteSibling.getDeleted().booleanValue()))
-                    priorSibling = null;
-            }
-        } catch (IOException e) {
-            priorSibling = null;
-        }
-
-        MoveRequest move = new MoveRequest(gtasksService, taskId, listId, parent, priorSibling);
-        move.push();
-    }
-
-    private boolean syncOnSaveEnabled() {
-        return Preferences.getBoolean(gtasksPreferenceService.getSyncOnSaveKey(), false);
     }
 
     private boolean checkForToken() {

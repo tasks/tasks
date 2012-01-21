@@ -5,6 +5,7 @@ import java.util.Collections;
 import java.util.List;
 
 import com.todoroo.astrid.actfm.sync.ActFmSyncV2Provider;
+import com.todoroo.astrid.gtasks.sync.GtasksSyncV2Provider;
 
 /**
  * SyncV2Service is a simplified synchronization interface for supporting
@@ -77,7 +78,8 @@ public class SyncV2Service {
      * for responding to sync requests through this new API.
      */
     private final SyncV2Provider[] providers = new SyncV2Provider[] {
-            new ActFmSyncV2Provider()
+            new ActFmSyncV2Provider(),
+            new GtasksSyncV2Provider()
     };
 
     /**

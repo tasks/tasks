@@ -31,7 +31,7 @@ import com.todoroo.astrid.gtasks.auth.GtasksTokenValidator;
  *
  */
 @SuppressWarnings("nls")
-public class GtasksService {
+public class GtasksInvoker {
     private Tasks service;
     private GoogleAccessProtectedResource accessProtectedResource;
     private String token;
@@ -43,7 +43,7 @@ public class GtasksService {
 
     public static final String AUTH_TOKEN_TYPE = "Manage your tasks"; //"oauth2:https://www.googleapis.com/auth/tasks";
 
-    public GtasksService(String authToken) {
+    public GtasksInvoker(String authToken) {
         DependencyInjectionService.getInstance().inject(this);
         authenticate(authToken);
     }
@@ -162,15 +162,16 @@ public class GtasksService {
         }
     }
 
-    public com.google.api.services.tasks.model.Tasks getAllGtasksFromTaskList(TaskList list, boolean includeDeleted, boolean includeHidden) throws IOException {
-        return getAllGtasksFromListId(list.getId(), includeDeleted, includeHidden);
+    public com.google.api.services.tasks.model.Tasks getAllGtasksFromTaskList(TaskList list, boolean includeDeleted, boolean includeHidden, long lastSyncDate) throws IOException {
+        return getAllGtasksFromListId(list.getId(), includeDeleted, includeHidden, lastSyncDate);
     }
 
-    public com.google.api.services.tasks.model.Tasks getAllGtasksFromListId(String listId, boolean includeDeleted, boolean includeHidden) throws IOException {
+    public com.google.api.services.tasks.model.Tasks getAllGtasksFromListId(String listId, boolean includeDeleted, boolean includeHidden, long lastSyncDate) throws IOException {
         com.google.api.services.tasks.model.Tasks toReturn = null;
         List request = service.tasks.list(listId);
         request.setShowDeleted(includeDeleted);
         request.setShowHidden(includeHidden);
+        request.setUpdatedMin(GtasksApiUtilities.unixTimeToGtasksCompletionTime(lastSyncDate).toStringRfc3339());
         try {
             toReturn = request.execute();
         } catch (IOException e) {

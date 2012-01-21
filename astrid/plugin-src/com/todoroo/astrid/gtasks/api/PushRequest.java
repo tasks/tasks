@@ -12,9 +12,9 @@ import com.google.api.services.tasks.model.Task;
 public abstract class PushRequest {
     protected String listId;
     protected Task toPush;
-    protected GtasksService service;
+    protected GtasksInvoker service;
 
-    public PushRequest(GtasksService service, String listId, Task toPush) {
+    public PushRequest(GtasksInvoker service, String listId, Task toPush) {
         this.service = service;
         this.listId = listId;
         this.toPush = toPush;
@@ -34,10 +34,10 @@ public abstract class PushRequest {
         this.toPush = toPush;
     }
 
-    public GtasksService getService() {
+    public GtasksInvoker getService() {
         return service;
     }
-    public void setService(GtasksService service) {
+    public void setService(GtasksInvoker service) {
         this.service = service;
     }
 

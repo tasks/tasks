@@ -14,7 +14,7 @@ import com.todoroo.andlib.service.ContextManager;
 import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.astrid.gtasks.GtasksPreferenceService;
 import com.todoroo.astrid.gtasks.api.GoogleTasksException;
-import com.todoroo.astrid.gtasks.api.GtasksService;
+import com.todoroo.astrid.gtasks.api.GtasksInvoker;
 
 public class GtasksTokenValidator {
 
@@ -27,7 +27,7 @@ public class GtasksTokenValidator {
     public static String validateAuthToken(Context c, String token) throws GoogleTasksException {
         GoogleAccountManager accountManager = new GoogleAccountManager(ContextManager.getContext());
 
-        GtasksService testService = new GtasksService(token);
+        GtasksInvoker testService = new GtasksInvoker(token);
         try {
             testService.ping();
             return token;
@@ -39,13 +39,13 @@ public class GtasksTokenValidator {
             }
 
             accountManager.invalidateAuthToken(token);
-            AccountManagerFuture<Bundle> future = accountManager.manager.getAuthToken(a, GtasksService.AUTH_TOKEN_TYPE, false, null, null);
+            AccountManagerFuture<Bundle> future = accountManager.manager.getAuthToken(a, GtasksInvoker.AUTH_TOKEN_TYPE, false, null, null);
 
             try {
                 if (future.getResult().containsKey(AccountManager.KEY_AUTHTOKEN)) {
                     Bundle result = future.getResult();
                     token = result.getString(AccountManager.KEY_AUTHTOKEN);
-                    testService = new GtasksService(token);
+                    testService = new GtasksInvoker(token);
                     try { //Make sure the new token works--if not, we may have network problems
                         testService.ping();
                         return token;
@@ -54,12 +54,12 @@ public class GtasksTokenValidator {
                         String manufacturer = android.os.Build.MANUFACTURER.toLowerCase();
                         if (!manufacturer.contains("samsung")) { // Try with the notifyAuthFailure set to true in case it was that that broke things
                             accountManager.invalidateAuthToken(token);
-                            future = accountManager.manager.getAuthToken(a, GtasksService.AUTH_TOKEN_TYPE, true, null, null);
+                            future = accountManager.manager.getAuthToken(a, GtasksInvoker.AUTH_TOKEN_TYPE, true, null, null);
                             try {
                                 if (future.getResult().containsKey(AccountManager.KEY_AUTHTOKEN)) {
                                     result = future.getResult();
                                     token = result.getString(AccountManager.KEY_AUTHTOKEN);
-                                    testService = new GtasksService(token);
+                                    testService = new GtasksInvoker(token);
                                     try {
                                         testService.ping();
                                         return token;

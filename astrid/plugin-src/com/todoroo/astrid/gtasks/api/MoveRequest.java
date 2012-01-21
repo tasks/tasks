@@ -14,7 +14,7 @@ public class MoveRequest extends PushRequest {
     private String parentId;
     private String priorSiblingId;
 
-    public MoveRequest(GtasksService service, String taskId, String destinationList, String parentId, String priorSiblingId) {
+    public MoveRequest(GtasksInvoker service, String taskId, String destinationList, String parentId, String priorSiblingId) {
         super(service, destinationList, null);
         this.taskId = taskId;
         this.parentId = parentId;

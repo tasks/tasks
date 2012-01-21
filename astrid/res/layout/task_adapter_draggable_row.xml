@@ -3,9 +3,10 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:astrid="http://schemas.android.com/apk/res/com.timsu.astrid"
     android:layout_width="fill_parent"
-    android:layout_height="52dip"
+    android:layout_height="70dip"
     android:paddingTop="2dip"
     android:paddingBottom="2dip"
+    android:gravity="center_vertical"
     android:orientation="horizontal">
     
     <!-- importance -->
@@ -28,64 +29,61 @@
 
     <RelativeLayout android:id="@+id/rowBody" 
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="fill_parent"
         android:background="@android:drawable/list_selector_background"
         android:paddingTop="1dip"
         android:paddingLeft="5dip"
         android:paddingBottom="1dip">        
                 
-        <!-- completion area -->
-        <View android:id="@+id/completeArea"
-            android:layout_width="40dip"
-            android:layout_height="40dip"
-            android:layout_alignParentRight="true"/>
         
-        <!-- completion check-box -->
-        <CheckBox android:id="@+id/completeBox"
-            android:layout_width="wrap_content"
-            android:layout_height="22dip" 
-            android:layout_alignParentTop="true"
-            android:layout_alignParentRight="true"
-            android:layout_marginTop="3dip"
-            android:layout_gravity="top"
-            android:paddingBottom="2dip"
-            android:button="@drawable/btn_check"/>
-            
-        <LinearLayout android:id="@+id/task_row"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentTop="true"
-            android:paddingLeft="5dip"
-            android:paddingRight="32dip"
-            android:orientation="horizontal">
-        
-            <!-- task name -->
-            <TextView android:id="@+id/title"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="100"
-                style="@style/TextAppearance.TAd_ItemTitle"/>
-            
-            <!-- assignee photo -->
-            <greendroid.widget.AsyncImageView android:id="@+id/picture"
-                android:layout_width="35dip"
-                android:layout_height="fill_parent"
-                android:padding="5dip" 
-                android:scaleType="fitCenter"
-                astrid:defaultSrc="@drawable/icn_default_person_image"
-                android:visibility="gone"/>
-    
-        </LinearLayout>
+        <CheckBox
+	        android:id="@+id/completeBox"
+	        android:layout_width="45dip"
+	        android:layout_height="fill_parent"
+	        android:layout_alignParentTop="true"
+	        android:layout_marginLeft="10dip"
+	        android:button="@drawable/btn_check" />
+    <!-- assignee photo -->
 
-        <!-- due date -->
-        <TextView android:id="@+id/dueDate"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/task_row"
-            android:layout_alignParentRight="true"
-            android:paddingRight="5dip"
-            android:singleLine="true"/>
+	    <greendroid.widget.AsyncImageView
+	        android:id="@+id/picture"
+	        android:layout_width="35dip"
+	        android:layout_height="35dip"
+	        android:layout_marginLeft="10dip"
+	        astrid:defaultSrc="@drawable/icn_default_person_image"
+	        android:scaleType="fitCenter"
+	        android:visibility="gone" />
+            
+        <LinearLayout
+	        android:id="@+id/task_row"
+	        android:layout_width="fill_parent"
+	        android:layout_height="fill_parent"
+	        android:layout_alignTop="@id/completeBox"
+	        android:layout_toRightOf="@id/completeBox"
+	        android:orientation="horizontal"
+	        android:paddingLeft="5dip" >
+
+	        <!-- task name -->
+	
+	        <TextView
+	            android:id="@+id/title"
+	            style="@style/TextAppearance.TAd_ItemTitle"
+	            android:layout_width="fill_parent"
+	            android:layout_height="fill_parent"
+	            android:layout_weight="100"
+	            android:gravity="center_vertical"
+	            android:maxLines="2" />
+	
+	        <!-- due date -->
+	
+	        <TextView
+	            android:id="@+id/dueDate"
+	            android:layout_width="wrap_content"
+	            android:layout_height="fill_parent"
+	            android:layout_alignParentRight="true"
+	            android:layout_marginRight="4dip"
+	            android:gravity="center_vertical|right" />
+        </LinearLayout>
           
         <!-- details line 1 -->
         <TextView android:id="@+id/details1"

@@ -211,7 +211,7 @@ public class TaskListActivity extends ListFragment implements OnScrollListener,
 
     private final TaskListContextMenuExtensionLoader contextMenuExtensionLoader = new TaskListContextMenuExtensionLoader();
 
-    private SyncResultCallback syncResultCallback;
+    protected SyncResultCallback syncResultCallback;
     private VoiceInputAssistant voiceInputAssistant;
 
     // --- fragment handling variables

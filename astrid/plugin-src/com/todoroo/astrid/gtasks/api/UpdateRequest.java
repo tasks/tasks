@@ -11,7 +11,7 @@ import com.google.api.services.tasks.model.Task;
  */
 public class UpdateRequest extends PushRequest {
 
-    public UpdateRequest(GtasksService service, String listId, Task toUpdate) {
+    public UpdateRequest(GtasksInvoker service, String listId, Task toUpdate) {
         super(service, listId, toUpdate);
     }
 

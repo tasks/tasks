@@ -894,7 +894,7 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
 
             int[] location = new int[2];
             v.getLocationOnScreen(location);
-            ViewHolder viewHolder = (ViewHolder)((View)v.getParent()).getTag();
+            ViewHolder viewHolder = getTagFromCheckBox(v);
 
             if(Math.abs(location[1] + lastTouchYRawY.getLeft() - lastTouchYRawY.getRight()) > 10) {
                 viewHolder.completeBox.setChecked(!viewHolder.completeBox.isChecked());
@@ -910,6 +910,10 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
             viewHolder.completeBox.startAnimation(scaleAnimation);
         }
     };
+
+    protected ViewHolder getTagFromCheckBox(View v) {
+        return (ViewHolder)((View)v.getParent()).getTag();
+    }
 
     private final class QuickActionListener implements OnQuickActionClickListener {
         private final HashMap<Integer, TaskAction> positionActionMap =
