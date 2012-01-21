@@ -4,38 +4,37 @@
     xmlns:astrid="http://schemas.android.com/apk/res/com.timsu.astrid"
     android:layout_width="fill_parent"
     android:layout_height="wrap_content"
-    android:minHeight="40dip"
+    android:minHeight="60dip"
+    android:gravity="center_vertical"
     android:orientation="horizontal">
-    
-    <!-- importance -->
-    <View android:id="@+id/importance"
-        android:layout_width="4dip"
-        android:layout_height="fill_parent" />
         
     <RelativeLayout android:id="@+id/rowBody" 
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="15dip"
         android:paddingBottom="4dip">
-        
-        <!-- completion area -->
-        <View android:id="@+id/completeArea"
-            android:layout_width="50dip"
-            android:layout_height="40dip"/>
             
         <!-- completion check-box -->
         <CheckBox android:id="@+id/completeBox"
             android:layout_width="wrap_content"
-            android:layout_height="26dip"        
-            android:layout_marginTop="7dip"
-            android:layout_marginLeft="5dip"
-            android:layout_gravity="top"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="5dip"        
             android:button="@drawable/btn_check"/>
+        <!-- assignee photo -->
+        <greendroid.widget.AsyncImageView android:id="@+id/picture"
+            android:layout_width="35dip"
+            android:layout_height="35dip"
+            android:padding="5dip" 
+            android:scaleType="fitCenter"
+            astrid:defaultSrc="@drawable/icn_default_person_image"
+            android:visibility="gone"/>
             
         <LinearLayout android:id="@+id/task_row"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_toRightOf="@id/completeBox"
-            android:layout_alignParentTop="true"
+            android:layout_alignTop="@id/completeBox"
             android:paddingLeft="5dip"
             android:paddingTop="4dip"
             android:paddingBottom="4dip"
@@ -48,33 +47,22 @@
                 android:layout_weight="100"
                 style="@style/TextAppearance.TAd_ItemTitle"/>
             
-            <!-- assignee photo -->
-            <greendroid.widget.AsyncImageView android:id="@+id/picture"
-                android:layout_width="35dip"
-                android:layout_height="35dip"
-                android:padding="5dip" 
-                android:scaleType="fitCenter"
-                astrid:defaultSrc="@drawable/icn_default_person_image"
-                android:visibility="gone"/>
+	        <!-- due date -->
+	        <TextView android:id="@+id/dueDate"
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:layout_alignParentRight="true"
+	            android:layout_marginRight="4dip"
+	            android:singleLine="true"/>
     
         </LinearLayout>
-        
-        <!-- due date -->
-        <TextView android:id="@+id/dueDate"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/task_row"
-            android:layout_alignParentRight="true"
-            android:layout_marginRight="4dip"
-            android:layout_marginTop="-5dip"
-            android:singleLine="true"/>
           
         <!-- details line 1 -->
         <TextView android:id="@+id/details1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/task_row"
-            android:layout_toRightOf="@id/completeBox"
+            android:layout_alignLeft="@id/task_row"
             android:layout_marginTop="-5dip"
             android:layout_marginLeft="5dip"
             style="@style/TextAppearance.TAd_ItemDetails"
@@ -85,7 +73,7 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/details1"
-            android:layout_toRightOf="@id/completeBox"
+            android:layout_alignLeft="@id/task_row"
             android:layout_marginLeft="5dip"
             style="@style/TextAppearance.TAd_ItemDetails"
             android:visibility="gone" />

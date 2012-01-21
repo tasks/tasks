@@ -122,10 +122,14 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
     };
 
     private static int[] IMPORTANCE_RESOURCES = new int[] {
-        R.drawable.importance_1, //task_indicator_0,
-        R.drawable.importance_2, //task_indicator_1,
-        R.drawable.importance_3, //task_indicator_2,
-        R.drawable.importance_4, //task_indicator_3,
+        R.drawable.importance_check_1, //task_indicator_0,
+        R.drawable.importance_check_2, //task_indicator_1,
+        R.drawable.importance_check_3, //task_indicator_2,
+        R.drawable.importance_check_4, //task_indicator_3,
+    };
+
+    private static int[] IMPORTANCE_REPEAT_RESOURCES = new int[] {
+        // stuff will go here
     };
 
     // --- instance variables
@@ -241,12 +245,10 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
         viewHolder.nameView = (TextView)view.findViewById(R.id.title);
         viewHolder.picture = (AsyncImageView)view.findViewById(R.id.picture);
         viewHolder.completeBox = (CheckBox)view.findViewById(R.id.completeBox);
-        viewHolder.completeArea = view.findViewById(R.id.completeArea);
         viewHolder.dueDate = (TextView)view.findViewById(R.id.dueDate);
         viewHolder.details1 = (TextView)view.findViewById(R.id.details1);
         viewHolder.details2 = (TextView)view.findViewById(R.id.details2);
         viewHolder.taskRow = (LinearLayout)view.findViewById(R.id.task_row);
-        viewHolder.importance = (View)view.findViewById(R.id.importance);
 
         view.setTag(viewHolder);
         for(int i = 0; i < view.getChildCount(); i++)
@@ -294,11 +296,9 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
         public ViewGroup rowBody;
         public TextView nameView;
         public CheckBox completeBox;
-        public View completeArea;
         public AsyncImageView picture;
         public TextView dueDate;
         public TextView details1, details2;
-        public View importance;
         public LinearLayout taskRow;
 
         public View[] decorations;
@@ -374,12 +374,15 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
         }
 
         // importance bar
-        final View importanceView = viewHolder.importance; {
+        final CheckBox checkBoxView = viewHolder.completeBox; {
             int value = task.getValue(Task.IMPORTANCE);
             if(value < IMPORTANCE_RESOURCES.length)
-                importanceView.setBackgroundResource(IMPORTANCE_RESOURCES[value]);
+                if (!TextUtils.isEmpty(task.getValue(Task.RECURRENCE)))
+                    checkBoxView.setButtonDrawable(IMPORTANCE_RESOURCES[value]);
+                else
+                    checkBoxView.setButtonDrawable(IMPORTANCE_RESOURCES[value]);
             else
-                importanceView.setBackgroundResource(0);
+                checkBoxView.setBackgroundResource(R.drawable.btn_check);
         }
 
         String details;
@@ -471,9 +474,7 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
             }
         };
         viewHolder.completeBox.setOnTouchListener(otl);
-        viewHolder.completeArea.setOnTouchListener(otl);
         viewHolder.completeBox.setOnClickListener(completeBoxListener);
-        viewHolder.completeArea.setOnClickListener(completeBoxListener);
 
         if(applyListenersToRowBody) {
             viewHolder.rowBody.setOnCreateContextMenuListener(listener);
@@ -512,7 +513,7 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
 
         String string = DateUtilities.getRelativeDay(fragment.getActivity(), date);
         if(Task.hasDueTime(date))
-            string = String.format("%s, %s", string, //$NON-NLS-1$
+            string = String.format("%s\n%s", string, //$NON-NLS-1$
                     DateUtilities.getTimeString(fragment.getActivity(), new Date(date)));
 
         dateCache.put(date, string);

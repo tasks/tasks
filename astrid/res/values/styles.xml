@@ -12,7 +12,7 @@
         <item name="asSeparatorBackground">@android:drawable/divider_horizontal_dark</item>
         <item name="asTextColor">#ffffffff</item>
         <item name="asDetailsColor">#ff777777</item>
-        <item name="asDueDateColor">#ff7777aa</item>
+        <item name="asDueDateColor">#878787</item>
         <item name="asDueDateOverdueColor">#ffee5555</item>
         <item name="asDueDateCompletedColor">#ff777777</item>
         <item name="asFilterHeaderColor">#ffcccccc</item>
@@ -55,7 +55,7 @@
         <item name="asHeaderButtonBackground">@drawable/header_button_white</item>
         <item name="asTextColor">#ff000000</item>
         <item name="asDetailsColor">#ff6666aa</item>
-        <item name="asDueDateColor">#ff000000</item>
+        <item name="asDueDateColor">#878787</item>
         <item name="asFilterHeaderColor">#ffffff</item>
         <item name="asFilterHeaderBackground">@drawable/edit_titlebar_white</item>
         <item name="asMembersHeaderBackground">@drawable/ios_fabric_480</item>
@@ -258,6 +258,7 @@
     
     <style name="TextAppearance.TAd_ItemDueDate" parent="TextAppearance.TAd_ItemDetails">
         <item name="android:textColor">?attr/asDueDateColor</item>
+        <item name="android:textStyle">bold</item>
     </style>
     
     <style name="TextAppearance.TAd_ItemDueDate_Overdue" parent="TextAppearance.TAd_ItemDueDate">
