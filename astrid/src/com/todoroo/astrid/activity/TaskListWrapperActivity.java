@@ -105,18 +105,24 @@ public class TaskListWrapperActivity extends AstridWrapperActivity {
     /* (non-Javadoc)
      * @see android.support.v4.app.FragmentActivity#onResume()
      */
+
+	@Override
+	protected void onResume() {
+	    super.onResume();
+	    FilterListActivity fla = getFilterListFragment();
+        if (fla != null) {
+            fla.adapter.clear();
+        }
+	}
+
     @Override
-    protected void onResume() {
-        super.onResume();
+    protected void onPostResume() {
+        super.onPostResume();
 
         Filter savedFilter = getIntent().getParcelableExtra(TaskListActivity.TOKEN_FILTER);
         setupTasklistFragmentWithFilter(savedFilter);
         if (savedFilter != null)
             lists.setText(savedFilter.title);
-        FilterListActivity fla = getFilterListFragment();
-        if (fla != null) {
-            fla.adapter.clear();
-        }
     }
 
     @Override
