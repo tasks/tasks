@@ -16,10 +16,12 @@
             
         <!-- completion check-box -->
         <CheckBox android:id="@+id/completeBox"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="45dip"
+            android:layout_height="45dip"
             android:layout_alignParentTop="true"
-            android:layout_marginTop="10dip"        
+            android:layout_marginTop="10dip"          
+            android:layout_marginRight="5dip"
+            android:scaleType="fitCenter"
             android:button="@drawable/btn_check"/>
         <!-- assignee photo -->
         <greendroid.widget.AsyncImageView 
