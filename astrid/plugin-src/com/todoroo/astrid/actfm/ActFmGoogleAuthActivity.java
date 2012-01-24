@@ -38,12 +38,8 @@ import android.widget.Toast;
 
 import com.google.api.client.googleapis.extensions.android2.auth.GoogleAccountManager;
 import com.timsu.astrid.R;
-import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.ContextManager;
-import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.andlib.utility.DialogUtilities;
-import com.todoroo.astrid.actfm.sync.ActFmInvoker;
-import com.todoroo.astrid.service.AstridDependencyInjector;
 import com.todoroo.astrid.service.StatisticsService;
 
 /**
@@ -55,12 +51,10 @@ import com.todoroo.astrid.service.StatisticsService;
  */
 public class ActFmGoogleAuthActivity extends ListActivity {
 
-    private static final String AUTH_TOKEN_TYPE = "oauth2:https://www.astrid.com"; //$NON-NLS-1$
+    private static final String AUTH_TOKEN_TYPE = "oauth2:https://www.googleapis.com/auth/userinfo.profile"; //$NON-NLS-1$
 
     public static final String RESULT_EMAIL = "email"; //$NON-NLS-1$
     public static final String RESULT_TOKEN = "token"; //$NON-NLS-1$
-
-    @Autowired ActFmInvoker actFmInvoker;
 
     // --- ui initialization
 
@@ -69,15 +63,6 @@ public class ActFmGoogleAuthActivity extends ListActivity {
 
     private String authToken;
     private String accountName;
-
-    static {
-        AstridDependencyInjector.initialize();
-    }
-
-    public ActFmGoogleAuthActivity() {
-        super();
-        DependencyInjectionService.getInstance().inject(this);
-    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
