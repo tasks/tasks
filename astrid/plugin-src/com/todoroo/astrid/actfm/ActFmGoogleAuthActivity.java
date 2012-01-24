@@ -19,6 +19,7 @@
  */
 package com.todoroo.astrid.actfm;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.concurrent.TimeUnit;
 
@@ -105,13 +106,15 @@ public class ActFmGoogleAuthActivity extends ListActivity {
                                 authToken = bundle.getString(AccountManager.KEY_AUTHTOKEN);
                                 onAuthTokenSuccess();
                             }
-                        } catch (Exception e) {
+                        } catch (final Exception e) {
                             Log.e("actfm-google-auth", "Login Error", e); //$NON-NLS-1$ //$NON-NLS-2$
-                            ActFmGoogleAuthActivity.this.runOnUiThread(new Runnable() {
+                            runOnUiThread(new Runnable() {
                                 @Override
                                 public void run() {
+                                    int error = e instanceof IOException ? R.string.gtasks_GLA_errorIOAuth :
+                                        R.string.gtasks_GLA_errorAuth;
                                     Toast.makeText(ActFmGoogleAuthActivity.this,
-                                            R.string.gtasks_GLA_errorAuth,
+                                            error,
                                             Toast.LENGTH_LONG).show();
                                 }
                             });

@@ -19,6 +19,7 @@
  */
 package com.todoroo.astrid.gtasks.auth;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.concurrent.TimeUnit;
 
@@ -30,6 +31,7 @@ import android.app.ListActivity;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
@@ -118,12 +120,16 @@ public class GtasksLoginActivity extends ListActivity {
                                 authToken = bundle.getString(AccountManager.KEY_AUTHTOKEN);
                                 onAuthTokenSuccess();
                             }
-                        } catch (Exception e) {
-                            e.printStackTrace();
-                            GtasksLoginActivity.this.runOnUiThread(new Runnable() {
+                        } catch (final Exception e) {
+                            Log.e("gtasks-login", "Login Error", e); //$NON-NLS-1$ //$NON-NLS-2$
+                            runOnUiThread(new Runnable() {
                                 @Override
                                 public void run() {
-                                    Toast.makeText(GtasksLoginActivity.this, R.string.gtasks_GLA_errorAuth, Toast.LENGTH_LONG).show();
+                                    int error = e instanceof IOException ? R.string.gtasks_GLA_errorIOAuth :
+                                        R.string.gtasks_GLA_errorAuth;
+                                    Toast.makeText(GtasksLoginActivity.this,
+                                            error,
+                                            Toast.LENGTH_LONG).show();
                                 }
                             });
                         } finally {
