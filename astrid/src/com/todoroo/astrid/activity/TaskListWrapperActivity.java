@@ -50,23 +50,41 @@ public class TaskListWrapperActivity extends AstridWrapperActivity {
 		listsNav = actionBar.getCustomView().findViewById(R.id.lists_nav);
 		lists = (TextView) actionBar.getCustomView().findViewById(R.id.list_title);
 
-		View container = findViewById(R.id.filterlist_fragment_container);
-		if (container != null) {
-		    mMultipleFragments = true;
+		initializeFragments(actionBar);
+	}
+
+	/**
+	 *
+	 * @param actionBar
+	 */
+    protected void initializeFragments(ActionBar actionBar) {
+        View filterFragment = findViewById(R.id.filterlist_fragment_container);
+        View editFragment = findViewById(R.id.taskedit_fragment_container);
+
+		if (filterFragment != null) {
 		    actionBar.setDisplayHomeAsUpEnabled(false);
 		    actionBar.getCustomView().findViewById(R.id.list_disclosure_arrow).setVisibility(View.GONE);
 		    listsNav.setOnClickListener(null);
+
+		    if(editFragment != null) {
+		        fragmentLayout = LAYOUT_TRIPLE;
+		        setupFragment(TaskEditActivity.TAG_TASKEDIT_FRAGMENT,
+		                R.id.taskedit_fragment_container, TaskEditActivity.class);
+		    } else {
+		        fragmentLayout = LAYOUT_DOUBLE;
+		    }
+
+		    setupFragment(FilterListActivity.TAG_FILTERLIST_FRAGMENT,
+		            R.id.filterlist_fragment_container, FilterListActivity.class);
 		} else {
-		    mMultipleFragments = false;
+		    fragmentLayout = LAYOUT_SINGLE;
 		    actionBar.setDisplayHomeAsUpEnabled(true);
 		    listsNav.setOnClickListener(popupMenuClickListener);
 		    createPopover();
 		}
-		setupFilterlistFragment();
+    }
 
-	}
-
-	private void createPopover() {
+    private void createPopover() {
 	    popover = new ListDropdownPopover(TaskListWrapperActivity.this);
         popover.setOnDismissListener(new OnDismissListener() {
             @Override
@@ -102,19 +120,6 @@ public class TaskListWrapperActivity extends AstridWrapperActivity {
 	    listsNav.setBackgroundColor(selected ? oldTextColor : android.R.color.transparent);
 	}
 
-    /* (non-Javadoc)
-     * @see android.support.v4.app.FragmentActivity#onResume()
-     */
-
-	@Override
-	protected void onResume() {
-	    super.onResume();
-	    FilterListActivity fla = getFilterListFragment();
-        if (fla != null) {
-            fla.adapter.clear();
-        }
-	}
-
     @Override
     protected void onPostResume() {
         super.onPostResume();
@@ -130,11 +135,6 @@ public class TaskListWrapperActivity extends AstridWrapperActivity {
         super.onPause();
         if (popover != null)
             popover.dismiss();
-    }
-
-    @Override
-    protected void onSaveInstanceState(Bundle icicle) {
-        super.onSaveInstanceState(icicle);
     }
 
     public void setSelectedItem(Filter item) {

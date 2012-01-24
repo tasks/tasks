@@ -6,7 +6,6 @@ import android.support.v4.app.Fragment;
 import android.view.KeyEvent;
 import android.widget.TextView;
 
-import com.timsu.astrid.R;
 import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.astrid.service.ThemeService;
 
@@ -39,9 +38,9 @@ public class TaskEditWrapperActivity extends AstridWrapperActivity {
         Fragment frag = (Fragment) getSupportFragmentManager()
                 .findFragmentByTag(TaskListActivity.TAG_TASKLIST_FRAGMENT);
         if (frag != null) {
-            mMultipleFragments = true;
+            fragmentLayout = LAYOUT_DOUBLE;
         } else {
-            mMultipleFragments = false;
+            fragmentLayout = LAYOUT_SINGLE;
         }
     }
 

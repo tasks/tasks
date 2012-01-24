@@ -2,10 +2,11 @@ package com.todoroo.astrid.activity;
 
 import android.app.PendingIntent.CanceledException;
 import android.content.Intent;
-import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.view.View;
 
 import com.timsu.astrid.R;
 import com.todoroo.andlib.utility.AndroidUtilities;
@@ -33,11 +34,11 @@ public class AstridWrapperActivity extends FragmentActivity
     TaskListActivity.OnTaskListItemClickedListener,
     TaskEditActivity.OnTaskEditDetailsClickedListener {
 
-    /** This flag shows if the landscape-multipane layouts are active.
-     * If a multipane-layout with two fragments is active, the callbacks implemented here
-     * should not start a new activity, but update the target-fragment directly instead.
-     */
-    protected boolean mMultipleFragments = false;
+    public static final int LAYOUT_SINGLE = 0;
+    public static final int LAYOUT_DOUBLE = 1;
+    public static final int LAYOUT_TRIPLE = 2;
+
+    protected int fragmentLayout = LAYOUT_SINGLE;
 
     public FilterListActivity getFilterListFragment() {
         FilterListActivity frag = (FilterListActivity) getSupportFragmentManager()
@@ -60,23 +61,11 @@ public class AstridWrapperActivity extends FragmentActivity
         return frag;
     }
 
-    /* (non-Javadoc)
-     * @see android.support.v4.app.FragmentActivity#onCreate(android.os.Bundle)
-     */
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-    }
-
-    /* (non-Javadoc)
-     * @see android.app.Activity#onNewIntent(android.content.Intent)
-     */
     @Override
     protected void onNewIntent(Intent intent) {
         super.onNewIntent(intent);
         FilterListActivity frag = getFilterListFragment();
         if (frag != null) {
-            // forwarding for search-requests
             frag.onNewIntent(intent);
         }
     }
@@ -109,6 +98,7 @@ public class AstridWrapperActivity extends FragmentActivity
                 setIntent(intent);
 
                 setupTasklistFragmentWithFilter(filter);
+
                 // no animation for dualpane-layout
                 AndroidUtilities.callOverridePendingTransition(this, 0, 0);
                 StatisticsService.reportEvent(StatisticsConstants.FILTER_LIST);
@@ -146,37 +136,15 @@ public class AstridWrapperActivity extends FragmentActivity
         }
     }
 
-    protected void setupFilterlistFragment() {
-        FragmentManager manager = getSupportFragmentManager();
-        FragmentTransaction transaction = manager.beginTransaction();
-        FilterListActivity newFragment = new FilterListActivity();
-        if (findViewById(R.id.filterlist_fragment_container) != null) {
-            if (getFilterListFragment() != null) {
-                transaction.remove(getFilterListFragment());
-                transaction.commit();
-                transaction = manager.beginTransaction();
-            }
-            transaction.replace(R.id.filterlist_fragment_container, newFragment,
-                    FilterListActivity.TAG_FILTERLIST_FRAGMENT);
-        } else {
-            if (getFilterListFragment() != null)
-                return;
-            transaction.add(newFragment, FilterListActivity.TAG_FILTERLIST_FRAGMENT);
-        }
-        transaction.commit();
-    }
-
-    public boolean isMultipleFragments() {
-        return mMultipleFragments;
-    }
-
     @Override
     public void onTaskListItemClicked(long taskId) {
         Intent intent = new Intent(this, TaskEditWrapperActivity.class);
         intent.putExtra(TaskEditActivity.TOKEN_ID, taskId);
         if (getIntent().hasExtra(TaskListActivity.TOKEN_FILTER))
             intent.putExtra(TaskListActivity.TOKEN_FILTER, getIntent().getParcelableExtra(TaskListActivity.TOKEN_FILTER));
-        if (this instanceof TaskEditWrapperActivity) {
+
+        if (this instanceof TaskEditWrapperActivity || fragmentLayout == LAYOUT_TRIPLE) {
+            findViewById(R.id.taskedit_fragment_container).setVisibility(View.VISIBLE);
             TaskEditActivity editActivity = getTaskEditFragment();
             editActivity.save(true);
             editActivity.repopulateFromScratch(intent);
@@ -188,7 +156,54 @@ public class AstridWrapperActivity extends FragmentActivity
 
     @Override
     public void onTaskEditDetailsClicked(int category, int position) {
-        // TODO Auto-generated method stub
+        //
 
     }
+
+    // --- fragment helpers
+
+    protected void removeFragment(String tag) {
+        FragmentManager fm = getSupportFragmentManager();
+        Fragment fragment = fm.findFragmentByTag(tag);
+        if(fragment != null) {
+            FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+            ft.remove(fragment);
+            ft.commit();
+        }
+    }
+
+    protected void setupFragment(String tag, int container, Class<? extends Fragment> cls) {
+        FragmentManager fm = getSupportFragmentManager();
+        Fragment fragment = fm.findFragmentByTag(tag);
+        if(fragment == null) {
+            System.err.println("creating fragment of type " + cls.getSimpleName()); //$NON-NLS-1$
+            try {
+                fragment = cls.newInstance();
+            } catch (InstantiationException e) {
+                return;
+            } catch (IllegalAccessException e) {
+                return;
+            }
+
+            FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+            ft.replace(container, fragment, tag);
+            ft.commit();
+        }
+    }
+
+    /**
+     * @return LAYOUT_SINGLE, LAYOUT_DOUBLE, or LAYOUT_TRIPLE
+     */
+    public int getFragmentLayout() {
+        return fragmentLayout;
+    }
+
+    /**
+     * @deprecated please use the getFragmentLayout method instead
+     */
+    @Deprecated
+    public boolean isMultipleFragments() {
+        return fragmentLayout != LAYOUT_SINGLE;
+    }
+
 }

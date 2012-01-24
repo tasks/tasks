@@ -253,9 +253,6 @@ public final class TaskEditActivity extends Fragment {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-        // Tell the framework to try to keep this fragment around
-        // during a configuration change.
-        setRetainInstance(true);
 
 		new StartupService().onStartupApplication(getActivity());
 
@@ -545,7 +542,11 @@ public final class TaskEditActivity extends Fragment {
         public void run() {
             AndroidUtilities.sleepDeep(500L);
 
-            getActivity().runOnUiThread(new Runnable() {
+            Activity activity = getActivity();
+            if(activity == null)
+                return;
+
+            activity.runOnUiThread(new Runnable() {
                 public void run() {
                     onUiThread();
                 }

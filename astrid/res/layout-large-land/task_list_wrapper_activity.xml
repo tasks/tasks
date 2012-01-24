@@ -9,7 +9,7 @@
     <FrameLayout
 	    android:layout_width="match_parent"
 	    android:layout_height="match_parent"
-	    android:layout_weight="67"
+	    android:layout_weight="33"
 	    android:background="@android:color/white"
 	    android:id="@+id/filterlist_fragment_container" />
   
@@ -24,5 +24,18 @@
 	    android:layout_height="match_parent"
         android:layout_weight="33"
         android:id="@+id/tasklist_fragment_container" />
+  
+	<View 
+        android:layout_width="1px"
+        android:layout_height="match_parent"
+        android:background="#000000"/>
+  
+    <!-- Task Edit -->
+	<FrameLayout
+	    android:layout_width="match_parent"
+	    android:layout_height="match_parent"
+        android:layout_weight="33"
+        android:id="@+id/taskedit_fragment_container"
+        android:visibility="invisible" />
   
 </LinearLayout>
