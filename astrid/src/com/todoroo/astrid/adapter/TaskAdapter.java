@@ -202,8 +202,10 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
         displayMetrics = new DisplayMetrics();
         fragment.getActivity().getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
 
-        detailLoader = new DetailLoaderThread();
-        detailLoader.start();
+        if (Preferences.getBoolean(R.string.p_default_showdetails_key, false)) {
+            detailLoader = new DetailLoaderThread();
+            detailLoader.start();
+        }
 
         decorationManager = new DecorationManager();
         taskActionManager = new TaskActionManager();
@@ -409,7 +411,7 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
             if(TextUtils.isEmpty(details) || DETAIL_SEPARATOR.equals(details) || task.isCompleted()) {
                 viewHolder.details1.setVisibility(View.GONE);
                 viewHolder.details2.setVisibility(View.GONE);
-            } else {
+            } else if (Preferences.getBoolean(R.string.p_default_showdetails_key, false)) {
                 viewHolder.details1.setVisibility(View.VISIBLE);
                 if (details.startsWith(DETAIL_SEPARATOR)) {
                     StringBuffer buffer = new StringBuffer(details);
@@ -426,7 +428,12 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
             mostRecentlyMade = task.getId();
 
         //        // details and decorations, expanded
-        decorationManager.request(viewHolder);
+
+
+        if (Preferences.getBoolean(R.string.p_default_showdecorations_key, false)) {
+            decorationManager.request(viewHolder);
+        }
+
     }
 
     @SuppressWarnings("nls")

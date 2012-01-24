@@ -263,6 +263,12 @@
     <item>-1</item>
   </string-array>
 
+  <!-- show task details (corresponds to showing repeat and tag details in the task adapter) -->
+  <string name="p_default_showdetails_key">p_show_details</string>
+  
+  <!-- show task decorations (corresponds to showing notes icon in the task adapter) -->
+  <string name="p_default_showdecorations_key">p_show_decorations</string>
+  
   <!-- ============================================================ SYNC == -->
   
     <string-array name="sync_SPr_interval_values">
