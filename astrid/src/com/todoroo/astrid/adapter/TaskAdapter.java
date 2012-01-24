@@ -210,7 +210,7 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
         decorationManager = new DecorationManager();
         taskActionManager = new TaskActionManager();
 
-        scaleAnimation = new ScaleAnimation(1.6f, 1.0f, 1.6f, 1.0f,
+        scaleAnimation = new ScaleAnimation(1.4f, 1.0f, 1.4f, 1.0f,
                 Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
         scaleAnimation.setDuration(100);
 
