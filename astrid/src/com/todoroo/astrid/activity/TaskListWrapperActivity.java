@@ -79,6 +79,7 @@ public class TaskListWrapperActivity extends AstridWrapperActivity {
 		    actionBar.setDisplayHomeAsUpEnabled(true);
 		    listsNav.setOnClickListener(popupMenuClickListener);
 		    createPopover();
+		    setupPopoverWithFilterList((FilterListActivity) setupFragment(FilterListActivity.TAG_FILTERLIST_FRAGMENT, 0, FilterListActivity.class));
 		}
     }
 

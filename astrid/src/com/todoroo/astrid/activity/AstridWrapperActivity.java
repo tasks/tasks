@@ -171,7 +171,8 @@ public class AstridWrapperActivity extends FragmentActivity
     @Override
     public void onBackPressed() {
         // manage task edit visibility
-        if(findViewById(R.id.taskedit_fragment_container).getVisibility() == View.VISIBLE) {
+        View taskeditFragmentContainer = findViewById(R.id.taskedit_fragment_container);
+        if(taskeditFragmentContainer != null && taskeditFragmentContainer.getVisibility() == View.VISIBLE) {
             if(fragmentLayout == LAYOUT_DOUBLE) {
                 findViewById(R.id.taskedit_fragment_container).setVisibility(View.GONE);
                 findViewById(R.id.filterlist_fragment_container).setVisibility(View.VISIBLE);
@@ -215,7 +216,10 @@ public class AstridWrapperActivity extends FragmentActivity
             }
 
             FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-            ft.replace(container, fragment, tag);
+            if (container == 0)
+                ft.add(fragment, tag);
+            else
+                ft.replace(container, fragment, tag);
             ft.commit();
         }
         return fragment;
