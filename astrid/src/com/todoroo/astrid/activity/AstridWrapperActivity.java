@@ -143,15 +143,44 @@ public class AstridWrapperActivity extends FragmentActivity
         if (getIntent().hasExtra(TaskListActivity.TOKEN_FILTER))
             intent.putExtra(TaskListActivity.TOKEN_FILTER, getIntent().getParcelableExtra(TaskListActivity.TOKEN_FILTER));
 
-        if (this instanceof TaskEditWrapperActivity || fragmentLayout == LAYOUT_TRIPLE) {
-            findViewById(R.id.taskedit_fragment_container).setVisibility(View.VISIBLE);
+        if (fragmentLayout != LAYOUT_SINGLE) {
             TaskEditActivity editActivity = getTaskEditFragment();
+            findViewById(R.id.taskedit_fragment_container).setVisibility(View.VISIBLE);
+
+            if(fragmentLayout == LAYOUT_DOUBLE) {
+                findViewById(R.id.filterlist_fragment_container).setVisibility(View.GONE);
+            }
+
+            if(editActivity == null) {
+                editActivity = new TaskEditActivity();
+                FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+                transaction.add(R.id.taskedit_fragment_container, editActivity, TaskEditActivity.TAG_TASKEDIT_FRAGMENT);
+                transaction.addToBackStack(null);
+                transaction.commit();
+            }
+
             editActivity.save(true);
             editActivity.repopulateFromScratch(intent);
+
         } else {
             startActivityForResult(intent, TaskListActivity.ACTIVITY_EDIT_TASK);
             AndroidUtilities.callOverridePendingTransition(this, R.anim.slide_left_in, R.anim.slide_left_out);
         }
+    }
+
+    @Override
+    public void onBackPressed() {
+        // manage task edit visibility
+        if(findViewById(R.id.taskedit_fragment_container).getVisibility() == View.VISIBLE) {
+            if(fragmentLayout == LAYOUT_DOUBLE) {
+                findViewById(R.id.taskedit_fragment_container).setVisibility(View.GONE);
+                findViewById(R.id.filterlist_fragment_container).setVisibility(View.VISIBLE);
+            } else {
+                findViewById(R.id.taskedit_fragment_container).setVisibility(View.INVISIBLE);
+            }
+            onPostResume();
+        }
+        super.onBackPressed();
     }
 
     @Override
@@ -172,7 +201,7 @@ public class AstridWrapperActivity extends FragmentActivity
         }
     }
 
-    protected void setupFragment(String tag, int container, Class<? extends Fragment> cls) {
+    protected Fragment setupFragment(String tag, int container, Class<? extends Fragment> cls) {
         FragmentManager fm = getSupportFragmentManager();
         Fragment fragment = fm.findFragmentByTag(tag);
         if(fragment == null) {
@@ -180,15 +209,16 @@ public class AstridWrapperActivity extends FragmentActivity
             try {
                 fragment = cls.newInstance();
             } catch (InstantiationException e) {
-                return;
+                return null;
             } catch (IllegalAccessException e) {
-                return;
+                return null;
             }
 
             FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
             ft.replace(container, fragment, tag);
             ft.commit();
         }
+        return fragment;
     }
 
     /**

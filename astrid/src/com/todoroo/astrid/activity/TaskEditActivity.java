@@ -608,7 +608,7 @@ public final class TaskEditActivity extends Fragment {
         if(model == null) {
             exceptionService.reportError("task-edit-no-task",
                     new NullPointerException("model"));
-            getActivity().finish();
+            getActivity().onBackPressed();
             return;
         }
 
@@ -639,6 +639,9 @@ public final class TaskEditActivity extends Fragment {
 
     /** Save task model from values in UI components */
     public void save(boolean onPause) {
+        if(title == null)
+            return;
+
         if(title.getText().length() > 0)
             model.setValue(Task.DELETION_DATE, 0L);
 
@@ -672,7 +675,7 @@ public final class TaskEditActivity extends Fragment {
             }
 
             shouldSaveState = false;
-            getActivity().finish();
+            getActivity().onBackPressed();
         }
     }
 
@@ -769,8 +772,7 @@ public final class TaskEditActivity extends Fragment {
         }
 
         showCancelToast();
-        getActivity().setResult(Activity.RESULT_CANCELED);
-        getActivity().finish();
+        getActivity().onBackPressed();
     }
 
     /**
@@ -793,7 +795,7 @@ public final class TaskEditActivity extends Fragment {
                     shouldSaveState = false;
                     showDeleteToast();
                     getActivity().setResult(Activity.RESULT_CANCELED);
-                    getActivity().finish();
+                    getActivity().onBackPressed();
                 }
             })
             .setNegativeButton(android.R.string.cancel, null)
@@ -847,11 +849,11 @@ public final class TaskEditActivity extends Fragment {
 
         item = menu.add(Menu.NONE, MENU_DISCARD_ID, 0, R.string.TEA_menu_discard);
         item.setIcon(android.R.drawable.ic_menu_close_clear_cancel);
-        item.setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
+        item.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
 
         item = menu.add(Menu.NONE, MENU_SAVE_ID, 0, R.string.TEA_menu_save);
         item.setIcon(android.R.drawable.ic_menu_save);
-        item.setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
+        item.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
 
         item = menu.add(Menu.NONE, MENU_DELETE_ID, 0, R.string.TEA_menu_delete);
         item.setIcon(android.R.drawable.ic_menu_delete);

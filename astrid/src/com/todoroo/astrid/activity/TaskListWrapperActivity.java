@@ -66,10 +66,8 @@ public class TaskListWrapperActivity extends AstridWrapperActivity {
 		    actionBar.getCustomView().findViewById(R.id.list_disclosure_arrow).setVisibility(View.GONE);
 		    listsNav.setOnClickListener(null);
 
-		    if(editFragment != null) {
+		    if(editFragment != null && editFragment.getVisibility() == View.INVISIBLE) {
 		        fragmentLayout = LAYOUT_TRIPLE;
-		        setupFragment(TaskEditActivity.TAG_TASKEDIT_FRAGMENT,
-		                R.id.taskedit_fragment_container, TaskEditActivity.class);
 		    } else {
 		        fragmentLayout = LAYOUT_DOUBLE;
 		    }
