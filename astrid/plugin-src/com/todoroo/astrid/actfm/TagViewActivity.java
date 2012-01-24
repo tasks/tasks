@@ -358,13 +358,6 @@ public class TagViewActivity extends TaskListActivity {
         return intent;
     }
 
-    @Override
-    protected Intent getOnLongClickQuickAddIntent(Task t) {
-        Intent intent = super.getOnClickQuickAddIntent(t);
-        // Customize extras
-        return intent;
-    }
-
     private void resetAssignedFilter() {
         currentId = -1;
         filter = originalFilter;

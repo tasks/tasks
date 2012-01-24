@@ -9,7 +9,7 @@
     <FrameLayout
 	    android:layout_width="match_parent"
 	    android:layout_height="match_parent"
-	    android:layout_weight="33"
+	    android:layout_weight="40"
 	    android:background="@android:color/white"
 	    android:id="@+id/filterlist_fragment_container" />
   

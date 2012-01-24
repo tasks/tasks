@@ -495,9 +495,7 @@ public class TaskListActivity extends ListFragment implements OnScrollListener,
             public void onClick(View v) {
                 Task task = quickAddTask(quickAddBox.getText().toString(), true);
                 if(task != null && task.getValue(Task.TITLE).length() == 0) {
-                    Intent intent = getOnClickQuickAddIntent(task);
-                    startActivityForResult(intent, ACTIVITY_EDIT_TASK);
-                    transitionForTaskEdit();
+                    mListener.onTaskListItemClicked(task.getId());
                 }
             }
         });
@@ -517,9 +515,8 @@ public class TaskListActivity extends ListFragment implements OnScrollListener,
                 Task task = quickAddTask(quickAddBox.getText().toString(), false);
                 if(task == null)
                     return true;
-                Intent intent = getOnLongClickQuickAddIntent(task);
-                startActivityForResult(intent, ACTIVITY_EDIT_TASK);
-                transitionForTaskEdit();
+
+                mListener.onTaskListItemClicked(task.getId());
                 return true;
             }
         });
@@ -559,13 +556,6 @@ public class TaskListActivity extends ListFragment implements OnScrollListener,
 
     // Subclasses can override these to customize extras in quickadd intent
     protected Intent getOnClickQuickAddIntent(Task t) {
-        Intent intent = new Intent(getActivity(), TaskEditWrapperActivity.class);
-        intent.putExtra(TaskEditActivity.TOKEN_ID, t.getId());
-        intent.putExtra(TOKEN_FILTER, filter);
-        return intent;
-    }
-
-    protected Intent getOnLongClickQuickAddIntent(Task t) {
         Intent intent = new Intent(getActivity(), TaskEditWrapperActivity.class);
         intent.putExtra(TaskEditActivity.TOKEN_ID, t.getId());
         intent.putExtra(TOKEN_FILTER, filter);
