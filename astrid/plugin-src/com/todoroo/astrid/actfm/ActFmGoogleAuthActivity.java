@@ -17,7 +17,7 @@
  * with this program; if not, write to the Free Software Foundation, Inc.,
  * 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
  */
-package com.todoroo.astrid.gtasks.auth;
+package com.todoroo.astrid.actfm;
 
 import java.util.ArrayList;
 import java.util.concurrent.TimeUnit;
@@ -30,6 +30,7 @@ import android.app.ListActivity;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
@@ -41,10 +42,7 @@ import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.ContextManager;
 import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.andlib.utility.DialogUtilities;
-import com.todoroo.andlib.utility.Preferences;
-import com.todoroo.astrid.gtasks.GtasksBackgroundService;
-import com.todoroo.astrid.gtasks.GtasksPreferenceService;
-import com.todoroo.astrid.gtasks.api.GtasksService;
+import com.todoroo.astrid.actfm.sync.ActFmInvoker;
 import com.todoroo.astrid.service.AstridDependencyInjector;
 import com.todoroo.astrid.service.StatisticsService;
 
@@ -55,9 +53,14 @@ import com.todoroo.astrid.service.StatisticsService;
  * @author Sam Bosley
  *
  */
-public class GtasksLoginActivity extends ListActivity {
+public class ActFmGoogleAuthActivity extends ListActivity {
 
-    @Autowired private GtasksPreferenceService gtasksPreferenceService;
+    private static final String AUTH_TOKEN_TYPE = "oauth2:https://www.astrid.com"; //$NON-NLS-1$
+
+    public static final String RESULT_EMAIL = "email"; //$NON-NLS-1$
+    public static final String RESULT_TOKEN = "token"; //$NON-NLS-1$
+
+    @Autowired ActFmInvoker actFmInvoker;
 
     // --- ui initialization
 
@@ -71,7 +74,7 @@ public class GtasksLoginActivity extends ListActivity {
         AstridDependencyInjector.initialize();
     }
 
-    public GtasksLoginActivity() {
+    public ActFmGoogleAuthActivity() {
         super();
         DependencyInjectionService.getInstance().inject(this);
     }
@@ -82,7 +85,7 @@ public class GtasksLoginActivity extends ListActivity {
         ContextManager.setContext(this);
 
         setContentView(R.layout.gtasks_login_activity);
-        setTitle(R.string.gtasks_GLA_title);
+        setTitle(R.string.actfm_GAA_title);
 
         accountManager = new GoogleAccountManager(this);
         Account[] accounts = accountManager.getAccounts();
@@ -92,7 +95,6 @@ public class GtasksLoginActivity extends ListActivity {
         }
 
         nameArray = accountNames.toArray(new String[accountNames.size()]);
-
         setListAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, nameArray));
     }
 
@@ -119,21 +121,23 @@ public class GtasksLoginActivity extends ListActivity {
                                 onAuthTokenSuccess();
                             }
                         } catch (Exception e) {
-                            e.printStackTrace();
-                            GtasksLoginActivity.this.runOnUiThread(new Runnable() {
+                            Log.e("actfm-google-auth", "Login Error", e); //$NON-NLS-1$ //$NON-NLS-2$
+                            ActFmGoogleAuthActivity.this.runOnUiThread(new Runnable() {
                                 @Override
                                 public void run() {
-                                    Toast.makeText(GtasksLoginActivity.this, R.string.gtasks_GLA_errorAuth, Toast.LENGTH_LONG).show();
+                                    Toast.makeText(ActFmGoogleAuthActivity.this,
+                                            R.string.gtasks_GLA_errorAuth,
+                                            Toast.LENGTH_LONG).show();
                                 }
                             });
                         } finally {
-                            DialogUtilities.dismissDialog(GtasksLoginActivity.this, pd);
+                            DialogUtilities.dismissDialog(ActFmGoogleAuthActivity.this, pd);
                         }
                     }
                 }.start();
             }
         };
-        accountManager.manager.getAuthToken(a, GtasksService.AUTH_TOKEN_TYPE, null, this, callback, null);
+        accountManager.manager.getAuthToken(a, AUTH_TOKEN_TYPE, null, this, callback, null);
     }
 
     private void onAuthCancel() {
@@ -142,25 +146,13 @@ public class GtasksLoginActivity extends ListActivity {
     }
 
     private void onAuthTokenSuccess() {
-        gtasksPreferenceService.setToken(authToken);
-        Preferences.setString(GtasksPreferenceService.PREF_USER_NAME, accountName);
-        synchronize();
-    }
-
-    /**
-     * Perform synchronization
-     */
-    protected void synchronize() {
-        startService(new Intent(null, null,
-                this, GtasksBackgroundService.class));
-        setResult(RESULT_OK);
+        Intent data = new Intent();
+        data.putExtra(RESULT_EMAIL, accountName);
+        data.putExtra(RESULT_TOKEN, authToken);
+        setResult(RESULT_OK, data);
         finish();
     }
 
-    @Override
-    protected void onStart() {
-        super.onStart();
-    }
 
     @Override
     protected void onResume() {
@@ -191,7 +183,6 @@ public class GtasksLoginActivity extends ListActivity {
             final Account a = accountManager.getAccountByName(accountName);
             getAuthToken(a, pd);
         } else {
-            //User didn't give permission--cancel
             onAuthCancel();
         }
     }

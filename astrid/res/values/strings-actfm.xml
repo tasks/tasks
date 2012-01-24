@@ -220,11 +220,8 @@
   <!-- share login: Login Title -->
   <string name="actfm_ALA_login_title">Login to Astrid.com</string>
 
-  <!-- share login: OAUTH Login Prompt -->
-  <string name="actfm_OLA_prompt">Please connect to Google:</string>
-
-  <!-- share login: Sharing notice -->
-  <string name="actfm_ALA_notice">Astrid won\'t send messages e-mails without permission.</string>
+  <!-- share login: Google Auth title -->
+  <string name="actfm_GAA_title">Select a Google account:</string>
 
   <!-- ================================================ Synchronization == -->
       
