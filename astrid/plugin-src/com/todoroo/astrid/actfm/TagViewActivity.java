@@ -104,6 +104,7 @@ public class TagViewActivity extends TaskListActivity {
                 return false;
             }
         };
+
         ((EditText) getView().findViewById(R.id.quickAddText)).setOnTouchListener(onTouch);
 
         View membersEdit = getView().findViewById(R.id.members_edit);

@@ -138,7 +138,8 @@ public class AstridWrapperActivity extends FragmentActivity
 
         try {
             TaskListActivity newFragment = (TaskListActivity) component.newInstance();
-            transaction.replace(R.id.tasklist_fragment_container, newFragment, TaskListActivity.TAG_TASKLIST_FRAGMENT);
+            transaction.replace(R.id.tasklist_fragment_container, newFragment,
+                    TaskListActivity.TAG_TASKLIST_FRAGMENT);
             transaction.commit();
         } catch (Exception e) {
             // Don't worry about it
@@ -155,7 +156,8 @@ public class AstridWrapperActivity extends FragmentActivity
                 transaction.commit();
                 transaction = manager.beginTransaction();
             }
-            transaction.replace(R.id.filterlist_fragment_container, newFragment, FilterListActivity.TAG_FILTERLIST_FRAGMENT);
+            transaction.replace(R.id.filterlist_fragment_container, newFragment,
+                    FilterListActivity.TAG_FILTERLIST_FRAGMENT);
         } else {
             if (getFilterListFragment() != null)
                 return;

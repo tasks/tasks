@@ -439,23 +439,6 @@ public class TaskListActivity extends ListFragment implements OnScrollListener,
     }
 
     protected void setUpUiComponents() {
-//        ((ImageView)getView().findViewById(R.id.back)).setOnClickListener(new OnClickListener() {
-//            public void onClick(View v) {
-//                Preferences.setBoolean(R.string.p_showed_lists_help, true);
-//                showFilterListActivity();
-//            }
-//        });
-
-//        getView().findViewById(R.id.sort_settings).setOnClickListener(new OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                StatisticsService.reportEvent(StatisticsConstants.TLA_MENU_SORT);
-//                AlertDialog dialog = SortSelectionActivity.createDialog(getActivity(),
-//                        TaskListActivity.this, sortFlags, sortSort);
-//                dialog.show();
-//            }
-//        });
-
         // set listener for quick-changing task priority
         getListView().setOnKeyListener(new OnKeyListener() {
             @Override
@@ -913,7 +896,6 @@ public class TaskListActivity extends ListFragment implements OnScrollListener,
 
         sqlQueryTemplate.set(SortHelper.adjustQueryForFlagsAndSort(filter.sqlQuery,
                 sortFlags, sortSort));
-        //getActivity().setTitle(filter.title);
 
         // perform query
         TodorooCursor<Task> currentCursor = taskService.fetchFiltered(

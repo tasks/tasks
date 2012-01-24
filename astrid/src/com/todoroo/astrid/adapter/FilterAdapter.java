@@ -322,6 +322,7 @@ public class FilterAdapter extends ArrayAdapter<Filter> {
                     PackageManager.MATCH_DEFAULT_ONLY);
         }
 
+        @SuppressWarnings("nls")
         @Override
         public void onReceive(Context context, Intent intent) {
             if (shouldUseBladeFilter && getCount() == 0 && filterExposerList != null && filterExposerList.size()>0) {
