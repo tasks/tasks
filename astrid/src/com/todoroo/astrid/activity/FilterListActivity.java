@@ -392,6 +392,12 @@ public class FilterListActivity extends ListFragment {
     }
 
     @Override
+    public boolean onContextItemSelected(MenuItem item) {
+        // called when context menu appears
+        return onOptionsItemSelected(item);
+    }
+
+    @Override
     public boolean onOptionsItemSelected(final MenuItem item) {
         // handle my own menus
         switch (item.getItemId()) {
