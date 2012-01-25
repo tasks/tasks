@@ -207,9 +207,9 @@ public class TaskDao extends DatabaseDao<Task> {
     }
 
     private void userRetentionMetrics() {
-        if(Preferences.getBoolean(AstridPreferences.P_FIRST_ACTION, false)) {
+        if(Preferences.getBoolean(AstridPreferences.P_FIRST_TASK, true)) {
             StatisticsService.reportEvent(StatisticsConstants.USER_FIRST_TASK);
-            Preferences.setBoolean(AstridPreferences.P_FIRST_ACTION, false);
+            Preferences.setBoolean(AstridPreferences.P_FIRST_TASK, false);
         }
 
         long firstLaunchTime = Preferences.getLong(AstridPreferences.P_FIRST_LAUNCH, 0);

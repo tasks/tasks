@@ -73,7 +73,7 @@ public class MetadataDao extends DatabaseDao<Metadata> {
             item.setValue(Metadata.CREATION_DATE, DateUtilities.now());
 
         boolean state = super.persist(item);
-        if(Preferences.getBoolean(AstridPreferences.P_FIRST_LIST, false)) {
+        if(Preferences.getBoolean(AstridPreferences.P_FIRST_LIST, true)) {
             if (state && item.getValue(Metadata.KEY).equals(TagService.KEY)) {
                 StatisticsService.reportEvent(StatisticsConstants.USER_FIRST_LIST);
                 Preferences.setBoolean(AstridPreferences.P_FIRST_LIST, false);

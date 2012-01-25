@@ -41,6 +41,7 @@ import com.todoroo.astrid.utility.AstridPreferences;
 
 public final class UpgradeService {
 
+    public static final int V3_9_2_3 = 210;
     public static final int V3_9_2_2 = 209;
     public static final int V3_9_2_1 = 208;
     public static final int V3_9_2 = 207;
@@ -173,6 +174,14 @@ public final class UpgradeService {
 
         Preferences.clear(AstridPreferences.P_UPGRADE_FROM);
         StringBuilder changeLog = new StringBuilder();
+
+        if (from >= V3_9_2 && from < V3_9_2_3) {
+            newVersionString(changeLog, "3.9.2.3 (1/20/12)", new String[] {
+               "Fixed a bug with displaying update messages",
+               "Fixed an occasional crash in Gtasks Sync",
+               "Other minor bugfixes"
+            });
+        }
 
         if (from >= V3_9_2 && from < V3_9_2_2) {
             newVersionString(changeLog, "3.9.2.2 (1/19/12)", new String[] {

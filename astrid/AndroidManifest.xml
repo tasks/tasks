@@ -308,6 +308,8 @@
         <category android:name="android.intent.category.DEFAULT" />
       </intent-filter>
     </activity>
+    <activity android:name="com.todoroo.astrid.actfm.ActFmGoogleAuthActivity" 
+              android:theme="@style/Theme" android:configChanges="orientation|keyboardHidden"/>
     <service android:name="com.todoroo.astrid.actfm.ActFmBackgroundService">
       <intent-filter>
         <action android:name="com.todoroo.astrid.actfm.SYNC" />

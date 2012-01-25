@@ -21,9 +21,7 @@ package com.todoroo.astrid.actfm;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.io.UnsupportedEncodingException;
 import java.net.MalformedURLException;
-import java.security.NoSuchAlgorithmException;
 import java.util.Random;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicReference;
@@ -79,9 +77,9 @@ import com.todoroo.astrid.service.StatisticsService;
 import com.todoroo.astrid.service.TaskService;
 
 /**
- * This activity allows users to sign in or log in to Producteev
+ * This activity allows users to sign in or log in to Astrid.com
  *
- * @author arne.jans
+ * @author Tim Su <tim@astrid.com>
  *
  */
 public class ActFmLoginActivity extends FragmentActivity implements AuthListener {
@@ -102,13 +100,14 @@ public class ActFmLoginActivity extends FragmentActivity implements AuthListener
     private TextView errors;
     protected boolean noSync = false;
 
-    public static final String SHOW_TOAST = "show_toast";
+    public static final String SHOW_TOAST = "show_toast"; //$NON-NLS-1$
+
     private boolean showToast;
 
     // --- ui initialization
 
     private static final int REQUEST_CODE_GOOGLE_ACCOUNTS = 1;
-    private static final int REQUEST_CODE_OAUTH = 2;
+    private static final int REQUEST_CODE_GOOGLE = 2;
 
     static {
         AstridDependencyInjector.initialize();
@@ -129,7 +128,6 @@ public class ActFmLoginActivity extends FragmentActivity implements AuthListener
         DependencyInjectionService.getInstance().inject(this);
     }
 
-    @SuppressWarnings("nls")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -189,6 +187,7 @@ public class ActFmLoginActivity extends FragmentActivity implements AuthListener
         StatisticsService.reportEvent(StatisticsConstants.ACTFM_LOGIN_SHOW);
     }
 
+    @SuppressWarnings("nls")
     protected void initializeUI() {
         facebook = new Facebook(APP_ID);
         facebookRunner = new AsyncFacebookRunner(facebook);
@@ -207,21 +206,11 @@ public class ActFmLoginActivity extends FragmentActivity implements AuthListener
 
     protected final OnClickListener googleListener = new OnClickListener() {
         @Override
-        @SuppressWarnings("nls")
         public void onClick(View arg0) {
             Intent intent = new Intent(ActFmLoginActivity.this,
-                    OAuthLoginActivity.class);
-            try {
-                String url = actFmInvoker.createFetchUrl("user_oauth",
-                        "provider", "google");
-                intent.putExtra(OAuthLoginActivity.URL_TOKEN, url);
-                startActivityForResult(intent, REQUEST_CODE_OAUTH);
-                StatisticsService.reportEvent(StatisticsConstants.ACTFM_LOGIN_GL_START);
-            } catch (UnsupportedEncodingException e) {
-                handleError(e);
-            } catch (NoSuchAlgorithmException e) {
-                handleError(e);
-            }
+                    ActFmGoogleAuthActivity.class);
+            startActivityForResult(intent, REQUEST_CODE_GOOGLE);
+            StatisticsService.reportEvent(StatisticsConstants.ACTFM_LOGIN_GL_START);
         }
     };
 
@@ -541,15 +530,10 @@ public class ActFmLoginActivity extends FragmentActivity implements AuthListener
                 onFBAuthSucceed();
             }
             errors.setVisibility(View.GONE);
-        } else if (requestCode == REQUEST_CODE_OAUTH) {
-            String result = data.getStringExtra(OAuthLoginActivity.DATA_RESPONSE);
-            try {
-                JSONObject json = new JSONObject(result);
-                postAuthenticate(json, json.getString("token"));
-                StatisticsService.reportEvent(StatisticsConstants.ACTFM_LOGIN_GL_SUCCESS);
-            } catch (JSONException e) {
-                handleError(e);
-            }
+        } else if (requestCode == REQUEST_CODE_GOOGLE) {
+            String email= data.getStringExtra(ActFmGoogleAuthActivity.RESULT_EMAIL);
+            String token = data.getStringExtra(ActFmGoogleAuthActivity.RESULT_TOKEN);
+            authenticate(email, email, "google", token);
         }
     }
 

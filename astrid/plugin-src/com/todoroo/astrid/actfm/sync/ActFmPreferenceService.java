@@ -41,7 +41,7 @@ public class ActFmPreferenceService extends SyncProviderUtilities {
 
     @Override
     public boolean shouldShowToast() {
-        if(Preferences.getBoolean(AstridPreferences.P_FIRST_ACTION, false))
+        if(Preferences.getBoolean(AstridPreferences.P_FIRST_TASK, true))
             return false;
         return super.shouldShowToast();
     }
