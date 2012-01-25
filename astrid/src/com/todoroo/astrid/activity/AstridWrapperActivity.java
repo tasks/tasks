@@ -145,11 +145,8 @@ public class AstridWrapperActivity extends FragmentActivity
 
         if (fragmentLayout != LAYOUT_SINGLE) {
             TaskEditActivity editActivity = getTaskEditFragment();
-            findViewById(R.id.taskedit_fragment_container).setVisibility(View.VISIBLE);
-
-            if(fragmentLayout == LAYOUT_DOUBLE) {
-                findViewById(R.id.filterlist_fragment_container).setVisibility(View.GONE);
-            }
+            if (fragmentLayout == LAYOUT_TRIPLE)
+                findViewById(R.id.taskedit_fragment_container).setVisibility(View.VISIBLE);
 
             if(editActivity == null) {
                 editActivity = new TaskEditActivity();
@@ -157,6 +154,13 @@ public class AstridWrapperActivity extends FragmentActivity
                 transaction.add(R.id.taskedit_fragment_container, editActivity, TaskEditActivity.TAG_TASKEDIT_FRAGMENT);
                 transaction.addToBackStack(null);
                 transaction.commit();
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        // Force the transaction to occur so that we can be guaranteed of the fragment existing if we try to present it
+                        getSupportFragmentManager().executePendingTransactions();
+                    }
+                });
             }
 
             editActivity.save(true);

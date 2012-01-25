@@ -10,16 +10,17 @@ import android.graphics.Rect;
 import android.view.View;
 import android.view.View.MeasureSpec;
 import android.view.ViewGroup;
+import android.view.ViewGroup.LayoutParams;
 import android.widget.FrameLayout;
 
 import com.timsu.astrid.R;
 
 
-public class ListDropdownPopover extends QuickActionWidget {
+public class FragmentPopover extends QuickActionWidget {
 
-    public ListDropdownPopover(Context context) {
+    public FragmentPopover(Context context, int layout) {
         super(context);
-        setContentView(R.layout.list_dropdown_popover);
+        setContentView(layout);
 
         setFocusable(true);
         setTouchable(true);
@@ -28,6 +29,11 @@ public class ListDropdownPopover extends QuickActionWidget {
     public void setContent(View content) {
         FrameLayout contentContainer = (FrameLayout) getContentView().findViewById(R.id.content);
         contentContainer.addView(content);
+    }
+
+    public void setContent(View content, LayoutParams params) {
+        FrameLayout contentContainer = (FrameLayout) getContentView().findViewById(R.id.content);
+        contentContainer.addView(content, params);
     }
 
     @Override

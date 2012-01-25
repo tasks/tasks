@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+
+    <FrameLayout
+        android:id="@+id/content"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/task_edit_dialog_background_white"
+        android:padding="10dip"
+        android:layout_below="@+id/gdi_arrow_up"/>
+
+    <ImageView
+        android:id="@+id/gdi_arrow_up"
+        android:layout_width="27dip"
+        android:layout_height="27dip"
+        android:scaleType="fitCenter"
+        android:layout_marginBottom="-8dip"
+        android:background="#ff0000"/>
+
+    <ImageView
+        android:id="@+id/gdi_arrow_down"
+        android:layout_width="27dip"
+        android:layout_height="27dip"
+        android:scaleType="fitCenter"
+        android:layout_marginBottom="-8dip"
+        android:layout_below="@android:id/list"
+        android:src="@drawable/list_arrow_down" />
+
+</RelativeLayout>
