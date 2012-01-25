@@ -78,7 +78,7 @@ public class FilterListActivity extends ListFragment {
     private static final int MENU_SEARCH_ID = R.string.FLA_menu_search;
     private static final int MENU_HELP_ID = R.string.FLA_menu_help;
     private static final int MENU_NEW_FILTER_ID = R.string.FLA_new_filter;
-    private static final int MENU_NEW_LIST_ID = R.string.FLA_new_list;
+    //private static final int MENU_NEW_LIST_ID = R.string.FLA_new_list;
 
 
     private static final int CONTEXT_MENU_SHORTCUT = R.string.FLA_context_shortcut;
@@ -88,6 +88,7 @@ public class FilterListActivity extends ListFragment {
     static final int REQUEST_VIEW_TASKS = 2;
     public static final int REQUEST_NEW_BUTTON = 3;
     public static final int REQUEST_NEW_LIST = 4;
+    public static final int REQUEST_NEW_FILTER = 5;
 
     // --- instance variables
 
@@ -98,6 +99,8 @@ public class FilterListActivity extends ListFragment {
     private final RefreshReceiver refreshReceiver = new RefreshReceiver();
 
     private OnFilterItemClickedListener mListener;
+
+    private View newListButton;
 
     private boolean mDualFragments;
 
@@ -161,7 +164,7 @@ public class FilterListActivity extends ListFragment {
 
         getActivity().setDefaultKeyMode(Activity.DEFAULT_KEYS_SEARCH_LOCAL);
         //ImageView backButton = (ImageView) getView().findViewById(R.id.back);
-        View newListButton = getView().findViewById(R.id.new_list_button);
+        newListButton = getView().findViewById(R.id.new_list_button);
 
 //        backButton.setOnClickListener(new OnClickListener() {
 //            @Override
@@ -228,10 +231,6 @@ public class FilterListActivity extends ListFragment {
 
         item = menu.add(Menu.NONE, MENU_NEW_FILTER_ID, Menu.NONE,
                 R.string.FLA_new_filter);
-        item.setIcon(android.R.drawable.ic_menu_add);
-
-        item = menu.add(Menu.NONE, MENU_NEW_LIST_ID, Menu.NONE,
-                R.string.FLA_new_list);
         item.setIcon(android.R.drawable.ic_menu_add);
 
         item = menu.add(Menu.NONE, MENU_SEARCH_ID, Menu.NONE,
@@ -393,6 +392,12 @@ public class FilterListActivity extends ListFragment {
     }
 
     @Override
+    public boolean onContextItemSelected(MenuItem item) {
+        // called when context menu appears
+        return onOptionsItemSelected(item);
+    }
+
+    @Override
     public boolean onOptionsItemSelected(final MenuItem item) {
         // handle my own menus
         switch (item.getItemId()) {
@@ -408,13 +413,7 @@ public class FilterListActivity extends ListFragment {
             }
             case MENU_NEW_FILTER_ID : {
                 Intent intent = new Intent(getActivity(), CustomFilterActivity.class);
-                startActivity(intent);
-                return true;
-            }
-            case MENU_NEW_LIST_ID : {
-                Intent intent = TagsPlugin.newTagDialog(getActivity());
-                startActivity(intent);
-                AndroidUtilities.callOverridePendingTransition(getActivity(), R.anim.slide_left_in, R.anim.slide_left_out);
+                getActivity().startActivityForResult(intent, REQUEST_NEW_FILTER);
                 return true;
             }
             case CONTEXT_MENU_SHORTCUT: {

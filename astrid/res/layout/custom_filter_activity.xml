@@ -3,13 +3,14 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent" 
     android:layout_height="fill_parent"
-    android:background="@drawable/background_gradient"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    style="@style/Content">
     
     <!-- Filter Name -->
     <EditText android:id="@+id/filterName"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="5dip"
         android:layout_weight="1"
         android:hint="@string/CFA_filterName_hint"
         android:capitalize="sentences" />
@@ -28,8 +29,9 @@
         android:layout_height="wrap_content"
         android:layout_weight="1"
         android:gravity="center"
-        android:text="@string/CFA_help"/>
-
+        android:text="@string/CFA_help"
+        style="@style/TextAppearance"/>
+    
     <!-- buttons -->
     <LinearLayout
       android:orientation="horizontal"
@@ -37,7 +39,6 @@
       android:layout_height="wrap_content"
       android:layout_marginTop="10dip"
       android:padding="5dip"
-      android:background="@drawable/header_background"
       android:baselineAligned="false">
       
       <Button android:id="@+id/add"

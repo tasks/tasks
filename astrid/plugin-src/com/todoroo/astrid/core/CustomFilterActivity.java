@@ -38,8 +38,8 @@ import com.todoroo.andlib.sql.Criterion;
 import com.todoroo.andlib.sql.Field;
 import com.todoroo.andlib.sql.Query;
 import com.todoroo.andlib.sql.UnaryCriterion;
-import com.todoroo.astrid.activity.TaskListActivity;
-import com.todoroo.astrid.activity.TaskListWrapperActivity;
+import com.todoroo.andlib.utility.AndroidUtilities;
+import com.todoroo.astrid.actfm.TagSettingsActivity;
 import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.api.CustomFilterCriterion;
 import com.todoroo.astrid.api.Filter;
@@ -50,6 +50,7 @@ import com.todoroo.astrid.dao.Database;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.data.TaskApiDao.TaskCriteria;
 import com.todoroo.astrid.service.StatisticsService;
+import com.todoroo.astrid.service.ThemeService;
 
 /**
  * Activity that allows users to build custom filters
@@ -125,6 +126,8 @@ public class CustomFilterActivity extends ListActivity {
     }
 
     private TextView filterName;
+    private boolean isDialog;
+
     private CustomFilterAdapter adapter;
     private final Map<String,CustomFilterCriterion> criteria = Collections.synchronizedMap(new LinkedHashMap<String,CustomFilterCriterion>());
 
@@ -137,6 +140,7 @@ public class CustomFilterActivity extends ListActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        setupForDialogOrFullscreen();
         super.onCreate(savedInstanceState);
         ContextManager.setContext(this);
 
@@ -155,6 +159,14 @@ public class CustomFilterActivity extends ListActivity {
         updateList();
 
         setUpListeners();
+    }
+
+    private void setupForDialogOrFullscreen() {
+        isDialog = AndroidUtilities.isTabletSized(this);
+        if (isDialog)
+            setTheme(ThemeService.getDialogTheme());
+        else
+            ThemeService.applyTheme(this);
     }
 
     /**
@@ -413,9 +425,8 @@ public class CustomFilterActivity extends ListActivity {
 
         // view
         Filter filter = new Filter(title, title, sql.toString(), values);
-        Intent taskListActivity = new Intent(this, TaskListWrapperActivity.class);
-        taskListActivity.putExtra(TaskListActivity.TOKEN_FILTER, filter);
-        startActivity(taskListActivity);
+        setResult(RESULT_OK, new Intent().putExtra(TagSettingsActivity.TOKEN_NEW_FILTER, filter));
+        finish();
     }
 
     /**

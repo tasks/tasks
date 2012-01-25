@@ -19,7 +19,7 @@ public class FilterView extends View {
     private int start = 0, end = 0, max = 1;
 
     private static final int FILTER_COLOR = Color.rgb(85, 155, 255);
-    private static final int BG_COLOR = Color.WHITE;
+    private static final int BG_COLOR = Color.CYAN;
     private static final int TEXT_COLOR = Color.BLACK;
 
     // --- boilerplate

@@ -275,7 +275,7 @@
         <category android:name="android.intent.category.DEFAULT" />
       </intent-filter>
     </receiver>
-    <activity android:name="com.todoroo.astrid.core.CustomFilterActivity" />
+    <activity android:name="com.todoroo.astrid.core.CustomFilterActivity" android:theme="@style/Theme_Dialog" />
     <activity android:name="com.todoroo.astrid.core.CustomFilterExposer$DeleteActivity" android:theme="@style/Theme.FullTransparent" />
     <activity android:name="com.todoroo.astrid.tags.TagFilterExposer$DeleteTagActivity" android:theme="@style/Theme.FullTransparent" />
     <activity android:name="com.todoroo.astrid.tags.TagFilterExposer$RenameTagActivity" android:theme="@style/Theme.FullTransparent" />
