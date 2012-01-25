@@ -578,7 +578,11 @@ public class TaskListActivity extends ListFragment implements OnScrollListener,
                 getActivity().runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        loadTaskListContent(true);
+                        try {
+                            loadTaskListContent(true);
+                        } catch (IllegalStateException e) {
+                            // view may have been destroyed
+                        }
                     }
                 });
             }
