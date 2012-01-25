@@ -231,6 +231,9 @@ public final class TagsControlSet extends PopupControlSet {
     public void readFromTask(Task task) {
         newTags.removeAllViews();
 
+        for (int i = 0; i < selectedTags.getCount(); i++) { // clear all selected items
+            selectedTags.setItemChecked(i, false);
+        }
         if(task.getId() != AbstractModel.NO_ID) {
             TodorooCursor<Metadata> cursor = tagService.getTags(task.getId());
             HashSet<String> tags = new HashSet<String>(cursor.getCount());

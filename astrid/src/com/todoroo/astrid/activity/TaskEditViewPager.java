@@ -49,7 +49,7 @@ public class TaskEditViewPager extends PagerAdapter implements TitleProvider {
 
     @Override
     public void finishUpdate(View view) {
-        System.err.println("UpdateView");
+        //System.err.println("UpdateView");
     }
 
 
