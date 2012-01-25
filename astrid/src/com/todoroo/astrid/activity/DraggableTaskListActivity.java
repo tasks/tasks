@@ -10,7 +10,6 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnTouchListener;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 import com.commonsware.cwac.tlv.TouchListView;
 import com.timsu.astrid.R;
@@ -71,8 +70,6 @@ public class DraggableTaskListActivity extends TaskListActivity {
         sqlQueryTemplate.set(SortHelper.adjustQueryForFlagsAndSort(filter.sqlQuery,
                 sortFlags, sortSort));
 
-        ((TextView)getView().findViewById(R.id.listLabel)).setText(filter.title);
-
         // perform query
         TodorooCursor<Task> currentCursor = taskService.fetchFiltered(
                 sqlQueryTemplate.get(), null, getProperties());
@@ -112,6 +109,11 @@ public class DraggableTaskListActivity extends TaskListActivity {
                     onCompletedTaskListener);
 
             applyListenersToRowBody = true;
+        }
+
+        @Override
+        protected ViewHolder getTagFromCheckBox(View v) {
+            return (ViewHolder)((View)v.getParent()).getTag();
         }
 
         @Override

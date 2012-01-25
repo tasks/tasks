@@ -44,11 +44,13 @@ import com.todoroo.andlib.service.ContextManager;
 import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.andlib.utility.DialogUtilities;
 import com.todoroo.andlib.utility.Preferences;
-import com.todoroo.astrid.gtasks.GtasksBackgroundService;
+import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.gtasks.GtasksPreferenceService;
-import com.todoroo.astrid.gtasks.api.GtasksService;
+import com.todoroo.astrid.gtasks.api.GtasksInvoker;
+import com.todoroo.astrid.helper.SyncResultCallbackAdapter;
 import com.todoroo.astrid.service.AstridDependencyInjector;
 import com.todoroo.astrid.service.StatisticsService;
+import com.todoroo.astrid.service.SyncV2Service;
 
 /**
  * This activity allows users to sign in or log in to Google Tasks
@@ -60,6 +62,8 @@ import com.todoroo.astrid.service.StatisticsService;
 public class GtasksLoginActivity extends ListActivity {
 
     @Autowired private GtasksPreferenceService gtasksPreferenceService;
+
+    @Autowired private SyncV2Service syncService;
 
     // --- ui initialization
 
@@ -139,7 +143,7 @@ public class GtasksLoginActivity extends ListActivity {
                 }.start();
             }
         };
-        accountManager.manager.getAuthToken(a, GtasksService.AUTH_TOKEN_TYPE, null, this, callback, null);
+        accountManager.manager.getAuthToken(a, GtasksInvoker.AUTH_TOKEN_TYPE, null, this, callback, null);
     }
 
     private void onAuthCancel() {
@@ -157,8 +161,17 @@ public class GtasksLoginActivity extends ListActivity {
      * Perform synchronization
      */
     protected void synchronize() {
-        startService(new Intent(null, null,
-                this, GtasksBackgroundService.class));
+        new Thread() {
+            @Override
+            public void run() {
+                syncService.synchronizeActiveTasks(false, new SyncResultCallbackAdapter() {
+                    @Override
+                    public void finished() {
+                        ContextManager.getContext().sendBroadcast(new Intent(AstridApiConstants.BROADCAST_EVENT_REFRESH));
+                    }
+                });
+            }
+        }.start();
         setResult(RESULT_OK);
         finish();
     }

@@ -51,7 +51,7 @@ import com.todoroo.astrid.gtasks.GtasksTaskListUpdater;
 import com.todoroo.astrid.gtasks.api.CreateRequest;
 import com.todoroo.astrid.gtasks.api.GoogleTasksException;
 import com.todoroo.astrid.gtasks.api.GtasksApiUtilities;
-import com.todoroo.astrid.gtasks.api.GtasksService;
+import com.todoroo.astrid.gtasks.api.GtasksInvoker;
 import com.todoroo.astrid.gtasks.api.MoveListRequest;
 import com.todoroo.astrid.gtasks.api.MoveRequest;
 import com.todoroo.astrid.gtasks.api.PushRequest;
@@ -75,9 +75,9 @@ public class GtasksSyncProvider extends SyncProvider<GtasksTaskContainer> {
     @Autowired private GtasksTaskListUpdater gtasksTaskListUpdater;
 
     /** google task service fields */
-    private GtasksService taskService = null;
+    private GtasksInvoker taskService = null;
 
-    public GtasksService getGtasksService() {
+    public GtasksInvoker getGtasksService() {
         return taskService;
     }
 
@@ -124,7 +124,7 @@ public class GtasksSyncProvider extends SyncProvider<GtasksTaskContainer> {
             authToken = GtasksTokenValidator.validateAuthToken(ContextManager.getContext(), authToken);
             gtasksPreferenceService.setToken(authToken);
 
-            taskService = new GtasksService(authToken);
+            taskService = new GtasksInvoker(authToken);
             performSync();
         } catch (IllegalStateException e) {
             // occurs when application was closed
@@ -342,7 +342,7 @@ public class GtasksSyncProvider extends SyncProvider<GtasksTaskContainer> {
                         String listId = dashboard.getValue(GtasksList.REMOTE_ID);
                         if(Constants.DEBUG)
                             Log.e("gtasks-debug", "ACTION: getTasks, " + listId);
-                        List<com.google.api.services.tasks.model.Task> remoteTasks = taskService.getAllGtasksFromListId(listId, includeDeleted, includeHidden).getItems();
+                        List<com.google.api.services.tasks.model.Task> remoteTasks = taskService.getAllGtasksFromListId(listId, includeDeleted, includeHidden, 0).getItems();
                         addRemoteTasksToList(remoteTasks, listId, list);
                     } catch (Exception e) {
                         handleException("read-remotes", e, false);

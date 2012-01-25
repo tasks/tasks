@@ -22,11 +22,6 @@
             android:entryValues="@array/sync_SPr_interval_values"  
             android:title="@string/sync_SPr_interval_title" />
             
-        <com.todoroo.astrid.ui.MultilineCheckboxPreference
-        	android:key="@string/gtasks_GPr_sync_on_save_key"
-        	android:title="@string/gtasks_GPr_sync_on_save"
-        	android:summary="@string/gtasks_GPr_sync_on_save_summary" />
-            
     </PreferenceCategory>
     
     <PreferenceCategory

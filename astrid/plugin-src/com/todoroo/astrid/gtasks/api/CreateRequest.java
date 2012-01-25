@@ -13,7 +13,7 @@ public class CreateRequest extends PushRequest {
     private String parent;
     private String priorSiblingId;
 
-    public CreateRequest(GtasksService service, String listId, Task toUpdate, String parent, String priorSiblingId) {
+    public CreateRequest(GtasksInvoker service, String listId, Task toUpdate, String parent, String priorSiblingId) {
         super(service, listId, toUpdate);
         this.parent = parent;
         this.priorSiblingId  = priorSiblingId;

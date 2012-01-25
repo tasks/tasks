@@ -67,6 +67,12 @@ public class Metadata extends AbstractModel {
     public static final StringProperty VALUE5 = new StringProperty(
             TABLE, "value5");
 
+    public static final StringProperty VALUE6 = new StringProperty(
+            TABLE, "value6");
+
+    public static final StringProperty VALUE7 = new StringProperty(
+            TABLE, "value7");
+
     /** Unixtime Metadata was created */
     public static final LongProperty CREATION_DATE = new LongProperty(
             TABLE, "created");

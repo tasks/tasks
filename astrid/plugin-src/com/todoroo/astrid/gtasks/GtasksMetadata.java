@@ -37,6 +37,12 @@ public class GtasksMetadata {
     public static final LongProperty ORDER = new LongProperty(Metadata.TABLE,
             Metadata.VALUE5.name);
 
+    public static final LongProperty GTASKS_ORDER = new LongProperty(Metadata.TABLE,
+            Metadata.VALUE6.name);
+
+    public static final LongProperty LAST_SYNC = new LongProperty(Metadata.TABLE,
+            Metadata.VALUE7.name);
+
     /**
      * Creates default GTasks metadata item
      * @param taskId if > 0, will set metadata task field
@@ -49,7 +55,7 @@ public class GtasksMetadata {
 
         String defaultList = Preferences.getStringValue(GtasksPreferenceService.PREF_DEFAULT_LIST);
         if(defaultList == null)
-            defaultList = ""; //$NON-NLS-1$
+            defaultList = "@default"; //$NON-NLS-1$
 
         metadata.setValue(LIST_ID, defaultList);
         metadata.setValue(PARENT_TASK, AbstractModel.NO_ID);

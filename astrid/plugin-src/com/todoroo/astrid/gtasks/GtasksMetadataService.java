@@ -11,6 +11,7 @@ import java.util.concurrent.atomic.AtomicReference;
 
 import android.text.TextUtils;
 
+import com.todoroo.andlib.data.AbstractModel;
 import com.todoroo.andlib.data.TodorooCursor;
 import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.ContextManager;
@@ -76,14 +77,47 @@ public final class GtasksMetadataService extends SyncMetadataService<GtasksTaskC
     }
 
     @Override
+    public void findLocalMatch(GtasksTaskContainer remoteTask) {
+        if(remoteTask.task.getId() != Task.NO_ID)
+            return;
+        TodorooCursor<Metadata> cursor = metadataDao.query(Query.select(Metadata.PROPERTIES).
+                where(Criterion.and(MetadataCriteria.withKey(getMetadataKey()),
+                        getLocalMatchCriteria(remoteTask))));
+        try {
+            if(cursor.getCount() == 0)
+                return;
+            cursor.moveToFirst();
+            remoteTask.task.setId(cursor.get(Metadata.TASK));
+            remoteTask.gtaskMetadata = new Metadata(cursor);
+        } finally {
+            cursor.close();
+        }
+    }
+
+    public long localIdForGtasksId(String gtasksId) {
+        TodorooCursor<Metadata> metadata = metadataDao.query(Query.select(Metadata.TASK).where(
+                Criterion.and(Metadata.KEY.eq(GtasksMetadata.METADATA_KEY), GtasksMetadata.ID.eq(gtasksId))));
+        try {
+            if (metadata.getCount() > 0) {
+                metadata.moveToFirst();
+                return (new Metadata(metadata).getValue(Metadata.TASK));
+            } else {
+                return AbstractModel.NO_ID;
+            }
+        } finally {
+            metadata.close();
+        }
+    }
+
+    @Override
     protected TodorooCursor<Task> filterLocallyUpdated(TodorooCursor<Task> tasks, long lastSyncDate) {
         HashSet<Long> taskIds = new HashSet<Long>();
         for(tasks.moveToFirst(); !tasks.isAfterLast(); tasks.moveToNext())
             taskIds.add(tasks.get(Task.ID));
 
         TodorooCursor<Metadata> metadata = metadataDao.query(Query.select(Metadata.TASK).where(
-                Criterion.and(MetadataCriteria.withKey(GtasksSyncMetadata.METADATA_KEY),
-                GtasksSyncMetadata.LAST_SYNC.gt(lastSyncDate))));
+                Criterion.and(MetadataCriteria.withKey(GtasksMetadata.METADATA_KEY),
+                GtasksMetadata.LAST_SYNC.gt(lastSyncDate))));
         for(metadata.moveToFirst(); !metadata.isAfterLast(); metadata.moveToNext())
             taskIds.remove(metadata.get(Metadata.TASK));
 

@@ -1,6 +1,7 @@
 package com.todoroo.astrid.gtasks;
 
 import com.todoroo.andlib.data.Property.IntegerProperty;
+import com.todoroo.andlib.data.Property.LongProperty;
 import com.todoroo.andlib.data.Property.StringProperty;
 import com.todoroo.astrid.data.StoreObject;
 
@@ -26,5 +27,8 @@ public class GtasksList {
     /** list order */
     public static final IntegerProperty ORDER = new IntegerProperty(StoreObject.TABLE,
             StoreObject.VALUE2.name);
+
+    public static final LongProperty LAST_SYNC = new LongProperty(StoreObject.TABLE,
+            StoreObject.VALUE3.name);
 
 }

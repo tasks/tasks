@@ -10,6 +10,7 @@ import com.commonsware.cwac.tlv.TouchListView;
 import com.commonsware.cwac.tlv.TouchListView.DropListener;
 import com.commonsware.cwac.tlv.TouchListView.SwipeListener;
 import com.timsu.astrid.R;
+import com.todoroo.andlib.data.Property;
 import com.todoroo.andlib.data.Property.IntegerProperty;
 import com.todoroo.andlib.data.TodorooCursor;
 import com.todoroo.andlib.service.Autowired;
@@ -18,27 +19,50 @@ import com.todoroo.andlib.utility.DialogUtilities;
 import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.astrid.activity.DraggableTaskListActivity;
 import com.todoroo.astrid.adapter.TaskAdapter.OnCompletedTaskListener;
+import com.todoroo.astrid.dao.StoreObjectDao;
+import com.todoroo.astrid.data.StoreObject;
 import com.todoroo.astrid.data.Task;
-import com.todoroo.astrid.gtasks.sync.GtasksSyncOnSaveService;
+import com.todoroo.astrid.gtasks.sync.GtasksSyncService;
 
 public class GtasksListActivity extends DraggableTaskListActivity {
 
     protected static final int MENU_CLEAR_COMPLETED_ID = MENU_ADDON_INTENT_ID + 1;
 
+    public static final String TOKEN_STORE_ID = "storeId";
+
+    protected static final int MENU_REFRESH_ID = MENU_SYNC_ID;
+
+    private static final String LAST_FETCH_KEY_GTASKS = "gtasksLastFetch";
+
+    @Autowired private StoreObjectDao storeObjectDao;
+
     @Autowired private GtasksTaskListUpdater gtasksTaskListUpdater;
 
-    @Autowired private GtasksSyncOnSaveService gtasksSyncOnSaveService;
+    @Autowired private GtasksSyncService gtasksSyncService;
 
     @Autowired private GtasksMetadataService gtasksMetadataService;
+
+    @Autowired private GtasksPreferenceService gtasksPreferenceService;
+
+    private StoreObject list;
 
     @Override
     protected IntegerProperty getIndentProperty() {
         return GtasksMetadata.INDENT;
     }
 
+    private static final Property<?>[] LIST_PROPERTIES = new Property<?>[] {
+        StoreObject.ID,
+        StoreObject.TYPE,
+        GtasksList.REMOTE_ID,
+        GtasksList.ORDER,
+        GtasksList.NAME,
+        GtasksList.LAST_SYNC
+    };
+
     @Override
-    public void onCreate(Bundle icicle) {
-        super.onCreate(icicle);
+    public void onActivityCreated(Bundle icicle) {
+        super.onActivityCreated(icicle);
 
         getTouchListView().setDropListener(dropListener);
         getTouchListView().setSwipeListener(swipeListener);
@@ -57,6 +81,9 @@ public class GtasksListActivity extends DraggableTaskListActivity {
                 setCompletedForItemAndSubtasks(item, newState);
             }
         });
+
+        long storeObjectId = getActivity().getIntent().getLongExtra(TOKEN_STORE_ID, 0);
+        list = storeObjectDao.fetch(storeObjectId, LIST_PROPERTIES);
     }
 
     private final TouchListView.DropListener dropListener = new DropListener() {
@@ -69,7 +96,7 @@ public class GtasksListActivity extends DraggableTaskListActivity {
                 gtasksTaskListUpdater.moveTo(targetTaskId, -1);
             else
                 gtasksTaskListUpdater.moveTo(targetTaskId, destinationTaskId);
-            gtasksSyncOnSaveService.triggerMoveForMetadata(gtasksMetadataService.getTaskMetadata(targetTaskId));
+            gtasksSyncService.triggerMoveForMetadata(gtasksMetadataService.getTaskMetadata(targetTaskId));
             loadTaskListContent(true);
         }
     };
@@ -79,7 +106,7 @@ public class GtasksListActivity extends DraggableTaskListActivity {
         public void swipeRight(int which) {
             long targetTaskId = taskAdapter.getItemId(which);
             gtasksTaskListUpdater.indent(targetTaskId, 1);
-            gtasksSyncOnSaveService.triggerMoveForMetadata(gtasksMetadataService.getTaskMetadata(targetTaskId));
+            gtasksSyncService.triggerMoveForMetadata(gtasksMetadataService.getTaskMetadata(targetTaskId));
             loadTaskListContent(true);
         }
 
@@ -87,10 +114,17 @@ public class GtasksListActivity extends DraggableTaskListActivity {
         public void swipeLeft(int which) {
             long targetTaskId = taskAdapter.getItemId(which);
             gtasksTaskListUpdater.indent(targetTaskId, -1);
-            gtasksSyncOnSaveService.triggerMoveForMetadata(gtasksMetadataService.getTaskMetadata(targetTaskId));
+            gtasksSyncService.triggerMoveForMetadata(gtasksMetadataService.getTaskMetadata(targetTaskId));
             loadTaskListContent(true);
         }
     };
+
+    @Override
+    protected void initiateAutomaticSync() {
+        if (list != null && DateUtilities.now() - list.getValue(GtasksList.LAST_SYNC) > DateUtilities.ONE_HOUR) {
+            syncService.synchronizeList(list, false, syncResultCallback);
+        }
+    }
 
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
@@ -101,12 +135,17 @@ public class GtasksListActivity extends DraggableTaskListActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        if (item.getItemId() == MENU_CLEAR_COMPLETED_ID) {
+        // handle my own menus
+        switch (item.getItemId()) {
+        case MENU_REFRESH_ID:
+            syncService.synchronizeList(list, true, syncResultCallback);
+            return true;
+        case MENU_CLEAR_COMPLETED_ID:
             clearCompletedTasks();
             return true;
-        } else {
-            return super.onOptionsItemSelected(item);
         }
+
+        return super.onOptionsItemSelected(item);
     }
 
     private void clearCompletedTasks() {
@@ -145,6 +184,17 @@ public class GtasksListActivity extends DraggableTaskListActivity {
                 });
             }
         }.start();
+    }
+
+    @Override
+    protected void addSyncRefreshMenuItem(Menu menu) {
+        if(gtasksPreferenceService.isLoggedIn()) {
+            MenuItem item = menu.add(Menu.NONE, MENU_REFRESH_ID, Menu.NONE,
+                    R.string.actfm_TVA_menu_refresh);
+            item.setIcon(R.drawable.ic_menu_refresh);
+        } else {
+            super.addSyncRefreshMenuItem(menu);
+        }
     }
 
     private void setCompletedForItemAndSubtasks(Task item, boolean completedState) {

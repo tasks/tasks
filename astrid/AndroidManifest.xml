@@ -399,12 +399,6 @@
         <category android:name="android.intent.category.DEFAULT" />
       </intent-filter>
     </service>        
-    <receiver android:name="com.todoroo.astrid.gtasks.GtasksSyncActionExposer">
-      <intent-filter>
-        <action android:name="com.todoroo.astrid.REQUEST_SYNC_ACTIONS" />
-        <category android:name="android.intent.category.DEFAULT" />
-      </intent-filter>
-    </receiver>
     <receiver android:name="com.todoroo.astrid.gtasks.GtasksStartupReceiver">
       <intent-filter>
         <action android:name="android.intent.action.BOOT_COMPLETED" />

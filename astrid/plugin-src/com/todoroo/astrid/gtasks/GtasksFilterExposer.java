@@ -75,6 +75,7 @@ public class GtasksFilterExposer extends BroadcastReceiver implements AstridFilt
         filter.customWrapperActivity = new ComponentName(ContextManager.getContext(), TaskListWrapperActivity.class);
         Bundle extras = new Bundle();
         extras.putBoolean(TaskListActivity.TOKEN_OVERRIDE_ANIM, true);
+        extras.putLong(GtasksListActivity.TOKEN_STORE_ID, list.getId());
         filter.customExtras = extras;
 
         return filter;

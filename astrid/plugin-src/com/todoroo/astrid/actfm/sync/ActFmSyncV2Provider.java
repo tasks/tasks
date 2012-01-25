@@ -76,8 +76,6 @@ public class ActFmSyncV2Provider extends SyncV2Provider {
 
         startTaskFetcher(manual, callback, finisher);
 
-        pushQueued(callback, finisher);
-
         callback.incrementProgress(50);
     }
 
@@ -110,6 +108,8 @@ public class ActFmSyncV2Provider extends SyncV2Provider {
         actFmSyncService.fetchActiveTasks(manual, new Runnable() {
             @Override
             public void run() {
+                pushQueued(callback, finisher);
+
                 callback.incrementProgress(30);
                 if(finisher.decrementAndGet() == 0)
                     callback.finished();

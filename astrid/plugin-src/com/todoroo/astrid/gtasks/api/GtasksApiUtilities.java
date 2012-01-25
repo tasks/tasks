@@ -9,7 +9,7 @@ import com.google.api.client.util.DateTime;
 public class GtasksApiUtilities {
 
     public static DateTime unixTimeToGtasksCompletionTime(long time) {
-        if (time <= 0) return null;
+        if (time < 0) return null;
         return new DateTime(new Date(time), TimeZone.getDefault());
     }
 
@@ -44,7 +44,7 @@ public class GtasksApiUtilities {
      * @return
      */
     public static DateTime unixTimeToGtasksDueDate(long time) {
-        if (time <= 0) return null;
+        if (time < 0) return null;
         Date date = new Date(time);
         date.setHours(0);
         date.setMinutes(0);
