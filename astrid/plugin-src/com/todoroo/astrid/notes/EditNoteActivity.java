@@ -76,6 +76,7 @@ public class EditNoteActivity extends LinearLayout {
 
     public interface UpdatesChangedListener {
         public void updatesChanged();
+        public void commentAdded();
     }
 
     public EditNoteActivity(Context context, View parent, long t) {
@@ -306,7 +307,7 @@ public class EditNoteActivity extends LinearLayout {
 
     // --- events
 
-    private void refreshData(boolean manual, SyncResultCallback existingCallback) {
+    public void refreshData(boolean manual, SyncResultCallback existingCallback) {
         final SyncResultCallback callback;
         if(existingCallback != null)
             callback = existingCallback;
@@ -361,6 +362,10 @@ public class EditNoteActivity extends LinearLayout {
         setUpListAdapter();
 
         StatisticsService.reportEvent(StatisticsConstants.ACTFM_TASK_COMMENT);
+
+        for (UpdatesChangedListener l : listeners) {
+            l.commentAdded();
+        }
     }
 
     public int numberOfComments() {

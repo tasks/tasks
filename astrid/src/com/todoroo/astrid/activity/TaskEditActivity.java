@@ -51,6 +51,7 @@ import android.view.View;
 import android.view.View.MeasureSpec;
 import android.view.ViewGroup;
 import android.view.ViewGroup.LayoutParams;
+import android.view.ViewParent;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
@@ -58,6 +59,7 @@ import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
+import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -148,7 +150,7 @@ public final class TaskEditActivity extends Fragment implements
     private static final int MENU_SAVE_ID = R.string.TEA_menu_save;
     private static final int MENU_DISCARD_ID = R.string.TEA_menu_discard;
     private static final int MENU_DELETE_ID = R.string.TEA_menu_delete;
-    private static final int MENU_COMMENTS_ID = R.string.TEA_menu_comments;
+    private static final int MENU_COMMENTS_REFRESH_ID = R.string.TEA_menu_comments;
 
     // --- result codes
 
@@ -331,12 +333,9 @@ public final class TaskEditActivity extends Fragment implements
 
     private void loadMoreContainer() {
         View more_tab = (View) getView().findViewById(R.id.more_container);
-        View more_container = (View) getView().findViewById(R.id.more_header);
+        View more_section = (View) getView().findViewById(R.id.more_header);
         View commentsBar = (View) getView().findViewById(R.id.updatesFooter);
 
-        if (moreControls.getParent() != null) {
-            ((ViewGroup) moreControls.getParent()).removeView(moreControls);
-        }
         if (remoteId > 0) {
 
             if (mAdapter == null) {
@@ -366,13 +365,19 @@ public final class TaskEditActivity extends Fragment implements
 
             }
 
+            if (moreControls.getParent() != null && moreControls.getParent() != mPager) {
+                ((ViewGroup) moreControls.getParent()).removeView(moreControls);
+            }
             commentsBar.setVisibility(View.VISIBLE);
             more_tab.setVisibility(View.VISIBLE);
-            more_container.setVisibility(View.GONE);
+            more_section.setVisibility(View.GONE);
 
         } else {
 
-            more_container.setVisibility(View.VISIBLE);
+            if (moreControls.getParent() != null && moreControls.getParent() != more_section) {
+                ((ViewGroup) moreControls.getParent()).removeView(moreControls);
+            }
+            more_section.setVisibility(View.VISIBLE);
             more_tab.setVisibility(View.GONE);
             commentsBar.setVisibility(View.GONE);
         }
@@ -949,6 +954,12 @@ public final class TaskEditActivity extends Fragment implements
         case MENU_DELETE_ID:
             deleteButtonClick();
             return true;
+
+        case MENU_COMMENTS_REFRESH_ID: {
+            if (editNotes != null)
+                editNotes.refreshData(true, null);
+            return true;
+        }
         case android.R.id.home:
             if (title.getText().length() == 0)
                 discardButtonClick();
@@ -978,6 +989,13 @@ public final class TaskEditActivity extends Fragment implements
         item.setIcon(android.R.drawable.ic_menu_delete);
         if (((AstridWrapperActivity) getActivity()).isMultipleFragments())
             item.setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
+
+
+        if(actFmPreferenceService.isLoggedIn() && remoteId > 0) {
+            item = menu.add(Menu.NONE, MENU_COMMENTS_REFRESH_ID, Menu.NONE,
+                    R.string.ENA_refresh_comments);
+            item.setIcon(R.drawable.ic_menu_refresh);
+        }
     }
 
     @Override
@@ -1147,6 +1165,29 @@ public final class TaskEditActivity extends Fragment implements
     public void updatesChanged() {
         setCurrentTab(TAB_VIEW_UPDATES);
         this.setPagerHeightForPosition(TAB_VIEW_UPDATES);
+    }
 
+    // EditNoteActivity Lisener when there are new updates/comments
+    @Override
+    public void commentAdded() {
+        this.scrollToView(editNotes);
+    }
+
+    // Scroll to view in edit task
+    public void scrollToView(View v) {
+        View child = v;
+        ScrollView scrollView = (ScrollView) getView().findViewById(R.id.edit_scroll);
+        int top = v.getTop();
+        while (!child.equals(scrollView) ) {
+            top += child.getTop();
+            ViewParent parentView = child.getParent();
+            if (parentView != null && View.class.isInstance(parentView)) {
+                child = (View) parentView;
+            }
+            else {
+                break;
+            }
+        }
+        scrollView.smoothScrollTo(0, top);
     }
 }
