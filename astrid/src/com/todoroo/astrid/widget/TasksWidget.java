@@ -31,6 +31,7 @@ import com.todoroo.astrid.activity.TaskEditWrapperActivity;
 import com.todoroo.astrid.activity.TaskListActivity;
 import com.todoroo.astrid.activity.TaskListWrapperActivity;
 import com.todoroo.astrid.api.Filter;
+import com.todoroo.astrid.api.FilterWithCustomIntent;
 import com.todoroo.astrid.api.PermaSql;
 import com.todoroo.astrid.core.CoreFilterExposer;
 import com.todoroo.astrid.core.SortHelper;
@@ -265,6 +266,7 @@ public class TasksWidget extends AppWidgetProvider {
         }
 
         private Filter getFilter(int widgetId) {
+
             // base our filter off the inbox filter, replace stuff if we have it
             Filter filter = CoreFilterExposer.buildInboxFilter(getResources());
             String sql = Preferences.getStringValue(WidgetConfigActivity.PREF_SQL + widgetId);
@@ -276,6 +278,14 @@ public class TasksWidget extends AppWidgetProvider {
             String contentValues = Preferences.getStringValue(WidgetConfigActivity.PREF_VALUES + widgetId);
             if(contentValues != null)
                 filter.valuesForNewTasks = AndroidUtilities.contentValuesFromSerializedString(contentValues);
+
+            String customComponent = Preferences.getStringValue(WidgetConfigActivity.PREF_CUSTOM_INTENT
+                    + widgetId);
+            if (customComponent != null) {
+                ComponentName component = ComponentName.unflattenFromString(customComponent);
+                filter = new FilterWithCustomIntent(filter.title, filter.title, filter.sqlQuery, filter.valuesForNewTasks);
+                ((FilterWithCustomIntent) filter).customTaskList = component;
+            }
 
             return filter;
         }
