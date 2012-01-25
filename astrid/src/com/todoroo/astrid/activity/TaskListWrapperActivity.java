@@ -105,7 +105,7 @@ public class TaskListWrapperActivity extends AstridWrapperActivity {
             public void onDismiss() {
                 TaskEditActivity tea = getTaskEditFragment();
                 if (tea != null)
-                    tea.save(false);
+                    tea.save(true);
             }
         });
     }
