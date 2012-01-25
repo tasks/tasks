@@ -325,7 +325,8 @@
     <activity android:name="com.todoroo.astrid.actfm.TagCreateActivity"
               android:theme="@android:style/Theme.Dialog"/>
     <activity android:name="com.todoroo.astrid.actfm.TagSettingsActivity"
-              android:windowSoftInputMode="stateHidden"/>
+              android:windowSoftInputMode="stateHidden"
+              android:theme="@style/Theme_Dialog"/>
     <activity android:name="com.todoroo.astrid.actfm.TagUpdatesActivity"
               android:windowSoftInputMode="stateHidden"/>
     <!-- <receiver android:name="com.todoroo.astrid.actfm.EditPeopleExposer">

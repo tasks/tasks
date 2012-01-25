@@ -26,7 +26,7 @@ public class DateAndTimeDialog extends Dialog {
     private DateAndTimeDialogListener listener;
 
     public DateAndTimeDialog(Context context, long startDate) {
-        super(context, ThemeService.getDialogTheme());
+        super(context, ThemeService.getEditDialogTheme());
 
         /** 'Window.FEATURE_NO_TITLE' - Used to hide the title */
         requestWindowFeature(Window.FEATURE_NO_TITLE);

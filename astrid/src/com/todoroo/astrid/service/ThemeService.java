@@ -29,7 +29,7 @@ public class ThemeService {
             return R.style.Theme_White;
     }
 
-    public static int getDialogTheme() {
+    public static int getEditDialogTheme() {
         int themeSetting = ThemeService.getTheme();
         int theme;
         if (themeSetting == R.style.Theme || themeSetting == R.style.Theme_Transparent) {
@@ -40,4 +40,14 @@ public class ThemeService {
         return theme;
     }
 
+    public static int getDialogTheme() {
+        int themeSetting = ThemeService.getTheme();
+        int theme;
+        if (themeSetting == R.style.Theme || themeSetting == R.style.Theme_Transparent) {
+            theme = R.style.Theme_Dialog;
+        } else {
+            theme = R.style.Theme_Dialog_White;
+        }
+        return theme;
+    }
 }

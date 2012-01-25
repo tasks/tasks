@@ -176,7 +176,8 @@ public class FilterListActivity extends ListFragment {
             public void onClick(View v) {
                 Intent intent = TagsPlugin.newTagDialog(getActivity());
                 getActivity().startActivityForResult(intent, REQUEST_NEW_LIST);
-                AndroidUtilities.callOverridePendingTransition(getActivity(), R.anim.slide_left_in, R.anim.slide_left_out);
+                if (!AndroidUtilities.isTabletSized(getActivity()))
+                    AndroidUtilities.callOverridePendingTransition(getActivity(), R.anim.slide_left_in, R.anim.slide_left_out);
             }
         });
 

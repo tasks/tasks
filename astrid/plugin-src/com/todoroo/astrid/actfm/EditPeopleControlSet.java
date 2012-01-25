@@ -116,7 +116,7 @@ public class EditPeopleControlSet extends PopupControlSet {
         sharedWithRow = LayoutInflater.from(activity).inflate(R.layout.control_set_collaborators_display, null);
         sharedWithView = LayoutInflater.from(activity).inflate(R.layout.control_set_collaborators, null);
 
-        sharedWithDialog = new Dialog(activity, ThemeService.getDialogTheme());
+        sharedWithDialog = new Dialog(activity, ThemeService.getEditDialogTheme());
         sharedWithDialog.setTitle(R.string.actfm_EPA_collaborators_header);
         View v = getSharedWithView();
         DisplayMetrics metrics = new DisplayMetrics();

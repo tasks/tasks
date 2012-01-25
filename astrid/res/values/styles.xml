@@ -110,6 +110,23 @@
         <item name="android:windowTitleBackgroundStyle">@style/DialogTitle</item>
         <item name="android:colorBackgroundCacheHint">@null</item>
     </style>
+    
+    <style name="Theme_Dialog.White">
+        <item name="asContentBackground">@drawable/background_white</item>
+        <item name="asHeaderBackground">@drawable/header_background_white</item>
+        <item name="asHeaderButtonBackground">@drawable/header_button_white</item>
+        <item name="asTextColor">#ff000000</item>
+        <item name="asDetailsColor">#ff6666aa</item>
+        <item name="asDueDateColor">#878787</item>
+        <item name="asFilterHeaderColor">#ffffff</item>
+        <item name="asFilterHeaderBackground">@drawable/edit_titlebar_white</item>
+        <item name="asMembersHeaderBackground">@drawable/ios_fabric_480</item>
+        <!-- actionbar-styling -->
+        <item name="abBackground">@android:color/white</item>
+        <item name="abDisplayOptions">useLogo|showHome|showTitle</item>
+        <item name="abLogo">@drawable/icon_48</item>
+        <item name="asAbTextColor">@color/red_text_color</item>
+    </style>
         
     <!--================================================== General == -->
 

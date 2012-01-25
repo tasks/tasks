@@ -62,7 +62,7 @@ public abstract class PopupControlSet extends TaskEditControlSet {
     }
 
     protected Dialog buildDialog(int title, final DialogInterface.OnClickListener okListener, DialogInterface.OnCancelListener cancelListener) {
-        int theme = ThemeService.getDialogTheme();
+        int theme = ThemeService.getEditDialogTheme();
         final Dialog d = new Dialog(activity, theme);
         if (title == 0)
             d.requestWindowFeature(Window.FEATURE_NO_TITLE);

@@ -73,7 +73,8 @@ public class TagSettingsActivity extends FragmentActivity {
     private CheckBox isSilent;
     private Bitmap setBitmap;
 
-    boolean isNewTag = false;
+    private boolean isNewTag = false;
+    private boolean isDialog;
 
     public TagSettingsActivity() {
         DependencyInjectionService.getInstance().inject(this);
@@ -81,7 +82,7 @@ public class TagSettingsActivity extends FragmentActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        ThemeService.applyTheme(this);
+        setupForDialogOrFullscreen();
         super.onCreate(savedInstanceState);
         setContentView(R.layout.tag_settings_activity);
         tagData = getIntent().getParcelableExtra(TagViewActivity.EXTRA_TAG_DATA);
@@ -91,9 +92,11 @@ public class TagSettingsActivity extends FragmentActivity {
         }
 
         ActionBar actionBar = getSupportActionBar();
-        actionBar.setDisplayOptions(0, ActionBar.DISPLAY_SHOW_TITLE);
-        actionBar.setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
-        actionBar.setCustomView(R.layout.header_title_view);
+        if (actionBar != null) {
+            actionBar.setDisplayOptions(0, ActionBar.DISPLAY_SHOW_TITLE);
+            actionBar.setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
+            actionBar.setCustomView(R.layout.header_title_view);
+        }
 
         setUpSettingsPage();
 
@@ -116,6 +119,14 @@ public class TagSettingsActivity extends FragmentActivity {
 
     }
 
+    private void setupForDialogOrFullscreen() {
+        isDialog = AndroidUtilities.isTabletSized(this);
+        if (isDialog)
+            setTheme(ThemeService.getDialogTheme());
+        else
+            ThemeService.applyTheme(this);
+    }
+
     private void showCollaboratorsPopover() {
         if (!Preferences.getBoolean(R.string.p_showed_collaborators_help, false)) {
             View members = findViewById(R.id.members_container);
@@ -125,6 +136,22 @@ public class TagSettingsActivity extends FragmentActivity {
     }
 
     protected void setUpSettingsPage() {
+        if (isDialog) {
+            findViewById(R.id.save_and_cancel).setVisibility(View.VISIBLE);
+            findViewById(R.id.cancel).setOnClickListener(new OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    finish();
+                }
+            });
+            findViewById(R.id.save).setOnClickListener(new OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    saveSettings();
+                }
+            });
+        }
+
         tagMembers = (PeopleContainer) findViewById(R.id.members_container);
         tagName = (EditText) findViewById(R.id.tag_name);
         tagDescription = (EditText) findViewById(R.id.tag_description);
@@ -245,15 +272,13 @@ public class TagSettingsActivity extends FragmentActivity {
 
     @Override
     public void finish() {
-        finishWithAnimation(true);
+        finishWithAnimation(!isDialog);
     }
 
     private void finishWithAnimation(boolean backAnimation) {
         super.finish();
         if (backAnimation) {
             AndroidUtilities.callOverridePendingTransition(this, R.anim.slide_right_in, R.anim.slide_right_out);
-        } else {
-            AndroidUtilities.callOverridePendingTransition(this, R.anim.slide_left_in, R.anim.slide_left_out);
         }
     }
 
@@ -261,15 +286,22 @@ public class TagSettingsActivity extends FragmentActivity {
     private void refreshSettingsPage() {
         tagName.setText(tagData.getValue(TagData.NAME));
         ActionBar ab = getSupportActionBar();
-        View customView = ab.getCustomView();
-        TextView titleView = (TextView) customView.findViewById(R.id.title);
-        if (isNewTag) {
-            titleView.setText(getString(R.string.tag_new_list));
+        if (ab != null) {
+            View customView = ab.getCustomView();
+            TextView titleView = (TextView) customView.findViewById(R.id.title);
+            if (isNewTag) {
+                titleView.setText(getString(R.string.tag_new_list));
+            } else {
+                titleView.setText(getString(R.string.tag_settings_title, tagData.getValue(TagData.NAME)));
+            }
         } else {
-            titleView.setText(this.getString(R.string.tag_settings_title, tagData.getValue(TagData.NAME)));
+            if (isNewTag) {
+                setTitle(getString(R.string.tag_new_list));
+            } else {
+                setTitle(getString(R.string.tag_settings_title, tagData.getValue(TagData.NAME)));
+            }
         }
         picture.setUrl(tagData.getValue(TagData.PICTURE));
-        setTitle(tagData.getValue(TagData.NAME));
 
         TextView ownerLabel = (TextView) findViewById(R.id.tag_owner);
         try {

@@ -34,7 +34,6 @@ import com.todoroo.andlib.service.NotificationManager;
 import com.todoroo.andlib.service.NotificationManager.AndroidNotificationManager;
 import com.todoroo.andlib.sql.Criterion;
 import com.todoroo.andlib.sql.Query;
-import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.andlib.utility.DialogUtilities;
 import com.todoroo.andlib.utility.Preferences;
@@ -138,7 +137,6 @@ public class TagViewActivity extends TaskListActivity {
             Intent intent = new Intent(getActivity(), TagSettingsActivity.class);
             intent.putExtra(EXTRA_TAG_DATA, tagData);
             startActivityForResult(intent, REQUEST_CODE_SETTINGS);
-            AndroidUtilities.callOverridePendingTransition(getActivity(), R.anim.slide_left_in, R.anim.slide_left_out);
         }
     };
 

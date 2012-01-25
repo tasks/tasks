@@ -8,6 +8,7 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     style="@style/Content">
+    
 
 	<ScrollView
 	    android:layout_width="fill_parent"
@@ -33,6 +34,31 @@
 		            android:layout_marginTop="10dip"
 		            style="@style/TextAppearance.GEN_EditLabel"
 		            android:text="@string/actfm_TVA_tag_label" />
+			    <LinearLayout
+			        android:id="@+id/save_and_cancel"
+			        android:layout_width="fill_parent"
+			        android:layout_height="wrap_content"
+			        android:layout_toRightOf="@id/tag_label"
+			        android:layout_alignParentRight="true"
+			        android:orientation="horizontal"
+			        android:gravity="right"
+			        android:visibility="gone">
+			        
+			        <ImageButton
+			            android:id="@+id/cancel"
+			            android:layout_width="wrap_content"
+			            android:layout_height="wrap_content"
+			            android:layout_marginRight="10dip"
+			            android:background="@android:color/transparent"
+			            android:src="@android:drawable/ic_menu_close_clear_cancel"/>
+			        <ImageButton
+			            android:id="@+id/save"
+			            android:layout_width="wrap_content"
+			            android:layout_height="wrap_content"
+			            android:layout_marginRight="10dip"
+			            android:background="@android:color/transparent"
+			            android:src="@android:drawable/ic_menu_save"/>
+			    </LinearLayout>
 		          
 		        <EditText
 		            android:id="@+id/tag_name"

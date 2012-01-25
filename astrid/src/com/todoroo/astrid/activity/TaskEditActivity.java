@@ -478,7 +478,7 @@ public final class TaskEditActivity extends Fragment {
     }
 
     private void constructWhenDialog(View whenDialogView) {
-        int theme = ThemeService.getDialogTheme();
+        int theme = ThemeService.getEditDialogTheme();
         whenDialog = new Dialog(getActivity(), theme);
 
         Button dismissDialogButton = (Button) whenDialogView.findViewById(R.id.when_dismiss);
