@@ -164,10 +164,13 @@ public class TaskListWrapperActivity extends AstridWrapperActivity {
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (requestCode == FilterListActivity.REQUEST_NEW_LIST && resultCode == Activity.RESULT_OK) {
+        if ((requestCode == FilterListActivity.REQUEST_NEW_LIST || requestCode == FilterListActivity.REQUEST_NEW_FILTER) && resultCode == Activity.RESULT_OK) {
             Filter newList = data.getParcelableExtra(TagSettingsActivity.TOKEN_NEW_FILTER);
             if (newList != null) {
                 getIntent().putExtra(TaskListActivity.TOKEN_FILTER, newList);
+                FilterListActivity fla = getFilterListFragment();
+                if (fla != null)
+                    fla.refresh();
             }
         }
 

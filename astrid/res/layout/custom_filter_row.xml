@@ -33,7 +33,8 @@
         android:layout_weight="100"
         android:paddingLeft="5dip"
         android:textSize="18sp" 
-        android:gravity="center_vertical"/>
+        android:gravity="center_vertical"
+        style="@style/TextAppearance"/>
         
     <!-- filter graphic -->
     <com.todoroo.astrid.core.FilterView android:id="@+id/filter"

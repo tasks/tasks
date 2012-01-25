@@ -88,6 +88,7 @@ public class FilterListActivity extends ListFragment {
     static final int REQUEST_VIEW_TASKS = 2;
     public static final int REQUEST_NEW_BUTTON = 3;
     public static final int REQUEST_NEW_LIST = 4;
+    public static final int REQUEST_NEW_FILTER = 5;
 
     // --- instance variables
 
@@ -98,6 +99,8 @@ public class FilterListActivity extends ListFragment {
     private final RefreshReceiver refreshReceiver = new RefreshReceiver();
 
     private OnFilterItemClickedListener mListener;
+
+    private View newListButton;
 
     private boolean mDualFragments;
 
@@ -161,7 +164,7 @@ public class FilterListActivity extends ListFragment {
 
         getActivity().setDefaultKeyMode(Activity.DEFAULT_KEYS_SEARCH_LOCAL);
         //ImageView backButton = (ImageView) getView().findViewById(R.id.back);
-        View newListButton = getView().findViewById(R.id.new_list_button);
+        newListButton = getView().findViewById(R.id.new_list_button);
 
 //        backButton.setOnClickListener(new OnClickListener() {
 //            @Override
@@ -408,13 +411,11 @@ public class FilterListActivity extends ListFragment {
             }
             case MENU_NEW_FILTER_ID : {
                 Intent intent = new Intent(getActivity(), CustomFilterActivity.class);
-                startActivity(intent);
+                getActivity().startActivityForResult(intent, REQUEST_NEW_FILTER);
                 return true;
             }
             case MENU_NEW_LIST_ID : {
-                Intent intent = TagsPlugin.newTagDialog(getActivity());
-                startActivity(intent);
-                AndroidUtilities.callOverridePendingTransition(getActivity(), R.anim.slide_left_in, R.anim.slide_left_out);
+                newListButton.performClick();
                 return true;
             }
             case CONTEXT_MENU_SHORTCUT: {
