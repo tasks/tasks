@@ -12,7 +12,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
 import android.provider.Settings.Secure;
-import android.telephony.TelephonyManager;
 import android.text.TextUtils;
 import android.util.Log;
 
@@ -77,31 +76,22 @@ public class C2DMReceiver extends BroadcastReceiver {
     };
 
     private static String getDeviceID() {
-        String id = ((TelephonyManager) ContextManager.getContext().getSystemService(Context.TELEPHONY_SERVICE)).getDeviceId();
+        String id = Secure.getString(ContextManager.getContext().getContentResolver(), Secure.ANDROID_ID);;
+        if(AndroidUtilities.getSdkVersion() > 8) { //Gingerbread and above
 
-        if(id == null) {  // check for devices that do not have a Telephony Manager device id
-
-            if(AndroidUtilities.getSdkVersion() > 8) { //Gingerbread and above
-
-                //the following uses relection to get android.os.Build.SERIAL to avoid having to build with Gingerbread
-                try {
+            //the following uses relection to get android.os.Build.SERIAL to avoid having to build with Gingerbread
+            try {
+                if(!Build.UNKNOWN.equals(Build.SERIAL))
                     id = Build.SERIAL;
-                    if(Build.UNKNOWN.equals(id))
-                        id = "";
-                } catch(Exception e) {
-                    e.printStackTrace();
-                    id = "";
-                }
-
-            } else {
-                id = Secure.getString(ContextManager.getContext().getContentResolver(), Secure.ANDROID_ID);
+            } catch(Exception e) {
+                // Ah well
             }
-
-            if ("".equals(id) || "9774d56d682e549c".equals(id)) { // check for failure or devices affected by the "9774d56d682e549c" bug
-                return null;
-            }
-
         }
+
+        if (TextUtils.isEmpty(id) || "9774d56d682e549c".equals(id)) { // check for failure or devices affected by the "9774d56d682e549c" bug
+            return null;
+        }
+
         return id;
     }
 
