@@ -211,7 +211,6 @@ public class TasksWidget extends AppWidgetProvider {
             String customIntent = Preferences.getStringValue(WidgetConfigActivity.PREF_CUSTOM_INTENT
                     + widgetId);
             if(customIntent != null) {
-                listIntent.setComponent(ComponentName.unflattenFromString(customIntent));
                 String serializedExtras = Preferences.getStringValue(WidgetConfigActivity.PREF_CUSTOM_EXTRAS
                         + widgetId);
                 Bundle extras = AndroidUtilities.bundleFromSerializedString(serializedExtras);
@@ -233,11 +232,14 @@ public class TasksWidget extends AppWidgetProvider {
             Intent editIntent = new Intent(context, TaskEditWrapperActivity.class);
             editIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_MULTIPLE_TASK);
             editIntent.putExtra(TaskEditActivity.OVERRIDE_FINISH_ANIM, false);
-            if(filter != null && filter.valuesForNewTasks != null) {
-                String values = AndroidUtilities.contentValuesToSerializedString(filter.valuesForNewTasks);
-                values = PermaSql.replacePlaceholders(values);
-                editIntent.putExtra(TaskEditActivity.TOKEN_VALUES, values);
-                editIntent.setAction("E" + widgetId + values);
+            if(filter != null) {
+                editIntent.putExtra(TaskListActivity.TOKEN_FILTER, filter);
+                if (filter.valuesForNewTasks != null) {
+                    String values = AndroidUtilities.contentValuesToSerializedString(filter.valuesForNewTasks);
+                    values = PermaSql.replacePlaceholders(values);
+                    editIntent.putExtra(TaskEditActivity.TOKEN_VALUES, values);
+                    editIntent.setAction("E" + widgetId + values);
+                }
             } else {
                 editIntent.setAction("E" + widgetId);
             }
