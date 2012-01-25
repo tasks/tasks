@@ -119,6 +119,11 @@
         android:id="@+id/updatesFooter"
         android:layout_width="fill_parent" 
         android:layout_height="wrap_content"
+<<<<<<< HEAD
+=======
+        android:layout_weight="1"
+        android:background="#fff"
+>>>>>>> 8b70e98... Changed timer layout
         android:minHeight="47dip"
         android:layout_weight="1"
         android:padding="3dip"
@@ -158,6 +163,33 @@
 
         <!-- Extended Add Button -->
 
+        <LinearLayout
+            android:id="@+id/timer_container"
+            android:layout_width="40dip"
+            android:layout_height="35dip"
+            android:layout_marginLeft="5dip"
+            android:gravity="top"
+            android:orientation="vertical"
+            android:layout_weight="1">
+            <Button
+                android:id="@+id/timer_button"
+                android:layout_width="25dip"
+                android:layout_height="25dip"
+                android:maxHeight="25dip"
+                android:gravity="center_horizontal"
+                android:layout_gravity="center_horizontal"
+                android:layout_weight="1"/>
+            <Chronometer 
+                android:id="@+id/timer"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="2"
+                android:gravity="center_horizontal"
+                android:visibility="visible"
+                android:textColor="@color/task_edit_details"
+                android:textSize="10sp" />
+        </LinearLayout>
+        
         <ImageButton
             android:id="@+id/commentButton"
             android:layout_width="39dip"

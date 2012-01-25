@@ -1,13 +1,14 @@
 package com.todoroo.astrid.timers;
 
+import java.util.LinkedList;
+import java.util.List;
+
 import android.app.Activity;
 import android.os.SystemClock;
-import android.text.format.DateUtils;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.Chronometer;
-import android.widget.TextView;
 
 import com.timsu.astrid.R;
 import com.todoroo.andlib.utility.DateUtilities;
@@ -18,20 +19,21 @@ public class TimerActionControlSet extends TaskEditControlSet {
 
     private final Button timerButton;
     private final Chronometer chronometer;
-    private final TextView timerLabel;
+    private final View timerContainer;
     private boolean timerActive;
     private final Activity activity;
     private Task task;
-    private TimerStoppedListener listener;
+    private final List<TimerStoppedListener> listeners = new LinkedList<TimerStoppedListener>();
 
     public TimerActionControlSet(Activity activity, View parent) {
         super(activity, -1);
         this.activity = activity;
         timerButton = (Button) parent.findViewById(R.id.timer_button);
-        timerButton.setOnClickListener(timerListener);
+
+        timerContainer = (View) parent.findViewById(R.id.timer_container);
+        timerContainer.setOnClickListener(timerListener);
 
         chronometer = (Chronometer) parent.findViewById(R.id.timer);
-        timerLabel = (TextView) parent.findViewById(R.id.timer_label);
     }
 
     @Override
@@ -58,11 +60,14 @@ public class TimerActionControlSet extends TaskEditControlSet {
         public void onClick(View v) {
             if (timerActive) {
                 TimerPlugin.updateTimer(activity, task, false);
-                if (listener != null)
+
+                for(TimerStoppedListener listener : listeners)
                     listener.timerStopped(task);
                 chronometer.stop();
             } else {
                 TimerPlugin.updateTimer(activity, task, true);
+                for(TimerStoppedListener listener : listeners)
+                    listener.timerStarted(task);
                 chronometer.start();
             }
             timerActive = !timerActive;
@@ -86,23 +91,26 @@ public class TimerActionControlSet extends TaskEditControlSet {
         long elapsed = task.getValue(Task.ELAPSED_SECONDS) * 1000L;
         if (timerActive) {
             chronometer.setVisibility(View.VISIBLE);
-            timerLabel.setVisibility(View.GONE);
             elapsed += DateUtilities.now() - task.getValue(Task.TIMER_START);
             chronometer.setBase(SystemClock.elapsedRealtime() - elapsed);
             chronometer.start();
         } else {
-            chronometer.setVisibility(View.GONE);
-            timerLabel.setVisibility(View.VISIBLE);
-            timerLabel.setText(DateUtils.formatElapsedTime(elapsed / 1000L));
+            chronometer.setVisibility(View.INVISIBLE);
             chronometer.stop();
         }
     }
 
     public interface TimerStoppedListener {
         public void timerStopped(Task task);
+        public void timerStarted(Task task);
     }
 
-    public void setListener(TimerStoppedListener listener) {
-        this.listener = listener;
+    public void addListener(TimerStoppedListener listener) {
+        this.listeners.add(listener);
+    }
+
+    public void removeListener(TimerStoppedListener listener) {
+        if (listeners.contains(listener))
+            listeners.remove(listener);
     }
 }

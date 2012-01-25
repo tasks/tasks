@@ -5,6 +5,7 @@ import greendroid.widget.AsyncImageView;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -50,9 +51,10 @@ import com.todoroo.astrid.service.MetadataService;
 import com.todoroo.astrid.service.StatisticsConstants;
 import com.todoroo.astrid.service.StatisticsService;
 import com.todoroo.astrid.service.SyncV2Service.SyncResultCallback;
+import com.todoroo.astrid.timers.TimerActionControlSet.TimerStoppedListener;
 import com.todoroo.astrid.utility.Flags;
 
-public class EditNoteActivity extends LinearLayout {
+public class EditNoteActivity extends LinearLayout implements TimerStoppedListener {
 
 
 
@@ -71,6 +73,8 @@ public class EditNoteActivity extends LinearLayout {
     private TextView loadingText;
     private final View commentsBar;
     private final View parentView;
+    private View timerView;
+    private View commentButton;
     private int commentItems = 10;
     private final List<UpdatesChangedListener> listeners = new LinkedList<UpdatesChangedListener>();
 
@@ -124,7 +128,10 @@ public class EditNoteActivity extends LinearLayout {
     // --- UI preparation
 
     private void setUpInterface() {
-        final View commentButton = commentsBar.findViewById(R.id.commentButton);
+
+
+        timerView = commentsBar.findViewById(R.id.timer_container);
+        commentButton = commentsBar.findViewById(R.id.commentButton);
         commentField = (EditText) commentsBar.findViewById(R.id.commentField);
         commentField.setOnEditorActionListener(new OnEditorActionListener() {
             @Override
@@ -140,6 +147,7 @@ public class EditNoteActivity extends LinearLayout {
             @Override
             public void afterTextChanged(Editable s) {
                 commentButton.setVisibility((s.length() > 0) ? View.VISIBLE : View.GONE);
+                timerView.setVisibility((s.length() > 0) ? View.GONE : View.VISIBLE);
             }
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -148,6 +156,21 @@ public class EditNoteActivity extends LinearLayout {
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 //
+            }
+        });
+
+        commentField.setOnFocusChangeListener(new OnFocusChangeListener() {
+
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (hasFocus) {
+                    timerView.setVisibility(View.GONE);
+                    commentButton.setVisibility(View.VISIBLE);
+                }
+                else {
+                    timerView.setVisibility(View.VISIBLE);
+                    commentButton.setVisibility(View.GONE);
+                }
             }
         });
         commentButton.setOnClickListener(new OnClickListener() {
@@ -168,6 +191,7 @@ public class EditNoteActivity extends LinearLayout {
         //TODO add loading text back in
         //        loadingText = (TextView) findViewById(R.id.loading);
         loadingText = new TextView(getContext());
+
     }
 
     private void setUpListAdapter() {
@@ -349,9 +373,12 @@ public class EditNoteActivity extends LinearLayout {
     }
 
     private void addComment() {
+        addComment(commentField.getText().toString(), "task_comment"); //$NON-NLS-1$
+    }
+    private void addComment(String message, String actionCode) {
         Update update = new Update();
-        update.setValue(Update.MESSAGE, commentField.getText().toString());
-        update.setValue(Update.ACTION_CODE, "task_comment"); //$NON-NLS-1$
+        update.setValue(Update.MESSAGE, message);
+        update.setValue(Update.ACTION_CODE, actionCode);
         update.setValue(Update.USER_ID, 0L);
         update.setValue(Update.TASK, task.getValue(Task.REMOTE_ID));
         update.setValue(Update.CREATION_DATE, DateUtilities.now());
@@ -451,5 +478,21 @@ public class EditNoteActivity extends LinearLayout {
     public void removeListener(UpdatesChangedListener listener) {
         if (listeners.contains(listener))
             listeners.remove(listener);
+    }
+
+    @Override
+    public void timerStarted(Task task) {
+        // TODO Auto-generated method stub
+        addComment(getContext().getString(R.string.TEA_timer_comment_started) + " " + DateUtilities.getTimeString(getContext(), new Date()), "task_started");  //$NON-NLS-1$
+
+    }
+
+    @Override
+    public void timerStopped(Task task) {
+        // TODO Auto-generated method stub
+        String elapsedTime = DateUtils.formatElapsedTime(task.getValue(Task.ELAPSED_SECONDS));
+        addComment(getContext().getString(R.string.TEA_timer_comment_stopped) + " " +
+                DateUtilities.getTimeString(getContext(), new Date()) + "\n" + getContext().getString(R.string.TEA_timer_comment_spent) + " " + elapsedTime, "task_stopped");  //$NON-NLS-1$
+
     }
 }

@@ -87,4 +87,9 @@ public class TimerControlSet extends PopupControlSet implements TimerStoppedList
         elapsed.readFromTask(task);
     }
 
+    @Override
+    public void timerStarted(Task task) {
+        return;
+    }
+
 }
