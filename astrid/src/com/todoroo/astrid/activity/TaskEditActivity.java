@@ -342,6 +342,13 @@ public final class TaskEditActivity extends Fragment implements
                 mAdapter = new TaskEditViewPager(getActivity());
                 mAdapter.parent = this;
 
+                long idParam = getActivity().getIntent().getLongExtra(TOKEN_ID,
+                        -1L);
+                editNotes = new EditNoteActivity(getActivity(), getView(),
+                        idParam);
+                editNotes.setLayoutParams(new FrameLayout.LayoutParams(LayoutParams.FILL_PARENT, LayoutParams.WRAP_CONTENT));
+
+
                 mPager = (ViewPager) getView().findViewById(R.id.pager);
                 mPager.setAdapter(mAdapter);
 
@@ -350,19 +357,12 @@ public final class TaskEditActivity extends Fragment implements
                 mIndicator.setViewPager(mPager);
                 mIndicator.setOnPageChangeListener(this);
 
-                long idParam = getActivity().getIntent().getLongExtra(TOKEN_ID,
-                        -1L);
-                editNotes = new EditNoteActivity(getActivity(), getView(),
-                        idParam);
-                editNotes.setLayoutParams(new FrameLayout.LayoutParams(LayoutParams.FILL_PARENT, LayoutParams.WRAP_CONTENT));
-
                 if (editNotes.numberOfComments() == 0) {
                     setCurrentTab(TAB_VIEW_MORE);
                 } else {
                     setPagerHeightForPosition(TAB_VIEW_UPDATES);
                 }
                 editNotes.addListener(this);
-
             }
 
             if (moreControls.getParent() != null && moreControls.getParent() != mPager) {
