@@ -141,6 +141,22 @@ public class TaskListWrapperActivity extends AstridWrapperActivity {
     }
 
     @Override
+    public void onBackPressed() {
+     // manage task edit visibility
+        View taskeditFragmentContainer = findViewById(R.id.taskedit_fragment_container);
+        if(taskeditFragmentContainer != null && taskeditFragmentContainer.getVisibility() == View.VISIBLE) {
+            if(fragmentLayout == LAYOUT_DOUBLE) {
+                findViewById(R.id.taskedit_fragment_container).setVisibility(View.GONE);
+                findViewById(R.id.filterlist_fragment_container).setVisibility(View.VISIBLE);
+            } else {
+                findViewById(R.id.taskedit_fragment_container).setVisibility(View.INVISIBLE);
+            }
+            onPostResume();
+        }
+        super.onBackPressed();
+    }
+
+    @Override
     public void finish() {
         super.finish();
         AndroidUtilities.callOverridePendingTransition(this, R.anim.slide_right_in, R.anim.slide_right_out);

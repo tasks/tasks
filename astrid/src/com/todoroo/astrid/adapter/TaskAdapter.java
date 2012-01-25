@@ -894,7 +894,7 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
 
             int[] location = new int[2];
             v.getLocationOnScreen(location);
-            ViewHolder viewHolder = (ViewHolder)((View)v.getParent().getParent()).getTag();
+            ViewHolder viewHolder = (ViewHolder)((View)v.getParent()).getTag();
 
             if(Math.abs(location[1] + lastTouchYRawY.getLeft() - lastTouchYRawY.getRight()) > 10) {
                 viewHolder.completeBox.setChecked(!viewHolder.completeBox.isChecked());
