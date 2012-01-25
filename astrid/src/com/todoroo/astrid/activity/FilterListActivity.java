@@ -78,7 +78,7 @@ public class FilterListActivity extends ListFragment {
     private static final int MENU_SEARCH_ID = R.string.FLA_menu_search;
     private static final int MENU_HELP_ID = R.string.FLA_menu_help;
     private static final int MENU_NEW_FILTER_ID = R.string.FLA_new_filter;
-    private static final int MENU_NEW_LIST_ID = R.string.FLA_new_list;
+    //private static final int MENU_NEW_LIST_ID = R.string.FLA_new_list;
 
 
     private static final int CONTEXT_MENU_SHORTCUT = R.string.FLA_context_shortcut;
@@ -231,10 +231,6 @@ public class FilterListActivity extends ListFragment {
 
         item = menu.add(Menu.NONE, MENU_NEW_FILTER_ID, Menu.NONE,
                 R.string.FLA_new_filter);
-        item.setIcon(android.R.drawable.ic_menu_add);
-
-        item = menu.add(Menu.NONE, MENU_NEW_LIST_ID, Menu.NONE,
-                R.string.FLA_new_list);
         item.setIcon(android.R.drawable.ic_menu_add);
 
         item = menu.add(Menu.NONE, MENU_SEARCH_ID, Menu.NONE,
@@ -412,10 +408,6 @@ public class FilterListActivity extends ListFragment {
             case MENU_NEW_FILTER_ID : {
                 Intent intent = new Intent(getActivity(), CustomFilterActivity.class);
                 getActivity().startActivityForResult(intent, REQUEST_NEW_FILTER);
-                return true;
-            }
-            case MENU_NEW_LIST_ID : {
-                newListButton.performClick();
                 return true;
             }
             case CONTEXT_MENU_SHORTCUT: {
