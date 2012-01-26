@@ -92,7 +92,10 @@ public class ImportanceControlSet extends TaskEditControlSet {
         }
 
         if (usedWidth > width * 2 /3 ) {
-            getView().findViewById(R.id.display_row_edit).setVisibility(View.GONE);
+            // FIXME: the view display_row_edit isn't in the layout control_set_importance
+            View displayRowEdit = getView().findViewById(R.id.display_row_edit);
+            if (displayRowEdit != null)
+                displayRowEdit.setVisibility(View.GONE);
         }
     }
 
