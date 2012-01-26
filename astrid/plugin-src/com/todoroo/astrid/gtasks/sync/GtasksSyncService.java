@@ -156,8 +156,13 @@ public final class GtasksSyncService {
         String remoteId = null;
         String listId = Preferences.getStringValue(GtasksPreferenceService.PREF_DEFAULT_LIST);
         if (listId == null) {
-            listId = "@default"; //$NON-NLS-1$
-            Preferences.setString(GtasksPreferenceService.PREF_DEFAULT_LIST, listId);
+            com.google.api.services.tasks.model.TaskList defaultList = invoker.getGtaskList("@default");
+            if (defaultList != null) {
+                listId = defaultList.getId();
+                Preferences.setString(GtasksPreferenceService.PREF_DEFAULT_LIST, listId);
+            } else {
+                listId = "@default"; //$NON-NLS-1$
+            }
         }
 
         if (gtasksMetadata == null || !gtasksMetadata.containsNonNullValue(GtasksMetadata.ID) ||
