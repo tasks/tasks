@@ -36,9 +36,12 @@
             android:layout_gravity="top"
             android:layout_marginLeft="5dip"
             android:layout_marginRight="3dip"
+            android:paddingLeft="10dip"
+            android:paddingRight="10dip"
             android:layout_weight="1"
             android:visibility="gone"
-            android:background="?attr/asMicButtonImg"
+            android:background="@android:color/transparent"
+            android:src="?attr/asMicButtonImg"
             android:scaleType="center"/> 
     
         <!-- Quick Add Task -->
