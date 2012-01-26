@@ -12,7 +12,7 @@ import com.mdimension.jchronic.AstridChronic;
 import com.mdimension.jchronic.Chronic;
 import com.todoroo.astrid.data.Task;
 
-
+@SuppressWarnings("nls")
 public class TitleParser {
     Task task;
     ArrayList<String> tags;
@@ -61,7 +61,6 @@ public class TitleParser {
     }
 
     //helper method for priorityHelper. converts the string to a Task Importance
-    @SuppressWarnings("nls")
     private static int str_to_priority(String priority_str) {
         if (priority_str!=null)
             priority_str.toLowerCase().trim();
@@ -86,12 +85,13 @@ public class TitleParser {
                 "(?i)()(\\shigh(est)?|\\slow(est)?|\\stop|\\sleast) ?priority$"
         };
         for (String importanceString:importanceStrings){
-            Pattern importancePattern= Pattern.compile(importanceString);
+            Pattern importancePattern = Pattern.compile(importanceString);
             while (true){
                 Matcher m = importancePattern.matcher(inputText);
                 if(m.find()) {
                     task.setValue(Task.IMPORTANCE, str_to_priority(m.group(2).trim()));
-                    inputText = inputText.substring(0, m.start()+1) + inputText.substring(m.end());
+                    int start = m.start() == 0 ? 0 : m.start() + 1;
+                    inputText = inputText.substring(0, start) + inputText.substring(m.end());
 
                 } else
                     break;
@@ -118,7 +118,6 @@ public class TitleParser {
     //Handles setting the task's date.
     //Day of week (e.g. Monday, Tuesday,..) is overridden by a set date (e.g. October 23 2013).
     //Vague times (e.g. breakfast, night) are overridden by a set time (9 am, at 10, 17:00)
-    @SuppressWarnings("nls")
     private static void dayHelper(Task task ) {
         String inputText = task.getValue(Task.TITLE);
         Calendar cal = null;
@@ -316,7 +315,6 @@ public class TitleParser {
     //---------------------DATE--------------------------
 
     //Parses through the text and sets the frequency of the task.
-    @SuppressWarnings("nls")
     private static void repeatHelper(Task task) {
         String inputText = task.getValue(Task.TITLE);
         HashMap<String, Frequency> repeatTimes = new HashMap<String, Frequency>();

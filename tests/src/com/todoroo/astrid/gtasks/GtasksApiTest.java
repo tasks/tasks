@@ -19,7 +19,7 @@ import com.todoroo.andlib.service.ContextManager;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.astrid.gtasks.api.GtasksApiUtilities;
-import com.todoroo.astrid.gtasks.api.GtasksService;
+import com.todoroo.astrid.gtasks.api.GtasksInvoker;
 import com.todoroo.astrid.gtasks.api.MoveListRequest;
 import com.todoroo.astrid.gtasks.auth.GtasksTokenValidator;
 import com.todoroo.astrid.test.DatabaseTestCase;
@@ -29,7 +29,7 @@ public class GtasksApiTest extends DatabaseTestCase {
 
     private static final String DEFAULT_LIST = "@default";
     private static final String TEST_ACCOUNT = "sync_tester2@astrid.com";
-    private static GtasksService service;
+    private static GtasksInvoker service;
     private static boolean initialized = false;
     private boolean bypassTests = false;
 
@@ -178,7 +178,7 @@ public class GtasksApiTest extends DatabaseTestCase {
     }
 
     private boolean listHasTaskWithTitle(String listId, String title) throws Exception {
-        com.google.api.services.tasks.model.Tasks newListTasks = service.getAllGtasksFromListId(listId, false, false);
+        com.google.api.services.tasks.model.Tasks newListTasks = service.getAllGtasksFromListId(listId, false, false, 0);
         List<Task> items = newListTasks.getItems();
         if (items != null) {
             for (Task t : items) {
@@ -191,7 +191,7 @@ public class GtasksApiTest extends DatabaseTestCase {
     }
 
     private boolean taskWithTitleExists(String title) throws Exception {
-        Tasks defaultList = service.getAllGtasksFromListId(DEFAULT_LIST, false, false);
+        Tasks defaultList = service.getAllGtasksFromListId(DEFAULT_LIST, false, false, 0);
         List<Task> items = defaultList.getItems();
         if (items != null) {
             for (Task t : items) {
@@ -270,7 +270,7 @@ public class GtasksApiTest extends DatabaseTestCase {
             }
 
             Preferences.setString(GtasksPreferenceService.PREF_USER_NAME, toUse.name);
-            AccountManagerFuture<Bundle> accountManagerFuture = manager.manager.getAuthToken(toUse, GtasksService.AUTH_TOKEN_TYPE, true, null, null);
+            AccountManagerFuture<Bundle> accountManagerFuture = manager.manager.getAuthToken(toUse, GtasksInvoker.AUTH_TOKEN_TYPE, true, null, null);
 
             Bundle authTokenBundle = accountManagerFuture.getResult();
             if (authTokenBundle.containsKey(AccountManager.KEY_INTENT)) {
@@ -282,7 +282,7 @@ public class GtasksApiTest extends DatabaseTestCase {
             String authToken = authTokenBundle.getString(AccountManager.KEY_AUTHTOKEN);
             authToken = GtasksTokenValidator.validateAuthToken(getContext(), authToken);
 
-            service = new GtasksService(authToken);
+            service = new GtasksInvoker(authToken);
 
             initialized = true;
         }
@@ -306,7 +306,7 @@ public class GtasksApiTest extends DatabaseTestCase {
 
     private void clearDefaultList() {
         try {
-            Tasks tasks = service.getAllGtasksFromListId(DEFAULT_LIST, false, false);
+            Tasks tasks = service.getAllGtasksFromListId(DEFAULT_LIST, false, false, 0);
             List<Task> items = tasks.getItems();
             if (items != null) {
                 for (Task t : items) {

@@ -23,7 +23,7 @@ import com.todoroo.astrid.gtasks.GtasksMetadata;
 import com.todoroo.astrid.gtasks.GtasksMetadataService;
 import com.todoroo.astrid.gtasks.GtasksPreferenceService;
 import com.todoroo.astrid.gtasks.api.GtasksApiUtilities;
-import com.todoroo.astrid.gtasks.api.GtasksService;
+import com.todoroo.astrid.gtasks.api.GtasksInvoker;
 import com.todoroo.astrid.gtasks.auth.GtasksTokenValidator;
 import com.todoroo.astrid.gtasks.sync.GtasksSyncProvider;
 import com.todoroo.astrid.repeats.NewRepeatTests;
@@ -40,7 +40,7 @@ public class RepeatTestsGtasksSync extends NewRepeatTests<com.google.api.service
     public static final String DEFAULT_LIST = "@default";
 
     private static boolean initialized = false;
-    protected static GtasksService gtasksService;
+    protected static GtasksInvoker gtasksService;
 
     @Override
     protected void setUp() throws Exception {
@@ -139,13 +139,13 @@ public class RepeatTestsGtasksSync extends NewRepeatTests<com.google.api.service
         authToken = GtasksTokenValidator.validateAuthToken(getContext(), authToken);
         gtasksPreferenceService.setToken(authToken);
 
-        gtasksService = new GtasksService(authToken);
+        gtasksService = new GtasksInvoker(authToken);
 
         initialized = true;
     }
 
     private void setupTestList() throws Exception {
-        Tasks defaultListTasks = gtasksService.getAllGtasksFromListId(DEFAULT_LIST, false, false);
+        Tasks defaultListTasks = gtasksService.getAllGtasksFromListId(DEFAULT_LIST, false, false, 0);
         List<com.google.api.services.tasks.model.Task> items = defaultListTasks.getItems();
         if (items != null) {
             for (com.google.api.services.tasks.model.Task t : items) {

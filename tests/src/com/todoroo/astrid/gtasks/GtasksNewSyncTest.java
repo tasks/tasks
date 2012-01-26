@@ -22,7 +22,7 @@ import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.astrid.data.Metadata;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.gtasks.api.GtasksApiUtilities;
-import com.todoroo.astrid.gtasks.api.GtasksService;
+import com.todoroo.astrid.gtasks.api.GtasksInvoker;
 import com.todoroo.astrid.gtasks.auth.GtasksTokenValidator;
 import com.todoroo.astrid.gtasks.sync.GtasksSyncProvider;
 import com.todoroo.astrid.service.MetadataService;
@@ -32,7 +32,7 @@ import com.todoroo.astrid.test.DatabaseTestCase;
 @SuppressWarnings("nls")
 public class GtasksNewSyncTest extends DatabaseTestCase {
 
-    private static GtasksService gtasksService;
+    private static GtasksInvoker gtasksService;
     private GtasksSyncProvider syncProvider;
     private static boolean initialized = false;
     private boolean bypassTests = false;
@@ -522,13 +522,13 @@ public class GtasksNewSyncTest extends DatabaseTestCase {
         authToken = GtasksTokenValidator.validateAuthToken(getContext(), authToken);
         gtasksPreferenceService.setToken(authToken);
 
-        gtasksService = new GtasksService(authToken);
+        gtasksService = new GtasksInvoker(authToken);
 
         initialized = true;
     }
 
     private void setupTestList() throws Exception {
-        Tasks defaultListTasks = gtasksService.getAllGtasksFromListId(DEFAULT_LIST, false, false);
+        Tasks defaultListTasks = gtasksService.getAllGtasksFromListId(DEFAULT_LIST, false, false, 0);
         List<com.google.api.services.tasks.model.Task> items = defaultListTasks.getItems();
         if (items != null) {
             for (com.google.api.services.tasks.model.Task t : items) {

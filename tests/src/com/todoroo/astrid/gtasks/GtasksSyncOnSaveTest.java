@@ -12,7 +12,6 @@ import android.os.Bundle;
 
 import com.google.api.client.googleapis.extensions.android2.auth.GoogleAccountManager;
 import com.google.api.services.tasks.model.Tasks;
-import com.timsu.astrid.R;
 import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.ContextManager;
 import com.todoroo.andlib.utility.AndroidUtilities;
@@ -21,20 +20,20 @@ import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.astrid.data.Metadata;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.gtasks.api.GtasksApiUtilities;
-import com.todoroo.astrid.gtasks.api.GtasksService;
+import com.todoroo.astrid.gtasks.api.GtasksInvoker;
 import com.todoroo.astrid.gtasks.auth.GtasksTokenValidator;
-import com.todoroo.astrid.gtasks.sync.GtasksSyncOnSaveService;
+import com.todoroo.astrid.gtasks.sync.GtasksSyncService;
 import com.todoroo.astrid.service.TaskService;
 import com.todoroo.astrid.test.DatabaseTestCase;
 
 public class GtasksSyncOnSaveTest extends DatabaseTestCase {
 
     @Autowired TaskService taskService;
-    @Autowired GtasksSyncOnSaveService gtasksSyncOnSaveService;
+    @Autowired GtasksSyncService gtasksSyncService;
     @Autowired GtasksMetadataService gtasksMetadataService;
     @Autowired GtasksPreferenceService gtasksPreferenceService;
 
-    private GtasksService gtasksService;
+    private GtasksInvoker gtasksService;
     private boolean initialized = false;
     private boolean bypassTests = false;
     private static final String TEST_ACCOUNT = "sync_tester2@astrid.com";
@@ -148,7 +147,7 @@ public class GtasksSyncOnSaveTest extends DatabaseTestCase {
     }
 
     private boolean taskWithTitleExists(String title) throws IOException {
-        Tasks allTasks = gtasksService.getAllGtasksFromListId(DEFAULT_LIST, false, false);
+        Tasks allTasks = gtasksService.getAllGtasksFromListId(DEFAULT_LIST, false, false, 0);
         List<com.google.api.services.tasks.model.Task> items = allTasks.getItems();
         if (items != null) {
             for (com.google.api.services.tasks.model.Task t : items) {
@@ -165,9 +164,8 @@ public class GtasksSyncOnSaveTest extends DatabaseTestCase {
 
         if (!initialized) {
             initializeTestService();
-            gtasksSyncOnSaveService.initialize();
+            gtasksSyncService.initialize();
             initialized = true;
-            Preferences.setBoolean(R.string.gtasks_GPr_sync_on_save_key, true);
         }
 
         setupTestList();
@@ -205,13 +203,13 @@ public class GtasksSyncOnSaveTest extends DatabaseTestCase {
         authToken = GtasksTokenValidator.validateAuthToken(getContext(), authToken);
         gtasksPreferenceService.setToken(authToken);
 
-        gtasksService = new GtasksService(authToken);
+        gtasksService = new GtasksInvoker(authToken);
 
         initialized = true;
     }
 
     private void setupTestList() throws Exception {
-        Tasks defaultListTasks = gtasksService.getAllGtasksFromListId(DEFAULT_LIST, false, false);
+        Tasks defaultListTasks = gtasksService.getAllGtasksFromListId(DEFAULT_LIST, false, false, 0);
         List<com.google.api.services.tasks.model.Task> items = defaultListTasks.getItems();
         if (items != null) {
             for (com.google.api.services.tasks.model.Task t : items) {
