@@ -396,7 +396,7 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
             }
             else
             {
-                checkBoxView.setBackgroundResource(R.drawable.btn_check);
+                checkBoxView.setButtonDrawable(R.drawable.btn_check);
             }
             if (pictureView.getVisibility() == View.VISIBLE){
                 checkBoxView.setVisibility(View.INVISIBLE);

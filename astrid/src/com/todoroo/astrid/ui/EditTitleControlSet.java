@@ -56,7 +56,7 @@ public class EditTitleControlSet extends EditTextControlSet implements Importanc
         }
         else
         {
-            completeBox.setBackgroundResource(R.drawable.btn_check);
+            completeBox.setButtonDrawable(R.drawable.btn_check);
         }
     }
 
