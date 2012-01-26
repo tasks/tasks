@@ -19,6 +19,10 @@
         <item name="asFilterHeaderBackground">@drawable/edit_titlebar</item>
         <item name="asMembersHeaderBackground">@drawable/ios_fabric_480_dark</item>
         <item name="asSeparatorBackground">#888888</item>
+        <item name="asAddButtonImg">@drawable/plus_button_gray</item>
+        <item name="asMicButtonImg">@drawable/mic_button_gray</item>
+        <item name="asCameraButtonImg">@drawable/camera_button_gray</item>
+        <item name="asListsDisclosure">@drawable/lists_disclosure_gray</item>
         <!-- actionbar-styling -->
         <item name="abBackground">@drawable/header_background</item>
         <item name="abDisplayOptions">useLogo|showHome|showTitle</item>
@@ -61,6 +65,10 @@
         <item name="asFilterHeaderColor">#ffffff</item>
         <item name="asFilterHeaderBackground">@drawable/edit_titlebar_white</item>
         <item name="asMembersHeaderBackground">@drawable/ios_fabric_480</item>
+        <item name="asAddButtonImg">@drawable/plus_button_red</item>
+        <item name="asMicButtonImg">@drawable/mic_button_red</item>
+        <item name="asCameraButtonImg">@drawable/camera_button_red</item>
+        <item name="asListsDisclosure">@drawable/lists_disclosure_red</item>
         <!-- actionbar-styling -->
         <item name="abBackground">@android:color/white</item>
         <item name="abDisplayOptions">useLogo|showHome|showTitle</item>

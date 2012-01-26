@@ -989,7 +989,7 @@ public final class TaskEditActivity extends Fragment implements
         MenuItem item;
 
         AstridWrapperActivity activity = (AstridWrapperActivity) getActivity();
-        if (activity instanceof TaskListWrapperActivity && activity.fragmentLayout != AstridWrapperActivity.LAYOUT_DOUBLE) {
+        if (activity instanceof TaskListWrapperActivity && activity.fragmentLayout != AstridWrapperActivity.LAYOUT_DOUBLE || activity instanceof TaskEditWrapperActivity) {
             item = menu.add(Menu.NONE, MENU_DISCARD_ID, 0, R.string.TEA_menu_discard);
             item.setIcon(android.R.drawable.ic_menu_close_clear_cancel);
             item.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);

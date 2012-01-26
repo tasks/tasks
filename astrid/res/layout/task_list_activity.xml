@@ -24,29 +24,32 @@
         android:layout_height="wrap_content"
         android:minHeight="47dip"
         android:layout_weight="1"
-        android:background="@drawable/footer_background"
         android:padding="3dip"
-        android:orientation="horizontal">
+        android:layout_marginBottom="5dip"
+        android:orientation="horizontal"
+        style="@style/Content">
         
         <!-- Voice Add Button -->
         <ImageButton android:id="@+id/voiceAddButton"
-            android:layout_width="wrap_content"
+            android:layout_width="39dip"
             android:layout_height="39dip"
             android:layout_gravity="top"
+            android:layout_marginLeft="5dip"
             android:layout_marginRight="3dip"
             android:layout_weight="1"
             android:visibility="gone"
-            android:background="@drawable/footer_button"
-            android:src="@drawable/ic_footer_mic"
+            android:background="?attr/asMicButtonImg"
             android:scaleType="center"/> 
     
         <!-- Quick Add Task -->
         <EditText android:id="@+id/quickAddText"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginRight="3dip"
+            android:layout_height="39dip"
+            android:layout_marginRight="8dip"
+            android:layout_marginLeft="5dip"
             android:layout_weight="100"
-            android:background="@drawable/footer_edittext"
+            android:paddingLeft="5dip"
+            android:background="@drawable/edit_title_background"
             android:hint="@string/TLA_quick_add_hint"
             android:textSize="16sp"
             android:autoText="true"
@@ -55,13 +58,12 @@
         
         <!-- Extended Add Button -->
         <ImageButton android:id="@+id/quickAddButton"
-            android:layout_width="wrap_content"
+            android:layout_width="39dip"
             android:layout_height="39dip"
             android:layout_gravity="top"
-            android:layout_marginRight="3dip"
+            android:layout_marginRight="5dip"
             android:layout_weight="1"
-            android:background="@drawable/footer_button"
-            android:src="@drawable/ic_footer_add"
+            android:background="?attr/asAddButtonImg"
             android:scaleType="center"/> 
 
     </LinearLayout>

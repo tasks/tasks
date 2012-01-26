@@ -6,12 +6,14 @@ import android.os.Bundle;
 import android.support.v4.app.ActionBar;
 import android.support.v4.app.Fragment;
 import android.util.DisplayMetrics;
+import android.util.TypedValue;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.View.OnTouchListener;
 import android.view.ViewGroup.LayoutParams;
 import android.widget.FrameLayout;
+import android.widget.ImageView;
 import android.widget.PopupWindow.OnDismissListener;
 import android.widget.TextView;
 
@@ -27,12 +29,13 @@ public class TaskListWrapperActivity extends AstridWrapperActivity {
 
     public static final String TOKEN_SELECTED_FILTER = "selectedFilter";
     private View listsNav;
+    private ImageView listsNavDisclosure;
     private TextView lists;
 
     private FragmentPopover listsPopover;
     private FragmentPopover editPopover;
 
-    private boolean suppressTaskSave = false;
+    private boolean fromTaskEdit = false;
 
     private final OnClickListener popupMenuClickListener = new OnClickListener() {
         @Override
@@ -48,9 +51,9 @@ public class TaskListWrapperActivity extends AstridWrapperActivity {
             TaskEditActivity tea = getTaskEditFragment();
             if (tea != null) {
                 try {
-                    if (!suppressTaskSave)
+                    if (!fromTaskEdit)
                         tea.save(false);
-                    suppressTaskSave = false;
+                    fromTaskEdit = false;
                 } catch (IllegalStateException e) {
                     // Save during pause, ignore it
                 }
@@ -73,6 +76,7 @@ public class TaskListWrapperActivity extends AstridWrapperActivity {
 		actionBar.setCustomView(R.layout.header_nav_views);
 
 		listsNav = actionBar.getCustomView().findViewById(R.id.lists_nav);
+		listsNavDisclosure = (ImageView) actionBar.getCustomView().findViewById(R.id.list_disclosure_arrow);
 		lists = (TextView) actionBar.getCustomView().findViewById(R.id.list_title);
 
 		initializeFragments(actionBar);
@@ -176,6 +180,9 @@ public class TaskListWrapperActivity extends AstridWrapperActivity {
 	    int textStyle = (selected ? R.style.TextAppearance_ActionBar_ListsHeader_Selected : R.style.TextAppearance_ActionBar_ListsHeader);
 	    lists.setTextAppearance(this, textStyle);
 	    listsNav.setBackgroundColor(selected ? oldTextColor : android.R.color.transparent);
+	    TypedValue tv = new TypedValue();
+	    getTheme().resolveAttribute(R.attr.asListsDisclosure, tv, false);
+	    listsNavDisclosure.setImageResource(selected ? R.drawable.lists_disclosure_white : tv.data);
 	}
 
     @Override
@@ -187,9 +194,12 @@ public class TaskListWrapperActivity extends AstridWrapperActivity {
         if (savedFilter != null)
             lists.setText(savedFilter.title);
 
-        TaskEditActivity tea = getTaskEditFragment();
-        if (tea != null)
-            onBackPressed();
+        if (!fromTaskEdit) {
+            TaskEditActivity tea = getTaskEditFragment();
+            if (tea != null)
+                onBackPressed();
+        }
+        fromTaskEdit = false;
     }
 
     @Override
@@ -216,10 +226,11 @@ public class TaskListWrapperActivity extends AstridWrapperActivity {
             } else {
                 findViewById(R.id.taskedit_fragment_container).setVisibility(View.INVISIBLE);
             }
+            fromTaskEdit = true;
             onPostResume();
         } else {
             if (editPopover != null && editPopover.isShowing()) {
-                suppressTaskSave = true;
+                fromTaskEdit = true;
                 editPopover.dismiss();
             }
         }
