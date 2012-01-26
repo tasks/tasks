@@ -345,7 +345,6 @@ public class TaskListActivity extends ListFragment implements OnScrollListener,
             overrideFinishAnim = false;
         }
         String intentAction = intent.getAction();
-        // FIXME maybe SEARCH has to go into the Wrapper-activity and forward to the filterFragment
         if (Intent.ACTION_SEARCH.equals(intentAction)) {
             String query = intent.getStringExtra(SearchManager.QUERY).trim();
             Filter searchFilter = new Filter(null, getString(R.string.FLA_search_filter, query),
@@ -1167,7 +1166,7 @@ public class TaskListActivity extends ListFragment implements OnScrollListener,
     private static final String PREF_LAST_AUTO_SYNC = "taskListLastAutoSync"; //$NON-NLS-1$
 
     protected void initiateAutomaticSync() {
-        if (filter.title == null || !filter.title.equals(getString(R.string.BFE_Active)))
+        if (filter == null || filter.title == null || !filter.title.equals(getString(R.string.BFE_Active)))
             return;
 
         long lastAutoSync = Preferences.getLong(PREF_LAST_AUTO_SYNC, 0);
