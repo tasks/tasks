@@ -476,7 +476,7 @@ File %1$s contained %2$s.\n\n
   <string name="TAd_flingText"/>
   
   <!-- indicates task was completed. %s => date or time ago -->
-  <string name="TAd_completed">Acabat fa %s</string>
+  <string name="TAd_completed">Acabat fa\n%s</string>
   
   <!-- Action Button: edit task -->
   <string name="TAd_actionEditTask">Edita</string>

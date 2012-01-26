@@ -471,7 +471,7 @@
   <string name="TAd_flingText"/>
   
   <!-- indicates task was completed. %s => date or time ago -->
-  <string name="TAd_completed">%s 전에 완료됨</string>
+  <string name="TAd_completed">%s\n전에 완료됨</string>
   
   <!-- Action Button: edit task -->
   <string name="TAd_actionEditTask">편집</string>

@@ -470,7 +470,7 @@
   <string name="TAd_flingText"/>
   
   <!-- indicates task was completed. %s => date or time ago -->
-  <string name="TAd_completed">完成 %s 项</string>
+  <string name="TAd_completed">完成\n%s 项</string>
   
   <!-- Action Button: edit task -->
   <string name="TAd_actionEditTask">编辑</string>

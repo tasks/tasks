@@ -340,7 +340,7 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
                 dueDateTextWidth = paint.measureText(dateValue);
                 setVisibility(dueDateView);
             } else if(task.isCompleted()) {
-                String dateValue = DateUtilities.getDateStringWithTime(fragment.getActivity(), new Date(task.getValue(Task.COMPLETION_DATE)));
+                String dateValue = formatDate(task.getValue(Task.COMPLETION_DATE));
                 dueDateView.setText(r.getString(R.string.TAd_completed, dateValue));
                 dueDateView.setTextAppearance(fragment.getActivity(), R.style.TextAppearance_TAd_ItemDueDate_Completed);
                 dueDateTextWidth = paint.measureText(dateValue);
