@@ -26,9 +26,31 @@
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="3dip"
+                android:gravity="center_vertical"
                 android:background="@drawable/task_edit_background"
-                android:orientation="vertical"
+                android:orientation="horizontal"
                 android:paddingRight="6dip" >
+                
+                <LinearLayout
+                    android:id="@+id/save_and_cancel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:visibility="gone">
+	                <ImageButton
+	                    android:id="@+id/cancel"
+	                    android:layout_width="wrap_content"
+	                    android:layout_height="wrap_content"
+	                    android:layout_marginRight="10dip"
+	                    android:background="@android:color/transparent"
+	                    android:src="@android:drawable/ic_menu_close_clear_cancel"/>
+	                <ImageButton
+	                    android:id="@+id/save"
+	                    android:layout_width="wrap_content"
+	                    android:layout_height="wrap_content"
+	                    android:background="@android:color/transparent"
+	                    android:src="@android:drawable/ic_menu_save"/>
+                </LinearLayout>
             </LinearLayout>
 
             <LinearLayout

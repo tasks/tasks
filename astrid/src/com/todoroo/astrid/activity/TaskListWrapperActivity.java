@@ -6,8 +6,10 @@ import android.os.Bundle;
 import android.support.v4.app.ActionBar;
 import android.support.v4.app.Fragment;
 import android.util.DisplayMetrics;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.View.OnTouchListener;
 import android.view.ViewGroup.LayoutParams;
 import android.widget.FrameLayout;
 import android.widget.PopupWindow.OnDismissListener;
@@ -30,6 +32,8 @@ public class TaskListWrapperActivity extends AstridWrapperActivity {
     private FragmentPopover listsPopover;
     private FragmentPopover editPopover;
 
+    private boolean suppressTaskSave = false;
+
     private final OnClickListener popupMenuClickListener = new OnClickListener() {
         @Override
         public void onClick(View v) {
@@ -37,6 +41,23 @@ public class TaskListWrapperActivity extends AstridWrapperActivity {
             listsPopover.show(v);
         }
     };
+
+    private final OnDismissListener editPopoverDismissListener = new OnDismissListener() {
+        @Override
+        public void onDismiss() {
+            TaskEditActivity tea = getTaskEditFragment();
+            if (tea != null) {
+                try {
+                    if (!suppressTaskSave)
+                        tea.save(false);
+                    suppressTaskSave = false;
+                } catch (IllegalStateException e) {
+                    // Save during pause, ignore it
+                }
+            }
+        }
+    };
+
     /**
 	 * @see android.app.Activity#onCreate(Bundle)
 	 */
@@ -100,12 +121,15 @@ public class TaskListWrapperActivity extends AstridWrapperActivity {
 
     private void createEditPopover() {
         editPopover = new FragmentPopover(this, R.layout.taskedit_popover);
-        editPopover.setOnDismissListener(new OnDismissListener() {
+        editPopover.setOnDismissListener(editPopoverDismissListener);
+        editPopover.setTouchInterceptor(new OnTouchListener() {
             @Override
-            public void onDismiss() {
-                TaskEditActivity tea = getTaskEditFragment();
-                if (tea != null)
-                    tea.save(true);
+            public boolean onTouch(View v, MotionEvent event) {
+                int x = (int) event.getX();
+                int y = (int) event.getY();
+                if ((event.getAction() == MotionEvent.ACTION_DOWN)
+                        && ((x < 0) || (x >= editPopover.getContentView().getWidth()) || (y < 0) || (y >= editPopover.getContentView().getHeight()))) return true;
+                return false;
             }
         });
     }
@@ -162,6 +186,10 @@ public class TaskListWrapperActivity extends AstridWrapperActivity {
         setupTasklistFragmentWithFilter(savedFilter);
         if (savedFilter != null)
             lists.setText(savedFilter.title);
+
+        TaskEditActivity tea = getTaskEditFragment();
+        if (tea != null)
+            onBackPressed();
     }
 
     @Override
@@ -189,6 +217,11 @@ public class TaskListWrapperActivity extends AstridWrapperActivity {
                 findViewById(R.id.taskedit_fragment_container).setVisibility(View.INVISIBLE);
             }
             onPostResume();
+        } else {
+            if (editPopover != null && editPopover.isShowing()) {
+                suppressTaskSave = true;
+                editPopover.dismiss();
+            }
         }
         super.onBackPressed();
     }

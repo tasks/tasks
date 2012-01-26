@@ -49,6 +49,7 @@ import android.view.LayoutInflater;
 import android.view.MenuInflater;
 import android.view.View;
 import android.view.View.MeasureSpec;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.view.ViewGroup.LayoutParams;
 import android.view.ViewParent;
@@ -238,8 +239,6 @@ public final class TaskEditActivity extends Fragment implements
     // --- fragment handling variables
     OnTaskEditDetailsClickedListener mListener;
 
-    private boolean mDualFragments = false;
-
     private long remoteId = 0;
 
     /*
@@ -316,9 +315,22 @@ public final class TaskEditActivity extends Fragment implements
         getSupportActivity().getSupportActionBar().setDisplayHomeAsUpEnabled(
                 true);
 
-        Fragment tasklistFrame = getFragmentManager().findFragmentByTag(
-                TaskListActivity.TAG_TASKLIST_FRAGMENT);
-        mDualFragments = (tasklistFrame != null) && tasklistFrame.isInLayout();
+        AstridWrapperActivity activity = (AstridWrapperActivity) getActivity();
+        if (activity instanceof TaskListWrapperActivity && activity.fragmentLayout == AstridWrapperActivity.LAYOUT_DOUBLE) {
+            getView().findViewById(R.id.save_and_cancel).setVisibility(View.VISIBLE);
+            getView().findViewById(R.id.save).setOnClickListener(new OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    saveButtonClick();
+                }
+            });
+            getView().findViewById(R.id.cancel).setOnClickListener(new OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    discardButtonClick();
+                }
+            });
+        }
 
         setUpUIComponents();
         adjustInfoPopovers();
@@ -409,7 +421,7 @@ public final class TaskEditActivity extends Fragment implements
                 R.layout.control_set_title, Task.TITLE, R.id.title);
         title = (EditText) editTitle.getView().findViewById(R.id.title);
         controls.add(editTitle);
-        titleControls.addView(editTitle.getDisplayView());
+        titleControls.addView(editTitle.getDisplayView(), 0, new LinearLayout.LayoutParams(LayoutParams.FILL_PARENT, LayoutParams.WRAP_CONTENT, 1.0f));
 
         TimerActionControlSet timerAction = new TimerActionControlSet(
                 getActivity(), editTitle.getView());
@@ -976,14 +988,16 @@ public final class TaskEditActivity extends Fragment implements
         super.onCreateOptionsMenu(menu, inflater);
         MenuItem item;
 
-        item = menu.add(Menu.NONE, MENU_DISCARD_ID, 0,
-                R.string.TEA_menu_discard);
-        item.setIcon(android.R.drawable.ic_menu_close_clear_cancel);
-        item.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
+        AstridWrapperActivity activity = (AstridWrapperActivity) getActivity();
+        if (activity instanceof TaskListWrapperActivity && activity.fragmentLayout != AstridWrapperActivity.LAYOUT_DOUBLE) {
+            item = menu.add(Menu.NONE, MENU_DISCARD_ID, 0, R.string.TEA_menu_discard);
+            item.setIcon(android.R.drawable.ic_menu_close_clear_cancel);
+            item.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
 
-        item = menu.add(Menu.NONE, MENU_SAVE_ID, 0, R.string.TEA_menu_save);
-        item.setIcon(android.R.drawable.ic_menu_save);
-        item.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
+            item = menu.add(Menu.NONE, MENU_SAVE_ID, 0, R.string.TEA_menu_save);
+            item.setIcon(android.R.drawable.ic_menu_save);
+            item.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
+        }
 
         item = menu.add(Menu.NONE, MENU_DELETE_ID, 0, R.string.TEA_menu_delete);
         item.setIcon(android.R.drawable.ic_menu_delete);
