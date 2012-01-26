@@ -125,10 +125,12 @@
             android:id="@+id/commentField"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginRight="3dip"
+            android:layout_marginRight="1dip"
+            android:layout_marginLeft="1dip"
+            android:paddingLeft="10dip"
             android:layout_weight="100"
             android:autoText="true"
-            android:background="@drawable/footer_edittext"
+            android:background="@drawable/footer_comment_edittext"
             android:capitalize="sentences"
             android:hint="@string/TVA_add_comment"
             android:textSize="16sp" />
@@ -137,14 +139,14 @@
 
         <LinearLayout
             android:id="@+id/timer_container"
-            android:layout_width="40dip"
+            android:layout_width="35dip"
             android:layout_height="35dip"
-            android:layout_marginLeft="5dip"
+            android:layout_marginLeft="3dip"
             android:orientation="vertical"
             android:layout_weight="1">
             <Button
                 android:id="@+id/timer_button"
-                android:layout_width="25dip"
+                android:layout_width="30dip"
                 android:layout_height="25dip"
                 android:layout_marginTop="7dip"
                 android:scaleType="fitCenter"
@@ -155,8 +157,8 @@
         
         <ImageButton
             android:id="@+id/commentButton"
-            android:layout_width="wrap_content"
-            android:layout_height="39dip"
+            android:layout_width="35dip"
+            android:layout_height="35dip"
             android:layout_gravity="top"
             android:layout_marginRight="3dip"
             android:layout_weight="1"

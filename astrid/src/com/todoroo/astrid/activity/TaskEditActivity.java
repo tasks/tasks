@@ -370,7 +370,7 @@ public final class TaskEditActivity extends Fragment implements
         long idParam = getActivity().getIntent().getLongExtra(TOKEN_ID,
                 -1L);
         if (remoteId > 0 && idParam > -1L) {
-            if (editNotes == null) {
+//            if (editNotes == null) {
                 editNotes = new EditNoteActivity(getActivity(), getView(),
                         idParam);
                 editNotes.setLayoutParams(new FrameLayout.LayoutParams(LayoutParams.FILL_PARENT, LayoutParams.WRAP_CONTENT));
@@ -378,10 +378,13 @@ public final class TaskEditActivity extends Fragment implements
                 if (timerAction != null) {
                 timerAction.addListener(editNotes);
                 }
-            }
-            else {
-                editNotes.loadViewForTaskID(idParam);
-            }
+                else {
+                    Log.d("Did not add timerAction", "did not add timer action");
+                }
+//            }
+//            else {
+//                editNotes.loadViewForTaskID(idParam);
+//            }
             if (mAdapter == null) {
                 mAdapter = new TaskEditViewPager(getActivity());
                 mAdapter.parent = this;
@@ -1084,6 +1087,9 @@ public final class TaskEditActivity extends Fragment implements
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (editNotes.activityResult(requestCode, resultCode, data)) {
+            return;
+        }
         if (requestCode == REQUEST_VOICE_RECOG
                 && resultCode == Activity.RESULT_OK) {
             // handle the result of voice recognition, put it into the

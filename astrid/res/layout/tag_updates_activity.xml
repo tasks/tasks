@@ -1,90 +1,100 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-  xmlns:android="http://schemas.android.com/apk/res/android"
-  android:orientation="vertical"
-  android:layout_width="fill_parent"
-  android:layout_height="fill_parent"
-  style="@style/Content">
-  
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    style="@style/Content"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical" >
+
     <LinearLayout
         style="@style/Header"
-        android:layout_width="fill_parent" 
+        android:layout_width="fill_parent"
         android:layout_height="43dip"
         android:layout_weight="1"
-        android:orientation="horizontal">
-        
+        android:orientation="horizontal" >
+
         <!-- List Label -->
-        <TextView android:id="@+id/listLabel"
+
+        <TextView
+            android:id="@+id/listLabel"
+            style="@style/TextAppearance.TLA_Header"
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
             android:layout_weight="100"
-            android:gravity="center"
-            android:singleLine="true"
             android:ellipsize="start"
-            style="@style/TextAppearance.TLA_Header"/>
+            android:gravity="center"
+            android:singleLine="true" />
     </LinearLayout>
-    
+
     <ProgressBar
         android:id="@+id/progressBar"
-        android:layout_width="fill_parent" 
-        android:layout_height="5dip"
         style="@android:style/Widget.ProgressBar.Horizontal"
-        android:visibility="gone"
-        android:layout_weight="1" />
-  
-    <ListView 
+        android:layout_width="fill_parent"
+        android:layout_height="5dip"
+        android:layout_weight="1"
+        android:visibility="gone" />
+
+    <ListView
         android:id="@android:id/list"
         android:layout_width="fill_parent"
-        android:layout_height="fill_parent" 
-        android:layout_weight="100"/>
-    
-    
+        android:layout_height="fill_parent"
+        android:layout_weight="100" />
+
     <!-- Footer -->
+
     <LinearLayout
         android:id="@+id/updatesFooter"
-        android:layout_width="fill_parent" 
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:minHeight="47dip"
         android:layout_weight="1"
         android:background="@drawable/footer_background"
-        android:padding="3dip"
-        android:orientation="horizontal">
-        
+        android:minHeight="47dip"
+        android:orientation="horizontal"
+        android:padding="3dip" >
+
         <!-- Voice Add Button -->
-        <ImageButton android:id="@+id/picture"
+
+        <ImageButton
+            android:id="@+id/picture"
             android:layout_width="39dip"
             android:layout_height="39dip"
             android:layout_gravity="top"
             android:layout_marginRight="3dip"
+            android:layout_weight="1"
+            android:background="#00000000"
+            android:paddingBottom="2dip"
             android:paddingLeft="7dip"
             android:paddingRight="7dip"
-            android:paddingBottom="2dip"
-            android:layout_weight="1"
-            android:src="@drawable/camera_button"
-            android:scaleType="fitCenter"/> 
-    
+            android:scaleType="centerInside"
+            android:src="@drawable/camera_button" />
+
         <!-- Quick Add Task -->
-        <EditText android:id="@+id/commentField"
+
+        <EditText
+            android:id="@+id/commentField"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginRight="3dip"
+            android:layout_marginRight="1dip"
+            android:layout_marginLeft="1dip"
+            android:paddingLeft="10dip"
             android:layout_weight="100"
-            android:background="@drawable/footer_edittext"
-            android:hint="@string/TVA_add_comment"
-            android:textSize="16sp"
             android:autoText="true"
-            android:capitalize="sentences"/>
-        
+            android:background="@drawable/footer_comment_edittext"
+            android:capitalize="sentences"
+            android:hint="@string/TVA_add_comment"
+            android:textSize="16sp" />
+
         <!-- Extended Add Button -->
-        <ImageButton android:id="@+id/commentButton"
+
+        <ImageButton
+            android:id="@+id/commentButton"
             android:layout_width="wrap_content"
             android:layout_height="39dip"
             android:layout_gravity="top"
             android:layout_marginRight="3dip"
             android:layout_weight="1"
             android:background="@drawable/footer_button"
-            android:src="@drawable/ic_footer_add"
-            android:scaleType="center"/> 
+            android:scaleType="center"
+            android:src="@drawable/ic_footer_add" />
     </LinearLayout>
-    
+
 </LinearLayout>
