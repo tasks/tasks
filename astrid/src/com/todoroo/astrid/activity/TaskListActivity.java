@@ -764,6 +764,7 @@ public class TaskListActivity extends ListFragment implements OnScrollListener,
         // handle the result of voice recognition, put it into the textfield
         if (voiceInputAssistant.handleActivityResult(requestCode, resultCode, data)) {
             // if user wants, create the task directly (with defaultvalues) after saying it
+            Flags.set(Flags.TLA_RESUMED_FROM_VOICE_ADD);
             if (Preferences.getBoolean(R.string.p_voiceInputCreatesTask, false))
                 quickAddTask(quickAddBox.getText().toString(), true);
             super.onActivityResult(requestCode, resultCode, data);

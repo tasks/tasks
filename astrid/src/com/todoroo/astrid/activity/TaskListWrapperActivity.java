@@ -24,6 +24,7 @@ import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.api.FilterListItem;
 import com.todoroo.astrid.service.ThemeService;
 import com.todoroo.astrid.ui.FragmentPopover;
+import com.todoroo.astrid.utility.Flags;
 
 public class TaskListWrapperActivity extends AstridWrapperActivity {
 
@@ -34,8 +35,6 @@ public class TaskListWrapperActivity extends AstridWrapperActivity {
 
     private FragmentPopover listsPopover;
     private FragmentPopover editPopover;
-
-    private boolean fromTaskEdit = false;
 
     private final OnClickListener popupMenuClickListener = new OnClickListener() {
         @Override
@@ -51,9 +50,8 @@ public class TaskListWrapperActivity extends AstridWrapperActivity {
             TaskEditActivity tea = getTaskEditFragment();
             if (tea != null) {
                 try {
-                    if (!fromTaskEdit)
+                    if (!Flags.checkAndClear(Flags.TLA_DISMISSED_FROM_TASK_EDIT))
                         tea.save(false);
-                    fromTaskEdit = false;
                 } catch (IllegalStateException e) {
                     // Save during pause, ignore it
                 }
@@ -190,16 +188,16 @@ public class TaskListWrapperActivity extends AstridWrapperActivity {
         super.onPostResume();
 
         Filter savedFilter = getIntent().getParcelableExtra(TaskListActivity.TOKEN_FILTER);
-        setupTasklistFragmentWithFilter(savedFilter);
+        if (!Flags.checkAndClear(Flags.TLA_RESUMED_FROM_VOICE_ADD))
+            setupTasklistFragmentWithFilter(savedFilter);
         if (savedFilter != null)
             lists.setText(savedFilter.title);
 
-        if (!fromTaskEdit) {
+        if (!Flags.checkAndClear(Flags.TLA_DISMISSED_FROM_TASK_EDIT)) {
             TaskEditActivity tea = getTaskEditFragment();
             if (tea != null)
                 onBackPressed();
         }
-        fromTaskEdit = false;
     }
 
     @Override
@@ -226,11 +224,11 @@ public class TaskListWrapperActivity extends AstridWrapperActivity {
             } else {
                 findViewById(R.id.taskedit_fragment_container).setVisibility(View.INVISIBLE);
             }
-            fromTaskEdit = true;
+            Flags.set(Flags.TLA_DISMISSED_FROM_TASK_EDIT);
             onPostResume();
         } else {
             if (editPopover != null && editPopover.isShowing()) {
-                fromTaskEdit = true;
+                Flags.set(Flags.TLA_DISMISSED_FROM_TASK_EDIT);
                 editPopover.dismiss();
             }
         }
