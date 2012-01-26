@@ -76,7 +76,7 @@ public class RepeatControlSet extends PopupControlSet {
     private final List<RepeatChangedListener> listeners = new LinkedList<RepeatChangedListener>();
 
     public interface RepeatChangedListener {
-        public void RepeatChanged(boolean repeat);
+        public void repeatChanged(boolean repeat);
     }
 
     @Autowired
@@ -342,7 +342,7 @@ public class RepeatControlSet extends PopupControlSet {
                 okListener.onClick(d, which);
 
                 for (RepeatChangedListener l : listeners) {
-                    l.RepeatChanged(doRepeat);
+                    l.repeatChanged(doRepeat);
                 }
             }
         };
@@ -356,7 +356,7 @@ public class RepeatControlSet extends PopupControlSet {
                 DialogUtilities.dismissDialog(activity, d);
 
                 for (RepeatChangedListener l : listeners) {
-                    l.RepeatChanged(doRepeat);
+                    l.repeatChanged(doRepeat);
                 }
             }
         };

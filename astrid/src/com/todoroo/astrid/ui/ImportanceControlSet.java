@@ -92,7 +92,7 @@ public class ImportanceControlSet extends TaskEditControlSet {
         }
 
         if (usedWidth > width * 2 /3 ) {
-            getView().findViewById(R.id.display_row_edit).setVisibility(View.GONE);
+            getView().findViewById(R.id.display_row_title).setVisibility(View.GONE);
         }
     }
 

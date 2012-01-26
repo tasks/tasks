@@ -3,7 +3,6 @@ package com.todoroo.astrid.ui;
 import android.app.Activity;
 import android.text.TextUtils;
 
-import com.timsu.astrid.R;
 import com.todoroo.andlib.data.Property.StringProperty;
 import com.todoroo.astrid.adapter.TaskAdapter;
 import com.todoroo.astrid.data.Task;
@@ -28,7 +27,7 @@ public class EditTitleControlSet extends EditTextControlSet implements Importanc
 
 
     @Override
-    public void RepeatChanged(boolean repeat) {
+    public void repeatChanged(boolean repeat) {
         isRepeating = repeat;
         updateCompleteBox();
 
@@ -42,21 +41,16 @@ public class EditTitleControlSet extends EditTextControlSet implements Importanc
     }
 
 
-    public void updateCompleteBox() {
-        if(importanceValue < TaskAdapter.IMPORTANCE_RESOURCES.length)
-        {
-            if (isRepeating)
-            {
-                completeBox.setButtonDrawable(TaskAdapter.IMPORTANCE_REPEAT_RESOURCES[importanceValue]);
+    private void updateCompleteBox() {
+        int valueToUse = importanceValue;
+        if (valueToUse >= TaskAdapter.IMPORTANCE_RESOURCES.length)
+            valueToUse = TaskAdapter.IMPORTANCE_RESOURCES.length - 1;
+        if(valueToUse < TaskAdapter.IMPORTANCE_RESOURCES.length) {
+            if (isRepeating) {
+                completeBox.setButtonDrawable(TaskAdapter.IMPORTANCE_REPEAT_RESOURCES[valueToUse]);
+            } else {
+                completeBox.setButtonDrawable(TaskAdapter.IMPORTANCE_RESOURCES[valueToUse]);
             }
-            else
-            {
-                completeBox.setButtonDrawable(TaskAdapter.IMPORTANCE_RESOURCES[importanceValue]);
-            }
-        }
-        else
-        {
-            completeBox.setBackgroundResource(R.drawable.btn_check);
         }
     }
 
