@@ -386,8 +386,6 @@ public final class TaskEditActivity extends Fragment implements
                 mAdapter = new TaskEditViewPager(getActivity());
                 mAdapter.parent = this;
 
-                long idParam = getActivity().getIntent().getLongExtra(TOKEN_ID,
-                        -1L);
                 editNotes = new EditNoteActivity(getActivity(), getView(),
                         idParam);
                 editNotes.setLayoutParams(new FrameLayout.LayoutParams(LayoutParams.FILL_PARENT, LayoutParams.WRAP_CONTENT));

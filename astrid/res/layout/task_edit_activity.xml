@@ -26,31 +26,9 @@
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="3dip"
-                android:gravity="center_vertical"
                 android:background="@drawable/task_edit_background"
-                android:orientation="horizontal"
+                android:orientation="vertical"
                 android:paddingRight="6dip" >
-                
-                <LinearLayout
-                    android:id="@+id/save_and_cancel"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:visibility="gone">
-	                <ImageButton
-	                    android:id="@+id/cancel"
-	                    android:layout_width="wrap_content"
-	                    android:layout_height="wrap_content"
-	                    android:layout_marginRight="10dip"
-	                    android:background="@android:color/transparent"
-	                    android:src="@android:drawable/ic_menu_close_clear_cancel"/>
-	                <ImageButton
-	                    android:id="@+id/save"
-	                    android:layout_width="wrap_content"
-	                    android:layout_height="wrap_content"
-	                    android:background="@android:color/transparent"
-	                    android:src="@android:drawable/ic_menu_save"/>
-                </LinearLayout>
             </LinearLayout>
 
             <LinearLayout
@@ -117,19 +95,13 @@
 
     <LinearLayout
         android:id="@+id/updatesFooter"
-        android:layout_width="fill_parent" 
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-<<<<<<< HEAD
-=======
         android:layout_weight="1"
         android:background="#fff"
->>>>>>> 8b70e98... Changed timer layout
         android:minHeight="47dip"
-        android:layout_weight="1"
-        android:padding="3dip"
-        android:layout_marginBottom="5dip"
         android:orientation="horizontal"
-        style="@style/Content">
+        android:padding="3dip" >
 
         <!-- Voice Add Button -->
 
@@ -138,28 +110,28 @@
             android:layout_width="39dip"
             android:layout_height="39dip"
             android:layout_gravity="top"
-            android:layout_marginLeft="5dip"
             android:layout_marginRight="3dip"
             android:layout_weight="1"
-            android:background="?attr/asCameraButtonImg"
-            android:scaleType="fitCenter"/>
+            android:background="@drawable/footer_button"
+            android:paddingBottom="2dip"
+            android:paddingLeft="7dip"
+            android:paddingRight="7dip"
+            android:scaleType="fitCenter"
+            android:src="@drawable/icn_camera" />
 
         <!-- Quick Add Task -->
 
         <EditText
             android:id="@+id/commentField"
             android:layout_width="wrap_content"
-            android:layout_height="39dip"
-            android:layout_marginRight="8dip"
-            android:layout_marginLeft="5dip"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="3dip"
             android:layout_weight="100"
-            android:paddingLeft="5dip"
-            android:background="@drawable/edit_title_background"
-            android:textSize="16sp"
             android:autoText="true"
-            android:textColor="@android:color/black"
+            android:background="@drawable/footer_edittext"
+            android:capitalize="sentences"
             android:hint="@string/TVA_add_comment"
-            android:capitalize="sentences"/>
+            android:textSize="16sp" />
 
         <!-- Extended Add Button -->
 
@@ -168,7 +140,6 @@
             android:layout_width="40dip"
             android:layout_height="35dip"
             android:layout_marginLeft="5dip"
-            android:gravity="top"
             android:orientation="vertical"
             android:layout_weight="1">
             <Button
@@ -192,13 +163,15 @@
         
         <ImageButton
             android:id="@+id/commentButton"
-            android:layout_width="39dip"
+            android:layout_width="wrap_content"
             android:layout_height="39dip"
             android:layout_gravity="top"
-            android:layout_marginRight="5dip"
+            android:layout_marginRight="3dip"
             android:layout_weight="1"
-            android:background="?attr/asAddButtonImg"
-            android:scaleType="center"/> 
+            android:background="@drawable/footer_button"
+            android:scaleType="center"
+            android:visibility="gone"
+            android:src="@drawable/ic_footer_add" />
     </LinearLayout>
 
 </LinearLayout>
