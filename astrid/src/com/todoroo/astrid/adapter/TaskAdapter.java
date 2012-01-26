@@ -381,28 +381,18 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
         // importance bar
         final CheckBox checkBoxView = viewHolder.completeBox; {
             int value = task.getValue(Task.IMPORTANCE);
-            if(value < IMPORTANCE_RESOURCES.length)
-            {
-                if (!TextUtils.isEmpty(task.getValue(Task.RECURRENCE)))
-                {
-                    checkBoxView.setButtonDrawable(IMPORTANCE_REPEAT_RESOURCES[value]);
-                    pictureView.setBackgroundResource(IMPORTANCE_REPEAT_RESOURCES[value]);
-                }
-                else
-                {
-                    checkBoxView.setButtonDrawable(IMPORTANCE_RESOURCES[value]);
-                    pictureView.setBackgroundResource(IMPORTANCE_RESOURCES[value]);
-                }
+            if (value >= IMPORTANCE_RESOURCES.length)
+                value = IMPORTANCE_RESOURCES.length - 1;
+            if (!TextUtils.isEmpty(task.getValue(Task.RECURRENCE))) {
+                checkBoxView.setButtonDrawable(IMPORTANCE_REPEAT_RESOURCES[value]);
+                pictureView.setBackgroundResource(IMPORTANCE_REPEAT_RESOURCES[value]);
+            } else {
+                checkBoxView.setButtonDrawable(IMPORTANCE_RESOURCES[value]);
+                pictureView.setBackgroundResource(IMPORTANCE_RESOURCES[value]);
             }
-            else
-            {
-                checkBoxView.setBackgroundResource(R.drawable.btn_check);
-            }
-            if (pictureView.getVisibility() == View.VISIBLE){
+            if (pictureView.getVisibility() == View.VISIBLE) {
                 checkBoxView.setVisibility(View.INVISIBLE);
-            }
-            else
-            {
+            } else {
                 checkBoxView.setVisibility(View.VISIBLE);
             }
         }
