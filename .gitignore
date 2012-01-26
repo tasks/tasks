@@ -6,7 +6,7 @@ gen
 local.properties
 antbuild
 astrid/bin
-astrid/ecbuild
+actionbarsherlock/library/bin
 astrid/src-combined
 release
 dev
