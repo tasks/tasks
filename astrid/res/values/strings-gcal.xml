@@ -29,6 +29,8 @@
   
   <string name="gcal_TEA_none_selected">Add to cal...</string>
   
+  <string name="gcal_TEA_has_event">Cal event</string>
+  
   <!-- ======================================================== Calendars == -->
   
   <!-- Calendar event name when task is completed (%s => task title) -->

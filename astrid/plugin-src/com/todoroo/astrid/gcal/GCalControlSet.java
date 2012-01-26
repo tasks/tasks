@@ -76,7 +76,7 @@ public class GCalControlSet extends PopupControlSet {
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         calendarSelector.setPromptId(title);
         calendarSelector.setAdapter(adapter);
-        calendarSelector.setSelection(calendars.defaultIndex);
+        calendarSelector.setSelection(calendars.defaultIndex + 1); // plus 1 for the no selection item
         calendarSelector.setOnItemSelectedListener(new OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> arg0, View arg1,
@@ -207,7 +207,9 @@ public class GCalControlSet extends PopupControlSet {
     @Override
     protected void refreshDisplayView() {
         TextView calendar = (TextView) getDisplayView().findViewById(R.id.calendar_display_which);
-        if (calendarSelector.getSelectedItemPosition() != 0) {
+        if (hasEvent) {
+            calendar.setText(R.string.gcal_TEA_has_event);
+        } else if (calendarSelector.getSelectedItemPosition() != 0) {
             calendar.setText((String)calendarSelector.getSelectedItem());
         } else {
             calendar.setText(R.string.gcal_TEA_none_selected);

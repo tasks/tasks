@@ -143,7 +143,7 @@ public class Calendars {
 				row++;
 			}
 
-			if (result.defaultIndex == -1 || result.defaultIndex >= calendarCount) {
+			if (result.defaultIndex >= calendarCount) {
 			    result.defaultIndex = 0;
 			}
 
