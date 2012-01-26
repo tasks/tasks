@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item android:state_pressed="false" android:state_enabled="true"
+          android:state_focused="false" android:drawable="@drawable/camera_button_red" />
+    <item android:state_pressed="true" android:state_enabled="true"
+          android:drawable="@drawable/camera_button_gray" />
+    <item android:state_pressed="false" android:state_enabled="true"
+          android:state_focused="true" android:drawable="@drawable/camera_button_gray" />
+
+</selector>

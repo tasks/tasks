@@ -60,8 +60,7 @@
             android:paddingRight="7dip"
             android:paddingBottom="2dip"
             android:layout_weight="1"
-            android:background="@drawable/footer_button"
-            android:src="@drawable/icn_camera"
+            android:src="@drawable/camera_button"
             android:scaleType="fitCenter"/> 
     
         <!-- Quick Add Task -->

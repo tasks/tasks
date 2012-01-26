@@ -19,14 +19,28 @@
         android:button="@drawable/btn_check" />
     <!-- assignee photo -->
 
+<LinearLayout
+    android:id="@+id/pictureContainer"
+        android:layout_width="58dip"
+        android:layout_height="54dip"
+        android:layout_marginLeft="5dip"
+        android:layout_marginTop="10dip"
+        android:padding="7dip"
+        android:paddingTop="9dip"
+        android:background="#111111"
+        >
     <greendroid.widget.AsyncImageView
         android:id="@+id/picture"
         android:layout_width="35dip"
         android:layout_height="35dip"
-        android:layout_marginLeft="10dip"
         astrid:defaultSrc="@drawable/icn_default_person_image"
         android:scaleType="fitCenter"
-        android:visibility="gone" />
+        android:visibility="gone" >
+        
+        
+    </greendroid.widget.AsyncImageView>
+</LinearLayout>
+
 
     <LinearLayout
         android:id="@+id/task_row"

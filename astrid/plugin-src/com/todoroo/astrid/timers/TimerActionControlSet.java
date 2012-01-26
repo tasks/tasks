@@ -33,7 +33,7 @@ public class TimerActionControlSet extends TaskEditControlSet {
         timerContainer = (View) parent.findViewById(R.id.timer_container);
         timerContainer.setOnClickListener(timerListener);
 
-        chronometer = (Chronometer) parent.findViewById(R.id.timer);
+        chronometer = new Chronometer(activity);
     }
 
     @Override
@@ -95,7 +95,7 @@ public class TimerActionControlSet extends TaskEditControlSet {
             chronometer.setBase(SystemClock.elapsedRealtime() - elapsed);
             chronometer.start();
         } else {
-            chronometer.setVisibility(View.INVISIBLE);
+            chronometer.setVisibility(View.GONE);
             chronometer.stop();
         }
     }
