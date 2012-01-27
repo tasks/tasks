@@ -10,6 +10,31 @@
 
     <!-- completion check-box -->
 
+
+    <greendroid.widget.AsyncImageView
+        android:id="@+id/picture"
+        android:layout_width="35dip"
+        android:layout_height="35dip"
+        android:layout_centerVertical="true"
+        android:padding="2dip"
+        android:layout_marginLeft="9dip"
+        astrid:defaultSrc="@drawable/icn_default_person_image"
+        android:scaleType="fitCenter"
+        android:visibility="gone" >
+    </greendroid.widget.AsyncImageView>
+    <ImageView
+        android:id="@+id/pictureBorder"
+        android:layout_width="50dip"
+        android:layout_height="44dip"
+        android:layout_marginLeft="6dip"
+        android:layout_centerVertical="true"
+        android:background="@drawable/icn_default_person_image"
+        android:scaleType="fitCenter"
+        android:visibility="gone" >
+    </ImageView>
+    
+    
+
     <CheckBox
         android:id="@+id/completeBox"
         android:layout_width="45dip"
@@ -19,28 +44,6 @@
         android:button="@drawable/btn_check" />
     <!-- assignee photo -->
 
-<LinearLayout
-    android:id="@+id/pictureContainer"
-        android:layout_width="58dip"
-        android:layout_height="54dip"
-        android:layout_marginLeft="5dip"
-        android:layout_marginTop="10dip"
-        android:padding="7dip"
-        android:paddingTop="9dip"
-        android:background="#111111"
-        >
-    <greendroid.widget.AsyncImageView
-        android:id="@+id/picture"
-        android:layout_width="35dip"
-        android:layout_height="35dip"
-        astrid:defaultSrc="@drawable/icn_default_person_image"
-        android:scaleType="fitCenter"
-        android:visibility="gone" >
-        
-        
-    </greendroid.widget.AsyncImageView>
-</LinearLayout>
-
 
     <LinearLayout
         android:id="@+id/task_row"
@@ -49,7 +52,7 @@
         android:layout_alignTop="@id/completeBox"
         android:layout_toRightOf="@id/completeBox"
         android:orientation="horizontal"
-        android:paddingLeft="5dip" >
+        android:paddingLeft="2dip" >
 
         <!-- task name -->
 
