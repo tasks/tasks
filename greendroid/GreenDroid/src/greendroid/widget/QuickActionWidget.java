@@ -46,7 +46,7 @@ public abstract class QuickActionWidget extends PopupWindow {
     private static final int MEASURE_AND_LAYOUT_DONE = 1 << 1;
 
     private final int[] mLocation = new int[2];
-    private final Rect mRect = new Rect();
+    protected final Rect mRect = new Rect();
 
     private int mPrivateFlags;
 
@@ -287,7 +287,11 @@ public abstract class QuickActionWidget extends PopupWindow {
         }
 
         ViewGroup.MarginLayoutParams param = (ViewGroup.MarginLayoutParams) arrow.getLayoutParams();
-        param.leftMargin = mRect.centerX() - (arrow.getMeasuredWidth()) / 2;
+        param.leftMargin = getArrowLeftMargin(arrow);
+    }
+    
+    protected int getArrowLeftMargin(View arrow) {
+    	return mRect.centerX() - (arrow.getMeasuredWidth()) / 2;    	
     }
 
     private void prepareAnimationStyle() {

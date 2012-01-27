@@ -26,6 +26,8 @@
         <item name="asEditBackground">#171317</item>
         <item name="asEditRowBackground">@drawable/task_edit_background</item>
         <item name="asEditTabBackground">@drawable/custom_tab_indicator_dark</item>
+        <item name="asMainMenuOn">@drawable/menu</item>
+        <item name="asMainMenuOff">@drawable/menu</item>
         <!-- actionbar-styling -->
         <item name="abBackground">@drawable/header_background</item>
         <item name="abDisplayOptions">useLogo|showHome|showTitle</item>
@@ -76,6 +78,8 @@
         <item name="asListsDisclosure">@drawable/lists_disclosure_red</item>
         <item name="asEditRowBackground">@drawable/task_edit_background_white</item>
         <item name="asEditTabBackground">@drawable/custom_tab_indicator</item>
+        <item name="asMainMenuOn">@drawable/menu</item>
+        <item name="asMainMenuOff">@drawable/menu</item>
         <!-- actionbar-styling -->
         <item name="abBackground">@android:color/white</item>
         <item name="abDisplayOptions">useLogo|showHome|showTitle</item>

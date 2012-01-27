@@ -1308,9 +1308,7 @@ public class TaskListActivity extends ListFragment implements OnScrollListener,
             startActivityForResult(intent, ACTIVITY_ADDONS);
             return true;
         case MENU_SETTINGS_ID:
-            StatisticsService.reportEvent(StatisticsConstants.TLA_MENU_SETTINGS);
-            intent = new Intent(getActivity(), EditPreferences.class);
-            startActivityForResult(intent, ACTIVITY_SETTINGS);
+            showSettings();
             return true;
         case MENU_SORT_ID:
             StatisticsService.reportEvent(StatisticsConstants.TLA_MENU_SORT);
@@ -1323,9 +1321,7 @@ public class TaskListActivity extends ListFragment implements OnScrollListener,
             performSyncAction();
             return true;
         case MENU_SUPPORT_ID:
-            StatisticsService.reportEvent(StatisticsConstants.TLA_MENU_HELP);
-            intent = new Intent(getActivity(), FeedbackActivity.class);
-            startActivity(intent);
+            showSupport();
             return true;
         case MENU_ADDON_INTENT_ID:
             intent = item.getIntent();
@@ -1410,6 +1406,18 @@ public class TaskListActivity extends ListFragment implements OnScrollListener,
         }
 
         }
+    }
+
+    public void showSupport() {
+        StatisticsService.reportEvent(StatisticsConstants.TLA_MENU_HELP);
+        Intent intent = new Intent(getActivity(), FeedbackActivity.class);
+        startActivity(intent);
+    }
+
+    public void showSettings() {
+        StatisticsService.reportEvent(StatisticsConstants.TLA_MENU_SETTINGS);
+        Intent intent = new Intent(getActivity(), EditPreferences.class);
+        startActivityForResult(intent, ACTIVITY_SETTINGS);
     }
 
     public void onTaskListItemClicked(long taskId) {

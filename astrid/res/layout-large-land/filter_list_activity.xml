@@ -12,10 +12,8 @@
         android:layout_height="50dip"
         android:orientation="vertical"
         android:layout_alignParentBottom="true">
-        <View
-            android:layout_width="fill_parent"
-            android:layout_height="1px"
-            style="@style/FLA_Separator"/>
+
+        <include layout="@layout/fla_separator"/>
         
         <TextView
             android:id="@+id/new_list_button"

@@ -7,6 +7,7 @@ import java.util.List;
 
 import android.content.Context;
 import android.graphics.Rect;
+import android.util.DisplayMetrics;
 import android.view.View;
 import android.view.View.MeasureSpec;
 import android.view.ViewGroup;
@@ -18,9 +19,13 @@ import com.timsu.astrid.R;
 
 public class FragmentPopover extends QuickActionWidget {
 
+    protected DisplayMetrics metrics;
+
     public FragmentPopover(Context context, int layout) {
         super(context);
         setContentView(layout);
+
+        metrics = context.getResources().getDisplayMetrics();
 
         setFocusable(true);
         setTouchable(true);
@@ -57,5 +62,10 @@ public class FragmentPopover extends QuickActionWidget {
         int popupY = (onTop) ? anchorRect.top - rootHeight + offsetY : anchorRect.bottom - offsetY;
 
         setWidgetSpecs(popupY, onTop);
+    }
+
+    @Override
+    protected int getArrowLeftMargin(View arrow) {
+        return mRect.left + arrow.getMeasuredWidth() / 2 - (int) (10 * metrics.density);
     }
 }

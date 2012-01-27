@@ -9,7 +9,6 @@
         android:layout_width="51dip"
         android:padding="10dip"
         android:layout_height="fill_parent"
-        android:layout_marginLeft="3dip"
         android:src="@drawable/menu"
         android:scaleType="fitCenter"/>
         

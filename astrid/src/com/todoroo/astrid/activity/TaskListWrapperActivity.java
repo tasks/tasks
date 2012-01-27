@@ -19,22 +19,36 @@ import android.widget.TextView;
 
 import com.timsu.astrid.R;
 import com.todoroo.andlib.utility.AndroidUtilities;
+import com.todoroo.astrid.actfm.ActFmLoginActivity;
 import com.todoroo.astrid.actfm.TagSettingsActivity;
 import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.api.FilterListItem;
 import com.todoroo.astrid.service.ThemeService;
 import com.todoroo.astrid.ui.FragmentPopover;
+import com.todoroo.astrid.ui.MainMenuPopover;
+import com.todoroo.astrid.ui.MainMenuPopover.MainMenuListener;
 import com.todoroo.astrid.utility.Flags;
+import com.todoroo.astrid.welcome.tutorial.WelcomeWalkthrough;
 
-public class TaskListWrapperActivity extends AstridWrapperActivity {
+public class TaskListWrapperActivity extends AstridWrapperActivity implements MainMenuListener {
 
     public static final String TOKEN_SELECTED_FILTER = "selectedFilter";
     private View listsNav;
     private ImageView listsNavDisclosure;
     private TextView lists;
+    private ImageView mainMenu;
 
     private FragmentPopover listsPopover;
     private FragmentPopover editPopover;
+    private MainMenuPopover mainMenuPopover;
+
+    private final OnClickListener mainMenuClickListener = new OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            setMainMenuSelected(true);
+            mainMenuPopover.show(v);
+        }
+    };
 
     private final OnClickListener popupMenuClickListener = new OnClickListener() {
         @Override
@@ -76,8 +90,11 @@ public class TaskListWrapperActivity extends AstridWrapperActivity {
 		listsNav = actionBar.getCustomView().findViewById(R.id.lists_nav);
 		listsNavDisclosure = (ImageView) actionBar.getCustomView().findViewById(R.id.list_disclosure_arrow);
 		lists = (TextView) actionBar.getCustomView().findViewById(R.id.list_title);
+		mainMenu = (ImageView) actionBar.getCustomView().findViewById(R.id.main_menu);
 
 		initializeFragments(actionBar);
+		createMainMenuPopover();
+		mainMenu.setOnClickListener(mainMenuClickListener);
 	}
 
 	/**
@@ -136,6 +153,17 @@ public class TaskListWrapperActivity extends AstridWrapperActivity {
         });
     }
 
+    private void createMainMenuPopover() {
+        mainMenuPopover = new MainMenuPopover(this, R.layout.main_menu_popover);
+        mainMenuPopover.setMenuListener(this);
+        mainMenuPopover.setOnDismissListener(new OnDismissListener() {
+            @Override
+            public void onDismiss() {
+                setMainMenuSelected(false);
+            }
+        });
+    }
+
     private void setupPopoverWithFragment(FragmentPopover popover, Fragment frag, LayoutParams params) {
         if (popover != null) {
             View view = frag.getView();
@@ -183,6 +211,16 @@ public class TaskListWrapperActivity extends AstridWrapperActivity {
 	    listsNavDisclosure.setImageResource(selected ? R.drawable.lists_disclosure_white : tv.data);
 	}
 
+	private void setMainMenuSelected(boolean selected) {
+	    TypedValue onImage = new TypedValue();
+	    TypedValue offImage = new TypedValue();
+
+	    getTheme().resolveAttribute(R.attr.asMainMenuOn, onImage, false);
+	    getTheme().resolveAttribute(R.attr.asMainMenuOff, offImage, false);
+
+	    mainMenu.setImageResource(selected ? onImage.data : offImage.data);
+	}
+
     @Override
     protected void onPostResume() {
         super.onPostResume();
@@ -207,6 +245,8 @@ public class TaskListWrapperActivity extends AstridWrapperActivity {
             listsPopover.dismiss();
         if (editPopover != null)
             editPopover.dismiss();
+        if (mainMenuPopover != null)
+            mainMenuPopover.dismiss();
     }
 
     public void setSelectedItem(Filter item) {
@@ -254,5 +294,35 @@ public class TaskListWrapperActivity extends AstridWrapperActivity {
         }
 
         super.onActivityResult(requestCode, resultCode, data);
+    }
+
+    @Override
+    public void mainMenuItemSelected(int item) {
+        TaskListActivity tla = getTaskListFragment();
+        switch (item) {
+        case MainMenuPopover.MAIN_MENU_ITEM_TASKS:
+            // Do nothing
+            break;
+        case MainMenuPopover.MAIN_MENU_ITEM_FRIENDS:
+            // Doesn't exist yet
+            break;
+        case MainMenuPopover.MAIN_MENU_ITEM_SUGGESTIONS:
+            // Doesn't exist yet
+            break;
+        case MainMenuPopover.MAIN_MENU_ITEM_TUTORIAL:
+            Intent showWelcomeLogin = new Intent(this, WelcomeWalkthrough.class);
+            showWelcomeLogin.putExtra(ActFmLoginActivity.SHOW_TOAST, false);
+            showWelcomeLogin.putExtra(WelcomeWalkthrough.TOKEN_MANUAL_SHOW, true);
+            startActivity(showWelcomeLogin);
+            break;
+        case MainMenuPopover.MAIN_MENU_ITEM_SETTINGS:
+            if (tla != null)
+                tla.showSettings();
+            break;
+        case MainMenuPopover.MAIN_MENU_ITEM_SUPPORT:
+            if (tla != null)
+                tla.showSupport();
+            break;
+        }
     }
 }

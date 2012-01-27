@@ -5,16 +5,19 @@
     android:layout_height="wrap_content"
     android:paddingLeft="10dip">
 
-    <FrameLayout
+    <LinearLayout
         android:id="@+id/content"
         android:layout_width="280dip"
         android:layout_height="wrap_content"
+        android:background="@drawable/list_popover_bg"
+        android:orientation="vertical"
         android:layout_below="@+id/gdi_arrow_up"/>
 
     <ImageView
         android:id="@+id/gdi_arrow_up"
         android:layout_width="27dip"
         android:layout_height="27dip"
+        android:layout_marginLeft="-10dip"
         android:scaleType="fitCenter"
         android:layout_marginBottom="-8dip"
         android:src="@drawable/list_arrow_up" />

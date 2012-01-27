@@ -24,6 +24,8 @@
   <attr name="asMicButtonImg" format="reference" />
   <attr name="asCameraButtonImg" format="reference" />
   <attr name="asListsDisclosure" format="reference" />
+  <attr name="asMainMenuOn" format="reference" />
+  <attr name="asMainMenuOff" format="reference" />
 
   <declare-styleable name="ContactsAutoComplete">
     <attr name="allowMultiple" format="boolean"/>

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- See the file "LICENSE" for the full license governing this code. -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="60dip"
+    android:minHeight="60dip"
+    android:background="@android:drawable/list_selector_background"
+    android:paddingTop="5dip"
+    android:paddingBottom="5dip"
+    android:paddingRight="6dip"
+    android:gravity="center_vertical"
+    android:orientation="horizontal">
+        
+    <!-- filter icon -->
+    <ImageView android:id="@+id/icon"
+        android:layout_width="36dip"
+        android:layout_height="36dip"
+        android:layout_alignParentLeft="true"
+        android:layout_marginLeft="12dip"
+        android:scaleType="fitCenter"/>
+            
+    <!-- filter name -->
+    <TextView android:id="@+id/name"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_marginLeft="12dp"
+        android:paddingRight="30dp"
+        android:checked="false"
+        android:gravity="center_vertical" 
+        style="@style/TextAppearance.FLA_Filter"/>
+                    
+</LinearLayout>

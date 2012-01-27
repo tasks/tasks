@@ -102,6 +102,18 @@
   <!-- Menu: Sync Now -->    
   <string name="TLA_menu_sync">Sync Now!</string>
   
+  <!-- Menu: Tasks -->
+  <string name="TLA_menu_tasks">Tasks</string>
+
+  <!-- Menu: Friends -->
+  <string name="TLA_menu_friends">Friends</string>
+
+  <!-- Menu: Suggestions -->
+  <string name="TLA_menu_suggestions">Suggestions</string>
+  
+  <!-- Menu: Tutorial -->
+  <string name="TLA_menu_tutorial">Tutorial</string>
+
   <!-- Menu: Settings -->    
   <string name="TLA_menu_settings">Settings</string>
   
