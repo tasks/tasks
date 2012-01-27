@@ -22,5 +22,9 @@
         android:title="@string/EPr_manage_delete_all_gcal"
         android:key="@string/EPr_manage_delete_all_gcal" 
         android:summary="@string/EPr_manage_delete_all_gcal_summary"/>
+        
+    <Preference
+        android:title="@string/EPr_manage_clear_all"
+        android:key="@string/EPr_manage_clear_all" />
 
 </PreferenceScreen>
