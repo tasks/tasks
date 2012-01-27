@@ -14,6 +14,7 @@ import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Environment;
 import android.provider.MediaStore;
+import android.support.v4.app.Fragment;
 import android.widget.ArrayAdapter;
 
 import com.timsu.astrid.R;
@@ -68,6 +69,47 @@ public class ActFmCameraModule {
         new AlertDialog.Builder(activity)
         .setAdapter(adapter, listener)
         .show().setOwnerActivity(activity);
+    }
+
+
+    public static void showPictureLauncher(final Fragment fragment, final ClearImageCallback clearImageOption) {
+        ArrayList<String> options = new ArrayList<String>();
+        options.add(fragment.getString(R.string.actfm_picture_camera));
+        options.add(fragment.getString(R.string.actfm_picture_gallery));
+
+        if (clearImageOption != null) {
+            options.add(fragment.getString(R.string.actfm_picture_clear));
+        }
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(fragment.getActivity(),
+                android.R.layout.simple_spinner_dropdown_item, options.toArray(new String[options.size()]));
+
+        DialogInterface.OnClickListener listener = new DialogInterface.OnClickListener() {
+            @SuppressWarnings("nls")
+            @Override
+            public void onClick(DialogInterface d, int which) {
+                if(which == 0) {
+                    lastTempFile = getTempFile(fragment.getActivity());
+                    Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                    if (lastTempFile != null) {
+                        intent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(lastTempFile));
+                    }
+                    fragment.startActivityForResult(intent, REQUEST_CODE_CAMERA);
+                } else if (which == 1) {
+                    Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
+                    intent.setType("image/*");
+                    fragment.startActivityForResult(Intent.createChooser(intent,
+                            fragment.getString(R.string.actfm_TVA_tag_picture)), REQUEST_CODE_PICTURE);
+                } else {
+                    if (clearImageOption != null)
+                        clearImageOption.clearImage();
+                }
+            }
+        };
+
+        // show a menu of available options
+        new AlertDialog.Builder(fragment.getActivity())
+        .setAdapter(adapter, listener)
+        .show().setOwnerActivity(fragment.getActivity());
     }
 
     @SuppressWarnings("nls")

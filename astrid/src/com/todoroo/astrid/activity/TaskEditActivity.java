@@ -370,26 +370,24 @@ public final class TaskEditActivity extends Fragment implements
         long idParam = getActivity().getIntent().getLongExtra(TOKEN_ID,
                 -1L);
         if (remoteId > 0 && idParam > -1L) {
-//            if (editNotes == null) {
-                editNotes = new EditNoteActivity(getActivity(), getView(),
+            if (editNotes == null) {
+                editNotes = new EditNoteActivity(this, getView(),
                         idParam);
                 editNotes.setLayoutParams(new FrameLayout.LayoutParams(LayoutParams.FILL_PARENT, LayoutParams.WRAP_CONTENT));
 
+                editNotes.addListener(this);
                 if (timerAction != null) {
                 timerAction.addListener(editNotes);
                 }
-                else {
-                    Log.d("Did not add timerAction", "did not add timer action");
-                }
-//            }
-//            else {
-//                editNotes.loadViewForTaskID(idParam);
-//            }
+            }
+            else {
+                editNotes.loadViewForTaskID(idParam);
+            }
             if (mAdapter == null) {
                 mAdapter = new TaskEditViewPager(getActivity());
                 mAdapter.parent = this;
 
-                editNotes = new EditNoteActivity(getActivity(), getView(),
+                editNotes = new EditNoteActivity(this, getView(),
                         idParam);
                 editNotes.setLayoutParams(new FrameLayout.LayoutParams(LayoutParams.FILL_PARENT, LayoutParams.WRAP_CONTENT));
 
@@ -1087,6 +1085,7 @@ public final class TaskEditActivity extends Fragment implements
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        Log.d("Activity !!!", "Called on camera for request code: " + requestCode + "EditNOtes: " + editNotes.toString());
         if (editNotes.activityResult(requestCode, resultCode, data)) {
             return;
         }

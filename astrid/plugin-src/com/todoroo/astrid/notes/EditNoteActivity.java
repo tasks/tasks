@@ -15,6 +15,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Color;
+import android.support.v4.app.Fragment;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
@@ -84,6 +85,7 @@ public class EditNoteActivity extends LinearLayout implements TimerStoppedListen
     private int commentItems = 10;
     private ImageButton pictureButton;
     private Bitmap picture = null;
+    private final Fragment fragment;
 
     private final List<UpdatesChangedListener> listeners = new LinkedList<UpdatesChangedListener>();
 
@@ -92,8 +94,11 @@ public class EditNoteActivity extends LinearLayout implements TimerStoppedListen
         public void commentAdded();
     }
 
-    public EditNoteActivity(Activity activity, View parent, long t) {
-        super(activity);
+    public EditNoteActivity(Fragment fragment, View parent, long t) {
+        super(fragment.getActivity());
+
+        Log.d("EditnoteActivity", "Contructor being called");
+        this.fragment = fragment;
 
         DependencyInjectionService.getInstance().inject(this);
         setOrientation(VERTICAL);
@@ -191,6 +196,7 @@ public class EditNoteActivity extends LinearLayout implements TimerStoppedListen
         final ClearImageCallback clearImage = new ClearImageCallback() {
             @Override
             public void clearImage() {
+                Log.e("Errrr EditNOtes activity", "Picture clear image called");
                 picture = null;
                 pictureButton.setImageResource(R.drawable.camera_button);
             }
@@ -200,9 +206,9 @@ public class EditNoteActivity extends LinearLayout implements TimerStoppedListen
             @Override
             public void onClick(View v) {
                 if (picture != null)
-                    ActFmCameraModule.showPictureLauncher((Activity)getContext(), clearImage);
+                    ActFmCameraModule.showPictureLauncher(fragment, clearImage);
                 else
-                    ActFmCameraModule.showPictureLauncher((Activity)getContext(), null);
+                    ActFmCameraModule.showPictureLauncher(fragment, null);
             }
         });
         if(!TextUtils.isEmpty(task.getValue(Task.NOTES))) {
@@ -217,6 +223,10 @@ public class EditNoteActivity extends LinearLayout implements TimerStoppedListen
         //        loadingText = (TextView) findViewById(R.id.loading);
         loadingText = new TextView(getContext());
 
+
+        for (UpdatesChangedListener l : listeners) {
+            l.updatesChanged();
+        }
     }
 
     private void setUpListAdapter() {
@@ -334,6 +344,16 @@ public class EditNoteActivity extends LinearLayout implements TimerStoppedListen
                     DateUtils.FORMAT_ABBREV_RELATIVE);
             date.setText(dateString);
         }
+
+        // picture
+        final AsyncImageView commentPictureView = (AsyncImageView)view.findViewById(R.id.comment_picture); {
+            if(TextUtils.isEmpty(item.commentPicture))
+                commentPictureView.setVisibility(View.GONE);
+            else {
+                commentPictureView.setVisibility(View.VISIBLE);
+                commentPictureView.setUrl(item.commentPicture);
+            }
+        }
     }
 
     public void refreshData(boolean manual, SyncResultCallback existingCallback) {
@@ -390,10 +410,11 @@ public class EditNoteActivity extends LinearLayout implements TimerStoppedListen
         update.setValue(Update.TASK, task.getValue(Task.REMOTE_ID));
         update.setValue(Update.CREATION_DATE, DateUtilities.now());
 
+        Log.d("Add comment", "The picture is: " + picture);
         if (picture != null) {
             update.setValue(Update.PICTURE, Update.PICTURE_LOADING);
         }
-        Flags.checkAndClear(Flags.ACTFM_SUPPRESS_SYNC);
+        Flags.set(Flags.ACTFM_SUPPRESS_SYNC);
         updateDao.createNew(update);
 
         final long updateId = update.getId();
@@ -402,6 +423,8 @@ public class EditNoteActivity extends LinearLayout implements TimerStoppedListen
             @Override
             public void run() {
                 actFmSyncService.pushUpdate(updateId, tempPicture);
+
+                Log.d("Run thread", "The picture is: " + picture);
             }
         }.start();
         commentField.setText(""); //$NON-NLS-1$
@@ -424,14 +447,16 @@ public class EditNoteActivity extends LinearLayout implements TimerStoppedListen
         private final String picture;
         private final String title;
         private final String body;
+        private final String commentPicture;
         private final long createdAt;
 
-        public NoteOrUpdate(String picture, String title, String body,
+        public NoteOrUpdate(String picture, String title, String body, String commentPicture,
                 long createdAt) {
             super();
             this.picture = picture;
             this.title = title;
             this.body = body;
+            this.commentPicture = commentPicture;
             this.createdAt = createdAt;
         }
 
@@ -442,6 +467,7 @@ public class EditNoteActivity extends LinearLayout implements TimerStoppedListen
             return new NoteOrUpdate(m.getValue(NoteMetadata.THUMBNAIL),
                     m.getValue(NoteMetadata.TITLE),
                     m.getValue(NoteMetadata.BODY),
+                    m.getValue(NoteMetadata.COMMENTPICTURE),
                     m.getValue(Metadata.CREATION_DATE));
         }
 
@@ -455,10 +481,12 @@ public class EditNoteActivity extends LinearLayout implements TimerStoppedListen
                 description = message;
             else if(!TextUtils.isEmpty(message))
                 description += " " + message;
+            String commentPicture = u.getValue(Update.PICTURE);
 
             return new NoteOrUpdate(user.optString("picture"),
                     user.optString("name", ""),
                     description,
+                    commentPicture,
                     u.getValue(Update.CREATION_DATE));
         }
 
@@ -504,6 +532,7 @@ public class EditNoteActivity extends LinearLayout implements TimerStoppedListen
             public void handleCameraResult(Bitmap bitmap) {
                 picture = bitmap;
                 pictureButton.setImageBitmap(picture);
+                Log.d("Picture", "Picture = " + picture);
             }
         };
 
