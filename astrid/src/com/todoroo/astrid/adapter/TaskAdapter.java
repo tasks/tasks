@@ -17,6 +17,7 @@ import java.util.concurrent.atomic.AtomicReference;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import android.app.Activity;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -588,12 +589,15 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
                     requestNewDetails(task);
                 }
                 if(taskDetailLoader.size() > 0) {
-                    fragment.getActivity().runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            notifyDataSetChanged();
-                        }
-                    });
+                    Activity activity = fragment.getActivity();
+                    if (activity != null) {
+                        activity.runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                notifyDataSetChanged();
+                            }
+                        });
+                    }
                 }
             } catch (Exception e) {
                 // suppress silently
@@ -615,7 +619,9 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
         private void requestNewDetails(Task task) {
             Intent broadcastIntent = new Intent(AstridApiConstants.BROADCAST_REQUEST_DETAILS);
             broadcastIntent.putExtra(AstridApiConstants.EXTRAS_TASK_ID, task.getId());
-            fragment.getActivity().sendOrderedBroadcast(broadcastIntent, AstridApiConstants.PERMISSION_READ);
+            Activity activity = fragment.getActivity();
+            if (activity != null)
+                activity.sendOrderedBroadcast(broadcastIntent, AstridApiConstants.PERMISSION_READ);
         }
     }
 
@@ -642,12 +648,15 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
             taskService.save(task);
         }
 
-        fragment.getActivity().runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                notifyDataSetChanged();
-            }
-        });
+        Activity activity = fragment.getActivity();
+        if (activity != null) {
+            activity.runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    notifyDataSetChanged();
+                }
+            });
+        }
     }
 
     private final ImageGetter detailImageGetter = new ImageGetter() {
@@ -849,7 +858,9 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
 
                 if(myHolder != null) {
                     final ViewHolder viewHolder = myHolder;
-                    fragment.getActivity().runOnUiThread(new Runnable() {
+                    Activity activity = fragment.getActivity();
+                    if (activity != null) {
+                    activity.runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
                             mBarListener.addWithAction(item);
@@ -857,6 +868,7 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
                                 mBar.show(viewHolder.view);
                         }
                     });
+                    }
                 }
             }
         }
@@ -1037,7 +1049,9 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
             }
 
             try {
-                fragment.getActivity().unregisterReceiver(this);
+                Activity activity = fragment.getActivity();
+                if (activity != null)
+                    activity.unregisterReceiver(this);
             } catch (IllegalArgumentException e) {
                 // ignore
             }
