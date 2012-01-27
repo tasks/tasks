@@ -39,7 +39,6 @@ public class TitleParserTest extends DatabaseTestCase {
   public void testMonthDate() {
       TaskService taskService = new TaskService();
       Task task = new Task();
-      Task nothing = new Task();
       String[] titleMonthStrings = {
               "Jan.", "January",
               "Feb.", "February",
@@ -66,7 +65,6 @@ public class TitleParserTest extends DatabaseTestCase {
   public void testMonthSlashDay() {
       TaskService taskService = new TaskService();
       Task task = new Task();
-      Task nothing = new Task();
       for (int i = 1; i < 13; i++) {
           String testTitle = "Jog on " + i + "/12/13";
           insertTitleAddTask(testTitle, task, taskService);
@@ -80,7 +78,6 @@ public class TitleParserTest extends DatabaseTestCase {
   public void testArmyTime() {
       TaskService taskService = new TaskService();
       Task task = new Task();
-      Task nothing = new Task();
       String testTitle = "Jog on 23:21.";
       insertTitleAddTask(testTitle, task, taskService);
       Date date = new Date(task.getValue(Task.DUE_DATE));
@@ -91,7 +88,6 @@ public class TitleParserTest extends DatabaseTestCase {
   public void test_AM_PM() {
       TaskService taskService = new TaskService();
       Task task = new Task();
-      Task nothing = new Task();
       String testTitle = "Jog at 8:33 PM.";
       insertTitleAddTask(testTitle, task, taskService);
       Date date = new Date(task.getValue(Task.DUE_DATE));
@@ -102,7 +98,6 @@ public class TitleParserTest extends DatabaseTestCase {
   public void test_at_hour() {
       TaskService taskService = new TaskService();
       Task task = new Task();
-      Task nothing = new Task();
       String testTitle = "Jog at 8 PM.";
       insertTitleAddTask(testTitle, task, taskService);
       Date date = new Date(task.getValue(Task.DUE_DATE));
@@ -113,7 +108,6 @@ public class TitleParserTest extends DatabaseTestCase {
   public void test_oclock_AM() {
       TaskService taskService = new TaskService();
       Task task = new Task();
-      Task nothing = new Task();
       String testTitle = "Jog at 8 o'clock AM.";
       insertTitleAddTask(testTitle, task, taskService);
       Date date = new Date(task.getValue(Task.DUE_DATE));
@@ -124,7 +118,6 @@ public class TitleParserTest extends DatabaseTestCase {
   public void test_several_forms_of_eight() {
       TaskService taskService = new TaskService();
       Task task = new Task();
-      Task nothing = new Task();
       String[] testTitles = {
               "Jog 8 AM",
               "Jog 8 o'clock AM",
@@ -141,7 +134,6 @@ public class TitleParserTest extends DatabaseTestCase {
   public void test_several_forms_of_1230PM() {
       TaskService taskService = new TaskService();
       Task task = new Task();
-      Task nothing = new Task();
       String[] testTitles = {
               "Jog 12:30 PM",
               "at 12:30 PM",
@@ -515,14 +507,16 @@ public class TitleParserTest extends DatabaseTestCase {
                 "#(a cool tag)",
                 "#(cool)"
         };
-        TaskService taskService = new TaskService();
         Task task = new Task();
         for (String acceptedString:acceptedStrings){
             task = new Task();
             task.setValue(Task.TITLE, "Jog " + acceptedString); //test at end of task. should set importance.
             ArrayList<String> tags = new ArrayList<String>();
             TitleParser.listHelper(task, tags);
-            assertTrue("test pound at failed for string: " + acceptedString + " for tags: " + tags.toString(),tags.contains(TitleParser.trimParenthesis(acceptedString)));
+            String[] splitTags = TitleParser.trimParenthesisAndSplit(acceptedString);
+            for (String tag : splitTags) {
+                assertTrue("test pound at failed for string: " + acceptedString + " for tags: " + tags.toString(),tags.contains(tag));
+            }
         }
     }
 
@@ -534,14 +528,16 @@ public class TitleParserTest extends DatabaseTestCase {
                 "@(a cool tag)",
                 "@(cool)"
         };
-        TaskService taskService = new TaskService();
         Task task = new Task();
         for (String acceptedString:acceptedStrings){
             task = new Task();
             task.setValue(Task.TITLE, "Jog " + acceptedString); //test at end of task. should set importance.
             ArrayList<String> tags = new ArrayList<String>();
             TitleParser.listHelper(task, tags);
-            assertTrue("testTagsAt failed for string: " + acceptedString+ " for tags: " + tags.toString(),tags.contains(TitleParser.trimParenthesis(acceptedString)));
+            String[] splitTags = TitleParser.trimParenthesisAndSplit(acceptedString);
+            for (String tag : splitTags) {
+                assertTrue("testTagsAt failed for string: " + acceptedString+ " for tags: " + tags.toString(), tags.contains(tag));
+            }
         }
     }
 

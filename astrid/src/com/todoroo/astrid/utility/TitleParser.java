@@ -29,14 +29,15 @@ public class TitleParser {
         priorityHelper(task);
     }
 
-    public static String trimParenthesis(String pattern){
+    public static String[] trimParenthesisAndSplit(String pattern){
         if (pattern.charAt(0) == '#' || pattern.charAt(0) == '@') {
             pattern = pattern.substring(1);
         }
         if ('(' == pattern.charAt(0)) {
-            return pattern.substring(1, pattern.length()-2);
+            String lists = pattern.substring(1, pattern.length()-1);
+            return lists.split("\\s+");
         }
-        return pattern;
+        return new String[] { pattern };
     }
     public static void listHelper(Task task, ArrayList<String> tags) {
         String inputText = task.getValue(Task.TITLE);
@@ -46,12 +47,20 @@ public class TitleParser {
         while(true) {
             Matcher m = tagPattern.matcher(inputText);
             if(m.find()) {
-                tags.add(TitleParser.trimParenthesis(m.group(2)));
+                String[] splitTags = TitleParser.trimParenthesisAndSplit(m.group(2));
+                if (splitTags != null) {
+                    for (String tag : splitTags)
+                        tags.add(tag);
+                }
             } else {
                 m = contextPattern.matcher(inputText);
                 if(m.find()) {
-                    tags.add(TitleParser.trimParenthesis(m.group(2)));
-                }else{
+                    String[] splitTags = TitleParser.trimParenthesisAndSplit(m.group(2));
+                    if (splitTags != null) {
+                        for (String tag : splitTags)
+                            tags.add(tag);
+                    }
+                } else{
                     break;
                 }
             }
