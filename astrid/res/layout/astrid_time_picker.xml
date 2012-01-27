@@ -35,7 +35,7 @@
 	    <ToggleButton
 	        android:id="@+id/am_button"
 	        android:layout_width="fill_parent"
-	        android:layout_height="wrap_content"
+	        android:layout_height="42dip"
 	        android:paddingTop="8dip"
 	        android:paddingBottom="8dip"
 	        android:textSize="18sp"
@@ -47,7 +47,7 @@
         <ToggleButton
 	        android:id="@+id/pm_button"
 	        android:layout_width="fill_parent"
-	        android:layout_height="wrap_content"
+	        android:layout_height="42dip"
 	        android:paddingTop="8dip"
 	        android:paddingBottom="8dip"
 	        android:textSize="18sp"
@@ -61,7 +61,7 @@
     <ToggleButton
         android:id="@+id/hasTime"
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="42dip"
         android:paddingTop="8dip"
         android:paddingBottom="8dip"
         android:textSize="18sp"

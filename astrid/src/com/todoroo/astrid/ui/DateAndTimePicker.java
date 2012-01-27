@@ -134,7 +134,7 @@ public class DateAndTimePicker extends LinearLayout {
 
         DisplayMetrics metrics = context.getResources().getDisplayMetrics();
         for (int i = 0; i < urgencyValues.size(); i++) {
-            LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(LayoutParams.FILL_PARENT, LayoutParams.WRAP_CONTENT, 0);
+            LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(LayoutParams.FILL_PARENT, (int) (42 * metrics.density), 0);
             UrgencyValue uv = urgencyValues.get(i);
 
             ToggleButton tb = new ToggleButton(context);

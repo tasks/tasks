@@ -20,7 +20,7 @@
 
     <com.todoroo.astrid.ui.NumberPickerButton android:id="@+id/increment"
         android:layout_width="fill_parent"
-        android:layout_height="36dip"
+        android:layout_height="38dip"
         android:src="@drawable/icn_arrow_up"
         />
     
@@ -38,7 +38,7 @@
         
         <EditText android:id="@+id/timepicker_input"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="40dip"
             android:layout_weight="1"
             style="?android:attr/textAppearanceLarge"
             android:gravity="center"
@@ -58,7 +58,7 @@
         
     <com.todoroo.astrid.ui.NumberPickerButton android:id="@+id/decrement"
         android:layout_width="fill_parent"
-        android:layout_height="36dip"
+        android:layout_height="38dip"
         android:src="@drawable/icn_arrow_down"
         android:paddingTop="15dip"
         />
