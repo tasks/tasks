@@ -5,6 +5,7 @@
   <attr name="asContentBackground" format="reference"/>
   <attr name="asEditBackground" format="color"/>
   <attr name="asEditRowBackground" format="reference"/>
+  <attr name="asEditTabBackground" format="reference"/>
   <attr name="asHeaderBackground" format="reference"/>
   <attr name="asHeaderButtonBackground" format="reference"/>
   <attr name="asTextColor" format="color"/>

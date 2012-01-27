@@ -23,8 +23,9 @@
         <item name="asMicButtonImg">@drawable/mic_button_gray</item>
         <item name="asCameraButtonImg">@drawable/camera_button_gray</item>
         <item name="asListsDisclosure">@drawable/lists_disclosure_gray</item>
-        <item name="asEditBackground">#272327</item>
+        <item name="asEditBackground">#171317</item>
         <item name="asEditRowBackground">@drawable/task_edit_background</item>
+        <item name="asEditTabBackground">@drawable/custom_tab_indicator_dark</item>
         <!-- actionbar-styling -->
         <item name="abBackground">@drawable/header_background</item>
         <item name="abDisplayOptions">useLogo|showHome|showTitle</item>
@@ -74,6 +75,7 @@
         <item name="asCameraButtonImg">@drawable/camera_button_red</item>
         <item name="asListsDisclosure">@drawable/lists_disclosure_red</item>
         <item name="asEditRowBackground">@drawable/task_edit_background_white</item>
+        <item name="asEditTabBackground">@drawable/custom_tab_indicator</item>
         <!-- actionbar-styling -->
         <item name="abBackground">@android:color/white</item>
         <item name="abDisplayOptions">useLogo|showHome|showTitle</item>
@@ -344,10 +346,11 @@
     </style> 
     
     <style name="CustomTabPageIndicator" parent="Widget.TabPageIndicator">
-        <item name="android:background">@drawable/custom_tab_indicator</item>
+        <item name="android:background">?attr/asEditTabBackground</item>
+        <item name="android:textColor">#FFFF00FF</item>
     </style>
     <style name="CustomTabPageIndicator.Text" parent="Widget.TabPageIndicator.Text">
-        <item name="android:textColor">#FF555555</item>
+        <item name="android:textColor">#FF00FF00</item>
         <item name="android:textSize">15sp</item>
         <item name="android:textStyle">bold</item>
         <item name="android:layout_marginLeft">5dip</item>

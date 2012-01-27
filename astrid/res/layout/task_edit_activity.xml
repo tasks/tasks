@@ -26,7 +26,7 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="3dip"
                 android:gravity="center_vertical"
-                android:background="@drawable/task_edit_background"
+                style="@style/EditRow"
                 android:orientation="horizontal"
                 android:paddingRight="6dip" >
                 
@@ -58,7 +58,7 @@
                 android:layout_height="fill_parent"
                 android:layout_margin="3dip"
                 android:layout_marginTop="10dip"
-                android:background="@drawable/task_edit_background"
+                style="@style/EditRow"
                 android:orientation="vertical" >
             </LinearLayout>
 
@@ -67,7 +67,7 @@
                 android:layout_width="fill_parent"
                 android:layout_height="fill_parent"
                 android:orientation="vertical"
-                android:background="@drawable/task_edit_background"
+                style="@style/EditRow"
                 android:visibility="gone" >
 -                 
 
@@ -88,7 +88,7 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="3dip"
                 android:layout_marginBottom="0dip"
-                android:background="@drawable/task_edit_background"
+                style="@style/EditRow"
                 android:orientation="vertical"
                 android:visibility="gone">
                 
