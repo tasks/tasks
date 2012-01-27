@@ -39,9 +39,9 @@
         android:id="@+id/completeBox"
         android:layout_width="45dip"
         android:layout_height="fill_parent"
+        android:scaleType="fitCenter"
         android:layout_alignParentTop="true"
-        android:layout_marginLeft="10dip"
-        android:button="@drawable/btn_check" />
+        android:layout_marginLeft="12dip" />
     <!-- assignee photo -->
 
 

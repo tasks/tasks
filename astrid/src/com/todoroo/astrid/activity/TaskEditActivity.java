@@ -34,6 +34,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
+import android.os.Handler;
 import android.speech.RecognizerIntent;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.SupportActivity;
@@ -212,6 +213,16 @@ public final class TaskEditActivity extends Fragment implements
     private TaskEditViewPager mAdapter;
     private TabPageIndicator mIndicator;
 
+    private final Runnable refreshActivity = new Runnable()
+    {
+        @Override
+        public void run()
+        {
+           //Change state here
+            setPagerHeightForPosition(TAB_VIEW_UPDATES);
+        }
+     };
+
     private final List<TaskEditControlSet> controls = Collections.synchronizedList(new ArrayList<TaskEditControlSet>());
 
     // --- other instance variables
@@ -367,7 +378,7 @@ public final class TaskEditActivity extends Fragment implements
 
                 editNotes.addListener(this);
                 if (timerAction != null) {
-                timerAction.addListener(editNotes);
+                    timerAction.addListener(editNotes);
                 }
             }
             else {
@@ -376,11 +387,6 @@ public final class TaskEditActivity extends Fragment implements
             if (mAdapter == null) {
                 mAdapter = new TaskEditViewPager(getActivity());
                 mAdapter.parent = this;
-
-                editNotes = new EditNoteActivity(this, getView(),
-                        idParam);
-                editNotes.setLayoutParams(new FrameLayout.LayoutParams(LayoutParams.FILL_PARENT, LayoutParams.WRAP_CONTENT));
-
 
                 mPager = (ViewPager) getView().findViewById(R.id.pager);
                 mPager.setAdapter(mAdapter);
@@ -393,7 +399,9 @@ public final class TaskEditActivity extends Fragment implements
                 if (editNotes.numberOfComments() == 0) {
                     setCurrentTab(TAB_VIEW_MORE);
                 } else {
-                    setPagerHeightForPosition(TAB_VIEW_UPDATES);
+                    Handler refreshHandler = new Handler();
+                    refreshHandler.postDelayed(refreshActivity, 1000);
+
                 }
                 editNotes.addListener(this);
             }
@@ -1155,6 +1163,7 @@ public final class TaskEditActivity extends Fragment implements
     private void setPagerHeightForPosition(int position) {
         int height = 0;
         View view = (position == TAB_VIEW_MORE) ? moreControls : editNotes;
+        if (view == null || mPager == null) return;
 
         int desiredWidth = MeasureSpec.makeMeasureSpec(view.getWidth(),
                 MeasureSpec.AT_MOST);
