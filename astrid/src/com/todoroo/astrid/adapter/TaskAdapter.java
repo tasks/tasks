@@ -249,6 +249,7 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
         viewHolder.rowBody = (ViewGroup)view.findViewById(R.id.rowBody);
         viewHolder.nameView = (TextView)view.findViewById(R.id.title);
         viewHolder.picture = (AsyncImageView)view.findViewById(R.id.picture);
+        viewHolder.pictureContainer = (View) view.findViewById(R.id.pictureContainer);
         viewHolder.completeBox = (CheckBox)view.findViewById(R.id.completeBox);
         viewHolder.dueDate = (TextView)view.findViewById(R.id.dueDate);
         viewHolder.details1 = (TextView)view.findViewById(R.id.details1);
@@ -302,6 +303,7 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
         public TextView nameView;
         public CheckBox completeBox;
         public AsyncImageView picture;
+        public View pictureContainer;
         public TextView dueDate;
         public TextView details1, details2;
         public LinearLayout taskRow;
@@ -366,8 +368,10 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
         final AsyncImageView pictureView = viewHolder.picture; {
             if(task.getValue(Task.USER_ID) == 0) {
                 pictureView.setVisibility(View.GONE);
+                viewHolder.pictureContainer.setVisibility(View.GONE);
             } else {
                 pictureView.setVisibility(View.VISIBLE);
+                viewHolder.pictureContainer.setVisibility(View.VISIBLE);
                 pictureView.setUrl(null);
                 try {
                     JSONObject user = new JSONObject(task.getValue(Task.USER));

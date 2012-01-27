@@ -5,19 +5,23 @@ import greendroid.widget.AsyncImageView;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 
 import org.json.JSONObject;
 
 import android.app.Activity;
-import android.content.Context;
+import android.content.Intent;
+import android.graphics.Bitmap;
 import android.graphics.Color;
+import android.support.v4.app.Fragment;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.text.format.DateUtils;
 import android.text.util.Linkify;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.View;
@@ -25,6 +29,7 @@ import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -37,6 +42,9 @@ import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.andlib.sql.Query;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.andlib.utility.Preferences;
+import com.todoroo.astrid.actfm.ActFmCameraModule;
+import com.todoroo.astrid.actfm.ActFmCameraModule.CameraResultCallback;
+import com.todoroo.astrid.actfm.ActFmCameraModule.ClearImageCallback;
 import com.todoroo.astrid.actfm.sync.ActFmPreferenceService;
 import com.todoroo.astrid.actfm.sync.ActFmSyncService;
 import com.todoroo.astrid.core.PluginServices;
@@ -50,9 +58,10 @@ import com.todoroo.astrid.service.MetadataService;
 import com.todoroo.astrid.service.StatisticsConstants;
 import com.todoroo.astrid.service.StatisticsService;
 import com.todoroo.astrid.service.SyncV2Service.SyncResultCallback;
+import com.todoroo.astrid.timers.TimerActionControlSet.TimerStoppedListener;
 import com.todoroo.astrid.utility.Flags;
 
-public class EditNoteActivity extends LinearLayout {
+public class EditNoteActivity extends LinearLayout implements TimerStoppedListener {
 
 
 
@@ -71,7 +80,13 @@ public class EditNoteActivity extends LinearLayout {
     private TextView loadingText;
     private final View commentsBar;
     private final View parentView;
+    private View timerView;
+    private View commentButton;
     private int commentItems = 10;
+    private ImageButton pictureButton;
+    private Bitmap picture = null;
+    private final Fragment fragment;
+
     private final List<UpdatesChangedListener> listeners = new LinkedList<UpdatesChangedListener>();
 
     public interface UpdatesChangedListener {
@@ -79,15 +94,17 @@ public class EditNoteActivity extends LinearLayout {
         public void commentAdded();
     }
 
-    public EditNoteActivity(Context context, View parent, long t) {
-        super(context);
+    public EditNoteActivity(Fragment fragment, View parent, long t) {
+        super(fragment.getActivity());
+
+        Log.d("EditnoteActivity", "Contructor being called");
+        this.fragment = fragment;
 
         DependencyInjectionService.getInstance().inject(this);
         setOrientation(VERTICAL);
 
         commentsBar = parent.findViewById(R.id.updatesFooter);
         parentView = parent;
-
 
         loadViewForTaskID(t);
     }
@@ -124,7 +141,10 @@ public class EditNoteActivity extends LinearLayout {
     // --- UI preparation
 
     private void setUpInterface() {
-        final View commentButton = commentsBar.findViewById(R.id.commentButton);
+
+
+        timerView = commentsBar.findViewById(R.id.timer_container);
+        commentButton = commentsBar.findViewById(R.id.commentButton);
         commentField = (EditText) commentsBar.findViewById(R.id.commentField);
         commentField.setOnEditorActionListener(new OnEditorActionListener() {
             @Override
@@ -140,6 +160,7 @@ public class EditNoteActivity extends LinearLayout {
             @Override
             public void afterTextChanged(Editable s) {
                 commentButton.setVisibility((s.length() > 0) ? View.VISIBLE : View.GONE);
+                timerView.setVisibility((s.length() > 0) ? View.GONE : View.VISIBLE);
             }
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -150,6 +171,21 @@ public class EditNoteActivity extends LinearLayout {
                 //
             }
         });
+
+        commentField.setOnFocusChangeListener(new OnFocusChangeListener() {
+
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (hasFocus) {
+                    timerView.setVisibility(View.GONE);
+                    commentButton.setVisibility(View.VISIBLE);
+                }
+                else {
+                    timerView.setVisibility(View.VISIBLE);
+                    commentButton.setVisibility(View.GONE);
+                }
+            }
+        });
         commentButton.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -157,6 +193,24 @@ public class EditNoteActivity extends LinearLayout {
             }
         });
 
+        final ClearImageCallback clearImage = new ClearImageCallback() {
+            @Override
+            public void clearImage() {
+                Log.e("Errrr EditNOtes activity", "Picture clear image called");
+                picture = null;
+                pictureButton.setImageResource(R.drawable.camera_button);
+            }
+        };
+        pictureButton = (ImageButton) commentsBar.findViewById(R.id.picture);
+        pictureButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (picture != null)
+                    ActFmCameraModule.showPictureLauncher(fragment, clearImage);
+                else
+                    ActFmCameraModule.showPictureLauncher(fragment, null);
+            }
+        });
         if(!TextUtils.isEmpty(task.getValue(Task.NOTES))) {
             TextView notes = new TextView(getContext());
             notes.setLinkTextColor(Color.rgb(100, 160, 255));
@@ -168,6 +222,11 @@ public class EditNoteActivity extends LinearLayout {
         //TODO add loading text back in
         //        loadingText = (TextView) findViewById(R.id.loading);
         loadingText = new TextView(getContext());
+
+
+        for (UpdatesChangedListener l : listeners) {
+            l.updatesChanged();
+        }
     }
 
     private void setUpListAdapter() {
@@ -244,9 +303,6 @@ public class EditNoteActivity extends LinearLayout {
         }
 
 
-        for (UpdatesChangedListener l : listeners) {
-            l.updatesChanged();
-        }
     }
 
 
@@ -288,24 +344,17 @@ public class EditNoteActivity extends LinearLayout {
                     DateUtils.FORMAT_ABBREV_RELATIVE);
             date.setText(dateString);
         }
-    }
-    /*
-    @Override
-    public boolean onPrepareOptionsMenu(Menu menu) {
-        if(menu.size() > 0)
-            return true;
 
-        MenuItem item;
-        if(actFmPreferenceService.isLoggedIn()) {
-            item = menu.add(Menu.NONE, MENU_REFRESH_ID, Menu.NONE,
-                    R.string.ENA_refresh_comments);
-            item.setIcon(R.drawable.ic_menu_refresh);
+        // picture
+        final AsyncImageView commentPictureView = (AsyncImageView)view.findViewById(R.id.comment_picture); {
+            if(TextUtils.isEmpty(item.commentPicture))
+                commentPictureView.setVisibility(View.GONE);
+            else {
+                commentPictureView.setVisibility(View.VISIBLE);
+                commentPictureView.setUrl(item.commentPicture);
+            }
         }
-
-        return true;
-    }*/
-
-    // --- events
+    }
 
     public void refreshData(boolean manual, SyncResultCallback existingCallback) {
         final SyncResultCallback callback;
@@ -349,18 +398,40 @@ public class EditNoteActivity extends LinearLayout {
     }
 
     private void addComment() {
+        addComment(commentField.getText().toString(), "task_comment"); //$NON-NLS-1$
+    }
+
+
+    private void addComment(String message, String actionCode) {
         Update update = new Update();
-        update.setValue(Update.MESSAGE, commentField.getText().toString());
-        update.setValue(Update.ACTION_CODE, "task_comment"); //$NON-NLS-1$
+        update.setValue(Update.MESSAGE, message);
+        update.setValue(Update.ACTION_CODE, actionCode);
         update.setValue(Update.USER_ID, 0L);
         update.setValue(Update.TASK, task.getValue(Task.REMOTE_ID));
         update.setValue(Update.CREATION_DATE, DateUtilities.now());
-        Flags.checkAndClear(Flags.ACTFM_SUPPRESS_SYNC);
+
+        Log.d("Add comment", "The picture is: " + picture);
+        if (picture != null) {
+            update.setValue(Update.PICTURE, Update.PICTURE_LOADING);
+        }
+        Flags.set(Flags.ACTFM_SUPPRESS_SYNC);
         updateDao.createNew(update);
 
+        final long updateId = update.getId();
+        final Bitmap tempPicture = picture;
+        new Thread() {
+            @Override
+            public void run() {
+                actFmSyncService.pushUpdate(updateId, tempPicture);
+
+                Log.d("Run thread", "The picture is: " + picture);
+            }
+        }.start();
         commentField.setText(""); //$NON-NLS-1$
         setUpListAdapter();
 
+        picture = null;
+        pictureButton.setImageResource(R.drawable.camera_button);
         StatisticsService.reportEvent(StatisticsConstants.ACTFM_TASK_COMMENT);
 
         for (UpdatesChangedListener l : listeners) {
@@ -371,43 +442,21 @@ public class EditNoteActivity extends LinearLayout {
     public int numberOfComments() {
         return items.size();
     }
-    //TODO figure out what to do with menu
-    /*
-    private final OnClickListener dismissCommentsListener = new OnClickListener() {
-        @Override
-        public void onClick(View v) {
-            finish();
-        }
-    };
-
-    @Override
-    public boolean onMenuItemSelected(int featureId, MenuItem item) {
-        // handle my own menus
-        switch (item.getItemId()) {
-
-        case MENU_REFRESH_ID: {
-            refreshData(true, null);
-            return true;
-        }
-
-        default: return false;
-        }
-    }*/
-
-    // --- adapter
 
     private static class NoteOrUpdate {
         private final String picture;
         private final String title;
         private final String body;
+        private final String commentPicture;
         private final long createdAt;
 
-        public NoteOrUpdate(String picture, String title, String body,
+        public NoteOrUpdate(String picture, String title, String body, String commentPicture,
                 long createdAt) {
             super();
             this.picture = picture;
             this.title = title;
             this.body = body;
+            this.commentPicture = commentPicture;
             this.createdAt = createdAt;
         }
 
@@ -418,6 +467,7 @@ public class EditNoteActivity extends LinearLayout {
             return new NoteOrUpdate(m.getValue(NoteMetadata.THUMBNAIL),
                     m.getValue(NoteMetadata.TITLE),
                     m.getValue(NoteMetadata.BODY),
+                    m.getValue(NoteMetadata.COMMENTPICTURE),
                     m.getValue(Metadata.CREATION_DATE));
         }
 
@@ -431,10 +481,12 @@ public class EditNoteActivity extends LinearLayout {
                 description = message;
             else if(!TextUtils.isEmpty(message))
                 description += " " + message;
+            String commentPicture = u.getValue(Update.PICTURE);
 
             return new NoteOrUpdate(user.optString("picture"),
                     user.optString("name", ""),
                     description,
+                    commentPicture,
                     u.getValue(Update.CREATION_DATE));
         }
 
@@ -452,4 +504,40 @@ public class EditNoteActivity extends LinearLayout {
         if (listeners.contains(listener))
             listeners.remove(listener);
     }
+
+    @Override
+    public void timerStarted(Task task) {
+        // TODO Auto-generated method stub
+        addComment(getContext().getString(R.string.TEA_timer_comment_started) + " " + DateUtilities.getTimeString(getContext(), new Date()), "task_started");  //$NON-NLS-1$
+
+    }
+
+    @Override
+    public void timerStopped(Task task) {
+        // TODO Auto-generated method stub
+        String elapsedTime = DateUtils.formatElapsedTime(task.getValue(Task.ELAPSED_SECONDS));
+        addComment(getContext().getString(R.string.TEA_timer_comment_stopped) + " " +
+                DateUtilities.getTimeString(getContext(), new Date()) + "\n" + getContext().getString(R.string.TEA_timer_comment_spent) + " " + elapsedTime, "task_stopped");  //$NON-NLS-1$
+
+    }
+
+    /*
+     * Callback from edittask when picture is added
+     */
+    public boolean activityResult(int requestCode, int resultCode, Intent data) {
+
+        Log.d("Activity result", "Called on camera for request code: " + requestCode);
+        CameraResultCallback callback = new CameraResultCallback() {
+            @Override
+            public void handleCameraResult(Bitmap bitmap) {
+                picture = bitmap;
+                pictureButton.setImageBitmap(picture);
+                Log.d("Picture", "Picture = " + picture);
+            }
+        };
+
+        return (ActFmCameraModule.activityResult((Activity)getContext(), requestCode, resultCode, data, callback));
+            //Handled
+    }
+
 }

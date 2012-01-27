@@ -47,6 +47,17 @@
 	        android:paddingLeft="50dip"
 	        android:textSize="14sp" />
 	        
+	    
+        <!-- picture -->
+        <greendroid.widget.AsyncImageView android:id="@+id/comment_picture"
+            android:layout_width="100dip"
+            android:layout_height="100dip"
+            android:layout_below="@id/description"
+            android:paddingTop="5dip" 
+            astrid:defaultSrc="@drawable/icn_default_person_image"
+            android:scaleType="fitCenter"
+            android:visibility="gone" />
+        
 	    <!-- activity date -->
 	    <TextView android:id="@+id/date"
 	        android:layout_width="75dip"

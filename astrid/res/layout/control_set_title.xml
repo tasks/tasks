@@ -51,40 +51,5 @@
 			  android:freezesText="true"/>
 		</LinearLayout>
 		
-	    
-	    
-		<LinearLayout
-		    android:layout_width="40dip"
-		    android:layout_height="35dip"
-			android:layout_marginLeft="5dip"
-		    android:gravity="center_horizontal"
-		    android:orientation="vertical"
-		    android:layout_weight="1"
-		    android:visibility="gone">
-			<Button
-			    android:id="@+id/timer_button"
-			    android:layout_width="25dip"
-			    android:layout_height="25dip"
-			    android:layout_weight="1"/>
-			<Chronometer 
-			    android:id="@+id/timer"
-		       	android:layout_width="fill_parent"
-		       	android:layout_height="wrap_content"
-		       	android:layout_weight="2"
-		       	android:gravity="center_horizontal"
-		       	android:visibility="visible"
-		       	android:textColor="@color/task_edit_details"
-		       	android:textSize="10sp" />
-		   <TextView 
-		       	android:id="@+id/timer_label"
-		       	android:layout_width="fill_parent"
-		       	android:layout_height="wrap_content"
-		       	android:layout_weight="2"
-		       	android:gravity="center_horizontal"
-		       	android:textColor="@color/task_edit_details"
-		       	android:textSize="10sp" 
-		       	android:visibility="gone"/>
-		   
-		</LinearLayout>
 	</LinearLayout>
 </LinearLayout>

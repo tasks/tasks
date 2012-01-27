@@ -23,10 +23,14 @@ public class NoteMetadata {
     /** note thumbnail URL */
     public static final StringProperty THUMBNAIL = Metadata.VALUE3;
 
+    /** note external id (use for your own purposes) */
+    public static final StringProperty COMMENTPICTURE = Metadata.VALUE6;
+
     /** note external provider (use for your own purposes) */
     public static final StringProperty EXT_PROVIDER = Metadata.VALUE4;
 
     /** note external id (use for your own purposes) */
     public static final StringProperty EXT_ID = Metadata.VALUE5;
+
 
 }

@@ -22,4 +22,14 @@
     <!-- Title for TEA -->
     <string name="TEA_timer_controls">Timer Controls</string>
     
+    
+    <!-- Edit Notes: create comment for when timer is started -->
+    <string name="TEA_timer_comment_started">started this task:</string>
+    
+    <!-- Edit Notes: create comment for when timer is stopped -->
+    <string name="TEA_timer_comment_stopped">stopped doing this task:</string>
+    
+    <!-- Edit Notes: comment to notify how long was spent on task -->
+    <string name="TEA_timer_comment_spent">Time spent:</string>
+    
 </resources>

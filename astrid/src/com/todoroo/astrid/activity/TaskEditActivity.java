@@ -137,6 +137,16 @@ public final class TaskEditActivity extends Fragment implements
     private static final String TASK_IN_PROGRESS = "task_in_progress"; //$NON-NLS-1$
 
     /**
+     * Task remote id (during orientation change)
+     */
+    private static final String TASK_REMOTE_ID = "task_remote_id"; //$NON-NLS-1$
+
+    /**
+     * Task remote id (during orientation change)
+     */
+    private static final String MORE_EXPANDED = "more_expanded"; //$NON-NLS-1$
+
+    /**
      * Tab to start on
      */
     public static final String TOKEN_TAB = "tab"; //$NON-NLS-1$
@@ -204,6 +214,7 @@ public final class TaskEditActivity extends Fragment implements
     private EditNotesControlSet notesControlSet = null;
     private HideUntilControlSet hideUntilControls = null;
     private TagsControlSet tagsControlSet = null;
+    private TimerActionControlSet timerAction;
     private EditText title;
     private TaskEditMoreControls moreControls;
     private EditNoteActivity editNotes;
@@ -241,6 +252,7 @@ public final class TaskEditActivity extends Fragment implements
 
     private long remoteId = 0;
 
+    private boolean moreExpanded = false;
     /*
      * ======================================================================
      * ======================================================= initialization
@@ -285,6 +297,13 @@ public final class TaskEditActivity extends Fragment implements
             if (task != null) {
                 model = task;
             }
+            if (savedInstanceState.containsKey(TASK_REMOTE_ID)) {
+                remoteId = savedInstanceState.getLong(TASK_REMOTE_ID);
+            }
+            if (savedInstanceState.containsKey(MORE_EXPANDED)) {
+                moreExpanded = savedInstanceState.getBoolean(MORE_EXPANDED);
+            }
+
         }
 
         getActivity().setResult(Activity.RESULT_OK);
@@ -348,15 +367,27 @@ public final class TaskEditActivity extends Fragment implements
         View more_section = (View) getView().findViewById(R.id.more_header);
         View commentsBar = (View) getView().findViewById(R.id.updatesFooter);
 
-        if (remoteId > 0) {
+        long idParam = getActivity().getIntent().getLongExtra(TOKEN_ID,
+                -1L);
+        if (remoteId > 0 && idParam > -1L) {
+            if (editNotes == null) {
+                editNotes = new EditNoteActivity(this, getView(),
+                        idParam);
+                editNotes.setLayoutParams(new FrameLayout.LayoutParams(LayoutParams.FILL_PARENT, LayoutParams.WRAP_CONTENT));
 
+                editNotes.addListener(this);
+                if (timerAction != null) {
+                timerAction.addListener(editNotes);
+                }
+            }
+            else {
+                editNotes.loadViewForTaskID(idParam);
+            }
             if (mAdapter == null) {
                 mAdapter = new TaskEditViewPager(getActivity());
                 mAdapter.parent = this;
 
-                long idParam = getActivity().getIntent().getLongExtra(TOKEN_ID,
-                        -1L);
-                editNotes = new EditNoteActivity(getActivity(), getView(),
+                editNotes = new EditNoteActivity(this, getView(),
                         idParam);
                 editNotes.setLayoutParams(new FrameLayout.LayoutParams(LayoutParams.FILL_PARENT, LayoutParams.WRAP_CONTENT));
 
@@ -386,8 +417,16 @@ public final class TaskEditActivity extends Fragment implements
 
         } else {
 
-            if (moreControls.getParent() != null && moreControls.getParent() != more_section) {
-                ((ViewGroup) moreControls.getParent()).removeView(moreControls);
+            if (moreControls.getParent() != null) {
+                if (moreControls.getParent() == more_section) {
+                    setPagerHeightForPosition(TAB_VIEW_MORE);
+                }
+                else {
+                    ((ViewGroup) moreControls.getParent()).removeView(moreControls);
+                }
+            }
+            if (moreExpanded){
+                autoExpandMore();
             }
             more_section.setVisibility(View.VISIBLE);
             more_tab.setVisibility(View.GONE);
@@ -423,8 +462,8 @@ public final class TaskEditActivity extends Fragment implements
         controls.add(editTitle);
         titleControls.addView(editTitle.getDisplayView(), 0, new LinearLayout.LayoutParams(LayoutParams.FILL_PARENT, LayoutParams.WRAP_CONTENT, 1.0f));
 
-        TimerActionControlSet timerAction = new TimerActionControlSet(
-                getActivity(), editTitle.getView());
+        timerAction = new TimerActionControlSet(
+                getActivity(), getView());
         controls.add(timerAction);
 
         controls.add(peopleControlSet = new EditPeopleControlSet(getActivity(),
@@ -499,7 +538,7 @@ public final class TaskEditActivity extends Fragment implements
                 R.layout.control_set_timers,
                 R.layout.control_set_default_display,
                 R.string.TEA_timer_controls);
-        timerAction.setListener(timerControl);
+        timerAction.addListener(timerControl);
         controls.add(timerControl);
         controlSetMap.put(getString(R.string.TEA_ctrl_timer_pref), timerControl);
 
@@ -592,11 +631,7 @@ public final class TaskEditActivity extends Fragment implements
             public void onClick(View v) {
                 fadeIn.setDuration(300);
                 fadeOut.setDuration(300);
-                LinearLayout moreHeader = (LinearLayout) getView().findViewById(
-                        R.id.more_header);
-                moreHeader.removeAllViews();
-                moreHeader.addView(moreControls);
-                moreHeader.setOnClickListener(null);
+                autoExpandMore();
             }
         };
         // set up save, cancel, and delete buttons
@@ -607,6 +642,15 @@ public final class TaskEditActivity extends Fragment implements
             // error loading the proper activity
         }
 
+    }
+
+    private void autoExpandMore() {
+        moreExpanded = true;
+        LinearLayout moreHeader = (LinearLayout) getView().findViewById(
+                R.id.more_header);
+        moreHeader.removeAllViews();
+        moreHeader.addView(moreControls);
+        moreHeader.setOnClickListener(null);
     }
 
     private void constructWhenDialog(View whenDialogView) {
@@ -750,6 +794,8 @@ public final class TaskEditActivity extends Fragment implements
     /** Convenience method to populate fields after setting model to null */
     public void repopulateFromScratch(Intent intent) {
         model = null;
+        remoteId = 0;
+        moreExpanded = false;
         populateFields(intent);
     }
 
@@ -1005,13 +1051,17 @@ public final class TaskEditActivity extends Fragment implements
             item.setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
 
 
-        if(actFmPreferenceService.isLoggedIn() && remoteId > 0) {
-            item = menu.add(Menu.NONE, MENU_COMMENTS_REFRESH_ID, Menu.NONE,
+    }
+
+    @Override
+    public void onPrepareOptionsMenu (Menu menu) {
+        if(actFmPreferenceService.isLoggedIn() && remoteId > 0 && menu.findItem(MENU_COMMENTS_REFRESH_ID) == null) {
+            MenuItem item = menu.add(Menu.NONE, MENU_COMMENTS_REFRESH_ID, Menu.NONE,
                     R.string.ENA_refresh_comments);
             item.setIcon(R.drawable.ic_menu_refresh);
         }
+        super.onPrepareOptionsMenu(menu);
     }
-
     @Override
     public void onPause() {
         super.onPause();
@@ -1035,6 +1085,10 @@ public final class TaskEditActivity extends Fragment implements
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        Log.d("Activity !!!", "Called on camera for request code: " + requestCode + "EditNOtes: " + editNotes.toString());
+        if (editNotes.activityResult(requestCode, resultCode, data)) {
+            return;
+        }
         if (requestCode == REQUEST_VOICE_RECOG
                 && resultCode == Activity.RESULT_OK) {
             // handle the result of voice recognition, put it into the
@@ -1060,6 +1114,8 @@ public final class TaskEditActivity extends Fragment implements
 
         // stick our task into the outState
         outState.putParcelable(TASK_IN_PROGRESS, model);
+        outState.putLong(TASK_REMOTE_ID, remoteId);
+        outState.putBoolean(MORE_EXPANDED, moreExpanded);
     }
 
     @Override

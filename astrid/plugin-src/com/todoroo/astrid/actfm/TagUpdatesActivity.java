@@ -125,7 +125,7 @@ public class TagUpdatesActivity extends ListActivity {
             @Override
             public void clearImage() {
                 picture = null;
-                pictureButton.setImageResource(R.drawable.icn_camera);
+                pictureButton.setImageResource(R.drawable.camera_button);
             }
         };
         pictureButton = (ImageButton) findViewById(R.id.picture);
@@ -246,7 +246,7 @@ public class TagUpdatesActivity extends ListActivity {
         }.start();
         addCommentField.setText(""); //$NON-NLS-1$
         picture = null;
-        pictureButton.setImageResource(R.drawable.icn_camera);
+        pictureButton.setImageResource(R.drawable.camera_button);
         refreshUpdatesList();
 
         StatisticsService.reportEvent(StatisticsConstants.ACTFM_TAG_COMMENT);
