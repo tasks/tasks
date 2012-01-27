@@ -43,7 +43,6 @@ import android.support.v4.view.ViewPager;
 import android.text.TextUtils;
 import android.util.DisplayMetrics;
 import android.util.Log;
-import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.MenuInflater;
@@ -61,7 +60,6 @@ import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.timsu.astrid.R;
@@ -117,7 +115,7 @@ import com.viewpagerindicator.TabPageIndicator;
 public final class TaskEditActivity extends Fragment implements
         ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
 
-    public static final String TAG_TASKEDIT_FRAGMENT = "taskedit_fragment";
+    public static final String TAG_TASKEDIT_FRAGMENT = "taskedit_fragment"; //$NON-NLS-1$
 
     // --- bundle tokens
 
@@ -168,14 +166,6 @@ public final class TaskEditActivity extends Fragment implements
     public static final int RESULT_CODE_SAVED = Activity.RESULT_FIRST_USER;
     public static final int RESULT_CODE_DISCARDED = Activity.RESULT_FIRST_USER + 1;
     public static final int RESULT_CODE_DELETED = Activity.RESULT_FIRST_USER + 2;
-
-    public static final String TAB_BASIC = "basic"; //$NON-NLS-1$
-
-    public static final String TAB_SHARE = "share"; //$NON-NLS-1$
-
-    public static final String TAB_ALARMS = "alarms"; //$NON-NLS-1$
-
-    public static final String TAB_MORE = "more"; //$NON-NLS-1$
 
     public static final String OVERRIDE_FINISH_ANIM = "finishAnim"; //$NON-NLS-1$
 
@@ -581,7 +571,7 @@ public final class TaskEditActivity extends Fragment implements
         String shareViewDescriptor = getString(R.string.TEA_ctrl_share_pref);
         String titleViewDescriptor = getString(R.string.TEA_ctrl_title_pref);
         LinearLayout section = basicControls;
-        int controlWidth = basicControls.getLayoutParams().width;
+
         for (int i = 0; i < itemOrder.length; i++) {
             String item = itemOrder[i];
             if (item.equals(moreSectionTrigger)) {
@@ -858,7 +848,7 @@ public final class TaskEditActivity extends Fragment implements
         }
     }
 
-    public boolean onKeyDown(int keyCode, KeyEvent event) {
+    public boolean onKeyDown(int keyCode) {
         if (keyCode == KeyEvent.KEYCODE_BACK) {
             if (title.getText().length() == 0)
                 discardButtonClick();
@@ -1047,7 +1037,7 @@ public final class TaskEditActivity extends Fragment implements
 
         item = menu.add(Menu.NONE, MENU_DELETE_ID, 0, R.string.TEA_menu_delete);
         item.setIcon(android.R.drawable.ic_menu_delete);
-        if (((AstridWrapperActivity) getActivity()).isMultipleFragments())
+        if (((AstridWrapperActivity) getActivity()).getFragmentLayout() != AstridWrapperActivity.LAYOUT_SINGLE)
             item.setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
 
 
@@ -1085,7 +1075,6 @@ public final class TaskEditActivity extends Fragment implements
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        Log.d("Activity !!!", "Called on camera for request code: " + requestCode + "EditNOtes: " + editNotes.toString());
         if (editNotes.activityResult(requestCode, resultCode, data)) {
             return;
         }
@@ -1153,27 +1142,13 @@ public final class TaskEditActivity extends Fragment implements
             moreControls.setLayoutParams(mPager.getLayoutParams());
             setViewHeightBasedOnChildren(moreControls);
 
-            // setPagerHeightForView(editNotes, moreControls);
             return moreControls;
         } else if (position == 0) {
 
-            // setPagerHeightForView(editNotes, moreControls);
             return editNotes;
         } else {
 
-            TextView text = new TextView(getActivity());
-            text.setGravity(Gravity.CENTER);
-            text.setText("Activity");
-            text.setTextSize(20 * getResources().getDisplayMetrics().density);
-            text.setPadding(20, 20, 20, 20);
-
-            LinearLayout layout = new LinearLayout(getActivity());
-            layout.setLayoutParams(new LayoutParams(LayoutParams.FILL_PARENT,
-                    LayoutParams.WRAP_CONTENT));
-            layout.setGravity(Gravity.CENTER);
-            layout.addView(text);
-
-            return layout;
+            return null;
         }
     }
 

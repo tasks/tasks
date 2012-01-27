@@ -19,10 +19,12 @@
         <item name="asFilterHeaderBackground">@drawable/edit_titlebar</item>
         <item name="asMembersHeaderBackground">@drawable/ios_fabric_480_dark</item>
         <item name="asSeparatorBackground">#888888</item>
-        <item name="asAddButtonImg">@drawable/plus_button_gray</item>
+        <item name="asAddButtonImg">@drawable/plus_button_red</item>
         <item name="asMicButtonImg">@drawable/mic_button_gray</item>
         <item name="asCameraButtonImg">@drawable/camera_button_gray</item>
         <item name="asListsDisclosure">@drawable/lists_disclosure_gray</item>
+        <item name="asEditBackground">#272327</item>
+        <item name="asEditRowBackground">@drawable/task_edit_background</item>
         <!-- actionbar-styling -->
         <item name="abBackground">@drawable/header_background</item>
         <item name="abDisplayOptions">useLogo|showHome|showTitle</item>
@@ -34,6 +36,7 @@
     
     <style name="Theme.Transparent" parent="@style/Theme">
 		<item name="asContentBackground">@drawable/background_transparent</item>
+        <item name="asEditBackground">#33272327</item>
         <item name="android:windowIsTranslucent">true</item>
         <item name="android:windowAnimationStyle">@android:style/Animation.Translucent</item>
         <item name="asMembersHeaderBackground">@android:color/transparent</item>
@@ -57,6 +60,7 @@
         
     <style name="Theme.White" parent="@style/Theme.Sherlock.Light">
         <item name="asContentBackground">@drawable/background_white</item>
+        <item name="asEditBackground">#f7f3f7</item>
         <item name="asHeaderBackground">@drawable/header_background_white</item>
         <item name="asHeaderButtonBackground">@drawable/header_button_white</item>
         <item name="asTextColor">#ff000000</item>
@@ -69,6 +73,7 @@
         <item name="asMicButtonImg">@drawable/mic_button_red</item>
         <item name="asCameraButtonImg">@drawable/camera_button_red</item>
         <item name="asListsDisclosure">@drawable/lists_disclosure_red</item>
+        <item name="asEditRowBackground">@drawable/task_edit_background_white</item>
         <!-- actionbar-styling -->
         <item name="abBackground">@android:color/white</item>
         <item name="abDisplayOptions">useLogo|showHome|showTitle</item>
@@ -208,6 +213,14 @@
     </style>
 
     <!-- =============================================== TaskEditActivity == -->
+    
+    <style name="Content_EditScroll">
+        <item name="android:background">?attr/asEditBackground</item>
+    </style>
+    
+    <style name="EditRow">
+        <item name="android:background">?attr/asEditRowBackground</item>
+    </style>
     
    	<style name="EditRowImage">
    	    <item name="android:layout_width">25dip</item>

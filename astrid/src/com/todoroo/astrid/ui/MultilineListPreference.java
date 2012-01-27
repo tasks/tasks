@@ -12,7 +12,11 @@ public class MultilineListPreference extends ListPreference {
 
     @Override
     protected void onBindView(View view) {
-        super.onBindView(view);
+        try {
+            super.onBindView(view);
+        } catch (Exception e) {
+            // happens on 4.0 emulators
+        }
         MultilineHelper.makeMultiline(view);
     }
 }

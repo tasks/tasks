@@ -9,11 +9,10 @@
 
     <ScrollView
         android:id="@+id/edit_scroll"
-        style="@style/Content"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         android:layout_weight="100"
-        android:background="#f7f3f7" >
+        style="@style/Content_EditScroll" >
 
         <LinearLayout
             android:layout_width="fill_parent"
@@ -92,6 +91,7 @@
                 android:background="@drawable/task_edit_background"
                 android:orientation="vertical"
                 android:visibility="gone">
+                
                 <com.viewpagerindicator.TabPageIndicator
                     android:id="@+id/indicator"
                     android:layout_width="fill_parent"
@@ -109,6 +109,7 @@
                     android:id="@+id/pager"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content" />
+                    
             </LinearLayout>
         </LinearLayout>
     </ScrollView>
@@ -120,7 +121,7 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_weight="1"
-        android:background="#fff"
+        style="@style/Content"
         android:minHeight="47dip"
         android:orientation="horizontal"
         android:padding="3dip" >

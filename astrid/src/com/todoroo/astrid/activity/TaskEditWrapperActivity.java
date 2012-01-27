@@ -50,7 +50,7 @@ public class TaskEditWrapperActivity extends AstridWrapperActivity {
         TaskEditActivity frag = (TaskEditActivity) getSupportFragmentManager()
                 .findFragmentByTag(TaskEditActivity.TAG_TASKEDIT_FRAGMENT);
         if (frag != null && frag.isInLayout())
-            return frag.onKeyDown(keyCode, event);
+            return frag.onKeyDown(keyCode);
         return super.onKeyDown(keyCode, event);
     }
 

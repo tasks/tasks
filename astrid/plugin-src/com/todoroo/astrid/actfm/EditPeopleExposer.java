@@ -57,7 +57,6 @@ public class EditPeopleExposer extends BroadcastReceiver {
         } else if(ACTION.equals(intent.getAction())) {
             Intent launchIntent = new Intent(context, TaskEditWrapperActivity.class);
             launchIntent.putExtra(TaskEditActivity.TOKEN_ID, taskId);
-            launchIntent.putExtra(TaskEditActivity.TOKEN_TAB, TaskEditActivity.TAB_SHARE);
             launchIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             ContextManager.getContext().startActivity(launchIntent);
         }

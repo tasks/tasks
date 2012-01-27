@@ -254,18 +254,6 @@
   <!-- Title when creating a new task -->
   <string name="TEA_view_titleNew">New Task</string>
   
-  <!-- First Tab - basic task details -->
-  <string name="TEA_tab_basic">Basic</string>
-  
-  <!-- Second Tab - extra details -->
-  <string name="TEA_tab_share">Share</string>
-  
-  <!-- Second Tab - extra details -->
-  <string name="TEA_tab_alarms">Alarms</string>
-  
-  <!-- Third Tab - add-ons -->
-  <string name="TEA_tab_more">More</string>
-  
   <!-- Task title label -->
   <string name="TEA_title_label">Title</string>
   
