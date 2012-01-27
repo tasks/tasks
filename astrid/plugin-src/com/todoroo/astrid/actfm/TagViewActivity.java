@@ -394,7 +394,7 @@ public class TagViewActivity extends TaskListActivity {
         public void onReceive(Context context, Intent intent) {
             if(!intent.hasExtra("tag_id"))
                 return;
-            if(!Long.toString(tagData.getValue(TagData.REMOTE_ID)).equals(intent.getStringExtra("tag_id")))
+            if(tagData == null || !Long.toString(tagData.getValue(TagData.REMOTE_ID)).equals(intent.getStringExtra("tag_id")))
                 return;
 
             getActivity().runOnUiThread(new Runnable() {

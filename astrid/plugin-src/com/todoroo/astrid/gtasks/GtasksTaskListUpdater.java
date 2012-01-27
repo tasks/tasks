@@ -335,17 +335,20 @@ public class GtasksTaskListUpdater {
         TodorooCursor<Metadata> metadata = metadataDao.query(Query.select(Metadata.PROPERTIES)
                 .where(Criterion.and(Metadata.KEY.eq(GtasksMetadata.METADATA_KEY), GtasksMetadata.LIST_ID.eq(listId), GtasksMetadata.PARENT_TASK.eq(parent)))
                 .orderBy(Order.asc(GtasksMetadata.GTASKS_ORDER)));
+        try {
+            if (metadata.getCount() > 0) {
+                Metadata curr = new Metadata();
+                for (metadata.moveToFirst(); !metadata.isAfterLast(); metadata.moveToNext()) {
+                    curr.readFromCursor(metadata);
+                    curr.setValue(GtasksMetadata.INDENT, indentLevel);
+                    curr.setValue(GtasksMetadata.ORDER, order.getAndIncrement());
+                    metadataDao.saveExisting(curr);
 
-        if (metadata.getCount() > 0) {
-            Metadata curr = new Metadata();
-            for (metadata.moveToFirst(); !metadata.isAfterLast(); metadata.moveToNext()) {
-                curr.readFromCursor(metadata);
-                curr.setValue(GtasksMetadata.INDENT, indentLevel);
-                curr.setValue(GtasksMetadata.ORDER, order.getAndIncrement());
-                metadataDao.saveExisting(curr);
-
-                orderAndIndentHelper(listId, order, curr.getValue(Metadata.TASK), indentLevel + 1);
+                    orderAndIndentHelper(listId, order, curr.getValue(Metadata.TASK), indentLevel + 1);
+                }
             }
+        } finally {
+            metadata.close();
         }
     }
 
