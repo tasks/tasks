@@ -2,6 +2,7 @@ package com.todoroo.astrid.activity;
 
 import android.app.PendingIntent.CanceledException;
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
@@ -15,6 +16,7 @@ import com.todoroo.astrid.api.FilterListItem;
 import com.todoroo.astrid.api.FilterWithCustomIntent;
 import com.todoroo.astrid.api.IntentFilter;
 import com.todoroo.astrid.core.SearchFilter;
+import com.todoroo.astrid.service.StartupService;
 import com.todoroo.astrid.service.StatisticsConstants;
 import com.todoroo.astrid.service.StatisticsService;
 
@@ -59,6 +61,14 @@ public class AstridWrapperActivity extends FragmentActivity
                 .findFragmentByTag(TaskEditActivity.TAG_TASKEDIT_FRAGMENT);
 
         return frag;
+    }
+
+
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        new StartupService().onStartupApplication(this);
     }
 
     @Override

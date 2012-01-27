@@ -112,6 +112,8 @@ public class StartupService {
         Crittercism.init(context.getApplicationContext(), Constants.CRITTERCISM_APP_ID,
                 Constants.CRITTERCISM_OATH_KEY, Constants.CRITTERCISM_SECRET, StatisticsService.dontCollectStatistics());
 
+        database.openForWriting();
+
         // show notification if reminders are silenced
         if(context instanceof Activity) {
             AudioManager audioManager = (AudioManager)context.getSystemService(
@@ -183,7 +185,6 @@ public class StartupService {
                 am.setInexactRepeating(AlarmManager.RTC, 0,
                         Constants.WIDGET_UPDATE_INTERVAL, pendingIntent);
 
-                database.openForWriting();
                 taskService.cleanup();
 
                 // if sync ongoing flag was set, clear it
