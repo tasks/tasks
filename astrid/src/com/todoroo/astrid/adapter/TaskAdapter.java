@@ -54,6 +54,7 @@ import android.view.animation.ScaleAnimation;
 import android.widget.CheckBox;
 import android.widget.CursorAdapter;
 import android.widget.Filterable;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
@@ -127,6 +128,14 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
         R.drawable.importance_check_2, //task_indicator_1,
         R.drawable.importance_check_3, //task_indicator_2,
         R.drawable.importance_check_4, //task_indicator_3,
+    };
+
+
+    public static int[] IMPORTANCE_RESOURCES_LARGE = new int[] {
+        R.drawable.check_box_large_1, //task_indicator_0,
+        R.drawable.check_box_large_2, //task_indicator_1,
+        R.drawable.check_box_large_3, //task_indicator_2,
+        R.drawable.check_box_large_4, //task_indicator_3,
     };
 
     public static int[] IMPORTANCE_REPEAT_RESOURCES = new int[] {
@@ -250,12 +259,20 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
         viewHolder.rowBody = (ViewGroup)view.findViewById(R.id.rowBody);
         viewHolder.nameView = (TextView)view.findViewById(R.id.title);
         viewHolder.picture = (AsyncImageView)view.findViewById(R.id.picture);
-        viewHolder.pictureContainer = (View) view.findViewById(R.id.pictureContainer);
+        viewHolder.pictureBorder = (ImageView)view.findViewById(R.id.pictureBorder);
         viewHolder.completeBox = (CheckBox)view.findViewById(R.id.completeBox);
         viewHolder.dueDate = (TextView)view.findViewById(R.id.dueDate);
         viewHolder.details1 = (TextView)view.findViewById(R.id.details1);
         viewHolder.details2 = (TextView)view.findViewById(R.id.details2);
         viewHolder.taskRow = (LinearLayout)view.findViewById(R.id.task_row);
+
+
+        if (Preferences.getBoolean(R.string.p_default_showfulltitle_key, false)) {
+            viewHolder.nameView.setMaxLines(Integer.MAX_VALUE);
+            LayoutParams containerParams = view.getLayoutParams();
+            containerParams.height = LayoutParams.WRAP_CONTENT;
+            view.setLayoutParams(containerParams);
+        }
 
         view.setTag(viewHolder);
         for(int i = 0; i < view.getChildCount(); i++)
@@ -304,7 +321,7 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
         public TextView nameView;
         public CheckBox completeBox;
         public AsyncImageView picture;
-        public View pictureContainer;
+        public ImageView pictureBorder;
         public TextView dueDate;
         public TextView details1, details2;
         public LinearLayout taskRow;
@@ -321,6 +338,7 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
         // name
         final TextView nameView = viewHolder.nameView; {
             String nameValue = task.getValue(Task.TITLE);
+
             long hiddenUntil = task.getValue(Task.HIDE_UNTIL);
             if(task.getValue(Task.DELETION_DATE) > 0)
                 nameValue = r.getString(R.string.TAd_deletedFormat, nameValue);
@@ -369,10 +387,10 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
         final AsyncImageView pictureView = viewHolder.picture; {
             if(task.getValue(Task.USER_ID) == 0) {
                 pictureView.setVisibility(View.GONE);
-                viewHolder.pictureContainer.setVisibility(View.GONE);
+                viewHolder.pictureBorder.setVisibility(View.GONE);
             } else {
                 pictureView.setVisibility(View.VISIBLE);
-                viewHolder.pictureContainer.setVisibility(View.VISIBLE);
+                viewHolder.pictureBorder.setVisibility(View.VISIBLE);
                 pictureView.setUrl(null);
                 try {
                     JSONObject user = new JSONObject(task.getValue(Task.USER));
@@ -390,13 +408,12 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
                 value = IMPORTANCE_RESOURCES.length - 1;
             if (!TextUtils.isEmpty(task.getValue(Task.RECURRENCE))) {
                 checkBoxView.setButtonDrawable(IMPORTANCE_REPEAT_RESOURCES[value]);
-                pictureView.setBackgroundResource(IMPORTANCE_REPEAT_RESOURCES[value]);
             } else {
                 checkBoxView.setButtonDrawable(IMPORTANCE_RESOURCES[value]);
-                pictureView.setBackgroundResource(IMPORTANCE_RESOURCES[value]);
             }
             if (pictureView.getVisibility() == View.VISIBLE) {
                 checkBoxView.setVisibility(View.INVISIBLE);
+                viewHolder.pictureBorder.setBackgroundResource(IMPORTANCE_RESOURCES_LARGE[value]);
             } else {
                 checkBoxView.setVisibility(View.VISIBLE);
             }

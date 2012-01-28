@@ -56,6 +56,7 @@
             android:paddingTop="5dip" 
             astrid:defaultSrc="@drawable/icn_default_person_image"
             android:scaleType="fitCenter"
+            android:layout_marginLeft="50dip"
             android:visibility="gone" />
         
 	    <!-- activity date -->

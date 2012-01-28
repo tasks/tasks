@@ -24,7 +24,7 @@ public class NoteMetadata {
     public static final StringProperty THUMBNAIL = Metadata.VALUE3;
 
     /** note external id (use for your own purposes) */
-    public static final StringProperty COMMENTPICTURE = Metadata.VALUE6;
+    public static final StringProperty COMMENT_PICTURE = Metadata.VALUE6;
 
     /** note external provider (use for your own purposes) */
     public static final StringProperty EXT_PROVIDER = Metadata.VALUE4;

@@ -21,7 +21,6 @@ import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.text.format.DateUtils;
 import android.text.util.Linkify;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.View;
@@ -58,10 +57,10 @@ import com.todoroo.astrid.service.MetadataService;
 import com.todoroo.astrid.service.StatisticsConstants;
 import com.todoroo.astrid.service.StatisticsService;
 import com.todoroo.astrid.service.SyncV2Service.SyncResultCallback;
-import com.todoroo.astrid.timers.TimerActionControlSet.TimerStoppedListener;
+import com.todoroo.astrid.timers.TimerActionControlSet.TimerActionListener;
 import com.todoroo.astrid.utility.Flags;
 
-public class EditNoteActivity extends LinearLayout implements TimerStoppedListener {
+public class EditNoteActivity extends LinearLayout implements TimerActionListener {
 
 
 
@@ -84,7 +83,7 @@ public class EditNoteActivity extends LinearLayout implements TimerStoppedListen
     private View commentButton;
     private int commentItems = 10;
     private ImageButton pictureButton;
-    private Bitmap picture = null;
+    private Bitmap pendingCommentPicture = null;
     private final Fragment fragment;
 
     private final List<UpdatesChangedListener> listeners = new LinkedList<UpdatesChangedListener>();
@@ -97,7 +96,6 @@ public class EditNoteActivity extends LinearLayout implements TimerStoppedListen
     public EditNoteActivity(Fragment fragment, View parent, long t) {
         super(fragment.getActivity());
 
-        Log.d("EditnoteActivity", "Contructor being called");
         this.fragment = fragment;
 
         DependencyInjectionService.getInstance().inject(this);
@@ -196,8 +194,7 @@ public class EditNoteActivity extends LinearLayout implements TimerStoppedListen
         final ClearImageCallback clearImage = new ClearImageCallback() {
             @Override
             public void clearImage() {
-                Log.e("Errrr EditNOtes activity", "Picture clear image called");
-                picture = null;
+                pendingCommentPicture = null;
                 pictureButton.setImageResource(R.drawable.camera_button);
             }
         };
@@ -205,7 +202,7 @@ public class EditNoteActivity extends LinearLayout implements TimerStoppedListen
         pictureButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (picture != null)
+                if (pendingCommentPicture != null)
                     ActFmCameraModule.showPictureLauncher(fragment, clearImage);
                 else
                     ActFmCameraModule.showPictureLauncher(fragment, null);
@@ -224,9 +221,6 @@ public class EditNoteActivity extends LinearLayout implements TimerStoppedListen
         loadingText = new TextView(getContext());
 
 
-        for (UpdatesChangedListener l : listeners) {
-            l.updatesChanged();
-        }
     }
 
     private void setUpListAdapter() {
@@ -277,7 +271,6 @@ public class EditNoteActivity extends LinearLayout implements TimerStoppedListen
             this.addView(notesView);
         }
 
-
         if ( items.size() > commentItems) {
             Button loadMore = new Button(getContext());
             loadMore.setText(R.string.TEA_load_more);
@@ -303,6 +296,9 @@ public class EditNoteActivity extends LinearLayout implements TimerStoppedListen
         }
 
 
+        for (UpdatesChangedListener l : listeners) {
+            l.updatesChanged();
+        }
     }
 
 
@@ -347,7 +343,7 @@ public class EditNoteActivity extends LinearLayout implements TimerStoppedListen
 
         // picture
         final AsyncImageView commentPictureView = (AsyncImageView)view.findViewById(R.id.comment_picture); {
-            if(TextUtils.isEmpty(item.commentPicture))
+            if(TextUtils.isEmpty(item.commentPicture) || item.commentPicture.equals("null"))  //$NON-NLS-1$
                 commentPictureView.setVisibility(View.GONE);
             else {
                 commentPictureView.setVisibility(View.VISIBLE);
@@ -398,11 +394,11 @@ public class EditNoteActivity extends LinearLayout implements TimerStoppedListen
     }
 
     private void addComment() {
-        addComment(commentField.getText().toString(), "task_comment"); //$NON-NLS-1$
+        addComment(commentField.getText().toString(), "task_comment", true); //$NON-NLS-1$
     }
 
 
-    private void addComment(String message, String actionCode) {
+    private void addComment(String message, String actionCode, boolean usePicture) {
         Update update = new Update();
         update.setValue(Update.MESSAGE, message);
         update.setValue(Update.ACTION_CODE, actionCode);
@@ -410,30 +406,28 @@ public class EditNoteActivity extends LinearLayout implements TimerStoppedListen
         update.setValue(Update.TASK, task.getValue(Task.REMOTE_ID));
         update.setValue(Update.CREATION_DATE, DateUtilities.now());
 
-        Log.d("Add comment", "The picture is: " + picture);
-        if (picture != null) {
+        if (usePicture && pendingCommentPicture != null) {
             update.setValue(Update.PICTURE, Update.PICTURE_LOADING);
         }
         Flags.set(Flags.ACTFM_SUPPRESS_SYNC);
         updateDao.createNew(update);
 
         final long updateId = update.getId();
-        final Bitmap tempPicture = picture;
+        final Bitmap tempPicture = usePicture ? pendingCommentPicture : null;
         new Thread() {
             @Override
             public void run() {
                 actFmSyncService.pushUpdate(updateId, tempPicture);
 
-                Log.d("Run thread", "The picture is: " + picture);
             }
         }.start();
         commentField.setText(""); //$NON-NLS-1$
-        setUpListAdapter();
 
-        picture = null;
+        pendingCommentPicture = usePicture ? null : pendingCommentPicture;
         pictureButton.setImageResource(R.drawable.camera_button);
         StatisticsService.reportEvent(StatisticsConstants.ACTFM_TASK_COMMENT);
 
+        setUpListAdapter();
         for (UpdatesChangedListener l : listeners) {
             l.commentAdded();
         }
@@ -463,11 +457,13 @@ public class EditNoteActivity extends LinearLayout implements TimerStoppedListen
         public static NoteOrUpdate fromMetadata(Metadata m) {
             if(!m.containsNonNullValue(NoteMetadata.THUMBNAIL))
                 m.setValue(NoteMetadata.THUMBNAIL, ""); //$NON-NLS-1$
+            if(!m.containsNonNullValue(NoteMetadata.COMMENT_PICTURE))
+                m.setValue(NoteMetadata.COMMENT_PICTURE, ""); //$NON-NLS-1$
 
             return new NoteOrUpdate(m.getValue(NoteMetadata.THUMBNAIL),
                     m.getValue(NoteMetadata.TITLE),
                     m.getValue(NoteMetadata.BODY),
-                    m.getValue(NoteMetadata.COMMENTPICTURE),
+                    m.getValue(NoteMetadata.COMMENT_PICTURE),
                     m.getValue(Metadata.CREATION_DATE));
         }
 
@@ -479,8 +475,10 @@ public class EditNoteActivity extends LinearLayout implements TimerStoppedListen
             String message = u.getValue(Update.MESSAGE);
             if(u.getValue(Update.ACTION_CODE).equals("task_comment"))
                 description = message;
-            else if(!TextUtils.isEmpty(message))
+            else if(!TextUtils.isEmpty(message) && !TextUtils.isEmpty(description))
                 description += " " + message;
+            else
+                description = message;
             String commentPicture = u.getValue(Update.PICTURE);
 
             return new NoteOrUpdate(user.optString("picture"),
@@ -506,33 +504,34 @@ public class EditNoteActivity extends LinearLayout implements TimerStoppedListen
     }
 
     @Override
-    public void timerStarted(Task task) {
-        // TODO Auto-generated method stub
-        addComment(getContext().getString(R.string.TEA_timer_comment_started) + " " + DateUtilities.getTimeString(getContext(), new Date()), "task_started");  //$NON-NLS-1$
-
+    public void timerStarted(Task t) {
+        addComment(String.format("%s %s",  //$NON-NLS-1$
+                getContext().getString(R.string.TEA_timer_comment_started),
+                DateUtilities.getTimeString(getContext(), new Date())),
+                        "task_started",  //$NON-NLS-1$
+                        false);
     }
 
     @Override
-    public void timerStopped(Task task) {
-        // TODO Auto-generated method stub
-        String elapsedTime = DateUtils.formatElapsedTime(task.getValue(Task.ELAPSED_SECONDS));
-        addComment(getContext().getString(R.string.TEA_timer_comment_stopped) + " " +
-                DateUtilities.getTimeString(getContext(), new Date()) + "\n" + getContext().getString(R.string.TEA_timer_comment_spent) + " " + elapsedTime, "task_stopped");  //$NON-NLS-1$
-
+    public void timerStopped(Task t) {
+        String elapsedTime = DateUtils.formatElapsedTime(t.getValue(Task.ELAPSED_SECONDS));
+        addComment(String.format("%s %s\n%s %s", //$NON-NLS-1$
+                getContext().getString(R.string.TEA_timer_comment_stopped),
+                DateUtilities.getTimeString(getContext(), new Date()),
+                getContext().getString(R.string.TEA_timer_comment_spent),
+                elapsedTime), "task_stopped", false); //$NON-NLS-1$
     }
 
     /*
-     * Callback from edittask when picture is added
+     * Call back from edit task when picture is added
      */
     public boolean activityResult(int requestCode, int resultCode, Intent data) {
 
-        Log.d("Activity result", "Called on camera for request code: " + requestCode);
         CameraResultCallback callback = new CameraResultCallback() {
             @Override
             public void handleCameraResult(Bitmap bitmap) {
-                picture = bitmap;
-                pictureButton.setImageBitmap(picture);
-                Log.d("Picture", "Picture = " + picture);
+                pendingCommentPicture = bitmap;
+                pictureButton.setImageBitmap(pendingCommentPicture);
             }
         };
 

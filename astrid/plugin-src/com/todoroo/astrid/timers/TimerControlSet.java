@@ -7,7 +7,7 @@ import com.timsu.astrid.R;
 import com.todoroo.andlib.data.Property.IntegerProperty;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.helper.TaskEditControlSet;
-import com.todoroo.astrid.timers.TimerActionControlSet.TimerStoppedListener;
+import com.todoroo.astrid.timers.TimerActionControlSet.TimerActionListener;
 import com.todoroo.astrid.ui.PopupControlSet;
 import com.todoroo.astrid.ui.TimeDurationControlSet;
 
@@ -17,7 +17,7 @@ import com.todoroo.astrid.ui.TimeDurationControlSet;
  * @author Tim Su <tim@todoroo.com>
  *
  */
-public class TimerControlSet extends PopupControlSet implements TimerStoppedListener {
+public class TimerControlSet extends PopupControlSet implements TimerActionListener {
 
     TaskEditControlSet estimated, elapsed;
 
