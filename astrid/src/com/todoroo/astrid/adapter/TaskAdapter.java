@@ -212,7 +212,8 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
         displayMetrics = new DisplayMetrics();
         fragment.getActivity().getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
 
-        if (Preferences.getBoolean(R.string.p_default_showdetails_key, false)) {
+
+        if (Preferences.getBoolean(R.string.p_showNotes, false)) {
             detailLoader = new DetailLoaderThread();
             detailLoader.start();
         }
@@ -267,11 +268,15 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
         viewHolder.taskRow = (LinearLayout)view.findViewById(R.id.task_row);
 
 
-        if (Preferences.getBoolean(R.string.p_default_showfulltitle_key, false)) {
+
+        if (Preferences.getBoolean(R.string.p_showNotes, false)) {
             viewHolder.nameView.setMaxLines(Integer.MAX_VALUE);
             LayoutParams containerParams = view.getLayoutParams();
             containerParams.height = LayoutParams.WRAP_CONTENT;
+            view.setPadding(view.getPaddingLeft(), 20, view.getPaddingRight(), 20);
             view.setLayoutParams(containerParams);
+            RelativeLayout.LayoutParams taskRowParams = (RelativeLayout.LayoutParams)viewHolder.taskRow.getLayoutParams();
+            taskRowParams.addRule(RelativeLayout.CENTER_VERTICAL, 0);
         }
 
         view.setTag(viewHolder);
@@ -428,7 +433,7 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
             if(TextUtils.isEmpty(details) || DETAIL_SEPARATOR.equals(details) || task.isCompleted()) {
                 viewHolder.details1.setVisibility(View.GONE);
                 viewHolder.details2.setVisibility(View.GONE);
-            } else if (Preferences.getBoolean(R.string.p_default_showdetails_key, false)) {
+            } else if (Preferences.getBoolean(R.string.p_showNotes, false)) {
                 viewHolder.details1.setVisibility(View.VISIBLE);
                 if (details.startsWith(DETAIL_SEPARATOR)) {
                     StringBuffer buffer = new StringBuffer(details);

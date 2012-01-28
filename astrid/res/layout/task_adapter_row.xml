@@ -6,8 +6,7 @@
     android:id="@+id/rowBody"
     android:layout_width="fill_parent"
     android:layout_height="70dip"
-    android:minHeight="70dip"
-    android:layout_marginTop="20dip" >
+    android:minHeight="70dip" >
 
     <!-- completion check-box -->
 
@@ -51,8 +50,8 @@
         android:id="@+id/task_row"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_centerVertical="true"
         android:layout_toRightOf="@id/completeBox"
+        android:layout_centerVertical="true"
         android:orientation="horizontal"
         android:paddingLeft="2dip" >
 
@@ -87,8 +86,6 @@
         android:layout_height="wrap_content"
         android:layout_alignLeft="@id/task_row"
         android:layout_below="@id/task_row"
-        android:layout_marginLeft="5dip"
-        android:layout_marginTop="-5dip"
         android:visibility="gone" />
 
     <!-- details line 2 -->
