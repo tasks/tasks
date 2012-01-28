@@ -41,7 +41,7 @@
 	        android:layout_marginLeft="10dip" 
 	        android:layout_toRightOf="@id/list_title"
 	        android:layout_alignBottom="@id/list_title"
-	        android:src="?attr/asListsDisclosure"
+	        android:src="@drawable/lists_disclosure_red"
 	        android:scaleType="fitCenter"/>
 	
 	</RelativeLayout>

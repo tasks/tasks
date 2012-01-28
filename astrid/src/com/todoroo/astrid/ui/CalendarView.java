@@ -17,6 +17,7 @@ import android.text.format.DateFormat;
 import android.text.format.DateUtils;
 import android.util.AttributeSet;
 import android.util.DisplayMetrics;
+import android.util.TypedValue;
 import android.view.Display;
 import android.view.GestureDetector;
 import android.view.GestureDetector.SimpleOnGestureListener;
@@ -139,9 +140,11 @@ public class CalendarView extends View {
     	todayCalendarPaint.setAntiAlias(true);
     	todayCalendarPaint.setColor(r.getColor(R.color.task_edit_deadline_gray));
 
+    	TypedValue selectedColor = new TypedValue();
+    	context.getTheme().resolveAttribute(R.attr.asThemeTextColor, selectedColor, false);
     	selectedCalendarPaint = new Paint();
     	selectedCalendarPaint.setAntiAlias(true);
-    	selectedCalendarPaint.setColor(r.getColor(R.color.task_edit_details));
+    	selectedCalendarPaint.setColor(r.getColor(selectedColor.data));
 
     	backgroundColorPaint = new Paint();
     	backgroundColorPaint.setAntiAlias(true);

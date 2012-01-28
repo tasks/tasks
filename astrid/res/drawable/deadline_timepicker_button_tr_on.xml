@@ -5,7 +5,7 @@
         android:width="2dip"
         android:color="@color/task_edit_deadline_gray"/>
 	<solid
-	    android:color="@color/task_edit_details"/>
+	    android:color="@color/blue_theme_color"/>
 	<corners 
 	    android:topRightRadius="5dip"/>
 </shape>

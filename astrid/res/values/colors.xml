@@ -24,10 +24,10 @@
     
     <color name="task_edit_selected">#438cb6</color>
     
-    <color name="task_edit_details">#c60f1a</color>
     <color name="task_edit_deadline_gray">#888888</color>
     
-    <color name="red_text_color">#d00000</color>
+    <color name="blue_theme_color">#33b5e5</color>
+    <color name="red_theme_color">#d90000</color>
     <color name="tablet_list_bg">#292929</color>
     <color name="tablet_list_selected">#101010</color>
         

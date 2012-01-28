@@ -206,9 +206,7 @@ public class TaskListWrapperActivity extends AstridWrapperActivity implements Ma
 	    int textStyle = (selected ? R.style.TextAppearance_ActionBar_ListsHeader_Selected : R.style.TextAppearance_ActionBar_ListsHeader);
 	    lists.setTextAppearance(this, textStyle);
 	    listsNav.setBackgroundColor(selected ? oldTextColor : android.R.color.transparent);
-	    TypedValue tv = new TypedValue();
-	    getTheme().resolveAttribute(R.attr.asListsDisclosure, tv, false);
-	    listsNavDisclosure.setImageResource(selected ? R.drawable.lists_disclosure_white : tv.data);
+	    listsNavDisclosure.setImageResource(selected ? R.drawable.lists_disclosure_white : R.drawable.lists_disclosure_red);
 	}
 
 	private void setMainMenuSelected(boolean selected) {
