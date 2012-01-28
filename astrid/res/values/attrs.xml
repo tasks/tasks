@@ -24,6 +24,7 @@
   <attr name="asAddButtonImg" format="reference" />
   <attr name="asMicButtonImg" format="reference" />
   <attr name="asCameraButtonImg" format="reference" />
+  <attr name="asTaskEditArrow" format="reference" />
   
   <attr name="asMainMenu" format="reference" />
 

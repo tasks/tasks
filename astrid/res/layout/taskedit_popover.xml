@@ -17,8 +17,8 @@
         android:layout_width="27dip"
         android:layout_height="27dip"
         android:scaleType="fitCenter"
-        android:layout_marginBottom="-8dip"
-        android:background="#ff0000"/>
+        android:layout_marginBottom="-10dip"
+        android:src="?attr/asTaskEditArrow"/>
 
     <ImageView
         android:id="@+id/gdi_arrow_down"
