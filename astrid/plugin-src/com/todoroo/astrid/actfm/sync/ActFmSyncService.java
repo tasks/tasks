@@ -265,7 +265,12 @@ public final class ActFmSyncService {
             else
                 result = actFmInvoker.post("comment_add", picture, params.toArray(new Object[params.size()]));
             update.setValue(Update.REMOTE_ID, result.optLong("id"));
-            update.setValue(Update.PICTURE, result.optString("picture"));
+//            ImageCache imageCache = ImageCache.getInstance(getContext());
+            //TODO figure out a way to replace local image files with the url
+            if (TextUtils.isEmpty(update.getValue(Update.PICTURE)) || update.getValue(Update.PICTURE).equals(Update.PICTURE_LOADING)) {
+                update.setValue(Update.PICTURE, result.optString("picture"));
+            }
+
             updateDao.saveExisting(update);
         } catch (IOException e) {
             if (notPermanentError(e))
