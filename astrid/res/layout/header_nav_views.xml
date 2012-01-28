@@ -7,9 +7,8 @@
     <ImageView
         android:id="@+id/main_menu"
         android:layout_width="51dip"
-        android:padding="10dip"
         android:layout_height="fill_parent"
-        android:src="@drawable/menu"
+        android:src="?attr/asMainMenu"
         android:scaleType="fitCenter"/>
         
         
@@ -41,7 +40,7 @@
 	        android:layout_marginLeft="10dip" 
 	        android:layout_toRightOf="@id/list_title"
 	        android:layout_alignBottom="@id/list_title"
-	        android:src="@drawable/lists_disclosure_red"
+	        android:src="?attr/asListsDisclosure"
 	        android:scaleType="fitCenter"/>
 	
 	</RelativeLayout>

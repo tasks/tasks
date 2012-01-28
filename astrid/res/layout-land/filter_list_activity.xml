@@ -10,22 +10,31 @@
     <!-- List -->
     <ListView android:id="@android:id/list"
         android:layout_width="fill_parent"
-        android:layout_height="200dip"
+        android:layout_height="180dip"
         android:layout_alignParentTop="true"
         android:scrollbars="vertical"
         android:divider="@android:color/transparent"
         android:cacheColorHint="#00000000"/>
     
+    <include layout="@layout/fla_separator"/>
+
     <!-- Footer -->
     <LinearLayout
         android:id="@+id/lists_footer"
         android:layout_width="fill_parent" 
         android:layout_height="50dip"
-        android:orientation="vertical"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
         android:layout_alignParentBottom="true">
-
-        <include layout="@layout/fla_separator"/>
         
+        <ImageView
+            android:layout_width="39dip"
+            android:layout_height="39dip"
+            android:layout_marginLeft="5dip"
+            android:layout_marginRight="8dip"
+            android:src="?attr/asAddButtonImg"
+            android:scaleType="fitCenter"/>
+            
         <TextView
             android:id="@+id/new_list_button"
             android:layout_width="fill_parent"

@@ -20,12 +20,12 @@
   <attr name="asSeparatorBackground" format="color"/>
   
   <attr name="asThemeTextColor" format="color"/>
-  
+  <attr name="asListsDisclosure" format="reference"/>
   <attr name="asAddButtonImg" format="reference" />
   <attr name="asMicButtonImg" format="reference" />
   <attr name="asCameraButtonImg" format="reference" />
-  <attr name="asMainMenuOn" format="reference" />
-  <attr name="asMainMenuOff" format="reference" />
+  
+  <attr name="asMainMenu" format="reference" />
 
   <declare-styleable name="ContactsAutoComplete">
     <attr name="allowMultiple" format="boolean"/>

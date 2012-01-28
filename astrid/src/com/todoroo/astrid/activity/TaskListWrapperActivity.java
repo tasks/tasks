@@ -45,7 +45,7 @@ public class TaskListWrapperActivity extends AstridWrapperActivity implements Ma
     private final OnClickListener mainMenuClickListener = new OnClickListener() {
         @Override
         public void onClick(View v) {
-            setMainMenuSelected(true);
+            mainMenu.setSelected(true);
             mainMenuPopover.show(v);
         }
     };
@@ -159,7 +159,7 @@ public class TaskListWrapperActivity extends AstridWrapperActivity implements Ma
         mainMenuPopover.setOnDismissListener(new OnDismissListener() {
             @Override
             public void onDismiss() {
-                setMainMenuSelected(false);
+                mainMenu.setSelected(false);
             }
         });
     }
@@ -204,19 +204,12 @@ public class TaskListWrapperActivity extends AstridWrapperActivity implements Ma
 	private void setListsDropdownSelected(boolean selected) {
 	    int oldTextColor = lists.getTextColors().getDefaultColor();
 	    int textStyle = (selected ? R.style.TextAppearance_ActionBar_ListsHeader_Selected : R.style.TextAppearance_ActionBar_ListsHeader);
+
+	    TypedValue listDisclosure = new TypedValue();
+	    getTheme().resolveAttribute(R.attr.asListsDisclosure, listDisclosure, false);
 	    lists.setTextAppearance(this, textStyle);
 	    listsNav.setBackgroundColor(selected ? oldTextColor : android.R.color.transparent);
-	    listsNavDisclosure.setImageResource(selected ? R.drawable.lists_disclosure_white : R.drawable.lists_disclosure_red);
-	}
-
-	private void setMainMenuSelected(boolean selected) {
-	    TypedValue onImage = new TypedValue();
-	    TypedValue offImage = new TypedValue();
-
-	    getTheme().resolveAttribute(R.attr.asMainMenuOn, onImage, false);
-	    getTheme().resolveAttribute(R.attr.asMainMenuOff, offImage, false);
-
-	    mainMenu.setImageResource(selected ? onImage.data : offImage.data);
+	    listsNavDisclosure.setSelected(selected);
 	}
 
     @Override

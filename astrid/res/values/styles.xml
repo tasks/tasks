@@ -19,15 +19,15 @@
         <item name="asFilterHeaderBackground">@drawable/edit_titlebar</item>
         <item name="asMembersHeaderBackground">@drawable/ios_fabric_480_dark</item>
         <item name="asSeparatorBackground">#888888</item>
-        <item name="asAddButtonImg">@drawable/plus_button_red</item>
+        <item name="asAddButtonImg">@drawable/plus_button_blue</item>
         <item name="asMicButtonImg">@drawable/mic_button_gray</item>
         <item name="asCameraButtonImg">@drawable/camera_button_gray</item>
         <item name="asEditBackground">#171317</item>
         <item name="asEditRowBackground">@drawable/task_edit_background</item>
         <item name="asEditTabBackground">@drawable/custom_tab_indicator_dark</item>
-        <item name="asMainMenuOn">@drawable/menu</item>
-        <item name="asMainMenuOff">@drawable/menu</item>
+        <item name="asMainMenu">@drawable/menu_button_blue</item>
         <item name="asThemeTextColor">@color/blue_theme_color</item>
+        <item name="asListsDisclosure">@drawable/lists_disclosure_blue</item>
         <!-- actionbar-styling -->
         <item name="abBackground">@android:color/black</item>
         <item name="abDisplayOptions">useLogo|showHome|showTitle</item>
@@ -76,9 +76,9 @@
         <item name="asCameraButtonImg">@drawable/camera_button_red</item>
         <item name="asEditRowBackground">@drawable/task_edit_background_white</item>
         <item name="asEditTabBackground">@drawable/custom_tab_indicator</item>
-        <item name="asMainMenuOn">@drawable/menu</item>
-        <item name="asMainMenuOff">@drawable/menu</item>
+        <item name="asMainMenu">@drawable/menu_button_red</item>
         <item name="asThemeTextColor">@color/red_theme_color</item>
+        <item name="asListsDisclosure">@drawable/lists_disclosure_red</item>
         <!-- actionbar-styling -->
         <item name="abBackground">@android:color/white</item>
         <item name="abDisplayOptions">useLogo|showHome|showTitle</item>
@@ -186,7 +186,7 @@
    	</style>
    	
    	<style name="TextAppearance.ActionBar_ListsHeader.Selected">   	    
-   	    <item name="android:textColor">@android:color/white</item>
+   	    <item name="android:textColor">?attr/asContentBackground</item>
    	</style>
    	
     <!--================================================== Custom Dialogs == -->
