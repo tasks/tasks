@@ -20,7 +20,7 @@
         <item name="asMembersHeaderBackground">@drawable/ios_fabric_480_dark</item>
         <item name="asSeparatorBackground">#888888</item>
         <item name="asAddButtonImg">@drawable/plus_button_blue</item>
-        <item name="asMicButtonImg">@drawable/mic_button_gray</item>
+        <item name="asMicButtonImg">@drawable/mic_button_blue</item>
         <item name="asCameraButtonImg">@drawable/camera_button_gray</item>
         <item name="asEditBackground">#171317</item>
         <item name="asEditRowBackground">@drawable/task_edit_background</item>
@@ -29,7 +29,7 @@
         <item name="asThemeTextColor">@color/blue_theme_color</item>
         <item name="asListsDisclosure">@drawable/lists_disclosure_blue</item>
         <!-- actionbar-styling -->
-        <item name="abBackground">@android:color/black</item>
+        <item name="abBackground">@drawable/header_blue</item>
         <item name="abDisplayOptions">useLogo|showHome|showTitle</item>
         <item name="abLogo">@drawable/icon_48</item>
         <item name="vpiTabPageIndicatorStyle">@style/CustomTabPageIndicator</item>
@@ -80,7 +80,7 @@
         <item name="asThemeTextColor">@color/red_theme_color</item>
         <item name="asListsDisclosure">@drawable/lists_disclosure_red</item>
         <!-- actionbar-styling -->
-        <item name="abBackground">@android:color/white</item>
+        <item name="abBackground">@drawable/header_red</item>
         <item name="abDisplayOptions">useLogo|showHome|showTitle</item>
         <item name="abLogo">@drawable/icon_48</item>
     </style>

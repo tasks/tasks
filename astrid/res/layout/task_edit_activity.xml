@@ -185,7 +185,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="2"
                 android:gravity="center_horizontal"
-                android:textColor="@color/task_edit_details"
+                android:textColor="?attr/asThemeTextColor"
                 android:textSize="10sp"
                 android:visibility="visible" />
         </LinearLayout>

@@ -83,7 +83,7 @@ public class MainMenuPopover extends FragmentPopover {
     }
 
     private void addTutorialItem() {
-        addMenuItem(R.string.TLA_menu_tutorial, 0, MAIN_MENU_ITEM_TUTORIAL);
+        addMenuItem(R.string.TLA_menu_tutorial, R.drawable.icn_tutorial, MAIN_MENU_ITEM_TUTORIAL);
     }
 
     private void addSettingsItem() {
