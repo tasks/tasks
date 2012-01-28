@@ -390,18 +390,22 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
 
         // image view
         final AsyncImageView pictureView = viewHolder.picture; {
-            if(task.getValue(Task.USER_ID) == 0) {
-                pictureView.setVisibility(View.GONE);
-                viewHolder.pictureBorder.setVisibility(View.GONE);
-            } else {
-                pictureView.setVisibility(View.VISIBLE);
-                viewHolder.pictureBorder.setVisibility(View.VISIBLE);
-                pictureView.setUrl(null);
-                try {
-                    JSONObject user = new JSONObject(task.getValue(Task.USER));
-                    pictureView.setUrl(user.optString("picture")); //$NON-NLS-1$
-                } catch (JSONException e) {
-                    Log.w("astrid", "task-adapter-image", e); //$NON-NLS-1$ //$NON-NLS-2$
+            if (pictureView != null) {
+                if(task.getValue(Task.USER_ID) == 0) {
+                    pictureView.setVisibility(View.GONE);
+                    if (viewHolder.pictureBorder != null)
+                        viewHolder.pictureBorder.setVisibility(View.GONE);
+                } else {
+                    pictureView.setVisibility(View.VISIBLE);
+                    if (viewHolder.pictureBorder != null)
+                        viewHolder.pictureBorder.setVisibility(View.VISIBLE);
+                    pictureView.setUrl(null);
+                    try {
+                        JSONObject user = new JSONObject(task.getValue(Task.USER));
+                        pictureView.setUrl(user.optString("picture")); //$NON-NLS-1$
+                    } catch (JSONException e) {
+                        Log.w("astrid", "task-adapter-image", e); //$NON-NLS-1$ //$NON-NLS-2$
+                    }
                 }
             }
         }
@@ -416,9 +420,10 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
             } else {
                 checkBoxView.setButtonDrawable(IMPORTANCE_RESOURCES[value]);
             }
-            if (pictureView.getVisibility() == View.VISIBLE) {
+            if (pictureView != null && pictureView.getVisibility() == View.VISIBLE) {
                 checkBoxView.setVisibility(View.INVISIBLE);
-                viewHolder.pictureBorder.setBackgroundResource(IMPORTANCE_RESOURCES_LARGE[value]);
+                if (viewHolder.pictureBorder != null)
+                    viewHolder.pictureBorder.setBackgroundResource(IMPORTANCE_RESOURCES_LARGE[value]);
             } else {
                 checkBoxView.setVisibility(View.VISIBLE);
             }
