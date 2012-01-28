@@ -47,67 +47,83 @@
 
     <!-- build and install an instrumented build -->
     <target name="install-instrumented">
+      <property name="tested.project.absolute.dir" location="${tested.project.dir}" />
       <subant target="clean instrument install">
-        <fileset file="../astrid/build.xml" />
+        <fileset file="${tested.project.absolute.dir}/build.xml" />
       </subant>
+      <copy todir="." file="${tested.project.absolute.dir}/coverage.em" />
     </target>
 
     <!-- override coverage target with custom reporting and rules -->    
-    <target name="coverage" depends="-test-project-check, install-instrumented"
+    <target name="coverage" depends="-test-project-check"
                 description="Runs the tests against the instrumented code and generates
                             code coverage report">
 
-        <property name="tested.project.absolute.dir" location="${tested.project.dir}" />
-        <property name="test.runner" value="com.zutubi.android.junitreport.JUnitReportTestRunner" />
+      <property name="tested.project.absolute.dir" location="${tested.project.dir}" />
+      <property name="test.runner" value="com.zutubi.android.junitreport.JUnitReportTestRunner" />
 
-        <!-- Application package of the tested project extracted from its manifest file -->
-        <xpath input="${tested.project.absolute.dir}/AndroidManifest.xml"
-                expression="/manifest/@package" output="tested.manifest.package" />
-        <xpath input="AndroidManifest.xml"
-                expression="/manifest/@package" output="manifest.package" />
+      <!-- Application package of the tested project extracted from its manifest file -->
+      <xpath input="${tested.project.absolute.dir}/AndroidManifest.xml"
+             expression="/manifest/@package" output="tested.manifest.package" />
+      <xpath input="AndroidManifest.xml"
+             expression="/manifest/@package" output="manifest.package" />
 
-        <property name="emma.dump.file"
+      <property name="emma.dump.file"
                 value="/data/data/${tested.manifest.package}/coverage.ec" />
 
-        <run-tests-helper emma.enabled="true">
-          <extra-instrument-args>
-            <arg value="-e" />
-            <arg value="coverageFile" />
-            <arg value="${emma.dump.file}" />
-          </extra-instrument-args>
-        </run-tests-helper>
-        <echo>Downloading coverage file into project directory...</echo>
-        <exec executable="${adb}" failonerror="true">
-          <arg line="${adb.device.arg}" />
-          <arg value="pull" />
+      <run-tests-helper emma.enabled="true">
+        <extra-instrument-args>
+          <arg value="-e" />
+          <arg value="coverageFile" />
           <arg value="${emma.dump.file}" />
-          <arg value="coverage.ec" />
-        </exec>
-        <echo>Extracting coverage report...</echo>
-        <copy todir="${tested.project.absolute.dir}/src-combined">
-          <fileset dir="../api/src" includes="**/*.java" />
-        </copy>      
-        <mkdir dir="${reports.dir}" />
-        <emma>
-          <report sourcepath="${tested.project.absolute.dir}/src-combined"
-                  verbosity="${verbosity}">
-            <infileset dir=".">
-              <include name="coverage.ec" />
-              <include name="coverage.em" />
-            </infileset>
-            <xml outfile="${reports.dir}/coverage.xml" />
-            <html outfile="coverage.html" />
-          </report>
-        </emma>
-        <echo>Cleaning up temporary files...</echo>
-        <delete file="coverage.ec" />
-        <delete file="coverage.em" />
-        <echo>Saving the report file in ${basedir}/coverage/coverage.html</echo>
+        </extra-instrument-args>
+      </run-tests-helper>
 
-        <antcall target="pull-junit" />      
+      <property name="tested.project.absolute.dir" location="${tested.project.dir}" />
+      <xpath input="${tested.project.absolute.dir}/AndroidManifest.xml"
+             expression="/manifest/@package" output="tested.manifest.package" />
+
+
+      <echo>Downloading coverage file into project directory...</echo>
+      <property name="emma.dump.file"
+                value="/data/data/${tested.manifest.package}/coverage.ec" />
+      <exec executable="${adb}" failonerror="true">
+        <arg line="${adb.device.arg}" />
+        <arg value="pull" />
+        <arg value="${emma.dump.file}" />
+        <arg value="coverage.ec" />
+      </exec>
+      <copy todir="." file="${tested.project.absolute.dir}/coverage.em" />
+
+      <antcall target="emma-parse" />      
+      <antcall target="pull-junit" />      
+    </target>
+
+    <target name="emma-parse" depends="-test-project-check">
+      <echo>Extracting coverage report...</echo>
+      <copy todir="${tested.project.absolute.dir}/src-combined">
+        <fileset dir="../api/src" includes="**/*.java" />
+      </copy>      
+      <mkdir dir="${reports.dir}" />
+      <emma>
+        <report sourcepath="${tested.project.absolute.dir}/src-combined"
+                verbosity="${verbosity}">
+          <infileset dir=".">
+            <include name="coverage.ec" />
+            <include name="coverage.em" />
+          </infileset>
+          <xml outfile="${reports.dir}/coverage.xml" />
+          <html outfile="coverage.html" />
+        </report>
+      </emma>
+      <echo>Cleaning up temporary files...</echo>
+      <delete file="coverage.ec" />
+      <delete file="coverage.em" />
+      <echo>Saving the report file in ${basedir}/coverage/coverage.html</echo>
     </target>
 
     <target name="pull-junit">
+      <echo>Extracting junit report...</echo>
       <exec executable="${adb}" failonerror="true">
         <arg line="${adb.device.arg}"/>
         <arg value="pull" />
