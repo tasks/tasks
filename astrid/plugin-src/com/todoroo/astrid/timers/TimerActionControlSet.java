@@ -5,9 +5,11 @@ import java.util.List;
 
 import android.app.Activity;
 import android.os.SystemClock;
+import android.text.format.DateFormat;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Chronometer;
+import android.widget.Chronometer.OnChronometerTickListener;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
@@ -23,10 +25,12 @@ public class TimerActionControlSet extends TaskEditControlSet {
     private final LinearLayout timerContainer;
     private boolean timerActive;
     private Task task;
+    private final Activity activity;
     private final List<TimerActionListener> listeners = new LinkedList<TimerActionListener>();
 
     public TimerActionControlSet(Activity activity, View parent) {
         super(activity, -1);
+        this.activity = activity;
         timerContainer = (LinearLayout) parent.findViewById(R.id.timer_container);
         timerButton = (ImageView) parent.findViewById(R.id.timer_button);
         timerContainer.setOnClickListener(timerListener);
@@ -56,13 +60,13 @@ public class TimerActionControlSet extends TaskEditControlSet {
         @Override
         public void onClick(View v) {
             if (timerActive) {
-                // TimerPlugin.updateTimer(activity, task, false);
+                TimerPlugin.updateTimer(activity, task, false);
 
                 for(TimerActionListener listener : listeners)
                     listener.timerStopped(task);
                 chronometer.stop();
             } else {
-                // TimerPlugin.updateTimer(activity, task, true);
+                TimerPlugin.updateTimer(activity, task, true);
                 for(TimerActionListener listener : listeners)
                     listener.timerStarted(task);
                 chronometer.start();
@@ -87,6 +91,15 @@ public class TimerActionControlSet extends TaskEditControlSet {
             chronometer.setVisibility(View.VISIBLE);
             elapsed += DateUtilities.now() - task.getValue(Task.TIMER_START);
             chronometer.setBase(SystemClock.elapsedRealtime() - elapsed);
+            if (elapsed > DateUtilities.ONE_DAY); {
+                chronometer.setOnChronometerTickListener(new OnChronometerTickListener() {
+                    public void onChronometerTick(Chronometer cArg) {
+                        long t = SystemClock.elapsedRealtime() - cArg.getBase();
+                        cArg.setText(DateFormat.format("d'd' h:mm", t));
+                    }
+                });
+
+            }
             chronometer.start();
         } else {
             chronometer.setVisibility(View.GONE);
