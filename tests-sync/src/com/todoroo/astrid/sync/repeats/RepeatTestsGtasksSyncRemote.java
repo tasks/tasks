@@ -1,7 +1,5 @@
 package com.todoroo.astrid.sync.repeats;
 
-import static com.todoroo.astrid.sync.repeats.RepeatTestsGtasksSync.DEFAULT_LIST;
-
 import java.io.IOException;
 import java.util.Date;
 

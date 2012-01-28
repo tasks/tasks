@@ -26,11 +26,10 @@ import com.todoroo.astrid.gtasks.api.GtasksApiUtilities;
 import com.todoroo.astrid.gtasks.api.GtasksInvoker;
 import com.todoroo.astrid.gtasks.auth.GtasksTokenValidator;
 import com.todoroo.astrid.gtasks.sync.GtasksSyncProvider;
-import com.todoroo.astrid.repeats.NewRepeatTests;
 import com.todoroo.astrid.repeats.RepeatTaskCompleteListener;
 import com.todoroo.astrid.service.MetadataService;
 
-public class RepeatTestsGtasksSync extends NewRepeatTests<com.google.api.services.tasks.model.Task> {
+public class RepeatTestsGtasksSync extends AbstractSyncRepeatTests<com.google.api.services.tasks.model.Task> {
 
     @Autowired MetadataService metadataService;
     @Autowired GtasksMetadataService gtasksMetadataService;

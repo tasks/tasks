@@ -46,10 +46,6 @@ public class AllTests extends TestSuite {
 
     public static Test suite() {
         return new TestSuiteBuilder(AllTests.class)
-            .excludePackages(
-                "com.todoroo.astrid.gtasks",
-                "com.todoroo.astrid.producteev",
-                "com.todoroo.astrid.sync.repeats")
             .build();
     }
 }

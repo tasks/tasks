@@ -23,12 +23,11 @@ import com.todoroo.astrid.actfm.sync.ActFmSyncService;
 import com.todoroo.astrid.dao.TaskDao.TaskCriteria;
 import com.todoroo.astrid.data.Metadata;
 import com.todoroo.astrid.data.Task;
-import com.todoroo.astrid.repeats.NewRepeatTests;
 import com.todoroo.astrid.repeats.RepeatTaskCompleteListener;
 import com.todoroo.astrid.service.MetadataService;
 import com.todoroo.astrid.service.StartupService;
 
-public class RepeatTestsActFmSync extends NewRepeatTests<Task> {
+public class RepeatTestsActFmSync extends AbstractSyncRepeatTests<Task> {
 
     @Autowired MetadataService metadataService;
     @Autowired ActFmDataService actFmDataService;

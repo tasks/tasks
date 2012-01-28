@@ -192,7 +192,7 @@ public class Astrid3ContentProvider extends ContentProvider {
         throw new UnsupportedOperationException("Unknown URI " + uri);
     }
 
-    static void setDatabaseOverride(AbstractDatabase override) {
+    public static void setDatabaseOverride(AbstractDatabase override) {
         databaseOverride = override;
     }
 
