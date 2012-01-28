@@ -7,8 +7,7 @@
     android:layout_width="fill_parent"
     android:layout_height="70dip"
     android:minHeight="70dip"
-    android:layout_marginTop="20dip"
-    android:paddingBottom="20dip" >
+    android:layout_marginTop="20dip" >
 
     <!-- completion check-box -->
 

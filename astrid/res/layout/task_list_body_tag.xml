@@ -39,11 +39,11 @@
 		  </HorizontalScrollView>
 		  <ImageView 
 		    android:id="@+id/members_edit"
-		    android:layout_width="wrap_content"
-		    android:layout_height="fill_parent"
+		    android:layout_width="43dip"
+		    android:layout_height="43dip"
+		    android:padding="5dip"
 		    android:layout_weight="1"
-		    android:padding="10dip"
-		    android:src="@drawable/members_arrow"
+		    android:src="@drawable/list_settings"
 		    android:scaleType="fitCenter"/>
 	  </LinearLayout>
 	  

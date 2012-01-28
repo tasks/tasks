@@ -21,7 +21,7 @@
         <item name="asSeparatorBackground">#888888</item>
         <item name="asAddButtonImg">@drawable/plus_button_blue</item>
         <item name="asMicButtonImg">@drawable/mic_button_blue</item>
-        <item name="asCameraButtonImg">@drawable/camera_button_gray</item>
+        <item name="asCameraButtonImg">@drawable/camera_button_blue</item>
         <item name="asEditBackground">#171317</item>
         <item name="asEditRowBackground">@drawable/task_edit_background</item>
         <item name="asEditTabBackground">@drawable/custom_tab_indicator_dark</item>
