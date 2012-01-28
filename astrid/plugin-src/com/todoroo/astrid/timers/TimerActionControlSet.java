@@ -8,7 +8,8 @@ import android.os.SystemClock;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Chronometer;
-import android.widget.ImageButton;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 
 import com.timsu.astrid.R;
 import com.todoroo.andlib.utility.DateUtilities;
@@ -17,20 +18,19 @@ import com.todoroo.astrid.helper.TaskEditControlSet;
 
 public class TimerActionControlSet extends TaskEditControlSet {
 
-    private final ImageButton timerButton;
+    private final ImageView timerButton;
     private final Chronometer chronometer;
+    private final LinearLayout timerContainer;
     private boolean timerActive;
-    private final Activity activity;
     private Task task;
     private final List<TimerActionListener> listeners = new LinkedList<TimerActionListener>();
 
     public TimerActionControlSet(Activity activity, View parent) {
         super(activity, -1);
-        this.activity = activity;
-        timerButton = (ImageButton) parent.findViewById(R.id.timer_button);
-        timerButton.setOnClickListener(timerListener);
-
-        chronometer = new Chronometer(activity);
+        timerContainer = (LinearLayout) parent.findViewById(R.id.timer_container);
+        timerButton = (ImageView) parent.findViewById(R.id.timer_button);
+        timerContainer.setOnClickListener(timerListener);
+        chronometer = (Chronometer) parent.findViewById(R.id.timer);
     }
 
     @Override
@@ -77,12 +77,9 @@ public class TimerActionControlSet extends TaskEditControlSet {
         if(timerActive) {
             drawable = R.drawable.icn_timer_stop;
         } else {
-            if (task.getValue(Task.ELAPSED_SECONDS) == 0)
-                drawable = R.drawable.icn_edit_timer;
-            else
-                drawable = R.drawable.icn_timer_start;
+            drawable = R.drawable.icn_edit_timer;
         }
-        timerButton.setBackgroundResource(drawable);
+        timerButton.setImageResource(drawable);
 
 
         long elapsed = task.getValue(Task.ELAPSED_SECONDS) * 1000L;

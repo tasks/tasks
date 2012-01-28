@@ -1,55 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-  xmlns:android="http://schemas.android.com/apk/res/android"
-  android:orientation="vertical"
-  android:layout_width="fill_parent"
-  android:layout_height="fill_parent"
-  android:layout_weight="100">
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:padding="10dip"
+    android:paddingRight="0dip"
+    android:orientation="horizontal" >
 
-	<LinearLayout
-      android:layout_width="fill_parent"
-      android:layout_height="wrap_content"
-      android:layout_marginTop="5dip"
-      android:layout_marginBottom="5dip"
-      android:gravity="center_vertical">
-      
-    <RelativeLayout android:id="@+id/rowBody" 
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        >
-     
-        <!-- completion check-box -->
-        <CheckBox android:id="@+id/completeBox"
+        <CheckBox
+            android:id="@+id/completeBox"
             android:layout_width="45dip"
-            android:layout_height="45dip"
-            android:layout_marginTop="4dip"
-            android:layout_marginLeft="3dip"
-            android:layout_gravity="top"
-            android:button="@drawable/btn_check"/>
-        
-            
-    </RelativeLayout>
-	    <LinearLayout
-	        android:layout_width="fill_parent"
-	        android:layout_height="wrap_content"
-	        android:layout_weight="100"
-	        android:background="@drawable/edit_title_background">
-			<com.todoroo.astrid.ui.ErrorCatchingEditText
-			  android:id="@+id/title"
-			  android:layout_width="fill_parent"
-			  android:layout_height="wrap_content"
-			  android:layout_weight="100"
-			  android:hint="@string/TEA_title_hint"
-			  android:autoText="true"
-			  android:paddingTop="10dip"
-			  android:paddingLeft="10dip"
-			  android:scrollbars="vertical"
-              android:inputType="textMultiLine"
-			  android:text=""
-			  android:background="@android:color/transparent"
-			  android:capitalize="sentences"
-			  android:freezesText="true"/>
-		</LinearLayout>
-		
-	</LinearLayout>
+            android:layout_height="fill_parent"
+            android:gravity="center_vertical"
+            android:button="@drawable/btn_check" />
+
+    <com.todoroo.astrid.ui.ErrorCatchingEditText
+        android:id="@+id/title"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="100"
+        android:autoText="true"
+        android:background="@drawable/edit_title_background"
+        android:capitalize="sentences"
+        android:freezesText="true"
+        android:hint="@string/TEA_title_hint"
+        android:inputType="textMultiLine"
+        android:paddingLeft="5dip"
+        android:paddingTop="3dip"
+        android:scrollbars="vertical"
+        android:text=""
+        android:textColor="@android:color/black" />
+
 </LinearLayout>

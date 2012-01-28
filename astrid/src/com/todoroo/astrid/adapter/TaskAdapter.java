@@ -266,6 +266,14 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
         viewHolder.details2 = (TextView)view.findViewById(R.id.details2);
         viewHolder.taskRow = (LinearLayout)view.findViewById(R.id.task_row);
 
+
+        if (Preferences.getBoolean(R.string.p_default_showfulltitle_key, false)) {
+            viewHolder.nameView.setMaxLines(Integer.MAX_VALUE);
+            LayoutParams containerParams = view.getLayoutParams();
+            containerParams.height = LayoutParams.WRAP_CONTENT;
+            view.setLayoutParams(containerParams);
+        }
+
         view.setTag(viewHolder);
         for(int i = 0; i < view.getChildCount(); i++)
             view.getChildAt(i).setTag(viewHolder);
@@ -330,6 +338,7 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
         // name
         final TextView nameView = viewHolder.nameView; {
             String nameValue = task.getValue(Task.TITLE);
+
             long hiddenUntil = task.getValue(Task.HIDE_UNTIL);
             if(task.getValue(Task.DELETION_DATE) > 0)
                 nameValue = r.getString(R.string.TAd_deletedFormat, nameValue);
@@ -404,7 +413,7 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
             }
             if (pictureView.getVisibility() == View.VISIBLE) {
                 checkBoxView.setVisibility(View.INVISIBLE);
-                viewHolder.pictureBorder.setBackgroundResource(IMPORTANCE_RESOURCES[value]);
+                viewHolder.pictureBorder.setBackgroundResource(IMPORTANCE_RESOURCES_LARGE[value]);
             } else {
                 checkBoxView.setVisibility(View.VISIBLE);
             }
