@@ -48,7 +48,10 @@
     <!-- build and install an instrumented build -->
     <target name="install-instrumented">
       <property name="tested.project.absolute.dir" location="${tested.project.dir}" />
-      <subant target="clean instrument install">
+      <subant target="instrument">
+        <fileset file="${tested.project.absolute.dir}/build.xml" />
+      </subant>
+      <subant target="installi">
         <fileset file="${tested.project.absolute.dir}/build.xml" />
       </subant>
       <copy todir="." file="${tested.project.absolute.dir}/coverage.em" />
