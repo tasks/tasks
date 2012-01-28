@@ -1,97 +1,88 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project name="astrid-tests" default="help">
+<project name="astridTest" default="help">
 
     <!-- The local.properties file is created and updated by the 'android' tool.
-         It contains the path to the SDK. It should *NOT* be checked in in Version
-         Control Systems. -->
+         It contains the path to the SDK. It should *NOT* be checked into
+         Version Control Systems. -->
     <property file="local.properties" />
 
-    <!-- The build.properties file can be created by you and is never touched
-         by the 'android' tool. This is the place to change some of the default property values
-         used by the Ant rules.
+    <!-- The ant.properties file can be created by you. It is only edited by the
+         'android' tool to add properties to it.
+         This is the place to change some Ant specific build properties.
          Here are some properties you may want to change/update:
 
-         application.package
-             the name of your application package as defined in the manifest. Used by the
-             'uninstall' rule.
          source.dir
-             the name of the source directory. Default is 'src'.
+             The name of the source directory. Default is 'src'.
          out.dir
-             the name of the output directory. Default is 'bin'.
+             The name of the output directory. Default is 'bin'.
 
-         Properties related to the SDK location or the project target should be updated
-          using the 'android' tool with the 'update' action.
+         For other overridable properties, look at the beginning of the rules
+         files in the SDK, at tools/ant/build.xml
 
-         This file is an integral part of the build system for your application and
-         should be checked in in Version Control Systems.
+         Properties related to the SDK location or the project target should
+         be updated using the 'android' tool with the 'update' action.
+
+         This file is an integral part of the build system for your
+         application and should be checked into Version Control Systems.
 
          -->
-    <property file="build.properties" />
+    <property file="ant.properties" />
 
-    <!-- The default.properties file is created and updated by the 'android' tool, as well
-         as ADT.
-         This file is an integral part of the build system for your application and
-         should be checked in in Version Control Systems. -->
-    <property file="default.properties" />
+    <!-- The project.properties file is created and updated by the 'android'
+         tool, as well as ADT.
 
-    <!-- Required pre-setup import -->
-    <import file="${sdk.dir}/tools/ant/pre_setup.xml" />
+         This contains project specific properties such as project target, and library
+         dependencies. Lower level build properties are stored in ant.properties
+         (or in .classpath for Eclipse projects).
 
-    <taskdef resource="net/sf/antcontrib/antlib.xml">
-      <classpath>
-        <pathelement location="antlib/ant-contrib-1.0b3.jar"/>
-      </classpath>
-    </taskdef>
+         This file is an integral part of the build system for your
+         application and should be checked into Version Control Systems. -->
+    <loadproperties srcFile="project.properties" />
 
-    <taskdef name="setup"
-        classname="com.android.ant.SetupTask"
-        classpathref="android.antlibs" />
+    <!-- quick check on sdk.dir -->
+    <fail
+            message="sdk.dir is missing. Make sure to generate local.properties using 'android update project' or to inject it through an env var"
+            unless="sdk.dir"
+    />
 
-    <!-- Execute the Android Setup task that will setup some properties specific to the target,
-         and import the build rules files.
-
-         The rules file is imported from
-            <SDK>/platforms/<target_platform>/templates/android_rules.xml
-
-         To customize some build steps for your project:
-         - copy the content of the main node <project> from android_rules.xml
-         - paste it in this build.xml below the <setup /> task.
-         - disable the import by changing the setup task below to <setup import="false" />
-
-         This will ensure that the properties are setup correctly but that your customized
-         build steps are used.
-    -->
-    <setup />
-
-    <target name="help">
-      <echo>Astrid Unit Test Build. Available targets:</echo>
-      <echo>   help:      Displays this help.</echo>
-      <echo>   run-tests: Run unit tests.</echo>
-      <echo>   coverage:  Run tests and dump emma coverage reports.</echo>
+    <!-- build and install an instrumented build -->
+    <target name="install-instrumented">
+      <subant target="clean instrument install">
+        <fileset file="../astrid/build.xml" />
+      </subant>
     </target>
 
     <!-- override coverage target with custom reporting and rules -->    
-    <target name="coverage" depends="-set-coverage-classpath, -install-instrumented, install"
+    <target name="coverage" depends="-test-project-check, install-instrumented"
                 description="Runs the tests against the instrumented code and generates
                             code coverage report">
-        <run-tests-helper emma.enabled="true">
-            <extra-instrument-args>
-                <arg value="-e" />
-                <arg value="coverageFile" />
-                <arg value="${emma.dump.file}" />
-                <arg value="class" />
-                <arg value="com.todoroo.astrid.ContinuousTests" />
-            </extra-instrument-args>
-        </run-tests-helper>
 
+        <property name="tested.project.absolute.dir" location="${tested.project.dir}" />
+        <property name="test.runner" value="com.zutubi.android.junitreport.JUnitReportTestRunner" />
+
+        <!-- Application package of the tested project extracted from its manifest file -->
+        <xpath input="${tested.project.absolute.dir}/AndroidManifest.xml"
+                expression="/manifest/@package" output="tested.manifest.package" />
+        <xpath input="AndroidManifest.xml"
+                expression="/manifest/@package" output="manifest.package" />
+
+        <property name="emma.dump.file"
+                value="/data/data/${tested.manifest.package}/coverage.ec" />
+
+        <run-tests-helper emma.enabled="true">
+          <extra-instrument-args>
+            <arg value="-e" />
+            <arg value="coverageFile" />
+            <arg value="${emma.dump.file}" />
+          </extra-instrument-args>
+        </run-tests-helper>
         <echo>Downloading coverage file into project directory...</echo>
         <exec executable="${adb}" failonerror="true">
-            <arg line="${adb.device.arg}" />
-            <arg value="pull" />
-            <arg value="${emma.dump.file}" />
-            <arg value="coverage.ec" />
+          <arg line="${adb.device.arg}" />
+          <arg value="pull" />
+          <arg value="${emma.dump.file}" />
+          <arg value="coverage.ec" />
         </exec>
-
         <echo>Extracting coverage report...</echo>
         <copy todir="${tested.project.absolute.dir}/src-combined">
           <fileset dir="../api/src" includes="**/*.java" />
@@ -104,12 +95,11 @@
               <include name="coverage.ec" />
               <include name="coverage.em" />
             </infileset>
-            <html outfile="coverage.html" encoding="UTF-8" />
             <xml outfile="${reports.dir}/coverage.xml" />
+            <html outfile="coverage.html" />
           </report>
         </emma>
         <echo>Cleaning up temporary files...</echo>
-        <delete dir="${instrumentation.absolute.dir}" />
         <delete file="coverage.ec" />
         <delete file="coverage.em" />
         <echo>Saving the report file in ${basedir}/coverage/coverage.html</echo>
@@ -125,5 +115,26 @@
         <arg value="${reports.dir}/junit-report.xml" />
       </exec>
     </target>
+
+    <!-- Import the actual build file.
+
+         To customize existing targets, there are two options:
+         - Customize only one target:
+             - copy/paste the target into this file, *before* the
+               <import> task.
+             - customize it to your needs.
+         - Customize the whole content of build.xml
+             - copy/paste the content of the rules files (minus the top node)
+               into this file, replacing the <import> task.
+             - customize to your needs.
+
+         ***********************
+         ****** IMPORTANT ******
+         ***********************
+         In all cases you must update the value of version-tag below to read 'custom' instead of an integer,
+         in order to avoid having your file be overridden by tools such as "android update project"
+    -->
+    <!-- version-tag: custom -->
+    <import file="${sdk.dir}/tools/ant/build.xml" />
 
 </project>

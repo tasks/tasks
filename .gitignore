@@ -1,17 +1,18 @@
 *~
+.DS_Store
 .metadata
 *.class
 org.eclipse.ltk.core.refactoring.prefs
 gen
 local.properties
-antbuild
-astrid/src-combined
-release
-dev
+/release
+/dev
 lp-translations/
 translations/strings.xml
-.DS_Store
 
+astrid/coverage.em
+astrid/src-combined
+antbuild
 greendroid/GDCatalog/.project
 
 api/bin
