@@ -164,7 +164,7 @@ public class FilterListActivity extends ListFragment {
 
         getActivity().setDefaultKeyMode(Activity.DEFAULT_KEYS_SEARCH_LOCAL);
         //ImageView backButton = (ImageView) getView().findViewById(R.id.back);
-        newListButton = getView().findViewById(R.id.new_list_button);
+        newListButton = getView().findViewById(R.id.lists_footer);
 
 //        backButton.setOnClickListener(new OnClickListener() {
 //            @Override
