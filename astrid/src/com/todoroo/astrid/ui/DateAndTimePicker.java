@@ -4,8 +4,10 @@ import java.util.ArrayList;
 import java.util.Date;
 
 import android.content.Context;
+import android.content.res.Resources;
 import android.util.AttributeSet;
 import android.util.DisplayMetrics;
+import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -132,7 +134,17 @@ public class DateAndTimePicker extends LinearLayout {
         urgencyValues.add(new UrgencyValue(labels[0],
                 Task.URGENCY_NONE));
 
-        DisplayMetrics metrics = context.getResources().getDisplayMetrics();
+        Resources r = context.getResources();
+        DisplayMetrics metrics = r.getDisplayMetrics();
+        TypedValue onColor = new TypedValue();
+        context.getTheme().resolveAttribute(R.attr.asThemeTextColor, onColor, false);
+
+        int onColorValue = r.getColor(onColor.data);
+        int offColorValue = r.getColor(android.R.color.transparent);
+        int borderColorValue = r.getColor(R.color.task_edit_deadline_gray);
+        int cornerRadius = (int) (5 * r.getDisplayMetrics().density);
+        int strokeWidth = (int) (2 * r.getDisplayMetrics().density);
+
         for (int i = 0; i < urgencyValues.size(); i++) {
             LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(LayoutParams.FILL_PARENT, (int) (42 * metrics.density), 0);
             UrgencyValue uv = urgencyValues.get(i);
@@ -143,16 +155,16 @@ public class DateAndTimePicker extends LinearLayout {
             tb.setTextOn(label);
             tb.setTag(uv);
             if (i == 0) {
-                tb.setBackgroundResource(R.drawable.date_shortcut_top);
+                tb.setBackgroundDrawable(CustomBorderDrawable.customButton(cornerRadius, cornerRadius, 0, 0, onColorValue, offColorValue, borderColorValue, strokeWidth));
             } else if (i == urgencyValues.size() - 2) {
                 lp.topMargin = (int) (-2 * metrics.density);
-                tb.setBackgroundResource(R.drawable.date_shortcut_bottom);
+                tb.setBackgroundDrawable(CustomBorderDrawable.customButton(0, 0, cornerRadius, cornerRadius, onColorValue, offColorValue, borderColorValue, strokeWidth));
             } else if (i == urgencyValues.size() - 1) {
                 lp.topMargin = (int) (5 * metrics.density);
-                tb.setBackgroundResource(R.drawable.date_shortcut_standalone);
+                tb.setBackgroundDrawable(CustomBorderDrawable.customButton(cornerRadius, cornerRadius, cornerRadius, cornerRadius, onColorValue, offColorValue, borderColorValue, strokeWidth));
             } else {
                 lp.topMargin = (int) (-2 * metrics.density);
-                tb.setBackgroundResource(R.drawable.date_shortcut_middle);
+                tb.setBackgroundDrawable(CustomBorderDrawable.customButton(0, 0, 0, 0, onColorValue, offColorValue, borderColorValue, strokeWidth));
             }
             int verticalPadding = (int) (SHORTCUT_PADDING * metrics.density);
             tb.setPadding(0, verticalPadding, 0, verticalPadding);

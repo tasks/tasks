@@ -3,8 +3,10 @@ package com.todoroo.astrid.ui;
 import java.util.Calendar;
 
 import android.content.Context;
+import android.content.res.Resources;
 import android.text.format.DateUtils;
 import android.util.AttributeSet;
+import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.CompoundButton;
@@ -31,6 +33,8 @@ public class AstridTimePicker extends LinearLayout {
         public void timePickerEnabledChanged(boolean hasTime);
     }
 
+
+
     public AstridTimePicker(Context context, AttributeSet attrs) {
         super(context, attrs);
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -42,7 +46,38 @@ public class AstridTimePicker extends LinearLayout {
         hours = (NumberPicker) findViewById(R.id.hours);
         minutes = (NumberPicker) findViewById(R.id.minutes);
 
+        setupButtonBackgrounds(context);
+
         initialize(context);
+    }
+
+    private void setupButtonBackgrounds(Context context) {
+        Resources r = context.getResources();
+        TypedValue onColor = new TypedValue();
+        context.getTheme().resolveAttribute(R.attr.asThemeTextColor, onColor, false);
+
+        int onColorValue = r.getColor(onColor.data);
+        int offColorValue = r.getColor(android.R.color.transparent);
+        int borderColorValue = r.getColor(R.color.task_edit_deadline_gray);
+        int cornerRadius = (int) (5 * r.getDisplayMetrics().density);
+        int strokeWidth = (int) (2 * r.getDisplayMetrics().density);
+
+        amButton.setBackgroundDrawable(CustomBorderDrawable.customButton(cornerRadius, 0, 0, cornerRadius,
+                onColorValue, offColorValue, borderColorValue, strokeWidth));
+        pmButton.setBackgroundDrawable(CustomBorderDrawable.customButton(0, cornerRadius, cornerRadius, 0,
+                onColorValue, offColorValue, borderColorValue, strokeWidth));
+        noTimeCheck.setBackgroundDrawable(CustomBorderDrawable.customButton(cornerRadius, cornerRadius, cornerRadius, cornerRadius,
+                onColorValue, offColorValue, borderColorValue, strokeWidth));
+
+        hours.findViewById(R.id.increment).setBackgroundDrawable(
+                CustomBorderDrawable.customButton(cornerRadius, 0, 0, 0, onColorValue, offColorValue, borderColorValue, strokeWidth));
+        hours.findViewById(R.id.decrement).setBackgroundDrawable(
+                CustomBorderDrawable.customButton(0, 0, 0, cornerRadius, onColorValue, offColorValue, borderColorValue, strokeWidth));
+
+        minutes.findViewById(R.id.increment).setBackgroundDrawable(
+                CustomBorderDrawable.customButton(0, cornerRadius, 0, 0, onColorValue, offColorValue, borderColorValue, strokeWidth));
+        minutes.findViewById(R.id.decrement).setBackgroundDrawable(
+                CustomBorderDrawable.customButton(0, 0, cornerRadius, 0, onColorValue, offColorValue, borderColorValue, strokeWidth));
     }
 
     private void initialize(Context context) {
@@ -65,11 +100,7 @@ public class AstridTimePicker extends LinearLayout {
             }
         };
 
-        hours.findViewById(R.id.increment).setBackgroundResource(R.drawable.deadline_timepicker_button_tl);
-        hours.findViewById(R.id.decrement).setBackgroundResource(R.drawable.deadline_timepicker_button_bl);
         hours.findViewById(R.id.timepicker_left_border).setVisibility(View.VISIBLE);
-        minutes.findViewById(R.id.increment).setBackgroundResource(R.drawable.deadline_timepicker_button_tr);
-        minutes.findViewById(R.id.decrement).setBackgroundResource(R.drawable.deadline_timepicker_button_br);
         minutes.findViewById(R.id.timepicker_right_border).setVisibility(View.VISIBLE);
 
         String amString = DateUtils.getAMPMString(Calendar.AM).toLowerCase();
@@ -102,7 +133,6 @@ public class AstridTimePicker extends LinearLayout {
             }
         });
 
-        noTimeCheck.setBackgroundResource(R.drawable.date_shortcut_standalone);
         String noTime = context.getString(R.string.TEA_no_time).toLowerCase();
         noTimeCheck.setTextOff(noTime);
         noTimeCheck.setTextOn(noTime);
