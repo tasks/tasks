@@ -32,7 +32,6 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.IntentFilter;
 import android.os.Bundle;
 import android.os.Handler;
 import android.speech.RecognizerIntent;
@@ -87,7 +86,6 @@ import com.todoroo.astrid.reminders.Notifications;
 import com.todoroo.astrid.repeats.RepeatControlSet;
 import com.todoroo.astrid.service.AddOnService;
 import com.todoroo.astrid.service.MetadataService;
-import com.todoroo.astrid.service.StartupService;
 import com.todoroo.astrid.service.StatisticsConstants;
 import com.todoroo.astrid.service.StatisticsService;
 import com.todoroo.astrid.service.TaskService;
@@ -213,15 +211,13 @@ public final class TaskEditFragment extends Fragment implements
     private TaskEditViewPager mAdapter;
     private TabPageIndicator mIndicator;
 
-    private final Runnable refreshActivity = new Runnable()
-    {
+    private final Runnable refreshActivity = new Runnable() {
         @Override
-        public void run()
-        {
-           //Change state here
+        public void run() {
+            // Change state here
             setPagerHeightForPosition(TAB_VIEW_UPDATES);
         }
-     };
+    };
 
     private final List<TaskEditControlSet> controls = Collections.synchronizedList(new ArrayList<TaskEditControlSet>());
 
@@ -289,8 +285,6 @@ public final class TaskEditFragment extends Fragment implements
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        new StartupService().onStartupApplication(getActivity());
-
         // if we were editing a task already, restore it
         if (savedInstanceState != null
                 && savedInstanceState.containsKey(TASK_IN_PROGRESS)) {
@@ -308,7 +302,6 @@ public final class TaskEditFragment extends Fragment implements
         }
 
         getActivity().setResult(Activity.RESULT_OK);
-
     }
 
     /*
@@ -330,6 +323,7 @@ public final class TaskEditFragment extends Fragment implements
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+
         // We have a menu item to show in action bar.
         setHasOptionsMenu(true);
         getSupportActivity().getSupportActionBar().setDisplayHomeAsUpEnabled(
@@ -360,7 +354,6 @@ public final class TaskEditFragment extends Fragment implements
 
         // disable keyboard until user requests it
         AndroidUtilities.suppressVirtualKeyboard(title);
-
     }
 
     private void loadMoreContainer() {
@@ -701,6 +694,8 @@ public final class TaskEditFragment extends Fragment implements
                     hideUntilControls.setDefaults();
                 }
             }
+
+            loadMoreContainer();
         }
 
         @Override
@@ -805,8 +800,6 @@ public final class TaskEditFragment extends Fragment implements
             for (TaskEditControlSet controlSet : controls)
                 controlSet.readFromTask(model);
         }
-
-        loadMoreContainer();
 
     }
 
@@ -1074,10 +1067,6 @@ public final class TaskEditFragment extends Fragment implements
     public void onResume() {
         super.onResume();
         StatisticsService.sessionStart(getActivity());
-        getActivity().registerReceiver(
-                controlReceiver,
-                new IntentFilter(
-                        AstridApiConstants.BROADCAST_SEND_EDIT_CONTROLS));
         populateFields();
     }
 
