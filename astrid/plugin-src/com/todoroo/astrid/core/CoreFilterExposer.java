@@ -14,7 +14,7 @@ import com.todoroo.andlib.service.ContextManager;
 import com.todoroo.andlib.sql.Criterion;
 import com.todoroo.andlib.sql.Query;
 import com.todoroo.andlib.sql.QueryTemplate;
-import com.todoroo.astrid.activity.FilterListActivity;
+import com.todoroo.astrid.activity.FilterListFragment;
 import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.api.AstridFilterExposer;
 import com.todoroo.astrid.api.Filter;
@@ -26,7 +26,7 @@ import com.todoroo.astrid.data.TaskApiDao.TaskCriteria;
 import com.todoroo.astrid.tags.TagService;
 
 /**
- * Exposes Astrid's built in filters to the {@link FilterListActivity}
+ * Exposes Astrid's built in filters to the {@link FilterListFragment}
  *
  * @author Tim Su <tim@todoroo.com>
  *

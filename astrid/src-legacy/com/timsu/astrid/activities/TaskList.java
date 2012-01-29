@@ -24,11 +24,11 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import com.todoroo.andlib.service.ContextManager;
+import com.todoroo.astrid.activity.TaskListFragment;
 import com.todoroo.astrid.activity.TaskListActivity;
-import com.todoroo.astrid.activity.TaskListWrapperActivity;
 
 /**
- * Legacy task shortcut, takes users to the updated {@link TaskListActivity}.
+ * Legacy task shortcut, takes users to the updated {@link TaskListFragment}.
  * This activity is around so users with existing desktop icons will
  * be able to still launch Astrid.
  *
@@ -59,7 +59,7 @@ public class TaskList extends Activity {
      * @param intent
      */
     private void launchTaskList(Intent intent) {
-        Intent taskListIntent = new Intent(this, TaskListWrapperActivity.class);
+        Intent taskListIntent = new Intent(this, TaskListActivity.class);
         startActivity(taskListIntent);
         finish();
     }

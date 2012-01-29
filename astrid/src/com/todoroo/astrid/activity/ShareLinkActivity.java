@@ -13,7 +13,7 @@ import com.todoroo.astrid.data.Task;
  *
  * Create a new task based on incoming links from the "share" menu
  */
-public final class ShareLinkActivity extends TaskListActivity {
+public final class ShareLinkActivity extends TaskListFragment {
     public ShareLinkActivity () {
         super();
     }
@@ -30,8 +30,8 @@ public final class ShareLinkActivity extends TaskListActivity {
         Task task = quickAddTask(subject, false);
         task.setValue(Task.NOTES, callerIntent.getStringExtra(Intent.EXTRA_TEXT));
         taskService.save(task);
-        Intent intent = new Intent(getActivity(), TaskEditWrapperActivity.class);
-        intent.putExtra(TaskEditActivity.TOKEN_ID, task.getId());
+        Intent intent = new Intent(getActivity(), TaskEditActivity.class);
+        intent.putExtra(TaskEditFragment.TOKEN_ID, task.getId());
         intent.putExtra(TOKEN_FILTER, filter);
         startActivityForResult(intent, ACTIVITY_EDIT_TASK);
     }

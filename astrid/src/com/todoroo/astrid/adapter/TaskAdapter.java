@@ -71,7 +71,7 @@ import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.andlib.utility.Pair;
 import com.todoroo.andlib.utility.Preferences;
-import com.todoroo.astrid.activity.TaskListActivity;
+import com.todoroo.astrid.activity.TaskListFragment;
 import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.api.TaskAction;
 import com.todoroo.astrid.api.TaskDecoration;
@@ -153,7 +153,7 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
     @Autowired
     private TaskService taskService;
 
-    protected final TaskListActivity fragment;
+    protected final TaskListFragment fragment;
     protected final HashMap<Long, Boolean> completedItems = new HashMap<Long, Boolean>(0);
     protected OnCompletedTaskListener onCompletedTaskListener = null;
     public boolean isFling = false;
@@ -193,7 +193,7 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
      * @param onCompletedTaskListener
      *            task listener. can be null
      */
-    public TaskAdapter(TaskListActivity fragment, int resource,
+    public TaskAdapter(TaskListFragment fragment, int resource,
             Cursor c, AtomicReference<String> query, boolean autoRequery,
             OnCompletedTaskListener onCompletedTaskListener) {
         super(ContextManager.getContext(), c, autoRequery);

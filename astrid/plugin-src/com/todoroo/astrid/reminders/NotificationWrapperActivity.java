@@ -3,10 +3,10 @@ package com.todoroo.astrid.reminders;
 import android.os.Bundle;
 
 import com.timsu.astrid.R;
-import com.todoroo.astrid.activity.AstridWrapperActivity;
+import com.todoroo.astrid.activity.AstridActivity;
 import com.todoroo.astrid.service.ThemeService;
 
-public class NotificationWrapperActivity extends AstridWrapperActivity {
+public class NotificationWrapperActivity extends AstridActivity {
 
     /* (non-Javadoc)
      * @see com.todoroo.astrid.activity.AstridWrapperActivity#onCreate(android.os.Bundle)

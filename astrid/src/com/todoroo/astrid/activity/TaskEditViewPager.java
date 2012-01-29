@@ -12,7 +12,7 @@ public class TaskEditViewPager extends PagerAdapter implements TitleProvider {
 
     private static String[] titles = new String[] { "Activity", "More" };
     private final Context context;
-    public TaskEditActivity parent;
+    public TaskEditFragment parent;
 
     public TaskEditViewPager(Context context) {
         this.context = context;

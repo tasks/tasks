@@ -26,10 +26,10 @@ import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.andlib.utility.Preferences;
+import com.todoroo.astrid.activity.TaskEditFragment;
 import com.todoroo.astrid.activity.TaskEditActivity;
-import com.todoroo.astrid.activity.TaskEditWrapperActivity;
+import com.todoroo.astrid.activity.TaskListFragment;
 import com.todoroo.astrid.activity.TaskListActivity;
-import com.todoroo.astrid.activity.TaskListWrapperActivity;
 import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.api.FilterWithCustomIntent;
 import com.todoroo.astrid.api.PermaSql;
@@ -208,7 +208,7 @@ public class TasksWidget extends AppWidgetProvider {
 
             updateForScreenSize(views);
 
-            Intent listIntent = new Intent(context, TaskListWrapperActivity.class);
+            Intent listIntent = new Intent(context, TaskListActivity.class);
             String customIntent = Preferences.getStringValue(WidgetConfigActivity.PREF_CUSTOM_INTENT
                     + widgetId);
             if(customIntent != null) {
@@ -217,10 +217,10 @@ public class TasksWidget extends AppWidgetProvider {
                 Bundle extras = AndroidUtilities.bundleFromSerializedString(serializedExtras);
                 listIntent.putExtras(extras);
             }
-            listIntent.putExtra(TaskListActivity.TOKEN_SOURCE, Constants.SOURCE_WIDGET);
+            listIntent.putExtra(TaskListFragment.TOKEN_SOURCE, Constants.SOURCE_WIDGET);
             listIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_MULTIPLE_TASK);
             if(filter != null) {
-                listIntent.putExtra(TaskListActivity.TOKEN_FILTER, filter);
+                listIntent.putExtra(TaskListFragment.TOKEN_FILTER, filter);
                 listIntent.setAction("L" + widgetId + filter.sqlQuery);
             } else {
                 listIntent.setAction("L" + widgetId);
@@ -230,15 +230,15 @@ public class TasksWidget extends AppWidgetProvider {
             views.setOnClickPendingIntent(R.id.taskbody, pListIntent);
 
 
-            Intent editIntent = new Intent(context, TaskEditWrapperActivity.class);
+            Intent editIntent = new Intent(context, TaskEditActivity.class);
             editIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_MULTIPLE_TASK);
-            editIntent.putExtra(TaskEditActivity.OVERRIDE_FINISH_ANIM, false);
+            editIntent.putExtra(TaskEditFragment.OVERRIDE_FINISH_ANIM, false);
             if(filter != null) {
-                editIntent.putExtra(TaskListActivity.TOKEN_FILTER, filter);
+                editIntent.putExtra(TaskListFragment.TOKEN_FILTER, filter);
                 if (filter.valuesForNewTasks != null) {
                     String values = AndroidUtilities.contentValuesToSerializedString(filter.valuesForNewTasks);
                     values = PermaSql.replacePlaceholders(values);
-                    editIntent.putExtra(TaskEditActivity.TOKEN_VALUES, values);
+                    editIntent.putExtra(TaskEditFragment.TOKEN_VALUES, values);
                     editIntent.setAction("E" + widgetId + values);
                 }
             } else {

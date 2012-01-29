@@ -76,7 +76,7 @@
     <activity android:name="com.todoroo.astrid.welcome.WelcomeLogin"
               android:windowSoftInputMode="stateHidden">
     </activity>
-    <activity android:name="com.todoroo.astrid.activity.TaskListWrapperActivity"
+    <activity android:name="com.todoroo.astrid.activity.TaskListActivity"
               android:windowSoftInputMode="stateHidden|adjustResize">
       <intent-filter>
         <action android:name="android.intent.action.MAIN" />
@@ -117,7 +117,7 @@
         </intent-filter>
     </activity>
     <!-- Activity that creates or edits tasks -->
-    <activity android:name="com.todoroo.astrid.activity.TaskEditWrapperActivity"
+    <activity android:name="com.todoroo.astrid.activity.TaskEditActivity"
               android:windowSoftInputMode="stateHidden">
       <intent-filter>
         <action android:name="android.intent.action.MAIN" />
@@ -229,7 +229,7 @@
         <category android:name="android.intent.category.DEFAULT" />
       </intent-filter>
     </activity>
-    <activity android:name="com.todoroo.astrid.activity.BeastModePreferenceActivity"
+    <activity android:name="com.todoroo.astrid.activity.BeastModePreferences"
               android:theme="@android:style/Theme">
     </activity>
         

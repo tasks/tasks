@@ -39,7 +39,7 @@ import com.todoroo.andlib.utility.DialogUtilities;
 import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.astrid.actfm.sync.ActFmPreferenceService;
 import com.todoroo.astrid.actfm.sync.ActFmSyncService;
-import com.todoroo.astrid.activity.TaskListActivity;
+import com.todoroo.astrid.activity.TaskListFragment;
 import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.core.SortHelper;
@@ -52,7 +52,7 @@ import com.todoroo.astrid.tags.TagFilterExposer;
 import com.todoroo.astrid.tags.TagService.Tag;
 import com.todoroo.astrid.welcome.HelpInfoPopover;
 
-public class TagViewActivity extends TaskListActivity {
+public class TagViewActivity extends TaskListFragment {
 
     private static final String LAST_FETCH_KEY = "tag-fetch-"; //$NON-NLS-1$
 

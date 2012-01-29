@@ -17,14 +17,14 @@ import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.andlib.utility.DialogUtilities;
 import com.todoroo.andlib.utility.Preferences;
-import com.todoroo.astrid.activity.DraggableTaskListActivity;
+import com.todoroo.astrid.activity.DraggableTaskListFragment;
 import com.todoroo.astrid.adapter.TaskAdapter.OnCompletedTaskListener;
 import com.todoroo.astrid.dao.StoreObjectDao;
 import com.todoroo.astrid.data.StoreObject;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.gtasks.sync.GtasksSyncService;
 
-public class GtasksListActivity extends DraggableTaskListActivity {
+public class GtasksListActivity extends DraggableTaskListFragment {
 
     protected static final int MENU_CLEAR_COMPLETED_ID = MENU_ADDON_INTENT_ID + 1;
 

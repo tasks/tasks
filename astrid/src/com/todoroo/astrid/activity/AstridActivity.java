@@ -31,10 +31,10 @@ import com.todoroo.astrid.service.StatisticsService;
  * @author Arne
  *
  */
-public class AstridWrapperActivity extends FragmentActivity
-    implements FilterListActivity.OnFilterItemClickedListener,
-    TaskListActivity.OnTaskListItemClickedListener,
-    TaskEditActivity.OnTaskEditDetailsClickedListener {
+public class AstridActivity extends FragmentActivity
+    implements FilterListFragment.OnFilterItemClickedListener,
+    TaskListFragment.OnTaskListItemClickedListener,
+    TaskEditFragment.OnTaskEditDetailsClickedListener {
 
     public static final int LAYOUT_SINGLE = 0;
     public static final int LAYOUT_DOUBLE = 1;
@@ -42,23 +42,23 @@ public class AstridWrapperActivity extends FragmentActivity
 
     protected int fragmentLayout = LAYOUT_SINGLE;
 
-    public FilterListActivity getFilterListFragment() {
-        FilterListActivity frag = (FilterListActivity) getSupportFragmentManager()
-                .findFragmentByTag(FilterListActivity.TAG_FILTERLIST_FRAGMENT);
+    public FilterListFragment getFilterListFragment() {
+        FilterListFragment frag = (FilterListFragment) getSupportFragmentManager()
+                .findFragmentByTag(FilterListFragment.TAG_FILTERLIST_FRAGMENT);
 
         return frag;
     }
 
-    public TaskListActivity getTaskListFragment() {
-        TaskListActivity frag = (TaskListActivity) getSupportFragmentManager()
-                .findFragmentByTag(TaskListActivity.TAG_TASKLIST_FRAGMENT);
+    public TaskListFragment getTaskListFragment() {
+        TaskListFragment frag = (TaskListFragment) getSupportFragmentManager()
+                .findFragmentByTag(TaskListFragment.TAG_TASKLIST_FRAGMENT);
 
         return frag;
     }
 
-    public TaskEditActivity getTaskEditFragment() {
-        TaskEditActivity frag = (TaskEditActivity) getSupportFragmentManager()
-                .findFragmentByTag(TaskEditActivity.TAG_TASKEDIT_FRAGMENT);
+    public TaskEditFragment getTaskEditFragment() {
+        TaskEditFragment frag = (TaskEditFragment) getSupportFragmentManager()
+                .findFragmentByTag(TaskEditFragment.TAG_TASKEDIT_FRAGMENT);
 
         return frag;
     }
@@ -74,7 +74,7 @@ public class AstridWrapperActivity extends FragmentActivity
     @Override
     protected void onNewIntent(Intent intent) {
         super.onNewIntent(intent);
-        FilterListActivity frag = getFilterListFragment();
+        FilterListFragment frag = getFilterListFragment();
         if (frag != null) {
             frag.onNewIntent(intent);
         }
@@ -84,8 +84,8 @@ public class AstridWrapperActivity extends FragmentActivity
      * Handles items being clicked from the filterlist-fragment. Return true if item is handled.
      */
     public boolean onFilterItemClicked(FilterListItem item) {
-        if (this instanceof TaskListWrapperActivity && (item instanceof Filter) ) {
-            ((TaskListWrapperActivity) this).setSelectedItem((Filter) item);
+        if (this instanceof TaskListActivity && (item instanceof Filter) ) {
+            ((TaskListActivity) this).setSelectedItem((Filter) item);
         }
         if (item instanceof SearchFilter) {
             onSearchRequested();
@@ -98,11 +98,11 @@ public class AstridWrapperActivity extends FragmentActivity
             if(item instanceof Filter) {
                 Filter filter = (Filter)item;
                 if(filter instanceof FilterWithCustomIntent) {
-                    int lastSelectedList = intent.getIntExtra(FilterListActivity.TOKEN_LAST_SELECTED, 0);
+                    int lastSelectedList = intent.getIntExtra(FilterListFragment.TOKEN_LAST_SELECTED, 0);
                     intent = ((FilterWithCustomIntent)filter).getCustomIntent();
-                    intent.putExtra(FilterListActivity.TOKEN_LAST_SELECTED, lastSelectedList);
+                    intent.putExtra(FilterListFragment.TOKEN_LAST_SELECTED, lastSelectedList);
                 } else {
-                    intent.putExtra(TaskListActivity.TOKEN_FILTER, filter);
+                    intent.putExtra(TaskListFragment.TOKEN_FILTER, filter);
                 }
 
                 setIntent(intent);
@@ -125,7 +125,7 @@ public class AstridWrapperActivity extends FragmentActivity
     }
 
     protected void setupTasklistFragmentWithFilter(Filter filter) {
-        Class<?> component = TaskListActivity.class;
+        Class<?> component = TaskListFragment.class;
         if (filter instanceof FilterWithCustomIntent) {
             try {
                 component = Class.forName(((FilterWithCustomIntent) filter).customTaskList.getClassName());
@@ -137,9 +137,9 @@ public class AstridWrapperActivity extends FragmentActivity
         FragmentTransaction transaction = manager.beginTransaction();
 
         try {
-            TaskListActivity newFragment = (TaskListActivity) component.newInstance();
+            TaskListFragment newFragment = (TaskListFragment) component.newInstance();
             transaction.replace(R.id.tasklist_fragment_container, newFragment,
-                    TaskListActivity.TAG_TASKLIST_FRAGMENT);
+                    TaskListFragment.TAG_TASKLIST_FRAGMENT);
             transaction.commit();
         } catch (Exception e) {
             // Don't worry about it
@@ -148,21 +148,21 @@ public class AstridWrapperActivity extends FragmentActivity
 
     @Override
     public void onTaskListItemClicked(long taskId) {
-        Intent intent = new Intent(this, TaskEditWrapperActivity.class);
-        intent.putExtra(TaskEditActivity.TOKEN_ID, taskId);
-        getIntent().putExtra(TaskEditActivity.TOKEN_ID, taskId); // Needs to be in activity intent so that TEA onResume doesn't create a blank activity
-        if (getIntent().hasExtra(TaskListActivity.TOKEN_FILTER))
-            intent.putExtra(TaskListActivity.TOKEN_FILTER, getIntent().getParcelableExtra(TaskListActivity.TOKEN_FILTER));
+        Intent intent = new Intent(this, TaskEditActivity.class);
+        intent.putExtra(TaskEditFragment.TOKEN_ID, taskId);
+        getIntent().putExtra(TaskEditFragment.TOKEN_ID, taskId); // Needs to be in activity intent so that TEA onResume doesn't create a blank activity
+        if (getIntent().hasExtra(TaskListFragment.TOKEN_FILTER))
+            intent.putExtra(TaskListFragment.TOKEN_FILTER, getIntent().getParcelableExtra(TaskListFragment.TOKEN_FILTER));
 
         if (fragmentLayout != LAYOUT_SINGLE) {
-            TaskEditActivity editActivity = getTaskEditFragment();
+            TaskEditFragment editActivity = getTaskEditFragment();
             if (fragmentLayout == LAYOUT_TRIPLE)
                 findViewById(R.id.taskedit_fragment_container).setVisibility(View.VISIBLE);
 
             if(editActivity == null) {
-                editActivity = new TaskEditActivity();
+                editActivity = new TaskEditFragment();
                 FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-                transaction.add(R.id.taskedit_fragment_container, editActivity, TaskEditActivity.TAG_TASKEDIT_FRAGMENT);
+                transaction.add(R.id.taskedit_fragment_container, editActivity, TaskEditFragment.TAG_TASKEDIT_FRAGMENT);
                 transaction.addToBackStack(null);
                 transaction.commit();
                 runOnUiThread(new Runnable() {
@@ -178,7 +178,7 @@ public class AstridWrapperActivity extends FragmentActivity
             editActivity.repopulateFromScratch(intent);
 
         } else {
-            startActivityForResult(intent, TaskListActivity.ACTIVITY_EDIT_TASK);
+            startActivityForResult(intent, TaskListFragment.ACTIVITY_EDIT_TASK);
             AndroidUtilities.callOverridePendingTransition(this, R.anim.slide_left_in, R.anim.slide_left_out);
         }
     }

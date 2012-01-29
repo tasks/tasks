@@ -14,7 +14,7 @@ import com.timsu.astrid.R;
 import com.todoroo.andlib.service.ContextManager;
 import com.todoroo.andlib.sql.Query;
 import com.todoroo.andlib.sql.QueryTemplate;
-import com.todoroo.astrid.activity.FilterListActivity;
+import com.todoroo.astrid.activity.FilterListFragment;
 import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.api.AstridFilterExposer;
 import com.todoroo.astrid.api.Filter;
@@ -23,7 +23,7 @@ import com.todoroo.astrid.core.PluginServices;
 import com.todoroo.astrid.data.Task;
 
 /**
- * Exposes "working on" filter to the {@link FilterListActivity}
+ * Exposes "working on" filter to the {@link FilterListFragment}
  *
  * @author Tim Su <tim@todoroo.com>
  *

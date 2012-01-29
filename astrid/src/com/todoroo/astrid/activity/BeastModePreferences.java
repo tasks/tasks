@@ -21,7 +21,7 @@ import com.commonsware.cwac.tlv.TouchListView.DropListener;
 import com.timsu.astrid.R;
 import com.todoroo.andlib.utility.Preferences;
 
-public class BeastModePreferenceActivity extends ListActivity {
+public class BeastModePreferences extends ListActivity {
 
     private TouchListView touchList;
     private ArrayAdapter<String> adapter;

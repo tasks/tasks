@@ -25,7 +25,7 @@ import com.todoroo.andlib.sql.QueryTemplate;
 import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.andlib.utility.DialogUtilities;
 import com.todoroo.astrid.actfm.sync.ActFmPreferenceService;
-import com.todoroo.astrid.activity.FilterListActivity;
+import com.todoroo.astrid.activity.FilterListFragment;
 import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.api.AstridFilterExposer;
 import com.todoroo.astrid.api.Filter;
@@ -39,7 +39,7 @@ import com.todoroo.astrid.gtasks.GtasksPreferenceService;
 import com.todoroo.astrid.service.TagDataService;
 
 /**
- * Exposes Astrid's built in filters to the {@link FilterListActivity}
+ * Exposes Astrid's built in filters to the {@link FilterListFragment}
  *
  * @author Tim Su <tim@todoroo.com>
  *

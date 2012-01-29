@@ -31,7 +31,7 @@ import com.todoroo.astrid.actfm.sync.ActFmPreferenceService;
 import com.todoroo.astrid.actfm.sync.ActFmSyncService;
 import com.todoroo.astrid.actfm.sync.ActFmSyncV2Provider;
 import com.todoroo.astrid.activity.ShortcutActivity;
-import com.todoroo.astrid.activity.TaskListActivity;
+import com.todoroo.astrid.activity.TaskListFragment;
 import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.api.FilterWithCustomIntent;
@@ -203,7 +203,7 @@ public class C2DMReceiver extends BroadcastReceiver {
         }
 
         notifyIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        notifyIntent.putExtra(TaskListActivity.TOKEN_SOURCE, Constants.SOURCE_C2DM);
+        notifyIntent.putExtra(TaskListFragment.TOKEN_SOURCE, Constants.SOURCE_C2DM);
         PendingIntent pendingIntent = PendingIntent.getActivity(context,
                 notifId, notifyIntent, 0);
 
@@ -357,7 +357,7 @@ public class C2DMReceiver extends BroadcastReceiver {
             }
 
             Intent launchIntent = new Intent();
-            launchIntent.putExtra(TaskListActivity.TOKEN_FILTER, filter);
+            launchIntent.putExtra(TaskListFragment.TOKEN_FILTER, filter);
             launchIntent.setComponent(filter.customTaskList);
             filter.customExtras.putBoolean(TagViewActivity.TOKEN_START_ACTIVITY, shouldLaunchActivity(intent));
             launchIntent.putExtras(filter.customExtras);

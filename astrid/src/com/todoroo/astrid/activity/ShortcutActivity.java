@@ -85,10 +85,10 @@ public class ShortcutActivity extends Activity {
     private void launchTaskList(Intent intent) {
         Bundle extras = intent.getExtras();
 
-        Intent taskListIntent = new Intent(this, TaskListWrapperActivity.class);
+        Intent taskListIntent = new Intent(this, TaskListActivity.class);
 
-        if(extras != null && extras.containsKey(TaskListActivity.TOKEN_SOURCE))
-                taskListIntent.putExtra(TaskListActivity.TOKEN_SOURCE, extras.getInt(TaskListActivity.TOKEN_SOURCE));
+        if(extras != null && extras.containsKey(TaskListFragment.TOKEN_SOURCE))
+                taskListIntent.putExtra(TaskListFragment.TOKEN_SOURCE, extras.getInt(TaskListFragment.TOKEN_SOURCE));
 
         if(extras != null && extras.containsKey(TOKEN_CUSTOM_CLASS)) {
             taskListIntent.setComponent(ComponentName.unflattenFromString(extras.getString(TOKEN_CUSTOM_CLASS)));
@@ -127,13 +127,13 @@ public class ShortcutActivity extends Activity {
 
             Filter filter = new Filter("", title, sql, values); //$NON-NLS-1$
 
-            taskListIntent.putExtra(TaskListActivity.TOKEN_FILTER, filter);
+            taskListIntent.putExtra(TaskListFragment.TOKEN_FILTER, filter);
         } else if(extras != null && extras.containsKey(TOKEN_SINGLE_TASK)) {
             Filter filter = new Filter("", getString(R.string.TLA_custom), //$NON-NLS-1$
                     new QueryTemplate().where(Task.ID.eq(extras.getLong(TOKEN_SINGLE_TASK, -1))), null);
 
             taskListIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-            taskListIntent.putExtra(TaskListActivity.TOKEN_FILTER, filter);
+            taskListIntent.putExtra(TaskListFragment.TOKEN_FILTER, filter);
             startActivity(taskListIntent);
         }
 

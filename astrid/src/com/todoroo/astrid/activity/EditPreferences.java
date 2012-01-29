@@ -167,7 +167,7 @@ public class EditPreferences extends TodorooPreferenceActivity {
     }
 
     private void showBeastMode() {
-        Intent intent = new Intent(this, BeastModePreferenceActivity.class);
+        Intent intent = new Intent(this, BeastModePreferences.class);
         intent.setAction(AstridApiConstants.ACTION_SETTINGS);
         startActivity(intent);
     }

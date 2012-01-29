@@ -39,7 +39,7 @@ import com.timsu.astrid.R;
 import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.ContextManager;
 import com.todoroo.andlib.service.DependencyInjectionService;
-import com.todoroo.astrid.activity.FilterListActivity;
+import com.todoroo.astrid.activity.FilterListFragment;
 import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.api.AstridFilterExposer;
 import com.todoroo.astrid.api.Filter;
@@ -484,7 +484,7 @@ public class FilterAdapter extends ArrayAdapter<Filter> {
                     @Override
                     public void onClick(View v) {
                         try {
-                            filter.intent.send(FilterListActivity.REQUEST_NEW_BUTTON, new PendingIntent.OnFinished() {
+                            filter.intent.send(FilterListFragment.REQUEST_NEW_BUTTON, new PendingIntent.OnFinished() {
                                 @Override
                                 public void onSendFinished(PendingIntent pendingIntent, Intent intent,
                                         int resultCode, String resultData, Bundle resultExtras) {

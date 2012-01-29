@@ -43,7 +43,7 @@ import com.timsu.astrid.R;
 import com.todoroo.andlib.sql.QueryTemplate;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.andlib.utility.Preferences;
-import com.todoroo.astrid.activity.TaskListActivity;
+import com.todoroo.astrid.activity.TaskListFragment;
 import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.core.PluginServices;
 import com.todoroo.astrid.dao.TaskDao.TaskCriteria;
@@ -61,7 +61,7 @@ import com.todoroo.astrid.ui.NumberPicker;
  * @author timsu
  *
  */
-public class NotificationActivity extends TaskListActivity implements OnTimeSetListener {
+public class NotificationActivity extends TaskListFragment implements OnTimeSetListener {
 
     // --- constants
 
@@ -109,7 +109,7 @@ public class NotificationActivity extends TaskListActivity implements OnTimeSetL
                 getString(R.string.rmd_NoA_filter),
                 new QueryTemplate().where(TaskCriteria.byId(taskId)),
                 null);
-        intent.putExtra(TaskListActivity.TOKEN_FILTER, itemFilter);
+        intent.putExtra(TaskListFragment.TOKEN_FILTER, itemFilter);
     }
 
     /**

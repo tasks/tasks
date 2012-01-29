@@ -24,8 +24,8 @@ import com.todoroo.andlib.service.ContextManager;
 import com.todoroo.andlib.sql.Criterion;
 import com.todoroo.andlib.sql.QueryTemplate;
 import com.todoroo.andlib.utility.AndroidUtilities;
+import com.todoroo.astrid.activity.TaskListFragment;
 import com.todoroo.astrid.activity.TaskListActivity;
-import com.todoroo.astrid.activity.TaskListWrapperActivity;
 import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.api.TaskAction;
@@ -107,8 +107,8 @@ public class FilterByTagExposer extends BroadcastReceiver {
                 Filter tagFilter = new Filter(listTitle, title,
                         tagTemplate, contentValues);
                 Intent tagIntent = new Intent(ContextManager.getContext(),
-                        TaskListWrapperActivity.class);
-                tagIntent.putExtra(TaskListActivity.TOKEN_FILTER, tagFilter);
+                        TaskListActivity.class);
+                tagIntent.putExtra(TaskListFragment.TOKEN_FILTER, tagFilter);
 
                 ContextManager.getContext().startActivity(tagIntent);
                 if (ContextManager.getContext() instanceof Activity)

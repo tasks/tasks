@@ -24,7 +24,7 @@ import com.todoroo.andlib.service.NotificationManager.AndroidNotificationManager
 import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.andlib.utility.Preferences;
-import com.todoroo.astrid.activity.TaskListActivity;
+import com.todoroo.astrid.activity.TaskListFragment;
 import com.todoroo.astrid.dao.TaskDao;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.service.AstridDependencyInjector;
@@ -166,7 +166,7 @@ public class Notifications extends BroadcastReceiver {
         notifyIntent.setAction("NOTIFY" + id); //$NON-NLS-1$
         notifyIntent.putExtra(NotificationActivity.TOKEN_ID, id);
         notifyIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_MULTIPLE_TASK);
-        notifyIntent.putExtra(TaskListActivity.TOKEN_SOURCE, Constants.SOURCE_NOTIFICATION);
+        notifyIntent.putExtra(TaskListFragment.TOKEN_SOURCE, Constants.SOURCE_NOTIFICATION);
 
         showNotification((int)id, notifyIntent, type, title, text, ringTimes);
         return true;

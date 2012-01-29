@@ -64,7 +64,7 @@ import com.todoroo.astrid.tags.TagsPlugin;
  * @author Tim Su <tim@todoroo.com>
  *
  */
-public class FilterListActivity extends ListFragment {
+public class FilterListFragment extends ListFragment {
 
     public static final String TAG_FILTERLIST_FRAGMENT = "filterlist_fragment";
 
@@ -117,7 +117,7 @@ public class FilterListActivity extends ListFragment {
         public boolean onFilterItemClicked(FilterListItem item);
     }
 
-    public FilterListActivity() {
+    public FilterListFragment() {
         DependencyInjectionService.getInstance().inject(this);
     }
 
@@ -184,7 +184,7 @@ public class FilterListActivity extends ListFragment {
             }
         });
 
-        AstridWrapperActivity activity = (AstridWrapperActivity) getActivity();
+        AstridActivity activity = (AstridActivity) getActivity();
         mDualFragments = activity.isMultipleFragments();
         if (mDualFragments)
             mSelectedIndex = activity.getIntent().getIntExtra(TOKEN_LAST_SELECTED, 0);
@@ -212,8 +212,8 @@ public class FilterListActivity extends ListFragment {
                     new QueryTemplate().where(Functions.upper(Task.TITLE).like("%" + //$NON-NLS-1$
                             query.toUpperCase() + "%")), //$NON-NLS-1$
                     null);
-            intent = new Intent(getActivity(), TaskListWrapperActivity.class);
-            intent.putExtra(TaskListActivity.TOKEN_FILTER, filter);
+            intent = new Intent(getActivity(), TaskListActivity.class);
+            intent.putExtra(TaskListFragment.TOKEN_FILTER, filter);
             startActivity(intent);
         } else {
             setUpList();
@@ -236,7 +236,7 @@ public class FilterListActivity extends ListFragment {
         item = menu.add(Menu.NONE, MENU_SEARCH_ID, Menu.NONE,
                 R.string.FLA_menu_search);
         item.setIcon(android.R.drawable.ic_menu_search);
-        if (((AstridWrapperActivity) getActivity()).isMultipleFragments())
+        if (((AstridActivity) getActivity()).isMultipleFragments())
             item.setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
 
 
@@ -273,8 +273,8 @@ public class FilterListActivity extends ListFragment {
         Intent broadcastIntent = new Intent(AstridApiConstants.BROADCAST_REQUEST_SYNC_ACTIONS);
         activity.sendOrderedBroadcast(broadcastIntent, AstridApiConstants.PERMISSION_READ);
 
-        if (activity instanceof TaskListWrapperActivity) {
-            ((TaskListWrapperActivity) activity).setupPopoverWithFilterList(this);
+        if (activity instanceof TaskListActivity) {
+            ((TaskListActivity) activity).setupPopoverWithFilterList(this);
         }
 
         activity.registerReceiver(refreshReceiver,
@@ -435,7 +435,7 @@ public class FilterListActivity extends ListFragment {
                 return true;
             }
             default: {
-                Fragment tasklist = getSupportFragmentManager().findFragmentByTag(TaskListActivity.TAG_TASKLIST_FRAGMENT);
+                Fragment tasklist = getSupportFragmentManager().findFragmentByTag(TaskListFragment.TAG_TASKLIST_FRAGMENT);
                 if (tasklist != null && tasklist.isInLayout())
                     return tasklist.onOptionsItemSelected(item);
             }

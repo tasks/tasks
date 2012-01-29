@@ -26,7 +26,7 @@ import com.todoroo.astrid.data.Task;
  * @author Tim Su <tim@todoroo.com>
  *
  */
-public class DraggableTaskListActivity extends TaskListActivity {
+public class DraggableTaskListFragment extends TaskListFragment {
 
     // --- task list
 
@@ -102,7 +102,7 @@ public class DraggableTaskListActivity extends TaskListActivity {
 
     private final class DraggableTaskAdapter extends TaskAdapter {
 
-        private DraggableTaskAdapter(TaskListActivity activity, int resource,
+        private DraggableTaskAdapter(TaskListFragment activity, int resource,
                 Cursor c, AtomicReference<String> query, boolean autoRequery,
                 OnCompletedTaskListener onCompletedTaskListener) {
             super(activity, resource, c, query, autoRequery,
