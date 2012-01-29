@@ -9,7 +9,6 @@ import com.todoroo.andlib.utility.Preferences;
 
 public class ThemeService {
 
-    @SuppressWarnings("nls")
     public static void applyTheme(Activity activity) {
         activity.setTheme(getTheme());
 
@@ -17,6 +16,7 @@ public class ThemeService {
         activity.getWindow().addFlags(WindowManager.LayoutParams.FLAG_DITHER);
     }
 
+    @SuppressWarnings("nls")
     public static int getTheme() {
         String preference = Preferences.getStringValue(R.string.p_theme);
         if(preference != null && preference.equals("black"))

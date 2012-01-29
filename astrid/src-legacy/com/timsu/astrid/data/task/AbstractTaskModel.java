@@ -29,8 +29,8 @@ import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
 import com.timsu.astrid.R;
-import com.timsu.astrid.data.AbstractController;
-import com.timsu.astrid.data.AbstractModel;
+import com.timsu.astrid.data.LegacyAbstractController;
+import com.timsu.astrid.data.LegacyAbstractModel;
 import com.timsu.astrid.data.enums.Importance;
 import com.timsu.astrid.data.enums.RepeatInterval;
 
@@ -42,7 +42,7 @@ import com.timsu.astrid.data.enums.RepeatInterval;
  *
  */
 @SuppressWarnings("nls")
-public abstract class AbstractTaskModel extends AbstractModel {
+public abstract class AbstractTaskModel extends LegacyAbstractModel {
 
     /** Version number of this model */
     static final int        VERSION                = 8;
@@ -128,7 +128,7 @@ public abstract class AbstractTaskModel extends AbstractModel {
         public synchronized void onCreate(SQLiteDatabase db) {
             String sql = new StringBuilder().
             append("CREATE TABLE IF NOT EXISTS ").append(tableName).append(" (").
-                append(AbstractController.KEY_ROWID).append(" integer primary key autoincrement, ").
+                append(LegacyAbstractController.KEY_ROWID).append(" integer primary key autoincrement, ").
                 append(NAME).append(" text not null,").
                 append(NOTES).append(" text not null,").
                 append(PROGRESS_PERCENTAGE).append(" integer not null,").
@@ -403,7 +403,7 @@ public abstract class AbstractTaskModel extends AbstractModel {
     AbstractTaskModel(Cursor cursor) {
         super(cursor);
 
-        Integer id = retrieveInteger(AbstractController.KEY_ROWID);
+        Integer id = retrieveInteger(LegacyAbstractController.KEY_ROWID);
         setTaskIdentifier(new TaskIdentifier(id));
     }
 

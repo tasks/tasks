@@ -402,7 +402,7 @@ public class TaskListFragment extends ListFragment implements OnScrollListener,
         MenuItem item = menu.add(Menu.NONE, MENU_SYNC_ID, Menu.NONE,
                 R.string.TLA_menu_sync);
         item.setIcon(R.drawable.ic_menu_refresh);
-        if (((AstridActivity) getActivity()).isMultipleFragments())
+        if (((AstridActivity) getActivity()).getFragmentLayout() != AstridActivity.LAYOUT_SINGLE)
             item.setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
     }
 
@@ -422,7 +422,7 @@ public class TaskListFragment extends ListFragment implements OnScrollListener,
             item = menu.add(Menu.NONE, MENU_SORT_ID, Menu.NONE,
                     R.string.TLA_menu_sort);
             item.setIcon(android.R.drawable.ic_menu_sort_by_size);
-            if (((AstridActivity) getActivity()).isMultipleFragments())
+            if (((AstridActivity) getActivity()).getFragmentLayout() != AstridActivity.LAYOUT_SINGLE)
                 item.setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
         }
 
@@ -803,8 +803,6 @@ public class TaskListFragment extends ListFragment implements OnScrollListener,
     }
 
     public void onWindowFocusChanged(boolean hasFocus) {
-        // FIXME: move to parent Activity
-        // super.onWindowFocusChanged(hasFocus);
         if (hasFocus && Flags.checkAndClear(Flags.REFRESH)) {
             taskAdapter.flushCaches();
             loadTaskListContent(true);

@@ -39,8 +39,9 @@ import android.util.Log;
  * @param <V> the value that will be stored to disk
  */
 // TODO add automatic cache cleanup so low disk conditions can be met
+@SuppressWarnings("nls")
 public abstract class DiskCache<K, V> {
-	private static final String TAG = "DiskCache";
+    private static final String TAG = "DiskCache";
 
 	private MessageDigest hash;
 

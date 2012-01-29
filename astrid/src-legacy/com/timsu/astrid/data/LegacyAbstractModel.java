@@ -27,7 +27,7 @@ import android.database.Cursor;
 
 /** A data object backed by a database */
 @SuppressWarnings("nls")
-public abstract class AbstractModel {
+public abstract class LegacyAbstractModel {
 
     /* Data Source Ordering:
      *
@@ -49,12 +49,12 @@ public abstract class AbstractModel {
     // --- constructors
 
     /** Construct a model from scratch */
-    public AbstractModel() {
+    public LegacyAbstractModel() {
         // ...
     }
 
     /** Construct a model from a database object */
-    public AbstractModel(Cursor cursor) {
+    public LegacyAbstractModel(Cursor cursor) {
         this.cursor = cursor;
     }
 

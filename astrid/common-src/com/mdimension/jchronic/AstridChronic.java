@@ -15,8 +15,9 @@ import com.mdimension.jchronic.tags.TimeZone;
 import com.mdimension.jchronic.utils.Span;
 import com.mdimension.jchronic.utils.Token;
 
+@SuppressWarnings("nls")
 public class AstridChronic {
-  public static final String VERSION = "0.2.3";
+public static final String VERSION = "0.2.3";
 
   private AstridChronic() {
     // DO NOTHING

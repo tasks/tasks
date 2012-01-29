@@ -3,8 +3,6 @@ package com.todoroo.astrid.activity;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
-import android.view.ContextMenu;
-import android.view.ContextMenu.ContextMenuInfo;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,6 +17,7 @@ import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
+@SuppressWarnings("nls")
 public class ExpandableListFragment extends Fragment
     implements OnCreateContextMenuListener,
     ExpandableListView.OnChildClickListener, ExpandableListView.OnGroupCollapseListener,
@@ -49,9 +48,6 @@ public class ExpandableListFragment extends Fragment
     boolean mSetEmptyText;
     boolean mListShown;
     boolean mFinishedStart = false;
-
-    public ExpandableListFragment() {
-    }
 
     /**
      * Provide default implementation to return a simple list view.  Subclasses
@@ -122,6 +118,7 @@ public class ExpandableListFragment extends Fragment
      * @param id The row id of the item that was clicked
      */
     public void onListItemClick(ListView l, View v, int position, long id) {
+        // override me
     }
 
     /**
@@ -318,29 +315,6 @@ public class ExpandableListFragment extends Fragment
         mHandler.post(mRequestFocus);
     }
 
-    @Override
-    public void onGroupExpand(int arg0) {
-        // TODO Auto-generated method stub
-
-    }
-
-    @Override
-    public void onGroupCollapse(int arg0) {
-        // TODO Auto-generated method stub
-
-    }
-
-    @Override
-    public boolean onChildClick(ExpandableListView arg0, View arg1, int arg2,
-            int arg3, long arg4) {
-        // TODO Auto-generated method stub
-        return false;
-    }
-
-    @Override
-    public void onCreateContextMenu(ContextMenu menu, View v, ContextMenuInfo menuInfo) {
-    }
-
     public void onContentChanged() {
         View emptyView = getView().findViewById(android.R.id.empty);
         mList = (ExpandableListView)getView().findViewById(android.R.id.list);
@@ -360,5 +334,21 @@ public class ExpandableListFragment extends Fragment
             setListAdapter(mAdapter);
         }
         mFinishedStart = true;
+    }
+
+    @Override
+    public void onGroupExpand(int groupPosition) {
+        // override me
+    }
+
+    @Override
+    public void onGroupCollapse(int groupPosition) {
+        // override me
+    }
+
+    @Override
+    public boolean onChildClick(ExpandableListView parent, View v,
+            int groupPosition, int childPosition, long id) {
+        return false;
     }
 }

@@ -562,6 +562,7 @@ public final class LocalyticsSession
      * @throws IllegalArgumentException if {@code steps} is null.
      * @throws IllegalArgumentException if {@code steps} has length 0.
      */
+    @SuppressWarnings("nls")
     public static String createRangedAttribute(final int actualValue, final int[] steps)
     {
         if (null == steps)

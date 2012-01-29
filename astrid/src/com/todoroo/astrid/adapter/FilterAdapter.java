@@ -204,7 +204,7 @@ public class FilterAdapter extends ArrayAdapter<Filter> {
         convertView = newView(convertView, parent);
         ViewHolder viewHolder = (ViewHolder) convertView.getTag();
         viewHolder.item = (FilterListItem) getItem(position);
-        populateView(viewHolder, false);
+        populateView(viewHolder);
 
         if (listView.isItemChecked(position)) {
             convertView.setBackgroundColor(activity.getResources().getColor(R.color.tablet_list_selected));
@@ -398,7 +398,7 @@ public class FilterAdapter extends ArrayAdapter<Filter> {
      * ================================================================ views
      * ====================================================================== */
 
-    public void populateView(ViewHolder viewHolder, boolean isExpanded) {
+    public void populateView(ViewHolder viewHolder) {
         FilterListItem filter = viewHolder.item;
         if(filter == null)
             return;

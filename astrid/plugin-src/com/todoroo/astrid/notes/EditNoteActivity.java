@@ -372,7 +372,7 @@ public class EditNoteActivity extends LinearLayout implements TimerActionListene
             callback = existingCallback;
         else {
             callback = new ProgressBarSyncResultCallback(
-                    ((Activity)getContext()), (ProgressBar)parentView.findViewById(R.id.progressBar), R.id.progressBar, new Runnable() {
+                    ((Activity)getContext()), (ProgressBar)parentView.findViewById(R.id.progressBar), new Runnable() {
                         @Override
                         public void run() {
                             setUpListAdapter();

@@ -5,7 +5,7 @@ import java.util.HashMap;
 
 import android.database.Cursor;
 
-import com.timsu.astrid.data.AbstractController;
+import com.timsu.astrid.data.LegacyAbstractController;
 import com.timsu.astrid.data.enums.Importance;
 import com.timsu.astrid.data.enums.RepeatInterval;
 import com.todoroo.astrid.backup.BackupDateUtilities;
@@ -14,7 +14,7 @@ import com.todoroo.astrid.backup.BackupDateUtilities;
 public class TaskModelForXml extends AbstractTaskModel {
 
     static String[] FIELD_LIST = new String[] {
-            AbstractController.KEY_ROWID,
+            LegacyAbstractController.KEY_ROWID,
             NAME,
             IMPORTANCE,
             ELAPSED_SECONDS,
@@ -77,7 +77,7 @@ public class TaskModelForXml extends AbstractTaskModel {
     /* Build a HashMap of task fields and associated values.
      */
     public HashMap<String, String> getTaskAttributes() {
-        taskAttributesMap.put(AbstractController.KEY_ROWID, getTaskIdentifier().idAsString());
+        taskAttributesMap.put(LegacyAbstractController.KEY_ROWID, getTaskIdentifier().idAsString());
         taskAttributesMap.put(NAME, getName());
         taskAttributesMap.put(IMPORTANCE, getImportance().toString());
         taskAttributesMap.put(ELAPSED_SECONDS, getElapsedSeconds().toString());

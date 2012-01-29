@@ -6,18 +6,20 @@ import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.view.View;
 
+import com.timsu.astrid.R;
 import com.viewpagerindicator.TitleProvider;
 
 public class TaskEditViewPager extends PagerAdapter implements TitleProvider {
 
-    private static String[] titles = new String[] { "Activity", "More" };
-    private final Context context;
+    private static String[] titles;
     public TaskEditFragment parent;
 
     public TaskEditViewPager(Context context) {
-        this.context = context;
+        titles = new String[] {
+                context.getString(R.string.TEA_tab_activity),
+                context.getString(R.string.TEA_tab_more),
+        };
     }
-
 
     @Override
     public int getCount() {
@@ -46,12 +48,6 @@ public class TaskEditViewPager extends PagerAdapter implements TitleProvider {
     public String getTitle(int position) {
         return titles[position];
     }
-
-    @Override
-    public void finishUpdate(View view) {
-        //System.err.println("UpdateView");
-    }
-
 
     @Override
     public Parcelable saveState() {

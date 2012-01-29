@@ -16,16 +16,10 @@ package com.todoroo.astrid.helper;
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  */
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 
-import org.apache.http.client.ClientProtocolException;
-
 import android.content.Context;
-import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.Bitmap.CompressFormat;
 import android.graphics.BitmapFactory;
@@ -48,6 +42,7 @@ import android.util.Log;
  * @author <a href="mailto:spomeroy@mit.edu">Steve Pomeroy</a>
  *
  */
+@SuppressWarnings("nls")
 public class ImageCache extends DiskCache<String, Bitmap> {
 	private static final String TAG = ImageCache.class.getSimpleName();
 
@@ -61,8 +56,6 @@ public class ImageCache extends DiskCache<String, Bitmap> {
 
 	private final CompressFormat mCompressFormat;
 	private final int mQuality;
-
-	private final Resources mRes;
 
 	// TODO make it so this is customizable on the instance level.
 	/**
@@ -80,7 +73,6 @@ public class ImageCache extends DiskCache<String, Bitmap> {
 
 	private ImageCache(Context context, CompressFormat format, int quality) {
 		super(context.getCacheDir(), null, getExtension(format));
-		mRes = context.getResources();
 
 		mCompressFormat = format;
 		mQuality = quality;
@@ -183,67 +175,5 @@ public class ImageCache extends DiskCache<String, Bitmap> {
 	public void cancelLoads() {
 		// TODO actually make it possible to cancel tasks
 	}
-
-	/**
-	 * Blocking call to scale a local file. Scales using preserving aspect ratio
-	 *
-	 * @param localFile
-	 *            local image file to be scaled
-	 * @param width
-	 *            maximum width
-	 * @param height
-	 *            maximum height
-	 * @return the scaled image
-	 * @throws ClientProtocolException
-	 * @throws IOException
-	 */
-	private static Bitmap scaleLocalImage(File localFile, int width, int height)
-			throws ClientProtocolException, IOException {
-
-		if (DEBUG){
-			Log.d(TAG, "scaleLocalImage(" + localFile + ", "+ width +", "+ height + ")");
-		}
-
-		if (!localFile.exists()) {
-			throw new IOException("local file does not exist: " + localFile);
-		}
-		if (!localFile.canRead()) {
-			throw new IOException("cannot read from local file: " + localFile);
-		}
-
-		// the below borrowed from:
-		// https://github.com/thest1/LazyList/blob/master/src/com/fedorvlasov/lazylist/ImageLoader.java
-
-		// decode image size
-		final BitmapFactory.Options o = new BitmapFactory.Options();
-		o.inJustDecodeBounds = true;
-
-		BitmapFactory.decodeStream(new FileInputStream(localFile), null, o);
-
-		// Find the correct scale value. It should be the power of 2.
-		//final int REQUIRED_WIDTH = width, REQUIRED_HEIGHT = height;
-		int width_tmp = o.outWidth, height_tmp = o.outHeight;
-		int scale = 1;
-		while (true) {
-			if (width_tmp / 2 <= width || height_tmp / 2 <= height) {
-				break;
-			}
-			width_tmp /= 2;
-			height_tmp /= 2;
-			scale *= 2;
-		}
-
-		// decode with inSampleSize
-		final BitmapFactory.Options o2 = new BitmapFactory.Options();
-		o2.inSampleSize = scale;
-		final Bitmap prescale = BitmapFactory.decodeStream(new FileInputStream(localFile), null, o2);
-
-		if (prescale == null) {
-			Log.e(TAG, localFile + " could not be decoded");
-		}
-
-		return prescale;
-	}
-	private static final boolean USE_APACHE_NC = true;
 
 }

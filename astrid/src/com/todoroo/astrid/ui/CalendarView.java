@@ -31,7 +31,6 @@ public class CalendarView extends View {
 
 	private static final int PADDING = 0;
 	private static final int TEXT_PADDING = 2;
-	private final static int OUTER_BORDER_RADIUS = 5;
 	private final static int CURVE_RADIUS = 0;
 	private final static int TEXT_SIZE = 16;
     private static final float MONTH_TEXT_SIZE = 22;

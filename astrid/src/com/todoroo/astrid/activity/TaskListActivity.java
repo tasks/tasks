@@ -32,7 +32,7 @@ import com.todoroo.astrid.welcome.tutorial.WelcomeWalkthrough;
 
 public class TaskListActivity extends AstridActivity implements MainMenuListener {
 
-    public static final String TOKEN_SELECTED_FILTER = "selectedFilter";
+    public static final String TOKEN_SELECTED_FILTER = "selectedFilter"; //$NON-NLS-1$
     private View listsNav;
     private ImageView listsNavDisclosure;
     private TextView lists;

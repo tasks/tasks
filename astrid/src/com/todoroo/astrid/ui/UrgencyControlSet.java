@@ -244,6 +244,7 @@ public class UrgencyControlSet extends TaskEditControlSet implements OnDeadlineT
         updateButtons();
     }
 
+    @SuppressWarnings("nls")
     private void updateButtons() {
         String auxString = "";
         if(dueDateValue == 0) {

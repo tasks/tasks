@@ -28,7 +28,7 @@ import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
-import com.timsu.astrid.data.AbstractController;
+import com.timsu.astrid.data.LegacyAbstractController;
 import com.timsu.astrid.data.sync.SyncMapping.SyncMappingDatabaseHelper;
 import com.timsu.astrid.data.task.AbstractTaskModel;
 import com.timsu.astrid.data.task.TaskIdentifier;
@@ -36,7 +36,7 @@ import com.timsu.astrid.data.task.TaskModelForSync;
 
 /** Controller for Tag-related operations */
 @SuppressWarnings("nls")
-public class SyncDataController extends AbstractController {
+public class SyncDataController extends LegacyAbstractController {
 
     private SQLiteDatabase syncDatabase;
 

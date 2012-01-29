@@ -21,7 +21,7 @@ package com.timsu.astrid.data.tag;
 
 import android.database.Cursor;
 
-import com.timsu.astrid.data.AbstractController;
+import com.timsu.astrid.data.LegacyAbstractController;
 
 
 /** Tag model for viewing purposes. Contains task name */
@@ -29,7 +29,7 @@ import com.timsu.astrid.data.AbstractController;
 public class TagModelForView extends AbstractTagModel {
 
     static String[] FIELD_LIST = new String[] {
-        AbstractController.KEY_ROWID,
+        LegacyAbstractController.KEY_ROWID,
         NAME,
     };
 

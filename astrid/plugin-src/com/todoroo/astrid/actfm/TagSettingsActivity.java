@@ -49,7 +49,7 @@ import com.todoroo.astrid.welcome.HelpInfoPopover;
 
 public class TagSettingsActivity extends FragmentActivity {
 
-    public static final String TOKEN_NEW_FILTER = "newFilter";
+    public static final String TOKEN_NEW_FILTER = "newFilter"; //$NON-NLS-1$
 
     private static final int MENU_SAVE_ID = R.string.TEA_menu_save;
     private static final int MENU_DISCARD_ID = R.string.TEA_menu_discard;

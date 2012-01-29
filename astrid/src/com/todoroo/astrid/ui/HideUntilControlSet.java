@@ -35,8 +35,6 @@ public class HideUntilControlSet extends PopupControlSet implements OnItemSelect
     private int previousSetting = Task.HIDE_UNTIL_NONE;
 
     private long existingDate = EXISTING_TIME_UNSET;
-    private int existingDateHour = EXISTING_TIME_UNSET;
-    private int existingDateMinutes = EXISTING_TIME_UNSET;
 
     public HideUntilControlSet(Activity activity, int viewLayout, int displayViewLayout, int title) {
         super(activity, viewLayout, displayViewLayout, title);
@@ -97,13 +95,10 @@ public class HideUntilControlSet extends PopupControlSet implements OnItemSelect
                 updated[0] = new HideUntilValue(DateUtilities.getDateString(activity, new Date(specificDate)),
                         Task.HIDE_UNTIL_SPECIFIC_DAY, specificDate);
                 existingDate = specificDate;
-                existingDateHour = SPECIFIC_DATE;
             } else {
                 updated[0] = new HideUntilValue(DateUtilities.getDateStringWithTime(activity, new Date(specificDate)),
                         Task.HIDE_UNTIL_SPECIFIC_DAY_TIME, specificDate);
                 existingDate = specificDate;
-                existingDateHour = hideUntilAsDate.getHours();
-                existingDateMinutes = hideUntilAsDate.getMinutes();
             }
             values = updated;
         }

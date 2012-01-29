@@ -28,8 +28,8 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
-import com.timsu.astrid.data.AbstractController;
-import com.timsu.astrid.data.AbstractModel;
+import com.timsu.astrid.data.LegacyAbstractController;
+import com.timsu.astrid.data.LegacyAbstractModel;
 
 
 /** Abstract model of a task. Subclasses implement the getters and setters
@@ -39,7 +39,7 @@ import com.timsu.astrid.data.AbstractModel;
  *
  */
 @SuppressWarnings("nls")
-public abstract class AbstractTagModel extends AbstractModel {
+public abstract class AbstractTagModel extends LegacyAbstractModel {
 
     /** Version number of this model */
     static final int                   VERSION             = 1;
@@ -94,7 +94,7 @@ public abstract class AbstractTagModel extends AbstractModel {
         public synchronized void onCreate(SQLiteDatabase db) {
             String sql = new StringBuilder().
             append("CREATE TABLE IF NOT EXISTS ").append(tableName).append(" (").
-                append(AbstractController.KEY_ROWID).append(" integer primary key autoincrement, ").
+                append(LegacyAbstractController.KEY_ROWID).append(" integer primary key autoincrement, ").
                 append(NAME).append(" text unique,").
                 append(NOTES).append(" text,").
                 append(ICON).append(" integer,").
@@ -147,7 +147,7 @@ public abstract class AbstractTagModel extends AbstractModel {
     AbstractTagModel(Cursor cursor) {
         super(cursor);
 
-        Integer id = retrieveInteger(AbstractController.KEY_ROWID);
+        Integer id = retrieveInteger(LegacyAbstractController.KEY_ROWID);
         setTagIdentifier(new TagIdentifier(id));
     }
 

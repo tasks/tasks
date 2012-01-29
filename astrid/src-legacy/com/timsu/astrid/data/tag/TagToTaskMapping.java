@@ -26,14 +26,14 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
-import com.timsu.astrid.data.AbstractController;
-import com.timsu.astrid.data.AbstractModel;
+import com.timsu.astrid.data.LegacyAbstractController;
+import com.timsu.astrid.data.LegacyAbstractModel;
 import com.timsu.astrid.data.task.TaskIdentifier;
 
 
 /** A single tag on a task */
 @SuppressWarnings("nls")
-public class TagToTaskMapping extends AbstractModel {
+public class TagToTaskMapping extends LegacyAbstractModel {
 
     /** Version number of this model */
     static final int                   VERSION             = 2;
@@ -52,7 +52,7 @@ public class TagToTaskMapping extends AbstractModel {
     }
 
     static String[] FIELD_LIST = new String[] {
-        AbstractController.KEY_ROWID,
+        LegacyAbstractController.KEY_ROWID,
         TASK,
         TAG,
     };
@@ -74,7 +74,7 @@ public class TagToTaskMapping extends AbstractModel {
         public synchronized void onCreate(SQLiteDatabase db) {
             String sql = new StringBuilder().
             append("CREATE TABLE IF NOT EXISTS ").append(tableName).append(" (").
-                append(AbstractController.KEY_ROWID).append(" integer primary key autoincrement, ").
+                append(LegacyAbstractController.KEY_ROWID).append(" integer primary key autoincrement, ").
                 append(TASK).append(" integer not null,").
                 append(TAG).append(" integer not null,").
                 append("unique (").append(TASK).append(",").append(TAG).append(")").

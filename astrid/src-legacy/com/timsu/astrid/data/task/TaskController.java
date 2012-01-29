@@ -36,7 +36,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 import android.net.Uri;
 import android.util.Log;
 
-import com.timsu.astrid.data.AbstractController;
+import com.timsu.astrid.data.LegacyAbstractController;
 import com.timsu.astrid.data.alerts.AlertController;
 import com.timsu.astrid.data.sync.SyncDataController;
 import com.timsu.astrid.data.task.AbstractTaskModel.RepeatInfo;
@@ -52,7 +52,7 @@ import com.todoroo.astrid.widget.TasksWidget.WidgetUpdateService;
  */
 @Deprecated
 @SuppressWarnings("nls")
-public class TaskController extends AbstractController {
+public class TaskController extends LegacyAbstractController {
 
     private SQLiteDatabase database;
 

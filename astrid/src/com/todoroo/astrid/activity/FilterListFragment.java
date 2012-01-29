@@ -66,9 +66,9 @@ import com.todoroo.astrid.tags.TagsPlugin;
  */
 public class FilterListFragment extends ListFragment {
 
-    public static final String TAG_FILTERLIST_FRAGMENT = "filterlist_fragment";
+    public static final String TAG_FILTERLIST_FRAGMENT = "filterlist_fragment"; //$NON-NLS-1$
 
-    public static final String TOKEN_LAST_SELECTED = "lastSelected";
+    public static final String TOKEN_LAST_SELECTED = "lastSelected"; //$NON-NLS-1$
 
     // -- extra codes
     //public static final String SHOW_BACK_BUTTON = "show_back"; //$NON-NLS-1$
@@ -185,8 +185,7 @@ public class FilterListFragment extends ListFragment {
         });
 
         AstridActivity activity = (AstridActivity) getActivity();
-        mDualFragments = activity.isMultipleFragments();
-        if (mDualFragments)
+        if (activity.getFragmentLayout() > AstridActivity.LAYOUT_SINGLE)
             mSelectedIndex = activity.getIntent().getIntExtra(TOKEN_LAST_SELECTED, 0);
         onNewIntent(activity.getIntent());
 
@@ -236,13 +235,9 @@ public class FilterListFragment extends ListFragment {
         item = menu.add(Menu.NONE, MENU_SEARCH_ID, Menu.NONE,
                 R.string.FLA_menu_search);
         item.setIcon(android.R.drawable.ic_menu_search);
-        if (((AstridActivity) getActivity()).isMultipleFragments())
+
+        if (((AstridActivity) getActivity()).getFragmentLayout() != AstridActivity.LAYOUT_SINGLE)
             item.setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
-
-
-//        item = menu.add(Menu.NONE, MENU_HELP_ID, 1,
-//                R.string.FLA_menu_help);
-//        item.setIcon(android.R.drawable.ic_menu_help);
     }
 
     /* ======================================================================
@@ -428,10 +423,6 @@ public class FilterListFragment extends ListFragment {
             case CONTEXT_MENU_INTENT: {
                 Intent intent = item.getIntent();
                 startActivityForResult(intent, REQUEST_CUSTOM_INTENT);
-                return true;
-            }
-            case android.R.id.home: {
-                // TODO: maybe invoke a dashboard later
                 return true;
             }
             default: {

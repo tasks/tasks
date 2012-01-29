@@ -25,7 +25,7 @@ import java.util.HashMap;
 import android.content.Context;
 import android.database.Cursor;
 
-import com.timsu.astrid.data.AbstractController;
+import com.timsu.astrid.data.LegacyAbstractController;
 import com.timsu.astrid.data.enums.Importance;
 
 
@@ -34,7 +34,7 @@ import com.timsu.astrid.data.enums.Importance;
 public class TaskModelForList extends AbstractTaskModel {
 
     static String[] FIELD_LIST = new String[] {
-        AbstractController.KEY_ROWID,
+        LegacyAbstractController.KEY_ROWID,
         NAME,
         IMPORTANCE,
         ELAPSED_SECONDS,

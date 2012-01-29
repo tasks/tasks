@@ -26,14 +26,14 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
-import com.timsu.astrid.data.AbstractController;
-import com.timsu.astrid.data.AbstractModel;
+import com.timsu.astrid.data.LegacyAbstractController;
+import com.timsu.astrid.data.LegacyAbstractModel;
 import com.timsu.astrid.data.task.TaskIdentifier;
 
 
 /** A single tag on a task */
 @SuppressWarnings("nls")
-public class SyncMapping extends AbstractModel {
+public class SyncMapping extends LegacyAbstractModel {
 
 
     /** Version number of this model */
@@ -58,7 +58,7 @@ public class SyncMapping extends AbstractModel {
     }
 
     static String[] FIELD_LIST = new String[] {
-        AbstractController.KEY_ROWID,
+        LegacyAbstractController.KEY_ROWID,
         TASK,
         SYNC_SERVICE,
         REMOTE_ID,
@@ -82,7 +82,7 @@ public class SyncMapping extends AbstractModel {
         public synchronized void onCreate(SQLiteDatabase db) {
             String sql = new StringBuilder().
             append("CREATE TABLE IF NOT EXISTS ").append(tableName).append(" (").
-                append(AbstractController.KEY_ROWID).append(" integer primary key autoincrement, ").
+                append(LegacyAbstractController.KEY_ROWID).append(" integer primary key autoincrement, ").
                 append(TASK).append(" integer not null,").
                 append(SYNC_SERVICE).append(" integer not null,").
                 append(REMOTE_ID).append(" text not null,").
@@ -132,12 +132,12 @@ public class SyncMapping extends AbstractModel {
     // --- getters and setters
 
     public void setId(long id) {
-        putIfChangedFromDatabase(AbstractController.KEY_ROWID, id);
+        putIfChangedFromDatabase(LegacyAbstractController.KEY_ROWID, id);
     }
 
     public long getId() {
         try {
-            return retrieveLong(AbstractController.KEY_ROWID);
+            return retrieveLong(LegacyAbstractController.KEY_ROWID);
         } catch (UnsupportedOperationException e) {
             return 0;
         }

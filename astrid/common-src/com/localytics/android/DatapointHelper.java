@@ -163,7 +163,6 @@ import android.util.Log;
     /*
      * Suppress JavaDoc warnings because the {@link android.os.Build#SERIAL} fails when built with SDK 4.
      */
-    @SuppressWarnings("javadoc")
     public static String getSerialNumberHashOrNull()
     {
         /*

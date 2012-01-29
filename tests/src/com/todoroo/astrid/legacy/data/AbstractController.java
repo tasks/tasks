@@ -26,7 +26,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.util.Log;
 
-import com.timsu.astrid.data.AbstractModel;
+import com.timsu.astrid.data.LegacyAbstractModel;
 import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.astrid.upgrade.Astrid2To3UpgradeTests;
 
@@ -57,7 +57,7 @@ abstract public class AbstractController {
 
     // cursor iterator
 
-    public static class CursorIterator<TYPE extends AbstractModel> implements Iterator<TYPE> {
+    public static class CursorIterator<TYPE extends LegacyAbstractModel> implements Iterator<TYPE> {
         Cursor cursor;
         Class<TYPE> cls;
 

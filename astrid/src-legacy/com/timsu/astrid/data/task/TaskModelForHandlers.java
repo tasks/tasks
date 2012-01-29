@@ -26,7 +26,7 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 
-import com.timsu.astrid.data.AbstractController;
+import com.timsu.astrid.data.LegacyAbstractController;
 import com.timsu.astrid.data.alerts.AlertController;
 
 
@@ -36,7 +36,7 @@ import com.timsu.astrid.data.alerts.AlertController;
 public class TaskModelForHandlers extends AbstractTaskModel {
 
     static String[] FIELD_LIST = new String[] {
-        AbstractController.KEY_ROWID,
+        LegacyAbstractController.KEY_ROWID,
         REPEAT,
         DEFINITE_DUE_DATE,
         PREFERRED_DUE_DATE,

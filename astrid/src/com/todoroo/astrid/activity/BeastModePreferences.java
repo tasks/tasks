@@ -171,7 +171,6 @@ public class BeastModePreferences extends ListActivity {
 
     private void resetToDefault() {
         String[] prefsArray = getResources().getStringArray(R.array.TEA_control_sets_prefs);
-        String[] descriptionsArray = getResources().getStringArray(R.array.TEA_control_sets);
         while (items.size() > 0)
             items.remove(0);
         for (String s : prefsArray)

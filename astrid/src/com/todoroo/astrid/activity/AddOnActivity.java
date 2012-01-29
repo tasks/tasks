@@ -23,6 +23,13 @@ import com.todoroo.astrid.data.AddOn;
 import com.todoroo.astrid.service.AddOnService;
 import com.todoroo.astrid.service.AstridDependencyInjector;
 
+/**
+ * TODO: fix deprecation or get rid of me
+ *
+ * @author Tim Su <tim@todoroo.com>
+ *
+ */
+@SuppressWarnings("deprecation")
 public class AddOnActivity extends TabActivity {
 
     /** boolean: whether to start on available page */

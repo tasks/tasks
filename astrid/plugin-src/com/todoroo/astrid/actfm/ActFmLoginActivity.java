@@ -106,8 +106,6 @@ public class ActFmLoginActivity extends FragmentActivity implements AuthListener
 
     public static final String SHOW_TOAST = "show_toast"; //$NON-NLS-1$
 
-    private boolean showToast;
-
     // --- ui initialization
 
     private static final int REQUEST_CODE_GOOGLE_ACCOUNTS = 1;
@@ -147,7 +145,6 @@ public class ActFmLoginActivity extends FragmentActivity implements AuthListener
         rand = new Random(DateUtilities.now());
 
         noSync = getIntent().getBooleanExtra(EXTRA_DO_NOT_SYNC, false);
-        showToast = getIntent().getBooleanExtra(SHOW_TOAST, true);
 
         initializeUI();
 

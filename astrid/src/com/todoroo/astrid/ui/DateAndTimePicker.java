@@ -112,7 +112,6 @@ public class DateAndTimePicker extends LinearLayout {
         });
     }
 
-
     private void forceDateSelected() {
         ToggleButton none = (ToggleButton) dateShortcuts.getChildAt(dateShortcuts.getChildCount() - 1);
         if (none.isChecked()) {
@@ -235,7 +234,7 @@ public class DateAndTimePicker extends LinearLayout {
         if (d.getTime() > 0) {
             displayString.append(DateUtilities.getDateString(context, d));
             if (Task.hasDueTime(forDate)) {
-                displayString.append(", ");
+                displayString.append(", "); //$NON-NLS-1$
                 displayString.append(DateUtilities.getTimeString(context, d));
             }
         }

@@ -31,13 +31,13 @@ import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 
-import com.timsu.astrid.data.AbstractController;
+import com.timsu.astrid.data.LegacyAbstractController;
 import com.timsu.astrid.data.alerts.Alert.AlertDatabaseHelper;
 import com.timsu.astrid.data.task.TaskIdentifier;
 
 /** Controller for Tag-related operations */
 @SuppressWarnings("nls")
-public class AlertController extends AbstractController {
+public class AlertController extends LegacyAbstractController {
 
     private SQLiteDatabase alertDatabase;
 

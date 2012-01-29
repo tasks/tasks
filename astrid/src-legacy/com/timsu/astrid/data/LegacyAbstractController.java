@@ -31,7 +31,7 @@ import com.todoroo.andlib.service.DependencyInjectionService;
 
 /** Abstract controller class. Mostly contains some static fields */
 @SuppressWarnings("nls")
-abstract public class AbstractController {
+abstract public class LegacyAbstractController {
 
     protected Context context;
 
@@ -57,7 +57,7 @@ abstract public class AbstractController {
 
     // stuff
 
-    public AbstractController(Context context) {
+    public LegacyAbstractController(Context context) {
         this.context = context;
         DependencyInjectionService.getInstance().inject(this);
     }
@@ -67,7 +67,7 @@ abstract public class AbstractController {
 
     // cursor iterator
 
-    public static class CursorIterator<TYPE extends AbstractModel> implements Iterator<TYPE> {
+    public static class CursorIterator<TYPE extends LegacyAbstractModel> implements Iterator<TYPE> {
         Cursor cursor;
         Class<TYPE> cls;
 
