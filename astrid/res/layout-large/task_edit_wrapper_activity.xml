@@ -10,7 +10,7 @@
 	    android:layout_weight="67"
         android:id="@+id/tasklist_fragment_container">
 	    <fragment
-		    android:name="com.todoroo.astrid.activity.TaskListActivity"
+		    android:name="com.todoroo.astrid.activity.TaskListFragment"
 		    android:layout_width="match_parent"
 		    android:layout_height="match_parent"
 		    android:tag="tasklist_fragment">
@@ -27,7 +27,7 @@
         android:layout_weight="33"	    
         android:id="@+id/taskedit_fragment_container">
 		<fragment
-		    android:name="com.todoroo.astrid.activity.TaskEditActivity"
+		    android:name="com.todoroo.astrid.activity.TaskEditFragment"
 		    android:layout_width="match_parent"
 		    android:layout_height="match_parent"
 		    android:tag="taskedit_fragment">

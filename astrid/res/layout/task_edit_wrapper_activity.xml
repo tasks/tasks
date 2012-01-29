@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:id="@+id/taskedit_fragment_container">
 	<fragment
-	    android:name="com.todoroo.astrid.activity.TaskEditActivity"
+	    android:name="com.todoroo.astrid.activity.TaskEditFragment"
 	    android:layout_width="match_parent"
 	    android:layout_height="match_parent"
 	    android:tag="taskedit_fragment">

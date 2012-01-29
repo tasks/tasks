@@ -4,13 +4,12 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:astrid="http://schemas.android.com/apk/res/com.timsu.astrid"
     android:id="@+id/rowBody"
+    android:background="@android:drawable/list_selector_background"
     android:layout_width="fill_parent"
     android:layout_height="70dip"
     android:minHeight="70dip" >
 
     <!-- completion check-box -->
-
-
     <greendroid.widget.AsyncImageView
         android:id="@+id/picture"
         android:layout_width="47dip"
@@ -33,8 +32,6 @@
         android:visibility="gone" >
     </ImageView>
     
-    
-
     <CheckBox
         android:id="@+id/completeBox"
         android:layout_width="45dip"
@@ -43,8 +40,6 @@
         android:minHeight="40dip"
         android:scaleType="center"
         android:layout_centerVertical="true" />
-    <!-- assignee photo -->
-
 
     <LinearLayout
         android:id="@+id/task_row"
