@@ -61,7 +61,7 @@ import com.todoroo.astrid.ui.NumberPicker;
  * @author timsu
  *
  */
-public class NotificationActivity extends TaskListFragment implements OnTimeSetListener {
+public class NotificationFragment extends TaskListFragment implements OnTimeSetListener {
 
     // --- constants
 
@@ -163,9 +163,9 @@ public class NotificationActivity extends TaskListFragment implements OnTimeSetL
         LinearLayout snoozePicker;
         NumberPicker snoozeValue;
         Spinner snoozeUnits;
-        NotificationActivity parent;
+        NotificationFragment parent;
 
-        public SnoozeDialog(NotificationActivity parent) {
+        public SnoozeDialog(NotificationFragment parent) {
             super(parent.getActivity());
             this.parent = parent;
 
