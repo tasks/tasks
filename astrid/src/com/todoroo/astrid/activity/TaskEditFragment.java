@@ -27,7 +27,6 @@ import java.util.List;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
-import android.content.BroadcastReceiver;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -231,9 +230,6 @@ public final class TaskEditFragment extends Fragment implements
 
     /** whether task should be saved when this activity exits */
     private boolean shouldSaveState = true;
-
-    /** edit control receiver */
-    private final ControlReceiver controlReceiver = new ControlReceiver();
 
     /** voice assistant for notes-creation */
     private VoiceInputAssistant voiceNoteAssistant;
@@ -878,35 +874,6 @@ public final class TaskEditFragment extends Fragment implements
 
     /*
      * ======================================================================
-     * ================================================ edit control handling
-     * ======================================================================
-     */
-
-    /**
-     * Receiver which receives intents to add items to the filter list
-     *
-     * @author Tim Su <tim@todoroo.com>
-     *
-     */
-    protected class ControlReceiver extends BroadcastReceiver {
-        @Override
-        public void onReceive(Context context, Intent intent) {
-            try {
-                // add a separator
-                View separator = new View(getActivity());
-                separator.setPadding(5, 5, 5, 5);
-                separator.setBackgroundResource(android.R.drawable.divider_horizontal_dark);
-
-            } catch (Exception e) {
-                exceptionService.reportError("receive-detail-" + //$NON-NLS-1$
-                        intent.getStringExtra(AstridApiConstants.EXTRAS_ADDON),
-                        e);
-            }
-        }
-    }
-
-    /*
-     * ======================================================================
      * ======================================================= event handlers
      * ======================================================================
      */
@@ -1057,7 +1024,6 @@ public final class TaskEditFragment extends Fragment implements
     public void onPause() {
         super.onPause();
         StatisticsService.sessionPause();
-        getActivity().unregisterReceiver(controlReceiver);
 
         if (shouldSaveState)
             save(true);
