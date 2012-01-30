@@ -28,7 +28,6 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.ContentValues;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -71,7 +70,6 @@ import com.todoroo.andlib.utility.DialogUtilities;
 import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.astrid.actfm.EditPeopleControlSet;
 import com.todoroo.astrid.actfm.sync.ActFmPreferenceService;
-import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.dao.Database;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.gcal.GCalControlSet;
@@ -322,8 +320,6 @@ public final class TaskEditFragment extends Fragment implements
 
         // We have a menu item to show in action bar.
         setHasOptionsMenu(true);
-        getSupportActivity().getSupportActionBar().setDisplayHomeAsUpEnabled(
-                true);
 
         AstridActivity activity = (AstridActivity) getActivity();
         if (activity instanceof TaskListActivity && activity.fragmentLayout == AstridActivity.LAYOUT_DOUBLE) {
