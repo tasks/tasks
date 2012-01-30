@@ -24,7 +24,7 @@ import com.todoroo.astrid.data.StoreObject;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.gtasks.sync.GtasksSyncService;
 
-public class GtasksListActivity extends DraggableTaskListFragment {
+public class GtasksListFragment extends DraggableTaskListFragment {
 
     protected static final int MENU_CLEAR_COMPLETED_ID = MENU_ADDON_INTENT_ID + 1;
 

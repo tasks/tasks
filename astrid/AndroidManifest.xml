@@ -352,7 +352,7 @@
     </receiver>                
     
     <!-- gtasks -->
-    <activity android:name="com.todoroo.astrid.gtasks.GtasksListActivity"
+    <activity android:name="com.todoroo.astrid.gtasks.GtasksListFragment"
               android:windowSoftInputMode="stateHidden|adjustResize"
               android:theme="@style/Theme">
       <intent-filter>

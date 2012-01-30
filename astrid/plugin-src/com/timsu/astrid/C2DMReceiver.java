@@ -26,7 +26,7 @@ import com.todoroo.andlib.sql.QueryTemplate;
 import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.andlib.utility.Preferences;
-import com.todoroo.astrid.actfm.TagViewActivity;
+import com.todoroo.astrid.actfm.TagViewFragment;
 import com.todoroo.astrid.actfm.sync.ActFmPreferenceService;
 import com.todoroo.astrid.actfm.sync.ActFmSyncService;
 import com.todoroo.astrid.actfm.sync.ActFmSyncV2Provider;
@@ -232,7 +232,7 @@ public class C2DMReceiver extends BroadcastReceiver {
         nm.notify(notifId, notification);
 
         if(intent.hasExtra("tag_id")) {
-            Intent broadcastIntent = new Intent(TagViewActivity.BROADCAST_TAG_ACTIVITY);
+            Intent broadcastIntent = new Intent(TagViewFragment.BROADCAST_TAG_ACTIVITY);
             broadcastIntent.putExtras(intent);
             ContextManager.getContext().sendBroadcast(broadcastIntent, AstridApiConstants.PERMISSION_READ);
         }
@@ -359,7 +359,7 @@ public class C2DMReceiver extends BroadcastReceiver {
 
             Intent launchIntent = new Intent(context, TaskListActivity.class);
             launchIntent.putExtra(TaskListFragment.TOKEN_FILTER, filter);
-            filter.customExtras.putBoolean(TagViewActivity.TOKEN_START_ACTIVITY, shouldLaunchActivity(intent));
+            filter.customExtras.putBoolean(TagViewFragment.TOKEN_START_ACTIVITY, shouldLaunchActivity(intent));
             launchIntent.putExtras(filter.customExtras);
 
             return launchIntent;

@@ -70,7 +70,7 @@ public class TagUpdatesActivity extends ListActivity {
         super.onCreate(savedInstanceState);
         ThemeService.applyTheme(this);
         setContentView(R.layout.tag_updates_activity);
-        tagData = getIntent().getParcelableExtra(TagViewActivity.EXTRA_TAG_DATA);
+        tagData = getIntent().getParcelableExtra(TagViewFragment.EXTRA_TAG_DATA);
 
         OnTouchListener onTouch = new OnTouchListener() {
             @Override

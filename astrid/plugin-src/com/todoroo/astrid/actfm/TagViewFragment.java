@@ -53,7 +53,7 @@ import com.todoroo.astrid.tags.TagFilterExposer;
 import com.todoroo.astrid.tags.TagService.Tag;
 import com.todoroo.astrid.welcome.HelpInfoPopover;
 
-public class TagViewActivity extends TaskListFragment {
+public class TagViewFragment extends TaskListFragment {
 
     private static final String LAST_FETCH_KEY = "tag-fetch-"; //$NON-NLS-1$
 

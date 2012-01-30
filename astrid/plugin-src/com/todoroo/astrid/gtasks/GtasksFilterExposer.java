@@ -70,10 +70,10 @@ public class GtasksFilterExposer extends BroadcastReceiver implements AstridFilt
                                 Order.asc(Functions.cast(GtasksMetadata.ORDER, "LONG"))).groupBy(Task.ID), //$NON-NLS-1$
                 values);
         filter.listingIcon = ((BitmapDrawable)context.getResources().getDrawable(R.drawable.gtasks_icon)).getBitmap();
-        filter.customTaskList = new ComponentName(ContextManager.getContext(), GtasksListActivity.class);
+        filter.customTaskList = new ComponentName(ContextManager.getContext(), GtasksListFragment.class);
         Bundle extras = new Bundle();
         extras.putBoolean(TaskListFragment.TOKEN_OVERRIDE_ANIM, true);
-        extras.putLong(GtasksListActivity.TOKEN_STORE_ID, list.getId());
+        extras.putLong(GtasksListFragment.TOKEN_STORE_ID, list.getId());
         filter.customExtras = extras;
 
         return filter;

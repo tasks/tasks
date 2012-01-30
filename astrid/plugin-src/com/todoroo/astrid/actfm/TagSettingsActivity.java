@@ -85,7 +85,7 @@ public class TagSettingsActivity extends FragmentActivity {
         setupForDialogOrFullscreen();
         super.onCreate(savedInstanceState);
         setContentView(R.layout.tag_settings_activity);
-        tagData = getIntent().getParcelableExtra(TagViewActivity.EXTRA_TAG_DATA);
+        tagData = getIntent().getParcelableExtra(TagViewFragment.EXTRA_TAG_DATA);
         if (tagData == null) {
             isNewTag = true;
             tagData = new TagData();

@@ -27,7 +27,7 @@ import com.todoroo.andlib.sql.Criterion;
 import com.todoroo.andlib.sql.QueryTemplate;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.andlib.utility.DialogUtilities;
-import com.todoroo.astrid.actfm.TagViewActivity;
+import com.todoroo.astrid.actfm.TagViewFragment;
 import com.todoroo.astrid.activity.TaskListFragment;
 import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.api.AstridFilterExposer;
@@ -84,14 +84,14 @@ public class TagFilterExposer extends BroadcastReceiver implements AstridFilterE
                 newTagIntent(context, RenameTagActivity.class, tag),
                 newTagIntent(context, DeleteTagActivity.class, tag)
         };
-        filter.customTaskList = new ComponentName(ContextManager.getContext(), TagViewActivity.class);
+        filter.customTaskList = new ComponentName(ContextManager.getContext(), TagViewFragment.class);
         if(tag.image != null)
             filter.imageUrl = tag.image;
         if(tag.updateText != null)
             filter.updateText = tag.updateText;
         Bundle extras = new Bundle();
-        extras.putString(TagViewActivity.EXTRA_TAG_NAME, tag.tag);
-        extras.putLong(TagViewActivity.EXTRA_TAG_REMOTE_ID, tag.remoteId);
+        extras.putString(TagViewFragment.EXTRA_TAG_NAME, tag.tag);
+        extras.putLong(TagViewFragment.EXTRA_TAG_REMOTE_ID, tag.remoteId);
         extras.putBoolean(TaskListFragment.TOKEN_OVERRIDE_ANIM, true);
         filter.customExtras = extras;
 
