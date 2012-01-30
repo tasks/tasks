@@ -99,6 +99,13 @@
 
   <!-- Tag Settings: list description hint -->
   <string name="actfm_TVA_tag_description_hint">List description</string>
+  
+  <!-- Tag Settings: list description hint -->
+  <string name="actfm_TVA_tag_description_hint">List description</string>
+  
+  <!-- Tag settings: login prompt from share-->
+  <string name="actfm_TVA_login_to_share">You need to be logged in to Astrid.com to share lists! Please log in or make this a private list.</string>
+  
       
   <!-- ============================================ edit people dialog == -->
 

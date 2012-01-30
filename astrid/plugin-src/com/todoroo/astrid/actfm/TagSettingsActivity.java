@@ -10,6 +10,7 @@ import org.json.JSONObject;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
@@ -214,9 +215,31 @@ public class TagSettingsActivity extends FragmentActivity {
             if(newName.length() > 0 && oldName.length() == 0) {
                 tagDataService.save(tagData);
             }
-            startActivityForResult(new Intent(this, ActFmLoginActivity.class),
-                        REQUEST_ACTFM_LOGIN);
+
+            DialogInterface.OnClickListener okListener = new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface d, int which) {
+                    startActivityForResult(new Intent(TagSettingsActivity.this, ActFmLoginActivity.class),
+                            REQUEST_ACTFM_LOGIN);
+                }
+            };
+
+            DialogInterface.OnClickListener cancelListener = new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface d, int which) {
+
+                    tagMembers.removeAllViews();
+                    tagMembers.addPerson(""); //$NON-NLS-1$
+                }
+            };
+            DialogUtilities.okCancelCustomDialog(TagSettingsActivity.this, getString(R.string.actfm_EPA_login_button),
+                    getString(R.string.actfm_TVA_login_to_share), R.string.actfm_EPA_login_button,
+                    R.string.actfm_EPA_dont_share_button, android.R.drawable.ic_dialog_alert,
+                    okListener, cancelListener);
+           Toast.makeText(this, R.string.tag_list_saved, Toast.LENGTH_LONG).show();
+
             return;
+
         }
 
         int oldMemberCount = tagData.getValue(TagData.MEMBER_COUNT);
