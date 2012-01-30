@@ -25,14 +25,18 @@ public class CustomBorderDrawable extends ShapeDrawable {
 
     @Override
     protected void onDraw(Shape shape, Canvas canvas, Paint paint) {
-        shape.resize(canvas.getWidth(), canvas.getHeight());
-        shape.draw(canvas, fillpaint);
+        shape.resize(canvas.getClipBounds().right,
+                canvas.getClipBounds().bottom);
 
         Matrix matrix = new Matrix();
-        matrix.setRectToRect(new RectF(0, 0, canvas.getWidth(), canvas.getHeight()),
-                new RectF(strokeWidth/2, strokeWidth/2, canvas.getWidth() - strokeWidth/2, canvas.getHeight() - strokeWidth/2),
+        matrix.setRectToRect(new RectF(0, 0, canvas.getClipBounds().right,
+                    canvas.getClipBounds().bottom),
+                new RectF(strokeWidth/2, strokeWidth/2, canvas.getClipBounds().right - strokeWidth/2,
+                        canvas.getClipBounds().bottom - strokeWidth/2),
                 Matrix.ScaleToFit.FILL);
         canvas.concat(matrix);
+
+        shape.draw(canvas, fillpaint);
         shape.draw(canvas, strokepaint);
     }
 
