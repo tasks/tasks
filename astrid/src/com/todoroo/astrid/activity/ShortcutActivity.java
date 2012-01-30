@@ -22,7 +22,6 @@ package com.todoroo.astrid.activity;
 import java.util.Map.Entry;
 
 import android.app.Activity;
-import android.content.ComponentName;
 import android.content.ContentValues;
 import android.content.Intent;
 import android.os.Bundle;
@@ -91,7 +90,6 @@ public class ShortcutActivity extends Activity {
                 taskListIntent.putExtra(TaskListFragment.TOKEN_SOURCE, extras.getInt(TaskListFragment.TOKEN_SOURCE));
 
         if(extras != null && extras.containsKey(TOKEN_CUSTOM_CLASS)) {
-            taskListIntent.setComponent(ComponentName.unflattenFromString(extras.getString(TOKEN_CUSTOM_CLASS)));
             taskListIntent.putExtras(intent.getExtras());
         }
 

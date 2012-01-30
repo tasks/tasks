@@ -31,6 +31,7 @@ import com.todoroo.astrid.actfm.sync.ActFmPreferenceService;
 import com.todoroo.astrid.actfm.sync.ActFmSyncService;
 import com.todoroo.astrid.actfm.sync.ActFmSyncV2Provider;
 import com.todoroo.astrid.activity.ShortcutActivity;
+import com.todoroo.astrid.activity.TaskListActivity;
 import com.todoroo.astrid.activity.TaskListFragment;
 import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.api.Filter;
@@ -356,9 +357,8 @@ public class C2DMReceiver extends BroadcastReceiver {
                 }
             }
 
-            Intent launchIntent = new Intent();
+            Intent launchIntent = new Intent(context, TaskListActivity.class);
             launchIntent.putExtra(TaskListFragment.TOKEN_FILTER, filter);
-            launchIntent.setComponent(filter.customTaskList);
             filter.customExtras.putBoolean(TagViewActivity.TOKEN_START_ACTIVITY, shouldLaunchActivity(intent));
             launchIntent.putExtras(filter.customExtras);
 
