@@ -62,6 +62,10 @@ public class HelpInfoPopover extends QuickActionWidget {
         return mRect.width() / 2;
     }
 
+    protected int getShowAtX() {
+        return mRect.left;
+    }
+
     @Override
     protected void onMeasureAndLayout(Rect anchorRect, View contentView) {
         contentView.setLayoutParams(new FrameLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));

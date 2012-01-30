@@ -244,10 +244,14 @@ public abstract class QuickActionWidget extends PopupWindow {
         prepareAnimationStyle();
 
         try {
-            showAtLocation(anchor, Gravity.NO_GRAVITY, mRect.left, mPopupY);
+            showAtLocation(anchor, Gravity.NO_GRAVITY, getShowAtX(), mPopupY);
         } catch (Exception e) {
             Log.w("quick-action-show", e);
         }
+    }
+    
+    protected int getShowAtX() {
+    	return 0;
     }
 
     protected void clearQuickActions() {
