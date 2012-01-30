@@ -23,10 +23,12 @@ import com.todoroo.astrid.actfm.ActFmLoginActivity;
 import com.todoroo.astrid.actfm.TagSettingsActivity;
 import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.api.FilterListItem;
+import com.todoroo.astrid.reminders.NotificationFragment;
 import com.todoroo.astrid.service.ThemeService;
 import com.todoroo.astrid.ui.FragmentPopover;
 import com.todoroo.astrid.ui.MainMenuPopover;
 import com.todoroo.astrid.ui.MainMenuPopover.MainMenuListener;
+import com.todoroo.astrid.utility.Constants;
 import com.todoroo.astrid.utility.Flags;
 import com.todoroo.astrid.welcome.tutorial.WelcomeWalkthrough;
 
@@ -217,8 +219,11 @@ public class TaskListActivity extends AstridActivity implements MainMenuListener
         super.onPostResume();
 
         Filter savedFilter = getIntent().getParcelableExtra(TaskListFragment.TOKEN_FILTER);
-        if (!Flags.checkAndClear(Flags.TLA_RESUMED_FROM_VOICE_ADD))
+        if (getIntent().getIntExtra(TaskListFragment.TOKEN_SOURCE, Constants.SOURCE_DEFAULT) == Constants.SOURCE_NOTIFICATION)
+            setupTasklistFragmentWithFilterAndCustomTaskList(savedFilter, NotificationFragment.class);
+        else if (!Flags.checkAndClear(Flags.TLA_RESUMED_FROM_VOICE_ADD))
             setupTasklistFragmentWithFilter(savedFilter);
+
         if (savedFilter != null)
             lists.setText(savedFilter.title);
 

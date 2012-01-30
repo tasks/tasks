@@ -124,8 +124,12 @@ public class AstridActivity extends FragmentActivity
         }
     }
 
-    protected void setupTasklistFragmentWithFilter(Filter filter) {
-        Class<?> component = TaskListFragment.class;
+    protected final void setupTasklistFragmentWithFilter(Filter filter) {
+        setupTasklistFragmentWithFilterAndCustomTaskList(filter, TaskListFragment.class);
+    }
+
+    protected final void setupTasklistFragmentWithFilterAndCustomTaskList(Filter filter, Class<?> customTaskList) {
+        Class<?> component = customTaskList;
         if (filter instanceof FilterWithCustomIntent) {
             try {
                 component = Class.forName(((FilterWithCustomIntent) filter).customTaskList.getClassName());

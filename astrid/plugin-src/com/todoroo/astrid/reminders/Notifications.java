@@ -24,6 +24,7 @@ import com.todoroo.andlib.service.NotificationManager.AndroidNotificationManager
 import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.andlib.utility.Preferences;
+import com.todoroo.astrid.activity.TaskListActivity;
 import com.todoroo.astrid.activity.TaskListFragment;
 import com.todoroo.astrid.dao.TaskDao;
 import com.todoroo.astrid.data.Task;
@@ -162,7 +163,7 @@ public class Notifications extends BroadcastReceiver {
         String title = context.getString(R.string.app_name);
         String text = reminder + " " + taskTitle; //$NON-NLS-1$
 
-        Intent notifyIntent = new Intent(context, NotificationWrapperActivity.class);
+        Intent notifyIntent = new Intent(context, TaskListActivity.class);
         notifyIntent.setAction("NOTIFY" + id); //$NON-NLS-1$
         notifyIntent.putExtra(NotificationFragment.TOKEN_ID, id);
         notifyIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_MULTIPLE_TASK);

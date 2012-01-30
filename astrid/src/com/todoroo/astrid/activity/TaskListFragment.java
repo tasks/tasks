@@ -348,6 +348,7 @@ public class TaskListFragment extends ListFragment implements OnScrollListener,
                 StatisticsService.reportEvent(StatisticsConstants.LAUNCH_FROM_C2DM);
                 break;
             }
+            getActivity().getIntent().putExtra(TOKEN_SOURCE, Constants.SOURCE_DEFAULT); // Only report source once
         }
 
         getActivity().runOnUiThread(new Runnable() {
