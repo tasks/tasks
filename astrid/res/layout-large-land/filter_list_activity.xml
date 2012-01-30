@@ -12,17 +12,31 @@
         android:layout_height="50dip"
         android:orientation="vertical"
         android:layout_alignParentBottom="true">
-
+        
         <include layout="@layout/fla_separator"/>
         
-        <TextView
-            android:id="@+id/new_list_button"
+        <LinearLayout
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
-            android:padding="10dip"
-            android:gravity="left|center_vertical"
-            android:text="@string/FLA_new_list"
-            style="@style/TextAppearance.FLA_Button"/>
+            android:gravity="center_vertical">
+            
+            <ImageView
+                android:layout_width="39dip"
+                android:layout_height="39dip"
+                android:layout_marginLeft="5dip"
+                android:layout_marginRight="8dip"
+                android:src="?attr/asAddButtonImg"
+                android:scaleType="fitCenter"/>
+            
+            <TextView
+                android:id="@+id/new_list_button"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:paddingLeft="10dip"
+                android:gravity="left|center_vertical"
+                android:text="@string/FLA_new_list"
+                style="@style/TextAppearance.FLA_Button"/>
+        </LinearLayout>        
         
     </LinearLayout>
         
