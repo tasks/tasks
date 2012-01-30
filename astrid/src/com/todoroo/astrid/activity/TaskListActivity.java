@@ -285,7 +285,7 @@ public class TaskListActivity extends AstridActivity implements MainMenuListener
                 getIntent().putExtra(TaskListFragment.TOKEN_FILTER, newList);
                 FilterListFragment fla = getFilterListFragment();
                 if (fla != null)
-                    fla.refresh();
+                    fla.clear();
             }
         }
 

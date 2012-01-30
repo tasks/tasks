@@ -58,6 +58,11 @@ public class HelpInfoPopover extends QuickActionWidget {
     }
 
     @Override
+    protected int getArrowLeftMargin(View arrow) {
+        return mRect.width() / 2;
+    }
+
+    @Override
     protected void onMeasureAndLayout(Rect anchorRect, View contentView) {
         contentView.setLayoutParams(new FrameLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
         contentView.measure(MeasureSpec.makeMeasureSpec(getScreenWidth(), MeasureSpec.EXACTLY),

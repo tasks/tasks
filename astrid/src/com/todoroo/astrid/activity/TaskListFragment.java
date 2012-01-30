@@ -29,6 +29,7 @@ import android.database.Cursor;
 import android.graphics.PixelFormat;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.v4.app.ActionBar;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.ListFragment;
 import android.support.v4.app.SupportActivity;
@@ -840,9 +841,14 @@ public class TaskListFragment extends ListFragment implements OnScrollListener,
         super.onActivityResult(requestCode, resultCode, data);
 
         if (!Preferences.getBoolean(R.string.p_showed_add_task_help, false)) {
-            HelpInfoPopover.showPopover(getActivity(), quickAddBox,
-                    R.string.help_popover_add_task, null);
-            Preferences.setBoolean(R.string.p_showed_add_task_help, true);
+            quickAddBox.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    HelpInfoPopover.showPopover(getActivity(), quickAddBox,
+                            R.string.help_popover_add_task, null);
+                    Preferences.setBoolean(R.string.p_showed_add_task_help, true);
+                }
+            }, 1000);
         }
 
         if (resultCode != Activity.RESULT_CANCELED) {
@@ -1034,31 +1040,32 @@ public class TaskListFragment extends ListFragment implements OnScrollListener,
 
     private void showTaskEditHelpPopover() {
         if (!Preferences.getBoolean(R.string.p_showed_tap_task_help, false)) {
-            Preferences.setBoolean(R.string.p_showed_tap_task_help, true);
             InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(
                     Context.INPUT_METHOD_SERVICE);
             imm.hideSoftInputFromWindow(quickAddBox.getWindowToken(), 0);
             getListView().postDelayed(new Runnable() {
                 public void run() {
-                    if (taskAdapter.getCount() > 0) {
+                    if (taskAdapter != null && taskAdapter.getCount() > 0) {
+                        Preferences.setBoolean(R.string.p_showed_tap_task_help, true);
                         final View view = getListView().getChildAt(
                                 getListView().getChildCount() - 1);
                         if (view != null) {
                             OnDismissListener onDismiss = new OnDismissListener() {
                                 @Override
                                 public void onDismiss() {
-                                    if (!Preferences.isSet(getString(R.string.p_showed_lists_help))) {
-                                        Preferences.setBoolean(
-                                                R.string.p_showed_lists_help,
-                                                false);
-                                    } else if (!Preferences.getBoolean(
+                                    if (!Preferences.getBoolean(
                                             R.string.p_showed_lists_help, false)) {
+                                        if (AndroidUtilities.isTabletSized(getActivity())) {
+                                            ((AstridActivity) getActivity()).getFilterListFragment().showAddListPopover();
+                                        } else {
+                                            ActionBar ab = ((AstridActivity) getActivity()).getSupportActionBar();
+                                            View anchor = ab.getCustomView().findViewById(R.id.lists_nav);
+                                            HelpInfoPopover.showPopover(getActivity(),
+                                                    anchor, R.string.help_popover_switch_lists, null);
+                                        }
                                         Preferences.setBoolean(
                                                 R.string.p_showed_lists_help,
                                                 true);
-                                        // HelpInfoPopover.showPopover(getActivity(),
-                                        // getView().findViewById(R.id.back),
-                                        // R.string.help_popover_lists, null);
                                     }
                                 }
                             };

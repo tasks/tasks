@@ -56,6 +56,7 @@ import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.service.StartupService;
 import com.todoroo.astrid.service.StatisticsService;
 import com.todoroo.astrid.tags.TagsPlugin;
+import com.todoroo.astrid.welcome.HelpInfoPopover;
 
 /**
  * Activity that displays a user's task lists and allows users
@@ -479,9 +480,18 @@ public class FilterListFragment extends ListFragment {
         .show().setOwnerActivity(getActivity());
     }
 
+    public void clear() {
+        adapter.clear();
+    }
+
     public void refresh() {
         adapter.clear();
         adapter.getLists();
+    }
+
+    public void showAddListPopover() {
+        View anchor = getView().findViewById(R.id.new_list_button);
+        HelpInfoPopover.showPopover(getActivity(), anchor, R.string.help_popover_add_lists, null);
     }
 
     /**

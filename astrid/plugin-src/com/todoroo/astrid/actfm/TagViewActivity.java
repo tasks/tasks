@@ -34,6 +34,7 @@ import com.todoroo.andlib.service.NotificationManager;
 import com.todoroo.andlib.service.NotificationManager.AndroidNotificationManager;
 import com.todoroo.andlib.sql.Criterion;
 import com.todoroo.andlib.sql.Query;
+import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.andlib.utility.DialogUtilities;
 import com.todoroo.andlib.utility.Preferences;
@@ -137,6 +138,9 @@ public class TagViewActivity extends TaskListFragment {
             Intent intent = new Intent(getActivity(), TagSettingsActivity.class);
             intent.putExtra(EXTRA_TAG_DATA, tagData);
             startActivityForResult(intent, REQUEST_CODE_SETTINGS);
+            if (!AndroidUtilities.isTabletSized(getActivity())) {
+                AndroidUtilities.callOverridePendingTransition(getActivity(), R.anim.slide_left_in, R.anim.slide_left_out);
+            }
         }
     };
 
@@ -157,7 +161,7 @@ public class TagViewActivity extends TaskListFragment {
 
     private void showListSettingsPopover() {
         if (!Preferences.getBoolean(R.string.p_showed_list_settings_help, false)) {
-            View tabView = getView().findViewById(R.id.members_edit);
+            View tabView = getView().findViewById(R.id.shared_with);
             HelpInfoPopover.showPopover(getActivity(), tabView, R.string.help_popover_list_settings, null);
             Preferences.setBoolean(R.string.p_showed_list_settings_help, true);
         }
