@@ -165,6 +165,12 @@
 
     <receiver android:name="com.todoroo.astrid.reminders.Notifications" />
     
+    <receiver android:name="com.todoroo.astrid.reminders.Notifications$ShowNotificationReceiver">
+        <intent-filter>
+            <action android:name="com.timsu.astrid.IN_APP_NOTIFY"/>
+        </intent-filter>
+    </receiver>
+    
     <!-- widgets -->
     <receiver android:name="com.todoroo.astrid.widget.TasksWidget">
       <intent-filter>

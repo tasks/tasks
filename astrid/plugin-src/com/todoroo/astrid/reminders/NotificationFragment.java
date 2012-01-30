@@ -21,6 +21,7 @@ package com.todoroo.astrid.reminders;
 
 import java.util.Date;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.TimePickerDialog;
 import android.app.TimePickerDialog.OnTimeSetListener;
@@ -32,7 +33,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
@@ -61,7 +61,7 @@ import com.todoroo.astrid.ui.NumberPicker;
  * @author timsu
  *
  */
-public class NotificationFragment extends TaskListFragment implements OnTimeSetListener {
+public class NotificationFragment extends TaskListFragment implements OnTimeSetListener, SnoozeCallback {
 
     // --- constants
 
@@ -121,33 +121,37 @@ public class NotificationFragment extends TaskListFragment implements OnTimeSetL
 
         // instantiate reminder window
         ViewGroup parent = (ViewGroup) getView().findViewById(R.id.taskListParent);
-        getActivity().getLayoutInflater().inflate(R.layout.notification_control, parent, true);
+        getActivity().getLayoutInflater().inflate(R.layout.astrid_reminder_view, parent, true);
+        getView().findViewById(R.id.reminder_root).setBackgroundResource(R.color.reminder_background);
 
         String reminder = Notifications.getRandomReminder(getResources().getStringArray(R.array.reminder_responses));
 
         if(Preferences.getBoolean(R.string.p_rmd_nagging, true))
-            ((TextView)getView().findViewById(R.id.reminderLabel)).setText(reminder);
+            ((TextView)getView().findViewById(R.id.reminder_message)).setText(reminder);
         else {
-            getView().findViewById(R.id.reminderLabel).setVisibility(View.GONE);
+            getView().findViewById(R.id.reminder_message).setVisibility(View.GONE);
             getView().findViewById(R.id.astridIcon).setVisibility(View.GONE);
+            getView().findViewById(R.id.speech_bubble_content).setVisibility(View.GONE);
         }
 
+        getView().findViewById(R.id.reminder_edit).setVisibility(View.GONE);
+
         // set up listeners
-        ((Button)getView().findViewById(R.id.goAway)).setOnClickListener(new OnClickListener() {
+        getView().findViewById(R.id.dismiss).setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View arg0) {
                 getActivity().finish();
             }
         });
 
-        ((Button)getView().findViewById(R.id.snooze)).setOnClickListener(new OnClickListener() {
+        getView().findViewById(R.id.reminder_snooze).setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View arg0) {
-                snooze();
+                snooze(getActivity(), NotificationFragment.this, NotificationFragment.this);
             }
         });
 
-        ((Button)getView().findViewById(R.id.done)).setOnClickListener(new OnClickListener() {
+        getView().findViewById(R.id.reminder_complete).setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View arg0) {
                 Task task = new Task();
@@ -163,13 +167,13 @@ public class NotificationFragment extends TaskListFragment implements OnTimeSetL
         LinearLayout snoozePicker;
         NumberPicker snoozeValue;
         Spinner snoozeUnits;
-        NotificationFragment parent;
+        SnoozeCallback snoozeCallback;
 
-        public SnoozeDialog(NotificationFragment parent) {
-            super(parent.getActivity());
-            this.parent = parent;
+        public SnoozeDialog(Activity activity, SnoozeCallback callback) {
+            super(activity);
+            this.snoozeCallback = callback;
 
-            LayoutInflater mInflater = (LayoutInflater) parent.getActivity().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            LayoutInflater mInflater = (LayoutInflater) activity.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             mInflater.inflate(R.layout.snooze_dialog, this, true);
 
             snoozePicker = (LinearLayout) findViewById(R.id.snoozePicker);
@@ -206,7 +210,7 @@ public class NotificationFragment extends TaskListFragment implements OnTimeSetL
                 break;
             }
 
-            parent.snoozeTime(time);
+            snoozeCallback.snoozeForTime(time);
         }
 
     }
@@ -214,24 +218,24 @@ public class NotificationFragment extends TaskListFragment implements OnTimeSetL
     /**
      * Snooze and re-trigger this alarm
      */
-    private void snooze() {
+    public static void snooze(Activity activity, OnTimeSetListener onTimeSet, SnoozeCallback snoozeCallback) {
         if(Preferences.getBoolean(R.string.p_rmd_snooze_dialog, false)) {
             Date now = new Date();
             now.setHours(now.getHours() + 1);
             int hour = now.getHours();
             int minute = now.getMinutes();
-            TimePickerDialog tpd = new TimePickerDialog(getActivity(), this, hour, minute,
-                    DateUtilities.is24HourFormat(getActivity()));
+            TimePickerDialog tpd = new TimePickerDialog(activity, onTimeSet, hour, minute,
+                    DateUtilities.is24HourFormat(activity));
             tpd.show();
-            tpd.setOwnerActivity(getActivity());
+            tpd.setOwnerActivity(activity);
         } else {
-            SnoozeDialog sd = new SnoozeDialog(this);
-            new AlertDialog.Builder(getActivity())
+            SnoozeDialog sd = new SnoozeDialog(activity, snoozeCallback);
+            new AlertDialog.Builder(activity)
                 .setTitle(R.string.rmd_NoA_snooze)
                 .setView(sd)
                 .setPositiveButton(android.R.string.ok, sd)
                 .setNegativeButton(android.R.string.cancel, null)
-                .show().setOwnerActivity(getActivity());
+                .show().setOwnerActivity(activity);
         }
     }
 
@@ -243,10 +247,10 @@ public class NotificationFragment extends TaskListFragment implements OnTimeSetL
         alarmTime.setMinutes(minutes);
         if(alarmTime.getTime() < DateUtilities.now())
             alarmTime.setDate(alarmTime.getDate() + 1);
-        snoozeTime(alarmTime.getTime());
+        snoozeForTime(alarmTime.getTime());
     }
 
-    public void snoozeTime(long time) {
+    public void snoozeForTime(long time) {
         Task task = new Task();
         task.setId(taskId);
         task.setValue(Task.REMINDER_SNOOZE, time);

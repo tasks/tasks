@@ -4,7 +4,8 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:visibility="visible"
-    android:layout_weight="1">
+    android:layout_weight="1"
+    android:background="@color/reminder_background">
     
             
     <LinearLayout android:id="@+id/buttons"
@@ -24,19 +25,15 @@
             
     </LinearLayout>
 
-    <TextView android:id="@+id/reminderLabel"
-        android:layout_width="fill_parent" 
-        android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
-        android:layout_below="@id/buttons"
-        android:text="I want you to be the walrus."
-        android:background="@drawable/reminder_popup"
-        style="@style/TextAppearance.TLA_Reminder" />
-                  
+    <include 
+        android:id="@+id/reminder_layout"
+        layout="@layout/astrid_reminder_view"
+        android:layout_below="@id/buttons"/>
+         
     <LinearLayout
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/reminderLabel"
+        android:layout_below="@id/reminder_layout"
         android:layout_alignParentLeft="true"
         android:orientation="horizontal">
         
@@ -44,25 +41,28 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_weight="49"
-            android:textSize="16sp"
-            android:drawableLeft="@drawable/tango_clock"
+            android:layout_marginLeft="10dip"
+            android:layout_marginRight="10dip"
+            android:layout_marginTop="5dip"
+            android:layout_marginBottom="5dip"
+            android:textSize="20sp"
+            android:textColor="@android:color/white"
+            android:background="#707070"
             android:text="@string/rmd_NoA_snooze" />
         
         <Button android:id="@+id/goAway"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_weight="49"
-            android:textSize="16sp"
-            android:drawableLeft="@drawable/tango_stop"
+            android:layout_marginLeft="10dip"
+            android:layout_marginRight="10dip"
+            android:layout_marginTop="5dip"
+            android:layout_marginBottom="5dip"
+            android:textSize="20sp"
+            android:textColor="@android:color/white"
+            android:background="?attr/asThemeTextColor"
             android:text="@string/rmd_NoA_goAway" />
-          
-        <ImageView android:id="@+id/astridIcon"
-            android:layout_width="wrap_content" 
-            android:layout_height="wrap_content"
-            android:layout_weight="2"
-            android:paddingRight="15dip"
-            android:paddingLeft="5dip"
-            android:src="@drawable/icon_blank" />
+        
     </LinearLayout>
         
 </RelativeLayout>

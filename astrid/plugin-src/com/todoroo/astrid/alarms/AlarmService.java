@@ -166,7 +166,7 @@ public class AlarmService {
         Intent intent = new Intent(context, Notifications.class);
         intent.setAction("ALARM" + alarm.getId()); //$NON-NLS-1$
         intent.putExtra(Notifications.ID_KEY, taskId);
-        intent.putExtra(Notifications.TYPE_KEY, type);
+        intent.putExtra(Notifications.EXTRAS_TYPE, type);
 
         AlarmManager am = (AlarmManager)context.getSystemService(Context.ALARM_SERVICE);
         PendingIntent pendingIntent = PendingIntent.getBroadcast(context, (int)alarm.getId(),

@@ -1,6 +1,9 @@
 package com.todoroo.astrid.activity;
 
+import android.app.Dialog;
 import android.app.PendingIntent.CanceledException;
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -16,6 +19,9 @@ import com.todoroo.astrid.api.FilterListItem;
 import com.todoroo.astrid.api.FilterWithCustomIntent;
 import com.todoroo.astrid.api.IntentFilter;
 import com.todoroo.astrid.core.SearchFilter;
+import com.todoroo.astrid.reminders.NotificationFragment;
+import com.todoroo.astrid.reminders.Notifications;
+import com.todoroo.astrid.reminders.ReminderDialog;
 import com.todoroo.astrid.service.StartupService;
 import com.todoroo.astrid.service.StatisticsConstants;
 import com.todoroo.astrid.service.StatisticsService;
@@ -41,6 +47,8 @@ public class AstridActivity extends FragmentActivity
     public static final int LAYOUT_TRIPLE = 2;
 
     protected int fragmentLayout = LAYOUT_SINGLE;
+
+    private final ReminderReceiver reminderReceiver = new ReminderReceiver();
 
     public FilterListFragment getFilterListFragment() {
         FilterListFragment frag = (FilterListFragment) getSupportFragmentManager()
@@ -78,6 +86,20 @@ public class AstridActivity extends FragmentActivity
         if (frag != null) {
             frag.onNewIntent(intent);
         }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        android.content.IntentFilter intentFilter = new android.content.IntentFilter(Notifications.BROADCAST_IN_APP_NOTIFY);
+        intentFilter.setPriority(1);
+        registerReceiver(reminderReceiver, intentFilter);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        unregisterReceiver(reminderReceiver);
     }
 
     /**
@@ -246,6 +268,24 @@ public class AstridActivity extends FragmentActivity
     @Deprecated
     public boolean isMultipleFragments() {
         return fragmentLayout != LAYOUT_SINGLE;
+    }
+
+    private class ReminderReceiver extends BroadcastReceiver {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            // Process in app notification
+            Intent customIntent = intent.getExtras().getParcelable(Notifications.EXTRAS_CUSTOM_INTENT);
+            long taskId = customIntent.getLongExtra(NotificationFragment.TOKEN_ID, 0);
+            if (taskId > 0) {
+                String text = intent.getStringExtra(Notifications.EXTRAS_TEXT);
+                Dialog d = ReminderDialog.createReminderDialog(AstridActivity.this, taskId, text);
+                d.show();
+            }
+
+            // Remove broadcast
+            abortBroadcast();
+        }
+
     }
 
 }

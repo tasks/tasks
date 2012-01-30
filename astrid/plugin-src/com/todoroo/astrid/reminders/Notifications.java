@@ -26,6 +26,7 @@ import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.astrid.activity.TaskListActivity;
 import com.todoroo.astrid.activity.TaskListFragment;
+import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.dao.TaskDao;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.service.AstridDependencyInjector;
@@ -39,13 +40,23 @@ public class Notifications extends BroadcastReceiver {
     /** task id extra */
     public static final String ID_KEY = "id"; //$NON-NLS-1$
 
-    /** notification type extra */
-    public static final String TYPE_KEY = "type"; //$NON-NLS-1$
 
     /** preference values */
     public static final int ICON_SET_PINK = 0;
     public static final int ICON_SET_BORING = 1;
     public static final int ICON_SET_ASTRID = 2;
+
+    /**
+     * Action name for broadcast intent notifying that task was created from repeating template
+     */
+    public static final String BROADCAST_IN_APP_NOTIFY = Constants.PACKAGE + ".IN_APP_NOTIFY"; //$NON-NLS-1$
+    public static final String EXTRAS_CUSTOM_INTENT = "intent";
+    public static final String EXTRAS_NOTIF_ID = "notifId";
+    /** notification type extra */
+    public static final String EXTRAS_TYPE = "type"; //$NON-NLS-1$
+    public static final String EXTRAS_TITLE = "title";
+    public static final String EXTRAS_TEXT = "text";
+    public static final String EXTRAS_RING_TIMES = "ringTimes";
 
     // --- instance variables
 
@@ -73,7 +84,7 @@ public class Notifications extends BroadcastReceiver {
         ContextManager.setContext(context);
 
         long id = intent.getLongExtra(ID_KEY, 0);
-        int type = intent.getIntExtra(TYPE_KEY, (byte) 0);
+        int type = intent.getIntExtra(EXTRAS_TYPE, (byte) 0);
 
         Resources r = context.getResources();
         String reminder;
@@ -169,8 +180,39 @@ public class Notifications extends BroadcastReceiver {
         notifyIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_MULTIPLE_TASK);
         notifyIntent.putExtra(TaskListFragment.TOKEN_SOURCE, Constants.SOURCE_NOTIFICATION);
 
-        showNotification((int)id, notifyIntent, type, title, text, ringTimes);
+        requestNotification((int)id, notifyIntent, type, title, text, ringTimes);
         return true;
+    }
+
+    private static void requestNotification(int notificationId, Intent intent, int type, String title, String text, int ringTimes) {
+        Context context = ContextManager.getContext();
+        Intent inAppNotify = new Intent(BROADCAST_IN_APP_NOTIFY);
+        inAppNotify.putExtra(EXTRAS_NOTIF_ID, notificationId);
+        inAppNotify.putExtra(EXTRAS_CUSTOM_INTENT, intent);
+        inAppNotify.putExtra(EXTRAS_TYPE, type);
+        inAppNotify.putExtra(EXTRAS_TITLE, title);
+        inAppNotify.putExtra(EXTRAS_TEXT, text);
+        inAppNotify.putExtra(EXTRAS_RING_TIMES, ringTimes);
+        context.sendOrderedBroadcast(inAppNotify, AstridApiConstants.PERMISSION_READ);
+    }
+
+    /**
+     * Receives requests to show an Astrid notification if they were not intercepted and handled
+     * by the in-app reminders in AstridActivity.
+     * @author Sam
+     *
+     */
+    public static class ShowNotificationReceiver extends BroadcastReceiver {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            int notificationId = intent.getIntExtra(EXTRAS_NOTIF_ID, 0);
+            Intent customIntent = intent.getParcelableExtra(EXTRAS_CUSTOM_INTENT);
+            int type = intent.getIntExtra(EXTRAS_TYPE, 0);
+            String title = intent.getStringExtra(EXTRAS_TITLE);
+            String text = intent.getStringExtra(EXTRAS_TEXT);
+            int ringTimes = intent.getIntExtra(EXTRAS_RING_TIMES, 1);
+            showNotification(notificationId, customIntent, type, title, text, ringTimes);
+        }
     }
 
     /**
@@ -181,6 +223,7 @@ public class Notifications extends BroadcastReceiver {
     public static void showNotification(int notificationId, Intent intent, int type, String title,
             String text, int ringTimes) {
         Context context = ContextManager.getContext();
+
         if(notificationManager == null)
             notificationManager = new AndroidNotificationManager(context);
 

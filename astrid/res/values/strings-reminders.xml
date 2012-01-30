@@ -49,10 +49,10 @@
   <string name="rmd_NoA_filter">Reminder!</string>
   
   <!-- Reminder: Task was already done -->
-  <string name="rmd_NoA_done">Already Done!</string>
+  <string name="rmd_NoA_done">Complete</string>
   
   <!-- Reminder: Snooze button (remind again later) -->
-  <string name="rmd_NoA_snooze">Snooze...</string>
+  <string name="rmd_NoA_snooze">Snooze</string>
   
   <!-- Reminder: Cancel reminder -->
   <string name="rmd_NoA_goAway">Go Away!</string>
