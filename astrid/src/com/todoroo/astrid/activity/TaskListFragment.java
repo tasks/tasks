@@ -56,7 +56,6 @@ import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ListView;
-import android.widget.PopupWindow.OnDismissListener;
 import android.widget.TextView;
 import android.widget.TextView.OnEditorActionListener;
 import android.widget.Toast;
@@ -686,15 +685,10 @@ public class TaskListFragment extends ListFragment implements OnScrollListener,
             HelpInfoPopover.showPopover(getActivity(), quickAddBox,
                     R.string.help_popover_add_task, null);
             Preferences.setBoolean(R.string.p_showed_add_task_help, true);
-        } else if (!Preferences.getBoolean(R.string.p_showed_tap_task_help,
-                false)) {
+        } else if (!Preferences.getBoolean(R.string.p_showed_tap_task_help, false)) {
             showTaskEditHelpPopover();
-        } else if (Preferences.isSet(getString(R.string.p_showed_lists_help))
-                && !Preferences.getBoolean(R.string.p_showed_lists_help, false)) {
-            // HelpInfoPopover.showPopover(getActivity(),
-            // getView().findViewById(R.id.back), R.string.help_popover_lists,
-            // null);
-            Preferences.setBoolean(R.string.p_showed_lists_help, true);
+        } else if (!Preferences.getBoolean(R.string.p_showed_lists_help, false)) {
+            showListsHelp();
         }
 
         initiateAutomaticSync();
@@ -1003,7 +997,6 @@ public class TaskListFragment extends ListFragment implements OnScrollListener,
             currentCursor.moveToPosition(i);
             if (currentCursor.get(Task.ID) == withCustomId) {
                 getListView().setSelection(i);
-                showTaskEditHelpPopover();
                 return;
             }
         }
@@ -1032,7 +1025,6 @@ public class TaskListFragment extends ListFragment implements OnScrollListener,
             currentCursor.moveToPosition(i);
             if (currentCursor.get(Task.ID) == withCustomId) {
                 getListView().setSelection(i);
-                showTaskEditHelpPopover();
                 break;
             }
         }
@@ -1046,36 +1038,34 @@ public class TaskListFragment extends ListFragment implements OnScrollListener,
             getListView().postDelayed(new Runnable() {
                 public void run() {
                     if (taskAdapter != null && taskAdapter.getCount() > 0) {
-                        Preferences.setBoolean(R.string.p_showed_tap_task_help, true);
                         final View view = getListView().getChildAt(
                                 getListView().getChildCount() - 1);
                         if (view != null) {
-                            OnDismissListener onDismiss = new OnDismissListener() {
-                                @Override
-                                public void onDismiss() {
-                                    if (!Preferences.getBoolean(
-                                            R.string.p_showed_lists_help, false)) {
-                                        if (AndroidUtilities.isTabletSized(getActivity())) {
-                                            ((AstridActivity) getActivity()).getFilterListFragment().showAddListPopover();
-                                        } else {
-                                            ActionBar ab = ((AstridActivity) getActivity()).getSupportActionBar();
-                                            View anchor = ab.getCustomView().findViewById(R.id.lists_nav);
-                                            HelpInfoPopover.showPopover(getActivity(),
-                                                    anchor, R.string.help_popover_switch_lists, null);
-                                        }
-                                        Preferences.setBoolean(
-                                                R.string.p_showed_lists_help,
-                                                true);
-                                    }
-                                }
-                            };
                             HelpInfoPopover.showPopover(getActivity(), view,
-                                    R.string.help_popover_tap_task, onDismiss);
+                                    R.string.help_popover_tap_task, null);
+                            Preferences.setBoolean(R.string.p_showed_tap_task_help, true);
                         }
                     }
                 }
             }, 1000L);
 
+        }
+    }
+
+    private void showListsHelp() {
+        if (!Preferences.getBoolean(
+                R.string.p_showed_lists_help, false)) {
+            if (AndroidUtilities.isTabletSized(getActivity())) {
+                ((AstridActivity) getActivity()).getFilterListFragment().showAddListPopover();
+            } else {
+                ActionBar ab = ((AstridActivity) getActivity()).getSupportActionBar();
+                View anchor = ab.getCustomView().findViewById(R.id.lists_nav);
+                HelpInfoPopover.showPopover(getActivity(),
+                        anchor, R.string.help_popover_switch_lists, null);
+            }
+            Preferences.setBoolean(
+                    R.string.p_showed_lists_help,
+                    true);
         }
     }
 
@@ -1121,6 +1111,9 @@ public class TaskListFragment extends ListFragment implements OnScrollListener,
                 task.setValue(Task.CALENDAR_URI, calendarUri.toString());
                 taskService.save(task);
             }
+
+            if(title.length() > 0)
+                showTaskEditHelpPopover();
 
             TextView quickAdd = (TextView) getView().findViewById(
                     R.id.quickAddText);

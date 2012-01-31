@@ -341,6 +341,8 @@ public final class TaskEditFragment extends Fragment implements
         setUpUIComponents();
         adjustInfoPopovers();
 
+        Preferences.setBoolean(R.string.p_showed_tap_task_help, true);
+
         overrideFinishAnim = getActivity().getIntent().getBooleanExtra(
                 OVERRIDE_FINISH_ANIM, true);
 
