@@ -54,7 +54,7 @@
 <!-- extension targets. Uncomment the ones where you want to do custom work
      in between standard targets -->
 
-    <target name="-set-mode-check" depends="clean">                                                                                                   
+    <target name="-set-mode-check" depends="">                                                                                                   
         <fail if="build.is.mode.set"                                                                                                  
               message="Cannot run two different modes at the same time. If you are running more than one debug/release/instrument type targets, call them from different Ant calls." />                                                                                  
     </target>  
