@@ -326,17 +326,18 @@ public class RepeatControlSet extends PopupControlSet {
     @Override
     protected void refreshDisplayView() {
         TextView repeatDisplay = (TextView) getDisplayView().findViewById(R.id.display_row_edit);
-
-        ImageView repeatImage = (ImageView) getView().findViewById(R.id.repeat_image_icon);
+        ImageView repeatImage = (ImageView) getDisplayView().findViewById(R.id.repeat_image_icon);
         if (doRepeat) {
 
-//            String text = String.format(, args)
-//            value.setText(activity.getString(R.string.repeat_every, newValue));
-            //repeatDisplay.setText(activity.getString(R.string.))
-            repeatDisplay.setText(R.string.repeat_enabled);
+            String[] dateAbbrev = activity.getResources().getStringArray(
+                        R.array.repeat_interval_short);
+            String date = String.format("%s %s", (Integer)value.getTag(), dateAbbrev[interval.getSelectedItemPosition()]); //$NON-NLS-1$
+            String text = String.format(activity.getString(R.string.repeat_detail_duedate), date); // Every freq int
+            repeatDisplay.setText(text);
             repeatImage.setImageResource(R.drawable.icn_edit_repeats_red);
 
         } else {
+
             repeatDisplay.setText(R.string.repeat_never);
             repeatImage.setImageResource(R.drawable.icn_edit_repeats);
         }
