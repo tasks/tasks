@@ -186,8 +186,10 @@ public class FilterListFragment extends ListFragment {
         });
 
         AstridActivity activity = (AstridActivity) getActivity();
-        if (activity.getFragmentLayout() > AstridActivity.LAYOUT_SINGLE)
+        if (activity.getFragmentLayout() > AstridActivity.LAYOUT_SINGLE) {
+            mDualFragments = true;
             mSelectedIndex = activity.getIntent().getIntExtra(TOKEN_LAST_SELECTED, 0);
+        }
         onNewIntent(activity.getIntent());
 
         if (mDualFragments) {
