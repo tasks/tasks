@@ -42,29 +42,17 @@
       android:layout_width="fill_parent"
       android:layout_height="fill_parent"
       android:paddingTop="5dip">
-            
-    
-        <TextView
-	      android:id="@+id/notice"
-	      android:layout_width="fill_parent"
-	      android:layout_height="wrap_content"
-	      android:layout_alignParentBottom="true"
-	      android:layout_alignParentLeft="true"
-	      android:gravity="center"
-	      android:layout_marginBottom="5dip"
-	      android:textSize="12sp"
-	      android:textColor="#cccccc"
-	      android:text="@string/actfm_ALA_notice" />
       
         <Button
           android:id="@+id/pw_login"
           android:layout_width="fill_parent"
           android:layout_height="45dip"
-          android:layout_above="@id/notice"
+          android:layout_alignParentBottom="true"
           android:paddingLeft="20dip"
           android:paddingRight="20dip"
           android:layout_marginLeft="15dip"
           android:layout_marginRight="15dip"
+          android:layout_marginBottom="20dip"
           android:textSize="16sp" 
           android:text="@string/welcome_login_pw"/>    
       

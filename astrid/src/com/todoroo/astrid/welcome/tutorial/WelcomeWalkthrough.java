@@ -18,7 +18,6 @@ import android.widget.TextView;
 import com.timsu.astrid.R;
 import com.todoroo.andlib.utility.DialogUtilities;
 import com.todoroo.astrid.actfm.ActFmLoginActivity;
-import com.todoroo.astrid.activity.Eula;
 import com.viewpagerindicator.CirclePageIndicator;
 import com.viewpagerindicator.PageIndicator;
 
@@ -74,7 +73,6 @@ public class WelcomeWalkthrough extends ActFmLoginActivity {
         if(currentPage == mAdapter.getCount()-1) {
             if(findViewById(R.id.fb_login) != null) {
                 super.initializeUI();
-                setupTermsOfService();
                 setupLoginLater();
             } else {
                 OnClickListener done = new OnClickListener() {
@@ -90,33 +88,6 @@ public class WelcomeWalkthrough extends ActFmLoginActivity {
         }
     }
 
-    protected SpannableString getLinkStringWithCustomInterval(String base, String linkComponent,
-                                                            int start, int endOffset, final OnClickListener listener) {
-        SpannableString link = new SpannableString (String.format("%s %s", //$NON-NLS-1$
-                base, linkComponent));
-        ClickableSpan linkSpan = new ClickableSpan() {
-            @Override
-            public void onClick(View widget) {
-                listener.onClick(widget);
-            }
-            @Override
-            public void updateDrawState(TextPaint ds) {
-                ds.setUnderlineText(true);
-                ds.setColor(Color.rgb(68, 68, 68));
-            }
-        };
-        link.setSpan(linkSpan, start, link.length() + endOffset, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-        return link;
-    }
-    protected void setupTermsOfService() {
-        TextView tos = (TextView)currentView.findViewById(R.id.tos);
-        tos.setOnClickListener(showTosListener);
-
-        String tosBase = getString(R.string.welcome_login_tos_base);
-        String tosLink = getString(R.string.welcome_login_tos_link);
-        SpannableString link = getLinkStringWithCustomInterval(tosBase, tosLink, tosBase.length() + 2, -1, showTosListener);
-        tos.setText(link);
-    }
     protected void setupPWLogin() {
         Button pwLogin = (Button) findViewById(R.id.pw_login);
         pwLogin.setOnClickListener(signUpListener);
@@ -142,12 +113,6 @@ public class WelcomeWalkthrough extends ActFmLoginActivity {
         loginLater.setText(loginLaterLink);
     }
 
-    protected final OnClickListener showTosListener = new OnClickListener() {
-        @Override
-        public void onClick(View v) {
-            Eula.showEulaBasic(WelcomeWalkthrough.this);
-        }
-    };
 
     protected final OnClickListener loginLaterListener = new OnClickListener() {
         @Override
@@ -170,4 +135,3 @@ public class WelcomeWalkthrough extends ActFmLoginActivity {
     };
 
 }
-

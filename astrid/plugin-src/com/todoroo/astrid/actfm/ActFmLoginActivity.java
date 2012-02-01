@@ -34,12 +34,17 @@ import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.Configuration;
+import android.graphics.Color;
 import android.graphics.PixelFormat;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.text.InputType;
+import android.text.SpannableString;
+import android.text.Spanned;
+import android.text.TextPaint;
 import android.text.method.PasswordTransformationMethod;
+import android.text.style.ClickableSpan;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.WindowManager;
@@ -69,6 +74,7 @@ import com.todoroo.andlib.utility.DialogUtilities;
 import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.astrid.actfm.sync.ActFmInvoker;
 import com.todoroo.astrid.actfm.sync.ActFmPreferenceService;
+import com.todoroo.astrid.activity.Eula;
 import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.gtasks.auth.ModernAuthManager;
 import com.todoroo.astrid.helper.SyncResultCallbackAdapter;
@@ -188,6 +194,43 @@ public class ActFmLoginActivity extends FragmentActivity implements AuthListener
         StatisticsService.reportEvent(StatisticsConstants.ACTFM_LOGIN_SHOW);
     }
 
+    protected void setupTermsOfService(TextView tos) {
+        OnClickListener showTosListener = new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Eula.showEulaBasic(ActFmLoginActivity.this);
+            }
+        };
+
+        tos.setOnClickListener(showTosListener);
+
+        String tosBase = getString(R.string.welcome_login_tos_base);
+        String tosLink = getString(R.string.welcome_login_tos_link);
+        SpannableString link = getLinkStringWithCustomInterval(tosBase, tosLink, tosBase.length() + 2, -1,
+                showTosListener);
+        tos.setText(link);
+    }
+
+
+    protected SpannableString getLinkStringWithCustomInterval(String base, String linkComponent,
+                                                            int start, int endOffset, final OnClickListener listener) {
+        SpannableString link = new SpannableString (String.format("%s %s", //$NON-NLS-1$
+                base, linkComponent));
+        ClickableSpan linkSpan = new ClickableSpan() {
+            @Override
+            public void onClick(View widget) {
+                listener.onClick(widget);
+            }
+            @Override
+            public void updateDrawState(TextPaint ds) {
+                ds.setUnderlineText(true);
+                ds.setColor(Color.rgb(68, 68, 68));
+            }
+        };
+        link.setSpan(linkSpan, start, link.length() + endOffset, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+        return link;
+    }
+
     @SuppressWarnings("nls")
     protected void initializeUI() {
         facebook = new Facebook(APP_ID);
@@ -201,6 +244,7 @@ public class ActFmLoginActivity extends FragmentActivity implements AuthListener
         findViewById(R.id.gg_login).setOnClickListener(googleListener);
         Button pwLogin = (Button) findViewById(R.id.pw_login);
         pwLogin.setOnClickListener(signUpListener);
+        setupTermsOfService((TextView) findViewById(R.id.tos));
     }
 
     // --- event handler
