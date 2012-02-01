@@ -21,6 +21,11 @@
             android:key="@string/p_showNotes"
             android:title="@string/EPr_showNotes_title"
             android:defaultValue="false" />
+        
+        <com.todoroo.astrid.ui.MultilineCheckboxPreference
+            android:key="@string/p_showSmartConfirmation_key"
+            android:title="@string/EPr_showSmartConfirmation_title"
+            android:defaultValue="true"/>
             
         <com.todoroo.astrid.ui.MultilineListPreference
             android:key="@string/p_theme"
@@ -28,6 +33,11 @@
             android:entryValues="@array/EPr_theme_settings"
             android:title="@string/EPr_theme_title" />
     </PreferenceCategory>
+
+    <com.todoroo.astrid.ui.MultilineCheckboxPreference
+        android:key="@string/p_statistics"
+        android:title="@string/EPr_statistics_title"
+        android:defaultValue="true" />   
 
     <PreferenceCategory
         android:title="@string/EPr_powerpack_header">
@@ -51,9 +61,5 @@
         </PreferenceScreen>
     </PreferenceCategory>
 
-    <com.todoroo.astrid.ui.MultilineCheckboxPreference
-        android:key="@string/p_statistics"
-        android:title="@string/EPr_statistics_title"
-        android:defaultValue="true" />   
 
 </PreferenceScreen>

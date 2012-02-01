@@ -158,6 +158,8 @@
   
   <string name="TLA_quickadd_confirm_speech_bubble_date">for %s</string>
   
+  <string name="TLA_quickadd_confirm_hide_helpers">Don\'t display future confirmations</string>
+  
   <string-array name="TLA_priority_strings">
       <item>highest priority</item>
       <item>high priority</item>
@@ -447,6 +449,10 @@
   
   <!-- Preference: Task List Font Size Title -->
   <string name="EPr_fontSize_title">Task List Size</string>
+  
+  <!-- Preference: Show confirmation for smart reminders -->
+  <string name="EPr_showSmartConfirmation_title">Show confirmation for smart reminders</string>
+  
   <!-- Preference: Task List Font Size Description -->                                                                                                                                                  
   <string name="EPr_fontSize_desc">Font size on the main listing page</string>  
   

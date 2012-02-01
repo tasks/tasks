@@ -20,7 +20,7 @@ import com.todoroo.astrid.service.StatisticsService;
 
 public class ReminderDialog {
 
-    public static Dialog createReminderDialog(final AstridActivity activity, final long taskId, String title) {
+    public static void showReminderDialog(final AstridActivity activity, final long taskId, String title) {
         final Dialog d = new Dialog(activity, R.style.ReminderDialog);
         final SnoozeCallback dialogSnooze = new SnoozeCallback() {
             @Override
@@ -83,7 +83,8 @@ public class ReminderDialog {
         ((TextView) d.findViewById(R.id.reminder_message)).setText(
                 Notifications.getRandomReminder(activity.getResources().getStringArray(R.array.reminder_responses)));
 
-        return d;
+        d.setOwnerActivity(activity);
+        d.show();
     }
 
 }

@@ -11,6 +11,9 @@ import android.text.TextUtils;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
+import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.TextView;
 
 import com.google.ical.values.Frequency;
@@ -18,6 +21,7 @@ import com.google.ical.values.RRule;
 import com.timsu.astrid.R;
 import com.todoroo.andlib.data.Property;
 import com.todoroo.andlib.utility.DateUtilities;
+import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.astrid.activity.AstridActivity;
 import com.todoroo.astrid.core.PluginServices;
 import com.todoroo.astrid.data.Task;
@@ -30,7 +34,20 @@ import com.todoroo.astrid.utility.Flags;
  */
 public class DateChangedAlerts {
 
-    public static Dialog createQuickAddMarkupDialog(final AstridActivity activity, Task task, String originalText) {
+    /** Preference key for how many of these helper dialogs we've shown */
+    public static final String PREF_NUM_HELPERS_SHOWN = "pref_num_date_helpers"; //$NON-NLS-1$
+
+    /** Preference key for whether or not we should show such dialogs */
+    public static final int PREF_SHOW_HELPERS = R.string.p_showSmartConfirmation_key;
+
+    /** Start showing the option to hide future notifs after this many confirmation dialogs */
+    public static final int HIDE_CHECKBOX_AFTER_SHOWS = 3;
+
+
+    public static void showQuickAddMarkupDialog(final AstridActivity activity, Task task, String originalText) {
+        if (!Preferences.getBoolean(PREF_SHOW_HELPERS, true))
+            return;
+
         final Dialog d = new Dialog(activity, R.style.ReminderDialog);
         final long taskId = task.getId();
         d.setContentView(R.layout.astrid_reminder_view);
@@ -43,18 +60,9 @@ public class DateChangedAlerts {
 
         ((TextView) d.findViewById(R.id.reminder_message)).setText(speechBubbleText, TextView.BufferType.SPANNABLE);
 
-        d.findViewById(R.id.reminder_complete).setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                d.dismiss();
-            }
-        });
-        d.findViewById(R.id.dismiss).setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                d.dismiss();
-            }
-        });
+        setupOkAndDismissButtons(d);
+        setupHideCheckbox(d);
+
         d.findViewById(R.id.reminder_edit).setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -63,7 +71,8 @@ public class DateChangedAlerts {
             }
         });
 
-        return d;
+        d.setOwnerActivity(activity);
+        d.show();
     }
 
 
@@ -75,7 +84,10 @@ public class DateChangedAlerts {
                     Task.HIDE_UNTIL
             };
 
-    public static Dialog createRepeatTaskRescheduledDialog(final AstridActivity activity, final Task task, final long oldDueDate, final long newDueDate) {
+    public static void showRepeatTaskRescheduledDialog(final AstridActivity activity, final Task task, final long oldDueDate, final long newDueDate) {
+        if (!Preferences.getBoolean(PREF_SHOW_HELPERS, true))
+            return;
+
         final Dialog d = new Dialog(activity, R.style.ReminderDialog);
         d.setContentView(R.layout.astrid_reminder_view);
 
@@ -90,18 +102,9 @@ public class DateChangedAlerts {
 
         ((TextView) d.findViewById(R.id.reminder_message)).setText(speechBubbleText);
 
-        d.findViewById(R.id.reminder_complete).setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                d.dismiss();
-            }
-        });
-        d.findViewById(R.id.dismiss).setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                d.dismiss();
-            }
-        });
+        setupOkAndDismissButtons(d);
+        setupHideCheckbox(d);
+
         d.findViewById(R.id.reminder_edit).setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -115,10 +118,40 @@ public class DateChangedAlerts {
             }
         });
 
-        return d;
+        d.setOwnerActivity(activity);
+        d.show();
     }
 
+    private static void setupOkAndDismissButtons(final Dialog d) {
+        d.findViewById(R.id.reminder_complete).setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                d.dismiss();
+            }
+        });
+        d.findViewById(R.id.dismiss).setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                d.dismiss();
+            }
+        });
+    }
 
+    private static void setupHideCheckbox(final Dialog d) {
+        int numShows = Preferences.getInt(PREF_NUM_HELPERS_SHOWN, 0);
+        numShows++;
+        if (numShows >= HIDE_CHECKBOX_AFTER_SHOWS) {
+            CheckBox checkbox = (CheckBox) d.findViewById(R.id.reminders_should_show);
+            checkbox.setVisibility(View.VISIBLE);
+            checkbox.setOnCheckedChangeListener(new OnCheckedChangeListener() {
+                @Override
+                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                    Preferences.setBoolean(PREF_SHOW_HELPERS, !isChecked);
+                }
+            });
+        }
+        Preferences.setInt(PREF_NUM_HELPERS_SHOWN, numShows);
+    }
 
 
     @SuppressWarnings("nls")

@@ -13,7 +13,6 @@ import org.weloveastrid.rmilk.MilkUtilities;
 
 import android.app.Activity;
 import android.app.AlertDialog;
-import android.app.Dialog;
 import android.app.PendingIntent.CanceledException;
 import android.app.SearchManager;
 import android.content.BroadcastReceiver;
@@ -1190,8 +1189,7 @@ public class TaskListFragment extends ListFragment implements OnScrollListener,
     }
 
     private static void showAlertForMarkupTask(AstridActivity activity, Task task, String originalText) {
-        Dialog d = DateChangedAlerts.createQuickAddMarkupDialog(activity, task, originalText);
-        d.show();
+        DateChangedAlerts.showQuickAddMarkupDialog(activity, task, originalText);
     }
 
     @Override

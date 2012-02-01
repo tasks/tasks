@@ -196,6 +196,8 @@
     <item>36</item>
     <item>48</item>
   </string-array>
+  
+  <string name="p_showSmartConfirmation_key">showSmartConfirmation</string>
 
   <!-- ========================================================= DEFAULTS == -->
   

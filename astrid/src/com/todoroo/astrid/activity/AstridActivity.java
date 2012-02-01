@@ -1,6 +1,5 @@
 package com.todoroo.astrid.activity;
 
-import android.app.Dialog;
 import android.app.PendingIntent.CanceledException;
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -285,9 +284,7 @@ public class AstridActivity extends FragmentActivity
             long taskId = customIntent.getLongExtra(NotificationFragment.TOKEN_ID, 0);
             if (taskId > 0) {
                 String text = intent.getStringExtra(Notifications.EXTRAS_TEXT);
-                Dialog d = ReminderDialog.createReminderDialog(AstridActivity.this, taskId, text);
-                d.setOwnerActivity(AstridActivity.this);
-                d.show();
+                ReminderDialog.showReminderDialog(AstridActivity.this, taskId, text);
             }
 
             // Remove broadcast
@@ -305,10 +302,7 @@ public class AstridActivity extends FragmentActivity
                 long newDueDate = intent.getLongExtra(AstridApiConstants.EXTRAS_NEW_DUE_DATE, 0);
                 Task task = PluginServices.getTaskService().fetchById(taskId, DateChangedAlerts.REPEAT_RESCHEDULED_PROPERTIES);
 
-                Dialog d = DateChangedAlerts.createRepeatTaskRescheduledDialog(AstridActivity.this, task, oldDueDate, newDueDate);
-                d.setOwnerActivity(AstridActivity.this);
-                d.show();
-                // Do some stuff
+                DateChangedAlerts.showRepeatTaskRescheduledDialog(AstridActivity.this, task, oldDueDate, newDueDate);
             }
         }
     }

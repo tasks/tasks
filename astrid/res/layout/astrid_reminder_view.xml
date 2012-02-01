@@ -34,6 +34,15 @@
     
     <include layout="@layout/astrid_speech_bubble"/>
     
+    <CheckBox 
+        android:id="@+id/reminders_should_show"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dip"
+        android:layout_marginBottom="10dip"
+        android:text="@string/TLA_quickadd_confirm_hide_helpers" 
+        android:visibility="gone"/>
+    
     <Button
         android:id="@+id/reminder_edit"
         android:layout_width="fill_parent"
