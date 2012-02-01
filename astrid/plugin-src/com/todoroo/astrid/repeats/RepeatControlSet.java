@@ -18,6 +18,7 @@ import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -325,10 +326,20 @@ public class RepeatControlSet extends PopupControlSet {
     @Override
     protected void refreshDisplayView() {
         TextView repeatDisplay = (TextView) getDisplayView().findViewById(R.id.display_row_edit);
+        ImageView repeatImage = (ImageView) getDisplayView().findViewById(R.id.repeat_image_icon);
         if (doRepeat) {
-            repeatDisplay.setText(R.string.repeat_enabled);
+
+            String[] dateAbbrev = activity.getResources().getStringArray(
+                        R.array.repeat_interval_short);
+            String date = String.format("%s %s", (Integer)value.getTag(), dateAbbrev[interval.getSelectedItemPosition()]); //$NON-NLS-1$
+            String text = String.format(activity.getString(R.string.repeat_detail_duedate), date); // Every freq int
+            repeatDisplay.setText(text);
+            repeatImage.setImageResource(R.drawable.icn_edit_repeats_red);
+
         } else {
+
             repeatDisplay.setText(R.string.repeat_never);
+            repeatImage.setImageResource(R.drawable.icn_edit_repeats);
         }
     }
 
