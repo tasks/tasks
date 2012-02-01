@@ -57,14 +57,8 @@
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
             android:layout_weight="50"
+            android:gravity="center_vertical"
             android:paddingTop="5dip" >
-
-            <TextView
-                android:id="@+id/spacer"
-                android:layout_width="wrap_content"
-                android:layout_height="0dp"
-                android:textAppearance="?android:attr/textAppearanceLarge"
-                android:layout_weight="0.5" />
 
             <Button
                 android:id="@+id/gg_login"
@@ -106,21 +100,15 @@
                 android:layout_gravity="center_horizontal" />
 
             <TextView
-                android:id="@+id/TextView01"
-                android:layout_width="wrap_content"
-                android:layout_height="0dp"
-                android:layout_weight="0.5"
-                android:textAppearance="?android:attr/textAppearanceLarge" />
-
-            <TextView
-                android:id="@+id/notice"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="5dip"
-                android:gravity="center"
-                android:text="@string/actfm_ALA_notice"
-                android:textColor="#cccccc"
-                android:textSize="12sp" />
+		          android:id="@+id/tos"
+		          android:layout_width="fill_parent"
+		          android:layout_height="35dip"
+		          android:layout_above="@id/gg_login"
+		          android:gravity="center"
+		          android:paddingLeft="20dip"
+		          android:paddingRight="20dip"
+		          android:textSize="12.5sp"
+		          android:textColor="#ffffff" /> 
         </LinearLayout>
 
     </LinearLayout>

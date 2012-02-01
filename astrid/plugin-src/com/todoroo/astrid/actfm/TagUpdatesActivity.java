@@ -7,6 +7,7 @@ import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.TypedValue;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -125,7 +126,7 @@ public class TagUpdatesActivity extends ListActivity {
             @Override
             public void clearImage() {
                 picture = null;
-                pictureButton.setImageResource(R.drawable.camera_button);
+                resetPictureButton();
             }
         };
         pictureButton = (ImageButton) findViewById(R.id.picture);
@@ -141,6 +142,12 @@ public class TagUpdatesActivity extends ListActivity {
 
         refreshUpdatesList();
         refreshActivity(false); // start a pull in the background
+    }
+
+    private void resetPictureButton() {
+        TypedValue tv = new TypedValue();
+        getTheme().resolveAttribute(R.attr.asCameraButtonImg, tv, false);
+        pictureButton.setImageResource(tv.data);
     }
 
     private void refreshUpdatesList() {
@@ -246,7 +253,8 @@ public class TagUpdatesActivity extends ListActivity {
         }.start();
         addCommentField.setText(""); //$NON-NLS-1$
         picture = null;
-        pictureButton.setImageResource(R.drawable.camera_button);
+
+        resetPictureButton();
         refreshUpdatesList();
 
         StatisticsService.reportEvent(StatisticsConstants.ACTFM_TAG_COMMENT);

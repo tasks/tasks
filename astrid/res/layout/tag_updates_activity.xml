@@ -65,7 +65,7 @@
             android:paddingLeft="7dip"
             android:paddingRight="7dip"
             android:scaleType="centerInside"
-            android:src="@drawable/camera_button" />
+            android:src="?attr/asCameraButtonImg" />
 
         <!-- Quick Add Task -->
 

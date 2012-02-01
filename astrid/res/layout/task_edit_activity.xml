@@ -122,9 +122,11 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_weight="1"
-        android:minHeight="47dip"
+        android:minHeight="50dip"
+        android:gravity="center_vertical"
         android:orientation="horizontal"
-        android:padding="3dip" >
+        android:padding="3dip" 
+        android:paddingBottom="5dip">
 
         <!-- Voice Add Button -->
 
@@ -140,16 +142,17 @@
             android:paddingLeft="7dip"
             android:paddingRight="7dip"
             android:scaleType="centerInside"
-            android:src="@drawable/camera_button" />
+            android:src="?attr/asCameraButtonImg" />
 
         <!-- Quick Add Task -->
 
         <EditText
             android:id="@+id/commentField"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="39dip"
             android:layout_marginLeft="1dip"
             android:layout_marginRight="1dip"
+            android:layout_marginBottom="2dip"
             android:layout_weight="100"
             android:autoText="true"
             android:background="@drawable/footer_comment_edittext"

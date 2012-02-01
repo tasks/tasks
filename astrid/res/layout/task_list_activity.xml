@@ -22,10 +22,11 @@
         android:id="@+id/taskListFooter"
         android:layout_width="fill_parent" 
         android:layout_height="wrap_content"
-        android:minHeight="47dip"
+        android:minHeight="50dip"
         android:layout_weight="1"
         android:padding="3dip"
-        android:layout_marginBottom="5dip"
+        android:paddingBottom="5dip"
+        android:gravity="center_vertical"
         android:orientation="horizontal"
         style="@style/Content">
         
@@ -50,6 +51,7 @@
             android:layout_height="39dip"
             android:layout_marginRight="8dip"
             android:layout_marginLeft="5dip"
+            android:layout_marginBottom="2dip"
             android:layout_weight="100"
             android:paddingLeft="5dip"
             android:background="@drawable/edit_title_background"

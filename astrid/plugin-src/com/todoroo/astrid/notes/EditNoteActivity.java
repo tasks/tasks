@@ -23,6 +23,7 @@ import android.text.TextWatcher;
 import android.text.format.DateUtils;
 import android.text.util.Linkify;
 import android.util.Log;
+import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.View;
@@ -89,6 +90,7 @@ public class EditNoteActivity extends LinearLayout implements TimerActionListene
     private Bitmap pendingCommentPicture = null;
     private final Fragment fragment;
     private final ImageCache imageCache;
+    private final int cameraButton;
 
     private final List<UpdatesChangedListener> listeners = new LinkedList<UpdatesChangedListener>();
 
@@ -103,6 +105,8 @@ public class EditNoteActivity extends LinearLayout implements TimerActionListene
         imageCache = ImageCache.getInstance(fragment.getActivity());
         this.fragment = fragment;
 
+        cameraButton = getDefaultCameraButton();
+
         DependencyInjectionService.getInstance().inject(this);
         setOrientation(VERTICAL);
 
@@ -110,6 +114,12 @@ public class EditNoteActivity extends LinearLayout implements TimerActionListene
         parentView = parent;
 
         loadViewForTaskID(t);
+    }
+
+    private int getDefaultCameraButton() {
+        TypedValue tv = new TypedValue();
+        fragment.getActivity().getTheme().resolveAttribute(R.attr.asCameraButtonImg, tv, false);
+        return tv.data;
     }
 
     public void loadViewForTaskID(long t){
@@ -203,7 +213,7 @@ public class EditNoteActivity extends LinearLayout implements TimerActionListene
             @Override
             public void clearImage() {
                 pendingCommentPicture = null;
-                pictureButton.setImageResource(R.drawable.camera_button);
+                pictureButton.setImageResource(cameraButton);
             }
         };
         pictureButton = (ImageButton) commentsBar.findViewById(R.id.picture);
@@ -458,7 +468,7 @@ public class EditNoteActivity extends LinearLayout implements TimerActionListene
         commentField.setText(""); //$NON-NLS-1$
 
         pendingCommentPicture = usePicture ? null : pendingCommentPicture;
-        pictureButton.setImageResource(R.drawable.camera_button);
+        pictureButton.setImageResource(cameraButton);
         StatisticsService.reportEvent(StatisticsConstants.ACTFM_TASK_COMMENT);
 
         setUpListAdapter();
