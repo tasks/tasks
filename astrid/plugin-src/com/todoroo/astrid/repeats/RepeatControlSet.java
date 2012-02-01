@@ -11,6 +11,7 @@ import android.app.Activity;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.text.TextUtils;
+import android.util.TypedValue;
 import android.view.View;
 import android.view.ViewGroup.LayoutParams;
 import android.widget.AdapterView;
@@ -334,7 +335,10 @@ public class RepeatControlSet extends PopupControlSet {
             String date = String.format("%s %s", (Integer)value.getTag(), dateAbbrev[interval.getSelectedItemPosition()]); //$NON-NLS-1$
             String text = String.format(activity.getString(R.string.repeat_detail_duedate), date); // Every freq int
             repeatDisplay.setText(text);
-            repeatImage.setImageResource(R.drawable.icn_edit_repeats_red);
+
+            TypedValue repeatIcon = new TypedValue();
+            activity.getTheme().resolveAttribute(R.attr.asRepeatIcon, repeatIcon, false);
+            repeatImage.setImageResource(repeatIcon.data);
 
         } else {
 
