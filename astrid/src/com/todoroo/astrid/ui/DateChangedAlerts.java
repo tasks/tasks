@@ -16,16 +16,19 @@ import android.widget.TextView;
 import com.google.ical.values.Frequency;
 import com.google.ical.values.RRule;
 import com.timsu.astrid.R;
+import com.todoroo.andlib.data.Property;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.astrid.activity.AstridActivity;
+import com.todoroo.astrid.core.PluginServices;
 import com.todoroo.astrid.data.Task;
+import com.todoroo.astrid.utility.Flags;
 
 /**
  * Helper class that creates a dialog to confirm the results of a quick add markup
  * @author Sam
  *
  */
-public class QuickAddMarkupDialog {
+public class DateChangedAlerts {
 
     public static Dialog createQuickAddMarkupDialog(final AstridActivity activity, Task task, String originalText) {
         final Dialog d = new Dialog(activity, R.style.ReminderDialog);
@@ -36,7 +39,7 @@ public class QuickAddMarkupDialog {
         ((Button) d.findViewById(R.id.reminder_complete)).setText(R.string.DLG_ok);
         ((TextView) d.findViewById(R.id.reminder_title)).setText(activity.getString(R.string.TLA_quickadd_confirm_title, originalText));
 
-        Spanned speechBubbleText = constructSpeechBubbleText(activity, task);
+        Spanned speechBubbleText = constructSpeechBubbleTextForQuickAdd(activity, task);
 
         ((TextView) d.findViewById(R.id.reminder_message)).setText(speechBubbleText, TextView.BufferType.SPANNABLE);
 
@@ -63,8 +66,63 @@ public class QuickAddMarkupDialog {
         return d;
     }
 
+
+    public static final Property<?>[] REPEAT_RESCHEDULED_PROPERTIES =
+            new Property<?>[] {
+                    Task.ID,
+                    Task.TITLE,
+                    Task.DUE_DATE,
+                    Task.HIDE_UNTIL
+            };
+
+    public static Dialog createRepeatTaskRescheduledDialog(final AstridActivity activity, final Task task, final long oldDueDate, final long newDueDate) {
+        final Dialog d = new Dialog(activity, R.style.ReminderDialog);
+        d.setContentView(R.layout.astrid_reminder_view);
+
+        d.findViewById(R.id.reminder_snooze).setVisibility(View.GONE);
+        ((Button) d.findViewById(R.id.reminder_complete)).setText(R.string.DLG_ok);
+        ((Button) d.findViewById(R.id.reminder_edit)).setText(R.string.DLG_undo);
+        ((TextView) d.findViewById(R.id.reminder_title)).setText(activity.getString(R.string.repeat_rescheduling_dialog_title, task.getValue(Task.TITLE)));
+
+        String oldDueDateString = getRelativeDateAndTimeString(activity, oldDueDate);
+        String newDueDateString = getRelativeDateAndTimeString(activity, newDueDate);
+        String speechBubbleText = activity.getString(R.string.repeat_rescheduling_dialog_bubble, oldDueDateString, newDueDateString);
+
+        ((TextView) d.findViewById(R.id.reminder_message)).setText(speechBubbleText);
+
+        d.findViewById(R.id.reminder_complete).setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                d.dismiss();
+            }
+        });
+        d.findViewById(R.id.dismiss).setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                d.dismiss();
+            }
+        });
+        d.findViewById(R.id.reminder_edit).setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                d.dismiss();
+                task.setValue(Task.DUE_DATE, oldDueDate);
+                long hideUntil = task.getValue(Task.HIDE_UNTIL);
+                if (hideUntil > 0)
+                    task.setValue(Task.HIDE_UNTIL, hideUntil - (newDueDate - oldDueDate));
+                PluginServices.getTaskService().save(task);
+                Flags.set(Flags.REFRESH);
+            }
+        });
+
+        return d;
+    }
+
+
+
+
     @SuppressWarnings("nls")
-    private static Spanned constructSpeechBubbleText(Context context, Task task) {
+    private static Spanned constructSpeechBubbleTextForQuickAdd(Context context, Task task) {
         String[] priorityStrings = context.getResources().getStringArray(R.array.TLA_priority_strings);
         int[] colorsArray = new int[] { R.color.importance_1, R.color.importance_2, R.color.importance_3, R.color.importance_4 };
 
@@ -77,10 +135,7 @@ public class QuickAddMarkupDialog {
         }
 
         if (TextUtils.isEmpty(dueDate)) {
-            dueDate = task.getValue(Task.DUE_DATE) > 0 ? DateUtilities.getRelativeDay(context, date, false) : "";
-            if(Task.hasDueTime(date))
-                dueDate = String.format("%s at %s", dueDate, //$NON-NLS-1$
-                        DateUtilities.getTimeString(context, new Date(date)));
+            dueDate = getRelativeDateAndTimeString(context, date);
         }
 
         if (!TextUtils.isEmpty(dueDate))
@@ -95,6 +150,14 @@ public class QuickAddMarkupDialog {
 
         String fullString = context.getString(R.string.TLA_quickadd_confirm_speech_bubble, title, dueDate, priorityString);
         return Html.fromHtml(fullString);
+    }
+
+    private static String getRelativeDateAndTimeString(Context context, long date) {
+        String dueDate = date > 0 ? DateUtilities.getRelativeDay(context, date, false) : "";
+        if(Task.hasDueTime(date))
+            dueDate = String.format("%s at %s", dueDate, //$NON-NLS-1$
+                    DateUtilities.getTimeString(context, new Date(date)));
+        return dueDate;
     }
 
     private static String getRecurrenceString(Context context, Task task) {

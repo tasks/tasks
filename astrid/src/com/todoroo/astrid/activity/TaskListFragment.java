@@ -114,7 +114,7 @@ import com.todoroo.astrid.service.SyncV2Service.SyncV2Provider;
 import com.todoroo.astrid.service.TagDataService;
 import com.todoroo.astrid.service.TaskService;
 import com.todoroo.astrid.service.UpgradeService;
-import com.todoroo.astrid.ui.QuickAddMarkupDialog;
+import com.todoroo.astrid.ui.DateChangedAlerts;
 import com.todoroo.astrid.utility.AstridPreferences;
 import com.todoroo.astrid.utility.Constants;
 import com.todoroo.astrid.utility.Flags;
@@ -1190,7 +1190,7 @@ public class TaskListFragment extends ListFragment implements OnScrollListener,
     }
 
     private static void showAlertForMarkupTask(AstridActivity activity, Task task, String originalText) {
-        Dialog d = QuickAddMarkupDialog.createQuickAddMarkupDialog(activity, task, originalText);
+        Dialog d = DateChangedAlerts.createQuickAddMarkupDialog(activity, task, originalText);
         d.show();
     }
 

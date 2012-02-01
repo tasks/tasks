@@ -59,4 +59,9 @@
   <!-- task detail for repeat from completion date (%s -> interval) -->
   <string name="repeat_detail_completion">%s after completion</string>
   
+  <!-- text for confirmation dialog after repeating a task -->
+  <string name="repeat_rescheduling_dialog_title">Rescheduling task \"%s\"</string>
+    
+  <string name="repeat_rescheduling_dialog_bubble">I\'ve rescheduled this repeating task from %1$s to %2$s</string>
+  
 </resources>

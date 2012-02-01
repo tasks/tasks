@@ -71,45 +71,45 @@ public class RepeatTaskCompleteListener extends BroadcastReceiver {
             }
 
             // update repeat time when it repeats on the server
-            if(actFmPreferenceService.isLoggedIn() && !skipActFmCheck) {
-                task.setValue(Task.COMPLETION_DATE, 0L);
-                task.setValue(Task.DUE_DATE, newDueDate);
-                task.setValue(Task.HIDE_UNTIL, hideUntil);
-                task.putTransitory("repeat-complete", true); //$NON-NLS-1$
-                GCalHelper.createTaskEventIfEnabled(task, false);
-                PluginServices.getTaskService().save(task);
-                return;
-            }
-
-            // clone to create new task
-            Flags.set(Flags.ACTFM_SUPPRESS_SYNC);
-            Flags.set(Flags.GTASKS_SUPPRESS_SYNC);
-            Task clone = PluginServices.getTaskService().clone(task);
-            clone.setValue(Task.DUE_DATE, newDueDate);
-            clone.setValue(Task.HIDE_UNTIL, hideUntil);
-            clone.setValue(Task.COMPLETION_DATE, 0L);
-            clone.setValue(Task.TIMER_START, 0L);
-            clone.setValue(Task.ELAPSED_SECONDS, 0);
-            clone.setValue(Task.REMINDER_SNOOZE, 0L);
-            clone.setValue(Task.REMINDER_LAST, 0L);
-            clone.setValue(Task.CALENDAR_URI, ""); //$NON-NLS-1$
-
-            GCalHelper.createTaskEventIfEnabled(clone, false);
-            PluginServices.getTaskService().save(clone);
-
-            // clear recurrence from completed task so it can be re-completed
-            task.setValue(Task.RECURRENCE, ""); //$NON-NLS-1$
-            task.setValue(Task.DETAILS_DATE, 0L);
-
+            long oldDueDate = task.getValue(Task.DUE_DATE);
+            task.setValue(Task.COMPLETION_DATE, 0L);
+            task.setValue(Task.DUE_DATE, newDueDate);
+            task.setValue(Task.HIDE_UNTIL, hideUntil);
+            task.putTransitory("repeat-complete", true); //$NON-NLS-1$
+            GCalHelper.createTaskEventIfEnabled(task, false);
             PluginServices.getTaskService().save(task);
 
             // send a broadcast
             Intent broadcastIntent = new Intent(AstridApiConstants.BROADCAST_EVENT_TASK_REPEATED);
-            broadcastIntent.putExtra(AstridApiConstants.EXTRAS_TASK_ID, clone.getId());
-            broadcastIntent.putExtra(AstridApiConstants.EXTRAS_OLD_DUE_DATE, task.getValue(Task.DUE_DATE));
+            broadcastIntent.putExtra(AstridApiConstants.EXTRAS_TASK_ID, task.getId());
+            broadcastIntent.putExtra(AstridApiConstants.EXTRAS_OLD_DUE_DATE, oldDueDate);
             broadcastIntent.putExtra(AstridApiConstants.EXTRAS_NEW_DUE_DATE, newDueDate);
             context.sendOrderedBroadcast(broadcastIntent, null);
             Flags.set(Flags.REFRESH);
+            return;
+
+//            // clone to create new task
+//            Flags.set(Flags.ACTFM_SUPPRESS_SYNC);
+//            Flags.set(Flags.GTASKS_SUPPRESS_SYNC);
+//            Task clone = PluginServices.getTaskService().clone(task);
+//            clone.setValue(Task.DUE_DATE, newDueDate);
+//            clone.setValue(Task.HIDE_UNTIL, hideUntil);
+//            clone.setValue(Task.COMPLETION_DATE, 0L);
+//            clone.setValue(Task.TIMER_START, 0L);
+//            clone.setValue(Task.ELAPSED_SECONDS, 0);
+//            clone.setValue(Task.REMINDER_SNOOZE, 0L);
+//            clone.setValue(Task.REMINDER_LAST, 0L);
+//            clone.setValue(Task.CALENDAR_URI, ""); //$NON-NLS-1$
+//
+//            GCalHelper.createTaskEventIfEnabled(clone, false);
+//            PluginServices.getTaskService().save(clone);
+//
+//            // clear recurrence from completed task so it can be re-completed
+//            task.setValue(Task.RECURRENCE, ""); //$NON-NLS-1$
+//            task.setValue(Task.DETAILS_DATE, 0L);
+//
+//            PluginServices.getTaskService().save(task);
+
         }
     }
 
