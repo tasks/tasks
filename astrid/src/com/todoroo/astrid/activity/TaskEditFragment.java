@@ -1036,7 +1036,7 @@ public final class TaskEditFragment extends Fragment implements
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (editNotes.activityResult(requestCode, resultCode, data)) {
+        if (editNotes != null && editNotes.activityResult(requestCode, resultCode, data)) {
             return;
         }
         if (requestCode == REQUEST_VOICE_RECOG
