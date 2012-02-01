@@ -162,9 +162,12 @@ public class EditNoteActivity extends LinearLayout implements TimerActionListene
         commentField.addTextChangedListener(new TextWatcher() {
             @Override
             public void afterTextChanged(Editable s) {
-                commentButton.setVisibility((s.length() > 0 || pendingCommentPicture != null) ? View.VISIBLE : View.GONE);
-                timerView.setVisibility((s.length() > 0 || pendingCommentPicture != null) ? View.GONE : View.VISIBLE);
+                commentButton.setVisibility((s.length() > 0 || pendingCommentPicture != null) ? View.VISIBLE
+                        : View.GONE);
+                timerView.setVisibility((s.length() > 0 || pendingCommentPicture != null) ? View.GONE
+                        : View.VISIBLE);
             }
+
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
                 //
@@ -221,11 +224,10 @@ public class EditNoteActivity extends LinearLayout implements TimerActionListene
             notes.setPadding(5, 10, 5, 10);
             Linkify.addLinks(notes, Linkify.ALL);
         }
+
         //TODO add loading text back in
         //        loadingText = (TextView) findViewById(R.id.loading);
         loadingText = new TextView(getContext());
-
-
     }
 
     private void setUpListAdapter() {
@@ -252,7 +254,9 @@ public class EditNoteActivity extends LinearLayout implements TimerActionListene
                 Update update = new Update();
                 for(updates.moveToFirst(); !updates.isAfterLast(); updates.moveToNext()) {
                     update.readFromCursor(updates);
-                    items.add(NoteOrUpdate.fromUpdate(update));
+                    NoteOrUpdate noa = NoteOrUpdate.fromUpdate(update);
+                    if(noa != null)
+                        items.add(noa);
                 }
             } finally {
                 updates.close();
@@ -509,6 +513,10 @@ public class EditNoteActivity extends LinearLayout implements TimerActionListene
                 description += " " + message;
             else
                 description = message;
+
+            if(TextUtils.isEmpty(description))
+                return null;
+
             String commentPicture = u.getValue(Update.PICTURE);
 
             return new NoteOrUpdate(user.optString("picture"),
@@ -565,8 +573,8 @@ public class EditNoteActivity extends LinearLayout implements TimerActionListene
             }
         };
 
-        return (ActFmCameraModule.activityResult((Activity)getContext(), requestCode, resultCode, data, callback));
-        //Handled
+        return (ActFmCameraModule.activityResult((Activity)getContext(),
+                requestCode, resultCode, data, callback));
     }
 
 }

@@ -351,10 +351,9 @@
     
     <style name="CustomTabPageIndicator" parent="Widget.TabPageIndicator">
         <item name="android:background">?attr/asEditTabBackground</item>
-        <item name="android:textColor">#FFFF00FF</item>
     </style>
     <style name="CustomTabPageIndicator.Text" parent="Widget.TabPageIndicator.Text">
-        <item name="android:textColor">#FF00FF00</item>
+        <item name="android:textColor">?attr/asTextColor</item>                                                                                                                                                              
         <item name="android:textSize">15sp</item>
         <item name="android:textStyle">bold</item>
         <item name="android:layout_marginLeft">5dip</item>
