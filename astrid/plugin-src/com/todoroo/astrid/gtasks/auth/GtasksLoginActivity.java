@@ -33,8 +33,11 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.View.OnClickListener;
+import android.view.Window;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.api.client.googleapis.extensions.android2.auth.GoogleAccountManager;
@@ -87,8 +90,14 @@ public class GtasksLoginActivity extends ListActivity {
         super.onCreate(savedInstanceState);
         ContextManager.setContext(this);
 
+
+        requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.gtasks_login_activity);
-        setTitle(R.string.gtasks_GLA_title);
+        TextView header = new TextView(this);
+        header.setText(R.string.actfm_GAA_title);
+        header.setTextAppearance(this, R.style.TextAppearance_Medium);
+        header.setPadding(10, 0, 10, 50);
+        getListView().addHeaderView(header);
 
         accountManager = new GoogleAccountManager(this);
         Account[] accounts = accountManager.getAccounts();
@@ -100,6 +109,12 @@ public class GtasksLoginActivity extends ListActivity {
         nameArray = accountNames.toArray(new String[accountNames.size()]);
 
         setListAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, nameArray));
+        findViewById(R.id.empty_button).setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
     }
 
     @Override

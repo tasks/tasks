@@ -225,7 +225,7 @@
   <string name="actfm_ALA_login_title">Login to Astrid.com</string>
 
   <!-- share login: Google Auth title -->
-  <string name="actfm_GAA_title">Select a Google account:</string>
+  <string name="actfm_GAA_title">Select the Google account you want to use:</string>
 
   <!-- ================================================ Synchronization == -->
       

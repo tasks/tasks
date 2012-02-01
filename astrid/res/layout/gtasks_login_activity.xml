@@ -8,11 +8,27 @@
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"/>
         
-  <TextView android:id="@android:id/empty"
+  <LinearLayout android:id="@android:id/empty"
         android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:text="@string/gtasks_GLA_noaccounts"
+        android:layout_height="wrap_content"
+        android:paddingLeft="20dip"
+        android:paddingRight="20dip"
         android:gravity="center"
-        style="@style/TextAppearance.TLA_NoItems" />
+        android:orientation="vertical">
+        
+      <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/gtasks_GLA_noaccounts"
+            android:gravity="center"
+            style="@style/TextAppearance.TLA_NoItems" />
+        
+      <Button android:id="@+id/empty_button"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="50dip"
+            android:text="@string/DLG_ok" />
+        
+  </LinearLayout>
 
 </FrameLayout>
