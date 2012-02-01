@@ -336,10 +336,11 @@ public class TaskService {
      * <li>@context - add the tag "@context"
      * <li>!4 - set priority to !!!!
      */
-    public void quickAdd(Task task) {
+    public boolean quickAdd(Task task) {
         ArrayList<String> tags = new ArrayList<String>();
+        boolean quickAddMarkup = false;
         try {
-            parseQuickAddMarkup(task, tags);
+            quickAddMarkup = parseQuickAddMarkup(task, tags);
         } catch (Throwable e) {
             exceptionService.reportError("parse-quick-add", e); //$NON-NLS-1$
         }
@@ -352,10 +353,11 @@ public class TaskService {
             metadata.setValue(TagService.TAG, tag);
             metadataDao.createNew(metadata);
         }
+        return quickAddMarkup;
     }
 
-    public static void parseQuickAddMarkup(Task task, ArrayList<String> tags) {
-        new TitleParser(task, tags).parse();
+    public static boolean parseQuickAddMarkup(Task task, ArrayList<String> tags) {
+        return new TitleParser(task, tags).parse();
     }
 
 

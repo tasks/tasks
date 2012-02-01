@@ -195,7 +195,7 @@ public class DateUtilities {
     /**
      * @return yesterday, today, tomorrow, or null
      */
-    public static String getRelativeDay(Context context, long date) {
+    public static String getRelativeDay(Context context, long date, boolean abbreviated) {
         long today = clearTime(new Date());
         long input = clearTime(new Date(date));
 
@@ -203,16 +203,23 @@ public class DateUtilities {
             return context.getString(R.string.today).toLowerCase();
 
         if(today + ONE_DAY == input)
-            return context.getString(R.string.tmrw).toLowerCase();
+            return context.getString(abbreviated ? R.string.tmrw : R.string.tomorrow).toLowerCase();
 
         if(today == input + ONE_DAY)
-            return context.getString(R.string.yest).toLowerCase();
+            return context.getString(abbreviated ? R.string.yest : R.string.yesterday).toLowerCase();
 
         if(today + DateUtilities.ONE_WEEK >= input &&
                 today - DateUtilities.ONE_WEEK <= input)
-            return DateUtilities.getWeekdayShort(new Date(date));
+            return abbreviated ? DateUtilities.getWeekdayShort(new Date(date)) : DateUtilities.getWeekday(new Date(date));
 
         return DateUtilities.getDateStringHideYear(context, new Date(date));
+    }
+
+    /**
+     * Calls getRelativeDay with abbreviated parameter defaulted to true
+     */
+    public static String getRelativeDay(Context context, long date) {
+        return DateUtilities.getRelativeDay(context, date, true);
     }
 
     private static long clearTime(Date date) {

@@ -13,6 +13,7 @@ import org.weloveastrid.rmilk.MilkUtilities;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.Dialog;
 import android.app.PendingIntent.CanceledException;
 import android.app.SearchManager;
 import android.content.BroadcastReceiver;
@@ -113,6 +114,7 @@ import com.todoroo.astrid.service.SyncV2Service.SyncV2Provider;
 import com.todoroo.astrid.service.TagDataService;
 import com.todoroo.astrid.service.TaskService;
 import com.todoroo.astrid.service.UpgradeService;
+import com.todoroo.astrid.ui.QuickAddMarkupDialog;
 import com.todoroo.astrid.utility.AstridPreferences;
 import com.todoroo.astrid.utility.Constants;
 import com.todoroo.astrid.utility.Flags;
@@ -168,6 +170,8 @@ public class TaskListFragment extends ListFragment implements OnScrollListener,
     public static final String TOKEN_SOURCE = "source"; //$NON-NLS-1$
 
     public static final String TOKEN_OVERRIDE_ANIM = "finishAnim"; //$NON-NLS-1$
+
+    private static final String QUICK_ADD_MARKUP = "markup"; //$NON-NLS-1$
 
     // --- instance variables
 
@@ -1122,6 +1126,9 @@ public class TaskListFragment extends ListFragment implements OnScrollListener,
             if (selectNewTask) {
                 loadTaskListContent(true);
                 selectCustomId(task.getId());
+                if (task.getTransitory(QUICK_ADD_MARKUP) != null) {
+                    showAlertForMarkupTask((AstridActivity) getActivity(), task, title);
+                }
             }
 
             StatisticsService.reportEvent(StatisticsConstants.TASK_CREATED_TASKLIST);
@@ -1168,14 +1175,23 @@ public class TaskListFragment extends ListFragment implements OnScrollListener,
             }
             task.mergeWith(forTask);
         }
-        taskService.quickAdd(task);
+        boolean markup = taskService.quickAdd(task);
+        if (markup)
+            task.putTransitory(QUICK_ADD_MARKUP, true);
+
         if (forMetadata != null && forMetadata.size() > 0) {
             Metadata metadata = new Metadata();
             metadata.setValue(Metadata.TASK, task.getId());
             metadata.mergeWith(forMetadata);
             metadataService.save(metadata);
         }
+
         return task;
+    }
+
+    private static void showAlertForMarkupTask(AstridActivity activity, Task task, String originalText) {
+        Dialog d = QuickAddMarkupDialog.createQuickAddMarkupDialog(activity, task, originalText);
+        d.show();
     }
 
     @Override

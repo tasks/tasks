@@ -344,7 +344,6 @@ public final class TaskEditFragment extends Fragment implements
         Preferences.setBoolean(R.string.p_showed_tap_task_help, true);
 
         overrideFinishAnim = false;
-        Activity a = getActivity();
         if (activity != null) {
             if (activity.getIntent() != null)
             overrideFinishAnim = activity.getIntent().getBooleanExtra(
