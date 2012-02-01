@@ -135,14 +135,16 @@ public class GCalControlSet extends PopupControlSet {
                 values.put("calendar_id", calendarId);
 
                 calendarUri = GCalHelper.createTaskEvent(task, cr, values);
-                task.setValue(Task.CALENDAR_URI, calendarUri.toString());
+                if(calendarUri != null) {
+                    task.setValue(Task.CALENDAR_URI, calendarUri.toString());
 
-                if (calendarSelector.getSelectedItemPosition() != 0 && !hasEvent) {
-                    // pop up the new event
-                    Intent intent = new Intent(Intent.ACTION_EDIT, calendarUri);
-                    intent.putExtra("beginTime", values.getAsLong("dtstart"));
-                    intent.putExtra("endTime", values.getAsLong("dtend"));
-                    activity.startActivity(intent);
+                    if (calendarSelector.getSelectedItemPosition() != 0 && !hasEvent) {
+                        // pop up the new event
+                        Intent intent = new Intent(Intent.ACTION_EDIT, calendarUri);
+                        intent.putExtra("beginTime", values.getAsLong("dtstart"));
+                        intent.putExtra("endTime", values.getAsLong("dtend"));
+                        activity.startActivity(intent);
+                    }
                 }
 
             } catch (Exception e) {
@@ -174,6 +176,7 @@ public class GCalControlSet extends PopupControlSet {
         return null;
     }
 
+    @SuppressWarnings("nls")
     private void viewCalendarEvent() {
         if(calendarUri == null)
             return;

@@ -52,8 +52,10 @@ public class DateChangedAlerts {
         final long taskId = task.getId();
         d.setContentView(R.layout.astrid_reminder_view);
 
+        Button okButton = (Button) d.findViewById(R.id.reminder_complete);
+
         d.findViewById(R.id.reminder_snooze).setVisibility(View.GONE);
-        ((Button) d.findViewById(R.id.reminder_complete)).setText(R.string.DLG_ok);
+        okButton.setText(R.string.DLG_ok);
         ((TextView) d.findViewById(R.id.reminder_title)).setText(activity.getString(R.string.TLA_quickadd_confirm_title, originalText));
 
         Spanned speechBubbleText = constructSpeechBubbleTextForQuickAdd(activity, task);
@@ -91,9 +93,12 @@ public class DateChangedAlerts {
         final Dialog d = new Dialog(activity, R.style.ReminderDialog);
         d.setContentView(R.layout.astrid_reminder_view);
 
+        Button okButton = (Button) d.findViewById(R.id.reminder_complete);
+        Button undoButton = (Button) d.findViewById(R.id.reminder_edit);
+
         d.findViewById(R.id.reminder_snooze).setVisibility(View.GONE);
-        ((Button) d.findViewById(R.id.reminder_complete)).setText(R.string.DLG_ok);
-        ((Button) d.findViewById(R.id.reminder_edit)).setText(R.string.DLG_undo);
+        okButton.setText(R.string.DLG_ok);
+        undoButton.setText(R.string.DLG_undo);
         ((TextView) d.findViewById(R.id.reminder_title)).setText(activity.getString(R.string.repeat_rescheduling_dialog_title, task.getValue(Task.TITLE)));
 
         String oldDueDateString = getRelativeDateAndTimeString(activity, oldDueDate);
@@ -105,7 +110,7 @@ public class DateChangedAlerts {
         setupOkAndDismissButtons(d);
         setupHideCheckbox(d);
 
-        d.findViewById(R.id.reminder_edit).setOnClickListener(new OnClickListener() {
+        undoButton.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
                 d.dismiss();
@@ -162,17 +167,17 @@ public class DateChangedAlerts {
         String title = task.getValue(Task.TITLE);
         long date = task.getValue(Task.DUE_DATE);
 
-        String dueDate = "";
+        String dueString = "";
         if (!TextUtils.isEmpty(task.getValue(Task.RECURRENCE))) {
-            dueDate = getRecurrenceString(context, task);
+            dueString = getRecurrenceString(context, task);
         }
 
-        if (TextUtils.isEmpty(dueDate)) {
-            dueDate = getRelativeDateAndTimeString(context, date);
+        if (TextUtils.isEmpty(dueString)) {
+            dueString = getRelativeDateAndTimeString(context, date);
         }
 
-        if (!TextUtils.isEmpty(dueDate))
-            dueDate = context.getString(R.string.TLA_quickadd_confirm_speech_bubble_date, dueDate);
+        if (!TextUtils.isEmpty(dueString))
+            dueString = context.getString(R.string.TLA_quickadd_confirm_speech_bubble_date, dueString);
 
         int priority = task.getValue(Task.IMPORTANCE);
         if (priority >= priorityStrings.length)
@@ -181,18 +186,20 @@ public class DateChangedAlerts {
         int color = context.getResources().getColor(colorsArray[priority]) - 0xff000000;
         priorityString = String.format("<font color=\"#%s\">%s</font>", Integer.toHexString(color), priorityString);
 
-        String fullString = context.getString(R.string.TLA_quickadd_confirm_speech_bubble, title, dueDate, priorityString);
+        String fullString = context.getString(R.string.TLA_quickadd_confirm_speech_bubble, title, dueString, priorityString);
         return Html.fromHtml(fullString);
     }
 
+    @SuppressWarnings("nls")
     private static String getRelativeDateAndTimeString(Context context, long date) {
-        String dueDate = date > 0 ? DateUtilities.getRelativeDay(context, date, false) : "";
+        String dueString = date > 0 ? DateUtilities.getRelativeDay(context, date, false) : "";
         if(Task.hasDueTime(date))
-            dueDate = String.format("%s at %s", dueDate, //$NON-NLS-1$
+            dueString = String.format("%s at %s", dueString, //$NON-NLS-1$
                     DateUtilities.getTimeString(context, new Date(date)));
-        return dueDate;
+        return dueString;
     }
 
+    @SuppressWarnings("nls")
     private static String getRecurrenceString(Context context, Task task) {
         try {
             RRule rrule = new RRule(task.getValue(Task.RECURRENCE));
@@ -201,22 +208,30 @@ public class DateChangedAlerts {
                     R.array.repeat_interval);
             String frequency = "";
             Frequency freq = rrule.getFreq();
-            if (freq == Frequency.DAILY) {
+            switch(freq) {
+            case DAILY:
                 frequency = dateAbbrev[0].toLowerCase();
-            } else if (freq == Frequency.WEEKLY) {
+                break;
+            case WEEKLY:
                 frequency = dateAbbrev[1].toLowerCase();
-            } else if (freq == Frequency.MONTHLY) {
+                break;
+            case MONTHLY:
                 frequency = dateAbbrev[2].toLowerCase();
-            } else if (freq == Frequency.HOURLY) {
+                break;
+            case HOURLY:
                 frequency = dateAbbrev[3].toLowerCase();
-            } else if (freq == Frequency.MINUTELY) {
+                break;
+            case MINUTELY:
                 frequency = dateAbbrev[4].toLowerCase();
-            } else if (freq == Frequency.YEARLY) {
+                break;
+            case YEARLY:
                 frequency = dateAbbrev[5].toLowerCase();
             }
+
             if (!TextUtils.isEmpty(frequency)) {
                 String date = String.format("%s %s", rrule.getInterval(), frequency); //$NON-NLS-1$
-                return String.format(context.getString(R.string.repeat_detail_duedate), date).toLowerCase(); // Every freq int
+                return String.format(context.getString(R.string.repeat_detail_duedate),
+                        date).toLowerCase(); // Every freq int
             }
 
         } catch (ParseException e) {

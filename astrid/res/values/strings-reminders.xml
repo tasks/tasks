@@ -54,8 +54,8 @@
   <!-- Reminder: Snooze button (remind again later) -->
   <string name="rmd_NoA_snooze">Snooze</string>
   
-  <!-- Reminder: Cancel reminder -->
-  <string name="rmd_NoA_goAway">Go Away!</string>
+  <!-- Reminder: Completed Toast -->
+  <string name="rmd_NoA_completed_toast">Congratulations on finishing \'%s\'!</string>
   
   <!-- ============================================= reminder preferences == -->
   
@@ -308,7 +308,7 @@
       <item>Lovely weather for a job like this, isn\'t it?</item>
       <item>A spot of tea while you work on this?</item>
       <item>If only you had already done this, then you could go outside and play.</item>
-      <item>It\’s time. You can\’t put off the inevitable.</item>
+      <item>It\'s time. You can\'t put off the inevitable.</item>
       <item>I die a little every time you ignore me.</item>
   </string-array>
 

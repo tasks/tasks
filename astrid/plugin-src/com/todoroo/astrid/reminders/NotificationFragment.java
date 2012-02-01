@@ -38,6 +38,7 @@ import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.TimePicker;
+import android.widget.Toast;
 
 import com.timsu.astrid.R;
 import com.todoroo.andlib.sql.QueryTemplate;
@@ -157,6 +158,7 @@ public class NotificationFragment extends TaskListFragment implements OnTimeSetL
                 Task task = new Task();
                 task.setId(taskId);
                 PluginServices.getTaskService().setComplete(task, true);
+                Toast.makeText(getActivity(), R.string.rmd_NoA_completed_toast, Toast.LENGTH_LONG).show();
                 getActivity().finish();
             }
         });

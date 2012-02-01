@@ -284,7 +284,7 @@ public class AstridActivity extends FragmentActivity
             long taskId = customIntent.getLongExtra(NotificationFragment.TOKEN_ID, 0);
             if (taskId > 0) {
                 String text = intent.getStringExtra(Notifications.EXTRAS_TEXT);
-                ReminderDialog.showReminderDialog(AstridActivity.this, taskId, text);
+                new ReminderDialog(AstridActivity.this, taskId, text).show();
             }
 
             // Remove broadcast
@@ -296,13 +296,18 @@ public class AstridActivity extends FragmentActivity
     private class RepeatConfirmationReceiver extends BroadcastReceiver {
         @Override
         public void onReceive(Context context, Intent intent) {
-            long taskId = intent.getLongExtra(AstridApiConstants.EXTRAS_TASK_ID, 0);
+            long taskId = intent.getLongExtra(
+                    AstridApiConstants.EXTRAS_TASK_ID, 0);
             if (taskId > 0) {
-                long oldDueDate = intent.getLongExtra(AstridApiConstants.EXTRAS_OLD_DUE_DATE, 0);
-                long newDueDate = intent.getLongExtra(AstridApiConstants.EXTRAS_NEW_DUE_DATE, 0);
-                Task task = PluginServices.getTaskService().fetchById(taskId, DateChangedAlerts.REPEAT_RESCHEDULED_PROPERTIES);
+                long oldDueDate = intent.getLongExtra(
+                        AstridApiConstants.EXTRAS_OLD_DUE_DATE, 0);
+                long newDueDate = intent.getLongExtra(
+                        AstridApiConstants.EXTRAS_NEW_DUE_DATE, 0);
+                Task task = PluginServices.getTaskService().fetchById(taskId,
+                        DateChangedAlerts.REPEAT_RESCHEDULED_PROPERTIES);
 
-                DateChangedAlerts.showRepeatTaskRescheduledDialog(AstridActivity.this, task, oldDueDate, newDueDate);
+                DateChangedAlerts.showRepeatTaskRescheduledDialog(
+                        AstridActivity.this, task, oldDueDate, newDueDate);
             }
         }
     }

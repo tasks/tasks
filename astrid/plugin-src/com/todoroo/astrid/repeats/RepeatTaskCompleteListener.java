@@ -87,29 +87,6 @@ public class RepeatTaskCompleteListener extends BroadcastReceiver {
             context.sendOrderedBroadcast(broadcastIntent, null);
             Flags.set(Flags.REFRESH);
             return;
-
-//            // clone to create new task
-//            Flags.set(Flags.ACTFM_SUPPRESS_SYNC);
-//            Flags.set(Flags.GTASKS_SUPPRESS_SYNC);
-//            Task clone = PluginServices.getTaskService().clone(task);
-//            clone.setValue(Task.DUE_DATE, newDueDate);
-//            clone.setValue(Task.HIDE_UNTIL, hideUntil);
-//            clone.setValue(Task.COMPLETION_DATE, 0L);
-//            clone.setValue(Task.TIMER_START, 0L);
-//            clone.setValue(Task.ELAPSED_SECONDS, 0);
-//            clone.setValue(Task.REMINDER_SNOOZE, 0L);
-//            clone.setValue(Task.REMINDER_LAST, 0L);
-//            clone.setValue(Task.CALENDAR_URI, ""); //$NON-NLS-1$
-//
-//            GCalHelper.createTaskEventIfEnabled(clone, false);
-//            PluginServices.getTaskService().save(clone);
-//
-//            // clear recurrence from completed task so it can be re-completed
-//            task.setValue(Task.RECURRENCE, ""); //$NON-NLS-1$
-//            task.setValue(Task.DETAILS_DATE, 0L);
-//
-//            PluginServices.getTaskService().save(task);
-
         }
     }
 
