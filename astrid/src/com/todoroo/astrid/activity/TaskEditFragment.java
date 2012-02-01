@@ -343,8 +343,13 @@ public final class TaskEditFragment extends Fragment implements
 
         Preferences.setBoolean(R.string.p_showed_tap_task_help, true);
 
-        overrideFinishAnim = getActivity().getIntent().getBooleanExtra(
-                OVERRIDE_FINISH_ANIM, true);
+        overrideFinishAnim = false;
+        Activity a = getActivity();
+        if (activity != null) {
+            if (activity.getIntent() != null)
+            overrideFinishAnim = activity.getIntent().getBooleanExtra(
+                    OVERRIDE_FINISH_ANIM, true);
+        }
 
         // disable keyboard until user requests it
         AndroidUtilities.suppressVirtualKeyboard(title);
