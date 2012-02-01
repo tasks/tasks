@@ -284,10 +284,18 @@ public class TagViewFragment extends TaskListFragment {
                     addImageForMember(membersView, member);
                 }
                 // Handle creator
+                JSONObject owner;
                 if(tagData.getValue(TagData.USER_ID) != 0) {
-                    JSONObject owner = new JSONObject(tagData.getValue(TagData.USER));
-                    addImageForMember(membersView, owner);
+                     owner = new JSONObject(tagData.getValue(TagData.USER));
+                } else {
+                    owner = ActFmPreferenceService.thisUser();
                 }
+                addImageForMember(membersView, owner);
+
+                JSONObject unassigned = new JSONObject();
+                unassigned.put("id", Task.USER_ID_UNASSIGNED);
+                unassigned.put("name", getActivity().getString(R.string.actfm_EPA_unassigned));
+                addImageForMember(membersView, unassigned);
             }
         } catch (JSONException e) {
             e.printStackTrace();
@@ -307,7 +315,11 @@ public class TagViewFragment extends TaskListFragment {
         AsyncImageView image = new AsyncImageView(getActivity());
         image.setLayoutParams(new LinearLayout.LayoutParams((int)(50 * displayMetrics.density),
                 (int)(50 * displayMetrics.density)));
+
         image.setDefaultImageResource(R.drawable.icn_default_person_image);
+        if (member.optLong("id", Task.USER_ID_SELF) == Task.USER_ID_UNASSIGNED)
+            image.setDefaultImageResource(R.drawable.icn_anyone);
+
         image.setScaleType(ImageView.ScaleType.FIT_XY);
         try {
             final long id = member.getLong("id");
