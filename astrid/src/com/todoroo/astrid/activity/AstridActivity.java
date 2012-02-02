@@ -13,6 +13,7 @@ import android.view.View;
 
 import com.timsu.astrid.R;
 import com.todoroo.andlib.utility.AndroidUtilities;
+import com.todoroo.astrid.actfm.TagUpdatesFragment;
 import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.api.FilterListItem;
@@ -20,6 +21,7 @@ import com.todoroo.astrid.api.FilterWithCustomIntent;
 import com.todoroo.astrid.api.IntentFilter;
 import com.todoroo.astrid.core.PluginServices;
 import com.todoroo.astrid.core.SearchFilter;
+import com.todoroo.astrid.data.TagData;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.reminders.NotificationFragment;
 import com.todoroo.astrid.reminders.Notifications;
@@ -150,6 +152,19 @@ public class AstridActivity extends FragmentActivity
             }
             return false;
         }
+    }
+
+    public void setupActivityFragment(TagData tagData) {
+        if (fragmentLayout != LAYOUT_TRIPLE)
+            return;
+
+        findViewById(R.id.taskedit_fragment_container).setVisibility(View.VISIBLE);
+        FragmentManager manager = getSupportFragmentManager();
+        FragmentTransaction transaction = manager.beginTransaction();
+
+        TagUpdatesFragment updates = new TagUpdatesFragment(tagData);
+        transaction.replace(R.id.taskedit_fragment_container, updates, TagUpdatesFragment.TAG_UPDATES_FRAGMENT);
+        transaction.commit();
     }
 
     protected final void setupTasklistFragmentWithFilter(Filter filter) {

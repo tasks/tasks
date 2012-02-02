@@ -133,6 +133,10 @@ public class TagDataService {
      */
     @SuppressWarnings("nls")
     public TodorooCursor<Update> getUpdates(TagData tagData) {
+        if (tagData == null)
+            return updateDao.query(Query.select(Update.PROPERTIES).where(
+                    Criterion.all).
+                    orderBy(Order.desc(Update.CREATION_DATE)));
         if(tagData.getValue(Task.REMOTE_ID) < 1)
             return updateDao.query(Query.select(Update.PROPERTIES).where(Criterion.none));
         return updateDao.query(Query.select(Update.PROPERTIES).where(

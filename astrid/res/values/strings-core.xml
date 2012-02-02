@@ -167,7 +167,7 @@
       <item>low priority</item>
   </string-array>
   
-  
+  <string name="TLA_all_activity">All Activity</string>
   
   <!-- ====================================================== TaskAdapter == -->
   

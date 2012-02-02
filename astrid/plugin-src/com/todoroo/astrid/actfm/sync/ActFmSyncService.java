@@ -779,32 +779,8 @@ public final class ActFmSyncService {
      * @param done
      */
     public void fetchUpdatesForTag(final TagData tagData, final boolean manual, Runnable done) {
-        invokeFetchList("activity", manual, new ListItemProcessor<Update>() {
-            @Override
-            protected void mergeAndSave(JSONArray list, HashMap<Long,Long> locals) throws JSONException {
-                Update remote = new Update();
-                for(int i = 0; i < list.length(); i++) {
-                    JSONObject item = list.getJSONObject(i);
-                    readIds(locals, item, remote);
-                    JsonHelper.updateFromJson(item, remote);
-
-                    Flags.set(Flags.ACTFM_SUPPRESS_SYNC);
-                    if(remote.getId() == AbstractModel.NO_ID)
-                        updateDao.createNew(remote);
-                    else
-                        updateDao.saveExisting(remote);
-                    remote.clear();
-                }
-            }
-
-            @Override
-            protected HashMap<Long, Long> getLocalModels() {
-                TodorooCursor<Update> cursor = updateDao.query(Query.select(Update.ID,
-                        Update.REMOTE_ID).where(Update.REMOTE_ID.in(remoteIds)).orderBy(
-                                Order.asc(Update.REMOTE_ID)));
-                return cursorToMap(cursor, updateDao, Update.REMOTE_ID, Update.ID);
-            }
-        }, done, "updates:" + tagData.getId(), "tag_id", tagData.getValue(TagData.REMOTE_ID));
+        invokeFetchList("activity", manual, new UpdateListItemProcessor(), done,
+                "updates:" + tagData.getId(), "tag_id", tagData.getValue(TagData.REMOTE_ID));
     }
 
     /**
@@ -814,32 +790,44 @@ public final class ActFmSyncService {
      * @param runnable
      */
     public void fetchUpdatesForTask(final Task task, boolean manual, Runnable done) {
-        invokeFetchList("activity", manual, new ListItemProcessor<Update>() {
-            @Override
-            protected void mergeAndSave(JSONArray list, HashMap<Long,Long> locals) throws JSONException {
-                Update remote = new Update();
-                for(int i = 0; i < list.length(); i++) {
-                    JSONObject item = list.getJSONObject(i);
-                    readIds(locals, item, remote);
-                    JsonHelper.updateFromJson(item, remote);
+        invokeFetchList("activity", manual, new UpdateListItemProcessor(), done,
+                "comments:" + task.getId(), "task_id", task.getValue(Task.REMOTE_ID));
+    }
 
-                    Flags.set(Flags.ACTFM_SUPPRESS_SYNC);
-                    if(remote.getId() == AbstractModel.NO_ID)
-                        updateDao.createNew(remote);
-                    else
-                        updateDao.saveExisting(remote);
-                    remote.clear();
-                }
-            }
+    /**
+     * Fetch updates for the current user asynchronously
+     * @param manual
+     * @param done
+     */
+    public void fetchPersonalUpdates(boolean manual, Runnable done) {
+        invokeFetchList("activity", manual, new UpdateListItemProcessor(), done, "personal");
+    }
 
-            @Override
-            protected HashMap<Long, Long> getLocalModels() {
-                TodorooCursor<Update> cursor = updateDao.query(Query.select(Update.ID,
-                        Update.REMOTE_ID).where(Update.REMOTE_ID.in(remoteIds)).orderBy(
-                                Order.asc(Update.REMOTE_ID)));
-                return cursorToMap(cursor, updateDao, Update.REMOTE_ID, Update.ID);
+    private class UpdateListItemProcessor extends ListItemProcessor<Update> {
+        @Override
+        protected void mergeAndSave(JSONArray list, HashMap<Long,Long> locals) throws JSONException {
+            Update remote = new Update();
+            for(int i = 0; i < list.length(); i++) {
+                JSONObject item = list.getJSONObject(i);
+                readIds(locals, item, remote);
+                JsonHelper.updateFromJson(item, remote);
+
+                Flags.set(Flags.ACTFM_SUPPRESS_SYNC);
+                if(remote.getId() == AbstractModel.NO_ID)
+                    updateDao.createNew(remote);
+                else
+                    updateDao.saveExisting(remote);
+                remote.clear();
             }
-        }, done, "comments:" + task.getId(), "task_id", task.getValue(Task.REMOTE_ID));
+        }
+
+        @Override
+        protected HashMap<Long, Long> getLocalModels() {
+            TodorooCursor<Update> cursor = updateDao.query(Query.select(Update.ID,
+                    Update.REMOTE_ID).where(Update.REMOTE_ID.in(remoteIds)).orderBy(
+                            Order.asc(Update.REMOTE_ID)));
+            return cursorToMap(cursor, updateDao, Update.REMOTE_ID, Update.ID);
+        }
     }
 
     /**

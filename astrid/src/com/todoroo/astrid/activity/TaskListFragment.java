@@ -77,6 +77,8 @@ import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.andlib.widget.GestureService;
 import com.todoroo.andlib.widget.GestureService.GestureInterface;
 import com.todoroo.astrid.actfm.ActFmLoginActivity;
+import com.todoroo.astrid.actfm.TagUpdatesActivity;
+import com.todoroo.astrid.actfm.TagViewFragment;
 import com.todoroo.astrid.activity.SortSelectionActivity.OnSortSelectedListener;
 import com.todoroo.astrid.adapter.TaskAdapter;
 import com.todoroo.astrid.adapter.TaskAdapter.OnCompletedTaskListener;
@@ -94,6 +96,7 @@ import com.todoroo.astrid.core.SortHelper;
 import com.todoroo.astrid.dao.Database;
 import com.todoroo.astrid.dao.TaskDao.TaskCriteria;
 import com.todoroo.astrid.data.Metadata;
+import com.todoroo.astrid.data.TagData;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.gcal.GCalHelper;
 import com.todoroo.astrid.helper.MetadataHelper;
@@ -328,6 +331,7 @@ public class TaskListFragment extends ListFragment implements OnScrollListener,
             getListView().setItemsCanFocus(false);
         }
 
+
         if (Preferences.getInt(AstridPreferences.P_UPGRADE_FROM, -1) > -1)
             upgradeService.showChangeLog(getActivity(),
                     Preferences.getInt(AstridPreferences.P_UPGRADE_FROM, -1));
@@ -359,6 +363,10 @@ public class TaskListFragment extends ListFragment implements OnScrollListener,
                 Thread.currentThread().setPriority(Thread.MAX_PRIORITY);
             }
         });
+    }
+
+    protected TagData getTagDataForUpdates() {
+        return null;
     }
 
     protected void onNewIntent(Intent intent) {
@@ -395,6 +403,8 @@ public class TaskListFragment extends ListFragment implements OnScrollListener,
         }
 
         setUpTaskList();
+        ((AstridActivity) getActivity()).setupActivityFragment(getTagDataForUpdates());
+
         // FIXME put this into the wrapper activity
         if (Constants.DEBUG)
             getActivity().setTitle("[D] " + filter.title); //$NON-NLS-1$
@@ -1193,7 +1203,10 @@ public class TaskListFragment extends ListFragment implements OnScrollListener,
      * Comments button in action bar was clicked
      */
     protected void commentsButtonClicked() {
-        // Subclasses can override
+        Intent intent = new Intent(getActivity(), TagUpdatesActivity.class);
+        intent.putExtra(TagViewFragment.EXTRA_TAG_DATA, getTagDataForUpdates());
+        startActivity(intent);
+        AndroidUtilities.callOverridePendingTransition(getActivity(), R.anim.slide_left_in, R.anim.slide_left_out);
     }
 
     private static void showAlertForMarkupTask(AstridActivity activity, Task task, String originalText) {

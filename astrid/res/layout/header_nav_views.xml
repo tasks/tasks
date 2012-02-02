@@ -62,7 +62,7 @@
         android:layout_height="fill_parent"
         style="@style/TEA_Separator"
         android:layout_marginBottom="4dip"
-        android:layout_marginTop="4dip"/>/>
+        android:layout_marginTop="4dip"/>
 	
 	<ImageView 
 	    android:id="@+id/comments"

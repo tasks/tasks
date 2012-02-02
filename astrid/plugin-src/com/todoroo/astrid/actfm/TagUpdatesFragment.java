@@ -56,6 +56,8 @@ public class TagUpdatesFragment extends ListFragment {
 
     private Bitmap picture = null;
 
+    public static final String TAG_UPDATES_FRAGMENT = "tagupdates_fragment";
+
     private static final int MENU_REFRESH_ID = Menu.FIRST;
 
     @Autowired ActFmPreferenceService actFmPreferenceService;
@@ -65,6 +67,11 @@ public class TagUpdatesFragment extends ListFragment {
 
     public TagUpdatesFragment() {
         DependencyInjectionService.getInstance().inject(this);
+    }
+
+    public TagUpdatesFragment(TagData tagData) {
+        this();
+        this.tagData = tagData;
     }
 
     @Override
@@ -83,7 +90,8 @@ public class TagUpdatesFragment extends ListFragment {
 
         setHasOptionsMenu(true);
 
-        tagData = getActivity().getIntent().getParcelableExtra(TagViewFragment.EXTRA_TAG_DATA);
+        if (tagData == null)
+            tagData = getActivity().getIntent().getParcelableExtra(TagViewFragment.EXTRA_TAG_DATA);
 
         OnTouchListener onTouch = new OnTouchListener() {
             @Override
@@ -93,6 +101,10 @@ public class TagUpdatesFragment extends ListFragment {
             }
         };
 
+        if (tagData == null) {
+            getView().findViewById(R.id.updatesFooter).setVisibility(View.GONE);
+        }
+
         addCommentField = (EditText) getView().findViewById(R.id.commentField);
         addCommentField.setOnTouchListener(onTouch);
 
@@ -100,8 +112,11 @@ public class TagUpdatesFragment extends ListFragment {
     }
 
     protected void setUpUpdateList() {
-        ActionBar ab = ((AstridActivity) getActivity()).getSupportActionBar();
-        ((TextView) ab.getCustomView().findViewById(R.id.title)).setText(this.getString(R.string.tag_updates_title, tagData.getValue(TagData.NAME)));
+        if (getActivity() instanceof TagUpdatesActivity) {
+            ActionBar ab = ((AstridActivity) getActivity()).getSupportActionBar();
+            String title = (tagData == null) ? getString(R.string.TLA_all_activity) : getString(R.string.tag_updates_title, tagData.getValue(TagData.NAME));
+            ((TextView) ab.getCustomView().findViewById(R.id.title)).setText(title);
+        }
         final ImageButton commentButton = (ImageButton) getView().findViewById(R.id.commentButton);
         addCommentField = (EditText) getView().findViewById(R.id.commentField);
         addCommentField.setOnEditorActionListener(new OnEditorActionListener() {
@@ -165,7 +180,7 @@ public class TagUpdatesFragment extends ListFragment {
 
     private void refreshUpdatesList() {
 
-        if(!actFmPreferenceService.isLoggedIn() || tagData.getValue(Task.REMOTE_ID) <= 0)
+        if(tagData != null && tagData.getValue(Task.REMOTE_ID) <= 0)
             return;
 
         if(updateAdapter == null) {
@@ -195,12 +210,6 @@ public class TagUpdatesFragment extends ListFragment {
         }
     }
 
-//    @Override
-//    public void finish() {
-//        super.finish();
-//        AndroidUtilities.callOverridePendingTransition(this, R.anim.slide_right_in, R.anim.slide_right_out);
-//    }
-
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // handle my own menus
@@ -219,21 +228,26 @@ public class TagUpdatesFragment extends ListFragment {
     private void refreshActivity(boolean manual) {
         final ProgressBarSyncResultCallback callback = new ProgressBarSyncResultCallback(
                 getActivity(), R.id.progressBar, new Runnable() {
-           @Override
-            public void run() {
-               refreshUpdatesList();
-            }
-        });
+                    @Override
+                    public void run() {
+                        refreshUpdatesList();
+                    }
+                });
 
         callback.started();
         callback.incrementMax(100);
-        actFmSyncService.fetchUpdatesForTag(tagData, manual, new Runnable() {
+        Runnable doneRunnable = new Runnable() {
             @Override
             public void run() {
                 callback.incrementProgress(50);
                 callback.finished();
             }
-        });
+        };
+        if (tagData != null) {
+            actFmSyncService.fetchUpdatesForTag(tagData, manual, doneRunnable);
+        } else {
+            actFmSyncService.fetchPersonalUpdates(manual, doneRunnable);
+        }
         callback.incrementProgress(50);
     }
 

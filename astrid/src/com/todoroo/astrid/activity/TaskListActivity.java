@@ -126,6 +126,7 @@ public class TaskListActivity extends AstridActivity implements MainMenuListener
 
 		    if(editFragment != null && editFragment.getVisibility() == View.INVISIBLE) {
 		        fragmentLayout = LAYOUT_TRIPLE;
+		        actionBar.getCustomView().findViewById(R.id.comments).setVisibility(View.GONE);
 		    } else {
 		        fragmentLayout = LAYOUT_DOUBLE;
 		        createEditPopover();

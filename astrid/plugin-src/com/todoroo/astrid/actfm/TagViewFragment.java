@@ -126,14 +126,6 @@ public class TagViewFragment extends TaskListFragment {
         }
     };
 
-    @Override
-    protected void commentsButtonClicked() {
-        Intent intent = new Intent(getActivity(), TagUpdatesActivity.class);
-        intent.putExtra(EXTRA_TAG_DATA, tagData);
-        startActivity(intent);
-        AndroidUtilities.callOverridePendingTransition(getActivity(), R.anim.slide_left_in, R.anim.slide_left_out);
-    }
-
     /* (non-Javadoc)
      * @see com.todoroo.astrid.activity.TaskListActivity#getListBody(android.view.ViewGroup)
      */
@@ -215,6 +207,11 @@ public class TagViewFragment extends TaskListFragment {
 //                }
 //            }, 500);
 //        }
+    }
+
+    @Override
+    protected TagData getTagDataForUpdates() {
+        return tagData;
     }
 
     @Override
