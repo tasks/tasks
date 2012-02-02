@@ -24,6 +24,12 @@ public class NotificationTests extends DatabaseTestCase {
     }
 
     @Override
+    protected void setUp() throws Exception {
+        super.setUp();
+        fail("fix me! i crash a lot.");
+    }
+
+    @Override
     protected void tearDown() throws Exception {
         Notifications.setNotificationManager(null);
     }

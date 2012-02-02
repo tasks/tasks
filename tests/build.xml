@@ -45,22 +45,14 @@
             unless="sdk.dir"
     />
 
-    <!-- build and install an instrumented build -->
-    <target name="install-instrumented">
-      <property name="tested.project.absolute.dir" location="${tested.project.dir}" />
-      <subant target="instrument">
-        <fileset file="${tested.project.absolute.dir}/build.xml" />
-      </subant>
-      <subant target="installi">
-        <fileset file="${tested.project.absolute.dir}/build.xml" />
-      </subant>
-      <copy todir="." file="${tested.project.absolute.dir}/coverage.em" />
+    <target name="-pre-build">
+      <!-- copy library project jars -->
+      <unzip src="../api/bin/classes.jar" dest="${tested.project.absolute.dir}/bin/classes" />
     </target>
 
     <!-- override coverage target with custom reporting and rules -->    
-    <target name="coverage" depends="-test-project-check"
-                description="Runs the tests against the instrumented code and generates
-                            code coverage report">
+    <target name="coverage"
+                description="Runs the tests against the instrumented code and generates emma code coverage report">
 
       <property name="tested.project.absolute.dir" location="${tested.project.dir}" />
       <property name="test.runner" value="com.zutubi.android.junitreport.JUnitReportTestRunner" />
