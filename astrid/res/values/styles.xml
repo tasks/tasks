@@ -22,6 +22,7 @@
         <item name="asAddButtonImg">@drawable/plus_button_blue</item>
         <item name="asMicButtonImg">@drawable/mic_button_blue</item>
         <item name="asCameraButtonImg">@drawable/camera_button_blue</item>
+        <item name="asCommentButtonImg">@drawable/comment_blue</item>
         <item name="asEditBackground">#171317</item>
         <item name="asEditRowBackground">@drawable/task_edit_background</item>
         <item name="asEditTabBackground">@drawable/custom_tab_indicator_dark</item>
@@ -76,6 +77,7 @@
         <item name="asAddButtonImg">@drawable/plus_button_red</item>
         <item name="asMicButtonImg">@drawable/mic_button_red</item>
         <item name="asCameraButtonImg">@drawable/camera_button_red</item>
+        <item name="asCommentButtonImg">@drawable/comment_red</item>
         <item name="asEditRowBackground">@drawable/task_edit_background_white</item>
         <item name="asEditTabBackground">@drawable/custom_tab_indicator</item>
         <item name="asMainMenu">@drawable/menu_button_red</item>

@@ -39,6 +39,7 @@ public class TaskListActivity extends AstridActivity implements MainMenuListener
     private ImageView listsNavDisclosure;
     private TextView lists;
     private ImageView mainMenu;
+    private ImageView commentsButton;
 
     private FragmentPopover listsPopover;
     private FragmentPopover editPopover;
@@ -57,6 +58,15 @@ public class TaskListActivity extends AstridActivity implements MainMenuListener
         public void onClick(View v) {
             setListsDropdownSelected(true);
             listsPopover.show(v);
+        }
+    };
+
+    private final OnClickListener commentsButtonClickListener = new OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            TaskListFragment tlf = getTaskListFragment();
+            if (tlf != null)
+                tlf.commentsButtonClicked();
         }
     };
 
@@ -93,10 +103,12 @@ public class TaskListActivity extends AstridActivity implements MainMenuListener
 		listsNavDisclosure = (ImageView) actionBar.getCustomView().findViewById(R.id.list_disclosure_arrow);
 		lists = (TextView) actionBar.getCustomView().findViewById(R.id.list_title);
 		mainMenu = (ImageView) actionBar.getCustomView().findViewById(R.id.main_menu);
+		commentsButton = (ImageView) actionBar.getCustomView().findViewById(R.id.comments);
 
 		initializeFragments(actionBar);
 		createMainMenuPopover();
 		mainMenu.setOnClickListener(mainMenuClickListener);
+		commentsButton.setOnClickListener(commentsButtonClickListener);
 	}
 
 	/**

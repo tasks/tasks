@@ -1188,6 +1188,13 @@ public class TaskListFragment extends ListFragment implements OnScrollListener,
         return task;
     }
 
+    /**
+     * Comments button in action bar was clicked
+     */
+    protected void commentsButtonClicked() {
+        // Subclasses can override
+    }
+
     private static void showAlertForMarkupTask(AstridActivity activity, Task task, String originalText) {
         DateChangedAlerts.showQuickAddMarkupDialog(activity, task, originalText);
     }
