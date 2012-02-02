@@ -540,7 +540,7 @@ public class TaskListFragment extends ListFragment implements OnScrollListener,
         int prompt = R.string.voice_edit_title_prompt;
         if (Preferences.getBoolean(R.string.p_voiceInputCreatesTask, false))
             prompt = R.string.voice_create_prompt;
-        voiceInputAssistant = new VoiceInputAssistant(getActivity(),
+        voiceInputAssistant = new VoiceInputAssistant(this,
                 voiceAddButton, quickAddBox);
         voiceInputAssistant.configureMicrophoneButton(prompt);
 

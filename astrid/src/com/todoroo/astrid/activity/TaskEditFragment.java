@@ -677,7 +677,7 @@ public final class TaskEditFragment extends Fragment implements
                         R.id.voiceAddNoteButton);
                 voiceAddNoteButton.setVisibility(View.VISIBLE);
                 int prompt = R.string.voice_edit_note_prompt;
-                voiceNoteAssistant = new VoiceInputAssistant(getActivity(),
+                voiceNoteAssistant = new VoiceInputAssistant(TaskEditFragment.this,
                         voiceAddNoteButton, notesEditText, REQUEST_VOICE_RECOG);
                 voiceNoteAssistant.setAppend(true);
                 voiceNoteAssistant.setLanguageModel(RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);
