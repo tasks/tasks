@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    style="@style/Content"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical" >
+
+    <ProgressBar
+        android:id="@+id/progressBar"
+        style="@android:style/Widget.ProgressBar.Horizontal"
+        android:layout_width="fill_parent"
+        android:layout_height="5dip"
+        android:layout_weight="1"
+        android:visibility="gone" />
+
+    <ListView
+        android:id="@android:id/list"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_weight="100" />
+
+    <!-- Footer -->
+
+    <LinearLayout
+        android:id="@+id/updatesFooter"
+        style="@style/Content"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:minHeight="50dip"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:padding="3dip" 
+        android:paddingBottom="5dip">
+
+        <!-- Voice Add Button -->
+
+        <ImageButton
+            android:id="@+id/picture"
+            android:layout_width="39dip"
+            android:layout_height="39dip"
+            android:layout_gravity="top"
+            android:layout_marginRight="3dip"
+            android:layout_weight="1"
+            android:background="#00000000"
+            android:paddingBottom="2dip"
+            android:paddingLeft="7dip"
+            android:paddingRight="7dip"
+            android:scaleType="centerInside"
+            android:src="?attr/asCameraButtonImg" />
+
+        <!-- Quick Add Task -->
+
+        <EditText
+            android:id="@+id/commentField"
+            android:layout_width="wrap_content"
+            android:layout_height="39dip"
+            android:layout_marginLeft="1dip"
+            android:layout_marginRight="1dip"
+            android:layout_marginBottom="2dip"
+            android:layout_weight="100"
+            android:autoText="true"
+            android:background="@drawable/footer_comment_edittext"
+            android:capitalize="sentences"
+            android:hint="@string/TVA_add_comment"
+            android:paddingLeft="10dip"
+            android:textSize="16sp" />
+
+        <!-- Extended Add Button -->
+
+        <ImageButton
+            android:id="@+id/commentButton"
+            android:layout_width="39dip"
+            android:layout_height="39dip"
+            android:layout_gravity="top"
+            android:layout_marginLeft="3dip"
+            android:layout_weight="1"
+            android:background="?attr/asAddButtonImg"
+            android:scaleType="center"/>
+    </LinearLayout>
+
+</LinearLayout>

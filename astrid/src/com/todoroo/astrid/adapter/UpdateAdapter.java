@@ -5,11 +5,11 @@ import greendroid.widget.AsyncImageView;
 import org.json.JSONObject;
 
 import android.app.AlertDialog;
-import android.app.ListActivity;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.res.Resources;
 import android.database.Cursor;
+import android.support.v4.app.Fragment;
 import android.text.TextUtils;
 import android.text.format.DateUtils;
 import android.view.LayoutInflater;
@@ -38,7 +38,7 @@ public class UpdateAdapter extends CursorAdapter {
 
     // --- instance variables
 
-    protected final ListActivity activity;
+    protected final Fragment fragment;
     private final int resource;
     private final LayoutInflater inflater;
 
@@ -55,17 +55,17 @@ public class UpdateAdapter extends CursorAdapter {
      * @param onCompletedTaskListener
      *            goal listener. can be null
      */
-    public UpdateAdapter(ListActivity activity, int resource,
+    public UpdateAdapter(Fragment fragment, int resource,
             Cursor c, boolean autoRequery,
             OnCompletedTaskListener onCompletedTaskListener) {
-        super(activity, c, autoRequery);
+        super(fragment.getActivity(), c, autoRequery);
         DependencyInjectionService.getInstance().inject(this);
 
-        inflater = (LayoutInflater) activity.getSystemService(
+        inflater = (LayoutInflater) fragment.getActivity().getSystemService(
                 Context.LAYOUT_INFLATER_SERVICE);
 
         this.resource = resource;
-        this.activity = activity;
+        this.fragment = fragment;
     }
 
     /* ======================================================================
@@ -100,7 +100,7 @@ public class UpdateAdapter extends CursorAdapter {
     @SuppressWarnings("nls")
     public synchronized void setFieldContentsAndVisibility(View view, Update update) {
         JSONObject user = ActFmPreferenceService.userFromModel(update);
-        Resources r = activity.getResources();
+        Resources r = fragment.getResources();
 
         // picture
         final AsyncImageView pictureView = (AsyncImageView)view.findViewById(R.id.picture); {
@@ -118,15 +118,15 @@ public class UpdateAdapter extends CursorAdapter {
                 view.setOnClickListener(new OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        AlertDialog image = new AlertDialog.Builder(activity).create();
-                        AsyncImageView imageView = new AsyncImageView(activity);
+                        AlertDialog image = new AlertDialog.Builder(fragment.getActivity()).create();
+                        AsyncImageView imageView = new AsyncImageView(fragment.getActivity());
                         imageView.setLayoutParams(new LayoutParams(LayoutParams.FILL_PARENT, LayoutParams.WRAP_CONTENT));
                         imageView.setDefaultImageResource(android.R.drawable.ic_menu_gallery);
                         imageView.setUrl(updatePicture);
                         image.setView(imageView);
 
                         image.setMessage(message);
-                        image.setButton(activity.getString(R.string.DLG_close), new DialogInterface.OnClickListener() {
+                        image.setButton(fragment.getString(R.string.DLG_close), new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
                                 return;
