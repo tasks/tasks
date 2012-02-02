@@ -42,7 +42,6 @@ import com.todoroo.astrid.opencrx.OpencrxCoreUtils;
 import com.todoroo.astrid.producteev.ProducteevUtilities;
 import com.todoroo.astrid.reminders.ReminderStartupReceiver;
 import com.todoroo.astrid.service.abtesting.ABChooser;
-import com.todoroo.astrid.service.abtesting.ABOptions;
 import com.todoroo.astrid.service.abtesting.FeatureFlipper;
 import com.todoroo.astrid.utility.AstridPreferences;
 import com.todoroo.astrid.utility.Constants;
@@ -136,14 +135,7 @@ public class StartupService {
             if (Preferences.getLong(AstridPreferences.P_FIRST_LAUNCH, -1) < 0) {
                 Preferences.setLong(AstridPreferences.P_FIRST_LAUNCH, DateUtilities.now());
             }
-
-            int defaultTheme = abChooser.getChoiceForOption(ABOptions.AB_THEME_KEY);
-            if (defaultTheme == 0)
-                Preferences.setString(R.string.p_theme, "white"); //$NON-NLS-1$
-            else
-                Preferences.setString(R.string.p_theme, "black"); //$NON-NLS-1$
         } else {
-            abChooser.setChoiceForOption(ABOptions.AB_THEME_KEY, 0);
             Preferences.setLong(AstridPreferences.P_FIRST_LAUNCH, 0);
         }
         BeastModePreferences.migrateBeastModePreferences(context);
