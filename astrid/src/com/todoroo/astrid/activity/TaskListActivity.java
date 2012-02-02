@@ -225,13 +225,17 @@ public class TaskListActivity extends AstridActivity implements MainMenuListener
             setupTasklistFragmentWithFilter(savedFilter);
 
         if (savedFilter != null)
-            lists.setText(savedFilter.title);
+            setListsTitle(savedFilter.title);
 
         if (!Flags.checkAndClear(Flags.TLA_DISMISSED_FROM_TASK_EDIT)) {
             TaskEditFragment tea = getTaskEditFragment();
             if (tea != null)
                 onBackPressed();
         }
+    }
+
+    public void setListsTitle(String title) {
+        lists.setText(title);
     }
 
     @Override

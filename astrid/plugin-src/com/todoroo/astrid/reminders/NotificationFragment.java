@@ -31,19 +31,17 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.View.OnClickListener;
-import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
-import android.widget.TextView;
 import android.widget.TimePicker;
-import android.widget.Toast;
 
 import com.timsu.astrid.R;
 import com.todoroo.andlib.sql.QueryTemplate;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.andlib.utility.Preferences;
+import com.todoroo.astrid.activity.AstridActivity;
+import com.todoroo.astrid.activity.TaskListActivity;
 import com.todoroo.astrid.activity.TaskListFragment;
 import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.core.PluginServices;
@@ -87,7 +85,6 @@ public class NotificationFragment extends TaskListFragment implements OnTimeSetL
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-        displayNotificationPopup();
     }
 
     @Override
@@ -98,6 +95,7 @@ public class NotificationFragment extends TaskListFragment implements OnTimeSetL
     @Override
     protected void onNewIntent(Intent intent) {
         populateFilter(intent);
+        displayNotificationPopup();
         super.onNewIntent(intent);
     }
 
@@ -111,6 +109,8 @@ public class NotificationFragment extends TaskListFragment implements OnTimeSetL
                 new QueryTemplate().where(TaskCriteria.byId(taskId)),
                 null);
         intent.putExtra(TaskListFragment.TOKEN_FILTER, itemFilter);
+        if (getActivity() instanceof TaskListActivity) // Title was already set before this fragment took over; set it again
+            ((TaskListActivity) getActivity()).setListsTitle(itemFilter.title);
     }
 
     /**
@@ -120,48 +120,8 @@ public class NotificationFragment extends TaskListFragment implements OnTimeSetL
         // hide quick add
         getView().findViewById(R.id.taskListFooter).setVisibility(View.GONE);
 
-        // instantiate reminder window
-        ViewGroup parent = (ViewGroup) getView().findViewById(R.id.taskListParent);
-        getActivity().getLayoutInflater().inflate(R.layout.astrid_reminder_view, parent, true);
-        getView().findViewById(R.id.reminder_root).setBackgroundResource(R.color.reminder_background);
-
-        String reminder = Notifications.getRandomReminder(getResources().getStringArray(R.array.reminder_responses));
-
-        if(Preferences.getBoolean(R.string.p_rmd_nagging, true))
-            ((TextView)getView().findViewById(R.id.reminder_message)).setText(reminder);
-        else {
-            getView().findViewById(R.id.reminder_message).setVisibility(View.GONE);
-            getView().findViewById(R.id.astridIcon).setVisibility(View.GONE);
-            getView().findViewById(R.id.speech_bubble_content).setVisibility(View.GONE);
-        }
-
-        getView().findViewById(R.id.reminder_edit).setVisibility(View.GONE);
-
-        // set up listeners
-        getView().findViewById(R.id.dismiss).setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View arg0) {
-                getActivity().finish();
-            }
-        });
-
-        getView().findViewById(R.id.reminder_snooze).setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View arg0) {
-                snooze(getActivity(), NotificationFragment.this, NotificationFragment.this);
-            }
-        });
-
-        getView().findViewById(R.id.reminder_complete).setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View arg0) {
-                Task task = new Task();
-                task.setId(taskId);
-                PluginServices.getTaskService().setComplete(task, true);
-                Toast.makeText(getActivity(), R.string.rmd_NoA_completed_toast, Toast.LENGTH_LONG).show();
-                getActivity().finish();
-            }
-        });
+        String title = getActivity().getIntent().getStringExtra(Notifications.EXTRAS_TEXT);
+        new ReminderDialog((AstridActivity) getActivity(), taskId, title).show();
     }
 
     public static class SnoozeDialog extends FrameLayout implements DialogInterface.OnClickListener {
