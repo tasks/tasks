@@ -3,6 +3,7 @@
 	<name>astrid-tests</name>
 	<comment></comment>
 	<projects>
+		<project>astrid</project>
 	</projects>
 	<buildSpec>
 		<buildCommand>
