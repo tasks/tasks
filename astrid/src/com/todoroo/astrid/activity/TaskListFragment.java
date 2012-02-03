@@ -1202,7 +1202,7 @@ public class TaskListFragment extends ListFragment implements OnScrollListener,
     /**
      * Comments button in action bar was clicked
      */
-    protected void commentsButtonClicked() {
+    protected void handleCommentsButtonClicked() {
         Intent intent = new Intent(getActivity(), TagUpdatesActivity.class);
         intent.putExtra(TagViewFragment.EXTRA_TAG_DATA, getTagDataForUpdates());
         startActivity(intent);

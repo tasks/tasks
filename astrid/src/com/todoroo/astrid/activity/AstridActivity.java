@@ -77,6 +77,12 @@ public class AstridActivity extends FragmentActivity
         return frag;
     }
 
+    public TagUpdatesFragment getTagUpdatesFragment() {
+        TagUpdatesFragment frag = (TagUpdatesFragment) getSupportFragmentManager()
+                .findFragmentByTag(TagUpdatesFragment.TAG_UPDATES_FRAGMENT);
+
+        return frag;
+    }
 
 
     @Override
@@ -155,10 +161,11 @@ public class AstridActivity extends FragmentActivity
     }
 
     public void setupActivityFragment(TagData tagData) {
-        if (fragmentLayout != LAYOUT_TRIPLE)
+        if (fragmentLayout == LAYOUT_SINGLE)
             return;
 
-        findViewById(R.id.taskedit_fragment_container).setVisibility(View.VISIBLE);
+        if (fragmentLayout == LAYOUT_TRIPLE)
+            findViewById(R.id.taskedit_fragment_container).setVisibility(View.VISIBLE);
         FragmentManager manager = getSupportFragmentManager();
         FragmentTransaction transaction = manager.beginTransaction();
 

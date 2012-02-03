@@ -21,6 +21,7 @@ import com.timsu.astrid.R;
 import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.astrid.actfm.ActFmLoginActivity;
 import com.todoroo.astrid.actfm.TagSettingsActivity;
+import com.todoroo.astrid.actfm.TagUpdatesFragment;
 import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.api.FilterListItem;
 import com.todoroo.astrid.reminders.NotificationFragment;
@@ -43,6 +44,7 @@ public class TaskListActivity extends AstridActivity implements MainMenuListener
 
     private FragmentPopover listsPopover;
     private FragmentPopover editPopover;
+    private FragmentPopover commentsPopover;
     private MainMenuPopover mainMenuPopover;
 
     private final OnClickListener mainMenuClickListener = new OnClickListener() {
@@ -64,9 +66,18 @@ public class TaskListActivity extends AstridActivity implements MainMenuListener
     private final OnClickListener commentsButtonClickListener = new OnClickListener() {
         @Override
         public void onClick(View v) {
-            TaskListFragment tlf = getTaskListFragment();
-            if (tlf != null)
-                tlf.commentsButtonClicked();
+            if (fragmentLayout == LAYOUT_DOUBLE) {
+                TagUpdatesFragment frag = getTagUpdatesFragment();
+                if (frag != null) {
+                    setupPopoverWithFragment(commentsPopover, frag, null);
+                    commentsPopover.show(listsNav);
+                }
+            } else {
+                // In this case we should be in LAYOUT_SINGLE--delegate to the task list fragment
+                TaskListFragment tlf = getTaskListFragment();
+                if (tlf != null)
+                    tlf.handleCommentsButtonClicked();
+            }
         }
     };
 
@@ -130,6 +141,7 @@ public class TaskListActivity extends AstridActivity implements MainMenuListener
 		    } else {
 		        fragmentLayout = LAYOUT_DOUBLE;
 		        createEditPopover();
+		        createCommentsPopover();
 		    }
 
 		    setupFragment(FilterListFragment.TAG_FILTERLIST_FRAGMENT,
@@ -166,6 +178,10 @@ public class TaskListActivity extends AstridActivity implements MainMenuListener
                 return false;
             }
         });
+    }
+
+    private void createCommentsPopover() {
+        commentsPopover = new FragmentPopover(this, R.layout.taskedit_popover);
     }
 
     private void createMainMenuPopover() {
@@ -260,6 +276,8 @@ public class TaskListActivity extends AstridActivity implements MainMenuListener
             editPopover.dismiss();
         if (mainMenuPopover != null)
             mainMenuPopover.dismiss();
+        if (commentsPopover != null)
+            commentsPopover.dismiss();
     }
 
     public void setSelectedItem(Filter item) {
