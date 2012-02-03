@@ -22,6 +22,7 @@ package com.todoroo.astrid.activity;
 import java.util.Map.Entry;
 
 import android.app.Activity;
+import android.content.ComponentName;
 import android.content.ContentValues;
 import android.content.Intent;
 import android.os.Bundle;
@@ -123,8 +124,14 @@ public class ShortcutActivity extends Activity {
                 }
             }
 
-            Filter filter = new Filter("", title, sql, values); //$NON-NLS-1$
-
+            Filter filter;
+            if (extras.containsKey(TOKEN_CUSTOM_CLASS)) {
+                filter = new FilterWithCustomIntent("", title, sql, values);
+                ComponentName customTaskList = ComponentName.unflattenFromString(extras.getString(TOKEN_CUSTOM_CLASS));
+                ((FilterWithCustomIntent) filter).customTaskList = customTaskList;
+            } else {
+                filter = new Filter("", title, sql, values); //$NON-NLS-1$
+            }
             taskListIntent.putExtra(TaskListFragment.TOKEN_FILTER, filter);
         } else if(extras != null && extras.containsKey(TOKEN_SINGLE_TASK)) {
             Filter filter = new Filter("", getString(R.string.TLA_custom), //$NON-NLS-1$
