@@ -522,7 +522,7 @@ public class EditNoteActivity extends LinearLayout implements TimerActionListene
             else if(!TextUtils.isEmpty(message) && !TextUtils.isEmpty(description))
                 description += " " + message;
             else
-                description = message;
+                description += message;
 
             if(TextUtils.isEmpty(description))
                 return null;
