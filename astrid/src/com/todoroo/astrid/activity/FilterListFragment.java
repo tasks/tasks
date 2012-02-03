@@ -5,6 +5,7 @@ package com.todoroo.astrid.activity;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.Dialog;
 import android.app.SearchManager;
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -32,7 +33,10 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
+import android.widget.AdapterView;
 import android.widget.AdapterView.AdapterContextMenuInfo;
+import android.widget.AdapterView.OnItemLongClickListener;
+import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.ListView;
@@ -167,14 +171,6 @@ public class FilterListFragment extends ListFragment {
         //ImageView backButton = (ImageView) getView().findViewById(R.id.back);
         newListButton = getView().findViewById(R.id.lists_footer);
 
-//        backButton.setOnClickListener(new OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                getActivity().finish();
-//                AndroidUtilities.callOverridePendingTransition(getActivity(), R.anim.slide_left_in, R.anim.slide_left_out);
-//            }
-//        });
-
         newListButton.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -305,7 +301,44 @@ public class FilterListFragment extends ListFragment {
 
         adapter.setLastSelected(mSelectedIndex);
 
-        registerForContextMenu(getListView());
+        // Can't do context menus when list is in popup menu for some reason--workaround
+        if (((AstridActivity) getActivity()).fragmentLayout == AstridActivity.LAYOUT_SINGLE) {
+            getListView().setOnItemLongClickListener(new OnItemLongClickListener() {
+                @Override
+                public boolean onItemLongClick(AdapterView<?> parent, View view,
+                        int position, long id) {
+                    // Do stuff
+                    final Filter filter = adapter.getItem(position);
+                    final String[] labels = filter.contextMenuLabels;
+                    final Intent[] intents = filter.contextMenuIntents;
+                    ArrayAdapter<String> intentAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1);
+                    intentAdapter.add(getString(R.string.FLA_context_shortcut));
+                    for (String l : labels) {
+                        intentAdapter.add(l);
+                    }
+                    AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+                    builder.setTitle(filter.title);
+                    builder.setAdapter(intentAdapter, new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            if (which == 0) {
+                                showCreateShortcutDialog(ShortcutActivity.createIntent(filter), filter);
+                            } else {
+                                startActivityForResult(intents[which - 1], REQUEST_CUSTOM_INTENT);
+                            }
+                        }
+                    });
+
+                    Dialog d = builder.create();
+                    d.setOwnerActivity(getActivity());
+                    d.show();
+                    return true;
+                }
+
+            });
+        } else {
+            registerForContextMenu(getListView());
+        }
     }
 
 

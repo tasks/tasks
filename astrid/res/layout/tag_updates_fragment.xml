@@ -63,6 +63,7 @@
             android:background="@drawable/footer_comment_edittext"
             android:capitalize="sentences"
             android:hint="@string/TVA_add_comment"
+            android:textColor="@android:color/black"
             android:paddingLeft="10dip"
             android:textSize="16sp" />
 
