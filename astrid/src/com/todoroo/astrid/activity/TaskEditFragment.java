@@ -455,6 +455,15 @@ public final class TaskEditFragment extends Fragment implements
                 getActivity(), getView());
         controls.add(timerAction);
 
+        tagsControlSet = new TagsControlSet(getActivity(),
+                R.layout.control_set_tags,
+                R.layout.control_set_default_display, R.string.TEA_tags_label);
+        controls.add(tagsControlSet);
+        controlSetMap.put(getString(R.string.TEA_ctrl_lists_pref),
+                tagsControlSet);
+
+        // EditPeopleControlSet relies on the "tags" transitory created by the
+        // TagsControlSet, so we put the tags control before the people control
         controls.add(peopleControlSet = new EditPeopleControlSet(getActivity(),
                 R.layout.control_set_assigned,
                 R.layout.control_set_default_display,
@@ -493,13 +502,6 @@ public final class TaskEditFragment extends Fragment implements
         importanceControl.addListener(editTitle);
         controlSetMap.put(getString(R.string.TEA_ctrl_importance_pref),
                 importanceControl);
-
-        tagsControlSet = new TagsControlSet(getActivity(),
-                R.layout.control_set_tags,
-                R.layout.control_set_default_display, R.string.TEA_tags_label);
-        controls.add(tagsControlSet);
-        controlSetMap.put(getString(R.string.TEA_ctrl_lists_pref),
-                tagsControlSet);
 
         notesControlSet = new EditNotesControlSet(getActivity(),
                 R.layout.control_set_notes, R.layout.control_set_notes_display);
