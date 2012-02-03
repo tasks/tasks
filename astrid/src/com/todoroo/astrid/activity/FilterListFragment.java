@@ -322,7 +322,7 @@ public class FilterListFragment extends ListFragment {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
                             if (which == 0) {
-                                showCreateShortcutDialog(ShortcutActivity.createIntent(filter), filter);
+                                showCreateShortcutDialog(getActivity(), ShortcutActivity.createIntent(filter), filter);
                             } else {
                                 startActivityForResult(intents[which - 1], REQUEST_CUSTOM_INTENT);
                             }
@@ -390,19 +390,19 @@ public class FilterListFragment extends ListFragment {
      * @param shortcutIntent
      * @param label
      */
-    private void createShortcut(Filter filter, Intent shortcutIntent, String label) {
+    private static void createShortcut(Activity activity, Filter filter, Intent shortcutIntent, String label) {
         if(label.length() == 0)
             return;
 
         Bitmap emblem = filter.listingIcon;
         if(emblem == null)
-            emblem = ((BitmapDrawable) getResources().getDrawable(
+            emblem = ((BitmapDrawable) activity.getResources().getDrawable(
                     R.drawable.gl_list)).getBitmap();
 
         // create icon by superimposing astrid w/ icon
         DisplayMetrics metrics = new DisplayMetrics();
-        getActivity().getWindowManager().getDefaultDisplay().getMetrics(metrics);
-        Bitmap bitmap = ((BitmapDrawable) getResources().getDrawable(
+        activity.getWindowManager().getDefaultDisplay().getMetrics(metrics);
+        Bitmap bitmap = ((BitmapDrawable) activity.getResources().getDrawable(
                 R.drawable.icon_blank)).getBitmap();
         bitmap = bitmap.copy(bitmap.getConfig(), true);
         Canvas canvas = new Canvas(bitmap);
@@ -417,9 +417,9 @@ public class FilterListFragment extends ListFragment {
         createShortcutIntent.putExtra(Intent.EXTRA_SHORTCUT_ICON, bitmap);
         createShortcutIntent.setAction("com.android.launcher.action.INSTALL_SHORTCUT"); //$NON-NLS-1$
 
-        getActivity().sendBroadcast(createShortcutIntent);
-        Toast.makeText(getActivity(),
-                getString(R.string.FLA_toast_onCreateShortcut, label), Toast.LENGTH_LONG).show();
+        activity.sendBroadcast(createShortcutIntent);
+        Toast.makeText(activity,
+                activity.getString(R.string.FLA_toast_onCreateShortcut, label), Toast.LENGTH_LONG).show();
     }
 
     @Override
@@ -452,7 +452,7 @@ public class FilterListFragment extends ListFragment {
                 final Intent shortcutIntent = item.getIntent();
                 FilterListItem filter = ((FilterAdapter.ViewHolder)info.targetView.getTag()).item;
                 if(filter instanceof Filter)
-                    showCreateShortcutDialog(shortcutIntent, (Filter)filter);
+                    showCreateShortcutDialog(getActivity(), shortcutIntent, (Filter)filter);
 
                 return true;
             }
@@ -470,11 +470,11 @@ public class FilterListFragment extends ListFragment {
         return false;
     }
 
-    private void showCreateShortcutDialog(final Intent shortcutIntent,
+    public static void showCreateShortcutDialog(final Activity activity, final Intent shortcutIntent,
             final Filter filter) {
-        FrameLayout frameLayout = new FrameLayout(getActivity());
+        FrameLayout frameLayout = new FrameLayout(activity);
         frameLayout.setPadding(10, 0, 10, 0);
-        final EditText editText = new EditText(getActivity());
+        final EditText editText = new EditText(activity);
         if(filter.listingTitle == null)
             filter.listingTitle = ""; //$NON-NLS-1$
         editText.setText(filter.listingTitle.
@@ -487,7 +487,7 @@ public class FilterListFragment extends ListFragment {
             @Override
             public void run() {
                 String label = editText.getText().toString();
-                createShortcut(filter, shortcutIntent, label);
+                createShortcut(activity, filter, shortcutIntent, label);
             }
         };
         editText.setOnEditorActionListener(new OnEditorActionListener() {
@@ -501,7 +501,7 @@ public class FilterListFragment extends ListFragment {
             }
         });
 
-        new AlertDialog.Builder(getActivity())
+        new AlertDialog.Builder(activity)
         .setTitle(R.string.FLA_shortcut_dialog_title)
         .setMessage(R.string.FLA_shortcut_dialog)
         .setView(frameLayout)
@@ -512,7 +512,7 @@ public class FilterListFragment extends ListFragment {
             }
         })
         .setNegativeButton(android.R.string.cancel, null)
-        .show().setOwnerActivity(getActivity());
+        .show().setOwnerActivity(activity);
     }
 
     public void clear() {

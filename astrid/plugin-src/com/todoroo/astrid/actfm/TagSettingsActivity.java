@@ -37,6 +37,9 @@ import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.astrid.actfm.ActFmCameraModule.CameraResultCallback;
 import com.todoroo.astrid.actfm.sync.ActFmPreferenceService;
 import com.todoroo.astrid.actfm.sync.ActFmSyncService;
+import com.todoroo.astrid.activity.FilterListFragment;
+import com.todoroo.astrid.activity.ShortcutActivity;
+import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.data.TagData;
 import com.todoroo.astrid.service.StatisticsConstants;
 import com.todoroo.astrid.service.StatisticsService;
@@ -60,6 +63,7 @@ public class TagSettingsActivity extends FragmentActivity {
     private static final String MEMBERS_IN_PROGRESS = "members"; //$NON-NLS-1$
 
     private TagData tagData;
+    private Filter filter; // Used for creating shortcuts, only initialized if necessary
 
     @Autowired TagDataService tagDataService;
 
@@ -172,6 +176,20 @@ public class TagSettingsActivity extends FragmentActivity {
                 ActFmCameraModule.showPictureLauncher(TagSettingsActivity.this, null);
             }
         });
+
+        if (isNewTag) {
+            findViewById(R.id.create_shortcut_container).setVisibility(View.GONE);
+        } else {
+            findViewById(R.id.create_shortcut).setOnClickListener(new OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (filter == null) {
+                        filter = TagFilterExposer.filterFromTagData(TagSettingsActivity.this, tagData);
+                    }
+                    FilterListFragment.showCreateShortcutDialog(TagSettingsActivity.this, ShortcutActivity.createIntent(filter), filter);
+                }
+            });
+        }
 
         refreshSettingsPage();
     }

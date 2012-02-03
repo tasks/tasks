@@ -138,46 +138,80 @@
 		            android:layout_marginTop="10dip" 
 		            android:hint="@string/actfm_TVA_tag_description_hint" />
 			    
-		    </RelativeLayout>
-		    
-		    <!-- Footer -->
-	        <LinearLayout
-	            android:id="@+id/listSettingsMore"
-	            android:layout_width="fill_parent" 
-	            android:layout_height="wrap_content"
-	            android:layout_marginTop="10dip"
-	            android:orientation="vertical"
-	            android:visibility="gone">
-	            
 	            <View
+	                android:id="@+id/divider"
 	                android:layout_width="fill_parent"
 	                android:layout_height="1dip"
-	                android:background="@android:drawable/divider_horizontal_dark" />
-	    
-	            <TextView 
-	                android:layout_width="fill_parent"
-	                android:layout_height="wrap_content"
-	                android:layout_marginTop="10dip"
-	                style="@style/TextAppearance.GEN_EditLabel"
-	                android:text="@string/actfm_TVA_tag_owner_label" />
-	              
-	            <TextView
-	                android:id="@+id/tag_owner"
-	                android:layout_width="fill_parent"
-	                android:layout_height="wrap_content" 
-	                android:layout_marginBottom="10dip" 
-	                android:textSize="20sp"/>
-	    
-	            <CheckBox 
-	                android:id="@+id/tag_silenced"
-	                android:layout_width="fill_parent"
-	                android:layout_height="wrap_content"
-	                android:layout_marginTop="10dip"
-	                android:paddingLeft="45dip"
-	                style="@style/TextAppearance"
-	                android:text="@string/actfm_TVA_silence_label" />
-	                
-	        </LinearLayout>
+		            android:layout_marginTop="10dip"
+		            android:layout_below="@id/tag_description"
+	                style="@style/TEA_Separator" />
+	            
+			    <!-- Footer -->
+		        <LinearLayout
+		            android:id="@+id/listSettingsMore"
+		            android:layout_width="wrap_content" 
+		            android:layout_height="wrap_content"
+		            android:layout_alignParentLeft="true"
+		            android:layout_below="@id/divider"
+		            android:orientation="vertical"
+		            android:visibility="gone">
+		            
+		    
+		            <TextView 
+		                android:layout_width="wrap_content"
+		                android:layout_height="wrap_content"
+		                android:layout_marginTop="10dip"
+		                style="@style/TextAppearance.GEN_EditLabel"
+		                android:text="@string/actfm_TVA_tag_owner_label" />
+		              
+		            <TextView
+		                android:id="@+id/tag_owner"
+		                android:layout_width="wrap_content"
+		                android:layout_height="wrap_content" 
+		                android:layout_marginBottom="10dip" 
+		                android:textSize="20sp"/>
+		    
+		            <CheckBox 
+		                android:id="@+id/tag_silenced"
+		                android:layout_width="wrap_content"
+		                android:layout_height="wrap_content"
+		                android:layout_marginTop="10dip"
+		                android:paddingLeft="45dip"
+		                style="@style/TextAppearance"
+		                android:text="@string/actfm_TVA_silence_label" />
+		                
+		        </LinearLayout>
+		        
+		        <LinearLayout
+			        android:id="@+id/create_shortcut_container"
+		            android:layout_width="wrap_content" 
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/divider"
+		            android:layout_alignParentRight="true"
+		            android:gravity="right"
+                    android:orientation="vertical">
+		            
+			        <TextView
+			            android:layout_width="wrap_content"
+	                    android:layout_height="wrap_content"
+	                    android:layout_marginTop="10dip"
+	                    style="@style/TextAppearance.GEN_EditLabel"
+	                    android:text="@string/FLA_shortcut_dialog_title" />
+			        
+			        <ImageButton 
+				        android:id="@+id/create_shortcut"
+			            android:layout_width="75dip"
+			            android:maxWidth="50dip"
+			            android:layout_height="50dip"
+			            android:maxHeight="50dip"
+			            android:background="@android:color/transparent"
+			            android:src="@android:drawable/ic_media_ff"
+			            android:scaleType="fitCenter"/>
+
+		      </LinearLayout>
+			    
+		    </RelativeLayout>
+		    
 		                            
 	    </LinearLayout>
 	  
