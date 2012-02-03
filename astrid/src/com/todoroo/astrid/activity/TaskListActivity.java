@@ -182,6 +182,15 @@ public class TaskListActivity extends AstridActivity implements MainMenuListener
 
     private void createCommentsPopover() {
         commentsPopover = new FragmentPopover(this, R.layout.taskedit_popover);
+        commentsPopover.setOnDismissListener(new OnDismissListener() {
+            @Override
+            public void onDismiss() {
+                TagUpdatesFragment frag = getTagUpdatesFragment();
+                FrameLayout parent = (FrameLayout) frag.getView().getParent();
+                parent.removeView(frag.getView());
+                ((FrameLayout) findViewById(R.id.taskedit_fragment_container)).addView(frag.getView());
+            }
+        });
     }
 
     private void createMainMenuPopover() {
