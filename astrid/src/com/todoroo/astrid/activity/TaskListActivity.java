@@ -326,7 +326,7 @@ public class TaskListActivity extends AstridActivity implements MainMenuListener
         if ((requestCode == FilterListFragment.REQUEST_NEW_LIST || requestCode == FilterListFragment.REQUEST_NEW_FILTER) && resultCode == Activity.RESULT_OK) {
             Filter newList = data.getParcelableExtra(TagSettingsActivity.TOKEN_NEW_FILTER);
             if (newList != null) {
-                getIntent().putExtra(TaskListFragment.TOKEN_FILTER, newList);
+                onFilterItemClicked(newList); // Switch to the new list
                 FilterListFragment fla = getFilterListFragment();
                 if (fla != null)
                     fla.clear();
