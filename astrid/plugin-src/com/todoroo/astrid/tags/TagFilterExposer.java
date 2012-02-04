@@ -270,6 +270,10 @@ public class TagFilterExposer extends BroadcastReceiver implements AstridFilterE
             }
             Toast.makeText(this, getString(shared ? R.string.TEA_tags_left : R.string.TEA_tags_deleted, tag, deleted),
                     Toast.LENGTH_SHORT).show();
+
+            Intent tagDeleted = new Intent(AstridApiConstants.BROADCAST_EVENT_TAG_DELETED);
+            tagDeleted.putExtra(TagViewFragment.EXTRA_TAG_NAME, tag);
+            sendBroadcast(tagDeleted);
             return true;
         }
 
