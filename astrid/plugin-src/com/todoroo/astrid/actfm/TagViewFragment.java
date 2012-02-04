@@ -309,7 +309,7 @@ public class TagViewFragment extends TaskListFragment {
 
         image.setScaleType(ImageView.ScaleType.FIT_XY);
         try {
-            final long id = member.getLong("id");
+            final long id = member.optLong("id", Task.USER_ID_EMAIL);
             if (id == ActFmPreferenceService.userId())
                 member = ActFmPreferenceService.thisUser();
             final JSONObject memberToUse = member;
@@ -325,9 +325,9 @@ public class TagViewFragment extends TaskListFragment {
         membersView.addView(image);
     }
 
-    @SuppressWarnings("unused")
     private OnClickListener listenerForImage(final JSONObject member, final long id, final String displayName) {
         return new OnClickListener() {
+            final String email = member.optString("email"); //$NON-NLS-1$
             @Override
             public void onClick(View v) {
                 if (currentId == id) {
@@ -339,6 +339,8 @@ public class TagViewFragment extends TaskListFragment {
                     Criterion assignedCriterion;
                     if (currentId == ActFmPreferenceService.userId())
                         assignedCriterion = Criterion.or(Task.USER_ID.eq(0), Task.USER_ID.eq(id));
+                    else if (currentId == Task.USER_ID_EMAIL && !TextUtils.isEmpty(email))
+                        assignedCriterion = Task.USER.like("%" + email + "%"); //$NON-NLS-1$
                     else
                         assignedCriterion = Task.USER_ID.eq(id);
                     Criterion assigned = Criterion.and(TaskCriteria.activeAndVisible(), assignedCriterion);
@@ -360,7 +362,7 @@ public class TagViewFragment extends TaskListFragment {
     }
 
     private void resetAssignedFilter() {
-        currentId = -1;
+        currentId = Task.USER_ID_IGNORE;
         filter = originalFilter;
         getView().findViewById(R.id.filter_assigned).setVisibility(View.GONE);
         setUpTaskList();
@@ -444,7 +446,8 @@ public class TagViewFragment extends TaskListFragment {
             tagData = tagDataService.fetchById(tagData.getId(), TagData.PROPERTIES);
             filter = TagFilterExposer.filterFromTagData(getActivity(), tagData);
             taskAdapter = null;
-            loadTaskListContent(true);
+            refresh();
+            //loadTaskListContent(true);
         } else {
             super.onActivityResult(requestCode, resultCode, data);
         }

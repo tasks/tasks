@@ -173,6 +173,9 @@ public final class Task extends RemoteModel {
 
     // --- user id special values
 
+    /** user id = doesn't exist/ignore it. For filtering in tags */
+    public static final long USER_ID_IGNORE = -3L;
+
     /** user id = read user email value */
     public static final long USER_ID_EMAIL = -2L;
 
