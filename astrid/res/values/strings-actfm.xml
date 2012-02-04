@@ -21,6 +21,9 @@
 
   <!-- can't rename or delete shared tag message -->
   <string name="actfm_tag_operation_disabled">Sorry, this operation is not yet supported for shared tags.</string>
+  
+  <!-- warning before deleting a list you're the owner of -->
+  <string name="actfm_tag_operation_owner_delete">You are the owner of this shared list! If you delete it, it will be deleted for all list members. Are you sure you want to continue?</string>
 
   <!-- menu item to take a picture -->
   <string name="actfm_picture_camera">Take a Picture</string>

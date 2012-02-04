@@ -77,7 +77,11 @@ public class TagFilterExposer extends BroadcastReceiver implements AstridFilterE
         }
 
         TagData tagData = PluginServices.getTagDataService().getTag(tag.tag, TagData.ID, TagData.MEMBER_COUNT);
-        int deleteIntentLabel = tagData.getValue(TagData.MEMBER_COUNT) > 0 ? R.string.tag_cm_leave : R.string.tag_cm_delete;
+        int deleteIntentLabel;
+        if (tagData.getValue(TagData.MEMBER_COUNT) > 0 && tagData.getValue(TagData.USER_ID) != 0)
+            deleteIntentLabel = R.string.tag_cm_leave;
+        else
+            deleteIntentLabel = R.string.tag_cm_delete;
 
         filter.contextMenuLabels = new String[] {
             context.getString(R.string.tag_cm_rename),
@@ -191,11 +195,11 @@ public class TagFilterExposer extends BroadcastReceiver implements AstridFilterE
             DependencyInjectionService.getInstance().inject(this);
 
 
-            TagData tagData = tagDataService.getTag(tag, TagData.MEMBER_COUNT);
-////            if(tagData != null && tagData.getValue(TagData.MEMBER_COUNT) > 0) {
-////                DialogUtilities.okDialog(this, getString(R.string.actfm_tag_operation_disabled), getCancelListener());
-////                return;
-////            }
+            TagData tagData = tagDataService.getTag(tag, TagData.MEMBER_COUNT, TagData.USER_ID);
+            if(tagData != null && tagData.getValue(TagData.MEMBER_COUNT) > 0 && tagData.getValue(TagData.USER_ID) == 0) {
+                DialogUtilities.okCancelDialog(this, getString(R.string.actfm_tag_operation_owner_delete), getOkListener(), getCancelListener());
+                return;
+            }
             showDialog(tagData);
         }
 
@@ -257,12 +261,12 @@ public class TagFilterExposer extends BroadcastReceiver implements AstridFilterE
         @Override
         protected boolean ok() {
             int deleted = tagService.delete(tag);
-            TagData tagData = PluginServices.getTagDataService().getTag(tag, TagData.ID, TagData.DELETION_DATE, TagData.MEMBER_COUNT);
+            TagData tagData = PluginServices.getTagDataService().getTag(tag, TagData.ID, TagData.DELETION_DATE, TagData.MEMBER_COUNT, TagData.USER_ID);
             boolean shared = false;
             if(tagData != null) {
                 tagData.setValue(TagData.DELETION_DATE, DateUtilities.now());
                 PluginServices.getTagDataService().save(tagData);
-                shared = (tagData.getValue(TagData.MEMBER_COUNT) > 0);
+                shared = tagData.getValue(TagData.MEMBER_COUNT) > 0 && tagData.getValue(TagData.USER_ID) != 0; // Was I a list member and NOT owner?
             }
             Toast.makeText(this, getString(shared ? R.string.TEA_tags_left : R.string.TEA_tags_deleted, tag, deleted),
                     Toast.LENGTH_SHORT).show();
