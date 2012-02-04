@@ -305,7 +305,6 @@ public class TaskListActivity extends AstridActivity implements MainMenuListener
     @Override
     protected void onStop() {
         super.onStop();
-        System.err.println("Unregistering");
         unregisterReceiver(tagDeletedReceiver);
     }
 
@@ -390,12 +389,13 @@ public class TaskListActivity extends AstridActivity implements MainMenuListener
         @Override
         public void onReceive(Context context, Intent intent) {
             String deletedTag = intent.getStringExtra(TagViewFragment.EXTRA_TAG_NAME);
-            String currentlyShowing = getIntent().getStringExtra(TagViewFragment.EXTRA_TAG_NAME);
-            if (currentlyShowing != null && currentlyShowing.equals(deletedTag)) {
-                FilterListFragment fl = getFilterListFragment();
-                if (fl != null) {
+            FilterListFragment fl = getFilterListFragment();
+            if (fl != null) {
+                String currentlyShowing = getIntent().getStringExtra(TagViewFragment.EXTRA_TAG_NAME);
+                if (currentlyShowing != null && currentlyShowing.equals(deletedTag)) {
                     fl.switchToActiveTasks();
                 }
+                fl.clear(); // Should auto refresh
             }
         }
 
