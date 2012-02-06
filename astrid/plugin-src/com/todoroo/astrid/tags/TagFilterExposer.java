@@ -54,6 +54,7 @@ import com.todoroo.astrid.tags.TagService.Tag;
 public class TagFilterExposer extends BroadcastReceiver implements AstridFilterExposer {
 
     private static final String TAG = "tag"; //$NON-NLS-1$
+    public static final String TAG_SQL = "tagSql"; //$NON-NLS-1$
 
     @Autowired TagDataService tagDataService;
     @Autowired GtasksPreferenceService gtasksPreferenceService;
@@ -88,8 +89,8 @@ public class TagFilterExposer extends BroadcastReceiver implements AstridFilterE
             context.getString(deleteIntentLabel)
         };
         filter.contextMenuIntents = new Intent[] {
-                newTagIntent(context, RenameTagActivity.class, tag),
-                newTagIntent(context, DeleteTagActivity.class, tag)
+                newTagIntent(context, RenameTagActivity.class, tag, tagTemplate.toString()),
+                newTagIntent(context, DeleteTagActivity.class, tag, tagTemplate.toString())
         };
         filter.customTaskList = new ComponentName(ContextManager.getContext(), TagViewFragment.class);
         if(tag.image != null)
@@ -113,9 +114,10 @@ public class TagFilterExposer extends BroadcastReceiver implements AstridFilterE
         return filterFromTag(context, tag, TaskCriteria.activeAndVisible());
     }
 
-    private static Intent newTagIntent(Context context, Class<? extends Activity> activity, Tag tag) {
+    private static Intent newTagIntent(Context context, Class<? extends Activity> activity, Tag tag, String sql) {
         Intent ret = new Intent(context, activity);
         ret.putExtra(TAG, tag.tag);
+        ret.putExtra(TAG_SQL, sql);
         return ret;
     }
 
@@ -175,6 +177,7 @@ public class TagFilterExposer extends BroadcastReceiver implements AstridFilterE
     public abstract static class TagActivity extends Activity {
 
         protected String tag;
+        protected String sql;
 
         @Autowired public TagService tagService;
         @Autowired public TagDataService tagDataService;
@@ -188,6 +191,7 @@ public class TagFilterExposer extends BroadcastReceiver implements AstridFilterE
             super.onCreate(savedInstanceState);
 
             tag = getIntent().getStringExtra(TAG);
+            sql = getIntent().getStringExtra(TAG_SQL);
             if(tag == null) {
                 finish();
                 return;
@@ -273,6 +277,7 @@ public class TagFilterExposer extends BroadcastReceiver implements AstridFilterE
 
             Intent tagDeleted = new Intent(AstridApiConstants.BROADCAST_EVENT_TAG_DELETED);
             tagDeleted.putExtra(TagViewFragment.EXTRA_TAG_NAME, tag);
+            tagDeleted.putExtra(TAG_SQL, sql);
             sendBroadcast(tagDeleted);
             return true;
         }
