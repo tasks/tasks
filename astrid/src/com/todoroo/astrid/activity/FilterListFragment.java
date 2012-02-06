@@ -352,10 +352,19 @@ public class FilterListFragment extends ListFragment {
         if (mDualFragments)
             getListView().setItemChecked(position, true);
         Filter item = adapter.getItem(position);
+        setFilterItemSelected(item, position);
+    }
+
+    private void setFilterItemSelected(Filter item, int position) {
         mSelectedIndex = position;
         adapter.setLastSelected(mSelectedIndex);
         getActivity().getIntent().putExtra(TOKEN_LAST_SELECTED, mSelectedIndex);
         mListener.onFilterItemClicked(item);
+    }
+
+    public void switchToActiveTasks() {
+        if (adapter.getCount() > 0)
+            setFilterItemSelected(adapter.getItem(0), 0);
     }
 
     @Override

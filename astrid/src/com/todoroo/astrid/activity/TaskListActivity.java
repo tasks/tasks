@@ -1,7 +1,10 @@
 package com.todoroo.astrid.activity;
 
 import android.app.Activity;
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
 import android.support.v4.app.ActionBar;
 import android.support.v4.app.Fragment;
@@ -22,10 +25,13 @@ import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.astrid.actfm.ActFmLoginActivity;
 import com.todoroo.astrid.actfm.TagSettingsActivity;
 import com.todoroo.astrid.actfm.TagUpdatesFragment;
+import com.todoroo.astrid.actfm.TagViewFragment;
+import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.api.FilterListItem;
 import com.todoroo.astrid.reminders.NotificationFragment;
 import com.todoroo.astrid.service.ThemeService;
+import com.todoroo.astrid.tags.TagFilterExposer;
 import com.todoroo.astrid.ui.FragmentPopover;
 import com.todoroo.astrid.ui.MainMenuPopover;
 import com.todoroo.astrid.ui.MainMenuPopover.MainMenuListener;
@@ -46,6 +52,8 @@ public class TaskListActivity extends AstridActivity implements MainMenuListener
     private FragmentPopover editPopover;
     private FragmentPopover commentsPopover;
     private MainMenuPopover mainMenuPopover;
+
+    private final TagDeletedReceiver tagDeletedReceiver = new TagDeletedReceiver();
 
     private final OnClickListener mainMenuClickListener = new OnClickListener() {
         @Override
@@ -277,6 +285,12 @@ public class TaskListActivity extends AstridActivity implements MainMenuListener
     }
 
     @Override
+    protected void onResume() {
+        super.onResume();
+        registerReceiver(tagDeletedReceiver, new IntentFilter(AstridApiConstants.BROADCAST_EVENT_TAG_DELETED));
+    }
+
+    @Override
     protected void onPause() {
         super.onPause();
         if (listsPopover != null)
@@ -287,6 +301,12 @@ public class TaskListActivity extends AstridActivity implements MainMenuListener
             mainMenuPopover.dismiss();
         if (commentsPopover != null)
             commentsPopover.dismiss();
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        unregisterReceiver(tagDeletedReceiver);
     }
 
     public void setSelectedItem(Filter item) {
@@ -364,5 +384,25 @@ public class TaskListActivity extends AstridActivity implements MainMenuListener
                 tla.showSupport();
             break;
         }
+    }
+
+    private class TagDeletedReceiver extends BroadcastReceiver {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            String deletedTag = intent.getStringExtra(TagViewFragment.EXTRA_TAG_NAME);
+            String deletedTagSql = intent.getStringExtra(TagFilterExposer.TAG_SQL);
+            FilterListFragment fl = getFilterListFragment();
+            if (fl != null) {
+                Filter currentlyShowing = getIntent().getParcelableExtra(TaskListFragment.TOKEN_FILTER);
+                if (currentlyShowing != null) {
+                    boolean titlesMatch = currentlyShowing.title != null && currentlyShowing.title.equals(deletedTag);
+                    boolean sqlMatches = currentlyShowing.sqlQuery != null && currentlyShowing.sqlQuery.equals(deletedTagSql);
+                    if (titlesMatch && sqlMatches)
+                        fl.switchToActiveTasks();
+                }
+                fl.clear(); // Should auto refresh
+            }
+        }
+
     }
 }

@@ -262,4 +262,9 @@ public class AstridApiConstants {
      */
     public static final String BROADCAST_EVENT_TASK_REPEATED = PACKAGE + ".TASK_REPEATED";
 
+    /**
+     * Action name for broadcast intent notifying that tag was deleted
+     */
+    public static final String BROADCAST_EVENT_TAG_DELETED = PACKAGE + ".TAG_DELETED";
+
 }
