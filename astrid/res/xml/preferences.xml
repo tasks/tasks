@@ -34,10 +34,6 @@
             android:title="@string/EPr_theme_title" />
     </PreferenceCategory>
 
-    <com.todoroo.astrid.ui.MultilineCheckboxPreference
-        android:key="@string/p_statistics"
-        android:title="@string/EPr_statistics_title"
-        android:defaultValue="true" />   
 
     <PreferenceCategory
         android:title="@string/EPr_powerpack_header">
@@ -59,6 +55,11 @@
                 android:defaultValue="false" />
             
         </PreferenceScreen>
+
+        <com.todoroo.astrid.ui.MultilineCheckboxPreference
+	        android:key="@string/p_statistics"
+	        android:title="@string/EPr_statistics_title"
+	        android:defaultValue="true" />   
     </PreferenceCategory>
 
 
