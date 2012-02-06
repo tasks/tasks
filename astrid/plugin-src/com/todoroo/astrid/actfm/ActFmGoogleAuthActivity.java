@@ -102,7 +102,7 @@ public class ActFmGoogleAuthActivity extends ListActivity {
         super.onListItemClick(l, v, position, id);
         final ProgressDialog pd = DialogUtilities.progressDialog(this, this.getString(R.string.gtasks_GLA_authenticating));
         pd.show();
-        final Account a = accountManager.getAccountByName(nameArray[position]);
+        final Account a = accountManager.getAccountByName(nameArray[position - 1]); // Subtract 1 because apparently android counts the header view as part of the adapter.
         accountName = a.name;
         getAuthToken(a, pd);
     }
