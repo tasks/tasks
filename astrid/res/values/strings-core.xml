@@ -351,6 +351,9 @@
   <!-- Toast: task was not saved -->
   <string name="TEA_onTaskCancel">Task Editing Was Canceled</string>
   
+  <!-- Toast: task was deleted -->
+  <string name="TEA_onTaskDelete">Task deleted!</string>
+  
   <!-- Task edit tab: activity -->
   <string name="TEA_tab_activity">Activity</string>
   
