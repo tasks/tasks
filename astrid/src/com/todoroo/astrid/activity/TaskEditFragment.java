@@ -570,7 +570,6 @@ public final class TaskEditFragment extends Fragment implements
                     R.array.TEA_control_sets_prefs);
         String moreSectionTrigger = getString(R.string.TEA_ctrl_more_pref);
         String shareViewDescriptor = getString(R.string.TEA_ctrl_share_pref);
-        String titleViewDescriptor = getString(R.string.TEA_ctrl_title_pref);
         LinearLayout section = basicControls;
 
         for (int i = 0; i < itemOrder.length; i++) {
@@ -581,9 +580,7 @@ public final class TaskEditFragment extends Fragment implements
                 View control_set = null;
                 TaskEditControlSet curr = controlSetMap.get(item);
 
-                if (item.equals(titleViewDescriptor))
-                    control_set = curr.getDisplayView();
-                else if (item.equals(shareViewDescriptor))
+                if (item.equals(shareViewDescriptor))
                     control_set = peopleControlSet.getSharedWithRow();
                 else if (curr != null)
                     control_set = (LinearLayout) curr.getDisplayView();

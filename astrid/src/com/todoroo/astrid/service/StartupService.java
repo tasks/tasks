@@ -31,7 +31,6 @@ import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.astrid.actfm.sync.ActFmPreferenceService;
 import com.todoroo.astrid.actfm.sync.ActFmSyncService;
-import com.todoroo.astrid.activity.BeastModePreferences;
 import com.todoroo.astrid.backup.BackupConstants;
 import com.todoroo.astrid.backup.BackupService;
 import com.todoroo.astrid.backup.TasksXmlImporter;
@@ -138,7 +137,6 @@ public class StartupService {
         } else {
             Preferences.setLong(AstridPreferences.P_FIRST_LAUNCH, 0);
         }
-        BeastModePreferences.migrateBeastModePreferences(context);
 
         int version = 0;
         try {
