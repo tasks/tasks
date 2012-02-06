@@ -1054,14 +1054,18 @@ public class TaskListFragment extends ListFragment implements OnScrollListener,
             imm.hideSoftInputFromWindow(quickAddBox.getWindowToken(), 0);
             getListView().postDelayed(new Runnable() {
                 public void run() {
-                    if (taskAdapter != null && taskAdapter.getCount() > 0) {
-                        final View view = getListView().getChildAt(
-                                getListView().getChildCount() - 1);
-                        if (view != null) {
-                            HelpInfoPopover.showPopover(getActivity(), view,
-                                    R.string.help_popover_tap_task, null);
-                            Preferences.setBoolean(R.string.p_showed_tap_task_help, true);
+                    try {
+                        if (taskAdapter != null && taskAdapter.getCount() > 0) {
+                            final View view = getListView().getChildAt(
+                                    getListView().getChildCount() - 1);
+                            if (view != null) {
+                                HelpInfoPopover.showPopover(getActivity(), view,
+                                        R.string.help_popover_tap_task, null);
+                                Preferences.setBoolean(R.string.p_showed_tap_task_help, true);
+                            }
                         }
+                    } catch (IllegalStateException e) {
+                        // Whoops, view is gone. Try again later
                     }
                 }
             }, 1000L);
