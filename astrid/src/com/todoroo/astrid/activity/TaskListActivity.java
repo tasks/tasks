@@ -391,8 +391,8 @@ public class TaskListActivity extends AstridActivity implements MainMenuListener
             String deletedTag = intent.getStringExtra(TagViewFragment.EXTRA_TAG_NAME);
             FilterListFragment fl = getFilterListFragment();
             if (fl != null) {
-                String currentlyShowing = getIntent().getStringExtra(TagViewFragment.EXTRA_TAG_NAME);
-                if (currentlyShowing != null && currentlyShowing.equals(deletedTag)) {
+                Filter currentlyShowing = getIntent().getParcelableExtra(TaskListFragment.TOKEN_FILTER);
+                if (currentlyShowing != null && currentlyShowing.title != null && currentlyShowing.title.equals(deletedTag)) {
                     fl.switchToActiveTasks();
                 }
                 fl.clear(); // Should auto refresh

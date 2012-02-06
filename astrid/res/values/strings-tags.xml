@@ -72,10 +72,10 @@
   <!-- context menu option to leave a shared list -->
   <string name="tag_cm_leave">Leave List</string>
 
-  <!-- Dialog to confirm deletion of a tag -->
+  <!-- Dialog to confirm deletion of a tag (%s -> the name of the list to be deleted) -->
   <string name="DLG_delete_this_tag_question">Delete this list: %s? (No tasks will be deleted.)</string>
   
-  <!-- Dialog to confirm leaving a shared tag -->
+  <!-- Dialog to confirm leaving a shared tag (%s -> the name of the shared list to leave) -->
   <string name="DLG_leave_this_shared_tag_question">Leave this shared list: %s? (No tasks will be deleted.)</string>
 
   <!-- Dialog to rename tag -->
