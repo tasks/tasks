@@ -25,7 +25,8 @@ import com.todoroo.astrid.service.StatisticsService;
  */
 public class ReminderDialog extends Dialog {
 
-    public ReminderDialog(final AstridActivity activity, final long taskId, String title) {
+    public ReminderDialog(final AstridActivity activity, final long taskId,
+            final String title) {
         super(activity, R.style.ReminderDialog);
         final SnoozeCallback dialogSnooze = new SnoozeCallback() {
             @Override
@@ -72,7 +73,9 @@ public class ReminderDialog extends Dialog {
                 Task task = new Task();
                 task.setId(taskId);
                 PluginServices.getTaskService().setComplete(task, true);
-                Toast.makeText(activity, R.string.rmd_NoA_completed_toast, Toast.LENGTH_LONG).show();
+                Toast.makeText(activity,
+                        R.string.rmd_NoA_completed_toast,
+                        Toast.LENGTH_LONG).show();
                 dismiss();
             }
         });

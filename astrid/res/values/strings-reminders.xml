@@ -55,7 +55,7 @@
   <string name="rmd_NoA_snooze">Snooze</string>
   
   <!-- Reminder: Completed Toast -->
-  <string name="rmd_NoA_completed_toast">Congratulations on finishing \'%s\'!</string>
+  <string name="rmd_NoA_completed_toast">Congratulations on finishing!</string>
   
   <!-- ============================================= reminder preferences == -->
   
