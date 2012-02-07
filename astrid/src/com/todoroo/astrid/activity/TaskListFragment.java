@@ -228,7 +228,7 @@ public class TaskListFragment extends ListFragment implements OnScrollListener,
     private VoiceInputAssistant voiceInputAssistant;
 
     // --- fragment handling variables
-    OnTaskListItemClickedListener mListener;
+    protected OnTaskListItemClickedListener mListener;
     private boolean mDualFragments = false;
 
     /*
@@ -279,12 +279,8 @@ public class TaskListFragment extends ListFragment implements OnScrollListener,
     /** Called when loading up the activity */
     @Override
     public void onCreate(Bundle savedInstanceState) {
-        ContextManager.setContext(getActivity());
         DependencyInjectionService.getInstance().inject(this);
         super.onCreate(savedInstanceState);
-        // Tell the framework to try to keep this fragment around
-        // during a configuration change.
-        // setRetainInstance(true);
 
         new StartupService().onStartupApplication(getActivity());
 
@@ -404,10 +400,6 @@ public class TaskListFragment extends ListFragment implements OnScrollListener,
 
         setUpTaskList();
         ((AstridActivity) getActivity()).setupActivityFragment(getTagDataForUpdates());
-
-        // FIXME put this into the wrapper activity
-        if (Constants.DEBUG)
-            getActivity().setTitle("[D] " + filter.title); //$NON-NLS-1$
 
         contextMenuExtensionLoader.loadInNewThread(getActivity());
     }

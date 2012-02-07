@@ -12,6 +12,7 @@ import android.support.v4.app.FragmentTransaction;
 import android.view.View;
 
 import com.timsu.astrid.R;
+import com.todoroo.andlib.service.ContextManager;
 import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.astrid.actfm.TagUpdatesFragment;
 import com.todoroo.astrid.api.AstridApiConstants;
@@ -88,6 +89,7 @@ public class AstridActivity extends FragmentActivity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        ContextManager.setContext(this);
         new StartupService().onStartupApplication(this);
     }
 
@@ -288,14 +290,6 @@ public class AstridActivity extends FragmentActivity
      */
     public int getFragmentLayout() {
         return fragmentLayout;
-    }
-
-    /**
-     * @deprecated please use the getFragmentLayout method instead
-     */
-    @Deprecated
-    public boolean isMultipleFragments() {
-        return fragmentLayout != LAYOUT_SINGLE;
     }
 
     private class ReminderReceiver extends BroadcastReceiver {
