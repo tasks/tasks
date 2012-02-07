@@ -120,11 +120,14 @@ public class GtasksLoginActivity extends ListActivity {
     @Override
     protected void onListItemClick(ListView l, View v, int position, long id) {
         super.onListItemClick(l, v, position, id);
-        final ProgressDialog pd = DialogUtilities.progressDialog(this, this.getString(R.string.gtasks_GLA_authenticating));
-        pd.show();
-        final Account a = accountManager.getAccountByName(nameArray[position - 1]); // Subtract 1 because apparently android counts the header view as part of the adapter.
-        accountName = a.name;
-        getAuthToken(a, pd);
+        int offsetPosition = position - 1; // Subtract 1 because apparently android counts the header view as part of the adapter.
+        if (offsetPosition >= 0 && offsetPosition < nameArray.length) {
+            final ProgressDialog pd = DialogUtilities.progressDialog(this, this.getString(R.string.gtasks_GLA_authenticating));
+            pd.show();
+            final Account a = accountManager.getAccountByName(nameArray[offsetPosition]);
+            accountName = a.name;
+            getAuthToken(a, pd);
+        }
     }
 
     private void getAuthToken(Account a, final ProgressDialog pd) {

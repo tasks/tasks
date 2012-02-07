@@ -346,8 +346,11 @@ public final class ActFmSyncService {
             if(task.getValue(Task.USER_ID) == Task.USER_ID_EMAIL) {
                 try {
                     JSONObject user = new JSONObject(task.getValue(Task.USER));
-                    params.add("user_email");
-                    params.add(user.get("email"));
+                    String userEmail = user.optString("email");
+                    if (!TextUtils.isEmpty(userEmail)) {
+                        params.add("user_email");
+                        params.add(userEmail);
+                    }
                 } catch (JSONException e) {
                     Log.e("Error parsing user", task.getValue(Task.USER), e);
                 }
