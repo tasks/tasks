@@ -94,16 +94,16 @@ public class GtasksInvoker {
      * @throws IOException
      */
     public void ping() throws IOException {
-        service.tasklists.get("@default").execute();
+        service.tasklists().get("@default").execute();
     }
 
     public TaskLists allGtaskLists() throws IOException {
         TaskLists toReturn = null;
         try {
-            toReturn = service.tasklists.list().execute();
+            toReturn = service.tasklists().list().execute();
         } catch (IOException e) {
             handleException(e);
-            toReturn = service.tasklists.list().execute();
+            toReturn = service.tasklists().list().execute();
         } finally {
             log("All gtasks lists", toReturn);
         }
@@ -113,10 +113,10 @@ public class GtasksInvoker {
     public TaskList getGtaskList(String id) throws IOException {
         TaskList toReturn = null;
         try {
-            toReturn = service.tasklists.get(id).execute();
+            toReturn = service.tasklists().get(id).execute();
         } catch (IOException e) {
             handleException(e);
-            toReturn = service.tasklists.get(id).execute();
+            toReturn = service.tasklists().get(id).execute();
         } finally {
             log("Get gtask list, id: " + id, toReturn);
         }
@@ -128,10 +128,10 @@ public class GtasksInvoker {
         newList.setTitle(title);
         TaskList toReturn = null;
         try {
-            toReturn = service.tasklists.insert(newList).execute();
+            toReturn = service.tasklists().insert(newList).execute();
         } catch (IOException e) {
             handleException(e);
-            toReturn = service.tasklists.insert(newList).execute();
+            toReturn = service.tasklists().insert(newList).execute();
         } finally {
             log("Create gtask list, title: " + title, toReturn);
         }
@@ -141,10 +141,10 @@ public class GtasksInvoker {
     public TaskList updateGtaskList(TaskList list) throws IOException {
         TaskList toReturn = null;
         try {
-            toReturn = service.tasklists.update(list.getId(), list).execute();
+            toReturn = service.tasklists().update(list.getId(), list).execute();
         } catch (IOException e) {
             handleException(e);
-            toReturn = service.tasklists.update(list.getId(), list).execute();
+            toReturn = service.tasklists().update(list.getId(), list).execute();
         } finally {
             log("Update list, id: " + list.getId(), toReturn);
         }
@@ -153,10 +153,10 @@ public class GtasksInvoker {
 
     public void deleteGtaskList(String listId) throws IOException {
         try {
-            service.tasklists.delete(listId).execute();
+            service.tasklists().delete(listId).execute();
         } catch (IOException e) {
             handleException(e);
-            service.tasklists.delete(listId).execute();
+            service.tasklists().delete(listId).execute();
         } finally {
             log("Delete list, id: " + listId, null);
         }
@@ -168,7 +168,7 @@ public class GtasksInvoker {
 
     public com.google.api.services.tasks.model.Tasks getAllGtasksFromListId(String listId, boolean includeDeleted, boolean includeHidden, long lastSyncDate) throws IOException {
         com.google.api.services.tasks.model.Tasks toReturn = null;
-        List request = service.tasks.list(listId);
+        List request = service.tasks().list(listId);
         request.setShowDeleted(includeDeleted);
         request.setShowHidden(includeHidden);
         request.setUpdatedMin(GtasksApiUtilities.unixTimeToGtasksCompletionTime(lastSyncDate).toStringRfc3339());
@@ -186,10 +186,10 @@ public class GtasksInvoker {
     public Task getGtask(String listId, String taskId) throws IOException {
         Task toReturn = null;
         try {
-            toReturn = service.tasks.get(listId, taskId).execute();
+            toReturn = service.tasks().get(listId, taskId).execute();
         } catch (IOException e) {
             handleException(e);
-            toReturn = service.tasks.get(listId, taskId).execute();
+            toReturn = service.tasks().get(listId, taskId).execute();
         } finally {
             log("Get gtask, id: " + taskId + ", list id: " + listId, toReturn);
         }
@@ -210,7 +210,7 @@ public class GtasksInvoker {
     }
 
     public Task createGtask(String listId, Task task, String parent, String priorSiblingId) throws IOException {
-        Insert insertOp = service.tasks.insert(listId, task);
+        Insert insertOp = service.tasks().insert(listId, task);
         insertOp.setParent(parent);
         insertOp.setPrevious(priorSiblingId);
 
@@ -229,10 +229,10 @@ public class GtasksInvoker {
     public Task updateGtask(String listId, Task task) throws IOException {
         Task toReturn = null;
         try {
-            toReturn = service.tasks.update(listId, task.getId(), task).execute();
+            toReturn = service.tasks().update(listId, task.getId(), task).execute();
         } catch (IOException e) {
             handleException(e);
-            toReturn = service.tasks.update(listId, task.getId(), task).execute();
+            toReturn = service.tasks().update(listId, task.getId(), task).execute();
         } finally {
             log("Update gtask, title: " + task.getTitle(), toReturn);
         }
@@ -240,7 +240,7 @@ public class GtasksInvoker {
     }
 
     public Task moveGtask(String listId, String taskId, String parentId, String previousId) throws IOException {
-        Move move = service.tasks.move(listId, taskId);
+        Move move = service.tasks().move(listId, taskId);
         move.setParent(parentId);
         move.setPrevious(previousId);
 
@@ -258,10 +258,10 @@ public class GtasksInvoker {
 
     public void deleteGtask(String listId, String taskId) throws IOException {
         try {
-            service.tasks.delete(listId, taskId).execute();
+            service.tasks().delete(listId, taskId).execute();
         } catch (IOException e) {
             handleException(e);
-            service.tasks.delete(listId, taskId).execute();
+            service.tasks().delete(listId, taskId).execute();
         } finally {
             log("Delete task, id: " + taskId, null);
         }
@@ -269,10 +269,10 @@ public class GtasksInvoker {
 
     public void clearCompletedTasks(String listId) throws IOException {
         try {
-            service.tasks.clear(listId).execute();
+            service.tasks().clear(listId).execute();
         } catch (IOException e) {
             handleException(e);
-            service.tasks.clear(listId).execute();
+            service.tasks().clear(listId).execute();
         } finally {
             log("Clear completed tasks, list id: " + listId, null);
         }
