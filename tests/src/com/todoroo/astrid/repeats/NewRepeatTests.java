@@ -15,6 +15,7 @@ import com.timsu.astrid.R;
 import com.todoroo.andlib.data.TodorooCursor;
 import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.sql.Query;
+import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.astrid.api.AstridApiConstants;
@@ -55,6 +56,7 @@ public class NewRepeatTests<REMOTE_MODEL> extends DatabaseTestCase {
 
     protected void waitAndSync() {
         // Subclasses can override this to insert sync functionality
+        AndroidUtilities.sleepDeep(200L); // Delay to make sure changes persist
     }
 
     /**
@@ -144,6 +146,7 @@ public class NewRepeatTests<REMOTE_MODEL> extends DatabaseTestCase {
         REMOTE_MODEL remoteModel = assertTaskExistsRemotely(t, dueDate);
 
         long completionDate = setCompletionDate(completeBefore, t, remoteModel, dueDate);
+        System.err.println("Completion date: " + new Date(completionDate));
 
         waitAndSync();
         assertTaskCompletedRemotely(t);
@@ -154,19 +157,13 @@ public class NewRepeatTests<REMOTE_MODEL> extends DatabaseTestCase {
                 Task task = new Task(cursor);
                 System.err.println("Task: " + task.getValue(Task.TITLE) + ", due: " + task.getValue(Task.DUE_DATE));
             }
-            assertEquals(StartupService.INTRO_TASK_SIZE + 2, cursor.getCount());
+            assertEquals(StartupService.INTRO_TASK_SIZE + 1, cursor.getCount());
             cursor.moveToFirst();
             for (int i = 0; i < StartupService.INTRO_TASK_SIZE; i++) {
                 cursor.moveToNext();
             }
             t.readFromCursor(cursor);
 
-            assertEquals(title, t.getValue(Task.TITLE));
-            assertEquals(dueDate, (long)t.getValue(Task.DUE_DATE));
-            assertTrue(t.isCompleted());
-
-            cursor.moveToNext();
-            t.readFromCursor(cursor);
             assertEquals(title, t.getValue(Task.TITLE));
             assertFalse(t.isCompleted());
             long newDueDate = t.getValue(Task.DUE_DATE);
@@ -198,7 +195,6 @@ public class NewRepeatTests<REMOTE_MODEL> extends DatabaseTestCase {
         }
 
         Weekday[] allWeekdays = Weekday.values();
-        result -= DateUtilities.ONE_DAY;
         Date date = new Date(result);
         Weekday start = allWeekdays[date.getDay()];
         int i;
@@ -409,11 +405,11 @@ public class NewRepeatTests<REMOTE_MODEL> extends DatabaseTestCase {
 
     // disabled until test can be fixed
     public void testAdvancedRepeatWeeklyFromDueDateCompleteBefore() {
-        // testAdvancedWeeklyFromDueDate(true, "advanced-weekly-before");
+        testAdvancedWeeklyFromDueDate(true, "advanced-weekly-before");
     }
 
     public void testAdvancedRepeatWeeklyFromDueDateCompleteAfter() {
-        // testAdvancedWeeklyFromDueDate(false, "advanced-weekly-after");
+        testAdvancedWeeklyFromDueDate(false, "advanced-weekly-after");
     }
 
     public void testAdvancedRepeatWeeklyFromCompleteDateCompleteBefore() {

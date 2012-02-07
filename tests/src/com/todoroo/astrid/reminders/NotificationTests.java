@@ -8,6 +8,7 @@ import android.content.Intent;
 import com.timsu.astrid.R;
 import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.NotificationManager;
+import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.astrid.dao.TaskDao;
@@ -26,7 +27,7 @@ public class NotificationTests extends DatabaseTestCase {
     @Override
     protected void setUp() throws Exception {
         super.setUp();
-        fail("fix me! i crash a lot.");
+        //fail("fix me! i crash a lot.");
     }
 
     @Override
@@ -55,6 +56,7 @@ public class NotificationTests extends DatabaseTestCase {
         intent.putExtra(Notifications.ID_KEY, task.getId());
         intent.putExtra(Notifications.EXTRAS_TYPE, ReminderService.TYPE_DUE);
         new Notifications().onReceive(getContext(), intent);
+        AndroidUtilities.sleepDeep(500L); // Make sure receive happens
         assertTrue(triggered.value);
     }
 
