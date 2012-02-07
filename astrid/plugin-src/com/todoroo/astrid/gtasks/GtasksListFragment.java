@@ -1,5 +1,6 @@
 package com.todoroo.astrid.gtasks;
 
+import android.app.Activity;
 import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.support.v4.view.Menu;
@@ -177,11 +178,14 @@ public class GtasksListFragment extends DraggableTaskListFragment {
                 if (listId != null) {
                     gtasksTaskListUpdater.correctMetadataForList(listId);
                 }
-                getActivity().runOnUiThread(new Runnable() {
-                    public void run() {
-                        loadTaskListContent(true);
-                    }
-                });
+                Activity activity = getActivity();
+                if (activity != null) {
+                    activity.runOnUiThread(new Runnable() {
+                        public void run() {
+                            loadTaskListContent(true);
+                        }
+                    });
+                }
             }
         }.start();
     }
