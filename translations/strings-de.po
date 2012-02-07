@@ -870,11 +870,6 @@ msgstr "Astrid: Neue Aufgabe"
 msgid "Basic"
 msgstr "Allgemein"
 
-#. Third Tab - add-ons
-#: translations/strings.xml:546( name="TEA_tab_more")
-msgid "More"
-msgstr "Mehr"
-
 #. Task title label
 #: translations/strings.xml:549( name="TEA_title_label")
 msgid "Title"

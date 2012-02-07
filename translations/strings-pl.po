@@ -2879,10 +2879,10 @@ msgstr "Potrzebna synchronizacja z RTM"
 msgid "Remember the Milk"
 msgstr "Remember the Milk"
 
-#. filter category for RTM lists
-#: translations/strings.xml:1808( name="rmilk_FEx_list") translations/strings.xml:1875( name="tag_TLA_menu") translations/strings.xml:1897( name="tag_FEx_header")
-msgid "Lists"
-msgstr "Listy"
+
+
+
+
 
 #. RTM list filter title (%s => list)
 #: translations/strings.xml:1811( name="rmilk_FEx_list_title")
@@ -2952,10 +2952,10 @@ msgstr "Wybierz listę"
 msgid "Show List"
 msgstr "Pokaż listę"
 
-#. Dialog: new list
-#: translations/strings.xml:1883( name="tag_new_list")
-msgid "New List"
-msgstr "Nowa lista"
+
+
+
+
 
 #. Dialog: list saved
 #: translations/strings.xml:1886( name="tag_list_saved")
@@ -3312,10 +3312,10 @@ msgstr "Nie"
 msgid "Close"
 msgstr "Zamknij"
 
-#. general dialog done
-#: translations/strings.xml:2117( name="DLG_done")
-msgid "Done"
-msgstr "Gotowe"
+
+
+
+
 
 #. error dialog (%s => error message)
 #: translations/strings.xml:2120( name="DLG_error")
