@@ -2239,7 +2239,7 @@
   <string name="TEA_no_tags_modified">Nenhuma mudança efetuada</string>
 
   <!-- Toast notification that a tag has been deleted -->
-  <string name="TEA_tags_deleted">A Lista %s foi excluída, afetando %2$d tarefas</string>
+  <string name="TEA_tags_deleted">A Lista %1$s foi excluída, afetando %2$d tarefas</string>
   
   <!-- Toast notification that a shared tag has been left -->
   <string name="TEA_tags_left">You left shared list %1$s, affecting %2$d tasks</string>

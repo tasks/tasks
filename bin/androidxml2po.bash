@@ -37,7 +37,7 @@ fi
 
 # Set the languages here (po -> name of .po file. res -> name of res folder)
 po_lang=( "ca" "cs" "da" "de" "es" "fr" "he" "it" "ja" "ko" "nb" "nl" "pl" "pt" "pt_BR" "ru" "sv" "th" "tr" "zh_CN"  "zh_TW")
-res_lang=("ca" "cs" "da" "de" "es" "fr" "he" "it" "ja" "ko" "nb" "nl" "pl" "pt" "pt_BR" "ru" "sv" "th" "tr" "zh-rCN" "zh-rTW")
+res_lang=("ca" "cs" "da" "de" "es" "fr" "he" "it" "ja" "ko" "nb" "nl" "pl" "pt" "pt-rBR" "ru" "sv" "th" "tr" "zh-rCN" "zh-rTW")
 
 #Change the dirs where the files are located.
 launchpad_po_files_dir="translations"
@@ -146,4 +146,4 @@ while [ "$1" != "" ]; do
     shift
 done
 usage
-<
+

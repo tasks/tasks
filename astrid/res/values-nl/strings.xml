@@ -2227,7 +2227,7 @@
   <string name="TEA_no_tags_modified">Niets gewijzigd</string>
 
   <!-- Toast notification that a tag has been deleted -->
-  <string name="TEA_tags_deleted">De lijst %1 is verwijderd, van invloed op %2$d taken</string>
+  <string name="TEA_tags_deleted">De lijst %1$s is verwijderd, van invloed op %2$d taken</string>
   
   <!-- Toast notification that a shared tag has been left -->
   <string name="TEA_tags_left">You left shared list %1$s, affecting %2$d tasks</string>
