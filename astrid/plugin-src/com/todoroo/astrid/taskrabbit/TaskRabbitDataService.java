@@ -190,9 +190,7 @@ public final class TaskRabbitDataService {
         ArrayList<Metadata> metadata = new ArrayList<Metadata>();
         TodorooCursor<Metadata> metadataCursor = metadataService.query(Query.select(Metadata.PROPERTIES).
                 where(Criterion.and(MetadataCriteria.byTask(task.getId()),
-                        Criterion.or(MetadataCriteria.withKey(TagService.KEY),
-                                MetadataCriteria.withKey(TaskRabbitMetadata.METADATA_KEY),
-                                MetadataCriteria.withKey(NoteMetadata.METADATA_KEY)))));
+                                MetadataCriteria.withKey(TaskRabbitMetadata.METADATA_KEY))));
         try {
             for(metadataCursor.moveToFirst(); !metadataCursor.isAfterLast(); metadataCursor.moveToNext()) {
                 metadata.add(new Metadata(metadataCursor));

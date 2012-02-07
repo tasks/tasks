@@ -1,35 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
-    android:layout_height="fill_parent" 
-    android:orientation="vertical">
+    android:layout_height="fill_parent"
+    android:orientation="vertical"
+    style="@style/Content_EditScroll" >
 
     <com.google.android.maps.MapView
         android:id="@+id/map_view"
         android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:layout_weight="9"
+        android:layout_height="wrap_content"
+        android:layout_weight="12"
         android:apiKey="0J-miH1uUbgW2wG77C9qZiqvpBW8FEnoRnn7qBw"
         android:clickable="true" />
 
     <LinearLayout
         android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
         android:layout_weight="1"
-        android:layout_height="wrap_content" >
+        android:minHeight="50dip" >
 
         <EditText
             android:id="@+id/search_text"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="46 Watertree Ct. The Woodlands TX 77380"
-            android:layout_weight="3" />
+            android:layout_height="fill_parent"
+            android:layout_weight="10"
+            android:hint="Enter address"/>
 
-        <Button
+        <ImageButton
             android:id="@+id/search_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Search"
-            android:layout_weight="1" />
+            android:layout_width="50dip"
+            android:layout_height="50dip"
+            android:layout_weight="1"
+            android:scaleType="center" />
     </LinearLayout>
 
 </LinearLayout>

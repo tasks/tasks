@@ -17,7 +17,7 @@ import com.timsu.astrid.R;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.andlib.utility.DialogUtilities;
 import com.todoroo.astrid.data.Task;
-import com.todoroo.astrid.taskrabbit.TaskRabbitControlSet.TaskRabbitSetListener;
+import com.todoroo.astrid.taskrabbit.TaskRabbitActivity.TaskRabbitSetListener;
 import com.todoroo.astrid.ui.DateAndTimePicker;
 import com.todoroo.astrid.ui.PopupControlSet;
 
@@ -47,7 +47,8 @@ public class TaskRabbitDeadlineControlSet extends PopupControlSet implements Tas
     protected void refreshDisplayView() {
         TextView dateDisplay = (TextView) getDisplayView().findViewById(R.id.display_row_edit);
         String toDisplay = dateAndTimePicker.getDisplayString(activity);
-        dateDisplay.setText(toDisplay);
+        if (dateDisplay != null)
+            dateDisplay.setText(toDisplay);
     }
 
     @Override
@@ -64,20 +65,22 @@ public class TaskRabbitDeadlineControlSet extends PopupControlSet implements Tas
 
     @Override
     public void readFromModel(JSONObject json, String key) {
-            long dateValue = json.optLong(key);
-            Date currentDate = null;
-            if (dateValue < 24) {
+
+        long dateValue = json.optLong(key);
+        Date currentDate = null;
+        if (dateValue < 24) {
+            if(dateAndTimePicker.constructDueDate() > 0) return;
             currentDate = new Date();
             currentDate.setHours((int)dateValue);
             currentDate.setMinutes(0);
             currentDate.setSeconds(0);
-            }
-            else {
-                currentDate = new Date(dateValue);
-            }
+        }
+        else {
+            currentDate = new Date(dateValue);
+        }
 
-            dateAndTimePicker.initializeWithDate(DateUtilities.dateToUnixtime(currentDate)+ DateUtilities.ONE_DAY);
-            refreshDisplayView();
+        dateAndTimePicker.initializeWithDate(DateUtilities.dateToUnixtime(currentDate)+ DateUtilities.ONE_DAY);
+        refreshDisplayView();
     }
 
 

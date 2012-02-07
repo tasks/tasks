@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="horizontal" >
+    
+        <RelativeLayout
+            android:id="@+id/menu_nav"
+            android:layout_width="wrap_content"
+            android:layout_height="fill_parent"
+            android:layout_margin="5dip"
+            android:gravity="center_vertical"
+            android:paddingLeft="5dip"
+            android:paddingRight="5dip" >
+
+            <TextView
+                android:id="@+id/task_rabbit_title"
+                style="@style/TextAppearance.ActionBar_ListsHeader"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:ellipsize="end"
+                android:gravity="center_vertical"
+                android:singleLine="true"
+                android:text="@string/BFE_Active" />
+
+            <ImageView
+                android:id="@+id/menu_disclosure_arrow"
+                android:layout_width="12dip"
+                android:layout_height="12dip"
+                android:layout_alignBottom="@id/task_rabbit_title"
+                android:layout_marginLeft="10dip"
+                android:layout_toRightOf="@id/task_rabbit_title"
+                android:scaleType="fitCenter"
+                android:src="?attr/asListsDisclosure" />
+        </RelativeLayout>
+
+</LinearLayout>

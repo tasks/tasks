@@ -508,7 +508,7 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
         // EditPeopleControlSet relies on the "tags" transitory created by the
         // TagsControlSet, so we put the tags control before the people control
 
-        taskRabbitControl = new TaskRabbitControlSet(this, R.layout.task_rabbit_enter, R.layout.control_set_default_display);
+        taskRabbitControl = new TaskRabbitControlSet(this, R.layout.control_set_default_display);
         controls.add(taskRabbitControl);
 
         controls.add(peopleControlSet = new EditPeopleControlSet(getActivity(), this,
@@ -517,7 +517,7 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
                 R.string.actfm_EPA_assign_label_long, REQUEST_LOG_IN));
         controlSetMap.put(getString(R.string.TEA_ctrl_who_pref),
                 peopleControlSet);
-            peopleControlSet.addListener(taskRabbitControl);
+        peopleControlSet.addListener(taskRabbitControl);
 
 
         RepeatControlSet repeatControls = new RepeatControlSet(getActivity(),
@@ -1102,10 +1102,10 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (editNotes != null && editNotes.activityResult(requestCode, resultCode, data)) {
+        if (taskRabbitControl != null && taskRabbitControl.activityResult(requestCode, resultCode, data)) {
             return;
         }
-        else if (taskRabbitControl != null && taskRabbitControl.activityResult(requestCode, resultCode, data)) {
+        else if (editNotes != null && editNotes.activityResult(requestCode, resultCode, data)) {
             return;
         }
         else if (requestCode == REQUEST_VOICE_RECOG
@@ -1277,7 +1277,7 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
 
     // EditNoteActivity Lisener when there are new updates/comments
     @Override
-    public void updatesChanged() {
+    public void updatesChanged()  {
         setCurrentTab(TAB_VIEW_UPDATES);
         this.setPagerHeightForPosition(TAB_VIEW_UPDATES);
     }

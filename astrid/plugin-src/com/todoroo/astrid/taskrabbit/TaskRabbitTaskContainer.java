@@ -42,17 +42,28 @@ public class TaskRabbitTaskContainer extends SyncContainer {
         return getJSONData(TaskRabbitMetadata.DATA_REMOTE);
     }
 
-    public String getTaskID() {
-        return trTask.getValue(TaskRabbitMetadata.ID);
+    public int getTaskID() {
+
+        try {
+            int taskID = Integer.parseInt(trTask.getValue(TaskRabbitMetadata.ID));
+            if(taskID > 0)
+                return taskID;
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
+        return 0;
     }
     private JSONObject getJSONData(StringProperty key) {
-        String jsonString = trTask.getValue(key);
-        if (!TextUtils.isEmpty(jsonString)) {
-            try {
-                return new JSONObject(jsonString);
-            } catch (Exception e) {
-                Log.e("Task Rabbit task container", //$NON-NLS-1$
-                        e.toString());
+        if(trTask.containsNonNullValue(key)) {
+            String jsonString = trTask.getValue(key);
+            if (!TextUtils.isEmpty(jsonString)) {
+                try {
+                    return new JSONObject(jsonString);
+                } catch (Exception e) {
+                    Log.e("Task Rabbit task container", //$NON-NLS-1$
+                            e.toString());
+                }
             }
         }
         return null;

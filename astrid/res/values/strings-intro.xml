@@ -86,4 +86,7 @@
   For free, you get online backup, full synchronization with Astrid.com, the 
   ability to add tasks via email, and you can even share task lists with friends!</string>
   
+  
+  <!-- Shown after user goes to task rabbit activity-->
+  <string name="help_popover_add_lists">Change your type here</string>
 </resources>

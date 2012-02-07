@@ -19,7 +19,7 @@ public class TaskRabbitMapOverlayItem extends ItemizedOverlay {
     private final ArrayList<OverlayItem> mOverlays = new ArrayList<OverlayItem>();
 
     private Drawable defaultMarker;
-    private Activity mActivity;
+    private TaskRabbitMapActivity mActivity;
     private OverlayItem inDrag;
     private int xDragImageOffset=0;
     private int yDragImageOffset=0;
@@ -33,7 +33,7 @@ public class TaskRabbitMapOverlayItem extends ItemizedOverlay {
         super(boundCenterBottom(defaultMarker));
     }
 
-    public TaskRabbitMapOverlayItem(Drawable defaultMarker, Activity activity) {
+    public TaskRabbitMapOverlayItem(Drawable defaultMarker, TaskRabbitMapActivity activity) {
         super(boundCenterBottom(defaultMarker));
         this.defaultMarker = defaultMarker;
         mActivity = activity;
@@ -88,6 +88,7 @@ public class TaskRabbitMapOverlayItem extends ItemizedOverlay {
                                 Intent data = new Intent();
                                 data.putExtra("lat",selectedItem.getPoint().getLatitudeE6());
                                 data.putExtra("lng",selectedItem.getPoint().getLongitudeE6());
+                                data.putExtra("name",mActivity.getSearchText());
                                 mActivity.setResult(Activity.RESULT_OK, data);
                                 mActivity.finish();
                             }

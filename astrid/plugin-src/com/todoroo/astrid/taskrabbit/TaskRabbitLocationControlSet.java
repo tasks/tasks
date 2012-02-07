@@ -12,7 +12,6 @@ import android.content.Intent;
 import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
-import android.support.v4.app.Fragment;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
@@ -22,30 +21,29 @@ import android.widget.TextView;
 import com.timsu.astrid.R;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.helper.TaskEditControlSet;
-import com.todoroo.astrid.taskrabbit.TaskRabbitControlSet.TaskRabbitSetListener;
+import com.todoroo.astrid.taskrabbit.TaskRabbitActivity.ActivityResultSetListener;
+import com.todoroo.astrid.taskrabbit.TaskRabbitActivity.TaskRabbitSetListener;
 
-public class TaskRabbitLocationControlSet extends TaskEditControlSet implements TaskRabbitSetListener {
+public class TaskRabbitLocationControlSet extends TaskEditControlSet implements TaskRabbitSetListener, ActivityResultSetListener {
 
     private final int setID;
-    private final int type;
     private final TextView displayText;
     private final TextView displayEdit;
-    private final Fragment fragment;
+    private final Activity activity;
     private Location location;
     private String locationName;
 
     public int REQUEST_CODE_TASK_RABBIT_LOCATION = 6;
 
-    public  TaskRabbitLocationControlSet(final Fragment fragment , int viewLayout, int title, int setID, int type) {
-        super(fragment.getActivity(), viewLayout);
+    public  TaskRabbitLocationControlSet(final Activity activity , int viewLayout, int title, int setID) {
+        super(activity, viewLayout);
         this.setID = setID;
-        this.type = type;
-        this.fragment = fragment;
+        this.activity = activity;
         //        DependencyInjectionService.getInstance().inject(this);
         REQUEST_CODE_TASK_RABBIT_LOCATION += setID;
 
         displayText = (TextView) getDisplayView().findViewById(R.id.display_row_title);
-        displayText.setText(getActivity().getString(title));
+        displayText.setText(activity.getString(title));
 
         displayEdit = (TextView) getDisplayView().findViewById(R.id.display_row_edit);
         displayEdit.setText(getLocationText());
@@ -54,18 +52,13 @@ public class TaskRabbitLocationControlSet extends TaskEditControlSet implements 
 
             @Override
             public void onClick(View v) {
-                Intent mapIntent = new Intent(getActivity(), TaskRabbitMapActivity.class);
-                fragment.startActivityForResult(mapIntent, REQUEST_CODE_TASK_RABBIT_LOCATION);
+                Intent mapIntent = new Intent(activity, TaskRabbitMapActivity.class);
+                activity.startActivityForResult(mapIntent, REQUEST_CODE_TASK_RABBIT_LOCATION);
 
             }
         });
 
     }
-
-    private Activity getActivity() {
-        return fragment.getActivity();
-    }
-
 
     private void parseTaskLocation(JSONObject json) {
 
@@ -80,14 +73,13 @@ public class TaskRabbitLocationControlSet extends TaskEditControlSet implements 
     }
 
     public String getLocationText () {
-        if (!TextUtils.isEmpty(locationName) && location != null)
-            return String.format("%S (%d : %d)", locationName, location.getLongitude(), location.getLatitude());
+        if (!TextUtils.isEmpty(locationName))
+            return locationName;
 
-        return "Current location";
+        return "Location is set";
     }
     public boolean activityResult (int requestCode, int resultCode, Intent data) {
         if (requestCode == REQUEST_CODE_TASK_RABBIT_LOCATION && resultCode == Activity.RESULT_OK) {
-
             int lng = data.getIntExtra("lng", 0);
             int lat = data.getIntExtra("lat", 0);
             locationName = data.getStringExtra("name");
@@ -115,7 +107,7 @@ public class TaskRabbitLocationControlSet extends TaskEditControlSet implements 
 
     private void getAddressFromLocation(Location location){
         try {
-            Geocoder geocoder = new Geocoder(fragment.getActivity(), Locale.getDefault());
+            Geocoder geocoder = new Geocoder(activity, Locale.getDefault());
             // Acquire a reference to the system Location Manager
             List<Address> addresses = geocoder.getFromLocation(location.getLatitude(), location.getLongitude(), 1);
             if (addresses != null){
@@ -149,16 +141,19 @@ public class TaskRabbitLocationControlSet extends TaskEditControlSet implements 
     @Override
     public void saveToJSON(JSONObject json, String key) throws JSONException {
         json.put(key, getTaskLocation());
+        Log.d("LOCATION SAVE", json.toString());
     }
 
     @Override
     public void writeToJSON(JSONObject json, String key) throws JSONException {
+        Log.d("LOCATION", "LOCEIJREGHSK");
         JSONArray locations = json.optJSONArray("other_locations_attributes");
         if (locations == null) {
             locations = new JSONArray();
         }
         locations.put(getTaskLocation());
         json.put("other_locations_attributes", locations);
+        Log.d("LOCATION", "LALALALAL" + json.toString());
 
     }
 
@@ -178,6 +173,7 @@ public class TaskRabbitLocationControlSet extends TaskEditControlSet implements 
                 locationObject.put("lat", location.getLatitude());
             }
             else {
+                // TODO FIX THIS DON"T PUT IN ADDRESSES
                 locationObject.put("address", "300 Beale");
                 locationObject.put("city", "San Francisco");
                 locationObject.put("state", "CA");

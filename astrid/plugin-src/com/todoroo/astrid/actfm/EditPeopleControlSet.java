@@ -112,9 +112,11 @@ public class EditPeopleControlSet extends PopupControlSet {
     private final List<AssignedChangedListener> listeners = new LinkedList<AssignedChangedListener>();
 
     public interface AssignedChangedListener {
-        public void assignedChanged(String name, JSONObject json);
+        public boolean showTaskRabbitForUser(String name, JSONObject json);
         public boolean shouldShowTaskRabbit();
     }
+
+    int selected = 0; //need to remember last selected state for task rabbit
 
     static {
         AstridDependencyInjector.initialize();
@@ -390,7 +392,7 @@ public class EditPeopleControlSet extends PopupControlSet {
             }
         }
 
-        final int selected = assignedIndex;
+        selected = assignedIndex;
 
         final AssignedUserAdapter usersAdapter = new AssignedUserAdapter(activity, listValues);
         activity.runOnUiThread(new Runnable() {
@@ -449,11 +451,19 @@ public class EditPeopleControlSet extends PopupControlSet {
             public void onItemClick(AdapterView<?> arg0, View arg1, int position,
                     long id) {
                 AssignedToUser user = (AssignedToUser) assignedList.getAdapter().getItem(position);
+
+                for (AssignedChangedListener l : listeners) {
+                    if(l.showTaskRabbitForUser(user.label, user.user)) {
+                        assignedList.setItemChecked(selected, true);
+                        assignedList.setItemChecked(position, false);
+                        DialogUtilities.dismissDialog(activity, dialog);
+                        return;
+                    }
+
+                }
                 assignedDisplay.setText(user.toString());
                 assignedCustom.setText(""); //$NON-NLS-1$
-                for (AssignedChangedListener l : listeners) {
-                    l.assignedChanged(user.label, user.user);
-                }
+                selected = position;
                 refreshDisplayView();
                 DialogUtilities.dismissDialog(activity, dialog);
             }
@@ -464,7 +474,8 @@ public class EditPeopleControlSet extends PopupControlSet {
             @Override
             public void onClick(View v) {
                 assignedCustom.setText(""); //$NON-NLS-1$
-                assignedList.setItemChecked(0, true);
+                selected = 0;
+                assignedList.setItemChecked(selected, true);
             }
         });
 

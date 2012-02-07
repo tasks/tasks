@@ -5,6 +5,8 @@ import java.util.Locale;
 
 import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.location.Address;
 import android.location.Geocoder;
@@ -14,9 +16,10 @@ import android.location.LocationManager;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.provider.Settings;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 
 import com.google.android.maps.GeoPoint;
 import com.google.android.maps.MapActivity;
@@ -33,6 +36,7 @@ public class TaskRabbitMapActivity extends MapActivity implements LocationListen
     private MapController mapController;
     public Location location;
     private EditText searchText;
+    private TaskRabbitMapOverlayItem currentOverlayItem;
     /** Called when the activity is first created. */
     @Override
     public void onCreate(Bundle savedInstanceState)
@@ -51,31 +55,33 @@ public class TaskRabbitMapActivity extends MapActivity implements LocationListen
         List<Overlay> mapOverlays = mapView.getOverlays();
 
         Drawable drawable = this.getResources().getDrawable(R.drawable.icon_locale);
-        TaskRabbitMapOverlayItem itemizedoverlay = new TaskRabbitMapOverlayItem(drawable, this);
+        currentOverlayItem = new TaskRabbitMapOverlayItem(drawable, this);
         GeoPoint point = null;
+
+        mapController = mapView.getController();
         if(lastKnownLocation != null) {
 
             point = new GeoPoint((int)(lastKnownLocation.getLatitude()*1E6),(int)(lastKnownLocation.getLongitude()*1E6));
+            OverlayItem overlayitem = new OverlayItem(point, "Set this location", "Send this location to Task Rabbit!");
+            currentOverlayItem.addOverlay(overlayitem);
+            mapOverlays.add(currentOverlayItem);
+
+
+            mapController.animateTo(point);
+            mapController.setZoom(17);
+            mapView.invalidate();
+
         }
-        else {
-            point = new GeoPoint(19240000,-99120000);
+
+        if ( !locationManager.isProviderEnabled( LocationManager.GPS_PROVIDER ) || !locationManager.isProviderEnabled( LocationManager.NETWORK_PROVIDER )) {
+            buildAlertMessageNoGps();
         }
 
-        OverlayItem overlayitem = new OverlayItem(point, "Set this location", "For the rabbits!");
-        itemizedoverlay.addOverlay(overlayitem);
-        mapOverlays.add(itemizedoverlay);
-
-
-
-
-        mapController = mapView.getController();
-        mapController.animateTo(point);
-        mapController.setZoom(17);
-        mapView.invalidate();
 
         searchText=(EditText)findViewById(R.id.search_text);
 
-        Button searchButton=(Button)findViewById(R.id.search_button);
+        ImageButton searchButton=(ImageButton)findViewById(R.id.search_button);
+        searchButton.setImageResource(android.R.drawable.ic_menu_search);
         searchButton.setOnClickListener(new View.OnClickListener() {
 
             @Override
@@ -86,7 +92,31 @@ public class TaskRabbitMapActivity extends MapActivity implements LocationListen
             }
         });
 
+
     }
+
+    public String getSearchText() {
+        return searchText.getText().toString();
+    }
+
+    private void buildAlertMessageNoGps() {
+        final AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setMessage("GPS needs to be enabled in order to add location based tasks. Do you want to enable it?")
+        .setCancelable(false)
+        .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+            public void onClick(@SuppressWarnings("unused") final DialogInterface dialog, @SuppressWarnings("unused") final int id) {
+                startActivity(new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS));
+            }
+        })
+        .setNegativeButton("No", new DialogInterface.OnClickListener() {
+            public void onClick(final DialogInterface dialog, @SuppressWarnings("unused") final int id) {
+                dialog.cancel();
+            }
+        });
+        final AlertDialog alert = builder.create();
+        alert.show();
+    }
+
 
     private final Handler handler = new Handler() {
 
@@ -96,6 +126,7 @@ public class TaskRabbitMapActivity extends MapActivity implements LocationListen
             case 1:
 
                 mapView.invalidate();
+                currentOverlayItem.onTap(0);
                 // What to do when ready, example:
                 break;
             case -1:
@@ -131,16 +162,16 @@ public class TaskRabbitMapActivity extends MapActivity implements LocationListen
                     (int) (addresses.get(0).getLongitude() * 1E6));
 
             Drawable drawable = TaskRabbitMapActivity.this.getResources().getDrawable(R.drawable.icon_locale);
-            TaskRabbitMapOverlayItem itemizedoverlay = new TaskRabbitMapOverlayItem(drawable, TaskRabbitMapActivity.this);
+            currentOverlayItem = new TaskRabbitMapOverlayItem(drawable, TaskRabbitMapActivity.this);
             mapController.animateTo(q);
             mapController.setZoom(12);
 
             OverlayItem overlayitem = new OverlayItem(q, "Set this location", "For the rabbits!");
 
-            itemizedoverlay.addOverlay(overlayitem);
+            currentOverlayItem.addOverlay(overlayitem);
             List<Overlay> mapOverlays = mapView.getOverlays();
             mapOverlays.clear();
-            mapOverlays.add(itemizedoverlay);
+            mapOverlays.add(currentOverlayItem);
 
             Message successMessage = new Message();
             successMessage.what = 1;
@@ -169,11 +200,11 @@ public class TaskRabbitMapActivity extends MapActivity implements LocationListen
     private void updateLocationOverlay() {
         if (location == null) { return; };
         List<Overlay> mapOverlays = mapView.getOverlays();
-        Drawable drawable = this.getResources().getDrawable(R.drawable.gl_alarm);
+        Drawable drawable = this.getResources().getDrawable(R.drawable.icon_locale);
         TaskRabbitMapOverlayItem myItemizedOverlay = new TaskRabbitMapOverlayItem(drawable);
         GeoPoint point = new GeoPoint((int)(location.getLatitude() * 1E6), (int)(location.getLongitude() * 1E6));
 
-        OverlayItem overlayitem = new OverlayItem(point, "Astrid!!", "WOrks!");
+        OverlayItem overlayitem = new OverlayItem(point, "Set this location", "For the rabbits!");
         myItemizedOverlay.addOverlay(overlayitem);
         mapOverlays.add(myItemizedOverlay);
     }
@@ -185,7 +216,9 @@ public class TaskRabbitMapActivity extends MapActivity implements LocationListen
             double lng = location.getLongitude();
             this.location = location;
             GeoPoint p = new GeoPoint((int) lat * 1000000, (int) lng * 1000000);
+            updateLocationOverlay();
             mapController.animateTo(p);
+
         }
     }
     @Override

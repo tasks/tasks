@@ -25,7 +25,7 @@ public class EditNotesControlSet extends PopupControlSet {
     public EditNotesControlSet(Activity activity, int viewLayout, int displayViewLayout) {
         super(activity, viewLayout, displayViewLayout, R.string.TEA_note_label);
         editText = (EditText) getView().findViewById(R.id.notes);
-        notesPreview = (TextViewWithMeasureListener) getDisplayView().findViewById(R.id.notes_display);
+        notesPreview = (TextViewWithMeasureListener) getDisplayView().findViewById(R.id.display_row_edit);
         notesBody = (LinearLayout) getDisplayView().findViewById(R.id.notes_body);
         dialog.getWindow()
               .setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE | WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);

@@ -32,7 +32,7 @@ public abstract class PopupControlSet extends TaskEditControlSet {
             this.displayView = LayoutInflater.from(activity).inflate(displayViewLayout, null);
             displayText = (TextView) displayView.findViewById(R.id.display_row_title);
             if (displayText != null) {
-            displayText.setMaxLines(2);
+                displayText.setMaxLines(2);
             }
         }
         else {
@@ -66,46 +66,6 @@ public abstract class PopupControlSet extends TaskEditControlSet {
             displayView.setOnClickListener(getDisplayClickListener());
         }
     }
-
-    public PopupControlSet(Activity activity, int viewLayout, int displayViewLayout, String title) {
-        super(activity, viewLayout);
-        if (displayViewLayout != -1){
-            this.displayView = LayoutInflater.from(activity).inflate(displayViewLayout, null);
-            displayText = (TextView) displayView.findViewById(R.id.display_row_title);
-            if (displayText != null) {
-            displayText.setMaxLines(2);
-            }
-        }
-        else {
-            this.displayView = null;
-            this.displayText = null;
-        }
-
-        final DialogInterface.OnClickListener okListener = new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface d, int which) {
-                onOkClick();
-            }
-        };
-
-        final DialogInterface.OnCancelListener cancelListener = new DialogInterface.OnCancelListener() {
-            @Override
-            public void onCancel(DialogInterface d) {
-                onCancelClick();
-            }
-        };
-
-        this.activity = activity;
-
-
-        dialog = buildDialog(title, okListener, cancelListener);
-
-
-        if (displayView != null) {
-            displayView.setOnClickListener(getDisplayClickListener());
-        }
-    }
-
     @Override
     public View getDisplayView() {
         return displayView;

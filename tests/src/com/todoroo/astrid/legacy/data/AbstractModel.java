@@ -40,7 +40,7 @@ public abstract class AbstractModel {
     protected ContentValues setValues = new ContentValues();
 
     /** Cached values from database */
-    private ContentValues   values    = new ContentValues();
+    private final ContentValues   values    = new ContentValues();
 
     /** Cursor into the database */
     private Cursor          cursor    = null;
@@ -191,6 +191,7 @@ public abstract class AbstractModel {
                 return value;
             } catch (Exception e) {
                 // error reading from cursor, try to continue
+                e.printStackTrace();
             }
         }
 

@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical" >
+
+    <!-- notes -->
+
+    <ScrollView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="100" >
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="horizontal" >
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="fill_parent"
+                android:orientation="vertical" >
+
+                <ImageButton
+                    android:id="@+id/picture"
+                    android:layout_width="40dip"
+                    android:layout_height="40dip"
+                    android:background="#00000000"
+                    android:paddingLeft="7dip"
+                    android:scaleType="centerInside"
+                    android:src="@drawable/camera_button" />
+                <!-- Voice Add Note Button -->
+
+                <ImageButton
+                    android:id="@+id/voiceAddNoteButton"
+                    android:layout_width="40dip"
+                    android:layout_height="40dip"
+                    android:background="#00000000"
+                    android:paddingLeft="7dip"
+                    android:scaleType="centerInside"
+                    android:src="@android:drawable/ic_btn_speak_now"
+                    android:visibility="gone" />
+            </LinearLayout>
+
+            <EditText
+                android:id="@+id/notes"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="9dip"
+                android:layout_marginRight="9dip"
+                android:layout_weight="100"
+                android:autoText="true"
+                android:capitalize="sentences"
+                android:freezesText="true"
+                android:gravity="top"
+                android:hint="@string/TEA_notes_hint"
+                android:scrollbars="vertical"
+                android:singleLine="false" />
+        </LinearLayout>
+    </ScrollView>
+
+    <include layout="@layout/control_dialog_ok" />
+
+</LinearLayout>

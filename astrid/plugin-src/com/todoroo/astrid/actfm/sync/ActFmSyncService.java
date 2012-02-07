@@ -849,7 +849,7 @@ public final class ActFmSyncService {
         return result.optString("picture");
     }
 
-    private MultipartEntity buildPictureData(Bitmap bitmap) {
+    public static MultipartEntity buildPictureData(Bitmap bitmap) {
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         if(bitmap.getWidth() > 512 || bitmap.getHeight() > 512) {
             float scale = Math.min(512f / bitmap.getWidth(), 512f / bitmap.getHeight());

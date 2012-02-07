@@ -37,10 +37,10 @@
         <item>@array/tr_default_type_delivery</item>
         <item>@array/tr_default_type_handyman</item>
         <item>@array/tr_default_type_shopping</item>
+        <item>@array/tr_default_type_something_else</item>
     </array>
     
     <array name="tr_default_type_virtual">
-        <item>0</item>
         <item>-1</item>
         <item>-1</item>
         <item>4</item>
@@ -49,10 +49,10 @@
         <item>10</item>
         <item>-1</item>
         <item>0</item>
-        <item>25</item>
+        <item>2</item>
+        <item>0</item>
     </array>
     <array name="tr_default_type_food_delivery">
-        <item>1</item>
         <item>0</item>
         <item>-1</item>
         <item>-1</item>
@@ -61,10 +61,10 @@
         <item>10</item>
         <item>0</item>
         <item>1</item>
-        <item>20</item>
+        <item>2</item>
+        <item>0</item>
     </array>
     <array name="tr_default_type_cleaning">
-        <item>2</item>
         <item>-1</item>
         <item>0</item>
         <item>-1</item>
@@ -73,10 +73,10 @@
         <item>10</item>
         <item>-1</item>
         <item>0</item>
-        <item>25</item>
+        <item>2</item>
+        <item>0</item>
     </array>
     <array name="tr_default_type_donations">
-        <item>3</item>
         <item>-1</item>
         <item>0</item>
         <item>-1</item>
@@ -85,10 +85,10 @@
         <item>10</item>
         <item>0</item>
         <item>0</item>
-        <item>25</item>
+        <item>2</item>
+        <item>0</item>
     </array>
     <array name="tr_default_type_delivery">
-        <item>4</item>
         <item>-1</item>
         <item>0</item>
         <item>-1</item>
@@ -97,10 +97,10 @@
         <item>10</item>
         <item>0</item>
         <item>0</item>
-        <item>25</item>
+        <item>2</item>
+        <item>0</item>
     </array>
     <array name="tr_default_type_handyman">
-        <item>5</item>
         <item>-1</item>
         <item>0</item>
         <item>2</item>
@@ -109,10 +109,10 @@
         <item>10</item>
         <item>-1</item>
         <item>1</item>
-        <item>50</item>
+        <item>2</item>
+        <item>0</item>
     </array>
     <array name="tr_default_type_shopping">
-        <item>6</item>
         <item>-1</item>
         <item>0</item>
         <item>-1</item>
@@ -121,12 +121,12 @@
         <item>10</item>
         <item>0</item>
         <item>2</item>
-        <item>20</item>
+        <item>2</item>
+        <item>0</item>
     </array>
     
     <array name="tr_default_type_something_else">
-        <item>7</item>
-        <item>0</item>
+        <item>-1</item>
         <item>0</item>
         <item>-1</item>
         <item>-1</item>
@@ -134,7 +134,8 @@
         <item>10</item>
         <item>0</item>
         <item>2</item>
-        <item>20</item>
+        <item>2</item>
+        <item>0</item>
     </array>
     
     
@@ -159,7 +160,6 @@
 
     
     <string-array name="tr_default_set">
-        <item>@string/tr_set_type</item>
         <item>@string/tr_set_name</item>
         <item>@string/tr_set_location</item>
         <item>@string/tr_set_skill_required</item>
@@ -169,6 +169,7 @@
         <item>@string/tr_set_drop_off</item>
         <item>@string/tr_set_cost_in_cents</item>
         <item>@string/tr_set_named_price</item>
+        <item>@string/tr_set_description</item>
     </string-array>
     
     <!-- Control set title (do not translate) -->
@@ -181,11 +182,11 @@
     <string name="tr_set_deadline">Deadline</string>
     <string name="tr_set_drop_off">Dropoff</string>
     <string name="tr_set_cost_in_cents">Expenses</string>
-    <string name="tr_set_named_price">I will Pay</string>
+    <string name="tr_set_named_price">I\'ll Pay</string>
+    <string name="tr_set_description">Description</string>
     
         
     <string-array name="tr_default_set_key">
-        <item>@string/tr_set_key_type</item>
         <item>@string/tr_set_key_name</item>
         <item>@string/tr_set_key_location</item>
         <item>@string/tr_set_key_skill_required</item>
@@ -195,11 +196,12 @@
         <item>@string/tr_set_key_drop_off</item>
         <item>@string/tr_set_key_cost_in_cents</item>
         <item>@string/tr_set_key_named_price</item>
+        <item>@string/tr_set_key_description</item>
     </string-array>
     
     <!-- Control set key for json (do not translate) -->
-    <string name="tr_set_key_type">name</string>
-    <string name="tr_set_key_name">name:specific</string>
+    <string name="tr_set_key_type">type</string>
+    <string name="tr_set_key_name">name</string>
     <string name="tr_set_key_location">location</string>
     <string name="tr_set_key_skill_required">description:skill_required</string>
     <string name="tr_set_key_duration">description:duration</string>
@@ -212,23 +214,46 @@
     
     
     <array name="tr_default_array">
-        <item>@array/tr_empty_string_array</item>
-        <item>@array/tr_empty_string_array</item>
-        <item>@string/tr_location</item>
-        <item>@array/tr_default_skill</item>
+        <item>@string/tr_set_key_name</item>
+        <item>@string/tr_set_key_location</item>
+        <item>@array/tr_default_skill_virtual</item>
         <item>@array/tr_default_duration</item>
         <item>@array/tr_default_supplies</item>
-        <item>@string/tr_deadline</item>
-        <item>@string/tr_location</item>
+        <item>@string/tr_set_key_deadline</item>
+        <item>@string/tr_set_key_location</item>
         <item>@array/tr_default_cost_in_cents</item>
         <item>@array/tr_default_named_price</item>
+        <item>@string/tr_set_key_description</item>
     </array>
     
     
     <!-- Default options -->
     
     
-    <string-array name="tr_default_skill">
+    
+    
+    <array name="tr_default_skill_type_array">
+        <item>@array/tr_default_skill_virtual</item>
+        <item>@array/tr_default_named_price</item>
+        <item>@array/tr_type_default_price_cleaning</item>
+        <item>@array/tr_default_named_price</item>
+        <item>@array/tr_default_named_price</item>
+        <item>@array/tr_default_skill_handyman</item>
+        <item>@array/tr_default_named_price</item>
+        <item>@array/tr_default_named_price</item>
+    </array>
+    
+    
+    <string-array name="tr_default_skill_virtual">
+        <item>@string/tr_default_skill_research</item>
+        <item>@string/tr_default_skill_phone_calls</item>
+        <item>@string/tr_default_skill_event_planning</item>
+        <item>@string/tr_default_skill_usability_testing</item>
+        <item>@string/tr_default_skill_craigslist</item>
+        <item>@string/tr_default_skill_help</item>
+        <item>@string/tr_default_skill_ebay_help</item>
+    </string-array>
+    <string-array name="tr_default_skill_handyman">
         <item>@string/tr_default_skill_research</item>
         <item>@string/tr_default_skill_phone_calls</item>
         <item>@string/tr_default_skill_event_planning</item>
@@ -246,6 +271,7 @@
     <string name="tr_default_skill_craigslist">Craigslist</string>
     <string name="tr_default_skill_help">Help</string>
     <string name="tr_default_skill_ebay_help">eBay Help</string>
+    
     <string name="tr_default_skill_carpentry">Carpentry</string>
     <string name="tr_default_skill_assembly_repair">Assembly and Repair</string>
     <string name="tr_default_skill_plumbing">Plumbing</string>
@@ -270,6 +296,13 @@
         <item>@string/tr_default_cost_in_cents_100</item>
         <item>@string/tr_default_cost_in_cents_101</item>
     </string-array>
+    <string-array name="tr_default_cost_in_cents_display">
+        <item>@string/tr_default_cost_in_cents_0_display</item>
+        <item>@string/tr_default_cost_in_cents_25_display</item>
+        <item>@string/tr_default_cost_in_cents_50_display</item>
+        <item>@string/tr_default_cost_in_cents_100_display</item>
+        <item>@string/tr_default_cost_in_cents_101_display</item>
+    </string-array>
     
     <!-- cost_in_cents -->
     <string name="tr_default_cost_in_cents_0">$0</string>
@@ -278,21 +311,14 @@
     <string name="tr_default_cost_in_cents_100">Less than $100</string>
     <string name="tr_default_cost_in_cents_101">More than $100</string>
     
+    <!-- cost_in_cents display -->
+    <string name="tr_default_cost_in_cents_0_display">$0</string>
+    <string name="tr_default_cost_in_cents_25_display">&lt; $25</string>
+    <string name="tr_default_cost_in_cents_50_display">&lt; $50</string>
+    <string name="tr_default_cost_in_cents_100_display">&lt; $100</string>
+    <string name="tr_default_cost_in_cents_101_display">&gt; $100</string>
     
-    <string-array name="tr_default_named_price">
-        <item>@string/tr_default_named_price_10</item>
-        <item>@string/tr_default_named_price_20</item>
-        <item>@string/tr_default_named_price_30</item>
-        <item>@string/tr_default_named_price_40</item>
-    </string-array>
-    <!-- named_price -->
-    <string name="tr_default_named_price_10">$10</string>
-    <string name="tr_default_named_price_20">$20</string>
-    <string name="tr_default_named_price_30">$30</string>
-    <string name="tr_default_named_price_40">$40</string>
-    <string name="tr_default_named_price_50">$50</string>
-    <string name="tr_default_named_price_60">$60</string>
-    <string name="tr_default_named_price_70">$70</string>
+    
     
     
     <string-array name="tr_default_duration">
@@ -310,11 +336,6 @@
     <string name="tr_default_duration_10">I do not know</string>
     
   
-    <string-array name="tr_empty_string_array"></string-array>
-    <string name="tr_location">tr_location</string>
-    <string name="tr_deadline">tr_deadline</string>
-    <string name="tr_name">tr_name</string>
-    
     
     
     
@@ -322,13 +343,13 @@
     
     <array name="tr_default_price_type_array">
         <item>@array/tr_type_default_price_virtual</item>
-        <item>@array/tr_type_default_price_food_delivery</item>
+        <item>@array/tr_default_named_price</item>
         <item>@array/tr_type_default_price_cleaning</item>
-        <item>@array/tr_type_default_price_food_delivery</item>
-        <item>@array/tr_type_default_price_food_delivery</item>
+        <item>@array/tr_default_named_price</item>
+        <item>@array/tr_default_named_price</item>
         <item>@array/tr_type_default_price_handyman</item>
-        <item>@array/tr_type_default_price_food_delivery</item>
-        <item>@array/tr_type_default_price_food_delivery</item>
+        <item>@array/tr_default_named_price</item>
+        <item>@array/tr_default_named_price</item>
     </array>
 
     <string-array name="tr_type_default_price_virtual">
@@ -341,7 +362,7 @@
         <item>$55</item>
     </string-array>
     
-    <string-array name="tr_type_default_price_food_delivery">
+    <string-array name="tr_default_named_price">
         <item>$10</item>
         <item>$15</item>
         <item>$20</item>
