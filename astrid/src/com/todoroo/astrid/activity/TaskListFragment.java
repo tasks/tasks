@@ -594,6 +594,7 @@ public class TaskListFragment extends ListFragment implements OnScrollListener,
                                         AstridApiConstants.BROADCAST_EVENT_REFRESH));
                     }
                 });
+        getView().findViewById(R.id.progressBar).setVisibility(View.GONE);
     }
 
     // Subclasses can override these to customize extras in quickadd intent
@@ -1308,6 +1309,7 @@ public class TaskListFragment extends ListFragment implements OnScrollListener,
     }
 
     protected void performSyncServiceV2Sync(boolean manual) {
+        System.err.println("Autosyncing");
         syncService.synchronizeActiveTasks(manual, syncResultCallback);
         Preferences.setLong(PREF_LAST_AUTO_SYNC, DateUtilities.now());
     }

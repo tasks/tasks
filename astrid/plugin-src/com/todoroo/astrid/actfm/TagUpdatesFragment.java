@@ -226,29 +226,31 @@ public class TagUpdatesFragment extends ListFragment {
     }
 
     private void refreshActivity(boolean manual) {
-        final ProgressBarSyncResultCallback callback = new ProgressBarSyncResultCallback(
-                getActivity(), R.id.progressBar, new Runnable() {
-                    @Override
-                    public void run() {
-                        refreshUpdatesList();
-                    }
-                });
+        if (actFmPreferenceService.isLoggedIn()) {
+            final ProgressBarSyncResultCallback callback = new ProgressBarSyncResultCallback(
+                    getActivity(), R.id.progressBar, new Runnable() {
+                        @Override
+                        public void run() {
+                            refreshUpdatesList();
+                        }
+                    });
 
-        callback.started();
-        callback.incrementMax(100);
-        Runnable doneRunnable = new Runnable() {
-            @Override
-            public void run() {
-                callback.incrementProgress(50);
-                callback.finished();
+            callback.started();
+            callback.incrementMax(100);
+            Runnable doneRunnable = new Runnable() {
+                @Override
+                public void run() {
+                    callback.incrementProgress(50);
+                    callback.finished();
+                }
+            };
+            if (tagData != null) {
+                actFmSyncService.fetchUpdatesForTag(tagData, manual, doneRunnable);
+            } else {
+                actFmSyncService.fetchPersonalUpdates(manual, doneRunnable);
             }
-        };
-        if (tagData != null) {
-            actFmSyncService.fetchUpdatesForTag(tagData, manual, doneRunnable);
-        } else {
-            actFmSyncService.fetchPersonalUpdates(manual, doneRunnable);
+            callback.incrementProgress(50);
         }
-        callback.incrementProgress(50);
     }
 
     @SuppressWarnings("nls")

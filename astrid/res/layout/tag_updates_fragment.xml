@@ -6,7 +6,7 @@
     android:orientation="vertical" >
 
     <ProgressBar
-        android:id="@+id/progressBar"
+        android:id="@+id/comments_progressBar"
         style="@android:style/Widget.ProgressBar.Horizontal"
         android:layout_width="fill_parent"
         android:layout_height="5dip"
