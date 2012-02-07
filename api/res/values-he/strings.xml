@@ -92,6 +92,12 @@
   <!-- today -->
   <string name="yesterday">Yesterday</string>
   
+  <!-- tomorrow abbreviated -->
+  <string name="tmrw">Tmrw</string>
+  
+  <!-- today abbreviated -->
+  <string name="yest">Yest</string>
+  
   <!-- ================================================== Generic Dialogs == -->
   
   <!-- confirmation dialog title -->

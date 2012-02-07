@@ -3,33 +3,36 @@
 <resources xmlns:android="http://schemas.android.com/apk/res/android">
 
   <!-- ==================================================== Generic Units == -->
-      <string name="yesterday">Dün</string>
-    <string name="today">Bugün</string>
-    <string name="tomorrow">Yarın</string>
-
+  
   <plurals name="DUt_years">
     <!-- plurals: years -->
-    <item quantity="one">1 Year</item>
+    <item quantity="one">1 Yıl</item>
     <!-- plurals: years -->
-    <item quantity="other">%d Years</item>
+    <item quantity="other">%d Yıl</item>
   </plurals>
   <plurals name="DUt_months">
     <!-- plurals: months -->
-    <item quantity="one">1 Month</item>
+    <item quantity="one">1 Ay</item>
     <!-- plurals: months -->
-    <item quantity="other">%d Months</item>
+    <item quantity="other">%d Ay</item>
   </plurals>
   <plurals name="DUt_weeks">
     <!-- plurals: days -->
-    <item quantity="one">1 Week</item>
+    <item quantity="one">1 Hafta</item>
     <!-- plurals: days -->
-    <item quantity="other">%d Weeks</item>
+    <item quantity="other">%d hafta</item>
   </plurals>
   <plurals name="DUt_days">
     <!-- plurals: days -->
     <item quantity="one">1 Gün</item>
     <!-- plurals: days -->
     <item quantity="other">%d gün</item>
+  </plurals>
+  <plurals name="DUt_weekdays">
+    <!-- plurals: days -->
+    <item quantity="one">1 haftaiçi gün</item>
+    <!-- plurals: days -->
+    <item quantity="other">%d  haftaiçi günü</item>
   </plurals>
   <plurals name="DUt_hours">
     <!-- plurals: hours -->
@@ -69,94 +72,120 @@
   </plurals>
   <plurals name="Ntasks">
     <!-- plurals: tasks -->
-    <item quantity="one">1 task</item>
+    <item quantity="one">1 görev</item>
     <!-- plurals: tasks -->
-    <item quantity="other">%d tasks</item>
+    <item quantity="other">%d görev</item>
   </plurals>
+  <plurals name="Npeople">
+    <!-- plurals: people -->
+    <item quantity="one">1 kişi</item>
+    <!-- plurals: people -->
+    <item quantity="other">%d kişi</item>
+  </plurals>
+  
+  <!-- today -->
+  <string name="today">Bugün</string>
+  
+  <!-- tomorrow -->
+  <string name="tomorrow">Yarın</string>
+  
+  <!-- today -->
+  <string name="yesterday">Dün</string>
+  
+  <!-- tomorrow abbreviated -->
+  <string name="tmrw">Tmrw</string>
+  
+  <!-- today abbreviated -->
+  <string name="yest">Yest</string>
   
   <!-- ================================================== Generic Dialogs == -->
   
   <!-- confirmation dialog title -->
-  <string name="DLG_confirm_title">Confirm?</string>
+  <string name="DLG_confirm_title">Onayla?</string>
   
   <!-- question dialog title -->
-  <string name="DLG_question_title">Question:</string>
+  <string name="DLG_question_title">Soru:</string>
   
   <!-- information dialog title -->
   <string name="DLG_information_title">Bilgi</string>
   
   <!-- error dialog title -->
-  <string name="DLG_error_title">Error!</string>
+  <string name="DLG_error_title">Hata!</string>
+  
+  <!-- general dialog save-->
+  <string name="DLG_save">Kaydet</string>
   
   <!-- general dialog yes-->
-  <string name="DLG_yes">Yes</string>
+  <string name="DLG_yes">Evet</string>
   
   <!-- general dialog no-->
-  <string name="DLG_no">No</string>
+  <string name="DLG_no">Hayır</string>
   
   <!-- general dialog close-->
-  <string name="DLG_close">Close</string>
+  <string name="DLG_close">Kapat</string>
   
   <!-- general dialog done -->
-  <string name="DLG_done">Tamamlandı</string>
+  <string name="DLG_done">Yapıldı</string>
   
   <!-- error dialog (%s => error message)-->
-  <string name="DLG_error">Oops, looks like an error occurred! Here\'s what happened:\n\n%s</string>
+  <string name="DLG_error">Oops, bir sorun meydana geldi! Olan şu:\n\n%s</string>
   
   <!-- error dialog (no message indicated)-->
-  <string name="DLG_error_generic">Oops, looks like an error occurred!</string>
+  <string name="DLG_error_generic">Oops, bir sorun meydana geldi!</string>
   
   <!-- Progress dialog shown when doing something slow -->
-  <string name="DLG_wait">Please wait...</string>
+  <string name="DLG_wait">Lütfen bekleyin...</string>
 
  <!-- ====================================================== SyncProvider == -->
           
   <!-- Sync Notification: message when sync service active -->
-  <string name="SyP_progress">Synchronizing your tasks...</string>
+  <string name="SyP_progress">Görevleriniz eşleniyor...</string>
   
   <!-- Sync Notification: toast when sync activated from activity -->
-  <string name="SyP_progress_toast">Synchronizing...</string>
+  <string name="SyP_progress_toast">Eşleniyor...</string>
   
   <!-- Sync Label: used in menu to denote synchronization -->
   <string name="SyP_label">Senkronizasyon</string>  
 
   <!-- Error msg when io exception  -->
-  <string name="SyP_ioerror">Connection Error! Check your Internet connection.</string>
+  <string name="SyP_ioerror">Bağlantı Hatası! Internet bağlantınızı kontrol edin.</string>
 
   <!-- ================================================== SyncPreferences == -->
   
   <!-- Status Group Label -->    
-  <string name="sync_SPr_group_status">Status</string>
+  <string name="sync_SPr_group_status">Durum</string>
   
   <!-- Sync Status: log in -->    
-  <string name="sync_status_loggedout">Not Logged In!</string>
+  <string name="sync_status_loggedout">Giriş Yapılmadı!</string>
   <!-- Status: ongoing -->    
-  <string name="sync_status_ongoing">Sync Ongoing...</string>
+  <string name="sync_status_ongoing">Senkronizasyon devam ediyor...</string>
   <!-- Sync Status: success status (%s -> last sync date). Keep it short!-->    
-  <string name="sync_status_success">Last Sync: %s</string>
-  <!-- Sync Status: error status (%s -> last attempted sync date) -->    
-  <string name="sync_status_failed">Failed On: %s</string>
+  <string name="sync_status_success">Son Senk.\n%s</string>
+  <!-- Sync Status: failure status (%s -> last attempted sync date) -->    
+  <string name="sync_status_failed">Başarısız: %s</string>
+  <!-- Sync Status: error status (%s -> last sync date) -->    
+  <string name="sync_status_errors">Hatalı Senkron: %s</string>
   <!-- Sync Status: error subtitle (%s -> last successful sync date) -->    
-  <string name="sync_status_failed_subtitle">Last Successful Sync: %s</string>
+  <string name="sync_status_failed_subtitle">Son Başarılı Eşleme: %s</string>
   <!-- Sync Status: never sync'd -->    
-  <string name="sync_status_never">Never Synchronized!</string>
+  <string name="sync_status_never">Hiç Eşleme Yapılmamış!</string>
 
   <!-- Options Group Label -->    
   <string name="sync_SPr_group_options">Ayarlar</string>
 
   <!-- Preference: Synchronization Interval Title -->    
-  <string name="sync_SPr_interval_title">Background Sync</string>
+  <string name="sync_SPr_interval_title">Arkaplanda senkronizasyon</string>
   <!-- Preference: Synchronization Interval Description (when disabled) -->
-  <string name="sync_SPr_interval_desc_disabled">Background synchronization is disabled</string>    
+  <string name="sync_SPr_interval_desc_disabled">Arkaplanda senkronizasyon devre dışı</string>    
   <!-- Preference: Synchronization Interval Description (%s => setting) -->
-  <string name="sync_SPr_interval_desc">Currently set to: %s</string>
+  <string name="sync_SPr_interval_desc">Mevcut ayar: %s</string>
   
   <!-- Preference: Background Wifi Title -->  
-  <string name="sync_SPr_bgwifi_title">Wifi Only Setting</string>    
+  <string name="sync_SPr_bgwifi_title">Sadece Wifi Ayarı</string>    
   <!-- Preference: Background Wifi Description (enabled) -->
-  <string name="sync_SPr_bgwifi_desc_enabled">Background synchronization only happens when on Wifi</string>    
+  <string name="sync_SPr_bgwifi_desc_enabled">Sadece Wifi ile arkaplan senkronu</string>    
   <!-- Preference: Background Wifi Description (disabled) -->
-  <string name="sync_SPr_bgwifi_desc_disabled">Background synchronization will always occur</string>
+  <string name="sync_SPr_bgwifi_desc_disabled">Arkaplan senkronu her zaman etkin</string>
   
   <!-- Actions Group Label  -->
   <string name="sync_SPr_group_actions">Eylemler</string>
@@ -164,28 +193,31 @@
   <!-- Synchronize Now Button -->    
   <string name="sync_SPr_sync">Senkronize et</string>
   <!-- Synchronize Now Button if not logged in-->    
-  <string name="sync_SPr_sync_log_in">Log In &amp; Synchronize!</string>
+  <string name="sync_SPr_sync_log_in">Giriş Yapı &amp; Senktronize et!</string>
+  
+  <!-- Sync: Prefix string before logged in identifier -->
+  <string name="sync_SPr_logged_in_prefix">Giriş yapılan hesap:</string>
   
   <!-- Sync: Clear Data Title -->
-  <string name="sync_SPr_forget">Log Out</string>
+  <string name="sync_SPr_forget">Çıkış Yap</string>
   <!-- Sync: Clear Data Description -->
-  <string name="sync_SPr_forget_description">Clears all synchronization data</string>
+  <string name="sync_SPr_forget_description">Bütün eşleme verilerini temizle</string>
 
   <!-- confirmation dialog for sync log out -->
-  <string name="sync_forget_confirm">Log out / clear synchronization data?</string>
+  <string name="sync_forget_confirm">Çıkış Yap / Senkron verisini sil?</string>
   
   <string-array name="sync_SPr_interval_entries">
       <!-- sync_SPr_interval_entries: Synchronization Intervals -->
       <item>devre dışı bırak</item>
-      <item>every fifteen minutes</item>
-      <item>every thirty minutes</item>
-      <item>every hour</item>
-      <item>every three hours</item>
-      <item>every six hours</item>
-      <item>every twelve hours</item>
-      <item>every day</item>
-      <item>every three days</item>
-      <item>every week</item>
+      <item>her 15 dakika</item>
+      <item>her 30 dakika</item>
+      <item>her saat</item>
+      <item>her 3 saat</item>
+      <item>her 6 saat</item>
+      <item>her 12 saat</item>
+      <item>hergün</item>
+      <item>her 3 gün</item>
+      <item>her  hafta</item>
   </string-array>    
     
 

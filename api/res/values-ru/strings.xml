@@ -92,6 +92,12 @@
   <!-- today -->
   <string name="yesterday">Вчера</string>
   
+  <!-- tomorrow abbreviated -->
+  <string name="tmrw">Tmrw</string>
+  
+  <!-- today abbreviated -->
+  <string name="yest">Yest</string>
+  
   <!-- ================================================== Generic Dialogs == -->
   
   <!-- confirmation dialog title -->
@@ -154,7 +160,7 @@
   <!-- Status: ongoing -->    
   <string name="sync_status_ongoing">Процесс синхронизации…</string>
   <!-- Sync Status: success status (%s -> last sync date). Keep it short!-->    
-  <string name="sync_status_success">Последняя синхронизация:\n%s</string>
+  <string name="sync_status_success">Last Sync:\n%s</string>
   <!-- Sync Status: failure status (%s -> last attempted sync date) -->    
   <string name="sync_status_failed">Ошибка: %s</string>
   <!-- Sync Status: error status (%s -> last sync date) -->    

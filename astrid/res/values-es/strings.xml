@@ -8,19 +8,22 @@
   <string name="EPE_action">Compartir</string>
   
   <!-- task sharing dialog: assigned hint -->
-  <string name="actfm_person_hint">Contact or Email</string>
+  <string name="actfm_person_hint">Contacto o email</string>
   
   <!-- task sharing dialog: shared with hint -->
-  <string name="actfm_person_or_tag_hint">Contact or Shared List</string>
+  <string name="actfm_person_or_tag_hint">Contacto o lista compartida</string>
 
   <!-- toast on transmit success -->
   <string name="actfm_toast_success">Guardado en Servidor</string>
 
   <!-- toast on transmit error (%s => error) -->
-  <string name="actfm_toast_error">Save Failed: %s</string>
+  <string name="actfm_toast_error">Almacenamiento fallido: %s</string>
 
   <!-- can't rename or delete shared tag message -->
   <string name="actfm_tag_operation_disabled">Lo sentimos, esta operación todavía no está soportada para etiquetas compartidas</string>
+  
+  <!-- warning before deleting a list you're the owner of -->
+  <string name="actfm_tag_operation_owner_delete">You are the owner of this shared list! If you delete it, it will be deleted for all list members. Are you sure you want to continue?</string>
 
   <!-- menu item to take a picture -->
   <string name="actfm_picture_camera">Tomar una Fotografía</string>
@@ -29,10 +32,22 @@
   <string name="actfm_picture_gallery">Escoger de la Galería</string>
   
   <!-- menu item to clear picture selection -->
-  <string name="actfm_picture_clear">Clear Picture</string>
+  <string name="actfm_picture_clear">Imagen Clara</string>
 
   <!-- filter list activity: refresh tags -->
   <string name="actfm_FLA_menu_refresh">Actualizar Listas</string>
+  
+  <!-- Title for prompt after sharing a task -->
+  <string name="actfm_view_task_title">View Task?</string>
+
+  <!-- Text for prompt after sharing a task -->
+  <string name="actfm_view_task_text">Task was sent to %s! You\'re currently viewing your own tasks. Do you want to view this and other tasks you\'ve assigned?</string>
+  
+  <!-- Ok button for task view prompt -->
+  <string name="actfm_view_task_ok">View Assigned</string>
+      
+  <!-- Cancel button for task view prompt -->
+  <string name="actfm_view_task_cancel">Stay Here</string>
 
   <!-- ================================================== TagViewActivity == -->  
 
@@ -56,7 +71,7 @@
   <string name="actfm_TVA_filtered_by_assign">%s\'s tasks. Tap for all.</string>
 
   <!-- Tag View: list is private, no members -->
-  <string name="actfm_TVA_no_members_alert">Private: tap to share this list</string>
+  <string name="actfm_TVA_no_members_alert">Private: tap to share or edit</string>
 
   <!-- Tag View Menu: refresh -->
   <string name="actfm_TVA_menu_refresh">Actualizar</string>
@@ -74,11 +89,24 @@
   <string name="actfm_TVA_members_label">Colaboradores</string>
 
   <!-- Tag Settings: tag picture -->
-  <string name="actfm_TVA_tag_picture">List Picture</string>
+  <string name="actfm_TVA_tag_picture">Listar imagenes</string>
 
   <!-- Tag Settings: silence notifications label -->
   <string name="actfm_TVA_silence_label">Silenciar Notificaciones</string>
+  
+  <!-- Tag Settings: list icon label -->
+  <string name="actfm_TVA_list_icon_label">List Icon:</string>
+  
+  <!-- Tag Settings: list description label -->
+  <string name="actfm_TVA_tag_description_label">Description:</string>
 
+  <!-- Tag Settings: list description hint -->
+  <string name="actfm_TVA_tag_description_hint">List description</string>
+  
+  <!-- Tag settings: login prompt from share-->
+  <string name="actfm_TVA_login_to_share">You need to be logged in to Astrid.com to share lists! Please log in or make this a private list.</string>
+  
+      
   <!-- ============================================ edit people dialog == -->
 
   <!-- task sharing dialog: intro -->
@@ -91,19 +119,22 @@
   <string name="actfm_EPA_save">Guardar &amp; Compartir</string>
   
   <!-- task sharing dialog: assigned label -->
-  <string name="actfm_EPA_assign_label">Quien</string>
+  <string name="actfm_EPA_assign_label">Quién</string>
   
   <!-- task sharing dialog: assigned to me -->
   <string name="actfm_EPA_assign_me">Yo</string>
   
   <!-- task sharing dialog: anyone -->
-  <string name="actfm_EPA_unassigned">Anyone</string>
+  <string name="actfm_EPA_unassigned">Cualquiera</string>
   
   <!-- task sharing dialog: custom email assignment -->
   <string name="actfm_EPA_assign_custom">Personalizado…</string>
   
   <!-- task sharing dialog: shared with label -->
-  <string name="actfm_EPA_share_with">Añadir Colaboradores:</string>
+  <string name="actfm_EPA_share_with">Compartir con:</string>
+  
+  <!-- Toast when assigning a task -->
+  <string name="actfm_EPA_assigned_toast">Sent to %1$s (you can see it in the list between you and %2$s).</string>
   
   <!-- task sharing dialog: shared with label -->
   <string name="actfm_EPA_collaborators_header">Share with Friends</string>
@@ -112,7 +143,7 @@
   <string name="actfm_EPA_list">Lista: %s</string>
   
   <!-- task sharing dialog: assigned hint -->
-  <string name="actfm_EPA_assigned_hint">Nombre del Contacto</string>
+  <string name="actfm_EPA_assigned_hint">Contact Name</string>
   
   <!-- task sharing dialog: message label text -->
   <string name="actfm_EPA_message_text">Mensaje de Invitación:</string>
@@ -143,6 +174,13 @@
 
   <!-- task sharing dialog: tag not found (%s => tag) -->
   <string name="actfm_EPA_invalid_tag">Lista No Encontrada: %s</string>
+  
+  <!-- task sharing login prompt -->
+  <string name="actfm_EPA_login_to_share">You need to be logged in to Astrid.com to share tasks! Please log in or make this a private task.</string>
+  
+  <string name="actfm_EPA_login_button">Log in</string>
+  
+  <string name="actfm_EPA_dont_share_button">Make private</string>
 
   <!-- ========================================= sharing login activity == -->
 
@@ -153,10 +191,10 @@
   <string name="actfm_ALA_body">Astrid.com le permite acceder a sus tareas en línea, compartirlas, y delegarlas en otros.</string>
 
   <!-- share login: Sharing Login FB Prompt -->
-  <string name="actfm_ALA_fb_login">Login with Facebook</string>
+  <string name="actfm_ALA_fb_login">Connect with Facebook</string>
 
   <!-- share login: Sharing Login GG Prompt -->
-  <string name="actfm_ALA_gg_login">Login with Google</string>
+  <string name="actfm_ALA_gg_login">Connect with Google</string>
   
   <!-- share login: Sharing Footer Password Label -->
   <string name="actfm_ALA_pw_login">Don\'t use Google or Facebook?</string>
@@ -188,12 +226,12 @@
   <!-- share login: Login Title -->
   <string name="actfm_ALA_login_title">Iniciar sesión en Astrid.com</string>
 
+  <!-- share login: Google Auth title -->
+  <string name="actfm_GAA_title">Select the Google account you want to use:</string>
+
   <!-- share login: OAUTH Login Prompt -->
   <string name="actfm_OLA_prompt">Please connect to Google:</string>
-
-  <!-- share login: Sharing notice -->
-  <string name="actfm_ALA_notice">Astrid won\'t send messages e-mails without permission.</string>
-
+  
   <!-- ================================================ Synchronization == -->
       
   <!-- Preferences Title: Act.fm -->    
@@ -244,7 +282,7 @@
     <string name="backup_BPr_group_status">Estado</string>
     
     <!-- Backup Status: last backup was a success (%s -> last date). Keep it short! -->    
-    <string name="backup_status_success">Última copia:\n%s</string>
+    <string name="backup_status_success">Latest backup:\n%s</string>
     <!-- Backup Status: last error failed. Keep it short! -->    
     <string name="backup_status_failed">Falló la última copia de seguridad</string>
     <!-- Backup Status: error subtitle -->    
@@ -270,7 +308,7 @@
   <!-- ================================================= BackupActivity == -->
 
   <!-- backup activity label -->
-  <string name="backup_BAc_label">Copias de seguridad</string>
+  <string name="backup_BAc_label">Manage Backups</string>
 
   <!-- backup activity title -->
   <string name="backup_BAc_title">Gestionar sus copias de seguridad</string>
@@ -386,6 +424,8 @@ File %1$s contained %2$s.\n\n
   
   <string name="DLG_cancel">Cancel</string>
   
+  <string name="DLG_undo">Undo</string>
+  
   <!-- =============================================================== UI == -->
   
   <!-- Label for DateButtons with no value -->
@@ -395,12 +435,7 @@ File %1$s contained %2$s.\n\n
   <string name="WID_dateButtonLabel">$D $T</string>
   
   <!-- String formatter for Disable button -->
-  <string name="WID_disableButton">Deshabilitar</string>
-  
-  <!-- =================================================== Welcome screen == -->
-  <!-- Label for DateButtons with no value -->
-  <string name="welcome_show_eula">Accept EULA to get started!</string>
-  
+  <string name="WID_disableButton">Deshabilitar</string>  
   
   <!--  ============================================================= notes -->
   
@@ -419,7 +454,7 @@ File %1$s contained %2$s.\n\n
   <!-- ================================================= TaskListActivity == -->
   
   <!-- Task List: Displayed instead of list when no items present -->    
-  <string name="TLA_no_items">¡No hay Tareas!</string>
+  <string name="TLA_no_items">You have no tasks! \n Want to add something?</string>
   
   <!-- Menu: Add-ons -->    
   <string name="TLA_menu_addons">Componentes adicionales</string>
@@ -430,6 +465,18 @@ File %1$s contained %2$s.\n\n
   <!-- Menu: Sync Now -->    
   <string name="TLA_menu_sync">¡Sincronizar ahora!</string>
   
+  <!-- Menu: Tasks -->
+  <string name="TLA_menu_tasks">Tareas</string>
+
+  <!-- Menu: Friends -->
+  <string name="TLA_menu_friends">Friends</string>
+
+  <!-- Menu: Suggestions -->
+  <string name="TLA_menu_suggestions">Suggestions</string>
+  
+  <!-- Menu: Tutorial -->
+  <string name="TLA_menu_tutorial">Tutorial</string>
+
   <!-- Menu: Settings -->    
   <string name="TLA_menu_settings">Preferencias</string>
   
@@ -463,6 +510,26 @@ File %1$s contained %2$s.\n\n
       <item>Hidden</item>      
   </string-array>
   
+  <!-- Title for confirmation dialog after quick add markup -->
+  <string name="TLA_quickadd_confirm_title">You said, \"%s\"</string>
+  
+  <!-- Text for speech bubble in dialog after quick add markup -->
+  <!-- First string is task title, second is due date, third is priority -->
+  <string name="TLA_quickadd_confirm_speech_bubble">I created a task called \"%1$s\" %2$s at %3$s</string>
+  
+  <string name="TLA_quickadd_confirm_speech_bubble_date">for %s</string>
+  
+  <string name="TLA_quickadd_confirm_hide_helpers">Don\'t display future confirmations</string>
+  
+  <string-array name="TLA_priority_strings">
+      <item>highest priority</item>
+      <item>high priority</item>
+      <item>medium priority</item>
+      <item>low priority</item>
+  </string-array>
+  
+  <string name="TLA_all_activity">All Activity</string>
+  
   <!-- ====================================================== TaskAdapter == -->
   
   <!-- Format string to indicate task is hidden (%s => task name) -->
@@ -475,7 +542,7 @@ File %1$s contained %2$s.\n\n
   <string name="TAd_flingText"/>
   
   <!-- indicates task was completed. %s => date or time ago -->
-  <string name="TAd_completed">Terminado\n%s</string>
+  <string name="TAd_completed">Finished\n%s</string>
   
   <!-- Action Button: edit task -->
   <string name="TAd_actionEditTask">Editar</string>
@@ -539,7 +606,7 @@ File %1$s contained %2$s.\n\n
   <!-- =============================================== FilterListActivity == -->
 
   <!-- Filter List Activity Title -->    
-  <string name="FLA_title">Astrid: Filtros</string>
+  <string name="FLA_title">Listas</string>
   
   <!-- Displayed when loading filters -->    
   <string name="FLA_loading">Cargando filtros...</string>
@@ -571,31 +638,22 @@ File %1$s contained %2$s.\n\n
   <!-- Menu: new filter -->
   <string name="FLA_new_filter">New Filter</string>
   
+  <!-- Button: new list -->
+  <string name="FLA_new_list">Nueva lista</string>
+  
   <!-- ================================================= TaskEditActivity == -->
   
   <!-- Title when editing a task (%s => task title) -->
   <string name="TEA_view_title">Astrid: Editando \'%s\'</string>
   
   <!-- Title when creating a new task -->
-  <string name="TEA_view_titleNew">Nueva tarea</string>
-  
-  <!-- First Tab - basic task details -->
-  <string name="TEA_tab_basic">Básico</string>
-  
-  <!-- Second Tab - extra details -->
-  <string name="TEA_tab_share">Compartir</string>
-  
-  <!-- Second Tab - extra details -->
-  <string name="TEA_tab_alarms">Alarmas</string>
-  
-  <!-- Third Tab - add-ons -->
-  <string name="TEA_tab_more">Más</string>
+  <string name="TEA_view_titleNew">New Task</string>
   
   <!-- Task title label -->
   <string name="TEA_title_label">Título</string>
   
   <!-- Task when label (note the <u> tags - be sure to leave those in when localizing! -->
-  <string name="TEA_when_header_label"><u>When</u></string>
+  <string name="TEA_when_header_label">When</string>
   
   <!-- Task title hint (displayed when edit box is empty) -->
   <string name="TEA_title_hint">Descripción de la tarea</string>
@@ -614,6 +672,9 @@ File %1$s contained %2$s.\n\n
   
   <!-- Task hide until label -->
   <string name="TEA_hideUntil_label">Show Task</string>
+  
+  <!-- Task hide until toast -->
+  <string name="TEA_hideUntil_message">Task will be hidden until %s</string>
   
   <!-- Task editing data being loaded label -->
   <string-array name="TEA_loading"><item>Cargando...</item></string-array>
@@ -639,6 +700,9 @@ File %1$s contained %2$s.\n\n
   <!-- Menu: Delete Task -->
   <string name="TEA_menu_delete">Borrar Tarea</string>
   
+  <!-- Menu: Task comments -->
+  <string name="TEA_menu_comments">Comentarios</string>
+  
    <!-- Toast: task saved with deadline (%s => preposition + time units) -->
   <string name="TEA_onTaskSave_due">Tarea guardada: finaliza %s</string>
   
@@ -649,11 +713,17 @@ File %1$s contained %2$s.\n\n
   <string name="TEA_onTaskCancel">Se canceló la edición de la tarea</string>
   
   <!-- Toast: task was deleted -->
-  <string name="TEA_onTaskDelete">¡Tarea eliminada!</string>
+  <string name="TEA_onTaskDelete">Task deleted!</string>
+  
+  <!-- Task edit tab: activity -->
+  <string name="TEA_tab_activity">Actividad</string>
+  
+  <!-- Task edit tab: more editing settings -->
+  <string name="TEA_tab_more">Más</string>
   
   <string-array name="TEA_urgency">
       <!-- urgency: labels for edit page. item #4 -> auto filled -->
-      <item>Sin fecha límite</item>
+      <item>No deadline</item>
       <item>Día específico</item>
       <item>Hoy</item>
       <item>Mañana</item>
@@ -676,29 +746,15 @@ File %1$s contained %2$s.\n\n
   
   <!-- Task edit control set descriptors -->
   <string name="TEA_control_title">Task Title</string>
-  <string name="TEA_control_who">Who</string>
+  <string name="TEA_control_who">Quién</string>
   <string name="TEA_control_when">When</string>
-  <string name="TEA_control_more_section">More Section</string>
+  <string name="TEA_control_more_section">----More Section----</string>
   <string name="TEA_control_importance">Importancia</string>  
   <string name="TEA_control_lists">Listas</string>  
   <string name="TEA_control_notes">Notas</string>  
   <string name="TEA_control_reminders">Reminders</string>
   <string name="TEA_control_timer">Timer Controls</string>
   <string name="TEA_control_share">Share With Friends</string>
-  
-      
-  <string-array name="TEA_control_sets">
-      <item>@string/TEA_control_title</item>
-      <item>@string/TEA_control_who</item>
-      <item>@string/TEA_control_when</item>
-      <item>@string/TEA_control_more_section</item>
-      <item>@string/TEA_control_importance</item>
-      <item>@string/TEA_control_lists</item>
-      <item>@string/TEA_control_notes</item>
-      <item>@string/TEA_control_reminders</item>
-      <item>@string/TEA_control_timer</item>
-      <item>@string/TEA_control_share</item>
-  </string-array>
   
   <string name="hide_until_prompt">Show in my list</string>
   
@@ -710,6 +766,12 @@ File %1$s contained %2$s.\n\n
   
   <!-- More row -->
   <string name="TEA_more">Más</string>
+  
+  <!-- Text when no activity to show -->
+  <string name="TEA_no_activity">No Activity to Show.</string>
+  
+  <!-- Text to load more activity -->
+  <string name="TEA_load_more">Load more...</string>
   
   <!-- When controls dialog -->
   <string name="TEA_when_dialog_title">When is this due?</string>
@@ -751,6 +813,10 @@ File %1$s contained %2$s.\n\n
   
   <!-- Preference: Task List Font Size Title -->
   <string name="EPr_fontSize_title">Tamaño de la lista de tareas</string>
+  
+  <!-- Preference: Show confirmation for smart reminders -->
+  <string name="EPr_showSmartConfirmation_title">Show confirmation for smart reminders</string>
+  
   <!-- Preference: Task List Font Size Description -->                                                                                                                                                  
   <string name="EPr_fontSize_desc">Tamaño de letra en el listado de la página principal</string>  
   
@@ -762,7 +828,7 @@ File %1$s contained %2$s.\n\n
   <string name="EPr_beastMode_reset">Reset to defaults</string>
       
   <!-- Preference: Task List Show Notes Description (disabled) -->
-  <string name="EPr_showNotes_desc_disabled">Las notas se mostrarán cuando se toca una tarea.</string>  
+  <string name="EPr_showNotes_desc_disabled">Notes will be accessible from the Task Edit Page</string>  
   <!-- Preference: Task List Show Notes Description (enabled) -->
   <string name="EPr_showNotes_desc_enabled">Se mostrarán siempre las notas</string>
   
@@ -800,6 +866,8 @@ File %1$s contained %2$s.\n\n
   <string name="EPr_manage_purge_deleted_message">¿Desea realmente limpiar todas las tareas eliminadas?\n\n¡Estas tareas se irán para siempre!</string>
   <string name="EPr_manage_purge_deleted_status">Purged %d tasks!</string>
   <string name="EPr_manage_purge_deleted_summary">¡Cuidado! Las tareas purgadas no pueden ser recuperadas sin el archivo de copia de seguridad!</string>
+  <string name="EPr_manage_clear_all">Clear All Data</string>
+  <string name="EPr_manage_clear_all_message">Delete all tasks and settings in Astrid?\n\nWarning: can\'t be undone!</string>
 
   <string name="EPr_manage_delete_completed_gcal">Delete Calendar Events for Completed Tasks</string>
   <string name="EPr_manage_delete_completed_gcal_message">Do you really want to delete all your events for completed tasks?</string>
@@ -911,10 +979,10 @@ File %1$s contained %2$s.\n\n
   
   <string-array name="EPr_default_importance">
       <!-- importance: labels for "Task Defaults" preference item. -->
-      <item>!!! (Alto)</item>
+      <item>!!! (Highest)</item>
       <item>!!</item>
       <item>!</item>
-      <item>o (Bajo)</item>
+      <item>o (Lowest)</item>
   </string-array>
   
   <string-array name="EPr_default_urgency">
@@ -963,6 +1031,9 @@ File %1$s contained %2$s.\n\n
     
     <!-- Recently Modified -->
     <string name="BFE_Recent">Recién modificadas</string>
+    
+    <!-- I've assigned -->
+    <string name="BFE_Assigned">I\'ve Assigned</string>
     
     <!-- Build Your Own Filter -->
     <string name="BFE_Custom">Filtro personalizado...</string>
@@ -1067,7 +1138,7 @@ File %1$s contained %2$s.\n\n
   <string name="gcal_TEA_calendar_label">Añadir tarea al calendario</string>
 
   <!-- Label for adding task to calendar -->
-  <string name="gcal_TEA_addToCalendar_label">Crear evento de calendario</string>
+  <string name="gcal_TEA_addToCalendar_label">Add to Calendar</string>
   
   <!-- Label when calendar event already exists -->
   <string name="gcal_TEA_showCalendar_label">Abrir evento del calendario</string>
@@ -1080,6 +1151,10 @@ File %1$s contained %2$s.\n\n
   
   <!-- No calendar label (don't add option) -->
   <string name="gcal_TEA_nocal">Don\'t add</string>
+  
+  <string name="gcal_TEA_none_selected">Add to cal...</string>
+  
+  <string name="gcal_TEA_has_event">Cal event</string>
   
   <!-- ======================================================== Calendars == -->
   
@@ -1166,6 +1241,9 @@ File %1$s contained %2$s.\n\n
 
     <!-- Error Message when we receive a HTTP 401 Unauthorized -->    
     <string name="gtasks_GLA_errorAuth">Error authenticating! Please check your username and password in your phone\'s account manager</string>
+
+    <!-- Error Message when we receive an IO Exception -->    
+    <string name="gtasks_GLA_errorIOAuth">Sorry, we had trouble communicating with Google servers. Please try again later.</string>
     
     <!-- Error Message when we receive a HTTP 401 Unauthorized multiple times -->    
     <string name="gtasks_GLA_errorAuth_captcha">Usted puede haber encontrado un captcha. Intente acceder desde el navegador, a continuación, vuelve a intentarlo de nuevo:</string>
@@ -1174,10 +1252,6 @@ File %1$s contained %2$s.\n\n
 
     <!-- GTasks Preferences Title -->    
     <string name="gtasks_GPr_header">Google Tasks (Beta!)</string>
-    
-    <string name="gtasks_GPr_sync_on_save">Sync on Save</string>
-    
-    <string name="gtasks_GPr_sync_on_save_summary">Sync individual tasks as they are saved</string>
     
     <!-- ================================================ Synchronization == -->    
     
@@ -1244,7 +1318,7 @@ File %1$s contained %2$s.\n\n
   
   <!-- help bubbles -->
   <!-- Shown the first time a user sees the task list activity -->
-  <string name="help_popover_add_task">Add a task here</string>
+  <string name="help_popover_add_task">Start by adding a task or two</string>
 
   <!-- Shown the first time a user adds a task to a list -->  
   <string name="help_popover_tap_task">Tap task to edit and share</string>
@@ -1253,8 +1327,18 @@ File %1$s contained %2$s.\n\n
   <string name="help_popover_list_settings">Tap to edit or share this list</string>
   
   <!-- Shown the first time a user sees the list settings tab -->
-  <string name="help_popover_collaborators">Collaborators can help you build your list or finish tasks</string>
+  <string name="help_popover_collaborators">People you share with can help you build your list or finish tasks</string>
   
+  <!-- Shown after user adds a task on tablet-->
+  <string name="help_popover_add_lists">Tap add a list</string>
+  
+  <!-- Shown after a user adds a task on phones -->
+  <string name="help_popover_switch_lists">Tap to add a list or switch between lists</string>
+  
+  <string name="help_popover_when_shortcut">Tap this shortcut to quick select date and time</string>
+  
+  <string name="help_popover_when_row">Tap anywhere on this row to access options like repeat</string>
+      
   <!-- Login activity -->
   <string name="welcome_login_title">¡Bienvenido a Astrid!</string>
   
@@ -1266,7 +1350,7 @@ File %1$s contained %2$s.\n\n
   
   <string name="welcome_login_pw">Login with Username/Password</string>
   
-  <string name="welcome_login_later">Login Later</string>
+  <string name="welcome_login_later">Connect Later</string>
   
   <string name="welcome_login_confirm_later_title">Why not sign in?</string>
   
@@ -1359,7 +1443,7 @@ File %1$s contained %2$s.\n\n
     <string name="opencrx_PPr_defaultcreator_summary_none">New activities will not be synchronized by default</string>
     
     <!--  OpenCRX host and segment group name -->
-    <string name="opencrx_group">OpenCRX server</string>
+    <string name="opencrx_group">servidor de OpenCRX</string>
 
     <!--  preference description for OpenCRX host -->
     <string name="opencrx_host_title">Host</string>
@@ -1488,10 +1572,10 @@ File %1$s contained %2$s.\n\n
     <string name="producteev_FEx_dashboard">Espacios de trabajo</string>
     
     <!-- filter category for Producteev responsible person -->
-    <string name="producteev_FEx_responsible_byme">Assigned by me to</string>
+    <string name="producteev_FEx_responsible_byme">Asignada por mi a</string>
     
     <!-- filter category for Producteev responsible person -->
-    <string name="producteev_FEx_responsible_byothers">Assigned by others to</string>
+    <string name="producteev_FEx_responsible_byothers">Asignada por otros a</string>
     
     <!--  Producteev responsible filter title (%s => responsiblename) -->
     <string name="producteev_FEx_responsible_title">Asignado a \'%s\'</string>
@@ -1636,7 +1720,7 @@ File %1$s contained %2$s.\n\n
   <string name="TEA_reminder_overdue">When task is overdue</string>
 
   <!-- Task Edit: Reminder at random times (%s => time plural)-->
-  <string name="TEA_reminder_random">Randomly once</string>
+  <string name="TEA_reminder_random">Una vez al azar</string>
 
   <!-- Task Edit: Reminder alarm clock label -->  
   <string name="TEA_reminder_alarm_label">Tipo de Tono/Vibración:</string>
@@ -1666,13 +1750,13 @@ File %1$s contained %2$s.\n\n
   <string name="rmd_NoA_filter">¡Recordatorio!</string>
   
   <!-- Reminder: Task was already done -->
-  <string name="rmd_NoA_done">¡Ya acabada!</string>
+  <string name="rmd_NoA_done">Complete</string>
   
   <!-- Reminder: Snooze button (remind again later) -->
-  <string name="rmd_NoA_snooze">Espera...</string>
+  <string name="rmd_NoA_snooze">Snooze</string>
   
-  <!-- Reminder: Cancel reminder -->
-  <string name="rmd_NoA_goAway">Vete!</string>
+  <!-- Reminder: Completed Toast -->
+  <string name="rmd_NoA_completed_toast">Congratulations on finishing!</string>
   
   <!-- ============================================= reminder preferences == -->
   
@@ -1739,11 +1823,11 @@ File %1$s contained %2$s.\n\n
   <string name="rmd_EPr_vibrate_desc_false">Astrid no vibrará en el envío de notificaciones</string>
 
   <!-- Reminder Preference: Nagging Title -->  
-  <string name="rmd_EPr_nagging_title">Recordatorios de Astrid</string>
+  <string name="rmd_EPr_nagging_title">Astrid Encouragements</string>
   <!-- Reminder Preference: Nagging Description (true) -->
   <string name="rmd_EPr_nagging_desc_true">Astrid aparecerán para darle un estímulo durante los recordatorios</string>
   <!-- Reminder Preference: Nagging Description (false) -->
-  <string name="rmd_EPr_nagging_desc_false">Astrid no le dará ningún mensaje de estímulo</string>
+  <string name="rmd_EPr_nagging_desc_false">Astrid will not give you any encouragement messages</string>
 
   <!-- Reminder Preference: Snooze Dialog Title -->  
   <string name="rmd_EPr_snooze_dialog_title">Diálogo de espera HH:MM</string>
@@ -1925,7 +2009,7 @@ File %1$s contained %2$s.\n\n
       <item>Lovely weather for a job like this, isn\'t it?</item>
       <item>A spot of tea while you work on this?</item>
       <item>If only you had already done this, then you could go outside and play.</item>
-      <item>It\’s time. You can\’t put off the inevitable.</item>
+      <item>It\'s time. You can\'t put off the inevitable.</item>
       <item>I die a little every time you ignore me.</item>
   </string-array>
 
@@ -1968,17 +2052,28 @@ File %1$s contained %2$s.\n\n
   <!-- hint when opening repeat interval -->
   <string name="repeat_interval_prompt">Intervalo de repetición</string>
   
-  <string name="repeat_never">Never</string>
+  <string name="repeat_never">No Repeat</string>
   
   <string name="repeat_dont">Don\'t repeat</string>
       
+  <string-array name="repeat_interval_short">
+    <!-- repeat interval (days,weeks,months,hours,minutes,years) -->
+    <item>d</item>
+    <item>wk</item>
+    <item>mo</item>
+    <item>hr</item>
+    <item>min</item>
+    <item>yr</item>
+  </string-array>
+  
+  
   <string-array name="repeat_interval">
     <!-- repeat interval (days,weeks,months,hours,minutes,years) -->
     <item>Día(s)</item>
     <item>Semana(s)</item>
     <item>Mes(es)</item>
     <item>Hora(s)</item>
-    <item>Minuto(s)</item>
+    <item>Minute(s)</item>
     <item>Year(s)</item>
   </string-array>
   
@@ -1996,6 +2091,11 @@ File %1$s contained %2$s.\n\n
   
   <!-- task detail for repeat from completion date (%s -> interval) -->
   <string name="repeat_detail_completion">%s después de la finalización</string>
+  
+  <!-- text for confirmation dialog after repeating a task -->
+  <string name="repeat_rescheduling_dialog_title">Rescheduling task \"%s\"</string>
+    
+  <string name="repeat_rescheduling_dialog_bubble">I\'ve rescheduled this repeating task from %1$s to %2$s</string>
   
 
 
@@ -2129,9 +2229,15 @@ File %1$s contained %2$s.\n\n
 
   <!-- context menu option to delete a tag -->
   <string name="tag_cm_delete">Eliminar lista</string>
+  
+  <!-- context menu option to leave a shared list -->
+  <string name="tag_cm_leave">Leave List</string>
 
-  <!-- Dialog to confirm deletion of a tag -->
+  <!-- Dialog to confirm deletion of a tag (%s -> the name of the list to be deleted) -->
   <string name="DLG_delete_this_tag_question">Delete this list: %s? (No tasks will be deleted.)</string>
+  
+  <!-- Dialog to confirm leaving a shared tag (%s -> the name of the shared list to leave) -->
+  <string name="DLG_leave_this_shared_tag_question">Leave this shared list: %s? (No tasks will be deleted.)</string>
 
   <!-- Dialog to rename tag -->
   <string name="DLG_rename_this_tag_header">Renombrar la lista %s a :</string>
@@ -2141,6 +2247,9 @@ File %1$s contained %2$s.\n\n
 
   <!-- Toast notification that a tag has been deleted -->
   <string name="TEA_tags_deleted">List %1$s was deleted, affecting %2$d tasks</string>
+  
+  <!-- Toast notification that a shared tag has been left -->
+  <string name="TEA_tags_left">You left shared list %1$s, affecting %2$d tasks</string>
 
   <!-- Toast notification that a tag has been renamed -->
   <string name="TEA_tags_renamed">Renamed %1$s with %2$s for %3$d tasks</string>
@@ -2181,6 +2290,16 @@ File %1$s contained %2$s.\n\n
     <!-- Title for TEA -->
     <string name="TEA_timer_controls">Timer Controls</string>
     
+    
+    <!-- Edit Notes: create comment for when timer is started -->
+    <string name="TEA_timer_comment_started">started this task:</string>
+    
+    <!-- Edit Notes: create comment for when timer is stopped -->
+    <string name="TEA_timer_comment_stopped">stopped doing this task:</string>
+    
+    <!-- Edit Notes: comment to notify how long was spent on task -->
+    <string name="TEA_timer_comment_spent">Time spent:</string>
+    
 
 
 <!-- See the file "LICENSE" for the full license governing this code. -->
@@ -2220,4 +2339,31 @@ File %1$s contained %2$s.\n\n
   <string name="EPr_voice_header">Voice Input Settings</string>
     
 
+
+
+      
+    <string name="welcome_show_eula">Accept EULA to get started!</string>
+    
+    <string name="welcome_setting">Show Tutorial</string>
+    
+    <string name="welcome_title_1">¡Bienvenido a Astrid!</string>
+    <string name="welcome_title_2">Make lists</string>
+    <string name="welcome_title_3">Share lists</string>
+    <string name="welcome_title_4">Divvy up tasks</string>
+    <string name="welcome_title_5">Provide details</string>
+    <string name="welcome_title_6">Discover</string>
+    <string name="welcome_title_7">Connect now\nto get started!</string>
+    
+    <string name="welcome_title_7_return">That\'s it!</string>
+    
+    <string name="welcome_body_1">The perfect to-do list that \nworks great with friends</string>
+    <string name="welcome_body_2">Perfect for any list:\nread, watch, buy, visit!</string>
+    <string name="welcome_body_3">Share lists with \nfriends, housemates,\nor your sweetheart!</string>
+    <string name="welcome_body_4">Never wonder who\'s\nbringing dessert!</string>
+    <string name="welcome_body_5">Tap to add notes,\nset reminders,\nand much more!</string>
+    <string name="welcome_body_6">Additional features,\nproductivity tips, and\nsuggestions from friends</string>
+    <string name="welcome_body_7">Login</string>
+    
+    <string name="welcome_body_7_return">Tap Astrid to return.</string>
+    
 </resources>

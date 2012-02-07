@@ -16,11 +16,14 @@
   <!-- toast on transmit success -->
   <string name="actfm_toast_success">Op server opgeslagen</string>
 
-  <!-- toast on transmit error -->
+  <!-- toast on transmit error (%s => error) -->
   <string name="actfm_toast_error">Opslaan mislukt: %s</string>
 
   <!-- can't rename or delete shared tag message -->
   <string name="actfm_tag_operation_disabled">Deze opdracht wordt nog niet ondersteund voor gedeelde labels.</string>
+  
+  <!-- warning before deleting a list you're the owner of -->
+  <string name="actfm_tag_operation_owner_delete">You are the owner of this shared list! If you delete it, it will be deleted for all list members. Are you sure you want to continue?</string>
 
   <!-- menu item to take a picture -->
   <string name="actfm_picture_camera">Een foto maken</string>
@@ -33,6 +36,18 @@
 
   <!-- filter list activity: refresh tags -->
   <string name="actfm_FLA_menu_refresh">Lijsten vernieuwen</string>
+  
+  <!-- Title for prompt after sharing a task -->
+  <string name="actfm_view_task_title">View Task?</string>
+
+  <!-- Text for prompt after sharing a task -->
+  <string name="actfm_view_task_text">Task was sent to %s! You\'re currently viewing your own tasks. Do you want to view this and other tasks you\'ve assigned?</string>
+  
+  <!-- Ok button for task view prompt -->
+  <string name="actfm_view_task_ok">View Assigned</string>
+      
+  <!-- Cancel button for task view prompt -->
+  <string name="actfm_view_task_cancel">Stay Here</string>
 
   <!-- ================================================== TagViewActivity == -->  
 
@@ -56,7 +71,7 @@
   <string name="actfm_TVA_filtered_by_assign">%s\'s tasks. Tap for all.</string>
 
   <!-- Tag View: list is private, no members -->
-  <string name="actfm_TVA_no_members_alert">Private: tap to share this list</string>
+  <string name="actfm_TVA_no_members_alert">Private: tap to share or edit</string>
 
   <!-- Tag View Menu: refresh -->
   <string name="actfm_TVA_menu_refresh">Vernieuwen</string>
@@ -78,7 +93,20 @@
 
   <!-- Tag Settings: silence notifications label -->
   <string name="actfm_TVA_silence_label">Stille waarschuwingen</string>
+  
+  <!-- Tag Settings: list icon label -->
+  <string name="actfm_TVA_list_icon_label">List Icon:</string>
+  
+  <!-- Tag Settings: list description label -->
+  <string name="actfm_TVA_tag_description_label">Description:</string>
 
+  <!-- Tag Settings: list description hint -->
+  <string name="actfm_TVA_tag_description_hint">List description</string>
+  
+  <!-- Tag settings: login prompt from share-->
+  <string name="actfm_TVA_login_to_share">You need to be logged in to Astrid.com to share lists! Please log in or make this a private list.</string>
+  
+      
   <!-- ============================================ edit people dialog == -->
 
   <!-- task sharing dialog: intro -->
@@ -91,7 +119,7 @@
   <string name="actfm_EPA_save">Opslaan &amp; Delen</string>
   
   <!-- task sharing dialog: assigned label -->
-  <string name="actfm_EPA_assign_label">Toegewezen aan:</string>
+  <string name="actfm_EPA_assign_label">Who</string>
   
   <!-- task sharing dialog: assigned to me -->
   <string name="actfm_EPA_assign_me">Mijzelf</string>
@@ -103,7 +131,10 @@
   <string name="actfm_EPA_assign_custom">Aangepast...</string>
   
   <!-- task sharing dialog: shared with label -->
-  <string name="actfm_EPA_share_with">Medewerkers toevoegen</string>
+  <string name="actfm_EPA_share_with">Share with:</string>
+  
+  <!-- Toast when assigning a task -->
+  <string name="actfm_EPA_assigned_toast">Sent to %1$s (you can see it in the list between you and %2$s).</string>
   
   <!-- task sharing dialog: shared with label -->
   <string name="actfm_EPA_collaborators_header">Share with Friends</string>
@@ -112,7 +143,7 @@
   <string name="actfm_EPA_list">Lijst: %s</string>
   
   <!-- task sharing dialog: assigned hint -->
-  <string name="actfm_EPA_assigned_hint">Naam contactpersoon</string>
+  <string name="actfm_EPA_assigned_hint">Contact Name</string>
   
   <!-- task sharing dialog: message label text -->
   <string name="actfm_EPA_message_text">Uitnodigings bericht:</string>
@@ -143,6 +174,13 @@
 
   <!-- task sharing dialog: tag not found (%s => tag) -->
   <string name="actfm_EPA_invalid_tag">Lijst niet gevonden: %s</string>
+  
+  <!-- task sharing login prompt -->
+  <string name="actfm_EPA_login_to_share">You need to be logged in to Astrid.com to share tasks! Please log in or make this a private task.</string>
+  
+  <string name="actfm_EPA_login_button">Log in</string>
+  
+  <string name="actfm_EPA_dont_share_button">Make private</string>
 
   <!-- ========================================= sharing login activity == -->
 
@@ -153,13 +191,13 @@
   <string name="actfm_ALA_body">Astrid.com geeft online toegang tot de taken, waarbij deze gedeeld en gedelegeerd kunnen worden met anderen.</string>
 
   <!-- share login: Sharing Login FB Prompt -->
-  <string name="actfm_ALA_fb_login">Aanmelden bij Facebook</string>
+  <string name="actfm_ALA_fb_login">Connect with Facebook</string>
 
   <!-- share login: Sharing Login GG Prompt -->
-  <string name="actfm_ALA_gg_login">Aanmelden bij Google</string>
-
+  <string name="actfm_ALA_gg_login">Connect with Google</string>
+  
   <!-- share login: Sharing Footer Password Label -->
-  <string name="actfm_ALA_pw_login">Nog geen Google of Facebook account?</string>
+  <string name="actfm_ALA_pw_login">Don\'t use Google or Facebook?</string>
 
   <!-- share login: Sharing Password Link -->
   <string name="actfm_ALA_pw_link">Registreer hier</string>
@@ -188,12 +226,12 @@
   <!-- share login: Login Title -->
   <string name="actfm_ALA_login_title">Aanmelden bij Astrid.com</string>
 
+  <!-- share login: Google Auth title -->
+  <string name="actfm_GAA_title">Select the Google account you want to use:</string>
+
   <!-- share login: OAUTH Login Prompt -->
   <string name="actfm_OLA_prompt">A.u.b. met Google verbinden:</string>
-
-  <!-- share login: Sharing notice -->
-  <string name="actfm_ALA_notice">Astrid stuurt geen e-mails zonder toestemming</string>
-
+  
   <!-- ================================================ Synchronization == -->
       
   <!-- Preferences Title: Act.fm -->    
@@ -244,7 +282,7 @@
     <string name="backup_BPr_group_status">Status</string>
     
     <!-- Backup Status: last backup was a success (%s -> last date). Keep it short! -->    
-    <string name="backup_status_success">Laatste: %s</string>
+    <string name="backup_status_success">Latest backup:\n%s</string>
     <!-- Backup Status: last error failed. Keep it short! -->    
     <string name="backup_status_failed">Laatste back-up mislukt</string>
     <!-- Backup Status: error subtitle -->    
@@ -381,6 +419,8 @@
   
   <string name="DLG_cancel">Cancel</string>
   
+  <string name="DLG_undo">Undo</string>
+  
   <!-- =============================================================== UI == -->
   
   <!-- Label for DateButtons with no value -->
@@ -390,12 +430,7 @@
   <string name="WID_dateButtonLabel">$D $T</string>
   
   <!-- String formatter for Disable button -->
-  <string name="WID_disableButton">Uitschakelen</string>
-  
-  <!-- =================================================== Welcome screen == -->
-  <!-- Label for DateButtons with no value -->
-  <string name="welcome_show_eula">Accept EULA to get started!</string>
-  
+  <string name="WID_disableButton">Uitschakelen</string>  
   
   <!--  ============================================================= notes -->
   
@@ -414,7 +449,7 @@
   <!-- ================================================= TaskListActivity == -->
   
   <!-- Task List: Displayed instead of list when no items present -->    
-  <string name="TLA_no_items">Geen taken!</string>
+  <string name="TLA_no_items">You have no tasks! \n Want to add something?</string>
   
   <!-- Menu: Add-ons -->    
   <string name="TLA_menu_addons">Uitbreidingen</string>
@@ -425,6 +460,18 @@
   <!-- Menu: Sync Now -->    
   <string name="TLA_menu_sync">Synchroniseren</string>
   
+  <!-- Menu: Tasks -->
+  <string name="TLA_menu_tasks">Taken</string>
+
+  <!-- Menu: Friends -->
+  <string name="TLA_menu_friends">Friends</string>
+
+  <!-- Menu: Suggestions -->
+  <string name="TLA_menu_suggestions">Suggestions</string>
+  
+  <!-- Menu: Tutorial -->
+  <string name="TLA_menu_tutorial">Tutorial</string>
+
   <!-- Menu: Settings -->    
   <string name="TLA_menu_settings">Instellingen</string>
   
@@ -458,6 +505,26 @@
       <item>Hidden</item>      
   </string-array>
   
+  <!-- Title for confirmation dialog after quick add markup -->
+  <string name="TLA_quickadd_confirm_title">You said, \"%s\"</string>
+  
+  <!-- Text for speech bubble in dialog after quick add markup -->
+  <!-- First string is task title, second is due date, third is priority -->
+  <string name="TLA_quickadd_confirm_speech_bubble">I created a task called \"%1$s\" %2$s at %3$s</string>
+  
+  <string name="TLA_quickadd_confirm_speech_bubble_date">for %s</string>
+  
+  <string name="TLA_quickadd_confirm_hide_helpers">Don\'t display future confirmations</string>
+  
+  <string-array name="TLA_priority_strings">
+      <item>highest priority</item>
+      <item>high priority</item>
+      <item>medium priority</item>
+      <item>low priority</item>
+  </string-array>
+  
+  <string name="TLA_all_activity">All Activity</string>
+  
   <!-- ====================================================== TaskAdapter == -->
   
   <!-- Format string to indicate task is hidden (%s => task name) -->
@@ -470,7 +537,7 @@
   <string name="TAd_flingText"/>
   
   <!-- indicates task was completed. %s => date or time ago -->
-  <string name="TAd_completed">Voltooid\n%s</string>
+  <string name="TAd_completed">Finished\n%s</string>
   
   <!-- Action Button: edit task -->
   <string name="TAd_actionEditTask">Bewerken</string>
@@ -534,7 +601,7 @@
   <!-- =============================================== FilterListActivity == -->
 
   <!-- Filter List Activity Title -->    
-  <string name="FLA_title">Astrid: Filters</string>
+  <string name="FLA_title">Lijsten</string>
   
   <!-- Displayed when loading filters -->    
   <string name="FLA_loading">Filters laden...</string>
@@ -566,31 +633,22 @@
   <!-- Menu: new filter -->
   <string name="FLA_new_filter">New Filter</string>
   
+  <!-- Button: new list -->
+  <string name="FLA_new_list">Nieuwe lijst</string>
+  
   <!-- ================================================= TaskEditActivity == -->
   
   <!-- Title when editing a task (%s => task title) -->
   <string name="TEA_view_title">Astrid: \'%s\' bewerken</string>
   
   <!-- Title when creating a new task -->
-  <string name="TEA_view_titleNew">Nieuwe taak</string>
-  
-  <!-- First Tab - basic task details -->
-  <string name="TEA_tab_basic">Algemeen</string>
-  
-  <!-- Second Tab - extra details -->
-  <string name="TEA_tab_share">Delen</string>
-  
-  <!-- Second Tab - extra details -->
-  <string name="TEA_tab_alarms">Herinneringen</string>
-  
-  <!-- Third Tab - add-ons -->
-  <string name="TEA_tab_more">Meer</string>
+  <string name="TEA_view_titleNew">New Task</string>
   
   <!-- Task title label -->
   <string name="TEA_title_label">Titel</string>
   
   <!-- Task when label (note the <u> tags - be sure to leave those in when localizing! -->
-  <string name="TEA_when_header_label"><u>When</u></string>
+  <string name="TEA_when_header_label">When</string>
   
   <!-- Task title hint (displayed when edit box is empty) -->
   <string name="TEA_title_hint">Samenvatting taak</string>
@@ -608,7 +666,10 @@
   <string name="TEA_urgency_none">Geen</string>
   
   <!-- Task hide until label -->
-  <string name="TEA_hideUntil_label">Verbergen tot</string>
+  <string name="TEA_hideUntil_label">Show Task</string>
+  
+  <!-- Task hide until toast -->
+  <string name="TEA_hideUntil_message">Task will be hidden until %s</string>
   
   <!-- Task editing data being loaded label -->
   <string-array name="TEA_loading"><item>Laden…</item></string-array>
@@ -634,6 +695,9 @@
   <!-- Menu: Delete Task -->
   <string name="TEA_menu_delete">Taak verwijderen</string>
   
+  <!-- Menu: Task comments -->
+  <string name="TEA_menu_comments">Opmerkingen</string>
+  
    <!-- Toast: task saved with deadline (%s => preposition + time units) -->
   <string name="TEA_onTaskSave_due">Taak opgeslagen: eind %s</string>
   
@@ -644,11 +708,17 @@
   <string name="TEA_onTaskCancel">Taakbewerking afgebroken</string>
   
   <!-- Toast: task was deleted -->
-  <string name="TEA_onTaskDelete">Taak verwijderd!</string>
+  <string name="TEA_onTaskDelete">Task deleted!</string>
+  
+  <!-- Task edit tab: activity -->
+  <string name="TEA_tab_activity">Activiteit</string>
+  
+  <!-- Task edit tab: more editing settings -->
+  <string name="TEA_tab_more">Meer</string>
   
   <string-array name="TEA_urgency">
       <!-- urgency: labels for edit page. item #4 -> auto filled -->
-      <item>Geen einddatum</item>
+      <item>No deadline</item>
       <item>Specifieke dag</item>
       <item>Vandaag</item>
       <item>Morgen</item>
@@ -673,27 +743,13 @@
   <string name="TEA_control_title">Task Title</string>
   <string name="TEA_control_who">Who</string>
   <string name="TEA_control_when">When</string>
-  <string name="TEA_control_more_section">More Section</string>
+  <string name="TEA_control_more_section">----More Section----</string>
   <string name="TEA_control_importance">Belangrijkheid</string>  
   <string name="TEA_control_lists">Lijsten</string>  
   <string name="TEA_control_notes">Notities</string>  
   <string name="TEA_control_reminders">Reminders</string>
   <string name="TEA_control_timer">Timer Controls</string>
   <string name="TEA_control_share">Share With Friends</string>
-  
-      
-  <string-array name="TEA_control_sets">
-      <item>@string/TEA_control_title</item>
-      <item>@string/TEA_control_who</item>
-      <item>@string/TEA_control_when</item>
-      <item>@string/TEA_control_more_section</item>
-      <item>@string/TEA_control_importance</item>
-      <item>@string/TEA_control_lists</item>
-      <item>@string/TEA_control_notes</item>
-      <item>@string/TEA_control_reminders</item>
-      <item>@string/TEA_control_timer</item>
-      <item>@string/TEA_control_share</item>
-  </string-array>
   
   <string name="hide_until_prompt">Show in my list</string>
   
@@ -705,6 +761,12 @@
   
   <!-- More row -->
   <string name="TEA_more">Meer</string>
+  
+  <!-- Text when no activity to show -->
+  <string name="TEA_no_activity">No Activity to Show.</string>
+  
+  <!-- Text to load more activity -->
+  <string name="TEA_load_more">Load more...</string>
   
   <!-- When controls dialog -->
   <string name="TEA_when_dialog_title">When is this due?</string>
@@ -746,6 +808,10 @@
   
   <!-- Preference: Task List Font Size Title -->
   <string name="EPr_fontSize_title">Taaklijst lettertypegrootte</string>
+  
+  <!-- Preference: Show confirmation for smart reminders -->
+  <string name="EPr_showSmartConfirmation_title">Show confirmation for smart reminders</string>
+  
   <!-- Preference: Task List Font Size Description -->                                                                                                                                                  
   <string name="EPr_fontSize_desc">Lettertypegrootte takenlijst</string>  
   
@@ -757,7 +823,7 @@
   <string name="EPr_beastMode_reset">Reset to defaults</string>
       
   <!-- Preference: Task List Show Notes Description (disabled) -->
-  <string name="EPr_showNotes_desc_disabled">Notities zullen in de snelle toegangsbalk worden weergegeven</string>  
+  <string name="EPr_showNotes_desc_disabled">Notes will be accessible from the Task Edit Page</string>  
   <!-- Preference: Task List Show Notes Description (enabled) -->
   <string name="EPr_showNotes_desc_enabled">Notities altijd weergeven</string>
   
@@ -793,8 +859,10 @@
   <string name="EPr_manage_delete_completed_status">%d taken verwijderd!</string>
   <string name="EPr_manage_purge_deleted">Verwijderde taken opschonen</string>
   <string name="EPr_manage_purge_deleted_message">Alle verwijderde taken werkelijk opschonen?\n\nDeze taken zijn dan definitief verwijderd!</string>
-  <string name="EPr_manage_purge_deleted_status">%d verwijderde taken opgeschoond!</string>
+  <string name="EPr_manage_purge_deleted_status">%s verwijderde taken opgeschoond!</string>
   <string name="EPr_manage_purge_deleted_summary">Waarschuwing: Opgeschoonde verwijderde taken kunnen zonder backup-bestand niet worden hersteld!</string>
+  <string name="EPr_manage_clear_all">Clear All Data</string>
+  <string name="EPr_manage_clear_all_message">Delete all tasks and settings in Astrid?\n\nWarning: can\'t be undone!</string>
 
   <string name="EPr_manage_delete_completed_gcal">Delete Calendar Events for Completed Tasks</string>
   <string name="EPr_manage_delete_completed_gcal_message">Do you really want to delete all your events for completed tasks?</string>
@@ -959,6 +1027,9 @@
     <!-- Recently Modified -->
     <string name="BFE_Recent">Onlangs aangepast</string>
     
+    <!-- I've assigned -->
+    <string name="BFE_Assigned">I\'ve Assigned</string>
+    
     <!-- Build Your Own Filter -->
     <string name="BFE_Custom">Aangepast filter...</string>
     
@@ -1062,7 +1133,7 @@
   <string name="gcal_TEA_calendar_label">Agenda integratie:</string>
 
   <!-- Label for adding task to calendar -->
-  <string name="gcal_TEA_addToCalendar_label">Gebeurtenis aanmaken</string>
+  <string name="gcal_TEA_addToCalendar_label">Add to Calendar</string>
   
   <!-- Label when calendar event already exists -->
   <string name="gcal_TEA_showCalendar_label">Gebeurtenis openen</string>
@@ -1075,6 +1146,10 @@
   
   <!-- No calendar label (don't add option) -->
   <string name="gcal_TEA_nocal">Don\'t add</string>
+  
+  <string name="gcal_TEA_none_selected">Add to cal...</string>
+  
+  <string name="gcal_TEA_has_event">Cal event</string>
   
   <!-- ======================================================== Calendars == -->
   
@@ -1159,6 +1234,9 @@
 
     <!-- Error Message when we receive a HTTP 401 Unauthorized -->    
     <string name="gtasks_GLA_errorAuth">Error authenticating! Please check your username and password in your phone\'s account manager</string>
+
+    <!-- Error Message when we receive an IO Exception -->    
+    <string name="gtasks_GLA_errorIOAuth">Sorry, we had trouble communicating with Google servers. Please try again later.</string>
     
     <!-- Error Message when we receive a HTTP 401 Unauthorized multiple times -->    
     <string name="gtasks_GLA_errorAuth_captcha">Er kan een captcha zijn getoond. Probeer in te loggen via de browser, kom dan terug en probeer het opnieuw:</string>
@@ -1167,10 +1245,6 @@
 
     <!-- GTasks Preferences Title -->    
     <string name="gtasks_GPr_header">Google Taken (Beta!)</string>
-    
-    <string name="gtasks_GPr_sync_on_save">Synchroniseren bij opslaan</string>
-    
-    <string name="gtasks_GPr_sync_on_save_summary">Individuele taken synchroniseren als deze worden opgeslagen</string>
     
     <!-- ================================================ Synchronization == -->    
     
@@ -1206,19 +1280,81 @@
   <string name="intro_task_1_summary">Eerste taak aanmaken</string>
 
   <!-- Task 1 Note -->
-  <string name="intro_task_1_note">Twee manieren om een taak te maken:\n 1) Snel toevoegen: Beschrijf de taak in het veld onderin en druk op de + knop aan de linker kant.\n\n 2) Normaal toevoegen: Druk op de knop aan de rechter kant van het veld onderin. Vul de standaard details in (einddatum, labels, notities) of gebruik de geavanceerde opties. Bewaar de taak met de bewaarknop of gebruik de \'Terug\' toets op het toestel.\n\n</string>
+  <string name="intro_task_1_note">Two ways to add a task:\n
+  1) Quick Add: Type the task into the quick entry box at bottom of screen and press the + button on the right.\n
+  2) Regular Add: Press the + button of the quick entry box. Add as much detail as you want. Then press \"Save\" or use your phone\'s back button.\n
+  </string>
   
   <!-- Task 2 Summary  -->
   <string name="intro_task_2_summary">Widget toevoegen aan het hoofdscherm</string>
 
   <!-- Task 2 Note -->
-  <string name="intro_task_2_note">Een bureaublad widget is een geweldige manier om de te doen taken bij te houden en een manier om snel nieuwe taken toe te voegen.\n\n Hoe een widget toevoegen?:\n 1) Druk lang op het bureaublad.\n 2) Kies \"Widget\" uit het menu\n 3) Selecteer de Astrid widget.\n 4) Selecteer een Astrid filter. Selecteer \"Actieve taken\" voor alle taken\n\n Bonus: Gebruik de widget om een taak toe te voegen!</string>
+  <string name="intro_task_2_note">
+  1) Long Press on your phone\'s desktop\n
+       2) Choose \"Widget\"\n
+       3) Choose the Astrid widget\n
+       4) Select the list you want and press OK.\n
+  </string>
   
     <!-- Task 3 Summary  -->
   <string name="intro_task_3_summary">Instellingen synchroniseren met Astrid.com</string>
 
   <!-- Task 3 Note -->
-  <string name="intro_task_3_note">Astrid maakt het mogelijk de taken te synchroniseren met Astrid.com, Google Taken en Producteev.\n\n Om synchroniseren vanuit Astrid in te schakelen, druk \"Menu\"-&gt; \"Instellingen\" -&gt; \"Synchronisatie\" en selecteer de gewenste provider.</string>
+  <string name="intro_task_3_note">
+    1) Press your Menu button\n
+         2) Choose \"Sync Now\"\n
+         3) Select \"Astrid.com\"\n
+         4) Log In &amp; Synchronize!\n
+  </string>
+ 
+  <!-- NEW USER EXPERIENCE -->
+  
+  <!-- help bubbles -->
+  <!-- Shown the first time a user sees the task list activity -->
+  <string name="help_popover_add_task">Start by adding a task or two</string>
+
+  <!-- Shown the first time a user adds a task to a list -->  
+  <string name="help_popover_tap_task">Tap task to edit and share</string>
+  
+  <!-- Shown the first time a user sees the list activity -->
+  <string name="help_popover_list_settings">Tap to edit or share this list</string>
+  
+  <!-- Shown the first time a user sees the list settings tab -->
+  <string name="help_popover_collaborators">People you share with can help you build your list or finish tasks</string>
+  
+  <!-- Shown after user adds a task on tablet-->
+  <string name="help_popover_add_lists">Tap add a list</string>
+  
+  <!-- Shown after a user adds a task on phones -->
+  <string name="help_popover_switch_lists">Tap to add a list or switch between lists</string>
+  
+  <string name="help_popover_when_shortcut">Tap this shortcut to quick select date and time</string>
+  
+  <string name="help_popover_when_row">Tap anywhere on this row to access options like repeat</string>
+      
+  <!-- Login activity -->
+  <string name="welcome_login_title">Welkom bij Astrid!</string>
+  
+  <string name="welcome_login_intro"/>
+  
+  <string name="welcome_login_tos_base">By using Astrid you agree to the</string>
+  
+  <string name="welcome_login_tos_link">\"Terms of Service\"</string>
+  
+  <string name="welcome_login_pw">Login with Username/Password</string>
+  
+  <string name="welcome_login_later">Connect Later</string>
+  
+  <string name="welcome_login_confirm_later_title">Why not sign in?</string>
+  
+  <string name="welcome_login_confirm_later_ok">I\'ll do it!</string>
+  
+  <string name="welcome_login_confirm_later_cancel">No thanks</string>
+  
+  <string name="welcome_login_confirm_later_dialog">Sign in to get the most out of Astrid! 
+  For free, you get online backup, full synchronization with Astrid.com, the 
+  ability to add tasks via email, and you can even share task lists with friends!</string>
+  
 
 
 <!-- See the file "LICENSE" for the full license governing this code. -->
@@ -1607,13 +1743,13 @@
   <string name="rmd_NoA_filter">Herinnering!</string>
   
   <!-- Reminder: Task was already done -->
-  <string name="rmd_NoA_done">Reeds voltooid!</string>
+  <string name="rmd_NoA_done">Complete</string>
   
   <!-- Reminder: Snooze button (remind again later) -->
-  <string name="rmd_NoA_snooze">Sluimeren...</string>
+  <string name="rmd_NoA_snooze">Snooze</string>
   
-  <!-- Reminder: Cancel reminder -->
-  <string name="rmd_NoA_goAway">Annuleren</string>
+  <!-- Reminder: Completed Toast -->
+  <string name="rmd_NoA_completed_toast">Congratulations on finishing!</string>
   
   <!-- ============================================= reminder preferences == -->
   
@@ -1866,7 +2002,7 @@
       <item>Lovely weather for a job like this, isn\'t it?</item>
       <item>A spot of tea while you work on this?</item>
       <item>If only you had already done this, then you could go outside and play.</item>
-      <item>It\’s time. You can\’t put off the inevitable.</item>
+      <item>It\'s time. You can\'t put off the inevitable.</item>
       <item>I die a little every time you ignore me.</item>
   </string-array>
 
@@ -1909,10 +2045,21 @@
   <!-- hint when opening repeat interval -->
   <string name="repeat_interval_prompt">Herhaal interval</string>
   
-  <string name="repeat_never">Never</string>
+  <string name="repeat_never">No Repeat</string>
   
   <string name="repeat_dont">Don\'t repeat</string>
       
+  <string-array name="repeat_interval_short">
+    <!-- repeat interval (days,weeks,months,hours,minutes,years) -->
+    <item>d</item>
+    <item>wk</item>
+    <item>mo</item>
+    <item>hr</item>
+    <item>min</item>
+    <item>yr</item>
+  </string-array>
+  
+  
   <string-array name="repeat_interval">
     <!-- repeat interval (days,weeks,months,hours,minutes,years) -->
     <item>Dag(en)</item>
@@ -1937,6 +2084,11 @@
   
   <!-- task detail for repeat from completion date (%s -> interval) -->
   <string name="repeat_detail_completion">%s na voltooing</string>
+  
+  <!-- text for confirmation dialog after repeating a task -->
+  <string name="repeat_rescheduling_dialog_title">Rescheduling task \"%s\"</string>
+    
+  <string name="repeat_rescheduling_dialog_bubble">I\'ve rescheduled this repeating task from %1$s to %2$s</string>
   
 
 
@@ -2070,9 +2222,15 @@
 
   <!-- context menu option to delete a tag -->
   <string name="tag_cm_delete">Lijst verwijderen</string>
+  
+  <!-- context menu option to leave a shared list -->
+  <string name="tag_cm_leave">Leave List</string>
 
-  <!-- Dialog to confirm deletion of a tag -->
+  <!-- Dialog to confirm deletion of a tag (%s -> the name of the list to be deleted) -->
   <string name="DLG_delete_this_tag_question">De lijst %s verwijderen? (Taken blijven behouden.)</string>
+  
+  <!-- Dialog to confirm leaving a shared tag (%s -> the name of the shared list to leave) -->
+  <string name="DLG_leave_this_shared_tag_question">Leave this shared list: %s? (No tasks will be deleted.)</string>
 
   <!-- Dialog to rename tag -->
   <string name="DLG_rename_this_tag_header">De lijst %s hernoemen naar:</string>
@@ -2081,7 +2239,10 @@
   <string name="TEA_no_tags_modified">Niets gewijzigd</string>
 
   <!-- Toast notification that a tag has been deleted -->
-  <string name="TEA_tags_deleted">De lijst %1$s is verwijderd, van invloed op %2$d taken</string>
+  <string name="TEA_tags_deleted">De lijst %1 is verwijderd, van invloed op %2$d taken</string>
+  
+  <!-- Toast notification that a shared tag has been left -->
+  <string name="TEA_tags_left">You left shared list %1$s, affecting %2$d tasks</string>
 
   <!-- Toast notification that a tag has been renamed -->
   <string name="TEA_tags_renamed">Taak %1$s hernoemd naar %2$s voor %3$d taken</string>
@@ -2122,6 +2283,16 @@
     <!-- Title for TEA -->
     <string name="TEA_timer_controls">Timer Controls</string>
     
+    
+    <!-- Edit Notes: create comment for when timer is started -->
+    <string name="TEA_timer_comment_started">started this task:</string>
+    
+    <!-- Edit Notes: create comment for when timer is stopped -->
+    <string name="TEA_timer_comment_stopped">stopped doing this task:</string>
+    
+    <!-- Edit Notes: comment to notify how long was spent on task -->
+    <string name="TEA_timer_comment_spent">Time spent:</string>
+    
 
 
 <!-- See the file "LICENSE" for the full license governing this code. -->
@@ -2161,4 +2332,31 @@
   <string name="EPr_voice_header">Spraakinstellingen</string>
     
 
+
+
+      
+    <string name="welcome_show_eula">Accept EULA to get started!</string>
+    
+    <string name="welcome_setting">Show Tutorial</string>
+    
+    <string name="welcome_title_1">Welkom bij Astrid!</string>
+    <string name="welcome_title_2">Make lists</string>
+    <string name="welcome_title_3">Share lists</string>
+    <string name="welcome_title_4">Divvy up tasks</string>
+    <string name="welcome_title_5">Provide details</string>
+    <string name="welcome_title_6">Discover</string>
+    <string name="welcome_title_7">Connect now\nto get started!</string>
+    
+    <string name="welcome_title_7_return">That\'s it!</string>
+    
+    <string name="welcome_body_1">The perfect to-do list that \nworks great with friends</string>
+    <string name="welcome_body_2">Perfect for any list:\nread, watch, buy, visit!</string>
+    <string name="welcome_body_3">Share lists with \nfriends, housemates,\nor your sweetheart!</string>
+    <string name="welcome_body_4">Never wonder who\'s\nbringing dessert!</string>
+    <string name="welcome_body_5">Tap to add notes,\nset reminders,\nand much more!</string>
+    <string name="welcome_body_6">Additional features,\nproductivity tips, and\nsuggestions from friends</string>
+    <string name="welcome_body_7">Aanmelden</string>
+    
+    <string name="welcome_body_7_return">Tap Astrid to return.</string>
+    
 </resources>

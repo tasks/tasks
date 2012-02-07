@@ -92,6 +92,12 @@
   <!-- today -->
   <string name="yesterday">Gestern</string>
   
+  <!-- tomorrow abbreviated -->
+  <string name="tmrw">Tmrw</string>
+  
+  <!-- today abbreviated -->
+  <string name="yest">Yest</string>
+  
   <!-- ================================================== Generic Dialogs == -->
   
   <!-- confirmation dialog title -->
@@ -147,14 +153,14 @@
   <!-- ================================================== SyncPreferences == -->
   
   <!-- Status Group Label -->    
-  <string name="sync_SPr_group_status">Status</string>
+  <string name="sync_SPr_group_status">Zustand</string>
   
   <!-- Sync Status: log in -->    
   <string name="sync_status_loggedout">Nicht angemeldet!</string>
   <!-- Status: ongoing -->    
   <string name="sync_status_ongoing">Synchronisierung läuft...</string>
   <!-- Sync Status: success status (%s -> last sync date). Keep it short!-->    
-  <string name="sync_status_success">Letzte Synchronisierung:\n%s</string>
+  <string name="sync_status_success">Last Sync:\n%s</string>
   <!-- Sync Status: failure status (%s -> last attempted sync date) -->    
   <string name="sync_status_failed">Fehlgeschlagen am: %s</string>
   <!-- Sync Status: error status (%s -> last sync date) -->    
@@ -165,7 +171,7 @@
   <string name="sync_status_never">Noch nie synchronisiert!</string>
 
   <!-- Options Group Label -->    
-  <string name="sync_SPr_group_options">Optionen</string>
+  <string name="sync_SPr_group_options">Einstellungen</string>
 
   <!-- Preference: Synchronization Interval Title -->    
   <string name="sync_SPr_interval_title">Hintergrund-Synchronisierung</string>

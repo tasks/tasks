@@ -5,37 +5,37 @@
   <!-- ================================================== general terms == -->
 
   <!-- People Editing Activity -->    
-  <string name="EPE_action">Freigeben</string>
+  <string name="EPE_action">Compartilhar</string>
   
   <!-- task sharing dialog: assigned hint -->
-  <string name="actfm_person_hint">Kontakt</string>
+  <string name="actfm_person_hint">Contact or Email</string>
   
   <!-- task sharing dialog: shared with hint -->
-  <string name="actfm_person_or_tag_hint">Kontakt oder Liste</string>
+  <string name="actfm_person_or_tag_hint">Contato ou Lista compartilhada</string>
 
   <!-- toast on transmit success -->
-  <string name="actfm_toast_success">Auf dem Server gespeichert</string>
+  <string name="actfm_toast_success">Salvo no servidor</string>
 
   <!-- toast on transmit error (%s => error) -->
-  <string name="actfm_toast_error">Speichern nicht erfolgreich: %s</string>
+  <string name="actfm_toast_error">Save Failed: %s</string>
 
   <!-- can't rename or delete shared tag message -->
-  <string name="actfm_tag_operation_disabled">Entschuldigung, diese Aktion wird für geteilte Tags noch nicht unterstützt.</string>
+  <string name="actfm_tag_operation_disabled">Desculpe, esta operação ainda não foi implementada para tags compartilhadas.</string>
   
   <!-- warning before deleting a list you're the owner of -->
   <string name="actfm_tag_operation_owner_delete">You are the owner of this shared list! If you delete it, it will be deleted for all list members. Are you sure you want to continue?</string>
 
   <!-- menu item to take a picture -->
-  <string name="actfm_picture_camera">Bild aufnehmen</string>
+  <string name="actfm_picture_camera">Tirar uma foto</string>
 
   <!-- menu item to select from gallery -->
-  <string name="actfm_picture_gallery">Aus Galerie wählen</string>
+  <string name="actfm_picture_gallery">Selecionar da galeria</string>
   
   <!-- menu item to clear picture selection -->
   <string name="actfm_picture_clear">Clear Picture</string>
 
   <!-- filter list activity: refresh tags -->
-  <string name="actfm_FLA_menu_refresh">Listen aktualisieren</string>
+  <string name="actfm_FLA_menu_refresh">Atualizar listas</string>
   
   <!-- Title for prompt after sharing a task -->
   <string name="actfm_view_task_title">View Task?</string>
@@ -52,19 +52,19 @@
   <!-- ================================================== TagViewActivity == -->  
 
   <!-- Tag View Activity: Add Comment hint -->    
-  <string name="TVA_add_comment">Kommentar hinzufügen</string>
+  <string name="TVA_add_comment">Adicionar um comentário...</string>
 
   <!-- Tag View Activity: task comment ($1 - user name, $2 - task title) -->    
-  <string name="UAd_title_comment">%1$s Aw: %2$s</string>
+  <string name="UAd_title_comment">%1$s re: %2$s</string>
   
   <!-- Tabs for Tag view -->
   <string-array name="TVA_tabs">
     <!-- Tab for showing tasks -->
-    <item>Aufgaben</item>
+    <item>Tarefas</item>
     <!-- Tab for showing comments & updates -->
-    <item>Aktivität</item>
+    <item>Atividade</item>
     <!-- Tab for showing setting -->
-    <item>Listeneinstellungen</item>
+    <item>Configurações</item>
   </string-array>
   
   <!-- Tag View: filtered by assigned to user -->
@@ -74,25 +74,25 @@
   <string name="actfm_TVA_no_members_alert">Private: tap to share or edit</string>
 
   <!-- Tag View Menu: refresh -->
-  <string name="actfm_TVA_menu_refresh">Aktualisieren</string>
+  <string name="actfm_TVA_menu_refresh">Atualizar</string>
 
   <!-- Tag Settings: tag name label -->
-  <string name="actfm_TVA_tag_label">Listenname:</string>
+  <string name="actfm_TVA_tag_label">Nome da lista:</string>
 
   <!-- Tag Settings: tag owner label -->
-  <string name="actfm_TVA_tag_owner_label">Listenersteller:</string>
+  <string name="actfm_TVA_tag_owner_label">Criador da lista:</string>
 
   <!-- Tag Settings: tag owner value when there is no owner -->
-  <string name="actfm_TVA_tag_owner_none">keine</string>
+  <string name="actfm_TVA_tag_owner_none">nenhum</string>
 
   <!-- Tag Settings: list collaborators label -->
   <string name="actfm_TVA_members_label">Shared With:</string>
 
   <!-- Tag Settings: tag picture -->
-  <string name="actfm_TVA_tag_picture">Listenbild</string>
+  <string name="actfm_TVA_tag_picture">Imagem da lista</string>
 
   <!-- Tag Settings: silence notifications label -->
-  <string name="actfm_TVA_silence_label">Lautlose Erinnerungen</string>
+  <string name="actfm_TVA_silence_label">Silenciar notificações</string>
   
   <!-- Tag Settings: list icon label -->
   <string name="actfm_TVA_list_icon_label">List Icon:</string>
@@ -110,52 +110,52 @@
   <!-- ============================================ edit people dialog == -->
 
   <!-- task sharing dialog: intro -->
-  <string name="actfm_EPA_intro">Benutze Astrid um Einkaufslisten, Party Pläne, oder Team Projekte zu teilen und sehe sofort wenn Arbeit erledigt wurde.</string>
+  <string name="actfm_EPA_intro">Use o Astrid para compartilhar listas de compras, planos para festas, ou projetos em equipe e instantaneamente ver quando as pessoas cumprem suas tarefas!</string>
     
   <!-- task sharing dialog: window title -->
-  <string name="actfm_EPA_title">Teilen / Übertragen</string>
+  <string name="actfm_EPA_title">Compartilhar / Designar</string>
     
   <!-- task sharing dialog: save button -->
-  <string name="actfm_EPA_save">Speichern  teilen</string>
+  <string name="actfm_EPA_save">Salvar &amp; Compartilhar</string>
   
   <!-- task sharing dialog: assigned label -->
-  <string name="actfm_EPA_assign_label">Wer</string>
+  <string name="actfm_EPA_assign_label">Who</string>
   
   <!-- task sharing dialog: assigned to me -->
-  <string name="actfm_EPA_assign_me">Mich</string>
+  <string name="actfm_EPA_assign_me">Mim</string>
   
   <!-- task sharing dialog: anyone -->
-  <string name="actfm_EPA_unassigned">Jeder</string>
+  <string name="actfm_EPA_unassigned">Anyone</string>
   
   <!-- task sharing dialog: custom email assignment -->
-  <string name="actfm_EPA_assign_custom">Benutzerdefiniert ...</string>
+  <string name="actfm_EPA_assign_custom">Personalizado...</string>
   
   <!-- task sharing dialog: shared with label -->
-  <string name="actfm_EPA_share_with">Teilen mit:</string>
+  <string name="actfm_EPA_share_with">Share with:</string>
   
   <!-- Toast when assigning a task -->
   <string name="actfm_EPA_assigned_toast">Sent to %1$s (you can see it in the list between you and %2$s).</string>
   
   <!-- task sharing dialog: shared with label -->
-  <string name="actfm_EPA_collaborators_header">Mit Freunden teilen</string>
+  <string name="actfm_EPA_collaborators_header">Share with Friends</string>
 
       <!-- task sharing dialog: collaborator list name (%s => name of list) -->
-  <string name="actfm_EPA_list">Liste: %s</string>
+  <string name="actfm_EPA_list">Lista: %s</string>
   
   <!-- task sharing dialog: assigned hint -->
-  <string name="actfm_EPA_assigned_hint">Kontaktperson</string>
+  <string name="actfm_EPA_assigned_hint">Nome do contato</string>
   
   <!-- task sharing dialog: message label text -->
-  <string name="actfm_EPA_message_text">Einladungsnachricht</string>
+  <string name="actfm_EPA_message_text">Texto do convite</string>
   
   <!-- task sharing dialog: message body -->
-  <string name="actfm_EPA_message_body">Hilf mir, das zu erledigen!</string>
+  <string name="actfm_EPA_message_body">Me ajude a fazer isso!</string>
   
   <!-- task sharing dialog: message hint -->
-  <string name="actfm_EPA_tag_label">Einen geteilten Tag erstellen?</string>
+  <string name="actfm_EPA_tag_label">Criar uma tag compartilhada?</string>
   
   <!-- task sharing dialog: message hint -->
-  <string name="actfm_EPA_tag_hint">(d.h. Lustiger Hüte Club)</string>
+  <string name="actfm_EPA_tag_hint">ex: supermercado, orçamento, ...</string>
   
   <!-- task sharing dialog: share with Facebook -->
   <string name="actfm_EPA_facebook">Facebook</string>
@@ -164,31 +164,31 @@
   <string name="actfm_EPA_twitter">Twitter</string>
 
   <!-- task sharing dialog: # of e-mails sent (%s => # people plural string) -->
-  <string name="actfm_EPA_emailed_toast">Aufgabe geteilt mit %s</string>
+  <string name="actfm_EPA_emailed_toast">Tarefa compartilhada com %s</string>
 
   <!-- task sharing dialog: edit people settings saved -->
-  <string name="actfm_EPA_saved_toast">Personeneinstellungen gespeichert</string>
+  <string name="actfm_EPA_saved_toast">Configuração salva</string>
 
   <!-- task sharing dialog: invalid email (%s => email) -->
-  <string name="actfm_EPA_invalid_email">Ungültige E-Mail: %s</string>
+  <string name="actfm_EPA_invalid_email">Email inválido: %s</string>
 
   <!-- task sharing dialog: tag not found (%s => tag) -->
-  <string name="actfm_EPA_invalid_tag">Liste nicht gefunden: %s</string>
+  <string name="actfm_EPA_invalid_tag">Lista não encontrada: %s</string>
   
   <!-- task sharing login prompt -->
-  <string name="actfm_EPA_login_to_share">Astrid.com lässt dich online auf deine Augaben zugreiffen, teilen und an andere delegieren.</string>
+  <string name="actfm_EPA_login_to_share">You need to be logged in to Astrid.com to share tasks! Please log in or make this a private task.</string>
   
-  <string name="actfm_EPA_login_button">Anmelden</string>
+  <string name="actfm_EPA_login_button">Log in</string>
   
-  <string name="actfm_EPA_dont_share_button">Privat machen</string>
+  <string name="actfm_EPA_dont_share_button">Make private</string>
 
   <!-- ========================================= sharing login activity == -->
 
   <!-- share login: Title -->
-  <string name="actfm_ALA_title">Willkommen bei Astrid.com!</string>
+  <string name="actfm_ALA_title">Bem-vindo ao Astrid.com!</string>
 
   <!-- share login: Sharing Description -->
-  <string name="actfm_ALA_body">Astrid.com lässt Sie ihre Aufgaben online abrufen, teilen, und auf andere übertragen.</string>
+  <string name="actfm_ALA_body">Astrid.com lhe permite acessar tarefas online, compartilhá-las, e delegá-las a outros.</string>
 
   <!-- share login: Sharing Login FB Prompt -->
   <string name="actfm_ALA_fb_login">Connect with Facebook</string>
@@ -197,55 +197,55 @@
   <string name="actfm_ALA_gg_login">Connect with Google</string>
   
   <!-- share login: Sharing Footer Password Label -->
-  <string name="actfm_ALA_pw_login">Kein Google oder Facebook benutzen?</string>
+  <string name="actfm_ALA_pw_login">Don\'t use Google or Facebook?</string>
 
   <!-- share login: Sharing Password Link -->
-  <string name="actfm_ALA_pw_link">Hier anmelden</string>
+  <string name="actfm_ALA_pw_link">Conectar aqui</string>
 
   <!-- share login: Password Are you a New User? -->
-  <string name="actfm_ALA_pw_new">Neues Konto erstellen?</string>
+  <string name="actfm_ALA_pw_new">Criar uma conta?</string>
 
   <!-- share login: Password Are you a Returning User? -->
-  <string name="actfm_ALA_pw_returning">Haben Sie bereits ein Konto?</string>
+  <string name="actfm_ALA_pw_returning">Já possui uma conta?</string>
 
   <!-- share login: Name -->
-  <string name="actfm_ALA_name_label">Name</string>
+  <string name="actfm_ALA_name_label">Nome</string>
 
   <!-- share login: Email -->
-  <string name="actfm_ALA_email_label">E-Mail</string>
+  <string name="actfm_ALA_email_label">Email</string>
 
   <!-- share login: Username / Email -->
-  <string name="actfm_ALA_username_email_label">Benutzername / E-Mail</string>
+  <string name="actfm_ALA_username_email_label">Usuário / Email</string>
 
   <!-- share login: Password -->
-  <string name="actfm_ALA_password_label">Passwort</string>
+  <string name="actfm_ALA_password_label">Senha</string>
 
   <!-- share login: Sign Up Title -->
-  <string name="actfm_ALA_signup_title">Neues Konto erstellen</string>
+  <string name="actfm_ALA_signup_title">Criar conta</string>
 
   <!-- share login: Login Title -->
-  <string name="actfm_ALA_login_title">Bei Astrid.com anmelden</string>
+  <string name="actfm_ALA_login_title">Conectar em Astrid.com</string>
 
   <!-- share login: Google Auth title -->
   <string name="actfm_GAA_title">Select the Google account you want to use:</string>
 
   <!-- share login: OAUTH Login Prompt -->
-  <string name="actfm_OLA_prompt">Bitte mit Google verbinden:</string>
+  <string name="actfm_OLA_prompt">Por favor conecte ao Google:</string>
   
   <!-- ================================================ Synchronization == -->
       
   <!-- Preferences Title: Act.fm -->    
   <string name="actfm_APr_header">Astrid.com (Beta!)</string>
   
-  <string name="actfm_https_title">HTTPS benutzen</string>
-  <string name="actfm_https_enabled">HTTPS aktiviert (langsamer)</string>
-  <string name="actfm_https_disabled">HTTPS deaktiviert (schneller)</string>
+  <string name="actfm_https_title">Use HTTPS</string>
+  <string name="actfm_https_enabled">HTTPS enabled (slower)</string>
+  <string name="actfm_https_disabled">HTTPS disabled (faster)</string>
 
   <!-- title for notification tray after synchronizing -->
-  <string name="actfm_notification_title">Astrid.com synchronisieren</string>
+  <string name="actfm_notification_title">Sincronizar Astrid.com</string>
   
   <!-- text for notification when comments are received -->
-  <string name="actfm_notification_comments">Neue Kommentare empfangen / klicken für mehr Details</string>
+  <string name="actfm_notification_comments">Você tem novos comentários / clique para mais detalhes</string>
     
 
 
@@ -256,14 +256,14 @@
     <!-- Resources for built-in timers plug-in -->
     
     <!-- Task Edit Activity: Container Label -->
-    <string name="alarm_ACS_label">Alarme</string>
+    <string name="alarm_ACS_label">Alarmes</string>
     
     <!-- Task Edit Activity: Add New Alarm -->
-    <string name="alarm_ACS_button">Einen Alarm hinzufügen</string>
+    <string name="alarm_ACS_button">Adicionar um alarme</string>
     
     <string-array name="reminders_alarm">
       <!-- reminders related to alarm -->
-      <item>Alarm!</item>
+      <item>Alarme!</item>
     </string-array>
     
 
@@ -279,81 +279,81 @@
     <string name="backup_BPr_header">Backups</string>
 
     <!-- Backup: Status Header -->    
-    <string name="backup_BPr_group_status">Zustand</string>
+    <string name="backup_BPr_group_status">Estado</string>
     
     <!-- Backup Status: last backup was a success (%s -> last date). Keep it short! -->    
-    <string name="backup_status_success">Letztes Backup:\n%s</string>
+    <string name="backup_status_success">Latest backup:\n%s</string>
     <!-- Backup Status: last error failed. Keep it short! -->    
-    <string name="backup_status_failed">Letztes Backup fehlgeschlagen</string>
+    <string name="backup_status_failed">O último backup falhou</string>
     <!-- Backup Status: error subtitle -->    
-    <string name="backup_status_failed_subtitle">(klicken um Fehler anzuzeigen)</string>
+    <string name="backup_status_failed_subtitle">(toque para exibir o erro)</string>
     <!-- Backup Status: never backed up -->    
-    <string name="backup_status_never">Bisher kein Backup erstellt!</string>
+    <string name="backup_status_never">O Backup nunca foi executado!</string>
 
     <!-- Backup Options Group Label -->    
-    <string name="backup_BPr_group_options">Einstellungen</string>
+    <string name="backup_BPr_group_options">Opções</string>
 
     <!-- Preference: Automatic Backup Title -->    
-    <string name="backup_BPr_auto_title">Automatische Backups</string>
+    <string name="backup_BPr_auto_title">Backups automáticos</string>
     <!-- Preference: Automatic Backup Description (when disabled) -->
-    <string name="backup_BPr_auto_disabled">Automatische Backups deaktiviert</string>    
+    <string name="backup_BPr_auto_disabled">Backups automáticos desativados</string>    
     <!-- Preference: Automatic Backup Description (when enabled) -->
-    <string name="backup_BPr_auto_enabled">Verwalte deine Backups</string>
+    <string name="backup_BPr_auto_enabled">O Backup ocorrerá diariamente</string>
     
     <!-- Preference screen restoring Tasks Help -->
-    <string name="backup_BPr_how_to_restore">Wie stelle ich Backups wieder her?</string>    
+    <string name="backup_BPr_how_to_restore">Como recuperar backups?</string>    
     <!-- Preference screen Restoring Tasks Help Dialog Text-->
-    <string name="backup_BPr_how_to_restore_dialog">Sie benötigen das Astrid Power Pack für die Verwaltung und Wiederherstellung von Backups. Zusätzlich sichert Astrid Ihre Aufgaben auch automatisch - für alle Fälle.</string>
+    <string name="backup_BPr_how_to_restore_dialog">Você precisa adicionar o \"Astrid Power Pack\" para gerenciar e recuperar seus backups. Por favor, o Astrid efetua o backup de suas tarefas automaticamente.</string>
   
   <!-- ================================================= BackupActivity == -->
 
   <!-- backup activity label -->
-  <string name="backup_BAc_label">Backups verwalten</string>
+  <string name="backup_BAc_label">Gerenciar backups</string>
 
   <!-- backup activity title -->
-  <string name="backup_BAc_title">Ihre Backups verwalten</string>
+  <string name="backup_BAc_title">Gerenciar seus backups</string>
 
   <!-- backup activity import button -->
-  <string name="backup_BAc_import">Aufgaben importieren</string>
+  <string name="backup_BAc_import">Importar tarefas</string>
 
   <!-- backup activity export button -->
-  <string name="backup_BAc_export">Aufgaben exportieren</string>
+  <string name="backup_BAc_export">Exportar tarefas</string>
     
   <!-- ============================================== Importer / Exporter == -->
   
   <!-- Message displayed when error occurs -->
-  <string name="backup_TXI_error">Importfehler</string>
+  <string name="backup_TXI_error">Erro de importação</string>
     
-  <string name="export_toast">%1$s bis %2$s gesichert.</string>
+  <string name="export_toast">Backups feitos: de %1$s para %2$s.</string>
     
-  <string name="export_toast_no_tasks">Keine Aufgaben zu exportieren.</string>
+  <string name="export_toast_no_tasks">Nenhuma tarefa a exportar</string>
   
   <!-- Progress Dialog Title for exporting -->    
-  <string name="export_progress_title">Exportieren...</string>
+  <string name="export_progress_title">Exportando...</string>
   
   <!-- Backup: Title of Import Summary Dialog -->
-  <string name="import_summary_title">Zusammenfassung wiederherstellen</string>
+  <string name="import_summary_title">Sumário da restauração</string>
     
   <!-- Backup: Summary message for import. (%s => file name, %s => total # tasks, %s => imported, %s => skipped, %s => errors) -->
-  <string name="import_summary_message">Datei %1$s enthielt %2$s Aufgaben.\n\n %3$s wurden importiert,\n %4$s waren schon vorhanden (übersprungen)\n %5$s waren fehlerhaft\n</string>
+  <string name="import_summary_message">Arquivo %1$s contendo %2$s.\n\n %3$s importada(s),\n %4$s já existia(m)\n %5$s tinha(m) erro(s)\n</string>
   
   <!-- Progress Dialog Title for importing -->    
-  <string name="import_progress_title">Importieren...</string>
+  <string name="import_progress_title">Importando...</string>
   
   <!-- Progress Dialog text for import reading task (%d -> task number)-->    
-  <string name="import_progress_read">Lese Aufgabe %d...</string>
+  <string name="import_progress_read">Lendo tarefa %d...</string>
   
   <!-- Backup: Dialog when unable to open a file -->  
-  <string name="DLG_error_opening">Dieses Element konnte nicht gefunden werden:</string>
+  <string name="DLG_error_opening">Não foi possível encontrar este item:</string>
   
   <!-- Backup: Dialog when unable to open SD card folder (%s => folder) -->
-  <string name="DLG_error_sdcard">Ordner konnte nicht geöffnet werden: %s</string>
+  <string name="DLG_error_sdcard">Não foi possível acessar a pasta: %s</string>
   
   <!-- Backup: Dialog when unable to open SD card in general -->
-  <string name="DLG_error_sdcard_general">SD-Karte konnte nicht geöffnet werden!</string>
+  <string name="DLG_error_sdcard_general">Não foi possível acessar seu cartão SD!</string>
     
   <!-- Backup: File Selector dialog for import -->
-  <string name="import_file_prompt">Wählen Sie eine Datei zum Wiederherstellen</string>    
+  <string name="import_file_prompt">Selecione um arquivo para ser restaurado</string>    
         
 
 
@@ -363,88 +363,88 @@
   <!-- ================================================== AndroidManifest == -->
 
   <!-- Application Name (shown on home screen & in launcher) -->
-  <string name="app_name">Astrid Aufgaben</string>
+  <string name="app_name">Tarefas do Astrid</string>
   
   <!-- permission title for READ_TASKS -->
-  <string name="read_permission_label">Astrid Zugriffsrechte</string>
+  <string name="read_permission_label">Permissões do Astrid</string>
   
   <!-- permission description for READ_TASKS -->
-  <string name="read_permission_desc">Aufgaben lesen, Aufgabenfilter anzeigen</string>
+  <string name="read_permission_desc">ler tarefas, exibir filtros das tarefas</string>
   
   <!-- permission title for READ_TASKS -->
-  <string name="write_permission_label">Astrid Zugriffsrechte</string>
+  <string name="write_permission_label">Permissões do Astrid</string>
   
   <!-- permission description for READ_TASKS -->
-  <string name="write_permission_desc">Neue Aufgaben erstellen, existierende Aufgaben bearbeiten</string>
+  <string name="write_permission_desc">criar novas tarefas, editar tarefas existentes</string>
   
   <!-- ================================================== Generic Dialogs == -->
     
   <!-- question for deleting tasks -->
-  <string name="DLG_delete_this_task_question">Diese Aufgabe löschen?</string>
+  <string name="DLG_delete_this_task_question">Excluir esta tarefa?</string>
 
   <!-- question for deleting items (%s => item name) -->
-  <string name="DLG_delete_this_item_question">Dieses Element löschen: %s?</string>
+  <string name="DLG_delete_this_item_question">Excluir este item: %s?</string>
     
   <!-- Progress dialog shown when upgrading -->
-  <string name="DLG_upgrading">Ihre Aufgaben werden aktualisiert...</string>
+  <string name="DLG_upgrading">Atualizando suas tarefas...</string>
   
   <!-- Title for dialog selecting a time (hours and minutes) -->
-  <string name="DLG_hour_minutes">Zeit (Stunden : Minuten)</string>
+  <string name="DLG_hour_minutes">Horário (horas:minutos)</string>
   
   <!-- Dialog for Astrid having a critical update -->
-  <string name="DLG_please_update">Astrid sollte auf die aktuellste Version im Android Market aktualisiert werden! Bitte tun Sie dies, bevor Sie fortfahren, oder warten Sie ein paar Sekunden.</string>
+  <string name="DLG_please_update">Astrid deve ser atualizado para a versão mais recente no Android market! Por favor faça isso antes de continuar, ou aguarde alguns segundos.</string>
 
   <!-- Button for going to Market -->
-  <string name="DLG_to_market">Gehe zum Market</string>
+  <string name="DLG_to_market">Ir ao Market</string>
 
   <!-- Button for accepting EULA -->
-  <string name="DLG_accept">Ich akzeptiere</string>
+  <string name="DLG_accept">Aceitar</string>
 
   <!-- Button for declining EULA -->
-  <string name="DLG_decline">Ich akzeptiere nicht</string>
+  <string name="DLG_decline">Recusar</string>
 
   <!-- EULA title -->
-  <string name="DLG_eula_title">Astrid Nutzungsbedingungen</string>
+  <string name="DLG_eula_title">Termos de uso do Astrid</string>
 
   <!-- Progress Dialog generic text -->
-  <string name="DLG_please_wait">Bitte warten Sie</string>
+  <string name="DLG_please_wait">Por favor, espere</string>
   
   <!-- Dialog - loading -->
-  <string name="DLG_loading">Lade...</string>
+  <string name="DLG_loading">Carregando...</string>
   
   <!-- Dialog - dismiss -->
   <string name="DLG_dismiss">Dismiss</string>
   
   <string name="DLG_ok">OK</string>
   
-  <string name="DLG_cancel">Abbrechen</string>
+  <string name="DLG_cancel">Cancel</string>
   
   <string name="DLG_undo">Undo</string>
   
   <!-- =============================================================== UI == -->
   
   <!-- Label for DateButtons with no value -->
-  <string name="WID_dateButtonUnset">Kommentare</string>
+  <string name="WID_dateButtonUnset">Toque para definir</string>
   
   <!-- String formatter for DateButtons ($D => date, $T => time) -->
-  <string name="WID_dateButtonLabel">Nichts zum Anzeigen</string>
+  <string name="WID_dateButtonLabel">$D $T</string>
   
   <!-- String formatter for Disable button -->
-  <string name="WID_disableButton">Deaktivieren</string>  
+  <string name="WID_disableButton">Desativar</string>  
   
   <!--  ============================================================= notes -->
   
   <!-- Note Exposer -->    
-  <string name="ENE_label">Notizen</string>
+  <string name="ENE_label">Notas</string>
   
   <!-- Note Exposer / Comments -->    
-  <string name="ENE_label_comments">Kommentare</string>
+  <string name="ENE_label_comments">Comentários</string>
   
   <!-- EditNoteActivity - no comments -->
-  <string name="ENA_no_comments">Nichts zum anzeigen</string>
+  <string name="ENA_no_comments">Nada a exibir</string>
   
   <!-- EditNoteActivity - refresh comments -->
-  <string name="ENA_refresh_comments">Kommentare aktualisieren</string>
+  <string name="ENA_refresh_comments">Atualizar comentários</string>
   
   <!-- ================================================= TaskListActivity == -->
   
@@ -452,16 +452,16 @@
   <string name="TLA_no_items">You have no tasks! \n Want to add something?</string>
   
   <!-- Menu: Add-ons -->    
-  <string name="TLA_menu_addons">Add-Ons</string>
+  <string name="TLA_menu_addons">Complementos</string>
   
   <!-- Menu: Adjust Sort and Hidden Task Settings -->    
-  <string name="TLA_menu_sort">Sortierung &amp; Versteckte</string>
+  <string name="TLA_menu_sort">Ordenar &amp; Ocultar</string>
   
   <!-- Menu: Sync Now -->    
-  <string name="TLA_menu_sync">Jetzt Synchronisieren!</string>
+  <string name="TLA_menu_sync">Sincronizar agora!</string>
   
   <!-- Menu: Tasks -->
-  <string name="TLA_menu_tasks">Aufgaben</string>
+  <string name="TLA_menu_tasks">Tarefas</string>
 
   <!-- Menu: Friends -->
   <string name="TLA_menu_friends">Friends</string>
@@ -473,16 +473,16 @@
   <string name="TLA_menu_tutorial">Tutorial</string>
 
   <!-- Menu: Settings -->    
-  <string name="TLA_menu_settings">Einstellungen</string>
+  <string name="TLA_menu_settings">Configurações</string>
   
   <!-- Menu: Support -->
-  <string name="TLA_menu_support">Unterstützung</string>
+  <string name="TLA_menu_support">Support</string>
   
   <!-- Search Label-->
-  <string name="TLA_search_label">Durchsuche diese Liste</string>
+  <string name="TLA_search_label">Procurar esta lista</string>
   
   <!-- Window title for displaying Custom Filter -->
-  <string name="TLA_custom">Benutzerdefiniert</string>
+  <string name="TLA_custom">Personalizar</string>
   
   <!-- Quick Add Edit Box Hint-->
   <string name="TLA_quick_add_hint">Add a task</string>
@@ -491,17 +491,17 @@
   <string name="TLA_quick_add_hint_assign">Tap to assign %s a task</string>
   
   <!-- Notification Volumne notification-->
-  <string name="TLA_notification_volume_low">Erinnerungen sind stummgeschaltet. Du wirst Astrid nicht höhren!</string>
+  <string name="TLA_notification_volume_low">As notificações estão silenciadas. Você não ouvirá o Astrid!</string>
   
   <!-- Notifications disabled warning -->
   <string name="TLA_notification_disabled">Astrid reminders are disabled! You will not receive any reminders</string>
   
   <string-array name="TLA_filters">
       <item>Active</item>
-      <item>Heute</item>
+      <item>Hoje</item>
       <item>Soon</item>
       <item>Late</item>
-      <item>Erledigt</item>
+      <item>Concluído</item>
       <item>Hidden</item>      
   </string-array>
   
@@ -528,10 +528,10 @@
   <!-- ====================================================== TaskAdapter == -->
   
   <!-- Format string to indicate task is hidden (%s => task name) -->
-  <string name="TAd_hiddenFormat">%s [versteckt]</string>
+  <string name="TAd_hiddenFormat">%s [oculta]</string>
   
   <!-- Format string to indicate task is deleted (%s => task name) -->
-  <string name="TAd_deletedFormat">%s [gelöscht]</string>
+  <string name="TAd_deletedFormat">%s [excluída]</string>
   
   <!-- Displayed when adapter is flung (scrolled quickly) -->
   <string name="TAd_flingText"/>
@@ -540,130 +540,130 @@
   <string name="TAd_completed">Finished\n%s</string>
   
   <!-- Action Button: edit task -->
-  <string name="TAd_actionEditTask">Bearbeiten</string>
+  <string name="TAd_actionEditTask">Editar</string>
   
   <!-- Context Item: edit task -->
-  <string name="TAd_contextEditTask">Aufgabe bearbeiten</string>
+  <string name="TAd_contextEditTask">Editar tarefa</string>
 
   <!-- Context Item: copy task -->
-  <string name="TAd_contextCopyTask">Aufgabe kopieren</string>
+  <string name="TAd_contextCopyTask">Copiar tarefa</string>
 
   <!-- Context Item: delete task -->
-  <string name="TAd_contextDeleteTask">Aufgabe löschen</string>
+  <string name="TAd_contextDeleteTask">Excluir tarefa</string>
 
   <!-- Context Item: undelete task -->
-  <string name="TAd_contextUndeleteTask">Aufgabe wiederherstellen</string>
+  <string name="TAd_contextUndeleteTask">Restaurar tarefa</string>
 
   <!-- Context Item: purge task -->
-  <string name="TAd_contextPurgeTask">Aufgabe bereinigen</string>
+  <string name="TAd_contextPurgeTask">Destruir tarefa</string>
   
   <!-- ============================================== SortSelectionDialog == -->
   
   <!-- Sort Selection: dialog title -->    
-  <string name="SSD_title">Sortierung und versteckte Aufgaben</string>
+  <string name="SSD_title">Ordenando e ocultando tarefas</string>
   
   <!-- Hidden Task Selection: show completed tasks -->    
-  <string name="SSD_completed">Erledigte Aufgaben anzeigen</string>
+  <string name="SSD_completed">Exibir tarefas terminadas</string>
   
   <!-- Hidden Task Selection: show hidden tasks -->    
-  <string name="SSD_hidden">Versteckte Aufgaben anzeigen</string>
+  <string name="SSD_hidden">Exibir tarefas ocultas</string>
   
   <!-- Hidden Task Selection: show deleted tasks -->    
-  <string name="SSD_deleted">Gelöschte Aufgaben anzeigen</string>
+  <string name="SSD_deleted">Exibir tarefas excluídas</string>
   
   <!-- Sort Selection: sort options header -->    
-  <string name="SSD_sort_header">Sortier-Optionen</string>
+  <string name="SSD_sort_header">Opções de ordenação</string>
   
   <!-- Sort Selection: smart sort -->
-  <string name="SSD_sort_auto">Astrid Smart Sort</string>
+  <string name="SSD_sort_auto">Ordenação inteligente Astrid</string>
   
   <!-- Sort Selection: sort by alpha -->
-  <string name="SSD_sort_alpha">Nach Titel</string>
+  <string name="SSD_sort_alpha">Por título</string>
   
   <!-- Sort Selection: sort by due date -->
-  <string name="SSD_sort_due">Nach Fälligkeit</string>
+  <string name="SSD_sort_due">Por data de vencimento</string>
   
   <!-- Sort Selection: sort by importance -->
-  <string name="SSD_sort_importance">Nach Wichtigkeit</string>
+  <string name="SSD_sort_importance">Por importância</string>
   
   <!-- Sort Selection: sort by modified date -->
-  <string name="SSD_sort_modified">Nach letzter Änderung</string>
+  <string name="SSD_sort_modified">Por data de modificação</string>
   
   <!-- Sort Selection: reverse -->
-  <string name="SSD_sort_reverse">Umgekehrte Sortierung</string>
+  <string name="SSD_sort_reverse">Ordenação reversa</string>
   
   <!-- Sort Button: sort temporarily -->
-  <string name="SSD_save_temp">Nur einmal</string>
+  <string name="SSD_save_temp">Somente uma vez</string>
   
   <!-- Sort Button: sort permanently -->
-  <string name="SSD_save_always">Immer</string>
+  <string name="SSD_save_always">Sempre</string>
   
   <!-- =============================================== FilterListActivity == -->
 
   <!-- Filter List Activity Title -->    
-  <string name="FLA_title">Listen</string>
+  <string name="FLA_title">Listas</string>
   
   <!-- Displayed when loading filters -->    
-  <string name="FLA_loading">Lade Filter...</string>
+  <string name="FLA_loading">Carregando filtros...</string>
   
   <!-- Context Menu: Create Shortcut -->    
-  <string name="FLA_context_shortcut">Verknüpfung auf dem Desktop erstellen</string>
+  <string name="FLA_context_shortcut">Criar atalho no desktop</string>
   
   <!-- Menu: Search -->
-  <string name="FLA_menu_search">Durchsuche Aufgaben...</string>
+  <string name="FLA_menu_search">Procurar tarefas</string>
   
   <!-- Menu: Help -->    
-  <string name="FLA_menu_help">Help</string>
+  <string name="FLA_menu_help">Ajuda</string>
   
   <!-- Create Shortcut Dialog Title -->    
-  <string name="FLA_shortcut_dialog_title">Verknüpfung erstellen</string>
+  <string name="FLA_shortcut_dialog_title">Criar atalho</string>
   
   <!-- Create Shortcut Dialog (asks to name shortcut) -->    
-  <string name="FLA_shortcut_dialog">Name der Verknüpfung</string>
+  <string name="FLA_shortcut_dialog">Nome do atalho</string>
   
   <!-- Search Hint-->
-  <string name="FLA_search_hint">Suche nach Aufgabe</string>
+  <string name="FLA_search_hint">Procurar por tarefas</string>
   
   <!-- Search Filter name (%s => query) -->
-  <string name="FLA_search_filter">Übereinstimmung mit %s</string>
+  <string name="FLA_search_filter">Encontradas para \'%s\'</string>
   
   <!-- Toast: created shortcut (%s => label) -->
-  <string name="FLA_toast_onCreateShortcut">Verknüpfung erstellt: %s</string>
+  <string name="FLA_toast_onCreateShortcut">Atalho criado: %s</string>
   
   <!-- Menu: new filter -->
   <string name="FLA_new_filter">New Filter</string>
   
   <!-- Button: new list -->
-  <string name="FLA_new_list">Neue Liste</string>
+  <string name="FLA_new_list">Nova lista</string>
   
   <!-- ================================================= TaskEditActivity == -->
   
   <!-- Title when editing a task (%s => task title) -->
-  <string name="TEA_view_title">Astrid: Bearbeite \'%s\'</string>
+  <string name="TEA_view_title">Astrid: Editando \'%s\'</string>
   
   <!-- Title when creating a new task -->
   <string name="TEA_view_titleNew">New Task</string>
   
   <!-- Task title label -->
-  <string name="TEA_title_label">Titel</string>
+  <string name="TEA_title_label">Título</string>
   
   <!-- Task when label (note the <u> tags - be sure to leave those in when localizing! -->
   <string name="TEA_when_header_label">When</string>
   
   <!-- Task title hint (displayed when edit box is empty) -->
-  <string name="TEA_title_hint">Aufgabenzusammenfassung</string>
+  <string name="TEA_title_hint">Resumo da Tarefa</string>
   
   <!-- Task importance label -->
-  <string name="TEA_importance_label">Wichtigkeit</string>
+  <string name="TEA_importance_label">Importância</string>
   
   <!-- Task urgency label -->
-  <string name="TEA_urgency_label">Fälligkeit</string>
+  <string name="TEA_urgency_label">Prazo final</string>
   
   <!-- Task urgency specific time checkbox -->
-  <string name="TEA_urgency_specific_time">Zu einer bestimmten Zeit?</string>
+  <string name="TEA_urgency_specific_time">Num horário específico?</string>
   
   <!-- Task urgency specific time title when specific time false -->
-  <string name="TEA_urgency_none">Keine</string>
+  <string name="TEA_urgency_none">Nenhum</string>
   
   <!-- Task hide until label -->
   <string name="TEA_hideUntil_label">Show Task</string>
@@ -672,81 +672,81 @@
   <string name="TEA_hideUntil_message">Task will be hidden until %s</string>
   
   <!-- Task editing data being loaded label -->
-  <string-array name="TEA_loading"><item>Lade...</item></string-array>
+  <string-array name="TEA_loading"><item>Carregando...</item></string-array>
   
   <!-- Task note label -->
-  <string name="TEA_note_label">Notizen</string>
+  <string name="TEA_note_label">Notas</string>
   
   <!-- Task note hint -->
-  <string name="TEA_notes_hint">Notizen zur Aufgabe hinzufügen</string>
+  <string name="TEA_notes_hint">Inserir notas da tarefa</string>
   
   <!-- Estimated time label -->
-  <string name="TEA_estimatedDuration_label">Wie lange wird es dauern?</string>
+  <string name="TEA_estimatedDuration_label">Quanto tempo irá demorar?</string>
   
   <!-- Elapsed time label -->
-  <string name="TEA_elapsedDuration_label">Für die Aufgabe bisher aufgewendete Zeit</string>
+  <string name="TEA_elapsedDuration_label">Tempo gasto na tarefa</string>
 
   <!-- Menu: Save -->    
-  <string name="TEA_menu_save">Änderungen speichern</string>
+  <string name="TEA_menu_save">Salvar alterações</string>
   
   <!-- Menu: Don't Save -->
-  <string name="TEA_menu_discard">Nicht speichern</string>
+  <string name="TEA_menu_discard">Não salvar</string>
   
   <!-- Menu: Delete Task -->
-  <string name="TEA_menu_delete">Aufgabe löschen</string>
+  <string name="TEA_menu_delete">Excluir tarefa</string>
   
   <!-- Menu: Task comments -->
-  <string name="TEA_menu_comments">Kommentare</string>
+  <string name="TEA_menu_comments">Comentários</string>
   
    <!-- Toast: task saved with deadline (%s => preposition + time units) -->
-  <string name="TEA_onTaskSave_due">Aufgabe gespeichert: fällig %s</string>
+  <string name="TEA_onTaskSave_due">Tarefa salva: vence em %s</string>
   
   <!-- Toast: task saved without deadlines -->
-  <string name="TEA_onTaskSave_notDue">Aufgabe gespeichert</string>
+  <string name="TEA_onTaskSave_notDue">Tarefa salva</string>
   
   <!-- Toast: task was not saved -->
-  <string name="TEA_onTaskCancel">Bearbeitung der Aufgabe wurde abgebrochen</string>
+  <string name="TEA_onTaskCancel">Alteração da tarefa cancelada</string>
   
   <!-- Toast: task was deleted -->
   <string name="TEA_onTaskDelete">Task deleted!</string>
   
   <!-- Task edit tab: activity -->
-  <string name="TEA_tab_activity">Aktivität</string>
+  <string name="TEA_tab_activity">Atividade</string>
   
   <!-- Task edit tab: more editing settings -->
-  <string name="TEA_tab_more">Mehr</string>
+  <string name="TEA_tab_more">Mais</string>
   
   <string-array name="TEA_urgency">
       <!-- urgency: labels for edit page. item #4 -> auto filled -->
       <item>No deadline</item>
-      <item>Bestimmter Tag</item>
-      <item>Heute</item>
-      <item>Morgen</item>
-      <item>Übermorgen</item>
-      <item>Nächste Woche</item>
-      <item>In zwei Wochen</item>
-      <item>Nächster Monat</item>
+      <item>Dia específico</item>
+      <item>Hoje</item>
+      <item>Amanhã</item>
+      <item>Depois de amanhã</item>
+      <item>Próxima semana</item>
+      <item>Em duas semanas</item>
+      <item>Próximo mês</item>
   </string-array>
   
   <string name="TEA_no_time">No time</string>
       
   <string-array name="TEA_hideUntil">
       <!-- hideUntil: labels for edit page. -->
-      <item>Immer</item>
+      <item>Sempre</item>
       <item>At due date</item>
-      <item>Tag vor der Fälligkeit</item>
-      <item>Woche vor der Fälligkeit</item>
-      <item>Bestimmter Tag/Uhrzeit</item>
+      <item>1 dia antes do vencimento</item>
+      <item>1 semana antes do vencimento</item>
+      <item>Dia/Hora específica</item>
   </string-array>
   
   <!-- Task edit control set descriptors -->
   <string name="TEA_control_title">Task Title</string>
-  <string name="TEA_control_who">Wer</string>
+  <string name="TEA_control_who">Who</string>
   <string name="TEA_control_when">When</string>
   <string name="TEA_control_more_section">----More Section----</string>
-  <string name="TEA_control_importance">Wichtigkeit</string>  
-  <string name="TEA_control_lists">Listen</string>  
-  <string name="TEA_control_notes">Notizen</string>  
+  <string name="TEA_control_importance">Importância</string>  
+  <string name="TEA_control_lists">Listas</string>  
+  <string name="TEA_control_notes">Notas</string>  
   <string name="TEA_control_reminders">Reminders</string>
   <string name="TEA_control_timer">Timer Controls</string>
   <string name="TEA_control_share">Share With Friends</string>
@@ -754,13 +754,13 @@
   <string name="hide_until_prompt">Show in my list</string>
   
   <!-- Add Ons tab when no add-ons found -->
-  <string name="TEA_addons_text">Wollen Sie mehr von Astrid?</string>
+  <string name="TEA_addons_text">Procurando por mais funcionalidades?</string>
   
   <!-- Add Ons button -->
-  <string name="TEA_addons_button">Lade das Power Pack herunter!</string>
+  <string name="TEA_addons_button">Obtenha o Power Pack!</string>
   
   <!-- More row -->
-  <string name="TEA_more">Mehr</string>
+  <string name="TEA_more">Mais</string>
   
   <!-- Text when no activity to show -->
   <string name="TEA_no_activity">No Activity to Show.</string>
@@ -775,48 +775,48 @@
   <!-- ============================================= IntroductionActivity == -->
   
   <!-- Introduction Window title -->
-  <string name="InA_title">Willkommen zu Astrid</string>
+  <string name="InA_title">Bem vindo ao Astrid!</string>
   
   <!-- Button to agree to EULA -->
-  <string name="InA_agree">Ich stimme zu!</string>
+  <string name="InA_agree">Aceitar</string>
   
   <!-- Button to disagree with EULA -->
-  <string name="InA_disagree">Ich lehne ab!</string>
+  <string name="InA_disagree">Recusar</string>
   
   <!-- ===================================================== HelpActivity == -->
   
   <!-- Help: Button to get support from our website -->
-  <string name="HlA_get_support">Support erhalten</string>
+  <string name="HlA_get_support">Obter ajuda</string>
     
   <!-- ==================================================== UpdateService == -->
   
   <!-- Changelog Window Title -->
-  <string name="UpS_changelog_title">Was ist neu bei Astrid?</string>
+  <string name="UpS_changelog_title">O que há de novo no Astrid?</string>
   
   <!-- Updates Window Title -->
-  <string name="UpS_updates_title">Astrid Neuigkeiten</string>
+  <string name="UpS_updates_title">Ultimas novidades no Astrid</string>
   
   <!-- ================================================== EditPreferences == -->
     
   <!-- Preference Window Title -->
-  <string name="EPr_title">Astrid: Einstellungen</string>
+  <string name="EPr_title">Astrid: Configurações</string>
   
   <string name="EPr_deactivated">deactivated</string>
 
   <!-- Preference Category: Appearance Title -->
-  <string name="EPr_appearance_header">Erscheinungsbild</string>
+  <string name="EPr_appearance_header">Aparência</string>
   
   <!-- Preference: Task List Font Size Title -->
-  <string name="EPr_fontSize_title">Größe der Aufgabenliste</string>
+  <string name="EPr_fontSize_title">Tamanho da fonte</string>
   
   <!-- Preference: Show confirmation for smart reminders -->
   <string name="EPr_showSmartConfirmation_title">Show confirmation for smart reminders</string>
   
   <!-- Preference: Task List Font Size Description -->                                                                                                                                                  
-  <string name="EPr_fontSize_desc">Schriftgröße auf der Hauptseite</string>  
+  <string name="EPr_fontSize_desc">Tamanho da fonte na página da lista principal</string>  
   
   <!-- Preference: Task List Show Notes -->
-  <string name="EPr_showNotes_title">Notizen zu Aufgaben anzeigen</string>
+  <string name="EPr_showNotes_title">Exibir notas na tarefa</string>
   <!-- Preference: Beast mode (auto-expand edit page) -->
   <string name="EPr_beastMode_title">Beast Mode</string>
   <string name="EPr_beastMode_desc">Customize the layout of the Task Edit Page</string>
@@ -825,14 +825,14 @@
   <!-- Preference: Task List Show Notes Description (disabled) -->
   <string name="EPr_showNotes_desc_disabled">Notes will be accessible from the Task Edit Page</string>  
   <!-- Preference: Task List Show Notes Description (enabled) -->
-  <string name="EPr_showNotes_desc_enabled">Benachrichtigungen werden immer angezeigt</string>
+  <string name="EPr_showNotes_desc_enabled">As notas sempre serão exibidas</string>
   
   <!-- Preference: Theme -->
   <string name="EPr_theme_title">Color Theme</string>
   <!-- Preference: Theme Description (%s => value) -->
-  <string name="EPr_theme_desc">Momentan: %s</string>  
+  <string name="EPr_theme_desc">Atualmente: %s</string>  
   <!-- Preference: Theme Description (android 1.6) -->
-  <string name="EPr_theme_desc_unsupported">Einstellungen benötigen mindestens Android 2.0</string>
+  <string name="EPr_theme_desc_unsupported">Esta opção requer Android 2.0+</string>
     
   <string-array name="EPr_default_reminders_mode">
       <!-- reminders duration: labels for "Task Defaults" preference item. -->
@@ -852,15 +852,15 @@
   <!-- ========================================== Task Management Settings == -->
 
   <!-- Preference Screen Header: Old Task Management -->
-  <string name="EPr_manage_header">Alte Aufgaben managen</string>
-  <string name="EPr_manage_delete_completed">Abgeschlossene Aufgaben löschen</string>
-  <string name="EPr_manage_delete_completed_message">Willst du wirklich alle abgeschlossenen Aufgaben löschen?</string>
-  <string name="EPr_manage_delete_completed_summary">Gelöschte Aufgaben können einzeln wiederhergestellt werden.</string>
-  <string name="EPr_manage_delete_completed_status">%d Aufgaben gelöscht</string>
-  <string name="EPr_manage_purge_deleted">Bereinige gelöschte Aufgaben</string>
-  <string name="EPr_manage_purge_deleted_message">Willst du wirklich alle gelöschten Aufgaben bereinigen?\n\nDiese Aufgaben werden für immer gelöscht bleiben!</string>
-  <string name="EPr_manage_purge_deleted_status">%d Aufgaben bereinigt!</string>
-  <string name="EPr_manage_purge_deleted_summary">Vorsicht! Bereinigte Aufgaben können ohne Backup-Datei nicht wiederhergestellt werden!</string>
+  <string name="EPr_manage_header">Gerenciar tarefas antigas</string>
+  <string name="EPr_manage_delete_completed">Excluir tarefas concluídas</string>
+  <string name="EPr_manage_delete_completed_message">Você realmente deseja excluir todas as tarefas concluídas?</string>
+  <string name="EPr_manage_delete_completed_summary">Tarefas excluídas podem ser recuperados uma a uma</string>
+  <string name="EPr_manage_delete_completed_status">Tarefas %d excluídas!</string>
+  <string name="EPr_manage_purge_deleted">Remover tarefas excluídas</string>
+  <string name="EPr_manage_purge_deleted_message">Você realmente deseja remover todas as suas tarefas excluídas?\n\nEstas tarefas serão removidas para sempre!</string>
+  <string name="EPr_manage_purge_deleted_status">Tarefas %d removidas!</string>
+  <string name="EPr_manage_purge_deleted_summary">Cuidado! Tarefas removidas não podem ser recuperados sem arquivos de backup!</string>
   <string name="EPr_manage_clear_all">Clear All Data</string>
   <string name="EPr_manage_clear_all_message">Delete all tasks and settings in Astrid?\n\nWarning: can\'t be undone!</string>
 
@@ -877,88 +877,88 @@
   <!-- ==================================================== AddOnActivity == -->
   
   <!-- Add Ons Activity Title -->
-  <string name="AOA_title">Astrid: Add-Ons</string>
+  <string name="AOA_title">Astrid: Complementos</string>
     
   <!-- Add-on Activity: author for internal authors  -->
-  <string name="AOA_internal_author">Astrid Team</string>
+  <string name="AOA_internal_author">Equipe do Astrid</string>
     
   <!-- Add-on Activity: installed add-ons tab -->
-  <string name="AOA_tab_installed">Installiert</string>
+  <string name="AOA_tab_installed">Instalado</string>
   
   <!-- Add-on Activity - available add-ons tab -->
-  <string name="AOA_tab_available">Verfügbar</string>
+  <string name="AOA_tab_available">Disponível</string>
   
   <!-- Add-on Activity - free add-ons label -->
-  <string name="AOA_free">Kostenlos</string>
+  <string name="AOA_free">Gratuito</string>
   
   <!-- Add-on Activity - menu item to visit add-on website -->
-  <string name="AOA_visit_website">Webseite besuchen</string>
+  <string name="AOA_visit_website">Visitar página</string>
   
   <!-- Add-on Activity - menu item to visit android market -->
   <string name="AOA_visit_market">Android Market</string>
   
   <!-- Add-on Activity - when list is empty -->
-  <string name="AOA_no_addons">Leere Liste!</string>
+  <string name="AOA_no_addons">Lista Vazia!</string>
   
   <!-- ====================================================== TasksWidget == -->
 
   <!-- Widget text when loading tasks -->
-  <string name="TWi_loading">Lade...</string>
+  <string name="TWi_loading">Carregando...</string>
 
   <!-- Widget configuration activity title: select a filter -->
-  <string name="WCA_title">Wähle Aufgaben zum Anzeigen...</string>
+  <string name="WCA_title">Selecionar tarefas para visualização...</string>
 
   <!-- ============================================================= About == -->
   
   <!-- Title of "About" option in settings -->
-  <string name="p_about">Über Astrid</string>
+  <string name="p_about">Sobre Astrid</string>
   
   <!-- About text (%s => current version)-->
-<string name="p_about_text">Aktuelle Version: %s\n\n Astrid ist Open-Source und wird stolz von Todoroo, Inc. gepflegt.</string>
+<string name="p_about_text">Versão atual: %s\n\n Astrid é open-source e orgulhosamente mantido pela Todoroo, Inc.</string>
 
   <!-- Title of "Help" option in settings -->
-  <string name="p_help">Help</string>
+  <string name="p_help">Ajuda</string>
   
   <!-- ============================================================= Misc == -->
   
   <!-- Displayed when task killer found. %s => name of the application -->
-  <string name="task_killer_help">Es scheint Sie benutzen eine Anwendung die Prozesse killen kann (%s)! Falls möglich setzen Sie Astrid auf die Liste der davon ausgenommenen Prozesse damit es nicht gekillt wird. Andernfalls kann Astrid Sie nicht über fällige Tasks informieren.\n</string>
+  <string name="task_killer_help">Parece que você está usando um aplicativo que pode eliminar processos (%s)! Se você puder, adicione o Astrid à lista de exclusão para que ele não seja eliminado. Caso contrário, o Astrid pode não avisar para você quando suas tarefas estiverem vencidas.\n</string>
   
   <!-- Task killer dialog ok button -->
-  <string name="task_killer_help_ok">Ich werde Astrid nicht killen!</string>
+  <string name="task_killer_help_ok">Eu não vou excluir o Astrid!</string>
     
   <!-- Astrid's Android Marketplace title. It never appears in the app itself. -->
-  <string name="marketplace_title">Astrid Aufgaben- / ToDo-Liste</string>
+  <string name="marketplace_title">Astrid - Lista de Tarefas/Afazeres</string>
   
   <!-- Astrid's Android Marketplace description. It never appears in the app itself. -->
-  <string name="marketplace_description">Astrid ist der beliebte Open-Source ToDo-Listen / Task-Manager, der Ihnen dabei hilft, Dinge zu erledigen. Er verfügt über Erinnerungen, Tags, Synchronisation, Locale Plug-In, ein Widget und vieles mehr.</string>
+  <string name="marketplace_description">Astrid é o aclamado gerenciador de tarefas/lista de afazeres de código aberto feito para lhe ajudar a terminar seu trabalho. Ele contém lembretes, etiquetas, sincronização, plugin local, um widget e mais.</string>
   
 
 
 
 
    <!-- Preference Category: Defaults Title -->
-  <string name="EPr_defaults_header">Standardeinstellungen für neue Aufgaben</string>
+  <string name="EPr_defaults_header">Padrão para novas tarefas</string>
   
   <!-- Preference: Default Urgency Title -->
-  <string name="EPr_default_urgency_title">Standard Dringlichkeit</string>
+  <string name="EPr_default_urgency_title">Urgência</string>
   <!-- Preference: Default Urgency Description (%s => setting) -->
-  <string name="EPr_default_urgency_desc">Momentan: %s</string>
+  <string name="EPr_default_urgency_desc">Atualmente: %s</string>
   
   <!-- Preference: Default Importance Title -->
-  <string name="EPr_default_importance_title">Standard Wichtigkeit</string>
+  <string name="EPr_default_importance_title">Importância</string>
   <!-- Preference: Default Importance Description (%s => setting) -->
-  <string name="EPr_default_importance_desc">Momentan: %s</string>
+  <string name="EPr_default_importance_desc">Atualmente: %s</string>
   
   <!-- Preference: Default Hide Until Title -->
-  <string name="EPr_default_hideUntil_title">Standardmässig Verstecken bis</string>
+  <string name="EPr_default_hideUntil_title">Ocultar até</string>
   <!-- Preference: Default Hide Until Description (%s => setting) -->
-  <string name="EPr_default_hideUntil_desc">Momentan: %s</string>
+  <string name="EPr_default_hideUntil_desc">Atualmente: %s</string>
   
   <!-- Preference: Default Reminders Title -->
-  <string name="EPr_default_reminders_title">Standarderinnerungen</string>
+  <string name="EPr_default_reminders_title">Lembretes</string>
   <!-- Preference: Default Reminders Description (%s => setting) -->
-  <string name="EPr_default_reminders_desc">Momentan: %s</string>
+  <string name="EPr_default_reminders_desc">Atualmente: %s</string>
   
   <!-- Preference: Default Add To Calendar Title -->
   <string name="EPr_default_addtocalendar_title">Default Add To Calendar</string>
@@ -970,39 +970,39 @@
   <!-- Reminder Mode Preference: Default Reminders Duration -->
   <string name="EPr_default_reminders_mode_title">Default Ring/Vibrate type</string>
   <!-- Preference: Default Reminders Description (%s => setting) -->
-  <string name="EPr_default_reminders_mode_desc">Momentan: %s</string>
+  <string name="EPr_default_reminders_mode_desc">Atualmente: %s</string>
   
   <string-array name="EPr_default_importance">
       <!-- importance: labels for "Task Defaults" preference item. -->
       <item>!!! (Highest)</item>
-      <item>!!</item>
+      <item>!! (normal)</item>
       <item>!</item>
       <item>o (Lowest)</item>
   </string-array>
   
   <string-array name="EPr_default_urgency">
       <!-- urgency: labels for "Task Defaults" preference item. -->
-      <item>Keine Fälligkeit</item>
-      <item>Heute</item>
-      <item>Morgen</item>
-      <item>Übermorgen</item>
-      <item>Nächste Woche</item>
+      <item>Sem vencimento</item>
+      <item>Hoje</item>
+      <item>Amanhã</item>
+      <item>Depois de amanhã</item>
+      <item>Próxima semana</item>
   </string-array>
   
   <string-array name="EPr_default_hideUntil">
       <!-- hideUntil: labels for "Task Defaults" preference item. -->
-      <item>Nicht verstecken</item>
-      <item>Aufgabe fällig ist</item>
-      <item>Tag vor der Fälligkeit</item>
-      <item>Woche vor der Fälligkeit</item>
+      <item>Não ocultar</item>
+      <item>O dia do vencimento</item>
+      <item>1 dia antes do vencimento</item>
+      <item>1 semana antes do vencimento</item>
   </string-array>
   
   <string-array name="EPr_default_reminders">
       <!-- reminders: labels for "Task Defaults" preference item. -->
-      <item>Keine Frist-Erinnerungen</item>
-      <item>Am Stichtag</item>
-      <item>Wenn überfällig</item>
-      <item>Am Stichtag oder überfällig</item>
+      <item>Sem lembretes no vencimento</item>
+      <item>No vencimento</item>
+      <item>Quando vencida</item>
+      <item>No prazo ou vencidas</item>
   </string-array>
   
     <string-array name="EPr_default_addtocalendar">
@@ -1019,103 +1019,103 @@
     <!-- ================================================= Filter Exposer == -->
     
     <!-- Active Tasks Filter -->
-    <string name="BFE_Active">Aktuelle Aufgaben</string>
+    <string name="BFE_Active">Tarefas ativas</string>
         
     <!-- Search Filter -->
-    <string name="BFE_Search">Suchen...</string>
+    <string name="BFE_Search">Pesquisar...</string>
     
     <!-- Recently Modified -->
-    <string name="BFE_Recent">Kürzlich bearbeitet</string>
+    <string name="BFE_Recent">Recentemente Modificado</string>
     
     <!-- I've assigned -->
     <string name="BFE_Assigned">I\'ve Assigned</string>
     
     <!-- Build Your Own Filter -->
-    <string name="BFE_Custom">Benutzerdefinierter Filter...</string>
+    <string name="BFE_Custom">Filtro Personalizado...</string>
     
     <!-- Saved Filters Header -->
     <string name="BFE_Saved">Filters</string>
     
     <!-- Saved Filters Context Menu: delete -->
-    <string name="BFE_Saved_delete">Filter löschen</string>
+    <string name="BFE_Saved_delete">Excluir Filtro</string>
 
     <!-- =========================================== CustomFilterActivity == -->
     
     <!-- Build Your Own Filter Activity Title-->
-    <string name="CFA_title">Benutzerdefinierter Filter</string>
+    <string name="CFA_title">Filtro Personalizado</string>
     
     <!-- Filter Name edit box hint (if user types here, filter will be saved) -->
-    <string name="CFA_filterName_hint">Geben Sie dem Filter einen Namen, um ihn zu speichern...</string>
+    <string name="CFA_filterName_hint">Nome do filtro a salvar...</string>
     
     <!-- Filter Name default for copied filters (%s => old filter name) -->
-    <string name="CFA_filterName_copy">Kopie von %s</string>
+    <string name="CFA_filterName_copy">Cópia de %s</string>
     
     <!-- Filter Starting Universe: all tasks -->
-    <string name="CFA_universe_all">Aktuelle Aufgaben</string>
+    <string name="CFA_universe_all">Tarefas ativas</string>
     
     <!-- Filter Criteria Type: add (at the begging of title of the criteria) -->
-    <string name="CFA_type_add">oder</string>
+    <string name="CFA_type_add">ou</string>
     
     <!-- Filter Criteria Type: subtract (at the begging of title of the criteria) -->
-    <string name="CFA_type_subtract">nicht</string>
+    <string name="CFA_type_subtract">não</string>
     
     <!-- Filter Criteria Type: intersect (at the begging of title of the criteria) -->
-    <string name="CFA_type_intersect">auch</string>
+    <string name="CFA_type_intersect">Também</string>
     
     <!-- Filter Criteria Context Menu: chaining (%s chain type as above) -->
-    <string name="CFA_context_chain">%s hat Kriterien</string>
+    <string name="CFA_context_chain">%s tem critérios</string>
     
     <!-- Filter Criteria Context Menu: delete -->
-    <string name="CFA_context_delete">Zeile löschen</string>
+    <string name="CFA_context_delete">Remover Linha</string>
     
     <!-- Filter Screen Help Text -->
-    <string name="CFA_help">Hier können Sie neue Filter erstellen. Fügen Sie mit der Schaltfläche unten Kriterien hinzu, kurz oder lang tippen zum Anpassen, und dann wählen Sie \"Anzeigen\"!</string>
+    <string name="CFA_help">Esta tela permite que você crie um novo filtro. Adicione critérios utilizando o botão abaixo, clique em curto ou longo para ajustar, e então click em \"Visualizar\"!</string>
     
     <!-- Filter Button: add new -->
-    <string name="CFA_button_add">Kriterium hinzufügen</string>
+    <string name="CFA_button_add">Adicionar critério</string>
     
     <!-- Filter Button: view without saving -->
-    <string name="CFA_button_view">Anzeigen</string>
+    <string name="CFA_button_view">Visualizar</string>
     
     <!-- Filter Button: save & view filter -->
-    <string name="CFA_button_save">Speichern &amp; Anzeigen</string>
+    <string name="CFA_button_save">Salvar &amp; Visualizar</string>
 
     <!-- =========================================== CustomFilterCriteria == -->
         
     <!-- Criteria: due by X - display text (? -> user input) -->
-    <string name="CFC_dueBefore_text">Fällig am: ?</string>
+    <string name="CFC_dueBefore_text">Vencimento: ?</string>
     <!-- Criteria: due by X - name of criteria -->
-    <string name="CFC_dueBefore_name">Fällig am...</string>
+    <string name="CFC_dueBefore_name">Vencimento...</string>
     <string-array name="CFC_dueBefore_entries">
         <!-- Criteria: due by X - options -->
-        <item>Kein Fälligkeitsdatum</item>
-        <item>Gestern</item>
-        <item>Heute</item>
-        <item>Morgen</item>
-        <item>Übermorgen</item>
-        <item>Nächste Woche</item>
-        <item>Nächster Monat</item>
+        <item>Sem data de vencimento</item>
+        <item>Ontem</item>
+        <item>Hoje</item>
+        <item>Amanhã</item>
+        <item>Depois de amanhã</item>
+        <item>Próxima semana</item>
+        <item>Próximo mês</item>
     </string-array>
     
     <!-- Criteria: importance - display text (? -> user input)-->
-    <string name="CFC_importance_text">Wichtigkeit mindestens?</string>
+    <string name="CFC_importance_text">É Importante ?</string>
     <!-- Criteria: importance - name of criteria -->
-    <string name="CFC_importance_name">Wichtigkeit...</string>        
+    <string name="CFC_importance_name">Importância...</string>        
     
     <!-- Criteria: tag - display text (? -> user input) -->
-    <string name="CFC_tag_text">Liste: ?</string>
+    <string name="CFC_tag_text">Lista: ?</string>
     <!-- Criteria: tag - name of criteria -->
-    <string name="CFC_tag_name">Liste...</string>
+    <string name="CFC_tag_name">Lista...</string>
     
     <!-- Criteria: tag_contains - name of criteria -->
-    <string name="CFC_tag_contains_name">Listenname enthält ...</string>
+    <string name="CFC_tag_contains_name">Nome da lista contém...</string>
     <!-- Criteria: tag_contains - text (? -> user input) -->
-    <string name="CFC_tag_contains_text">Listenname enthält: ?</string>
+    <string name="CFC_tag_contains_text">Nome da lista contém: ?</string>
     
     <!-- Criteria: title_contains - name of criteria -->
-    <string name="CFC_title_contains_name">Titel enthält...</string>
+    <string name="CFC_title_contains_name">Título...</string>
     <!-- Criteria: title_contains - text (? -> user input) -->
-    <string name="CFC_title_contains_text">Titel enthält: ?</string>
+    <string name="CFC_title_contains_text">Título contêm: ?</string>
     
 
 
@@ -1127,22 +1127,22 @@
   <!-- =============================================== Task Edit Controls == -->
   
   <!-- Error message for adding to calendar  -->
-  <string name="gcal_TEA_error">Fehler beim Hinzufügen der Aufgabe zum Kalender</string>
+  <string name="gcal_TEA_error">Erro ao adicionar a tarefa ao calendário!</string>
 
   <!-- Label for adding task to calendar -->
-  <string name="gcal_TEA_calendar_label">Kalenderintegration:</string>
+  <string name="gcal_TEA_calendar_label">Integração com o calendário:</string>
 
   <!-- Label for adding task to calendar -->
   <string name="gcal_TEA_addToCalendar_label">Add to Calendar</string>
   
   <!-- Label when calendar event already exists -->
-  <string name="gcal_TEA_showCalendar_label">Öffne Termin im Kalender</string>
+  <string name="gcal_TEA_showCalendar_label">Abrir evento no calendário</string>
   
   <!-- Toast when unable to open calendar event -->
-  <string name="gcal_TEA_calendar_error">Fehler beim Öffnen des Termins!</string>
+  <string name="gcal_TEA_calendar_error">Erro ao abrir evento!</string>
   
   <!-- Toast when calendar event updated because task changed -->
-  <string name="gcal_TEA_calendar_updated">Termin im Kalender wurde ebenfalls aktualisiert!</string>
+  <string name="gcal_TEA_calendar_updated">Evento do calendário também atualizado!</string>
   
   <!-- No calendar label (don't add option) -->
   <string name="gcal_TEA_nocal">Don\'t add</string>
@@ -1154,10 +1154,10 @@
   <!-- ======================================================== Calendars == -->
   
   <!-- Calendar event name when task is completed (%s => task title) -->
-  <string name="gcal_completed_title">%s (abgeschlossen)</string>
+  <string name="gcal_completed_title">%s (terminada)</string>
 
   <!-- System Default Calendar (displayed if we can't figure out calendars)  -->
-  <string name="gcal_GCP_default">Standardkalender</string>
+  <string name="gcal_GCP_default">Calendário padrão</string>
 
 
 
@@ -1168,32 +1168,32 @@
     <!-- ============================================================= UI == -->
 
     <!-- filters header: GTasks -->
-    <string name="gtasks_FEx_header">Google Tasks</string>
+    <string name="gtasks_FEx_header">Tarefas do Google</string>
     
     <!-- filter category for GTasks lists -->
-    <string name="gtasks_FEx_list">Nach Liste</string>
+    <string name="gtasks_FEx_list">Por lista</string>
     
     <!-- filter title for GTasks lists (%s => list name) -->
-    <string name="gtasks_FEx_title">Google Tasks: %s</string>
+    <string name="gtasks_FEx_title">Tarefas do Google: %s</string>
     
     <!-- dialog prompt for creating a new gtasks list -->
     <string name="gtasks_FEx_creating_list">Creating list...</string>
     
     <!-- dialog prompt for creating a new gtasks list -->
-    <string name="gtasks_FEx_create_list_dialog">Neuer Listenname:</string>
+    <string name="gtasks_FEx_create_list_dialog">Nova lista</string>
     
     <!-- error to show when list creation fails -->
-    <string name="gtasks_FEx_create_list_error">Fehler beim Erstllen einer neuen Liste.</string>
+    <string name="gtasks_FEx_create_list_error">Erro ao criar nova lista</string>
     
     <!-- short help title for Gtasks -->
-    <string name="gtasks_help_title">Wilkommen bei Google Tasks!</string>
+    <string name="gtasks_help_title">Bem vindo à Tarefas do Google</string>
     
     <!-- short help for GTasks list activity -->
-    <string name="gtasks_help_body">Bewege den Griff links einer Aufgabe um sie umzuordnen. Zieh den Griff links oder rechts um den Einzug zu ändern.</string>
+    <string name="gtasks_help_body">Arraste o controle no lado esquerdo de uma tarefa para reorganizá-la. Deslize o controle para direita ou esquerda para mudar a indentação.</string>
 
-    <string name="CFC_gtasks_list_text">In der Liste: ?</string>
+    <string name="CFC_gtasks_list_text">Na Lista: ?</string>
 
-    <string name="CFC_gtasks_list_name">In GTasks Liste ...</string>
+    <string name="CFC_gtasks_list_name">No Google Tasks...</string>
     
     <!-- Message while clearing completed tasks -->
     <string name="gtasks_GTA_clearing">Clearing completed tasks...</string>
@@ -1204,33 +1204,33 @@
     <!-- ============================================ GtasksLoginActivity == -->
     
     <!-- Activity Title: Gtasks Login -->    
-    <string name="gtasks_GLA_title">Bei Google Tasks einloggen</string>
+    <string name="gtasks_GLA_title">Logar no Tarefas do Google</string>
 
     <!-- Instructions: Gtasks login -->    
-    <string name="gtasks_GLA_body">Bitte logge dich bei Google Tasks Sync (Beta!) ein. Nicht-migrierte Google Apps Accounts werden zur Zeit nicht unterstützt.</string>
+    <string name="gtasks_GLA_body">Faça o login no Google Tasks Sync (Beta!). Não migraram contas do Google Apps pois não são suportadas.</string>
     
-    <string name="gtasks_GLA_noaccounts">Keine verfügbaren Google Accounts zum synchronisieren.</string>
+    <string name="gtasks_GLA_noaccounts">Google não está disponível para sincronização com contas.</string>
 
     <!-- Instructions: Gtasks further help -->    
-    <string name="gtasks_GLA_further_help">Um deine Aufgaben mit Einrückung und Ordnung anzuzeigen, gehe auf die Filter-Seite und wähle eine Google Tasks Liste. Standartmässig benutzt Astrid seine eigenen Sortiereinstellungen.</string>
+    <string name="gtasks_GLA_further_help">Para ver suas tarefas com indentação e ordem preservadas, vá para a página de filtros e selecione uma lista do Google Tasks. Por padrão, Astrid usa sua própria configuração de ordem de tarefas.</string>
 
     <!-- Sign In Button -->    
-    <string name="gtasks_GLA_signIn">Anmelden</string>
+    <string name="gtasks_GLA_signIn">Entrar</string>
 
     <!-- E-mail Address Label -->    
-    <string name="gtasks_GLA_email">E-Mail</string>
+    <string name="gtasks_GLA_email">E-mail</string>
 
     <!-- Password Label -->    
-    <string name="gtasks_GLA_password">Passwort</string>
+    <string name="gtasks_GLA_password">Senha</string>
     
     <!--  Authenticating toast -->
-    <string name="gtasks_GLA_authenticating">Authentifizierung...</string>
+    <string name="gtasks_GLA_authenticating">Autenticando ...</string>
     
     <!-- Google Apps for Domain checkbox -->
-    <string name="gtasks_GLA_domain">Google Apps für Domänenkonto</string>
+    <string name="gtasks_GLA_domain">Conta Google Apps para dominio</string>
 
     <!-- Error Message when fields aren't filled out -->    
-    <string name="gtasks_GLA_errorEmpty">Fehler: Füllen Sie alle Felder aus!</string>
+    <string name="gtasks_GLA_errorEmpty">Erro: preencha todos os campos!</string>
 
     <!-- Error Message when we receive a HTTP 401 Unauthorized -->    
     <string name="gtasks_GLA_errorAuth">Error authenticating! Please check your username and password in your phone\'s account manager</string>
@@ -1239,17 +1239,17 @@
     <string name="gtasks_GLA_errorIOAuth">Sorry, we had trouble communicating with Google servers. Please try again later.</string>
     
     <!-- Error Message when we receive a HTTP 401 Unauthorized multiple times -->    
-    <string name="gtasks_GLA_errorAuth_captcha">Die Seite enthält möglicherweise ein CAPTCHA. Versuchen Sie das Anmelden über den Browser und probieren sie es dann noch einmal.</string>
+    <string name="gtasks_GLA_errorAuth_captcha">Você pode ter encontrado um código de verificação. Tente iniciar sessão pelo navegador, então retorne para tentar novamente:</string>
     
     <!-- ============================================== GtasksPreferences == -->
 
     <!-- GTasks Preferences Title -->    
-    <string name="gtasks_GPr_header">Google Tasks (Beta!)</string>
+    <string name="gtasks_GPr_header">Google Tarefas (Beta!)</string>
     
     <!-- ================================================ Synchronization == -->    
     
     <!-- title for notification tray when synchronizing -->
-    <string name="gtasks_notification_title">Astrid: Google Tasks</string>
+    <string name="gtasks_notification_title">Astrid: Google Tarefas</string>
 
     <!-- Error Message when we receive a HTTP 503 error -->
     <string name="gtasks_error_backend">Google\'s Task API is in beta and has encountered an error. The service may be down, please try again later.</string>
@@ -1274,10 +1274,10 @@
     <!-- Resources initial tasks added -->
   
    <!-- Intro Tag or click prompt -->
-  <string name="intro_click_prompt">Einführung: Drücken Sie hier, um die Hinweise anzuzeigen</string>
+  <string name="intro_click_prompt">Introdução: Pressione-me para ver notas</string>
   
   <!-- Task 1 Summary  -->
-  <string name="intro_task_1_summary">Erstelle deine erste Aufgabe</string>
+  <string name="intro_task_1_summary">Crie sua primeira tarefa</string>
 
   <!-- Task 1 Note -->
   <string name="intro_task_1_note">Two ways to add a task:\n
@@ -1286,7 +1286,7 @@
   </string>
   
   <!-- Task 2 Summary  -->
-  <string name="intro_task_2_summary">Widget zum Desktop hinzufügen</string>
+  <string name="intro_task_2_summary">Adicionar widget na área de trabalho</string>
 
   <!-- Task 2 Note -->
   <string name="intro_task_2_note">
@@ -1297,7 +1297,7 @@
   </string>
   
     <!-- Task 3 Summary  -->
-  <string name="intro_task_3_summary">Synchronisation mit Astrid.com einrichten</string>
+  <string name="intro_task_3_summary">Sincronizar a instalação com o Astrid.com</string>
 
   <!-- Task 3 Note -->
   <string name="intro_task_3_note">
@@ -1333,7 +1333,7 @@
   <string name="help_popover_when_row">Tap anywhere on this row to access options like repeat</string>
       
   <!-- Login activity -->
-  <string name="welcome_login_title">Willkommen zu Astrid</string>
+  <string name="welcome_login_title">Bem vindo ao Astrid!</string>
   
   <string name="welcome_login_intro"/>
   
@@ -1363,32 +1363,32 @@
   <!-- Resources for built-in locale plug-in -->
 
   <!-- Locale Alert Editing Window Title -->
-  <string name="locale_edit_alerts_title">Astrid Filter Alarm</string>
+  <string name="locale_edit_alerts_title">Filtro de Alerta do Astrid</string>
   
   <!-- Locale Window Help -->                                                                                                                                            
-  <string name="locale_edit_intro">Astrid wird dich erinnern, wenn du Aufgaben in den folgenden Filtern hast:</string>
+  <string name="locale_edit_intro">Astrid irá envirar um lembrete quando você tiver qualquer tarefa neste filtro:</string>
       
   <!-- Locale Window Filter Picker UI -->                                                                                                                                        
-  <string name="locale_pick_filter">Filter:</string>        
+  <string name="locale_pick_filter">Filtro:</string>        
       
   <!-- Locale Window Interval Label -->                                                                                                                                        
-  <string name="locale_interval_label">Beschränke Erinnerungen auf:</string>        
+  <string name="locale_interval_label">Limitar notificações para:</string>        
       
   <!-- Locale Window Interval Values -->                                                                                                                                        
   <string-array name="locale_interval">
-    <item>einmal pro Stunde</item>
-    <item>alle sechs Stunden</item>
-    <item>einmal in zwölf Stunden</item>
-    <item>einmal pro Tag</item>
-    <item>Einmal in drei Tagen</item>
-    <item>Einmal pro Woche</item>
+    <item>uma vez por hora</item>
+    <item>uma vez a cada seis horas</item>
+    <item>uma vez a cada doze horas</item>
+    <item>uma vez por dia</item>
+    <item>uma vez a cada três dias</item>
+    <item>uma vez por semana</item>
   </string-array>        
       
   <!-- Locale Notification text -->                                                                                                                                        
-  <string name="locale_notification">Du hast $NUM Übereinstimmungen mit: $FILTER</string>     
+  <string name="locale_notification">Você tem $NUM resultados: $FILTER</string>     
       
   <!-- Locale Plugin was not found, it is required -->
-  <string name="locale_plugin_required">Bitte installieren Sie das Astrid Locale Plug-In!</string>        
+  <string name="locale_plugin_required">Por favor instale o plugin Astrid Locale!</string>        
      
 
 
@@ -1398,141 +1398,141 @@
     <!-- ====================== Plugin Boilerplate ========================= -->
 
 	<!-- filters header: OpenCRX -->
-    <string name="opencrx_FEx_header">OpenCRX</string>
+    <string name="opencrx_FEx_header">AbrirCRX</string>
     
     <!-- filter category for OpenCRX ActivityCreators -->
-    <string name="opencrx_FEx_dashboard">Arbeitsbereiche</string>
+    <string name="opencrx_FEx_dashboard">Espaços de trabalho</string>
     
     <!-- filter category for OpenCRX responsible person -->
-    <string name="opencrx_FEx_responsible">Zugeordnet an</string>
+    <string name="opencrx_FEx_responsible">Atribuído a</string>
     
     <!--  OpenCRX assignedTo filter title (%s => assigned contact) -->
-    <string name="opencrx_FEx_responsible_title">Zugeordnet an \'%s\'</string>
+    <string name="opencrx_FEx_responsible_title">Atribuído a \'%s\'</string>
     
     <!-- detail for showing tasks created by someone else (%s => person name) -->
-    <string name="opencrx_PDE_task_from">von %s</string>
+    <string name="opencrx_PDE_task_from">de %s</string>
     
     <!-- replacement string for task edit "Notes" when using OpenCRX -->
-    <string name="opencrx_TEA_notes">Einen Kommentar hinzufügen</string>
+    <string name="opencrx_TEA_notes">Adicionar um comentário</string>
     
-    <string name="opencrx_creator_input_hint">Ersteller</string>
+    <string name="opencrx_creator_input_hint">Criador</string>
 
-    <string name="opencrx_contact_input_hint">Zugewiesen an</string>
+    <string name="opencrx_contact_input_hint">Atribuído a</string>
     <!-- ==================================================== Preferences == -->
 
     <!-- Preferences Title: OpenCRX -->    
-    <string name="opencrx_PPr_header">OpenCRX</string>
+    <string name="opencrx_PPr_header">AbrirCRX</string>
 
     <!-- creator title for tasks that are not synchronized -->
-    <string name="opencrx_no_creator">(Nicht syncronisieren)</string>
+    <string name="opencrx_no_creator">(Não Sincronizar)</string>
 
 	<!-- preference title for default creator -->
-    <string name="opencrx_PPr_defaultcreator_title">Standart Aktivitätenersteller</string>
+    <string name="opencrx_PPr_defaultcreator_title">CriadorDeAtividade Padrão</string>
 
     <!-- preference description for default creator (%s -> setting) -->
-    <string name="opencrx_PPr_defaultcreator_summary">Neue Aktivitäten werden erstellt durch: %s</string>
+    <string name="opencrx_PPr_defaultcreator_summary">Novas atividades serão criadas por: %s</string>
 
     <!-- preference description for default dashboard (when set to 'not synchronized') -->
-    <string name="opencrx_PPr_defaultcreator_summary_none">Neue Aktivitäten werden standartmässig nicht synchronisiert.</string>
+    <string name="opencrx_PPr_defaultcreator_summary_none">Novas atividades não serão sincronizados por padrão</string>
     
     <!--  OpenCRX host and segment group name -->
-    <string name="opencrx_group">OpenCRX Server</string>
+    <string name="opencrx_group">Servidor OpenCRX</string>
 
     <!--  preference description for OpenCRX host -->
-    <string name="opencrx_host_title">Host</string>
+    <string name="opencrx_host_title">Máquina</string>
 
     <!--  dialog title for OpenCRX host -->
-    <string name="opencrx_host_dialog_title">OpenCRX Host</string>
+    <string name="opencrx_host_dialog_title">Máquina OpenCRX</string>
     
     <!--  example for OpenCRX host -->
-    <string name="opencrx_host_summary">Zum Beispiel: <i>mydomain.com</i></string>
+    <string name="opencrx_host_summary">Por exemplo: <i>mydomain.com</i></string>
     
     <!--  preference description for OpenCRX segment -->
-    <string name="opencrx_segment_title">Segment</string>
+    <string name="opencrx_segment_title">Segmento</string>
 
     <!--  dialog title for OpenCRX segment -->
-    <string name="opencrx_segment_dialog_title">Synchronisiertes Segment</string>
+    <string name="opencrx_segment_dialog_title">Segmento Sincronizado</string>
     
     <!--  example for OpenCRX segment -->
-    <string name="opencrx_segment_summary">Zum Beispiel: <i>Standard</i></string>
+    <string name="opencrx_segment_summary">Por exemplo: <i>Standard</i></string>
     
     <!--  default value for OpenCRX segment -->
-    <string name="opencrx_segment_default">Standard</string>
+    <string name="opencrx_segment_default">Qualidade</string>
     
     <!--  preference description for OpenCRX provider -->
-    <string name="opencrx_provider_title">Provider</string>
+    <string name="opencrx_provider_title">Provedor</string>
 
     <!--  dialog title for OpenCRX provider -->
-    <string name="opencrx_provider_dialog_title">OpenCRX Daten Provider</string>
+    <string name="opencrx_provider_dialog_title">Provedor de autenticação do OpenCRX</string>
     
     <!--  example for OpenCRX provider -->
-    <string name="opencrx_provider_summary">Zum Beispiel: <i>CRX</i></string>
+    <string name="opencrx_provider_summary">Por exemplo: <i>CRX</i></string>
     
     <!--  default value for OpenCRX provider -->
     <string name="opencrx_provider_default">CRX</string>
     <!-- ================================================= Login Activity == -->
 
     <!-- Activity Title: Opencrx Login -->    
-    <string name="opencrx_PLA_title">Bei OpenCRX einloggen</string>
+    <string name="opencrx_PLA_title">Login para AbrirCRX</string>
 
     <!-- Instructions: Opencrx login -->    
-    <string name="opencrx_PLA_body">Mit deinem OpenCRX Account anmelden</string>
+    <string name="opencrx_PLA_body">Entrar com sua conta OpenCRX</string>
 
     <!-- Sign In Button -->    
-    <string name="opencrx_PLA_signIn">Anmelden</string>
+    <string name="opencrx_PLA_signIn">Entrar</string>
 
     <!-- Login Label -->    
-    <string name="opencrx_PLA_login">Anmelden</string>
+    <string name="opencrx_PLA_login">Login</string>
 
     <!-- Password Label -->    
-    <string name="opencrx_PLA_password">Passwort</string>
+    <string name="opencrx_PLA_password">Senha</string>
     
         <!-- Error Message when fields aren't filled out -->    
-    <string name="opencrx_PLA_errorEmpty">Fehler: Alle Felder ausfüllen</string>
+    <string name="opencrx_PLA_errorEmpty">Erro: preencha todos os campos</string>
     
     <!-- Error Message when we receive a HTTP 401 Unauthorized -->    
-    <string name="opencrx_PLA_errorAuth">Fehler: Login oder Password ist falsch!</string>
+    <string name="opencrx_PLA_errorAuth">Erro: login ou senha incorreto!</string>
 
     <!-- ================================================ Synchronization == -->
         
     <!-- title for notification tray after synchronizing -->
-    <string name="opencrx_notification_title">OpenCRX</string>
+    <string name="opencrx_notification_title">AbrirCRX</string>
     
     <!-- text for notification tray when synchronizing -->
-    <string name="opencrx_notification_text">%s Aufgaben aktualisiert / Klicken Sie für Details</string>
+    <string name="opencrx_notification_text">%s tarefas atualizadas / clique para mais detalhes</string>
     
     <!-- Error msg when io exception  -->
-    <string name="opencrx_ioerror">Verbindungsfehler! Überprüfen Sie Ihre Internetverbindung.</string>
+    <string name="opencrx_ioerror">Erro na Conexão! Verifique sua conexão com a internet.</string>
 
     <!-- opencrx Login not specified-->
-    <string name="opencrx_MLA_email_empty">Login wurde nicht angegeben!</string>
+    <string name="opencrx_MLA_email_empty">Login não foi especificado!</string>
     
     <!-- opencrx password not specified-->
-    <string name="opencrx_MLA_password_empty">Kennwort wurde nicht angegeben!</string>
+    <string name="opencrx_MLA_password_empty">A Senha não foi especificada!</string>
     
     <!-- ================================================ labels for layout-elements == -->
     
     <!-- label for task-assignment spinner on taskeditactivity -->
-    <string name="opencrx_TEA_task_assign_label">Aufgabe dieser Person zuordnen:</string>
+    <string name="opencrx_TEA_task_assign_label">Atribuir essa tarefa a esta pessoa:</string>
     
     <!-- Spinner-item for unassigned tasks on taskeditactivity -->
-    <string name="opencrx_TEA_task_unassigned">&lt;Nicht zugeordnet&gt;</string>
+    <string name="opencrx_TEA_task_unassigned">&lt;Não atribuído&gt;</string>
     
     <!-- label for dashboard-assignment spinner on taskeditactivity -->
-    <string name="opencrx_TEA_creator_assign_label">Aufgabe diesem Ersteller zuordnen:</string>
+    <string name="opencrx_TEA_creator_assign_label">Atribuir essa tarefa a este criador:</string>
 
     <!-- Spinner-item for default dashboard on taskeditactivity -->
-    <string name="opencrx_TEA_dashboard_default">&lt;Standard&gt;</string>
+    <string name="opencrx_TEA_dashboard_default">&lt;Padrão&gt;</string>
 
     <string name="opencrx_TEA_opencrx_title">OpenCRX Controls</string>
         
-    <string name="CFC_opencrx_in_workspace_text">Im Arbeitsbereich: ?</string>
+    <string name="CFC_opencrx_in_workspace_text">Na área de trabalho: ?</string>
 
-    <string name="CFC_opencrx_in_workspace_name">Im Arbeitsbereich...</string>
+    <string name="CFC_opencrx_in_workspace_name">Na área de trabalho...</string>
 
-    <string name="CFC_opencrx_assigned_to_text">Zugeordnet zu: ?</string>
+    <string name="CFC_opencrx_assigned_to_text">Atribuído a:?</string>
 
-    <string name="CFC_opencrx_assigned_to_name">Zugeordnet zu...</string>
+    <string name="CFC_opencrx_assigned_to_name">Atribuído a ...</string>
 
 
 
@@ -1542,14 +1542,14 @@
   <!-- ================================================== EditPreferences == -->
     
   <!-- Preference Category: Power Pack -->
-  <string name="EPr_powerpack_header">Astrid Power Pack</string>
+  <string name="EPr_powerpack_header">Bloco de Poder Astrid</string>
   
   <!-- Preference: Anonymous User Statistics -->
-  <string name="EPr_statistics_title">Anonyme Nutzungsstatistiken</string>
+  <string name="EPr_statistics_title">Estatística de uso anônimas</string>
   <!-- Preference: User Statistics (disabled) -->
-  <string name="EPr_statistics_desc_disabled">Nutzungsstatistik wird nicht übertragen</string>  
+  <string name="EPr_statistics_desc_disabled">Nenhum dado pessoal será enviado</string>  
   <!-- Preference: User Statistics (enabled) -->
-  <string name="EPr_statistics_desc_enabled">Helfen Sie uns, Astrid durch anonymisierte Nutzungsdaten besser zu machen</string>
+  <string name="EPr_statistics_desc_enabled">Ajude-nos a melhorar o Astrid nos enviando dados anônimos de uso</string>
       
 
 
@@ -1562,22 +1562,22 @@
     <string name="producteev_FEx_header">Producteev</string>
     
     <!-- filter category for Producteev dashboards -->
-    <string name="producteev_FEx_dashboard">Arbeitsbereiche</string>
+    <string name="producteev_FEx_dashboard">Espaços de trabalho</string>
     
     <!-- filter category for Producteev responsible person -->
-    <string name="producteev_FEx_responsible_byme">Durch mich zugeordnet an</string>
+    <string name="producteev_FEx_responsible_byme">Atribuído por mim com</string>
     
     <!-- filter category for Producteev responsible person -->
-    <string name="producteev_FEx_responsible_byothers">Durch andere zugeordnet an</string>
+    <string name="producteev_FEx_responsible_byothers">Atribuído por outras pessoas para</string>
     
     <!--  Producteev responsible filter title (%s => responsiblename) -->
-    <string name="producteev_FEx_responsible_title">Zugeordnet an \'%s\'</string>
+    <string name="producteev_FEx_responsible_title">Atribuído a \'%s\'</string>
     
     <!-- detail for showing tasks created by someone else (%s => person name) -->
-    <string name="producteev_PDE_task_from">von %s</string>
+    <string name="producteev_PDE_task_from">de %s</string>
     
     <!-- replacement string for task edit "Notes" when using Producteev -->
-    <string name="producteev_TEA_notes">Einen Kommentar hinzufügen</string>
+    <string name="producteev_TEA_notes">Adicionar um comentário</string>
 
     <!-- ==================================================== Preferences == -->
 
@@ -1585,69 +1585,69 @@
     <string name="producteev_PPr_header">Producteev</string>
 
     <!-- dashboard title for producteev default dashboard  -->
-    <string name="producteev_default_dashboard">Standard-Arbeitsbereich</string>
+    <string name="producteev_default_dashboard">Área de trabalho padrão</string>
 
     <!-- dashboard title for tasks that are not synchronized -->
-    <string name="producteev_no_dashboard">(Nicht syncronisieren)</string>
+    <string name="producteev_no_dashboard">(Não Sincronizar)</string>
 
     <!-- dashboard spinner entry on TEA for adding a new dashboard -->
-    <string name="producteev_create_dashboard">Einen neuen Arbeitsbereich hinzufügen...</string>
+    <string name="producteev_create_dashboard">Adicionar novo espaço de trabalho</string>
 
     <!-- dashboard spinner entry on TEA for adding a new dashboard -->
-    <string name="producteev_create_dashboard_name">Name des neuen Arbeitsbereichs</string>
+    <string name="producteev_create_dashboard_name">Nome para novo espaço de trabalho</string>
 
 	<!-- preference title for default dashboard -->
-    <string name="producteev_PPr_defaultdash_title">Standard-Arbeitsbereich</string>
+    <string name="producteev_PPr_defaultdash_title">Área de trabalho padrão</string>
 
     <!-- preference description for default dashboard (%s -> setting) -->
-    <string name="producteev_PPr_defaultdash_summary">Neue Aufgaben werden hinzugefügt zu: %s</string>
+    <string name="producteev_PPr_defaultdash_summary">Novas tarefas serão adicionadas: %s</string>
 
     <!-- preference description for default dashboard (when set to 'not synchronized') -->
-    <string name="producteev_PPr_defaultdash_summary_none">Neue Aufgaben werden standardmässig nicht synchronisiert</string>
+    <string name="producteev_PPr_defaultdash_summary_none">Novas tarefas não serão sincronizadas por padrão</string>
 
     <!-- ================================================= Login Activity == -->
 
     <!-- Activity Title: Producteev Login -->    
-    <string name="producteev_PLA_title">Bei Producteev anmelden</string>
+    <string name="producteev_PLA_title">Logar-se ao Producteev</string>
 
     <!-- Instructions: Producteev login -->    
-    <string name="producteev_PLA_body">Melden Sie sich mit Ihrem vorhandenen Producteev-Konto an, oder erstellen Sie ein neues Konto!</string>
+    <string name="producteev_PLA_body">Entrar com uma conta Producteev existente, ou criar uma nova conta!</string>
 
     <!-- Producteev Terms Link -->    
-    <string name="producteev_PLA_terms">Allgemeine Geschäftsbedingungen</string>
+    <string name="producteev_PLA_terms">Termos &amp; Condições</string>
 
     <!-- Sign In Button -->    
-    <string name="producteev_PLA_signIn">Anmelden</string>
+    <string name="producteev_PLA_signIn">Entrar</string>
 
     <!-- Create New User Button -->    
-    <string name="producteev_PLA_createNew">Neuen Benutzer erstellen</string>
+    <string name="producteev_PLA_createNew">Criar Novo Usuário</string>
 
     <!-- E-mail Address Label -->    
-    <string name="producteev_PLA_email">E-Mail</string>
+    <string name="producteev_PLA_email">E-mail</string>
 
     <!-- Password Label -->    
-    <string name="producteev_PLA_password">Passwort</string>
+    <string name="producteev_PLA_password">Senha</string>
     
     <!-- Timezone Spinner -->
-    <string name="producteev_PLA_timezone">Zeitzone</string>
+    <string name="producteev_PLA_timezone">Fuso horário</string>
 
     <!-- Confirm Password Label -->    
-    <string name="producteev_PLA_confirmPassword">Kennwort bestätigen</string>
+    <string name="producteev_PLA_confirmPassword">Confirmar Senha</string>
 
     <!-- First Name Label -->    
-    <string name="producteev_PLA_firstName">Vorname</string>
+    <string name="producteev_PLA_firstName">Primeiro Nome</string>
 
     <!-- Last Name Label -->    
-    <string name="producteev_PLA_lastName">Nachname</string>
+    <string name="producteev_PLA_lastName">Sobrenome</string>
 
     <!-- Error Message when fields aren't filled out -->    
-    <string name="producteev_PLA_errorEmpty">Fehler: Füllen Sie alle Felder aus!</string>
+    <string name="producteev_PLA_errorEmpty">Erro: preencha todos os campos!</string>
 
     <!-- Error Message when passwords don't match -->    
-    <string name="producteev_PLA_errorMatch">Fehler: Kennwörter stimmen nicht überein!</string>
+    <string name="producteev_PLA_errorMatch">Erro: as senhas não se combinam!</string>
 
     <!-- Error Message when we receive a HTTP 401 Unauthorized -->    
-    <string name="producteev_PLA_errorAuth">Fehler: E-Mail oder Kennwort falsch!</string>
+    <string name="producteev_PLA_errorAuth">Erro: E-mail ou senha incorreta!</string>
 
     <!-- ================================================ Synchronization == -->
         
@@ -1655,16 +1655,16 @@
     <string name="producteev_notification_title">Producteev</string>
     
     <!-- text for notification tray when synchronizing -->
-    <string name="producteev_notification_text">%s Aufgaben aktualisiert / Klicken Sie für Details</string>
+    <string name="producteev_notification_text">%s tarefas atualizadas / clique para mais detalhes</string>
     
     <!-- Error msg when io exception  -->
-    <string name="producteev_ioerror">Verbindungsfehler! Überprüfen Sie Ihre Internetverbindung.</string>
+    <string name="producteev_ioerror">Erro na Conexão! Verifique sua conexão com a internet.</string>
 
     <!-- Prod Login email not specified-->
-    <string name="producteev_MLA_email_empty">E-Mail wurde nicht angegeben!</string>
+    <string name="producteev_MLA_email_empty">E-Mail não foi especificado!</string>
     
     <!-- Prod Login password not specified-->
-    <string name="producteev_MLA_password_empty">Kennwort wurde nicht angegeben!</string>
+    <string name="producteev_MLA_password_empty">A Senha não foi especificada!</string>
     
     <!-- ================================================ labels for layout-elements == -->
     
@@ -1672,24 +1672,24 @@
     <string name="producteev_TEA_control_set_display">Producteev Assignment</string>
     
     <!-- label for task-assignment spinner on taskeditactivity -->
-    <string name="producteev_TEA_task_assign_label">Aufgabe dieser Person zuordnen:</string>
+    <string name="producteev_TEA_task_assign_label">Atribuir essa tarefa a esta pessoa:</string>
     
     <!-- Spinner-item for unassigned tasks on taskeditactivity -->
-    <string name="producteev_TEA_task_unassigned">&lt;Nicht zugeordnet&gt;</string>
+    <string name="producteev_TEA_task_unassigned">&lt;Não atribuído&gt;</string>
     
     <!-- label for dashboard-assignment spinner on taskeditactivity -->
-    <string name="producteev_TEA_dashboard_assign_label">Aufgabe diesem Arbeitsbereich zuordnen:</string>
+    <string name="producteev_TEA_dashboard_assign_label">Atribuir essa tarefa a esta área de trabalho:</string>
 
     <!-- Spinner-item for default dashboard on taskeditactivity -->
-    <string name="producteev_TEA_dashboard_default">&lt;Standard&gt;</string>
+    <string name="producteev_TEA_dashboard_default">&lt;Padrão&gt;</string>
 
-    <string name="CFC_producteev_in_workspace_text">Im Arbeitsbereich: ?</string>
+    <string name="CFC_producteev_in_workspace_text">Na área de trabalho: ?</string>
 
-    <string name="CFC_producteev_in_workspace_name">Im Arbeitsbereich...</string>
+    <string name="CFC_producteev_in_workspace_name">Na área de trabalho...</string>
 
-    <string name="CFC_producteev_assigned_to_text">Zugeordnet zu: ?</string>
+    <string name="CFC_producteev_assigned_to_text">Atribuído a:?</string>
 
-    <string name="CFC_producteev_assigned_to_name">Zugeordnet zu...</string>
+    <string name="CFC_producteev_assigned_to_name">Atribuído a ...</string>
 
 
 
@@ -1704,43 +1704,43 @@
   <string name="TEA_reminders_group_label">Reminders</string>
 
   <!-- Task Edit: Reminder header label -->  
-  <string name="TEA_reminder_label">Erinnere mich:</string>
+  <string name="TEA_reminder_label">Me lembrar:</string>
 
   <!-- Task Edit: Reminder @ deadline -->  
-  <string name="TEA_reminder_due">Wenn Aufgabe fällig ist</string>
+  <string name="TEA_reminder_due">no dia que a tarefa vencer</string>
 
   <!-- Task Edit: Reminder after deadline -->  
-  <string name="TEA_reminder_overdue">Wenn Aufgabe überfällig ist</string>
+  <string name="TEA_reminder_overdue">quando a tarefa estiver atrasada</string>
 
   <!-- Task Edit: Reminder at random times (%s => time plural)-->
-  <string name="TEA_reminder_random">Einmal zufällig</string>
+  <string name="TEA_reminder_random">Aleatoriamente uma vez</string>
 
   <!-- Task Edit: Reminder alarm clock label -->  
-  <string name="TEA_reminder_alarm_label">Klingeln/Vibrieren Typ:</string>
+  <string name="TEA_reminder_alarm_label">Toque/Vibração Tipo:</string>
 
   <!-- Task Edit: Reminder mode: ring once -->  
-  <string name="TEA_reminder_mode_once">Einmal klingeln</string>
+  <string name="TEA_reminder_mode_once">Tocar uma vez</string>
 
   <!-- Task Edit: Reminder mode: ring five times -->  
-  <string name="TEA_reminder_mode_five">Fünf mal klingenl</string>
+  <string name="TEA_reminder_mode_five">Tocas 5 vezes</string>
 
   <!-- Task Edit: Reminder mode: ring nonstop -->  
-  <string name="TEA_reminder_mode_nonstop">Klingeln, bis ich den Arlarm abschalte</string>
+  <string name="TEA_reminder_mode_nonstop">Tocar até eu cancelar o alarme</string>
 
   <string-array name="TEA_reminder_random">
     <!-- random reminder choices for task edit page. -->
-    <item>eine Stunde</item>
-    <item>pro Tag</item>
-    <item>eine Woche</item>
-    <item>in zwei Wochen</item>
-    <item>pro Monat</item>
-    <item>in zwei Monaten</item>
+    <item>por hora</item>
+    <item>por dia</item>
+    <item>por semana</item>
+    <item>a cada duas semanas</item>
+    <item>por mês</item>
+    <item>a cada dois meses</item>
   </string-array>
   
   <!-- ==================================================== notifications == -->
   
   <!-- Name of filter when viewing a reminder -->
-  <string name="rmd_NoA_filter">Erinnerung!</string>
+  <string name="rmd_NoA_filter">Lembrete!</string>
   
   <!-- Reminder: Task was already done -->
   <string name="rmd_NoA_done">Complete</string>
@@ -1754,7 +1754,7 @@
   <!-- ============================================= reminder preferences == -->
   
   <!-- Reminder Preference Screen Title -->
-  <string name="rmd_EPr_alerts_header">Erinnerungseinstellungen</string>
+  <string name="rmd_EPr_alerts_header">Configurações do Lembrete</string>
     
   <!-- Reminder Preference: Reminders Enabled Title -->
   <string name="rmd_EPr_enabled_title">Reminders Enabled?</string>
@@ -1764,236 +1764,236 @@
   <string name="rmd_EPr_enabled_desc_false">Astrid reminders will never appear on your phone</string>  
     
   <!-- Reminder Preference: Quiet Hours Start Title -->
-  <string name="rmd_EPr_quiet_hours_start_title">Stille Stunden beginnen.</string>
+  <string name="rmd_EPr_quiet_hours_start_title">Silêncio começa às</string>
   <!-- Reminder Preference: Quiet Hours Start Description (%s => time set) -->
-  <string name="rmd_EPr_quiet_hours_start_desc">Benachrichtigungen sind lautlos nach %s.\nHinweis: Vibrieren wird durch Einstellungen weiter unten gesteuert!</string>
+  <string name="rmd_EPr_quiet_hours_start_desc">As notificações serão silenciadas depois de %s.\nNota: A vibração é configurada abaixo!</string>
   <!-- Reminder Preference: Quiet Hours Start/End Description (disabled) -->
-  <string name="rmd_EPr_quiet_hours_desc_none">Stille Stunden sind deaktiviert</string>
+  <string name="rmd_EPr_quiet_hours_desc_none">Horário de silêncio está desativado</string>
   
   <!-- Reminder Preference: Quiet Hours End Title -->
-  <string name="rmd_EPr_quiet_hours_end_title">Stille Stunden beenden</string>
+  <string name="rmd_EPr_quiet_hours_end_title">Silêncio termina às</string>
   <!-- Reminder Preference: Quiet Hours End Description (%s => time set) -->
-  <string name="rmd_EPr_quiet_hours_end_desc">Benachrichtigungen werden nicht mehr lautlos sein ab %s</string>
+  <string name="rmd_EPr_quiet_hours_end_desc">As notificações ficarão normais (sonoras) a partir de %s</string>
 
   <!-- Reminder Preference: Default Reminder Title -->
-  <string name="rmd_EPr_rmd_time_title">Standarderinnerumg</string>
+  <string name="rmd_EPr_rmd_time_title">Horário padrão</string>
   <!-- Reminder Preference: Default Reminder Description (%s => time set) -->
-  <string name="rmd_EPr_rmd_time_desc">Benachrichtigungen für Aufgaben ohne Fälligkeitszeit werden angezeigt um %s</string>
+  <string name="rmd_EPr_rmd_time_desc">As notificações para tarefas sem prazo irão aparecer às %s</string>
 
   <!-- Reminder Preference: Notification Ringtone Title -->
-  <string name="rmd_EPr_ringtone_title">Erinnerungsklingelton</string>
+  <string name="rmd_EPr_ringtone_title">Campainha da notificação</string>
   <!-- Reminder Preference: Notification Ringtone Description (when custom tone is set) -->
-  <string name="rmd_EPr_ringtone_desc_custom">Eigener Klingelton eingestellt</string>
+  <string name="rmd_EPr_ringtone_desc_custom">Toque personalizado foi definido</string>
   <!-- Reminder Preference: Notification Ringtone Description (when silence is set) -->
-  <string name="rmd_EPr_ringtone_desc_silent">Klingelton auf Lautlos eingestellt</string>
+  <string name="rmd_EPr_ringtone_desc_silent">Campainha definida para silencioso</string>
   <!-- Reminder Preference: Notification Ringtone Description (when custom tone is not set) -->
-  <string name="rmd_EPr_ringtone_desc_default">Standardklingelton wird benutzt</string>
+  <string name="rmd_EPr_ringtone_desc_default">Campainha padrão será utilizada</string>
   
   <!-- Reminder Preference: Notification Persistence Title -->
-  <string name="rmd_EPr_persistent_title">Meldungsbeharrlichkeit</string>
+  <string name="rmd_EPr_persistent_title">Notificação Persistente</string>
   <!-- Reminder Preference: Notification Persistence Description (true) -->
-  <string name="rmd_EPr_persistent_desc_true">Benachrichtigungen müssen einzeln angesehen werden um sie zu löschen</string>
+  <string name="rmd_EPr_persistent_desc_true">Cada notificação precisa ser vista individualmente</string>
   <!-- Reminder Preference: Notification Persistence Description (false) -->
-  <string name="rmd_EPr_persistent_desc_false">Erinnerungen können mit dem \"Alle Löschen\" Button gelöscht werden</string>
+  <string name="rmd_EPr_persistent_desc_false">Notificações podem ser eliminadas com o botão \"Eliminar Todas\"</string>
   
   <!-- Reminder Preference: Notification Icon Title -->
-  <string name="rmd_EPr_notificon_title">Erinnerungsicons</string>
+  <string name="rmd_EPr_notificon_title">Conjunto de Ícones de Notificação</string>
   <!-- Reminder Preference: Notification Icon Description -->
-  <string name="rmd_Epr_notificon_desc">Astrid\'s Benachrichtigungsleisten Icon auswählen</string>
+  <string name="rmd_Epr_notificon_desc">Escolha o ícone do Astrid para a barra de notificação</string>
 
   <!-- Reminder Preference: Max Volume for Multiple-Ring reminders Title -->
-  <string name="rmd_EPr_multiple_maxvolume_title">Maximale Lautstärke für mehrfachläutende Erinnerungen</string>
+  <string name="rmd_EPr_multiple_maxvolume_title">Volume máximo para lembretes com múltiplos sons</string>
   <!-- Reminder Preference: Max Volume for Multiple-Ring reminders Description (true) -->
-  <string name="rmd_EPr_multiple_maxvolume_desc_true">Astrid wird die Lautstärke für mehrfachläutende Erinnerungen maximalisieren</string>
+  <string name="rmd_EPr_multiple_maxvolume_desc_true">Astrid irá aumentar o volume para alertas com múltiplos sons</string>
   <!-- Reminder Preference: Max Volume for Multiple-Ring reminders Description (false) -->
-  <string name="rmd_EPr_multiple_maxvolume_desc_false">Astrid wird die Systemeinstellungen für die Lautstärke verwenden</string>
+  <string name="rmd_EPr_multiple_maxvolume_desc_false">Astrid irá usar o volume definido no sistema</string>
 
   <!-- Reminder Preference: Vibrate Title -->
-  <string name="rmd_EPr_vibrate_title">Vibrieren beim Alarm</string>
+  <string name="rmd_EPr_vibrate_title">Vibrar quando alertar</string>
   <!-- Reminder Preference: Vibrate Description (true) -->
-  <string name="rmd_EPr_vibrate_desc_true">Astrid wird beim Senden von Benachrichtigungen vibrieren</string>
+  <string name="rmd_EPr_vibrate_desc_true">Astrid irá vibrar quando enviar notificações</string>
   <!-- Reminder Preference: Vibrate Description (false) -->
-  <string name="rmd_EPr_vibrate_desc_false">Astrid wird beim Senden von Erinnerungen nicht vibrieren</string>
+  <string name="rmd_EPr_vibrate_desc_false">Astrid não irá vibrar quando enviar notificações</string>
 
   <!-- Reminder Preference: Nagging Title -->  
-  <string name="rmd_EPr_nagging_title">Astrid Ermutigungen</string>
+  <string name="rmd_EPr_nagging_title">Encorajamentos Astrid</string>
   <!-- Reminder Preference: Nagging Description (true) -->
-  <string name="rmd_EPr_nagging_desc_true">Astrid wird Ermutigungen zu den Erinnerungen hinzufügen</string>
+  <string name="rmd_EPr_nagging_desc_true">Astrid virá para dar-lhe um incentivo nos lembretes</string>
   <!-- Reminder Preference: Nagging Description (false) -->
-  <string name="rmd_EPr_nagging_desc_false">Astrid wird keine Ermutigungen hinzufügen</string>
+  <string name="rmd_EPr_nagging_desc_false">Astrid não dará nenhuma mensagem de encorajamento.</string>
 
   <!-- Reminder Preference: Snooze Dialog Title -->  
-  <string name="rmd_EPr_snooze_dialog_title">Schlummer-Dialog HH:MM</string>
+  <string name="rmd_EPr_snooze_dialog_title">Adiar em HH:MM</string>
   <!-- Reminder Preference: Snooze Dialog Description (true) -->
-  <string name="rmd_EPr_snooze_dialog_desc_true">Schlummerfunktion durch Auswahl neuer Zeit (HH:MM) aktivieren</string>
+  <string name="rmd_EPr_snooze_dialog_desc_true">Adiar em horas/minutos</string>
   <!-- Reminder Preference: Nagging Description (false) -->
-  <string name="rmd_EPr_snooze_dialog_desc_false">Schlummern durch Auswahl von # Tagen/Stunden</string>
+  <string name="rmd_EPr_snooze_dialog_desc_false">Adiar em # dias/horas</string>
   
   <!-- Reminder Preference: Default Reminders Title -->
-  <string name="rmd_EPr_defaultRemind_title">Zufällige Erinnerungen</string>
+  <string name="rmd_EPr_defaultRemind_title">Lembretes Aleatórios</string>
   <!-- Reminder Preference: Default Reminders Setting (disabled) -->
-  <string name="rmd_EPr_defaultRemind_desc_disabled">Aufgaben sollen keine zufälligen Erinnerungen haben</string>
+  <string name="rmd_EPr_defaultRemind_desc_disabled">Novas tarefas não terão lembretes aleatórios</string>
   <!-- Reminder Preference: Default Reminders Setting (%s => setting) -->
-  <string name="rmd_EPr_defaultRemind_desc">Neue Aufgaben werden zufällig erinnern: %s</string>
+  <string name="rmd_EPr_defaultRemind_desc">Novas tarefas irão lembrar aleatoriamente: %s</string>
   
   <!-- Defaults Title -->
-  <string name="rmd_EPr_defaults_header">Standardeinstellungen für neue Aufgaben</string>
+  <string name="rmd_EPr_defaults_header">Padrão para novas tarefas</string>
   
   <string-array name="EPr_reminder_random">
     <!-- Reminder Preference: random reminder choices for preference page. -->
-    <item>deaktiviert</item>
-    <item>stündlich</item>
-    <item>täglich</item>
-    <item>wöchentlich</item>
-    <item>vierzehntägig</item>
-    <item>monatlich</item>
-    <item>alle zwei Monate</item>
+    <item>desabilitado</item>
+    <item>de hora em hora</item>
+    <item>diariamente</item>
+    <item>semanalmente</item>
+    <item>a cada duas semanas</item>
+    <item>mensalmente</item>
+    <item>a cada dois meses</item>
   </string-array>
         
   <string-array name="EPr_quiet_hours_start">
     <!-- Reminder Preference: quiet_hours_start: options for preference menu. Translate but don't change the times!. -->
-    <item>deaktiviert</item>
-    <item>20:00</item>
-    <item>21:00</item>
-    <item>22:00</item>
-    <item>23:00</item>
-    <item>00:00</item>
-    <item>01:00</item>
-    <item>02:00</item>
-    <item>03:00</item>
-    <item>04:00</item>
-    <item>05:00</item>
-    <item>06:00</item>
-    <item>07:00</item>
-    <item>08:00</item>
-    <item>09:00</item>
-    <item>10:00</item>
-    <item>11:00</item>
-    <item>12:00</item>
-    <item>13:00</item>
-    <item>14:00</item>
-    <item>15:00</item>
-    <item>16:00</item>
-    <item>17:00</item>
-    <item>18:00</item>
-    <item>19:00</item>
+    <item>desabilitado</item>
+    <item>8 PM</item>
+    <item>9 PM</item>
+    <item>10 PM</item>
+    <item>11 PM</item>
+    <item>12 AM</item>
+    <item>1 AM</item>
+    <item>2 AM</item>
+    <item>3 AM</item>
+    <item>4 AM</item>
+    <item>5 AM</item>
+    <item>6 AM</item>
+    <item>7 AM</item>
+    <item>8 AM</item>
+    <item>9 AM</item>
+    <item>10 AM</item>
+    <item>11 AM</item>
+    <item>12 PM</item>
+    <item>1 PM</item>
+    <item>2 PM</item>
+    <item>3 PM</item>
+    <item>4 PM</item>
+    <item>5 PM</item>
+    <item>6 PM</item>
+    <item>7 PM</item>
   </string-array>
   
   <string-array name="EPr_quiet_hours_end">
     <!-- Reminder Preference: quiet_hours_end: options for preference menu. Translate but don't change the times! -->
-    <item>09:00</item>
-    <item>10:00</item>
-    <item>11:00</item>
-    <item>12:00</item>
-    <item>13:00</item>
-    <item>14:00</item>
-    <item>15:00</item>
-    <item>16:00</item>
-    <item>17:00</item>
-    <item>18:00</item>
-    <item>19:00</item>
-    <item>20:00</item>
-    <item>21:00</item>
-    <item>22:00</item>
-    <item>23:00</item>
-    <item>00:00</item>
-    <item>01:00</item>
-    <item>02:00</item>
-    <item>03:00</item>
-    <item>04:00</item>
-    <item>05:00</item>
-    <item>06:00</item>
-    <item>07:00</item>
-    <item>08:00</item>
+    <item>9 AM</item>
+    <item>10 AM</item>
+    <item>11 AM</item>
+    <item>12 PM</item>
+    <item>1 PM</item>
+    <item>2 PM</item>
+    <item>3 PM</item>
+    <item>4 PM</item>
+    <item>5 PM</item>
+    <item>6 PM</item>
+    <item>7 PM</item>
+    <item>8 PM</item>
+    <item>9 PM</item>
+    <item>10 PM</item>
+    <item>11 PM</item>
+    <item>12 AM</item>
+    <item>1 AM</item>
+    <item>2 AM</item>
+    <item>3 AM</item>
+    <item>4 AM</item>
+    <item>5 AM</item>
+    <item>6 AM</item>
+    <item>7 AM</item>
+    <item>8 AM</item>
   </string-array>
   
   <string-array name="EPr_rmd_time">
     <!-- Reminder Preference: rmd_time: options for preference menu. Translate but don't change the times! -->
-    <item>09:00</item>
-    <item>10:00</item>
-    <item>11:00</item>
-    <item>12:00</item>
-    <item>13:00</item>
-    <item>14:00</item>
-    <item>15:00</item>
-    <item>16:00</item>
-    <item>17:00</item>
-    <item>18:00</item>
-    <item>19:00</item>
-    <item>20:00</item>
-    <item>21:00</item>
-    <item>22:00</item>
-    <item>23:00</item>
-    <item>00:00</item>
-    <item>01:00</item>
-    <item>02:00</item>
-    <item>03:00</item>
-    <item>04:00</item>
-    <item>05:00</item>
-    <item>06:00</item>
-    <item>07:00</item>
-    <item>08:00</item>
+    <item>9 AM</item>
+    <item>10 AM</item>
+    <item>11 AM</item>
+    <item>12 PM</item>
+    <item>1 PM</item>
+    <item>2 PM</item>
+    <item>3 PM</item>
+    <item>4 PM</item>
+    <item>5 PM</item>
+    <item>6 PM</item>
+    <item>7 PM</item>
+    <item>8 PM</item>
+    <item>9 PM</item>
+    <item>10 PM</item>
+    <item>11 PM</item>
+    <item>12 AM</item>
+    <item>1 AM</item>
+    <item>2 AM</item>
+    <item>3 AM</item>
+    <item>4 AM</item>
+    <item>5 AM</item>
+    <item>6 AM</item>
+    <item>7 AM</item>
+    <item>8 AM</item>
   </string-array>
   
   <!-- =============================================== random reminders == -->
 
   <string-array name="reminders">
       <!-- reminders: Make these < 20 chars so the task name is displayed -->
-      <item>Haste \'ne Sekunde?</item>
-      <item>Kann ich dich für ne Sekunde sehen?</item>
-      <item>Haste \'ne Minute?</item>
-      <item>Hast du vergessen?</item>
-      <item>Entschuldigung!</item>
-      <item>Wenn du Zeit hast:</item>
-      <item>Was noch zu tun ist:</item>
-      <item>Hast du einen Moment?</item>
-      <item>Astrid ist hier!</item>
-      <item>Hi! Darf ich kurz stören?</item>
-      <item>Eine Minute deiner Zeit!?</item>
-      <item>Heute ist ein toller Tag für:</item>
+      <item>Olá você! Tem um minuto?</item>
+      <item>Posso falar com você?</item>
+      <item>Tem alguns minutos?</item>
+      <item>Você esqueceu?</item>
+      <item>Dá licença!</item>
+      <item>Quando você tiver um minuto:</item>
+      <item>Na sua agenda:</item>
+      <item>Você tá livre?</item>
+      <item>Astrid aqui!</item>
+      <item>Ola! Posso pertubar você?</item>
+      <item>Um minuto do seu tempo?</item>
+      <item>É um bom dia para</item>
   </string-array>
 
   <string-array name="reminders_due">
       <!-- reminders related to task due date -->
-      <item>Arbeite:</item>
-      <item>Fälligkeit ist hier!</item>
-      <item>Bereit zum Anfangen?</item>
-      <item>Du sagtest, du willst:</item>
-      <item>Du solltest anfangen mit:</item>
-      <item>Es ist Zeit für:</item>
-      <item>Es ist soweit:</item>
-      <item>Entschuldige mich! Zeit für</item>
-      <item>Hast du frei? Zeit für</item>
+      <item>Hora de trabalhar!</item>
+      <item>Prazo final está aqui!</item>
+      <item>Pronto para começar?</item>
+      <item>Você disse que ía fazer:</item>
+      <item>Você devia começar:</item>
+      <item>Hora de começar:</item>
+      <item>É a hora!</item>
+      <item>Licença! Hora de</item>
+      <item>Você está livre? Hora para</item>
   </string-array>
 
   <string-array name="reminders_snooze">
       <!-- reminders related to snooze -->
-      <item>Sei nicht so faul!</item>
-      <item>Das Nickerchen ist vorbei!</item>
-      <item>Kein snooze mehr!</item>
-      <item>Jetzt bist du bereit?</item>
-      <item>Kein weiteres Aufschieben mehr!</item>
+      <item>Não seja preguiçoso agora!</item>
+      <item>Acabou a pausa!</item>
+      <item>Não dá pra adiar mais!</item>
+      <item>Agora você está pronto(a)?</item>
+      <item>Nada de adiar!</item>
   </string-array>
   
   <string-array name="reminder_responses">
       <!-- responses to reminder: Astrid says...  (user should answer yes or no)  -->
-      <item>Ich hab was für dich!</item> 
-      <item>Bereit die Sache abzuhaken?</item>
-      <item>Warum erledigst du das nicht?</item>
-      <item>Wie sieht\'s hiermit aus? Fertig, Tiger?</item>
-      <item>Bereit für das?</item>
-      <item>Bist du dem gewachsen?</item>
-      <item>Du kannst glücklich sein! Mach das eben fertig!</item>
-      <item>Ich verspreche dir, du wirst dich besser fühlen wenn es fertig ist!</item>
-      <item>Willst du es nicht heute erledigen?</item>
-      <item>Mach es zu Ende, mir reicht\'s!</item>
-      <item>Kannst du es erledigen? Yes, you can!</item>
-      <item>Wirst du es jemals angehen?</item>
-      <item>Fühl dich gut! Pack\'s an!</item>
-      <item>Ich bin stolz auf dich! Mach es endlich fertig!</item>
-      <item>Wie wäre es mit einem kleinen Snack nach getaner Arbeit?</item>
-      <item>Bitte nur diese eine Aufgabe...</item>
-      <item>Es ist Zeit die Liste zu verkürzen!</item>
+      <item>Tenho uma coisa para você!</item> 
+      <item>Hora de deixar isso no seu passado?</item>
+      <item>Porque você não deixa isso pronto?</item>
+      <item>E aí? Pronto tigrão,tigreza?</item>
+      <item>Pronto para isso?</item>
+      <item>Você consegue lidar com isso?</item>
+      <item>Você pode ser feliz! É só terminar isso!</item>
+      <item>Se terminar isso se sentirá bem melhor!</item>
+      <item>Você não fará isso hoje?</item>
+      <item>Por favor termine isso, já estou enjoado disso!</item>
+      <item>Você pode terminar isso? Sim, você pode!</item>
+      <item>Algum dia você vai fazer isso?</item>
+      <item>Você vai se sentir bem melhor! Vamos lá!</item>
+      <item>Estou tão orgulhoso de você! Vamos terminar isso!</item>
+      <item>Que tal lanchinho depois que você terminar isso?</item>
+      <item>Só mais essa, ok?</item>
+      <item>Hora de terminar essa tarefa!</item>
       <item>Are you on Team Order or Team Chaos? Team Order! Let\'s go!</item>
       <item>Have I mentioned you are awesome recently? Keep it up!</item>
       <item>A task a day keeps the clutter away... Goodbye clutter!</item>
@@ -2008,20 +2008,20 @@
 
   <string-array name="postpone_nags">
       <!-- Astrid's nagging when user clicks postpone -->
-      <item>Beweise bitte dass du kein Zauderer bist!</item>
-      <item>Ist Faulenzen nicht langweilig?</item>
-      <item>Irgendwo gibt es jemanden der auf dich wartet!</item>
-      <item>Als du Aufschieben sagtest, meintest du \"Bin gerade dabei\", oder?</item>
-      <item>Das ist aber das letzte Mal, dass du es aufschiebst, oder?</item>
-      <item>Mach\'s einfach heute fertig. Ich verrate es auch niemanden!</item>
-      <item>Was du heute kannst besorgen, dass verschiebe nicht auf morgen!</item>
-      <item>Ich gehe einfach mal davon aus, dass du es am Ende doch erledigen wirst</item>
-      <item>Du bist großartig! Wie wäre es das nicht zu verschieben?</item>
-      <item>Kannst du deine Ziele erreichen, wenn du das tust?</item>
-      <item>Später, später, später. Wann wirst du dich ändern?</item>
-      <item>Genug der Ausreden! Tu es jetzt!</item>
-      <item>Hab ich die Entschuldigung nicht schon letztes mal gehört?</item>
-      <item>Ich kann dir nicht helfen dein Leben zu organisieren, wenn du das tust...</item>
+      <item>Não me diga que você vive adiando as coisas!</item>
+      <item>Ser preguiçoso(a) não fica cansativo de vez em quando?</item>
+      <item>Em algum lugar, alguém está dependendo de você para terminar isso!</item>
+      <item>Quando você disse adiar, você realmente quis dizer \'Vou fazer isso agora\', certo?</item>
+      <item>Essa é a última vez que você adia isso, certo?</item>
+      <item>Termina isso hoje, eu não vou contar para ninguém!</item>
+      <item>Porque adiar se você pode, hmm... não adiar!</item>
+      <item>Suponho que vai terminar isso algum dia, certo?</item>
+      <item>Eu acho que você é realmente ótimo! Que tal não deixar isso de lado?</item>
+      <item>Você vai alcançar seus objetivos se você fizer isso?</item>
+      <item>Adiar, adiar, adiar. Quando você vai mudar!</item>
+      <item>Já estou cheio das suas desculpas! Faça isso agora!</item>
+      <item>Você não inventou essa desculpa na última vez?</item>
+      <item>Eu não vou poder ajudar você a organizar a sua vida se você fizer isso...</item>
   </string-array>
 
 
@@ -2031,19 +2031,19 @@
   <!-- Resources for built-in repeat plug-in -->
 
   <!-- repeating plugin name -->
-  <string name="repeat_plugin">Wiederkehrende Aufgaben</string>
+  <string name="repeat_plugin">Tarefas Repetitivas</string>
   
   <!-- repeating plugin description -->
-  <string name="repeat_plugin_desc">Aufgaben erlauben sich zu wiederholen</string>
+  <string name="repeat_plugin_desc">Permitir tarefas para repetições</string>
   
   <!-- checkbox for turning on/off repeats -->
-  <string name="repeat_enabled">Wiederholungen</string>
+  <string name="repeat_enabled">Repetições</string>
   
   <!-- button for "every x" part of repeat (%d -> repeat value)  -->
-  <string name="repeat_every">Alle %d</string>
+  <string name="repeat_every">Toda %d</string>
   
   <!-- hint when opening repeat interval -->
-  <string name="repeat_interval_prompt">Wiederholungsintervall</string>
+  <string name="repeat_interval_prompt">Intervalo de repetição</string>
   
   <string name="repeat_never">No Repeat</string>
   
@@ -2062,28 +2062,28 @@
   
   <string-array name="repeat_interval">
     <!-- repeat interval (days,weeks,months,hours,minutes,years) -->
-    <item>Tag(e)</item>
-    <item>Woche(n)</item>
-    <item>Monat(e)</item>
-    <item>Stunde(n)</item>
+    <item>Dia(s)</item>
+    <item>Semana(s)</item>
+    <item>Mês(es)</item>
+    <item>Hora(s)</item>
     <item>Minute(s)</item>
     <item>Year(s)</item>
   </string-array>
   
   <string-array name="repeat_type">
     <!-- repeat type (date to repeat from) -->
-    <item>bei Fälligkeit</item>
-    <item>bei Erledigung</item>
+    <item>à partir do dia do prazo final</item>
+    <item>à partir do dia de realização</item>
   </string-array>
   
   <!-- task detail weekly by day ($I -> interval, i.e. 1 week, $D -> days, i.e. Monday, Tuesday) -->
-  <string name="repeat_detail_byday">$D jede $I</string>
+  <string name="repeat_detail_byday">$I na $D</string>
   
   <!-- task detail for repeat from due date (%s -> interval) -->
-  <string name="repeat_detail_duedate">Jede(n) %s</string>
+  <string name="repeat_detail_duedate">a cada %s</string>
   
   <!-- task detail for repeat from completion date (%s -> interval) -->
-  <string name="repeat_detail_completion">%s nach Abschluss</string>
+  <string name="repeat_detail_completion">%s após a conclusão</string>
   
   <!-- text for confirmation dialog after repeating a task -->
   <string name="repeat_rescheduling_dialog_title">Rescheduling task \"%s\"</string>
@@ -2098,22 +2098,22 @@
     <!-- ====================== Plugin Boilerplate ========================= -->
 
     <!-- label for RMilk button in Task Edit Activity -->
-    <string name="rmilk_EOE_button">Remember the Milk Einstellungen</string>
+    <string name="rmilk_EOE_button">Configurações do Remember the Milk</string>
     
     <!-- task detail showing RTM repeat information -->
-    <string name="rmilk_TLA_repeat">RTM Wiederholende Aufgabe</string>
+    <string name="rmilk_TLA_repeat">Tarefa repetitiva do RTM</string>
     
     <!--  task detail showing item needs to be synchronized -->
-    <string name="rmilk_TLA_sync">Synchronisierung mit RTM benötigt</string>
+    <string name="rmilk_TLA_sync">Precisa ser sincronizado com RTM</string>
 
     <!-- filters header: RTM -->
     <string name="rmilk_FEx_header">Remember the Milk</string>
     
     <!-- filter category for RTM lists -->
-    <string name="rmilk_FEx_list">Listen</string>
+    <string name="rmilk_FEx_list">Listas</string>
     
     <!--  RTM list filter title (%s => list) -->
-    <string name="rmilk_FEx_list_title">RTM Liste \'%s\'</string>
+    <string name="rmilk_FEx_list_title">Lista RTM \'%s\'</string>
     
     <!-- ======================= MilkEditActivity ========================== -->
     
@@ -2121,13 +2121,13 @@
     <string name="rmilk_MEA_title">Remember the Milk</string>
     
     <!--  RTM edit List Edit Label -->
-    <string name="rmilk_MEA_list_label">RTM Liste:</string>
+    <string name="rmilk_MEA_list_label">Lista RTM:</string>
     
     <!--  RTM edit Repeat Label -->
-    <string name="rmilk_MEA_repeat_label">RTM Wiederholungsstatus</string>
+    <string name="rmilk_MEA_repeat_label">Status de Repetição do RTM:</string>
     
     <!--  RTM edit Repeat Hint -->
-    <string name="rmilk_MEA_repeat_hint">z.B. jede Woche, nach 14 Tagen</string>
+    <string name="rmilk_MEA_repeat_hint">ex. semanalmente, depois de 14 dias</string>
     
     <!-- ======================== MilkPreferences ========================== -->
 
@@ -2137,10 +2137,10 @@
     <!-- ======================= MilkLoginActivity ========================= -->
 
     <!-- RTM Login Instructions -->
-    <string name="rmilk_MLA_label">Bitte einloggen und Astrid autorisieren</string>
+    <string name="rmilk_MLA_label">Por favor, conecte-se e autorize o Astrid:</string>
 
     <!-- Login Error Dialog (%s => message) -->
-    <string name="rmilk_MLA_error">Entschuldigung, beim Einloggen ist ein Fehler aufgetreten. Bitte versuche es erneut. \n\n Fehlermeldung: %s</string>
+    <string name="rmilk_MLA_error">Desculpe, houve um erro identificando seu login. Por favor tente novamente. \n\n Mensagem de Erro: %s</string>
     
     <!-- ======================== Synchronization ========================== -->    
     
@@ -2148,7 +2148,7 @@
     <string name="rmilk_notification_title">Astrid: Remember the Milk</string>
     
     <!-- Error msg when io exception with rmilk -->
-    <string name="rmilk_ioerror">Verbindungsfehler! Bitte überprüfe deine Internetverbindung oder die RTM Server (status.rememberthemilk.com) zur Lösung des Problems.</string>
+    <string name="rmilk_ioerror">Erro de conexão! Verifique sua conexão com a Internet, ou talvez os servidores do RTM (status.rememberthemilk.com), para possíveis soluções.</string>
             
 
 
@@ -2161,52 +2161,52 @@
   <!-- =============================================== Task Edit Controls == -->
 
   <!-- Tags label -->
-  <string name="TEA_tags_label">Listen</string>
+  <string name="TEA_tags_label">Listas</string>
   
   <!-- Tags none -->
-  <string name="TEA_tags_none">Keine</string>
+  <string name="TEA_tags_none">Nenhum</string>
 
   <!-- Tags hint -->
   <string name="TEA_tag_hint">New list</string>
   
   <!-- Tags dropdown -->
-  <string name="TEA_tag_dropdown">Wähle eine Liste</string>
+  <string name="TEA_tag_dropdown">Selecionar uma lista</string>
     
   <!-- =============================================== Task List Controls == -->
   
   <!-- menu item for tags -->
-  <string name="tag_TLA_menu">Listen</string>
+  <string name="tag_TLA_menu">Listas</string>
   
   <!-- ========================================================== Extras == -->
   
     <!-- Context Item: show tag -->
-  <string name="TAd_contextFilterByTag">Liste anzeigen</string>
+  <string name="TAd_contextFilterByTag">Mostrar Lista</string>
   
     <!-- Dialog: new list -->
-  <string name="tag_new_list">Neue Liste</string>
+  <string name="tag_new_list">Nova lista</string>
   
     <!-- Dialog: list saved -->
-  <string name="tag_list_saved">Liste gespeichert</string>
+  <string name="tag_list_saved">Lista salva</string>
   
     <!-- Dialog: task created without title -->
-  <string name="tag_no_title_error">Bitte gib zuerst einen Namen für die Liste ein!</string>
+  <string name="tag_no_title_error">Entre com o nome da lista primeiro!</string>
   
   <!-- ========================================================== Filters == -->
   
   <!-- filter button to add tag -->
-  <string name="tag_FEx_add_new">Neu</string>
+  <string name="tag_FEx_add_new">Nova</string>
   
   <!-- filter header for tags -->
-  <string name="tag_FEx_header">Listen</string>
+  <string name="tag_FEx_header">Listas</string>
   
   <!-- filter header for tags user created -->
-  <string name="tag_FEx_category_mine">Meine Listen</string>
+  <string name="tag_FEx_category_mine">Minhas listas</string>
   
   <!-- filter header for tags, shared with user -->
-  <string name="tag_FEx_category_shared">Mit mir geteilt</string>
+  <string name="tag_FEx_category_shared">Compartilhadas comigo</string>
   
   <!-- filter header for tags which have no active tasks -->
-  <string name="tag_FEx_category_inactive">Inaktiv</string>
+  <string name="tag_FEx_category_inactive">Inativa</string>
   
   <!-- filter for untagged tasks -->
   <string name="tag_FEx_untagged">Not in any List</string>
@@ -2215,37 +2215,37 @@
   <string name="tag_FEx_untagged_w_astrid">Not in an Astrid List</string>
   
   <!-- %s => tag name -->
-  <string name="tag_FEx_name">Liste: %s</string>
+  <string name="tag_FEx_name">Lista: %s</string>
 
   <!-- context menu option to rename a tag -->
-  <string name="tag_cm_rename">Liste umbenennen</string>
+  <string name="tag_cm_rename">Renomear Lista</string>
 
   <!-- context menu option to delete a tag -->
-  <string name="tag_cm_delete">Liste löschen</string>
+  <string name="tag_cm_delete">Excluir lista</string>
   
   <!-- context menu option to leave a shared list -->
   <string name="tag_cm_leave">Leave List</string>
 
   <!-- Dialog to confirm deletion of a tag (%s -> the name of the list to be deleted) -->
-  <string name="DLG_delete_this_tag_question">Diese Liste löschen: %s ? (Es werden keine Aufgaben werden gelöscht.)</string>
+  <string name="DLG_delete_this_tag_question">Excluir esta lista: %s? (nenhuma tarefa será excluída)</string>
   
   <!-- Dialog to confirm leaving a shared tag (%s -> the name of the shared list to leave) -->
   <string name="DLG_leave_this_shared_tag_question">Leave this shared list: %s? (No tasks will be deleted.)</string>
 
   <!-- Dialog to rename tag -->
-  <string name="DLG_rename_this_tag_header">Die Liste %s umbnennen nach:</string>
+  <string name="DLG_rename_this_tag_header">Renomear a lista %s para:</string>
 
   <!-- Toast notification that no changes have been made -->
-  <string name="TEA_no_tags_modified">Es gibt keine Änderungen</string>
+  <string name="TEA_no_tags_modified">Nenhuma mudança efetuada</string>
 
   <!-- Toast notification that a tag has been deleted -->
-  <string name="TEA_tags_deleted">Löschen der Liste %1$s beeinflusste %2$d Aufgaben</string>
+  <string name="TEA_tags_deleted">A Lista %s foi excluída, afetando %2$d tarefas</string>
   
   <!-- Toast notification that a shared tag has been left -->
   <string name="TEA_tags_left">You left shared list %1$s, affecting %2$d tasks</string>
 
   <!-- Toast notification that a tag has been renamed -->
-  <string name="TEA_tags_renamed">%1$s umbennant nach %2$s für %3$d Aufgaben</string>
+  <string name="TEA_tags_renamed">A lista %1$s foi renomeada para %2$s com %3$d tarefas</string>
   
   <!-- Tag case migration -->
   <string name="tag_case_migration_notice">We\'ve noticed that you have some lists that have the same name with different capitalizations. We think you may have intended them to 
@@ -2266,19 +2266,19 @@
     <!-- Resources for built-in timers plug-in -->
     
     <!-- Task List: Start Timer button -->
-    <string name="TAE_startTimer">Stoppuhr</string>
+    <string name="TAE_startTimer">Temporizador</string>
     
     <!-- Task List: Stop Timer button -->
-    <string name="TAE_stopTimer">Stop</string>
+    <string name="TAE_stopTimer">Parar</string>
     
     <!-- Android Notification Title (%s => # tasks) -->
-    <string name="TPl_notification">Timer ist aktiv für %s!</string>
+    <string name="TPl_notification">Temporizador ativado para %s!</string>
     
     <!-- Filter Header for Timer plugin -->
-    <string name="TFE_category">Timer Filter</string>
+    <string name="TFE_category">Fltros do Temporizador</string>
     
     <!-- Filter for Timed Tasks -->
-    <string name="TFE_workingOn">Zeitlich festgelegte Aufgaben</string>
+    <string name="TFE_workingOn">Tarefas com contagem de tempo</string>
     
     <!-- Title for TEA -->
     <string name="TEA_timer_controls">Timer Controls</string>
@@ -2299,47 +2299,47 @@
 
     
   <!-- Voice Add Prompt Text -->
-  <string name="voice_create_prompt">Sprechen Sie, um eine Aufgabe anzulegen</string>
-  <string name="voice_edit_title_prompt">Sprechen Sie, um einen Auftragsnamen zu vergeben</string>
-  <string name="voice_edit_note_prompt">Sprechen Sie, um Aufgabennotizen zu setzen</string>
+  <string name="voice_create_prompt">Fale para criar uma tarefa</string>
+  <string name="voice_edit_title_prompt">Fale para completar o título</string>
+  <string name="voice_edit_note_prompt">Fale para completar as notas da tarefa</string>
     
   <!-- Preference: Task List recognition-service is not installed, but available -->
-  <string name="EPr_voiceInputInstall_dlg">Spracheingabe ist nicht installiert.\nWollen Sie in den Markt wechseln und das nachholen?</string>
+  <string name="EPr_voiceInputInstall_dlg">Entrada por voz não está instalado.\n Você quer ir ao Market instalar?</string>
   <!-- Preference: Task List recognition-service is not available for this system -->
-  <string name="EPr_voiceInputUnavailable_dlg">Leider ist Spracheingabe für Ihr System nicht verfügbar.\nWenn möglich, aktualisieren Sie bitte auf Android 2.1 oder höher.</string>
+  <string name="EPr_voiceInputUnavailable_dlg">Infelizmente a entrada por voz não está disponível no seu sistema.\nSe possível, atualize o Android para 2.1 ou superior</string>
   <!-- Preference: Market is not available for this system -->
-  <string name="EPr_marketUnavailable_dlg">Leider ist der Marktplatz für Ihr System nicht verfügbar.\nWenn möglich, laden Sie die sprachgestützte Suchfunktion bitte aus einer anderen Quelle herunter.</string>
+  <string name="EPr_marketUnavailable_dlg">Infelizmente o Market não está disponível no seu sistema.\nSe possível, tente baixar o Voice Search de outro lugar</string>
   <!-- Preference: Task List Show Voice-button if recognition-service is available -->
-  <string name="EPr_voiceInputEnabled_title">Spracheingabe aktivieren</string>
+  <string name="EPr_voiceInputEnabled_title">Entrada de voz</string>
   <!-- Preference: voice button description (true) -->
-  <string name="EPr_voiceInputEnabled_desc_enabled">Mikrofon-Button wird angezeigt</string>
+  <string name="EPr_voiceInputEnabled_desc_enabled">O botão de entrada por voz será mostrado na tela de listagem de tarefas</string>
   <!-- Preference: voice button description (false) -->
-  <string name="EPr_voiceInputEnabled_desc_disabled">Mikrofon-Button wird ausgeblendet</string>
+  <string name="EPr_voiceInputEnabled_desc_disabled">O botão de entrada por voz não será exibido na tela de listagem de tarefas</string>
   <!-- Preference: Task List Voice-button directly creates tasks -->
-  <string name="EPr_voiceInputCreatesTask_title">Aufgaben direkt erzeugen</string>
+  <string name="EPr_voiceInputCreatesTask_title">Criar tarefas diretamente</string>
   <!-- Preference: Task List Voice-creation description (true) -->
-  <string name="EPr_voiceInputCreatesTask_desc_enabled">Aufgaben werden direkt aus Spracheingaben erzeugt</string>
+  <string name="EPr_voiceInputCreatesTask_desc_enabled">Tarefas serão criadas automaticamente pela entrada de voz</string>
   <!-- Preference: Task List Voice-creation description (false) -->
-  <string name="EPr_voiceInputCreatesTask_desc_disabled">Sie können die Aufgabentitel nach der Spracheingabe ändern</string>
+  <string name="EPr_voiceInputCreatesTask_desc_disabled">Você pode editar o título da tarefa após a entrada por voz terminar.</string>
   <!-- Preference: Voice reminders if TTS-service is available -->
-  <string name="EPr_voiceRemindersEnabled_title">Sprach-Erinnerungen</string>
+  <string name="EPr_voiceRemindersEnabled_title">Lembretes Falados</string>
   <!-- Preference: Voice reminders description (true) -->
-  <string name="EPr_voiceRemindersEnabled_desc_enabled">Astrid wird Aufgabennamen bei der Erinnerung aussprechen</string>
+  <string name="EPr_voiceRemindersEnabled_desc_enabled">Astrid irá falar o nome das tarefas durante os lembretes</string>
   <!-- Preference: Voice reminders description (false) -->
-  <string name="EPr_voiceRemindersEnabled_desc_disabled">Astrid wird bei der Erinnerung einen Klingelton abspielen</string>    
+  <string name="EPr_voiceRemindersEnabled_desc_disabled">Astrid irá tocar um som durante o lembrete</string>    
   
   <!-- Preference Category: Voice Title -->
-  <string name="EPr_voice_header">Sprachfunktionen</string>
+  <string name="EPr_voice_header">Configurações de entrada de voz</string>
     
 
 
 
       
-    <string name="welcome_show_eula">Akzeptieren Sie EULE um zu starten!</string>
+    <string name="welcome_show_eula">Accept EULA to get started!</string>
     
     <string name="welcome_setting">Show Tutorial</string>
     
-    <string name="welcome_title_1">Willkommen zu Astrid</string>
+    <string name="welcome_title_1">Bem vindo ao Astrid!</string>
     <string name="welcome_title_2">Make lists</string>
     <string name="welcome_title_3">Share lists</string>
     <string name="welcome_title_4">Divvy up tasks</string>
@@ -2355,7 +2355,7 @@
     <string name="welcome_body_4">Never wonder who\'s\nbringing dessert!</string>
     <string name="welcome_body_5">Tap to add notes,\nset reminders,\nand much more!</string>
     <string name="welcome_body_6">Additional features,\nproductivity tips, and\nsuggestions from friends</string>
-    <string name="welcome_body_7">Anmelden</string>
+    <string name="welcome_body_7">Login</string>
     
     <string name="welcome_body_7_return">Tap Astrid to return.</string>
     
