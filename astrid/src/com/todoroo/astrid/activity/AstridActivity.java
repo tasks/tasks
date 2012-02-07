@@ -4,6 +4,7 @@ import android.app.PendingIntent.CanceledException;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
@@ -47,6 +48,13 @@ public class AstridActivity extends FragmentActivity
     implements FilterListFragment.OnFilterItemClickedListener,
     TaskListFragment.OnTaskListItemClickedListener,
     TaskEditFragment.OnTaskEditDetailsClickedListener {
+
+    /**
+     * Array of device names that we want to override the layout for
+     */
+    private static final String[] THREE_PANE_DEVICES = new String[] {
+        "kindle", //$NON-NLS-1$
+    };
 
     public static final int LAYOUT_SINGLE = 0;
     public static final int LAYOUT_DOUBLE = 1;
@@ -290,6 +298,17 @@ public class AstridActivity extends FragmentActivity
      */
     public int getFragmentLayout() {
         return fragmentLayout;
+    }
+
+    public static boolean shouldUseThreePane(Context context) {
+        int size = context.getResources().getConfiguration().screenLayout
+                & Configuration.SCREENLAYOUT_SIZE_MASK;
+        if (size == Configuration.SCREENLAYOUT_SIZE_XLARGE) return true;
+        String model = android.os.Build.MODEL.toLowerCase();
+        for (String s : THREE_PANE_DEVICES) {
+            if (model.contains(s)) return true;
+        }
+        return false;
     }
 
     private class ReminderReceiver extends BroadcastReceiver {

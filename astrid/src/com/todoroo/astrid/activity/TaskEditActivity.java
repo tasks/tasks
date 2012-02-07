@@ -18,7 +18,10 @@ public class TaskEditActivity extends AstridActivity {
 	protected void onCreate(Bundle savedInstanceState) {
         ThemeService.applyTheme(this);
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.task_edit_wrapper_activity);
+		if (shouldUseThreePane(this))
+		    setContentView(R.layout.task_edit_wrapper_activity_3pane);
+		else
+		    setContentView(R.layout.task_edit_wrapper_activity);
 
 		ActionBar actionBar = getSupportActionBar();
 		actionBar.setDisplayShowHomeEnabled(false);

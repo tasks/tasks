@@ -42,6 +42,7 @@ import com.todoroo.astrid.welcome.tutorial.WelcomeWalkthrough;
 public class TaskListActivity extends AstridActivity implements MainMenuListener {
 
     public static final String TOKEN_SELECTED_FILTER = "selectedFilter"; //$NON-NLS-1$
+
     private View listsNav;
     private ImageView listsNavDisclosure;
     private TextView lists;
@@ -111,7 +112,11 @@ public class TaskListActivity extends AstridActivity implements MainMenuListener
 	protected void onCreate(Bundle savedInstanceState) {
 	    ThemeService.applyTheme(this);
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.task_list_wrapper_activity);
+
+		if (shouldUseThreePane(this))
+		    setContentView(R.layout.task_list_wrapper_activity_3pane);
+		else
+		    setContentView(R.layout.task_list_wrapper_activity);
 
 		ActionBar actionBar = getSupportActionBar();
 		actionBar.setDisplayOptions(0, ActionBar.DISPLAY_SHOW_TITLE);

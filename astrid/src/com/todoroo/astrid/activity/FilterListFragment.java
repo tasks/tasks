@@ -157,7 +157,12 @@ public class FilterListFragment extends ListFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
             Bundle savedInstanceState) {
         Activity activity = getActivity();
-        ViewGroup parent = (ViewGroup) activity.getLayoutInflater().inflate(R.layout.filter_list_activity, container, false);
+        int layout;
+        if (AstridActivity.shouldUseThreePane(activity))
+            layout = R.layout.filter_list_activity_3pane;
+        else
+            layout = R.layout.filter_list_activity;
+        ViewGroup parent = (ViewGroup) activity.getLayoutInflater().inflate(layout, container, false);
         return parent;
     }
 
