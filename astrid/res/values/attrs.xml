@@ -9,6 +9,7 @@
   <attr name="asHeaderBackground" format="reference"/>
   <attr name="asHeaderButtonBackground" format="reference"/>
   <attr name="asTextColor" format="color"/>
+  <attr name="asTextColorInverse" format="color"/>
   <attr name="asDetailsColor" format="color"/>
   <attr name="asDueDateColor" format="color"/>
   <attr name="asDueDateOverdueColor" format="color"/>

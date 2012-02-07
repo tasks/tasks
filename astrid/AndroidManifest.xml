@@ -281,7 +281,7 @@
         <category android:name="android.intent.category.DEFAULT" />
       </intent-filter>
     </receiver>
-    <activity android:name="com.todoroo.astrid.core.CustomFilterActivity" android:theme="@style/Theme_Dialog" />
+    <activity android:name="com.todoroo.astrid.core.CustomFilterActivity" android:theme="@style/Theme.Dialog" />
     <activity android:name="com.todoroo.astrid.core.CustomFilterExposer$DeleteActivity" android:theme="@style/Theme.FullTransparent" />
     <activity android:name="com.todoroo.astrid.tags.TagFilterExposer$DeleteTagActivity" android:theme="@style/Theme.FullTransparent" />
     <activity android:name="com.todoroo.astrid.tags.TagFilterExposer$RenameTagActivity" android:theme="@style/Theme.FullTransparent" />
@@ -334,7 +334,7 @@
               android:theme="@android:style/Theme.Dialog"/>
     <activity android:name="com.todoroo.astrid.actfm.TagSettingsActivity"
               android:windowSoftInputMode="stateHidden"
-              android:theme="@style/Theme_Dialog"/>
+              android:theme="@style/Theme.Dialog"/>
     <activity android:name="com.todoroo.astrid.actfm.TagUpdatesActivity"
               android:windowSoftInputMode="stateHidden"/>
     <!-- <receiver android:name="com.todoroo.astrid.actfm.EditPeopleExposer">
@@ -443,7 +443,7 @@
     <!-- backup -->
     <service android:name="com.todoroo.astrid.backup.BackupService"/>
     <activity android:name="com.todoroo.astrid.backup.BackupActivity"
-              android:theme="@style/Theme_Dialog" />
+              android:theme="@style/Theme.Dialog" />
     <activity android:name="com.todoroo.astrid.backup.BackupPreferences"
               android:theme="@android:style/Theme" 
               android:label="@string/backup_BPr_header">
@@ -481,22 +481,7 @@
         <category android:name="android.intent.category.DEFAULT" />
       </intent-filter>
     </receiver>
-    <!-- <receiver android:name="com.todoroo.astrid.notes.EditNoteExposer">
-      <intent-filter>
-        <action android:name="com.todoroo.astrid.REQUEST_ACTIONS" />
-        <action android:name="com.todoroo.astrid.EDIT_NOTES" />
-        <category android:name="android.intent.category.DEFAULT" />
-      </intent-filter>
-    </receiver>       -->
-                  
-    <!-- timers -->
-    <!-- <receiver android:name="com.todoroo.astrid.timers.TimerActionExposer">
-      <intent-filter>
-        <action android:name="com.todoroo.astrid.REQUEST_ACTIONS" />
-        <action android:name="com.todoroo.astrid.TIMER_BUTTON" />
-        <category android:name="android.intent.category.DEFAULT" />
-      </intent-filter>
-    </receiver> -->
+
     <receiver android:name="com.todoroo.astrid.timers.TimerFilterExposer">
       <intent-filter android:priority="10000">
         <action android:name="com.todoroo.astrid.REQUEST_FILTERS" />
