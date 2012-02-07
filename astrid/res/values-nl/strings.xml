@@ -143,7 +143,7 @@
   <string name="actfm_EPA_list">Lijst: %s</string>
   
   <!-- task sharing dialog: assigned hint -->
-  <string name="actfm_EPA_assigned_hint">Contact Name</string>
+  <string name="actfm_EPA_assigned_hint">Naam contactpersoon</string>
   
   <!-- task sharing dialog: message label text -->
   <string name="actfm_EPA_message_text">Uitnodigings bericht:</string>
@@ -191,13 +191,13 @@
   <string name="actfm_ALA_body">Astrid.com geeft online toegang tot de taken, waarbij deze gedeeld en gedelegeerd kunnen worden met anderen.</string>
 
   <!-- share login: Sharing Login FB Prompt -->
-  <string name="actfm_ALA_fb_login">Connect with Facebook</string>
+  <string name="actfm_ALA_fb_login">Aanmelden bij Facebook</string>
 
   <!-- share login: Sharing Login GG Prompt -->
-  <string name="actfm_ALA_gg_login">Connect with Google</string>
-  
+  <string name="actfm_ALA_gg_login">Aanmelden bij Google</string>
+
   <!-- share login: Sharing Footer Password Label -->
-  <string name="actfm_ALA_pw_login">Don\'t use Google or Facebook?</string>
+  <string name="actfm_ALA_pw_login">Nog geen Google of Facebook account?</string>
 
   <!-- share login: Sharing Password Link -->
   <string name="actfm_ALA_pw_link">Registreer hier</string>
@@ -282,7 +282,7 @@
     <string name="backup_BPr_group_status">Status</string>
     
     <!-- Backup Status: last backup was a success (%s -> last date). Keep it short! -->    
-    <string name="backup_status_success">Latest backup:\n%s</string>
+    <string name="backup_status_success">Laatste: %s</string>
     <!-- Backup Status: last error failed. Keep it short! -->    
     <string name="backup_status_failed">Laatste back-up mislukt</string>
     <!-- Backup Status: error subtitle -->    
@@ -718,7 +718,7 @@
   
   <string-array name="TEA_urgency">
       <!-- urgency: labels for edit page. item #4 -> auto filled -->
-      <item>No deadline</item>
+      <item>Geen einddatum</item>
       <item>Specifieke dag</item>
       <item>Vandaag</item>
       <item>Morgen</item>
@@ -823,7 +823,7 @@
   <string name="EPr_beastMode_reset">Reset to defaults</string>
       
   <!-- Preference: Task List Show Notes Description (disabled) -->
-  <string name="EPr_showNotes_desc_disabled">Notes will be accessible from the Task Edit Page</string>  
+  <string name="EPr_showNotes_desc_disabled">Notities zullen in de snelle toegangsbalk worden weergegeven</string>  
   <!-- Preference: Task List Show Notes Description (enabled) -->
   <string name="EPr_showNotes_desc_enabled">Notities altijd weergeven</string>
   
@@ -859,7 +859,7 @@
   <string name="EPr_manage_delete_completed_status">%d taken verwijderd!</string>
   <string name="EPr_manage_purge_deleted">Verwijderde taken opschonen</string>
   <string name="EPr_manage_purge_deleted_message">Alle verwijderde taken werkelijk opschonen?\n\nDeze taken zijn dan definitief verwijderd!</string>
-  <string name="EPr_manage_purge_deleted_status">%s verwijderde taken opgeschoond!</string>
+  <string name="EPr_manage_purge_deleted_status">%d verwijderde taken opgeschoond!</string>
   <string name="EPr_manage_purge_deleted_summary">Waarschuwing: Opgeschoonde verwijderde taken kunnen zonder backup-bestand niet worden hersteld!</string>
   <string name="EPr_manage_clear_all">Clear All Data</string>
   <string name="EPr_manage_clear_all_message">Delete all tasks and settings in Astrid?\n\nWarning: can\'t be undone!</string>
@@ -1280,32 +1280,20 @@
   <string name="intro_task_1_summary">Eerste taak aanmaken</string>
 
   <!-- Task 1 Note -->
-  <string name="intro_task_1_note">Two ways to add a task:\n
-  1) Quick Add: Type the task into the quick entry box at bottom of screen and press the + button on the right.\n
-  2) Regular Add: Press the + button of the quick entry box. Add as much detail as you want. Then press \"Save\" or use your phone\'s back button.\n
-  </string>
+  <string name="intro_task_1_note">Twee manieren om een taak te maken:\n 1) Snel toevoegen: Beschrijf de taak in het veld onderin en druk op de + knop aan de linker kant.\n\n 2) Normaal toevoegen: Druk op de knop aan de rechter kant van het veld onderin. Vul de standaard details in (einddatum, labels, notities) of gebruik de geavanceerde opties. Bewaar de taak met de bewaarknop of gebruik de \'Terug\' toets op het toestel.\n\n</string>
   
   <!-- Task 2 Summary  -->
   <string name="intro_task_2_summary">Widget toevoegen aan het hoofdscherm</string>
 
   <!-- Task 2 Note -->
-  <string name="intro_task_2_note">
-  1) Long Press on your phone\'s desktop\n
-       2) Choose \"Widget\"\n
-       3) Choose the Astrid widget\n
-       4) Select the list you want and press OK.\n
-  </string>
+  <string name="intro_task_2_note">Een bureaublad widget is een geweldige manier om de te doen taken bij te houden en een manier om snel nieuwe taken toe te voegen.\n\n Hoe een widget toevoegen?:\n 1) Druk lang op het bureaublad.\n 2) Kies \"Widget\" uit het menu\n 3) Selecteer de Astrid widget.\n 4) Selecteer een Astrid filter. Selecteer \"Actieve taken\" voor alle taken\n\n Bonus: Gebruik de widget om een taak toe te voegen!</string>
   
     <!-- Task 3 Summary  -->
   <string name="intro_task_3_summary">Instellingen synchroniseren met Astrid.com</string>
 
   <!-- Task 3 Note -->
-  <string name="intro_task_3_note">
-    1) Press your Menu button\n
-         2) Choose \"Sync Now\"\n
-         3) Select \"Astrid.com\"\n
-         4) Log In &amp; Synchronize!\n
-  </string>
+  <string name="intro_task_3_note">Astrid maakt het mogelijk de taken te synchroniseren met Astrid.com, Google Taken en Producteev.\n\n Om synchroniseren vanuit Astrid in te schakelen, druk \"Menu\"-&gt; \"Instellingen\" -&gt; \"Synchronisatie\" en selecteer de gewenste provider.</string>
+
  
   <!-- NEW USER EXPERIENCE -->
   
@@ -1743,10 +1731,10 @@
   <string name="rmd_NoA_filter">Herinnering!</string>
   
   <!-- Reminder: Task was already done -->
-  <string name="rmd_NoA_done">Complete</string>
+  <string name="rmd_NoA_done">Reeds voltooid!</string>
   
   <!-- Reminder: Snooze button (remind again later) -->
-  <string name="rmd_NoA_snooze">Snooze</string>
+  <string name="rmd_NoA_snooze">Sluimeren...</string>
   
   <!-- Reminder: Completed Toast -->
   <string name="rmd_NoA_completed_toast">Congratulations on finishing!</string>

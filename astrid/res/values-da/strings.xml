@@ -1707,16 +1707,16 @@ Astrid is open-source and proudly maintained by Todoroo, Inc.</string>
   <string name="TEA_reminders_group_label">Reminders</string>
 
   <!-- Task Edit: Reminder header label -->  
-  <string name="TEA_reminder_label">Remind Me:</string>
+  <string name="TEA_reminder_label">Påmind mig:</string>
 
   <!-- Task Edit: Reminder @ deadline -->  
-  <string name="TEA_reminder_due">When task is due</string>
+  <string name="TEA_reminder_due">når deadline er nået</string>
 
   <!-- Task Edit: Reminder after deadline -->  
-  <string name="TEA_reminder_overdue">When task is overdue</string>
+  <string name="TEA_reminder_overdue">når deadline er overskredet</string>
 
   <!-- Task Edit: Reminder at random times (%s => time plural)-->
-  <string name="TEA_reminder_random">Randomly once</string>
+  <string name="TEA_reminder_random">tilfældigt hver(t)</string>
 
   <!-- Task Edit: Reminder alarm clock label -->  
   <string name="TEA_reminder_alarm_label">Ring/Vibrate Type:</string>
@@ -1746,10 +1746,10 @@ Astrid is open-source and proudly maintained by Todoroo, Inc.</string>
   <string name="rmd_NoA_filter">Påmindelse!</string>
   
   <!-- Reminder: Task was already done -->
-  <string name="rmd_NoA_done">Complete</string>
+  <string name="rmd_NoA_done">Allerede udført!</string>
   
   <!-- Reminder: Snooze button (remind again later) -->
-  <string name="rmd_NoA_snooze">Snooze</string>
+  <string name="rmd_NoA_snooze">Slumrefunktion...</string>
   
   <!-- Reminder: Completed Toast -->
   <string name="rmd_NoA_completed_toast">Congratulations on finishing!</string>
@@ -2069,7 +2069,7 @@ Astrid is open-source and proudly maintained by Todoroo, Inc.</string>
     <item>Uge(r)</item>
     <item>Måned(er)</item>
     <item>Time(r)</item>
-    <item>Minute(s)</item>
+    <item>Minut(er)</item>
     <item>Year(s)</item>
   </string-array>
   

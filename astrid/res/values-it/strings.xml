@@ -450,7 +450,7 @@
   <!-- ================================================= TaskListActivity == -->
   
   <!-- Task List: Displayed instead of list when no items present -->    
-  <string name="TLA_no_items">You have no tasks! \n Want to add something?</string>
+  <string name="TLA_no_items">Nessuna Attività!</string>
   
   <!-- Menu: Add-ons -->    
   <string name="TLA_menu_addons">Componenti aggiuntivi</string>
@@ -538,7 +538,7 @@
   <string name="TAd_flingText"/>
   
   <!-- indicates task was completed. %s => date or time ago -->
-  <string name="TAd_completed">Finished\n%s</string>
+  <string name="TAd_completed">Terminata\n%s</string>
   
   <!-- Action Button: edit task -->
   <string name="TAd_actionEditTask">Modifica</string>
@@ -719,7 +719,7 @@
   
   <string-array name="TEA_urgency">
       <!-- urgency: labels for edit page. item #4 -> auto filled -->
-      <item>No deadline</item>
+      <item>Nessun Termine</item>
       <item>Giorno Specifico</item>
       <item>Oggi</item>
       <item>Domani</item>
@@ -1284,10 +1284,7 @@ Astrid is open-source and proudly maintained by Todoroo, Inc.</string>
   <string name="intro_task_1_summary">Crea la tua prima attività</string>
 
   <!-- Task 1 Note -->
-  <string name="intro_task_1_note">Two ways to add a task:\n
-  1) Quick Add: Type the task into the quick entry box at bottom of screen and press the + button on the right.\n
-  2) Regular Add: Press the + button of the quick entry box. Add as much detail as you want. Then press \"Save\" or use your phone\'s back button.\n
-  </string>
+  <string name="intro_task_1_note">Due modi per aggiungere un\'attività:\n 1) Aggiunta Rapida: scrivi il titolo dell\'attività nel campo in basso e premi il pulsante + che appare a sinistra.\n\n 2) Aggiunta normale: premi il pulsante sulla destra del campo in basso. Aggiungi le informazioni base (data di terminazione, etichette, note) o imposta opzioni più avanzate. Salva l\'attività con il pulsante di salvataggio o il pulsante indietro sul tuo telefono.\n\n</string>
   
   <!-- Task 2 Summary  -->
   <string name="intro_task_2_summary">Aggiungi un widget sul tuo desktop</string>
@@ -1708,16 +1705,16 @@ Astrid is open-source and proudly maintained by Todoroo, Inc.</string>
   <string name="TEA_reminders_group_label">Reminders</string>
 
   <!-- Task Edit: Reminder header label -->  
-  <string name="TEA_reminder_label">Remind Me:</string>
+  <string name="TEA_reminder_label">Ricordami...</string>
 
   <!-- Task Edit: Reminder @ deadline -->  
-  <string name="TEA_reminder_due">When task is due</string>
+  <string name="TEA_reminder_due">... quando l\'attività deve terminare</string>
 
   <!-- Task Edit: Reminder after deadline -->  
-  <string name="TEA_reminder_overdue">When task is overdue</string>
+  <string name="TEA_reminder_overdue">... quando l\'attività è in ritardo</string>
 
   <!-- Task Edit: Reminder at random times (%s => time plural)-->
-  <string name="TEA_reminder_random">Randomly once</string>
+  <string name="TEA_reminder_random">.. casualmente una volta</string>
 
   <!-- Task Edit: Reminder alarm clock label -->  
   <string name="TEA_reminder_alarm_label">Tipo di Suono/Vibrazione:</string>
@@ -1747,10 +1744,10 @@ Astrid is open-source and proudly maintained by Todoroo, Inc.</string>
   <string name="rmd_NoA_filter">Promemoria!</string>
   
   <!-- Reminder: Task was already done -->
-  <string name="rmd_NoA_done">Complete</string>
+  <string name="rmd_NoA_done">Completata</string>
   
   <!-- Reminder: Snooze button (remind again later) -->
-  <string name="rmd_NoA_snooze">Snooze</string>
+  <string name="rmd_NoA_snooze">Rimanda...</string>
   
   <!-- Reminder: Completed Toast -->
   <string name="rmd_NoA_completed_toast">Congratulations on finishing!</string>
@@ -2070,7 +2067,7 @@ Astrid is open-source and proudly maintained by Todoroo, Inc.</string>
     <item>Settimana(e)</item>
     <item>Mese(i)</item>
     <item>Ora(e)</item>
-    <item>Minute(s)</item>
+    <item>Minuto(i)</item>
     <item>Year(s)</item>
   </string-array>
   

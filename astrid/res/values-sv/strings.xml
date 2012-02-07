@@ -283,7 +283,7 @@
     <string name="backup_BPr_group_status">Status</string>
     
     <!-- Backup Status: last backup was a success (%s -> last date). Keep it short! -->    
-    <string name="backup_status_success">Latest backup:\n%s</string>
+    <string name="backup_status_success">Senaste: %s</string>
     <!-- Backup Status: last error failed. Keep it short! -->    
     <string name="backup_status_failed">Senaste säkerhetskopieringen misslyckades</string>
     <!-- Backup Status: error subtitle -->    
@@ -538,7 +538,7 @@
   <string name="TAd_flingText"/>
   
   <!-- indicates task was completed. %s => date or time ago -->
-  <string name="TAd_completed">Finished\n%s</string>
+  <string name="TAd_completed">Avslutad\n%s</string>
   
   <!-- Action Button: edit task -->
   <string name="TAd_actionEditTask">Redigera</string>
@@ -719,8 +719,8 @@
   
   <string-array name="TEA_urgency">
       <!-- urgency: labels for edit page. item #4 -> auto filled -->
-      <item>No deadline</item>
-      <item>Specific Day</item>
+      <item>Ingen frist</item>
+      <item>Specifik dag</item>
       <item>Idag</item>
       <item>Imorgon</item>
       <item>(dagen efter)</item>
@@ -824,7 +824,7 @@
   <string name="EPr_beastMode_reset">Reset to defaults</string>
       
   <!-- Preference: Task List Show Notes Description (disabled) -->
-  <string name="EPr_showNotes_desc_disabled">Notes will be accessible from the Task Edit Page</string>  
+  <string name="EPr_showNotes_desc_disabled">Anteckningar visas när du klickar på en uppgift</string>  
   <!-- Preference: Task List Show Notes Description (enabled) -->
   <string name="EPr_showNotes_desc_enabled">Anteckningar visas alltid</string>
   
@@ -1136,7 +1136,7 @@ Astrid is open-source and proudly maintained by Todoroo, Inc.</string>
   <string name="gcal_TEA_calendar_label">Kalenderintergrering:</string>
 
   <!-- Label for adding task to calendar -->
-  <string name="gcal_TEA_addToCalendar_label">Add to Calendar</string>
+  <string name="gcal_TEA_addToCalendar_label">Skapa kalenderhändelse</string>
   
   <!-- Label when calendar event already exists -->
   <string name="gcal_TEA_showCalendar_label">Öppna kalenderhändelse</string>
@@ -1283,10 +1283,7 @@ Astrid is open-source and proudly maintained by Todoroo, Inc.</string>
   <string name="intro_task_1_summary">Skapa din första aktivitet</string>
 
   <!-- Task 1 Note -->
-  <string name="intro_task_1_note">Two ways to add a task:\n
-  1) Quick Add: Type the task into the quick entry box at bottom of screen and press the + button on the right.\n
-  2) Regular Add: Press the + button of the quick entry box. Add as much detail as you want. Then press \"Save\" or use your phone\'s back button.\n
-  </string>
+  <string name="intro_task_1_note">Två sätt att lägga till en uppgift:\n 1) Snabbtillägg: Skriv bara uppgiften i snabbinmatningsrutan och klicka på +-knappen som visas till vänster.\n\n 2) Vanligt tillägg: Klicka på knappen till höger om snabbinmatningsrutan. Lägg till grundläggande detaljer (deadline, etiketter, anteckningar) eller ange mer avancerade alternativ. Spara uppgiften med spara-knappen eller din telefons bakåtknapp.\n\n</string>
   
   <!-- Task 2 Summary  -->
   <string name="intro_task_2_summary">Lägg till en widget på skrivbordet</string>
@@ -1707,16 +1704,16 @@ Astrid is open-source and proudly maintained by Todoroo, Inc.</string>
   <string name="TEA_reminders_group_label">Reminders</string>
 
   <!-- Task Edit: Reminder header label -->  
-  <string name="TEA_reminder_label">Remind Me:</string>
+  <string name="TEA_reminder_label">Påminn mig...</string>
 
   <!-- Task Edit: Reminder @ deadline -->  
-  <string name="TEA_reminder_due">When task is due</string>
+  <string name="TEA_reminder_due">...när uppgiften förfaller</string>
 
   <!-- Task Edit: Reminder after deadline -->  
-  <string name="TEA_reminder_overdue">When task is overdue</string>
+  <string name="TEA_reminder_overdue">...när uppgiften har förfallit</string>
 
   <!-- Task Edit: Reminder at random times (%s => time plural)-->
-  <string name="TEA_reminder_random">Randomly once</string>
+  <string name="TEA_reminder_random">...tillfälligtvis en gång</string>
 
   <!-- Task Edit: Reminder alarm clock label -->  
   <string name="TEA_reminder_alarm_label">Ring/Vibrationsinställning:</string>
@@ -1746,10 +1743,10 @@ Astrid is open-source and proudly maintained by Todoroo, Inc.</string>
   <string name="rmd_NoA_filter">Påminnelse!</string>
   
   <!-- Reminder: Task was already done -->
-  <string name="rmd_NoA_done">Complete</string>
+  <string name="rmd_NoA_done">Redan klar!</string>
   
   <!-- Reminder: Snooze button (remind again later) -->
-  <string name="rmd_NoA_snooze">Snooze</string>
+  <string name="rmd_NoA_snooze">Vänta...</string>
   
   <!-- Reminder: Completed Toast -->
   <string name="rmd_NoA_completed_toast">Congratulations on finishing!</string>

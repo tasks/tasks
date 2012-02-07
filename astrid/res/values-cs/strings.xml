@@ -86,7 +86,7 @@
   <string name="actfm_TVA_tag_owner_none">none</string>
 
   <!-- Tag Settings: list collaborators label -->
-  <string name="actfm_TVA_members_label">Shared With:</string>
+  <string name="actfm_TVA_members_label">Spolupracovníci:</string>
 
   <!-- Tag Settings: tag picture -->
   <string name="actfm_TVA_tag_picture">Obrázek listu</string>
@@ -131,7 +131,7 @@
   <string name="actfm_EPA_assign_custom">Custom...</string>
   
   <!-- task sharing dialog: shared with label -->
-  <string name="actfm_EPA_share_with">Share with:</string>
+  <string name="actfm_EPA_share_with">Přidat spolupracovníky:</string>
   
   <!-- Toast when assigning a task -->
   <string name="actfm_EPA_assigned_toast">Sent to %1$s (you can see it in the list between you and %2$s).</string>
@@ -282,7 +282,7 @@
     <string name="backup_BPr_group_status">Stav</string>
     
     <!-- Backup Status: last backup was a success (%s -> last date). Keep it short! -->    
-    <string name="backup_status_success">Latest backup:\n%s</string>
+    <string name="backup_status_success">Předchozí:\n%s</string>
     <!-- Backup Status: last error failed. Keep it short! -->    
     <string name="backup_status_failed">Předchozí zálohování selhalo</string>
     <!-- Backup Status: error subtitle -->    
@@ -324,7 +324,7 @@
   <!-- Message displayed when error occurs -->
   <string name="backup_TXI_error">Chyba v importu</string>
     
-  <string name="export_toast">Zálohovány %1$s do%2$s.</string>
+  <string name="export_toast">Zálohovány %1$s do %2$s.</string>
     
   <string name="export_toast_no_tasks">Žádné úkoly pro export.</string>
   
@@ -449,7 +449,7 @@
   <!-- ================================================= TaskListActivity == -->
   
   <!-- Task List: Displayed instead of list when no items present -->    
-  <string name="TLA_no_items">You have no tasks! \n Want to add something?</string>
+  <string name="TLA_no_items">Žádné úkoly!</string>
   
   <!-- Menu: Add-ons -->    
   <string name="TLA_menu_addons">Doplňky</string>
@@ -537,7 +537,7 @@
   <string name="TAd_flingText"/>
   
   <!-- indicates task was completed. %s => date or time ago -->
-  <string name="TAd_completed">Finished\n%s</string>
+  <string name="TAd_completed">Dokončeno\n%s</string>
   
   <!-- Action Button: edit task -->
   <string name="TAd_actionEditTask">Upravit</string>
@@ -823,7 +823,7 @@
   <string name="EPr_beastMode_reset">Reset to defaults</string>
       
   <!-- Preference: Task List Show Notes Description (disabled) -->
-  <string name="EPr_showNotes_desc_disabled">Notes will be accessible from the Task Edit Page</string>  
+  <string name="EPr_showNotes_desc_disabled">Poznámky budou zobrazeny v liště rychlého přístupu</string>  
   <!-- Preference: Task List Show Notes Description (enabled) -->
   <string name="EPr_showNotes_desc_enabled">Poznámky budou vždy zobrazeny</string>
   
@@ -974,10 +974,10 @@
   
   <string-array name="EPr_default_importance">
       <!-- importance: labels for "Task Defaults" preference item. -->
-      <item>!!! (Highest)</item>
+      <item>!!! (Nejvyšší)</item>
       <item>!!</item>
       <item>!</item>
-      <item>o (Lowest)</item>
+      <item>o (Nejnižší)</item>
   </string-array>
   
   <string-array name="EPr_default_urgency">
@@ -1063,7 +1063,7 @@
     <string name="CFA_type_intersect">také</string>
     
     <!-- Filter Criteria Context Menu: chaining (%s chain type as above) -->
-    <string name="CFA_context_chain">% má kritéria</string>
+    <string name="CFA_context_chain">%s má kritéria</string>
     
     <!-- Filter Criteria Context Menu: delete -->
     <string name="CFA_context_delete">Odstranit řádek</string>
@@ -1133,7 +1133,7 @@
   <string name="gcal_TEA_calendar_label">Integrace kalendáře:</string>
 
   <!-- Label for adding task to calendar -->
-  <string name="gcal_TEA_addToCalendar_label">Add to Calendar</string>
+  <string name="gcal_TEA_addToCalendar_label">Vytvořit událost kalendáře</string>
   
   <!-- Label when calendar event already exists -->
   <string name="gcal_TEA_showCalendar_label">Otevřít událost v kalendáři</string>
@@ -1707,7 +1707,7 @@
   <string name="TEA_reminders_group_label">Reminders</string>
 
   <!-- Task Edit: Reminder header label -->  
-  <string name="TEA_reminder_label">Remind Me:</string>
+  <string name="TEA_reminder_label">Upozorni mě...</string>
 
   <!-- Task Edit: Reminder @ deadline -->  
   <string name="TEA_reminder_due">When task is due</string>
@@ -1746,10 +1746,10 @@
   <string name="rmd_NoA_filter">Připomínka!</string>
   
   <!-- Reminder: Task was already done -->
-  <string name="rmd_NoA_done">Complete</string>
+  <string name="rmd_NoA_done">Dokončeno!</string>
   
   <!-- Reminder: Snooze button (remind again later) -->
-  <string name="rmd_NoA_snooze">Snooze</string>
+  <string name="rmd_NoA_snooze">Později...</string>
   
   <!-- Reminder: Completed Toast -->
   <string name="rmd_NoA_completed_toast">Congratulations on finishing!</string>

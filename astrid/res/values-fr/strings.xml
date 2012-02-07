@@ -449,7 +449,7 @@
   <!-- ================================================= TaskListActivity == -->
   
   <!-- Task List: Displayed instead of list when no items present -->    
-  <string name="TLA_no_items">You have no tasks! \n Want to add something?</string>
+  <string name="TLA_no_items">Aucune tâche !</string>
   
   <!-- Menu: Add-ons -->    
   <string name="TLA_menu_addons">Extensions</string>
@@ -537,7 +537,7 @@
   <string name="TAd_flingText"/>
   
   <!-- indicates task was completed. %s => date or time ago -->
-  <string name="TAd_completed">Finished\n%s</string>
+  <string name="TAd_completed">Accomplie\n%s</string>
   
   <!-- Action Button: edit task -->
   <string name="TAd_actionEditTask">Modifier</string>
@@ -718,7 +718,7 @@
   
   <string-array name="TEA_urgency">
       <!-- urgency: labels for edit page. item #4 -> auto filled -->
-      <item>No deadline</item>
+      <item>Aucune échéance</item>
       <item>Jour spécifique</item>
       <item>Aujourd\'hui</item>
       <item>Demain</item>
@@ -823,7 +823,7 @@
   <string name="EPr_beastMode_reset">Reset to defaults</string>
       
   <!-- Preference: Task List Show Notes Description (disabled) -->
-  <string name="EPr_showNotes_desc_disabled">Notes will be accessible from the Task Edit Page</string>  
+  <string name="EPr_showNotes_desc_disabled">Les notes seront affichées dans la barre d\'action rapide</string>  
   <!-- Preference: Task List Show Notes Description (enabled) -->
   <string name="EPr_showNotes_desc_enabled">Les notes seront toujours affichées</string>
   
@@ -974,10 +974,10 @@
   
   <string-array name="EPr_default_importance">
       <!-- importance: labels for "Task Defaults" preference item. -->
-      <item>!!! (Highest)</item>
+      <item>!!! (la plus haute)</item>
       <item>!!</item>
       <item>!</item>
-      <item>o (Lowest)</item>
+      <item>o (la plus basse)</item>
   </string-array>
   
   <string-array name="EPr_default_urgency">
@@ -1133,7 +1133,7 @@
   <string name="gcal_TEA_calendar_label">Intégration à l\'agenda :</string>
 
   <!-- Label for adding task to calendar -->
-  <string name="gcal_TEA_addToCalendar_label">Add to Calendar</string>
+  <string name="gcal_TEA_addToCalendar_label">Créer un évènement d\'agenda</string>
   
   <!-- Label when calendar event already exists -->
   <string name="gcal_TEA_showCalendar_label">Ouvrir l\'événement de l\'agenda</string>
@@ -1704,16 +1704,16 @@
   <string name="TEA_reminders_group_label">Reminders</string>
 
   <!-- Task Edit: Reminder header label -->  
-  <string name="TEA_reminder_label">Remind Me:</string>
+  <string name="TEA_reminder_label">Me rappeler...</string>
 
   <!-- Task Edit: Reminder @ deadline -->  
-  <string name="TEA_reminder_due">When task is due</string>
+  <string name="TEA_reminder_due">... lorsque la tâche est échue</string>
 
   <!-- Task Edit: Reminder after deadline -->  
-  <string name="TEA_reminder_overdue">When task is overdue</string>
+  <string name="TEA_reminder_overdue">... lorsque la tâche est en retard</string>
 
   <!-- Task Edit: Reminder at random times (%s => time plural)-->
-  <string name="TEA_reminder_random">Randomly once</string>
+  <string name="TEA_reminder_random">... aléatoirement une fois</string>
 
   <!-- Task Edit: Reminder alarm clock label -->  
   <string name="TEA_reminder_alarm_label">Type de sonnerie/vibration :</string>
@@ -1743,10 +1743,10 @@
   <string name="rmd_NoA_filter">Rappel !</string>
   
   <!-- Reminder: Task was already done -->
-  <string name="rmd_NoA_done">Complete</string>
+  <string name="rmd_NoA_done">Déjà fait !</string>
   
   <!-- Reminder: Snooze button (remind again later) -->
-  <string name="rmd_NoA_snooze">Snooze</string>
+  <string name="rmd_NoA_snooze">Rappeler ultérieurement...</string>
   
   <!-- Reminder: Completed Toast -->
   <string name="rmd_NoA_completed_toast">Congratulations on finishing!</string>

@@ -283,7 +283,7 @@
     <string name="backup_BPr_group_status">מצב</string>
     
     <!-- Backup Status: last backup was a success (%s -> last date). Keep it short! -->    
-    <string name="backup_status_success">Latest backup:\n%s</string>
+    <string name="backup_status_success">עדכני ביותר: %s</string>
     <!-- Backup Status: last error failed. Keep it short! -->    
     <string name="backup_status_failed">הגיבוי האחרון נכשל</string>
     <!-- Backup Status: error subtitle -->    
@@ -457,7 +457,7 @@ File %1$s contained %2$s.\n\n
   <!-- ================================================= TaskListActivity == -->
   
   <!-- Task List: Displayed instead of list when no items present -->    
-  <string name="TLA_no_items">You have no tasks! \n Want to add something?</string>
+  <string name="TLA_no_items">אין משימות!</string>
   
   <!-- Menu: Add-ons -->    
   <string name="TLA_menu_addons">תוספים</string>
@@ -545,7 +545,7 @@ File %1$s contained %2$s.\n\n
   <string name="TAd_flingText"/>
   
   <!-- indicates task was completed. %s => date or time ago -->
-  <string name="TAd_completed">Finished\n%s</string>
+  <string name="TAd_completed">הסתיימה\n%s</string>
   
   <!-- Action Button: edit task -->
   <string name="TAd_actionEditTask">עריכה</string>
@@ -726,7 +726,7 @@ File %1$s contained %2$s.\n\n
   
   <string-array name="TEA_urgency">
       <!-- urgency: labels for edit page. item #4 -> auto filled -->
-      <item>No deadline</item>
+      <item>אין מועד סף</item>
       <item>יום מסוים</item>
       <item>היום</item>
       <item>מחר</item>
@@ -1152,7 +1152,7 @@ you get stuff done. It features reminders, tags, sync, Locale plug-in, a widget 
   <string name="gcal_TEA_calendar_label">שילוב בלוח השנה:</string>
 
   <!-- Label for adding task to calendar -->
-  <string name="gcal_TEA_addToCalendar_label">Add to Calendar</string>
+  <string name="gcal_TEA_addToCalendar_label">יצירת אירוע בלוח השנה</string>
   
   <!-- Label when calendar event already exists -->
   <string name="gcal_TEA_showCalendar_label">פתיחת אירוע בלוח השנה</string>
@@ -2092,7 +2092,7 @@ you get stuff done. It features reminders, tags, sync, Locale plug-in, a widget 
     <item>שבוע/(ות)</item>
     <item>חודש/ים</item>
     <item>שעה/ות</item>
-    <item>Minute(s)</item>
+    <item>דקה/דקות</item>
     <item>Year(s)</item>
   </string-array>
   

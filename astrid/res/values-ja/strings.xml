@@ -283,7 +283,7 @@
     <string name="backup_BPr_group_status">状況</string>
     
     <!-- Backup Status: last backup was a success (%s -> last date). Keep it short! -->    
-    <string name="backup_status_success">Latest backup:\n%s</string>
+    <string name="backup_status_success">最新: %s</string>
     <!-- Backup Status: last error failed. Keep it short! -->    
     <string name="backup_status_failed">バックアップ失敗</string>
     <!-- Backup Status: error subtitle -->    
@@ -309,7 +309,7 @@
   <!-- ================================================= BackupActivity == -->
 
   <!-- backup activity label -->
-  <string name="backup_BAc_label">Manage Backups</string>
+  <string name="backup_BAc_label">バックアップ</string>
 
   <!-- backup activity title -->
   <string name="backup_BAc_title">バックアップの管理</string>
@@ -325,7 +325,7 @@
   <!-- Message displayed when error occurs -->
   <string name="backup_TXI_error">インポートに失敗</string>
     
-  <string name="export_toast">Backed Up %1$s to %2$s.</string>
+  <string name="export_toast">%1$s を %2$s にバックアップしました。</string>
     
   <string name="export_toast_no_tasks">エクスポートするタスクがありません</string>
   
@@ -336,12 +336,7 @@
   <string name="import_summary_title">復元の概要</string>
     
   <!-- Backup: Summary message for import. (%s => file name, %s => total # tasks, %s => imported, %s => skipped, %s => errors) -->
-  <string name="import_summary_message">
-File %1$s contained %2$s.\n\n
-%3$s imported,\n
-%4$s already exist\n
-%5$s had errors\n
-  </string>
+  <string name="import_summary_message">ファイル %1$s の %2$s 中、\n\n成功: %3$s\n既に存在: %4$s\n失敗: %5$s\n</string>
   
   <!-- Progress Dialog Title for importing -->    
   <string name="import_progress_title">インポート中</string>
@@ -457,7 +452,7 @@ File %1$s contained %2$s.\n\n
   <!-- ================================================= TaskListActivity == -->
   
   <!-- Task List: Displayed instead of list when no items present -->    
-  <string name="TLA_no_items">You have no tasks! \n Want to add something?</string>
+  <string name="TLA_no_items">タスクなし</string>
   
   <!-- Menu: Add-ons -->    
   <string name="TLA_menu_addons">アドオン</string>
@@ -545,7 +540,7 @@ File %1$s contained %2$s.\n\n
   <string name="TAd_flingText"/>
   
   <!-- indicates task was completed. %s => date or time ago -->
-  <string name="TAd_completed">Finished\n%s</string>
+  <string name="TAd_completed">%s\nに完了</string>
   
   <!-- Action Button: edit task -->
   <string name="TAd_actionEditTask">編集</string>
@@ -831,7 +826,7 @@ File %1$s contained %2$s.\n\n
   <string name="EPr_beastMode_reset">Reset to defaults</string>
       
   <!-- Preference: Task List Show Notes Description (disabled) -->
-  <string name="EPr_showNotes_desc_disabled">Notes will be accessible from the Task Edit Page</string>  
+  <string name="EPr_showNotes_desc_disabled">メモはタスクをタップしたときに表示されます</string>  
   <!-- Preference: Task List Show Notes Description (enabled) -->
   <string name="EPr_showNotes_desc_enabled">メモは常に表示されます</string>
   
@@ -1116,14 +1111,14 @@ you get stuff done. It features reminders, tags, sync, Locale plug-in, a widget 
     <string name="CFC_importance_name">重要度</string>        
     
     <!-- Criteria: tag - display text (? -> user input) -->
-    <string name="CFC_tag_text">List: ?</string>
+    <string name="CFC_tag_text">タグ: ?</string>
     <!-- Criteria: tag - name of criteria -->
-    <string name="CFC_tag_name">List...</string>
+    <string name="CFC_tag_name">タグ</string>
     
     <!-- Criteria: tag_contains - name of criteria -->
-    <string name="CFC_tag_contains_name">List name contains...</string>
+    <string name="CFC_tag_contains_name">タグ中の語句</string>
     <!-- Criteria: tag_contains - text (? -> user input) -->
-    <string name="CFC_tag_contains_text">List name contains: ?</string>
+    <string name="CFC_tag_contains_text">タグに ? を含む ?</string>
     
     <!-- Criteria: title_contains - name of criteria -->
     <string name="CFC_title_contains_name">タイトル中の語句</string>
@@ -1146,7 +1141,7 @@ you get stuff done. It features reminders, tags, sync, Locale plug-in, a widget 
   <string name="gcal_TEA_calendar_label">カレンダーと連携</string>
 
   <!-- Label for adding task to calendar -->
-  <string name="gcal_TEA_addToCalendar_label">Add to Calendar</string>
+  <string name="gcal_TEA_addToCalendar_label">カレンダーに登録</string>
   
   <!-- Label when calendar event already exists -->
   <string name="gcal_TEA_showCalendar_label">カレンダーのイベントを開く</string>
@@ -1297,10 +1292,7 @@ you get stuff done. It features reminders, tags, sync, Locale plug-in, a widget 
   <string name="intro_task_1_summary">Create your first task</string>
 
   <!-- Task 1 Note -->
-  <string name="intro_task_1_note">Two ways to add a task:\n
-  1) Quick Add: Type the task into the quick entry box at bottom of screen and press the + button on the right.\n
-  2) Regular Add: Press the + button of the quick entry box. Add as much detail as you want. Then press \"Save\" or use your phone\'s back button.\n
-  </string>
+  <string name="intro_task_1_note">タスクを登録する2つの方法\n 1) 素早い登録: 入力欄にタスク名を入力し、入力欄の左に表示される + ボタンを押します。\n\n2) 標準の登録: 入力欄の右側にあるボタンを押します。期限やタグ、メモやより高度な設定を行えます。保存ボタンか電話機のバックボタンで保存します。\n\n</string>
   
   <!-- Task 2 Summary  -->
   <string name="intro_task_2_summary">ホーム画面にウィジェットを追加する</string>
@@ -1722,16 +1714,16 @@ you get stuff done. It features reminders, tags, sync, Locale plug-in, a widget 
   <string name="TEA_reminders_group_label">Reminders</string>
 
   <!-- Task Edit: Reminder header label -->  
-  <string name="TEA_reminder_label">Remind Me:</string>
+  <string name="TEA_reminder_label">通知するのは...</string>
 
   <!-- Task Edit: Reminder @ deadline -->  
-  <string name="TEA_reminder_due">When task is due</string>
+  <string name="TEA_reminder_due">期限になったとき</string>
 
   <!-- Task Edit: Reminder after deadline -->  
-  <string name="TEA_reminder_overdue">When task is overdue</string>
+  <string name="TEA_reminder_overdue">期限を過ぎたとき</string>
 
   <!-- Task Edit: Reminder at random times (%s => time plural)-->
-  <string name="TEA_reminder_random">Randomly once</string>
+  <string name="TEA_reminder_random">ランダムに</string>
 
   <!-- Task Edit: Reminder alarm clock label -->  
   <string name="TEA_reminder_alarm_label">通知音、振動</string>
@@ -1761,10 +1753,10 @@ you get stuff done. It features reminders, tags, sync, Locale plug-in, a widget 
   <string name="rmd_NoA_filter">お知らせ</string>
   
   <!-- Reminder: Task was already done -->
-  <string name="rmd_NoA_done">Complete</string>
+  <string name="rmd_NoA_done">既に完了しています!</string>
   
   <!-- Reminder: Snooze button (remind again later) -->
-  <string name="rmd_NoA_snooze">Snooze</string>
+  <string name="rmd_NoA_snooze">後で通知</string>
   
   <!-- Reminder: Completed Toast -->
   <string name="rmd_NoA_completed_toast">Congratulations on finishing!</string>
@@ -1784,7 +1776,7 @@ you get stuff done. It features reminders, tags, sync, Locale plug-in, a widget 
   <!-- Reminder Preference: Quiet Hours Start Title -->
   <string name="rmd_EPr_quiet_hours_start_title">消音時間の始まり</string>
   <!-- Reminder Preference: Quiet Hours Start Description (%s => time set) -->
-  <string name="rmd_EPr_quiet_hours_start_desc">Notifications will be silent after %s.\nNote: vibrations are controlled by the setting below! </string>
+  <string name="rmd_EPr_quiet_hours_start_desc">%s 以降、通知音は鳴りません</string>
   <!-- Reminder Preference: Quiet Hours Start/End Description (disabled) -->
   <string name="rmd_EPr_quiet_hours_desc_none">消音は無効です</string>
   
@@ -1834,11 +1826,11 @@ you get stuff done. It features reminders, tags, sync, Locale plug-in, a widget 
   <string name="rmd_EPr_vibrate_desc_false">通知するときに振動しません</string>
 
   <!-- Reminder Preference: Nagging Title -->  
-  <string name="rmd_EPr_nagging_title">Astrid Encouragements</string>
+  <string name="rmd_EPr_nagging_title">Astridの通知</string>
   <!-- Reminder Preference: Nagging Description (true) -->
   <string name="rmd_EPr_nagging_desc_true">通知画面に励ましメッセージを表示します</string>
   <!-- Reminder Preference: Nagging Description (false) -->
-  <string name="rmd_EPr_nagging_desc_false">Astrid will not give you any encouragement messages</string>
+  <string name="rmd_EPr_nagging_desc_false">励ましメッセージを表示しません</string>
 
   <!-- Reminder Preference: Snooze Dialog Title -->  
   <string name="rmd_EPr_snooze_dialog_title">スヌーズの時刻指定</string>

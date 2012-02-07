@@ -282,7 +282,7 @@
     <string name="backup_BPr_group_status">Estado</string>
     
     <!-- Backup Status: last backup was a success (%s -> last date). Keep it short! -->    
-    <string name="backup_status_success">Latest backup:\n%s</string>
+    <string name="backup_status_success">Última copia:\n%s</string>
     <!-- Backup Status: last error failed. Keep it short! -->    
     <string name="backup_status_failed">Falló la última copia de seguridad</string>
     <!-- Backup Status: error subtitle -->    
@@ -308,7 +308,7 @@
   <!-- ================================================= BackupActivity == -->
 
   <!-- backup activity label -->
-  <string name="backup_BAc_label">Manage Backups</string>
+  <string name="backup_BAc_label">Copias de seguridad</string>
 
   <!-- backup activity title -->
   <string name="backup_BAc_title">Gestionar sus copias de seguridad</string>
@@ -542,7 +542,7 @@ File %1$s contained %2$s.\n\n
   <string name="TAd_flingText"/>
   
   <!-- indicates task was completed. %s => date or time ago -->
-  <string name="TAd_completed">Finished\n%s</string>
+  <string name="TAd_completed">Terminado\n%s</string>
   
   <!-- Action Button: edit task -->
   <string name="TAd_actionEditTask">Editar</string>
@@ -723,7 +723,7 @@ File %1$s contained %2$s.\n\n
   
   <string-array name="TEA_urgency">
       <!-- urgency: labels for edit page. item #4 -> auto filled -->
-      <item>No deadline</item>
+      <item>Sin fecha límite</item>
       <item>Día específico</item>
       <item>Hoy</item>
       <item>Mañana</item>
@@ -828,7 +828,7 @@ File %1$s contained %2$s.\n\n
   <string name="EPr_beastMode_reset">Reset to defaults</string>
       
   <!-- Preference: Task List Show Notes Description (disabled) -->
-  <string name="EPr_showNotes_desc_disabled">Notes will be accessible from the Task Edit Page</string>  
+  <string name="EPr_showNotes_desc_disabled">Las notas se mostrarán cuando se toca una tarea.</string>  
   <!-- Preference: Task List Show Notes Description (enabled) -->
   <string name="EPr_showNotes_desc_enabled">Se mostrarán siempre las notas</string>
   
@@ -979,10 +979,10 @@ File %1$s contained %2$s.\n\n
   
   <string-array name="EPr_default_importance">
       <!-- importance: labels for "Task Defaults" preference item. -->
-      <item>!!! (Highest)</item>
+      <item>!!! (Alto)</item>
       <item>!!</item>
       <item>!</item>
-      <item>o (Lowest)</item>
+      <item>o (Bajo)</item>
   </string-array>
   
   <string-array name="EPr_default_urgency">
@@ -1750,10 +1750,10 @@ File %1$s contained %2$s.\n\n
   <string name="rmd_NoA_filter">¡Recordatorio!</string>
   
   <!-- Reminder: Task was already done -->
-  <string name="rmd_NoA_done">Complete</string>
+  <string name="rmd_NoA_done">¡Ya acabada!</string>
   
   <!-- Reminder: Snooze button (remind again later) -->
-  <string name="rmd_NoA_snooze">Snooze</string>
+  <string name="rmd_NoA_snooze">Espera...</string>
   
   <!-- Reminder: Completed Toast -->
   <string name="rmd_NoA_completed_toast">Congratulations on finishing!</string>
@@ -2073,7 +2073,7 @@ File %1$s contained %2$s.\n\n
     <item>Semana(s)</item>
     <item>Mes(es)</item>
     <item>Hora(s)</item>
-    <item>Minute(s)</item>
+    <item>Minuto(s)</item>
     <item>Year(s)</item>
   </string-array>
   

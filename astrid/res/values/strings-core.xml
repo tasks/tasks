@@ -291,7 +291,7 @@
   <!-- Task title label -->
   <string name="TEA_title_label">Title</string>
   
-  <!-- Task when label (note the <u> tags - be sure to leave those in when localizing! -->
+  <!-- Task when label -->
   <string name="TEA_when_header_label">When</string>
   
   <!-- Task title hint (displayed when edit box is empty) -->

@@ -283,7 +283,7 @@
     <string name="backup_BPr_group_status">Status</string>
     
     <!-- Backup Status: last backup was a success (%s -> last date). Keep it short! -->    
-    <string name="backup_status_success">Latest backup:\n%s</string>
+    <string name="backup_status_success">Siste: %s</string>
     <!-- Backup Status: last error failed. Keep it short! -->    
     <string name="backup_status_failed">Siste sikkerhetskopiering mislyktes</string>
     <!-- Backup Status: error subtitle -->    
@@ -719,7 +719,7 @@
   
   <string-array name="TEA_urgency">
       <!-- urgency: labels for edit page. item #4 -> auto filled -->
-      <item>No deadline</item>
+      <item>Ingen frist</item>
       <item>Spesifikk dag</item>
       <item>I dag</item>
       <item>I morgen</item>
@@ -1177,7 +1177,7 @@ Astrid is open-source and proudly maintained by Todoroo, Inc.</string>
     <string name="gtasks_FEx_list">Etter liste</string>
     
     <!-- filter title for GTasks lists (%s => list name) -->
-    <string name="gtasks_FEx_title">Google Tasks</string>
+    <string name="gtasks_FEx_title">Google Tasks: %s</string>
     
     <!-- dialog prompt for creating a new gtasks list -->
     <string name="gtasks_FEx_creating_list">Creating list...</string>
@@ -1708,16 +1708,16 @@ Astrid is open-source and proudly maintained by Todoroo, Inc.</string>
   <string name="TEA_reminders_group_label">Reminders</string>
 
   <!-- Task Edit: Reminder header label -->  
-  <string name="TEA_reminder_label">Remind Me:</string>
+  <string name="TEA_reminder_label">Minn meg på...</string>
 
   <!-- Task Edit: Reminder @ deadline -->  
-  <string name="TEA_reminder_due">When task is due</string>
+  <string name="TEA_reminder_due">...når oppgaven forfaller</string>
 
   <!-- Task Edit: Reminder after deadline -->  
-  <string name="TEA_reminder_overdue">When task is overdue</string>
+  <string name="TEA_reminder_overdue">... når oppgaven har forfalt</string>
 
   <!-- Task Edit: Reminder at random times (%s => time plural)-->
-  <string name="TEA_reminder_random">Randomly once</string>
+  <string name="TEA_reminder_random">... tilfeldig tidspunkt, en gang.</string>
 
   <!-- Task Edit: Reminder alarm clock label -->  
   <string name="TEA_reminder_alarm_label">Ringe- og vibrasjonstype:</string>
@@ -1747,10 +1747,10 @@ Astrid is open-source and proudly maintained by Todoroo, Inc.</string>
   <string name="rmd_NoA_filter">Påminnelse!</string>
   
   <!-- Reminder: Task was already done -->
-  <string name="rmd_NoA_done">Complete</string>
+  <string name="rmd_NoA_done">Allerede utført!</string>
   
   <!-- Reminder: Snooze button (remind again later) -->
-  <string name="rmd_NoA_snooze">Snooze</string>
+  <string name="rmd_NoA_snooze">Slumre</string>
   
   <!-- Reminder: Completed Toast -->
   <string name="rmd_NoA_completed_toast">Congratulations on finishing!</string>

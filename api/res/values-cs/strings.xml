@@ -160,13 +160,13 @@
   <!-- Status: ongoing -->    
   <string name="sync_status_ongoing">Probíhá synchronizace...</string>
   <!-- Sync Status: success status (%s -> last sync date). Keep it short!-->    
-  <string name="sync_status_success">Last Sync:\n%s</string>
+  <string name="sync_status_success">Poslední synchronizace:\n%s</string>
   <!-- Sync Status: failure status (%s -> last attempted sync date) -->    
   <string name="sync_status_failed">Selhalo: %s</string>
   <!-- Sync Status: error status (%s -> last sync date) -->    
   <string name="sync_status_errors">Sync w/ Errors: %s</string>
   <!-- Sync Status: error subtitle (%s -> last successful sync date) -->    
-  <string name="sync_status_failed_subtitle">Poslední úspěšná synchronizace</string>
+  <string name="sync_status_failed_subtitle">Poslední úspěšná synchronizace: %s</string>
   <!-- Sync Status: never sync'd -->    
   <string name="sync_status_never">Nikdo nesynchronizováno!</string>
 

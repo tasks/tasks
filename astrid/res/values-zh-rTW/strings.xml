@@ -450,7 +450,7 @@
   <!-- ================================================= TaskListActivity == -->
   
   <!-- Task List: Displayed instead of list when no items present -->    
-  <string name="TLA_no_items">You have no tasks! \n Want to add something?</string>
+  <string name="TLA_no_items">無工作!</string>
   
   <!-- Menu: Add-ons -->    
   <string name="TLA_menu_addons">附加程式</string>
@@ -538,7 +538,7 @@
   <string name="TAd_flingText"/>
   
   <!-- indicates task was completed. %s => date or time ago -->
-  <string name="TAd_completed">Finished\n%s</string>
+  <string name="TAd_completed">%s\n完成</string>
   
   <!-- Action Button: edit task -->
   <string name="TAd_actionEditTask">編輯</string>
@@ -719,7 +719,7 @@
   
   <string-array name="TEA_urgency">
       <!-- urgency: labels for edit page. item #4 -> auto filled -->
-      <item>No deadline</item>
+      <item>無截止日</item>
       <item>指定哪天</item>
       <item>今天</item>
       <item>明天</item>
@@ -1066,7 +1066,7 @@ Astrid is open-source and proudly maintained by Todoroo, Inc.</string>
     <string name="CFA_type_intersect">也</string>
     
     <!-- Filter Criteria Context Menu: chaining (%s chain type as above) -->
-    <string name="CFA_context_chain">% 含條件</string>
+    <string name="CFA_context_chain">%s 含條件</string>
     
     <!-- Filter Criteria Context Menu: delete -->
     <string name="CFA_context_delete">刪除列</string>
@@ -1136,7 +1136,7 @@ Astrid is open-source and proudly maintained by Todoroo, Inc.</string>
   <string name="gcal_TEA_calendar_label">整合行事曆</string>
 
   <!-- Label for adding task to calendar -->
-  <string name="gcal_TEA_addToCalendar_label">Add to Calendar</string>
+  <string name="gcal_TEA_addToCalendar_label">建立行事曆事項</string>
   
   <!-- Label when calendar event already exists -->
   <string name="gcal_TEA_showCalendar_label">打開行事曆事項</string>
@@ -1284,10 +1284,7 @@ Astrid is open-source and proudly maintained by Todoroo, Inc.</string>
   <string name="intro_task_1_summary">建立ˋ您的第一個工作</string>
 
   <!-- Task 1 Note -->
-  <string name="intro_task_1_note">Two ways to add a task:\n
-  1) Quick Add: Type the task into the quick entry box at bottom of screen and press the + button on the right.\n
-  2) Regular Add: Press the + button of the quick entry box. Add as much detail as you want. Then press \"Save\" or use your phone\'s back button.\n
-  </string>
+  <string name="intro_task_1_note">兩種新增工作的方式:\n 1)快速新增:只要在快速輸入框中輸入工作並按下左側的+按鈕。\n\n 2)一般新增:按下快速輸入框右側的按鈕。加入一般細節(到期日、標籤、備註)或設定更多進階選項。按下儲存按鈕或是手機上的返回鍵將工作儲存。</string>
   
   <!-- Task 2 Summary  -->
   <string name="intro_task_2_summary">新增小工具到桌面</string>
@@ -1747,10 +1744,10 @@ Astrid is open-source and proudly maintained by Todoroo, Inc.</string>
   <string name="rmd_NoA_filter">提醒！</string>
   
   <!-- Reminder: Task was already done -->
-  <string name="rmd_NoA_done">Complete</string>
+  <string name="rmd_NoA_done">已完成!</string>
   
   <!-- Reminder: Snooze button (remind again later) -->
-  <string name="rmd_NoA_snooze">Snooze</string>
+  <string name="rmd_NoA_snooze">晚點提醒...</string>
   
   <!-- Reminder: Completed Toast -->
   <string name="rmd_NoA_completed_toast">Congratulations on finishing!</string>

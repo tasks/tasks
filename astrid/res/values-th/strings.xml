@@ -457,7 +457,7 @@ File %1$s contained %2$s.\n\n
   <!-- ================================================= TaskListActivity == -->
   
   <!-- Task List: Displayed instead of list when no items present -->    
-  <string name="TLA_no_items">You have no tasks! \n Want to add something?</string>
+  <string name="TLA_no_items">ไม่มีแผนงานใดๆ !</string>
   
   <!-- Menu: Add-ons -->    
   <string name="TLA_menu_addons">ส่วนเสริม</string>
@@ -726,8 +726,8 @@ File %1$s contained %2$s.\n\n
   
   <string-array name="TEA_urgency">
       <!-- urgency: labels for edit page. item #4 -> auto filled -->
-      <item>No deadline</item>
-      <item>Specific Day</item>
+      <item>ไม่มีเส้นตาย</item>
+      <item>ระบุ วัน/เวลา</item>
       <item>วันนี้</item>
       <item>พรุ่งนี้</item>
       <item>(วันให้หลัง)</item>
@@ -1767,10 +1767,10 @@ you get stuff done. It features reminders, tags, sync, Locale plug-in, a widget 
   <string name="rmd_NoA_filter">เตือนความจำ!</string>
   
   <!-- Reminder: Task was already done -->
-  <string name="rmd_NoA_done">Complete</string>
+  <string name="rmd_NoA_done">เสร็จเรียบร้อยแล้ว!</string>
   
   <!-- Reminder: Snooze button (remind again later) -->
-  <string name="rmd_NoA_snooze">Snooze</string>
+  <string name="rmd_NoA_snooze">หลับ..</string>
   
   <!-- Reminder: Completed Toast -->
   <string name="rmd_NoA_completed_toast">Congratulations on finishing!</string>

@@ -191,11 +191,11 @@
   <string name="actfm_ALA_body">Astrid.com lässt Sie ihre Aufgaben online abrufen, teilen, und auf andere übertragen.</string>
 
   <!-- share login: Sharing Login FB Prompt -->
-  <string name="actfm_ALA_fb_login">Connect with Facebook</string>
+  <string name="actfm_ALA_fb_login">Mit Facebook anmelden</string>
 
   <!-- share login: Sharing Login GG Prompt -->
-  <string name="actfm_ALA_gg_login">Connect with Google</string>
-  
+  <string name="actfm_ALA_gg_login">Mit Google anmelden</string>
+
   <!-- share login: Sharing Footer Password Label -->
   <string name="actfm_ALA_pw_login">Kein Google oder Facebook benutzen?</string>
 
@@ -449,7 +449,7 @@
   <!-- ================================================= TaskListActivity == -->
   
   <!-- Task List: Displayed instead of list when no items present -->    
-  <string name="TLA_no_items">You have no tasks! \n Want to add something?</string>
+  <string name="TLA_no_items">Keine Aufgaben!</string>
   
   <!-- Menu: Add-ons -->    
   <string name="TLA_menu_addons">Add-Ons</string>
@@ -537,7 +537,7 @@
   <string name="TAd_flingText"/>
   
   <!-- indicates task was completed. %s => date or time ago -->
-  <string name="TAd_completed">Finished\n%s</string>
+  <string name="TAd_completed">Vor %s\nerledigt</string>
   
   <!-- Action Button: edit task -->
   <string name="TAd_actionEditTask">Bearbeiten</string>
@@ -718,7 +718,7 @@
   
   <string-array name="TEA_urgency">
       <!-- urgency: labels for edit page. item #4 -> auto filled -->
-      <item>No deadline</item>
+      <item>Keine Fälligkeit</item>
       <item>Bestimmter Tag</item>
       <item>Heute</item>
       <item>Morgen</item>
@@ -828,7 +828,7 @@
   <string name="EPr_showNotes_desc_enabled">Benachrichtigungen werden immer angezeigt</string>
   
   <!-- Preference: Theme -->
-  <string name="EPr_theme_title">Color Theme</string>
+  <string name="EPr_theme_title">Farb Thema</string>
   <!-- Preference: Theme Description (%s => value) -->
   <string name="EPr_theme_desc">Momentan: %s</string>  
   <!-- Preference: Theme Description (android 1.6) -->
@@ -917,7 +917,7 @@
 <string name="p_about_text">Aktuelle Version: %s\n\n Astrid ist Open-Source und wird stolz von Todoroo, Inc. gepflegt.</string>
 
   <!-- Title of "Help" option in settings -->
-  <string name="p_help">Help</string>
+  <string name="p_help">Hilfe</string>
   
   <!-- ============================================================= Misc == -->
   
@@ -974,10 +974,10 @@
   
   <string-array name="EPr_default_importance">
       <!-- importance: labels for "Task Defaults" preference item. -->
-      <item>!!! (Highest)</item>
+      <item>!!! (Höchste)</item>
       <item>!!</item>
       <item>!</item>
-      <item>o (Lowest)</item>
+      <item>o (Niedrigste)</item>
   </string-array>
   
   <string-array name="EPr_default_urgency">
@@ -1177,7 +1177,7 @@
     <string name="gtasks_FEx_title">Google Tasks: %s</string>
     
     <!-- dialog prompt for creating a new gtasks list -->
-    <string name="gtasks_FEx_creating_list">Creating list...</string>
+    <string name="gtasks_FEx_creating_list">Erstelle Liste...</string>
     
     <!-- dialog prompt for creating a new gtasks list -->
     <string name="gtasks_FEx_create_list_dialog">Neuer Listenname:</string>
@@ -1196,10 +1196,10 @@
     <string name="CFC_gtasks_list_name">In GTasks Liste ...</string>
     
     <!-- Message while clearing completed tasks -->
-    <string name="gtasks_GTA_clearing">Clearing completed tasks...</string>
+    <string name="gtasks_GTA_clearing">Entferne erledigte Aufgaben...</string>
     
     <!-- Label for clear completed menu item -->
-    <string name="gtasks_GTA_clear_completed">Clear Completed</string>
+    <string name="gtasks_GTA_clear_completed">Entferne erledigte Aufgaben</string>
         
     <!-- ============================================ GtasksLoginActivity == -->
     
@@ -1743,10 +1743,10 @@
   <string name="rmd_NoA_filter">Erinnerung!</string>
   
   <!-- Reminder: Task was already done -->
-  <string name="rmd_NoA_done">Complete</string>
+  <string name="rmd_NoA_done">Schon erledigt!</string>
   
   <!-- Reminder: Snooze button (remind again later) -->
-  <string name="rmd_NoA_snooze">Snooze</string>
+  <string name="rmd_NoA_snooze">Später...</string>
   
   <!-- Reminder: Completed Toast -->
   <string name="rmd_NoA_completed_toast">Congratulations on finishing!</string>
@@ -2066,8 +2066,8 @@
     <item>Woche(n)</item>
     <item>Monat(e)</item>
     <item>Stunde(n)</item>
-    <item>Minute(s)</item>
-    <item>Year(s)</item>
+    <item>Minute(n)</item>
+    <item>Jahr(e)</item>
   </string-array>
   
   <string-array name="repeat_type">

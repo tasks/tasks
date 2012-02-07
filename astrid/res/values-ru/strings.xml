@@ -282,7 +282,7 @@
     <string name="backup_BPr_group_status">Состояние</string>
     
     <!-- Backup Status: last backup was a success (%s -> last date). Keep it short! -->    
-    <string name="backup_status_success">Latest backup:\n%s</string>
+    <string name="backup_status_success">Последняя: %s</string>
     <!-- Backup Status: last error failed. Keep it short! -->    
     <string name="backup_status_failed">Резервирование не удалось</string>
     <!-- Backup Status: error subtitle -->    
@@ -449,7 +449,7 @@
   <!-- ================================================= TaskListActivity == -->
   
   <!-- Task List: Displayed instead of list when no items present -->    
-  <string name="TLA_no_items">You have no tasks! \n Want to add something?</string>
+  <string name="TLA_no_items">Нет задач!</string>
   
   <!-- Menu: Add-ons -->    
   <string name="TLA_menu_addons">Расширения</string>
@@ -537,7 +537,7 @@
   <string name="TAd_flingText"/>
   
   <!-- indicates task was completed. %s => date or time ago -->
-  <string name="TAd_completed">Finished\n%s</string>
+  <string name="TAd_completed">Завершена\n%s</string>
   
   <!-- Action Button: edit task -->
   <string name="TAd_actionEditTask">Правка</string>
@@ -718,7 +718,7 @@
   
   <string-array name="TEA_urgency">
       <!-- urgency: labels for edit page. item #4 -> auto filled -->
-      <item>No deadline</item>
+      <item>Нет срока выполнения</item>
       <item>Определённого дня</item>
       <item>Сегодня</item>
       <item>Завтра</item>
@@ -976,10 +976,10 @@ Astrid is open-source and proudly maintained by Todoroo, Inc.</string>
   
   <string-array name="EPr_default_importance">
       <!-- importance: labels for "Task Defaults" preference item. -->
-      <item>!!! (Highest)</item>
+      <item>!!! (Наивысшая)</item>
       <item>!!</item>
       <item>!</item>
-      <item>o (Lowest)</item>
+      <item>o (Низшая)</item>
   </string-array>
   
   <string-array name="EPr_default_urgency">
@@ -1283,10 +1283,7 @@ Astrid is open-source and proudly maintained by Todoroo, Inc.</string>
   <string name="intro_task_1_summary">Создайте первую задачу</string>
 
   <!-- Task 1 Note -->
-  <string name="intro_task_1_note">Two ways to add a task:\n
-  1) Quick Add: Type the task into the quick entry box at bottom of screen and press the + button on the right.\n
-  2) Regular Add: Press the + button of the quick entry box. Add as much detail as you want. Then press \"Save\" or use your phone\'s back button.\n
-  </string>
+  <string name="intro_task_1_note">Есть два способа добавить задачу:\n 1) Быстрое добавление: просто опишите задачу в поле быстрого ввода и нажмите кнопку + слева от него.\n\n 2) Обычное добавление: нажмите кнопку справа от поля быстрого ввода. Назначьте основные параметры (намеченную дату, метки, примечания) или используйте расширенные настройки. Сохраните задачу с помощью кнопки сохрания или кнопки назад на телефоне.\n\n</string>
   
   <!-- Task 2 Summary  -->
   <string name="intro_task_2_summary">Добавьте виджет на рабочий стол</string>
@@ -1707,16 +1704,16 @@ Astrid is open-source and proudly maintained by Todoroo, Inc.</string>
   <string name="TEA_reminders_group_label">Reminders</string>
 
   <!-- Task Edit: Reminder header label -->  
-  <string name="TEA_reminder_label">Remind Me:</string>
+  <string name="TEA_reminder_label">Напомнить мне…</string>
 
   <!-- Task Edit: Reminder @ deadline -->  
-  <string name="TEA_reminder_due">When task is due</string>
+  <string name="TEA_reminder_due">… при наступлении срока задания</string>
 
   <!-- Task Edit: Reminder after deadline -->  
-  <string name="TEA_reminder_overdue">When task is overdue</string>
+  <string name="TEA_reminder_overdue">… при завершении намеченного времени</string>
 
   <!-- Task Edit: Reminder at random times (%s => time plural)-->
-  <string name="TEA_reminder_random">Randomly once</string>
+  <string name="TEA_reminder_random">… один раз случайно</string>
 
   <!-- Task Edit: Reminder alarm clock label -->  
   <string name="TEA_reminder_alarm_label">Тип звонка/вибрации</string>
@@ -1746,10 +1743,10 @@ Astrid is open-source and proudly maintained by Todoroo, Inc.</string>
   <string name="rmd_NoA_filter">Напоминание!</string>
   
   <!-- Reminder: Task was already done -->
-  <string name="rmd_NoA_done">Complete</string>
+  <string name="rmd_NoA_done">Уже готово!</string>
   
   <!-- Reminder: Snooze button (remind again later) -->
-  <string name="rmd_NoA_snooze">Snooze</string>
+  <string name="rmd_NoA_snooze">Дремать…</string>
   
   <!-- Reminder: Completed Toast -->
   <string name="rmd_NoA_completed_toast">Congratulations on finishing!</string>

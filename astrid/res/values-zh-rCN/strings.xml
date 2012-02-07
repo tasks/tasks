@@ -143,7 +143,7 @@
   <string name="actfm_EPA_list">列表：%s</string>
   
   <!-- task sharing dialog: assigned hint -->
-  <string name="actfm_EPA_assigned_hint">Contact Name</string>
+  <string name="actfm_EPA_assigned_hint">联系人姓名</string>
   
   <!-- task sharing dialog: message label text -->
   <string name="actfm_EPA_message_text">邀请信息：</string>
@@ -191,13 +191,13 @@
   <string name="actfm_ALA_body">Astrid.com能让您轻松在线访问、共享和委托您的任务。</string>
 
   <!-- share login: Sharing Login FB Prompt -->
-  <string name="actfm_ALA_fb_login">Connect with Facebook</string>
+  <string name="actfm_ALA_fb_login">使用Facebook帐号登录</string>
 
   <!-- share login: Sharing Login GG Prompt -->
-  <string name="actfm_ALA_gg_login">Connect with Google</string>
-  
+  <string name="actfm_ALA_gg_login">使用Google帐号登录</string>
+
   <!-- share login: Sharing Footer Password Label -->
-  <string name="actfm_ALA_pw_login">Don\'t use Google or Facebook?</string>
+  <string name="actfm_ALA_pw_login">尚未拥有Google或Facebook帐号？</string>
 
   <!-- share login: Sharing Password Link -->
   <string name="actfm_ALA_pw_link">点此登录</string>
@@ -282,7 +282,7 @@
     <string name="backup_BPr_group_status">状态</string>
     
     <!-- Backup Status: last backup was a success (%s -> last date). Keep it short! -->    
-    <string name="backup_status_success">Latest backup:\n%s</string>
+    <string name="backup_status_success">最近一次:%s</string>
     <!-- Backup Status: last error failed. Keep it short! -->    
     <string name="backup_status_failed">上次备份失败</string>
     <!-- Backup Status: error subtitle -->    
@@ -537,7 +537,7 @@
   <string name="TAd_flingText"/>
   
   <!-- indicates task was completed. %s => date or time ago -->
-  <string name="TAd_completed">Finished\n%s</string>
+  <string name="TAd_completed">完成\n%s 项</string>
   
   <!-- Action Button: edit task -->
   <string name="TAd_actionEditTask">编辑</string>
@@ -718,7 +718,7 @@
   
   <string-array name="TEA_urgency">
       <!-- urgency: labels for edit page. item #4 -> auto filled -->
-      <item>No deadline</item>
+      <item>无截止日</item>
       <item>指定哪天</item>
       <item>今天</item>
       <item>明天</item>
@@ -823,7 +823,7 @@
   <string name="EPr_beastMode_reset">Reset to defaults</string>
       
   <!-- Preference: Task List Show Notes Description (disabled) -->
-  <string name="EPr_showNotes_desc_disabled">Notes will be accessible from the Task Edit Page</string>  
+  <string name="EPr_showNotes_desc_disabled">笔记将会在快速行动条中显示</string>  
   <!-- Preference: Task List Show Notes Description (enabled) -->
   <string name="EPr_showNotes_desc_enabled">总是显示备注</string>
   
@@ -1063,7 +1063,7 @@
     <string name="CFA_type_intersect">且</string>
     
     <!-- Filter Criteria Context Menu: chaining (%s chain type as above) -->
-    <string name="CFA_context_chain">% 含条件</string>
+    <string name="CFA_context_chain">%s 含条件</string>
     
     <!-- Filter Criteria Context Menu: delete -->
     <string name="CFA_context_delete">删除列</string>
@@ -1133,7 +1133,7 @@
   <string name="gcal_TEA_calendar_label">日程表整合：</string>
 
   <!-- Label for adding task to calendar -->
-  <string name="gcal_TEA_addToCalendar_label">Add to Calendar</string>
+  <string name="gcal_TEA_addToCalendar_label">建立日程表事件</string>
   
   <!-- Label when calendar event already exists -->
   <string name="gcal_TEA_showCalendar_label">打开日程表事件</string>
@@ -1280,32 +1280,20 @@
   <string name="intro_task_1_summary">建立您的第一个任务</string>
 
   <!-- Task 1 Note -->
-  <string name="intro_task_1_note">Two ways to add a task:\n
-  1) Quick Add: Type the task into the quick entry box at bottom of screen and press the + button on the right.\n
-  2) Regular Add: Press the + button of the quick entry box. Add as much detail as you want. Then press \"Save\" or use your phone\'s back button.\n
-  </string>
+  <string name="intro_task_1_note">两种新增任务的方式:\n 1)快速新增:只要在快速输入框中输入任务并按下左侧的+按钮。\n\n 2)一般新增:按下快速输入框右侧的按钮。加入一般细节(到期日、标签、备注)或设定更多进阶选项。按下储存按钮或是手机上的返回键将任务储存。</string>
   
   <!-- Task 2 Summary  -->
   <string name="intro_task_2_summary">在桌面上添加小工具</string>
 
   <!-- Task 2 Note -->
-  <string name="intro_task_2_note">
-  1) Long Press on your phone\'s desktop\n
-       2) Choose \"Widget\"\n
-       3) Choose the Astrid widget\n
-       4) Select the list you want and press OK.\n
-  </string>
+  <string name="intro_task_2_note">桌面小工具是一种跟踪您要做的事及添加新任务的极好的方式。\n\n 如何添加小工具：\n 1) 长按您手机的桌面\n 2) 在出现的菜单中选择“小工具”\n 3) 选择 Astrid 小工具。\n 4) 您可以选择一个 Astrid 过滤器，或选择“活动任务”来显示所有任务。\n\n 提示：可以用小工具来添加任务！</string>
   
     <!-- Task 3 Summary  -->
   <string name="intro_task_3_summary">设置与 Astrid.com 的同步</string>
 
   <!-- Task 3 Note -->
-  <string name="intro_task_3_note">
-    1) Press your Menu button\n
-         2) Choose \"Sync Now\"\n
-         3) Select \"Astrid.com\"\n
-         4) Log In &amp; Synchronize!\n
-  </string>
+  <string name="intro_task_3_note">可用 Astrid 将您的任务与 Astrid.com，Google Tasks 和 Producteev 同步。\n\n 要在 Astrid 开启同步，请点击“菜单” -&gt; “设置” -&gt; “同步”。然后选择您喜好的同步提供者。</string>
+
  
   <!-- NEW USER EXPERIENCE -->
   
@@ -1743,10 +1731,10 @@
   <string name="rmd_NoA_filter">提醒！</string>
   
   <!-- Reminder: Task was already done -->
-  <string name="rmd_NoA_done">Complete</string>
+  <string name="rmd_NoA_done">已完成!</string>
   
   <!-- Reminder: Snooze button (remind again later) -->
-  <string name="rmd_NoA_snooze">Snooze</string>
+  <string name="rmd_NoA_snooze">晚点提醒...</string>
   
   <!-- Reminder: Completed Toast -->
   <string name="rmd_NoA_completed_toast">Congratulations on finishing!</string>
@@ -1857,16 +1845,16 @@
     <item>21:00</item>
     <item>22:00</item>
     <item>23:00</item>
-    <item>12 AM</item>
-    <item>1 AM</item>
-    <item>2 AM</item>
-    <item>3 AM</item>
-    <item>4 AM</item>
-    <item>5 AM</item>
-    <item>6 AM</item>
-    <item>7 AM</item>
-    <item>8 AM</item>
-    <item>9 AM</item>
+    <item>00:00</item>
+    <item>01:00</item>
+    <item>02:00</item>
+    <item>03:00</item>
+    <item>04:00</item>
+    <item>05:00</item>
+    <item>06:00</item>
+    <item>07:00</item>
+    <item>08:00</item>
+    <item>09:00</item>
     <item>10:00</item>
     <item>11:00</item>
     <item>12:00</item>
@@ -1876,12 +1864,12 @@
     <item>16:00</item>
     <item>17:00</item>
     <item>18:00</item>
-    <item>7 PM</item>
+    <item>19:00</item>
   </string-array>
   
   <string-array name="EPr_quiet_hours_end">
     <!-- Reminder Preference: quiet_hours_end: options for preference menu. Translate but don't change the times! -->
-    <item>9 AM</item>
+    <item>09:00</item>
     <item>10:00</item>
     <item>11:00</item>
     <item>12:00</item>
@@ -1891,25 +1879,25 @@
     <item>16:00</item>
     <item>17:00</item>
     <item>18:00</item>
-    <item>7 PM</item>
+    <item>19:00</item>
     <item>20:00</item>
     <item>21:00</item>
     <item>22:00</item>
     <item>23:00</item>
-    <item>12 AM</item>
-    <item>1 AM</item>
-    <item>2 AM</item>
-    <item>3 AM</item>
-    <item>4 AM</item>
-    <item>5 AM</item>
-    <item>6 AM</item>
-    <item>7 AM</item>
-    <item>8 AM</item>
+    <item>00:00</item>
+    <item>01:00</item>
+    <item>02:00</item>
+    <item>03:00</item>
+    <item>04:00</item>
+    <item>05:00</item>
+    <item>06:00</item>
+    <item>07:00</item>
+    <item>08:00</item>
   </string-array>
   
   <string-array name="EPr_rmd_time">
     <!-- Reminder Preference: rmd_time: options for preference menu. Translate but don't change the times! -->
-    <item>9 AM</item>
+    <item>09:00</item>
     <item>10:00</item>
     <item>11:00</item>
     <item>12:00</item>
@@ -1919,20 +1907,20 @@
     <item>16:00</item>
     <item>17:00</item>
     <item>18:00</item>
-    <item>7 PM</item>
+    <item>19:00</item>
     <item>20:00</item>
     <item>21:00</item>
     <item>22:00</item>
     <item>23:00</item>
-    <item>12 AM</item>
-    <item>1 AM</item>
-    <item>2 AM</item>
-    <item>3 AM</item>
-    <item>4 AM</item>
-    <item>5 AM</item>
-    <item>6 AM</item>
-    <item>7 AM</item>
-    <item>8 AM</item>
+    <item>00:00</item>
+    <item>01:00</item>
+    <item>02:00</item>
+    <item>03:00</item>
+    <item>04:00</item>
+    <item>05:00</item>
+    <item>06:00</item>
+    <item>07:00</item>
+    <item>08:00</item>
   </string-array>
   
   <!-- =============================================== random reminders == -->
