@@ -79,7 +79,7 @@ public class TagFilterExposer extends BroadcastReceiver implements AstridFilterE
 
         TagData tagData = PluginServices.getTagDataService().getTag(tag.tag, TagData.ID, TagData.USER_ID, TagData.MEMBER_COUNT);
         int deleteIntentLabel;
-        if (tagData.getValue(TagData.MEMBER_COUNT) > 0 && tagData.getValue(TagData.USER_ID) != 0)
+        if (tagData != null && tagData.getValue(TagData.MEMBER_COUNT) > 0 && tagData.getValue(TagData.USER_ID) != 0)
             deleteIntentLabel = R.string.tag_cm_leave;
         else
             deleteIntentLabel = R.string.tag_cm_delete;
