@@ -68,7 +68,7 @@
   </string-array>
   
   <!-- Tag View: filtered by assigned to user -->
-  <string name="actfm_TVA_filtered_by_assign">\'e ait görevler. Hepsi için dokunun.</string>
+  <string name="actfm_TVA_filtered_by_assign">%s\'e ait görevler. Hepsi için dokunun.</string>
 
   <!-- Tag View: list is private, no members -->
   <string name="actfm_TVA_no_members_alert">Özel: Paylaşmak veya düzenlemek için dokunun</string>
@@ -347,7 +347,7 @@
   <string name="DLG_error_opening">Bunu bulamadım:</string>
   
   <!-- Backup: Dialog when unable to open SD card folder (%s => folder) -->
-  <string name="DLG_error_sdcard">% klasörüne erişilemedi.</string>
+  <string name="DLG_error_sdcard">%s klasörüne erişilemedi.</string>
   
   <!-- Backup: Dialog when unable to open SD card in general -->
   <string name="DLG_error_sdcard_general">Hafıza kartına erişemiyorum!</string>

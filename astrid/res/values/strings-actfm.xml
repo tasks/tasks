@@ -67,7 +67,7 @@
     <item>List Settings</item>
   </string-array>
   
-  <!-- Tag View: filtered by assigned to user -->
+  <!-- Tag View: filtered by assigned to user (%s => user name) -->
   <string name="actfm_TVA_filtered_by_assign">%s\'s tasks. Tap for all.</string>
 
   <!-- Tag View: list is private, no members -->

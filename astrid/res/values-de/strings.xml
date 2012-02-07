@@ -425,10 +425,7 @@
   
   <!-- Label for DateButtons with no value -->
   <string name="WID_dateButtonUnset">Kommentare</string>
-  
-  <!-- String formatter for DateButtons ($D => date, $T => time) -->
-  <string name="WID_dateButtonLabel">Nichts zum Anzeigen</string>
-  
+   
   <!-- String formatter for Disable button -->
   <string name="WID_disableButton">Deaktivieren</string>  
   
