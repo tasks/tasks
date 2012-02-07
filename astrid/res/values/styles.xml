@@ -23,7 +23,7 @@
         <item name="asMicButtonImg">@drawable/mic_button_blue</item>
         <item name="asCameraButtonImg">@drawable/camera_button_blue</item>
         <item name="asCommentButtonImg">@drawable/comment_blue</item>
-        <item name="asEditBackground">#171317</item>
+        <item name="asEditBackground">#101010</item>
         <item name="asEditRowBackground">@drawable/task_edit_background</item>
         <item name="asEditTabBackground">@drawable/custom_tab_indicator_dark</item>
         <item name="asMainMenu">@drawable/menu_button_blue</item>
@@ -54,7 +54,7 @@
         
     <style name="Theme.White" parent="@style/Theme.Sherlock.Light">
         <item name="asContentBackground">@android:color/white</item>
-        <item name="asEditBackground">#f7f3f7</item>
+        <item name="asEditBackground">#dddddd</item>
         <item name="asHeaderButtonBackground">@drawable/header_button_white</item>
         <item name="asTextColor">#000000</item>
         <item name="asTextColorInverse">#ffffff</item>
