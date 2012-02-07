@@ -307,7 +307,11 @@ public class TaskListActivity extends AstridActivity implements MainMenuListener
     @Override
     protected void onStop() {
         super.onStop();
-        unregisterReceiver(tagDeletedReceiver);
+        try {
+            unregisterReceiver(tagDeletedReceiver);
+        } catch (IllegalArgumentException e) {
+            // Receiver might not be registered if for example activity is stopped before on resume (?)
+        }
     }
 
     public void setSelectedItem(Filter item) {
