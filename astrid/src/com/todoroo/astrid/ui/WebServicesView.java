@@ -18,6 +18,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.net.Uri;
+import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.util.DisplayMetrics;
 import android.view.Gravity;
@@ -87,6 +88,15 @@ public class WebServicesView extends LinearLayout {
         activity.getWindowManager().getDefaultDisplay().getMetrics(metrics);
         inflater = (LayoutInflater) getContext().getSystemService(
                 Context.LAYOUT_INFLATER_SERVICE);
+
+        refresh();
+    }
+
+    public void refresh() {
+        if(TextUtils.isEmpty(task.getValue(Task.TITLE)))
+            return;
+
+        removeAllViews();
 
         initializeAmazon();
 

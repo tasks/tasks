@@ -97,6 +97,7 @@ import com.todoroo.astrid.ui.HideUntilControlSet;
 import com.todoroo.astrid.ui.ImportanceControlSet;
 import com.todoroo.astrid.ui.ReminderControlSet;
 import com.todoroo.astrid.ui.TaskEditMoreControls;
+import com.todoroo.astrid.ui.WebServicesView;
 import com.todoroo.astrid.voice.VoiceInputAssistant;
 import com.viewpagerindicator.TabPageIndicator;
 
@@ -244,6 +245,16 @@ public final class TaskEditFragment extends Fragment implements
     private long remoteId = 0;
 
     private boolean moreExpanded = false;
+
+    private WebServicesView webServices = null;
+
+    public static final int TAB_STYLE_NONE = 0;
+    public static final int TAB_STYLE_ACTIVITY = 1;
+    public static final int TAB_STYLE_ACTIVITY_WEB = 2;
+    public static final int TAB_STYLE_WEB = 3;
+
+    private int tabStyle = TAB_STYLE_NONE;
+
     /*
      * ======================================================================
      * ======================================================= initialization
@@ -355,17 +366,30 @@ public final class TaskEditFragment extends Fragment implements
     }
 
     private void loadMoreContainer() {
-        View more_tab = (View) getView().findViewById(R.id.more_container);
-        View more_section = (View) getView().findViewById(R.id.more_header);
+        View moreSection = (View) getView().findViewById(R.id.more_header);
+        View moreTab = (View) getView().findViewById(R.id.more_container);
         View commentsBar = (View) getView().findViewById(R.id.updatesFooter);
 
-        long idParam = getActivity().getIntent().getLongExtra(TOKEN_ID,
-                -1L);
-        if (remoteId > 0 && idParam > -1L) {
+        long idParam = getActivity().getIntent().getLongExtra(TOKEN_ID, -1L);
+
+        boolean hasTitle = !TextUtils.isEmpty(model.getValue(Task.TITLE));
+        boolean hasRemoteId = remoteId > 0 && idParam > -1L;
+
+        if(hasTitle && hasRemoteId)
+            tabStyle = TAB_STYLE_ACTIVITY_WEB;
+        else if(hasTitle)
+            tabStyle = TAB_STYLE_WEB;
+        else if(hasRemoteId)
+            tabStyle = TAB_STYLE_ACTIVITY;
+        else
+            tabStyle = TAB_STYLE_NONE;
+
+        if (hasRemoteId) {
             if (editNotes == null) {
                 editNotes = new EditNoteActivity(this, getView(),
                         idParam);
-                editNotes.setLayoutParams(new FrameLayout.LayoutParams(LayoutParams.FILL_PARENT, LayoutParams.WRAP_CONTENT));
+                editNotes.setLayoutParams(new FrameLayout.LayoutParams(LayoutParams.FILL_PARENT,
+                        LayoutParams.WRAP_CONTENT));
 
                 editNotes.addListener(this);
                 if (timerAction != null) {
@@ -375,51 +399,61 @@ public final class TaskEditFragment extends Fragment implements
             else {
                 editNotes.loadViewForTaskID(idParam);
             }
-            if (mAdapter == null) {
-                mAdapter = new TaskEditViewPager(getActivity());
-                mAdapter.parent = this;
 
-                mPager = (ViewPager) getView().findViewById(R.id.pager);
-                mPager.setAdapter(mAdapter);
-
-                mIndicator = (TabPageIndicator) getView().findViewById(
-                        R.id.indicator);
-                mIndicator.setViewPager(mPager);
-                mIndicator.setOnPageChangeListener(this);
-
-                if (editNotes.numberOfComments() == 0) {
-                    setCurrentTab(TAB_VIEW_MORE);
-                } else {
-                    Handler refreshHandler = new Handler();
-                    refreshHandler.postDelayed(refreshActivity, 1000);
-
-                }
-                editNotes.addListener(this);
+            if (editNotes.numberOfComments() == 0) {
+                setCurrentTab(TAB_VIEW_MORE);
+            } else {
+                Handler refreshHandler = new Handler();
+                refreshHandler.postDelayed(refreshActivity, 1000);
             }
+
+            editNotes.addListener(this);
+        }
+
+        if(hasTitle) {
+            if(webServices == null) {
+                webServices = new WebServicesView(getActivity());
+                webServices.setLayoutParams(new FrameLayout.LayoutParams(LayoutParams.FILL_PARENT,
+                        LayoutParams.WRAP_CONTENT));
+                webServices.setTask(model);
+            } else {
+                webServices.refresh();
+            }
+        }
+
+        if(tabStyle != TAB_STYLE_NONE) {
+            mAdapter = new TaskEditViewPager(getActivity(), tabStyle);
+            mAdapter.parent = this;
+
+            mPager = (ViewPager) getView().findViewById(R.id.pager);
+            mPager.setAdapter(mAdapter);
+
+            mIndicator = (TabPageIndicator) getView().findViewById(
+                    R.id.indicator);
+            mIndicator.setViewPager(mPager);
+            mIndicator.setOnPageChangeListener(this);
 
             if (moreControls.getParent() != null && moreControls.getParent() != mPager) {
                 ((ViewGroup) moreControls.getParent()).removeView(moreControls);
             }
-            commentsBar.setVisibility(View.VISIBLE);
-            more_tab.setVisibility(View.VISIBLE);
-            more_section.setVisibility(View.GONE);
 
+            commentsBar.setVisibility(View.VISIBLE);
+            moreSection.setVisibility(View.GONE);
+            moreTab.setVisibility(View.VISIBLE);
         } else {
+            moreSection.setVisibility(View.VISIBLE);
+            commentsBar.setVisibility(View.GONE);
 
             if (moreControls.getParent() != null) {
-                if (moreControls.getParent() == more_section) {
+                if (moreControls.getParent() == moreSection) {
                     setPagerHeightForPosition(TAB_VIEW_MORE);
                 }
                 else {
                     ((ViewGroup) moreControls.getParent()).removeView(moreControls);
                 }
             }
-            if (moreExpanded){
+            if (moreExpanded)
                 autoExpandMore();
-            }
-            more_section.setVisibility(View.VISIBLE);
-            more_tab.setVisibility(View.GONE);
-            commentsBar.setVisibility(View.GONE);
         }
     }
 
@@ -1113,17 +1147,25 @@ public final class TaskEditFragment extends Fragment implements
      */
 
     public View getPageView(int position) {
-        if (position == 1) {
+        if ((tabStyle == TAB_STYLE_WEB && position == 0) ||
+                (tabStyle != TAB_STYLE_WEB && position == 1)) {
+
             moreControls.setLayoutParams(mPager.getLayoutParams());
             setViewHeightBasedOnChildren(moreControls);
 
             return moreControls;
-        } else if (position == 0) {
+        } else if (tabStyle != TAB_STYLE_WEB && position == 0) {
 
             return editNotes;
-        } else {
 
-            return null;
+        } else if((tabStyle == TAB_STYLE_WEB && position == 1) ||
+                (tabStyle == TAB_STYLE_ACTIVITY_WEB && position == 2)) {
+
+            return webServices;
+
+        } else {
+            throw new RuntimeException("Error - requested position " + position
+                    + ", tab style " + tabStyle);
         }
     }
 
@@ -1172,7 +1214,6 @@ public final class TaskEditFragment extends Fragment implements
 
     @Override
     public void onPageSelected(int position) {
-
         this.setPagerHeightForPosition(position);
     }
 

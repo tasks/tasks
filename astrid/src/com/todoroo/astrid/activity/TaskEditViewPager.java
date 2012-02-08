@@ -13,12 +13,32 @@ public class TaskEditViewPager extends PagerAdapter implements TitleProvider {
 
     private static String[] titles;
     public TaskEditFragment parent;
+    private final int tabStyle;
 
-    public TaskEditViewPager(Context context) {
-        titles = new String[] {
+    public TaskEditViewPager(Context context, int tabStyle) {
+        this.tabStyle = tabStyle;
+
+        switch(tabStyle) {
+        case TaskEditFragment.TAB_STYLE_ACTIVITY_WEB:
+            titles = new String[] {
+                    context.getString(R.string.TEA_tab_activity),
+                    context.getString(R.string.TEA_tab_more),
+                    context.getString(R.string.TEA_tab_web),
+            };
+            break;
+        case TaskEditFragment.TAB_STYLE_ACTIVITY:
+            titles = new String[] {
                 context.getString(R.string.TEA_tab_activity),
                 context.getString(R.string.TEA_tab_more),
-        };
+            };
+            break;
+        case TaskEditFragment.TAB_STYLE_WEB:
+            titles = new String[] {
+                    context.getString(R.string.TEA_tab_more),
+                    context.getString(R.string.TEA_tab_web),
+            };
+            break;
+        }
     }
 
     @Override
@@ -28,7 +48,11 @@ public class TaskEditViewPager extends PagerAdapter implements TitleProvider {
 
     @Override
     public Object instantiateItem(View pager, int position) {
+        System.err.println("adding view for " + position + ", tab style " + tabStyle);
+
         View pageView = parent.getPageView(position);
+
+        System.err.println("got pager " + pageView);
 
         ((ViewPager) pager).addView(pageView, 0);
         return pageView;
