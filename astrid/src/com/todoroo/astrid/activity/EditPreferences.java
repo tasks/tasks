@@ -296,7 +296,7 @@ public class EditPreferences extends TodorooPreferenceActivity {
                 preference.setEnabled(false);
                 preference.setSummary(R.string.EPr_theme_desc_unsupported);
             } else {
-                int index = 0;
+                int index = 1;
                 if(value != null)
                     index = AndroidUtilities.indexOf(r.getStringArray(R.array.EPr_theme_settings), (String)value);
                 preference.setSummary(getString(R.string.EPr_theme_desc,
