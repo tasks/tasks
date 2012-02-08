@@ -23,7 +23,6 @@ import android.text.TextWatcher;
 import android.text.format.DateUtils;
 import android.text.util.Linkify;
 import android.util.Log;
-import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.View;
@@ -117,9 +116,7 @@ public class EditNoteActivity extends LinearLayout implements TimerActionListene
     }
 
     private int getDefaultCameraButton() {
-        TypedValue tv = new TypedValue();
-        fragment.getActivity().getTheme().resolveAttribute(R.attr.asCameraButtonImg, tv, false);
-        return tv.data;
+        return R.drawable.camera_button_gray;
     }
 
     public void loadViewForTaskID(long t){

@@ -21,7 +21,6 @@
         <item name="asSeparatorBackground">#888888</item>
         <item name="asAddButtonImg">@drawable/plus_button_blue</item>
         <item name="asMicButtonImg">@drawable/mic_button_blue</item>
-        <item name="asCameraButtonImg">@drawable/camera_button_blue</item>
         <item name="asCommentButtonImg">@drawable/comment_blue</item>
         <item name="asEditBackground">#101010</item>
         <item name="asEditRowBackground">@drawable/task_edit_background</item>
@@ -29,6 +28,7 @@
         <item name="asMainMenu">@drawable/menu_button_blue</item>
         <item name="asThemeTextColor">@color/blue_theme_color</item>
         <item name="asListsDisclosure">@drawable/lists_disclosure_blue</item>
+        <item name="asAbBackgroundColor">#000000</item>
         <item name="asTaskEditArrow">@drawable/taskedit_arrow_up_white</item>
         <item name="asRepeatIcon">@drawable/icn_edit_repeats_blue</item>
         
@@ -65,7 +65,6 @@
         <item name="asMembersHeaderBackground">@drawable/ios_fabric_480</item>
         <item name="asAddButtonImg">@drawable/plus_button_red</item>
         <item name="asMicButtonImg">@drawable/mic_button_red</item>
-        <item name="asCameraButtonImg">@drawable/camera_button_red</item>
         <item name="asCommentButtonImg">@drawable/comment_red</item>
         <item name="asEditRowBackground">@drawable/task_edit_background_white</item>
         <item name="asEditTabBackground">@drawable/custom_tab_indicator</item>
@@ -74,6 +73,7 @@
         <item name="asListsDisclosure">@drawable/lists_disclosure_red</item>
         <item name="asTaskEditArrow">@drawable/taskedit_arrow_up_white</item>
         <item name="asRepeatIcon">@drawable/icn_edit_repeats_red</item>
+        <item name="asAbBackgroundColor">#ffffff</item>
         
         <!-- actionbar-styling -->
         <item name="abBackground">@drawable/header_red</item>
@@ -82,14 +82,15 @@
     </style>
     
     <style name="Theme.White.Blue">
-        <item name="asAddButtonImg">@drawable/plus_button_blue</item>
-        <item name="asMicButtonImg">@drawable/mic_button_blue</item>
-        <item name="asCameraButtonImg">@drawable/camera_button_blue</item>
-        <item name="asCommentButtonImg">@drawable/comment_blue</item>
-        <item name="asMainMenu">@drawable/menu_button_blue</item>
-        <item name="asThemeTextColor">@color/blue_theme_color</item>
-        <item name="asListsDisclosure">@drawable/lists_disclosure_blue</item>
-        <item name="asRepeatIcon">@drawable/icn_edit_repeats_blue</item>
+        <item name="asAddButtonImg">@drawable/plus_button_dark_blue</item>
+        <item name="asMicButtonImg">@drawable/mic_button_dark_blue</item>
+        <item name="asCommentButtonImg">@drawable/comment_dark_blue</item>
+        <item name="asMainMenu">@drawable/menu_button_dark_blue</item>
+        <item name="asThemeTextColor">@color/dark_blue_theme_color</item>
+        <item name="asListsDisclosure">@drawable/lists_disclosure_dark_blue</item>
+        <item name="asRepeatIcon">@drawable/icn_edit_repeats_dark_blue</item>
+        <item name="asAbBackgroundColor">#e9e9e9</item>
+        <item name="asEditTabBackground">@drawable/custom_tab_indicator_dark_blue</item>
         <item name="abBackground">@drawable/header_day_blue</item>
     </style>
     
@@ -191,7 +192,7 @@
    	</style>
    	
    	<style name="TextAppearance.ActionBar_ListsHeader.Selected">   	    
-   	    <item name="android:textColor">?attr/asTextColorInverse</item>
+   	    <item name="android:textColor">?attr/asAbBackgroundColor</item>
    	</style>
    	
     <!--================================================== Custom Dialogs == -->

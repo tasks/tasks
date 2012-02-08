@@ -10,7 +10,6 @@ import android.support.v4.view.Menu;
 import android.support.v4.view.MenuItem;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.TypedValue;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.MenuInflater;
@@ -173,9 +172,7 @@ public class TagUpdatesFragment extends ListFragment {
     }
 
     private void resetPictureButton() {
-        TypedValue tv = new TypedValue();
-        getActivity().getTheme().resolveAttribute(R.attr.asCameraButtonImg, tv, false);
-        pictureButton.setImageResource(tv.data);
+        pictureButton.setImageResource(R.drawable.camera_button_gray);
     }
 
     private void refreshUpdatesList() {

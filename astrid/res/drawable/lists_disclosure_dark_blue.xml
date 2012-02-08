@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android" >
+    <item android:state_selected="false" android:drawable="@drawable/lists_disclosure_dark_blue_off"/>
+    <item android:state_selected="true" android:drawable="@drawable/lists_disclosure_dark_blue_on"/>
+</selector>
