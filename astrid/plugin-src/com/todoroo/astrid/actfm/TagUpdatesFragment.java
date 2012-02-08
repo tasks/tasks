@@ -172,7 +172,7 @@ public class TagUpdatesFragment extends ListFragment {
     }
 
     private void resetPictureButton() {
-        pictureButton.setImageResource(R.drawable.camera_button_gray);
+        pictureButton.setImageResource(R.drawable.camera_button);
     }
 
     private void refreshUpdatesList() {

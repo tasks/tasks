@@ -137,12 +137,10 @@
             android:layout_gravity="top"
             android:layout_marginRight="3dip"
             android:layout_weight="1"
-            android:background="#00000000"
             android:paddingBottom="2dip"
-            android:paddingLeft="7dip"
-            android:paddingRight="7dip"
             android:scaleType="centerInside"
-            android:src="@drawable/camera_button_gray" />
+            android:background="@android:color/transparent"
+            android:src="@drawable/camera_button" />
 
         <!-- Quick Add Task -->
 
@@ -201,7 +199,8 @@
             android:layout_gravity="top"
             android:layout_marginLeft="3dip"
             android:layout_weight="1"
-            android:background="?attr/asAddButtonImg"
+            android:background="@android:color/transparent"
+            android:src="?attr/asAddButtonImg"
             android:scaleType="center"
             android:visibility="gone" />
     </LinearLayout>

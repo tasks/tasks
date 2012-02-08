@@ -64,11 +64,11 @@
         android:layout_marginBottom="4dip"
         android:layout_marginTop="4dip"/>
 	
-	<ImageView 
+	<ImageButton 
 	    android:id="@+id/comments"
 	    android:layout_width="51dip"
 	    android:layout_height="fill_parent"
-	    android:padding="7dip"
+	    android:background="@android:color/transparent"
 	    android:src="?attr/asCommentButtonImg"
 	    android:scaleType="fitCenter"/>
 

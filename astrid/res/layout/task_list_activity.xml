@@ -68,7 +68,8 @@
             android:layout_gravity="top"
             android:layout_marginRight="5dip"
             android:layout_weight="1"
-            android:background="?attr/asAddButtonImg"
+            android:background="@android:color/transparent"
+            android:src="?attr/asAddButtonImg"
             android:scaleType="center"/> 
 
     </LinearLayout>
