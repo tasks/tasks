@@ -106,7 +106,7 @@
                     android:layout_weight="1"
                     android:visibility="gone" />
 
-                <android.support.v4.view.ViewPager
+                <com.todoroo.astrid.ui.NestableViewPager
                     android:id="@+id/pager"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content" />

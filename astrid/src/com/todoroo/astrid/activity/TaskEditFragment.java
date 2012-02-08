@@ -95,6 +95,7 @@ import com.todoroo.astrid.ui.EditNotesControlSet;
 import com.todoroo.astrid.ui.EditTitleControlSet;
 import com.todoroo.astrid.ui.HideUntilControlSet;
 import com.todoroo.astrid.ui.ImportanceControlSet;
+import com.todoroo.astrid.ui.NestableViewPager;
 import com.todoroo.astrid.ui.ReminderControlSet;
 import com.todoroo.astrid.ui.TaskEditMoreControls;
 import com.todoroo.astrid.ui.WebServicesView;
@@ -205,7 +206,7 @@ public final class TaskEditFragment extends Fragment implements
     private EditText title;
     private TaskEditMoreControls moreControls;
     private EditNoteActivity editNotes;
-    private ViewPager mPager;
+    private NestableViewPager mPager;
     private TaskEditViewPager mAdapter;
     private TabPageIndicator mIndicator;
 
@@ -425,8 +426,9 @@ public final class TaskEditFragment extends Fragment implements
             mAdapter = new TaskEditViewPager(getActivity(), tabStyle);
             mAdapter.parent = this;
 
-            mPager = (ViewPager) getView().findViewById(R.id.pager);
+            mPager = (NestableViewPager) getView().findViewById(R.id.pager);
             mPager.setAdapter(mAdapter);
+            mPager.setScrollabelViews(webServices.getScrollableViews());
 
             mIndicator = (TabPageIndicator) getView().findViewById(
                     R.id.indicator);

@@ -36,7 +36,6 @@ import com.timsu.astrid.R;
 import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.andlib.service.ExceptionService;
-import com.todoroo.andlib.service.HttpErrorException;
 import com.todoroo.andlib.service.RestClient;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.helper.AmazonRequestsHelper;
@@ -49,6 +48,9 @@ public class WebServicesView extends LinearLayout {
     private static final String ASSOCIATE_TAG = "wwwtodoroocom-20";
 
     private static final int ROW_HEIGHT = 100;
+
+    private static final int ID_AMAZON = 0x3423712;
+    private static final int ID_GOOGLE = 0x3487532;
 
     private static final String GOOGLE_SEARCH_URL = "https://ajax.googleapis.com/ajax/services/search/web?v=1.0&q=";
 
@@ -75,6 +77,10 @@ public class WebServicesView extends LinearLayout {
     public void setTask(Task task) {
         this.task = task;
         initialize();
+    }
+
+    public int[] getScrollableViews() {
+        return new int[] { ID_AMAZON, ID_GOOGLE };
     }
 
     /**
@@ -108,7 +114,7 @@ public class WebServicesView extends LinearLayout {
     protected void initializeAmazon() {
         addSectionHeader("Amazon.com");
 
-        final LinearLayout body = addHorizontalScroller();
+        final LinearLayout body = addHorizontalScroller(ID_AMAZON);
 
         new Thread() {
             @Override
@@ -181,7 +187,7 @@ public class WebServicesView extends LinearLayout {
                         } else if("Error".equals(xpp.getName())) {
                             while(!"Message".equals(xpp.getName()))
                                 xpp.next();
-                            throw new HttpErrorException(0, xpp.getText());
+                            throw new AmazonException(xpp.nextText());
                         }
                     } else if(eventType == XmlPullParser.END_TAG) {
                         if("Item".equals(xpp.getName()))
@@ -216,6 +222,15 @@ public class WebServicesView extends LinearLayout {
         }
     }
 
+    private class AmazonException extends Exception {
+
+        private static final long serialVersionUID = -3759207030258905605L;
+
+        public AmazonException(String arg0) {
+            super(arg0);
+        }
+
+    }
 
     /**
      * Initialize Google search results
@@ -223,7 +238,7 @@ public class WebServicesView extends LinearLayout {
     protected void initializeGoogleSearch() {
         addSectionHeader("Google Search");
 
-        final LinearLayout body = addHorizontalScroller();
+        final LinearLayout body = addHorizontalScroller(ID_GOOGLE);
 
         new Thread() {
             @Override
@@ -326,10 +341,11 @@ public class WebServicesView extends LinearLayout {
         });
     }
 
-    protected LinearLayout addHorizontalScroller() {
+    protected LinearLayout addHorizontalScroller(int id) {
         HorizontalScrollView scroll = new HorizontalScrollView(getContext());
         scroll.setLayoutParams(new LinearLayout.LayoutParams(LayoutParams.FILL_PARENT,
                 LayoutParams.WRAP_CONTENT));
+        scroll.setId(id);
         addView(scroll);
 
         LinearLayout body = new LinearLayout(getContext());
