@@ -6,8 +6,8 @@
     android:id="@+id/rowBody"
     android:background="@android:drawable/list_selector_background"
     android:layout_width="fill_parent"
-    android:layout_height="70dip"
-    android:minHeight="70dip" >
+    android:layout_height="wrap_content"
+    android:minHeight="57dip" >
 
     <!-- completion check-box -->
     <greendroid.widget.AsyncImageView
@@ -48,6 +48,7 @@
         android:layout_toRightOf="@id/completeBox"
         android:layout_centerVertical="true"
         android:orientation="horizontal"
+        android:gravity="center_vertical"
         android:paddingLeft="2dip" >
 
         <!-- task name -->
@@ -66,7 +67,7 @@
         <TextView
             android:id="@+id/dueDate"
             android:layout_width="wrap_content"
-            android:layout_height="fill_parent"
+            android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_marginRight="4dip"
             android:gravity="center_vertical|right" />
