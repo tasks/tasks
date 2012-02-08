@@ -95,6 +95,7 @@ import com.todoroo.astrid.ui.EditNotesControlSet;
 import com.todoroo.astrid.ui.EditTitleControlSet;
 import com.todoroo.astrid.ui.HideUntilControlSet;
 import com.todoroo.astrid.ui.ImportanceControlSet;
+import com.todoroo.astrid.ui.NestableScrollView;
 import com.todoroo.astrid.ui.NestableViewPager;
 import com.todoroo.astrid.ui.ReminderControlSet;
 import com.todoroo.astrid.ui.TaskEditMoreControls;
@@ -429,6 +430,8 @@ public final class TaskEditFragment extends Fragment implements
             mPager = (NestableViewPager) getView().findViewById(R.id.pager);
             mPager.setAdapter(mAdapter);
             mPager.setScrollabelViews(webServices.getScrollableViews());
+            ((NestableScrollView)getView().findViewById(R.id.edit_scroll)).
+                setScrollabelViews(webServices.getScrollableViews());
 
             mIndicator = (TabPageIndicator) getView().findViewById(
                     R.id.indicator);
