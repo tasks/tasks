@@ -167,7 +167,7 @@
     </style>
     
     <style name="TEA_Separator">
-        <item name="android:background">?attr/asSeparatorBackground</item>
+        <item name="android:background">?android:attr/listDivider</item>
     </style>
     
     <style name="FLA_Separator" parent="TEA_Separator">

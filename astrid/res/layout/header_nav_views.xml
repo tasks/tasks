@@ -14,7 +14,7 @@
     <View
         android:layout_width="1px"
         android:layout_height="fill_parent"
-        style="@style/TEA_Separator"
+        android:background="?attr/asSeparatorBackground"
         android:layout_marginBottom="4dip"
         android:layout_marginTop="4dip"/>
         
@@ -60,7 +60,7 @@
 	<View
         android:layout_width="1px"
         android:layout_height="fill_parent"
-        style="@style/TEA_Separator"
+        android:background="?attr/asSeparatorBackground"
         android:layout_marginBottom="4dip"
         android:layout_marginTop="4dip"/>
 	
