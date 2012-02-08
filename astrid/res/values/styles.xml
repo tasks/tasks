@@ -35,7 +35,7 @@
         <!-- actionbar-styling -->
         <item name="abBackground">@drawable/header_blue</item>
         <item name="abDisplayOptions">useLogo|showHome|showTitle</item>
-        <item name="abLogo">?attr/asMainMenu</item>
+        <item name="abLogo">@drawable/home_button_blue</item>
         <item name="vpiTabPageIndicatorStyle">@style/CustomTabPageIndicator</item>
         <item name="vpiTabTextStyle">@style/CustomTabPageIndicator.Text</item>
     </style>
@@ -78,7 +78,7 @@
         <!-- actionbar-styling -->
         <item name="abBackground">@drawable/header_red</item>
         <item name="abDisplayOptions">useLogo|showHome|showTitle</item>
-        <item name="abLogo">?attr/asMainMenu</item>
+        <item name="abLogo">@drawable/home_button_red</item>
     </style>
     
     <style name="Theme.White.Blue">
@@ -92,6 +92,7 @@
         <item name="asAbBackgroundColor">#e9e9e9</item>
         <item name="asEditTabBackground">@drawable/custom_tab_indicator_dark_blue</item>
         <item name="abBackground">@drawable/header_day_blue</item>
+        <item name="abLogo">@drawable/home_button_dark_blue</item>
     </style>
     
     <style name="Theme.TransparentWhite" parent="Theme.White">

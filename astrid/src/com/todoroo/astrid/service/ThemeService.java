@@ -25,10 +25,10 @@ public class ThemeService {
             return R.style.Theme_Transparent;
         else if(preference != null && preference.equals("transparent-white"))
             return R.style.Theme_TransparentWhite;
-        else if (preference != null && preference.equals("white-blue"))
-            return R.style.Theme_White_Blue;
-        else
+        else if (preference != null && preference.equals("white"))
             return R.style.Theme_White;
+        else
+            return R.style.Theme_White_Blue;
     }
 
     public static int getEditDialogTheme() {
