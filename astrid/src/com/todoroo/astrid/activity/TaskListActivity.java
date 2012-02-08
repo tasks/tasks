@@ -3,6 +3,7 @@ package com.todoroo.astrid.activity;
 import android.app.Activity;
 import android.content.BroadcastReceiver;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
@@ -22,6 +23,7 @@ import android.widget.TextView;
 
 import com.timsu.astrid.R;
 import com.todoroo.andlib.utility.AndroidUtilities;
+import com.todoroo.andlib.utility.DialogUtilities;
 import com.todoroo.astrid.actfm.ActFmLoginActivity;
 import com.todoroo.astrid.actfm.TagSettingsActivity;
 import com.todoroo.astrid.actfm.TagUpdatesFragment;
@@ -29,6 +31,7 @@ import com.todoroo.astrid.actfm.TagViewFragment;
 import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.api.FilterListItem;
+import com.todoroo.astrid.core.CustomFilterExposer;
 import com.todoroo.astrid.reminders.NotificationFragment;
 import com.todoroo.astrid.service.ThemeService;
 import com.todoroo.astrid.tags.TagFilterExposer;
@@ -361,9 +364,42 @@ public class TaskListActivity extends AstridActivity implements MainMenuListener
                 if (fla != null)
                     fla.clear();
             }
+        } else if (requestCode == TaskListFragment.ACTIVITY_EDIT_TASK && resultCode != Activity.RESULT_CANCELED) {
+            // Handle switch to assigned filter when it comes from TaskEditActivity finishing
+            // For cases when we're in a multi-frame layout, the TaskEditFragment will notify us here directly
+            TaskListFragment tlf = getTaskListFragment();
+            if (tlf != null) {
+                if (data != null
+                        && data.hasExtra(TaskEditFragment.TOKEN_TASK_WAS_ASSIGNED)
+                        && data.getBooleanExtra(
+                                TaskEditFragment.TOKEN_TASK_WAS_ASSIGNED, false)) {
+                    String assignedTo = data.getStringExtra(TaskEditFragment.TOKEN_ASSIGNED_TO);
+                    switchToAssignedFilter(assignedTo);
+                } else {
+                    tlf.refresh();
+                }
+            }
         }
 
         super.onActivityResult(requestCode, resultCode, data);
+    }
+
+    protected void switchToAssignedFilter(final String assignedEmail) {
+        TaskListFragment tlf = getTaskListFragment();
+        if (tlf != null && !tlf.isFilter()) {
+            DialogInterface.OnClickListener okListener = new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    Filter assignedFilter = CustomFilterExposer.getAssignedByMeFilter(getResources());
+                    onFilterItemClicked(assignedFilter);
+                }
+            };
+            DialogUtilities.okCancelCustomDialog(this,
+                    getString(R.string.actfm_view_task_title),
+                    getString(R.string.actfm_view_task_text, assignedEmail),
+                    R.string.actfm_view_task_ok, R.string.actfm_view_task_cancel,
+                    0, okListener, null);
+        }
     }
 
     @Override

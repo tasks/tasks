@@ -72,7 +72,6 @@ import com.todoroo.andlib.sql.Functions;
 import com.todoroo.andlib.sql.QueryTemplate;
 import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.andlib.utility.DateUtilities;
-import com.todoroo.andlib.utility.DialogUtilities;
 import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.andlib.widget.GestureService;
 import com.todoroo.andlib.widget.GestureService.GestureInterface;
@@ -91,7 +90,6 @@ import com.todoroo.astrid.api.TaskAction;
 import com.todoroo.astrid.api.TaskContextActionExposer;
 import com.todoroo.astrid.api.TaskDecoration;
 import com.todoroo.astrid.core.CoreFilterExposer;
-import com.todoroo.astrid.core.CustomFilterExposer;
 import com.todoroo.astrid.core.SortHelper;
 import com.todoroo.astrid.dao.Database;
 import com.todoroo.astrid.dao.TaskDao.TaskCriteria;
@@ -746,6 +744,7 @@ public class TaskListFragment extends ListFragment implements OnScrollListener,
     protected void refresh() {
         taskAdapter.flushCaches();
         loadTaskListContent(true);
+        taskService.cleanup();
     }
 
     /**
@@ -853,42 +852,6 @@ public class TaskListFragment extends ListFragment implements OnScrollListener,
                 }
             }, 1000);
         }
-
-        if (resultCode != Activity.RESULT_CANCELED) {
-            if (data != null
-                    && data.hasExtra(TaskEditFragment.TOKEN_TASK_WAS_ASSIGNED)
-                    && data.getBooleanExtra(
-                            TaskEditFragment.TOKEN_TASK_WAS_ASSIGNED, false)
-                    && !isFilter) {
-                String assignedTo = data.getStringExtra(TaskEditFragment.TOKEN_ASSIGNED_TO);
-                switchToAssignedFilter(assignedTo);
-            } else {
-                taskAdapter.flushCaches();
-                loadTaskListContent(true);
-                taskService.cleanup();
-            }
-        }
-    }
-
-    private void switchToAssignedFilter(final String assignedEmail) {
-        DialogInterface.OnClickListener okListener = new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                Filter assignedFilter = CustomFilterExposer.getAssignedByMeFilter(getResources());
-
-                Intent intent = new Intent(getActivity(),
-                        TaskListActivity.class);
-                intent.putExtra(TaskListFragment.TOKEN_FILTER, assignedFilter);
-                intent.putExtra(TaskListFragment.TOKEN_OVERRIDE_ANIM, true);
-                startActivityForResult(intent, 0);
-                transitionForTaskEdit();
-            }
-        };
-        DialogUtilities.okCancelCustomDialog(getActivity(),
-                getString(R.string.actfm_view_task_title),
-                getString(R.string.actfm_view_task_text, assignedEmail),
-                R.string.actfm_view_task_ok, R.string.actfm_view_task_cancel,
-                0, okListener, null);
     }
 
     public void onScroll(AbsListView view, int firstVisibleItem,
@@ -1260,6 +1223,10 @@ public class TaskListFragment extends ListFragment implements OnScrollListener,
                     R.string.TAd_contextDeleteTask);
 
         }
+    }
+
+    public boolean isFilter() {
+        return isFilter;
     }
 
     /** Show a dialog box and delete the task specified */

@@ -833,16 +833,27 @@ public final class TaskEditFragment extends Fragment implements
         taskService.save(model);
 
         if (!onPause && !cancelFinish) {
+            boolean setActivityResult = (getActivity() instanceof TaskEditActivity);
+
             if (!peopleControlSet.isAssignedToMe()) {
-                Intent data = new Intent();
-                data.putExtra(TOKEN_TASK_WAS_ASSIGNED, true);
-                data.putExtra(TOKEN_ASSIGNED_TO,
-                        peopleControlSet.getAssignedToString());
-                getActivity().setResult(Activity.RESULT_OK, data);
+                String assignedTo = peopleControlSet.getAssignedToString();
+                if (setActivityResult) {
+                    Intent data = new Intent();
+                    data.putExtra(TOKEN_TASK_WAS_ASSIGNED, true);
+                    data.putExtra(TOKEN_ASSIGNED_TO,
+                            assignedTo);
+                    getActivity().setResult(Activity.RESULT_OK, data);
+                } else {
+                    // Notify task list fragment in multi-column case
+                    // since the activity isn't actually finishing
+                    TaskListActivity tla = (TaskListActivity) getActivity();
+                    tla.switchToAssignedFilter(assignedTo);
+                }
             }
 
             shouldSaveState = false;
             getActivity().onBackPressed();
+
         }
     }
 
