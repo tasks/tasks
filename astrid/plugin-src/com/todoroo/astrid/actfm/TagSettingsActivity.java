@@ -98,8 +98,9 @@ public class TagSettingsActivity extends FragmentActivity {
 
         ActionBar actionBar = getSupportActionBar();
         if (actionBar != null) {
-            actionBar.setDisplayOptions(0, ActionBar.DISPLAY_SHOW_TITLE);
-            actionBar.setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
+            actionBar.setDisplayHomeAsUpEnabled(true);
+            actionBar.setDisplayShowTitleEnabled(false);
+            actionBar.setDisplayShowCustomEnabled(true);
             actionBar.setCustomView(R.layout.header_title_view);
         }
 
@@ -447,6 +448,9 @@ public class TagSettingsActivity extends FragmentActivity {
             break;
         case MENU_SAVE_ID:
             saveSettings();
+            break;
+        case android.R.id.home:
+            finish();
             break;
         }
         return super.onOptionsItemSelected(item);

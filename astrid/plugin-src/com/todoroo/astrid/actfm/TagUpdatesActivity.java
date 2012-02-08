@@ -2,6 +2,7 @@ package com.todoroo.astrid.actfm;
 
 import android.os.Bundle;
 import android.support.v4.app.ActionBar;
+import android.support.v4.view.MenuItem;
 import android.widget.TextView;
 
 import com.timsu.astrid.R;
@@ -17,12 +18,22 @@ public class TagUpdatesActivity extends AstridActivity {
         setContentView(R.layout.tag_updates_activity);
 
         ActionBar actionBar = getSupportActionBar();
-        actionBar.setDisplayShowHomeEnabled(false);
+        actionBar.setDisplayHomeAsUpEnabled(true);
         actionBar.setDisplayShowTitleEnabled(false);
 
-        actionBar.setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
+        actionBar.setDisplayShowCustomEnabled(true);
         actionBar.setCustomView(R.layout.header_title_view);
         ((TextView) actionBar.getCustomView().findViewById(R.id.title)).setText(R.string.TAd_contextEditTask);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch(item.getItemId()) {
+        case android.R.id.home:
+            finish();
+            break;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     @Override

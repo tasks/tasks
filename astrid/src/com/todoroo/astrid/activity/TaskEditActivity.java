@@ -24,10 +24,10 @@ public class TaskEditActivity extends AstridActivity {
 		    setContentView(R.layout.task_edit_wrapper_activity);
 
 		ActionBar actionBar = getSupportActionBar();
-		actionBar.setDisplayShowHomeEnabled(false);
+		actionBar.setDisplayHomeAsUpEnabled(true);
 		actionBar.setDisplayShowTitleEnabled(false);
 
-		actionBar.setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
+		actionBar.setDisplayShowCustomEnabled(true);
 		actionBar.setCustomView(R.layout.header_title_view);
 		((TextView) actionBar.getCustomView().findViewById(R.id.title)).setText(R.string.TAd_contextEditTask);
 	}
