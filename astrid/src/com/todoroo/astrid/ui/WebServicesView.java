@@ -114,14 +114,13 @@ public class WebServicesView extends LinearLayout {
                     params.put("Operation", "ItemSearch");
                     params.put("Availability", "Available");
                     params.put("ResponseGroup", "Images");
-                    params.put("Keywords",
-                                URLEncoder.encode(task.getValue(Task.TITLE), "UTF-8"));
+                    params.put("Keywords", task.getValue(Task.TITLE));
                     params.put("SearchIndex", "All");
                     params.put("AssociateTag", ASSOCIATE_TAG);
 
                     String requestUrl = helper.sign(params);
                     String result = restClient.get(requestUrl);
-
+                    System.err.println(requestUrl);
                     activity.runOnUiThread(new AmazonSearchResultsProcessor(body,
                             result));
 
@@ -145,7 +144,7 @@ public class WebServicesView extends LinearLayout {
 
             params = new LinearLayout.LayoutParams(
                     LayoutParams.WRAP_CONTENT, LayoutParams.FILL_PARENT);
-            params.rightMargin = Math.round(15 * metrics.density);
+            params.rightMargin = Math.round(10 * metrics.density);
         }
 
         @Override
@@ -161,7 +160,7 @@ public class WebServicesView extends LinearLayout {
                 xpp.setInput(new StringReader(searchResults));
                 int eventType = xpp.getEventType();
 
-                String asin = null, image = null, totalResults = null;
+                String asin = null, image = null;
                 while (eventType != XmlPullParser.END_DOCUMENT) {
                     if(eventType == XmlPullParser.START_TAG) {
                         if("ASIN".equals(xpp.getName()))
@@ -173,8 +172,7 @@ public class WebServicesView extends LinearLayout {
                             while(!"Message".equals(xpp.getName()))
                                 xpp.next();
                             throw new HttpErrorException(0, xpp.getText());
-                        } else if("TotalResults".equals(xpp.getText()))
-                            totalResults = xpp.nextText();
+                        }
                     } else if(eventType == XmlPullParser.END_TAG) {
                         if("Item".equals(xpp.getName()))
                             renderItem(asin, image);
@@ -182,16 +180,13 @@ public class WebServicesView extends LinearLayout {
                     eventType = xpp.next();
                 }
 
-                if(totalResults != null) {
-                    String moreLabel = String.format("Show all %s results",
-                            totalResults);
-                    String url = String.format("http://www.amazon.com/s/?field-keywords=%s&tag=%s",
-                            URLEncoder.encode(task.getValue(Task.TITLE), "UTF-8"), ASSOCIATE_TAG);
+                String moreLabel = "Show all results";
+                String url = String.format("http://www.amazon.com/s/?field-keywords=%s&tag=%s",
+                        URLEncoder.encode(task.getValue(Task.TITLE), "UTF-8"), ASSOCIATE_TAG);
 
-                    View view = inflateTextRow(body, moreLabel, "", url);
-                    view.setLayoutParams(params);
-                    view.setBackgroundColor(Color.rgb(200, 200, 200));
-                }
+                View view = inflateTextRow(body, moreLabel, "", url);
+                view.setLayoutParams(params);
+                view.setBackgroundColor(Color.rgb(200, 200, 200));
 
             } catch (Exception e) {
                 displayError(e, body);
@@ -256,9 +251,9 @@ public class WebServicesView extends LinearLayout {
             try {
                 JSONArray results = searchResults.getJSONArray("results");
                 LayoutParams params = new LinearLayout.LayoutParams(
-                        Math.round(metrics.widthPixels * 0.9f),
+                        Math.round(metrics.widthPixels * 0.8f),
                         Math.round(ROW_HEIGHT * metrics.density));
-                params.setMargins(10, 0, 10, 0);
+                params.rightMargin = Math.round(10 * metrics.density);
 
                 for(int i = 0; i < results.length(); i++) {
                     JSONObject result = results.getJSONObject(i);
@@ -269,8 +264,7 @@ public class WebServicesView extends LinearLayout {
                 }
 
                 JSONObject cursor = searchResults.getJSONObject("cursor");
-                String moreLabel = String.format("Show all %s results",
-                        cursor.getString("estimatedResultCount"));
+                String moreLabel = "Show moreresults";
                 String url = cursor.getString("moreResultsUrl");
 
                 View view = inflateTextRow(body, moreLabel, "", url);
@@ -342,11 +336,12 @@ public class WebServicesView extends LinearLayout {
         body.addView(progressBar);
 
         return body;
+
     }
 
     private void addSectionDivider() {
         View view = new View(getContext());
-        MarginLayoutParams mlp = new MarginLayoutParams(LayoutParams.FILL_PARENT, 1);
+        LayoutParams mlp = new LinearLayout.LayoutParams(LayoutParams.FILL_PARENT, 1);
         mlp.setMargins(10, 20, 10, 20);
         view.setLayoutParams(mlp);
         view.setBackgroundResource(R.drawable.black_white_gradient);

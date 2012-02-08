@@ -360,6 +360,9 @@
   <!-- Task edit tab: more editing settings -->
   <string name="TEA_tab_more">More</string>
   
+  <!-- Task edit tab: web services -->
+  <string name="TEA_tab_web">Web Services</string>
+  
   <string-array name="TEA_urgency">
       <!-- urgency: labels for edit page. item #4 -> auto filled -->
       <item>No deadline</item>

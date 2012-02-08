@@ -20,7 +20,7 @@
     <!-- url -->
     <TextView android:id="@+id/url"
         android:layout_width="fill_parent"
-        android:layout_height="30dip"
+        android:layout_height="35dip"
         android:layout_alignParentBottom="true"
         android:layout_marginLeft="5dip"
         android:paddingRight="30dp"
@@ -31,7 +31,7 @@
     <!-- arrow -->
     <ImageView 
         android:layout_width="wrap_content"
-        android:layout_height="fill_parent"
+        android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
         android:background="@drawable/icn_arrow_right"
         android:layout_marginRight="5dip"
