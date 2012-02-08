@@ -115,23 +115,27 @@ public class HttpRestClient implements RestClient {
         int statusCode = response.getStatusLine().getStatusCode();
         if(statusCode >= HTTP_UNAVAILABLE_START && statusCode <= HTTP_UNAVAILABLE_END) {
             throw new HttpUnavailableException();
-        } else if(statusCode != HTTP_OK) {
-            throw new HttpErrorException(response.getStatusLine().getStatusCode(),
-                    response.getStatusLine().getReasonPhrase());
         }
 
         HttpEntity entity = response.getEntity();
 
+        String body = null;
         if (entity != null) {
             InputStream contentStream = entity.getContent();
             try {
-                return convertStreamToString(contentStream);
+                body = convertStreamToString(contentStream);
             } finally {
                 contentStream.close();
             }
         }
 
-        return null;
+        if(statusCode != HTTP_OK) {
+            System.out.println(body);
+            throw new HttpErrorException(response.getStatusLine().getStatusCode(),
+                    response.getStatusLine().getReasonPhrase());
+        }
+
+        return body;
     }
 
     /**

@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.view.ViewGroup.LayoutParams;
 import android.widget.FrameLayout;
-import android.widget.ScrollView;
 
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.service.AstridDependencyInjector;
@@ -26,10 +25,8 @@ public class AdTestActivity extends Activity {
         webServicesView.setLayoutParams(new FrameLayout.LayoutParams(
                 LayoutParams.FILL_PARENT, LayoutParams.WRAP_CONTENT));
         webServicesView.setPadding(10, 10, 10, 10);
-        ScrollView scrollView = new ScrollView(this);
-        scrollView.addView(webServicesView);
 
-        setContentView(scrollView);
+        setContentView(webServicesView);
 
         Task task = new Task();
         task.setValue(Task.TITLE, "America (The Book)"); //$NON-NLS-1$
