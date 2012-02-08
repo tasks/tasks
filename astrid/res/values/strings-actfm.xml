@@ -69,6 +69,9 @@
   
   <!-- Tag View: filtered by assigned to user (%s => user name) -->
   <string name="actfm_TVA_filtered_by_assign">%s\'s tasks. Tap for all.</string>
+  
+  <!-- Tag View: filter by unassigned tasks -->
+  <string name="actfm_TVA_filter_by_unassigned">Unassigned tasks. Tap for all.</string>
 
   <!-- Tag View: list is private, no members -->
   <string name="actfm_TVA_no_members_alert">Private: tap to share or edit</string>
@@ -125,7 +128,7 @@
   <string name="actfm_EPA_assign_me">Me</string>
   
   <!-- task sharing dialog: anyone -->
-  <string name="actfm_EPA_unassigned">Anyone</string>
+  <string name="actfm_EPA_unassigned">Unassigned</string>
   
   <!-- task sharing dialog: custom email assignment -->
   <string name="actfm_EPA_assign_custom">Custom...</string>

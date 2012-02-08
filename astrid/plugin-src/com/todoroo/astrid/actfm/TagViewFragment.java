@@ -280,8 +280,8 @@ public class TagViewFragment extends TaskListFragment {
                 addImageForMember(membersView, owner);
 
                 JSONObject unassigned = new JSONObject();
-                unassigned.put("id", Task.USER_ID_UNASSIGNED);
-                unassigned.put("name", getActivity().getString(R.string.actfm_EPA_unassigned));
+                unassigned.put("id", Task.USER_ID_UNASSIGNED); //$NON-NLS-1$
+                unassigned.put("name", getActivity().getString(R.string.actfm_EPA_unassigned)); //$NON-NLS-1$
                 addImageForMember(membersView, unassigned);
             }
         } catch (JSONException e) {
@@ -340,14 +340,17 @@ public class TagViewFragment extends TaskListFragment {
                     if (currentId == ActFmPreferenceService.userId())
                         assignedCriterion = Criterion.or(Task.USER_ID.eq(0), Task.USER_ID.eq(id));
                     else if (currentId == Task.USER_ID_EMAIL && !TextUtils.isEmpty(email))
-                        assignedCriterion = Task.USER.like("%" + email + "%"); //$NON-NLS-1$
+                        assignedCriterion = Task.USER.like("%" + email + "%"); //$NON-NLS-1$ //$NON-NLS-2$
                     else
                         assignedCriterion = Task.USER_ID.eq(id);
                     Criterion assigned = Criterion.and(TaskCriteria.activeAndVisible(), assignedCriterion);
                     filter = TagFilterExposer.filterFromTag(getActivity(), new Tag(tagData), assigned);
                     TextView filterByAssigned = (TextView) getView().findViewById(R.id.filter_assigned);
                     filterByAssigned.setVisibility(View.VISIBLE);
-                    filterByAssigned.setText(getString(R.string.actfm_TVA_filtered_by_assign, displayName));
+                    if (id == Task.USER_ID_UNASSIGNED)
+                        filterByAssigned.setText(getString(R.string.actfm_TVA_filter_by_unassigned));
+                    else
+                        filterByAssigned.setText(getString(R.string.actfm_TVA_filtered_by_assign, displayName));
                     setUpTaskList();
                 }
             }
