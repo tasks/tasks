@@ -6,33 +6,69 @@ package com.todoroo.astrid.activity;
 import android.content.Intent;
 import android.os.Bundle;
 
+import com.todoroo.andlib.service.Autowired;
+import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.astrid.data.Task;
+import com.todoroo.astrid.service.TaskService;
 
 /**
  * @author joshuagross
  *
  * Create a new task based on incoming links from the "share" menu
  */
-public final class ShareLinkActivity extends TaskListFragment {
+public final class ShareLinkActivity extends TaskListActivity {
+
+    @Autowired
+    private TaskService taskService;
+    private String subject;
+    private boolean handled;
+
+    private static final String TOKEN_LINK_HANDLED = "linkHandled"; //$NON-NLS-1$
+
     public ShareLinkActivity () {
         super();
+        DependencyInjectionService.getInstance().inject(this);
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        Intent callerIntent = getActivity().getIntent();
+        Intent callerIntent = getIntent();
 
-        String subject = callerIntent.getStringExtra(Intent.EXTRA_SUBJECT);
+        subject = callerIntent.getStringExtra(Intent.EXTRA_SUBJECT);
         if(subject == null)
             subject = ""; //$NON-NLS-1$
-        Task task = quickAddTask(subject, false);
-        task.setValue(Task.NOTES, callerIntent.getStringExtra(Intent.EXTRA_TEXT));
-        taskService.save(task);
-        Intent intent = new Intent(getActivity(), TaskEditActivity.class);
-        intent.putExtra(TaskEditFragment.TOKEN_ID, task.getId());
-        intent.putExtra(TOKEN_FILTER, filter);
-        startActivityForResult(intent, ACTIVITY_EDIT_TASK);
+    }
+
+    @Override
+    protected void onPostResume() {
+        super.onPostResume();
+        TaskListFragment tlf = getTaskListFragment();
+        if (tlf == null) {
+            return; // Uh ohs!
+        }
+
+        if (!handled) {
+            Intent callerIntent = getIntent();
+
+            Task task = tlf.quickAddTask(subject, false);
+            task.setValue(Task.NOTES, callerIntent.getStringExtra(Intent.EXTRA_TEXT));
+            taskService.save(task);
+            handled = true;
+            onTaskListItemClicked(task.getId());
+        }
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putBoolean(TOKEN_LINK_HANDLED, handled);
+    }
+
+    @Override
+    protected void onRestoreInstanceState(Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+        handled = savedInstanceState.getBoolean(TOKEN_LINK_HANDLED);
     }
 }

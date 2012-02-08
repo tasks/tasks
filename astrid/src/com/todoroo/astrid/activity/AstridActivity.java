@@ -205,6 +205,12 @@ public class AstridActivity extends FragmentActivity
             transaction.replace(R.id.tasklist_fragment_container, newFragment,
                     TaskListFragment.TAG_TASKLIST_FRAGMENT);
             transaction.commit();
+            runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    getSupportFragmentManager().executePendingTransactions();
+                }
+            });
         } catch (Exception e) {
             // Don't worry about it
         }
