@@ -1,6 +1,6 @@
 package com.todoroo.astrid.utility;
 
-
+@SuppressWarnings("nls")
 public final class Constants {
 
     // --- general application constants
@@ -8,12 +8,12 @@ public final class Constants {
     /**
      * LCL API Key
      */
-    public static final String LOCALYTICS_KEY = "ae35a010c66a997ab129ab7-3e2adf46-8bb3-11e0-fe8b-007f58cb3154"; //$NON-NLS-1$
+    public static final String LOCALYTICS_KEY = "ae35a010c66a997ab129ab7-3e2adf46-8bb3-11e0-fe8b-007f58cb3154";
 
     /**
      * Application Package
      */
-    public static final String PACKAGE = "com.timsu.astrid"; //$NON-NLS-1$
+    public static final String PACKAGE = "com.timsu.astrid";
 
     /**
      * Whether this is an OEM installation
@@ -39,7 +39,7 @@ public final class Constants {
     /**
      * Astrid Help URL
      */
-    public static final String HELP_URL = "http://weloveastrid.com/help-user-guide-astrid-v3/active-tasks/"; //$NON-NLS-1$
+    public static final String HELP_URL = "http://weloveastrid.com/help-user-guide-astrid-v3/active-tasks/";
 
     // --- task list activity source strings
 
@@ -69,9 +69,18 @@ public final class Constants {
 
     // --- crittercism
 
-    public static final String CRITTERCISM_APP_ID = "4e8a796fddf5203b6f0097c5"; //$NON-NLS-1$
+    public static final String CRITTERCISM_APP_ID = "4e8a796fddf5203b6f0097c5";
 
-    public static final String CRITTERCISM_SECRET = "9mhdwlu85lc6sovpxkabq1cbzzmxe2oi"; //$NON-NLS-1$
+    public static final String CRITTERCISM_SECRET = "9mhdwlu85lc6sovpxkabq1cbzzmxe2oi";
 
-    public static final String CRITTERCISM_OATH_KEY = "4e8a796fddf5203b6f0097c5nn35ziwt"; //$NON-NLS-1$
+    public static final String CRITTERCISM_OATH_KEY = "4e8a796fddf5203b6f0097c5nn35ziwt";
+
+    // --- amazon
+
+    public static final String AWS_ACCESS_KEY_ID = "";
+
+    public static final String AWS_SECRET_KEY_ID = "";
+
+    public static final String AWS_ENDPOINT = "ecs.amazonaws.com";
+
 }

@@ -101,6 +101,12 @@
         <category android:name="android.intent.category.DEFAULT" />
       </intent-filter>
     </activity>
+    <activity android:name="com.todoroo.astrid.activity.AdTestActivity">
+      <intent-filter>
+        <action android:name="android.intent.action.MAIN" />
+        <category android:name="android.intent.category.DEFAULT" />
+      </intent-filter>
+    </activity>
     <!-- Activity launched from ShareLink menu item -->
     <activity android:name="com.todoroo.astrid.activity.ShareLinkActivity"
     	android:clearTaskOnLaunch="true">

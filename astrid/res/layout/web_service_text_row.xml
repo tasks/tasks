@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- See the file "LICENSE" for the full license governing this code. -->
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="100dip"
+    android:background="#9ee5ff"
+    android:paddingTop="5dip"
+    android:paddingBottom="5dip"
+    android:paddingLeft="5dip"
+    android:paddingRight="5dip"
+    android:layout_marginLeft="10dip"
+    android:layout_marginRight="10dip">
+        
+    <!-- title -->
+    <TextView android:id="@+id/title"
+        android:layout_width="fill_parent"
+        android:layout_height="70dip"
+        android:paddingRight="30dp"
+        android:lines="2"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        android:gravity="center_vertical" />
+        
+    <!-- url -->
+    <TextView android:id="@+id/url"
+        android:layout_width="fill_parent"
+        android:layout_height="30dip"
+        android:layout_below="@id/title"
+        android:paddingRight="30dp"
+        android:singleLine="true"
+        android:textSize="18sp"
+        android:gravity="center_vertical" />
+        
+    <!-- arrow -->
+    <ImageView 
+        android:layout_width="wrap_content"
+        android:layout_height="fill_parent"
+        android:layout_alignParentRight="true"
+        android:background="@drawable/icn_arrow_right"
+        android:layout_marginRight="5dip"
+        android:layout_marginTop="15dip"
+        android:paddingLeft="7dip" 
+        android:paddingRight="7dip"
+        android:gravity="center" />
+        
+</RelativeLayout>
