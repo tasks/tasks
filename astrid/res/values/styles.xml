@@ -81,6 +81,18 @@
         <item name="abLogo">?attr/asMainMenu</item>
     </style>
     
+    <style name="Theme.White.Blue">
+        <item name="asAddButtonImg">@drawable/plus_button_blue</item>
+        <item name="asMicButtonImg">@drawable/mic_button_blue</item>
+        <item name="asCameraButtonImg">@drawable/camera_button_blue</item>
+        <item name="asCommentButtonImg">@drawable/comment_blue</item>
+        <item name="asMainMenu">@drawable/menu_button_blue</item>
+        <item name="asThemeTextColor">@color/blue_theme_color</item>
+        <item name="asListsDisclosure">@drawable/lists_disclosure_blue</item>
+        <item name="asRepeatIcon">@drawable/icn_edit_repeats_blue</item>
+        <item name="abBackground">@drawable/header_day_blue</item>
+    </style>
+    
     <style name="Theme.TransparentWhite" parent="Theme.White">
         <item name="asContentBackground">#22ffffff</item>
         <item name="abBackground">#aaffffff</item>

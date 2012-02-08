@@ -25,6 +25,8 @@ public class ThemeService {
             return R.style.Theme_Transparent;
         else if(preference != null && preference.equals("transparent-white"))
             return R.style.Theme_TransparentWhite;
+        else if (preference != null && preference.equals("white-blue"))
+            return R.style.Theme_White_Blue;
         else
             return R.style.Theme_White;
     }
