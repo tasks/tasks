@@ -417,6 +417,7 @@ public final class TaskEditFragment extends Fragment implements
                 webServices = new WebServicesView(getActivity());
                 webServices.setLayoutParams(new FrameLayout.LayoutParams(LayoutParams.FILL_PARENT,
                         LayoutParams.WRAP_CONTENT));
+                webServices.setPadding(10, 5, 10, 10);
                 webServices.setTask(model);
             } else {
                 webServices.refresh();
@@ -429,9 +430,6 @@ public final class TaskEditFragment extends Fragment implements
 
             mPager = (NestableViewPager) getView().findViewById(R.id.pager);
             mPager.setAdapter(mAdapter);
-            mPager.setScrollabelViews(webServices.getScrollableViews());
-            ((NestableScrollView)getView().findViewById(R.id.edit_scroll)).
-                setScrollabelViews(webServices.getScrollableViews());
 
             mIndicator = (TabPageIndicator) getView().findViewById(
                     R.id.indicator);
@@ -1151,6 +1149,7 @@ public final class TaskEditFragment extends Fragment implements
      *            in the horizontal scroll view
      */
 
+    @SuppressWarnings("nls")
     public View getPageView(int position) {
         if ((tabStyle == TAB_STYLE_WEB && position == 0) ||
                 (tabStyle != TAB_STYLE_WEB && position == 1)) {
@@ -1220,6 +1219,15 @@ public final class TaskEditFragment extends Fragment implements
     @Override
     public void onPageSelected(int position) {
         this.setPagerHeightForPosition(position);
+
+        NestableScrollView scrollView = (NestableScrollView)getView().findViewById(R.id.edit_scroll);
+        if((tabStyle == TAB_STYLE_WEB && position == 1) ||
+                (tabStyle == TAB_STYLE_ACTIVITY_WEB && position == 2))
+            scrollView.
+                setScrollabelViews(webServices.getScrollableViews());
+        else
+            scrollView.setScrollabelViews(null);
+
     }
 
     @Override

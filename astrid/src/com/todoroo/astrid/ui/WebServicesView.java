@@ -4,6 +4,7 @@ import greendroid.widget.AsyncImageView;
 
 import java.io.StringReader;
 import java.net.URLEncoder;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -27,7 +28,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.HorizontalScrollView;
-import android.widget.ImageView.ScaleType;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -58,6 +58,10 @@ public class WebServicesView extends LinearLayout {
     private final DisplayMetrics metrics = new DisplayMetrics();
     private LayoutInflater inflater;
     private Activity activity;
+
+
+    private LinearLayout.LayoutParams rowParams;
+
 
     @Autowired RestClient restClient;
     @Autowired ExceptionService exceptionService;
@@ -95,6 +99,11 @@ public class WebServicesView extends LinearLayout {
         inflater = (LayoutInflater) getContext().getSystemService(
                 Context.LAYOUT_INFLATER_SERVICE);
 
+        rowParams = new LinearLayout.LayoutParams(
+                Math.round(metrics.widthPixels * 0.8f),
+                Math.round(ROW_HEIGHT * metrics.density));
+        rowParams.rightMargin = Math.round(10 * metrics.density);
+
         refresh();
     }
 
@@ -129,7 +138,7 @@ public class WebServicesView extends LinearLayout {
                     params.put("Version", "2011-08-01");
                     params.put("Operation", "ItemSearch");
                     params.put("Availability", "Available");
-                    params.put("ResponseGroup", "Images");
+                    params.put("ResponseGroup", "Medium");
                     params.put("Keywords", task.getValue(Task.TITLE));
                     params.put("SearchIndex", "All");
                     params.put("AssociateTag", ASSOCIATE_TAG);
@@ -151,16 +160,11 @@ public class WebServicesView extends LinearLayout {
 
         private final LinearLayout body;
         private final String searchResults;
-        private final MarginLayoutParams params;
 
         public AmazonSearchResultsProcessor(LinearLayout body,
                 String searchResults) {
             this.body = body;
             this.searchResults = searchResults;
-
-            params = new LinearLayout.LayoutParams(
-                    LayoutParams.WRAP_CONTENT, LayoutParams.FILL_PARENT);
-            params.rightMargin = Math.round(10 * metrics.density);
         }
 
         @Override
@@ -176,22 +180,52 @@ public class WebServicesView extends LinearLayout {
                 xpp.setInput(new StringReader(searchResults));
                 int eventType = xpp.getEventType();
 
-                String asin = null, image = null;
+                HashMap<String, String> attributes = new HashMap<String, String>();
+                ArrayList<String> authors = new ArrayList<String>();
+
                 while (eventType != XmlPullParser.END_DOCUMENT) {
                     if(eventType == XmlPullParser.START_TAG) {
-                        if("ASIN".equals(xpp.getName()))
-                            asin = xpp.nextText();
+                        if("Title".equals(xpp.getName()))
+                            attributes.put("title", xpp.nextText());
+                        else if("FormattedPrice".equals(xpp.getName()))
+                            attributes.put("price", xpp.nextText());
+                        else if("DetailPageURL".equals(xpp.getName()))
+                            attributes.put("url", xpp.nextText());
+                        else if("Brand".equals(xpp.getName()) ||
+                                "Studio".equals(xpp.getName()) ||
+                                "Label".equals(xpp.getName()))
+                            attributes.put("subtitle", xpp.nextText());
+                        else if("Author".equals(xpp.getName()) ||
+                                "Director".equals(xpp.getName()) ||
+                                "Artist".equals(xpp.getName()))
+                            authors.add(xpp.nextText());
                         else if("MediumImage".equals(xpp.getName())) {
                             xpp.next();
-                            image = xpp.nextText();
-                        } else if("Error".equals(xpp.getName())) {
+                            attributes.put("image", xpp.nextText());
+                        }
+                        else if("LowestNewPrice".equals(xpp.getName())) {
+                            xpp.next();
+                            attributes.put("lowestNew", xpp.nextText());
+                        }
+                        else if("LowestUsedPrice".equals(xpp.getName())) {
+                            xpp.next();
+                            attributes.put("lowestUsed", xpp.nextText());
+                        }
+                        else if("TotalNew".equals(xpp.getName()))
+                            attributes.put("totalNew", xpp.nextText());
+                        else if("TotalUsed".equals(xpp.getName()))
+                            attributes.put("totalUsed", xpp.nextText());
+                        else if("Error".equals(xpp.getName())) {
                             while(!"Message".equals(xpp.getName()))
                                 xpp.next();
                             throw new AmazonException(xpp.nextText());
                         }
                     } else if(eventType == XmlPullParser.END_TAG) {
-                        if("Item".equals(xpp.getName()))
-                            renderItem(asin, image);
+                        if("Item".equals(xpp.getName())) {
+                            renderItem(attributes, authors);
+                            attributes.clear();
+                            authors.clear();
+                        }
                     }
                     eventType = xpp.next();
                 }
@@ -200,8 +234,7 @@ public class WebServicesView extends LinearLayout {
                 String url = String.format("http://www.amazon.com/s/?field-keywords=%s&tag=%s",
                         URLEncoder.encode(task.getValue(Task.TITLE), "UTF-8"), ASSOCIATE_TAG);
 
-                View view = inflateTextRow(body, moreLabel, "", url);
-                view.setLayoutParams(params);
+                View view = inflateRow(body, null, moreLabel, "", url);
                 view.setBackgroundColor(Color.rgb(200, 200, 200));
 
             } catch (Exception e) {
@@ -209,17 +242,66 @@ public class WebServicesView extends LinearLayout {
             }
         }
 
-        private void renderItem(String asin, String image) {
-            AsyncImageView imageView = new AsyncImageView(activity);
-            imageView.setDefaultImageResource(R.drawable.ic_contact_picture_2);
-            imageView.setUrl(image);
-            imageView.setLayoutParams(params);
-            imageView.setScaleType(ScaleType.FIT_CENTER);
-            imageView.setTag(String.format("http://www.amazon.com/dp/%s/?tag=%s", asin, ASSOCIATE_TAG));
-            imageView.setOnClickListener(linkClickListener);
+        private void renderItem(HashMap<String, String> attributes,
+                ArrayList<String> authors) {
+            View view = inflater.inflate(R.layout.web_service_amazon_row, body, false);
 
-            body.addView(imageView);
+            ((AsyncImageView)view.findViewById(R.id.image)).setUrl(
+                    attributes.get("image"));
+            ((TextView)view.findViewById(R.id.title)).setText(
+                    attributes.get("title"));
+            ((TextView)view.findViewById(R.id.price)).setText(
+                    attributes.get("price"));
+            view.setTag(attributes.get("url"));
+
+            String subtitle = attributes.get("subtitle");
+            if(authors.size() > 0) {
+                StringBuilder sb = new StringBuilder();
+                for(String author : authors) {
+                    System.err.println("AUTHOR " + author);
+                    sb.append(author).append(", ");
+                }
+                subtitle = sb.toString().substring(0, sb.length() - 2);
+            }
+            ((TextView)view.findViewById(R.id.subtitle)).setText(subtitle);
+
+            String newAndUsed = null;
+            if(attributes.containsKey("lowestNew") || attributes.containsKey("lowestUsed")) {
+                int lowestNew = Integer.MAX_VALUE;
+                try {
+                    lowestNew = attributes.containsKey("lowestNew") ?
+                        Integer.parseInt(attributes.get("lowestNew")) : Integer.MAX_VALUE;
+                } catch (NumberFormatException e) {
+                    // text, i.e. "too low to display"
+                }
+                int lowestUsed = Integer.MAX_VALUE;
+                try {
+                    lowestUsed = attributes.containsKey("lowestUsed") ?
+                        Integer.parseInt(attributes.get("lowestUsed")) : Integer.MAX_VALUE;
+                } catch (NumberFormatException e) {
+                    // text, i.e. "too low to display"
+                }
+
+                int lowest = Math.min(lowestNew, lowestUsed);
+                int total = 0;
+                if(attributes.containsKey("totalNew"))
+                    total += Integer.parseInt(attributes.get("totalNew"));
+                if(attributes.containsKey("totalUsed"))
+                    total += Integer.parseInt(attributes.get("totalUsed"));
+
+                String price = String.format("$%.2f", lowest / 100f);
+                if(!price.equals(attributes.get("price")))
+                    newAndUsed = String.format("%d New & Used from %s", total, price);
+            }
+            ((TextView)view.findViewById(R.id.new_and_used)).setText(newAndUsed);
+
+
+            view.setOnClickListener(linkClickListener);
+            view.setLayoutParams(rowParams);
+
+            body.addView(view);
         }
+
     }
 
     private class AmazonException extends Exception {
@@ -275,25 +357,19 @@ public class WebServicesView extends LinearLayout {
 
             try {
                 JSONArray results = searchResults.getJSONArray("results");
-                LayoutParams params = new LinearLayout.LayoutParams(
-                        Math.round(metrics.widthPixels * 0.8f),
-                        Math.round(ROW_HEIGHT * metrics.density));
-                params.rightMargin = Math.round(10 * metrics.density);
 
                 for(int i = 0; i < results.length(); i++) {
                     JSONObject result = results.getJSONObject(i);
                     String title = StringEscapeUtils.unescapeHtml(result.getString("titleNoFormatting"));
-                    View view = inflateTextRow(body, title,
+                    inflateRow(body, null, title,
                             result.getString("visibleUrl"), result.getString("url"));
-                    view.setLayoutParams(params);
                 }
 
                 JSONObject cursor = searchResults.getJSONObject("cursor");
-                String moreLabel = "Show moreresults";
+                String moreLabel = "Show more results";
                 String url = cursor.getString("moreResultsUrl");
 
-                View view = inflateTextRow(body, moreLabel, "", url);
-                view.setLayoutParams(params);
+                View view = inflateRow(body, null, moreLabel, "", url);
                 view.setBackgroundColor(Color.rgb(200, 200, 200));
 
             } catch (JSONException e) {
@@ -302,13 +378,22 @@ public class WebServicesView extends LinearLayout {
         }
     }
 
-    protected View inflateTextRow(ViewGroup body, String title, String subtitle,
+    protected View inflateRow(ViewGroup body, String imageUrl, String title, String subtitle,
             String tag) {
-        View view = inflater.inflate(R.layout.web_service_text_row, body, false);
+        View view = inflater.inflate(R.layout.web_service_row, body, false);
+        AsyncImageView imageView = (AsyncImageView)view.findViewById(R.id.image);
+
+        if(imageUrl == null)
+            imageView.setVisibility(View.GONE);
+        else
+            imageView.setUrl(imageUrl);
+
         ((TextView)view.findViewById(R.id.title)).setText(title);
-        ((TextView)view.findViewById(R.id.url)).setText(subtitle);
+        ((TextView)view.findViewById(R.id.subtitle)).setText(subtitle);
         view.setOnClickListener(linkClickListener);
         view.setTag(tag);
+        view.setLayoutParams(rowParams);
+
         body.addView(view);
         return view;
     }
@@ -346,6 +431,7 @@ public class WebServicesView extends LinearLayout {
         scroll.setLayoutParams(new LinearLayout.LayoutParams(LayoutParams.FILL_PARENT,
                 LayoutParams.WRAP_CONTENT));
         scroll.setId(id);
+        scroll.setScrollbarFadingEnabled(false);
         addView(scroll);
 
         LinearLayout body = new LinearLayout(getContext());
@@ -355,10 +441,12 @@ public class WebServicesView extends LinearLayout {
 
         ProgressBar progressBar = new ProgressBar(getContext());
         progressBar.setIndeterminate(true);
-        LayoutParams layoutParams = new LinearLayout.LayoutParams(LayoutParams.FILL_PARENT,
-                LayoutParams.FILL_PARENT);
+        LayoutParams layoutParams = new LinearLayout.LayoutParams(metrics.widthPixels,
+                Math.round(30 * metrics.density));
         layoutParams.gravity = Gravity.CENTER;
         progressBar.setLayoutParams(layoutParams);
+        progressBar.setIndeterminateDrawable(getResources().getDrawable(
+                android.R.drawable.progress_indeterminate_horizontal));
         body.addView(progressBar);
 
         return body;
@@ -370,14 +458,13 @@ public class WebServicesView extends LinearLayout {
         LayoutParams mlp = new LinearLayout.LayoutParams(LayoutParams.FILL_PARENT, 1);
         mlp.setMargins(10, 20, 10, 20);
         view.setLayoutParams(mlp);
-        view.setBackgroundResource(R.drawable.black_white_gradient);
         addView(view);
     }
 
     private void addSectionHeader(String string) {
         TextView textView = new TextView(getContext());
         textView.setText(string);
-        textView.setTextAppearance(getContext(), R.style.TextAppearance_Medium);
+        textView.setTextAppearance(getContext(), R.style.TextAppearance_GEN_EditLabel);
         addView(textView);
     }
 

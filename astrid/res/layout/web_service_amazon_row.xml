@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- See the file "LICENSE" for the full license governing this code. -->
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:astrid="http://schemas.android.com/apk/res/com.timsu.astrid"    
+    android:layout_width="fill_parent"
+    android:layout_height="100dip"
+    android:background="@android:drawable/list_selector_background">
+        
+    <!-- imageview -->
+    <greendroid.widget.AsyncImageView android:id="@+id/image"
+        android:layout_width="70dip"
+        android:layout_height="100dip"
+        android:layout_marginLeft="5dip"
+        android:scaleType="fitCenter"
+        astrid:defaultSrc="@drawable/ic_contact_picture_2" />
+        
+    <!-- title -->
+    <TextView android:id="@+id/title"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@id/image"
+        android:layout_marginLeft="5dip"
+        android:layout_marginTop="5dip"
+        android:layout_marginBottom="3dip"
+        android:paddingRight="30dp"
+        android:lines="2"
+        android:singleLine="false"
+        android:textSize="12sp"
+        android:textStyle="bold"
+        android:gravity="center_vertical"
+        android:text="7-feet Xx-large Rust Cozy Sac Foof Bean Bag Chair"
+        android:ellipsize="end" />
+        
+    <!-- subtitle -->
+    <TextView android:id="@+id/subtitle"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/title"
+        android:layout_toRightOf="@id/image"
+        android:layout_marginLeft="5dip"
+        android:layout_marginBottom="3dip"
+        android:paddingRight="30dp"
+        android:singleLine="true"
+        android:textSize="12sp"
+        android:text="The Cozy Sac"
+        android:gravity="center_vertical" />
+        
+    <!-- price -->
+    <TextView android:id="@+id/price"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/subtitle"
+        android:layout_toRightOf="@id/image"
+        android:layout_marginLeft="5dip"
+        android:layout_marginBottom="3dip"
+        android:paddingRight="30dp"
+        android:singleLine="true"
+        android:textSize="12sp"
+        android:textStyle="bold"
+        android:textColor="#990000"
+        android:text="$259.00"
+        android:gravity="center_vertical" />
+        
+    <!-- new and used -->
+    <TextView android:id="@+id/new_and_used"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/price"
+        android:layout_toRightOf="@id/image"
+        android:layout_marginLeft="5dip"
+        android:layout_marginBottom="3dip"
+        android:paddingRight="30dp"
+        android:singleLine="true"
+        android:textSize="12sp"
+        android:text="2 New &amp; Used from $224"
+        android:gravity="center_vertical" />
+        
+    <!-- arrow -->
+
+    <ImageView
+        android:layout_width="10dip"
+        android:layout_height="fill_parent"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="5dip"
+        android:src="@drawable/icn_arrow_right"
+        android:scaleType="centerInside" />
+        
+</RelativeLayout>

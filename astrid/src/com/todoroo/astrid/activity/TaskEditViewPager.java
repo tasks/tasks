@@ -48,11 +48,7 @@ public class TaskEditViewPager extends PagerAdapter implements TitleProvider {
 
     @Override
     public Object instantiateItem(View pager, int position) {
-        System.err.println("adding view for " + position + ", tab style " + tabStyle);
-
         View pageView = parent.getPageView(position);
-
-        System.err.println("got pager " + pageView);
 
         ((ViewPager) pager).addView(pageView, 0);
         return pageView;

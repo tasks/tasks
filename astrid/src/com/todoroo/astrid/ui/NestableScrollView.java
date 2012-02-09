@@ -1,10 +1,10 @@
 package com.todoroo.astrid.ui;
 
 import android.content.Context;
+import android.graphics.Rect;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
-import android.view.ViewParent;
 import android.widget.ScrollView;
 
 public class NestableScrollView extends ScrollView {
@@ -13,13 +13,21 @@ public class NestableScrollView extends ScrollView {
     public NestableScrollView(Context context, AttributeSet attrs) {
         super(context, attrs);
     }
-     @Override
+
+    @Override
     public boolean onInterceptTouchEvent(MotionEvent event) {
-         for(int i = 0; i < scrollableViews.length; i++) {
-            View view = findViewById(scrollableViews[i]);
-            if (view instanceof ViewParent)
-                ((ViewParent)view).requestDisallowInterceptTouchEvent(true);
-         }
+        if (scrollableViews != null) {
+            for (int i = 0; i < scrollableViews.length; i++) {
+                View view = findViewById(scrollableViews[i]);
+                if (view != null) {
+                    Rect rect = new Rect();
+                    view.getHitRect(rect);
+                    if (rect.contains((int) event.getX(), (int) event.getY())) {
+                        return false;
+                    }
+                }
+            }
+        }
         return super.onInterceptTouchEvent(event);
     }
 
