@@ -46,6 +46,7 @@ import android.view.View.OnClickListener;
 import android.view.View.OnKeyListener;
 import android.view.View.OnLongClickListener;
 import android.view.ViewGroup;
+import android.view.ViewGroup.LayoutParams;
 import android.view.WindowManager;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
@@ -55,6 +56,7 @@ import android.widget.AdapterView.AdapterContextMenuInfo;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.TextView.OnEditorActionListener;
@@ -76,6 +78,7 @@ import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.andlib.widget.GestureService;
 import com.todoroo.andlib.widget.GestureService.GestureInterface;
 import com.todoroo.astrid.actfm.ActFmLoginActivity;
+import com.todoroo.astrid.actfm.EditPeopleControlSet;
 import com.todoroo.astrid.actfm.TagUpdatesActivity;
 import com.todoroo.astrid.actfm.TagViewFragment;
 import com.todoroo.astrid.activity.SortSelectionActivity.OnSortSelectedListener;
@@ -96,12 +99,14 @@ import com.todoroo.astrid.dao.TaskDao.TaskCriteria;
 import com.todoroo.astrid.data.Metadata;
 import com.todoroo.astrid.data.TagData;
 import com.todoroo.astrid.data.Task;
+import com.todoroo.astrid.gcal.GCalControlSet;
 import com.todoroo.astrid.gcal.GCalHelper;
 import com.todoroo.astrid.helper.MetadataHelper;
 import com.todoroo.astrid.helper.ProgressBarSyncResultCallback;
 import com.todoroo.astrid.helper.TaskListContextMenuExtensionLoader;
 import com.todoroo.astrid.helper.TaskListContextMenuExtensionLoader.ContextMenuItem;
 import com.todoroo.astrid.reminders.ReminderDebugContextActions;
+import com.todoroo.astrid.repeats.RepeatControlSet;
 import com.todoroo.astrid.service.AddOnService;
 import com.todoroo.astrid.service.AstridDependencyInjector;
 import com.todoroo.astrid.service.MetadataService;
@@ -115,6 +120,7 @@ import com.todoroo.astrid.service.UpgradeService;
 import com.todoroo.astrid.sync.SyncResultCallback;
 import com.todoroo.astrid.sync.SyncV2Provider;
 import com.todoroo.astrid.ui.DateChangedAlerts;
+import com.todoroo.astrid.ui.DeadlineControlSet;
 import com.todoroo.astrid.utility.AstridPreferences;
 import com.todoroo.astrid.utility.Constants;
 import com.todoroo.astrid.utility.Flags;
@@ -228,6 +234,11 @@ public class TaskListFragment extends ListFragment implements OnScrollListener,
     // --- fragment handling variables
     protected OnTaskListItemClickedListener mListener;
     private boolean mDualFragments = false;
+
+    private DeadlineControlSet deadlineControl;
+    private RepeatControlSet repeatControl;
+    private GCalControlSet gcalControl;
+    private EditPeopleControlSet peopleControl;
 
     /*
      * ======================================================================
@@ -503,6 +514,8 @@ public class TaskListFragment extends ListFragment implements OnScrollListener,
             }
         });
 
+        setUpQuickAddControlSets();
+
         // set listener for pressing enter in quick-add box
         quickAddBox = (EditText) getView().findViewById(R.id.quickAddText);
         quickAddBox.setOnEditorActionListener(new OnEditorActionListener() {
@@ -593,6 +606,44 @@ public class TaskListFragment extends ListFragment implements OnScrollListener,
                     }
                 });
         getView().findViewById(R.id.progressBar).setVisibility(View.GONE);
+    }
+
+    private void setUpQuickAddControlSets() {
+
+        repeatControl = new RepeatControlSet(getActivity(),
+                R.layout.control_set_repeat,
+                R.layout.control_set_repeat_display, R.string.repeat_enabled);
+
+        gcalControl = new GCalControlSet(getActivity(),
+                R.layout.control_set_gcal, R.layout.control_set_gcal_display,
+                R.string.gcal_TEA_addToCalendar_label);
+
+        deadlineControl = new DeadlineControlSet(
+                getActivity(), R.layout.control_set_deadline,
+                R.layout.control_set_default_display,
+                repeatControl.getDisplayView(), gcalControl.getDisplayView());
+        deadlineControl.setUseNewlineForDisplaySeparator(true);
+
+        peopleControl = new EditPeopleControlSet(getActivity(),
+                R.layout.control_set_assigned,
+                R.layout.control_set_default_display,
+                R.string.actfm_EPA_assign_label, TaskEditFragment.REQUEST_LOG_IN);
+
+        resetControlSets();
+
+        LayoutParams lp = new LinearLayout.LayoutParams(LayoutParams.FILL_PARENT, LayoutParams.FILL_PARENT, 1.0f);
+        LinearLayout container = (LinearLayout) getView().findViewById(R.id.taskListQuickaddControls);
+        container.addView(peopleControl.getDisplayView(), 0, lp);
+        container.addView(deadlineControl.getDisplayView(), 2, lp);
+    }
+
+    private void resetControlSets() {
+        Task empty = new Task();
+        repeatControl.readFromTask(empty);
+        gcalControl.readFromTask(empty);
+        deadlineControl.readFromTask(empty);
+        peopleControl.setUpData(empty);
+        peopleControl.setTask(null);
     }
 
     // Subclasses can override these to customize extras in quickadd intent
@@ -1078,6 +1129,18 @@ public class TaskListFragment extends ListFragment implements OnScrollListener,
                 title = title.trim();
             Task task = createWithValues(filter.valuesForNewTasks, title,
                     taskService, metadataService);
+
+            //TODO: fix assigned
+            if (repeatControl.isRecurrenceSet())
+                repeatControl.writeToModel(task);
+            if (deadlineControl.isDeadlineSet())
+                deadlineControl.writeToModel(task);
+            gcalControl.writeToModel(task);
+            //peopleControl.setTask(task);
+            //peopleControl.saveSharingSettings("");
+            taskService.save(task);
+
+            resetControlSets();
 
             boolean gcalCreateEventEnabled = Preferences.getStringValue(R.string.gcal_p_default) != null
                     && !Preferences.getStringValue(R.string.gcal_p_default).equals(

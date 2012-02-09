@@ -153,8 +153,12 @@ public class EditPeopleControlSet extends PopupControlSet {
 
     @Override
     public void readFromTask(Task sourceTask) {
-        task = sourceTask;
-        setUpData();
+        setTask(sourceTask);
+        setUpData(task);
+    }
+
+    public void setTask(Task task) {
+        this.task = task;
     }
 
     public View getSharedWithRow() {
@@ -166,7 +170,7 @@ public class EditPeopleControlSet extends PopupControlSet {
     }
 
     @SuppressWarnings("nls")
-    private void setUpData() {
+    public void setUpData(final Task task) {
         try {
             JSONObject sharedWith;
             if(task.getValue(Task.SHARED_WITH).length() > 0)
@@ -220,7 +224,7 @@ public class EditPeopleControlSet extends PopupControlSet {
 
                         if(collaborators.size() > 0)
                             buildCollaborators(collaborators);
-                        buildAssignedToSpinner(sharedPeople);
+                        buildAssignedToSpinner(task, sharedPeople);
                     } catch (JSONException e) {
                         exceptionService.reportError("json-reading-data", e);
                     } finally {
@@ -284,13 +288,13 @@ public class EditPeopleControlSet extends PopupControlSet {
     }
 
     @SuppressWarnings("nls")
-    private void buildAssignedToSpinner(ArrayList<JSONObject> sharedPeople) throws JSONException {
+    private void buildAssignedToSpinner(Task model, ArrayList<JSONObject> sharedPeople) throws JSONException {
         HashSet<Long> userIds = new HashSet<Long>();
         HashSet<String> emails = new HashSet<String>();
         HashMap<String, AssignedToUser> names = new HashMap<String, AssignedToUser>();
 
-        if(task.getValue(Task.USER_ID) > 0) {
-            JSONObject user = new JSONObject(task.getValue(Task.USER));
+        if(model.getValue(Task.USER_ID) > 0) {
+            JSONObject user = new JSONObject(model.getValue(Task.USER));
             sharedPeople.add(0, user);
         }
 
@@ -298,8 +302,8 @@ public class EditPeopleControlSet extends PopupControlSet {
         myself.put("id", Task.USER_ID_SELF);
         sharedPeople.add(0, myself);
 
-        boolean hasTags = task.getTransitory("tags") != null &&
-                ((HashSet<String>)task.getTransitory("tags")).size() > 0;
+        boolean hasTags = model.getTransitory("tags") != null &&
+                ((HashSet<String>)model.getTransitory("tags")).size() > 0;
         if (actFmPreferenceService.isLoggedIn() && hasTags) {
             JSONObject unassigned = new JSONObject();
             unassigned.put("id", Task.USER_ID_UNASSIGNED);
@@ -347,7 +351,7 @@ public class EditPeopleControlSet extends PopupControlSet {
                 names.put(name, atu);
         }
 
-        String assignedStr = task.getValue(Task.USER);
+        String assignedStr = model.getValue(Task.USER);
         int assignedIndex = 0;
         if (!TextUtils.isEmpty(assignedStr)) {
             JSONObject assigned = new JSONObject(assignedStr);

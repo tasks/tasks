@@ -150,7 +150,7 @@ public final class TaskEditFragment extends Fragment implements
 
     // --- request codes
 
-    private static final int REQUEST_LOG_IN = 0;
+    public static final int REQUEST_LOG_IN = 0;
     private static final int REQUEST_VOICE_RECOG = 1;
 
     // --- menu codes

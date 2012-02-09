@@ -324,6 +324,10 @@ public class RepeatControlSet extends PopupControlSet {
         return null;
     }
 
+    public boolean isRecurrenceSet() {
+        return doRepeat;
+    }
+
     @Override
     protected void refreshDisplayView() {
         TextView repeatDisplay = (TextView) getDisplayView().findViewById(R.id.display_row_edit);
