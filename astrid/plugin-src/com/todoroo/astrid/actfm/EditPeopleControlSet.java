@@ -418,8 +418,10 @@ public class EditPeopleControlSet extends PopupControlSet {
     }
 
     public void assignToMe() {
-        assignedList.performItemClick(assignedList.getChildAt(0), 0, 0);
-        refreshDisplayView();
+        if (assignedList != null && assignedList.getChildAt(0) != null) {
+            assignedList.performItemClick(assignedList.getChildAt(0), 0, 0);
+            refreshDisplayView();
+        }
     }
 
     private void setUpListeners() {
