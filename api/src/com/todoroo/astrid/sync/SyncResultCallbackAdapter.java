@@ -1,6 +1,6 @@
-package com.todoroo.astrid.helper;
+package com.todoroo.astrid.sync;
 
-import com.todoroo.astrid.service.SyncV2Service.SyncResultCallback;
+
 
 
 /**

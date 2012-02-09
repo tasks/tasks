@@ -3,11 +3,11 @@ package com.todoroo.astrid.actfm;
 import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.astrid.actfm.sync.ActFmPreferenceService;
-import com.todoroo.astrid.actfm.sync.ActFmSyncProvider;
+import com.todoroo.astrid.actfm.sync.ActFmSyncV2Provider;
 import com.todoroo.astrid.service.StatisticsService;
-import com.todoroo.astrid.sync.SyncBackgroundService;
-import com.todoroo.astrid.sync.SyncProvider;
 import com.todoroo.astrid.sync.SyncProviderUtilities;
+import com.todoroo.astrid.sync.SyncV2BackgroundService;
+import com.todoroo.astrid.sync.SyncV2Provider;
 
 /**
  * SynchronizationService is the service that performs Astrid's background
@@ -17,7 +17,7 @@ import com.todoroo.astrid.sync.SyncProviderUtilities;
  * @author Tim Su
  *
  */
-public class ActFmBackgroundService extends SyncBackgroundService {
+public class ActFmBackgroundService extends SyncV2BackgroundService {
 
     @Autowired ActFmPreferenceService actFmPreferenceService;
 
@@ -26,8 +26,8 @@ public class ActFmBackgroundService extends SyncBackgroundService {
     }
 
     @Override
-    protected SyncProvider<?> getSyncProvider() {
-        return new ActFmSyncProvider();
+    protected SyncV2Provider getSyncProvider() {
+        return new ActFmSyncV2Provider();
     }
 
     @Override

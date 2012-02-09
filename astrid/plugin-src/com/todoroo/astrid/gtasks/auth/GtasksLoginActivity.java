@@ -50,10 +50,10 @@ import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.gtasks.GtasksPreferenceService;
 import com.todoroo.astrid.gtasks.api.GtasksInvoker;
-import com.todoroo.astrid.helper.SyncResultCallbackAdapter;
 import com.todoroo.astrid.service.AstridDependencyInjector;
 import com.todoroo.astrid.service.StatisticsService;
 import com.todoroo.astrid.service.SyncV2Service;
+import com.todoroo.astrid.sync.SyncResultCallbackAdapter;
 
 /**
  * This activity allows users to sign in or log in to Google Tasks

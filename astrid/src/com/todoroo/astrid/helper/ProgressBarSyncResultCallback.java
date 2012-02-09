@@ -8,6 +8,7 @@ import android.view.animation.AlphaAnimation;
 import android.widget.ProgressBar;
 
 import com.todoroo.andlib.utility.AndroidUtilities;
+import com.todoroo.astrid.sync.SyncResultCallbackAdapter;
 
 public class ProgressBarSyncResultCallback extends SyncResultCallbackAdapter {
 

@@ -8,6 +8,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 import org.json.JSONException;
 
+import com.timsu.astrid.C2DMReceiver;
 import com.timsu.astrid.R;
 import com.todoroo.andlib.data.TodorooCursor;
 import com.todoroo.andlib.service.Autowired;
@@ -22,9 +23,9 @@ import com.todoroo.astrid.data.TagData;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.service.AstridDependencyInjector;
 import com.todoroo.astrid.service.StartupService;
-import com.todoroo.astrid.service.SyncV2Service.SyncResultCallback;
-import com.todoroo.astrid.service.SyncV2Service.SyncV2Provider;
 import com.todoroo.astrid.service.TaskService;
+import com.todoroo.astrid.sync.SyncResultCallback;
+import com.todoroo.astrid.sync.SyncV2Provider;
 import com.todoroo.astrid.tags.TagService;
 
 /**
@@ -52,6 +53,13 @@ public class ActFmSyncV2Provider extends SyncV2Provider {
     @Override
     public String getName() {
         return ContextManager.getString(R.string.actfm_APr_header);
+    }
+
+    @Override
+    public void signOut() {
+        actFmPreferenceService.setToken(null);
+        actFmPreferenceService.clearLastSyncDate();
+        C2DMReceiver.unregister();
     }
 
     @Override

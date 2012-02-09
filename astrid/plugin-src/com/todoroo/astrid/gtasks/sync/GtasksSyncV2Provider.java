@@ -21,6 +21,7 @@ import com.todoroo.andlib.sql.Criterion;
 import com.todoroo.andlib.sql.Join;
 import com.todoroo.andlib.sql.Query;
 import com.todoroo.andlib.utility.DateUtilities;
+import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.astrid.core.PluginServices;
 import com.todoroo.astrid.dao.MetadataDao.MetadataCriteria;
 import com.todoroo.astrid.dao.StoreObjectDao;
@@ -41,9 +42,9 @@ import com.todoroo.astrid.gtasks.auth.GtasksTokenValidator;
 import com.todoroo.astrid.service.AstridDependencyInjector;
 import com.todoroo.astrid.service.StatisticsConstants;
 import com.todoroo.astrid.service.StatisticsService;
-import com.todoroo.astrid.service.SyncV2Service.SyncResultCallback;
-import com.todoroo.astrid.service.SyncV2Service.SyncV2Provider;
 import com.todoroo.astrid.service.TaskService;
+import com.todoroo.astrid.sync.SyncResultCallback;
+import com.todoroo.astrid.sync.SyncV2Provider;
 import com.todoroo.astrid.utility.Flags;
 
 public class GtasksSyncV2Provider extends SyncV2Provider {
@@ -67,6 +68,14 @@ public class GtasksSyncV2Provider extends SyncV2Provider {
     @Override
     public String getName() {
         return ContextManager.getString(R.string.gtasks_GPr_header);
+    }
+
+    @Override
+    public void signOut() {
+        gtasksPreferenceService.clearLastSyncDate();
+        gtasksPreferenceService.setToken(null);
+        Preferences.setString(GtasksPreferenceService.PREF_USER_NAME, null);
+        gtasksMetadataService.clearMetadata();
     }
 
     @Override
