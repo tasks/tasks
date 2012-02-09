@@ -33,7 +33,6 @@
         <item name="asRepeatIcon">@drawable/icn_edit_repeats_blue</item>
         <item name="asListPopoverBg">@drawable/list_popover_bg_white</item>
         <item name="asListArrowUp">@drawable/list_arrow_up_white</item>
-        <item name="asListTabletBg">@color/tablet_list_bg_white</item>
         
         <!-- actionbar-styling -->
         <item name="abBackground">@drawable/header_blue</item>
@@ -78,7 +77,6 @@
         <item name="asRepeatIcon">@drawable/icn_edit_repeats_red</item>
         <item name="asAbBackgroundColor">#ffffff</item>
         <item name="asListPopoverBg">@drawable/list_popover_bg</item>
-        <item name="asListTabletBg">@color/tablet_list_bg</item>
         <item name="asListArrowUp">@drawable/list_arrow_up</item>
         
         <!-- actionbar-styling -->
@@ -344,6 +342,10 @@
         <item name="android:textSize">18sp</item>
         <item name="android:textStyle">bold</item>
         <item name="android:textColor">?attr/asTextColorInverse</item>
+    </style>
+    
+    <style name="TextAppearance.FLA_Filter_Tablet" parent="TextAppearance.FLA_Filter">
+        <item name="android:textColor">@android:color/white</item>
     </style>
     
     <style name="TextAppearance.FLA_Button" parent="TextAppearance.FLA_Filter">
