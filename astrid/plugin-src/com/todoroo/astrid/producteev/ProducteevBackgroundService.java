@@ -6,6 +6,7 @@ import com.todoroo.astrid.sync.SyncBackgroundService;
 import com.todoroo.astrid.sync.SyncProvider;
 import com.todoroo.astrid.sync.SyncProviderUtilities;
 
+
 /**
  * SynchronizationService is the service that performs Astrid's background
  * synchronization with online task managers. Starting this service

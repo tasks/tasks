@@ -8,12 +8,11 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 import org.json.JSONException;
 
+import com.timsu.astrid.C2DMReceiver;
 import com.timsu.astrid.R;
 import com.todoroo.andlib.data.TodorooCursor;
 import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.ContextManager;
-import com.todoroo.andlib.service.DependencyInjectionService;
-import com.todoroo.andlib.service.ExceptionService;
 import com.todoroo.andlib.sql.Criterion;
 import com.todoroo.andlib.sql.Query;
 import com.todoroo.andlib.utility.Preferences;
@@ -22,9 +21,9 @@ import com.todoroo.astrid.data.TagData;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.service.AstridDependencyInjector;
 import com.todoroo.astrid.service.StartupService;
-import com.todoroo.astrid.service.SyncV2Service.SyncResultCallback;
-import com.todoroo.astrid.service.SyncV2Service.SyncV2Provider;
 import com.todoroo.astrid.service.TaskService;
+import com.todoroo.astrid.sync.SyncResultCallback;
+import com.todoroo.astrid.sync.SyncV2Provider;
 import com.todoroo.astrid.tags.TagService;
 
 /**
@@ -37,21 +36,27 @@ public class ActFmSyncV2Provider extends SyncV2Provider {
 
     @Autowired ActFmSyncService actFmSyncService;
 
-    @Autowired ExceptionService exceptionService;
-
     @Autowired TaskService taskService;
 
     static {
         AstridDependencyInjector.initialize();
     }
 
-    public ActFmSyncV2Provider() {
-        DependencyInjectionService.getInstance().inject(this);
-    }
-
     @Override
     public String getName() {
         return ContextManager.getString(R.string.actfm_APr_header);
+    }
+
+    @Override
+    public ActFmPreferenceService getUtilities() {
+        return actFmPreferenceService;
+    }
+
+    @Override
+    public void signOut() {
+        actFmPreferenceService.setToken(null);
+        actFmPreferenceService.clearLastSyncDate();
+        C2DMReceiver.unregister();
     }
 
     @Override
@@ -90,13 +95,15 @@ public class ActFmSyncV2Provider extends SyncV2Provider {
                     time = actFmSyncService.fetchTags(time);
                     Preferences.setInt(LAST_TAG_FETCH_TIME, time);
                 } catch (JSONException e) {
-                    exceptionService.reportError("actfm-sync", e); //$NON-NLS-1$
+                    handler.handleException("actfm-sync", e); //$NON-NLS-1$
                 } catch (IOException e) {
-                    exceptionService.reportError("actfm-sync", e); //$NON-NLS-1$
+                    handler.handleException("actfm-sync", e); //$NON-NLS-1$
                 } finally {
                     callback.incrementProgress(20);
-                    if(finisher.decrementAndGet() == 0)
+                    if(finisher.decrementAndGet() == 0) {
+                        actFmPreferenceService.recordSuccessfulSync();
                         callback.finished();
+                    }
                 }
             }
         }).start();
@@ -105,14 +112,16 @@ public class ActFmSyncV2Provider extends SyncV2Provider {
     /** @return runnable to fetch changes to tags */
     private void startTaskFetcher(final boolean manual, final SyncResultCallback callback,
             final AtomicInteger finisher) {
-        actFmSyncService.fetchActiveTasks(manual, new Runnable() {
+        actFmSyncService.fetchActiveTasks(manual, handler, new Runnable() {
             @Override
             public void run() {
                 pushQueued(callback, finisher);
 
                 callback.incrementProgress(30);
-                if(finisher.decrementAndGet() == 0)
+                if(finisher.decrementAndGet() == 0) {
+                    actFmPreferenceService.recordSuccessfulSync();
                     callback.finished();
+                }
             }
         });
     }
@@ -141,8 +150,10 @@ public class ActFmSyncV2Provider extends SyncV2Provider {
                             actFmSyncService.pushTaskOnSave(task, task.getMergedValues());
                         } finally {
                             callback.incrementProgress(20);
-                            if(finisher.decrementAndGet() == 0)
+                            if(finisher.decrementAndGet() == 0) {
+                                actFmPreferenceService.recordSuccessfulSync();
                                 callback.finished();
+                            }
                         }
                     }
                 }).start();

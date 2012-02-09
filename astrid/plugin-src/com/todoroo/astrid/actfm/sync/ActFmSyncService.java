@@ -59,6 +59,7 @@ import com.todoroo.astrid.service.StatisticsConstants;
 import com.todoroo.astrid.service.StatisticsService;
 import com.todoroo.astrid.service.TagDataService;
 import com.todoroo.astrid.service.TaskService;
+import com.todoroo.astrid.sync.SyncV2Provider.SyncExceptionHandler;
 import com.todoroo.astrid.tags.TagService;
 import com.todoroo.astrid.utility.Flags;
 
@@ -583,7 +584,7 @@ public final class ActFmSyncService {
      * Fetch tagData listing asynchronously
      */
     public void fetchTagDataDashboard(boolean manual, final Runnable done) {
-        invokeFetchList("goal", manual, new ListItemProcessor<TagData>() {
+        invokeFetchList("goal", manual, null, new ListItemProcessor<TagData>() {
             @Override
             protected void mergeAndSave(JSONArray list, HashMap<Long,Long> locals) throws JSONException {
                 TagData remote = new TagData();
@@ -686,8 +687,8 @@ public final class ActFmSyncService {
      * @param manual
      * @param done
      */
-    public void fetchActiveTasks(final boolean manual, Runnable done) {
-        invokeFetchList("task", manual, new ListItemProcessor<Task>() {
+    public void fetchActiveTasks(final boolean manual, SyncExceptionHandler handler, Runnable done) {
+        invokeFetchList("task", manual, handler, new ListItemProcessor<Task>() {
             @Override
             protected void mergeAndSave(JSONArray list, HashMap<Long,Long> locals) throws JSONException {
                 Task remote = new Task();
@@ -733,7 +734,7 @@ public final class ActFmSyncService {
      * @param done
      */
     public void fetchTasksForTag(final TagData tagData, final boolean manual, Runnable done) {
-        invokeFetchList("task", manual, new ListItemProcessor<Task>() {
+        invokeFetchList("task", manual, null, new ListItemProcessor<Task>() {
             @Override
             protected void mergeAndSave(JSONArray list, HashMap<Long,Long> locals) throws JSONException {
                 Task remote = new Task();
@@ -782,7 +783,7 @@ public final class ActFmSyncService {
      * @param done
      */
     public void fetchUpdatesForTag(final TagData tagData, final boolean manual, Runnable done) {
-        invokeFetchList("activity", manual, new UpdateListItemProcessor(), done,
+        invokeFetchList("activity", manual, null, new UpdateListItemProcessor(), done,
                 "updates:" + tagData.getId(), "tag_id", tagData.getValue(TagData.REMOTE_ID));
     }
 
@@ -793,7 +794,7 @@ public final class ActFmSyncService {
      * @param runnable
      */
     public void fetchUpdatesForTask(final Task task, boolean manual, Runnable done) {
-        invokeFetchList("activity", manual, new UpdateListItemProcessor(), done,
+        invokeFetchList("activity", manual, null, new UpdateListItemProcessor(), done,
                 "comments:" + task.getId(), "task_id", task.getValue(Task.REMOTE_ID));
     }
 
@@ -803,7 +804,7 @@ public final class ActFmSyncService {
      * @param done
      */
     public void fetchPersonalUpdates(boolean manual, Runnable done) {
-        invokeFetchList("activity", manual, new UpdateListItemProcessor(), done, "personal");
+        invokeFetchList("activity", manual, null, new UpdateListItemProcessor(), done, "personal");
     }
 
     private class UpdateListItemProcessor extends ListItemProcessor<Update> {
@@ -931,7 +932,7 @@ public final class ActFmSyncService {
     }
 
     /** Call sync method */
-    private void invokeFetchList(final String model, final boolean manual,
+    private void invokeFetchList(final String model, final boolean manual, final SyncExceptionHandler handler,
             final ListItemProcessor<?> processor, final Runnable done, final String lastSyncKey,
             Object... params) {
         if(!checkForToken())
@@ -955,7 +956,10 @@ public final class ActFmSyncService {
                     if(done != null)
                         done.run();
                 } catch (IOException e) {
-                    handleException("io-exception-list-" + model, e);
+                    if (handler != null)
+                        handler.handleException("io-exception-list-" + model, e);
+                    else
+                        handleException("io-exception-list-" + model, e);
                 } catch (JSONException e) {
                     handleException("json: " + result.toString(), e);
                 }
