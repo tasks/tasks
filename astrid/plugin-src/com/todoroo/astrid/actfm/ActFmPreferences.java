@@ -32,13 +32,18 @@ public class ActFmPreferences extends SyncProviderPreferences {
 
     @Override
     public void startSync() {
-        new ActFmSyncV2Provider().synchronizeActiveTasks(true, new SyncResultCallbackAdapter() {
-            @Override
-            public void finished() {
-                ContextManager.getContext().sendBroadcast(new Intent(AstridApiConstants.BROADCAST_EVENT_REFRESH));
-            }
-        });
-        finish();
+        if (!actFmPreferenceService.isLoggedIn()) {
+            Intent intent = new Intent(this, ActFmLoginActivity.class);
+            startActivityForResult(intent, 0);
+        } else {
+            new ActFmSyncV2Provider().synchronizeActiveTasks(true, new SyncResultCallbackAdapter() {
+                @Override
+                public void finished() {
+                    ContextManager.getContext().sendBroadcast(new Intent(AstridApiConstants.BROADCAST_EVENT_REFRESH));
+                }
+            });
+            finish();
+        }
     }
 
     @Override

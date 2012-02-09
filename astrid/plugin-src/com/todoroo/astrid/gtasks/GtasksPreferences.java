@@ -8,6 +8,7 @@ import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.ContextManager;
 import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.astrid.api.AstridApiConstants;
+import com.todoroo.astrid.gtasks.auth.GtasksLoginActivity;
 import com.todoroo.astrid.gtasks.sync.GtasksSyncV2Provider;
 import com.todoroo.astrid.sync.SyncProviderPreferences;
 import com.todoroo.astrid.sync.SyncProviderUtilities;
@@ -41,13 +42,18 @@ public class GtasksPreferences extends SyncProviderPreferences {
 
     @Override
     public void startSync() {
-        new GtasksSyncV2Provider().synchronizeActiveTasks(true, new SyncResultCallbackAdapter() {
-            @Override
-            public void finished() {
-                ContextManager.getContext().sendBroadcast(new Intent(AstridApiConstants.BROADCAST_EVENT_REFRESH));
-            }
-        });
-        finish();
+        if (!gtasksPreferenceService.isLoggedIn()) {
+            Intent intent = new Intent(this, GtasksLoginActivity.class);
+            startActivityForResult(intent, 0);
+        } else {
+            new GtasksSyncV2Provider().synchronizeActiveTasks(true, new SyncResultCallbackAdapter() {
+                @Override
+                public void finished() {
+                    ContextManager.getContext().sendBroadcast(new Intent(AstridApiConstants.BROADCAST_EVENT_REFRESH));
+                }
+            });
+            finish();
+        }
     }
 
     @Override

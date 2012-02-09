@@ -75,6 +75,7 @@ abstract public class SyncV2BackgroundService extends Service {
         getSyncProvider().synchronizeActiveTasks(false, new SyncResultCallbackAdapter() {
             @Override
             public void finished() {
+                getSyncUtilities().recordSuccessfulSync();
                 context.sendBroadcast(new Intent(AstridApiConstants.BROADCAST_EVENT_REFRESH));
             }
         });

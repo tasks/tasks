@@ -103,8 +103,10 @@ public class ActFmSyncV2Provider extends SyncV2Provider {
                     exceptionService.reportError("actfm-sync", e); //$NON-NLS-1$
                 } finally {
                     callback.incrementProgress(20);
-                    if(finisher.decrementAndGet() == 0)
+                    if(finisher.decrementAndGet() == 0) {
+                        actFmPreferenceService.recordSuccessfulSync();
                         callback.finished();
+                    }
                 }
             }
         }).start();
@@ -119,8 +121,10 @@ public class ActFmSyncV2Provider extends SyncV2Provider {
                 pushQueued(callback, finisher);
 
                 callback.incrementProgress(30);
-                if(finisher.decrementAndGet() == 0)
+                if(finisher.decrementAndGet() == 0) {
+                    actFmPreferenceService.recordSuccessfulSync();
                     callback.finished();
+                }
             }
         });
     }
@@ -149,8 +153,10 @@ public class ActFmSyncV2Provider extends SyncV2Provider {
                             actFmSyncService.pushTaskOnSave(task, task.getMergedValues());
                         } finally {
                             callback.incrementProgress(20);
-                            if(finisher.decrementAndGet() == 0)
+                            if(finisher.decrementAndGet() == 0) {
+                                actFmPreferenceService.recordSuccessfulSync();
                                 callback.finished();
+                            }
                         }
                     }
                 }).start();

@@ -112,6 +112,7 @@ public class GtasksSyncV2Provider extends SyncV2Provider {
                         public void run() {
                             synchronizeListHelper(list, invoker, callback);
                             if (finisher.decrementAndGet() == 0) {
+                                gtasksPreferenceService.recordSuccessfulSync();
                                 callback.finished();
                             }
                         }
