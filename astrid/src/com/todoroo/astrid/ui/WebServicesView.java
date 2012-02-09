@@ -3,6 +3,7 @@ package com.todoroo.astrid.ui;
 import greendroid.widget.AsyncImageView;
 
 import java.io.StringReader;
+import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -145,7 +146,6 @@ public class WebServicesView extends LinearLayout {
 
                     String requestUrl = helper.sign(params);
                     String result = restClient.get(requestUrl);
-                    System.err.println(requestUrl);
                     activity.runOnUiThread(new AmazonSearchResultsProcessor(body,
                             result));
 
@@ -216,9 +216,10 @@ public class WebServicesView extends LinearLayout {
                         else if("TotalUsed".equals(xpp.getName()))
                             attributes.put("totalUsed", xpp.nextText());
                         else if("Error".equals(xpp.getName())) {
-                            while(!"Message".equals(xpp.getName()))
-                                xpp.next();
-                            throw new AmazonException(xpp.nextText());
+                            xpp.next();
+                            String code = xpp.nextText();
+                            String message = xpp.nextText();
+                            throw new AmazonException(code, message);
                         }
                     } else if(eventType == XmlPullParser.END_TAG) {
                         if("Item".equals(xpp.getName())) {
@@ -230,15 +231,22 @@ public class WebServicesView extends LinearLayout {
                     eventType = xpp.next();
                 }
 
+            } catch (AmazonException e) {
+                if(!"AWS.ECommerceService.NoExactMatches".equals(e.getCode()))
+                    exceptionService.reportError("amazon-error", e);
+            } catch (Exception e) {
+                exceptionService.reportError("amazon-other-error", e);
+            }
+
+            try {
                 String moreLabel = "Show all results";
                 String url = String.format("http://www.amazon.com/s/?field-keywords=%s&tag=%s",
                         URLEncoder.encode(task.getValue(Task.TITLE), "UTF-8"), ASSOCIATE_TAG);
 
                 View view = inflateRow(body, null, moreLabel, "", url);
-                view.setBackgroundColor(Color.rgb(200, 200, 200));
-
-            } catch (Exception e) {
-                displayError(e, body);
+                view.setBackgroundColor(Color.argb(128, 128, 128, 128));
+            } catch (UnsupportedEncodingException e) {
+                //
             }
         }
 
@@ -306,10 +314,16 @@ public class WebServicesView extends LinearLayout {
 
     private class AmazonException extends Exception {
 
-        private static final long serialVersionUID = -3759207030258905605L;
+        private static final long serialVersionUID = -6974618119363113454L;
+        private final String code;
 
-        public AmazonException(String arg0) {
-            super(arg0);
+        public AmazonException(String code, String message) {
+            super(message);
+            this.code = code;
+        }
+
+        public String getCode() {
+            return code;
         }
 
     }
@@ -367,10 +381,12 @@ public class WebServicesView extends LinearLayout {
 
                 JSONObject cursor = searchResults.getJSONObject("cursor");
                 String moreLabel = "Show more results";
+                if(results.length() == 0)
+                    moreLabel = "Search Google";
                 String url = cursor.getString("moreResultsUrl");
 
                 View view = inflateRow(body, null, moreLabel, "", url);
-                view.setBackgroundColor(Color.rgb(200, 200, 200));
+                view.setBackgroundColor(Color.argb(128, 128, 128, 128));
 
             } catch (JSONException e) {
                 displayError(e, body);

@@ -117,6 +117,9 @@
       <replaceregexp file="${source.dir}/com/todoroo/astrid/gtasks/api/GtasksInvoker.java"
                      match="API_KEY = .*"
                      replace="API_KEY = &quot;${apikey.gtasks}&quot;;" />
+      <replaceregexp file="${source.dir}/com/todoroo/astrid/utility/Constants.java"
+                     match="AWS_SECRET_KEY_ID = .*"
+                     replace="AWS_SECRET_KEY_ID = &quot;${apikey.amazon.secret}&quot;;" />
     </target>
 
     <!-- update api keys that require release signing -->

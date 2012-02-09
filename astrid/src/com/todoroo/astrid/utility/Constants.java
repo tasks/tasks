@@ -77,7 +77,7 @@ public final class Constants {
 
     // --- amazon
 
-    public static final String AWS_ACCESS_KEY_ID = "";
+    public static final String AWS_ACCESS_KEY_ID = "AKIAJTVL4FOF4PRBKBNA";
 
     public static final String AWS_SECRET_KEY_ID = "";
 
