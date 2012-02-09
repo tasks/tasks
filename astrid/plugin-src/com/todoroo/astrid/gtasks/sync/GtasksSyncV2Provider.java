@@ -16,7 +16,6 @@ import com.todoroo.andlib.data.AbstractModel;
 import com.todoroo.andlib.data.TodorooCursor;
 import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.ContextManager;
-import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.andlib.sql.Criterion;
 import com.todoroo.andlib.sql.Join;
 import com.todoroo.andlib.sql.Query;
@@ -61,13 +60,14 @@ public class GtasksSyncV2Provider extends SyncV2Provider {
         AstridDependencyInjector.initialize();
     }
 
-    public GtasksSyncV2Provider() {
-        DependencyInjectionService.getInstance().inject(this);
-    }
-
     @Override
     public String getName() {
         return ContextManager.getString(R.string.gtasks_GPr_header);
+    }
+
+    @Override
+    public GtasksPreferenceService getUtilities() {
+        return gtasksPreferenceService;
     }
 
     @Override
@@ -97,7 +97,7 @@ public class GtasksSyncV2Provider extends SyncV2Provider {
                 try {
                     gtasksListService.updateLists(invoker.allGtaskLists());
                 } catch (IOException e) {
-                    // error updating lists
+                    handler.handleException("gtasks-sync=io", e); //$NON-NLS-1$
                 } finally {
                     callback.incrementMax(25);
                 }
@@ -110,7 +110,7 @@ public class GtasksSyncV2Provider extends SyncV2Provider {
                     new Thread(new Runnable() {
                         @Override
                         public void run() {
-                            synchronizeListHelper(list, invoker, callback);
+                            synchronizeListHelper(list, invoker, handler, callback);
                             if (finisher.decrementAndGet() == 0) {
                                 gtasksPreferenceService.recordSuccessfulSync();
                                 callback.finished();
@@ -136,7 +136,7 @@ public class GtasksSyncV2Provider extends SyncV2Provider {
                 try {
                     gtasksSyncService.pushTaskOnSave(task, task.getMergedValues(), invoker, false);
                 } catch (IOException e) {
-                    // Eh
+                    handler.handleException("gtasks-sync-io", e); //$NON-NLS-1$
                 } finally {
                     callback.incrementProgress(10);
                 }
@@ -166,7 +166,7 @@ public class GtasksSyncV2Provider extends SyncV2Provider {
                     String authToken = getValidatedAuthToken();
                     callback.incrementProgress(25);
                     final GtasksInvoker service = new GtasksInvoker(authToken);
-                    synchronizeListHelper(gtasksList, service, callback);
+                    synchronizeListHelper(gtasksList, service, null, callback);
                 } finally {
                     callback.incrementProgress(25);
                     callback.finished();
@@ -188,7 +188,7 @@ public class GtasksSyncV2Provider extends SyncV2Provider {
     }
 
 
-    private void synchronizeListHelper(StoreObject list, GtasksInvoker invoker, SyncResultCallback callback) {
+    private void synchronizeListHelper(StoreObject list, GtasksInvoker invoker, SyncExceptionHandler handler, SyncResultCallback callback) {
         // Do stuff
         String listId = list.getValue(GtasksList.REMOTE_ID);
         long lastSyncDate;
@@ -218,7 +218,8 @@ public class GtasksSyncV2Provider extends SyncV2Provider {
                 gtasksTaskListUpdater.correctOrderAndIndentForList(listId);
             }
         } catch (IOException e) {
-            // Stuff
+            if (handler != null)
+                handler.handleException("gtasks-sync-io", e); //$NON-NLS-1$
         }
     }
 
