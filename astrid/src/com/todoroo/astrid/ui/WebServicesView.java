@@ -474,6 +474,7 @@ public class WebServicesView extends LinearLayout {
         LayoutParams mlp = new LinearLayout.LayoutParams(LayoutParams.FILL_PARENT, 1);
         mlp.setMargins(10, 20, 10, 20);
         view.setLayoutParams(mlp);
+        view.setBackgroundColor(Color.GRAY);
         addView(view);
     }
 

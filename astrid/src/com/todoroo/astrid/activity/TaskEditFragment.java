@@ -176,6 +176,7 @@ public final class TaskEditFragment extends Fragment implements
 
     public static final int TAB_VIEW_UPDATES = 0;
     public static final int TAB_VIEW_MORE = 1;
+    public static final int TAB_VIEW_WEB_SERVICES = 2;
 
     @Autowired
     private ExceptionService exceptionService;
@@ -461,6 +462,9 @@ public final class TaskEditFragment extends Fragment implements
     }
 
     private void setCurrentTab(int position) {
+        if(mIndicator != null)
+            return;
+
         mIndicator.setCurrentItem(position);
         mPager.setCurrentItem(position);
     }
@@ -1142,6 +1146,23 @@ public final class TaskEditFragment extends Fragment implements
      * ======================================================================
      */
 
+    @SuppressWarnings("nls")
+    public int getTabForPosition(int position) {
+        if ((tabStyle == TAB_STYLE_WEB && position == 0) ||
+                (tabStyle != TAB_STYLE_WEB && position == 1))
+            return TAB_VIEW_MORE;
+
+        else if (tabStyle != TAB_STYLE_WEB && position == 0)
+            return TAB_VIEW_UPDATES;
+
+        else if((tabStyle == TAB_STYLE_WEB && position == 1) ||
+                (tabStyle == TAB_STYLE_ACTIVITY_WEB && position == 2))
+            return TAB_VIEW_WEB_SERVICES;
+
+        throw new RuntimeException("Error - requested position " + position
+                + ", tab style " + tabStyle);
+    }
+
     /**
      * Returns the correct view for TaskEditViewPager
      *
@@ -1149,33 +1170,35 @@ public final class TaskEditFragment extends Fragment implements
      *            in the horizontal scroll view
      */
 
-    @SuppressWarnings("nls")
     public View getPageView(int position) {
-        if ((tabStyle == TAB_STYLE_WEB && position == 0) ||
-                (tabStyle != TAB_STYLE_WEB && position == 1)) {
-
+        switch(getTabForPosition(position)) {
+        case TAB_VIEW_MORE:
             moreControls.setLayoutParams(mPager.getLayoutParams());
             setViewHeightBasedOnChildren(moreControls);
-
             return moreControls;
-        } else if (tabStyle != TAB_STYLE_WEB && position == 0) {
-
+        case TAB_VIEW_UPDATES:
             return editNotes;
-
-        } else if((tabStyle == TAB_STYLE_WEB && position == 1) ||
-                (tabStyle == TAB_STYLE_ACTIVITY_WEB && position == 2)) {
-
+        case TAB_VIEW_WEB_SERVICES:
+            setViewHeightBasedOnChildren(webServices);
             return webServices;
-
-        } else {
-            throw new RuntimeException("Error - requested position " + position
-                    + ", tab style " + tabStyle);
         }
+
+        return null;
     }
 
     private void setPagerHeightForPosition(int position) {
         int height = 0;
-        View view = (position == TAB_VIEW_MORE) ? moreControls : editNotes;
+
+        View view = null;
+        switch(getTabForPosition(position)) {
+        case TAB_VIEW_MORE:
+            view = moreControls;
+        case TAB_VIEW_UPDATES:
+            view = editNotes;
+        case TAB_VIEW_WEB_SERVICES:
+            view = webServices;
+        }
+
         if (view == null || mPager == null) return;
 
         int desiredWidth = MeasureSpec.makeMeasureSpec(view.getWidth(),
@@ -1186,7 +1209,6 @@ public final class TaskEditFragment extends Fragment implements
         if (position == 0 && height < pagerParams.height)
             return;
         if (height > 0 && height != pagerParams.height) {
-
             pagerParams.height = height;
             mPager.setLayoutParams(pagerParams);
         }
@@ -1204,6 +1226,9 @@ public final class TaskEditFragment extends Fragment implements
         }
 
         ViewGroup.LayoutParams params = view.getLayoutParams();
+        if(params == null)
+            return;
+
         params.height = totalHeight;
         view.setLayoutParams(params);
         view.requestLayout();
