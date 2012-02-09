@@ -358,10 +358,10 @@
   <string name="TEA_tab_activity">Activity</string>
   
   <!-- Task edit tab: more editing settings -->
-  <string name="TEA_tab_more">More</string>
+  <string name="TEA_tab_more">Details</string>
   
   <!-- Task edit tab: web services -->
-  <string name="TEA_tab_web">Web Services</string>
+  <string name="TEA_tab_web">Ideas</string>
   
   <string-array name="TEA_urgency">
       <!-- urgency: labels for edit page. item #4 -> auto filled -->
