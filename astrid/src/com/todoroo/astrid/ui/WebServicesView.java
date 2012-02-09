@@ -458,7 +458,7 @@ public class WebServicesView extends LinearLayout {
         ProgressBar progressBar = new ProgressBar(getContext());
         progressBar.setIndeterminate(true);
         LayoutParams layoutParams = new LinearLayout.LayoutParams(metrics.widthPixels,
-                Math.round(30 * metrics.density));
+                Math.round(10 * metrics.density));
         layoutParams.gravity = Gravity.CENTER;
         progressBar.setLayoutParams(layoutParams);
         progressBar.setIndeterminateDrawable(getResources().getDrawable(
