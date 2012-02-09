@@ -1179,7 +1179,6 @@ public final class TaskEditFragment extends Fragment implements
         case TAB_VIEW_UPDATES:
             return editNotes;
         case TAB_VIEW_WEB_SERVICES:
-            setViewHeightBasedOnChildren(webServices);
             return webServices;
         }
 
@@ -1193,8 +1192,10 @@ public final class TaskEditFragment extends Fragment implements
         switch(getTabForPosition(position)) {
         case TAB_VIEW_MORE:
             view = moreControls;
+            break;
         case TAB_VIEW_UPDATES:
             view = editNotes;
+            break;
         case TAB_VIEW_WEB_SERVICES:
             view = webServices;
         }

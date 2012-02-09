@@ -17,13 +17,13 @@
     <!-- title -->
     <TextView android:id="@+id/title"
         android:layout_width="fill_parent"
-        android:layout_height="70dip"
+        android:layout_height="wrap_content"
         android:layout_marginLeft="5dip"
         android:layout_toRightOf="@id/image"
         android:paddingRight="30dp"
-        android:lines="2"
+        android:lines="3"
         android:singleLine="false"
-        android:textSize="20sp"
+        android:textSize="16sp"
         android:textStyle="bold"
         android:gravity="center_vertical"
         android:text="Probiotic - Wikepedia, the free encyclopedia"
@@ -32,13 +32,13 @@
     <!-- url -->
     <TextView android:id="@+id/subtitle"
         android:layout_width="fill_parent"
-        android:layout_height="35dip"
-        android:layout_alignParentBottom="true"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/title"
         android:layout_toRightOf="@id/image"
         android:layout_marginLeft="5dip"
         android:paddingRight="30dp"
         android:singleLine="true"
-        android:textSize="16sp"
+        android:textSize="14sp"
         android:text="en.wikipedia.org"
         android:gravity="center_vertical" />
         

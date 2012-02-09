@@ -101,7 +101,7 @@ public class WebServicesView extends LinearLayout {
                 Context.LAYOUT_INFLATER_SERVICE);
 
         rowParams = new LinearLayout.LayoutParams(
-                Math.round(metrics.widthPixels * 0.8f),
+                Math.round(metrics.widthPixels * 0.75f),
                 Math.round(ROW_HEIGHT * metrics.density));
         rowParams.rightMargin = Math.round(10 * metrics.density);
 
