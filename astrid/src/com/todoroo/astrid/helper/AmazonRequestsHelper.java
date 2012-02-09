@@ -39,7 +39,8 @@ import java.util.TreeMap;
 import javax.crypto.Mac;
 import javax.crypto.spec.SecretKeySpec;
 
-import org.apache.commons.codec.binary.Base64;
+import android.util.Base64;
+
 
 /**
  * This class contains all the logic for signing requests
@@ -179,8 +180,7 @@ public class AmazonRequestsHelper {
         try {
             data = stringToSign.getBytes(UTF8_CHARSET);
             rawHmac = mac.doFinal(data);
-            Base64 encoder = new Base64();
-            signature = new String(encoder.encode(rawHmac));
+            signature = new String(Base64.encode(rawHmac, 0));
         } catch (UnsupportedEncodingException e) {
             throw new RuntimeException(UTF8_CHARSET + " is unsupported!", e);
         }
