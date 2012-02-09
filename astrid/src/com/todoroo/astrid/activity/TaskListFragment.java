@@ -74,6 +74,7 @@ import com.todoroo.andlib.sql.Functions;
 import com.todoroo.andlib.sql.QueryTemplate;
 import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.andlib.utility.DateUtilities;
+import com.todoroo.andlib.utility.DialogUtilities;
 import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.andlib.widget.GestureService;
 import com.todoroo.andlib.widget.GestureService.GestureInterface;
@@ -81,6 +82,7 @@ import com.todoroo.astrid.actfm.ActFmLoginActivity;
 import com.todoroo.astrid.actfm.EditPeopleControlSet;
 import com.todoroo.astrid.actfm.TagUpdatesActivity;
 import com.todoroo.astrid.actfm.TagViewFragment;
+import com.todoroo.astrid.actfm.sync.ActFmPreferenceService;
 import com.todoroo.astrid.activity.SortSelectionActivity.OnSortSelectedListener;
 import com.todoroo.astrid.adapter.TaskAdapter;
 import com.todoroo.astrid.adapter.TaskAdapter.OnCompletedTaskListener;
@@ -204,6 +206,9 @@ public class TaskListFragment extends ListFragment implements OnScrollListener,
 
     @Autowired
     TagDataService tagDataService;
+
+    @Autowired
+    ActFmPreferenceService actFmPreferenceService;
 
     private final TaskContextActionExposer[] contextItemExposers = new TaskContextActionExposer[] {
             new ReminderDebugContextActions.MakeNotification(),
@@ -624,7 +629,7 @@ public class TaskListFragment extends ListFragment implements OnScrollListener,
                 repeatControl.getDisplayView(), gcalControl.getDisplayView());
         deadlineControl.setUseNewlineForDisplaySeparator(true);
 
-        peopleControl = new EditPeopleControlSet(getActivity(),
+        peopleControl = new EditPeopleControlSet(getActivity(), this,
                 R.layout.control_set_assigned,
                 R.layout.control_set_default_display,
                 R.string.actfm_EPA_assign_label, TaskEditFragment.REQUEST_LOG_IN);
@@ -643,6 +648,7 @@ public class TaskListFragment extends ListFragment implements OnScrollListener,
         gcalControl.readFromTask(empty);
         deadlineControl.readFromTask(empty);
         peopleControl.setUpData(empty);
+        peopleControl.assignToMe();
         peopleControl.setTask(null);
     }
 
@@ -1127,17 +1133,38 @@ public class TaskListFragment extends ListFragment implements OnScrollListener,
         try {
             if (title != null)
                 title = title.trim();
+            if (!peopleControl.willBeAssignedToMe() && !actFmPreferenceService.isLoggedIn()) {
+                DialogInterface.OnClickListener okListener = new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface d, int which) {
+                        startActivity(new Intent(getActivity(), ActFmLoginActivity.class));
+                    }
+                };
+
+                DialogInterface.OnClickListener cancelListener = new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface d, int which) {
+                        // Reset people control
+                        peopleControl.assignToMe();
+                    }
+                };
+                DialogUtilities.okCancelCustomDialog(getActivity(), getActivity().getString(R.string.actfm_EPA_login_button),
+                        getActivity().getString(R.string.actfm_EPA_login_to_share), R.string.actfm_EPA_login_button,
+                        R.string.actfm_EPA_dont_share_button, android.R.drawable.ic_dialog_alert,
+                        okListener, cancelListener);
+                return null;
+            }
+
             Task task = createWithValues(filter.valuesForNewTasks, title,
                     taskService, metadataService);
 
-            //TODO: fix assigned
             if (repeatControl.isRecurrenceSet())
                 repeatControl.writeToModel(task);
             if (deadlineControl.isDeadlineSet())
                 deadlineControl.writeToModel(task);
             gcalControl.writeToModel(task);
-            //peopleControl.setTask(task);
-            //peopleControl.saveSharingSettings("");
+            peopleControl.setTask(task);
+            peopleControl.saveSharingSettings(null);
             taskService.save(task);
 
             resetControlSets();

@@ -16,6 +16,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
+import android.support.v4.app.Fragment;
 import android.text.TextUtils;
 import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
@@ -76,6 +77,8 @@ public class EditPeopleControlSet extends PopupControlSet {
 
     @Autowired TagDataService tagDataService;
 
+    private final Fragment fragment;
+
     private final PeopleContainer sharedWithContainer;
 
     private final CheckBox cbFacebook;
@@ -108,10 +111,11 @@ public class EditPeopleControlSet extends PopupControlSet {
 
     // --- UI initialization
 
-    public EditPeopleControlSet(Activity activity, int viewLayout, int displayViewLayout, int title, int loginRequestCode) {
+    public EditPeopleControlSet(Activity activity, Fragment fragment, int viewLayout, int displayViewLayout, int title, int loginRequestCode) {
         super(activity, viewLayout, displayViewLayout, title);
         DependencyInjectionService.getInstance().inject(this);
         this.loginRequestCode = loginRequestCode;
+        this.fragment = fragment;
         displayText.setText(activity.getString(R.string.TEA_control_who));
 
         sharedWithRow = LayoutInflater.from(activity).inflate(R.layout.control_set_default_display, null);
@@ -413,8 +417,9 @@ public class EditPeopleControlSet extends PopupControlSet {
         }
     }
 
-    private void assignToMe() {
-        assignedClear.performClick();
+    public void assignToMe() {
+        assignedList.performItemClick(assignedList.getChildAt(0), 0, 0);
+        refreshDisplayView();
     }
 
     private void setUpListeners() {
@@ -546,7 +551,7 @@ public class EditPeopleControlSet extends PopupControlSet {
                 DialogInterface.OnClickListener okListener = new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface d, int which) {
-                        activity.startActivityForResult(new Intent(activity, ActFmLoginActivity.class),
+                        fragment.startActivityForResult(new Intent(activity, ActFmLoginActivity.class),
                                 loginRequestCode);
                     }
                 };
@@ -592,10 +597,9 @@ public class EditPeopleControlSet extends PopupControlSet {
     }
 
     private void makePrivateTask() {
-        assignToMe();
         sharedWithContainer.removeAllViews();
         sharedWithContainer.addPerson(""); //$NON-NLS-1$
-        refreshDisplayView();
+        assignToMe();
     }
 
     private void showSaveToast(String saveToast) {
@@ -702,6 +706,26 @@ public class EditPeopleControlSet extends PopupControlSet {
      */
     public boolean isAssignedToMe() {
         return assignedToMe;
+    }
+
+    /**
+     * Check if task will be assigned to current user when save setting is called
+     */
+    public boolean willBeAssignedToMe() {
+        JSONObject userJson = null;
+        if(!TextUtils.isEmpty(assignedCustom.getText())) {
+            userJson = PeopleContainer.createUserJson(assignedCustom);
+        } else {
+            AssignedToUser item = (AssignedToUser) assignedList.getAdapter().getItem(assignedList.getCheckedItemPosition());
+            if (item != null)
+                userJson = item.user;
+        }
+
+        if(userJson == null || userJson.optLong("id", Task.USER_ID_EMAIL) == Task.USER_ID_SELF) { //$NON-NLS-1$
+            return true;
+        }
+
+        return false;
     }
 
     public String getAssignedToString() {
