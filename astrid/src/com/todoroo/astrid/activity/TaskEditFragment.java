@@ -403,14 +403,10 @@ public final class TaskEditFragment extends Fragment implements
                 editNotes.loadViewForTaskID(idParam);
             }
 
-            if (editNotes.numberOfComments() == 0) {
-                setCurrentTab(TAB_VIEW_MORE);
-            } else {
-                Handler refreshHandler = new Handler();
-                refreshHandler.postDelayed(refreshActivity, 1000);
-            }
-
             editNotes.addListener(this);
+
+            Handler refreshHandler = new Handler();
+            refreshHandler.postDelayed(refreshActivity, 1000);
         }
 
         if(hasTitle) {
@@ -444,6 +440,10 @@ public final class TaskEditFragment extends Fragment implements
             commentsBar.setVisibility(View.VISIBLE);
             moreSection.setVisibility(View.GONE);
             moreTab.setVisibility(View.VISIBLE);
+
+
+            if(editNotes != null && editNotes.numberOfComments() == 0)
+                setCurrentTab(TAB_VIEW_MORE);
         } else {
             moreSection.setVisibility(View.VISIBLE);
             commentsBar.setVisibility(View.GONE);
@@ -462,7 +462,7 @@ public final class TaskEditFragment extends Fragment implements
     }
 
     private void setCurrentTab(int position) {
-        if(mIndicator != null)
+        if(mIndicator == null)
             return;
 
         mIndicator.setCurrentItem(position);
