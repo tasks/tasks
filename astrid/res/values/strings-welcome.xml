@@ -25,4 +25,7 @@
     
     <string name="welcome_body_7_return">Tap Astrid to return.</string>
     
+    <string name="welcome_back">Back</string>
+    <string name="welcome_next">Next</string>
+    
 </resources>
