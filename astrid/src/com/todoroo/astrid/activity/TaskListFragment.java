@@ -125,6 +125,7 @@ import com.todoroo.astrid.service.TaskService;
 import com.todoroo.astrid.service.UpgradeService;
 import com.todoroo.astrid.sync.SyncResultCallback;
 import com.todoroo.astrid.sync.SyncV2Provider;
+import com.todoroo.astrid.taskrabbit.TaskRabbitControlSet;
 import com.todoroo.astrid.ui.DateChangedAlerts;
 import com.todoroo.astrid.ui.DeadlineControlSet;
 import com.todoroo.astrid.utility.AstridPreferences;
@@ -250,6 +251,7 @@ public class TaskListFragment extends ListFragment implements OnScrollListener,
     private RepeatControlSet repeatControl;
     private GCalControlSet gcalControl;
     private EditPeopleControlSet peopleControl;
+    private TaskRabbitControlSet taskRabbitControl;
 
     /*
      * ======================================================================
@@ -652,10 +654,14 @@ public class TaskListFragment extends ListFragment implements OnScrollListener,
                 repeatControl.getDisplayView(), gcalControl.getDisplayView());
         deadlineControl.setIsQuickadd(true);
 
+
+        taskRabbitControl = new TaskRabbitControlSet(this, R.layout.control_set_default_display);
         peopleControl = new EditPeopleControlSet(getActivity(), this,
                 R.layout.control_set_assigned,
                 R.layout.control_set_default_display,
                 R.string.actfm_EPA_assign_label, TaskEditFragment.REQUEST_LOG_IN);
+        peopleControl.addListener(taskRabbitControl);
+
 
         resetControlSets();
 
