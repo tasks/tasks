@@ -117,7 +117,7 @@ public class FilterAdapter extends ArrayAdapter<Filter> {
         this.skipIntentFilters = skipIntentFilters;
         this.selectable = selectable;
 
-        if (((AstridActivity) activity).getFragmentLayout() != AstridActivity.LAYOUT_SINGLE)
+        if (activity instanceof AstridActivity && ((AstridActivity) activity).getFragmentLayout() != AstridActivity.LAYOUT_SINGLE)
             filterStyle = R.style.TextAppearance_FLA_Filter_Tablet;
 
         inflater = (LayoutInflater) activity.getSystemService(
