@@ -201,8 +201,7 @@ public class TaskRabbitControlSet extends TaskEditControlSet implements Assigned
 
 
     private String taskRabbitURL(String method) {
-        return TaskRabbitActivity.TASK_RABBIT_URL + "/api/v1/"+ method;
-
+        return String.format("%S/api/v1/%S?client_id=%S&client_application=%S", TaskRabbitActivity.TASK_RABBIT_URL, method, TaskRabbitActivity.TASK_RABBIT_CLIENT_ID, TaskRabbitActivity.TASK_RABBIT_CLIENT_APPLICATION_ID);
     }
 
     /** Fire task rabbit if assigned **/
@@ -358,4 +357,15 @@ public class TaskRabbitControlSet extends TaskEditControlSet implements Assigned
         // TODO Auto-generated method stub
 
     }
+
+
+
+
+    @Override
+    public boolean didPostToTaskRabbit() {
+        if (taskRabbitTask == null) return false;
+        return taskRabbitTask.getTaskID() > 0;
+    }
+
+
 }

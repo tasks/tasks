@@ -30,6 +30,7 @@ import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.HorizontalScrollView;
 import android.widget.ImageView;
+import android.widget.ImageView.ScaleType;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -407,18 +408,19 @@ public class WebServicesView extends LinearLayout {
     protected void initializeTaskRabbit() {
 
         if(taskRabbitControl != null && taskRabbitControl.isEnabledForTRLocation == true) {
-        addSectionHeader("Task Rabbit");
+        addSectionHeader("Outsource this task to someone");
 
         final LinearLayout body = new LinearLayout(activity);
         body.setLayoutParams(new LinearLayout.LayoutParams(LayoutParams.FILL_PARENT,
-                    LayoutParams.WRAP_CONTENT));
+                    ROW_HEIGHT));
         body.setOrientation(LinearLayout.VERTICAL);
 
 
         ImageView imageView = new ImageView(getContext());
         imageView.setLayoutParams(new LayoutParams(LayoutParams.FILL_PARENT,
-                LayoutParams.WRAP_CONTENT));
+                ROW_HEIGHT));
         imageView.setImageResource(R.drawable.task_rabbit_logo);
+        imageView.setScaleType(ScaleType.CENTER_INSIDE);
         body.addView(imageView);
 
         body.setOnClickListener(new OnClickListener() {
@@ -432,8 +434,6 @@ public class WebServicesView extends LinearLayout {
         addView(body);
         addSectionDivider();
 
-        }
-        else {
         }
 
     }

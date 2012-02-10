@@ -509,20 +509,21 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
 
         // EditPeopleControlSet relies on the "tags" transitory created by the
         // TagsControlSet, so we put the tags control before the people control
+        // EditPeopleControlSet also relies on taskRabbitControl set being added
+        // that way it can tell if it needs to show task rabbit in the spinner
 
-
-        controls.add(peopleControlSet = new EditPeopleControlSet(getActivity(), this,
+        peopleControlSet = new EditPeopleControlSet(getActivity(), this,
                 R.layout.control_set_assigned,
                 R.layout.control_set_default_display,
-                R.string.actfm_EPA_assign_label_long, REQUEST_LOG_IN));
-        controlSetMap.put(getString(R.string.TEA_ctrl_who_pref),
-                peopleControlSet);
-
+                R.string.actfm_EPA_assign_label_long, REQUEST_LOG_IN);
         if(Locale.getDefault().getCountry().equals("US")) {
         taskRabbitControl = new TaskRabbitControlSet(this, R.layout.control_set_default_display);
         controls.add(taskRabbitControl);
         peopleControlSet.addListener(taskRabbitControl);
         }
+        controls.add(peopleControlSet);
+        controlSetMap.put(getString(R.string.TEA_ctrl_who_pref),
+                peopleControlSet);
 
         RepeatControlSet repeatControls = new RepeatControlSet(getActivity(),
                 R.layout.control_set_repeat,

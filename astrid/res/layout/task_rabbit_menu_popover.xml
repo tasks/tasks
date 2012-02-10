@@ -9,7 +9,7 @@
         android:id="@+id/content"
         android:layout_width="280dip"
         android:layout_height="wrap_content"
-        android:background="@drawable/list_popover_bg"
+    android:background="?attr/asListPopoverBg"
         android:layout_below="@+id/gdi_arrow_up"/>
 
     <ImageView

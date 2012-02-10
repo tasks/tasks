@@ -21,6 +21,7 @@ import android.graphics.Color;
 import android.support.v4.app.Fragment;
 import android.text.TextUtils;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -114,6 +115,7 @@ public class EditPeopleControlSet extends PopupControlSet {
     public interface AssignedChangedListener {
         public boolean showTaskRabbitForUser(String name, JSONObject json);
         public boolean shouldShowTaskRabbit();
+        public boolean didPostToTaskRabbit();
     }
 
     int selected = 0; //need to remember last selected state for task rabbit
@@ -389,6 +391,9 @@ public class EditPeopleControlSet extends PopupControlSet {
             if (l.shouldShowTaskRabbit()) {
                 taskRabbitUser = new AssignedToUser(activity.getString(R.string.actfm_EPA_task_rabbit), new JSONObject().put("default_picture", R.drawable.task_rabbit_image));
                 listValues.add(taskRabbitUser);
+                if(l.didPostToTaskRabbit() && assignedIndex <= 0){
+                    assignedIndex = listValues.size()-1;
+                }
             }
         }
 
@@ -457,8 +462,10 @@ public class EditPeopleControlSet extends PopupControlSet {
 
                 for (AssignedChangedListener l : listeners) {
                     if(l.showTaskRabbitForUser(user.label, user.user)) {
-                        assignedList.setItemChecked(selected, true);
-                        assignedList.setItemChecked(position, false);
+//                        assignedList.setItemChecked(selected, true);
+//                        assignedList.setItemChecked(position, false);
+                        assignedDisplay.setText(user.toString());
+                        assignedCustom.setText(""); //$NON-NLS-1$
                         DialogUtilities.dismissDialog(activity, dialog);
                         return;
                     }
@@ -529,8 +536,17 @@ public class EditPeopleControlSet extends PopupControlSet {
                 assignedView = assignedCustom;
             } else {
                 AssignedToUser item = (AssignedToUser) assignedList.getAdapter().getItem(assignedList.getCheckedItemPosition());
-                if (item != null)
+                if (item != null) {
+                    if (item.equals(taskRabbitUser)) { //don't want to ever set the user as the task rabbit user
+                        Log.d("Edit People control set", "Equals task rabbit");
+                        item = (AssignedToUser) assignedList.getAdapter().getItem(0);
+                        selected = 0;
+                    }
+                    else {
+                        Log.d("Edit People control set", "Does not equal task rabbit");
+                    }
                     userJson = item.user;
+                }
             }
 
             if (userJson != null) {

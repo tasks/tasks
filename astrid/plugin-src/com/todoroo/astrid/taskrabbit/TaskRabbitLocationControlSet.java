@@ -30,7 +30,7 @@ public class TaskRabbitLocationControlSet extends TaskEditControlSet implements 
     private final TextView displayText;
     private final TextView displayEdit;
     private final Activity activity;
-    private Location location;
+    public Location location;
     private String locationName;
 
     public int REQUEST_CODE_TASK_RABBIT_LOCATION = 6;
@@ -133,7 +133,7 @@ public class TaskRabbitLocationControlSet extends TaskEditControlSet implements 
     }
 
     public void updateCurrentLocation(Location currentLocation) {
-        if (location != null) {
+        if (location == null) {
             location = currentLocation;
         }
     }

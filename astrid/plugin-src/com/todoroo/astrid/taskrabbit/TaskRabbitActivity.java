@@ -274,6 +274,7 @@ public class TaskRabbitActivity extends FragmentActivity implements LocationList
             int arrayID = arrayType.getResourceId(i, 0);
             if (arrayID == R.string.tr_set_key_location) {
                 TaskRabbitLocationControlSet set = new TaskRabbitLocationControlSet(this, R.layout.task_rabbit_row, titleID, i);
+                set.location = currentLocation;
                 controls.add(set);
             }
             else if(arrayID == R.string.tr_set_key_deadline) {
