@@ -6,9 +6,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.app.Activity;
-import android.app.AlertDialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.location.Location;
 import android.location.LocationListener;
@@ -16,18 +14,16 @@ import android.location.LocationManager;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.provider.Settings;
 import android.support.v4.app.Fragment;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.android.maps.GeoPoint;
 import com.timsu.astrid.R;
+import com.timsu.astrid.data.location.GeoPoint;
 import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.andlib.service.RestClient;
@@ -38,8 +34,11 @@ import com.todoroo.astrid.activity.TaskEditFragment;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.helper.TaskEditControlSet;
 
+@SuppressWarnings("nls")
 public class TaskRabbitControlSet extends TaskEditControlSet implements AssignedChangedListener, LocationListener {
 
+
+    private static final int RADIUS_250_MILES = 400000;
 
     public interface TaskRabbitSetListener {
         public void readFromModel(JSONObject json, String key);
@@ -52,33 +51,27 @@ public class TaskRabbitControlSet extends TaskEditControlSet implements Assigned
     }
 
     /** task model */
-    Task model = null;
+    private Task model = null;
 
     @Autowired
     private RestClient restClient;
 
-
-    /** true if editing started with a new task */
-    private final boolean isNewTask = false;
     private Location currentLocation;
     public boolean isEnabledForTRLocation = false;
     public static final String LOCATION_ENABLED = "location_enabled"; //$NON-NLS-1$
 
-
-    GeoPoint[] supportedLocations =
-    {
+    private final GeoPoint[] supportedLocations = {
             new GeoPoint(42358430, -71059770), //
             new GeoPoint(37739230, -122439880),
             new GeoPoint(40714350, -74005970),
             new GeoPoint(41878110, -8762980),
             new GeoPoint(34052230, -118243680),
-            new GeoPoint(33717470, -117831140)};
-
+            new GeoPoint(33717470, -117831140)
+    };
 
     private final Fragment fragment;
-    private LinearLayout row;
     protected final TextView displayText;
-    LocationManager locationManager;
+    private LocationManager locationManager;
 
     public static final int REQUEST_CODE_TASK_RABBIT_ACTIVITY = 5;
     public static final String DATA_RESPONSE = "response"; //$NON-NLS-1$
@@ -103,11 +96,6 @@ public class TaskRabbitControlSet extends TaskEditControlSet implements Assigned
         }
         loadLocation();
     }
-
-
-
-
-
 
     protected void refreshDisplayView() {
         JSONObject remoteData = taskRabbitTask.getRemoteTaskData();
@@ -141,7 +129,6 @@ public class TaskRabbitControlSet extends TaskEditControlSet implements Assigned
 
     @Override
     public String writeToModel(Task task) {
-        //        TaskRabbitDataService.getInstance().saveTaskAndMetadata(taskRabbitTask);
         return null;
     }
 
@@ -154,8 +141,6 @@ public class TaskRabbitControlSet extends TaskEditControlSet implements Assigned
             updateStatus(remoteData);
         }
     }
-
-
 
     /* message callbacks */
     /**
@@ -180,26 +165,6 @@ public class TaskRabbitControlSet extends TaskEditControlSet implements Assigned
         }
     };
 
-
-    private void buildAlertMessageNoGps() {
-        final AlertDialog.Builder builder = new AlertDialog.Builder(fragment.getActivity());
-        builder.setMessage("Yout GPS seems to be disabled, do you want to enable it?")
-        .setCancelable(false)
-        .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-            public void onClick(@SuppressWarnings("unused") final DialogInterface dialog, @SuppressWarnings("unused") final int id) {
-                fragment.getActivity().startActivity(new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS));
-            }
-        })
-        .setNegativeButton("No", new DialogInterface.OnClickListener() {
-            public void onClick(final DialogInterface dialog, @SuppressWarnings("unused") final int id) {
-                dialog.cancel();
-            }
-        });
-        final AlertDialog alert = builder.create();
-        alert.show();
-    }
-
-
     private String taskRabbitURL(String method) {
         return String.format("%S/api/v1/%S?client_id=%S&client_application=%S", TaskRabbitActivity.TASK_RABBIT_URL, method, TaskRabbitActivity.TASK_RABBIT_CLIENT_ID, TaskRabbitActivity.TASK_RABBIT_CLIENT_APPLICATION_ID);
     }
@@ -207,7 +172,6 @@ public class TaskRabbitControlSet extends TaskEditControlSet implements Assigned
     /** Fire task rabbit if assigned **/
     @Override
     public boolean showTaskRabbitForUser(String name, JSONObject json) {
-        // TODO Auto-generated method stub
         if (name.equals(fragment.getActivity().getString(R.string.actfm_EPA_task_rabbit))) {
             showTaskRabbitActivity();
             return true;
@@ -261,9 +225,7 @@ public class TaskRabbitControlSet extends TaskEditControlSet implements Assigned
             public void run() {
 
                 try {
-                    Log.d("Tasks url:", taskRabbitURL("tasks/" + taskID + "?client_id=" + TaskRabbitActivity.TASK_RABBIT_CLIENT_ID));
                     String response = restClient.get(taskRabbitURL("tasks/" + taskID));
-                    Log.d("Task rabbit response", response);
                     JSONObject taskResponse = new JSONObject(response);
                     if(taskResponse.has("id")){
                         taskRabbitTask.setRemoteTaskData(response);
@@ -298,12 +260,11 @@ public class TaskRabbitControlSet extends TaskEditControlSet implements Assigned
 
 
     private void loadLocation() {
-        Log.d("TRControlSet", "gJgHFDSJKGFHSJKFGHDSJKFGSJDGFSDJKFGDSJKFGSHJDFHS:LDFHS:FJKSDJFL:");
         locationManager = (LocationManager) fragment.getActivity().getSystemService(Context.LOCATION_SERVICE);
         currentLocation = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
         if (currentLocation == null) {
             Log.d("TRControlSet", "Fail current location is null");
-        locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, this);
+            locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, this);
         }
         else {
             Log.d("TRControlSet", "loading location and checking if we suppor it");
@@ -312,16 +273,13 @@ public class TaskRabbitControlSet extends TaskEditControlSet implements Assigned
     }
 
     public boolean supportsCurrentLocation() {
-
-        //TODO test this
         if (currentLocation == null) return false;
         for (GeoPoint point : supportedLocations){
-            Log.d("TRControlSet", "Searching if we support current location");
-            Location city = new Location(""); //$NON-NLS-1$
+            Location city = new Location("");
             city.setLatitude(point.getLatitudeE6()/1E6);
             city.setLongitude(point.getLongitudeE6()/1E6);
             float distance = currentLocation.distanceTo(city);
-            if (distance < 400000) { //250 mi radius
+            if (distance < RADIUS_250_MILES) {
                 return true;
             }
         }
@@ -341,25 +299,23 @@ public class TaskRabbitControlSet extends TaskEditControlSet implements Assigned
         locationManager = null;
 
     }
+
     @Override
     public void onProviderDisabled(String provider) {
-        // TODO Auto-generated method stub
+        //
 
     }
 
     @Override
     public void onProviderEnabled(String provider) {
-        // TODO Auto-generated method stub
+        //
 
     }
     @Override
     public void onStatusChanged(String provider, int status, Bundle extras) {
-        // TODO Auto-generated method stub
+        //
 
     }
-
-
-
 
     @Override
     public boolean didPostToTaskRabbit() {

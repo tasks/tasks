@@ -24,9 +24,9 @@ import com.todoroo.astrid.helper.TaskEditControlSet;
 import com.todoroo.astrid.taskrabbit.TaskRabbitActivity.ActivityResultSetListener;
 import com.todoroo.astrid.taskrabbit.TaskRabbitActivity.TaskRabbitSetListener;
 
+@SuppressWarnings("nls")
 public class TaskRabbitLocationControlSet extends TaskEditControlSet implements TaskRabbitSetListener, ActivityResultSetListener {
 
-    private final int setID;
     private final TextView displayText;
     private final TextView displayEdit;
     private final Activity activity;
@@ -37,9 +37,7 @@ public class TaskRabbitLocationControlSet extends TaskEditControlSet implements 
 
     public  TaskRabbitLocationControlSet(final Activity activity , int viewLayout, int title, int setID) {
         super(activity, viewLayout);
-        this.setID = setID;
         this.activity = activity;
-        //        DependencyInjectionService.getInstance().inject(this);
         REQUEST_CODE_TASK_RABBIT_LOCATION += setID;
 
         displayText = (TextView) getDisplayView().findViewById(R.id.display_row_title);
@@ -103,13 +101,12 @@ public class TaskRabbitLocationControlSet extends TaskEditControlSet implements 
         return  (int)(location * 1e6);
     }
 
-
-
-    private void getAddressFromLocation(Location location){
+    private void getAddressFromLocation(Location newLocation){
         try {
             Geocoder geocoder = new Geocoder(activity, Locale.getDefault());
             // Acquire a reference to the system Location Manager
-            List<Address> addresses = geocoder.getFromLocation(location.getLatitude(), location.getLongitude(), 1);
+            List<Address> addresses = geocoder.getFromLocation(newLocation.getLatitude(),
+                    newLocation.getLongitude(), 1);
             if (addresses != null){
                 for (Address address : addresses){
                     updateAddress(address);
@@ -154,7 +151,6 @@ public class TaskRabbitLocationControlSet extends TaskEditControlSet implements 
 
     }
 
-
     private JSONObject getTaskLocation() {
 
         try {
@@ -177,13 +173,12 @@ public class TaskRabbitLocationControlSet extends TaskEditControlSet implements 
         return null;
     }
 
-
-
-
-//don't need these
+    //don't need these
     @Override
     public void readFromTask(Task task) {
+        //
     }
+
     @Override
     public String writeToModel(Task task) {
         return null;

@@ -183,13 +183,11 @@ public class TaskRabbitActivity extends FragmentActivity implements LocationList
         super.onPause();
         StatisticsService.sessionPause();
 
-//        if (shouldSaveState)
-            try {
-                taskRabbitTask.setLocalTaskData(serializeToJSON().toString());
-            } catch (JSONException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
-            }
+        try {
+            taskRabbitTask.setLocalTaskData(serializeToJSON().toString());
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
     }
 
     protected void populateFields() {
@@ -294,7 +292,6 @@ public class TaskRabbitActivity extends FragmentActivity implements LocationList
                 try {
                     descriptionControlSet.readFromModel(new JSONObject().put("description", model.getValue(Task.NOTES)), "description", currentSelectedItem);
                 } catch (JSONException e) {
-                    // TODO Auto-generated catch block
                     e.printStackTrace();
                 }
                 controls.add(descriptionControlSet);
@@ -483,9 +480,7 @@ public class TaskRabbitActivity extends FragmentActivity implements LocationList
         }
         parameters.put(getString(R.string.tr_set_key_name), taskTitle.getText().toString());
         parameters.put(getString(R.string.tr_set_key_name), taskTitle.getText().toString());
-        //        parameters.put(activity.getString(R.string.tr_set_key_type), menuList.getSelectedItem().toString());
 
-        Log.d("THE TAK JSON IS", parameters.toString());
         return new JSONObject().put("task", parameters);
     }
 
