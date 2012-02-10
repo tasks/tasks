@@ -22,6 +22,7 @@
         <item name="asAddButtonImg">@drawable/plus_button_blue</item>
         <item name="asMicButtonImg">@drawable/mic_button_blue</item>
         <item name="asCommentButtonImg">@drawable/comment_blue</item>
+        <item name="asFilledCommentButtonImg">@drawable/comment_blue_filled</item>
         <item name="asEditBackground">#101010</item>
         <item name="asEditRowBackground">@drawable/task_edit_background</item>
         <item name="asEditTabBackground">@drawable/custom_tab_indicator_dark</item>
@@ -68,6 +69,7 @@
         <item name="asAddButtonImg">@drawable/plus_button_red</item>
         <item name="asMicButtonImg">@drawable/mic_button_red</item>
         <item name="asCommentButtonImg">@drawable/comment_red</item>
+        <item name="asFilledCommentButtonImg">@drawable/comment_red_filled</item>
         <item name="asEditRowBackground">@drawable/task_edit_background_white</item>
         <item name="asEditTabBackground">@drawable/custom_tab_indicator</item>
         <item name="asMainMenu">@drawable/menu_button_red</item>
@@ -89,6 +91,7 @@
         <item name="asAddButtonImg">@drawable/plus_button_dark_blue</item>
         <item name="asMicButtonImg">@drawable/mic_button_dark_blue</item>
         <item name="asCommentButtonImg">@drawable/comment_dark_blue</item>
+        <item name="asFilledCommentButtonImg">@drawable/comment_dark_blue_filled</item>
         <item name="asMainMenu">@drawable/menu_button_dark_blue</item>
         <item name="asThemeTextColor">@color/dark_blue_theme_color</item>
         <item name="asListsDisclosure">@drawable/lists_disclosure_dark_blue</item>

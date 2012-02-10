@@ -29,6 +29,7 @@ import com.todoroo.andlib.data.TodorooCursor;
 import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.andlib.utility.DateUtilities;
+import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.astrid.actfm.ActFmCameraModule.CameraResultCallback;
 import com.todoroo.astrid.actfm.ActFmCameraModule.ClearImageCallback;
 import com.todoroo.astrid.actfm.sync.ActFmPreferenceService;
@@ -55,7 +56,10 @@ public class TagUpdatesFragment extends ListFragment {
 
     private Bitmap picture = null;
 
-    public static final String TAG_UPDATES_FRAGMENT = "tagupdates_fragment";
+    public static final String TAG_UPDATES_FRAGMENT = "tagupdates_fragment"; //$NON-NLS-1$
+
+    //Append tag data remote id to this preference
+    public static final String UPDATES_LAST_VIEWED = "updates_last_viewed_"; //$NON-NLS-1$
 
     private static final int MENU_REFRESH_ID = Menu.FIRST;
 
@@ -191,6 +195,10 @@ public class TagUpdatesFragment extends ListFragment {
             Cursor cursor = updateAdapter.getCursor();
             cursor.requery();
             getActivity().startManagingCursor(cursor);
+        }
+
+        if (tagData != null) {
+            Preferences.setLong(UPDATES_LAST_VIEWED + tagData.getValue(TagData.REMOTE_ID), DateUtilities.now());
         }
     }
 

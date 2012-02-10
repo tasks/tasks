@@ -16,6 +16,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.View.OnTouchListener;
 import android.view.ViewGroup.LayoutParams;
+import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.PopupWindow.OnDismissListener;
@@ -50,7 +51,7 @@ public class TaskListActivity extends AstridActivity implements MainMenuListener
     private ImageView listsNavDisclosure;
     private TextView lists;
     private ImageView mainMenu;
-    private ImageView commentsButton;
+    private Button commentsButton;
 
     private FragmentPopover listsPopover;
     private FragmentPopover editPopover;
@@ -130,7 +131,7 @@ public class TaskListActivity extends AstridActivity implements MainMenuListener
 		listsNavDisclosure = (ImageView) actionBar.getCustomView().findViewById(R.id.list_disclosure_arrow);
 		lists = (TextView) actionBar.getCustomView().findViewById(R.id.list_title);
 		mainMenu = (ImageView) actionBar.getCustomView().findViewById(R.id.main_menu);
-		commentsButton = (ImageView) actionBar.getCustomView().findViewById(R.id.comments);
+		commentsButton = (Button) actionBar.getCustomView().findViewById(R.id.comments);
 
 		initializeFragments(actionBar);
 		createMainMenuPopover();
@@ -254,6 +255,7 @@ public class TaskListActivity extends AstridActivity implements MainMenuListener
 	public boolean onFilterItemClicked(FilterListItem item) {
 	    if (listsPopover != null)
 	        listsPopover.dismiss();
+	    setCommentsCount(0);
 	    return super.onFilterItemClicked(item);
 	}
 
@@ -324,6 +326,19 @@ public class TaskListActivity extends AstridActivity implements MainMenuListener
 
     public void setSelectedItem(Filter item) {
        lists.setText(item.title);
+    }
+
+    public void setCommentsCount(int count) {
+        TypedValue tv = new TypedValue();
+
+        if (count > 0) {
+            commentsButton.setText(Integer.toString(count));
+            getTheme().resolveAttribute(R.attr.asFilledCommentButtonImg, tv, false);
+        } else {
+            commentsButton.setText(""); //$NON-NLS-1$
+            getTheme().resolveAttribute(R.attr.asCommentButtonImg, tv, false);
+        }
+        commentsButton.setBackgroundResource(tv.data);
     }
 
     @Override

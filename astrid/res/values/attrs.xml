@@ -17,7 +17,7 @@
   <attr name="asFilterHeaderColor" format="color"/>
   <attr name="asFilterHeaderBackground" format="reference"/>
   <attr name="asFilterCountColor" format="color"/>
-  <attr name="asMembersHeaderBackground" format="reference"/>
+  <attr name="asMembersHeaderBackground" format="color"/>
   <attr name="asSeparatorBackground" format="color"/>
   
   <attr name="asThemeTextColor" format="color"/>
@@ -25,6 +25,7 @@
   <attr name="asAddButtonImg" format="reference" />
   <attr name="asMicButtonImg" format="reference" />
   <attr name="asCommentButtonImg" format="reference" />
+  <attr name="asFilledCommentButtonImg" format="reference" />
   <attr name="asTaskEditArrow" format="reference" />
   <attr name="asRepeatIcon" format="reference" />
   <attr name="asMainMenu" format="reference" />

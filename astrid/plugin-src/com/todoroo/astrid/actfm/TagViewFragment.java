@@ -40,6 +40,7 @@ import com.todoroo.andlib.utility.DialogUtilities;
 import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.astrid.actfm.sync.ActFmPreferenceService;
 import com.todoroo.astrid.actfm.sync.ActFmSyncService;
+import com.todoroo.astrid.activity.TaskListActivity;
 import com.todoroo.astrid.activity.TaskListFragment;
 import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.api.Filter;
@@ -47,6 +48,7 @@ import com.todoroo.astrid.core.SortHelper;
 import com.todoroo.astrid.dao.TaskDao.TaskCriteria;
 import com.todoroo.astrid.data.TagData;
 import com.todoroo.astrid.data.Task;
+import com.todoroo.astrid.data.Update;
 import com.todoroo.astrid.helper.ProgressBarSyncResultCallback;
 import com.todoroo.astrid.service.TagDataService;
 import com.todoroo.astrid.tags.TagFilterExposer;
@@ -224,6 +226,20 @@ public class TagViewFragment extends TaskListFragment {
             tagData.setValue(TagData.TASK_COUNT, count);
             tagDataService.save(tagData);
         }
+
+        if (tagData != null) {
+            long lastViewedComments = Preferences.getLong(TagUpdatesFragment.UPDATES_LAST_VIEWED + tagData.getValue(TagData.REMOTE_ID), 0);
+            int unreadCount = 0;
+            TodorooCursor<Update> commentCursor = tagDataService.getUpdatesWithExtraCriteria(tagData, Update.CREATION_DATE.gt(lastViewedComments));
+            try {
+                unreadCount = commentCursor.getCount();
+            } finally {
+                commentCursor.close();
+            }
+
+            TaskListActivity tla = (TaskListActivity) getActivity();
+            tla.setCommentsCount(unreadCount);
+        }
     }
 
     // --------------------------------------------------------- refresh data
@@ -247,6 +263,7 @@ public class TagViewFragment extends TaskListFragment {
             @Override
             public void run() {
                 ContextManager.getContext().sendBroadcast(new Intent(AstridApiConstants.BROADCAST_EVENT_REFRESH));
+                // Update comment unreadCount
             }
         }));
         Preferences.setLong(LAST_FETCH_KEY + tagData.getId(), DateUtilities.now());

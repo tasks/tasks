@@ -131,16 +131,20 @@ public class TagDataService {
      * Get updates for this tagData
      * @return
      */
-    @SuppressWarnings("nls")
     public TodorooCursor<Update> getUpdates(TagData tagData) {
+        return getUpdatesWithExtraCriteria(tagData, Criterion.all);
+    }
+
+    @SuppressWarnings("nls")
+    public TodorooCursor<Update> getUpdatesWithExtraCriteria(TagData tagData, Criterion criterion) {
         if (tagData == null)
             return updateDao.query(Query.select(Update.PROPERTIES).where(
-                    Criterion.all).
+                    criterion).
                     orderBy(Order.desc(Update.CREATION_DATE)));
         if(tagData.getValue(Task.REMOTE_ID) < 1)
             return updateDao.query(Query.select(Update.PROPERTIES).where(Criterion.none));
-        return updateDao.query(Query.select(Update.PROPERTIES).where(
-                Update.TAGS.like("%," + tagData.getValue(Task.REMOTE_ID) + ",%")).
+        return updateDao.query(Query.select(Update.PROPERTIES).where(Criterion.and(criterion,
+                Update.TAGS.like("%," + tagData.getValue(Task.REMOTE_ID) + ",%"))).
                 orderBy(Order.desc(Update.CREATION_DATE)));
     }
 
