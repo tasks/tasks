@@ -1387,7 +1387,6 @@ public class TaskListFragment extends ListFragment implements OnScrollListener,
     }
 
     protected void performSyncServiceV2Sync(boolean manual) {
-        System.err.println("Autosyncing");
         syncService.synchronizeActiveTasks(manual, syncResultCallback);
         Preferences.setLong(PREF_LAST_AUTO_SYNC, DateUtilities.now());
     }

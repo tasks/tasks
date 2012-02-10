@@ -27,42 +27,15 @@
         android:layout_height="wrap_content"
         android:layout_weight="1"
         android:orientation="vertical"
+        android:paddingBottom="5dip"
         style="@style/Content">
-        
-        
-        <LinearLayout
-            android:id="@+id/taskListQuickaddControlsContainer"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:visibility="gone">
-            
-	        <View 
-	            android:layout_width="fill_parent"
-	            android:layout_height="1px"
-	            android:background="?attr/asSeparatorBackground"/>
-	        
-	        <LinearLayout 
-	            android:id="@+id/taskListQuickaddControls"
-	            android:layout_width="fill_parent"
-	            android:layout_height="50dip"
-	            android:orientation="horizontal">
-	            
-		        <View 
-		            android:layout_height="fill_parent"
-		            android:layout_width="1px"
-		            android:background="?attr/asSeparatorBackground"/>            
-	            
-	        </LinearLayout>
-        
-        </LinearLayout>
         
 	    <LinearLayout
 	        android:layout_width="fill_parent" 
 	        android:layout_height="wrap_content"
 	        android:minHeight="50dip"
 	        android:padding="3dip"
-	        android:paddingBottom="5dip"
+            android:paddingBottom="0dip"
 	        android:gravity="center_vertical"
 	        android:orientation="horizontal">
 	        
@@ -109,6 +82,31 @@
 	            android:scaleType="center"/> 
 	
 	    </LinearLayout>
+      
+        
+        
+        <LinearLayout
+            android:id="@+id/taskListQuickaddControlsContainer"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:visibility="gone">
+            
+            <LinearLayout 
+                android:id="@+id/taskListQuickaddControls"
+                android:layout_width="fill_parent"
+                android:layout_height="50dip"
+                android:orientation="horizontal">
+                
+                <View 
+                    android:layout_height="fill_parent"
+                    android:layout_width="1px"
+                    android:background="?attr/asSeparatorBackground"/>            
+                
+            </LinearLayout>
+        
+        </LinearLayout>
+      
     </LinearLayout>
         
 </LinearLayout>
