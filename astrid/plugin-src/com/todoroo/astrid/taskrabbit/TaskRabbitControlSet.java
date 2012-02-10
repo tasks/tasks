@@ -218,11 +218,11 @@ public class TaskRabbitControlSet extends TaskEditControlSet implements Assigned
     public boolean activityResult (int requestCode, int resultCode, Intent data) {
         if (requestCode == REQUEST_CODE_TASK_RABBIT_ACTIVITY && resultCode == Activity.RESULT_OK){
             String result = data.getStringExtra(OAuthLoginActivity.DATA_RESPONSE);
-            if (TextUtils.isEmpty(result)) {
+            if (!TextUtils.isEmpty(result)) {
                 try {
                     Message successMessage = new Message();
                     successMessage.what = 1;
-                    handler.sendMessageDelayed(successMessage, 1500);
+                    handler.sendMessageDelayed(successMessage, 500);
                 }
                 catch (Exception e){
                     e.printStackTrace();

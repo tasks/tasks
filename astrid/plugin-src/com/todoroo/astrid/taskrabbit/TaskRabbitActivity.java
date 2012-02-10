@@ -435,8 +435,14 @@ public class TaskRabbitActivity extends FragmentActivity implements LocationList
             return;
         }
 
-        if(taskRabbitTask.getTaskID() > 0)
-            taskButton.setText("Update task!");
+        if(taskRabbitTask.getTaskID() > 0) {
+            taskButton.setText("Already Posted!");
+            taskButton.setEnabled(false);
+        }
+        else {
+            taskButton.setEnabled(true);
+        }
+
         JSONObject jsonData = container.getLocalTaskData();
         synchronized (controls) {
             if(jsonData != null) {
