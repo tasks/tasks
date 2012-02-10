@@ -240,7 +240,7 @@
   <string name="actfm_GAA_title">Select the Google account you want to use:</string>
 
   <!-- share login: OAUTH Login Prompt -->
-  <string name="actfm_OLA_prompt">Please connect to Google:</string>
+  <string name="actfm_OLA_prompt">Please log in:</string>
   
   <!-- ================================================ Synchronization == -->
       
