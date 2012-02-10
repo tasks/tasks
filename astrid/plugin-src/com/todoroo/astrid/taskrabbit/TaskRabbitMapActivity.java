@@ -57,7 +57,7 @@ public class TaskRabbitMapActivity extends MapActivity implements LocationListen
 
         List<Overlay> mapOverlays = mapView.getOverlays();
 
-        Drawable drawable = this.getResources().getDrawable(R.drawable.icon_locale);
+        Drawable drawable = this.getResources().getDrawable(android.R.drawable.star_big_on);
         currentOverlayItem = new TaskRabbitMapOverlayItem(drawable, this);
         GeoPoint point = null;
 
@@ -65,7 +65,7 @@ public class TaskRabbitMapActivity extends MapActivity implements LocationListen
         if(lastKnownLocation != null) {
 
             point = new GeoPoint((int)(lastKnownLocation.getLatitude()*1E6),(int)(lastKnownLocation.getLongitude()*1E6));
-            OverlayItem overlayitem = new OverlayItem(point, "Set this location", "Send this location to Task Rabbit!");
+            OverlayItem overlayitem = createOverlayItem(point);
             currentOverlayItem.addOverlay(overlayitem);
             mapOverlays.add(currentOverlayItem);
 
@@ -86,11 +86,8 @@ public class TaskRabbitMapActivity extends MapActivity implements LocationListen
         ImageButton searchButton=(ImageButton)findViewById(R.id.search_button);
         searchButton.setImageResource(android.R.drawable.ic_menu_search);
         searchButton.setOnClickListener(new View.OnClickListener() {
-
             @Override
             public void onClick(View v) {
-                // TODO Auto-generated method stub
-
                 searchLocation();
             }
         });
@@ -112,12 +109,12 @@ public class TaskRabbitMapActivity extends MapActivity implements LocationListen
         builder.setMessage("GPS needs to be enabled in order to add location based tasks. Do you want to enable it?")
         .setCancelable(false)
         .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-            public void onClick(@SuppressWarnings("unused") final DialogInterface dialog, @SuppressWarnings("unused") final int id) {
+            public void onClick(final DialogInterface dialog, final int id) {
                 startActivity(new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS));
             }
         })
         .setNegativeButton("No", new DialogInterface.OnClickListener() {
-            public void onClick(final DialogInterface dialog, @SuppressWarnings("unused") final int id) {
+            public void onClick(final DialogInterface dialog, final int id) {
                 dialog.cancel();
             }
         });
@@ -150,59 +147,64 @@ public class TaskRabbitMapActivity extends MapActivity implements LocationListen
 
     private void searchLocation() {
 
-                Thread thread = new Thread(){
-                    @Override
-                    public void run (){
+        Thread thread = new Thread() {
+            @Override
+            public void run() {
 
-        List<Address> addresses = null;
-        try {
+                List<Address> addresses = null;
+                try {
 
-            Geocoder geoCoder = new Geocoder(TaskRabbitMapActivity.this, Locale.getDefault());
-            addresses = geoCoder.getFromLocationName(searchText.getText().toString(),5);
-        } catch (IOException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
+                    Geocoder geoCoder = new Geocoder(
+                            TaskRabbitMapActivity.this, Locale.getDefault());
+                    addresses = geoCoder.getFromLocationName(
+                            searchText.getText().toString(), 5);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
 
-        if(addresses != null && addresses.size() > 0)
-        {
-            updateAddress(addresses.get(0));
-            GeoPoint q = new GeoPoint( (int) (addresses.get(0).getLatitude() * 1E6),
-                    (int) (addresses.get(0).getLongitude() * 1E6));
+                if (addresses != null && addresses.size() > 0) {
+                    updateAddress(addresses.get(0));
+                    GeoPoint q = new GeoPoint(
+                            (int) (addresses.get(0).getLatitude() * 1E6),
+                            (int) (addresses.get(0).getLongitude() * 1E6));
 
-            Drawable drawable = TaskRabbitMapActivity.this.getResources().getDrawable(R.drawable.icon_locale);
-            currentOverlayItem = new TaskRabbitMapOverlayItem(drawable, TaskRabbitMapActivity.this);
-            mapController.animateTo(q);
-            mapController.setZoom(12);
+                    Drawable drawable = TaskRabbitMapActivity.this.getResources().getDrawable(
+                            R.drawable.icon_locale);
+                    currentOverlayItem = new TaskRabbitMapOverlayItem(drawable,
+                            TaskRabbitMapActivity.this);
+                    mapController.animateTo(q);
+                    mapController.setZoom(12);
 
-            OverlayItem overlayitem = new OverlayItem(q, "Set this location", "For the rabbits!");
+                    OverlayItem overlayitem = createOverlayItem(q);
 
-            currentOverlayItem.addOverlay(overlayitem);
-            List<Overlay> mapOverlays = mapView.getOverlays();
-            mapOverlays.clear();
-            mapOverlays.add(currentOverlayItem);
+                    currentOverlayItem.addOverlay(overlayitem);
+                    List<Overlay> mapOverlays = mapView.getOverlays();
+                    mapOverlays.clear();
+                    mapOverlays.add(currentOverlayItem);
 
-            Message successMessage = new Message();
-            successMessage.what = 1;
-            handler.sendMessage(successMessage);
-            //                       searchText.setText("");
-        }
-        else
-        {
+                    Message successMessage = new Message();
+                    successMessage.what = 1;
+                    handler.sendMessage(successMessage);
+                } else {
 
-            Message failureMessage = new Message();
-            failureMessage.what = -1;
-            handler.sendMessage(failureMessage);
+                    Message failureMessage = new Message();
+                    failureMessage.what = -1;
+                    handler.sendMessage(failureMessage);
 
-        }
-                    }
-                };
+                }
+            }
 
-                thread.start();
+        };
+
+        thread.start();
 
     }
 
-
+    protected OverlayItem createOverlayItem(GeoPoint q) {
+        OverlayItem overlayitem = new OverlayItem(q, "Set this location",
+            "Use this location for TaskRabbit");
+        return overlayitem;
+    }
 
     private void getAddressFromLocation(Location location){
         try {
@@ -220,7 +222,6 @@ public class TaskRabbitMapActivity extends MapActivity implements LocationListen
     }
     private void updateAddress(Address address){
         if(address.getLocality() != null && address.getPostalCode() != null){
-//            locationAddress = (address.getLocality() + ", " + address.getPostalCode());
             locationAddress = "";
             for (int i = 0; i < address.getMaxAddressLineIndex(); i++){
                 locationAddress += address.getAddressLine(i) + ", ";
@@ -241,13 +242,12 @@ public class TaskRabbitMapActivity extends MapActivity implements LocationListen
         TaskRabbitMapOverlayItem myItemizedOverlay = new TaskRabbitMapOverlayItem(drawable);
         GeoPoint point = new GeoPoint((int)(location.getLatitude() * 1E6), (int)(location.getLongitude() * 1E6));
 
-        OverlayItem overlayitem = new OverlayItem(point, "Set this location", "For the rabbits!");
+        OverlayItem overlayitem = createOverlayItem(point);
         myItemizedOverlay.addOverlay(overlayitem);
         mapOverlays.add(myItemizedOverlay);
     }
     @Override
     public void onLocationChanged(Location location) {
-        // TODO Auto-generated method stub
         if (location != null) {
             double lat = location.getLatitude();
             double lng = location.getLongitude();
@@ -260,17 +260,17 @@ public class TaskRabbitMapActivity extends MapActivity implements LocationListen
     }
     @Override
     public void onProviderDisabled(String provider) {
-        // TODO Auto-generated method stub
+        //
 
     }
     @Override
     public void onProviderEnabled(String provider) {
-        // TODO Auto-generated method stub
+        //
 
     }
     @Override
     public void onStatusChanged(String provider, int status, Bundle extras) {
-        // TODO Auto-generated method stub
+        //
 
     }
 

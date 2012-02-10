@@ -78,12 +78,12 @@ public class TaskRabbitNameControlSet extends PopupControlSet implements TaskRab
     }
 
     @Override
-    public void saveToJSON(JSONObject json, String key) throws JSONException {
+    public void saveToDatabase(JSONObject json, String key) throws JSONException {
         json.put(key, editText.getText().toString());
     }
 
     @Override
-    public void writeToJSON(JSONObject json, String key) throws JSONException {
+    public void postToTaskRabbit(JSONObject json, String key) throws JSONException {
         String nameKey = activity.getString(R.string.tr_set_key_description);
         if (key.equals(activity.getString(R.string.tr_set_key_name)) && json.has(nameKey)) {
             json.put(nameKey, json.optString(nameKey, "") + "\nRestaurant Name: " + editText.getText().toString());

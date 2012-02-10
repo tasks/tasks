@@ -20,6 +20,8 @@ import com.todoroo.astrid.sync.SyncContainer;
  */
 public class TaskRabbitTaskContainer extends SyncContainer {
 
+    public static final int NO_ID = 0;
+
     public Metadata trTask;
 
     public TaskRabbitTaskContainer(Task task, Metadata trTask) {
@@ -42,18 +44,16 @@ public class TaskRabbitTaskContainer extends SyncContainer {
         return getJSONData(TaskRabbitMetadata.DATA_REMOTE);
     }
 
-    public int getTaskID() {
-
+    public long getTaskID() {
+        if(TextUtils.isEmpty(trTask.getValue(TaskRabbitMetadata.ID)))
+            return NO_ID;
         try {
-            int taskID = Integer.parseInt(trTask.getValue(TaskRabbitMetadata.ID));
-            if(taskID > 0)
-                return taskID;
+            return Long.parseLong(trTask.getValue(TaskRabbitMetadata.ID));
+        } catch (Exception e) {
+            return NO_ID;
         }
-        catch (Exception e) {
-            e.printStackTrace();
-        }
-        return 0;
     }
+
     private JSONObject getJSONData(StringProperty key) {
         if(trTask.containsNonNullValue(key)) {
             String jsonString = trTask.getValue(key);

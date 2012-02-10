@@ -291,7 +291,6 @@ public class TaskRabbitControlSet extends TaskEditControlSet implements Assigned
 
     @Override
     public void onLocationChanged(Location location) {
-
         Log.d("TRControlSet", "Location changed and found");
         currentLocation = location;
         isEnabledForTRLocation = supportsCurrentLocation();
@@ -320,7 +319,7 @@ public class TaskRabbitControlSet extends TaskEditControlSet implements Assigned
     @Override
     public boolean didPostToTaskRabbit() {
         if (taskRabbitTask == null) return false;
-        return taskRabbitTask.getTaskID() > 0;
+        return taskRabbitTask.getTaskID() != TaskRabbitTaskContainer.NO_ID;
     }
 
 

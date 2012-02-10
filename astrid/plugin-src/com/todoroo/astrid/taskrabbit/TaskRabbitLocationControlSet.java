@@ -1,5 +1,6 @@
 package com.todoroo.astrid.taskrabbit;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 
@@ -8,6 +9,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.app.Activity;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.location.Address;
 import android.location.Geocoder;
@@ -16,9 +18,13 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.ViewGroup.LayoutParams;
+import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.timsu.astrid.R;
+import com.todoroo.andlib.utility.DialogUtilities;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.helper.TaskEditControlSet;
 import com.todoroo.astrid.taskrabbit.TaskRabbitActivity.ActivityResultSetListener;
@@ -30,8 +36,9 @@ public class TaskRabbitLocationControlSet extends TaskEditControlSet implements 
     private final TextView displayText;
     private final TextView displayEdit;
     private final Activity activity;
-    public Location location;
     private String locationName;
+    public Location location;
+    public JSONObject manualEntry = null;
 
     public int REQUEST_CODE_TASK_RABBIT_LOCATION = 6;
 
@@ -50,12 +57,46 @@ public class TaskRabbitLocationControlSet extends TaskEditControlSet implements 
 
             @Override
             public void onClick(View v) {
-                Intent mapIntent = new Intent(activity, TaskRabbitMapActivity.class);
-                activity.startActivityForResult(mapIntent, REQUEST_CODE_TASK_RABBIT_LOCATION);
-
+                try {
+                    Class.forName("com.google.android.maps.MapView");
+                    Intent mapIntent = new Intent(activity, TaskRabbitMapActivity.class);
+                    activity.startActivityForResult(mapIntent, REQUEST_CODE_TASK_RABBIT_LOCATION);
+                } catch (Exception e) {
+                    manualLocationEntry();
+                }
             }
         });
 
+    }
+
+    protected void manualLocationEntry() {
+        LinearLayout layout = new LinearLayout(activity);
+        layout.setOrientation(LinearLayout.VERTICAL);
+        LayoutParams lp = new LinearLayout.LayoutParams(LayoutParams.FILL_PARENT,
+                LayoutParams.WRAP_CONTENT);
+        final String[] fields = new String[] { "Address", "City", "State", "Zip" };
+        final HashMap<String, EditText> views = new HashMap<String, EditText>();
+        for(String field : fields) {
+            EditText et = new EditText(activity);
+            et.setHint(field);
+            et.setLayoutParams(lp);
+            views.put(field, et);
+            layout.addView(et);
+        }
+
+        DialogUtilities.viewDialog(activity, "Enter Location", layout, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                displayEdit.setText(views.get("Address").getText());
+                manualEntry = new JSONObject();
+                for(String field : fields)
+                    try {
+                        manualEntry.put(field.toLowerCase(), views.get(field).getText());
+                    } catch (JSONException e) {
+                        // fail
+                    }
+            }
+        }, null);
     }
 
     private void parseTaskLocation(JSONObject json) {
@@ -85,6 +126,7 @@ public class TaskRabbitLocationControlSet extends TaskEditControlSet implements 
             location.setLatitude(locationToDouble(lat));
             location.setLongitude(locationToDouble(lng));
             displayEdit.setText(getLocationText());
+            manualEntry = null;
 
             getAddressFromLocation(location);
 
@@ -136,12 +178,12 @@ public class TaskRabbitLocationControlSet extends TaskEditControlSet implements 
     }
 
     @Override
-    public void saveToJSON(JSONObject json, String key) throws JSONException {
+    public void saveToDatabase(JSONObject json, String key) throws JSONException {
         json.put(key, getTaskLocation());
     }
 
     @Override
-    public void writeToJSON(JSONObject json, String key) throws JSONException {
+    public void postToTaskRabbit(JSONObject json, String key) throws JSONException {
         JSONArray locations = json.optJSONArray("other_locations_attributes");
         if (locations == null) {
             locations = new JSONArray();
@@ -152,6 +194,8 @@ public class TaskRabbitLocationControlSet extends TaskEditControlSet implements 
     }
 
     private JSONObject getTaskLocation() {
+        if(manualEntry != null)
+            return manualEntry;
 
         try {
             JSONObject locationObject = new JSONObject();

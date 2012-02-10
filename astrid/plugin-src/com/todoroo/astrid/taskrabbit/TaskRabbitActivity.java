@@ -77,8 +77,8 @@ public class TaskRabbitActivity extends FragmentActivity implements LocationList
 
     public interface TaskRabbitSetListener {
         public void readFromModel(JSONObject json, String key, int mode);
-        public void saveToJSON(JSONObject json, String key) throws JSONException;
-        public void writeToJSON(JSONObject json, String key) throws JSONException;
+        public void saveToDatabase(JSONObject json, String key) throws JSONException;
+        public void postToTaskRabbit(JSONObject json, String key) throws JSONException;
     }
     public interface ActivityResultSetListener {
 
@@ -430,7 +430,7 @@ public class TaskRabbitActivity extends FragmentActivity implements LocationList
             return;
         }
 
-        if(taskRabbitTask.getTaskID() > 0) {
+        if(taskRabbitTask.getTaskID() != TaskRabbitTaskContainer.NO_ID) {
             taskButton.setText("Already Posted!");
             taskButton.setEnabled(false);
         }
@@ -472,7 +472,7 @@ public class TaskRabbitActivity extends FragmentActivity implements LocationList
         for (int i = 0; i < controls.size(); i++) {
             if (presetValues[i] == -1) continue;
             TaskRabbitSetListener set = controls.get(i);
-            set.writeToJSON(parameters, keys[i]);
+            set.postToTaskRabbit(parameters, keys[i]);
         }
         if (parameters.optJSONArray("other_locations_attributes") == null) {
             parameters.put(getString(R.string.tr_attr_city_id),  Preferences.getInt("task_rabbit_city_id", 1));
@@ -498,7 +498,7 @@ public class TaskRabbitActivity extends FragmentActivity implements LocationList
         String[] keys = getResources().getStringArray(R.array.tr_default_set_key);
         for (int i = 0; i < controls.size(); i++) {
             TaskRabbitSetListener set = controls.get(i);
-            set.saveToJSON(parameters, keys[i]);
+            set.saveToDatabase(parameters, keys[i]);
         }
         parameters.put(getString(R.string.tr_set_key_type), currentSelectedItem);
         parameters.put(getString(R.string.tr_set_key_name), taskTitle.getText().toString());
@@ -636,7 +636,8 @@ public class TaskRabbitActivity extends FragmentActivity implements LocationList
     private void loadLocation() {
         LocationManager locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
 
-        if ( !locationManager.isProviderEnabled( LocationManager.GPS_PROVIDER ) || !locationManager.isProviderEnabled( LocationManager.NETWORK_PROVIDER )) {
+        if ( !locationManager.isProviderEnabled( LocationManager.GPS_PROVIDER ) &&
+                !locationManager.isProviderEnabled( LocationManager.NETWORK_PROVIDER )) {
             buildAlertMessageNoGps();
         }
 

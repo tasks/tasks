@@ -160,7 +160,7 @@ public class TaskRabbitSpinnerControlSet extends TaskEditControlSet implements T
         }
     }
     @Override
-    public void saveToJSON(JSONObject json, String key) throws JSONException {
+    public void saveToDatabase(JSONObject json, String key) throws JSONException {
         json.put(key, spinner.getSelectedItemPosition());
 
     }
@@ -174,7 +174,7 @@ public class TaskRabbitSpinnerControlSet extends TaskEditControlSet implements T
     }
 
     @Override
-    public void writeToJSON(JSONObject json, String key) throws JSONException {
+    public void postToTaskRabbit(JSONObject json, String key) throws JSONException {
 
         if(spinner.getSelectedItem() != null){
             String spinnerString = spinner.getSelectedItem().toString();
