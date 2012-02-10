@@ -41,10 +41,13 @@ import android.view.ContextMenu.ContextMenuInfo;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.MenuInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.View.OnFocusChangeListener;
 import android.view.View.OnKeyListener;
 import android.view.View.OnLongClickListener;
+import android.view.View.OnTouchListener;
 import android.view.ViewGroup;
 import android.view.ViewGroup.LayoutParams;
 import android.view.WindowManager;
@@ -227,6 +230,8 @@ public class TaskListFragment extends ListFragment implements OnScrollListener,
     private ImageButton voiceAddButton;
     private ImageButton quickAddButton;
     private EditText quickAddBox;
+    private LinearLayout quickAddControls;
+    private View quickAddControlsContainer;
     private Timer backgroundTimer;
     private final LinkedHashSet<SyncAction> syncActions = new LinkedHashSet<SyncAction>();
     private boolean isFilter;
@@ -519,6 +524,16 @@ public class TaskListFragment extends ListFragment implements OnScrollListener,
             }
         });
 
+        getListView().setOnTouchListener(new OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                quickAddBox.clearFocus();
+                return false;
+            }
+        });
+
+        quickAddControls = (LinearLayout) getView().findViewById(R.id.taskListQuickaddControls);
+        quickAddControlsContainer = getView().findViewById(R.id.taskListQuickaddControlsContainer);
         setUpQuickAddControlSets();
 
         // set listener for pressing enter in quick-add box
@@ -536,6 +551,13 @@ public class TaskListFragment extends ListFragment implements OnScrollListener,
                     return true;
                 }
                 return false;
+            }
+        });
+
+        quickAddBox.setOnFocusChangeListener(new OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                quickAddControlsContainer.setVisibility(hasFocus ? View.VISIBLE : View.GONE);
             }
         });
 
@@ -637,9 +659,8 @@ public class TaskListFragment extends ListFragment implements OnScrollListener,
         resetControlSets();
 
         LayoutParams lp = new LinearLayout.LayoutParams(LayoutParams.FILL_PARENT, LayoutParams.FILL_PARENT, 1.0f);
-        LinearLayout container = (LinearLayout) getView().findViewById(R.id.taskListQuickaddControls);
-        container.addView(peopleControl.getDisplayView(), 0, lp);
-        container.addView(deadlineControl.getDisplayView(), 2, lp);
+        quickAddControls.addView(peopleControl.getDisplayView(), 0, lp);
+        quickAddControls.addView(deadlineControl.getDisplayView(), 2, lp);
     }
 
     private void resetControlSets() {

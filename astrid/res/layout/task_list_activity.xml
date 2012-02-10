@@ -4,6 +4,9 @@
     android:id="@+id/taskListParent"
     android:layout_width="fill_parent" 
     android:layout_height="fill_parent"
+    android:focusable="true"
+    android:focusableInTouchMode="true"
+    android:descendantFocusability="beforeDescendants"
     style="@style/Content"
     android:orientation="vertical">
     
@@ -26,24 +29,33 @@
         android:orientation="vertical"
         style="@style/Content">
         
-        <View 
-            android:layout_width="fill_parent"
-            android:layout_height="1px"
-            android:background="?attr/asSeparatorBackground"/>
         
-        <LinearLayout 
-            android:id="@+id/taskListQuickaddControls"
+        <LinearLayout
+            android:id="@+id/taskListQuickaddControlsContainer"
             android:layout_width="fill_parent"
-            android:layout_height="50dip"
-            android:orientation="horizontal">
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:visibility="gone">
             
 	        <View 
-	            android:layout_height="fill_parent"
-	            android:layout_width="1px"
-	            android:background="?attr/asSeparatorBackground"/>            
-            
-        </LinearLayout>
+	            android:layout_width="fill_parent"
+	            android:layout_height="1px"
+	            android:background="?attr/asSeparatorBackground"/>
+	        
+	        <LinearLayout 
+	            android:id="@+id/taskListQuickaddControls"
+	            android:layout_width="fill_parent"
+	            android:layout_height="50dip"
+	            android:orientation="horizontal">
+	            
+		        <View 
+		            android:layout_height="fill_parent"
+		            android:layout_width="1px"
+		            android:background="?attr/asSeparatorBackground"/>            
+	            
+	        </LinearLayout>
         
+        </LinearLayout>
         
 	    <LinearLayout
 	        android:layout_width="fill_parent" 
