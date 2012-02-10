@@ -366,9 +366,6 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
             overrideFinishAnim = activity.getIntent().getBooleanExtra(
                     OVERRIDE_FINISH_ANIM, true);
         }
-
-        // disable keyboard until user requests it
-        AndroidUtilities.suppressVirtualKeyboard(title);
     }
 
     private void loadMoreContainer() {

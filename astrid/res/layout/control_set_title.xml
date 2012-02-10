@@ -4,6 +4,7 @@
     android:layout_height="wrap_content"
     android:padding="10dip"
     android:paddingRight="0dip"
+    android:gravity="center_vertical"
     android:orientation="horizontal" >
 
         <CheckBox
@@ -25,7 +26,6 @@
         android:hint="@string/TEA_title_hint"
         android:inputType="textMultiLine"
         android:paddingLeft="5dip"
-        android:paddingTop="3dip"
         android:scrollbars="vertical"
         android:text=""
         android:textColor="@android:color/black" />
