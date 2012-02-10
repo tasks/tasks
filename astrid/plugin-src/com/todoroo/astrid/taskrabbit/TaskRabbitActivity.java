@@ -130,13 +130,13 @@ public class TaskRabbitActivity extends FragmentActivity implements LocationList
     /** Act.fm current user name */
 
     public static final String TASK_RABBIT_TOKEN = "task_rabbit_token"; //$NON-NLS-1$
-    public static final String TASK_RABBIT_URL = "http://www.taskrabbit.com"; //$NON-NLS-1$
-    public static final String TASK_RABBIT_CLIENT_ID = "RZUDrMuGn9Q3dXeq4nL24bM6LZmMCi1CEGgfP4ND"; //$NON-NLS-1$
-    public static final String TASK_RABBIT_CLIENT_APPLICATION_ID = "Va7FUIUTprsmyuwAq9eHSZvAgiRj8FVH1zeaM8Zt"; //$NON-NLS-1$
 
-//     public static final String TASK_RABBIT_URL = "http://rs-astrid-api.taskrabbit.com"; //$NON-NLS-1$
-//    public static final String TASK_RABBIT_CLIENT_ID = "fDTmGeR0uNCvoxopNyqsRWae8xOvbOBqC7jmHaxv"; //$NON-NLS-1$
-//    public static final String TASK_RABBIT_CLIENT_APPLICATION_ID = "XBpKshU8utH5eaNmhky9N8aAId5rSLTh04Hi60Co"; //$NON-NLS-1$
+    private static final String TASK_RABBIT_POPOVER_PREF = "task_rabbit_popover"; //$NON-NLS-1$
+
+    // Non-production values
+    public static final String TASK_RABBIT_URL = "http://rs-astrid-api.taskrabbit.com"; //$NON-NLS-1$
+    public static final String TASK_RABBIT_CLIENT_ID = "fDTmGeR0uNCvoxopNyqsRWae8xOvbOBqC7jmHaxv"; //$NON-NLS-1$
+    public static final String TASK_RABBIT_CLIENT_APPLICATION_ID = "XBpKshU8utH5eaNmhky9N8aAId5rSLTh04Hi60Co"; //$NON-NLS-1$
     public static final String CITY_NAME = "task_rabbit_city_name"; //$NON-NLS-1$
     private TaskRabbitTaskContainer taskRabbitTask;
 
@@ -161,10 +161,12 @@ public class TaskRabbitActivity extends FragmentActivity implements LocationList
 
     }
 
-
     public void showAddListPopover() {
-        ActionBar actionBar = getSupportActionBar();
-        HelpInfoPopover.showPopover(this, actionBar.getCustomView().findViewById(R.id.menu_nav), R.string.help_popover_add_lists, null);
+        if (!Preferences.getBoolean(TASK_RABBIT_POPOVER_PREF, false)) {
+            ActionBar actionBar = getSupportActionBar();
+            HelpInfoPopover.showPopover(this, actionBar.getCustomView().findViewById(R.id.menu_nav), R.string.help_popover_taskrabbit_type, null);
+            Preferences.setBoolean(TASK_RABBIT_POPOVER_PREF, true);
+        }
     }
 
 
@@ -173,9 +175,6 @@ public class TaskRabbitActivity extends FragmentActivity implements LocationList
         super.onResume();
         StatisticsService.sessionStart(this);
         populateFields();
-
-
-        if(!isLoggedIn())
         showAddListPopover();
     }
 

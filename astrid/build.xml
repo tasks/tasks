@@ -114,6 +114,17 @@
       <replaceregexp file="${source.dir}/com/todoroo/astrid/actfm/sync/ActFmInvoker.java"
                      match="APP_SECRET = .*"
                      replace="APP_SECRET = &quot;${apikey.actfm.secret}&quot;;" />
+    	
+      <replaceregexp file="${source.dir}/com/todoroo/astrid/taskrabbit/TaskRabbitActivity.java"
+                     match="TASK_RABBIT_CLIENT_ID = .*"
+                     replace="TASK_RABBIT_CLIENT_ID = &quot;${apikey.taskrabbit.clientid}&quot;;" />
+      <replaceregexp file="${source.dir}/com/todoroo/astrid/taskrabbit/TaskRabbitActivity.java"
+                     match="TASK_RABBIT_CLIENT_APPLICATION_ID = .*"
+                     replace="TASK_RABBIT_CLIENT_APPLICATION_ID = &quot;${apikey.taskrabbit.appid}&quot;;" />
+      <replaceregexp file="${source.dir}/com/todoroo/astrid/taskrabbit/TaskRabbitActivity.java"
+                     match="TASK_RABBIT_URL = .*"
+                     replace="TASK_RABBIT_URL = &quot;${apikey.taskrabbit.url}&quot;;" />
+    	
       <replaceregexp file="${source.dir}/com/todoroo/astrid/gtasks/api/GtasksInvoker.java"
                      match="API_KEY = .*"
                      replace="API_KEY = &quot;${apikey.gtasks}&quot;;" />

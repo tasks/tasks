@@ -29,7 +29,6 @@ import com.todoroo.astrid.notes.NoteMetadata;
 import com.todoroo.astrid.producteev.ProducteevUtilities;
 import com.todoroo.astrid.producteev.sync.ProducteevDashboard;
 import com.todoroo.astrid.service.MetadataService;
-import com.todoroo.astrid.tags.TagService;
 
 public final class TaskRabbitDataService {
 
@@ -150,34 +149,7 @@ public final class TaskRabbitDataService {
         task.metadata.add(task.trTask);
         // note we don't include note metadata, since we only receive deltas
         metadataService.synchronizeMetadata(task.task.getId(), task.metadata,
-                Criterion.or(MetadataCriteria.withKey(TaskRabbitMetadata.METADATA_KEY),
-                        MetadataCriteria.withKey(TagService.KEY)));
-    }
-
-    /**
-     * Reads a task and its metadata
-     * @param task
-     * @return
-     */
-    public TaskRabbitTaskContainer readTaskAndMetadata(TodorooCursor<Task> taskCursor) {
-        Task task = new Task(taskCursor);
-
-        // read tags, notes, etc
-        ArrayList<Metadata> metadata = new ArrayList<Metadata>();
-        TodorooCursor<Metadata> metadataCursor = metadataService.query(Query.select(Metadata.PROPERTIES).
-                where(Criterion.and(MetadataCriteria.byTask(task.getId()),
-                        Criterion.or(MetadataCriteria.withKey(TagService.KEY),
-                                MetadataCriteria.withKey(TaskRabbitMetadata.METADATA_KEY),
-                                MetadataCriteria.withKey(NoteMetadata.METADATA_KEY)))));
-        try {
-            for(metadataCursor.moveToFirst(); !metadataCursor.isAfterLast(); metadataCursor.moveToNext()) {
-                metadata.add(new Metadata(metadataCursor));
-            }
-        } finally {
-            metadataCursor.close();
-        }
-
-        return new TaskRabbitTaskContainer(task, metadata.get(0));
+                MetadataCriteria.withKey(TaskRabbitMetadata.METADATA_KEY));
     }
 
     /**

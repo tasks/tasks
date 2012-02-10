@@ -88,5 +88,5 @@
   
   
   <!-- Shown after user goes to task rabbit activity-->
-  <string name="help_popover_add_lists">Change your type here</string>
+  <string name="help_popover_taskrabbit_type">Change the type of task</string>
 </resources>
