@@ -163,7 +163,6 @@ public class TaskRabbitActivity extends FragmentActivity implements LocationList
 
 
     public void showAddListPopover() {
-
         ActionBar actionBar = getSupportActionBar();
         HelpInfoPopover.showPopover(this, actionBar.getCustomView().findViewById(R.id.menu_nav), R.string.help_popover_add_lists, null);
     }

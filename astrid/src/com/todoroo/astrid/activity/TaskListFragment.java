@@ -931,9 +931,12 @@ public class TaskListFragment extends ListFragment implements OnScrollListener,
             quickAddBox.postDelayed(new Runnable() {
                 @Override
                 public void run() {
-                    HelpInfoPopover.showPopover(getActivity(), quickAddBox,
-                            R.string.help_popover_add_task, null);
-                    Preferences.setBoolean(R.string.p_showed_add_task_help, true);
+                    Activity activity = getActivity();
+                    if (activity != null) {
+                        HelpInfoPopover.showPopover(getActivity(), quickAddBox,
+                                R.string.help_popover_add_task, null);
+                        Preferences.setBoolean(R.string.p_showed_add_task_help, true);
+                    }
                 }
             }, 1000);
         }
@@ -1100,9 +1103,12 @@ public class TaskListFragment extends ListFragment implements OnScrollListener,
                             final View view = getListView().getChildAt(
                                     getListView().getChildCount() - 1);
                             if (view != null) {
-                                HelpInfoPopover.showPopover(getActivity(), view,
-                                        R.string.help_popover_tap_task, null);
-                                Preferences.setBoolean(R.string.p_showed_tap_task_help, true);
+                                Activity activity = getActivity();
+                                if (activity != null) {
+                                    HelpInfoPopover.showPopover(getActivity(), view,
+                                            R.string.help_popover_tap_task, null);
+                                    Preferences.setBoolean(R.string.p_showed_tap_task_help, true);
+                                }
                             }
                         }
                     } catch (IllegalStateException e) {
