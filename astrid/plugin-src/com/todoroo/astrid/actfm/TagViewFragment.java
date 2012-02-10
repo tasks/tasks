@@ -136,8 +136,6 @@ public class TagViewFragment extends TaskListFragment {
         ViewGroup parent = (ViewGroup) getActivity().getLayoutInflater().inflate(R.layout.task_list_body_tag, root, false);
 
         taskListView = super.getListBody(parent);
-        if(actFmPreferenceService.isLoggedIn())
-            ((TextView)taskListView.findViewById(android.R.id.empty)).setText(R.string.DLG_loading);
         parent.addView(taskListView);
 
         return parent;
@@ -263,15 +261,10 @@ public class TagViewFragment extends TaskListFragment {
             @Override
             public void run() {
                 ContextManager.getContext().sendBroadcast(new Intent(AstridApiConstants.BROADCAST_EVENT_REFRESH));
-                // Update comment unreadCount
+                ((TextView)taskListView.findViewById(android.R.id.empty)).setText(R.string.TLA_no_items);
             }
         }));
         Preferences.setLong(LAST_FETCH_KEY + tagData.getId(), DateUtilities.now());
-
-        final boolean noRemoteId = tagData.getValue(TagData.REMOTE_ID) == 0;
-
-        if(noRemoteId && !manual)
-            ((TextView)taskListView.findViewById(android.R.id.empty)).setText(R.string.TLA_no_items);
     }
 
     private void setUpMembersGallery() {
