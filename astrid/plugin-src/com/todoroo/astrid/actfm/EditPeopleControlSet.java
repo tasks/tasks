@@ -173,7 +173,7 @@ public class EditPeopleControlSet extends PopupControlSet {
     @Override
     public void readFromTask(Task sourceTask) {
         setTask(sourceTask);
-        setUpData(task);
+        setUpData(task, null);
     }
 
     public void setTask(Task task) {
@@ -189,7 +189,7 @@ public class EditPeopleControlSet extends PopupControlSet {
     }
 
     @SuppressWarnings("nls")
-    public void setUpData(final Task task) {
+    public void setUpData(final Task task, final TagData includeTag) {
         try {
             JSONObject sharedWith;
             if(task.getValue(Task.SHARED_WITH).length() > 0)
@@ -223,22 +223,14 @@ public class EditPeopleControlSet extends PopupControlSet {
                             final String tag = metadata.getValue(TagService.TAG);
                             TagData tagData = tagDataService.getTag(tag, TagData.MEMBER_COUNT, TagData.MEMBERS, TagData.USER);
                             if(tagData != null && tagData.getValue(TagData.MEMBER_COUNT) > 0) {
-                                JSONArray members = new JSONArray(tagData.getValue(TagData.MEMBERS));
-                                for(int i = 0; i < members.length(); i++) {
-                                    JSONObject user = members.getJSONObject(i);
-                                    user.put("tag", tag);
-                                    sharedPeople.add(user);
-                                    collaborators.add(user);
-                                }
-                                if(!TextUtils.isEmpty(tagData.getValue(TagData.USER))) {
-                                    JSONObject user = new JSONObject(tagData.getValue(TagData.USER));
-                                    user.put("tag", tag);
-                                    sharedPeople.add(user);
-                                    collaborators.add(user);
-                                }
+                                addMembersFromTagData(tagData, tag, sharedPeople, collaborators);
                             } else {
                                 nonSharedTags.add((Metadata) metadata.clone());
                             }
+                        }
+
+                        if (includeTag != null && tags.getCount() == 0) {
+                            addMembersFromTagData(includeTag, null, sharedPeople, collaborators);
                         }
 
                         if(collaborators.size() > 0)
@@ -254,6 +246,24 @@ public class EditPeopleControlSet extends PopupControlSet {
 
         } catch (JSONException e) {
             exceptionService.reportError("json-reading-data", e);
+        }
+    }
+
+    private static void addMembersFromTagData(TagData tagData, String tag, ArrayList<JSONObject> sharedPeople, ArrayList<JSONObject> collaborators) throws JSONException {
+        JSONArray members = new JSONArray(tagData.getValue(TagData.MEMBERS));
+        if (tag == null)
+            tag = tagData.getValue(TagData.NAME);
+        for(int i = 0; i < members.length(); i++) {
+            JSONObject user = members.getJSONObject(i);
+            user.put("tag", tag);
+            sharedPeople.add(user);
+            collaborators.add(user);
+        }
+        if(!TextUtils.isEmpty(tagData.getValue(TagData.USER))) {
+            JSONObject user = new JSONObject(tagData.getValue(TagData.USER));
+            user.put("tag", tag);
+            sharedPeople.add(user);
+            collaborators.add(user);
         }
     }
 

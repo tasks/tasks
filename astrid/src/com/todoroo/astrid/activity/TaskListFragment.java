@@ -1,6 +1,7 @@
 package com.todoroo.astrid.activity;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map.Entry;
@@ -419,6 +420,7 @@ public class TaskListFragment extends ListFragment implements OnScrollListener,
 
         setUpTaskList();
         ((AstridActivity) getActivity()).setupActivityFragment(getTagDataForUpdates());
+        setUpQuickAddControlSets();
 
         contextMenuExtensionLoader.loadInNewThread(getActivity());
     }
@@ -534,7 +536,6 @@ public class TaskListFragment extends ListFragment implements OnScrollListener,
 
         quickAddControls = (LinearLayout) getView().findViewById(R.id.taskListQuickaddControls);
         quickAddControlsContainer = getView().findViewById(R.id.taskListQuickaddControlsContainer);
-        setUpQuickAddControlSets();
 
         // set listener for pressing enter in quick-add box
         quickAddBox = (EditText) getView().findViewById(R.id.quickAddText);
@@ -665,10 +666,16 @@ public class TaskListFragment extends ListFragment implements OnScrollListener,
 
     private void resetControlSets() {
         Task empty = new Task();
+        TagData tagData = getTagDataForUpdates();
+        if (tagData != null) {
+            HashSet<String> tagsTransitory = new HashSet<String>();
+            tagsTransitory.add(tagData.getValue(TagData.NAME));
+            empty.putTransitory("tags", tagsTransitory);
+        }
         repeatControl.readFromTask(empty);
         gcalControl.readFromTask(empty);
         deadlineControl.readFromTask(empty);
-        peopleControl.setUpData(empty);
+        peopleControl.setUpData(empty, getTagDataForUpdates());
         peopleControl.assignToMe();
         peopleControl.setTask(null);
     }
