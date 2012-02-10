@@ -452,8 +452,8 @@ public class EditPeopleControlSet extends PopupControlSet {
             public void textChanged(String text) {
                 getSharedWithView().findViewById(R.id.share_additional).setVisibility(View.VISIBLE);
                 if(text.indexOf('@') > -1) {
-                    getSharedWithView().findViewById(R.id.tag_label).setVisibility(View.VISIBLE);
-                    getSharedWithView().findViewById(R.id.tag_name).setVisibility(View.VISIBLE);
+//                    getSharedWithView().findViewById(R.id.tag_label).setVisibility(View.VISIBLE);
+//                    getSharedWithView().findViewById(R.id.tag_name).setVisibility(View.VISIBLE);
                 }
             }
         });
@@ -693,11 +693,11 @@ public class EditPeopleControlSet extends PopupControlSet {
             values.add(message);
         }
 
-        String tag = ((TextView) getSharedWithView().findViewById(R.id.tag_name)).getText().toString();
-        if(!TextUtils.isEmpty(tag)) {
-            values.add("tag");
-            values.add(tag);
-        }
+//        String tag = ((TextView) getSharedWithView().findViewById(R.id.tag_name)).getText().toString();
+//        if(!TextUtils.isEmpty(tag)) {
+//            values.add("tag");
+//            values.add(tag);
+//        }
 
         return values.toArray(new Object[values.size()]);
     }
