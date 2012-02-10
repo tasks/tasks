@@ -61,6 +61,8 @@
 
     <target name="-pre-build" depends="get-version, copy-sources, updatekeys, updatekeys-release, disable-market">
       <mkdir dir="gen" />
+      <property name="proguard.jar" location="antlib/proguard.jar" />
+      <taskdef name="proguard" classname="proguard.ant.ProGuardTask" classpath="${proguard.jar}" />
     </target>
 
     <target name="copy-sources">
