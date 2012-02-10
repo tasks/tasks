@@ -31,13 +31,14 @@ public class MainMenuPopover extends FragmentPopover {
         this.mListener = listener;
     }
 
-    public MainMenuPopover(Context context, int layout) {
+    public MainMenuPopover(Context context, int layout, boolean isTablet) {
         super(context, layout);
 
         inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
         content = (LinearLayout) getContentView().findViewById(R.id.content);
-        addTasksItem();
+        if (!isTablet)
+            addListsItem();
         addFriendsItem();
         addSuggestionsItem();
         addTutorialItem();
@@ -70,8 +71,8 @@ public class MainMenuPopover extends FragmentPopover {
         inflater.inflate(R.layout.fla_separator, content);
     }
 
-    private void addTasksItem() {
-        addMenuItem(R.string.TLA_menu_tasks, R.drawable.icn_menu_tasks, MAIN_MENU_ITEM_TASKS);
+    private void addListsItem() {
+        addMenuItem(R.string.TLA_menu_lists, R.drawable.icn_menu_tasks, MAIN_MENU_ITEM_TASKS);
     }
 
     private void addFriendsItem() {

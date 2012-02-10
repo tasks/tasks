@@ -105,7 +105,7 @@
   <string name="TLA_menu_sync">Sync Now!</string>
   
   <!-- Menu: Tasks -->
-  <string name="TLA_menu_tasks">Tasks</string>
+  <string name="TLA_menu_lists">Lists</string>
 
   <!-- Menu: Friends -->
   <string name="TLA_menu_friends">Friends</string>

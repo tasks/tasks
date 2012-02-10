@@ -211,7 +211,7 @@ public class TaskListActivity extends AstridActivity implements MainMenuListener
     }
 
     private void createMainMenuPopover() {
-        mainMenuPopover = new MainMenuPopover(this, R.layout.main_menu_popover);
+        mainMenuPopover = new MainMenuPopover(this, R.layout.main_menu_popover, (fragmentLayout != LAYOUT_SINGLE));
         mainMenuPopover.setMenuListener(this);
         mainMenuPopover.setOnDismissListener(new OnDismissListener() {
             @Override
@@ -422,7 +422,7 @@ public class TaskListActivity extends AstridActivity implements MainMenuListener
         TaskListFragment tla = getTaskListFragment();
         switch (item) {
         case MainMenuPopover.MAIN_MENU_ITEM_TASKS:
-            // Do nothing
+            listsNav.performClick();
             break;
         case MainMenuPopover.MAIN_MENU_ITEM_FRIENDS:
             // Doesn't exist yet
