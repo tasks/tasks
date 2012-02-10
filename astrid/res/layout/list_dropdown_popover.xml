@@ -17,7 +17,7 @@
         android:layout_height="27dip"
         android:scaleType="fitCenter"
         android:layout_marginBottom="-8dip"
-        android:src="@drawable/list_arrow_up" />
+        android:src="?attr/asListArrowUp" />
 
     <ImageView
         android:id="@+id/gdi_arrow_down"
@@ -25,7 +25,6 @@
         android:layout_height="27dip"
         android:scaleType="fitCenter"
         android:layout_marginBottom="-8dip"
-        android:layout_below="@android:id/list"
-        android:src="@drawable/list_arrow_down" />
+        android:layout_below="@android:id/list" />
 
 </RelativeLayout>

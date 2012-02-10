@@ -150,7 +150,7 @@ public final class TaskEditFragment extends Fragment implements
 
     // --- request codes
 
-    private static final int REQUEST_LOG_IN = 0;
+    public static final int REQUEST_LOG_IN = 0;
     private static final int REQUEST_VOICE_RECOG = 1;
 
     // --- menu codes
@@ -505,7 +505,7 @@ public final class TaskEditFragment extends Fragment implements
 
         // EditPeopleControlSet relies on the "tags" transitory created by the
         // TagsControlSet, so we put the tags control before the people control
-        controls.add(peopleControlSet = new EditPeopleControlSet(getActivity(),
+        controls.add(peopleControlSet = new EditPeopleControlSet(getActivity(), this,
                 R.layout.control_set_assigned,
                 R.layout.control_set_default_display,
                 R.string.actfm_EPA_assign_label, REQUEST_LOG_IN));

@@ -39,6 +39,7 @@ import com.timsu.astrid.R;
 import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.ContextManager;
 import com.todoroo.andlib.service.DependencyInjectionService;
+import com.todoroo.astrid.activity.AstridActivity;
 import com.todoroo.astrid.activity.FilterListFragment;
 import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.api.AstridFilterExposer;
@@ -115,6 +116,9 @@ public class FilterAdapter extends ArrayAdapter<Filter> {
         this.layout = rowLayout;
         this.skipIntentFilters = skipIntentFilters;
         this.selectable = selectable;
+
+        if (((AstridActivity) activity).getFragmentLayout() != AstridActivity.LAYOUT_SINGLE)
+            filterStyle = R.style.TextAppearance_FLA_Filter_Tablet;
 
         inflater = (LayoutInflater) activity.getSystemService(
                 Context.LAYOUT_INFLATER_SERVICE);

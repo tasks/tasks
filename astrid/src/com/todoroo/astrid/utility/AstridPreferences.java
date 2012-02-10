@@ -35,7 +35,7 @@ public class AstridPreferences {
         Preferences.setIfUnset(prefs, editor, r, R.string.p_default_hideUntil_key, 0);
         Preferences.setIfUnset(prefs, editor, r, R.string.p_default_reminders_key, Task.NOTIFY_AT_DEADLINE | Task.NOTIFY_AFTER_DEADLINE);
         Preferences.setIfUnset(prefs, editor, r, R.string.p_rmd_default_random_hours, 0);
-        Preferences.setIfUnset(prefs, editor, r, R.string.p_fontSize, 20);
+        Preferences.setIfUnset(prefs, editor, r, R.string.p_fontSize, 18);
         Preferences.setIfUnset(prefs, editor, r, R.string.p_showNotes, false);
 
         editor.commit();

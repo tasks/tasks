@@ -15,6 +15,7 @@ import com.todoroo.astrid.data.Task;
 
 public class DeadlineControlSet extends PopupControlSet {
 
+    private boolean useNewline = false;
     private final DateAndTimePicker dateAndTimePicker;
 
     public DeadlineControlSet(Activity activity, int viewLayout, int displayViewLayout, View...extraViews) {
@@ -43,14 +44,14 @@ public class DeadlineControlSet extends PopupControlSet {
     @Override
     protected void refreshDisplayView() {
         TextView dateDisplay = (TextView) getDisplayView().findViewById(R.id.display_row_edit);
-        String toDisplay = dateAndTimePicker.getDisplayString(activity);
+        String toDisplay = dateAndTimePicker.getDisplayString(activity, useNewline);
         dateDisplay.setText(toDisplay);
     }
 
     @Override
     public void readFromTask(Task task) {
         long dueDate = task.getValue(Task.DUE_DATE);
-        dateAndTimePicker.initializeWithDate(dueDate);
+        initializeWithDate(dueDate);
         refreshDisplayView();
     }
 
@@ -59,5 +60,21 @@ public class DeadlineControlSet extends PopupControlSet {
         long dueDate = dateAndTimePicker.constructDueDate();
         task.setValue(Task.DUE_DATE, dueDate);
         return null;
+    }
+
+    public void initializeWithDate(long dueDate) {
+        dateAndTimePicker.initializeWithDate(dueDate);
+    }
+
+    public boolean isDeadlineSet() {
+        return dateAndTimePicker.constructDueDate() != 0;
+    }
+
+    /**
+     * Set whether date and time should be separated by a newline or a comma
+     * in the display view
+     */
+    public void setUseNewlineForDisplaySeparator(boolean useNewline) {
+        this.useNewline = useNewline;
     }
 }

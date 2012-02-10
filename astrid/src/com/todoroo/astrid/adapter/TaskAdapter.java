@@ -207,7 +207,7 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
         this.fragment = fragment;
         this.onCompletedTaskListener = onCompletedTaskListener;
 
-        fontSize = Preferences.getIntegerFromString(R.string.p_fontSize, 20);
+        fontSize = Preferences.getIntegerFromString(R.string.p_fontSize, 18);
         paint = new Paint();
         displayMetrics = new DisplayMetrics();
         fragment.getActivity().getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
@@ -923,7 +923,7 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
     @Override
     public void notifyDataSetChanged() {
         super.notifyDataSetChanged();
-        fontSize = Preferences.getIntegerFromString(R.string.p_fontSize, 20);
+        fontSize = Preferences.getIntegerFromString(R.string.p_fontSize, 18);
 
     }
 

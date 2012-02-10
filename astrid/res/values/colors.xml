@@ -30,7 +30,7 @@
     <color name="red_theme_color">#d90000</color>
     <color name="dark_blue_theme_color">#1f78b4</color>
     <color name="tablet_list_bg">#292929</color>
-    <color name="tablet_list_selected">#101010</color>
+    <color name="tablet_list_selected">#000000</color>
     <color name="reminder_background">#262626</color>
         
 </resources>

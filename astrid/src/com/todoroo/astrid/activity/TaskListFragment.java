@@ -41,11 +41,15 @@ import android.view.ContextMenu.ContextMenuInfo;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.MenuInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.View.OnFocusChangeListener;
 import android.view.View.OnKeyListener;
 import android.view.View.OnLongClickListener;
+import android.view.View.OnTouchListener;
 import android.view.ViewGroup;
+import android.view.ViewGroup.LayoutParams;
 import android.view.WindowManager;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
@@ -55,6 +59,7 @@ import android.widget.AdapterView.AdapterContextMenuInfo;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.TextView.OnEditorActionListener;
@@ -72,12 +77,15 @@ import com.todoroo.andlib.sql.Functions;
 import com.todoroo.andlib.sql.QueryTemplate;
 import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.andlib.utility.DateUtilities;
+import com.todoroo.andlib.utility.DialogUtilities;
 import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.andlib.widget.GestureService;
 import com.todoroo.andlib.widget.GestureService.GestureInterface;
 import com.todoroo.astrid.actfm.ActFmLoginActivity;
+import com.todoroo.astrid.actfm.EditPeopleControlSet;
 import com.todoroo.astrid.actfm.TagUpdatesActivity;
 import com.todoroo.astrid.actfm.TagViewFragment;
+import com.todoroo.astrid.actfm.sync.ActFmPreferenceService;
 import com.todoroo.astrid.activity.SortSelectionActivity.OnSortSelectedListener;
 import com.todoroo.astrid.adapter.TaskAdapter;
 import com.todoroo.astrid.adapter.TaskAdapter.OnCompletedTaskListener;
@@ -96,12 +104,14 @@ import com.todoroo.astrid.dao.TaskDao.TaskCriteria;
 import com.todoroo.astrid.data.Metadata;
 import com.todoroo.astrid.data.TagData;
 import com.todoroo.astrid.data.Task;
+import com.todoroo.astrid.gcal.GCalControlSet;
 import com.todoroo.astrid.gcal.GCalHelper;
 import com.todoroo.astrid.helper.MetadataHelper;
 import com.todoroo.astrid.helper.ProgressBarSyncResultCallback;
 import com.todoroo.astrid.helper.TaskListContextMenuExtensionLoader;
 import com.todoroo.astrid.helper.TaskListContextMenuExtensionLoader.ContextMenuItem;
 import com.todoroo.astrid.reminders.ReminderDebugContextActions;
+import com.todoroo.astrid.repeats.RepeatControlSet;
 import com.todoroo.astrid.service.AddOnService;
 import com.todoroo.astrid.service.AstridDependencyInjector;
 import com.todoroo.astrid.service.MetadataService;
@@ -115,6 +125,7 @@ import com.todoroo.astrid.service.UpgradeService;
 import com.todoroo.astrid.sync.SyncResultCallback;
 import com.todoroo.astrid.sync.SyncV2Provider;
 import com.todoroo.astrid.ui.DateChangedAlerts;
+import com.todoroo.astrid.ui.DeadlineControlSet;
 import com.todoroo.astrid.utility.AstridPreferences;
 import com.todoroo.astrid.utility.Constants;
 import com.todoroo.astrid.utility.Flags;
@@ -199,6 +210,9 @@ public class TaskListFragment extends ListFragment implements OnScrollListener,
     @Autowired
     TagDataService tagDataService;
 
+    @Autowired
+    ActFmPreferenceService actFmPreferenceService;
+
     private final TaskContextActionExposer[] contextItemExposers = new TaskContextActionExposer[] {
             new ReminderDebugContextActions.MakeNotification(),
             new ReminderDebugContextActions.WhenReminder(), };
@@ -216,6 +230,8 @@ public class TaskListFragment extends ListFragment implements OnScrollListener,
     private ImageButton voiceAddButton;
     private ImageButton quickAddButton;
     private EditText quickAddBox;
+    private LinearLayout quickAddControls;
+    private View quickAddControlsContainer;
     private Timer backgroundTimer;
     private final LinkedHashSet<SyncAction> syncActions = new LinkedHashSet<SyncAction>();
     private boolean isFilter;
@@ -228,6 +244,11 @@ public class TaskListFragment extends ListFragment implements OnScrollListener,
     // --- fragment handling variables
     protected OnTaskListItemClickedListener mListener;
     private boolean mDualFragments = false;
+
+    private DeadlineControlSet deadlineControl;
+    private RepeatControlSet repeatControl;
+    private GCalControlSet gcalControl;
+    private EditPeopleControlSet peopleControl;
 
     /*
      * ======================================================================
@@ -503,6 +524,18 @@ public class TaskListFragment extends ListFragment implements OnScrollListener,
             }
         });
 
+        getListView().setOnTouchListener(new OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                quickAddBox.clearFocus();
+                return false;
+            }
+        });
+
+        quickAddControls = (LinearLayout) getView().findViewById(R.id.taskListQuickaddControls);
+        quickAddControlsContainer = getView().findViewById(R.id.taskListQuickaddControlsContainer);
+        setUpQuickAddControlSets();
+
         // set listener for pressing enter in quick-add box
         quickAddBox = (EditText) getView().findViewById(R.id.quickAddText);
         quickAddBox.setOnEditorActionListener(new OnEditorActionListener() {
@@ -518,6 +551,13 @@ public class TaskListFragment extends ListFragment implements OnScrollListener,
                     return true;
                 }
                 return false;
+            }
+        });
+
+        quickAddBox.setOnFocusChangeListener(new OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                quickAddControlsContainer.setVisibility(hasFocus ? View.VISIBLE : View.GONE);
             }
         });
 
@@ -593,6 +633,44 @@ public class TaskListFragment extends ListFragment implements OnScrollListener,
                     }
                 });
         getView().findViewById(R.id.progressBar).setVisibility(View.GONE);
+    }
+
+    private void setUpQuickAddControlSets() {
+
+        repeatControl = new RepeatControlSet(getActivity(),
+                R.layout.control_set_repeat,
+                R.layout.control_set_repeat_display, R.string.repeat_enabled);
+
+        gcalControl = new GCalControlSet(getActivity(),
+                R.layout.control_set_gcal, R.layout.control_set_gcal_display,
+                R.string.gcal_TEA_addToCalendar_label);
+
+        deadlineControl = new DeadlineControlSet(
+                getActivity(), R.layout.control_set_deadline,
+                R.layout.control_set_default_display,
+                repeatControl.getDisplayView(), gcalControl.getDisplayView());
+        deadlineControl.setUseNewlineForDisplaySeparator(true);
+
+        peopleControl = new EditPeopleControlSet(getActivity(), this,
+                R.layout.control_set_assigned,
+                R.layout.control_set_default_display,
+                R.string.actfm_EPA_assign_label, TaskEditFragment.REQUEST_LOG_IN);
+
+        resetControlSets();
+
+        LayoutParams lp = new LinearLayout.LayoutParams(LayoutParams.FILL_PARENT, LayoutParams.FILL_PARENT, 1.0f);
+        quickAddControls.addView(peopleControl.getDisplayView(), 0, lp);
+        quickAddControls.addView(deadlineControl.getDisplayView(), 2, lp);
+    }
+
+    private void resetControlSets() {
+        Task empty = new Task();
+        repeatControl.readFromTask(empty);
+        gcalControl.readFromTask(empty);
+        deadlineControl.readFromTask(empty);
+        peopleControl.setUpData(empty);
+        peopleControl.assignToMe();
+        peopleControl.setTask(null);
     }
 
     // Subclasses can override these to customize extras in quickadd intent
@@ -1076,8 +1154,41 @@ public class TaskListFragment extends ListFragment implements OnScrollListener,
         try {
             if (title != null)
                 title = title.trim();
+            if (!peopleControl.willBeAssignedToMe() && !actFmPreferenceService.isLoggedIn()) {
+                DialogInterface.OnClickListener okListener = new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface d, int which) {
+                        startActivity(new Intent(getActivity(), ActFmLoginActivity.class));
+                    }
+                };
+
+                DialogInterface.OnClickListener cancelListener = new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface d, int which) {
+                        // Reset people control
+                        peopleControl.assignToMe();
+                    }
+                };
+                DialogUtilities.okCancelCustomDialog(getActivity(), getActivity().getString(R.string.actfm_EPA_login_button),
+                        getActivity().getString(R.string.actfm_EPA_login_to_share), R.string.actfm_EPA_login_button,
+                        R.string.actfm_EPA_dont_share_button, android.R.drawable.ic_dialog_alert,
+                        okListener, cancelListener);
+                return null;
+            }
+
             Task task = createWithValues(filter.valuesForNewTasks, title,
                     taskService, metadataService);
+
+            if (repeatControl.isRecurrenceSet())
+                repeatControl.writeToModel(task);
+            if (deadlineControl.isDeadlineSet())
+                deadlineControl.writeToModel(task);
+            gcalControl.writeToModel(task);
+            peopleControl.setTask(task);
+            peopleControl.saveSharingSettings(null);
+            taskService.save(task);
+
+            resetControlSets();
 
             boolean gcalCreateEventEnabled = Preferences.getStringValue(R.string.gcal_p_default) != null
                     && !Preferences.getStringValue(R.string.gcal_p_default).equals(

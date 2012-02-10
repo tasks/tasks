@@ -213,6 +213,7 @@ public class AstridActivity extends FragmentActivity
             });
         } catch (Exception e) {
             // Don't worry about it
+            e.printStackTrace();
         }
     }
 

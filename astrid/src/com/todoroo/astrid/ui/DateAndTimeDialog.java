@@ -93,10 +93,10 @@ public class DateAndTimeDialog extends Dialog {
     }
 
     public String getDisplayString(Context context) {
-        return dateAndTimePicker.getDisplayString(context);
+        return dateAndTimePicker.getDisplayString(context, false);
     }
 
     public String getDisplayString(Context context, long forDate) {
-        return DateAndTimePicker.getDisplayString(context, forDate);
+        return DateAndTimePicker.getDisplayString(context, forDate, false);
     }
 }

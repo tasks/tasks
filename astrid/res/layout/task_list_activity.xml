@@ -4,6 +4,9 @@
     android:id="@+id/taskListParent"
     android:layout_width="fill_parent" 
     android:layout_height="fill_parent"
+    android:focusable="true"
+    android:focusableInTouchMode="true"
+    android:descendantFocusability="beforeDescendants"
     style="@style/Content"
     android:orientation="vertical">
     
@@ -18,60 +21,94 @@
     <!-- Body goes here -->
         
     <!-- Footer -->
-    <LinearLayout
+    <LinearLayout 
         android:id="@+id/taskListFooter"
-        android:layout_width="fill_parent" 
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:minHeight="50dip"
         android:layout_weight="1"
-        android:padding="3dip"
-        android:paddingBottom="5dip"
-        android:gravity="center_vertical"
-        android:orientation="horizontal"
+        android:orientation="vertical"
         style="@style/Content">
         
-        <!-- Voice Add Button -->
-        <ImageButton android:id="@+id/voiceAddButton"
-            android:layout_width="39dip"
-            android:layout_height="39dip"
-            android:layout_gravity="top"
-            android:layout_marginLeft="5dip"
-            android:layout_marginRight="3dip"
-            android:paddingLeft="10dip"
-            android:paddingRight="10dip"
-            android:layout_weight="1"
-            android:visibility="gone"
-            android:background="@android:color/transparent"
-            android:src="?attr/asMicButtonImg"
-            android:scaleType="center"/> 
-    
-        <!-- Quick Add Task -->
-        <EditText android:id="@+id/quickAddText"
-            android:layout_width="wrap_content"
-            android:layout_height="39dip"
-            android:layout_marginRight="8dip"
-            android:layout_marginLeft="5dip"
-            android:layout_marginBottom="2dip"
-            android:layout_weight="100"
-            android:paddingLeft="5dip"
-            android:background="@drawable/edit_title_background"
-            android:hint="@string/TLA_quick_add_hint"
-            android:textSize="16sp"
-            android:autoText="true"
-            android:textColor="@android:color/black"
-            android:capitalize="sentences"/>
         
-        <!-- Extended Add Button -->
-        <ImageButton android:id="@+id/quickAddButton"
-            android:layout_width="39dip"
-            android:layout_height="39dip"
-            android:layout_gravity="top"
-            android:layout_marginRight="5dip"
-            android:layout_weight="1"
-            android:background="@android:color/transparent"
-            android:src="?attr/asAddButtonImg"
-            android:scaleType="center"/> 
-
+        <LinearLayout
+            android:id="@+id/taskListQuickaddControlsContainer"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:visibility="gone">
+            
+	        <View 
+	            android:layout_width="fill_parent"
+	            android:layout_height="1px"
+	            android:background="?attr/asSeparatorBackground"/>
+	        
+	        <LinearLayout 
+	            android:id="@+id/taskListQuickaddControls"
+	            android:layout_width="fill_parent"
+	            android:layout_height="50dip"
+	            android:orientation="horizontal">
+	            
+		        <View 
+		            android:layout_height="fill_parent"
+		            android:layout_width="1px"
+		            android:background="?attr/asSeparatorBackground"/>            
+	            
+	        </LinearLayout>
+        
+        </LinearLayout>
+        
+	    <LinearLayout
+	        android:layout_width="fill_parent" 
+	        android:layout_height="wrap_content"
+	        android:minHeight="50dip"
+	        android:padding="3dip"
+	        android:paddingBottom="5dip"
+	        android:gravity="center_vertical"
+	        android:orientation="horizontal">
+	        
+	        <!-- Voice Add Button -->
+	        <ImageButton android:id="@+id/voiceAddButton"
+	            android:layout_width="39dip"
+	            android:layout_height="39dip"
+	            android:layout_gravity="top"
+	            android:layout_marginLeft="5dip"
+	            android:layout_marginRight="3dip"
+	            android:paddingLeft="10dip"
+	            android:paddingRight="10dip"
+	            android:layout_weight="1"
+	            android:visibility="gone"
+	            android:background="@android:color/transparent"
+	            android:src="?attr/asMicButtonImg"
+	            android:scaleType="center"/> 
+	    
+	        <!-- Quick Add Task -->
+	        <EditText android:id="@+id/quickAddText"
+	            android:layout_width="wrap_content"
+	            android:layout_height="39dip"
+	            android:layout_marginRight="8dip"
+	            android:layout_marginLeft="5dip"
+	            android:layout_marginBottom="2dip"
+	            android:layout_weight="100"
+	            android:paddingLeft="5dip"
+	            android:background="@drawable/edit_title_background"
+	            android:hint="@string/TLA_quick_add_hint"
+	            android:textSize="16sp"
+	            android:autoText="true"
+	            android:textColor="@android:color/black"
+	            android:capitalize="sentences"/>
+	        
+	        <!-- Extended Add Button -->
+	        <ImageButton android:id="@+id/quickAddButton"
+	            android:layout_width="39dip"
+	            android:layout_height="39dip"
+	            android:layout_gravity="top"
+	            android:layout_marginRight="5dip"
+	            android:layout_weight="1"
+	            android:background="@android:color/transparent"
+	            android:src="?attr/asAddButtonImg"
+	            android:scaleType="center"/> 
+	
+	    </LinearLayout>
     </LinearLayout>
         
 </LinearLayout>
