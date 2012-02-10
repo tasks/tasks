@@ -124,6 +124,9 @@
   <!-- task sharing dialog: assigned label -->
   <string name="actfm_EPA_assign_label">Who</string>
   
+  <!-- task sharing dialog: assigned label long version -->
+  <string name="actfm_EPA_assign_label_long">Who should do this?</string>
+  
   <!-- task sharing dialog: assigned to me -->
   <string name="actfm_EPA_assign_me">Me</string>
   

@@ -508,7 +508,7 @@ public final class TaskEditFragment extends Fragment implements
         controls.add(peopleControlSet = new EditPeopleControlSet(getActivity(), this,
                 R.layout.control_set_assigned,
                 R.layout.control_set_default_display,
-                R.string.actfm_EPA_assign_label, REQUEST_LOG_IN));
+                R.string.actfm_EPA_assign_label_long, REQUEST_LOG_IN));
         controlSetMap.put(getString(R.string.TEA_ctrl_who_pref),
                 peopleControlSet);
 
