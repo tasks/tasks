@@ -650,7 +650,7 @@ public class TaskListFragment extends ListFragment implements OnScrollListener,
                 getActivity(), R.layout.control_set_deadline,
                 R.layout.control_set_default_display,
                 repeatControl.getDisplayView(), gcalControl.getDisplayView());
-        deadlineControl.setUseNewlineForDisplaySeparator(true);
+        deadlineControl.setIsQuickadd(true);
 
         peopleControl = new EditPeopleControlSet(getActivity(), this,
                 R.layout.control_set_assigned,

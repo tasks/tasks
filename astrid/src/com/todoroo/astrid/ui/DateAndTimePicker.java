@@ -223,16 +223,19 @@ public class DateAndTimePicker extends LinearLayout {
         this.listener = listener;
     }
 
-    public String getDisplayString(Context context, boolean useNewline) {
+    public String getDisplayString(Context context, boolean useNewline, boolean hideYear) {
         long dueDate = constructDueDate();
-        return getDisplayString(context, dueDate, useNewline);
+        return getDisplayString(context, dueDate, useNewline, hideYear);
     }
 
-    public static String getDisplayString(Context context, long forDate, boolean useNewline) {
+    public static String getDisplayString(Context context, long forDate, boolean useNewline, boolean hideYear) {
         StringBuilder displayString = new StringBuilder();
         Date d = new Date(forDate);
         if (d.getTime() > 0) {
-            displayString.append(DateUtilities.getDateString(context, d));
+            if (hideYear)
+                displayString.append(DateUtilities.getDateStringHideYear(context, d));
+            else
+                displayString.append(DateUtilities.getDateString(context, d));
             if (Task.hasDueTime(forDate)) {
                 displayString.append(useNewline ? "\n" : ", "); //$NON-NLS-1$ //$NON-NLS-2$
                 displayString.append(DateUtilities.getTimeString(context, d));

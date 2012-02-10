@@ -15,7 +15,7 @@ import com.todoroo.astrid.data.Task;
 
 public class DeadlineControlSet extends PopupControlSet {
 
-    private boolean useNewline = false;
+    private boolean isQuickadd = false;
     private final DateAndTimePicker dateAndTimePicker;
 
     public DeadlineControlSet(Activity activity, int viewLayout, int displayViewLayout, View...extraViews) {
@@ -44,7 +44,7 @@ public class DeadlineControlSet extends PopupControlSet {
     @Override
     protected void refreshDisplayView() {
         TextView dateDisplay = (TextView) getDisplayView().findViewById(R.id.display_row_edit);
-        String toDisplay = dateAndTimePicker.getDisplayString(activity, useNewline);
+        String toDisplay = dateAndTimePicker.getDisplayString(activity, isQuickadd, isQuickadd);
         dateDisplay.setText(toDisplay);
     }
 
@@ -74,7 +74,7 @@ public class DeadlineControlSet extends PopupControlSet {
      * Set whether date and time should be separated by a newline or a comma
      * in the display view
      */
-    public void setUseNewlineForDisplaySeparator(boolean useNewline) {
-        this.useNewline = useNewline;
+    public void setIsQuickadd(boolean isQuickadd) {
+        this.isQuickadd = isQuickadd;
     }
 }

@@ -46,7 +46,7 @@ public class TaskRabbitDeadlineControlSet extends PopupControlSet implements Tas
     @Override
     protected void refreshDisplayView() {
         TextView dateDisplay = (TextView) getDisplayView().findViewById(R.id.display_row_edit);
-        String toDisplay = dateAndTimePicker.getDisplayString(activity, false);
+        String toDisplay = dateAndTimePicker.getDisplayString(activity, false, false);
         if (dateDisplay != null)
             dateDisplay.setText(toDisplay);
     }
