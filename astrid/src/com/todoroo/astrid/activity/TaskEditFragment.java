@@ -517,9 +517,9 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
                 R.layout.control_set_default_display,
                 R.string.actfm_EPA_assign_label_long, REQUEST_LOG_IN);
         if(Locale.getDefault().getCountry().equals("US")) {
-        taskRabbitControl = new TaskRabbitControlSet(this, R.layout.control_set_default_display);
-        controls.add(taskRabbitControl);
-        peopleControlSet.addListener(taskRabbitControl);
+            taskRabbitControl = new TaskRabbitControlSet(this, R.layout.control_set_default_display);
+            controls.add(taskRabbitControl);
+            peopleControlSet.addListener(taskRabbitControl);
         }
         controls.add(peopleControlSet);
         controlSetMap.put(getString(R.string.TEA_ctrl_who_pref),
@@ -630,8 +630,10 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
             String item = itemOrder[i];
             if (item.equals(moreSectionTrigger)) {
                 section = moreControls;
-                taskRabbitControl.getDisplayView().setVisibility(View.GONE);
-                section.addView(taskRabbitControl.getDisplayView());
+                if (taskRabbitControl != null) {
+                    taskRabbitControl.getDisplayView().setVisibility(View.GONE);
+                    section.addView(taskRabbitControl.getDisplayView());
+                }
 
             } else {
                 View control_set = null;
