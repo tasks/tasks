@@ -94,6 +94,8 @@ public class TaskRabbitMapOverlayItem extends ItemizedOverlay {
                             }
                         }).setNegativeButton(android.R.string.cancel, null);
         dialog.show();
+        mActivity.setSearchTextForCurrentAddress();
+
         return true;
     }
 

@@ -7,9 +7,13 @@ import org.json.JSONObject;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.location.Location;
+import android.location.LocationListener;
+import android.location.LocationManager;
+import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.provider.Settings;
@@ -22,6 +26,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.maps.GeoPoint;
 import com.timsu.astrid.R;
 import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.DependencyInjectionService;
@@ -33,7 +38,7 @@ import com.todoroo.astrid.activity.TaskEditFragment;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.helper.TaskEditControlSet;
 
-public class TaskRabbitControlSet extends TaskEditControlSet implements AssignedChangedListener {
+public class TaskRabbitControlSet extends TaskEditControlSet implements AssignedChangedListener, LocationListener {
 
 
     public interface TaskRabbitSetListener {
@@ -54,12 +59,26 @@ public class TaskRabbitControlSet extends TaskEditControlSet implements Assigned
 
 
     /** true if editing started with a new task */
-    boolean isNewTask = false;
+    private final boolean isNewTask = false;
     private Location currentLocation;
+    public boolean isEnabledForTRLocation = false;
+    public static final String LOCATION_ENABLED = "location_enabled"; //$NON-NLS-1$
+
+
+    GeoPoint[] supportedLocations =
+    {
+            new GeoPoint(42358430, -71059770), //
+            new GeoPoint(37739230, -122439880),
+            new GeoPoint(40714350, -74005970),
+            new GeoPoint(41878110, -8762980),
+            new GeoPoint(34052230, -118243680),
+            new GeoPoint(33717470, -117831140)};
+
 
     private final Fragment fragment;
     private LinearLayout row;
     protected final TextView displayText;
+    LocationManager locationManager;
 
     public static final int REQUEST_CODE_TASK_RABBIT_ACTIVITY = 5;
     public static final String DATA_RESPONSE = "response"; //$NON-NLS-1$
@@ -82,6 +101,7 @@ public class TaskRabbitControlSet extends TaskEditControlSet implements Assigned
         if (getView() != null) {
             getView().setOnClickListener(getDisplayClickListener());
         }
+        loadLocation();
     }
 
 
@@ -104,9 +124,10 @@ public class TaskRabbitControlSet extends TaskEditControlSet implements Assigned
 
     }
 
-    private void showTaskRabbitActivity() {
+    public void showTaskRabbitActivity() {
         Intent intent = new Intent(fragment.getActivity(), TaskRabbitActivity.class);
         intent.putExtra(TaskEditFragment.TOKEN_ID, model.getId());
+        intent.putExtra(LOCATION_ENABLED, isEnabledForTRLocation);
         fragment.startActivityForResult(intent, REQUEST_CODE_TASK_RABBIT_ACTIVITY);
     }
     protected OnClickListener getDisplayClickListener() {
@@ -196,7 +217,6 @@ public class TaskRabbitControlSet extends TaskEditControlSet implements Assigned
     }
 
     public boolean activityResult (int requestCode, int resultCode, Intent data) {
-        Log.d("The actiivty result request code", "Rerjwklrw" + REQUEST_CODE_TASK_RABBIT_ACTIVITY);
         if (requestCode == REQUEST_CODE_TASK_RABBIT_ACTIVITY && resultCode == Activity.RESULT_OK){
             String result = data.getStringExtra(OAuthLoginActivity.DATA_RESPONSE);
             if (TextUtils.isEmpty(result)) {
@@ -276,4 +296,66 @@ public class TaskRabbitControlSet extends TaskEditControlSet implements Assigned
     }
 
 
+
+
+    private void loadLocation() {
+        Log.d("TRControlSet", "gJgHFDSJKGFHSJKFGHDSJKFGSJDGFSDJKFGDSJKFGSHJDFHS:LDFHS:FJKSDJFL:");
+        locationManager = (LocationManager) fragment.getActivity().getSystemService(Context.LOCATION_SERVICE);
+        currentLocation = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
+        if (currentLocation == null) {
+            Log.d("TRControlSet", "Fail current location is null");
+        locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, this);
+        }
+        else {
+            Log.d("TRControlSet", "loading location and checking if we suppor it");
+            isEnabledForTRLocation = supportsCurrentLocation();
+        }
+    }
+
+    public boolean supportsCurrentLocation() {
+
+        //TODO test this
+        if (currentLocation == null) return false;
+        for (GeoPoint point : supportedLocations){
+            Log.d("TRControlSet", "Searching if we support current location");
+            Location city = new Location(""); //$NON-NLS-1$
+            city.setLatitude(point.getLatitudeE6()/1E6);
+            city.setLongitude(point.getLongitudeE6()/1E6);
+            float distance = currentLocation.distanceTo(city);
+            if (distance < 400000) { //250 mi radius
+                return true;
+            }
+        }
+        return false;
+    }
+
+
+
+
+    @Override
+    public void onLocationChanged(Location location) {
+
+        Log.d("TRControlSet", "Location changed and found");
+        currentLocation = location;
+        isEnabledForTRLocation = supportsCurrentLocation();
+        locationManager.removeUpdates(this);
+        locationManager = null;
+
+    }
+    @Override
+    public void onProviderDisabled(String provider) {
+        // TODO Auto-generated method stub
+
+    }
+
+    @Override
+    public void onProviderEnabled(String provider) {
+        // TODO Auto-generated method stub
+
+    }
+    @Override
+    public void onStatusChanged(String provider, int status, Bundle extras) {
+        // TODO Auto-generated method stub
+
+    }
 }

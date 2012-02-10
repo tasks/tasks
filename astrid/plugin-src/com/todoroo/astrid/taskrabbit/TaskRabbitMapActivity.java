@@ -17,6 +17,8 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.provider.Settings;
+import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -37,6 +39,7 @@ public class TaskRabbitMapActivity extends MapActivity implements LocationListen
     public Location location;
     private EditText searchText;
     private TaskRabbitMapOverlayItem currentOverlayItem;
+    private String locationAddress;
     /** Called when the activity is first created. */
     @Override
     public void onCreate(Bundle savedInstanceState)
@@ -50,7 +53,7 @@ public class TaskRabbitMapActivity extends MapActivity implements LocationListen
 
         LocationManager locationManager = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
         Location lastKnownLocation = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
-        locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 1000L, 500.0f, this);
+        locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, this);
 
         List<Overlay> mapOverlays = mapView.getOverlays();
 
@@ -66,7 +69,7 @@ public class TaskRabbitMapActivity extends MapActivity implements LocationListen
             currentOverlayItem.addOverlay(overlayitem);
             mapOverlays.add(currentOverlayItem);
 
-
+            getAddressFromLocation(lastKnownLocation);
             mapController.animateTo(point);
             mapController.setZoom(17);
             mapView.invalidate();
@@ -97,6 +100,11 @@ public class TaskRabbitMapActivity extends MapActivity implements LocationListen
 
     public String getSearchText() {
         return searchText.getText().toString();
+    }
+    public void setSearchTextForCurrentAddress() {
+        if(!TextUtils.isEmpty(locationAddress)) {
+            searchText.setText(locationAddress);
+        }
     }
 
     private void buildAlertMessageNoGps() {
@@ -158,6 +166,7 @@ public class TaskRabbitMapActivity extends MapActivity implements LocationListen
 
         if(addresses != null && addresses.size() > 0)
         {
+            updateAddress(addresses.get(0));
             GeoPoint q = new GeoPoint( (int) (addresses.get(0).getLatitude() * 1E6),
                     (int) (addresses.get(0).getLongitude() * 1E6));
 
@@ -192,6 +201,34 @@ public class TaskRabbitMapActivity extends MapActivity implements LocationListen
                 thread.start();
 
     }
+
+
+
+    private void getAddressFromLocation(Location location){
+        try {
+            Geocoder geocoder = new Geocoder(this, Locale.getDefault());
+            // Acquire a reference to the system Location Manager
+            List<Address> addresses = geocoder.getFromLocation(location.getLatitude(), location.getLongitude(), 1);
+            if (addresses != null){
+                for (Address address : addresses){
+                    updateAddress(address);
+                }
+            }
+        } catch (Exception e) {
+            Log.d("Location error", e.toString());
+        }
+    }
+    private void updateAddress(Address address){
+        if(address.getLocality() != null && address.getPostalCode() != null){
+//            locationAddress = (address.getLocality() + ", " + address.getPostalCode());
+            locationAddress = "";
+            for (int i = 0; i < address.getMaxAddressLineIndex(); i++){
+                locationAddress += address.getAddressLine(i) + ", ";
+            }
+        }
+    }
+
+
     @Override
     protected boolean isRouteDisplayed() {
         return false;

@@ -23,6 +23,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -417,6 +418,7 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
                 webServices.setLayoutParams(new FrameLayout.LayoutParams(LayoutParams.FILL_PARENT,
                         LayoutParams.WRAP_CONTENT));
                 webServices.setPadding(10, 5, 10, 10);
+                webServices.taskRabbitControl = taskRabbitControl;
                 webServices.setTask(model);
             } else {
                 webServices.refresh();
@@ -508,8 +510,6 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
         // EditPeopleControlSet relies on the "tags" transitory created by the
         // TagsControlSet, so we put the tags control before the people control
 
-        taskRabbitControl = new TaskRabbitControlSet(this, R.layout.control_set_default_display);
-        controls.add(taskRabbitControl);
 
         controls.add(peopleControlSet = new EditPeopleControlSet(getActivity(), this,
                 R.layout.control_set_assigned,
@@ -517,8 +517,12 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
                 R.string.actfm_EPA_assign_label_long, REQUEST_LOG_IN));
         controlSetMap.put(getString(R.string.TEA_ctrl_who_pref),
                 peopleControlSet);
-        peopleControlSet.addListener(taskRabbitControl);
 
+        if(Locale.getDefault().getCountry().equals("US")) {
+        taskRabbitControl = new TaskRabbitControlSet(this, R.layout.control_set_default_display);
+        controls.add(taskRabbitControl);
+        peopleControlSet.addListener(taskRabbitControl);
+        }
 
         RepeatControlSet repeatControls = new RepeatControlSet(getActivity(),
                 R.layout.control_set_repeat,

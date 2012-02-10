@@ -89,7 +89,6 @@ public class TaskRabbitLocationControlSet extends TaskEditControlSet implements 
             displayEdit.setText(getLocationText());
 
             getAddressFromLocation(location);
-            Log.d("TASK RABBIT CONTROL SET FOUND CODE", "THE LAT IS: " + lat + " LNG IS: " + lng);
 
             return true;
         }
@@ -142,19 +141,16 @@ public class TaskRabbitLocationControlSet extends TaskEditControlSet implements 
     @Override
     public void saveToJSON(JSONObject json, String key) throws JSONException {
         json.put(key, getTaskLocation());
-        Log.d("LOCATION SAVE", json.toString());
     }
 
     @Override
     public void writeToJSON(JSONObject json, String key) throws JSONException {
-        Log.d("LOCATION", "LOCEIJREGHSK");
         JSONArray locations = json.optJSONArray("other_locations_attributes");
         if (locations == null) {
             locations = new JSONArray();
         }
         locations.put(getTaskLocation());
         json.put("other_locations_attributes", locations);
-        Log.d("LOCATION", "LALALALAL" + json.toString());
 
     }
 
@@ -172,13 +168,6 @@ public class TaskRabbitLocationControlSet extends TaskEditControlSet implements 
             if(location != null) {
                 locationObject.put("lng", location.getLongitude());
                 locationObject.put("lat", location.getLatitude());
-            }
-            else {
-                // TODO FIX THIS DON"T PUT IN ADDRESSES
-                locationObject.put("address", "300 Beale");
-                locationObject.put("city", "San Francisco");
-                locationObject.put("state", "CA");
-                locationObject.put("zip", "94158");
             }
             return locationObject;
         }

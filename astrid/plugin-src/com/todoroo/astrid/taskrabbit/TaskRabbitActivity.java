@@ -49,7 +49,6 @@ import android.widget.PopupWindow.OnDismissListener;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.android.maps.GeoPoint;
 import com.timsu.astrid.R;
 import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.DependencyInjectionService;
@@ -105,14 +104,6 @@ public class TaskRabbitActivity extends FragmentActivity implements LocationList
     private ExceptionService exceptionService;
 
 
-    GeoPoint[] supportedLocations =
-    {
-            new GeoPoint(42358430, -71059770),
-            new GeoPoint(37739230, -122439880),
-            new GeoPoint(40714350, -74005970),
-            new GeoPoint(41878110, -8762980),
-            new GeoPoint(34052230, -118243680),
-            new GeoPoint(33717470, -117831140)};
 
     /** true if editing started with a new task */
     boolean isNewTask = false;
@@ -651,7 +642,7 @@ public class TaskRabbitActivity extends FragmentActivity implements LocationList
 
         currentLocation = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
 
-        locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 1000L, 500.0f, this);
+        locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, this);
         updateControlSetLocation(currentLocation);
     }
 
@@ -775,24 +766,6 @@ public class TaskRabbitActivity extends FragmentActivity implements LocationList
         return !TextUtils.isEmpty(Preferences.getStringValue(TASK_RABBIT_TOKEN));
     }
 
-    public boolean supportsCurrentLocation() {
-
-        //TODO test this
-        if(true) return true;
-        if (currentLocation == null) return false;
-        for (GeoPoint point : supportedLocations){
-            Location city = new Location(""); //$NON-NLS-1$
-            city.setLatitude(point.getLatitudeE6()/1E6);
-            city.setLongitude(point.getLongitudeE6()/1E6);
-            float distance = currentLocation.distanceTo(city);
-            if (distance < 400000) { //250 mi radius
-                return true;
-            }
-        }
-        return false;
-    }
-
-
 
 
     /* Menu Popover */
@@ -833,7 +806,8 @@ public class TaskRabbitActivity extends FragmentActivity implements LocationList
 
     private void setupListView() {
         String[] keys = getResources().getStringArray(R.array.tr_preset_types);
-        if (!supportsCurrentLocation()) {
+        boolean locationEnabled = getIntent().getBooleanExtra(TaskRabbitControlSet.LOCATION_ENABLED, false);
+        if (!locationEnabled) {
             keys = new String[]{ getResources().getString(R.string.tr_type_virtual)};
         }
         adapter = new ArrayAdapter<String>(this, R.layout.task_rabbit_menu_row, keys);

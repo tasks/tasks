@@ -42,6 +42,7 @@ import com.todoroo.andlib.service.RestClient;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.helper.AmazonRequestsHelper;
 import com.todoroo.astrid.producteev.api.StringEscapeUtils;
+import com.todoroo.astrid.taskrabbit.TaskRabbitControlSet;
 import com.todoroo.astrid.utility.Constants;
 
 @SuppressWarnings("nls")
@@ -60,6 +61,7 @@ public class WebServicesView extends LinearLayout {
     private final DisplayMetrics metrics = new DisplayMetrics();
     private LayoutInflater inflater;
     private Activity activity;
+    public TaskRabbitControlSet taskRabbitControl;
 
 
     private LinearLayout.LayoutParams rowParams;
@@ -403,6 +405,8 @@ public class WebServicesView extends LinearLayout {
      * Initialize Google search results
      */
     protected void initializeTaskRabbit() {
+
+        if(taskRabbitControl != null && taskRabbitControl.isEnabledForTRLocation == true) {
         addSectionHeader("Task Rabbit");
 
         final LinearLayout body = new LinearLayout(activity);
@@ -417,13 +421,29 @@ public class WebServicesView extends LinearLayout {
         imageView.setImageResource(R.drawable.task_rabbit_logo);
         body.addView(imageView);
 
-        body.setVisibility(View.GONE);
+        body.setOnClickListener(new OnClickListener() {
 
-        if (body.getVisibility() == View.VISIBLE){
-            addSectionDivider();
+            @Override
+            public void onClick(View v) {
+                taskRabbitControl.showTaskRabbitActivity();
+
+            }
+        });
+        addView(body);
+        addSectionDivider();
+
+        }
+        else {
         }
 
     }
+
+
+
+
+
+
+
 
     protected View inflateRow(ViewGroup body, String imageUrl, String title, String subtitle,
             String tag) {
@@ -500,13 +520,14 @@ public class WebServicesView extends LinearLayout {
 
     }
 
-    private void addSectionDivider() {
+    private View addSectionDivider() {
         View view = new View(getContext());
         LayoutParams mlp = new LinearLayout.LayoutParams(LayoutParams.FILL_PARENT, 1);
         mlp.setMargins(10, 20, 10, 20);
         view.setLayoutParams(mlp);
         view.setBackgroundColor(Color.GRAY);
         addView(view);
+        return view;
     }
 
     private void addSectionHeader(String string) {
