@@ -19,6 +19,7 @@ import com.todoroo.astrid.api.FilterListItem;
 import com.todoroo.astrid.api.FilterWithCustomIntent;
 import com.todoroo.astrid.service.StatisticsConstants;
 import com.todoroo.astrid.service.StatisticsService;
+import com.todoroo.astrid.service.ThemeService;
 
 @SuppressWarnings("nls")
 abstract public class WidgetConfigActivity extends ListActivity {
@@ -41,6 +42,7 @@ abstract public class WidgetConfigActivity extends ListActivity {
 
     @Override
     public void onCreate(Bundle icicle) {
+        ThemeService.applyTheme(this);
         super.onCreate(icicle);
 
         // Set the result to CANCELED.  This will cause the widget host to cancel
@@ -68,6 +70,7 @@ abstract public class WidgetConfigActivity extends ListActivity {
         // set up ui
         adapter = new FilterAdapter(this, getListView(),
                 R.layout.filter_adapter_row, true, true);
+        adapter.filterStyle = R.style.TextAppearance_FLA_Filter_Widget;
         setListAdapter(adapter);
 
         Button button = (Button)findViewById(R.id.ok);

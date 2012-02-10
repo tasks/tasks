@@ -61,7 +61,7 @@
         android:layout_toLeftOf="@id/size"
         android:paddingLeft="5dip" 
         android:paddingRight="5dip" 
-        android:src="@drawable/filter_selected_icon"
+        android:src="?attr/asFilterSelectedIcon"
         android:scaleType="fitCenter"
         android:visibility="gone"/>
                     
