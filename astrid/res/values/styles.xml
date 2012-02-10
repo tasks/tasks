@@ -17,7 +17,7 @@
         <item name="asDueDateCompletedColor">#ff777777</item>
         <item name="asFilterHeaderColor">#cccccc</item>
         <item name="asFilterHeaderBackground">@drawable/edit_titlebar</item>
-        <item name="asMembersHeaderBackground">@drawable/ios_fabric_480_dark</item>
+        <item name="asMembersHeaderBackground">#909090</item>
         <item name="asSeparatorBackground">#888888</item>
         <item name="asAddButtonImg">@drawable/plus_button_blue</item>
         <item name="asMicButtonImg">@drawable/mic_button_blue</item>
@@ -65,7 +65,7 @@
         <item name="asDueDateColor">#878787</item>
         <item name="asFilterHeaderColor">#ffffff</item>
         <item name="asFilterHeaderBackground">@drawable/edit_titlebar_white</item>
-        <item name="asMembersHeaderBackground">@drawable/ios_fabric_480</item>
+        <item name="asMembersHeaderBackground">#d0d0d0</item>
         <item name="asAddButtonImg">@drawable/plus_button_red</item>
         <item name="asMicButtonImg">@drawable/mic_button_red</item>
         <item name="asCommentButtonImg">@drawable/comment_red</item>
@@ -134,7 +134,7 @@
         <item name="asDueDateCompletedColor">#ff777777</item>
         <item name="asFilterHeaderColor">#ffcccccc</item>
         <item name="asFilterHeaderBackground">@drawable/edit_titlebar</item>
-        <item name="asMembersHeaderBackground">@drawable/ios_fabric_480_dark</item>
+        <item name="asMembersHeaderBackground">#d0d0d0</item>
         <item name="asSeparatorBackground">#888888</item>
         <!-- actionbar-styling -->
         <item name="abBackground">@drawable/header_background</item>
@@ -162,7 +162,7 @@
         <item name="asDueDateColor">#878787</item>
         <item name="asFilterHeaderColor">#ffffff</item>
         <item name="asFilterHeaderBackground">@drawable/edit_titlebar_white</item>
-        <item name="asMembersHeaderBackground">@drawable/ios_fabric_480</item>
+        <item name="asMembersHeaderBackground">#d0d0d0</item>
         <!-- actionbar-styling -->
         <item name="abBackground">@android:color/white</item>
         <item name="abDisplayOptions">useLogo|showHome|showTitle</item>
