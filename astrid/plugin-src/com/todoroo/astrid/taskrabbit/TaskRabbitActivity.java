@@ -13,6 +13,7 @@ import org.json.JSONObject;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.ProgressDialog;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -55,6 +56,7 @@ import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.andlib.service.ExceptionService;
 import com.todoroo.andlib.service.RestClient;
 import com.todoroo.andlib.utility.AndroidUtilities;
+import com.todoroo.andlib.utility.DialogUtilities;
 import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.astrid.actfm.OAuthLoginActivity;
 import com.todoroo.astrid.activity.TaskEditFragment;
@@ -75,7 +77,7 @@ public class TaskRabbitActivity extends FragmentActivity implements LocationList
 
 
     public interface TaskRabbitSetListener {
-        public void readFromModel(JSONObject json, String key);
+        public void readFromModel(JSONObject json, String key, int mode);
         public void saveToJSON(JSONObject json, String key) throws JSONException;
         public void writeToJSON(JSONObject json, String key) throws JSONException;
     }
@@ -138,10 +140,10 @@ public class TaskRabbitActivity extends FragmentActivity implements LocationList
 
     public static final String TASK_RABBIT_TOKEN = "task_rabbit_token"; //$NON-NLS-1$
     public static final String TASK_RABBIT_URL = "http://www.taskrabbit.com"; //$NON-NLS-1$
-   // public static final String TASK_RABBIT_URL = "http://rs-astrid-api.taskrabbit.com"; //$NON-NLS-1$
     public static final String TASK_RABBIT_CLIENT_ID = "RZUDrMuGn9Q3dXeq4nL24bM6LZmMCi1CEGgfP4ND"; //$NON-NLS-1$
     public static final String TASK_RABBIT_CLIENT_APPLICATION_ID = "Va7FUIUTprsmyuwAq9eHSZvAgiRj8FVH1zeaM8Zt"; //$NON-NLS-1$
 
+//     public static final String TASK_RABBIT_URL = "http://rs-astrid-api.taskrabbit.com"; //$NON-NLS-1$
 //    public static final String TASK_RABBIT_CLIENT_ID = "fDTmGeR0uNCvoxopNyqsRWae8xOvbOBqC7jmHaxv"; //$NON-NLS-1$
 //    public static final String TASK_RABBIT_CLIENT_APPLICATION_ID = "XBpKshU8utH5eaNmhky9N8aAId5rSLTh04Hi60Co"; //$NON-NLS-1$
     public static final String CITY_NAME = "task_rabbit_city_name"; //$NON-NLS-1$
@@ -300,7 +302,7 @@ public class TaskRabbitActivity extends FragmentActivity implements LocationList
                 TaskRabbitNameControlSet descriptionControlSet = new TaskRabbitNameControlSet(this,
                         R.layout.control_set_notes, R.layout.task_rabbit_row_description, titleID, i);
                 try {
-                    descriptionControlSet.readFromModel(new JSONObject().put("description", model.getValue(Task.NOTES)), "description");
+                    descriptionControlSet.readFromModel(new JSONObject().put("description", model.getValue(Task.NOTES)), "description", currentSelectedItem);
                 } catch (JSONException e) {
                     // TODO Auto-generated catch block
                     e.printStackTrace();
@@ -374,7 +376,7 @@ public class TaskRabbitActivity extends FragmentActivity implements LocationList
             else {
                 taskControls.addView(((TaskEditControlSet)set).getDisplayView());
             }
-            ((TaskRabbitSetListener) set).readFromModel(parameters, getString(arrayID));
+            ((TaskRabbitSetListener) set).readFromModel(parameters, getString(arrayID), currentSelectedItem);
         }
     }
     private JSONObject defaultValuesToJSON (TypedArray keys, int[] presetValues) {
@@ -455,7 +457,7 @@ public class TaskRabbitActivity extends FragmentActivity implements LocationList
                 }
                 for (int i = 0; i < controls.size(); i++) {
                     TaskRabbitSetListener set = (TaskRabbitSetListener) controls.get(i);
-                    set.readFromModel(jsonData, keys[i]);
+                    set.readFromModel(jsonData, keys[i], currentSelectedItem);
                 }
             }
         }
@@ -523,6 +525,7 @@ public class TaskRabbitActivity extends FragmentActivity implements LocationList
         return null;
     }
 
+    private ProgressDialog progressDialog;
     protected void submitTaskRabbit(){
 
         if(!Preferences.isSet(TASK_RABBIT_TOKEN)){
@@ -531,6 +534,9 @@ public class TaskRabbitActivity extends FragmentActivity implements LocationList
         else {
 
 
+            if(progressDialog == null)
+            progressDialog = DialogUtilities.progressDialog(this,
+                    getString(R.string.DLG_please_wait));
             new Thread(new Runnable() {
                 @Override
                 public void run() {
@@ -560,6 +566,16 @@ public class TaskRabbitActivity extends FragmentActivity implements LocationList
                         Message failureMessage = new Message();
                         failureMessage.what = -1;
                         handler.sendMessage(failureMessage);
+                    }
+                    finally {
+
+                        runOnUiThread(new Runnable() {
+                            public void run() {
+                                if (progressDialog != null) {
+                                    DialogUtilities.dismissDialog(TaskRabbitActivity.this, progressDialog);
+                                }
+                            }
+                        });
                     }
                 }
             }).start();

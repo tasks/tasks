@@ -66,12 +66,6 @@ public class TaskRabbitControlSet extends TaskEditControlSet implements Assigned
 
     /** Act.fm current user name */
 
-    public static final String TASK_RABBIT_TOKEN = "task_rabbit_token"; //$NON-NLS-1$
-    //public static final String TASK_RABBIT_URL = "http://www.taskrabbit.com"; //$NON-NLS-1$
-    public static final String TASK_RABBIT_URL = "http://rs-astrid-api.taskrabbit.com"; //$NON-NLS-1$
-    public static final String TASK_RABBIT_CLIENT_ID = "fDTmGeR0uNCvoxopNyqsRWae8xOvbOBqC7jmHaxv"; //$NON-NLS-1$
-    public static final String TASK_RABBIT_CLIENT_APPLICATION_ID = "XBpKshU8utH5eaNmhky9N8aAId5rSLTh04Hi60Co"; //$NON-NLS-1$
-
     private TaskRabbitTaskContainer taskRabbitTask;
 
 
@@ -186,7 +180,7 @@ public class TaskRabbitControlSet extends TaskEditControlSet implements Assigned
 
 
     private String taskRabbitURL(String method) {
-        return TASK_RABBIT_URL + "/api/v1/"+ method;
+        return TaskRabbitActivity.TASK_RABBIT_URL + "/api/v1/"+ method;
 
     }
 
@@ -207,7 +201,9 @@ public class TaskRabbitControlSet extends TaskEditControlSet implements Assigned
             String result = data.getStringExtra(OAuthLoginActivity.DATA_RESPONSE);
             if (TextUtils.isEmpty(result)) {
                 try {
-                    updateDisplay(new JSONObject(result));
+                    Message successMessage = new Message();
+                    successMessage.what = 1;
+                    handler.sendMessageDelayed(successMessage, 1500);
                 }
                 catch (Exception e){
                     e.printStackTrace();
@@ -246,7 +242,7 @@ public class TaskRabbitControlSet extends TaskEditControlSet implements Assigned
             public void run() {
 
                 try {
-                    Log.d("Tasks url:", taskRabbitURL("tasks/" + taskID));
+                    Log.d("Tasks url:", taskRabbitURL("tasks/" + taskID + "?client_id=" + TaskRabbitActivity.TASK_RABBIT_CLIENT_ID));
                     String response = restClient.get(taskRabbitURL("tasks/" + taskID));
                     Log.d("Task rabbit response", response);
                     JSONObject taskResponse = new JSONObject(response);
@@ -271,7 +267,7 @@ public class TaskRabbitControlSet extends TaskEditControlSet implements Assigned
     }
 
     public boolean isLoggedIn() {
-        return !TextUtils.isEmpty(Preferences.getStringValue(TASK_RABBIT_TOKEN));
+        return !TextUtils.isEmpty(Preferences.getStringValue(TaskRabbitActivity.TASK_RABBIT_TOKEN));
     }
     @Override
     public boolean shouldShowTaskRabbit() {

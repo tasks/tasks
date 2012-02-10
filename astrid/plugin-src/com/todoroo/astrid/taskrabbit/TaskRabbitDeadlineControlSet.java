@@ -46,7 +46,7 @@ public class TaskRabbitDeadlineControlSet extends PopupControlSet implements Tas
     @Override
     protected void refreshDisplayView() {
         TextView dateDisplay = (TextView) getDisplayView().findViewById(R.id.display_row_edit);
-        String toDisplay = dateAndTimePicker.getDisplayString(activity);
+        String toDisplay = dateAndTimePicker.getDisplayString(activity, false);
         if (dateDisplay != null)
             dateDisplay.setText(toDisplay);
     }
@@ -64,7 +64,7 @@ public class TaskRabbitDeadlineControlSet extends PopupControlSet implements Tas
     }
 
     @Override
-    public void readFromModel(JSONObject json, String key) {
+    public void readFromModel(JSONObject json, String key, int mode) {
 
         long dateValue = json.optLong(key);
         Date currentDate = null;

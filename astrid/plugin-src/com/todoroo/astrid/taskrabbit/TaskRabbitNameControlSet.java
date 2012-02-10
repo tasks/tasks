@@ -114,7 +114,7 @@ public class TaskRabbitNameControlSet extends PopupControlSet implements TaskRab
     }
 
     @Override
-    public void readFromModel(JSONObject json, String key) {
+    public void readFromModel(JSONObject json, String key, int mode) {
         if (json.optInt(key, -1) == 0) {
             editText.setHint(displayText.getText().toString());
             return;

@@ -43,7 +43,7 @@
     <array name="tr_default_type_virtual">
         <item>-1</item>
         <item>-1</item>
-        <item>4</item>
+        <item>0</item>
         <item>1</item>
         <item>-1</item>
         <item>10</item>
@@ -103,7 +103,7 @@
     <array name="tr_default_type_handyman">
         <item>-1</item>
         <item>0</item>
-        <item>2</item>
+        <item>0</item>
         <item>-1</item>
         <item>-1</item>
         <item>10</item>
@@ -235,7 +235,7 @@
     <array name="tr_default_skill_type_array">
         <item>@array/tr_default_skill_virtual</item>
         <item>@array/tr_default_named_price</item>
-        <item>@array/tr_type_default_price_cleaning</item>
+        <item>@array/tr_default_named_price</item>
         <item>@array/tr_default_named_price</item>
         <item>@array/tr_default_named_price</item>
         <item>@array/tr_default_skill_handyman</item>
@@ -245,15 +245,7 @@
     
     
     <string-array name="tr_default_skill_virtual">
-        <item>@string/tr_default_skill_research</item>
-        <item>@string/tr_default_skill_phone_calls</item>
-        <item>@string/tr_default_skill_event_planning</item>
-        <item>@string/tr_default_skill_usability_testing</item>
-        <item>@string/tr_default_skill_craigslist</item>
-        <item>@string/tr_default_skill_help</item>
-        <item>@string/tr_default_skill_ebay_help</item>
-    </string-array>
-    <string-array name="tr_default_skill_handyman">
+        <item>@string/tr_default_skill_none</item>
         <item>@string/tr_default_skill_research</item>
         <item>@string/tr_default_skill_phone_calls</item>
         <item>@string/tr_default_skill_event_planning</item>
@@ -263,7 +255,17 @@
         <item>@string/tr_default_skill_ebay_help</item>
     </string-array>
     
+    <string-array name="tr_default_skill_handyman">
+        <item>@string/tr_default_skill_none</item>
+        <item>@string/tr_default_skill_carpentry</item>
+        <item>@string/tr_default_skill_assembly_repair</item>
+        <item>@string/tr_default_skill_plumbing</item>
+        <item>@string/tr_default_skill_ikea_assembly</item>
+        <item>@string/tr_default_skill_heavy_lifting</item>
+    </string-array>
+    
     <!-- Skills Needed -->
+    <string name="tr_default_skill_none">None</string>
     <string name="tr_default_skill_research">Research</string>
     <string name="tr_default_skill_phone_calls">Phone Calls</string>
     <string name="tr_default_skill_event_planning">Event Planning</string>

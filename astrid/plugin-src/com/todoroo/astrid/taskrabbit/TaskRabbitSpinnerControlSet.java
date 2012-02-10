@@ -131,14 +131,14 @@ public class TaskRabbitSpinnerControlSet extends TaskEditControlSet implements T
     }
 
     @Override
-    public void readFromModel(JSONObject json, String key) {
+    public void readFromModel(JSONObject json, String key, int mode) {
 
-        if (titleID == R.string.tr_set_named_price && json.has(activity.getString(R.string.tr_set_key_type))){
-            String[] listTypes = getStringDefaultArray(json.optInt(activity.getString(R.string.tr_set_key_type), 0), R.array.tr_default_price_type_array);
+        if (titleID == R.string.tr_set_named_price){
+            String[] listTypes = getStringDefaultArray(mode, R.array.tr_default_price_type_array);
             resetAdapter(listTypes);
         }
-        else if (titleID == R.string.tr_set_skill_required && json.has(activity.getString(R.string.tr_set_key_type))){
-            String[] listTypes = getStringDefaultArray(json.optInt(activity.getString(R.string.tr_set_key_type), 0), R.array.tr_default_skill_type_array);
+        else if (titleID == R.string.tr_set_skill_required){
+            String[] listTypes = getStringDefaultArray(mode, R.array.tr_default_skill_type_array);
             resetAdapter(listTypes);
         }
         int intValue = json.optInt(key, 0);
@@ -147,8 +147,6 @@ public class TaskRabbitSpinnerControlSet extends TaskEditControlSet implements T
         if (intValue < spinner.getCount()) {
             spinner.setSelection(intValue);
             displayEdit.setText(getDisplayEditText());
-
-
         }
         Log.d("dfhjskhfds", ""+intValue);
     }
@@ -180,9 +178,12 @@ public class TaskRabbitSpinnerControlSet extends TaskEditControlSet implements T
 
         if(spinner.getSelectedItem() != null){
             String spinnerString = spinner.getSelectedItem().toString();
-            if (titleID == R.string.tr_set_cost_in_cents || titleID == R.string.tr_set_named_price) {
+            if (titleID == R.string.tr_set_cost_in_cents) {
                 int cents = parseToDollars(spinnerString) *100;
                 json.put(key, cents);
+            }
+            else if (titleID == R.string.tr_set_named_price) {
+                json.put(key,  parseToDollars(spinnerString));
             }
             else if (key.contains("description")) {
                 String description = json.optString("description", "");

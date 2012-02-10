@@ -88,6 +88,7 @@ public class TaskRabbitLocationControlSet extends TaskEditControlSet implements 
             location.setLongitude(locationToDouble(lng));
             displayEdit.setText(getLocationText());
 
+            getAddressFromLocation(location);
             Log.d("TASK RABBIT CONTROL SET FOUND CODE", "THE LAT IS: " + lat + " LNG IS: " + lng);
 
             return true;
@@ -121,13 +122,13 @@ public class TaskRabbitLocationControlSet extends TaskEditControlSet implements 
     }
     private void updateAddress(Address address){
         if(address.getLocality() != null && address.getPostalCode() != null){
-            locationName = (address.getLocality() + ", " + address.getPostalCode());
+            locationName += "\n"+ (address.getLocality() + ", " + address.getPostalCode());
             //            currentAddress = address;
         }
     }
 
     @Override
-    public void readFromModel(JSONObject json, String key) {
+    public void readFromModel(JSONObject json, String key, int mode) {
             parseTaskLocation(json.optJSONObject(key));
         displayEdit.setText(getLocationText());
     }
@@ -186,6 +187,7 @@ public class TaskRabbitLocationControlSet extends TaskEditControlSet implements 
         }
         return null;
     }
+
 
 
 

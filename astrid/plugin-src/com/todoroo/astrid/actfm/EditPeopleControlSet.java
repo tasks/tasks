@@ -387,7 +387,7 @@ public class EditPeopleControlSet extends PopupControlSet {
 
         for (AssignedChangedListener l : listeners) {
             if (l.shouldShowTaskRabbit()) {
-                taskRabbitUser = new AssignedToUser(activity.getString(R.string.actfm_EPA_task_rabbit), new JSONObject());
+                taskRabbitUser = new AssignedToUser(activity.getString(R.string.actfm_EPA_task_rabbit), new JSONObject().put("default_picture", R.drawable.task_rabbit_image));
                 listValues.add(taskRabbitUser);
             }
         }
@@ -432,6 +432,9 @@ public class EditPeopleControlSet extends PopupControlSet {
                 image.setDefaultImageResource(R.drawable.icn_anyone);
             } else {
                 image.setUrl(getItem(position).user.optString("picture"));
+            }
+            if (getItem(position).user.optInt("default_picture", 0) > 0) {
+                image.setDefaultImageResource(getItem(position).user.optInt("default_picture"));
             }
             return convertView;
         }

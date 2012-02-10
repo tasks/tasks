@@ -29,6 +29,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.HorizontalScrollView;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -114,11 +115,14 @@ public class WebServicesView extends LinearLayout {
 
         removeAllViews();
 
+        initializeTaskRabbit();
+
         initializeAmazon();
 
         addSectionDivider();
 
         initializeGoogleSearch();
+
     }
 
     protected void initializeAmazon() {
@@ -392,6 +396,33 @@ public class WebServicesView extends LinearLayout {
                 displayError(e, body);
             }
         }
+    }
+
+
+    /**
+     * Initialize Google search results
+     */
+    protected void initializeTaskRabbit() {
+        addSectionHeader("Task Rabbit");
+
+        final LinearLayout body = new LinearLayout(activity);
+        body.setLayoutParams(new LinearLayout.LayoutParams(LayoutParams.FILL_PARENT,
+                    LayoutParams.WRAP_CONTENT));
+        body.setOrientation(LinearLayout.VERTICAL);
+
+
+        ImageView imageView = new ImageView(getContext());
+        imageView.setLayoutParams(new LayoutParams(LayoutParams.FILL_PARENT,
+                LayoutParams.WRAP_CONTENT));
+        imageView.setImageResource(R.drawable.task_rabbit_logo);
+        body.addView(imageView);
+
+        body.setVisibility(View.GONE);
+
+        if (body.getVisibility() == View.VISIBLE){
+            addSectionDivider();
+        }
+
     }
 
     protected View inflateRow(ViewGroup body, String imageUrl, String title, String subtitle,
