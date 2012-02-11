@@ -82,6 +82,8 @@ import com.todoroo.astrid.notes.NotesDecorationExposer;
 import com.todoroo.astrid.service.StatisticsConstants;
 import com.todoroo.astrid.service.StatisticsService;
 import com.todoroo.astrid.service.TaskService;
+import com.todoroo.astrid.taskrabbit.TaskRabbitDataService;
+import com.todoroo.astrid.taskrabbit.TaskRabbitTaskContainer;
 import com.todoroo.astrid.timers.TimerDecorationExposer;
 import com.todoroo.astrid.utility.Constants;
 
@@ -391,7 +393,9 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
         // image view
         final AsyncImageView pictureView = viewHolder.picture; {
             if (pictureView != null) {
-                if(task.getValue(Task.USER_ID) == 0) {
+                TaskRabbitTaskContainer container = TaskRabbitDataService.getInstance().getContainerForTask(task);
+
+                if(task.getValue(Task.USER_ID) == 0 && container.getTaskID() <= 0) {
                     pictureView.setVisibility(View.GONE);
                     if (viewHolder.pictureBorder != null)
                         viewHolder.pictureBorder.setVisibility(View.GONE);
@@ -400,11 +404,17 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
                     if (viewHolder.pictureBorder != null)
                         viewHolder.pictureBorder.setVisibility(View.VISIBLE);
                     pictureView.setUrl(null);
+                    if (container.getTaskID() > 0) {
+                        pictureView.setDefaultImageResource(R.drawable.task_rabbit_image);
+                    }
+                    else {
+                        pictureView.setDefaultImageResource(R.drawable.icn_default_person_image);
                     try {
                         JSONObject user = new JSONObject(task.getValue(Task.USER));
                         pictureView.setUrl(user.optString("picture")); //$NON-NLS-1$
                     } catch (JSONException e) {
                         Log.w("astrid", "task-adapter-image", e); //$NON-NLS-1$ //$NON-NLS-2$
+                    }
                     }
                 }
             }

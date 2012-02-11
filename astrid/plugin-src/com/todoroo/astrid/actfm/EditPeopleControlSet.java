@@ -118,7 +118,7 @@ public class EditPeopleControlSet extends PopupControlSet {
         public boolean didPostToTaskRabbit();
     }
 
-    int selected = 0; //need to remember last selected state for task rabbit
+    private int selected = 0; //need to remember last selected state for task rabbit
 
     static {
         AstridDependencyInjector.initialize();
@@ -401,7 +401,7 @@ public class EditPeopleControlSet extends PopupControlSet {
             if (l.shouldShowTaskRabbit()) {
                 taskRabbitUser = new AssignedToUser(activity.getString(R.string.actfm_EPA_task_rabbit), new JSONObject().put("default_picture", R.drawable.task_rabbit_image));
                 listValues.add(taskRabbitUser);
-                if(l.didPostToTaskRabbit() && assignedIndex <= 0){
+                if(l.didPostToTaskRabbit()){
                     assignedIndex = listValues.size()-1;
                 }
             }
@@ -548,9 +548,10 @@ public class EditPeopleControlSet extends PopupControlSet {
                 AssignedToUser item = (AssignedToUser) assignedList.getAdapter().getItem(assignedList.getCheckedItemPosition());
                 if (item != null) {
                     if (item.equals(taskRabbitUser)) { //don't want to ever set the user as the task rabbit user
-                        Log.d("Edit People control set", "Equals task rabbit");
-                        item = (AssignedToUser) assignedList.getAdapter().getItem(0);
-                        selected = 0;
+
+                        /*item = (AssignedToUser) assignedList.getAdapter().getItem(0);
+                        selected = 0;*/
+                        return true;
                     }
                     else {
                         Log.d("Edit People control set", "Does not equal task rabbit");
