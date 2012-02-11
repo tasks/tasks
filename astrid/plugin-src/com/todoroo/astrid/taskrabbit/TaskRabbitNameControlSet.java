@@ -11,7 +11,6 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.text.TextUtils;
 import android.util.Base64;
-import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
@@ -38,18 +37,17 @@ public class TaskRabbitNameControlSet extends PopupControlSet implements TaskRab
 
     private final ImageButton pictureButton;
     private Bitmap pendingCommentPicture = null;
-    private int cameraButton;
 
 
     public TaskRabbitNameControlSet(Activity activity, int viewLayout,
-            int displayViewLayout, int titleID, int i) {
+            int displayViewLayout, int titleID) {
         super(activity, viewLayout, displayViewLayout, titleID);
         editText = (EditText) getView().findViewById(R.id.notes);
         notesPreview = (TextView) getDisplayView().findViewById(R.id.display_row_edit);
         notesBody = (LinearLayout) getDisplayView().findViewById(R.id.notes_body);
         dialog.getWindow()
               .setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE | WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
-        displayText.setText(activity.getString(titleID));;
+        displayText.setText(activity.getString(titleID));
         editText.setMaxLines(Integer.MAX_VALUE);
 
 
@@ -82,7 +80,9 @@ public class TaskRabbitNameControlSet extends PopupControlSet implements TaskRab
         json.put(key, editText.getText().toString());
     }
 
+
     @Override
+    @SuppressWarnings("nls")
     public void postToTaskRabbit(JSONObject json, String key) throws JSONException {
         String nameKey = activity.getString(R.string.tr_set_key_description);
         if (key.equals(activity.getString(R.string.tr_set_key_name)) && json.has(nameKey)) {
@@ -97,7 +97,6 @@ public class TaskRabbitNameControlSet extends PopupControlSet implements TaskRab
             JSONObject pictureArray = new JSONObject();
             pictureArray.put("image", picture);
             json.put("uploaded_photos_attributes", new JSONObject().put("1", pictureArray));
-            Log.d("The task json", json.toString());
         }
     }
 
@@ -119,7 +118,7 @@ public class TaskRabbitNameControlSet extends PopupControlSet implements TaskRab
             editText.setHint(displayText.getText().toString());
             return;
         }
-        String value = json.optString(key, "");
+        String value = json.optString(key, "");  //$NON-NLS-1$
         if (!TextUtils.isEmpty(value)) {
         editText.setTextKeepState(value);
         notesPreview.setText(value);
@@ -134,7 +133,6 @@ public class TaskRabbitNameControlSet extends PopupControlSet implements TaskRab
         CameraResultCallback callback = new CameraResultCallback() {
             @Override
             public void handleCameraResult(Bitmap bitmap) {
-                Log.d("CAMERA CLALLBACK", "PICTURE SHOULD BE SET");
                 pendingCommentPicture = bitmap;
                 pictureButton.setImageBitmap(pendingCommentPicture);
             }
@@ -154,6 +152,7 @@ public class TaskRabbitNameControlSet extends PopupControlSet implements TaskRab
 
     @Override
     public void readFromTask(Task task) {
+        //
     }
 
     @Override

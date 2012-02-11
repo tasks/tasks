@@ -16,7 +16,6 @@ import android.os.Handler;
 import android.os.Message;
 import android.support.v4.app.Fragment;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.TextView;
@@ -34,7 +33,6 @@ import com.todoroo.astrid.activity.TaskEditFragment;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.helper.TaskEditControlSet;
 
-@SuppressWarnings("nls")
 public class TaskRabbitControlSet extends TaskEditControlSet implements AssignedChangedListener, LocationListener {
 
 
@@ -134,7 +132,7 @@ public class TaskRabbitControlSet extends TaskEditControlSet implements Assigned
 
 
     private void updateTaskRow(TaskRabbitTaskContainer container) {
-        displayText.setText("Task Rabbit Status");
+        displayText.setText(fragment.getActivity().getString(R.string.tr_display_status));
         JSONObject remoteData = container.getRemoteTaskData();
         if (remoteData != null) {
             updateDisplay(remoteData);
@@ -147,7 +145,7 @@ public class TaskRabbitControlSet extends TaskEditControlSet implements Assigned
      * Show toast for task edit canceling
      */
     private void showSuccessToast() {
-        Toast.makeText(fragment.getActivity(), "Task posted to Task Rabbit successfully!",
+        Toast.makeText(fragment.getActivity(), fragment.getActivity().getString(R.string.tr_success_toast),
                 Toast.LENGTH_SHORT).show();
     }
 
@@ -166,7 +164,7 @@ public class TaskRabbitControlSet extends TaskEditControlSet implements Assigned
     };
 
     private String taskRabbitURL(String method) {
-        return String.format("%S/api/v1/%S?client_id=%S&client_application=%S", TaskRabbitActivity.TASK_RABBIT_URL, method, TaskRabbitActivity.TASK_RABBIT_CLIENT_ID, TaskRabbitActivity.TASK_RABBIT_CLIENT_APPLICATION_ID);
+        return String.format("%s/api/v1/%s?client_id=%s&client_application=%s", TaskRabbitActivity.TASK_RABBIT_URL, method, TaskRabbitActivity.TASK_RABBIT_CLIENT_ID, TaskRabbitActivity.TASK_RABBIT_CLIENT_APPLICATION_ID);  //$NON-NLS-1$
     }
 
     /** Fire task rabbit if assigned **/
@@ -219,17 +217,19 @@ public class TaskRabbitControlSet extends TaskEditControlSet implements Assigned
 
     protected void updateStatus(JSONObject json){
 
-        final int taskID = json.optInt("id"); //$NON-NLS-1$
+        final long taskID = json.optLong(TaskRabbitActivity.TASK_RABBIT_ID);
+        if (taskID == TaskRabbitTaskContainer.NO_ID) return;
         new Thread(new Runnable() {
             @Override
             public void run() {
 
                 try {
-                    String response = restClient.get(taskRabbitURL("tasks/" + taskID));
+
+                    String response = restClient.get(taskRabbitURL("tasks/" + taskID)); //$NON-NLS-1$
                     JSONObject taskResponse = new JSONObject(response);
-                    if(taskResponse.has("id")){
+                    if(taskResponse.has(TaskRabbitActivity.TASK_RABBIT_ID)){
                         taskRabbitTask.setRemoteTaskData(response);
-                        taskRabbitTask.setTaskID(taskResponse.optString("id"));
+                        taskRabbitTask.setTaskID(taskResponse.optString(TaskRabbitActivity.TASK_RABBIT_ID));
                         Message successMessage = new Message();
                         successMessage.what = 2;
                         handler.sendMessage(successMessage);
@@ -263,11 +263,9 @@ public class TaskRabbitControlSet extends TaskEditControlSet implements Assigned
         locationManager = (LocationManager) fragment.getActivity().getSystemService(Context.LOCATION_SERVICE);
         currentLocation = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
         if (currentLocation == null) {
-            Log.d("TRControlSet", "Fail current location is null");
             locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, this);
         }
         else {
-            Log.d("TRControlSet", "loading location and checking if we suppor it");
             isEnabledForTRLocation = supportsCurrentLocation();
         }
     }
@@ -275,7 +273,7 @@ public class TaskRabbitControlSet extends TaskEditControlSet implements Assigned
     public boolean supportsCurrentLocation() {
         if (currentLocation == null) return false;
         for (GeoPoint point : supportedLocations){
-            Location city = new Location("");
+            Location city = new Location("");  //$NON-NLS-1$
             city.setLatitude(point.getLatitudeE6()/1E6);
             city.setLongitude(point.getLongitudeE6()/1E6);
             float distance = currentLocation.distanceTo(city);
@@ -291,7 +289,6 @@ public class TaskRabbitControlSet extends TaskEditControlSet implements Assigned
 
     @Override
     public void onLocationChanged(Location location) {
-        Log.d("TRControlSet", "Location changed and found");
         currentLocation = location;
         isEnabledForTRLocation = supportsCurrentLocation();
         locationManager.removeUpdates(this);

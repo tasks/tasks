@@ -31,7 +31,6 @@ import android.support.v4.app.ActionBar;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.MenuItem;
 import android.text.TextUtils;
-import android.util.Log;
 import android.util.TypedValue;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -47,7 +46,6 @@ import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.PopupWindow.OnDismissListener;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.timsu.astrid.R;
 import com.todoroo.andlib.service.Autowired;
@@ -132,12 +130,22 @@ public class TaskRabbitActivity extends FragmentActivity implements LocationList
     public static final String TASK_RABBIT_TOKEN = "task_rabbit_token"; //$NON-NLS-1$
 
     private static final String TASK_RABBIT_POPOVER_PREF = "task_rabbit_popover"; //$NON-NLS-1$
+    private static final String TASK_RABBIT_PREF_CITY_NAME = "task_rabbit_city_name"; //$NON-NLS-1$
+    private static final String TASK_RABBIT_PREF_CITY_ID = "task_rabbit_city_id"; //$NON-NLS-1$
+    private static final String TASK_RABBIT_PREF_CITY_LAT = "task_rabbit_city_lat"; //$NON-NLS-1$
+    private static final String TASK_RABBIT_PREF_CITY_LNG = "task_rabbit_city_lng"; //$NON-NLS-1$
+
+
+    public static final String CITY_NAME = "name"; //$NON-NLS-1$
+    public static final String CITY_LAT = "lat"; //$NON-NLS-1$
+    public static final String CITY_LNG = "lng"; //$NON-NLS-1$
+    public static final String LOCATION_CONTAINER = "other_locations_attributes"; //$NON-NLS-1$
 
     // Non-production values
     public static final String TASK_RABBIT_URL = "http://rs-astrid-api.taskrabbit.com"; //$NON-NLS-1$
     public static final String TASK_RABBIT_CLIENT_ID = "fDTmGeR0uNCvoxopNyqsRWae8xOvbOBqC7jmHaxv"; //$NON-NLS-1$
     public static final String TASK_RABBIT_CLIENT_APPLICATION_ID = "XBpKshU8utH5eaNmhky9N8aAId5rSLTh04Hi60Co"; //$NON-NLS-1$
-    public static final String CITY_NAME = "task_rabbit_city_name"; //$NON-NLS-1$
+    public static final String TASK_RABBIT_ID = "id"; //$NON-NLS-1$
     private TaskRabbitTaskContainer taskRabbitTask;
 
     /* From tag settings */
@@ -283,14 +291,14 @@ public class TaskRabbitActivity extends FragmentActivity implements LocationList
             }
             else if(arrayID == R.string.tr_set_key_name) {
                 TaskRabbitNameControlSet nameControlSet = new TaskRabbitNameControlSet(this,
-                        R.layout.control_set_notes, R.layout.task_rabbit_row, titleID, i);
+                        R.layout.control_set_notes, R.layout.task_rabbit_row, titleID);
                 controls.add(nameControlSet);
             }
             else  if(arrayID == R.string.tr_set_key_description) {
                 TaskRabbitNameControlSet descriptionControlSet = new TaskRabbitNameControlSet(this,
-                        R.layout.control_set_notes, R.layout.task_rabbit_row_description, titleID, i);
+                        R.layout.control_set_notes, R.layout.task_rabbit_row_description, titleID);
                 try {
-                    descriptionControlSet.readFromModel(new JSONObject().put("description", model.getValue(Task.NOTES)), "description", currentSelectedItem);
+                    descriptionControlSet.readFromModel(new JSONObject().put(getString(arrayID), model.getValue(Task.NOTES)), getString(arrayID), currentSelectedItem);
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -301,11 +309,6 @@ public class TaskRabbitActivity extends FragmentActivity implements LocationList
                 controls.add(set);
             }
         }
-
-        /*
-        if(TextUtils.isEmpty(taskDescription.getText())){
-            taskDescription.setText(model.getValue(Task.NOTES));
-        }*/
         if(TextUtils.isEmpty(taskTitle.getText())) {
             taskTitle.setText(model.getValue(Task.TITLE));
         }
@@ -332,7 +335,7 @@ public class TaskRabbitActivity extends FragmentActivity implements LocationList
         int[] presetValues = getPresetValues(mode);
         TypedArray keys = getResources().obtainTypedArray(R.array.tr_default_set_key);
         JSONObject parameters = defaultValuesToJSON(keys, presetValues);
-        for (int i = 1; i < controls.size(); i++) {
+        for (int i = 0; i < controls.size(); i++) {
             if (presetValues[i] == -1) continue;
             TaskRabbitSetListener set = controls.get(i);
             int arrayID = keys.getResourceId(i, 0);
@@ -431,7 +434,7 @@ public class TaskRabbitActivity extends FragmentActivity implements LocationList
         }
 
         if(taskRabbitTask.getTaskID() != TaskRabbitTaskContainer.NO_ID) {
-            taskButton.setText("Already Posted!");
+            taskButton.setText(getString(R.string.tr_button_already_posted));
             taskButton.setEnabled(false);
         }
         else {
@@ -467,21 +470,21 @@ public class TaskRabbitActivity extends FragmentActivity implements LocationList
 
 
         String descriptionKey = getString(R.string.tr_set_key_description);
-        String category = "Category: " + menuTitle.getText().toString() + "\n";
+        String category = String.format("Category: %s\n", menuTitle.getText().toString());  //$NON-NLS-1$
         parameters.put(descriptionKey, category);
         for (int i = 0; i < controls.size(); i++) {
             if (presetValues[i] == -1) continue;
             TaskRabbitSetListener set = controls.get(i);
             set.postToTaskRabbit(parameters, keys[i]);
         }
-        if (parameters.optJSONArray("other_locations_attributes") == null) {
-            parameters.put(getString(R.string.tr_attr_city_id),  Preferences.getInt("task_rabbit_city_id", 1));
+        if (parameters.optJSONArray(LOCATION_CONTAINER) == null) {
+            parameters.put(getString(R.string.tr_attr_city_id),  Preferences.getInt(TASK_RABBIT_PREF_CITY_ID, 1));
             parameters.put(getString(R.string.tr_attr_city_lat), true);
         }
         parameters.put(getString(R.string.tr_set_key_name), taskTitle.getText().toString());
         parameters.put(getString(R.string.tr_set_key_name), taskTitle.getText().toString());
 
-        return new JSONObject().put("task", parameters);
+        return new JSONObject().put("task", parameters);  //$NON-NLS-1$
     }
 
 
@@ -516,7 +519,10 @@ public class TaskRabbitActivity extends FragmentActivity implements LocationList
         return null;
     }
 
+
     private ProgressDialog progressDialog;
+
+    @SuppressWarnings("nls")
     protected void submitTaskRabbit(){
 
         if(!Preferences.isSet(TASK_RABBIT_TOKEN)){
@@ -535,25 +541,21 @@ public class TaskRabbitActivity extends FragmentActivity implements LocationList
                     try {
                         String urlCall = "tasks/";
                         if (taskRabbitTask.getTaskID() > 0) urlCall += taskRabbitTask.getTaskID();
-                        urlCall +="?client_id=" + TASK_RABBIT_CLIENT_ID;
-                        Log.d("Tasks url:", taskRabbitURL(urlCall));
-                        Header authorization = new BasicHeader("Authorization", "OAuth " + Preferences.getStringValue(TASK_RABBIT_TOKEN));  //$NON-NLS-1$
-                        Header contentType = new BasicHeader("Content-Type",  //$NON-NLS-1$
-                        "application/json");   //$NON-NLS-1$
+                        urlCall += String.format("?client_id=%s&client_application=%s", TASK_RABBIT_CLIENT_ID, TASK_RABBIT_CLIENT_APPLICATION_ID);
+                        Header authorization = new BasicHeader("Authorization", "OAuth " + Preferences.getStringValue(TASK_RABBIT_TOKEN));
+                        Header contentType = new BasicHeader("Content-Type",  "application/json");
 
                         String response = restClient.post(taskRabbitURL(urlCall), getTaskBody(), contentType, authorization);
-                        Log.d("Task rabbit response", response);
                         JSONObject taskResponse = new JSONObject(response);
-                        if(taskResponse.has("id")){
+                        if(taskResponse.has(TASK_RABBIT_ID)){
                             taskRabbitTask.setRemoteTaskData(response);
-                            taskRabbitTask.setTaskID(taskResponse.optString("id"));
+                            taskRabbitTask.setTaskID(taskResponse.optString(TASK_RABBIT_ID));
                             Message successMessage = new Message();
                             successMessage.what = 1;
                             handler.sendMessage(successMessage);
                         }
                     }
                     catch (Exception e){
-                        e.printStackTrace();
                         Message failureMessage = new Message();
                         failureMessage.what = -1;
                         handler.sendMessage(failureMessage);
@@ -575,22 +577,12 @@ public class TaskRabbitActivity extends FragmentActivity implements LocationList
         try {
             taskRabbitTask.setLocalTaskData(serializeToJSON().toString());
         } catch (JSONException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
 
         //submit!
     }
 
-
-    /* message callbacks */
-    /**
-     * Show toast for task edit canceling
-     */
-    private void showSuccessToast() {
-        Toast.makeText(this, "Task posted to Task Rabbit successfully!",
-                Toast.LENGTH_SHORT).show();
-    }
 
     private final Handler handler = new Handler() {
 
@@ -600,9 +592,9 @@ public class TaskRabbitActivity extends FragmentActivity implements LocationList
             case -1:
 
                     AlertDialog.Builder adb = new AlertDialog.Builder(TaskRabbitActivity.this);
-                    adb.setTitle("Error posting task");
-                    adb.setMessage("Please try again");
-                    adb.setPositiveButton("Close",null);
+                    adb.setTitle(getString(R.string.tr_alert_title_fail));
+                    adb.setMessage(getString(R.string.tr_alert_message_fail));
+                    adb.setPositiveButton(getString(R.string.tr_alert_button_fail),null);
                     adb.show();
                 break;
             case 0: break;
@@ -624,12 +616,11 @@ public class TaskRabbitActivity extends FragmentActivity implements LocationList
         Intent intent = new Intent(this,
                 OAuthLoginActivity.class);
         try {
-            String url = TASK_RABBIT_URL + "/api/authorize?client_id=" + TASK_RABBIT_CLIENT_ID;
+            String url = TASK_RABBIT_URL + "/api/authorize?client_id=" + TASK_RABBIT_CLIENT_ID;  //$NON-NLS-1$
             intent.putExtra(OAuthLoginActivity.URL_TOKEN, url);
             this.startActivityForResult(intent, REQUEST_CODE_TASK_RABBIT_OAUTH);
             StatisticsService.reportEvent(StatisticsConstants.ACTFM_LOGIN_GL_START);
         } catch (Exception e) {
-            //            handleError(e);
             e.printStackTrace();
         }
     }
@@ -648,17 +639,18 @@ public class TaskRabbitActivity extends FragmentActivity implements LocationList
     }
 
 
+    @SuppressWarnings("nls")
     private void buildAlertMessageNoGps() {
         final AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setMessage("GPS needs to be enabled in order to add location based tasks. Do you want to enable it?")
+        builder.setMessage(getString(R.string.tr_alert_gps_title))
         .setCancelable(false)
         .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-            public void onClick(@SuppressWarnings("unused") final DialogInterface dialog, @SuppressWarnings("unused") final int id) {
+            public void onClick(final DialogInterface dialog,  final int id) {
                 startActivity(new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS));
             }
         })
         .setNegativeButton("No", new DialogInterface.OnClickListener() {
-            public void onClick(final DialogInterface dialog, @SuppressWarnings("unused") final int id) {
+            public void onClick(final DialogInterface dialog, final int id) {
                 dialog.cancel();
             }
         });
@@ -669,40 +661,39 @@ public class TaskRabbitActivity extends FragmentActivity implements LocationList
 
     protected void saveUserInfo(String response) throws Exception {
         JSONObject userObject = new JSONObject(response);
-        JSONObject cityObject = userObject.getJSONObject("city");
-        if (cityObject.has("name")){
-            Preferences.setString("task_rabbit_city_name", cityObject.getString("name"));
+        JSONObject cityObject = userObject.getJSONObject("city");  //$NON-NLS-1$
+        if (cityObject.has(CITY_NAME)){
+            Preferences.setString(TASK_RABBIT_PREF_CITY_NAME, cityObject.getString(CITY_NAME));
         }
-        if (cityObject.has("id")){
-            Preferences.setInt("task_rabbit_city_id", cityObject.getInt("id"));
+        if (cityObject.has(TASK_RABBIT_ID)){
+            Preferences.setInt(TASK_RABBIT_PREF_CITY_ID, cityObject.getInt(TASK_RABBIT_ID));
         }
-        if (cityObject.has("lat")){
-            //            currentLocation.setLatitude(cityObject.getDouble("lat"));
-            Preferences.setString("task_rabbit_city_lat", String.valueOf(cityObject.getDouble("lat")));
+        if (cityObject.has(CITY_LAT)){
+            Preferences.setString(TASK_RABBIT_PREF_CITY_LAT, String.valueOf(cityObject.getDouble(CITY_LAT)));
         }
-        if (cityObject.has("lng")){
-            //            currentLocation.setLongitude(cityObject.getDouble("lng"));
-            Preferences.setString("task_rabbit_city_lng", String.valueOf(cityObject.getDouble("lng")));
+        if (cityObject.has(CITY_LNG)){
+            Preferences.setString(TASK_RABBIT_PREF_CITY_LNG, String.valueOf(cityObject.getDouble(CITY_LNG)));
         }
     }
 
     private String taskRabbitURL(String method) {
-        return TASK_RABBIT_URL + "/api/v1/"+ method;
+        return TASK_RABBIT_URL + "/api/v1/"+ method;  //$NON-NLS-1$
 
     }
 
 
     @Override
     public void onActivityResult (int requestCode, int resultCode, Intent data) {
-        Log.d("The actiivty result request code", "Rerjwklrw" + requestCode);
         if (requestCode == REQUEST_CODE_TASK_RABBIT_OAUTH && resultCode == Activity.RESULT_OK){
             String result = data.getStringExtra(OAuthLoginActivity.DATA_RESPONSE);
-            if(result.contains("access_token=")) {
+
+            String key = "access_token=";  //$NON-NLS-1$
+            if(result.contains(key)) {
                 try {
-                    result = result.substring(result.indexOf("access_token=")+"access_token=".length());
+
+                    result = result.substring(result.indexOf(key)+key.length());
                     Preferences.setString(TASK_RABBIT_TOKEN, result);
-                    String response = restClient.get(taskRabbitURL("account"));
-                    Log.d("Task rabbit response", response);
+                    String response = restClient.get(taskRabbitURL("account"));   //$NON-NLS-1$
                     saveUserInfo(response);
                 }
                 catch (Exception e){

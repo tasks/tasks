@@ -6,7 +6,6 @@ import org.json.JSONObject;
 import android.app.Activity;
 import android.content.res.TypedArray;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.AdapterView;
@@ -23,16 +22,14 @@ import com.todoroo.astrid.taskrabbit.TaskRabbitActivity.TaskRabbitSetListener;
 public class TaskRabbitSpinnerControlSet extends TaskEditControlSet implements TaskRabbitSetListener{
 
     private final Spinner spinner;
-    private final int setID;
     private final int titleID;
     private final TextView displayText;
     private final TextView displayEdit;
-    private ArrayAdapter adapter;
+    private ArrayAdapter<String> adapter;
     private final Activity activity;
 
     public  TaskRabbitSpinnerControlSet(final Activity activity, int viewLayout, int title, int setID) {
         super(activity, viewLayout);
-        this.setID = setID;
         this.titleID = title;
         this.activity = activity;
         //        DependencyInjectionService.getInstance().inject(this);
@@ -67,17 +64,15 @@ public class TaskRabbitSpinnerControlSet extends TaskEditControlSet implements T
             @Override
             public void onItemSelected(AdapterView<?> arg0, View arg1,
                     int arg2, long arg3) {
-                Log.d("SELECTED ITEM", "SLECTED :" + arg2 + " ACTUAL: " + spinner.getSelectedItemPosition() + " STRING: " + spinner.getSelectedItem().toString());
 
                 displayEdit.setText(getDisplayEditText());
             }
 
             @Override
             public void onNothingSelected(AdapterView<?> arg0) {
-
+                //
             }
         });
-        Log.d("SELECTED ITEM", " ACTUAL: " + spinner.getSelectedItemPosition());
         getView().setOnClickListener(getDisplayClickListener());
 
     }
@@ -114,14 +109,12 @@ public class TaskRabbitSpinnerControlSet extends TaskEditControlSet implements T
             @Override
             public void onItemSelected(AdapterView<?> arg0, View arg1,
                     int arg2, long arg3) {
-                Log.d("SELECTED ITEM", "SLECTED :" + arg2 + " ACTUAL: " + spinner.getSelectedItemPosition() + " STRING: " + spinner.getSelectedItem().toString());
-
                 displayEdit.setText(getDisplayEditText());
             }
 
             @Override
             public void onNothingSelected(AdapterView<?> arg0) {
-
+                //
             }
         });
     }
@@ -143,12 +136,10 @@ public class TaskRabbitSpinnerControlSet extends TaskEditControlSet implements T
         }
         int intValue = json.optInt(key, 0);
 
-        Log.d("iii", "" + spinner.getCount());
         if (intValue < spinner.getCount()) {
             spinner.setSelection(intValue);
             displayEdit.setText(getDisplayEditText());
         }
-        Log.d("dfhjskhfds", ""+intValue);
     }
 
     private String getDisplayEditText() {
@@ -169,11 +160,12 @@ public class TaskRabbitSpinnerControlSet extends TaskEditControlSet implements T
         int index = conversion.lastIndexOf('$');
         String cents = conversion.substring(index+1);
         if(TextUtils.isEmpty(cents)) return 0;
-        Log.d("PARSING TO CHANGE", cents);
         return Integer.parseInt(cents);
     }
 
+
     @Override
+    @SuppressWarnings("nls")
     public void postToTaskRabbit(JSONObject json, String key) throws JSONException {
 
         if(spinner.getSelectedItem() != null){
@@ -187,7 +179,7 @@ public class TaskRabbitSpinnerControlSet extends TaskEditControlSet implements T
             }
             else if (key.contains("description")) {
                 String description = json.optString("description", "");
-                description += String.format("\n%S %S", key, spinner.getSelectedItem().toString()); //$NON-NLS-1$
+                description += String.format("\n%S %S", key, spinner.getSelectedItem().toString());
             }
             else {
                 json.put(key, spinnerString);

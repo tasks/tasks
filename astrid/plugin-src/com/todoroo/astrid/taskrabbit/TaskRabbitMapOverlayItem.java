@@ -12,6 +12,7 @@ import android.widget.RelativeLayout;
 
 import com.google.android.maps.ItemizedOverlay;
 import com.google.android.maps.OverlayItem;
+import com.timsu.astrid.R;
 
 public class TaskRabbitMapOverlayItem extends ItemizedOverlay<OverlayItem> {
     private final ArrayList<OverlayItem> mOverlays = new ArrayList<OverlayItem>();
@@ -63,10 +64,10 @@ public class TaskRabbitMapOverlayItem extends ItemizedOverlay<OverlayItem> {
             return false;
         }
         selectedItem = mOverlays.get(index);
-        AlertDialog.Builder dialog = new AlertDialog.Builder(mActivity);
-        dialog.setTitle("Set this as your location?");
-        dialog.setMessage(selectedItem.getSnippet());
-        dialog.setIcon(
+        AlertDialog.Builder dialogPrompt = new AlertDialog.Builder(mActivity);
+        dialogPrompt.setTitle(mActivity.getString(R.string.tr_alert_location_clicked_title));
+        dialogPrompt.setMessage(selectedItem.getSnippet());
+        dialogPrompt.setIcon(
                 android.R.drawable.ic_dialog_alert).setPositiveButton(
                         android.R.string.ok, new DialogInterface.OnClickListener() {
                             @SuppressWarnings("nls")
@@ -79,7 +80,7 @@ public class TaskRabbitMapOverlayItem extends ItemizedOverlay<OverlayItem> {
                                 mActivity.finish();
                             }
                         }).setNegativeButton(android.R.string.cancel, null);
-        dialog.show();
+        dialogPrompt.show();
         mActivity.setSearchTextForCurrentAddress();
 
         return true;

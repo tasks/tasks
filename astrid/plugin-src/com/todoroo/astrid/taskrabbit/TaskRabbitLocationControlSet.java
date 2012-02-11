@@ -1,8 +1,6 @@
 package com.todoroo.astrid.taskrabbit;
 
 import java.util.HashMap;
-import java.util.List;
-import java.util.Locale;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -11,11 +9,8 @@ import org.json.JSONObject;
 import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.location.Address;
-import android.location.Geocoder;
 import android.location.Location;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup.LayoutParams;
@@ -30,7 +25,6 @@ import com.todoroo.astrid.helper.TaskEditControlSet;
 import com.todoroo.astrid.taskrabbit.TaskRabbitActivity.ActivityResultSetListener;
 import com.todoroo.astrid.taskrabbit.TaskRabbitActivity.TaskRabbitSetListener;
 
-@SuppressWarnings("nls")
 public class TaskRabbitLocationControlSet extends TaskEditControlSet implements TaskRabbitSetListener, ActivityResultSetListener {
 
     private final TextView displayText;
@@ -58,7 +52,7 @@ public class TaskRabbitLocationControlSet extends TaskEditControlSet implements 
             @Override
             public void onClick(View v) {
                 try {
-                    Class.forName("com.google.android.maps.MapView");
+                    Class.forName("com.google.android.maps.MapView");  //$NON-NLS-1$
                     Intent mapIntent = new Intent(activity, TaskRabbitMapActivity.class);
                     activity.startActivityForResult(mapIntent, REQUEST_CODE_TASK_RABBIT_LOCATION);
                 } catch (Exception e) {
@@ -69,6 +63,7 @@ public class TaskRabbitLocationControlSet extends TaskEditControlSet implements 
 
     }
 
+    @SuppressWarnings("nls")
     protected void manualLocationEntry() {
         LinearLayout layout = new LinearLayout(activity);
         layout.setOrientation(LinearLayout.VERTICAL);
@@ -102,12 +97,12 @@ public class TaskRabbitLocationControlSet extends TaskEditControlSet implements 
     private void parseTaskLocation(JSONObject json) {
 
         if (json == null) return;
-        if (json.has("name"))
-            locationName = json.optString("name");
-        if(json.has("lng")) {
-            location = new Location("");
-            location.setLatitude(json.optInt("lng"));
-            location.setLatitude(json.optInt("lat"));
+        if (json.has(TaskRabbitActivity.CITY_NAME))
+            locationName = json.optString(TaskRabbitActivity.CITY_NAME);
+        if(json.has(TaskRabbitActivity.CITY_LNG)) {
+            location = new Location(""); //$NON-NLS-1$
+            location.setLongitude(json.optInt(TaskRabbitActivity.CITY_LNG));
+            location.setLatitude(json.optInt(TaskRabbitActivity.CITY_LAT));
         }
     }
 
@@ -115,20 +110,19 @@ public class TaskRabbitLocationControlSet extends TaskEditControlSet implements 
         if (!TextUtils.isEmpty(locationName))
             return locationName;
 
-        return "Location is set";
+        return activity.getString(R.string.tr_default_location_name);
     }
     public boolean activityResult (int requestCode, int resultCode, Intent data) {
         if (requestCode == REQUEST_CODE_TASK_RABBIT_LOCATION && resultCode == Activity.RESULT_OK) {
-            int lng = data.getIntExtra("lng", 0);
-            int lat = data.getIntExtra("lat", 0);
-            locationName = data.getStringExtra("name");
-            location = new Location("");
+            int lng = data.getIntExtra(TaskRabbitActivity.CITY_LNG, 0);
+            int lat = data.getIntExtra(TaskRabbitActivity.CITY_LAT, 0);
+            locationName = data.getStringExtra(TaskRabbitActivity.CITY_NAME);
+            location = new Location("");  //$NON-NLS-1$
             location.setLatitude(locationToDouble(lat));
             location.setLongitude(locationToDouble(lng));
             displayEdit.setText(getLocationText());
             manualEntry = null;
 
-            getAddressFromLocation(location);
 
             return true;
         }
@@ -143,27 +137,6 @@ public class TaskRabbitLocationControlSet extends TaskEditControlSet implements 
         return  (int)(location * 1e6);
     }
 
-    private void getAddressFromLocation(Location newLocation){
-        try {
-            Geocoder geocoder = new Geocoder(activity, Locale.getDefault());
-            // Acquire a reference to the system Location Manager
-            List<Address> addresses = geocoder.getFromLocation(newLocation.getLatitude(),
-                    newLocation.getLongitude(), 1);
-            if (addresses != null){
-                for (Address address : addresses){
-                    updateAddress(address);
-                }
-            }
-        } catch (Exception e) {
-            Log.d("Location error", e.toString());
-        }
-    }
-    private void updateAddress(Address address){
-        if(address.getLocality() != null && address.getPostalCode() != null){
-            locationName += "\n"+ (address.getLocality() + ", " + address.getPostalCode());
-            //            currentAddress = address;
-        }
-    }
 
     @Override
     public void readFromModel(JSONObject json, String key, int mode) {
@@ -184,12 +157,12 @@ public class TaskRabbitLocationControlSet extends TaskEditControlSet implements 
 
     @Override
     public void postToTaskRabbit(JSONObject json, String key) throws JSONException {
-        JSONArray locations = json.optJSONArray("other_locations_attributes");
+        JSONArray locations = json.optJSONArray(TaskRabbitActivity.LOCATION_CONTAINER);
         if (locations == null) {
             locations = new JSONArray();
         }
         locations.put(getTaskLocation());
-        json.put("other_locations_attributes", locations);
+        json.put(TaskRabbitActivity.LOCATION_CONTAINER, locations);
 
     }
 
@@ -200,14 +173,14 @@ public class TaskRabbitLocationControlSet extends TaskEditControlSet implements 
         try {
             JSONObject locationObject = new JSONObject();
             if(!TextUtils.isEmpty(locationName)){
-                locationObject.put("name", locationName);
+                locationObject.put(TaskRabbitActivity.CITY_NAME, locationName);
             }
             else {
-                locationObject.put("name", displayText.getText().toString());
+                locationObject.put(TaskRabbitActivity.CITY_NAME, displayText.getText().toString());
             }
             if(location != null) {
-                locationObject.put("lng", location.getLongitude());
-                locationObject.put("lat", location.getLatitude());
+                locationObject.put(TaskRabbitActivity.CITY_LNG, location.getLongitude());
+                locationObject.put(TaskRabbitActivity.CITY_LAT, location.getLatitude());
             }
             return locationObject;
         }
