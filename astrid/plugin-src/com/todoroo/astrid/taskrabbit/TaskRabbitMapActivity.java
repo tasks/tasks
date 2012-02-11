@@ -143,7 +143,7 @@ public class TaskRabbitMapActivity extends MapActivity implements LocationListen
                             (int) (addresses.get(0).getLongitude() * 1E6));
 
                     Drawable drawable = TaskRabbitMapActivity.this.getResources().getDrawable(
-                            R.drawable.icon_locale);
+                            android.R.drawable.star_big_on);
                     currentOverlayItem = new TaskRabbitMapOverlayItem(drawable,
                             TaskRabbitMapActivity.this);
                     mapController.animateTo(q);
@@ -212,7 +212,7 @@ public class TaskRabbitMapActivity extends MapActivity implements LocationListen
     private void updateLocationOverlay() {
         if (currentLocation == null) { return; };
         List<Overlay> mapOverlays = mapView.getOverlays();
-        Drawable drawable = this.getResources().getDrawable(R.drawable.icon_locale);
+        Drawable drawable = this.getResources().getDrawable(android.R.drawable.star_big_on);
         TaskRabbitMapOverlayItem myItemizedOverlay = new TaskRabbitMapOverlayItem(drawable);
         GeoPoint point = new GeoPoint((int)(currentLocation.getLatitude() * 1E6), (int)(currentLocation.getLongitude() * 1E6));
 
