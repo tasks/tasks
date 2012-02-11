@@ -2,12 +2,14 @@ package com.todoroo.astrid.ui;
 
 import greendroid.widget.AsyncImageView;
 
+import java.io.IOException;
 import java.io.StringReader;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -63,7 +65,7 @@ public class WebServicesView extends LinearLayout {
     private LayoutInflater inflater;
     private Activity activity;
     public TaskRabbitControlSet taskRabbitControl;
-
+    private final AtomicBoolean notConnected = new AtomicBoolean(false);
 
     private LinearLayout.LayoutParams rowParams;
 
@@ -126,6 +128,23 @@ public class WebServicesView extends LinearLayout {
 
         initializeGoogleSearch();
 
+    }
+
+    private void showNotConnected() {
+        ImageView imageView = new ImageView(getContext());
+        imageView.setLayoutParams(new LinearLayout.LayoutParams(
+                LayoutParams.FILL_PARENT, LayoutParams.WRAP_CONTENT));
+        imageView.setImageResource(R.drawable.icon);
+        imageView.setPadding(20, 50, 20, 20);
+        imageView.setScaleType(ScaleType.CENTER);
+        addView(imageView);
+
+        TextView textView = new TextView(getContext());
+        textView.setTextAppearance(getContext(), R.style.TextAppearance_Medium);
+        textView.setText(R.string.WSV_not_online);
+        textView.setGravity(Gravity.CENTER);
+        textView.setPadding(20, 50, 20, 20);
+        addView(textView);
     }
 
     protected void initializeAmazon() {
@@ -439,12 +458,6 @@ public class WebServicesView extends LinearLayout {
     }
 
 
-
-
-
-
-
-
     protected View inflateRow(ViewGroup body, String imageUrl, String title, String subtitle,
             String tag) {
         View view = inflater.inflate(R.layout.web_service_row, body, false);
@@ -477,7 +490,23 @@ public class WebServicesView extends LinearLayout {
     };
 
     protected void displayError(final Exception exception, final LinearLayout body) {
-        exceptionService.reportError("google-error", exception);
+        if(exception instanceof IOException) {
+            if(notConnected.getAndSet(true))
+                return;
+
+            activity.runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    removeAllViews();
+
+                    initializeTaskRabbit();
+                    showNotConnected();
+                }
+            });
+            return;
+        }
+
+        exceptionService.reportError("web-service-error", exception);
 
         activity.runOnUiThread(new Runnable() {
             @Override
@@ -488,6 +517,7 @@ public class WebServicesView extends LinearLayout {
                 textView.setTextAppearance(getContext(), R.style.TextAppearance_Medium);
                 textView.setText(exception.getClass().getSimpleName() + ": " +
                         exception.getLocalizedMessage());
+                textView.setLines(2);
                 body.addView(textView);
             }
         });

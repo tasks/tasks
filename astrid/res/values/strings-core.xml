@@ -419,6 +419,9 @@
   <string name="TEA_when_dialog_title">When is this due?</string>
   
   <string name="TEA_date_and_time">Date/Time</string>
+  
+  <string name="WSV_not_online">I can do more when connected to the Internet. Please check your connection.</string>
+  
   <!-- ============================================= IntroductionActivity == -->
   
   <!-- Introduction Window title -->
