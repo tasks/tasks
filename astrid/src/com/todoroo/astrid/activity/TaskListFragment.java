@@ -655,12 +655,10 @@ public class TaskListFragment extends ListFragment implements OnScrollListener,
         deadlineControl.setIsQuickadd(true);
 
 
-        taskRabbitControl = new TaskRabbitControlSet(this, R.layout.control_set_default_display);
         peopleControl = new EditPeopleControlSet(getActivity(), this,
                 R.layout.control_set_assigned,
                 R.layout.control_set_default_display,
                 R.string.actfm_EPA_assign_label, TaskEditFragment.REQUEST_LOG_IN);
-        peopleControl.addListener(taskRabbitControl);
 
 
         resetControlSets();
