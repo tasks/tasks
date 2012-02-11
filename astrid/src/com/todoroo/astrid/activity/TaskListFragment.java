@@ -1189,6 +1189,8 @@ public class TaskListFragment extends ListFragment implements OnScrollListener,
                 return null;
             }
 
+            Flags.set(Flags.ACTFM_SUPPRESS_SYNC);
+            Flags.set(Flags.GTASKS_SUPPRESS_SYNC);
             Task task = createWithValues(filter.valuesForNewTasks, title,
                     taskService, metadataService);
 
