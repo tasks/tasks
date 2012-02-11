@@ -45,6 +45,8 @@ import com.todoroo.andlib.service.RestClient;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.helper.AmazonRequestsHelper;
 import com.todoroo.astrid.producteev.api.StringEscapeUtils;
+import com.todoroo.astrid.service.StatisticsConstants;
+import com.todoroo.astrid.service.StatisticsService;
 import com.todoroo.astrid.taskrabbit.TaskRabbitControlSet;
 import com.todoroo.astrid.utility.Constants;
 
@@ -482,6 +484,7 @@ public class WebServicesView extends LinearLayout {
         @Override
         public void onClick(View v) {
             if(v.getTag() instanceof String) {
+                StatisticsService.reportEvent(StatisticsConstants.IDEAS_LINK_CLICKED);
                 Intent intent = new Intent(Intent.ACTION_VIEW);
                 intent.setData(Uri.parse((String) v.getTag()));
                 activity.startActivity(intent);

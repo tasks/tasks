@@ -164,9 +164,7 @@ public class TaskRabbitActivity extends FragmentActivity implements LocationList
         loadLocation();
         setContentView(R.layout.task_rabbit_enter);
 
-
-
-
+        StatisticsService.reportEvent(StatisticsConstants.TASK_RABBIT_VIEW);
     }
 
     public void showAddListPopover() {
@@ -537,7 +535,7 @@ public class TaskRabbitActivity extends FragmentActivity implements LocationList
             new Thread(new Runnable() {
                 @Override
                 public void run() {
-
+                    boolean success = true;
                     try {
                         String urlCall = "tasks/";
                         if (taskRabbitTask.getTaskID() > 0) urlCall += taskRabbitTask.getTaskID();
@@ -559,9 +557,10 @@ public class TaskRabbitActivity extends FragmentActivity implements LocationList
                         Message failureMessage = new Message();
                         failureMessage.what = -1;
                         handler.sendMessage(failureMessage);
+                        success = false;
                     }
                     finally {
-
+                        StatisticsService.reportEvent(StatisticsConstants.TASK_RABBIT_POST, "success", new Boolean(success).toString());
                         runOnUiThread(new Runnable() {
                             public void run() {
                                 if (progressDialog != null) {

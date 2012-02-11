@@ -57,6 +57,9 @@ public class StatisticsConstants {
     public static final String CREATE_CALENDAR_EVENT = "create-calendar-event";
     public static final String REPEAT_TASK_CREATE = "repeat-task-create";
     public static final String ACTFM_LIST_SHARED = "actfm-list-shared";
+    public static final String IDEAS_LINK_CLICKED = "ideas-link-clicked";
+    public static final String TASK_RABBIT_VIEW = "task-rabbit-view";
+    public static final String TASK_RABBIT_POST = "task-rabbit-post";
 
     public static final String TASK_ONE_WEEK = "task-created-one-week";
     public static final String TASK_TWO_WEEKS = "task-created-two-weeks";
