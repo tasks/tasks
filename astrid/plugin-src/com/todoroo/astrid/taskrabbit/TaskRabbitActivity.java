@@ -699,6 +699,7 @@ public class TaskRabbitActivity extends FragmentActivity implements LocationList
                 catch (Exception e){
                     e.printStackTrace();
                 }
+                return;
             }
         }
         else {
@@ -709,6 +710,8 @@ public class TaskRabbitActivity extends FragmentActivity implements LocationList
                 }
             }
         }
+        loadLocation();
+        setupListView();
     }
 
     @Override
@@ -799,7 +802,7 @@ public class TaskRabbitActivity extends FragmentActivity implements LocationList
     private void setupListView() {
         String[] keys = getResources().getStringArray(R.array.tr_preset_types);
         boolean locationEnabled = getIntent().getBooleanExtra(TaskRabbitControlSet.LOCATION_ENABLED, false);
-        if (!locationEnabled) {
+        if (!locationEnabled && !TaskRabbitControlSet.supportsCurrentLocation(currentLocation)) {
             keys = new String[]{ getResources().getString(R.string.tr_type_virtual)};
         }
         adapter = new ArrayAdapter<String>(this, R.layout.task_rabbit_menu_row, keys);

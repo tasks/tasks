@@ -69,7 +69,7 @@ public class TaskRabbitLocationControlSet extends TaskEditControlSet implements 
         layout.setOrientation(LinearLayout.VERTICAL);
         LayoutParams lp = new LinearLayout.LayoutParams(LayoutParams.FILL_PARENT,
                 LayoutParams.WRAP_CONTENT);
-        final String[] fields = new String[] { "Address", "City", "State", "Zip" };
+        final String[] fields = new String[] { "Name","Address", "City", "State", "Zip" };
         final HashMap<String, EditText> views = new HashMap<String, EditText>();
         for(String field : fields) {
             EditText et = new EditText(activity);

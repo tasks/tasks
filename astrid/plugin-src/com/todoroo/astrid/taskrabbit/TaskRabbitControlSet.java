@@ -58,7 +58,7 @@ public class TaskRabbitControlSet extends TaskEditControlSet implements Assigned
     public boolean isEnabledForTRLocation = false;
     public static final String LOCATION_ENABLED = "location_enabled"; //$NON-NLS-1$
 
-    private final GeoPoint[] supportedLocations = {
+    private static final GeoPoint[] supportedLocations = {
             new GeoPoint(42358430, -71059770), //
             new GeoPoint(37739230, -122439880),
             new GeoPoint(40714350, -74005970),
@@ -266,17 +266,17 @@ public class TaskRabbitControlSet extends TaskEditControlSet implements Assigned
             locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, this);
         }
         else {
-            isEnabledForTRLocation = supportsCurrentLocation();
+            isEnabledForTRLocation = supportsCurrentLocation(currentLocation);
         }
     }
 
-    public boolean supportsCurrentLocation() {
-        if (currentLocation == null) return false;
+    public static boolean supportsCurrentLocation(Location location) {
+        if (location == null) return false;
         for (GeoPoint point : supportedLocations){
             Location city = new Location("");  //$NON-NLS-1$
             city.setLatitude(point.getLatitudeE6()/1E6);
             city.setLongitude(point.getLongitudeE6()/1E6);
-            float distance = currentLocation.distanceTo(city);
+            float distance = location.distanceTo(city);
             if (distance < RADIUS_250_MILES) {
                 return true;
             }
@@ -290,7 +290,7 @@ public class TaskRabbitControlSet extends TaskEditControlSet implements Assigned
     @Override
     public void onLocationChanged(Location location) {
         currentLocation = location;
-        isEnabledForTRLocation = supportsCurrentLocation();
+        isEnabledForTRLocation = supportsCurrentLocation(currentLocation);
         locationManager.removeUpdates(this);
         locationManager = null;
 

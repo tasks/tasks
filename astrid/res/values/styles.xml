@@ -385,13 +385,15 @@
     
     <style name="CustomTabPageIndicator" parent="Widget.TabPageIndicator">
         <item name="android:background">?attr/asEditTabBackground</item>
+        <item name="android:paddingLeft">0dip</item>
+        <item name="android:paddingRight">0dip</item>
     </style>
     <style name="CustomTabPageIndicator.Text" parent="Widget.TabPageIndicator.Text">
         <item name="android:textColor">?attr/asTextColor</item>                                                                                                                                                              
         <item name="android:textSize">15sp</item>
         <item name="android:textStyle">bold</item>
-        <item name="android:layout_marginLeft">5dip</item>
-        <item name="android:layout_marginRight">5dip</item>
+        <item name="android:layout_marginLeft">0dip</item>
+        <item name="android:layout_marginRight">0dip</item>
     </style>
     
 </resources>
