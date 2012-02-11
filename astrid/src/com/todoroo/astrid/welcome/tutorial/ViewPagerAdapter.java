@@ -7,7 +7,6 @@ import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.ImageView;
@@ -85,41 +84,6 @@ public class ViewPagerAdapter extends PagerAdapter implements TitleProvider
         pageView.setLayoutParams(new ViewGroup.LayoutParams(
                 WindowManager.LayoutParams.MATCH_PARENT,
                 WindowManager.LayoutParams.MATCH_PARENT));
-
-        View back = pageView.findViewById(R.id.back);
-        View next = pageView.findViewById(R.id.next);
-
-        if (back != null) {
-            back.setOnClickListener(new OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    if (v.getVisibility() == View.VISIBLE) {
-                        ((ViewPager) pager).setCurrentItem(position -1, true);
-                    }
-                }
-            });
-
-            if (position == 0) {
-                back.setVisibility(View.INVISIBLE);
-            }
-        }
-
-        if (next != null) {
-            next.setOnClickListener(new OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    if (v.getVisibility() == View.VISIBLE) {
-                        ((ViewPager) pager).setCurrentItem(position + 1, true);
-                    }
-                }
-            });
-
-            if (position == layouts.length - 1) {
-                next.setVisibility(View.INVISIBLE);
-            }
-        }
-
-
 
         if (pageView.findViewById(R.id.welcome_walkthrough_image) != null) {
             ImageView imageView = (ImageView) pageView.findViewById(R.id.welcome_walkthrough_image);

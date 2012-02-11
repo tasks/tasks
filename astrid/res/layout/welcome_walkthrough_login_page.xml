@@ -5,7 +5,7 @@
     android:layout_height="fill_parent"
     android:paddingLeft="4dip"
     android:paddingRight="4dip"
-    android:background="@drawable/welcome_walkthrough_fabric"
+    android:background="#d0d0d0"
     android:orientation="vertical">
 
     <TextView
