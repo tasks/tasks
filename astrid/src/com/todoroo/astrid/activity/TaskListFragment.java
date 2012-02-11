@@ -125,7 +125,6 @@ import com.todoroo.astrid.service.TaskService;
 import com.todoroo.astrid.service.UpgradeService;
 import com.todoroo.astrid.sync.SyncResultCallback;
 import com.todoroo.astrid.sync.SyncV2Provider;
-import com.todoroo.astrid.taskrabbit.TaskRabbitControlSet;
 import com.todoroo.astrid.ui.DateChangedAlerts;
 import com.todoroo.astrid.ui.DeadlineControlSet;
 import com.todoroo.astrid.utility.AstridPreferences;
@@ -251,7 +250,6 @@ public class TaskListFragment extends ListFragment implements OnScrollListener,
     private RepeatControlSet repeatControl;
     private GCalControlSet gcalControl;
     private EditPeopleControlSet peopleControl;
-    private TaskRabbitControlSet taskRabbitControl;
 
     /*
      * ======================================================================
