@@ -263,9 +263,13 @@ public class TaskRabbitControlSet extends TaskEditControlSet implements Assigned
         locationManager = (LocationManager) fragment.getActivity().getSystemService(Context.LOCATION_SERVICE);
         currentLocation = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
         if (currentLocation == null) {
-            locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, this);
-        }
-        else {
+            try {
+                locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, this);
+            } catch (IllegalArgumentException e) {
+                // No gps
+                isEnabledForTRLocation = false;
+            }
+        } else {
             isEnabledForTRLocation = supportsCurrentLocation(currentLocation);
         }
     }

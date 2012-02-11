@@ -499,7 +499,7 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
 
         tagsControlSet = new TagsControlSet(getActivity(),
                 R.layout.control_set_tags,
-                R.layout.control_set_default_display, R.string.TEA_tags_label);
+                R.layout.control_set_default_display, R.string.TEA_tags_label_long);
         controls.add(tagsControlSet);
         controlSetMap.put(getString(R.string.TEA_ctrl_lists_pref),
                 tagsControlSet);

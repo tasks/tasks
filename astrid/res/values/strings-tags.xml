@@ -9,6 +9,9 @@
   <!-- Tags label -->
   <string name="TEA_tags_label">Lists</string>
   
+  <!-- Tags label long version -->
+  <string name="TEA_tags_label_long">Put task on one or more lists</string>
+  
   <!-- Tags none -->
   <string name="TEA_tags_none">None</string>
 

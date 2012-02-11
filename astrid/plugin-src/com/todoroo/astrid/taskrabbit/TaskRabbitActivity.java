@@ -261,10 +261,10 @@ public class TaskRabbitActivity extends FragmentActivity implements LocationList
 
 
     private void setupForDialogOrFullscreen() {
-        isDialog = AndroidUtilities.isTabletSized(this);
-        if (isDialog)
-            setTheme(ThemeService.getDialogTheme());
-        else
+//        isDialog = AndroidUtilities.isTabletSized(this);
+//        if (isDialog)
+//            setTheme(ThemeService.getDialogTheme());
+//        else
             ThemeService.applyTheme(this);
     }
 
@@ -410,13 +410,13 @@ public class TaskRabbitActivity extends FragmentActivity implements LocationList
                 actionBar.setCustomView(R.layout.task_rabbit_header_view);
 
 
-            View customView = actionBar.getCustomView();
-            menuNav = customView.findViewById(R.id.menu_nav);
-            menuNavDisclosure = (ImageView) customView.findViewById(R.id.menu_disclosure_arrow);
+                View customView = actionBar.getCustomView();
+                menuNav = customView.findViewById(R.id.menu_nav);
+                menuNavDisclosure = (ImageView) customView.findViewById(R.id.menu_disclosure_arrow);
 
-            menuTitle = (TextView) customView.findViewById(R.id.task_rabbit_title);
-            menuNav.setOnClickListener(menuClickListener);
-            createMenuPopover();
+                menuTitle = (TextView) customView.findViewById(R.id.task_rabbit_title);
+                menuNav.setOnClickListener(menuClickListener);
+                createMenuPopover();
             }
 
 
