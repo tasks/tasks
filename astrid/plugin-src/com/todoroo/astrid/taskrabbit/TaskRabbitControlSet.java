@@ -132,7 +132,7 @@ public class TaskRabbitControlSet extends TaskEditControlSet implements Assigned
 
 
     private void updateTaskRow(TaskRabbitTaskContainer container) {
-        displayText.setText(fragment.getActivity().getString(R.string.tr_display_status));
+        displayText.setText(fragment.getString(R.string.tr_display_status));
         JSONObject remoteData = container.getRemoteTaskData();
         if (remoteData != null) {
             updateDisplay(remoteData);
@@ -145,7 +145,7 @@ public class TaskRabbitControlSet extends TaskEditControlSet implements Assigned
      * Show toast for task edit canceling
      */
     private void showSuccessToast() {
-        Toast.makeText(fragment.getActivity(), fragment.getActivity().getString(R.string.tr_success_toast),
+        Toast.makeText(fragment.getActivity(), fragment.getString(R.string.tr_success_toast),
                 Toast.LENGTH_SHORT).show();
     }
 
