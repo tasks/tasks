@@ -174,7 +174,7 @@
     
     <!-- Control set title (do not translate) -->
     <string name="tr_set_type">Type</string>
-    <string name="tr_set_name">Name</string>
+    <string name="tr_set_name">Restaurant Name</string>
     <string name="tr_set_location">Location</string>
     <string name="tr_set_skill_required">Skill Required</string>
     <string name="tr_set_duration">Duration</string>

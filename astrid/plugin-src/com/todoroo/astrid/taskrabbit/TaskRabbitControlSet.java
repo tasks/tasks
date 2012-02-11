@@ -164,7 +164,7 @@ public class TaskRabbitControlSet extends TaskEditControlSet implements Assigned
     };
 
     private String taskRabbitURL(String method) {
-        return String.format("%S/api/v1/%S?client_id=%S&client_application=%S", TaskRabbitActivity.TASK_RABBIT_URL, method, TaskRabbitActivity.TASK_RABBIT_CLIENT_ID, TaskRabbitActivity.TASK_RABBIT_CLIENT_APPLICATION_ID);  //$NON-NLS-1$
+        return String.format("%s/api/v1/%s?client_id=%s&client_application=%s", TaskRabbitActivity.TASK_RABBIT_URL, method, TaskRabbitActivity.TASK_RABBIT_CLIENT_ID, TaskRabbitActivity.TASK_RABBIT_CLIENT_APPLICATION_ID);  //$NON-NLS-1$
     }
 
     /** Fire task rabbit if assigned **/
@@ -217,12 +217,14 @@ public class TaskRabbitControlSet extends TaskEditControlSet implements Assigned
 
     protected void updateStatus(JSONObject json){
 
-        final int taskID = json.optInt(TaskRabbitActivity.TASK_RABBIT_ID);
+        final long taskID = json.optLong(TaskRabbitActivity.TASK_RABBIT_ID);
+        if (taskID == TaskRabbitTaskContainer.NO_ID) return;
         new Thread(new Runnable() {
             @Override
             public void run() {
 
                 try {
+
                     String response = restClient.get(taskRabbitURL("tasks/" + taskID)); //$NON-NLS-1$
                     JSONObject taskResponse = new JSONObject(response);
                     if(taskResponse.has(TaskRabbitActivity.TASK_RABBIT_ID)){

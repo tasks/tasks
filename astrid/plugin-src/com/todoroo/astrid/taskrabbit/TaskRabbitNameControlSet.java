@@ -40,14 +40,14 @@ public class TaskRabbitNameControlSet extends PopupControlSet implements TaskRab
 
 
     public TaskRabbitNameControlSet(Activity activity, int viewLayout,
-            int displayViewLayout, int titleID, int i) {
+            int displayViewLayout, int titleID) {
         super(activity, viewLayout, displayViewLayout, titleID);
         editText = (EditText) getView().findViewById(R.id.notes);
         notesPreview = (TextView) getDisplayView().findViewById(R.id.display_row_edit);
         notesBody = (LinearLayout) getDisplayView().findViewById(R.id.notes_body);
         dialog.getWindow()
               .setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE | WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
-        displayText.setText(activity.getString(titleID));;
+        displayText.setText(activity.getString(titleID));
         editText.setMaxLines(Integer.MAX_VALUE);
 
 

@@ -64,10 +64,10 @@ public class TaskRabbitMapOverlayItem extends ItemizedOverlay<OverlayItem> {
             return false;
         }
         selectedItem = mOverlays.get(index);
-        AlertDialog.Builder dialog = new AlertDialog.Builder(mActivity);
-        dialog.setTitle(mActivity.getString(R.string.tr_alert_location_clicked_title));
-        dialog.setMessage(selectedItem.getSnippet());
-        dialog.setIcon(
+        AlertDialog.Builder dialogPrompt = new AlertDialog.Builder(mActivity);
+        dialogPrompt.setTitle(mActivity.getString(R.string.tr_alert_location_clicked_title));
+        dialogPrompt.setMessage(selectedItem.getSnippet());
+        dialogPrompt.setIcon(
                 android.R.drawable.ic_dialog_alert).setPositiveButton(
                         android.R.string.ok, new DialogInterface.OnClickListener() {
                             @SuppressWarnings("nls")
@@ -80,7 +80,7 @@ public class TaskRabbitMapOverlayItem extends ItemizedOverlay<OverlayItem> {
                                 mActivity.finish();
                             }
                         }).setNegativeButton(android.R.string.cancel, null);
-        dialog.show();
+        dialogPrompt.show();
         mActivity.setSearchTextForCurrentAddress();
 
         return true;

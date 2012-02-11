@@ -31,7 +31,6 @@ import android.support.v4.app.ActionBar;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.MenuItem;
 import android.text.TextUtils;
-import android.util.Log;
 import android.util.TypedValue;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -292,12 +291,12 @@ public class TaskRabbitActivity extends FragmentActivity implements LocationList
             }
             else if(arrayID == R.string.tr_set_key_name) {
                 TaskRabbitNameControlSet nameControlSet = new TaskRabbitNameControlSet(this,
-                        R.layout.control_set_notes, R.layout.task_rabbit_row, titleID, i);
+                        R.layout.control_set_notes, R.layout.task_rabbit_row, titleID);
                 controls.add(nameControlSet);
             }
             else  if(arrayID == R.string.tr_set_key_description) {
                 TaskRabbitNameControlSet descriptionControlSet = new TaskRabbitNameControlSet(this,
-                        R.layout.control_set_notes, R.layout.task_rabbit_row_description, titleID, i);
+                        R.layout.control_set_notes, R.layout.task_rabbit_row_description, titleID);
                 try {
                     descriptionControlSet.readFromModel(new JSONObject().put(getString(arrayID), model.getValue(Task.NOTES)), getString(arrayID), currentSelectedItem);
                 } catch (JSONException e) {
@@ -336,7 +335,7 @@ public class TaskRabbitActivity extends FragmentActivity implements LocationList
         int[] presetValues = getPresetValues(mode);
         TypedArray keys = getResources().obtainTypedArray(R.array.tr_default_set_key);
         JSONObject parameters = defaultValuesToJSON(keys, presetValues);
-        for (int i = 1; i < controls.size(); i++) {
+        for (int i = 0; i < controls.size(); i++) {
             if (presetValues[i] == -1) continue;
             TaskRabbitSetListener set = controls.get(i);
             int arrayID = keys.getResourceId(i, 0);
@@ -471,7 +470,7 @@ public class TaskRabbitActivity extends FragmentActivity implements LocationList
 
 
         String descriptionKey = getString(R.string.tr_set_key_description);
-        String category = String.format("Category: %S\n", menuTitle.getText().toString());  //$NON-NLS-1$
+        String category = String.format("Category: %s\n", menuTitle.getText().toString());  //$NON-NLS-1$
         parameters.put(descriptionKey, category);
         for (int i = 0; i < controls.size(); i++) {
             if (presetValues[i] == -1) continue;
@@ -542,12 +541,11 @@ public class TaskRabbitActivity extends FragmentActivity implements LocationList
                     try {
                         String urlCall = "tasks/";
                         if (taskRabbitTask.getTaskID() > 0) urlCall += taskRabbitTask.getTaskID();
-                        urlCall += String.format("?client_id=%S&client_application=%S", TASK_RABBIT_CLIENT_ID, TASK_RABBIT_CLIENT_APPLICATION_ID);
-                        Header authorization = new BasicHeader("Authorization", "OAuth" + Preferences.getStringValue(TASK_RABBIT_TOKEN));
+                        urlCall += String.format("?client_id=%s&client_application=%s", TASK_RABBIT_CLIENT_ID, TASK_RABBIT_CLIENT_APPLICATION_ID);
+                        Header authorization = new BasicHeader("Authorization", "OAuth " + Preferences.getStringValue(TASK_RABBIT_TOKEN));
                         Header contentType = new BasicHeader("Content-Type",  "application/json");
 
                         String response = restClient.post(taskRabbitURL(urlCall), getTaskBody(), contentType, authorization);
-                        Log.d("Task rabbit response", response);
                         JSONObject taskResponse = new JSONObject(response);
                         if(taskResponse.has(TASK_RABBIT_ID)){
                             taskRabbitTask.setRemoteTaskData(response);
@@ -558,7 +556,6 @@ public class TaskRabbitActivity extends FragmentActivity implements LocationList
                         }
                     }
                     catch (Exception e){
-                        e.printStackTrace();
                         Message failureMessage = new Message();
                         failureMessage.what = -1;
                         handler.sendMessage(failureMessage);
@@ -690,7 +687,7 @@ public class TaskRabbitActivity extends FragmentActivity implements LocationList
         if (requestCode == REQUEST_CODE_TASK_RABBIT_OAUTH && resultCode == Activity.RESULT_OK){
             String result = data.getStringExtra(OAuthLoginActivity.DATA_RESPONSE);
 
-            String key = "access_token";  //$NON-NLS-1$
+            String key = "access_token=";  //$NON-NLS-1$
             if(result.contains(key)) {
                 try {
 
