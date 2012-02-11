@@ -82,6 +82,7 @@ import com.todoroo.astrid.notes.NotesDecorationExposer;
 import com.todoroo.astrid.service.StatisticsConstants;
 import com.todoroo.astrid.service.StatisticsService;
 import com.todoroo.astrid.service.TaskService;
+import com.todoroo.astrid.taskrabbit.TaskRabbitDataService;
 import com.todoroo.astrid.taskrabbit.TaskRabbitTaskContainer;
 import com.todoroo.astrid.timers.TimerDecorationExposer;
 import com.todoroo.astrid.utility.Constants;
@@ -391,9 +392,11 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
 
         // image view
         final AsyncImageView pictureView = viewHolder.picture; {
+            Log.d("TaskAdapter", "picture view");
             if (pictureView != null) {
-                TaskRabbitTaskContainer container = new TaskRabbitTaskContainer(task);
+                TaskRabbitTaskContainer container = TaskRabbitDataService.getInstance().getContainerForTask(task);
 
+                Log.d("TaskAdapter", "BOOL =" + task.getValue(Task.USER_ID) + "dfdsf" +container.getTaskID() );
                 if(task.getValue(Task.USER_ID) == 0 && container.getTaskID() <= 0) {
                     pictureView.setVisibility(View.GONE);
                     if (viewHolder.pictureBorder != null)
@@ -405,6 +408,7 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
                     pictureView.setUrl(null);
                     if (container.getTaskID() > 0) {
                         pictureView.setDefaultImageResource(R.drawable.task_rabbit_image);
+                        Log.d("TaskAdapter", "Trying to show taks rabbit");
                     }
                     else {
                         pictureView.setDefaultImageResource(R.drawable.icn_default_person_image);
