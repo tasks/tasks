@@ -5,8 +5,6 @@ import java.util.Locale;
 
 import android.app.AlertDialog;
 import android.content.Context;
-import android.content.DialogInterface;
-import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.location.Address;
 import android.location.Geocoder;
@@ -16,9 +14,7 @@ import android.location.LocationManager;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.provider.Settings;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -36,7 +32,7 @@ public class TaskRabbitMapActivity extends MapActivity implements LocationListen
 
     private MapView mapView;
     private MapController mapController;
-    public Location location;
+    public Location currentLocation;
     private EditText searchText;
     private TaskRabbitMapOverlayItem currentOverlayItem;
     private String locationAddress;
@@ -76,10 +72,6 @@ public class TaskRabbitMapActivity extends MapActivity implements LocationListen
 
         }
 
-        if ( !locationManager.isProviderEnabled( LocationManager.GPS_PROVIDER ) || !locationManager.isProviderEnabled( LocationManager.NETWORK_PROVIDER )) {
-            buildAlertMessageNoGps();
-        }
-
 
         searchText=(EditText)findViewById(R.id.search_text);
 
@@ -104,24 +96,6 @@ public class TaskRabbitMapActivity extends MapActivity implements LocationListen
         }
     }
 
-    private void buildAlertMessageNoGps() {
-        final AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setMessage("GPS needs to be enabled in order to add location based tasks. Do you want to enable it?")
-        .setCancelable(false)
-        .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-            public void onClick(final DialogInterface dialog, final int id) {
-                startActivity(new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS));
-            }
-        })
-        .setNegativeButton("No", new DialogInterface.OnClickListener() {
-            public void onClick(final DialogInterface dialog, final int id) {
-                dialog.cancel();
-            }
-        });
-        final AlertDialog alert = builder.create();
-        alert.show();
-    }
-
 
     private final Handler handler = new Handler() {
 
@@ -137,8 +111,8 @@ public class TaskRabbitMapActivity extends MapActivity implements LocationListen
             case -1:
 
                 AlertDialog.Builder adb = new AlertDialog.Builder(TaskRabbitMapActivity.this);
-                adb.setTitle("Google Map");
-                adb.setMessage("Please Provide the Proper Place");
+                adb.setTitle(getString(R.string.tr_alert_location_fail_title));
+                adb.setMessage(getString(R.string.tr_alert_location_fail_message));
                 adb.setPositiveButton("Close",null);
                 adb.show();
             }
@@ -201,8 +175,8 @@ public class TaskRabbitMapActivity extends MapActivity implements LocationListen
     }
 
     protected OverlayItem createOverlayItem(GeoPoint q) {
-        OverlayItem overlayitem = new OverlayItem(q, "Set this location",
-            "Use this location for TaskRabbit");
+        OverlayItem overlayitem = new OverlayItem(q, getString(R.string.tr_alert_location_clicked_title),
+                getString(R.string.tr_alert_location_clicked_message));
         return overlayitem;
     }
 
@@ -217,14 +191,14 @@ public class TaskRabbitMapActivity extends MapActivity implements LocationListen
                 }
             }
         } catch (Exception e) {
-            Log.d("Location error", e.toString());
+            e.printStackTrace();
         }
     }
     private void updateAddress(Address address){
         if(address.getLocality() != null && address.getPostalCode() != null){
-            locationAddress = "";
+            locationAddress = "";  //$NON-NLS-1$
             for (int i = 0; i < address.getMaxAddressLineIndex(); i++){
-                locationAddress += address.getAddressLine(i) + ", ";
+                locationAddress += address.getAddressLine(i) + ", ";  //$NON-NLS-1$
             }
         }
     }
@@ -236,11 +210,11 @@ public class TaskRabbitMapActivity extends MapActivity implements LocationListen
     }
 
     private void updateLocationOverlay() {
-        if (location == null) { return; };
+        if (currentLocation == null) { return; };
         List<Overlay> mapOverlays = mapView.getOverlays();
         Drawable drawable = this.getResources().getDrawable(R.drawable.icon_locale);
         TaskRabbitMapOverlayItem myItemizedOverlay = new TaskRabbitMapOverlayItem(drawable);
-        GeoPoint point = new GeoPoint((int)(location.getLatitude() * 1E6), (int)(location.getLongitude() * 1E6));
+        GeoPoint point = new GeoPoint((int)(currentLocation.getLatitude() * 1E6), (int)(currentLocation.getLongitude() * 1E6));
 
         OverlayItem overlayitem = createOverlayItem(point);
         myItemizedOverlay.addOverlay(overlayitem);
@@ -251,7 +225,7 @@ public class TaskRabbitMapActivity extends MapActivity implements LocationListen
         if (location != null) {
             double lat = location.getLatitude();
             double lng = location.getLongitude();
-            this.location = location;
+            this.currentLocation = location;
             GeoPoint p = new GeoPoint((int) lat * 1000000, (int) lng * 1000000);
             updateLocationOverlay();
             mapController.animateTo(p);

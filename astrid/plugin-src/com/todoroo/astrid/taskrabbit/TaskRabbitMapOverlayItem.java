@@ -12,6 +12,7 @@ import android.widget.RelativeLayout;
 
 import com.google.android.maps.ItemizedOverlay;
 import com.google.android.maps.OverlayItem;
+import com.timsu.astrid.R;
 
 public class TaskRabbitMapOverlayItem extends ItemizedOverlay<OverlayItem> {
     private final ArrayList<OverlayItem> mOverlays = new ArrayList<OverlayItem>();
@@ -64,7 +65,7 @@ public class TaskRabbitMapOverlayItem extends ItemizedOverlay<OverlayItem> {
         }
         selectedItem = mOverlays.get(index);
         AlertDialog.Builder dialog = new AlertDialog.Builder(mActivity);
-        dialog.setTitle("Set this as your location?");
+        dialog.setTitle(mActivity.getString(R.string.tr_alert_location_clicked_title));
         dialog.setMessage(selectedItem.getSnippet());
         dialog.setIcon(
                 android.R.drawable.ic_dialog_alert).setPositiveButton(

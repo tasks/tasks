@@ -392,5 +392,38 @@
         <item>$95</item>
     </string-array>
     
-
+    
+    <string name="tr_default_cost_in_cents_25_display">&lt; $25</string>
+    <string name="tr_default_cost_in_cents_50_display">&lt; $50</string>
+    <string name="tr_default_cost_in_cents_100_display">&lt; $100</string>
+    <string name="tr_default_cost_in_cents_101_display">&gt; $100</string>
+    
+    
+    
+    
+    <!-- Task Rabbit activity messages -->
+    <string name="tr_button_already_posted">Already Posted!</string>
+    <string name="tr_alert_title_fail">Error posting task</string>
+    <string name="tr_alert_message_fail">Please try again</string>
+    <string name="tr_alert_button_fail">Close</string>
+    <string name="tr_alert_gps_title">GPS needs to be enabled in order to add location based tasks. Do you want to enable it?</string>
+    <string name="tr_alert_gps_yes">Yes</string>
+    <string name="tr_alert_gps_no">No</string>
+    
+    
+    <string name="tr_default_location_name">Current Location</string>
+    
+    <!-- Task Rabbit control set toast -->
+    <string name="tr_success_toast">Task posted to Task Rabbit successfully!</string>
+    <string name="tr_display_status">Task Rabbit Status</string>
+    
+    
+    <!-- Task Rabbit Map Activity -->
+    <string name="tr_alert_location_fail_title">No Location Found</string>
+    <string name="tr_alert_location_fail_message">Sorry, could not find the location for the address you entered</string>
+    <string name="tr_alert_location_clicked_title">Set this location</string>
+    <string name="tr_alert_location_clicked_message">Use this location for TaskRabbit</string>
+    
+    
+    
 </resources>
