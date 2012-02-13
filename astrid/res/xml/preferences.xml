@@ -27,6 +27,12 @@
             android:title="@string/EPr_compressTaskRows_title"
             android:summary="@string/EPr_compressTaskRows_desc"
             android:defaultValue="false" />
+
+        <com.todoroo.astrid.ui.MultilineCheckboxPreference
+            android:key="@string/p_useLegacyImportanceStyle"
+            android:title="@string/EPr_userLegacyImportance_title"
+            android:summary="@string/EPr_userLegacyImportance_desc"
+            android:defaultValue="false"/>
         
         <com.todoroo.astrid.ui.MultilineCheckboxPreference
             android:key="@string/p_showSmartConfirmation_key"
@@ -38,6 +44,7 @@
             android:entries="@array/EPr_themes"
             android:entryValues="@array/EPr_theme_settings"
             android:title="@string/EPr_theme_title" />
+        
     </PreferenceCategory>
 
 

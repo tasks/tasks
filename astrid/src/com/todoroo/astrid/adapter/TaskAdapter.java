@@ -126,25 +126,31 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
     };
 
     public static int[] IMPORTANCE_RESOURCES = new int[] {
-        R.drawable.importance_check_1, //task_indicator_0,
-        R.drawable.importance_check_2, //task_indicator_1,
-        R.drawable.importance_check_3, //task_indicator_2,
-        R.drawable.importance_check_4, //task_indicator_3,
+        R.drawable.importance_check_1,
+        R.drawable.importance_check_2,
+        R.drawable.importance_check_3,
+        R.drawable.importance_check_4,
     };
 
+    public static int[] LEGACY_IMPORTANCE_RESOURCES = new int[] {
+        R.drawable.importance_1,
+        R.drawable.importance_2,
+        R.drawable.importance_3,
+        R.drawable.importance_4,
+    };
 
     public static int[] IMPORTANCE_RESOURCES_LARGE = new int[] {
-        R.drawable.check_box_large_1, //task_indicator_0,
-        R.drawable.check_box_large_2, //task_indicator_1,
-        R.drawable.check_box_large_3, //task_indicator_2,
-        R.drawable.check_box_large_4, //task_indicator_3,
+        R.drawable.check_box_large_1,
+        R.drawable.check_box_large_2,
+        R.drawable.check_box_large_3,
+        R.drawable.check_box_large_4,
     };
 
     public static int[] IMPORTANCE_REPEAT_RESOURCES = new int[] {
-        R.drawable.importance_check_repeat_1, //task_indicator_0,
-        R.drawable.importance_check_repeat_2, //task_indicator_1,
-        R.drawable.importance_check_repeat_3, //task_indicator_2,
-        R.drawable.importance_check_repeat_4, //task_indicator_3,
+        R.drawable.importance_check_repeat_1,
+        R.drawable.importance_check_repeat_2,
+        R.drawable.importance_check_repeat_3,
+        R.drawable.importance_check_repeat_4,
     };
 
     // --- instance variables
@@ -263,6 +269,7 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
         viewHolder.task = new Task();
         viewHolder.view = view;
         viewHolder.rowBody = (ViewGroup)view.findViewById(R.id.rowBody);
+        viewHolder.importance = view.findViewById(R.id.importance_legacy);
         viewHolder.nameView = (TextView)view.findViewById(R.id.title);
         viewHolder.picture = (AsyncImageView)view.findViewById(R.id.picture);
         viewHolder.pictureBorder = (ImageView)view.findViewById(R.id.pictureBorder);
@@ -329,6 +336,7 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
         public ViewGroup view;
         public ViewGroup rowBody;
         public TextView nameView;
+        public View importance; // for legacy importance style
         public CheckBox completeBox;
         public AsyncImageView picture;
         public ImageView pictureBorder;
@@ -431,17 +439,28 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
 
         // importance bar
         final CheckBox checkBoxView = viewHolder.completeBox; {
+            // Logic for legacy style
+            boolean useLegacyImportance = Preferences.getBoolean(R.string.p_useLegacyImportanceStyle, false);
+            if (useLegacyImportance) {
+                viewHolder.importance.setVisibility(View.VISIBLE);
+            } else {
+                viewHolder.importance.setVisibility(View.GONE);
+            }
+
             int value = task.getValue(Task.IMPORTANCE);
             if (value >= IMPORTANCE_RESOURCES.length)
                 value = IMPORTANCE_RESOURCES.length - 1;
-            if (!TextUtils.isEmpty(task.getValue(Task.RECURRENCE))) {
+            if (useLegacyImportance) {
+                checkBoxView.setButtonDrawable(R.drawable.btn_check);
+                viewHolder.importance.setBackgroundResource(LEGACY_IMPORTANCE_RESOURCES[value]);
+            } else if (!TextUtils.isEmpty(task.getValue(Task.RECURRENCE))) {
                 checkBoxView.setButtonDrawable(IMPORTANCE_REPEAT_RESOURCES[value]);
             } else {
                 checkBoxView.setButtonDrawable(IMPORTANCE_RESOURCES[value]);
             }
             if (pictureView != null && pictureView.getVisibility() == View.VISIBLE) {
                 checkBoxView.setVisibility(View.INVISIBLE);
-                if (viewHolder.pictureBorder != null)
+                if (viewHolder.pictureBorder != null && !useLegacyImportance)
                     viewHolder.pictureBorder.setBackgroundResource(IMPORTANCE_RESOURCES_LARGE[value]);
             } else {
                 checkBoxView.setVisibility(View.VISIBLE);

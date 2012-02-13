@@ -201,6 +201,8 @@
   <string name="p_showSmartConfirmation_key">showSmartConfirmation</string>
 
   <string name="p_allowCompressedTaskRows">allowCompressedTaskRows</string>
+  
+  <string name="p_useLegacyImportanceStyle">legacyImportanceStyle</string>
   <!-- ========================================================= DEFAULTS == -->
   
   <!-- default urgency setting (corresponds to entry in TEA_urgency) -->  

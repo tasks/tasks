@@ -1,101 +1,115 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- See the file "LICENSE" for the full license governing this code. -->
-
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:astrid="http://schemas.android.com/apk/res/com.timsu.astrid"
-    android:id="@+id/rowBody"
-    android:background="@android:drawable/list_selector_background"
     android:layout_width="fill_parent"
     android:layout_height="wrap_content"
-    android:minHeight="57dip" >
+    android:background="@android:drawable/list_selector_background"
+    android:orientation="horizontal">
 
-    <!-- completion check-box -->
-    <greendroid.widget.AsyncImageView
-        android:id="@+id/picture"
-        android:layout_width="47dip"
-        android:layout_height="45dip"
-        android:layout_centerVertical="true"
-        android:padding="2dip"
-        android:paddingTop="1dip"
-        android:paddingLeft="1dip"
-        android:layout_marginLeft="5dip"
-        astrid:defaultSrc="@drawable/icn_default_person_image"
-        android:scaleType="fitCenter"
-        android:visibility="gone" >
-    </greendroid.widget.AsyncImageView>
-    <ImageView
-        android:id="@+id/pictureBorder"
-        android:layout_width="47dip"
-        android:layout_height="47dip"
-        android:layout_marginLeft="5dip"
-        android:layout_centerVertical="true"
-        android:background="@drawable/icn_default_person_image"
-        android:scaleType="center"
-        android:visibility="gone" >
-    </ImageView>
-    
-    <CheckBox
-        android:id="@+id/completeBox"
-        android:layout_width="45dip"
-        android:layout_marginLeft="13dip"
-        android:layout_height="fill_parent"
-        android:minHeight="40dip"
-        android:scaleType="center"
-        android:layout_centerVertical="true" />
+	<View
+	    android:id="@+id/importance_legacy"
+	    android:layout_width="4dip"
+	    android:layout_height="fill_parent"
+	    android:layout_alignParentLeft="true"
+	    android:visibility="gone" />
 
-    <LinearLayout
-        android:id="@+id/task_row"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_toRightOf="@id/completeBox"
-        android:layout_centerVertical="true"
-        android:orientation="horizontal"
-        android:gravity="center_vertical"
-        android:paddingLeft="2dip" >
+	<RelativeLayout 
+	    android:id="@+id/rowBody"
+	    android:layout_width="fill_parent"
+	    android:layout_height="wrap_content"
+	    android:minHeight="57dip">
+	
+	    <!-- completion check-box -->
+	    <greendroid.widget.AsyncImageView
+	        android:id="@+id/picture"
+	        android:layout_width="47dip"
+	        android:layout_height="45dip"
+	        android:layout_centerVertical="true"
+	        android:padding="2dip"
+	        android:paddingTop="1dip"
+	        android:paddingLeft="1dip"
+	        android:layout_marginLeft="5dip"
+	        astrid:defaultSrc="@drawable/icn_default_person_image"
+	        android:scaleType="fitCenter"
+	        android:visibility="gone" >
+	    </greendroid.widget.AsyncImageView>
+	    <ImageView
+	        android:id="@+id/pictureBorder"
+	        android:layout_width="47dip"
+	        android:layout_height="47dip"
+	        android:layout_marginLeft="5dip"
+	        android:layout_centerVertical="true"
+	        android:background="@drawable/icn_default_person_image"
+	        android:scaleType="center"
+	        android:visibility="gone" >
+	    </ImageView>
+	    
+	    <CheckBox
+	        android:id="@+id/completeBox"
+	        android:layout_width="45dip"
+	        android:layout_marginLeft="13dip"
+	        android:layout_height="fill_parent"
+	        android:minHeight="40dip"
+	        android:scaleType="center"
+	        android:layout_centerVertical="true" />
+	
+	    <LinearLayout
+	        android:id="@+id/task_row"
+	        android:layout_width="fill_parent"
+	        android:layout_height="wrap_content"
+	        android:layout_toRightOf="@id/completeBox"
+	        android:layout_centerVertical="true"
+	        android:orientation="horizontal"
+	        android:gravity="center_vertical"
+	        android:paddingLeft="2dip" >
+	
+	        <!-- task name -->
+	
+	        <TextView
+	            android:id="@+id/title"
+	            style="@style/TextAppearance.TAd_ItemTitle"
+	            android:layout_width="fill_parent"
+	            android:layout_height="wrap_content"
+	            android:layout_weight="100"
+	            android:gravity="center_vertical"
+	            android:maxLines="2" />
+	
+	        <!-- due date -->
+	
+	        <TextView
+	            android:id="@+id/dueDate"
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:layout_alignParentRight="true"
+	            android:layout_marginRight="4dip"
+	            android:gravity="center_vertical|right" />
+	    </LinearLayout>
+	
+	    <!-- details line 1 -->
+	
+	    <TextView
+	        android:id="@+id/details1"
+	        style="@style/TextAppearance.TAd_ItemDetails"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_alignLeft="@id/task_row"
+	        android:layout_below="@id/task_row"
+	        android:visibility="gone" />
+	
+	    <!-- details line 2 -->
+	
+	    <TextView
+	        android:id="@+id/details2"
+	        style="@style/TextAppearance.TAd_ItemDetails"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_alignLeft="@id/task_row"
+	        android:layout_below="@id/details1"
+	        android:layout_marginLeft="5dip"
+	        android:visibility="gone" />
+	
+	</RelativeLayout>
 
-        <!-- task name -->
-
-        <TextView
-            android:id="@+id/title"
-            style="@style/TextAppearance.TAd_ItemTitle"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="100"
-            android:gravity="center_vertical"
-            android:maxLines="2" />
-
-        <!-- due date -->
-
-        <TextView
-            android:id="@+id/dueDate"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_marginRight="4dip"
-            android:gravity="center_vertical|right" />
-    </LinearLayout>
-
-    <!-- details line 1 -->
-
-    <TextView
-        android:id="@+id/details1"
-        style="@style/TextAppearance.TAd_ItemDetails"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@id/task_row"
-        android:layout_below="@id/task_row"
-        android:visibility="gone" />
-
-    <!-- details line 2 -->
-
-    <TextView
-        android:id="@+id/details2"
-        style="@style/TextAppearance.TAd_ItemDetails"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@id/task_row"
-        android:layout_below="@id/details1"
-        android:layout_marginLeft="5dip"
-        android:visibility="gone" />
-
-</RelativeLayout>
+</LinearLayout>

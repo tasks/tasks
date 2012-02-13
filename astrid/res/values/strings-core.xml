@@ -481,6 +481,10 @@
   <string name="EPr_compressTaskRows_title">Compact Task Row</string>
   <string name="EPr_compressTaskRows_desc">Compress task rows to fit title</string>
   
+  <!-- Preferences: Use legacy importance and checkbox style -->
+  <string name="EPr_userLegacyImportance_title">Use legacy importance style</string>
+  <string name="EPr_userLegacyImportance_desc">Use legacy importance style</string>
+  
   <!-- Preference: Theme -->
   <string name="EPr_theme_title">Color Theme</string>
   <!-- Preference: Theme Description (%s => value) -->

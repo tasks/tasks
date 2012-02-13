@@ -9,6 +9,12 @@
     android:paddingBottom="2dip"
     android:gravity="center_vertical"
     android:orientation="horizontal">
+    
+    <View
+        android:id="@+id/importance_legacy"
+        android:layout_width="4dip"
+        android:layout_height="fill_parent"
+        android:visibility="gone" />
         
     <!-- indent -->
     <View android:id="@+id/indent"
