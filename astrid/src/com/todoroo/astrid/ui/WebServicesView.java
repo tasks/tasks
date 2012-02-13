@@ -71,7 +71,6 @@ public class WebServicesView extends LinearLayout {
 
     private LinearLayout.LayoutParams rowParams;
 
-
     @Autowired RestClient restClient;
     @Autowired ExceptionService exceptionService;
 
@@ -271,7 +270,8 @@ public class WebServicesView extends LinearLayout {
                 String url = String.format("http://www.amazon.com/s/?field-keywords=%s&tag=%s",
                         URLEncoder.encode(task.getValue(Task.TITLE), "UTF-8"), ASSOCIATE_TAG);
 
-                View view = inflateRow(body, null, moreLabel, "", url);
+                View view = inflateRow(body, null, moreLabel, "",
+                        new LinkTag(url, "amazon-more", null));
                 view.setBackgroundColor(Color.argb(128, 128, 128, 128));
             } catch (UnsupportedEncodingException e) {
                 //
@@ -288,13 +288,13 @@ public class WebServicesView extends LinearLayout {
                     attributes.get("title"));
             ((TextView)view.findViewById(R.id.price)).setText(
                     attributes.get("price"));
-            view.setTag(attributes.get("url"));
+            view.setTag(new LinkTag(attributes.get("url"),
+                    "amazon", attributes.get("price")));
 
             String subtitle = attributes.get("subtitle");
             if(authors.size() > 0) {
                 StringBuilder sb = new StringBuilder();
                 for(String author : authors) {
-                    System.err.println("AUTHOR " + author);
                     sb.append(author).append(", ");
                 }
                 subtitle = sb.toString().substring(0, sb.length() - 2);
@@ -404,7 +404,9 @@ public class WebServicesView extends LinearLayout {
                     JSONObject result = results.getJSONObject(i);
                     String title = StringEscapeUtils.unescapeHtml(result.getString("titleNoFormatting"));
                     inflateRow(body, null, title,
-                            result.getString("visibleUrl"), result.getString("url"));
+                            result.getString("visibleUrl"),
+                            new LinkTag(result.getString("url"),
+                                    "google", null));
                 }
 
                 JSONObject cursor = searchResults.getJSONObject("cursor");
@@ -413,7 +415,8 @@ public class WebServicesView extends LinearLayout {
                     moreLabel = "Search Google";
                 String url = cursor.getString("moreResultsUrl");
 
-                View view = inflateRow(body, null, moreLabel, "", url);
+                View view = inflateRow(body, null, moreLabel, "",
+                        new LinkTag(url, "google-more", null));
                 view.setBackgroundColor(Color.argb(128, 128, 128, 128));
 
             } catch (JSONException e) {
@@ -461,7 +464,7 @@ public class WebServicesView extends LinearLayout {
 
 
     protected View inflateRow(ViewGroup body, String imageUrl, String title, String subtitle,
-            String tag) {
+            LinkTag tag) {
         View view = inflater.inflate(R.layout.web_service_row, body, false);
         AsyncImageView imageView = (AsyncImageView)view.findViewById(R.id.image);
 
@@ -480,13 +483,51 @@ public class WebServicesView extends LinearLayout {
         return view;
     }
 
+    private class LinkTag {
+        private final String url;
+        private final String servce;
+        private String price;
+
+        public LinkTag(String url, String servce, String price) {
+            this.url = url;
+            this.servce = servce;
+            this.price = price;
+        }
+
+    }
+
     public OnClickListener linkClickListener = new OnClickListener() {
         @Override
         public void onClick(View v) {
-            if(v.getTag() instanceof String) {
-                StatisticsService.reportEvent(StatisticsConstants.IDEAS_LINK_CLICKED);
+            if(v.getTag() instanceof LinkTag) {
+                LinkTag tag = (LinkTag) v.getTag();
+
+                if(tag.price != null) {
+                    try {
+                        double price = Double.parseDouble(tag.price.replaceAll("[^.\\d]", ""));
+                        if(price < 5)
+                            tag.price = "$0 - $4";
+                        else if(price < 10)
+                            tag.price = "$5 - $9";
+                        else if(price < 25)
+                            tag.price = "$10 - $24";
+                        else if(price < 50)
+                            tag.price = "$25 - $49";
+                        else if(price < 100)
+                            tag.price = "$50 - $99";
+                        else if(price < 500)
+                            tag.price = "$100 - $499";
+                        else
+                            tag.price = "$500+";
+                    } catch(Exception e) {
+                        tag.price = null;
+                    }
+                }
+
+                StatisticsService.reportEvent(StatisticsConstants.IDEAS_LINK_CLICKED,
+                        "service", tag.servce, "price", tag.price);
                 Intent intent = new Intent(Intent.ACTION_VIEW);
-                intent.setData(Uri.parse((String) v.getTag()));
+                intent.setData(Uri.parse(tag.url));
                 activity.startActivity(intent);
             }
         }

@@ -96,8 +96,10 @@ public class StatisticsService {
             String[] abAttributes = new StatisticsDependencies().abOptions.getLocalyticsAttributeArrayForEvent(event);
             if(attributes.length > 0 || abAttributes.length > 0) {
                 HashMap<String, String> attrMap = new HashMap<String, String>();
-                for(int i = 1; i < attributes.length; i += 2)
-                    attrMap.put(attributes[i-1], attributes[i]);
+                for(int i = 1; i < attributes.length; i += 2) {
+                    if(attributes[i] != null)
+                        attrMap.put(attributes[i-1], attributes[i]);
+                }
                 for (int i = 1; i < abAttributes.length; i += 2)
                     attrMap.put(abAttributes[i-1], abAttributes[i]);
                 localyticsSession.tagEvent(event, attrMap);
