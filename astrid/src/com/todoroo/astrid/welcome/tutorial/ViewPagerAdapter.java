@@ -67,7 +67,13 @@ public class ViewPagerAdapter extends PagerAdapter implements TitleProvider
             images[images.length - 1] = R.drawable.welcome_walkthrough_1;
             body[body.length - 1] = R.string.welcome_body_7_return;
         }
+    }
 
+    @Override
+    public void setPrimaryItem(ViewGroup container, int position, Object object) {
+        super.setPrimaryItem(container, position, object);
+
+        parent.onPageChanged(container, position);
     }
 
 
@@ -97,7 +103,7 @@ public class ViewPagerAdapter extends PagerAdapter implements TitleProvider
         }
 
         ((ViewPager) pager).addView(pageView, 0);
-        parent.pageScrolled(position, pageView);
+        parent.instantiatePage(position);
         return pageView;
     }
 

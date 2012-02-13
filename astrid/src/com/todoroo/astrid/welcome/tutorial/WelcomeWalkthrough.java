@@ -56,15 +56,20 @@ public class WelcomeWalkthrough extends ActFmLoginActivity {
     protected int getTitleResource() {
         return 0;
     }
-    public void pageScrolled(int position, View view){
-        currentView = view;
-        currentPage = position;
+
+    public void instantiatePage(int position){
         if (position == mAdapter.getCount()-1) {
             initializeUI();
         }
     }
 
+    public void onPageChanged(View view, int position) {
+        currentPage = position;
+        currentView = view;
+        findViewById(R.id.next).setVisibility(
+                position == mAdapter.getCount()-1 ? View.GONE : View.VISIBLE);
 
+    }
 
     @Override
     protected void initializeUI() {
