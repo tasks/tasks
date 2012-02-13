@@ -113,7 +113,6 @@ public class TagViewFragment extends TaskListFragment {
         membersEdit.setOnClickListener(settingsListener);
 
         originalFilter = filter;
-        showListSettingsPopover();
     }
 
     private final OnClickListener settingsListener = new OnClickListener() {
@@ -143,9 +142,10 @@ public class TagViewFragment extends TaskListFragment {
 
     private void showListSettingsPopover() {
         if (!Preferences.getBoolean(R.string.p_showed_list_settings_help, false)) {
-            View tabView = getView().findViewById(R.id.members_edit);
-            HelpInfoPopover.showPopover(getActivity(), tabView, R.string.help_popover_list_settings, null);
             Preferences.setBoolean(R.string.p_showed_list_settings_help, true);
+            View tabView = getView().findViewById(R.id.members_edit);
+            HelpInfoPopover.showPopover(getActivity(), tabView,
+                    R.string.help_popover_list_settings, null);
         }
     }
 
@@ -434,6 +434,8 @@ public class TagViewFragment extends TaskListFragment {
 
         IntentFilter intentFilter = new IntentFilter(BROADCAST_TAG_ACTIVITY);
         getActivity().registerReceiver(notifyReceiver, intentFilter);
+
+        showListSettingsPopover();
     }
 
     @Override

@@ -284,7 +284,8 @@ public class TagSettingsActivity extends FragmentActivity {
             final Runnable loadTag = new Runnable() {
                 @Override
                 public void run() {
-                    setResult(RESULT_OK, new Intent().putExtra(TOKEN_NEW_FILTER, TagFilterExposer.filterFromTagData(TagSettingsActivity.this, tagData)));
+                    setResult(RESULT_OK, new Intent().putExtra(TOKEN_NEW_FILTER,
+                            TagFilterExposer.filterFromTagData(TagSettingsActivity.this, tagData)));
                     finish();
                 }
             };
