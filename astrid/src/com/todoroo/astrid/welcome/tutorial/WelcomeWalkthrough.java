@@ -70,24 +70,18 @@ public class WelcomeWalkthrough extends ActFmLoginActivity {
                 position == mAdapter.getCount()-1 ? View.GONE : View.VISIBLE);
 
         if(currentPage == mAdapter.getCount()-1) {
-            OnClickListener done = new OnClickListener() {
-                @Override
-                public void onClick(View arg0) {
-                    finish();
-                }
-            };
-            currentView.findViewById(R.id.welcome_walkthrough_title).setOnClickListener(done);
-            currentView.findViewById(R.id.welcome_walkthrough_image).setOnClickListener(done);
-        }
-    }
-
-    @Override
-    protected void initializeUI() {
-        if(mAdapter == null)
-            return;
-        if(currentPage == mAdapter.getCount()-1 && findViewById(R.id.fb_login) != null) {
-                super.initializeUI();
+            if(findViewById(R.id.fb_login) != null) {
                 setupLoginLater();
+            } else {
+                OnClickListener done = new OnClickListener() {
+                    @Override
+                    public void onClick(View arg0) {
+                        finish();
+                    }
+                };
+                currentView.findViewById(R.id.welcome_walkthrough_title).setOnClickListener(done);
+                currentView.findViewById(R.id.welcome_walkthrough_image).setOnClickListener(done);
+            }
         }
     }
 

@@ -238,6 +238,9 @@ public class ActFmLoginActivity extends FragmentActivity implements AuthListener
 
         errors = (TextView) findViewById(R.id.error);
         LoginButton loginButton = (LoginButton) findViewById(R.id.fb_login);
+        if(loginButton == null)
+            return;
+
         loginButton.init(this, facebook, this, new String[] { "email",
                 "offline_access", "publish_stream" });
 
