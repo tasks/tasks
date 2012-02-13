@@ -137,6 +137,15 @@ public class TaskListActivity extends AstridActivity implements MainMenuListener
 		createMainMenuPopover();
 		mainMenu.setOnClickListener(mainMenuClickListener);
 		commentsButton.setOnClickListener(commentsButtonClickListener);
+
+        Filter savedFilter = getIntent().getParcelableExtra(TaskListFragment.TOKEN_FILTER);
+        if (getIntent().getIntExtra(TaskListFragment.TOKEN_SOURCE, Constants.SOURCE_DEFAULT) == Constants.SOURCE_NOTIFICATION)
+            setupTasklistFragmentWithFilterAndCustomTaskList(savedFilter, NotificationFragment.class);
+        else
+            setupTasklistFragmentWithFilter(savedFilter);
+
+        if (savedFilter != null)
+            setListsTitle(savedFilter.title);
 	}
 
 	/**
@@ -275,15 +284,6 @@ public class TaskListActivity extends AstridActivity implements MainMenuListener
     protected void onPostResume() {
         super.onPostResume();
 
-        Filter savedFilter = getIntent().getParcelableExtra(TaskListFragment.TOKEN_FILTER);
-        if (getIntent().getIntExtra(TaskListFragment.TOKEN_SOURCE, Constants.SOURCE_DEFAULT) == Constants.SOURCE_NOTIFICATION)
-            setupTasklistFragmentWithFilterAndCustomTaskList(savedFilter, NotificationFragment.class);
-        else if (getTaskListFragment() == null)
-            setupTasklistFragmentWithFilter(savedFilter);
-
-        if (savedFilter != null)
-            setListsTitle(savedFilter.title);
-
         if (!Flags.checkAndClear(Flags.TLA_DISMISSED_FROM_TASK_EDIT)) {
             TaskEditFragment tea = getTaskEditFragment();
             if (tea != null)
@@ -372,6 +372,9 @@ public class TaskListActivity extends AstridActivity implements MainMenuListener
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         if ((requestCode == FilterListFragment.REQUEST_NEW_LIST || requestCode == FilterListFragment.REQUEST_NEW_FILTER) && resultCode == Activity.RESULT_OK) {
+            if(data == null)
+                return;
+
             Filter newList = data.getParcelableExtra(TagSettingsActivity.TOKEN_NEW_FILTER);
             if (newList != null) {
                 onFilterItemClicked(newList); // Switch to the new list
