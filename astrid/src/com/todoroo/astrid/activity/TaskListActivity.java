@@ -278,8 +278,6 @@ public class TaskListActivity extends AstridActivity implements MainMenuListener
         Filter savedFilter = getIntent().getParcelableExtra(TaskListFragment.TOKEN_FILTER);
         if (getIntent().getIntExtra(TaskListFragment.TOKEN_SOURCE, Constants.SOURCE_DEFAULT) == Constants.SOURCE_NOTIFICATION)
             setupTasklistFragmentWithFilterAndCustomTaskList(savedFilter, NotificationFragment.class);
-        else if (!Flags.checkAndClear(Flags.TLA_RESUMED_FROM_VOICE_ADD))
-            setupTasklistFragmentWithFilter(savedFilter);
 
         if (savedFilter != null)
             setListsTitle(savedFilter.title);
