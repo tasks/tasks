@@ -41,6 +41,7 @@ import com.todoroo.astrid.utility.AstridPreferences;
 
 public final class UpgradeService {
 
+    public static final int V4_0_0 = 251;
     public static final int V3_9_2_3 = 210;
     public static final int V3_9_2_2 = 209;
     public static final int V3_9_2_1 = 208;
@@ -111,6 +112,12 @@ public final class UpgradeService {
     public void performUpgrade(final Context context, final int from) {
         if(from == 135)
             AddOnService.recordOem();
+
+        if (from > 0 && from < V4_0_0) {
+            String preference = Preferences.getStringValue(R.string.p_theme);
+            if (ThemeService.THEME_WHITE.equals(preference))
+                Preferences.setString(R.string.p_theme, ThemeService.THEME_WHITE_BLUE);
+        }
 
         if(from > 0 && from < V3_8_2) {
             if(Preferences.getBoolean(R.string.p_transparent_deprecated, false))
