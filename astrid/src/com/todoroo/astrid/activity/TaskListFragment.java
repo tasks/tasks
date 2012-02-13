@@ -672,7 +672,7 @@ public class TaskListFragment extends ListFragment implements OnScrollListener,
         if (tagData != null) {
             HashSet<String> tagsTransitory = new HashSet<String>();
             tagsTransitory.add(tagData.getValue(TagData.NAME));
-            empty.putTransitory("tags", tagsTransitory);
+            empty.putTransitory("tags", tagsTransitory); // TODO MAKE THIS A CONSTANT OR DOCUMENT IT -- tim
         }
         repeatControl.readFromTask(empty);
         gcalControl.readFromTask(empty);
