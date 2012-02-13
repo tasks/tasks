@@ -196,7 +196,6 @@ public class TagSettingsActivity extends FragmentActivity {
     }
 
     private void saveSettings() {
-        setResult(RESULT_OK);
         String oldName = tagData.getValue(TagData.NAME);
         String newName = tagName.getText().toString().trim();
 
@@ -306,6 +305,7 @@ public class TagSettingsActivity extends FragmentActivity {
 
             return;
         } else {
+            setResult(RESULT_OK);
             tagDataService.save(tagData);
         }
 

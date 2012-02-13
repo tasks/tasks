@@ -217,6 +217,9 @@ public class TagViewFragment extends TaskListFragment {
     @Override
     public void loadTaskListContent(boolean requery) {
         super.loadTaskListContent(requery);
+        if(taskAdapter == null || taskAdapter.getCursor() == null)
+            return;
+
         int count = taskAdapter.getCursor().getCount();
 
         if(tagData != null && sortFlags <= SortHelper.FLAG_REVERSE_SORT &&
