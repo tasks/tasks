@@ -64,8 +64,6 @@ public class HttpRestClient implements RestClient {
     public HttpRestClient() {
         DependencyInjectionService.getInstance().inject(this);
 
-        System.err.println("NEW REST CLIENT");
-
         SchemeRegistry schemeRegistry = new SchemeRegistry();
         schemeRegistry.register(new Scheme("http", PlainSocketFactory.getSocketFactory(), 80));
         schemeRegistry.register(new Scheme("https", SSLSocketFactory.getSocketFactory(), 443));
@@ -120,7 +118,6 @@ public class HttpRestClient implements RestClient {
     private HttpParams params;
     private ThreadSafeClientConnManager cm;
 
-    @SuppressWarnings("nls")
     private synchronized HttpClient getClient() {
         if (httpClient == null || httpClient.get() == null) {
             DefaultHttpClient client = new DefaultHttpClient(cm, params);
