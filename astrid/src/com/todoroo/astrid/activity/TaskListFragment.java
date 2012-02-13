@@ -1094,6 +1094,8 @@ public class TaskListFragment extends ListFragment implements OnScrollListener,
     }
 
     private void showTaskEditHelpPopover() {
+        if(!AstridPreferences.canShowPopover())
+            return;
         if (!Preferences.getBoolean(R.string.p_showed_tap_task_help, false)) {
             InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(
                     Context.INPUT_METHOD_SERVICE);
@@ -1123,6 +1125,8 @@ public class TaskListFragment extends ListFragment implements OnScrollListener,
     }
 
     private void showListsHelp() {
+        if(!AstridPreferences.canShowPopover())
+            return;
         if (!Preferences.getBoolean(
                 R.string.p_showed_lists_help, false)) {
             if (AndroidUtilities.isTabletSized(getActivity())) {
