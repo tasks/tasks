@@ -773,6 +773,8 @@ public class TaskListFragment extends ListFragment implements OnScrollListener,
         }
 
         if (!Preferences.getBoolean(R.string.p_showed_add_task_help, false)) {
+            if(!AstridPreferences.canShowPopover())
+                return;
             HelpInfoPopover.showPopover(getActivity(), quickAddBox,
                     R.string.help_popover_add_task, null);
             Preferences.setBoolean(R.string.p_showed_add_task_help, true);
@@ -930,6 +932,8 @@ public class TaskListFragment extends ListFragment implements OnScrollListener,
         super.onActivityResult(requestCode, resultCode, data);
 
         if (!Preferences.getBoolean(R.string.p_showed_add_task_help, false)) {
+            if(!AstridPreferences.canShowPopover())
+                return;
             quickAddBox.postDelayed(new Runnable() {
                 @Override
                 public void run() {
