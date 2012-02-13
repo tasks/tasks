@@ -468,8 +468,8 @@
   <!-- Preference: Task List Show Notes -->
   <string name="EPr_showNotes_title">Show Notes In Task</string>
   <!-- Preference: Beast mode (auto-expand edit page) -->
-  <string name="EPr_beastMode_title">Beast Mode</string>
-  <string name="EPr_beastMode_desc">Customize the layout of the Task Edit Page</string>
+  <string name="EPr_beastMode_title">Customize Task Edit Screen</string>
+  <string name="EPr_beastMode_desc">Customize the layout of the Task Edit Screen</string>
   <string name="EPr_beastMode_reset">Reset to defaults</string>
       
   <!-- Preference: Task List Show Notes Description (disabled) -->
