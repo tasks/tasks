@@ -485,12 +485,12 @@ public class WebServicesView extends LinearLayout {
 
     private class LinkTag {
         private final String url;
-        private final String servce;
+        private final String service;
         private String price;
 
         public LinkTag(String url, String servce, String price) {
             this.url = url;
-            this.servce = servce;
+            this.service = servce;
             this.price = price;
         }
 
@@ -525,7 +525,7 @@ public class WebServicesView extends LinearLayout {
                 }
 
                 StatisticsService.reportEvent(StatisticsConstants.IDEAS_LINK_CLICKED,
-                        "service", tag.servce, "price", tag.price);
+                        "service", tag.service, "price", tag.price);
                 Intent intent = new Intent(Intent.ACTION_VIEW);
                 intent.setData(Uri.parse(tag.url));
                 activity.startActivity(intent);
