@@ -773,11 +773,7 @@ public class TaskListFragment extends ListFragment implements OnScrollListener,
         }
 
         if (!Preferences.getBoolean(R.string.p_showed_add_task_help, false)) {
-            if(!AstridPreferences.canShowPopover())
-                return;
-            HelpInfoPopover.showPopover(getActivity(), quickAddBox,
-                    R.string.help_popover_add_task, null);
-            Preferences.setBoolean(R.string.p_showed_add_task_help, true);
+            showTaskCreateHelpPopover();
         } else if (!Preferences.getBoolean(R.string.p_showed_tap_task_help, false)) {
             showTaskEditHelpPopover();
         } else if (!Preferences.getBoolean(R.string.p_showed_lists_help, false)) {
@@ -1094,6 +1090,16 @@ public class TaskListFragment extends ListFragment implements OnScrollListener,
                 getListView().setSelection(i);
                 break;
             }
+        }
+    }
+
+    private void showTaskCreateHelpPopover() {
+        if(!AstridPreferences.canShowPopover())
+            return;
+        if (!Preferences.getBoolean(R.string.p_showed_add_task_help, false)) {
+            Preferences.setBoolean(R.string.p_showed_add_task_help, true);
+            HelpInfoPopover.showPopover(getActivity(), quickAddBox,
+                            R.string.help_popover_add_task, null);
         }
     }
 
