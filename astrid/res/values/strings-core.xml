@@ -477,6 +477,10 @@
   <!-- Preference: Task List Show Notes Description (enabled) -->
   <string name="EPr_showNotes_desc_enabled">Notes will always be displayed</string>
   
+  <!-- Preferences: Allow task rows to compress to size of task -->
+  <string name="EPr_compressTaskRows_title">Compact Task Row</string>
+  <string name="EPr_compressTaskRows_desc">Compress task rows to fit title</string>
+  
   <!-- Preference: Theme -->
   <string name="EPr_theme_title">Color Theme</string>
   <!-- Preference: Theme Description (%s => value) -->

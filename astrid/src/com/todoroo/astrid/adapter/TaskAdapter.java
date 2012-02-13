@@ -169,6 +169,8 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
 
     private final AtomicReference<String> query;
 
+    private final int minRowHeight;
+
     // quick action bar
     private QuickActionWidget mBar;
     private final QuickActionListener mBarListener = new QuickActionListener();
@@ -214,6 +216,7 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
         displayMetrics = new DisplayMetrics();
         fragment.getActivity().getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
 
+        this.minRowHeight = (int) (57 * displayMetrics.density);
 
         if (Preferences.getBoolean(R.string.p_showNotes, false)) {
             detailLoader = new DetailLoaderThread();
@@ -341,6 +344,12 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
         Resources r = fragment.getResources();
         ViewHolder viewHolder = (ViewHolder)view.getTag();
         Task task = viewHolder.task;
+
+        if (Preferences.getBoolean(R.string.p_allowCompressedTaskRows, false)) {
+            viewHolder.rowBody.setMinimumHeight(0);
+        } else {
+            viewHolder.rowBody.setMinimumHeight(minRowHeight);
+        }
 
         // name
         final TextView nameView = viewHolder.nameView; {

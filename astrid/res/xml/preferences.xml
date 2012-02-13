@@ -23,6 +23,12 @@
             android:defaultValue="false" />
         
         <com.todoroo.astrid.ui.MultilineCheckboxPreference
+            android:key="@string/p_allowCompressedTaskRows"
+            android:title="@string/EPr_compressTaskRows_title"
+            android:summary="@string/EPr_compressTaskRows_desc"
+            android:defaultValue="false" />
+        
+        <com.todoroo.astrid.ui.MultilineCheckboxPreference
             android:key="@string/p_showSmartConfirmation_key"
             android:title="@string/EPr_showSmartConfirmation_title"
             android:defaultValue="true"/>
