@@ -250,7 +250,7 @@ public class TaskDao extends DatabaseDao<Task> {
         ContentValues values = item.getSetValues();
         if(values == null || values.size() == 0)
             return false;
-        if(!TaskApiDao.insignificantChange(values))    {
+        if(!TaskApiDao.insignificantChange(values)) {
             item.setValue(Task.DETAILS, null);
             if(!values.containsKey(Task.MODIFICATION_DATE.name))
                 item.setValue(Task.MODIFICATION_DATE, DateUtilities.now());
