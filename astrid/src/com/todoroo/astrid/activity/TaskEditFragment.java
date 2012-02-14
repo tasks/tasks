@@ -723,7 +723,7 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
      * @author Tim Su <tim@todoroo.com>
      *
      */
-    class TaskEditBackgroundLoader extends Thread {
+    private class TaskEditBackgroundLoader extends Thread {
 
         public void onUiThread() {
             // prepare and set listener for voice-button

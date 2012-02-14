@@ -320,7 +320,8 @@ public class EditNoteActivity extends LinearLayout implements TimerActionListene
 
 
     public View getUpdateNotes(NoteOrUpdate note, ViewGroup parent) {
-        View convertView = ((Activity)getContext()).getLayoutInflater().inflate(R.layout.update_adapter_row, parent, false);
+        View convertView = ((Activity)getContext()).getLayoutInflater().inflate(
+                R.layout.update_adapter_row, parent, false);
 
         bindView(convertView, note);
         return convertView;

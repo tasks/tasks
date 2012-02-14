@@ -113,10 +113,14 @@ public class AstridActivity extends FragmentActivity
     @Override
     protected void onResume() {
         super.onResume();
-        android.content.IntentFilter reminderIntentFilter = new android.content.IntentFilter(Notifications.BROADCAST_IN_APP_NOTIFY);
+
+        android.content.IntentFilter reminderIntentFilter = new android.content.IntentFilter(
+                Notifications.BROADCAST_IN_APP_NOTIFY);
         reminderIntentFilter.setPriority(1);
         registerReceiver(reminderReceiver, reminderIntentFilter);
-        registerReceiver(repeatConfirmationReceiver, new android.content.IntentFilter(AstridApiConstants.BROADCAST_EVENT_TASK_REPEATED));
+        registerReceiver(repeatConfirmationReceiver,
+                new android.content.IntentFilter(
+                        AstridApiConstants.BROADCAST_EVENT_TASK_REPEATED));
     }
 
     @Override
