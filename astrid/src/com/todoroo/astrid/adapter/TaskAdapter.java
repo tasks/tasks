@@ -213,10 +213,7 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
 
         this.minRowHeight = (int) (57 * displayMetrics.density);
 
-        if (Preferences.getBoolean(R.string.p_showNotes, false)) {
-            detailLoader = new DetailLoaderThread();
-            detailLoader.start();
-        }
+        startDetailThread();
 
         decorationManager = new DecorationManager();
 
@@ -224,6 +221,13 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
                 Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
         scaleAnimation.setDuration(100);
 
+    }
+
+    private void startDetailThread() {
+        if (Preferences.getBoolean(R.string.p_showNotes, false)) {
+            detailLoader = new DetailLoaderThread();
+            detailLoader.start();
+        }
     }
 
     /* ======================================================================
@@ -792,8 +796,7 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
         decorationManager.clearCache();
         taskDetailLoader.clear();
         taskActionLoader.clear();
-        detailLoader = new DetailLoaderThread();
-        detailLoader.start();
+        startDetailThread();
     }
 
     /**

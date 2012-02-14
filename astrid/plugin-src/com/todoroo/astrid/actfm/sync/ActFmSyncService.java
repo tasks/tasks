@@ -53,6 +53,7 @@ import com.todoroo.astrid.data.MetadataApiDao.MetadataCriteria;
 import com.todoroo.astrid.data.RemoteModel;
 import com.todoroo.astrid.data.TagData;
 import com.todoroo.astrid.data.Task;
+import com.todoroo.astrid.data.TaskApiDao;
 import com.todoroo.astrid.data.Update;
 import com.todoroo.astrid.service.MetadataService;
 import com.todoroo.astrid.service.StatisticsConstants;
@@ -122,7 +123,8 @@ public final class ActFmSyncService {
                 if (actFmPreferenceService.isOngoing() && model.getTransitory("task-edit-save") == null)
                     return;
                 final ContentValues setValues = model.getSetValues();
-                if(setValues == null || !checkForToken() || setValues.containsKey(RemoteModel.REMOTE_ID_PROPERTY_NAME))
+                if(setValues == null || !checkForToken() ||
+                        setValues.containsKey(RemoteModel.REMOTE_ID_PROPERTY_NAME))
                     return;
                 if(completedRepeatingTask(model))
                     return;
@@ -311,6 +313,8 @@ public final class ActFmSyncService {
                 if(task.getValue(Task.TITLE).equals(title))
                     return;
             }
+            if(TaskApiDao.insignificantChange(values))
+                return;
             values = task.getMergedValues();
         }
 
