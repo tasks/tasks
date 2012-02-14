@@ -146,7 +146,6 @@ public class ContactListAdapter extends CursorAdapter {
         String sort = Email.TIMES_CONTACTED + " DESC LIMIT 20";
         Cursor peopleCursor = mContent.query(uri, PEOPLE_PROJECTION,
                 null, null, sort);
-        activity.startManagingCursor(peopleCursor);
 
         if(!completeSharedTags)
             return peopleCursor;
@@ -159,7 +158,6 @@ public class ContactListAdapter extends CursorAdapter {
         Cursor tagCursor = tagDataService.query(Query.select(TagData.ID, TagData.NAME, TagData.PICTURE, TagData.THUMB).
                 where(Criterion.and(TagData.USER_ID.eq(0), TagData.MEMBER_COUNT.gt(0),
                         crit)).orderBy(Order.desc(TagData.NAME)));
-        activity.startManagingCursor(tagCursor);
 
         return new MergeCursor(new Cursor[] { tagCursor, peopleCursor });
     }

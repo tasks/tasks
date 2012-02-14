@@ -243,7 +243,6 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
         // perform query
         TodorooCursor<Task> newCursor = taskService.fetchFiltered(
                 query.get(), constraint, TaskAdapter.PROPERTIES);
-        fragment.getActivity().startManagingCursor(newCursor);
         return newCursor;
     }
 

@@ -981,7 +981,6 @@ public class TaskListFragment extends ListFragment implements OnScrollListener,
             taskAdapter.flushCaches();
             taskAdapter.notifyDataSetChanged();
         }
-        getActivity().startManagingCursor(taskCursor);
 
         if (oldListItemSelected != ListView.INVALID_POSITION
                 && oldListItemSelected < taskCursor.getCount())
@@ -1011,7 +1010,6 @@ public class TaskListFragment extends ListFragment implements OnScrollListener,
         // perform query
         TodorooCursor<Task> currentCursor = taskService.fetchFiltered(
                 sqlQueryTemplate.get(), null, TaskAdapter.PROPERTIES);
-        getActivity().startManagingCursor(currentCursor);
 
         // set up list adapters
         taskAdapter = new TaskAdapter(this, R.layout.task_adapter_row,
@@ -1059,7 +1057,6 @@ public class TaskListFragment extends ListFragment implements OnScrollListener,
         currentCursor = taskService.fetchFiltered(sqlQueryTemplate.get(), null,
                 TaskAdapter.PROPERTIES);
         getListView().setFilterText("");
-        getActivity().startManagingCursor(currentCursor);
 
         taskAdapter.changeCursor(currentCursor);
 
