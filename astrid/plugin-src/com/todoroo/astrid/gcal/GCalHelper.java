@@ -63,7 +63,6 @@ public class GCalHelper {
         }
 
         try{
-            // FIXME test this with empty quickadd and full quickadd and taskedit-page
             Uri uri = Calendars.getCalendarContentUri(Calendars.CALENDAR_CONTENT_EVENTS);
             values.put("title", task.getValue(Task.TITLE));
             values.put("description", task.getValue(Task.NOTES));
@@ -89,7 +88,8 @@ public class GCalHelper {
             return eventUri;
 
         } catch (Exception e) {
-            Log.e("astrid-gcal", "error-creating-calendar-event", e); //$NON-NLS-1$ //$NON-NLS-2$
+            // TODO FIX ME
+            // Log.e("astrid-gcal", "error-creating-calendar-event", e); //$NON-NLS-1$ //$NON-NLS-2$
         }
 
         return null;
@@ -114,12 +114,15 @@ public class GCalHelper {
                 // try to load calendar
                 ContentResolver cr = ContextManager.getContext().getContentResolver();
                 Cursor cursor = cr.query(calendarUri, new String[] { "dtstart" }, null, null, null); //$NON-NLS-1$
-                boolean alreadydeleted = cursor.getCount() == 0;
-                cursor.close();
+                try {
+                    boolean alreadydeleted = cursor.getCount() == 0;
 
-                if (!alreadydeleted) {
-                    cr.delete(calendarUri, null, null);
-                    eventDeleted = true;
+                    if (!alreadydeleted) {
+                        cr.delete(calendarUri, null, null);
+                        eventDeleted = true;
+                    }
+                } finally {
+                    cursor.close();
                 }
 
                 task.setValue(Task.CALENDAR_URI,"");

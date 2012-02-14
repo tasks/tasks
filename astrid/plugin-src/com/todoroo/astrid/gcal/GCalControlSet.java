@@ -102,11 +102,15 @@ public class GCalControlSet extends PopupControlSet {
                 // try to load calendar
                 ContentResolver cr = activity.getContentResolver();
                 Cursor cursor = cr.query(calendarUri, new String[] { "dtstart" }, null, null, null); //$NON-NLS-1$
-                boolean deleted = cursor.getCount() == 0;
-                cursor.close();
-                if(deleted) {
-                    calendarUri = null;
-                    return;
+                try {
+                    boolean deleted = cursor.getCount() == 0;
+
+                    if(deleted) {
+                        calendarUri = null;
+                        return;
+                    }
+                } finally {
+                    cursor.close();
                 }
 
                 hasEvent = true;
@@ -182,12 +186,11 @@ public class GCalControlSet extends PopupControlSet {
             return;
 
         ContentResolver cr = activity.getContentResolver();
+        Intent intent = new Intent(Intent.ACTION_EDIT, calendarUri);
         Cursor cursor = cr.query(calendarUri, new String[] { "dtstart", "dtend" },
                 null, null, null);
-
-        Intent intent = new Intent(Intent.ACTION_EDIT, calendarUri);
         try {
-            if(cursor == null || cursor.getCount() == 0) {
+            if(cursor.getCount() == 0) {
                 // event no longer exists, recreate it
                 calendarUri = null;
                 writeToModel(myTask);
@@ -196,12 +199,12 @@ public class GCalControlSet extends PopupControlSet {
             cursor.moveToFirst();
             intent.putExtra("beginTime", cursor.getLong(0));
             intent.putExtra("endTime", cursor.getLong(1));
+
         } catch (Exception e) {
             Log.e("gcal-error", "Error opening calendar", e); //$NON-NLS-1$ //$NON-NLS-2$
             Toast.makeText(activity, R.string.gcal_TEA_error, Toast.LENGTH_LONG);
         } finally {
-            if(cursor != null)
-                cursor.close();
+            cursor.close();
         }
 
         activity.startActivity(intent);
