@@ -343,13 +343,6 @@
               android:theme="@style/Theme.Dialog"/>
     <activity android:name="com.todoroo.astrid.actfm.TagUpdatesActivity"
               android:windowSoftInputMode="stateHidden"/>
-    <!-- <receiver android:name="com.todoroo.astrid.actfm.EditPeopleExposer">
-      <intent-filter>
-        <action android:name="com.todoroo.astrid.REQUEST_ACTIONS" />
-        <action android:name="com.todoroo.astrid.EDIT_PEOPLE" />
-        <category android:name="android.intent.category.DEFAULT" />
-      </intent-filter>
-    </receiver> -->
     <receiver android:name="com.timsu.astrid.C2DMReceiver" permission="com.google.android.c2dm.permission.SEND">
       <!-- Receive the actual message -->
       <intent-filter>

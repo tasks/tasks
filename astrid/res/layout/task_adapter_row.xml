@@ -78,13 +78,27 @@
 	
 	        <!-- due date -->
 	
-	        <TextView
-	            android:id="@+id/dueDate"
+	        <LinearLayout
+	            android:id="@+id/taskActionContainer"
 	            android:layout_width="wrap_content"
 	            android:layout_height="wrap_content"
-	            android:layout_alignParentRight="true"
+	            android:minHeight="40dip"
 	            android:layout_marginRight="4dip"
-	            android:gravity="center_vertical|right" />
+	            android:orientation="vertical"
+	            android:gravity="right|center_vertical">
+		        <TextView
+		            android:id="@+id/dueDate"
+		            android:layout_width="wrap_content"
+		            android:layout_height="wrap_content"
+		            android:layout_alignParentRight="true"
+		            android:gravity="center_vertical|right" />
+		        <ImageView
+		            android:id="@+id/taskActionIcon"
+		            android:layout_width="20dip"
+		            android:layout_height="20dip"
+		            android:scaleType="fitCenter"
+		            android:visibility="gone"/>
+	        </LinearLayout>
 	    </LinearLayout>
 	
 	    <!-- details line 1 -->

@@ -1,15 +1,12 @@
 package com.todoroo.astrid.adapter;
 
 import greendroid.widget.AsyncImageView;
-import greendroid.widget.QuickAction;
-import greendroid.widget.QuickActionBar;
-import greendroid.widget.QuickActionWidget;
-import greendroid.widget.QuickActionWidget.OnQuickActionClickListener;
 
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Random;
 import java.util.concurrent.atomic.AtomicReference;
@@ -18,16 +15,13 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.app.Activity;
-import android.content.BroadcastReceiver;
+import android.app.PendingIntent.CanceledException;
 import android.content.Context;
 import android.content.Intent;
-import android.content.IntentFilter;
 import android.content.res.Resources;
 import android.database.Cursor;
-import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.Paint;
-import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.text.Html;
 import android.text.Html.ImageGetter;
@@ -56,7 +50,6 @@ import android.widget.CursorAdapter;
 import android.widget.Filterable;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -76,6 +69,7 @@ import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.api.TaskAction;
 import com.todoroo.astrid.api.TaskDecoration;
 import com.todoroo.astrid.api.TaskDecorationExposer;
+import com.todoroo.astrid.core.LinkActionExposer;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.helper.TaskAdapterAddOnManager;
 import com.todoroo.astrid.notes.NotesDecorationExposer;
@@ -177,10 +171,6 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
 
     private final int minRowHeight;
 
-    // quick action bar
-    private QuickActionWidget mBar;
-    private final QuickActionListener mBarListener = new QuickActionListener();
-
     // measure utilities
     protected final Paint paint;
     protected final DisplayMetrics displayMetrics;
@@ -188,7 +178,6 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
     // --- task detail and decoration soft caches
 
     public final DecorationManager decorationManager;
-    public final TaskActionManager taskActionManager;
 
     /**
      * Constructor
@@ -230,7 +219,6 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
         }
 
         decorationManager = new DecorationManager();
-        taskActionManager = new TaskActionManager();
 
         scaleAnimation = new ScaleAnimation(1.4f, 1.0f, 1.4f, 1.0f,
                 Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
@@ -278,7 +266,8 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
         viewHolder.details1 = (TextView)view.findViewById(R.id.details1);
         viewHolder.details2 = (TextView)view.findViewById(R.id.details2);
         viewHolder.taskRow = (LinearLayout)view.findViewById(R.id.task_row);
-
+        viewHolder.taskActionContainer = view.findViewById(R.id.taskActionContainer);
+        viewHolder.taskActionIcon = (ImageView)view.findViewById(R.id.taskActionIcon);
 
 
         if (Preferences.getBoolean(R.string.p_showNotes, false)) {
@@ -343,6 +332,8 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
         public TextView dueDate;
         public TextView details1, details2;
         public LinearLayout taskRow;
+        public View taskActionContainer;
+        public ImageView taskActionIcon;
 
         public View[] decorations;
     }
@@ -489,6 +480,20 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
             }
         }
 
+        // Task action
+        ImageView taskAction = viewHolder.taskActionIcon;
+        if (taskAction != null) {
+            if (taskActionLoader.containsKey(task.getId())) {
+                taskAction.setVisibility(View.VISIBLE);
+                TaskAction action = taskActionLoader.get(task.getId());
+                taskAction.setImageBitmap(action.icon);
+                taskAction.setTag(action);
+            } else {
+                taskAction.setVisibility(View.GONE);
+                taskAction.setTag(null);
+            }
+        }
+
         if(Math.abs(DateUtilities.now() - task.getValue(Task.MODIFICATION_DATE)) < 2000L)
             mostRecentlyMade = task.getId();
 
@@ -563,6 +568,20 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
         viewHolder.completeBox.setOnTouchListener(otl);
         viewHolder.completeBox.setOnClickListener(completeBoxListener);
 
+        viewHolder.taskActionContainer.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                TaskAction action = (TaskAction) viewHolder.taskActionIcon.getTag();
+                if (action != null) {
+                    try {
+                        action.intent.send();
+                    } catch (CanceledException e) {
+                        // Oh well
+                    }
+                }
+            }
+        });
+
         if(applyListenersToRowBody) {
             viewHolder.rowBody.setOnCreateContextMenuListener(listener);
             viewHolder.rowBody.setOnClickListener(listener);
@@ -611,6 +630,7 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
     // a large number of tasks to load, since it all goes into memory.
     // it's best to do this, though, in order to append details to each other
     private final Map<Long, StringBuilder> taskDetailLoader = Collections.synchronizedMap(new HashMap<Long, StringBuilder>(0));
+    private final Map<Long, TaskAction> taskActionLoader = Collections.synchronizedMap(new HashMap<Long, TaskAction>());
 
     public class DetailLoaderThread extends Thread {
         @Override
@@ -618,17 +638,23 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
             // for all of the tasks returned by our cursor, verify details
             AndroidUtilities.sleepDeep(500L);
             TodorooCursor<Task> fetchCursor = taskService.fetchFiltered(
-                    query.get(), null, Task.ID, Task.DETAILS, Task.DETAILS_DATE,
+                    query.get(), null, Task.ID, Task.TITLE, Task.DETAILS, Task.DETAILS_DATE,
                     Task.MODIFICATION_DATE, Task.COMPLETION_DATE);
             try {
                 Random random = new Random();
 
                 Task task = new Task();
+                LinkActionExposer linkActionExposer = new LinkActionExposer();
+
                 for(fetchCursor.moveToFirst(); !fetchCursor.isAfterLast(); fetchCursor.moveToNext()) {
                     task.clear();
                     task.readFromCursor(fetchCursor);
                     if(task.isCompleted())
                         continue;
+
+                    List<TaskAction> actions = linkActionExposer.getActionsForTask(ContextManager.getContext(), task.getId());
+                    if (actions.size() > 0)
+                        taskActionLoader.put(task.getId(), actions.get(0));
 
                     if(detailsAreRecentAndUpToDate(task)) {
                         // even if we are up to date, randomly load a fraction
@@ -653,7 +679,7 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
 
                     requestNewDetails(task);
                 }
-                if(taskDetailLoader.size() > 0) {
+                if(taskDetailLoader.size() > 0 || taskActionLoader.size() > 0) {
                     Activity activity = fragment.getActivity();
                     if (activity != null) {
                         activity.runOnUiThread(new Runnable() {
@@ -764,8 +790,8 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
     public void flushCaches() {
         completedItems.clear();
         decorationManager.clearCache();
-        taskActionManager.clearCache();
         taskDetailLoader.clear();
+        taskActionLoader.clear();
         detailLoader = new DetailLoaderThread();
         detailLoader.start();
     }
@@ -776,8 +802,8 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
     public void flushSpecific(long taskId) {
         completedItems.put(taskId, null);
         decorationManager.clearCache(taskId);
-        taskActionManager.clearCache(taskId);
         taskDetailLoader.remove(taskId);
+        taskActionLoader.remove(taskId);
     }
 
     /**
@@ -884,76 +910,6 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
         }
     }
 
-    /**
-     * AddOnManager for TaskActions
-     *
-     * @author Tim Su <tim@todoroo.com>
-     *
-     */
-    public class TaskActionManager extends TaskAdapterAddOnManager<TaskAction> {
-
-        private final Intent broadcastIntent = new Intent(AstridApiConstants.BROADCAST_REQUEST_ACTIONS);
-
-        public TaskActionManager() {
-            super(fragment);
-        }
-
-        @Override
-        protected Intent createBroadcastIntent(Task task) {
-            broadcastIntent.putExtra(AstridApiConstants.EXTRAS_TASK_ID, task.getId());
-            return broadcastIntent;
-        }
-
-        @Override
-        public synchronized void addNew(long taskId, String addOn, final TaskAction item, ViewHolder thisViewHolder) {
-            addIfNotExists(taskId, addOn, item);
-            if(mBar != null) {
-                ListView listView = fragment.getListView();
-                ViewHolder myHolder = null;
-
-                // update view if it is visible
-                int length = listView.getChildCount();
-                for(int i = 0; i < length; i++) {
-                    ViewHolder viewHolder = (ViewHolder) listView.getChildAt(i).getTag();
-                    if(viewHolder == null || viewHolder.task.getId() != taskId)
-                        continue;
-                    myHolder = viewHolder;
-                    break;
-                }
-
-                if(myHolder != null) {
-                    final ViewHolder viewHolder = myHolder;
-                    Activity activity = fragment.getActivity();
-                    if (activity != null) {
-                    activity.runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            mBarListener.addWithAction(item);
-                            if (!viewHolder.task.getFlag(Task.FLAGS, Task.FLAG_IS_READONLY))
-                                mBar.show(viewHolder.view);
-                        }
-                    });
-                    }
-                }
-            }
-        }
-
-        @Override
-        public Collection<TaskAction> get(long taskId) {
-            return super.get(taskId);
-        }
-
-        @Override
-        protected void draw(final ViewHolder viewHolder, final long taskId, Collection<TaskAction> actions) {
-            // do not draw
-        }
-
-        @Override
-        protected void reset(ViewHolder viewHolder, long taskId) {
-            // do not draw
-        }
-    }
-
     /* ======================================================================
      * ======================================================= event handlers
      * ====================================================================== */
@@ -991,77 +947,7 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
         return (ViewHolder)((View)v.getParent()).getTag();
     }
 
-    private final class QuickActionListener implements OnQuickActionClickListener {
-        private final HashMap<Integer, TaskAction> positionActionMap =
-            new HashMap<Integer, TaskAction>(2);
-        private long taskId;
-        private int itemCount = 0;
-        private int iconWidth;
-
-        public void initialize(long newTaskId) {
-            this.taskId = newTaskId;
-            itemCount = 0;
-            positionActionMap.clear();
-            mBar.setOnQuickActionClickListener(this);
-            iconWidth = fragment.getResources().getDrawable(R.drawable.ic_qbar_edit).getIntrinsicHeight();
-        }
-
-        public void addWithAction(TaskAction item) {
-            Drawable drawable;
-            if(item.drawable > 0)
-                drawable = fragment.getResources().getDrawable(item.drawable);
-            else {
-                Bitmap scaledBitmap = Bitmap.createScaledBitmap(item.icon, iconWidth, iconWidth, true);
-                drawable = new BitmapDrawable(fragment.getResources(), scaledBitmap);
-            }
-            addWithAction(new QuickAction(drawable, item.text), item);
-        }
-
-        public void addWithAction(QuickAction quickAction, TaskAction taskAction) {
-            positionActionMap.put(itemCount++, taskAction);
-            mBar.addQuickAction(quickAction);
-        }
-
-        public void onQuickActionClicked(QuickActionWidget widget, int position){
-            if(mBar != null)
-                mBar.dismiss();
-            mBar = null;
-
-            if(position == 0) {
-                editTask(taskId);
-            } else {
-                flushSpecific(taskId);
-                try {
-                    TaskAction taskAction = positionActionMap.get(position);
-                    if(taskAction != null) {
-                        taskAction.intent.send();
-                    }
-                } catch (Exception e) {
-                    exceptionService.displayAndReportError(fragment.getActivity(),
-                            "Error launching action", e); //$NON-NLS-1$
-                }
-            }
-            notifyDataSetChanged();
-        }
-    }
-
     private class TaskRowListener implements OnCreateContextMenuListener, OnClickListener {
-
-        // prepare quick action bar
-        private void prepareQuickActionBar(ViewHolder viewHolder, Collection<TaskAction> collection){
-            mBar = new QuickActionBar(viewHolder.view.getContext());
-            QuickAction editAction = new QuickAction(fragment.getActivity(), R.drawable.ic_qbar_edit,
-                    fragment.getString(R.string.TAd_actionEditTask));
-            mBarListener.initialize(viewHolder.task.getId());
-
-            mBarListener.addWithAction(editAction, null);
-
-            if(collection != null) {
-                for(TaskAction item : collection) {
-                    mBarListener.addWithAction(item);
-                }
-            }
-        }
 
         public void onCreateContextMenu(ContextMenu menu, View v,
                 ContextMenuInfo menuInfo) {
@@ -1077,51 +963,10 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
                 return;
 
             long taskId = viewHolder.task.getId();
-
-            Collection<TaskAction> actions = taskActionManager.get(taskId);
-            prepareQuickActionBar(viewHolder, actions);
-            //mBarAnchor = v;
-            if(actions != null && !viewHolder.task.getFlag(Task.FLAGS, Task.FLAG_IS_READONLY)) {
-                if (actions.size() > 0)
-                    mBar.show(v);
-                else {
-                    editTask(taskId);
-                }
-            } else if (!viewHolder.task.getFlag(Task.FLAGS, Task.FLAG_IS_READONLY)) {
-                // Register a temporary receiver in case we clicked a task with no actions forthcoming and should start
-                IntentFilter filter = new IntentFilter(AstridApiConstants.BROADCAST_REQUEST_ACTIONS);
-                filter.setPriority(-1);
-                fragment.getActivity().registerReceiver(new TaskActionsFinishedReceiver(), filter);
-            }
-            taskActionManager.request(viewHolder);
-
-
-            notifyDataSetChanged();
-        }
-    }
-
-    private class TaskActionsFinishedReceiver extends BroadcastReceiver {
-
-        @Override
-        public void onReceive(Context context, Intent intent) {
-            AndroidUtilities.sleepDeep(10L); // Allow preemption for send_actions to be delivered
-            long taskId = intent.getLongExtra(AstridApiConstants.EXTRAS_TASK_ID, -1);
-            if (taskId != -1) {
-                Collection<TaskAction> actions = taskActionManager.get(taskId);
-                if (actions != null && actions.size() == 0) {
-                    editTask(taskId);
-                }
-            }
-
-            try {
-                Activity activity = fragment.getActivity();
-                if (activity != null)
-                    activity.unregisterReceiver(this);
-            } catch (IllegalArgumentException e) {
-                // ignore
+            if (!viewHolder.task.getFlag(Task.FLAGS, Task.FLAG_IS_READONLY)) {
+                editTask(taskId);
             }
         }
-
     }
 
     private void editTask(long taskId) {

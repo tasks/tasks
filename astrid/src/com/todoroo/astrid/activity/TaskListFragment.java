@@ -95,7 +95,6 @@ import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.api.PermaSql;
 import com.todoroo.astrid.api.SyncAction;
-import com.todoroo.astrid.api.TaskAction;
 import com.todoroo.astrid.api.TaskContextActionExposer;
 import com.todoroo.astrid.api.TaskDecoration;
 import com.todoroo.astrid.core.CoreFilterExposer;
@@ -752,8 +751,6 @@ public class TaskListFragment extends ListFragment implements OnScrollListener,
                 new IntentFilter(AstridApiConstants.BROADCAST_SEND_DETAILS));
         getActivity().registerReceiver(detailReceiver,
                 new IntentFilter(AstridApiConstants.BROADCAST_SEND_DECORATIONS));
-        getActivity().registerReceiver(detailReceiver,
-                new IntentFilter(AstridApiConstants.BROADCAST_SEND_ACTIONS));
         getActivity().registerReceiver(refreshReceiver,
                 new IntentFilter(AstridApiConstants.BROADCAST_EVENT_REFRESH));
         getActivity().registerReceiver(
@@ -878,10 +875,6 @@ public class TaskListFragment extends ListFragment implements OnScrollListener,
                 } else if (AstridApiConstants.BROADCAST_SEND_DETAILS.equals(intent.getAction())) {
                     String detail = extras.getString(AstridApiConstants.EXTRAS_RESPONSE);
                     taskAdapter.addDetails(taskId, detail);
-                } else if (AstridApiConstants.BROADCAST_SEND_ACTIONS.equals(intent.getAction())) {
-                    TaskAction action = extras.getParcelable(AstridApiConstants.EXTRAS_RESPONSE);
-                    taskAdapter.taskActionManager.addNew(taskId, addOn, action,
-                            null);
                 }
             } catch (Exception e) {
                 exceptionService.reportError("receive-detail-" + //$NON-NLS-1$
