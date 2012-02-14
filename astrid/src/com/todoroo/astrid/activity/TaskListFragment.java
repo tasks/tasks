@@ -639,7 +639,7 @@ public class TaskListFragment extends ListFragment implements OnScrollListener,
 
         deadlineControl = new DeadlineControlSet(
                 getActivity(), R.layout.control_set_deadline,
-                R.layout.control_set_default_display,
+                R.layout.control_set_default_display, null,
                 repeatControl.getDisplayView(), gcalControl.getDisplayView());
         deadlineControl.setIsQuickadd(true);
 

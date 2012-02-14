@@ -62,7 +62,7 @@ public class RepeatControlSet extends PopupControlSet {
     private static final int TYPE_COMPLETION_DATE = 1;
 
     //private final CheckBox enabled;
-    private boolean doRepeat = true;
+    private boolean doRepeat = false;
     private Button value;
     private Spinner interval;
     private Spinner type;
@@ -343,16 +343,23 @@ public class RepeatControlSet extends PopupControlSet {
         return doRepeat;
     }
 
+    /**
+     * @return the recurrence display string if set, null
+     * if not set
+     */
+    public String getStringForExternalDisplay() {
+        if (isRecurrenceSet()) {
+            return getRepeatString(false);
+        }
+        return null;
+    }
+
     @Override
     protected void refreshDisplayView() {
         TextView repeatDisplay = (TextView) getDisplayView().findViewById(R.id.display_row_edit);
         ImageView repeatImage = (ImageView) getDisplayView().findViewById(R.id.repeat_image_icon);
         if (doRepeat) {
-            String[] dateAbbrev = activity.getResources().getStringArray(
-                        R.array.repeat_interval_short);
-            String date = String.format("%s %s", repeatValue, dateAbbrev[intervalValue]); //$NON-NLS-1$
-            String text = String.format(activity.getString(R.string.repeat_detail_duedate), date); // Every freq int
-            repeatDisplay.setText(text);
+            repeatDisplay.setText(getRepeatString(true));
 
             TypedValue repeatIcon = new TypedValue();
             activity.getTheme().resolveAttribute(R.attr.asRepeatIcon, repeatIcon, false);
@@ -362,6 +369,19 @@ public class RepeatControlSet extends PopupControlSet {
             repeatDisplay.setText(R.string.repeat_never);
             repeatImage.setImageResource(R.drawable.icn_edit_repeats);
         }
+    }
+
+    private String getRepeatString(boolean useAbbrev) {
+        int arrayResource;
+        if (useAbbrev)
+            arrayResource = R.array.repeat_interval_short;
+        else
+            arrayResource = R.array.repeat_interval;
+
+        String[] dates = activity.getResources().getStringArray(
+                    arrayResource);
+        String date = String.format("%s %s", repeatValue, dates[intervalValue]); //$NON-NLS-1$
+        return String.format(activity.getString(R.string.repeat_detail_duedate), date); // Every freq int
     }
 
     @Override
