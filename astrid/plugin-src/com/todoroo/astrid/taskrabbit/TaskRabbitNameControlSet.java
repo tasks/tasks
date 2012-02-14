@@ -156,8 +156,24 @@ public class TaskRabbitNameControlSet extends PopupControlSet implements TaskRab
     }
 
     @Override
+    protected void readFromTaskPrivate() {
+        // Nothing, we don't lazy load this control set yet
+    }
+
+    @Override
     public String writeToModel(Task task) {
         return null;
+    }
+
+    @Override
+    protected String writeToModelPrivate(Task task) {
+        // Nothing, we don't lazy load this control set yet
+        return null;
+    }
+
+    @Override
+    protected void afterInflate() {
+        // Nothing, we don't lazy load this control set yet
     }
 
     @Override

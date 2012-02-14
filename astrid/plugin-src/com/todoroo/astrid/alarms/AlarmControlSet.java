@@ -30,14 +30,28 @@ public final class AlarmControlSet extends TaskEditControlSet {
 
     // --- instance variables
 
-    private final LinearLayout alertsContainer;
-    private final Activity activity;
-    private final DateAndTimeDialog pickerDialog;
+    private LinearLayout alertsContainer;
+    private DateAndTimeDialog pickerDialog;
 
     public AlarmControlSet(Activity activity, int layout) {
         //View v = LayoutInflater.from(activity).inflate(R.layout.alarm_control, parent, true);
         super(activity, layout);
-        this.activity = activity;
+    }
+
+    @Override
+    protected void readFromTaskPrivate() {
+        alertsContainer.removeAllViews();
+        TodorooCursor<Metadata> cursor = AlarmService.getInstance().getAlarms(model.getId());
+        try {
+            for(cursor.moveToFirst(); !cursor.isAfterLast(); cursor.moveToNext())
+                addAlarm(new Date(cursor.get(AlarmFields.TIME)));
+        } finally {
+            cursor.close();
+        }
+    }
+
+    @Override
+    protected void afterInflate() {
         this.alertsContainer = (LinearLayout) getView().findViewById(R.id.alert_container);
         getView().findViewById(R.id.alarms_add).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -50,19 +64,7 @@ public final class AlarmControlSet extends TaskEditControlSet {
     }
 
     @Override
-    public void readFromTask(Task task) {
-        alertsContainer.removeAllViews();
-        TodorooCursor<Metadata> cursor = AlarmService.getInstance().getAlarms(task.getId());
-        try {
-            for(cursor.moveToFirst(); !cursor.isAfterLast(); cursor.moveToNext())
-                addAlarm(new Date(cursor.get(AlarmFields.TIME)));
-        } finally {
-            cursor.close();
-        }
-    }
-
-    @Override
-    public String writeToModel(Task task) {
+    protected String writeToModelPrivate(Task task) {
         LinkedHashSet<Long> alarms = new LinkedHashSet<Long>();
         for(int i = 0; i < alertsContainer.getChildCount(); i++) {
             Long dateValue = (Long) alertsContainer.getChildAt(i).getTag();

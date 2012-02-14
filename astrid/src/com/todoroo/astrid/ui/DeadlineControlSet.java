@@ -16,14 +16,31 @@ import com.todoroo.astrid.data.Task;
 public class DeadlineControlSet extends PopupControlSet {
 
     private boolean isQuickadd = false;
-    private final DateAndTimePicker dateAndTimePicker;
+    private DateAndTimePicker dateAndTimePicker;
+    private final View[] extraViews;
 
     public DeadlineControlSet(Activity activity, int viewLayout, int displayViewLayout, View...extraViews) {
         super(activity, viewLayout, displayViewLayout, 0);
+        this.extraViews = extraViews;
+        this.displayText.setText(activity.getString(R.string.TEA_when_header_label));
+    }
 
+    @Override
+    protected void refreshDisplayView() {
+        String toDisplay;
+        if (initialized)
+            toDisplay = dateAndTimePicker.getDisplayString(activity, isQuickadd, isQuickadd);
+        else
+            toDisplay = DateAndTimePicker.getDisplayString(activity, model.getValue(Task.DUE_DATE), isQuickadd, isQuickadd);
+
+        TextView dateDisplay = (TextView) getDisplayView().findViewById(R.id.display_row_edit);
+        dateDisplay.setText(toDisplay);
+    }
+
+    @Override
+    protected void afterInflate() {
         dateAndTimePicker = (DateAndTimePicker) getView().findViewById(R.id.date_and_time);
         LinearLayout extras = (LinearLayout) getView().findViewById(R.id.datetime_extras);
-        this.displayText.setText(activity.getString(R.string.TEA_when_header_label));
         for (View v : extraViews) {
             LayoutParams lp = new LinearLayout.LayoutParams(LayoutParams.FILL_PARENT, LayoutParams.WRAP_CONTENT, 1.0f);
             extras.addView(v, lp);
@@ -42,27 +59,20 @@ public class DeadlineControlSet extends PopupControlSet {
     }
 
     @Override
-    protected void refreshDisplayView() {
-        TextView dateDisplay = (TextView) getDisplayView().findViewById(R.id.display_row_edit);
-        String toDisplay = dateAndTimePicker.getDisplayString(activity, isQuickadd, isQuickadd);
-        dateDisplay.setText(toDisplay);
-    }
-
-    @Override
-    public void readFromTask(Task task) {
-        long dueDate = task.getValue(Task.DUE_DATE);
+    protected void readFromTaskPrivate() {
+        long dueDate = model.getValue(Task.DUE_DATE);
         initializeWithDate(dueDate);
         refreshDisplayView();
     }
 
     @Override
-    public String writeToModel(Task task) {
+    protected String writeToModelPrivate(Task task) {
         long dueDate = dateAndTimePicker.constructDueDate();
         task.setValue(Task.DUE_DATE, dueDate);
         return null;
     }
 
-    public void initializeWithDate(long dueDate) {
+    private void initializeWithDate(long dueDate) {
         dateAndTimePicker.initializeWithDate(dueDate);
     }
 

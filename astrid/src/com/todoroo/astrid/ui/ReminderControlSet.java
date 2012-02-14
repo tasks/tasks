@@ -1,5 +1,8 @@
 package com.todoroo.astrid.ui;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import android.app.Activity;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -18,44 +21,26 @@ import com.todoroo.astrid.data.Task;
  *
  */
 public class ReminderControlSet extends PopupControlSet {
-    private final CheckBox during, after;
-    private final Spinner mode;
-    private final LinearLayout remindersBody;
+    private CheckBox during, after;
+    private Spinner mode;
+    private LinearLayout remindersBody;
+    private final List<View> extraViews;
 
-    private final RandomReminderControlSet randomControlSet;
-    private final AlarmControlSet alarmControl;
+    private RandomReminderControlSet randomControlSet;
+    private AlarmControlSet alarmControl;
 
     public ReminderControlSet(Activity activity, int viewLayout, int displayViewLayout) {
         super(activity, viewLayout, displayViewLayout, R.string.TEA_reminders_group_label);
-        during = (CheckBox) getView().findViewById(R.id.reminder_due);
-        after = (CheckBox) getView().findViewById(R.id.reminder_overdue);
-        mode = (Spinner) getView().findViewById(R.id.reminder_alarm);
-
-        randomControlSet = new RandomReminderControlSet(activity, getView(), -1);
-        alarmControl = new AlarmControlSet(activity, R.layout.control_set_alarms);
-
-        remindersBody = (LinearLayout) getView().findViewById(R.id.reminders_body);
-        remindersBody.addView(alarmControl.getView());
-
+        extraViews = new ArrayList<View>();
         displayText.setText(activity.getString(R.string.TEA_reminders_group_label));
-        String[] list = new String[] {
-                activity.getString(R.string.TEA_reminder_mode_once),
-                activity.getString(R.string.TEA_reminder_mode_five),
-                activity.getString(R.string.TEA_reminder_mode_nonstop),
-        };
-        final ArrayAdapter<String> adapter = new ArrayAdapter<String>(
-                activity, android.R.layout.simple_spinner_item, list);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        activity.runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                mode.setAdapter(adapter);
-            }
-        });
     }
 
     public void addViewToBody(View v) {
-        remindersBody.addView(v, 0);
+        if (remindersBody != null)
+            remindersBody.addView(v, 0);
+        else
+            extraViews.add(v);
+
     }
 
     public void setValue(int flags) {
@@ -88,14 +73,47 @@ public class ReminderControlSet extends PopupControlSet {
     }
 
     @Override
-    public void readFromTask(Task task) {
-        setValue(task.getValue(Task.REMINDER_FLAGS));
-        randomControlSet.readFromTask(task);
-        alarmControl.readFromTask(task);
+    protected void afterInflate() {
+        during = (CheckBox) getView().findViewById(R.id.reminder_due);
+        after = (CheckBox) getView().findViewById(R.id.reminder_overdue);
+        mode = (Spinner) getView().findViewById(R.id.reminder_alarm);
+
+        randomControlSet = new RandomReminderControlSet(activity, getView(), -1);
+        alarmControl = new AlarmControlSet(activity, R.layout.control_set_alarms);
+        alarmControl.readFromTask(model);
+
+        remindersBody = (LinearLayout) getView().findViewById(R.id.reminders_body);
+        remindersBody.addView(alarmControl.getView());
+        while (extraViews.size() > 0) {
+            addViewToBody(extraViews.remove(0));
+        }
+
+        String[] list = new String[] {
+                activity.getString(R.string.TEA_reminder_mode_once),
+                activity.getString(R.string.TEA_reminder_mode_five),
+                activity.getString(R.string.TEA_reminder_mode_nonstop),
+        };
+        final ArrayAdapter<String> adapter = new ArrayAdapter<String>(
+                activity, android.R.layout.simple_spinner_item, list);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        activity.runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                mode.setAdapter(adapter);
+            }
+        });
     }
 
     @Override
-    public String writeToModel(Task task) {
+    protected void readFromTaskPrivate() {
+        setValue(model.getValue(Task.REMINDER_FLAGS));
+        // Calls to get view will force other control sets to load
+        randomControlSet.readFromTask(model);
+        randomControlSet.readFromTaskPrivate();
+    }
+
+    @Override
+    protected String writeToModelPrivate(Task task) {
         task.setValue(Task.REMINDER_FLAGS, getValue());
         // clear snooze if task is being edited
         task.setValue(Task.REMINDER_SNOOZE, 0L);

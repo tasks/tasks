@@ -22,10 +22,10 @@ import com.todoroo.astrid.service.TaskService;
  *
  */
 public class EditTextControlSet extends TaskEditControlSet {
-    private final EditText editText;
+    private EditText editText;
     private final StringProperty property;
-    protected Task model;
     protected CheckBox completeBox;
+    private final int editTextId;
 
     @Autowired
     private TaskService taskService;
@@ -34,16 +34,20 @@ public class EditTextControlSet extends TaskEditControlSet {
     public EditTextControlSet(Activity activity, int layout, StringProperty property, int editText) {
         super(activity, layout);
         this.property = property;
-        this.editText = (EditText) getView().findViewById(editText);
-        this.completeBox = (CheckBox) getView().findViewById(R.id.completeBox);
+        this.editTextId = editText;
         DependencyInjectionService.getInstance().inject(this);
     }
 
     @Override
-    public void readFromTask(Task task) {
-        model = task;
-        editText.setTextKeepState(task.getValue(property));
-        completeBox.setChecked(task.isCompleted());
+    protected void afterInflate() {
+        this.editText = (EditText) getView().findViewById(editTextId);
+        this.completeBox = (CheckBox) getView().findViewById(R.id.completeBox);
+    }
+
+    @Override
+    protected void readFromTaskPrivate() {
+        editText.setTextKeepState(model.getValue(property));
+        completeBox.setChecked(model.isCompleted());
         completeBox.setOnCheckedChangeListener(new OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
@@ -58,7 +62,7 @@ public class EditTextControlSet extends TaskEditControlSet {
     }
 
     @Override
-    public String writeToModel(Task task) {
+    protected String writeToModelPrivate(Task task) {
         task.setValue(property, editText.getText().toString());
         boolean newState = completeBox.isChecked();
         if (newState != task.isCompleted()) {
