@@ -21,20 +21,6 @@
 	    android:layout_height="wrap_content"
 	    android:minHeight="57dip">
 	
-	    <!-- completion check-box -->
-	    <greendroid.widget.AsyncImageView
-	        android:id="@+id/picture"
-	        android:layout_width="47dip"
-	        android:layout_height="45dip"
-	        android:layout_centerVertical="true"
-	        android:padding="2dip"
-	        android:paddingTop="1dip"
-	        android:paddingLeft="1dip"
-	        android:layout_marginLeft="5dip"
-	        astrid:defaultSrc="@drawable/icn_default_person_image"
-	        android:scaleType="fitCenter"
-	        android:visibility="gone" >
-	    </greendroid.widget.AsyncImageView>
 	    <ImageView
 	        android:id="@+id/pictureBorder"
 	        android:layout_width="47dip"
@@ -45,6 +31,17 @@
 	        android:scaleType="center"
 	        android:visibility="gone" >
 	    </ImageView>
+	    <greendroid.widget.AsyncImageView
+	        android:id="@+id/picture"
+	        android:layout_width="47dip"
+	        android:layout_height="47dip"
+	        android:padding="2dip"
+	        android:layout_marginLeft="5dip"
+	        android:layout_centerVertical="true"
+	        astrid:defaultSrc="@drawable/icn_default_person_image"
+	        android:scaleType="fitCenter"
+	        android:visibility="gone" >
+	    </greendroid.widget.AsyncImageView>
 	    
 	    <CheckBox
 	        android:id="@+id/completeBox"
