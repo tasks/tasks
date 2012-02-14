@@ -329,7 +329,9 @@ public class TaskRabbitActivity extends FragmentActivity implements LocationList
             row.removeAllViews();
         }
 
-        menuTitle.setText(getResources().getStringArray(R.array.tr_preset_types)[mode]);
+        if (menuTitle != null) {
+            menuTitle.setText(getResources().getStringArray(R.array.tr_preset_types)[mode]);
+        }
         int[] presetValues = getPresetValues(mode);
         TypedArray keys = getResources().obtainTypedArray(R.array.tr_default_set_key);
         JSONObject parameters = defaultValuesToJSON(keys, presetValues);
@@ -341,8 +343,8 @@ public class TaskRabbitActivity extends FragmentActivity implements LocationList
                 if(row.getParent() == null)
                     taskControls.addView(row);
                 else {
-//                    View separator = getLayoutInflater().inflate(R.layout.tea_separator, row);
-//                    separator.setLayoutParams(new LayoutParams(1, LayoutParams.FILL_PARENT));
+                    //                    View separator = getLayoutInflater().inflate(R.layout.tea_separator, row);
+                    //                    separator.setLayoutParams(new LayoutParams(1, LayoutParams.FILL_PARENT));
 
                 }
                 LinearLayout displayRow = (LinearLayout)((TaskEditControlSet)set).getDisplayView();
@@ -467,9 +469,11 @@ public class TaskRabbitActivity extends FragmentActivity implements LocationList
         String[] keys = getResources().getStringArray(R.array.tr_default_set_key);
 
 
-        String descriptionKey = getString(R.string.tr_set_key_description);
-        String category = String.format("Category: %s\n", menuTitle.getText().toString());  //$NON-NLS-1$
-        parameters.put(descriptionKey, category);
+        if (menuTitle != null) {
+            String descriptionKey = getString(R.string.tr_set_key_description);
+            String category = String.format("Category: %s\n", menuTitle.getText().toString());  //$NON-NLS-1$
+            parameters.put(descriptionKey, category);
+        }
         for (int i = 0; i < controls.size(); i++) {
             if (presetValues[i] == -1) continue;
             TaskRabbitSetListener set = controls.get(i);
@@ -530,8 +534,8 @@ public class TaskRabbitActivity extends FragmentActivity implements LocationList
 
 
             if(progressDialog == null)
-            progressDialog = DialogUtilities.progressDialog(this,
-                    getString(R.string.DLG_please_wait));
+                progressDialog = DialogUtilities.progressDialog(this,
+                        getString(R.string.DLG_please_wait));
             new Thread(new Runnable() {
                 @Override
                 public void run() {
@@ -590,11 +594,11 @@ public class TaskRabbitActivity extends FragmentActivity implements LocationList
             switch (msg.what) {
             case -1:
 
-                    AlertDialog.Builder adb = new AlertDialog.Builder(TaskRabbitActivity.this);
-                    adb.setTitle(getString(R.string.tr_alert_title_fail));
-                    adb.setMessage(getString(R.string.tr_alert_message_fail));
-                    adb.setPositiveButton(getString(R.string.tr_alert_button_fail),null);
-                    adb.show();
+                AlertDialog.Builder adb = new AlertDialog.Builder(TaskRabbitActivity.this);
+                adb.setTitle(getString(R.string.tr_alert_title_fail));
+                adb.setMessage(getString(R.string.tr_alert_message_fail));
+                adb.setPositiveButton(getString(R.string.tr_alert_button_fail),null);
+                adb.show();
                 break;
             case 0: break;
             case 1:
@@ -630,11 +634,13 @@ public class TaskRabbitActivity extends FragmentActivity implements LocationList
                 !locationManager.isProviderEnabled( LocationManager.NETWORK_PROVIDER )) {
             buildAlertMessageNoGps();
         }
+        else {
 
         currentLocation = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
 
         locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, this);
         updateControlSetLocation(currentLocation);
+        }
     }
 
 
