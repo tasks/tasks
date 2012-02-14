@@ -186,6 +186,22 @@
       <move file="AndroidManifest_old.xml" tofile="AndroidManifest.xml" />
     </target>
 
+    <target name="release-jenkins">
+      <property environment="env" />
+      <copy file="AndroidManifest.xml" tofile="AndroidManifest_old.xml" />
+      <propertyregex property="env.git_hash"
+                     input="${env.GIT_COMMIT}"
+                     regexp="(.{7})"
+                     select="\1"
+                     casesensitive="false" />
+      <replaceregexp file="AndroidManifest.xml"
+                     match="(android:versionName=&quot;[^&quot; ]*)[^&quot;]*"
+                     replace="\1-b${env.BUILD_NUMBER}-${env.git_hash}" />
+      <antcall target="release" />
+
+      <move file="AndroidManifest_old.xml" tofile="AndroidManifest.xml" />
+    </target>
+
     <!-- Import the actual build file.
 
          To customize existing targets, there are two options:
