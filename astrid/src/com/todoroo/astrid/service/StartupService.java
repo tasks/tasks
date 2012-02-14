@@ -101,7 +101,7 @@ public class StartupService {
 
     /** Called when this application is started up */
     public synchronized void onStartupApplication(final Context context) {
-        if(hasStartedUp)
+        if(hasStartedUp || context == null)
             return;
 
         // sets up context manager
@@ -208,8 +208,6 @@ public class StartupService {
 
         hasStartedUp = true;
     }
-
-    public static final int INTRO_TASK_SIZE = 0;
 
     /**
      * If database exists, no tasks but metadata, and a backup file exists, restore it

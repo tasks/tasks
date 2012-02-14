@@ -25,7 +25,6 @@ import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.andlib.utility.Preferences;
-import com.todoroo.astrid.service.StartupService;
 import com.todoroo.astrid.service.StatisticsConstants;
 import com.todoroo.astrid.service.StatisticsService;
 import com.todoroo.astrid.service.TaskService;
@@ -97,7 +96,7 @@ public final class Eula {
         if(p.getBoolean(PREFERENCE_EULA_ACCEPTED, false))
             return false;
 
-        if(taskService.countTasks() > StartupService.INTRO_TASK_SIZE)
+        if(taskService.countTasks() > 0)
             return false;
         return true;
     }

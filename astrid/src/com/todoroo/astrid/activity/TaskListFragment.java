@@ -115,7 +115,6 @@ import com.todoroo.astrid.repeats.RepeatControlSet;
 import com.todoroo.astrid.service.AddOnService;
 import com.todoroo.astrid.service.AstridDependencyInjector;
 import com.todoroo.astrid.service.MetadataService;
-import com.todoroo.astrid.service.StartupService;
 import com.todoroo.astrid.service.StatisticsConstants;
 import com.todoroo.astrid.service.StatisticsService;
 import com.todoroo.astrid.service.SyncV2Service;
@@ -300,13 +299,6 @@ public class TaskListFragment extends ListFragment implements OnScrollListener,
     public void onCreate(Bundle savedInstanceState) {
         DependencyInjectionService.getInstance().inject(this);
         super.onCreate(savedInstanceState);
-
-        new StartupService().onStartupApplication(getActivity());
-
-        if (database == null)
-            return;
-
-        database.openForWriting();
     }
 
     /*

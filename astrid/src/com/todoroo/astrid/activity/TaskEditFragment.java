@@ -791,7 +791,6 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
 
         long idParam = intent.getLongExtra(TOKEN_ID, -1L);
 
-        database.openForReading();
         if (idParam > -1L) {
             model = taskService.fetchById(idParam, Task.PROPERTIES);
             if (model != null) {

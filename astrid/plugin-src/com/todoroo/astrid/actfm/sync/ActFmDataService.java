@@ -27,7 +27,6 @@ import com.todoroo.astrid.data.TagData;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.notes.NoteMetadata;
 import com.todoroo.astrid.service.MetadataService;
-import com.todoroo.astrid.service.StartupService;
 import com.todoroo.astrid.service.TagDataService;
 import com.todoroo.astrid.tags.TagService;
 
@@ -76,7 +75,6 @@ public final class ActFmDataService {
      */
     public TodorooCursor<Task> getLocallyCreated(Property<?>[] properties) {
         return taskDao.query(Query.select(properties).where(Criterion.and(TaskCriteria.isActive(),
-                Task.ID.gt(StartupService.INTRO_TASK_SIZE),
                 Task.REMOTE_ID.eq(0))));
     }
 

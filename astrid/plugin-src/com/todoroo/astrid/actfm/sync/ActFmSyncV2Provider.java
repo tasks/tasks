@@ -20,7 +20,6 @@ import com.todoroo.astrid.dao.TaskDao.TaskCriteria;
 import com.todoroo.astrid.data.TagData;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.service.AstridDependencyInjector;
-import com.todoroo.astrid.service.StartupService;
 import com.todoroo.astrid.service.TaskService;
 import com.todoroo.astrid.sync.SyncResultCallback;
 import com.todoroo.astrid.sync.SyncV2Provider;
@@ -131,7 +130,6 @@ public class ActFmSyncV2Provider extends SyncV2Provider {
         TodorooCursor<Task> cursor = taskService.query(Query.select(Task.PROPERTIES).
                 where(Criterion.or(
                         Criterion.and(TaskCriteria.isActive(),
-                                Task.ID.gt(StartupService.INTRO_TASK_SIZE),
                                 Task.REMOTE_ID.eq(0)),
                         Criterion.and(Task.REMOTE_ID.gt(0),
                                 Task.MODIFICATION_DATE.gt(Task.LAST_SYNC)))));

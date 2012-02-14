@@ -57,7 +57,6 @@ import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.api.FilterListItem;
 import com.todoroo.astrid.core.CustomFilterActivity;
 import com.todoroo.astrid.data.Task;
-import com.todoroo.astrid.service.StartupService;
 import com.todoroo.astrid.service.StatisticsService;
 import com.todoroo.astrid.tags.TagsPlugin;
 import com.todoroo.astrid.welcome.HelpInfoPopover;
@@ -136,18 +135,6 @@ public class FilterListFragment extends ListFragment {
             throw new ClassCastException(activity.toString()
                     + " must implement OnFilterItemClickedListener"); //$NON-NLS-1$
         }
-    }
-
-    /**  Called when loading up the activity */
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-
-        // Tell the framework to try to keep this fragment around
-        // during a configuration change.
-//        setRetainInstance(true);
-
-        new StartupService().onStartupApplication(getActivity());
     }
 
     /* (non-Javadoc)

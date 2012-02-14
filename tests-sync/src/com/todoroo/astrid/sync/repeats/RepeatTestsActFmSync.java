@@ -25,7 +25,6 @@ import com.todoroo.astrid.data.Metadata;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.repeats.RepeatTaskCompleteListener;
 import com.todoroo.astrid.service.MetadataService;
-import com.todoroo.astrid.service.StartupService;
 
 public class RepeatTestsActFmSync extends AbstractSyncRepeatTests<Task> {
 
@@ -121,11 +120,6 @@ public class RepeatTestsActFmSync extends AbstractSyncRepeatTests<Task> {
 
     @Override
     protected void testRepeating(boolean completeBefore, boolean fromCompletion, RRule rrule, Frequency frequency, String title) {
-        for (int i = 0; i < StartupService.INTRO_TASK_SIZE; i++) { // Create startup tasks so sync services don't miss the test tasks
-            Task temp = new Task();
-            temp.setValue(Task.TITLE, "" + i);
-            taskDao.save(temp);
-        }
         Task t = new Task();
         t.setValue(Task.TITLE, title);
         long dueDate = DateUtilities.now() + DateUtilities.ONE_DAY * 3;
@@ -154,11 +148,8 @@ public class RepeatTestsActFmSync extends AbstractSyncRepeatTests<Task> {
 
         TodorooCursor<Task> cursor = taskDao.query(Query.select(Task.PROPERTIES).where(TaskCriteria.notDeleted()));
         try {
-            assertEquals(StartupService.INTRO_TASK_SIZE + 1, cursor.getCount());
+            assertEquals(1, cursor.getCount());
             cursor.moveToFirst();
-            for (int i = 0; i < StartupService.INTRO_TASK_SIZE; i++) {
-                cursor.moveToNext();
-            }
             t.readFromCursor(cursor);
 
             long fromDate = (fromCompletion? completionDate : dueDate);
