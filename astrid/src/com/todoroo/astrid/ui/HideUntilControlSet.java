@@ -168,7 +168,9 @@ public class HideUntilControlSet extends PopupControlSet implements OnItemSelect
     public void setDefaults() {
         int setting = Preferences.getIntegerFromString(R.string.p_default_hideUntil_key,
                 Task.HIDE_UNTIL_NONE);
-        spinner.setSelection(setting);
+        selection = setting;
+        if (spinner != null)
+            spinner.setSelection(selection);
         refreshDisplayView();
     }
 

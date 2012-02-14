@@ -89,7 +89,7 @@ public class DeadlineControlSet extends PopupControlSet {
     }
 
     public boolean isDeadlineSet() {
-        return dateAndTimePicker.constructDueDate() != 0;
+        return (dateAndTimePicker != null && dateAndTimePicker.constructDueDate() != 0);
     }
 
     /**

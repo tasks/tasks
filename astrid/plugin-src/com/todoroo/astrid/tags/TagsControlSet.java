@@ -220,19 +220,14 @@ public final class TagsControlSet extends PopupControlSet {
     }
 
     @Override
-    protected void readFromTaskPrivate() {
-        newTags.removeAllViews();
-
-        for (int i = 0; i < selectedTags.getCount(); i++) { // clear all selected items
-            selectedTags.setItemChecked(i, false);
-        }
+    public void readFromTask(Task task) {
+        super.readFromTask(task);
         if(model.getId() != AbstractModel.NO_ID) {
             TodorooCursor<Metadata> cursor = tagService.getTags(model.getId());
             LinkedHashSet<String> tags = new LinkedHashSet<String>(cursor.getCount());
             try {
                 for(cursor.moveToFirst(); !cursor.isAfterLast(); cursor.moveToNext()) {
                     String tag = cursor.get(TagService.TAG);
-                    setTagSelected(tag);
                     tags.add(tag);
                 }
             } finally {
@@ -240,9 +235,30 @@ public final class TagsControlSet extends PopupControlSet {
             }
             model.putTransitory("tags", tags); //$NON-NLS-1$
         }
+    }
+
+    @Override
+    protected void readFromTaskPrivate() {
+        newTags.removeAllViews();
+
+        for (int i = 0; i < selectedTags.getCount(); i++) { // clear all selected items
+            selectedTags.setItemChecked(i, false);
+        }
+        if(model.getId() != AbstractModel.NO_ID) {
+            selectTagsFromModel();
+        }
         addTag("", false); //$NON-NLS-1$
         refreshDisplayView();
         populated = true;
+    }
+
+    private void selectTagsFromModel() {
+        LinkedHashSet<String> tags = (LinkedHashSet<String>) model.getTransitory("tags");
+        if (tags != null) {
+            for (String tag : tags) {
+                setTagSelected(tag);
+            }
+        }
     }
 
     @Override
