@@ -216,10 +216,11 @@ public class GCalControlSet extends PopupControlSet {
                 calendar.setText(R.string.gcal_TEA_none_selected);
             }
         } else {
+            int index = calendars.defaultIndex + 1;
             if (!TextUtils.isEmpty(model.getValue(Task.CALENDAR_URI))) {
                 calendar.setText(R.string.gcal_TEA_has_event);
-            } else if (calendars.defaultIndex + 1 != 0) {
-                calendar.setText(calendars.calendars[calendars.defaultIndex + 1]);
+            } else if (index != 0 && index < calendars.calendars.length) {
+                calendar.setText(calendars.calendars[index]);
             } else {
                 calendar.setText(R.string.gcal_TEA_none_selected);
             }

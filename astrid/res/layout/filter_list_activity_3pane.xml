@@ -15,31 +15,20 @@
         
         <include layout="@layout/fla_separator"/>
         
-        <LinearLayout
+        <TextView
+            android:id="@+id/new_list_button"
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
-            android:gravity="center_vertical">
-            
-            <ImageView
-	            android:layout_width="39dip"
-	            android:layout_height="39dip"
-	            android:layout_marginLeft="5dip"
-	            android:layout_marginRight="8dip"
-	            android:src="?attr/asAddButtonImg"
-	            android:scaleType="fitCenter"/>
-            
-	        <TextView
-	            android:id="@+id/new_list_button"
-	            android:layout_width="fill_parent"
-	            android:layout_height="fill_parent"
-	            android:paddingLeft="10dip"
-	            android:gravity="left|center_vertical"
-	            android:text="@string/FLA_new_list"
-	            style="@style/TextAppearance.FLA_Button"/>
-        </LinearLayout>        
+            android:layout_margin="6dip"
+            android:gravity="left|center_vertical"
+            android:background="?attr/asThemeTextColor"
+            android:paddingLeft="8dip"
+            android:drawableLeft="@drawable/filter_plus_button"
+            android:drawablePadding="13dip"
+            android:text="@string/FLA_new_list"
+            style="@style/TextAppearance.FLA_Button"/>
         
     </LinearLayout>
-        
 
     <!-- List -->
     <ListView android:id="@android:id/list"
