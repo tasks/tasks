@@ -23,7 +23,6 @@ import com.todoroo.astrid.dao.MetadataDao;
 import com.todoroo.astrid.dao.TaskDao;
 import com.todoroo.astrid.dao.TaskDao.TaskCriteria;
 import com.todoroo.astrid.data.Task;
-import com.todoroo.astrid.service.StartupService;
 import com.todoroo.astrid.test.DatabaseTestCase;
 import com.todoroo.astrid.utility.Flags;
 
@@ -118,11 +117,6 @@ public class NewRepeatTests<REMOTE_MODEL> extends DatabaseTestCase {
 
     protected void testRepeating(boolean completeBefore, boolean fromCompletion,
             RRule rrule, Frequency frequency, String title) {
-        for (int i = 0; i < StartupService.INTRO_TASK_SIZE; i++) { // Create startup tasks so sync services don't miss the test tasks
-            Task temp = new Task();
-            temp.setValue(Task.TITLE, "" + i);
-            taskDao.save(temp);
-        }
         Task t = new Task();
         t.setValue(Task.TITLE, title);
         long dueDate = DateUtilities.now() + DateUtilities.ONE_DAY * 3;
@@ -157,11 +151,8 @@ public class NewRepeatTests<REMOTE_MODEL> extends DatabaseTestCase {
                 Task task = new Task(cursor);
                 System.err.println("Task: " + task.getValue(Task.TITLE) + ", due: " + task.getValue(Task.DUE_DATE));
             }
-            assertEquals(StartupService.INTRO_TASK_SIZE + 1, cursor.getCount());
+            assertEquals(1, cursor.getCount());
             cursor.moveToFirst();
-            for (int i = 0; i < StartupService.INTRO_TASK_SIZE; i++) {
-                cursor.moveToNext();
-            }
             t.readFromCursor(cursor);
 
             assertEquals(title, t.getValue(Task.TITLE));
