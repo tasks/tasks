@@ -491,6 +491,9 @@
   <string name="EPr_theme_desc">Currently: %s</string>  
   <!-- Preference: Theme Description (android 1.6) -->
   <string name="EPr_theme_desc_unsupported">Setting requires Android 2.0+</string>
+  
+  <!-- Preference screen: all task row settings -->
+  <string name="EPr_taskRowPrefs_title">Task Row Appearance</string>
     
   <string-array name="EPr_default_reminders_mode">
       <!-- reminders duration: labels for "Task Defaults" preference item. -->

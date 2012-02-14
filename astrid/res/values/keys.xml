@@ -203,6 +203,8 @@
   <string name="p_allowCompressedTaskRows">allowCompressedTaskRows</string>
   
   <string name="p_useLegacyImportanceStyle">legacyImportanceStyle</string>
+  
+  <string name="p_taskRowPrefs">taskRowPrefs</string>
   <!-- ========================================================= DEFAULTS == -->
   
   <!-- default urgency setting (corresponds to entry in TEA_urgency) -->  

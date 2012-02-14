@@ -8,43 +8,47 @@
     <PreferenceScreen android:title="@string/p_help" android:key="@string/p_help"/>
     <PreferenceCategory
         android:title="@string/EPr_appearance_header">
-        <com.todoroo.astrid.ui.MultilineListPreference
-            android:key="@string/p_fontSize"
-            android:entries="@array/EPr_font_size"
-            android:entryValues="@array/EPr_font_size"
-            android:title="@string/EPr_fontSize_title"
-            android:summary="@string/EPr_fontSize_desc" />
+        
+        <PreferenceScreen android:title="@string/EPr_taskRowPrefs_title" android:key="@string/p_taskRowPrefs">
+        
+	        <com.todoroo.astrid.ui.MultilineListPreference
+	            android:key="@string/p_fontSize"
+	            android:entries="@array/EPr_font_size"
+	            android:entryValues="@array/EPr_font_size"
+	            android:title="@string/EPr_fontSize_title"
+	            android:summary="@string/EPr_fontSize_desc" />
+	        
+	        <com.todoroo.astrid.ui.MultilineCheckboxPreference
+	            android:key="@string/p_showNotes"
+	            android:title="@string/EPr_showNotes_title"
+	            android:defaultValue="false" />
+	        
+	        <com.todoroo.astrid.ui.MultilineCheckboxPreference
+	            android:key="@string/p_allowCompressedTaskRows"
+	            android:title="@string/EPr_compressTaskRows_title"
+	            android:summary="@string/EPr_compressTaskRows_desc"
+	            android:defaultValue="false" />
+	
+	        <com.todoroo.astrid.ui.MultilineCheckboxPreference
+	            android:key="@string/p_useLegacyImportanceStyle"
+	            android:title="@string/EPr_userLegacyImportance_title"
+	            android:summary="@string/EPr_userLegacyImportance_desc"
+	            android:defaultValue="false"/>
+        
+        </PreferenceScreen>
         
         <PreferenceScreen android:title="" android:key="@string/p_beastMode"/>
-        
-        <com.todoroo.astrid.ui.MultilineCheckboxPreference
-            android:key="@string/p_showNotes"
-            android:title="@string/EPr_showNotes_title"
-            android:defaultValue="false" />
-        
-        <com.todoroo.astrid.ui.MultilineCheckboxPreference
-            android:key="@string/p_allowCompressedTaskRows"
-            android:title="@string/EPr_compressTaskRows_title"
-            android:summary="@string/EPr_compressTaskRows_desc"
-            android:defaultValue="false" />
 
-        <com.todoroo.astrid.ui.MultilineCheckboxPreference
-            android:key="@string/p_useLegacyImportanceStyle"
-            android:title="@string/EPr_userLegacyImportance_title"
-            android:summary="@string/EPr_userLegacyImportance_desc"
-            android:defaultValue="false"/>
-        
-        <com.todoroo.astrid.ui.MultilineCheckboxPreference
-            android:key="@string/p_showSmartConfirmation_key"
-            android:title="@string/EPr_showSmartConfirmation_title"
-            android:defaultValue="true"/>
-            
         <com.todoroo.astrid.ui.MultilineListPreference
             android:key="@string/p_theme"
             android:entries="@array/EPr_themes"
             android:entryValues="@array/EPr_theme_settings"
             android:title="@string/EPr_theme_title" />
-        
+
+        <com.todoroo.astrid.ui.MultilineCheckboxPreference
+            android:key="@string/p_showSmartConfirmation_key"
+            android:title="@string/EPr_showSmartConfirmation_title"
+            android:defaultValue="true"/>
     </PreferenceCategory>
 
 
