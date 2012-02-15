@@ -258,9 +258,13 @@ public class GtasksSyncV2Provider extends SyncV2Provider {
         //  merge astrid dates with google dates
         if(task.task.isSaved()) {
             Task local = PluginServices.getTaskService().fetchById(task.task.getId(), Task.DUE_DATE, Task.COMPLETION_DATE);
-            mergeDates(task.task, local);
-            if(task.task.isCompleted() && !local.isCompleted())
-                StatisticsService.reportEvent(StatisticsConstants.GTASKS_TASK_COMPLETED);
+            if (local == null) {
+                task.task.clearValue(Task.ID);
+            } else {
+                mergeDates(task.task, local);
+                if(task.task.isCompleted() && !local.isCompleted())
+                    StatisticsService.reportEvent(StatisticsConstants.GTASKS_TASK_COMPLETED);
+            }
         } else { // Set default reminders for remotely created tasks
             TaskDao.setDefaultReminders(task.task);
         }
