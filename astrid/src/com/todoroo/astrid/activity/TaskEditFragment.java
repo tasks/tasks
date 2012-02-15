@@ -912,6 +912,7 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
                     tla.switchToAssignedFilter(assignedTo);
                 if (tagsChanged)
                     tla.tagsChanged();
+                tla.refreshTaskList();
             }
 
             shouldSaveState = false;
