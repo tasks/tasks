@@ -25,12 +25,14 @@ public class RandomReminderControlSet extends TaskEditControlSet {
 
     private final CheckBox settingCheckbox;
     private final Spinner periodSpinner;
+    private final View parentView;
 
     private boolean periodSpinnerInitialized = false;
     private final int[] hours;
 
     public RandomReminderControlSet(Activity activity, View parentView, int layout) {
         super(activity, layout);
+        this.parentView = parentView;
         settingCheckbox = (CheckBox) parentView.findViewById(R.id.reminder_random);
         periodSpinner = (Spinner) parentView.findViewById(R.id.reminder_random_interval);
         periodSpinner.setOnItemSelectedListener(new OnItemSelectedListener() {
@@ -63,8 +65,13 @@ public class RandomReminderControlSet extends TaskEditControlSet {
     }
 
     @Override
-    public void readFromTask(Task task) {
-        long time = task.getValue(Task.REMINDER_PERIOD);
+    protected void afterInflate() {
+        // Nothing to do here
+    }
+
+    @Override
+    protected void readFromTaskPrivate() {
+        long time = model.getValue(Task.REMINDER_PERIOD);
 
         boolean enabled = time > 0;
         if(time <= 0) {
@@ -80,7 +87,7 @@ public class RandomReminderControlSet extends TaskEditControlSet {
     }
 
     @Override
-    public String writeToModel(Task task) {
+    protected String writeToModelPrivate(Task task) {
         if(settingCheckbox.isChecked()) {
             int hourValue = hours[periodSpinner.getSelectedItemPosition()];
             task.setValue(Task.REMINDER_PERIOD, hourValue * DateUtilities.ONE_HOUR);

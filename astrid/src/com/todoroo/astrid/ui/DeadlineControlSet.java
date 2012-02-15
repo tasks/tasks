@@ -1,6 +1,7 @@
 package com.todoroo.astrid.ui;
 
 import android.app.Activity;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -12,18 +13,46 @@ import android.widget.TextView;
 import com.timsu.astrid.R;
 import com.todoroo.andlib.utility.DialogUtilities;
 import com.todoroo.astrid.data.Task;
+import com.todoroo.astrid.repeats.RepeatControlSet;
 
 public class DeadlineControlSet extends PopupControlSet {
 
     private boolean isQuickadd = false;
-    private final DateAndTimePicker dateAndTimePicker;
+    private DateAndTimePicker dateAndTimePicker;
+    private final View[] extraViews;
+    private final RepeatControlSet repeatControlSet;
 
-    public DeadlineControlSet(Activity activity, int viewLayout, int displayViewLayout, View...extraViews) {
+    public DeadlineControlSet(Activity activity, int viewLayout, int displayViewLayout,
+            RepeatControlSet repeatControlSet, View...extraViews) {
         super(activity, viewLayout, displayViewLayout, 0);
+        this.extraViews = extraViews;
+        this.displayText.setText(activity.getString(R.string.TEA_when_header_label));
+        this.repeatControlSet = repeatControlSet;
+    }
 
+    @Override
+    protected void refreshDisplayView() {
+        StringBuilder displayString = new StringBuilder();
+        if (initialized)
+            displayString.append(dateAndTimePicker.getDisplayString(activity, isQuickadd, isQuickadd));
+        else
+            displayString.append(DateAndTimePicker.getDisplayString(activity, model.getValue(Task.DUE_DATE), isQuickadd, isQuickadd));
+
+        if (!isQuickadd && repeatControlSet != null) {
+            String repeatString = repeatControlSet.getStringForExternalDisplay();
+            if (!TextUtils.isEmpty(repeatString)) {
+                displayString.append("\n"); //$NON-NLS-1$
+                displayString.append(repeatString);
+            }
+        }
+        TextView dateDisplay = (TextView) getDisplayView().findViewById(R.id.display_row_edit);
+        dateDisplay.setText(displayString);
+    }
+
+    @Override
+    protected void afterInflate() {
         dateAndTimePicker = (DateAndTimePicker) getView().findViewById(R.id.date_and_time);
         LinearLayout extras = (LinearLayout) getView().findViewById(R.id.datetime_extras);
-        this.displayText.setText(activity.getString(R.string.TEA_when_header_label));
         for (View v : extraViews) {
             LayoutParams lp = new LinearLayout.LayoutParams(LayoutParams.FILL_PARENT, LayoutParams.WRAP_CONTENT, 1.0f);
             extras.addView(v, lp);
@@ -42,32 +71,25 @@ public class DeadlineControlSet extends PopupControlSet {
     }
 
     @Override
-    protected void refreshDisplayView() {
-        TextView dateDisplay = (TextView) getDisplayView().findViewById(R.id.display_row_edit);
-        String toDisplay = dateAndTimePicker.getDisplayString(activity, isQuickadd, isQuickadd);
-        dateDisplay.setText(toDisplay);
-    }
-
-    @Override
-    public void readFromTask(Task task) {
-        long dueDate = task.getValue(Task.DUE_DATE);
+    protected void readFromTaskPrivate() {
+        long dueDate = model.getValue(Task.DUE_DATE);
         initializeWithDate(dueDate);
         refreshDisplayView();
     }
 
     @Override
-    public String writeToModel(Task task) {
+    protected String writeToModelPrivate(Task task) {
         long dueDate = dateAndTimePicker.constructDueDate();
         task.setValue(Task.DUE_DATE, dueDate);
         return null;
     }
 
-    public void initializeWithDate(long dueDate) {
+    private void initializeWithDate(long dueDate) {
         dateAndTimePicker.initializeWithDate(dueDate);
     }
 
     public boolean isDeadlineSet() {
-        return dateAndTimePicker.constructDueDate() != 0;
+        return (dateAndTimePicker != null && dateAndTimePicker.constructDueDate() != 0);
     }
 
     /**

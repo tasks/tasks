@@ -24,7 +24,7 @@ import com.todoroo.astrid.producteev.ProducteevUtilities;
  */
 public class ImportanceControlSet extends TaskEditControlSet {
     private final List<CompoundButton> buttons = new LinkedList<CompoundButton>();
-    private final int[] colors;
+    private int[] colors;
     //private final int grayColor;
     private final List<ImportanceChangedListener> listeners = new LinkedList<ImportanceChangedListener>();
 
@@ -34,6 +34,54 @@ public class ImportanceControlSet extends TaskEditControlSet {
 
     public ImportanceControlSet(Activity activity, int layout) {
         super(activity, layout);
+    }
+
+    public void setImportance(Integer i) {
+        for(CompoundButton b : buttons) {
+            if(b.getTag() == i) {
+                b.setTextSize(getTextSize());
+                b.setChecked(true);
+                //if (i.intValue() == Task.IMPORTANCE_LEAST)
+                //    b.setTextColor(grayColor);
+                b.setBackgroundResource(R.drawable.importance_background_selected);
+            } else {
+                b.setTextSize(getTextSize());
+                b.setChecked(false);
+                b.setTextColor(colors[(Integer)b.getTag()]);
+                b.setBackgroundResource(0);
+            }
+        }
+
+        for (ImportanceChangedListener l : listeners) {
+            l.importanceChanged(i, colors[i]);
+        }
+    }
+
+    private int getTextSize() {
+        if (ProducteevUtilities.INSTANCE.isLoggedIn())
+            return 14;
+        else
+            return 24;
+    }
+
+    public Integer getImportance() {
+        for(CompoundButton b : buttons)
+            if(b.isChecked())
+                return (Integer) b.getTag();
+        return null;
+    }
+
+    public void addListener(ImportanceChangedListener listener) {
+        listeners.add(listener);
+    }
+
+    public void removeListener(ImportanceChangedListener listener) {
+        if (listeners.contains(listener))
+            listeners.remove(listener);
+    }
+
+    @Override
+    protected void afterInflate() {
         LinearLayout container = (LinearLayout) getView().findViewById(R.id.importance_container);
         colors = Task.getImportanceColors(activity.getResources());
 
@@ -96,57 +144,13 @@ public class ImportanceControlSet extends TaskEditControlSet {
         }
     }
 
-    public void setImportance(Integer i) {
-        for(CompoundButton b : buttons) {
-            if(b.getTag() == i) {
-                b.setTextSize(getTextSize());
-                b.setChecked(true);
-                //if (i.intValue() == Task.IMPORTANCE_LEAST)
-                //    b.setTextColor(grayColor);
-                b.setBackgroundResource(R.drawable.importance_background_selected);
-            } else {
-                b.setTextSize(getTextSize());
-                b.setChecked(false);
-                b.setTextColor(colors[(Integer)b.getTag()]);
-                b.setBackgroundResource(0);
-            }
-        }
-
-        for (ImportanceChangedListener l : listeners) {
-            l.importanceChanged(i, colors[i]);
-        }
-    }
-
-    private int getTextSize() {
-        if (ProducteevUtilities.INSTANCE.isLoggedIn())
-            return 14;
-        else
-            return 24;
-    }
-
-    public Integer getImportance() {
-        for(CompoundButton b : buttons)
-            if(b.isChecked())
-                return (Integer) b.getTag();
-        return null;
-    }
-
-    public void addListener(ImportanceChangedListener listener) {
-        listeners.add(listener);
-    }
-
-    public void removeListener(ImportanceChangedListener listener) {
-        if (listeners.contains(listener))
-            listeners.remove(listener);
+    @Override
+    protected void readFromTaskPrivate() {
+        setImportance(model.getValue(Task.IMPORTANCE));
     }
 
     @Override
-    public void readFromTask(Task task) {
-        setImportance(task.getValue(Task.IMPORTANCE));
-    }
-
-    @Override
-    public String writeToModel(Task task) {
+    protected String writeToModelPrivate(Task task) {
         if(getImportance() != null)
             task.setValue(Task.IMPORTANCE, getImportance());
         return null;

@@ -43,14 +43,8 @@ import com.todoroo.astrid.ui.PopupControlSet;
  */
 public class ProducteevControlSet extends PopupControlSet {
 
-    // --- instance variables
-
-    private final Activity activity;
-
-    //private final View view;
-    private Task myTask;
-    private final Spinner responsibleSelector;
-    private final Spinner dashboardSelector;
+    private Spinner responsibleSelector;
+    private Spinner dashboardSelector;
 
     private ArrayList<ProducteevUser> users = null;
     private ArrayList<ProducteevDashboard> dashboards = null;
@@ -63,8 +57,104 @@ public class ProducteevControlSet extends PopupControlSet {
     public ProducteevControlSet(final Activity activity, int layout, int displayViewLayout, int title) {
         super(activity, layout, displayViewLayout, title);
         DependencyInjectionService.getInstance().inject(this);
+    }
 
-        this.activity = activity;
+    /**
+     * Refresh the content of the responsibleSelector with the given userlist.
+     *
+     * @param newUsers the new userlist to show in the responsibleSelector
+     */
+    private void refreshResponsibleSpinner(ArrayList<ProducteevUser> newUsers) {
+        Metadata metadata = ProducteevDataService.getInstance().getTaskMetadata(model.getId());
+        long responsibleId = -1;
+        if(metadata != null && metadata.containsNonNullValue(ProducteevTask.RESPONSIBLE_ID))
+            responsibleId = metadata.getValue(ProducteevTask.RESPONSIBLE_ID);
+        refreshResponsibleSpinner(newUsers, responsibleId);
+    }
+
+    /**
+     * Refresh the content of the responsibleSelector with the given userlist.
+     *
+     * @param newUsers the new userlist to show in the responsibleSelector
+     * @param responsibleId the id of the responsible user to set in the spinner
+     */
+    private void refreshResponsibleSpinner(ArrayList<ProducteevUser> newUsers, long responsibleId) {
+        // Fill the responsible-spinner and set the current responsible
+        this.users = (newUsers == null ? new ArrayList<ProducteevUser>() : newUsers);
+
+        ArrayAdapter<ProducteevUser> usersAdapter = new ArrayAdapter<ProducteevUser>(activity,
+                android.R.layout.simple_spinner_item, this.users);
+        usersAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        responsibleSelector.setAdapter(usersAdapter);
+
+        int visibility = newUsers == null ? View.GONE : View.VISIBLE;
+
+        getView().findViewById(R.id.producteev_TEA_task_assign_label).setVisibility(visibility);
+        responsibleSelector.setVisibility(visibility);
+
+        int responsibleSpinnerIndex = 0;
+
+        for (int i = 0; i < this.users.size() ; i++) {
+            if (this.users.get(i).getId() == responsibleId ||
+                    (responsibleId == -1 && this.users.get(i).getId() == Preferences.getLong(ProducteevUtilities.PREF_USER_ID, -1))) {
+                responsibleSpinnerIndex = i;
+                break;
+            }
+        }
+        responsibleSelector.setSelection(responsibleSpinnerIndex);
+    }
+
+    @Override
+    protected void readFromTaskPrivate() {
+        Metadata metadata = ProducteevDataService.getInstance().getTaskMetadata(model.getId());
+        if(metadata == null)
+            metadata = ProducteevTask.newMetadata();
+
+        // Fill the dashboard-spinner and set the current dashboard
+        long dashboardId = ProducteevUtilities.INSTANCE.getDefaultDashboard();
+        if(metadata.containsNonNullValue(ProducteevTask.DASHBOARD_ID))
+            dashboardId = metadata.getValue(ProducteevTask.DASHBOARD_ID);
+
+        StoreObject[] dashboardsData = ProducteevDataService.getInstance().getDashboards();
+        dashboards = new ArrayList<ProducteevDashboard>(dashboardsData.length);
+        ProducteevDashboard ownerDashboard = null;
+        int dashboardSpinnerIndex = -1;
+
+        int i = 0;
+        for (i=0;i<dashboardsData.length;i++) {
+            ProducteevDashboard dashboard = new ProducteevDashboard(dashboardsData[i]);
+            dashboards.add(dashboard);
+            if(dashboard.getId() == dashboardId) {
+                ownerDashboard = dashboard;
+                dashboardSpinnerIndex = i;
+            }
+        }
+
+        //dashboard to not sync as first spinner-entry
+        dashboards.add(0, new ProducteevDashboard(ProducteevUtilities.DASHBOARD_NO_SYNC, activity.getString(R.string.producteev_no_dashboard),null));
+        // dummy entry for adding a new dashboard
+        dashboards.add(new ProducteevDashboard(ProducteevUtilities.DASHBOARD_CREATE, activity.getString(R.string.producteev_create_dashboard),null));
+
+        ArrayAdapter<ProducteevDashboard> dashAdapter = new ArrayAdapter<ProducteevDashboard>(activity,
+                android.R.layout.simple_spinner_item, dashboards);
+        dashAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        dashboardSelector.setAdapter(dashAdapter);
+        dashboardSelector.setSelection(dashboardSpinnerIndex+1);
+
+        if (ownerDashboard == null || ownerDashboard.getId() == ProducteevUtilities.DASHBOARD_NO_SYNC
+                || ownerDashboard.getId() == ProducteevUtilities.DASHBOARD_CREATE) {
+            responsibleSelector.setEnabled(false);
+            responsibleSelector.setAdapter(null);
+            getView().findViewById(R.id.producteev_TEA_task_assign_label).setVisibility(View.GONE);
+            return;
+        }
+
+        refreshResponsibleSpinner(ownerDashboard.getUsers());
+    }
+
+    @Override
+    protected void afterInflate() {
+
         this.displayText.setText(activity.getString(R.string.producteev_TEA_control_set_display));
 
         //view = LayoutInflater.from(activity).inflate(R.layout.producteev_control, parent, true);
@@ -146,102 +236,8 @@ public class ProducteevControlSet extends PopupControlSet {
         });
     }
 
-    /**
-     * Refresh the content of the responsibleSelector with the given userlist.
-     *
-     * @param newUsers the new userlist to show in the responsibleSelector
-     */
-    private void refreshResponsibleSpinner(ArrayList<ProducteevUser> newUsers) {
-        Metadata metadata = ProducteevDataService.getInstance().getTaskMetadata(myTask.getId());
-        long responsibleId = -1;
-        if(metadata != null && metadata.containsNonNullValue(ProducteevTask.RESPONSIBLE_ID))
-            responsibleId = metadata.getValue(ProducteevTask.RESPONSIBLE_ID);
-        refreshResponsibleSpinner(newUsers, responsibleId);
-    }
-
-    /**
-     * Refresh the content of the responsibleSelector with the given userlist.
-     *
-     * @param newUsers the new userlist to show in the responsibleSelector
-     * @param responsibleId the id of the responsible user to set in the spinner
-     */
-    private void refreshResponsibleSpinner(ArrayList<ProducteevUser> newUsers, long responsibleId) {
-        // Fill the responsible-spinner and set the current responsible
-        this.users = (newUsers == null ? new ArrayList<ProducteevUser>() : newUsers);
-
-        ArrayAdapter<ProducteevUser> usersAdapter = new ArrayAdapter<ProducteevUser>(activity,
-                android.R.layout.simple_spinner_item, this.users);
-        usersAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        responsibleSelector.setAdapter(usersAdapter);
-
-        int visibility = newUsers == null ? View.GONE : View.VISIBLE;
-
-        getView().findViewById(R.id.producteev_TEA_task_assign_label).setVisibility(visibility);
-        responsibleSelector.setVisibility(visibility);
-
-        int responsibleSpinnerIndex = 0;
-
-        for (int i = 0; i < this.users.size() ; i++) {
-            if (this.users.get(i).getId() == responsibleId ||
-                    (responsibleId == -1 && this.users.get(i).getId() == Preferences.getLong(ProducteevUtilities.PREF_USER_ID, -1))) {
-                responsibleSpinnerIndex = i;
-                break;
-            }
-        }
-        responsibleSelector.setSelection(responsibleSpinnerIndex);
-    }
-
     @Override
-    public void readFromTask(Task task) {
-        this.myTask = task;
-        Metadata metadata = ProducteevDataService.getInstance().getTaskMetadata(myTask.getId());
-        if(metadata == null)
-            metadata = ProducteevTask.newMetadata();
-
-        // Fill the dashboard-spinner and set the current dashboard
-        long dashboardId = ProducteevUtilities.INSTANCE.getDefaultDashboard();
-        if(metadata.containsNonNullValue(ProducteevTask.DASHBOARD_ID))
-            dashboardId = metadata.getValue(ProducteevTask.DASHBOARD_ID);
-
-        StoreObject[] dashboardsData = ProducteevDataService.getInstance().getDashboards();
-        dashboards = new ArrayList<ProducteevDashboard>(dashboardsData.length);
-        ProducteevDashboard ownerDashboard = null;
-        int dashboardSpinnerIndex = -1;
-
-        int i = 0;
-        for (i=0;i<dashboardsData.length;i++) {
-            ProducteevDashboard dashboard = new ProducteevDashboard(dashboardsData[i]);
-            dashboards.add(dashboard);
-            if(dashboard.getId() == dashboardId) {
-                ownerDashboard = dashboard;
-                dashboardSpinnerIndex = i;
-            }
-        }
-
-        //dashboard to not sync as first spinner-entry
-        dashboards.add(0, new ProducteevDashboard(ProducteevUtilities.DASHBOARD_NO_SYNC, activity.getString(R.string.producteev_no_dashboard),null));
-        // dummy entry for adding a new dashboard
-        dashboards.add(new ProducteevDashboard(ProducteevUtilities.DASHBOARD_CREATE, activity.getString(R.string.producteev_create_dashboard),null));
-
-        ArrayAdapter<ProducteevDashboard> dashAdapter = new ArrayAdapter<ProducteevDashboard>(activity,
-                android.R.layout.simple_spinner_item, dashboards);
-        dashAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        dashboardSelector.setAdapter(dashAdapter);
-        dashboardSelector.setSelection(dashboardSpinnerIndex+1);
-
-        if (ownerDashboard == null || ownerDashboard.getId() == ProducteevUtilities.DASHBOARD_NO_SYNC
-                || ownerDashboard.getId() == ProducteevUtilities.DASHBOARD_CREATE) {
-            responsibleSelector.setEnabled(false);
-            responsibleSelector.setAdapter(null);
-            getView().findViewById(R.id.producteev_TEA_task_assign_label).setVisibility(View.GONE);
-            return;
-        }
-
-        refreshResponsibleSpinner(ownerDashboard.getUsers());
-    }
-
-    @Override
-    public String writeToModel(Task task) {
+    protected String writeToModelPrivate(Task task) {
         Metadata metadata = ProducteevDataService.getInstance().getTaskMetadata(task.getId());
         try {
             if (metadata == null) {

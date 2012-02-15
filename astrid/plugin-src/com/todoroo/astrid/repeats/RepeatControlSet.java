@@ -61,18 +61,18 @@ public class RepeatControlSet extends PopupControlSet {
     private static final int TYPE_DUE_DATE = 0;
     private static final int TYPE_COMPLETION_DATE = 1;
 
-    // --- instance variables
-
-    private final Activity activity;
     //private final CheckBox enabled;
-    private boolean doRepeat = true;
-    private final Button value;
-    private final Spinner interval;
-    private final Spinner type;
-    private final LinearLayout repeatContainer;
-    private final LinearLayout daysOfWeekContainer;
+    private boolean doRepeat = false;
+    private Button value;
+    private Spinner interval;
+    private Spinner type;
+    private LinearLayout repeatContainer;
+    private LinearLayout daysOfWeekContainer;
     private final CompoundButton[] daysOfWeek = new CompoundButton[7];
-    private Task model;
+
+    private String recurrence;
+    private int repeatValue;
+    private int intervalValue;
 
 
     private final List<RepeatChangedListener> listeners = new LinkedList<RepeatChangedListener>();
@@ -91,8 +91,143 @@ public class RepeatControlSet extends PopupControlSet {
     public RepeatControlSet(Activity activity, int viewLayout, int displayViewLayout, int title) {
         super(activity, viewLayout, displayViewLayout, title);
         DependencyInjectionService.getInstance().inject(this);
+    }
 
-        this.activity = activity;
+    /** Set up the repeat value button */
+    private void setRepeatValue(int newValue) {
+        repeatValue = newValue;
+        value.setText(activity.getString(R.string.repeat_every, newValue));
+    }
+
+    protected void repeatValueClick() {
+
+        final Runnable openDialogRunnable = new Runnable() {
+            public void run() {
+                int dialogValue = repeatValue;
+                if(dialogValue == 0)
+                    dialogValue = 1;
+
+                new NumberPickerDialog(activity, new OnNumberPickedListener() {
+                    @Override
+                    public void onNumberPicked(NumberPicker view,
+                            int number) {
+                        setRepeatValue(number);
+                    }
+                }, activity.getResources().getString(R.string.repeat_interval_prompt),
+                dialogValue, 1, 1, 365).show();
+            }
+        };
+
+        openDialogRunnable.run();
+    }
+
+
+    public void addListener(RepeatChangedListener listener) {
+        listeners.add(listener);
+    }
+
+    public void removeListener(RepeatChangedListener listener) {
+        if (listeners.contains(listener))
+            listeners.remove(listener);
+    }
+
+    @Override
+    public void readFromTask(Task task) {
+        super.readFromTask(task);
+        recurrence = model.getValue(Task.RECURRENCE);
+        if(recurrence == null)
+            recurrence = "";
+
+        if(recurrence.length() > 0) {
+            try {
+                RRule rrule = new RRule(recurrence);
+                repeatValue = rrule.getInterval();
+                switch(rrule.getFreq()) {
+                case DAILY:
+                    intervalValue = INTERVAL_DAYS;
+                    break;
+                case WEEKLY: {
+                    intervalValue = INTERVAL_WEEKS;
+                    break;
+                }
+                case MONTHLY:
+                    intervalValue = INTERVAL_MONTHS;
+                    break;
+                case HOURLY:
+                    intervalValue = INTERVAL_HOURS;
+                    break;
+                case MINUTELY:
+                    intervalValue = INTERVAL_MINUTES;
+                    break;
+                case YEARLY:
+                    intervalValue = INTERVAL_YEARS;
+                    break;
+                default:
+                    // an unhandled recurrence
+                    exceptionService.reportError("repeat-unhandled-rule",  //$NON-NLS-1$
+                            new Exception("Unhandled rrule frequency: " + recurrence));
+                }
+            } catch (Exception e) {
+                // invalid RRULE
+                recurrence = ""; //$NON-NLS-1$
+                exceptionService.reportError("repeat-parse-exception", e);
+            }
+        }
+        doRepeat = recurrence.length() > 0;
+        refreshDisplayView();
+    }
+
+    @SuppressWarnings("nls")
+    @Override
+    protected void readFromTaskPrivate() {
+        Date date;
+        if(model.getValue(Task.DUE_DATE) == 0)
+            date = new Date();
+        else
+            date = new Date(model.getValue(Task.DUE_DATE));
+        int dayOfWeek = date.getDay();
+        for(int i = 0; i < 7; i++)
+            daysOfWeek[i].setChecked(i == dayOfWeek);
+
+        // read recurrence rule
+        if(recurrence.length() > 0) {
+            try {
+                RRule rrule = new RRule(recurrence);
+
+                setRepeatValue(rrule.getInterval());
+                interval.setSelection(intervalValue);
+
+                // clear all day of week checks, then update them
+                for(int i = 0; i < 7; i++)
+                    daysOfWeek[i].setChecked(false);
+
+                for(WeekdayNum day : rrule.getByDay()) {
+                    for(int i = 0; i < 7; i++)
+                        if(daysOfWeek[i].getTag().equals(day.wday))
+                            daysOfWeek[i].setChecked(true);
+                }
+
+                // suppress first call to interval.onItemSelected
+                setInterval = true;
+            } catch (Exception e) {
+                // invalid RRULE
+                recurrence = ""; //$NON-NLS-1$
+                exceptionService.reportError("repeat-parse-exception", e);
+            }
+        }
+        doRepeat = recurrence.length() > 0;
+
+        // read flag
+        if(model.getFlag(Task.FLAGS, Task.FLAG_REPEAT_AFTER_COMPLETION))
+            type.setSelection(TYPE_COMPLETION_DATE);
+        else
+            type.setSelection(TYPE_DUE_DATE);
+
+        refreshDisplayView();
+    }
+
+    @Override
+    protected void afterInflate() {
         value = (Button) getView().findViewById(R.id.repeatValue);
         interval = (Spinner) getView().findViewById(R.id.repeatInterval);
         type = (Spinner) getView().findViewById(R.id.repeatType);
@@ -147,128 +282,8 @@ public class RepeatControlSet extends PopupControlSet {
         daysOfWeekContainer.setVisibility(View.GONE);
     }
 
-    /** Set up the repeat value button */
-    private void setRepeatValue(int newValue) {
-        value.setText(activity.getString(R.string.repeat_every, newValue));
-        value.setTag(newValue);
-    }
-
-    protected void repeatValueClick() {
-        final int tagValue = (Integer)value.getTag();
-
-        final Runnable openDialogRunnable = new Runnable() {
-            public void run() {
-                int dialogValue = tagValue;
-                if(dialogValue == 0)
-                    dialogValue = 1;
-
-                new NumberPickerDialog(activity, new OnNumberPickedListener() {
-                    @Override
-                    public void onNumberPicked(NumberPicker view,
-                            int number) {
-                        setRepeatValue(number);
-                    }
-                }, activity.getResources().getString(R.string.repeat_interval_prompt),
-                dialogValue, 1, 1, 365).show();
-            }
-        };
-
-        openDialogRunnable.run();
-    }
-
-
-    public void addListener(RepeatChangedListener listener) {
-        listeners.add(listener);
-    }
-
-    public void removeListener(RepeatChangedListener listener) {
-        if (listeners.contains(listener))
-            listeners.remove(listener);
-    }
-
-
-    @SuppressWarnings("nls")
     @Override
-    public void readFromTask(Task task) {
-        model = task;
-
-        String recurrence = task.getValue(Task.RECURRENCE);
-        if(recurrence == null)
-            recurrence = "";
-
-        Date date;
-        if(model.getValue(Task.DUE_DATE) == 0)
-            date = new Date();
-        else
-            date = new Date(model.getValue(Task.DUE_DATE));
-        int dayOfWeek = date.getDay();
-        for(int i = 0; i < 7; i++)
-            daysOfWeek[i].setChecked(i == dayOfWeek);
-
-        // read recurrence rule
-        if(recurrence.length() > 0) {
-            try {
-                RRule rrule = new RRule(recurrence);
-
-                setRepeatValue(rrule.getInterval());
-                switch(rrule.getFreq()) {
-                case DAILY:
-                    interval.setSelection(INTERVAL_DAYS);
-                    break;
-                case WEEKLY: {
-                    interval.setSelection(INTERVAL_WEEKS);
-                    break;
-                }
-                case MONTHLY:
-                    interval.setSelection(INTERVAL_MONTHS);
-                    break;
-                case HOURLY:
-                    interval.setSelection(INTERVAL_HOURS);
-                    break;
-                case MINUTELY:
-                    interval.setSelection(INTERVAL_MINUTES);
-                    break;
-                case YEARLY:
-                    interval.setSelection(INTERVAL_YEARS);
-                    break;
-                default:
-                    // an unhandled recurrence
-                    exceptionService.reportError("repeat-unhandled-rule",  //$NON-NLS-1$
-                            new Exception("Unhandled rrule frequency: " + recurrence));
-                }
-
-                // clear all day of week checks, then update them
-                for(int i = 0; i < 7; i++)
-                    daysOfWeek[i].setChecked(false);
-
-                for(WeekdayNum day : rrule.getByDay()) {
-                    for(int i = 0; i < 7; i++)
-                        if(daysOfWeek[i].getTag().equals(day.wday))
-                            daysOfWeek[i].setChecked(true);
-                }
-
-                // suppress first call to interval.onItemSelected
-                setInterval = true;
-            } catch (Exception e) {
-                // invalid RRULE
-                recurrence = ""; //$NON-NLS-1$
-                exceptionService.reportError("repeat-parse-exception", e);
-            }
-        }
-        doRepeat = recurrence.length() > 0;
-
-        // read flag
-        if(task.getFlag(Task.FLAGS, Task.FLAG_REPEAT_AFTER_COMPLETION))
-            type.setSelection(TYPE_COMPLETION_DATE);
-        else
-            type.setSelection(TYPE_DUE_DATE);
-
-        refreshDisplayView();
-    }
-
-
-    @Override
-    public String writeToModel(Task task) {
+    protected String writeToModelPrivate(Task task) {
         String result;
         if(!doRepeat)
             result = ""; //$NON-NLS-1$
@@ -278,7 +293,7 @@ public class RepeatControlSet extends PopupControlSet {
             }
 
             RRule rrule = new RRule();
-            rrule.setInterval((Integer)value.getTag());
+            rrule.setInterval(repeatValue);
             switch(interval.getSelectedItemPosition()) {
             case INTERVAL_DAYS:
                 rrule.setFreq(Frequency.DAILY);
@@ -328,27 +343,45 @@ public class RepeatControlSet extends PopupControlSet {
         return doRepeat;
     }
 
+    /**
+     * @return the recurrence display string if set, null
+     * if not set
+     */
+    public String getStringForExternalDisplay() {
+        if (isRecurrenceSet()) {
+            return getRepeatString(false);
+        }
+        return null;
+    }
+
     @Override
     protected void refreshDisplayView() {
         TextView repeatDisplay = (TextView) getDisplayView().findViewById(R.id.display_row_edit);
         ImageView repeatImage = (ImageView) getDisplayView().findViewById(R.id.repeat_image_icon);
         if (doRepeat) {
-
-            String[] dateAbbrev = activity.getResources().getStringArray(
-                        R.array.repeat_interval_short);
-            String date = String.format("%s %s", (Integer)value.getTag(), dateAbbrev[interval.getSelectedItemPosition()]); //$NON-NLS-1$
-            String text = String.format(activity.getString(R.string.repeat_detail_duedate), date); // Every freq int
-            repeatDisplay.setText(text);
+            repeatDisplay.setText(getRepeatString(true));
 
             TypedValue repeatIcon = new TypedValue();
             activity.getTheme().resolveAttribute(R.attr.asRepeatIcon, repeatIcon, false);
             repeatImage.setImageResource(repeatIcon.data);
 
         } else {
-
             repeatDisplay.setText(R.string.repeat_never);
             repeatImage.setImageResource(R.drawable.icn_edit_repeats);
         }
+    }
+
+    private String getRepeatString(boolean useAbbrev) {
+        int arrayResource;
+        if (useAbbrev)
+            arrayResource = R.array.repeat_interval_short;
+        else
+            arrayResource = R.array.repeat_interval;
+
+        String[] dates = activity.getResources().getStringArray(
+                    arrayResource);
+        String date = String.format("%s %s", repeatValue, dates[intervalValue]); //$NON-NLS-1$
+        return String.format(activity.getString(R.string.repeat_detail_duedate), date); // Every freq int
     }
 
     @Override

@@ -25,6 +25,19 @@ public class TimerControlSet extends PopupControlSet implements TimerActionListe
         super(activity, viewLayout, displayViewLayout, title);
 
         this.displayText.setText(activity.getString(R.string.TEA_timer_controls));
+
+    }
+
+    @Override
+    protected void readFromTaskPrivate() {
+        estimated.readFromTask(model);
+        estimated.getView(); // force load
+        elapsed.readFromTask(model);
+        elapsed.getView(); // force load
+    }
+
+    @Override
+    protected void afterInflate() {
         estimated = new TimeDurationTaskEditControlSet(activity, getView(), Task.ESTIMATED_SECONDS,
                 R.id.estimatedDuration, 0, R.string.DLG_hour_minutes
                 );
@@ -34,15 +47,11 @@ public class TimerControlSet extends PopupControlSet implements TimerActionListe
     }
 
     @Override
-    public void readFromTask(Task task) {
-        estimated.readFromTask(task);
-        elapsed.readFromTask(task);
-    }
-
-    @Override
-    public String writeToModel(Task task) {
-        estimated.writeToModel(task);
-        elapsed.writeToModel(task);
+    protected String writeToModelPrivate(Task task) {
+        if (initialized) {
+            estimated.writeToModel(task);
+            elapsed.writeToModel(task);
+        }
         return null;
     }
 
@@ -66,12 +75,17 @@ public class TimerControlSet extends PopupControlSet implements TimerActionListe
         }
 
         @Override
-        public void readFromTask(Task task) {
-            controlSet.setTimeDuration(task.getValue(property));
+        public void readFromTaskPrivate() {
+            controlSet.setTimeDuration(model.getValue(property));
         }
 
         @Override
-        public String writeToModel(Task task) {
+        protected void afterInflate() {
+            // Nothing
+        }
+
+        @Override
+        protected String writeToModelPrivate(Task task) {
             task.setValue(property, controlSet.getTimeDurationInSeconds());
             return null;
         }

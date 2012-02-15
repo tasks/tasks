@@ -2,7 +2,6 @@ package com.todoroo.astrid.tags;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.LinkedHashSet;
 
 import android.app.Activity;
@@ -44,32 +43,19 @@ public final class TagsControlSet extends PopupControlSet {
     //private final Spinner tagSpinner;
     //@Autowired private TagDataService tagDataService;
     private final TagService tagService = TagService.getInstance();
-    private final ArrayList<String> allTagNames;
+    private ArrayList<String> allTagNames;
 
-    private final LinearLayout newTags;
-    private final ListView selectedTags;
+    private LinearLayout newTags;
+    private ListView selectedTags;
     private boolean populated = false;
-    private final HashMap<String, Integer> tagIndices;
+    private HashMap<String, Integer> tagIndices;
 
     //private final LinearLayout tagsContainer;
-    private final Activity activity;
     private final TextView tagsDisplay;
 
     public TagsControlSet(Activity activity, int viewLayout, int displayViewLayout, int title) {
         super(activity, viewLayout, displayViewLayout, title);
         DependencyInjectionService.getInstance().inject(this);
-        this.activity = activity;
-        Tag[] allTags = getTagArray();
-        allTagNames = getTagNames(allTags);
-        tagIndices = buildTagIndices(allTagNames);
-
-        selectedTags = (ListView) getView().findViewById(R.id.existingTags);
-        selectedTags.setAdapter(new ArrayAdapter<String>(activity,
-                R.layout.simple_list_item_multiple_choice_themed, allTagNames));
-        selectedTags.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
-
-        this.newTags = (LinearLayout) getView().findViewById(R.id.newTags);
-
         tagsDisplay = (TextView) getDisplayView().findViewById(R.id.display_row_edit);
         this.displayText.setText(activity.getString(R.string.TEA_tags_label));
     }
@@ -124,17 +110,23 @@ public final class TagsControlSet extends PopupControlSet {
 
     private LinkedHashSet<String> getTagSet() {
         LinkedHashSet<String> tags = new LinkedHashSet<String>();
-        for(int i = 0; i < selectedTags.getAdapter().getCount(); i++) {
-            if (selectedTags.isItemChecked(i))
-                tags.add(allTagNames.get(i));
-        }
+        if (initialized) {
+            for(int i = 0; i < selectedTags.getAdapter().getCount(); i++) {
+                if (selectedTags.isItemChecked(i))
+                    tags.add(allTagNames.get(i));
+            }
 
-        for(int i = 0; i < newTags.getChildCount(); i++) {
-            TextView tagName = (TextView) newTags.getChildAt(i).findViewById(R.id.text1);
-            if(tagName.getText().length() == 0)
-                continue;
+            for(int i = 0; i < newTags.getChildCount(); i++) {
+                TextView tagName = (TextView) newTags.getChildAt(i).findViewById(R.id.text1);
+                if(tagName.getText().length() == 0)
+                    continue;
 
-            tags.add(tagName.getText().toString());
+                tags.add(tagName.getText().toString());
+            }
+        } else {
+            if (model.getTransitory("tags") != null) {
+                return (LinkedHashSet<String>) model.getTransitory("tags");
+            }
         }
         return tags;
     }
@@ -229,32 +221,62 @@ public final class TagsControlSet extends PopupControlSet {
 
     @Override
     public void readFromTask(Task task) {
-        newTags.removeAllViews();
-
-        for (int i = 0; i < selectedTags.getCount(); i++) { // clear all selected items
-            selectedTags.setItemChecked(i, false);
-        }
-        if(task.getId() != AbstractModel.NO_ID) {
-            TodorooCursor<Metadata> cursor = tagService.getTags(task.getId());
-            HashSet<String> tags = new HashSet<String>(cursor.getCount());
+        super.readFromTask(task);
+        if(model.getId() != AbstractModel.NO_ID) {
+            TodorooCursor<Metadata> cursor = tagService.getTags(model.getId());
+            LinkedHashSet<String> tags = new LinkedHashSet<String>(cursor.getCount());
             try {
                 for(cursor.moveToFirst(); !cursor.isAfterLast(); cursor.moveToNext()) {
                     String tag = cursor.get(TagService.TAG);
-                    setTagSelected(tag);
                     tags.add(tag);
                 }
             } finally {
                 cursor.close();
             }
-            task.putTransitory("tags", tags); //$NON-NLS-1$
+            model.putTransitory("tags", tags); //$NON-NLS-1$
+        }
+    }
+
+    @Override
+    protected void readFromTaskPrivate() {
+        newTags.removeAllViews();
+
+        for (int i = 0; i < selectedTags.getCount(); i++) { // clear all selected items
+            selectedTags.setItemChecked(i, false);
+        }
+        if(model.getId() != AbstractModel.NO_ID) {
+            selectTagsFromModel();
         }
         addTag("", false); //$NON-NLS-1$
         refreshDisplayView();
         populated = true;
     }
 
+    private void selectTagsFromModel() {
+        LinkedHashSet<String> tags = (LinkedHashSet<String>) model.getTransitory("tags");
+        if (tags != null) {
+            for (String tag : tags) {
+                setTagSelected(tag);
+            }
+        }
+    }
+
     @Override
-    public String writeToModel(Task task) {
+    protected void afterInflate() {
+        Tag[] allTags = getTagArray();
+        allTagNames = getTagNames(allTags);
+        tagIndices = buildTagIndices(allTagNames);
+
+        selectedTags = (ListView) getView().findViewById(R.id.existingTags);
+        selectedTags.setAdapter(new ArrayAdapter<String>(activity,
+                R.layout.simple_list_item_multiple_choice_themed, allTagNames));
+        selectedTags.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
+
+        this.newTags = (LinearLayout) getView().findViewById(R.id.newTags);
+    }
+
+    @Override
+    protected String writeToModelPrivate(Task task) {
         // this is a case where we're asked to save but the UI was not yet populated
         if(!populated)
             return null;

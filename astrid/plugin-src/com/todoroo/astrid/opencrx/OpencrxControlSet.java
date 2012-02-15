@@ -183,13 +183,11 @@ public class OpencrxControlSet extends PopupControlSet {
 
     // --- instance variables
 
-    private final Activity activity;
+    private Spinner assignedToSelector;
+    private Spinner creatorSelector;
 
-    private final Spinner assignedToSelector;
-    private final Spinner creatorSelector;
-
-    private final AutoCompleteTextView assignedToTextInput;
-    private final AutoCompleteTextView creatorTextInput;
+    private AutoCompleteTextView assignedToTextInput;
+    private AutoCompleteTextView creatorTextInput;
 
     private ArrayList<OpencrxContact> users = null;
     private ArrayList<OpencrxActivityCreator> dashboards = null;
@@ -204,10 +202,11 @@ public class OpencrxControlSet extends PopupControlSet {
     public OpencrxControlSet(final Activity activity, int viewLayout, int displayViewLayout, int title) {
         super(activity, viewLayout, displayViewLayout, title);
         DependencyInjectionService.getInstance().inject(this);
+    }
 
-        this.activity = activity;
-
-        //View view = LayoutInflater.from(activity).inflate(R.layout.opencrx_control, parent, true);
+    @Override
+    protected void afterInflate() {
+      //View view = LayoutInflater.from(activity).inflate(R.layout.opencrx_control, parent, true);
 
         this.assignedToSelector = (Spinner) getView().findViewById(R.id.opencrx_TEA_task_assign);
         TextView emptyView = new TextView(activity);
@@ -218,16 +217,15 @@ public class OpencrxControlSet extends PopupControlSet {
 
         this.assignedToTextInput = (AutoCompleteTextView) getView().findViewById(R.id.opencrx_TEA_contact_textinput);
         this.creatorTextInput = (AutoCompleteTextView) getView().findViewById(R.id.opencrx_TEA_creator_textinput);
-
     }
 
     @Override
-    public void readFromTask(Task task) {
+    protected void readFromTaskPrivate() {
 
 
-        Metadata metadata = getTaskMetadata(task.getId());
+        Metadata metadata = getTaskMetadata(model.getId());
         if(metadata == null)
-            metadata = OpencrxCoreUtils.INSTANCE.newMetadata(task.getId());
+            metadata = OpencrxCoreUtils.INSTANCE.newMetadata(model.getId());
 
         // Fill the dashboard-spinner and set the current dashboard
         long dashboardId = OpencrxCoreUtils.INSTANCE.getDefaultCreator();
@@ -339,7 +337,7 @@ public class OpencrxControlSet extends PopupControlSet {
     }
 
     @Override
-    public String writeToModel(Task task) {
+    protected String writeToModelPrivate(Task task) {
         Metadata metadata = getTaskMetadata(task.getId());
         try {
             if (metadata == null) {

@@ -23,24 +23,20 @@
         android:id="@+id/lists_footer"
         android:layout_width="fill_parent" 
         android:layout_height="50dip"
+        android:padding="5dip"
         android:orientation="horizontal"
         android:gravity="center_vertical"
         android:layout_alignParentBottom="true">
         
-        <ImageView
-            android:layout_width="39dip"
-            android:layout_height="39dip"
-            android:layout_marginLeft="5dip"
-            android:layout_marginRight="8dip"
-            android:src="?attr/asAddButtonImg"
-            android:scaleType="fitCenter"/>
-            
         <TextView
 		    android:id="@+id/new_list_button"
 		    android:layout_width="fill_parent"
 		    android:layout_height="fill_parent"
-            android:padding="10dip"
 		    android:gravity="left|center_vertical"
+	        android:background="?attr/asThemeTextColor"
+	        android:paddingLeft="12dip"
+		    android:drawableLeft="@drawable/filter_plus_button"
+            android:drawablePadding="13dip"
 		    android:text="@string/FLA_new_list"
 		    style="@style/TextAppearance.FLA_Button"/>
         

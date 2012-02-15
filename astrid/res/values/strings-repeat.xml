@@ -19,7 +19,7 @@
   <!-- hint when opening repeat interval -->
   <string name="repeat_interval_prompt">Repeat Interval</string>
   
-  <string name="repeat_never">No Repeat</string>
+  <string name="repeat_never">Make Repeating?</string>
   
   <string name="repeat_dont">Don\'t repeat</string>
       

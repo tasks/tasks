@@ -162,6 +162,7 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
     private final int resource;
     private final LayoutInflater inflater;
     private DetailLoaderThread detailLoader;
+    private ActionsLoaderThread actionsLoader;
     private int fontSize;
     protected boolean applyListenersToRowBody = false;
     private long mostRecentlyMade = -1;
@@ -214,6 +215,7 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
         this.minRowHeight = (int) (57 * displayMetrics.density);
 
         startDetailThread();
+        startTaskActionsThread();
 
         decorationManager = new DecorationManager();
 
@@ -228,6 +230,11 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
             detailLoader = new DetailLoaderThread();
             detailLoader.start();
         }
+    }
+
+    private void startTaskActionsThread() {
+        actionsLoader = new ActionsLoaderThread();
+        actionsLoader.start();
     }
 
     /* ======================================================================
@@ -633,7 +640,6 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
     // a large number of tasks to load, since it all goes into memory.
     // it's best to do this, though, in order to append details to each other
     private final Map<Long, StringBuilder> taskDetailLoader = Collections.synchronizedMap(new HashMap<Long, StringBuilder>(0));
-    private final Map<Long, TaskAction> taskActionLoader = Collections.synchronizedMap(new HashMap<Long, TaskAction>());
 
     public class DetailLoaderThread extends Thread {
         @Override
@@ -647,17 +653,12 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
                 Random random = new Random();
 
                 Task task = new Task();
-                LinkActionExposer linkActionExposer = new LinkActionExposer();
 
                 for(fetchCursor.moveToFirst(); !fetchCursor.isAfterLast(); fetchCursor.moveToNext()) {
                     task.clear();
                     task.readFromCursor(fetchCursor);
                     if(task.isCompleted())
                         continue;
-
-                    List<TaskAction> actions = linkActionExposer.getActionsForTask(ContextManager.getContext(), task.getId());
-                    if (actions.size() > 0)
-                        taskActionLoader.put(task.getId(), actions.get(0));
 
                     if(detailsAreRecentAndUpToDate(task)) {
                         // even if we are up to date, randomly load a fraction
@@ -682,7 +683,7 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
 
                     requestNewDetails(task);
                 }
-                if(taskDetailLoader.size() > 0 || taskActionLoader.size() > 0) {
+                if(taskDetailLoader.size() > 0) {
                     Activity activity = fragment.getActivity();
                     if (activity != null) {
                         activity.runOnUiThread(new Runnable() {
@@ -716,6 +717,46 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
             Activity activity = fragment.getActivity();
             if (activity != null)
                 activity.sendOrderedBroadcast(broadcastIntent, AstridApiConstants.PERMISSION_READ);
+        }
+    }
+
+
+    private final Map<Long, TaskAction> taskActionLoader = Collections.synchronizedMap(new HashMap<Long, TaskAction>());
+    public class ActionsLoaderThread extends Thread {
+        @Override
+        public void run() {
+            AndroidUtilities.sleepDeep(500L);
+            TodorooCursor<Task> fetchCursor = taskService.fetchFiltered(
+                    query.get(), null, Task.ID, Task.TITLE, Task.DETAILS, Task.DETAILS_DATE,
+                    Task.MODIFICATION_DATE, Task.COMPLETION_DATE);
+            try {
+                Task task = new Task();
+                LinkActionExposer linkActionExposer = new LinkActionExposer();
+
+                for(fetchCursor.moveToFirst(); !fetchCursor.isAfterLast(); fetchCursor.moveToNext()) {
+                    task.clear();
+                    task.readFromCursor(fetchCursor);
+                    if(task.isCompleted())
+                        continue;
+
+                    List<TaskAction> actions = linkActionExposer.getActionsForTask(ContextManager.getContext(), task.getId());
+                    if (actions.size() > 0)
+                        taskActionLoader.put(task.getId(), actions.get(0));
+                }
+                if(taskActionLoader.size() > 0) {
+                    Activity activity = fragment.getActivity();
+                    if (activity != null) {
+                        activity.runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                notifyDataSetChanged();
+                            }
+                        });
+                    }
+                }
+            } finally {
+                fetchCursor.close();
+            }
         }
     }
 
@@ -796,6 +837,7 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
         taskDetailLoader.clear();
         taskActionLoader.clear();
         startDetailThread();
+        startTaskActionsThread();
     }
 
     /**

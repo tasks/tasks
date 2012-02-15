@@ -24,13 +24,10 @@ public class TimerActionControlSet extends TaskEditControlSet {
     private final Chronometer chronometer;
     private final LinearLayout timerContainer;
     private boolean timerActive;
-    private Task task;
-    private final Activity activity;
     private final List<TimerActionListener> listeners = new LinkedList<TimerActionListener>();
 
     public TimerActionControlSet(Activity activity, View parent) {
         super(activity, -1);
-        this.activity = activity;
         timerContainer = (LinearLayout) parent.findViewById(R.id.timer_container);
         timerButton = (ImageView) parent.findViewById(R.id.timer_button);
         timerContainer.setOnClickListener(timerListener);
@@ -39,19 +36,23 @@ public class TimerActionControlSet extends TaskEditControlSet {
 
     @Override
     @SuppressWarnings("hiding")
-    public void readFromTask(Task task) {
-        if (task.getValue(Task.TIMER_START) == 0)
+    protected void readFromTaskPrivate() {
+        if (model.getValue(Task.TIMER_START) == 0)
             timerActive = false;
         else
             timerActive = true;
 
-        this.task = task;
         updateDisplay();
     }
 
     @Override
+    protected void afterInflate() {
+        // Do nothing
+    }
+
+    @Override
     @SuppressWarnings("hiding")
-    public String writeToModel(Task task) {
+    protected String writeToModelPrivate(Task task) {
         // Nothing to do here
         return null;
     }
@@ -60,15 +61,15 @@ public class TimerActionControlSet extends TaskEditControlSet {
         @Override
         public void onClick(View v) {
             if (timerActive) {
-                TimerPlugin.updateTimer(activity, task, false);
+                TimerPlugin.updateTimer(activity, model, false);
 
                 for(TimerActionListener listener : listeners)
-                    listener.timerStopped(task);
+                    listener.timerStopped(model);
                 chronometer.stop();
             } else {
-                TimerPlugin.updateTimer(activity, task, true);
+                TimerPlugin.updateTimer(activity, model, true);
                 for(TimerActionListener listener : listeners)
-                    listener.timerStarted(task);
+                    listener.timerStarted(model);
                 chronometer.start();
             }
             timerActive = !timerActive;
@@ -86,10 +87,10 @@ public class TimerActionControlSet extends TaskEditControlSet {
         timerButton.setImageResource(drawable);
 
 
-        long elapsed = task.getValue(Task.ELAPSED_SECONDS) * 1000L;
+        long elapsed = model.getValue(Task.ELAPSED_SECONDS) * 1000L;
         if (timerActive) {
             chronometer.setVisibility(View.VISIBLE);
-            elapsed += DateUtilities.now() - task.getValue(Task.TIMER_START);
+            elapsed += DateUtilities.now() - model.getValue(Task.TIMER_START);
             chronometer.setBase(SystemClock.elapsedRealtime() - elapsed);
             if (elapsed > DateUtilities.ONE_DAY); {
                 chronometer.setOnChronometerTickListener(new OnChronometerTickListener() {

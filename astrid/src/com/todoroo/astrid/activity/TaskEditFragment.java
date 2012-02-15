@@ -538,7 +538,7 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
         // Order matters!
         DeadlineControlSet deadlineControl = new DeadlineControlSet(
                 getActivity(), R.layout.control_set_deadline,
-                R.layout.control_set_default_display,
+                R.layout.control_set_default_display, repeatControls,
                 repeatControls.getDisplayView(), gcalControl.getDisplayView());
         controlSetMap.put(getString(R.string.TEA_ctrl_when_pref),
                 deadlineControl);
