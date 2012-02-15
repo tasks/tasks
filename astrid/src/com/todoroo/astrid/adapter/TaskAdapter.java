@@ -279,16 +279,17 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
         viewHolder.taskActionContainer = view.findViewById(R.id.taskActionContainer);
         viewHolder.taskActionIcon = (ImageView)view.findViewById(R.id.taskActionIcon);
 
-
-        if (Preferences.getBoolean(R.string.p_showNotes, false)) {
+        boolean showFullTaskTitle = Preferences.getBoolean(R.string.p_fullTaskTitle, false);
+        boolean showNotes = Preferences.getBoolean(R.string.p_showNotes, false);
+        if (showFullTaskTitle) {
             viewHolder.nameView.setMaxLines(Integer.MAX_VALUE);
-            LayoutParams containerParams = view.getLayoutParams();
-            containerParams.height = LayoutParams.WRAP_CONTENT;
-            view.setPadding(view.getPaddingLeft(), 20, view.getPaddingRight(), 20);
-            view.setLayoutParams(containerParams);
+        }
+
+        if (showNotes) {
             RelativeLayout.LayoutParams taskRowParams = (RelativeLayout.LayoutParams)viewHolder.taskRow.getLayoutParams();
             taskRowParams.addRule(RelativeLayout.CENTER_VERTICAL, 0);
         }
+
 
         view.setTag(viewHolder);
         for(int i = 0; i < view.getChildCount(); i++)

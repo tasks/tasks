@@ -19,6 +19,11 @@
 	            android:summary="@string/EPr_fontSize_desc" />
 	        
 	        <com.todoroo.astrid.ui.MultilineCheckboxPreference
+	            android:key="@string/p_fullTaskTitle"
+	            android:title="@string/EPr_fullTask_title"
+	            android:defaultValue="false" />
+	        
+	        <com.todoroo.astrid.ui.MultilineCheckboxPreference
 	            android:key="@string/p_showNotes"
 	            android:title="@string/EPr_showNotes_title"
 	            android:defaultValue="false" />

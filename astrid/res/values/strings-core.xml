@@ -485,6 +485,11 @@
   <string name="EPr_userLegacyImportance_title">Use legacy importance style</string>
   <string name="EPr_userLegacyImportance_desc">Use legacy importance style</string>
   
+  <!-- Preferences: Wrap task titles to two lines -->
+  <string name="EPr_fullTask_title">Show full task title</string>
+  <string name="EPr_fullTask_desc_enabled">Full task title will be shown</string>
+  <string name="EPr_fullTask_desc_disabled">First two lines of task title will be shown</string>
+  
   <!-- Preference: Theme -->
   <string name="EPr_theme_title">Color Theme</string>
   <!-- Preference: Theme Description (%s => value) -->

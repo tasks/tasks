@@ -291,6 +291,11 @@ public class EditPreferences extends TodorooPreferenceActivity {
                 taskService.clearDetails(Criterion.all);
                 Flags.set(Flags.REFRESH);
             }
+        } else if(r.getString(R.string.p_fullTaskTitle).equals(preference.getKey())) {
+            if (value != null && (Boolean) value)
+                preference.setSummary(R.string.EPr_fullTask_desc_enabled);
+            else
+                preference.setSummary(R.string.EPr_fullTask_desc_disabled);
         } else if (r.getString(R.string.p_theme).equals(preference.getKey())) {
             if(AndroidUtilities.getSdkVersion() < 5) {
                 preference.setEnabled(false);
