@@ -102,6 +102,7 @@ import com.todoroo.astrid.ui.NestableViewPager;
 import com.todoroo.astrid.ui.ReminderControlSet;
 import com.todoroo.astrid.ui.TaskEditMoreControls;
 import com.todoroo.astrid.ui.WebServicesView;
+import com.todoroo.astrid.utility.Flags;
 import com.todoroo.astrid.voice.VoiceInputAssistant;
 import com.viewpagerindicator.TabPageIndicator;
 
@@ -173,6 +174,7 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
     public static final String TOKEN_TASK_WAS_ASSIGNED = "task_assigned"; //$NON-NLS-1$
 
     public static final String TOKEN_ASSIGNED_TO = "task_assigned_to"; //$NON-NLS-1$
+    public static final String TOKEN_TAGS_CHANGED = "tags_changed";  //$NON-NLS-1$
 
     // --- services
 
@@ -884,26 +886,32 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
         boolean cancelFinish = !onPause && peopleControlSet != null
         && !peopleControlSet.saveSharingSettings(processedToast);
 
+        boolean tagsChanged = Flags.check(Flags.TAGS_CHANGED);
         model.putTransitory("task-edit-save", true); //$NON-NLS-1$
         taskService.save(model);
 
         if (!onPause && !cancelFinish) {
             boolean setActivityResult = (getActivity() instanceof TaskEditActivity);
-
-            if (!peopleControlSet.isAssignedToMe()) {
-                String assignedTo = peopleControlSet.getAssignedToString();
-                if (setActivityResult) {
-                    Intent data = new Intent();
+            boolean isAssignedToMe = peopleControlSet.isAssignedToMe();
+            String assignedTo = peopleControlSet.getAssignedToString();
+            if (setActivityResult) {
+                Intent data = new Intent();
+                if (!isAssignedToMe) {
                     data.putExtra(TOKEN_TASK_WAS_ASSIGNED, true);
                     data.putExtra(TOKEN_ASSIGNED_TO,
                             assignedTo);
-                    getActivity().setResult(Activity.RESULT_OK, data);
-                } else {
-                    // Notify task list fragment in multi-column case
-                    // since the activity isn't actually finishing
-                    TaskListActivity tla = (TaskListActivity) getActivity();
-                    tla.switchToAssignedFilter(assignedTo);
                 }
+                data.putExtra(TOKEN_TAGS_CHANGED, tagsChanged);
+                getActivity().setResult(Activity.RESULT_OK, data);
+
+            } else {
+                // Notify task list fragment in multi-column case
+                // since the activity isn't actually finishing
+                TaskListActivity tla = (TaskListActivity) getActivity();
+                if (!isAssignedToMe)
+                    tla.switchToAssignedFilter(assignedTo);
+                if (tagsChanged)
+                    tla.tagsChanged();
             }
 
             shouldSaveState = false;

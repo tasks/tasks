@@ -387,12 +387,13 @@ public class TaskListActivity extends AstridActivity implements MainMenuListener
             // For cases when we're in a multi-frame layout, the TaskEditFragment will notify us here directly
             TaskListFragment tlf = getTaskListFragment();
             if (tlf != null) {
-                if (data != null
-                        && data.hasExtra(TaskEditFragment.TOKEN_TASK_WAS_ASSIGNED)
-                        && data.getBooleanExtra(
-                                TaskEditFragment.TOKEN_TASK_WAS_ASSIGNED, false)) {
-                    String assignedTo = data.getStringExtra(TaskEditFragment.TOKEN_ASSIGNED_TO);
-                    switchToAssignedFilter(assignedTo);
+                if (data != null) {
+                    if (data.getBooleanExtra(TaskEditFragment.TOKEN_TASK_WAS_ASSIGNED, false)) {
+                        String assignedTo = data.getStringExtra(TaskEditFragment.TOKEN_ASSIGNED_TO);
+                        switchToAssignedFilter(assignedTo);
+                    }
+                    if (data.getBooleanExtra(TaskEditFragment.TOKEN_TAGS_CHANGED, false))
+                        tagsChanged(true);
                 } else {
                     tlf.refresh();
                 }
@@ -400,6 +401,20 @@ public class TaskListActivity extends AstridActivity implements MainMenuListener
         }
 
         super.onActivityResult(requestCode, resultCode, data);
+    }
+
+    protected void tagsChanged() {
+        tagsChanged(false);
+    }
+
+    private void tagsChanged(boolean onActivityResult) {
+        FilterListFragment flf = getFilterListFragment();
+        if (flf != null) {
+            if (onActivityResult)
+                flf.clear();
+            else
+                flf.refresh();
+        }
     }
 
     protected void switchToAssignedFilter(final String assignedEmail) {
