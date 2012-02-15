@@ -20,6 +20,7 @@ import android.content.res.Resources;
 import android.os.Handler;
 import android.text.TextUtils;
 import android.util.Log;
+import android.view.WindowManager.BadTokenException;
 
 import com.google.ical.values.RRule;
 import com.timsu.astrid.R;
@@ -99,9 +100,13 @@ public class TasksXmlImporter {
         progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
         progressDialog.setCancelable(false);
         progressDialog.setIndeterminate(true);
-        progressDialog.show();
-        if(context instanceof Activity)
-            progressDialog.setOwnerActivity((Activity)context);
+        try {
+            progressDialog.show();
+            if(context instanceof Activity)
+                progressDialog.setOwnerActivity((Activity)context);
+        } catch (BadTokenException e) {
+            // Running from a unit test or some such thing
+        }
 
         new Thread(new Runnable() {
             @Override
