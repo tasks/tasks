@@ -6,12 +6,8 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 import android.location.Location;
-import android.location.LocationListener;
-import android.location.LocationManager;
-import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v4.app.Fragment;
@@ -22,7 +18,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.timsu.astrid.R;
-import com.timsu.astrid.data.location.GeoPoint;
 import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.andlib.service.RestClient;
@@ -32,11 +27,11 @@ import com.todoroo.astrid.actfm.OAuthLoginActivity;
 import com.todoroo.astrid.activity.TaskEditFragment;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.helper.TaskEditControlSet;
+import com.todoroo.astrid.taskrabbit.TaskRabbitLocationManager.LocationResult;
 
-public class TaskRabbitControlSet extends TaskEditControlSet implements AssignedChangedListener, LocationListener {
+public class TaskRabbitControlSet extends TaskEditControlSet implements AssignedChangedListener {
 
 
-    private static final int RADIUS_250_MILES = 400000;
 
     public interface TaskRabbitSetListener {
         public void readFromModel(JSONObject json, String key);
@@ -58,18 +53,9 @@ public class TaskRabbitControlSet extends TaskEditControlSet implements Assigned
     public boolean isEnabledForTRLocation = false;
     public static final String LOCATION_ENABLED = "location_enabled"; //$NON-NLS-1$
 
-    private static final GeoPoint[] supportedLocations = {
-            new GeoPoint(42358430, -71059770), //
-            new GeoPoint(37739230, -122439880),
-            new GeoPoint(40714350, -74005970),
-            new GeoPoint(41878110, -8762980),
-            new GeoPoint(34052230, -118243680),
-            new GeoPoint(33717470, -117831140)
-    };
-
     private final Fragment fragment;
     protected final TextView displayText;
-    private LocationManager locationManager;
+    private TaskRabbitLocationManager locationManager;
 
     public static final int REQUEST_CODE_TASK_RABBIT_ACTIVITY = 5;
     public static final String DATA_RESPONSE = "response"; //$NON-NLS-1$
@@ -276,62 +262,27 @@ public class TaskRabbitControlSet extends TaskEditControlSet implements Assigned
 
 
     private void loadLocation() {
-        locationManager = (LocationManager) fragment.getActivity().getSystemService(Context.LOCATION_SERVICE);
-        currentLocation = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
+
+        locationManager = new TaskRabbitLocationManager(fragment.getActivity());
+        currentLocation = locationManager.getLastKnownLocation();
         if (currentLocation == null) {
-            try {
-                locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, this);
-            } catch (IllegalArgumentException e) {
-                // No gps
-                isEnabledForTRLocation = false;
+            locationManager.getLocation(new LocationResult(){
+                @Override
+                public void gotLocation(final Location location){
+                    //Got the location!
+                    currentLocation = location;
+                    isEnabledForTRLocation = TaskRabbitLocationManager.supportsCurrentLocation(currentLocation);
+                }
             }
+            );
         } else {
-            isEnabledForTRLocation = supportsCurrentLocation(currentLocation);
+            isEnabledForTRLocation = TaskRabbitLocationManager.supportsCurrentLocation(currentLocation);
         }
     }
 
-    public static boolean supportsCurrentLocation(Location location) {
-        if (location == null) return false;
-        for (GeoPoint point : supportedLocations){
-            Location city = new Location("");  //$NON-NLS-1$
-            city.setLatitude(point.getLatitudeE6()/1E6);
-            city.setLongitude(point.getLongitudeE6()/1E6);
-            float distance = location.distanceTo(city);
-            if (distance < RADIUS_250_MILES) {
-                return true;
-            }
-        }
-        return false;
-    }
 
 
 
-
-    @Override
-    public void onLocationChanged(Location location) {
-        currentLocation = location;
-        isEnabledForTRLocation = supportsCurrentLocation(currentLocation);
-        locationManager.removeUpdates(this);
-        locationManager = null;
-
-    }
-
-    @Override
-    public void onProviderDisabled(String provider) {
-        //
-
-    }
-
-    @Override
-    public void onProviderEnabled(String provider) {
-        //
-
-    }
-    @Override
-    public void onStatusChanged(String provider, int status, Bundle extras) {
-        //
-
-    }
 
     @Override
     public boolean didPostToTaskRabbit() {

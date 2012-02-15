@@ -15,14 +15,11 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.ContentValues;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.TypedArray;
 import android.graphics.Color;
 import android.location.Location;
-import android.location.LocationListener;
-import android.location.LocationManager;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -42,7 +39,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.PopupWindow.OnDismissListener;
 import android.widget.TextView;
@@ -67,10 +63,11 @@ import com.todoroo.astrid.service.StatisticsConstants;
 import com.todoroo.astrid.service.StatisticsService;
 import com.todoroo.astrid.service.TaskService;
 import com.todoroo.astrid.service.ThemeService;
+import com.todoroo.astrid.taskrabbit.TaskRabbitLocationManager.LocationResult;
 import com.todoroo.astrid.ui.FragmentPopover;
 import com.todoroo.astrid.welcome.HelpInfoPopover;
 
-public class TaskRabbitActivity extends FragmentActivity implements LocationListener {
+public class TaskRabbitActivity extends FragmentActivity {
 
 
     public interface TaskRabbitSetListener {
@@ -113,7 +110,7 @@ public class TaskRabbitActivity extends FragmentActivity implements LocationList
     private FragmentPopover menuPopover;
     private TextView menuTitle;
     private ListView menuList;
-    private ListAdapter adapter;
+    private ArrayAdapter<String> adapter;
 
 
     private int currentSelectedItem = 0;
@@ -125,6 +122,7 @@ public class TaskRabbitActivity extends FragmentActivity implements LocationList
     private LinearLayout row;
 
     public static final int REQUEST_CODE_TASK_RABBIT_OAUTH = 5;
+    public static final int REQUEST_CODE_ENABLE_GPS = 6;
     /** Act.fm current user name */
 
     public static final String TASK_RABBIT_TOKEN = "task_rabbit_token"; //$NON-NLS-1$
@@ -259,11 +257,11 @@ public class TaskRabbitActivity extends FragmentActivity implements LocationList
 
 
     private void setupForDialogOrFullscreen() {
-//        isDialog = AndroidUtilities.isTabletSized(this);
-//        if (isDialog)
-//            setTheme(ThemeService.getDialogTheme());
-//        else
-            ThemeService.applyTheme(this);
+        //        isDialog = AndroidUtilities.isTabletSized(this);
+        //        if (isDialog)
+        //            setTheme(ThemeService.getDialogTheme());
+        //        else
+        ThemeService.applyTheme(this);
     }
 
 
@@ -329,7 +327,9 @@ public class TaskRabbitActivity extends FragmentActivity implements LocationList
             row.removeAllViews();
         }
 
-        menuTitle.setText(getResources().getStringArray(R.array.tr_preset_types)[mode]);
+        if (menuTitle != null) {
+            menuTitle.setText(getResources().getStringArray(R.array.tr_preset_types)[mode]);
+        }
         int[] presetValues = getPresetValues(mode);
         TypedArray keys = getResources().obtainTypedArray(R.array.tr_default_set_key);
         JSONObject parameters = defaultValuesToJSON(keys, presetValues);
@@ -341,8 +341,8 @@ public class TaskRabbitActivity extends FragmentActivity implements LocationList
                 if(row.getParent() == null)
                     taskControls.addView(row);
                 else {
-//                    View separator = getLayoutInflater().inflate(R.layout.tea_separator, row);
-//                    separator.setLayoutParams(new LayoutParams(1, LayoutParams.FILL_PARENT));
+                    //                    View separator = getLayoutInflater().inflate(R.layout.tea_separator, row);
+                    //                    separator.setLayoutParams(new LayoutParams(1, LayoutParams.FILL_PARENT));
 
                 }
                 LinearLayout displayRow = (LinearLayout)((TaskEditControlSet)set).getDisplayView();
@@ -467,9 +467,11 @@ public class TaskRabbitActivity extends FragmentActivity implements LocationList
         String[] keys = getResources().getStringArray(R.array.tr_default_set_key);
 
 
-        String descriptionKey = getString(R.string.tr_set_key_description);
-        String category = String.format("Category: %s\n", menuTitle.getText().toString());  //$NON-NLS-1$
-        parameters.put(descriptionKey, category);
+        if (menuTitle != null) {
+            String descriptionKey = getString(R.string.tr_set_key_description);
+            String category = String.format("Category: %s\n", menuTitle.getText().toString());  //$NON-NLS-1$
+            parameters.put(descriptionKey, category);
+        }
         for (int i = 0; i < controls.size(); i++) {
             if (presetValues[i] == -1) continue;
             TaskRabbitSetListener set = controls.get(i);
@@ -530,8 +532,8 @@ public class TaskRabbitActivity extends FragmentActivity implements LocationList
 
 
             if(progressDialog == null)
-            progressDialog = DialogUtilities.progressDialog(this,
-                    getString(R.string.DLG_please_wait));
+                progressDialog = DialogUtilities.progressDialog(this,
+                        getString(R.string.DLG_please_wait));
             new Thread(new Runnable() {
                 @Override
                 public void run() {
@@ -590,11 +592,11 @@ public class TaskRabbitActivity extends FragmentActivity implements LocationList
             switch (msg.what) {
             case -1:
 
-                    AlertDialog.Builder adb = new AlertDialog.Builder(TaskRabbitActivity.this);
-                    adb.setTitle(getString(R.string.tr_alert_title_fail));
-                    adb.setMessage(getString(R.string.tr_alert_message_fail));
-                    adb.setPositiveButton(getString(R.string.tr_alert_button_fail),null);
-                    adb.show();
+                AlertDialog.Builder adb = new AlertDialog.Builder(TaskRabbitActivity.this);
+                adb.setTitle(getString(R.string.tr_alert_title_fail));
+                adb.setMessage(getString(R.string.tr_alert_message_fail));
+                adb.setPositiveButton(getString(R.string.tr_alert_button_fail),null);
+                adb.show();
                 break;
             case 0: break;
             case 1:
@@ -624,17 +626,31 @@ public class TaskRabbitActivity extends FragmentActivity implements LocationList
         }
     }
     private void loadLocation() {
-        LocationManager locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
 
-        if ( !locationManager.isProviderEnabled( LocationManager.GPS_PROVIDER ) &&
-                !locationManager.isProviderEnabled( LocationManager.NETWORK_PROVIDER )) {
+
+        TaskRabbitLocationManager locationManager = new TaskRabbitLocationManager(this);
+
+        if ( !locationManager.isLocationUpdatesEnabled()) {
             buildAlertMessageNoGps();
         }
-
-        currentLocation = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
-
-        locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, this);
-        updateControlSetLocation(currentLocation);
+        else {
+            currentLocation = locationManager.getLastKnownLocation();
+            if (currentLocation == null) {
+                locationManager.getLocation(new LocationResult(){
+                    @Override
+                    public void gotLocation(final Location location){
+                        //Got the location!
+                        currentLocation = location;
+                        updateControlSetLocation(currentLocation);
+                        setupListView();
+                    }
+                }
+                );
+            }
+            else {
+                updateControlSetLocation(currentLocation);
+            }
+        }
     }
 
 
@@ -645,7 +661,7 @@ public class TaskRabbitActivity extends FragmentActivity implements LocationList
         .setCancelable(false)
         .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
             public void onClick(final DialogInterface dialog,  final int id) {
-                startActivity(new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS));
+                startActivityForResult(new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS), REQUEST_CODE_ENABLE_GPS);
             }
         })
         .setNegativeButton("No", new DialogInterface.OnClickListener() {
@@ -701,6 +717,12 @@ public class TaskRabbitActivity extends FragmentActivity implements LocationList
                 return;
             }
         }
+        else if (requestCode == REQUEST_CODE_ENABLE_GPS) {
+
+            loadLocation();
+            setupListView();
+        }
+
         else {
             for (TaskRabbitSetListener set : controls) {
                 if (set instanceof ActivityResultSetListener) {
@@ -709,8 +731,6 @@ public class TaskRabbitActivity extends FragmentActivity implements LocationList
                 }
             }
         }
-        loadLocation();
-        setupListView();
     }
 
     @Override
@@ -724,17 +744,6 @@ public class TaskRabbitActivity extends FragmentActivity implements LocationList
     }
 
 
-    /*
-     * (non-Javadoc)
-     * @see android.location.LocationListener#onLocationChanged(android.location.Location)
-     */
-    @Override
-    public void onLocationChanged(Location location) {
-
-        currentLocation = location;
-        updateControlSetLocation(currentLocation);
-
-    }
     public void updateControlSetLocation (Location location) {
         for (TaskRabbitSetListener controlSet : controls) {
             if (TaskRabbitLocationControlSet.class.isAssignableFrom(controlSet.getClass())) {
@@ -742,19 +751,6 @@ public class TaskRabbitActivity extends FragmentActivity implements LocationList
             }
         }
     }
-    @Override
-    public void onProviderDisabled(String provider) {
-        return;
-    }
-    @Override
-    public void onProviderEnabled(String provider) {
-        return;
-    }
-    @Override
-    public void onStatusChanged(String provider, int status, Bundle extras) {
-        return;
-    }
-
 
     public boolean isLoggedIn() {
         return !TextUtils.isEmpty(Preferences.getStringValue(TASK_RABBIT_TOKEN));
@@ -801,9 +797,10 @@ public class TaskRabbitActivity extends FragmentActivity implements LocationList
     private void setupListView() {
         String[] keys = getResources().getStringArray(R.array.tr_preset_types);
         boolean locationEnabled = getIntent().getBooleanExtra(TaskRabbitControlSet.LOCATION_ENABLED, false);
-        if (!locationEnabled && !TaskRabbitControlSet.supportsCurrentLocation(currentLocation)) {
+        if (!locationEnabled && !TaskRabbitLocationManager.supportsCurrentLocation(currentLocation)) {
             keys = new String[]{ getResources().getString(R.string.tr_type_virtual)};
         }
+        if (adapter == null) {
         adapter = new ArrayAdapter<String>(this, R.layout.task_rabbit_menu_row, keys);
         menuList = new ListView(this);
         menuList.setAdapter(adapter);
@@ -820,6 +817,14 @@ public class TaskRabbitActivity extends FragmentActivity implements LocationList
                 menuPopover.dismiss();
             }
         });
+        }
+        else {
+            adapter = new ArrayAdapter<String>(this, R.layout.task_rabbit_menu_row, keys);
+            menuList.setAdapter(adapter);
+            /*adapter.clear();
+            adapter.addAll(keys);
+            adapter.notifyDataSetChanged();*/
+        }
     }
 
 
