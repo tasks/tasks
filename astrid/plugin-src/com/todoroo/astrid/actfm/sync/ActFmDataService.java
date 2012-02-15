@@ -22,9 +22,11 @@ import com.todoroo.andlib.sql.Query;
 import com.todoroo.astrid.dao.MetadataDao.MetadataCriteria;
 import com.todoroo.astrid.dao.TaskDao;
 import com.todoroo.astrid.dao.TaskDao.TaskCriteria;
+import com.todoroo.astrid.dao.UserDao;
 import com.todoroo.astrid.data.Metadata;
 import com.todoroo.astrid.data.TagData;
 import com.todoroo.astrid.data.Task;
+import com.todoroo.astrid.data.User;
 import com.todoroo.astrid.notes.NoteMetadata;
 import com.todoroo.astrid.service.MetadataService;
 import com.todoroo.astrid.service.TagDataService;
@@ -45,6 +47,8 @@ public final class ActFmDataService {
     protected final Context context;
 
     @Autowired TaskDao taskDao;
+
+    @Autowired UserDao userDao;
 
     @Autowired MetadataService metadataService;
 
@@ -198,4 +202,26 @@ public final class ActFmDataService {
         }
     }
 
+    /**
+     * Save / Merge JSON user
+     * @param userObject
+     * @throws JSONException
+     */
+    @SuppressWarnings("nls")
+    public void saveUserData(JSONObject userObject) throws JSONException {
+        TodorooCursor<User> cursor = userDao.query(Query.select(User.PROPERTIES).where(
+                User.REMOTE_ID.eq(userObject.get("id"))));
+        try {
+            cursor.moveToFirst();
+            User user = new User();
+            if (!cursor.isAfterLast()) {
+                user.readFromCursor(cursor);
+            }
+            ActFmSyncService.JsonHelper.userFromJson(userObject, user);
+            userDao.persist(user);
+
+        } finally {
+            cursor.close();
+        }
+    }
 }

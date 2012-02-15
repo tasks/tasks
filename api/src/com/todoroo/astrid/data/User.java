@@ -53,18 +53,6 @@ public final class User extends RemoteModel {
     public static final StringProperty PICTURE = new StringProperty(
             TABLE, "picture");
 
-    /** User picture thumbnail */
-    public static final StringProperty THUMB = new StringProperty(
-            TABLE, "thumb");
-
-    /** User last activity string */
-    public static final StringProperty LAST_ACTIVITY = new StringProperty(
-            TABLE, "lastActivity");
-
-    /** User last activity date */
-    public static final LongProperty LAST_ACTIVITY_DATE = new LongProperty(
-            TABLE, "lastActivityDate");
-
     /** Remote id */
     public static final LongProperty REMOTE_ID = new LongProperty(
             TABLE, REMOTE_ID_PROPERTY_NAME);
@@ -81,9 +69,6 @@ public final class User extends RemoteModel {
         defaultValues.put(NAME.name, "");
         defaultValues.put(EMAIL.name, "");
         defaultValues.put(PICTURE.name, "");
-        defaultValues.put(THUMB.name, "");
-        defaultValues.put(LAST_ACTIVITY.name, "");
-        defaultValues.put(LAST_ACTIVITY_DATE.name, 0);
     }
 
     @Override

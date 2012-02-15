@@ -18,6 +18,7 @@ import com.todoroo.astrid.dao.StoreObjectDao;
 import com.todoroo.astrid.dao.TagDataDao;
 import com.todoroo.astrid.dao.TaskDao;
 import com.todoroo.astrid.dao.UpdateDao;
+import com.todoroo.astrid.dao.UserDao;
 import com.todoroo.astrid.gtasks.GtasksListService;
 import com.todoroo.astrid.gtasks.GtasksMetadataService;
 import com.todoroo.astrid.gtasks.GtasksPreferenceService;
@@ -66,6 +67,7 @@ public class AstridDependencyInjector extends AbstractDependencyInjector {
         injectables.put("tagDataDao", TagDataDao.class);
         injectables.put("storeObjectDao", StoreObjectDao.class);
         injectables.put("updateDao", UpdateDao.class);
+        injectables.put("userDao", UserDao.class);
 
         // com.todoroo.astrid.service
         injectables.put("taskService", TaskService.class);

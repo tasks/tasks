@@ -18,6 +18,7 @@ import com.todoroo.astrid.data.StoreObject;
 import com.todoroo.astrid.data.TagData;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.data.Update;
+import com.todoroo.astrid.data.User;
 import com.todoroo.astrid.provider.Astrid2TaskProvider;
 import com.todoroo.astrid.provider.Astrid3ContentProvider;
 import com.todoroo.astrid.widget.TasksWidget;
@@ -54,6 +55,7 @@ public class Database extends AbstractDatabase {
         StoreObject.TABLE,
         TagData.TABLE,
         Update.TABLE,
+        User.TABLE
     };
 
     // --- listeners
@@ -289,11 +291,13 @@ public class Database extends AbstractDatabase {
             database.execSQL(changeZeroes);
 
             onCreateTables();
-
         } catch (SQLiteException e) {
             Log.e("astrid", "db-upgrade-" + oldVersion + "-" + newVersion, e);
         }
         case 21: try {
+            database.execSQL(createTableSql(visitor, User.TABLE.name, User.PROPERTIES));
+            onCreateTables();
+
             for(Property<?> property : new Property<?>[] { Update.OTHER_USER_ID, Update.OTHER_USER })
                 database.execSQL("ALTER TABLE " + Update.TABLE.name + " ADD " +
                         property.accept(visitor, null));
