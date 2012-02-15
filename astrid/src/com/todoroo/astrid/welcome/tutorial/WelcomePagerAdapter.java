@@ -18,7 +18,7 @@ import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.astrid.actfm.sync.ActFmPreferenceService;
 import com.viewpagerindicator.TitleProvider;
 
-public class ViewPagerAdapter extends PagerAdapter implements TitleProvider
+public class WelcomePagerAdapter extends PagerAdapter implements TitleProvider
 {
     private static int[] images = new int[] {
         R.drawable.welcome_walkthrough_1,
@@ -57,7 +57,7 @@ public class ViewPagerAdapter extends PagerAdapter implements TitleProvider
     public WelcomeWalkthrough parent;
     @Autowired ActFmPreferenceService actFmPreferenceService;
 
-    public ViewPagerAdapter(Context context, boolean manual) {
+    public WelcomePagerAdapter(Context context, boolean manual) {
         this.context = context;
         DependencyInjectionService.getInstance().inject(this);
 
