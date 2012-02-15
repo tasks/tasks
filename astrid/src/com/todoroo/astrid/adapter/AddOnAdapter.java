@@ -6,6 +6,7 @@ package com.todoroo.astrid.adapter;
 import java.util.List;
 
 import android.app.Activity;
+import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -37,6 +38,8 @@ public class AddOnAdapter extends ArrayAdapter<AddOn> {
     private final Activity activity;
     private final LayoutInflater inflater;
     private final boolean installed;
+    public static final Intent ALTERNATE_MARKET_INTENT = new Intent(Intent.ACTION_VIEW,
+            Uri.parse("http://weloveastrid.com/store")); //$NON-NLS-1$
 
     public AddOnAdapter(Activity activity, boolean installed, List<AddOn> objects) {
         super(activity, R.id.title, objects);
@@ -53,8 +56,12 @@ public class AddOnAdapter extends ArrayAdapter<AddOn> {
         public void onClick(View v) {
             ButtonTag buttonTag = (ButtonTag) v.getTag();
             if(buttonTag != null) {
-                activity.startActivity(buttonTag.intent);
-                StatisticsService.reportEvent("addon-" + buttonTag.event); //$NON-NLS-1$
+                try {
+                    activity.startActivity(buttonTag.intent);
+                    StatisticsService.reportEvent("addon-" + buttonTag.event); //$NON-NLS-1$
+                } catch (ActivityNotFoundException e) {
+                    activity.startActivity(ALTERNATE_MARKET_INTENT);
+                }
             }
         }
     };
