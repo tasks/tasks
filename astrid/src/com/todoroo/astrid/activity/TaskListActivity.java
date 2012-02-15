@@ -349,8 +349,6 @@ public class TaskListActivity extends AstridActivity implements MainMenuListener
             if(fragmentLayout == LAYOUT_DOUBLE) {
                 findViewById(R.id.taskedit_fragment_container).setVisibility(View.GONE);
                 findViewById(R.id.filterlist_fragment_container).setVisibility(View.VISIBLE);
-            } else {
-                findViewById(R.id.taskedit_fragment_container).setVisibility(View.INVISIBLE);
             }
             Flags.set(Flags.TLA_DISMISSED_FROM_TASK_EDIT);
             onPostResume();
