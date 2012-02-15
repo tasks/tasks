@@ -469,7 +469,7 @@ File %1$s contained %2$s.\n\n
   <string name="TLA_menu_sync">ปรับข้อมูลตอนนี้เลย!</string>
   
   <!-- Menu: Tasks -->
-  <string name="TLA_menu_tasks">Tasks</string>
+
 
   <!-- Menu: Friends -->
   <string name="TLA_menu_friends">Friends</string>

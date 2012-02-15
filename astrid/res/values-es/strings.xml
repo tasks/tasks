@@ -466,7 +466,7 @@ File %1$s contained %2$s.\n\n
   <string name="TLA_menu_sync">¡Sincronizar ahora!</string>
   
   <!-- Menu: Tasks -->
-  <string name="TLA_menu_tasks">Tareas</string>
+
 
   <!-- Menu: Friends -->
   <string name="TLA_menu_friends">Friends</string>
