@@ -45,7 +45,7 @@ public class EditTextControlSet extends TaskEditControlSet {
     }
 
     @Override
-    protected void readFromTaskPrivate() {
+    protected void readFromTaskOnInitialize() {
         editText.setTextKeepState(model.getValue(property));
         completeBox.setChecked(model.isCompleted());
         completeBox.setOnCheckedChangeListener(new OnCheckedChangeListener() {
@@ -62,7 +62,7 @@ public class EditTextControlSet extends TaskEditControlSet {
     }
 
     @Override
-    protected String writeToModelPrivate(Task task) {
+    protected String writeToModelAfterInitialized(Task task) {
         task.setValue(property, editText.getText().toString());
         boolean newState = completeBox.isChecked();
         if (newState != task.isCompleted()) {

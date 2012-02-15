@@ -220,7 +220,7 @@ public class OpencrxControlSet extends PopupControlSet {
     }
 
     @Override
-    protected void readFromTaskPrivate() {
+    protected void readFromTaskOnInitialize() {
 
 
         Metadata metadata = getTaskMetadata(model.getId());
@@ -337,7 +337,7 @@ public class OpencrxControlSet extends PopupControlSet {
     }
 
     @Override
-    protected String writeToModelPrivate(Task task) {
+    protected String writeToModelAfterInitialized(Task task) {
         Metadata metadata = getTaskMetadata(task.getId());
         try {
             if (metadata == null) {

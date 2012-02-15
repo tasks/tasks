@@ -179,7 +179,7 @@ public class RepeatControlSet extends PopupControlSet {
 
     @SuppressWarnings("nls")
     @Override
-    protected void readFromTaskPrivate() {
+    protected void readFromTaskOnInitialize() {
         Date date;
         if(model.getValue(Task.DUE_DATE) == 0)
             date = new Date();
@@ -283,7 +283,7 @@ public class RepeatControlSet extends PopupControlSet {
     }
 
     @Override
-    protected String writeToModelPrivate(Task task) {
+    protected String writeToModelAfterInitialized(Task task) {
         String result;
         if(!doRepeat)
             result = ""; //$NON-NLS-1$

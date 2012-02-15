@@ -238,7 +238,7 @@ public final class TagsControlSet extends PopupControlSet {
     }
 
     @Override
-    protected void readFromTaskPrivate() {
+    protected void readFromTaskOnInitialize() {
         newTags.removeAllViews();
 
         for (int i = 0; i < selectedTags.getCount(); i++) { // clear all selected items
@@ -276,7 +276,7 @@ public final class TagsControlSet extends PopupControlSet {
     }
 
     @Override
-    protected String writeToModelPrivate(Task task) {
+    protected String writeToModelAfterInitialized(Task task) {
         // this is a case where we're asked to save but the UI was not yet populated
         if(!populated)
             return null;

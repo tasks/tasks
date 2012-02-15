@@ -105,15 +105,15 @@ public class ReminderControlSet extends PopupControlSet {
     }
 
     @Override
-    protected void readFromTaskPrivate() {
+    protected void readFromTaskOnInitialize() {
         setValue(model.getValue(Task.REMINDER_FLAGS));
         // Calls to get view will force other control sets to load
         randomControlSet.readFromTask(model);
-        randomControlSet.readFromTaskPrivate();
+        randomControlSet.readFromTaskOnInitialize();
     }
 
     @Override
-    protected String writeToModelPrivate(Task task) {
+    protected String writeToModelAfterInitialized(Task task) {
         task.setValue(Task.REMINDER_FLAGS, getValue());
         // clear snooze if task is being edited
         task.setValue(Task.REMINDER_SNOOZE, 0L);

@@ -235,7 +235,7 @@ public class HideUntilControlSet extends PopupControlSet implements OnItemSelect
     }
 
     @Override
-    protected void readFromTaskPrivate() {
+    protected void readFromTaskOnInitialize() {
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(adapter);
 
@@ -244,7 +244,7 @@ public class HideUntilControlSet extends PopupControlSet implements OnItemSelect
     }
 
     @Override
-    protected String writeToModelPrivate(Task task) {
+    protected String writeToModelAfterInitialized(Task task) {
         if(adapter == null || spinner == null)
             return null;
         HideUntilValue item = adapter.getItem(spinner.getSelectedItemPosition());

@@ -31,7 +31,7 @@ public abstract class TaskEditControlSet {
                 afterInflate();
             }
             if (model != null)
-                readFromTaskPrivate();
+                readFromTaskOnInitialize();
             this.initialized = true;
         }
         return view;
@@ -47,14 +47,14 @@ public abstract class TaskEditControlSet {
     public void readFromTask(Task task) {
         this.model = task;
         if (initialized)
-            readFromTaskPrivate();
+            readFromTaskOnInitialize();
     }
 
 
     /**
      * Called once to setup the ui with data from the task
      */
-    protected abstract void readFromTaskPrivate();
+    protected abstract void readFromTaskOnInitialize();
 
     /**
      * Write data from control set to model
@@ -62,12 +62,19 @@ public abstract class TaskEditControlSet {
      */
     public String writeToModel(Task task) {
         if (initialized) {
-            return writeToModelPrivate(task);
+            return writeToModelAfterInitialized(task);
         }
         return null;
     }
 
-    protected abstract String writeToModelPrivate(Task task);
+    /**
+     * Write to model, if initialization logic has been called
+     * @return toast text
+     */
+    protected abstract String writeToModelAfterInitialized(Task task);
 
+    /**
+     * Called when views need to be inflated
+     */
     protected abstract void afterInflate();
 }

@@ -68,14 +68,14 @@ public class EditNotesControlSet extends PopupControlSet {
     }
 
     @Override
-    protected void readFromTaskPrivate() {
+    protected void readFromTaskOnInitialize() {
         editText.setTextKeepState(model.getValue(Task.NOTES));
         notesPreview.setText(model.getValue(Task.NOTES));
         linkifyDisplayView();
     }
 
     @Override
-    protected String writeToModelPrivate(Task task) {
+    protected String writeToModelAfterInitialized(Task task) {
         task.setValue(Task.NOTES, editText.getText().toString());
         return null;
     }

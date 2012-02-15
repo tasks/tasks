@@ -70,7 +70,7 @@ public class RandomReminderControlSet extends TaskEditControlSet {
     }
 
     @Override
-    protected void readFromTaskPrivate() {
+    protected void readFromTaskOnInitialize() {
         long time = model.getValue(Task.REMINDER_PERIOD);
 
         boolean enabled = time > 0;
@@ -87,7 +87,7 @@ public class RandomReminderControlSet extends TaskEditControlSet {
     }
 
     @Override
-    protected String writeToModelPrivate(Task task) {
+    protected String writeToModelAfterInitialized(Task task) {
         if(settingCheckbox.isChecked()) {
             int hourValue = hours[periodSpinner.getSelectedItemPosition()];
             task.setValue(Task.REMINDER_PERIOD, hourValue * DateUtilities.ONE_HOUR);

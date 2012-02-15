@@ -71,14 +71,14 @@ public class DeadlineControlSet extends PopupControlSet {
     }
 
     @Override
-    protected void readFromTaskPrivate() {
+    protected void readFromTaskOnInitialize() {
         long dueDate = model.getValue(Task.DUE_DATE);
         initializeWithDate(dueDate);
         refreshDisplayView();
     }
 
     @Override
-    protected String writeToModelPrivate(Task task) {
+    protected String writeToModelAfterInitialized(Task task) {
         long dueDate = dateAndTimePicker.constructDueDate();
         task.setValue(Task.DUE_DATE, dueDate);
         return null;

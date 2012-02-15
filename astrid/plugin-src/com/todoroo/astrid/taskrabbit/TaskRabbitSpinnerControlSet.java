@@ -194,12 +194,12 @@ public class TaskRabbitSpinnerControlSet extends TaskEditControlSet implements T
     }
 
     @Override
-    protected void readFromTaskPrivate() {
+    protected void readFromTaskOnInitialize() {
         // Nothing, we don't lazy load this control set yet
     }
 
     @Override
-    protected String writeToModelPrivate(Task task) {
+    protected String writeToModelAfterInitialized(Task task) {
         // Nothing, we don't lazy load this control set yet
         return null;
     }

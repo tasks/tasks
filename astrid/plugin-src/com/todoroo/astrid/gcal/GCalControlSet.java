@@ -90,7 +90,7 @@ public class GCalControlSet extends PopupControlSet {
     }
 
     @Override
-    protected void readFromTaskPrivate() {
+    protected void readFromTaskOnInitialize() {
         String uri = GCalHelper.getTaskEventUri(model);
         if(!TextUtils.isEmpty(uri)) {
             try {
@@ -121,7 +121,7 @@ public class GCalControlSet extends PopupControlSet {
 
     @SuppressWarnings("nls")
     @Override
-    protected String writeToModelPrivate(Task task) {
+    protected String writeToModelAfterInitialized(Task task) {
         boolean gcalCreateEventEnabled = Preferences.getStringValue(R.string.gcal_p_default) != null &&
                                         !Preferences.getStringValue(R.string.gcal_p_default).equals("-1");
         if ((gcalCreateEventEnabled || calendarSelector.getSelectedItemPosition() != 0) &&

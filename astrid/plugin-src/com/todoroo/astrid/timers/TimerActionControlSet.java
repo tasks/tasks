@@ -36,7 +36,7 @@ public class TimerActionControlSet extends TaskEditControlSet {
 
     @Override
     @SuppressWarnings("hiding")
-    protected void readFromTaskPrivate() {
+    protected void readFromTaskOnInitialize() {
         if (model.getValue(Task.TIMER_START) == 0)
             timerActive = false;
         else
@@ -52,7 +52,7 @@ public class TimerActionControlSet extends TaskEditControlSet {
 
     @Override
     @SuppressWarnings("hiding")
-    protected String writeToModelPrivate(Task task) {
+    protected String writeToModelAfterInitialized(Task task) {
         // Nothing to do here
         return null;
     }

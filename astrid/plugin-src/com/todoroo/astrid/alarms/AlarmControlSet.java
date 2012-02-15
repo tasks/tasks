@@ -39,7 +39,7 @@ public final class AlarmControlSet extends TaskEditControlSet {
     }
 
     @Override
-    protected void readFromTaskPrivate() {
+    protected void readFromTaskOnInitialize() {
         alertsContainer.removeAllViews();
         TodorooCursor<Metadata> cursor = AlarmService.getInstance().getAlarms(model.getId());
         try {
@@ -64,7 +64,7 @@ public final class AlarmControlSet extends TaskEditControlSet {
     }
 
     @Override
-    protected String writeToModelPrivate(Task task) {
+    protected String writeToModelAfterInitialized(Task task) {
         LinkedHashSet<Long> alarms = new LinkedHashSet<Long>();
         for(int i = 0; i < alertsContainer.getChildCount(); i++) {
             Long dateValue = (Long) alertsContainer.getChildAt(i).getTag();

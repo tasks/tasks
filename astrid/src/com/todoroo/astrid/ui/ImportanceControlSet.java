@@ -145,12 +145,12 @@ public class ImportanceControlSet extends TaskEditControlSet {
     }
 
     @Override
-    protected void readFromTaskPrivate() {
+    protected void readFromTaskOnInitialize() {
         setImportance(model.getValue(Task.IMPORTANCE));
     }
 
     @Override
-    protected String writeToModelPrivate(Task task) {
+    protected String writeToModelAfterInitialized(Task task) {
         if(getImportance() != null)
             task.setValue(Task.IMPORTANCE, getImportance());
         return null;

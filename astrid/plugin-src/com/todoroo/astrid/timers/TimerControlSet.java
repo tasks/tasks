@@ -29,7 +29,7 @@ public class TimerControlSet extends PopupControlSet implements TimerActionListe
     }
 
     @Override
-    protected void readFromTaskPrivate() {
+    protected void readFromTaskOnInitialize() {
         estimated.readFromTask(model);
         estimated.getView(); // force load
         elapsed.readFromTask(model);
@@ -47,7 +47,7 @@ public class TimerControlSet extends PopupControlSet implements TimerActionListe
     }
 
     @Override
-    protected String writeToModelPrivate(Task task) {
+    protected String writeToModelAfterInitialized(Task task) {
         if (initialized) {
             estimated.writeToModel(task);
             elapsed.writeToModel(task);
@@ -75,7 +75,7 @@ public class TimerControlSet extends PopupControlSet implements TimerActionListe
         }
 
         @Override
-        public void readFromTaskPrivate() {
+        public void readFromTaskOnInitialize() {
             controlSet.setTimeDuration(model.getValue(property));
         }
 
@@ -85,7 +85,7 @@ public class TimerControlSet extends PopupControlSet implements TimerActionListe
         }
 
         @Override
-        protected String writeToModelPrivate(Task task) {
+        protected String writeToModelAfterInitialized(Task task) {
             task.setValue(property, controlSet.getTimeDurationInSeconds());
             return null;
         }
