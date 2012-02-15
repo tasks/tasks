@@ -92,7 +92,7 @@ public class TimerActionControlSet extends TaskEditControlSet {
             chronometer.setVisibility(View.VISIBLE);
             elapsed += DateUtilities.now() - model.getValue(Task.TIMER_START);
             chronometer.setBase(SystemClock.elapsedRealtime() - elapsed);
-            if (elapsed > DateUtilities.ONE_DAY); {
+            if (elapsed > DateUtilities.ONE_DAY) {
                 chronometer.setOnChronometerTickListener(new OnChronometerTickListener() {
                     public void onChronometerTick(Chronometer cArg) {
                         long t = SystemClock.elapsedRealtime() - cArg.getBase();

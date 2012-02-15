@@ -22,6 +22,8 @@ public abstract class TaskEditControlSet {
     public TaskEditControlSet(Activity activity, int viewLayout) {
         this.activity = activity;
         this.viewLayout = viewLayout;
+        if (viewLayout == -1)
+            initialized = true;
     }
 
     public View getView() {

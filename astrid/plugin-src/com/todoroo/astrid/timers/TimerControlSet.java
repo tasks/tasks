@@ -25,25 +25,23 @@ public class TimerControlSet extends PopupControlSet implements TimerActionListe
         super(activity, viewLayout, displayViewLayout, title);
 
         this.displayText.setText(activity.getString(R.string.TEA_timer_controls));
-
-    }
-
-    @Override
-    protected void readFromTaskOnInitialize() {
-        estimated.readFromTask(model);
-        estimated.getView(); // force load
-        elapsed.readFromTask(model);
-        elapsed.getView(); // force load
-    }
-
-    @Override
-    protected void afterInflate() {
         estimated = new TimeDurationTaskEditControlSet(activity, getView(), Task.ESTIMATED_SECONDS,
                 R.id.estimatedDuration, 0, R.string.DLG_hour_minutes
                 );
         elapsed = new TimeDurationTaskEditControlSet(activity, getView(), Task.ELAPSED_SECONDS, R.id.elapsedDuration,
                 0, R.string.DLG_hour_minutes
                 );
+    }
+
+    @Override
+    protected void readFromTaskOnInitialize() {
+        estimated.readFromTask(model);
+        elapsed.readFromTask(model);
+    }
+
+    @Override
+    protected void afterInflate() {
+        // Nothing to do here
     }
 
     @Override
