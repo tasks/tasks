@@ -45,12 +45,8 @@ public class TaskRabbitNameControlSet extends PopupControlSet implements TaskRab
         editText = (EditText) getView().findViewById(R.id.notes);
         notesPreview = (TextView) getDisplayView().findViewById(R.id.display_row_edit);
         notesBody = (LinearLayout) getDisplayView().findViewById(R.id.notes_body);
-        dialog.getWindow()
-              .setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE | WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
         displayText.setText(activity.getString(titleID));
         editText.setMaxLines(Integer.MAX_VALUE);
-
-
 
         pictureButton = (ImageButton) getDisplayView().findViewById(R.id.picture);
         if (pictureButton != null) {
@@ -73,6 +69,13 @@ public class TaskRabbitNameControlSet extends PopupControlSet implements TaskRab
         });
         }
 
+    }
+
+    @Override
+    protected void additionalDialogSetup() {
+        dialog.getWindow()
+        .setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE
+                | WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
     }
 
     @Override
