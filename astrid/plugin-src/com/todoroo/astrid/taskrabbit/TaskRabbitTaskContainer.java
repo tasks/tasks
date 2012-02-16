@@ -77,4 +77,8 @@ public class TaskRabbitTaskContainer extends SyncContainer {
     public void setRemoteTaskData(String taskData) {
         trTask.setValue(TaskRabbitMetadata.DATA_REMOTE, taskData);
     }
+
+    public boolean isTaskRabbit() {
+        return getTaskID() > 0;
+    }
 }

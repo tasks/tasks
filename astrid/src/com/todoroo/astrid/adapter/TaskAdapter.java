@@ -414,7 +414,7 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
             if (pictureView != null) {
                 TaskRabbitTaskContainer container = TaskRabbitDataService.getInstance().getContainerForTask(task);
 
-                if(task.getValue(Task.USER_ID) == 0 && container.getTaskID() <= 0) {
+                if(task.getValue(Task.USER_ID) == Task.USER_ID_SELF && !container.isTaskRabbit()) {
                     pictureView.setVisibility(View.GONE);
                     if (viewHolder.pictureBorder != null)
                         viewHolder.pictureBorder.setVisibility(View.GONE);
@@ -423,17 +423,18 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
                     if (viewHolder.pictureBorder != null)
                         viewHolder.pictureBorder.setVisibility(View.VISIBLE);
                     pictureView.setUrl(null);
-                    if (container.getTaskID() > 0) {
+                    if (container.isTaskRabbit()) {
                         pictureView.setDefaultImageResource(R.drawable.task_rabbit_image);
-                    }
+                    } else if(task.getValue(Task.USER_ID) == Task.USER_ID_UNASSIGNED)
+                        pictureView.setDefaultImageResource(R.drawable.icn_anyone);
                     else {
                         pictureView.setDefaultImageResource(R.drawable.icn_default_person_image);
-                    try {
-                        JSONObject user = new JSONObject(task.getValue(Task.USER));
-                        pictureView.setUrl(user.optString("picture")); //$NON-NLS-1$
-                    } catch (JSONException e) {
-                        Log.w("astrid", "task-adapter-image", e); //$NON-NLS-1$ //$NON-NLS-2$
-                    }
+                        try {
+                            JSONObject user = new JSONObject(task.getValue(Task.USER));
+                            pictureView.setUrl(user.optString("picture")); //$NON-NLS-1$
+                        } catch (JSONException e) {
+                            Log.w("astrid", "task-adapter-image", e); //$NON-NLS-1$ //$NON-NLS-2$
+                        }
                     }
                 }
             }
