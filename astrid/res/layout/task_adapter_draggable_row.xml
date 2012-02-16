@@ -37,12 +37,13 @@
         android:paddingBottom="1dip">        
                 
         
-        <CheckBox
+        <com.todoroo.astrid.ui.CheckableImageView
 	        android:id="@+id/completeBox"
 	        android:layout_width="45dip"
+	        android:padding="8dip"
 	        android:layout_height="fill_parent"
 	        android:layout_alignParentTop="true"
-	        android:layout_marginLeft="10dip"
+	        android:layout_marginLeft="2dip"
 	        android:button="@drawable/btn_check" />
     <!-- assignee photo -->
 

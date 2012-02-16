@@ -79,6 +79,7 @@ import com.todoroo.astrid.service.TaskService;
 import com.todoroo.astrid.taskrabbit.TaskRabbitDataService;
 import com.todoroo.astrid.taskrabbit.TaskRabbitTaskContainer;
 import com.todoroo.astrid.timers.TimerDecorationExposer;
+import com.todoroo.astrid.ui.CheckableImageView;
 import com.todoroo.astrid.utility.Constants;
 
 /**
@@ -271,7 +272,7 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
         viewHolder.nameView = (TextView)view.findViewById(R.id.title);
         viewHolder.picture = (AsyncImageView)view.findViewById(R.id.picture);
         viewHolder.pictureBorder = (ImageView)view.findViewById(R.id.pictureBorder);
-        viewHolder.completeBox = (CheckBox)view.findViewById(R.id.completeBox);
+        viewHolder.completeBox = (CheckableImageView)view.findViewById(R.id.completeBox);
         viewHolder.dueDate = (TextView)view.findViewById(R.id.dueDate);
         viewHolder.details1 = (TextView)view.findViewById(R.id.details1);
         viewHolder.details2 = (TextView)view.findViewById(R.id.details2);
@@ -337,7 +338,7 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
         public ViewGroup rowBody;
         public TextView nameView;
         public View importance; // for legacy importance style
-        public CheckBox completeBox;
+        public CheckableImageView completeBox;
         public AsyncImageView picture;
         public ImageView pictureBorder;
         public TextView dueDate;
@@ -398,7 +399,7 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
         }
 
         // complete box
-        final CheckBox completeBox = viewHolder.completeBox; {
+        final CheckableImageView completeBox = viewHolder.completeBox; {
             // show item as completed if it was recently checked
             if(completedItems.get(task.getId()) != null) {
                 task.setValue(Task.COMPLETION_DATE,
@@ -441,7 +442,7 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
         }
 
         // importance bar
-        final CheckBox checkBoxView = viewHolder.completeBox; {
+        final CheckableImageView checkBoxView = viewHolder.completeBox; {
             // Logic for legacy style
             boolean useLegacyImportance = Preferences.getBoolean(R.string.p_useLegacyImportanceStyle, false);
             if (useLegacyImportance) {
@@ -454,12 +455,12 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
             if (value >= IMPORTANCE_RESOURCES.length)
                 value = IMPORTANCE_RESOURCES.length - 1;
             if (useLegacyImportance) {
-                checkBoxView.setButtonDrawable(R.drawable.btn_check);
+                checkBoxView.setImageResource(R.drawable.btn_check);
                 viewHolder.importance.setBackgroundResource(LEGACY_IMPORTANCE_RESOURCES[value]);
             } else if (!TextUtils.isEmpty(task.getValue(Task.RECURRENCE))) {
-                checkBoxView.setButtonDrawable(IMPORTANCE_REPEAT_RESOURCES[value]);
+                checkBoxView.setImageResource(IMPORTANCE_REPEAT_RESOURCES[value]);
             } else {
-                checkBoxView.setButtonDrawable(IMPORTANCE_RESOURCES[value]);
+                checkBoxView.setImageResource(IMPORTANCE_RESOURCES[value]);
             }
             if (pictureView != null && pictureView.getVisibility() == View.VISIBLE) {
                 checkBoxView.setVisibility(View.INVISIBLE);
