@@ -440,9 +440,6 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
             moreSection.setVisibility(View.GONE);
             moreTab.setVisibility(View.VISIBLE);
 
-
-            if(editNotes != null && editNotes.numberOfComments() == 0)
-                setCurrentTab(TAB_VIEW_MORE);
         } else {
             moreSection.setVisibility(View.VISIBLE);
             commentsBar.setVisibility(View.GONE);
