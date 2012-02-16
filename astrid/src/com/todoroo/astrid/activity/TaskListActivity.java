@@ -392,9 +392,8 @@ public class TaskListActivity extends AstridActivity implements MainMenuListener
                     }
                     if (data.getBooleanExtra(TaskEditFragment.TOKEN_TAGS_CHANGED, false))
                         tagsChanged(true);
-                } else {
-                    tlf.refresh();
                 }
+                tlf.refresh();
             }
         }
 

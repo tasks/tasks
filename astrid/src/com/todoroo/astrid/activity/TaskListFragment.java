@@ -1594,7 +1594,7 @@ public class TaskListFragment extends ListFragment implements OnScrollListener,
             intent = new Intent(getActivity(), TaskEditActivity.class);
             intent.putExtra(TaskEditFragment.TOKEN_ID, clone.getId());
             intent.putExtra(TOKEN_FILTER, filter);
-            startActivityForResult(intent, ACTIVITY_EDIT_TASK);
+            getActivity().startActivityForResult(intent, ACTIVITY_EDIT_TASK);
             transitionForTaskEdit();
 
             return true;
