@@ -426,7 +426,7 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
                     if (container.isTaskRabbit()) {
                         pictureView.setDefaultImageResource(R.drawable.task_rabbit_image);
                     } else if(task.getValue(Task.USER_ID) == Task.USER_ID_UNASSIGNED)
-                        pictureView.setDefaultImageResource(R.drawable.icn_anyone);
+                        pictureView.setDefaultImageResource(R.drawable.icn_anyone_transparent);
                     else {
                         pictureView.setDefaultImageResource(R.drawable.icn_default_person_image);
                         try {
