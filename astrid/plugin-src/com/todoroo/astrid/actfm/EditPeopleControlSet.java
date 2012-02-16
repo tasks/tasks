@@ -27,6 +27,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.view.ViewGroup.LayoutParams;
+import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
@@ -836,6 +837,13 @@ public class EditPeopleControlSet extends PopupControlSet {
         }
     }
 
+    @Override
+    protected void additionalDialogSetup() {
+        super.additionalDialogSetup();
+        dialog.getWindow()
+            .setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN
+                    | WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
+    }
 
     public void addListener(AssignedChangedListener listener) {
         listeners.add(listener);
