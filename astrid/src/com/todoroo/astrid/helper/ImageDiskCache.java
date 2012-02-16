@@ -16,15 +16,17 @@ package com.todoroo.astrid.helper;
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
  */
+import java.io.File;
 import java.io.InputStream;
 import java.io.OutputStream;
 
-import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Bitmap.CompressFormat;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.util.Log;
+
+import com.todoroo.andlib.service.ContextManager;
 
 /**
  * <p>
@@ -43,36 +45,29 @@ import android.util.Log;
  *
  */
 @SuppressWarnings("nls")
-public class ImageCache extends DiskCache<String, Bitmap> {
-	private static final String TAG = ImageCache.class.getSimpleName();
+public class ImageDiskCache extends DiskCache<String, Bitmap> {
+	private static final String TAG = ImageDiskCache.class.getSimpleName();
 
 	static final boolean DEBUG = false;
 
 
 	private long mIDCounter = 0;
 
-	private static ImageCache mInstance;
+	private static ImageDiskCache mInstance;
 
 
 	private final CompressFormat mCompressFormat;
 	private final int mQuality;
 
-	// TODO make it so this is customizable on the instance level.
-	/**
-	 * Gets an instance of the cache.
-	 *
-	 * @param context
-	 * @return an instance of the cache
-	 */
-	public static ImageCache getInstance(Context context) {
-		if (mInstance == null) {
-			mInstance = new ImageCache(context, CompressFormat.JPEG, 85);
-		}
-		return mInstance;
-	}
+    public static ImageDiskCache getInstance() {
+        if (mInstance == null) {
+            mInstance = new ImageDiskCache(ContextManager.getContext().getCacheDir(), CompressFormat.JPEG, 85);
+        }
+        return mInstance;
+    }
 
-	private ImageCache(Context context, CompressFormat format, int quality) {
-		super(context.getCacheDir(), null, getExtension(format));
+	private ImageDiskCache(File file, CompressFormat format, int quality) {
+		super(file, null, getExtension(format));
 
 		mCompressFormat = format;
 		mQuality = quality;

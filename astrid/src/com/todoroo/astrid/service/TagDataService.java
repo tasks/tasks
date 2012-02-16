@@ -142,9 +142,10 @@ public class TagDataService {
                     criterion).
                     orderBy(Order.desc(Update.CREATION_DATE)));
         if(tagData.getValue(Task.REMOTE_ID) < 1)
-            return updateDao.query(Query.select(Update.PROPERTIES).where(Criterion.none));
+            return updateDao.query(Query.select(Update.PROPERTIES).where(Update.TAGS_LOCAL.like("%," + tagData.getId() + ",%")));
         return updateDao.query(Query.select(Update.PROPERTIES).where(Criterion.and(criterion,
-                Update.TAGS.like("%," + tagData.getValue(Task.REMOTE_ID) + ",%"))).
+                Criterion.or(Update.TAGS.like("%," + tagData.getValue(Task.REMOTE_ID) + ",%"),
+                Update.TAGS_LOCAL.like("%," + tagData.getId() + ",%")))).
                 orderBy(Order.desc(Update.CREATION_DATE)));
     }
 

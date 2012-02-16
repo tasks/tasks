@@ -11,6 +11,8 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 import org.json.JSONException;
 
+import android.graphics.Bitmap;
+
 import com.timsu.astrid.C2DMReceiver;
 import com.timsu.astrid.R;
 import com.todoroo.andlib.data.TodorooCursor;
@@ -23,6 +25,8 @@ import com.todoroo.astrid.dao.TaskDao.TaskCriteria;
 import com.todoroo.astrid.data.RemoteModel;
 import com.todoroo.astrid.data.TagData;
 import com.todoroo.astrid.data.Task;
+import com.todoroo.astrid.data.Update;
+import com.todoroo.astrid.helper.ImageDiskCache;
 import com.todoroo.astrid.service.AstridDependencyInjector;
 import com.todoroo.astrid.service.TagDataService;
 import com.todoroo.astrid.service.TaskService;
@@ -287,7 +291,7 @@ public class ActFmSyncV2Provider extends SyncV2Provider {
         }).start();
     }
 
-    private void fetchUpdatesForTag(TagData tagData, boolean manual, final SyncResultCallback callback,
+    private void fetchUpdatesForTag(final TagData tagData, boolean manual, final SyncResultCallback callback,
             final AtomicInteger finisher) {
         actFmSyncService.fetchUpdatesForTag(tagData, manual, new Runnable() {
             @Override
@@ -299,7 +303,7 @@ public class ActFmSyncV2Provider extends SyncV2Provider {
         });
     }
 
-    private void fetchTasksForTag(TagData tagData, boolean manual, final SyncResultCallback callback,
+    private void fetchTasksForTag(final TagData tagData, boolean manual, final SyncResultCallback callback,
             final AtomicInteger finisher) {
         actFmSyncService.fetchTasksForTag(tagData, manual, new Runnable() {
             @Override

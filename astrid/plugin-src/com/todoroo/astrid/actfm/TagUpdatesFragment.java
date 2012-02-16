@@ -10,6 +10,7 @@ import android.support.v4.view.Menu;
 import android.support.v4.view.MenuItem;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.MenuInflater;
@@ -40,6 +41,7 @@ import com.todoroo.astrid.dao.UpdateDao;
 import com.todoroo.astrid.data.TagData;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.data.Update;
+import com.todoroo.astrid.helper.ImageDiskCache;
 import com.todoroo.astrid.helper.ProgressBarSyncResultCallback;
 import com.todoroo.astrid.service.StatisticsConstants;
 import com.todoroo.astrid.service.StatisticsService;
@@ -63,6 +65,8 @@ public class TagUpdatesFragment extends ListFragment {
 
     private static final int MENU_REFRESH_ID = Menu.FIRST;
 
+    private final ImageDiskCache imageCache;
+
     @Autowired ActFmPreferenceService actFmPreferenceService;
     @Autowired TagDataService tagDataService;
     @Autowired UpdateDao updateDao;
@@ -70,6 +74,7 @@ public class TagUpdatesFragment extends ListFragment {
 
     public TagUpdatesFragment() {
         DependencyInjectionService.getInstance().inject(this);
+        imageCache = ImageDiskCache.getInstance();
     }
 
     public TagUpdatesFragment(TagData tagData) {
@@ -181,9 +186,6 @@ public class TagUpdatesFragment extends ListFragment {
 
     private void refreshUpdatesList() {
 
-        if(tagData != null && tagData.getValue(Task.REMOTE_ID) <= 0)
-            return;
-
         if(updateAdapter == null) {
             TodorooCursor<Update> currentCursor = tagDataService.getUpdates(tagData);
             getActivity().startManagingCursor(currentCursor);
@@ -197,7 +199,7 @@ public class TagUpdatesFragment extends ListFragment {
             getActivity().startManagingCursor(cursor);
         }
 
-        if (tagData != null) {
+        if(tagData != null && tagData.getValue(Task.REMOTE_ID) <= 0) {
             Preferences.setLong(UPDATES_LAST_VIEWED + tagData.getValue(TagData.REMOTE_ID), DateUtilities.now());
         }
     }
@@ -258,19 +260,31 @@ public class TagUpdatesFragment extends ListFragment {
         }
     }
 
+
+    private String getPictureHashForUpdate(Update u) {
+        String s = u.getValue(Update.TASK) + "" + u.getValue(Update.CREATION_DATE);
+        return s;
+    }
+
     @SuppressWarnings("nls")
     private void addComment() {
-        if(tagData.getValue(TagData.REMOTE_ID) == 0L)
-            return;
-
         Update update = new Update();
         update.setValue(Update.MESSAGE, addCommentField.getText().toString());
         update.setValue(Update.ACTION_CODE, "tag_comment");
         update.setValue(Update.USER_ID, 0L);
         update.setValue(Update.TAGS, "," + tagData.getValue(TagData.REMOTE_ID) + ",");
+        update.setValue(Update.TAGS_LOCAL, "," + tagData.getId() + ",");
         update.setValue(Update.CREATION_DATE, DateUtilities.now());
         if (picture != null) {
             update.setValue(Update.PICTURE, Update.PICTURE_LOADING);
+            try {
+                String updateString = getPictureHashForUpdate(update);
+                imageCache.put(updateString, picture);
+                update.setValue(Update.PICTURE, updateString);
+            }
+            catch (Exception e) {
+                Log.e("EditNoteActivity", "Failed to put image to disk...");
+            }
         }
         Flags.set(Flags.ACTFM_SUPPRESS_SYNC);
         updateDao.createNew(update);

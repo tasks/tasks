@@ -86,6 +86,9 @@
   
   <!-- EditNoteActivity - no comments -->
   <string name="ENA_no_comments">Nothing To Show</string>
+    
+  <!-- EditNoteActivity - no username for comment -->
+  <string name="ENA_no_user">You</string>
   
   <!-- EditNoteActivity - refresh comments -->
   <string name="ENA_refresh_comments">Refresh Comments</string>

@@ -55,6 +55,7 @@ import com.todoroo.astrid.data.TagData;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.data.TaskApiDao;
 import com.todoroo.astrid.data.Update;
+import com.todoroo.astrid.helper.ImageDiskCache;
 import com.todoroo.astrid.service.MetadataService;
 import com.todoroo.astrid.service.StatisticsConstants;
 import com.todoroo.astrid.service.StatisticsService;
@@ -268,9 +269,14 @@ public final class ActFmSyncService {
             else
                 result = actFmInvoker.post("comment_add", picture, params.toArray(new Object[params.size()]));
             update.setValue(Update.REMOTE_ID, result.optLong("id"));
-//            ImageCache imageCache = ImageCache.getInstance(getContext());
+            ImageDiskCache imageCache = ImageDiskCache.getInstance();
             //TODO figure out a way to replace local image files with the url
-            if (TextUtils.isEmpty(update.getValue(Update.PICTURE)) || update.getValue(Update.PICTURE).equals(Update.PICTURE_LOADING)) {
+            String commentPicture = result.optString("picture");
+            if (!TextUtils.isEmpty(commentPicture)) {
+                String cachedPicture = update.getValue(Update.PICTURE);
+                if (!TextUtils.isEmpty(cachedPicture) && imageCache.contains(cachedPicture)) {
+                    imageCache.move(update.getValue(Update.PICTURE), commentPicture);
+                }
                 update.setValue(Update.PICTURE, result.optString("picture"));
             }
 
@@ -650,7 +656,7 @@ public final class ActFmSyncService {
         if(task.getValue(TagData.REMOTE_ID) == 0)
             return;
         result = actFmInvoker.invoke("task_show", "id", task.getValue(Task.REMOTE_ID),
-                    "token", token);
+                "token", token);
 
         ArrayList<Metadata> metadata = new ArrayList<Metadata>();
         JsonHelper.taskFromJson(result, task, metadata);
@@ -780,6 +786,8 @@ public final class ActFmSyncService {
         }, done, "tasks:" + tagData.getId(), "tag_id", tagData.getValue(TagData.REMOTE_ID));
     }
 
+
+
     /**
      * Fetch updates for the given tagData asynchronously
      * @param tagData
@@ -789,6 +797,8 @@ public final class ActFmSyncService {
     public void fetchUpdatesForTag(final TagData tagData, final boolean manual, Runnable done) {
         invokeFetchList("activity", manual, null, new UpdateListItemProcessor(), done,
                 "updates:" + tagData.getId(), "tag_id", tagData.getValue(TagData.REMOTE_ID));
+
+        pushQueuedUpdates(tagData);
     }
 
     /**
@@ -800,6 +810,8 @@ public final class ActFmSyncService {
     public void fetchUpdatesForTask(final Task task, boolean manual, Runnable done) {
         invokeFetchList("activity", manual, null, new UpdateListItemProcessor(), done,
                 "comments:" + task.getId(), "task_id", task.getValue(Task.REMOTE_ID));
+
+        pushQueuedUpdates(task);
     }
 
     /**
@@ -809,7 +821,92 @@ public final class ActFmSyncService {
      */
     public void fetchPersonalUpdates(boolean manual, Runnable done) {
         invokeFetchList("activity", manual, null, new UpdateListItemProcessor(), done, "personal");
+
     }
+
+
+
+
+    private void pushQueuedUpdates(TagData tagData) {
+
+        Criterion criterion = null;
+        if (tagData.getValue(TagData.REMOTE_ID) < 1) {
+            criterion = Criterion.and(Update.REMOTE_ID.eq(0),
+                    Update.TAGS_LOCAL.like("%," + tagData.getId() + ",%"));
+        }
+        else {
+            criterion = Criterion.and(Update.REMOTE_ID.eq(0),
+                    Criterion.or(Update.TAGS.like("%," + tagData.getValue(TagData.REMOTE_ID) + ",%"),
+                            Update.TAGS_LOCAL.like("%," + tagData.getId() + ",%")));
+        }
+
+
+        Update template = new Update();
+        template.setValue(Update.TAGS, "," + tagData.getValue(TagData.REMOTE_ID) + ",");
+        updateDao.update(criterion, template);
+
+        TodorooCursor<Update> cursor = updateDao.query(Query.select(Update.ID, Update.PICTURE).where(criterion));
+        pushQueuedUpdates(cursor);
+        Log.d("ActFmSyncService", "Push queued updates for tag");
+
+    }
+
+    private void pushQueuedUpdates(Task task) {
+
+
+        Criterion criterion = null;
+        if (task.getValue(Task.REMOTE_ID) < 1) {
+            criterion = Criterion.and(Update.REMOTE_ID.eq(0),
+                    Update.TASK_LOCAL.eq(task.getId()));
+        }
+        else {
+            criterion = Criterion.and(Update.REMOTE_ID.eq(0),
+                    Criterion.or(Update.TASK.eq(task.getValue(Task.REMOTE_ID)), Update.TASK_LOCAL.eq(task.getId())));
+        }
+
+        Update template = new Update();
+        template.setValue(Update.TASK, task.getValue(Task.REMOTE_ID)); //$NON-NLS-1$
+        updateDao.update(criterion, template);
+
+        TodorooCursor<Update> cursor = updateDao.query(Query.select(Update.ID, Update.PICTURE).where(criterion));
+        pushQueuedUpdates(cursor);
+        Log.d("ActFmSyncService", "Push queued updates for task");
+
+    }
+
+    private void pushQueuedUpdates( TodorooCursor<Update> cursor) {
+
+        try {
+            final ImageDiskCache imageCache = ImageDiskCache.getInstance();
+            for(int i = 0; i < cursor.getCount(); i++) {
+                cursor.moveToNext();
+                final Update update = new Update(cursor);
+                new Thread(new Runnable() {
+                    public void run() {
+                        try {
+                            Bitmap picture = null;
+                            if(imageCache != null && imageCache.contains(update.getValue(update.PICTURE))) {
+                                try {
+                                    picture = imageCache.get(update.getValue(update.PICTURE));
+                                } catch (IOException e) {
+                                    e.printStackTrace();
+                                }
+                            }
+                            pushUpdate(update.getId(), picture);
+                        } finally {
+                        }
+                    }
+                }).start();
+            }
+        } finally {
+            cursor.close();
+        }
+    }
+
+
+
+
+
 
     private class UpdateListItemProcessor extends ListItemProcessor<Update> {
         @Override
@@ -871,7 +968,7 @@ public final class ActFmSyncService {
 
     /** invoke authenticated method against the server */
     public JSONObject invoke(String method, Object... getParameters) throws IOException,
-            ActFmServiceException {
+    ActFmServiceException {
         if(!checkForToken())
             throw new ActFmServiceException("not logged in");
         Object[] parameters = new Object[getParameters.length + 2];
@@ -934,6 +1031,8 @@ public final class ActFmSyncService {
         }
 
     }
+
+
 
     /** Call sync method */
     private void invokeFetchList(final String model, final boolean manual, final SyncExceptionHandler handler,

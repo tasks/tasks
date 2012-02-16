@@ -40,6 +40,7 @@ import com.timsu.astrid.R;
 import com.todoroo.andlib.data.TodorooCursor;
 import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.DependencyInjectionService;
+import com.todoroo.andlib.sql.Criterion;
 import com.todoroo.andlib.sql.Query;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.andlib.utility.Preferences;
@@ -54,7 +55,7 @@ import com.todoroo.astrid.dao.UpdateDao;
 import com.todoroo.astrid.data.Metadata;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.data.Update;
-import com.todoroo.astrid.helper.ImageCache;
+import com.todoroo.astrid.helper.ImageDiskCache;
 import com.todoroo.astrid.helper.ProgressBarSyncResultCallback;
 import com.todoroo.astrid.service.MetadataService;
 import com.todoroo.astrid.service.StatisticsConstants;
@@ -88,7 +89,7 @@ public class EditNoteActivity extends LinearLayout implements TimerActionListene
     private ImageButton pictureButton;
     private Bitmap pendingCommentPicture = null;
     private final Fragment fragment;
-    private final ImageCache imageCache;
+    private final ImageDiskCache imageCache;
     private final int cameraButton;
 
     private final List<UpdatesChangedListener> listeners = new LinkedList<UpdatesChangedListener>();
@@ -101,7 +102,7 @@ public class EditNoteActivity extends LinearLayout implements TimerActionListene
     public EditNoteActivity(Fragment fragment, View parent, long t) {
         super(fragment.getActivity());
 
-        imageCache = ImageCache.getInstance(fragment.getActivity());
+        imageCache = ImageDiskCache.getInstance();
         this.fragment = fragment;
 
         cameraButton = getDefaultCameraButton();
@@ -254,20 +255,25 @@ public class EditNoteActivity extends LinearLayout implements TimerActionListene
             notes.close();
         }
 
-        if(task.getValue(Task.REMOTE_ID) > 0) {
-            TodorooCursor<Update> updates = updateDao.query(Query.select(Update.PROPERTIES).where(
-                    Update.TASK.eq(task.getValue(Task.REMOTE_ID))));
-            try {
-                Update update = new Update();
-                for(updates.moveToFirst(); !updates.isAfterLast(); updates.moveToNext()) {
-                    update.readFromCursor(updates);
-                    NoteOrUpdate noa = NoteOrUpdate.fromUpdate(update);
-                    if(noa != null)
-                        items.add(noa);
-                }
-            } finally {
-                updates.close();
+
+        TodorooCursor<Update> updates;
+        if (task.getValue(Task.REMOTE_ID) < 1) {
+            updates = updateDao.query(Query.select(Update.PROPERTIES).where(Update.TASK_LOCAL.eq(task.getId())));
+        }
+        else  {
+            updates = updateDao.query(Query.select(Update.PROPERTIES).where(Criterion.or(
+                    Update.TASK.eq(task.getValue(Task.REMOTE_ID)), Update.TASK_LOCAL.eq(task.getId()))));
+        }
+        try {
+            Update update = new Update();
+            for(updates.moveToFirst(); !updates.isAfterLast(); updates.moveToNext()) {
+                update.readFromCursor(updates);
+                NoteOrUpdate noa = NoteOrUpdate.fromUpdate(update);
+                if(noa != null)
+                    items.add(noa);
             }
+        } finally {
+            updates.close();
         }
 
         Collections.sort(items, new Comparator<NoteOrUpdate>() {
@@ -331,17 +337,19 @@ public class EditNoteActivity extends LinearLayout implements TimerActionListene
     public synchronized void bindView(View view, NoteOrUpdate item) {
         // picture
         final AsyncImageView pictureView = (AsyncImageView)view.findViewById(R.id.picture); {
-            if(TextUtils.isEmpty(item.picture))
-                pictureView.setVisibility(View.GONE);
-            else {
-                pictureView.setVisibility(View.VISIBLE);
-                pictureView.setUrl(item.picture);
-            }
+            pictureView.setDefaultImageResource(R.drawable.icn_default_person_image);
+            pictureView.setUrl(item.picture);
+
         }
 
         // name
         final TextView nameView = (TextView)view.findViewById(R.id.title); {
-            nameView.setText(item.title);
+            if (TextUtils.isEmpty(item.title)) {
+                nameView.setText(fragment.getActivity().getString(R.string.ENA_no_user));
+            }
+            else {
+                nameView.setText(item.title);
+            }
         }
 
         // description
@@ -438,6 +446,7 @@ public class EditNoteActivity extends LinearLayout implements TimerActionListene
         update.setValue(Update.ACTION_CODE, actionCode);
         update.setValue(Update.USER_ID, 0L);
         update.setValue(Update.TASK, task.getValue(Task.REMOTE_ID));
+        update.setValue(Update.TASK_LOCAL, task.getId());
         update.setValue(Update.CREATION_DATE, DateUtilities.now());
 
         if (usePicture && pendingCommentPicture != null) {

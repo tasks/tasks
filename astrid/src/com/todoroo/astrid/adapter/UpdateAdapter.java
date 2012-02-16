@@ -2,6 +2,8 @@ package com.todoroo.astrid.adapter;
 
 import greendroid.widget.AsyncImageView;
 
+import java.io.IOException;
+
 import org.json.JSONObject;
 
 import android.app.AlertDialog;
@@ -27,6 +29,7 @@ import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.astrid.actfm.sync.ActFmPreferenceService;
 import com.todoroo.astrid.adapter.TaskAdapter.OnCompletedTaskListener;
 import com.todoroo.astrid.data.Update;
+import com.todoroo.astrid.helper.ImageDiskCache;
 
 /**
  * Adapter for displaying a user's goals as a list
@@ -41,6 +44,7 @@ public class UpdateAdapter extends CursorAdapter {
     protected final Fragment fragment;
     private final int resource;
     private final LayoutInflater inflater;
+    private final ImageDiskCache imageCache;
 
     /**
      * Constructor
@@ -63,6 +67,7 @@ public class UpdateAdapter extends CursorAdapter {
 
         inflater = (LayoutInflater) fragment.getActivity().getSystemService(
                 Context.LAYOUT_INFLATER_SERVICE);
+        imageCache = ImageDiskCache.getInstance();
 
         this.resource = resource;
         this.fragment = fragment;
@@ -114,6 +119,17 @@ public class UpdateAdapter extends CursorAdapter {
                 commentPictureView.setVisibility(View.VISIBLE);
                 commentPictureView.setUrl(updatePicture);
 
+                if(imageCache.contains(updatePicture)) {
+                    try {
+                        commentPictureView.setDefaultImageBitmap(imageCache.get(updatePicture));
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+                else {
+                    commentPictureView.setUrl(updatePicture);
+                }
+
                 final String message = update.getValue(Update.MESSAGE);
                 view.setOnClickListener(new OnClickListener() {
                     @Override
@@ -146,7 +162,12 @@ public class UpdateAdapter extends CursorAdapter {
             if(update.getValue(Update.ACTION_CODE).equals("task_comment"))
                 nameValue = r.getString(R.string.UAd_title_comment, nameValue,
                         update.getValue(Update.TARGET_NAME));
-            nameView.setText(nameValue);
+            if(TextUtils.isEmpty(nameValue)){
+                nameView.setText(fragment.getActivity().getString(R.string.ENA_no_user));
+            }
+            else {
+                nameView.setText(nameValue);
+            }
         }
 
         // description

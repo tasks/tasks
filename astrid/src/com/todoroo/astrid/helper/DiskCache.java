@@ -147,6 +147,13 @@ public abstract class DiskCache<K, V> {
 		}
 	}
 
+	public boolean move(K from, K to) {
+        final File moveFrom = getFile(from);
+        final File moveTo = getFile(to);
+	    moveFrom.renameTo(moveTo);
+	    return true;
+	}
+
 
 	/**
 	 * Reads the value from disk using {@link #fromDisk(Object, InputStream)}.

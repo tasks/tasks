@@ -51,8 +51,6 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.view.ViewGroup.LayoutParams;
 import android.view.ViewParent;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.FrameLayout;
@@ -140,10 +138,6 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
      */
     private static final String TASK_REMOTE_ID = "task_remote_id"; //$NON-NLS-1$
 
-    /**
-     * Task remote id (during orientation change)
-     */
-    private static final String MORE_EXPANDED = "more_expanded"; //$NON-NLS-1$
 
     /**
      * Tab to start on
@@ -248,7 +242,6 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
 
     private long remoteId = 0;
 
-    private boolean moreExpanded = false;
 
     private WebServicesView webServices = null;
 
@@ -304,9 +297,6 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
             if (savedInstanceState.containsKey(TASK_REMOTE_ID)) {
                 remoteId = savedInstanceState.getLong(TASK_REMOTE_ID);
             }
-            if (savedInstanceState.containsKey(MORE_EXPANDED)) {
-                moreExpanded = savedInstanceState.getBoolean(MORE_EXPANDED);
-            }
 
         }
 
@@ -361,51 +351,43 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
         overrideFinishAnim = false;
         if (activity != null) {
             if (activity.getIntent() != null)
-            overrideFinishAnim = activity.getIntent().getBooleanExtra(
-                    OVERRIDE_FINISH_ANIM, true);
+                overrideFinishAnim = activity.getIntent().getBooleanExtra(
+                        OVERRIDE_FINISH_ANIM, true);
         }
     }
 
     private void loadMoreContainer() {
-        View moreSection = (View) getView().findViewById(R.id.more_header);
         View moreTab = (View) getView().findViewById(R.id.more_container);
         View commentsBar = (View) getView().findViewById(R.id.updatesFooter);
 
         long idParam = getActivity().getIntent().getLongExtra(TOKEN_ID, -1L);
 
         boolean hasTitle = !TextUtils.isEmpty(model.getValue(Task.TITLE));
-        boolean hasRemoteId = remoteId > 0 && idParam > -1L;
 
-        if(hasTitle && hasRemoteId)
+        if(hasTitle)
             tabStyle = TAB_STYLE_ACTIVITY_WEB;
-        else if(hasTitle)
-            tabStyle = TAB_STYLE_WEB;
-        else if(hasRemoteId)
-            tabStyle = TAB_STYLE_ACTIVITY;
         else
-            tabStyle = TAB_STYLE_NONE;
+            tabStyle = TAB_STYLE_ACTIVITY;
 
-        if (hasRemoteId) {
-            if (editNotes == null) {
-                editNotes = new EditNoteActivity(this, getView(),
-                        idParam);
-                editNotes.setLayoutParams(new FrameLayout.LayoutParams(LayoutParams.FILL_PARENT,
-                        LayoutParams.WRAP_CONTENT));
-
-                editNotes.addListener(this);
-                if (timerAction != null) {
-                    timerAction.addListener(editNotes);
-                }
-            }
-            else {
-                editNotes.loadViewForTaskID(idParam);
-            }
+        if (editNotes == null) {
+            editNotes = new EditNoteActivity(this, getView(),
+                    idParam);
+            editNotes.setLayoutParams(new FrameLayout.LayoutParams(LayoutParams.FILL_PARENT,
+                    LayoutParams.WRAP_CONTENT));
 
             editNotes.addListener(this);
-
-            Handler refreshHandler = new Handler();
-            refreshHandler.postDelayed(refreshActivity, 1000);
+            if (timerAction != null) {
+                timerAction.addListener(editNotes);
+            }
         }
+        else {
+            editNotes.loadViewForTaskID(idParam);
+        }
+
+        editNotes.addListener(this);
+
+        Handler refreshHandler = new Handler();
+        refreshHandler.postDelayed(refreshActivity, 1000);
 
         if(hasTitle) {
             if(webServices == null) {
@@ -420,7 +402,7 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
             }
         }
 
-        if(tabStyle != TAB_STYLE_NONE) {
+
             mAdapter = new TaskEditViewPager(getActivity(), tabStyle);
             mAdapter.parent = this;
 
@@ -437,24 +419,7 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
             }
 
             commentsBar.setVisibility(View.VISIBLE);
-            moreSection.setVisibility(View.GONE);
             moreTab.setVisibility(View.VISIBLE);
-
-        } else {
-            moreSection.setVisibility(View.VISIBLE);
-            commentsBar.setVisibility(View.GONE);
-
-            if (moreControls.getParent() != null) {
-                if (moreControls.getParent() == moreSection) {
-                    setPagerHeightForPosition(TAB_VIEW_MORE);
-                }
-                else {
-                    ((ViewGroup) moreControls.getParent()).removeView(moreControls);
-                }
-            }
-            if (moreExpanded)
-                autoExpandMore();
-        }
     }
 
     private void setCurrentTab(int position) {
@@ -658,40 +623,6 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
         }
     }
 
-    /** Set up button listeners */
-    private void setUpListeners() {
-        final View.OnClickListener mExpandMoreListener = new View.OnClickListener() {
-            final Animation fadeIn = AnimationUtils.loadAnimation(
-                    getActivity(), android.R.anim.fade_in);
-            final Animation fadeOut = AnimationUtils.loadAnimation(
-                    getActivity(), android.R.anim.fade_out);
-
-            @Override
-            public void onClick(View v) {
-                fadeIn.setDuration(300);
-                fadeOut.setDuration(300);
-                autoExpandMore();
-            }
-        };
-        // set up save, cancel, and delete buttons
-        try {
-            getView().findViewById(R.id.more_header).setOnClickListener(
-                    mExpandMoreListener);
-        } catch (Exception e) {
-            // error loading the proper activity
-        }
-
-    }
-
-    private void autoExpandMore() {
-        moreExpanded = true;
-        LinearLayout moreHeader = (LinearLayout) getView().findViewById(
-                R.id.more_header);
-        moreHeader.removeAllViews();
-        moreHeader.addView(moreControls);
-        moreHeader.setOnClickListener(null);
-    }
-
     private void constructWhenDialog(View whenDialogView) {
         int theme = ThemeService.getEditDialogTheme();
         whenDialog = new Dialog(getActivity(), theme);
@@ -760,8 +691,6 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
                 }
             });
 
-            // set up listeners
-            setUpListeners();
         }
     }
 
@@ -835,7 +764,6 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
     public void repopulateFromScratch(Intent intent) {
         model = null;
         remoteId = 0;
-        moreExpanded = false;
         populateFields(intent);
     }
 
@@ -1041,7 +969,6 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
             return true;
 
         case MENU_COMMENTS_REFRESH_ID: {
-            if (editNotes != null)
                 editNotes.refreshData(true, null);
             return true;
         }
@@ -1110,7 +1037,7 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
         if (taskRabbitControl != null && taskRabbitControl.activityResult(requestCode, resultCode, data)) {
             return;
         }
-        else if (editNotes != null && editNotes.activityResult(requestCode, resultCode, data)) {
+        else if (editNotes.activityResult(requestCode, resultCode, data)) {
             return;
         }
         else if (requestCode == REQUEST_VOICE_RECOG
@@ -1139,7 +1066,6 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
         // stick our task into the outState
         outState.putParcelable(TASK_IN_PROGRESS, model);
         outState.putLong(TASK_REMOTE_ID, remoteId);
-        outState.putBoolean(MORE_EXPANDED, moreExpanded);
     }
 
     @Override

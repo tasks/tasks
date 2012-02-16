@@ -64,24 +64,6 @@
                 android:orientation="vertical" >
             </LinearLayout>
 
-            <LinearLayout
-                android:id="@+id/more_header"
-                style="@style/EditRow"
-                android:layout_width="fill_parent"
-                android:layout_height="fill_parent"
-                android:orientation="vertical"
-                android:visibility="gone">
--                 
-
-                <TextView
-                    style="@style/TextAppearance.EditRowDisplay"
-                    android:layout_width="fill_parent"
-                    android:layout_height="50dip"
-                    android:layout_gravity="center_vertical"
-                    android:gravity="center"
-                    android:text="@string/TEA_more"
-                    android:textStyle="bold" />
-            </LinearLayout>
 
             <LinearLayout
                 android:id="@+id/more_container"
