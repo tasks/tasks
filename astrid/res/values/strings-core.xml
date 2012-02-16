@@ -490,6 +490,11 @@
   <string name="EPr_fullTask_desc_enabled">Full task title will be shown</string>
   <string name="EPr_fullTask_desc_disabled">First two lines of task title will be shown</string>
   
+  <!-- Preferences: Auto-load Ideas Tab -->
+  <string name="EPr_ideaAuto_title">Show full task title</string>
+  <string name="EPr_ideaAuto_desc_enabled">Full task title will be shown</string>
+  <string name="EPr_ideaAuto_desc_disabled">First two lines of task title will be shown</string>
+  
   <!-- Preference: Theme -->
   <string name="EPr_theme_title">Color Theme</string>
   <!-- Preference: Theme Description (%s => value) -->

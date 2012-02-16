@@ -328,6 +328,9 @@
 
   <!-- Anonymous usage statistics -->
   <string name="p_statistics">statistics</string>
+
+  <!-- Ideas tab autoloading -->
+  <string name="p_autoIdea">ideaauto</string>
   
   <!-- ================================================= NEW USER EXPERIENCE -->
   <!-- Preference Keys (do not translate) -->

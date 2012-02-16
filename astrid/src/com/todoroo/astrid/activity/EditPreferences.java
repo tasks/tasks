@@ -308,13 +308,15 @@ public class EditPreferences extends TodorooPreferenceActivity {
                         r.getStringArray(R.array.EPr_themes)[index]));
             }
         }
-        // statistics service
-        else if (r.getString(R.string.p_statistics).equals(preference.getKey())) {
-            if (value != null && !(Boolean)value)
-                preference.setSummary(R.string.EPr_statistics_desc_disabled);
-            else
-                preference.setSummary(R.string.EPr_statistics_desc_enabled);
-        }
+
+        // pp preferences
+        else if (booleanPreference(preference, value, R.string.p_statistics,
+                R.string.EPr_statistics_desc_disabled, R.string.EPr_statistics_desc_enabled))
+            ;
+        else if (booleanPreference(preference, value, R.string.p_idea_autoload,
+                R.string.EPr_ideaAuto_desc_disabled, R.string.EPr_ideaAuto_desc_enabled))
+            ;
+
 
         // voice input and output
         if(!addOnService.hasPowerPack())
@@ -338,6 +340,18 @@ public class EditPreferences extends TodorooPreferenceActivity {
             else
                 preference.setSummary(R.string.EPr_voiceInputCreatesTask_desc_enabled);
         }
+    }
+
+    protected boolean booleanPreference(Preference preference, Object value,
+            int key, int disabledString, int enabledString) {
+        if(getString(key).equals(preference.getKey())) {
+            if (value != null && !(Boolean)value)
+                preference.setSummary(disabledString);
+            else
+                preference.setSummary(enabledString);
+            return true;
+        }
+        return false;
     }
 
     @Override
