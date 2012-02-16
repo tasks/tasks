@@ -87,7 +87,7 @@
 	        android:defaultValue="true" />   
 
         <com.todoroo.astrid.ui.MultilineCheckboxPreference
-	        android:key="@string/p_ideaAuto"
+	        android:key="@string/p_autoIdea"
 	        android:title="@string/EPr_ideaAuto_title"
 	        android:defaultValue="true" />   
           

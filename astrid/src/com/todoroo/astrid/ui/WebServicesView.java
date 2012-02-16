@@ -42,6 +42,7 @@ import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.andlib.service.ExceptionService;
 import com.todoroo.andlib.service.RestClient;
+import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.helper.AmazonRequestsHelper;
 import com.todoroo.astrid.producteev.api.StringEscapeUtils;
@@ -68,6 +69,7 @@ public class WebServicesView extends LinearLayout {
     private Activity activity;
     public TaskRabbitControlSet taskRabbitControl;
     private final AtomicBoolean notConnected = new AtomicBoolean(false);
+    private boolean pageLoaded = false;
 
     private LinearLayout.LayoutParams rowParams;
 
@@ -112,12 +114,21 @@ public class WebServicesView extends LinearLayout {
                 Math.round(ROW_HEIGHT * metrics.density));
         rowParams.rightMargin = Math.round(10 * metrics.density);
 
-        refresh();
+        if(Preferences.getBoolean(R.string.p_autoIdea, true))
+            refresh();
+    }
+
+    public void onPageSelected(Runnable runnable) {
+        if(!pageLoaded)
+            refresh();
+        runnable.run();
     }
 
     public void refresh() {
         if(TextUtils.isEmpty(task.getValue(Task.TITLE)))
             return;
+
+        pageLoaded = true;
 
         removeAllViews();
 
@@ -128,7 +139,6 @@ public class WebServicesView extends LinearLayout {
         addSectionDivider();
 
         initializeGoogleSearch();
-
     }
 
     private void showNotConnected() {

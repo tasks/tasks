@@ -71,7 +71,6 @@ import com.todoroo.andlib.utility.DialogUtilities;
 import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.astrid.actfm.EditPeopleControlSet;
 import com.todoroo.astrid.actfm.sync.ActFmPreferenceService;
-import com.todoroo.astrid.dao.Database;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.gcal.GCalControlSet;
 import com.todoroo.astrid.helper.TaskEditControlSet;
@@ -184,9 +183,6 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
 
     @Autowired
     private ExceptionService exceptionService;
-
-    @Autowired
-    private Database database;
 
     @Autowired
     private TaskService taskService;
@@ -515,7 +511,7 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
                 R.layout.control_set_assigned,
                 R.layout.control_set_default_display,
                 R.string.actfm_EPA_assign_label_long, REQUEST_LOG_IN);
-        if(Locale.getDefault().getCountry().equals("US")) {
+        if(Locale.getDefault().getCountry().equals("US")) { //$NON-NLS-1$
             taskRabbitControl = new TaskRabbitControlSet(this, R.layout.control_set_default_display);
             controls.add(taskRabbitControl);
             peopleControlSet.addListener(taskRabbitControl);
@@ -1269,17 +1265,31 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
     }
 
     @Override
-    public void onPageSelected(int position) {
-        this.setPagerHeightForPosition(position);
+    public void onPageSelected(final int position) {
+        final Runnable onPageSelected = new Runnable() {
+            @Override
+            public void run() {
+                setPagerHeightForPosition(position);
 
-        NestableScrollView scrollView = (NestableScrollView)getView().findViewById(R.id.edit_scroll);
-        if((tabStyle == TAB_STYLE_WEB && position == 1) ||
-                (tabStyle == TAB_STYLE_ACTIVITY_WEB && position == 2))
-            scrollView.
-                setScrollabelViews(webServices.getScrollableViews());
+                NestableScrollView scrollView = (NestableScrollView)getView().findViewById(R.id.edit_scroll);
+                if((tabStyle == TAB_STYLE_WEB && position == 1) ||
+                        (tabStyle == TAB_STYLE_ACTIVITY_WEB && position == 2))
+                    scrollView.
+                    setScrollabelViews(webServices.getScrollableViews());
+                else
+                    scrollView.setScrollabelViews(null);
+            }
+        };
+
+        if(getTabForPosition(position) == TAB_VIEW_WEB_SERVICES)
+            webServices.onPageSelected(new Runnable() {
+                @Override
+                public void run() {
+                    onPageSelected.run();
+                }
+            });
         else
-            scrollView.setScrollabelViews(null);
-
+            onPageSelected.run();
     }
 
     @Override
@@ -1287,7 +1297,7 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
         return;
     }
 
-    // EditNoteActivity Lisener when there are new updates/comments
+    // EditNoteActivity Listener when there are new updates/comments
     @Override
     public void updatesChanged()  {
         setCurrentTab(TAB_VIEW_UPDATES);

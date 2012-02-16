@@ -491,9 +491,9 @@
   <string name="EPr_fullTask_desc_disabled">First two lines of task title will be shown</string>
   
   <!-- Preferences: Auto-load Ideas Tab -->
-  <string name="EPr_ideaAuto_title">Show full task title</string>
-  <string name="EPr_ideaAuto_desc_enabled">Full task title will be shown</string>
-  <string name="EPr_ideaAuto_desc_disabled">First two lines of task title will be shown</string>
+  <string name="EPr_ideaAuto_title">Auto-load Ideas Tab</string>
+  <string name="EPr_ideaAuto_desc_enabled">Web searches for Ideas tab will be performed when task is edited</string>
+  <string name="EPr_ideaAuto_desc_disabled">Web searches for Ideas tab will be performed when tab is clicked</string>
   
   <!-- Preference: Theme -->
   <string name="EPr_theme_title">Color Theme</string>

@@ -313,7 +313,7 @@ public class EditPreferences extends TodorooPreferenceActivity {
         else if (booleanPreference(preference, value, R.string.p_statistics,
                 R.string.EPr_statistics_desc_disabled, R.string.EPr_statistics_desc_enabled))
             ;
-        else if (booleanPreference(preference, value, R.string.p_idea_autoload,
+        else if (booleanPreference(preference, value, R.string.p_autoIdea,
                 R.string.EPr_ideaAuto_desc_disabled, R.string.EPr_ideaAuto_desc_enabled))
             ;
 
