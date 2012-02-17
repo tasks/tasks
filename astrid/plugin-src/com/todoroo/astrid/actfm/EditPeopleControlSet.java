@@ -21,7 +21,6 @@ import android.graphics.Color;
 import android.support.v4.app.Fragment;
 import android.text.TextUtils;
 import android.util.DisplayMetrics;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -569,9 +568,6 @@ public class EditPeopleControlSet extends PopupControlSet {
                         /*item = (AssignedToUser) assignedList.getAdapter().getItem(0);
                         selected = 0;*/
                         return true;
-                    }
-                    else {
-                        Log.d("Edit People control set", "Does not equal task rabbit");
                     }
                     userJson = item.user;
                 }

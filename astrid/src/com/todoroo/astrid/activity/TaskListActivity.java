@@ -344,6 +344,10 @@ public class TaskListActivity extends AstridActivity implements MainMenuListener
         commentsButton.setBackgroundResource(tv.data);
     }
 
+    public void showComments() {
+        commentsButton.performClick();
+    }
+
     @Override
     public void onBackPressed() {
      // manage task edit visibility
