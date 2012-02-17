@@ -32,9 +32,9 @@
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         android:background="@android:drawable/list_selector_background"
-        android:paddingTop="1dip"
-        android:paddingLeft="5dip"
-        android:paddingBottom="1dip">        
+        android:layout_marginTop="6dip"
+        android:layout_marginBottom="6dip"
+        android:paddingLeft="5dip">        
                 
         
         <com.todoroo.astrid.ui.CheckableImageView

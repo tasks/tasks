@@ -19,6 +19,7 @@ import com.todoroo.andlib.data.TodorooCursor;
 import com.todoroo.astrid.adapter.TaskAdapter;
 import com.todoroo.astrid.core.SortHelper;
 import com.todoroo.astrid.data.Task;
+import com.todoroo.astrid.helper.SyncActionHelper;
 
 /**
  * Activity for working with draggable task lists, like Google Tasks lists
@@ -83,6 +84,7 @@ public class DraggableTaskListFragment extends TaskListFragment {
         getListView().setOnScrollListener(this);
         registerForContextMenu(getListView());
 
+        syncActionHelper = new SyncActionHelper(getActivity());
         loadTaskListContent(false);
 
         getTouchListView().setOnTouchListener(new OnTouchListener() {
