@@ -66,7 +66,7 @@ import android.widget.TextView;
 import android.widget.TextView.OnEditorActionListener;
 import android.widget.Toast;
 
-import com.crittercism.FeedbackActivity;
+import com.crittercism.NewFeedbackSpringboardActivity;
 import com.timsu.astrid.R;
 import com.todoroo.andlib.data.Property;
 import com.todoroo.andlib.data.TodorooCursor;
@@ -1594,7 +1594,7 @@ public class TaskListFragment extends ListFragment implements OnScrollListener,
             intent = new Intent(getActivity(), TaskEditActivity.class);
             intent.putExtra(TaskEditFragment.TOKEN_ID, clone.getId());
             intent.putExtra(TOKEN_FILTER, filter);
-            startActivityForResult(intent, ACTIVITY_EDIT_TASK);
+            getActivity().startActivityForResult(intent, ACTIVITY_EDIT_TASK);
             transitionForTaskEdit();
 
             return true;
@@ -1643,7 +1643,7 @@ public class TaskListFragment extends ListFragment implements OnScrollListener,
 
     public void showSupport() {
         StatisticsService.reportEvent(StatisticsConstants.TLA_MENU_HELP);
-        Intent intent = new Intent(getActivity(), FeedbackActivity.class);
+        Intent intent = new Intent(getActivity(), NewFeedbackSpringboardActivity.class);
         startActivity(intent);
     }
 

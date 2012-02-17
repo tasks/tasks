@@ -2,17 +2,22 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="wrap_content"
-    android:padding="10dip"
+    android:paddingTop="10dip"
+    android:paddingBottom="10dip"
+    android:paddingLeft="0dip"
     android:paddingRight="0dip"
     android:gravity="center_vertical"
     android:orientation="horizontal" >
 
-        <CheckBox
-            android:id="@+id/completeBox"
-            android:layout_width="45dip"
-            android:layout_height="fill_parent"
-            android:gravity="center_vertical"
-            android:button="@drawable/btn_check" />
+    <com.todoroo.astrid.ui.CheckableImageView
+        android:id="@+id/completeBox"
+        android:layout_width="45dip"
+        android:layout_height="fill_parent"
+        android:layout_marginRight="5dip"
+        android:layout_marginLeft="5dip"
+        android:gravity="center"
+        android:padding="8dip"
+        android:src="@drawable/btn_check" />
 
     <com.todoroo.astrid.ui.ErrorCatchingEditText
         android:id="@+id/title"

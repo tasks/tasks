@@ -16,7 +16,6 @@
 	<classpathentry exported="true" kind="lib" path="libs/httpmime-4.1.1.jar"/>
 	<classpathentry exported="true" kind="lib" path="libs/rfc2445-4Mar2011.jar"/>
 	<classpathentry exported="true" kind="lib" path="libs/jackson-core-asl-1.6.7.jar"/>
-	<classpathentry exported="true" kind="lib" path="libs/crittercism_v1_2_5.jar"/>
 	<classpathentry exported="true" kind="lib" path="libs/jchronic-0.2.3.jar"/>
 	<classpathentry exported="true" kind="lib" path="libs/guava-11.0.1.jar"/>
 	<classpathentry exported="true" kind="lib" path="libs/google-api-client-1.6.0-beta.jar"/>
@@ -30,5 +29,6 @@
 	<classpathentry exported="true" kind="lib" path="libs/google-oauth-client-1.6.0-beta.jar"/>
 	<classpathentry exported="true" kind="lib" path="libs/google-oauth-client-extensions-1.6.0-beta.jar"/>
 	<classpathentry exported="true" kind="lib" path="libs/gson-1.7.1.jar"/>
+	<classpathentry kind="lib" path="libs/crittercism_v2_0_1.jar"/>
 	<classpathentry kind="output" path="bin/classes"/>
 </classpath>

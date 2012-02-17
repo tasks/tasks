@@ -47,9 +47,9 @@ public class EditTitleControlSet extends EditTextControlSet implements Importanc
             valueToUse = TaskAdapter.IMPORTANCE_RESOURCES.length - 1;
         if(valueToUse < TaskAdapter.IMPORTANCE_RESOURCES.length) {
             if (isRepeating) {
-                completeBox.setButtonDrawable(TaskAdapter.IMPORTANCE_REPEAT_RESOURCES[valueToUse]);
+                completeBox.setImageResource(TaskAdapter.IMPORTANCE_REPEAT_RESOURCES[valueToUse]);
             } else {
-                completeBox.setButtonDrawable(TaskAdapter.IMPORTANCE_RESOURCES[valueToUse]);
+                completeBox.setImageResource(TaskAdapter.IMPORTANCE_RESOURCES[valueToUse]);
             }
         }
     }

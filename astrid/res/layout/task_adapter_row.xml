@@ -43,10 +43,11 @@
 	        android:visibility="gone" >
 	    </greendroid.widget.AsyncImageView>
 	    
-	    <CheckBox
+	    <com.todoroo.astrid.ui.CheckableImageView
 	        android:id="@+id/completeBox"
 	        android:layout_width="45dip"
-	        android:layout_marginLeft="13dip"
+	        android:padding="8dip"
+	        android:layout_marginLeft="5dip"
 	        android:layout_height="fill_parent"
 	        android:minHeight="40dip"
 	        android:scaleType="center"

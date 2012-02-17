@@ -1,11 +1,10 @@
 package com.todoroo.astrid.ui;
 
 import android.app.Activity;
+import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.animation.Animation;
 import android.view.animation.ScaleAnimation;
-import android.widget.CheckBox;
-import android.widget.CompoundButton;
-import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.EditText;
 
 import com.timsu.astrid.R;
@@ -24,7 +23,7 @@ import com.todoroo.astrid.service.TaskService;
 public class EditTextControlSet extends TaskEditControlSet {
     private EditText editText;
     private final StringProperty property;
-    protected CheckBox completeBox;
+    protected CheckableImageView completeBox;
     private final int editTextId;
 
     @Autowired
@@ -41,18 +40,17 @@ public class EditTextControlSet extends TaskEditControlSet {
     @Override
     protected void afterInflate() {
         this.editText = (EditText) getView().findViewById(editTextId);
-        this.completeBox = (CheckBox) getView().findViewById(R.id.completeBox);
+        this.completeBox = (CheckableImageView) getView().findViewById(R.id.completeBox);
     }
 
     @Override
     protected void readFromTaskOnInitialize() {
         editText.setTextKeepState(model.getValue(property));
         completeBox.setChecked(model.isCompleted());
-        completeBox.setOnCheckedChangeListener(new OnCheckedChangeListener() {
+        completeBox.setOnClickListener(new OnClickListener() {
             @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-
-                ScaleAnimation scaleAnimation = new ScaleAnimation(1.6f, 1.0f, 1.6f, 1.0f,
+            public void onClick(View v) {
+                ScaleAnimation scaleAnimation = new ScaleAnimation(1.5f, 1.0f, 1.5f, 1.0f,
                         Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
                 scaleAnimation.setDuration(100);
                 // set check box to actual action item state
