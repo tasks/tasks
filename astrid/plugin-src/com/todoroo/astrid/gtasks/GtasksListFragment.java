@@ -24,6 +24,7 @@ import com.todoroo.astrid.dao.StoreObjectDao;
 import com.todoroo.astrid.data.StoreObject;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.gtasks.sync.GtasksSyncService;
+import com.todoroo.astrid.service.SyncV2Service;
 
 public class GtasksListFragment extends DraggableTaskListFragment {
 
@@ -44,6 +45,8 @@ public class GtasksListFragment extends DraggableTaskListFragment {
     @Autowired private GtasksMetadataService gtasksMetadataService;
 
     @Autowired private GtasksPreferenceService gtasksPreferenceService;
+
+    @Autowired private SyncV2Service syncService;
 
     private StoreObject list;
 
@@ -123,7 +126,7 @@ public class GtasksListFragment extends DraggableTaskListFragment {
     @Override
     protected void initiateAutomaticSync() {
         if (list != null && DateUtilities.now() - list.getValue(GtasksList.LAST_SYNC) > DateUtilities.ONE_HOUR) {
-            syncService.synchronizeList(list, false, syncResultCallback);
+            syncService.synchronizeList(list, false, syncActionHelper.syncResultCallback);
         }
     }
 
@@ -139,7 +142,7 @@ public class GtasksListFragment extends DraggableTaskListFragment {
         // handle my own menus
         switch (item.getItemId()) {
         case MENU_REFRESH_ID:
-            syncService.synchronizeList(list, true, syncResultCallback);
+            syncService.synchronizeList(list, true, syncActionHelper.syncResultCallback);
             return true;
         case MENU_CLEAR_COMPLETED_ID:
             clearCompletedTasks();

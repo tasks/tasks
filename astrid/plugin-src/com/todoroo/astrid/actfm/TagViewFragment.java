@@ -50,6 +50,7 @@ import com.todoroo.astrid.data.TagData;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.data.Update;
 import com.todoroo.astrid.helper.ProgressBarSyncResultCallback;
+import com.todoroo.astrid.service.SyncV2Service;
 import com.todoroo.astrid.service.TagDataService;
 import com.todoroo.astrid.tags.TagFilterExposer;
 import com.todoroo.astrid.tags.TagService.Tag;
@@ -79,6 +80,8 @@ public class TagViewFragment extends TaskListFragment {
     @Autowired ActFmSyncService actFmSyncService;
 
     @Autowired ActFmPreferenceService actFmPreferenceService;
+
+    @Autowired SyncV2Service syncService;
 
     private View taskListView;
 
@@ -210,7 +213,7 @@ public class TagViewFragment extends TaskListFragment {
     }
 
     @Override
-    protected TagData getTagDataForUpdates() {
+    protected TagData getActiveTagData() {
         return tagData;
     }
 

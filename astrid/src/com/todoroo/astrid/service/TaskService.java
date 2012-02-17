@@ -28,6 +28,7 @@ import com.todoroo.astrid.gtasks.GtasksMetadata;
 import com.todoroo.astrid.opencrx.OpencrxCoreUtils;
 import com.todoroo.astrid.producteev.sync.ProducteevTask;
 import com.todoroo.astrid.tags.TagService;
+import com.todoroo.astrid.utility.Flags;
 import com.todoroo.astrid.utility.TitleParser;
 
 
@@ -356,10 +357,35 @@ public class TaskService {
         return quickAddMarkup;
     }
 
+    /**
+     * Parse quick add markup for the given task
+     * @param task
+     * @param tags an empty array to apply tags to
+     * @return
+     */
     public static boolean parseQuickAddMarkup(Task task, ArrayList<String> tags) {
         return new TitleParser(task, tags).parse();
     }
 
+    /**
+     * Create an uncompleted copy of this task and edit it
+     * @param itemId
+     * @return cloned item id
+     */
+    public long duplicateTask(long itemId) {
+        Task original = new Task();
+        original.setId(itemId);
+        Task clone = clone(original);
+        clone.setValue(Task.CREATION_DATE, DateUtilities.now());
+        clone.setValue(Task.COMPLETION_DATE, 0L);
+        clone.setValue(Task.DELETION_DATE, 0L);
+        clone.setValue(Task.CALENDAR_URI, ""); //$NON-NLS-1$
+        GCalHelper.createTaskEventIfEnabled(clone);
 
+        Flags.set(Flags.ACTFM_SUPPRESS_SYNC);
+        Flags.set(Flags.GTASKS_SUPPRESS_SYNC);
+        save(clone);
+        return clone.getId();
+    }
 
 }

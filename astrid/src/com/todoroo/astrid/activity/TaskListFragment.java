@@ -1,20 +1,14 @@
 package com.todoroo.astrid.activity;
 
-import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map.Entry;
 import java.util.Timer;
 import java.util.TimerTask;
 import java.util.concurrent.atomic.AtomicReference;
 
-import org.weloveastrid.rmilk.MilkPreferences;
-import org.weloveastrid.rmilk.MilkUtilities;
-
 import android.app.Activity;
 import android.app.AlertDialog;
-import android.app.PendingIntent.CanceledException;
 import android.app.SearchManager;
 import android.content.BroadcastReceiver;
 import android.content.ContentValues;
@@ -27,7 +21,6 @@ import android.content.SharedPreferences.Editor;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.database.Cursor;
-import android.graphics.PixelFormat;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.ActionBar;
@@ -51,20 +44,17 @@ import android.view.View.OnLongClickListener;
 import android.view.View.OnTouchListener;
 import android.view.ViewGroup;
 import android.view.ViewGroup.LayoutParams;
-import android.view.WindowManager;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.AbsListView;
 import android.widget.AbsListView.OnScrollListener;
 import android.widget.AdapterView.AdapterContextMenuInfo;
-import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.TextView.OnEditorActionListener;
-import android.widget.Toast;
 
 import com.crittercism.NewFeedbackSpringboardActivity;
 import com.timsu.astrid.R;
@@ -77,11 +67,8 @@ import com.todoroo.andlib.service.ExceptionService;
 import com.todoroo.andlib.sql.Functions;
 import com.todoroo.andlib.sql.QueryTemplate;
 import com.todoroo.andlib.utility.AndroidUtilities;
-import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.andlib.utility.DialogUtilities;
 import com.todoroo.andlib.utility.Preferences;
-import com.todoroo.andlib.widget.GestureService;
-import com.todoroo.andlib.widget.GestureService.GestureInterface;
 import com.todoroo.astrid.actfm.ActFmLoginActivity;
 import com.todoroo.astrid.actfm.EditPeopleControlSet;
 import com.todoroo.astrid.actfm.TagUpdatesActivity;
@@ -94,7 +81,6 @@ import com.todoroo.astrid.adapter.TaskAdapter.ViewHolder;
 import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.api.PermaSql;
-import com.todoroo.astrid.api.SyncAction;
 import com.todoroo.astrid.api.TaskContextActionExposer;
 import com.todoroo.astrid.api.TaskDecoration;
 import com.todoroo.astrid.core.CoreFilterExposer;
@@ -106,8 +92,7 @@ import com.todoroo.astrid.data.TagData;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.gcal.GCalControlSet;
 import com.todoroo.astrid.gcal.GCalHelper;
-import com.todoroo.astrid.helper.MetadataHelper;
-import com.todoroo.astrid.helper.ProgressBarSyncResultCallback;
+import com.todoroo.astrid.helper.SyncActionHelper;
 import com.todoroo.astrid.helper.TaskListContextMenuExtensionLoader;
 import com.todoroo.astrid.helper.TaskListContextMenuExtensionLoader.ContextMenuItem;
 import com.todoroo.astrid.reminders.ReminderDebugContextActions;
@@ -117,12 +102,9 @@ import com.todoroo.astrid.service.AstridDependencyInjector;
 import com.todoroo.astrid.service.MetadataService;
 import com.todoroo.astrid.service.StatisticsConstants;
 import com.todoroo.astrid.service.StatisticsService;
-import com.todoroo.astrid.service.SyncV2Service;
 import com.todoroo.astrid.service.TagDataService;
 import com.todoroo.astrid.service.TaskService;
 import com.todoroo.astrid.service.UpgradeService;
-import com.todoroo.astrid.sync.SyncResultCallback;
-import com.todoroo.astrid.sync.SyncV2Provider;
 import com.todoroo.astrid.ui.DateChangedAlerts;
 import com.todoroo.astrid.ui.DeadlineControlSet;
 import com.todoroo.astrid.utility.AstridPreferences;
@@ -141,7 +123,7 @@ import com.todoroo.astrid.widget.TasksWidget;
  *
  */
 public class TaskListFragment extends ListFragment implements OnScrollListener,
-        GestureInterface, OnSortSelectedListener {
+        OnSortSelectedListener {
 
     public static final String TAG_TASKLIST_FRAGMENT = "tasklist_fragment"; //$NON-NLS-1$
 
@@ -186,41 +168,33 @@ public class TaskListFragment extends ListFragment implements OnScrollListener,
     // --- instance variables
 
     @Autowired
-    ExceptionService exceptionService;
+    protected ExceptionService exceptionService;
 
     @Autowired
     protected TaskService taskService;
 
-    @Autowired
-    MetadataService metadataService;
+    @Autowired MetadataService metadataService;
 
-    @Autowired
-    Database database;
+    @Autowired Database database;
 
-    @Autowired
-    AddOnService addOnService;
+    @Autowired AddOnService addOnService;
 
-    @Autowired
-    UpgradeService upgradeService;
+    @Autowired UpgradeService upgradeService;
 
-    @Autowired
-    protected SyncV2Service syncService;
+    @Autowired TagDataService tagDataService;
 
-    @Autowired
-    TagDataService tagDataService;
-
-    @Autowired
-    ActFmPreferenceService actFmPreferenceService;
+    @Autowired ActFmPreferenceService actFmPreferenceService;
 
     private final TaskContextActionExposer[] contextItemExposers = new TaskContextActionExposer[] {
             new ReminderDebugContextActions.MakeNotification(),
-            new ReminderDebugContextActions.WhenReminder(), };
+            new ReminderDebugContextActions.WhenReminder(),
+    };
 
     protected TaskAdapter taskAdapter = null;
     protected DetailReceiver detailReceiver = new DetailReceiver();
     protected RefreshReceiver refreshReceiver = new RefreshReceiver();
-    protected SyncActionReceiver syncActionReceiver = new SyncActionReceiver();
     protected final AtomicReference<String> sqlQueryTemplate = new AtomicReference<String>();
+    protected SyncActionHelper syncActionHelper;
     protected Filter filter;
     protected int sortFlags;
     protected int sortSort;
@@ -232,12 +206,10 @@ public class TaskListFragment extends ListFragment implements OnScrollListener,
     private LinearLayout quickAddControls;
     private View quickAddControlsContainer;
     private Timer backgroundTimer;
-    private final LinkedHashSet<SyncAction> syncActions = new LinkedHashSet<SyncAction>();
     private boolean isFilter;
 
     private final TaskListContextMenuExtensionLoader contextMenuExtensionLoader = new TaskListContextMenuExtensionLoader();
 
-    protected SyncResultCallback syncResultCallback;
     private VoiceInputAssistant voiceInputAssistant;
 
     // --- fragment handling variables
@@ -338,31 +310,12 @@ public class TaskListFragment extends ListFragment implements OnScrollListener,
             getListView().setItemsCanFocus(false);
         }
 
-
         if (Preferences.getInt(AstridPreferences.P_UPGRADE_FROM, -1) > -1)
             upgradeService.showChangeLog(getActivity(),
                     Preferences.getInt(AstridPreferences.P_UPGRADE_FROM, -1));
 
         if (getActivity().getIntent().hasExtra(TOKEN_SOURCE)) {
-            switch (getActivity().getIntent().getIntExtra(TOKEN_SOURCE,
-                    Constants.SOURCE_DEFAULT)) {
-            case Constants.SOURCE_NOTIFICATION:
-                StatisticsService.reportEvent(StatisticsConstants.LAUNCH_FROM_NOTIFICATION);
-                break;
-            case Constants.SOURCE_OTHER:
-                StatisticsService.reportEvent(StatisticsConstants.LAUNCH_FROM_OTHER);
-                break;
-            case Constants.SOURCE_PPWIDGET:
-                StatisticsService.reportEvent(StatisticsConstants.LAUNCH_FROM_PPW);
-                break;
-            case Constants.SOURCE_WIDGET:
-                StatisticsService.reportEvent(StatisticsConstants.LAUNCH_FROM_WIDGET);
-                break;
-            case Constants.SOURCE_C2DM:
-                StatisticsService.reportEvent(StatisticsConstants.LAUNCH_FROM_C2DM);
-                break;
-            }
-            getActivity().getIntent().putExtra(TOKEN_SOURCE, Constants.SOURCE_DEFAULT); // Only report source once
+            trackActivitySource();
         }
 
         getActivity().runOnUiThread(new Runnable() {
@@ -372,7 +325,35 @@ public class TaskListFragment extends ListFragment implements OnScrollListener,
         });
     }
 
-    protected TagData getTagDataForUpdates() {
+    /**
+     * Report who launched this activity
+     */
+    protected void trackActivitySource() {
+        switch (getActivity().getIntent().getIntExtra(TOKEN_SOURCE,
+                Constants.SOURCE_DEFAULT)) {
+        case Constants.SOURCE_NOTIFICATION:
+            StatisticsService.reportEvent(StatisticsConstants.LAUNCH_FROM_NOTIFICATION);
+            break;
+        case Constants.SOURCE_OTHER:
+            StatisticsService.reportEvent(StatisticsConstants.LAUNCH_FROM_OTHER);
+            break;
+        case Constants.SOURCE_PPWIDGET:
+            StatisticsService.reportEvent(StatisticsConstants.LAUNCH_FROM_PPW);
+            break;
+        case Constants.SOURCE_WIDGET:
+            StatisticsService.reportEvent(StatisticsConstants.LAUNCH_FROM_WIDGET);
+            break;
+        case Constants.SOURCE_C2DM:
+            StatisticsService.reportEvent(StatisticsConstants.LAUNCH_FROM_C2DM);
+            break;
+        }
+        getActivity().getIntent().putExtra(TOKEN_SOURCE, Constants.SOURCE_DEFAULT); // Only report source once
+    }
+
+    /**
+     * @return the current tag you are viewing, or null if you're not viewing a tag
+     */
+    protected TagData getActiveTagData() {
         return null;
     }
 
@@ -410,7 +391,7 @@ public class TaskListFragment extends ListFragment implements OnScrollListener,
         }
 
         setUpTaskList();
-        ((AstridActivity) getActivity()).setupActivityFragment(getTagDataForUpdates());
+        ((AstridActivity) getActivity()).setupActivityFragment(getActiveTagData());
         setUpQuickAddControlSets();
 
         contextMenuExtensionLoader.loadInNewThread(getActivity());
@@ -598,32 +579,11 @@ public class TaskListFragment extends ListFragment implements OnScrollListener,
             }
         });
 
-        // gestures / animation
-        try {
-            GestureService.registerGestureDetector(getActivity(),
-                    R.id.gestures, R.raw.gestures, this);
-        } catch (VerifyError e) {
-            // failed check, no gestures :P
-        }
-
+        // animation
         SharedPreferences publicPrefs = AstridPreferences.getPublicPrefs(getActivity());
         sortFlags = publicPrefs.getInt(SortHelper.PREF_SORT_FLAGS, 0);
         sortSort = publicPrefs.getInt(SortHelper.PREF_SORT_SORT, 0);
 
-        // dithering
-        getActivity().getWindow().setFormat(PixelFormat.RGBA_8888);
-        getActivity().getWindow().addFlags(
-                WindowManager.LayoutParams.FLAG_DITHER);
-
-        syncResultCallback = new ProgressBarSyncResultCallback(getActivity(),
-                R.id.progressBar, new Runnable() {
-                    @Override
-                    public void run() {
-                        ContextManager.getContext().sendBroadcast(
-                                new Intent(
-                                        AstridApiConstants.BROADCAST_EVENT_REFRESH));
-                    }
-                });
         getView().findViewById(R.id.progressBar).setVisibility(View.GONE);
     }
 
@@ -659,7 +619,7 @@ public class TaskListFragment extends ListFragment implements OnScrollListener,
 
     private void resetControlSets() {
         Task empty = new Task();
-        TagData tagData = getTagDataForUpdates();
+        TagData tagData = getActiveTagData();
         if (tagData != null) {
             HashSet<String> tagsTransitory = new HashSet<String>();
             tagsTransitory.add(tagData.getValue(TagData.NAME));
@@ -668,7 +628,7 @@ public class TaskListFragment extends ListFragment implements OnScrollListener,
         repeatControl.readFromTask(empty);
         gcalControl.readFromTask(empty);
         deadlineControl.readFromTask(empty);
-        peopleControl.setUpData(empty, getTagDataForUpdates());
+        peopleControl.setUpData(empty, getActiveTagData());
         peopleControl.assignToMe();
         peopleControl.setTask(null);
     }
@@ -745,9 +705,8 @@ public class TaskListFragment extends ListFragment implements OnScrollListener,
                 new IntentFilter(AstridApiConstants.BROADCAST_SEND_DECORATIONS));
         getActivity().registerReceiver(refreshReceiver,
                 new IntentFilter(AstridApiConstants.BROADCAST_EVENT_REFRESH));
-        getActivity().registerReceiver(
-                syncActionReceiver,
-                new IntentFilter(AstridApiConstants.BROADCAST_SEND_SYNC_ACTIONS));
+        syncActionHelper.register();
+
         setUpBackgroundJobs();
 
         if (!Preferences.getBoolean(
@@ -772,6 +731,10 @@ public class TaskListFragment extends ListFragment implements OnScrollListener,
         initiateAutomaticSync();
     }
 
+    protected void initiateAutomaticSync() {
+        syncActionHelper.initiateAutomaticSync(filter);
+    }
+
     @Override
     public void onPause() {
         super.onPause();
@@ -779,7 +742,7 @@ public class TaskListFragment extends ListFragment implements OnScrollListener,
         try {
             getActivity().unregisterReceiver(detailReceiver);
             getActivity().unregisterReceiver(refreshReceiver);
-            getActivity().unregisterReceiver(syncActionReceiver);
+            syncActionHelper.unregister();
         } catch (IllegalArgumentException e) {
             // might not have fully initialized
         }
@@ -819,31 +782,6 @@ public class TaskListFragment extends ListFragment implements OnScrollListener,
         taskAdapter.flushCaches();
         loadTaskListContent(true);
         taskService.cleanup();
-    }
-
-    /**
-     * Receiver which receives sync provider intents
-     *
-     * @author Tim Su <tim@todoroo.com>
-     *
-     */
-    protected class SyncActionReceiver extends BroadcastReceiver {
-        @Override
-        public void onReceive(Context context, Intent intent) {
-            if (intent == null
-                    || !AstridApiConstants.BROADCAST_SEND_SYNC_ACTIONS.equals(intent.getAction()))
-                return;
-
-            try {
-                Bundle extras = intent.getExtras();
-                SyncAction syncAction = extras.getParcelable(AstridApiConstants.EXTRAS_RESPONSE);
-                syncActions.add(syncAction);
-            } catch (Exception e) {
-                exceptionService.reportError("receive-sync-action-" + //$NON-NLS-1$
-                        intent.getStringExtra(AstridApiConstants.EXTRAS_ADDON),
-                        e);
-            }
-        }
     }
 
     /**
@@ -987,11 +925,7 @@ public class TaskListFragment extends ListFragment implements OnScrollListener,
             getListView().setSelection(oldListItemSelected);
 
         // also load sync actions
-        syncActions.clear();
-        Intent broadcastIntent = new Intent(
-                AstridApiConstants.BROADCAST_REQUEST_SYNC_ACTIONS);
-        getActivity().sendOrderedBroadcast(broadcastIntent,
-                AstridApiConstants.PERMISSION_READ);
+        syncActionHelper.request();
     }
 
     /**
@@ -1024,6 +958,7 @@ public class TaskListFragment extends ListFragment implements OnScrollListener,
         setListAdapter(taskAdapter);
         getListView().setOnScrollListener(this);
         registerForContextMenu(getListView());
+        syncActionHelper = new SyncActionHelper(getActivity());
 
         loadTaskListContent(true);
     }
@@ -1291,7 +1226,7 @@ public class TaskListFragment extends ListFragment implements OnScrollListener,
      */
     protected void handleCommentsButtonClicked() {
         Intent intent = new Intent(getActivity(), TagUpdatesActivity.class);
-        intent.putExtra(TagViewFragment.EXTRA_TAG_DATA, getTagDataForUpdates());
+        intent.putExtra(TagViewFragment.EXTRA_TAG_DATA, getActiveTagData());
         startActivity(intent);
         AndroidUtilities.callOverridePendingTransition(getActivity(), R.anim.slide_left_in, R.anim.slide_left_out);
     }
@@ -1367,153 +1302,6 @@ public class TaskListFragment extends ListFragment implements OnScrollListener,
                 }).setNegativeButton(android.R.string.cancel, null).show();
     }
 
-    /**
-     * Intent object with custom label returned by toString.
-     *
-     * @author joshuagross <joshua.gross@gmail.com>
-     */
-    protected static class IntentWithLabel extends Intent {
-        private final String label;
-
-        public IntentWithLabel(Intent in, String labelIn) {
-            super(in);
-            label = labelIn;
-        }
-
-        @Override
-        public String toString() {
-            return label;
-        }
-    }
-
-    private static final String PREF_LAST_AUTO_SYNC = "taskListLastAutoSync"; //$NON-NLS-1$
-
-    protected void initiateAutomaticSync() {
-        if (filter == null || filter.title == null
-                || !filter.title.equals(getString(R.string.BFE_Active)))
-            return;
-
-        long lastAutoSync = Preferences.getLong(PREF_LAST_AUTO_SYNC, 0);
-        if (DateUtilities.now() - lastAutoSync > DateUtilities.ONE_HOUR) {
-            performSyncServiceV2Sync(false);
-        }
-    }
-
-    protected void performSyncServiceV2Sync(boolean manual) {
-        syncService.synchronizeActiveTasks(manual, syncResultCallback);
-        Preferences.setLong(PREF_LAST_AUTO_SYNC, DateUtilities.now());
-    }
-
-    protected void performSyncAction() {
-        List<SyncV2Provider> activeV2Providers = syncService.activeProviders();
-        int activeSyncs = syncActions.size() + activeV2Providers.size();
-
-        if (activeSyncs == 0) {
-            String desiredCategory = getString(R.string.SyP_label);
-
-            // Get a list of all sync plugins and bring user to the prefs pane
-            // for one of them
-            Intent queryIntent = new Intent(AstridApiConstants.ACTION_SETTINGS);
-            PackageManager pm = getActivity().getPackageManager();
-            List<ResolveInfo> resolveInfoList = pm.queryIntentActivities(
-                    queryIntent, PackageManager.GET_META_DATA);
-            int length = resolveInfoList.size();
-            ArrayList<Intent> syncIntents = new ArrayList<Intent>();
-
-            // Loop through a list of all packages (including plugins, addons)
-            // that have a settings action: filter to sync actions
-            for (int i = 0; i < length; i++) {
-                ResolveInfo resolveInfo = resolveInfoList.get(i);
-                Intent intent = new Intent(AstridApiConstants.ACTION_SETTINGS);
-                intent.setClassName(resolveInfo.activityInfo.packageName,
-                        resolveInfo.activityInfo.name);
-
-                String category = MetadataHelper.resolveActivityCategoryName(
-                        resolveInfo, pm);
-                if (MilkPreferences.class.getName().equals(
-                        resolveInfo.activityInfo.name)
-                        && !MilkUtilities.INSTANCE.isLoggedIn())
-                    continue;
-
-                if (category.equals(desiredCategory)) {
-                    syncIntents.add(new IntentWithLabel(intent,
-                            resolveInfo.activityInfo.loadLabel(pm).toString()));
-                }
-            }
-
-            final Intent[] actions = syncIntents.toArray(new Intent[syncIntents.size()]);
-            DialogInterface.OnClickListener listener = new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface click, int which) {
-                    startActivity(actions[which]);
-                }
-            };
-
-            showSyncOptionMenu(actions, listener);
-
-        } else {
-            // We have sync actions, pop up a dialogue so the user can
-            // select just one of them (only sync one at a time)
-            final Object[] actions = new Object[activeSyncs];
-
-            int i;
-            for (i = 0; i < activeV2Providers.size(); i++)
-                actions[i] = activeV2Providers.get(i);
-            for (SyncAction syncAction : syncActions)
-                actions[i++] = syncAction;
-
-            DialogInterface.OnClickListener listener = new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface click, int which) {
-                    if (actions[which] instanceof SyncAction) {
-                        try {
-                            ((SyncAction) actions[which]).intent.send();
-                            Toast.makeText(getActivity(),
-                                    R.string.SyP_progress_toast,
-                                    Toast.LENGTH_LONG).show();
-                        } catch (CanceledException e) {
-                            //
-                        }
-                    } else {
-                        ((SyncV2Provider) actions[which]).synchronizeActiveTasks(
-                                true, syncResultCallback);
-                    }
-                }
-            };
-            showSyncOptionMenu(actions, listener);
-        }
-    }
-
-    /**
-     * Show menu of sync options. This is shown when you're not logged into any
-     * services, or logged into more than one.
-     *
-     * @param <TYPE>
-     * @param items
-     * @param listener
-     */
-    private <TYPE> void showSyncOptionMenu(TYPE[] items,
-            DialogInterface.OnClickListener listener) {
-        if (items.length == 1) {
-            listener.onClick(null, 0);
-            return;
-        }
-
-        ArrayAdapter<TYPE> adapter = new ArrayAdapter<TYPE>(getActivity(),
-                android.R.layout.simple_spinner_dropdown_item, items);
-
-        // show a menu of available options
-        new AlertDialog.Builder(getActivity()).setTitle(R.string.SyP_label).setAdapter(
-                adapter, listener).show().setOwnerActivity(getActivity());
-    }
-
-    /*
-     * (non-Javadoc)
-     *
-     * @see
-     * android.support.v4.app.ListFragment#onListItemClick(android.widget.ListView
-     * , android.view.View, int, long)
-     */
     @Override
     public void onListItemClick(ListView l, View v, int position, long id) {
         super.onListItemClick(l, v, position, id);
@@ -1523,7 +1311,6 @@ public class TaskListFragment extends ListFragment implements OnScrollListener,
 
     @Override
     public boolean onContextItemSelected(MenuItem item) {
-        // called when context menu appears
         return onOptionsItemSelected(item);
     }
 
@@ -1550,7 +1337,7 @@ public class TaskListFragment extends ListFragment implements OnScrollListener,
             return true;
         case MENU_SYNC_ID:
             StatisticsService.reportEvent(StatisticsConstants.TLA_MENU_SYNC);
-            performSyncAction();
+            syncActionHelper.performSyncAction();
             return true;
         case MENU_SUPPORT_ID:
             showSupport();
@@ -1561,45 +1348,23 @@ public class TaskListFragment extends ListFragment implements OnScrollListener,
                     ACTIVITY_MENU_EXTERNAL);
             return true;
 
-            // --- context menu items
+        // --- context menu items
 
         case CONTEXT_MENU_BROADCAST_INTENT_ID: {
             intent = item.getIntent();
             getActivity().sendBroadcast(intent);
             return true;
         }
-
         case CONTEXT_MENU_EDIT_TASK_ID: {
             itemId = item.getGroupId();
             mListener.onTaskListItemClicked(itemId);
             return true;
         }
-
         case CONTEXT_MENU_COPY_TASK_ID: {
             itemId = item.getGroupId();
-            Task original = new Task();
-            original.setId(itemId);
-
-            Flags.set(Flags.ACTFM_SUPPRESS_SYNC);
-            Flags.set(Flags.GTASKS_SUPPRESS_SYNC);
-            Task clone = taskService.clone(original);
-            clone.setValue(Task.CREATION_DATE, DateUtilities.now());
-            clone.setValue(Task.COMPLETION_DATE, 0L);
-            clone.setValue(Task.DELETION_DATE, 0L);
-
-            clone.setValue(Task.CALENDAR_URI, ""); //$NON-NLS-1$
-            GCalHelper.createTaskEventIfEnabled(clone);
-            taskService.save(clone);
-
-            intent = new Intent(getActivity(), TaskEditActivity.class);
-            intent.putExtra(TaskEditFragment.TOKEN_ID, clone.getId());
-            intent.putExtra(TOKEN_FILTER, filter);
-            getActivity().startActivityForResult(intent, ACTIVITY_EDIT_TASK);
-            transitionForTaskEdit();
-
+            duplicateTask(itemId);
             return true;
         }
-
         case CONTEXT_MENU_DELETE_TASK_ID: {
             itemId = item.getGroupId();
             Task task = new Task();
@@ -1607,7 +1372,6 @@ public class TaskListFragment extends ListFragment implements OnScrollListener,
             deleteTask(task);
             return true;
         }
-
         case CONTEXT_MENU_UNDELETE_TASK_ID: {
             itemId = item.getGroupId();
             Task task = new Task();
@@ -1617,14 +1381,12 @@ public class TaskListFragment extends ListFragment implements OnScrollListener,
             loadTaskListContent(true);
             return true;
         }
-
         case CONTEXT_MENU_PURGE_TASK_ID: {
             itemId = item.getGroupId();
             taskService.purge(itemId);
             loadTaskListContent(true);
             return true;
         }
-
         default: {
             if (item.getItemId() < CONTEXT_MENU_PLUGIN_ID_FIRST)
                 return false;
@@ -1637,8 +1399,17 @@ public class TaskListFragment extends ListFragment implements OnScrollListener,
 
             return true;
         }
-
         }
+    }
+
+    protected void duplicateTask(long itemId) {
+        long cloneId = taskService.duplicateTask(itemId);
+
+        Intent intent = new Intent(getActivity(), TaskEditActivity.class);
+        intent.putExtra(TaskEditFragment.TOKEN_ID, cloneId);
+        intent.putExtra(TOKEN_FILTER, filter);
+        getActivity().startActivityForResult(intent, ACTIVITY_EDIT_TASK);
+        transitionForTaskEdit();
     }
 
     public void showSupport() {
@@ -1655,14 +1426,6 @@ public class TaskListFragment extends ListFragment implements OnScrollListener,
 
     public void onTaskListItemClicked(long taskId) {
         mListener.onTaskListItemClicked(taskId);
-    }
-
-    @SuppressWarnings("nls")
-    @Override
-    public void gesturePerformed(String gesture) {
-        if ("nav_right".equals(gesture)) {
-            // showFilterListActivity();
-        }
     }
 
     @Override
