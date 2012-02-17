@@ -84,6 +84,7 @@ public class TaskListActivity extends AstridActivity implements MainMenuListener
                 if (frag != null) {
                     setupPopoverWithFragment(commentsPopover, frag, null);
                     commentsPopover.show(listsNav);
+                    frag.setLastViewed();
                 }
             } else {
                 // In this case we should be in LAYOUT_SINGLE--delegate to the task list fragment

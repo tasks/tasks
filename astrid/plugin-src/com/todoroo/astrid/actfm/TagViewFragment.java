@@ -230,6 +230,10 @@ public class TagViewFragment extends TaskListFragment {
             tagDataService.save(tagData);
         }
 
+        updateCommentCount();
+    }
+
+    private void updateCommentCount() {
         if (tagData != null) {
             long lastViewedComments = Preferences.getLong(TagUpdatesFragment.UPDATES_LAST_VIEWED + tagData.getValue(TagData.REMOTE_ID), 0);
             int unreadCount = 0;
@@ -441,6 +445,7 @@ public class TagViewFragment extends TaskListFragment {
         getActivity().registerReceiver(notifyReceiver, intentFilter);
 
         showListSettingsPopover();
+        updateCommentCount();
     }
 
     @Override
