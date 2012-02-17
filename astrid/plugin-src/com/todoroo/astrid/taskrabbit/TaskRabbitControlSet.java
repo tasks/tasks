@@ -27,7 +27,6 @@ import com.todoroo.astrid.actfm.OAuthLoginActivity;
 import com.todoroo.astrid.activity.TaskEditFragment;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.helper.TaskEditControlSet;
-import com.todoroo.astrid.taskrabbit.TaskRabbitLocationManager.LocationResult;
 
 public class TaskRabbitControlSet extends TaskEditControlSet implements AssignedChangedListener {
 
@@ -83,8 +82,7 @@ public class TaskRabbitControlSet extends TaskEditControlSet implements Assigned
 
     protected void refreshDisplayView() {
         JSONObject remoteData = taskRabbitTask.getRemoteTaskData();
-        if (remoteData != null)
-            updateDisplay(remoteData);
+        updateDisplay(remoteData);
     }
 
 
@@ -136,10 +134,8 @@ public class TaskRabbitControlSet extends TaskEditControlSet implements Assigned
     private void updateTaskRow(TaskRabbitTaskContainer container) {
         displayText.setText(fragment.getString(R.string.tr_display_status));
         JSONObject remoteData = container.getRemoteTaskData();
-        if (remoteData != null) {
-            updateDisplay(remoteData);
-            updateStatus(remoteData);
-        }
+        updateDisplay(remoteData);
+        updateStatus(remoteData);
     }
 
     /* message callbacks */
@@ -180,19 +176,24 @@ public class TaskRabbitControlSet extends TaskEditControlSet implements Assigned
     }
 
     public boolean activityResult (int requestCode, int resultCode, Intent data) {
-        if (requestCode == REQUEST_CODE_TASK_RABBIT_ACTIVITY && resultCode == Activity.RESULT_OK){
-            String result = data.getStringExtra(OAuthLoginActivity.DATA_RESPONSE);
-            if (!TextUtils.isEmpty(result)) {
-                try {
-                    Message successMessage = new Message();
-                    successMessage.what = 1;
-                    handler.sendMessageDelayed(successMessage, 500);
-                }
-                catch (Exception e){
-                    e.printStackTrace();
+        if (requestCode == REQUEST_CODE_TASK_RABBIT_ACTIVITY ){
+            if (resultCode == Activity.RESULT_OK) {
+                String result = data.getStringExtra(OAuthLoginActivity.DATA_RESPONSE);
+                if (!TextUtils.isEmpty(result)) {
+                    try {
+                        Message successMessage = new Message();
+                        successMessage.what = 1;
+                        handler.sendMessageDelayed(successMessage, 500);
+                        return true;
+                    }
+                    catch (Exception e){
+                        e.printStackTrace();
+                    }
                 }
             }
-
+            else {
+                updateDisplay(null);
+            }
             return true;
         }
         return false;
@@ -211,6 +212,11 @@ public class TaskRabbitControlSet extends TaskEditControlSet implements Assigned
             statusText.setText(status);
             getDisplayView().setVisibility(View.VISIBLE);
         }
+        else if (taskRabbitTask.getLocalTaskData() != null) {
+            TextView statusText = (TextView) getDisplayView().findViewById(R.id.display_row_edit);
+            statusText.setText(fragment.getActivity().getString(R.string.tr_status_draft));
+            getDisplayView().setVisibility(View.VISIBLE);
+        }
         else {
             getDisplayView().setVisibility(View.GONE);
         }
@@ -218,6 +224,8 @@ public class TaskRabbitControlSet extends TaskEditControlSet implements Assigned
 
 
     protected void updateStatus(JSONObject json){
+
+        if (json == null) return;
 
         final long taskID = json.optLong(TaskRabbitActivity.TASK_RABBIT_ID);
         if (taskID == TaskRabbitTaskContainer.NO_ID) return;
@@ -258,31 +266,12 @@ public class TaskRabbitControlSet extends TaskEditControlSet implements Assigned
         return false;
     }
 
-
-
-
     private void loadLocation() {
 
         locationManager = new TaskRabbitLocationManager(fragment.getActivity());
         currentLocation = locationManager.getLastKnownLocation();
-        if (currentLocation == null) {
-            locationManager.getLocation(new LocationResult(){
-                @Override
-                public void gotLocation(final Location location){
-                    //Got the location!
-                    currentLocation = location;
-                    isEnabledForTRLocation = TaskRabbitLocationManager.supportsCurrentLocation(currentLocation);
-                }
-            }
-            );
-        } else {
-            isEnabledForTRLocation = TaskRabbitLocationManager.supportsCurrentLocation(currentLocation);
-        }
+        isEnabledForTRLocation = TaskRabbitLocationManager.supportsCurrentLocation(currentLocation);
     }
-
-
-
-
 
     @Override
     public boolean didPostToTaskRabbit() {

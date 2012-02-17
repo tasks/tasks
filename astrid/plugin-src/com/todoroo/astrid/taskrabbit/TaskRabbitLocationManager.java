@@ -27,12 +27,16 @@ public class TaskRabbitLocationManager {
 
     }
     private static final GeoPoint[] supportedLocations = {
-        new GeoPoint(42358430, -71059770), //
-        new GeoPoint(37739230, -122439880),
-        new GeoPoint(40714350, -74005970),
-        new GeoPoint(41878110, -8762980),
-        new GeoPoint(34052230, -118243680),
-        new GeoPoint(33717470, -117831140)
+        new GeoPoint(42358430, -71059770), //BOS
+        new GeoPoint(37739230, -122439880), //SF
+        new GeoPoint(40714350, -74005970), //NYC
+        new GeoPoint(41878110, -87629800), //CHI
+        new GeoPoint(34052230, -118243680), //LA
+        new GeoPoint(33717470, -117831140), //OC
+        new GeoPoint(30267150, -97743060), //AUSTIN
+        new GeoPoint(45523450, -122676210), //PORTLAND
+        new GeoPoint(47606210, -122332070), //SEA
+        new GeoPoint(29424120, -98493630) //SAN ANTONIO
     };
     public boolean isLocationUpdatesEnabled() {
         boolean provider_enabled=false;

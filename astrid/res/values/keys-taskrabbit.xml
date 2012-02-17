@@ -403,26 +403,39 @@
     
     <!-- Task Rabbit activity messages -->
     <string name="tr_button_already_posted">Already Posted!</string>
+    <string name="tr_status_draft">draft</string>
     <string name="tr_alert_title_fail">Error posting task</string>
     <string name="tr_alert_message_fail">Please try again</string>
-    <string name="tr_alert_button_fail">Close</string>
+    <string name="tr_alert_button_close">Close</string>
     <string name="tr_alert_gps_title">GPS needs to be enabled in order to add location based tasks. Do you want to enable it?</string>
     <string name="tr_alert_gps_yes">Yes</string>
     <string name="tr_alert_gps_no">No</string>
     
     
+    <string name="tr_alert_internet_message_fail">Internet connection could not be found. Please check your connection and try again.</string>
+    
+    
+    <string name="tr_alert_intro_location">TaskRabbit is an inexpensive way to delegate tasks to trust-worthy people in your area.</string>
+    <string name="tr_alert_intro_no_location">TaskRabbit is an inexpensive way to delegate tasks to trust-worthy people but it isn\'t  yet available in your location. You can use it to assign virtual tasks or tasks in <a href="http://www.taskrabbit.com/pickacity">supported locations</a></string>
+    
+    <string name="tr_alert_location_not_supported_title">Location not supported</string>
+    <string name="tr_alert_location_not_supported_message">TaskRabbit isn\'t yet supported in your current location.  Please choose a <a href="http://www.taskrabbit.com/pickacity">supported location</a> or set type to virtual before posting this task</string>
+    
     <string name="tr_default_location_name">Current Location</string>
     
     <!-- Task Rabbit control set toast -->
-    <string name="tr_success_toast">Task posted to Task Rabbit successfully!</string>
-    <string name="tr_display_status">Task Rabbit Status</string>
+    <string name="tr_success_toast">Task posted to TaskRabbit successfully!</string>
+    <string name="tr_display_status">TaskRabbit Status</string>
     
     
     <!-- Task Rabbit Map Activity -->
     <string name="tr_alert_location_fail_title">No Location Found</string>
     <string name="tr_alert_location_fail_message">Sorry, could not find the location for the address you entered</string>
-    <string name="tr_alert_location_clicked_title">Set this location</string>
+    <string name="tr_alert_location_clicked_title">Use this location</string>
+    
     <string name="tr_alert_location_clicked_message">Use this location for TaskRabbit</string>
+    
+    
     
     
     

@@ -316,14 +316,14 @@ public class WebServicesView extends LinearLayout {
                 int lowestNew = Integer.MAX_VALUE;
                 try {
                     lowestNew = attributes.containsKey("lowestNew") ?
-                        Integer.parseInt(attributes.get("lowestNew")) : Integer.MAX_VALUE;
+                            Integer.parseInt(attributes.get("lowestNew")) : Integer.MAX_VALUE;
                 } catch (NumberFormatException e) {
                     // text, i.e. "too low to display"
                 }
                 int lowestUsed = Integer.MAX_VALUE;
                 try {
                     lowestUsed = attributes.containsKey("lowestUsed") ?
-                        Integer.parseInt(attributes.get("lowestUsed")) : Integer.MAX_VALUE;
+                            Integer.parseInt(attributes.get("lowestUsed")) : Integer.MAX_VALUE;
                 } catch (NumberFormatException e) {
                     // text, i.e. "too low to display"
                 }
@@ -379,12 +379,12 @@ public class WebServicesView extends LinearLayout {
             public void run() {
                 try {
                     String url = GOOGLE_SEARCH_URL +
-                        URLEncoder.encode(task.getValue(Task.TITLE), "UTF-8");
+                    URLEncoder.encode(task.getValue(Task.TITLE), "UTF-8");
                     String result = restClient.get(url);
                     final JSONObject searchResults = new JSONObject(result);
 
                     activity.runOnUiThread(new GoogleSearchResultsProcessor(body,
-                                        searchResults.getJSONObject("responseData")));
+                            searchResults.getJSONObject("responseData")));
 
                 } catch (Exception e) {
                     displayError(e, body);
@@ -442,31 +442,31 @@ public class WebServicesView extends LinearLayout {
     protected void initializeTaskRabbit() {
 
         if(taskRabbitControl != null && taskRabbitControl.isEnabledForTRLocation == true) {
-        addSectionHeader("Outsource this task to someone");
+            addSectionHeader("Outsource this task to someone");
 
-        final LinearLayout body = new LinearLayout(activity);
-        body.setLayoutParams(new LinearLayout.LayoutParams(LayoutParams.FILL_PARENT,
+            final LinearLayout body = new LinearLayout(activity);
+            body.setLayoutParams(new LinearLayout.LayoutParams(LayoutParams.FILL_PARENT,
                     ROW_HEIGHT));
-        body.setOrientation(LinearLayout.VERTICAL);
+            body.setOrientation(LinearLayout.VERTICAL);
 
 
-        ImageView imageView = new ImageView(getContext());
-        imageView.setLayoutParams(new LayoutParams(LayoutParams.FILL_PARENT,
-                ROW_HEIGHT));
-        imageView.setImageResource(R.drawable.task_rabbit_logo);
-        imageView.setScaleType(ScaleType.CENTER_INSIDE);
-        body.addView(imageView);
+            ImageView imageView = new ImageView(getContext());
+            imageView.setLayoutParams(new LayoutParams(LayoutParams.FILL_PARENT,
+                    ROW_HEIGHT));
+            imageView.setImageResource(R.drawable.task_rabbit_logo);
+            imageView.setScaleType(ScaleType.CENTER_INSIDE);
+            body.addView(imageView);
 
-        body.setOnClickListener(new OnClickListener() {
+            body.setOnClickListener(new OnClickListener() {
 
-            @Override
-            public void onClick(View v) {
-                taskRabbitControl.showTaskRabbitActivity();
+                @Override
+                public void onClick(View v) {
+                    taskRabbitControl.showTaskRabbitActivity();
 
-            }
-        });
-        addView(body);
-        addSectionDivider();
+                }
+            });
+            addView(body);
+            addSectionDivider();
 
         }
 

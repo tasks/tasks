@@ -1,5 +1,6 @@
 package com.todoroo.astrid.taskrabbit;
 
+import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -28,6 +29,8 @@ import android.support.v4.app.ActionBar;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.MenuItem;
 import android.text.TextUtils;
+import android.text.method.LinkMovementMethod;
+import android.util.Log;
 import android.util.TypedValue;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -110,6 +113,7 @@ public class TaskRabbitActivity extends FragmentActivity {
     private TextView menuTitle;
     private ListView menuList;
     private ArrayAdapter<String> adapter;
+    private TaskRabbitLocationManager locationManager;
 
 
     private int currentSelectedItem = 0;
@@ -122,11 +126,18 @@ public class TaskRabbitActivity extends FragmentActivity {
 
     public static final int REQUEST_CODE_TASK_RABBIT_OAUTH = 5;
     public static final int REQUEST_CODE_ENABLE_GPS = 6;
+
+
+    public static final int MESSAGE_CODE_SUCCESS = 1;
+    public static final int MESSAGE_CODE_FAILURE = -1;
+    public static final int MESSAGE_CODE_INTERNET_FAILURE = -2;
+    public static final int MESSAGE_CODE_LOCATION_FAILURE = -3;
     /** Act.fm current user name */
 
     public static final String TASK_RABBIT_TOKEN = "task_rabbit_token"; //$NON-NLS-1$
 
     private static final String TASK_RABBIT_POPOVER_PREF = "task_rabbit_popover"; //$NON-NLS-1$
+    private static final String TASK_RABBIT_DIALOG_INTRO_PREF = "task_rabbit_popover"; //$NON-NLS-1$
     private static final String TASK_RABBIT_PREF_CITY_NAME = "task_rabbit_city_name"; //$NON-NLS-1$
     private static final String TASK_RABBIT_PREF_CITY_ID = "task_rabbit_city_id"; //$NON-NLS-1$
     private static final String TASK_RABBIT_PREF_CITY_LAT = "task_rabbit_city_lat"; //$NON-NLS-1$
@@ -139,9 +150,12 @@ public class TaskRabbitActivity extends FragmentActivity {
     public static final String LOCATION_CONTAINER = "other_locations_attributes"; //$NON-NLS-1$
 
     // Non-production values
-    public static final String TASK_RABBIT_URL = "http://rs-astrid-api.taskrabbit.com"; //$NON-NLS-1$
-    public static final String TASK_RABBIT_CLIENT_ID = "fDTmGeR0uNCvoxopNyqsRWae8xOvbOBqC7jmHaxv"; //$NON-NLS-1$
-    public static final String TASK_RABBIT_CLIENT_APPLICATION_ID = "XBpKshU8utH5eaNmhky9N8aAId5rSLTh04Hi60Co"; //$NON-NLS-1$
+    public static final String TASK_RABBIT_URL = "http://www.taskrabbit.com"; //$NON-NLS-1$
+    public static final String TASK_RABBIT_CLIENT_ID = "RZUDrMuGn9Q3dXeq4nL24bM6LZmMCi1CEGgfP4ND"; //$NON-NLS-1$
+    public static final String TASK_RABBIT_CLIENT_APPLICATION_ID = "Va7FUIUTprsmyuwAq9eHSZvAgiRj8FVH1zeaM8Zt"; //$NON-NLS-1$
+    //    public static final String TASK_RABBIT_URL = "http://rs-astrid-api.taskrabbit.com"; //$NON-NLS-1$
+    //    public static final String TASK_RABBIT_CLIENT_ID = "fDTmGeR0uNCvoxopNyqsRWae8xOvbOBqC7jmHaxv"; //$NON-NLS-1$
+    //    public static final String TASK_RABBIT_CLIENT_APPLICATION_ID = "XBpKshU8utH5eaNmhky9N8aAId5rSLTh04Hi60Co"; //$NON-NLS-1$
     public static final String TASK_RABBIT_ID = "id"; //$NON-NLS-1$
     private TaskRabbitTaskContainer taskRabbitTask;
 
@@ -172,27 +186,54 @@ public class TaskRabbitActivity extends FragmentActivity {
         }
     }
 
+    public void showIntroDialog() {
+        if (!Preferences.getBoolean(TASK_RABBIT_DIALOG_INTRO_PREF, false)) {
+
+            if (TaskRabbitLocationManager.supportsCurrentLocation(currentLocation)) {
+
+                AlertDialog.Builder adb = new AlertDialog.Builder(TaskRabbitActivity.this);
+                adb.setMessage(getString(R.string.tr_alert_intro_location));
+                adb.setPositiveButton(getString(R.string.tr_alert_button_close), new DialogInterface.OnClickListener() {
+                    public void onClick(final DialogInterface dialog,  final int id) {
+                        showAddListPopover();
+                    }
+                });
+                adb.show();
+            }
+            else {
+                final AlertDialog adb = new AlertDialog.Builder(TaskRabbitActivity.this)
+                .setMessage(R.string.tr_alert_intro_no_location)
+                .setPositiveButton(getString(R.string.tr_alert_button_close),null)
+                .show();
+
+                ((TextView) adb.findViewById(android.R.id.message)).setMovementMethod(LinkMovementMethod.getInstance());
+            }
+            Preferences.setBoolean(TASK_RABBIT_DIALOG_INTRO_PREF, true);
+        }
+    }
+
+
 
     @Override
     public void onResume() {
         super.onResume();
         StatisticsService.sessionStart(this);
         populateFields();
-        showAddListPopover();
+        showIntroDialog();
     }
 
     @Override
-    public void onPause() {
-        super.onPause();
-        StatisticsService.sessionPause();
+    public void onDestroy() {
+        super.onDestroy();
 
         try {
             taskRabbitTask.setLocalTaskData(serializeToJSON().toString());
+            TaskRabbitDataService.getInstance().saveTaskAndMetadata(taskRabbitTask);
         } catch (JSONException e) {
             e.printStackTrace();
         }
-    }
 
+    }
     protected void populateFields() {
         loadItem(getIntent());
         taskRabbitTask = TaskRabbitDataService.getInstance().getContainerForTask(model);
@@ -527,6 +568,11 @@ public class TaskRabbitActivity extends FragmentActivity {
         if(!Preferences.isSet(TASK_RABBIT_TOKEN)){
             loginTaskRabbit();
         }
+        else if (!supportsSelectedLocation()){
+            Message successMessage = new Message();
+            successMessage.what = MESSAGE_CODE_LOCATION_FAILURE;
+            handler.sendMessage(successMessage);
+        }
         else {
 
 
@@ -536,29 +582,39 @@ public class TaskRabbitActivity extends FragmentActivity {
             new Thread(new Runnable() {
                 @Override
                 public void run() {
-                    boolean success = true;
-                    try {
-                        String urlCall = "tasks/";
-                        if (taskRabbitTask.getTaskID() > 0) urlCall += taskRabbitTask.getTaskID();
-                        urlCall += String.format("?client_id=%s&client_application=%s", TASK_RABBIT_CLIENT_ID, TASK_RABBIT_CLIENT_APPLICATION_ID);
-                        Header authorization = new BasicHeader("Authorization", "OAuth " + Preferences.getStringValue(TASK_RABBIT_TOKEN));
-                        Header contentType = new BasicHeader("Content-Type",  "application/json");
+                    boolean success = false;
 
-                        String response = restClient.post(taskRabbitURL(urlCall), getTaskBody(), contentType, authorization);
+
+                    String urlCall = "tasks/";
+                    if (taskRabbitTask.getTaskID() > 0) urlCall += taskRabbitTask.getTaskID();
+                    urlCall += String.format("?client_id=%s&client_application=%s", TASK_RABBIT_CLIENT_ID, TASK_RABBIT_CLIENT_APPLICATION_ID);
+                    Header authorization = new BasicHeader("Authorization", "OAuth " + Preferences.getStringValue(TASK_RABBIT_TOKEN));
+                    Header contentType = new BasicHeader("Content-Type",  "application/json");
+                    HttpEntity taskBody = getTaskBody();
+                    String response = null;
+
+                    try {
+                        response = restClient.post(taskRabbitURL(urlCall), taskBody, contentType, authorization);
+                        Log.e("The response", "The post response: " + response);
                         JSONObject taskResponse = new JSONObject(response);
                         if(taskResponse.has(TASK_RABBIT_ID)){
                             taskRabbitTask.setRemoteTaskData(response);
                             taskRabbitTask.setTaskID(taskResponse.optString(TASK_RABBIT_ID));
                             Message successMessage = new Message();
-                            successMessage.what = 1;
+                            successMessage.what = MESSAGE_CODE_SUCCESS;
                             handler.sendMessage(successMessage);
+                            success = true;
                         }
+                    }
+                    catch (UnknownHostException e) {
+                        Message failureMessage = new Message();
+                        failureMessage.what = MESSAGE_CODE_INTERNET_FAILURE;
+                        handler.sendMessage(failureMessage);
                     }
                     catch (Exception e){
                         Message failureMessage = new Message();
-                        failureMessage.what = -1;
+                        failureMessage.what = MESSAGE_CODE_FAILURE;
                         handler.sendMessage(failureMessage);
-                        success = false;
                     }
                     finally {
                         StatisticsService.reportEvent(StatisticsConstants.TASK_RABBIT_POST, "success", new Boolean(success).toString());
@@ -588,25 +644,45 @@ public class TaskRabbitActivity extends FragmentActivity {
 
         @Override
         public void handleMessage(Message msg) {
+            String alertMessage = null;
             switch (msg.what) {
-            case -1:
-
-                AlertDialog.Builder adb = new AlertDialog.Builder(TaskRabbitActivity.this);
-                adb.setTitle(getString(R.string.tr_alert_title_fail));
-                adb.setMessage(getString(R.string.tr_alert_message_fail));
-                adb.setPositiveButton(getString(R.string.tr_alert_button_fail),null);
-                adb.show();
+            case MESSAGE_CODE_FAILURE:
+            {
+                alertMessage = getString(R.string.tr_alert_message_fail);
                 break;
-            case 0: break;
-            case 1:
+            }
+            case MESSAGE_CODE_INTERNET_FAILURE:
+            {
+                alertMessage = getString(R.string.tr_alert_internet_message_fail);
+                break;
+            }
+            case MESSAGE_CODE_LOCATION_FAILURE:
+            {
+                final AlertDialog adb = new AlertDialog.Builder(TaskRabbitActivity.this)
+                .setMessage(R.string.tr_alert_location_not_supported_message)
+                .setPositiveButton(getString(R.string.tr_alert_button_close),null)
+                .show();
+
+                ((TextView) adb.findViewById(android.R.id.message)).setMovementMethod(LinkMovementMethod.getInstance());
+                return;
+            }
+            case MESSAGE_CODE_SUCCESS:
+            {
                 TaskRabbitDataService.getInstance().saveTaskAndMetadata(taskRabbitTask);
 
                 Intent data = new Intent();
                 data.putExtra(TaskRabbitControlSet.DATA_RESPONSE, taskRabbitTask.getRemoteTaskData().toString());
                 TaskRabbitActivity.this.setResult(Activity.RESULT_OK, data);
                 TaskRabbitActivity.this.finish();
-                break;
+                return;
             }
+            }
+
+            AlertDialog.Builder adb = new AlertDialog.Builder(TaskRabbitActivity.this);
+            adb.setTitle(getString(R.string.tr_alert_title_fail));
+            adb.setMessage(alertMessage);
+            adb.setPositiveButton(getString(R.string.tr_alert_button_close),null);
+            adb.show();
         }
     };
 
@@ -625,30 +701,26 @@ public class TaskRabbitActivity extends FragmentActivity {
         }
     }
     private void loadLocation() {
-
-
-        TaskRabbitLocationManager locationManager = new TaskRabbitLocationManager(this);
-
-        if ( !locationManager.isLocationUpdatesEnabled()) {
-            buildAlertMessageNoGps();
+        if (locationManager == null) {
+            locationManager = new TaskRabbitLocationManager(this);
+            if ( !locationManager.isLocationUpdatesEnabled()) {
+                buildAlertMessageNoGps();
+            }
+        }
+        currentLocation = locationManager.getLastKnownLocation();
+        if (currentLocation == null) {
+            locationManager.getLocation(new LocationResult(){
+                @Override
+                public void gotLocation(final Location location){
+                    //Got the location!
+                    currentLocation = location;
+                    updateControlSetLocation(currentLocation);
+                }
+            }
+            );
         }
         else {
-            currentLocation = locationManager.getLastKnownLocation();
-            if (currentLocation == null) {
-                locationManager.getLocation(new LocationResult(){
-                    @Override
-                    public void gotLocation(final Location location){
-                        //Got the location!
-                        currentLocation = location;
-                        updateControlSetLocation(currentLocation);
-                        setupListView();
-                    }
-                }
-                );
-            }
-            else {
-                updateControlSetLocation(currentLocation);
-            }
+            updateControlSetLocation(currentLocation);
         }
     }
 
@@ -719,7 +791,6 @@ public class TaskRabbitActivity extends FragmentActivity {
         else if (requestCode == REQUEST_CODE_ENABLE_GPS) {
 
             loadLocation();
-            setupListView();
         }
 
         else {
@@ -742,6 +813,21 @@ public class TaskRabbitActivity extends FragmentActivity {
         return super.onOptionsItemSelected(item);
     }
 
+
+
+
+    /* location calls */
+    private boolean supportsSelectedLocation() {
+            for (TaskRabbitSetListener controlSet : controls) {
+                if (TaskRabbitLocationControlSet.class.isAssignableFrom(controlSet.getClass())) {
+                    TaskRabbitLocationControlSet locationControlSet = (TaskRabbitLocationControlSet) controlSet;
+                    if(!TaskRabbitLocationManager.supportsCurrentLocation(locationControlSet.location) && locationControlSet.getDisplayView().getParent() != null) {
+                        return false;
+                    }
+                }
+            }
+            return true;
+    }
 
     public void updateControlSetLocation (Location location) {
         for (TaskRabbitSetListener controlSet : controls) {
@@ -795,34 +881,27 @@ public class TaskRabbitActivity extends FragmentActivity {
 
     private void setupListView() {
         String[] keys = getResources().getStringArray(R.array.tr_preset_types);
-        boolean locationEnabled = getIntent().getBooleanExtra(TaskRabbitControlSet.LOCATION_ENABLED, false);
-        if (!locationEnabled && !TaskRabbitLocationManager.supportsCurrentLocation(currentLocation)) {
-            keys = new String[]{ getResources().getString(R.string.tr_type_virtual)};
-        }
         if (adapter == null) {
-        adapter = new ArrayAdapter<String>(this, R.layout.task_rabbit_menu_row, keys);
-        menuList = new ListView(this);
-        menuList.setAdapter(adapter);
-        menuList.setCacheColorHint(Color.TRANSPARENT);
+            adapter = new ArrayAdapter<String>(this, R.layout.task_rabbit_menu_row, keys);
+            menuList = new ListView(this);
+            menuList.setAdapter(adapter);
+            menuList.setCacheColorHint(Color.TRANSPARENT);
 
-        menuList.setSelection(0);
-        menuList.setOnItemClickListener(new OnItemClickListener() {
+            menuList.setSelection(0);
+            menuList.setOnItemClickListener(new OnItemClickListener() {
 
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position,
-                    long id) {
-                currentSelectedItem = position;
-                displayViewsForMode(position);
-                menuPopover.dismiss();
-            }
-        });
+                @Override
+                public void onItemClick(AdapterView<?> parent, View view, int position,
+                        long id) {
+                    currentSelectedItem = position;
+                    displayViewsForMode(position);
+                    menuPopover.dismiss();
+                }
+            });
         }
         else {
             adapter = new ArrayAdapter<String>(this, R.layout.task_rabbit_menu_row, keys);
             menuList.setAdapter(adapter);
-            /*adapter.clear();
-            adapter.addAll(keys);
-            adapter.notifyDataSetChanged();*/
         }
     }
 

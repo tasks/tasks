@@ -3,8 +3,11 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Locale;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.location.Address;
 import android.location.Geocoder;
@@ -36,6 +39,9 @@ public class TaskRabbitMapActivity extends MapActivity implements LocationListen
     private EditText searchText;
     private TaskRabbitMapOverlayItem currentOverlayItem;
     private String locationAddress;
+    private static final int LOCATION_SEARCH_SUCCESS = 1;
+    private static final int LOCATION_SEARCH_FAIL = -1;
+
     /** Called when the activity is first created. */
     @Override
     public void onCreate(Bundle savedInstanceState)
@@ -60,12 +66,12 @@ public class TaskRabbitMapActivity extends MapActivity implements LocationListen
         mapController = mapView.getController();
         if(lastKnownLocation != null) {
 
-            point = new GeoPoint((int)(lastKnownLocation.getLatitude()*1E6),(int)(lastKnownLocation.getLongitude()*1E6));
+            point = locationToGeoPoint(lastKnownLocation);
             OverlayItem overlayitem = createOverlayItem(point);
             currentOverlayItem.addOverlay(overlayitem);
             mapOverlays.add(currentOverlayItem);
 
-            getAddressFromLocation(lastKnownLocation);
+            locationAddress = getAddressFromLocation(lastKnownLocation);
             mapController.animateTo(point);
             mapController.setZoom(17);
             mapView.invalidate();
@@ -87,6 +93,7 @@ public class TaskRabbitMapActivity extends MapActivity implements LocationListen
 
     }
 
+
     public String getSearchText() {
         return searchText.getText().toString();
     }
@@ -102,13 +109,13 @@ public class TaskRabbitMapActivity extends MapActivity implements LocationListen
         @Override
         public void handleMessage(Message msg) {
             switch (msg.what) {
-            case 1:
+            case LOCATION_SEARCH_SUCCESS:
 
                 mapView.invalidate();
                 currentOverlayItem.onTap(0);
                 // What to do when ready, example:
                 break;
-            case -1:
+            case LOCATION_SEARCH_FAIL:
 
                 AlertDialog.Builder adb = new AlertDialog.Builder(TaskRabbitMapActivity.this);
                 adb.setTitle(getString(R.string.tr_alert_location_fail_title));
@@ -157,12 +164,12 @@ public class TaskRabbitMapActivity extends MapActivity implements LocationListen
                     mapOverlays.add(currentOverlayItem);
 
                     Message successMessage = new Message();
-                    successMessage.what = 1;
+                    successMessage.what = LOCATION_SEARCH_SUCCESS;
                     handler.sendMessage(successMessage);
                 } else {
 
                     Message failureMessage = new Message();
-                    failureMessage.what = -1;
+                    failureMessage.what = LOCATION_SEARCH_FAIL;
                     handler.sendMessage(failureMessage);
 
                 }
@@ -180,27 +187,30 @@ public class TaskRabbitMapActivity extends MapActivity implements LocationListen
         return overlayitem;
     }
 
-    private void getAddressFromLocation(Location location){
+    public String getAddressFromLocation(Location location){
         try {
             Geocoder geocoder = new Geocoder(this, Locale.getDefault());
             // Acquire a reference to the system Location Manager
             List<Address> addresses = geocoder.getFromLocation(location.getLatitude(), location.getLongitude(), 1);
             if (addresses != null){
                 for (Address address : addresses){
-                    updateAddress(address);
+                    return updateAddress(address);
                 }
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
+        return "";
     }
-    private void updateAddress(Address address){
+    private String updateAddress(Address address){
+        String addressString = null;
         if(address.getLocality() != null && address.getPostalCode() != null){
-            locationAddress = "";  //$NON-NLS-1$
+            addressString = "";  //$NON-NLS-1$
             for (int i = 0; i < address.getMaxAddressLineIndex(); i++){
-                locationAddress += address.getAddressLine(i) + ", ";  //$NON-NLS-1$
+                addressString += address.getAddressLine(i) + ", ";  //$NON-NLS-1$
             }
         }
+        return addressString;
     }
 
 
@@ -220,6 +230,43 @@ public class TaskRabbitMapActivity extends MapActivity implements LocationListen
         myItemizedOverlay.addOverlay(overlayitem);
         mapOverlays.add(myItemizedOverlay);
     }
+
+    public void didSelectItem (final OverlayItem selectedItem) {
+
+        AlertDialog.Builder dialogPrompt = new AlertDialog.Builder(this);
+        dialogPrompt.setTitle(getString(R.string.tr_alert_location_clicked_title));
+        Location location = geoPointToLocation(selectedItem.getPoint());
+        locationAddress = getAddressFromLocation(location);
+        setSearchTextForCurrentAddress();
+        dialogPrompt.setMessage(locationAddress);
+        dialogPrompt.setIcon(
+                android.R.drawable.ic_dialog_alert).setPositiveButton(
+                        android.R.string.ok, new DialogInterface.OnClickListener() {
+                            @SuppressWarnings("nls")
+                            public void onClick(DialogInterface dialog, int which) {
+                                Intent data = new Intent();
+                                data.putExtra("lat",selectedItem.getPoint().getLatitudeE6());
+                                data.putExtra("lng",selectedItem.getPoint().getLongitudeE6());
+                                data.putExtra("name", getSearchText());
+                                setResult(Activity.RESULT_OK, data);
+                                finish();
+                            }
+                        }).setNegativeButton(android.R.string.cancel, null);
+        dialogPrompt.show();
+    }
+
+    private Location geoPointToLocation(GeoPoint geoPoint) {
+        Location location = new Location("");
+        location.setLatitude(((long)geoPoint.getLatitudeE6())/1E6);
+        location.setLongitude(((long)geoPoint.getLongitudeE6())/1E6);
+        return location;
+    }
+
+    private GeoPoint locationToGeoPoint(Location lastKnownLocation) {
+        GeoPoint point = new GeoPoint((int)(lastKnownLocation.getLatitude()*1E6),(int)(lastKnownLocation.getLongitude()*1E6));
+        return point;
+    }
+
     @Override
     public void onLocationChanged(Location location) {
         if (location != null) {
@@ -232,6 +279,7 @@ public class TaskRabbitMapActivity extends MapActivity implements LocationListen
 
         }
     }
+
     @Override
     public void onProviderDisabled(String provider) {
         //

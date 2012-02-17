@@ -55,7 +55,6 @@ public final class TaskRabbitDataService {
      */
     public void saveTaskAndMetadata(TaskRabbitTaskContainer task) {
         taskDao.save(task.task);
-
         task.metadata.add(task.trTask);
         // note we don't include note metadata, since we only receive deltas
         metadataService.synchronizeMetadata(task.task.getId(), task.metadata,
