@@ -44,6 +44,8 @@ public class TaskService {
 
     public static final String TRANS_QUICK_ADD_MARKUP = "markup"; //$NON-NLS-1$
 
+    public static final String TRANS_REPEAT_CHANGED = "repeat_changed"; //$NON-NLS-1$
+
     @Autowired
     private TaskDao taskDao;
 

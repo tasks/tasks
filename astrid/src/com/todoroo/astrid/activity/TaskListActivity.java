@@ -33,9 +33,11 @@ import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.api.FilterListItem;
 import com.todoroo.astrid.core.CustomFilterExposer;
+import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.reminders.NotificationFragment;
 import com.todoroo.astrid.service.ThemeService;
 import com.todoroo.astrid.tags.TagFilterExposer;
+import com.todoroo.astrid.ui.DateChangedAlerts;
 import com.todoroo.astrid.ui.FragmentPopover;
 import com.todoroo.astrid.ui.MainMenuPopover;
 import com.todoroo.astrid.ui.MainMenuPopover.MainMenuListener;
@@ -390,6 +392,9 @@ public class TaskListActivity extends AstridActivity implements MainMenuListener
                     if (data.getBooleanExtra(TaskEditFragment.TOKEN_TASK_WAS_ASSIGNED, false)) {
                         String assignedTo = data.getStringExtra(TaskEditFragment.TOKEN_ASSIGNED_TO);
                         switchToAssignedFilter(assignedTo);
+                    } else if (data.getParcelableExtra(TaskEditFragment.TOKEN_NEW_REPEATING_TASK) != null) {
+                        Task repeating = data.getParcelableExtra(TaskEditFragment.TOKEN_NEW_REPEATING_TASK);
+                        DateChangedAlerts.showRepeatChangedDialog(this, repeating);
                     }
                     if (data.getBooleanExtra(TaskEditFragment.TOKEN_TAGS_CHANGED, false))
                         tagsChanged(true);

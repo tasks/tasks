@@ -163,6 +163,13 @@
   
   <string name="TLA_quickadd_confirm_hide_helpers">Don\'t display future confirmations</string>
   
+  
+  <!-- Title for alert on new repeating task. %s-> task title -->
+  <string name="TLA_repeat_scheduled_title">New repeating task %s</string>
+  
+  <!-- Speech bubble for when a new repeating task scheduled. %s->repeat interval -->
+  <string name="TLA_repeat_scheduled_speech_bubble">I\'ll remind you about this %s.</string>
+  
   <string-array name="TLA_priority_strings">
       <item>highest priority</item>
       <item>high priority</item>
