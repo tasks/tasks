@@ -25,7 +25,6 @@ import android.view.View;
 import android.view.View.MeasureSpec;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
-import android.view.ViewGroup.LayoutParams;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.view.animation.Interpolator;
@@ -33,8 +32,6 @@ import android.widget.FrameLayout;
 import android.widget.HorizontalScrollView;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.LinearLayout;
-
 
 import com.cyrilmottier.android.greendroid.R;
 
@@ -45,7 +42,7 @@ import com.cyrilmottier.android.greendroid.R;
  * replacement for the long click UI pattern. For instance,
  * {@link QuickActionBar} adds secondary actions to an item of a
  * {@link ListView}.
- * 
+ *
  * @author Benjamin Fellous
  * @author Cyril Mottier
  */
@@ -86,7 +83,7 @@ public class QuickActionBar extends QuickActionWidget {
 
     @Override
     protected void onMeasureAndLayout(Rect anchorRect, View contentView) {
-    	
+
         contentView.setLayoutParams(new FrameLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
         contentView.measure(MeasureSpec.makeMeasureSpec(getScreenWidth(), MeasureSpec.EXACTLY),
                 ViewGroup.LayoutParams.WRAP_CONTENT);

@@ -1,8 +1,6 @@
 package com.todoroo.astrid.activity;
 
-import java.util.HashSet;
 import java.util.List;
-import java.util.Map.Entry;
 import java.util.Timer;
 import java.util.TimerTask;
 import java.util.concurrent.atomic.AtomicReference;
@@ -11,7 +9,6 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.SearchManager;
 import android.content.BroadcastReceiver;
-import android.content.ContentValues;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -21,7 +18,6 @@ import android.content.SharedPreferences.Editor;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.database.Cursor;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.ActionBar;
 import android.support.v4.app.Fragment;
@@ -38,27 +34,17 @@ import android.view.MenuInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.view.View.OnFocusChangeListener;
 import android.view.View.OnKeyListener;
-import android.view.View.OnLongClickListener;
 import android.view.View.OnTouchListener;
 import android.view.ViewGroup;
-import android.view.ViewGroup.LayoutParams;
-import android.view.inputmethod.EditorInfo;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.AbsListView;
 import android.widget.AbsListView.OnScrollListener;
 import android.widget.AdapterView.AdapterContextMenuInfo;
-import android.widget.EditText;
-import android.widget.ImageButton;
-import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.TextView.OnEditorActionListener;
 
 import com.crittercism.NewFeedbackSpringboardActivity;
 import com.timsu.astrid.R;
-import com.todoroo.andlib.data.Property;
 import com.todoroo.andlib.data.TodorooCursor;
 import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.ContextManager;
@@ -67,10 +53,8 @@ import com.todoroo.andlib.service.ExceptionService;
 import com.todoroo.andlib.sql.Functions;
 import com.todoroo.andlib.sql.QueryTemplate;
 import com.todoroo.andlib.utility.AndroidUtilities;
-import com.todoroo.andlib.utility.DialogUtilities;
 import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.astrid.actfm.ActFmLoginActivity;
-import com.todoroo.astrid.actfm.EditPeopleControlSet;
 import com.todoroo.astrid.actfm.TagUpdatesActivity;
 import com.todoroo.astrid.actfm.TagViewFragment;
 import com.todoroo.astrid.actfm.sync.ActFmPreferenceService;
@@ -80,23 +64,18 @@ import com.todoroo.astrid.adapter.TaskAdapter.OnCompletedTaskListener;
 import com.todoroo.astrid.adapter.TaskAdapter.ViewHolder;
 import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.api.Filter;
-import com.todoroo.astrid.api.PermaSql;
 import com.todoroo.astrid.api.TaskContextActionExposer;
 import com.todoroo.astrid.api.TaskDecoration;
 import com.todoroo.astrid.core.CoreFilterExposer;
 import com.todoroo.astrid.core.SortHelper;
 import com.todoroo.astrid.dao.Database;
 import com.todoroo.astrid.dao.TaskDao.TaskCriteria;
-import com.todoroo.astrid.data.Metadata;
 import com.todoroo.astrid.data.TagData;
 import com.todoroo.astrid.data.Task;
-import com.todoroo.astrid.gcal.GCalControlSet;
-import com.todoroo.astrid.gcal.GCalHelper;
 import com.todoroo.astrid.helper.SyncActionHelper;
 import com.todoroo.astrid.helper.TaskListContextMenuExtensionLoader;
 import com.todoroo.astrid.helper.TaskListContextMenuExtensionLoader.ContextMenuItem;
 import com.todoroo.astrid.reminders.ReminderDebugContextActions;
-import com.todoroo.astrid.repeats.RepeatControlSet;
 import com.todoroo.astrid.service.AddOnService;
 import com.todoroo.astrid.service.AstridDependencyInjector;
 import com.todoroo.astrid.service.MetadataService;
@@ -105,12 +84,10 @@ import com.todoroo.astrid.service.StatisticsService;
 import com.todoroo.astrid.service.TagDataService;
 import com.todoroo.astrid.service.TaskService;
 import com.todoroo.astrid.service.UpgradeService;
-import com.todoroo.astrid.ui.DateChangedAlerts;
-import com.todoroo.astrid.ui.DeadlineControlSet;
+import com.todoroo.astrid.ui.QuickAddBar;
 import com.todoroo.astrid.utility.AstridPreferences;
 import com.todoroo.astrid.utility.Constants;
 import com.todoroo.astrid.utility.Flags;
-import com.todoroo.astrid.voice.VoiceInputAssistant;
 import com.todoroo.astrid.welcome.HelpInfoPopover;
 import com.todoroo.astrid.welcome.tutorial.WelcomeWalkthrough;
 import com.todoroo.astrid.widget.TasksWidget;
@@ -163,8 +140,6 @@ public class TaskListFragment extends ListFragment implements OnScrollListener,
 
     public static final String TOKEN_OVERRIDE_ANIM = "finishAnim"; //$NON-NLS-1$
 
-    private static final String QUICK_ADD_MARKUP = "markup"; //$NON-NLS-1$
-
     // --- instance variables
 
     @Autowired
@@ -199,27 +174,16 @@ public class TaskListFragment extends ListFragment implements OnScrollListener,
     protected int sortFlags;
     protected int sortSort;
     protected boolean overrideFinishAnim;
+    protected QuickAddBar quickAddBar;
 
-    private ImageButton voiceAddButton;
-    private ImageButton quickAddButton;
-    private EditText quickAddBox;
-    private LinearLayout quickAddControls;
-    private View quickAddControlsContainer;
     private Timer backgroundTimer;
     private boolean isFilter;
 
     private final TaskListContextMenuExtensionLoader contextMenuExtensionLoader = new TaskListContextMenuExtensionLoader();
 
-    private VoiceInputAssistant voiceInputAssistant;
-
     // --- fragment handling variables
     protected OnTaskListItemClickedListener mListener;
     private boolean mDualFragments = false;
-
-    private DeadlineControlSet deadlineControl;
-    private RepeatControlSet repeatControl;
-    private GCalControlSet gcalControl;
-    private EditPeopleControlSet peopleControl;
 
     /*
      * ======================================================================
@@ -353,7 +317,7 @@ public class TaskListFragment extends ListFragment implements OnScrollListener,
     /**
      * @return the current tag you are viewing, or null if you're not viewing a tag
      */
-    protected TagData getActiveTagData() {
+    public TagData getActiveTagData() {
         return null;
     }
 
@@ -392,7 +356,6 @@ public class TaskListFragment extends ListFragment implements OnScrollListener,
 
         setUpTaskList();
         ((AstridActivity) getActivity()).setupActivityFragment(getActiveTagData());
-        setUpQuickAddControlSets();
 
         contextMenuExtensionLoader.loadInNewThread(getActivity());
     }
@@ -498,76 +461,14 @@ public class TaskListFragment extends ListFragment implements OnScrollListener,
             }
         });
 
+        quickAddBar = (QuickAddBar) getView().findViewById(R.id.taskListFooter);
+        quickAddBar.initialize(getActivity(), this, mListener);
+
         getListView().setOnTouchListener(new OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
-                quickAddBox.clearFocus();
+                quickAddBar.clearFocus();
                 return false;
-            }
-        });
-
-        quickAddControls = (LinearLayout) getView().findViewById(R.id.taskListQuickaddControls);
-        quickAddControlsContainer = getView().findViewById(R.id.taskListQuickaddControlsContainer);
-
-        // set listener for pressing enter in quick-add box
-        quickAddBox = (EditText) getView().findViewById(R.id.quickAddText);
-        quickAddBox.setOnEditorActionListener(new OnEditorActionListener() {
-            /**
-             * When user presses enter, quick-add the task
-             */
-            @Override
-            public boolean onEditorAction(TextView view, int actionId,
-                    KeyEvent event) {
-                if (actionId == EditorInfo.IME_NULL
-                        && !TextUtils.isEmpty(quickAddBox.getText().toString().trim())) {
-                    quickAddTask(quickAddBox.getText().toString(), true);
-                    return true;
-                }
-                return false;
-            }
-        });
-
-        quickAddBox.setOnFocusChangeListener(new OnFocusChangeListener() {
-            @Override
-            public void onFocusChange(View v, boolean hasFocus) {
-                quickAddControlsContainer.setVisibility(hasFocus ? View.VISIBLE : View.GONE);
-            }
-        });
-
-        quickAddButton = ((ImageButton) getView().findViewById(
-                R.id.quickAddButton));
-
-        // set listener for quick add button
-        quickAddButton.setOnClickListener(new OnClickListener() {
-            public void onClick(View v) {
-                Task task = quickAddTask(quickAddBox.getText().toString(), true);
-                if (task != null && task.getValue(Task.TITLE).length() == 0) {
-                    mListener.onTaskListItemClicked(task.getId());
-                }
-            }
-        });
-
-        // prepare and set listener for voice add button
-        voiceAddButton = (ImageButton) getView().findViewById(
-                R.id.voiceAddButton);
-        int prompt = R.string.voice_edit_title_prompt;
-        if (Preferences.getBoolean(R.string.p_voiceInputCreatesTask, false))
-            prompt = R.string.voice_create_prompt;
-        voiceInputAssistant = new VoiceInputAssistant(this,
-                voiceAddButton, quickAddBox);
-        voiceInputAssistant.configureMicrophoneButton(prompt);
-
-        // set listener for extended addbutton
-        quickAddButton.setOnLongClickListener(new OnLongClickListener() {
-            @Override
-            public boolean onLongClick(View v) {
-                Task task = quickAddTask(quickAddBox.getText().toString(),
-                        false);
-                if (task == null)
-                    return true;
-
-                mListener.onTaskListItemClicked(task.getId());
-                return true;
             }
         });
 
@@ -575,7 +476,7 @@ public class TaskListFragment extends ListFragment implements OnScrollListener,
         ((TextView) getView().findViewById(android.R.id.empty)).setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                quickAddButton.performClick();
+                quickAddBar.performButtonClick();
             }
         });
 
@@ -585,52 +486,6 @@ public class TaskListFragment extends ListFragment implements OnScrollListener,
         sortSort = publicPrefs.getInt(SortHelper.PREF_SORT_SORT, 0);
 
         getView().findViewById(R.id.progressBar).setVisibility(View.GONE);
-    }
-
-    private void setUpQuickAddControlSets() {
-
-        repeatControl = new RepeatControlSet(getActivity(),
-                R.layout.control_set_repeat,
-                R.layout.control_set_repeat_display, R.string.repeat_enabled);
-
-        gcalControl = new GCalControlSet(getActivity(),
-                R.layout.control_set_gcal, R.layout.control_set_gcal_display,
-                R.string.gcal_TEA_addToCalendar_label);
-
-        deadlineControl = new DeadlineControlSet(
-                getActivity(), R.layout.control_set_deadline,
-                R.layout.control_set_default_display, null,
-                repeatControl.getDisplayView(), gcalControl.getDisplayView());
-        deadlineControl.setIsQuickadd(true);
-
-
-        peopleControl = new EditPeopleControlSet(getActivity(), this,
-                R.layout.control_set_assigned,
-                R.layout.control_set_default_display,
-                R.string.actfm_EPA_assign_label, TaskEditFragment.REQUEST_LOG_IN);
-
-
-        resetControlSets();
-
-        LayoutParams lp = new LinearLayout.LayoutParams(LayoutParams.FILL_PARENT, LayoutParams.FILL_PARENT, 1.0f);
-        quickAddControls.addView(peopleControl.getDisplayView(), 0, lp);
-        quickAddControls.addView(deadlineControl.getDisplayView(), 2, lp);
-    }
-
-    private void resetControlSets() {
-        Task empty = new Task();
-        TagData tagData = getActiveTagData();
-        if (tagData != null) {
-            HashSet<String> tagsTransitory = new HashSet<String>();
-            tagsTransitory.add(tagData.getValue(TagData.NAME));
-            empty.putTransitory("tags", tagsTransitory); // TODO MAKE THIS A CONSTANT OR DOCUMENT IT -- tim
-        }
-        repeatControl.readFromTask(empty);
-        gcalControl.readFromTask(empty);
-        deadlineControl.readFromTask(empty);
-        peopleControl.setUpData(empty, getActiveTagData());
-        peopleControl.assignToMe();
-        peopleControl.setTask(null);
     }
 
     // Subclasses can override these to customize extras in quickadd intent
@@ -691,13 +546,6 @@ public class TaskListFragment extends ListFragment implements OnScrollListener,
         super.onResume();
 
         StatisticsService.sessionStart(getActivity());
-        if (addOnService.hasPowerPack()
-                && Preferences.getBoolean(R.string.p_voiceInputEnabled, true)
-                && voiceInputAssistant.isVoiceInputAvailable()) {
-            voiceAddButton.setVisibility(View.VISIBLE);
-        } else {
-            voiceAddButton.setVisibility(View.GONE);
-        }
 
         getActivity().registerReceiver(detailReceiver,
                 new IntentFilter(AstridApiConstants.BROADCAST_SEND_DETAILS));
@@ -823,20 +671,8 @@ public class TaskListFragment extends ListFragment implements OnScrollListener,
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        // handle the result of voice recognition, put it into the textfield
-        if (voiceInputAssistant.handleActivityResult(requestCode, resultCode,
-                data)) {
-            // if user wants, create the task directly (with defaultvalues)
-            // after saying it
-            Flags.set(Flags.TLA_RESUMED_FROM_VOICE_ADD);
-            if (Preferences.getBoolean(R.string.p_voiceInputCreatesTask, false))
-                quickAddTask(quickAddBox.getText().toString(), true);
-            super.onActivityResult(requestCode, resultCode, data);
-
-            // the rest of onActivityResult is totally unrelated to
-            // voicerecognition, so bail out
+        if(quickAddBar.onActivityResult(requestCode, resultCode, data))
             return;
-        }
 
         if (requestCode == ACTIVITY_SETTINGS
                 && resultCode == EditPreferences.RESULT_CODE_THEME_CHANGED) {
@@ -853,12 +689,12 @@ public class TaskListFragment extends ListFragment implements OnScrollListener,
         if (!Preferences.getBoolean(R.string.p_showed_add_task_help, false)) {
             if(!AstridPreferences.canShowPopover())
                 return;
-            quickAddBox.postDelayed(new Runnable() {
+            quickAddBar.getQuickAddBox().postDelayed(new Runnable() {
                 @Override
                 public void run() {
                     Activity activity = getActivity();
                     if (activity != null) {
-                        HelpInfoPopover.showPopover(getActivity(), quickAddBox,
+                        HelpInfoPopover.showPopover(getActivity(), quickAddBar.getQuickAddBox(),
                                 R.string.help_popover_add_task, null);
                         Preferences.setBoolean(R.string.p_showed_add_task_help, true);
                     }
@@ -963,6 +799,10 @@ public class TaskListFragment extends ListFragment implements OnScrollListener,
         loadTaskListContent(true);
     }
 
+    public Filter getFilter() {
+        return filter;
+    }
+
     /**
      * Select a custom task id in the list. If it doesn't exist, create a new
      * custom filter
@@ -970,7 +810,7 @@ public class TaskListFragment extends ListFragment implements OnScrollListener,
      * @param withCustomId
      */
     @SuppressWarnings("nls")
-    private void selectCustomId(long withCustomId) {
+    public void selectCustomId(long withCustomId) {
         // if already in the list, select it
         TodorooCursor<Task> currentCursor = (TodorooCursor<Task>) taskAdapter.getCursor();
         for (int i = 0; i < currentCursor.getCount(); i++) {
@@ -1015,18 +855,16 @@ public class TaskListFragment extends ListFragment implements OnScrollListener,
             return;
         if (!Preferences.getBoolean(R.string.p_showed_add_task_help, false)) {
             Preferences.setBoolean(R.string.p_showed_add_task_help, true);
-            HelpInfoPopover.showPopover(getActivity(), quickAddBox,
+            HelpInfoPopover.showPopover(getActivity(), quickAddBar.getQuickAddBox(),
                             R.string.help_popover_add_task, null);
         }
     }
 
-    private void showTaskEditHelpPopover() {
+    public void showTaskEditHelpPopover() {
         if(!AstridPreferences.canShowPopover())
             return;
         if (!Preferences.getBoolean(R.string.p_showed_tap_task_help, false)) {
-            InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(
-                    Context.INPUT_METHOD_SERVICE);
-            imm.hideSoftInputFromWindow(quickAddBox.getWindowToken(), 0);
+            quickAddBar.hideKeyboard();
             getListView().postDelayed(new Runnable() {
                 public void run() {
                     try {
@@ -1090,138 +928,6 @@ public class TaskListFragment extends ListFragment implements OnScrollListener,
     }
 
     /**
-     * Quick-add a new task
-     *
-     * @param title
-     * @return
-     */
-    @SuppressWarnings("nls")
-    protected Task quickAddTask(String title, boolean selectNewTask) {
-        try {
-            if (title != null)
-                title = title.trim();
-            if (!peopleControl.willBeAssignedToMe() && !actFmPreferenceService.isLoggedIn()) {
-                DialogInterface.OnClickListener okListener = new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface d, int which) {
-                        startActivity(new Intent(getActivity(), ActFmLoginActivity.class));
-                    }
-                };
-
-                DialogInterface.OnClickListener cancelListener = new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface d, int which) {
-                        // Reset people control
-                        peopleControl.assignToMe();
-                    }
-                };
-                DialogUtilities.okCancelCustomDialog(getActivity(), getActivity().getString(R.string.actfm_EPA_login_button),
-                        getActivity().getString(R.string.actfm_EPA_login_to_share), R.string.actfm_EPA_login_button,
-                        R.string.actfm_EPA_dont_share_button, android.R.drawable.ic_dialog_alert,
-                        okListener, cancelListener);
-                return null;
-            }
-
-            Flags.set(Flags.ACTFM_SUPPRESS_SYNC);
-            Flags.set(Flags.GTASKS_SUPPRESS_SYNC);
-            Task task = createWithValues(filter.valuesForNewTasks, title,
-                    taskService, metadataService);
-
-            if (repeatControl.isRecurrenceSet())
-                repeatControl.writeToModel(task);
-            if (deadlineControl.isDeadlineSet())
-                deadlineControl.writeToModel(task);
-            gcalControl.writeToModel(task);
-            peopleControl.setTask(task);
-            peopleControl.saveSharingSettings(null);
-            taskService.save(task);
-
-            resetControlSets();
-
-            boolean gcalCreateEventEnabled = Preferences.getStringValue(R.string.gcal_p_default) != null
-                    && !Preferences.getStringValue(R.string.gcal_p_default).equals(
-                            "-1");
-            if (title.length() > 0 && gcalCreateEventEnabled) {
-                Uri calendarUri = GCalHelper.createTaskEvent(task,
-                        getActivity().getContentResolver(), new ContentValues());
-                task.setValue(Task.CALENDAR_URI, calendarUri.toString());
-                taskService.save(task);
-            }
-
-            if(title.length() > 0)
-                showTaskEditHelpPopover();
-
-            TextView quickAdd = (TextView) getView().findViewById(
-                    R.id.quickAddText);
-            quickAdd.setText(""); //$NON-NLS-1$
-
-            if (selectNewTask) {
-                loadTaskListContent(true);
-                selectCustomId(task.getId());
-                if (task.getTransitory(QUICK_ADD_MARKUP) != null) {
-                    showAlertForMarkupTask((AstridActivity) getActivity(), task, title);
-                }
-            }
-
-            StatisticsService.reportEvent(StatisticsConstants.TASK_CREATED_TASKLIST);
-            return task;
-        } catch (Exception e) {
-            exceptionService.displayAndReportError(getActivity(),
-                    "quick-add-task", e);
-            return new Task();
-        }
-    }
-
-    /**
-     * Create task from the given content values, saving it.
-     *
-     * @param values
-     * @param title
-     * @param taskService
-     * @param metadataService
-     * @return
-     */
-    public static Task createWithValues(ContentValues values, String title,
-            TaskService taskService, MetadataService metadataService) {
-        Task task = new Task();
-        if (title != null)
-            task.setValue(Task.TITLE, title);
-
-        ContentValues forMetadata = null;
-        if (values != null && values.size() > 0) {
-            ContentValues forTask = new ContentValues();
-            forMetadata = new ContentValues();
-            outer: for (Entry<String, Object> item : values.valueSet()) {
-                String key = item.getKey();
-                Object value = item.getValue();
-                if (value instanceof String)
-                    value = PermaSql.replacePlaceholders((String) value);
-
-                for (Property<?> property : Metadata.PROPERTIES)
-                    if (property.name.equals(key)) {
-                        AndroidUtilities.putInto(forMetadata, key, value);
-                        continue outer;
-                    }
-
-                AndroidUtilities.putInto(forTask, key, value);
-            }
-            task.mergeWith(forTask);
-        }
-        boolean markup = taskService.quickAdd(task);
-        if (markup)
-            task.putTransitory(QUICK_ADD_MARKUP, true);
-
-        if (forMetadata != null && forMetadata.size() > 0) {
-            Metadata metadata = new Metadata();
-            metadata.setValue(Metadata.TASK, task.getId());
-            metadata.mergeWith(forMetadata);
-            metadataService.save(metadata);
-        }
-
-        return task;
-    }
-
-    /**
      * Comments button in action bar was clicked
      */
     protected void handleCommentsButtonClicked() {
@@ -1229,10 +935,6 @@ public class TaskListFragment extends ListFragment implements OnScrollListener,
         intent.putExtra(TagViewFragment.EXTRA_TAG_DATA, getActiveTagData());
         startActivity(intent);
         AndroidUtilities.callOverridePendingTransition(getActivity(), R.anim.slide_left_in, R.anim.slide_left_out);
-    }
-
-    private static void showAlertForMarkupTask(AstridActivity activity, Task task, String originalText) {
-        DateChangedAlerts.showQuickAddMarkupDialog(activity, task, originalText);
     }
 
     @Override

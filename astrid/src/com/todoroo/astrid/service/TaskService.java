@@ -1,6 +1,7 @@
 package com.todoroo.astrid.service;
 
 import java.util.ArrayList;
+import java.util.Map.Entry;
 
 import org.weloveastrid.rmilk.data.MilkTaskFields;
 
@@ -14,6 +15,7 @@ import com.todoroo.andlib.service.ExceptionService;
 import com.todoroo.andlib.sql.Criterion;
 import com.todoroo.andlib.sql.Functions;
 import com.todoroo.andlib.sql.Query;
+import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.api.PermaSql;
@@ -39,6 +41,8 @@ import com.todoroo.astrid.utility.TitleParser;
  *
  */
 public class TaskService {
+
+    public static final String TRANS_QUICK_ADD_MARKUP = "markup"; //$NON-NLS-1$
 
     @Autowired
     private TaskDao taskDao;
@@ -386,6 +390,56 @@ public class TaskService {
         Flags.set(Flags.GTASKS_SUPPRESS_SYNC);
         save(clone);
         return clone.getId();
+    }
+
+
+    /**
+     * Create task from the given content values, saving it.
+     *
+     * @param values
+     * @param title
+     * @param taskService
+     * @param metadataService
+     * @return
+     */
+    public static Task createWithValues(ContentValues values, String title,
+            TaskService taskService, MetadataService metadataService) {
+        Task task = new Task();
+        if (title != null)
+            task.setValue(Task.TITLE, title);
+
+        ContentValues forMetadata = null;
+        if (values != null && values.size() > 0) {
+            ContentValues forTask = new ContentValues();
+            forMetadata = new ContentValues();
+            outer: for (Entry<String, Object> item : values.valueSet()) {
+                String key = item.getKey();
+                Object value = item.getValue();
+                if (value instanceof String)
+                    value = PermaSql.replacePlaceholders((String) value);
+
+                for (Property<?> property : Metadata.PROPERTIES)
+                    if (property.name.equals(key)) {
+                        AndroidUtilities.putInto(forMetadata, key, value);
+                        continue outer;
+                    }
+
+                AndroidUtilities.putInto(forTask, key, value);
+            }
+            task.mergeWith(forTask);
+        }
+        boolean markup = taskService.quickAdd(task);
+        if (markup)
+            task.putTransitory(TRANS_QUICK_ADD_MARKUP, true);
+
+        if (forMetadata != null && forMetadata.size() > 0) {
+            Metadata metadata = new Metadata();
+            metadata.setValue(Metadata.TASK, task.getId());
+            metadata.mergeWith(forMetadata);
+            metadataService.save(metadata);
+        }
+
+        return task;
     }
 
 }

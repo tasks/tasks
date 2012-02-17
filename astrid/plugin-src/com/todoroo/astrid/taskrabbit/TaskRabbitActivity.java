@@ -53,7 +53,6 @@ import com.todoroo.andlib.utility.DialogUtilities;
 import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.astrid.actfm.OAuthLoginActivity;
 import com.todoroo.astrid.activity.TaskEditFragment;
-import com.todoroo.astrid.activity.TaskListFragment;
 import com.todoroo.astrid.dao.Database;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.helper.TaskEditControlSet;
@@ -239,7 +238,7 @@ public class TaskRabbitActivity extends FragmentActivity {
             } catch (Exception e) {
                 // oops, can't serialize
             }
-            model = TaskListFragment.createWithValues(values, null,
+            model = TaskService.createWithValues(values, null,
                     taskService, metadataService);
         }
 

@@ -36,7 +36,6 @@ import com.todoroo.andlib.sql.Criterion;
 import com.todoroo.andlib.sql.Query;
 import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.andlib.utility.DateUtilities;
-import com.todoroo.andlib.utility.DialogUtilities;
 import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.astrid.actfm.sync.ActFmPreferenceService;
 import com.todoroo.astrid.actfm.sync.ActFmSyncService;
@@ -213,7 +212,7 @@ public class TagViewFragment extends TaskListFragment {
     }
 
     @Override
-    protected TagData getActiveTagData() {
+    public TagData getActiveTagData() {
         return tagData;
     }
 
@@ -449,16 +448,6 @@ public class TagViewFragment extends TaskListFragment {
         super.onPause();
 
         getActivity().unregisterReceiver(notifyReceiver);
-    }
-
-    @Override
-    protected Task quickAddTask(String title, boolean selectNewTask) {
-        if(!tagData.containsNonNullValue(TagData.NAME) ||
-                tagData.getValue(TagData.NAME).length() == 0) {
-            DialogUtilities.okDialog(getActivity(), getString(R.string.tag_no_title_error), null);
-            return null;
-        }
-        return super.quickAddTask(title, selectNewTask);
     }
 
     @Override

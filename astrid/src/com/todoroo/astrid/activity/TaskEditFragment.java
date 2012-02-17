@@ -805,7 +805,7 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
             } catch (Exception e) {
                 // oops, can't serialize
             }
-            model = TaskListFragment.createWithValues(values, null,
+            model = TaskService.createWithValues(values, null,
                     taskService, metadataService);
         }
 
