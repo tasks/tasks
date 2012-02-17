@@ -188,10 +188,10 @@ public class TaskRabbitActivity extends FragmentActivity {
 
     public void showIntroDialog() {
         if (!Preferences.getBoolean(TASK_RABBIT_DIALOG_INTRO_PREF, false)) {
-
             if (TaskRabbitLocationManager.supportsCurrentLocation(currentLocation)) {
 
                 AlertDialog.Builder adb = new AlertDialog.Builder(TaskRabbitActivity.this);
+                adb.setTitle(R.string.tr_alert_intro_title);
                 adb.setMessage(getString(R.string.tr_alert_intro_location));
                 adb.setPositiveButton(getString(R.string.tr_alert_button_close), new DialogInterface.OnClickListener() {
                     public void onClick(final DialogInterface dialog,  final int id) {
@@ -202,6 +202,7 @@ public class TaskRabbitActivity extends FragmentActivity {
             }
             else {
                 final AlertDialog adb = new AlertDialog.Builder(TaskRabbitActivity.this)
+                .setTitle(R.string.tr_alert_intro_title)
                 .setMessage(R.string.tr_alert_intro_no_location)
                 .setPositiveButton(getString(R.string.tr_alert_button_close),null)
                 .show();

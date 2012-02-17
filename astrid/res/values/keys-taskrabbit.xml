@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
-  This file contains preference keys and preference list values.
-  These should not be translated 
+  This file contains task rabbit keys and strings.
+  Currently does not need to be translated because it's only enabled in US 
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
 
@@ -415,6 +415,7 @@
     <string name="tr_alert_internet_message_fail">Internet connection could not be found. Please check your connection and try again.</string>
     
     
+    <string name="tr_alert_intro_title">Welcome to TaskRabbit!</string>
     <string name="tr_alert_intro_location">TaskRabbit is an inexpensive way to delegate tasks to trust-worthy people in your area.</string>
     <string name="tr_alert_intro_no_location">TaskRabbit is an inexpensive way to delegate tasks to trust-worthy people but it isn\'t  yet available in your location. You can use it to assign virtual tasks or tasks in <a href="http://www.taskrabbit.com/pickacity">supported locations</a></string>
     
