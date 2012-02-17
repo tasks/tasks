@@ -1007,7 +1007,7 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
                                                 taskService.delete(model);
                                                 shouldSaveState = false;
                                                 showDeleteToast();
-                                                getActivity().setResult(Activity.RESULT_CANCELED);
+                                                getActivity().setResult(Activity.RESULT_OK);
                                                 getActivity().onBackPressed();
                                             }
                                         }).setNegativeButton(android.R.string.cancel, null).show();
