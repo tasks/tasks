@@ -92,7 +92,6 @@
         <arg value="${emma.dump.file}" />
         <arg value="coverage.ec" />
       </exec>
-      <copy todir="." file="${tested.project.absolute.dir}/coverage.em" />
 
       <antcall target="emma-parse" />      
       <antcall target="pull-junit" />      
