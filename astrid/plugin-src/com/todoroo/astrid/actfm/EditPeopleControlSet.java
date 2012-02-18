@@ -58,6 +58,7 @@ import com.todoroo.astrid.service.ThemeService;
 import com.todoroo.astrid.tags.TagService;
 import com.todoroo.astrid.ui.PeopleContainer;
 import com.todoroo.astrid.ui.PeopleContainer.OnAddNewPersonListener;
+import com.todoroo.astrid.ui.PeopleContainer.ParseSharedException;
 import com.todoroo.astrid.ui.PopupControlSet;
 
 public class EditPeopleControlSet extends PopupControlSet {
@@ -622,7 +623,12 @@ public class EditPeopleControlSet extends PopupControlSet {
                 }
             }
 
-            JSONObject sharedWith = parseSharedWithAndTags();
+            JSONObject sharedWith = sharedWithContainer.parseSharedWithAndTags(activity, false);
+            if(cbFacebook.isChecked())
+                sharedWith.put("fb", true);
+            if(cbTwitter.isChecked())
+                sharedWith.put("tw", true);
+
             dirty = dirty || sharedWith.has("p");
             if(dirty && !actFmPreferenceService.isLoggedIn()) {
                 DialogInterface.OnClickListener okListener = new DialogInterface.OnClickListener() {
@@ -684,46 +690,6 @@ public class EditPeopleControlSet extends PopupControlSet {
         int length = saveToast.contains("\n") ? //$NON-NLS-1$
                 Toast.LENGTH_LONG : Toast.LENGTH_SHORT;
         Toast.makeText(activity, saveToast, length).show();
-    }
-
-    private class ParseSharedException extends Exception {
-        private static final long serialVersionUID = -4135848250086302970L;
-        public TextView view;
-        public String message;
-
-        public ParseSharedException(TextView view, String message) {
-            this.view = view;
-            this.message = message;
-        }
-    }
-
-    @SuppressWarnings("nls")
-    private JSONObject parseSharedWithAndTags() throws
-    JSONException, ParseSharedException {
-        JSONObject sharedWith = new JSONObject();
-        if(cbFacebook.isChecked())
-            sharedWith.put("fb", true);
-        if(cbTwitter.isChecked())
-            sharedWith.put("tw", true);
-
-        JSONArray peopleList = new JSONArray();
-        for(int i = 0; i < sharedWithContainer.getChildCount(); i++) {
-            TextView textView = sharedWithContainer.getTextView(i);
-            textView.setTextAppearance(activity, android.R.style.TextAppearance_Medium_Inverse);
-            String text = textView.getText().toString();
-
-            if(text.length() == 0)
-                continue;
-
-            if(text.indexOf('@') == -1)
-                throw new ParseSharedException(textView,
-                        activity.getString(R.string.actfm_EPA_invalid_email, text));
-            peopleList.put(text);
-        }
-        if(peopleList.length() > 0)
-            sharedWith.put("p", peopleList);
-
-        return sharedWith;
     }
 
     @SuppressWarnings("nls")

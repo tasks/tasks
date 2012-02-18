@@ -4,6 +4,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.text.Editable;
@@ -168,6 +169,48 @@ public class PeopleContainer extends LinearLayout {
             }
         }
         return people;
+    }
+
+    @SuppressWarnings("nls")
+    public JSONObject parseSharedWithAndTags(Activity activity, boolean peopleAsJSON) throws
+    JSONException, ParseSharedException {
+        JSONObject sharedWith = new JSONObject();
+
+        JSONArray peopleList = new JSONArray();
+        for(int i = 0; i < getChildCount(); i++) {
+            TextView textView = getTextView(i);
+            textView.setTextAppearance(activity, android.R.style.TextAppearance_Medium_Inverse);
+            String text = textView.getText().toString();
+
+            if(text.length() == 0)
+                continue;
+
+            if(text.indexOf('@') == -1)
+                throw new ParseSharedException(textView,
+                        activity.getString(R.string.actfm_EPA_invalid_email, text));
+            if (peopleAsJSON) {
+                JSONObject person = PeopleContainer.createUserJson(textView);
+                if (person != null)
+                    peopleList.put(person);
+            } else {
+                peopleList.put(text);
+            }
+        }
+        if(peopleList.length() > 0)
+            sharedWith.put("p", peopleList);
+
+        return sharedWith;
+    }
+
+    public static class ParseSharedException extends Exception {
+        private static final long serialVersionUID = -4135848250086302970L;
+        public TextView view;
+        public String message;
+
+        public ParseSharedException(TextView view, String message) {
+            this.view = view;
+            this.message = message;
+        }
     }
 
     /**

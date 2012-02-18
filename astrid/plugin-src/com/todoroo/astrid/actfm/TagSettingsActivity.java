@@ -13,6 +13,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.ActionBar;
 import android.support.v4.app.FragmentActivity;
@@ -31,6 +32,7 @@ import android.widget.Toast;
 import com.timsu.astrid.R;
 import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.DependencyInjectionService;
+import com.todoroo.andlib.service.ExceptionService;
 import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.andlib.utility.DialogUtilities;
 import com.todoroo.andlib.utility.Preferences;
@@ -48,6 +50,7 @@ import com.todoroo.astrid.service.ThemeService;
 import com.todoroo.astrid.tags.TagFilterExposer;
 import com.todoroo.astrid.tags.TagService;
 import com.todoroo.astrid.ui.PeopleContainer;
+import com.todoroo.astrid.ui.PeopleContainer.ParseSharedException;
 import com.todoroo.astrid.utility.Flags;
 import com.todoroo.astrid.welcome.HelpInfoPopover;
 
@@ -70,6 +73,8 @@ public class TagSettingsActivity extends FragmentActivity {
     @Autowired ActFmSyncService actFmSyncService;
 
     @Autowired ActFmPreferenceService actFmPreferenceService;
+
+    @Autowired ExceptionService exceptionService;
 
     private PeopleContainer tagMembers;
     private AsyncImageView picture;
@@ -227,7 +232,22 @@ public class TagSettingsActivity extends FragmentActivity {
 
         tagData.setValue(TagData.TAG_DESCRIPTION, newDesc);
 
-        JSONArray members = tagMembers.toJSONArray();
+        JSONArray members;
+        try {
+            members = tagMembers.parseSharedWithAndTags(this, true).optJSONArray("p");
+        } catch (JSONException e) {
+            exceptionService.displayAndReportError(this, "save-people", e);
+            return;
+        } catch (ParseSharedException e) {
+            if(e.view != null) {
+                e.view.setTextColor(Color.RED);
+                e.view.requestFocus();
+            }
+            DialogUtilities.okDialog(this, e.message, null);
+            return;
+        }
+        if (members == null)
+            members = new JSONArray();
 
         if(members.length() > 0 && !actFmPreferenceService.isLoggedIn()) {
             if(newName.length() > 0 && oldName.length() == 0) {
