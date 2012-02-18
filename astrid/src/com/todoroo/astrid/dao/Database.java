@@ -137,7 +137,7 @@ public class Database extends AbstractDatabase {
         database.execSQL(sql.toString());
         sql.setLength(0);
 
-        sql.append("CREATE INDEX IF NOT EXISTS up_pid ON ").
+        sql.append("CREATE INDEX IF NOT EXISTS up_tgl ON ").
         append(Update.TABLE).append('(').
         append(Update.TAGS_LOCAL.name).
         append(')');
@@ -151,7 +151,7 @@ public class Database extends AbstractDatabase {
         database.execSQL(sql.toString());
         sql.setLength(0);
 
-        sql.append("CREATE UNIQUE INDEX IF NOT EXISTS t_rid ON ").
+        sql.append("CREATE UNIQUE INDEX IF NOT EXISTS tg_rid ON ").
         append(TagData.TABLE).append('(').
         append(TagData.REMOTE_ID.name).
         append(')');
@@ -300,6 +300,8 @@ public class Database extends AbstractDatabase {
                 database.execSQL(deleteDuplicates);
                 database.execSQL(changeZeroes);
             }
+
+            onCreateTables();
 
         } catch (SQLiteException e) {
             Log.e("astrid", "db-upgrade-" + oldVersion + "-" + newVersion, e);
