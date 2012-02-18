@@ -62,6 +62,15 @@
   <!-- text for confirmation dialog after repeating a task -->
   <string name="repeat_rescheduling_dialog_title">Rescheduling task \"%s\"</string>
     
-  <string name="repeat_rescheduling_dialog_bubble">I\'ve rescheduled this repeating task from %1$s to %2$s</string>
+  <string name="repeat_rescheduling_dialog_bubble">%1$s I\'ve rescheduled this repeating task from %2$s to %3$s</string>
+  
+  
+  <string-array name="repeat_encouragement">
+      <!-- Encouragement in rescheduling dialog bubble -->
+      <item>Good job!</item>
+      <item>Wow… I\'m so proud of you!</item>
+      <item>I love it when you\'re productive!</item>
+      <item>Doesn\'t it feel good to check something off?</item>
+  </string-array>
   
 </resources>
