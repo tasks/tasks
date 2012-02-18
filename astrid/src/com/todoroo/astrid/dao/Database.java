@@ -291,7 +291,7 @@ public class Database extends AbstractDatabase {
                 String remoteId = remoteIds[i];
 
                 // Delete any items that have duplicate remote ids
-                String deleteDuplicates = String.format("DELETE FROM %s WHERE %s IN (SELECT %s.%s FROM %s, %s AS t2 WHERE %s.%s < t2.%s AND %s.%s = t2.%s AND %s.%s > 0 GROUP BY %s.%s",
+                String deleteDuplicates = String.format("DELETE FROM %s WHERE %s IN (SELECT %s.%s FROM %s, %s AS t2 WHERE %s.%s < t2.%s AND %s.%s = t2.%s AND %s.%s > 0 GROUP BY %s.%s)",
                         table, id, table, id, table, table, table, id, id, table, remoteId, remoteId, table, remoteId, table, id);
 
                 // Change all items with remote id = 0 to be remote id = NULL
