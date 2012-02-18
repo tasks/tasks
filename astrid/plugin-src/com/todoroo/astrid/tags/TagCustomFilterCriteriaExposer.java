@@ -51,7 +51,7 @@ public class TagCustomFilterCriteriaExposer extends BroadcastReceiver {
                             MetadataDao.MetadataCriteria.withKey(TagService.KEY),
                             TagService.TAG.eq("?"))).toString(),
                     values, tagNames, tagNames,
-                    ((BitmapDrawable)r.getDrawable(R.drawable.gl_list)).getBitmap(),
+                    ((BitmapDrawable)r.getDrawable(TagService.getDefaultImageIDForTag(0))).getBitmap(),
                     context.getString(R.string.CFC_tag_name));
             ret[j++] = criterion;
         }
@@ -67,7 +67,7 @@ public class TagCustomFilterCriteriaExposer extends BroadcastReceiver {
                                             MetadataDao.MetadataCriteria.withKey(TagService.KEY),
                                             TagService.TAG.like("%?%"))).toString(),
                                             null, context.getString(R.string.CFC_tag_contains_name), "",
-                                            ((BitmapDrawable)r.getDrawable(R.drawable.gl_list)).getBitmap(),
+                                            ((BitmapDrawable)r.getDrawable(TagService.getDefaultImageIDForTag(0))).getBitmap(),
                                             context.getString(R.string.CFC_tag_contains_name));
             ret[j++] = criterion;
         }

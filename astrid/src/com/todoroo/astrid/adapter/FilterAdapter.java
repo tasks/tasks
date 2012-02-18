@@ -50,6 +50,7 @@ import com.todoroo.astrid.api.FilterListHeader;
 import com.todoroo.astrid.api.FilterListItem;
 import com.todoroo.astrid.api.FilterWithUpdate;
 import com.todoroo.astrid.service.TaskService;
+import com.todoroo.astrid.tags.TagService;
 
 public class FilterAdapter extends ArrayAdapter<Filter> {
 
@@ -450,7 +451,7 @@ public class FilterAdapter extends ArrayAdapter<Filter> {
         viewHolder.name.getLayoutParams().height = (int) (58 * metrics.density);
         if(filter instanceof FilterWithUpdate) {
             viewHolder.urlImage.setVisibility(View.VISIBLE);
-            viewHolder.urlImage.setDefaultImageResource(R.drawable.gl_list);
+            viewHolder.urlImage.setDefaultImageResource(TagService.getDefaultImageIDForTag(viewHolder.name.getText().toString()));
             viewHolder.urlImage.setUrl(((FilterWithUpdate)filter).imageUrl);
         }
 

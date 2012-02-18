@@ -58,6 +58,7 @@ import com.todoroo.astrid.api.FilterListItem;
 import com.todoroo.astrid.core.CustomFilterActivity;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.service.StatisticsService;
+import com.todoroo.astrid.tags.TagService;
 import com.todoroo.astrid.tags.TagsPlugin;
 import com.todoroo.astrid.welcome.HelpInfoPopover;
 
@@ -398,7 +399,7 @@ public class FilterListFragment extends ListFragment {
         Bitmap emblem = filter.listingIcon;
         if(emblem == null)
             emblem = ((BitmapDrawable) activity.getResources().getDrawable(
-                    R.drawable.gl_list)).getBitmap();
+                    TagService.getDefaultImageIDForTag(filter.listingTitle))).getBitmap();
 
         // create icon by superimposing astrid w/ icon
         DisplayMetrics metrics = new DisplayMetrics();

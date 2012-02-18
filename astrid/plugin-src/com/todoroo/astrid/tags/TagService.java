@@ -9,6 +9,7 @@ import java.util.LinkedHashSet;
 
 import android.text.TextUtils;
 
+import com.timsu.astrid.R;
 import com.todoroo.andlib.data.Property.CountProperty;
 import com.todoroo.andlib.data.Property.LongProperty;
 import com.todoroo.andlib.data.Property.StringProperty;
@@ -60,6 +61,13 @@ public final class TagService {
     // --- singleton
 
     private static TagService instance = null;
+
+    private static int[] default_tag_images = new int[] {
+        R.drawable.default_list_0,
+        R.drawable.default_list_1,
+        R.drawable.default_list_2,
+        R.drawable.default_list_3
+    };
 
     public static synchronized TagService getInstance() {
         if(instance == null)
@@ -368,4 +376,14 @@ public final class TagService {
         Flags.set(Flags.REFRESH);
     }
 
+    public static int getDefaultImageIDForTag(long remoteID) {
+        if (remoteID <= 0) {
+            int random = (int)(Math.random()*4);
+            return default_tag_images[random];
+        }
+        return default_tag_images[((int)remoteID)%4];
+    }
+    public static int getDefaultImageIDForTag(String title) {
+        return getDefaultImageIDForTag(Math.abs(title.hashCode()));
+    }
 }

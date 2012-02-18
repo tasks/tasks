@@ -172,6 +172,7 @@ public class TagSettingsActivity extends FragmentActivity {
 
         if(actFmPreferenceService.isLoggedIn()) {
             picture.setVisibility(View.VISIBLE);
+            picture.setDefaultImageResource(TagService.getDefaultImageIDForTag(tagData.getValue(TagData.NAME)));
             findViewById(R.id.picture_label).setVisibility(View.VISIBLE);
             findViewById(R.id.listSettingsMore).setVisibility(View.VISIBLE);
         }
