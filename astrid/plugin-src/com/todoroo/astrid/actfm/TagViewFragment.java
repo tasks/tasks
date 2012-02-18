@@ -66,7 +66,7 @@ public class TagViewFragment extends TaskListFragment {
 
     public static final String EXTRA_TAG_DATA = "tagData"; //$NON-NLS-1$
 
-    protected static final int MENU_REFRESH_ID = MENU_SYNC_ID;
+    protected static final int MENU_REFRESH_ID = MENU_SUPPORT_ID + 1;
 
     private static final int REQUEST_CODE_SETTINGS = 0;
 

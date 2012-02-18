@@ -32,7 +32,7 @@ public class GtasksListFragment extends DraggableTaskListFragment {
 
     public static final String TOKEN_STORE_ID = "storeId";
 
-    protected static final int MENU_REFRESH_ID = MENU_SYNC_ID;
+    protected static final int MENU_REFRESH_ID = MENU_SUPPORT_ID + 1;
 
     private static final String LAST_FETCH_KEY_GTASKS = "gtasksLastFetch";
 
