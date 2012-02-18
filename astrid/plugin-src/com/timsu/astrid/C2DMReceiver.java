@@ -192,6 +192,25 @@ public class C2DMReceiver extends BroadcastReceiver {
         Intent notifyIntent = null;
         int notifId;
 
+        final long user_id = intent.getLongExtra("oid", -2L);
+        final String token_id = intent.getStringExtra("tid");
+        // unregister
+        if (!actFmPreferenceService.isLoggedIn() || user_id != ActFmPreferenceService.userId()) {
+
+            new Thread() {
+                @Override
+                public void run() {
+                    try {
+                        actFmSyncService.invoke("user_unset_c2dm", "tid", token_id, "oid", user_id);
+                    } catch (IOException e) {
+                        //
+                    }
+                }
+            }.start();
+            return;
+        }
+
+
         // fetch data
         if(intent.hasExtra("tag_id")) {
             notifyIntent = createTagIntent(context, intent);
