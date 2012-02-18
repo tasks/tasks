@@ -71,7 +71,7 @@
   <string name="actfm_TVA_filtered_by_assign">%s\'s tasks. Tap for all.</string>
 
   <!-- Tag View: list is private, no members -->
-  <string name="actfm_TVA_no_members_alert">Private: tap to share or edit</string>
+  <string name="actfm_TVA_no_members_alert">Private: tap to edit or share list</string>
 
   <!-- Tag View Menu: refresh -->
   <string name="actfm_TVA_menu_refresh">Actualizar</string>
