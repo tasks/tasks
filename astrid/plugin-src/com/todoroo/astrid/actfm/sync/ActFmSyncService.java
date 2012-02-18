@@ -627,6 +627,12 @@ public final class ActFmSyncService {
                                 Order.asc(TagData.REMOTE_ID)));
                 return cursorToMap(cursor, taskDao, TagData.REMOTE_ID, TagData.ID);
             }
+
+            @Override
+            protected Class<TagData> typeClass() {
+                return TagData.class;
+            }
+
         }, done, "goals");
     }
 
@@ -747,6 +753,11 @@ public final class ActFmSyncService {
                                 Order.asc(Task.REMOTE_ID)));
                 return cursorToMap(cursor, taskDao, Task.REMOTE_ID, Task.ID);
             }
+
+            @Override
+            protected Class<Task> typeClass() {
+                return Task.class;
+            }
         }, done, "active_tasks");
     }
 
@@ -795,6 +806,11 @@ public final class ActFmSyncService {
                         Task.REMOTE_ID).where(Task.REMOTE_ID.in(remoteIds)).orderBy(
                                 Order.asc(Task.REMOTE_ID)));
                 return cursorToMap(cursor, taskDao, Task.REMOTE_ID, Task.ID);
+            }
+
+            @Override
+            protected Class<Task> typeClass() {
+                return Task.class;
             }
         }, done, "tasks:" + tagData.getId(), "tag_id", tagData.getValue(TagData.REMOTE_ID));
     }
@@ -896,18 +912,15 @@ public final class ActFmSyncService {
                 final Update update = new Update(cursor);
                 new Thread(new Runnable() {
                     public void run() {
-                        try {
-                            Bitmap picture = null;
-                            if(imageCache != null && imageCache.contains(update.getValue(update.PICTURE))) {
-                                try {
-                                    picture = imageCache.get(update.getValue(update.PICTURE));
-                                } catch (IOException e) {
-                                    e.printStackTrace();
-                                }
+                        Bitmap picture = null;
+                        if(imageCache != null && imageCache.contains(update.getValue(Update.PICTURE))) {
+                            try {
+                                picture = imageCache.get(update.getValue(Update.PICTURE));
+                            } catch (IOException e) {
+                                e.printStackTrace();
                             }
-                            pushUpdate(update.getId(), picture);
-                        } finally {
                         }
+                        pushUpdate(update.getId(), picture);
                     }
                 }).start();
             }
@@ -915,11 +928,6 @@ public final class ActFmSyncService {
             cursor.close();
         }
     }
-
-
-
-
-
 
     private class UpdateListItemProcessor extends ListItemProcessor<Update> {
         @Override
@@ -945,6 +953,11 @@ public final class ActFmSyncService {
                     Update.REMOTE_ID).where(Update.REMOTE_ID.in(remoteIds)).orderBy(
                             Order.asc(Update.REMOTE_ID)));
             return cursorToMap(cursor, updateDao, Update.REMOTE_ID, Update.ID);
+        }
+
+        @Override
+        protected Class<Update> typeClass() {
+            return Update.class;
         }
     }
 
@@ -999,15 +1012,18 @@ public final class ActFmSyncService {
 
         abstract protected HashMap<Long, Long> getLocalModels();
 
+        abstract protected Class<TYPE> typeClass();
+
         abstract protected void mergeAndSave(JSONArray list,
                 HashMap<Long,Long> locals) throws JSONException;
 
         public void process(JSONArray list) throws JSONException {
             readRemoteIds(list);
-            HashMap<Long, Long> locals = getLocalModels();
-            mergeAndSave(list, locals);
+            synchronized (typeClass()) {
+                HashMap<Long, Long> locals = getLocalModels();
+                mergeAndSave(list, locals);
+            }
         }
-
 
         protected void readRemoteIds(JSONArray list) throws JSONException {
             remoteIds = new Long[list.length()];
