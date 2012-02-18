@@ -32,6 +32,7 @@ import com.todoroo.astrid.actfm.EditPeopleControlSet;
 import com.todoroo.astrid.actfm.sync.ActFmPreferenceService;
 import com.todoroo.astrid.activity.AstridActivity;
 import com.todoroo.astrid.activity.TaskEditFragment;
+import com.todoroo.astrid.activity.TaskListActivity;
 import com.todoroo.astrid.activity.TaskListFragment;
 import com.todoroo.astrid.activity.TaskListFragment.OnTaskListItemClickedListener;
 import com.todoroo.astrid.data.TagData;
@@ -242,7 +243,8 @@ public class QuickAddBar extends LinearLayout {
         try {
             if (title != null)
                 title = title.trim();
-            if (!peopleControl.willBeAssignedToMe() && !actFmPreferenceService.isLoggedIn()) {
+            boolean assignedToMe = peopleControl.willBeAssignedToMe();
+            if (!assignedToMe && !actFmPreferenceService.isLoggedIn()) {
                 DialogInterface.OnClickListener okListener = new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface d, int which) {
@@ -278,6 +280,8 @@ public class QuickAddBar extends LinearLayout {
             peopleControl.saveSharingSettings(null);
             taskService.save(task);
 
+            String assignedTo = peopleControl.getAssignedToString();
+
             resetControlSets();
 
             boolean gcalCreateEventEnabled = Preferences.getStringValue(R.string.gcal_p_default) != null
@@ -294,6 +298,9 @@ public class QuickAddBar extends LinearLayout {
 
             if(title.length() > 0)
                 fragment.showTaskEditHelpPopover();
+
+            if (activity instanceof TaskListActivity && !assignedToMe)
+                ((TaskListActivity) activity).switchToAssignedFilter(assignedTo);
 
             TextView quickAdd = (TextView) findViewById(R.id.quickAddText);
             quickAdd.setText(""); //$NON-NLS-1$

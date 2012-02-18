@@ -406,11 +406,12 @@ public class EditNoteActivity extends LinearLayout implements TimerActionListene
         }
 
         // push task if it hasn't been pushed
-        if(task.getValue(Task.REMOTE_ID) == 0) {
+        if(task.getValue(Task.REMOTE_ID) == 0 && !TextUtils.isEmpty(task.getValue(Task.TITLE))) {
             new Thread(new Runnable() {
                 @Override
                 public void run() {
                     actFmSyncService.pushTask(task.getId());
+                    task = PluginServices.getTaskService().fetchById(task.getId(), Task.NOTES, Task.ID, Task.REMOTE_ID, Task.TITLE);
                     refreshData(false, callback);
                 }
             }).start();

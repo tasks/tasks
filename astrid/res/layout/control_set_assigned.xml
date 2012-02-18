@@ -15,6 +15,7 @@
           android:layout_height="wrap_content"
           android:layout_marginTop="2dip"
           android:layout_weight="1"
+          android:textColor="@android:color/black"
           android:hint="@string/actfm_person_hint" />
         <ImageButton
           android:id="@+id/assigned_clear"

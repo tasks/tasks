@@ -430,7 +430,7 @@ public class TaskListActivity extends AstridActivity implements MainMenuListener
             tlf.refresh();
     }
 
-    protected void switchToAssignedFilter(final String assignedEmail) {
+    public void switchToAssignedFilter(final String assignedEmail) {
         TaskListFragment tlf = getTaskListFragment();
         if (tlf != null && !tlf.isFilter()) {
             DialogInterface.OnClickListener okListener = new DialogInterface.OnClickListener() {
