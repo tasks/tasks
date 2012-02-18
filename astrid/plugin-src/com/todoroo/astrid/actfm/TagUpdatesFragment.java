@@ -1,9 +1,11 @@
 package com.todoroo.astrid.actfm;
 
+import greendroid.widget.AsyncImageView;
 import android.app.Activity;
 import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.ActionBar;
 import android.support.v4.app.ListFragment;
@@ -30,6 +32,7 @@ import com.timsu.astrid.R;
 import com.todoroo.andlib.data.TodorooCursor;
 import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.DependencyInjectionService;
+import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.astrid.actfm.ActFmCameraModule.CameraResultCallback;
@@ -47,6 +50,7 @@ import com.todoroo.astrid.helper.ProgressBarSyncResultCallback;
 import com.todoroo.astrid.service.StatisticsConstants;
 import com.todoroo.astrid.service.StatisticsService;
 import com.todoroo.astrid.service.TagDataService;
+import com.todoroo.astrid.tags.TagService;
 import com.todoroo.astrid.utility.Flags;
 
 public class TagUpdatesFragment extends ListFragment {
@@ -126,6 +130,24 @@ public class TagUpdatesFragment extends ListFragment {
             String title = (tagData == null) ? getString(R.string.TLA_all_activity) : getString(R.string.tag_updates_title, tagData.getValue(TagData.NAME));
             ((TextView) ab.getCustomView().findViewById(R.id.title)).setText(title);
         }
+
+        if (AndroidUtilities.isTabletSized(getActivity()) && tagData != null) {
+            getView().setBackgroundColor(Color.rgb(200, 200, 200));
+            TextView tagTitle = (TextView) getView().findViewById(R.id.tag_title);
+            String tagName = tagData.getValue(TagData.NAME);
+            tagTitle.setText(tagName);
+            TextView descriptionTitle = (TextView) getView().findViewById(R.id.tag_description);
+            descriptionTitle.setText(tagData.getValue(TagData.TAG_DESCRIPTION));
+
+            AsyncImageView imageView = (AsyncImageView) getView().findViewById(R.id.tag_picture);
+            imageView.setDefaultImageResource(TagService.getDefaultImageIDForTag(tagName));
+            imageView.setUrl(tagData.getValue(TagData.PICTURE));
+        }
+        else {
+            getView().findViewById(R.id.tag_header).setVisibility(View.GONE);
+            getView().findViewById(R.id.activity_header).setVisibility(View.GONE);
+        }
+
         final ImageButton commentButton = (ImageButton) getView().findViewById(R.id.commentButton);
         addCommentField = (EditText) getView().findViewById(R.id.commentField);
         addCommentField.setOnEditorActionListener(new OnEditorActionListener() {
@@ -190,9 +212,10 @@ public class TagUpdatesFragment extends ListFragment {
         if(updateAdapter == null) {
             TodorooCursor<Update> currentCursor = tagDataService.getUpdates(tagData);
             getActivity().startManagingCursor(currentCursor);
+            String fromUpdateClass = (tagData == null) ? UpdateAdapter.FROM_RECENT_ACTIVITY_VIEW : UpdateAdapter.FROM_TAG_VIEW;
 
             updateAdapter = new UpdateAdapter(this, R.layout.update_adapter_row,
-                    currentCursor, false, null);
+                    currentCursor, false, null, fromUpdateClass);
             ((ListView) getView().findViewById(android.R.id.list)).setAdapter(updateAdapter);
         } else {
             Cursor cursor = updateAdapter.getCursor();

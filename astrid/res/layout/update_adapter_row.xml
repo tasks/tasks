@@ -37,40 +37,31 @@
 	        android:textSize="16sp"/>
 	    
 	        
-	    <!-- action description -->
-	    <TextView android:id="@+id/description"
-	        android:layout_width="fill_parent"
-	        android:layout_height="wrap_content"
-	        android:layout_below="@id/title"
-	        android:layout_alignParentLeft="true"
-	        style="@style/TextAppearance.TAd_ItemDetails"
-	        android:paddingLeft="50dip"
-	        android:textSize="14sp" />
+        <!-- activity date -->
+        <TextView android:id="@+id/date"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"  
+            android:layout_below="@id/title"
+            android:layout_marginLeft="50dip" 
+            android:paddingTop="3dip"
+            style="@style/TextAppearance.TAd_ItemDueDate"
+            android:gravity="left"
+            android:ellipsize="end"
+            android:textSize="12sp"
+            android:singleLine="true"/>
 	        
 	    
         <!-- picture -->
         <greendroid.widget.AsyncImageView android:id="@+id/comment_picture"
             android:layout_width="100dip"
             android:layout_height="100dip"
-            android:layout_below="@id/description"
+            android:layout_below="@id/date"
             android:paddingTop="5dip" 
             astrid:defaultSrc="@drawable/icn_default_person_image"
-            android:scaleType="fitCenter"
+            android:scaleType="fitStart"
             android:layout_marginLeft="50dip"
             android:visibility="gone" />
         
-	    <!-- activity date -->
-	    <TextView android:id="@+id/date"
-	        android:layout_width="75dip"
-	        android:layout_height="wrap_content"
-	        android:layout_alignParentTop="true"
-	        android:layout_alignParentRight="true"        
-	        android:paddingTop="3dip"
-	        style="@style/TextAppearance.TAd_ItemDueDate"
-	        android:gravity="right"
-	        android:ellipsize="end"
-	        android:textSize="12sp"
-	        android:singleLine="true"/>
 	        
 	</RelativeLayout>
     

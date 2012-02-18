@@ -67,6 +67,14 @@ public class Update extends RemoteModel {
     public static final StringProperty USER = new StringProperty(
             TABLE, USER_JSON_PROPERTY_NAME);
 
+    /** Other user id */
+    public static final LongProperty OTHER_USER_ID = new LongProperty(
+            TABLE, "other_user_id");
+
+    /** Other User Object (JSON) */
+    public static final StringProperty OTHER_USER = new StringProperty(
+            TABLE, "other_user");
+
     /** Action text */
     public static final StringProperty ACTION = new StringProperty(
             TABLE, "action");
@@ -116,6 +124,8 @@ public class Update extends RemoteModel {
         defaultValues.put(TAGS_LOCAL.name, 0);
         defaultValues.put(USER_ID.name, 0);
         defaultValues.put(USER.name, "");
+        defaultValues.put(OTHER_USER_ID.name, 0);
+        defaultValues.put(OTHER_USER.name, "");
         defaultValues.put(ACTION.name, "");
         defaultValues.put(ACTION_CODE.name, "");
         defaultValues.put(MESSAGE.name, "");

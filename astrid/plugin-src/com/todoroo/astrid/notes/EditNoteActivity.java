@@ -18,6 +18,8 @@ import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.support.v4.app.Fragment;
 import android.text.Editable;
+import android.text.Html;
+import android.text.Spanned;
 import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.text.format.DateUtils;
@@ -49,6 +51,7 @@ import com.todoroo.astrid.actfm.ActFmCameraModule.CameraResultCallback;
 import com.todoroo.astrid.actfm.ActFmCameraModule.ClearImageCallback;
 import com.todoroo.astrid.actfm.sync.ActFmPreferenceService;
 import com.todoroo.astrid.actfm.sync.ActFmSyncService;
+import com.todoroo.astrid.adapter.UpdateAdapter;
 import com.todoroo.astrid.core.PluginServices;
 import com.todoroo.astrid.dao.MetadataDao.MetadataCriteria;
 import com.todoroo.astrid.dao.UpdateDao;
@@ -91,6 +94,7 @@ public class EditNoteActivity extends LinearLayout implements TimerActionListene
     private final Fragment fragment;
     private final ImageDiskCache imageCache;
     private final int cameraButton;
+    private final String linkColor;
 
     private final List<UpdatesChangedListener> listeners = new LinkedList<UpdatesChangedListener>();
 
@@ -104,6 +108,8 @@ public class EditNoteActivity extends LinearLayout implements TimerActionListene
 
         imageCache = ImageDiskCache.getInstance();
         this.fragment = fragment;
+
+        linkColor = UpdateAdapter.getLinkColor(fragment);
 
         cameraButton = getDefaultCameraButton();
 
@@ -267,7 +273,7 @@ public class EditNoteActivity extends LinearLayout implements TimerActionListene
             Update update = new Update();
             for(updates.moveToFirst(); !updates.isAfterLast(); updates.moveToNext()) {
                 update.readFromCursor(updates);
-                NoteOrUpdate noa = NoteOrUpdate.fromUpdate(update);
+                NoteOrUpdate noa = NoteOrUpdate.fromUpdate(update, linkColor);
                 if(noa != null)
                     items.add(noa);
             }
@@ -343,18 +349,8 @@ public class EditNoteActivity extends LinearLayout implements TimerActionListene
 
         // name
         final TextView nameView = (TextView)view.findViewById(R.id.title); {
-            if (TextUtils.isEmpty(item.title)) {
-                nameView.setText(fragment.getActivity().getString(R.string.ENA_no_user));
-            }
-            else {
-                nameView.setText(item.title);
-            }
-        }
-
-        // description
-        final TextView descriptionView = (TextView)view.findViewById(R.id.description); {
-            descriptionView.setText(item.body);
-            Linkify.addLinks(descriptionView, Linkify.ALL);
+            nameView.setText(item.title);
+            Linkify.addLinks(nameView, Linkify.ALL);
         }
 
         // date
@@ -433,8 +429,7 @@ public class EditNoteActivity extends LinearLayout implements TimerActionListene
 
 
     private String getPictureHashForUpdate(Update u) {
-        String s = u.getValue(Update.TASK) + "" + u.getValue(Update.CREATION_DATE);
-        return s;
+        return String.format("%s%s", u.getValue(Update.TASK), u.getValue(Update.CREATION_DATE)); //$NON-NLS-1$
     }
     private void addComment(String message, String actionCode, boolean usePicture) {
         // Allow for users to just add picture
@@ -491,17 +486,15 @@ public class EditNoteActivity extends LinearLayout implements TimerActionListene
 
     private static class NoteOrUpdate {
         private final String picture;
-        private final String title;
-        private final String body;
+        private final Spanned title;
         private final String commentPicture;
         private final long createdAt;
 
-        public NoteOrUpdate(String picture, String title, String body, String commentPicture,
+        public NoteOrUpdate(String picture, Spanned title, String commentPicture,
                 long createdAt) {
             super();
             this.picture = picture;
             this.title = title;
-            this.body = body;
             this.commentPicture = commentPicture;
             this.createdAt = createdAt;
         }
@@ -511,43 +504,26 @@ public class EditNoteActivity extends LinearLayout implements TimerActionListene
                 m.setValue(NoteMetadata.THUMBNAIL, ""); //$NON-NLS-1$
             if(!m.containsNonNullValue(NoteMetadata.COMMENT_PICTURE))
                 m.setValue(NoteMetadata.COMMENT_PICTURE, ""); //$NON-NLS-1$
-
+            Spanned title = Html.fromHtml(String.format("%s\n%s", m.getValue(NoteMetadata.TITLE), m.getValue(NoteMetadata.BODY))); //$NON-NLS-1$
             return new NoteOrUpdate(m.getValue(NoteMetadata.THUMBNAIL),
-                    m.getValue(NoteMetadata.TITLE),
-                    m.getValue(NoteMetadata.BODY),
+                    title,
                     m.getValue(NoteMetadata.COMMENT_PICTURE),
                     m.getValue(Metadata.CREATION_DATE));
         }
 
         @SuppressWarnings("nls")
-        public static NoteOrUpdate fromUpdate(Update u) {
+        public static NoteOrUpdate fromUpdate(Update u, String linkColor) {
             JSONObject user = ActFmPreferenceService.userFromModel(u);
-
-            String description = u.getValue(Update.ACTION);
-            String message = u.getValue(Update.MESSAGE);
-            if(u.getValue(Update.ACTION_CODE).equals("task_comment"))
-                description = message;
-            else if(!TextUtils.isEmpty(message) && !TextUtils.isEmpty(description))
-                description += " " + message;
-            else
-                description += message;
-
-            if(TextUtils.isEmpty(description))
-                return null;
 
             String commentPicture = u.getValue(Update.PICTURE);
 
+            Spanned title = UpdateAdapter.getUpdateComment(u, user, linkColor, UpdateAdapter.FROM_TASK_VIEW);
             return new NoteOrUpdate(user.optString("picture"),
-                    user.optString("name", ""),
-                    description,
+                    title,
                     commentPicture,
                     u.getValue(Update.CREATION_DATE));
         }
 
-        @Override
-        public String toString() {
-            return title + ": " + body; //$NON-NLS-1$
-        }
     }
 
     public void addListener(UpdatesChangedListener listener) {
