@@ -53,9 +53,9 @@ public class DateChangedAlerts {
         d.setContentView(R.layout.astrid_reminder_view);
 
         Button okButton = (Button) d.findViewById(R.id.reminder_complete);
+        okButton.setText(R.string.DLG_ok);
 
         d.findViewById(R.id.reminder_snooze).setVisibility(View.GONE);
-        okButton.setText(R.string.DLG_ok);
         ((TextView) d.findViewById(R.id.reminder_title)).setText(activity.getString(R.string.TLA_quickadd_confirm_title, originalText));
 
         Spanned speechBubbleText = constructSpeechBubbleTextForQuickAdd(activity, task);
@@ -72,6 +72,31 @@ public class DateChangedAlerts {
                 activity.onTaskListItemClicked(taskId);
             }
         });
+
+        d.setOwnerActivity(activity);
+        d.show();
+    }
+
+    public static void showRepeatChangedDialog(final AstridActivity activity, Task task) {
+        if (!Preferences.getBoolean(PREF_SHOW_HELPERS, true))
+            return;
+
+        final Dialog d = new Dialog(activity, R.style.ReminderDialog);
+        d.setContentView(R.layout.astrid_reminder_view);
+
+        Button okButton = (Button) d.findViewById(R.id.reminder_complete);
+        okButton.setText(R.string.DLG_ok);
+
+        d.findViewById(R.id.reminder_snooze).setVisibility(View.GONE);
+        d.findViewById(R.id.reminder_edit).setVisibility(View.GONE);
+        ((TextView) d.findViewById(R.id.reminder_title)).setText(activity.getString(R.string.TLA_repeat_scheduled_title, task.getValue(Task.TITLE)));
+
+        String speechBubbleText = constructSpeechBubbleTextForRepeat(activity, task);
+
+        ((TextView) d.findViewById(R.id.reminder_message)).setText(speechBubbleText);
+
+        setupOkAndDismissButtons(d);
+        setupHideCheckbox(d);
 
         d.setOwnerActivity(activity);
         d.show();
@@ -188,6 +213,11 @@ public class DateChangedAlerts {
 
         String fullString = context.getString(R.string.TLA_quickadd_confirm_speech_bubble, title, dueString, priorityString);
         return Html.fromHtml(fullString);
+    }
+
+    private static String constructSpeechBubbleTextForRepeat(Context context, Task task) {
+        String recurrence = getRecurrenceString(context, task);
+        return context.getString(R.string.TLA_repeat_scheduled_speech_bubble, recurrence);
     }
 
     @SuppressWarnings("nls")

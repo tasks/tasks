@@ -287,6 +287,8 @@ public class QuickAddBar extends LinearLayout {
                 Uri calendarUri = GCalHelper.createTaskEvent(task,
                         activity.getContentResolver(), new ContentValues());
                 task.setValue(Task.CALENDAR_URI, calendarUri.toString());
+                Flags.set(Flags.ACTFM_SUPPRESS_SYNC);
+                Flags.set(Flags.GTASKS_SUPPRESS_SYNC);
                 taskService.save(task);
             }
 
@@ -301,6 +303,8 @@ public class QuickAddBar extends LinearLayout {
                 fragment.selectCustomId(task.getId());
                 if (task.getTransitory(TaskService.TRANS_QUICK_ADD_MARKUP) != null) {
                     showAlertForMarkupTask((AstridActivity) activity, task, title);
+                } else if (!TextUtils.isEmpty(task.getValue(Task.RECURRENCE))) {
+                    showAlertForRepeatingTask((AstridActivity) activity, task);
                 }
             }
 
@@ -315,6 +319,10 @@ public class QuickAddBar extends LinearLayout {
 
     private static void showAlertForMarkupTask(AstridActivity activity, Task task, String originalText) {
         DateChangedAlerts.showQuickAddMarkupDialog(activity, task, originalText);
+    }
+
+    private static void showAlertForRepeatingTask(AstridActivity activity, Task task) {
+        DateChangedAlerts.showRepeatChangedDialog(activity, task);
     }
 
     // --- instance methods

@@ -89,6 +89,7 @@ import com.todoroo.astrid.tags.TagsControlSet;
 import com.todoroo.astrid.taskrabbit.TaskRabbitControlSet;
 import com.todoroo.astrid.timers.TimerActionControlSet;
 import com.todoroo.astrid.timers.TimerControlSet;
+import com.todoroo.astrid.ui.DateChangedAlerts;
 import com.todoroo.astrid.ui.DeadlineControlSet;
 import com.todoroo.astrid.ui.EditNotesControlSet;
 import com.todoroo.astrid.ui.EditTitleControlSet;
@@ -168,6 +169,7 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
 
     public static final String TOKEN_ASSIGNED_TO = "task_assigned_to"; //$NON-NLS-1$
     public static final String TOKEN_TAGS_CHANGED = "tags_changed";  //$NON-NLS-1$
+    public static final String TOKEN_NEW_REPEATING_TASK = "new_repeating"; //$NON-NLS-1$
 
     // --- services
 
@@ -812,15 +814,20 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
         taskService.save(model);
 
         if (!onPause && !cancelFinish) {
-            boolean setActivityResult = (getActivity() instanceof TaskEditActivity);
+            boolean taskEditActivity = (getActivity() instanceof TaskEditActivity);
             boolean isAssignedToMe = peopleControlSet.isAssignedToMe();
+            boolean showRepeatAlert = model.getTransitory(TaskService.TRANS_REPEAT_CHANGED) != null
+                    && !TextUtils.isEmpty(model.getValue(Task.RECURRENCE));
             String assignedTo = peopleControlSet.getAssignedToString();
-            if (setActivityResult) {
+            if (taskEditActivity) {
                 Intent data = new Intent();
                 if (!isAssignedToMe) {
                     data.putExtra(TOKEN_TASK_WAS_ASSIGNED, true);
                     data.putExtra(TOKEN_ASSIGNED_TO,
                             assignedTo);
+                }
+                if (showRepeatAlert) {
+                    data.putExtra(TOKEN_NEW_REPEATING_TASK, model);
                 }
                 data.putExtra(TOKEN_TAGS_CHANGED, tagsChanged);
                 getActivity().setResult(Activity.RESULT_OK, data);
@@ -831,6 +838,9 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
                 TaskListActivity tla = (TaskListActivity) getActivity();
                 if (!isAssignedToMe)
                     tla.switchToAssignedFilter(assignedTo);
+                else if (showRepeatAlert)
+                    DateChangedAlerts.showRepeatChangedDialog(tla, model);
+
                 if (tagsChanged)
                     tla.tagsChanged();
                 tla.refreshTaskList();

@@ -36,6 +36,7 @@ import com.todoroo.andlib.utility.DialogUtilities;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.service.StatisticsConstants;
 import com.todoroo.astrid.service.StatisticsService;
+import com.todoroo.astrid.service.TaskService;
 import com.todoroo.astrid.ui.NumberPicker;
 import com.todoroo.astrid.ui.NumberPickerDialog;
 import com.todoroo.astrid.ui.NumberPickerDialog.OnNumberPickedListener;
@@ -324,6 +325,9 @@ public class RepeatControlSet extends PopupControlSet {
 
             result = rrule.toIcal();
         }
+
+        if (!result.equals(task.getValue(Task.RECURRENCE)))
+            task.putTransitory(TaskService.TRANS_REPEAT_CHANGED, true);
         task.setValue(Task.RECURRENCE, result);
 
         switch(type.getSelectedItemPosition()) {

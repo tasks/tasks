@@ -296,15 +296,26 @@ public final class ActFmSyncService {
      * Synchronize with server when data changes
      */
     public void pushTaskOnSave(Task task, ContentValues values) {
+        Task taskForRemote = taskService.fetchById(task.getId(), Task.REMOTE_ID, Task.CREATION_DATE);
+
         long remoteId;
         if(task.containsValue(Task.REMOTE_ID)) {
             remoteId = task.getValue(Task.REMOTE_ID);
         } else {
-            Task taskForRemote = taskService.fetchById(task.getId(), Task.REMOTE_ID);
             if(taskForRemote == null)
                 return;
             remoteId = taskForRemote.getValue(Task.REMOTE_ID);
         }
+
+        long creationDate;
+        if (task.containsValue(Task.CREATION_DATE)) {
+            creationDate = task.getValue(Task.CREATION_DATE);
+        } else {
+            if (taskForRemote == null)
+                return;
+            creationDate = taskForRemote.getValue(Task.CREATION_DATE);
+        }
+
         boolean newlyCreated = remoteId == 0;
 
         ArrayList<Object> params = new ArrayList<Object>();
@@ -401,6 +412,8 @@ public final class ActFmSyncService {
 
         if(params.size() == 0 || !checkForToken())
             return;
+
+        params.add("created_at"); params.add(creationDate);
 
         if(!newlyCreated) {
             params.add("id"); params.add(remoteId);

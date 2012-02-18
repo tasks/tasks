@@ -269,9 +269,15 @@ public class ActFmLoginActivity extends FragmentActivity implements AuthListener
             body.setOrientation(LinearLayout.VERTICAL);
             body.setPadding(10, 0, 10, 0);
 
-            final EditText name = addEditField(body,
-                    R.string.actfm_ALA_name_label);
-            name.setInputType(InputType.TYPE_CLASS_TEXT |
+            final EditText firstNameField = addEditField(body,
+                    R.string.actfm_ALA_firstname_label);
+            firstNameField.setInputType(InputType.TYPE_CLASS_TEXT |
+                    InputType.TYPE_TEXT_VARIATION_PERSON_NAME |
+                    InputType.TYPE_TEXT_FLAG_CAP_WORDS);
+
+            final EditText lastNameField = addEditField(body,
+                    R.string.actfm_ALA_lastname_label);
+            lastNameField.setInputType(InputType.TYPE_CLASS_TEXT |
                     InputType.TYPE_TEXT_VARIATION_PERSON_NAME |
                     InputType.TYPE_TEXT_FLAG_CAP_WORDS);
 
@@ -282,7 +288,7 @@ public class ActFmLoginActivity extends FragmentActivity implements AuthListener
                 @Override
                 public void onClick(View v) {
                     isNew.set(!isNew.get());
-                    int nameIndex = body.indexOfChild(name);
+                    int nameIndex = body.indexOfChild(lastNameField);
                     int visibility = isNew.get() ? View.VISIBLE : View.GONE;
                     int passwordVisibility = isNew.get() ? View.GONE : View.VISIBLE;
                     toggleNew.setText(isNew.get() ? R.string.actfm_ALA_pw_returning
@@ -290,6 +296,8 @@ public class ActFmLoginActivity extends FragmentActivity implements AuthListener
                     dialog.get().setTitle(
                             isNew.get() ? R.string.actfm_ALA_signup_title
                                     : R.string.actfm_ALA_login_title);
+                    body.getChildAt(nameIndex - 3).setVisibility(visibility);
+                    body.getChildAt(nameIndex - 2).setVisibility(visibility);
                     body.getChildAt(nameIndex - 1).setVisibility(visibility);
                     body.getChildAt(nameIndex).setVisibility(visibility);
 
@@ -331,11 +339,14 @@ public class ActFmLoginActivity extends FragmentActivity implements AuthListener
                     android.R.string.ok, new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dlg, int which) {
-                            String nameString = isNew.get() ? name.getText().toString()
+                            String firstName = isNew.get() ? firstNameField.getText().toString()
                                     : null;
-                            AndroidUtilities.hideSoftInputForViews(ActFmLoginActivity.this, name, email, password);
+                            String lastName = isNew.get() ? lastNameField.getText().toString()
+                                    : null;
+
+                            AndroidUtilities.hideSoftInputForViews(ActFmLoginActivity.this, firstNameField, lastNameField, email, password);
                             authenticate(email.getText().toString(),
-                                    nameString, ActFmInvoker.PROVIDER_PASSWORD,
+                                    firstName, lastName, ActFmInvoker.PROVIDER_PASSWORD,
                                     password.getText().toString());
 
                             if (isNew.get())
@@ -346,7 +357,7 @@ public class ActFmLoginActivity extends FragmentActivity implements AuthListener
                     }).setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dlg, int which) {
-                            AndroidUtilities.hideSoftInputForViews(ActFmLoginActivity.this, name, email, password);
+                            AndroidUtilities.hideSoftInputForViews(ActFmLoginActivity.this, firstNameField, lastNameField, email, password);
                         }
                     }).show());
 
@@ -427,10 +438,11 @@ public class ActFmLoginActivity extends FragmentActivity implements AuthListener
             JSONObject json;
             try {
                 json = Util.parseJson(response);
-                String name = json.getString("name"); //$NON-NLS-1$
+                String firstName = json.getString("first_name"); //$NON-NLS-1$
+                String lastName = json.getString("last_name");
                 String email = json.getString("email"); //$NON-NLS-1$
 
-                authenticate(email, name, ActFmInvoker.PROVIDER_FACEBOOK,
+                authenticate(email, firstName, lastName, ActFmInvoker.PROVIDER_FACEBOOK,
                         facebook.getAccessToken());
                 StatisticsService.reportEvent(StatisticsConstants.ACTFM_LOGIN_FB);
             } catch (FacebookError e) {
@@ -467,7 +479,7 @@ public class ActFmLoginActivity extends FragmentActivity implements AuthListener
     // --- utilities
 
     @SuppressWarnings("nls")
-    public void authenticate(final String email, final String name, final String provider,
+    public void authenticate(final String email, final String firstName, final String lastName, final String provider,
             final String secret) {
         if (progressDialog == null)
             progressDialog = DialogUtilities.progressDialog(this,
@@ -477,7 +489,7 @@ public class ActFmLoginActivity extends FragmentActivity implements AuthListener
             @Override
             public void run() {
                 try {
-                    final JSONObject result = actFmInvoker.authenticate(email, name,
+                    final JSONObject result = actFmInvoker.authenticate(email, firstName, lastName,
                             provider, secret);
                     final String token = actFmInvoker.getToken();
 
@@ -591,7 +603,7 @@ public class ActFmLoginActivity extends FragmentActivity implements AuthListener
         } else if (requestCode == REQUEST_CODE_GOOGLE) {
             String email= data.getStringExtra(ActFmGoogleAuthActivity.RESULT_EMAIL);
             String token = data.getStringExtra(ActFmGoogleAuthActivity.RESULT_TOKEN);
-            authenticate(email, email, "google", token);
+            authenticate(email, email, "", "google", token);
         }
     }
 

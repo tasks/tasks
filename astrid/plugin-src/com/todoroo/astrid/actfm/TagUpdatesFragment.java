@@ -1,5 +1,6 @@
 package com.todoroo.astrid.actfm;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
@@ -36,6 +37,7 @@ import com.todoroo.astrid.actfm.ActFmCameraModule.ClearImageCallback;
 import com.todoroo.astrid.actfm.sync.ActFmPreferenceService;
 import com.todoroo.astrid.actfm.sync.ActFmSyncService;
 import com.todoroo.astrid.activity.AstridActivity;
+import com.todoroo.astrid.activity.TaskListActivity;
 import com.todoroo.astrid.adapter.UpdateAdapter;
 import com.todoroo.astrid.dao.UpdateDao;
 import com.todoroo.astrid.data.TagData;
@@ -198,9 +200,16 @@ public class TagUpdatesFragment extends ListFragment {
             cursor.requery();
             getActivity().startManagingCursor(cursor);
         }
+        if (getActivity() instanceof TagUpdatesActivity)
+            setLastViewed();
+    }
 
-        if(tagData != null && tagData.getValue(Task.REMOTE_ID) <= 0) {
+    public void setLastViewed() {
+        if(tagData != null && tagData.getValue(Task.REMOTE_ID) > 0) {
             Preferences.setLong(UPDATES_LAST_VIEWED + tagData.getValue(TagData.REMOTE_ID), DateUtilities.now());
+            Activity activity = getActivity();
+            if (activity instanceof TaskListActivity)
+                ((TaskListActivity) activity).setCommentsCount(0);
         }
     }
 

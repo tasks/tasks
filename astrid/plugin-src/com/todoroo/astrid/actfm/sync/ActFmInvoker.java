@@ -34,7 +34,7 @@ public class ActFmInvoker {
     public static final String PROVIDER_GOOGLE= "google";
     public static final String PROVIDER_PASSWORD = "password";
 
-    private static final int API_VERSION = 5;
+    private static final int API_VERSION = 6;
 
     @Autowired private RestClient restClient;
 
@@ -68,12 +68,13 @@ public class ActFmInvoker {
     /**
      * Authentication user with Act.fm server, returning a token
      */
-    public JSONObject authenticate(String email, String name, String provider,
+    public JSONObject authenticate(String email, String firstName, String lastName, String provider,
             String secret) throws ActFmServiceException, IOException {
         JSONObject result = invoke(
                 "user_signin",
                 "email", email,
-                "name", name,
+                "first_name", firstName,
+                "last_name", lastName,
                 "provider", provider,
                 "secret", secret);
         try {

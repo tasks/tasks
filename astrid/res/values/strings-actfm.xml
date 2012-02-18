@@ -221,6 +221,12 @@
   <!-- share login: Name -->
   <string name="actfm_ALA_name_label">Name</string>
 
+  <!-- share login: Name -->
+  <string name="actfm_ALA_firstname_label">First Name</string>
+  
+  <!-- share login: Name -->
+  <string name="actfm_ALA_lastname_label">Last Name</string>
+
   <!-- share login: Email -->
   <string name="actfm_ALA_email_label">Email</string>
 

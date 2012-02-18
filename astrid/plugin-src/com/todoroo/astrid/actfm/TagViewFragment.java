@@ -172,8 +172,9 @@ public class TagViewFragment extends TaskListFragment {
             dataLoaded = true;
         }
 
-        String tag = getActivity().getIntent().getStringExtra(EXTRA_TAG_NAME);
-        long remoteId = getActivity().getIntent().getLongExtra(EXTRA_TAG_REMOTE_ID, 0);
+        TaskListActivity activity = (TaskListActivity) getActivity();
+        String tag = activity.getIntent().getStringExtra(EXTRA_TAG_NAME);
+        long remoteId = activity.getIntent().getLongExtra(EXTRA_TAG_REMOTE_ID, 0);
 
         if(tag == null && remoteId == 0)
             return;
@@ -198,17 +199,10 @@ public class TagViewFragment extends TaskListFragment {
 
         super.onNewIntent(intent);
 
-//        if (intent.getBooleanExtra(TOKEN_START_ACTIVITY, false)) {
-//            getView().findViewById(R.id.activity).postDelayed(new Runnable() {
-//                @Override
-//                public void run() {
-//                    Intent i = new Intent(getActivity(), TagUpdatesActivity.class);
-//                    i.putExtra(EXTRA_TAG_DATA, tagData);
-//                    startActivity(i);
-//                    AndroidUtilities.callOverridePendingTransition(getActivity(), R.anim.slide_left_in, R.anim.slide_left_out);
-//                }
-//            }, 500);
-//        }
+        if (activity.getIntent().getBooleanExtra(TOKEN_START_ACTIVITY, false)) {
+            activity.getIntent().removeExtra(TOKEN_START_ACTIVITY);
+            activity.showComments();
+        }
     }
 
     @Override
@@ -230,6 +224,10 @@ public class TagViewFragment extends TaskListFragment {
             tagDataService.save(tagData);
         }
 
+        updateCommentCount();
+    }
+
+    private void updateCommentCount() {
         if (tagData != null) {
             long lastViewedComments = Preferences.getLong(TagUpdatesFragment.UPDATES_LAST_VIEWED + tagData.getValue(TagData.REMOTE_ID), 0);
             int unreadCount = 0;
@@ -441,6 +439,7 @@ public class TagViewFragment extends TaskListFragment {
         getActivity().registerReceiver(notifyReceiver, intentFilter);
 
         showListSettingsPopover();
+        updateCommentCount();
     }
 
     @Override
