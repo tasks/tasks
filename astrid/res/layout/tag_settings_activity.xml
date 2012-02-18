@@ -114,7 +114,7 @@
                     android:layout_width="80dip"
                     android:layout_height="80dip"
                     android:layout_alignParentLeft="true"
-                    android:scaleType="fitCenter"
+                    android:scaleType="centerInside"
                     android:paddingRight="10dip"
                     android:visibility="gone"
                     android:layout_below="@id/picture_label"
@@ -142,7 +142,7 @@
 	                android:id="@+id/divider"
 	                android:layout_width="fill_parent"
 	                android:layout_height="1dip"
-		            android:layout_marginTop="10dip"
+		            android:layout_marginTop="25dip"
 		            android:layout_below="@id/tag_description"
 	                style="@style/TEA_Separator" />
 	            
