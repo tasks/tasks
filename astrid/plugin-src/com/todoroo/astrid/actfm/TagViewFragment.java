@@ -467,10 +467,8 @@ public class TagViewFragment extends TaskListFragment {
         // handle my own menus
         switch (item.getItemId()) {
         case MENU_REFRESH_ID:
-            if (actFmPreferenceService.isLoggedIn()) {
             refreshData(true);
             return true;
-            }
         }
 
         return super.onOptionsItemSelected(item);
