@@ -130,7 +130,7 @@ public class Database extends AbstractDatabase {
         database.execSQL(sql.toString());
         sql.setLength(0);
 
-        sql.append("CREATE INDEX IF NOT EXISTS up_tid ON ").
+        sql.append("CREATE INDEX IF NOT EXISTS up_tkid ON ").
         append(Update.TABLE).append('(').
         append(Update.TASK_LOCAL.name).
         append(')');
