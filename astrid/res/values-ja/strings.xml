@@ -2099,7 +2099,7 @@ you get stuff done. It features reminders, tags, sync, Locale plug-in, a widget 
   <!-- text for confirmation dialog after repeating a task -->
   <string name="repeat_rescheduling_dialog_title">Rescheduling task \"%s\"</string>
     
-  <string name="repeat_rescheduling_dialog_bubble">I\'ve rescheduled this repeating task from %1$s to %2$s</string>
+
   
 
 
