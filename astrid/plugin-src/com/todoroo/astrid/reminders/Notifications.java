@@ -67,6 +67,7 @@ public class Notifications extends BroadcastReceiver {
     private ExceptionService exceptionService;
 
     public static NotificationManager notificationManager = null;
+    private static boolean forceNotificationManager = false;
 
     // --- alarm handling
 
@@ -194,7 +195,11 @@ public class Notifications extends BroadcastReceiver {
         inAppNotify.putExtra(EXTRAS_TITLE, title);
         inAppNotify.putExtra(EXTRAS_TEXT, text);
         inAppNotify.putExtra(EXTRAS_RING_TIMES, ringTimes);
-        context.sendOrderedBroadcast(inAppNotify, AstridApiConstants.PERMISSION_READ);
+
+        if(forceNotificationManager)
+            new ShowNotificationReceiver().onReceive(ContextManager.getContext(), inAppNotify);
+        else
+            context.sendOrderedBroadcast(inAppNotify, AstridApiConstants.PERMISSION_READ);
     }
 
     /**
@@ -406,6 +411,10 @@ public class Notifications extends BroadcastReceiver {
     public static void setNotificationManager(
             NotificationManager notificationManager) {
         Notifications.notificationManager = notificationManager;
+    }
+
+    public static void forceNotificationManager(boolean status) {
+        forceNotificationManager = status;
     }
 
 }
