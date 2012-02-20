@@ -185,7 +185,7 @@ public class PeopleContainer extends LinearLayout {
             if(text.length() == 0)
                 continue;
 
-            if(text.indexOf('@') == -1)
+            if(text.indexOf('@') == -1 && textView.isEnabled())
                 throw new ParseSharedException(textView,
                         activity.getString(R.string.actfm_EPA_invalid_email, text));
             if (peopleAsJSON) {
