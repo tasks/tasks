@@ -655,28 +655,30 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
 
         public void onUiThread() {
             // prepare and set listener for voice-button
-            if (addOnService.hasPowerPack()) {
-                voiceAddNoteButton = (ImageButton) notesControlSet.getView().findViewById(
-                        R.id.voiceAddNoteButton);
-                voiceAddNoteButton.setVisibility(View.VISIBLE);
-                int prompt = R.string.voice_edit_note_prompt;
-                voiceNoteAssistant = new VoiceInputAssistant(TaskEditFragment.this,
-                        voiceAddNoteButton, notesEditText, REQUEST_VOICE_RECOG);
-                voiceNoteAssistant.setAppend(true);
-                voiceNoteAssistant.setLanguageModel(RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);
-                voiceNoteAssistant.configureMicrophoneButton(prompt);
-            }
-
-            // re-read all
-            synchronized (controls) {
-                for (TaskEditControlSet controlSet : controls)
-                    controlSet.readFromTask(model);
-                if (isNewTask) {
-                    hideUntilControls.setDefaults();
+            if (getActivity() != null) {
+                if (addOnService.hasPowerPack()) {
+                    voiceAddNoteButton = (ImageButton) notesControlSet.getView().findViewById(
+                            R.id.voiceAddNoteButton);
+                    voiceAddNoteButton.setVisibility(View.VISIBLE);
+                    int prompt = R.string.voice_edit_note_prompt;
+                    voiceNoteAssistant = new VoiceInputAssistant(TaskEditFragment.this,
+                            voiceAddNoteButton, notesEditText, REQUEST_VOICE_RECOG);
+                    voiceNoteAssistant.setAppend(true);
+                    voiceNoteAssistant.setLanguageModel(RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);
+                    voiceNoteAssistant.configureMicrophoneButton(prompt);
                 }
-            }
 
-            loadMoreContainer();
+                // re-read all
+                synchronized (controls) {
+                    for (TaskEditControlSet controlSet : controls)
+                        controlSet.readFromTask(model);
+                    if (isNewTask) {
+                        hideUntilControls.setDefaults();
+                    }
+                }
+
+                loadMoreContainer();
+            }
         }
 
         @Override
