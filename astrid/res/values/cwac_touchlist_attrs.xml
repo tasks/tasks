@@ -1,4 +1,4 @@
-<resources  xmlns:android="http://schemas.android.com/apk/res/android">
+<resources>
 	<declare-styleable name="TouchListView">
 		<attr name="normal_height" format="dimension" />
 		<attr name="expanded_height" format="dimension" />
