@@ -189,7 +189,7 @@ public class AstridActivity extends FragmentActivity
     }
 
     protected final void setupTasklistFragmentWithFilter(Filter filter) {
-        setupTasklistFragmentWithFilterAndCustomTaskList(filter, TaskListFragment.class);
+        setupTasklistFragmentWithFilterAndCustomTaskList(filter, SubtasksListFragment.class);
     }
 
     protected final void setupTasklistFragmentWithFilterAndCustomTaskList(Filter filter, Class<?> customTaskList) {

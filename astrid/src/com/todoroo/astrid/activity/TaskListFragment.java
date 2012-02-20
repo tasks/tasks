@@ -764,6 +764,18 @@ public class TaskListFragment extends ListFragment implements OnScrollListener,
         syncActionHelper.request();
     }
 
+    protected TaskAdapter createTaskAdapter(TodorooCursor<Task> cursor) {
+        return new TaskAdapter(this, R.layout.task_adapter_row,
+                cursor, sqlQueryTemplate, false,
+                new OnCompletedTaskListener() {
+                    @Override
+                    public void onCompletedTask(Task item, boolean newState) {
+                        if (newState == true)
+                            onTaskCompleted(item);
+                    }
+                });
+    }
+
     /**
      * Fill in the Task List with current items
      *
@@ -782,15 +794,8 @@ public class TaskListFragment extends ListFragment implements OnScrollListener,
                 sqlQueryTemplate.get(), null, TaskAdapter.PROPERTIES);
 
         // set up list adapters
-        taskAdapter = new TaskAdapter(this, R.layout.task_adapter_row,
-                currentCursor, sqlQueryTemplate, false,
-                new OnCompletedTaskListener() {
-                    @Override
-                    public void onCompletedTask(Task item, boolean newState) {
-                        if (newState == true)
-                            onTaskCompleted(item);
-                    }
-                });
+        taskAdapter = createTaskAdapter(currentCursor);
+
         setListAdapter(taskAdapter);
         getListView().setOnScrollListener(this);
         registerForContextMenu(getListView());

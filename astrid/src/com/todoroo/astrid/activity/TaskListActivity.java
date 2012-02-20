@@ -142,7 +142,8 @@ public class TaskListActivity extends AstridActivity implements MainMenuListener
 		commentsButton.setOnClickListener(commentsButtonClickListener);
 
         Filter savedFilter = getIntent().getParcelableExtra(TaskListFragment.TOKEN_FILTER);
-        if (getIntent().getIntExtra(TaskListFragment.TOKEN_SOURCE, Constants.SOURCE_DEFAULT) == Constants.SOURCE_NOTIFICATION)
+        if (getIntent().getIntExtra(TaskListFragment.TOKEN_SOURCE, Constants.SOURCE_DEFAULT) ==
+                Constants.SOURCE_NOTIFICATION)
             setupTasklistFragmentWithFilterAndCustomTaskList(savedFilter, NotificationFragment.class);
         else
             setupTasklistFragmentWithFilter(savedFilter);

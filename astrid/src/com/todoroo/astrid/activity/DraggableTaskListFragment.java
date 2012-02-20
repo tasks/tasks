@@ -5,7 +5,6 @@ import java.util.Arrays;
 import java.util.concurrent.atomic.AtomicReference;
 
 import android.database.Cursor;
-import android.os.Bundle;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnTouchListener;
@@ -17,9 +16,7 @@ import com.todoroo.andlib.data.Property;
 import com.todoroo.andlib.data.Property.IntegerProperty;
 import com.todoroo.andlib.data.TodorooCursor;
 import com.todoroo.astrid.adapter.TaskAdapter;
-import com.todoroo.astrid.core.SortHelper;
 import com.todoroo.astrid.data.Task;
-import com.todoroo.astrid.helper.SyncActionHelper;
 
 /**
  * Activity for working with draggable task lists, like Google Tasks lists
@@ -45,47 +42,19 @@ public class DraggableTaskListFragment extends TaskListFragment {
     }
 
     @Override
-    public void onCreate(Bundle icicle) {
-        super.onCreate(icicle);
-    }
-
-    @Override
     protected View getListBody(ViewGroup root) {
         return getActivity().getLayoutInflater().inflate(R.layout.task_list_body_draggable, root, false);
     }
 
     @Override
-    protected void setUpUiComponents() {
-        super.setUpUiComponents();
-        //getView().findViewById(R.id.sortContainer).setVisibility(View.GONE);
+    protected TaskAdapter createTaskAdapter(TodorooCursor<Task> cursor) {
+        return new DraggableTaskAdapter(this, R.layout.task_adapter_draggable_row,
+                cursor, sqlQueryTemplate, false, null);
     }
 
-    // --- task adapter
-
-    /**
-     * Fill in the Task List with current items
-     * @param withCustomId force task with given custom id to be part of list
-     */
     @Override
-    protected void setUpTaskList() {
-        sqlQueryTemplate.set(SortHelper.adjustQueryForFlagsAndSort(filter.sqlQuery,
-                sortFlags, sortSort));
-
-        // perform query
-        TodorooCursor<Task> currentCursor = taskService.fetchFiltered(
-                sqlQueryTemplate.get(), null, getProperties());
-        getActivity().startManagingCursor(currentCursor);
-
-        // set up list adapters
-        taskAdapter = new DraggableTaskAdapter(this, R.layout.task_adapter_draggable_row,
-                currentCursor, sqlQueryTemplate, false, null);
-
-        setListAdapter(taskAdapter);
-        getListView().setOnScrollListener(this);
-        registerForContextMenu(getListView());
-
-        syncActionHelper = new SyncActionHelper(getActivity());
-        loadTaskListContent(false);
+    protected void setUpUiComponents() {
+        super.setUpUiComponents();
 
         getTouchListView().setOnTouchListener(new OnTouchListener() {
             @Override
@@ -94,6 +63,8 @@ public class DraggableTaskListFragment extends TaskListFragment {
             }
         });
     }
+
+    // --- task adapter
 
     public Property<?>[] getProperties() {
         ArrayList<Property<?>> properties = new ArrayList<Property<?>>(Arrays.asList(TaskAdapter.PROPERTIES));
