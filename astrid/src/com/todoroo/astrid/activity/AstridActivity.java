@@ -11,6 +11,7 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.view.View;
+import android.view.WindowManager.BadTokenException;
 
 import com.timsu.astrid.R;
 import com.todoroo.andlib.service.ContextManager;
@@ -324,13 +325,24 @@ public class AstridActivity extends FragmentActivity
 
     private class ReminderReceiver extends BroadcastReceiver {
         @Override
-        public void onReceive(Context context, Intent intent) {
+        public void onReceive(Context context, final Intent intent) {
             // Process in app notification
             Intent customIntent = intent.getExtras().getParcelable(Notifications.EXTRAS_CUSTOM_INTENT);
             long taskId = customIntent.getLongExtra(NotificationFragment.TOKEN_ID, 0);
             if (taskId > 0) {
                 String text = intent.getStringExtra(Notifications.EXTRAS_TEXT);
-                new ReminderDialog(AstridActivity.this, taskId, text).show();
+                try {
+                    new ReminderDialog(AstridActivity.this, taskId, text).show();
+                } catch (BadTokenException e) { // Activity not running when tried to show dialog--rebroadcast
+                    new Thread() {
+                        @Override
+                        public void run() {
+                            AndroidUtilities.sleepDeep(500L);
+                            sendBroadcast(intent);
+                        }
+                    }.start();
+                    return;
+                }
             }
 
             // Remove broadcast
@@ -341,7 +353,7 @@ public class AstridActivity extends FragmentActivity
 
     private class RepeatConfirmationReceiver extends BroadcastReceiver {
         @Override
-        public void onReceive(Context context, Intent intent) {
+        public void onReceive(Context context, final Intent intent) {
             long taskId = intent.getLongExtra(
                     AstridApiConstants.EXTRAS_TASK_ID, 0);
             if (taskId > 0) {
@@ -352,8 +364,17 @@ public class AstridActivity extends FragmentActivity
                 Task task = PluginServices.getTaskService().fetchById(taskId,
                         DateChangedAlerts.REPEAT_RESCHEDULED_PROPERTIES);
 
-                DateChangedAlerts.showRepeatTaskRescheduledDialog(
-                        AstridActivity.this, task, oldDueDate, newDueDate);
+                try {
+                    DateChangedAlerts.showRepeatTaskRescheduledDialog(
+                            AstridActivity.this, task, oldDueDate, newDueDate);
+                } catch (BadTokenException e) { // Activity not running when tried to show dialog--rebroadcast
+                    new Thread() {
+                        @Override
+                        public void run() {
+                            sendBroadcast(intent);
+                        }
+                    }.start();
+                }
             }
         }
     }
