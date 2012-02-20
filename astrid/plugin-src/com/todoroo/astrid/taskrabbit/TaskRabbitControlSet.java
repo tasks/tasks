@@ -212,7 +212,7 @@ public class TaskRabbitControlSet extends TaskEditControlSet implements Assigned
             statusText.setText(status);
             getDisplayView().setVisibility(View.VISIBLE);
         }
-        else if (taskRabbitTask.getLocalTaskData() != null) {
+        else if (taskRabbitTask != null && taskRabbitTask.getLocalTaskData() != null) {
             TextView statusText = (TextView) getDisplayView().findViewById(R.id.display_row_edit);
             statusText.setText(fragment.getActivity().getString(R.string.tr_status_draft));
             getDisplayView().setVisibility(View.VISIBLE);
