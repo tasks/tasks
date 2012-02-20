@@ -313,12 +313,14 @@ public class NumberPicker extends LinearLayout implements OnClickListener,
     }
 
     private void validateCurrentView(CharSequence str, boolean notifyChange) {
-        int val = getSelectedPos(str.toString());
-        if ((val >= mStart) && (val <= mEnd)) {
-            mPrevious = mCurrent;
-            mCurrent = val;
-            if (notifyChange)
-                notifyChange(mCurrent);
+        if (!TextUtils.isEmpty(str)) {
+            int val = getSelectedPos(str.toString());
+            if ((val >= mStart) && (val <= mEnd)) {
+                mPrevious = mCurrent;
+                mCurrent = val;
+                if (notifyChange)
+                    notifyChange(mCurrent);
+            }
         }
         updateView();
     }
