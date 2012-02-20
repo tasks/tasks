@@ -894,17 +894,20 @@ public class TaskListFragment extends ListFragment implements OnScrollListener,
             return;
         if (!Preferences.getBoolean(
                 R.string.p_showed_lists_help, false)) {
-            if (AndroidUtilities.isTabletSized(getActivity())) {
-                ((AstridActivity) getActivity()).getFilterListFragment().showAddListPopover();
-            } else {
-                ActionBar ab = ((AstridActivity) getActivity()).getSupportActionBar();
-                View anchor = ab.getCustomView().findViewById(R.id.lists_nav);
-                HelpInfoPopover.showPopover(getActivity(),
-                        anchor, R.string.help_popover_switch_lists, null);
+            AstridActivity activity = (AstridActivity) getActivity();
+            if (activity != null) {
+                if (AndroidUtilities.isTabletSized(activity)) {
+                    activity.getFilterListFragment().showAddListPopover();
+                } else {
+                    ActionBar ab = activity.getSupportActionBar();
+                    View anchor = ab.getCustomView().findViewById(R.id.lists_nav);
+                    HelpInfoPopover.showPopover(activity,
+                            anchor, R.string.help_popover_switch_lists, null);
+                }
+                Preferences.setBoolean(
+                        R.string.p_showed_lists_help,
+                        true);
             }
-            Preferences.setBoolean(
-                    R.string.p_showed_lists_help,
-                    true);
         }
     }
 
