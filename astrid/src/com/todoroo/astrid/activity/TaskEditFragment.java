@@ -738,6 +738,7 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
             }
             model = TaskService.createWithValues(values, null,
                     taskService, metadataService);
+            getActivity().getIntent().putExtra(TOKEN_ID, model.getId());
         }
 
         if (model.getValue(Task.TITLE).length() == 0) {
@@ -958,12 +959,6 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
     private void showDeleteToast() {
         Toast.makeText(getActivity(), R.string.TEA_onTaskDelete,
                 Toast.LENGTH_SHORT).show();
-    }
-
-    protected void commentsButtonClick() {
-        Intent launchIntent = new Intent(getActivity(), EditNoteActivity.class);
-        launchIntent.putExtra(EditNoteActivity.EXTRA_TASK_ID, model.getId());
-        startActivity(launchIntent);
     }
 
     @Override
