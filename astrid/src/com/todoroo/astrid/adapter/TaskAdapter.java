@@ -59,7 +59,6 @@ import com.todoroo.andlib.data.TodorooCursor;
 import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.ContextManager;
 import com.todoroo.andlib.service.DependencyInjectionService;
-import com.todoroo.andlib.service.ExceptionService;
 import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.andlib.utility.Pair;
@@ -151,10 +150,11 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
     // --- instance variables
 
     @Autowired
-    private ExceptionService exceptionService;
-
-    @Autowired
     private TaskService taskService;
+
+    public static int APPLY_LISTENERS_PARENT = 0;
+    public static int APPLY_LISTENERS_ROW_BODY= 1;
+    public static int APPLY_LISTENERS_NONE = 2;
 
     protected final TaskListFragment fragment;
     protected final HashMap<Long, Boolean> completedItems = new HashMap<Long, Boolean>(0);
@@ -165,7 +165,7 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
     private DetailLoaderThread detailLoader;
     private ActionsLoaderThread actionsLoader;
     private int fontSize;
-    protected boolean applyListenersToRowBody = false;
+    protected int applyListeners = APPLY_LISTENERS_PARENT;
     private long mostRecentlyMade = -1;
     private final ScaleAnimation scaleAnimation;
 
@@ -595,10 +595,10 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
             }
         });
 
-        if(applyListenersToRowBody) {
+        if(applyListeners == APPLY_LISTENERS_ROW_BODY) {
             viewHolder.rowBody.setOnCreateContextMenuListener(listener);
             viewHolder.rowBody.setOnClickListener(listener);
-        } else {
+        } else if(applyListeners == APPLY_LISTENERS_PARENT) {
             container.setOnCreateContextMenuListener(listener);
             container.setOnClickListener(listener);
         }
@@ -994,7 +994,7 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
         return (ViewHolder)((View)v.getParent()).getTag();
     }
 
-    private class TaskRowListener implements OnCreateContextMenuListener, OnClickListener {
+    public class TaskRowListener implements OnCreateContextMenuListener, OnClickListener {
 
         public void onCreateContextMenu(ContextMenu menu, View v,
                 ContextMenuInfo menuInfo) {

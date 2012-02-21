@@ -81,7 +81,7 @@ public class DraggableTaskListFragment extends TaskListFragment {
             super(activity, resource, c, query, autoRequery,
                     onCompletedTaskListener);
 
-            applyListenersToRowBody = true;
+            applyListeners = APPLY_LISTENERS_ROW_BODY;
         }
 
         @Override

@@ -35,19 +35,23 @@ import android.widget.ImageView;
 import android.widget.ListView;
 
 import com.timsu.astrid.R;
+import com.todoroo.andlib.utility.AndroidUtilities;
 
 public class TouchListView extends ListView {
 	private ImageView mDragView;
+	private View mOriginalView;
 	private WindowManager mWindowManager;
 	private WindowManager.LayoutParams mWindowParams;
 	private int mDragPos;      // which item is being dragged
 	private int mFirstDragPos; // where was the dragged item originally
 	private int mDragPoint;    // at what offset inside the item did the user grab it
 	private int mCoordOffset;  // the difference between screen coordinates and coordinates in this view
-	private int mDragStartX;
+	private float mDragStartX, mDragCurrentX;
+	private long mDragStartTime;
 	private DragListener mDragListener;
 	private DropListener mDropListener;
 	private SwipeListener mSwipeListener;
+	private GrabberClickListener mClickListener;
 	private int mUpperBound;
 	private int mLowerBound;
 	private int mHeight;
@@ -63,31 +67,34 @@ public class TouchListView extends ListView {
 	private int mItemHeightExpanded=-1;
 	private int grabberId=-1;
 	private int dragndropBackgroundColor=0x00000000;
+	private Thread longPressThread;
 
 	public TouchListView(Context context, AttributeSet attrs) {
 		this(context, attrs, 0);
 	}
 
-	public TouchListView(Context context, AttributeSet attrs, int defStyle) {
-		super(context, attrs, defStyle);
+    public TouchListView(Context context, AttributeSet attrs, int defStyle) {
+        super(context, attrs, defStyle);
 
-		mTouchSlop = ViewConfiguration.get(context).getScaledTouchSlop();
+        mTouchSlop = ViewConfiguration.get(context).getScaledTouchSlop();
 
-		if (attrs!=null) {
-			TypedArray a=getContext()
-										.obtainStyledAttributes(attrs,
-																							R.styleable.TouchListView,
-																							0, 0);
+        if (attrs != null) {
+            TypedArray a = getContext().obtainStyledAttributes(attrs,
+                    R.styleable.TouchListView, 0, 0);
 
-			mItemHeightNormal=a.getDimensionPixelSize(R.styleable.TouchListView_normal_height, 0);
-			mItemHeightExpanded=a.getDimensionPixelSize(R.styleable.TouchListView_expanded_height, mItemHeightNormal);
-			grabberId=a.getResourceId(R.styleable.TouchListView_grabber, -1);
-			dragndropBackgroundColor=a.getColor(R.styleable.TouchListView_dragndrop_background, 0x00000000);
-			mRemoveMode=a.getInt(R.styleable.TouchListView_remove_mode, -1);
+            mItemHeightNormal = a.getDimensionPixelSize(
+                    R.styleable.TouchListView_normal_height, 0);
+            mItemHeightExpanded = a.getDimensionPixelSize(
+                    R.styleable.TouchListView_expanded_height,
+                    mItemHeightNormal);
+            grabberId = a.getResourceId(R.styleable.TouchListView_grabber, -1);
+            dragndropBackgroundColor = a.getColor(
+                    R.styleable.TouchListView_dragndrop_background, 0x00000000);
+            mRemoveMode = a.getInt(R.styleable.TouchListView_remove_mode, -1);
 
-			a.recycle();
-		}
-  }
+            a.recycle();
+        }
+    }
 
 	@Override
 	final public void addHeaderView (View v, Object data, boolean isSelectable) {
@@ -154,6 +161,10 @@ public class TouchListView extends ListView {
 												mDragPos = itemnum;
 												mFirstDragPos = mDragPos;
 												mHeight = getHeight();
+												mDragStartX = ev.getX();
+												mDragStartTime = System.currentTimeMillis();
+												mOriginalView = item;
+
 												int touchSlop = mTouchSlop;
 												mUpperBound = Math.min(y - touchSlop, mHeight / 3);
 												mLowerBound = Math.max(y + touchSlop, mHeight * 2 /3);
@@ -310,7 +321,7 @@ public class TouchListView extends ListView {
 							case MotionEvent.ACTION_CANCEL:
 									Rect r = mTempRect;
 									mDragView.getDrawingRect(r);
-									stopDragging();
+									stopDragging(ev);
 									if (mDragPos == mFirstDragPos && ev.getX() > mDragStartX + 20) {
 											if (mSwipeListener!= null) {
 													mSwipeListener.swipeRight(mFirstDragPos);
@@ -373,7 +384,7 @@ public class TouchListView extends ListView {
 	}
 
 	private void startDragging(Bitmap bm, int x, int y) {
-			stopDragging();
+			stopDragging(null);
 
 			mWindowParams = new WindowManager.LayoutParams();
 			mWindowParams.gravity = Gravity.TOP|Gravity.LEFT;
@@ -390,48 +401,86 @@ public class TouchListView extends ListView {
 			mWindowParams.windowAnimations = 0;
 
 			ImageView v = new ImageView(getContext());
-//        int backGroundColor = getContext().getResources().getColor(R.color.dragndrop_background);
 			v.setBackgroundColor(dragndropBackgroundColor);
 			v.setImageBitmap(bm);
 			mDragBitmap = bm;
 
-			mWindowManager = (WindowManager)getContext().getSystemService("window");
+			mWindowManager = (WindowManager)getContext().getSystemService(Context.WINDOW_SERVICE);
 			mWindowManager.addView(v, mWindowParams);
 			mDragView = v;
+
+			if(mClickListener != null) {
+			    longPressThread = new Thread(longPressRunnable);
+			    longPressThread.start();
+			}
 	}
+
+	private final Runnable longPressRunnable = new Runnable() {
+	    public void run() {
+	        AndroidUtilities.sleepDeep(1000L);
+	        if(Thread.currentThread().isInterrupted())
+	            return;
+
+	        if(mDragPos == mFirstDragPos &&
+                    Math.abs(mDragCurrentX - mDragStartX) < 10) {
+	            stopDragging(null);
+	            mClickListener.onLongClick(mOriginalView);
+	        }
+	    }
+	};
 
 	private void dragView(int x, int y) {
-			float alpha = 1.0f;
-			int width = mDragView.getWidth();
+		float alpha = 1.0f;
+		int width = mDragView.getWidth();
 
-			if (mRemoveMode == SLIDE_RIGHT) {
-					if (x > width / 2) {
-							alpha = ((float)(width - x)) / (width / 2);
-					}
-					mWindowParams.alpha = alpha;
-			}
-			else if (mRemoveMode == SLIDE_LEFT) {
-					if (x < width / 2) {
-							alpha = ((float)x) / (width / 2);
-					}
-					mWindowParams.alpha = alpha;
-			}
-			mWindowParams.y = y - mDragPoint + mCoordOffset;
-			mWindowManager.updateViewLayout(mDragView, mWindowParams);
+		if (mRemoveMode == SLIDE_RIGHT) {
+				if (x > width / 2) {
+						alpha = ((float)(width - x)) / (width / 2);
+				}
+				mWindowParams.alpha = alpha;
+		}
+		else if (mRemoveMode == SLIDE_LEFT) {
+				if (x < width / 2) {
+						alpha = ((float)x) / (width / 2);
+				}
+				mWindowParams.alpha = alpha;
+		}
+		mWindowParams.y = y - mDragPoint + mCoordOffset;
+		mWindowManager.updateViewLayout(mDragView, mWindowParams);
+		mDragCurrentX = x;
 	}
 
-	private void stopDragging() {
-			if (mDragView != null) {
-					WindowManager wm = (WindowManager)getContext().getSystemService("window");
-					wm.removeView(mDragView);
-					mDragView.setImageDrawable(null);
-					mDragView = null;
-			}
-			if (mDragBitmap != null) {
-					mDragBitmap.recycle();
-					mDragBitmap = null;
-			}
-	}
+    private void stopDragging(MotionEvent ev) {
+        if (mDragBitmap != null) {
+            mDragBitmap.recycle();
+            mDragBitmap = null;
+        }
+
+        if (mDragView != null) {
+            WindowManager wm = (WindowManager) getContext().getSystemService(
+                    Context.WINDOW_SERVICE);
+            wm.removeView(mDragView);
+            mDragView.setImageDrawable(null);
+
+            if (ev != null && mClickListener != null) {
+                // detect press & long press case
+                if(mDragPos == mFirstDragPos &&
+                        Math.abs(mDragCurrentX - mDragStartX) < 10) {
+                    long pressTime = System.currentTimeMillis() - mDragStartTime;
+                    if(pressTime < 1000)
+                        mClickListener.onClick(mOriginalView);
+                    else
+                        mClickListener.onLongClick(mOriginalView);
+                }
+            }
+            mDragView = null;
+        }
+
+        if(longPressThread != null) {
+            longPressThread.interrupt();
+            longPressThread = null;
+        }
+    }
 
 	public void setDragListener(DragListener l) {
 			mDragListener = l;
@@ -443,6 +492,19 @@ public class TouchListView extends ListView {
 
 	public void setSwipeListener(SwipeListener l) {
 			mSwipeListener = l;
+	}
+
+	public void setClickListener(GrabberClickListener listener) {
+        this.mClickListener = listener;
+    }
+
+	public void setDragndropBackgroundColor(int color) {
+        this.dragndropBackgroundColor = color;
+    }
+
+	public interface GrabberClickListener {
+	    public void onClick(View v);
+	    public void onLongClick(View v);
 	}
 
 	public interface DragListener {
