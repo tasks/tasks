@@ -37,18 +37,18 @@ public class TaskListFragmentPagerAdapter extends FragmentStatePagerAdapter {
                 Constructor<?> constructor = component.getConstructor(Boolean.class, Filter.class);
                 return (Fragment) constructor.newInstance(true, filter);
             } catch (NoSuchMethodException e) {
-                return new TaskListFragment();
+                return new TaskListFragment(null);
             } catch (InvocationTargetException e) {
-                return new TaskListFragment();
+                return new TaskListFragment(null);
             } catch (ClassNotFoundException e) {
-                return new TaskListFragment();
+                return new TaskListFragment(null);
             } catch (IllegalAccessException e) {
-                return new TaskListFragment();
+                return new TaskListFragment(null);
             } catch (InstantiationException e) {
-                return new TaskListFragment();
+                return new TaskListFragment(null);
             }
         } else {
-            return new TaskListFragment();
+            return new TaskListFragment(null);
         }
     }
 

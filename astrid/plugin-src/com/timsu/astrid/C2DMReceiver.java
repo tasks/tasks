@@ -233,7 +233,7 @@ public class C2DMReceiver extends BroadcastReceiver {
         }
 
         notifyIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        notifyIntent.putExtra(TaskListFragment.TOKEN_SOURCE, Constants.SOURCE_C2DM);
+        notifyIntent.putExtra(TaskListActivity.TOKEN_SOURCE, Constants.SOURCE_C2DM);
         PendingIntent pendingIntent = PendingIntent.getActivity(context,
                 notifId, notifyIntent, 0);
 

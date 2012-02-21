@@ -135,9 +135,6 @@ public class TaskListFragment extends ListFragment implements OnScrollListener,
     /** token for passing a {@link Filter} object through extras */
     public static final String TOKEN_FILTER = "filter"; //$NON-NLS-1$
 
-    /** token for indicating source of TLA launch */
-    public static final String TOKEN_SOURCE = "source"; //$NON-NLS-1$
-
     public static final String TOKEN_OVERRIDE_ANIM = "finishAnim"; //$NON-NLS-1$
 
     // --- instance variables
@@ -178,6 +175,7 @@ public class TaskListFragment extends ListFragment implements OnScrollListener,
 
     private Timer backgroundTimer;
     private boolean isFilter;
+    protected final Bundle extras;
 
     private final TaskListContextMenuExtensionLoader contextMenuExtensionLoader = new TaskListContextMenuExtensionLoader();
 
@@ -193,6 +191,11 @@ public class TaskListFragment extends ListFragment implements OnScrollListener,
 
     static {
         AstridDependencyInjector.initialize();
+    }
+
+    public TaskListFragment(Bundle extras) {
+        super();
+        this.extras = extras;
     }
 
     /**
@@ -278,40 +281,11 @@ public class TaskListFragment extends ListFragment implements OnScrollListener,
             upgradeService.showChangeLog(getActivity(),
                     Preferences.getInt(AstridPreferences.P_UPGRADE_FROM, -1));
 
-        if (getActivity().getIntent().hasExtra(TOKEN_SOURCE)) {
-            trackActivitySource();
-        }
-
         getActivity().runOnUiThread(new Runnable() {
             public void run() {
                 Thread.currentThread().setPriority(Thread.MAX_PRIORITY);
             }
         });
-    }
-
-    /**
-     * Report who launched this activity
-     */
-    protected void trackActivitySource() {
-        switch (getActivity().getIntent().getIntExtra(TOKEN_SOURCE,
-                Constants.SOURCE_DEFAULT)) {
-        case Constants.SOURCE_NOTIFICATION:
-            StatisticsService.reportEvent(StatisticsConstants.LAUNCH_FROM_NOTIFICATION);
-            break;
-        case Constants.SOURCE_OTHER:
-            StatisticsService.reportEvent(StatisticsConstants.LAUNCH_FROM_OTHER);
-            break;
-        case Constants.SOURCE_PPWIDGET:
-            StatisticsService.reportEvent(StatisticsConstants.LAUNCH_FROM_PPW);
-            break;
-        case Constants.SOURCE_WIDGET:
-            StatisticsService.reportEvent(StatisticsConstants.LAUNCH_FROM_WIDGET);
-            break;
-        case Constants.SOURCE_C2DM:
-            StatisticsService.reportEvent(StatisticsConstants.LAUNCH_FROM_C2DM);
-            break;
-        }
-        getActivity().getIntent().putExtra(TOKEN_SOURCE, Constants.SOURCE_DEFAULT); // Only report source once
     }
 
     /**
@@ -322,7 +296,6 @@ public class TaskListFragment extends ListFragment implements OnScrollListener,
     }
 
     protected void onNewIntent(Intent intent) {
-        Bundle extras = intent.getExtras();
         if (extras != null) {
             overrideFinishAnim = extras.getBoolean(TOKEN_OVERRIDE_ANIM);
         } else {
@@ -337,9 +310,9 @@ public class TaskListFragment extends ListFragment implements OnScrollListener,
                             "%" + //$NON-NLS-1$
                                     query.toUpperCase() + "%")), //$NON-NLS-1$
                     null);
-            intent = new Intent(getActivity(), TaskListActivity.class);
-            intent.putExtra(TaskListFragment.TOKEN_FILTER, searchFilter);
-            startActivity(intent);
+            Intent searchIntent = new Intent(getActivity(), TaskListActivity.class);
+            searchIntent.putExtra(TaskListFragment.TOKEN_FILTER, searchFilter);
+            startActivity(searchIntent);
             getActivity().finish();
             if (overrideFinishAnim) {
                 AndroidUtilities.callOverridePendingTransition(getActivity(),

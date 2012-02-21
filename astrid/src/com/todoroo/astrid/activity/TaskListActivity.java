@@ -35,6 +35,8 @@ import com.todoroo.astrid.api.FilterListItem;
 import com.todoroo.astrid.core.CustomFilterExposer;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.reminders.NotificationFragment;
+import com.todoroo.astrid.service.StatisticsConstants;
+import com.todoroo.astrid.service.StatisticsService;
 import com.todoroo.astrid.service.ThemeService;
 import com.todoroo.astrid.tags.TagFilterExposer;
 import com.todoroo.astrid.ui.DateChangedAlerts;
@@ -48,6 +50,9 @@ import com.todoroo.astrid.welcome.tutorial.WelcomeWalkthrough;
 public class TaskListActivity extends AstridActivity implements MainMenuListener {
 
     public static final String TOKEN_SELECTED_FILTER = "selectedFilter"; //$NON-NLS-1$
+
+    /** token for indicating source of TLA launch */
+    public static final String TOKEN_SOURCE = "source"; //$NON-NLS-1$
 
     private View listsNav;
     private ImageView listsNavDisclosure;
@@ -142,13 +147,17 @@ public class TaskListActivity extends AstridActivity implements MainMenuListener
 		commentsButton.setOnClickListener(commentsButtonClickListener);
 
         Filter savedFilter = getIntent().getParcelableExtra(TaskListFragment.TOKEN_FILTER);
-        if (getIntent().getIntExtra(TaskListFragment.TOKEN_SOURCE, Constants.SOURCE_DEFAULT) == Constants.SOURCE_NOTIFICATION)
+        if (getIntent().getIntExtra(TOKEN_SOURCE, Constants.SOURCE_DEFAULT) == Constants.SOURCE_NOTIFICATION)
             setupTasklistFragmentWithFilterAndCustomTaskList(savedFilter, NotificationFragment.class);
         else
             setupTasklistFragmentWithFilter(savedFilter);
 
         if (savedFilter != null)
             setListsTitle(savedFilter.title);
+
+        if (getIntent().hasExtra(TOKEN_SOURCE)) {
+            trackActivitySource();
+        }
 	}
 
 	/**
@@ -446,6 +455,31 @@ public class TaskListActivity extends AstridActivity implements MainMenuListener
                     R.string.actfm_view_task_ok, R.string.actfm_view_task_cancel,
                     0, okListener, null);
         }
+    }
+
+    /**
+     * Report who launched this activity
+     */
+    protected void trackActivitySource() {
+        switch (getIntent().getIntExtra(TOKEN_SOURCE,
+                Constants.SOURCE_DEFAULT)) {
+        case Constants.SOURCE_NOTIFICATION:
+            StatisticsService.reportEvent(StatisticsConstants.LAUNCH_FROM_NOTIFICATION);
+            break;
+        case Constants.SOURCE_OTHER:
+            StatisticsService.reportEvent(StatisticsConstants.LAUNCH_FROM_OTHER);
+            break;
+        case Constants.SOURCE_PPWIDGET:
+            StatisticsService.reportEvent(StatisticsConstants.LAUNCH_FROM_PPW);
+            break;
+        case Constants.SOURCE_WIDGET:
+            StatisticsService.reportEvent(StatisticsConstants.LAUNCH_FROM_WIDGET);
+            break;
+        case Constants.SOURCE_C2DM:
+            StatisticsService.reportEvent(StatisticsConstants.LAUNCH_FROM_C2DM);
+            break;
+        }
+        getIntent().putExtra(TOKEN_SOURCE, Constants.SOURCE_DEFAULT); // Only report source once
     }
 
     @Override

@@ -31,6 +31,10 @@ public class DraggableTaskListFragment extends TaskListFragment {
 
     // --- task list
 
+    public DraggableTaskListFragment(Bundle extras) {
+        super(extras);
+    }
+
     /**
      * If database has an indent property for determining how rows are indented,
      * return it here so we can read it from the cursor and use it

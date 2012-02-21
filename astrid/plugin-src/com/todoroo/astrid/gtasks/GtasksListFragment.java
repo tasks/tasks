@@ -64,6 +64,10 @@ public class GtasksListFragment extends DraggableTaskListFragment {
         GtasksList.LAST_SYNC
     };
 
+    public GtasksListFragment(Bundle extras) {
+        super(extras);
+    }
+
     @Override
     public void onActivityCreated(Bundle icicle) {
         super.onActivityCreated(icicle);
@@ -86,7 +90,7 @@ public class GtasksListFragment extends DraggableTaskListFragment {
             }
         });
 
-        long storeObjectId = getActivity().getIntent().getLongExtra(TOKEN_STORE_ID, 0);
+        long storeObjectId = extras.getLong(TOKEN_STORE_ID, 0);
         list = storeObjectDao.fetch(storeObjectId, LIST_PROPERTIES);
     }
 

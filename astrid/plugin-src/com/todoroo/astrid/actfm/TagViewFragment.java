@@ -95,6 +95,10 @@ public class TagViewFragment extends TaskListFragment {
 
     // --- UI initialization
 
+    public TagViewFragment(Bundle extras) {
+        super(extras);
+    }
+
     @Override
     public void onActivityCreated(final Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
@@ -174,8 +178,8 @@ public class TagViewFragment extends TaskListFragment {
         }
 
         TaskListActivity activity = (TaskListActivity) getActivity();
-        String tag = activity.getIntent().getStringExtra(EXTRA_TAG_NAME);
-        long remoteId = activity.getIntent().getLongExtra(EXTRA_TAG_REMOTE_ID, 0);
+        String tag = extras.getString(EXTRA_TAG_NAME);
+        long remoteId = extras.getLong(EXTRA_TAG_REMOTE_ID, 0);
 
         if(tag == null && remoteId == 0)
             return;
@@ -200,8 +204,8 @@ public class TagViewFragment extends TaskListFragment {
 
         super.onNewIntent(intent);
 
-        if (activity.getIntent().getBooleanExtra(TOKEN_START_ACTIVITY, false)) {
-            activity.getIntent().removeExtra(TOKEN_START_ACTIVITY);
+        if (extras.getBoolean(TOKEN_START_ACTIVITY, false)) {
+            extras.remove(TOKEN_START_ACTIVITY);
             activity.showComments();
         }
     }
@@ -456,6 +460,7 @@ public class TagViewFragment extends TaskListFragment {
             tagData = tagDataService.fetchById(tagData.getId(), TagData.PROPERTIES);
             filter = TagFilterExposer.filterFromTagData(getActivity(), tagData);
             getActivity().getIntent().putExtra(TOKEN_FILTER, filter);
+            extras.putParcelable(TOKEN_FILTER, filter);
             Activity activity = getActivity();
             if (activity instanceof TaskListActivity) {
                 ((TaskListActivity) activity).setListsTitle(filter.title);

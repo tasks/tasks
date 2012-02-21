@@ -26,10 +26,10 @@ import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.andlib.utility.Preferences;
-import com.todoroo.astrid.activity.TaskEditFragment;
 import com.todoroo.astrid.activity.TaskEditActivity;
-import com.todoroo.astrid.activity.TaskListFragment;
+import com.todoroo.astrid.activity.TaskEditFragment;
 import com.todoroo.astrid.activity.TaskListActivity;
+import com.todoroo.astrid.activity.TaskListFragment;
 import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.api.FilterWithCustomIntent;
 import com.todoroo.astrid.api.PermaSql;
@@ -217,7 +217,7 @@ public class TasksWidget extends AppWidgetProvider {
                 Bundle extras = AndroidUtilities.bundleFromSerializedString(serializedExtras);
                 listIntent.putExtras(extras);
             }
-            listIntent.putExtra(TaskListFragment.TOKEN_SOURCE, Constants.SOURCE_WIDGET);
+            listIntent.putExtra(TaskListActivity.TOKEN_SOURCE, Constants.SOURCE_WIDGET);
             listIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_MULTIPLE_TASK);
             if(filter != null) {
                 listIntent.putExtra(TaskListFragment.TOKEN_FILTER, filter);
