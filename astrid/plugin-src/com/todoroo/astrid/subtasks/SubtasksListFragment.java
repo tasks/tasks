@@ -1,5 +1,7 @@
 package com.todoroo.astrid.subtasks;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.concurrent.atomic.AtomicReference;
 
 import android.database.Cursor;
@@ -10,7 +12,9 @@ import android.view.ViewGroup;
 
 import com.commonsware.cwac.tlv.TouchListView.DropListener;
 import com.commonsware.cwac.tlv.TouchListView.GrabberClickListener;
+import com.commonsware.cwac.tlv.TouchListView.SwipeListener;
 import com.timsu.astrid.R;
+import com.todoroo.andlib.data.Property;
 import com.todoroo.andlib.data.TodorooCursor;
 import com.todoroo.astrid.activity.TaskListFragment;
 import com.todoroo.astrid.adapter.TaskAdapter;
@@ -43,6 +47,7 @@ public class SubtasksListFragment extends TaskListFragment {
         getTouchListView().setDragndropBackgroundColor(tv.data);
         getTouchListView().setDropListener(dropListener);
         getTouchListView().setClickListener(rowClickListener);
+        getTouchListView().setSwipeListener(swipeListener);
         getActivity().getWindowManager().getDefaultDisplay().getMetrics(metrics);
     }
 
@@ -51,18 +56,27 @@ public class SubtasksListFragment extends TaskListFragment {
     protected void setUpTaskList() {
         String query = filter.sqlQuery;
 
-        query = String.format("LEFT JOIN %s ON (%s = %s AND %s = '%s') %s",
-                        Metadata.TABLE, Task.ID, Metadata.TASK,
-                        Metadata.KEY, SubtasksMetadata.METADATA_KEY, query);
-        query = query.replaceAll("ORDER BY .*", "");
-        query = query + String.format(" ORDER BY CAST(%s AS LONG) ASC, %s ASC",
-                SubtasksMetadata.ORDER, Task.ID);
+        String subtaskJoin = String.format("LEFT JOIN %s ON (%s = %s AND %s = '%s') ",
+                Metadata.TABLE, Task.ID, Metadata.TASK,
+                Metadata.KEY, SubtasksMetadata.METADATA_KEY);
+        if(!query.contains(subtaskJoin)) {
+            query = subtaskJoin + query;
+            query = query.replaceAll("ORDER BY .*", "");
+            query = query + String.format(" ORDER BY CAST(%s AS LONG) ASC, %s ASC",
+                    SubtasksMetadata.ORDER, Task.ID);
 
-        filter.sqlQuery = query;
+            filter.sqlQuery = query;
+        }
 
         super.setUpTaskList();
 
         unregisterForContextMenu(getListView());
+    }
+
+    public Property<?>[] getProperties() {
+        ArrayList<Property<?>> properties = new ArrayList<Property<?>>(Arrays.asList(TaskAdapter.PROPERTIES));
+        properties.add(SubtasksMetadata.INDENT);
+        return properties.toArray(new Property<?>[properties.size()]);
     }
 
     private final DropListener dropListener = new DropListener() {
@@ -84,6 +98,26 @@ public class SubtasksListFragment extends TaskListFragment {
             System.err.println("AFTER");
             updater.debugPrint(filter, SubtasksMetadata.LIST_ACTIVE_TASKS);
 
+            loadTaskListContent(true);
+        }
+    };
+
+    private final SwipeListener swipeListener = new SwipeListener() {
+        @Override
+        public void swipeRight(int which) {
+            long targetTaskId = taskAdapter.getItemId(which);
+            System.err.println("SWIPE RIGHT " + targetTaskId);
+            updater.indent(filter, SubtasksMetadata.LIST_ACTIVE_TASKS, targetTaskId, 1);
+            updater.debugPrint(filter, SubtasksMetadata.LIST_ACTIVE_TASKS);
+            loadTaskListContent(true);
+        }
+
+        @Override
+        public void swipeLeft(int which) {
+            long targetTaskId = taskAdapter.getItemId(which);
+            System.err.println("SWIPE LEFT " + targetTaskId);
+            updater.indent(filter, SubtasksMetadata.LIST_ACTIVE_TASKS, targetTaskId, -1);
+            updater.debugPrint(filter, SubtasksMetadata.LIST_ACTIVE_TASKS);
             loadTaskListContent(true);
         }
     };
@@ -131,6 +165,9 @@ public class SubtasksListFragment extends TaskListFragment {
             super.setFieldContentsAndVisibility(view);
 
             view.getLayoutParams().height = Math.round(45 * metrics.density);
+            ViewHolder vh = (ViewHolder) view.getTag();
+            int indent = vh.task.getValue(SubtasksMetadata.INDENT);
+            vh.rowBody.setPadding(Math.round(indent * 10 * metrics.density), 0, 0, 0);
         }
 
         @Override

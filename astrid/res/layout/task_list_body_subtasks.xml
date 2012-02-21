@@ -26,6 +26,7 @@
         android:smoothScrollbar="false"
         
         tlv:normal_height="45dip"
+        tlv:expanded_height="90dip"
     />
                 
 </FrameLayout>

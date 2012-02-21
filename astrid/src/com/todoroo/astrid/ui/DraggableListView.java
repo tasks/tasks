@@ -63,7 +63,6 @@ public class DraggableListView extends ListView {
 	private int mUpperBound;
 	private int mLowerBound;
 	private int mHeight;
-	private int mRemoveMode = -1;
 	private final Rect mTempRect = new Rect();
 	private Bitmap mDragBitmap;
 	private final int mTouchSlop;
@@ -76,13 +75,8 @@ public class DraggableListView extends ListView {
     private GrabberClickListener mClickListener;
     private GestureDetector mGestureDetector;
 
-    public static final int FLING = 0;
-    public static final int SLIDE_RIGHT = 1;
-    public static final int SLIDE_LEFT = 2;
-
     // --- other instance variables
     private int mItemHeightNormal = -1;
-    private int mItemHeightExpanded = -1;
     private Thread dragThread = null;
 
     // --- constructors
@@ -102,15 +96,13 @@ public class DraggableListView extends ListView {
 
             mItemHeightNormal = a.getDimensionPixelSize(
                     R.styleable.TouchListView_normal_height, 0);
-            mItemHeightExpanded = a.getDimensionPixelSize(
-                    R.styleable.TouchListView_expanded_height,
-                    mItemHeightNormal);
             dragndropBackgroundColor = a.getColor(
                     R.styleable.TouchListView_dragndrop_background, 0x00000000);
-            mRemoveMode = a.getInt(R.styleable.TouchListView_remove_mode, -1);
 
             a.recycle();
         }
+
+        setSelector(null);
     }
 
     protected boolean isDraggableRow(@SuppressWarnings("unused") View view) {
@@ -183,6 +175,7 @@ public class DraggableListView extends ListView {
                 params.height = mItemHeightNormal;
                 v.setLayoutParams(params);
                 v.setVisibility(View.VISIBLE);
+                v.setPadding(0, 0, 0, 0);
             }
         }
     }
@@ -210,6 +203,7 @@ public class DraggableListView extends ListView {
                 break;
             }
             int height = mItemHeightNormal;
+            int marginBottom = 0;
             int visibility = View.VISIBLE;
             if (vv.equals(first)) {
                 // processing the item that is being dragged
@@ -222,7 +216,8 @@ public class DraggableListView extends ListView {
                 }
             } else if (i == childnum) {
                 if (mDragPos < getCount() - 1) {
-                    height = mItemHeightExpanded;
+                    marginBottom = mItemHeightNormal;
+                    // height = mItemHeightExpanded;
                 }
             }
 
@@ -231,6 +226,7 @@ public class DraggableListView extends ListView {
                 params.height = height;
                 vv.setLayoutParams(params);
                 vv.setVisibility(visibility);
+                vv.setPadding(0, 0, 0, marginBottom);
             }
         }
         // Request re-layout since we changed the items layout
@@ -267,6 +263,7 @@ public class DraggableListView extends ListView {
         case MotionEvent.ACTION_DOWN:
             dragThread = new Thread(new DragRunnable(ev));
             dragThread.start();
+            stopDragging();
 
             mTouchStartX = ev.getX();
             mTouchStartY = ev.getY();
@@ -344,8 +341,8 @@ public class DraggableListView extends ListView {
      * @return true if drag was initiated
      */
     protected boolean initiateDrag(MotionEvent ev) {
-        int x = (int) mTouchStartX;
-        int y = (int) mTouchStartY;
+        int x = (int) mTouchCurrentX;
+        int y = (int) mTouchCurrentY;
         int itemNum = pointToPosition(x, y);
 
         if (itemNum == AdapterView.INVALID_POSITION)
@@ -356,9 +353,6 @@ public class DraggableListView extends ListView {
         if(!isDraggableRow(item))
             return false;
 
-        stopDragging();
-
-        System.err.println("GOT VIEW ITEM " + itemNum + " // " + item);
         mDragPoint = y - item.getTop();
         mCoordOffset = ((int) ev.getRawY()) - y;
 
@@ -419,20 +413,6 @@ public class DraggableListView extends ListView {
         int x = (int) ev.getX();
         int y = (int) ev.getY();
 
-        float alpha = 1.0f;
-        int width = mDragView.getWidth();
-
-        if (mRemoveMode == SLIDE_RIGHT) {
-            if (x > width / 2) {
-                alpha = ((float) (width - x)) / (width / 2);
-            }
-            mWindowParams.alpha = alpha;
-        } else if (mRemoveMode == SLIDE_LEFT) {
-            if (x < width / 2) {
-                alpha = ((float) x) / (width / 2);
-            }
-            mWindowParams.alpha = alpha;
-        }
         mWindowParams.y = y - mDragPoint + mCoordOffset;
         mWindowManager.updateViewLayout(mDragView, mWindowParams);
 
@@ -490,6 +470,8 @@ public class DraggableListView extends ListView {
 
         if(mDragging) {
             if (mSwipeListener != null && mDragPos == mFirstDragPos) {
+                System.err.format("in swipe consideration - %.2f vs %.2f\n",
+                        mTouchCurrentX , mTouchStartX);
                 if (mTouchCurrentX > mTouchStartX + SWIPE_THRESHOLD)
                     mSwipeListener.swipeRight(mFirstDragPos);
                 else if (mTouchStartX < mTouchStartX - SWIPE_THRESHOLD)
@@ -537,24 +519,6 @@ public class DraggableListView extends ListView {
     final public void addHeaderView(View v) {
         throw new RuntimeException(
                 "Headers are not supported with TouchListView");
-    }
-
-    @SuppressWarnings("nls")
-    @Override
-    final public void addFooterView(View v, Object data, boolean isSelectable) {
-        if (mRemoveMode == SLIDE_LEFT || mRemoveMode == SLIDE_RIGHT) {
-            throw new RuntimeException(
-                    "Footers are not supported with TouchListView in conjunction with remove_mode");
-        }
-    }
-
-    @SuppressWarnings("nls")
-    @Override
-    final public void addFooterView(View v) {
-        if (mRemoveMode == SLIDE_LEFT || mRemoveMode == SLIDE_RIGHT) {
-            throw new RuntimeException(
-                    "Footers are not supported with TouchListView in conjunction with remove_mode");
-        }
     }
 
 }
