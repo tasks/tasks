@@ -421,10 +421,15 @@ public class TouchListView extends ListView {
 	        if(Thread.currentThread().isInterrupted())
 	            return;
 
-	        if(mDragPos == mFirstDragPos &&
+	        if(mDragView != null && mDragPos == mFirstDragPos &&
                     Math.abs(mDragCurrentX - mDragStartX) < 10) {
-	            stopDragging(null);
-	            mClickListener.onLongClick(mOriginalView);
+	            post(new Runnable() {
+	                public void run() {
+	                    stopDragging(null);
+	                    mClickListener.onLongClick(mOriginalView);
+	                    invalidate();
+	                }
+	            });
 	        }
 	    }
 	};
@@ -461,6 +466,7 @@ public class TouchListView extends ListView {
                     Context.WINDOW_SERVICE);
             wm.removeView(mDragView);
             mDragView.setImageDrawable(null);
+            mDragView = null;
 
             if (ev != null && mClickListener != null) {
                 // detect press & long press case
@@ -473,7 +479,6 @@ public class TouchListView extends ListView {
                         mClickListener.onLongClick(mOriginalView);
                 }
             }
-            mDragView = null;
         }
 
         if(longPressThread != null) {

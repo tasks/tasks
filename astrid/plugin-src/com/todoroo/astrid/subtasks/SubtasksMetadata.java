@@ -2,7 +2,6 @@ package com.todoroo.astrid.subtasks;
 
 import com.todoroo.andlib.data.Property.IntegerProperty;
 import com.todoroo.andlib.data.Property.LongProperty;
-import com.todoroo.andlib.data.Property.StringProperty;
 import com.todoroo.astrid.data.Metadata;
 
 /**
@@ -12,13 +11,13 @@ import com.todoroo.astrid.data.Metadata;
  */
 public class SubtasksMetadata {
 
-    static final int VALUE_UNSET = -1;
+    public static final long LIST_ACTIVE_TASKS = 0;
 
     /** metadata key */
     public static final String METADATA_KEY = "subtasks"; //$NON-NLS-1$
 
     /** list id */
-    public static final StringProperty LIST_ID = new StringProperty(Metadata.TABLE,
+    public static final LongProperty LIST_ID = new LongProperty(Metadata.TABLE,
             Metadata.VALUE1.name);
 
     public static final IntegerProperty INDENT = new IntegerProperty(Metadata.TABLE,

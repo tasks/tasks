@@ -27,6 +27,7 @@ import com.todoroo.astrid.data.Metadata;
 import com.todoroo.astrid.data.StoreObject;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.gtasks.sync.GtasksTaskContainer;
+import com.todoroo.astrid.subtasks.OrderedListUpdater.OrderedListIterator;
 import com.todoroo.astrid.sync.SyncMetadataService;
 import com.todoroo.astrid.sync.SyncProviderUtilities;
 
@@ -128,17 +129,13 @@ public final class GtasksMetadataService extends SyncMetadataService<GtasksTaskC
     // --- list iterating helpers
 
 
-    public interface ListIterator {
-        public void processTask(long taskId, Metadata metadata);
-    }
-
-    public void iterateThroughList(StoreObject list, ListIterator iterator) {
+    public void iterateThroughList(StoreObject list, OrderedListIterator iterator) {
         String listId = list.getValue(GtasksList.REMOTE_ID);
         iterateThroughList(listId, iterator, 0, false);
     }
 
     @SuppressWarnings("nls")
-    public void iterateThroughList(String listId, ListIterator iterator, long startAtOrder, boolean reverse) {
+    public void iterateThroughList(String listId, OrderedListIterator iterator, long startAtOrder, boolean reverse) {
         Field orderField = Functions.cast(GtasksMetadata.ORDER, "LONG");
         Order order = reverse ? Order.desc(orderField) : Order.asc(orderField);
         Criterion startAtCriterion = reverse ?  Functions.cast(GtasksMetadata.ORDER, "LONG").lt(startAtOrder) :
@@ -195,7 +192,7 @@ public final class GtasksMetadataService extends SyncMetadataService<GtasksTaskC
         final AtomicLong parentToMatch = new AtomicLong(gtasksMetadata.getValue(GtasksMetadata.PARENT_TASK).longValue());
         final AtomicReference<String> sibling = new AtomicReference<String>();
 
-        ListIterator iterator = new ListIterator() {
+        OrderedListIterator iterator = new OrderedListIterator() {
             @Override
             public void processTask(long taskId, Metadata metadata) {
                 Task t = taskDao.fetch(taskId, Task.TITLE, Task.DELETION_DATE);

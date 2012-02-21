@@ -97,9 +97,9 @@ public class GtasksListFragment extends DraggableTaskListFragment {
             long destinationTaskId = taskAdapter.getItemId(to);
 
             if(to == getListView().getCount() - 1)
-                gtasksTaskListUpdater.moveTo(targetTaskId, -1);
+                gtasksTaskListUpdater.moveTo(filter, list, targetTaskId, -1);
             else
-                gtasksTaskListUpdater.moveTo(targetTaskId, destinationTaskId);
+                gtasksTaskListUpdater.moveTo(filter, list, targetTaskId, destinationTaskId);
             gtasksSyncService.triggerMoveForMetadata(gtasksMetadataService.getTaskMetadata(targetTaskId));
             loadTaskListContent(true);
         }
@@ -109,7 +109,7 @@ public class GtasksListFragment extends DraggableTaskListFragment {
         @Override
         public void swipeRight(int which) {
             long targetTaskId = taskAdapter.getItemId(which);
-            gtasksTaskListUpdater.indent(targetTaskId, 1);
+            gtasksTaskListUpdater.indent(filter, list, targetTaskId, 1);
             gtasksSyncService.triggerMoveForMetadata(gtasksMetadataService.getTaskMetadata(targetTaskId));
             loadTaskListContent(true);
         }
@@ -117,7 +117,7 @@ public class GtasksListFragment extends DraggableTaskListFragment {
         @Override
         public void swipeLeft(int which) {
             long targetTaskId = taskAdapter.getItemId(which);
-            gtasksTaskListUpdater.indent(targetTaskId, -1);
+            gtasksTaskListUpdater.indent(filter, list, targetTaskId, -1);
             gtasksSyncService.triggerMoveForMetadata(gtasksMetadataService.getTaskMetadata(targetTaskId));
             loadTaskListContent(true);
         }

@@ -15,11 +15,14 @@ import com.timsu.astrid.R;
 import com.todoroo.andlib.data.TodorooCursor;
 import com.todoroo.astrid.activity.TaskListFragment;
 import com.todoroo.astrid.adapter.TaskAdapter;
+import com.todoroo.astrid.data.Metadata;
 import com.todoroo.astrid.data.Task;
 
 public class SubtasksListFragment extends TaskListFragment {
 
     private final DisplayMetrics metrics = new DisplayMetrics();
+
+    private final SubtasksUpdater updater = new SubtasksUpdater();
 
     public TouchListView getTouchListView() {
         TouchListView tlv = (TouchListView) getListView();
@@ -43,10 +46,39 @@ public class SubtasksListFragment extends TaskListFragment {
         getActivity().getWindowManager().getDefaultDisplay().getMetrics(metrics);
     }
 
+    @SuppressWarnings("nls")
+    @Override
+    protected void setUpTaskList() {
+        String query = filter.sqlQuery;
+
+        query = String.format("LEFT JOIN %s ON (%s = %s AND %s = '%s') %s",
+                        Metadata.TABLE, Task.ID, Metadata.TASK,
+                        Metadata.KEY, SubtasksMetadata.METADATA_KEY, query);
+        query = query.replaceAll("ORDER BY .*", "");
+        query = query + String.format(" ORDER BY %s ASC, %s ASC",
+                SubtasksMetadata.ORDER, Task.ID);
+
+        filter.sqlQuery = query;
+
+        super.setUpTaskList();
+    }
+
     private final DropListener dropListener = new DropListener() {
         @Override
         public void drop(int from, int to) {
-            System.err.println("DROPPED TO " + to);
+            long targetTaskId = taskAdapter.getItemId(from);
+            long destinationTaskId = taskAdapter.getItemId(to);
+
+            System.err.println("BEFORE");
+            updater.debugPrint(filter, SubtasksMetadata.LIST_ACTIVE_TASKS);
+            if(to == getListView().getCount() - 1)
+                updater.moveTo(filter, SubtasksMetadata.LIST_ACTIVE_TASKS, targetTaskId, -1);
+            else
+                updater.moveTo(filter, SubtasksMetadata.LIST_ACTIVE_TASKS, targetTaskId, destinationTaskId);
+            System.err.println("AFTER");
+            updater.debugPrint(filter, SubtasksMetadata.LIST_ACTIVE_TASKS);
+
+            loadTaskListContent(true);
         }
     };
 
