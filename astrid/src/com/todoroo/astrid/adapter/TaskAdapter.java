@@ -215,7 +215,7 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
         displayMetrics = new DisplayMetrics();
         fragment.getActivity().getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
 
-        this.minRowHeight = (int) (4 * displayMetrics.density);
+        this.minRowHeight = (int) (45 * displayMetrics.density);
 
         startDetailThread();
         startTaskActionsThread();

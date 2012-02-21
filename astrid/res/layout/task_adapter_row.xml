@@ -19,8 +19,8 @@
 	    android:id="@+id/rowBody"
 	    android:layout_width="fill_parent"
 	    android:layout_height="wrap_content"
-	    android:layout_marginTop="6dip"
-	    android:layout_marginBottom="6dip"
+	    android:layout_marginTop="5dip"
+	    android:layout_marginBottom="5dip"
 	    android:minHeight="45dip">
 	
 	    <ImageView
@@ -48,10 +48,9 @@
 	    <com.todoroo.astrid.ui.CheckableImageView
 	        android:id="@+id/completeBox"
 	        android:layout_width="45dip"
-	        android:padding="8dip"
 	        android:layout_marginLeft="5dip"
-	        android:layout_height="fill_parent"
-	        android:minHeight="40dip"
+	        android:layout_height="wrap_content"
+	        android:minHeight="30dip"
 	        android:scaleType="center"
 	        android:layout_centerVertical="true" />
 	
@@ -82,7 +81,6 @@
 	            android:id="@+id/taskActionContainer"
 	            android:layout_width="wrap_content"
 	            android:layout_height="wrap_content"
-	            android:minHeight="40dip"
 	            android:layout_marginRight="4dip"
 	            android:orientation="vertical"
 	            android:gravity="right|center_vertical">
