@@ -22,7 +22,6 @@ import com.todoroo.astrid.dao.MetadataDao;
 import com.todoroo.astrid.data.Metadata;
 import com.todoroo.astrid.data.StoreObject;
 import com.todoroo.astrid.data.Task;
-import com.todoroo.astrid.gtasks.sync.GtasksTaskContainer;
 
 public class GtasksTaskListUpdater {
 
@@ -285,15 +284,6 @@ public class GtasksTaskListUpdater {
     // --- used during synchronization
 
     /**
-     * Update order, parent, and indentation fields for all tasks in all lists
-     */
-    public void updateAllMetadata() {
-        for(StoreObject list : gtasksListService.getLists()) {
-            correctMetadataForList(list.getValue(GtasksList.REMOTE_ID));
-        }
-    }
-
-    /**
      * Update order, parent, and indentation fields for all tasks in the given list
      * @param listId
      */
@@ -401,31 +391,6 @@ public class GtasksTaskListUpdater {
             }
         });
     }
-
-    /**
-     * Must be called after creating parent and sibling maps. Updates a
-     * task container's parent and sibling fields.
-     *
-     * @param container
-     */
-    public void updateParentAndSibling(GtasksTaskContainer container) {
-        long taskId = container.task.getId();
-        if(parents.containsKey(taskId)) {
-            long parentId = parents.get(taskId);
-            if(localToRemoteIdMap.containsKey(parentId))
-                container.parentId = localToRemoteIdMap.get(parentId);
-        }
-        if(siblings.containsKey(taskId)) {
-            long siblingId = siblings.get(taskId);
-            if(localToRemoteIdMap.containsKey(siblingId))
-                container.priorSiblingId = localToRemoteIdMap.get(siblingId);
-        }
-    }
-
-    public void addRemoteTaskMapping(long id, String remoteId) {
-        localToRemoteIdMap.put(id, remoteId);
-    }
-
 
 }
 
