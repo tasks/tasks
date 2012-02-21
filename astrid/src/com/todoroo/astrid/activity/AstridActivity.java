@@ -1,5 +1,7 @@
 package com.todoroo.astrid.activity;
 
+import java.lang.reflect.Constructor;
+
 import android.app.PendingIntent.CanceledException;
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -166,7 +168,7 @@ public class AstridActivity extends FragmentActivity
 
                 setIntent(intent);
 
-                setupTasklistFragmentWithFilter(filter);
+                setupTasklistFragmentWithFilter(filter, (Bundle) intent.getExtras().clone());
 
                 // no animation for dualpane-layout
                 AndroidUtilities.callOverridePendingTransition(this, 0, 0);
@@ -197,11 +199,11 @@ public class AstridActivity extends FragmentActivity
         transaction.commit();
     }
 
-    protected final void setupTasklistFragmentWithFilter(Filter filter) {
-        setupTasklistFragmentWithFilterAndCustomTaskList(filter, TaskListFragment.class);
+    protected final void setupTasklistFragmentWithFilter(Filter filter, Bundle extras) {
+        setupTasklistFragmentWithFilterAndCustomTaskList(filter, extras, TaskListFragment.class);
     }
 
-    protected final void setupTasklistFragmentWithFilterAndCustomTaskList(Filter filter, Class<?> customTaskList) {
+    protected final void setupTasklistFragmentWithFilterAndCustomTaskList(Filter filter, Bundle extras, Class<?> customTaskList) {
         Class<?> component = customTaskList;
         if (filter instanceof FilterWithCustomIntent) {
             try {
@@ -214,7 +216,8 @@ public class AstridActivity extends FragmentActivity
         FragmentTransaction transaction = manager.beginTransaction();
 
         try {
-            TaskListFragment newFragment = (TaskListFragment) component.newInstance();
+            Constructor<?> constructor = component.getConstructor(Bundle.class);
+            TaskListFragment newFragment = (TaskListFragment) constructor.newInstance(extras);
             transaction.replace(R.id.tasklist_fragment_container, newFragment,
                     TaskListFragment.TAG_TASKLIST_FRAGMENT);
             transaction.commit();

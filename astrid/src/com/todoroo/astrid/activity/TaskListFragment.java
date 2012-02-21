@@ -193,6 +193,10 @@ public class TaskListFragment extends ListFragment implements OnScrollListener,
         AstridDependencyInjector.initialize();
     }
 
+    private TaskListFragment() {
+        this(null);
+    }
+
     public TaskListFragment(Bundle extras) {
         super();
         this.extras = extras;
