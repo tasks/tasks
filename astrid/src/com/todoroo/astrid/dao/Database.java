@@ -274,25 +274,19 @@ public class Database extends AbstractDatabase {
             Log.e("astrid", "db-upgrade-" + oldVersion + "-" + newVersion, e);
         }
         case 20: try {
-            String[] tables = new String[] { Task.TABLE.name };
-            String [] ids = new String[] { Task.ID.name };
-            String[] remoteIds = new String[] { Task.REMOTE_ID.name };
+            String tasks = Task.TABLE.name;
+            String id = Task.ID.name;
+            String remoteId = Task.REMOTE_ID.name;
 
-            for (int i = 0; i < tables.length; i++) {
-                String table = tables[i];
-                String id = ids[i];
-                String remoteId = remoteIds[i];
+            // Delete any items that have duplicate remote ids
+            String deleteDuplicates = String.format("DELETE FROM %s WHERE %s IN (SELECT %s.%s FROM %s, %s AS t2 WHERE %s.%s < t2.%s AND %s.%s = t2.%s AND %s.%s > 0 GROUP BY %s.%s)",
+                    tasks, id, tasks, id, tasks, tasks, tasks, id, id, tasks, remoteId, remoteId, tasks, remoteId, tasks, id);
 
-                // Delete any items that have duplicate remote ids
-                String deleteDuplicates = String.format("DELETE FROM %s WHERE %s IN (SELECT %s.%s FROM %s, %s AS t2 WHERE %s.%s < t2.%s AND %s.%s = t2.%s AND %s.%s > 0 GROUP BY %s.%s)",
-                        table, id, table, id, table, table, table, id, id, table, remoteId, remoteId, table, remoteId, table, id);
+            // Change all items with remote id = 0 to be remote id = NULL
+            String changeZeroes = String.format("UPDATE %s SET %s = NULL WHERE %s = 0", tasks, remoteId, remoteId);
 
-                // Change all items with remote id = 0 to be remote id = NULL
-                String changeZeroes = String.format("UPDATE %s SET %s = NULL WHERE %s = 0", table, remoteId, remoteId);
-
-                database.execSQL(deleteDuplicates);
-                database.execSQL(changeZeroes);
-            }
+            database.execSQL(deleteDuplicates);
+            database.execSQL(changeZeroes);
 
             onCreateTables();
 
