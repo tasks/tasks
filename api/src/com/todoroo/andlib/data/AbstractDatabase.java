@@ -233,7 +233,7 @@ abstract public class AbstractDatabase {
     public synchronized long insert(String table, String nullColumnHack, ContentValues values) {
         long result = -1;
         try {
-            getDatabase().insertOrThrow(table, nullColumnHack, values);
+            result = getDatabase().insertOrThrow(table, nullColumnHack, values);
         } catch (SQLiteConstraintException e) { // Throw these exceptions
             throw e;
         } catch (Exception e) { // Suppress others
