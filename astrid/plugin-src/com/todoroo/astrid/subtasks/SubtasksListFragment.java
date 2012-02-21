@@ -8,7 +8,6 @@ import android.util.TypedValue;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.commonsware.cwac.tlv.TouchListView;
 import com.commonsware.cwac.tlv.TouchListView.DropListener;
 import com.commonsware.cwac.tlv.TouchListView.GrabberClickListener;
 import com.timsu.astrid.R;
@@ -17,6 +16,7 @@ import com.todoroo.astrid.activity.TaskListFragment;
 import com.todoroo.astrid.adapter.TaskAdapter;
 import com.todoroo.astrid.data.Metadata;
 import com.todoroo.astrid.data.Task;
+import com.todoroo.astrid.ui.DraggableListView;
 
 public class SubtasksListFragment extends TaskListFragment {
 
@@ -24,8 +24,8 @@ public class SubtasksListFragment extends TaskListFragment {
 
     private final SubtasksUpdater updater = new SubtasksUpdater();
 
-    public TouchListView getTouchListView() {
-        TouchListView tlv = (TouchListView) getListView();
+    public DraggableListView getTouchListView() {
+        DraggableListView tlv = (DraggableListView) getListView();
         return tlv;
     }
 
@@ -55,12 +55,14 @@ public class SubtasksListFragment extends TaskListFragment {
                         Metadata.TABLE, Task.ID, Metadata.TASK,
                         Metadata.KEY, SubtasksMetadata.METADATA_KEY, query);
         query = query.replaceAll("ORDER BY .*", "");
-        query = query + String.format(" ORDER BY %s ASC, %s ASC",
+        query = query + String.format(" ORDER BY CAST(%s AS LONG) ASC, %s ASC",
                 SubtasksMetadata.ORDER, Task.ID);
 
         filter.sqlQuery = query;
 
         super.setUpTaskList();
+
+        unregisterForContextMenu(getListView());
     }
 
     private final DropListener dropListener = new DropListener() {
@@ -69,12 +71,16 @@ public class SubtasksListFragment extends TaskListFragment {
             long targetTaskId = taskAdapter.getItemId(from);
             long destinationTaskId = taskAdapter.getItemId(to);
 
+            System.err.println("MOVE " + from + " TO " + to);
+
             System.err.println("BEFORE");
             updater.debugPrint(filter, SubtasksMetadata.LIST_ACTIVE_TASKS);
+
             if(to == getListView().getCount() - 1)
                 updater.moveTo(filter, SubtasksMetadata.LIST_ACTIVE_TASKS, targetTaskId, -1);
             else
                 updater.moveTo(filter, SubtasksMetadata.LIST_ACTIVE_TASKS, targetTaskId, destinationTaskId);
+
             System.err.println("AFTER");
             updater.debugPrint(filter, SubtasksMetadata.LIST_ACTIVE_TASKS);
 
