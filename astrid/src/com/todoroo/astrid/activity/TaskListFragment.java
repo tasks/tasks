@@ -9,7 +9,6 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.SearchManager;
 import android.content.BroadcastReceiver;
-import android.content.ContentValues;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -260,11 +259,6 @@ public class TaskListFragment extends ListFragment implements OnScrollListener,
         super.onActivityCreated(savedInstanceState);
         // We have a menu item to show in action bar.
         setHasOptionsMenu(true);
-
-        ContentValues values = new ContentValues();
-        values.put(Task.REMOTE_ID.name, 1);
-        TaskService.createWithValues(values, "task 1", taskService, metadataService);
-        TaskService.createWithValues(values, "task 2", taskService, metadataService);
 
         setUpUiComponents();
         onNewIntent(getActivity().getIntent());
