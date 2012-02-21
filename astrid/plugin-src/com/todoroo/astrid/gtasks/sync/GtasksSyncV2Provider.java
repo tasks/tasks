@@ -208,7 +208,7 @@ public class GtasksSyncV2Provider extends SyncV2Provider {
                     gtasksMetadataService.findLocalMatch(container);
                     container.gtaskMetadata.setValue(GtasksMetadata.GTASKS_ORDER, Long.parseLong(t.getPosition()));
                     container.gtaskMetadata.setValue(GtasksMetadata.PARENT_TASK, gtasksMetadataService.localIdForGtasksId(t.getParent()));
-                    container.gtaskMetadata.setValue(GtasksMetadata.LAST_SYNC, DateUtilities.now());
+                    container.gtaskMetadata.setValue(GtasksMetadata.LAST_SYNC, DateUtilities.now() + 1000L);
                     write(container);
                     callback.incrementProgress(10);
                 }

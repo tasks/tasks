@@ -230,7 +230,7 @@ public final class GtasksSyncService {
         }
 
         task.setValue(Task.MODIFICATION_DATE, DateUtilities.now());
-        gtasksMetadata.setValue(GtasksMetadata.LAST_SYNC, DateUtilities.now());
+        gtasksMetadata.setValue(GtasksMetadata.LAST_SYNC, DateUtilities.now() + 1000L);
         metadataService.save(gtasksMetadata);
         Flags.set(Flags.GTASKS_SUPPRESS_SYNC);
         taskDao.saveExisting(task);
