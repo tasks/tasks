@@ -135,7 +135,7 @@ public final class Task extends RemoteModel {
 
     /** Remote id */
     public static final LongProperty REMOTE_ID = new LongProperty(
-            TABLE, REMOTE_ID_PROPERTY_NAME);
+            TABLE, REMOTE_ID_PROPERTY_NAME, true);
 
     /** Assigned user id */
     public static final LongProperty USER_ID = new LongProperty(
