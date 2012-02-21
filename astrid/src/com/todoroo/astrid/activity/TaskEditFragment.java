@@ -721,10 +721,9 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
 
         if (idParam > -1L) {
             model = taskService.fetchById(idParam, Task.PROPERTIES);
-            if (model != null) {
+            if (model != null && model.containsNonNullValue(Task.REMOTE_ID)) {
                 remoteId = model.getValue(Task.REMOTE_ID);
-                model.clearValue(Task.REMOTE_ID); // Having this can screw up
-                // autosync
+                model.clearValue(Task.REMOTE_ID); // Having this can screw up autosync
             }
         }
 

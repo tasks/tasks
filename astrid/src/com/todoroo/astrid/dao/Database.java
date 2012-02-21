@@ -37,7 +37,7 @@ public class Database extends AbstractDatabase {
      * Database version number. This variable must be updated when database
      * tables are updated, as it determines whether a database needs updating.
      */
-    public static final int VERSION = 20;
+    public static final int VERSION = 21;
 
     /**
      * Database name (must be unique)
@@ -130,16 +130,23 @@ public class Database extends AbstractDatabase {
         database.execSQL(sql.toString());
         sql.setLength(0);
 
-        sql.append("CREATE INDEX IF NOT EXISTS up_tid ON ").
+        sql.append("CREATE INDEX IF NOT EXISTS up_tkid ON ").
         append(Update.TABLE).append('(').
         append(Update.TASK_LOCAL.name).
         append(')');
         database.execSQL(sql.toString());
         sql.setLength(0);
 
-        sql.append("CREATE INDEX IF NOT EXISTS up_pid ON ").
+        sql.append("CREATE INDEX IF NOT EXISTS up_tgl ON ").
         append(Update.TABLE).append('(').
         append(Update.TAGS_LOCAL.name).
+        append(')');
+        database.execSQL(sql.toString());
+        sql.setLength(0);
+
+        sql.append("CREATE UNIQUE INDEX IF NOT EXISTS t_rid ON ").
+        append(Task.TABLE).append('(').
+        append(Task.REMOTE_ID.name).
         append(')');
         database.execSQL(sql.toString());
         sql.setLength(0);
@@ -262,6 +269,26 @@ public class Database extends AbstractDatabase {
                     Update.TABLE + "(" + Update.TASK_LOCAL.name + ")");
             database.execSQL("CREATE INDEX IF NOT EXISTS up_tid ON " +
                     Update.TABLE + "(" + Update.TAGS_LOCAL.name + ")");
+
+        } catch (SQLiteException e) {
+            Log.e("astrid", "db-upgrade-" + oldVersion + "-" + newVersion, e);
+        }
+        case 20: try {
+            String tasks = Task.TABLE.name;
+            String id = Task.ID.name;
+            String remoteId = Task.REMOTE_ID.name;
+
+            // Delete any items that have duplicate remote ids
+            String deleteDuplicates = String.format("DELETE FROM %s WHERE %s IN (SELECT %s.%s FROM %s, %s AS t2 WHERE %s.%s < t2.%s AND %s.%s = t2.%s AND %s.%s > 0 GROUP BY %s.%s)",
+                    tasks, id, tasks, id, tasks, tasks, tasks, id, id, tasks, remoteId, remoteId, tasks, remoteId, tasks, id);
+
+            // Change all items with remote id = 0 to be remote id = NULL
+            String changeZeroes = String.format("UPDATE %s SET %s = NULL WHERE %s = 0", tasks, remoteId, remoteId);
+
+            database.execSQL(deleteDuplicates);
+            database.execSQL(changeZeroes);
+
+            onCreateTables();
 
         } catch (SQLiteException e) {
             Log.e("astrid", "db-upgrade-" + oldVersion + "-" + newVersion, e);

@@ -213,8 +213,8 @@ public class ActFmSyncV2Provider extends SyncV2Provider {
         TodorooCursor<Task> taskCursor = taskService.query(Query.select(Task.PROPERTIES).
                 where(Criterion.or(
                         Criterion.and(TaskCriteria.isActive(),
-                                Task.REMOTE_ID.eq(0)),
-                                Criterion.and(Task.REMOTE_ID.gt(0),
+                                Task.REMOTE_ID.isNull()),
+                                Criterion.and(Task.REMOTE_ID.isNotNull(),
                                         Task.MODIFICATION_DATE.gt(Task.LAST_SYNC)))));
 
         pushQueued(callback, finisher, taskCursor, false, taskPusher);

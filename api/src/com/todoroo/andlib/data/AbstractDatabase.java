@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
+import android.database.sqlite.SQLiteConstraintException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteDatabase.CursorFactory;
 import android.database.sqlite.SQLiteOpenHelper;
@@ -230,7 +231,15 @@ abstract public class AbstractDatabase {
      * @see android.database.sqlite.SQLiteDatabase#insert(String  table, String  nullColumnHack, ContentValues  values)
      */
     public synchronized long insert(String table, String nullColumnHack, ContentValues values) {
-        long result = getDatabase().insert(table, nullColumnHack, values);
+        long result = -1;
+        try {
+            getDatabase().insertOrThrow(table, nullColumnHack, values);
+        } catch (SQLiteConstraintException e) { // Throw these exceptions
+            throw e;
+        } catch (Exception e) { // Suppress others
+            Log.e("SQLiteDatabase", "Error inserting " + values, e);
+            result = -1;
+        }
         onDatabaseUpdated();
         return result;
     }

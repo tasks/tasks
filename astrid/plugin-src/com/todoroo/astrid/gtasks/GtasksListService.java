@@ -77,7 +77,7 @@ public class GtasksListService {
     }
 
     @SuppressWarnings("nls")
-    public void updateLists(TaskLists remoteLists) {
+    public synchronized void updateLists(TaskLists remoteLists) {
         readLists();
 
         for(StoreObject list : lists)

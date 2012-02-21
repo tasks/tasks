@@ -252,7 +252,7 @@ public final class Task extends RemoteModel {
         defaultValues.put(DETAILS_DATE.name, 0);
 
         defaultValues.put(LAST_SYNC.name, 0);
-        defaultValues.put(REMOTE_ID.name, 0);
+        defaultValues.putNull(REMOTE_ID.name);
         defaultValues.put(USER_ID.name, 0);
         defaultValues.put(CREATOR_ID.name, 0);
         defaultValues.put(USER.name, "{}");

@@ -298,13 +298,14 @@ public final class ActFmSyncService {
     public void pushTaskOnSave(Task task, ContentValues values) {
         Task taskForRemote = taskService.fetchById(task.getId(), Task.REMOTE_ID, Task.CREATION_DATE);
 
-        long remoteId;
-        if(task.containsValue(Task.REMOTE_ID)) {
+        long remoteId = 0;
+        if(task.containsNonNullValue(Task.REMOTE_ID)) {
             remoteId = task.getValue(Task.REMOTE_ID);
         } else {
             if(taskForRemote == null)
                 return;
-            remoteId = taskForRemote.getValue(Task.REMOTE_ID);
+            if(taskForRemote.containsNonNullValue(Task.REMOTE_ID))
+                remoteId = taskForRemote.getValue(Task.REMOTE_ID);
         }
 
         long creationDate;
@@ -627,6 +628,12 @@ public final class ActFmSyncService {
                                 Order.asc(TagData.REMOTE_ID)));
                 return cursorToMap(cursor, taskDao, TagData.REMOTE_ID, TagData.ID);
             }
+
+            @Override
+            protected Class<TagData> typeClass() {
+                return TagData.class;
+            }
+
         }, done, "goals");
     }
 
@@ -747,6 +754,11 @@ public final class ActFmSyncService {
                                 Order.asc(Task.REMOTE_ID)));
                 return cursorToMap(cursor, taskDao, Task.REMOTE_ID, Task.ID);
             }
+
+            @Override
+            protected Class<Task> typeClass() {
+                return Task.class;
+            }
         }, done, "active_tasks");
     }
 
@@ -795,6 +807,11 @@ public final class ActFmSyncService {
                         Task.REMOTE_ID).where(Task.REMOTE_ID.in(remoteIds)).orderBy(
                                 Order.asc(Task.REMOTE_ID)));
                 return cursorToMap(cursor, taskDao, Task.REMOTE_ID, Task.ID);
+            }
+
+            @Override
+            protected Class<Task> typeClass() {
+                return Task.class;
             }
         }, done, "tasks:" + tagData.getId(), "tag_id", tagData.getValue(TagData.REMOTE_ID));
     }
@@ -860,22 +877,15 @@ public final class ActFmSyncService {
 
         TodorooCursor<Update> cursor = updateDao.query(Query.select(Update.ID, Update.PICTURE).where(criterion));
         pushQueuedUpdates(cursor);
-        Log.d("ActFmSyncService", "Push queued updates for tag");
-
     }
 
     private void pushQueuedUpdates(Task task) {
-
-
         Criterion criterion = null;
-        if (task.getValue(Task.REMOTE_ID) < 1) {
-            criterion = Criterion.and(Update.REMOTE_ID.eq(0),
-                    Update.TASK_LOCAL.eq(task.getId()));
-        }
-        else {
+        if (task.containsNonNullValue(Task.REMOTE_ID)) {
             criterion = Criterion.and(Update.REMOTE_ID.eq(0),
                     Criterion.or(Update.TASK.eq(task.getValue(Task.REMOTE_ID)), Update.TASK_LOCAL.eq(task.getId())));
-        }
+        } else
+            return;
 
         Update template = new Update();
         template.setValue(Update.TASK, task.getValue(Task.REMOTE_ID)); //$NON-NLS-1$
@@ -883,8 +893,6 @@ public final class ActFmSyncService {
 
         TodorooCursor<Update> cursor = updateDao.query(Query.select(Update.ID, Update.PICTURE).where(criterion));
         pushQueuedUpdates(cursor);
-        Log.d("ActFmSyncService", "Push queued updates for task");
-
     }
 
     private void pushQueuedUpdates( TodorooCursor<Update> cursor) {
@@ -896,18 +904,15 @@ public final class ActFmSyncService {
                 final Update update = new Update(cursor);
                 new Thread(new Runnable() {
                     public void run() {
-                        try {
-                            Bitmap picture = null;
-                            if(imageCache != null && imageCache.contains(update.getValue(update.PICTURE))) {
-                                try {
-                                    picture = imageCache.get(update.getValue(update.PICTURE));
-                                } catch (IOException e) {
-                                    e.printStackTrace();
-                                }
+                        Bitmap picture = null;
+                        if(imageCache != null && imageCache.contains(update.getValue(Update.PICTURE))) {
+                            try {
+                                picture = imageCache.get(update.getValue(Update.PICTURE));
+                            } catch (IOException e) {
+                                e.printStackTrace();
                             }
-                            pushUpdate(update.getId(), picture);
-                        } finally {
                         }
+                        pushUpdate(update.getId(), picture);
                     }
                 }).start();
             }
@@ -915,11 +920,6 @@ public final class ActFmSyncService {
             cursor.close();
         }
     }
-
-
-
-
-
 
     private class UpdateListItemProcessor extends ListItemProcessor<Update> {
         @Override
@@ -945,6 +945,11 @@ public final class ActFmSyncService {
                     Update.REMOTE_ID).where(Update.REMOTE_ID.in(remoteIds)).orderBy(
                             Order.asc(Update.REMOTE_ID)));
             return cursorToMap(cursor, updateDao, Update.REMOTE_ID, Update.ID);
+        }
+
+        @Override
+        protected Class<Update> typeClass() {
+            return Update.class;
         }
     }
 
@@ -999,15 +1004,18 @@ public final class ActFmSyncService {
 
         abstract protected HashMap<Long, Long> getLocalModels();
 
+        abstract protected Class<TYPE> typeClass();
+
         abstract protected void mergeAndSave(JSONArray list,
                 HashMap<Long,Long> locals) throws JSONException;
 
         public void process(JSONArray list) throws JSONException {
             readRemoteIds(list);
-            HashMap<Long, Long> locals = getLocalModels();
-            mergeAndSave(list, locals);
+            synchronized (typeClass()) {
+                HashMap<Long, Long> locals = getLocalModels();
+                mergeAndSave(list, locals);
+            }
         }
-
 
         protected void readRemoteIds(JSONArray list) throws JSONException {
             remoteIds = new Long[list.length()];
