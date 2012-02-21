@@ -96,7 +96,10 @@ public class TodorooCursor<TYPE extends AbstractModel> extends CursorWrapper {
         }
 
         public Object visitLong(Property<Long> property, TodorooCursor<?> cursor) {
-            return cursor.getLong(cursor.getColumnIndexFromCache(property.name));
+            int column = columnIndex(property, cursor);
+            if(cursor.isNull(column))
+                return null;
+            return cursor.getLong(column);
         }
 
         public Object visitString(Property<String> property,
@@ -104,6 +107,9 @@ public class TodorooCursor<TYPE extends AbstractModel> extends CursorWrapper {
             return cursor.getString(cursor.getColumnIndexFromCache(property.name));
         }
 
+        private int columnIndex(Property<Long> property, TodorooCursor<?> cursor) {
+            return cursor.getColumnIndexFromCache(property.name);
+        }
     }
 
 }

@@ -150,13 +150,6 @@ public class Database extends AbstractDatabase {
         append(')');
         database.execSQL(sql.toString());
         sql.setLength(0);
-
-        sql.append("CREATE UNIQUE INDEX IF NOT EXISTS tg_rid ON ").
-        append(TagData.TABLE).append('(').
-        append(TagData.REMOTE_ID.name).
-        append(')');
-        database.execSQL(sql.toString());
-        sql.setLength(0);
     }
 
     @Override
@@ -281,9 +274,9 @@ public class Database extends AbstractDatabase {
             Log.e("astrid", "db-upgrade-" + oldVersion + "-" + newVersion, e);
         }
         case 20: try {
-            String[] tables = new String[] { Task.TABLE.name, TagData.TABLE.name };
-            String [] ids = new String[] { Task.ID.name, TagData.ID.name };
-            String[] remoteIds = new String[] { Task.REMOTE_ID.name, TagData.REMOTE_ID.name };
+            String[] tables = new String[] { Task.TABLE.name };
+            String [] ids = new String[] { Task.ID.name };
+            String[] remoteIds = new String[] { Task.REMOTE_ID.name };
 
             for (int i = 0; i < tables.length; i++) {
                 String table = tables[i];

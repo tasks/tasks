@@ -6,13 +6,16 @@
 package com.todoroo.astrid.dao;
 
 import android.content.ContentValues;
+import android.database.sqlite.SQLiteConstraintException;
 
 import com.timsu.astrid.R;
 import com.todoroo.andlib.data.DatabaseDao;
+import com.todoroo.andlib.data.TodorooCursor;
 import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.andlib.sql.Criterion;
 import com.todoroo.andlib.sql.Functions;
+import com.todoroo.andlib.sql.Query;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.astrid.dao.MetadataDao.MetadataCriteria;
@@ -166,7 +169,17 @@ public class TaskDao extends DatabaseDao<Task> {
     public boolean save(Task task) {
         boolean saveSuccessful;
         if (task.getId() == Task.NO_ID) {
-            saveSuccessful = createNew(task);
+            try {
+                saveSuccessful = createNew(task);
+            } catch (SQLiteConstraintException e) { // Tried to create task with remote id that already exists
+                saveSuccessful = false;
+                TodorooCursor<Task> cursor = query(Query.select(Task.ID).where(Task.REMOTE_ID.eq(task.getValue(Task.REMOTE_ID))));
+                if (cursor.getCount() > 0) {
+                    cursor.moveToFirst();
+                    task.setId(cursor.get(Task.ID));
+                    saveSuccessful = saveExisting(task);
+                }
+            }
         } else {
             saveSuccessful = saveExisting(task);
         }

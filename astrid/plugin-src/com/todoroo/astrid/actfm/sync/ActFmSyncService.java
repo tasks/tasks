@@ -298,13 +298,14 @@ public final class ActFmSyncService {
     public void pushTaskOnSave(Task task, ContentValues values) {
         Task taskForRemote = taskService.fetchById(task.getId(), Task.REMOTE_ID, Task.CREATION_DATE);
 
-        long remoteId;
-        if(task.containsValue(Task.REMOTE_ID)) {
+        long remoteId = 0;
+        if(task.containsNonNullValue(Task.REMOTE_ID)) {
             remoteId = task.getValue(Task.REMOTE_ID);
         } else {
             if(taskForRemote == null)
                 return;
-            remoteId = taskForRemote.getValue(Task.REMOTE_ID);
+            if(taskForRemote.containsNonNullValue(Task.REMOTE_ID))
+                remoteId = taskForRemote.getValue(Task.REMOTE_ID);
         }
 
         long creationDate;
@@ -876,22 +877,15 @@ public final class ActFmSyncService {
 
         TodorooCursor<Update> cursor = updateDao.query(Query.select(Update.ID, Update.PICTURE).where(criterion));
         pushQueuedUpdates(cursor);
-        Log.d("ActFmSyncService", "Push queued updates for tag");
-
     }
 
     private void pushQueuedUpdates(Task task) {
-
-
         Criterion criterion = null;
-        if (task.getValue(Task.REMOTE_ID) < 1) {
-            criterion = Criterion.and(Update.REMOTE_ID.eq(0),
-                    Update.TASK_LOCAL.eq(task.getId()));
-        }
-        else {
+        if (task.containsNonNullValue(Task.REMOTE_ID)) {
             criterion = Criterion.and(Update.REMOTE_ID.eq(0),
                     Criterion.or(Update.TASK.eq(task.getValue(Task.REMOTE_ID)), Update.TASK_LOCAL.eq(task.getId())));
-        }
+        } else
+            return;
 
         Update template = new Update();
         template.setValue(Update.TASK, task.getValue(Task.REMOTE_ID)); //$NON-NLS-1$
@@ -899,8 +893,6 @@ public final class ActFmSyncService {
 
         TodorooCursor<Update> cursor = updateDao.query(Query.select(Update.ID, Update.PICTURE).where(criterion));
         pushQueuedUpdates(cursor);
-        Log.d("ActFmSyncService", "Push queued updates for task");
-
     }
 
     private void pushQueuedUpdates( TodorooCursor<Update> cursor) {

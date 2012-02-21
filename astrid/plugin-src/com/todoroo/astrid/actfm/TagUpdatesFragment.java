@@ -41,7 +41,6 @@ import com.todoroo.astrid.activity.TaskListActivity;
 import com.todoroo.astrid.adapter.UpdateAdapter;
 import com.todoroo.astrid.dao.UpdateDao;
 import com.todoroo.astrid.data.TagData;
-import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.data.Update;
 import com.todoroo.astrid.helper.ImageDiskCache;
 import com.todoroo.astrid.helper.ProgressBarSyncResultCallback;
@@ -205,7 +204,7 @@ public class TagUpdatesFragment extends ListFragment {
     }
 
     public void setLastViewed() {
-        if(tagData != null && tagData.getValue(Task.REMOTE_ID) > 0) {
+        if(tagData != null && tagData.getValue(TagData.REMOTE_ID) > 0) {
             Preferences.setLong(UPDATES_LAST_VIEWED + tagData.getValue(TagData.REMOTE_ID), DateUtilities.now());
             Activity activity = getActivity();
             if (activity instanceof TaskListActivity)

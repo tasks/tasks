@@ -132,7 +132,7 @@ public class C2DMReceiver extends BroadcastReceiver {
                 try {
                     TagData tagData = new TagData();
                     if(cursor.getCount() == 0) {
-                        tagData.setValue(Task.REMOTE_ID, Long.parseLong(intent.getStringExtra("tag_id")));
+                        tagData.setValue(TagData.REMOTE_ID, Long.parseLong(intent.getStringExtra("tag_id")));
                         Flags.set(Flags.ACTFM_SUPPRESS_SYNC);
                         tagDataService.save(tagData);
                     } else {
