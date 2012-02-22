@@ -391,8 +391,10 @@ public class TaskListActivity extends AstridActivity implements MainMenuListener
 
     @Override
     public void onPageSelected(int position) {
-        if (tlfPagerAdapter != null)
+        if (tlfPagerAdapter != null) {
+            configureIntentAndExtrasWithFilter(getIntent(), tlfPagerAdapter.getFilter(position));
             setListsTitle(tlfPagerAdapter.getPageTitle(position).toString());
+        }
     }
 
     @Override

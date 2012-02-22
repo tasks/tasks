@@ -39,6 +39,10 @@ public class TaskListFragmentPagerAdapter extends FragmentStatePagerAdapter impl
         return filterAdapter.addOrLookup(filter);
     }
 
+    public Filter getFilter(int position) {
+        return filterAdapter.getItem(position);
+    }
+
     @Override
     public int getCount() {
         return filterAdapter.getCount();

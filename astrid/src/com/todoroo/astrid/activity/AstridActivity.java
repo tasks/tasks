@@ -156,19 +156,7 @@ public class AstridActivity extends FragmentActivity
 
             if(item instanceof Filter) {
                 Filter filter = (Filter)item;
-                if(filter instanceof FilterWithCustomIntent) {
-                    int lastSelectedList = intent.getIntExtra(FilterListFragment.TOKEN_LAST_SELECTED, 0);
-                    intent = ((FilterWithCustomIntent)filter).getCustomIntent();
-                    intent.putExtra(FilterListFragment.TOKEN_LAST_SELECTED, lastSelectedList);
-                } else {
-                    intent.putExtra(TaskListFragment.TOKEN_FILTER, filter);
-                }
-
-                setIntent(intent);
-
-                Bundle extras = intent.getExtras();
-                if (extras != null)
-                    extras = (Bundle) extras.clone();
+                Bundle extras = configureIntentAndExtrasWithFilter(intent, filter);
                 setupTasklistFragmentWithFilter(filter, extras);
 
                 // no animation for dualpane-layout
@@ -184,6 +172,23 @@ public class AstridActivity extends FragmentActivity
             }
             return false;
         }
+    }
+
+    protected Bundle configureIntentAndExtrasWithFilter(Intent intent, Filter filter) {
+        if(filter instanceof FilterWithCustomIntent) {
+            int lastSelectedList = intent.getIntExtra(FilterListFragment.TOKEN_LAST_SELECTED, 0);
+            intent = ((FilterWithCustomIntent)filter).getCustomIntent();
+            intent.putExtra(FilterListFragment.TOKEN_LAST_SELECTED, lastSelectedList);
+        } else {
+            intent.putExtra(TaskListFragment.TOKEN_FILTER, filter);
+        }
+
+        setIntent(intent);
+
+        Bundle extras = intent.getExtras();
+        if (extras != null)
+            extras = (Bundle) extras.clone();
+        return extras;
     }
 
     public void setupActivityFragment(TagData tagData) {
