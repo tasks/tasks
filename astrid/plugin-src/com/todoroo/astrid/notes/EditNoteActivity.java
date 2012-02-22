@@ -428,9 +428,6 @@ public class EditNoteActivity extends LinearLayout implements TimerActionListene
     }
 
 
-    private String getPictureHashForUpdate(Update u) {
-        return String.format("%s%s", u.getValue(Update.TASK), u.getValue(Update.CREATION_DATE)); //$NON-NLS-1$
-    }
     private void addComment(String message, String actionCode, boolean usePicture) {
         // Allow for users to just add picture
         if (TextUtils.isEmpty(message) && usePicture) {
@@ -448,7 +445,7 @@ public class EditNoteActivity extends LinearLayout implements TimerActionListene
         if (usePicture && pendingCommentPicture != null) {
             update.setValue(Update.PICTURE, Update.PICTURE_LOADING);
             try {
-                String updateString = getPictureHashForUpdate(update);
+                String updateString = update.getPictureHash();
                 imageCache.put(updateString, pendingCommentPicture);
                 update.setValue(Update.PICTURE, updateString);
             }
