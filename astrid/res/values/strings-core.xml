@@ -433,6 +433,8 @@
   
   <string name="TEA_date_and_time">Date/Time</string>
   
+  <string name="WSV_click_to_load">Tap me to search for ways to get this done!</string>
+  
   <string name="WSV_not_online">I can do more when connected to the Internet. Please check your connection.</string>
   
   <!-- ============================================= IntroductionActivity == -->

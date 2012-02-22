@@ -1,5 +1,6 @@
 package com.todoroo.astrid.actfm;
 
+import greendroid.widget.AsyncImageView;
 import android.app.Activity;
 import android.content.Intent;
 import android.database.Cursor;
@@ -10,6 +11,7 @@ import android.support.v4.app.ListFragment;
 import android.support.v4.view.Menu;
 import android.support.v4.view.MenuItem;
 import android.text.Editable;
+import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.KeyEvent;
@@ -30,6 +32,7 @@ import com.timsu.astrid.R;
 import com.todoroo.andlib.data.TodorooCursor;
 import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.DependencyInjectionService;
+import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.astrid.actfm.ActFmCameraModule.CameraResultCallback;
@@ -47,6 +50,7 @@ import com.todoroo.astrid.helper.ProgressBarSyncResultCallback;
 import com.todoroo.astrid.service.StatisticsConstants;
 import com.todoroo.astrid.service.StatisticsService;
 import com.todoroo.astrid.service.TagDataService;
+import com.todoroo.astrid.tags.TagService;
 import com.todoroo.astrid.utility.Flags;
 
 public class TagUpdatesFragment extends ListFragment {
@@ -54,6 +58,7 @@ public class TagUpdatesFragment extends ListFragment {
     private TagData tagData;
     private UpdateAdapter updateAdapter;
     private EditText addCommentField;
+    private ViewGroup listHeader;
 
     private ImageButton pictureButton;
 
@@ -126,6 +131,7 @@ public class TagUpdatesFragment extends ListFragment {
             String title = (tagData == null) ? getString(R.string.TLA_all_activity) : getString(R.string.tag_updates_title, tagData.getValue(TagData.NAME));
             ((TextView) ab.getCustomView().findViewById(R.id.title)).setText(title);
         }
+
         final ImageButton commentButton = (ImageButton) getView().findViewById(R.id.commentButton);
         addCommentField = (EditText) getView().findViewById(R.id.commentField);
         addCommentField.setOnEditorActionListener(new OnEditorActionListener() {
@@ -190,17 +196,49 @@ public class TagUpdatesFragment extends ListFragment {
         if(updateAdapter == null) {
             TodorooCursor<Update> currentCursor = tagDataService.getUpdates(tagData);
             getActivity().startManagingCursor(currentCursor);
+            String fromUpdateClass = (tagData == null) ? UpdateAdapter.FROM_RECENT_ACTIVITY_VIEW : UpdateAdapter.FROM_TAG_VIEW;
 
             updateAdapter = new UpdateAdapter(this, R.layout.update_adapter_row,
-                    currentCursor, false, null);
-            ((ListView) getView().findViewById(android.R.id.list)).setAdapter(updateAdapter);
+                    currentCursor, false, null, fromUpdateClass);
+            ListView listView = ((ListView) getView().findViewById(android.R.id.list));
+            addHeaderToListView(listView);
+            listView.setAdapter(updateAdapter);
         } else {
             Cursor cursor = updateAdapter.getCursor();
             cursor.requery();
             getActivity().startManagingCursor(cursor);
+            populateListHeader(listHeader);
         }
         if (getActivity() instanceof TagUpdatesActivity)
             setLastViewed();
+    }
+
+    private void addHeaderToListView(ListView listView) {
+        if (AndroidUtilities.isTabletSized(getActivity()) && tagData != null) {
+            listHeader = (ViewGroup) getActivity().getLayoutInflater().inflate(R.layout.tag_updates_header, listView, false);
+            populateListHeader(listHeader);
+            listView.addHeaderView(listHeader);
+        }
+    }
+    private void populateListHeader(ViewGroup header) {
+        if (header == null) return;
+        TextView tagTitle = (TextView) header.findViewById(R.id.tag_title);
+        String tagName = tagData.getValue(TagData.NAME);
+        tagTitle.setText(tagName);
+        TextView descriptionTitle = (TextView) header.findViewById(R.id.tag_description);
+        String description = tagData.getValue(TagData.TAG_DESCRIPTION);
+        if (!TextUtils.isEmpty(description)) {
+            descriptionTitle.setText(description);
+            descriptionTitle.setVisibility(View.VISIBLE);
+        }
+        else {
+            descriptionTitle.setVisibility(View.GONE);
+        }
+
+
+        AsyncImageView imageView = (AsyncImageView) header.findViewById(R.id.tag_picture);
+        imageView.setDefaultImageResource(TagService.getDefaultImageIDForTag(tagName));
+        imageView.setUrl(tagData.getValue(TagData.PICTURE));
     }
 
     public void setLastViewed() {

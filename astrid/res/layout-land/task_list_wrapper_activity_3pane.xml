@@ -23,7 +23,7 @@
 	<FrameLayout
 	    android:layout_width="match_parent"
 	    android:layout_height="match_parent"
-        android:layout_weight="33"
+        android:layout_weight="30"
         android:id="@+id/tasklist_fragment_container" />
   
 	<View 
@@ -35,7 +35,7 @@
 	<FrameLayout
 	    android:layout_width="match_parent"
 	    android:layout_height="match_parent"
-        android:layout_weight="33"
+        android:layout_weight="35"
         android:id="@+id/taskedit_fragment_container"
         android:visibility="invisible" />
   

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:astrid="http://schemas.android.com/apk/res/com.timsu.astrid"
     style="@style/Content"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
@@ -27,11 +28,11 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_weight="1"
-        android:minHeight="50dip"
         android:gravity="center_vertical"
+        android:minHeight="50dip"
         android:orientation="horizontal"
-        android:padding="3dip" 
-        android:paddingBottom="5dip">
+        android:padding="3dip"
+        android:paddingBottom="5dip" >
 
         <!-- Voice Add Button -->
 
@@ -42,9 +43,9 @@
             android:layout_gravity="top"
             android:layout_marginRight="3dip"
             android:layout_weight="1"
+            android:background="@android:color/transparent"
             android:paddingBottom="2dip"
             android:scaleType="centerInside"
-            android:background="@android:color/transparent"
             android:src="@drawable/camera_button" />
 
         <!-- Quick Add Task -->
@@ -53,16 +54,16 @@
             android:id="@+id/commentField"
             android:layout_width="wrap_content"
             android:layout_height="39dip"
+            android:layout_marginBottom="2dip"
             android:layout_marginLeft="1dip"
             android:layout_marginRight="1dip"
-            android:layout_marginBottom="2dip"
             android:layout_weight="100"
             android:autoText="true"
             android:background="@drawable/footer_comment_edittext"
             android:capitalize="sentences"
             android:hint="@string/TVA_add_comment"
-            android:textColor="@android:color/black"
             android:paddingLeft="10dip"
+            android:textColor="@android:color/black"
             android:textSize="16sp" />
 
         <!-- Extended Add Button -->
@@ -75,7 +76,7 @@
             android:layout_marginLeft="3dip"
             android:layout_weight="1"
             android:background="?attr/asAddButtonImg"
-            android:scaleType="center"/>
+            android:scaleType="center" />
     </LinearLayout>
 
 </LinearLayout>

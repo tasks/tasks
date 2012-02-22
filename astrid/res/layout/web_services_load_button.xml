@@ -1,0 +1,12 @@
+<!-- No Tasks label -->
+<TextView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/webServicesLoad"
+    style="@style/TextAppearance.TLA_NoItems"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center"
+    android:clickable="true"
+    android:drawableTop="@drawable/icon"
+    android:gravity="center"
+    android:text="@string/WSV_click_to_load"/>

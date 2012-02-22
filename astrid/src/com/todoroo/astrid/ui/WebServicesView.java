@@ -114,12 +114,21 @@ public class WebServicesView extends LinearLayout {
                 Math.round(ROW_HEIGHT * metrics.density));
         rowParams.rightMargin = Math.round(10 * metrics.density);
 
-        if(Preferences.getBoolean(R.string.p_autoIdea, true))
-            refresh();
+        if (!Preferences.getBoolean(R.string.p_autoIdea, true)) {
+            View loadButton = inflater.inflate(R.layout.web_services_load_button, null);
+            initializeTaskRabbit();
+            addView(loadButton);
+            loadButton.setOnClickListener(new OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    refresh();
+                }
+            });
+        }
     }
 
     public void onPageSelected(Runnable runnable) {
-        if(!pageLoaded)
+        if(!pageLoaded && Preferences.getBoolean(R.string.p_autoIdea, true))
             refresh();
         runnable.run();
     }
