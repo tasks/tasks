@@ -6,66 +6,6 @@
     android:layout_height="fill_parent"
     android:orientation="vertical" >
 
-    <LinearLayout
-        android:id="@+id/tag_header"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:padding="10dip" >
-
-        <LinearLayout
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal" >
-
-            <greendroid.widget.AsyncImageView
-                android:id="@+id/tag_picture"
-                android:layout_width="80dip"
-                android:layout_height="80dip"
-                astrid:defaultSrc="@android:drawable/ic_menu_gallery"
-                android:paddingRight="10dip"
-                android:scaleType="fitCenter" />
-
-            <TextView
-                android:id="@+id/tag_title"
-                style="@style/TextAppearance.GEN_EditLabel"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/actfm_TVA_tag_description_label"
-                android:textSize="25dip" />
-        </LinearLayout>
-
-        <TextView
-            android:id="@+id/tag_description"
-            style="@style/TextAppearance.TAd_ItemTitle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="5dip"
-            android:textColor="#666" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/activity_header"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical" >
-
-        <TextView
-            style="@style/TextAppearance.TAd_ItemTitle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="10dip"
-            android:layout_marginTop="5dip"
-            android:text="@string/TEA_tab_activity"
-            android:textColor="#888" />
-
-        <View
-            android:id="@+id/TEA_Separator"
-            style="@style/TEA_Separator"
-            android:layout_width="fill_parent"
-            android:layout_height="1px" />
-    </LinearLayout>
-
     <ProgressBar
         android:id="@+id/comments_progressBar"
         style="@android:style/Widget.ProgressBar.Horizontal"
