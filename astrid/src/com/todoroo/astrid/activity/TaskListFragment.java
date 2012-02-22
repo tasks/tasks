@@ -137,8 +137,6 @@ public class TaskListFragment extends ListFragment implements OnScrollListener,
     /** token for passing a {@link Filter} object through extras */
     public static final String TOKEN_FILTER = "filter"; //$NON-NLS-1$
 
-    public static final String TOKEN_OVERRIDE_ANIM = "finishAnim"; //$NON-NLS-1$
-
     // --- instance variables
 
     @Autowired
@@ -172,7 +170,6 @@ public class TaskListFragment extends ListFragment implements OnScrollListener,
     protected Filter filter;
     protected int sortFlags;
     protected int sortSort;
-    protected boolean overrideFinishAnim;
     protected QuickAddBar quickAddBar;
 
     private Timer backgroundTimer;
@@ -321,11 +318,6 @@ public class TaskListFragment extends ListFragment implements OnScrollListener,
     }
 
     protected void onNewIntent(Intent intent) {
-        if (extras != null) {
-            overrideFinishAnim = extras.getBoolean(TOKEN_OVERRIDE_ANIM);
-        } else {
-            overrideFinishAnim = false;
-        }
         String intentAction = intent.getAction();
         if (Intent.ACTION_SEARCH.equals(intentAction)) {
             String query = intent.getStringExtra(SearchManager.QUERY).trim();
@@ -339,10 +331,6 @@ public class TaskListFragment extends ListFragment implements OnScrollListener,
             searchIntent.putExtra(TaskListFragment.TOKEN_FILTER, searchFilter);
             startActivity(searchIntent);
             getActivity().finish();
-            if (overrideFinishAnim) {
-                AndroidUtilities.callOverridePendingTransition(getActivity(),
-                        R.anim.slide_right_in, R.anim.slide_right_out);
-            }
             return;
         } else if (extras != null && extras.containsKey(TOKEN_FILTER)) {
             filter = extras.getParcelable(TOKEN_FILTER);
@@ -640,16 +628,16 @@ public class TaskListFragment extends ListFragment implements OnScrollListener,
         @Override
         public void onReceive(Context context, Intent intent) {
             try {
-                Bundle extras = intent.getExtras();
-                long taskId = extras.getLong(AstridApiConstants.EXTRAS_TASK_ID);
-                String addOn = extras.getString(AstridApiConstants.EXTRAS_ADDON);
+                Bundle receivedExtras = intent.getExtras();
+                long taskId = receivedExtras.getLong(AstridApiConstants.EXTRAS_TASK_ID);
+                String addOn = receivedExtras.getString(AstridApiConstants.EXTRAS_ADDON);
 
                 if (AstridApiConstants.BROADCAST_SEND_DECORATIONS.equals(intent.getAction())) {
-                    TaskDecoration deco = extras.getParcelable(AstridApiConstants.EXTRAS_RESPONSE);
+                    TaskDecoration deco = receivedExtras.getParcelable(AstridApiConstants.EXTRAS_RESPONSE);
                     taskAdapter.decorationManager.addNew(taskId, addOn, deco,
                             null);
                 } else if (AstridApiConstants.BROADCAST_SEND_DETAILS.equals(intent.getAction())) {
-                    String detail = extras.getString(AstridApiConstants.EXTRAS_RESPONSE);
+                    String detail = receivedExtras.getString(AstridApiConstants.EXTRAS_RESPONSE);
                     taskAdapter.addDetails(taskId, detail);
                 }
             } catch (Exception e) {
@@ -675,10 +663,6 @@ public class TaskListFragment extends ListFragment implements OnScrollListener,
         if (requestCode == ACTIVITY_SETTINGS
                 && resultCode == EditPreferences.RESULT_CODE_THEME_CHANGED) {
             getActivity().finish();
-            if (overrideFinishAnim) {
-                AndroidUtilities.callOverridePendingTransition(getActivity(),
-                        R.anim.slide_right_in, R.anim.slide_right_out);
-            }
             getActivity().startActivity(getActivity().getIntent());
         }
 
