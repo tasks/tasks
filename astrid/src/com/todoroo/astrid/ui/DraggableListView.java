@@ -424,9 +424,9 @@ public class DraggableListView extends ListView {
 
         mWindowParams.y = y - mDragPoint.y + mCoordOffset.y;
 
-        if (x > mTouchStartX + SWIPE_THRESHOLD)
+        if (mDragPos == mFirstDragPos && x > mTouchStartX + SWIPE_THRESHOLD)
             mDragView.setPadding(30, 1, 0, 1);
-        else if (x < mTouchStartX - SWIPE_THRESHOLD)
+        else if (mDragPos == mFirstDragPos && x < mTouchStartX - SWIPE_THRESHOLD)
             mDragView.setPadding(-30, 2, 0, 2);
         else
             mDragView.setPadding(0, 0, 0, 0);
