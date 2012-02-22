@@ -8,6 +8,7 @@ import org.json.JSONObject;
 
 import android.app.Activity;
 import android.content.BroadcastReceiver;
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
@@ -39,11 +40,13 @@ import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.astrid.actfm.sync.ActFmPreferenceService;
 import com.todoroo.astrid.actfm.sync.ActFmSyncService;
+import com.todoroo.astrid.activity.AstridActivity;
 import com.todoroo.astrid.activity.FilterListFragment;
 import com.todoroo.astrid.activity.TaskListActivity;
 import com.todoroo.astrid.activity.TaskListFragment;
 import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.api.Filter;
+import com.todoroo.astrid.api.FilterWithCustomIntent;
 import com.todoroo.astrid.core.SortHelper;
 import com.todoroo.astrid.dao.TaskDao.TaskCriteria;
 import com.todoroo.astrid.data.TagData;
@@ -52,6 +55,7 @@ import com.todoroo.astrid.data.Update;
 import com.todoroo.astrid.helper.ProgressBarSyncResultCallback;
 import com.todoroo.astrid.service.SyncV2Service;
 import com.todoroo.astrid.service.TagDataService;
+import com.todoroo.astrid.subtasks.SubtasksTagListFragment;
 import com.todoroo.astrid.tags.TagFilterExposer;
 import com.todoroo.astrid.tags.TagService.Tag;
 import com.todoroo.astrid.welcome.HelpInfoPopover;
@@ -480,6 +484,23 @@ public class TagViewFragment extends TaskListFragment {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    protected boolean hasDraggableOption() {
+        return true;
+    }
+
+    @Override
+    protected void toggleDragDrop(boolean newState) {
+        if(newState)
+            ((FilterWithCustomIntent)filter).customTaskList =
+                new ComponentName(getActivity(), SubtasksTagListFragment.class);
+        else
+            ((FilterWithCustomIntent)filter).customTaskList =
+                new ComponentName(getActivity(), TagViewFragment.class);
+
+        ((AstridActivity)getActivity()).setupTasklistFragmentWithFilter(filter);
     }
 
     @Override

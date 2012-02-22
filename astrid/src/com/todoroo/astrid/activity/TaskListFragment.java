@@ -1062,7 +1062,7 @@ public class TaskListFragment extends ListFragment implements OnScrollListener,
         case MENU_SORT_ID:
             StatisticsService.reportEvent(StatisticsConstants.TLA_MENU_SORT);
             AlertDialog dialog = SortSelectionActivity.createDialog(
-                    getActivity(), isInbox, this, sortFlags, sortSort);
+                    getActivity(), hasDraggableOption(), this, sortFlags, sortSort);
             dialog.show();
             return true;
         case MENU_SYNC_ID:
@@ -1173,6 +1173,10 @@ public class TaskListFragment extends ListFragment implements OnScrollListener,
 
     protected boolean isDraggable() {
         return false;
+    }
+
+    protected boolean hasDraggableOption() {
+        return isInbox;
     }
 
     @Override

@@ -202,7 +202,7 @@ public class AstridActivity extends FragmentActivity
         transaction.commit();
     }
 
-    protected final void setupTasklistFragmentWithFilter(Filter filter) {
+    public final void setupTasklistFragmentWithFilter(Filter filter) {
         Class<?> customTaskList = TaskListFragment.class;
 
         System.err.println("default time - " + ((filter != null) ? filter.title : "null")); //$NON-NLS-1$
@@ -218,7 +218,7 @@ public class AstridActivity extends FragmentActivity
         setupTasklistFragmentWithFilterAndCustomTaskList(filter, customTaskList);
     }
 
-    protected final void setupTasklistFragmentWithFilterAndCustomTaskList(Filter filter, Class<?> customTaskList) {
+    public final void setupTasklistFragmentWithFilterAndCustomTaskList(Filter filter, Class<?> customTaskList) {
         System.err.println("HAJIMEMASHITE setting up fragment with class " + customTaskList); //$NON-NLS-1$
         Class<?> component = customTaskList;
         if (filter instanceof FilterWithCustomIntent) {
