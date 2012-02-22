@@ -8,6 +8,7 @@ import com.google.api.services.tasks.model.TaskLists;
 import com.todoroo.andlib.service.Autowired;
 import com.todoroo.astrid.core.PluginServices;
 import com.todoroo.astrid.data.Metadata;
+import com.todoroo.astrid.data.StoreObject;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.test.DatabaseTestCase;
 
@@ -19,6 +20,7 @@ public class GtasksIndentActionTest extends DatabaseTestCase {
     @Autowired private GtasksTaskListUpdater gtasksTaskListUpdater;
 
     private Task task;
+    private StoreObject storeList;
 
     public void testIndentWithoutMetadata() {
         givenTask(taskWithoutMetadata());
@@ -118,11 +120,11 @@ public class GtasksIndentActionTest extends DatabaseTestCase {
     // --- helpers
 
     private void whenIncreaseIndent() {
-        gtasksTaskListUpdater.indent(task.getId(), 1);
+        gtasksTaskListUpdater.indent(null, storeList, task.getId(), 1);
     }
 
     private void whenDecreaseIndent() {
-        gtasksTaskListUpdater.indent(task.getId(), -1);
+        gtasksTaskListUpdater.indent(null, storeList, task.getId(), -1);
     }
 
     @Override
@@ -137,18 +139,20 @@ public class GtasksIndentActionTest extends DatabaseTestCase {
         items.add(list);
         lists.setItems(items);
         gtasksListService.updateLists(lists);
+
+        storeList = gtasksListService.getLists()[0];
     }
 
     private Task taskWithMetadata(long order, int indentation) {
-        Task task = new Task();
-        PluginServices.getTaskService().save(task);
-        Metadata metadata = GtasksMetadata.createEmptyMetadata(task.getId());
+        Task newTask = new Task();
+        PluginServices.getTaskService().save(newTask);
+        Metadata metadata = GtasksMetadata.createEmptyMetadata(newTask.getId());
         metadata.setValue(GtasksMetadata.INDENT, indentation);
         metadata.setValue(GtasksMetadata.ORDER, order);
         metadata.setValue(GtasksMetadata.LIST_ID, "list");
-        metadata.setValue(Metadata.TASK, task.getId());
+        metadata.setValue(Metadata.TASK, newTask.getId());
         PluginServices.getMetadataService().save(metadata);
-        return task;
+        return newTask;
     }
 
     private void thenExpectIndentationLevel(int expected) {

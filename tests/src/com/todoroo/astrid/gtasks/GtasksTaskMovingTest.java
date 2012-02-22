@@ -8,6 +8,7 @@ import com.google.api.services.tasks.model.TaskLists;
 import com.todoroo.andlib.service.Autowired;
 import com.todoroo.astrid.core.PluginServices;
 import com.todoroo.astrid.data.Metadata;
+import com.todoroo.astrid.data.StoreObject;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.test.DatabaseTestCase;
 
@@ -19,6 +20,7 @@ public class GtasksTaskMovingTest extends DatabaseTestCase {
     @Autowired private GtasksTaskListUpdater gtasksTaskListUpdater;
 
     private Task A, B, C, D, E, F;
+    private StoreObject list;
 
     /* Starting State:
      *
@@ -219,8 +221,8 @@ public class GtasksTaskMovingTest extends DatabaseTestCase {
 
     /** moveTo = null => move to end */
     private void whenTriggerMove(Task target, Task moveTo) {
-        gtasksTaskListUpdater.moveTo(target.getId(), moveTo == null ? -1 : moveTo.getId());
-        gtasksTaskListUpdater.debugPrint("1");
+        gtasksTaskListUpdater.moveTo(null, list, target.getId(), moveTo == null ? -1 : moveTo.getId());
+        gtasksTaskListUpdater.debugPrint(null, list);
     }
 
     private void thenExpectMetadataOrderAndIndent(Task task, long order, int indent) {
@@ -236,12 +238,14 @@ public class GtasksTaskMovingTest extends DatabaseTestCase {
 
         TaskLists lists = new TaskLists();
         List<TaskList> items = new ArrayList<TaskList>();
-        TaskList list = new TaskList();
-        list.setId("1");
-        list.setTitle("Tim's Tasks");
-        items.add(list);
+        TaskList taskList = new TaskList();
+        taskList.setId("1");
+        taskList.setTitle("Tim's Tasks");
+        items.add(taskList);
         lists.setItems(items);
         gtasksListService.updateLists(lists);
+
+        list = gtasksListService.getLists()[0];
     }
 
     /**
