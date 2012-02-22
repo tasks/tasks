@@ -251,7 +251,7 @@
   <!-- ================================================ Synchronization == -->
       
   <!-- Preferences Title: Act.fm -->    
-  <string name="actfm_APr_header">Astrid.com (Beta!)</string>
+  <string name="actfm_APr_header">Astrid.com</string>
   
   <string name="actfm_https_title">Use HTTPS</string>
   <string name="actfm_https_enabled">HTTPS enabled (slower)</string>
