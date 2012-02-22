@@ -10,6 +10,7 @@ import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.sql.Criterion;
 import com.todoroo.andlib.sql.Query;
 import com.todoroo.astrid.api.Filter;
+import com.todoroo.astrid.dao.TaskDao.TaskCriteria;
 import com.todoroo.astrid.data.Metadata;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.service.MetadataService;
@@ -95,8 +96,11 @@ public class SubtasksUpdater extends OrderedListUpdater<String> {
         if(!query.contains(subtaskJoin)) {
             query = subtaskJoin + query;
             query = query.replaceAll("ORDER BY .*", "");
-            query = query + String.format(" ORDER BY CAST(%s AS LONG) ASC, %s ASC",
+            query = query + String.format(" ORDER BY %s, %s, CAST(%s AS LONG), %s",
+                    Task.DELETION_DATE, Task.COMPLETION_DATE,
                     SubtasksMetadata.ORDER, Task.ID);
+            query = query.replace(TaskCriteria.isVisible().toString(),
+                    Criterion.all.toString());
 
             filter.sqlQuery = query;
         }

@@ -204,7 +204,7 @@ public class DraggableListView extends ListView {
                 break;
             }
             int height = mItemHeightNormal;
-            int marginBottom = 0;
+            int marginTop = 0;
             int visibility = View.VISIBLE;
             if (vv.equals(first)) {
                 // processing the item that is being dragged
@@ -217,7 +217,7 @@ public class DraggableListView extends ListView {
                 }
             } else if (i == childnum) {
                 if (mDragPos < getCount() - 1) {
-                    marginBottom = mItemHeightNormal;
+                    marginTop = mItemHeightNormal;
                     // height = mItemHeightExpanded;
                 }
             }
@@ -227,7 +227,7 @@ public class DraggableListView extends ListView {
                 params.height = height;
                 vv.setLayoutParams(params);
                 vv.setVisibility(visibility);
-                vv.setPadding(0, 0, 0, marginBottom);
+                vv.setPadding(0, marginTop, 0, 0);
             }
         }
         // Request re-layout since we changed the items layout

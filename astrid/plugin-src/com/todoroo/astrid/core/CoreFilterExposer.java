@@ -46,8 +46,9 @@ public final class CoreFilterExposer extends BroadcastReceiver implements Astrid
 
     private FilterListItem[] prepareFilters(Resources r) {
         // core filters
-        Filter inbox = buildInboxFilter(r);
-
+        Filter inbox = new Filter(r.getString(R.string.BFE_Active), r.getString(R.string.BFE_Active),
+                (String) null, null);
+        inbox.listingIcon = ((BitmapDrawable)r.getDrawable(R.drawable.filter_inbox)).getBitmap();
 
         // transmit filter list
         FilterListItem[] list = new FilterListItem[1];

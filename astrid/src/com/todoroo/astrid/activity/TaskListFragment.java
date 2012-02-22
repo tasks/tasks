@@ -181,7 +181,7 @@ public class TaskListFragment extends ListFragment implements OnScrollListener,
     protected QuickAddBar quickAddBar;
 
     private Timer backgroundTimer;
-    private boolean isFilter;
+    private boolean isInbox;
 
     private final TaskListContextMenuExtensionLoader contextMenuExtensionLoader = new TaskListContextMenuExtensionLoader();
 
@@ -352,10 +352,15 @@ public class TaskListFragment extends ListFragment implements OnScrollListener,
             return;
         } else if (extras != null && extras.containsKey(TOKEN_FILTER)) {
             filter = extras.getParcelable(TOKEN_FILTER);
-            isFilter = true;
-        } else {
+            if(filter.sqlQuery == null)
+                filter = null;
+            else
+                isInbox = false;
+        }
+
+        if(filter == null) {
             filter = CoreFilterExposer.buildInboxFilter(getResources());
-            isFilter = false;
+            isInbox = true;
         }
 
         setUpTaskList();
@@ -496,7 +501,6 @@ public class TaskListFragment extends ListFragment implements OnScrollListener,
             }
         });
 
-        // animation
         SharedPreferences publicPrefs = AstridPreferences.getPublicPrefs(getActivity());
         sortFlags = publicPrefs.getInt(SortHelper.PREF_SORT_FLAGS, 0);
         sortSort = publicPrefs.getInt(SortHelper.PREF_SORT_SORT, 0);
@@ -946,7 +950,7 @@ public class TaskListFragment extends ListFragment implements OnScrollListener,
      *            task that was completed
      */
     protected void onTaskCompleted(Task item) {
-        if (isFilter)
+        if (isInbox)
             StatisticsService.reportEvent(StatisticsConstants.TASK_COMPLETED_INBOX);
         else
             StatisticsService.reportEvent(StatisticsConstants.TASK_COMPLETED_FILTER);
@@ -1011,8 +1015,8 @@ public class TaskListFragment extends ListFragment implements OnScrollListener,
         }
     }
 
-    public boolean isFilter() {
-        return isFilter;
+    public boolean isInbox() {
+        return isInbox;
     }
 
     /** Show a dialog box and delete the task specified */
@@ -1175,6 +1179,6 @@ public class TaskListFragment extends ListFragment implements OnScrollListener,
                             TasksWidget.WidgetUpdateService.class));
         }
 
-        setUpTaskList();
+        ((AstridActivity)getActivity()).onFilterItemClicked(getFilter());
     }
 }

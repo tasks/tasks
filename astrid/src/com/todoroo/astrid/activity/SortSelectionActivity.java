@@ -41,22 +41,33 @@ public class SortSelectionActivity {
         if((flags & SortHelper.FLAG_SHOW_DELETED) > 0)
             ((CheckBox)body.findViewById(R.id.deleted)).setChecked(true);
 
-        switch(sort) {
-        case SortHelper.SORT_ALPHA:
-            ((RadioButton)body.findViewById(R.id.sort_alpha)).setChecked(true);
-            break;
-        case SortHelper.SORT_DUE:
-            ((RadioButton)body.findViewById(R.id.sort_due)).setChecked(true);
-            break;
-        case SortHelper.SORT_IMPORTANCE:
-            ((RadioButton)body.findViewById(R.id.sort_importance)).setChecked(true);
-            break;
-        case SortHelper.SORT_MODIFIED:
-            ((RadioButton)body.findViewById(R.id.sort_modified)).setChecked(true);
-            break;
-        default:
-            ((RadioButton)body.findViewById(R.id.sort_smart)).setChecked(true);
+        if((flags & SortHelper.FLAG_DRAG_DROP) > 0)
+            ((RadioButton)body.findViewById(R.id.sort_drag)).setChecked(true);
+        else {
+            switch(sort) {
+            case SortHelper.SORT_ALPHA:
+                ((RadioButton)body.findViewById(R.id.sort_alpha)).setChecked(true);
+                break;
+            case SortHelper.SORT_DUE:
+                ((RadioButton)body.findViewById(R.id.sort_due)).setChecked(true);
+                break;
+            case SortHelper.SORT_IMPORTANCE:
+                ((RadioButton)body.findViewById(R.id.sort_importance)).setChecked(true);
+                break;
+            case SortHelper.SORT_MODIFIED:
+                ((RadioButton)body.findViewById(R.id.sort_modified)).setChecked(true);
+                break;
+            default:
+                ((RadioButton)body.findViewById(R.id.sort_smart)).setChecked(true);
+            }
         }
+
+        body.findViewById(R.id.sort_drag).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // disable reverse
+            }
+        });
 
         AlertDialog dialog = new AlertDialog.Builder(activity).
             setTitle(R.string.SSD_title).
@@ -101,6 +112,8 @@ public class SortSelectionActivity {
                 flags |= SortHelper.FLAG_SHOW_HIDDEN;
             if(((CheckBox)body.findViewById(R.id.deleted)).isChecked())
                 flags |= SortHelper.FLAG_SHOW_DELETED;
+            if(((RadioButton)body.findViewById(R.id.sort_drag)).isChecked())
+                flags |= SortHelper.FLAG_DRAG_DROP;
 
             if(((RadioButton)body.findViewById(R.id.sort_alpha)).isChecked())
                 sort = SortHelper.SORT_ALPHA;

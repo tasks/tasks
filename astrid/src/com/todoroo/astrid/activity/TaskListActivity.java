@@ -142,6 +142,7 @@ public class TaskListActivity extends AstridActivity implements MainMenuListener
 		commentsButton.setOnClickListener(commentsButtonClickListener);
 
         Filter savedFilter = getIntent().getParcelableExtra(TaskListFragment.TOKEN_FILTER);
+
         if (getIntent().getIntExtra(TaskListFragment.TOKEN_SOURCE, Constants.SOURCE_DEFAULT) ==
                 Constants.SOURCE_NOTIFICATION)
             setupTasklistFragmentWithFilterAndCustomTaskList(savedFilter, NotificationFragment.class);
@@ -435,7 +436,7 @@ public class TaskListActivity extends AstridActivity implements MainMenuListener
 
     public void switchToAssignedFilter(final String assignedEmail) {
         TaskListFragment tlf = getTaskListFragment();
-        if (tlf != null && !tlf.isFilter()) {
+        if (tlf != null && tlf.isInbox()) {
             DialogInterface.OnClickListener okListener = new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {

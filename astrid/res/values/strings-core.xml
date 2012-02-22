@@ -102,7 +102,7 @@
   <string name="TLA_menu_addons">Add-ons</string>
   
   <!-- Menu: Adjust Sort and Hidden Task Settings -->    
-  <string name="TLA_menu_sort">Sort &amp; Hidden</string>
+  <string name="TLA_menu_sort">Sort &amp; Subtasks</string>
   
   <!-- Menu: Sync Now -->    
   <string name="TLA_menu_sync">Sync Now!</string>
@@ -214,7 +214,10 @@
   <!-- ============================================== SortSelectionDialog == -->
   
   <!-- Sort Selection: dialog title -->    
-  <string name="SSD_title">Sorting and Hidden Tasks</string>
+  <string name="SSD_title">Sort, Subtasks, and Hidden</string>
+  
+  <!-- Hidden: title -->
+  <string name="SSD_hidden_title">Hidden Tasks</string>
   
   <!-- Hidden Task Selection: show completed tasks -->    
   <string name="SSD_completed">Show Completed Tasks</string>
@@ -225,8 +228,8 @@
   <!-- Hidden Task Selection: show deleted tasks -->    
   <string name="SSD_deleted">Show Deleted Tasks</string>
   
-  <!-- Sort Selection: sort options header -->    
-  <string name="SSD_sort_header">Sort Options</string>
+  <!-- Sort Selection: drag with subtasks -->
+  <string name="SSD_sort_drag">Drag &amp; Drop with Subtasks</string>
   
   <!-- Sort Selection: smart sort -->
   <string name="SSD_sort_auto">Astrid Smart Sort</string>
