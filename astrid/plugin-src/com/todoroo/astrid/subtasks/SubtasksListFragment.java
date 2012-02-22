@@ -75,18 +75,10 @@ public class SubtasksListFragment extends TaskListFragment {
             long targetTaskId = taskAdapter.getItemId(from);
             long destinationTaskId = taskAdapter.getItemId(to);
 
-            System.err.println("MOVE " + from + " TO " + to);
-
-            System.err.println("BEFORE");
-            updater.debugPrint(filter, SubtasksMetadata.LIST_ACTIVE_TASKS);
-
             if(to == getListView().getCount() - 1)
                 updater.moveTo(filter, SubtasksMetadata.LIST_ACTIVE_TASKS, targetTaskId, -1);
             else
                 updater.moveTo(filter, SubtasksMetadata.LIST_ACTIVE_TASKS, targetTaskId, destinationTaskId);
-
-            System.err.println("AFTER");
-            updater.debugPrint(filter, SubtasksMetadata.LIST_ACTIVE_TASKS);
 
             loadTaskListContent(true);
         }
@@ -96,18 +88,14 @@ public class SubtasksListFragment extends TaskListFragment {
         @Override
         public void swipeRight(int which) {
             long targetTaskId = taskAdapter.getItemId(which);
-            System.err.println("SWIPE RIGHT " + targetTaskId);
             updater.indent(filter, SubtasksMetadata.LIST_ACTIVE_TASKS, targetTaskId, 1);
-            updater.debugPrint(filter, SubtasksMetadata.LIST_ACTIVE_TASKS);
             loadTaskListContent(true);
         }
 
         @Override
         public void swipeLeft(int which) {
             long targetTaskId = taskAdapter.getItemId(which);
-            System.err.println("SWIPE LEFT " + targetTaskId);
             updater.indent(filter, SubtasksMetadata.LIST_ACTIVE_TASKS, targetTaskId, -1);
-            updater.debugPrint(filter, SubtasksMetadata.LIST_ACTIVE_TASKS);
             loadTaskListContent(true);
         }
     };
