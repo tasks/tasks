@@ -68,6 +68,7 @@ import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.api.TaskContextActionExposer;
 import com.todoroo.astrid.api.TaskDecoration;
 import com.todoroo.astrid.core.CoreFilterExposer;
+import com.todoroo.astrid.core.CustomFilterActivity;
 import com.todoroo.astrid.core.SortHelper;
 import com.todoroo.astrid.dao.Database;
 import com.todoroo.astrid.dao.TaskDao.TaskCriteria;
@@ -113,6 +114,7 @@ public class TaskListFragment extends ListFragment implements OnScrollListener,
     public static final int ACTIVITY_SORT = 2;
     public static final int ACTIVITY_ADDONS = 3;
     public static final int ACTIVITY_MENU_EXTERNAL = 4;
+    public static final int ACTIVITY_REQUEST_NEW_FILTER = 5;
 
     // --- menu codes
 
@@ -121,6 +123,7 @@ public class TaskListFragment extends ListFragment implements OnScrollListener,
     protected static final int MENU_SORT_ID = R.string.TLA_menu_sort;
     protected static final int MENU_SYNC_ID = R.string.TLA_menu_sync;
     protected static final int MENU_SUPPORT_ID = R.string.TLA_menu_support;
+    protected static final int MENU_NEW_FILTER_ID = R.string.FLA_new_filter;
     protected static final int MENU_ADDON_INTENT_ID = Menu.FIRST + 199;
 
     protected static final int CONTEXT_MENU_EDIT_TASK_ID = R.string.TAd_contextEditTask;
@@ -381,6 +384,7 @@ public class TaskListFragment extends ListFragment implements OnScrollListener,
 
         MenuItem item;
 
+        // --- sort
         if (!(this instanceof DraggableTaskListFragment)) {
             item = menu.add(Menu.NONE, MENU_SORT_ID, Menu.NONE,
                     R.string.TLA_menu_sort);
@@ -389,18 +393,29 @@ public class TaskListFragment extends ListFragment implements OnScrollListener,
                 item.setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
         }
 
+        // --- sync
         addSyncRefreshMenuItem(menu);
 
+        // --- new filter
+        item = menu.add(Menu.NONE, MENU_NEW_FILTER_ID, Menu.NONE,
+                R.string.FLA_new_filter);
+        item.setIcon(android.R.drawable.ic_menu_add);
+        if (((AstridActivity) getActivity()).getFragmentLayout() != AstridActivity.LAYOUT_SINGLE)
+            item.setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
+
+        // --- addons
         if (!Constants.MARKET_DISABLED) {
             item = menu.add(Menu.NONE, MENU_ADDONS_ID, Menu.NONE,
                     R.string.TLA_menu_addons);
             item.setIcon(android.R.drawable.ic_menu_set_as);
         }
 
+        // --- support
         item = menu.add(Menu.NONE, MENU_SUPPORT_ID, Menu.NONE,
                 R.string.TLA_menu_support);
         item.setIcon(android.R.drawable.ic_menu_help);
 
+        // --- settings
         item = menu.add(Menu.NONE, MENU_SETTINGS_ID, Menu.NONE,
                 R.string.TLA_menu_settings);
         item.setIcon(android.R.drawable.ic_menu_preferences);
@@ -1058,6 +1073,10 @@ public class TaskListFragment extends ListFragment implements OnScrollListener,
             intent = item.getIntent();
             AndroidUtilities.startExternalIntent(getActivity(), intent,
                     ACTIVITY_MENU_EXTERNAL);
+            return true;
+        case MENU_NEW_FILTER_ID:
+            intent = new Intent(getActivity(), CustomFilterActivity.class);
+            getActivity().startActivityForResult(intent, ACTIVITY_REQUEST_NEW_FILTER);
             return true;
 
         // --- context menu items

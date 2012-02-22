@@ -377,7 +377,9 @@ public class TaskListActivity extends AstridActivity implements MainMenuListener
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if ((requestCode == FilterListFragment.REQUEST_NEW_LIST || requestCode == FilterListFragment.REQUEST_NEW_FILTER) && resultCode == Activity.RESULT_OK) {
+        if ((requestCode == FilterListFragment.REQUEST_NEW_LIST ||
+                requestCode == TaskListFragment.ACTIVITY_REQUEST_NEW_FILTER) &&
+                resultCode == Activity.RESULT_OK) {
             if(data == null)
                 return;
 

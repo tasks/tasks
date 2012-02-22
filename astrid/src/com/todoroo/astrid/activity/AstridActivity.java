@@ -31,7 +31,6 @@ import com.todoroo.astrid.reminders.ReminderDialog;
 import com.todoroo.astrid.service.StartupService;
 import com.todoroo.astrid.service.StatisticsConstants;
 import com.todoroo.astrid.service.StatisticsService;
-import com.todoroo.astrid.subtasks.SubtasksListFragment;
 import com.todoroo.astrid.ui.DateChangedAlerts;
 
 /**
@@ -190,7 +189,7 @@ public class AstridActivity extends FragmentActivity
     }
 
     protected final void setupTasklistFragmentWithFilter(Filter filter) {
-        setupTasklistFragmentWithFilterAndCustomTaskList(filter, SubtasksListFragment.class);
+        setupTasklistFragmentWithFilterAndCustomTaskList(filter, TaskListFragment.class);
     }
 
     protected final void setupTasklistFragmentWithFilterAndCustomTaskList(Filter filter, Class<?> customTaskList) {

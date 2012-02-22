@@ -16,7 +16,6 @@ import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Rect;
 import android.graphics.drawable.BitmapDrawable;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.ListFragment;
@@ -28,7 +27,6 @@ import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
-import android.view.MenuInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
@@ -55,7 +53,6 @@ import com.todoroo.astrid.adapter.FilterAdapter;
 import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.api.FilterListItem;
-import com.todoroo.astrid.core.CustomFilterActivity;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.service.StatisticsService;
 import com.todoroo.astrid.tags.TagService;
@@ -80,12 +77,6 @@ public class FilterListFragment extends ListFragment {
 
     // --- menu codes
 
-    private static final int MENU_SEARCH_ID = R.string.FLA_menu_search;
-    private static final int MENU_HELP_ID = R.string.FLA_menu_help;
-    private static final int MENU_NEW_FILTER_ID = R.string.FLA_new_filter;
-    //private static final int MENU_NEW_LIST_ID = R.string.FLA_new_list;
-
-
     private static final int CONTEXT_MENU_SHORTCUT = R.string.FLA_context_shortcut;
     private static final int CONTEXT_MENU_INTENT = Menu.FIRST + 4;
 
@@ -93,7 +84,6 @@ public class FilterListFragment extends ListFragment {
     static final int REQUEST_VIEW_TASKS = 2;
     public static final int REQUEST_NEW_BUTTON = 3;
     public static final int REQUEST_NEW_LIST = 4;
-    public static final int REQUEST_NEW_FILTER = 5;
 
     // --- instance variables
 
@@ -209,27 +199,6 @@ public class FilterListFragment extends ListFragment {
         } else {
             setUpList();
         }
-    }
-
-    /**
-     * Create options menu (displayed when user presses menu key)
-     *
-     * @return true if menu should be displayed
-     */
-    @Override
-    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        MenuItem item;
-
-        item = menu.add(Menu.NONE, MENU_NEW_FILTER_ID, Menu.NONE,
-                R.string.FLA_new_filter);
-        item.setIcon(android.R.drawable.ic_menu_add);
-
-        item = menu.add(Menu.NONE, MENU_SEARCH_ID, Menu.NONE,
-                R.string.FLA_menu_search);
-        item.setIcon(android.R.drawable.ic_menu_search);
-
-        if (((AstridActivity) getActivity()).getFragmentLayout() != AstridActivity.LAYOUT_SINGLE)
-            item.setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
     }
 
     /* ======================================================================
@@ -434,21 +403,6 @@ public class FilterListFragment extends ListFragment {
     public boolean onOptionsItemSelected(final MenuItem item) {
         // handle my own menus
         switch (item.getItemId()) {
-            case MENU_SEARCH_ID: {
-                getActivity().onSearchRequested();
-                return true;
-            }
-            case MENU_HELP_ID: {
-                Intent intent = new Intent(Intent.ACTION_VIEW,
-                        Uri.parse("http://weloveastrid.com/help-user-guide-astrid-v3/filters/")); //$NON-NLS-1$
-                startActivity(intent);
-                return true;
-            }
-            case MENU_NEW_FILTER_ID : {
-                Intent intent = new Intent(getActivity(), CustomFilterActivity.class);
-                getActivity().startActivityForResult(intent, REQUEST_NEW_FILTER);
-                return true;
-            }
             case CONTEXT_MENU_SHORTCUT: {
                 AdapterContextMenuInfo info = (AdapterContextMenuInfo)item.getMenuInfo();
                 final Intent shortcutIntent = item.getIntent();
