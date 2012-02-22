@@ -2,6 +2,9 @@ package com.todoroo.astrid.subtasks;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicLong;
@@ -28,6 +31,12 @@ import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.subtasks.OrderedListUpdater.OrderedListIterator;
 import com.todoroo.astrid.ui.DraggableListView;
 
+/**
+ * Fragment for subtasks
+ *
+ * @author Tim Su <tim@astrid.com>
+ *
+ */
 public class SubtasksListFragment extends TaskListFragment {
 
     private final DisplayMetrics metrics = new DisplayMetrics();
@@ -180,11 +189,30 @@ public class SubtasksListFragment extends TaskListFragment {
         return true;
     }
 
-    private void setCompletedForItemAndSubtasks(final Task item, boolean completedState) {
-        final long itemId = item.getId();
-        final boolean completed = completedState;
 
-        System.err.println("SET COMPLETED FOR " + itemId);
+
+    private void setCompletedForItemAndSubtasks(final Task item, final boolean completedState) {
+        final Map<Long, ArrayList<Long>> chainedCompletions =
+            Collections.synchronizedMap(new HashMap<Long, ArrayList<Long>>());
+
+        final long itemId = item.getId();
+
+        final Task task = new Task();
+        task.setValue(Task.COMPLETION_DATE, completedState ? DateUtilities.now() : 0);
+
+        if(completedState == false) {
+            ArrayList<Long> chained = chainedCompletions.get(itemId);
+            if(chained != null) {
+                for(Long taskId : chained) {
+                    taskAdapter.getCompletedItems().put(taskId, false);
+                    task.setId(taskId);
+                    taskService.save(task);
+                }
+                taskAdapter.notifyDataSetInvalidated();
+            }
+            return;
+        }
+
         new Thread() {
             @Override
             public void run() {
@@ -193,9 +221,8 @@ public class SubtasksListFragment extends TaskListFragment {
                 final AtomicLong startOrder= new AtomicLong(
                         item.getValue(SubtasksMetadata.ORDER));
                 final AtomicBoolean finished = new AtomicBoolean(false);
-
-                final Task task = new Task();
-                task.setValue(Task.COMPLETION_DATE, completed ? DateUtilities.now() : 0);
+                final ArrayList<Long> chained = new ArrayList<Long>();
+                chainedCompletions.put(itemId, chained);
 
                 updater.iterateThroughList(filter, SubtasksMetadata.LIST_ACTIVE_TASKS, new OrderedListIterator() {
                     @Override
@@ -218,6 +245,7 @@ public class SubtasksListFragment extends TaskListFragment {
                         taskAdapter.getCompletedItems().put(taskId, true);
                         task.setId(taskId);
                         taskService.save(task);
+                        chained.add(taskId);
                     }
                 });
                 getActivity().runOnUiThread(new Runnable() {

@@ -353,14 +353,10 @@ public class TaskListFragment extends ListFragment implements OnScrollListener,
             return;
         } else if (extras != null && extras.containsKey(TOKEN_FILTER)) {
             filter = extras.getParcelable(TOKEN_FILTER);
-            isInbox = false;
+        } else {
+            filter = CoreFilterExposer.buildInboxFilter(getResources());
         }
-
-        Filter inbox = CoreFilterExposer.buildInboxFilter(getResources());
-        if(filter == null || filter.sqlQuery == inbox.sqlQuery) {
-            filter = inbox;
-            isInbox = true;
-        }
+        isInbox = CoreFilterExposer.isInbox(filter);
 
         setUpTaskList();
         ((AstridActivity) getActivity()).setupActivityFragment(getActiveTagData());

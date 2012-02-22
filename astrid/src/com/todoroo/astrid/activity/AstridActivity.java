@@ -206,8 +206,7 @@ public class AstridActivity extends FragmentActivity
         Class<?> customTaskList = TaskListFragment.class;
 
         System.err.println("default time"); //$NON-NLS-1$
-        if(filter == null || filter.sqlQuery ==
-                CoreFilterExposer.buildInboxFilter(getResources()).sqlQuery) {
+        if(filter == null || CoreFilterExposer.isInbox(filter)) {
             System.err.println("is inbox"); //$NON-NLS-1$
             SharedPreferences publicPrefs = AstridPreferences.getPublicPrefs(this);
             int sortFlags = publicPrefs.getInt(SortHelper.PREF_SORT_FLAGS, 0);
