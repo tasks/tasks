@@ -138,6 +138,18 @@ public final class TagService {
                             Field.field("mtags." + TAG.name).eqCaseInsensitive(tag)))).where(criterion);
         }
 
+
+        /**
+         * Return SQL selector query for getting tasks with a given tagData
+         *
+         * @param tagData
+         * @return
+         */
+        public static QueryTemplate queryTemplate(Criterion criterion, TagData tagData) {
+            return new QueryTemplate().join(Join.inner(Metadata.TABLE,
+                    Task.ID.eq(Metadata.TASK))).where(tagEqIgnoreCase(tagData.getValue(TagData.NAME), criterion));
+        }
+
     }
 
     public static Criterion memberOfTagData(long tagDataRemoteId) {

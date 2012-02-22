@@ -23,6 +23,7 @@ import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -33,6 +34,7 @@ import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.andlib.service.ExceptionService;
 import com.todoroo.andlib.utility.AndroidUtilities;
+import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.andlib.utility.DialogUtilities;
 import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.astrid.actfm.ActFmCameraModule.CameraResultCallback;
@@ -40,7 +42,9 @@ import com.todoroo.astrid.actfm.sync.ActFmPreferenceService;
 import com.todoroo.astrid.actfm.sync.ActFmSyncService;
 import com.todoroo.astrid.activity.FilterListFragment;
 import com.todoroo.astrid.activity.ShortcutActivity;
+import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.api.Filter;
+import com.todoroo.astrid.core.PluginServices;
 import com.todoroo.astrid.data.TagData;
 import com.todoroo.astrid.helper.ImageDiskCache;
 import com.todoroo.astrid.service.StatisticsConstants;
@@ -172,6 +176,20 @@ public class TagSettingsActivity extends FragmentActivity {
         isSilent = (ToggleButton) findViewById(R.id.tag_silenced);
         isSilent.setChecked(tagData.getFlag(TagData.FLAGS, TagData.FLAG_SILENT));
 
+        Button leaveListButton = (Button) findViewById(R.id.leave_list);
+        leaveListButton.setOnClickListener(new OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                showDeleteDialog(tagData);
+            }
+        });
+        if (isNewTag) {
+            leaveListButton.setVisibility(View.GONE);
+        }
+        else if (tagData.getValue(TagData.MEMBER_COUNT) > 0) {
+            leaveListButton.setText(getString(R.string.tag_leave_button));
+        }
         if(actFmPreferenceService.isLoggedIn()) {
             findViewById(R.id.tag_silenced_container).setVisibility(View.VISIBLE);
         }
@@ -370,13 +388,13 @@ public class TagSettingsActivity extends FragmentActivity {
             if (isNewTag) {
                 titleView.setText(getString(R.string.tag_new_list));
             } else {
-                titleView.setText(getString(R.string.tag_settings_title, tagData.getValue(TagData.NAME)));
+                titleView.setText(getString(R.string.tag_settings_title));
             }
         } else {
             if (isNewTag) {
                 setTitle(getString(R.string.tag_new_list));
             } else {
-                setTitle(getString(R.string.tag_settings_title, tagData.getValue(TagData.NAME)));
+                setTitle(getString(R.string.tag_settings_title));
             }
         }
         String tagImage = tagData.getValue(TagData.PICTURE);
@@ -491,6 +509,40 @@ public class TagSettingsActivity extends FragmentActivity {
 
 
 
+
+        protected void showDeleteDialog(TagData tagData) {
+            int string;
+            if (tagData != null && tagData.getValue(TagData.MEMBER_COUNT) > 0)
+                string = R.string.DLG_leave_this_shared_tag_question;
+            else
+                string = R.string.DLG_delete_this_tag_question;
+            DialogUtilities.okCancelDialog(this, getString(string, tagData.getValue(TagData.NAME)), new DialogInterface.OnClickListener() {
+
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    deleteTag();
+                }
+            }, null );
+        }
+
+        protected boolean deleteTag() {
+            tagDataService.delete(tagData.getId());
+            boolean shared = false;
+            if(tagData != null) {
+                tagData.setValue(TagData.DELETION_DATE, DateUtilities.now());
+                PluginServices.getTagDataService().save(tagData);
+                shared = tagData.getValue(TagData.MEMBER_COUNT) > 0 && tagData.getValue(TagData.USER_ID) != 0; // Was I a list member and NOT owner?
+            }
+
+            Intent tagDeleted = new Intent(AstridApiConstants.BROADCAST_EVENT_TAG_DELETED);
+            tagDeleted.putExtra(TagViewFragment.EXTRA_TAG_NAME, tagData.getValue(TagData.NAME));
+            tagDeleted.putExtra(TagFilterExposer.TAG_SQL, TagFilterExposer.SHOW_ACTIVE_TASKS);
+
+            this.finish();
+            sendBroadcast(tagDeleted);
+
+            return true;
+        }
 
 
 

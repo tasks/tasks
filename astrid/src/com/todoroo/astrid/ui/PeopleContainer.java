@@ -86,6 +86,12 @@ public class PeopleContainer extends LinearLayout {
         final AsyncImageView imageView = (AsyncImageView)tagItem.
             findViewById(R.id.icon);
         imageView.setUrl(image);
+        if (TextUtils.isEmpty(textView.getText())) {
+            imageView.setDefaultImageResource(R.drawable.icn_default_person_image);
+        }
+        else {
+            imageView.setDefaultImageResource(R.drawable.icn_add_contact);
+        }
 
         textView.addTextChangedListener(new TextWatcher() {
             @Override
@@ -102,6 +108,10 @@ public class PeopleContainer extends LinearLayout {
                     int count) {
                 if(count > 0 && getLastTextView() == textView) {
                     addPerson("", ""); //$NON-NLS-1$
+                    imageView.setDefaultImageResource(R.drawable.icn_default_person_image);
+                }
+                else {
+                    imageView.setDefaultImageResource(R.drawable.icn_add_contact);
                 }
 
                 if(onAddNewPerson != null)
