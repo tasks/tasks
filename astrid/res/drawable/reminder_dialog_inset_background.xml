@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<inset
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:drawable="@drawable/reminder_dialog_background" 
+    android:insetRight="10dp"
+    android:insetLeft="10dp">
+</inset>
