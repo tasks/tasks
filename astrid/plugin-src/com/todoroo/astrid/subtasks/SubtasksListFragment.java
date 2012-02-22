@@ -54,10 +54,12 @@ public class SubtasksListFragment extends TaskListFragment {
     protected void setUpTaskList() {
 
         updater.applySubtasksToFilter(filter, null);
+        updater.sanitizeTaskList(filter, SubtasksMetadata.LIST_ACTIVE_TASKS);
 
         super.setUpTaskList();
 
         unregisterForContextMenu(getListView());
+
     }
 
     @Override

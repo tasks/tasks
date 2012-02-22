@@ -1,5 +1,8 @@
 package com.todoroo.astrid.subtasks;
 
+import java.util.concurrent.atomic.AtomicInteger;
+import java.util.concurrent.atomic.AtomicLong;
+
 import com.todoroo.andlib.data.Property.IntegerProperty;
 import com.todoroo.andlib.data.Property.LongProperty;
 import com.todoroo.andlib.data.TodorooCursor;
@@ -97,5 +100,33 @@ public class SubtasksUpdater extends OrderedListUpdater<String> {
 
             filter.sqlQuery = query;
         }
+    }
+
+    public void sanitizeTaskList(Filter filter, String list) {
+        final AtomicInteger previousIndent = new AtomicInteger(-1);
+        final AtomicLong previousOrder = new AtomicLong(-1);
+
+        iterateThroughList(filter, list, new OrderedListIterator() {
+            @Override
+            public void processTask(long taskId, Metadata metadata) {
+                if(!metadata.isSaved())
+                    return;
+
+                long order = metadata.getValue(SubtasksMetadata.ORDER);
+                if(order <= previousOrder.get()) // bad
+                    order = previousOrder.get() + 1;
+
+                int indent = metadata.getValue(SubtasksMetadata.INDENT);
+                if(indent > previousIndent.get() + 1) // bad
+                    indent = previousIndent.get();
+
+                metadata.setValue(SubtasksMetadata.ORDER, order);
+                metadata.setValue(SubtasksMetadata.INDENT, indent);
+                saveAndUpdateModifiedDate(metadata, taskId);
+
+                previousIndent.set(indent);
+                previousOrder.set(order);
+            }
+        });
     }
 }
