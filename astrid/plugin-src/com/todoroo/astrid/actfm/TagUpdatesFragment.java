@@ -1,6 +1,6 @@
 package com.todoroo.astrid.actfm;
 
-import greendroid.widget.AsyncImageView;
+import com.todoroo.astrid.helper.AsyncImageView;
 import android.app.Activity;
 import android.content.Intent;
 import android.database.Cursor;

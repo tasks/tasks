@@ -162,8 +162,4 @@ public class Update extends RemoteModel {
         return CREATOR;
     }
 
-    public String getPictureHash() {
-        String s = getValue(Update.TASK) + "" + getValue(Update.CREATION_DATE);
-        return s;
-    }
 }

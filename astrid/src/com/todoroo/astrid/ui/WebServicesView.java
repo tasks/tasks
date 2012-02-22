@@ -1,6 +1,6 @@
 package com.todoroo.astrid.ui;
 
-import greendroid.widget.AsyncImageView;
+import com.todoroo.astrid.helper.AsyncImageView;
 
 import java.io.IOException;
 import java.io.StringReader;

@@ -18,7 +18,7 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal" >
 
-            <greendroid.widget.AsyncImageView
+            <com.todoroo.astrid.helper.AsyncImageView
                 android:id="@+id/tag_picture"
                 android:layout_width="80dip"
                 android:layout_height="80dip"

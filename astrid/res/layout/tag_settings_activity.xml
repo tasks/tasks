@@ -1,202 +1,229 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:astrid="http://schemas.android.com/apk/res/com.timsu.astrid"
-    android:id="@+id/settings"
-    style="@style/Content_EditScroll"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:layout_weight="100" >
 
-    <LinearLayout
+    <ScrollView
+        android:id="@+id/settings"
+        style="@style/Content_EditScroll"
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:padding="5dip"
+        android:layout_height="fill_parent"
+        android:layout_weight="100"
+        android:padding="10dip"
         android:paddingTop="0dip" >
 
         <LinearLayout
-            android:id="@+id/save_and_cancel"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:gravity="right"
-            android:orientation="horizontal"
-            android:visibility="gone" >
+            android:orientation="vertical" >
 
-            <ImageButton
-                android:id="@+id/cancel"
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:id="@+id/save_and_cancel"
+                android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginRight="10dip"
-                android:background="@android:color/transparent"
-                android:src="@android:drawable/ic_menu_close_clear_cancel" />
+                android:gravity="right"
+                android:orientation="horizontal"
+                android:visibility="gone" >
 
-            <ImageButton
-                android:id="@+id/save"
-                android:layout_width="wrap_content"
+                <ImageButton
+                    android:id="@+id/cancel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="10dip"
+                    android:background="@android:color/transparent"
+                    android:src="@android:drawable/ic_menu_close_clear_cancel" />
+
+                <ImageButton
+                    android:id="@+id/save"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="10dip"
+                    android:background="@android:color/transparent"
+                    android:src="@android:drawable/ic_menu_save" />
+            </LinearLayout>
+
+            <RelativeLayout
+                android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginRight="10dip"
-                android:background="@android:color/transparent"
-                android:src="@android:drawable/ic_menu_save" />
-        </LinearLayout>
+                android:paddingBottom="5dip"
+                android:paddingTop="5dip" >
 
-        <RelativeLayout
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:paddingBottom="5dip"
-            android:paddingTop="5dip" >
+                <!-- picture -->
 
-            <!-- picture -->
+                <com.todoroo.astrid.helper.AsyncImageView
+                    android:id="@+id/picture"
+                    android:layout_width="80dip"
+                    android:layout_height="80dip"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentTop="true"
+                    astrid:defaultSrc="@android:drawable/ic_menu_gallery"
+                    android:scaleType="centerCrop" />
 
-            <greendroid.widget.AsyncImageView
-                android:id="@+id/picture"
-                android:layout_width="80dip"
-                android:layout_height="80dip"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentTop="true"
-                astrid:defaultSrc="@android:drawable/ic_menu_gallery"
-                android:paddingRight="10dip"
-                android:scaleType="centerInside" />
+                <TextView
+                    android:id="@+id/tag_label"
+                    style="@style/TextAppearance"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentTop="true"
+                    android:layout_marginLeft="10dip"
+                    android:layout_toRightOf="@id/picture"
+                    android:text="@string/actfm_TVA_tag_label" />
+
+                <LinearLayout
+                    style="@style/EditRow"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/tag_label"
+                    android:layout_marginLeft="10dip"
+                    android:layout_marginTop="14dip"
+                    android:layout_toRightOf="@id/picture"
+                    android:padding="10dip"
+                    android:paddingBottom="14dip" >
+
+                    <EditText
+                        android:id="@+id/tag_name"
+                        style="@style/TextAppearance"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:background="#00000000"
+                        android:hint="@string/actfm_TVA_tag_description_hint"
+                        android:singleLine="true"
+                        android:textCursorDrawable="@null"
+                        android:textSize="15sp" />
+                </LinearLayout>
+            </RelativeLayout>
 
             <TextView
-                android:id="@+id/tag_label"
+                style="@style/TextAppearance"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dip"
+                android:layout_marginTop="10dip"
+                android:paddingBottom="5dip"
+                android:text="@string/actfm_TVA_members_label" />
+
+            <com.todoroo.astrid.ui.PeopleContainer
+                android:id="@+id/members_container"
+                style="@style/EditRow"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical" />
+
+            <TextView
+                android:id="@+id/description_label"
                 style="@style/TextAppearance"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignParentTop="true"
-                android:layout_marginTop="2dip"
-                android:layout_toRightOf="@id/picture"
-                android:text="@string/actfm_TVA_tag_label" />
+                android:layout_marginLeft="10dip"
+                android:layout_marginTop="10dip"
+                android:text="@string/actfm_TVA_tag_description_label" />
 
-            <EditText
-                android:id="@+id/tag_name"
+            <LinearLayout
                 style="@style/EditRow"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/tag_label"
-                android:layout_marginTop="10dip"
-                android:layout_toRightOf="@id/picture"
-                android:maxLines="1"
+                android:layout_marginTop="5dip"
                 android:padding="10dip"
-                android:paddingBottom="14dip" />
-        </RelativeLayout>
+                android:paddingBottom="14dip" >
 
-        <TextView
-            style="@style/TextAppearance"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="10dip"
-            android:layout_marginTop="10dip"
-            android:paddingBottom="5dip"
-            android:text="@string/actfm_TVA_members_label" />
+                <EditText
+                    android:id="@+id/tag_description"
+                    style="@style/TextAppearance"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:background="#00000000"
+                    android:hint="@string/actfm_TVA_tag_description_hint"
+                    android:textCursorDrawable="@null"
+                    android:textSize="15sp" />
+            </LinearLayout>
 
-        <com.todoroo.astrid.ui.PeopleContainer
-            android:id="@+id/members_container"
-            style="@style/EditRow"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical" />
+            <!-- Footer -->
 
-        <TextView
-            android:id="@+id/description_label"
-            style="@style/TextAppearance"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="10dip"
-            android:layout_marginTop="10dip"
-            android:text="@string/actfm_TVA_tag_description_label" />
-
-        <EditText
-            android:id="@+id/tag_description"
-            style="@style/EditRow"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="5dip"
-            android:hint="@string/actfm_TVA_tag_description_hint"
-            android:padding="8dip"
-            android:paddingBottom="12dip" />
-
-        <!-- Footer -->
-
-        <TextView
-            android:id="@+id/settings_label"
-            style="@style/TextAppearance"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="10dip"
-            android:layout_marginTop="10dip"
-            android:text="@string/actfm_TVA_tag_settings_label" />
-
-        <LinearLayout
-            style="@style/EditRow"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="5dip"
-            android:orientation="vertical" >
-
-            <RelativeLayout
-                android:id="@+id/tag_silenced_container"
-                android:layout_width="fill_parent"
+            <TextView
+                android:id="@+id/settings_label"
+                style="@style/TextAppearance"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal" >
+                android:layout_marginLeft="10dip"
+                android:layout_marginTop="10dip"
+                android:text="@string/actfm_TVA_tag_settings_label" />
 
-                <TextView
-                    style="@style/TextAppearance"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentLeft="true"
-                    android:layout_marginTop="10dip"
-                    android:padding="5dip"
-                    android:text="@string/actfm_TVA_silence_label" />
-
-                <ToggleButton
-                    android:id="@+id/tag_silenced"
-                    style="@style/TextAppearance"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
-                    android:paddingRight="5dip" />
-            </RelativeLayout>
-
-            <View
-                android:id="@+id/divider"
-                style="@style/TEA_Separator"
-                android:layout_width="fill_parent"
-                android:layout_height="1dip" />
-
-            <RelativeLayout
-                android:id="@+id/create_shortcut_container"
-                android:layout_width="fill_parent"
+            <LinearLayout
+                style="@style/EditRow"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:padding="5dip" >
+                android:layout_marginTop="5dip"
+                android:orientation="vertical" >
 
-                <TextView
-                    style="@style/TextAppearance"
-                    android:layout_width="wrap_content"
+                <RelativeLayout
+                    android:id="@+id/tag_silenced_container"
+                    android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
-                    android:layout_alignParentLeft="true"
-                    android:layout_marginTop="10dip"
-                    android:text="@string/FLA_shortcut_dialog_title" />
+                    android:orientation="horizontal"
+                    android:padding="5dip" >
 
-                <ImageButton
-                    android:id="@+id/create_shortcut"
-                    android:layout_width="40dip"
-                    android:layout_height="40dip"
-                    android:layout_alignParentRight="true"
-                    android:background="@android:color/transparent"
-                    android:scaleType="fitCenter"
-                    android:src="@drawable/icn_list_shortcut" />
-            </RelativeLayout>
+                    <TextView
+                        style="@style/TextAppearance"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentLeft="true"
+                        android:layout_marginTop="10dip"
+                        android:paddingLeft="5dip"
+                        android:text="@string/actfm_TVA_silence_label" />
+
+                    <CheckBox
+                        android:id="@+id/tag_silenced"
+                        style="@style/TextAppearance"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:paddingRight="5dip" />
+                </RelativeLayout>
+
+                <View
+                    android:id="@+id/divider"
+                    style="@style/TEA_Separator"
+                    android:layout_width="fill_parent"
+                    android:layout_height="1dip" />
+
+                <RelativeLayout
+                    android:id="@+id/create_shortcut_container"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:padding="5dip" >
+
+                    <TextView
+                        style="@style/TextAppearance"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentLeft="true"
+                        android:layout_marginTop="10dip"
+                        android:paddingLeft="5dip"
+                        android:text="@string/FLA_shortcut_dialog_title" />
+
+                    <ImageButton
+                        android:id="@+id/create_shortcut"
+                        android:layout_width="40dip"
+                        android:layout_height="40dip"
+                        android:layout_alignParentRight="true"
+                        android:background="@android:color/transparent"
+                        android:scaleType="fitCenter"
+                        android:src="@drawable/icn_list_shortcut" />
+                </RelativeLayout>
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/leave_list"
+                style="@style/DeleteTag"
+                android:layout_width="fill_parent"
+                android:layout_height="40dip"
+                android:layout_marginTop="15dip"
+                android:text="@string/tag_delete_button" />
         </LinearLayout>
+    </ScrollView>
 
-        <Button
-            android:id="@+id/leave_list"
-            style="@style/DeleteTag"
-            android:layout_width="fill_parent"
-            android:layout_height="40dip"
-            android:layout_marginTop="10dip"
-            android:padding="5dip"
-            android:text="@string/tag_delete_button" />
-    </LinearLayout>
-
-</ScrollView>
+</LinearLayout>

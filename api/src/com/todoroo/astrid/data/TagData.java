@@ -203,8 +203,4 @@ public final class TagData extends RemoteModel {
             return getValue(DELETION_DATE) > 0;
     }
 
-    public String getPictureHash() {
-       return getId() + "" + getValue(TagData.CREATION_DATE);
-    }
-
 }

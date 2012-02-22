@@ -10,7 +10,7 @@
     android:orientation="horizontal">
         
     <!-- picture thumbnail -->
-    <greendroid.widget.AsyncImageView android:id="@+id/icon"
+    <com.todoroo.astrid.helper.AsyncImageView android:id="@+id/icon"
         android:layout_width="40dip"
         android:layout_height="44dip"
         android:gravity="center"

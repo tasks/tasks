@@ -387,8 +387,9 @@
     <!-- ========================================================= Tag Settings == -->
     
     <style name="DeleteTag" >
-        <item name="android:textColor">?attr/asTextColor</item>
-        <item name="android:background">?attr/asThemeTextColor</item>
+        <item name="android:textColor">@android:color/white</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:background">#d90000</item>
     </style>
     
     <!-- ========================================================= Widget == -->

@@ -1,8 +1,5 @@
 package com.todoroo.astrid.notes;
 
-import greendroid.widget.AsyncImageView;
-
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -58,6 +55,7 @@ import com.todoroo.astrid.dao.UpdateDao;
 import com.todoroo.astrid.data.Metadata;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.data.Update;
+import com.todoroo.astrid.helper.AsyncImageView;
 import com.todoroo.astrid.helper.ImageDiskCache;
 import com.todoroo.astrid.helper.ProgressBarSyncResultCallback;
 import com.todoroo.astrid.service.MetadataService;
@@ -367,16 +365,7 @@ public class EditNoteActivity extends LinearLayout implements TimerActionListene
                 commentPictureView.setVisibility(View.GONE);
             else {
                 commentPictureView.setVisibility(View.VISIBLE);
-                if(imageCache.contains(item.commentPicture)) {
-                    try {
-                        commentPictureView.setDefaultImageBitmap(imageCache.get(item.commentPicture));
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                }
-                else {
-                    commentPictureView.setUrl(item.commentPicture);
-                }
+                commentPictureView.setUrl(item.commentPicture);
             }
         }
     }
@@ -445,7 +434,7 @@ public class EditNoteActivity extends LinearLayout implements TimerActionListene
         if (usePicture && pendingCommentPicture != null) {
             update.setValue(Update.PICTURE, Update.PICTURE_LOADING);
             try {
-                String updateString = update.getPictureHash();
+                String updateString = ImageDiskCache.getPictureHash(update);
                 imageCache.put(updateString, pendingCommentPicture);
                 update.setValue(Update.PICTURE, updateString);
             }

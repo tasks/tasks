@@ -25,13 +25,13 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal" >
 
-        <greendroid.widget.AsyncImageView
+        <com.todoroo.astrid.helper.AsyncImageView
             android:id="@+id/icon"
             android:layout_width="31dip"
             android:layout_height="35dip"
+            android:layout_margin="5dip"
             astrid:defaultSrc="@drawable/icn_default_person_image"
             android:gravity="center"
-            android:layout_margin="5dip"
             android:scaleType="fitCenter" />
 
         <com.todoroo.astrid.ui.ContactsAutoComplete
@@ -39,11 +39,13 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
-            android:layout_weight="1"
             android:layout_marginLeft="5dip"
+            android:layout_weight="1"
             android:background="#00000000"
             android:hint="@string/actfm_person_hint"
-            android:textColor="@android:color/black" />
+                    style="@style/TextAppearance"
+            android:textCursorDrawable="@null"
+            android:textSize="15sp" />
 
         <ImageButton
             android:id="@+id/button1"

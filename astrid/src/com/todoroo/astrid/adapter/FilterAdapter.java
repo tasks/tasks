@@ -3,7 +3,7 @@
  */
 package com.todoroo.astrid.adapter;
 
-import greendroid.widget.AsyncImageView;
+import com.todoroo.astrid.helper.AsyncImageView;
 
 import java.util.List;
 import java.util.concurrent.LinkedBlockingQueue;

@@ -1,7 +1,5 @@
 package com.todoroo.astrid.actfm;
 
-import greendroid.widget.AsyncImageView;
-
 import java.io.IOException;
 
 import org.json.JSONArray;
@@ -24,10 +22,11 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
-import android.widget.ToggleButton;
 
 import com.timsu.astrid.R;
 import com.todoroo.andlib.service.Autowired;
@@ -46,6 +45,7 @@ import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.core.PluginServices;
 import com.todoroo.astrid.data.TagData;
+import com.todoroo.astrid.helper.AsyncImageView;
 import com.todoroo.astrid.helper.ImageDiskCache;
 import com.todoroo.astrid.service.StatisticsConstants;
 import com.todoroo.astrid.service.StatisticsService;
@@ -84,7 +84,7 @@ public class TagSettingsActivity extends FragmentActivity {
     private AsyncImageView picture;
     private EditText tagName;
     private EditText tagDescription;
-    private ToggleButton isSilent;
+    private CheckBox isSilent;
     private Bitmap setBitmap;
     private final ImageDiskCache imageCache;
 
@@ -173,7 +173,7 @@ public class TagSettingsActivity extends FragmentActivity {
         tagName = (EditText) findViewById(R.id.tag_name);
         tagDescription = (EditText) findViewById(R.id.tag_description);
         picture = (AsyncImageView) findViewById(R.id.picture);
-        isSilent = (ToggleButton) findViewById(R.id.tag_silenced);
+        isSilent = (CheckBox) findViewById(R.id.tag_silenced);
         isSilent.setChecked(tagData.getFlag(TagData.FLAGS, TagData.FLAG_SILENT));
 
         Button leaveListButton = (Button) findViewById(R.id.leave_list);
@@ -205,12 +205,13 @@ public class TagSettingsActivity extends FragmentActivity {
         if (isNewTag) {
             findViewById(R.id.create_shortcut_container).setVisibility(View.GONE);
         } else {
-            findViewById(R.id.create_shortcut).setOnClickListener(new OnClickListener() {
+            findViewById(R.id.create_shortcut_container).setOnClickListener(new OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     if (filter == null) {
                         filter = TagFilterExposer.filterFromTagData(TagSettingsActivity.this, tagData);
                     }
+                    filter.listingIcon = picture.getImageBitmap();
                     FilterListFragment.showCreateShortcutDialog(TagSettingsActivity.this, ShortcutActivity.createIntent(filter), filter);
                 }
             });
@@ -334,8 +335,7 @@ public class TagSettingsActivity extends FragmentActivity {
                     public void run() {
                         actFmSyncService.pushTagDataOnSave(tagData, tagData.getMergedValues());
                         if(setBitmap != null && tagData.getValue(TagData.REMOTE_ID) > 0)
-                                uploadTagPicture(setBitmap);
-
+                            uploadTagPicture(setBitmap);
 
                         runOnUiThread(loadTag);
                     }
@@ -357,7 +357,7 @@ public class TagSettingsActivity extends FragmentActivity {
     private void saveTagPictureLocally(Bitmap bitmap) {
         if (bitmap == null) return;
         try {
-            String tagPicture = tagData.getPictureHash();
+            String tagPicture = ImageDiskCache.getPictureHash(tagData);
             imageCache.put(tagPicture, bitmap);
             tagData.setValue(TagData.PICTURE, tagPicture);
         }
@@ -397,18 +397,11 @@ public class TagSettingsActivity extends FragmentActivity {
                 setTitle(getString(R.string.tag_settings_title));
             }
         }
-        String tagImage = tagData.getValue(TagData.PICTURE);
-        if(!TextUtils.isEmpty(tagImage) && imageCache.contains(tagImage)) {
-            try {
-                picture.setDefaultImageBitmap(imageCache.get(tagImage));
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-        else {
-            picture.setUrl(tagImage);
-        }
         picture.setUrl(tagData.getValue(TagData.PICTURE));
+        if (!isNewTag) {
+            ImageView shortcut = (ImageView) findViewById(R.id.create_shortcut);
+            shortcut.setImageBitmap(FilterListFragment.superImposeListIcon(this, picture.getImageBitmap(), tagData.getValue(TagData.NAME)));
+        }
 
         String peopleJson = tagData.getValue(TagData.MEMBERS);
         updateMembers(peopleJson);
@@ -438,6 +431,10 @@ public class TagSettingsActivity extends FragmentActivity {
             public void run() {
                 try {
                     String url = actFmSyncService.setTagPicture(tagData.getValue(TagData.REMOTE_ID), bitmap);
+                    if (TextUtils.isEmpty(url)) return;
+                    if (imageCache.contains(tagData.getValue(TagData.PICTURE))) {
+                        imageCache.move(tagData.getValue(TagData.PICTURE), url);
+                    }
                     tagData.setValue(TagData.PICTURE, url);
                     Flags.set(Flags.ACTFM_SUPPRESS_SYNC);
                     tagDataService.save(tagData);
@@ -510,39 +507,37 @@ public class TagSettingsActivity extends FragmentActivity {
 
 
 
-        protected void showDeleteDialog(TagData tagData) {
-            int string;
-            if (tagData != null && tagData.getValue(TagData.MEMBER_COUNT) > 0)
-                string = R.string.DLG_leave_this_shared_tag_question;
-            else
-                string = R.string.DLG_delete_this_tag_question;
-            DialogUtilities.okCancelDialog(this, getString(string, tagData.getValue(TagData.NAME)), new DialogInterface.OnClickListener() {
+    protected void showDeleteDialog(TagData tagData) {
+        int string;
+        if (tagData != null && tagData.getValue(TagData.MEMBER_COUNT) > 0)
+            string = R.string.DLG_leave_this_shared_tag_question;
+        else
+            string = R.string.DLG_delete_this_tag_question;
+        DialogUtilities.okCancelDialog(this, getString(string, tagData.getValue(TagData.NAME)), new DialogInterface.OnClickListener() {
 
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
-                    deleteTag();
-                }
-            }, null );
-        }
-
-        protected boolean deleteTag() {
-            tagDataService.delete(tagData.getId());
-            boolean shared = false;
-            if(tagData != null) {
-                tagData.setValue(TagData.DELETION_DATE, DateUtilities.now());
-                PluginServices.getTagDataService().save(tagData);
-                shared = tagData.getValue(TagData.MEMBER_COUNT) > 0 && tagData.getValue(TagData.USER_ID) != 0; // Was I a list member and NOT owner?
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                deleteTag();
             }
+        }, null );
+    }
 
-            Intent tagDeleted = new Intent(AstridApiConstants.BROADCAST_EVENT_TAG_DELETED);
-            tagDeleted.putExtra(TagViewFragment.EXTRA_TAG_NAME, tagData.getValue(TagData.NAME));
-            tagDeleted.putExtra(TagFilterExposer.TAG_SQL, TagFilterExposer.SHOW_ACTIVE_TASKS);
-
-            this.finish();
-            sendBroadcast(tagDeleted);
-
-            return true;
+    protected boolean deleteTag() {
+        tagDataService.delete(tagData.getId());
+        if(tagData != null) {
+            tagData.setValue(TagData.DELETION_DATE, DateUtilities.now());
+            PluginServices.getTagDataService().save(tagData);
         }
+
+        Intent tagDeleted = new Intent(AstridApiConstants.BROADCAST_EVENT_TAG_DELETED);
+        tagDeleted.putExtra(TagViewFragment.EXTRA_TAG_NAME, tagData.getValue(TagData.NAME));
+        tagDeleted.putExtra(TagFilterExposer.TAG_SQL, TagFilterExposer.SHOW_ACTIVE_TASKS);
+
+        this.finish();
+        sendBroadcast(tagDeleted);
+
+        return true;
+    }
 
 
 

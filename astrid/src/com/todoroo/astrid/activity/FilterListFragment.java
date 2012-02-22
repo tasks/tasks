@@ -365,10 +365,24 @@ public class FilterListFragment extends ListFragment {
         if(label.length() == 0)
             return;
 
-        Bitmap emblem = filter.listingIcon;
+        Bitmap bitmap = superImposeListIcon(activity, filter.listingIcon, filter.listingTitle);
+
+        Intent createShortcutIntent = new Intent();
+        createShortcutIntent.putExtra(Intent.EXTRA_SHORTCUT_INTENT, shortcutIntent);
+        createShortcutIntent.putExtra(Intent.EXTRA_SHORTCUT_NAME, label);
+        createShortcutIntent.putExtra(Intent.EXTRA_SHORTCUT_ICON, bitmap);
+        createShortcutIntent.setAction("com.android.launcher.action.INSTALL_SHORTCUT"); //$NON-NLS-1$
+
+        activity.sendBroadcast(createShortcutIntent);
+        Toast.makeText(activity,
+                activity.getString(R.string.FLA_toast_onCreateShortcut, label), Toast.LENGTH_LONG).show();
+    }
+
+    public static Bitmap superImposeListIcon(Activity activity, Bitmap listingIcon, String listingTitle) {
+        Bitmap emblem = listingIcon;
         if(emblem == null)
             emblem = ((BitmapDrawable) activity.getResources().getDrawable(
-                    TagService.getDefaultImageIDForTag(filter.listingTitle))).getBitmap();
+                    TagService.getDefaultImageIDForTag(listingTitle))).getBitmap();
 
         // create icon by superimposing astrid w/ icon
         DisplayMetrics metrics = new DisplayMetrics();
@@ -381,16 +395,7 @@ public class FilterListFragment extends ListFragment {
         canvas.drawBitmap(emblem, new Rect(0, 0, emblem.getWidth(), emblem.getHeight()),
                 new Rect(bitmap.getWidth() - dimension, bitmap.getHeight() - dimension,
                         bitmap.getWidth(), bitmap.getHeight()), null);
-
-        Intent createShortcutIntent = new Intent();
-        createShortcutIntent.putExtra(Intent.EXTRA_SHORTCUT_INTENT, shortcutIntent);
-        createShortcutIntent.putExtra(Intent.EXTRA_SHORTCUT_NAME, label);
-        createShortcutIntent.putExtra(Intent.EXTRA_SHORTCUT_ICON, bitmap);
-        createShortcutIntent.setAction("com.android.launcher.action.INSTALL_SHORTCUT"); //$NON-NLS-1$
-
-        activity.sendBroadcast(createShortcutIntent);
-        Toast.makeText(activity,
-                activity.getString(R.string.FLA_toast_onCreateShortcut, label), Toast.LENGTH_LONG).show();
+        return bitmap;
     }
 
     @Override
