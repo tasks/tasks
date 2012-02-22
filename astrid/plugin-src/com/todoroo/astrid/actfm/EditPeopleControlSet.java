@@ -167,7 +167,7 @@ public class EditPeopleControlSet extends PopupControlSet {
         cbFacebook = (CheckBox) getSharedWithView().findViewById(R.id.checkbox_facebook);
         cbTwitter = (CheckBox) getSharedWithView().findViewById(R.id.checkbox_twitter);
 
-        sharedWithContainer.addPerson(""); //$NON-NLS-1$
+        sharedWithContainer.addPerson("", ""); //$NON-NLS-1$
         setUpListeners();
     }
 
@@ -206,7 +206,7 @@ public class EditPeopleControlSet extends PopupControlSet {
             if(people != null) {
                 for(int i = 0; i < people.length(); i++) {
                     String person = people.getString(i);
-                    TextView textView = sharedWithContainer.addPerson(person);
+                    TextView textView = sharedWithContainer.addPerson(person, "");
                     textView.setEnabled(false);
                     sharedPeople.add(PeopleContainer.createUserJson(textView));
                 }
@@ -681,7 +681,7 @@ public class EditPeopleControlSet extends PopupControlSet {
 
     private void makePrivateTask() {
         sharedWithContainer.removeAllViews();
-        sharedWithContainer.addPerson(""); //$NON-NLS-1$
+        sharedWithContainer.addPerson("", ""); //$NON-NLS-1$
         assignToMe();
     }
 

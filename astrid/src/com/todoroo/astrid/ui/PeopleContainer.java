@@ -1,5 +1,7 @@
 package com.todoroo.astrid.ui;
 
+import greendroid.widget.AsyncImageView;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -55,7 +57,7 @@ public class PeopleContainer extends LinearLayout {
     // --- methods
 
     /** Adds a tag to the tag field */
-    public TextView addPerson(String person) {
+    public TextView addPerson(String person, String image) {
         LayoutInflater inflater = (LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
         // check if already exists
@@ -81,6 +83,10 @@ public class PeopleContainer extends LinearLayout {
             textView.setHint(R.string.actfm_person_or_tag_hint);
         }
 
+        final AsyncImageView imageView = (AsyncImageView)tagItem.
+            findViewById(R.id.icon);
+        imageView.setUrl(image);
+
         textView.addTextChangedListener(new TextWatcher() {
             @Override
             public void afterTextChanged(Editable s) {
@@ -95,7 +101,7 @@ public class PeopleContainer extends LinearLayout {
             public void onTextChanged(CharSequence s, int start, int before,
                     int count) {
                 if(count > 0 && getLastTextView() == textView) {
-                    addPerson(""); //$NON-NLS-1$
+                    addPerson("", ""); //$NON-NLS-1$
                 }
 
                 if(onAddNewPerson != null)
@@ -109,7 +115,7 @@ public class PeopleContainer extends LinearLayout {
                 if(actionId != EditorInfo.IME_NULL)
                     return false;
                 if(getLastTextView().getText().length() != 0) {
-                    addPerson(""); //$NON-NLS-1$
+                    addPerson("", ""); //$NON-NLS-1$
                 }
                 return true;
             }
@@ -222,13 +228,13 @@ public class PeopleContainer extends LinearLayout {
         for(int i = 0; i < people.length(); i++) {
             JSONObject person = people.getJSONObject(i);
             TextView textView = null;
-
+            String imageURL = person.optString("picture", "");
             if(person.has("id") && person.getLong("id") == ActFmPreferenceService.userId())
-                textView = addPerson(Preferences.getStringValue(ActFmPreferenceService.PREF_NAME));
+                textView = addPerson(Preferences.getStringValue(ActFmPreferenceService.PREF_NAME), imageURL);
             else if(!TextUtils.isEmpty(person.optString("name")) && !"null".equals(person.optString("name")))
-                textView = addPerson(person.getString("name"));
+                textView = addPerson(person.getString("name"), imageURL);
             else if(!TextUtils.isEmpty(person.optString("email")) && !"null".equals(person.optString("email")))
-                textView = addPerson(person.getString("email"));
+                textView = addPerson(person.getString("email"), imageURL);
 
             if(textView != null) {
                 textView.setTag(person);
