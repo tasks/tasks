@@ -496,7 +496,6 @@ public class TaskListFragment extends ListFragment implements OnScrollListener,
             }
         });
 
-        System.err.println("NOW setup ui componetns");
         SharedPreferences publicPrefs = AstridPreferences.getPublicPrefs(getActivity());
         sortFlags = publicPrefs.getInt(SortHelper.PREF_SORT_FLAGS, 0);
         sortSort = publicPrefs.getInt(SortHelper.PREF_SORT_SORT, 0);
@@ -1061,7 +1060,6 @@ public class TaskListFragment extends ListFragment implements OnScrollListener,
             showSettings();
             return true;
         case MENU_SORT_ID:
-            System.err.println("displaying " + sortFlags);
             StatisticsService.reportEvent(StatisticsConstants.TLA_MENU_SORT);
             AlertDialog dialog = SortSelectionActivity.createDialog(
                     getActivity(), isInbox, this, sortFlags, sortSort);
@@ -1184,8 +1182,6 @@ public class TaskListFragment extends ListFragment implements OnScrollListener,
 
         sortFlags = flags;
         sortSort = sort;
-
-        System.err.println("FLAGS : " + flags);
 
         if (always) {
             SharedPreferences publicPrefs = AstridPreferences.getPublicPrefs(getActivity());

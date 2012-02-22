@@ -205,7 +205,7 @@ public class AstridActivity extends FragmentActivity
     protected final void setupTasklistFragmentWithFilter(Filter filter) {
         Class<?> customTaskList = TaskListFragment.class;
 
-        System.err.println("default time"); //$NON-NLS-1$
+        System.err.println("default time - " + ((filter != null) ? filter.title : "null")); //$NON-NLS-1$
         if(filter == null || CoreFilterExposer.isInbox(filter)) {
             System.err.println("is inbox"); //$NON-NLS-1$
             SharedPreferences publicPrefs = AstridPreferences.getPublicPrefs(this);

@@ -1,34 +1,45 @@
 package com.todoroo.astrid.subtasks;
 
+import android.content.Intent;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.timsu.astrid.R;
 import com.todoroo.andlib.data.Property;
 import com.todoroo.andlib.data.TodorooCursor;
-import com.todoroo.astrid.activity.TaskListFragment;
+import com.todoroo.astrid.actfm.TagViewFragment;
 import com.todoroo.astrid.adapter.TaskAdapter;
 import com.todoroo.astrid.data.Task;
 
-/**
- * Fragment for subtasks
- *
- * @author Tim Su <tim@astrid.com>
- *
- */
-public class SubtasksListFragment extends TaskListFragment {
+public class SubtasksTagListFragment extends TagViewFragment {
 
     private final SubtasksFragmentHelper helper;
 
-    public SubtasksListFragment() {
+    public SubtasksTagListFragment() {
         super();
         helper = new SubtasksFragmentHelper(this);
-        helper.setList(SubtasksMetadata.LIST_ACTIVE_TASKS);
     }
 
     @Override
+    protected void onNewIntent(Intent intent) {
+        super.onNewIntent(intent);
+        String list = "td:" + tagData.getId(); //$NON-NLS-1$
+        helper.setList(list);
+    }
+
+    /* (non-Javadoc)
+     * @see com.todoroo.astrid.activity.TaskListActivity#getListBody(android.view.ViewGroup)
+     */
+    @Override
     protected View getListBody(ViewGroup root) {
-        return getActivity().getLayoutInflater().inflate(R.layout.task_list_body_subtasks, root, false);
+        ViewGroup parent = (ViewGroup) getActivity().getLayoutInflater().inflate(
+                R.layout.task_list_body_tag, root, false);
+
+        taskListView =
+            getActivity().getLayoutInflater().inflate(R.layout.task_list_body_subtasks, root, false);
+        parent.addView(taskListView);
+
+        return parent;
     }
 
     @Override

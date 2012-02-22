@@ -73,7 +73,7 @@ public class TagViewFragment extends TaskListFragment {
 
     public static final String TOKEN_START_ACTIVITY = "startActivity"; //$NON-NLS-1$
 
-    private TagData tagData;
+    protected TagData tagData;
 
     @Autowired TagDataService tagDataService;
 
@@ -83,7 +83,7 @@ public class TagViewFragment extends TaskListFragment {
 
     @Autowired SyncV2Service syncService;
 
-    private View taskListView;
+    protected View taskListView;
 
     private boolean dataLoaded = false;
 

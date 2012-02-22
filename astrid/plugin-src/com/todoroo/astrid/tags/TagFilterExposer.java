@@ -12,6 +12,7 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
@@ -37,13 +38,16 @@ import com.todoroo.astrid.api.FilterListItem;
 import com.todoroo.astrid.api.FilterWithCustomIntent;
 import com.todoroo.astrid.api.FilterWithUpdate;
 import com.todoroo.astrid.core.PluginServices;
+import com.todoroo.astrid.core.SortHelper;
 import com.todoroo.astrid.dao.TaskDao.TaskCriteria;
 import com.todoroo.astrid.data.Metadata;
 import com.todoroo.astrid.data.TagData;
 import com.todoroo.astrid.gtasks.GtasksPreferenceService;
 import com.todoroo.astrid.service.AstridDependencyInjector;
 import com.todoroo.astrid.service.TagDataService;
+import com.todoroo.astrid.subtasks.SubtasksTagListFragment;
 import com.todoroo.astrid.tags.TagService.Tag;
+import com.todoroo.astrid.utility.AstridPreferences;
 
 /**
  * Exposes filters based on tags
@@ -92,7 +96,13 @@ public class TagFilterExposer extends BroadcastReceiver implements AstridFilterE
                 newTagIntent(context, RenameTagActivity.class, tag, tagTemplate.toString()),
                 newTagIntent(context, DeleteTagActivity.class, tag, tagTemplate.toString())
         };
-        filter.customTaskList = new ComponentName(ContextManager.getContext(), TagViewFragment.class);
+
+        SharedPreferences publicPrefs = AstridPreferences.getPublicPrefs(context);
+        int sortFlags = publicPrefs.getInt(SortHelper.PREF_SORT_FLAGS, 0);
+
+        Class<?> fragmentClass = SortHelper.isManualSort(sortFlags) ?
+                SubtasksTagListFragment.class : TagViewFragment.class;
+        filter.customTaskList = new ComponentName(ContextManager.getContext(), fragmentClass);
         if(tag.image != null)
             filter.imageUrl = tag.image;
         if(tag.updateText != null)
