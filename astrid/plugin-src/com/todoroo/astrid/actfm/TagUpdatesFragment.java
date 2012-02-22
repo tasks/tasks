@@ -321,6 +321,7 @@ public class TagUpdatesFragment extends ListFragment {
         update.setValue(Update.TAGS, "," + tagData.getValue(TagData.REMOTE_ID) + ",");
         update.setValue(Update.TAGS_LOCAL, "," + tagData.getId() + ",");
         update.setValue(Update.CREATION_DATE, DateUtilities.now());
+        update.setValue(Update.TARGET_NAME, tagData.getValue(TagData.NAME));
         if (picture != null) {
             update.setValue(Update.PICTURE, Update.PICTURE_LOADING);
             try {
