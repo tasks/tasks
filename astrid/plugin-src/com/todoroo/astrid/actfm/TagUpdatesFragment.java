@@ -5,13 +5,13 @@ import android.app.Activity;
 import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.ActionBar;
 import android.support.v4.app.ListFragment;
 import android.support.v4.view.Menu;
 import android.support.v4.view.MenuItem;
 import android.text.Editable;
+import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.KeyEvent;
@@ -58,6 +58,7 @@ public class TagUpdatesFragment extends ListFragment {
     private TagData tagData;
     private UpdateAdapter updateAdapter;
     private EditText addCommentField;
+    private ViewGroup listHeader;
 
     private ImageButton pictureButton;
 
@@ -131,23 +132,6 @@ public class TagUpdatesFragment extends ListFragment {
             ((TextView) ab.getCustomView().findViewById(R.id.title)).setText(title);
         }
 
-        if (AndroidUtilities.isTabletSized(getActivity()) && tagData != null) {
-            getView().setBackgroundColor(Color.rgb(200, 200, 200));
-            TextView tagTitle = (TextView) getView().findViewById(R.id.tag_title);
-            String tagName = tagData.getValue(TagData.NAME);
-            tagTitle.setText(tagName);
-            TextView descriptionTitle = (TextView) getView().findViewById(R.id.tag_description);
-            descriptionTitle.setText(tagData.getValue(TagData.TAG_DESCRIPTION));
-
-            AsyncImageView imageView = (AsyncImageView) getView().findViewById(R.id.tag_picture);
-            imageView.setDefaultImageResource(TagService.getDefaultImageIDForTag(tagName));
-            imageView.setUrl(tagData.getValue(TagData.PICTURE));
-        }
-        else {
-            getView().findViewById(R.id.tag_header).setVisibility(View.GONE);
-            getView().findViewById(R.id.activity_header).setVisibility(View.GONE);
-        }
-
         final ImageButton commentButton = (ImageButton) getView().findViewById(R.id.commentButton);
         addCommentField = (EditText) getView().findViewById(R.id.commentField);
         addCommentField.setOnEditorActionListener(new OnEditorActionListener() {
@@ -216,14 +200,45 @@ public class TagUpdatesFragment extends ListFragment {
 
             updateAdapter = new UpdateAdapter(this, R.layout.update_adapter_row,
                     currentCursor, false, null, fromUpdateClass);
-            ((ListView) getView().findViewById(android.R.id.list)).setAdapter(updateAdapter);
+            ListView listView = ((ListView) getView().findViewById(android.R.id.list));
+            addHeaderToListView(listView);
+            listView.setAdapter(updateAdapter);
         } else {
             Cursor cursor = updateAdapter.getCursor();
             cursor.requery();
             getActivity().startManagingCursor(cursor);
+            populateListHeader(listHeader);
         }
         if (getActivity() instanceof TagUpdatesActivity)
             setLastViewed();
+    }
+
+    private void addHeaderToListView(ListView listView) {
+        if (AndroidUtilities.isTabletSized(getActivity()) && tagData != null) {
+            listHeader = (ViewGroup) getActivity().getLayoutInflater().inflate(R.layout.tag_updates_header, listView, false);
+            populateListHeader(listHeader);
+            listView.addHeaderView(listHeader);
+        }
+    }
+    private void populateListHeader(ViewGroup header) {
+        if (header == null) return;
+        TextView tagTitle = (TextView) header.findViewById(R.id.tag_title);
+        String tagName = tagData.getValue(TagData.NAME);
+        tagTitle.setText(tagName);
+        TextView descriptionTitle = (TextView) header.findViewById(R.id.tag_description);
+        String description = tagData.getValue(TagData.TAG_DESCRIPTION);
+        if (!TextUtils.isEmpty(description)) {
+            descriptionTitle.setText(description);
+            descriptionTitle.setVisibility(View.VISIBLE);
+        }
+        else {
+            descriptionTitle.setVisibility(View.GONE);
+        }
+
+
+        AsyncImageView imageView = (AsyncImageView) header.findViewById(R.id.tag_picture);
+        imageView.setDefaultImageResource(TagService.getDefaultImageIDForTag(tagName));
+        imageView.setUrl(tagData.getValue(TagData.PICTURE));
     }
 
     public void setLastViewed() {
