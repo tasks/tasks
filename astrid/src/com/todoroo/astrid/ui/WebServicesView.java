@@ -116,6 +116,7 @@ public class WebServicesView extends LinearLayout {
 
         if (!Preferences.getBoolean(R.string.p_autoIdea, true)) {
             View loadButton = inflater.inflate(R.layout.web_services_load_button, null);
+            initializeTaskRabbit();
             addView(loadButton);
             loadButton.setOnClickListener(new OnClickListener() {
                 @Override
