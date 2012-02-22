@@ -101,17 +101,10 @@ public class SubtasksFragmentHelper {
             long targetTaskId = taskAdapter.getItemId(from);
             long destinationTaskId = taskAdapter.getItemId(to);
 
-            System.err.println("move " + from + " to " + to);
-
-            updater.debugPrint(getFilter(), list);
-
-            if(to == getListView().getCount() - 1)
+            if(to >= getListView().getCount())
                 updater.moveTo(getFilter(), list, targetTaskId, -1);
             else
                 updater.moveTo(getFilter(), list, targetTaskId, destinationTaskId);
-
-            System.err.println(" --- after ---");
-            updater.debugPrint(getFilter(), list);
 
             fragment.loadTaskListContent(true);
         }

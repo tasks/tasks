@@ -427,7 +427,7 @@ public class DraggableListView extends ListView {
         if (x > mTouchStartX + SWIPE_THRESHOLD)
             mDragView.setPadding(30, 1, 0, 1);
         else if (x < mTouchStartX - SWIPE_THRESHOLD)
-            mDragView.setPadding(-30, 1, 0, 1);
+            mDragView.setPadding(-30, 2, 0, 2);
         else
             mDragView.setPadding(0, 0, 0, 0);
 
@@ -437,9 +437,8 @@ public class DraggableListView extends ListView {
         if (itemnum >= 0) {
             if (ev.getAction() == MotionEvent.ACTION_DOWN
                     || itemnum != mDragPos) {
-                if (mDragListener != null) {
+                if (mDragListener != null)
                     mDragListener.drag(mDragPos, itemnum);
-                }
                 mDragPos = itemnum;
                 doExpansion();
             }
@@ -493,6 +492,8 @@ public class DraggableListView extends ListView {
                     mSwipeListener.swipeLeft(mFirstDragPos);
             } else if(mDropListener != null && mDragPos != mFirstDragPos &&
                     mDragPos >= 0 && mDragPos < getCount()) {
+                if(mFirstDragPos < mDragPos)
+                    mDragPos++;
                 mDropListener.drop(mFirstDragPos, mDragPos);
             }
         }

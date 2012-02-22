@@ -216,7 +216,6 @@ public class AstridActivity extends FragmentActivity
     }
 
     public final void setupTasklistFragmentWithFilterAndCustomTaskList(Filter filter, Class<?> customTaskList) {
-        System.err.println("HAJIMEMASHITE setting up fragment with class " + customTaskList); //$NON-NLS-1$
         Class<?> component = customTaskList;
         if (filter instanceof FilterWithCustomIntent) {
             try {
@@ -229,7 +228,6 @@ public class AstridActivity extends FragmentActivity
         FragmentTransaction transaction = manager.beginTransaction();
 
         try {
-            System.err.println("setting up fragment with class " + customTaskList); //$NON-NLS-1$
             TaskListFragment newFragment = (TaskListFragment) component.newInstance();
             transaction.replace(R.id.tasklist_fragment_container, newFragment,
                     TaskListFragment.TAG_TASKLIST_FRAGMENT);
@@ -310,7 +308,6 @@ public class AstridActivity extends FragmentActivity
         FragmentManager fm = getSupportFragmentManager();
         Fragment fragment = fm.findFragmentByTag(tag);
         if(fragment == null) {
-            System.err.println("creating fragment of type " + cls.getSimpleName()); //$NON-NLS-1$
             try {
                 fragment = cls.newInstance();
             } catch (InstantiationException e) {
