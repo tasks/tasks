@@ -78,7 +78,7 @@ public final class GtasksMetadataService extends SyncMetadataService<GtasksTaskC
     }
 
     @Override
-    public void findLocalMatch(GtasksTaskContainer remoteTask) {
+    public synchronized void findLocalMatch(GtasksTaskContainer remoteTask) {
         if(remoteTask.task.getId() != Task.NO_ID)
             return;
         TodorooCursor<Metadata> cursor = metadataDao.query(Query.select(Metadata.PROPERTIES).

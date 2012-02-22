@@ -135,7 +135,7 @@ public final class Task extends RemoteModel {
 
     /** Remote id */
     public static final LongProperty REMOTE_ID = new LongProperty(
-            TABLE, REMOTE_ID_PROPERTY_NAME);
+            TABLE, REMOTE_ID_PROPERTY_NAME, true);
 
     /** Assigned user id */
     public static final LongProperty USER_ID = new LongProperty(
@@ -252,7 +252,7 @@ public final class Task extends RemoteModel {
         defaultValues.put(DETAILS_DATE.name, 0);
 
         defaultValues.put(LAST_SYNC.name, 0);
-        defaultValues.put(REMOTE_ID.name, 0);
+        defaultValues.putNull(REMOTE_ID.name);
         defaultValues.put(USER_ID.name, 0);
         defaultValues.put(CREATOR_ID.name, 0);
         defaultValues.put(USER.name, "{}");

@@ -13,7 +13,6 @@ import com.todoroo.astrid.dao.TagDataDao;
 import com.todoroo.astrid.dao.TaskDao;
 import com.todoroo.astrid.dao.UpdateDao;
 import com.todoroo.astrid.data.TagData;
-import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.data.Update;
 
 /**
@@ -141,10 +140,10 @@ public class TagDataService {
             return updateDao.query(Query.select(Update.PROPERTIES).where(
                     criterion).
                     orderBy(Order.desc(Update.CREATION_DATE)));
-        if(tagData.getValue(Task.REMOTE_ID) < 1)
+        if(tagData.getValue(TagData.REMOTE_ID) == 0)
             return updateDao.query(Query.select(Update.PROPERTIES).where(Update.TAGS_LOCAL.like("%," + tagData.getId() + ",%")));
         return updateDao.query(Query.select(Update.PROPERTIES).where(Criterion.and(criterion,
-                Criterion.or(Update.TAGS.like("%," + tagData.getValue(Task.REMOTE_ID) + ",%"),
+                Criterion.or(Update.TAGS.like("%," + tagData.getValue(TagData.REMOTE_ID) + ",%"),
                 Update.TAGS_LOCAL.like("%," + tagData.getId() + ",%")))).
                 orderBy(Order.desc(Update.CREATION_DATE)));
     }
@@ -155,12 +154,12 @@ public class TagDataService {
      * @return
      */
     public Update getLatestUpdate(TagData tagData) {
-        if(tagData.getValue(Task.REMOTE_ID) < 1)
+        if(tagData.getValue(TagData.REMOTE_ID) == 0)
             return null;
 
         @SuppressWarnings("nls")
         TodorooCursor<Update> updates = updateDao.query(Query.select(Update.PROPERTIES).where(
-                Update.TAGS.like("%," + tagData.getValue(Task.REMOTE_ID) + ",%")).
+                Update.TAGS.like("%," + tagData.getValue(TagData.REMOTE_ID) + ",%")).
                 orderBy(Order.desc(Update.CREATION_DATE)).limit(1));
         try {
             if(updates.getCount() == 0)

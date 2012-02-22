@@ -6,6 +6,7 @@
     <PreferenceScreen android:title="@string/p_about" android:key="@string/p_about" />
     <PreferenceScreen android:title="@string/welcome_setting" android:key="@string/p_tutorial"/>
     <PreferenceScreen android:title="@string/p_help" android:key="@string/p_help"/>
+    
     <PreferenceCategory
         android:title="@string/EPr_appearance_header">
         
@@ -54,6 +55,12 @@
             android:key="@string/p_showSmartConfirmation_key"
             android:title="@string/EPr_showSmartConfirmation_title"
             android:defaultValue="true"/>
+
+        <com.todoroo.astrid.ui.MultilineCheckboxPreference
+	        android:key="@string/p_autoIdea"
+	        android:title="@string/EPr_ideaAuto_title"
+	        android:defaultValue="true" />
+             
     </PreferenceCategory>
 
 
@@ -84,11 +91,6 @@
         <com.todoroo.astrid.ui.MultilineCheckboxPreference
 	        android:key="@string/p_statistics"
 	        android:title="@string/EPr_statistics_title"
-	        android:defaultValue="true" />   
-
-        <com.todoroo.astrid.ui.MultilineCheckboxPreference
-	        android:key="@string/p_autoIdea"
-	        android:title="@string/EPr_ideaAuto_title"
 	        android:defaultValue="true" />   
           
     </PreferenceCategory>

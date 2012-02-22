@@ -695,9 +695,12 @@ public class EditPeopleControlSet extends PopupControlSet {
     @SuppressWarnings("nls")
     protected Object[] buildSharingArgs(JSONArray emails) throws JSONException {
         ArrayList<Object> values = new ArrayList<Object>();
-        long currentTaskID = task.getValue(Task.REMOTE_ID);
-        values.add("id");
-        values.add(currentTaskID);
+
+        if(task.containsNonNullValue(Task.REMOTE_ID)) {
+            long currentTaskID = task.getValue(Task.REMOTE_ID);
+            values.add("id");
+            values.add(currentTaskID);
+        }
 
         if(emails != null) {
             for(int i = 0; i < emails.length(); i++) {

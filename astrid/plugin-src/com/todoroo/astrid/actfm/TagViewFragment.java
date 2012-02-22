@@ -39,6 +39,7 @@ import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.astrid.actfm.sync.ActFmPreferenceService;
 import com.todoroo.astrid.actfm.sync.ActFmSyncService;
+import com.todoroo.astrid.activity.FilterListFragment;
 import com.todoroo.astrid.activity.TaskListActivity;
 import com.todoroo.astrid.activity.TaskListFragment;
 import com.todoroo.astrid.api.AstridApiConstants;
@@ -454,9 +455,16 @@ public class TagViewFragment extends TaskListFragment {
         if (requestCode == REQUEST_CODE_SETTINGS && resultCode == Activity.RESULT_OK) {
             tagData = tagDataService.fetchById(tagData.getId(), TagData.PROPERTIES);
             filter = TagFilterExposer.filterFromTagData(getActivity(), tagData);
+            getActivity().getIntent().putExtra(TOKEN_FILTER, filter);
+            Activity activity = getActivity();
+            if (activity instanceof TaskListActivity) {
+                ((TaskListActivity) activity).setListsTitle(filter.title);
+                FilterListFragment flf = ((TaskListActivity) activity).getFilterListFragment();
+                if (flf != null)
+                    flf.clear();
+            }
             taskAdapter = null;
             refresh();
-            //loadTaskListContent(true);
         } else {
             super.onActivityResult(requestCode, resultCode, data);
         }

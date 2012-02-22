@@ -157,6 +157,7 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
     public static int APPLY_LISTENERS_NONE = 2;
 
     protected final TaskListFragment fragment;
+    protected final Resources resources;
     protected final HashMap<Long, Boolean> completedItems = new HashMap<Long, Boolean>(0);
     protected OnCompletedTaskListener onCompletedTaskListener = null;
     public boolean isFling = false;
@@ -206,6 +207,7 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
         this.query = query;
         this.resource = resource;
         this.fragment = fragment;
+        this.resources = fragment.getResources();
         this.onCompletedTaskListener = onCompletedTaskListener;
 
         fontSize = Preferences.getIntegerFromString(R.string.p_fontSize, 18);
@@ -213,7 +215,7 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
         displayMetrics = new DisplayMetrics();
         fragment.getActivity().getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
 
-        this.minRowHeight = (int) (4 * displayMetrics.density);
+        this.minRowHeight = (int) (45 * displayMetrics.density);
 
         startDetailThread();
         startTaskActionsThread();
@@ -352,7 +354,6 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
 
     /** Helper method to set the contents and visibility of each field */
     public synchronized void setFieldContentsAndVisibility(View view) {
-        Resources r = fragment.getResources();
         ViewHolder viewHolder = (ViewHolder)view.getTag();
         Task task = viewHolder.task;
 
@@ -368,9 +369,9 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
 
             long hiddenUntil = task.getValue(Task.HIDE_UNTIL);
             if(task.getValue(Task.DELETION_DATE) > 0)
-                nameValue = r.getString(R.string.TAd_deletedFormat, nameValue);
+                nameValue = resources.getString(R.string.TAd_deletedFormat, nameValue);
             if(hiddenUntil > DateUtilities.now())
-                nameValue = r.getString(R.string.TAd_hiddenFormat, nameValue);
+                nameValue = resources.getString(R.string.TAd_hiddenFormat, nameValue);
             nameView.setText(nameValue);
         }
 
@@ -389,7 +390,7 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
                 setVisibility(dueDateView);
             } else if(task.isCompleted()) {
                 String dateValue = formatDate(task.getValue(Task.COMPLETION_DATE));
-                dueDateView.setText(r.getString(R.string.TAd_completed, dateValue));
+                dueDateView.setText(resources.getString(R.string.TAd_completed, dateValue));
                 dueDateView.setTextAppearance(fragment.getActivity(), R.style.TextAppearance_TAd_ItemDueDate_Completed);
                 dueDateTextWidth = paint.measureText(dateValue);
                 setVisibility(dueDateView);
@@ -802,8 +803,6 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
             new HashMap<Integer, Drawable>(3);
         @SuppressWarnings("nls")
         public Drawable getDrawable(String source) {
-            Resources r = fragment.getResources();
-
             if(source.equals("silk_clock"))
                 source = "details_alarm";
             else if(source.equals("silk_tag_pink"))
@@ -813,12 +812,12 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
             else if(source.equals("silk_note"))
                 source = "details_note";
 
-            int drawable = r.getIdentifier("drawable/" + source, null, Constants.PACKAGE);
+            int drawable = resources.getIdentifier("drawable/" + source, null, Constants.PACKAGE);
             if(drawable == 0)
                 return null;
             Drawable d;
             if(!cache.containsKey(drawable)) {
-                d = r.getDrawable(drawable);
+                d = resources.getDrawable(drawable);
                 d.setBounds(0,0,d.getIntrinsicWidth(),d.getIntrinsicHeight());
                 cache.put(drawable, d);
             } else

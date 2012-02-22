@@ -98,23 +98,38 @@ public class TodorooCursor<TYPE extends AbstractModel> extends CursorWrapper {
 
         public Object visitDouble(Property<Double> property,
                 TodorooCursor<?> cursor) {
-            return cursor.getDouble(cursor.getColumnIndexFromCache(property.name));
+            int column = columnIndex(property, cursor);
+            if(property.nullable && cursor.isNull(column))
+                return null;
+            return cursor.getDouble(column);
         }
 
         public Object visitInteger(Property<Integer> property,
                 TodorooCursor<?> cursor) {
-            return cursor.getInt(cursor.getColumnIndexFromCache(property.name));
+            int column = columnIndex(property, cursor);
+            if(property.nullable && cursor.isNull(column))
+                return null;
+            return cursor.getInt(column);
         }
 
         public Object visitLong(Property<Long> property, TodorooCursor<?> cursor) {
-            return cursor.getLong(cursor.getColumnIndexFromCache(property.name));
+            int column = columnIndex(property, cursor);
+            if(property.nullable && cursor.isNull(column))
+                return null;
+            return cursor.getLong(column);
         }
 
         public Object visitString(Property<String> property,
                 TodorooCursor<?> cursor) {
-            return cursor.getString(cursor.getColumnIndexFromCache(property.name));
+            int column = columnIndex(property, cursor);
+            if(property.nullable && cursor.isNull(column))
+                return null;
+            return cursor.getString(column);
         }
 
+        private int columnIndex(Property<?> property, TodorooCursor<?> cursor) {
+            return cursor.getColumnIndexFromCache(property.name);
+        }
     }
 
 }

@@ -3,6 +3,7 @@ package com.todoroo.astrid.data;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
+import android.database.SQLException;
 
 import com.todoroo.andlib.data.ContentResolverDao;
 import com.todoroo.andlib.data.TodorooCursor;
@@ -143,9 +144,24 @@ public class TaskApiDao extends ContentResolverDao<Task> {
     @Override
     public boolean save(Task model) {
         ContentValues setValues = model.getSetValues();
-        if(super.save(model)) {
-            afterSave(model, setValues);
-            return true;
+        try {
+            if(super.save(model)) {
+                afterSave(model, setValues);
+                return true;
+            }
+        } catch (SQLException e) {
+            if (model.containsNonNullValue(Task.REMOTE_ID)) {
+                TodorooCursor<Task> cursor = query(Query.select(Task.ID).where(Task.REMOTE_ID.eq(model.getValue(Task.REMOTE_ID))));
+                if (cursor.getCount() > 0) {
+                    cursor.moveToFirst();
+                    model.setId(cursor.get(Task.ID));
+                    setValues = model.getSetValues();
+                    if (super.save(model)) {
+                        afterSave(model, setValues);
+                        return true;
+                    }
+                }
+            }
         }
         return false;
     }

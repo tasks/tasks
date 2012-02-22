@@ -655,28 +655,30 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
 
         public void onUiThread() {
             // prepare and set listener for voice-button
-            if (addOnService.hasPowerPack()) {
-                voiceAddNoteButton = (ImageButton) notesControlSet.getView().findViewById(
-                        R.id.voiceAddNoteButton);
-                voiceAddNoteButton.setVisibility(View.VISIBLE);
-                int prompt = R.string.voice_edit_note_prompt;
-                voiceNoteAssistant = new VoiceInputAssistant(TaskEditFragment.this,
-                        voiceAddNoteButton, notesEditText, REQUEST_VOICE_RECOG);
-                voiceNoteAssistant.setAppend(true);
-                voiceNoteAssistant.setLanguageModel(RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);
-                voiceNoteAssistant.configureMicrophoneButton(prompt);
-            }
-
-            // re-read all
-            synchronized (controls) {
-                for (TaskEditControlSet controlSet : controls)
-                    controlSet.readFromTask(model);
-                if (isNewTask) {
-                    hideUntilControls.setDefaults();
+            if (getActivity() != null) {
+                if (addOnService.hasPowerPack()) {
+                    voiceAddNoteButton = (ImageButton) notesControlSet.getView().findViewById(
+                            R.id.voiceAddNoteButton);
+                    voiceAddNoteButton.setVisibility(View.VISIBLE);
+                    int prompt = R.string.voice_edit_note_prompt;
+                    voiceNoteAssistant = new VoiceInputAssistant(TaskEditFragment.this,
+                            voiceAddNoteButton, notesEditText, REQUEST_VOICE_RECOG);
+                    voiceNoteAssistant.setAppend(true);
+                    voiceNoteAssistant.setLanguageModel(RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);
+                    voiceNoteAssistant.configureMicrophoneButton(prompt);
                 }
-            }
 
-            loadMoreContainer();
+                // re-read all
+                synchronized (controls) {
+                    for (TaskEditControlSet controlSet : controls)
+                        controlSet.readFromTask(model);
+                    if (isNewTask) {
+                        hideUntilControls.setDefaults();
+                    }
+                }
+
+                loadMoreContainer();
+            }
         }
 
         @Override
@@ -719,10 +721,9 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
 
         if (idParam > -1L) {
             model = taskService.fetchById(idParam, Task.PROPERTIES);
-            if (model != null) {
+            if (model != null && model.containsNonNullValue(Task.REMOTE_ID)) {
                 remoteId = model.getValue(Task.REMOTE_ID);
-                model.clearValue(Task.REMOTE_ID); // Having this can screw up
-                // autosync
+                model.clearValue(Task.REMOTE_ID); // Having this can screw up autosync
             }
         }
 
@@ -738,6 +739,7 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
             }
             model = TaskService.createWithValues(values, null,
                     taskService, metadataService);
+            getActivity().getIntent().putExtra(TOKEN_ID, model.getId());
         }
 
         if (model.getValue(Task.TITLE).length() == 0) {
@@ -874,7 +876,8 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
                     R.anim.slide_right_in, R.anim.slide_right_out);
         }
 
-        if (title.getText().length() == 0 && isNewTask && model.isSaved()) {
+        if (title.getText().length() == 0 && isNewTask
+                && model != null && model.isSaved()) {
             taskService.delete(model);
         }
     }
@@ -957,12 +960,6 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
     private void showDeleteToast() {
         Toast.makeText(getActivity(), R.string.TEA_onTaskDelete,
                 Toast.LENGTH_SHORT).show();
-    }
-
-    protected void commentsButtonClick() {
-        Intent launchIntent = new Intent(getActivity(), EditNoteActivity.class);
-        launchIntent.putExtra(EditNoteActivity.EXTRA_TASK_ID, model.getId());
-        startActivity(launchIntent);
     }
 
     @Override
