@@ -73,6 +73,8 @@ abstract public class OrderedListUpdater<LIST> {
         iterateThroughList(filter, list, new OrderedListIterator() {
             @Override
             public void processTask(long taskId, Metadata metadata) {
+                if(!metadata.isSaved())
+                    metadata = createEmptyMetadata(list, taskId);
                 int indent = metadata.getValue(indentProperty());
 
                 if(targetTaskId == taskId) {
@@ -163,9 +165,13 @@ abstract public class OrderedListUpdater<LIST> {
                 target.parent = root;
             } else {
                 Node sibling = findNode(root, moveBeforeTaskId);
-                if(sibling != null) {
+                if(sibling != null && !ancestorOf(target, sibling)) {
                     int index = sibling.parent.children.indexOf(sibling);
                     target.parent.children.remove(target);
+
+                    if(target.parent == sibling.parent &&
+                            target.parent.children.indexOf(target) < index)
+                        index--;
                     sibling.parent.children.add(index, target);
                     target.parent = sibling.parent;
                 }
@@ -173,6 +179,14 @@ abstract public class OrderedListUpdater<LIST> {
         }
 
         traverseTreeAndWriteValues(list, root, new AtomicLong(0), -1);
+    }
+
+    private boolean ancestorOf(Node ancestor, Node descendant) {
+        if(descendant.parent == ancestor)
+            return true;
+        if(descendant.parent == null)
+            return false;
+        return ancestorOf(ancestor, descendant.parent);
     }
 
     protected static class Node {

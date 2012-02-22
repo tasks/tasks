@@ -18,7 +18,6 @@ import com.todoroo.andlib.data.Property;
 import com.todoroo.andlib.data.TodorooCursor;
 import com.todoroo.astrid.activity.TaskListFragment;
 import com.todoroo.astrid.adapter.TaskAdapter;
-import com.todoroo.astrid.data.Metadata;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.ui.DraggableListView;
 
@@ -54,19 +53,8 @@ public class SubtasksListFragment extends TaskListFragment {
     @SuppressWarnings("nls")
     @Override
     protected void setUpTaskList() {
-        String query = filter.sqlQuery;
 
-        String subtaskJoin = String.format("LEFT JOIN %s ON (%s = %s AND %s = '%s') ",
-                Metadata.TABLE, Task.ID, Metadata.TASK,
-                Metadata.KEY, SubtasksMetadata.METADATA_KEY);
-        if(!query.contains(subtaskJoin)) {
-            query = subtaskJoin + query;
-            query = query.replaceAll("ORDER BY .*", "");
-            query = query + String.format(" ORDER BY CAST(%s AS LONG) ASC, %s ASC",
-                    SubtasksMetadata.ORDER, Task.ID);
-
-            filter.sqlQuery = query;
-        }
+        updater.applySubtasksToFilter(filter);
 
         super.setUpTaskList();
 

@@ -77,4 +77,21 @@ public class SubtasksUpdater extends OrderedListUpdater<Long> {
             cursor.close();
         }
     }
+
+    @SuppressWarnings("nls")
+    public void applySubtasksToFilter(Filter filter) {
+        String query = filter.sqlQuery;
+
+        String subtaskJoin = String.format("LEFT JOIN %s ON (%s = %s AND %s = '%s') ",
+                Metadata.TABLE, Task.ID, Metadata.TASK,
+                Metadata.KEY, SubtasksMetadata.METADATA_KEY);
+        if(!query.contains(subtaskJoin)) {
+            query = subtaskJoin + query;
+            query = query.replaceAll("ORDER BY .*", "");
+            query = query + String.format(" ORDER BY CAST(%s AS LONG) ASC, %s ASC",
+                    SubtasksMetadata.ORDER, Task.ID);
+
+            filter.sqlQuery = query;
+        }
+    }
 }
