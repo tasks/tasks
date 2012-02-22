@@ -273,6 +273,7 @@ public class RepeatControlSet extends PopupControlSet {
             @Override
             public void onItemSelected(AdapterView<?> parentView, View view, int position, long id) {
                 daysOfWeekContainer.setVisibility(position == INTERVAL_WEEKS ? View.VISIBLE : View.GONE);
+                intervalValue = position;
             }
 
             @Override
