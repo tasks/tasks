@@ -95,10 +95,6 @@ public class TagViewFragment extends TaskListFragment {
 
     // --- UI initialization
 
-    public TagViewFragment(Bundle extras) {
-        super(extras);
-    }
-
     @Override
     public void onActivityCreated(final Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);

@@ -1,8 +1,6 @@
 package com.todoroo.astrid.adapter;
 
-import java.lang.reflect.Constructor;
-import java.lang.reflect.InvocationTargetException;
-
+import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
@@ -31,25 +29,19 @@ public class TaskListFragmentPagerAdapter extends FragmentStatePagerAdapter {
     }
 
     private Fragment getFragmentForFilter(Filter filter) {
+        Bundle extras = getExtrasForFilter(filter);
+        return TaskListFragment.instantiateWithFilterAndExtras(filter, extras, TaskListFragment.class);
+    }
+
+    private Bundle getExtrasForFilter(Filter filter) {
+        Bundle extras;
         if (filter instanceof FilterWithCustomIntent) {
-            try {
-                Class<?> component = Class.forName(((FilterWithCustomIntent) filter).customTaskList.getClassName());
-                Constructor<?> constructor = component.getConstructor(Boolean.class, Filter.class);
-                return (Fragment) constructor.newInstance(true, filter);
-            } catch (NoSuchMethodException e) {
-                return new TaskListFragment(null);
-            } catch (InvocationTargetException e) {
-                return new TaskListFragment(null);
-            } catch (ClassNotFoundException e) {
-                return new TaskListFragment(null);
-            } catch (IllegalAccessException e) {
-                return new TaskListFragment(null);
-            } catch (InstantiationException e) {
-                return new TaskListFragment(null);
-            }
+            extras = ((FilterWithCustomIntent) filter).customExtras;
         } else {
-            return new TaskListFragment(null);
+            extras = new Bundle();
         }
+        extras.putParcelable(TaskListFragment.TOKEN_FILTER, filter);
+        return extras;
     }
 
 }

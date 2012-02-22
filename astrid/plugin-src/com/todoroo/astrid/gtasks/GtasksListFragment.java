@@ -64,10 +64,6 @@ public class GtasksListFragment extends DraggableTaskListFragment {
         GtasksList.LAST_SYNC
     };
 
-    public GtasksListFragment(Bundle extras) {
-        super(extras);
-    }
-
     @Override
     public void onActivityCreated(Bundle icicle) {
         super.onActivityCreated(icicle);

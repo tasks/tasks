@@ -26,6 +26,7 @@ import android.support.v4.app.SupportActivity;
 import android.support.v4.view.Menu;
 import android.support.v4.view.MenuItem;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
 import android.view.KeyEvent;
@@ -64,6 +65,7 @@ import com.todoroo.astrid.adapter.TaskAdapter.OnCompletedTaskListener;
 import com.todoroo.astrid.adapter.TaskAdapter.ViewHolder;
 import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.api.Filter;
+import com.todoroo.astrid.api.FilterWithCustomIntent;
 import com.todoroo.astrid.api.TaskContextActionExposer;
 import com.todoroo.astrid.api.TaskDecoration;
 import com.todoroo.astrid.core.CoreFilterExposer;
@@ -175,7 +177,7 @@ public class TaskListFragment extends ListFragment implements OnScrollListener,
 
     private Timer backgroundTimer;
     private boolean isFilter;
-    protected final Bundle extras;
+    protected Bundle extras;
 
     private final TaskListContextMenuExtensionLoader contextMenuExtensionLoader = new TaskListContextMenuExtensionLoader();
 
@@ -193,12 +195,31 @@ public class TaskListFragment extends ListFragment implements OnScrollListener,
         AstridDependencyInjector.initialize();
     }
 
-    private TaskListFragment() {
-        this(null);
+    @SuppressWarnings("nls")
+    public static TaskListFragment instantiateWithFilterAndExtras(Filter filter, Bundle extras, Class<?> customComponent) {
+        Class<?> component = customComponent;
+        if (filter instanceof FilterWithCustomIntent) {
+            try {
+                component = Class.forName(((FilterWithCustomIntent) filter).customTaskList.getClassName());
+            } catch (Exception e) {
+                // Invalid
+            }
+        }
+        TaskListFragment newFragment;
+        try {
+            newFragment = (TaskListFragment) component.newInstance();
+        } catch (java.lang.InstantiationException e) {
+            Log.e("tla-instantiate", "tla-instantiate", e);
+            newFragment = new TaskListFragment();
+        } catch (IllegalAccessException e) {
+            Log.e("tla-instantiate", "tla-instantiate", e);
+            newFragment = new TaskListFragment();
+        }
+        newFragment.setExtras(extras);
+        return newFragment;
     }
 
-    public TaskListFragment(Bundle extras) {
-        super();
+    public void setExtras(Bundle extras) {
         this.extras = extras;
     }
 

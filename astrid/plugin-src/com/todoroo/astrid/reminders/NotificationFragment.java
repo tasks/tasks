@@ -71,10 +71,6 @@ public class NotificationFragment extends TaskListFragment implements OnTimeSetL
 
     private long taskId;
 
-    public NotificationFragment(Bundle extras) {
-        super(extras);
-    }
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         StartupService.bypassInitialization();
