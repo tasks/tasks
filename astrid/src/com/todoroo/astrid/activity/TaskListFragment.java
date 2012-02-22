@@ -1182,6 +1182,7 @@ public class TaskListFragment extends ListFragment implements OnScrollListener,
                             TasksWidget.WidgetUpdateService.class));
         }
 
-        ((AstridActivity)getActivity()).onFilterItemClicked(getFilter());
+        Filter newFilter = isInbox ? null : filter;
+        ((AstridActivity)getActivity()).onFilterItemClicked(newFilter);
     }
 }

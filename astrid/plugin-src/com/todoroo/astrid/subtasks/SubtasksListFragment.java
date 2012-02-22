@@ -2,6 +2,8 @@ package com.todoroo.astrid.subtasks;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.concurrent.atomic.AtomicBoolean;
+import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicReference;
 
 import android.database.Cursor;
@@ -16,9 +18,13 @@ import com.commonsware.cwac.tlv.TouchListView.SwipeListener;
 import com.timsu.astrid.R;
 import com.todoroo.andlib.data.Property;
 import com.todoroo.andlib.data.TodorooCursor;
+import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.astrid.activity.TaskListFragment;
 import com.todoroo.astrid.adapter.TaskAdapter;
+import com.todoroo.astrid.adapter.TaskAdapter.OnCompletedTaskListener;
+import com.todoroo.astrid.data.Metadata;
 import com.todoroo.astrid.data.Task;
+import com.todoroo.astrid.subtasks.OrderedListUpdater.OrderedListIterator;
 import com.todoroo.astrid.ui.DraggableListView;
 
 public class SubtasksListFragment extends TaskListFragment {
@@ -118,8 +124,17 @@ public class SubtasksListFragment extends TaskListFragment {
 
     @Override
     protected TaskAdapter createTaskAdapter(TodorooCursor<Task> cursor) {
-        return new DraggableTaskAdapter(this, R.layout.task_adapter_row,
+        taskAdapter = new DraggableTaskAdapter(this, R.layout.task_adapter_row,
                 cursor, sqlQueryTemplate, false, null);
+
+        taskAdapter.addOnCompletedTaskListener(new OnCompletedTaskListener() {
+            @Override
+            public void onCompletedTask(Task item, boolean newState) {
+                setCompletedForItemAndSubtasks(item, newState);
+            }
+        });
+
+        return taskAdapter;
     }
 
     private final class DraggableTaskAdapter extends TaskAdapter {
@@ -157,6 +172,48 @@ public class SubtasksListFragment extends TaskListFragment {
             return listener;
         }
 
+    }
+
+
+    private void setCompletedForItemAndSubtasks(Task item, boolean completedState) {
+        final long itemId = item.getId();
+        final boolean completed = completedState;
+
+        new Thread() {
+            @Override
+            public void run() {
+                final AtomicInteger startIndent = new AtomicInteger(-1);
+                final AtomicBoolean finished = new AtomicBoolean(false);
+                final Task task = new Task();
+                task.setValue(Task.COMPLETION_DATE, completed ? DateUtilities.now() : 0);
+
+                updater.iterateThroughList(filter, SubtasksMetadata.LIST_ACTIVE_TASKS, new OrderedListIterator() {
+                    @Override
+                    public void processTask(long taskId, Metadata metadata) {
+                        if(finished.get())
+                            return;
+
+                        int indent = metadata.containsNonNullValue(SubtasksMetadata.INDENT) ?
+                                metadata.getValue(SubtasksMetadata.INDENT) : 0;
+                        if(taskId == itemId) {
+                            startIndent.set(indent);
+                            return;
+                        } else if(indent == startIndent.get()) {
+                            finished.set(true);
+                            return;
+                        }
+
+                        task.setId(taskId);
+                        taskService.save(task);
+                    }
+                });
+                getActivity().runOnUiThread(new Runnable() {
+                    public void run() {
+                        loadTaskListContent(true);
+                    }
+                });
+            }
+        }.start();
     }
 
 }
