@@ -261,16 +261,14 @@ public class UpdateAdapter extends CursorAdapter {
             commentResource = R.string.update_string_task_assigned;
         }
         else if (actionCode.equals(UPDATE_TASK_COMMENT)) {
-            if (fromView.equals(FROM_TASK_VIEW))
+            if (fromView.equals(FROM_TASK_VIEW) || TextUtils.isEmpty(targetName))
                 commentResource = R.string.update_string_default_comment;
             else
                 commentResource = R.string.update_string_task_comment;
-
         }
         else if (actionCode.equals(UPDATE_TAG_COMMENT)) {
-            if (fromView.equals(FROM_TAG_VIEW))
+            if (fromView.equals(FROM_TAG_VIEW)  || TextUtils.isEmpty(targetName))
                 commentResource = R.string.update_string_default_comment;
-
             else
                 commentResource = R.string.update_string_tag_comment;
 

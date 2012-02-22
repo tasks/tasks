@@ -444,6 +444,7 @@ public class EditNoteActivity extends LinearLayout implements TimerActionListene
             update.setValue(Update.TASK, task.getValue(Task.REMOTE_ID));
         update.setValue(Update.TASK_LOCAL, task.getId());
         update.setValue(Update.CREATION_DATE, DateUtilities.now());
+        update.setValue(Update.TARGET_NAME, task.getValue(Task.TITLE));
 
         if (usePicture && pendingCommentPicture != null) {
             update.setValue(Update.PICTURE, Update.PICTURE_LOADING);
