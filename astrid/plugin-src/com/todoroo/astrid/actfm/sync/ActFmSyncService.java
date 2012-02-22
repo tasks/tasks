@@ -1116,6 +1116,9 @@ public final class ActFmSyncService {
         public static void updateFromJson(JSONObject json, Update model) throws JSONException {
             model.setValue(Update.REMOTE_ID, json.getLong("id"));
             readUser(json.getJSONObject("user"), model, Update.USER_ID, Update.USER);
+            if (json.has("other_user")) {
+                readUser(json.getJSONObject("other_user"), model, Update.OTHER_USER_ID, Update.OTHER_USER);
+            }
             model.setValue(Update.ACTION, json.getString("action"));
             model.setValue(Update.ACTION_CODE, json.getString("action_code"));
             model.setValue(Update.TARGET_NAME, json.getString("target_name"));
