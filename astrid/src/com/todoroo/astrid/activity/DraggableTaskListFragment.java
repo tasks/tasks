@@ -66,7 +66,8 @@ public class DraggableTaskListFragment extends TaskListFragment {
 
     // --- task adapter
 
-    public Property<?>[] getProperties() {
+    @Override
+    public Property<?>[] taskProperties() {
         ArrayList<Property<?>> properties = new ArrayList<Property<?>>(Arrays.asList(TaskAdapter.PROPERTIES));
         if(getIndentProperty() != null)
             properties.add(getIndentProperty());

@@ -21,6 +21,7 @@ import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Bitmap;
 import android.graphics.PixelFormat;
+import android.graphics.Point;
 import android.graphics.Rect;
 import android.os.Vibrator;
 import android.util.AttributeSet;
@@ -43,9 +44,9 @@ import com.timsu.astrid.R;
 
 public class DraggableListView extends ListView {
 
-    private static final int SWIPE_THRESHOLD = 20;
+    private static final int SWIPE_THRESHOLD = 40;
 
-    private static final int MOVEMENT_THRESHOLD = 10;
+    private static final int MOVEMENT_THRESHOLD = 30;
 
     // --- drag status
     private float mTouchStartX, mTouchCurrentX, mTouchStartY, mTouchCurrentY;
@@ -53,8 +54,8 @@ public class DraggableListView extends ListView {
 
     private int mDragPos;      // which item is being dragged
     private int mFirstDragPos; // where was the dragged item originally
-    private int mDragPoint;    // at what offset inside the item did the user grab it
-    private int mCoordOffset;  // the difference between screen coordinates and coordinates in this view
+    private Point mDragPoint;    // at what offset inside the item did the user grab it
+    private Point mCoordOffset;  // the difference between screen coordinates and coordinates in this view
 
     // --- drag drawing
 	private ImageView mDragView;
@@ -102,7 +103,7 @@ public class DraggableListView extends ListView {
             a.recycle();
         }
 
-        setSelector(null);
+        setSelector(R.drawable.none);
     }
 
     protected boolean isDraggableRow(@SuppressWarnings("unused") View view) {
@@ -127,7 +128,7 @@ public class DraggableListView extends ListView {
     }
 
     private int getItemForPosition(int y) {
-        int adjustedy = y - mDragPoint - (mItemHeightNormal / 2);
+        int adjustedy = y - mDragPoint.y - (mItemHeightNormal / 2);
         int pos = myPointToPosition(0, adjustedy);
         if (pos >= 0) {
             if (pos <= mFirstDragPos) {
@@ -250,8 +251,19 @@ public class DraggableListView extends ListView {
             if(mDragging)
                 stopDragging();
 
-            else if (dragThread != null && mClickListener != null)
-                mClickListener.onClick(viewAtPosition());
+            else {
+                if (dragThread != null && mClickListener != null)
+                    mClickListener.onClick(viewAtPosition());
+
+                else if (mSwipeListener != null &&
+                            Math.abs(mTouchCurrentY - mTouchStartY) < MOVEMENT_THRESHOLD) {
+                    int dragPos = pointToPosition((int)mTouchCurrentX, (int)mTouchCurrentY);
+                    if (mTouchCurrentX > mTouchStartX + SWIPE_THRESHOLD)
+                        mSwipeListener.swipeRight(dragPos);
+                    else if (mTouchCurrentX < mTouchStartX - SWIPE_THRESHOLD)
+                        mSwipeListener.swipeLeft(dragPos);
+                }
+            }
 
             if(dragThread != null) {
                 dragThread.interrupt();
@@ -309,10 +321,8 @@ public class DraggableListView extends ListView {
 
         public void run() {
             try {
-                System.err.println("<<< commence fire");
                 Thread.sleep(300L);
 
-                System.err.println("<<< initiate drag!");
                 post(new Runnable() {
                     @Override
                     public void run() {
@@ -321,18 +331,17 @@ public class DraggableListView extends ListView {
                 });
 
                 Thread.sleep(1000L);
-                System.err.println("<<< me love you long time!");
 
                 post(new Runnable() {
                     public void run() {
                         stopDragging();
+                        dragThread = null;
                         mClickListener.onLongClick(viewAtPosition());
                     }
                 });
 
             } catch (InterruptedException e) {
                 // bye!
-                System.err.println("<<< drag interrupted");
             }
         }
     };
@@ -353,8 +362,8 @@ public class DraggableListView extends ListView {
         if(!isDraggableRow(item))
             return false;
 
-        mDragPoint = y - item.getTop();
-        mCoordOffset = ((int) ev.getRawY()) - y;
+        mDragPoint = new Point(x - item.getLeft(), y - item.getTop());
+        mCoordOffset = new Point((int)ev.getRawX() - x, (int)ev.getRawY() - y);
 
         item.setDrawingCacheEnabled(true);
 
@@ -386,7 +395,7 @@ public class DraggableListView extends ListView {
         mWindowParams = new WindowManager.LayoutParams();
         mWindowParams.gravity = Gravity.TOP | Gravity.LEFT;
         mWindowParams.x = x;
-        mWindowParams.y = y - mDragPoint + mCoordOffset;
+        mWindowParams.y = y - mDragPoint.y + mCoordOffset.y;
 
         mWindowParams.height = WindowManager.LayoutParams.WRAP_CONTENT;
         mWindowParams.width = WindowManager.LayoutParams.WRAP_CONTENT;
@@ -413,7 +422,15 @@ public class DraggableListView extends ListView {
         int x = (int) ev.getX();
         int y = (int) ev.getY();
 
-        mWindowParams.y = y - mDragPoint + mCoordOffset;
+        mWindowParams.y = y - mDragPoint.y + mCoordOffset.y;
+
+        if (x > mTouchStartX + SWIPE_THRESHOLD)
+            mDragView.setPadding(30, 1, 0, 1);
+        else if (x < mTouchStartX - SWIPE_THRESHOLD)
+            mDragView.setPadding(-30, 1, 0, 1);
+        else
+            mDragView.setPadding(0, 0, 0, 0);
+
         mWindowManager.updateViewLayout(mDragView, mWindowParams);
 
         int itemnum = getItemForPosition(y);
@@ -470,11 +487,9 @@ public class DraggableListView extends ListView {
 
         if(mDragging) {
             if (mSwipeListener != null && mDragPos == mFirstDragPos) {
-                System.err.format("in swipe consideration - %.2f vs %.2f\n",
-                        mTouchCurrentX , mTouchStartX);
                 if (mTouchCurrentX > mTouchStartX + SWIPE_THRESHOLD)
                     mSwipeListener.swipeRight(mFirstDragPos);
-                else if (mTouchStartX < mTouchStartX - SWIPE_THRESHOLD)
+                else if (mTouchCurrentX < mTouchStartX - SWIPE_THRESHOLD)
                     mSwipeListener.swipeLeft(mFirstDragPos);
             } else if(mDropListener != null && mDragPos != mFirstDragPos &&
                     mDragPos >= 0 && mDragPos < getCount()) {

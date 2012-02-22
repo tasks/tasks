@@ -45,6 +45,7 @@ import android.widget.TextView;
 
 import com.crittercism.NewFeedbackSpringboardActivity;
 import com.timsu.astrid.R;
+import com.todoroo.andlib.data.Property;
 import com.todoroo.andlib.data.TodorooCursor;
 import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.ContextManager;
@@ -791,7 +792,7 @@ public class TaskListFragment extends ListFragment implements OnScrollListener,
 
         // perform query
         TodorooCursor<Task> currentCursor = taskService.fetchFiltered(
-                sqlQueryTemplate.get(), null, TaskAdapter.PROPERTIES);
+                sqlQueryTemplate.get(), null, taskProperties());
 
         // set up list adapters
         taskAdapter = createTaskAdapter(currentCursor);
@@ -802,6 +803,10 @@ public class TaskListFragment extends ListFragment implements OnScrollListener,
         syncActionHelper = new SyncActionHelper(getActivity());
 
         loadTaskListContent(true);
+    }
+
+    protected Property<?>[] taskProperties() {
+        return TaskAdapter.PROPERTIES;
     }
 
     public Filter getFilter() {
@@ -835,7 +840,7 @@ public class TaskListFragment extends ListFragment implements OnScrollListener,
                     "WHERE " + TaskCriteria.byId(withCustomId) + " OR "));
 
         currentCursor = taskService.fetchFiltered(sqlQueryTemplate.get(), null,
-                TaskAdapter.PROPERTIES);
+                taskProperties());
         getListView().setFilterText("");
 
         taskAdapter.changeCursor(currentCursor);

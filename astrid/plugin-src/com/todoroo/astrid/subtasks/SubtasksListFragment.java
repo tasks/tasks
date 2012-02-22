@@ -73,7 +73,8 @@ public class SubtasksListFragment extends TaskListFragment {
         unregisterForContextMenu(getListView());
     }
 
-    public Property<?>[] getProperties() {
+    @Override
+    public Property<?>[] taskProperties() {
         ArrayList<Property<?>> properties = new ArrayList<Property<?>>(Arrays.asList(TaskAdapter.PROPERTIES));
         properties.add(SubtasksMetadata.INDENT);
         return properties.toArray(new Property<?>[properties.size()]);
@@ -125,13 +126,13 @@ public class SubtasksListFragment extends TaskListFragment {
     private final GrabberClickListener rowClickListener = new GrabberClickListener() {
         @Override
         public void onLongClick(final View v) {
-            System.err.println(v);
+            registerForContextMenu(getListView());
             getListView().showContextMenuForChild(v);
+            unregisterForContextMenu(getListView());
         }
 
         @Override
         public void onClick(View v) {
-            System.err.println(v);
             ((DraggableTaskAdapter) taskAdapter).getListener().onClick(v);
         }
     };
@@ -167,7 +168,7 @@ public class SubtasksListFragment extends TaskListFragment {
             view.getLayoutParams().height = Math.round(45 * metrics.density);
             ViewHolder vh = (ViewHolder) view.getTag();
             int indent = vh.task.getValue(SubtasksMetadata.INDENT);
-            vh.rowBody.setPadding(Math.round(indent * 10 * metrics.density), 0, 0, 0);
+            vh.rowBody.setPadding(Math.round(indent * 20 * metrics.density), 0, 0, 0);
         }
 
         @Override
