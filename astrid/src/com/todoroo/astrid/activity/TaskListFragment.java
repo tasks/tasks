@@ -1164,10 +1164,10 @@ public class TaskListFragment extends ListFragment implements OnScrollListener,
 
     protected void toggleDragDrop(boolean newState) {
         if(newState)
-            ((AstridActivity)getActivity()).setupTasklistFragmentWithFilterAndCustomTaskList(filter,
+            ((AstridActivity)getActivity()).setupTasklistFragmentWithFilterAndCustomTaskList(null,
                     SubtasksListFragment.class);
         else
-            ((AstridActivity)getActivity()).setupTasklistFragmentWithFilterAndCustomTaskList(filter,
+            ((AstridActivity)getActivity()).setupTasklistFragmentWithFilterAndCustomTaskList(null,
                     TaskListFragment.class);
     }
 
