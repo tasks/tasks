@@ -136,6 +136,9 @@ public class SubtasksFragmentHelper {
     private final GrabberClickListener rowClickListener = new GrabberClickListener() {
         @Override
         public void onLongClick(final View v) {
+            if(v == null)
+                return;
+
             fragment.registerForContextMenu(getListView());
             getListView().showContextMenuForChild(v);
             fragment.unregisterForContextMenu(getListView());
@@ -143,6 +146,8 @@ public class SubtasksFragmentHelper {
 
         @Override
         public void onClick(View v) {
+            if(v == null)
+                return;
             ((DraggableTaskAdapter) taskAdapter).getListener().onClick(v);
         }
     };
