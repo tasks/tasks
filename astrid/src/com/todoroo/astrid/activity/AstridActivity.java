@@ -205,12 +205,9 @@ public class AstridActivity extends FragmentActivity
     public final void setupTasklistFragmentWithFilter(Filter filter) {
         Class<?> customTaskList = TaskListFragment.class;
 
-        System.err.println("default time - " + ((filter != null) ? filter.title : "null")); //$NON-NLS-1$
         if(filter == null || CoreFilterExposer.isInbox(filter)) {
-            System.err.println("is inbox"); //$NON-NLS-1$
             SharedPreferences publicPrefs = AstridPreferences.getPublicPrefs(this);
             int sortFlags = publicPrefs.getInt(SortHelper.PREF_SORT_FLAGS, 0);
-            System.err.println("is manual sort? " + SortHelper.isManualSort(sortFlags)); //$NON-NLS-1$
             if(SortHelper.isManualSort(sortFlags))
                 customTaskList = SubtasksListFragment.class;
         }

@@ -83,7 +83,7 @@ public class SubtasksFragmentHelper {
     }
 
     public void beforeSetUpTaskList(Filter filter) {
-        updater.applySubtasksToFilter(filter, null);
+        updater.applySubtasksToFilter(filter, list);
         updater.sanitizeTaskList(filter, list);
     }
 
@@ -101,10 +101,17 @@ public class SubtasksFragmentHelper {
             long targetTaskId = taskAdapter.getItemId(from);
             long destinationTaskId = taskAdapter.getItemId(to);
 
+            System.err.println("move " + from + " to " + to);
+
+            updater.debugPrint(getFilter(), list);
+
             if(to == getListView().getCount() - 1)
                 updater.moveTo(getFilter(), list, targetTaskId, -1);
             else
                 updater.moveTo(getFilter(), list, targetTaskId, destinationTaskId);
+
+            System.err.println(" --- after ---");
+            updater.debugPrint(getFilter(), list);
 
             fragment.loadTaskListContent(true);
         }

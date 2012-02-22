@@ -156,6 +156,7 @@ abstract public class OrderedListUpdater<LIST> {
         if(list == null)
             return;
 
+        System.err.println("u wanna? " + targetTaskId + " before " + moveBeforeTaskId);
         Node root = buildTreeModel(filter, list);
         Node target = findNode(root, targetTaskId);
 
@@ -166,6 +167,7 @@ abstract public class OrderedListUpdater<LIST> {
                 target.parent = root;
             } else {
                 Node sibling = findNode(root, moveBeforeTaskId);
+                System.err.println("siblin found: " + sibling);
                 if(sibling != null && !ancestorOf(target, sibling)) {
                     int index = sibling.parent.children.indexOf(sibling);
 
@@ -211,6 +213,7 @@ abstract public class OrderedListUpdater<LIST> {
             metadata.setValue(indentProperty(), indent);
             if(parentProperty() != null)
                 metadata.setValue(parentProperty(), node.parent.taskId);
+            System.err.println("updated metadata " + metadata.getSetValues() + " where " + metadata.getMergedValues());
             saveAndUpdateModifiedDate(metadata, node.taskId);
         }
 

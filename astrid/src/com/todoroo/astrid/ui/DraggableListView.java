@@ -218,7 +218,7 @@ public class DraggableListView extends ListView {
             } else if (i == childnum) {
                 if (mDragPos < getCount() - 1) {
                     marginTop = mItemHeightNormal;
-                    // height = mItemHeightExpanded;
+                    height = 2 * mItemHeightNormal;
                 }
             }
 

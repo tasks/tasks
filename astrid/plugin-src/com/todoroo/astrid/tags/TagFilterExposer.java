@@ -81,7 +81,8 @@ public class TagFilterExposer extends BroadcastReceiver implements AstridFilterE
                 filter.color = Color.GRAY;
         }
 
-        TagData tagData = PluginServices.getTagDataService().getTag(tag.tag, TagData.ID, TagData.USER_ID, TagData.MEMBER_COUNT);
+        TagData tagData = PluginServices.getTagDataService().getTag(tag.tag, TagData.ID,
+                TagData.USER_ID, TagData.MEMBER_COUNT);
         int deleteIntentLabel;
         if (tagData != null && tagData.getValue(TagData.MEMBER_COUNT) > 0 && tagData.getValue(TagData.USER_ID) != 0)
             deleteIntentLabel = R.string.tag_cm_leave;

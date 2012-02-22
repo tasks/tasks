@@ -132,8 +132,10 @@ public final class TagService {
          * @return
          */
         public QueryTemplate queryTemplate(Criterion criterion) {
-            return new QueryTemplate().join(Join.inner(Metadata.TABLE,
-                    Task.ID.eq(Metadata.TASK))).where(tagEqIgnoreCase(tag, criterion));
+            return new QueryTemplate().join(Join.inner(Metadata.TABLE.as("mtags"),
+                    Criterion.and(Task.ID.eq(Field.field("mtags." + Metadata.TASK.name)),
+                            Field.field("mtags." + Metadata.KEY.name).eq(KEY),
+                            Field.field("mtags." + TAG.name).eqCaseInsensitive(tag)))).where(criterion);
         }
 
     }

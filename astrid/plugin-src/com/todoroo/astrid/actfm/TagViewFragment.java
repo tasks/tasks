@@ -200,6 +200,7 @@ public class TagViewFragment extends TaskListFragment {
             cursor.close();
         }
 
+        postLoadTagData();
         setUpMembersGallery();
 
         super.onNewIntent(intent);
@@ -208,6 +209,10 @@ public class TagViewFragment extends TaskListFragment {
             activity.getIntent().removeExtra(TOKEN_START_ACTIVITY);
             activity.showComments();
         }
+    }
+
+    protected void postLoadTagData() {
+        // stub
     }
 
     @Override

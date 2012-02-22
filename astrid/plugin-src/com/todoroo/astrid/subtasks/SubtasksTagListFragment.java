@@ -1,6 +1,5 @@
 package com.todoroo.astrid.subtasks;
 
-import android.content.Intent;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -21,10 +20,10 @@ public class SubtasksTagListFragment extends TagViewFragment {
     }
 
     @Override
-    protected void onNewIntent(Intent intent) {
-        super.onNewIntent(intent);
+    protected void postLoadTagData() {
         String list = "td:" + tagData.getId(); //$NON-NLS-1$
         helper.setList(list);
+        System.err.println("set list to " + list);
     }
 
     /* (non-Javadoc)
@@ -52,6 +51,7 @@ public class SubtasksTagListFragment extends TagViewFragment {
     @Override
     protected void setUpTaskList() {
         helper.beforeSetUpTaskList(filter);
+        System.err.println("sql: " + filter.sqlQuery);
 
         super.setUpTaskList();
 
