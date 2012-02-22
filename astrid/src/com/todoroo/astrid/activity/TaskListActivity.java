@@ -9,6 +9,7 @@ import android.content.IntentFilter;
 import android.os.Bundle;
 import android.support.v4.app.ActionBar;
 import android.support.v4.app.Fragment;
+import android.support.v4.view.ViewPager.OnPageChangeListener;
 import android.util.DisplayMetrics;
 import android.util.TypedValue;
 import android.view.MotionEvent;
@@ -29,9 +30,12 @@ import com.todoroo.astrid.actfm.ActFmLoginActivity;
 import com.todoroo.astrid.actfm.TagSettingsActivity;
 import com.todoroo.astrid.actfm.TagUpdatesFragment;
 import com.todoroo.astrid.actfm.TagViewFragment;
+import com.todoroo.astrid.adapter.FilterAdapter;
+import com.todoroo.astrid.adapter.TaskListFragmentPagerAdapter;
 import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.api.FilterListItem;
+import com.todoroo.astrid.core.CoreFilterExposer;
 import com.todoroo.astrid.core.CustomFilterExposer;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.reminders.NotificationFragment;
@@ -43,11 +47,12 @@ import com.todoroo.astrid.ui.DateChangedAlerts;
 import com.todoroo.astrid.ui.FragmentPopover;
 import com.todoroo.astrid.ui.MainMenuPopover;
 import com.todoroo.astrid.ui.MainMenuPopover.MainMenuListener;
+import com.todoroo.astrid.ui.TaskListFragmentPager;
 import com.todoroo.astrid.utility.Constants;
 import com.todoroo.astrid.utility.Flags;
 import com.todoroo.astrid.welcome.tutorial.WelcomeWalkthrough;
 
-public class TaskListActivity extends AstridActivity implements MainMenuListener {
+public class TaskListActivity extends AstridActivity implements MainMenuListener, OnPageChangeListener {
 
     public static final String TOKEN_SELECTED_FILTER = "selectedFilter"; //$NON-NLS-1$
 
@@ -59,6 +64,9 @@ public class TaskListActivity extends AstridActivity implements MainMenuListener
     private TextView lists;
     private ImageView mainMenu;
     private Button commentsButton;
+
+    private TaskListFragmentPager tlfPager;
+    private TaskListFragmentPagerAdapter tlfPagerAdapter;
 
     private FragmentPopover listsPopover;
     private FragmentPopover editPopover;
@@ -147,9 +155,24 @@ public class TaskListActivity extends AstridActivity implements MainMenuListener
 		commentsButton.setOnClickListener(commentsButtonClickListener);
 
         Filter savedFilter = getIntent().getParcelableExtra(TaskListFragment.TOKEN_FILTER);
+        if (savedFilter == null)
+            savedFilter = CoreFilterExposer.buildInboxFilter(getResources());
+
         Bundle extras = getIntent().getExtras();
         if (extras != null)
             extras = (Bundle) extras.clone();
+
+        if (fragmentLayout == LAYOUT_SINGLE) {
+            FilterListFragment flf = getFilterListFragment();
+            if (flf == null)
+                throw new RuntimeException("Filterlist fragment was null, needs to exist to construct the fragment pager"); //$NON-NLS-1$
+            FilterAdapter adapter = flf.adapter;
+            tlfPager = (TaskListFragmentPager) findViewById(R.id.pager);
+            tlfPagerAdapter = new TaskListFragmentPagerAdapter(getSupportFragmentManager(), adapter);
+            tlfPager.setAdapter(tlfPagerAdapter);
+            tlfPager.setOnPageChangeListener(this);
+        }
+
         if (getIntent().getIntExtra(TOKEN_SOURCE, Constants.SOURCE_DEFAULT) == Constants.SOURCE_NOTIFICATION)
             setupTasklistFragmentWithFilterAndCustomTaskList(savedFilter, extras, NotificationFragment.class);
         else
@@ -161,6 +184,24 @@ public class TaskListActivity extends AstridActivity implements MainMenuListener
         if (getIntent().hasExtra(TOKEN_SOURCE)) {
             trackActivitySource();
         }
+	}
+
+	@Override
+    protected void setupTasklistFragmentWithFilter(Filter filter, Bundle extras) {
+	    if (fragmentLayout == LAYOUT_SINGLE) {
+	        tlfPager.showFilter(filter); // TODO: make sure we handle the extras and the custom task list
+	    } else {
+	        super.setupTasklistFragmentWithFilter(filter, extras);
+	    }
+	}
+
+	@Override
+    protected void setupTasklistFragmentWithFilterAndCustomTaskList(Filter filter, Bundle extras, Class<?> customTaskList) {
+	    if (fragmentLayout == LAYOUT_SINGLE) {
+	        tlfPager.showFilter(filter); // TODO: make sure we handle the extras and the custom task list
+	    } else {
+	        super.setupTasklistFragmentWithFilterAndCustomTaskList(filter, extras, customTaskList);
+	    }
 	}
 
 	/**
@@ -186,13 +227,13 @@ public class TaskListActivity extends AstridActivity implements MainMenuListener
 		    }
 
 		    setupFragment(FilterListFragment.TAG_FILTERLIST_FRAGMENT,
-		            R.id.filterlist_fragment_container, FilterListFragment.class);
+		            R.id.filterlist_fragment_container, FilterListFragment.class, false);
 		} else {
 		    fragmentLayout = LAYOUT_SINGLE;
 		    actionBar.setDisplayHomeAsUpEnabled(true);
 		    listsNav.setOnClickListener(popupMenuClickListener);
 		    createListsPopover();
-		    setupPopoverWithFilterList((FilterListFragment) setupFragment(FilterListFragment.TAG_FILTERLIST_FRAGMENT, 0, FilterListFragment.class));
+		    setupPopoverWithFilterList((FilterListFragment) setupFragment(FilterListFragment.TAG_FILTERLIST_FRAGMENT, 0, FilterListFragment.class, true));
 		}
     }
 
@@ -280,6 +321,11 @@ public class TaskListActivity extends AstridActivity implements MainMenuListener
 	    if (listsPopover != null)
 	        listsPopover.dismiss();
 	    setCommentsCount(0);
+
+	    if (fragmentLayout == LAYOUT_SINGLE) {
+	        tlfPager.showFilter((Filter) item);
+	        return true;
+	    }
 	    return super.onFilterItemClicked(item);
 	}
 
@@ -342,6 +388,19 @@ public class TaskListActivity extends AstridActivity implements MainMenuListener
     public void setSelectedItem(Filter item) {
        lists.setText(item.title);
     }
+
+    @Override
+    public void onPageSelected(int position) {
+        if (tlfPagerAdapter != null)
+            setListsTitle(tlfPagerAdapter.getPageTitle(position).toString());
+    }
+
+    @Override
+    public void onPageScrolled(int position, float positionOffset,
+            int positionOffsetPixels) {}
+
+    @Override
+    public void onPageScrollStateChanged(int state) {}
 
     public void setCommentsCount(int count) {
         TypedValue tv = new TypedValue();

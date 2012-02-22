@@ -200,11 +200,11 @@ public class AstridActivity extends FragmentActivity
         transaction.commit();
     }
 
-    protected final void setupTasklistFragmentWithFilter(Filter filter, Bundle extras) {
+    protected void setupTasklistFragmentWithFilter(Filter filter, Bundle extras) {
         setupTasklistFragmentWithFilterAndCustomTaskList(filter, extras, TaskListFragment.class);
     }
 
-    protected final void setupTasklistFragmentWithFilterAndCustomTaskList(Filter filter, Bundle extras, Class<?> customTaskList) {
+    protected void setupTasklistFragmentWithFilterAndCustomTaskList(Filter filter, Bundle extras, Class<?> customTaskList) {
         TaskListFragment newFragment = TaskListFragment.instantiateWithFilterAndExtras(filter, extras, customTaskList);
 
         try {
@@ -285,8 +285,8 @@ public class AstridActivity extends FragmentActivity
         }
     }
 
-    protected Fragment setupFragment(String tag, int container, Class<? extends Fragment> cls) {
-        FragmentManager fm = getSupportFragmentManager();
+    protected Fragment setupFragment(String tag, int container, Class<? extends Fragment> cls, boolean createImmediate) {
+        final FragmentManager fm = getSupportFragmentManager();
         Fragment fragment = fm.findFragmentByTag(tag);
         if(fragment == null) {
             System.err.println("creating fragment of type " + cls.getSimpleName()); //$NON-NLS-1$
@@ -304,6 +304,13 @@ public class AstridActivity extends FragmentActivity
             else
                 ft.replace(container, fragment, tag);
             ft.commit();
+            if (createImmediate)
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        fm.executePendingTransactions();
+                    }
+                });
         }
         return fragment;
     }

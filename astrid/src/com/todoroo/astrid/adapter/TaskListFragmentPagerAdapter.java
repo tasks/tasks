@@ -6,26 +6,42 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 
 import com.todoroo.astrid.activity.TaskListFragment;
+import com.todoroo.astrid.adapter.FilterAdapter.FilterDataSourceChangedListener;
 import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.api.FilterWithCustomIntent;
 
-public class TaskListFragmentPagerAdapter extends FragmentStatePagerAdapter {
+public class TaskListFragmentPagerAdapter extends FragmentStatePagerAdapter implements FilterDataSourceChangedListener {
 
-    private final Filter[] filters;
+    private final FilterAdapter filterAdapter;
 
-    public TaskListFragmentPagerAdapter(FragmentManager fm, Filter[] filters) {
+    public TaskListFragmentPagerAdapter(FragmentManager fm, FilterAdapter filterAdapter) {
         super(fm);
-        this.filters = filters;
+        this.filterAdapter = filterAdapter;
+        filterAdapter.setDataSourceChangedListener(this);
+    }
+
+    @Override
+    public void filterDataSourceChanged() {
+        notifyDataSetChanged();
     }
 
     @Override
     public Fragment getItem(int position) {
-        return getFragmentForFilter(filters[position]);
+        return getFragmentForFilter(filterAdapter.getItem(position));
+    }
+
+    @Override
+    public CharSequence getPageTitle(int position) {
+        return filterAdapter.getItem(position).title;
+    }
+
+    public int addOrLookup(Filter filter) {
+        return filterAdapter.addOrLookup(filter);
     }
 
     @Override
     public int getCount() {
-        return filters.length;
+        return filterAdapter.getCount();
     }
 
     private Fragment getFragmentForFilter(Filter filter) {
@@ -40,7 +56,8 @@ public class TaskListFragmentPagerAdapter extends FragmentStatePagerAdapter {
         } else {
             extras = new Bundle();
         }
-        extras.putParcelable(TaskListFragment.TOKEN_FILTER, filter);
+        if (filter != null)
+            extras.putParcelable(TaskListFragment.TOKEN_FILTER, filter);
         return extras;
     }
 
