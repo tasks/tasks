@@ -14,7 +14,7 @@ public class SubtasksMovingTest extends DatabaseTestCase {
 
     private Filter filter;
     private Task A, B, C, D, E, F;
-    private final long list = SubtasksMetadata.LIST_ACTIVE_TASKS;
+    private final String list = SubtasksMetadata.LIST_ACTIVE_TASKS;
 
     /* Starting State:
      *
@@ -125,7 +125,7 @@ public class SubtasksMovingTest extends DatabaseTestCase {
 
         updater = new SubtasksUpdater();
         filter = CoreFilterExposer.buildInboxFilter(getContext().getResources());
-        updater.applySubtasksToFilter(filter);
+        updater.applySubtasksToFilter(filter, list);
     }
 
     private Task[] givenTasksABCDEF() {

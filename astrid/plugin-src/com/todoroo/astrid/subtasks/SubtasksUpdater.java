@@ -12,7 +12,7 @@ import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.service.MetadataService;
 import com.todoroo.astrid.service.TaskService;
 
-public class SubtasksUpdater extends OrderedListUpdater<Long> {
+public class SubtasksUpdater extends OrderedListUpdater<String> {
 
     private static final String METADATA_ID = "mdi"; //$NON-NLS-1$
 
@@ -34,12 +34,12 @@ public class SubtasksUpdater extends OrderedListUpdater<Long> {
     }
 
     @Override
-    protected Metadata getTaskMetadata(Long list, long taskId) {
+    protected Metadata getTaskMetadata(String list, long taskId) {
         TodorooCursor<Metadata> cursor = metadataService.query(Query.select(Metadata.PROPERTIES).where(
                 Criterion.and(
                         Metadata.TASK.eq(taskId),
                         Metadata.KEY.eq(SubtasksMetadata.METADATA_KEY),
-                        SubtasksMetadata.LIST_ID.eq(list))));
+                        SubtasksMetadata.TAG.eq(list))));
         try {
             cursor.moveToFirst();
             if(cursor.isAfterLast())
@@ -51,16 +51,16 @@ public class SubtasksUpdater extends OrderedListUpdater<Long> {
     }
 
     @Override
-    protected Metadata createEmptyMetadata(Long list, long taskId) {
+    protected Metadata createEmptyMetadata(String list, long taskId) {
         Metadata m = new Metadata();
         m.setValue(Metadata.TASK, taskId);
         m.setValue(Metadata.KEY, SubtasksMetadata.METADATA_KEY);
-        m.setValue(SubtasksMetadata.LIST_ID, list);
+        m.setValue(SubtasksMetadata.TAG, list);
         return m;
     }
 
     @Override
-    protected void iterateThroughList(Filter filter, Long list, OrderedListIterator iterator) {
+    protected void iterateThroughList(Filter filter, String list, OrderedListIterator iterator) {
         TodorooCursor<Task> cursor = taskService.query(Query.select(Task.ID,
                 Metadata.ID.as(METADATA_ID), Metadata.TASK, Metadata.KEY, SubtasksMetadata.INDENT,
                 SubtasksMetadata.ORDER).withQueryTemplate(filter.sqlQuery));
@@ -79,12 +79,16 @@ public class SubtasksUpdater extends OrderedListUpdater<Long> {
     }
 
     @SuppressWarnings("nls")
-    public void applySubtasksToFilter(Filter filter) {
+    public void applySubtasksToFilter(Filter filter, String tagName) {
         String query = filter.sqlQuery;
 
-        String subtaskJoin = String.format("LEFT JOIN %s ON (%s = %s AND %s = '%s') ",
+        if(tagName == null)
+            tagName = SubtasksMetadata.LIST_ACTIVE_TASKS;
+        String subtaskJoin = String.format("LEFT JOIN %s ON (%s = %s AND %s = '%s' AND %s = '%s') ",
                 Metadata.TABLE, Task.ID, Metadata.TASK,
-                Metadata.KEY, SubtasksMetadata.METADATA_KEY);
+                Metadata.KEY, SubtasksMetadata.METADATA_KEY,
+                SubtasksMetadata.TAG, tagName);
+
         if(!query.contains(subtaskJoin)) {
             query = subtaskJoin + query;
             query = query.replaceAll("ORDER BY .*", "");

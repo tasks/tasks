@@ -75,7 +75,8 @@ abstract public class OrderedListUpdater<LIST> {
             public void processTask(long taskId, Metadata metadata) {
                 if(!metadata.isSaved())
                     metadata = createEmptyMetadata(list, taskId);
-                int indent = metadata.getValue(indentProperty());
+                int indent = metadata.containsNonNullValue(indentProperty()) ?
+                        metadata.getValue(indentProperty()) : 0;
 
                 if(targetTaskId == taskId) {
                     // if indenting is warranted, indent me and my children
@@ -167,11 +168,12 @@ abstract public class OrderedListUpdater<LIST> {
                 Node sibling = findNode(root, moveBeforeTaskId);
                 if(sibling != null && !ancestorOf(target, sibling)) {
                     int index = sibling.parent.children.indexOf(sibling);
-                    target.parent.children.remove(target);
 
                     if(target.parent == sibling.parent &&
                             target.parent.children.indexOf(target) < index)
                         index--;
+
+                    target.parent.children.remove(target);
                     sibling.parent.children.add(index, target);
                     target.parent = sibling.parent;
                 }

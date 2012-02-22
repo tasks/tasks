@@ -50,11 +50,10 @@ public class SubtasksListFragment extends TaskListFragment {
         getActivity().getWindowManager().getDefaultDisplay().getMetrics(metrics);
     }
 
-    @SuppressWarnings("nls")
     @Override
     protected void setUpTaskList() {
 
-        updater.applySubtasksToFilter(filter);
+        updater.applySubtasksToFilter(filter, null);
 
         super.setUpTaskList();
 

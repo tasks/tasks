@@ -2,22 +2,24 @@ package com.todoroo.astrid.subtasks;
 
 import com.todoroo.andlib.data.Property.IntegerProperty;
 import com.todoroo.andlib.data.Property.LongProperty;
+import com.todoroo.andlib.data.Property.StringProperty;
 import com.todoroo.astrid.data.Metadata;
 
 /**
- * Metadata entries for a GTasks Task
+ * Metadata entries for a Subtask list
+ *
  * @author Tim Su <tim@todoroo.com>
  *
  */
 public class SubtasksMetadata {
 
-    public static final long LIST_ACTIVE_TASKS = 0;
+    public static final String LIST_ACTIVE_TASKS = "[AT]"; //$NON-NLS-1$
 
     /** metadata key */
     public static final String METADATA_KEY = "subtasks"; //$NON-NLS-1$
 
-    /** list id */
-    public static final LongProperty LIST_ID = new LongProperty(Metadata.TABLE,
+    /** tag name */
+    public static final StringProperty TAG = new StringProperty(Metadata.TABLE,
             Metadata.VALUE1.name);
 
     public static final IntegerProperty INDENT = new IntegerProperty(Metadata.TABLE,
