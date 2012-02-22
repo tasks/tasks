@@ -227,12 +227,8 @@ public class TaskListFragment extends ListFragment implements OnScrollListener,
      *         android:id/list. It should NOT be attached to root
      */
     protected View getListBody(ViewGroup root) {
-        if (AndroidUtilities.getSdkVersion() > 3)
-            return getActivity().getLayoutInflater().inflate(
-                    R.layout.task_list_body_standard, root, false);
-        else
-            return getActivity().getLayoutInflater().inflate(
-                    R.layout.task_list_body_api3, root, false);
+        return getActivity().getLayoutInflater().inflate(
+                R.layout.task_list_body_standard, root, false);
     }
 
     /** Called when loading up the activity */
