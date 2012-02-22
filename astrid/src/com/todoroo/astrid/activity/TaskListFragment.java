@@ -86,6 +86,7 @@ import com.todoroo.astrid.service.StatisticsService;
 import com.todoroo.astrid.service.TagDataService;
 import com.todoroo.astrid.service.TaskService;
 import com.todoroo.astrid.service.UpgradeService;
+import com.todoroo.astrid.subtasks.SubtasksListFragment;
 import com.todoroo.astrid.ui.QuickAddBar;
 import com.todoroo.astrid.utility.AstridPreferences;
 import com.todoroo.astrid.utility.Constants;
@@ -352,14 +353,12 @@ public class TaskListFragment extends ListFragment implements OnScrollListener,
             return;
         } else if (extras != null && extras.containsKey(TOKEN_FILTER)) {
             filter = extras.getParcelable(TOKEN_FILTER);
-            if(filter.sqlQuery == null)
-                filter = null;
-            else
-                isInbox = false;
+            isInbox = false;
         }
 
-        if(filter == null) {
-            filter = CoreFilterExposer.buildInboxFilter(getResources());
+        Filter inbox = CoreFilterExposer.buildInboxFilter(getResources());
+        if(filter == null || filter.sqlQuery == inbox.sqlQuery) {
+            filter = inbox;
             isInbox = true;
         }
 
@@ -501,9 +500,11 @@ public class TaskListFragment extends ListFragment implements OnScrollListener,
             }
         });
 
+        System.err.println("NOW setup ui componetns");
         SharedPreferences publicPrefs = AstridPreferences.getPublicPrefs(getActivity());
         sortFlags = publicPrefs.getInt(SortHelper.PREF_SORT_FLAGS, 0);
         sortSort = publicPrefs.getInt(SortHelper.PREF_SORT_SORT, 0);
+        sortFlags = SortHelper.setManualSort(sortFlags, isDraggable());
 
         getView().findViewById(R.id.progressBar).setVisibility(View.GONE);
     }
@@ -1064,9 +1065,10 @@ public class TaskListFragment extends ListFragment implements OnScrollListener,
             showSettings();
             return true;
         case MENU_SORT_ID:
+            System.err.println("displaying " + sortFlags);
             StatisticsService.reportEvent(StatisticsConstants.TLA_MENU_SORT);
             AlertDialog dialog = SortSelectionActivity.createDialog(
-                    getActivity(), this, sortFlags, sortSort);
+                    getActivity(), isInbox, this, sortFlags, sortSort);
             dialog.show();
             return true;
         case MENU_SYNC_ID:
@@ -1166,10 +1168,28 @@ public class TaskListFragment extends ListFragment implements OnScrollListener,
         mListener.onTaskListItemClicked(taskId);
     }
 
+    protected void toggleDragDrop(boolean newState) {
+        if(newState)
+            ((AstridActivity)getActivity()).setupTasklistFragmentWithFilterAndCustomTaskList(filter,
+                    SubtasksListFragment.class);
+        else
+            ((AstridActivity)getActivity()).setupTasklistFragmentWithFilterAndCustomTaskList(filter,
+                    TaskListFragment.class);
+    }
+
+    protected boolean isDraggable() {
+        return false;
+    }
+
     @Override
     public void onSortSelected(boolean always, int flags, int sort) {
+        boolean manualSettingChanged = SortHelper.isManualSort(sortFlags) !=
+            SortHelper.isManualSort(flags);
+
         sortFlags = flags;
         sortSort = sort;
+
+        System.err.println("FLAGS : " + flags);
 
         if (always) {
             SharedPreferences publicPrefs = AstridPreferences.getPublicPrefs(getActivity());
@@ -1182,7 +1202,9 @@ public class TaskListFragment extends ListFragment implements OnScrollListener,
                             TasksWidget.WidgetUpdateService.class));
         }
 
-        Filter newFilter = isInbox ? null : filter;
-        ((AstridActivity)getActivity()).onFilterItemClicked(newFilter);
+        if(manualSettingChanged)
+            toggleDragDrop(SortHelper.isManualSort(sortFlags));
+        else
+            loadTaskListContent(true);
     }
 }

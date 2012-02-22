@@ -852,6 +852,10 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
         taskActionLoader.remove(taskId);
     }
 
+    public HashMap<Long, Boolean> getCompletedItems() {
+        return completedItems;
+    }
+
     /**
      * AddOnManager for TaskDecorations
      *

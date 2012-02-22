@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicInteger;
+import java.util.concurrent.atomic.AtomicLong;
 import java.util.concurrent.atomic.AtomicReference;
 
 import android.database.Cursor;
@@ -72,6 +73,7 @@ public class SubtasksListFragment extends TaskListFragment {
     public Property<?>[] taskProperties() {
         ArrayList<Property<?>> properties = new ArrayList<Property<?>>(Arrays.asList(TaskAdapter.PROPERTIES));
         properties.add(SubtasksMetadata.INDENT);
+        properties.add(SubtasksMetadata.ORDER);
         return properties.toArray(new Property<?>[properties.size()]);
     }
 
@@ -171,19 +173,27 @@ public class SubtasksListFragment extends TaskListFragment {
         public TaskRowListener getListener() {
             return listener;
         }
-
     }
 
+    @Override
+    protected boolean isDraggable() {
+        return true;
+    }
 
-    private void setCompletedForItemAndSubtasks(Task item, boolean completedState) {
+    private void setCompletedForItemAndSubtasks(final Task item, boolean completedState) {
         final long itemId = item.getId();
         final boolean completed = completedState;
 
+        System.err.println("SET COMPLETED FOR " + itemId);
         new Thread() {
             @Override
             public void run() {
-                final AtomicInteger startIndent = new AtomicInteger(-1);
+                final AtomicInteger startIndent = new AtomicInteger(
+                        item.getValue(SubtasksMetadata.INDENT));
+                final AtomicLong startOrder= new AtomicLong(
+                        item.getValue(SubtasksMetadata.ORDER));
                 final AtomicBoolean finished = new AtomicBoolean(false);
+
                 final Task task = new Task();
                 task.setValue(Task.COMPLETION_DATE, completed ? DateUtilities.now() : 0);
 
@@ -193,23 +203,26 @@ public class SubtasksListFragment extends TaskListFragment {
                         if(finished.get())
                             return;
 
+                        long order = metadata.containsNonNullValue(SubtasksMetadata.ORDER) ?
+                                metadata.getValue(SubtasksMetadata.ORDER) : 0;
                         int indent = metadata.containsNonNullValue(SubtasksMetadata.INDENT) ?
                                 metadata.getValue(SubtasksMetadata.INDENT) : 0;
-                        if(taskId == itemId) {
-                            startIndent.set(indent);
+
+                        if(order < startOrder.get())
                             return;
-                        } else if(indent == startIndent.get()) {
+                        else if(indent == startIndent.get()) {
                             finished.set(true);
                             return;
                         }
 
+                        taskAdapter.getCompletedItems().put(taskId, true);
                         task.setId(taskId);
                         taskService.save(task);
                     }
                 });
                 getActivity().runOnUiThread(new Runnable() {
                     public void run() {
-                        loadTaskListContent(true);
+                        taskAdapter.notifyDataSetInvalidated();
                     }
                 });
             }

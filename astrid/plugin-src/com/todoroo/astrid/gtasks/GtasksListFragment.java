@@ -239,7 +239,7 @@ public class GtasksListFragment extends DraggableTaskListFragment {
                 }
                 getActivity().runOnUiThread(new Runnable() {
                     public void run() {
-                        loadTaskListContent(true);
+                        taskAdapter.notifyDataSetInvalidated();
                     }
                 });
             }

@@ -71,6 +71,13 @@ public class SortHelper {
         return (flags & FLAG_DRAG_DROP) > 0;
     }
 
+    public static int setManualSort(int flags, boolean status) {
+        flags = (flags & ~FLAG_DRAG_DROP);
+        if(status)
+            flags |= FLAG_DRAG_DROP;
+        return flags;
+    }
+
     @SuppressWarnings("nls")
     public static Order orderForSortType(int sortType) {
         Order order;

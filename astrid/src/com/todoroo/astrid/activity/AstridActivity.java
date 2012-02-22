@@ -23,6 +23,7 @@ import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.api.FilterListItem;
 import com.todoroo.astrid.api.FilterWithCustomIntent;
 import com.todoroo.astrid.api.IntentFilter;
+import com.todoroo.astrid.core.CoreFilterExposer;
 import com.todoroo.astrid.core.PluginServices;
 import com.todoroo.astrid.core.SearchFilter;
 import com.todoroo.astrid.core.SortHelper;
@@ -204,9 +205,13 @@ public class AstridActivity extends FragmentActivity
     protected final void setupTasklistFragmentWithFilter(Filter filter) {
         Class<?> customTaskList = TaskListFragment.class;
 
-        if(filter == null || filter.sqlQuery == null) {
+        System.err.println("default time"); //$NON-NLS-1$
+        if(filter == null || filter.sqlQuery ==
+                CoreFilterExposer.buildInboxFilter(getResources()).sqlQuery) {
+            System.err.println("is inbox"); //$NON-NLS-1$
             SharedPreferences publicPrefs = AstridPreferences.getPublicPrefs(this);
             int sortFlags = publicPrefs.getInt(SortHelper.PREF_SORT_FLAGS, 0);
+            System.err.println("is manual sort? " + SortHelper.isManualSort(sortFlags)); //$NON-NLS-1$
             if(SortHelper.isManualSort(sortFlags))
                 customTaskList = SubtasksListFragment.class;
         }
@@ -215,6 +220,7 @@ public class AstridActivity extends FragmentActivity
     }
 
     protected final void setupTasklistFragmentWithFilterAndCustomTaskList(Filter filter, Class<?> customTaskList) {
+        System.err.println("HAJIMEMASHITE setting up fragment with class " + customTaskList); //$NON-NLS-1$
         Class<?> component = customTaskList;
         if (filter instanceof FilterWithCustomIntent) {
             try {
@@ -227,6 +233,7 @@ public class AstridActivity extends FragmentActivity
         FragmentTransaction transaction = manager.beginTransaction();
 
         try {
+            System.err.println("setting up fragment with class " + customTaskList); //$NON-NLS-1$
             TaskListFragment newFragment = (TaskListFragment) component.newInstance();
             transaction.replace(R.id.tasklist_fragment_container, newFragment,
                     TaskListFragment.TAG_TASKLIST_FRAGMENT);

@@ -28,7 +28,7 @@ public class SortSelectionActivity {
      * @param activity
      * @return
      */
-    public static AlertDialog createDialog(Activity activity,
+    public static AlertDialog createDialog(Activity activity, boolean showDragDrop,
             OnSortSelectedListener listener, int flags, int sort) {
         View body = activity.getLayoutInflater().inflate(R.layout.sort_selection_dialog, null);
 
@@ -41,7 +41,10 @@ public class SortSelectionActivity {
         if((flags & SortHelper.FLAG_SHOW_DELETED) > 0)
             ((CheckBox)body.findViewById(R.id.deleted)).setChecked(true);
 
-        if((flags & SortHelper.FLAG_DRAG_DROP) > 0)
+        if(!showDragDrop)
+            body.findViewById(R.id.sort_drag).setVisibility(View.GONE);
+
+        if(showDragDrop && (flags & SortHelper.FLAG_DRAG_DROP) > 0)
             ((RadioButton)body.findViewById(R.id.sort_drag)).setChecked(true);
         else {
             switch(sort) {
