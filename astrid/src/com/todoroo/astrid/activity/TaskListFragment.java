@@ -922,7 +922,9 @@ public class TaskListFragment extends ListFragment implements OnScrollListener,
             AstridActivity activity = (AstridActivity) getActivity();
             if (activity != null) {
                 if (AndroidUtilities.isTabletSized(activity)) {
-                    activity.getFilterListFragment().showAddListPopover();
+                    FilterListFragment flf = activity.getFilterListFragment();
+                    if (flf != null)
+                        flf.showAddListPopover();
                 } else {
                     ActionBar ab = activity.getSupportActionBar();
                     View anchor = ab.getCustomView().findViewById(R.id.lists_nav);
