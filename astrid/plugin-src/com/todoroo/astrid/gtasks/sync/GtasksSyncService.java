@@ -77,7 +77,7 @@ public final class GtasksSyncService {
                            GtasksInvoker invoker = new GtasksInvoker(gtasksPreferenceService.getToken());
                            if (op instanceof TaskPushOp) {
                                TaskPushOp taskPush = (TaskPushOp)op;
-                               pushTaskOnSave(taskPush.model, taskPush.model.getSetValues(), invoker, true);
+                               pushTaskOnSave(taskPush.model, taskPush.model.getMergedValues(), invoker, true);
                            } else if (op instanceof MoveOp) {
                                MoveOp move = (MoveOp)op;
                                pushMetadataOnSave(move.metadata, invoker);

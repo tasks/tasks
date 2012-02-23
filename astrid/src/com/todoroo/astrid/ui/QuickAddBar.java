@@ -267,7 +267,8 @@ public class QuickAddBar extends LinearLayout {
             }
 
             Flags.set(Flags.ACTFM_SUPPRESS_SYNC);
-            Flags.set(Flags.GTASKS_SUPPRESS_SYNC);
+            if (deadlineControl.isDeadlineSet()) // If deadline is set, second save will trigger push
+                Flags.set(Flags.GTASKS_SUPPRESS_SYNC);
             Task task = TaskService.createWithValues(fragment.getFilter().valuesForNewTasks, title,
                     taskService, metadataService);
 
