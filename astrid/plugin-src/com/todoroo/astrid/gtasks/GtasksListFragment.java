@@ -17,7 +17,9 @@ import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.astrid.dao.StoreObjectDao;
 import com.todoroo.astrid.data.StoreObject;
 import com.todoroo.astrid.data.Task;
+import com.todoroo.astrid.gtasks.sync.GtasksSyncService;
 import com.todoroo.astrid.service.SyncV2Service;
+import com.todoroo.astrid.subtasks.OrderedListFragmentHelper;
 import com.todoroo.astrid.subtasks.SubtasksListFragment;
 
 public class GtasksListFragment extends SubtasksListFragment {
@@ -33,6 +35,8 @@ public class GtasksListFragment extends SubtasksListFragment {
     @Autowired private GtasksTaskListUpdater gtasksTaskListUpdater;
 
     @Autowired private GtasksMetadataService gtasksMetadataService;
+
+    @Autowired private GtasksSyncService gtasksSyncService;
 
     @Autowired private GtasksPreferenceService gtasksPreferenceService;
 
@@ -50,6 +54,17 @@ public class GtasksListFragment extends SubtasksListFragment {
     };
 
     @Override
+    protected OrderedListFragmentHelper<?> createFragmentHelper() {
+        return new OrderedListFragmentHelper<StoreObject>(this, gtasksTaskListUpdater) {
+            @Override
+            protected void onMetadataChanged(long targetTaskId) {
+                gtasksSyncService.triggerMoveForMetadata(gtasksMetadataService.
+                        getTaskMetadata(targetTaskId));
+            }
+        };
+    }
+
+    @Override
     public void onActivityCreated(Bundle icicle) {
         super.onActivityCreated(icicle);
 
@@ -63,6 +78,7 @@ public class GtasksListFragment extends SubtasksListFragment {
 
         long storeObjectId = getActivity().getIntent().getLongExtra(TOKEN_STORE_ID, 0);
         list = storeObjectDao.fetch(storeObjectId, LIST_PROPERTIES);
+        ((OrderedListFragmentHelper<StoreObject>)helper).setList(list);
     }
 
     @Override
@@ -75,7 +91,8 @@ public class GtasksListFragment extends SubtasksListFragment {
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
-        MenuItem item = menu.add(Menu.NONE, MENU_CLEAR_COMPLETED_ID, Menu.FIRST, this.getString(R.string.gtasks_GTA_clear_completed));
+        MenuItem item = menu.add(Menu.NONE, MENU_CLEAR_COMPLETED_ID, Menu.FIRST,
+                this.getString(R.string.gtasks_GTA_clear_completed));
         item.setIcon(android.R.drawable.ic_input_delete); // Needs new icon
     }
 

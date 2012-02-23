@@ -48,13 +48,6 @@ abstract public class OrderedListUpdater<LIST> {
     }
 
     /**
-     * @param taskId
-     */
-    public void onMetadataChanged(long taskId) {
-        //
-    }
-
-    /**
      * @param list
      */
     protected void beforeIndent(LIST list) {

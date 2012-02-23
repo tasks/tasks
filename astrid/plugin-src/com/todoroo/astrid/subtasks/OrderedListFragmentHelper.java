@@ -107,7 +107,7 @@ public class OrderedListFragmentHelper<LIST> {
                 updater.moveTo(getFilter(), list, targetTaskId, destinationTaskId);
 
             fragment.loadTaskListContent(true);
-            updater.onMetadataChanged(targetTaskId);
+            onMetadataChanged(targetTaskId);
         }
     };
 
@@ -117,7 +117,7 @@ public class OrderedListFragmentHelper<LIST> {
             long targetTaskId = taskAdapter.getItemId(which);
             updater.indent(getFilter(), list, targetTaskId, 1);
             fragment.loadTaskListContent(true);
-            updater.onMetadataChanged(targetTaskId);
+            onMetadataChanged(targetTaskId);
         }
 
         @Override
@@ -125,7 +125,7 @@ public class OrderedListFragmentHelper<LIST> {
             long targetTaskId = taskAdapter.getItemId(which);
             updater.indent(getFilter(), list, targetTaskId, -1);
             fragment.loadTaskListContent(true);
-            updater.onMetadataChanged(targetTaskId);
+            onMetadataChanged(targetTaskId);
         }
     };
 
@@ -161,6 +161,13 @@ public class OrderedListFragmentHelper<LIST> {
         });
 
         return taskAdapter;
+    }
+
+    /**
+     * @param targetTaskId
+     */
+    protected void onMetadataChanged(long targetTaskId) {
+        // hook
     }
 
     private final class DraggableTaskAdapter extends TaskAdapter {
