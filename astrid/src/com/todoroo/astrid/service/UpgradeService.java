@@ -112,12 +112,6 @@ public final class UpgradeService {
         if(from == 135)
             AddOnService.recordOem();
 
-        if (from > 0 && from < V4_0_0) {
-            String preference = Preferences.getStringValue(R.string.p_theme);
-            if (ThemeService.THEME_WHITE.equals(preference))
-                Preferences.setString(R.string.p_theme, ThemeService.THEME_WHITE_BLUE);
-        }
-
         if(from > 0 && from < V3_8_2) {
             if(Preferences.getBoolean(R.string.p_transparent_deprecated, false))
                 Preferences.setString(R.string.p_theme, "transparent"); //$NON-NLS-1$

@@ -174,7 +174,7 @@
   <string-array name="EPr_theme_settings">
     <!-- theme_settings: options for preference menu -->
     <item>white</item>
-    <item>white-blue</item>
+    <item>white-red</item>
     <item>black</item>
     <item>transparent</item>
     <item>transparent-white</item>
