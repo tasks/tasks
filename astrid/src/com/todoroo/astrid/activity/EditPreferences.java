@@ -26,6 +26,7 @@ import android.preference.Preference.OnPreferenceChangeListener;
 import android.preference.Preference.OnPreferenceClickListener;
 import android.preference.PreferenceCategory;
 import android.preference.PreferenceScreen;
+import android.text.TextUtils;
 import android.widget.Toast;
 
 import com.crittercism.app.Crittercism;
@@ -301,9 +302,11 @@ public class EditPreferences extends TodorooPreferenceActivity {
                 preference.setEnabled(false);
                 preference.setSummary(R.string.EPr_theme_desc_unsupported);
             } else {
-                int index = 1;
-                if(value != null)
+                int index = 0;
+                if(value instanceof String && !TextUtils.isEmpty((String)value))
                     index = AndroidUtilities.indexOf(r.getStringArray(R.array.EPr_theme_settings), (String)value);
+                if (index < 0)
+                    index = 0;
                 preference.setSummary(getString(R.string.EPr_theme_desc,
                         r.getStringArray(R.array.EPr_themes)[index]));
             }
