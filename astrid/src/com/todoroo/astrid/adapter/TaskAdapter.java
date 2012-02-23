@@ -1,7 +1,5 @@
 package com.todoroo.astrid.adapter;
 
-import com.todoroo.astrid.helper.AsyncImageView;
-
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Date;
@@ -70,6 +68,7 @@ import com.todoroo.astrid.api.TaskDecoration;
 import com.todoroo.astrid.api.TaskDecorationExposer;
 import com.todoroo.astrid.core.LinkActionExposer;
 import com.todoroo.astrid.data.Task;
+import com.todoroo.astrid.helper.AsyncImageView;
 import com.todoroo.astrid.helper.TaskAdapterAddOnManager;
 import com.todoroo.astrid.notes.NotesDecorationExposer;
 import com.todoroo.astrid.service.StatisticsConstants;
@@ -730,37 +729,37 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
         @Override
         public void run() {
             AndroidUtilities.sleepDeep(500L);
-            TodorooCursor<Task> fetchCursor = taskService.fetchFiltered(
+            final TodorooCursor<Task> fetchCursor = taskService.fetchFiltered(
                     query.get(), null, Task.ID, Task.TITLE, Task.DETAILS, Task.DETAILS_DATE,
                     Task.MODIFICATION_DATE, Task.COMPLETION_DATE);
-            try {
-                Task task = new Task();
-                LinkActionExposer linkActionExposer = new LinkActionExposer();
 
-                for(fetchCursor.moveToFirst(); !fetchCursor.isAfterLast(); fetchCursor.moveToNext()) {
-                    task.clear();
-                    task.readFromCursor(fetchCursor);
-                    if(task.isCompleted())
-                        continue;
+            final Activity activity = fragment.getActivity();
+            activity.runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    try {
+                        Task task = new Task();
+                        LinkActionExposer linkActionExposer = new LinkActionExposer();
 
-                    List<TaskAction> actions = linkActionExposer.getActionsForTask(ContextManager.getContext(), task.getId());
-                    if (actions.size() > 0)
-                        taskActionLoader.put(task.getId(), actions.get(0));
-                }
-                if(taskActionLoader.size() > 0) {
-                    Activity activity = fragment.getActivity();
-                    if (activity != null) {
-                        activity.runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-                                notifyDataSetChanged();
-                            }
-                        });
+                        for(fetchCursor.moveToFirst(); !fetchCursor.isAfterLast(); fetchCursor.moveToNext()) {
+                            task.clear();
+                            task.readFromCursor(fetchCursor);
+                            if(task.isCompleted())
+                                continue;
+
+                            List<TaskAction> actions = linkActionExposer.
+                            getActionsForTask(ContextManager.getContext(), task.getId());
+                            if (actions.size() > 0)
+                                taskActionLoader.put(task.getId(), actions.get(0));
+                        }
+                        if(taskActionLoader.size() > 0) {
+                            notifyDataSetChanged();
+                        }
+                    } finally {
+                        fetchCursor.close();
                     }
                 }
-            } finally {
-                fetchCursor.close();
-            }
+            });
         }
     }
 
