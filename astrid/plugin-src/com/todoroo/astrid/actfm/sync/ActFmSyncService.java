@@ -1210,7 +1210,11 @@ public final class ActFmSyncService {
         public static void taskFromJson(JSONObject json, Task model, ArrayList<Metadata> metadata) throws JSONException {
             metadata.clear();
             model.clearValue(Task.REMOTE_ID);
-            model.setValue(Task.REMOTE_ID, json.getLong("id"));
+            long remoteId = json.getLong("id");
+            if (remoteId == 0)
+                model.setValue(Task.REMOTE_ID, null);
+            else
+                model.setValue(Task.REMOTE_ID, remoteId);
             readUser(json.getJSONObject("user"), model, Task.USER_ID, Task.USER);
             readUser(json.getJSONObject("creator"), model, Task.CREATOR_ID, null);
             model.setValue(Task.TITLE, json.getString("title"));
