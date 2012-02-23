@@ -41,7 +41,7 @@ import com.todoroo.astrid.utility.AstridPreferences;
 
 public final class UpgradeService {
 
-    public static final int V4_0_0 = 251;
+    public static final int V4_0_0 = 250;
     public static final int V3_9_2_3 = 210;
     public static final int V3_9_2_2 = 209;
     public static final int V3_9_2_1 = 208;
@@ -181,6 +181,16 @@ public final class UpgradeService {
 
         Preferences.clear(AstridPreferences.P_UPGRADE_FROM);
         StringBuilder changeLog = new StringBuilder();
+
+        if (from < V4_0_0) {
+            newVersionString(changeLog, "4.0.0 (2/23/12)", new String[] {
+               "Subtasks",
+               "New design and themes",
+               "Amazon and Google search",
+               "TaskRabbit integration",
+               "Tablet version"
+            });
+        }
 
         if (from >= V3_9_2 && from < V3_9_2_3) {
             newVersionString(changeLog, "3.9.2.3 (1/20/12)", new String[] {
