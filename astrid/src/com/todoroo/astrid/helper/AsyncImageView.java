@@ -61,6 +61,9 @@ public class AsyncImageView extends greendroid.widget.AsyncImageView {
         layout(0, 0, getMeasuredWidth(), getMeasuredHeight());
 
         buildDrawingCache(true);
+        Bitmap drawingCache = getDrawingCache();
+        if (drawingCache == null)
+            return null;
         Bitmap b = Bitmap.createBitmap(getDrawingCache());
         setDrawingCacheEnabled(false); // clear drawing cache
         return b;
