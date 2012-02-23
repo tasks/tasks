@@ -219,9 +219,9 @@ public class TaskService {
 
         if(queryTemplate == null) {
             if(whereConstraint == null)
-                return taskDao.query(Query.select(properties));
+                return taskDao.query(Query.selectDistinct(properties));
             else
-                return taskDao.query(Query.select(properties).where(whereConstraint));
+                return taskDao.query(Query.selectDistinct(properties).where(whereConstraint));
         }
 
         String sql;

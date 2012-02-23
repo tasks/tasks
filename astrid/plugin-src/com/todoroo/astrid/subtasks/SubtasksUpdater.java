@@ -1,5 +1,6 @@
 package com.todoroo.astrid.subtasks;
 
+import java.util.HashSet;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicLong;
 
@@ -109,12 +110,18 @@ public class SubtasksUpdater extends OrderedListUpdater<String> {
     public void sanitizeTaskList(Filter filter, String list) {
         final AtomicInteger previousIndent = new AtomicInteger(-1);
         final AtomicLong previousOrder = new AtomicLong(-1);
+        final HashSet<Long> taskIds = new HashSet<Long>();
 
         iterateThroughList(filter, list, new OrderedListIterator() {
             @Override
             public void processTask(long taskId, Metadata metadata) {
                 if(!metadata.isSaved())
                     return;
+
+                if(taskIds.contains(taskId)) {
+                    metadataService.delete(metadata);
+                    return;
+                }
 
                 long order = metadata.getValue(SubtasksMetadata.ORDER);
                 if(order <= previousOrder.get()) // bad
@@ -130,6 +137,7 @@ public class SubtasksUpdater extends OrderedListUpdater<String> {
 
                 previousIndent.set(indent);
                 previousOrder.set(order);
+                taskIds.add(taskId);
             }
         });
     }
