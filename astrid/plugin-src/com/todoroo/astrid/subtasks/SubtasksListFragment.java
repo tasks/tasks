@@ -59,6 +59,11 @@ public class SubtasksListFragment extends TaskListFragment {
     }
 
     @Override
+    protected void onTaskDelete(Task task) {
+        helper.onDeleteTask(task);
+    }
+
+    @Override
     protected TaskAdapter createTaskAdapter(TodorooCursor<Task> cursor) {
         return helper.createTaskAdapter(cursor, sqlQueryTemplate);
     }

@@ -336,6 +336,9 @@ public class DraggableListView extends ListView {
                     public void run() {
                         stopDragging();
                         dragThread = null;
+                        Vibrator v = (Vibrator) getContext().getSystemService(
+                                Context.VIBRATOR_SERVICE);
+                        v.vibrate(50);
                         mClickListener.onLongClick(viewAtPosition());
                     }
                 });

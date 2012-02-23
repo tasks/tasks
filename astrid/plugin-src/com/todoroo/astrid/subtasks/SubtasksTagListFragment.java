@@ -25,9 +25,6 @@ public class SubtasksTagListFragment extends TagViewFragment {
         helper.setList(list);
     }
 
-    /* (non-Javadoc)
-     * @see com.todoroo.astrid.activity.TaskListActivity#getListBody(android.view.ViewGroup)
-     */
     @Override
     protected View getListBody(ViewGroup root) {
         ViewGroup parent = (ViewGroup) getActivity().getLayoutInflater().inflate(
@@ -65,6 +62,11 @@ public class SubtasksTagListFragment extends TagViewFragment {
     @Override
     protected boolean isDraggable() {
         return true;
+    }
+
+    @Override
+    protected void onTaskDelete(Task task) {
+        helper.onDeleteTask(task);
     }
 
     @Override

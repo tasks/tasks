@@ -1022,10 +1022,15 @@ public class TaskListFragment extends ListFragment implements OnScrollListener,
                 android.R.drawable.ic_dialog_alert).setPositiveButton(
                 android.R.string.ok, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
+                        onTaskDelete(task);
                         taskService.delete(task);
                         loadTaskListContent(true);
                     }
                 }).setNegativeButton(android.R.string.cancel, null).show();
+    }
+
+    protected void onTaskDelete(@SuppressWarnings("unused") Task task) {
+        // hook
     }
 
     @Override

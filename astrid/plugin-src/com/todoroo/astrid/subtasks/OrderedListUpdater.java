@@ -277,6 +277,55 @@ abstract public class OrderedListUpdater<LIST> {
         PluginServices.getTaskService().save(taskContainer);
     }
 
+    // --- task cascading operations
+
+    public interface OrderedListNodeVisitor {
+        public void visitNode(Node node);
+    }
+
+    /**
+     * Apply an operation only to the children of the task
+     */
+    public void applyToChildren(Filter filter, LIST list, long targetTaskId,
+            OrderedListNodeVisitor visitor) {
+
+        Node root = buildTreeModel(filter, list);
+        Node target = findNode(root, targetTaskId);
+
+        if(target != null)
+            for(Node child : target.children)
+                applyVisitor(child, visitor);
+    }
+
+    private void applyVisitor(Node node, OrderedListNodeVisitor visitor) {
+        visitor.visitNode(node);
+        for(Node child : node.children)
+            applyVisitor(child, visitor);
+    }
+
+    /**
+     * Removes a task from the order hierarchy and un-indent children
+     * @param filter
+     * @param list
+     * @param targetTaskId
+     */
+    public void onDeleteTask(Filter filter, LIST list, final long targetTaskId) {
+        if(list == null)
+            return;
+
+        Node root = buildTreeModel(filter, list);
+        Node target = findNode(root, targetTaskId);
+
+        if(target != null && target.parent != null) {
+            int targetIndex = target.parent.children.indexOf(target);
+            target.parent.children.remove(targetIndex);
+            for(Node node : target.children)
+                target.parent.children.add(targetIndex++, node);
+        }
+
+        traverseTreeAndWriteValues(list, root, new AtomicLong(0), -1);
+    }
+
     // --- utility
 
     public void debugPrint(Filter filter, LIST list) {

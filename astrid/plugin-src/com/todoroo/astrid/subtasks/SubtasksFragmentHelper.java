@@ -5,7 +5,6 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicReference;
 
 import android.app.Activity;
@@ -31,10 +30,10 @@ import com.todoroo.astrid.activity.TaskListFragment;
 import com.todoroo.astrid.adapter.TaskAdapter;
 import com.todoroo.astrid.adapter.TaskAdapter.OnCompletedTaskListener;
 import com.todoroo.astrid.api.Filter;
-import com.todoroo.astrid.data.Metadata;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.service.TaskService;
-import com.todoroo.astrid.subtasks.OrderedListUpdater.OrderedListIterator;
+import com.todoroo.astrid.subtasks.OrderedListUpdater.Node;
+import com.todoroo.astrid.subtasks.OrderedListUpdater.OrderedListNodeVisitor;
 import com.todoroo.astrid.ui.DraggableListView;
 
 public class SubtasksFragmentHelper {
@@ -219,61 +218,48 @@ public class SubtasksFragmentHelper {
         Collections.synchronizedMap(new HashMap<Long, ArrayList<Long>>());
 
     private void setCompletedForItemAndSubtasks(final Task item, final boolean completedState) {
-
         final long itemId = item.getId();
 
-        final Task task = new Task();
-        task.setValue(Task.COMPLETION_DATE, completedState ? DateUtilities.now() : 0);
+        final Task model = new Task();
+        model.setValue(Task.COMPLETION_DATE, completedState ? DateUtilities.now() : 0);
 
         if(completedState == false) {
             ArrayList<Long> chained = chainedCompletions.get(itemId);
             if(chained != null) {
                 for(Long taskId : chained) {
                     taskAdapter.getCompletedItems().put(taskId, false);
-                    task.setId(taskId);
-                    taskService.save(task);
+                    model.setId(taskId);
+                    taskService.save(model);
                 }
                 taskAdapter.notifyDataSetInvalidated();
             }
             return;
         }
 
-        final int startIndent = item.getValue(SubtasksMetadata.INDENT);
-        final AtomicBoolean started = new AtomicBoolean(false);
-        final AtomicBoolean finished = new AtomicBoolean(false);
         final ArrayList<Long> chained = new ArrayList<Long>();
-        chainedCompletions.put(itemId, chained);
-
-        updater.iterateThroughList(getFilter(), list, new OrderedListIterator() {
+        updater.applyToChildren(getFilter(), list, itemId, new OrderedListNodeVisitor() {
             @Override
-            public void processTask(long taskId, Metadata metadata) {
-                if(finished.get())
-                    return;
-
-                int indent = metadata.containsNonNullValue(SubtasksMetadata.INDENT) ?
-                        metadata.getValue(SubtasksMetadata.INDENT) : 0;
-
-                if(taskId == itemId){
-                    started.set(true);
-                    return;
-                } else if(!started.get())
-                    return;
-                else if(indent <= startIndent) {
-                    finished.set(true);
-                    return;
-                }
-
-                taskAdapter.getCompletedItems().put(taskId, true);
-                task.setId(taskId);
-                taskService.save(task);
-                chained.add(taskId);
+            public void visitNode(Node node) {
+                model.setId(node.taskId);
+                taskService.save(model);
+                taskAdapter.getCompletedItems().put(node.taskId, true);
+                chained.add(node.taskId);
             }
         });
-        taskAdapter.notifyDataSetInvalidated();
+
+        if(chained.size() > 0) {
+            chainedCompletions.put(itemId, chained);
+            taskAdapter.notifyDataSetInvalidated();
+        }
     }
 
     public void setList(String list) {
         this.list = list;
+    }
+
+    public void onDeleteTask(Task task) {
+        updater.onDeleteTask(getFilter(), list, task.getId());
+        taskAdapter.notifyDataSetInvalidated();
     }
 
 }
