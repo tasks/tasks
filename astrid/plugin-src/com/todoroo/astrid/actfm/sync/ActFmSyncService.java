@@ -752,6 +752,7 @@ public final class ActFmSyncService {
                 if(manual) {
                     Long[] localIds = ids.toArray(new Long[ids.size()]);
                     taskService.deleteWhere(Criterion.and(TaskCriteria.activeAndVisible(),
+                            Task.REMOTE_ID.isNotNull(),
                             Criterion.not(Task.ID.in(localIds))));
                 }
             }
@@ -810,6 +811,7 @@ public final class ActFmSyncService {
                     taskService.deleteWhere(Criterion.and(
                             TagService.memberOfTagData(tagData.getValue(TagData.REMOTE_ID)),
                             TaskCriteria.activeAndVisible(),
+                            Task.REMOTE_ID.isNotNull(),
                             Criterion.not(Task.ID.in(localIds))));
                 }
             }
@@ -1062,8 +1064,6 @@ public final class ActFmSyncService {
         }
 
     }
-
-
 
     /** Call sync method */
     private void invokeFetchList(final String model, final boolean manual, final SyncExceptionHandler handler,
