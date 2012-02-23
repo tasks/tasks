@@ -167,17 +167,21 @@ public class TaskDao extends DatabaseDao<Task> {
      * @return true if save occurred, false otherwise (i.e. nothing changed)
      */
     public boolean save(Task task) {
-        boolean saveSuccessful;
+        boolean saveSuccessful = false;
         if (task.getId() == Task.NO_ID) {
             try {
                 saveSuccessful = createNew(task);
-            } catch (SQLiteConstraintException e) { // Tried to create task with remote id that already exists
-                saveSuccessful = false;
-                TodorooCursor<Task> cursor = query(Query.select(Task.ID).where(Task.REMOTE_ID.eq(task.getValue(Task.REMOTE_ID))));
-                if (cursor.getCount() > 0) {
-                    cursor.moveToFirst();
-                    task.setId(cursor.get(Task.ID));
-                    saveSuccessful = saveExisting(task);
+            } catch (SQLiteConstraintException e) {
+                if(e.getMessage().contains(Task.REMOTE_ID_PROPERTY_NAME)) {
+                    // Tried to create task with remote id that already exists
+                    saveSuccessful = false;
+                    TodorooCursor<Task> cursor = query(Query.select(Task.ID).where(
+                            Task.REMOTE_ID.eq(task.getValue(Task.REMOTE_ID))));
+                    if (cursor.getCount() > 0) {
+                        cursor.moveToFirst();
+                        task.setId(cursor.get(Task.ID));
+                        saveSuccessful = saveExisting(task);
+                    }
                 }
             }
         } else {
