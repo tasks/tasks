@@ -221,15 +221,18 @@ public class SubtasksFragmentHelper {
         final long itemId = item.getId();
 
         final Task model = new Task();
-        model.setValue(Task.COMPLETION_DATE, completedState ? DateUtilities.now() : 0);
+        final long completionDate = completedState ? DateUtilities.now() : 0;
 
         if(completedState == false) {
             ArrayList<Long> chained = chainedCompletions.get(itemId);
             if(chained != null) {
                 for(Long taskId : chained) {
-                    taskAdapter.getCompletedItems().put(taskId, false);
                     model.setId(taskId);
+                    model.setValue(Task.COMPLETION_DATE, completionDate);
                     taskService.save(model);
+                    model.clear();
+
+                    taskAdapter.getCompletedItems().put(taskId, false);
                 }
                 taskAdapter.notifyDataSetInvalidated();
             }
@@ -241,7 +244,10 @@ public class SubtasksFragmentHelper {
             @Override
             public void visitNode(Node node) {
                 model.setId(node.taskId);
+                model.setValue(Task.COMPLETION_DATE, completionDate);
                 taskService.save(model);
+                model.clear();
+
                 taskAdapter.getCompletedItems().put(node.taskId, true);
                 chained.add(node.taskId);
             }
