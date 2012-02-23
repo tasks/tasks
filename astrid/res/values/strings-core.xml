@@ -85,7 +85,7 @@
   <string name="ENE_label_comments">Comments</string>
   
   <!-- EditNoteActivity - no comments -->
-  <string name="ENA_no_comments">Nothing To Show</string>
+  <string name="ENA_no_comments">No activity yet</string>
     
   <!-- EditNoteActivity - no username for comment -->
   <string name="ENA_no_user">You</string>
