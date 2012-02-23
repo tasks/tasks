@@ -381,7 +381,7 @@ public class TaskListFragment extends ListFragment implements OnScrollListener,
         MenuItem item;
 
         // --- sort
-        if (!(this instanceof DraggableTaskListFragment)) {
+        if (allowResorting()) {
             item = menu.add(Menu.NONE, MENU_SORT_ID, Menu.NONE,
                     R.string.TLA_menu_sort);
             item.setIcon(android.R.drawable.ic_menu_sort_by_size);
@@ -435,6 +435,10 @@ public class TaskListFragment extends ListFragment implements OnScrollListener,
                     resolveInfo.activityInfo.name);
             item.setIntent(intent);
         }
+    }
+
+    private boolean allowResorting() {
+        return true;
     }
 
     protected void setUpUiComponents() {
