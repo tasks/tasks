@@ -27,6 +27,8 @@ public class AstridPreferences {
 
     private static final long MIN_POPOVER_TIME = 3 * 1000L;
 
+    public static final String P_SUBTASKS_HELP = "sthelp"; //$NON-NLS-1$
+
     /** Set preference defaults, if unset. called at startup */
     public static void setPreferenceDefaults() {
         Context context = ContextManager.getContext();

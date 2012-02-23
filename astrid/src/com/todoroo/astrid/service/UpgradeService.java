@@ -433,7 +433,7 @@ public final class UpgradeService {
             return;
 
         changeLog.append("Have a spectacular day!</body></html>");
-        String color = (AndroidUtilities.getSdkVersion() >= 14 ? "black" : "white");
+        String color = (AndroidUtilities.getSdkVersion() >= 11 ? "black" : "white");
         String changeLogHtml = "<html><body style='color: " + color +"'>" + changeLog;
 
         DialogUtilities.htmlDialog(context, changeLogHtml,
