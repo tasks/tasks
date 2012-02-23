@@ -413,7 +413,7 @@ public class EditNoteActivity extends LinearLayout implements TimerActionListene
     }
 
     private void addComment() {
-        addComment(commentField.getText().toString(), "task_comment", true); //$NON-NLS-1$
+        addComment(commentField.getText().toString(), UpdateAdapter.UPDATE_TASK_COMMENT, true);
     }
 
 
@@ -527,7 +527,7 @@ public class EditNoteActivity extends LinearLayout implements TimerActionListene
         addComment(String.format("%s %s",  //$NON-NLS-1$
                 getContext().getString(R.string.TEA_timer_comment_started),
                 DateUtilities.getTimeString(getContext(), new Date())),
-                "task_started",  //$NON-NLS-1$
+                UpdateAdapter.UPDATE_TASK_COMMENT,
                 false);
     }
 
@@ -538,7 +538,7 @@ public class EditNoteActivity extends LinearLayout implements TimerActionListene
                 getContext().getString(R.string.TEA_timer_comment_stopped),
                 DateUtilities.getTimeString(getContext(), new Date()),
                 getContext().getString(R.string.TEA_timer_comment_spent),
-                elapsedTime), "task_stopped", false); //$NON-NLS-1$
+                elapsedTime), UpdateAdapter.UPDATE_TASK_COMMENT, false);
     }
 
     /*

@@ -1,7 +1,5 @@
 package com.todoroo.astrid.adapter;
 
-import com.todoroo.astrid.helper.AsyncImageView;
-
 import java.io.IOException;
 
 import org.json.JSONException;
@@ -33,6 +31,7 @@ import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.astrid.actfm.sync.ActFmPreferenceService;
 import com.todoroo.astrid.data.Update;
+import com.todoroo.astrid.helper.AsyncImageView;
 import com.todoroo.astrid.helper.ImageDiskCache;
 
 /**
@@ -60,12 +59,12 @@ public class UpdateAdapter extends CursorAdapter {
     private static final String UPDATE_TASK_COMPLETED = "task_completed"; //$NON-NLS-1$
     private static final String UPDATE_TASK_UNCOMPLETED = "task_uncompleted"; //$NON-NLS-1$
     private static final String UPDATE_TASK_TAGGED = "task_tagged"; //$NON-NLS-1$
-    private static final String UPDATE_TASK_ASSIGNED = "task_assigned";
-    private static final String UPDATE_TASK_COMMENT = "task_comment";
-    private static final String UPDATE_TAG_COMMENT = "tag_comment";
-    public static final String FROM_TAG_VIEW = "from_tag";
-    public static final String FROM_TASK_VIEW = "from_task";
-    public static final String FROM_RECENT_ACTIVITY_VIEW = "from_recent_activity";
+    private static final String UPDATE_TASK_ASSIGNED = "task_assigned"; //$NON-NLS-1$
+    public static final String UPDATE_TASK_COMMENT = "task_comment"; //$NON-NLS-1$
+    private static final String UPDATE_TAG_COMMENT = "tag_comment"; //$NON-NLS-1$
+    public static final String FROM_TAG_VIEW = "from_tag"; //$NON-NLS-1$
+    public static final String FROM_TASK_VIEW = "from_task"; //$NON-NLS-1$
+    public static final String FROM_RECENT_ACTIVITY_VIEW = "from_recent_activity"; //$NON-NLS-1$
     /**
      * Constructor
      *
