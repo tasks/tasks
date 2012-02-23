@@ -386,7 +386,7 @@ public class DraggableListView extends ListView {
         mLowerBound = Math.max(y + touchSlop, mHeight * 2 / 3);
 
         Vibrator v = (Vibrator) getContext().getSystemService(Context.VIBRATOR_SERVICE);
-        v.vibrate(100);
+        v.vibrate(50);
 
         return true;
     }

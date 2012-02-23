@@ -96,9 +96,9 @@ public class SubtasksUpdater extends OrderedListUpdater<String> {
         if(!query.contains(subtaskJoin)) {
             query = subtaskJoin + query;
             query = query.replaceAll("ORDER BY .*", "");
-            query = query + String.format(" ORDER BY %s, %s, CAST(%s AS LONG), %s",
+            query = query + String.format(" ORDER BY %s, %s, IFNULL(CAST(%s AS LONG), %s)",
                     Task.DELETION_DATE, Task.COMPLETION_DATE,
-                    SubtasksMetadata.ORDER, Task.ID);
+                    SubtasksMetadata.ORDER, Task.CREATION_DATE);
             query = query.replace(TaskCriteria.isVisible().toString(),
                     Criterion.all.toString());
 
