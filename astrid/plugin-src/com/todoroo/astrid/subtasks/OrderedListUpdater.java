@@ -79,6 +79,7 @@ abstract public class OrderedListUpdater<LIST> {
         final AtomicInteger targetTaskIndent = new AtomicInteger(-1);
         final AtomicInteger previousIndent = new AtomicInteger(-1);
         final AtomicLong previousTask = new AtomicLong(-1);
+        final AtomicLong globalOrder = new AtomicLong(-1);
 
         iterateThroughList(filter, list, new OrderedListIterator() {
             @Override
@@ -87,6 +88,9 @@ abstract public class OrderedListUpdater<LIST> {
                     metadata = createEmptyMetadata(list, taskId);
                 int indent = metadata.containsNonNullValue(indentProperty()) ?
                         metadata.getValue(indentProperty()) : 0;
+
+                long order = globalOrder.incrementAndGet();
+                metadata.setValue(orderProperty(), order);
 
                 if(targetTaskId == taskId) {
                     // if indenting is warranted, indent me and my children
@@ -116,6 +120,9 @@ abstract public class OrderedListUpdater<LIST> {
                     previousIndent.set(indent);
                     previousTask.set(taskId);
                 }
+
+                if(!metadata.isSaved())
+                    saveAndUpdateModifiedDate(metadata, taskId);
             }
 
         });
