@@ -507,7 +507,7 @@ public class TagViewFragment extends TaskListFragment {
             ((FilterWithCustomIntent)newFilter).customTaskList =
                 new ComponentName(getActivity(), TagViewFragment.class);
 
-        ((AstridActivity)getActivity()).setupTasklistFragmentWithFilter(newFilter);
+        ((AstridActivity)getActivity()).onFilterItemClicked(newFilter);
     }
 
     @Override
