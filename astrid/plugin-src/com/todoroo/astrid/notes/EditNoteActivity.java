@@ -371,6 +371,10 @@ public class EditNoteActivity extends LinearLayout implements TimerActionListene
     }
 
     public void refreshData(boolean manual, SyncResultCallback existingCallback) {
+        if(!task.containsNonNullValue(Task.REMOTE_ID)) {
+            return;
+        }
+
         final SyncResultCallback callback;
         if(existingCallback != null)
             callback = existingCallback;
@@ -389,18 +393,6 @@ public class EditNoteActivity extends LinearLayout implements TimerActionListene
             callback.incrementMax(100);
         }
 
-        // push task if it hasn't been pushed
-        if(!task.containsNonNullValue(Task.REMOTE_ID) && !TextUtils.isEmpty(task.getValue(Task.TITLE))) {
-            new Thread(new Runnable() {
-                @Override
-                public void run() {
-                    actFmSyncService.pushTask(task.getId());
-                    task = PluginServices.getTaskService().fetchById(task.getId(), Task.NOTES, Task.ID, Task.REMOTE_ID, Task.TITLE);
-                    refreshData(false, callback);
-                }
-            }).start();
-            return;
-        }
 
         actFmSyncService.fetchUpdatesForTask(task, manual, new Runnable() {
             @Override

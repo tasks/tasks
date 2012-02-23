@@ -311,11 +311,11 @@ public final class ActFmSyncService {
 
         long creationDate;
         if (task.containsValue(Task.CREATION_DATE)) {
-            creationDate = task.getValue(Task.CREATION_DATE);
+            creationDate = task.getValue(Task.CREATION_DATE) / 1000L; // In seconds
         } else {
             if (taskForRemote == null)
                 return;
-            creationDate = taskForRemote.getValue(Task.CREATION_DATE);
+            creationDate = taskForRemote.getValue(Task.CREATION_DATE) / 1000L; // In seconds
         }
 
         boolean newlyCreated = remoteId == 0;

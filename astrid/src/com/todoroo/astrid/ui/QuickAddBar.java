@@ -281,8 +281,10 @@ public class QuickAddBar extends LinearLayout {
                 TaskDao.createDefaultHideUntil(task);
             }
             gcalControl.writeToModel(task);
-            peopleControl.setTask(task);
-            peopleControl.saveSharingSettings(null);
+            if (!peopleControl.willBeAssignedToMe()) {
+                peopleControl.setTask(task);
+                peopleControl.saveSharingSettings(null);
+            }
             taskService.save(task);
 
             String assignedTo = peopleControl.getAssignedToString();
