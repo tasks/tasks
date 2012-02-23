@@ -2237,7 +2237,7 @@
   <string name="tag_case_migration_notice">Farklı büyük harflere sahip aynı isimli listeler olduğunu farkettik. Belki de aynı isimli olması gerekir diye bunları birleştirdik. Merak etme, orjinallere birşey olmadı, sadece isimleri değişti. (Alışveriş listesi_1,Alışveriş listesi_2 vb) İstediğin bu değilse tek yapman gereken birleşmiş listeyi silmek!</string>
   
   <!-- Header for tag settings -->
-  <string name="tag_settings_title">Ayarlar: %s</string>
+  <string name="tag_settings_title">Ayarlar: </string>
   
   <!-- Header for tag activity -->
   <string name="tag_updates_title">Etkinlik: %s</string>

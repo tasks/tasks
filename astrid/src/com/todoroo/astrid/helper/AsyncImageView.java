@@ -7,10 +7,12 @@ import android.graphics.Bitmap;
 import android.text.TextUtils;
 import android.util.AttributeSet;
 
-
-/*
- * Subclass of greendroid.widget.AsyncImageView, so that we can cache the image locally when user is offline
- * IMPORTANT: cannot load a cached image by setting the url in an xml file. --ImageDiskCache object is created after object is loaded from xml
+/**
+ * Subclass of greendroid.widget.AsyncImageView, so that we can cache the image
+ * locally when user is offline
+ *
+ * IMPORTANT: cannot load a cached image by setting the url in an xml file.
+ * ImageDiskCache object is created after object is loaded from xml
  */
 public class AsyncImageView extends greendroid.widget.AsyncImageView {
 
