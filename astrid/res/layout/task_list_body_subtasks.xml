@@ -7,9 +7,13 @@
         
     <!-- No Tasks label -->
     <TextView android:id="@android:id/empty"
-        android:layout_width="fill_parent" 
-        android:layout_height="fill_parent"
+        android:drawableTop="@drawable/icon"
+        android:layout_width="wrap_content" 
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:gravity="center"
         android:visibility="gone"
+        android:clickable="true"
         android:text="@string/TLA_no_items"
         style="@style/TextAppearance.TLA_NoItems"/>
 
