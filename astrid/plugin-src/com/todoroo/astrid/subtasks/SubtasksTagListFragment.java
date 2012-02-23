@@ -12,11 +12,11 @@ import com.todoroo.astrid.data.Task;
 
 public class SubtasksTagListFragment extends TagViewFragment {
 
-    private final SubtasksFragmentHelper helper;
+    private final OrderedListFragmentHelper<String> helper;
 
     public SubtasksTagListFragment() {
         super();
-        helper = new SubtasksFragmentHelper(this);
+        helper = new OrderedListFragmentHelper<String>(this, new SubtasksUpdater());
     }
 
     @Override

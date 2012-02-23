@@ -25,7 +25,7 @@ abstract public class OrderedListUpdater<LIST> {
         public void processTask(long taskId, Metadata metadata);
     }
 
-    // --- abstract
+    // --- abstract and empty
 
     abstract protected Metadata getTaskMetadata(LIST list, long taskId);
 
@@ -39,7 +39,17 @@ abstract public class OrderedListUpdater<LIST> {
 
     abstract protected Metadata createEmptyMetadata(LIST list, long taskId);
 
-    /** @param list */
+    /**
+     * @param list
+     * @param filter
+     */
+    protected void initialize(LIST list, Filter filter) {
+        //
+    }
+
+    /**
+     * @param list
+     */
     protected void beforeIndent(LIST list) {
         //
     }

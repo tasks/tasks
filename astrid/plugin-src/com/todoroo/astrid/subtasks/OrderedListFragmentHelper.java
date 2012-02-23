@@ -36,21 +36,22 @@ import com.todoroo.astrid.subtasks.OrderedListUpdater.Node;
 import com.todoroo.astrid.subtasks.OrderedListUpdater.OrderedListNodeVisitor;
 import com.todoroo.astrid.ui.DraggableListView;
 
-public class SubtasksFragmentHelper {
+public class OrderedListFragmentHelper<LIST> {
 
     private final DisplayMetrics metrics = new DisplayMetrics();
-    private final SubtasksUpdater updater = new SubtasksUpdater();
+    private final OrderedListUpdater<LIST> updater;
     private final TaskListFragment fragment;
 
     @Autowired TaskService taskService;
 
     private DraggableTaskAdapter taskAdapter;
 
-    private String list;
+    private LIST list;
 
-    public SubtasksFragmentHelper(TaskListFragment fragment) {
+    public OrderedListFragmentHelper(TaskListFragment fragment, OrderedListUpdater<LIST> updater) {
         DependencyInjectionService.getInstance().inject(this);
         this.fragment = fragment;
+        this.updater = updater;
     }
 
     // --- ui component setup
@@ -83,8 +84,7 @@ public class SubtasksFragmentHelper {
     }
 
     public void beforeSetUpTaskList(Filter filter) {
-        updater.applySubtasksToFilter(filter, list);
-        updater.sanitizeTaskList(filter, list);
+        updater.initialize(list, filter);
     }
 
     public Property<?>[] taskProperties() {
@@ -259,7 +259,7 @@ public class SubtasksFragmentHelper {
         }
     }
 
-    public void setList(String list) {
+    public void setList(LIST list) {
         this.list = list;
     }
 

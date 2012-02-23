@@ -18,11 +18,11 @@ import com.todoroo.astrid.data.Task;
  */
 public class SubtasksListFragment extends TaskListFragment {
 
-    private final SubtasksFragmentHelper helper;
+    private final OrderedListFragmentHelper<String> helper;
 
     public SubtasksListFragment() {
         super();
-        helper = new SubtasksFragmentHelper(this);
+        helper = new OrderedListFragmentHelper<String>(this, new SubtasksUpdater());
         helper.setList(SubtasksMetadata.LIST_ACTIVE_TASKS);
     }
 

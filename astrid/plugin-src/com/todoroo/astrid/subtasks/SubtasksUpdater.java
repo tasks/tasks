@@ -39,6 +39,12 @@ public class SubtasksUpdater extends OrderedListUpdater<String> {
     }
 
     @Override
+    protected void initialize(String list, Filter filter) {
+        applySubtasksToFilter(filter, list);
+        sanitizeTaskList(filter, list);
+    }
+
+    @Override
     protected Metadata getTaskMetadata(String list, long taskId) {
         TodorooCursor<Metadata> cursor = metadataService.query(Query.select(Metadata.PROPERTIES).where(
                 Criterion.and(
