@@ -12,6 +12,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.text.TextUtils;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.util.TypedValue;
 import android.view.View;
 import android.view.ViewGroup;
@@ -130,10 +131,14 @@ public class OrderedListFragmentHelper<LIST> {
             long targetTaskId = taskAdapter.getItemId(from);
             long destinationTaskId = taskAdapter.getItemId(to);
 
-            if(to >= getListView().getCount())
-                updater.moveTo(getFilter(), list, targetTaskId, -1);
-            else
-                updater.moveTo(getFilter(), list, targetTaskId, destinationTaskId);
+            try {
+                if(to >= getListView().getCount())
+                    updater.moveTo(getFilter(), list, targetTaskId, -1);
+                else
+                    updater.moveTo(getFilter(), list, targetTaskId, destinationTaskId);
+            } catch (Exception e) {
+                Log.e("drag", "Drag Error", e); //$NON-NLS-1$ //$NON-NLS-2$
+            }
 
             fragment.loadTaskListContent(true);
             onMetadataChanged(targetTaskId);
@@ -143,16 +148,21 @@ public class OrderedListFragmentHelper<LIST> {
     private final SwipeListener swipeListener = new SwipeListener() {
         @Override
         public void swipeRight(int which) {
-            long targetTaskId = taskAdapter.getItemId(which);
-            updater.indent(getFilter(), list, targetTaskId, 1);
-            fragment.loadTaskListContent(true);
-            onMetadataChanged(targetTaskId);
+            indent(which, 1);
         }
 
         @Override
         public void swipeLeft(int which) {
+            indent(which, -1);
+        }
+
+        protected void indent(int which, int delta) {
             long targetTaskId = taskAdapter.getItemId(which);
-            updater.indent(getFilter(), list, targetTaskId, -1);
+            try {
+                updater.indent(getFilter(), list, targetTaskId, delta);
+            } catch (Exception e) {
+                Log.e("drag", "Indent Error", e); //$NON-NLS-1$ //$NON-NLS-2$
+            }
             fragment.loadTaskListContent(true);
             onMetadataChanged(targetTaskId);
         }
