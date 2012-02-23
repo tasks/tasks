@@ -26,9 +26,9 @@ import com.todoroo.andlib.utility.Preferences;
 public class ActFmInvoker {
 
     /** NOTE: these values are development values & will not work on production */
-    private static final String URL = "//10.0.2.2:3000/api/";
-    private static final String APP_ID = "a4732a32859dbcd3e684331acd36432c";
-    private static final String APP_SECRET = "e389bfc82a0d932332f9a8bd8203735f";
+    private static final String URL = "//astrid.com/api/";
+    private static final String APP_ID = "bf6170638298af8ed9a8c79995b1fc0f";
+    private static final String APP_SECRET = "d15d25c63323bddcaa48928dccac1207";
 
     public static final String PROVIDER_FACEBOOK = "facebook";
     public static final String PROVIDER_GOOGLE= "google";

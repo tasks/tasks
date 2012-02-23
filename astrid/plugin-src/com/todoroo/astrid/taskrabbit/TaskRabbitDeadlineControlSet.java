@@ -102,13 +102,13 @@ public class TaskRabbitDeadlineControlSet extends PopupControlSet implements Tas
 
     @Override
     public void saveToDatabase(JSONObject json, String key) throws JSONException {
-        json.put(key, dateAndTimePicker.constructDueDate());
+        json.put(key, dateAndTimePicker.constructDueDate()/1000);
 
     }
 
     @Override
     public void postToTaskRabbit(JSONObject json, String key) throws JSONException {
-        long dueDate = dateAndTimePicker.constructDueDate();
+        long dueDate = dateAndTimePicker.constructDueDate()/1000;
         json.put(key, dueDate);
     }
 

@@ -193,6 +193,7 @@ public class TagUpdatesFragment extends ListFragment {
     private void refreshUpdatesList() {
 
         Cursor cursor = null;
+        ListView listView = ((ListView) getView().findViewById(android.R.id.list));
         if(updateAdapter == null) {
             cursor = tagDataService.getUpdates(tagData);
             getActivity().startManagingCursor(cursor);
@@ -200,7 +201,6 @@ public class TagUpdatesFragment extends ListFragment {
 
             updateAdapter = new UpdateAdapter(this, R.layout.update_adapter_row,
                     cursor, false, fromUpdateClass);
-            ListView listView = ((ListView) getView().findViewById(android.R.id.list));
             addHeaderToListView(listView);
             listView.setAdapter(updateAdapter);
         } else {
@@ -213,9 +213,11 @@ public class TagUpdatesFragment extends ListFragment {
         View activityContainer = getView().findViewById(R.id.no_activity_container);
         if (cursor.getCount() == 0) {
             activityContainer.setVisibility(View.VISIBLE);
+            listView.setVisibility(View.GONE);
         }
         else {
-            activityContainer.setVisibility(View.VISIBLE);
+            activityContainer.setVisibility(View.GONE);
+            listView.setVisibility(View.VISIBLE);
         }
 
         if (getActivity() instanceof TagUpdatesActivity)

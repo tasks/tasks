@@ -19,6 +19,7 @@ import android.widget.Toast;
 
 import com.timsu.astrid.R;
 import com.todoroo.andlib.service.Autowired;
+import com.todoroo.andlib.service.ContextManager;
 import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.andlib.service.RestClient;
 import com.todoroo.andlib.utility.Preferences;
@@ -143,7 +144,8 @@ public class TaskRabbitControlSet extends TaskEditControlSet implements Assigned
      * Show toast for task edit canceling
      */
     private void showSuccessToast() {
-        Toast.makeText(fragment.getActivity(), fragment.getString(R.string.tr_success_toast),
+        Toast.makeText(ContextManager.getContext(),
+                ContextManager.getString(R.string.tr_success_toast),
                 Toast.LENGTH_SHORT).show();
     }
 

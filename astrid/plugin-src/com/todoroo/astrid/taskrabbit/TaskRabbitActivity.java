@@ -150,12 +150,9 @@ public class TaskRabbitActivity extends FragmentActivity {
     public static final String LOCATION_CONTAINER = "other_locations_attributes"; //$NON-NLS-1$
 
     // Non-production values
-    public static final String TASK_RABBIT_URL = "http://www.taskrabbit.com"; //$NON-NLS-1$
-    public static final String TASK_RABBIT_CLIENT_ID = "RZUDrMuGn9Q3dXeq4nL24bM6LZmMCi1CEGgfP4ND"; //$NON-NLS-1$
-    public static final String TASK_RABBIT_CLIENT_APPLICATION_ID = "Va7FUIUTprsmyuwAq9eHSZvAgiRj8FVH1zeaM8Zt"; //$NON-NLS-1$
-    //    public static final String TASK_RABBIT_URL = "http://rs-astrid-api.taskrabbit.com"; //$NON-NLS-1$
-    //    public static final String TASK_RABBIT_CLIENT_ID = "fDTmGeR0uNCvoxopNyqsRWae8xOvbOBqC7jmHaxv"; //$NON-NLS-1$
-    //    public static final String TASK_RABBIT_CLIENT_APPLICATION_ID = "XBpKshU8utH5eaNmhky9N8aAId5rSLTh04Hi60Co"; //$NON-NLS-1$
+    public static final String TASK_RABBIT_URL = "http://rs-astrid-api.taskrabbit.com"; //$NON-NLS-1$
+    public static final String TASK_RABBIT_CLIENT_ID = "fDTmGeR0uNCvoxopNyqsRWae8xOvbOBqC7jmHaxv"; //$NON-NLS-1$
+    public static final String TASK_RABBIT_CLIENT_APPLICATION_ID = "XBpKshU8utH5eaNmhky9N8aAId5rSLTh04Hi60Co"; //$NON-NLS-1$
     public static final String TASK_RABBIT_ID = "id"; //$NON-NLS-1$
     private TaskRabbitTaskContainer taskRabbitTask;
 
@@ -551,6 +548,7 @@ public class TaskRabbitActivity extends FragmentActivity {
     private HttpEntity getTaskBody()  {
 
         try {
+            Log.d("SENT JSON", localParamsToJSON().toString());
             return new StringEntity(localParamsToJSON().toString());
         }
         catch (Exception e) {
@@ -593,7 +591,6 @@ public class TaskRabbitActivity extends FragmentActivity {
                     Header contentType = new BasicHeader("Content-Type",  "application/json");
                     HttpEntity taskBody = getTaskBody();
                     String response = null;
-
                     try {
                         response = restClient.post(taskRabbitURL(urlCall), taskBody, contentType, authorization);
                         Log.e("The response", "The post response: " + response);
@@ -780,8 +777,12 @@ public class TaskRabbitActivity extends FragmentActivity {
 
                     result = result.substring(result.indexOf(key)+key.length());
                     Preferences.setString(TASK_RABBIT_TOKEN, result);
-                    String response = restClient.get(taskRabbitURL("account"));   //$NON-NLS-1$
-                    saveUserInfo(response);
+                    String url = String.format("%s?oauth_token=%s&client_application=",taskRabbitURL("account"), Preferences.getStringValue(TASK_RABBIT_TOKEN), TASK_RABBIT_CLIENT_APPLICATION_ID);
+                    Log.d("TASKRABBIT AUTHURL", url);
+
+
+                    String response = restClient.get(url);
+                    saveUserInfo(response);//;
                 }
                 catch (Exception e){
                     e.printStackTrace();
@@ -819,15 +820,15 @@ public class TaskRabbitActivity extends FragmentActivity {
 
     /* location calls */
     private boolean supportsSelectedLocation() {
-            for (TaskRabbitSetListener controlSet : controls) {
-                if (TaskRabbitLocationControlSet.class.isAssignableFrom(controlSet.getClass())) {
-                    TaskRabbitLocationControlSet locationControlSet = (TaskRabbitLocationControlSet) controlSet;
-                    if(!TaskRabbitLocationManager.supportsCurrentLocation(locationControlSet.location) && locationControlSet.getDisplayView().getParent() != null) {
-                        return false;
-                    }
+        for (TaskRabbitSetListener controlSet : controls) {
+            if (TaskRabbitLocationControlSet.class.isAssignableFrom(controlSet.getClass())) {
+                TaskRabbitLocationControlSet locationControlSet = (TaskRabbitLocationControlSet) controlSet;
+                if(!TaskRabbitLocationManager.supportsCurrentLocation(locationControlSet.location) && locationControlSet.getDisplayView().getParent() != null) {
+                    return false;
                 }
             }
-            return true;
+        }
+        return true;
     }
 
     public void updateControlSetLocation (Location location) {
