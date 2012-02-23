@@ -139,9 +139,11 @@ abstract public class SyncProviderPreferences extends TodorooPreferenceActivity 
                                         new Date(getUtilities().getLastSyncDate())));
                     }
                 } else {
-                    status = r.getString(R.string.sync_status_errors,
+                    long lastSyncDate = getUtilities().getLastSyncDate();
+                    String dateString = lastSyncDate > 0 ?
                             DateUtilities.getDateStringWithTime(SyncProviderPreferences.this,
-                                    new Date(getUtilities().getLastSyncDate())));
+                                    new Date(lastSyncDate)) : ""; //$NON-NLS-1$
+                    status = r.getString(R.string.sync_status_errors, dateString);
                     statusColor = Color.rgb(100, 100, 0);
                 }
                 preference.setOnPreferenceClickListener(new OnPreferenceClickListener() {
