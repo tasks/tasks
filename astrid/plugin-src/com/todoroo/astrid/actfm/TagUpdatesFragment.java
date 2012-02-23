@@ -199,7 +199,7 @@ public class TagUpdatesFragment extends ListFragment {
             String fromUpdateClass = (tagData == null) ? UpdateAdapter.FROM_RECENT_ACTIVITY_VIEW : UpdateAdapter.FROM_TAG_VIEW;
 
             updateAdapter = new UpdateAdapter(this, R.layout.update_adapter_row,
-                    currentCursor, false, null, fromUpdateClass);
+                    currentCursor, false, fromUpdateClass);
             ListView listView = ((ListView) getView().findViewById(android.R.id.list));
             addHeaderToListView(listView);
             listView.setAdapter(updateAdapter);

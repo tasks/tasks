@@ -1082,11 +1082,11 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
             return;
 
         if (newState != task.isCompleted()) {
-            completedItems.put(task.getId(), newState);
-            taskService.setComplete(task, newState);
-
             if(onCompletedTaskListener != null)
                 onCompletedTaskListener.onCompletedTask(task, newState);
+
+            completedItems.put(task.getId(), newState);
+            taskService.setComplete(task, newState);
 
             if(newState)
                 StatisticsService.reportEvent(StatisticsConstants.TASK_COMPLETED_V2);

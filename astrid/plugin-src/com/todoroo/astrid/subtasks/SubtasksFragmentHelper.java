@@ -6,8 +6,6 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.atomic.AtomicBoolean;
-import java.util.concurrent.atomic.AtomicInteger;
-import java.util.concurrent.atomic.AtomicLong;
 import java.util.concurrent.atomic.AtomicReference;
 
 import android.app.Activity;
@@ -217,10 +215,10 @@ public class SubtasksFragmentHelper {
         }
     }
 
+    private final Map<Long, ArrayList<Long>> chainedCompletions =
+        Collections.synchronizedMap(new HashMap<Long, ArrayList<Long>>());
 
     private void setCompletedForItemAndSubtasks(final Task item, final boolean completedState) {
-        final Map<Long, ArrayList<Long>> chainedCompletions =
-            Collections.synchronizedMap(new HashMap<Long, ArrayList<Long>>());
 
         final long itemId = item.getId();
 
@@ -240,48 +238,38 @@ public class SubtasksFragmentHelper {
             return;
         }
 
-        new Thread() {
+        final int startIndent = item.getValue(SubtasksMetadata.INDENT);
+        final AtomicBoolean started = new AtomicBoolean(false);
+        final AtomicBoolean finished = new AtomicBoolean(false);
+        final ArrayList<Long> chained = new ArrayList<Long>();
+        chainedCompletions.put(itemId, chained);
+
+        updater.iterateThroughList(getFilter(), list, new OrderedListIterator() {
             @Override
-            public void run() {
-                final AtomicInteger startIndent = new AtomicInteger(
-                        item.getValue(SubtasksMetadata.INDENT));
-                final AtomicLong startOrder= new AtomicLong(
-                        item.getValue(SubtasksMetadata.ORDER));
-                final AtomicBoolean finished = new AtomicBoolean(false);
-                final ArrayList<Long> chained = new ArrayList<Long>();
-                chainedCompletions.put(itemId, chained);
+            public void processTask(long taskId, Metadata metadata) {
+                if(finished.get())
+                    return;
 
-                updater.iterateThroughList(getFilter(), list, new OrderedListIterator() {
-                    @Override
-                    public void processTask(long taskId, Metadata metadata) {
-                        if(finished.get())
-                            return;
+                int indent = metadata.containsNonNullValue(SubtasksMetadata.INDENT) ?
+                        metadata.getValue(SubtasksMetadata.INDENT) : 0;
 
-                        long order = metadata.containsNonNullValue(SubtasksMetadata.ORDER) ?
-                                metadata.getValue(SubtasksMetadata.ORDER) : 0;
-                        int indent = metadata.containsNonNullValue(SubtasksMetadata.INDENT) ?
-                                metadata.getValue(SubtasksMetadata.INDENT) : 0;
+                if(taskId == itemId){
+                    started.set(true);
+                    return;
+                } else if(!started.get())
+                    return;
+                else if(indent <= startIndent) {
+                    finished.set(true);
+                    return;
+                }
 
-                        if(order < startOrder.get())
-                            return;
-                        else if(indent == startIndent.get()) {
-                            finished.set(true);
-                            return;
-                        }
-
-                        taskAdapter.getCompletedItems().put(taskId, true);
-                        task.setId(taskId);
-                        taskService.save(task);
-                        chained.add(taskId);
-                    }
-                });
-                getActivity().runOnUiThread(new Runnable() {
-                    public void run() {
-                        taskAdapter.notifyDataSetInvalidated();
-                    }
-                });
+                taskAdapter.getCompletedItems().put(taskId, true);
+                task.setId(taskId);
+                taskService.save(task);
+                chained.add(taskId);
             }
-        }.start();
+        });
+        taskAdapter.notifyDataSetInvalidated();
     }
 
     public void setList(String list) {

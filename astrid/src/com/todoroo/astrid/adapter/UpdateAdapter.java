@@ -32,12 +32,11 @@ import com.todoroo.andlib.service.ContextManager;
 import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.astrid.actfm.sync.ActFmPreferenceService;
-import com.todoroo.astrid.adapter.TaskAdapter.OnCompletedTaskListener;
 import com.todoroo.astrid.data.Update;
 import com.todoroo.astrid.helper.ImageDiskCache;
 
 /**
- * Adapter for displaying a user's goals as a list
+ * Adapter for displaying a user's activity
  *
  * @author Tim Su <tim@todoroo.com>
  *
@@ -82,7 +81,7 @@ public class UpdateAdapter extends CursorAdapter {
      */
     public UpdateAdapter(Fragment fragment, int resource,
             Cursor c, boolean autoRequery,
-            OnCompletedTaskListener onCompletedTaskListener, String fromView) {
+            String fromView) {
         super(fragment.getActivity(), c, autoRequery);
         DependencyInjectionService.getInstance().inject(this);
 

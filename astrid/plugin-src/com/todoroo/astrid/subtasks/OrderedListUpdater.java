@@ -180,7 +180,7 @@ abstract public class OrderedListUpdater<LIST> {
             }
         }
 
-        traverseTreeAndWriteValues(list, root, new AtomicLong(0), -1);
+        traverseTreeAndWriteValues(list, root, new AtomicLong(1), -1);
     }
 
     private boolean ancestorOf(Node ancestor, Node descendant) {
