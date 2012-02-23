@@ -206,11 +206,7 @@ public class TaskDao extends DatabaseDao<Task> {
                     Task.URGENCY_NONE);
             item.setValue(Task.DUE_DATE, Task.createDueDate(setting, 0));
         }
-        if(!item.containsValue(Task.HIDE_UNTIL)) {
-            int setting = Preferences.getIntegerFromString(R.string.p_default_hideUntil_key,
-                    Task.HIDE_UNTIL_NONE);
-            item.setValue(Task.HIDE_UNTIL, item.createHideUntil(setting, 0));
-        }
+        createDefaultHideUntil(item);
 
         setDefaultReminders(item);
 
@@ -221,6 +217,14 @@ public class TaskDao extends DatabaseDao<Task> {
             afterSave(item, values);
         }
         return result;
+    }
+
+    public static void createDefaultHideUntil(Task item) {
+        if(!item.containsValue(Task.HIDE_UNTIL)) {
+            int setting = Preferences.getIntegerFromString(R.string.p_default_hideUntil_key,
+                    Task.HIDE_UNTIL_NONE);
+            item.setValue(Task.HIDE_UNTIL, item.createHideUntil(setting, 0));
+        }
     }
 
     private void userRetentionMetrics() {

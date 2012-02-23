@@ -35,6 +35,7 @@ import com.todoroo.astrid.activity.TaskEditFragment;
 import com.todoroo.astrid.activity.TaskListActivity;
 import com.todoroo.astrid.activity.TaskListFragment;
 import com.todoroo.astrid.activity.TaskListFragment.OnTaskListItemClickedListener;
+import com.todoroo.astrid.dao.TaskDao;
 import com.todoroo.astrid.data.TagData;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.gcal.GCalControlSet;
@@ -274,8 +275,11 @@ public class QuickAddBar extends LinearLayout {
 
             if (repeatControl.isRecurrenceSet())
                 repeatControl.writeToModel(task);
-            if (deadlineControl.isDeadlineSet())
+            if (deadlineControl.isDeadlineSet()) { // Need to redo hide until using defaults in case it was set by some markup magic
+                task.clearValue(Task.HIDE_UNTIL);
                 deadlineControl.writeToModel(task);
+                TaskDao.createDefaultHideUntil(task);
+            }
             gcalControl.writeToModel(task);
             peopleControl.setTask(task);
             peopleControl.saveSharingSettings(null);
