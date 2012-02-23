@@ -1190,7 +1190,7 @@
     <string name="gtasks_help_title">Witamy w zadaniach Google!</string>
     
     <!-- short help for GTasks list activity -->
-    <string name="gtasks_help_body">Przeciągnij grabber po lewej stronie zadania, aby zmienić go. Przesuń grabber w lewo lub w prawo, aby zmienić wcięcia.</string>
+
 
     <string name="CFC_gtasks_list_text">Na liście: ?</string>
 

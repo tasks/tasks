@@ -1190,7 +1190,7 @@
     <string name="gtasks_help_title">Vítejte v Google úkolech!</string>
     
     <!-- short help for GTasks list activity -->
-    <string name="gtasks_help_body">Přetáhněte grabber na levé straně úkolu pro přeuspořádání. Táhněte s grabberem doleva nebo doprava ke změně odsazení.</string>
+
 
     <string name="CFC_gtasks_list_text">V seznamu: ?</string>
 

@@ -1190,7 +1190,7 @@
     <string name="gtasks_help_title">Welkom bij Google Taken!</string>
     
     <!-- short help for GTasks list activity -->
-    <string name="gtasks_help_body">Sleep de aanwijzer aan de linker kant van een taak om hem te verplaatsen. Schuif de aanwijzer naar links of recht om de inspringing te wijzigen.</string>
+
 
     <string name="CFC_gtasks_list_text">In lijst: ?</string>
 

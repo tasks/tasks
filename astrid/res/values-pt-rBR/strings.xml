@@ -1190,7 +1190,7 @@
     <string name="gtasks_help_title">Bem vindo à Tarefas do Google</string>
     
     <!-- short help for GTasks list activity -->
-    <string name="gtasks_help_body">Arraste o controle no lado esquerdo de uma tarefa para reorganizá-la. Deslize o controle para direita ou esquerda para mudar a indentação.</string>
+
 
     <string name="CFC_gtasks_list_text">Na Lista: ?</string>
 

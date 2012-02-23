@@ -1193,7 +1193,7 @@ Astrid is open-source and proudly maintained by Todoroo, Inc.</string>
     <string name="gtasks_help_title">歡迎使用Google Tasks!</string>
     
     <!-- short help for GTasks list activity -->
-    <string name="gtasks_help_body">拖曳工作左側的直條以重新排列。向左或向右滑動則可變更縮排。</string>
+
 
     <string name="CFC_gtasks_list_text">In List: ?</string>
 

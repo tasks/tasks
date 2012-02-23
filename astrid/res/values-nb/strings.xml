@@ -1193,7 +1193,7 @@ Astrid is open-source and proudly maintained by Todoroo, Inc.</string>
     <string name="gtasks_help_title">Velkommen til Google Tasks!</string>
     
     <!-- short help for GTasks list activity -->
-    <string name="gtasks_help_body">Dra hendelen på venstre side av oppgaven for å endre plassering. Dra den til venstre eller høyre for å endre innrykk.</string>
+
 
     <string name="CFC_gtasks_list_text">In List: ?</string>
 

@@ -1190,7 +1190,7 @@
     <string name="gtasks_help_title">Bienvenue sur Google Tasks !</string>
     
     <!-- short help for GTasks list activity -->
-    <string name="gtasks_help_body">Faites glisser la poignée sur la gauche d\'une tâche pour la repositionner. Glissez la poignée à droite ou à gauche pour changer l\'indentation.</string>
+
 
     <string name="CFC_gtasks_list_text">Dans la liste : ?</string>
 

@@ -1187,7 +1187,7 @@
     <string name="gtasks_help_title">Wilkommen bei Google Tasks!</string>
     
     <!-- short help for GTasks list activity -->
-    <string name="gtasks_help_body">Bewege den Griff links einer Aufgabe um sie umzuordnen. Zieh den Griff links oder rechts um den Einzug zu ändern.</string>
+
 
     <string name="CFC_gtasks_list_text">In der Liste: ?</string>
 

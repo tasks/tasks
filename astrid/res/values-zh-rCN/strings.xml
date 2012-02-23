@@ -1190,7 +1190,7 @@
     <string name="gtasks_help_title">欢迎使用Google Tasks!</string>
     
     <!-- short help for GTasks list activity -->
-    <string name="gtasks_help_body">拖曳任务左侧的直条以重新排列。向左或向右滑动则可变更缩排。</string>
+
 
     <string name="CFC_gtasks_list_text">列表内容: ?</string>
 
