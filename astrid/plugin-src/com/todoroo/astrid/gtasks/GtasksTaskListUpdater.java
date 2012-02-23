@@ -20,6 +20,7 @@ import com.todoroo.astrid.dao.MetadataDao;
 import com.todoroo.astrid.data.Metadata;
 import com.todoroo.astrid.data.StoreObject;
 import com.todoroo.astrid.data.Task;
+import com.todoroo.astrid.gtasks.sync.GtasksSyncService;
 import com.todoroo.astrid.subtasks.OrderedListUpdater;
 
 public class GtasksTaskListUpdater extends OrderedListUpdater<StoreObject> {
@@ -35,6 +36,7 @@ public class GtasksTaskListUpdater extends OrderedListUpdater<StoreObject> {
 
     @Autowired private GtasksListService gtasksListService;
     @Autowired private GtasksMetadataService gtasksMetadataService;
+    @Autowired private GtasksSyncService gtasksSyncService;
     @Autowired private MetadataDao metadataDao;
 
     public GtasksTaskListUpdater() {
@@ -72,6 +74,11 @@ public class GtasksTaskListUpdater extends OrderedListUpdater<StoreObject> {
     @Override
     protected void beforeIndent(StoreObject list) {
         updateParentSiblingMapsFor(list);
+    }
+
+    @Override
+    public void onMetadataChanged(long taskId) {
+        gtasksSyncService.triggerMoveForMetadata(gtasksMetadataService.getTaskMetadata(taskId));
     }
 
     @Override

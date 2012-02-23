@@ -89,8 +89,8 @@ public class OrderedListFragmentHelper<LIST> {
 
     public Property<?>[] taskProperties() {
         ArrayList<Property<?>> properties = new ArrayList<Property<?>>(Arrays.asList(TaskAdapter.PROPERTIES));
-        properties.add(SubtasksMetadata.INDENT);
-        properties.add(SubtasksMetadata.ORDER);
+        properties.add(updater.indentProperty());
+        properties.add(updater.orderProperty());
         return properties.toArray(new Property<?>[properties.size()]);
     }
 
@@ -107,6 +107,7 @@ public class OrderedListFragmentHelper<LIST> {
                 updater.moveTo(getFilter(), list, targetTaskId, destinationTaskId);
 
             fragment.loadTaskListContent(true);
+            updater.onMetadataChanged(targetTaskId);
         }
     };
 
@@ -116,6 +117,7 @@ public class OrderedListFragmentHelper<LIST> {
             long targetTaskId = taskAdapter.getItemId(which);
             updater.indent(getFilter(), list, targetTaskId, 1);
             fragment.loadTaskListContent(true);
+            updater.onMetadataChanged(targetTaskId);
         }
 
         @Override
@@ -123,6 +125,7 @@ public class OrderedListFragmentHelper<LIST> {
             long targetTaskId = taskAdapter.getItemId(which);
             updater.indent(getFilter(), list, targetTaskId, -1);
             fragment.loadTaskListContent(true);
+            updater.onMetadataChanged(targetTaskId);
         }
     };
 
@@ -200,7 +203,7 @@ public class OrderedListFragmentHelper<LIST> {
             super.setFieldContentsAndVisibility(view);
 
             ViewHolder vh = (ViewHolder) view.getTag();
-            int indent = vh.task.getValue(SubtasksMetadata.INDENT);
+            int indent = vh.task.getValue(updater.indentProperty());
             vh.rowBody.setPadding(Math.round(indent * 20 * metrics.density), 0, 0, 0);
         }
 
