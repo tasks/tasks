@@ -156,10 +156,6 @@ public class TaskRabbitActivity extends FragmentActivity {
     public static final String TASK_RABBIT_ID = "id"; //$NON-NLS-1$
     private TaskRabbitTaskContainer taskRabbitTask;
 
-    /* From tag settings */
-    private boolean isDialog;
-
-
     public TaskRabbitActivity() {
         DependencyInjectionService.getInstance().inject(this);
     }
@@ -548,7 +544,6 @@ public class TaskRabbitActivity extends FragmentActivity {
     private HttpEntity getTaskBody()  {
 
         try {
-            Log.d("SENT JSON", localParamsToJSON().toString());
             return new StringEntity(localParamsToJSON().toString());
         }
         catch (Exception e) {
@@ -766,6 +761,7 @@ public class TaskRabbitActivity extends FragmentActivity {
     }
 
 
+    @SuppressWarnings("nls")
     @Override
     public void onActivityResult (int requestCode, int resultCode, Intent data) {
         if (requestCode == REQUEST_CODE_TASK_RABBIT_OAUTH && resultCode == Activity.RESULT_OK){
@@ -778,8 +774,6 @@ public class TaskRabbitActivity extends FragmentActivity {
                     result = result.substring(result.indexOf(key)+key.length());
                     Preferences.setString(TASK_RABBIT_TOKEN, result);
                     String url = String.format("%s?oauth_token=%s&client_application=",taskRabbitURL("account"), Preferences.getStringValue(TASK_RABBIT_TOKEN), TASK_RABBIT_CLIENT_APPLICATION_ID);
-                    Log.d("TASKRABBIT AUTHURL", url);
-
 
                     String response = restClient.get(url);
                     saveUserInfo(response);//;
