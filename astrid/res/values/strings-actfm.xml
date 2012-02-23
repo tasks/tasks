@@ -80,7 +80,7 @@
   <string name="actfm_TVA_menu_refresh">Refresh</string>
 
   <!-- Tag Settings: tag name label -->
-  <string name="actfm_TVA_tag_label">List Name:</string>
+  <string name="actfm_TVA_tag_label">List</string>
 
   <!-- Tag Settings: tag owner label -->
   <string name="actfm_TVA_tag_owner_label">List Creator:</string>
@@ -89,7 +89,7 @@
   <string name="actfm_TVA_tag_owner_none">none</string>
 
   <!-- Tag Settings: list collaborators label -->
-  <string name="actfm_TVA_members_label">Shared With:</string>
+  <string name="actfm_TVA_members_label">Shared With</string>
 
   <!-- Tag Settings: tag picture -->
   <string name="actfm_TVA_tag_picture">List Picture</string>
@@ -101,10 +101,16 @@
   <string name="actfm_TVA_list_icon_label">List Icon:</string>
   
   <!-- Tag Settings: list description label -->
-  <string name="actfm_TVA_tag_description_label">Description:</string>
+  <string name="actfm_TVA_tag_description_label">Description</string>
+  
+  <!-- Tag Settings: list settings label -->
+  <string name="actfm_TVA_tag_settings_label">Settings</string>
 
   <!-- Tag Settings: list description hint -->
-  <string name="actfm_TVA_tag_description_hint">List description</string>
+  <string name="actfm_TVA_tag_description_hint">Type a description here</string>
+  
+  <!-- Tag Settings: list name hint -->
+  <string name="actfm_TVA_tag_name_hint">Enter list name</string>
   
   <!-- Tag settings: login prompt from share-->
   <string name="actfm_TVA_login_to_share">You need to be logged in to Astrid.com to share lists! Please log in or make this a private list.</string>

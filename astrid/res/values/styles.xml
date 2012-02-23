@@ -156,6 +156,11 @@
         <item name="android:windowTitleStyle">@style/DialogTitle</item>
         <item name="android:windowTitleBackgroundStyle">@style/DialogTitle</item>
         <item name="android:colorBackgroundCacheHint">@null</item>
+        
+        
+        <item name="asEditBackground">#101010</item>
+        <item name="asEditRowBackground">@drawable/task_edit_background</item>
+        <item name="asThemeTextColor">@color/blue_theme_color</item>
     </style>
     
     <style name="Theme.Dialog.White">
@@ -171,6 +176,10 @@
         <item name="abBackground">@android:color/white</item>
         <item name="abDisplayOptions">useLogo|showHome|showTitle</item>
         <item name="abLogo">@drawable/icon_48</item>
+        
+        <item name="asEditBackground">#dddddd</item>
+        <item name="asEditRowBackground">@drawable/task_edit_background_transparent_white</item>
+        <item name="asThemeTextColor">@color/blue_theme_color</item>
     </style>
         
     <!--================================================== General == -->
@@ -375,6 +384,14 @@
         <item name="android:textColor">?attr/asFilterHeaderColor</item>
     </style>
 
+    <!-- ========================================================= Tag Settings == -->
+    
+    <style name="DeleteTag" >
+        <item name="android:textColor">@android:color/white</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:background">#d90000</item>
+    </style>
+    
     <!-- ========================================================= Widget == -->
 
     <style name="TextAppearance.Widget">                                                                                                                                                                                      

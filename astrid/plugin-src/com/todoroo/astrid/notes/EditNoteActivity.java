@@ -1,8 +1,5 @@
 package com.todoroo.astrid.notes;
 
-import greendroid.widget.AsyncImageView;
-
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -58,6 +55,7 @@ import com.todoroo.astrid.dao.UpdateDao;
 import com.todoroo.astrid.data.Metadata;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.data.Update;
+import com.todoroo.astrid.helper.AsyncImageView;
 import com.todoroo.astrid.helper.ImageDiskCache;
 import com.todoroo.astrid.helper.ProgressBarSyncResultCallback;
 import com.todoroo.astrid.service.MetadataService;
@@ -367,16 +365,7 @@ public class EditNoteActivity extends LinearLayout implements TimerActionListene
                 commentPictureView.setVisibility(View.GONE);
             else {
                 commentPictureView.setVisibility(View.VISIBLE);
-                if(imageCache.contains(item.commentPicture)) {
-                    try {
-                        commentPictureView.setDefaultImageBitmap(imageCache.get(item.commentPicture));
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                }
-                else {
-                    commentPictureView.setUrl(item.commentPicture);
-                }
+                commentPictureView.setUrl(item.commentPicture);
             }
         }
     }
@@ -428,9 +417,6 @@ public class EditNoteActivity extends LinearLayout implements TimerActionListene
     }
 
 
-    private String getPictureHashForUpdate(Update u) {
-        return String.format("%s%s", u.getValue(Update.TASK), u.getValue(Update.CREATION_DATE)); //$NON-NLS-1$
-    }
     private void addComment(String message, String actionCode, boolean usePicture) {
         // Allow for users to just add picture
         if (TextUtils.isEmpty(message) && usePicture) {
@@ -444,11 +430,12 @@ public class EditNoteActivity extends LinearLayout implements TimerActionListene
             update.setValue(Update.TASK, task.getValue(Task.REMOTE_ID));
         update.setValue(Update.TASK_LOCAL, task.getId());
         update.setValue(Update.CREATION_DATE, DateUtilities.now());
+        update.setValue(Update.TARGET_NAME, task.getValue(Task.TITLE));
 
         if (usePicture && pendingCommentPicture != null) {
             update.setValue(Update.PICTURE, Update.PICTURE_LOADING);
             try {
-                String updateString = getPictureHashForUpdate(update);
+                String updateString = ImageDiskCache.getPictureHash(update);
                 imageCache.put(updateString, pendingCommentPicture);
                 update.setValue(Update.PICTURE, updateString);
             }

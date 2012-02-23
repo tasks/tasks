@@ -1,6 +1,6 @@
 package com.todoroo.astrid.adapter;
 
-import greendroid.widget.AsyncImageView;
+import com.todoroo.astrid.helper.AsyncImageView;
 
 import java.io.IOException;
 
@@ -56,10 +56,10 @@ public class UpdateAdapter extends CursorAdapter {
     private static final String UPDATE_FRIENDS = "friends";  //$NON-NLS-1$
     private static final String UPDATE_REQUEST_FRIENDSHIP = "request_friendship"; //$NON-NLS-1$
     private static final String UPDATE_CONFIRMED_FRIENDSHIP = "confirmed_friendship"; //$NON-NLS-1$
-    private static final String UPDATE_TASK_CREATED = "task_created";
-    private static final String UPDATE_TASK_COMPLETED = "task_completed";
-    private static final String UPDATE_TASK_UNCOMPLETED = "task_uncompleted";
-    private static final String UPDATE_TASK_TAGGED = "task_tagged";
+    private static final String UPDATE_TASK_CREATED = "task_created"; //$NON-NLS-1$
+    private static final String UPDATE_TASK_COMPLETED = "task_completed"; //$NON-NLS-1$
+    private static final String UPDATE_TASK_UNCOMPLETED = "task_uncompleted"; //$NON-NLS-1$
+    private static final String UPDATE_TASK_TAGGED = "task_tagged"; //$NON-NLS-1$
     private static final String UPDATE_TASK_ASSIGNED = "task_assigned";
     private static final String UPDATE_TASK_COMMENT = "task_comment";
     private static final String UPDATE_TAG_COMMENT = "tag_comment";
@@ -261,16 +261,14 @@ public class UpdateAdapter extends CursorAdapter {
             commentResource = R.string.update_string_task_assigned;
         }
         else if (actionCode.equals(UPDATE_TASK_COMMENT)) {
-            if (fromView.equals(FROM_TASK_VIEW))
+            if (fromView.equals(FROM_TASK_VIEW) || TextUtils.isEmpty(targetName))
                 commentResource = R.string.update_string_default_comment;
             else
                 commentResource = R.string.update_string_task_comment;
-
         }
         else if (actionCode.equals(UPDATE_TAG_COMMENT)) {
-            if (fromView.equals(FROM_TAG_VIEW))
+            if (fromView.equals(FROM_TAG_VIEW)  || TextUtils.isEmpty(targetName))
                 commentResource = R.string.update_string_default_comment;
-
             else
                 commentResource = R.string.update_string_tag_comment;
 

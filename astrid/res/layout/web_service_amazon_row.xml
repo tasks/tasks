@@ -7,7 +7,7 @@
     android:background="@android:drawable/list_selector_background">
         
     <!-- imageview -->
-    <greendroid.widget.AsyncImageView android:id="@+id/image"
+    <com.todoroo.astrid.helper.AsyncImageView android:id="@+id/image"
         android:layout_width="70dip"
         android:layout_height="100dip"
         android:layout_marginLeft="5dip"

@@ -59,6 +59,7 @@ public class TagFilterExposer extends BroadcastReceiver implements AstridFilterE
 
     private static final String TAG = "tag"; //$NON-NLS-1$
     public static final String TAG_SQL = "tagSql"; //$NON-NLS-1$
+    public static final String SHOW_ACTIVE_TASKS = "show_main_task_view"; //$NON-NLS-1$
 
     @Autowired TagDataService tagDataService;
     @Autowired GtasksPreferenceService gtasksPreferenceService;
