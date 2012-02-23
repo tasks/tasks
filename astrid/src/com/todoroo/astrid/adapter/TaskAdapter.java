@@ -734,32 +734,34 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
                     Task.MODIFICATION_DATE, Task.COMPLETION_DATE);
 
             final Activity activity = fragment.getActivity();
-            activity.runOnUiThread(new Runnable() {
-                @Override
-                public void run() {
-                    try {
-                        Task task = new Task();
-                        LinkActionExposer linkActionExposer = new LinkActionExposer();
+            if (activity != null) {
+                activity.runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        try {
+                            Task task = new Task();
+                            LinkActionExposer linkActionExposer = new LinkActionExposer();
 
-                        for(fetchCursor.moveToFirst(); !fetchCursor.isAfterLast(); fetchCursor.moveToNext()) {
-                            task.clear();
-                            task.readFromCursor(fetchCursor);
-                            if(task.isCompleted())
-                                continue;
+                            for(fetchCursor.moveToFirst(); !fetchCursor.isAfterLast(); fetchCursor.moveToNext()) {
+                                task.clear();
+                                task.readFromCursor(fetchCursor);
+                                if(task.isCompleted())
+                                    continue;
 
-                            List<TaskAction> actions = linkActionExposer.
-                            getActionsForTask(ContextManager.getContext(), task.getId());
-                            if (actions.size() > 0)
-                                taskActionLoader.put(task.getId(), actions.get(0));
+                                List<TaskAction> actions = linkActionExposer.
+                                        getActionsForTask(ContextManager.getContext(), task.getId());
+                                if (actions.size() > 0)
+                                    taskActionLoader.put(task.getId(), actions.get(0));
+                            }
+                            if(taskActionLoader.size() > 0) {
+                                notifyDataSetChanged();
+                            }
+                        } finally {
+                            fetchCursor.close();
                         }
-                        if(taskActionLoader.size() > 0) {
-                            notifyDataSetChanged();
-                        }
-                    } finally {
-                        fetchCursor.close();
                     }
-                }
-            });
+                });
+            }
         }
     }
 
