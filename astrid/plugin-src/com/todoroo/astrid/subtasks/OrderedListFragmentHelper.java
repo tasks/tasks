@@ -96,21 +96,20 @@ public class OrderedListFragmentHelper<LIST> {
 
     @SuppressWarnings("nls")
     private void showSubtasksHelp() {
-        String imageBase = "file:///android_asset/";
-        String body = String.format("<h2>%s</h2><br><br><img src='%s'/>" +
-                "<br>%s<br><br><img src='%s'/><br>%s",
+        String body = String.format("<h3>%s</h3><img src='%s'>" +
+                "<br>%s<br><br><br><img src='%s'><br>%s",
                 getActivity().getString(R.string.subtasks_help_1),
-                imageBase + "subtasks_vertical.png",
+                "subtasks_vertical.png",
                 getActivity().getString(R.string.subtasks_help_2),
-                imageBase + "subtasks_horizontal.png",
+                "subtasks_horizontal.png",
                 getActivity().getString(R.string.subtasks_help_3));
-        System.err.println(body);;
 
         String color = (AndroidUtilities.getSdkVersion() >= 11 ? "black" : "white");
         String html = String.format("<html><body style='text-align:center;color:%s'>%s</body></html>",
                 color, body);
 
         DialogUtilities.htmlDialog(getActivity(), html, R.string.subtasks_help_title);
+        Preferences.setInt(AstridPreferences.P_SUBTASKS_HELP, 1);
     }
 
     public void beforeSetUpTaskList(Filter filter) {
