@@ -40,7 +40,7 @@ import com.todoroo.astrid.utility.AstridPreferences;
 
 public final class UpgradeService {
 
-    public static final int V4_0_0 = 250;
+    public static final int V4_0_0 = 251;
     public static final int V3_9_2_3 = 210;
     public static final int V3_9_2_2 = 209;
     public static final int V3_9_2_1 = 208;
@@ -183,11 +183,13 @@ public final class UpgradeService {
 
         if (from < V4_0_0) {
             newVersionString(changeLog, "4.0.0 (2/23/12)", new String[] {
-               "Subtasks",
-               "New design and themes",
-               "Amazon and Google search",
-               "TaskRabbit integration",
-               "Tablet version"
+               "Welcome to Astrid 4.0! Here's what's new:",
+               "<b>Subtasks!!!</b><br>Press the Menu key and select 'Sort' to access",
+               "<b>New Look!</b><br>Customize how Astrid looks from the Settings menu",
+               "<b>Task Rabbit!</b><br>Outsource your tasks with the help of trustworthy people",
+               "<b>More Reliable Sync</b><br>Including fixes to Astrid.com and Google Tasks sync",
+               "<b>Tablet version</b><br>Enjoy Astrid on your luxurious Android tablet",
+               "Many bug and usability fixes"
             });
         }
 
@@ -431,7 +433,7 @@ public final class UpgradeService {
         if(changeLog.length() == 0)
             return;
 
-        changeLog.append("Have a spectacular day!</body></html>");
+        changeLog.append("Please enjoy!</body></html>");
         String color = ThemeService.getDialogTextColor();
         String changeLogHtml = "<html><body style='color: " + color +"'>" + changeLog;
 
