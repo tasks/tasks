@@ -140,6 +140,11 @@ public final class TagService {
 
     }
 
+    public static Criterion memberOfTagData(long tagDataRemoteId) {
+        return Task.ID.in(Query.select(Metadata.TASK).from(Metadata.TABLE).where(
+                Criterion.and(Metadata.KEY.eq(KEY), REMOTE_ID.eq(tagDataRemoteId))));
+    }
+
     public static Criterion tagEq(String tag, Criterion additionalCriterion) {
         return Criterion.and(
                 MetadataCriteria.withKey(KEY), TAG.eq(tag),

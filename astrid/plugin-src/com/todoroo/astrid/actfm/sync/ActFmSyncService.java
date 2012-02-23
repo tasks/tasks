@@ -47,6 +47,7 @@ import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.astrid.dao.MetadataDao;
 import com.todoroo.astrid.dao.TagDataDao;
 import com.todoroo.astrid.dao.TaskDao;
+import com.todoroo.astrid.dao.TaskDao.TaskCriteria;
 import com.todoroo.astrid.dao.UpdateDao;
 import com.todoroo.astrid.data.Metadata;
 import com.todoroo.astrid.data.MetadataApiDao.MetadataCriteria;
@@ -724,6 +725,7 @@ public final class ActFmSyncService {
                 Task remote = new Task();
 
                 ArrayList<Metadata> metadata = new ArrayList<Metadata>();
+                HashSet<Long> ids = new HashSet<Long>(list.length());
                 for(int i = 0; i < list.length(); i++) {
                     JSONObject item = list.getJSONObject(i);
                     readIds(locals, item, remote);
@@ -742,8 +744,15 @@ public final class ActFmSyncService {
 
                     Flags.set(Flags.ACTFM_SUPPRESS_SYNC);
                     taskService.save(remote);
+                    ids.add(remote.getId());
                     metadataService.synchronizeMetadata(remote.getId(), metadata, MetadataCriteria.withKey(TagService.KEY));
                     remote.clear();
+                }
+
+                if(manual) {
+                    Long[] localIds = ids.toArray(new Long[ids.size()]);
+                    taskService.deleteWhere(Criterion.and(TaskCriteria.activeAndVisible(),
+                            Criterion.not(Task.ID.in(localIds))));
                 }
             }
 
@@ -775,6 +784,7 @@ public final class ActFmSyncService {
                 Task remote = new Task();
 
                 ArrayList<Metadata> metadata = new ArrayList<Metadata>();
+                HashSet<Long> ids = new HashSet<Long>(list.length());
                 for(int i = 0; i < list.length(); i++) {
 
                     JSONObject item = list.getJSONObject(i);
@@ -788,16 +798,19 @@ public final class ActFmSyncService {
                             StatisticsService.reportEvent(StatisticsConstants.ACTFM_TASK_COMPLETED);
                     }
 
-
                     Flags.set(Flags.ACTFM_SUPPRESS_SYNC);
                     taskService.save(remote);
+                    ids.add(remote.getId());
                     metadataService.synchronizeMetadata(remote.getId(), metadata, MetadataCriteria.withKey(TagService.KEY));
                     remote.clear();
                 }
 
                 if(manual) {
-                    for(Long localId : locals.values())
-                        taskDao.delete(localId);
+                    Long[] localIds = ids.toArray(new Long[ids.size()]);
+                    taskService.deleteWhere(Criterion.and(
+                            TagService.memberOfTagData(tagData.getValue(TagData.REMOTE_ID)),
+                            TaskCriteria.activeAndVisible(),
+                            Criterion.not(Task.ID.in(localIds))));
                 }
             }
 
@@ -853,9 +866,6 @@ public final class ActFmSyncService {
         invokeFetchList("activity", manual, null, new UpdateListItemProcessor(), done, "personal");
 
     }
-
-
-
 
     private void pushQueuedUpdates(TagData tagData) {
 
