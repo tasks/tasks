@@ -16,7 +16,7 @@
         <TextView
             android:id="@+id/widget_title"
             android:layout_gravity="left" 
-            android:layout_width="128dp" 
+            android:layout_width="163dp" 
             android:layout_height="47dp"
             android:textColor="#ffffff"
             android:textSize="14sp"
