@@ -29,7 +29,6 @@ import android.widget.TextView;
 import android.widget.TextView.OnEditorActionListener;
 
 import com.timsu.astrid.R;
-import com.todoroo.andlib.data.TodorooCursor;
 import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.andlib.utility.AndroidUtilities;
@@ -193,22 +192,32 @@ public class TagUpdatesFragment extends ListFragment {
 
     private void refreshUpdatesList() {
 
+        Cursor cursor = null;
         if(updateAdapter == null) {
-            TodorooCursor<Update> currentCursor = tagDataService.getUpdates(tagData);
-            getActivity().startManagingCursor(currentCursor);
+            cursor = tagDataService.getUpdates(tagData);
+            getActivity().startManagingCursor(cursor);
             String fromUpdateClass = (tagData == null) ? UpdateAdapter.FROM_RECENT_ACTIVITY_VIEW : UpdateAdapter.FROM_TAG_VIEW;
 
             updateAdapter = new UpdateAdapter(this, R.layout.update_adapter_row,
-                    currentCursor, false, fromUpdateClass);
+                    cursor, false, fromUpdateClass);
             ListView listView = ((ListView) getView().findViewById(android.R.id.list));
             addHeaderToListView(listView);
             listView.setAdapter(updateAdapter);
         } else {
-            Cursor cursor = updateAdapter.getCursor();
+            cursor = updateAdapter.getCursor();
             cursor.requery();
             getActivity().startManagingCursor(cursor);
             populateListHeader(listHeader);
         }
+
+        View activityContainer = getView().findViewById(R.id.no_activity_container);
+        if (cursor.getCount() == 0) {
+            activityContainer.setVisibility(View.VISIBLE);
+        }
+        else {
+            activityContainer.setVisibility(View.VISIBLE);
+        }
+
         if (getActivity() instanceof TagUpdatesActivity)
             setLastViewed();
     }
