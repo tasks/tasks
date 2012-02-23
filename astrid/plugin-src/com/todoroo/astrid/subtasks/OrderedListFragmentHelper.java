@@ -10,6 +10,7 @@ import java.util.concurrent.atomic.AtomicReference;
 import android.app.Activity;
 import android.content.Context;
 import android.database.Cursor;
+import android.text.TextUtils;
 import android.util.DisplayMetrics;
 import android.util.TypedValue;
 import android.view.View;
@@ -30,7 +31,9 @@ import com.todoroo.astrid.activity.TaskListFragment;
 import com.todoroo.astrid.adapter.TaskAdapter;
 import com.todoroo.astrid.adapter.TaskAdapter.OnCompletedTaskListener;
 import com.todoroo.astrid.api.Filter;
+import com.todoroo.astrid.data.Metadata;
 import com.todoroo.astrid.data.Task;
+import com.todoroo.astrid.service.MetadataService;
 import com.todoroo.astrid.service.TaskService;
 import com.todoroo.astrid.subtasks.OrderedListUpdater.Node;
 import com.todoroo.astrid.subtasks.OrderedListUpdater.OrderedListNodeVisitor;
@@ -43,6 +46,7 @@ public class OrderedListFragmentHelper<LIST> {
     private final TaskListFragment fragment;
 
     @Autowired TaskService taskService;
+    @Autowired MetadataService metadataService;
 
     private DraggableTaskAdapter taskAdapter;
 
@@ -250,9 +254,17 @@ public class OrderedListFragmentHelper<LIST> {
         }
 
         final ArrayList<Long> chained = new ArrayList<Long>();
+        final int parentIndent = item.getValue(updater.indentProperty());
         updater.applyToChildren(getFilter(), list, itemId, new OrderedListNodeVisitor() {
             @Override
             public void visitNode(Node node) {
+                Task childTask = taskService.fetchById(node.taskId, Task.RECURRENCE);
+                if(!TextUtils.isEmpty(childTask.getValue(Task.RECURRENCE))) {
+                    Metadata metadata = updater.getTaskMetadata(list, node.taskId);
+                    metadata.setValue(updater.indentProperty(), parentIndent);
+                    metadataService.save(metadata);
+                }
+
                 model.setId(node.taskId);
                 model.setValue(Task.COMPLETION_DATE, completionDate);
                 taskService.save(model);
