@@ -38,7 +38,6 @@ public class NewRepeatTests<REMOTE_MODEL> extends DatabaseTestCase {
     protected void setUp() throws Exception {
         super.setUp();
         Preferences.setStringFromInteger(R.string.p_default_urgency_key, 0);
-        RepeatTaskCompleteListener.setSkipActFmCheck(true);
     }
 
     private void saveAndTriggerRepeatListener(Task task) {
