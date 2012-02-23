@@ -5,6 +5,7 @@ import android.graphics.PixelFormat;
 import android.view.WindowManager;
 
 import com.timsu.astrid.R;
+import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.andlib.utility.Preferences;
 
 @SuppressWarnings("nls")
@@ -57,6 +58,10 @@ public class ThemeService {
             theme = R.style.Theme_Dialog_White;
         }
         return theme;
+    }
+
+    public static String getDialogTextColor() {
+        return (AndroidUtilities.getSdkVersion() >= 11 ? "black" : "white");
     }
 
 }

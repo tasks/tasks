@@ -26,7 +26,6 @@ import com.todoroo.andlib.data.Property;
 import com.todoroo.andlib.data.TodorooCursor;
 import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.DependencyInjectionService;
-import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.andlib.utility.DialogUtilities;
 import com.todoroo.andlib.utility.Preferences;
@@ -38,6 +37,7 @@ import com.todoroo.astrid.data.Metadata;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.service.MetadataService;
 import com.todoroo.astrid.service.TaskService;
+import com.todoroo.astrid.service.ThemeService;
 import com.todoroo.astrid.subtasks.OrderedListUpdater.Node;
 import com.todoroo.astrid.subtasks.OrderedListUpdater.OrderedListNodeVisitor;
 import com.todoroo.astrid.ui.DraggableListView;
@@ -104,7 +104,7 @@ public class OrderedListFragmentHelper<LIST> {
                 "subtasks_horizontal.png",
                 getActivity().getString(R.string.subtasks_help_3));
 
-        String color = (AndroidUtilities.getSdkVersion() >= 11 ? "black" : "white");
+        String color = ThemeService.getDialogTextColor();
         String html = String.format("<html><body style='text-align:center;color:%s'>%s</body></html>",
                 color, body);
 
