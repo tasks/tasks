@@ -51,6 +51,7 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.facebook.android.AsyncFacebookRunner;
@@ -333,8 +334,11 @@ public class ActFmLoginActivity extends FragmentActivity implements AuthListener
             body.getChildAt(body.indexOfChild(password) - 1).setVisibility(View.GONE);
             password.setVisibility(View.GONE);
 
+            ScrollView bodyScroll = new ScrollView(ActFmLoginActivity.this);
+            bodyScroll.addView(body);
+
             dialog.set(new AlertDialog.Builder(ActFmLoginActivity.this).setView(
-                    body).setIcon(R.drawable.icon_32).setTitle(
+                    bodyScroll).setIcon(R.drawable.icon_32).setTitle(
                     R.string.actfm_ALA_signup_title).setPositiveButton(
                     android.R.string.ok, new DialogInterface.OnClickListener() {
                         @Override

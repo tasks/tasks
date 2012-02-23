@@ -90,7 +90,7 @@
                 android:id="@+id/pw_login"
                 android:layout_width="match_parent"
                 android:layout_height="45dp"
-                android:paddingLeft="20dip"
+                android:paddingLeft="17dip"
                 android:paddingRight="20dip"
                 android:layout_marginLeft="15dip"
                 android:layout_marginRight="15dip"
