@@ -437,7 +437,7 @@ public class TaskListFragment extends ListFragment implements OnScrollListener,
         }
     }
 
-    private boolean allowResorting() {
+    protected boolean allowResorting() {
         return true;
     }
 

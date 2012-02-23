@@ -1,5 +1,6 @@
 package com.todoroo.astrid.subtasks;
 
+import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -20,9 +21,10 @@ public class SubtasksListFragment extends TaskListFragment {
 
     protected OrderedListFragmentHelper<?> helper;
 
-    public SubtasksListFragment() {
-        super();
+    @Override
+    public void onActivityCreated(Bundle savedInstanceState) {
         helper = createFragmentHelper();
+        super.onActivityCreated(savedInstanceState);
     }
 
     protected OrderedListFragmentHelper<?> createFragmentHelper() {

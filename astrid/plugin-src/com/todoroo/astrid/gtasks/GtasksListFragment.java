@@ -13,7 +13,6 @@ import com.todoroo.andlib.data.TodorooCursor;
 import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.andlib.utility.DialogUtilities;
-import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.astrid.dao.StoreObjectDao;
 import com.todoroo.astrid.data.StoreObject;
 import com.todoroo.astrid.data.Task;
@@ -65,16 +64,13 @@ public class GtasksListFragment extends SubtasksListFragment {
     }
 
     @Override
+    protected boolean allowResorting() {
+        return false;
+    }
+
+    @Override
     public void onActivityCreated(Bundle icicle) {
         super.onActivityCreated(icicle);
-
-        if(!Preferences.getBoolean(GtasksPreferenceService.PREF_SHOWN_LIST_HELP, false)) {
-            Preferences.setBoolean(GtasksPreferenceService.PREF_SHOWN_LIST_HELP, true);
-            DialogUtilities.okDialog(getActivity(),
-                    getString(R.string.gtasks_help_title),
-                    android.R.drawable.ic_dialog_info,
-                    getString(R.string.gtasks_help_body), null);
-        }
 
         long storeObjectId = getActivity().getIntent().getLongExtra(TOKEN_STORE_ID, 0);
         list = storeObjectDao.fetch(storeObjectId, LIST_PROPERTIES);
