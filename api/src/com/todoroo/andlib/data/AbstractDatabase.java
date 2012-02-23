@@ -257,8 +257,7 @@ abstract public class AbstractDatabase {
      * @see android.database.sqlite.SQLiteDatabase#update(String  table, ContentValues  values, String  whereClause, String[] whereArgs)
      */
     public synchronized int update(String  table, ContentValues  values, String  whereClause, String[] whereArgs) {
-        int result = getDatabase().updateWithOnConflict(table, values, whereClause, whereArgs,
-                SQLiteDatabase.CONFLICT_FAIL);
+        int result = getDatabase().update(table, values, whereClause, whereArgs);
         onDatabaseUpdated();
         return result;
     }
