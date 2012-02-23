@@ -61,7 +61,7 @@ public class TagSettingsActivity extends FragmentActivity {
     private static final int MENU_SAVE_ID = R.string.TEA_menu_save;
     private static final int MENU_DISCARD_ID = R.string.TEA_menu_discard;
 
-    protected static final int REQUEST_ACTFM_LOGIN = 3;
+    public static final int REQUEST_ACTFM_LOGIN = 3;
 
     private static final String MEMBERS_IN_PROGRESS = "members"; //$NON-NLS-1$
 

@@ -11,8 +11,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:paddingTop="2dp"
-        android:paddingLeft="40dp">
+        android:paddingLeft="5dp">
         
         <TextView
             android:id="@+id/widget_title"

@@ -463,6 +463,9 @@
   <!-- Updates Window Title -->
   <string name="UpS_updates_title">Latest Astrid News</string>
   
+  <!-- Updats No Activity to show for offline users -->
+  <string name="UpS_no_activity_log_in">Log in to see a record of\nyour progress as well as\nactivity on shared lists.</string>
+  
   <!-- ================================================== EditPreferences == -->
     
   <!-- Preference Window Title -->
