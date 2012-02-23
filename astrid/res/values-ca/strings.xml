@@ -578,7 +578,7 @@ File %1$s contained %2$s.\n\n
   <string name="SSD_deleted">Mostra tasques eliminades</string>
   
   <!-- Sort Selection: sort options header -->    
-  <string name="SSD_sort_header">Opcions de Clasificació</string>
+
   
   <!-- Sort Selection: smart sort -->
   <string name="SSD_sort_auto">Clasificació Inteligent Astrid</string>

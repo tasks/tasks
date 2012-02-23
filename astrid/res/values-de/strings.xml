@@ -569,7 +569,7 @@
   <string name="SSD_deleted">Gelöschte Aufgaben anzeigen</string>
   
   <!-- Sort Selection: sort options header -->    
-  <string name="SSD_sort_header">Sortier-Optionen</string>
+
   
   <!-- Sort Selection: smart sort -->
   <string name="SSD_sort_auto">Astrid Smart Sort</string>

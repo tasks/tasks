@@ -580,7 +580,7 @@ File %1$s contained %2$s.\n\n
   <string name="SSD_deleted">הצג משימות מחוקות</string>
   
   <!-- Sort Selection: sort options header -->    
-  <string name="SSD_sort_header">מיון אפשרויות</string>
+
   
   <!-- Sort Selection: smart sort -->
   <string name="SSD_sort_auto">Astrid מיון חכם</string>

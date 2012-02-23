@@ -573,7 +573,7 @@
   <string name="SSD_deleted">Vis slettede opgaver</string>
   
   <!-- Sort Selection: sort options header -->    
-  <string name="SSD_sort_header">Sorteringsindstillinger</string>
+
   
   <!-- Sort Selection: smart sort -->
   <string name="SSD_sort_auto">Astrid Intelligent sortering</string>

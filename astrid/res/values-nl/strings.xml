@@ -572,7 +572,7 @@
   <string name="SSD_deleted">Verwijderde taken weergeven</string>
   
   <!-- Sort Selection: sort options header -->    
-  <string name="SSD_sort_header">Sorteer opties</string>
+
   
   <!-- Sort Selection: smart sort -->
   <string name="SSD_sort_auto">Astrid Slim Sorteren</string>

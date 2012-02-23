@@ -572,7 +572,7 @@
   <string name="SSD_deleted">显示已删除任务</string>
   
   <!-- Sort Selection: sort options header -->    
-  <string name="SSD_sort_header">排序选项</string>
+
   
   <!-- Sort Selection: smart sort -->
   <string name="SSD_sort_auto">Astrid 智能排序</string>

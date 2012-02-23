@@ -573,7 +573,7 @@
   <string name="SSD_deleted">지운 작업 보여주기</string>
   
   <!-- Sort Selection: sort options header -->    
-  <string name="SSD_sort_header">정렬 옵션</string>
+
   
   <!-- Sort Selection: smart sort -->
   <string name="SSD_sort_auto">Astrid 스마트 정렬</string>

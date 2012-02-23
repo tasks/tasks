@@ -572,7 +572,7 @@
   <string name="SSD_deleted">Afficher les tâches supprimées</string>
   
   <!-- Sort Selection: sort options header -->    
-  <string name="SSD_sort_header">Options de tri</string>
+
   
   <!-- Sort Selection: smart sort -->
   <string name="SSD_sort_auto">Tri intelligent Astrid</string>

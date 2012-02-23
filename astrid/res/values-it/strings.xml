@@ -573,7 +573,7 @@
   <string name="SSD_deleted">Mostra Attività Cancellate</string>
   
   <!-- Sort Selection: sort options header -->    
-  <string name="SSD_sort_header">Ordina Opzioni</string>
+
   
   <!-- Sort Selection: smart sort -->
   <string name="SSD_sort_auto">Ordinamento Intelligente</string>

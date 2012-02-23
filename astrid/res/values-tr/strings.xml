@@ -572,7 +572,7 @@
   <string name="SSD_deleted">Silinmiş Görevleri Göster</string>
   
   <!-- Sort Selection: sort options header -->    
-  <string name="SSD_sort_header">Sıralama Seçenekleri</string>
+
   
   <!-- Sort Selection: smart sort -->
   <string name="SSD_sort_auto">Astrid Akıllı Sıralama</string>

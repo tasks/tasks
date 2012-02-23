@@ -575,7 +575,7 @@
   <string name="SSD_deleted">削除済タスクの表示</string>
   
   <!-- Sort Selection: sort options header -->    
-  <string name="SSD_sort_header">並び順</string>
+
   
   <!-- Sort Selection: smart sort -->
   <string name="SSD_sort_auto">自動</string>

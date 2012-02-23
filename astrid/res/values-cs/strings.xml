@@ -572,7 +572,7 @@
   <string name="SSD_deleted">Ukázat smazané úkoly</string>
   
   <!-- Sort Selection: sort options header -->    
-  <string name="SSD_sort_header">Možnosti třídění</string>
+
   
   <!-- Sort Selection: smart sort -->
   <string name="SSD_sort_auto">Astrid-chytré třídění</string>

@@ -573,7 +573,7 @@
   <string name="SSD_deleted">Show Deleted Tasks</string>
   
   <!-- Sort Selection: sort options header -->    
-  <string name="SSD_sort_header">Opções de Ordenação</string>
+
   
   <!-- Sort Selection: smart sort -->
   <string name="SSD_sort_auto">Ordenação Inteligente Astrid</string>

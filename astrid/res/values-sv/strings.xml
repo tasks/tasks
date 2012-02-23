@@ -573,7 +573,7 @@
   <string name="SSD_deleted">Visa raderade uppgifter</string>
   
   <!-- Sort Selection: sort options header -->    
-  <string name="SSD_sort_header">Sorteringsalternativ</string>
+
   
   <!-- Sort Selection: smart sort -->
   <string name="SSD_sort_auto">Astrid intelligent sortering</string>
