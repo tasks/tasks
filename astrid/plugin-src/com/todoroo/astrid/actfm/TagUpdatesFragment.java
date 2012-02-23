@@ -19,6 +19,7 @@ import android.view.LayoutInflater;
 import android.view.MenuInflater;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.View.OnTouchListener;
 import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
@@ -213,6 +214,21 @@ public class TagUpdatesFragment extends ListFragment {
         View activityContainer = getView().findViewById(R.id.no_activity_container);
         if (cursor.getCount() == 0) {
             activityContainer.setVisibility(View.VISIBLE);
+            TextView textView = (TextView)activityContainer.findViewById(R.id.no_activity_message);
+            if(actFmPreferenceService.isLoggedIn()) {
+                textView.setText(getActivity().getString(R.string.ENA_no_comments));
+            }
+            else {
+                textView.setText(getActivity().getString(R.string.UpS_no_activity_log_in));
+                activityContainer.setOnClickListener(new OnClickListener() {
+
+                    @Override
+                    public void onClick(View v) {
+                        startActivityForResult(new Intent(getActivity(), ActFmLoginActivity.class),
+                                TagSettingsActivity.REQUEST_ACTFM_LOGIN);
+                    }
+                });
+            }
             listView.setVisibility(View.GONE);
         }
         else {
