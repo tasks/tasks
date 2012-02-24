@@ -171,7 +171,6 @@ public class Calendars {
         // Fetch the current setting. Invalid calendar id will
         // be changed to default value.
         String currentSetting = Preferences.getStringValue(R.string.gcal_p_default);
-        boolean calendarWasSelected = currentSetting != null && !currentSetting.equals("-1");
 
         int currentSettingIndex = -1;
 
@@ -189,7 +188,7 @@ public class Calendars {
         listPreference.setValueIndex(0);
         listPreference.setEnabled(true);
 
-        if (calendars == null || calendars.calendarIds.length == 0 || calendars.calendars.length == 0) {
+        if (calendars.calendarIds.length == 0 || calendars.calendars.length == 0) {
             // Something went wrong when querying calendars
             // Leave the preference at disabled.
             return;

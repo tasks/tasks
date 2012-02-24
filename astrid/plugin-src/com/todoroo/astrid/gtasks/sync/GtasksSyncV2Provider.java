@@ -188,7 +188,8 @@ public class GtasksSyncV2Provider extends SyncV2Provider {
     }
 
 
-    private void synchronizeListHelper(StoreObject list, GtasksInvoker invoker, SyncExceptionHandler handler, SyncResultCallback callback) {
+    private void synchronizeListHelper(StoreObject list, GtasksInvoker invoker,
+            SyncExceptionHandler errorHandler, SyncResultCallback callback) {
         // Do stuff
         String listId = list.getValue(GtasksList.REMOTE_ID);
         long lastSyncDate;
@@ -218,8 +219,8 @@ public class GtasksSyncV2Provider extends SyncV2Provider {
                 gtasksTaskListUpdater.correctOrderAndIndentForList(listId);
             }
         } catch (IOException e) {
-            if (handler != null)
-                handler.handleException("gtasks-sync-io", e); //$NON-NLS-1$
+            if (errorHandler != null)
+                errorHandler.handleException("gtasks-sync-io", e); //$NON-NLS-1$
         }
     }
 

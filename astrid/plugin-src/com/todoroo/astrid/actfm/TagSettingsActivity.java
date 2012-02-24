@@ -220,6 +220,7 @@ public class TagSettingsActivity extends FragmentActivity {
         refreshSettingsPage();
     }
 
+    @SuppressWarnings("nls")
     private void saveSettings() {
         String oldName = tagData.getValue(TagData.NAME);
         String newName = tagName.getText().toString().trim();
@@ -378,7 +379,6 @@ public class TagSettingsActivity extends FragmentActivity {
         }
     }
 
-    @SuppressWarnings("nls")
     private void refreshSettingsPage() {
         tagName.setText(tagData.getValue(TagData.NAME));
         ActionBar ab = getSupportActionBar();
@@ -504,16 +504,19 @@ public class TagSettingsActivity extends FragmentActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    protected void showDeleteDialog(TagData td) {
+        if(td == null)
+            return;
 
-
-
-    protected void showDeleteDialog(TagData tagData) {
         int string;
-        if (tagData != null && tagData.getValue(TagData.MEMBER_COUNT) > 0)
+        if (td.getValue(TagData.MEMBER_COUNT) > 0)
             string = R.string.DLG_leave_this_shared_tag_question;
         else
             string = R.string.DLG_delete_this_tag_question;
-        DialogUtilities.okCancelDialog(this, getString(string, tagData.getValue(TagData.NAME)), new DialogInterface.OnClickListener() {
+
+
+        DialogUtilities.okCancelDialog(this, getString(string, td.getValue(TagData.NAME)),
+                new DialogInterface.OnClickListener() {
 
             @Override
             public void onClick(DialogInterface dialog, int which) {
@@ -538,8 +541,5 @@ public class TagSettingsActivity extends FragmentActivity {
 
         return true;
     }
-
-
-
 
 }

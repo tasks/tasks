@@ -8,7 +8,6 @@ import org.json.JSONObject;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.content.res.Resources;
 import android.database.Cursor;
 import android.support.v4.app.Fragment;
 import android.text.Html;
@@ -65,6 +64,7 @@ public class UpdateAdapter extends CursorAdapter {
     public static final String FROM_TAG_VIEW = "from_tag"; //$NON-NLS-1$
     public static final String FROM_TASK_VIEW = "from_task"; //$NON-NLS-1$
     public static final String FROM_RECENT_ACTIVITY_VIEW = "from_recent_activity"; //$NON-NLS-1$
+
     /**
      * Constructor
      *
@@ -99,7 +99,7 @@ public class UpdateAdapter extends CursorAdapter {
     public static String getLinkColor(Fragment f) {
         TypedValue colorType = new TypedValue();
         f.getActivity().getTheme().resolveAttribute(R.attr.asDetailsColor, colorType, false);
-        return "#" + Integer.toHexString(colorType.data).substring(2);
+        return "#" + Integer.toHexString(colorType.data).substring(2); //$NON-NLS-1$
     }
 
     /* ======================================================================
@@ -134,7 +134,6 @@ public class UpdateAdapter extends CursorAdapter {
     @SuppressWarnings("nls")
     public synchronized void setFieldContentsAndVisibility(View view, Update update) {
         JSONObject user = ActFmPreferenceService.userFromModel(update);
-        Resources r = fragment.getResources();
 
         // picture
         final AsyncImageView pictureView = (AsyncImageView)view.findViewById(R.id.picture); {
@@ -205,6 +204,7 @@ public class UpdateAdapter extends CursorAdapter {
         return String.format("<font color=%s>%s</font>", linkColor, string);  //$NON-NLS-1$
     }
 
+    @SuppressWarnings("nls")
     public static Spanned getUpdateComment (Update update, JSONObject user, String linkColor, String fromView) {
         if (user == null) {
             user = ActFmPreferenceService.userFromModel(update);
@@ -216,9 +216,12 @@ public class UpdateAdapter extends CursorAdapter {
             otherUser = new JSONObject();
         }
 
-        return getUpdateComment(update.getValue(Update.ACTION_CODE), user.optString("name"), update.getValue(Update.TARGET_NAME), update.getValue(Update.MESSAGE),
-                otherUser.optString("name"), update.getValue(Update.ACTION), linkColor, fromView);
+        return getUpdateComment(update.getValue(Update.ACTION_CODE),
+                user.optString("name"), update.getValue(Update.TARGET_NAME),
+                update.getValue(Update.MESSAGE), otherUser.optString("name"),
+                update.getValue(Update.ACTION), linkColor, fromView);
     }
+
     public static Spanned getUpdateComment (String actionCode, String user, String targetName, String message, String otherUser, String action, String linkColor, String fromView) {
         if (TextUtils.isEmpty(user)) {
             user = ContextManager.getString(R.string.ENA_no_user);

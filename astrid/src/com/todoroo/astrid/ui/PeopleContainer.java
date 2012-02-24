@@ -55,6 +55,10 @@ public class PeopleContainer extends LinearLayout {
 
     // --- methods
 
+    public TextView addPerson() {
+        return addPerson("", ""); //$NON-NLS-1$ //$NON-NLS-2$
+    }
+
     /** Adds a tag to the tag field */
     public TextView addPerson(String person, String image) {
         LayoutInflater inflater = (LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -121,13 +125,12 @@ public class PeopleContainer extends LinearLayout {
                     int after) {
                 //
             }
+            @SuppressWarnings("nls")
             @Override
             public void onTextChanged(CharSequence s, int start, int before,
                     int count) {
                 if(count > 0 && getLastTextView() == textView) {
-                    addPerson("", ""); //$NON-NLS-1$
-                }
-                else {
+                    addPerson("", "");
                 }
                 if (TextUtils.isEmpty(textView.getText())) {
                     imageView.setDefaultImageResource(R.drawable.icn_add_contact);
@@ -144,12 +147,13 @@ public class PeopleContainer extends LinearLayout {
         });
 
         textView.setOnEditorActionListener(new OnEditorActionListener() {
+            @SuppressWarnings("nls")
             @Override
             public boolean onEditorAction(TextView arg0, int actionId, KeyEvent arg2) {
                 if(actionId != EditorInfo.IME_NULL)
                     return false;
                 if(getLastTextView().getText().length() != 0) {
-                    addPerson("", ""); //$NON-NLS-1$
+                    addPerson("", "");
                 }
                 return true;
             }

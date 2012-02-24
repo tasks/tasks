@@ -39,8 +39,6 @@ public class ContactListAdapter extends CursorAdapter {
 
     @Autowired TagDataService tagDataService;
 
-    private final Activity activity;
-
     private static final String[] PEOPLE_PROJECTION = new String[] {
         Email._ID, Email.CONTACT_ID, ContactsContract.Contacts.DISPLAY_NAME, Email.DATA
     };
@@ -49,7 +47,6 @@ public class ContactListAdapter extends CursorAdapter {
 
     public ContactListAdapter(Activity activity, Cursor c) {
         super(activity, c);
-        this.activity = activity;
         mContent = activity.getContentResolver();
         DependencyInjectionService.getInstance().inject(this);
     }

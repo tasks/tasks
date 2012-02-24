@@ -166,7 +166,7 @@ public class EditPeopleControlSet extends PopupControlSet {
         cbFacebook = (CheckBox) getSharedWithView().findViewById(R.id.checkbox_facebook);
         cbTwitter = (CheckBox) getSharedWithView().findViewById(R.id.checkbox_twitter);
 
-        sharedWithContainer.addPerson("", ""); //$NON-NLS-1$
+        sharedWithContainer.addPerson();
         setUpListeners();
     }
 
@@ -249,6 +249,7 @@ public class EditPeopleControlSet extends PopupControlSet {
         }
     }
 
+    @SuppressWarnings("nls")
     private static void addMembersFromTagData(TagData tagData, String tag, ArrayList<JSONObject> sharedPeople, ArrayList<JSONObject> collaborators) throws JSONException {
         JSONArray members = new JSONArray(tagData.getValue(TagData.MEMBERS));
         if (tag == null)
@@ -317,13 +318,13 @@ public class EditPeopleControlSet extends PopupControlSet {
     }
 
     @SuppressWarnings("nls")
-    private void buildAssignedToSpinner(Task model, ArrayList<JSONObject> sharedPeople) throws JSONException {
+    private void buildAssignedToSpinner(Task t, ArrayList<JSONObject> sharedPeople) throws JSONException {
         HashSet<Long> userIds = new HashSet<Long>();
         HashSet<String> emails = new HashSet<String>();
         HashMap<String, AssignedToUser> names = new HashMap<String, AssignedToUser>();
 
-        if(model.getValue(Task.USER_ID) > 0) {
-            JSONObject user = new JSONObject(model.getValue(Task.USER));
+        if(t.getValue(Task.USER_ID) > 0) {
+            JSONObject user = new JSONObject(t.getValue(Task.USER));
             sharedPeople.add(0, user);
         }
 
@@ -331,8 +332,8 @@ public class EditPeopleControlSet extends PopupControlSet {
         myself.put("id", Task.USER_ID_SELF);
         sharedPeople.add(0, myself);
 
-        boolean hasTags = model.getTransitory("tags") != null &&
-                ((HashSet<String>)model.getTransitory("tags")).size() > 0;
+        boolean hasTags = t.getTransitory("tags") != null &&
+                ((HashSet<String>)t.getTransitory("tags")).size() > 0;
         if (actFmPreferenceService.isLoggedIn() && hasTags) {
             JSONObject unassigned = new JSONObject();
             unassigned.put("id", Task.USER_ID_UNASSIGNED);
@@ -380,7 +381,7 @@ public class EditPeopleControlSet extends PopupControlSet {
                 names.put(name, atu);
         }
 
-        String assignedStr = model.getValue(Task.USER);
+        String assignedStr = t.getValue(Task.USER);
         int assignedIndex = 0;
         if (!TextUtils.isEmpty(assignedStr)) {
             JSONObject assigned = new JSONObject(assignedStr);
@@ -526,13 +527,13 @@ public class EditPeopleControlSet extends PopupControlSet {
     }
 
     @Override
-    public String writeToModel(Task model) {
+    public String writeToModel(Task t) {
         // do nothing, we use a separate method
         return null;
     }
 
     @Override
-    protected String writeToModelAfterInitialized(Task task) {
+    protected String writeToModelAfterInitialized(Task t) {
         // Nothing, we don't lazy load this control set yet
         return null;
     }
@@ -680,7 +681,7 @@ public class EditPeopleControlSet extends PopupControlSet {
 
     private void makePrivateTask() {
         sharedWithContainer.removeAllViews();
-        sharedWithContainer.addPerson("", ""); //$NON-NLS-1$
+        sharedWithContainer.addPerson();
         assignToMe();
     }
 

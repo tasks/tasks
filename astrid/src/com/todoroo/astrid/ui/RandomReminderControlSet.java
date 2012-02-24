@@ -25,14 +25,12 @@ public class RandomReminderControlSet extends TaskEditControlSet {
 
     private final CheckBox settingCheckbox;
     private final Spinner periodSpinner;
-    private final View parentView;
 
     private boolean periodSpinnerInitialized = false;
     private final int[] hours;
 
     public RandomReminderControlSet(Activity activity, View parentView, int layout) {
         super(activity, layout);
-        this.parentView = parentView;
         settingCheckbox = (CheckBox) parentView.findViewById(R.id.reminder_random);
         periodSpinner = (Spinner) parentView.findViewById(R.id.reminder_random_interval);
         periodSpinner.setOnItemSelectedListener(new OnItemSelectedListener() {

@@ -18,6 +18,8 @@ import com.todoroo.astrid.gtasks.api.GtasksInvoker;
 
 public class GtasksTokenValidator {
 
+    private static final String MANUFACTURER_SAMSUNG = "samsung"; //$NON-NLS-1$
+
     /**
      * Invalidates and then revalidates the auth token for the currently logged in user
      * Shouldn't be called from the main thread--will block on network calls
@@ -52,7 +54,7 @@ public class GtasksTokenValidator {
                     } catch (IOException i2) {
                         i2.printStackTrace();
                         String manufacturer = android.os.Build.MANUFACTURER.toLowerCase();
-                        if (!manufacturer.contains("samsung")) { // Try with the notifyAuthFailure set to true in case it was that that broke things
+                        if (!manufacturer.contains(MANUFACTURER_SAMSUNG)) { // Try with the notifyAuthFailure set to true in case it was that that broke things
                             accountManager.invalidateAuthToken(token);
                             future = accountManager.manager.getAuthToken(a, GtasksInvoker.AUTH_TOKEN_TYPE, true, null, null);
                             try {

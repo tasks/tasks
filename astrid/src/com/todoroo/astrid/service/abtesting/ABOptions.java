@@ -9,7 +9,6 @@ import java.util.List;
  * @author Sam Bosley <sam@astrid.com>
  *
  */
-@SuppressWarnings("nls")
 public class ABOptions {
 
     public ABOptions() {
@@ -149,7 +148,7 @@ public class ABOptions {
      * tagged from StatisticsService, they will be appended with attributes
      * that have that event in this array
      */
-    private void addOption(String optionKey, int[] probs, String[] descriptions, String[] relevantEvents) {
+    public void addOption(String optionKey, int[] probs, String[] descriptions, String[] relevantEvents) {
         ABOptionBundle bundle = new ABOptionBundle(probs, descriptions);
         bundles.put(optionKey, bundle);
 

@@ -38,10 +38,20 @@ public class TaskRabbitLocationManager {
         new GeoPoint(47606210, -122332070), //SEA
         new GeoPoint(29424120, -98493630) //SAN ANTONIO
     };
+
     public boolean isLocationUpdatesEnabled() {
-        boolean provider_enabled=false;
-        try{provider_enabled=lm.isProviderEnabled(LocationManager.GPS_PROVIDER);}catch(Exception ex){}
-        try{provider_enabled=provider_enabled || lm.isProviderEnabled(LocationManager.NETWORK_PROVIDER);}catch(Exception ex){}
+        boolean provider_enabled = false;
+        try {
+            provider_enabled = lm.isProviderEnabled(LocationManager.GPS_PROVIDER);
+        } catch (Exception ex) {
+            // suppress
+        }
+        try {
+            provider_enabled = provider_enabled
+                    || lm.isProviderEnabled(LocationManager.NETWORK_PROVIDER);
+        } catch (Exception ex) {
+            // suppress
+        }
         return provider_enabled;
     }
     public Location getLastKnownLocation()
@@ -49,8 +59,9 @@ public class TaskRabbitLocationManager {
         boolean gps_supported=false;
         boolean network_supported=false;
         Location location = null;
-        try{gps_supported=lm.isProviderEnabled(LocationManager.GPS_PROVIDER);}catch(Exception ex){}
-        try{network_supported=lm.isProviderEnabled(LocationManager.NETWORK_PROVIDER);}catch(Exception ex){}
+
+        gps_supported = isGpsEnabled();;
+        network_supported = isNetworkProviderEnabled();
         if(!gps_supported && !network_supported)
             return null;
 
@@ -75,53 +86,59 @@ public class TaskRabbitLocationManager {
         return false;
     }
 
+
+
     public boolean getLocation(LocationResult result)
     {
-        locationResult=result;
-        try{gps_enabled=lm.isProviderEnabled(LocationManager.GPS_PROVIDER);}catch(Exception ex){}
-        try{network_enabled=lm.isProviderEnabled(LocationManager.NETWORK_PROVIDER);}catch(Exception ex){}
+        locationResult = result;
+        gps_enabled = isGpsEnabled();
+        network_enabled = isNetworkProviderEnabled();
 
         if(!gps_enabled && !network_enabled)
             return false;
 
         if(gps_enabled)
-            lm.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, locationListenerGps);
+            lm.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, locationListener);
         if(network_enabled)
-            lm.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 0, 0, locationListenerNetwork);
+            lm.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 0, 0, locationListener);
         timer1=new Timer();
         timer1.schedule(new GetLastLocation(), 20000);
         return true;
     }
 
-    LocationListener locationListenerGps = new LocationListener() {
-        public void onLocationChanged(Location location) {
-            timer1.cancel();
-            locationResult.gotLocation(location);
-            lm.removeUpdates(this);
-            lm.removeUpdates(locationListenerNetwork);
+    private boolean isNetworkProviderEnabled() {
+        try {
+            return lm.isProviderEnabled(LocationManager.NETWORK_PROVIDER);
+        } catch (Exception ex) {
+            // suppress
         }
-        public void onProviderDisabled(String provider) {}
-        public void onProviderEnabled(String provider) {}
-        public void onStatusChanged(String provider, int status, Bundle extras) {}
-    };
+        return false;
+    }
 
-    LocationListener locationListenerNetwork = new LocationListener() {
+    private boolean isGpsEnabled() {
+        try {
+            return lm.isProviderEnabled(LocationManager.GPS_PROVIDER);
+        } catch (Exception ex) {
+            // suppress
+        }
+        return false;
+    }
+
+    private final LocationListener locationListener = new LocationListener() {
         public void onLocationChanged(Location location) {
             timer1.cancel();
             locationResult.gotLocation(location);
-            lm.removeUpdates(this);
-            lm.removeUpdates(locationListenerGps);
+            lm.removeUpdates(locationListener);
         }
-        public void onProviderDisabled(String provider) {}
-        public void onProviderEnabled(String provider) {}
-        public void onStatusChanged(String provider, int status, Bundle extras) {}
+        public void onProviderDisabled(String provider) { /**/ }
+        public void onProviderEnabled(String provider) { /**/ }
+        public void onStatusChanged(String provider, int status, Bundle extras) { /**/ }
     };
 
     class GetLastLocation extends TimerTask {
         @Override
         public void run() {
-            lm.removeUpdates(locationListenerGps);
-            lm.removeUpdates(locationListenerNetwork);
+            lm.removeUpdates(locationListener);
 
             Location net_loc=null, gps_loc=null;
             if(gps_enabled)

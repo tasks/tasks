@@ -35,7 +35,6 @@ public class TimerActionControlSet extends TaskEditControlSet {
     }
 
     @Override
-    @SuppressWarnings("hiding")
     protected void readFromTaskOnInitialize() {
         if (model.getValue(Task.TIMER_START) == 0)
             timerActive = false;
@@ -51,7 +50,6 @@ public class TimerActionControlSet extends TaskEditControlSet {
     }
 
     @Override
-    @SuppressWarnings("hiding")
     protected String writeToModelAfterInitialized(Task task) {
         // Nothing to do here
         return null;
@@ -96,7 +94,7 @@ public class TimerActionControlSet extends TaskEditControlSet {
                 chronometer.setOnChronometerTickListener(new OnChronometerTickListener() {
                     public void onChronometerTick(Chronometer cArg) {
                         long t = SystemClock.elapsedRealtime() - cArg.getBase();
-                        cArg.setText(DateFormat.format("d'd' h:mm", t));
+                        cArg.setText(DateFormat.format("d'd' h:mm", t)); //$NON-NLS-1$
                     }
                 });
 

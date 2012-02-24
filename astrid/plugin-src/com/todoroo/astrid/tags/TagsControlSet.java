@@ -40,8 +40,8 @@ public final class TagsControlSet extends PopupControlSet {
 
     // --- instance variables
 
-    //private final Spinner tagSpinner;
-    //@Autowired private TagDataService tagDataService;
+    private static final String TRANSITORY_TAGS = "tags";//$NON-NLS-1$
+
     private final TagService tagService = TagService.getInstance();
     private ArrayList<String> allTagNames;
 
@@ -124,8 +124,8 @@ public final class TagsControlSet extends PopupControlSet {
                 tags.add(tagName.getText().toString());
             }
         } else {
-            if (model.getTransitory("tags") != null) {
-                return (LinkedHashSet<String>) model.getTransitory("tags");
+            if (model.getTransitory(TRANSITORY_TAGS) != null) {
+                return (LinkedHashSet<String>) model.getTransitory(TRANSITORY_TAGS);
             }
         }
         return tags;
@@ -233,7 +233,7 @@ public final class TagsControlSet extends PopupControlSet {
             } finally {
                 cursor.close();
             }
-            model.putTransitory("tags", tags); //$NON-NLS-1$
+            model.putTransitory(TRANSITORY_TAGS, tags);
         }
     }
 
@@ -253,7 +253,7 @@ public final class TagsControlSet extends PopupControlSet {
     }
 
     private void selectTagsFromModel() {
-        LinkedHashSet<String> tags = (LinkedHashSet<String>) model.getTransitory("tags");
+        LinkedHashSet<String> tags = (LinkedHashSet<String>) model.getTransitory(TRANSITORY_TAGS);
         if (tags != null) {
             for (String tag : tags) {
                 setTagSelected(tag);

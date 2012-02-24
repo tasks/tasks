@@ -37,6 +37,7 @@ import android.widget.ListView;
 import com.timsu.astrid.R;
 import com.todoroo.andlib.utility.AndroidUtilities;
 
+@SuppressWarnings("nls")
 public class TouchListView extends ListView {
 	private ImageView mDragView;
 	private View mOriginalView;
@@ -96,7 +97,7 @@ public class TouchListView extends ListView {
         }
     }
 
-	@Override
+    @Override
 	final public void addHeaderView (View v, Object data, boolean isSelectable) {
 		throw new RuntimeException("Headers are not supported with TouchListView");
 	}

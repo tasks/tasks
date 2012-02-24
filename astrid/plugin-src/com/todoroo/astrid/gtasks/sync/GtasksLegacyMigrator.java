@@ -81,7 +81,6 @@ public class GtasksLegacyMigrator {
                         List<com.google.api.services.tasks.model.Task> tasksItems = allTasks.getItems();
                         if (tasksItems != null) {
                             for (com.google.api.services.tasks.model.Task t : tasksItems) {
-                                System.err.println("Constructing key with title: " + t.getTitle());
                                 String key = constructKeyFromTitles(t.getTitle(), list.getTitle());
                                 taskAndListTitlesToRemoteTaskIds.put(key, t.getId());
                             }
@@ -102,8 +101,7 @@ public class GtasksLegacyMigrator {
                         String originalListName = gtasksListService.getListName(
                                 container.gtaskMetadata.getValue(GtasksMetadata.LIST_ID));
                         String originalListId = null;
-                        System.err.println("Migrating task with title: " + container.task.getValue(Task.TITLE) +
-                                ", remote id: " + container.gtaskMetadata.getValue(GtasksMetadata.ID));
+
                         //Search through lists to see if one of them has match
                         String taskTitle = container.task.getValue(Task.TITLE);
                         boolean foundMatch = false;
@@ -117,7 +115,6 @@ public class GtasksLegacyMigrator {
                                 originalListId = list.getId();
 
                             if (taskAndListTitlesToRemoteTaskIds.containsKey(expectedKey)) {
-                                System.err.println("Found match");
                                 foundMatch = true;
                                 String newRemoteTaskId = taskAndListTitlesToRemoteTaskIds.get(expectedKey);
                                 String newRemoteListId = list.getId();
@@ -130,7 +127,6 @@ public class GtasksLegacyMigrator {
                         }
 
                         if (!foundMatch) {
-                            System.err.println("Resetting metadata");
                             //For non-matches, make the task look newly created
                             container.gtaskMetadata = GtasksMetadata.createEmptyMetadata(container.task.getId());
                             container.gtaskMetadata.setValue(GtasksMetadata.ID, ""); //$NON-NLS-1$

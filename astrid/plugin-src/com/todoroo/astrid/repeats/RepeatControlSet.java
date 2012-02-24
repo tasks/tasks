@@ -67,7 +67,6 @@ public class RepeatControlSet extends PopupControlSet {
     private Button value;
     private Spinner interval;
     private Spinner type;
-    private LinearLayout repeatContainer;
     private LinearLayout daysOfWeekContainer;
     private final CompoundButton[] daysOfWeek = new CompoundButton[7];
 
@@ -132,6 +131,7 @@ public class RepeatControlSet extends PopupControlSet {
             listeners.remove(listener);
     }
 
+    @SuppressWarnings("nls")
     @Override
     public void readFromTask(Task task) {
         super.readFromTask(task);
@@ -232,7 +232,6 @@ public class RepeatControlSet extends PopupControlSet {
         value = (Button) getView().findViewById(R.id.repeatValue);
         interval = (Spinner) getView().findViewById(R.id.repeatInterval);
         type = (Spinner) getView().findViewById(R.id.repeatType);
-        repeatContainer = (LinearLayout) getView().findViewById(R.id.repeatContainer);
         daysOfWeekContainer = (LinearLayout) getView().findViewById(R.id.repeatDayOfWeekContainer);
         setRepeatValue(1);
 

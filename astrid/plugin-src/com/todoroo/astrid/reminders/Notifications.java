@@ -50,13 +50,14 @@ public class Notifications extends BroadcastReceiver {
      * Action name for broadcast intent notifying that task was created from repeating template
      */
     public static final String BROADCAST_IN_APP_NOTIFY = Constants.PACKAGE + ".IN_APP_NOTIFY"; //$NON-NLS-1$
-    public static final String EXTRAS_CUSTOM_INTENT = "intent";
-    public static final String EXTRAS_NOTIF_ID = "notifId";
+    public static final String EXTRAS_CUSTOM_INTENT = "intent"; //$NON-NLS-1$
+    public static final String EXTRAS_NOTIF_ID = "notifId"; //$NON-NLS-1$
+
     /** notification type extra */
     public static final String EXTRAS_TYPE = "type"; //$NON-NLS-1$
-    public static final String EXTRAS_TITLE = "title";
-    public static final String EXTRAS_TEXT = "text";
-    public static final String EXTRAS_RING_TIMES = "ringTimes";
+    public static final String EXTRAS_TITLE = "title"; //$NON-NLS-1$
+    public static final String EXTRAS_TEXT = "text"; //$NON-NLS-1$
+    public static final String EXTRAS_RING_TIMES = "ringTimes"; //$NON-NLS-1$
 
     // --- instance variables
 

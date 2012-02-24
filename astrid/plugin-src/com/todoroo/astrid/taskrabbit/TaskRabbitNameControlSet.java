@@ -16,7 +16,6 @@ import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ImageButton;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.timsu.astrid.R;
@@ -32,8 +31,6 @@ public class TaskRabbitNameControlSet extends PopupControlSet implements TaskRab
 
     protected final EditText editText;
     protected final TextView notesPreview;
-    private final LinearLayout notesBody;
-
 
     private final ImageButton pictureButton;
     private Bitmap pendingCommentPicture = null;
@@ -44,7 +41,6 @@ public class TaskRabbitNameControlSet extends PopupControlSet implements TaskRab
         super(activity, viewLayout, displayViewLayout, titleID);
         editText = (EditText) getView().findViewById(R.id.notes);
         notesPreview = (TextView) getDisplayView().findViewById(R.id.display_row_edit);
-        notesBody = (LinearLayout) getDisplayView().findViewById(R.id.notes_body);
         displayText.setText(activity.getString(titleID));
         editText.setMaxLines(Integer.MAX_VALUE);
 

@@ -1,6 +1,5 @@
 package com.todoroo.astrid.actfm;
 
-import com.todoroo.astrid.helper.AsyncImageView;
 import android.app.Activity;
 import android.content.Intent;
 import android.database.Cursor;
@@ -45,6 +44,7 @@ import com.todoroo.astrid.adapter.UpdateAdapter;
 import com.todoroo.astrid.dao.UpdateDao;
 import com.todoroo.astrid.data.TagData;
 import com.todoroo.astrid.data.Update;
+import com.todoroo.astrid.helper.AsyncImageView;
 import com.todoroo.astrid.helper.ImageDiskCache;
 import com.todoroo.astrid.helper.ProgressBarSyncResultCallback;
 import com.todoroo.astrid.service.StatisticsConstants;
@@ -128,7 +128,8 @@ public class TagUpdatesFragment extends ListFragment {
     protected void setUpUpdateList() {
         if (getActivity() instanceof TagUpdatesActivity) {
             ActionBar ab = ((AstridActivity) getActivity()).getSupportActionBar();
-            String title = (tagData == null) ? getString(R.string.TLA_all_activity) : getString(R.string.tag_updates_title, tagData.getValue(TagData.NAME));
+            String title = (tagData == null) ? getString(R.string.TLA_all_activity) :
+                getString(R.string.tag_updates_title, tagData.getValue(TagData.NAME));
             ((TextView) ab.getCustomView().findViewById(R.id.title)).setText(title);
         }
 
@@ -335,7 +336,7 @@ public class TagUpdatesFragment extends ListFragment {
 
 
     private String getPictureHashForUpdate(Update u) {
-        String s = u.getValue(Update.TASK) + "" + u.getValue(Update.CREATION_DATE);
+        String s = u.getValue(Update.TASK).toString() + u.getValue(Update.CREATION_DATE);
         return s;
     }
 

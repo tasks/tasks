@@ -198,7 +198,6 @@ public class OpencrxControlSet extends PopupControlSet {
     @Autowired
     private StoreObjectDao storeObjectDao;
 
-    @SuppressWarnings("unused")
     public OpencrxControlSet(final Activity activity, int viewLayout, int displayViewLayout, int title) {
         super(activity, viewLayout, displayViewLayout, title);
         DependencyInjectionService.getInstance().inject(this);

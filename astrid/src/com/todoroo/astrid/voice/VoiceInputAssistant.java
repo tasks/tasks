@@ -314,8 +314,7 @@ public class VoiceInputAssistant {
         // User wants to install voice search, take them to the market
         Intent marketIntent = new Intent(Intent.ACTION_VIEW,
                 Uri.parse("market://search?q=pname:" + packageName)); //$NON-NLS-1$
-        if (ContextManager.getContext() instanceof Activity) {
-            Activity activity = (Activity) ContextManager.getContext();
+        if (activity != null) {
             try {
                 activity.startActivity(marketIntent);
             } catch (ActivityNotFoundException ane) {
