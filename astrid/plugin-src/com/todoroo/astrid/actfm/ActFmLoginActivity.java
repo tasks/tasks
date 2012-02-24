@@ -443,7 +443,7 @@ public class ActFmLoginActivity extends FragmentActivity implements AuthListener
             try {
                 json = Util.parseJson(response);
                 String firstName = json.getString("first_name"); //$NON-NLS-1$
-                String lastName = json.getString("last_name");
+                String lastName = json.getString("last_name"); //$NON-NLS-1$
                 String email = json.getString("email"); //$NON-NLS-1$
 
                 authenticate(email, firstName, lastName, ActFmInvoker.PROVIDER_FACEBOOK,
