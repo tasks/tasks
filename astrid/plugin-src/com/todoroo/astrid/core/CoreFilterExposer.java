@@ -12,18 +12,13 @@ import android.graphics.drawable.BitmapDrawable;
 import com.timsu.astrid.R;
 import com.todoroo.andlib.service.ContextManager;
 import com.todoroo.andlib.sql.Criterion;
-import com.todoroo.andlib.sql.Query;
 import com.todoroo.andlib.sql.QueryTemplate;
 import com.todoroo.astrid.activity.FilterListFragment;
 import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.api.AstridFilterExposer;
 import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.api.FilterListItem;
-import com.todoroo.astrid.dao.MetadataDao.MetadataCriteria;
-import com.todoroo.astrid.data.Metadata;
-import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.data.TaskApiDao.TaskCriteria;
-import com.todoroo.astrid.tags.TagService;
 
 /**
  * Exposes Astrid's built in filters to the {@link FilterListFragment}
@@ -61,10 +56,7 @@ public final class CoreFilterExposer extends BroadcastReceiver implements Astrid
     public static Filter buildInboxFilter(Resources r) {
         Filter inbox = new Filter(r.getString(R.string.BFE_Active), r.getString(R.string.BFE_Active),
                 new QueryTemplate().where(
-                        Criterion.and(TaskCriteria.activeVisibleMine(),
-                                Criterion.not(Task.ID.in(Query.select(Metadata.TASK).from(Metadata.TABLE).where(
-                                        Criterion.and(MetadataCriteria.withKey(TagService.KEY),
-                                                TagService.TAG.like("x_%", "x"))))))), //$NON-NLS-1$ //$NON-NLS-2$
+                        Criterion.and(TaskCriteria.activeVisibleMine())),
                 null);
         inbox.listingIcon = ((BitmapDrawable)r.getDrawable(R.drawable.filter_inbox)).getBitmap();
         return inbox;
