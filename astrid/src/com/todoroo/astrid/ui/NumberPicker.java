@@ -450,7 +450,11 @@ public class NumberPicker extends LinearLayout implements OnClickListener,
 
     private int getSelectedPos(String str) {
         if (mDisplayedValues == null) {
-            return Integer.parseInt(str);
+            try {
+                return Integer.parseInt(str);
+            } catch (NumberFormatException e) {
+                return mStart;
+            }
         } else {
             for (int i = 0; i < mDisplayedValues.length; i++) {
 
