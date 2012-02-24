@@ -129,6 +129,7 @@ public class OrderedListFragmentHelper<LIST> {
         @Override
         public void drop(int from, int to) {
             long targetTaskId = taskAdapter.getItemId(from);
+            if (targetTaskId <= 0) return; // This can happen with gestures on empty parts of the list (e.g. extra space below tasks)
             long destinationTaskId = taskAdapter.getItemId(to);
 
             try {
@@ -158,6 +159,7 @@ public class OrderedListFragmentHelper<LIST> {
 
         protected void indent(int which, int delta) {
             long targetTaskId = taskAdapter.getItemId(which);
+            if (targetTaskId <= 0) return; // This can happen with gestures on empty parts of the list (e.g. extra space below tasks)
             try {
                 updater.indent(getFilter(), list, targetTaskId, delta);
             } catch (Exception e) {
