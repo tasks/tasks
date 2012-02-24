@@ -1047,7 +1047,7 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
         if (taskRabbitControl != null && taskRabbitControl.activityResult(requestCode, resultCode, data)) {
             return;
         }
-        else if (editNotes.activityResult(requestCode, resultCode, data)) {
+        else if (editNotes != null && editNotes.activityResult(requestCode, resultCode, data)) {
             return;
         }
         else if (requestCode == REQUEST_VOICE_RECOG
