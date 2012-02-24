@@ -297,14 +297,12 @@ public class TasksXmlImporter {
 
         private class XmlReadingPropertyVisitor implements PropertyVisitor<Void, AbstractModel> {
 
-            private static final String NULL = "null";  //$NON-NLS-1$
-
             @Override
             public Void visitInteger(Property<Integer> property,
                     AbstractModel data) {
                 String value = xpp.getAttributeValue(null, property.name);
                 if(value != null)
-                    data.setValue(property, NULL.equals(value) ?
+                    data.setValue(property, TasksXmlExporter.XML_NULL.equals(value) ?
                             null : Integer.parseInt(value));
                 return null;
             }
@@ -313,7 +311,7 @@ public class TasksXmlImporter {
             public Void visitLong(Property<Long> property, AbstractModel data) {
                 String value = xpp.getAttributeValue(null, property.name);
                 if(value != null)
-                    data.setValue(property, NULL.equals(value) ?
+                    data.setValue(property, TasksXmlExporter.XML_NULL.equals(value) ?
                             null : Long.parseLong(value));
                 return null;
             }
@@ -323,7 +321,7 @@ public class TasksXmlImporter {
                     AbstractModel data) {
                 String value = xpp.getAttributeValue(null, property.name);
                 if(value != null)
-                    data.setValue(property, NULL.equals(value) ?
+                    data.setValue(property, TasksXmlExporter.XML_NULL.equals(value) ?
                             null : Double.parseDouble(value));
                 return null;
             }

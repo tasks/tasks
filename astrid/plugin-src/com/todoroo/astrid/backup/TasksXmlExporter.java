@@ -216,15 +216,15 @@ public class TasksXmlExporter {
     }
 
     private final XmlWritingPropertyVisitor xmlWritingVisitor = new XmlWritingPropertyVisitor();
+    public static final String XML_NULL = "null"; //$NON-NLS-1$
 
-    private class XmlWritingPropertyVisitor implements PropertyVisitor<Void, AbstractModel> {
-        private static final String NULL = "null"; //$NON-NLS-1$
+    public class XmlWritingPropertyVisitor implements PropertyVisitor<Void, AbstractModel> {
 
         @Override
         public Void visitInteger(Property<Integer> property, AbstractModel data) {
             try {
                 Integer value = data.getValue(property);
-                String valueString = (value == null) ? NULL : value.toString();
+                String valueString = (value == null) ? XML_NULL : value.toString();
                 xml.attribute(null, property.name, valueString);
             } catch (UnsupportedOperationException e) {
                 // didn't read this value, do nothing
@@ -242,7 +242,7 @@ public class TasksXmlExporter {
         public Void visitLong(Property<Long> property, AbstractModel data) {
             try {
                 Long value = data.getValue(property);
-                String valueString = (value == null) ? NULL : value.toString();
+                String valueString = (value == null) ? XML_NULL : value.toString();
                 xml.attribute(null, property.name, valueString);
             } catch (UnsupportedOperationException e) {
                 // didn't read this value, do nothing
@@ -260,7 +260,7 @@ public class TasksXmlExporter {
         public Void visitDouble(Property<Double> property, AbstractModel data) {
             try {
                 Double value = data.getValue(property);
-                String valueString = (value == null) ? NULL : value.toString();
+                String valueString = (value == null) ? XML_NULL : value.toString();
                 xml.attribute(null, property.name, valueString);
             } catch (UnsupportedOperationException e) {
                 // didn't read this value, do nothing
