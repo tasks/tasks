@@ -85,6 +85,11 @@ public class GtasksListFragment extends SubtasksListFragment {
     }
 
     @Override
+    protected void onTaskDelete(Task task) {
+        helper.onDeleteTask(task);
+    }
+
+    @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
         MenuItem item = menu.add(Menu.NONE, MENU_CLEAR_COMPLETED_ID, Menu.FIRST,
