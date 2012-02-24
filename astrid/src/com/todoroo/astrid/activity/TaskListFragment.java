@@ -1195,7 +1195,7 @@ public class TaskListFragment extends ListFragment implements OnScrollListener,
         sortSort = sort;
 
         if (always) {
-            SharedPreferences publicPrefs = AstridPreferences.getPublicPrefs(getActivity());
+            SharedPreferences publicPrefs = AstridPreferences.getPublicPrefs(ContextManager.getContext());
             Editor editor = publicPrefs.edit();
             editor.putInt(SortHelper.PREF_SORT_FLAGS, flags);
             editor.putInt(SortHelper.PREF_SORT_SORT, sort);
@@ -1205,9 +1205,13 @@ public class TaskListFragment extends ListFragment implements OnScrollListener,
                             TasksWidget.WidgetUpdateService.class));
         }
 
-        if(manualSettingChanged)
-            toggleDragDrop(SortHelper.isManualSort(sortFlags));
-        else
-            loadTaskListContent(true);
+        try {
+            if(manualSettingChanged)
+                toggleDragDrop(SortHelper.isManualSort(sortFlags));
+            else
+                loadTaskListContent(true);
+        } catch (IllegalStateException e) {
+            // TODO: Fragment got detached somehow (rare)
+        }
     }
 }
