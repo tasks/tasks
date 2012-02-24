@@ -40,6 +40,7 @@ import com.todoroo.astrid.utility.AstridPreferences;
 
 public final class UpgradeService {
 
+    public static final int V4_0_1 = 252;
     public static final int V4_0_0 = 251;
     public static final int V3_9_2_3 = 210;
     public static final int V3_9_2_2 = 209;
@@ -174,6 +175,14 @@ public final class UpgradeService {
 
         Preferences.clear(AstridPreferences.P_UPGRADE_FROM);
         StringBuilder changeLog = new StringBuilder();
+
+        if (from >= V4_0_0 && from < V4_0_1) {
+            newVersionString(changeLog, "4.0.1 (2/23/12)", new String[] {
+               "Fixed a database issue affecting Android 2.1 users",
+               "Fixed a crash when using drag and drop in Google Tasks lists",
+               "Other small bugfixes"
+            });
+        }
 
         if (from < V4_0_0) {
             newVersionString(changeLog, "4.0.0 (2/23/12)", new String[] {
