@@ -26,6 +26,7 @@ public class WelcomePagerAdapter extends PagerAdapter implements TitleProvider
         R.drawable.welcome_walkthrough_3,
         R.drawable.welcome_walkthrough_4,
         R.drawable.welcome_walkthrough_5,
+        R.drawable.welcome_walkthrough_6,
         0
     };
     private static int[] title = new int[] {
@@ -34,6 +35,7 @@ public class WelcomePagerAdapter extends PagerAdapter implements TitleProvider
         R.string.welcome_title_3,
         R.string.welcome_title_4,
         R.string.welcome_title_5,
+        R.string.welcome_title_6,
         R.string.welcome_title_7,
     };
     private static int[] body = new int[] {
@@ -42,9 +44,11 @@ public class WelcomePagerAdapter extends PagerAdapter implements TitleProvider
         R.string.welcome_body_3,
         R.string.welcome_body_4,
         R.string.welcome_body_5,
+        R.string.welcome_body_6,
         R.string.welcome_body_7,
     };
     private static int[] layouts = new int[] {
+        R.layout.welcome_walkthrough_page,
         R.layout.welcome_walkthrough_page,
         R.layout.welcome_walkthrough_page,
         R.layout.welcome_walkthrough_page,

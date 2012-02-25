@@ -126,7 +126,7 @@ public class ShortcutActivity extends Activity {
 
             Filter filter;
             if (extras.containsKey(TOKEN_CUSTOM_CLASS)) {
-                filter = new FilterWithCustomIntent("", title, sql, values);
+                filter = new FilterWithCustomIntent("", title, sql, values); //$NON-NLS-1$
                 ComponentName customTaskList = ComponentName.unflattenFromString(extras.getString(TOKEN_CUSTOM_CLASS));
                 ((FilterWithCustomIntent) filter).customTaskList = customTaskList;
             } else {

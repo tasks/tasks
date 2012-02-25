@@ -35,6 +35,7 @@ import com.todoroo.astrid.activity.TaskEditFragment;
 import com.todoroo.astrid.activity.TaskListActivity;
 import com.todoroo.astrid.activity.TaskListFragment;
 import com.todoroo.astrid.activity.TaskListFragment.OnTaskListItemClickedListener;
+import com.todoroo.astrid.dao.TaskDao;
 import com.todoroo.astrid.data.TagData;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.gcal.GCalControlSet;
@@ -266,18 +267,31 @@ public class QuickAddBar extends LinearLayout {
                 return null;
             }
 
-            Flags.set(Flags.ACTFM_SUPPRESS_SYNC);
-            Flags.set(Flags.GTASKS_SUPPRESS_SYNC);
+            boolean quickAddChanges = repeatControl.isRecurrenceSet() ||
+                                        deadlineControl.isDeadlineSet() ||
+                                        !assignedToMe; // Will the quickadd save have any effect?
+
+            if (quickAddChanges)
+                Flags.set(Flags.ACTFM_SUPPRESS_SYNC);
+
+            if (deadlineControl.isDeadlineSet()) // If deadline is set, second save will trigger push
+                Flags.set(Flags.GTASKS_SUPPRESS_SYNC);
+
             Task task = TaskService.createWithValues(fragment.getFilter().valuesForNewTasks, title,
                     taskService, metadataService);
 
             if (repeatControl.isRecurrenceSet())
                 repeatControl.writeToModel(task);
-            if (deadlineControl.isDeadlineSet())
+            if (deadlineControl.isDeadlineSet()) { // Need to redo hide until using defaults in case it was set by some markup magic
+                task.clearValue(Task.HIDE_UNTIL);
                 deadlineControl.writeToModel(task);
+                TaskDao.createDefaultHideUntil(task);
+            }
             gcalControl.writeToModel(task);
-            peopleControl.setTask(task);
-            peopleControl.saveSharingSettings(null);
+            if (!assignedToMe) {
+                peopleControl.setTask(task);
+                peopleControl.saveSharingSettings(null);
+            }
             taskService.save(task);
 
             String assignedTo = peopleControl.getAssignedToString();

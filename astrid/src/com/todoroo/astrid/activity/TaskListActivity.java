@@ -126,33 +126,33 @@ public class TaskListActivity extends AstridActivity implements MainMenuListener
     };
 
     /**
-	 * @see android.app.Activity#onCreate(Bundle)
-	 */
-	@Override
-	protected void onCreate(Bundle savedInstanceState) {
-	    ThemeService.applyTheme(this);
-		super.onCreate(savedInstanceState);
+     * @see android.app.Activity#onCreate(Bundle)
+     */
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        ThemeService.applyTheme(this);
+        super.onCreate(savedInstanceState);
 
-		if (shouldUseThreePane(this))
-		    setContentView(R.layout.task_list_wrapper_activity_3pane);
-		else
-		    setContentView(R.layout.task_list_wrapper_activity);
+        if (shouldUseThreePane(this))
+            setContentView(R.layout.task_list_wrapper_activity_3pane);
+        else
+            setContentView(R.layout.task_list_wrapper_activity);
 
-		ActionBar actionBar = getSupportActionBar();
-		actionBar.setDisplayOptions(0, ActionBar.DISPLAY_SHOW_TITLE);
-		actionBar.setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
-		actionBar.setCustomView(R.layout.header_nav_views);
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.setDisplayOptions(0, ActionBar.DISPLAY_SHOW_TITLE);
+        actionBar.setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
+        actionBar.setCustomView(R.layout.header_nav_views);
 
-		listsNav = actionBar.getCustomView().findViewById(R.id.lists_nav);
-		listsNavDisclosure = (ImageView) actionBar.getCustomView().findViewById(R.id.list_disclosure_arrow);
-		lists = (TextView) actionBar.getCustomView().findViewById(R.id.list_title);
-		mainMenu = (ImageView) actionBar.getCustomView().findViewById(R.id.main_menu);
-		commentsButton = (Button) actionBar.getCustomView().findViewById(R.id.comments);
+        listsNav = actionBar.getCustomView().findViewById(R.id.lists_nav);
+        listsNavDisclosure = (ImageView) actionBar.getCustomView().findViewById(R.id.list_disclosure_arrow);
+        lists = (TextView) actionBar.getCustomView().findViewById(R.id.list_title);
+        mainMenu = (ImageView) actionBar.getCustomView().findViewById(R.id.main_menu);
+        commentsButton = (Button) actionBar.getCustomView().findViewById(R.id.comments);
 
-		initializeFragments(actionBar);
-		createMainMenuPopover();
-		mainMenu.setOnClickListener(mainMenuClickListener);
-		commentsButton.setOnClickListener(commentsButtonClickListener);
+        initializeFragments(actionBar);
+        createMainMenuPopover();
+        mainMenu.setOnClickListener(mainMenuClickListener);
+        commentsButton.setOnClickListener(commentsButtonClickListener);
 
         Filter savedFilter = getIntent().getParcelableExtra(TaskListFragment.TOKEN_FILTER);
         if (savedFilter == null)
@@ -173,7 +173,8 @@ public class TaskListActivity extends AstridActivity implements MainMenuListener
             tlfPager.setOnPageChangeListener(this);
         }
 
-        if (getIntent().getIntExtra(TOKEN_SOURCE, Constants.SOURCE_DEFAULT) == Constants.SOURCE_NOTIFICATION)
+        if (getIntent().getIntExtra(TOKEN_SOURCE, Constants.SOURCE_DEFAULT) ==
+                Constants.SOURCE_NOTIFICATION)
             setupTasklistFragmentWithFilterAndCustomTaskList(savedFilter, extras, NotificationFragment.class);
         else
             setupTasklistFragmentWithFilter(savedFilter, extras);
@@ -187,7 +188,7 @@ public class TaskListActivity extends AstridActivity implements MainMenuListener
 	}
 
 	@Override
-    protected void setupTasklistFragmentWithFilter(Filter filter, Bundle extras) {
+    public void setupTasklistFragmentWithFilter(Filter filter, Bundle extras) {
 	    if (fragmentLayout == LAYOUT_SINGLE) {
 	        tlfPager.showFilter(filter); // TODO: make sure we handle the extras and the custom task list
 	    } else {
@@ -196,7 +197,7 @@ public class TaskListActivity extends AstridActivity implements MainMenuListener
 	}
 
 	@Override
-    protected void setupTasklistFragmentWithFilterAndCustomTaskList(Filter filter, Bundle extras, Class<?> customTaskList) {
+    public void setupTasklistFragmentWithFilterAndCustomTaskList(Filter filter, Bundle extras, Class<?> customTaskList) {
 	    if (fragmentLayout == LAYOUT_SINGLE) {
 	        tlfPager.showFilter(filter); // TODO: make sure we handle the extras and the custom task list
 	    } else {
@@ -204,10 +205,10 @@ public class TaskListActivity extends AstridActivity implements MainMenuListener
 	    }
 	}
 
-	/**
-	 *
-	 * @param actionBar
-	 */
+    /**
+     *
+     * @param actionBar
+     */
     protected void initializeFragments(ActionBar actionBar) {
         View filterFragment = findViewById(R.id.filterlist_fragment_container);
         View editFragment = findViewById(R.id.taskedit_fragment_container);
@@ -238,14 +239,14 @@ public class TaskListActivity extends AstridActivity implements MainMenuListener
     }
 
     private void createListsPopover() {
-	    listsPopover = new FragmentPopover(this, R.layout.list_dropdown_popover);
+        listsPopover = new FragmentPopover(this, R.layout.list_dropdown_popover);
         listsPopover.setOnDismissListener(new OnDismissListener() {
             @Override
             public void onDismiss() {
                 setListsDropdownSelected(false);
             }
         });
-	}
+    }
 
     private void createEditPopover() {
         editPopover = new FragmentPopover(this, R.layout.taskedit_popover);
@@ -301,11 +302,11 @@ public class TaskListActivity extends AstridActivity implements MainMenuListener
         }
     }
 
-	public void setupPopoverWithFilterList(FilterListFragment fla) {
-	    setupPopoverWithFragment(listsPopover, fla, null);
-	}
+    public void setupPopoverWithFilterList(FilterListFragment fla) {
+        setupPopoverWithFragment(listsPopover, fla, null);
+    }
 
-	@Override
+    @Override
     public void onTaskListItemClicked(long taskId) {
 	    super.onTaskListItemClicked(taskId);
 	    if (fragmentLayout == LAYOUT_DOUBLE && getTaskEditFragment() != null) {
@@ -386,7 +387,7 @@ public class TaskListActivity extends AstridActivity implements MainMenuListener
     }
 
     public void setSelectedItem(Filter item) {
-       lists.setText(item.title);
+        lists.setText(item.title);
     }
 
     @Override
@@ -423,7 +424,7 @@ public class TaskListActivity extends AstridActivity implements MainMenuListener
 
     @Override
     public void onBackPressed() {
-     // manage task edit visibility
+        // manage task edit visibility
         View taskeditFragmentContainer = findViewById(R.id.taskedit_fragment_container);
         if(taskeditFragmentContainer != null && taskeditFragmentContainer.getVisibility() == View.VISIBLE) {
             if(fragmentLayout == LAYOUT_DOUBLE) {
@@ -449,7 +450,9 @@ public class TaskListActivity extends AstridActivity implements MainMenuListener
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if ((requestCode == FilterListFragment.REQUEST_NEW_LIST || requestCode == FilterListFragment.REQUEST_NEW_FILTER) && resultCode == Activity.RESULT_OK) {
+        if ((requestCode == FilterListFragment.REQUEST_NEW_LIST ||
+                requestCode == TaskListFragment.ACTIVITY_REQUEST_NEW_FILTER) &&
+                resultCode == Activity.RESULT_OK) {
             if(data == null)
                 return;
 
@@ -505,7 +508,7 @@ public class TaskListActivity extends AstridActivity implements MainMenuListener
 
     public void switchToAssignedFilter(final String assignedEmail) {
         TaskListFragment tlf = getTaskListFragment();
-        if (tlf != null && !tlf.isFilter()) {
+        if (tlf != null && tlf.isInbox()) {
             DialogInterface.OnClickListener okListener = new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
@@ -582,7 +585,11 @@ public class TaskListActivity extends AstridActivity implements MainMenuListener
             String deletedTag = intent.getStringExtra(TagViewFragment.EXTRA_TAG_NAME);
             String deletedTagSql = intent.getStringExtra(TagFilterExposer.TAG_SQL);
             FilterListFragment fl = getFilterListFragment();
-            if (fl != null) {
+            if (deletedTagSql.equals(TagFilterExposer.SHOW_ACTIVE_TASKS)) {
+                fl.switchToActiveTasks();
+                fl.clear(); // Should auto refresh
+            }
+            else if (fl != null) {
                 Filter currentlyShowing = getIntent().getParcelableExtra(TaskListFragment.TOKEN_FILTER);
                 if (currentlyShowing != null) {
                     boolean titlesMatch = currentlyShowing.title != null && currentlyShowing.title.equals(deletedTag);

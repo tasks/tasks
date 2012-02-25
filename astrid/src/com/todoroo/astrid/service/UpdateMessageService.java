@@ -86,7 +86,7 @@ public class UpdateMessageService {
         if(activity == null)
             return;
 
-        String color = (AndroidUtilities.getSdkVersion() >= 14 ? "black" : "white");
+        String color = ThemeService.getDialogTextColor();
         final String html = "<html><body style='color: " + color + "'>" +
             builder.append("</body></html>").toString();
 

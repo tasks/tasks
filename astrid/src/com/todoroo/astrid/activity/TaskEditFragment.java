@@ -538,6 +538,9 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
         controls.add(hideUntilControls);
         reminderControl.addViewToBody(hideUntilControls.getDisplayView());
 
+        // TODO: Fix the fact that hideUntil doesn't update accordingly with date changes when lazy loaded. Until then, don't lazy load.
+        hideUntilControls.getView();
+
         TimerControlSet timerControl = new TimerControlSet(getActivity(),
                 R.layout.control_set_timers,
                 R.layout.control_set_default_display,
@@ -1044,7 +1047,7 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
         if (taskRabbitControl != null && taskRabbitControl.activityResult(requestCode, resultCode, data)) {
             return;
         }
-        else if (editNotes.activityResult(requestCode, resultCode, data)) {
+        else if (editNotes != null && editNotes.activityResult(requestCode, resultCode, data)) {
             return;
         }
         else if (requestCode == REQUEST_VOICE_RECOG

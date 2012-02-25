@@ -166,4 +166,12 @@ public class MetadataService {
             cursor.close();
         }
     }
+
+    /**
+     * Deletes the given metadata
+     * @param metadata
+     */
+    public void delete(Metadata metadata) {
+        metadataDao.delete(metadata.getId());
+    }
 }

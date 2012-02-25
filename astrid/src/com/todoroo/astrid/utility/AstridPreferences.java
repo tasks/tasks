@@ -10,6 +10,7 @@ import com.todoroo.andlib.service.ContextManager;
 import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.data.Task;
+import com.todoroo.astrid.service.ThemeService;
 
 public class AstridPreferences {
 
@@ -27,6 +28,8 @@ public class AstridPreferences {
 
     private static final long MIN_POPOVER_TIME = 3 * 1000L;
 
+    public static final String P_SUBTASKS_HELP = "sthelp"; //$NON-NLS-1$
+
     /** Set preference defaults, if unset. called at startup */
     public static void setPreferenceDefaults() {
         Context context = ContextManager.getContext();
@@ -41,6 +44,10 @@ public class AstridPreferences {
         Preferences.setIfUnset(prefs, editor, r, R.string.p_rmd_default_random_hours, 0);
         Preferences.setIfUnset(prefs, editor, r, R.string.p_fontSize, 18);
         Preferences.setIfUnset(prefs, editor, r, R.string.p_showNotes, false);
+
+        if ("white-blue".equals(Preferences.getStringValue(R.string.p_theme))) { //$NON-NLS-1$ migrate from when white-blue wasn't the default
+            Preferences.setString(R.string.p_theme, ThemeService.THEME_WHITE);
+        }
 
         editor.commit();
     }

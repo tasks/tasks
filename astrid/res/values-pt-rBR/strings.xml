@@ -572,7 +572,7 @@
   <string name="SSD_deleted">Exibir tarefas excluídas</string>
   
   <!-- Sort Selection: sort options header -->    
-  <string name="SSD_sort_header">Opções de ordenação</string>
+
   
   <!-- Sort Selection: smart sort -->
   <string name="SSD_sort_auto">Ordenação inteligente Astrid</string>
@@ -843,8 +843,8 @@
     
   <string-array name="EPr_themes">
     <!-- theme_settings: labels for Theme preference menu -->
-    <item>Day - Red</item>
     <item>Day - Blue</item>
+    <item>Day - Red</item>
     <item>Night</item>
     <item>Transparent (White Text)</item>
     <item>Transparent (Black Text)</item>
@@ -1190,7 +1190,7 @@
     <string name="gtasks_help_title">Bem vindo à Tarefas do Google</string>
     
     <!-- short help for GTasks list activity -->
-    <string name="gtasks_help_body">Arraste o controle no lado esquerdo de uma tarefa para reorganizá-la. Deslize o controle para direita ou esquerda para mudar a indentação.</string>
+
 
     <string name="CFC_gtasks_list_text">Na Lista: ?</string>
 
@@ -2254,7 +2254,7 @@
   can simply delete the new combined list!</string>
   
   <!-- Header for tag settings -->
-  <string name="tag_settings_title">Settings: %s</string>
+  <string name="tag_settings_title">Settings: </string>
   
   <!-- Header for tag activity -->
   <string name="tag_updates_title">Activity: %s</string>

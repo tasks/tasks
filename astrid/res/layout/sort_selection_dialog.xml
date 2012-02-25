@@ -11,40 +11,18 @@
       android:layout_width="fill_parent"
       android:layout_height="wrap_content"
       android:orientation="vertical">
-            
-      <!-- hidden task status -->
-        
-      <CheckBox android:id="@+id/hidden"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/SSD_hidden" />
-      
-      <CheckBox android:id="@+id/completed"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/SSD_completed" />
-        
-      <CheckBox android:id="@+id/deleted"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/SSD_deleted" />
-  
+           
       <!-- Sorting -->
-            
-      <TextView
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:padding="5dip"
-        android:gravity="center"
-        android:textSize="20sp"
-        android:textColor="#ffffff"
-        android:text="@string/SSD_sort_header"
-        android:background="@drawable/edit_titlebar"/>
     
       <RadioGroup
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
+        
+        <RadioButton android:id="@+id/sort_drag"
+          android:layout_width="fill_parent"
+          android:layout_height="wrap_content"
+          android:text="@string/SSD_sort_drag" />
         
         <RadioButton android:id="@+id/sort_smart"
           android:layout_width="fill_parent"
@@ -77,6 +55,33 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:text="@string/SSD_sort_reverse" />
+            
+      <!-- hidden task status -->
+      
+      <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:padding="5dip"
+        android:gravity="center"
+        android:textSize="20sp"
+        android:textColor="#ffffff"
+        android:text="@string/SSD_hidden_title"
+        android:background="@drawable/edit_titlebar"/>
+        
+      <CheckBox android:id="@+id/hidden"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/SSD_hidden" />
+      
+      <CheckBox android:id="@+id/completed"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/SSD_completed" />
+        
+      <CheckBox android:id="@+id/deleted"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/SSD_deleted" />
           
     </LinearLayout>
 

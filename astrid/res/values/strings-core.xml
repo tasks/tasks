@@ -63,6 +63,8 @@
   
   <string name="DLG_cancel">Cancel</string>
   
+  <string name="DLG_more">More</string>
+  
   <string name="DLG_undo">Undo</string>
   
   <!-- =============================================================== UI == -->
@@ -85,7 +87,7 @@
   <string name="ENE_label_comments">Comments</string>
   
   <!-- EditNoteActivity - no comments -->
-  <string name="ENA_no_comments">Nothing To Show</string>
+  <string name="ENA_no_comments">No activity yet</string>
     
   <!-- EditNoteActivity - no username for comment -->
   <string name="ENA_no_user">You</string>
@@ -102,7 +104,7 @@
   <string name="TLA_menu_addons">Add-ons</string>
   
   <!-- Menu: Adjust Sort and Hidden Task Settings -->    
-  <string name="TLA_menu_sort">Sort &amp; Hidden</string>
+  <string name="TLA_menu_sort">Sort &amp; Subtasks</string>
   
   <!-- Menu: Sync Now -->    
   <string name="TLA_menu_sync">Sync Now!</string>
@@ -214,7 +216,10 @@
   <!-- ============================================== SortSelectionDialog == -->
   
   <!-- Sort Selection: dialog title -->    
-  <string name="SSD_title">Sorting and Hidden Tasks</string>
+  <string name="SSD_title">Sort, Subtasks, and Hidden</string>
+  
+  <!-- Hidden: title -->
+  <string name="SSD_hidden_title">Hidden Tasks</string>
   
   <!-- Hidden Task Selection: show completed tasks -->    
   <string name="SSD_completed">Show Completed Tasks</string>
@@ -225,8 +230,8 @@
   <!-- Hidden Task Selection: show deleted tasks -->    
   <string name="SSD_deleted">Show Deleted Tasks</string>
   
-  <!-- Sort Selection: sort options header -->    
-  <string name="SSD_sort_header">Sort Options</string>
+  <!-- Sort Selection: drag with subtasks -->
+  <string name="SSD_sort_drag">Drag &amp; Drop with Subtasks</string>
   
   <!-- Sort Selection: smart sort -->
   <string name="SSD_sort_auto">Astrid Smart Sort</string>
@@ -270,7 +275,7 @@
   <string name="FLA_menu_help">Help</string>
   
   <!-- Create Shortcut Dialog Title -->    
-  <string name="FLA_shortcut_dialog_title">Create Shortcut</string>
+  <string name="FLA_shortcut_dialog_title">Create Desktop Shortcut</string>
   
   <!-- Create Shortcut Dialog (asks to name shortcut) -->    
   <string name="FLA_shortcut_dialog">Name of shortcut:</string>
@@ -430,6 +435,8 @@
   
   <string name="TEA_date_and_time">Date/Time</string>
   
+  <string name="WSV_click_to_load">Tap me to search for ways to get this done!</string>
+  
   <string name="WSV_not_online">I can do more when connected to the Internet. Please check your connection.</string>
   
   <!-- ============================================= IntroductionActivity == -->
@@ -455,6 +462,9 @@
   
   <!-- Updates Window Title -->
   <string name="UpS_updates_title">Latest Astrid News</string>
+  
+  <!-- Updats No Activity to show for offline users -->
+  <string name="UpS_no_activity_log_in">Log in to see a record of\nyour progress as well as\nactivity on shared lists.</string>
   
   <!-- ================================================== EditPreferences == -->
     
@@ -524,8 +534,8 @@
     
   <string-array name="EPr_themes">
     <!-- theme_settings: labels for Theme preference menu -->
-    <item>Day - Red</item>
     <item>Day - Blue</item>
+    <item>Day - Red</item>
     <item>Night</item>
     <item>Transparent (White Text)</item>
     <item>Transparent (Black Text)</item>

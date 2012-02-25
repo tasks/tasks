@@ -46,7 +46,7 @@ public abstract class DBObject<T extends DBObject<?>> implements Cloneable {
     }
 
     @Override
-    public final String toString() {
+    public String toString() {
         if (hasAlias()) {
             return alias;
         }

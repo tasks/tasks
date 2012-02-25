@@ -55,7 +55,7 @@ public abstract class PopupControlSet extends TaskEditControlSet {
             this.displayText = null;
         }
 
-        titleString = (title > 0) ? activity.getString(title) : "";
+        titleString = (title > 0) ? activity.getString(title) : ""; //$NON-NLS-1$
 
         if (displayView != null) {
             displayView.setOnClickListener(getDisplayClickListener());

@@ -572,7 +572,7 @@
   <string name="SSD_deleted">Silinmiş Görevleri Göster</string>
   
   <!-- Sort Selection: sort options header -->    
-  <string name="SSD_sort_header">Sıralama Seçenekleri</string>
+
   
   <!-- Sort Selection: smart sort -->
   <string name="SSD_sort_auto">Astrid Akıllı Sıralama</string>
@@ -843,8 +843,8 @@
     
   <string-array name="EPr_themes">
     <!-- theme_settings: labels for Theme preference menu -->
-    <item>Gündüz - Red</item>
     <item>Gündüz - Blue</item>
+    <item>Gündüz - Red</item>
     <item>Gece</item>
     <item>Şeffaf (Beyaz yazı)</item>
     <item>Şeffaf (Siyah yazı)</item>
@@ -1190,7 +1190,7 @@
     <string name="gtasks_help_title">Google Görevler \'e Hoşgeldiniz!</string>
     
     <!-- short help for GTasks list activity -->
-    <string name="gtasks_help_body">Yeniden düzenlemek için görevin solundaki tutucuyu kullanın. Girintiyi ayarlamak için tutucuyu sola ya da sağa kaydırın.</string>
+
 
     <string name="CFC_gtasks_list_text">Liste içinde: ?</string>
 
@@ -2237,7 +2237,7 @@
   <string name="tag_case_migration_notice">Farklı büyük harflere sahip aynı isimli listeler olduğunu farkettik. Belki de aynı isimli olması gerekir diye bunları birleştirdik. Merak etme, orjinallere birşey olmadı, sadece isimleri değişti. (Alışveriş listesi_1,Alışveriş listesi_2 vb) İstediğin bu değilse tek yapman gereken birleşmiş listeyi silmek!</string>
   
   <!-- Header for tag settings -->
-  <string name="tag_settings_title">Ayarlar: %s</string>
+  <string name="tag_settings_title">Ayarlar: </string>
   
   <!-- Header for tag activity -->
   <string name="tag_updates_title">Etkinlik: %s</string>

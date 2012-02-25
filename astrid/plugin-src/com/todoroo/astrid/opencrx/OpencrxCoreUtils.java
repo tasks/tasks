@@ -123,6 +123,6 @@ public class OpencrxCoreUtils extends SyncProviderUtilities{
 
     @Override
     public String getLoggedInUserName() {
-        return "";
+        return ""; //$NON-NLS-1$
     }
 }

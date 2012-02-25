@@ -572,7 +572,7 @@
   <string name="SSD_deleted">Показать удалённые задачи</string>
   
   <!-- Sort Selection: sort options header -->    
-  <string name="SSD_sort_header">Параметры сортировки</string>
+
   
   <!-- Sort Selection: smart sort -->
   <string name="SSD_sort_auto">Умная сортировка Astrid</string>
@@ -843,8 +843,8 @@
     
   <string-array name="EPr_themes">
     <!-- theme_settings: labels for Theme preference menu -->
-    <item>Day - Red</item>
     <item>Day - Blue</item>
+    <item>Day - Red</item>
     <item>Night</item>
     <item>Transparent (White Text)</item>
     <item>Transparent (Black Text)</item>
@@ -1192,7 +1192,7 @@ Astrid is open-source and proudly maintained by Todoroo, Inc.</string>
     <string name="gtasks_help_title">Добро пожаловать в Google Tasks!</string>
     
     <!-- short help for GTasks list activity -->
-    <string name="gtasks_help_body">Перетащите ярлык на левую сторону задачи для изменения порядка. Воспользуйтесь жестом влево и направо для изменения уровня.</string>
+
 
     <string name="CFC_gtasks_list_text">В Списке: ?</string>
 
@@ -2254,7 +2254,7 @@ Astrid is open-source and proudly maintained by Todoroo, Inc.</string>
   can simply delete the new combined list!</string>
   
   <!-- Header for tag settings -->
-  <string name="tag_settings_title">Settings: %s</string>
+  <string name="tag_settings_title">Settings: </string>
   
   <!-- Header for tag activity -->
   <string name="tag_updates_title">Activity: %s</string>

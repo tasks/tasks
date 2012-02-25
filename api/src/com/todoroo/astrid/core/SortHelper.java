@@ -19,6 +19,7 @@ public class SortHelper {
     public static final int FLAG_SHOW_COMPLETED = 1 << 1;
     public static final int FLAG_SHOW_HIDDEN = 1 << 2;
     public static final int FLAG_SHOW_DELETED = 1 << 3;
+    public static final int FLAG_DRAG_DROP = 1 << 4;
 
     public static final int SORT_AUTO = 0;
     public static final int SORT_ALPHA = 1;
@@ -66,7 +67,18 @@ public class SortHelper {
         return originalSql;
     }
 
+    public static boolean isManualSort(int flags) {
+        return (flags & FLAG_DRAG_DROP) > 0;
+    }
 
+    public static int setManualSort(int flags, boolean status) {
+        flags = (flags & ~FLAG_DRAG_DROP);
+        if(status)
+            flags |= FLAG_DRAG_DROP;
+        return flags;
+    }
+
+    @SuppressWarnings("nls")
     public static Order orderForSortType(int sortType) {
         Order order;
         switch(sortType) {
@@ -100,7 +112,7 @@ public class SortHelper {
     @SuppressWarnings("nls")
     public static Order defaultTaskOrder() {
         return Order.asc(Functions.caseStatement(Task.DUE_DATE.eq(0),
-                DateUtilities.now() * 2,
+                Functions.now() + "*2",
                 Task.DUE_DATE) + " + " + (2 * DateUtilities.ONE_DAY) + " * " +
                 Task.IMPORTANCE + " + 2*" + Task.COMPLETION_DATE);
     }

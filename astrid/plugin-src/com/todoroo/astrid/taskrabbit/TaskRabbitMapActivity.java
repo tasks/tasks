@@ -120,7 +120,7 @@ public class TaskRabbitMapActivity extends MapActivity implements LocationListen
                 AlertDialog.Builder adb = new AlertDialog.Builder(TaskRabbitMapActivity.this);
                 adb.setTitle(getString(R.string.tr_alert_location_fail_title));
                 adb.setMessage(getString(R.string.tr_alert_location_fail_message));
-                adb.setPositiveButton("Close",null);
+                adb.setPositiveButton(R.string.DLG_close, null);
                 adb.show();
             }
         }
@@ -200,7 +200,7 @@ public class TaskRabbitMapActivity extends MapActivity implements LocationListen
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return "";
+        return ""; //$NON-NLS-1$
     }
     private String updateAddress(Address address){
         String addressString = null;
@@ -256,7 +256,7 @@ public class TaskRabbitMapActivity extends MapActivity implements LocationListen
     }
 
     private Location geoPointToLocation(GeoPoint geoPoint) {
-        Location location = new Location("");
+        Location location = new Location(""); //$NON-NLS-1$
         location.setLatitude(((long)geoPoint.getLatitudeE6())/1E6);
         location.setLongitude(((long)geoPoint.getLongitudeE6())/1E6);
         return location;

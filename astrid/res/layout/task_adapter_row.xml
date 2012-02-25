@@ -33,7 +33,7 @@
 	        android:scaleType="center"
 	        android:visibility="gone" >
 	    </ImageView>
-	    <greendroid.widget.AsyncImageView
+	    <com.todoroo.astrid.helper.AsyncImageView
 	        android:id="@+id/picture"
 	        android:layout_width="45dip"
 	        android:layout_height="45dip"
@@ -42,8 +42,7 @@
 	        android:layout_centerVertical="true"
 	        astrid:defaultSrc="@drawable/icn_default_person_image"
 	        android:scaleType="fitCenter"
-	        android:visibility="gone" >
-	    </greendroid.widget.AsyncImageView>
+	        android:visibility="gone" />
 	    
 	    <com.todoroo.astrid.ui.CheckableImageView
 	        android:id="@+id/completeBox"

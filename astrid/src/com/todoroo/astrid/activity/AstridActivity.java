@@ -4,6 +4,7 @@ import android.app.PendingIntent.CanceledException;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -22,8 +23,10 @@ import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.api.FilterListItem;
 import com.todoroo.astrid.api.FilterWithCustomIntent;
 import com.todoroo.astrid.api.IntentFilter;
+import com.todoroo.astrid.core.CoreFilterExposer;
 import com.todoroo.astrid.core.PluginServices;
 import com.todoroo.astrid.core.SearchFilter;
+import com.todoroo.astrid.core.SortHelper;
 import com.todoroo.astrid.data.TagData;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.reminders.NotificationFragment;
@@ -32,7 +35,9 @@ import com.todoroo.astrid.reminders.ReminderDialog;
 import com.todoroo.astrid.service.StartupService;
 import com.todoroo.astrid.service.StatisticsConstants;
 import com.todoroo.astrid.service.StatisticsService;
+import com.todoroo.astrid.subtasks.SubtasksListFragment;
 import com.todoroo.astrid.ui.DateChangedAlerts;
+import com.todoroo.astrid.utility.AstridPreferences;
 
 /**
  * This wrapper activity contains all the glue-code to handle the callbacks between the different
@@ -205,11 +210,20 @@ public class AstridActivity extends FragmentActivity
         transaction.commit();
     }
 
-    protected void setupTasklistFragmentWithFilter(Filter filter, Bundle extras) {
-        setupTasklistFragmentWithFilterAndCustomTaskList(filter, extras, TaskListFragment.class);
+    public void setupTasklistFragmentWithFilter(Filter filter, Bundle extras) {
+        Class<?> customTaskList = TaskListFragment.class;
+
+        if(filter == null || CoreFilterExposer.isInbox(filter)) {
+            SharedPreferences publicPrefs = AstridPreferences.getPublicPrefs(this);
+            int sortFlags = publicPrefs.getInt(SortHelper.PREF_SORT_FLAGS, 0);
+            if(SortHelper.isManualSort(sortFlags))
+                customTaskList = SubtasksListFragment.class;
+        }
+
+        setupTasklistFragmentWithFilterAndCustomTaskList(filter, extras, customTaskList);
     }
 
-    protected void setupTasklistFragmentWithFilterAndCustomTaskList(Filter filter, Bundle extras, Class<?> customTaskList) {
+    public void setupTasklistFragmentWithFilterAndCustomTaskList(Filter filter, Bundle extras, Class<?> customTaskList) {
         TaskListFragment newFragment = TaskListFragment.instantiateWithFilterAndExtras(filter, extras, customTaskList);
 
         try {
@@ -294,7 +308,6 @@ public class AstridActivity extends FragmentActivity
         final FragmentManager fm = getSupportFragmentManager();
         Fragment fragment = fm.findFragmentByTag(tag);
         if(fragment == null) {
-            System.err.println("creating fragment of type " + cls.getSimpleName()); //$NON-NLS-1$
             try {
                 fragment = cls.newInstance();
             } catch (InstantiationException e) {

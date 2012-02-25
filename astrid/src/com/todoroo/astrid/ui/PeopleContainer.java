@@ -23,6 +23,7 @@ import android.widget.TextView.OnEditorActionListener;
 import com.timsu.astrid.R;
 import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.astrid.actfm.sync.ActFmPreferenceService;
+import com.todoroo.astrid.helper.AsyncImageView;
 
 public class PeopleContainer extends LinearLayout {
 
@@ -54,8 +55,12 @@ public class PeopleContainer extends LinearLayout {
 
     // --- methods
 
+    public TextView addPerson() {
+        return addPerson("", ""); //$NON-NLS-1$ //$NON-NLS-2$
+    }
+
     /** Adds a tag to the tag field */
-    public TextView addPerson(String person) {
+    public TextView addPerson(String person, String image) {
         LayoutInflater inflater = (LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
         // check if already exists
@@ -81,41 +86,7 @@ public class PeopleContainer extends LinearLayout {
             textView.setHint(R.string.actfm_person_or_tag_hint);
         }
 
-        textView.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void afterTextChanged(Editable s) {
-                //
-            }
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count,
-                    int after) {
-                //
-            }
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before,
-                    int count) {
-                if(count > 0 && getLastTextView() == textView) {
-                    addPerson(""); //$NON-NLS-1$
-                }
-
-                if(onAddNewPerson != null)
-                    onAddNewPerson.textChanged(s.toString());
-            }
-        });
-
-        textView.setOnEditorActionListener(new OnEditorActionListener() {
-            @Override
-            public boolean onEditorAction(TextView arg0, int actionId, KeyEvent arg2) {
-                if(actionId != EditorInfo.IME_NULL)
-                    return false;
-                if(getLastTextView().getText().length() != 0) {
-                    addPerson(""); //$NON-NLS-1$
-                }
-                return true;
-            }
-        });
-
-        ImageButton removeButton = (ImageButton)tagItem.findViewById(R.id.button1);
+        final ImageButton removeButton = (ImageButton)tagItem.findViewById(R.id.button1);
         removeButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 TextView lastView = getLastTextView();
@@ -128,6 +99,63 @@ public class PeopleContainer extends LinearLayout {
                     textView.setText(""); //$NON-NLS-1$
                     textView.setEnabled(true);
                 }
+            }
+        });
+
+        final AsyncImageView imageView = (AsyncImageView)tagItem.
+            findViewById(R.id.icon);
+        imageView.setUrl(image);
+        if (TextUtils.isEmpty(textView.getText())) {
+            imageView.setDefaultImageResource(R.drawable.icn_add_contact);
+            removeButton.setVisibility(View.GONE);
+        }
+        else {
+            imageView.setDefaultImageResource(R.drawable.icn_default_person_image);
+            removeButton.setVisibility(View.VISIBLE);
+        }
+
+
+        textView.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void afterTextChanged(Editable s) {
+                //
+            }
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count,
+                    int after) {
+                //
+            }
+            @SuppressWarnings("nls")
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before,
+                    int count) {
+                if(count > 0 && getLastTextView() == textView) {
+                    addPerson("", "");
+                }
+                if (TextUtils.isEmpty(textView.getText())) {
+                    imageView.setDefaultImageResource(R.drawable.icn_add_contact);
+                    removeButton.setVisibility(View.GONE);
+                }
+                else {
+                    imageView.setDefaultImageResource(R.drawable.icn_default_person_image);
+                    removeButton.setVisibility(View.VISIBLE);
+                }
+
+                if(onAddNewPerson != null)
+                    onAddNewPerson.textChanged(s.toString());
+            }
+        });
+
+        textView.setOnEditorActionListener(new OnEditorActionListener() {
+            @SuppressWarnings("nls")
+            @Override
+            public boolean onEditorAction(TextView arg0, int actionId, KeyEvent arg2) {
+                if(actionId != EditorInfo.IME_NULL)
+                    return false;
+                if(getLastTextView().getText().length() != 0) {
+                    addPerson("", "");
+                }
+                return true;
             }
         });
 
@@ -222,13 +250,13 @@ public class PeopleContainer extends LinearLayout {
         for(int i = 0; i < people.length(); i++) {
             JSONObject person = people.getJSONObject(i);
             TextView textView = null;
-
+            String imageURL = person.optString("picture", "");
             if(person.has("id") && person.getLong("id") == ActFmPreferenceService.userId())
-                textView = addPerson(Preferences.getStringValue(ActFmPreferenceService.PREF_NAME));
+                textView = addPerson(Preferences.getStringValue(ActFmPreferenceService.PREF_NAME), imageURL);
             else if(!TextUtils.isEmpty(person.optString("name")) && !"null".equals(person.optString("name")))
-                textView = addPerson(person.getString("name"));
+                textView = addPerson(person.getString("name"), imageURL);
             else if(!TextUtils.isEmpty(person.optString("email")) && !"null".equals(person.optString("email")))
-                textView = addPerson(person.getString("email"));
+                textView = addPerson(person.getString("email"), imageURL);
 
             if(textView != null) {
                 textView.setTag(person);

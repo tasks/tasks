@@ -577,7 +577,7 @@ File %1$s contained %2$s.\n\n
   <string name="SSD_deleted">Mostrar Tareas Eliminadas</string>
   
   <!-- Sort Selection: sort options header -->    
-  <string name="SSD_sort_header">Opciones de ordenación</string>
+
   
   <!-- Sort Selection: smart sort -->
   <string name="SSD_sort_auto">Clasificación Inteligente Astrid</string>
@@ -848,8 +848,8 @@ File %1$s contained %2$s.\n\n
     
   <string-array name="EPr_themes">
     <!-- theme_settings: labels for Theme preference menu -->
-    <item>Day - Red</item>
     <item>Day - Blue</item>
+    <item>Day - Red</item>
     <item>Night</item>
     <item>Transparent (White Text)</item>
     <item>Transparent (Black Text)</item>
@@ -1195,8 +1195,7 @@ File %1$s contained %2$s.\n\n
     <string name="gtasks_help_title">Bienvenido a Google Tasks!</string>
     
     <!-- short help for GTasks list activity -->
-    <string name="gtasks_help_body">Drag the grabber on the left side of a task 
-    to rearrange it. Swipe the grabber left or right to change indentation.</string>
+
 
     <string name="CFC_gtasks_list_text">In List: ?</string>
 
@@ -2261,7 +2260,7 @@ File %1$s contained %2$s.\n\n
   can simply delete the new combined list!</string>
   
   <!-- Header for tag settings -->
-  <string name="tag_settings_title">Settings: %s</string>
+  <string name="tag_settings_title">Settings: </string>
   
   <!-- Header for tag activity -->
   <string name="tag_updates_title">Activity: %s</string>

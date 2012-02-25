@@ -21,7 +21,7 @@
         android:visibility="gone"/>
         
     <!-- filter url image icon -->
-    <greendroid.widget.AsyncImageView android:id="@+id/url_image"
+    <com.todoroo.astrid.helper.AsyncImageView android:id="@+id/url_image"
         android:layout_width="30dip"
         android:layout_height="48dip"
         android:layout_alignParentLeft="true"

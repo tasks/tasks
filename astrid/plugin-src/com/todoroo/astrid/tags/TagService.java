@@ -132,10 +132,29 @@ public final class TagService {
          * @return
          */
         public QueryTemplate queryTemplate(Criterion criterion) {
-            return new QueryTemplate().join(Join.inner(Metadata.TABLE,
-                    Task.ID.eq(Metadata.TASK))).where(tagEqIgnoreCase(tag, criterion));
+            return new QueryTemplate().join(Join.inner(Metadata.TABLE.as("mtags"),
+                    Criterion.and(Task.ID.eq(Field.field("mtags." + Metadata.TASK.name)),
+                            Field.field("mtags." + Metadata.KEY.name).eq(KEY),
+                            Field.field("mtags." + TAG.name).eqCaseInsensitive(tag)))).where(criterion);
         }
 
+
+        /**
+         * Return SQL selector query for getting tasks with a given tagData
+         *
+         * @param tagData
+         * @return
+         */
+        public static QueryTemplate queryTemplate(Criterion criterion, TagData tagData) {
+            return new QueryTemplate().join(Join.inner(Metadata.TABLE,
+                    Task.ID.eq(Metadata.TASK))).where(tagEqIgnoreCase(tagData.getValue(TagData.NAME), criterion));
+        }
+
+    }
+
+    public static Criterion memberOfTagData(long tagDataRemoteId) {
+        return Task.ID.in(Query.select(Metadata.TASK).from(Metadata.TABLE).where(
+                Criterion.and(Metadata.KEY.eq(KEY), REMOTE_ID.eq(tagDataRemoteId))));
     }
 
     public static Criterion tagEq(String tag, Criterion additionalCriterion) {

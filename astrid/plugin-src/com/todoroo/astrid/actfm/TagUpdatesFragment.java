@@ -1,6 +1,5 @@
 package com.todoroo.astrid.actfm;
 
-import greendroid.widget.AsyncImageView;
 import android.app.Activity;
 import android.content.Intent;
 import android.database.Cursor;
@@ -19,6 +18,7 @@ import android.view.LayoutInflater;
 import android.view.MenuInflater;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.View.OnTouchListener;
 import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
@@ -29,7 +29,6 @@ import android.widget.TextView;
 import android.widget.TextView.OnEditorActionListener;
 
 import com.timsu.astrid.R;
-import com.todoroo.andlib.data.TodorooCursor;
 import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.andlib.utility.AndroidUtilities;
@@ -45,6 +44,7 @@ import com.todoroo.astrid.adapter.UpdateAdapter;
 import com.todoroo.astrid.dao.UpdateDao;
 import com.todoroo.astrid.data.TagData;
 import com.todoroo.astrid.data.Update;
+import com.todoroo.astrid.helper.AsyncImageView;
 import com.todoroo.astrid.helper.ImageDiskCache;
 import com.todoroo.astrid.helper.ProgressBarSyncResultCallback;
 import com.todoroo.astrid.service.StatisticsConstants;
@@ -128,7 +128,8 @@ public class TagUpdatesFragment extends ListFragment {
     protected void setUpUpdateList() {
         if (getActivity() instanceof TagUpdatesActivity) {
             ActionBar ab = ((AstridActivity) getActivity()).getSupportActionBar();
-            String title = (tagData == null) ? getString(R.string.TLA_all_activity) : getString(R.string.tag_updates_title, tagData.getValue(TagData.NAME));
+            String title = (tagData == null) ? getString(R.string.TLA_all_activity) :
+                getString(R.string.tag_updates_title, tagData.getValue(TagData.NAME));
             ((TextView) ab.getCustomView().findViewById(R.id.title)).setText(title);
         }
 
@@ -193,22 +194,49 @@ public class TagUpdatesFragment extends ListFragment {
 
     private void refreshUpdatesList() {
 
+        Cursor cursor = null;
+        ListView listView = ((ListView) getView().findViewById(android.R.id.list));
         if(updateAdapter == null) {
-            TodorooCursor<Update> currentCursor = tagDataService.getUpdates(tagData);
-            getActivity().startManagingCursor(currentCursor);
+            cursor = tagDataService.getUpdates(tagData);
+            getActivity().startManagingCursor(cursor);
             String fromUpdateClass = (tagData == null) ? UpdateAdapter.FROM_RECENT_ACTIVITY_VIEW : UpdateAdapter.FROM_TAG_VIEW;
 
             updateAdapter = new UpdateAdapter(this, R.layout.update_adapter_row,
-                    currentCursor, false, null, fromUpdateClass);
-            ListView listView = ((ListView) getView().findViewById(android.R.id.list));
+                    cursor, false, fromUpdateClass);
             addHeaderToListView(listView);
             listView.setAdapter(updateAdapter);
         } else {
-            Cursor cursor = updateAdapter.getCursor();
+            cursor = updateAdapter.getCursor();
             cursor.requery();
             getActivity().startManagingCursor(cursor);
             populateListHeader(listHeader);
         }
+
+        View activityContainer = getView().findViewById(R.id.no_activity_container);
+        if (cursor.getCount() == 0) {
+            activityContainer.setVisibility(View.VISIBLE);
+            TextView textView = (TextView)activityContainer.findViewById(R.id.no_activity_message);
+            if(actFmPreferenceService.isLoggedIn()) {
+                textView.setText(getActivity().getString(R.string.ENA_no_comments));
+            }
+            else {
+                textView.setText(getActivity().getString(R.string.UpS_no_activity_log_in));
+                activityContainer.setOnClickListener(new OnClickListener() {
+
+                    @Override
+                    public void onClick(View v) {
+                        startActivityForResult(new Intent(getActivity(), ActFmLoginActivity.class),
+                                TagSettingsActivity.REQUEST_ACTFM_LOGIN);
+                    }
+                });
+            }
+            listView.setVisibility(View.GONE);
+        }
+        else {
+            activityContainer.setVisibility(View.GONE);
+            listView.setVisibility(View.VISIBLE);
+        }
+
         if (getActivity() instanceof TagUpdatesActivity)
             setLastViewed();
     }
@@ -308,7 +336,7 @@ public class TagUpdatesFragment extends ListFragment {
 
 
     private String getPictureHashForUpdate(Update u) {
-        String s = u.getValue(Update.TASK) + "" + u.getValue(Update.CREATION_DATE);
+        String s = u.getValue(Update.TASK).toString() + u.getValue(Update.CREATION_DATE);
         return s;
     }
 
@@ -321,6 +349,7 @@ public class TagUpdatesFragment extends ListFragment {
         update.setValue(Update.TAGS, "," + tagData.getValue(TagData.REMOTE_ID) + ",");
         update.setValue(Update.TAGS_LOCAL, "," + tagData.getId() + ",");
         update.setValue(Update.CREATION_DATE, DateUtilities.now());
+        update.setValue(Update.TARGET_NAME, tagData.getValue(TagData.NAME));
         if (picture != null) {
             update.setValue(Update.PICTURE, Update.PICTURE_LOADING);
             try {

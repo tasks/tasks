@@ -216,12 +216,16 @@ public class TasksXmlExporter {
     }
 
     private final XmlWritingPropertyVisitor xmlWritingVisitor = new XmlWritingPropertyVisitor();
+    public static final String XML_NULL = "null"; //$NON-NLS-1$
 
-    private class XmlWritingPropertyVisitor implements PropertyVisitor<Void, AbstractModel> {
+    public class XmlWritingPropertyVisitor implements PropertyVisitor<Void, AbstractModel> {
+
         @Override
         public Void visitInteger(Property<Integer> property, AbstractModel data) {
             try {
-                xml.attribute(null, property.name, data.getValue(property).toString());
+                Integer value = data.getValue(property);
+                String valueString = (value == null) ? XML_NULL : value.toString();
+                xml.attribute(null, property.name, valueString);
             } catch (UnsupportedOperationException e) {
                 // didn't read this value, do nothing
             } catch (IllegalArgumentException e) {
@@ -237,7 +241,9 @@ public class TasksXmlExporter {
         @Override
         public Void visitLong(Property<Long> property, AbstractModel data) {
             try {
-                xml.attribute(null, property.name, data.getValue(property).toString());
+                Long value = data.getValue(property);
+                String valueString = (value == null) ? XML_NULL : value.toString();
+                xml.attribute(null, property.name, valueString);
             } catch (UnsupportedOperationException e) {
                 // didn't read this value, do nothing
             } catch (IllegalArgumentException e) {
@@ -253,7 +259,9 @@ public class TasksXmlExporter {
         @Override
         public Void visitDouble(Property<Double> property, AbstractModel data) {
             try {
-                xml.attribute(null, property.name, data.getValue(property).toString());
+                Double value = data.getValue(property);
+                String valueString = (value == null) ? XML_NULL : value.toString();
+                xml.attribute(null, property.name, valueString);
             } catch (UnsupportedOperationException e) {
                 // didn't read this value, do nothing
             } catch (IllegalArgumentException e) {

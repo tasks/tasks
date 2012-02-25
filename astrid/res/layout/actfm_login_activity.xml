@@ -48,12 +48,13 @@
           android:layout_width="fill_parent"
           android:layout_height="45dip"
           android:layout_alignParentBottom="true"
-          android:paddingLeft="20dip"
+          android:paddingLeft="17dip"
           android:paddingRight="20dip"
           android:layout_marginLeft="15dip"
           android:layout_marginRight="15dip"
           android:layout_marginBottom="20dip"
-          android:textSize="16sp" 
+          android:drawableLeft="@drawable/notif_astrid"
+          android:textSize="14sp" 
           android:text="@string/welcome_login_pw"/>    
       
         <com.facebook.android.LoginButton

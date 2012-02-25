@@ -1,15 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- See the file "LICENSE" for the full license governing this code. -->
-<android.gesture.GestureOverlayView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/gestures"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:layout_weight="100" 
-    
-    android:gestureColor="#00000000"
-    android:uncertainGestureColor="#00000000"
-    android:eventsInterceptionEnabled="true"
-    android:orientation="vertical">
+    android:layout_weight="100">
         
     <!-- No Tasks label -->
 	<TextView android:id="@android:id/empty"
@@ -24,12 +18,10 @@
 	    style="@style/TextAppearance.TLA_NoItems"/>
     
     <!-- Task List -->
-    <ListView android:id="@android:id/list"
-        android:scrollbars="vertical"
-        android:cacheColorHint="#00000000"            
+    <ListView android:id="@android:id/list"           
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:smoothScrollbar="false"/>
+        style="@style/ListView" />
     
     
-</android.gesture.GestureOverlayView>
+</FrameLayout>

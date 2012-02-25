@@ -48,9 +48,10 @@ public class DialogUtilities {
      * @param html
      * @param title
      */
+    @SuppressWarnings("nls")
     public static void htmlDialog(Context context, String html, int title) {
         WebView webView = new WebView(context);
-        webView.loadData(html, "text/html", "utf-8"); //$NON-NLS-1$ //$NON-NLS-2$
+        webView.loadDataWithBaseURL("file:///android_asset/", html, "text/html", "utf-8", null);
         webView.setBackgroundColor(0);
 
         new AlertDialog.Builder(context)

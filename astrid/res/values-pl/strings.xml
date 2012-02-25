@@ -572,7 +572,7 @@
   <string name="SSD_deleted">Pokaż usunięte zadania</string>
   
   <!-- Sort Selection: sort options header -->    
-  <string name="SSD_sort_header">Opcje sortowania</string>
+
   
   <!-- Sort Selection: smart sort -->
   <string name="SSD_sort_auto">Inteligentne sortowanie Astrid</string>
@@ -843,8 +843,8 @@
     
   <string-array name="EPr_themes">
     <!-- theme_settings: labels for Theme preference menu -->
-    <item>Dzień - Red</item>
     <item>Dzień - Blue</item>
+    <item>Dzień - Red</item>
     <item>Noc</item>
     <item>Przezroczysty (biały tekst)</item>
     <item>Przezroczysty (czarny tekst)</item>
@@ -1190,7 +1190,7 @@
     <string name="gtasks_help_title">Witamy w zadaniach Google!</string>
     
     <!-- short help for GTasks list activity -->
-    <string name="gtasks_help_body">Przeciągnij grabber po lewej stronie zadania, aby zmienić go. Przesuń grabber w lewo lub w prawo, aby zmienić wcięcia.</string>
+
 
     <string name="CFC_gtasks_list_text">Na liście: ?</string>
 
@@ -2254,7 +2254,7 @@
   can simply delete the new combined list!</string>
   
   <!-- Header for tag settings -->
-  <string name="tag_settings_title">Settings: %s</string>
+  <string name="tag_settings_title">Settings: </string>
   
   <!-- Header for tag activity -->
   <string name="tag_updates_title">Activity: %s</string>

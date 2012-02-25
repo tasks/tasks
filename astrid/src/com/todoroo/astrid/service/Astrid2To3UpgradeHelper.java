@@ -44,7 +44,6 @@ import com.todoroo.astrid.legacy.LegacyTaskModel;
 import com.todoroo.astrid.legacy.TransitionalAlarm;
 import com.todoroo.astrid.tags.TagService;
 
-@SuppressWarnings("deprecation")
 public class Astrid2To3UpgradeHelper {
 
     @Autowired
@@ -128,6 +127,7 @@ public class Astrid2To3UpgradeHelper {
      * Perform the upgrade from Astrid 2 to Astrid 3
      * @param context2
      */
+    @SuppressWarnings("deprecation")
     public void upgrade2To3(final Context context, final int from) {
 
         // if from < 1 (we don't know what version, and database exists, leave it alone)

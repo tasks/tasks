@@ -55,6 +55,7 @@ public class GCalHelper {
         return createTaskEvent(task, cr, values, true);
     }
 
+    @SuppressWarnings("nls")
     public static Uri createTaskEvent(Task task, ContentResolver cr, ContentValues values, boolean deleteEventIfExists) {
         String eventuri = getTaskEventUri(task);
 
@@ -88,13 +89,15 @@ public class GCalHelper {
             return eventUri;
 
         } catch (Exception e) {
-            // TODO FIX ME
-            // Log.e("astrid-gcal", "error-creating-calendar-event", e); //$NON-NLS-1$ //$NON-NLS-2$
+            // won't work on emulator
+            Log.v("astrid-gcal",
+                    "error-creating-calendar-event", e);
         }
 
         return null;
     }
 
+    @SuppressWarnings("nls")
     public static boolean deleteTaskEvent(Task task) {
         boolean eventDeleted = false;
         String uri;
@@ -159,10 +162,11 @@ public class GCalHelper {
             values.put("dtend", tzCorrectedDueDateNow);
             values.put("allDay", "1");
         }
-        adjustDateForIcs(task, values);
+        adjustDateForIcs(values);
     }
 
-    private static void adjustDateForIcs(Task task, ContentValues values) {
+    @SuppressWarnings("nls")
+    private static void adjustDateForIcs(ContentValues values) {
         if (AndroidUtilities.getSdkVersion() >= 14) {
             if ("1".equals(values.get("allDay"))) {
                 values.put("eventTimezone", Time.TIMEZONE_UTC);

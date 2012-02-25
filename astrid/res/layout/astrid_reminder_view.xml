@@ -3,8 +3,8 @@
     android:id="@+id/reminder_root"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginLeft="15dip"
-    android:layout_marginRight="15dip"
+    android:paddingLeft="10dip"
+    android:paddingRight="10dip"
     android:orientation="vertical">
     
     <LinearLayout
@@ -14,7 +14,7 @@
         android:layout_marginTop="5dip"
         android:layout_marginRight="5dip"
         android:layout_marginBottom="20dip"
-        android:layout_marginLeft="10dip">
+        android:layout_marginLeft="5dip">
         
         <TextView 
             android:id="@+id/reminder_title"
@@ -38,7 +38,7 @@
         android:id="@+id/reminders_should_show"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="10dip"
+        android:layout_marginLeft="5dip"
         android:layout_marginBottom="10dip"
         android:text="@string/TLA_quickadd_confirm_hide_helpers" 
         android:visibility="gone"/>
@@ -47,8 +47,8 @@
         android:id="@+id/reminder_edit"
         android:layout_width="fill_parent"
         android:layout_height="35dip"
-        android:layout_marginLeft="10dip"
-        android:layout_marginRight="10dip"
+        android:layout_marginLeft="5dip"
+        android:layout_marginRight="5dip"
         android:layout_marginBottom="10dip"
         android:textColor="@android:color/white"
         android:textSize="20sp"
@@ -58,8 +58,8 @@
         android:id="@+id/reminder_snooze"
         android:layout_width="fill_parent"
         android:layout_height="35dip"
-        android:layout_marginLeft="10dip"
-        android:layout_marginRight="10dip"
+        android:layout_marginLeft="5dip"
+        android:layout_marginRight="5dip"
         android:layout_marginBottom="10dip"
         android:textColor="@android:color/white"
         android:textSize="20sp"
@@ -69,8 +69,8 @@
         android:id="@+id/reminder_complete"
         android:layout_width="fill_parent"
         android:layout_height="35dip"
-        android:layout_marginLeft="10dip"
-        android:layout_marginRight="10dip"
+        android:layout_marginLeft="5dip"
+        android:layout_marginRight="5dip"
         android:layout_marginBottom="10dip"
         android:textColor="@android:color/white"
         android:textSize="20sp"

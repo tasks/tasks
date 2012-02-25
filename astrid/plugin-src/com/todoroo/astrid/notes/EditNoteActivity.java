@@ -1,8 +1,5 @@
 package com.todoroo.astrid.notes;
 
-import greendroid.widget.AsyncImageView;
-
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -58,6 +55,7 @@ import com.todoroo.astrid.dao.UpdateDao;
 import com.todoroo.astrid.data.Metadata;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.data.Update;
+import com.todoroo.astrid.helper.AsyncImageView;
 import com.todoroo.astrid.helper.ImageDiskCache;
 import com.todoroo.astrid.helper.ProgressBarSyncResultCallback;
 import com.todoroo.astrid.service.MetadataService;
@@ -367,21 +365,16 @@ public class EditNoteActivity extends LinearLayout implements TimerActionListene
                 commentPictureView.setVisibility(View.GONE);
             else {
                 commentPictureView.setVisibility(View.VISIBLE);
-                if(imageCache.contains(item.commentPicture)) {
-                    try {
-                        commentPictureView.setDefaultImageBitmap(imageCache.get(item.commentPicture));
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                }
-                else {
-                    commentPictureView.setUrl(item.commentPicture);
-                }
+                commentPictureView.setUrl(item.commentPicture);
             }
         }
     }
 
     public void refreshData(boolean manual, SyncResultCallback existingCallback) {
+        if(!task.containsNonNullValue(Task.REMOTE_ID)) {
+            return;
+        }
+
         final SyncResultCallback callback;
         if(existingCallback != null)
             callback = existingCallback;
@@ -400,18 +393,6 @@ public class EditNoteActivity extends LinearLayout implements TimerActionListene
             callback.incrementMax(100);
         }
 
-        // push task if it hasn't been pushed
-        if(!task.containsNonNullValue(Task.REMOTE_ID) && !TextUtils.isEmpty(task.getValue(Task.TITLE))) {
-            new Thread(new Runnable() {
-                @Override
-                public void run() {
-                    actFmSyncService.pushTask(task.getId());
-                    task = PluginServices.getTaskService().fetchById(task.getId(), Task.NOTES, Task.ID, Task.REMOTE_ID, Task.TITLE);
-                    refreshData(false, callback);
-                }
-            }).start();
-            return;
-        }
 
         actFmSyncService.fetchUpdatesForTask(task, manual, new Runnable() {
             @Override
@@ -424,17 +405,15 @@ public class EditNoteActivity extends LinearLayout implements TimerActionListene
     }
 
     private void addComment() {
-        addComment(commentField.getText().toString(), "task_comment", true); //$NON-NLS-1$
+        addComment(commentField.getText().toString(), UpdateAdapter.UPDATE_TASK_COMMENT, true);
     }
 
 
-    private String getPictureHashForUpdate(Update u) {
-        return String.format("%s%s", u.getValue(Update.TASK), u.getValue(Update.CREATION_DATE)); //$NON-NLS-1$
-    }
+    @SuppressWarnings("nls")
     private void addComment(String message, String actionCode, boolean usePicture) {
         // Allow for users to just add picture
         if (TextUtils.isEmpty(message) && usePicture) {
-            message = " "; //$NON-NLS-1$
+            message = " ";
         }
         Update update = new Update();
         update.setValue(Update.MESSAGE, message);
@@ -444,11 +423,12 @@ public class EditNoteActivity extends LinearLayout implements TimerActionListene
             update.setValue(Update.TASK, task.getValue(Task.REMOTE_ID));
         update.setValue(Update.TASK_LOCAL, task.getId());
         update.setValue(Update.CREATION_DATE, DateUtilities.now());
+        update.setValue(Update.TARGET_NAME, task.getValue(Task.TITLE));
 
         if (usePicture && pendingCommentPicture != null) {
             update.setValue(Update.PICTURE, Update.PICTURE_LOADING);
             try {
-                String updateString = getPictureHashForUpdate(update);
+                String updateString = ImageDiskCache.getPictureHash(update);
                 imageCache.put(updateString, pendingCommentPicture);
                 update.setValue(Update.PICTURE, updateString);
             }
@@ -540,7 +520,7 @@ public class EditNoteActivity extends LinearLayout implements TimerActionListene
         addComment(String.format("%s %s",  //$NON-NLS-1$
                 getContext().getString(R.string.TEA_timer_comment_started),
                 DateUtilities.getTimeString(getContext(), new Date())),
-                "task_started",  //$NON-NLS-1$
+                UpdateAdapter.UPDATE_TASK_COMMENT,
                 false);
     }
 
@@ -551,7 +531,7 @@ public class EditNoteActivity extends LinearLayout implements TimerActionListene
                 getContext().getString(R.string.TEA_timer_comment_stopped),
                 DateUtilities.getTimeString(getContext(), new Date()),
                 getContext().getString(R.string.TEA_timer_comment_spent),
-                elapsedTime), "task_stopped", false); //$NON-NLS-1$
+                elapsedTime), UpdateAdapter.UPDATE_TASK_COMMENT, false);
     }
 
     /*

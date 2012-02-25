@@ -19,6 +19,7 @@
         <item name="asFilterHeaderBackground">@drawable/edit_titlebar</item>
         <item name="asMembersHeaderBackground">#909090</item>
         <item name="asSeparatorBackground">#888888</item>
+        <item name="asListDividerColor">#555555</item>
         <item name="asAddButtonImg">@drawable/plus_button_blue</item>
         <item name="asMicButtonImg">@drawable/mic_button_blue</item>
         <item name="asCommentButtonImg">@drawable/comment_blue</item>
@@ -67,6 +68,7 @@
         <item name="asFilterHeaderColor">#ffffff</item>
         <item name="asFilterHeaderBackground">@drawable/edit_titlebar_white</item>
         <item name="asMembersHeaderBackground">#d0d0d0</item>
+        <item name="asListDividerColor">#cccccc</item>
         <item name="asAddButtonImg">@drawable/plus_button_red</item>
         <item name="asMicButtonImg">@drawable/mic_button_red</item>
         <item name="asCommentButtonImg">@drawable/comment_red</item>
@@ -154,6 +156,11 @@
         <item name="android:windowTitleStyle">@style/DialogTitle</item>
         <item name="android:windowTitleBackgroundStyle">@style/DialogTitle</item>
         <item name="android:colorBackgroundCacheHint">@null</item>
+        
+        
+        <item name="asEditBackground">#101010</item>
+        <item name="asEditRowBackground">@drawable/task_edit_background</item>
+        <item name="asThemeTextColor">@color/blue_theme_color</item>
     </style>
     
     <style name="Theme.Dialog.White">
@@ -169,6 +176,10 @@
         <item name="abBackground">@android:color/white</item>
         <item name="abDisplayOptions">useLogo|showHome|showTitle</item>
         <item name="abLogo">@drawable/icon_48</item>
+        
+        <item name="asEditBackground">#dddddd</item>
+        <item name="asEditRowBackground">@drawable/task_edit_background_transparent_white</item>
+        <item name="asThemeTextColor">@color/blue_theme_color</item>
     </style>
         
     <!--================================================== General == -->
@@ -215,7 +226,7 @@
     <style name="ReminderDialog" parent="@android:style/Theme.Dialog">
         <item name="android:windowFrame">@null</item>
         <item name="android:windowNoTitle">true</item>
-        <item name="android:windowBackground">@drawable/reminder_dialog_background</item>
+        <item name="android:windowBackground">@drawable/reminder_dialog_inset_background</item>
         <item name="android:windowIsTranslucent">true</item>
         <item name="android:windowIsFloating">true</item>
         <item name="android:windowContentOverlay">@null</item>
@@ -239,6 +250,14 @@
     <style name="TextAppearance.TLA_Reminder">
         <item name="android:textSize">16sp</item>
         <item name="android:textColor">#000000</item>        
+    </style>
+    
+    <style name="ListView">
+        <item name="android:divider">?attr/asListDividerColor</item>
+        <item name="android:dividerHeight">1px</item>
+        <item name="android:scrollbars">vertical</item>
+        <item name="android:cacheColorHint">#00000000</item>
+        <item name="android:smoothScrollbar">true</item>
     </style>
 
     <!-- =============================================== TaskEditActivity == -->
@@ -365,6 +384,14 @@
         <item name="android:textColor">?attr/asFilterHeaderColor</item>
     </style>
 
+    <!-- ========================================================= Tag Settings == -->
+    
+    <style name="DeleteTag" >
+        <item name="android:textColor">@android:color/white</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:background">#d90000</item>
+    </style>
+    
     <!-- ========================================================= Widget == -->
 
     <style name="TextAppearance.Widget">                                                                                                                                                                                      

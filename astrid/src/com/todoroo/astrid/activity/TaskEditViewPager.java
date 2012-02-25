@@ -13,11 +13,8 @@ public class TaskEditViewPager extends PagerAdapter implements TitleProvider {
 
     private static String[] titles;
     public TaskEditFragment parent;
-    private final int tabStyle;
 
     public TaskEditViewPager(Context context, int tabStyle) {
-        this.tabStyle = tabStyle;
-
         switch(tabStyle) {
         case TaskEditFragment.TAB_STYLE_ACTIVITY_WEB:
             titles = new String[] {

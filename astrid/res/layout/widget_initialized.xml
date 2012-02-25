@@ -11,11 +11,12 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:paddingLeft="40dp">
+        android:paddingLeft="5dp"
+        android:paddingRight="5dp">
         
         <TextView
         	android:id="@+id/widget_title"
-        	android:layout_width="82dp" 
+        	android:layout_width="108dp" 
         	android:layout_height="50dp"
         	android:layout_gravity="left" 
             android:textColor="#ffffff"

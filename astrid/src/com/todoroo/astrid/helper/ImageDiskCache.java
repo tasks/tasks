@@ -19,14 +19,20 @@ package com.todoroo.astrid.helper;
 import java.io.File;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.util.Date;
 
+import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Bitmap.CompressFormat;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
+import android.text.TextUtils;
 import android.util.Log;
 
 import com.todoroo.andlib.service.ContextManager;
+import com.todoroo.andlib.utility.DateUtilities;
+import com.todoroo.astrid.data.TagData;
+import com.todoroo.astrid.data.Update;
 
 /**
  * <p>
@@ -46,18 +52,19 @@ import com.todoroo.andlib.service.ContextManager;
  */
 @SuppressWarnings("nls")
 public class ImageDiskCache extends DiskCache<String, Bitmap> {
-	private static final String TAG = ImageDiskCache.class.getSimpleName();
+    private static final String TAG = ImageDiskCache.class.getSimpleName();
+    public static final String CACHED_IDENTIFIER = "cached::";
 
-	static final boolean DEBUG = false;
-
-
-	private long mIDCounter = 0;
-
-	private static ImageDiskCache mInstance;
+    static final boolean DEBUG = false;
 
 
-	private final CompressFormat mCompressFormat;
-	private final int mQuality;
+    private long mIDCounter = 0;
+
+    private static ImageDiskCache mInstance;
+
+
+    private final CompressFormat mCompressFormat;
+    private final int mQuality;
 
     public static ImageDiskCache getInstance() {
         if (mInstance == null) {
@@ -66,109 +73,136 @@ public class ImageDiskCache extends DiskCache<String, Bitmap> {
         return mInstance;
     }
 
-	private ImageDiskCache(File file, CompressFormat format, int quality) {
-		super(file, null, getExtension(format));
+    public static ImageDiskCache getInstance(Context context) {
+        if (mInstance == null) {
+            mInstance = new ImageDiskCache(context.getCacheDir(), CompressFormat.JPEG, 85);
+        }
+        return mInstance;
+    }
 
-		mCompressFormat = format;
-		mQuality = quality;
-	}
+    private ImageDiskCache(File file, CompressFormat format, int quality) {
+        super(file, null, getExtension(format));
+
+        mCompressFormat = format;
+        mQuality = quality;
+    }
     private static String getExtension(CompressFormat format) {
-		String extension;
-		switch (format) {
-		case JPEG:
-			extension = ".jpg";
-			break;
+        String extension;
+        switch (format) {
+        case JPEG:
+            extension = ".jpg";
+            break;
 
-		case PNG:
-			extension = ".png";
-			break;
+        case PNG:
+            extension = ".png";
+            break;
 
-		default:
-			throw new IllegalArgumentException();
-		}
+        default:
+            throw new IllegalArgumentException();
+        }
 
-		return extension;
-	}
+        return extension;
+    }
 
-	/**
-	 * If loading a number of images where you don't have a unique ID to
-	 * represent the individual load, this can be used to generate a sequential
-	 * ID.
-	 *
-	 * @return a new unique ID
-	 */
-	public synchronized long getNewID() {
-		return mIDCounter++;
-	}
+    /**
+     * If loading a number of images where you don't have a unique ID to
+     * represent the individual load, this can be used to generate a sequential
+     * ID.
+     *
+     * @return a new unique ID
+     */
+    public synchronized long getNewID() {
+        return mIDCounter++;
+    }
 
-	@Override
-	protected Bitmap fromDisk(String key, InputStream in) {
+    @Override
+    protected Bitmap fromDisk(String key, InputStream in) {
 
-		if (DEBUG) {
-			Log.d(TAG, "disk cache hit");
-		}
-		try {
-			final Bitmap image = BitmapFactory.decodeStream(in);
-			return image;
+        if (DEBUG) {
+            Log.d(TAG, "disk cache hit");
+        }
+        try {
+            final Bitmap image = BitmapFactory.decodeStream(in);
+            return image;
 
-		} catch (final OutOfMemoryError oom) {
-			return null;
-		}
-	}
+        } catch (final OutOfMemoryError oom) {
+            return null;
+        }
+    }
 
-	@Override
-	protected void toDisk(String key, Bitmap image, OutputStream out) {
-		if (DEBUG) {
-			Log.d(TAG, "cache write for key " + key);
-		}
-		if (image != null) {
-			if (!image.compress(mCompressFormat, mQuality, out)) {
-				Log.e(TAG, "error writing compressed image to disk for key "
-						+ key);
-			}
-		} else {
-			Log.e(TAG, "attempting to write null image to cache");
-		}
-	}
-
-
-	/**
-	 * @param uri
-	 *            the image uri
-	 * @return a key unique to the given uri
-	 */
-	public String getKey(Uri uri) {
-		return uri.toString();
-	}
+    @Override
+    protected void toDisk(String key, Bitmap image, OutputStream out) {
+        if (DEBUG) {
+            Log.d(TAG, "cache write for key " + key);
+        }
+        if (image != null) {
+            if (!image.compress(mCompressFormat, mQuality, out)) {
+                Log.e(TAG, "error writing compressed image to disk for key "
+                        + key);
+            }
+        } else {
+            Log.e(TAG, "attempting to write null image to cache");
+        }
+    }
 
 
-	/**
-	 * Returns an opaque cache key representing the given uri, width and height.
-	 *
-	 * @param uri
-	 *            an image uri
-	 * @param width
-	 *            the desired image max width
-	 * @param height
-	 *            the desired image max height
-	 * @return a cache key unique to the given parameters
-	 */
-	public String getKey(Uri uri, int width, int height) {
-		return uri.buildUpon()
-				.appendQueryParameter("width", String.valueOf(width))
-				.appendQueryParameter("height", String.valueOf(height)).build()
-				.toString();
-	}
+    /**
+     * @param uri
+     *            the image uri
+     * @return a key unique to the given uri
+     */
+    public String getKey(Uri uri) {
+        return uri.toString();
+    }
+
+
+    /**
+     * Returns an opaque cache key representing the given uri, width and height.
+     *
+     * @param uri
+     *            an image uri
+     * @param width
+     *            the desired image max width
+     * @param height
+     *            the desired image max height
+     * @return a cache key unique to the given parameters
+     */
+    public String getKey(Uri uri, int width, int height) {
+        return uri.buildUpon()
+        .appendQueryParameter("width", String.valueOf(width))
+        .appendQueryParameter("height", String.valueOf(height)).build()
+        .toString();
+    }
 
 
 
-	/**
-	 * Cancels all the asynchronous image loads.
-	 * Note: currently does not function properly.
-	 *
-	 */
-	public void cancelLoads() {
-		// TODO actually make it possible to cancel tasks
-	}
+    /**
+     * Cancels all the asynchronous image loads.
+     * Note: currently does not function properly.
+     *
+     */
+    public void cancelLoads() {
+        // TODO actually make it possible to cancel tasks
+    }
 
+    @Override
+    public boolean contains(String key) {
+        return !TextUtils.isEmpty(key) && key.startsWith(CACHED_IDENTIFIER) && super.contains(key);
+    }
+
+    public static String getPictureHash(Update update) {
+        return String.format("%s%s%s", CACHED_IDENTIFIER, update.getValue(Update.TASK), update.getValue(Update.CREATION_DATE));
+    }
+
+
+    public static String getPictureHash(TagData tagData) {
+        long tag_date = 0;
+        if (tagData.containsValue(TagData.CREATION_DATE)) {
+            tag_date = tagData.getValue(TagData.CREATION_DATE);
+        }
+        if (tag_date == 0) {
+            tag_date = DateUtilities.dateToUnixtime(new Date());
+        }
+        return String.format("%s%s%s", CACHED_IDENTIFIER,tagData.getValue(TagData.NAME), tag_date);
+    }
 }

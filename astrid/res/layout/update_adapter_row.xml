@@ -16,7 +16,7 @@
 	    android:paddingRight="6dip">
 	        
 	    <!-- picture -->
-	    <greendroid.widget.AsyncImageView android:id="@+id/picture"
+	    <com.todoroo.astrid.helper.AsyncImageView android:id="@+id/picture"
 	        android:layout_width="40dip"
 	        android:layout_height="40dip"
 	        android:layout_alignParentTop="true"
@@ -52,7 +52,7 @@
 	        
 	    
         <!-- picture -->
-        <greendroid.widget.AsyncImageView android:id="@+id/comment_picture"
+        <com.todoroo.astrid.helper.AsyncImageView android:id="@+id/comment_picture"
             android:layout_width="100dip"
             android:layout_height="100dip"
             android:layout_below="@id/date"
@@ -66,7 +66,7 @@
 	</RelativeLayout>
     
     <!-- picture -->
-    <greendroid.widget.AsyncImageView
+    <com.todoroo.astrid.helper.AsyncImageView
         android:id="@+id/comment_picture"
         android:layout_width="50dip"
         android:layout_height="50dip"

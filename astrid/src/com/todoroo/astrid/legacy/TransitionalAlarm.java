@@ -21,7 +21,6 @@ import com.todoroo.astrid.data.Task;
  *
  */
 @SuppressWarnings("nls")
-@Deprecated
 public class TransitionalAlarm extends AbstractModel {
 
     // --- table
@@ -72,6 +71,7 @@ public class TransitionalAlarm extends AbstractModel {
 
     // --- data access boilerplate
 
+    @Deprecated
     public TransitionalAlarm() {
         super();
     }

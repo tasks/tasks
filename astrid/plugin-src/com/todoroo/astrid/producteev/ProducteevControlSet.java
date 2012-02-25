@@ -177,11 +177,11 @@ public class ProducteevControlSet extends PopupControlSet {
                     final EditText editor = new EditText(ProducteevControlSet.this.activity);
                     OnClickListener okListener = new OnClickListener() {
                         @Override
-                        public void onClick(DialogInterface dialog, int which) {
+                        public void onClick(DialogInterface dlg, int which) {
                             Activity context = ProducteevControlSet.this.activity;
                             String newDashboardName = editor.getText().toString();
                             if (newDashboardName == null || newDashboardName.length() == 0) {
-                                dialog.cancel();
+                                dlg.cancel();
                             } else {
                                 // create the real dashboard, select it in the spinner and refresh responsiblespinner
                                 ProgressDialog progressDialog = com.todoroo.andlib.utility.DialogUtilities.progressDialog(context,
@@ -213,8 +213,8 @@ public class ProducteevControlSet extends PopupControlSet {
                     };
                     OnClickListener cancelListener = new OnClickListener() {
                         @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            dialog.cancel();
+                        public void onClick(DialogInterface dlg, int which) {
+                            dlg.cancel();
                             dashboardSelector.setSelection(lastDashboardSelection);
                         }
                     };

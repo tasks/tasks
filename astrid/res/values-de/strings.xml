@@ -569,7 +569,7 @@
   <string name="SSD_deleted">Gelöschte Aufgaben anzeigen</string>
   
   <!-- Sort Selection: sort options header -->    
-  <string name="SSD_sort_header">Sortier-Optionen</string>
+
   
   <!-- Sort Selection: smart sort -->
   <string name="SSD_sort_auto">Astrid Smart Sort</string>
@@ -840,8 +840,8 @@
     
   <string-array name="EPr_themes">
     <!-- theme_settings: labels for Theme preference menu -->
-    <item>Day - Red</item>
     <item>Day - Blue</item>
+    <item>Day - Red</item>
     <item>Night</item>
     <item>Transparent (White Text)</item>
     <item>Transparent (Black Text)</item>
@@ -1187,7 +1187,7 @@
     <string name="gtasks_help_title">Wilkommen bei Google Tasks!</string>
     
     <!-- short help for GTasks list activity -->
-    <string name="gtasks_help_body">Bewege den Griff links einer Aufgabe um sie umzuordnen. Zieh den Griff links oder rechts um den Einzug zu ändern.</string>
+
 
     <string name="CFC_gtasks_list_text">In der Liste: ?</string>
 
@@ -2251,7 +2251,7 @@
   can simply delete the new combined list!</string>
   
   <!-- Header for tag settings -->
-  <string name="tag_settings_title">Settings: %s</string>
+  <string name="tag_settings_title">Settings: </string>
   
   <!-- Header for tag activity -->
   <string name="tag_updates_title">Activity: %s</string>

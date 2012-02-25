@@ -1,7 +1,5 @@
 package com.todoroo.astrid.adapter;
 
-import greendroid.widget.AsyncImageView;
-
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Date;
@@ -59,7 +57,6 @@ import com.todoroo.andlib.data.TodorooCursor;
 import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.ContextManager;
 import com.todoroo.andlib.service.DependencyInjectionService;
-import com.todoroo.andlib.service.ExceptionService;
 import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.andlib.utility.Pair;
@@ -71,6 +68,7 @@ import com.todoroo.astrid.api.TaskDecoration;
 import com.todoroo.astrid.api.TaskDecorationExposer;
 import com.todoroo.astrid.core.LinkActionExposer;
 import com.todoroo.astrid.data.Task;
+import com.todoroo.astrid.helper.AsyncImageView;
 import com.todoroo.astrid.helper.TaskAdapterAddOnManager;
 import com.todoroo.astrid.notes.NotesDecorationExposer;
 import com.todoroo.astrid.service.StatisticsConstants;
@@ -151,10 +149,11 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
     // --- instance variables
 
     @Autowired
-    private ExceptionService exceptionService;
-
-    @Autowired
     private TaskService taskService;
+
+    public static int APPLY_LISTENERS_PARENT = 0;
+    public static int APPLY_LISTENERS_ROW_BODY= 1;
+    public static int APPLY_LISTENERS_NONE = 2;
 
     protected final TaskListFragment fragment;
     protected final Resources resources;
@@ -166,7 +165,7 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
     private DetailLoaderThread detailLoader;
     private ActionsLoaderThread actionsLoader;
     private int fontSize;
-    protected boolean applyListenersToRowBody = false;
+    protected int applyListeners = APPLY_LISTENERS_PARENT;
     private long mostRecentlyMade = -1;
     private final ScaleAnimation scaleAnimation;
 
@@ -596,10 +595,10 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
             }
         });
 
-        if(applyListenersToRowBody) {
+        if(applyListeners == APPLY_LISTENERS_ROW_BODY) {
             viewHolder.rowBody.setOnCreateContextMenuListener(listener);
             viewHolder.rowBody.setOnClickListener(listener);
-        } else {
+        } else if(applyListeners == APPLY_LISTENERS_PARENT) {
             container.setOnCreateContextMenuListener(listener);
             container.setOnClickListener(listener);
         }
@@ -730,36 +729,38 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
         @Override
         public void run() {
             AndroidUtilities.sleepDeep(500L);
-            TodorooCursor<Task> fetchCursor = taskService.fetchFiltered(
+            final TodorooCursor<Task> fetchCursor = taskService.fetchFiltered(
                     query.get(), null, Task.ID, Task.TITLE, Task.DETAILS, Task.DETAILS_DATE,
                     Task.MODIFICATION_DATE, Task.COMPLETION_DATE);
-            try {
-                Task task = new Task();
-                LinkActionExposer linkActionExposer = new LinkActionExposer();
 
-                for(fetchCursor.moveToFirst(); !fetchCursor.isAfterLast(); fetchCursor.moveToNext()) {
-                    task.clear();
-                    task.readFromCursor(fetchCursor);
-                    if(task.isCompleted())
-                        continue;
+            final Activity activity = fragment.getActivity();
+            if (activity != null) {
+                activity.runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        try {
+                            Task task = new Task();
+                            LinkActionExposer linkActionExposer = new LinkActionExposer();
 
-                    List<TaskAction> actions = linkActionExposer.getActionsForTask(ContextManager.getContext(), task.getId());
-                    if (actions.size() > 0)
-                        taskActionLoader.put(task.getId(), actions.get(0));
-                }
-                if(taskActionLoader.size() > 0) {
-                    Activity activity = fragment.getActivity();
-                    if (activity != null) {
-                        activity.runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
+                            for(fetchCursor.moveToFirst(); !fetchCursor.isAfterLast(); fetchCursor.moveToNext()) {
+                                task.clear();
+                                task.readFromCursor(fetchCursor);
+                                if(task.isCompleted())
+                                    continue;
+
+                                List<TaskAction> actions = linkActionExposer.
+                                        getActionsForTask(ContextManager.getContext(), task.getId());
+                                if (actions.size() > 0)
+                                    taskActionLoader.put(task.getId(), actions.get(0));
+                            }
+                            if(taskActionLoader.size() > 0) {
                                 notifyDataSetChanged();
                             }
-                        });
+                        } finally {
+                            fetchCursor.close();
+                        }
                     }
-                }
-            } finally {
-                fetchCursor.close();
+                });
             }
         }
     }
@@ -850,6 +851,10 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
         decorationManager.clearCache(taskId);
         taskDetailLoader.remove(taskId);
         taskActionLoader.remove(taskId);
+    }
+
+    public HashMap<Long, Boolean> getCompletedItems() {
+        return completedItems;
     }
 
     /**
@@ -993,7 +998,7 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
         return (ViewHolder)((View)v.getParent()).getTag();
     }
 
-    private class TaskRowListener implements OnCreateContextMenuListener, OnClickListener {
+    public class TaskRowListener implements OnCreateContextMenuListener, OnClickListener {
 
         public void onCreateContextMenu(ContextMenu menu, View v,
                 ContextMenuInfo menuInfo) {
@@ -1078,11 +1083,11 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
             return;
 
         if (newState != task.isCompleted()) {
-            completedItems.put(task.getId(), newState);
-            taskService.setComplete(task, newState);
-
             if(onCompletedTaskListener != null)
                 onCompletedTaskListener.onCompletedTask(task, newState);
+
+            completedItems.put(task.getId(), newState);
+            taskService.setComplete(task, newState);
 
             if(newState)
                 StatisticsService.reportEvent(StatisticsConstants.TASK_COMPLETED_V2);

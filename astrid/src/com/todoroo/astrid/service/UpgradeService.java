@@ -21,7 +21,6 @@ import com.todoroo.andlib.service.ContextManager;
 import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.andlib.sql.Criterion;
 import com.todoroo.andlib.sql.Query;
-import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.andlib.utility.DialogUtilities;
 import com.todoroo.andlib.utility.Preferences;
@@ -41,6 +40,7 @@ import com.todoroo.astrid.utility.AstridPreferences;
 
 public final class UpgradeService {
 
+    public static final int V4_0_1 = 252;
     public static final int V4_0_0 = 251;
     public static final int V3_9_2_3 = 210;
     public static final int V3_9_2_2 = 209;
@@ -113,12 +113,6 @@ public final class UpgradeService {
         if(from == 135)
             AddOnService.recordOem();
 
-        if (from > 0 && from < V4_0_0) {
-            String preference = Preferences.getStringValue(R.string.p_theme);
-            if (ThemeService.THEME_WHITE.equals(preference))
-                Preferences.setString(R.string.p_theme, ThemeService.THEME_WHITE_BLUE);
-        }
-
         if(from > 0 && from < V3_8_2) {
             if(Preferences.getBoolean(R.string.p_transparent_deprecated, false))
                 Preferences.setString(R.string.p_theme, "transparent"); //$NON-NLS-1$
@@ -181,6 +175,26 @@ public final class UpgradeService {
 
         Preferences.clear(AstridPreferences.P_UPGRADE_FROM);
         StringBuilder changeLog = new StringBuilder();
+
+        if (from >= V4_0_0 && from < V4_0_1) {
+            newVersionString(changeLog, "4.0.1 (2/23/12)", new String[] {
+               "Fixed a database issue affecting Android 2.1 users",
+               "Fixed a crash when using drag and drop in Google Tasks lists",
+               "Other small bugfixes"
+            });
+        }
+
+        if (from < V4_0_0) {
+            newVersionString(changeLog, "4.0.0 (2/23/12)", new String[] {
+               "Welcome to Astrid 4.0! Here's what's new:",
+               "<b>Subtasks!!!</b><br>Press the Menu key and select 'Sort' to access",
+               "<b>New Look!</b><br>Customize how Astrid looks from the Settings menu",
+               "<b>Task Rabbit!</b><br>Outsource your tasks with the help of trustworthy people",
+               "<b>More Reliable Sync</b><br>Including fixes to Astrid.com and Google Tasks sync",
+               "<b>Tablet version</b><br>Enjoy Astrid on your luxurious Android tablet",
+               "Many bug and usability fixes"
+            });
+        }
 
         if (from >= V3_9_2 && from < V3_9_2_3) {
             newVersionString(changeLog, "3.9.2.3 (1/20/12)", new String[] {
@@ -422,8 +436,8 @@ public final class UpgradeService {
         if(changeLog.length() == 0)
             return;
 
-        changeLog.append("Have a spectacular day!</body></html>");
-        String color = (AndroidUtilities.getSdkVersion() >= 14 ? "black" : "white");
+        changeLog.append("Please enjoy!</body></html>");
+        String color = ThemeService.getDialogTextColor();
         String changeLogHtml = "<html><body style='color: " + color +"'>" + changeLog;
 
         DialogUtilities.htmlDialog(context, changeLogHtml,

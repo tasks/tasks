@@ -65,4 +65,11 @@ public final class Table extends SqlTable {
             return Field.field(alias + "." + property.name);
         return Field.field(name + "." + property.name);
     }
+
+    @Override
+    public String toString() {
+        if(hasAlias())
+            return expression + " AS " + alias; //$NON-NLS-1$
+        return expression;
+    }
 }

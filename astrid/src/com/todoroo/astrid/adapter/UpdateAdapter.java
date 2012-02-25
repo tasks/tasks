@@ -1,7 +1,5 @@
 package com.todoroo.astrid.adapter;
 
-import greendroid.widget.AsyncImageView;
-
 import java.io.IOException;
 
 import org.json.JSONException;
@@ -10,7 +8,6 @@ import org.json.JSONObject;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.content.res.Resources;
 import android.database.Cursor;
 import android.support.v4.app.Fragment;
 import android.text.Html;
@@ -32,12 +29,12 @@ import com.todoroo.andlib.service.ContextManager;
 import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.astrid.actfm.sync.ActFmPreferenceService;
-import com.todoroo.astrid.adapter.TaskAdapter.OnCompletedTaskListener;
 import com.todoroo.astrid.data.Update;
+import com.todoroo.astrid.helper.AsyncImageView;
 import com.todoroo.astrid.helper.ImageDiskCache;
 
 /**
- * Adapter for displaying a user's goals as a list
+ * Adapter for displaying a user's activity
  *
  * @author Tim Su <tim@todoroo.com>
  *
@@ -57,16 +54,17 @@ public class UpdateAdapter extends CursorAdapter {
     private static final String UPDATE_FRIENDS = "friends";  //$NON-NLS-1$
     private static final String UPDATE_REQUEST_FRIENDSHIP = "request_friendship"; //$NON-NLS-1$
     private static final String UPDATE_CONFIRMED_FRIENDSHIP = "confirmed_friendship"; //$NON-NLS-1$
-    private static final String UPDATE_TASK_CREATED = "task_created";
-    private static final String UPDATE_TASK_COMPLETED = "task_completed";
-    private static final String UPDATE_TASK_UNCOMPLETED = "task_uncompleted";
-    private static final String UPDATE_TASK_TAGGED = "task_tagged";
-    private static final String UPDATE_TASK_ASSIGNED = "task_assigned";
-    private static final String UPDATE_TASK_COMMENT = "task_comment";
-    private static final String UPDATE_TAG_COMMENT = "tag_comment";
-    public static final String FROM_TAG_VIEW = "from_tag";
-    public static final String FROM_TASK_VIEW = "from_task";
-    public static final String FROM_RECENT_ACTIVITY_VIEW = "from_recent_activity";
+    private static final String UPDATE_TASK_CREATED = "task_created"; //$NON-NLS-1$
+    private static final String UPDATE_TASK_COMPLETED = "task_completed"; //$NON-NLS-1$
+    private static final String UPDATE_TASK_UNCOMPLETED = "task_uncompleted"; //$NON-NLS-1$
+    private static final String UPDATE_TASK_TAGGED = "task_tagged"; //$NON-NLS-1$
+    private static final String UPDATE_TASK_ASSIGNED = "task_assigned"; //$NON-NLS-1$
+    public static final String UPDATE_TASK_COMMENT = "task_comment"; //$NON-NLS-1$
+    private static final String UPDATE_TAG_COMMENT = "tag_comment"; //$NON-NLS-1$
+    public static final String FROM_TAG_VIEW = "from_tag"; //$NON-NLS-1$
+    public static final String FROM_TASK_VIEW = "from_task"; //$NON-NLS-1$
+    public static final String FROM_RECENT_ACTIVITY_VIEW = "from_recent_activity"; //$NON-NLS-1$
+
     /**
      * Constructor
      *
@@ -82,7 +80,7 @@ public class UpdateAdapter extends CursorAdapter {
      */
     public UpdateAdapter(Fragment fragment, int resource,
             Cursor c, boolean autoRequery,
-            OnCompletedTaskListener onCompletedTaskListener, String fromView) {
+            String fromView) {
         super(fragment.getActivity(), c, autoRequery);
         DependencyInjectionService.getInstance().inject(this);
 
@@ -101,7 +99,7 @@ public class UpdateAdapter extends CursorAdapter {
     public static String getLinkColor(Fragment f) {
         TypedValue colorType = new TypedValue();
         f.getActivity().getTheme().resolveAttribute(R.attr.asDetailsColor, colorType, false);
-        return "#" + Integer.toHexString(colorType.data).substring(2);
+        return "#" + Integer.toHexString(colorType.data).substring(2); //$NON-NLS-1$
     }
 
     /* ======================================================================
@@ -136,7 +134,6 @@ public class UpdateAdapter extends CursorAdapter {
     @SuppressWarnings("nls")
     public synchronized void setFieldContentsAndVisibility(View view, Update update) {
         JSONObject user = ActFmPreferenceService.userFromModel(update);
-        Resources r = fragment.getResources();
 
         // picture
         final AsyncImageView pictureView = (AsyncImageView)view.findViewById(R.id.picture); {
@@ -207,6 +204,7 @@ public class UpdateAdapter extends CursorAdapter {
         return String.format("<font color=%s>%s</font>", linkColor, string);  //$NON-NLS-1$
     }
 
+    @SuppressWarnings("nls")
     public static Spanned getUpdateComment (Update update, JSONObject user, String linkColor, String fromView) {
         if (user == null) {
             user = ActFmPreferenceService.userFromModel(update);
@@ -218,9 +216,12 @@ public class UpdateAdapter extends CursorAdapter {
             otherUser = new JSONObject();
         }
 
-        return getUpdateComment(update.getValue(Update.ACTION_CODE), user.optString("name"), update.getValue(Update.TARGET_NAME), update.getValue(Update.MESSAGE),
-                otherUser.optString("name"), update.getValue(Update.ACTION), linkColor, fromView);
+        return getUpdateComment(update.getValue(Update.ACTION_CODE),
+                user.optString("name"), update.getValue(Update.TARGET_NAME),
+                update.getValue(Update.MESSAGE), otherUser.optString("name"),
+                update.getValue(Update.ACTION), linkColor, fromView);
     }
+
     public static Spanned getUpdateComment (String actionCode, String user, String targetName, String message, String otherUser, String action, String linkColor, String fromView) {
         if (TextUtils.isEmpty(user)) {
             user = ContextManager.getString(R.string.ENA_no_user);
@@ -262,16 +263,14 @@ public class UpdateAdapter extends CursorAdapter {
             commentResource = R.string.update_string_task_assigned;
         }
         else if (actionCode.equals(UPDATE_TASK_COMMENT)) {
-            if (fromView.equals(FROM_TASK_VIEW))
+            if (fromView.equals(FROM_TASK_VIEW) || TextUtils.isEmpty(targetName))
                 commentResource = R.string.update_string_default_comment;
             else
                 commentResource = R.string.update_string_task_comment;
-
         }
         else if (actionCode.equals(UPDATE_TAG_COMMENT)) {
-            if (fromView.equals(FROM_TAG_VIEW))
+            if (fromView.equals(FROM_TAG_VIEW)  || TextUtils.isEmpty(targetName))
                 commentResource = R.string.update_string_default_comment;
-
             else
                 commentResource = R.string.update_string_tag_comment;
 

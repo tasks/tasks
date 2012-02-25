@@ -227,7 +227,8 @@ public class TasksWidget extends AppWidgetProvider {
             }
             PendingIntent pListIntent = PendingIntent.getActivity(context, widgetId,
                     listIntent, PendingIntent.FLAG_CANCEL_CURRENT);
-            views.setOnClickPendingIntent(R.id.taskbody, pListIntent);
+            if (pListIntent != null)
+                views.setOnClickPendingIntent(R.id.taskbody, pListIntent);
 
 
             Intent editIntent = new Intent(context, TaskEditActivity.class);
@@ -246,8 +247,10 @@ public class TasksWidget extends AppWidgetProvider {
             }
             PendingIntent pEditIntent = PendingIntent.getActivity(context, -widgetId,
                     editIntent, 0);
-            views.setOnClickPendingIntent(R.id.widget_button, pEditIntent);
-            views.setOnClickPendingIntent(R.id.widget_title, pEditIntent);
+            if (pEditIntent != null) {
+                views.setOnClickPendingIntent(R.id.widget_button, pEditIntent);
+                views.setOnClickPendingIntent(R.id.widget_title, pEditIntent);
+            }
 
             return views;
         }

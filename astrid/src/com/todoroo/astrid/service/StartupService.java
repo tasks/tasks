@@ -107,8 +107,9 @@ public class StartupService {
         // sets up context manager
         ContextManager.setContext(context);
 
-        Crittercism.init(context.getApplicationContext(), Constants.CRITTERCISM_APP_ID,
-                Constants.CRITTERCISM_OATH_KEY, Constants.CRITTERCISM_SECRET, StatisticsService.dontCollectStatistics());
+        if(!StatisticsService.dontCollectStatistics())
+            Crittercism.init(context.getApplicationContext(), Constants.CRITTERCISM_APP_ID,
+                Constants.CRITTERCISM_OATH_KEY, Constants.CRITTERCISM_SECRET);
 
         database.openForWriting();
 

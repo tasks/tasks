@@ -5,13 +5,14 @@ import android.graphics.PixelFormat;
 import android.view.WindowManager;
 
 import com.timsu.astrid.R;
+import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.andlib.utility.Preferences;
 
 @SuppressWarnings("nls")
 public class ThemeService {
 
     public static final String THEME_WHITE = "white";
-    public static final String THEME_WHITE_BLUE = "white-blue";
+    public static final String THEME_WHITE_RED = "white-red";
     public static final String THEME_BLACK = "black";
     public static final String THEME_TRANSPARENT = "transparent";
     public static final String THEME_TRANSPARENT_WHITE = "transparent-white";
@@ -31,7 +32,7 @@ public class ThemeService {
             return R.style.Theme_Transparent;
         else if(THEME_TRANSPARENT_WHITE.equals(preference))
             return R.style.Theme_TransparentWhite;
-        else if (THEME_WHITE.equals(preference))
+        else if (THEME_WHITE_RED.equals(preference))
             return R.style.Theme_White;
         else
             return R.style.Theme_White_Blue;
@@ -58,4 +59,9 @@ public class ThemeService {
         }
         return theme;
     }
+
+    public static String getDialogTextColor() {
+        return (AndroidUtilities.getSdkVersion() >= 11 ? "black" : "white");
+    }
+
 }

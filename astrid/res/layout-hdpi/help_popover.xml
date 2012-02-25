@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+
+    <TextView
+        android:id="@+id/gdi_message"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/gdi_arrow_up"
+        android:gravity="center"
+        android:textColor="@android:color/white"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:background="@drawable/popover_bg"
+        android:fadingEdgeLength="0dp"/>
+
+    <ImageView
+        android:id="@+id/gdi_arrow_up"
+        android:layout_marginBottom="-13dip"
+        android:layout_width="27dip"
+        android:layout_height="27dip"
+        android:scaleType="fitCenter"
+        android:src="@drawable/popover_arrow_up" />
+
+    <ImageView
+        android:id="@+id/gdi_arrow_down"
+        android:layout_width="27dip"
+        android:layout_height="27dip"
+        android:scaleType="fitCenter"
+        android:layout_below="@id/gdi_message"
+        android:layout_marginTop="-13dip"
+        android:src="@drawable/popover_arrow_down" />
+
+</RelativeLayout>

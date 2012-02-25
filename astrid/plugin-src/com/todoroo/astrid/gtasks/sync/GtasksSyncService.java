@@ -30,6 +30,7 @@ import com.todoroo.astrid.utility.Flags;
 
 public final class GtasksSyncService {
 
+    private static final String DEFAULT_LIST = "@default"; //$NON-NLS-1$
     @Autowired MetadataService metadataService;
     @Autowired MetadataDao metadataDao;
     @Autowired GtasksMetadataService gtasksMetadataService;
@@ -77,7 +78,7 @@ public final class GtasksSyncService {
                            GtasksInvoker invoker = new GtasksInvoker(gtasksPreferenceService.getToken());
                            if (op instanceof TaskPushOp) {
                                TaskPushOp taskPush = (TaskPushOp)op;
-                               pushTaskOnSave(taskPush.model, taskPush.model.getSetValues(), invoker, true);
+                               pushTaskOnSave(taskPush.model, taskPush.model.getMergedValues(), invoker, true);
                            } else if (op instanceof MoveOp) {
                                MoveOp move = (MoveOp)op;
                                pushMetadataOnSave(move.metadata, invoker);
@@ -156,12 +157,12 @@ public final class GtasksSyncService {
         String remoteId = null;
         String listId = Preferences.getStringValue(GtasksPreferenceService.PREF_DEFAULT_LIST);
         if (listId == null) {
-            com.google.api.services.tasks.model.TaskList defaultList = invoker.getGtaskList("@default");
+            com.google.api.services.tasks.model.TaskList defaultList = invoker.getGtaskList(DEFAULT_LIST);
             if (defaultList != null) {
                 listId = defaultList.getId();
                 Preferences.setString(GtasksPreferenceService.PREF_DEFAULT_LIST, listId);
             } else {
-                listId = "@default"; //$NON-NLS-1$
+                listId = DEFAULT_LIST;
             }
         }
 

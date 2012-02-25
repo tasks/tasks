@@ -37,8 +37,6 @@ public class RepeatTaskCompleteListener extends BroadcastReceiver {
 
     @Autowired ActFmPreferenceService actFmPreferenceService;
 
-    private static boolean skipActFmCheck = false;
-
     @Override
     public void onReceive(Context context, Intent intent) {
         ContextManager.setContext(context);
@@ -88,11 +86,6 @@ public class RepeatTaskCompleteListener extends BroadcastReceiver {
             Flags.set(Flags.REFRESH);
             return;
         }
-    }
-
-    /** for debug */
-    public static void setSkipActFmCheck(boolean skipActFmCheck) {
-        RepeatTaskCompleteListener.skipActFmCheck = skipActFmCheck;
     }
 
     /** Compute next due date */

@@ -572,7 +572,7 @@
   <string name="SSD_deleted">显示已删除任务</string>
   
   <!-- Sort Selection: sort options header -->    
-  <string name="SSD_sort_header">排序选项</string>
+
   
   <!-- Sort Selection: smart sort -->
   <string name="SSD_sort_auto">Astrid 智能排序</string>
@@ -843,8 +843,8 @@
     
   <string-array name="EPr_themes">
     <!-- theme_settings: labels for Theme preference menu -->
-    <item>Day - Red</item>
     <item>Day - Blue</item>
+    <item>Day - Red</item>
     <item>Night</item>
     <item>Transparent (White Text)</item>
     <item>Transparent (Black Text)</item>
@@ -1190,7 +1190,7 @@
     <string name="gtasks_help_title">欢迎使用Google Tasks!</string>
     
     <!-- short help for GTasks list activity -->
-    <string name="gtasks_help_body">拖曳任务左侧的直条以重新排列。向左或向右滑动则可变更缩排。</string>
+
 
     <string name="CFC_gtasks_list_text">列表内容: ?</string>
 
@@ -2242,7 +2242,7 @@
   can simply delete the new combined list!</string>
   
   <!-- Header for tag settings -->
-  <string name="tag_settings_title">Settings: %s</string>
+  <string name="tag_settings_title">Settings: </string>
   
   <!-- Header for tag activity -->
   <string name="tag_updates_title">Activity: %s</string>

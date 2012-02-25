@@ -48,7 +48,6 @@ public final class CoreFilterExposer extends BroadcastReceiver implements Astrid
         // core filters
         Filter inbox = buildInboxFilter(r);
 
-
         // transmit filter list
         FilterListItem[] list = new FilterListItem[1];
         list[0] = inbox;
@@ -69,6 +68,21 @@ public final class CoreFilterExposer extends BroadcastReceiver implements Astrid
                 null);
         inbox.listingIcon = ((BitmapDrawable)r.getDrawable(R.drawable.filter_inbox)).getBitmap();
         return inbox;
+    }
+
+    /**
+     * Is this the inbox?
+     * @param filter
+     * @return
+     */
+    public static boolean isInbox(Filter filter) {
+        String title = ContextManager.getString(R.string.BFE_Active);
+        if(filter.listingIcon != null &&
+                filter.listingTitle != null &&
+                filter.listingTitle.startsWith(title) &&
+                title.equals(filter.title))
+            return true;
+        return false;
     }
 
     @Override
