@@ -1,224 +1,110 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!-- See the file "LICENSE" for the full license governing this code. -->
-<resources xmlns:android="http://schemas.android.com/apk/res/android">
-
-  <!-- ==================================================== Generic Units == -->
-  
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
   <plurals name="DUt_years">
-    <!-- plurals: years -->
     <item quantity="one">1 år</item>
-    <!-- plurals: years -->
     <item quantity="other">%d år</item>
   </plurals>
   <plurals name="DUt_months">
-    <!-- plurals: months -->
     <item quantity="one">1 måned</item>
-    <!-- plurals: months -->
     <item quantity="other">%d måneder</item>
   </plurals>
   <plurals name="DUt_weeks">
-    <!-- plurals: days -->
     <item quantity="one">1 uke</item>
-    <!-- plurals: days -->
     <item quantity="other">%d uker</item>
   </plurals>
   <plurals name="DUt_days">
-    <!-- plurals: days -->
     <item quantity="one">1 dag</item>
-    <!-- plurals: days -->
     <item quantity="other">%d dager</item>
   </plurals>
   <plurals name="DUt_weekdays">
-    <!-- plurals: days -->
     <item quantity="one">1 ukesdag</item>
-    <!-- plurals: days -->
     <item quantity="other">%d Weekdays</item>
   </plurals>
   <plurals name="DUt_hours">
-    <!-- plurals: hours -->
     <item quantity="one">1 time</item>
-    <!-- plurals: hours -->
     <item quantity="other">%d timer</item>
   </plurals>
   <plurals name="DUt_minutes">
-    <!-- plurals: minutes -->
     <item quantity="one">1 minutt</item>
-    <!-- plurals: minutes -->
     <item quantity="other">%d minutter</item>
   </plurals>
   <plurals name="DUt_seconds">
-    <!-- plurals: seconds -->
     <item quantity="one">1 sekund</item>
-    <!-- plurals: seconds -->
     <item quantity="other">%d sekunder</item>
   </plurals>
   <plurals name="DUt_hoursShort">
-    <!-- plurals: hours (abbreviated) -->
     <item quantity="one">1 t</item>
-    <!-- plurals: hours (abbreviated) -->
     <item quantity="other">%d t</item>
   </plurals>
   <plurals name="DUt_minutesShort">
-    <!-- plurals: minutes (abbreviated) -->
     <item quantity="one">1 min</item>
-    <!-- plurals: minutes (abbreviated) -->
     <item quantity="other">%d min</item>
   </plurals>
   <plurals name="DUt_secondsShort">
-    <!-- plurals: seconds (abbreviated) -->
     <item quantity="one">1 s</item>
-    <!-- plurals: seconds (abbreviated) -->
     <item quantity="other">%d s</item>
   </plurals>
   <plurals name="Ntasks">
-    <!-- plurals: tasks -->
     <item quantity="one">1 oppgave</item>
-    <!-- plurals: tasks -->
     <item quantity="other">%d oppgaver</item>
   </plurals>
   <plurals name="Npeople">
-    <!-- plurals: people -->
     <item quantity="one">1 person</item>
-    <!-- plurals: people -->
     <item quantity="other">%d people</item>
   </plurals>
-  
-  <!-- today -->
   <string name="today">I dag</string>
-  
-  <!-- tomorrow -->
   <string name="tomorrow">I morgen</string>
-  
-  <!-- today -->
   <string name="yesterday">I går</string>
-  
-  <!-- tomorrow abbreviated -->
   <string name="tmrw">Tmrw</string>
-  
-  <!-- today abbreviated -->
   <string name="yest">Yest</string>
-  
-  <!-- ================================================== Generic Dialogs == -->
-  
-  <!-- confirmation dialog title -->
   <string name="DLG_confirm_title">Bekreft?</string>
-  
-  <!-- question dialog title -->
   <string name="DLG_question_title">Spørsmål:</string>
-  
-  <!-- information dialog title -->
   <string name="DLG_information_title">Informasjon</string>
-  
-  <!-- error dialog title -->
   <string name="DLG_error_title">Feil!</string>
-  
-  <!-- general dialog save-->
   <string name="DLG_save">Lagre</string>
-  
-  <!-- general dialog yes-->
   <string name="DLG_yes">Ja</string>
-  
-  <!-- general dialog no-->
   <string name="DLG_no">Nei</string>
-  
-  <!-- general dialog close-->
   <string name="DLG_close">Lukk</string>
-  
-  <!-- general dialog done -->
   <string name="DLG_done">Utført</string>
-  
-  <!-- error dialog (%s => error message)-->
   <string name="DLG_error">Oi, det oppstod en feil! Dette skjedde:\n\n%s</string>
-  
-  <!-- error dialog (no message indicated)-->
   <string name="DLG_error_generic">Oi, det oppstod en feil!</string>
-  
-  <!-- Progress dialog shown when doing something slow -->
   <string name="DLG_wait">Vennligst vent...</string>
-
- <!-- ====================================================== SyncProvider == -->
-          
-  <!-- Sync Notification: message when sync service active -->
   <string name="SyP_progress">Synkroniserer oppgavene dine...</string>
-  
-  <!-- Sync Notification: toast when sync activated from activity -->
   <string name="SyP_progress_toast">Synkroniserer...</string>
-  
-  <!-- Sync Label: used in menu to denote synchronization -->
-  <string name="SyP_label">Synkronisering</string>  
-
-  <!-- Error msg when io exception  -->
+  <string name="SyP_label">Synkronisering</string>
   <string name="SyP_ioerror">Tilkoblingsfeil! Kontroller tilkoblingen til Internett</string>
-
-  <!-- ================================================== SyncPreferences == -->
-  
-  <!-- Status Group Label -->    
   <string name="sync_SPr_group_status">Status</string>
-  
-  <!-- Sync Status: log in -->    
   <string name="sync_status_loggedout">Ikke innlogget!</string>
-  <!-- Status: ongoing -->    
   <string name="sync_status_ongoing">Synkronisering pågår...</string>
-  <!-- Sync Status: success status (%s -> last sync date). Keep it short!-->    
   <string name="sync_status_success">Siste synkronisering:\n%s</string>
-  <!-- Sync Status: failure status (%s -> last attempted sync date) -->    
   <string name="sync_status_failed">Mislykket: %s</string>
-  <!-- Sync Status: error status (%s -> last sync date) -->    
   <string name="sync_status_errors">Sync w/ Errors: %s</string>
-  <!-- Sync Status: error subtitle (%s -> last successful sync date) -->    
   <string name="sync_status_failed_subtitle">Siste vellykkede synkronisering: %s</string>
-  <!-- Sync Status: never sync'd -->    
   <string name="sync_status_never">Aldri synkronisert!</string>
-
-  <!-- Options Group Label -->    
   <string name="sync_SPr_group_options">Alternativer</string>
-
-  <!-- Preference: Synchronization Interval Title -->    
   <string name="sync_SPr_interval_title">Bakgrunnssynkronisering</string>
-  <!-- Preference: Synchronization Interval Description (when disabled) -->
-  <string name="sync_SPr_interval_desc_disabled">Bakgrunnssynkronisering er deaktivert</string>    
-  <!-- Preference: Synchronization Interval Description (%s => setting) -->
+  <string name="sync_SPr_interval_desc_disabled">Bakgrunnssynkronisering er deaktivert</string>
   <string name="sync_SPr_interval_desc">Aktuell innstilling: %s</string>
-  
-  <!-- Preference: Background Wifi Title -->  
-  <string name="sync_SPr_bgwifi_title">Bare Wifi Innstilling</string>    
-  <!-- Preference: Background Wifi Description (enabled) -->
-  <string name="sync_SPr_bgwifi_desc_enabled">Bakgrunnssynkronisering skjer kun med Wifi-tilkobling</string>    
-  <!-- Preference: Background Wifi Description (disabled) -->
+  <string name="sync_SPr_bgwifi_title">Bare Wifi Innstilling</string>
+  <string name="sync_SPr_bgwifi_desc_enabled">Bakgrunnssynkronisering skjer kun med Wifi-tilkobling</string>
   <string name="sync_SPr_bgwifi_desc_disabled">Bakgrunnssynkronisering skjer alltid</string>
-  
-  <!-- Actions Group Label  -->
   <string name="sync_SPr_group_actions">Handlinger</string>
-
-  <!-- Synchronize Now Button -->    
   <string name="sync_SPr_sync">Synkroniser nå!</string>
-  <!-- Synchronize Now Button if not logged in-->    
   <string name="sync_SPr_sync_log_in">Logg inn &amp; Synkroniser!</string>
-  
-  <!-- Sync: Prefix string before logged in identifier -->
   <string name="sync_SPr_logged_in_prefix">Logged in as:</string>
-  
-  <!-- Sync: Clear Data Title -->
   <string name="sync_SPr_forget">Logg ut</string>
-  <!-- Sync: Clear Data Description -->
   <string name="sync_SPr_forget_description">Sletter all synkroniseringsdata</string>
-
-  <!-- confirmation dialog for sync log out -->
   <string name="sync_forget_confirm">Logg ut / slett synkroniseringsdata?</string>
-  
   <string-array name="sync_SPr_interval_entries">
-      <!-- sync_SPr_interval_entries: Synchronization Intervals -->
-      <item>deaktiver</item>
-      <item>hvert kvarter</item>
-      <item>hver halvtime</item>
-      <item>hver time</item>
-      <item>hver tredje time</item>
-      <item>hver sjette time</item>
-      <item>hver tolvte time</item>
-      <item>daglig</item>
-      <item>hver tredje dag</item>
-      <item>hver uke</item>
-  </string-array>    
-    
-
+    <item>deaktiver</item>
+    <item>hvert kvarter</item>
+    <item>hver halvtime</item>
+    <item>hver time</item>
+    <item>hver tredje time</item>
+    <item>hver sjette time</item>
+    <item>hver tolvte time</item>
+    <item>daglig</item>
+    <item>hver tredje dag</item>
+    <item>hver uke</item>
+  </string-array>
 </resources>

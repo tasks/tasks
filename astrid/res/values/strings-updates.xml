@@ -2,8 +2,6 @@
 <!-- See the file "LICENSE" for the full license governing this code. -->
 <resources xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <!-- Activity Codes (do not translate) -->
-    
     <!-- Update string from activity codes %1$s - user, %2$s - target name, %3$s - message, %4$s - other_user-->
     
     <string name="update_string_friends">%1$s is now friends with %2$s</string>

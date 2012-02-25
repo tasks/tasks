@@ -1,224 +1,110 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!-- See the file "LICENSE" for the full license governing this code. -->
-<resources xmlns:android="http://schemas.android.com/apk/res/android">
-
-  <!-- ==================================================== Generic Units == -->
-  
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
   <plurals name="DUt_years">
-    <!-- plurals: years -->
     <item quantity="one">1 Any</item>
-    <!-- plurals: years -->
     <item quantity="other">%d Anys</item>
   </plurals>
   <plurals name="DUt_months">
-    <!-- plurals: months -->
     <item quantity="one">1 Mes</item>
-    <!-- plurals: months -->
     <item quantity="other">%d Mesos</item>
   </plurals>
   <plurals name="DUt_weeks">
-    <!-- plurals: days -->
     <item quantity="one">1 Setmana</item>
-    <!-- plurals: days -->
     <item quantity="other">%d Setmanes</item>
   </plurals>
   <plurals name="DUt_days">
-    <!-- plurals: days -->
     <item quantity="one">1 dia</item>
-    <!-- plurals: days -->
     <item quantity="other">%d Dies</item>
   </plurals>
   <plurals name="DUt_weekdays">
-    <!-- plurals: days -->
     <item quantity="one">1 Weekday</item>
-    <!-- plurals: days -->
     <item quantity="other">%d Weekdays</item>
   </plurals>
   <plurals name="DUt_hours">
-    <!-- plurals: hours -->
     <item quantity="one">1 Hora</item>
-    <!-- plurals: hours -->
     <item quantity="other">%d Hores</item>
   </plurals>
   <plurals name="DUt_minutes">
-    <!-- plurals: minutes -->
     <item quantity="one">1 Minut</item>
-    <!-- plurals: minutes -->
     <item quantity="other">%d Minuts</item>
   </plurals>
   <plurals name="DUt_seconds">
-    <!-- plurals: seconds -->
     <item quantity="one">1 Segon</item>
-    <!-- plurals: seconds -->
     <item quantity="other">%d Segons</item>
   </plurals>
   <plurals name="DUt_hoursShort">
-    <!-- plurals: hours (abbreviated) -->
     <item quantity="one">1 Hr</item>
-    <!-- plurals: hours (abbreviated) -->
     <item quantity="other">%d Hrs</item>
   </plurals>
   <plurals name="DUt_minutesShort">
-    <!-- plurals: minutes (abbreviated) -->
     <item quantity="one">1 Min</item>
-    <!-- plurals: minutes (abbreviated) -->
     <item quantity="other">%d Min</item>
   </plurals>
   <plurals name="DUt_secondsShort">
-    <!-- plurals: seconds (abbreviated) -->
     <item quantity="one">1 Seg</item>
-    <!-- plurals: seconds (abbreviated) -->
     <item quantity="other">%d Seg</item>
   </plurals>
   <plurals name="Ntasks">
-    <!-- plurals: tasks -->
     <item quantity="one">1 tasca</item>
-    <!-- plurals: tasks -->
     <item quantity="other">%d tasques</item>
   </plurals>
   <plurals name="Npeople">
-    <!-- plurals: people -->
     <item quantity="one">1 person</item>
-    <!-- plurals: people -->
     <item quantity="other">%d people</item>
   </plurals>
-  
-  <!-- today -->
   <string name="today">Avui</string>
-  
-  <!-- tomorrow -->
   <string name="tomorrow">Demà</string>
-  
-  <!-- today -->
   <string name="yesterday">Ahir</string>
-  
-  <!-- tomorrow abbreviated -->
   <string name="tmrw">Tmrw</string>
-  
-  <!-- today abbreviated -->
   <string name="yest">Yest</string>
-  
-  <!-- ================================================== Generic Dialogs == -->
-  
-  <!-- confirmation dialog title -->
   <string name="DLG_confirm_title">Confirmar?</string>
-  
-  <!-- question dialog title -->
   <string name="DLG_question_title">Pregunta:</string>
-  
-  <!-- information dialog title -->
   <string name="DLG_information_title">Informació</string>
-  
-  <!-- error dialog title -->
   <string name="DLG_error_title">Error!</string>
-  
-  <!-- general dialog save-->
   <string name="DLG_save">Desar</string>
-  
-  <!-- general dialog yes-->
   <string name="DLG_yes">Sí</string>
-  
-  <!-- general dialog no-->
   <string name="DLG_no">No</string>
-  
-  <!-- general dialog close-->
   <string name="DLG_close">Tancar</string>
-  
-  <!-- general dialog done -->
   <string name="DLG_done">Fet</string>
-  
-  <!-- error dialog (%s => error message)-->
   <string name="DLG_error">¡Ui, sembla que hi ha hagut un problema! Això es el que ha passat:\n\n%s</string>
-  
-  <!-- error dialog (no message indicated)-->
   <string name="DLG_error_generic">¡Ui, sembla que hi ha hagut un problema!</string>
-  
-  <!-- Progress dialog shown when doing something slow -->
   <string name="DLG_wait">Si us plau, espera...</string>
-
- <!-- ====================================================== SyncProvider == -->
-          
-  <!-- Sync Notification: message when sync service active -->
   <string name="SyP_progress">Sincronitzant les seves tasques...</string>
-  
-  <!-- Sync Notification: toast when sync activated from activity -->
   <string name="SyP_progress_toast">S\'està sincronitzant...</string>
-  
-  <!-- Sync Label: used in menu to denote synchronization -->
-  <string name="SyP_label">Sincronització</string>  
-
-  <!-- Error msg when io exception  -->
+  <string name="SyP_label">Sincronització</string>
   <string name="SyP_ioerror">Error de conexió! Verifiqui la conexió d\'internet.</string>
-
-  <!-- ================================================== SyncPreferences == -->
-  
-  <!-- Status Group Label -->    
   <string name="sync_SPr_group_status">Estat</string>
-  
-  <!-- Sync Status: log in -->    
   <string name="sync_status_loggedout">No conectat!</string>
-  <!-- Status: ongoing -->    
   <string name="sync_status_ongoing">Sincronització en curs...</string>
-  <!-- Sync Status: success status (%s -> last sync date). Keep it short!-->    
   <string name="sync_status_success">Última sincronització:\n%s</string>
-  <!-- Sync Status: failure status (%s -> last attempted sync date) -->    
   <string name="sync_status_failed">Fallida el: %s</string>
-  <!-- Sync Status: error status (%s -> last sync date) -->    
   <string name="sync_status_errors">Sync w/ Errors: %s</string>
-  <!-- Sync Status: error subtitle (%s -> last successful sync date) -->    
   <string name="sync_status_failed_subtitle">Última sincronització correcte: %s</string>
-  <!-- Sync Status: never sync'd -->    
   <string name="sync_status_never">Mai sincronitzat!</string>
-
-  <!-- Options Group Label -->    
   <string name="sync_SPr_group_options">Opcions</string>
-
-  <!-- Preference: Synchronization Interval Title -->    
   <string name="sync_SPr_interval_title">Sincronitzar en segon pla</string>
-  <!-- Preference: Synchronization Interval Description (when disabled) -->
-  <string name="sync_SPr_interval_desc_disabled">Desactivada la sincronització en segon pla</string>    
-  <!-- Preference: Synchronization Interval Description (%s => setting) -->
+  <string name="sync_SPr_interval_desc_disabled">Desactivada la sincronització en segon pla</string>
   <string name="sync_SPr_interval_desc">Actualment configurat en: %s</string>
-  
-  <!-- Preference: Background Wifi Title -->  
-  <string name="sync_SPr_bgwifi_title">Configuració Wifi</string>    
-  <!-- Preference: Background Wifi Description (enabled) -->
-  <string name="sync_SPr_bgwifi_desc_enabled">La sincronització en segon pla només funciona amb el Wifi activat.</string>    
-  <!-- Preference: Background Wifi Description (disabled) -->
+  <string name="sync_SPr_bgwifi_title">Configuració Wifi</string>
+  <string name="sync_SPr_bgwifi_desc_enabled">La sincronització en segon pla només funciona amb el Wifi activat.</string>
   <string name="sync_SPr_bgwifi_desc_disabled">Sempre es produirà la sincronització en segon pla</string>
-  
-  <!-- Actions Group Label  -->
   <string name="sync_SPr_group_actions">Accions</string>
-
-  <!-- Synchronize Now Button -->    
   <string name="sync_SPr_sync">Sincronitzar Ara!</string>
-  <!-- Synchronize Now Button if not logged in-->    
   <string name="sync_SPr_sync_log_in">Ingressar &amp; Sincronitzar!</string>
-  
-  <!-- Sync: Prefix string before logged in identifier -->
   <string name="sync_SPr_logged_in_prefix">Logged in as:</string>
-  
-  <!-- Sync: Clear Data Title -->
   <string name="sync_SPr_forget">Surt</string>
-  <!-- Sync: Clear Data Description -->
   <string name="sync_SPr_forget_description">Esborra tota la informació de sincronització</string>
-
-  <!-- confirmation dialog for sync log out -->
   <string name="sync_forget_confirm">Tancar sessió / esborra la informació de sincronització?</string>
-  
   <string-array name="sync_SPr_interval_entries">
-      <!-- sync_SPr_interval_entries: Synchronization Intervals -->
-      <item>desactivat</item>
-      <item>cada quince minuts</item>
-      <item>cada trenta minuts</item>
-      <item>cada hora</item>
-      <item>cada tres hores</item>
-      <item>cada sis hores</item>
-      <item>cada dotze hores</item>
-      <item>diàriament</item>
-      <item>cada tres dies</item>
-      <item>setmanalment</item>
-  </string-array>    
-    
-
+    <item>desactivat</item>
+    <item>cada quince minuts</item>
+    <item>cada trenta minuts</item>
+    <item>cada hora</item>
+    <item>cada tres hores</item>
+    <item>cada sis hores</item>
+    <item>cada dotze hores</item>
+    <item>diàriament</item>
+    <item>cada tres dies</item>
+    <item>setmanalment</item>
+  </string-array>
 </resources>

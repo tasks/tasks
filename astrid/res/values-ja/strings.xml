@@ -1,861 +1,337 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!-- See the file "LICENSE" for the full license governing this code. -->
-<resources xmlns:android="http://schemas.android.com/apk/res/android">
-
-  <!-- ================================================== general terms == -->
-
-  <!-- People Editing Activity -->    
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
   <string name="EPE_action">重要性</string>
-  
-  <!-- task sharing dialog: assigned hint -->
   <string name="actfm_person_hint">Contact or Email</string>
-  
-  <!-- task sharing dialog: shared with hint -->
   <string name="actfm_person_or_tag_hint">Contact or Shared List</string>
-
-  <!-- toast on transmit success -->
   <string name="actfm_toast_success">Saved on Server</string>
-
-  <!-- toast on transmit error (%s => error) -->
   <string name="actfm_toast_error">Save Failed: %s</string>
-
-  <!-- can't rename or delete shared tag message -->
   <string name="actfm_tag_operation_disabled">Sorry, this operation is not yet supported for shared tags.</string>
-  
-  <!-- warning before deleting a list you're the owner of -->
   <string name="actfm_tag_operation_owner_delete">You are the owner of this shared list! If you delete it, it will be deleted for all list members. Are you sure you want to continue?</string>
-
-  <!-- menu item to take a picture -->
   <string name="actfm_picture_camera">Take a Picture</string>
-
-  <!-- menu item to select from gallery -->
   <string name="actfm_picture_gallery">Pick from Gallery</string>
-  
-  <!-- menu item to clear picture selection -->
   <string name="actfm_picture_clear">Clear Picture</string>
-
-  <!-- filter list activity: refresh tags -->
   <string name="actfm_FLA_menu_refresh">Refresh Lists</string>
-  
-  <!-- Title for prompt after sharing a task -->
   <string name="actfm_view_task_title">View Task?</string>
-
-  <!-- Text for prompt after sharing a task -->
   <string name="actfm_view_task_text">Task was sent to %s! You\'re currently viewing your own tasks. Do you want to view this and other tasks you\'ve assigned?</string>
-  
-  <!-- Ok button for task view prompt -->
   <string name="actfm_view_task_ok">View Assigned</string>
-      
-  <!-- Cancel button for task view prompt -->
   <string name="actfm_view_task_cancel">Stay Here</string>
-
-  <!-- ================================================== TagViewActivity == -->  
-
-  <!-- Tag View Activity: Add Comment hint -->    
   <string name="TVA_add_comment">Add a comment...</string>
-
-  <!-- Tag View Activity: task comment ($1 - user name, $2 - task title) -->    
   <string name="UAd_title_comment">%1$s re: %2$s</string>
-  
-  <!-- Tabs for Tag view -->
   <string-array name="TVA_tabs">
-    <!-- Tab for showing tasks -->
     <item>Tasks</item>
-    <!-- Tab for showing comments & updates -->
     <item>Activity</item>
-    <!-- Tab for showing setting -->
     <item>List Settings</item>
   </string-array>
-  
-  <!-- Tag View: filtered by assigned to user -->
   <string name="actfm_TVA_filtered_by_assign">%s\'s tasks. Tap for all.</string>
-
-  <!-- Tag View: list is private, no members -->
+  <string name="actfm_TVA_filter_by_unassigned">Unassigned tasks. Tap for all.</string>
   <string name="actfm_TVA_no_members_alert">Private: tap to edit or share list</string>
-
-  <!-- Tag View Menu: refresh -->
   <string name="actfm_TVA_menu_refresh">Refresh</string>
-
-  <!-- Tag Settings: tag name label -->
-  <string name="actfm_TVA_tag_label">List Name:</string>
-
-  <!-- Tag Settings: tag owner label -->
+  <string name="actfm_TVA_tag_label">List</string>
   <string name="actfm_TVA_tag_owner_label">List Creator:</string>
-
-  <!-- Tag Settings: tag owner value when there is no owner -->
   <string name="actfm_TVA_tag_owner_none">none</string>
-
-  <!-- Tag Settings: list collaborators label -->
-  <string name="actfm_TVA_members_label">Shared With:</string>
-
-  <!-- Tag Settings: tag picture -->
+  <string name="actfm_TVA_members_label">Shared With</string>
   <string name="actfm_TVA_tag_picture">List Picture</string>
-
-  <!-- Tag Settings: silence notifications label -->
   <string name="actfm_TVA_silence_label">Silence Notifications</string>
-  
-  <!-- Tag Settings: list icon label -->
   <string name="actfm_TVA_list_icon_label">List Icon:</string>
-  
-  <!-- Tag Settings: list description label -->
-  <string name="actfm_TVA_tag_description_label">Description:</string>
-
-  <!-- Tag Settings: list description hint -->
-  <string name="actfm_TVA_tag_description_hint">List description</string>
-  
-  <!-- Tag settings: login prompt from share-->
+  <string name="actfm_TVA_tag_description_label">Description</string>
+  <string name="actfm_TVA_tag_settings_label">Settings</string>
+  <string name="actfm_TVA_tag_description_hint">Type a description here</string>
+  <string name="actfm_TVA_tag_name_hint">Enter list name</string>
   <string name="actfm_TVA_login_to_share">You need to be logged in to Astrid.com to share lists! Please log in or make this a private list.</string>
-  
-      
-  <!-- ============================================ edit people dialog == -->
-
-  <!-- task sharing dialog: intro -->
   <string name="actfm_EPA_intro">Use Astrid to share shopping lists, party plans, or team projects and instantly see when people get stuff done!</string>
-    
-  <!-- task sharing dialog: window title -->
   <string name="actfm_EPA_title">Share / Assign</string>
-    
-  <!-- task sharing dialog: save button -->
   <string name="actfm_EPA_save">Save &amp; Share</string>
-  
-  <!-- task sharing dialog: assigned label -->
   <string name="actfm_EPA_assign_label">Who</string>
-  
-  <!-- task sharing dialog: assigned to me -->
+  <string name="actfm_EPA_assign_label_long">Who should do this?</string>
   <string name="actfm_EPA_assign_me">Me</string>
-  
-  <!-- task sharing dialog: anyone -->
-  <string name="actfm_EPA_unassigned">Anyone</string>
-  
-  <!-- task sharing dialog: custom email assignment -->
+  <string name="actfm_EPA_unassigned">Unassigned</string>
+  <string name="actfm_EPA_task_rabbit">Outsource it!</string>
   <string name="actfm_EPA_assign_custom">Custom...</string>
-  
-  <!-- task sharing dialog: shared with label -->
   <string name="actfm_EPA_share_with">Share with:</string>
-  
-  <!-- Toast when assigning a task -->
   <string name="actfm_EPA_assigned_toast">Sent to %1$s (you can see it in the list between you and %2$s).</string>
-  
-  <!-- task sharing dialog: shared with label -->
   <string name="actfm_EPA_collaborators_header">Share with Friends</string>
-
-      <!-- task sharing dialog: collaborator list name (%s => name of list) -->
   <string name="actfm_EPA_list">List: %s</string>
-  
-  <!-- task sharing dialog: assigned hint -->
   <string name="actfm_EPA_assigned_hint">Contact Name</string>
-  
-  <!-- task sharing dialog: message label text -->
   <string name="actfm_EPA_message_text">Invitation Message:</string>
-  
-  <!-- task sharing dialog: message body -->
   <string name="actfm_EPA_message_body">Help me get this done!</string>
-  
-  <!-- task sharing dialog: message hint -->
   <string name="actfm_EPA_tag_label">Create a shared tag?</string>
-  
-  <!-- task sharing dialog: message hint -->
   <string name="actfm_EPA_tag_hint">(i.e. Silly Hats Club)</string>
-  
-  <!-- task sharing dialog: share with Facebook -->
   <string name="actfm_EPA_facebook">Facebook</string>
-  
-  <!-- task sharing dialog: share with Twitter -->
   <string name="actfm_EPA_twitter">Twitter</string>
-
-  <!-- task sharing dialog: # of e-mails sent (%s => # people plural string) -->
   <string name="actfm_EPA_emailed_toast">Task shared with %s</string>
-
-  <!-- task sharing dialog: edit people settings saved -->
   <string name="actfm_EPA_saved_toast">People Settings Saved</string>
-
-  <!-- task sharing dialog: invalid email (%s => email) -->
   <string name="actfm_EPA_invalid_email">Invalid E-mail: %s</string>
-
-  <!-- task sharing dialog: tag not found (%s => tag) -->
   <string name="actfm_EPA_invalid_tag">List Not Found: %s</string>
-  
-  <!-- task sharing login prompt -->
   <string name="actfm_EPA_login_to_share">You need to be logged in to Astrid.com to share tasks! Please log in or make this a private task.</string>
-  
   <string name="actfm_EPA_login_button">Log in</string>
-  
   <string name="actfm_EPA_dont_share_button">Make private</string>
-
-  <!-- ========================================= sharing login activity == -->
-
-  <!-- share login: Title -->
   <string name="actfm_ALA_title">Welcome to Astrid.com!</string>
-
-  <!-- share login: Sharing Description -->
-  <string name="actfm_ALA_body">Astrid.com lets you access your tasks online,
-  share, and delegate with others.</string>
-
-  <!-- share login: Sharing Login FB Prompt -->
+  <string name="actfm_ALA_body">Astrid.com lets you access your tasks online, share, and delegate with others.</string>
   <string name="actfm_ALA_fb_login">Connect with Facebook</string>
-
-  <!-- share login: Sharing Login GG Prompt -->
   <string name="actfm_ALA_gg_login">Connect with Google</string>
-  
-  <!-- share login: Sharing Footer Password Label -->
   <string name="actfm_ALA_pw_login">Don\'t use Google or Facebook?</string>
-
-  <!-- share login: Sharing Password Link -->
   <string name="actfm_ALA_pw_link">Sign In Here</string>
-
-  <!-- share login: Password Are you a New User? -->
   <string name="actfm_ALA_pw_new">Create a new account?</string>
-
-  <!-- share login: Password Are you a Returning User? -->
   <string name="actfm_ALA_pw_returning">Already have an account?</string>
-
-  <!-- share login: Name -->
   <string name="actfm_ALA_name_label">Name</string>
-
-  <!-- share login: Email -->
+  <string name="actfm_ALA_firstname_label">First Name</string>
+  <string name="actfm_ALA_lastname_label">Last Name</string>
   <string name="actfm_ALA_email_label">Email</string>
-
-  <!-- share login: Username / Email -->
   <string name="actfm_ALA_username_email_label">Username / Email</string>
-
-  <!-- share login: Password -->
   <string name="actfm_ALA_password_label">パスワード</string>
-
-  <!-- share login: Sign Up Title -->
   <string name="actfm_ALA_signup_title">Create New Account</string>
-
-  <!-- share login: Login Title -->
   <string name="actfm_ALA_login_title">Login to Astrid.com</string>
-
-  <!-- share login: Google Auth title -->
   <string name="actfm_GAA_title">Select the Google account you want to use:</string>
-
-  <!-- share login: OAUTH Login Prompt -->
-  <string name="actfm_OLA_prompt">Please connect to Google:</string>
-  
-  <!-- ================================================ Synchronization == -->
-      
-  <!-- Preferences Title: Act.fm -->    
-  <string name="actfm_APr_header">Astrid.com (Beta!)</string>
-  
+  <string name="actfm_OLA_prompt">Please log in:</string>
+  <string name="actfm_APr_header">Astrid.com</string>
   <string name="actfm_https_title">Use HTTPS</string>
   <string name="actfm_https_enabled">HTTPS enabled (slower)</string>
   <string name="actfm_https_disabled">HTTPS disabled (faster)</string>
-
-  <!-- title for notification tray after synchronizing -->
   <string name="actfm_notification_title">Astrid.com Sync</string>
-  
-  <!-- text for notification when comments are received -->
   <string name="actfm_notification_comments">New comments received / click for more details</string>
-    
-
-
-
-<!-- See the file "LICENSE" for the full license governing this code. -->
-
-    
-    <!-- Resources for built-in timers plug-in -->
-    
-    <!-- Task Edit Activity: Container Label -->
-    <string name="alarm_ACS_label">アラーム</string>
-    
-    <!-- Task Edit Activity: Add New Alarm -->
-    <string name="alarm_ACS_button">アラームを追加する</string>
-    
-    <string-array name="reminders_alarm">
-      <!-- reminders related to alarm -->
-      <item>Alarm!</item>
-    </string-array>
-    
-
-
-<!-- See the file "LICENSE" for the full license governing this code. -->
-
-    
-  <!-- Resources for built-in backup plug-in -->
-  
-  <!-- ================================================= BackupPreferences == -->
-
-    <!-- Backup Preferences Title -->    
-    <string name="backup_BPr_header">バックアップ</string>
-
-    <!-- Backup: Status Header -->    
-    <string name="backup_BPr_group_status">状況</string>
-    
-    <!-- Backup Status: last backup was a success (%s -> last date). Keep it short! -->    
-    <string name="backup_status_success">最新: %s</string>
-    <!-- Backup Status: last error failed. Keep it short! -->    
-    <string name="backup_status_failed">バックアップ失敗</string>
-    <!-- Backup Status: error subtitle -->    
-    <string name="backup_status_failed_subtitle">（タップでエラーを表示）</string>
-    <!-- Backup Status: never backed up -->    
-    <string name="backup_status_never">一度もバックアップしてません!</string>
-
-    <!-- Backup Options Group Label -->    
-    <string name="backup_BPr_group_options">オプション</string>
-
-    <!-- Preference: Automatic Backup Title -->    
-    <string name="backup_BPr_auto_title">自動的なバックアップ</string>
-    <!-- Preference: Automatic Backup Description (when disabled) -->
-    <string name="backup_BPr_auto_disabled">自動的なバックアップは無効です</string>    
-    <!-- Preference: Automatic Backup Description (when enabled) -->
-    <string name="backup_BPr_auto_enabled">バックアップは毎日行われます</string>
-    
-    <!-- Preference screen restoring Tasks Help -->
-    <string name="backup_BPr_how_to_restore">How do I restore backups?</string>    
-    <!-- Preference screen Restoring Tasks Help Dialog Text-->
-    <string name="backup_BPr_how_to_restore_dialog">You need to add the Astrid Power Pack to manage and restore your backups. As a favor, Astrid also automatically backs up your tasks, just in case.</string>
-  
-  <!-- ================================================= BackupActivity == -->
-
-  <!-- backup activity label -->
+  <string name="alarm_ACS_label">アラーム</string>
+  <string name="alarm_ACS_button">アラームを追加する</string>
+  <string-array name="reminders_alarm">
+    <item>Alarm!</item>
+  </string-array>
+  <string name="backup_BPr_header">バックアップ</string>
+  <string name="backup_BPr_group_status">状況</string>
+  <string name="backup_status_success">最新: %s</string>
+  <string name="backup_status_failed">バックアップ失敗</string>
+  <string name="backup_status_failed_subtitle">（タップでエラーを表示）</string>
+  <string name="backup_status_never">一度もバックアップしてません!</string>
+  <string name="backup_BPr_group_options">オプション</string>
+  <string name="backup_BPr_auto_title">自動的なバックアップ</string>
+  <string name="backup_BPr_auto_disabled">自動的なバックアップは無効です</string>
+  <string name="backup_BPr_auto_enabled">バックアップは毎日行われます</string>
+  <string name="backup_BPr_how_to_restore">How do I restore backups?</string>
+  <string name="backup_BPr_how_to_restore_dialog">You need to add the Astrid Power Pack to manage and restore your backups. As a favor, Astrid also automatically backs up your tasks, just in case.</string>
   <string name="backup_BAc_label">バックアップ</string>
-
-  <!-- backup activity title -->
   <string name="backup_BAc_title">バックアップの管理</string>
-
-  <!-- backup activity import button -->
   <string name="backup_BAc_import">タスクのインポート</string>
-
-  <!-- backup activity export button -->
   <string name="backup_BAc_export">タスクのエクスポート</string>
-    
-  <!-- ============================================== Importer / Exporter == -->
-  
-  <!-- Message displayed when error occurs -->
   <string name="backup_TXI_error">インポートに失敗</string>
-    
   <string name="export_toast">%1$s を %2$s にバックアップしました。</string>
-    
   <string name="export_toast_no_tasks">エクスポートするタスクがありません</string>
-  
-  <!-- Progress Dialog Title for exporting -->    
   <string name="export_progress_title">エクスポート中</string>
-  
-  <!-- Backup: Title of Import Summary Dialog -->
   <string name="import_summary_title">復元の概要</string>
-    
-  <!-- Backup: Summary message for import. (%s => file name, %s => total # tasks, %s => imported, %s => skipped, %s => errors) -->
   <string name="import_summary_message">ファイル %1$s の %2$s 中、\n\n成功: %3$s\n既に存在: %4$s\n失敗: %5$s\n</string>
-  
-  <!-- Progress Dialog Title for importing -->    
   <string name="import_progress_title">インポート中</string>
-  
-  <!-- Progress Dialog text for import reading task (%d -> task number)-->    
   <string name="import_progress_read">タスク %d を読み込み中</string>
-  
-  <!-- Backup: Dialog when unable to open a file -->  
   <string name="DLG_error_opening">ファイルを開けませんでした</string>
-  
-  <!-- Backup: Dialog when unable to open SD card folder (%s => folder) -->
   <string name="DLG_error_sdcard">フォルダ %s を開けません</string>
-  
-  <!-- Backup: Dialog when unable to open SD card in general -->
   <string name="DLG_error_sdcard_general">SDカードにアクセスできません</string>
-    
-  <!-- Backup: File Selector dialog for import -->
-  <string name="import_file_prompt">復元に使うファイルを選択してください</string>    
-        
-
-
-<!-- See the file "LICENSE" for the full license governing this code. -->
-
-
-  <!-- ================================================== AndroidManifest == -->
-
-  <!-- Application Name (shown on home screen & in launcher) -->
+  <string name="import_file_prompt">復元に使うファイルを選択してください</string>
   <string name="app_name">Astrid Tasks</string>
-  
-  <!-- permission title for READ_TASKS -->
   <string name="read_permission_label">タスクの読み込み</string>
-  
-  <!-- permission description for READ_TASKS -->
   <string name="read_permission_desc">タスクの読み込みとフィルタの表示</string>
-  
-  <!-- permission title for READ_TASKS -->
   <string name="write_permission_label">タスクの読み込み</string>
-  
-  <!-- permission description for READ_TASKS -->
   <string name="write_permission_desc">タスクの作成、編集</string>
-  
-  <!-- ================================================== Generic Dialogs == -->
-    
-  <!-- question for deleting tasks -->
   <string name="DLG_delete_this_task_question">このタスクを削除しますか?</string>
-
-  <!-- question for deleting items (%s => item name) -->
   <string name="DLG_delete_this_item_question">項目 %s を削除しますか?</string>
-    
-  <!-- Progress dialog shown when upgrading -->
   <string name="DLG_upgrading">タスクを更新しています</string>
-  
-  <!-- Title for dialog selecting a time (hours and minutes) -->
   <string name="DLG_hour_minutes">時間 (時:分)</string>
-  
-  <!-- Dialog for Astrid having a critical update -->
-  <string name="DLG_please_update">Astrid should to be updated to the latest
-  version in the Android market! Please do that before continuing, or wait a 
-  few seconds.</string>
-
-  <!-- Button for going to Market -->
+  <string name="DLG_please_update">Astrid should to be updated to the latest version in the Android market! Please do that before continuing, or wait a few seconds.</string>
   <string name="DLG_to_market">マーケットへ</string>
-
-  <!-- Button for accepting EULA -->
   <string name="DLG_accept">同意する</string>
-
-  <!-- Button for declining EULA -->
   <string name="DLG_decline">同意しない</string>
-
-  <!-- EULA title -->
   <string name="DLG_eula_title">Astrid 利用規定</string>
-
-  <!-- Progress Dialog generic text -->
   <string name="DLG_please_wait">Please Wait</string>
-  
-  <!-- Dialog - loading -->
   <string name="DLG_loading">読み込み中...</string>
-  
-  <!-- Dialog - dismiss -->
   <string name="DLG_dismiss">Dismiss</string>
-  
   <string name="DLG_ok">OK</string>
-  
   <string name="DLG_cancel">Cancel</string>
-  
+  <string name="DLG_more">More</string>
   <string name="DLG_undo">Undo</string>
-  
-  <!-- =============================================================== UI == -->
-  
-  <!-- Label for DateButtons with no value -->
   <string name="WID_dateButtonUnset">入力する</string>
-  
-  <!-- String formatter for DateButtons ($D => date, $T => time) -->
   <string name="WID_dateButtonLabel">$D 日 $T 時間</string>
-  
-  <!-- String formatter for Disable button -->
-  <string name="WID_disableButton">無効にする</string>  
-  
-  <!--  ============================================================= notes -->
-  
-  <!-- Note Exposer -->    
+  <string name="WID_disableButton">無効にする</string>
   <string name="ENE_label">メモ</string>
-  
-  <!-- Note Exposer / Comments -->    
   <string name="ENE_label_comments">Comments</string>
-  
-  <!-- EditNoteActivity - no comments -->
-  <string name="ENA_no_comments">Nothing To Show</string>
-  
-  <!-- EditNoteActivity - refresh comments -->
+  <string name="ENA_no_comments">No activity yet</string>
+  <string name="ENA_no_user">You</string>
   <string name="ENA_refresh_comments">Refresh Comments</string>
-  
-  <!-- ================================================= TaskListActivity == -->
-  
-  <!-- Task List: Displayed instead of list when no items present -->    
   <string name="TLA_no_items">タスクなし</string>
-  
-  <!-- Menu: Add-ons -->    
   <string name="TLA_menu_addons">アドオン</string>
-  
-  <!-- Menu: Adjust Sort and Hidden Task Settings -->    
   <string name="TLA_menu_sort">表示設定</string>
-  
-  <!-- Menu: Sync Now -->    
   <string name="TLA_menu_sync">すぐに同期！</string>
-  
-  <!-- Menu: Tasks -->
-
-
-  <!-- Menu: Friends -->
+  <string name="TLA_menu_lists">Lists</string>
   <string name="TLA_menu_friends">Friends</string>
-
-  <!-- Menu: Suggestions -->
   <string name="TLA_menu_suggestions">Suggestions</string>
-  
-  <!-- Menu: Tutorial -->
   <string name="TLA_menu_tutorial">Tutorial</string>
-
-  <!-- Menu: Settings -->    
   <string name="TLA_menu_settings">設定</string>
-  
-  <!-- Menu: Support -->
   <string name="TLA_menu_support">Support</string>
-  
-  <!-- Search Label-->
   <string name="TLA_search_label">このリストの検索</string>
-  
-  <!-- Window title for displaying Custom Filter -->
   <string name="TLA_custom">カスタムフィルタ</string>
-  
-  <!-- Quick Add Edit Box Hint-->
   <string name="TLA_quick_add_hint">Add a task</string>
-  
-  <!-- Quick Add Edit Box Hint for assigning -->
   <string name="TLA_quick_add_hint_assign">Tap to assign %s a task</string>
-  
-  <!-- Notification Volumne notification-->
   <string name="TLA_notification_volume_low">Notifications are muted. You won\'t be able to hear Astrid!</string>
-  
-  <!-- Notifications disabled warning -->
   <string name="TLA_notification_disabled">Astrid reminders are disabled! You will not receive any reminders</string>
-  
   <string-array name="TLA_filters">
-      <item>Active</item>
-      <item>今日</item>
-      <item>Soon</item>
-      <item>Late</item>
-      <item>完了</item>
-      <item>Hidden</item>      
+    <item>Active</item>
+    <item>今日</item>
+    <item>Soon</item>
+    <item>Late</item>
+    <item>完了</item>
+    <item>Hidden</item>
   </string-array>
-  
-  <!-- Title for confirmation dialog after quick add markup -->
   <string name="TLA_quickadd_confirm_title">You said, \"%s\"</string>
-  
-  <!-- Text for speech bubble in dialog after quick add markup -->
-  <!-- First string is task title, second is due date, third is priority -->
   <string name="TLA_quickadd_confirm_speech_bubble">I created a task called \"%1$s\" %2$s at %3$s</string>
-  
   <string name="TLA_quickadd_confirm_speech_bubble_date">for %s</string>
-  
   <string name="TLA_quickadd_confirm_hide_helpers">Don\'t display future confirmations</string>
-  
+  <string name="TLA_repeat_scheduled_title">New repeating task %s</string>
+  <string name="TLA_repeat_scheduled_speech_bubble">I\'ll remind you about this %s.</string>
   <string-array name="TLA_priority_strings">
-      <item>highest priority</item>
-      <item>high priority</item>
-      <item>medium priority</item>
-      <item>low priority</item>
+    <item>highest priority</item>
+    <item>high priority</item>
+    <item>medium priority</item>
+    <item>low priority</item>
   </string-array>
-  
   <string name="TLA_all_activity">All Activity</string>
-  
-  <!-- ====================================================== TaskAdapter == -->
-  
-  <!-- Format string to indicate task is hidden (%s => task name) -->
   <string name="TAd_hiddenFormat">%s [非表示]</string>
-  
-  <!-- Format string to indicate task is deleted (%s => task name) -->
   <string name="TAd_deletedFormat">%s [削除済]</string>
-  
-  <!-- Displayed when adapter is flung (scrolled quickly) -->
-  <string name="TAd_flingText"/>
-  
-  <!-- indicates task was completed. %s => date or time ago -->
   <string name="TAd_completed">%s\nに完了</string>
-  
-  <!-- Action Button: edit task -->
   <string name="TAd_actionEditTask">編集</string>
-  
-  <!-- Context Item: edit task -->
   <string name="TAd_contextEditTask">タスクを編集</string>
-
-  <!-- Context Item: copy task -->
   <string name="TAd_contextCopyTask">タスクをコピー</string>
-
-  <!-- Context Item: delete task -->
+  <string name="TAd_contextHelpTask">Get help</string>
   <string name="TAd_contextDeleteTask">タスクを削除</string>
-
-  <!-- Context Item: undelete task -->
   <string name="TAd_contextUndeleteTask">元に戻す</string>
-
-  <!-- Context Item: purge task -->
   <string name="TAd_contextPurgeTask">Purge Task</string>
-  
-  <!-- ============================================== SortSelectionDialog == -->
-  
-  <!-- Sort Selection: dialog title -->    
   <string name="SSD_title">並び順と表示項目</string>
-  
-  <!-- Hidden Task Selection: show completed tasks -->    
+  <string name="SSD_hidden_title">Hidden Tasks</string>
   <string name="SSD_completed">完了タスクの表示</string>
-  
-  <!-- Hidden Task Selection: show hidden tasks -->    
   <string name="SSD_hidden">非表示タスクの表示</string>
-  
-  <!-- Hidden Task Selection: show deleted tasks -->    
   <string name="SSD_deleted">削除済タスクの表示</string>
-  
-  <!-- Sort Selection: sort options header -->    
-
-  
-  <!-- Sort Selection: smart sort -->
+  <string name="SSD_sort_drag">Drag &amp; Drop with Subtasks</string>
   <string name="SSD_sort_auto">自動</string>
-  
-  <!-- Sort Selection: sort by alpha -->
   <string name="SSD_sort_alpha">タイトル順</string>
-  
-  <!-- Sort Selection: sort by due date -->
   <string name="SSD_sort_due">期限順</string>
-  
-  <!-- Sort Selection: sort by importance -->
   <string name="SSD_sort_importance">重要度順</string>
-  
-  <!-- Sort Selection: sort by modified date -->
   <string name="SSD_sort_modified">更新日時順</string>
-  
-  <!-- Sort Selection: reverse -->
   <string name="SSD_sort_reverse">逆順</string>
-  
-  <!-- Sort Button: sort temporarily -->
   <string name="SSD_save_temp">今回のみ</string>
-  
-  <!-- Sort Button: sort permanently -->
   <string name="SSD_save_always">設定の保存</string>
-  
-  <!-- =============================================== FilterListActivity == -->
-
-  <!-- Filter List Activity Title -->    
+  <string name="FSA_label">Astrid List or Filter</string>
   <string name="FLA_title">リスト</string>
-  
-  <!-- Displayed when loading filters -->    
   <string name="FLA_loading">フィルタの読み込み中</string>
-  
-  <!-- Context Menu: Create Shortcut -->    
   <string name="FLA_context_shortcut">ショートカットの作成</string>
-  
-  <!-- Menu: Search -->
   <string name="FLA_menu_search">タスクの検索</string>
-  
-  <!-- Menu: Help -->    
   <string name="FLA_menu_help">ヘルプ</string>
-  
-  <!-- Create Shortcut Dialog Title -->    
   <string name="FLA_shortcut_dialog_title">ショートカットを作る</string>
-  
-  <!-- Create Shortcut Dialog (asks to name shortcut) -->    
   <string name="FLA_shortcut_dialog">ショートカットの名称</string>
-  
-  <!-- Search Hint-->
   <string name="FLA_search_hint">タスクの検索</string>
-  
-  <!-- Search Filter name (%s => query) -->
   <string name="FLA_search_filter">「%s」の検索結果</string>
-  
-  <!-- Toast: created shortcut (%s => label) -->
   <string name="FLA_toast_onCreateShortcut">ショートカット %s を作成しました</string>
-  
-  <!-- Menu: new filter -->
   <string name="FLA_new_filter">New Filter</string>
-  
-  <!-- Button: new list -->
   <string name="FLA_new_list">New List</string>
-  
-  <!-- ================================================= TaskEditActivity == -->
-  
-  <!-- Title when editing a task (%s => task title) -->
   <string name="TEA_view_title">Astrid: 「%s」の編集</string>
-  
-  <!-- Title when creating a new task -->
   <string name="TEA_view_titleNew">New Task</string>
-  
-  <!-- Task title label -->
   <string name="TEA_title_label">タスク名</string>
-  
-  <!-- Task when label (note the <u> tags - be sure to leave those in when localizing! -->
   <string name="TEA_when_header_label">When</string>
-  
-  <!-- Task title hint (displayed when edit box is empty) -->
   <string name="TEA_title_hint">タスクの概要</string>
-  
-  <!-- Task importance label -->
   <string name="TEA_importance_label">重要性</string>
-  
-  <!-- Task urgency label -->
   <string name="TEA_urgency_label">期限</string>
-  
-  <!-- Task urgency specific time checkbox -->
   <string name="TEA_urgency_specific_time">時刻を設定する</string>
-  
-  <!-- Task urgency specific time title when specific time false -->
   <string name="TEA_urgency_none">None</string>
-  
-  <!-- Task hide until label -->
   <string name="TEA_hideUntil_label">Show Task</string>
-  
-  <!-- Task hide until toast -->
   <string name="TEA_hideUntil_message">Task will be hidden until %s</string>
-  
-  <!-- Task editing data being loaded label -->
-  <string-array name="TEA_loading"><item>読み込み中...</item></string-array>
-  
-  <!-- Task note label -->
+  <string-array name="TEA_loading">
+    <item>読み込み中...</item>
+  </string-array>
   <string name="TEA_note_label">メモ</string>
-  
-  <!-- Task note hint -->
   <string name="TEA_notes_hint">メモを入力</string>
-  
-  <!-- Estimated time label -->
   <string name="TEA_estimatedDuration_label">所要時間は?</string>
-  
-  <!-- Elapsed time label -->
   <string name="TEA_elapsedDuration_label">既にタスクに費やした時間</string>
-
-  <!-- Menu: Save -->    
   <string name="TEA_menu_save">変更の保存</string>
-  
-  <!-- Menu: Don't Save -->
   <string name="TEA_menu_discard">保存しない</string>
-  
-  <!-- Menu: Delete Task -->
   <string name="TEA_menu_delete">タスクを削除</string>
-  
-  <!-- Menu: Task comments -->
   <string name="TEA_menu_comments">Comments</string>
-  
-   <!-- Toast: task saved with deadline (%s => preposition + time units) -->
   <string name="TEA_onTaskSave_due">タスクは保存されました: 期限は%s</string>
-  
-  <!-- Toast: task saved without deadlines -->
   <string name="TEA_onTaskSave_notDue">タスクは保存されました</string>
-  
-  <!-- Toast: task was not saved -->
   <string name="TEA_onTaskCancel">編集は中断されました</string>
-  
-  <!-- Toast: task was deleted -->
   <string name="TEA_onTaskDelete">Task deleted!</string>
-  
-  <!-- Task edit tab: activity -->
   <string name="TEA_tab_activity">Activity</string>
-  
-  <!-- Task edit tab: more editing settings -->
   <string name="TEA_tab_more">さらに</string>
-  
+  <string name="TEA_tab_web">Ideas</string>
   <string-array name="TEA_urgency">
-      <!-- urgency: labels for edit page. item #4 -> auto filled -->
-      <item>No deadline</item>
-      <item>指定した日から</item>
-      <item>今日</item>
-      <item>明日</item>
-      <item>日後</item>
-      <item>来週</item>
-      <item>In Two Weeks</item>
-      <item>来月</item>
+    <item>No deadline</item>
+    <item>指定した日から</item>
+    <item>今日</item>
+    <item>明日</item>
+    <item>日後</item>
+    <item>来週</item>
+    <item>In Two Weeks</item>
+    <item>来月</item>
   </string-array>
-  
   <string name="TEA_no_time">No time</string>
-      
   <string-array name="TEA_hideUntil">
-      <!-- hideUntil: labels for edit page. -->
-      <item>設定の保存</item>
-      <item>At due date</item>
-      <item>期限の前日から</item>
-      <item>期限の一週間前から</item>
-      <item>日時を指定</item>
+    <item>設定の保存</item>
+    <item>At due date</item>
+    <item>期限の前日から</item>
+    <item>期限の一週間前から</item>
+    <item>日時を指定</item>
   </string-array>
-  
-  <!-- Task edit control set descriptors -->
   <string name="TEA_control_title">Task Title</string>
   <string name="TEA_control_who">Who</string>
   <string name="TEA_control_when">When</string>
   <string name="TEA_control_more_section">----More Section----</string>
-  <string name="TEA_control_importance">重要性</string>  
-  <string name="TEA_control_lists">リスト</string>  
-  <string name="TEA_control_notes">メモ</string>  
+  <string name="TEA_control_importance">重要性</string>
+  <string name="TEA_control_lists">リスト</string>
+  <string name="TEA_control_notes">メモ</string>
   <string name="TEA_control_reminders">Reminders</string>
   <string name="TEA_control_timer">Timer Controls</string>
   <string name="TEA_control_share">Share With Friends</string>
-  
   <string name="hide_until_prompt">Show in my list</string>
-  
-  <!-- Add Ons tab when no add-ons found -->
   <string name="TEA_addons_text">追加機能を探す</string>
-  
-  <!-- Add Ons button -->
   <string name="TEA_addons_button">Get the Power Pack!</string>
-  
-  <!-- More row -->
   <string name="TEA_more">さらに</string>
-  
-  <!-- Text when no activity to show -->
   <string name="TEA_no_activity">No Activity to Show.</string>
-  
-  <!-- Text to load more activity -->
   <string name="TEA_load_more">Load more...</string>
-  
-  <!-- When controls dialog -->
   <string name="TEA_when_dialog_title">When is this due?</string>
-  
   <string name="TEA_date_and_time">Date/Time</string>
-  <!-- ============================================= IntroductionActivity == -->
-  
-  <!-- Introduction Window title -->
+  <string name="WSV_click_to_load">Tap me to search for ways to get this done!</string>
+  <string name="WSV_not_online">I can do more when connected to the Internet. Please check your connection.</string>
   <string name="InA_title">Welcome to Astrid!</string>
-  
-  <!-- Button to agree to EULA -->
   <string name="InA_agree">同意する</string>
-  
-  <!-- Button to disagree with EULA -->
   <string name="InA_disagree">同意しない</string>
-  
-  <!-- ===================================================== HelpActivity == -->
-  
-  <!-- Help: Button to get support from our website -->
   <string name="HlA_get_support">サポートサイト</string>
-    
-  <!-- ==================================================== UpdateService == -->
-  
-  <!-- Changelog Window Title -->
   <string name="UpS_changelog_title">Astrid の変更点</string>
-  
-  <!-- Updates Window Title -->
   <string name="UpS_updates_title">Latest Astrid News</string>
-  
-  <!-- ================================================== EditPreferences == -->
-    
-  <!-- Preference Window Title -->
+  <string name="UpS_no_activity_log_in">Log in to see a record of\nyour progress as well as\nactivity on shared lists.</string>
   <string name="EPr_title">Astrid: 設定</string>
-  
   <string name="EPr_deactivated">deactivated</string>
-
-  <!-- Preference Category: Appearance Title -->
   <string name="EPr_appearance_header">外観</string>
-  
-  <!-- Preference: Task List Font Size Title -->
   <string name="EPr_fontSize_title">リストの文字サイズ</string>
-  
-  <!-- Preference: Show confirmation for smart reminders -->
   <string name="EPr_showSmartConfirmation_title">Show confirmation for smart reminders</string>
-  
-  <!-- Preference: Task List Font Size Description -->                                                                                                                                                  
-  <string name="EPr_fontSize_desc">メインのリスト画面の文字サイズ</string>  
-  
-  <!-- Preference: Task List Show Notes -->
+  <string name="EPr_fontSize_desc">メインのリスト画面の文字サイズ</string>
   <string name="EPr_showNotes_title">タスクのメモを表示</string>
-  <!-- Preference: Beast mode (auto-expand edit page) -->
-  <string name="EPr_beastMode_title">Beast Mode</string>
-  <string name="EPr_beastMode_desc">Customize the layout of the Task Edit Page</string>
+  <string name="EPr_beastMode_title">Customize Task Edit Screen</string>
+  <string name="EPr_beastMode_desc">Customize the layout of the Task Edit Screen</string>
   <string name="EPr_beastMode_reset">Reset to defaults</string>
-      
-  <!-- Preference: Task List Show Notes Description (disabled) -->
-  <string name="EPr_showNotes_desc_disabled">メモはタスクをタップしたときに表示されます</string>  
-  <!-- Preference: Task List Show Notes Description (enabled) -->
+  <string name="EPr_showNotes_desc_disabled">メモはタスクをタップしたときに表示されます</string>
   <string name="EPr_showNotes_desc_enabled">メモは常に表示されます</string>
-  
-  <!-- Preference: Theme -->
+  <string name="EPr_compressTaskRows_title">Compact Task Row</string>
+  <string name="EPr_compressTaskRows_desc">Compress task rows to fit title</string>
+  <string name="EPr_userLegacyImportance_title">Use legacy importance style</string>
+  <string name="EPr_userLegacyImportance_desc">Use legacy importance style</string>
+  <string name="EPr_fullTask_title">Show full task title</string>
+  <string name="EPr_fullTask_desc_enabled">Full task title will be shown</string>
+  <string name="EPr_fullTask_desc_disabled">First two lines of task title will be shown</string>
+  <string name="EPr_ideaAuto_title">Auto-load Ideas Tab</string>
+  <string name="EPr_ideaAuto_desc_enabled">Web searches for Ideas tab will be performed when task is edited</string>
+  <string name="EPr_ideaAuto_desc_disabled">Web searches for Ideas tab will be performed when tab is clicked</string>
   <string name="EPr_theme_title">Color Theme</string>
-  <!-- Preference: Theme Description (%s => value) -->
-  <string name="EPr_theme_desc">現在の設定: %s</string>  
-  <!-- Preference: Theme Description (android 1.6) -->
+  <string name="EPr_theme_desc">現在の設定: %s</string>
   <string name="EPr_theme_desc_unsupported">Setting requires Android 2.0+</string>
-    
-  <string-array name="EPr_default_reminders_mode">
-      <!-- reminders duration: labels for "Task Defaults" preference item. -->
-      <item>@string/TEA_reminder_mode_once</item>
-      <item>@string/TEA_reminder_mode_five</item>
-      <item>@string/TEA_reminder_mode_nonstop</item>
-  </string-array>
-    
+  <string name="EPr_taskRowPrefs_title">Task Row Appearance</string>
   <string-array name="EPr_themes">
-    <!-- theme_settings: labels for Theme preference menu -->
     <item>Day - Blue</item>
     <item>Day - Red</item>
     <item>Night</item>
     <item>Transparent (White Text)</item>
     <item>Transparent (Black Text)</item>
   </string-array>
-  
-  <!-- ========================================== Task Management Settings == -->
-
-  <!-- Preference Screen Header: Old Task Management -->
   <string name="EPr_manage_header">Manage Old Tasks</string>
   <string name="EPr_manage_delete_completed">Delete Completed Tasks</string>
   <string name="EPr_manage_delete_completed_message">Do you really want to delete all your completed tasks?</string>
@@ -867,525 +343,177 @@
   <string name="EPr_manage_purge_deleted_summary">Caution! Purged tasks can\'t be recovered without backup file!</string>
   <string name="EPr_manage_clear_all">Clear All Data</string>
   <string name="EPr_manage_clear_all_message">Delete all tasks and settings in Astrid?\n\nWarning: can\'t be undone!</string>
-
   <string name="EPr_manage_delete_completed_gcal">Delete Calendar Events for Completed Tasks</string>
   <string name="EPr_manage_delete_completed_gcal_message">Do you really want to delete all your events for completed tasks?</string>
-  <string name="EPr_manage_delete_completed_gcal_summary"/>
   <string name="EPr_manage_delete_completed_gcal_status">Deleted %d calendar events!</string>
-      
   <string name="EPr_manage_delete_all_gcal">Delete All Calendar Events for Tasks</string>
   <string name="EPr_manage_delete_all_gcal_message">Do you really want to delete all your events for tasks?</string>
-  <string name="EPr_manage_delete_all_gcal_summary"/>
   <string name="EPr_manage_delete_all_gcal_status">Deleted %d calendar events!</string>
-      
-  <!-- ==================================================== AddOnActivity == -->
-  
-  <!-- Add Ons Activity Title -->
   <string name="AOA_title">Astrid: アドオン</string>
-    
-  <!-- Add-on Activity: author for internal authors  -->
   <string name="AOA_internal_author">Astrid Team</string>
-    
-  <!-- Add-on Activity: installed add-ons tab -->
   <string name="AOA_tab_installed">インストール済</string>
-  
-  <!-- Add-on Activity - available add-ons tab -->
   <string name="AOA_tab_available">追加</string>
-  
-  <!-- Add-on Activity - free add-ons label -->
   <string name="AOA_free">無料</string>
-  
-  <!-- Add-on Activity - menu item to visit add-on website -->
   <string name="AOA_visit_website">Web サイトの表示</string>
-  
-  <!-- Add-on Activity - menu item to visit android market -->
   <string name="AOA_visit_market">Android マーケット</string>
-  
-  <!-- Add-on Activity - when list is empty -->
   <string name="AOA_no_addons">Empty List!</string>
-  
-  <!-- ====================================================== TasksWidget == -->
-
-  <!-- Widget text when loading tasks -->
   <string name="TWi_loading">読み込み中...</string>
-
-  <!-- Widget configuration activity title: select a filter -->
   <string name="WCA_title">ウィジェットに表示する項目</string>
-
-  <!-- ============================================================= About == -->
-  
-  <!-- Title of "About" option in settings -->
   <string name="p_about">About Astrid</string>
-  
-  <!-- About text (%s => current version)-->
-<string name="p_about_text">Current version: %s\n\n
-
-Astrid is open-source and proudly maintained by Todoroo, Inc.</string>
-
-  <!-- Title of "Help" option in settings -->
+  <string name="p_about_text">Current version: %s\n\n Astrid is open-source and proudly maintained by Todoroo, Inc.</string>
   <string name="p_help">ヘルプ</string>
-  
-  <!-- ============================================================= Misc == -->
-  
-  <!-- Displayed when task killer found. %s => name of the application -->
   <string name="task_killer_help">タスクキラー (%s) を使用中です。Astrid が終了しないように、除外リストに登録してください。そうしないと、期限が来たタスクを通知できなくなります。\n</string>
-  
-  <!-- Task killer dialog ok button -->
   <string name="task_killer_help_ok">I Won\'t Kill Astrid!</string>
-    
-  <!-- Astrid's Android Marketplace title. It never appears in the app itself. -->
   <string name="marketplace_title">Astrid Task/Todo List</string>
-  
-  <!-- Astrid's Android Marketplace description. It never appears in the app itself. -->
-  <string name="marketplace_description">
-Astrid is the much loved open-source todo list / task manager designed to help 
-you get stuff done. It features reminders, tags, sync, Locale plug-in, a widget and more. 
-  </string>
-  
-
-
-
-
-   <!-- Preference Category: Defaults Title -->
+  <string name="marketplace_description">Astrid is the much loved open-source todo list / task manager designed to help you get stuff done. It features reminders, tags, sync, Locale plug-in, a widget and more.</string>
   <string name="EPr_defaults_header">タスクのデフォルト設定</string>
-  
-  <!-- Preference: Default Urgency Title -->
   <string name="EPr_default_urgency_title">期限</string>
-  <!-- Preference: Default Urgency Description (%s => setting) -->
   <string name="EPr_default_urgency_desc">現在の設定: %s</string>
-  
-  <!-- Preference: Default Importance Title -->
   <string name="EPr_default_importance_title">重要度</string>
-  <!-- Preference: Default Importance Description (%s => setting) -->
   <string name="EPr_default_importance_desc">現在の設定: %s</string>
-  
-  <!-- Preference: Default Hide Until Title -->
   <string name="EPr_default_hideUntil_title">表示期間</string>
-  <!-- Preference: Default Hide Until Description (%s => setting) -->
   <string name="EPr_default_hideUntil_desc">現在の設定: %s</string>
-  
-  <!-- Preference: Default Reminders Title -->
   <string name="EPr_default_reminders_title">標準リマインダー</string>
-  <!-- Preference: Default Reminders Description (%s => setting) -->
   <string name="EPr_default_reminders_desc">現在の設定: %s</string>
-  
-  <!-- Preference: Default Add To Calendar Title -->
   <string name="EPr_default_addtocalendar_title">Default Add To Calendar</string>
-  <!-- Preference: Default Add To Calendar Setting Description (disabled) -->
   <string name="EPr_default_addtocalendar_desc_disabled">New tasks will not create an event in the Google Calendar</string>
-  <!-- Preference: Default Add To Calendar Setting Description (%s => setting) -->
   <string name="EPr_default_addtocalendar_desc">New tasks will be in the calendar: \"%s\"</string>
-  
-  <!-- Reminder Mode Preference: Default Reminders Duration -->
   <string name="EPr_default_reminders_mode_title">Default Ring/Vibrate type</string>
-  <!-- Preference: Default Reminders Description (%s => setting) -->
   <string name="EPr_default_reminders_mode_desc">現在の設定: %s</string>
-  
   <string-array name="EPr_default_importance">
-      <!-- importance: labels for "Task Defaults" preference item. -->
-      <item>!!! (Highest)</item>
-      <item>!!</item>
-      <item>!</item>
-      <item>o (Lowest)</item>
+    <item>!!! (Highest)</item>
+    <item>!!</item>
+    <item>!</item>
+    <item>o (Lowest)</item>
   </string-array>
-  
   <string-array name="EPr_default_urgency">
-      <!-- urgency: labels for "Task Defaults" preference item. -->
-      <item>期限なし</item>
-      <item>今日</item>
-      <item>明日</item>
-      <item>明後日</item>
-      <item>来週</item>
+    <item>期限なし</item>
+    <item>今日</item>
+    <item>明日</item>
+    <item>明後日</item>
+    <item>来週</item>
   </string-array>
-  
   <string-array name="EPr_default_hideUntil">
-      <!-- hideUntil: labels for "Task Defaults" preference item. -->
-      <item>常に表示する</item>
-      <item>期限の日から</item>
-      <item>期限の前日から</item>
-      <item>期限の一週間前から</item>
+    <item>常に表示する</item>
+    <item>期限の日から</item>
+    <item>期限の前日から</item>
+    <item>期限の一週間前から</item>
   </string-array>
-  
   <string-array name="EPr_default_reminders">
-      <!-- reminders: labels for "Task Defaults" preference item. -->
-      <item>期限を通知しない</item>
-      <item>At deadline</item>
-      <item>When overdue</item>
-      <item>At deadline or overdue</item>
+    <item>期限を通知しない</item>
+    <item>At deadline</item>
+    <item>When overdue</item>
+    <item>At deadline or overdue</item>
   </string-array>
-  
-    <string-array name="EPr_default_addtocalendar">
-      <!-- addtocalendar: labels for "Task Defaults" preference item. -->
-      <item>@string/EPr_deactivated</item>
-  </string-array>      
-
-
-<!-- See the file "LICENSE" for the full license governing this code. -->
-
-    
-    <!-- Resources for built-in filter plug-in -->
-    
-    <!-- ================================================= Filter Exposer == -->
-    
-    <!-- Active Tasks Filter -->
-    <string name="BFE_Active">進行中のタスク</string>
-        
-    <!-- Search Filter -->
-    <string name="BFE_Search">検索…</string>
-    
-    <!-- Recently Modified -->
-    <string name="BFE_Recent">最近編集したタスク</string>
-    
-    <!-- I've assigned -->
-    <string name="BFE_Assigned">I\'ve Assigned</string>
-    
-    <!-- Build Your Own Filter -->
-    <string name="BFE_Custom">カスタムフィルタ</string>
-    
-    <!-- Saved Filters Header -->
-    <string name="BFE_Saved">Filters</string>
-    
-    <!-- Saved Filters Context Menu: delete -->
-    <string name="BFE_Saved_delete">フィルタの削除</string>
-
-    <!-- =========================================== CustomFilterActivity == -->
-    
-    <!-- Build Your Own Filter Activity Title-->
-    <string name="CFA_title">カスタムフィルタ</string>
-    
-    <!-- Filter Name edit box hint (if user types here, filter will be saved) -->
-    <string name="CFA_filterName_hint">フィルタの名称</string>
-    
-    <!-- Filter Name default for copied filters (%s => old filter name) -->
-    <string name="CFA_filterName_copy">%s のコピー</string>
-    
-    <!-- Filter Starting Universe: all tasks -->
-    <string name="CFA_universe_all">進行中のタスク</string>
-    
-    <!-- Filter Criteria Type: add (at the begging of title of the criteria) -->
-    <string name="CFA_type_add">または</string>
-    
-    <!-- Filter Criteria Type: subtract (at the begging of title of the criteria) -->
-    <string name="CFA_type_subtract">除外</string>
-    
-    <!-- Filter Criteria Type: intersect (at the begging of title of the criteria) -->
-    <string name="CFA_type_intersect">かつ</string>
-    
-    <!-- Filter Criteria Context Menu: chaining (%s chain type as above) -->
-    <string name="CFA_context_chain">%s</string>
-    
-    <!-- Filter Criteria Context Menu: delete -->
-    <string name="CFA_context_delete">条件の削除</string>
-    
-    <!-- Filter Screen Help Text -->
-    <string name="CFA_help">新しいフィルタを作るには、左下のボタンで条件を追加し、項目のタップまたは長押しで条件を設定してください。右下のボタンで結果を表示します。</string>
-    
-    <!-- Filter Button: add new -->
-    <string name="CFA_button_add">条件の追加</string>
-    
-    <!-- Filter Button: view without saving -->
-    <string name="CFA_button_view">表示</string>
-    
-    <!-- Filter Button: save & view filter -->
-    <string name="CFA_button_save">保存と表示</string>
-
-    <!-- =========================================== CustomFilterCriteria == -->
-        
-    <!-- Criteria: due by X - display text (? -> user input) -->
-    <string name="CFC_dueBefore_text">期限: ?</string>
-    <!-- Criteria: due by X - name of criteria -->
-    <string name="CFC_dueBefore_name">期限</string>
-    <string-array name="CFC_dueBefore_entries">
-        <!-- Criteria: due by X - options -->
-        <item>期限なし</item>
-        <item>昨日</item>
-        <item>今日</item>
-        <item>明日</item>
-        <item>明後日</item>
-        <item>来週</item>
-        <item>来月</item>
-    </string-array>
-    
-    <!-- Criteria: importance - display text (? -> user input)-->
-    <string name="CFC_importance_text">重要度 ? 以上</string>
-    <!-- Criteria: importance - name of criteria -->
-    <string name="CFC_importance_name">重要度</string>        
-    
-    <!-- Criteria: tag - display text (? -> user input) -->
-    <string name="CFC_tag_text">タグ: ?</string>
-    <!-- Criteria: tag - name of criteria -->
-    <string name="CFC_tag_name">タグ</string>
-    
-    <!-- Criteria: tag_contains - name of criteria -->
-    <string name="CFC_tag_contains_name">タグ中の語句</string>
-    <!-- Criteria: tag_contains - text (? -> user input) -->
-    <string name="CFC_tag_contains_text">タグに ? を含む ?</string>
-    
-    <!-- Criteria: title_contains - name of criteria -->
-    <string name="CFC_title_contains_name">タイトル中の語句</string>
-    <!-- Criteria: title_contains - text (? -> user input) -->
-    <string name="CFC_title_contains_text">タイトルに ? を含む</string>
-    
-
-
-<!-- See the file "LICENSE" for the full license governing this code. -->
-
-
-    <!-- Resources for built-in tag plug-in -->
-
-  <!-- =============================================== Task Edit Controls == -->
-  
-  <!-- Error message for adding to calendar  -->
+  <string name="BFE_Active">進行中のタスク</string>
+  <string name="BFE_Search">検索…</string>
+  <string name="BFE_Recent">最近編集したタスク</string>
+  <string name="BFE_Assigned">I\'ve Assigned</string>
+  <string name="BFE_Custom">カスタムフィルタ</string>
+  <string name="BFE_Saved">Filters</string>
+  <string name="BFE_Saved_delete">フィルタの削除</string>
+  <string name="CFA_title">カスタムフィルタ</string>
+  <string name="CFA_filterName_hint">フィルタの名称</string>
+  <string name="CFA_filterName_copy">%s のコピー</string>
+  <string name="CFA_universe_all">進行中のタスク</string>
+  <string name="CFA_type_add">または</string>
+  <string name="CFA_type_subtract">除外</string>
+  <string name="CFA_type_intersect">かつ</string>
+  <string name="CFA_context_chain">%s</string>
+  <string name="CFA_context_delete">条件の削除</string>
+  <string name="CFA_help">新しいフィルタを作るには、左下のボタンで条件を追加し、項目のタップまたは長押しで条件を設定してください。右下のボタンで結果を表示します。</string>
+  <string name="CFA_button_add">条件の追加</string>
+  <string name="CFA_button_view">表示</string>
+  <string name="CFA_button_save">保存と表示</string>
+  <string name="CFC_dueBefore_text">期限: ?</string>
+  <string name="CFC_dueBefore_name">期限</string>
+  <string-array name="CFC_dueBefore_entries">
+    <item>期限なし</item>
+    <item>昨日</item>
+    <item>今日</item>
+    <item>明日</item>
+    <item>明後日</item>
+    <item>来週</item>
+    <item>来月</item>
+  </string-array>
+  <string name="CFC_importance_text">重要度 ? 以上</string>
+  <string name="CFC_importance_name">重要度</string>
+  <string name="CFC_tag_text">タグ: ?</string>
+  <string name="CFC_tag_name">タグ</string>
+  <string name="CFC_tag_contains_name">タグ中の語句</string>
+  <string name="CFC_tag_contains_text">タグに ? を含む ?</string>
+  <string name="CFC_title_contains_name">タイトル中の語句</string>
+  <string name="CFC_title_contains_text">タイトルに ? を含む</string>
   <string name="gcal_TEA_error">カレンダーへの登録に失敗しました</string>
-
-  <!-- Label for adding task to calendar -->
   <string name="gcal_TEA_calendar_label">カレンダーと連携</string>
-
-  <!-- Label for adding task to calendar -->
   <string name="gcal_TEA_addToCalendar_label">カレンダーに登録</string>
-  
-  <!-- Label when calendar event already exists -->
   <string name="gcal_TEA_showCalendar_label">カレンダーのイベントを開く</string>
-  
-  <!-- Toast when unable to open calendar event -->
   <string name="gcal_TEA_calendar_error">カレンダーを開けませんでした</string>
-  
-  <!-- Toast when calendar event updated because task changed -->
   <string name="gcal_TEA_calendar_updated">カレンダーの項目も更新しました</string>
-  
-  <!-- No calendar label (don't add option) -->
   <string name="gcal_TEA_nocal">Don\'t add</string>
-  
   <string name="gcal_TEA_none_selected">Add to cal...</string>
-  
   <string name="gcal_TEA_has_event">Cal event</string>
-  
-  <!-- ======================================================== Calendars == -->
-  
-  <!-- Calendar event name when task is completed (%s => task title) -->
   <string name="gcal_completed_title">%s（完了）</string>
-
-  <!-- System Default Calendar (displayed if we can't figure out calendars)  -->
   <string name="gcal_GCP_default">Default Calendar</string>
-
-
-
-
-<!-- See the file "LICENSE" for the full license governing this code. -->
-
-
-    <!-- ============================================================= UI == -->
-
-    <!-- filters header: GTasks -->
-    <string name="gtasks_FEx_header">Google Tasks</string>
-    
-    <!-- filter category for GTasks lists -->
-    <string name="gtasks_FEx_list">リスト別</string>
-    
-    <!-- filter title for GTasks lists (%s => list name) -->
-    <string name="gtasks_FEx_title">Google Tasks: %s</string>
-    
-    <!-- dialog prompt for creating a new gtasks list -->
-    <string name="gtasks_FEx_creating_list">Creating list...</string>
-    
-    <!-- dialog prompt for creating a new gtasks list -->
-    <string name="gtasks_FEx_create_list_dialog">New List Name:</string>
-    
-    <!-- error to show when list creation fails -->
-    <string name="gtasks_FEx_create_list_error">Error creating new list</string>
-    
-    <!-- short help title for Gtasks -->
-    <string name="gtasks_help_title">Welcome to Google Tasks!</string>
-    
-    <!-- short help for GTasks list activity -->
-
-
-    <string name="CFC_gtasks_list_text">In List: ?</string>
-
-    <string name="CFC_gtasks_list_name">In GTasks List...</string>
-    
-    <!-- Message while clearing completed tasks -->
-    <string name="gtasks_GTA_clearing">Clearing completed tasks...</string>
-    
-    <!-- Label for clear completed menu item -->
-    <string name="gtasks_GTA_clear_completed">Clear Completed</string>
-        
-    <!-- ============================================ GtasksLoginActivity == -->
-    
-    <!-- Activity Title: Gtasks Login -->    
-    <string name="gtasks_GLA_title">Google Tasks のログイン</string>
-
-    <!-- Instructions: Gtasks login -->    
-    <string name="gtasks_GLA_body">Please log in to Google Tasks Sync (Beta!). Non-migrated Google Apps
-    accounts are currently unsupported.</string>
-    
-    <string name="gtasks_GLA_noaccounts">No available Google accounts to sync with.</string>
-
-    <!-- Instructions: Gtasks further help -->    
-    <string name="gtasks_GLA_further_help">To view your tasks with indentation
-    and order preserved, go to the Filters page and select a Google Tasks list.
-    By default, Astrid uses its own sort settings for tasks.</string>
-
-    <!-- Sign In Button -->    
-    <string name="gtasks_GLA_signIn">サインイン</string>
-
-    <!-- E-mail Address Label -->    
-    <string name="gtasks_GLA_email">メールアドレス</string>
-
-    <!-- Password Label -->    
-    <string name="gtasks_GLA_password">パスワード</string>
-    
-    <!--  Authenticating toast -->
-    <string name="gtasks_GLA_authenticating">Authenticating...</string>
-    
-    <!-- Google Apps for Domain checkbox -->
-    <string name="gtasks_GLA_domain">Google Apps for Domain のアカウント</string>
-
-    <!-- Error Message when fields aren't filled out -->    
-    <string name="gtasks_GLA_errorEmpty">エラー: すべての入力欄を入力してください</string>
-
-    <!-- Error Message when we receive a HTTP 401 Unauthorized -->    
-    <string name="gtasks_GLA_errorAuth">Error authenticating! Please check your username and password in your phone\'s account manager</string>
-
-    <!-- Error Message when we receive an IO Exception -->    
-    <string name="gtasks_GLA_errorIOAuth">Sorry, we had trouble communicating with Google servers. Please try again later.</string>
-    
-    <!-- Error Message when we receive a HTTP 401 Unauthorized multiple times -->    
-    <string name="gtasks_GLA_errorAuth_captcha">You may have encountered a captcha. 
-    Try logging in from the browser, then come back to try again:</string>
-    
-    <!-- ============================================== GtasksPreferences == -->
-
-    <!-- GTasks Preferences Title -->    
-    <string name="gtasks_GPr_header">Google Tasks (ベータ版!)</string>
-    
-    <!-- ================================================ Synchronization == -->    
-    
-    <!-- title for notification tray when synchronizing -->
-    <string name="gtasks_notification_title">Astrid: Google Tasks</string>
-
-    <!-- Error Message when we receive a HTTP 503 error -->
-    <string name="gtasks_error_backend">Google\'s Task API is in beta and has encountered an error. The service may be down, please try again later.</string>
-    
-    <!-- Error for account not found -->
-    <string name="gtasks_error_accountNotFound">Account %s not found--please log out and log back in from the Google Tasks settings.</string>
-    
-    <!-- Error when ping after refreshing token fails -->
-    <string name="gtasks_error_authRefresh">Unable to authenticate with Google Tasks. Please check your account password or try again later.</string>
-    
-    <!-- Error when account manager returns no auth token or throws exception -->
-    <string name="gtasks_error_accountManager">Error in your phone\'s account manager. Please log out and log back in from the Google Tasks settings.</string>
-
-    
-        
-
-
-
-<!-- See the file "LICENSE" for the full license governing this code. -->
-
-
-    <!-- Resources initial tasks added -->
-  
-   <!-- Intro Tag or click prompt -->
+  <string name="gtasks_FEx_header">Google Tasks</string>
+  <string name="gtasks_FEx_list">リスト別</string>
+  <string name="gtasks_FEx_title">Google Tasks: %s</string>
+  <string name="gtasks_FEx_creating_list">Creating list...</string>
+  <string name="gtasks_FEx_create_list_dialog">New List Name:</string>
+  <string name="gtasks_FEx_create_list_error">Error creating new list</string>
+  <string name="gtasks_help_title">Welcome to Google Tasks!</string>
+  <string name="CFC_gtasks_list_text">In List: ?</string>
+  <string name="CFC_gtasks_list_name">In GTasks List...</string>
+  <string name="gtasks_GTA_clearing">Clearing completed tasks...</string>
+  <string name="gtasks_GTA_clear_completed">Clear Completed</string>
+  <string name="gtasks_GLA_title">Google Tasks のログイン</string>
+  <string name="gtasks_GLA_body">Please log in to Google Tasks Sync (Beta!). Non-migrated Google Apps accounts are currently unsupported.</string>
+  <string name="gtasks_GLA_noaccounts">No available Google accounts to sync with.</string>
+  <string name="gtasks_GLA_further_help">To view your tasks with indentation and order preserved, go to the Filters page and select a Google Tasks list. By default, Astrid uses its own sort settings for tasks.</string>
+  <string name="gtasks_GLA_signIn">サインイン</string>
+  <string name="gtasks_GLA_email">メールアドレス</string>
+  <string name="gtasks_GLA_password">パスワード</string>
+  <string name="gtasks_GLA_authenticating">Authenticating...</string>
+  <string name="gtasks_GLA_domain">Google Apps for Domain のアカウント</string>
+  <string name="gtasks_GLA_errorEmpty">エラー: すべての入力欄を入力してください</string>
+  <string name="gtasks_GLA_errorAuth">Error authenticating! Please check your username and password in your phone\'s account manager</string>
+  <string name="gtasks_GLA_errorIOAuth">Sorry, we had trouble communicating with Google servers. Please try again later.</string>
+  <string name="gtasks_GLA_errorAuth_captcha">You may have encountered a captcha. Try logging in from the browser, then come back to try again:</string>
+  <string name="gtasks_GPr_header">Google Tasks (ベータ版!)</string>
+  <string name="gtasks_notification_title">Astrid: Google Tasks</string>
+  <string name="gtasks_error_backend">Google\'s Task API is in beta and has encountered an error. The service may be down, please try again later.</string>
+  <string name="gtasks_error_accountNotFound">Account %s not found--please log out and log back in from the Google Tasks settings.</string>
+  <string name="gtasks_error_authRefresh">Unable to authenticate with Google Tasks. Please check your account password or try again later.</string>
+  <string name="gtasks_error_accountManager">Error in your phone\'s account manager. Please log out and log back in from the Google Tasks settings.</string>
   <string name="intro_click_prompt">Intro: Press me to see notes</string>
-  
-  <!-- Task 1 Summary  -->
   <string name="intro_task_1_summary">Create your first task</string>
-
-  <!-- Task 1 Note -->
   <string name="intro_task_1_note">タスクを登録する2つの方法\n 1) 素早い登録: 入力欄にタスク名を入力し、入力欄の左に表示される + ボタンを押します。\n\n2) 標準の登録: 入力欄の右側にあるボタンを押します。期限やタグ、メモやより高度な設定を行えます。保存ボタンか電話機のバックボタンで保存します。\n\n</string>
-  
-  <!-- Task 2 Summary  -->
   <string name="intro_task_2_summary">ホーム画面にウィジェットを追加する</string>
-
-  <!-- Task 2 Note -->
-  <string name="intro_task_2_note">
-  1) Long Press on your phone\'s desktop\n
-       2) Choose \"Widget\"\n
-       3) Choose the Astrid widget\n
-       4) Select the list you want and press OK.\n
-  </string>
-  
-    <!-- Task 3 Summary  -->
+  <string name="intro_task_2_note">1) Long Press on your phone\'s desktop\n      2) Choose \"Widget\"\n      3) Choose the Astrid widget\n      4) Select the list you want and press OK.\n</string>
   <string name="intro_task_3_summary">Setup sync with Astrid.com</string>
-
-  <!-- Task 3 Note -->
-  <string name="intro_task_3_note">
-    1) Press your Menu button\n
-         2) Choose \"Sync Now\"\n
-         3) Select \"Astrid.com\"\n
-         4) Log In &amp; Synchronize!\n
-  </string>
- 
-  <!-- NEW USER EXPERIENCE -->
-  
-  <!-- help bubbles -->
-  <!-- Shown the first time a user sees the task list activity -->
+  <string name="intro_task_3_note">1) Press your Menu button\n      2) Choose \"Sync Now\"\n      3) Select \"Astrid.com\"\n      4) Log In &amp; Synchronize!\n</string>
   <string name="help_popover_add_task">Start by adding a task or two</string>
-
-  <!-- Shown the first time a user adds a task to a list -->  
   <string name="help_popover_tap_task">Tap task to edit and share</string>
-  
-  <!-- Shown the first time a user sees the list activity -->
   <string name="help_popover_list_settings">Tap to edit or share this list</string>
-  
-  <!-- Shown the first time a user sees the list settings tab -->
   <string name="help_popover_collaborators">People you share with can help you build your list or finish tasks</string>
-  
-  <!-- Shown after user adds a task on tablet-->
   <string name="help_popover_add_lists">Tap add a list</string>
-  
-  <!-- Shown after a user adds a task on phones -->
   <string name="help_popover_switch_lists">Tap to add a list or switch between lists</string>
-  
   <string name="help_popover_when_shortcut">Tap this shortcut to quick select date and time</string>
-  
   <string name="help_popover_when_row">Tap anywhere on this row to access options like repeat</string>
-      
-  <!-- Login activity -->
   <string name="welcome_login_title">Welcome to Astrid!</string>
-  
-  <string name="welcome_login_intro"/>
-  
   <string name="welcome_login_tos_base">By using Astrid you agree to the</string>
-  
   <string name="welcome_login_tos_link">\"Terms of Service\"</string>
-  
   <string name="welcome_login_pw">Login with Username/Password</string>
-  
   <string name="welcome_login_later">Connect Later</string>
-  
   <string name="welcome_login_confirm_later_title">Why not sign in?</string>
-  
   <string name="welcome_login_confirm_later_ok">I\'ll do it!</string>
-  
   <string name="welcome_login_confirm_later_cancel">No thanks</string>
-  
-  <string name="welcome_login_confirm_later_dialog">Sign in to get the most out of Astrid! 
-  For free, you get online backup, full synchronization with Astrid.com, the 
-  ability to add tasks via email, and you can even share task lists with friends!</string>
-  
-
-
-<!-- See the file "LICENSE" for the full license governing this code. -->
-
-
-  <!-- Resources for built-in locale plug-in -->
-
-  <!-- Locale Alert Editing Window Title -->
+  <string name="welcome_login_confirm_later_dialog">Sign in to get the most out of Astrid! For free, you get online backup, full synchronization with Astrid.com, the ability to add tasks via email, and you can even share task lists with friends!</string>
+  <string name="help_popover_taskrabbit_type">Change the type of task</string>
   <string name="locale_edit_alerts_title">Astrid Filter Alert</string>
-  
-  <!-- Locale Window Help -->                                                                                                                                            
-  <string name="locale_edit_intro">Astrid will send you a reminder                                                                                                                                             
-      when you have any tasks in the following filter:</string>
-      
-  <!-- Locale Window Filter Picker UI -->                                                                                                                                        
-  <string name="locale_pick_filter">フィルタ:</string>        
-      
-  <!-- Locale Window Interval Label -->                                                                                                                                        
-  <string name="locale_interval_label">Limit notifications to:</string>        
-      
-  <!-- Locale Window Interval Values -->                                                                                                                                        
+  <string name="locale_edit_intro">Astrid will send you a reminder when you have any tasks in the following filter:</string>
+  <string name="locale_pick_filter">フィルタ:</string>
+  <string name="locale_interval_label">Limit notifications to:</string>
   <string-array name="locale_interval">
     <item>1時間に一度</item>
     <item>6時間に一度</item>
@@ -1393,465 +521,160 @@ you get stuff done. It features reminders, tags, sync, Locale plug-in, a widget 
     <item>1日に一度</item>
     <item>3日に一度</item>
     <item>1週間に一度</item>
-  </string-array>        
-      
-  <!-- Locale Notification text -->                                                                                                                                        
-  <string name="locale_notification">$FILTER の検索結果: $NUM 件</string>     
-      
-  <!-- Locale Plugin was not found, it is required -->
-  <string name="locale_plugin_required">Astrid Locale plugin をインストールしてください</string>        
-     
-
-
-<!-- See the file "LICENSE" for the full license governing this code. -->
-
-
-    <!-- ====================== Plugin Boilerplate ========================= -->
-
-	<!-- filters header: OpenCRX -->
-    <string name="opencrx_FEx_header">OpenCRX</string>
-    
-    <!-- filter category for OpenCRX ActivityCreators -->
-    <string name="opencrx_FEx_dashboard">Workspaces</string>
-    
-    <!-- filter category for OpenCRX responsible person -->
-    <string name="opencrx_FEx_responsible">Assigned To</string>
-    
-    <!--  OpenCRX assignedTo filter title (%s => assigned contact) -->
-    <string name="opencrx_FEx_responsible_title">Assigned To \'%s\'</string>
-    
-    <!-- detail for showing tasks created by someone else (%s => person name) -->
-    <string name="opencrx_PDE_task_from">from %s</string>
-    
-    <!-- replacement string for task edit "Notes" when using OpenCRX -->
-    <string name="opencrx_TEA_notes">Add a Comment</string>
-    
-    <string name="opencrx_creator_input_hint">Creator</string>
-
-    <string name="opencrx_contact_input_hint">Assigned to</string>
-    <!-- ==================================================== Preferences == -->
-
-    <!-- Preferences Title: OpenCRX -->    
-    <string name="opencrx_PPr_header">OpenCRX</string>
-
-    <!-- creator title for tasks that are not synchronized -->
-    <string name="opencrx_no_creator">(Do Not Synchronize)</string>
-
-	<!-- preference title for default creator -->
-    <string name="opencrx_PPr_defaultcreator_title">Default ActivityCreator</string>
-
-    <!-- preference description for default creator (%s -> setting) -->
-    <string name="opencrx_PPr_defaultcreator_summary">New activities will be created by: %s</string>
-
-    <!-- preference description for default dashboard (when set to 'not synchronized') -->
-    <string name="opencrx_PPr_defaultcreator_summary_none">New activities will not be synchronized by default</string>
-    
-    <!--  OpenCRX host and segment group name -->
-    <string name="opencrx_group">OpenCRX server</string>
-
-    <!--  preference description for OpenCRX host -->
-    <string name="opencrx_host_title">Host</string>
-
-    <!--  dialog title for OpenCRX host -->
-    <string name="opencrx_host_dialog_title">OpenCRX host</string>
-    
-    <!--  example for OpenCRX host -->
-    <string name="opencrx_host_summary">For example: <i>mydomain.com</i></string>
-    
-    <!--  preference description for OpenCRX segment -->
-    <string name="opencrx_segment_title">Segment</string>
-
-    <!--  dialog title for OpenCRX segment -->
-    <string name="opencrx_segment_dialog_title">Synchronized segment</string>
-    
-    <!--  example for OpenCRX segment -->
-    <string name="opencrx_segment_summary">For example: <i>Standard</i></string>
-    
-    <!--  default value for OpenCRX segment -->
-    <string name="opencrx_segment_default">Standard</string>
-    
-    <!--  preference description for OpenCRX provider -->
-    <string name="opencrx_provider_title">Provider</string>
-
-    <!--  dialog title for OpenCRX provider -->
-    <string name="opencrx_provider_dialog_title">OpenCRX data provider</string>
-    
-    <!--  example for OpenCRX provider -->
-    <string name="opencrx_provider_summary">For example: <i>CRX</i></string>
-    
-    <!--  default value for OpenCRX provider -->
-    <string name="opencrx_provider_default">CRX</string>
-    <!-- ================================================= Login Activity == -->
-
-    <!-- Activity Title: Opencrx Login -->    
-    <string name="opencrx_PLA_title">Log In to OpenCRX</string>
-
-    <!-- Instructions: Opencrx login -->    
-    <string name="opencrx_PLA_body">Sign in with your OpenCRX account</string>
-
-    <!-- Sign In Button -->    
-    <string name="opencrx_PLA_signIn">サインイン</string>
-
-    <!-- Login Label -->    
-    <string name="opencrx_PLA_login">Login</string>
-
-    <!-- Password Label -->    
-    <string name="opencrx_PLA_password">パスワード</string>
-    
-        <!-- Error Message when fields aren't filled out -->    
-    <string name="opencrx_PLA_errorEmpty">Error: fillout all fields</string>
-    
-    <!-- Error Message when we receive a HTTP 401 Unauthorized -->    
-    <string name="opencrx_PLA_errorAuth">Error: login or password incorrect!</string>
-
-    <!-- ================================================ Synchronization == -->
-        
-    <!-- title for notification tray after synchronizing -->
-    <string name="opencrx_notification_title">OpenCRX</string>
-    
-    <!-- text for notification tray when synchronizing -->
-    <string name="opencrx_notification_text">%s tasks updated / click for more details</string>
-    
-    <!-- Error msg when io exception  -->
-    <string name="opencrx_ioerror">Connection Error! Check your Internet connection.</string>
-
-    <!-- opencrx Login not specified-->
-    <string name="opencrx_MLA_email_empty">Login was not specified!</string>
-    
-    <!-- opencrx password not specified-->
-    <string name="opencrx_MLA_password_empty">Password was not specified!</string>
-    
-    <!-- ================================================ labels for layout-elements == -->
-    
-    <!-- label for task-assignment spinner on taskeditactivity -->
-    <string name="opencrx_TEA_task_assign_label">Assign this task to this person:</string>
-    
-    <!-- Spinner-item for unassigned tasks on taskeditactivity -->
-    <string name="opencrx_TEA_task_unassigned">&lt;Unassigned&gt;</string>
-    
-    <!-- label for dashboard-assignment spinner on taskeditactivity -->
-    <string name="opencrx_TEA_creator_assign_label">Assign this task to this creator:</string>
-
-    <!-- Spinner-item for default dashboard on taskeditactivity -->
-    <string name="opencrx_TEA_dashboard_default">&lt;Default&gt;</string>
-
-    <string name="opencrx_TEA_opencrx_title">OpenCRX Controls</string>
-        
-    <string name="CFC_opencrx_in_workspace_text">In workspace: ?</string>
-
-    <string name="CFC_opencrx_in_workspace_name">In workspace...</string>
-
-    <string name="CFC_opencrx_assigned_to_text">Assigned to: ?</string>
-
-    <string name="CFC_opencrx_assigned_to_name">Assigned to...</string>
-
-
-
-<!-- See the file "LICENSE" for the full license governing this code. -->
-
-
-  <!-- ================================================== EditPreferences == -->
-    
-  <!-- Preference Category: Power Pack -->
-  <string name="EPr_powerpack_header">Astrid Power Pack</string>
-  
-  <!-- Preference: Anonymous User Statistics -->
-  <string name="EPr_statistics_title">匿名の使用統計データ</string>
-  <!-- Preference: User Statistics (disabled) -->
-  <string name="EPr_statistics_desc_disabled">使用統計情報は送信されません</string>  
-  <!-- Preference: User Statistics (enabled) -->
-  <string name="EPr_statistics_desc_enabled">送られた使用統計情報は Astrid の改善に使用されます</string>
-      
-
-
-<!-- See the file "LICENSE" for the full license governing this code. -->
-
-
-    <!-- ====================== Plugin Boilerplate ========================= -->
-
-	<!-- filters header: Producteev -->
-    <string name="producteev_FEx_header">Producteev</string>
-    
-    <!-- filter category for Producteev dashboards -->
-    <string name="producteev_FEx_dashboard">Workspaces</string>
-    
-    <!-- filter category for Producteev responsible person -->
-    <string name="producteev_FEx_responsible_byme">Assigned by me to</string>
-    
-    <!-- filter category for Producteev responsible person -->
-    <string name="producteev_FEx_responsible_byothers">Assigned by others to</string>
-    
-    <!--  Producteev responsible filter title (%s => responsiblename) -->
-    <string name="producteev_FEx_responsible_title">Assigned To \'%s\'</string>
-    
-    <!-- detail for showing tasks created by someone else (%s => person name) -->
-    <string name="producteev_PDE_task_from">from %s</string>
-    
-    <!-- replacement string for task edit "Notes" when using Producteev -->
-    <string name="producteev_TEA_notes">Add a Comment</string>
-
-    <!-- ==================================================== Preferences == -->
-
-    <!-- Preferences Title: Producteev -->    
-    <string name="producteev_PPr_header">Producteev</string>
-
-    <!-- dashboard title for producteev default dashboard  -->
-    <string name="producteev_default_dashboard">Default Workspace</string>
-
-    <!-- dashboard title for tasks that are not synchronized -->
-    <string name="producteev_no_dashboard">(Do Not Synchronize)</string>
-
-    <!-- dashboard spinner entry on TEA for adding a new dashboard -->
-    <string name="producteev_create_dashboard">Add new Workspace...</string>
-
-    <!-- dashboard spinner entry on TEA for adding a new dashboard -->
-    <string name="producteev_create_dashboard_name">Name for new Workspace</string>
-
-	<!-- preference title for default dashboard -->
-    <string name="producteev_PPr_defaultdash_title">Default Workspace</string>
-
-    <!-- preference description for default dashboard (%s -> setting) -->
-    <string name="producteev_PPr_defaultdash_summary">New tasks will be added to: %s</string>
-
-    <!-- preference description for default dashboard (when set to 'not synchronized') -->
-    <string name="producteev_PPr_defaultdash_summary_none">New tasks will not be synchronized by default</string>
-
-    <!-- ================================================= Login Activity == -->
-
-    <!-- Activity Title: Producteev Login -->    
-    <string name="producteev_PLA_title">Producteev にログイン</string>
-
-    <!-- Instructions: Producteev login -->    
-    <string name="producteev_PLA_body">既存の Producteev アカウントにサインインするか、アカウントを作成してください</string>
-
-    <!-- Producteev Terms Link -->    
-    <string name="producteev_PLA_terms">Terms &amp; Conditions</string>
-
-    <!-- Sign In Button -->    
-    <string name="producteev_PLA_signIn">サインイン</string>
-
-    <!-- Create New User Button -->    
-    <string name="producteev_PLA_createNew">Create New User</string>
-
-    <!-- E-mail Address Label -->    
-    <string name="producteev_PLA_email">メールアドレス</string>
-
-    <!-- Password Label -->    
-    <string name="producteev_PLA_password">パスワード</string>
-    
-    <!-- Timezone Spinner -->
-    <string name="producteev_PLA_timezone">タイムゾーン</string>
-
-    <!-- Confirm Password Label -->    
-    <string name="producteev_PLA_confirmPassword">Confirm Password</string>
-
-    <!-- First Name Label -->    
-    <string name="producteev_PLA_firstName">First Name</string>
-
-    <!-- Last Name Label -->    
-    <string name="producteev_PLA_lastName">Last Name</string>
-
-    <!-- Error Message when fields aren't filled out -->    
-    <string name="producteev_PLA_errorEmpty">エラー: すべての入力欄を入力してください</string>
-
-    <!-- Error Message when passwords don't match -->    
-    <string name="producteev_PLA_errorMatch">Error: passwords don\'t match!</string>
-
-    <!-- Error Message when we receive a HTTP 401 Unauthorized -->    
-    <string name="producteev_PLA_errorAuth">エラー: メールアドレスかパスワードが正しくありません</string>
-
-    <!-- ================================================ Synchronization == -->
-        
-    <!-- title for notification tray after synchronizing -->
-    <string name="producteev_notification_title">Producteev</string>
-    
-    <!-- text for notification tray when synchronizing -->
-    <string name="producteev_notification_text">%s tasks updated / click for more details</string>
-    
-    <!-- Error msg when io exception  -->
-    <string name="producteev_ioerror">Connection Error! Check your Internet connection.</string>
-
-    <!-- Prod Login email not specified-->
-    <string name="producteev_MLA_email_empty">E-Mail was not specified!</string>
-    
-    <!-- Prod Login password not specified-->
-    <string name="producteev_MLA_password_empty">Password was not specified!</string>
-    
-    <!-- ================================================ labels for layout-elements == -->
-    
-    <!-- Label for Producteev control set row -->
-    <string name="producteev_TEA_control_set_display">Producteev Assignment</string>
-    
-    <!-- label for task-assignment spinner on taskeditactivity -->
-    <string name="producteev_TEA_task_assign_label">Assign this task to this person:</string>
-    
-    <!-- Spinner-item for unassigned tasks on taskeditactivity -->
-    <string name="producteev_TEA_task_unassigned">&lt;Unassigned&gt;</string>
-    
-    <!-- label for dashboard-assignment spinner on taskeditactivity -->
-    <string name="producteev_TEA_dashboard_assign_label">Assign this task to this workspace:</string>
-
-    <!-- Spinner-item for default dashboard on taskeditactivity -->
-    <string name="producteev_TEA_dashboard_default">&lt;Default&gt;</string>
-
-    <string name="CFC_producteev_in_workspace_text">In workspace: ?</string>
-
-    <string name="CFC_producteev_in_workspace_name">In workspace...</string>
-
-    <string name="CFC_producteev_assigned_to_text">Assigned to: ?</string>
-
-    <string name="CFC_producteev_assigned_to_name">Assigned to...</string>
-
-
-
-<!-- See the file "LICENSE" for the full license governing this code. -->
-
-
-  <!-- Resources for built-in reminders plug-in -->
-    
-  <!-- =============================================== task edit activity == -->
-
-  <!-- Task Edit: Reminder group label -->  
-  <string name="TEA_reminders_group_label">Reminders</string>
-
-  <!-- Task Edit: Reminder header label -->  
-  <string name="TEA_reminder_label">通知するのは...</string>
-
-  <!-- Task Edit: Reminder @ deadline -->  
-  <string name="TEA_reminder_due">期限になったとき</string>
-
-  <!-- Task Edit: Reminder after deadline -->  
-  <string name="TEA_reminder_overdue">期限を過ぎたとき</string>
-
-  <!-- Task Edit: Reminder at random times (%s => time plural)-->
-  <string name="TEA_reminder_random">ランダムに</string>
-
-  <!-- Task Edit: Reminder alarm clock label -->  
-  <string name="TEA_reminder_alarm_label">通知音、振動</string>
-
-  <!-- Task Edit: Reminder mode: ring once -->  
-  <string name="TEA_reminder_mode_once">一度だけ鳴らす</string>
-
-  <!-- Task Edit: Reminder mode: ring five times -->  
-  <string name="TEA_reminder_mode_five">Ring Five Times</string>
-
-  <!-- Task Edit: Reminder mode: ring nonstop -->  
-  <string name="TEA_reminder_mode_nonstop">解除するまで鳴らす</string>
-
-  <string-array name="TEA_reminder_random">
-    <!-- random reminder choices for task edit page. -->
-    <item>一時間ごと</item>
-    <item>毎日</item>
-    <item>毎週</item>
-    <item>一週おきに</item>
-    <item>毎月</item>
-    <item>一ヶ月おきに</item>
   </string-array>
-  
-  <!-- ==================================================== notifications == -->
-  
-  <!-- Name of filter when viewing a reminder -->
+  <string name="locale_notification">$FILTER の検索結果: $NUM 件</string>
+  <string name="locale_plugin_required">Astrid Locale plugin をインストールしてください</string>
+  <string name="opencrx_FEx_header">OpenCRX</string>
+  <string name="opencrx_FEx_dashboard">Workspaces</string>
+  <string name="opencrx_FEx_responsible">Assigned To</string>
+  <string name="opencrx_FEx_responsible_title">Assigned To \'%s\'</string>
+  <string name="opencrx_PDE_task_from">from %s</string>
+  <string name="opencrx_TEA_notes">Add a Comment</string>
+  <string name="opencrx_creator_input_hint">Creator</string>
+  <string name="opencrx_contact_input_hint">Assigned to</string>
+  <string name="opencrx_PPr_header">OpenCRX</string>
+  <string name="opencrx_no_creator">(Do Not Synchronize)</string>
+  <string name="opencrx_PPr_defaultcreator_title">Default ActivityCreator</string>
+  <string name="opencrx_PPr_defaultcreator_summary">New activities will be created by: %s</string>
+  <string name="opencrx_PPr_defaultcreator_summary_none">New activities will not be synchronized by default</string>
+  <string name="opencrx_group">OpenCRX server</string>
+  <string name="opencrx_host_title">Host</string>
+  <string name="opencrx_host_dialog_title">OpenCRX host</string>
+  <string name="opencrx_host_summary">"For example: "<i>mydomain.com</i></string>
+  <string name="opencrx_segment_title">Segment</string>
+  <string name="opencrx_segment_dialog_title">Synchronized segment</string>
+  <string name="opencrx_segment_summary">"For example: "<i>Standard</i></string>
+  <string name="opencrx_segment_default">Standard</string>
+  <string name="opencrx_provider_title">Provider</string>
+  <string name="opencrx_provider_dialog_title">OpenCRX data provider</string>
+  <string name="opencrx_provider_summary">"For example: "<i>CRX</i></string>
+  <string name="opencrx_provider_default">CRX</string>
+  <string name="opencrx_PLA_title">Log In to OpenCRX</string>
+  <string name="opencrx_PLA_body">Sign in with your OpenCRX account</string>
+  <string name="opencrx_PLA_signIn">サインイン</string>
+  <string name="opencrx_PLA_login">Login</string>
+  <string name="opencrx_PLA_password">パスワード</string>
+  <string name="opencrx_PLA_errorEmpty">Error: fillout all fields</string>
+  <string name="opencrx_PLA_errorAuth">Error: login or password incorrect!</string>
+  <string name="opencrx_notification_title">OpenCRX</string>
+  <string name="opencrx_notification_text">%s tasks updated / click for more details</string>
+  <string name="opencrx_ioerror">Connection Error! Check your Internet connection.</string>
+  <string name="opencrx_MLA_email_empty">Login was not specified!</string>
+  <string name="opencrx_MLA_password_empty">Password was not specified!</string>
+  <string name="opencrx_TEA_task_assign_label">Assign this task to this person:</string>
+  <string name="opencrx_TEA_task_unassigned">&lt;Unassigned&gt;</string>
+  <string name="opencrx_TEA_creator_assign_label">Assign this task to this creator:</string>
+  <string name="opencrx_TEA_dashboard_default">&lt;Default&gt;</string>
+  <string name="opencrx_TEA_opencrx_title">OpenCRX Controls</string>
+  <string name="CFC_opencrx_in_workspace_text">In workspace: ?</string>
+  <string name="CFC_opencrx_in_workspace_name">In workspace...</string>
+  <string name="CFC_opencrx_assigned_to_text">Assigned to: ?</string>
+  <string name="CFC_opencrx_assigned_to_name">Assigned to...</string>
+  <string name="EPr_powerpack_header">Astrid Power Pack</string>
+  <string name="EPr_statistics_title">匿名の使用統計データ</string>
+  <string name="EPr_statistics_desc_disabled">使用統計情報は送信されません</string>
+  <string name="EPr_statistics_desc_enabled">送られた使用統計情報は Astrid の改善に使用されます</string>
+  <string name="producteev_FEx_header">Producteev</string>
+  <string name="producteev_FEx_dashboard">Workspaces</string>
+  <string name="producteev_FEx_responsible_byme">Assigned by me to</string>
+  <string name="producteev_FEx_responsible_byothers">Assigned by others to</string>
+  <string name="producteev_FEx_responsible_title">Assigned To \'%s\'</string>
+  <string name="producteev_PDE_task_from">from %s</string>
+  <string name="producteev_TEA_notes">Add a Comment</string>
+  <string name="producteev_PPr_header">Producteev</string>
+  <string name="producteev_default_dashboard">Default Workspace</string>
+  <string name="producteev_no_dashboard">(Do Not Synchronize)</string>
+  <string name="producteev_create_dashboard">Add new Workspace...</string>
+  <string name="producteev_create_dashboard_name">Name for new Workspace</string>
+  <string name="producteev_PPr_defaultdash_title">Default Workspace</string>
+  <string name="producteev_PPr_defaultdash_summary">New tasks will be added to: %s</string>
+  <string name="producteev_PPr_defaultdash_summary_none">New tasks will not be synchronized by default</string>
+  <string name="producteev_PLA_title">Producteev にログイン</string>
+  <string name="producteev_PLA_body">既存の Producteev アカウントにサインインするか、アカウントを作成してください</string>
+  <string name="producteev_PLA_terms">Terms &amp; Conditions</string>
+  <string name="producteev_PLA_signIn">サインイン</string>
+  <string name="producteev_PLA_createNew">Create New User</string>
+  <string name="producteev_PLA_email">メールアドレス</string>
+  <string name="producteev_PLA_password">パスワード</string>
+  <string name="producteev_PLA_timezone">タイムゾーン</string>
+  <string name="producteev_PLA_confirmPassword">Confirm Password</string>
+  <string name="producteev_PLA_firstName">First Name</string>
+  <string name="producteev_PLA_lastName">Last Name</string>
+  <string name="producteev_PLA_errorEmpty">エラー: すべての入力欄を入力してください</string>
+  <string name="producteev_PLA_errorMatch">Error: passwords don\'t match!</string>
+  <string name="producteev_PLA_errorAuth">エラー: メールアドレスかパスワードが正しくありません</string>
+  <string name="producteev_notification_title">Producteev</string>
+  <string name="producteev_notification_text">%s tasks updated / click for more details</string>
+  <string name="producteev_ioerror">Connection Error! Check your Internet connection.</string>
+  <string name="producteev_MLA_email_empty">E-Mail was not specified!</string>
+  <string name="producteev_MLA_password_empty">Password was not specified!</string>
+  <string name="producteev_TEA_control_set_display">Producteev Assignment</string>
+  <string name="producteev_TEA_task_assign_label">Assign this task to this person:</string>
+  <string name="producteev_TEA_task_unassigned">&lt;Unassigned&gt;</string>
+  <string name="producteev_TEA_dashboard_assign_label">Assign this task to this workspace:</string>
+  <string name="producteev_TEA_dashboard_default">&lt;Default&gt;</string>
+  <string name="CFC_producteev_in_workspace_text">In workspace: ?</string>
+  <string name="CFC_producteev_in_workspace_name">In workspace...</string>
+  <string name="CFC_producteev_assigned_to_text">Assigned to: ?</string>
+  <string name="CFC_producteev_assigned_to_name">Assigned to...</string>
+  <string name="TEA_reminders_group_label">Reminders</string>
+  <string name="TEA_reminder_label">通知するのは...</string>
+  <string name="TEA_reminder_due">期限になったとき</string>
+  <string name="TEA_reminder_overdue">期限を過ぎたとき</string>
+  <string name="TEA_reminder_randomly">Randomly once</string>
+  <string name="TEA_reminder_alarm_label">通知音、振動</string>
+  <string name="TEA_reminder_mode_once">一度だけ鳴らす</string>
+  <string name="TEA_reminder_mode_five">Ring Five Times</string>
+  <string name="TEA_reminder_mode_nonstop">解除するまで鳴らす</string>
+  <string-array name="TEA_reminder_random">
+    <item>an hour</item>
+    <item>a day</item>
+    <item>a week</item>
+    <item>in two weeks</item>
+    <item>a month</item>
+    <item>in two months</item>
+  </string-array>
   <string name="rmd_NoA_filter">お知らせ</string>
-  
-  <!-- Reminder: Task was already done -->
   <string name="rmd_NoA_done">既に完了しています!</string>
-  
-  <!-- Reminder: Snooze button (remind again later) -->
   <string name="rmd_NoA_snooze">後で通知</string>
-  
-  <!-- Reminder: Completed Toast -->
   <string name="rmd_NoA_completed_toast">Congratulations on finishing!</string>
-  
-  <!-- ============================================= reminder preferences == -->
-  
-  <!-- Reminder Preference Screen Title -->
   <string name="rmd_EPr_alerts_header">通知の設定</string>
-    
-  <!-- Reminder Preference: Reminders Enabled Title -->
   <string name="rmd_EPr_enabled_title">Reminders Enabled?</string>
-  <!-- Reminder Preference Reminders Enabled Description (true) -->
   <string name="rmd_EPr_enabled_desc_true">Astrid reminders are enabled (this is normal)</string>
-  <!-- Reminder Preference Reminders Enabled Description (false) -->
-  <string name="rmd_EPr_enabled_desc_false">Astrid reminders will never appear on your phone</string>  
-    
-  <!-- Reminder Preference: Quiet Hours Start Title -->
+  <string name="rmd_EPr_enabled_desc_false">Astrid reminders will never appear on your phone</string>
   <string name="rmd_EPr_quiet_hours_start_title">消音時間の始まり</string>
-  <!-- Reminder Preference: Quiet Hours Start Description (%s => time set) -->
   <string name="rmd_EPr_quiet_hours_start_desc">%s 以降、通知音は鳴りません</string>
-  <!-- Reminder Preference: Quiet Hours Start/End Description (disabled) -->
   <string name="rmd_EPr_quiet_hours_desc_none">消音は無効です</string>
-  
-  <!-- Reminder Preference: Quiet Hours End Title -->
   <string name="rmd_EPr_quiet_hours_end_title">消音時間の終わり</string>
-  <!-- Reminder Preference: Quiet Hours End Description (%s => time set) -->
   <string name="rmd_EPr_quiet_hours_end_desc">Notifications will stop being silent starting at %s</string>
-
-  <!-- Reminder Preference: Default Reminder Title -->
   <string name="rmd_EPr_rmd_time_title">Default Reminder</string>
-  <!-- Reminder Preference: Default Reminder Description (%s => time set) -->
   <string name="rmd_EPr_rmd_time_desc">Notifications for tasks without duetimes will appear at %s</string>
-
-  <!-- Reminder Preference: Notification Ringtone Title -->
   <string name="rmd_EPr_ringtone_title">通知音</string>
-  <!-- Reminder Preference: Notification Ringtone Description (when custom tone is set) -->
   <string name="rmd_EPr_ringtone_desc_custom">カスタム通知音を使用</string>
-  <!-- Reminder Preference: Notification Ringtone Description (when silence is set) -->
   <string name="rmd_EPr_ringtone_desc_silent">通知音は無効</string>
-  <!-- Reminder Preference: Notification Ringtone Description (when custom tone is not set) -->
   <string name="rmd_EPr_ringtone_desc_default">デフォルトの通知音を使用</string>
-  
-  <!-- Reminder Preference: Notification Persistence Title -->
   <string name="rmd_EPr_persistent_title">通知の持続</string>
-  <!-- Reminder Preference: Notification Persistence Description (true) -->
   <string name="rmd_EPr_persistent_desc_true">通知はひとつひとつ削除する必要があります</string>
-  <!-- Reminder Preference: Notification Persistence Description (false) -->
   <string name="rmd_EPr_persistent_desc_false">通知は\"通知を消去\"ボタンで消えます</string>
-  
-  <!-- Reminder Preference: Notification Icon Title -->
   <string name="rmd_EPr_notificon_title">Notification Icon Set</string>
-  <!-- Reminder Preference: Notification Icon Description -->
   <string name="rmd_Epr_notificon_desc">Choose Astrid\'s notification bar icon</string>
-
-  <!-- Reminder Preference: Max Volume for Multiple-Ring reminders Title -->
   <string name="rmd_EPr_multiple_maxvolume_title">Max volume for multiple-ring reminders</string>
-  <!-- Reminder Preference: Max Volume for Multiple-Ring reminders Description (true) -->
   <string name="rmd_EPr_multiple_maxvolume_desc_true">Astrid will max out the volume for multiple-ring reminders</string>
-  <!-- Reminder Preference: Max Volume for Multiple-Ring reminders Description (false) -->
   <string name="rmd_EPr_multiple_maxvolume_desc_false">Astrid will use the system-setting for the volume</string>
-
-  <!-- Reminder Preference: Vibrate Title -->
   <string name="rmd_EPr_vibrate_title">アラート時に振動する</string>
-  <!-- Reminder Preference: Vibrate Description (true) -->
   <string name="rmd_EPr_vibrate_desc_true">通知するときに振動します</string>
-  <!-- Reminder Preference: Vibrate Description (false) -->
   <string name="rmd_EPr_vibrate_desc_false">通知するときに振動しません</string>
-
-  <!-- Reminder Preference: Nagging Title -->  
   <string name="rmd_EPr_nagging_title">Astridの通知</string>
-  <!-- Reminder Preference: Nagging Description (true) -->
   <string name="rmd_EPr_nagging_desc_true">通知画面に励ましメッセージを表示します</string>
-  <!-- Reminder Preference: Nagging Description (false) -->
   <string name="rmd_EPr_nagging_desc_false">励ましメッセージを表示しません</string>
-
-  <!-- Reminder Preference: Snooze Dialog Title -->  
   <string name="rmd_EPr_snooze_dialog_title">スヌーズの時刻指定</string>
-  <!-- Reminder Preference: Snooze Dialog Description (true) -->
   <string name="rmd_EPr_snooze_dialog_desc_true">次のスヌーズ時刻を 時:分 で指定します</string>
-  <!-- Reminder Preference: Nagging Description (false) -->
   <string name="rmd_EPr_snooze_dialog_desc_false">次のスヌーズまでの時間間隔を指定します</string>
-  
-  <!-- Reminder Preference: Default Reminders Title -->
   <string name="rmd_EPr_defaultRemind_title">ランダムな通知</string>
-  <!-- Reminder Preference: Default Reminders Setting (disabled) -->
   <string name="rmd_EPr_defaultRemind_desc_disabled">新規タスクにランダムな通知を設定しません</string>
-  <!-- Reminder Preference: Default Reminders Setting (%s => setting) -->
   <string name="rmd_EPr_defaultRemind_desc">新規タスクにランダムな通知を設定します:%s</string>
-  
-  <!-- Defaults Title -->
   <string name="rmd_EPr_defaults_header">タスクのデフォルト設定</string>
-  
   <string-array name="EPr_reminder_random">
-    <!-- Reminder Preference: random reminder choices for preference page. -->
     <item>無効</item>
     <item>1時間毎</item>
     <item>毎日</item>
@@ -1860,9 +683,7 @@ you get stuff done. It features reminders, tags, sync, Locale plug-in, a widget 
     <item>毎月</item>
     <item>一ヶ月おき</item>
   </string-array>
-        
   <string-array name="EPr_quiet_hours_start">
-    <!-- Reminder Preference: quiet_hours_start: options for preference menu. Translate but don't change the times!. -->
     <item>無効</item>
     <item>午後8時</item>
     <item>午後9時</item>
@@ -1889,9 +710,7 @@ you get stuff done. It features reminders, tags, sync, Locale plug-in, a widget 
     <item>午後6時</item>
     <item>午後7時</item>
   </string-array>
-  
   <string-array name="EPr_quiet_hours_end">
-    <!-- Reminder Preference: quiet_hours_end: options for preference menu. Translate but don't change the times! -->
     <item>午前9時</item>
     <item>午前10時</item>
     <item>午前11時</item>
@@ -1917,9 +736,7 @@ you get stuff done. It features reminders, tags, sync, Locale plug-in, a widget 
     <item>午前7時</item>
     <item>午前8時</item>
   </string-array>
-  
   <string-array name="EPr_rmd_time">
-    <!-- Reminder Preference: rmd_time: options for preference menu. Translate but don't change the times! -->
     <item>午前9時</item>
     <item>午前10時</item>
     <item>午前11時</item>
@@ -1945,123 +762,91 @@ you get stuff done. It features reminders, tags, sync, Locale plug-in, a widget 
     <item>午前7時</item>
     <item>午前8時</item>
   </string-array>
-  
-  <!-- =============================================== random reminders == -->
-
   <string-array name="reminders">
-      <!-- reminders: Make these < 20 chars so the task name is displayed -->
-      <item>Hi there! Have a sec?</item>
-      <item>Can I see you for a sec?</item>
-      <item>Have a few minutes?</item>
-      <item>Did you forget?</item>
-      <item>Excuse me!</item>
-      <item>When you have a minute:</item>
-      <item>On your agenda:</item>
-      <item>Free for a moment?</item>
-      <item>Astrid here!</item>
-      <item>Hi! Can I bug you?</item>
-      <item>A minute of your time?</item>
-      <item>It\'s a great day to</item>
+    <item>Hi there! Have a sec?</item>
+    <item>Can I see you for a sec?</item>
+    <item>Have a few minutes?</item>
+    <item>Did you forget?</item>
+    <item>Excuse me!</item>
+    <item>When you have a minute:</item>
+    <item>On your agenda:</item>
+    <item>Free for a moment?</item>
+    <item>Astrid here!</item>
+    <item>Hi! Can I bug you?</item>
+    <item>A minute of your time?</item>
+    <item>It\'s a great day to</item>
   </string-array>
-
   <string-array name="reminders_due">
-      <!-- reminders related to task due date -->
-      <item>おしごとの時間だよ!</item>
-      <item>Due date is here!</item>
-      <item>もう始められる?</item>
-      <item>これするって言ったでしょ:</item>
-      <item>始めるはずでしょ:</item>
-      <item>これ はじめよう:</item>
-      <item>時間だよ!</item>
-      <item>Excuse me! Time for</item>
-      <item>手、空いてる? これやらなくちゃ。</item>
+    <item>おしごとの時間だよ!</item>
+    <item>Due date is here!</item>
+    <item>もう始められる?</item>
+    <item>これするって言ったでしょ:</item>
+    <item>始めるはずでしょ:</item>
+    <item>これ はじめよう:</item>
+    <item>時間だよ!</item>
+    <item>Excuse me! Time for</item>
+    <item>手、空いてる? これやらなくちゃ。</item>
   </string-array>
-
   <string-array name="reminders_snooze">
-      <!-- reminders related to snooze -->
-      <item>今は怠けちゃダメ!</item>
-      <item>Snooze time is up!</item>
-      <item>もう先延ばししないで!</item>
-      <item>もう準備できてる？</item>
-      <item>No more postponing!</item>
+    <item>今は怠けちゃダメ!</item>
+    <item>Snooze time is up!</item>
+    <item>もう先延ばししないで!</item>
+    <item>もう準備できてる？</item>
+    <item>No more postponing!</item>
   </string-array>
-  
   <string-array name="reminder_responses">
-      <!-- responses to reminder: Astrid says...  (user should answer yes or no)  -->
-      <item>君のために言ってるんだからね!</item> 
-      <item>Ready to put this in the past?</item>
-      <item>終わらせちゃったら?</item>
-      <item>How about it? Ready tiger?</item>
-      <item>準備はいい?</item>
-      <item>処理できる?</item>
-      <item>これやっちゃおうよ! ハッピーになれるよ!</item>
-      <item>終わらせればぜったい気分がいいって！</item>
-      <item>今日はやんないの?</item>
-      <item>もううんざり。早く終わらせて!</item>
-      <item>Can you finish this? Yes you can!</item>
-      <item>Are you ever going to do this?</item>
-      <item>自信を持って! さあ!</item>
-      <item>I\'m so proud of you! Lets get it done!</item>
-      <item>A little snack after you finish this?</item>
-      <item>Just this one task? Please?</item>
-      <item>Time to shorten your todo list!</item>
-      <item>Are you on Team Order or Team Chaos? Team Order! Let\'s go!</item>
-      <item>Have I mentioned you are awesome recently? Keep it up!</item>
-      <item>A task a day keeps the clutter away... Goodbye clutter!</item>
-      <item>How do you do it?  Wow, I\'m impressed!</item>
-      <item>You can\'t just get by on your good looks. Let\'s get to it!</item>
-      <item>Lovely weather for a job like this, isn\'t it?</item>
-      <item>A spot of tea while you work on this?</item>
-      <item>If only you had already done this, then you could go outside and play.</item>
-      <item>It\'s time. You can\'t put off the inevitable.</item>
-      <item>I die a little every time you ignore me.</item>
+    <item>君のために言ってるんだからね!</item>
+    <item>Ready to put this in the past?</item>
+    <item>終わらせちゃったら?</item>
+    <item>How about it? Ready tiger?</item>
+    <item>準備はいい?</item>
+    <item>処理できる?</item>
+    <item>これやっちゃおうよ! ハッピーになれるよ!</item>
+    <item>終わらせればぜったい気分がいいって！</item>
+    <item>今日はやんないの?</item>
+    <item>もううんざり。早く終わらせて!</item>
+    <item>Can you finish this? Yes you can!</item>
+    <item>Are you ever going to do this?</item>
+    <item>自信を持って! さあ!</item>
+    <item>I\'m so proud of you! Lets get it done!</item>
+    <item>A little snack after you finish this?</item>
+    <item>Just this one task? Please?</item>
+    <item>Time to shorten your todo list!</item>
+    <item>Are you on Team Order or Team Chaos? Team Order! Let\'s go!</item>
+    <item>Have I mentioned you are awesome recently? Keep it up!</item>
+    <item>A task a day keeps the clutter away... Goodbye clutter!</item>
+    <item>How do you do it? Wow, I\'m impressed!</item>
+    <item>You can\'t just get by on your good looks. Let\'s get to it!</item>
+    <item>Lovely weather for a job like this, isn\'t it?</item>
+    <item>A spot of tea while you work on this?</item>
+    <item>If only you had already done this, then you could go outside and play.</item>
+    <item>It\'s time. You can\'t put off the inevitable.</item>
+    <item>I die a little every time you ignore me.</item>
   </string-array>
-
   <string-array name="postpone_nags">
-      <!-- Astrid's nagging when user clicks postpone -->
-      <item>Please tell me it isn\'t true that you\'re a procrastinator!</item>
-      <item>Doesn\'t being lazy get old sometimes?</item>
-      <item>Somewhere, someone is depending on you to finish this!</item>
-      <item>When you said postpone, you really meant \'I\'m doing this\', right?</item>
-      <item>This is the last time you postpone this, right?</item>
-      <item>Just finish this today, I won\'t tell anyone!</item>
-      <item>Why postpone when you can um... not postpone!</item>
-      <item>You\'ll finish this eventually, I presume?</item>
-      <item>I think you\'re really great! How about not putting this off?</item>
-      <item>Will you be able to achieve your goals if you do that?</item>
-      <item>Postpone, postpone, postpone. When will you change!</item>
-      <item>I\'ve had enough with your excuses! Just do it already!</item>
-      <item>Didn\'t you make that excuse last time?</item>
-      <item>I can\'t help you organize your life if you do that...</item>
+    <item>Please tell me it isn\'t true that you\'re a procrastinator!</item>
+    <item>Doesn\'t being lazy get old sometimes?</item>
+    <item>Somewhere, someone is depending on you to finish this!</item>
+    <item>When you said postpone, you really meant \'I\'m doing this\', right?</item>
+    <item>This is the last time you postpone this, right?</item>
+    <item>Just finish this today, I won\'t tell anyone!</item>
+    <item>Why postpone when you can um... not postpone!</item>
+    <item>You\'ll finish this eventually, I presume?</item>
+    <item>I think you\'re really great! How about not putting this off?</item>
+    <item>Will you be able to achieve your goals if you do that?</item>
+    <item>Postpone, postpone, postpone. When will you change!</item>
+    <item>I\'ve had enough with your excuses! Just do it already!</item>
+    <item>Didn\'t you make that excuse last time?</item>
+    <item>I can\'t help you organize your life if you do that...</item>
   </string-array>
-
-
-<!-- See the file "LICENSE" for the full license governing this code. -->
-
-
-  <!-- Resources for built-in repeat plug-in -->
-
-  <!-- repeating plugin name -->
   <string name="repeat_plugin">Repeating Tasks</string>
-  
-  <!-- repeating plugin description -->
   <string name="repeat_plugin_desc">Allows tasks to repeat</string>
-  
-  <!-- checkbox for turning on/off repeats -->
   <string name="repeat_enabled">繰り返し</string>
-  
-  <!-- button for "every x" part of repeat (%d -> repeat value)  -->
   <string name="repeat_every">Every %d</string>
-  
-  <!-- hint when opening repeat interval -->
   <string name="repeat_interval_prompt">繰り返し間隔</string>
-  
   <string name="repeat_never">No Repeat</string>
-  
   <string name="repeat_dont">Don\'t repeat</string>
-      
   <string-array name="repeat_interval_short">
-    <!-- repeat interval (days,weeks,months,hours,minutes,years) -->
     <item>d</item>
     <item>wk</item>
     <item>mo</item>
@@ -2069,10 +854,7 @@ you get stuff done. It features reminders, tags, sync, Locale plug-in, a widget 
     <item>min</item>
     <item>yr</item>
   </string-array>
-  
-  
   <string-array name="repeat_interval">
-    <!-- repeat interval (days,weeks,months,hours,minutes,years) -->
     <item>日毎</item>
     <item>週毎</item>
     <item>か月毎</item>
@@ -2080,298 +862,271 @@ you get stuff done. It features reminders, tags, sync, Locale plug-in, a widget 
     <item>Minute(s)</item>
     <item>Year(s)</item>
   </string-array>
-  
   <string-array name="repeat_type">
-    <!-- repeat type (date to repeat from) -->
     <item>期限から</item>
     <item>完了日から</item>
   </string-array>
-  
-  <!-- task detail weekly by day ($I -> interval, i.e. 1 week, $D -> days, i.e. Monday, Tuesday) -->
   <string name="repeat_detail_byday">$I ($D 曜日)</string>
-  
-  <!-- task detail for repeat from due date (%s -> interval) -->
   <string name="repeat_detail_duedate">%s</string>
-  
-  <!-- task detail for repeat from completion date (%s -> interval) -->
   <string name="repeat_detail_completion">完了日から %s</string>
-  
-  <!-- text for confirmation dialog after repeating a task -->
   <string name="repeat_rescheduling_dialog_title">Rescheduling task \"%s\"</string>
-    
-
-  
-
-
-<!-- See the file "LICENSE" for the full license governing this code. -->
-
-
-    <!-- ====================== Plugin Boilerplate ========================= -->
-
-    <!-- label for RMilk button in Task Edit Activity -->
-    <string name="rmilk_EOE_button">Remember the Milk の設定</string>
-    
-    <!-- task detail showing RTM repeat information -->
-    <string name="rmilk_TLA_repeat">RTM Repeating Task</string>
-    
-    <!--  task detail showing item needs to be synchronized -->
-    <string name="rmilk_TLA_sync">Needs synchronization with RTM</string>
-
-    <!-- filters header: RTM -->
-    <string name="rmilk_FEx_header">Remember the Milk</string>
-    
-    <!-- filter category for RTM lists -->
-    <string name="rmilk_FEx_list">リスト</string>
-    
-    <!--  RTM list filter title (%s => list) -->
-    <string name="rmilk_FEx_list_title">RTM のリスト: %s</string>
-    
-    <!-- ======================= MilkEditActivity ========================== -->
-    
-    <!--  RTM edit activity Title -->
-    <string name="rmilk_MEA_title">Remember the Milk</string>
-    
-    <!--  RTM edit List Edit Label -->
-    <string name="rmilk_MEA_list_label">RTM List:</string>
-    
-    <!--  RTM edit Repeat Label -->
-    <string name="rmilk_MEA_repeat_label">RTM Repeat Status:</string>
-    
-    <!--  RTM edit Repeat Hint -->
-    <string name="rmilk_MEA_repeat_hint">i.e. every week, after 14 days</string>
-    
-    <!-- ======================== MilkPreferences ========================== -->
-
-    <!-- Milk Preferences Title -->    
-    <string name="rmilk_MPr_header">Remember the Milk</string>
-    
-    <!-- ======================= MilkLoginActivity ========================= -->
-
-    <!-- RTM Login Instructions -->
-    <string name="rmilk_MLA_label">ログインしてAstridに権限を与えてください</string>
-
-    <!-- Login Error Dialog (%s => message) -->
-    <string name="rmilk_MLA_error">
-Sorry, there was an error verifying your login. Please try again.
-\n\n
-Error Message: %s
-    </string>
-    
-    <!-- ======================== Synchronization ========================== -->    
-    
-    <!-- title for notification tray when synchronizing -->
-    <string name="rmilk_notification_title">Astrid: Remember the Milk</string>
-    
-    <!-- Error msg when io exception with rmilk -->
-    <string name="rmilk_ioerror">接続に失敗しました。インターネット接続を確認してください。RTM のサーバ運用情報 (status.rememberthemilk.com) も確かめてみてください。</string>
-            
-
-
-
-<!-- See the file "LICENSE" for the full license governing this code. -->
-
-
-    <!-- Resources for built-in tag plug-in -->
-
-  <!-- =============================================== Task Edit Controls == -->
-
-  <!-- Tags label -->
+  <string name="repeat_rescheduling_dialog_bubble">%1$s I\'ve rescheduled this repeating task from %2$s to %3$s</string>
+  <string-array name="repeat_encouragement">
+    <item>Good job!</item>
+    <item>Wow… I\'m so proud of you!</item>
+    <item>I love it when you\'re productive!</item>
+    <item>Doesn\'t it feel good to check something off?</item>
+  </string-array>
+  <string name="rmilk_EOE_button">Remember the Milk の設定</string>
+  <string name="rmilk_TLA_repeat">RTM Repeating Task</string>
+  <string name="rmilk_TLA_sync">Needs synchronization with RTM</string>
+  <string name="rmilk_FEx_header">Remember the Milk</string>
+  <string name="rmilk_FEx_list">リスト</string>
+  <string name="rmilk_FEx_list_title">RTM のリスト: %s</string>
+  <string name="rmilk_MEA_title">Remember the Milk</string>
+  <string name="rmilk_MEA_list_label">RTM List:</string>
+  <string name="rmilk_MEA_repeat_label">RTM Repeat Status:</string>
+  <string name="rmilk_MEA_repeat_hint">i.e. every week, after 14 days</string>
+  <string name="rmilk_MPr_header">Remember the Milk</string>
+  <string name="rmilk_MLA_label">ログインしてAstridに権限を与えてください</string>
+  <string name="rmilk_MLA_error">Sorry, there was an error verifying your login. Please try again. \n\n Error Message: %s</string>
+  <string name="rmilk_notification_title">Astrid: Remember the Milk</string>
+  <string name="rmilk_ioerror">接続に失敗しました。インターネット接続を確認してください。RTM のサーバ運用情報 (status.rememberthemilk.com) も確かめてみてください。</string>
+  <string name="subtasks_help_title">Sort and Indent in Astrid</string>
+  <string name="subtasks_help_1">Tap and hold to move a task</string>
+  <string name="subtasks_help_2">Drag vertically to rearrange</string>
+  <string name="subtasks_help_3">Drag horizontally to indent</string>
   <string name="TEA_tags_label">リスト</string>
-  
-  <!-- Tags none -->
+  <string name="TEA_tags_label_long">Put task on one or more lists</string>
   <string name="TEA_tags_none">None</string>
-
-  <!-- Tags hint -->
   <string name="TEA_tag_hint">New list</string>
-  
-  <!-- Tags dropdown -->
   <string name="TEA_tag_dropdown">Select a list</string>
-    
-  <!-- =============================================== Task List Controls == -->
-  
-  <!-- menu item for tags -->
   <string name="tag_TLA_menu">リスト</string>
-  
-  <!-- ========================================================== Extras == -->
-  
-    <!-- Context Item: show tag -->
   <string name="TAd_contextFilterByTag">Show List</string>
-  
-    <!-- Dialog: new list -->
   <string name="tag_new_list">New List</string>
-  
-    <!-- Dialog: list saved -->
   <string name="tag_list_saved">List Saved</string>
-  
-    <!-- Dialog: task created without title -->
   <string name="tag_no_title_error">Please enter a name for this list first!</string>
-  
-  <!-- ========================================================== Filters == -->
-  
-  <!-- filter button to add tag -->
   <string name="tag_FEx_add_new">New</string>
-  
-  <!-- filter header for tags -->
   <string name="tag_FEx_header">リスト</string>
-  
-  <!-- filter header for tags user created -->
   <string name="tag_FEx_category_mine">My Lists</string>
-  
-  <!-- filter header for tags, shared with user -->
   <string name="tag_FEx_category_shared">Shared With Me</string>
-  
-  <!-- filter header for tags which have no active tasks -->
   <string name="tag_FEx_category_inactive">Inactive</string>
-  
-  <!-- filter for untagged tasks -->
   <string name="tag_FEx_untagged">Not in any List</string>
-  
-  <!-- clarifying title for people who have Google and Astrid lists -->
   <string name="tag_FEx_untagged_w_astrid">Not in an Astrid List</string>
-  
-  <!-- %s => tag name -->
   <string name="tag_FEx_name">List: %s</string>
-
-  <!-- context menu option to rename a tag -->
   <string name="tag_cm_rename">Rename List</string>
-
-  <!-- context menu option to delete a tag -->
   <string name="tag_cm_delete">Delete List</string>
-  
-  <!-- context menu option to leave a shared list -->
   <string name="tag_cm_leave">Leave List</string>
-
-  <!-- Dialog to confirm deletion of a tag (%s -> the name of the list to be deleted) -->
   <string name="DLG_delete_this_tag_question">Delete this list: %s? (No tasks will be deleted.)</string>
-  
-  <!-- Dialog to confirm leaving a shared tag (%s -> the name of the shared list to leave) -->
   <string name="DLG_leave_this_shared_tag_question">Leave this shared list: %s? (No tasks will be deleted.)</string>
-
-  <!-- Dialog to rename tag -->
   <string name="DLG_rename_this_tag_header">Rename the list %s to:</string>
-
-  <!-- Toast notification that no changes have been made -->
   <string name="TEA_no_tags_modified">変更されませんでした</string>
-
-  <!-- Toast notification that a tag has been deleted -->
   <string name="TEA_tags_deleted">List %1$s was deleted, affecting %2$d tasks</string>
-  
-  <!-- Toast notification that a shared tag has been left -->
   <string name="TEA_tags_left">You left shared list %1$s, affecting %2$d tasks</string>
-
-  <!-- Toast notification that a tag has been renamed -->
   <string name="TEA_tags_renamed">Renamed %1$s with %2$s for %3$d tasks</string>
-  
-  <!-- Tag case migration -->
-  <string name="tag_case_migration_notice">We\'ve noticed that you have some lists that have the same name with different capitalizations. We think you may have intended them to 
-  be the same list, so we\'ve combined the duplicates. Don\'t worry though: the original lists are simply renamed with numbers (e.g. Shopping_1, Shopping_2). If you don\'t want this, you
-  can simply delete the new combined list!</string>
-  
-  <!-- Header for tag settings -->
-  <string name="tag_settings_title">Settings: </string>
-  
-  <!-- Header for tag activity -->
+  <string name="tag_case_migration_notice">We\'ve noticed that you have some lists that have the same name with different capitalizations. We think you may have intended them to be the same list, so we\'ve combined the duplicates. Don\'t worry though: the original lists are simply renamed with numbers (e.g. Shopping_1, Shopping_2). If you don\'t want this, you can simply delete the new combined list!</string>
+  <string name="tag_settings_title">Settings:</string>
   <string name="tag_updates_title">Activity: %s</string>
-
-
-
-<!-- See the file "LICENSE" for the full license governing this code. -->
-
-    
-    <!-- Resources for built-in timers plug-in -->
-    
-    <!-- Task List: Start Timer button -->
-    <string name="TAE_startTimer">Timer</string>
-    
-    <!-- Task List: Stop Timer button -->
-    <string name="TAE_stopTimer">Stop</string>
-    
-    <!-- Android Notification Title (%s => # tasks) -->
-    <string name="TPl_notification">Timers Active for %s!</string>
-    
-    <!-- Filter Header for Timer plugin -->
-    <string name="TFE_category">Timer Filters</string>
-    
-    <!-- Filter for Timed Tasks -->
-    <string name="TFE_workingOn">Tasks Being Timed</string>
-    
-    <!-- Title for TEA -->
-    <string name="TEA_timer_controls">Timer Controls</string>
-    
-    
-    <!-- Edit Notes: create comment for when timer is started -->
-    <string name="TEA_timer_comment_started">started this task:</string>
-    
-    <!-- Edit Notes: create comment for when timer is stopped -->
-    <string name="TEA_timer_comment_stopped">stopped doing this task:</string>
-    
-    <!-- Edit Notes: comment to notify how long was spent on task -->
-    <string name="TEA_timer_comment_spent">Time spent:</string>
-    
-
-
-<!-- See the file "LICENSE" for the full license governing this code. -->
-
-    
-  <!-- Voice Add Prompt Text -->
+  <string name="tag_delete_button">Delete List</string>
+  <string name="tag_leave_button">Leave This List</string>
+  <string name="TAE_startTimer">Timer</string>
+  <string name="TAE_stopTimer">Stop</string>
+  <string name="TPl_notification">Timers Active for %s!</string>
+  <string name="TFE_category">Timer Filters</string>
+  <string name="TFE_workingOn">Tasks Being Timed</string>
+  <string name="TEA_timer_controls">Timer Controls</string>
+  <string name="TEA_timer_comment_started">started this task:</string>
+  <string name="TEA_timer_comment_stopped">stopped doing this task:</string>
+  <string name="TEA_timer_comment_spent">Time spent:</string>
+  <string name="update_string_friends">%1$s is now friends with %2$s</string>
+  <string name="update_string_request_friendship">%1$s wants to be friends with you</string>
+  <string name="update_string_confirmed_friendship">%1$s has confirmed your friendship request</string>
+  <string name="update_string_task_created">%1$s created this task</string>
+  <string name="update_string_task_created_on_list">%1$s added %2$s to this list</string>
+  <string name="update_string_task_completed">%1$s completed %2$s. Huzzah!</string>
+  <string name="update_string_task_uncompleted">%1$s un-completed %2$s.</string>
+  <string name="update_string_task_tagged">%1$s added %4$s to %2$s</string>
+  <string name="update_string_task_tagged_list">%1$s added %4$s to this list</string>
+  <string name="update_string_task_assigned">%1$s assigned %4$s to %2$s</string>
+  <string name="update_string_default_comment">%1$s commented: %3$s</string>
+  <string name="update_string_task_comment">%1$s Re: %2$s: %3$s</string>
+  <string name="update_string_tag_comment">%1$s Re: %2$s: %3$s</string>
   <string name="voice_create_prompt">Speak to create a task</string>
   <string name="voice_edit_title_prompt">Speak to set task title</string>
   <string name="voice_edit_note_prompt">Speak to set task notes</string>
-    
-  <!-- Preference: Task List recognition-service is not installed, but available -->
   <string name="EPr_voiceInputInstall_dlg">Voice-input is not installed.\nDo you want to go to the market and install it?</string>
-  <!-- Preference: Task List recognition-service is not available for this system -->
   <string name="EPr_voiceInputUnavailable_dlg">Unfortunately voice-input is not available for your system.\nIf possible, please update Android to 2.1 or later.</string>
-  <!-- Preference: Market is not available for this system -->
   <string name="EPr_marketUnavailable_dlg">Unfortunately the market is not available for your system.\nIf possible, try downloading voice search from another source.</string>
-  <!-- Preference: Task List Show Voice-button if recognition-service is available -->
   <string name="EPr_voiceInputEnabled_title">Voice Input</string>
-  <!-- Preference: voice button description (true) -->
   <string name="EPr_voiceInputEnabled_desc_enabled">Voice input button will be displayed in task list page</string>
-  <!-- Preference: voice button description (false) -->
   <string name="EPr_voiceInputEnabled_desc_disabled">Voice input button will be hidden on task list page</string>
-  <!-- Preference: Task List Voice-button directly creates tasks -->
   <string name="EPr_voiceInputCreatesTask_title">Directly Create Tasks</string>
-  <!-- Preference: Task List Voice-creation description (true) -->
   <string name="EPr_voiceInputCreatesTask_desc_enabled">Tasks will automatically be created from voice input</string>
-  <!-- Preference: Task List Voice-creation description (false) -->
   <string name="EPr_voiceInputCreatesTask_desc_disabled">You can edit the task title after voice input finishes</string>
-  <!-- Preference: Voice reminders if TTS-service is available -->
   <string name="EPr_voiceRemindersEnabled_title">Voice Reminders</string>
-  <!-- Preference: Voice reminders description (true) -->
   <string name="EPr_voiceRemindersEnabled_desc_enabled">Astrid will speak task names during task reminders</string>
-  <!-- Preference: Voice reminders description (false) -->
-  <string name="EPr_voiceRemindersEnabled_desc_disabled">Astrid will sound a ringtone during task reminders</string>    
-  
-  <!-- Preference Category: Voice Title -->
+  <string name="EPr_voiceRemindersEnabled_desc_disabled">Astrid will sound a ringtone during task reminders</string>
   <string name="EPr_voice_header">Voice Input Settings</string>
-    
-
-
-
-      
-    <string name="welcome_show_eula">Accept EULA to get started!</string>
-    
-    <string name="welcome_setting">Show Tutorial</string>
-    
-    <string name="welcome_title_1">Welcome to Astrid!</string>
-    <string name="welcome_title_2">Make lists</string>
-    <string name="welcome_title_3">Share lists</string>
-    <string name="welcome_title_4">Divvy up tasks</string>
-    <string name="welcome_title_5">Provide details</string>
-    <string name="welcome_title_6">Discover</string>
-    <string name="welcome_title_7">Connect now\nto get started!</string>
-    
-    <string name="welcome_title_7_return">That\'s it!</string>
-    
-    <string name="welcome_body_1">The perfect to-do list that \nworks great with friends</string>
-    <string name="welcome_body_2">Perfect for any list:\nread, watch, buy, visit!</string>
-    <string name="welcome_body_3">Share lists with \nfriends, housemates,\nor your sweetheart!</string>
-    <string name="welcome_body_4">Never wonder who\'s\nbringing dessert!</string>
-    <string name="welcome_body_5">Tap to add notes,\nset reminders,\nand much more!</string>
-    <string name="welcome_body_6">Additional features,\nproductivity tips, and\nsuggestions from friends</string>
-    <string name="welcome_body_7">Login</string>
-    
-    <string name="welcome_body_7_return">Tap Astrid to return.</string>
-    
+  <string name="welcome_show_eula">Accept EULA to get started!</string>
+  <string name="welcome_setting">Show Tutorial</string>
+  <string name="welcome_title_1">Welcome to Astrid!</string>
+  <string name="welcome_title_2">Make lists</string>
+  <string name="welcome_title_3">Switch between lists</string>
+  <string name="welcome_title_4">Share lists</string>
+  <string name="welcome_title_5">Divvy up tasks</string>
+  <string name="welcome_title_6">Provide details</string>
+  <string name="welcome_title_7">Connect now\nto get started!</string>
+  <string name="welcome_title_7_return">That\'s it!</string>
+  <string name="welcome_body_1">The perfect personal to-do list \nthat works great with friends</string>
+  <string name="welcome_body_2">Great for any list:\nread, watch, buy, visit!</string>
+  <string name="welcome_body_3">Tap the list title \nto see all your lists</string>
+  <string name="welcome_body_4">Share lists with \nfriends, housemates,\nor your sweetheart!</string>
+  <string name="welcome_body_5">and much more!</string>
+  <string name="welcome_body_6">Tap to add notes,\nset reminders,\nand much more!</string>
+  <string name="welcome_body_7">Login</string>
+  <string name="welcome_body_7_return">Tap Astrid to return.</string>
+  <string name="welcome_back">Back</string>
+  <string name="welcome_next">Next</string>
+  <string name="PPW_widget_42_label">Astrid Premium 4x2</string>
+  <string name="PPW_widget_43_label">Astrid Premium 4x3</string>
+  <string name="PPW_widget_44_label">Astrid Premium 4x4</string>
+  <string name="PPW_configure_title">Configure Widget</string>
+  <string name="PPW_color">Widget color</string>
+  <string name="PPW_due">Due:</string>
+  <string name="PPW_old_astrid_notice">You need at least version 3.6 of Astrid in order to use this widget. Sorry!</string>
+  <string-array name="PPW_encouragements">
+    <item>Hi there!</item>
+    <item>Have time to finish something?</item>
+    <item>Gosh, you are looking suave today!</item>
+    <item>Do something great today!</item>
+    <item>Make me proud today!</item>
+  </string-array>
+  <string-array name="PPW_encouragements_tod">
+    <item>Good afternoon!</item>
+    <item>Good evening!</item>
+    <item>Late night?</item>
+    <item>Afternoon tea, perhaps?</item>
+    <item>Enjoy the evening!</item>
+    <item>Sleep is good for you, you know!</item>
+  </string-array>
+  <string-array name="PPW_encouragements_completed">
+    <item>You\'ve already completed %d tasks!</item>
+    <item>Score in life: %d tasks completed</item>
+    <item>Smile! You\'ve already finished %d tasks!</item>
+  </string-array>
+  <string name="PPW_encouragements_none_completed">You haven\'t completed any tasks yet! Shall we?</string>
+  <string-array name="PPW_colors">
+    <item>Black</item>
+    <item>Blue</item>
+    <item>Translucent</item>
+  </string-array>
+  <string name="PPW_widget_dlg_text">This widget is only available to owners of the PowerPack!</string>
+  <string name="PPW_widget_dlg_ok">Preview</string>
+  <string name="PPW_demo_title1">Items on %s will go here</string>
+  <string name="PPW_demo_title2">Power Pack includes Premium Widgets...</string>
+  <string name="PPW_demo_title3">...voice add and good feelings!</string>
+  <string name="PPW_demo_title4">Tap to learn more!</string>
+  <string name="PPW_info_title">Free Power Pack!</string>
+  <string name="PPW_unlock_howto">Share lists with friends! Unlock the free Power Pack when 3 friends sign up with Astrid.</string>
+  <string name="PPW_check_button">Get the Power Pack for free!</string>
+  <string name="PPW_check_share_lists">Share lists!</string>
+  <plurals name="DUt_years">
+    <item quantity="one">1 Year</item>
+    <item quantity="other">%d Years</item>
+  </plurals>
+  <plurals name="DUt_weeks">
+    <item quantity="other">%d Weeks</item>
+  </plurals>
+  <plurals name="DUt_days">
+    <item quantity="other">%d Days</item>
+  </plurals>
+  <plurals name="DUt_weekdays">
+    <item quantity="other">%d Weekdays</item>
+  </plurals>
+  <plurals name="DUt_hours">
+    <item quantity="other">%d Hours</item>
+  </plurals>
+  <plurals name="DUt_minutes">
+    <item quantity="one">1 Minute</item>
+    <item quantity="other">%d Minutes</item>
+  </plurals>
+  <plurals name="DUt_seconds">
+    <item quantity="one">1 Second</item>
+    <item quantity="other">%d Seconds</item>
+  </plurals>
+  <plurals name="DUt_hoursShort">
+    <item quantity="one">1 Hr</item>
+    <item quantity="other">%d Hrs</item>
+  </plurals>
+  <plurals name="DUt_minutesShort">
+    <item quantity="one">1 Min</item>
+    <item quantity="other">%d Min</item>
+  </plurals>
+  <plurals name="DUt_secondsShort">
+    <item quantity="one">1 Sec</item>
+    <item quantity="other">%d Sec</item>
+  </plurals>
+  <plurals name="Ntasks">
+    <item quantity="one">1 task</item>
+    <item quantity="other">%d tasks</item>
+  </plurals>
+  <plurals name="Npeople">
+    <item quantity="one">1 person</item>
+    <item quantity="other">%d people</item>
+  </plurals>
+  <string name="today">Today</string>
+  <string name="tomorrow">Tomorrow</string>
+  <string name="yesterday">Yesterday</string>
+  <string name="tmrw">Tmrw</string>
+  <string name="yest">Yest</string>
+  <string name="DLG_confirm_title">Confirm?</string>
+  <string name="DLG_question_title">Question:</string>
+  <string name="DLG_information_title">Information</string>
+  <string name="DLG_error_title">Error!</string>
+  <string name="DLG_save">Save</string>
+  <string name="DLG_yes">Yes</string>
+  <string name="DLG_no">No</string>
+  <string name="DLG_close">Close</string>
+  <string name="DLG_done">Done</string>
+  <string name="DLG_error">Oops, looks like an error occurred! Here\'s what happened:\n\n%s</string>
+  <string name="DLG_error_generic">Oops, looks like an error occurred!</string>
+  <string name="DLG_wait">Please wait...</string>
+  <string name="SyP_progress">Synchronizing your tasks...</string>
+  <string name="SyP_progress_toast">Synchronizing...</string>
+  <string name="SyP_label">Synchronization</string>
+  <string name="SyP_ioerror">Connection Error! Check your Internet connection.</string>
+  <string name="sync_SPr_group_status">Status</string>
+  <string name="sync_status_loggedout">Not Logged In!</string>
+  <string name="sync_status_ongoing">Sync Ongoing...</string>
+  <string name="sync_status_success">Last Sync:\n%s</string>
+  <string name="sync_status_failed">Failed On: %s</string>
+  <string name="sync_status_errors">Sync w/ Errors: %s</string>
+  <string name="sync_status_failed_subtitle">Last Successful Sync: %s</string>
+  <string name="sync_status_never">Never Synchronized!</string>
+  <string name="sync_SPr_group_options">Options</string>
+  <string name="sync_SPr_interval_title">Background Sync</string>
+  <string name="sync_SPr_interval_desc_disabled">Background synchronization is disabled</string>
+  <string name="sync_SPr_interval_desc">Currently set to: %s</string>
+  <string name="sync_SPr_bgwifi_title">Wifi Only Setting</string>
+  <string name="sync_SPr_bgwifi_desc_enabled">Background synchronization only happens when on Wifi</string>
+  <string name="sync_SPr_bgwifi_desc_disabled">Background synchronization will always occur</string>
+  <string name="sync_SPr_group_actions">Actions</string>
+  <string name="sync_SPr_sync">Synchronize Now!</string>
+  <string name="sync_SPr_sync_log_in">Log In &amp; Synchronize!</string>
+  <string name="sync_SPr_logged_in_prefix">Logged in as:</string>
+  <string name="sync_SPr_forget">Log Out</string>
+  <string name="sync_SPr_forget_description">Clears all synchronization data</string>
+  <string name="sync_forget_confirm">Log out / clear synchronization data?</string>
+  <string-array name="sync_SPr_interval_entries">
+    <item>disable</item>
+    <item>every fifteen minutes</item>
+    <item>every thirty minutes</item>
+    <item>every hour</item>
+    <item>every three hours</item>
+    <item>every six hours</item>
+    <item>every twelve hours</item>
+    <item>every day</item>
+    <item>every three days</item>
+    <item>every week</item>
+  </string-array>
 </resources>

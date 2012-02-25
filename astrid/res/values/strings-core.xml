@@ -258,6 +258,9 @@
   <string name="SSD_save_always">Always</string>
   
   <!-- =============================================== FilterListActivity == -->
+  
+  <!-- Astrid Filter Shortcut -->    
+  <string name="FSA_label">Astrid List or Filter</string>
 
   <!-- Filter List Activity Title -->    
   <string name="FLA_title">Lists</string>

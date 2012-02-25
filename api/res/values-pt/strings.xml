@@ -1,224 +1,110 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!-- See the file "LICENSE" for the full license governing this code. -->
-<resources xmlns:android="http://schemas.android.com/apk/res/android">
-
-  <!-- ==================================================== Generic Units == -->
-  
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
   <plurals name="DUt_years">
-    <!-- plurals: years -->
     <item quantity="one">1 Ano</item>
-    <!-- plurals: years -->
     <item quantity="other">%d Anos</item>
   </plurals>
   <plurals name="DUt_months">
-    <!-- plurals: months -->
     <item quantity="one">1 Mês</item>
-    <!-- plurals: months -->
     <item quantity="other">%d Meses</item>
   </plurals>
   <plurals name="DUt_weeks">
-    <!-- plurals: days -->
     <item quantity="one">1 Semana</item>
-    <!-- plurals: days -->
     <item quantity="other">%d Semanas</item>
   </plurals>
   <plurals name="DUt_days">
-    <!-- plurals: days -->
     <item quantity="one">1 Dia</item>
-    <!-- plurals: days -->
     <item quantity="other">%d Dias</item>
   </plurals>
   <plurals name="DUt_weekdays">
-    <!-- plurals: days -->
     <item quantity="one">1 Weekday</item>
-    <!-- plurals: days -->
     <item quantity="other">%d Weekdays</item>
   </plurals>
   <plurals name="DUt_hours">
-    <!-- plurals: hours -->
     <item quantity="one">1 Hora</item>
-    <!-- plurals: hours -->
     <item quantity="other">%d Horas</item>
   </plurals>
   <plurals name="DUt_minutes">
-    <!-- plurals: minutes -->
     <item quantity="one">1 Minuto</item>
-    <!-- plurals: minutes -->
     <item quantity="other">%d Minutos</item>
   </plurals>
   <plurals name="DUt_seconds">
-    <!-- plurals: seconds -->
     <item quantity="one">1 Segundo</item>
-    <!-- plurals: seconds -->
     <item quantity="other">%d Segundos</item>
   </plurals>
   <plurals name="DUt_hoursShort">
-    <!-- plurals: hours (abbreviated) -->
     <item quantity="one">1 h</item>
-    <!-- plurals: hours (abbreviated) -->
     <item quantity="other">%d h</item>
   </plurals>
   <plurals name="DUt_minutesShort">
-    <!-- plurals: minutes (abbreviated) -->
     <item quantity="one">1 min</item>
-    <!-- plurals: minutes (abbreviated) -->
     <item quantity="other">%d min</item>
   </plurals>
   <plurals name="DUt_secondsShort">
-    <!-- plurals: seconds (abbreviated) -->
     <item quantity="one">1 s</item>
-    <!-- plurals: seconds (abbreviated) -->
     <item quantity="other">%d s</item>
   </plurals>
   <plurals name="Ntasks">
-    <!-- plurals: tasks -->
     <item quantity="one">1 tarefa</item>
-    <!-- plurals: tasks -->
     <item quantity="other">%d tarefas</item>
   </plurals>
   <plurals name="Npeople">
-    <!-- plurals: people -->
     <item quantity="one">1 person</item>
-    <!-- plurals: people -->
     <item quantity="other">%d people</item>
   </plurals>
-  
-  <!-- today -->
   <string name="today">Hoje</string>
-  
-  <!-- tomorrow -->
   <string name="tomorrow">Amanhã</string>
-  
-  <!-- today -->
   <string name="yesterday">Ontem</string>
-  
-  <!-- tomorrow abbreviated -->
   <string name="tmrw">Tmrw</string>
-  
-  <!-- today abbreviated -->
   <string name="yest">Yest</string>
-  
-  <!-- ================================================== Generic Dialogs == -->
-  
-  <!-- confirmation dialog title -->
   <string name="DLG_confirm_title">Confirma?</string>
-  
-  <!-- question dialog title -->
   <string name="DLG_question_title">Pergunta:</string>
-  
-  <!-- information dialog title -->
   <string name="DLG_information_title">Informação</string>
-  
-  <!-- error dialog title -->
   <string name="DLG_error_title">Error!</string>
-  
-  <!-- general dialog save-->
   <string name="DLG_save">Guardar</string>
-  
-  <!-- general dialog yes-->
   <string name="DLG_yes">Sim</string>
-  
-  <!-- general dialog no-->
   <string name="DLG_no">Não</string>
-  
-  <!-- general dialog close-->
   <string name="DLG_close">Fechar</string>
-  
-  <!-- general dialog done -->
   <string name="DLG_done">Concluído</string>
-  
-  <!-- error dialog (%s => error message)-->
   <string name="DLG_error">Oops, looks like an error occurred! Here\'s what happened:\n\n%s</string>
-  
-  <!-- error dialog (no message indicated)-->
   <string name="DLG_error_generic">Oops, looks like an error occurred!</string>
-  
-  <!-- Progress dialog shown when doing something slow -->
   <string name="DLG_wait">Por favor aguarde...</string>
-
- <!-- ====================================================== SyncProvider == -->
-          
-  <!-- Sync Notification: message when sync service active -->
   <string name="SyP_progress">Synchronizing your tasks...</string>
-  
-  <!-- Sync Notification: toast when sync activated from activity -->
   <string name="SyP_progress_toast">A Sincronizar...</string>
-  
-  <!-- Sync Label: used in menu to denote synchronization -->
-  <string name="SyP_label">Sincronização</string>  
-
-  <!-- Error msg when io exception  -->
+  <string name="SyP_label">Sincronização</string>
   <string name="SyP_ioerror">Connection Error! Check your Internet connection.</string>
-
-  <!-- ================================================== SyncPreferences == -->
-  
-  <!-- Status Group Label -->    
   <string name="sync_SPr_group_status">Estado</string>
-  
-  <!-- Sync Status: log in -->    
   <string name="sync_status_loggedout">Not Logged In!</string>
-  <!-- Status: ongoing -->    
   <string name="sync_status_ongoing">Sync Ongoing...</string>
-  <!-- Sync Status: success status (%s -> last sync date). Keep it short!-->    
   <string name="sync_status_success">Last Sync:\n%s</string>
-  <!-- Sync Status: failure status (%s -> last attempted sync date) -->    
   <string name="sync_status_failed">Failed On: %s</string>
-  <!-- Sync Status: error status (%s -> last sync date) -->    
   <string name="sync_status_errors">Sync w/ Errors: %s</string>
-  <!-- Sync Status: error subtitle (%s -> last successful sync date) -->    
   <string name="sync_status_failed_subtitle">Last Successful Sync: %s</string>
-  <!-- Sync Status: never sync'd -->    
   <string name="sync_status_never">Never Synchronized!</string>
-
-  <!-- Options Group Label -->    
   <string name="sync_SPr_group_options">Opções</string>
-
-  <!-- Preference: Synchronization Interval Title -->    
   <string name="sync_SPr_interval_title">Background Sync</string>
-  <!-- Preference: Synchronization Interval Description (when disabled) -->
-  <string name="sync_SPr_interval_desc_disabled">Background synchronization is disabled</string>    
-  <!-- Preference: Synchronization Interval Description (%s => setting) -->
+  <string name="sync_SPr_interval_desc_disabled">Background synchronization is disabled</string>
   <string name="sync_SPr_interval_desc">Currently set to: %s</string>
-  
-  <!-- Preference: Background Wifi Title -->  
-  <string name="sync_SPr_bgwifi_title">Wifi Only Setting</string>    
-  <!-- Preference: Background Wifi Description (enabled) -->
-  <string name="sync_SPr_bgwifi_desc_enabled">Background synchronization only happens when on Wifi</string>    
-  <!-- Preference: Background Wifi Description (disabled) -->
+  <string name="sync_SPr_bgwifi_title">Wifi Only Setting</string>
+  <string name="sync_SPr_bgwifi_desc_enabled">Background synchronization only happens when on Wifi</string>
   <string name="sync_SPr_bgwifi_desc_disabled">Background synchronization will always occur</string>
-  
-  <!-- Actions Group Label  -->
   <string name="sync_SPr_group_actions">Acções</string>
-
-  <!-- Synchronize Now Button -->    
   <string name="sync_SPr_sync">Sincronizar Agora!</string>
-  <!-- Synchronize Now Button if not logged in-->    
   <string name="sync_SPr_sync_log_in">Log In &amp; Synchronize!</string>
-  
-  <!-- Sync: Prefix string before logged in identifier -->
   <string name="sync_SPr_logged_in_prefix">Logged in as:</string>
-  
-  <!-- Sync: Clear Data Title -->
   <string name="sync_SPr_forget">Terminar sessão</string>
-  <!-- Sync: Clear Data Description -->
   <string name="sync_SPr_forget_description">Clears all synchronization data</string>
-
-  <!-- confirmation dialog for sync log out -->
   <string name="sync_forget_confirm">Log out / clear synchronization data?</string>
-  
   <string-array name="sync_SPr_interval_entries">
-      <!-- sync_SPr_interval_entries: Synchronization Intervals -->
-      <item>desactivar</item>
-      <item>every fifteen minutes</item>
-      <item>every thirty minutes</item>
-      <item>every hour</item>
-      <item>every three hours</item>
-      <item>every six hours</item>
-      <item>every twelve hours</item>
-      <item>every day</item>
-      <item>every three days</item>
-      <item>every week</item>
-  </string-array>    
-    
-
+    <item>desactivar</item>
+    <item>every fifteen minutes</item>
+    <item>every thirty minutes</item>
+    <item>every hour</item>
+    <item>every three hours</item>
+    <item>every six hours</item>
+    <item>every twelve hours</item>
+    <item>every day</item>
+    <item>every three days</item>
+    <item>every week</item>
+  </string-array>
 </resources>

@@ -50,7 +50,7 @@
 		          android:layout_height="wrap_content"
 		          android:layout_marginLeft="5dip"
 		          android:button="@drawable/btn_check_small"       
-		          android:text="@string/TEA_reminder_random" />
+		          android:text="@string/TEA_reminder_randomly" />
 		        <Spinner
 		          android:id="@+id/reminder_random_interval"
 		          android:layout_width="fill_parent"
