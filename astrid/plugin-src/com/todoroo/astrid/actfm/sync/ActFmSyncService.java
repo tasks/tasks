@@ -415,13 +415,14 @@ public final class ActFmSyncService {
         if(params.size() == 0 || !checkForToken())
             return;
 
-        params.add("created_at"); params.add(creationDate);
 
         if(!newlyCreated) {
             params.add("id"); params.add(remoteId);
         } else if(!values.containsKey(Task.TITLE.name)) {
             pushTask(task.getId());
             return;
+        } else {
+            params.add("created_at"); params.add(creationDate);
         }
 
         try {
