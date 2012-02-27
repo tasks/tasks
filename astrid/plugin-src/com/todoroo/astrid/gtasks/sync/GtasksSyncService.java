@@ -16,6 +16,7 @@ import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.astrid.dao.MetadataDao;
 import com.todoroo.astrid.dao.TaskDao;
 import com.todoroo.astrid.data.Metadata;
+import com.todoroo.astrid.data.SyncFlags;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.gtasks.GtasksMetadata;
 import com.todoroo.astrid.gtasks.GtasksMetadataService;
@@ -26,7 +27,6 @@ import com.todoroo.astrid.gtasks.api.GtasksApiUtilities;
 import com.todoroo.astrid.gtasks.api.GtasksInvoker;
 import com.todoroo.astrid.gtasks.api.MoveRequest;
 import com.todoroo.astrid.service.MetadataService;
-import com.todoroo.astrid.utility.Flags;
 
 public final class GtasksSyncService {
 
@@ -93,7 +93,7 @@ public final class GtasksSyncService {
 
         taskDao.addListener(new ModelUpdateListener<Task>() {
             public void onModelUpdated(final Task model) {
-                if(Flags.checkAndClear(Flags.GTASKS_SUPPRESS_SYNC))
+                if(model.checkAndClearTransitory(SyncFlags.GTASKS_SUPPRESS_SYNC))
                     return;
                 if (gtasksPreferenceService.isOngoing()) //Don't try and sync changes that occur during a normal sync
                     return;
@@ -131,7 +131,7 @@ public final class GtasksSyncService {
 
 
     public void triggerMoveForMetadata(final Metadata metadata) {
-        if (Flags.checkAndClear(Flags.GTASKS_SUPPRESS_SYNC))
+        if (metadata.checkAndClearTransitory(SyncFlags.GTASKS_SUPPRESS_SYNC))
             return;
         if (!metadata.getValue(Metadata.KEY).equals(GtasksMetadata.METADATA_KEY)) //Don't care about non-gtasks metadata
             return;
@@ -233,7 +233,7 @@ public final class GtasksSyncService {
         task.setValue(Task.MODIFICATION_DATE, DateUtilities.now());
         gtasksMetadata.setValue(GtasksMetadata.LAST_SYNC, DateUtilities.now() + 1000L);
         metadataService.save(gtasksMetadata);
-        Flags.set(Flags.GTASKS_SUPPRESS_SYNC);
+        task.putTransitory(SyncFlags.GTASKS_SUPPRESS_SYNC, true);
         taskDao.saveExisting(task);
     }
 
@@ -250,7 +250,7 @@ public final class GtasksSyncService {
         // Update order metadata from result
         if (result != null) {
             model.setValue(GtasksMetadata.GTASKS_ORDER, Long.parseLong(result.getPosition()));
-            Flags.set(Flags.GTASKS_SUPPRESS_SYNC);
+            model.putTransitory(SyncFlags.GTASKS_SUPPRESS_SYNC, true);
             metadataDao.saveExisting(model);
         }
     }

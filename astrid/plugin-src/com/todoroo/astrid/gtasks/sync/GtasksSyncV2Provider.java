@@ -27,6 +27,7 @@ import com.todoroo.astrid.dao.StoreObjectDao;
 import com.todoroo.astrid.dao.TaskDao;
 import com.todoroo.astrid.data.Metadata;
 import com.todoroo.astrid.data.StoreObject;
+import com.todoroo.astrid.data.SyncFlags;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.gtasks.GtasksList;
 import com.todoroo.astrid.gtasks.GtasksListService;
@@ -44,7 +45,6 @@ import com.todoroo.astrid.service.StatisticsService;
 import com.todoroo.astrid.service.TaskService;
 import com.todoroo.astrid.sync.SyncResultCallback;
 import com.todoroo.astrid.sync.SyncV2Provider;
-import com.todoroo.astrid.utility.Flags;
 
 public class GtasksSyncV2Provider extends SyncV2Provider {
 
@@ -270,7 +270,7 @@ public class GtasksSyncV2Provider extends SyncV2Provider {
             TaskDao.setDefaultReminders(task.task);
         }
         if (!TextUtils.isEmpty(task.task.getValue(Task.TITLE))) {
-            Flags.set(Flags.GTASKS_SUPPRESS_SYNC);
+            task.task.putTransitory(SyncFlags.GTASKS_SUPPRESS_SYNC, true);
             gtasksMetadataService.saveTaskAndMetadata(task);
         }
     }

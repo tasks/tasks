@@ -24,13 +24,13 @@ import com.todoroo.astrid.dao.MetadataDao.MetadataCriteria;
 import com.todoroo.astrid.dao.TaskDao;
 import com.todoroo.astrid.dao.TaskDao.TaskCriteria;
 import com.todoroo.astrid.data.Metadata;
+import com.todoroo.astrid.data.SyncFlags;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.gcal.GCalHelper;
 import com.todoroo.astrid.gtasks.GtasksMetadata;
 import com.todoroo.astrid.opencrx.OpencrxCoreUtils;
 import com.todoroo.astrid.producteev.sync.ProducteevTask;
 import com.todoroo.astrid.tags.TagService;
-import com.todoroo.astrid.utility.Flags;
 import com.todoroo.astrid.utility.TitleParser;
 
 
@@ -122,6 +122,8 @@ public class TaskService {
         try {
             if(cursor.getCount() > 0) {
                 Metadata metadata = new Metadata();
+                newTask.putTransitory(SyncFlags.ACTFM_SUPPRESS_SYNC, true);
+                newTask.putTransitory(SyncFlags.GTASKS_SUPPRESS_SYNC, true);
                 taskDao.save(newTask);
                 long newId = newTask.getId();
                 for(cursor.moveToFirst(); !cursor.isAfterLast(); cursor.moveToNext()) {
@@ -388,8 +390,6 @@ public class TaskService {
         clone.setValue(Task.CALENDAR_URI, ""); //$NON-NLS-1$
         GCalHelper.createTaskEventIfEnabled(clone);
 
-        Flags.set(Flags.ACTFM_SUPPRESS_SYNC);
-        Flags.set(Flags.GTASKS_SUPPRESS_SYNC);
         save(clone);
         return clone.getId();
     }
@@ -405,7 +405,7 @@ public class TaskService {
      * @return
      */
     public static Task createWithValues(ContentValues values, String title,
-            TaskService taskService, MetadataService metadataService) {
+            TaskService taskService, MetadataService metadataService, String...flags) {
         Task task = new Task();
         if (title != null)
             task.setValue(Task.TITLE, title);
@@ -429,6 +429,10 @@ public class TaskService {
                 AndroidUtilities.putInto(forTask, key, value);
             }
             task.mergeWith(forTask);
+        }
+
+        for (String flag : flags) {
+            task.putTransitory(flag, true);
         }
         boolean markup = taskService.quickAdd(task);
         if (markup)
