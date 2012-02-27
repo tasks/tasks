@@ -405,7 +405,7 @@ public class TaskService {
      * @return
      */
     public static Task createWithValues(ContentValues values, String title,
-            TaskService taskService, MetadataService metadataService, String...flags) {
+            TaskService taskService, MetadataService metadataService) {
         Task task = new Task();
         return createWithValues(task, values, title, taskService, metadataService);
     }
@@ -446,9 +446,6 @@ public class TaskService {
             task.mergeWith(forTask);
         }
 
-        for (String flag : flags) {
-            task.putTransitory(flag, true);
-        }
         boolean markup = taskService.quickAdd(task);
         if (markup)
             task.putTransitory(TRANS_QUICK_ADD_MARKUP, true);
