@@ -142,6 +142,8 @@ public class TaskListFragment extends ListFragment implements OnScrollListener,
     /** token for passing a {@link Filter} object through extras */
     public static final String TOKEN_FILTER = "filter"; //$NON-NLS-1$
 
+    private static final String TOKEN_EXTRAS = "extras"; //$NON-NLS-1$
+
     // --- instance variables
 
     @Autowired
@@ -217,12 +219,10 @@ public class TaskListFragment extends ListFragment implements OnScrollListener,
             Log.e("tla-instantiate", "tla-instantiate", e);
             newFragment = new TaskListFragment();
         }
-        newFragment.setExtras(extras);
+        Bundle args = new Bundle();
+        args.putBundle(TOKEN_EXTRAS, extras);
+        newFragment.setArguments(args);
         return newFragment;
-    }
-
-    public void setExtras(Bundle extras) {
-        this.extras = extras;
     }
 
     /**
@@ -261,6 +261,7 @@ public class TaskListFragment extends ListFragment implements OnScrollListener,
     public void onCreate(Bundle savedInstanceState) {
         DependencyInjectionService.getInstance().inject(this);
         super.onCreate(savedInstanceState);
+        extras = getArguments() != null ? getArguments().getBundle(TOKEN_EXTRAS) : null;
     }
 
     /*
