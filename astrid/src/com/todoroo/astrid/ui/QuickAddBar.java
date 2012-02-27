@@ -269,20 +269,7 @@ public class QuickAddBar extends LinearLayout {
                 return null;
             }
 
-            boolean quickAddChanges = repeatControl.isRecurrenceSet() ||
-                                        deadlineControl.isDeadlineSet() ||
-                                        !assignedToMe; // Will the quickadd save have any effect?
-
-            ArrayList<String> flags = new ArrayList<String>();
-
-            if (quickAddChanges)
-                flags.add(SyncFlags.ACTFM_SUPPRESS_SYNC);
-
-            if (deadlineControl.isDeadlineSet()) // If deadline is set, second save will trigger push
-                flags.add(SyncFlags.GTASKS_SUPPRESS_SYNC);
-
-            Task task = TaskService.createWithValues(fragment.getFilter().valuesForNewTasks, title,
-                    taskService, metadataService, flags.toArray(new String[flags.size()]));
+            Task task = new Task();
 
             if (repeatControl.isRecurrenceSet())
                 repeatControl.writeToModel(task);
@@ -296,7 +283,9 @@ public class QuickAddBar extends LinearLayout {
                 peopleControl.setTask(task);
                 peopleControl.saveSharingSettings(null);
             }
-            taskService.save(task);
+
+            TaskService.createWithValues(task, fragment.getFilter().valuesForNewTasks, title,
+                    taskService, metadataService);
 
             String assignedTo = peopleControl.getAssignedToString();
 

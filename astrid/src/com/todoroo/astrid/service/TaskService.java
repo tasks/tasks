@@ -394,9 +394,9 @@ public class TaskService {
         return clone.getId();
     }
 
-
     /**
-     * Create task from the given content values, saving it.
+     * Create task from the given content values, saving it. This version
+     * doesn't need to start with a base task model.
      *
      * @param values
      * @param title
@@ -407,6 +407,21 @@ public class TaskService {
     public static Task createWithValues(ContentValues values, String title,
             TaskService taskService, MetadataService metadataService, String...flags) {
         Task task = new Task();
+        return createWithValues(task, values, title, taskService, metadataService);
+    }
+
+    /**
+     * Create task from the given content values, saving it.
+     *
+     * @param task base task to start with
+     * @param values
+     * @param title
+     * @param taskService
+     * @param metadataService
+     * @return
+     */
+    public static Task createWithValues(Task task, ContentValues values, String title,
+            TaskService taskService, MetadataService metadataService) {
         if (title != null)
             task.setValue(Task.TITLE, title);
 
