@@ -36,6 +36,7 @@ public class TaskRabbitMapActivity extends MapActivity implements LocationListen
     private MapView mapView;
     private MapController mapController;
     public Location currentLocation;
+    private LocationManager locationManager;
     private EditText searchText;
     private TaskRabbitMapOverlayItem currentOverlayItem;
     private String locationAddress;
@@ -53,29 +54,21 @@ public class TaskRabbitMapActivity extends MapActivity implements LocationListen
         mapView.setBuiltInZoomControls(true);
 
 
-        LocationManager locationManager = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
-        Location lastKnownLocation = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
-        locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, this);
-
-        List<Overlay> mapOverlays = mapView.getOverlays();
-
-        Drawable drawable = this.getResources().getDrawable(android.R.drawable.star_big_on);
-        currentOverlayItem = new TaskRabbitMapOverlayItem(drawable, this);
-        GeoPoint point = null;
+        locationManager = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
+        currentLocation = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
 
         mapController = mapView.getController();
-        if(lastKnownLocation != null) {
+        if(currentLocation != null) {
 
-            point = locationToGeoPoint(lastKnownLocation);
-            OverlayItem overlayitem = createOverlayItem(point);
-            currentOverlayItem.addOverlay(overlayitem);
-            mapOverlays.add(currentOverlayItem);
+            updateLocationOverlay();
 
-            locationAddress = getAddressFromLocation(lastKnownLocation);
-            mapController.animateTo(point);
+            locationAddress = getAddressFromLocation(currentLocation);
             mapController.setZoom(17);
             mapView.invalidate();
 
+        }
+        else {
+            locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 0, 0, this);
         }
 
 
@@ -145,23 +138,12 @@ public class TaskRabbitMapActivity extends MapActivity implements LocationListen
 
                 if (addresses != null && addresses.size() > 0) {
                     updateAddress(addresses.get(0));
-                    GeoPoint q = new GeoPoint(
-                            (int) (addresses.get(0).getLatitude() * 1E6),
-                            (int) (addresses.get(0).getLongitude() * 1E6));
-
-                    Drawable drawable = TaskRabbitMapActivity.this.getResources().getDrawable(
-                            android.R.drawable.star_big_on);
-                    currentOverlayItem = new TaskRabbitMapOverlayItem(drawable,
-                            TaskRabbitMapActivity.this);
-                    mapController.animateTo(q);
+                    currentLocation = new Location("");
+                    currentLocation.setLatitude(addresses.get(0).getLatitude());
+                    currentLocation.setLongitude(addresses.get(0).getLongitude());
                     mapController.setZoom(12);
+                    updateLocationOverlay();
 
-                    OverlayItem overlayitem = createOverlayItem(q);
-
-                    currentOverlayItem.addOverlay(overlayitem);
-                    List<Overlay> mapOverlays = mapView.getOverlays();
-                    mapOverlays.clear();
-                    mapOverlays.add(currentOverlayItem);
 
                     Message successMessage = new Message();
                     successMessage.what = LOCATION_SEARCH_SUCCESS;
@@ -223,12 +205,13 @@ public class TaskRabbitMapActivity extends MapActivity implements LocationListen
         if (currentLocation == null) { return; };
         List<Overlay> mapOverlays = mapView.getOverlays();
         Drawable drawable = this.getResources().getDrawable(android.R.drawable.star_big_on);
-        TaskRabbitMapOverlayItem myItemizedOverlay = new TaskRabbitMapOverlayItem(drawable);
-        GeoPoint point = new GeoPoint((int)(currentLocation.getLatitude() * 1E6), (int)(currentLocation.getLongitude() * 1E6));
-
+        currentOverlayItem = new TaskRabbitMapOverlayItem(drawable, this);
+        GeoPoint point = locationToGeoPoint(currentLocation);
         OverlayItem overlayitem = createOverlayItem(point);
-        myItemizedOverlay.addOverlay(overlayitem);
-        mapOverlays.add(myItemizedOverlay);
+        currentOverlayItem.addOverlay(overlayitem);
+        mapOverlays.clear();
+        mapOverlays.add(currentOverlayItem);
+        mapController.animateTo(point);
     }
 
     public void didSelectItem (final OverlayItem selectedItem) {
@@ -270,12 +253,9 @@ public class TaskRabbitMapActivity extends MapActivity implements LocationListen
     @Override
     public void onLocationChanged(Location location) {
         if (location != null) {
-            double lat = location.getLatitude();
-            double lng = location.getLongitude();
+            locationManager.removeUpdates(this);
             this.currentLocation = location;
-            GeoPoint p = new GeoPoint((int) lat * 1000000, (int) lng * 1000000);
             updateLocationOverlay();
-            mapController.animateTo(p);
 
         }
     }
