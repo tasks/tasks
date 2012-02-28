@@ -22,9 +22,9 @@ import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.dao.MetadataDao;
 import com.todoroo.astrid.dao.TaskDao;
 import com.todoroo.astrid.dao.TaskDao.TaskCriteria;
+import com.todoroo.astrid.data.SyncFlags;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.test.DatabaseTestCase;
-import com.todoroo.astrid.utility.Flags;
 
 public class NewRepeatTests<REMOTE_MODEL> extends DatabaseTestCase {
 
@@ -41,7 +41,7 @@ public class NewRepeatTests<REMOTE_MODEL> extends DatabaseTestCase {
     }
 
     private void saveAndTriggerRepeatListener(Task task) {
-        Flags.set(Flags.ACTFM_SUPPRESS_SYNC);
+        task.putTransitory(SyncFlags.ACTFM_SUPPRESS_SYNC, true);
         if(task.isSaved())
             taskDao.saveExisting(task);
         else
