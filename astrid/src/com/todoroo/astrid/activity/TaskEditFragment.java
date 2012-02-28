@@ -859,7 +859,7 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
 
     public boolean onKeyDown(int keyCode) {
         if (keyCode == KeyEvent.KEYCODE_BACK) {
-            if (title.getText().length() == 0)
+            if (title.getText().length() == 0 || !peopleControlSet.hasLoadedUI())
                 discardButtonClick();
             else
                 saveButtonClick();
