@@ -119,6 +119,7 @@ public class TaskRabbitActivity extends FragmentActivity {
     private int currentSelectedItem = 0;
     private View menuNav;
     private ImageView menuNavDisclosure;
+    private boolean didReportStatistics = false;
 
     private final List<TaskRabbitSetListener> controls = Collections.synchronizedList(new ArrayList<TaskRabbitSetListener>());
 
@@ -154,6 +155,7 @@ public class TaskRabbitActivity extends FragmentActivity {
     public static final String TASK_RABBIT_CLIENT_ID = "fDTmGeR0uNCvoxopNyqsRWae8xOvbOBqC7jmHaxv"; //$NON-NLS-1$
     public static final String TASK_RABBIT_CLIENT_APPLICATION_ID = "XBpKshU8utH5eaNmhky9N8aAId5rSLTh04Hi60Co"; //$NON-NLS-1$
     public static final String TASK_RABBIT_ID = "id"; //$NON-NLS-1$
+
     private TaskRabbitTaskContainer taskRabbitTask;
 
     public TaskRabbitActivity() {
@@ -168,7 +170,6 @@ public class TaskRabbitActivity extends FragmentActivity {
         loadLocation();
         setContentView(R.layout.task_rabbit_enter);
 
-        StatisticsService.reportEvent(StatisticsConstants.TASK_RABBIT_VIEW);
     }
 
     public void showAddListPopover() {
@@ -206,12 +207,15 @@ public class TaskRabbitActivity extends FragmentActivity {
         }
     }
 
-
-
     @Override
     public void onResume() {
         super.onResume();
         StatisticsService.sessionStart(this);
+
+        if (!didReportStatistics) {
+            StatisticsService.reportEvent(StatisticsConstants.TASK_RABBIT_VIEW);
+            didReportStatistics = true;
+        }
         populateFields();
         showIntroDialog();
     }
@@ -688,7 +692,7 @@ public class TaskRabbitActivity extends FragmentActivity {
             String url = TASK_RABBIT_URL + "/api/authorize?client_id=" + TASK_RABBIT_CLIENT_ID;  //$NON-NLS-1$
             intent.putExtra(OAuthLoginActivity.URL_TOKEN, url);
             this.startActivityForResult(intent, REQUEST_CODE_TASK_RABBIT_OAUTH);
-            StatisticsService.reportEvent(StatisticsConstants.ACTFM_LOGIN_GL_START);
+            StatisticsService.reportEvent(StatisticsConstants.TASK_RABBIT_LOGIN);
         } catch (Exception e) {
             e.printStackTrace();
         }

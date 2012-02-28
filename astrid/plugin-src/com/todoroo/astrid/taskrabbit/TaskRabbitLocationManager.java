@@ -15,7 +15,6 @@ public class TaskRabbitLocationManager {
     Timer timer1;
     LocationManager lm;
     LocationResult locationResult;
-    boolean gps_enabled=false;
     boolean network_enabled=false;
     Context context;
 
@@ -42,13 +41,7 @@ public class TaskRabbitLocationManager {
     public boolean isLocationUpdatesEnabled() {
         boolean provider_enabled = false;
         try {
-            provider_enabled = lm.isProviderEnabled(LocationManager.GPS_PROVIDER);
-        } catch (Exception ex) {
-            // suppress
-        }
-        try {
-            provider_enabled = provider_enabled
-                    || lm.isProviderEnabled(LocationManager.NETWORK_PROVIDER);
+            provider_enabled = lm.isProviderEnabled(LocationManager.NETWORK_PROVIDER);
         } catch (Exception ex) {
             // suppress
         }
@@ -56,20 +49,11 @@ public class TaskRabbitLocationManager {
     }
     public Location getLastKnownLocation()
     {
-        boolean gps_supported=false;
-        boolean network_supported=false;
-        Location location = null;
-
-        gps_supported = isGpsEnabled();;
-        network_supported = isNetworkProviderEnabled();
-        if(!gps_supported && !network_supported)
+        if(!isNetworkProviderEnabled())
             return null;
-
-        if(gps_supported) {location = lm.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+        else {
+            return lm.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
         }
-        if(location == null && network_supported) {location = lm.getLastKnownLocation(LocationManager.GPS_PROVIDER);
-        }
-        return location;
     }
 
     public static boolean supportsCurrentLocation(Location location) {
@@ -91,16 +75,11 @@ public class TaskRabbitLocationManager {
     public boolean getLocation(LocationResult result)
     {
         locationResult = result;
-        gps_enabled = isGpsEnabled();
-        network_enabled = isNetworkProviderEnabled();
 
-        if(!gps_enabled && !network_enabled)
+        if(!isNetworkProviderEnabled())
             return false;
 
-        if(gps_enabled)
-            lm.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, locationListener);
-        if(network_enabled)
-            lm.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 0, 0, locationListener);
+        lm.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 0, 0, locationListener);
         timer1=new Timer();
         timer1.schedule(new GetLastLocation(), 20000);
         return true;
@@ -109,15 +88,6 @@ public class TaskRabbitLocationManager {
     private boolean isNetworkProviderEnabled() {
         try {
             return lm.isProviderEnabled(LocationManager.NETWORK_PROVIDER);
-        } catch (Exception ex) {
-            // suppress
-        }
-        return false;
-    }
-
-    private boolean isGpsEnabled() {
-        try {
-            return lm.isProviderEnabled(LocationManager.GPS_PROVIDER);
         } catch (Exception ex) {
             // suppress
         }
@@ -140,25 +110,8 @@ public class TaskRabbitLocationManager {
         public void run() {
             lm.removeUpdates(locationListener);
 
-            Location net_loc=null, gps_loc=null;
-            if(gps_enabled)
-                gps_loc=lm.getLastKnownLocation(LocationManager.GPS_PROVIDER);
-            if(network_enabled)
-                net_loc=lm.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
+            Location net_loc=lm.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
 
-            //if there are both values use the latest one
-            if(gps_loc!=null && net_loc!=null){
-                if(gps_loc.getTime()>net_loc.getTime())
-                    locationResult.gotLocation(gps_loc);
-                else
-                    locationResult.gotLocation(net_loc);
-                return;
-            }
-
-            if(gps_loc!=null){
-                locationResult.gotLocation(gps_loc);
-                return;
-            }
             if(net_loc!=null){
                 locationResult.gotLocation(net_loc);
                 return;

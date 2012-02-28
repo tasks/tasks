@@ -12,13 +12,9 @@ import com.google.android.maps.OverlayItem;
 public class TaskRabbitMapOverlayItem extends ItemizedOverlay<OverlayItem> {
     private final ArrayList<OverlayItem> mOverlays = new ArrayList<OverlayItem>();
 
-    private TaskRabbitMapActivity mActivity;
+    private final TaskRabbitMapActivity mActivity;
     private ImageView dragImage = null;
     private OverlayItem selectedItem = null;
-
-    public TaskRabbitMapOverlayItem(Drawable defaultMarker) {
-        super(boundCenterBottom(defaultMarker));
-    }
 
     public TaskRabbitMapOverlayItem(Drawable defaultMarker, TaskRabbitMapActivity activity) {
         super(boundCenterBottom(defaultMarker));
@@ -60,6 +56,7 @@ public class TaskRabbitMapOverlayItem extends ItemizedOverlay<OverlayItem> {
             return false;
         }
         selectedItem = mOverlays.get(index);
+        if (mActivity != null)
         mActivity.didSelectItem(selectedItem);
 
         return true;
