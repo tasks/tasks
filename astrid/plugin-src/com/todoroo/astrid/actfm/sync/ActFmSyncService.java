@@ -52,6 +52,7 @@ import com.todoroo.astrid.dao.UpdateDao;
 import com.todoroo.astrid.data.Metadata;
 import com.todoroo.astrid.data.MetadataApiDao.MetadataCriteria;
 import com.todoroo.astrid.data.RemoteModel;
+import com.todoroo.astrid.data.SyncFlags;
 import com.todoroo.astrid.data.TagData;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.data.TaskApiDao;
