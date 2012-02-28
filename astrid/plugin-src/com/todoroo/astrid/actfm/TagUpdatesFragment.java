@@ -42,6 +42,7 @@ import com.todoroo.astrid.activity.AstridActivity;
 import com.todoroo.astrid.activity.TaskListActivity;
 import com.todoroo.astrid.adapter.UpdateAdapter;
 import com.todoroo.astrid.dao.UpdateDao;
+import com.todoroo.astrid.data.SyncFlags;
 import com.todoroo.astrid.data.TagData;
 import com.todoroo.astrid.data.Update;
 import com.todoroo.astrid.helper.AsyncImageView;
@@ -51,7 +52,6 @@ import com.todoroo.astrid.service.StatisticsConstants;
 import com.todoroo.astrid.service.StatisticsService;
 import com.todoroo.astrid.service.TagDataService;
 import com.todoroo.astrid.tags.TagService;
-import com.todoroo.astrid.utility.Flags;
 
 public class TagUpdatesFragment extends ListFragment {
 
@@ -361,7 +361,7 @@ public class TagUpdatesFragment extends ListFragment {
                 Log.e("EditNoteActivity", "Failed to put image to disk...");
             }
         }
-        Flags.set(Flags.ACTFM_SUPPRESS_SYNC);
+        update.putTransitory(SyncFlags.ACTFM_SUPPRESS_SYNC, true);
         updateDao.createNew(update);
 
         final long updateId = update.getId();

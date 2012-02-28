@@ -22,16 +22,6 @@ public class Flags {
     public static final int TOAST_ON_SAVE = 1 << 2;
 
     /**
-     * If set, indicates to suppress the next act.fm sync attempt
-     */
-    public static final int ACTFM_SUPPRESS_SYNC = 1 << 3;
-
-    /**
-     * If set, indicates to suppress the next gtasks sync attempt
-     */
-    public static final int GTASKS_SUPPRESS_SYNC = 1 << 4;
-
-    /**
      * If set, indicates that the edit popover was dismissed by the edit fragment/back button
      */
     public static final int TLA_DISMISSED_FROM_TASK_EDIT = 1 << 5;

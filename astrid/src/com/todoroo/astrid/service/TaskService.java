@@ -24,13 +24,13 @@ import com.todoroo.astrid.dao.MetadataDao.MetadataCriteria;
 import com.todoroo.astrid.dao.TaskDao;
 import com.todoroo.astrid.dao.TaskDao.TaskCriteria;
 import com.todoroo.astrid.data.Metadata;
+import com.todoroo.astrid.data.SyncFlags;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.gcal.GCalHelper;
 import com.todoroo.astrid.gtasks.GtasksMetadata;
 import com.todoroo.astrid.opencrx.OpencrxCoreUtils;
 import com.todoroo.astrid.producteev.sync.ProducteevTask;
 import com.todoroo.astrid.tags.TagService;
-import com.todoroo.astrid.utility.Flags;
 import com.todoroo.astrid.utility.TitleParser;
 
 
@@ -122,6 +122,8 @@ public class TaskService {
         try {
             if(cursor.getCount() > 0) {
                 Metadata metadata = new Metadata();
+                newTask.putTransitory(SyncFlags.ACTFM_SUPPRESS_SYNC, true);
+                newTask.putTransitory(SyncFlags.GTASKS_SUPPRESS_SYNC, true);
                 taskDao.save(newTask);
                 long newId = newTask.getId();
                 for(cursor.moveToFirst(); !cursor.isAfterLast(); cursor.moveToNext()) {
@@ -388,15 +390,13 @@ public class TaskService {
         clone.setValue(Task.CALENDAR_URI, ""); //$NON-NLS-1$
         GCalHelper.createTaskEventIfEnabled(clone);
 
-        Flags.set(Flags.ACTFM_SUPPRESS_SYNC);
-        Flags.set(Flags.GTASKS_SUPPRESS_SYNC);
         save(clone);
         return clone.getId();
     }
 
-
     /**
-     * Create task from the given content values, saving it.
+     * Create task from the given content values, saving it. This version
+     * doesn't need to start with a base task model.
      *
      * @param values
      * @param title
@@ -407,6 +407,21 @@ public class TaskService {
     public static Task createWithValues(ContentValues values, String title,
             TaskService taskService, MetadataService metadataService) {
         Task task = new Task();
+        return createWithValues(task, values, title, taskService, metadataService);
+    }
+
+    /**
+     * Create task from the given content values, saving it.
+     *
+     * @param task base task to start with
+     * @param values
+     * @param title
+     * @param taskService
+     * @param metadataService
+     * @return
+     */
+    public static Task createWithValues(Task task, ContentValues values, String title,
+            TaskService taskService, MetadataService metadataService) {
         if (title != null)
             task.setValue(Task.TITLE, title);
 
@@ -430,6 +445,7 @@ public class TaskService {
             }
             task.mergeWith(forTask);
         }
+
         boolean markup = taskService.quickAdd(task);
         if (markup)
             task.putTransitory(TRANS_QUICK_ADD_MARKUP, true);

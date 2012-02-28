@@ -1,5 +1,6 @@
 package com.todoroo.astrid.ui;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 
 import android.app.Activity;
@@ -36,6 +37,7 @@ import com.todoroo.astrid.activity.TaskListActivity;
 import com.todoroo.astrid.activity.TaskListFragment;
 import com.todoroo.astrid.activity.TaskListFragment.OnTaskListItemClickedListener;
 import com.todoroo.astrid.dao.TaskDao;
+import com.todoroo.astrid.data.SyncFlags;
 import com.todoroo.astrid.data.TagData;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.gcal.GCalControlSet;
@@ -267,18 +269,7 @@ public class QuickAddBar extends LinearLayout {
                 return null;
             }
 
-            boolean quickAddChanges = repeatControl.isRecurrenceSet() ||
-                                        deadlineControl.isDeadlineSet() ||
-                                        !assignedToMe; // Will the quickadd save have any effect?
-
-            if (quickAddChanges)
-                Flags.set(Flags.ACTFM_SUPPRESS_SYNC);
-
-            if (deadlineControl.isDeadlineSet()) // If deadline is set, second save will trigger push
-                Flags.set(Flags.GTASKS_SUPPRESS_SYNC);
-
-            Task task = TaskService.createWithValues(fragment.getFilter().valuesForNewTasks, title,
-                    taskService, metadataService);
+            Task task = new Task();
 
             if (repeatControl.isRecurrenceSet())
                 repeatControl.writeToModel(task);
@@ -292,7 +283,9 @@ public class QuickAddBar extends LinearLayout {
                 peopleControl.setTask(task);
                 peopleControl.saveSharingSettings(null);
             }
-            taskService.save(task);
+
+            TaskService.createWithValues(task, fragment.getFilter().valuesForNewTasks, title,
+                    taskService, metadataService);
 
             String assignedTo = peopleControl.getAssignedToString();
 
@@ -305,8 +298,8 @@ public class QuickAddBar extends LinearLayout {
                 Uri calendarUri = GCalHelper.createTaskEvent(task,
                         activity.getContentResolver(), new ContentValues());
                 task.setValue(Task.CALENDAR_URI, calendarUri.toString());
-                Flags.set(Flags.ACTFM_SUPPRESS_SYNC);
-                Flags.set(Flags.GTASKS_SUPPRESS_SYNC);
+                task.putTransitory(SyncFlags.ACTFM_SUPPRESS_SYNC, true);
+                task.putTransitory(SyncFlags.GTASKS_SUPPRESS_SYNC, true);
                 taskService.save(task);
             }
 

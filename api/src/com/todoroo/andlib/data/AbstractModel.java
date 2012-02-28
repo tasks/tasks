@@ -365,6 +365,24 @@ public abstract class AbstractModel implements Parcelable, Cloneable {
         return transitoryData.get(key);
     }
 
+    public Object clearTransitory(String key) {
+        if (transitoryData == null)
+            return null;
+        return transitoryData.remove(key);
+    }
+
+
+    // --- Convenience wrappers for using transitories as flags
+    public boolean checkTransitory(String flag) {
+        Object trans = getTransitory(flag);
+        return trans != null;
+    }
+
+    public boolean checkAndClearTransitory(String flag) {
+        Object trans = clearTransitory(flag);
+        return trans != null;
+    }
+
     // --- property management
 
     /**

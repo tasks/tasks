@@ -53,6 +53,7 @@ import com.todoroo.astrid.core.PluginServices;
 import com.todoroo.astrid.dao.MetadataDao.MetadataCriteria;
 import com.todoroo.astrid.dao.UpdateDao;
 import com.todoroo.astrid.data.Metadata;
+import com.todoroo.astrid.data.SyncFlags;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.data.Update;
 import com.todoroo.astrid.helper.AsyncImageView;
@@ -63,7 +64,6 @@ import com.todoroo.astrid.service.StatisticsConstants;
 import com.todoroo.astrid.service.StatisticsService;
 import com.todoroo.astrid.sync.SyncResultCallback;
 import com.todoroo.astrid.timers.TimerActionControlSet.TimerActionListener;
-import com.todoroo.astrid.utility.Flags;
 
 public class EditNoteActivity extends LinearLayout implements TimerActionListener {
 
@@ -436,7 +436,7 @@ public class EditNoteActivity extends LinearLayout implements TimerActionListene
                 Log.e("EditNoteActivity", "Failed to put image to disk...");
             }
         }
-        Flags.set(Flags.ACTFM_SUPPRESS_SYNC);
+        update.putTransitory(SyncFlags.ACTFM_SUPPRESS_SYNC, true);
         updateDao.createNew(update);
 
         final long updateId = update.getId();

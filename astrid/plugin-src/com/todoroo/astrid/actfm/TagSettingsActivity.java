@@ -44,6 +44,7 @@ import com.todoroo.astrid.activity.ShortcutActivity;
 import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.core.PluginServices;
+import com.todoroo.astrid.data.SyncFlags;
 import com.todoroo.astrid.data.TagData;
 import com.todoroo.astrid.helper.AsyncImageView;
 import com.todoroo.astrid.helper.ImageDiskCache;
@@ -318,7 +319,7 @@ public class TagSettingsActivity extends FragmentActivity {
         imm.hideSoftInputFromWindow(tagName.getWindowToken(), 0);
 
         if (isNewTag) {
-            Flags.set(Flags.ACTFM_SUPPRESS_SYNC);
+            tagData.putTransitory(SyncFlags.ACTFM_SUPPRESS_SYNC, true);
             tagDataService.save(tagData);
 
             final Runnable loadTag = new Runnable() {
@@ -436,7 +437,7 @@ public class TagSettingsActivity extends FragmentActivity {
                         imageCache.move(tagData.getValue(TagData.PICTURE), url);
                     }
                     tagData.setValue(TagData.PICTURE, url);
-                    Flags.set(Flags.ACTFM_SUPPRESS_SYNC);
+                    tagData.putTransitory(SyncFlags.ACTFM_SUPPRESS_SYNC, true);
                     tagDataService.save(tagData);
                 } catch (IOException e) {
                     DialogUtilities.okDialog(TagSettingsActivity.this, e.toString(), null);

@@ -37,6 +37,7 @@ import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.api.FilterWithCustomIntent;
 import com.todoroo.astrid.dao.UpdateDao;
+import com.todoroo.astrid.data.SyncFlags;
 import com.todoroo.astrid.data.TagData;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.data.Update;
@@ -47,7 +48,6 @@ import com.todoroo.astrid.service.TaskService;
 import com.todoroo.astrid.sync.SyncResultCallbackAdapter;
 import com.todoroo.astrid.tags.TagFilterExposer;
 import com.todoroo.astrid.utility.Constants;
-import com.todoroo.astrid.utility.Flags;
 
 @SuppressWarnings("nls")
 public class C2DMReceiver extends BroadcastReceiver {
@@ -133,7 +133,7 @@ public class C2DMReceiver extends BroadcastReceiver {
                     TagData tagData = new TagData();
                     if(cursor.getCount() == 0) {
                         tagData.setValue(TagData.REMOTE_ID, Long.parseLong(intent.getStringExtra("tag_id")));
-                        Flags.set(Flags.ACTFM_SUPPRESS_SYNC);
+                        tagData.putTransitory(SyncFlags.ACTFM_SUPPRESS_SYNC, true);
                         tagDataService.save(tagData);
                     } else {
                         cursor.moveToNext();
@@ -152,7 +152,7 @@ public class C2DMReceiver extends BroadcastReceiver {
                     final Task task = new Task();
                     if(cursor.getCount() == 0) {
                         task.setValue(Task.REMOTE_ID, Long.parseLong(intent.getStringExtra("task_id")));
-                        Flags.set(Flags.ACTFM_SUPPRESS_SYNC);
+                        task.putTransitory(SyncFlags.ACTFM_SUPPRESS_SYNC, true);
                         taskService.save(task);
                     } else {
                         cursor.moveToNext();
@@ -298,7 +298,7 @@ public class C2DMReceiver extends BroadcastReceiver {
                 task.setValue(Task.TITLE, intent.getStringExtra("title"));
                 task.setValue(Task.REMOTE_ID, Long.parseLong(intent.getStringExtra("task_id")));
                 task.setValue(Task.USER_ID, Task.USER_ID_UNASSIGNED);
-                Flags.set(Flags.ACTFM_SUPPRESS_SYNC);
+                task.putTransitory(SyncFlags.ACTFM_SUPPRESS_SYNC, true);
                 taskService.save(task);
 
                 new Thread(new Runnable() {
@@ -338,7 +338,7 @@ public class C2DMReceiver extends BroadcastReceiver {
             if(cursor.getCount() == 0) {
                 tagData.setValue(TagData.NAME, intent.getStringExtra("title"));
                 tagData.setValue(TagData.REMOTE_ID, Long.parseLong(intent.getStringExtra("tag_id")));
-                Flags.set(Flags.ACTFM_SUPPRESS_SYNC);
+                tagData.putTransitory(SyncFlags.ACTFM_SUPPRESS_SYNC, true);
                 tagDataService.save(tagData);
 
                 new Thread(new Runnable() {
