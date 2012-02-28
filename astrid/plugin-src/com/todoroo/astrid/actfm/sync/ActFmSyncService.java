@@ -52,7 +52,6 @@ import com.todoroo.astrid.dao.UpdateDao;
 import com.todoroo.astrid.data.Metadata;
 import com.todoroo.astrid.data.MetadataApiDao.MetadataCriteria;
 import com.todoroo.astrid.data.RemoteModel;
-import com.todoroo.astrid.data.SyncFlags;
 import com.todoroo.astrid.data.TagData;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.data.TaskApiDao;
@@ -1128,7 +1127,7 @@ public final class ActFmSyncService {
         public static void updateFromJson(JSONObject json, Update model) throws JSONException {
             model.setValue(Update.REMOTE_ID, json.getLong("id"));
             readUser(json.getJSONObject("user"), model, Update.USER_ID, Update.USER);
-            if (json.has("other_user")) {
+            if (!json.isNull("other_user")) {
                 readUser(json.getJSONObject("other_user"), model, Update.OTHER_USER_ID, Update.OTHER_USER);
             }
             model.setValue(Update.ACTION, json.getString("action"));
