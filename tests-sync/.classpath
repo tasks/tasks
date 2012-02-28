@@ -5,8 +5,5 @@
 	<classpathentry kind="con" path="com.android.ide.eclipse.adt.ANDROID_FRAMEWORK"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/astrid"/>
 	<classpathentry kind="con" path="com.android.ide.eclipse.adt.LIBRARIES"/>
-	<classpathentry combineaccessrules="false" kind="src" path="/astridApi"/>
-	<classpathentry combineaccessrules="false" kind="src" path="/facebook"/>
-	<classpathentry combineaccessrules="false" kind="src" path="/GreenDroid"/>
 	<classpathentry kind="output" path="bin/classes"/>
 </classpath>

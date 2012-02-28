@@ -21,6 +21,7 @@ import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.dao.MetadataDao;
 import com.todoroo.astrid.dao.TaskDao;
 import com.todoroo.astrid.dao.TaskDao.TaskCriteria;
+import com.todoroo.astrid.data.SyncFlags;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.repeats.RepeatTaskCompleteListener;
 import com.todoroo.astrid.test.DatabaseTestCase;
@@ -38,11 +39,11 @@ abstract public class AbstractSyncRepeatTests<REMOTE_MODEL> extends DatabaseTest
     protected void setUp() throws Exception {
         super.setUp();
         Preferences.setStringFromInteger(R.string.p_default_urgency_key, 0);
-        RepeatTaskCompleteListener.setSkipActFmCheck(true);
     }
 
     private void saveAndTriggerRepeatListener(Task task) {
-        Flags.set(Flags.ACTFM_SUPPRESS_SYNC);
+        task.putTransitory(SyncFlags.ACTFM_SUPPRESS_SYNC, true);
+        task.putTransitory(SyncFlags.GTASKS_SUPPRESS_SYNC, true);
         if(task.isSaved())
             taskDao.saveExisting(task);
         else

@@ -33,7 +33,7 @@ public class GtasksSyncOnSaveTest extends DatabaseTestCase {
     @Autowired GtasksMetadataService gtasksMetadataService;
     @Autowired GtasksPreferenceService gtasksPreferenceService;
 
-    private GtasksInvoker gtasksService;
+    private static GtasksInvoker gtasksService;
     private boolean initialized = false;
     private boolean bypassTests = false;
     private static final String TEST_ACCOUNT = "sync_tester2@astrid.com";

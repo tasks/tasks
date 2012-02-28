@@ -18,13 +18,13 @@ import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.astrid.actfm.sync.ActFmDataService;
 import com.todoroo.astrid.actfm.sync.ActFmInvoker;
 import com.todoroo.astrid.actfm.sync.ActFmPreferenceService;
-import com.todoroo.astrid.actfm.sync.ActFmSyncProvider;
 import com.todoroo.astrid.actfm.sync.ActFmSyncService;
+import com.todoroo.astrid.actfm.sync.ActFmSyncV2Provider;
 import com.todoroo.astrid.dao.TaskDao.TaskCriteria;
 import com.todoroo.astrid.data.Metadata;
 import com.todoroo.astrid.data.Task;
-import com.todoroo.astrid.repeats.RepeatTaskCompleteListener;
 import com.todoroo.astrid.service.MetadataService;
+import com.todoroo.astrid.sync.SyncResultCallbackAdapter;
 
 public class RepeatTestsActFmSync extends AbstractSyncRepeatTests<Task> {
 
@@ -42,7 +42,6 @@ public class RepeatTestsActFmSync extends AbstractSyncRepeatTests<Task> {
     protected void setUp() throws Exception {
         super.setUp();
         Preferences.setStringFromInteger(R.string.p_default_urgency_key, 0);
-        RepeatTaskCompleteListener.setSkipActFmCheck(false);
 
         if (!initialized) {
             initializeTestService();
@@ -53,7 +52,7 @@ public class RepeatTestsActFmSync extends AbstractSyncRepeatTests<Task> {
 
     private void initializeTestService() throws Exception {
         invoker = new ActFmInvoker();
-        authenticate(TEST_ACCOUNT, null, ActFmInvoker.PROVIDER_PASSWORD, TEST_PASSWORD);
+        authenticate(TEST_ACCOUNT, null, null, ActFmInvoker.PROVIDER_PASSWORD, TEST_PASSWORD);
         initialized = true;
     }
 
@@ -70,9 +69,9 @@ public class RepeatTestsActFmSync extends AbstractSyncRepeatTests<Task> {
         }
     }
 
-    private void authenticate(String email, String name, String provider, String secret) {
+    private void authenticate(String email, String firstName, String lastName, String provider, String secret) {
         try {
-            JSONObject result = invoker.authenticate(email, name, provider, secret);
+            JSONObject result = invoker.authenticate(email, firstName, lastName, provider, secret);
             String token = invoker.getToken();
             postAuthenticate(result, token);
         } catch (IOException e) {
@@ -96,7 +95,21 @@ public class RepeatTestsActFmSync extends AbstractSyncRepeatTests<Task> {
     @Override
     protected void waitAndSync() {
         AndroidUtilities.sleepDeep(3000L);
-        new ActFmSyncProvider().synchronize(null);
+        new ActFmSyncV2Provider().synchronizeActiveTasks(true, new SyncResultCallbackAdapter() {
+        	@Override
+        	public void finished() {
+        		synchronized(RepeatTestsActFmSync.this) {
+        			RepeatTestsActFmSync.this.notify();
+        		}
+        	}
+		});
+        try {
+        	synchronized(this) {
+        		wait();
+        	}
+        } catch (InterruptedException e) {
+        	fail("Interrupted while waiting for sync to finish");
+        }
         AndroidUtilities.sleepDeep(3000L);
     }
 
