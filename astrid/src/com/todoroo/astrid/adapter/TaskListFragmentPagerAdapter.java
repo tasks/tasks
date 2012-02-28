@@ -1,6 +1,7 @@
 package com.todoroo.astrid.adapter;
 
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
@@ -63,6 +64,11 @@ public class TaskListFragmentPagerAdapter extends FragmentStatePagerAdapter impl
         if (filter != null)
             extras.putParcelable(TaskListFragment.TOKEN_FILTER, filter);
         return extras;
+    }
+
+    @Override
+    public Parcelable saveState() {
+        return null; // Don't save state
     }
 
 }

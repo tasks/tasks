@@ -400,10 +400,10 @@ public class TaskListActivity extends AstridActivity implements MainMenuListener
 
     @Override
     public void onPageScrolled(int position, float positionOffset,
-            int positionOffsetPixels) {}
+            int positionOffsetPixels) { /* Nothing */ }
 
     @Override
-    public void onPageScrollStateChanged(int state) {}
+    public void onPageScrollStateChanged(int state) { /* Nothing */ }
 
     public void setCommentsCount(int count) {
         TypedValue tv = new TypedValue();

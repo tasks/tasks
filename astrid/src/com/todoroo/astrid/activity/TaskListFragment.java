@@ -336,6 +336,7 @@ public class TaskListFragment extends ListFragment implements OnScrollListener,
             return;
         } else if (extras != null && extras.containsKey(TOKEN_FILTER)) {
             filter = extras.getParcelable(TOKEN_FILTER);
+            extras.remove(TOKEN_FILTER); // Otherwise writing this filter to parcel gives infinite recursion
         } else {
             filter = CoreFilterExposer.buildInboxFilter(getResources());
         }
