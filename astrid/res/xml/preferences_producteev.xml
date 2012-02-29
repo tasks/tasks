@@ -14,6 +14,7 @@
     </PreferenceCategory>
             
     <PreferenceCategory
+        android:key="@string/sync_SPr_key_options"
         android:title="@string/sync_SPr_group_options">
     
         <com.todoroo.astrid.ui.MultilineListPreference  
@@ -25,14 +26,6 @@
         <com.todoroo.astrid.ui.MultilineListPreference  
             android:key="@string/producteev_PPr_defaultdash_key"  
             android:title="@string/producteev_PPr_defaultdash_title" />
-            
-    </PreferenceCategory>
-    
-    <PreferenceCategory
-        android:title="@string/sync_SPr_group_actions">
-        <com.todoroo.astrid.ui.MultilinePreference
-            android:key="@string/sync_SPr_sync_key"
-            android:title="@string/sync_SPr_sync" />
     
         <com.todoroo.astrid.ui.MultilinePreference
             android:key="@string/sync_SPr_forget_key"

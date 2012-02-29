@@ -44,7 +44,7 @@ public class GtasksPreferences extends SyncProviderPreferences {
     public void startSync() {
         if (!gtasksPreferenceService.isLoggedIn()) {
             Intent intent = new Intent(this, GtasksLoginActivity.class);
-            startActivityForResult(intent, 0);
+            startActivityForResult(intent, REQUEST_LOGIN);
         } else {
             new GtasksSyncV2Provider().synchronizeActiveTasks(true, new SyncResultCallbackAdapter() {
                 @Override

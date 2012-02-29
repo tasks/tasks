@@ -4,11 +4,13 @@ import java.util.Date;
 
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
+import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.preference.Preference;
 import android.preference.Preference.OnPreferenceClickListener;
+import android.preference.PreferenceCategory;
 import android.view.View;
 import android.view.ViewGroup.OnHierarchyChangeListener;
 
@@ -29,6 +31,8 @@ import com.todoroo.astrid.api.R;
 abstract public class SyncProviderPreferences extends TodorooPreferenceActivity {
 
     // --- interface
+
+    public static final int RESULT_CODE_SYNCHRONIZE = 2;
 
     /**
      * @return your preference resource
@@ -51,6 +55,8 @@ abstract public class SyncProviderPreferences extends TodorooPreferenceActivity 
      */
     abstract public SyncProviderUtilities getUtilities();
 
+
+    protected static final int REQUEST_LOGIN = 0;
 
     // --- implementation
 
@@ -106,18 +112,12 @@ abstract public class SyncProviderPreferences extends TodorooPreferenceActivity 
         else if (r.getString(R.string.sync_SPr_status_key).equals(preference.getKey())) {
             boolean loggedIn = getUtilities().isLoggedIn();
             String status;
-            String subtitle = ""; //$NON-NLS-1$
+            //String subtitle = ""; //$NON-NLS-1$
 
             // ! logged in - display message, click -> sync
             if(!loggedIn) {
                 status = r.getString(R.string.sync_status_loggedout);
-                statusColor = Color.RED;
-                preference.setOnPreferenceClickListener(new OnPreferenceClickListener() {
-                    public boolean onPreferenceClick(Preference p) {
-                        startSync();
-                        return true;
-                    }
-                });
+                statusColor = Color.rgb(19, 132, 165);
             }
             // sync is occurring
             else if(getUtilities().isOngoing()) {
@@ -134,9 +134,9 @@ abstract public class SyncProviderPreferences extends TodorooPreferenceActivity 
                     statusColor = Color.rgb(100, 0, 0);
 
                     if(getUtilities().getLastSyncDate() > 0) {
-                        subtitle = r.getString(R.string.sync_status_failed_subtitle,
-                                DateUtilities.getDateStringWithTime(SyncProviderPreferences.this,
-                                        new Date(getUtilities().getLastSyncDate())));
+//                        subtitle = r.getString(R.string.sync_status_failed_subtitle,
+//                                DateUtilities.getDateStringWithTime(SyncProviderPreferences.this,
+//                                        new Date(getUtilities().getLastSyncDate())));
                     }
                 } else {
                     long lastSyncDate = getUtilities().getLastSyncDate();
@@ -146,14 +146,6 @@ abstract public class SyncProviderPreferences extends TodorooPreferenceActivity 
                     status = r.getString(R.string.sync_status_errors, dateString);
                     statusColor = Color.rgb(100, 100, 0);
                 }
-                preference.setOnPreferenceClickListener(new OnPreferenceClickListener() {
-                    public boolean onPreferenceClick(Preference p) {
-                        String error = getUtilities().getLastError();
-                        if(error != null)
-                            DialogUtilities.okDialog(SyncProviderPreferences.this, error, null);
-                        return true;
-                    }
-                });
             }
             else if(getUtilities().getLastSyncDate() > 0) {
                 status = r.getString(R.string.sync_status_success,
@@ -163,38 +155,21 @@ abstract public class SyncProviderPreferences extends TodorooPreferenceActivity 
             } else {
                 status = r.getString(R.string.sync_status_never);
                 statusColor = Color.rgb(0, 0, 100);
-                preference.setOnPreferenceClickListener(new OnPreferenceClickListener() {
-                    public boolean onPreferenceClick(Preference p) {
-                        startSync();
-                        return true;
-                    }
-                });
             }
-            preference.setTitle(status);
-            preference.setSummary(subtitle);
+            preference.setTitle(R.string.sync_SPr_sync);
+            preference.setSummary(r.getString(R.string.sync_SPr_status_subtitle, status));
 
-            View view = findViewById(R.id.status);
-            if(view != null)
-                view.setBackgroundColor(statusColor);
-        }
-
-        // sync button
-        else if (r.getString(R.string.sync_SPr_sync_key).equals(preference.getKey())) {
-            boolean loggedIn = getUtilities().isLoggedIn();
             preference.setOnPreferenceClickListener(new OnPreferenceClickListener() {
                 public boolean onPreferenceClick(Preference p) {
                     startSync();
                     return true;
                 }
             });
-            if(!loggedIn) {
-                preference.setTitle(R.string.sync_SPr_sync_log_in);
-                preference.setSummary("");
-            }
-            else
-                preference.setSummary(r.getString(R.string.sync_SPr_logged_in_prefix) + " " + getUtilities().getLoggedInUserName());
-        }
 
+            View view = findViewById(R.id.status);
+            if(view != null)
+                view.setBackgroundColor(statusColor);
+        }
         // log out button
         else if (r.getString(R.string.sync_SPr_forget_key).equals(preference.getKey())) {
             boolean loggedIn = getUtilities().isLoggedIn();
@@ -212,8 +187,21 @@ abstract public class SyncProviderPreferences extends TodorooPreferenceActivity 
                     return true;
                 }
             });
-            if(!loggedIn)
-                preference.setEnabled(false);
+            if(!loggedIn) {
+                PreferenceCategory category = (PreferenceCategory) findPreference(r.getString(R.string.sync_SPr_key_options));
+                category.removePreference(preference);
+            }
+
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == REQUEST_LOGIN && resultCode == RESULT_OK) {
+            setResult(RESULT_CODE_SYNCHRONIZE);
+            finish();
+        } else {
+            super.onActivityResult(requestCode, resultCode, data);
         }
     }
 
