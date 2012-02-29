@@ -772,6 +772,10 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
         model = null;
         remoteId = 0;
         populateFields(intent);
+        if (webServices != null) {
+            webServices.setTask(model);
+            webServices.reset();
+        }
     }
 
     /** Populate UI component values from the model */

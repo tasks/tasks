@@ -1,7 +1,5 @@
 package com.todoroo.astrid.ui;
 
-import com.todoroo.astrid.helper.AsyncImageView;
-
 import java.io.IOException;
 import java.io.StringReader;
 import java.io.UnsupportedEncodingException;
@@ -45,6 +43,7 @@ import com.todoroo.andlib.service.RestClient;
 import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.helper.AmazonRequestsHelper;
+import com.todoroo.astrid.helper.AsyncImageView;
 import com.todoroo.astrid.producteev.api.StringEscapeUtils;
 import com.todoroo.astrid.service.StatisticsConstants;
 import com.todoroo.astrid.service.StatisticsService;
@@ -78,19 +77,21 @@ public class WebServicesView extends LinearLayout {
 
     public WebServicesView(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
+        initialize();
     }
 
     public WebServicesView(Context context, AttributeSet attrs) {
         super(context, attrs);
+        initialize();
     }
 
     public WebServicesView(Context context) {
         super(context);
+        initialize();
     }
 
     public void setTask(Task task) {
         this.task = task;
-        initialize();
     }
 
     public int[] getScrollableViews() {
@@ -124,6 +125,15 @@ public class WebServicesView extends LinearLayout {
                     refresh();
                 }
             });
+        }
+    }
+
+    public void reset() {
+        if (!Preferences.getBoolean(R.string.p_autoIdea, true)) {
+            removeAllViews();
+            initialize();
+        } else {
+            refresh();
         }
     }
 
