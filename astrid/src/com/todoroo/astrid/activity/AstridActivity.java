@@ -171,6 +171,10 @@ public class AstridActivity extends FragmentActivity
 
                 setIntent(intent);
 
+                if (fragmentLayout == LAYOUT_TRIPLE && getTaskEditFragment() != null) {
+                    onBackPressed(); // remove the task edit fragment when switching between lists
+                }
+
                 setupTasklistFragmentWithFilter(filter);
 
                 // no animation for dualpane-layout
