@@ -87,6 +87,7 @@ import com.todoroo.astrid.service.TagDataService;
 import com.todoroo.astrid.service.TaskService;
 import com.todoroo.astrid.service.UpgradeService;
 import com.todoroo.astrid.subtasks.SubtasksListFragment;
+import com.todoroo.astrid.sync.SyncProviderPreferences;
 import com.todoroo.astrid.ui.QuickAddBar;
 import com.todoroo.astrid.utility.AstridPreferences;
 import com.todoroo.astrid.utility.Constants;
@@ -690,14 +691,17 @@ public class TaskListFragment extends ListFragment implements OnScrollListener,
         if(quickAddBar.onActivityResult(requestCode, resultCode, data))
             return;
 
-        if (requestCode == ACTIVITY_SETTINGS
-                && resultCode == EditPreferences.RESULT_CODE_THEME_CHANGED) {
-            getActivity().finish();
-            if (overrideFinishAnim) {
-                AndroidUtilities.callOverridePendingTransition(getActivity(),
-                        R.anim.slide_right_in, R.anim.slide_right_out);
+        if (requestCode == ACTIVITY_SETTINGS) {
+            if (resultCode == EditPreferences.RESULT_CODE_THEME_CHANGED) {
+                getActivity().finish();
+                if (overrideFinishAnim) {
+                    AndroidUtilities.callOverridePendingTransition(getActivity(),
+                            R.anim.slide_right_in, R.anim.slide_right_out);
+                }
+                getActivity().startActivity(getActivity().getIntent());
+            } else if (resultCode == SyncProviderPreferences.RESULT_CODE_SYNCHRONIZE) {
+                Preferences.setLong(SyncActionHelper.PREF_LAST_AUTO_SYNC, 0); // Forces autosync to occur after login
             }
-            getActivity().startActivity(getActivity().getIntent());
         }
 
         super.onActivityResult(requestCode, resultCode, data);
@@ -815,7 +819,7 @@ public class TaskListFragment extends ListFragment implements OnScrollListener,
         setListAdapter(taskAdapter);
         getListView().setOnScrollListener(this);
         registerForContextMenu(getListView());
-        syncActionHelper = new SyncActionHelper(getActivity());
+        syncActionHelper = new SyncActionHelper(getActivity(), this);
 
         loadTaskListContent(true);
     }

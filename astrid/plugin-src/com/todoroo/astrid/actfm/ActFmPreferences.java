@@ -34,7 +34,7 @@ public class ActFmPreferences extends SyncProviderPreferences {
     public void startSync() {
         if (!actFmPreferenceService.isLoggedIn()) {
             Intent intent = new Intent(this, ActFmLoginActivity.class);
-            startActivityForResult(intent, 0);
+            startActivityForResult(intent, REQUEST_LOGIN);
         } else {
             new ActFmSyncV2Provider().synchronizeActiveTasks(true, new SyncResultCallbackAdapter() {
                 @Override

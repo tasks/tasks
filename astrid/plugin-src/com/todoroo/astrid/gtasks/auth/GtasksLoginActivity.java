@@ -47,13 +47,11 @@ import com.todoroo.andlib.service.ContextManager;
 import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.andlib.utility.DialogUtilities;
 import com.todoroo.andlib.utility.Preferences;
-import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.gtasks.GtasksPreferenceService;
 import com.todoroo.astrid.gtasks.api.GtasksInvoker;
 import com.todoroo.astrid.service.AstridDependencyInjector;
 import com.todoroo.astrid.service.StatisticsService;
 import com.todoroo.astrid.service.SyncV2Service;
-import com.todoroo.astrid.sync.SyncResultCallbackAdapter;
 
 /**
  * This activity allows users to sign in or log in to Google Tasks
@@ -172,24 +170,6 @@ public class GtasksLoginActivity extends ListActivity {
     private void onAuthTokenSuccess() {
         gtasksPreferenceService.setToken(authToken);
         Preferences.setString(GtasksPreferenceService.PREF_USER_NAME, accountName);
-        synchronize();
-    }
-
-    /**
-     * Perform synchronization
-     */
-    protected void synchronize() {
-        new Thread() {
-            @Override
-            public void run() {
-                syncService.synchronizeActiveTasks(false, new SyncResultCallbackAdapter() {
-                    @Override
-                    public void finished() {
-                        ContextManager.getContext().sendBroadcast(new Intent(AstridApiConstants.BROADCAST_EVENT_REFRESH));
-                    }
-                });
-            }
-        }.start();
         setResult(RESULT_OK);
         finish();
     }

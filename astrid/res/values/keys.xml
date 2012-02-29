@@ -300,6 +300,8 @@
     <string name="sync_SPr_sync_key">sync_sync</string>
     <!-- Preference Key (do not translate) -->
     <string name="sync_SPr_forget_key">sync_forget</string>
+    <!-- Preference Key (do not translate) -->
+    <string name="sync_SPr_key_options">sync_options</string>
     
   <!-- ===========================================================ACTFM == -->
   <string name="actfm_https_key">actfmHttps</string>

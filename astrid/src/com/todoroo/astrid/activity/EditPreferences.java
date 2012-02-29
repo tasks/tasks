@@ -49,6 +49,7 @@ import com.todoroo.astrid.service.StartupService;
 import com.todoroo.astrid.service.StatisticsConstants;
 import com.todoroo.astrid.service.StatisticsService;
 import com.todoroo.astrid.service.TaskService;
+import com.todoroo.astrid.sync.SyncProviderPreferences;
 import com.todoroo.astrid.ui.ContactListAdapter;
 import com.todoroo.astrid.utility.Constants;
 import com.todoroo.astrid.utility.Flags;
@@ -66,6 +67,8 @@ public class EditPreferences extends TodorooPreferenceActivity {
 
     private static final int APPEARANCE_PREFERENCE = 3;
     private static final int POWER_PACK_PREFERENCE = 4;
+
+    private static final int REQUEST_CODE_SYNC = 0;
 
     public static final int RESULT_CODE_THEME_CHANGED = 1;
 
@@ -186,7 +189,7 @@ public class EditPreferences extends TodorooPreferenceActivity {
         // that have a settings action
         for(int i = 0; i < length; i++) {
             ResolveInfo resolveInfo = resolveInfoList.get(i);
-            Intent intent = new Intent(AstridApiConstants.ACTION_SETTINGS);
+            final Intent intent = new Intent(AstridApiConstants.ACTION_SETTINGS);
             intent.setClassName(resolveInfo.activityInfo.packageName,
                     resolveInfo.activityInfo.name);
 
@@ -196,7 +199,22 @@ public class EditPreferences extends TodorooPreferenceActivity {
 
             Preference preference = new Preference(this);
             preference.setTitle(resolveInfo.activityInfo.loadLabel(pm));
-            preference.setIntent(intent);
+            try {
+                Class<?> intentComponent = Class.forName(intent.getComponent().getClassName());
+                if (SyncProviderPreferences.class.equals(intentComponent.getSuperclass())) {
+                    preference.setOnPreferenceClickListener(new OnPreferenceClickListener() {
+                        @Override
+                        public boolean onPreferenceClick(Preference pref) {
+                            startActivityForResult(intent, REQUEST_CODE_SYNC);
+                            return true;
+                        }
+                    });
+                } else {
+                    preference.setIntent(intent);
+                }
+            } catch (ClassNotFoundException e) {
+                preference.setIntent(intent);
+            }
 
             String category = MetadataHelper.resolveActivityCategoryName(resolveInfo, pm);
 
@@ -359,6 +377,11 @@ public class EditPreferences extends TodorooPreferenceActivity {
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == REQUEST_CODE_SYNC && resultCode == SyncProviderPreferences.RESULT_CODE_SYNCHRONIZE) {
+            setResult(SyncProviderPreferences.RESULT_CODE_SYNCHRONIZE);
+            finish();
+            return;
+        }
         try {
             VoiceOutputService.getVoiceOutputInstance().handleActivityResult(requestCode, resultCode, data);
         } catch (VerifyError e) {

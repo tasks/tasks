@@ -76,14 +76,12 @@ import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.astrid.actfm.sync.ActFmInvoker;
 import com.todoroo.astrid.actfm.sync.ActFmPreferenceService;
 import com.todoroo.astrid.activity.Eula;
-import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.gtasks.auth.ModernAuthManager;
 import com.todoroo.astrid.service.AstridDependencyInjector;
 import com.todoroo.astrid.service.StatisticsConstants;
 import com.todoroo.astrid.service.StatisticsService;
 import com.todoroo.astrid.service.SyncV2Service;
 import com.todoroo.astrid.service.TaskService;
-import com.todoroo.astrid.sync.SyncResultCallbackAdapter;
 
 /**
  * This activity allows users to sign in or log in to Astrid.com
@@ -109,7 +107,6 @@ public class ActFmLoginActivity extends FragmentActivity implements AuthListener
     private Facebook facebook;
     private AsyncFacebookRunner facebookRunner;
     private TextView errors;
-    protected boolean noSync = false;
 
     public static final String SHOW_TOAST = "show_toast"; //$NON-NLS-1$
 
@@ -121,8 +118,6 @@ public class ActFmLoginActivity extends FragmentActivity implements AuthListener
     static {
         AstridDependencyInjector.initialize();
     }
-
-    public static final String EXTRA_DO_NOT_SYNC = "nosync"; //$NON-NLS-1$
 
     protected int getContentViewResource() {
         return R.layout.actfm_login_activity;
@@ -150,8 +145,6 @@ public class ActFmLoginActivity extends FragmentActivity implements AuthListener
             getSupportActionBar().hide();
 
         rand = new Random(DateUtilities.now());
-
-        noSync = getIntent().getBooleanExtra(EXTRA_DO_NOT_SYNC, false);
 
         initializeUI();
 
@@ -537,20 +530,6 @@ public class ActFmLoginActivity extends FragmentActivity implements AuthListener
 
         setResult(RESULT_OK);
         finish();
-
-        if (!noSync) {
-            new Thread() {
-                @Override
-                public void run() {
-                    syncService.synchronizeActiveTasks(false, new SyncResultCallbackAdapter() {
-                        @Override
-                        public void finished() {
-                            ContextManager.getContext().sendBroadcast(new Intent(AstridApiConstants.BROADCAST_EVENT_REFRESH));
-                        }
-                    });
-                }
-            }.start();
-        }
 
         try {
             C2DMReceiver.register();
