@@ -315,7 +315,7 @@ public class CalendarView extends View {
         // Day heading -- End
 
         // Calendar -- Start
-        calendar.setTime(getCoercedDate(calendar.getTime(), calendarDate));
+        calendar.setTime(getCoercedDate(new Date(), calendarDate)); // Reset the calendar to either today or the specified date
 
         if (currentHighlightDay == -1) {
         	currentHighlightDay = calendarDate.getTime() == 0 ? 0 : calendar.get(Calendar.DATE);
