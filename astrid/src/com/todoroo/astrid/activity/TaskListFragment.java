@@ -200,6 +200,20 @@ public class TaskListFragment extends ListFragment implements OnScrollListener,
         AstridDependencyInjector.initialize();
     }
 
+    /**
+     * Instantiates and returns an instance of TaskListFragment (or some subclass). Custom types of
+     * TaskListFragment can be created, with the following precedence:
+     *
+     * --If the filter is of type {@link FilterWithCustomIntent}, the task list type it specifies will be used
+     * --Otherwise, the specified customComponent will be used
+     *
+     * See also: instantiateWithFilterAndExtras(Filter, Bundle) which uses TaskListFragment as the default
+     * custom component.
+     * @param filter
+     * @param extras
+     * @param customComponent
+     * @return
+     */
     @SuppressWarnings("nls")
     public static TaskListFragment instantiateWithFilterAndExtras(Filter filter, Bundle extras, Class<?> customComponent) {
         Class<?> component = customComponent;
@@ -224,6 +238,17 @@ public class TaskListFragment extends ListFragment implements OnScrollListener,
         args.putBundle(TOKEN_EXTRAS, extras);
         newFragment.setArguments(args);
         return newFragment;
+    }
+
+    /**
+     * Convenience method for calling instantiateWithFilterAndExtras(Filter, Bundle, Class<?>) with
+     * TaskListFragment as the default component
+     * @param filter
+     * @param extras
+     * @return
+     */
+    public static TaskListFragment instantiateWithFilterAndExtras(Filter filter, Bundle extras) {
+        return instantiateWithFilterAndExtras(filter, extras, TaskListFragment.class);
     }
 
     /**

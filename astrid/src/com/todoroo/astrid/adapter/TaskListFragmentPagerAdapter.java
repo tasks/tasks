@@ -17,7 +17,7 @@ public class TaskListFragmentPagerAdapter extends FragmentStatePagerAdapter impl
 
     private final HashMap<Integer, Fragment> positionToFragment;
 
-    private final FilterAdapter filterAdapter;
+    private final FilterAdapter filterAdapter; // Shares an adapter instance as the filter list fragment
 
     public TaskListFragmentPagerAdapter(FragmentManager fm, FilterAdapter filterAdapter) {
         super(fm);
@@ -31,6 +31,10 @@ public class TaskListFragmentPagerAdapter extends FragmentStatePagerAdapter impl
         notifyDataSetChanged();
     }
 
+    /**
+     * Instantiates and returns a fragment for the filter at the specified position.
+     * Also maps the position to the fragment in a cache for later lookup
+     */
     @Override
     public Fragment getItem(int position) {
         Filter filter = filterAdapter.getItem(position);
@@ -39,6 +43,11 @@ public class TaskListFragmentPagerAdapter extends FragmentStatePagerAdapter impl
         return fragment;
     }
 
+    /**
+     * Lookup the fragment for the specified position
+     * @param position
+     * @return
+     */
     public Fragment lookupFragmentForPosition(int position) {
         return positionToFragment.get(position);
     }
@@ -48,10 +57,21 @@ public class TaskListFragmentPagerAdapter extends FragmentStatePagerAdapter impl
         return filterAdapter.getItem(position).title;
     }
 
+    /**
+     * Adds the specified filter to the data source if it doesn't exist,
+     * returning the position of that filter regardless
+     * @param filter
+     * @return
+     */
     public int addOrLookup(Filter filter) {
         return filterAdapter.addOrLookup(filter);
     }
 
+    /**
+     * Get the filter at the specified position
+     * @param position
+     * @return
+     */
     public Filter getFilter(int position) {
         return filterAdapter.getItem(position);
     }
@@ -63,9 +83,10 @@ public class TaskListFragmentPagerAdapter extends FragmentStatePagerAdapter impl
 
     private Fragment getFragmentForFilter(Filter filter) {
         Bundle extras = getExtrasForFilter(filter);
-        return TaskListFragment.instantiateWithFilterAndExtras(filter, extras, TaskListFragment.class);
+        return TaskListFragment.instantiateWithFilterAndExtras(filter, extras);
     }
 
+    // Constructs extras corresponding to the specified filter that can be used as arguments to the fragment
     private Bundle getExtrasForFilter(Filter filter) {
         Bundle extras;
         if (filter instanceof FilterWithCustomIntent) {

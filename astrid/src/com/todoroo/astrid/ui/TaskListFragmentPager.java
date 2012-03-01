@@ -32,7 +32,7 @@ public class TaskListFragmentPager extends ViewPager {
     }
 
     /**
-     * Show the filter at the supplied index
+     * Show the filter at the supplied index, with animation
      * @param index
      */
     public void showFilter(int index) {
@@ -40,7 +40,7 @@ public class TaskListFragmentPager extends ViewPager {
     }
 
     /**
-     * Returns a reference to the currently showing fragment
+     * Returns the currently showing fragment
      * @return
      */
     public TaskListFragment getCurrentFragment() {
