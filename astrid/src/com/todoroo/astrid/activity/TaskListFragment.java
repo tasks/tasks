@@ -366,6 +366,8 @@ public class TaskListFragment extends ListFragment implements OnScrollListener,
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         if (getActivity() == null)
             return;
+        if (!isCurrentTaskListFragment())
+            return;
 
         MenuItem item;
 
