@@ -24,7 +24,6 @@ import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.andlib.service.RestClient;
 import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.astrid.actfm.EditPeopleControlSet.AssignedChangedListener;
-import com.todoroo.astrid.actfm.OAuthLoginActivity;
 import com.todoroo.astrid.activity.TaskEditFragment;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.helper.TaskEditControlSet;
@@ -180,7 +179,7 @@ public class TaskRabbitControlSet extends TaskEditControlSet implements Assigned
     public boolean activityResult (int requestCode, int resultCode, Intent data) {
         if (requestCode == REQUEST_CODE_TASK_RABBIT_ACTIVITY ){
             if (resultCode == Activity.RESULT_OK) {
-                String result = data.getStringExtra(OAuthLoginActivity.DATA_RESPONSE);
+                String result = data.getStringExtra(TaskRabbitOAuthLoginActivity.DATA_RESPONSE);
                 if (!TextUtils.isEmpty(result)) {
                     try {
                         Message successMessage = new Message();

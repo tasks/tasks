@@ -54,7 +54,6 @@ import com.todoroo.andlib.service.RestClient;
 import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.andlib.utility.DialogUtilities;
 import com.todoroo.andlib.utility.Preferences;
-import com.todoroo.astrid.actfm.OAuthLoginActivity;
 import com.todoroo.astrid.activity.TaskEditFragment;
 import com.todoroo.astrid.dao.Database;
 import com.todoroo.astrid.data.Task;
@@ -221,6 +220,18 @@ public class TaskRabbitActivity extends FragmentActivity {
         populateFields();
         if (!showingNoGPSAlertMessage)
             showIntroDialog();
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        StatisticsService.sessionStop(this);
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        StatisticsService.sessionPause();
     }
 
     @Override
@@ -690,10 +701,10 @@ public class TaskRabbitActivity extends FragmentActivity {
     /* login methods */
     protected void loginTaskRabbit() {
         Intent intent = new Intent(this,
-                OAuthLoginActivity.class);
+                TaskRabbitOAuthLoginActivity.class);
         try {
             String url = String.format(TASK_RABBIT_URL + "/api/authorize?client_id=%s&client_application=%s", TASK_RABBIT_CLIENT_ID, TASK_RABBIT_CLIENT_APPLICATION_ID);  //$NON-NLS-1$
-            intent.putExtra(OAuthLoginActivity.URL_TOKEN, url);
+            intent.putExtra(TaskRabbitOAuthLoginActivity.URL_TOKEN, url);
             this.startActivityForResult(intent, REQUEST_CODE_TASK_RABBIT_OAUTH);
             StatisticsService.reportEvent(StatisticsConstants.TASK_RABBIT_LOGIN);
         } catch (Exception e) {
@@ -777,7 +788,7 @@ public class TaskRabbitActivity extends FragmentActivity {
     @Override
     public void onActivityResult (int requestCode, int resultCode, Intent data) {
         if (requestCode == REQUEST_CODE_TASK_RABBIT_OAUTH && resultCode == Activity.RESULT_OK){
-            String result = data.getStringExtra(OAuthLoginActivity.DATA_RESPONSE);
+            String result = data.getStringExtra(TaskRabbitOAuthLoginActivity.DATA_RESPONSE);
 
             String key = "access_token=";  //$NON-NLS-1$
             if(result.contains(key)) {

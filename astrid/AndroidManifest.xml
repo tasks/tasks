@@ -314,7 +314,7 @@
     <!-- actfm -->
     <activity android:name="com.todoroo.astrid.actfm.ActFmLoginActivity"
               android:configChanges="keyboardHidden"/>
-    <activity android:name="com.todoroo.astrid.actfm.OAuthLoginActivity" />
+    <activity android:name="com.todoroo.astrid.taskrabbit.TaskRabbitOAuthLoginActivity" />
     <activity android:name="com.todoroo.astrid.actfm.ActFmPreferences"
               android:theme="@android:style/Theme"
               android:label="@string/actfm_APr_header">

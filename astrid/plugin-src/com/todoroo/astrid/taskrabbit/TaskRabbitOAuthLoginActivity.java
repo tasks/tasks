@@ -17,15 +17,14 @@
  * with this program; if not, write to the Free Software Foundation, Inc.,
  * 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
  */
-package com.todoroo.astrid.actfm;
-
-import java.io.IOException;
+package com.todoroo.astrid.taskrabbit;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.net.http.SslError;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
-import android.util.Log;
+import android.webkit.SslErrorHandler;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
@@ -36,26 +35,27 @@ import com.todoroo.andlib.service.RestClient;
 import com.todoroo.andlib.utility.DialogUtilities;
 
 /**
- * This activity displays a <code>WebView</code> that allows users to log in to the
- * synchronization provider requested. A callback method determines whether
+ * This activity displays a <code>WebView</code> that allows users to log in to
+ * the synchronization provider requested. A callback method determines whether
  * their login was successful and therefore whether to dismiss the dialog.
  *
  * @author timsu
  *
  */
-public class OAuthLoginActivity extends FragmentActivity {
+public class TaskRabbitOAuthLoginActivity extends FragmentActivity {
 
     /**
      * URL to display
      */
-    public static final String URL_TOKEN   = "u"; //$NON-NLS-1$
+    public static final String URL_TOKEN = "u"; //$NON-NLS-1$
 
     /**
      * Resultant URL data
      */
     public static final String DATA_RESPONSE = "response"; //$NON-NLS-1$
 
-    @Autowired RestClient restClient;
+    @Autowired
+    RestClient restClient;
 
     ProgressDialog pd;
 
@@ -73,7 +73,7 @@ public class OAuthLoginActivity extends FragmentActivity {
 
         final String urlParam = getIntent().getStringExtra(URL_TOKEN);
 
-        final WebView webView = (WebView)findViewById(R.id.browser);
+        final WebView webView = (WebView) findViewById(R.id.browser);
 
         webView.getSettings().setJavaScriptEnabled(true);
         webView.getSettings().setSavePassword(false);
@@ -82,43 +82,46 @@ public class OAuthLoginActivity extends FragmentActivity {
         webView.setWebViewClient(new WebViewClient() {
 
             @Override
+            public void onReceivedError(WebView view, int errorCode,
+                    String description, String failingUrl) {
+                System.err.println("hey error. " + errorCode + ": " + description);
+            }
+
+            @Override
+            public void onReceivedSslError(WebView view,
+                    SslErrorHandler handler, SslError error) {
+                handler.proceed();
+            }
+
+            @Override
+            public boolean shouldOverrideUrlLoading(WebView view, String url) {
+                if (url.contains("?client_id=")
+                        && (url.lastIndexOf("?client_id=") != url.indexOf("?client_id="))) {
+                    String redirectUrl = url.substring(0,
+                            url.lastIndexOf("?client_id="));
+                    webView.loadUrl(redirectUrl);
+                    return true;
+                }
+                return super.shouldOverrideUrlLoading(view, url);
+            }
+
+            @Override
+            public void onLoadResource(WebView view, String url) {
+                super.onLoadResource(view, url);
+            }
+
+            @Override
             public void onPageFinished(WebView view, final String url) {
                 super.onPageFinished(view, url);
                 pd.dismiss();
-                new Thread() {
-                    @Override
-                    public void run() {
-                        String data;
-                        try {
-                            data = restClient.get(url);
-
-                            if(data.startsWith("<!-- success -->")) { //$NON-NLS-1$
-                                data = data.substring(data.indexOf('{'), data.lastIndexOf('}') + 1);
-                                Intent intent = new Intent();
-                                intent.putExtra(DATA_RESPONSE, data);
-                                setResult(RESULT_OK, intent);
-                                runOnUiThread(new Runnable() {
-                                    public void run() {
-                                        finish();
-                                    }
-                                });
-                            }
-                            else if (url.contains("access_token=")){
-                                String token = url.substring(url.indexOf("access_token="), url.length());
-                                Intent intent = new Intent();
-                                intent.putExtra(DATA_RESPONSE, token);
-                                setResult(RESULT_OK, intent);
-                                runOnUiThread(new Runnable() {
-                                    public void run() {
-                                        finish();
-                                    }
-                                });
-                            }
-                        } catch (IOException e) {
-                            Log.e("astrid", "error-load-url", e);
-                        }
-                    }
-                }.start();
+                if (url.contains("access_token=")) {
+                    String token = url.substring(url.indexOf("access_token="),
+                            url.length());
+                    Intent intent = new Intent();
+                    intent.putExtra(DATA_RESPONSE, token);
+                    setResult(RESULT_OK, intent);
+                    finish();
+                }
             }
         });
 
