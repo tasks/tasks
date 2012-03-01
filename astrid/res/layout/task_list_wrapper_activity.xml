@@ -5,4 +5,8 @@
     android:layout_height="match_parent"
     style="@style/Content"
     android:id="@+id/tasklist_fragment_container">
+    <com.todoroo.astrid.ui.TaskListFragmentPager
+            android:id="@+id/pager"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"/>
 </FrameLayout>

@@ -120,7 +120,7 @@ public class NotificationFragment extends TaskListFragment implements OnTimeSetL
         // hide quick add
         getView().findViewById(R.id.taskListFooter).setVisibility(View.GONE);
 
-        String title = getActivity().getIntent().getStringExtra(Notifications.EXTRAS_TEXT);
+        String title = extras.getString(Notifications.EXTRAS_TEXT);
         new ReminderDialog((AstridActivity) getActivity(), taskId, title).show();
     }
 

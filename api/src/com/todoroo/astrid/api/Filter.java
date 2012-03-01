@@ -102,6 +102,8 @@ public class Filter extends FilterListItem {
         this.valuesForNewTasks = valuesForNewTasks;
     }
 
+
+
     /**
      * Utility constructor
      *
@@ -119,6 +121,38 @@ public class Filter extends FilterListItem {
      */
     public int describeContents() {
         return 0;
+    }
+
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result
+                + ((sqlQuery == null) ? 0 : sqlQuery.hashCode());
+        result = prime * result + ((title == null) ? 0 : title.hashCode());
+        return result;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        Filter other = (Filter) obj;
+        if (sqlQuery == null) {
+            if (other.sqlQuery != null)
+                return false;
+        } else if (!sqlQuery.equals(other.sqlQuery))
+            return false;
+        if (title == null) {
+            if (other.title != null)
+                return false;
+        } else if (!title.equals(other.title))
+            return false;
+        return true;
     }
 
     /**

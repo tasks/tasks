@@ -54,6 +54,10 @@ import com.todoroo.astrid.tags.TagService;
 
 public class FilterAdapter extends ArrayAdapter<Filter> {
 
+    public static interface FilterDataSourceChangedListener {
+        public void filterDataSourceChanged();
+    }
+
     // --- style constants
 
     public int filterStyle = R.style.TextAppearance_FLA_Filter;
@@ -68,7 +72,7 @@ public class FilterAdapter extends ArrayAdapter<Filter> {
     protected final Activity activity;
 
     /** owner listview */
-    protected final ListView listView;
+    protected ListView listView;
 
     /** display metrics for scaling icons */
     private final DisplayMetrics metrics = new DisplayMetrics();
@@ -91,6 +95,8 @@ public class FilterAdapter extends ArrayAdapter<Filter> {
     private final boolean selectable;
 
     private int mSelectedIndex;
+
+    private FilterDataSourceChangedListener listener;
 
     // Previous solution involved a queue of filters and a filterSizeLoadingThread. The filterSizeLoadingThread had
     // a few problems: how to make sure that the thread is resumed when the controlling activity is resumed, and
@@ -164,10 +170,24 @@ public class FilterAdapter extends ArrayAdapter<Filter> {
         offerFilter(item);
     }
 
+    public int addOrLookup(Filter filter) {
+        int index = getPosition(filter);
+        if (index >= 0) return index;
+        add(filter);
+        return getCount() - 1;
+    }
+
     public void setLastSelected(int lastSelected) {
         mSelectedIndex = lastSelected;
     }
 
+    public void setDataSourceChangedListener(FilterDataSourceChangedListener listener) {
+        this.listener = listener;
+    }
+
+    public void setListView(ListView listView) {
+        this.listView = listView;
+    }
 
     /**
      * Create or reuse a view
@@ -293,10 +313,10 @@ public class FilterAdapter extends ArrayAdapter<Filter> {
                 if (filter instanceof FilterCategory) {
                     Filter[] children = ((FilterCategory) filter).children;
                     for (Filter f : children) {
-                        add(f);
+                        addOrLookup(f);
                     }
                 } else if (filter instanceof Filter){
-                    add((Filter) filter);
+                    addOrLookup((Filter) filter);
                 }
             }
 
@@ -351,6 +371,13 @@ public class FilterAdapter extends ArrayAdapter<Filter> {
         }
     }
 
+    @Override
+    public void notifyDataSetChanged() {
+        super.notifyDataSetChanged();
+        if (listener != null)
+            listener.filterDataSourceChanged();
+    }
+
     /**
      * Broadcast a request for lists. The request is sent to every
      * application registered to listen for this broadcast. Each application
@@ -379,8 +406,7 @@ public class FilterAdapter extends ArrayAdapter<Filter> {
         IntentFilter bladeFilter = new IntentFilter(AstridApiConstants.BROADCAST_SEND_FILTERS);
         bladeFilter.setPriority(1);
         activity.registerReceiver(bladeFilterReceiver, bladeFilter);
-        if(getCount() == 0)
-            getLists();
+        getLists();
     }
 
     /**

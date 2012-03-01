@@ -9,6 +9,7 @@ import android.content.IntentFilter;
 import android.os.Bundle;
 import android.support.v4.app.ActionBar;
 import android.support.v4.app.Fragment;
+import android.support.v4.view.ViewPager.OnPageChangeListener;
 import android.util.DisplayMetrics;
 import android.util.TypedValue;
 import android.view.MotionEvent;
@@ -29,31 +30,43 @@ import com.todoroo.astrid.actfm.ActFmLoginActivity;
 import com.todoroo.astrid.actfm.TagSettingsActivity;
 import com.todoroo.astrid.actfm.TagUpdatesFragment;
 import com.todoroo.astrid.actfm.TagViewFragment;
+import com.todoroo.astrid.adapter.FilterAdapter;
+import com.todoroo.astrid.adapter.TaskListFragmentPagerAdapter;
 import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.api.FilterListItem;
+import com.todoroo.astrid.core.CoreFilterExposer;
 import com.todoroo.astrid.core.CustomFilterExposer;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.reminders.NotificationFragment;
+import com.todoroo.astrid.service.StatisticsConstants;
+import com.todoroo.astrid.service.StatisticsService;
 import com.todoroo.astrid.service.ThemeService;
 import com.todoroo.astrid.tags.TagFilterExposer;
 import com.todoroo.astrid.ui.DateChangedAlerts;
 import com.todoroo.astrid.ui.FragmentPopover;
 import com.todoroo.astrid.ui.MainMenuPopover;
 import com.todoroo.astrid.ui.MainMenuPopover.MainMenuListener;
+import com.todoroo.astrid.ui.TaskListFragmentPager;
 import com.todoroo.astrid.utility.Constants;
 import com.todoroo.astrid.utility.Flags;
 import com.todoroo.astrid.welcome.tutorial.WelcomeWalkthrough;
 
-public class TaskListActivity extends AstridActivity implements MainMenuListener {
+public class TaskListActivity extends AstridActivity implements MainMenuListener, OnPageChangeListener {
 
     public static final String TOKEN_SELECTED_FILTER = "selectedFilter"; //$NON-NLS-1$
+
+    /** token for indicating source of TLA launch */
+    public static final String TOKEN_SOURCE = "source"; //$NON-NLS-1$
 
     private View listsNav;
     private ImageView listsNavDisclosure;
     private TextView lists;
     private ImageView mainMenu;
     private Button commentsButton;
+
+    private TaskListFragmentPager tlfPager;
+    private TaskListFragmentPagerAdapter tlfPagerAdapter;
 
     private FragmentPopover listsPopover;
     private FragmentPopover editPopover;
@@ -142,16 +155,55 @@ public class TaskListActivity extends AstridActivity implements MainMenuListener
         commentsButton.setOnClickListener(commentsButtonClickListener);
 
         Filter savedFilter = getIntent().getParcelableExtra(TaskListFragment.TOKEN_FILTER);
+        if (savedFilter == null)
+            savedFilter = CoreFilterExposer.buildInboxFilter(getResources());
 
-        if (getIntent().getIntExtra(TaskListFragment.TOKEN_SOURCE, Constants.SOURCE_DEFAULT) ==
+        Bundle extras = getIntent().getExtras();
+        if (extras != null)
+            extras = (Bundle) extras.clone();
+
+        if (fragmentLayout == LAYOUT_SINGLE) {
+            FilterListFragment flf = getFilterListFragment();
+            if (flf == null)
+                throw new RuntimeException("Filterlist fragment was null, needs to exist to construct the fragment pager"); //$NON-NLS-1$
+            FilterAdapter adapter = flf.adapter;
+            tlfPager = (TaskListFragmentPager) findViewById(R.id.pager);
+            tlfPagerAdapter = new TaskListFragmentPagerAdapter(getSupportFragmentManager(), adapter);
+            tlfPager.setAdapter(tlfPagerAdapter);
+            tlfPager.setOnPageChangeListener(this);
+        }
+
+        if (getIntent().getIntExtra(TOKEN_SOURCE, Constants.SOURCE_DEFAULT) ==
                 Constants.SOURCE_NOTIFICATION)
-            setupTasklistFragmentWithFilterAndCustomTaskList(savedFilter, NotificationFragment.class);
+            setupTasklistFragmentWithFilterAndCustomTaskList(savedFilter, extras, NotificationFragment.class);
         else
-            setupTasklistFragmentWithFilter(savedFilter);
+            setupTasklistFragmentWithFilter(savedFilter, extras);
 
         if (savedFilter != null)
             setListsTitle(savedFilter.title);
-    }
+
+        if (getIntent().hasExtra(TOKEN_SOURCE)) {
+            trackActivitySource();
+        }
+	}
+
+	@Override
+    public void setupTasklistFragmentWithFilter(Filter filter, Bundle extras) {
+	    if (fragmentLayout == LAYOUT_SINGLE) {
+	        tlfPager.showFilter(filter); // TODO: make sure we handle the extras and the custom task list
+	    } else {
+	        super.setupTasklistFragmentWithFilter(filter, extras);
+	    }
+	}
+
+	@Override
+    public void setupTasklistFragmentWithFilterAndCustomTaskList(Filter filter, Bundle extras, Class<?> customTaskList) {
+	    if (fragmentLayout == LAYOUT_SINGLE) {
+	        tlfPager.showFilter(filter); // TODO: make sure we handle the extras and the custom task list
+	    } else {
+	        super.setupTasklistFragmentWithFilterAndCustomTaskList(filter, extras, customTaskList);
+	    }
+	}
 
     /**
      *
@@ -161,29 +213,29 @@ public class TaskListActivity extends AstridActivity implements MainMenuListener
         View filterFragment = findViewById(R.id.filterlist_fragment_container);
         View editFragment = findViewById(R.id.taskedit_fragment_container);
 
-        if (filterFragment != null) {
-            actionBar.setDisplayHomeAsUpEnabled(false);
-            actionBar.getCustomView().findViewById(R.id.list_disclosure_arrow).setVisibility(View.GONE);
-            listsNav.setOnClickListener(null);
+		if (filterFragment != null) {
+		    actionBar.setDisplayHomeAsUpEnabled(false);
+		    actionBar.getCustomView().findViewById(R.id.list_disclosure_arrow).setVisibility(View.GONE);
+		    listsNav.setOnClickListener(null);
 
-            if(editFragment != null && editFragment.getVisibility() == View.INVISIBLE) {
-                fragmentLayout = LAYOUT_TRIPLE;
-                actionBar.getCustomView().findViewById(R.id.comments).setVisibility(View.GONE);
-            } else {
-                fragmentLayout = LAYOUT_DOUBLE;
-                createEditPopover();
-                createCommentsPopover();
-            }
+		    if(editFragment != null && editFragment.getVisibility() == View.INVISIBLE) {
+		        fragmentLayout = LAYOUT_TRIPLE;
+		        actionBar.getCustomView().findViewById(R.id.comments).setVisibility(View.GONE);
+		    } else {
+		        fragmentLayout = LAYOUT_DOUBLE;
+		        createEditPopover();
+		        createCommentsPopover();
+		    }
 
-            setupFragment(FilterListFragment.TAG_FILTERLIST_FRAGMENT,
-                    R.id.filterlist_fragment_container, FilterListFragment.class);
-        } else {
-            fragmentLayout = LAYOUT_SINGLE;
-            actionBar.setDisplayHomeAsUpEnabled(true);
-            listsNav.setOnClickListener(popupMenuClickListener);
-            createListsPopover();
-            setupPopoverWithFilterList((FilterListFragment) setupFragment(FilterListFragment.TAG_FILTERLIST_FRAGMENT, 0, FilterListFragment.class));
-        }
+		    setupFragment(FilterListFragment.TAG_FILTERLIST_FRAGMENT,
+		            R.id.filterlist_fragment_container, FilterListFragment.class, false);
+		} else {
+		    fragmentLayout = LAYOUT_SINGLE;
+		    actionBar.setDisplayHomeAsUpEnabled(true);
+		    listsNav.setOnClickListener(popupMenuClickListener);
+		    createListsPopover();
+		    setupPopoverWithFilterList((FilterListFragment) setupFragment(FilterListFragment.TAG_FILTERLIST_FRAGMENT, 0, FilterListFragment.class, true));
+		}
     }
 
     private void createListsPopover() {
@@ -256,34 +308,39 @@ public class TaskListActivity extends AstridActivity implements MainMenuListener
 
     @Override
     public void onTaskListItemClicked(long taskId) {
-        super.onTaskListItemClicked(taskId);
-        if (fragmentLayout == LAYOUT_DOUBLE && getTaskEditFragment() != null) {
-            DisplayMetrics metrics = getResources().getDisplayMetrics();
-            setupPopoverWithFragment(editPopover, getTaskEditFragment(), new LayoutParams((int) (400 * metrics.density), (int) (600 * metrics.density)));
-            editPopover.show(listsNav);
-        }
-    }
+	    super.onTaskListItemClicked(taskId);
+	    if (fragmentLayout == LAYOUT_DOUBLE && getTaskEditFragment() != null) {
+	        DisplayMetrics metrics = getResources().getDisplayMetrics();
+	        setupPopoverWithFragment(editPopover, getTaskEditFragment(), new LayoutParams((int) (400 * metrics.density), (int) (600 * metrics.density)));
+	        editPopover.show(listsNav);
+	    }
+	}
 
 
-    @Override
-    public boolean onFilterItemClicked(FilterListItem item) {
-        if (listsPopover != null)
-            listsPopover.dismiss();
-        setCommentsCount(0);
-        return super.onFilterItemClicked(item);
-    }
+	@Override
+	public boolean onFilterItemClicked(FilterListItem item) {
+	    if (listsPopover != null)
+	        listsPopover.dismiss();
+	    setCommentsCount(0);
 
-    private void setListsDropdownSelected(boolean selected) {
-        int oldTextColor = lists.getTextColors().getDefaultColor();
-        int textStyle = (selected ? R.style.TextAppearance_ActionBar_ListsHeader_Selected :
-            R.style.TextAppearance_ActionBar_ListsHeader);
+	    if (fragmentLayout == LAYOUT_SINGLE) {
+	        tlfPager.showFilter((Filter) item);
+	        return true;
+	    }
+	    return super.onFilterItemClicked(item);
+	}
 
-        TypedValue listDisclosure = new TypedValue();
-        getTheme().resolveAttribute(R.attr.asListsDisclosure, listDisclosure, false);
-        lists.setTextAppearance(this, textStyle);
-        listsNav.setBackgroundColor(selected ? oldTextColor : android.R.color.transparent);
-        listsNavDisclosure.setSelected(selected);
-    }
+	private void setListsDropdownSelected(boolean selected) {
+	    int oldTextColor = lists.getTextColors().getDefaultColor();
+	    int textStyle = (selected ? R.style.TextAppearance_ActionBar_ListsHeader_Selected :
+	        R.style.TextAppearance_ActionBar_ListsHeader);
+
+	    TypedValue listDisclosure = new TypedValue();
+	    getTheme().resolveAttribute(R.attr.asListsDisclosure, listDisclosure, false);
+	    lists.setTextAppearance(this, textStyle);
+	    listsNav.setBackgroundColor(selected ? oldTextColor : android.R.color.transparent);
+	    listsNavDisclosure.setSelected(selected);
+	}
 
     @Override
     protected void onPostResume() {
@@ -332,6 +389,21 @@ public class TaskListActivity extends AstridActivity implements MainMenuListener
     public void setSelectedItem(Filter item) {
         lists.setText(item.title);
     }
+
+    @Override
+    public void onPageSelected(int position) {
+        if (tlfPagerAdapter != null) {
+            configureIntentAndExtrasWithFilter(getIntent(), tlfPagerAdapter.getFilter(position));
+            setListsTitle(tlfPagerAdapter.getPageTitle(position).toString());
+        }
+    }
+
+    @Override
+    public void onPageScrolled(int position, float positionOffset,
+            int positionOffsetPixels) { /* Nothing */ }
+
+    @Override
+    public void onPageScrollStateChanged(int state) { /* Nothing */ }
 
     public void setCommentsCount(int count) {
         TypedValue tv = new TypedValue();
@@ -450,6 +522,31 @@ public class TaskListActivity extends AstridActivity implements MainMenuListener
                     R.string.actfm_view_task_ok, R.string.actfm_view_task_cancel,
                     0, okListener, null);
         }
+    }
+
+    /**
+     * Report who launched this activity
+     */
+    protected void trackActivitySource() {
+        switch (getIntent().getIntExtra(TOKEN_SOURCE,
+                Constants.SOURCE_DEFAULT)) {
+        case Constants.SOURCE_NOTIFICATION:
+            StatisticsService.reportEvent(StatisticsConstants.LAUNCH_FROM_NOTIFICATION);
+            break;
+        case Constants.SOURCE_OTHER:
+            StatisticsService.reportEvent(StatisticsConstants.LAUNCH_FROM_OTHER);
+            break;
+        case Constants.SOURCE_PPWIDGET:
+            StatisticsService.reportEvent(StatisticsConstants.LAUNCH_FROM_PPW);
+            break;
+        case Constants.SOURCE_WIDGET:
+            StatisticsService.reportEvent(StatisticsConstants.LAUNCH_FROM_WIDGET);
+            break;
+        case Constants.SOURCE_C2DM:
+            StatisticsService.reportEvent(StatisticsConstants.LAUNCH_FROM_C2DM);
+            break;
+        }
+        getIntent().putExtra(TOKEN_SOURCE, Constants.SOURCE_DEFAULT); // Only report source once
     }
 
     @Override
