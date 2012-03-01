@@ -173,7 +173,7 @@
     <target name="dex" depends="obfuscate, -dex" />
 
     <!-- build custom release package with updated version name -->
-    <target name="release-custom">
+    <target name="release-custom" depends="clean">
       <fail message="need to set custom.version.name">
         <condition>
           <not>
