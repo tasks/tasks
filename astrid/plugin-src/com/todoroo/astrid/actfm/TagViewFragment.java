@@ -236,6 +236,11 @@ public class TagViewFragment extends TaskListFragment {
         updateCommentCount();
     }
 
+    @Override
+    public void requestCommentCountUpdate() {
+        updateCommentCount();
+    }
+
     private void updateCommentCount() {
         if (tagData != null) {
             long lastViewedComments = Preferences.getLong(TagUpdatesFragment.UPDATES_LAST_VIEWED + tagData.getValue(TagData.REMOTE_ID), 0);

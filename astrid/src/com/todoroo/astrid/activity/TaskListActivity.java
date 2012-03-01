@@ -404,7 +404,10 @@ public class TaskListActivity extends AstridActivity implements MainMenuListener
         if (tlfPagerAdapter != null) {
             configureIntentAndExtrasWithFilter(getIntent(), tlfPagerAdapter.getFilter(position));
             setListsTitle(tlfPagerAdapter.getPageTitle(position).toString());
-            getTaskListFragment().initiateAutomaticSync();
+
+            TaskListFragment fragment = getTaskListFragment();
+            fragment.initiateAutomaticSync();
+            fragment.requestCommentCountUpdate();
         }
     }
 
