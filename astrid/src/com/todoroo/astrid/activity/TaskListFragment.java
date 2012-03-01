@@ -584,8 +584,17 @@ public class TaskListFragment extends ListFragment implements OnScrollListener,
         initiateAutomaticSync();
     }
 
-    protected void initiateAutomaticSync() {
-        syncActionHelper.initiateAutomaticSync(filter);
+    protected boolean isCurrentTaskListFragment() {
+        AstridActivity activity = (AstridActivity) getActivity();
+        if (activity != null) {
+            return activity.getTaskListFragment() == this;
+        }
+        return false;
+    }
+
+    public void initiateAutomaticSync() {
+        if (isCurrentTaskListFragment())
+            syncActionHelper.initiateAutomaticSync(filter);
     }
 
     @Override

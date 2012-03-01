@@ -1,7 +1,5 @@
 package com.todoroo.astrid.actfm;
 
-import com.todoroo.astrid.helper.AsyncImageView;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -52,6 +50,7 @@ import com.todoroo.astrid.dao.TaskDao.TaskCriteria;
 import com.todoroo.astrid.data.TagData;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.data.Update;
+import com.todoroo.astrid.helper.AsyncImageView;
 import com.todoroo.astrid.helper.ProgressBarSyncResultCallback;
 import com.todoroo.astrid.service.SyncV2Service;
 import com.todoroo.astrid.service.TagDataService;
@@ -257,7 +256,9 @@ public class TagViewFragment extends TaskListFragment {
 
 
     @Override
-    protected void initiateAutomaticSync() {
+    public void initiateAutomaticSync() {
+        if (!isCurrentTaskListFragment())
+            return;
         if (tagData != null) {
             long lastAutoSync = Preferences.getLong(LAST_FETCH_KEY + tagData.getId(), 0);
             if(DateUtilities.now() - lastAutoSync > DateUtilities.ONE_HOUR)
@@ -269,7 +270,7 @@ public class TagViewFragment extends TaskListFragment {
     private void refreshData(final boolean manual) {
         ((TextView)taskListView.findViewById(android.R.id.empty)).setText(R.string.DLG_loading);
 
-        syncService.synchronizeList(tagData, manual, new ProgressBarSyncResultCallback(getActivity(),
+        syncService.synchronizeList(tagData, manual, new ProgressBarSyncResultCallback(getActivity(), this,
                 R.id.progressBar, new Runnable() {
             @Override
             public void run() {

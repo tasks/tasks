@@ -3,6 +3,7 @@ package com.todoroo.astrid.helper;
 import java.util.concurrent.atomic.AtomicInteger;
 
 import android.app.Activity;
+import android.support.v4.app.Fragment;
 import android.view.View;
 import android.view.animation.AlphaAnimation;
 import android.widget.ProgressBar;
@@ -18,9 +19,9 @@ public class ProgressBarSyncResultCallback extends SyncResultCallbackAdapter {
 
     private final AtomicInteger providers = new AtomicInteger(0);
 
-    public ProgressBarSyncResultCallback(Activity activity,
+    public ProgressBarSyncResultCallback(Activity activity, Fragment fragment,
             int progressBarId, Runnable onFinished) {
-        this.progressBar = (ProgressBar) activity.findViewById(progressBarId);
+        this.progressBar = (ProgressBar) fragment.getView().findViewById(progressBarId);
         this.activity = activity;
         this.onFinished = onFinished;
 

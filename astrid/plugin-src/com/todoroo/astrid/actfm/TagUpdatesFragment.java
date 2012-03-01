@@ -309,7 +309,7 @@ public class TagUpdatesFragment extends ListFragment {
     private void refreshActivity(boolean manual) {
         if (actFmPreferenceService.isLoggedIn()) {
             final ProgressBarSyncResultCallback callback = new ProgressBarSyncResultCallback(
-                    getActivity(), R.id.progressBar, new Runnable() {
+                    getActivity(), this, R.id.progressBar, new Runnable() {
                         @Override
                         public void run() {
                             refreshUpdatesList();
