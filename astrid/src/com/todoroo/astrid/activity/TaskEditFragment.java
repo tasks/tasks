@@ -148,7 +148,7 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
     // --- request codes
 
     public static final int REQUEST_LOG_IN = 0;
-    private static final int REQUEST_VOICE_RECOG = 1;
+    private static final int REQUEST_VOICE_RECOG = 10;
 
     // --- menu codes
 

@@ -1,6 +1,5 @@
 package com.todoroo.astrid.ui;
 
-import java.util.ArrayList;
 import java.util.HashSet;
 
 import android.app.Activity;
@@ -150,7 +149,7 @@ public class QuickAddBar extends LinearLayout {
         int prompt = R.string.voice_edit_title_prompt;
         if (Preferences.getBoolean(R.string.p_voiceInputCreatesTask, false))
             prompt = R.string.voice_create_prompt;
-        voiceInputAssistant = new VoiceInputAssistant(activity,
+        voiceInputAssistant = new VoiceInputAssistant(fragment,
                 voiceAddButton, quickAddBox);
         voiceInputAssistant.configureMicrophoneButton(prompt);
 
