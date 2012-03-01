@@ -5,6 +5,7 @@ import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.util.AttributeSet;
 
+import com.todoroo.astrid.activity.TaskListFragment;
 import com.todoroo.astrid.adapter.TaskListFragmentPagerAdapter;
 import com.todoroo.astrid.api.Filter;
 
@@ -36,5 +37,13 @@ public class TaskListFragmentPager extends ViewPager {
      */
     public void showFilter(int index) {
         setCurrentItem(index, true);
+    }
+
+    /**
+     * Returns a reference to the currently showing fragment
+     * @return
+     */
+    public TaskListFragment getCurrentFragment() {
+        return (TaskListFragment) ((TaskListFragmentPagerAdapter) getAdapter()).lookupFragmentForPosition(getCurrentItem());
     }
 }

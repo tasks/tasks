@@ -1,5 +1,7 @@
 package com.todoroo.astrid.adapter;
 
+import java.util.HashMap;
+
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.support.v4.app.Fragment;
@@ -13,12 +15,15 @@ import com.todoroo.astrid.api.FilterWithCustomIntent;
 
 public class TaskListFragmentPagerAdapter extends FragmentStatePagerAdapter implements FilterDataSourceChangedListener {
 
+    private final HashMap<Integer, Fragment> positionToFragment;
+
     private final FilterAdapter filterAdapter;
 
     public TaskListFragmentPagerAdapter(FragmentManager fm, FilterAdapter filterAdapter) {
         super(fm);
         this.filterAdapter = filterAdapter;
         filterAdapter.setDataSourceChangedListener(this);
+        positionToFragment = new HashMap<Integer, Fragment>();
     }
 
     @Override
@@ -28,7 +33,14 @@ public class TaskListFragmentPagerAdapter extends FragmentStatePagerAdapter impl
 
     @Override
     public Fragment getItem(int position) {
-        return getFragmentForFilter(filterAdapter.getItem(position));
+        Filter filter = filterAdapter.getItem(position);
+        Fragment fragment = getFragmentForFilter(filter);
+        positionToFragment.put(position, fragment);
+        return fragment;
+    }
+
+    public Fragment lookupFragmentForPosition(int position) {
+        return positionToFragment.get(position);
     }
 
     @Override

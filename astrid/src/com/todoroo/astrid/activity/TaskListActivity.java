@@ -187,6 +187,15 @@ public class TaskListActivity extends AstridActivity implements MainMenuListener
         }
 	}
 
+    @Override
+    public TaskListFragment getTaskListFragment() {
+        if (fragmentLayout == LAYOUT_SINGLE) {
+            return tlfPager.getCurrentFragment();
+        } else {
+            return super.getTaskListFragment();
+        }
+    }
+
 	@Override
     public void setupTasklistFragmentWithFilter(Filter filter, Bundle extras) {
 	    if (fragmentLayout == LAYOUT_SINGLE) {
