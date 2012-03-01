@@ -1017,7 +1017,7 @@
     <item>Slaap is goed voor je!</item>
   </string-array>
   <string-array name="PPW_encouragements_completed">
-    <item>Er zijn al %s taken voltooid!</item>
+    <item>Er zijn al %d taken voltooid!</item>
     <item>Totaal: %d taken voltooid</item>
     <item>Voel je goed! Je hebt al %d taken af!</item>
   </string-array>

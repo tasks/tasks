@@ -111,11 +111,11 @@
   <string name="backup_BAc_import">Importer oppgaver</string>
   <string name="backup_BAc_export">Eksporter oppgaver</string>
   <string name="backup_TXI_error">Importfeil</string>
-  <string name="export_toast">Backup ferdig %1$ av %2$.</string>
+  <string name="export_toast">Backup ferdig %1$s av %2$s.</string>
   <string name="export_toast_no_tasks">Ingen oppgaver å eksportere</string>
   <string name="export_progress_title">Eksporterer...</string>
   <string name="import_summary_title">Gjennopprettingssammendrag</string>
-  <string name="import_summary_message">Filen %1$ inneholder %2$.\n\n %3$s importert,\n %4$ eksisterer allerede\n %5$ inneholdt feil\n</string>
+  <string name="import_summary_message">Filen %1$s inneholder %2$s.\n\n %3$s importert,\n %4$s eksisterer allerede\n %5$s inneholdt feil\n</string>
   <string name="import_progress_title">Importerer...</string>
   <string name="import_progress_read">Leser oppgave %d...</string>
   <string name="DLG_error_opening">Kunne ikke finne følgende:</string>
