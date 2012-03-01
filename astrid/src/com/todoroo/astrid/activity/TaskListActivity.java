@@ -453,10 +453,10 @@ public class TaskListActivity extends AstridActivity implements MainMenuListener
     }
 
     @Override
-    public void mainMenuItemSelected(int item) {
+    public void mainMenuItemSelected(int item, Intent customIntent) {
         TaskListFragment tla = getTaskListFragment();
         switch (item) {
-        case MainMenuPopover.MAIN_MENU_ITEM_TASKS:
+        case MainMenuPopover.MAIN_MENU_ITEM_LISTS:
             listsNav.performClick();
             break;
         case MainMenuPopover.MAIN_MENU_ITEM_FRIENDS:

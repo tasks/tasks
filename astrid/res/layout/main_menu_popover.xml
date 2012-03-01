@@ -5,13 +5,31 @@
     android:layout_height="wrap_content"
     android:paddingLeft="10dip">
 
-    <LinearLayout
-        android:id="@+id/content"
+    <ScrollView
         android:layout_width="280dip"
         android:layout_height="wrap_content"
-        android:background="?attr/asListPopoverBg"
-        android:orientation="vertical"
-        android:layout_below="@+id/gdi_arrow_up"/>
+        android:layout_below="@+id/gdi_arrow_up">
+        <LinearLayout
+            android:id="@+id/topFixedItems"
+            android:layout_width="280dip"
+            android:layout_height="wrap_content"
+            android:background="?attr/asListPopoverBg"
+            android:orientation="vertical"/>
+        <include layout="@layout/fla_separator"/>
+	    <LinearLayout
+	        android:id="@+id/content"
+	        android:layout_width="280dip"
+	        android:layout_height="wrap_content"
+	        android:background="?attr/asListPopoverBg"
+	        android:orientation="vertical"/>
+        <include layout="@layout/fla_separator"/>
+        <LinearLayout
+            android:id="@+id/bottomFixedItems"
+            android:layout_width="280dip"
+            android:layout_height="wrap_content"
+            android:background="?attr/asListPopoverBg"
+            android:orientation="vertical"/>
+    </ScrollView>
 
     <ImageView
         android:id="@+id/gdi_arrow_up"

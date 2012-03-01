@@ -1,9 +1,11 @@
 package com.todoroo.astrid.ui;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -12,20 +14,22 @@ import com.timsu.astrid.R;
 
 public class MainMenuPopover extends FragmentPopover {
 
-    public static final int MAIN_MENU_ITEM_TASKS = 1;
-    public static final int MAIN_MENU_ITEM_FRIENDS = 2;
-    public static final int MAIN_MENU_ITEM_SUGGESTIONS = 3;
-    public static final int MAIN_MENU_ITEM_TUTORIAL = 4;
-    public static final int MAIN_MENU_ITEM_SETTINGS = 5;
-    public static final int MAIN_MENU_ITEM_SUPPORT = 6;
+    public static final int MAIN_MENU_ITEM_LISTS = R.string.TLA_menu_lists;
+    public static final int MAIN_MENU_ITEM_FRIENDS = R.string.TLA_menu_friends;
+    public static final int MAIN_MENU_ITEM_SUGGESTIONS = R.string.TLA_menu_suggestions;
+    public static final int MAIN_MENU_ITEM_TUTORIAL = R.string.TLA_menu_tutorial;
+    public static final int MAIN_MENU_ITEM_SETTINGS = R.string.TLA_menu_settings;
+    public static final int MAIN_MENU_ITEM_SUPPORT = R.string.TLA_menu_support;
 
     public interface MainMenuListener {
-        public void mainMenuItemSelected(int item);
+        public void mainMenuItemSelected(int item, Intent customIntent);
     }
 
     private MainMenuListener mListener;
     private final LayoutInflater inflater;
     private final LinearLayout content;
+    private final LinearLayout topFixed;
+    private final LinearLayout bottomFixed;
 
     public void setMenuListener(MainMenuListener listener) {
         this.mListener = listener;
@@ -37,16 +41,21 @@ public class MainMenuPopover extends FragmentPopover {
         inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
         content = (LinearLayout) getContentView().findViewById(R.id.content);
+
+        topFixed = (LinearLayout) getContentView().findViewById(R.id.topFixedItems);
+        bottomFixed = (LinearLayout) getContentView().findViewById(R.id.bottomFixedItems);
+
+        addFixedItems(isTablet);
+    }
+
+    private void addFixedItems(boolean isTablet) {
         if (!isTablet)
-            addListsItem();
-        addFriendsItem();
-        addSuggestionsItem();
-        addTutorialItem();
-
-        addSeparator();
-
-        addSettingsItem();
-        addSupportItem();
+            addMenuItem(R.string.TLA_menu_lists, R.drawable.icn_menu_tasks, MAIN_MENU_ITEM_LISTS, null, topFixed); // Lists item
+        // addMenuItem(R.string.TLA_menu_friends, R.drawable.icn_friends, MAIN_MENU_ITEM_FRIENDS, null, topFixed); // Friends item
+        // addMenuItem(R.string.TLA_menu_suggestions, R.drawable.icn_featured_lists, MAIN_MENU_ITEM_SUGGESTIONS, null, topFixed); // Suggestions item
+        addMenuItem(R.string.TLA_menu_tutorial, R.drawable.icn_tutorial, MAIN_MENU_ITEM_TUTORIAL, null, bottomFixed); // Tutorial item
+        addMenuItem(R.string.TLA_menu_settings, R.drawable.icn_settings, MAIN_MENU_ITEM_SETTINGS, null, bottomFixed); // Settings item
+        addMenuItem(R.string.TLA_menu_support, R.drawable.icn_support, MAIN_MENU_ITEM_SUPPORT, null, bottomFixed); // Support item
     }
 
     @Override
@@ -54,45 +63,33 @@ public class MainMenuPopover extends FragmentPopover {
         return mRect.centerX() - arrow.getMeasuredWidth() / 2 - (int) (12 * metrics.density);
     }
 
-    private void addMenuItem(int title, int imageRes, final int menuItemOption) {
+    public void addMenuItem(int title, int imageRes, int id, Intent customIntent) {
+        addMenuItem(title, imageRes, id, customIntent, content);        
+    }
+    
+    public void addMenuItem(int title, int imageRes, int id) {
+        addMenuItem(title, imageRes, id, null, content);
+    }
+
+    private void addMenuItem(int title, int imageRes, final int id, final Intent customIntent, ViewGroup container) {
         View item = setupItemWithParams(title, imageRes);
-        content.addView(item);
+        container.addView(item);
         item.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
                 dismiss();
                 if (mListener != null)
-                    mListener.mainMenuItemSelected(menuItemOption);
+                    mListener.mainMenuItemSelected(id, customIntent);
             }
         });
     }
 
-    private void addSeparator() {
+    public void addSeparator() {
         inflater.inflate(R.layout.fla_separator, content);
     }
 
-    private void addListsItem() {
-        addMenuItem(R.string.TLA_menu_lists, R.drawable.icn_menu_tasks, MAIN_MENU_ITEM_TASKS);
-    }
-
-    private void addFriendsItem() {
-        //addMenuItem(R.string.TLA_menu_friends, R.drawable.icn_friends, MAIN_MENU_ITEM_FRIENDS);
-    }
-
-    private void addSuggestionsItem() {
-        //addMenuItem(R.string.TLA_menu_suggestions, R.drawable.icn_featured_lists, MAIN_MENU_ITEM_SUGGESTIONS);
-    }
-
-    private void addTutorialItem() {
-        addMenuItem(R.string.TLA_menu_tutorial, R.drawable.icn_tutorial, MAIN_MENU_ITEM_TUTORIAL);
-    }
-
-    private void addSettingsItem() {
-        addMenuItem(R.string.TLA_menu_settings, R.drawable.icn_settings, MAIN_MENU_ITEM_SETTINGS);
-    }
-
-    private void addSupportItem() {
-        addMenuItem(R.string.TLA_menu_support, R.drawable.icn_support, MAIN_MENU_ITEM_SUPPORT);
+    public void clear() {
+        content.removeAllViews();
     }
 
     private View setupItemWithParams(int title, int imageRes) {
