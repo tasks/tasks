@@ -179,11 +179,12 @@ public final class UpgradeService {
 
         if (from >= V4_0_0 && from < V4_0_2) {
             newVersionString(changeLog, "4.0.2 (2/29/12)", new String[] {
-               "Removed GPS permission--no longer needed",
+               "Removed GPS permission - no longer needed",
                "Fixes for some subtasks issues",
                "No longer need to run the Crittercism service in the background",
                "Fixed a crash that could occur when cloning tasks",
                "Fixed a bug that prevented certain comments from syncing correctly",
+               "Fixed issues where voice add wouldn't work correctly",
             });
         }
 
