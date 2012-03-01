@@ -207,20 +207,22 @@ public class TaskRabbitControlSet extends TaskEditControlSet implements Assigned
      */
 
     public void updateDisplay(JSONObject json) {
-        String stateKey = fragment.getActivity().getString(R.string.tr_attr_state_label);
-        if (json != null && json.has(stateKey)) {
-            String status = json.optString(stateKey);
-            TextView statusText = (TextView) getDisplayView().findViewById(R.id.display_row_edit);
-            statusText.setText(status);
-            getDisplayView().setVisibility(View.VISIBLE);
-        }
-        else if (taskRabbitTask != null && taskRabbitTask.getLocalTaskData() != null) {
-            TextView statusText = (TextView) getDisplayView().findViewById(R.id.display_row_edit);
-            statusText.setText(fragment.getActivity().getString(R.string.tr_status_draft));
-            getDisplayView().setVisibility(View.VISIBLE);
-        }
-        else {
-            getDisplayView().setVisibility(View.GONE);
+        if (fragment.getActivity() != null) {
+            String stateKey = fragment.getActivity().getString(R.string.tr_attr_state_label);
+            if (json != null && json.has(stateKey)) {
+                String status = json.optString(stateKey);
+                TextView statusText = (TextView) getDisplayView().findViewById(R.id.display_row_edit);
+                statusText.setText(status);
+                getDisplayView().setVisibility(View.VISIBLE);
+            }
+            else if (taskRabbitTask != null && taskRabbitTask.getLocalTaskData() != null) {
+                TextView statusText = (TextView) getDisplayView().findViewById(R.id.display_row_edit);
+                statusText.setText(fragment.getActivity().getString(R.string.tr_status_draft));
+                getDisplayView().setVisibility(View.VISIBLE);
+            }
+            else {
+                getDisplayView().setVisibility(View.GONE);
+            }
         }
     }
 

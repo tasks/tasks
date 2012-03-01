@@ -25,9 +25,9 @@ import com.todoroo.astrid.gtasks.GtasksPreferenceService;
 import com.todoroo.astrid.gtasks.api.GtasksApiUtilities;
 import com.todoroo.astrid.gtasks.api.GtasksInvoker;
 import com.todoroo.astrid.gtasks.auth.GtasksTokenValidator;
-import com.todoroo.astrid.gtasks.sync.GtasksSyncProvider;
-import com.todoroo.astrid.repeats.RepeatTaskCompleteListener;
+import com.todoroo.astrid.gtasks.sync.GtasksSyncV2Provider;
 import com.todoroo.astrid.service.MetadataService;
+import com.todoroo.astrid.sync.SyncResultCallbackAdapter;
 
 public class RepeatTestsGtasksSync extends AbstractSyncRepeatTests<com.google.api.services.tasks.model.Task> {
 
@@ -45,7 +45,6 @@ public class RepeatTestsGtasksSync extends AbstractSyncRepeatTests<com.google.ap
     protected void setUp() throws Exception {
         super.setUp();
         Preferences.setStringFromInteger(R.string.p_default_urgency_key, 0);
-        RepeatTaskCompleteListener.setSkipActFmCheck(true);
 
         if (!initialized) {
             initializeTestService();
@@ -57,7 +56,21 @@ public class RepeatTestsGtasksSync extends AbstractSyncRepeatTests<com.google.ap
     @Override
     protected void waitAndSync() {
         AndroidUtilities.sleepDeep(3000L);
-        new GtasksSyncProvider().synchronize(null);
+        new GtasksSyncV2Provider().synchronizeActiveTasks(true, new SyncResultCallbackAdapter() {
+        	@Override
+        	public void finished() {
+        		synchronized(RepeatTestsGtasksSync.this) {
+        			RepeatTestsGtasksSync.this.notify();
+        		}
+        	}
+		});
+        try {
+        	synchronized(this) {
+        		wait();
+        	}
+        } catch (InterruptedException e) {
+        	fail("Interrupted while waiting for sync to finish");
+        }
         AndroidUtilities.sleepDeep(3000L);
     }
 

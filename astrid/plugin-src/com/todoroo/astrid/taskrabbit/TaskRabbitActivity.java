@@ -158,6 +158,8 @@ public class TaskRabbitActivity extends FragmentActivity {
 
     private TaskRabbitTaskContainer taskRabbitTask;
 
+    private boolean showingNoGPSAlertMessage = false;
+
     public TaskRabbitActivity() {
         DependencyInjectionService.getInstance().inject(this);
     }
@@ -217,7 +219,8 @@ public class TaskRabbitActivity extends FragmentActivity {
             didReportStatistics = true;
         }
         populateFields();
-        showIntroDialog();
+        if (!showingNoGPSAlertMessage)
+            showIntroDialog();
     }
 
     @Override
@@ -689,7 +692,7 @@ public class TaskRabbitActivity extends FragmentActivity {
         Intent intent = new Intent(this,
                 OAuthLoginActivity.class);
         try {
-            String url = TASK_RABBIT_URL + "/api/authorize?client_id=" + TASK_RABBIT_CLIENT_ID;  //$NON-NLS-1$
+            String url = String.format(TASK_RABBIT_URL + "/api/authorize?client_id=%s&client_application=%s", TASK_RABBIT_CLIENT_ID, TASK_RABBIT_CLIENT_APPLICATION_ID);  //$NON-NLS-1$
             intent.putExtra(OAuthLoginActivity.URL_TOKEN, url);
             this.startActivityForResult(intent, REQUEST_CODE_TASK_RABBIT_OAUTH);
             StatisticsService.reportEvent(StatisticsConstants.TASK_RABBIT_LOGIN);
@@ -697,11 +700,13 @@ public class TaskRabbitActivity extends FragmentActivity {
             e.printStackTrace();
         }
     }
+
     private void loadLocation() {
         if (locationManager == null) {
             locationManager = new TaskRabbitLocationManager(this);
-            if ( !locationManager.isLocationUpdatesEnabled()) {
+            if (!locationManager.isLocationUpdatesEnabled()) {
                 buildAlertMessageNoGps();
+                showingNoGPSAlertMessage = true;
             }
         }
         currentLocation = locationManager.getLastKnownLocation();
@@ -730,11 +735,14 @@ public class TaskRabbitActivity extends FragmentActivity {
         .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
             public void onClick(final DialogInterface dialog,  final int id) {
                 startActivityForResult(new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS), REQUEST_CODE_ENABLE_GPS);
+                showingNoGPSAlertMessage = false;
             }
         })
         .setNegativeButton("No", new DialogInterface.OnClickListener() {
             public void onClick(final DialogInterface dialog, final int id) {
                 dialog.cancel();
+                showingNoGPSAlertMessage = false;
+                showIntroDialog();
             }
         });
         final AlertDialog alert = builder.create();
@@ -777,7 +785,7 @@ public class TaskRabbitActivity extends FragmentActivity {
 
                     result = result.substring(result.indexOf(key)+key.length());
                     Preferences.setString(TASK_RABBIT_TOKEN, result);
-                    String url = String.format("%s?oauth_token=%s&client_application=",taskRabbitURL("account"), Preferences.getStringValue(TASK_RABBIT_TOKEN), TASK_RABBIT_CLIENT_APPLICATION_ID);
+                    String url = String.format("%s?oauth_token=%s&client_application=%s",taskRabbitURL("account"), Preferences.getStringValue(TASK_RABBIT_TOKEN), TASK_RABBIT_CLIENT_APPLICATION_ID);
 
                     String response = restClient.get(url);
                     saveUserInfo(response);//;
@@ -789,7 +797,6 @@ public class TaskRabbitActivity extends FragmentActivity {
             }
         }
         else if (requestCode == REQUEST_CODE_ENABLE_GPS) {
-
             loadLocation();
         }
 

@@ -75,6 +75,9 @@
           <arg value="-e" />
           <arg value="coverageFile" />
           <arg value="${emma.dump.file}" />
+          <arg value="-e" />
+          <arg value="delay_msec" />
+          <arg value="15" />
         </extra-instrument-args>
       </run-tests-helper>
 

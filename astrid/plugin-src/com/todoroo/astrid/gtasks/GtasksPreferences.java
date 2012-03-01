@@ -5,14 +5,11 @@ import android.os.Bundle;
 
 import com.timsu.astrid.R;
 import com.todoroo.andlib.service.Autowired;
-import com.todoroo.andlib.service.ContextManager;
 import com.todoroo.andlib.service.DependencyInjectionService;
-import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.gtasks.auth.GtasksLoginActivity;
 import com.todoroo.astrid.gtasks.sync.GtasksSyncV2Provider;
 import com.todoroo.astrid.sync.SyncProviderPreferences;
 import com.todoroo.astrid.sync.SyncProviderUtilities;
-import com.todoroo.astrid.sync.SyncResultCallbackAdapter;
 
 /**
  * Displays synchronization preferences and an action panel so users can
@@ -44,14 +41,9 @@ public class GtasksPreferences extends SyncProviderPreferences {
     public void startSync() {
         if (!gtasksPreferenceService.isLoggedIn()) {
             Intent intent = new Intent(this, GtasksLoginActivity.class);
-            startActivityForResult(intent, 0);
+            startActivityForResult(intent, REQUEST_LOGIN);
         } else {
-            new GtasksSyncV2Provider().synchronizeActiveTasks(true, new SyncResultCallbackAdapter() {
-                @Override
-                public void finished() {
-                    ContextManager.getContext().sendBroadcast(new Intent(AstridApiConstants.BROADCAST_EVENT_REFRESH));
-                }
-            });
+            setResult(RESULT_CODE_SYNCHRONIZE);
             finish();
         }
     }

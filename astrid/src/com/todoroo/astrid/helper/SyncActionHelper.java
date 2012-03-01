@@ -18,6 +18,7 @@ import android.content.IntentFilter;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.widget.ArrayAdapter;
 import android.widget.Toast;
 
@@ -28,6 +29,7 @@ import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.andlib.service.ExceptionService;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.andlib.utility.Preferences;
+import com.todoroo.astrid.activity.TaskListFragment;
 import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.api.SyncAction;
@@ -48,13 +50,15 @@ import com.todoroo.astrid.sync.SyncV2Provider;
  */
 public class SyncActionHelper {
 
-    private static final String PREF_LAST_AUTO_SYNC = "taskListLastAutoSync"; //$NON-NLS-1$
+    public static final String PREF_LAST_AUTO_SYNC = "taskListLastAutoSync"; //$NON-NLS-1$
 
     private final LinkedHashSet<SyncAction> syncActions = new LinkedHashSet<SyncAction>();
 
     public final SyncResultCallback syncResultCallback;
 
     private final Activity activity;
+
+    private final Fragment fragment;
 
     protected SyncActionReceiver syncActionReceiver = new SyncActionReceiver();
 
@@ -63,10 +67,11 @@ public class SyncActionHelper {
 
     // --- boilerplate
 
-    public SyncActionHelper(Activity activity) {
+    public SyncActionHelper(Activity activity, Fragment fragment) {
         DependencyInjectionService.getInstance().inject(this);
 
         this.activity = activity;
+        this.fragment = fragment;
         syncResultCallback = new ProgressBarSyncResultCallback(activity,
                 R.id.progressBar, new Runnable() {
                     @Override
@@ -201,7 +206,7 @@ public class SyncActionHelper {
             DialogInterface.OnClickListener listener = new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface click, int which) {
-                    activity.startActivity(actions[which]);
+                    fragment.startActivityForResult(actions[which], TaskListFragment.ACTIVITY_SETTINGS);
                 }
             };
 

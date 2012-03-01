@@ -19,8 +19,10 @@ import android.os.Handler;
 import android.os.Message;
 import android.text.TextUtils;
 import android.view.View;
+import android.view.ViewGroup.LayoutParams;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
 
 import com.google.android.maps.GeoPoint;
 import com.google.android.maps.MapActivity;
@@ -43,6 +45,9 @@ public class TaskRabbitMapActivity extends MapActivity implements LocationListen
     private static final int LOCATION_SEARCH_SUCCESS = 1;
     private static final int LOCATION_SEARCH_FAIL = -1;
 
+    // Production value
+    private static final String MAPS_API_KEY = "0J-miH1uUbgVV5xsNNmvSIzb4DIENVCMERxB7gw"; //$NON-NLS-1$
+
     /** Called when the activity is first created. */
     @Override
     public void onCreate(Bundle savedInstanceState)
@@ -50,8 +55,13 @@ public class TaskRabbitMapActivity extends MapActivity implements LocationListen
         super.onCreate(savedInstanceState);
         setContentView(R.layout.task_rabbit_map_activity);
 
-        mapView = (MapView) findViewById(R.id.map_view);
+        mapView = new MapView(this, MAPS_API_KEY);
+        mapView.setClickable(true);
         mapView.setBuiltInZoomControls(true);
+
+        LayoutParams lp = new LinearLayout.LayoutParams(LayoutParams.FILL_PARENT, LayoutParams.WRAP_CONTENT, 12.0f);
+
+        ((LinearLayout) findViewById(R.id.task_rabbit_map_parent)).addView(mapView, 0, lp);
 
 
         locationManager = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);

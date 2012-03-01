@@ -772,6 +772,10 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
         model = null;
         remoteId = 0;
         populateFields(intent);
+        if (webServices != null) {
+            webServices.setTask(model);
+            webServices.reset();
+        }
     }
 
     /** Populate UI component values from the model */
@@ -859,7 +863,7 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
 
     public boolean onKeyDown(int keyCode) {
         if (keyCode == KeyEvent.KEYCODE_BACK) {
-            if (title.getText().length() == 0)
+            if (title.getText().length() == 0 || !peopleControlSet.hasLoadedUI())
                 discardButtonClick();
             else
                 saveButtonClick();

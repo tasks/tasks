@@ -407,7 +407,7 @@
     <string name="tr_alert_title_fail">Error posting task</string>
     <string name="tr_alert_message_fail">Please try again</string>
     <string name="tr_alert_button_close">Close</string>
-    <string name="tr_alert_gps_title">GPS needs to be enabled in order to add location based tasks. Do you want to enable it?</string>
+    <string name="tr_alert_gps_title">Wireless Network Location Provider needs to be enabled in order to add location based tasks. Do you want to enable it?</string>
     <string name="tr_alert_gps_yes">Yes</string>
     <string name="tr_alert_gps_no">No</string>
     

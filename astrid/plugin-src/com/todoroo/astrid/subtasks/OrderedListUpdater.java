@@ -268,10 +268,13 @@ abstract public class OrderedListUpdater<LIST> {
                     parent.children.add(currentNode.get());
                 } else { // in a different tree
                     Node node = currentNode.get().parent;
-                    for(int i = indent; i < previousIndentValue; i++)
+                    for(int i = indent; i < previousIndentValue; i++) {
                         node = node.parent;
-                    if(node == null)
-                        node = root;
+                        if(node == null) {
+                            node = root;
+                            break;
+                        }
+                    }
                     currentNode.set(new Node(taskId, node));
                     node.children.add(currentNode.get());
                 }

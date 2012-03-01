@@ -155,8 +155,10 @@
   <!-- Status Group Label -->    
   <string name="sync_SPr_group_status">Status</string>
   
+  <!-- Sync status subtitle, %s-> status message -->
+  <string name="sync_SPr_status_subtitle">Status: %s</string>
   <!-- Sync Status: log in -->    
-  <string name="sync_status_loggedout">Not Logged In!</string>
+  <string name="sync_status_loggedout">Not Logged In</string>
   <!-- Status: ongoing -->    
   <string name="sync_status_ongoing">Sync Ongoing...</string>
   <!-- Sync Status: success status (%s -> last sync date). Keep it short!-->    
@@ -191,7 +193,7 @@
   <string name="sync_SPr_group_actions">Actions</string>
 
   <!-- Synchronize Now Button -->    
-  <string name="sync_SPr_sync">Synchronize Now!</string>
+  <string name="sync_SPr_sync">Synchronize Now</string>
   <!-- Synchronize Now Button if not logged in-->    
   <string name="sync_SPr_sync_log_in">Log In &amp; Synchronize!</string>
   

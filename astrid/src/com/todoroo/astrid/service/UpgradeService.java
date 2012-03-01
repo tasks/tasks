@@ -40,6 +40,7 @@ import com.todoroo.astrid.utility.AstridPreferences;
 
 public final class UpgradeService {
 
+    public static final int V4_0_2 = 253;
     public static final int V4_0_1 = 252;
     public static final int V4_0_0 = 251;
     public static final int V3_9_2_3 = 210;
@@ -175,6 +176,16 @@ public final class UpgradeService {
 
         Preferences.clear(AstridPreferences.P_UPGRADE_FROM);
         StringBuilder changeLog = new StringBuilder();
+
+        if (from >= V4_0_0 && from < V4_0_2) {
+            newVersionString(changeLog, "4.0.2 (2/29/12)", new String[] {
+               "Removed GPS permission--no longer needed",
+               "Fixes for some subtasks issues",
+               "No longer need to run the Crittercism service in the background",
+               "Fixed a crash that could occur when cloning tasks",
+               "Fixed a bug that prevented certain comments from syncing correctly",
+            });
+        }
 
         if (from >= V4_0_0 && from < V4_0_1) {
             newVersionString(changeLog, "4.0.1 (2/23/12)", new String[] {

@@ -1,17 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/task_rabbit_map_parent"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:orientation="vertical"
     style="@style/Content_EditScroll" >
-
-    <com.google.android.maps.MapView
-        android:id="@+id/map_view"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="12"
-        android:apiKey="0J-miH1uUbgW2wG77C9qZiqvpBW8FEnoRnn7qBw"
-        android:clickable="true" />
 
     <LinearLayout
         android:layout_width="fill_parent"

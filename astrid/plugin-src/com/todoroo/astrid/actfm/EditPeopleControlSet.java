@@ -110,6 +110,8 @@ public class EditPeopleControlSet extends PopupControlSet {
 
     private AssignedToUser taskRabbitUser = null;
 
+    private boolean loadedUI = false;
+
     private final List<AssignedChangedListener> listeners = new LinkedList<AssignedChangedListener>();
 
     public interface AssignedChangedListener {
@@ -223,23 +225,30 @@ public class EditPeopleControlSet extends PopupControlSet {
                             final String tag = metadata.getValue(TagService.TAG);
                             TagData tagData = tagDataService.getTag(tag, TagData.MEMBER_COUNT, TagData.MEMBERS, TagData.USER);
                             if(tagData != null && tagData.getValue(TagData.MEMBER_COUNT) > 0) {
-                                addMembersFromTagData(tagData, tag, sharedPeople, collaborators);
+                                try {
+                                    addMembersFromTagData(tagData, tag, sharedPeople, collaborators);
+                                } catch (JSONException e) {
+                                    exceptionService.reportError("json-reading-data", e);
+                                }
                             } else {
                                 nonSharedTags.add((Metadata) metadata.clone());
                             }
                         }
 
                         if (includeTag != null && tags.getCount() == 0) {
-                            addMembersFromTagData(includeTag, null, sharedPeople, collaborators);
+                            try {
+                                addMembersFromTagData(includeTag, null, sharedPeople, collaborators);
+                            } catch (JSONException e) {
+                                exceptionService.reportError("json-reading-data", e);
+                            }
                         }
 
                         if(collaborators.size() > 0)
                             buildCollaborators(collaborators);
                         buildAssignedToSpinner(task, sharedPeople);
-                    } catch (JSONException e) {
-                        exceptionService.reportError("json-reading-data", e);
                     } finally {
                         tags.close();
+                        loadedUI = true;
                     }
                 }
             }).start();
@@ -269,7 +278,7 @@ public class EditPeopleControlSet extends PopupControlSet {
     }
 
     @SuppressWarnings("nls")
-    private void buildCollaborators(final ArrayList<JSONObject> sharedPeople) throws JSONException {
+    private void buildCollaborators(final ArrayList<JSONObject> sharedPeople) {
 
         activity.runOnUiThread(new Runnable() {
             @Override
@@ -318,94 +327,98 @@ public class EditPeopleControlSet extends PopupControlSet {
     }
 
     @SuppressWarnings("nls")
-    private void buildAssignedToSpinner(Task t, ArrayList<JSONObject> sharedPeople) throws JSONException {
+    private void buildAssignedToSpinner(Task t, ArrayList<JSONObject> sharedPeople) {
         HashSet<Long> userIds = new HashSet<Long>();
         HashSet<String> emails = new HashSet<String>();
         HashMap<String, AssignedToUser> names = new HashMap<String, AssignedToUser>();
 
-        if(t.getValue(Task.USER_ID) > 0) {
-            JSONObject user = new JSONObject(t.getValue(Task.USER));
-            sharedPeople.add(0, user);
-        }
-
-        JSONObject myself = new JSONObject();
-        myself.put("id", Task.USER_ID_SELF);
-        sharedPeople.add(0, myself);
-
-        boolean hasTags = t.getTransitory("tags") != null &&
-                ((HashSet<String>)t.getTransitory("tags")).size() > 0;
-        if (actFmPreferenceService.isLoggedIn() && hasTags) {
-            JSONObject unassigned = new JSONObject();
-            unassigned.put("id", Task.USER_ID_UNASSIGNED);
-            sharedPeople.add(1, unassigned);
-        }
-
-        // de-duplicate by user id and/or email
-        listValues.clear();
-        for(int i = 0; i < sharedPeople.size(); i++) {
-            JSONObject person = sharedPeople.get(i);
-            if(person == null)
-                continue;
-            long id = person.optLong("id", -2);
-            if(id == ActFmPreferenceService.userId() || (id >= -1 && userIds.contains(id)))
-                continue;
-            userIds.add(id);
-
-            String email = person.optString("email");
-            if(!TextUtils.isEmpty(email) && emails.contains(email))
-                continue;
-            emails.add(email);
-
-            String name = person.optString("name");
-            if(id == 0)
-                name = activity.getString(R.string.actfm_EPA_assign_me);
-            if (id == -1)
-                name = activity.getString(R.string.actfm_EPA_unassigned);
-
-            AssignedToUser atu = new AssignedToUser(name, person);
-            listValues.add(atu);
-            if(names.containsKey(name)) {
-                AssignedToUser user = names.get(name);
-                if(user != null && user.user.has("email")) {
-                    user.label += " (" + user.user.optString("email") + ")";
-                    names.put(name, null);
-                }
-                if(!TextUtils.isEmpty("email"))
-                    atu.label += " (" + email + ")";
-            } else if(TextUtils.isEmpty(name)) {
-                if(!TextUtils.isEmpty("email"))
-                    atu.label = email;
-                else
-                    listValues.remove(atu);
-            } else
-                names.put(name, atu);
-        }
-
-        String assignedStr = t.getValue(Task.USER);
         int assignedIndex = 0;
-        if (!TextUtils.isEmpty(assignedStr)) {
-            JSONObject assigned = new JSONObject(assignedStr);
-            long assignedId = assigned.optLong("id", -2);
-            String assignedEmail = assigned.optString("email");
-            for (int i = 0; i < listValues.size(); i++) {
-                JSONObject user = listValues.get(i).user;
-                if (user != null) {
-                    if (user.optLong("id") == assignedId ||
-                            (user.optString("email").equals(assignedEmail) &&
-                                    !(TextUtils.isEmpty(assignedEmail))))
-                        assignedIndex = i;
-                }
+        try {
+            if(t.getValue(Task.USER_ID) > 0) {
+                JSONObject user = new JSONObject(t.getValue(Task.USER));
+                sharedPeople.add(0, user);
             }
-        }
 
-        for (AssignedChangedListener l : listeners) {
-            if (l.shouldShowTaskRabbit()) {
-                taskRabbitUser = new AssignedToUser(activity.getString(R.string.actfm_EPA_task_rabbit), new JSONObject().put("default_picture", R.drawable.task_rabbit_image));
-                listValues.add(taskRabbitUser);
-                if(l.didPostToTaskRabbit()){
-                    assignedIndex = listValues.size()-1;
+            JSONObject myself = new JSONObject();
+            myself.put("id", Task.USER_ID_SELF);
+            sharedPeople.add(0, myself);
+
+            boolean hasTags = t.getTransitory("tags") != null &&
+                    ((HashSet<String>)t.getTransitory("tags")).size() > 0;
+            if (actFmPreferenceService.isLoggedIn() && hasTags) {
+                JSONObject unassigned = new JSONObject();
+                unassigned.put("id", Task.USER_ID_UNASSIGNED);
+                sharedPeople.add(1, unassigned);
+            }
+
+            // de-duplicate by user id and/or email
+            listValues.clear();
+            for(int i = 0; i < sharedPeople.size(); i++) {
+                JSONObject person = sharedPeople.get(i);
+                if(person == null)
+                    continue;
+                long id = person.optLong("id", -2);
+                if(id == ActFmPreferenceService.userId() || (id >= -1 && userIds.contains(id)))
+                    continue;
+                userIds.add(id);
+
+                String email = person.optString("email");
+                if(!TextUtils.isEmpty(email) && emails.contains(email))
+                    continue;
+                emails.add(email);
+
+                String name = person.optString("name");
+                if(id == 0)
+                    name = activity.getString(R.string.actfm_EPA_assign_me);
+                if (id == -1)
+                    name = activity.getString(R.string.actfm_EPA_unassigned);
+
+                AssignedToUser atu = new AssignedToUser(name, person);
+                listValues.add(atu);
+                if(names.containsKey(name)) {
+                    AssignedToUser user = names.get(name);
+                    if(user != null && user.user.has("email")) {
+                        user.label += " (" + user.user.optString("email") + ")";
+                        names.put(name, null);
+                    }
+                    if(!TextUtils.isEmpty("email"))
+                        atu.label += " (" + email + ")";
+                } else if(TextUtils.isEmpty(name)) {
+                    if(!TextUtils.isEmpty("email"))
+                        atu.label = email;
+                    else
+                        listValues.remove(atu);
+                } else
+                    names.put(name, atu);
+            }
+
+            String assignedStr = t.getValue(Task.USER);
+            if (!TextUtils.isEmpty(assignedStr)) {
+                JSONObject assigned = new JSONObject(assignedStr);
+                long assignedId = assigned.optLong("id", -2);
+                String assignedEmail = assigned.optString("email");
+                for (int i = 0; i < listValues.size(); i++) {
+                    JSONObject user = listValues.get(i).user;
+                    if (user != null) {
+                        if (user.optLong("id") == assignedId ||
+                                (user.optString("email").equals(assignedEmail) &&
+                                        !(TextUtils.isEmpty(assignedEmail))))
+                            assignedIndex = i;
+                    }
                 }
             }
+
+            for (AssignedChangedListener l : listeners) {
+                if (l.shouldShowTaskRabbit()) {
+                    taskRabbitUser = new AssignedToUser(activity.getString(R.string.actfm_EPA_task_rabbit), new JSONObject().put("default_picture", R.drawable.task_rabbit_image));
+                    listValues.add(taskRabbitUser);
+                    if(l.didPostToTaskRabbit()){
+                        assignedIndex = listValues.size()-1;
+                    }
+                }
+            }
+        } catch (JSONException e) {
+            exceptionService.reportError("json-reading-data", e);
         }
 
         selected = assignedIndex;
@@ -543,6 +556,10 @@ public class EditPeopleControlSet extends PopupControlSet {
         // Nothing, we don't lazy load this control set yet
     }
 
+    public boolean hasLoadedUI() {
+        return loadedUI;
+    }
+
     /**
      * Save sharing settings
      * @param toast toast to show after saving is finished
@@ -562,6 +579,8 @@ public class EditPeopleControlSet extends PopupControlSet {
                 userJson = PeopleContainer.createUserJson(assignedCustom);
                 assignedView = assignedCustom;
             } else {
+                if (!loadedUI || assignedList.getCheckedItemPosition() == ListView.INVALID_POSITION)
+                    return true;
                 AssignedToUser item = (AssignedToUser) assignedList.getAdapter().getItem(assignedList.getCheckedItemPosition());
                 if (item != null) {
                     if (item.equals(taskRabbitUser)) { //don't want to ever set the user as the task rabbit user

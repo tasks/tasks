@@ -14,6 +14,7 @@
     </PreferenceCategory>
             
     <PreferenceCategory
+        android:key="@string/sync_SPr_key_options"
         android:title="@string/sync_SPr_group_options">
     
         <com.todoroo.astrid.ui.MultilineListPreference  
@@ -21,19 +22,11 @@
             android:entries="@array/sync_SPr_interval_entries"  
             android:entryValues="@array/sync_SPr_interval_values"  
             android:title="@string/sync_SPr_interval_title" />
+        
         <com.todoroo.astrid.ui.MultilineCheckboxPreference
             android:key="@string/actfm_https_key"
             android:title="@string/actfm_https_title"
             android:defaultValue="false"/>
-            
-    </PreferenceCategory>
-    
-    <PreferenceCategory
-        android:title="@string/sync_SPr_group_actions">
-    
-        <com.todoroo.astrid.ui.MultilinePreference
-            android:key="@string/sync_SPr_sync_key"
-            android:title="@string/sync_SPr_sync" />
     
         <com.todoroo.astrid.ui.MultilinePreference
             android:key="@string/sync_SPr_forget_key"

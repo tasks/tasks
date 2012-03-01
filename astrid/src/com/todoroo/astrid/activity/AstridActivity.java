@@ -161,7 +161,11 @@ public class AstridActivity extends FragmentActivity
 
             if(item instanceof Filter) {
                 Filter filter = (Filter)item;
+
                 Bundle extras = configureIntentAndExtrasWithFilter(intent, filter);
+                if (fragmentLayout == LAYOUT_TRIPLE && getTaskEditFragment() != null) {
+                    onBackPressed(); // remove the task edit fragment when switching between lists
+                }
                 setupTasklistFragmentWithFilter(filter, extras);
 
                 // no animation for dualpane-layout

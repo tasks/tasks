@@ -24,16 +24,16 @@ import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.gtasks.api.GtasksApiUtilities;
 import com.todoroo.astrid.gtasks.api.GtasksInvoker;
 import com.todoroo.astrid.gtasks.auth.GtasksTokenValidator;
-import com.todoroo.astrid.gtasks.sync.GtasksSyncProvider;
+import com.todoroo.astrid.gtasks.sync.GtasksSyncV2Provider;
 import com.todoroo.astrid.service.MetadataService;
 import com.todoroo.astrid.service.TaskService;
+import com.todoroo.astrid.sync.SyncResultCallbackAdapter;
 import com.todoroo.astrid.test.DatabaseTestCase;
 
 @SuppressWarnings("nls")
 public class GtasksNewSyncTest extends DatabaseTestCase {
 
     private static GtasksInvoker gtasksService;
-    private GtasksSyncProvider syncProvider;
     private static boolean initialized = false;
     private boolean bypassTests = false;
 
@@ -473,8 +473,21 @@ public class GtasksNewSyncTest extends DatabaseTestCase {
 
     //Perform a synchronization
     private void whenInvokeSync() {
-        syncProvider.synchronize(getContext());
-        gtasksService = syncProvider.getGtasksService(); //This is to prevent token mismatch; the sync provider invalidates the old one
+        new GtasksSyncV2Provider().synchronizeActiveTasks(true, new SyncResultCallbackAdapter() {
+        	@Override
+        	public void finished() {
+        		synchronized(GtasksNewSyncTest.this) {
+        			GtasksNewSyncTest.this.notify();
+        		}
+        	}
+		});
+        try {
+        	synchronized(this) {
+        		wait();
+        	}
+        } catch (InterruptedException e) {
+        	fail("Interrupted while waiting for sync to finish");
+        }
     }
 
     @Override
@@ -486,8 +499,6 @@ public class GtasksNewSyncTest extends DatabaseTestCase {
         }
 
         setupTestList();
-
-        syncProvider = new GtasksSyncProvider();
     }
 
     private void initializeTestService() throws Exception {
