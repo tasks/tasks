@@ -67,7 +67,7 @@ msgstr ""
 #, c-format
 msgctxt "DUt_hours:quantity=other"
 msgid "%d Hours"
-msgstr "% ordu"
+msgstr "%d ordu"
 
 msgctxt "DUt_hours:quantity=one"
 msgid "1 Hour"

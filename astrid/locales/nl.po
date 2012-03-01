@@ -4849,7 +4849,7 @@ msgstr "Slaap is goed voor je!"
 #, c-format
 msgctxt "PPW_encouragements_completed:0"
 msgid "You've already completed %d tasks!"
-msgstr "Er zijn al %s taken voltooid!"
+msgstr "Er zijn al %d taken voltooid!"
 
 #, c-format
 msgctxt "PPW_encouragements_completed:1"

@@ -638,7 +638,7 @@ msgstr "Το αντικείμενο δεν βρέθηκε:"
 #, c-format
 msgctxt "DLG_error_sdcard"
 msgid "Cannot access folder: %s"
-msgstr "Φάκελος μη προσβάσιμος"
+msgstr "Φάκελος μη προσβάσιμος: %s"
 
 #. Backup: Dialog when unable to open SD card in general
 msgctxt "DLG_error_sdcard_general"
@@ -968,13 +968,13 @@ msgstr ""
 #, c-format
 msgctxt "TAd_hiddenFormat"
 msgid "%s [hidden]"
-msgstr "κρυφή"
+msgstr "%s [κρυφή]"
 
 #. Format string to indicate task is deleted (%s => task name)
 #, c-format
 msgctxt "TAd_deletedFormat"
 msgid "%s [deleted]"
-msgstr "διεγραμμένη"
+msgstr "%s [διεγραμμένη]"
 
 #. indicates task was completed. %s => date or time ago
 #, c-format

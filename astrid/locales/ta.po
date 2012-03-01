@@ -635,7 +635,7 @@ msgstr "பொருலை இல்லை"
 #, c-format
 msgctxt "DLG_error_sdcard"
 msgid "Cannot access folder: %s"
-msgstr "போல்டருக்கு அடைதல் இல்லை"
+msgstr "போல்டருக்கு அடைதல் இல்லை: %s"
 
 #. Backup: Dialog when unable to open SD card in general
 msgctxt "DLG_error_sdcard_general"

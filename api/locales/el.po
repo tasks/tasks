@@ -21,17 +21,17 @@ msgstr ""
 #, c-format
 msgctxt "DUt_years:quantity=other"
 msgid "%d Years"
-msgstr "Έτη"
+msgstr "%d Έτη"
 
 #. ==================================================== Generic Units ==
 msgctxt "DUt_years:quantity=one"
 msgid "1 Year"
-msgstr "1 έτος"
+msgstr "1 Έτος"
 
 #, c-format
 msgctxt "DUt_months:quantity=other"
 msgid "%d Months"
-msgstr "Μήνες"
+msgstr "%d Μήνες"
 
 msgctxt "DUt_months:quantity=one"
 msgid "1 Month"
@@ -40,7 +40,7 @@ msgstr "1 μήνας"
 #, c-format
 msgctxt "DUt_weeks:quantity=other"
 msgid "%d Weeks"
-msgstr "Εβδομάδες"
+msgstr "%d Εβδομάδες"
 
 msgctxt "DUt_weeks:quantity=one"
 msgid "1 Week"
@@ -49,7 +49,7 @@ msgstr "1 εβδομάδα"
 #, c-format
 msgctxt "DUt_days:quantity=other"
 msgid "%d Days"
-msgstr "Μέρες"
+msgstr "%d Μέρες"
 
 msgctxt "DUt_days:quantity=one"
 msgid "1 Day"
@@ -67,7 +67,7 @@ msgstr ""
 #, c-format
 msgctxt "DUt_hours:quantity=other"
 msgid "%d Hours"
-msgstr "Ώρες"
+msgstr "%d Ώρες"
 
 msgctxt "DUt_hours:quantity=one"
 msgid "1 Hour"
@@ -76,7 +76,7 @@ msgstr "1 ώρα"
 #, c-format
 msgctxt "DUt_minutes:quantity=other"
 msgid "%d Minutes"
-msgstr "Λεπτά"
+msgstr "%d Λεπτά"
 
 msgctxt "DUt_minutes:quantity=one"
 msgid "1 Minute"

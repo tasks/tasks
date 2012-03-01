@@ -3340,7 +3340,7 @@ msgstr "Az új feladatokhoz nem lesznek véletlenszerű emlékeztetők"
 #, c-format
 msgctxt "rmd_EPr_defaultRemind_desc"
 msgid "New tasks will remind randomly: %s"
-msgstr "Az új feladatok véletlenszerű emlékeztetői:"
+msgstr "Az új feladatok véletlenszerű emlékeztetői: %s"
 
 #. Defaults Title
 msgctxt "rmd_EPr_defaults_header"
@@ -3970,7 +3970,7 @@ msgstr "Ismétlődik"
 #, c-format
 msgctxt "repeat_every"
 msgid "Every %d"
-msgstr "Minden"
+msgstr "Minden %d"
 
 #. hint when opening repeat interval
 msgctxt "repeat_interval_prompt"

@@ -591,7 +591,7 @@ msgstr "Importfeil"
 #, c-format
 msgctxt "export_toast"
 msgid "Backed Up %1$s to %2$s."
-msgstr "Backup ferdig %1$ av %2$."
+msgstr "Backup ferdig %1$s av %2$s."
 
 msgctxt "export_toast_no_tasks"
 msgid "No Tasks to Export."
@@ -618,11 +618,11 @@ msgid ""
 " %4$s already exist\n"
 " %5$s had errors\n"
 msgstr ""
-"Filen %1$ inneholder %2$.\n"
+"Filen %1$s inneholder %2$s.\n"
 "\n"
 " %3$s importert,\n"
-" %4$ eksisterer allerede\n"
-" %5$ inneholdt feil\n"
+" %4$s eksisterer allerede\n"
+" %5$s inneholdt feil\n"
 
 #. Progress Dialog Title for importing
 msgctxt "import_progress_title"

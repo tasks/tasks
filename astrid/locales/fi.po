@@ -627,7 +627,7 @@ msgstr "Tuodaan..."
 #, c-format
 msgctxt "import_progress_read"
 msgid "Reading task %d..."
-msgstr "Luetaan tehtäviä..."
+msgstr "Luetaan tehtäviä %d..."
 
 #. Backup: Dialog when unable to open a file
 msgctxt "DLG_error_opening"
@@ -638,7 +638,7 @@ msgstr "Ei löydy kohtaa:"
 #, c-format
 msgctxt "DLG_error_sdcard"
 msgid "Cannot access folder: %s"
-msgstr "Ei pääsyä kansioon:"
+msgstr "Ei pääsyä kansioon: %s"
 
 #. Backup: Dialog when unable to open SD card in general
 msgctxt "DLG_error_sdcard_general"
@@ -1593,7 +1593,7 @@ msgstr ""
 #, c-format
 msgctxt "EPr_theme_desc"
 msgid "Currently: %s"
-msgstr "Tällä hetkellä:"
+msgstr "Tällä hetkellä: %s"
 
 #. Preference: Theme Description (android 1.6)
 msgctxt "EPr_theme_desc_unsupported"
@@ -1826,7 +1826,7 @@ msgstr ""
 #, c-format
 msgctxt "EPr_default_urgency_desc"
 msgid "Currently: %s"
-msgstr "Tällä hetkellä:"
+msgstr "Tällä hetkellä: %s"
 
 #. Preference: Default Importance Title
 msgctxt "EPr_default_importance_title"
@@ -1837,7 +1837,7 @@ msgstr ""
 #, c-format
 msgctxt "EPr_default_importance_desc"
 msgid "Currently: %s"
-msgstr "Tällä hetkellä:"
+msgstr "Tällä hetkellä: %s"
 
 #. Preference: Default Hide Until Title
 msgctxt "EPr_default_hideUntil_title"
@@ -1848,7 +1848,7 @@ msgstr ""
 #, c-format
 msgctxt "EPr_default_hideUntil_desc"
 msgid "Currently: %s"
-msgstr "Tällä hetkellä:"
+msgstr "Tällä hetkellä: %s"
 
 #. Preference: Default Reminders Title
 msgctxt "EPr_default_reminders_title"
@@ -1859,7 +1859,7 @@ msgstr "Oletusmuistutukset"
 #, c-format
 msgctxt "EPr_default_reminders_desc"
 msgid "Currently: %s"
-msgstr "Tällä hetkellä:"
+msgstr "Tällä hetkellä: %s"
 
 #. Preference: Default Add To Calendar Title
 msgctxt "EPr_default_addtocalendar_title"
@@ -1886,7 +1886,7 @@ msgstr ""
 #, c-format
 msgctxt "EPr_default_reminders_mode_desc"
 msgid "Currently: %s"
-msgstr "Tällä hetkellä:"
+msgstr "Tällä hetkellä: %s"
 
 msgctxt "EPr_default_importance:0"
 msgid "!!! (Highest)"
