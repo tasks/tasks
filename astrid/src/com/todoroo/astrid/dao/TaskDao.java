@@ -20,7 +20,6 @@ import com.todoroo.andlib.sql.Query;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.astrid.dao.MetadataDao.MetadataCriteria;
-import com.todoroo.astrid.data.SyncFlags;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.data.TaskApiDao;
 import com.todoroo.astrid.reminders.Notifications;
@@ -302,17 +301,20 @@ public class TaskDao extends DatabaseDao<Task> {
             saveExisting(item);
         } catch (SQLiteConstraintException e) {
             Long remoteId = item.getValue(Task.REMOTE_ID);
-            TodorooCursor<Task> tasksWithRemoteId = query(Query.select(SQL_CONSTRAINT_MERGE_PROPERTIES)
-                                                                        .where(Task.REMOTE_ID.eq(remoteId)));
+            TodorooCursor<Task> tasksWithRemoteId = query(Query.select(
+                    SQL_CONSTRAINT_MERGE_PROPERTIES).where(
+                    Task.REMOTE_ID.eq(remoteId)));
             try {
                 if (tasksWithRemoteId.getCount() > 0) {
+                    Task curr = new Task();
                     for (tasksWithRemoteId.moveToFirst();
                             !tasksWithRemoteId.isAfterLast(); tasksWithRemoteId.moveToNext()) {
-                        Task curr = new Task(tasksWithRemoteId);
+                        curr.readFromCursor(tasksWithRemoteId);
                         if (curr.getId() == item.getId())
                             continue;
 
-                        compareAndMergeAfterConflict(curr, fetch(item.getId(), SQL_CONSTRAINT_MERGE_PROPERTIES));
+                        compareAndMergeAfterConflict(curr, fetch(item.getId(),
+                                tasksWithRemoteId.getProperties()));
                         return;
                     }
                 } else {
@@ -332,16 +334,16 @@ public class TaskDao extends DatabaseDao<Task> {
         for (Property<?> p : SQL_CONSTRAINT_MERGE_PROPERTIES) {
             if (p.equals(Task.ID))
                 continue;
-            if (!existing.getValue(p).equals(newConflict.getValue(p))) {
+            if(existing.containsNonNullValue(p) != newConflict.containsNonNullValue(p))
                 match = false;
-            }
+            else if (existing.containsNonNullValue(p) &&
+                    !existing.getValue(p).equals(newConflict.getValue(p)))
+                match = false;
         }
         if (!match) {
             if (existing.getValue(Task.CREATION_DATE).equals(newConflict.getValue(Task.CREATION_DATE)))
                 newConflict.setValue(Task.CREATION_DATE, newConflict.getValue(Task.CREATION_DATE) + 1000L);
             newConflict.clearValue(Task.REMOTE_ID);
-            newConflict.clearTransitory(SyncFlags.ACTFM_SUPPRESS_SYNC);
-            newConflict.clearTransitory(SyncFlags.GTASKS_SUPPRESS_SYNC);
             saveExisting(newConflict);
         } else {
             delete(newConflict.getId());
