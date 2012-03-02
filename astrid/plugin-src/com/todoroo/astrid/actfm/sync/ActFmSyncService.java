@@ -441,7 +441,7 @@ public final class ActFmSyncService {
         }
 
         task.putTransitory(SyncFlags.ACTFM_SUPPRESS_SYNC, true);
-        taskDao.saveExisting(task);
+        taskDao.saveExistingWithSqlConstraintCheck(task);
     }
 
     /**

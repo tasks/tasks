@@ -10,6 +10,7 @@ import android.database.sqlite.SQLiteConstraintException;
 
 import com.timsu.astrid.R;
 import com.todoroo.andlib.data.DatabaseDao;
+import com.todoroo.andlib.data.Property;
 import com.todoroo.andlib.data.TodorooCursor;
 import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.DependencyInjectionService;
@@ -19,6 +20,7 @@ import com.todoroo.andlib.sql.Query;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.astrid.dao.MetadataDao.MetadataCriteria;
+import com.todoroo.astrid.data.SyncFlags;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.data.TaskApiDao;
 import com.todoroo.astrid.reminders.Notifications;
@@ -280,6 +282,68 @@ public class TaskDao extends DatabaseDao<Task> {
         if(result)
             afterSave(item, values);
         return result;
+    }
+
+    private static final Property<?>[] SQL_CONSTRAINT_MERGE_PROPERTIES = new Property<?>[] {
+        Task.ID,
+        Task.REMOTE_ID,
+        Task.TITLE,
+        Task.IMPORTANCE,
+        Task.DUE_DATE,
+        Task.CREATION_DATE,
+        Task.DELETION_DATE,
+        Task.NOTES,
+        Task.HIDE_UNTIL,
+        Task.RECURRENCE
+    };
+
+    public void saveExistingWithSqlConstraintCheck(Task item) {
+        try {
+            saveExisting(item);
+        } catch (SQLiteConstraintException e) {
+            Long remoteId = item.getValue(Task.REMOTE_ID);
+            TodorooCursor<Task> tasksWithRemoteId = query(Query.select(SQL_CONSTRAINT_MERGE_PROPERTIES)
+                                                                        .where(Task.REMOTE_ID.eq(remoteId)));
+            try {
+                if (tasksWithRemoteId.getCount() > 0) {
+                    for (tasksWithRemoteId.moveToFirst();
+                            !tasksWithRemoteId.isAfterLast(); tasksWithRemoteId.moveToNext()) {
+                        Task curr = new Task(tasksWithRemoteId);
+                        if (curr.getId() == item.getId())
+                            continue;
+
+                        compareAndMergeAfterConflict(curr, fetch(item.getId(), SQL_CONSTRAINT_MERGE_PROPERTIES));
+                        return;
+                    }
+                } else {
+                    // We probably want to know about this case, because
+                    // it means that the constraint error isn't caused by
+                    // REMOTE_ID
+                    throw e;
+                }
+            } finally {
+                tasksWithRemoteId.close();
+            }
+        }
+    }
+
+    private void compareAndMergeAfterConflict(Task existing, Task newConflict) {
+        boolean match = true;
+        for (Property<?> p : SQL_CONSTRAINT_MERGE_PROPERTIES) {
+            if (!existing.getValue(p).equals(newConflict.getValue(p))) {
+                match = false;
+            }
+        }
+        if (!match) {
+            if (existing.getValue(Task.CREATION_DATE).equals(newConflict.getValue(Task.CREATION_DATE)))
+                newConflict.setValue(Task.CREATION_DATE, newConflict.getValue(Task.CREATION_DATE) + 1000L);
+            newConflict.clearValue(Task.REMOTE_ID);
+            newConflict.clearTransitory(SyncFlags.ACTFM_SUPPRESS_SYNC);
+            newConflict.clearTransitory(SyncFlags.GTASKS_SUPPRESS_SYNC);
+            saveExisting(newConflict);
+        } else {
+            delete(newConflict.getId());
+        }
     }
 
     /**

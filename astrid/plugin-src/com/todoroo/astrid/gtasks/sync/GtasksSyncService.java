@@ -234,7 +234,7 @@ public final class GtasksSyncService {
         gtasksMetadata.setValue(GtasksMetadata.LAST_SYNC, DateUtilities.now() + 1000L);
         metadataService.save(gtasksMetadata);
         task.putTransitory(SyncFlags.GTASKS_SUPPRESS_SYNC, true);
-        taskDao.saveExisting(task);
+        taskDao.saveExistingWithSqlConstraintCheck(task);
     }
 
     public void pushMetadataOnSave(Metadata model, GtasksInvoker invoker) throws IOException {
