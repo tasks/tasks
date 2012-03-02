@@ -330,6 +330,8 @@ public class TaskDao extends DatabaseDao<Task> {
     private void compareAndMergeAfterConflict(Task existing, Task newConflict) {
         boolean match = true;
         for (Property<?> p : SQL_CONSTRAINT_MERGE_PROPERTIES) {
+            if (p.equals(Task.ID))
+                continue;
             if (!existing.getValue(p).equals(newConflict.getValue(p))) {
                 match = false;
             }
