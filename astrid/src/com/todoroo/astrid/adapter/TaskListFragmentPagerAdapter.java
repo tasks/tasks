@@ -17,7 +17,7 @@ public class TaskListFragmentPagerAdapter extends FragmentStatePagerAdapter impl
 
     private final HashMap<Integer, Fragment> positionToFragment;
 
-    private final FilterAdapter filterAdapter; // Shares an adapter instance as the filter list fragment
+    private final FilterAdapter filterAdapter; // Shares an adapter instance with the filter list fragment
 
     public TaskListFragmentPagerAdapter(FragmentManager fm, FilterAdapter filterAdapter) {
         super(fm);

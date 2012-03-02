@@ -185,7 +185,7 @@ public class TaskListActivity extends AstridActivity implements MainMenuListener
         if (getIntent().hasExtra(TOKEN_SOURCE)) {
             trackActivitySource();
         }
-	}
+    }
 
     @Override
     public TaskListFragment getTaskListFragment() {
@@ -196,23 +196,23 @@ public class TaskListActivity extends AstridActivity implements MainMenuListener
         }
     }
 
-	@Override
+    @Override
     public void setupTasklistFragmentWithFilter(Filter filter, Bundle extras) {
-	    if (fragmentLayout == LAYOUT_SINGLE) {
-	        tlfPager.showFilter(filter); // TODO: make sure we handle the extras and the custom task list
-	    } else {
-	        super.setupTasklistFragmentWithFilter(filter, extras);
-	    }
-	}
+        if (fragmentLayout == LAYOUT_SINGLE) {
+            tlfPager.showFilter(filter);
+        } else {
+            super.setupTasklistFragmentWithFilter(filter, extras);
+        }
+    }
 
-	@Override
+    @Override
     public void setupTasklistFragmentWithFilterAndCustomTaskList(Filter filter, Bundle extras, Class<?> customTaskList) {
-	    if (fragmentLayout == LAYOUT_SINGLE) {
-	        tlfPager.showFilter(filter); // TODO: make sure we handle the extras and the custom task list
-	    } else {
-	        super.setupTasklistFragmentWithFilterAndCustomTaskList(filter, extras, customTaskList);
-	    }
-	}
+        if (fragmentLayout == LAYOUT_SINGLE) {
+            tlfPager.showFilter(filter);
+        } else {
+            super.setupTasklistFragmentWithFilterAndCustomTaskList(filter, extras, customTaskList);
+        }
+    }
 
     /**
      *
@@ -222,29 +222,29 @@ public class TaskListActivity extends AstridActivity implements MainMenuListener
         View filterFragment = findViewById(R.id.filterlist_fragment_container);
         View editFragment = findViewById(R.id.taskedit_fragment_container);
 
-		if (filterFragment != null) {
-		    actionBar.setDisplayHomeAsUpEnabled(false);
-		    actionBar.getCustomView().findViewById(R.id.list_disclosure_arrow).setVisibility(View.GONE);
-		    listsNav.setOnClickListener(null);
+        if (filterFragment != null) {
+            actionBar.setDisplayHomeAsUpEnabled(false);
+            actionBar.getCustomView().findViewById(R.id.list_disclosure_arrow).setVisibility(View.GONE);
+            listsNav.setOnClickListener(null);
 
-		    if(editFragment != null && editFragment.getVisibility() == View.INVISIBLE) {
-		        fragmentLayout = LAYOUT_TRIPLE;
-		        actionBar.getCustomView().findViewById(R.id.comments).setVisibility(View.GONE);
-		    } else {
-		        fragmentLayout = LAYOUT_DOUBLE;
-		        createEditPopover();
-		        createCommentsPopover();
-		    }
+            if(editFragment != null && editFragment.getVisibility() == View.INVISIBLE) {
+                fragmentLayout = LAYOUT_TRIPLE;
+                actionBar.getCustomView().findViewById(R.id.comments).setVisibility(View.GONE);
+            } else {
+                fragmentLayout = LAYOUT_DOUBLE;
+                createEditPopover();
+                createCommentsPopover();
+            }
 
-		    setupFragment(FilterListFragment.TAG_FILTERLIST_FRAGMENT,
-		            R.id.filterlist_fragment_container, FilterListFragment.class, false);
-		} else {
-		    fragmentLayout = LAYOUT_SINGLE;
-		    actionBar.setDisplayHomeAsUpEnabled(true);
-		    listsNav.setOnClickListener(popupMenuClickListener);
-		    createListsPopover();
-		    setupPopoverWithFilterList((FilterListFragment) setupFragment(FilterListFragment.TAG_FILTERLIST_FRAGMENT, 0, FilterListFragment.class, true));
-		}
+            setupFragment(FilterListFragment.TAG_FILTERLIST_FRAGMENT,
+                    R.id.filterlist_fragment_container, FilterListFragment.class, false);
+        } else {
+            fragmentLayout = LAYOUT_SINGLE;
+            actionBar.setDisplayHomeAsUpEnabled(true);
+            listsNav.setOnClickListener(popupMenuClickListener);
+            createListsPopover();
+            setupPopoverWithFilterList((FilterListFragment) setupFragment(FilterListFragment.TAG_FILTERLIST_FRAGMENT, 0, FilterListFragment.class, true));
+        }
     }
 
     private void createListsPopover() {
@@ -317,39 +317,39 @@ public class TaskListActivity extends AstridActivity implements MainMenuListener
 
     @Override
     public void onTaskListItemClicked(long taskId) {
-	    super.onTaskListItemClicked(taskId);
-	    if (fragmentLayout == LAYOUT_DOUBLE && getTaskEditFragment() != null) {
-	        DisplayMetrics metrics = getResources().getDisplayMetrics();
-	        setupPopoverWithFragment(editPopover, getTaskEditFragment(), new LayoutParams((int) (400 * metrics.density), (int) (600 * metrics.density)));
-	        editPopover.show(listsNav);
-	    }
-	}
+        super.onTaskListItemClicked(taskId);
+        if (fragmentLayout == LAYOUT_DOUBLE && getTaskEditFragment() != null) {
+            DisplayMetrics metrics = getResources().getDisplayMetrics();
+            setupPopoverWithFragment(editPopover, getTaskEditFragment(), new LayoutParams((int) (400 * metrics.density), (int) (600 * metrics.density)));
+            editPopover.show(listsNav);
+        }
+    }
 
 
-	@Override
-	public boolean onFilterItemClicked(FilterListItem item) {
-	    if (listsPopover != null)
-	        listsPopover.dismiss();
-	    setCommentsCount(0);
+    @Override
+    public boolean onFilterItemClicked(FilterListItem item) {
+        if (listsPopover != null)
+            listsPopover.dismiss();
+        setCommentsCount(0);
 
-	    if (fragmentLayout == LAYOUT_SINGLE) {
-	        tlfPager.showFilter((Filter) item);
-	        return true;
-	    }
-	    return super.onFilterItemClicked(item);
-	}
+        if (fragmentLayout == LAYOUT_SINGLE) {
+            tlfPager.showFilter((Filter) item);
+            return true;
+        }
+        return super.onFilterItemClicked(item);
+    }
 
-	private void setListsDropdownSelected(boolean selected) {
-	    int oldTextColor = lists.getTextColors().getDefaultColor();
-	    int textStyle = (selected ? R.style.TextAppearance_ActionBar_ListsHeader_Selected :
-	        R.style.TextAppearance_ActionBar_ListsHeader);
+    private void setListsDropdownSelected(boolean selected) {
+        int oldTextColor = lists.getTextColors().getDefaultColor();
+        int textStyle = (selected ? R.style.TextAppearance_ActionBar_ListsHeader_Selected :
+            R.style.TextAppearance_ActionBar_ListsHeader);
 
-	    TypedValue listDisclosure = new TypedValue();
-	    getTheme().resolveAttribute(R.attr.asListsDisclosure, listDisclosure, false);
-	    lists.setTextAppearance(this, textStyle);
-	    listsNav.setBackgroundColor(selected ? oldTextColor : android.R.color.transparent);
-	    listsNavDisclosure.setSelected(selected);
-	}
+        TypedValue listDisclosure = new TypedValue();
+        getTheme().resolveAttribute(R.attr.asListsDisclosure, listDisclosure, false);
+        lists.setTextAppearance(this, textStyle);
+        listsNav.setBackgroundColor(selected ? oldTextColor : android.R.color.transparent);
+        listsNavDisclosure.setSelected(selected);
+    }
 
     @Override
     protected void onPostResume() {
