@@ -31,6 +31,12 @@ public class TaskListFragmentPager extends ViewPager {
         showFilter(adapter.addOrLookup(f));
     }
 
+    public void showFilterWithCustomTaskList(Filter f, Class<?> customTaskList) {
+        TaskListFragmentPagerAdapter adapter = (TaskListFragmentPagerAdapter) getAdapter();
+        adapter.setCustomTaskListForFilter(f, customTaskList);
+        showFilter(adapter.addOrLookup(f));
+    }
+
     /**
      * Show the filter at the supplied index, with animation
      * @param index
