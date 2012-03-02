@@ -9,6 +9,7 @@ import android.widget.Button;
 import android.widget.ListView;
 
 import com.timsu.astrid.R;
+import com.todoroo.andlib.utility.DialogUtilities;
 import com.todoroo.astrid.adapter.FilterAdapter;
 import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.service.StatisticsService;
@@ -43,6 +44,10 @@ public class FilterShortcutActivity extends ListActivity {
     final View.OnClickListener mOnClickListener = new View.OnClickListener() {
         public void onClick(View v) {
             Filter filter = (Filter) adapter.getSelection();
+            if (filter == null) {
+                DialogUtilities.okDialog(FilterShortcutActivity.this, getString(R.string.FLA_no_filter_selected), null);
+                return;
+            }
             Intent shortcutIntent = ShortcutActivity.createIntent(
                     (Filter) filter);
 
