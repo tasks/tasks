@@ -83,9 +83,7 @@ public class GtasksListFragment extends SubtasksListFragment {
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
-        MenuItem item = menu.add(Menu.NONE, MENU_CLEAR_COMPLETED_ID, Menu.FIRST,
-                this.getString(R.string.gtasks_GTA_clear_completed));
-        item.setIcon(android.R.drawable.ic_input_delete); // Needs new icon
+        addMenuItem(menu, R.string.gtasks_GTA_clear_completed, android.R.drawable.ic_input_delete, MENU_CLEAR_COMPLETED_ID, false);
     }
 
     @Override
@@ -148,9 +146,7 @@ public class GtasksListFragment extends SubtasksListFragment {
     @Override
     protected void addSyncRefreshMenuItem(Menu menu) {
         if(gtasksPreferenceService.isLoggedIn()) {
-            MenuItem item = menu.add(Menu.NONE, MENU_REFRESH_ID, Menu.NONE,
-                    R.string.actfm_TVA_menu_refresh);
-            item.setIcon(R.drawable.ic_menu_refresh);
+            addMenuItem(menu, R.string.actfm_TVA_menu_refresh, R.drawable.ic_menu_refresh, MENU_REFRESH_ID, false);
         } else {
             super.addSyncRefreshMenuItem(menu);
         }

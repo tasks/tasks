@@ -11,6 +11,7 @@ import android.support.v4.app.ActionBar;
 import android.support.v4.app.Fragment;
 import android.util.DisplayMetrics;
 import android.util.TypedValue;
+import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -454,32 +455,48 @@ public class TaskListActivity extends AstridActivity implements MainMenuListener
 
     @Override
     public void mainMenuItemSelected(int item, Intent customIntent) {
-        TaskListFragment tla = getTaskListFragment();
+        TaskListFragment tlf = getTaskListFragment();
         switch (item) {
         case MainMenuPopover.MAIN_MENU_ITEM_LISTS:
             listsNav.performClick();
-            break;
+            return;
         case MainMenuPopover.MAIN_MENU_ITEM_FRIENDS:
             // Doesn't exist yet
-            break;
+            return;
         case MainMenuPopover.MAIN_MENU_ITEM_SUGGESTIONS:
             // Doesn't exist yet
-            break;
+            return;
         case MainMenuPopover.MAIN_MENU_ITEM_TUTORIAL:
             Intent showWelcomeLogin = new Intent(this, WelcomeWalkthrough.class);
             showWelcomeLogin.putExtra(ActFmLoginActivity.SHOW_TOAST, false);
             showWelcomeLogin.putExtra(WelcomeWalkthrough.TOKEN_MANUAL_SHOW, true);
             startActivity(showWelcomeLogin);
-            break;
+            return;
         case MainMenuPopover.MAIN_MENU_ITEM_SETTINGS:
-            if (tla != null)
-                tla.showSettings();
-            break;
+            if (tlf != null)
+                tlf.showSettings();
+            return;
         case MainMenuPopover.MAIN_MENU_ITEM_SUPPORT:
-            if (tla != null)
-                tla.showSupport();
-            break;
+            if (tlf != null)
+                tlf.showSupport();
+            return;
         }
+        tlf.handleOptionsMenuItemSelected(item, customIntent);
+    }
+
+    public MainMenuPopover getMainMenuPopover() {
+        return mainMenuPopover;
+    }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_MENU) {
+            if (mainMenuPopover.isShowing())
+                mainMenuPopover.dismiss();
+            else
+                mainMenu.performClick();
+        }
+        return super.onKeyDown(keyCode, event);
     }
 
     private class TagDeletedReceiver extends BroadcastReceiver {

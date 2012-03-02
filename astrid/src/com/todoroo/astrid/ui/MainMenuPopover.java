@@ -2,6 +2,7 @@ package com.todoroo.astrid.ui;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -63,25 +64,18 @@ public class MainMenuPopover extends FragmentPopover {
         return mRect.centerX() - arrow.getMeasuredWidth() / 2 - (int) (12 * metrics.density);
     }
 
-    public void addMenuItem(int title, int imageRes, int id, Intent customIntent) {
-        addMenuItem(title, imageRes, id, customIntent, content);        
-    }
-    
+
+    // --- Public interface ---
     public void addMenuItem(int title, int imageRes, int id) {
         addMenuItem(title, imageRes, id, null, content);
     }
 
-    private void addMenuItem(int title, int imageRes, final int id, final Intent customIntent, ViewGroup container) {
-        View item = setupItemWithParams(title, imageRes);
-        container.addView(item);
-        item.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                dismiss();
-                if (mListener != null)
-                    mListener.mainMenuItemSelected(id, customIntent);
-            }
-        });
+    public void addMenuItem(int title, int imageRes, Intent customIntent, int id) {
+        addMenuItem(title, imageRes, id, customIntent, content);
+    }
+
+    public void addMenuItem(CharSequence title, Drawable image, Intent customIntent, int id) {
+        addMenuItem(title, image, id, customIntent, content);
     }
 
     public void addSeparator() {
@@ -92,11 +86,47 @@ public class MainMenuPopover extends FragmentPopover {
         content.removeAllViews();
     }
 
+
+    // --- Private helpers ---
+    private void addMenuItem(int title, int imageRes, int id, Intent customIntent, ViewGroup container) {
+        View item = setupItemWithParams(title, imageRes);
+        addViewWithListener(item, container, id, customIntent);
+    }
+
+    private void addMenuItem(CharSequence title, Drawable image, int id, Intent customIntent, ViewGroup container) {
+        View item = setupItemWithParams(title, image);
+        addViewWithListener(item, container, id, customIntent);
+    }
+
+    private void addViewWithListener(View view, ViewGroup container, final int id, final Intent customIntent) {
+        container.addView(view);
+        view.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dismiss();
+                if (mListener != null)
+                    mListener.mainMenuItemSelected(id, customIntent);
+            }
+        });
+    }
+
     private View setupItemWithParams(int title, int imageRes) {
         View itemRow = inflater.inflate(R.layout.main_menu_row, null);
 
         ImageView image = (ImageView) itemRow.findViewById(R.id.icon);
         image.setImageResource(imageRes);
+
+        TextView name = (TextView) itemRow.findViewById(R.id.name);
+        name.setText(title);
+
+        return itemRow;
+    }
+
+    private View setupItemWithParams(CharSequence title, Drawable imageDrawable) {
+        View itemRow = inflater.inflate(R.layout.main_menu_row, null);
+
+        ImageView image = (ImageView) itemRow.findViewById(R.id.icon);
+        image.setImageDrawable(imageDrawable);
 
         TextView name = (TextView) itemRow.findViewById(R.id.name);
         name.setText(title);

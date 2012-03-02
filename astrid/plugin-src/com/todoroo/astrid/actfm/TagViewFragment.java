@@ -159,9 +159,7 @@ public class TagViewFragment extends TaskListFragment {
     @Override
     protected void addSyncRefreshMenuItem(Menu menu) {
         if(actFmPreferenceService.isLoggedIn()) {
-            MenuItem item = menu.add(Menu.NONE, MENU_REFRESH_ID, Menu.NONE,
-                    R.string.actfm_TVA_menu_refresh);
-            item.setIcon(R.drawable.ic_menu_refresh);
+            addMenuItem(menu, R.string.actfm_TVA_menu_refresh, R.drawable.ic_menu_refresh, MENU_REFRESH_ID, false);
         } else {
             super.addSyncRefreshMenuItem(menu);
         }

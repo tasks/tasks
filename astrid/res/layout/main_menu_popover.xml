@@ -7,28 +7,34 @@
 
     <ScrollView
         android:layout_width="280dip"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/gdi_arrow_up">
+        android:layout_height="340dip"
+        android:layout_below="@+id/gdi_arrow_up"
+        android:background="?attr/asListPopoverBg">
         <LinearLayout
-            android:id="@+id/topFixedItems"
-            android:layout_width="280dip"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="?attr/asListPopoverBg"
-            android:orientation="vertical"/>
-        <include layout="@layout/fla_separator"/>
-	    <LinearLayout
-	        android:id="@+id/content"
-	        android:layout_width="280dip"
-	        android:layout_height="wrap_content"
-	        android:background="?attr/asListPopoverBg"
-	        android:orientation="vertical"/>
-        <include layout="@layout/fla_separator"/>
-        <LinearLayout
-            android:id="@+id/bottomFixedItems"
-            android:layout_width="280dip"
-            android:layout_height="wrap_content"
-            android:background="?attr/asListPopoverBg"
-            android:orientation="vertical"/>
+            android:orientation="vertical">
+	        <LinearLayout
+	            android:id="@+id/topFixedItems"
+	            android:layout_width="280dip"
+	            android:layout_height="wrap_content"
+	            android:background="@android:color/transparent"
+	            android:orientation="vertical"/>
+	        <include layout="@layout/fla_separator"/>
+		    <LinearLayout
+		        android:id="@+id/content"
+		        android:layout_width="280dip"
+		        android:layout_height="wrap_content"
+		        android:background="@android:color/transparent"
+		        android:orientation="vertical"/>
+	        <include layout="@layout/fla_separator"/>
+	        <LinearLayout
+	            android:id="@+id/bottomFixedItems"
+	            android:layout_width="280dip"
+	            android:layout_height="wrap_content"
+	            android:background="@android:color/transparent"
+	            android:orientation="vertical"/>
+        </LinearLayout>
     </ScrollView>
 
     <ImageView
