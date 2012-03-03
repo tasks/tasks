@@ -56,7 +56,7 @@ public class RepeatTestsGtasksSync extends AbstractSyncRepeatTests<com.google.ap
     @Override
     protected void waitAndSync() {
         AndroidUtilities.sleepDeep(3000L);
-        new GtasksSyncV2Provider().synchronizeActiveTasks(true, new SyncResultCallbackAdapter() {
+        GtasksSyncV2Provider.getInstance().synchronizeActiveTasks(true, new SyncResultCallbackAdapter() {
         	@Override
         	public void finished() {
         		synchronized(RepeatTestsGtasksSync.this) {
