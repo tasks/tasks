@@ -5,6 +5,7 @@ import java.util.concurrent.LinkedBlockingQueue;
 
 import android.content.ContentValues;
 import android.text.TextUtils;
+import android.util.Log;
 
 import com.todoroo.andlib.data.DatabaseDao.ModelUpdateListener;
 import com.todoroo.andlib.data.Property;
@@ -46,6 +47,7 @@ public final class GtasksSyncService {
 
     private class TaskPushOp extends SyncOnSaveOperation {
         protected Task model;
+        protected long creationDate = DateUtilities.now();
 
         public TaskPushOp(Task model) {
             this.model = model;
@@ -61,9 +63,10 @@ public final class GtasksSyncService {
     }
 
 
+    @SuppressWarnings("nls")
     public void initialize() {
         new Thread(new Runnable() {
-           public void run() {
+        public void run() {
                while (true) {
                    SyncOnSaveOperation op;
                    try {
@@ -76,14 +79,16 @@ public final class GtasksSyncService {
                            GtasksInvoker invoker = new GtasksInvoker(gtasksPreferenceService.getToken());
                            if (op instanceof TaskPushOp) {
                                TaskPushOp taskPush = (TaskPushOp)op;
-                               pushTaskOnSave(taskPush.model, taskPush.model.getMergedValues(), invoker, true);
+                               if(DateUtilities.now() - taskPush.creationDate < 1000)
+                                   AndroidUtilities.sleepDeep(1000 - (DateUtilities.now() - taskPush.creationDate));
+                               pushTaskOnSave(taskPush.model, taskPush.model.getMergedValues(), invoker, false);
                            } else if (op instanceof MoveOp) {
                                MoveOp move = (MoveOp)op;
                                pushMetadataOnSave(move.metadata, invoker);
                            }
                        }
                    } catch (IOException e){
-                       System.err.println("Sync on save failed"); //$NON-NLS-1$
+                       Log.w("gtasks-sync-error", "Sync on save failed", e);
                    }
                }
            }
@@ -175,7 +180,8 @@ public final class GtasksSyncService {
         } else { //update case
             remoteId = gtasksMetadata.getValue(GtasksMetadata.ID);
             listId = gtasksMetadata.getValue(GtasksMetadata.LIST_ID);
-            remoteModel = invoker.getGtask(listId, remoteId);
+            remoteModel = new com.google.api.services.tasks.model.Task();
+            remoteModel.setId(remoteId);
         }
 
         //If task was newly created but without a title, don't sync--we're in the middle of
