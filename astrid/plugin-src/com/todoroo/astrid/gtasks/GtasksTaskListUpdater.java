@@ -83,7 +83,7 @@ public class GtasksTaskListUpdater extends OrderedListUpdater<StoreObject> {
     }
 
     @Override
-    protected void onMetadataChanged(Metadata metadata) {
+    protected void onMovedOrIndented(Metadata metadata) {
         gtasksSyncService.triggerMoveForMetadata(metadata);
     }
 

@@ -55,9 +55,9 @@ abstract public class OrderedListUpdater<LIST> {
     }
 
     /**
-     * @param targetTaskId
+     * @param metadata
      */
-    protected void onMetadataChanged(Metadata metadata) {
+    protected void onMovedOrIndented(Metadata metadata) {
         //
     }
 
@@ -133,6 +133,7 @@ abstract public class OrderedListUpdater<LIST> {
             }
 
         });
+        onMovedOrIndented(getTaskMetadata(list, targetTaskId));
     }
 
     /**
@@ -205,6 +206,7 @@ abstract public class OrderedListUpdater<LIST> {
         }
 
         traverseTreeAndWriteValues(list, root, new AtomicLong(0), -1);
+        onMovedOrIndented(getTaskMetadata(list, targetTaskId));
     }
 
     private boolean ancestorOf(Node ancestor, Node descendant) {
@@ -233,9 +235,15 @@ abstract public class OrderedListUpdater<LIST> {
                 metadata = createEmptyMetadata(list, node.taskId);
             metadata.setValue(orderProperty(), order.getAndIncrement());
             metadata.setValue(indentProperty(), indent);
-            if(parentProperty() != null)
+            boolean parentChanged = false;
+            if(parentProperty() != null && metadata.getValue(parentProperty()) !=
+                    node.parent.taskId) {
+                parentChanged = true;
                 metadata.setValue(parentProperty(), node.parent.taskId);
+            }
             saveAndUpdateModifiedDate(metadata, node.taskId);
+            if(parentChanged)
+                onMovedOrIndented(metadata);
         }
 
         for(Node child : node.children) {
@@ -303,7 +311,6 @@ abstract public class OrderedListUpdater<LIST> {
         taskContainer.setValue(Task.DETAILS_DATE, DateUtilities.now());
         PluginServices.getTaskService().save(taskContainer);
         taskContainer.clear();
-        onMetadataChanged(metadata);
     }
 
     // --- task cascading operations
@@ -348,8 +355,10 @@ abstract public class OrderedListUpdater<LIST> {
         if(target != null && target.parent != null) {
             int targetIndex = target.parent.children.indexOf(target);
             target.parent.children.remove(targetIndex);
-            for(Node node : target.children)
+            for(Node node : target.children) {
+                node.parent = target.parent;
                 target.parent.children.add(targetIndex++, node);
+            }
         }
 
         traverseTreeAndWriteValues(list, root, new AtomicLong(0), -1);
