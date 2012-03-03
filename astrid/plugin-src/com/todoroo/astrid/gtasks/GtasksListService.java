@@ -76,6 +76,11 @@ public class GtasksListService {
         }
     }
 
+    /**
+     * Reads in remote list information and updates local list objects.
+     *
+     * @param remoteLists remote information about your lists
+     */
     @SuppressWarnings("nls")
     public synchronized void updateLists(TaskLists remoteLists) {
         readLists();

@@ -103,7 +103,8 @@ public final class GtasksSyncService {
                 if (!checkValuesForProperties(setValues, TASK_PROPERTIES)) //None of the properties we sync were updated
                     return;
 
-                operationQueue.offer(new TaskPushOp((Task)model.clone()));
+                Task toPush = taskDao.fetch(model.getId(), TASK_PROPERTIES);
+                operationQueue.offer(new TaskPushOp(toPush));
             }
         });
     }
