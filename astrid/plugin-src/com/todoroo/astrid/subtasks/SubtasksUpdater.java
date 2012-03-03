@@ -139,7 +139,7 @@ public class SubtasksUpdater extends OrderedListUpdater<String> {
 
                 metadata.setValue(SubtasksMetadata.ORDER, order);
                 metadata.setValue(SubtasksMetadata.INDENT, indent);
-                saveAndUpdateModifiedDate(metadata, taskId);
+                saveAndUpdateModifiedDate(metadata);
 
                 previousIndent.set(indent);
                 previousOrder.set(order);
