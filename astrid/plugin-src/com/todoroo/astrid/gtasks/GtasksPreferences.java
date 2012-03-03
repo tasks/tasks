@@ -50,7 +50,7 @@ public class GtasksPreferences extends SyncProviderPreferences {
 
     @Override
     public void logOut() {
-        new GtasksSyncV2Provider().signOut();
+        GtasksSyncV2Provider.getInstance().signOut();
     }
 
     @Override

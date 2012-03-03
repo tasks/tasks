@@ -473,7 +473,7 @@ public class GtasksNewSyncTest extends DatabaseTestCase {
 
     //Perform a synchronization
     private void whenInvokeSync() {
-        new GtasksSyncV2Provider().synchronizeActiveTasks(true, new SyncResultCallbackAdapter() {
+        GtasksSyncV2Provider.getInstance().synchronizeActiveTasks(true, new SyncResultCallbackAdapter() {
         	@Override
         	public void finished() {
         		synchronized(GtasksNewSyncTest.this) {

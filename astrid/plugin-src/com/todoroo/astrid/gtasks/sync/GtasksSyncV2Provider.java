@@ -60,6 +60,18 @@ public class GtasksSyncV2Provider extends SyncV2Provider {
         AstridDependencyInjector.initialize();
     }
 
+    private static GtasksSyncV2Provider instance = null;
+
+    protected GtasksSyncV2Provider() {
+        // prevent multiple sync providers
+    }
+
+    public synchronized static GtasksSyncV2Provider getInstance() {
+        if(instance == null)
+            instance = new GtasksSyncV2Provider();
+        return instance;
+    }
+
     @Override
     public String getName() {
         return ContextManager.getString(R.string.gtasks_GPr_header);
@@ -122,8 +134,9 @@ public class GtasksSyncV2Provider extends SyncV2Provider {
         }).start();
     }
 
-    private void pushUpdated(GtasksInvoker invoker, SyncResultCallback callback) {
-        TodorooCursor<Task> queued = taskService.query(Query.select(Task.PROPERTIES).join(Join.left(Metadata.TABLE, Task.ID.eq(Metadata.TASK))).where(
+    private synchronized void pushUpdated(GtasksInvoker invoker, SyncResultCallback callback) {
+        TodorooCursor<Task> queued = taskService.query(Query.select(Task.PROPERTIES).
+                join(Join.left(Metadata.TABLE, Task.ID.eq(Metadata.TASK))).where(
                 Criterion.or(
                         Criterion.and(MetadataCriteria.withKey(GtasksMetadata.METADATA_KEY),
                                 Task.MODIFICATION_DATE.gt(GtasksMetadata.LAST_SYNC)),
