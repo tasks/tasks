@@ -3,6 +3,7 @@ package com.todoroo.astrid.gtasks.sync;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
 
@@ -40,6 +41,7 @@ import com.todoroo.astrid.gtasks.api.GtasksApiUtilities;
 import com.todoroo.astrid.gtasks.api.GtasksInvoker;
 import com.todoroo.astrid.gtasks.auth.GtasksTokenValidator;
 import com.todoroo.astrid.service.AstridDependencyInjector;
+import com.todoroo.astrid.service.MetadataService;
 import com.todoroo.astrid.service.StatisticsConstants;
 import com.todoroo.astrid.service.StatisticsService;
 import com.todoroo.astrid.service.TaskService;
@@ -49,6 +51,7 @@ import com.todoroo.astrid.sync.SyncV2Provider;
 public class GtasksSyncV2Provider extends SyncV2Provider {
 
     @Autowired TaskService taskService;
+    @Autowired MetadataService metadataService;
     @Autowired StoreObjectDao storeObjectDao;
     @Autowired GtasksPreferenceService gtasksPreferenceService;
     @Autowired GtasksSyncService gtasksSyncService;
@@ -96,8 +99,7 @@ public class GtasksSyncV2Provider extends SyncV2Provider {
     }
 
     @Override
-    public void synchronizeActiveTasks(boolean manual, final SyncResultCallback callback) {
-
+    public void synchronizeActiveTasks(final boolean manual, final SyncResultCallback callback) {
         callback.started();
         callback.incrementMax(100);
 
@@ -110,10 +112,10 @@ public class GtasksSyncV2Provider extends SyncV2Provider {
                     gtasksListService.updateLists(invoker.allGtaskLists());
                 } catch (IOException e) {
                     handler.handleException("gtasks-sync=io", e); //$NON-NLS-1$
-                } finally {
-                    callback.incrementMax(25);
                 }
+
                 StoreObject[] lists = gtasksListService.getLists();
+                callback.incrementMax(25 * lists.length);
                 final AtomicInteger finisher = new AtomicInteger(lists.length);
 
                 pushUpdated(invoker, callback);
@@ -122,7 +124,8 @@ public class GtasksSyncV2Provider extends SyncV2Provider {
                     new Thread(new Runnable() {
                         @Override
                         public void run() {
-                            synchronizeListHelper(list, invoker, handler, callback);
+                            synchronizeListHelper(list, invoker, manual, handler, callback);
+                            callback.incrementProgress(25);
                             if (finisher.decrementAndGet() == 0) {
                                 gtasksPreferenceService.recordSuccessfulSync();
                                 callback.finished();
@@ -154,15 +157,14 @@ public class GtasksSyncV2Provider extends SyncV2Provider {
                     callback.incrementProgress(10);
                 }
             }
-        }
-        finally {
+        } finally {
             queued.close();
         }
 
     }
 
     @Override
-    public void synchronizeList(Object list, boolean manual, final SyncResultCallback callback) {
+    public void synchronizeList(Object list, final boolean manual, final SyncResultCallback callback) {
         if (!(list instanceof StoreObject))
             return;
         final StoreObject gtasksList = (StoreObject) list;
@@ -179,7 +181,7 @@ public class GtasksSyncV2Provider extends SyncV2Provider {
                     String authToken = getValidatedAuthToken();
                     callback.incrementProgress(25);
                     final GtasksInvoker service = new GtasksInvoker(authToken);
-                    synchronizeListHelper(gtasksList, service, null, callback);
+                    synchronizeListHelper(gtasksList, service, manual, null, callback);
                 } finally {
                     callback.incrementProgress(25);
                     callback.finished();
@@ -201,33 +203,49 @@ public class GtasksSyncV2Provider extends SyncV2Provider {
     }
 
 
-    private void synchronizeListHelper(StoreObject list, GtasksInvoker invoker,
-            SyncExceptionHandler errorHandler, SyncResultCallback callback) {
-        // Do stuff
+    private synchronized void synchronizeListHelper(StoreObject list, GtasksInvoker invoker,
+            boolean manual, SyncExceptionHandler errorHandler, SyncResultCallback callback) {
         String listId = list.getValue(GtasksList.REMOTE_ID);
         long lastSyncDate;
-        if (list.containsNonNullValue(GtasksList.LAST_SYNC)) {
+        if (!manual && list.containsNonNullValue(GtasksList.LAST_SYNC)) {
             lastSyncDate = list.getValue(GtasksList.LAST_SYNC);
         } else {
             lastSyncDate = 0;
         }
         boolean includeDeletedAndHidden = lastSyncDate != 0;
         try {
-            Tasks taskList = invoker.getAllGtasksFromListId(listId, includeDeletedAndHidden, includeDeletedAndHidden, lastSyncDate);
+            Tasks taskList = invoker.getAllGtasksFromListId(listId, includeDeletedAndHidden,
+                    includeDeletedAndHidden, lastSyncDate);
             List<com.google.api.services.tasks.model.Task> tasks = taskList.getItems();
             if (tasks != null) {
                 callback.incrementMax(tasks.size() * 10);
+                HashSet<Long> localIds = new HashSet<Long>(tasks.size());
                 for (com.google.api.services.tasks.model.Task t : tasks) {
                     GtasksTaskContainer container = parseRemoteTask(t, listId);
                     gtasksMetadataService.findLocalMatch(container);
-                    container.gtaskMetadata.setValue(GtasksMetadata.GTASKS_ORDER, Long.parseLong(t.getPosition()));
-                    container.gtaskMetadata.setValue(GtasksMetadata.PARENT_TASK, gtasksMetadataService.localIdForGtasksId(t.getParent()));
-                    container.gtaskMetadata.setValue(GtasksMetadata.LAST_SYNC, DateUtilities.now() + 1000L);
+                    container.gtaskMetadata.setValue(GtasksMetadata.GTASKS_ORDER,
+                            Long.parseLong(t.getPosition()));
+                    container.gtaskMetadata.setValue(GtasksMetadata.PARENT_TASK,
+                            gtasksMetadataService.localIdForGtasksId(t.getParent()));
+                    container.gtaskMetadata.setValue(GtasksMetadata.LAST_SYNC,
+                            DateUtilities.now() + 1000L);
                     write(container);
+                    localIds.add(container.task.getId());
                     callback.incrementProgress(10);
                 }
                 list.setValue(GtasksList.LAST_SYNC, DateUtilities.now());
                 storeObjectDao.persist(list);
+
+                if(lastSyncDate == 0) {
+                    Long[] localIdArray = localIds.toArray(new Long[localIds.size()]);
+                    Criterion delete = Criterion.and(Metadata.KEY.eq(GtasksMetadata.METADATA_KEY),
+                            GtasksMetadata.LIST_ID.eq(listId),
+                            Criterion.not(Metadata.TASK.in(localIdArray)));
+                    taskService.deleteWhere(
+                            Task.ID.in(Query.select(Metadata.TASK).from(Metadata.TABLE).
+                                    where(delete)));
+                    metadataService.deleteWhere(delete);
+                }
 
                 gtasksTaskListUpdater.correctOrderAndIndentForList(listId);
             }
