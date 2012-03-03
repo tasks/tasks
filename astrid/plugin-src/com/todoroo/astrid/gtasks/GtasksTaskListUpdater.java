@@ -12,6 +12,7 @@ import com.todoroo.andlib.data.Property.LongProperty;
 import com.todoroo.andlib.data.TodorooCursor;
 import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.sql.Criterion;
+import com.todoroo.andlib.sql.Functions;
 import com.todoroo.andlib.sql.Order;
 import com.todoroo.andlib.sql.Query;
 import com.todoroo.astrid.api.Filter;
@@ -132,7 +133,7 @@ public class GtasksTaskListUpdater extends OrderedListUpdater<StoreObject> {
         TodorooCursor<Metadata> metadata = metadataDao.query(Query.select(Metadata.PROPERTIES)
                 .where(Criterion.and(Metadata.KEY.eq(GtasksMetadata.METADATA_KEY),
                         GtasksMetadata.LIST_ID.eq(listId), GtasksMetadata.PARENT_TASK.eq(parent)))
-                .orderBy(Order.asc(GtasksMetadata.GTASKS_ORDER)));
+                .orderBy(Order.asc(Functions.cast(GtasksMetadata.GTASKS_ORDER, "INTEGER")))); //$NON-NLS-1$
         try {
             if (metadata.getCount() > 0) {
                 Metadata curr = new Metadata();
