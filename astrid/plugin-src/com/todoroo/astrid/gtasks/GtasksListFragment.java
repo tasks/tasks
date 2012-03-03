@@ -16,7 +16,6 @@ import com.todoroo.andlib.utility.DialogUtilities;
 import com.todoroo.astrid.dao.StoreObjectDao;
 import com.todoroo.astrid.data.StoreObject;
 import com.todoroo.astrid.data.Task;
-import com.todoroo.astrid.gtasks.sync.GtasksSyncService;
 import com.todoroo.astrid.service.SyncV2Service;
 import com.todoroo.astrid.subtasks.OrderedListFragmentHelper;
 import com.todoroo.astrid.subtasks.SubtasksListFragment;
@@ -35,8 +34,6 @@ public class GtasksListFragment extends SubtasksListFragment {
 
     @Autowired private GtasksMetadataService gtasksMetadataService;
 
-    @Autowired private GtasksSyncService gtasksSyncService;
-
     @Autowired private GtasksPreferenceService gtasksPreferenceService;
 
     @Autowired private SyncV2Service syncService;
@@ -54,13 +51,7 @@ public class GtasksListFragment extends SubtasksListFragment {
 
     @Override
     protected OrderedListFragmentHelper<?> createFragmentHelper() {
-        return new OrderedListFragmentHelper<StoreObject>(this, gtasksTaskListUpdater) {
-            @Override
-            protected void onMetadataChanged(long targetTaskId) {
-                gtasksSyncService.triggerMoveForMetadata(gtasksMetadataService.
-                        getTaskMetadata(targetTaskId));
-            }
-        };
+        return new OrderedListFragmentHelper<StoreObject>(this, gtasksTaskListUpdater);
     }
 
     @Override

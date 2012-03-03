@@ -21,7 +21,6 @@ import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.gtasks.GtasksMetadata;
 import com.todoroo.astrid.gtasks.GtasksMetadataService;
 import com.todoroo.astrid.gtasks.GtasksPreferenceService;
-import com.todoroo.astrid.gtasks.GtasksTaskListUpdater;
 import com.todoroo.astrid.gtasks.api.CreateRequest;
 import com.todoroo.astrid.gtasks.api.GtasksApiUtilities;
 import com.todoroo.astrid.gtasks.api.GtasksInvoker;
@@ -36,7 +35,6 @@ public final class GtasksSyncService {
     @Autowired GtasksMetadataService gtasksMetadataService;
     @Autowired TaskDao taskDao;
     @Autowired GtasksPreferenceService gtasksPreferenceService;
-    @Autowired GtasksTaskListUpdater gtasksTaskListUpdater;
 
     public GtasksSyncService() {
         DependencyInjectionService.getInstance().inject(this);
@@ -109,12 +107,8 @@ public final class GtasksSyncService {
         });
     }
 
-    private static final Property<?>[] TASK_PROPERTIES =
-        { Task.TITLE,
-          Task.NOTES,
-          Task.DUE_DATE,
-          Task.COMPLETION_DATE,
-          Task.DELETION_DATE };
+    private static final Property<?>[] TASK_PROPERTIES = { Task.ID, Task.TITLE,
+            Task.NOTES, Task.DUE_DATE, Task.COMPLETION_DATE, Task.DELETION_DATE };
 
     /**
      * Checks to see if any of the values changed are among the properties we sync
@@ -124,7 +118,7 @@ public final class GtasksSyncService {
      */
     private boolean checkValuesForProperties(ContentValues values, Property<?>[] properties) {
         for (Property<?> property : properties) {
-            if (values.containsKey(property.name))
+            if (property != Task.ID && values.containsKey(property.name))
                 return true;
         }
         return false;

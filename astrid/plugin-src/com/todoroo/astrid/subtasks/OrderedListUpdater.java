@@ -55,6 +55,13 @@ abstract public class OrderedListUpdater<LIST> {
     }
 
     /**
+     * @param targetTaskId
+     */
+    protected void onMetadataChanged(Metadata metadata) {
+        //
+    }
+
+    /**
      * @param list
      * @param taskId
      * @param metadata
@@ -295,6 +302,8 @@ abstract public class OrderedListUpdater<LIST> {
         taskContainer.setValue(Task.MODIFICATION_DATE, DateUtilities.now());
         taskContainer.setValue(Task.DETAILS_DATE, DateUtilities.now());
         PluginServices.getTaskService().save(taskContainer);
+        taskContainer.clear();
+        onMetadataChanged(metadata);
     }
 
     // --- task cascading operations
