@@ -27,6 +27,8 @@
         android:paddingRight="30dp"
         android:checked="false"
         android:gravity="center_vertical" 
-        style="@style/TextAppearance.FLA_Filter"/>
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:textColor="#000000"/>
                     
 </LinearLayout>

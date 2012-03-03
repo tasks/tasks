@@ -226,7 +226,13 @@ public class TaskListActivity extends AstridActivity implements MainMenuListener
     }
 
     private void createMainMenuPopover() {
-        mainMenuPopover = new MainMenuPopover(this, R.layout.main_menu_popover, (fragmentLayout != LAYOUT_SINGLE));
+        int layout;
+        if (shouldUseThreePane(this))
+            layout = R.layout.main_menu_popover_tablet;
+        else
+            layout = R.layout.main_menu_popover;
+
+        mainMenuPopover = new MainMenuPopover(this, layout, (fragmentLayout != LAYOUT_SINGLE));
         mainMenuPopover.setMenuListener(this);
         mainMenuPopover.setOnDismissListener(new OnDismissListener() {
             @Override

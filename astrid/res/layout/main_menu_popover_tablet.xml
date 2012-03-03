@@ -5,7 +5,7 @@
     android:layout_height="wrap_content"
     android:paddingLeft="10dip">
 
-    <include layout="@layout/main_menu_popover_body"/>
+    <include layout="@layout/main_menu_popover_body_tablet"/>
 
     <ImageView
         android:id="@+id/gdi_arrow_up"
@@ -14,7 +14,7 @@
         android:layout_marginLeft="-10dip"
         android:scaleType="fitCenter"
         android:layout_marginBottom="-8dip"
-        android:src="?attr/asListArrowUp" />
+        android:src="@drawable/list_arrow_up_white" />
 
     <ImageView
         android:id="@+id/gdi_arrow_down"

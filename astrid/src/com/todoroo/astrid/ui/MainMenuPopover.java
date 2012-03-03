@@ -12,6 +12,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.timsu.astrid.R;
+import com.todoroo.astrid.activity.AstridActivity;
 
 public class MainMenuPopover extends FragmentPopover {
 
@@ -31,6 +32,7 @@ public class MainMenuPopover extends FragmentPopover {
     private final LinearLayout content;
     private final LinearLayout topFixed;
     private final LinearLayout bottomFixed;
+    private final int rowLayout;
 
     public void setMenuListener(MainMenuListener listener) {
         this.mListener = listener;
@@ -38,6 +40,11 @@ public class MainMenuPopover extends FragmentPopover {
 
     public MainMenuPopover(Context context, int layout, boolean isTablet) {
         super(context, layout);
+
+        if (AstridActivity.shouldUseThreePane(context))
+            rowLayout = R.layout.main_menu_row_tablet;
+        else
+            rowLayout = R.layout.main_menu_row;
 
         inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
@@ -111,7 +118,7 @@ public class MainMenuPopover extends FragmentPopover {
     }
 
     private View setupItemWithParams(int title, int imageRes) {
-        View itemRow = inflater.inflate(R.layout.main_menu_row, null);
+        View itemRow = inflater.inflate(rowLayout, null);
 
         ImageView image = (ImageView) itemRow.findViewById(R.id.icon);
         image.setImageResource(imageRes);
@@ -123,7 +130,7 @@ public class MainMenuPopover extends FragmentPopover {
     }
 
     private View setupItemWithParams(CharSequence title, Drawable imageDrawable) {
-        View itemRow = inflater.inflate(R.layout.main_menu_row, null);
+        View itemRow = inflater.inflate(rowLayout, null);
 
         ImageView image = (ImageView) itemRow.findViewById(R.id.icon);
         image.setImageDrawable(imageDrawable);
