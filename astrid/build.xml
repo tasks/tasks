@@ -202,7 +202,7 @@
         <else>
           <replace file="AndroidManifest.xml" token="android.permission.VIBRATE">
             <replacevalue><![CDATA[android.permission.VIBRATE"/>
-            <uses-permission android:name="android.permission.READ_LOGS">
+            <uses-permission android:name="android.permission.READ_LOGS"/>
             <uses-permission android:name="android.permission.GET_TASKS]]></replacevalue>
           </replace>
         </else>
