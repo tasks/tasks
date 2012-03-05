@@ -993,15 +993,19 @@
     <item>Gosh, you are looking suave today!</item>
     <item>Do something great today!</item>
     <item>Make me proud today!</item>
+    <item>How are you doing today?</item>
   </string-array>
   <string-array name="PPW_encouragements_tod">
-    <item>Good afternoon!</item>
-    <item>Good evening!</item>
-    <item>Late night?</item>
-    <item>Afternoon tea, perhaps?</item>
-    <item>Enjoy the evening!</item>
-    <item>Sleep is good for you, you know!</item>
-  </string-array>
+        <!-- encouragements based on time of day -->
+        <item>Good morning!</item>
+        <item>Good afternoon!</item>
+        <item>Good evening!</item>
+        <item>Late night?</item>
+        <item>It\'s early, get something done!</item>
+        <item>Afternoon tea, perhaps?</item>
+        <item>Enjoy the evening!</item>
+        <item>Sleep is good for you, you know!</item>
+    </string-array>
   <string-array name="PPW_encouragements_completed">
     <item>You\'ve already completed %d tasks!</item>
     <item>Score in life: %d tasks completed</item>
@@ -1009,9 +1013,10 @@
   </string-array>
   <string name="PPW_encouragements_none_completed">You haven\'t completed any tasks yet! Shall we?</string>
   <string-array name="PPW_colors">
-    <item>Black</item>
-    <item>Blue</item>
-    <item>Translucent</item>
+        <item>Black</item>
+        <item>White</item>
+        <item>Blue</item>
+        <item>Translucent</item>
   </string-array>
   <string name="PPW_widget_dlg_text">This widget is only available to owners of the PowerPack!</string>
   <string name="PPW_widget_dlg_ok">Preview</string>
