@@ -485,7 +485,6 @@
   <string name="gtasks_error_accountNotFound">Nie znaleziono konta %s --proszę wyloguj się i zaloguj ponownie w ustawieniach Google Zadań.</string>
   <string name="gtasks_error_authRefresh">Uwierzytelnienie w Google Zadania nieudane. Proszę, sprawdź poprawność swego hasła lub spróbuj ponownie później.</string>
   <string name="gtasks_error_accountManager">Błąd w menadżerze kont Twojego telefonu. Proszę, wyloguj się i zaloguj ponownie w ustawieniach Google Zadań.</string>
-  <string name="intro_click_prompt">Wstęp: Kliknij mnie by zoabczyć notatkę</string>
   <string name="help_popover_add_task">Dodaj zadanie tutaj</string>
   <string name="help_popover_tap_task">Puknij zadanie by je edytować i udostępnić</string>
   <string name="help_popover_list_settings">Puknij ustawienia listy by udostępnić całą listę</string>

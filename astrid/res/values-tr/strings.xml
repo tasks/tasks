@@ -485,7 +485,6 @@
   <string name="gtasks_error_accountNotFound">%s hesabı bulunamadı--lütfen çıkış yapıp Google Görev ayarlarından tekrar giriş yapın.</string>
   <string name="gtasks_error_authRefresh">Google Görevlere giriş başarısız. Lütfen hesap parolanızı kontrol edip tekrar deneyin.</string>
   <string name="gtasks_error_accountManager">Telefon hesap yöneticisinde hata oluştu. Lütfen çıkış yapıp Google Görevler Ayarlarından tekrar giriş yapın.</string>
-  <string name="intro_click_prompt">Giriş: Notları görmek için basın</string>
   <string name="help_popover_add_task">Start by adding a task or two</string>
   <string name="help_popover_tap_task">Değiştirmek veya paylaşmak için göreve dokunun</string>
   <string name="help_popover_list_settings">Değiştirmek veya paylaşmak için listeye dokunun</string>
