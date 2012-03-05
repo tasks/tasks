@@ -131,6 +131,8 @@ public final class GtasksSyncService {
 
 
     public void triggerMoveForMetadata(final Metadata metadata) {
+        if (metadata == null)
+            return;
         if (metadata.checkAndClearTransitory(SyncFlags.GTASKS_SUPPRESS_SYNC))
             return;
         if (!metadata.getValue(Metadata.KEY).equals(GtasksMetadata.METADATA_KEY)) //Don't care about non-gtasks metadata
