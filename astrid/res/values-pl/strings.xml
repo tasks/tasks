@@ -486,12 +486,6 @@
   <string name="gtasks_error_authRefresh">Uwierzytelnienie w Google Zadania nieudane. Proszę, sprawdź poprawność swego hasła lub spróbuj ponownie później.</string>
   <string name="gtasks_error_accountManager">Błąd w menadżerze kont Twojego telefonu. Proszę, wyloguj się i zaloguj ponownie w ustawieniach Google Zadań.</string>
   <string name="intro_click_prompt">Wstęp: Kliknij mnie by zoabczyć notatkę</string>
-  <string name="intro_task_1_summary">Utwórz swoje pierwsze zadanie</string>
-  <string name="intro_task_1_note">Two ways to add a task:\n 1) Quick Add: Type the task into the quick entry box at bottom of screen and press the + button on the right.\n 2) Regular Add: Press the + button of the quick entry box. Add as much detail as you want. Then press \"Save\" or use your phone\'s back button.\n</string>
-  <string name="intro_task_2_summary">Dodaj widget na pulpit</string>
-  <string name="intro_task_2_note">1) Long Press on your phone\'s desktop\n      2) Choose \"Widget\"\n      3) Choose the Astrid widget\n      4) Select the list you want and press OK.\n</string>
-  <string name="intro_task_3_summary">Ustaw synch z Astrid.com</string>
-  <string name="intro_task_3_note">1) Press your Menu button\n      2) Choose \"Sync Now\"\n      3) Select \"Astrid.com\"\n      4) Log In &amp; Synchronize!\n</string>
   <string name="help_popover_add_task">Dodaj zadanie tutaj</string>
   <string name="help_popover_tap_task">Puknij zadanie by je edytować i udostępnić</string>
   <string name="help_popover_list_settings">Puknij ustawienia listy by udostępnić całą listę</string>

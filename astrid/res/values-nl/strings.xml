@@ -486,12 +486,6 @@
   <string name="gtasks_error_authRefresh">Unable to authenticate with Google Tasks. Please check your account password or try again later.</string>
   <string name="gtasks_error_accountManager">Error in your phone\'s account manager. Please log out and log back in from the Google Tasks settings.</string>
   <string name="intro_click_prompt">Intro: Druk hier om notities weer te geven</string>
-  <string name="intro_task_1_summary">Eerste taak aanmaken</string>
-  <string name="intro_task_1_note">Twee manieren om een taak te maken:\n 1) Snel toevoegen: Beschrijf de taak in het veld onderin en druk op de + knop aan de linker kant.\n\n 2) Normaal toevoegen: Druk op de knop aan de rechter kant van het veld onderin. Vul de standaard details in (einddatum, labels, notities) of gebruik de geavanceerde opties. Bewaar de taak met de bewaarknop of gebruik de \'Terug\' toets op het toestel.\n\n</string>
-  <string name="intro_task_2_summary">Widget toevoegen aan het hoofdscherm</string>
-  <string name="intro_task_2_note">Een bureaublad widget is een geweldige manier om de te doen taken bij te houden en een manier om snel nieuwe taken toe te voegen.\n\n Hoe een widget toevoegen?:\n 1) Druk lang op het bureaublad.\n 2) Kies \"Widget\" uit het menu\n 3) Selecteer de Astrid widget.\n 4) Selecteer een Astrid filter. Selecteer \"Actieve taken\" voor alle taken\n\n Bonus: Gebruik de widget om een taak toe te voegen!</string>
-  <string name="intro_task_3_summary">Instellingen synchroniseren met Astrid.com</string>
-  <string name="intro_task_3_note">Astrid maakt het mogelijk de taken te synchroniseren met Astrid.com, Google Taken en Producteev.\n\n Om synchroniseren vanuit Astrid in te schakelen, druk \"Menu\"-&gt; \"Instellingen\" -&gt; \"Synchronisatie\" en selecteer de gewenste provider.</string>
   <string name="help_popover_add_task">Start by adding a task or two</string>
   <string name="help_popover_tap_task">Tap task to edit and share</string>
   <string name="help_popover_list_settings">Tap to edit or share this list</string>

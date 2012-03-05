@@ -486,12 +486,6 @@
   <string name="gtasks_error_authRefresh">Google Görevlere giriş başarısız. Lütfen hesap parolanızı kontrol edip tekrar deneyin.</string>
   <string name="gtasks_error_accountManager">Telefon hesap yöneticisinde hata oluştu. Lütfen çıkış yapıp Google Görevler Ayarlarından tekrar giriş yapın.</string>
   <string name="intro_click_prompt">Giriş: Notları görmek için basın</string>
-  <string name="intro_task_1_summary">İlk görevinizi oluşturun</string>
-  <string name="intro_task_1_note">Görev eklemenin iki yolu:\n 1) Hızlı ekleme: Görevin ismini ekranın en altındaki çabuk giriş kutusuna yazıp + düğmesine basın.\n 2) Normal ekleme: Çabuk ekleme kutusunun + düğmesine basın. İstediğiniz kadar detay girin. Sonra \"Kaydet\"\'e basın veya telefonunuzun \"geri\" düğmesine basın.\n</string>
-  <string name="intro_task_2_summary">Masaüstüne widget ekle</string>
-  <string name="intro_task_2_note">1) Telefonun masaüstü ekranına uzun basın\n      2) \"Widget\"ı seçin\n      3) Astrid widget\'ı seçin\n      4) İstediğiniz listeyi seçin ve tamam tuşuna basın.\n</string>
-  <string name="intro_task_3_summary">Astrid.com ile senkronizasyonu ayarla</string>
-  <string name="intro_task_3_note">1) Menu düğmesine basın\n      2) \"Şimdi senkronize et\"i seçin\n      3) \"Astrid.com\"u seçin\n      4) Giriş yapın &amp; Senkronize edin!\n</string>
   <string name="help_popover_add_task">Start by adding a task or two</string>
   <string name="help_popover_tap_task">Değiştirmek veya paylaşmak için göreve dokunun</string>
   <string name="help_popover_list_settings">Değiştirmek veya paylaşmak için listeye dokunun</string>

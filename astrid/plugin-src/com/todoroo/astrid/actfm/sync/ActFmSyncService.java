@@ -327,12 +327,6 @@ public final class ActFmSyncService {
         if(newlyCreated) {
             if(task.getValue(Task.TITLE).length() == 0)
                 return;
-            for(int taskTitle : new int[] { R.string.intro_task_1_summary,
-                    R.string.intro_task_2_summary, R.string.intro_task_3_summary }) {
-                String title = ContextManager.getString(taskTitle);
-                if(task.getValue(Task.TITLE).equals(title))
-                    return;
-            }
             if(TaskApiDao.insignificantChange(values))
                 return;
             values = task.getMergedValues();
