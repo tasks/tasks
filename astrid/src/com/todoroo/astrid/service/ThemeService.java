@@ -130,4 +130,8 @@ public class ThemeService {
                 ContextManager.getResources().getResourceName(lightDrawable));
     }
 
+    public static void forceTheme(int theme) {
+        currentTheme = theme;
+    }
+
 }
