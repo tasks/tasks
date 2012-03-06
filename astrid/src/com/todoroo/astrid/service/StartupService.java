@@ -107,9 +107,10 @@ public class StartupService {
         // sets up context manager
         ContextManager.setContext(context);
 
-        if(!StatisticsService.dontCollectStatistics())
-            Crittercism.init(context.getApplicationContext(), Constants.CRITTERCISM_APP_ID,
-                Constants.CRITTERCISM_OATH_KEY, Constants.CRITTERCISM_SECRET);
+        if(!StatisticsService.dontCollectStatistics()) {
+            Crittercism.init(context.getApplicationContext(), Constants.CRITTERCISM_APP_ID);
+            Crittercism.setShouldUseAmazonMarket(Constants.MARKET_DISABLED);
+        }
 
         database.openForWriting();
 

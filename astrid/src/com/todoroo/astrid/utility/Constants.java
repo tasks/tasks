@@ -71,10 +71,6 @@ public final class Constants {
 
     public static final String CRITTERCISM_APP_ID = "4e8a796fddf5203b6f0097c5";
 
-    public static final String CRITTERCISM_SECRET = "9mhdwlu85lc6sovpxkabq1cbzzmxe2oi";
-
-    public static final String CRITTERCISM_OATH_KEY = "4e8a796fddf5203b6f0097c5nn35ziwt";
-
     // --- amazon
 
     public static final String AWS_ACCESS_KEY_ID = "AKIAJTVL4FOF4PRBKBNA";
