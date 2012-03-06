@@ -70,6 +70,7 @@
         android:layout_marginLeft="5dip"
         android:layout_marginBottom="3dip"
         android:paddingRight="30dp"
+        android:ellipsize="start"
         android:singleLine="true"
         android:textSize="12sp"
         android:text="2 New &amp; Used from $224"
