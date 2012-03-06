@@ -287,7 +287,7 @@ public class TagUpdatesFragment extends ListFragment {
         if(actFmPreferenceService.isLoggedIn()) {
             item = menu.add(Menu.NONE, MENU_REFRESH_ID, Menu.NONE,
                     R.string.ENA_refresh_comments);
-            item.setIcon(R.drawable.ic_menu_refresh);
+            item.setIcon(R.drawable.icn_menu_refresh);
         }
     }
 

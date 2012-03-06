@@ -363,7 +363,7 @@ public class TaskListFragment extends ListFragment implements OnScrollListener,
     }
 
     protected void addSyncRefreshMenuItem(Menu menu) {
-        addMenuItem(menu, R.string.TLA_menu_sync, R.drawable.ic_menu_refresh, MENU_SYNC_ID, true);
+        addMenuItem(menu, R.string.TLA_menu_sync, R.drawable.icn_menu_refresh, MENU_SYNC_ID, true);
     }
 
     protected void addMenuItem(Menu menu, int title, int imageRes, int id, boolean showAsAction) {
@@ -398,18 +398,18 @@ public class TaskListFragment extends ListFragment implements OnScrollListener,
 
         // --- sort
         if (allowResorting()) {
-            addMenuItem(menu, R.string.TLA_menu_sort, android.R.drawable.ic_menu_sort_by_size, MENU_SORT_ID, true);
+            addMenuItem(menu, R.string.TLA_menu_sort, R.drawable.icn_menu_sort_by_size, MENU_SORT_ID, true);
         }
 
         // --- sync
         addSyncRefreshMenuItem(menu);
 
         // --- new filter
-        addMenuItem(menu, R.string.FLA_new_filter, android.R.drawable.ic_menu_add, MENU_NEW_FILTER_ID, true);
+        addMenuItem(menu, R.string.FLA_new_filter, R.drawable.icn_menu_add, MENU_NEW_FILTER_ID, true);
 
         // --- addons
         if (!Constants.MARKET_DISABLED) {
-            addMenuItem(menu, R.string.TLA_menu_addons, android.R.drawable.ic_menu_set_as, MENU_ADDONS_ID, false);
+            addMenuItem(menu, R.string.TLA_menu_addons, R.drawable.icn_menu_set_as, MENU_ADDONS_ID, false);
         }
 
         // ask about plug-ins
