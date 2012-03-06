@@ -45,6 +45,7 @@ import com.todoroo.astrid.data.TagData;
 import com.todoroo.astrid.gtasks.GtasksPreferenceService;
 import com.todoroo.astrid.service.AstridDependencyInjector;
 import com.todoroo.astrid.service.TagDataService;
+import com.todoroo.astrid.service.ThemeService;
 import com.todoroo.astrid.subtasks.SubtasksTagListFragment;
 import com.todoroo.astrid.tags.TagService.Tag;
 import com.todoroo.astrid.utility.AstridPreferences;
@@ -175,7 +176,8 @@ public class TagFilterExposer extends BroadcastReceiver implements AstridFilterE
                 r.getString(R.string.tag_FEx_untagged),
                 TagService.untaggedTemplate(),
                 null);
-        untagged.listingIcon = ((BitmapDrawable)r.getDrawable(R.drawable.gl_lists)).getBitmap();
+        untagged.listingIcon = ((BitmapDrawable)r.getDrawable(
+                ThemeService.getDrawable(R.drawable.gl_lists))).getBitmap();
         filters[0] = untagged;
 
         for(int i = 0; i < tags.length; i++)

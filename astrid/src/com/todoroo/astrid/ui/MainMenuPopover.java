@@ -13,6 +13,7 @@ import android.widget.TextView;
 
 import com.timsu.astrid.R;
 import com.todoroo.astrid.activity.AstridActivity;
+import com.todoroo.astrid.service.ThemeService;
 
 public class MainMenuPopover extends FragmentPopover {
 
@@ -58,12 +59,18 @@ public class MainMenuPopover extends FragmentPopover {
 
     private void addFixedItems(boolean isTablet) {
         if (!isTablet)
-            addMenuItem(R.string.TLA_menu_lists, R.drawable.icn_menu_lists, MAIN_MENU_ITEM_LISTS, null, topFixed); // Lists item
-        // addMenuItem(R.string.TLA_menu_friends, R.drawable.icn_friends, MAIN_MENU_ITEM_FRIENDS, null, topFixed); // Friends item
-        // addMenuItem(R.string.TLA_menu_suggestions, R.drawable.icn_featured_lists, MAIN_MENU_ITEM_SUGGESTIONS, null, topFixed); // Suggestions item
-        addMenuItem(R.string.TLA_menu_tutorial, R.drawable.icn_menu_tutorial, MAIN_MENU_ITEM_TUTORIAL, null, bottomFixed); // Tutorial item
-        addMenuItem(R.string.TLA_menu_settings, R.drawable.icn_menu_settings, MAIN_MENU_ITEM_SETTINGS, null, bottomFixed); // Settings item
-        addMenuItem(R.string.TLA_menu_support, R.drawable.icn_menu_support, MAIN_MENU_ITEM_SUPPORT, null, bottomFixed); // Support item
+            addMenuItem(R.string.TLA_menu_lists,
+                    ThemeService.getDrawable(R.drawable.icn_menu_lists),
+                    MAIN_MENU_ITEM_LISTS, null, topFixed); // Lists item
+        addMenuItem(R.string.TLA_menu_tutorial,
+                ThemeService.getDrawable(R.drawable.icn_menu_tutorial),
+                MAIN_MENU_ITEM_TUTORIAL, null, bottomFixed); // Tutorial item
+        addMenuItem(R.string.TLA_menu_settings,
+                ThemeService.getDrawable(R.drawable.icn_menu_settings),
+                MAIN_MENU_ITEM_SETTINGS, null, bottomFixed); // Settings item
+        addMenuItem(R.string.TLA_menu_support,
+                ThemeService.getDrawable(R.drawable.icn_menu_support),
+                MAIN_MENU_ITEM_SUPPORT, null, bottomFixed); // Support item
     }
 
     @Override

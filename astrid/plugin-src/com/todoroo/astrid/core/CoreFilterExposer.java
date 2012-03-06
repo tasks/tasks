@@ -23,6 +23,7 @@ import com.todoroo.astrid.dao.MetadataDao.MetadataCriteria;
 import com.todoroo.astrid.data.Metadata;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.data.TaskApiDao.TaskCriteria;
+import com.todoroo.astrid.service.ThemeService;
 import com.todoroo.astrid.tags.TagService;
 
 /**
@@ -66,7 +67,8 @@ public final class CoreFilterExposer extends BroadcastReceiver implements Astrid
                                         Criterion.and(MetadataCriteria.withKey(TagService.KEY),
                                                 TagService.TAG.like("x_%", "x"))))))), //$NON-NLS-1$ //$NON-NLS-2$
                 null);
-        inbox.listingIcon = ((BitmapDrawable)r.getDrawable(R.drawable.filter_inbox)).getBitmap();
+        inbox.listingIcon = ((BitmapDrawable)r.getDrawable(
+                ThemeService.getDrawable(R.drawable.filter_inbox))).getBitmap();
         return inbox;
     }
 

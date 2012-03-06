@@ -39,6 +39,7 @@ import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.data.TaskApiDao.TaskCriteria;
 import com.todoroo.astrid.gtasks.GtasksPreferenceService;
 import com.todoroo.astrid.service.TagDataService;
+import com.todoroo.astrid.service.ThemeService;
 import com.todoroo.astrid.taskrabbit.TaskRabbitMetadata;
 
 /**
@@ -91,7 +92,8 @@ public final class CustomFilterExposer extends BroadcastReceiver implements Astr
                                     Task.DUE_DATE.gt(0),
                                     Task.DUE_DATE.lte(PermaSql.VALUE_EOD))),
                     todayValues);
-            list[0].listingIcon = ((BitmapDrawable)r.getDrawable(R.drawable.filter_calendar)).getBitmap();
+            list[0].listingIcon = ((BitmapDrawable)r.getDrawable(
+                    ThemeService.getDrawable(R.drawable.filter_calendar))).getBitmap();
 
             list[1] = new Filter(r.getString(R.string.BFE_Recent),
                     r.getString(R.string.BFE_Recent),
@@ -99,7 +101,8 @@ public final class CustomFilterExposer extends BroadcastReceiver implements Astr
                             TaskCriteria.ownedByMe()).orderBy(
                                     Order.desc(Task.MODIFICATION_DATE)).limit(15),
                     null);
-            list[1].listingIcon = ((BitmapDrawable)r.getDrawable(R.drawable.filter_pencil)).getBitmap();
+            list[1].listingIcon = ((BitmapDrawable)r.getDrawable(
+                    ThemeService.getDrawable(R.drawable.filter_pencil))).getBitmap();
 
             list[2] = getAssignedByMeFilter(r);
 
@@ -114,7 +117,8 @@ public final class CustomFilterExposer extends BroadcastReceiver implements Astr
                 deleteIntent.putExtra(TOKEN_FILTER_NAME, list[i].title);
                 list[i].contextMenuLabels = new String[] { context.getString(R.string.BFE_Saved_delete) };
                 list[i].contextMenuIntents = new Intent[] { deleteIntent };
-                list[i].listingIcon = ((BitmapDrawable)r.getDrawable(R.drawable.filter_sliders)).getBitmap();
+                list[i].listingIcon = ((BitmapDrawable)r.getDrawable(
+                        ThemeService.getDrawable(R.drawable.filter_sliders))).getBitmap();
             }
 
             return list;
@@ -132,7 +136,8 @@ public final class CustomFilterExposer extends BroadcastReceiver implements Astr
                         Criterion.or(Task.USER_ID.neq(0),
                                     Criterion.and(Metadata.KEY.eq(TaskRabbitMetadata.METADATA_KEY), TaskRabbitMetadata.ID.gt(0))))),
                         null);
-        f.listingIcon = ((BitmapDrawable)r.getDrawable(R.drawable.filter_assigned)).getBitmap();
+        f.listingIcon = ((BitmapDrawable)r.getDrawable(
+                ThemeService.getDrawable(R.drawable.filter_assigned))).getBitmap();
         return f;
     }
 
