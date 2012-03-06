@@ -363,9 +363,9 @@ public class TaskListFragment extends ListFragment implements OnScrollListener,
         contextMenuExtensionLoader.loadInNewThread(getActivity());
     }
 
-    protected void addSyncRefreshMenuItem(Menu menu) {
+    protected void addSyncRefreshMenuItem(Menu menu, int themeFlags) {
         addMenuItem(menu, R.string.TLA_menu_sync,
-                ThemeService.getDrawable(R.drawable.icn_menu_refresh), MENU_SYNC_ID, true);
+                ThemeService.getDrawable(R.drawable.icn_menu_refresh, themeFlags), MENU_SYNC_ID, true);
     }
 
     protected void addMenuItem(Menu menu, int title, int imageRes, int id, boolean showAsAction) {
@@ -395,26 +395,26 @@ public class TaskListFragment extends ListFragment implements OnScrollListener,
         if (activity == null)
             return;
 
-
+        boolean isTablet = AndroidUtilities.isTabletSized(activity);
         activity.getMainMenuPopover().clear();
 
         // --- sort
         if (allowResorting()) {
             addMenuItem(menu, R.string.TLA_menu_sort,
-                    ThemeService.getDrawable(R.drawable.icn_menu_sort_by_size), MENU_SORT_ID, true);
+                    ThemeService.getDrawable(R.drawable.icn_menu_sort_by_size, isTablet ? ThemeService.FLAG_INVERT : 0), MENU_SORT_ID, true);
         }
 
         // --- sync
-        addSyncRefreshMenuItem(menu);
+        addSyncRefreshMenuItem(menu, isTablet ? ThemeService.FLAG_INVERT : 0);
 
         // --- new filter
         addMenuItem(menu, R.string.FLA_new_filter,
-                ThemeService.getDrawable(R.drawable.icn_menu_filters), MENU_NEW_FILTER_ID, true);
+                ThemeService.getDrawable(R.drawable.icn_menu_filters, isTablet ? ThemeService.FLAG_INVERT : 0), MENU_NEW_FILTER_ID, true);
 
         // --- addons
         if (!Constants.MARKET_DISABLED) {
             addMenuItem(menu, R.string.TLA_menu_addons,
-                    ThemeService.getDrawable(R.drawable.icn_menu_plugins), MENU_ADDONS_ID, false);
+                    ThemeService.getDrawable(R.drawable.icn_menu_plugins, isTablet ? ThemeService.FLAG_FORCE_DARK : 0), MENU_ADDONS_ID, false);
         }
 
         // ask about plug-ins

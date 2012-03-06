@@ -26,6 +26,7 @@ import com.todoroo.andlib.service.ContextManager;
 import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.andlib.sql.Criterion;
 import com.todoroo.andlib.sql.QueryTemplate;
+import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.andlib.utility.DialogUtilities;
 import com.todoroo.astrid.actfm.TagViewFragment;
@@ -169,6 +170,9 @@ public class TagFilterExposer extends BroadcastReceiver implements AstridFilterE
         Context context = ContextManager.getContext();
         Resources r = context.getResources();
 
+        boolean isTablet = AndroidUtilities.isTabletSized(context);
+        int themeFlags = isTablet ? ThemeService.FLAG_FORCE_LIGHT : 0;
+
         // --- untagged
         int untaggedLabel = gtasksPreferenceService.isLoggedIn() ?
                 R.string.tag_FEx_untagged_w_astrid : R.string.tag_FEx_untagged;
@@ -177,7 +181,7 @@ public class TagFilterExposer extends BroadcastReceiver implements AstridFilterE
                 TagService.untaggedTemplate(),
                 null);
         untagged.listingIcon = ((BitmapDrawable)r.getDrawable(
-                ThemeService.getDrawable(R.drawable.gl_lists))).getBitmap();
+                ThemeService.getDrawable(R.drawable.gl_lists, themeFlags))).getBitmap();
         filters[0] = untagged;
 
         for(int i = 0; i < tags.length; i++)

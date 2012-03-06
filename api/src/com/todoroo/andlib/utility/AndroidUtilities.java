@@ -737,14 +737,28 @@ public class AndroidUtilities {
         }
     }
 
+
+    /**
+     * Array of device names that should be considered tablets
+     */
+    private static final String[] THREE_PANE_DEVICES = new String[] {
+        "kindle", //$NON-NLS-1$
+    };
+
     /**
      * Returns true if the screen is large or xtra large
      * @param context
      * @return
      */
     public static boolean isTabletSized(Context context) {
-        int screenSize = context.getResources().getConfiguration().screenLayout & Configuration.SCREENLAYOUT_SIZE_MASK;
-        return (screenSize >= Configuration.SCREENLAYOUT_SIZE_LARGE);
+        int size = context.getResources().getConfiguration().screenLayout
+                & Configuration.SCREENLAYOUT_SIZE_MASK;
+        if (size == Configuration.SCREENLAYOUT_SIZE_XLARGE) return true;
+        String model = android.os.Build.MODEL.toLowerCase();
+        for (String s : THREE_PANE_DEVICES) {
+            if (model.contains(s)) return true;
+        }
+        return false;
     }
 
 }

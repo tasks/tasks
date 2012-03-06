@@ -18,6 +18,10 @@ public class ThemeService {
     public static final String THEME_TRANSPARENT = "transparent";
     public static final String THEME_TRANSPARENT_WHITE = "transparent-white";
 
+    public static final int FLAG_FORCE_DARK = 1;
+    public static final int FLAG_FORCE_LIGHT = 2;
+    public static final int FLAG_INVERT = 3;
+
     private static int currentTheme;
 
     public static void applyTheme(Activity activity) {
@@ -69,7 +73,25 @@ public class ThemeService {
     }
 
     public static int getDrawable(int lightDrawable) {
+        return getDrawable(lightDrawable, 0);
+    }
+
+    public static int getDrawable(int lightDrawable, int alter) {
         boolean darkTheme = currentTheme == R.style.Theme || currentTheme == R.style.Theme_Transparent;
+        switch(alter) {
+        case FLAG_FORCE_DARK:
+            darkTheme = true;
+            break;
+        case FLAG_FORCE_LIGHT:
+            darkTheme = false;
+            break;
+        case FLAG_INVERT:
+            darkTheme = !darkTheme;
+            break;
+        default:
+            break;
+        }
+
         if(!darkTheme)
             return lightDrawable;
 

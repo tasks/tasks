@@ -121,7 +121,7 @@ public class TaskListActivity extends AstridActivity implements MainMenuListener
         ThemeService.applyTheme(this);
         super.onCreate(savedInstanceState);
 
-        if (shouldUseThreePane(this))
+        if (AndroidUtilities.isTabletSized(this))
             setContentView(R.layout.task_list_wrapper_activity_3pane);
         else
             setContentView(R.layout.task_list_wrapper_activity);
@@ -227,7 +227,7 @@ public class TaskListActivity extends AstridActivity implements MainMenuListener
 
     private void createMainMenuPopover() {
         int layout;
-        if (shouldUseThreePane(this))
+        if (AndroidUtilities.isTabletSized(this))
             layout = R.layout.main_menu_popover_tablet;
         else
             layout = R.layout.main_menu_popover;

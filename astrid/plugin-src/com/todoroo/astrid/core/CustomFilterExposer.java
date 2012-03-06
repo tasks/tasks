@@ -75,6 +75,9 @@ public final class CustomFilterExposer extends BroadcastReceiver implements Astr
     }
 
     private Filter[] buildSavedFilters(Context context, Resources r) {
+        boolean isTablet = AndroidUtilities.isTabletSized(context);
+        int themeFlags = isTablet ? ThemeService.FLAG_FORCE_LIGHT : 0;
+
         StoreObjectDao dao = PluginServices.getStoreObjectDao();
         TodorooCursor<StoreObject> cursor = dao.query(Query.select(StoreObject.PROPERTIES).where(
                 StoreObject.TYPE.eq(SavedFilter.TYPE)).orderBy(Order.asc(SavedFilter.NAME)));
@@ -93,7 +96,7 @@ public final class CustomFilterExposer extends BroadcastReceiver implements Astr
                                     Task.DUE_DATE.lte(PermaSql.VALUE_EOD))),
                     todayValues);
             list[0].listingIcon = ((BitmapDrawable)r.getDrawable(
-                    ThemeService.getDrawable(R.drawable.filter_calendar))).getBitmap();
+                    ThemeService.getDrawable(R.drawable.filter_calendar, themeFlags))).getBitmap();
 
             list[1] = new Filter(r.getString(R.string.BFE_Recent),
                     r.getString(R.string.BFE_Recent),
@@ -102,7 +105,7 @@ public final class CustomFilterExposer extends BroadcastReceiver implements Astr
                                     Order.desc(Task.MODIFICATION_DATE)).limit(15),
                     null);
             list[1].listingIcon = ((BitmapDrawable)r.getDrawable(
-                    ThemeService.getDrawable(R.drawable.filter_pencil))).getBitmap();
+                    ThemeService.getDrawable(R.drawable.filter_pencil, themeFlags))).getBitmap();
 
             list[2] = getAssignedByMeFilter(r);
 
@@ -118,7 +121,7 @@ public final class CustomFilterExposer extends BroadcastReceiver implements Astr
                 list[i].contextMenuLabels = new String[] { context.getString(R.string.BFE_Saved_delete) };
                 list[i].contextMenuIntents = new Intent[] { deleteIntent };
                 list[i].listingIcon = ((BitmapDrawable)r.getDrawable(
-                        ThemeService.getDrawable(R.drawable.filter_sliders))).getBitmap();
+                        ThemeService.getDrawable(R.drawable.filter_sliders, themeFlags))).getBitmap();
             }
 
             return list;
@@ -128,6 +131,8 @@ public final class CustomFilterExposer extends BroadcastReceiver implements Astr
     }
 
     public static Filter getAssignedByMeFilter(Resources r) {
+        boolean isTablet = AndroidUtilities.isTabletSized(ContextManager.getContext());
+        int themeFlags = isTablet ? ThemeService.FLAG_FORCE_LIGHT : 0;
         Filter f = new Filter(r.getString(R.string.BFE_Assigned),
                 r.getString(R.string.BFE_Assigned),
                 new QueryTemplate().join(Join.left(Metadata.TABLE, Task.ID.eq(Metadata.TASK)))
@@ -137,7 +142,7 @@ public final class CustomFilterExposer extends BroadcastReceiver implements Astr
                                     Criterion.and(Metadata.KEY.eq(TaskRabbitMetadata.METADATA_KEY), TaskRabbitMetadata.ID.gt(0))))),
                         null);
         f.listingIcon = ((BitmapDrawable)r.getDrawable(
-                ThemeService.getDrawable(R.drawable.filter_assigned))).getBitmap();
+                ThemeService.getDrawable(R.drawable.filter_assigned, themeFlags))).getBitmap();
         return f;
     }
 

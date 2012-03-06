@@ -13,7 +13,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.timsu.astrid.R;
-import com.todoroo.astrid.activity.AstridActivity;
+import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.astrid.service.ThemeService;
 import com.todoroo.astrid.ui.TouchInterceptingFrameLayout.InterceptTouchListener;
 
@@ -48,7 +48,7 @@ public class MainMenuPopover extends FragmentPopover implements InterceptTouchLi
         TouchInterceptingFrameLayout rootLayout = (TouchInterceptingFrameLayout) getContentView();
         rootLayout.setInterceptTouchListener(this);
 
-        if (AstridActivity.shouldUseThreePane(context))
+        if (AndroidUtilities.isTabletSized(context))
             rowLayout = R.layout.main_menu_row_tablet;
         else
             rowLayout = R.layout.main_menu_row;
@@ -85,18 +85,19 @@ public class MainMenuPopover extends FragmentPopover implements InterceptTouchLi
     }
 
     private void addFixedItems(boolean isTablet) {
+        int themeFlags = isTablet ? ThemeService.FLAG_FORCE_DARK : 0;
         if (!isTablet)
             addMenuItem(R.string.TLA_menu_lists,
-                    ThemeService.getDrawable(R.drawable.icn_menu_lists),
+                    ThemeService.getDrawable(R.drawable.icn_menu_lists, themeFlags),
                     MAIN_MENU_ITEM_LISTS, null, topFixed); // Lists item
         addMenuItem(R.string.TLA_menu_tutorial,
-                ThemeService.getDrawable(R.drawable.icn_menu_tutorial),
+                ThemeService.getDrawable(R.drawable.icn_menu_tutorial, themeFlags),
                 MAIN_MENU_ITEM_TUTORIAL, null, bottomFixed); // Tutorial item
         addMenuItem(R.string.TLA_menu_settings,
-                ThemeService.getDrawable(R.drawable.icn_menu_settings),
+                ThemeService.getDrawable(R.drawable.icn_menu_settings, themeFlags),
                 MAIN_MENU_ITEM_SETTINGS, null, bottomFixed); // Settings item
         addMenuItem(R.string.TLA_menu_support,
-                ThemeService.getDrawable(R.drawable.icn_menu_support),
+                ThemeService.getDrawable(R.drawable.icn_menu_support, themeFlags),
                 MAIN_MENU_ITEM_SUPPORT, null, bottomFixed); // Support item
     }
 

@@ -54,6 +54,7 @@ import com.todoroo.astrid.helper.AsyncImageView;
 import com.todoroo.astrid.helper.ProgressBarSyncResultCallback;
 import com.todoroo.astrid.service.SyncV2Service;
 import com.todoroo.astrid.service.TagDataService;
+import com.todoroo.astrid.service.ThemeService;
 import com.todoroo.astrid.subtasks.SubtasksTagListFragment;
 import com.todoroo.astrid.tags.TagFilterExposer;
 import com.todoroo.astrid.tags.TagService.Tag;
@@ -156,11 +157,12 @@ public class TagViewFragment extends TaskListFragment {
     }
 
     @Override
-    protected void addSyncRefreshMenuItem(Menu menu) {
+    protected void addSyncRefreshMenuItem(Menu menu, int themeFlags) {
         if(actFmPreferenceService.isLoggedIn()) {
-            addMenuItem(menu, R.string.actfm_TVA_menu_refresh, R.drawable.icn_menu_refresh, MENU_REFRESH_ID, false);
+            addMenuItem(menu, R.string.actfm_TVA_menu_refresh,
+                    ThemeService.getDrawable(R.drawable.icn_menu_refresh, themeFlags), MENU_REFRESH_ID, false);
         } else {
-            super.addSyncRefreshMenuItem(menu);
+            super.addSyncRefreshMenuItem(menu, themeFlags);
         }
     }
 

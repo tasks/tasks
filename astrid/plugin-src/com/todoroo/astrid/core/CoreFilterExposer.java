@@ -14,6 +14,7 @@ import com.todoroo.andlib.service.ContextManager;
 import com.todoroo.andlib.sql.Criterion;
 import com.todoroo.andlib.sql.Query;
 import com.todoroo.andlib.sql.QueryTemplate;
+import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.astrid.activity.FilterListFragment;
 import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.api.AstridFilterExposer;
@@ -67,8 +68,10 @@ public final class CoreFilterExposer extends BroadcastReceiver implements Astrid
                                         Criterion.and(MetadataCriteria.withKey(TagService.KEY),
                                                 TagService.TAG.like("x_%", "x"))))))), //$NON-NLS-1$ //$NON-NLS-2$
                 null);
+        boolean isTablet = AndroidUtilities.isTabletSized(ContextManager.getContext());
+        int themeFlags = isTablet ? ThemeService.FLAG_FORCE_LIGHT : 0;
         inbox.listingIcon = ((BitmapDrawable)r.getDrawable(
-                ThemeService.getDrawable(R.drawable.filter_inbox))).getBitmap();
+                ThemeService.getDrawable(R.drawable.filter_inbox, themeFlags))).getBitmap();
         return inbox;
     }
 

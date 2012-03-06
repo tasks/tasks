@@ -17,6 +17,7 @@ import com.todoroo.astrid.dao.StoreObjectDao;
 import com.todoroo.astrid.data.StoreObject;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.service.SyncV2Service;
+import com.todoroo.astrid.service.ThemeService;
 import com.todoroo.astrid.subtasks.OrderedListFragmentHelper;
 import com.todoroo.astrid.subtasks.SubtasksListFragment;
 
@@ -144,11 +145,12 @@ public class GtasksListFragment extends SubtasksListFragment {
     }
 
     @Override
-    protected void addSyncRefreshMenuItem(Menu menu) {
+    protected void addSyncRefreshMenuItem(Menu menu, int themeFlags) {
         if(gtasksPreferenceService.isLoggedIn()) {
-            addMenuItem(menu, R.string.actfm_TVA_menu_refresh, R.drawable.icn_menu_refresh, MENU_REFRESH_ID, false);
+            addMenuItem(menu, R.string.actfm_TVA_menu_refresh,
+                    ThemeService.getDrawable(R.drawable.icn_menu_refresh, themeFlags), MENU_REFRESH_ID, false);
         } else {
-            super.addSyncRefreshMenuItem(menu);
+            super.addSyncRefreshMenuItem(menu, themeFlags);
         }
     }
 
