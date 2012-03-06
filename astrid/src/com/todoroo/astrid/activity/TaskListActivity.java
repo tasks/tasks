@@ -497,10 +497,9 @@ public class TaskListActivity extends AstridActivity implements MainMenuListener
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if (keyCode == KeyEvent.KEYCODE_MENU) {
-            if (mainMenuPopover.isShowing())
-                mainMenuPopover.dismiss();
-            else
-                mainMenu.performClick();
+            mainMenuPopover.suppressNextKeyEvent();
+            mainMenu.performClick();
+            return true;
         }
         return super.onKeyDown(keyCode, event);
     }

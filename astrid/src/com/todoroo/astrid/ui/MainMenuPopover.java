@@ -3,6 +3,7 @@ package com.todoroo.astrid.ui;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -14,8 +15,9 @@ import android.widget.TextView;
 import com.timsu.astrid.R;
 import com.todoroo.astrid.activity.AstridActivity;
 import com.todoroo.astrid.service.ThemeService;
+import com.todoroo.astrid.ui.TouchInterceptingFrameLayout.InterceptTouchListener;
 
-public class MainMenuPopover extends FragmentPopover {
+public class MainMenuPopover extends FragmentPopover implements InterceptTouchListener {
 
     public static final int MAIN_MENU_ITEM_LISTS = R.string.TLA_menu_lists;
     public static final int MAIN_MENU_ITEM_FRIENDS = R.string.TLA_menu_friends;
@@ -34,6 +36,7 @@ public class MainMenuPopover extends FragmentPopover {
     private final LinearLayout topFixed;
     private final LinearLayout bottomFixed;
     private final int rowLayout;
+    private boolean suppressNextKeyEvent = false;
 
     public void setMenuListener(MainMenuListener listener) {
         this.mListener = listener;
@@ -41,6 +44,9 @@ public class MainMenuPopover extends FragmentPopover {
 
     public MainMenuPopover(Context context, int layout, boolean isTablet) {
         super(context, layout);
+
+        TouchInterceptingFrameLayout rootLayout = (TouchInterceptingFrameLayout) getContentView();
+        rootLayout.setInterceptTouchListener(this);
 
         if (AstridActivity.shouldUseThreePane(context))
             rowLayout = R.layout.main_menu_row_tablet;
@@ -55,6 +61,27 @@ public class MainMenuPopover extends FragmentPopover {
         bottomFixed = (LinearLayout) getContentView().findViewById(R.id.bottomFixedItems);
 
         addFixedItems(isTablet);
+    }
+
+    public boolean didInterceptTouch(KeyEvent event) {
+        int keyCode = event.getKeyCode();
+        if (!suppressNextKeyEvent) {
+            if ((keyCode == KeyEvent.KEYCODE_MENU || keyCode == KeyEvent.KEYCODE_BACK) && isShowing()) {
+                dismiss();
+                return true;
+            }
+        }
+        suppressNextKeyEvent = false;
+        return false;
+    }
+
+    public void suppressNextKeyEvent() {
+        suppressNextKeyEvent = true;
+    }
+
+    @Override
+    public void setBackgroundDrawable(Drawable background) {
+        super.setBackgroundDrawable(null);
     }
 
     private void addFixedItems(boolean isTablet) {
