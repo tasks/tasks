@@ -32,6 +32,12 @@ public class TaskEditActivity extends AstridActivity {
 		((TextView) actionBar.getCustomView().findViewById(R.id.title)).setText(R.string.TAd_contextEditTask);
 	}
 
+	public void updateTitle(boolean isNewTask) {
+	    ActionBar actionBar = getSupportActionBar();
+	    if (actionBar != null)
+	        ((TextView) actionBar.getCustomView().findViewById(R.id.title)).setText(isNewTask ? R.string.TEA_new_task : R.string.TAd_contextEditTask);
+	}
+
     /* (non-Javadoc)
      * @see android.support.v4.app.FragmentActivity#onResume()
      */

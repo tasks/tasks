@@ -222,7 +222,7 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
     // --- other instance variables
 
     /** true if editing started with a new task */
-    boolean isNewTask = false;
+    private boolean isNewTask = false;
 
     /** task model */
     Task model = null;
@@ -716,7 +716,7 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
     protected void loadItem(Intent intent) {
         if (model != null) {
             // came from bundle
-            isNewTask = (model.getValue(Task.TITLE).length() == 0);
+            setIsNewTask(model.getValue(Task.TITLE).length() == 0);
             return;
         }
 
@@ -747,7 +747,7 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
 
         if (model.getValue(Task.TITLE).length() == 0) {
             StatisticsService.reportEvent(StatisticsConstants.CREATE_TASK);
-            isNewTask = true;
+            setIsNewTask(true);
 
             // set deletion date until task gets a title
             model.setValue(Task.DELETION_DATE, DateUtilities.now());
@@ -765,6 +765,16 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
         // clear notification
         Notifications.cancelNotifications(model.getId());
 
+    }
+
+    private void setIsNewTask(boolean isNewTask) {
+        this.isNewTask = isNewTask;
+        if (isNewTask) {
+            Activity activity = getActivity();
+            if (activity instanceof TaskEditActivity) {
+                ((TaskEditActivity) activity).updateTitle(isNewTask);
+            }
+        }
     }
 
     /** Convenience method to populate fields after setting model to null */
