@@ -130,7 +130,12 @@ public class DateChangedAlerts {
         String newDueDateString = getRelativeDateAndTimeString(activity, newDueDate);
         String[] encouragements = activity.getResources().getStringArray(R.array.repeat_encouragement);
         String encouragement = encouragements[(int) (Math.random()*encouragements.length)];
-        String speechBubbleText = activity.getString(R.string.repeat_rescheduling_dialog_bubble, encouragement, oldDueDateString, newDueDateString);
+
+        String speechBubbleText;
+        if (!TextUtils.isEmpty(oldDueDateString))
+            speechBubbleText = activity.getString(R.string.repeat_rescheduling_dialog_bubble, encouragement, oldDueDateString, newDueDateString);
+        else
+            speechBubbleText = activity.getString(R.string.repeat_rescheduling_dialog_bubble_no_date, encouragement, newDueDateString);
 
         ((TextView) d.findViewById(R.id.reminder_message)).setText(speechBubbleText);
 
