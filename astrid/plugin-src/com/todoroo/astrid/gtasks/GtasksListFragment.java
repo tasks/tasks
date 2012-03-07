@@ -2,9 +2,9 @@ package com.todoroo.astrid.gtasks;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.view.Menu;
-import android.support.v4.view.MenuItem;
 import android.view.MenuInflater;
 
 import com.timsu.astrid.R;
@@ -88,9 +88,9 @@ public class GtasksListFragment extends SubtasksListFragment {
     }
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // handle my own menus
-        switch (item.getItemId()) {
+    public boolean handleOptionsMenuItemSelected(int id, Intent intent) {
+     // handle my own menus
+        switch (id) {
         case MENU_REFRESH_ID:
             syncService.synchronizeList(list, true, syncActionHelper.syncResultCallback);
             return true;
@@ -99,7 +99,7 @@ public class GtasksListFragment extends SubtasksListFragment {
             return true;
         }
 
-        return super.onOptionsItemSelected(item);
+        return super.handleOptionsMenuItemSelected(id, intent);
     }
 
     private void clearCompletedTasks() {

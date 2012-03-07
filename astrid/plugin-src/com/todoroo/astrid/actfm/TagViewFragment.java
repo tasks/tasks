@@ -12,7 +12,6 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
 import android.support.v4.view.Menu;
-import android.support.v4.view.MenuItem;
 import android.text.TextUtils;
 import android.util.DisplayMetrics;
 import android.view.MotionEvent;
@@ -479,15 +478,15 @@ public class TagViewFragment extends TaskListFragment {
     }
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
+    public boolean handleOptionsMenuItemSelected(int id, Intent intent) {
         // handle my own menus
-        switch (item.getItemId()) {
+        switch (id) {
         case MENU_REFRESH_ID:
             refreshData(true);
             return true;
         }
 
-        return super.onOptionsItemSelected(item);
+        return super.handleOptionsMenuItemSelected(id, intent);
     }
 
     @Override
