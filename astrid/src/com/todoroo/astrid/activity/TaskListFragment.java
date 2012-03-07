@@ -1210,7 +1210,7 @@ public class TaskListFragment extends ListFragment implements OnScrollListener,
             if(manualSettingChanged)
                 toggleDragDrop(SortHelper.isManualSort(sortFlags));
             else
-                loadTaskListContent(true);
+                setUpTaskList();
         } catch (IllegalStateException e) {
             // TODO: Fragment got detached somehow (rare)
         }
