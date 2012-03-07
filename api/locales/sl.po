@@ -3,30 +3,31 @@
 # This file is distributed under the same license as the PROJECT project.
 # FIRST AUTHOR <EMAIL@ADDRESS>, 2012.
 #
-#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2012-02-29 20:25-0800\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"POT-Creation-Date: 2012-02-29 14:56-0800\n"
+"PO-Revision-Date: 2012-03-04 11:44+0000\n"
+"Last-Translator: Andrej Znidarsic <andrej.znidarsic@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"X-Launchpad-Export-Date: 2012-03-07 00:04+0000\n"
+"X-Generator: Launchpad (build 14900)\n"
 "Generated-By: Babel 1.0dev\n"
 
 #. ==================================================== Generic Units ==
 #, c-format
 msgctxt "DUt_years:quantity=other"
 msgid "%d Years"
-msgstr ""
+msgstr "%d let"
 
 #. ==================================================== Generic Units ==
 msgctxt "DUt_years:quantity=one"
 msgid "1 Year"
-msgstr ""
+msgstr "1 leto"
 
 #, c-format
 msgctxt "DUt_months:quantity=other"
@@ -35,7 +36,7 @@ msgstr ""
 
 msgctxt "DUt_months:quantity=one"
 msgid "1 Month"
-msgstr ""
+msgstr "1 mesec"
 
 #, c-format
 msgctxt "DUt_weeks:quantity=other"
@@ -44,7 +45,7 @@ msgstr ""
 
 msgctxt "DUt_weeks:quantity=one"
 msgid "1 Week"
-msgstr ""
+msgstr "1 teden"
 
 #, c-format
 msgctxt "DUt_days:quantity=other"
@@ -62,7 +63,7 @@ msgstr ""
 
 msgctxt "DUt_weekdays:quantity=one"
 msgid "1 Weekday"
-msgstr ""
+msgstr "1 delavnik"
 
 #, c-format
 msgctxt "DUt_hours:quantity=other"
@@ -94,11 +95,11 @@ msgstr "1 sekunda"
 #, c-format
 msgctxt "DUt_hoursShort:quantity=other"
 msgid "%d Hrs"
-msgstr "%d h"
+msgstr ""
 
 msgctxt "DUt_hoursShort:quantity=one"
 msgid "1 Hr"
-msgstr "1 h"
+msgstr "1 ura"
 
 #, c-format
 msgctxt "DUt_minutesShort:quantity=other"
@@ -125,7 +126,7 @@ msgstr ""
 
 msgctxt "Ntasks:quantity=one"
 msgid "1 task"
-msgstr ""
+msgstr "1 opravilo"
 
 #, c-format
 msgctxt "Npeople:quantity=other"
@@ -134,43 +135,43 @@ msgstr ""
 
 msgctxt "Npeople:quantity=one"
 msgid "1 person"
-msgstr ""
+msgstr "1 oseba"
 
 #. today
 msgctxt "today"
 msgid "Today"
-msgstr ""
+msgstr "Danes"
 
 #. tomorrow
 msgctxt "tomorrow"
 msgid "Tomorrow"
-msgstr ""
+msgstr "Jutri"
 
 #. today
 msgctxt "yesterday"
 msgid "Yesterday"
-msgstr ""
+msgstr "Včeraj"
 
 #. tomorrow abbreviated
 msgctxt "tmrw"
 msgid "Tmrw"
-msgstr ""
+msgstr "Jutri"
 
 #. today abbreviated
 msgctxt "yest"
 msgid "Yest"
-msgstr ""
+msgstr "Včeraj"
 
 #. ================================================== Generic Dialogs ==
 #. confirmation dialog title
 msgctxt "DLG_confirm_title"
 msgid "Confirm?"
-msgstr ""
+msgstr "Potrdi?"
 
 #. question dialog title
 msgctxt "DLG_question_title"
 msgid "Question:"
-msgstr ""
+msgstr "Vprašanje:"
 
 #. information dialog title
 msgctxt "DLG_information_title"
@@ -180,7 +181,7 @@ msgstr "Informacije"
 #. error dialog title
 msgctxt "DLG_error_title"
 msgid "Error!"
-msgstr ""
+msgstr "Napaka!"
 
 #. general dialog save
 msgctxt "DLG_save"
@@ -190,17 +191,17 @@ msgstr "Shrani"
 #. general dialog yes
 msgctxt "DLG_yes"
 msgid "Yes"
-msgstr ""
+msgstr "Da"
 
 #. general dialog no
 msgctxt "DLG_no"
 msgid "No"
-msgstr ""
+msgstr "Ne"
 
 #. general dialog close
 msgctxt "DLG_close"
 msgid "Close"
-msgstr ""
+msgstr "Zapri"
 
 #. general dialog done
 msgctxt "DLG_done"
@@ -215,27 +216,29 @@ msgid ""
 "\n"
 "%s"
 msgstr ""
+"Ups, očitno se je zgodila napaka. Podrobnosti:\n"
+"%s"
 
 #. error dialog (no message indicated)
 msgctxt "DLG_error_generic"
 msgid "Oops, looks like an error occurred!"
-msgstr ""
+msgstr "Ups, očitno se je zgodila napaka."
 
 #. Progress dialog shown when doing something slow
 msgctxt "DLG_wait"
 msgid "Please wait..."
-msgstr ""
+msgstr "Prosimo, počakajte ..."
 
 #. ====================================================== SyncProvider ==
 #. Sync Notification: message when sync service active
 msgctxt "SyP_progress"
 msgid "Synchronizing your tasks..."
-msgstr ""
+msgstr "Usklajevanje vaših opravil ..."
 
 #. Sync Notification: toast when sync activated from activity
 msgctxt "SyP_progress_toast"
 msgid "Synchronizing..."
-msgstr ""
+msgstr "Usklajevanje ..."
 
 #. Sync Label: used in menu to denote synchronization
 msgctxt "SyP_label"
@@ -245,29 +248,23 @@ msgstr "Usklajevanje"
 #. Error msg when io exception
 msgctxt "SyP_ioerror"
 msgid "Connection Error! Check your Internet connection."
-msgstr ""
+msgstr "Napaka v povezavi! Preverite internetno povezavo."
 
 #. ================================================== SyncPreferences ==
 #. Status Group Label
 msgctxt "sync_SPr_group_status"
 msgid "Status"
-msgstr ""
-
-#. Sync status subtitle, %s-> status message
-#, c-format
-msgctxt "sync_SPr_status_subtitle"
-msgid "Status: %s"
-msgstr ""
+msgstr "Status"
 
 #. Sync Status: log in
 msgctxt "sync_status_loggedout"
-msgid "Not Logged In"
-msgstr ""
+msgid "Not Logged In!"
+msgstr "Niste prijavljeni!"
 
 #. Status: ongoing
 msgctxt "sync_status_ongoing"
 msgid "Sync Ongoing..."
-msgstr ""
+msgstr "Usklajevanje poteka ..."
 
 #. Sync Status: success status (%s -> last sync date). Keep it short!
 #, c-format
@@ -276,29 +273,31 @@ msgid ""
 "Last Sync:\n"
 "%s"
 msgstr ""
+"Zadnje usklajevanje:\n"
+"%s"
 
 #. Sync Status: failure status (%s -> last attempted sync date)
 #, c-format
 msgctxt "sync_status_failed"
 msgid "Failed On: %s"
-msgstr ""
+msgstr "Spodletelo: %s"
 
 #. Sync Status: error status (%s -> last sync date)
 #, c-format
 msgctxt "sync_status_errors"
 msgid "Sync w/ Errors: %s"
-msgstr ""
+msgstr "Usklajevanje z napakami: %s"
 
 #. Sync Status: error subtitle (%s -> last successful sync date)
 #, c-format
 msgctxt "sync_status_failed_subtitle"
 msgid "Last Successful Sync: %s"
-msgstr ""
+msgstr "Zadnje uspešno usklajevanje: %s"
 
 #. Sync Status: never sync'd
 msgctxt "sync_status_never"
 msgid "Never Synchronized!"
-msgstr ""
+msgstr "Nikoli usklajeno!"
 
 #. Options Group Label
 msgctxt "sync_SPr_group_options"
@@ -308,33 +307,33 @@ msgstr "Možnosti"
 #. Preference: Synchronization Interval Title
 msgctxt "sync_SPr_interval_title"
 msgid "Background Sync"
-msgstr ""
+msgstr "Usklajevanje v ozadju"
 
 #. Preference: Synchronization Interval Description (when disabled)
 msgctxt "sync_SPr_interval_desc_disabled"
 msgid "Background synchronization is disabled"
-msgstr ""
+msgstr "Usklajevanje v ozadju je onemogočeno"
 
 #. Preference: Synchronization Interval Description (%s => setting)
 #, c-format
 msgctxt "sync_SPr_interval_desc"
 msgid "Currently set to: %s"
-msgstr ""
+msgstr "Trenutno nastavljeno na: %s"
 
 #. Preference: Background Wifi Title
 msgctxt "sync_SPr_bgwifi_title"
 msgid "Wifi Only Setting"
-msgstr ""
+msgstr "Samo preko Wifi povezave"
 
 #. Preference: Background Wifi Description (enabled)
 msgctxt "sync_SPr_bgwifi_desc_enabled"
 msgid "Background synchronization only happens when on Wifi"
-msgstr ""
+msgstr "Usklajevanje v ozadju samo preko Wifi povezave"
 
 #. Preference: Background Wifi Description (disabled)
 msgctxt "sync_SPr_bgwifi_desc_disabled"
 msgid "Background synchronization will always occur"
-msgstr ""
+msgstr "Usklajevanje v ozadju vedno aktivno"
 
 #. Actions Group Label
 msgctxt "sync_SPr_group_actions"
@@ -343,71 +342,70 @@ msgstr "Dejanja"
 
 #. Synchronize Now Button
 msgctxt "sync_SPr_sync"
-msgid "Synchronize Now"
-msgstr ""
+msgid "Synchronize Now!"
+msgstr "Uskladi zdaj!"
 
 #. Synchronize Now Button if not logged in
 msgctxt "sync_SPr_sync_log_in"
 msgid "Log In & Synchronize!"
-msgstr ""
+msgstr "Prijavite se in uskladite!"
 
 #. Sync: Prefix string before logged in identifier
 msgctxt "sync_SPr_logged_in_prefix"
 msgid "Logged in as:"
-msgstr ""
+msgstr "Prijavljen kot:"
 
 #. Sync: Clear Data Title
 msgctxt "sync_SPr_forget"
 msgid "Log Out"
-msgstr ""
+msgstr "Odjava"
 
 #. Sync: Clear Data Description
 msgctxt "sync_SPr_forget_description"
 msgid "Clears all synchronization data"
-msgstr ""
+msgstr "Počisti vse podatke o usklajevanju"
 
 #. confirmation dialog for sync log out
 msgctxt "sync_forget_confirm"
 msgid "Log out / clear synchronization data?"
-msgstr ""
+msgstr "Odjava / želite počistiti podatke o usklajevanju?"
 
 msgctxt "sync_SPr_interval_entries:0"
 msgid "disable"
-msgstr ""
+msgstr "onemogoči"
 
 msgctxt "sync_SPr_interval_entries:1"
 msgid "every fifteen minutes"
-msgstr ""
+msgstr "vsakih petnajst minut"
 
 msgctxt "sync_SPr_interval_entries:2"
 msgid "every thirty minutes"
-msgstr ""
+msgstr "vsakih trideset minut"
 
 msgctxt "sync_SPr_interval_entries:3"
 msgid "every hour"
-msgstr ""
+msgstr "vsako uro"
 
 msgctxt "sync_SPr_interval_entries:4"
 msgid "every three hours"
-msgstr ""
+msgstr "vsake 3 ure"
 
 msgctxt "sync_SPr_interval_entries:5"
 msgid "every six hours"
-msgstr ""
+msgstr "vsakih šest ur"
 
 msgctxt "sync_SPr_interval_entries:6"
 msgid "every twelve hours"
-msgstr ""
+msgstr "vsakih dvanajst ur"
 
 msgctxt "sync_SPr_interval_entries:7"
 msgid "every day"
-msgstr ""
+msgstr "vsaki dan"
 
 msgctxt "sync_SPr_interval_entries:8"
 msgid "every three days"
-msgstr ""
+msgstr "vsake tri dni"
 
 msgctxt "sync_SPr_interval_entries:9"
 msgid "every week"
-msgstr ""
-
+msgstr "vsak teden"

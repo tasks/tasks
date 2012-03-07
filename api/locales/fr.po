@@ -3,18 +3,19 @@
 # This file is distributed under the same license as the PROJECT project.
 # FIRST AUTHOR <EMAIL@ADDRESS>, 2012.
 #
-#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
 "POT-Creation-Date: 2012-02-29 14:56-0800\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"PO-Revision-Date: 2012-03-01 23:06+0000\n"
+"Last-Translator: 16aR <Unknown>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"X-Launchpad-Export-Date: 2012-03-07 00:04+0000\n"
+"X-Generator: Launchpad (build 14900)\n"
 "Generated-By: Babel 1.0dev\n"
 
 #. ==================================================== Generic Units ==
@@ -175,7 +176,7 @@ msgstr "Question :"
 #. information dialog title
 msgctxt "DLG_information_title"
 msgid "Information"
-msgstr ""
+msgstr "Information"
 
 #. error dialog title
 msgctxt "DLG_error_title"
@@ -302,7 +303,7 @@ msgstr "Jamais synchronisé !"
 #. Options Group Label
 msgctxt "sync_SPr_group_options"
 msgid "Options"
-msgstr ""
+msgstr "Options"
 
 #. Preference: Synchronization Interval Title
 msgctxt "sync_SPr_interval_title"
@@ -328,7 +329,8 @@ msgstr "Paramètre Wifi seul"
 #. Preference: Background Wifi Description (enabled)
 msgctxt "sync_SPr_bgwifi_desc_enabled"
 msgid "Background synchronization only happens when on Wifi"
-msgstr "La synchronisation en arrière-plan ne s'effectue uniquement sous Wifi"
+msgstr ""
+"La synchronisation en arrière-plan ne s'effectue uniquement sous Wifi"
 
 #. Preference: Background Wifi Description (disabled)
 msgctxt "sync_SPr_bgwifi_desc_disabled"
@@ -338,7 +340,7 @@ msgstr "La synchronisation en arrière-plan s'effectuera toujours"
 #. Actions Group Label
 msgctxt "sync_SPr_group_actions"
 msgid "Actions"
-msgstr ""
+msgstr "Actions"
 
 #. Synchronize Now Button
 msgctxt "sync_SPr_sync"
@@ -353,7 +355,7 @@ msgstr "Se connecter et synchroniser !"
 #. Sync: Prefix string before logged in identifier
 msgctxt "sync_SPr_logged_in_prefix"
 msgid "Logged in as:"
-msgstr ""
+msgstr "Connecté en tant que :"
 
 #. Sync: Clear Data Title
 msgctxt "sync_SPr_forget"
@@ -409,4 +411,3 @@ msgstr "tous les trois jours"
 msgctxt "sync_SPr_interval_entries:9"
 msgid "every week"
 msgstr "toutes les semaines"
-

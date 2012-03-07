@@ -3,19 +3,19 @@
 # This file is distributed under the same license as the PROJECT project.
 # FIRST AUTHOR <EMAIL@ADDRESS>, 2012.
 #
-#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
 "POT-Creation-Date: 2012-02-29 17:17-0800\n"
-"PO-Revision-Date: 2012-02-29 17:17-0800\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"PO-Revision-Date: 2012-03-03 19:11+0000\n"
+"Last-Translator: Matthijs <matthijsvanwolferen@gmail.com>\n"
 "Language-Team: nl <LL@li.org>\n"
-"Plural-Forms: nplurals=2; plural=(n != 1)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"X-Launchpad-Export-Date: 2012-03-07 00:04+0000\n"
+"X-Generator: Launchpad (build 14900)\n"
 "Generated-By: Babel 1.0dev\n"
 
 #. ================================================== general terms ==
@@ -27,17 +27,17 @@ msgstr "Delen"
 #. task sharing dialog: assigned hint
 msgctxt "actfm_person_hint"
 msgid "Contact or Email"
-msgstr "Naam contactpersoon"
+msgstr "Naam contactpersoon of e-mail adres"
 
 #. task sharing dialog: shared with hint
 msgctxt "actfm_person_or_tag_hint"
 msgid "Contact or Shared List"
-msgstr "Contacten of gedeelde lijst"
+msgstr "contactpersoon of gedeelde lijst"
 
 #. toast on transmit success
 msgctxt "actfm_toast_success"
 msgid "Saved on Server"
-msgstr "Op server opgeslagen"
+msgstr "Opgeslagen op de Server"
 
 #. toast on transmit error (%s => error)
 #, c-format
@@ -48,52 +48,58 @@ msgstr "Opslaan mislukt: %s"
 #. can't rename or delete shared tag message
 msgctxt "actfm_tag_operation_disabled"
 msgid "Sorry, this operation is not yet supported for shared tags."
-msgstr "Deze opdracht wordt nog niet ondersteund voor gedeelde labels."
+msgstr ""
+"Sorry, maar deze handeling wordt nog niet ondersteund voor gedeelde tags"
 
 #. warning before deleting a list you're the owner of
 msgctxt "actfm_tag_operation_owner_delete"
 msgid ""
-"You are the owner of this shared list! If you delete it, it will be "
-"deleted for all list members. Are you sure you want to continue?"
+"You are the owner of this shared list! If you delete it, it will be deleted "
+"for all list members. Are you sure you want to continue?"
 msgstr ""
+"Je bent de eigenaar van deze gedeelde lijst! Als jij deze verwijdert, wordt "
+"hij verwijdert voor alle leden van de lijst. Weet je zeker dat je verder "
+"wilt gaan?"
 
 #. menu item to take a picture
 msgctxt "actfm_picture_camera"
 msgid "Take a Picture"
-msgstr "Een foto maken"
+msgstr "Maak een Foto"
 
 #. menu item to select from gallery
 msgctxt "actfm_picture_gallery"
 msgid "Pick from Gallery"
-msgstr "Uit galerij halen"
+msgstr "Maak een keuze uit de Gallerij"
 
 #. menu item to clear picture selection
 msgctxt "actfm_picture_clear"
 msgid "Clear Picture"
-msgstr ""
+msgstr "Verwijder de Foto"
 
 #. filter list activity: refresh tags
 msgctxt "actfm_FLA_menu_refresh"
 msgid "Refresh Lists"
-msgstr "Lijsten vernieuwen"
+msgstr "Vernieuw de lijsten"
 
 #. Title for prompt after sharing a task
 msgctxt "actfm_view_task_title"
 msgid "View Task?"
-msgstr ""
+msgstr "Taak bekijken?"
 
 #. Text for prompt after sharing a task
 #, c-format
 msgctxt "actfm_view_task_text"
 msgid ""
-"Task was sent to %s! You're currently viewing your own tasks. Do you want"
-" to view this and other tasks you've assigned?"
+"Task was sent to %s! You're currently viewing your own tasks. Do you want to "
+"view this and other tasks you've assigned?"
 msgstr ""
+"Taak is naar %s gestuurd! Je bekijkt op dit moment je eigen taken. Wil je "
+"deze en andere taken die je hebt toegewezen bekijken?"
 
 #. Ok button for task view prompt
 msgctxt "actfm_view_task_ok"
 msgid "View Assigned"
-msgstr ""
+msgstr "Bekijk toegewezen taken"
 
 #. Cancel button for task view prompt
 msgctxt "actfm_view_task_cancel"
@@ -104,13 +110,13 @@ msgstr ""
 #. Tag View Activity: Add Comment hint
 msgctxt "TVA_add_comment"
 msgid "Add a comment..."
-msgstr "Een opmerking toevoegen..."
+msgstr "Voeg een opmerking toe"
 
 #. Tag View Activity: task comment ($1 - user name, $2 - task title)
 #, c-format
 msgctxt "UAd_title_comment"
 msgid "%1$s re: %2$s"
-msgstr ""
+msgstr "%1$s m.b.t.: %2$s"
 
 #. Tabs for Tag view
 msgctxt "TVA_tabs:0"
@@ -131,17 +137,17 @@ msgstr "Instellingen weergeven"
 #, c-format
 msgctxt "actfm_TVA_filtered_by_assign"
 msgid "%s's tasks. Tap for all."
-msgstr ""
+msgstr "Taken van %s"
 
 #. Tag View: filter by unassigned tasks
 msgctxt "actfm_TVA_filter_by_unassigned"
 msgid "Unassigned tasks. Tap for all."
-msgstr ""
+msgstr "Nog niet toegewezen taken. Raak aan voor alles."
 
 #. Tag View: list is private, no members
 msgctxt "actfm_TVA_no_members_alert"
 msgid "Private: tap to edit or share list"
-msgstr ""
+msgstr "Privé: raak aan om te veranderen of om de lijst te delen"
 
 #. Tag View Menu: refresh
 msgctxt "actfm_TVA_menu_refresh"
@@ -151,12 +157,12 @@ msgstr "Vernieuwen"
 #. Tag Settings: tag name label
 msgctxt "actfm_TVA_tag_label"
 msgid "List"
-msgstr "Lijst naam:"
+msgstr "Lijst"
 
 #. Tag Settings: tag owner label
 msgctxt "actfm_TVA_tag_owner_label"
 msgid "List Creator:"
-msgstr "Auteur weergeven:"
+msgstr "Eigenaar Lijst:"
 
 #. Tag Settings: tag owner value when there is no owner
 msgctxt "actfm_TVA_tag_owner_none"
@@ -166,7 +172,7 @@ msgstr "geen"
 #. Tag Settings: list collaborators label
 msgctxt "actfm_TVA_members_label"
 msgid "Shared With"
-msgstr "Medewerkers:"
+msgstr "Gedeeld met:"
 
 #. Tag Settings: tag picture
 msgctxt "actfm_TVA_tag_picture"
@@ -176,27 +182,27 @@ msgstr "Lijst afbeelding:"
 #. Tag Settings: silence notifications label
 msgctxt "actfm_TVA_silence_label"
 msgid "Silence Notifications"
-msgstr "Stille waarschuwingen"
+msgstr ""
 
 #. Tag Settings: list icon label
 msgctxt "actfm_TVA_list_icon_label"
 msgid "List Icon:"
-msgstr ""
+msgstr "Lijst Icoon:"
 
 #. Tag Settings: list description label
 msgctxt "actfm_TVA_tag_description_label"
 msgid "Description"
-msgstr ""
+msgstr "Omschrijving"
 
 #. Tag Settings: list settings label
 msgctxt "actfm_TVA_tag_settings_label"
 msgid "Settings"
-msgstr ""
+msgstr "Voorkeuren"
 
 #. Tag Settings: list description hint
 msgctxt "actfm_TVA_tag_description_hint"
 msgid "Type a description here"
-msgstr ""
+msgstr "Type hier een beschrijving"
 
 #. Tag Settings: list name hint
 msgctxt "actfm_TVA_tag_name_hint"
@@ -206,9 +212,11 @@ msgstr ""
 #. Tag settings: login prompt from share
 msgctxt "actfm_TVA_login_to_share"
 msgid ""
-"You need to be logged in to Astrid.com to share lists! Please log in or "
-"make this a private list."
+"You need to be logged in to Astrid.com to share lists! Please log in or make "
+"this a private list."
 msgstr ""
+"Je moet bij Astrid.com zijn ingelogd om lijsten te delen! Log alsjeblieft "
+"in, of maak dit een privé lijst."
 
 #. ============================================ edit people dialog ==
 #. task sharing dialog: intro
@@ -217,8 +225,8 @@ msgid ""
 "Use Astrid to share shopping lists, party plans, or team projects and "
 "instantly see when people get stuff done!"
 msgstr ""
-"Gebruik Astrid om boodschappenlijsten, feestplanningen, of team projecten"
-" te delen en zie direct als personen taken hebben voltooid!"
+"Gebruik Astrid om boodschappenlijstjes, feestplanningen of projecten te "
+"delen en zie gelijk wanneer mensen hun taken voltooien!"
 
 #. task sharing dialog: window title
 msgctxt "actfm_EPA_title"
@@ -233,27 +241,27 @@ msgstr "Opslaan & Delen"
 #. task sharing dialog: assigned label
 msgctxt "actfm_EPA_assign_label"
 msgid "Who"
-msgstr ""
+msgstr "Wie"
 
 #. task sharing dialog: assigned label long version
 msgctxt "actfm_EPA_assign_label_long"
 msgid "Who should do this?"
-msgstr ""
+msgstr "Wie zou dit moeten doen?"
 
 #. task sharing dialog: assigned to me
 msgctxt "actfm_EPA_assign_me"
 msgid "Me"
-msgstr "Mijzelf"
+msgstr "Ik"
 
 #. task sharing dialog: anyone
 msgctxt "actfm_EPA_unassigned"
 msgid "Unassigned"
-msgstr ""
+msgstr "Niet toegewezen"
 
 #. task sharing dialog: use task rabbit
 msgctxt "actfm_EPA_task_rabbit"
 msgid "Outsource it!"
-msgstr ""
+msgstr "Besteed dit uit!"
 
 #. task sharing dialog: custom email assignment
 msgctxt "actfm_EPA_assign_custom"
@@ -263,18 +271,19 @@ msgstr "Aangepast..."
 #. task sharing dialog: shared with label
 msgctxt "actfm_EPA_share_with"
 msgid "Share with:"
-msgstr ""
+msgstr "Deel met:"
 
 #. Toast when assigning a task
 #, c-format
 msgctxt "actfm_EPA_assigned_toast"
 msgid "Sent to %1$s (you can see it in the list between you and %2$s)."
 msgstr ""
+"Naar %1$s gestuurd (je kan dit zien in de lijst die je deelt met %2$s)."
 
 #. task sharing dialog: shared with label
 msgctxt "actfm_EPA_collaborators_header"
 msgid "Share with Friends"
-msgstr ""
+msgstr "Deel met Vrienden"
 
 #. task sharing dialog: collaborator list name (%s => name of list)
 #, c-format
@@ -285,37 +294,37 @@ msgstr "Lijst: %s"
 #. task sharing dialog: assigned hint
 msgctxt "actfm_EPA_assigned_hint"
 msgid "Contact Name"
-msgstr "Naam contactpersoon"
+msgstr "Naam van contactpersoon"
 
 #. task sharing dialog: message label text
 msgctxt "actfm_EPA_message_text"
 msgid "Invitation Message:"
-msgstr "Uitnodigings bericht:"
+msgstr "Tekst voor uitnodiging:"
 
 #. task sharing dialog: message body
 msgctxt "actfm_EPA_message_body"
 msgid "Help me get this done!"
-msgstr "Help mij dit te voltooien!"
+msgstr "Help mij dit gedaan te krijgen!"
 
 #. task sharing dialog: message hint
 msgctxt "actfm_EPA_tag_label"
 msgid "Create a shared tag?"
-msgstr "Een gedeeld label aanmaken?"
+msgstr "Een gedeelde tag aanmaken?"
 
 #. task sharing dialog: message hint
 msgctxt "actfm_EPA_tag_hint"
 msgid "(i.e. Silly Hats Club)"
-msgstr ""
+msgstr "(bv. Rare Hoedjes Club)"
 
 #. task sharing dialog: share with Facebook
 msgctxt "actfm_EPA_facebook"
 msgid "Facebook"
-msgstr ""
+msgstr "Facebook"
 
 #. task sharing dialog: share with Twitter
 msgctxt "actfm_EPA_twitter"
 msgid "Twitter"
-msgstr ""
+msgstr "Twitter"
 
 #. task sharing dialog: # of e-mails sent (%s => # people plural string)
 #, c-format
@@ -326,7 +335,7 @@ msgstr "Taak gedeeld met %s"
 #. task sharing dialog: edit people settings saved
 msgctxt "actfm_EPA_saved_toast"
 msgid "People Settings Saved"
-msgstr "Persoonsgegevens opgeslagen"
+msgstr "Voorkeuren Personen opgeslagen"
 
 #. task sharing dialog: invalid email (%s => email)
 #, c-format
@@ -343,17 +352,19 @@ msgstr "Lijst niet gevonden: %s"
 #. task sharing login prompt
 msgctxt "actfm_EPA_login_to_share"
 msgid ""
-"You need to be logged in to Astrid.com to share tasks! Please log in or "
-"make this a private task."
+"You need to be logged in to Astrid.com to share tasks! Please log in or make "
+"this a private task."
 msgstr ""
+"Je moet ingelogd zijn bij Astrid.com om een taak te delen! Log alsjeblieft "
+"in of maak dit een privé taak."
 
 msgctxt "actfm_EPA_login_button"
 msgid "Log in"
-msgstr ""
+msgstr "Aanmelden"
 
 msgctxt "actfm_EPA_dont_share_button"
 msgid "Make private"
-msgstr ""
+msgstr "Maak privé"
 
 #. ========================================= sharing login activity ==
 #. share login: Title
@@ -367,23 +378,22 @@ msgid ""
 "Astrid.com lets you access your tasks online, share, and delegate with "
 "others."
 msgstr ""
-"Astrid.com geeft online toegang tot de taken, waarbij deze gedeeld en "
-"gedelegeerd kunnen worden met anderen."
+"Astrid.com geeft je online toegang tot je taken, deel en verdeel met anderen."
 
 #. share login: Sharing Login FB Prompt
 msgctxt "actfm_ALA_fb_login"
 msgid "Connect with Facebook"
-msgstr "Aanmelden bij Facebook"
+msgstr "Aanmelden via Facebook"
 
 #. share login: Sharing Login GG Prompt
 msgctxt "actfm_ALA_gg_login"
 msgid "Connect with Google"
-msgstr "Aanmelden bij Google"
+msgstr "Aanmelden via Google"
 
 #. share login: Sharing Footer Password Label
 msgctxt "actfm_ALA_pw_login"
 msgid "Don't use Google or Facebook?"
-msgstr "Nog geen Google of Facebook account?"
+msgstr "Geen gebruik maken van Google of Facebook?"
 
 #. share login: Sharing Password Link
 msgctxt "actfm_ALA_pw_link"
@@ -558,12 +568,12 @@ msgstr "Hoe back-ups te herstellen?"
 #. Preference screen Restoring Tasks Help Dialog Text
 msgctxt "backup_BPr_how_to_restore_dialog"
 msgid ""
-"You need to add the Astrid Power Pack to manage and restore your backups."
-" As a favor, Astrid also automatically backs up your tasks, just in case."
+"You need to add the Astrid Power Pack to manage and restore your backups. As "
+"a favor, Astrid also automatically backs up your tasks, just in case."
 msgstr ""
-"Voor het beheren van back-ups heeft u het Astrid Power Pack nodig. Astrid"
-" maakt voor de veiligheid wel altijd een automatische kopie van de taken,"
-" voor het geval dat."
+"Voor het beheren van back-ups heeft u het Astrid Power Pack nodig. Astrid "
+"maakt voor de veiligheid wel altijd een automatische kopie van de taken, "
+"voor het geval dat."
 
 #. ================================================= BackupActivity ==
 #. backup activity label
@@ -715,8 +725,8 @@ msgid ""
 "Astrid should to be updated to the latest version in the Android market! "
 "Please do that before continuing, or wait a few seconds."
 msgstr ""
-"Er is een nieuwe versie van Astrid beschikbaar in de Android Market! "
-"Update Astrid voor u verder gaat, of wacht een paar seconden."
+"Er is een nieuwe versie van Astrid beschikbaar in de Android Market! Update "
+"Astrid voor u verder gaat, of wacht een paar seconden."
 
 #. Button for going to Market
 msgctxt "DLG_to_market"
@@ -1447,8 +1457,7 @@ msgstr ""
 
 msgctxt "WSV_not_online"
 msgid ""
-"I can do more when connected to the Internet. Please check your "
-"connection."
+"I can do more when connected to the Internet. Please check your connection."
 msgstr ""
 
 #. ============================================= IntroductionActivity ==
@@ -1680,8 +1689,8 @@ msgstr "%d verwijderde taken opgeschoond!"
 msgctxt "EPr_manage_purge_deleted_summary"
 msgid "Caution! Purged tasks can't be recovered without backup file!"
 msgstr ""
-"Waarschuwing: Opgeschoonde verwijderde taken kunnen zonder backup-bestand"
-" niet worden hersteld!"
+"Waarschuwing: Opgeschoonde verwijderde taken kunnen zonder backup-bestand "
+"niet worden hersteld!"
 
 msgctxt "EPr_manage_clear_all"
 msgid "Clear All Data"
@@ -1800,14 +1809,13 @@ msgstr ""
 #, c-format
 msgctxt "task_killer_help"
 msgid ""
-"It looks like you are using an app that can kill processes (%s)! If you "
-"can, add Astrid to the exclusion list so it doesn't get killed. "
-"Otherwise, Astrid might not let you know when your tasks are due.\n"
+"It looks like you are using an app that can kill processes (%s)! If you can, "
+"add Astrid to the exclusion list so it doesn't get killed. Otherwise, Astrid "
+"might not let you know when your tasks are due.\n"
 msgstr ""
-"U gebruikt waarschijnlijk een applicatie die processen kan afsluiten "
-"(%s)! Voeg Astrid indien mogelijk toe aan de lijst met uitgezonderde "
-"programma's. Als u dit niet doet kan Astrid u niet helpen met taken "
-"herinneren!\n"
+"U gebruikt waarschijnlijk een applicatie die processen kan afsluiten (%s)! "
+"Voeg Astrid indien mogelijk toe aan de lijst met uitgezonderde programma's. "
+"Als u dit niet doet kan Astrid u niet helpen met taken herinneren!\n"
 
 #. Task killer dialog ok button
 msgctxt "task_killer_help_ok"
@@ -1823,9 +1831,9 @@ msgstr "Astrid Takenlijst"
 #. itself.
 msgctxt "marketplace_description"
 msgid ""
-"Astrid is the much loved open-source todo list / task manager designed to"
-" help you get stuff done. It features reminders, tags, sync, Locale plug-"
-"in, a widget and more."
+"Astrid is the much loved open-source todo list / task manager designed to "
+"help you get stuff done. It features reminders, tags, sync, Locale plug-in, "
+"a widget and more."
 msgstr ""
 "Astrid is de geliefde open-source Takenbeheerder, ontworpen om je taken "
 "gedaan te krijgen. Astrid heeft functies als herinneringen, bundelen van "
@@ -2291,9 +2299,8 @@ msgid ""
 "Please log in to Google Tasks Sync (Beta!). Non-migrated Google Apps "
 "accounts are currently unsupported."
 msgstr ""
-"Aanmelden bij Google Taken is vereist om te synchroniseren. Google Apps "
-"voor Domeinen is op dit moment nog niet ondersteund, daar wordt aan "
-"gewerkt!"
+"Aanmelden bij Google Taken is vereist om te synchroniseren. Google Apps voor "
+"Domeinen is op dit moment nog niet ondersteund, daar wordt aan gewerkt!"
 
 msgctxt "gtasks_GLA_noaccounts"
 msgid "No available Google accounts to sync with."
@@ -2302,12 +2309,12 @@ msgstr "Geen Google account beschikbaar voor synchronisatie"
 #. Instructions: Gtasks further help
 msgctxt "gtasks_GLA_further_help"
 msgid ""
-"To view your tasks with indentation and order preserved, go to the "
-"Filters page and select a Google Tasks list. By default, Astrid uses its "
-"own sort settings for tasks."
+"To view your tasks with indentation and order preserved, go to the Filters "
+"page and select a Google Tasks list. By default, Astrid uses its own sort "
+"settings for tasks."
 msgstr ""
-"Om taken met inspringing en behoud van volgorde weer te geven, gebruik de"
-" Filter pagina en selecteer een Google Takenlijst. Astrid gebruikt eigen "
+"Om taken met inspringing en behoud van volgorde weer te geven, gebruik de "
+"Filter pagina en selecteer een Google Takenlijst. Astrid gebruikt eigen "
 "instellingen om taken te sorteren."
 
 #. Sign In Button
@@ -2350,18 +2357,18 @@ msgstr ""
 #. Error Message when we receive an IO Exception
 msgctxt "gtasks_GLA_errorIOAuth"
 msgid ""
-"Sorry, we had trouble communicating with Google servers. Please try again"
-" later."
+"Sorry, we had trouble communicating with Google servers. Please try again "
+"later."
 msgstr ""
 
 #. Error Message when we receive a HTTP 401 Unauthorized multiple times
 msgctxt "gtasks_GLA_errorAuth_captcha"
 msgid ""
-"You may have encountered a captcha. Try logging in from the browser, then"
-" come back to try again:"
+"You may have encountered a captcha. Try logging in from the browser, then "
+"come back to try again:"
 msgstr ""
-"Er kan een captcha zijn getoond. Probeer in te loggen via de browser, kom"
-" dan terug en probeer het opnieuw:"
+"Er kan een captcha zijn getoond. Probeer in te loggen via de browser, kom "
+"dan terug en probeer het opnieuw:"
 
 #. ============================================== GtasksPreferences ==
 #. GTasks Preferences Title
@@ -2378,30 +2385,30 @@ msgstr "Google Taken"
 #. Error Message when we receive a HTTP 503 error
 msgctxt "gtasks_error_backend"
 msgid ""
-"Google's Task API is in beta and has encountered an error. The service "
-"may be down, please try again later."
+"Google's Task API is in beta and has encountered an error. The service may "
+"be down, please try again later."
 msgstr ""
 
 #. Error for account not found
 #, c-format
 msgctxt "gtasks_error_accountNotFound"
 msgid ""
-"Account %s not found--please log out and log back in from the Google "
-"Tasks settings."
+"Account %s not found--please log out and log back in from the Google Tasks "
+"settings."
 msgstr ""
 
 #. Error when ping after refreshing token fails
 msgctxt "gtasks_error_authRefresh"
 msgid ""
-"Unable to authenticate with Google Tasks. Please check your account "
-"password or try again later."
+"Unable to authenticate with Google Tasks. Please check your account password "
+"or try again later."
 msgstr ""
 
 #. Error when account manager returns no auth token or throws exception
 msgctxt "gtasks_error_accountManager"
 msgid ""
-"Error in your phone's account manager. Please log out and log back in "
-"from the Google Tasks settings."
+"Error in your phone's account manager. Please log out and log back in from "
+"the Google Tasks settings."
 msgstr ""
 
 #. See the file "LICENSE" for the full license governing this code.
@@ -2420,21 +2427,19 @@ msgstr "Eerste taak aanmaken"
 msgctxt "intro_task_1_note"
 msgid ""
 "Two ways to add a task:\n"
-" 1) Quick Add: Type the task into the quick entry box at bottom of screen"
-" and press the + button on the right.\n"
+" 1) Quick Add: Type the task into the quick entry box at bottom of screen "
+"and press the + button on the right.\n"
 " 2) Regular Add: Press the + button of the quick entry box. Add as much "
-"detail as you want. Then press \"Save\" or use your phone's back button."
-"\n"
+"detail as you want. Then press \"Save\" or use your phone's back button.\n"
 msgstr ""
 "Twee manieren om een taak te maken:\n"
-" 1) Snel toevoegen: Beschrijf de taak in het veld onderin en druk op de +"
-" knop aan de linker kant.\n"
+" 1) Snel toevoegen: Beschrijf de taak in het veld onderin en druk op de + "
+"knop aan de linker kant.\n"
 "\n"
 " 2) Normaal toevoegen: Druk op de knop aan de rechter kant van het veld "
 "onderin. Vul de standaard details in (einddatum, labels, notities) of "
-"gebruik de geavanceerde opties. Bewaar de taak met de bewaarknop of "
-"gebruik de 'Terug' toets op het toestel.\n"
-"\n"
+"gebruik de geavanceerde opties. Bewaar de taak met de bewaarknop of gebruik "
+"de 'Terug' toets op het toestel.\n"
 
 #. Task 2 Summary
 msgctxt "intro_task_2_summary"
@@ -2459,7 +2464,7 @@ msgstr ""
 " 4) Selecteer een Astrid filter. Selecteer \"Actieve taken\" voor alle "
 "taken\n"
 "\n"
-" Bonus: Gebruik de widget om een taak toe te voegen!"
+" Bonus: Gebruik de widget om een taak toe te voegen!\n"
 
 #. Task 3 Summary
 msgctxt "intro_task_3_summary"
@@ -2474,12 +2479,12 @@ msgid ""
 "      3) Select \"Astrid.com\"\n"
 "      4) Log In & Synchronize!\n"
 msgstr ""
-"Astrid maakt het mogelijk de taken te synchroniseren met Astrid.com, "
-"Google Taken en Producteev.\n"
+"Astrid maakt het mogelijk de taken te synchroniseren met Astrid.com, Google "
+"Taken en Producteev.\n"
 "\n"
 " Om synchroniseren vanuit Astrid in te schakelen, druk \"Menu\"-&gt; "
 "\"Instellingen\" -&gt; \"Synchronisatie\" en selecteer de gewenste "
-"provider."
+"provider.\n"
 
 #. NEW USER EXPERIENCE
 #. help bubbles
@@ -2556,9 +2561,9 @@ msgstr ""
 
 msgctxt "welcome_login_confirm_later_dialog"
 msgid ""
-"Sign in to get the most out of Astrid! For free, you get online backup, "
-"full synchronization with Astrid.com, the ability to add tasks via email,"
-" and you can even share task lists with friends!"
+"Sign in to get the most out of Astrid! For free, you get online backup, full "
+"synchronization with Astrid.com, the ability to add tasks via email, and you "
+"can even share task lists with friends!"
 msgstr ""
 
 #. Shown after user goes to task rabbit activity
@@ -2886,8 +2891,8 @@ msgstr "Geen gebruikersgegevens doorgeven"
 msgctxt "EPr_statistics_desc_enabled"
 msgid "Help us make Astrid better by sending anonymous usage data"
 msgstr ""
-"Help ons Astrid nóg beter te maken door anoniem statistieken over uw "
-"gebruik met ons te delen"
+"Help ons Astrid nóg beter te maken door anoniem statistieken over uw gebruik "
+"met ons te delen"
 
 #. See the file "LICENSE" for the full license governing this code.
 #. ====================== Plugin Boilerplate =========================
@@ -2979,7 +2984,8 @@ msgstr "Aanmelden bij Producteev"
 
 #. Instructions: Producteev login
 msgctxt "producteev_PLA_body"
-msgid "Sign in with your existing Producteev account, or create a new account!"
+msgid ""
+"Sign in with your existing Producteev account, or create a new account!"
 msgstr ""
 "Meld je aan bij Producteev met je bestaande gegevens of maak een nieuw "
 "account aan."
@@ -3934,7 +3940,8 @@ msgid "A spot of tea while you work on this?"
 msgstr ""
 
 msgctxt "reminder_responses:24"
-msgid "If only you had already done this, then you could go outside and play."
+msgid ""
+"If only you had already done this, then you could go outside and play."
 msgstr ""
 
 msgctxt "reminder_responses:25"
@@ -4414,8 +4421,8 @@ msgid ""
 "different capitalizations. We think you may have intended them to be the "
 "same list, so we've combined the duplicates. Don't worry though: the "
 "original lists are simply renamed with numbers (e.g. Shopping_1, "
-"Shopping_2). If you don't want this, you can simply delete the new "
-"combined list!"
+"Shopping_2). If you don't want this, you can simply delete the new combined "
+"list!"
 msgstr ""
 
 #. Header for tag settings
@@ -4786,8 +4793,7 @@ msgstr "Verlopen:"
 
 msgctxt "PPW_old_astrid_notice"
 msgid ""
-"You need at least version 3.6 of Astrid in order to use this widget. "
-"Sorry!"
+"You need at least version 3.6 of Astrid in order to use this widget. Sorry!"
 msgstr "Je hebt tenminste versie 3.6 van Astrid nodig voor deze widget."
 
 msgctxt "PPW_encouragements:0"
@@ -4920,8 +4926,8 @@ msgstr ""
 
 msgctxt "PPW_unlock_howto"
 msgid ""
-"Share lists with friends! Unlock the free Power Pack when 3 friends sign "
-"up with Astrid."
+"Share lists with friends! Unlock the free Power Pack when 3 friends sign up "
+"with Astrid."
 msgstr ""
 
 msgctxt "PPW_check_button"
@@ -4945,55 +4951,50 @@ msgctxt "DUt_years:quantity=one"
 msgid "1 Year"
 msgstr ""
 
-#, fuzzy, c-format
+#, c-format
 msgctxt "DUt_months:quantity=other"
 msgid "%d Months"
-msgstr "maandelijks"
+msgstr ""
 
-#, fuzzy
 msgctxt "DUt_months:quantity=one"
 msgid "1 Month"
-msgstr "maandelijks"
+msgstr ""
 
-#, fuzzy, c-format
+#, c-format
 msgctxt "DUt_weeks:quantity=other"
 msgid "%d Weeks"
-msgstr "Binnen 2 weken"
+msgstr ""
 
-#, fuzzy
 msgctxt "DUt_weeks:quantity=one"
 msgid "1 Week"
-msgstr "wekelijks"
+msgstr ""
 
 #, c-format
 msgctxt "DUt_days:quantity=other"
 msgid "%d Days"
 msgstr ""
 
-#, fuzzy
 msgctxt "DUt_days:quantity=one"
 msgid "1 Day"
-msgstr "dagelijks"
+msgstr ""
 
 #, c-format
 msgctxt "DUt_weekdays:quantity=other"
 msgid "%d Weekdays"
 msgstr ""
 
-#, fuzzy
 msgctxt "DUt_weekdays:quantity=one"
 msgid "1 Weekday"
-msgstr "wekelijks"
+msgstr ""
 
 #, c-format
 msgctxt "DUt_hours:quantity=other"
 msgid "%d Hours"
 msgstr ""
 
-#, fuzzy
 msgctxt "DUt_hours:quantity=one"
 msgid "1 Hour"
-msgstr "uurlijks"
+msgstr ""
 
 #, c-format
 msgctxt "DUt_minutes:quantity=other"
@@ -5040,10 +5041,10 @@ msgctxt "DUt_secondsShort:quantity=one"
 msgid "1 Sec"
 msgstr ""
 
-#, fuzzy, c-format
+#, c-format
 msgctxt "Ntasks:quantity=other"
 msgid "%d tasks"
-msgstr "%d verwijderde taken opgeschoond!"
+msgstr ""
 
 msgctxt "Ntasks:quantity=one"
 msgid "1 task"
@@ -5125,10 +5126,9 @@ msgid "Close"
 msgstr "Sluiten"
 
 #. general dialog done
-#, fuzzy
 msgctxt "DLG_done"
 msgid "Done"
-msgstr "geen"
+msgstr ""
 
 #. error dialog (%s => error message)
 #, c-format
@@ -5169,10 +5169,9 @@ msgid "Synchronization"
 msgstr "Synchronisatie"
 
 #. Error msg when io exception
-#, fuzzy
 msgctxt "SyP_ioerror"
 msgid "Connection Error! Check your Internet connection."
-msgstr "Verbindingsfout! Controleer de internetverbinding"
+msgstr ""
 
 #. ================================================== SyncPreferences ==
 #. Status Group Label
@@ -5222,10 +5221,9 @@ msgid "Never Synchronized!"
 msgstr "Nooit gesynct!"
 
 #. Options Group Label
-#, fuzzy
 msgctxt "sync_SPr_group_options"
 msgid "Options"
-msgstr "Opties"
+msgstr ""
 
 #. Preference: Synchronization Interval Title
 msgctxt "sync_SPr_interval_title"
@@ -5332,4 +5330,3 @@ msgstr "elke 3 dagen"
 msgctxt "sync_SPr_interval_entries:9"
 msgid "every week"
 msgstr "elke week"
-

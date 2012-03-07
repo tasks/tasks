@@ -3,18 +3,19 @@
 # This file is distributed under the same license as the PROJECT project.
 # FIRST AUTHOR <EMAIL@ADDRESS>, 2012.
 #
-#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2012-02-29 20:30-0800\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"POT-Creation-Date: 2012-02-29 14:56-0800\n"
+"PO-Revision-Date: 2012-03-02 01:07+0000\n"
+"Last-Translator: Claudio Bastos <Unknown>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"X-Launchpad-Export-Date: 2012-03-07 00:04+0000\n"
+"X-Generator: Launchpad (build 14900)\n"
 "Generated-By: Babel 1.0dev\n"
 
 #. ==================================================== Generic Units ==
@@ -256,16 +257,10 @@ msgctxt "sync_SPr_group_status"
 msgid "Status"
 msgstr "Estado"
 
-#. Sync status subtitle, %s-> status message
-#, c-format
-msgctxt "sync_SPr_status_subtitle"
-msgid "Status: %s"
-msgstr ""
-
 #. Sync Status: log in
 msgctxt "sync_status_loggedout"
-msgid "Not Logged In"
-msgstr ""
+msgid "Not Logged In!"
+msgstr "Desconectado!"
 
 #. Status: ongoing
 msgctxt "sync_status_ongoing"
@@ -348,8 +343,8 @@ msgstr "Ações"
 
 #. Synchronize Now Button
 msgctxt "sync_SPr_sync"
-msgid "Synchronize Now"
-msgstr ""
+msgid "Synchronize Now!"
+msgstr "Sincronizar Agora!"
 
 #. Synchronize Now Button if not logged in
 msgctxt "sync_SPr_sync_log_in"
@@ -415,4 +410,3 @@ msgstr "a cada três dias"
 msgctxt "sync_SPr_interval_entries:9"
 msgid "every week"
 msgstr "semanalmente"
-
