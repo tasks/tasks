@@ -266,6 +266,7 @@ public class TaskListFragment extends ListFragment implements OnScrollListener,
 
         setUpUiComponents();
         onNewIntent(getActivity().getIntent());
+        setupQuickAddBar();
 
         Fragment filterlistFrame = getFragmentManager().findFragmentByTag(
                 FilterListFragment.TAG_FILTERLIST_FRAGMENT);
@@ -474,6 +475,15 @@ public class TaskListFragment extends ListFragment implements OnScrollListener,
             }
         });
 
+        SharedPreferences publicPrefs = AstridPreferences.getPublicPrefs(getActivity());
+        sortFlags = publicPrefs.getInt(SortHelper.PREF_SORT_FLAGS, 0);
+        sortSort = publicPrefs.getInt(SortHelper.PREF_SORT_SORT, 0);
+        sortFlags = SortHelper.setManualSort(sortFlags, isDraggable());
+
+        getView().findViewById(R.id.progressBar).setVisibility(View.GONE);
+    }
+
+    private void setupQuickAddBar() {
         quickAddBar = (QuickAddBar) getView().findViewById(R.id.taskListFooter);
         quickAddBar.initialize(getActivity(), this, mListener);
 
@@ -492,13 +502,6 @@ public class TaskListFragment extends ListFragment implements OnScrollListener,
                 quickAddBar.performButtonClick();
             }
         });
-
-        SharedPreferences publicPrefs = AstridPreferences.getPublicPrefs(getActivity());
-        sortFlags = publicPrefs.getInt(SortHelper.PREF_SORT_FLAGS, 0);
-        sortSort = publicPrefs.getInt(SortHelper.PREF_SORT_SORT, 0);
-        sortFlags = SortHelper.setManualSort(sortFlags, isDraggable());
-
-        getView().findViewById(R.id.progressBar).setVisibility(View.GONE);
     }
 
     // Subclasses can override these to customize extras in quickadd intent
