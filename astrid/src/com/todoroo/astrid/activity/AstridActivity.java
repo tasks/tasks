@@ -124,16 +124,8 @@ public class AstridActivity extends FragmentActivity
     @Override
     protected void onPause() {
         super.onPause();
-        tryUnregisterReceiver(reminderReceiver);
-        tryUnregisterReceiver(repeatConfirmationReceiver);
-    }
-
-    public void tryUnregisterReceiver(BroadcastReceiver receiver) {
-        try {
-            unregisterReceiver(receiver);
-        } catch (IllegalArgumentException e) {
-            // Receiver wasn't registered for some reason
-        }
+        AndroidUtilities.tryUnregisterReceiver(this, reminderReceiver);
+        AndroidUtilities.tryUnregisterReceiver(this, repeatConfirmationReceiver);
     }
 
     /**

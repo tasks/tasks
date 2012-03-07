@@ -27,6 +27,7 @@ import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.ContextManager;
 import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.andlib.service.ExceptionService;
+import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.astrid.activity.TaskListFragment;
@@ -128,7 +129,7 @@ public class SyncActionHelper {
     }
 
     public void unregister() {
-        activity.unregisterReceiver(syncActionReceiver);
+        AndroidUtilities.tryUnregisterReceiver(activity, syncActionReceiver);
     }
 
     public void request() {

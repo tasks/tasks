@@ -21,6 +21,7 @@ import java.util.Map;
 import java.util.Map.Entry;
 
 import android.app.Activity;
+import android.content.BroadcastReceiver;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
@@ -759,6 +760,20 @@ public class AndroidUtilities {
             if (model.contains(s)) return true;
         }
         return false;
+    }
+
+    /**
+     * Wraps a call to Activity.unregisterReceiver in a try/catch block to prevent
+     * exceptions being thrown if receiver was never registered with that activity
+     * @param activity
+     * @param receiver
+     */
+    public static void tryUnregisterReceiver(Activity activity, BroadcastReceiver receiver) {
+        try {
+            activity.unregisterReceiver(receiver);
+        } catch (IllegalArgumentException e) {
+            // Receiver wasn't registered for some reason
+        }
     }
 
 }

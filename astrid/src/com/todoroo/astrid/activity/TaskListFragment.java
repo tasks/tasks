@@ -611,13 +611,11 @@ public class TaskListFragment extends ListFragment implements OnScrollListener,
     public void onPause() {
         super.onPause();
         StatisticsService.sessionPause();
-        try {
-            getActivity().unregisterReceiver(detailReceiver);
-            getActivity().unregisterReceiver(refreshReceiver);
-            syncActionHelper.unregister();
-        } catch (IllegalArgumentException e) {
-            // might not have fully initialized
-        }
+
+        AndroidUtilities.tryUnregisterReceiver(getActivity(), detailReceiver);
+        AndroidUtilities.tryUnregisterReceiver(getActivity(), refreshReceiver);
+        syncActionHelper.unregister();
+
         backgroundTimer.cancel();
     }
 
