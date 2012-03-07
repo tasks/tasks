@@ -2,8 +2,7 @@
 ###############################################################################
 
 catxml="`dirname $0`/catxml"
-${catxml} astrid/res/values/strings*.xml api/res/values/strings*.xml \
-    > astrid/res/values/strings.xml
+${catxml} astrid/res/values/strings*.xml > astrid/res/values/strings.xml
 
 a2po $* --android astrid/res --gettext astrid/locales --groups strings --ignore-fuzzy --template android.pot
 a2po $* --android api/res --gettext api/locales --groups strings --ignore-fuzzy --template api.pot
