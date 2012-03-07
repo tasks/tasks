@@ -159,7 +159,7 @@ public class TagViewFragment extends TaskListFragment {
     protected void addSyncRefreshMenuItem(Menu menu, int themeFlags) {
         if(actFmPreferenceService.isLoggedIn()) {
             addMenuItem(menu, R.string.actfm_TVA_menu_refresh,
-                    ThemeService.getDrawable(R.drawable.icn_menu_refresh, themeFlags), MENU_REFRESH_ID, false);
+                    ThemeService.getDrawable(R.drawable.icn_menu_refresh, themeFlags), MENU_REFRESH_ID, true);
         } else {
             super.addSyncRefreshMenuItem(menu, themeFlags);
         }

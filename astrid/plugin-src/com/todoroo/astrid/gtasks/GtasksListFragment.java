@@ -148,7 +148,7 @@ public class GtasksListFragment extends SubtasksListFragment {
     protected void addSyncRefreshMenuItem(Menu menu, int themeFlags) {
         if(gtasksPreferenceService.isLoggedIn()) {
             addMenuItem(menu, R.string.actfm_TVA_menu_refresh,
-                    ThemeService.getDrawable(R.drawable.icn_menu_refresh, themeFlags), MENU_REFRESH_ID, false);
+                    ThemeService.getDrawable(R.drawable.icn_menu_refresh, themeFlags), MENU_REFRESH_ID, true);
         } else {
             super.addSyncRefreshMenuItem(menu, themeFlags);
         }
