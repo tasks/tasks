@@ -28,6 +28,7 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.crittercism.app.Crittercism;
 import com.timsu.astrid.R;
 import com.todoroo.andlib.data.AbstractModel;
 import com.todoroo.andlib.data.DatabaseDao;
@@ -427,12 +428,12 @@ public final class ActFmSyncService {
             JsonHelper.taskFromJson(result, task, metadata);
         } catch (JSONException e) {
             handleException("task-save-json", e);
-            //Crittercism.logHandledException(e);
+            Crittercism.logHandledException(e);
         } catch (IOException e) {
             if (notPermanentError(e))
                 addFailedPush(new FailedPush(PUSH_TYPE_TASK, task.getId()));
-//            else
-//                Crittercism.logHandledException(e);
+            else
+                Crittercism.logHandledException(e);
             handleException("task-save-io", e);
             task.setValue(Task.LAST_SYNC, DateUtilities.now() + 1000L);
         }
@@ -1093,10 +1094,10 @@ public final class ActFmSyncService {
                         handler.handleException("io-exception-list-" + model, e);
                     else
                         handleException("io-exception-list-" + model, e);
-//                    Crittercism.logHandledException(e);
+                    Crittercism.logHandledException(e);
                 } catch (JSONException e) {
                     handleException("json: " + result.toString(), e);
-//                    Crittercism.logHandledException(e);
+                    Crittercism.logHandledException(e);
                 }
             }
         }).start();

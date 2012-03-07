@@ -7,6 +7,7 @@ import android.content.ContentValues;
 import android.text.TextUtils;
 import android.util.Log;
 
+import com.crittercism.app.Crittercism;
 import com.todoroo.andlib.data.DatabaseDao.ModelUpdateListener;
 import com.todoroo.andlib.data.Property;
 import com.todoroo.andlib.service.Autowired;
@@ -88,7 +89,7 @@ public final class GtasksSyncService {
                            }
                        }
                    } catch (IOException e) {
-//                       Crittercism.logHandledException(e);
+                       Crittercism.logHandledException(e);
                        Log.w("gtasks-sync-error", "Sync on save failed", e);
                    }
                }
