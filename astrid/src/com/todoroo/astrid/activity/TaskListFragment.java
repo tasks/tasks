@@ -370,19 +370,26 @@ public class TaskListFragment extends ListFragment implements OnScrollListener,
     }
 
     protected void addMenuItem(Menu menu, int title, int imageRes, int id, boolean showAsAction) {
-        TaskListActivity activity = (TaskListActivity) getActivity();
-        if (activity.getFragmentLayout() != AstridActivity.LAYOUT_SINGLE && showAsAction) {
+        AstridActivity activity = (AstridActivity) getActivity();
+        if ((activity.getFragmentLayout() != AstridActivity.LAYOUT_SINGLE && showAsAction) || !(activity instanceof TaskListActivity)) {
             MenuItem item = menu.add(Menu.NONE, id, Menu.NONE, title);
             item.setIcon(imageRes);
-            item.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
+            if (activity instanceof TaskListActivity)
+                item.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
         } else {
-            activity.getMainMenuPopover().addMenuItem(title, imageRes, id);
+            ((TaskListActivity) activity).getMainMenuPopover().addMenuItem(title, imageRes, id);
         }
     }
 
-    protected void addMenuItem(CharSequence title, Drawable image, Intent customIntent, int id) {
-        TaskListActivity activity = (TaskListActivity) getActivity();
-        activity.getMainMenuPopover().addMenuItem(title, image, customIntent, id);
+    protected void addMenuItem(Menu menu, CharSequence title, Drawable image, Intent customIntent, int id) {
+        Activity activity = getActivity();
+        if (activity instanceof TaskListActivity) {
+            ((TaskListActivity) activity).getMainMenuPopover().addMenuItem(title, image, customIntent, id);
+        } else {
+            MenuItem item = menu.add(Menu.NONE, id, Menu.NONE, title);
+            item.setIcon(image);
+            item.setIntent(customIntent);
+        }
     }
 
     /**
@@ -392,12 +399,13 @@ public class TaskListFragment extends ListFragment implements OnScrollListener,
      */
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        TaskListActivity activity = (TaskListActivity) getActivity();
+        Activity activity = getActivity();
         if (activity == null)
             return;
 
         boolean isTablet = AndroidUtilities.isTabletSized(activity);
-        activity.getMainMenuPopover().clear();
+        if (activity instanceof TaskListActivity)
+            ((TaskListActivity) activity).getMainMenuPopover().clear();
 
         // --- sort
         if (allowResorting()) {
@@ -431,7 +439,7 @@ public class TaskListFragment extends ListFragment implements OnScrollListener,
             Intent intent = new Intent(AstridApiConstants.ACTION_TASK_LIST_MENU);
             intent.setClassName(resolveInfo.activityInfo.packageName,
                     resolveInfo.activityInfo.name);
-            addMenuItem(resolveInfo.loadLabel(pm), resolveInfo.loadIcon(pm), intent, MENU_ADDON_INTENT_ID);
+            addMenuItem(menu, resolveInfo.loadLabel(pm), resolveInfo.loadIcon(pm), intent, MENU_ADDON_INTENT_ID);
         }
     }
 
