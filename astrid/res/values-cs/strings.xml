@@ -362,7 +362,7 @@
   <string name="p_about">O Astrid</string>
   <string name="p_about_text">Současná verze: %s\n\n Astrid je open-source a je vytvořena Todoroo, Inc.</string>
   <string name="p_help">Nápověda</string>
-  <string name="task_killer_help">Vypadá to, že používate aplikaci, která ukončuje programy(%s)! Pokud můžete, přidejte Astrid do vyjímek, aby nebyla ukončována. Jinak se může stát, že vás nebude upozorňovat na úkoly. \n</string>
+  <string name="task_killer_help">Vypadá to, že používate aplikaci, která ukončuje programy(%s)! Pokud můžete, přidejte Astrid do vyjímek, aby nebyla ukončována. Jinak se může stát, že vás nebude upozorňovat na úkoly.\n</string>
   <string name="task_killer_help_ok">Neukončím Astrid!</string>
   <string name="marketplace_title">Astrid Úkol/Todo Seznam</string>
   <string name="marketplace_description">Astrid je vysoce oceňovaný open source úkolovník, jednoduše ovladatelný a přesto velice výkonný, vytvořen k tomu,aby Vám pomohl mít vše hotovo. Značky, připomenutí, synchronizace, lokalizace, widget a další.</string>
@@ -485,6 +485,13 @@
   <string name="gtasks_error_accountNotFound">Account %s not found--please log out and log back in from the Google Tasks settings.</string>
   <string name="gtasks_error_authRefresh">Unable to authenticate with Google Tasks. Please check your account password or try again later.</string>
   <string name="gtasks_error_accountManager">Error in your phone\'s account manager. Please log out and log back in from the Google Tasks settings.</string>
+
+
+
+
+
+
+
   <string name="help_popover_add_task">Start by adding a task or two</string>
   <string name="help_popover_tap_task">Tap task to edit and share</string>
   <string name="help_popover_list_settings">Tap to edit or share this list</string>
@@ -1037,13 +1044,24 @@
     <item quantity="one">1 Year</item>
     <item quantity="other">%d Years</item>
   </plurals>
+  <plurals name="DUt_months">
+    <item quantity="one">1 Month</item>
+    <item quantity="other">%d Months</item>
+  </plurals>
+  <plurals name="DUt_weeks">
+    <item quantity="one">1 Week</item>
+    <item quantity="other">%d Weeks</item>
+  </plurals>
   <plurals name="DUt_days">
+    <item quantity="one">1 Day</item>
     <item quantity="other">%d Days</item>
   </plurals>
   <plurals name="DUt_weekdays">
+    <item quantity="one">1 Weekday</item>
     <item quantity="other">%d Weekdays</item>
   </plurals>
   <plurals name="DUt_hours">
+    <item quantity="one">1 Hour</item>
     <item quantity="other">%d Hours</item>
   </plurals>
   <plurals name="DUt_minutes">
@@ -1068,6 +1086,7 @@
   </plurals>
   <plurals name="Ntasks">
     <item quantity="one">1 task</item>
+    <item quantity="other">%d tasks</item>
   </plurals>
   <plurals name="Npeople">
     <item quantity="one">1 person</item>
@@ -1086,12 +1105,15 @@
   <string name="DLG_yes">Ano</string>
   <string name="DLG_no">Ne</string>
   <string name="DLG_close">Zavřít</string>
+  <string name="DLG_done">Done</string>
   <string name="DLG_error">Oops, looks like an error occurred! Here\'s what happened:\n\n%s</string>
   <string name="DLG_error_generic">Jejda, vypadá to, že se vyskytla chyba!</string>
   <string name="DLG_wait">Prosím čekejte...</string>
   <string name="SyP_progress">Probíhá synchronizace Vašich úkolů...</string>
   <string name="SyP_progress_toast">Sychronizuji...</string>
   <string name="SyP_label">Synchronizace</string>
+  <string name="SyP_ioerror">Connection Error! Check your Internet connection.</string>
+  <string name="sync_SPr_group_status">Status</string>
   <string name="sync_status_loggedout">Nejste přihlášen!</string>
   <string name="sync_status_ongoing">Probíhá synchronizace...</string>
   <string name="sync_status_success">Last Sync:\n%s</string>
@@ -1099,6 +1121,7 @@
   <string name="sync_status_errors">Sync w/ Errors: %s</string>
   <string name="sync_status_failed_subtitle">Poslední úspěšná synchronizace: %s</string>
   <string name="sync_status_never">Nikdo nesynchronizováno!</string>
+  <string name="sync_SPr_group_options">Options</string>
   <string name="sync_SPr_interval_title">Synchronizace na pozadí</string>
   <string name="sync_SPr_interval_desc_disabled">Synchronizace na pozadí je zakázána</string>
   <string name="sync_SPr_interval_desc">Současně nastaveno na: %s</string>

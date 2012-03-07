@@ -1,62 +1,62 @@
 <?xml version='1.0' encoding='utf-8'?>
 <resources>
   <plurals name="DUt_years">
-    <item quantity="one">1 año</item>
+    <item quantity="one">Un año</item>
     <item quantity="other">%d años</item>
   </plurals>
   <plurals name="DUt_months">
-    <item quantity="one">1 Mes</item>
+    <item quantity="one">Un mes</item>
     <item quantity="other">%d meses</item>
   </plurals>
   <plurals name="DUt_weeks">
-    <item quantity="one">1 semana</item>
+    <item quantity="one">Una semana</item>
     <item quantity="other">%d semanas</item>
   </plurals>
   <plurals name="DUt_days">
-    <item quantity="one">1 día</item>
+    <item quantity="one">Un día</item>
     <item quantity="other">%d días</item>
   </plurals>
   <plurals name="DUt_weekdays">
-    <item quantity="one">1 Weekday</item>
-    <item quantity="other">%d Weekdays</item>
+    <item quantity="one">Un día entre semana</item>
+    <item quantity="other">%d días entre semana</item>
   </plurals>
   <plurals name="DUt_hours">
-    <item quantity="one">1 hora</item>
+    <item quantity="one">Una hora</item>
     <item quantity="other">%d horas</item>
   </plurals>
   <plurals name="DUt_minutes">
-    <item quantity="one">1 minuto</item>
+    <item quantity="one">Un minuto</item>
     <item quantity="other">%d minutos</item>
   </plurals>
   <plurals name="DUt_seconds">
-    <item quantity="one">1 segundo</item>
+    <item quantity="one">Un segundo</item>
     <item quantity="other">%d segundos</item>
   </plurals>
   <plurals name="DUt_hoursShort">
-    <item quantity="one">1 hora</item>
-    <item quantity="other">%d horas</item>
+    <item quantity="one">1 hr</item>
+    <item quantity="other">%d hrs</item>
   </plurals>
   <plurals name="DUt_minutesShort">
-    <item quantity="one">1 minuto</item>
-    <item quantity="other">%d minutos</item>
+    <item quantity="one">1 min</item>
+    <item quantity="other">%d min</item>
   </plurals>
   <plurals name="DUt_secondsShort">
-    <item quantity="one">1 segundo</item>
-    <item quantity="other">%d segundos</item>
+    <item quantity="one">1 seg</item>
+    <item quantity="other">%d seg</item>
   </plurals>
   <plurals name="Ntasks">
-    <item quantity="one">1 tarea</item>
+    <item quantity="one">Una tarea</item>
     <item quantity="other">%d tareas</item>
   </plurals>
   <plurals name="Npeople">
-    <item quantity="one">1 person</item>
-    <item quantity="other">%d people</item>
+    <item quantity="one">Una persona</item>
+    <item quantity="other">%d personas</item>
   </plurals>
   <string name="today">Hoy</string>
   <string name="tomorrow">Mañana</string>
   <string name="yesterday">Ayer</string>
-  <string name="tmrw">Tmrw</string>
-  <string name="yest">Yest</string>
+  <string name="tmrw">Mañana</string>
+  <string name="yest">Ayer</string>
   <string name="DLG_confirm_title">¿Confirmar?</string>
   <string name="DLG_question_title">Pregunta:</string>
   <string name="DLG_information_title">Información</string>
@@ -72,29 +72,29 @@
   <string name="SyP_progress">Sincronizando sus tareas...</string>
   <string name="SyP_progress_toast">Sincronizando...</string>
   <string name="SyP_label">Sincronización</string>
-  <string name="SyP_ioerror">Error de conexión! Verifique su conexión a internet.</string>
+  <string name="SyP_ioerror">¡Error de conexión! Compruebe su conexión a Internet.</string>
   <string name="sync_SPr_group_status">Estado</string>
-  <string name="sync_status_loggedout">No conectado!</string>
+  <string name="sync_status_loggedout">No ha iniciado sesión</string>
   <string name="sync_status_ongoing">Sincronización en curso...</string>
   <string name="sync_status_success">Última sincronización:\n%s</string>
   <string name="sync_status_failed">Falló el: %s</string>
-  <string name="sync_status_errors">Sync w/ Errors: %s</string>
+  <string name="sync_status_errors">Sinc. con errores: %s</string>
   <string name="sync_status_failed_subtitle">Última sincronización exitosa: %s</string>
   <string name="sync_status_never">¡Jamás se sincronizó!</string>
   <string name="sync_SPr_group_options">Opciones</string>
   <string name="sync_SPr_interval_title">Sincronizar en segundo plano</string>
   <string name="sync_SPr_interval_desc_disabled">Sincronización en segundo plano desactivada</string>
-  <string name="sync_SPr_interval_desc">Actualmente configurado para: %s</string>
-  <string name="sync_SPr_bgwifi_title">Sólo Configuración Wifi</string>
+  <string name="sync_SPr_interval_desc">Actualmente configurado a: %s</string>
+  <string name="sync_SPr_bgwifi_title">Opción de solo WiFi</string>
   <string name="sync_SPr_bgwifi_desc_enabled">La sincronización en segundo plano sólo funciona con el Wifi activado</string>
   <string name="sync_SPr_bgwifi_desc_disabled">La sincronización en segundo plano funciona siempre</string>
   <string name="sync_SPr_group_actions">Acciones</string>
   <string name="sync_SPr_sync">¡Sincronizar ahora!</string>
-  <string name="sync_SPr_sync_log_in">Iniciar sesión y sincronizar!</string>
-  <string name="sync_SPr_logged_in_prefix">Logged in as:</string>
+  <string name="sync_SPr_sync_log_in">¡Iniciar sesión y sincronizar!</string>
+  <string name="sync_SPr_logged_in_prefix">Sesión iniciada como:</string>
   <string name="sync_SPr_forget">Cerrar sesión</string>
-  <string name="sync_SPr_forget_description">Borra todos los datos de sincronización</string>
-  <string name="sync_forget_confirm">Cierre de sesión / cancelar la sincronización de datos?</string>
+  <string name="sync_SPr_forget_description">Limpia todos los datos de sincronización</string>
+  <string name="sync_forget_confirm">Cerrar sesión / ¿limpiar datos de sincronización?</string>
   <string-array name="sync_SPr_interval_entries">
     <item>desactivar</item>
     <item>cada quince minutos</item>

@@ -3,92 +3,92 @@
   <string name="EPE_action">Compartir</string>
   <string name="actfm_person_hint">Contacto o email</string>
   <string name="actfm_person_or_tag_hint">Contacto o lista compartida</string>
-  <string name="actfm_toast_success">Guardado en Servidor</string>
-  <string name="actfm_toast_error">Almacenamiento fallido: %s</string>
-  <string name="actfm_tag_operation_disabled">Lo sentimos, esta operación todavía no está soportada para etiquetas compartidas</string>
-  <string name="actfm_tag_operation_owner_delete">You are the owner of this shared list! If you delete it, it will be deleted for all list members. Are you sure you want to continue?</string>
-  <string name="actfm_picture_camera">Tomar una Fotografía</string>
-  <string name="actfm_picture_gallery">Escoger de la Galería</string>
-  <string name="actfm_picture_clear">Imagen Clara</string>
-  <string name="actfm_FLA_menu_refresh">Actualizar Listas</string>
-  <string name="actfm_view_task_title">View Task?</string>
+  <string name="actfm_toast_success">Guardado en el servidor</string>
+  <string name="actfm_toast_error">Falló al guardar: %s</string>
+  <string name="actfm_tag_operation_disabled">Lo sentimos, esta operación aún no es compatible con las etiquetas compartidas.</string>
+  <string name="actfm_tag_operation_owner_delete">Usted es el propietario de esta lista compartida. Si la elimina, se eliminará para todos los miembros de la lista. ¿Continuar?</string>
+  <string name="actfm_picture_camera">Tomar una fotografía</string>
+  <string name="actfm_picture_gallery">Elegir de la galería</string>
+  <string name="actfm_picture_clear">Limpiar imagen</string>
+  <string name="actfm_FLA_menu_refresh">Actualizar listas</string>
+  <string name="actfm_view_task_title">¿Ver tarea?</string>
   <string name="actfm_view_task_text">Task was sent to %s! You\'re currently viewing your own tasks. Do you want to view this and other tasks you\'ve assigned?</string>
-  <string name="actfm_view_task_ok">View Assigned</string>
-  <string name="actfm_view_task_cancel">Stay Here</string>
-  <string name="TVA_add_comment">Agregar un comentario...</string>
+  <string name="actfm_view_task_ok">Ver asignadas</string>
+  <string name="actfm_view_task_cancel">Quedarse aquí</string>
+  <string name="TVA_add_comment">Añadir un comentario...</string>
   <string name="UAd_title_comment">%1$s re: %2$s</string>
   <string-array name="TVA_tabs">
     <item>Tareas</item>
     <item>Actividad</item>
-    <item>Listar Ajustes</item>
+    <item>Opciones de lista</item>
   </string-array>
-  <string name="actfm_TVA_filtered_by_assign">%s\'s tasks. Tap for all.</string>
-  <string name="actfm_TVA_filter_by_unassigned">Unassigned tasks. Tap for all.</string>
+  <string name="actfm_TVA_filtered_by_assign">Tareas de %s. Toque para ver todas.</string>
+  <string name="actfm_TVA_filter_by_unassigned">Tareas sin asignar. Toque para ver todas.</string>
   <string name="actfm_TVA_no_members_alert">Private: tap to edit or share list</string>
   <string name="actfm_TVA_menu_refresh">Actualizar</string>
-  <string name="actfm_TVA_tag_label">Nombre de la Lista</string>
-  <string name="actfm_TVA_tag_owner_label">Creador de la Lista:</string>
+  <string name="actfm_TVA_tag_label">Lista</string>
+  <string name="actfm_TVA_tag_owner_label">Creador de la lista:</string>
   <string name="actfm_TVA_tag_owner_none">ninguno</string>
-  <string name="actfm_TVA_members_label">Colaboradores</string>
+  <string name="actfm_TVA_members_label">Compartido con</string>
   <string name="actfm_TVA_tag_picture">Listar imagenes</string>
-  <string name="actfm_TVA_silence_label">Silenciar Notificaciones</string>
-  <string name="actfm_TVA_list_icon_label">List Icon:</string>
-  <string name="actfm_TVA_tag_description_label">Description</string>
-  <string name="actfm_TVA_tag_settings_label">Settings</string>
-  <string name="actfm_TVA_tag_description_hint">Type a description here</string>
+  <string name="actfm_TVA_silence_label">Silenciar notificaciones</string>
+  <string name="actfm_TVA_list_icon_label">Icono de la lista:</string>
+  <string name="actfm_TVA_tag_description_label">Descripción</string>
+  <string name="actfm_TVA_tag_settings_label">Opciones</string>
+  <string name="actfm_TVA_tag_description_hint">Escriba una descripción aquí</string>
   <string name="actfm_TVA_tag_name_hint">Enter list name</string>
   <string name="actfm_TVA_login_to_share">You need to be logged in to Astrid.com to share lists! Please log in or make this a private list.</string>
   <string name="actfm_EPA_intro">¡Utilice Astrid para compartir listas de la compra, planes de fiesta o proyectos en equipo y vea al instante cuándo la gente hace cosas!</string>
   <string name="actfm_EPA_title">Compartir / Asignar</string>
-  <string name="actfm_EPA_save">Guardar &amp; Compartir</string>
+  <string name="actfm_EPA_save">Guardar y compartir</string>
   <string name="actfm_EPA_assign_label">Quién</string>
-  <string name="actfm_EPA_assign_label_long">Who should do this?</string>
+  <string name="actfm_EPA_assign_label_long">¿Quién debería hacer esto?</string>
   <string name="actfm_EPA_assign_me">Yo</string>
   <string name="actfm_EPA_unassigned">Cualquiera</string>
   <string name="actfm_EPA_task_rabbit">Outsource it!</string>
   <string name="actfm_EPA_assign_custom">Personalizado…</string>
   <string name="actfm_EPA_share_with">Compartir con:</string>
   <string name="actfm_EPA_assigned_toast">Sent to %1$s (you can see it in the list between you and %2$s).</string>
-  <string name="actfm_EPA_collaborators_header">Share with Friends</string>
+  <string name="actfm_EPA_collaborators_header">Compartir con amigos</string>
   <string name="actfm_EPA_list">Lista: %s</string>
-  <string name="actfm_EPA_assigned_hint">Contact Name</string>
-  <string name="actfm_EPA_message_text">Mensaje de Invitación:</string>
+  <string name="actfm_EPA_assigned_hint">Nombre del contacto</string>
+  <string name="actfm_EPA_message_text">Mensaje de invitación:</string>
   <string name="actfm_EPA_message_body">Help me get this done!</string>
-  <string name="actfm_EPA_tag_label">Create a shared tag?</string>
-  <string name="actfm_EPA_tag_hint">(es decir, Silly Hats Club)</string>
+  <string name="actfm_EPA_tag_label">¿Crear una etiqueta compartida?</string>
+  <string name="actfm_EPA_tag_hint">(como Silly Hats Club)</string>
   <string name="actfm_EPA_facebook">Facebook</string>
   <string name="actfm_EPA_twitter">Twitter</string>
   <string name="actfm_EPA_emailed_toast">Tarea compartida con %s</string>
   <string name="actfm_EPA_saved_toast">People Settings Saved</string>
   <string name="actfm_EPA_invalid_email">E-mail no válido: %s</string>
-  <string name="actfm_EPA_invalid_tag">Lista No Encontrada: %s</string>
-  <string name="actfm_EPA_login_to_share">You need to be logged in to Astrid.com to share tasks! Please log in or make this a private task.</string>
-  <string name="actfm_EPA_login_button">Log in</string>
-  <string name="actfm_EPA_dont_share_button">Make private</string>
+  <string name="actfm_EPA_invalid_tag">Lista no encontrada: %s</string>
+  <string name="actfm_EPA_login_to_share">Necesita iniciar sesión en Astrid.com para compartir tareas. Inicie sesión o convierta esta tarea en privada.</string>
+  <string name="actfm_EPA_login_button">Iniciar sesión</string>
+  <string name="actfm_EPA_dont_share_button">Hacer privada</string>
   <string name="actfm_ALA_title">¡Bienvenido a Astrid.com!</string>
   <string name="actfm_ALA_body">Astrid.com le permite acceder a sus tareas en línea, compartirlas, y delegarlas en otros.</string>
-  <string name="actfm_ALA_fb_login">Connect with Facebook</string>
-  <string name="actfm_ALA_gg_login">Connect with Google</string>
-  <string name="actfm_ALA_pw_login">Don\'t use Google or Facebook?</string>
-  <string name="actfm_ALA_pw_link">Regístrese Aquí</string>
-  <string name="actfm_ALA_pw_new">¿Quieres crear una nueva cuenta?</string>
-  <string name="actfm_ALA_pw_returning">¿Ya tienes una cuenta?</string>
+  <string name="actfm_ALA_fb_login">Conectar con Facebook</string>
+  <string name="actfm_ALA_gg_login">Conectar con Google</string>
+  <string name="actfm_ALA_pw_login">¿No usa Google ni Facebook?</string>
+  <string name="actfm_ALA_pw_link">Regístrese aquí</string>
+  <string name="actfm_ALA_pw_new">¿Crear una cuenta nueva?</string>
+  <string name="actfm_ALA_pw_returning">¿Ya tiene una cuenta?</string>
   <string name="actfm_ALA_name_label">Nombre</string>
-  <string name="actfm_ALA_firstname_label">First Name</string>
-  <string name="actfm_ALA_lastname_label">Last Name</string>
+  <string name="actfm_ALA_firstname_label">Nombre</string>
+  <string name="actfm_ALA_lastname_label">Apellidos</string>
   <string name="actfm_ALA_email_label">Correo electrónico</string>
   <string name="actfm_ALA_username_email_label">Nombre de usuario / Correo electrónico</string>
   <string name="actfm_ALA_password_label">Contraseña</string>
   <string name="actfm_ALA_signup_title">Crear una cuenta nueva</string>
   <string name="actfm_ALA_login_title">Iniciar sesión en Astrid.com</string>
-  <string name="actfm_GAA_title">Select the Google account you want to use:</string>
-  <string name="actfm_OLA_prompt">Please log in:</string>
-  <string name="actfm_APr_header">Astrid.com (¡Beta!)</string>
-  <string name="actfm_https_title">Use HTTPS</string>
-  <string name="actfm_https_enabled">HTTPS enabled (slower)</string>
-  <string name="actfm_https_disabled">HTTPS disabled (faster)</string>
-  <string name="actfm_notification_title">Astrid.com Sync</string>
-  <string name="actfm_notification_comments">Nuevos comentarios recibidos / haga clic aquí para más detalles</string>
+  <string name="actfm_GAA_title">Elija la cuenta de Google que quiere usar:</string>
+  <string name="actfm_OLA_prompt">Inicie sesión:</string>
+  <string name="actfm_APr_header">Astrid.com</string>
+  <string name="actfm_https_title">Usar HTTPS</string>
+  <string name="actfm_https_enabled">HTTPS activado (más lento)</string>
+  <string name="actfm_https_disabled">HTTPS desactivado (más rápido)</string>
+  <string name="actfm_notification_title">Sincronización de Astrid.com</string>
+  <string name="actfm_notification_comments">Nuevos comentarios recibidos / pulse para más detalles</string>
   <string name="alarm_ACS_label">Alarmas</string>
   <string name="alarm_ACS_button">Añadir una alarma</string>
   <string-array name="reminders_alarm">
@@ -137,12 +137,12 @@
   <string name="DLG_decline">No acepto</string>
   <string name="DLG_eula_title">Términos de uso de Astrid</string>
   <string name="DLG_please_wait">Por favor, espere</string>
-  <string name="DLG_loading">Cargando...</string>
-  <string name="DLG_dismiss">Dismiss</string>
-  <string name="DLG_ok">OK</string>
-  <string name="DLG_cancel">Cancel</string>
-  <string name="DLG_more">More</string>
-  <string name="DLG_undo">Undo</string>
+  <string name="DLG_loading">Cargando…</string>
+  <string name="DLG_dismiss">Ignorar</string>
+  <string name="DLG_ok">Aceptar</string>
+  <string name="DLG_cancel">Cancelar</string>
+  <string name="DLG_more">Más</string>
+  <string name="DLG_undo">Deshacer</string>
   <string name="WID_dateButtonUnset">Toque para grabar</string>
   <string name="WID_dateButtonLabel">$D $T</string>
   <string name="WID_disableButton">Deshabilitar</string>
@@ -485,6 +485,13 @@
   <string name="gtasks_error_accountNotFound">Account %s not found--please log out and log back in from the Google Tasks settings.</string>
   <string name="gtasks_error_authRefresh">Unable to authenticate with Google Tasks. Please check your account password or try again later.</string>
   <string name="gtasks_error_accountManager">Error in your phone\'s account manager. Please log out and log back in from the Google Tasks settings.</string>
+
+
+
+
+
+
+
   <string name="help_popover_add_task">Start by adding a task or two</string>
   <string name="help_popover_tap_task">Tap task to edit and share</string>
   <string name="help_popover_list_settings">Tap to edit or share this list</string>
@@ -1037,17 +1044,29 @@
     <item quantity="one">1 Year</item>
     <item quantity="other">%d Years</item>
   </plurals>
+  <plurals name="DUt_months">
+    <item quantity="one">1 Month</item>
+    <item quantity="other">%d Months</item>
+  </plurals>
+  <plurals name="DUt_weeks">
+    <item quantity="one">1 Week</item>
+    <item quantity="other">%d Weeks</item>
+  </plurals>
   <plurals name="DUt_days">
+    <item quantity="one">1 Day</item>
     <item quantity="other">%d Days</item>
   </plurals>
   <plurals name="DUt_weekdays">
+    <item quantity="one">1 Weekday</item>
     <item quantity="other">%d Weekdays</item>
   </plurals>
   <plurals name="DUt_hours">
+    <item quantity="one">1 Hour</item>
     <item quantity="other">%d Hours</item>
   </plurals>
   <plurals name="DUt_minutes">
     <item quantity="one">1 Minute</item>
+    <item quantity="other">%d Minutes</item>
   </plurals>
   <plurals name="DUt_seconds">
     <item quantity="one">1 Second</item>
@@ -1067,6 +1086,7 @@
   </plurals>
   <plurals name="Ntasks">
     <item quantity="one">1 task</item>
+    <item quantity="other">%d tasks</item>
   </plurals>
   <plurals name="Npeople">
     <item quantity="one">1 person</item>
@@ -1085,12 +1105,15 @@
   <string name="DLG_yes">Sí</string>
   <string name="DLG_no">No</string>
   <string name="DLG_close">Cerrar</string>
+  <string name="DLG_done">Done</string>
   <string name="DLG_error">¡Uy, al parecer hay algún problema! Esto es lo que pasó:\n\n%s</string>
   <string name="DLG_error_generic">¡Uy, al parecer hay algún problema!</string>
   <string name="DLG_wait">Espere un momento...</string>
   <string name="SyP_progress">Sincronizando sus tareas...</string>
   <string name="SyP_progress_toast">Sincronizando...</string>
   <string name="SyP_label">Sincronización</string>
+  <string name="SyP_ioerror">Connection Error! Check your Internet connection.</string>
+  <string name="sync_SPr_group_status">Status</string>
   <string name="sync_status_loggedout">No conectado!</string>
   <string name="sync_status_ongoing">Sincronización en curso...</string>
   <string name="sync_status_success">Última sincronizacion:\n%s</string>
@@ -1098,6 +1121,7 @@
   <string name="sync_status_errors">Sync w/ Errors: %s</string>
   <string name="sync_status_failed_subtitle">Última sincronización exitosa: %s</string>
   <string name="sync_status_never">¡Jamás se sincronizó!</string>
+  <string name="sync_SPr_group_options">Options</string>
   <string name="sync_SPr_interval_title">Sincronizar en segundo plano</string>
   <string name="sync_SPr_interval_desc_disabled">Sincronización en segundo plano desactivada</string>
   <string name="sync_SPr_interval_desc">Actualmente configurado para: %s</string>
@@ -1106,6 +1130,7 @@
   <string name="sync_SPr_bgwifi_desc_disabled">La sincronización en segundo plano funciona siempre</string>
   <string name="sync_SPr_group_actions">Acciones</string>
   <string name="sync_SPr_sync">¡Sincronizar ahora!</string>
+  <string name="sync_SPr_sync_log_in">Log In &amp; Synchronize!</string>
   <string name="sync_SPr_logged_in_prefix">Sesión iniciada como:</string>
   <string name="sync_SPr_forget">Cerrar sesión</string>
   <string name="sync_SPr_forget_description">Borra todos los datos de sincronización</string>

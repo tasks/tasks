@@ -78,7 +78,7 @@
   <string name="sync_status_ongoing">Процесс синхронизации…</string>
   <string name="sync_status_success">Last Sync:\n%s</string>
   <string name="sync_status_failed">Ошибка: %s</string>
-  <string name="sync_status_errors">Sync w/ Errors: %s</string>
+  <string name="sync_status_errors">Синхронизировано с ошибками: %s</string>
   <string name="sync_status_failed_subtitle">Последняя успешная синхронизация: %s</string>
   <string name="sync_status_never">Синхронизаций не выполнялось!</string>
   <string name="sync_SPr_group_options">Параметры</string>
@@ -91,7 +91,7 @@
   <string name="sync_SPr_group_actions">Действия</string>
   <string name="sync_SPr_sync">Синхронизировать!</string>
   <string name="sync_SPr_sync_log_in">Войти и синхронизировать!</string>
-  <string name="sync_SPr_logged_in_prefix">Logged in as:</string>
+  <string name="sync_SPr_logged_in_prefix">Вы вошли в систему как:</string>
   <string name="sync_SPr_forget">Выход</string>
   <string name="sync_SPr_forget_description">Очищает все данные синхронизации</string>
   <string name="sync_forget_confirm">Выйти / очистить данные синхронизации?</string>

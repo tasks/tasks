@@ -4,17 +4,17 @@
   <string name="actfm_person_hint">联系人姓名</string>
   <string name="actfm_person_or_tag_hint">联系方式或共享列表</string>
   <string name="actfm_toast_success">已储存至服务器</string>
-  <string name="actfm_toast_error">Save Failed: %s</string>
+  <string name="actfm_toast_error">保存输入的内容：%s</string>
   <string name="actfm_tag_operation_disabled">对不起，此操作尚未支持已共享标签</string>
-  <string name="actfm_tag_operation_owner_delete">You are the owner of this shared list! If you delete it, it will be deleted for all list members. Are you sure you want to continue?</string>
+  <string name="actfm_tag_operation_owner_delete">你是这个被分享列表的拥有者，如果删除它，其它被分享者将无法访问，确定删除吗？</string>
   <string name="actfm_picture_camera">照张照片</string>
   <string name="actfm_picture_gallery">从相册中选取</string>
-  <string name="actfm_picture_clear">Clear Picture</string>
+  <string name="actfm_picture_clear">清屏</string>
   <string name="actfm_FLA_menu_refresh">刷新列表</string>
-  <string name="actfm_view_task_title">View Task?</string>
-  <string name="actfm_view_task_text">Task was sent to %s! You\'re currently viewing your own tasks. Do you want to view this and other tasks you\'ve assigned?</string>
-  <string name="actfm_view_task_ok">View Assigned</string>
-  <string name="actfm_view_task_cancel">Stay Here</string>
+  <string name="actfm_view_task_title">查看任务？</string>
+  <string name="actfm_view_task_text">任务已发送给%s！正在查看你所拥有的任务，是否查看其它被指定的任务？</string>
+  <string name="actfm_view_task_ok">查看被指派的任务</string>
+  <string name="actfm_view_task_cancel">保留在此处</string>
   <string name="TVA_add_comment">添加注释...</string>
   <string name="UAd_title_comment">%1$s 回复: %2$s</string>
   <string-array name="TVA_tabs">
@@ -22,9 +22,9 @@
     <item>活动</item>
     <item>列表设置</item>
   </string-array>
-  <string name="actfm_TVA_filtered_by_assign">%s\'s tasks. Tap for all.</string>
-  <string name="actfm_TVA_filter_by_unassigned">Unassigned tasks. Tap for all.</string>
-  <string name="actfm_TVA_no_members_alert">Private: tap to edit or share list</string>
+  <string name="actfm_TVA_filtered_by_assign">%s的任务，点击查看全部</string>
+  <string name="actfm_TVA_filter_by_unassigned">未指定的任务，点击查看全部</string>
+  <string name="actfm_TVA_no_members_alert">私有状态：点击以编辑或分享</string>
   <string name="actfm_TVA_menu_refresh">刷新</string>
   <string name="actfm_TVA_tag_label">列表名称：</string>
   <string name="actfm_TVA_tag_owner_label">列表所有者：</string>
@@ -32,24 +32,24 @@
   <string name="actfm_TVA_members_label">合作者：</string>
   <string name="actfm_TVA_tag_picture">列表图片</string>
   <string name="actfm_TVA_silence_label">静默通知</string>
-  <string name="actfm_TVA_list_icon_label">List Icon:</string>
-  <string name="actfm_TVA_tag_description_label">Description</string>
-  <string name="actfm_TVA_tag_settings_label">Settings</string>
-  <string name="actfm_TVA_tag_description_hint">Type a description here</string>
-  <string name="actfm_TVA_tag_name_hint">Enter list name</string>
-  <string name="actfm_TVA_login_to_share">You need to be logged in to Astrid.com to share lists! Please log in or make this a private list.</string>
+  <string name="actfm_TVA_list_icon_label">列表图标</string>
+  <string name="actfm_TVA_tag_description_label">描述</string>
+  <string name="actfm_TVA_tag_settings_label">设置</string>
+  <string name="actfm_TVA_tag_description_hint">在这里添加描述</string>
+  <string name="actfm_TVA_tag_name_hint">添加列表名称</string>
+  <string name="actfm_TVA_login_to_share">你需要登陆Astrid.com来分享列表，请登陆网站或者保持私有</string>
   <string name="actfm_EPA_intro">使用Astrid分享您的购物单，聚会和团队项目，就会发现人们可以迅速完成工作！</string>
   <string name="actfm_EPA_title">分享/指派</string>
   <string name="actfm_EPA_save">保存 &amp; 分享</string>
-  <string name="actfm_EPA_assign_label">Who</string>
-  <string name="actfm_EPA_assign_label_long">Who should do this?</string>
+  <string name="actfm_EPA_assign_label">谁</string>
+  <string name="actfm_EPA_assign_label_long">需要谁处理？</string>
   <string name="actfm_EPA_assign_me">我</string>
-  <string name="actfm_EPA_unassigned">Unassigned</string>
-  <string name="actfm_EPA_task_rabbit">Outsource it!</string>
+  <string name="actfm_EPA_unassigned">未分配</string>
+  <string name="actfm_EPA_task_rabbit">将任务外包</string>
   <string name="actfm_EPA_assign_custom">自定义...</string>
-  <string name="actfm_EPA_share_with">Share with:</string>
-  <string name="actfm_EPA_assigned_toast">Sent to %1$s (you can see it in the list between you and %2$s).</string>
-  <string name="actfm_EPA_collaborators_header">Share with Friends</string>
+  <string name="actfm_EPA_share_with">共享给：</string>
+  <string name="actfm_EPA_assigned_toast">发送给%1$s（你可以在你与%2$s的列表中查看到）</string>
+  <string name="actfm_EPA_collaborators_header">与朋友分享</string>
   <string name="actfm_EPA_list">列表：%s</string>
   <string name="actfm_EPA_assigned_hint">联系人姓名</string>
   <string name="actfm_EPA_message_text">邀请信息：</string>
@@ -62,9 +62,9 @@
   <string name="actfm_EPA_saved_toast">联系人设置已保存</string>
   <string name="actfm_EPA_invalid_email">电子邮箱无效： %s</string>
   <string name="actfm_EPA_invalid_tag">未找到列表： %s</string>
-  <string name="actfm_EPA_login_to_share">You need to be logged in to Astrid.com to share tasks! Please log in or make this a private task.</string>
-  <string name="actfm_EPA_login_button">Log in</string>
-  <string name="actfm_EPA_dont_share_button">Make private</string>
+  <string name="actfm_EPA_login_to_share">你需要登陆Astrid.com来分享任务，请登陆网站或者保持私有。</string>
+  <string name="actfm_EPA_login_button">登录</string>
+  <string name="actfm_EPA_dont_share_button">设置为私有</string>
   <string name="actfm_ALA_title">欢迎光临 Astrid.com！</string>
   <string name="actfm_ALA_body">Astrid.com能让您轻松在线访问、共享和委托您的任务。</string>
   <string name="actfm_ALA_fb_login">使用Facebook帐号登录</string>
@@ -74,19 +74,19 @@
   <string name="actfm_ALA_pw_new">创建新帐户？</string>
   <string name="actfm_ALA_pw_returning">已有帐户？</string>
   <string name="actfm_ALA_name_label">名字</string>
-  <string name="actfm_ALA_firstname_label">First Name</string>
-  <string name="actfm_ALA_lastname_label">Last Name</string>
+  <string name="actfm_ALA_firstname_label">名字</string>
+  <string name="actfm_ALA_lastname_label">姓氏</string>
   <string name="actfm_ALA_email_label">电子邮箱</string>
   <string name="actfm_ALA_username_email_label">用户名/电子邮箱</string>
   <string name="actfm_ALA_password_label">密码</string>
   <string name="actfm_ALA_signup_title">创建新账户</string>
   <string name="actfm_ALA_login_title">登陆至 Astrid.com</string>
-  <string name="actfm_GAA_title">Select the Google account you want to use:</string>
+  <string name="actfm_GAA_title">选择你要使用的Google账户</string>
   <string name="actfm_OLA_prompt">连接至 Google：</string>
   <string name="actfm_APr_header">Astrid.com （测试版！）</string>
-  <string name="actfm_https_title">Use HTTPS</string>
-  <string name="actfm_https_enabled">HTTPS enabled (slower)</string>
-  <string name="actfm_https_disabled">HTTPS disabled (faster)</string>
+  <string name="actfm_https_title">使用 HTTPS</string>
+  <string name="actfm_https_enabled">开启 HTTPS</string>
+  <string name="actfm_https_disabled">关闭 HTTPS</string>
   <string name="actfm_notification_title">Astrid.com 同步</string>
   <string name="actfm_notification_comments">收到新留言/点击察看细节</string>
   <string name="alarm_ACS_label">闹钟</string>
@@ -138,44 +138,44 @@
   <string name="DLG_eula_title">Astrid 使用条款</string>
   <string name="DLG_please_wait">请稍候</string>
   <string name="DLG_loading">载入中...</string>
-  <string name="DLG_dismiss">Dismiss</string>
-  <string name="DLG_ok">OK</string>
-  <string name="DLG_cancel">Cancel</string>
-  <string name="DLG_more">More</string>
-  <string name="DLG_undo">Undo</string>
+  <string name="DLG_dismiss">忽略</string>
+  <string name="DLG_ok">确定(O)</string>
+  <string name="DLG_cancel">取消</string>
+  <string name="DLG_more">更多</string>
+  <string name="DLG_undo">撤消</string>
   <string name="WID_dateButtonUnset">点选</string>
   <string name="WID_dateButtonLabel">$D $T</string>
   <string name="WID_disableButton">停用</string>
   <string name="ENE_label">备注</string>
   <string name="ENE_label_comments">注释</string>
   <string name="ENA_no_comments">没有要显示的</string>
-  <string name="ENA_no_user">You</string>
+  <string name="ENA_no_user">你</string>
   <string name="ENA_refresh_comments">刷新留言</string>
-  <string name="TLA_no_items">You have no tasks! \n Want to add something?</string>
+  <string name="TLA_no_items">你没有任务</string>
   <string name="TLA_menu_addons">扩展程序</string>
   <string name="TLA_menu_sort">排序 &amp; 隐藏</string>
   <string name="TLA_menu_sync">立刻同步！</string>
-  <string name="TLA_menu_lists">Lists</string>
-  <string name="TLA_menu_friends">Friends</string>
-  <string name="TLA_menu_suggestions">Suggestions</string>
-  <string name="TLA_menu_tutorial">Tutorial</string>
+  <string name="TLA_menu_lists">列表</string>
+  <string name="TLA_menu_friends">朋友</string>
+  <string name="TLA_menu_suggestions">建议</string>
+  <string name="TLA_menu_tutorial">教程</string>
   <string name="TLA_menu_settings">设置</string>
-  <string name="TLA_menu_support">Support</string>
+  <string name="TLA_menu_support">支持</string>
   <string name="TLA_search_label">搜索当前列表</string>
   <string name="TLA_custom">自定义</string>
-  <string name="TLA_quick_add_hint">Add a task</string>
-  <string name="TLA_quick_add_hint_assign">Tap to assign %s a task</string>
+  <string name="TLA_quick_add_hint">添加任务</string>
+  <string name="TLA_quick_add_hint_assign">点击以指派给%s一个任务</string>
   <string name="TLA_notification_volume_low">已静音。你不会再听到了！</string>
-  <string name="TLA_notification_disabled">Astrid reminders are disabled! You will not receive any reminders</string>
+  <string name="TLA_notification_disabled">Astrid提醒功能被关闭，你不会收到任何提醒。</string>
   <string-array name="TLA_filters">
-    <item>Active</item>
+    <item>激活</item>
     <item>今天</item>
-    <item>Soon</item>
-    <item>Late</item>
+    <item>马上</item>
+    <item>延迟</item>
     <item>完成</item>
-    <item>Hidden</item>
+    <item>隐藏</item>
   </string-array>
-  <string name="TLA_quickadd_confirm_title">You said, \"%s\"</string>
+  <string name="TLA_quickadd_confirm_title">你说到：“%s”</string>
   <string name="TLA_quickadd_confirm_speech_bubble">I created a task called \"%1$s\" %2$s at %3$s</string>
   <string name="TLA_quickadd_confirm_speech_bubble_date">for %s</string>
   <string name="TLA_quickadd_confirm_hide_helpers">Don\'t display future confirmations</string>
@@ -485,6 +485,13 @@
   <string name="gtasks_error_accountNotFound">Account %s not found--please log out and log back in from the Google Tasks settings.</string>
   <string name="gtasks_error_authRefresh">Unable to authenticate with Google Tasks. Please check your account password or try again later.</string>
   <string name="gtasks_error_accountManager">Error in your phone\'s account manager. Please log out and log back in from the Google Tasks settings.</string>
+
+
+
+
+
+
+
   <string name="help_popover_add_task">Start by adding a task or two</string>
   <string name="help_popover_tap_task">Tap task to edit and share</string>
   <string name="help_popover_list_settings">Tap to edit or share this list</string>
@@ -1037,13 +1044,24 @@
     <item quantity="one">1 Year</item>
     <item quantity="other">%d Years</item>
   </plurals>
+  <plurals name="DUt_months">
+    <item quantity="one">1 Month</item>
+    <item quantity="other">%d Months</item>
+  </plurals>
+  <plurals name="DUt_weeks">
+    <item quantity="one">1 Week</item>
+    <item quantity="other">%d Weeks</item>
+  </plurals>
   <plurals name="DUt_days">
+    <item quantity="one">1 Day</item>
     <item quantity="other">%d Days</item>
   </plurals>
   <plurals name="DUt_weekdays">
+    <item quantity="one">1 Weekday</item>
     <item quantity="other">%d Weekdays</item>
   </plurals>
   <plurals name="DUt_hours">
+    <item quantity="one">1 Hour</item>
     <item quantity="other">%d Hours</item>
   </plurals>
   <plurals name="DUt_minutes">
@@ -1068,11 +1086,15 @@
   </plurals>
   <plurals name="Ntasks">
     <item quantity="one">1 task</item>
+    <item quantity="other">%d tasks</item>
   </plurals>
   <plurals name="Npeople">
     <item quantity="one">1 person</item>
     <item quantity="other">%d people</item>
   </plurals>
+  <string name="today">Today</string>
+  <string name="tomorrow">Tomorrow</string>
+  <string name="yesterday">Yesterday</string>
   <string name="tmrw">Tmrw</string>
   <string name="yest">Yest</string>
   <string name="DLG_confirm_title">确认?</string>
@@ -1083,12 +1105,15 @@
   <string name="DLG_yes">确定</string>
   <string name="DLG_no">取消</string>
   <string name="DLG_close">关闭</string>
+  <string name="DLG_done">Done</string>
   <string name="DLG_error">Oops, looks like an error occurred! Here\'s what happened:\n\n%s</string>
   <string name="DLG_error_generic">糟糕，发生错误！</string>
   <string name="DLG_wait">请稍候...</string>
   <string name="SyP_progress">任务同步中...</string>
   <string name="SyP_progress_toast">正在同步中...</string>
   <string name="SyP_label">同步</string>
+  <string name="SyP_ioerror">Connection Error! Check your Internet connection.</string>
+  <string name="sync_SPr_group_status">Status</string>
   <string name="sync_status_loggedout">未登陆!</string>
   <string name="sync_status_ongoing">同步中...</string>
   <string name="sync_status_success">Last Sync:\n%s</string>
@@ -1096,6 +1121,7 @@
   <string name="sync_status_errors">同步 w/ 错误： %s 上次同步日期</string>
   <string name="sync_status_failed_subtitle">上次成功同步：%s</string>
   <string name="sync_status_never">未同步过！</string>
+  <string name="sync_SPr_group_options">Options</string>
   <string name="sync_SPr_interval_title">后台同步</string>
   <string name="sync_SPr_interval_desc_disabled">后台同步已关闭</string>
   <string name="sync_SPr_interval_desc">目前同步间隔：%s</string>

@@ -362,7 +362,7 @@
   <string name="p_about">O Astrid</string>
   <string name="p_about_text">Bieżąca wersja: %s\n\n Astrid ma otwarte źródła i jest zarządzana z dumą przez Todoroo, Inc.</string>
   <string name="p_help">Pomoc</string>
-  <string name="task_killer_help">Wygląda na to, że używasz aplikacji, która zabija procesy (%s)! Jeśli możesz, dodaj Astrid do listy wyjątków. Nieaktywny program Astrid nie będzie Ci przypominać o zadaniach do wykonania. \n</string>
+  <string name="task_killer_help">Wygląda na to, że używasz aplikacji, która zabija procesy (%s)! Jeśli możesz, dodaj Astrid do listy wyjątków. Nieaktywny program Astrid nie będzie Ci przypominać o zadaniach do wykonania.\n</string>
   <string name="task_killer_help_ok">Nie zabiję Astrid!</string>
   <string name="marketplace_title">Lista zadań/rzeczy do zrobienia Astrid</string>
   <string name="marketplace_description">Astrid jest program na licencji open-source. Pomaga Ci organizować zadania i wykonywać je na czas. Zawiera przypomnienia, etykiety, synchronizację, lokalne dodatki, widgety i dużo więcej.</string>
@@ -485,6 +485,13 @@
   <string name="gtasks_error_accountNotFound">Nie znaleziono konta %s --proszę wyloguj się i zaloguj ponownie w ustawieniach Google Zadań.</string>
   <string name="gtasks_error_authRefresh">Uwierzytelnienie w Google Zadania nieudane. Proszę, sprawdź poprawność swego hasła lub spróbuj ponownie później.</string>
   <string name="gtasks_error_accountManager">Błąd w menadżerze kont Twojego telefonu. Proszę, wyloguj się i zaloguj ponownie w ustawieniach Google Zadań.</string>
+
+
+
+
+
+
+
   <string name="help_popover_add_task">Dodaj zadanie tutaj</string>
   <string name="help_popover_tap_task">Puknij zadanie by je edytować i udostępnić</string>
   <string name="help_popover_list_settings">Puknij ustawienia listy by udostępnić całą listę</string>
@@ -1037,13 +1044,24 @@
     <item quantity="one">1 Year</item>
     <item quantity="other">%d Years</item>
   </plurals>
+  <plurals name="DUt_months">
+    <item quantity="one">1 Month</item>
+    <item quantity="other">%d Months</item>
+  </plurals>
+  <plurals name="DUt_weeks">
+    <item quantity="one">1 Week</item>
+    <item quantity="other">%d Weeks</item>
+  </plurals>
   <plurals name="DUt_days">
+    <item quantity="one">1 Day</item>
     <item quantity="other">%d Days</item>
   </plurals>
   <plurals name="DUt_weekdays">
+    <item quantity="one">1 Weekday</item>
     <item quantity="other">%d Weekdays</item>
   </plurals>
   <plurals name="DUt_hours">
+    <item quantity="one">1 Hour</item>
     <item quantity="other">%d Hours</item>
   </plurals>
   <plurals name="DUt_minutes">
@@ -1066,6 +1084,10 @@
     <item quantity="one">1 Sec</item>
     <item quantity="other">%d Sec</item>
   </plurals>
+  <plurals name="Ntasks">
+    <item quantity="one">1 task</item>
+    <item quantity="other">%d tasks</item>
+  </plurals>
   <plurals name="Npeople">
     <item quantity="one">1 person</item>
     <item quantity="other">%d people</item>
@@ -1083,12 +1105,15 @@
   <string name="DLG_yes">Tak</string>
   <string name="DLG_no">Nie</string>
   <string name="DLG_close">Zamknij</string>
+  <string name="DLG_done">Done</string>
   <string name="DLG_error">Ups! Wygląda na to, że wystąpił jakiś błąd! Oto, co się stało:\n\n%s</string>
   <string name="DLG_error_generic">Ups! Wygląda na to, że wystąpił jakiś błąd!</string>
   <string name="DLG_wait">Proszę czekać...</string>
   <string name="SyP_progress">Synchronizowanie Twoich zadań...</string>
   <string name="SyP_progress_toast">Synchronizacja...</string>
   <string name="SyP_label">Synchronizacja</string>
+  <string name="SyP_ioerror">Connection Error! Check your Internet connection.</string>
+  <string name="sync_SPr_group_status">Status</string>
   <string name="sync_status_loggedout">Nie zalogowano!</string>
   <string name="sync_status_ongoing">Synchronizacja trwa...</string>
   <string name="sync_status_success">Ostatnio Synch:\n%s</string>
@@ -1096,6 +1121,7 @@
   <string name="sync_status_errors">Synch w/ Błędy: %s</string>
   <string name="sync_status_failed_subtitle">Ostatnia udana synchronizacja: %s</string>
   <string name="sync_status_never">Nigdy nie synchronizowano!</string>
+  <string name="sync_SPr_group_options">Options</string>
   <string name="sync_SPr_interval_title">Synchronizacja w tle</string>
   <string name="sync_SPr_interval_desc_disabled">Synchronizacja w tle wyłączona</string>
   <string name="sync_SPr_interval_desc">Aktualnie ustawione na: %s</string>

@@ -1,75 +1,75 @@
 <?xml version='1.0' encoding='utf-8'?>
 <resources>
   <string name="EPE_action">Delen</string>
-  <string name="actfm_person_hint">Naam contactpersoon</string>
-  <string name="actfm_person_or_tag_hint">Contacten of gedeelde lijst</string>
-  <string name="actfm_toast_success">Op server opgeslagen</string>
+  <string name="actfm_person_hint">Naam contactpersoon of e-mail adres</string>
+  <string name="actfm_person_or_tag_hint">contactpersoon of gedeelde lijst</string>
+  <string name="actfm_toast_success">Opgeslagen op de Server</string>
   <string name="actfm_toast_error">Opslaan mislukt: %s</string>
-  <string name="actfm_tag_operation_disabled">Deze opdracht wordt nog niet ondersteund voor gedeelde labels.</string>
-  <string name="actfm_tag_operation_owner_delete">You are the owner of this shared list! If you delete it, it will be deleted for all list members. Are you sure you want to continue?</string>
-  <string name="actfm_picture_camera">Een foto maken</string>
-  <string name="actfm_picture_gallery">Uit galerij halen</string>
-  <string name="actfm_picture_clear">Clear Picture</string>
-  <string name="actfm_FLA_menu_refresh">Lijsten vernieuwen</string>
-  <string name="actfm_view_task_title">View Task?</string>
-  <string name="actfm_view_task_text">Task was sent to %s! You\'re currently viewing your own tasks. Do you want to view this and other tasks you\'ve assigned?</string>
-  <string name="actfm_view_task_ok">View Assigned</string>
+  <string name="actfm_tag_operation_disabled">Sorry, maar deze handeling wordt nog niet ondersteund voor gedeelde tags</string>
+  <string name="actfm_tag_operation_owner_delete">Je bent de eigenaar van deze gedeelde lijst! Als jij deze verwijdert, wordt hij verwijdert voor alle leden van de lijst. Weet je zeker dat je verder wilt gaan?</string>
+  <string name="actfm_picture_camera">Maak een Foto</string>
+  <string name="actfm_picture_gallery">Maak een keuze uit de Gallerij</string>
+  <string name="actfm_picture_clear">Verwijder de Foto</string>
+  <string name="actfm_FLA_menu_refresh">Vernieuw de lijsten</string>
+  <string name="actfm_view_task_title">Taak bekijken?</string>
+  <string name="actfm_view_task_text">Taak is naar %s gestuurd! Je bekijkt op dit moment je eigen taken. Wil je deze en andere taken die je hebt toegewezen bekijken?</string>
+  <string name="actfm_view_task_ok">Bekijk toegewezen taken</string>
   <string name="actfm_view_task_cancel">Stay Here</string>
-  <string name="TVA_add_comment">Een opmerking toevoegen...</string>
-  <string name="UAd_title_comment">%1$s re: %2$s</string>
+  <string name="TVA_add_comment">Voeg een opmerking toe</string>
+  <string name="UAd_title_comment">%1$s m.b.t.: %2$s</string>
   <string-array name="TVA_tabs">
     <item>Taken</item>
     <item>Activiteit</item>
     <item>Instellingen weergeven</item>
   </string-array>
-  <string name="actfm_TVA_filtered_by_assign">%s\'s tasks. Tap for all.</string>
-  <string name="actfm_TVA_filter_by_unassigned">Unassigned tasks. Tap for all.</string>
-  <string name="actfm_TVA_no_members_alert">Private: tap to edit or share list</string>
+  <string name="actfm_TVA_filtered_by_assign">Taken van %s</string>
+  <string name="actfm_TVA_filter_by_unassigned">Nog niet toegewezen taken. Raak aan voor alles.</string>
+  <string name="actfm_TVA_no_members_alert">Privé: raak aan om te veranderen of om de lijst te delen</string>
   <string name="actfm_TVA_menu_refresh">Vernieuwen</string>
-  <string name="actfm_TVA_tag_label">Lijst naam:</string>
-  <string name="actfm_TVA_tag_owner_label">Auteur weergeven:</string>
+  <string name="actfm_TVA_tag_label">Lijst</string>
+  <string name="actfm_TVA_tag_owner_label">Eigenaar Lijst:</string>
   <string name="actfm_TVA_tag_owner_none">geen</string>
-  <string name="actfm_TVA_members_label">Medewerkers:</string>
+  <string name="actfm_TVA_members_label">Gedeeld met:</string>
   <string name="actfm_TVA_tag_picture">Lijst afbeelding:</string>
-  <string name="actfm_TVA_silence_label">Stille waarschuwingen</string>
-  <string name="actfm_TVA_list_icon_label">List Icon:</string>
-  <string name="actfm_TVA_tag_description_label">Description</string>
-  <string name="actfm_TVA_tag_settings_label">Settings</string>
-  <string name="actfm_TVA_tag_description_hint">Type a description here</string>
+  <string name="actfm_TVA_silence_label">Silence Notifications</string>
+  <string name="actfm_TVA_list_icon_label">Lijst Icoon:</string>
+  <string name="actfm_TVA_tag_description_label">Omschrijving</string>
+  <string name="actfm_TVA_tag_settings_label">Voorkeuren</string>
+  <string name="actfm_TVA_tag_description_hint">Type hier een beschrijving</string>
   <string name="actfm_TVA_tag_name_hint">Enter list name</string>
-  <string name="actfm_TVA_login_to_share">You need to be logged in to Astrid.com to share lists! Please log in or make this a private list.</string>
-  <string name="actfm_EPA_intro">Gebruik Astrid om boodschappenlijsten, feestplanningen, of team projecten te delen en zie direct als personen taken hebben voltooid!</string>
+  <string name="actfm_TVA_login_to_share">Je moet bij Astrid.com zijn ingelogd om lijsten te delen! Log alsjeblieft in, of maak dit een privé lijst.</string>
+  <string name="actfm_EPA_intro">Gebruik Astrid om boodschappenlijstjes, feestplanningen of projecten te delen en zie gelijk wanneer mensen hun taken voltooien!</string>
   <string name="actfm_EPA_title">Delen/toewijzen</string>
   <string name="actfm_EPA_save">Opslaan &amp; Delen</string>
-  <string name="actfm_EPA_assign_label">Who</string>
-  <string name="actfm_EPA_assign_label_long">Who should do this?</string>
-  <string name="actfm_EPA_assign_me">Mijzelf</string>
-  <string name="actfm_EPA_unassigned">Unassigned</string>
-  <string name="actfm_EPA_task_rabbit">Outsource it!</string>
+  <string name="actfm_EPA_assign_label">Wie</string>
+  <string name="actfm_EPA_assign_label_long">Wie zou dit moeten doen?</string>
+  <string name="actfm_EPA_assign_me">Ik</string>
+  <string name="actfm_EPA_unassigned">Niet toegewezen</string>
+  <string name="actfm_EPA_task_rabbit">Besteed dit uit!</string>
   <string name="actfm_EPA_assign_custom">Aangepast...</string>
-  <string name="actfm_EPA_share_with">Share with:</string>
-  <string name="actfm_EPA_assigned_toast">Sent to %1$s (you can see it in the list between you and %2$s).</string>
-  <string name="actfm_EPA_collaborators_header">Share with Friends</string>
+  <string name="actfm_EPA_share_with">Deel met:</string>
+  <string name="actfm_EPA_assigned_toast">Naar %1$s gestuurd (je kan dit zien in de lijst die je deelt met %2$s).</string>
+  <string name="actfm_EPA_collaborators_header">Deel met Vrienden</string>
   <string name="actfm_EPA_list">Lijst: %s</string>
-  <string name="actfm_EPA_assigned_hint">Naam contactpersoon</string>
-  <string name="actfm_EPA_message_text">Uitnodigings bericht:</string>
-  <string name="actfm_EPA_message_body">Help mij dit te voltooien!</string>
-  <string name="actfm_EPA_tag_label">Een gedeeld label aanmaken?</string>
-  <string name="actfm_EPA_tag_hint">(i.e. Silly Hats Club)</string>
+  <string name="actfm_EPA_assigned_hint">Naam van contactpersoon</string>
+  <string name="actfm_EPA_message_text">Tekst voor uitnodiging:</string>
+  <string name="actfm_EPA_message_body">Help mij dit gedaan te krijgen!</string>
+  <string name="actfm_EPA_tag_label">Een gedeelde tag aanmaken?</string>
+  <string name="actfm_EPA_tag_hint">(bv. Rare Hoedjes Club)</string>
   <string name="actfm_EPA_facebook">Facebook</string>
   <string name="actfm_EPA_twitter">Twitter</string>
   <string name="actfm_EPA_emailed_toast">Taak gedeeld met %s</string>
-  <string name="actfm_EPA_saved_toast">Persoonsgegevens opgeslagen</string>
+  <string name="actfm_EPA_saved_toast">Voorkeuren Personen opgeslagen</string>
   <string name="actfm_EPA_invalid_email">Ongeldig e-mailadres: %s</string>
   <string name="actfm_EPA_invalid_tag">Lijst niet gevonden: %s</string>
-  <string name="actfm_EPA_login_to_share">You need to be logged in to Astrid.com to share tasks! Please log in or make this a private task.</string>
-  <string name="actfm_EPA_login_button">Log in</string>
-  <string name="actfm_EPA_dont_share_button">Make private</string>
+  <string name="actfm_EPA_login_to_share">Je moet ingelogd zijn bij Astrid.com om een taak te delen! Log alsjeblieft in of maak dit een privé taak.</string>
+  <string name="actfm_EPA_login_button">Aanmelden</string>
+  <string name="actfm_EPA_dont_share_button">Maak privé</string>
   <string name="actfm_ALA_title">Welkom bij Astrid.com!</string>
-  <string name="actfm_ALA_body">Astrid.com geeft online toegang tot de taken, waarbij deze gedeeld en gedelegeerd kunnen worden met anderen.</string>
-  <string name="actfm_ALA_fb_login">Aanmelden bij Facebook</string>
-  <string name="actfm_ALA_gg_login">Aanmelden bij Google</string>
-  <string name="actfm_ALA_pw_login">Nog geen Google of Facebook account?</string>
+  <string name="actfm_ALA_body">Astrid.com geeft je online toegang tot je taken, deel en verdeel met anderen.</string>
+  <string name="actfm_ALA_fb_login">Aanmelden via Facebook</string>
+  <string name="actfm_ALA_gg_login">Aanmelden via Google</string>
+  <string name="actfm_ALA_pw_login">Geen gebruik maken van Google of Facebook?</string>
   <string name="actfm_ALA_pw_link">Registreer hier</string>
   <string name="actfm_ALA_pw_new">Nieuw account aanmaken?</string>
   <string name="actfm_ALA_pw_returning">Bestaand account?</string>
@@ -485,6 +485,13 @@
   <string name="gtasks_error_accountNotFound">Account %s not found--please log out and log back in from the Google Tasks settings.</string>
   <string name="gtasks_error_authRefresh">Unable to authenticate with Google Tasks. Please check your account password or try again later.</string>
   <string name="gtasks_error_accountManager">Error in your phone\'s account manager. Please log out and log back in from the Google Tasks settings.</string>
+
+
+
+
+
+
+
   <string name="help_popover_add_task">Start by adding a task or two</string>
   <string name="help_popover_tap_task">Tap task to edit and share</string>
   <string name="help_popover_list_settings">Tap to edit or share this list</string>
@@ -1037,13 +1044,24 @@
     <item quantity="one">1 Year</item>
     <item quantity="other">%d Years</item>
   </plurals>
+  <plurals name="DUt_months">
+    <item quantity="one">1 Month</item>
+    <item quantity="other">%d Months</item>
+  </plurals>
+  <plurals name="DUt_weeks">
+    <item quantity="one">1 Week</item>
+    <item quantity="other">%d Weeks</item>
+  </plurals>
   <plurals name="DUt_days">
+    <item quantity="one">1 Day</item>
     <item quantity="other">%d Days</item>
   </plurals>
   <plurals name="DUt_weekdays">
+    <item quantity="one">1 Weekday</item>
     <item quantity="other">%d Weekdays</item>
   </plurals>
   <plurals name="DUt_hours">
+    <item quantity="one">1 Hour</item>
     <item quantity="other">%d Hours</item>
   </plurals>
   <plurals name="DUt_minutes">
@@ -1068,6 +1086,7 @@
   </plurals>
   <plurals name="Ntasks">
     <item quantity="one">1 task</item>
+    <item quantity="other">%d tasks</item>
   </plurals>
   <plurals name="Npeople">
     <item quantity="one">1 person</item>
@@ -1086,12 +1105,14 @@
   <string name="DLG_yes">Ja</string>
   <string name="DLG_no">Nee</string>
   <string name="DLG_close">Sluiten</string>
+  <string name="DLG_done">Done</string>
   <string name="DLG_error">Er is een fout opgetreden:\n\n%s</string>
   <string name="DLG_error_generic">Er is een fout opgetreden!</string>
   <string name="DLG_wait">Even geduld a.u.b.</string>
   <string name="SyP_progress">Taken synchroniseren...</string>
   <string name="SyP_progress_toast">Synchroniseren…</string>
   <string name="SyP_label">Synchronisatie</string>
+  <string name="SyP_ioerror">Connection Error! Check your Internet connection.</string>
   <string name="sync_SPr_group_status">Status</string>
   <string name="sync_status_loggedout">Niet aangemeld!</string>
   <string name="sync_status_ongoing">Synchronisatie bezig...</string>
@@ -1100,6 +1121,7 @@
   <string name="sync_status_errors">Gesync. met fouten: %s</string>
   <string name="sync_status_failed_subtitle">Gelukt op: %s</string>
   <string name="sync_status_never">Nooit gesynct!</string>
+  <string name="sync_SPr_group_options">Options</string>
   <string name="sync_SPr_interval_title">Achtergrond synchronisatie</string>
   <string name="sync_SPr_interval_desc_disabled">Achtergrond synchronisatie uitgeschakeld</string>
   <string name="sync_SPr_interval_desc">Huidige instelling: %s</string>

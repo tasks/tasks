@@ -55,8 +55,8 @@
   <string name="today">今天</string>
   <string name="tomorrow">明天</string>
   <string name="yesterday">昨天</string>
-  <string name="tmrw">Tmrw</string>
-  <string name="yest">Yest</string>
+  <string name="tmrw">明天</string>
+  <string name="yest">昨天</string>
   <string name="DLG_confirm_title">确认?</string>
   <string name="DLG_question_title">问题：</string>
   <string name="DLG_information_title">信息</string>
@@ -91,7 +91,7 @@
   <string name="sync_SPr_group_actions">动作</string>
   <string name="sync_SPr_sync">现在同步！</string>
   <string name="sync_SPr_sync_log_in">登陆并同步！</string>
-  <string name="sync_SPr_logged_in_prefix">Logged in as:</string>
+  <string name="sync_SPr_logged_in_prefix">已经登录为：</string>
   <string name="sync_SPr_forget">登出</string>
   <string name="sync_SPr_forget_description">清除所有同步资料</string>
   <string name="sync_forget_confirm">登出/清除同步资料?</string>

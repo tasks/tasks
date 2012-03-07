@@ -50,13 +50,13 @@
   </plurals>
   <plurals name="Npeople">
     <item quantity="one">1 person</item>
-    <item quantity="other">%d people</item>
+    <item quantity="other">%d personer</item>
   </plurals>
   <string name="today">Idag</string>
   <string name="tomorrow">Imorgon</string>
   <string name="yesterday">Igår</string>
-  <string name="tmrw">Tmrw</string>
-  <string name="yest">Yest</string>
+  <string name="tmrw">imorn</string>
+  <string name="yest">Igår</string>
   <string name="DLG_confirm_title">Bekräfta?</string>
   <string name="DLG_question_title">Fråga:</string>
   <string name="DLG_information_title">Information</string>
@@ -78,7 +78,7 @@
   <string name="sync_status_ongoing">Synkronisering pågår...</string>
   <string name="sync_status_success">Synkroniserades senast:\n%s</string>
   <string name="sync_status_failed">Misslyckades: %s</string>
-  <string name="sync_status_errors">Sync w/ Errors: %s</string>
+  <string name="sync_status_errors">Synkade med fel: %s</string>
   <string name="sync_status_failed_subtitle">Synkronisering lyckades senast: %s</string>
   <string name="sync_status_never">Aldrig synkroniserad!</string>
   <string name="sync_SPr_group_options">Alternativ</string>
@@ -91,7 +91,7 @@
   <string name="sync_SPr_group_actions">Åtgärder</string>
   <string name="sync_SPr_sync">Synkronisera nu!</string>
   <string name="sync_SPr_sync_log_in">Logga in &amp; synkronisera!</string>
-  <string name="sync_SPr_logged_in_prefix">Logged in as:</string>
+  <string name="sync_SPr_logged_in_prefix">Inloggad som:</string>
   <string name="sync_SPr_forget">Logga ut</string>
   <string name="sync_SPr_forget_description">Rensar alla synkroniseringsdata</string>
   <string name="sync_forget_confirm">Logga ut / rensa synkroniseringsdata?</string>

@@ -485,6 +485,13 @@
   <string name="gtasks_error_accountNotFound">Account %s not found--please log out and log back in from the Google Tasks settings.</string>
   <string name="gtasks_error_authRefresh">Unable to authenticate with Google Tasks. Please check your account password or try again later.</string>
   <string name="gtasks_error_accountManager">Error in your phone\'s account manager. Please log out and log back in from the Google Tasks settings.</string>
+
+
+
+
+
+
+
   <string name="help_popover_add_task">Start by adding a task or two</string>
   <string name="help_popover_tap_task">Tap task to edit and share</string>
   <string name="help_popover_list_settings">Tap to edit or share this list</string>
@@ -1037,20 +1044,29 @@
     <item quantity="one">1 Year</item>
     <item quantity="other">%d Years</item>
   </plurals>
+  <plurals name="DUt_months">
+    <item quantity="one">1 Month</item>
+    <item quantity="other">%d Months</item>
+  </plurals>
   <plurals name="DUt_weeks">
+    <item quantity="one">1 Week</item>
     <item quantity="other">%d Weeks</item>
   </plurals>
   <plurals name="DUt_days">
+    <item quantity="one">1 Day</item>
     <item quantity="other">%d Days</item>
   </plurals>
   <plurals name="DUt_weekdays">
+    <item quantity="one">1 Weekday</item>
     <item quantity="other">%d Weekdays</item>
   </plurals>
   <plurals name="DUt_hours">
+    <item quantity="one">1 Hour</item>
     <item quantity="other">%d Hours</item>
   </plurals>
   <plurals name="DUt_minutes">
     <item quantity="one">1 Minute</item>
+    <item quantity="other">%d Minutes</item>
   </plurals>
   <plurals name="DUt_seconds">
     <item quantity="one">1 Second</item>
@@ -1067,6 +1083,10 @@
   <plurals name="DUt_secondsShort">
     <item quantity="one">1 Sec</item>
     <item quantity="other">%d Sec</item>
+  </plurals>
+  <plurals name="Ntasks">
+    <item quantity="one">1 task</item>
+    <item quantity="other">%d tasks</item>
   </plurals>
   <plurals name="Npeople">
     <item quantity="one">1 person</item>
@@ -1085,12 +1105,15 @@
   <string name="DLG_yes">Sí</string>
   <string name="DLG_no">No</string>
   <string name="DLG_close">Tancar</string>
+  <string name="DLG_done">Done</string>
   <string name="DLG_error">¡Ui, sembla que hi ha hagut un problema! Això es el que ha passat:\n\n%s</string>
   <string name="DLG_error_generic">¡Ui, sembla que hi ha hagut un problema!</string>
   <string name="DLG_wait">Si us plau, espera...</string>
   <string name="SyP_progress">Sincronitzant les seves tasques...</string>
   <string name="SyP_progress_toast">S\'està sincronitzant...</string>
   <string name="SyP_label">Sincronització</string>
+  <string name="SyP_ioerror">Connection Error! Check your Internet connection.</string>
+  <string name="sync_SPr_group_status">Status</string>
   <string name="sync_status_loggedout">No conectat!</string>
   <string name="sync_status_ongoing">Sincronització en curs...</string>
   <string name="sync_status_success">Last Sync:\n%s</string>
@@ -1098,6 +1121,7 @@
   <string name="sync_status_errors">Sync w/ Errors: %s</string>
   <string name="sync_status_failed_subtitle">Última sincronització correcte: %s</string>
   <string name="sync_status_never">Mai sincronitzat!</string>
+  <string name="sync_SPr_group_options">Options</string>
   <string name="sync_SPr_interval_title">Sincronitzar en segon pla</string>
   <string name="sync_SPr_interval_desc_disabled">Desactivada la sincronització en segon pla</string>
   <string name="sync_SPr_interval_desc">Actualment configurat en: %s</string>
