@@ -40,6 +40,7 @@ import com.todoroo.astrid.utility.AstridPreferences;
 
 public final class UpgradeService {
 
+    public static final int V4_0_3 = 254;
     public static final int V4_0_2 = 253;
     public static final int V4_0_1 = 252;
     public static final int V4_0_0 = 251;
@@ -177,14 +178,24 @@ public final class UpgradeService {
         Preferences.clear(AstridPreferences.P_UPGRADE_FROM);
         StringBuilder changeLog = new StringBuilder();
 
+        if (from >= V4_0_0 && from < V4_0_3) {
+            newVersionString(changeLog, "4.0.3 (3/6/12)", new String[] {
+               "Fix some issues with Google Tasks sync. We're sorry to " +
+                   "everyone who's been having trouble with it!",
+               "Updated translations for Portuguese, Chinese, German, Russian, and Dutch",
+               "Centralize Android's menu key with in-app navigation",
+               "Fixed crashes & improve crash logging",
+            });
+        }
+
         if (from >= V4_0_0 && from < V4_0_2) {
             newVersionString(changeLog, "4.0.2 (2/29/12)", new String[] {
-               "Removed GPS permission - no longer needed",
-               "Fixes for some subtasks issues",
-               "No longer need to run the Crittercism service in the background",
-               "Fixed a crash that could occur when cloning tasks",
-               "Fixed a bug that prevented certain comments from syncing correctly",
-               "Fixed issues where voice add wouldn't work correctly",
+                    "Removed GPS permission - no longer needed",
+                    "Fixes for some subtasks issues",
+                    "No longer need to run the Crittercism service in the background",
+                    "Fixed a crash that could occur when cloning tasks",
+                    "Fixed a bug that prevented certain comments from syncing correctly",
+                    "Fixed issues where voice add wouldn't work correctly",
             });
         }
 
