@@ -40,7 +40,9 @@ import com.todoroo.astrid.utility.AstridPreferences;
 
 public final class UpgradeService {
 
-    public static final int V4_0_3 = 254;
+    public static final int V4_0_3_1 = 256;
+    public static final int V4_0_3 = 255;
+    public static final int V4_0_2_1 = 254;
     public static final int V4_0_2 = 253;
     public static final int V4_0_1 = 252;
     public static final int V4_0_0 = 251;
@@ -177,6 +179,14 @@ public final class UpgradeService {
 
         Preferences.clear(AstridPreferences.P_UPGRADE_FROM);
         StringBuilder changeLog = new StringBuilder();
+
+        if (from >= V4_0_0 && from < V4_0_3_1) {
+            newVersionString(changeLog, "4.0.3.1 (3/7/12)", new String[] {
+               "Fixed crashes related to error reporting",
+               "Fixed a crash when creating a task from the widget",
+               "Fixed a bug where a manual sync wouldn't always start"
+            });
+        }
 
         if (from >= V4_0_0 && from < V4_0_3) {
             newVersionString(changeLog, "4.0.3 (3/6/12)", new String[] {
