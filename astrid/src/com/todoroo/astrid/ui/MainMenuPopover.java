@@ -5,8 +5,10 @@ import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.View.OnTouchListener;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -47,6 +49,13 @@ public class MainMenuPopover extends FragmentPopover implements InterceptTouchLi
 
         TouchInterceptingFrameLayout rootLayout = (TouchInterceptingFrameLayout) getContentView();
         rootLayout.setInterceptTouchListener(this);
+        rootLayout.setOnTouchListener(new OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                dismiss();
+                return false;
+            }
+        });
 
         if (AndroidUtilities.isTabletSized(context))
             rowLayout = R.layout.main_menu_row_tablet;
