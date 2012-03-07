@@ -190,6 +190,25 @@
       <move file="AndroidManifest_old.xml" tofile="AndroidManifest.xml" />
     </target>
 
+    <target name="crittercism-permissions"
+            description="Apply extra crittercism permissions">
+      <if>
+        <condition>
+          <resourcecontains resource="AndroidManifest.xml" substring="READ_LOGS"/>
+        </condition>
+        <then>
+          <echo message="Nothing to do." />
+        </then>
+        <else>
+          <replace file="AndroidManifest.xml" token="android.permission.VIBRATE">
+            <replacevalue><![CDATA[android.permission.VIBRATE"/>
+            <uses-permission android:name="android.permission.READ_LOGS"/>
+            <uses-permission android:name="android.permission.GET_TASKS]]></replacevalue>
+          </replace>
+        </else>
+      </if>
+    </target>
+
     <target name="release-jenkins">
       <property environment="env" />
       <copy file="AndroidManifest.xml" tofile="AndroidManifest_old.xml" />

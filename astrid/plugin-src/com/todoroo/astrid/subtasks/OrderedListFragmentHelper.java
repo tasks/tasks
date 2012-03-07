@@ -142,7 +142,6 @@ public class OrderedListFragmentHelper<LIST> {
             }
 
             fragment.loadTaskListContent(true);
-            onMetadataChanged(targetTaskId);
         }
     };
 
@@ -166,7 +165,6 @@ public class OrderedListFragmentHelper<LIST> {
                 Log.e("drag", "Indent Error", e); //$NON-NLS-1$ //$NON-NLS-2$
             }
             fragment.loadTaskListContent(true);
-            onMetadataChanged(targetTaskId);
         }
     };
 
@@ -202,13 +200,6 @@ public class OrderedListFragmentHelper<LIST> {
         });
 
         return taskAdapter;
-    }
-
-    /**
-     * @param targetTaskId
-     */
-    protected void onMetadataChanged(long targetTaskId) {
-        // hook
     }
 
     private final class DraggableTaskAdapter extends TaskAdapter {

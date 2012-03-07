@@ -18,6 +18,7 @@ import android.content.SharedPreferences.Editor;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.database.Cursor;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v4.app.ActionBar;
 import android.support.v4.app.Fragment;
@@ -87,6 +88,7 @@ import com.todoroo.astrid.service.StatisticsConstants;
 import com.todoroo.astrid.service.StatisticsService;
 import com.todoroo.astrid.service.TagDataService;
 import com.todoroo.astrid.service.TaskService;
+import com.todoroo.astrid.service.ThemeService;
 import com.todoroo.astrid.service.UpgradeService;
 import com.todoroo.astrid.subtasks.SubtasksListFragment;
 import com.todoroo.astrid.sync.SyncProviderPreferences;
@@ -374,12 +376,25 @@ public class TaskListFragment extends ListFragment implements OnScrollListener,
         contextMenuExtensionLoader.loadInNewThread(getActivity());
     }
 
-    protected void addSyncRefreshMenuItem(Menu menu) {
-        MenuItem item = menu.add(Menu.NONE, MENU_SYNC_ID, Menu.NONE,
-                R.string.TLA_menu_sync);
-        item.setIcon(R.drawable.ic_menu_refresh);
-        if (((AstridActivity) getActivity()).getFragmentLayout() != AstridActivity.LAYOUT_SINGLE)
-            item.setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
+    protected void addSyncRefreshMenuItem(Menu menu, int themeFlags) {
+        addMenuItem(menu, R.string.TLA_menu_sync,
+                ThemeService.getDrawable(R.drawable.icn_menu_refresh, themeFlags), MENU_SYNC_ID, true);
+    }
+
+    protected void addMenuItem(Menu menu, int title, int imageRes, int id, boolean showAsAction) {
+        TaskListActivity activity = (TaskListActivity) getActivity();
+        if (activity.getFragmentLayout() != AstridActivity.LAYOUT_SINGLE && showAsAction) {
+            MenuItem item = menu.add(Menu.NONE, id, Menu.NONE, title);
+            item.setIcon(imageRes);
+            item.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
+        } else {
+            activity.getMainMenuPopover().addMenuItem(title, imageRes, id);
+        }
+    }
+
+    protected void addMenuItem(CharSequence title, Drawable image, Intent customIntent, int id) {
+        TaskListActivity activity = (TaskListActivity) getActivity();
+        activity.getMainMenuPopover().addMenuItem(title, image, customIntent, id);
     }
 
     /**
@@ -389,48 +404,33 @@ public class TaskListFragment extends ListFragment implements OnScrollListener,
      */
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        if (getActivity() == null)
+        TaskListActivity activity = (TaskListActivity) getActivity();
+        if (activity == null)
             return;
         if (!isCurrentTaskListFragment())
             return;
 
-        MenuItem item;
+        boolean isTablet = AndroidUtilities.isTabletSized(activity);
+        activity.getMainMenuPopover().clear();
 
         // --- sort
         if (allowResorting()) {
-            item = menu.add(Menu.NONE, MENU_SORT_ID, Menu.NONE,
-                    R.string.TLA_menu_sort);
-            item.setIcon(android.R.drawable.ic_menu_sort_by_size);
-            if (((AstridActivity) getActivity()).getFragmentLayout() != AstridActivity.LAYOUT_SINGLE)
-                item.setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
+            addMenuItem(menu, R.string.TLA_menu_sort,
+                    ThemeService.getDrawable(R.drawable.icn_menu_sort_by_size, isTablet ? ThemeService.FLAG_INVERT : 0), MENU_SORT_ID, true);
         }
 
         // --- sync
-        addSyncRefreshMenuItem(menu);
+        addSyncRefreshMenuItem(menu, isTablet ? ThemeService.FLAG_INVERT : 0);
 
         // --- new filter
-        item = menu.add(Menu.NONE, MENU_NEW_FILTER_ID, Menu.NONE,
-                R.string.FLA_new_filter);
-        item.setIcon(android.R.drawable.ic_menu_add);
-        if (((AstridActivity) getActivity()).getFragmentLayout() != AstridActivity.LAYOUT_SINGLE)
-            item.setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
+        addMenuItem(menu, R.string.FLA_new_filter,
+                ThemeService.getDrawable(R.drawable.icn_menu_filters, isTablet ? ThemeService.FLAG_INVERT : 0), MENU_NEW_FILTER_ID, true);
 
         // --- addons
         if (!Constants.MARKET_DISABLED) {
-            item = menu.add(Menu.NONE, MENU_ADDONS_ID, Menu.NONE,
-                    R.string.TLA_menu_addons);
-            item.setIcon(android.R.drawable.ic_menu_set_as);
+            addMenuItem(menu, R.string.TLA_menu_addons,
+                    ThemeService.getDrawable(R.drawable.icn_menu_plugins, isTablet ? ThemeService.FLAG_FORCE_DARK : 0), MENU_ADDONS_ID, false);
         }
-
-        // --- support
-        item = menu.add(Menu.NONE, MENU_SUPPORT_ID, Menu.NONE,
-                R.string.TLA_menu_support);
-        item.setIcon(android.R.drawable.ic_menu_help);
-
-        // --- settings
-        item = menu.add(Menu.NONE, MENU_SETTINGS_ID, Menu.NONE,
-                R.string.TLA_menu_settings);
-        item.setIcon(android.R.drawable.ic_menu_preferences);
 
         // ask about plug-ins
         Intent queryIntent = new Intent(
@@ -442,14 +442,10 @@ public class TaskListFragment extends ListFragment implements OnScrollListener,
         int length = resolveInfoList.size();
         for (int i = 0; i < length; i++) {
             ResolveInfo resolveInfo = resolveInfoList.get(i);
-
-            item = menu.add(Menu.NONE, MENU_ADDON_INTENT_ID, Menu.NONE,
-                    resolveInfo.loadLabel(pm));
-            item.setIcon(resolveInfo.loadIcon(pm));
             Intent intent = new Intent(AstridApiConstants.ACTION_TASK_LIST_MENU);
             intent.setClassName(resolveInfo.activityInfo.packageName,
                     resolveInfo.activityInfo.name);
-            item.setIntent(intent);
+            addMenuItem(resolveInfo.loadLabel(pm), resolveInfo.loadIcon(pm), intent, MENU_ADDON_INTENT_ID);
         }
     }
 
@@ -1082,20 +1078,12 @@ public class TaskListFragment extends ListFragment implements OnScrollListener,
         return onOptionsItemSelected(item);
     }
 
-    @Override
-    public boolean onOptionsItemSelected(final MenuItem item) {
-        Intent intent;
-        long itemId;
-
-        // handle my own menus
-        switch (item.getItemId()) {
+    public boolean handleOptionsMenuItemSelected(int id, Intent intent) {
+        switch(id) {
         case MENU_ADDONS_ID:
             StatisticsService.reportEvent(StatisticsConstants.TLA_MENU_ADDONS);
             intent = new Intent(getActivity(), AddOnActivity.class);
             startActivityForResult(intent, ACTIVITY_ADDONS);
-            return true;
-        case MENU_SETTINGS_ID:
-            showSettings();
             return true;
         case MENU_SORT_ID:
             StatisticsService.reportEvent(StatisticsConstants.TLA_MENU_SORT);
@@ -1107,11 +1095,7 @@ public class TaskListFragment extends ListFragment implements OnScrollListener,
             StatisticsService.reportEvent(StatisticsConstants.TLA_MENU_SYNC);
             syncActionHelper.performSyncAction();
             return true;
-        case MENU_SUPPORT_ID:
-            showSupport();
-            return true;
         case MENU_ADDON_INTENT_ID:
-            intent = item.getIntent();
             AndroidUtilities.startExternalIntent(getActivity(), intent,
                     ACTIVITY_MENU_EXTERNAL);
             return true;
@@ -1119,7 +1103,20 @@ public class TaskListFragment extends ListFragment implements OnScrollListener,
             intent = new Intent(getActivity(), CustomFilterActivity.class);
             getActivity().startActivityForResult(intent, ACTIVITY_REQUEST_NEW_FILTER);
             return true;
+        }
+        return false;
+    }
 
+    @Override
+    public boolean onOptionsItemSelected(final MenuItem item) {
+        Intent intent;
+        long itemId;
+
+        // handle my own menus
+        if (handleOptionsMenuItemSelected(item.getItemId(), item.getIntent()))
+            return true;
+
+        switch (item.getItemId()) {
         // --- context menu items
 
         case CONTEXT_MENU_BROADCAST_INTENT_ID: {

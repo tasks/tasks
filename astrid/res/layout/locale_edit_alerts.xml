@@ -49,6 +49,7 @@
                 android:layout_height="wrap_content" 
                 android:layout_weight="1"
                 android:paddingBottom="10dip"
+                android:textColor="@android:color/black"
                 android:entries="@array/locale_interval" />
             
     </LinearLayout>

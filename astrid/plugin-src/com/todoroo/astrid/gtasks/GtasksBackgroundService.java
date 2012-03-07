@@ -14,7 +14,7 @@ public class GtasksBackgroundService extends SyncV2BackgroundService {
 
     @Override
     protected SyncV2Provider getSyncProvider() {
-        return new GtasksSyncV2Provider();
+        return GtasksSyncV2Provider.getInstance();
     }
 
     @Override

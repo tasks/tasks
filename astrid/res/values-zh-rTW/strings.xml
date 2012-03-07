@@ -484,13 +484,6 @@
   <string name="gtasks_error_accountNotFound">Account %s not found--please log out and log back in from the Google Tasks settings.</string>
   <string name="gtasks_error_authRefresh">Unable to authenticate with Google Tasks. Please check your account password or try again later.</string>
   <string name="gtasks_error_accountManager">Error in your phone\'s account manager. Please log out and log back in from the Google Tasks settings.</string>
-  <string name="intro_click_prompt">簡介: 按我閱讀記事</string>
-  <string name="intro_task_1_summary">建立ˋ您的第一個工作</string>
-  <string name="intro_task_1_note">兩種新增工作的方式:\n 1)快速新增:只要在快速輸入框中輸入工作並按下左側的+按鈕。\n\n 2)一般新增:按下快速輸入框右側的按鈕。加入一般細節(到期日、標籤、備註)或設定更多進階選項。按下儲存按鈕或是手機上的返回鍵將工作儲存。</string>
-  <string name="intro_task_2_summary">新增小工具到桌面</string>
-  <string name="intro_task_2_note">1) Long Press on your phone\'s desktop\n      2) Choose \"Widget\"\n      3) Choose the Astrid widget\n      4) Select the list you want and press OK.\n</string>
-  <string name="intro_task_3_summary">Setup sync with Astrid.com</string>
-  <string name="intro_task_3_note">1) Press your Menu button\n      2) Choose \"Sync Now\"\n      3) Select \"Astrid.com\"\n      4) Log In &amp; Synchronize!\n</string>
   <string name="help_popover_add_task">Start by adding a task or two</string>
   <string name="help_popover_tap_task">Tap task to edit and share</string>
   <string name="help_popover_list_settings">Tap to edit or share this list</string>

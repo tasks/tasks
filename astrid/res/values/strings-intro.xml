@@ -2,42 +2,6 @@
 <!-- See the file "LICENSE" for the full license governing this code. -->
 <resources xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <!-- Resources initial tasks added -->
-  
-   <!-- Intro Tag or click prompt -->
-  <string name="intro_click_prompt">Intro: Press me to see notes</string>
-  
-  <!-- Task 1 Summary  -->
-  <string name="intro_task_1_summary">Create your first task</string>
-
-  <!-- Task 1 Note -->
-  <string name="intro_task_1_note">Two ways to add a task:\n
-  1) Quick Add: Type the task into the quick entry box at bottom of screen and press the + button on the right.\n
-  2) Regular Add: Press the + button of the quick entry box. Add as much detail as you want. Then press \"Save\" or use your phone\'s back button.\n
-  </string>
-  
-  <!-- Task 2 Summary  -->
-  <string name="intro_task_2_summary">Add a widget to your desktop</string>
-
-  <!-- Task 2 Note -->
-  <string name="intro_task_2_note">
-  1) Long Press on your phone\'s desktop\n
-  &#160;&#160;&#160;&#160;&#160;2) Choose \"Widget\"\n
-  &#160;&#160;&#160;&#160;&#160;3) Choose the Astrid widget\n
-  &#160;&#160;&#160;&#160;&#160;4) Select the list you want and press OK.\n
-  </string>
-  
-    <!-- Task 3 Summary  -->
-  <string name="intro_task_3_summary">Setup sync with Astrid.com</string>
-
-  <!-- Task 3 Note -->
-  <string name="intro_task_3_note">
-    1) Press your Menu button\n
-    &#160;&#160;&#160;&#160;&#160;2) Choose \"Sync Now\"\n
-    &#160;&#160;&#160;&#160;&#160;3) Select \"Astrid.com\"\n
-    &#160;&#160;&#160;&#160;&#160;4) Log In &amp; Synchronize!\n
-  </string>
- 
   <!-- NEW USER EXPERIENCE -->
   
   <!-- help bubbles -->

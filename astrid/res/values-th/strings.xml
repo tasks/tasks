@@ -485,13 +485,6 @@
   <string name="gtasks_error_accountNotFound">Account %s not found--please log out and log back in from the Google Tasks settings.</string>
   <string name="gtasks_error_authRefresh">Unable to authenticate with Google Tasks. Please check your account password or try again later.</string>
   <string name="gtasks_error_accountManager">Error in your phone\'s account manager. Please log out and log back in from the Google Tasks settings.</string>
-  <string name="intro_click_prompt">Intro: Press me to see notes</string>
-  <string name="intro_task_1_summary">สร้างแผนงานแรกของคุณ</string>
-  <string name="intro_task_1_note">Two ways to add a task:\n 1) Quick Add: Type the task into the quick entry box at bottom of screen and press the + button on the right.\n 2) Regular Add: Press the + button of the quick entry box. Add as much detail as you want. Then press \"Save\" or use your phone\'s back button.\n</string>
-  <string name="intro_task_2_summary">Add a widget to your desktop</string>
-  <string name="intro_task_2_note">1) Long Press on your phone\'s desktop\n      2) Choose \"Widget\"\n      3) Choose the Astrid widget\n      4) Select the list you want and press OK.\n</string>
-  <string name="intro_task_3_summary">Setup sync with Astrid.com</string>
-  <string name="intro_task_3_note">1) Press your Menu button\n      2) Choose \"Sync Now\"\n      3) Select \"Astrid.com\"\n      4) Log In &amp; Synchronize!\n</string>
   <string name="help_popover_add_task">Start by adding a task or two</string>
   <string name="help_popover_tap_task">Tap task to edit and share</string>
   <string name="help_popover_list_settings">Tap to edit or share this list</string>

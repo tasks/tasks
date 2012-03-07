@@ -14,6 +14,7 @@ import com.todoroo.andlib.service.ContextManager;
 import com.todoroo.andlib.sql.Criterion;
 import com.todoroo.andlib.sql.Query;
 import com.todoroo.andlib.sql.QueryTemplate;
+import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.astrid.activity.FilterListFragment;
 import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.api.AstridFilterExposer;
@@ -23,6 +24,7 @@ import com.todoroo.astrid.dao.MetadataDao.MetadataCriteria;
 import com.todoroo.astrid.data.Metadata;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.data.TaskApiDao.TaskCriteria;
+import com.todoroo.astrid.service.ThemeService;
 import com.todoroo.astrid.tags.TagService;
 
 /**
@@ -66,7 +68,10 @@ public final class CoreFilterExposer extends BroadcastReceiver implements Astrid
                                         Criterion.and(MetadataCriteria.withKey(TagService.KEY),
                                                 TagService.TAG.like("x_%", "x"))))))), //$NON-NLS-1$ //$NON-NLS-2$
                 null);
-        inbox.listingIcon = ((BitmapDrawable)r.getDrawable(R.drawable.filter_inbox)).getBitmap();
+        boolean isTablet = AndroidUtilities.isTabletSized(ContextManager.getContext());
+        int themeFlags = isTablet ? ThemeService.FLAG_FORCE_LIGHT : 0;
+        inbox.listingIcon = ((BitmapDrawable)r.getDrawable(
+                ThemeService.getDrawable(R.drawable.filter_inbox, themeFlags))).getBitmap();
         return inbox;
     }
 

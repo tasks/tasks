@@ -5,7 +5,9 @@ import java.util.concurrent.LinkedBlockingQueue;
 
 import android.content.ContentValues;
 import android.text.TextUtils;
+import android.util.Log;
 
+import com.crittercism.app.Crittercism;
 import com.todoroo.andlib.data.DatabaseDao.ModelUpdateListener;
 import com.todoroo.andlib.data.Property;
 import com.todoroo.andlib.service.Autowired;
@@ -21,7 +23,6 @@ import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.gtasks.GtasksMetadata;
 import com.todoroo.astrid.gtasks.GtasksMetadataService;
 import com.todoroo.astrid.gtasks.GtasksPreferenceService;
-import com.todoroo.astrid.gtasks.GtasksTaskListUpdater;
 import com.todoroo.astrid.gtasks.api.CreateRequest;
 import com.todoroo.astrid.gtasks.api.GtasksApiUtilities;
 import com.todoroo.astrid.gtasks.api.GtasksInvoker;
@@ -36,7 +37,6 @@ public final class GtasksSyncService {
     @Autowired GtasksMetadataService gtasksMetadataService;
     @Autowired TaskDao taskDao;
     @Autowired GtasksPreferenceService gtasksPreferenceService;
-    @Autowired GtasksTaskListUpdater gtasksTaskListUpdater;
 
     public GtasksSyncService() {
         DependencyInjectionService.getInstance().inject(this);
@@ -48,6 +48,7 @@ public final class GtasksSyncService {
 
     private class TaskPushOp extends SyncOnSaveOperation {
         protected Task model;
+        protected long creationDate = DateUtilities.now();
 
         public TaskPushOp(Task model) {
             this.model = model;
@@ -63,9 +64,10 @@ public final class GtasksSyncService {
     }
 
 
+    @SuppressWarnings("nls")
     public void initialize() {
         new Thread(new Runnable() {
-           public void run() {
+        public void run() {
                while (true) {
                    SyncOnSaveOperation op;
                    try {
@@ -78,14 +80,17 @@ public final class GtasksSyncService {
                            GtasksInvoker invoker = new GtasksInvoker(gtasksPreferenceService.getToken());
                            if (op instanceof TaskPushOp) {
                                TaskPushOp taskPush = (TaskPushOp)op;
-                               pushTaskOnSave(taskPush.model, taskPush.model.getMergedValues(), invoker, true);
+                               if(DateUtilities.now() - taskPush.creationDate < 1000)
+                                   AndroidUtilities.sleepDeep(1000 - (DateUtilities.now() - taskPush.creationDate));
+                               pushTaskOnSave(taskPush.model, taskPush.model.getMergedValues(), invoker, false);
                            } else if (op instanceof MoveOp) {
                                MoveOp move = (MoveOp)op;
                                pushMetadataOnSave(move.metadata, invoker);
                            }
                        }
-                   } catch (IOException e){
-                       System.err.println("Sync on save failed"); //$NON-NLS-1$
+                   } catch (IOException e) {
+                       Crittercism.logHandledException(e);
+                       Log.w("gtasks-sync-error", "Sync on save failed", e);
                    }
                }
            }
@@ -103,17 +108,14 @@ public final class GtasksSyncService {
                 if (!checkValuesForProperties(setValues, TASK_PROPERTIES)) //None of the properties we sync were updated
                     return;
 
-                operationQueue.offer(new TaskPushOp((Task)model.clone()));
+                Task toPush = taskDao.fetch(model.getId(), TASK_PROPERTIES);
+                operationQueue.offer(new TaskPushOp(toPush));
             }
         });
     }
 
-    private static final Property<?>[] TASK_PROPERTIES =
-        { Task.TITLE,
-          Task.NOTES,
-          Task.DUE_DATE,
-          Task.COMPLETION_DATE,
-          Task.DELETION_DATE };
+    private static final Property<?>[] TASK_PROPERTIES = { Task.ID, Task.TITLE,
+            Task.NOTES, Task.DUE_DATE, Task.COMPLETION_DATE, Task.DELETION_DATE };
 
     /**
      * Checks to see if any of the values changed are among the properties we sync
@@ -123,7 +125,7 @@ public final class GtasksSyncService {
      */
     private boolean checkValuesForProperties(ContentValues values, Property<?>[] properties) {
         for (Property<?> property : properties) {
-            if (values.containsKey(property.name))
+            if (property != Task.ID && values.containsKey(property.name))
                 return true;
         }
         return false;
@@ -131,6 +133,8 @@ public final class GtasksSyncService {
 
 
     public void triggerMoveForMetadata(final Metadata metadata) {
+        if (metadata == null)
+            return;
         if (metadata.checkAndClearTransitory(SyncFlags.GTASKS_SUPPRESS_SYNC))
             return;
         if (!metadata.getValue(Metadata.KEY).equals(GtasksMetadata.METADATA_KEY)) //Don't care about non-gtasks metadata
@@ -180,7 +184,8 @@ public final class GtasksSyncService {
         } else { //update case
             remoteId = gtasksMetadata.getValue(GtasksMetadata.ID);
             listId = gtasksMetadata.getValue(GtasksMetadata.LIST_ID);
-            remoteModel = invoker.getGtask(listId, remoteId);
+            remoteModel = new com.google.api.services.tasks.model.Task();
+            remoteModel.setId(remoteId);
         }
 
         //If task was newly created but without a title, don't sync--we're in the middle of
@@ -234,7 +239,7 @@ public final class GtasksSyncService {
         gtasksMetadata.setValue(GtasksMetadata.LAST_SYNC, DateUtilities.now() + 1000L);
         metadataService.save(gtasksMetadata);
         task.putTransitory(SyncFlags.GTASKS_SUPPRESS_SYNC, true);
-        taskDao.saveExisting(task);
+        taskDao.saveExistingWithSqlConstraintCheck(task);
     }
 
     public void pushMetadataOnSave(Metadata model, GtasksInvoker invoker) throws IOException {

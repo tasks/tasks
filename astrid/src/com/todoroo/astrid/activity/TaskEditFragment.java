@@ -1026,7 +1026,7 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
         if(actFmPreferenceService.isLoggedIn() && remoteId > 0 && menu.findItem(MENU_COMMENTS_REFRESH_ID) == null) {
             MenuItem item = menu.add(Menu.NONE, MENU_COMMENTS_REFRESH_ID, Menu.NONE,
                     R.string.ENA_refresh_comments);
-            item.setIcon(R.drawable.ic_menu_refresh);
+            item.setIcon(R.drawable.icn_menu_refresh_dark);
         }
         super.onPrepareOptionsMenu(menu);
     }

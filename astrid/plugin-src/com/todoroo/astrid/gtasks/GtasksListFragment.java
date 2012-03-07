@@ -16,8 +16,8 @@ import com.todoroo.andlib.utility.DialogUtilities;
 import com.todoroo.astrid.dao.StoreObjectDao;
 import com.todoroo.astrid.data.StoreObject;
 import com.todoroo.astrid.data.Task;
-import com.todoroo.astrid.gtasks.sync.GtasksSyncService;
 import com.todoroo.astrid.service.SyncV2Service;
+import com.todoroo.astrid.service.ThemeService;
 import com.todoroo.astrid.subtasks.OrderedListFragmentHelper;
 import com.todoroo.astrid.subtasks.SubtasksListFragment;
 
@@ -34,8 +34,6 @@ public class GtasksListFragment extends SubtasksListFragment {
     @Autowired private GtasksTaskListUpdater gtasksTaskListUpdater;
 
     @Autowired private GtasksMetadataService gtasksMetadataService;
-
-    @Autowired private GtasksSyncService gtasksSyncService;
 
     @Autowired private GtasksPreferenceService gtasksPreferenceService;
 
@@ -54,13 +52,7 @@ public class GtasksListFragment extends SubtasksListFragment {
 
     @Override
     protected OrderedListFragmentHelper<?> createFragmentHelper() {
-        return new OrderedListFragmentHelper<StoreObject>(this, gtasksTaskListUpdater) {
-            @Override
-            protected void onMetadataChanged(long targetTaskId) {
-                gtasksSyncService.triggerMoveForMetadata(gtasksMetadataService.
-                        getTaskMetadata(targetTaskId));
-            }
-        };
+        return new OrderedListFragmentHelper<StoreObject>(this, gtasksTaskListUpdater);
     }
 
     @Override
@@ -94,9 +86,7 @@ public class GtasksListFragment extends SubtasksListFragment {
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
-        MenuItem item = menu.add(Menu.NONE, MENU_CLEAR_COMPLETED_ID, Menu.FIRST,
-                this.getString(R.string.gtasks_GTA_clear_completed));
-        item.setIcon(android.R.drawable.ic_input_delete); // Needs new icon
+        addMenuItem(menu, R.string.gtasks_GTA_clear_completed, android.R.drawable.ic_input_delete, MENU_CLEAR_COMPLETED_ID, false);
     }
 
     @Override
@@ -157,13 +147,12 @@ public class GtasksListFragment extends SubtasksListFragment {
     }
 
     @Override
-    protected void addSyncRefreshMenuItem(Menu menu) {
+    protected void addSyncRefreshMenuItem(Menu menu, int themeFlags) {
         if(gtasksPreferenceService.isLoggedIn()) {
-            MenuItem item = menu.add(Menu.NONE, MENU_REFRESH_ID, Menu.NONE,
-                    R.string.actfm_TVA_menu_refresh);
-            item.setIcon(R.drawable.ic_menu_refresh);
+            addMenuItem(menu, R.string.actfm_TVA_menu_refresh,
+                    ThemeService.getDrawable(R.drawable.icn_menu_refresh, themeFlags), MENU_REFRESH_ID, false);
         } else {
-            super.addSyncRefreshMenuItem(menu);
+            super.addSyncRefreshMenuItem(menu, themeFlags);
         }
     }
 

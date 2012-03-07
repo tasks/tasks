@@ -138,7 +138,7 @@ public class FilterListFragment extends ListFragment {
             Bundle savedInstanceState) {
         Activity activity = getActivity();
         int layout;
-        if (AstridActivity.shouldUseThreePane(activity))
+        if (AndroidUtilities.isTabletSized(activity))
             layout = R.layout.filter_list_activity_3pane;
         else
             layout = R.layout.filter_list_activity;

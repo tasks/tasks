@@ -92,10 +92,10 @@
   <!-- today -->
   <string name="yesterday">Yesterday</string>
   
-  <!-- tomorrow abbreviated -->
+  <!-- tomorrow, abbreviated -->
   <string name="tmrw">Tmrw</string>
   
-  <!-- today abbreviated -->
+  <!-- yesterday, abbreviated -->
   <string name="yest">Yest</string>
   
   <!-- ================================================== Generic Dialogs == -->
