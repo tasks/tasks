@@ -175,6 +175,7 @@ public class EditPeopleControlSet extends PopupControlSet {
     @Override
     public void readFromTask(Task sourceTask) {
         setTask(sourceTask);
+        assignedCustom.setText(""); //$NON-NLS-1$
         setUpData(task, null);
     }
 

@@ -825,8 +825,8 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
         }
 
         String processedToast = addDueTimeToToast(toast.toString());
-        boolean cancelFinish = !onPause && peopleControlSet != null
-        && !peopleControlSet.saveSharingSettings(processedToast);
+        boolean cancelFinish = peopleControlSet != null
+        && !peopleControlSet.saveSharingSettings(processedToast) && !onPause;
 
         boolean tagsChanged = Flags.check(Flags.TAGS_CHANGED);
         model.putTransitory("task-edit-save", true); //$NON-NLS-1$
