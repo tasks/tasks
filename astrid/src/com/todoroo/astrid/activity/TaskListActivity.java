@@ -26,7 +26,6 @@ import android.widget.TextView;
 import com.timsu.astrid.R;
 import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.andlib.utility.DialogUtilities;
-import com.todoroo.astrid.actfm.ActFmLoginActivity;
 import com.todoroo.astrid.actfm.TagSettingsActivity;
 import com.todoroo.astrid.actfm.TagUpdatesFragment;
 import com.todoroo.astrid.actfm.TagViewFragment;
@@ -44,7 +43,6 @@ import com.todoroo.astrid.ui.MainMenuPopover;
 import com.todoroo.astrid.ui.MainMenuPopover.MainMenuListener;
 import com.todoroo.astrid.utility.Constants;
 import com.todoroo.astrid.utility.Flags;
-import com.todoroo.astrid.welcome.tutorial.WelcomeWalkthrough;
 
 public class TaskListActivity extends AstridActivity implements MainMenuListener {
 
@@ -466,25 +464,18 @@ public class TaskListActivity extends AstridActivity implements MainMenuListener
         case MainMenuPopover.MAIN_MENU_ITEM_LISTS:
             listsNav.performClick();
             return;
+        case MainMenuPopover.MAIN_MENU_ITEM_SEARCH:
+            onSearchRequested();
+            return;
         case MainMenuPopover.MAIN_MENU_ITEM_FRIENDS:
             // Doesn't exist yet
             return;
         case MainMenuPopover.MAIN_MENU_ITEM_SUGGESTIONS:
             // Doesn't exist yet
             return;
-        case MainMenuPopover.MAIN_MENU_ITEM_TUTORIAL:
-            Intent showWelcomeLogin = new Intent(this, WelcomeWalkthrough.class);
-            showWelcomeLogin.putExtra(ActFmLoginActivity.SHOW_TOAST, false);
-            showWelcomeLogin.putExtra(WelcomeWalkthrough.TOKEN_MANUAL_SHOW, true);
-            startActivity(showWelcomeLogin);
-            return;
         case MainMenuPopover.MAIN_MENU_ITEM_SETTINGS:
             if (tlf != null)
                 tlf.showSettings();
-            return;
-        case MainMenuPopover.MAIN_MENU_ITEM_SUPPORT:
-            if (tlf != null)
-                tlf.showSupport();
             return;
         }
         tlf.handleOptionsMenuItemSelected(item, customIntent);

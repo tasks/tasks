@@ -18,7 +18,6 @@ import android.content.pm.PackageManager;
 import android.content.pm.PackageManager.NameNotFoundException;
 import android.content.pm.ResolveInfo;
 import android.content.res.Resources;
-import android.net.Uri;
 import android.os.Bundle;
 import android.preference.CheckBoxPreference;
 import android.preference.Preference;
@@ -29,6 +28,7 @@ import android.preference.PreferenceScreen;
 import android.text.TextUtils;
 import android.widget.Toast;
 
+import com.crittercism.NewFeedbackSpringboardActivity;
 import com.crittercism.app.Crittercism;
 import com.timsu.astrid.R;
 import com.todoroo.andlib.service.Autowired;
@@ -165,8 +165,7 @@ public class EditPreferences extends TodorooPreferenceActivity {
 
     private void showHelp() {
         StatisticsService.reportEvent(StatisticsConstants.TLA_MENU_HELP);
-        Intent intent = new Intent(Intent.ACTION_VIEW,
-                Uri.parse(Constants.HELP_URL));
+        Intent intent = new Intent(this, NewFeedbackSpringboardActivity.class);
         startActivity(intent);
     }
 

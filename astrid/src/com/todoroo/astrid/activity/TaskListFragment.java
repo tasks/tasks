@@ -44,7 +44,6 @@ import android.widget.AdapterView.AdapterContextMenuInfo;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.crittercism.NewFeedbackSpringboardActivity;
 import com.timsu.astrid.R;
 import com.todoroo.andlib.data.Property;
 import com.todoroo.andlib.data.TodorooCursor;
@@ -1161,12 +1160,6 @@ public class TaskListFragment extends ListFragment implements OnScrollListener,
         intent.putExtra(TOKEN_FILTER, filter);
         getActivity().startActivityForResult(intent, ACTIVITY_EDIT_TASK);
         transitionForTaskEdit();
-    }
-
-    public void showSupport() {
-        StatisticsService.reportEvent(StatisticsConstants.TLA_MENU_HELP);
-        Intent intent = new Intent(getActivity(), NewFeedbackSpringboardActivity.class);
-        startActivity(intent);
     }
 
     public void showSettings() {

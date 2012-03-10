@@ -109,6 +109,9 @@
   <!-- Menu: Sync Now -->    
   <string name="TLA_menu_sync">Sync Now!</string>
   
+  <!-- Menu: Search -->
+  <string name="TLA_menu_search">Search</string>
+  
   <!-- Menu: Tasks -->
   <string name="TLA_menu_lists">Lists</string>
 
@@ -619,7 +622,7 @@
 Astrid is open-source and proudly maintained by Todoroo, Inc.</string>
 
   <!-- Title of "Help" option in settings -->
-  <string name="p_help">Help</string>
+  <string name="p_help">Support</string>
   
   <!-- ============================================================= Misc == -->
   

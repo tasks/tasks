@@ -23,10 +23,9 @@ public class MainMenuPopover extends FragmentPopover implements InterceptTouchLi
 
     public static final int MAIN_MENU_ITEM_LISTS = R.string.TLA_menu_lists;
     public static final int MAIN_MENU_ITEM_FRIENDS = R.string.TLA_menu_friends;
+    public static final int MAIN_MENU_ITEM_SEARCH = R.string.TLA_menu_search;
     public static final int MAIN_MENU_ITEM_SUGGESTIONS = R.string.TLA_menu_suggestions;
-    public static final int MAIN_MENU_ITEM_TUTORIAL = R.string.TLA_menu_tutorial;
     public static final int MAIN_MENU_ITEM_SETTINGS = R.string.TLA_menu_settings;
-    public static final int MAIN_MENU_ITEM_SUPPORT = R.string.TLA_menu_support;
 
     public interface MainMenuListener {
         public void mainMenuItemSelected(int item, Intent customIntent);
@@ -99,15 +98,12 @@ public class MainMenuPopover extends FragmentPopover implements InterceptTouchLi
             addMenuItem(R.string.TLA_menu_lists,
                     ThemeService.getDrawable(R.drawable.icn_menu_lists, themeFlags),
                     MAIN_MENU_ITEM_LISTS, null, topFixed); // Lists item
-        addMenuItem(R.string.TLA_menu_tutorial,
+        addMenuItem(R.string.TLA_menu_search,
                 ThemeService.getDrawable(R.drawable.icn_menu_tutorial, themeFlags),
-                MAIN_MENU_ITEM_TUTORIAL, null, bottomFixed); // Tutorial item
+                MAIN_MENU_ITEM_SEARCH, null, topFixed);
         addMenuItem(R.string.TLA_menu_settings,
                 ThemeService.getDrawable(R.drawable.icn_menu_settings, themeFlags),
                 MAIN_MENU_ITEM_SETTINGS, null, bottomFixed); // Settings item
-        addMenuItem(R.string.TLA_menu_support,
-                ThemeService.getDrawable(R.drawable.icn_menu_support, themeFlags),
-                MAIN_MENU_ITEM_SUPPORT, null, bottomFixed); // Support item
     }
 
     @Override
