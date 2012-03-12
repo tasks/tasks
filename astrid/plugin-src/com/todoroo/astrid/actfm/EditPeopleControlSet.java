@@ -782,6 +782,12 @@ public class EditPeopleControlSet extends PopupControlSet {
         if(!TextUtils.isEmpty(assignedCustom.getText())) {
             userJson = PeopleContainer.createUserJson(assignedCustom);
         } else {
+            if (!hasLoadedUI() || assignedList.getCheckedItemPosition() == ListView.INVALID_POSITION) {
+                if (task != null)
+                    return task.getValue(Task.USER_ID) == Task.USER_ID_SELF;
+                else
+                    return true;
+            }
             AssignedToUser item = (AssignedToUser) assignedList.getAdapter().getItem(assignedList.getCheckedItemPosition());
             if (item != null)
                 userJson = item.user;
