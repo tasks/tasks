@@ -6,6 +6,7 @@ import android.accounts.Account;
 import android.accounts.AccountManager;
 import android.accounts.AccountManagerFuture;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 
 import com.google.api.client.googleapis.extensions.android2.auth.GoogleAccountManager;
@@ -69,6 +70,10 @@ public class GtasksTokenValidator {
                                         i3.printStackTrace();
                                         throw new GoogleTasksException(c.getString(R.string.gtasks_error_authRefresh));
                                     }
+                                } else if (future.getResult().containsKey(AccountManager.KEY_INTENT)) {
+                                    Intent intent = (Intent) future.getResult().get(AccountManager.KEY_INTENT);
+                                    c.startActivity(intent);
+                                    return null;
                                 } else {
                                     throw new GoogleTasksException(c.getString(R.string.gtasks_error_accountManager));
                                 }
@@ -79,6 +84,10 @@ public class GtasksTokenValidator {
                             throw new GoogleTasksException(c.getString(R.string.gtasks_error_authRefresh));
                         }
                     }
+                } else if (future.getResult().containsKey(AccountManager.KEY_INTENT)) {
+                    Intent intent = (Intent) future.getResult().get(AccountManager.KEY_INTENT);
+                    c.startActivity(intent);
+                    return null;
                 } else {
                     throw new GoogleTasksException(c.getString(R.string.gtasks_error_accountManager));
                 }
