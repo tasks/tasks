@@ -649,8 +649,8 @@ you get stuff done. It features reminders, tags, sync, Locale plug-in, a widget 
   
   <string name="DB_corrupted_body">
       Uh oh! It looks like you may have a corrupted database. 
-      If you see this error regularly, we suggest you uninstall,
-      reinstall, and restore your tasks from a backup by 
-      clicking Menu->Backup->Import Tasks in Astrid.</string>
+      If you see this error regularly, we suggest you clear all
+      data (Menu->Manage All Tasks->Clear all data) and restore
+      your tasks from a backup (Menu->Backup->Import Tasks) in Astrid.</string>
   
 </resources>
