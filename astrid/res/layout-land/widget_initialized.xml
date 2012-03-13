@@ -5,134 +5,52 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    android:background="@drawable/widget_frame">
+    android:background="@android:color/transparent">
 
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+    <LinearLayout 
+        android:id="@+id/widget_header"
+        android:layout_width="200dip"
+        android:layout_height="39dip"
         android:orientation="horizontal"
-        android:paddingLeft="5dp">
+        android:padding="3dp"
+        android:background="@color/widget_header_light">
         
         <TextView
             android:id="@+id/widget_title"
-            android:layout_gravity="left" 
-            android:layout_width="163dp" 
-            android:layout_height="47dp"
-            android:textColor="#ffffff"
-            android:textSize="14sp"
+            android:layout_width="fill_parent" 
+            android:layout_height="39dip"
+            android:layout_gravity="left|center_vertical" 
+            android:paddingLeft="2dip"
+            android:textColor="@color/widget_text_color_light"
+            android:textSize="16sp"
             android:textStyle="bold"
-            android:singleLine="true"
-            android:gravity="center" 
-            android:ellipsize="start" />
+            android:maxLines="2"
+            android:layout_weight="1"
+            android:gravity="left|center_vertical" 
+            android:ellipsize="end" />
     
         <ImageButton
             android:id="@+id/widget_button"
-            android:src="@drawable/button_plus" 
-            android:layout_gravity="right" 
-            android:layout_width="35dp" 
-            android:layout_height="47dp"
-            android:background="#00000000" />
+            android:layout_width="33dip"
+            android:layout_height="39dip"
+            android:layout_gravity="right|center_vertical"
+            android:background="@android:color/transparent"
+            android:src="@drawable/plus_button_dark_blue"
+            android:scaleType="fitCenter"/>
       
     </LinearLayout>
+    
+    <ImageView
+        android:id="@+id/widget_header_separator"
+        android:layout_width="fill_parent"
+        android:layout_height="1px"
+        android:background="@color/dark_blue_theme_color"/>
 
     <LinearLayout android:id="@+id/taskbody"
     	android:layout_width="fill_parent"
     	android:layout_height="fill_parent"
+    	android:background="@color/widget_body_light"
 	    android:orientation="vertical">
-    	
-    	<TextView
-	        android:id="@+id/task_1"
-	        android:layout_width="wrap_content" 
-	        android:layout_height="wrap_content"
-	        android:layout_alignParentLeft="true"
-	        android:singleLine="true"
-	        android:maxWidth="170dip"
-            android:text="@string/TWi_loading"
-	        style="@style/TextAppearance.Widget" 
-	        android:layout_marginLeft="23dip"/>
 
-	    <ImageView
-	        android:id="@+id/separator_1"
-	        android:layout_width="wrap_content" 
-	        android:layout_alignParentLeft="true"
-	        android:src="@drawable/separator"
-	    	android:layout_gravity="center_horizontal" 
-	    	android:layout_height="wrap_content" 
-	    	android:layout_marginTop="4dip"/>
-
-    	<TextView
-	        android:id="@+id/task_2"
-	        android:layout_width="wrap_content" 
-	        android:layout_height="wrap_content"
-	        android:layout_alignParentLeft="true"
-	        android:singleLine="true"
-	        android:maxWidth="170dip"
-	        style="@style/TextAppearance.Widget" 
-	        android:layout_marginLeft="23dip"
-	        android:layout_marginTop="4dip"/>
-
-	    <ImageView
-	        android:id="@+id/separator_2"
-	        android:layout_width="wrap_content" 
-	        android:layout_alignParentLeft="true"
-	        android:src="@drawable/separator"
-	    	android:layout_gravity="center_horizontal" 
-	    	android:layout_height="wrap_content" 
-	    	android:layout_marginTop="4dip"/>
-
-
-    	<TextView
-	        android:id="@+id/task_3"
-	        android:layout_width="wrap_content" 
-	        android:layout_height="wrap_content"
-	        android:layout_alignParentLeft="true"
-	        android:singleLine="true"
-	        android:maxWidth="170dip"
-	        style="@style/TextAppearance.Widget" 
-	        android:layout_marginLeft="23dip"
-	        android:layout_marginTop="4dip"/>
-	        
-	    <ImageView
-	        android:id="@+id/separator_3"
-	        android:layout_width="wrap_content" 
-	        android:layout_alignParentLeft="true"
-	        android:src="@drawable/separator"
-	    	android:layout_gravity="center_horizontal" 
-	    	android:layout_height="wrap_content" 
-	    	android:layout_marginTop="50dip"/>
-
-        <!--  note that this separator has a huge margin so that no more tasks are displayed -->
-
-    	<TextView
-	        android:id="@+id/task_4"
-	        android:layout_width="wrap_content" 
-	        android:layout_height="wrap_content"
-	        android:layout_alignParentLeft="true"
-	        android:singleLine="true"
-	        android:maxWidth="170dip"
-	        style="@style/TextAppearance.Widget" 
-	        android:layout_marginLeft="23dip"
-	        android:layout_marginTop="4dip"/>
-
-	    <ImageView
-	        android:id="@+id/separator_4"
-	        android:layout_width="wrap_content" 
-	        android:layout_alignParentLeft="true"
-	        android:src="@drawable/separator"
-	    	android:layout_gravity="center_horizontal" 
-	    	android:layout_height="wrap_content" 
-	    	android:layout_marginTop="4dip"/>
-
-
-    	<TextView
-	        android:id="@+id/task_5"
-	        android:layout_width="wrap_content" 
-	        android:layout_height="wrap_content"
-	        android:layout_alignParentLeft="true"
-	        android:singleLine="true"
-	        android:maxWidth="170dip"
-	        style="@style/TextAppearance.Widget" 
-	        android:layout_marginLeft="23dip"
-	        android:layout_marginTop="4dip"/>
     </LinearLayout>
 </LinearLayout>

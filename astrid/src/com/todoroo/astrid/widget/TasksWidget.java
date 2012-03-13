@@ -8,7 +8,7 @@ import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.graphics.Color;
+import android.content.res.Resources;
 import android.os.Bundle;
 import android.os.IBinder;
 import android.util.DisplayMetrics;
@@ -39,6 +39,7 @@ import com.todoroo.astrid.dao.Database;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.service.AstridDependencyInjector;
 import com.todoroo.astrid.service.TaskService;
+import com.todoroo.astrid.service.ThemeService;
 import com.todoroo.astrid.utility.AstridPreferences;
 import com.todoroo.astrid.utility.Constants;
 
@@ -47,11 +48,6 @@ public class TasksWidget extends AppWidgetProvider {
     static {
         AstridDependencyInjector.initialize();
     }
-
-    public final static int[]   TEXT_IDS      = { R.id.task_1, R.id.task_2,
-        R.id.task_3, R.id.task_4, R.id.task_5 };
-    public final static int[]   SEPARATOR_IDS = { R.id.separator_1,
-        R.id.separator_2, R.id.separator_3, R.id.separator_4 };
 
     @Override
     public void onUpdate(Context context, AppWidgetManager appWidgetManager,
@@ -152,18 +148,16 @@ public class TasksWidget extends AppWidgetProvider {
             views = new RemoteViews(context.getPackageName(),
                     R.layout.widget_initialized);
 
-            int[] textIDs = TEXT_IDS;
-            int[] separatorIDs = SEPARATOR_IDS;
-            int numberOfTasks = 5;
+            applyThemeToWidget(views);
 
-            for(int i = 0; i < textIDs.length; i++)
-                views.setTextViewText(textIDs[i], "");
+            int numberOfTasks = getNumberOfTasks();
 
             TodorooCursor<Task> cursor = null;
             Filter filter = null;
             try {
                 filter = getFilter(widgetId);
                 views.setTextViewText(R.id.widget_title, filter.title);
+                views.removeAllViews(R.id.taskbody);
 
                 SharedPreferences publicPrefs = AstridPreferences.getPublicPrefs(this);
                 int flags = publicPrefs.getInt(SortHelper.PREF_SORT_FLAGS, 0);
@@ -174,12 +168,14 @@ public class TasksWidget extends AppWidgetProvider {
                 database.openForReading();
                 cursor = taskService.fetchFiltered(query, null, Task.ID, Task.TITLE, Task.DUE_DATE, Task.COMPLETION_DATE);
                 Task task = new Task();
-                for (int i = 0; i < cursor.getCount() && i < numberOfTasks; i++) {
+                int i = 0;
+                for (i = 0; i < cursor.getCount() && i < numberOfTasks; i++) {
                     cursor.moveToPosition(i);
                     task.readFromCursor(cursor);
 
                     String textContent = "";
-                    int textColor = Color.WHITE;
+                    int textColor = context.getResources()
+                            .getColor(isDarkTheme() ? R.color.widget_text_color_dark : R.color.widget_text_color_light);
 
                     textContent = task.getValue(Task.TITLE);
 
@@ -188,16 +184,22 @@ public class TasksWidget extends AppWidgetProvider {
                     else if(task.hasDueDate() && task.getValue(Task.DUE_DATE) < DateUtilities.now())
                         textColor = context.getResources().getColor(R.color.task_list_overdue);
 
-                    if(i > 0)
-                        views.setViewVisibility(separatorIDs[i-1], View.VISIBLE);
-                    views.setTextViewText(textIDs[i], textContent);
-                    views.setTextColor(textIDs[i], textColor);
+                    RemoteViews row = new RemoteViews(Constants.PACKAGE, R.layout.widget_row);
+
+                    row.setTextViewText(R.id.text, textContent);
+                    row.setTextColor(R.id.text, textColor);
+
+                    views.addView(R.id.taskbody, row);
+
+                    RemoteViews separator = new RemoteViews(Constants.PACKAGE, R.layout.widget_separator);
+                    views.addView(R.id.taskbody, separator);
+                }
+                for (; i < numberOfTasks; i++) {
+                    RemoteViews row = new RemoteViews(Constants.PACKAGE, R.layout.widget_row);
+                    row.setViewVisibility(R.id.text, View.INVISIBLE);
+                    views.addView(R.id.taskbody, row);
                 }
 
-                for(int i = cursor.getCount() - 1; i < separatorIDs.length; i++) {
-                    if(i >= 0)
-                        views.setViewVisibility(separatorIDs[i], View.INVISIBLE);
-                }
             } catch (Exception e) {
                 // can happen if database is not ready
                 Log.e("WIDGET-UPDATE", "Error updating widget", e);
@@ -205,8 +207,6 @@ public class TasksWidget extends AppWidgetProvider {
                 if(cursor != null)
                     cursor.close();
             }
-
-            updateForScreenSize(views);
 
             Intent listIntent = new Intent(context, TaskListActivity.class);
             String customIntent = Preferences.getStringValue(WidgetConfigActivity.PREF_CUSTOM_INTENT
@@ -255,17 +255,58 @@ public class TasksWidget extends AppWidgetProvider {
             return views;
         }
 
-        private void updateForScreenSize(RemoteViews views) {
+        private boolean isDarkTheme() {
+            int theme = ThemeService.getTheme();
+            return (theme == R.style.Theme || theme == R.style.Theme_Transparent);
+        }
+
+        @SuppressWarnings("nls")
+        private void applyThemeToWidget(RemoteViews views) {
+            int theme = ThemeService.getTheme();
+            Resources r = getResources();
+            int headerColor;
+            int titleColor;
+            int bodyColor;
+            int buttonDrawable;
+            int separatorColor;
+            if (isDarkTheme()) {
+                headerColor = r.getColor(R.color.widget_header_dark);
+                titleColor = r.getColor(R.color.widget_text_color_dark);
+                bodyColor = r.getColor(R.color.widget_body_dark);
+                buttonDrawable = R.drawable.plus_button_blue;
+                separatorColor = r.getColor(R.color.blue_theme_color);
+            } else if (theme == R.style.Theme_White) {
+                headerColor = r.getColor(R.color.widget_header_light);
+                titleColor = r.getColor(R.color.widget_text_color_light);
+                bodyColor = r.getColor(R.color.widget_body_light);
+                buttonDrawable = R.drawable.plus_button_red;
+                separatorColor = r.getColor(R.color.red_theme_color);
+            } else {
+                headerColor = r.getColor(R.color.widget_header_light);
+                titleColor = r.getColor(R.color.widget_text_color_light);
+                bodyColor = r.getColor(R.color.widget_body_light);
+                buttonDrawable = R.drawable.plus_button_dark_blue;
+                separatorColor = r.getColor(R.color.dark_blue_theme_color);
+            }
+
+            views.setInt(R.id.widget_header, "setBackgroundColor", headerColor);
+            views.setTextColor(R.id.widget_title, titleColor);
+            views.setInt(R.id.taskbody, "setBackgroundColor", bodyColor);
+            views.setInt(R.id.widget_button, "setImageResource", buttonDrawable);
+            views.setInt(R.id.widget_header_separator, "setBackgroundColor", separatorColor);
+        }
+
+        private int getNumberOfTasks() {
             Display display = ((WindowManager) this.getSystemService(
                     Context.WINDOW_SERVICE)).getDefaultDisplay();
 
             DisplayMetrics metrics = new DisplayMetrics();
             display.getMetrics(metrics);
 
-            if(metrics.density <= 0.75) {
-                views.setViewVisibility(SEPARATOR_IDS[3], View.INVISIBLE);
-                views.setViewVisibility(TEXT_IDS[4], View.INVISIBLE);
-            }
+            if(metrics.density <= 0.75)
+                return 4;
+            else
+                return 5;
         }
 
         private Filter getFilter(int widgetId) {

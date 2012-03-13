@@ -703,6 +703,9 @@ public class TaskListFragment extends ListFragment implements OnScrollListener,
                             R.anim.slide_right_in, R.anim.slide_right_out);
                 }
                 getActivity().startActivity(getActivity().getIntent());
+                ContextManager.getContext().startService(
+                        new Intent(ContextManager.getContext(),
+                                TasksWidget.WidgetUpdateService.class));
             } else if (resultCode == SyncProviderPreferences.RESULT_CODE_SYNCHRONIZE) {
                 Preferences.setLong(SyncActionHelper.PREF_LAST_AUTO_SYNC, 0); // Forces autosync to occur after login
             }
