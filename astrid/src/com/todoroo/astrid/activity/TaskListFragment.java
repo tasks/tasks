@@ -18,6 +18,7 @@ import android.content.SharedPreferences.Editor;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.database.Cursor;
+import android.database.sqlite.SQLiteException;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v4.app.ActionBar;
@@ -81,6 +82,7 @@ import com.todoroo.astrid.reminders.ReminderDebugContextActions;
 import com.todoroo.astrid.service.AddOnService;
 import com.todoroo.astrid.service.AstridDependencyInjector;
 import com.todoroo.astrid.service.MetadataService;
+import com.todoroo.astrid.service.StartupService;
 import com.todoroo.astrid.service.StatisticsConstants;
 import com.todoroo.astrid.service.StatisticsService;
 import com.todoroo.astrid.service.TagDataService;
@@ -817,8 +819,14 @@ public class TaskListFragment extends ListFragment implements OnScrollListener,
                 filter.sqlQuery, sortFlags, sortSort));
 
         // perform query
-        TodorooCursor<Task> currentCursor = taskService.fetchFiltered(
+        TodorooCursor<Task> currentCursor;
+        try {
+            currentCursor = taskService.fetchFiltered(
                 sqlQueryTemplate.get(), null, taskProperties());
+        } catch (SQLiteException e) {
+            StartupService.handleSQLiteColumnMissing(getActivity(), e);
+            return;
+        }
 
         // set up list adapters
         taskAdapter = createTaskAdapter(currentCursor);

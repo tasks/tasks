@@ -16,6 +16,7 @@ import android.content.DialogInterface.OnClickListener;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
+import android.database.sqlite.SQLiteException;
 import android.media.AudioManager;
 import android.util.Log;
 import android.widget.Toast;
@@ -112,7 +113,12 @@ public class StartupService {
             Crittercism.setShouldUseAmazonMarket(Constants.MARKET_DISABLED);
         }
 
-        database.openForWriting();
+        try {
+            database.openForWriting();
+        } catch (SQLiteException e) {
+            handleSQLiteColumnMissing(context, e);
+            return;
+        }
 
         // show notification if reminders are silenced
         if(context instanceof Activity) {
@@ -209,6 +215,14 @@ public class StartupService {
             showTaskKillerHelp(context);
 
         hasStartedUp = true;
+    }
+
+    public static void handleSQLiteColumnMissing(Context context, final SQLiteException e) {
+        new AlertDialog.Builder(context)
+            .setTitle(R.string.DB_corrupted_title)
+            .setMessage(R.string.DB_corrupted_body)
+            .setPositiveButton(R.string.DLG_ok, null)
+            .create().show();
     }
 
     /**
