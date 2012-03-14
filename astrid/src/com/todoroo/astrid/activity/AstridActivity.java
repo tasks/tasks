@@ -205,6 +205,10 @@ public class AstridActivity extends FragmentActivity
 
     public final void setupTasklistFragmentWithFilterAndCustomTaskList(Filter filter, Class<?> customTaskList) {
         Class<?> component = customTaskList;
+        if (filter == null)
+            getIntent().removeExtra(TaskListFragment.TOKEN_FILTER);
+        else
+            getIntent().putExtra(TaskListFragment.TOKEN_FILTER, filter);
         if (filter instanceof FilterWithCustomIntent) {
             try {
                 component = Class.forName(((FilterWithCustomIntent) filter).customTaskList.getClassName());
