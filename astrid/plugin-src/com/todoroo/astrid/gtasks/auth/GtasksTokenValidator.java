@@ -6,6 +6,7 @@ import android.accounts.Account;
 import android.accounts.AccountManager;
 import android.accounts.AccountManagerFuture;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 
 import com.google.api.client.googleapis.extensions.android2.auth.GoogleAccountManager;
@@ -18,7 +19,7 @@ import com.todoroo.astrid.gtasks.api.GtasksInvoker;
 
 public class GtasksTokenValidator {
 
-    private static final String MANUFACTURER_SAMSUNG = "samsung"; //$NON-NLS-1$
+    private static final String TOKEN_INTENT_RECEIVED = "intent!"; //$NON-NLS-1$
 
     /**
      * Invalidates and then revalidates the auth token for the currently logged in user
@@ -29,63 +30,65 @@ public class GtasksTokenValidator {
     public static String validateAuthToken(Context c, String token) throws GoogleTasksException {
         GoogleAccountManager accountManager = new GoogleAccountManager(ContextManager.getContext());
 
+        if(testToken(token))
+            return token;
+
+        // If fail, token may have expired -- get a new one and return that
+        String accountName = Preferences.getStringValue(GtasksPreferenceService.PREF_USER_NAME);
+        Account a = accountManager.getAccountByName(accountName);
+        if (a == null) {
+            throw new GoogleTasksException(c.getString(R.string.gtasks_error_accountNotFound, accountName));
+        }
+
+        accountManager.invalidateAuthToken(token);
+
+        // try with notify-auth-failure = false
+        AccountManagerFuture<Bundle> future = accountManager.manager.getAuthToken(a, GtasksInvoker.AUTH_TOKEN_TYPE, false, null, null);
+        token = getTokenFromFuture(c, future);
+        if(TOKEN_INTENT_RECEIVED.equals(token))
+            return null;
+        else if(token != null)
+            return token;
+
+        throw new GoogleTasksException(c.getString(R.string.gtasks_error_authRefresh));
+    }
+
+    private static boolean testToken(String token) {
         GtasksInvoker testService = new GtasksInvoker(token);
         try {
             testService.ping();
-            return token;
-        } catch (IOException i) { //If fail, token may have expired -- get a new one and return that
-            String accountName = Preferences.getStringValue(GtasksPreferenceService.PREF_USER_NAME);
-            Account a = accountManager.getAccountByName(accountName);
-            if (a == null) {
-                throw new GoogleTasksException(c.getString(R.string.gtasks_error_accountNotFound, accountName));
-            }
-
-            accountManager.invalidateAuthToken(token);
-            AccountManagerFuture<Bundle> future = accountManager.manager.getAuthToken(a, GtasksInvoker.AUTH_TOKEN_TYPE, false, null, null);
-
-            try {
-                if (future.getResult().containsKey(AccountManager.KEY_AUTHTOKEN)) {
-                    Bundle result = future.getResult();
-                    token = result.getString(AccountManager.KEY_AUTHTOKEN);
-                    testService = new GtasksInvoker(token);
-                    try { //Make sure the new token works--if not, we may have network problems
-                        testService.ping();
-                        return token;
-                    } catch (IOException i2) {
-                        i2.printStackTrace();
-                        String manufacturer = android.os.Build.MANUFACTURER.toLowerCase();
-                        if (!manufacturer.contains(MANUFACTURER_SAMSUNG)) { // Try with the notifyAuthFailure set to true in case it was that that broke things
-                            accountManager.invalidateAuthToken(token);
-                            future = accountManager.manager.getAuthToken(a, GtasksInvoker.AUTH_TOKEN_TYPE, true, null, null);
-                            try {
-                                if (future.getResult().containsKey(AccountManager.KEY_AUTHTOKEN)) {
-                                    result = future.getResult();
-                                    token = result.getString(AccountManager.KEY_AUTHTOKEN);
-                                    testService = new GtasksInvoker(token);
-                                    try {
-                                        testService.ping();
-                                        return token;
-                                    } catch (IOException i3) {
-                                        i3.printStackTrace();
-                                        throw new GoogleTasksException(c.getString(R.string.gtasks_error_authRefresh));
-                                    }
-                                } else {
-                                    throw new GoogleTasksException(c.getString(R.string.gtasks_error_accountManager));
-                                }
-                            } catch (Exception e) {
-                                throw new GoogleTasksException(e.getLocalizedMessage());
-                            }
-                        } else {
-                            throw new GoogleTasksException(c.getString(R.string.gtasks_error_authRefresh));
-                        }
-                    }
-                } else {
-                    throw new GoogleTasksException(c.getString(R.string.gtasks_error_accountManager));
-                }
-            } catch (Exception e) {
-                throw new GoogleTasksException(e.getLocalizedMessage());
-            }
-
+            return true;
+        } catch (IOException i) {
+            return false;
         }
+    }
+
+    private static String getTokenFromFuture(Context c, AccountManagerFuture<Bundle> future)
+            throws GoogleTasksException {
+        Bundle result;
+        try {
+            result = future.getResult();
+            if(result == null)
+                throw new NullPointerException("Future result was null."); //$NON-NLS-1$
+        } catch (Exception e) {
+            throw new GoogleTasksException(e.getLocalizedMessage());
+        }
+
+        // check what kind of result was returned
+        String token;
+        if (result.containsKey(AccountManager.KEY_AUTHTOKEN)) {
+            token = result.getString(AccountManager.KEY_AUTHTOKEN);
+        } else if (result.containsKey(AccountManager.KEY_INTENT)) {
+            Intent intent = (Intent) result.get(AccountManager.KEY_INTENT);
+            c.startActivity(intent);
+            return TOKEN_INTENT_RECEIVED;
+        } else {
+            throw new GoogleTasksException(c.getString(R.string.gtasks_error_accountManager));
+        }
+
+        if(testToken(token))
+            return token;
+
+        return null;
     }
 }
