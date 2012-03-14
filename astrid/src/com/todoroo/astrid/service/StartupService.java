@@ -221,12 +221,8 @@ public class StartupService {
         new AlertDialog.Builder(context)
             .setTitle(R.string.DB_corrupted_title)
             .setMessage(R.string.DB_corrupted_body)
-            .setPositiveButton(R.string.DLG_ok, new OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
-                    throw e;
-                }
-            }).create().show();
+            .setPositiveButton(R.string.DLG_ok, null)
+            .create().show();
     }
 
     /**
