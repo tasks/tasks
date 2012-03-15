@@ -43,6 +43,7 @@ abstract public class WidgetConfigActivity extends ListActivity {
     @Override
     public void onCreate(Bundle icicle) {
         ThemeService.applyTheme(this);
+        ThemeService.forceTheme(R.style.Theme);
         super.onCreate(icicle);
 
         // Set the result to CANCELED.  This will cause the widget host to cancel

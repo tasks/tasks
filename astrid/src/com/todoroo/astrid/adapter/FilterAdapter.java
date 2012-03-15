@@ -3,8 +3,6 @@
  */
 package com.todoroo.astrid.adapter;
 
-import com.todoroo.astrid.helper.AsyncImageView;
-
 import java.util.List;
 import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.ThreadPoolExecutor;
@@ -49,6 +47,7 @@ import com.todoroo.astrid.api.FilterCategoryWithNewButton;
 import com.todoroo.astrid.api.FilterListHeader;
 import com.todoroo.astrid.api.FilterListItem;
 import com.todoroo.astrid.api.FilterWithUpdate;
+import com.todoroo.astrid.helper.AsyncImageView;
 import com.todoroo.astrid.service.TaskService;
 import com.todoroo.astrid.tags.TagService;
 
@@ -235,10 +234,7 @@ public class FilterAdapter extends ArrayAdapter<Filter> {
      * @param picked
      */
     public void setSelection(FilterListItem picked) {
-        if(picked == selection)
-            selection = null;
-        else
-            selection = picked;
+        selection = picked;
         int scroll = listView.getScrollY();
         notifyDataSetInvalidated();
         listView.scrollTo(0, scroll);
