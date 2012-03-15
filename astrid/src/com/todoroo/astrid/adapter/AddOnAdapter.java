@@ -24,6 +24,7 @@ import android.widget.TextView;
 import com.timsu.astrid.R;
 import com.todoroo.astrid.data.AddOn;
 import com.todoroo.astrid.service.StatisticsService;
+import com.todoroo.astrid.utility.Constants;
 
 /**
  * Adapter for {@link AddOn}s
@@ -124,9 +125,7 @@ public class AddOnAdapter extends ArrayAdapter<AddOn> {
         } else {
             viewHolder.market.setVisibility(View.VISIBLE);
             viewHolder.installedIcon.setVisibility(View.GONE);
-            Intent marketIntent = new Intent(Intent.ACTION_VIEW,
-                    Uri.parse("market://search?q=pname:" + //$NON-NLS-1$
-                            item.getPackageName()));
+            Intent marketIntent = Constants.MARKET_STRATEGY.generateMarketLink(item.getPackageName());
             viewHolder.market.setTag(new ButtonTag("market-" + item.getPackageName(), //$NON-NLS-1$
                     marketIntent));
             Drawable icon = getIntentIcon(marketIntent);

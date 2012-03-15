@@ -1,12 +1,12 @@
 package com.todoroo.astrid.service;
 
+import java.util.ArrayList;
+
 import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.drawable.BitmapDrawable;
-import android.net.Uri;
 
 import com.timsu.astrid.R;
 import com.todoroo.andlib.service.ContextManager;
@@ -71,9 +71,7 @@ public class AddOnService {
 
         @Override
         public void onClick(DialogInterface arg0, int arg1) {
-            context.startActivity(new Intent(Intent.ACTION_VIEW,
-                    Uri.parse("market://search?q=pname:" + //$NON-NLS-1$
-                            packageName)));
+            context.startActivity(Constants.MARKET_STRATEGY.generateMarketLink(packageName));
             if(context instanceof Activity)
                 ((Activity)context).finish();
         }
@@ -159,23 +157,25 @@ public class AddOnService {
         Resources r = ContextManager.getContext().getResources();
 
         // temporary temporary
-        AddOn[] list = new AddOn[3];
-        list[0] = new AddOn(false, true, "Astrid Power Pack", null,
+        ArrayList<AddOn> list = new ArrayList<AddOn>(3);
+        if(Constants.MARKET_STRATEGY.includesPowerPack())
+            list.add(new AddOn(false, true, "Astrid Power Pack", null,
                 "Support Astrid and get more productive with the Astrid Power Pack. 4x2 and 4x4 widgets and voice integration. Power up today!",
                 POWER_PACK_PACKAGE, "http://www.weloveastrid.com/store",
-                ((BitmapDrawable)r.getDrawable(R.drawable.icon_pp)).getBitmap());
+                ((BitmapDrawable)r.getDrawable(R.drawable.icon_pp)).getBitmap()));
 
-        list[1] = new AddOn(false, true, "Astrid Locale Plugin", null,
+        if(Constants.MARKET_STRATEGY.includesLocalePlugin())
+            list.add(new AddOn(false, true, "Astrid Locale Plugin", null,
                 "Allows Astrid to make use of the Locale application to send you notifications based on filter conditions. Requires Locale.",
                 LOCALE_PACKAGE, "http://www.weloveastrid.com/store",
-                ((BitmapDrawable)r.getDrawable(R.drawable.icon_locale)).getBitmap());
+                ((BitmapDrawable)r.getDrawable(R.drawable.icon_locale)).getBitmap()));
 
-        list[2] = new AddOn(true, true, "Producteev", null,
+        list.add(new AddOn(true, true, "Producteev", null,
                 "Synchronize with Producteev service. Also changes Astrid's importance levels to stars.",
                 Constants.PACKAGE, "http://www.producteev.com",
-                ((BitmapDrawable)r.getDrawable(R.drawable.icon_producteev)).getBitmap());
+                ((BitmapDrawable)r.getDrawable(R.drawable.icon_producteev)).getBitmap()));
 
-        return list;
+        return list.toArray(new AddOn[list.size()]);
     }
 
 }

@@ -11,7 +11,6 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
-import android.net.Uri;
 import android.speech.RecognizerIntent;
 import android.support.v4.app.Fragment;
 import android.util.Log;
@@ -25,6 +24,7 @@ import com.todoroo.andlib.service.ContextManager;
 import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.andlib.utility.DialogUtilities;
 import com.todoroo.andlib.utility.Preferences;
+import com.todoroo.astrid.utility.Constants;
 
 /**
  * This class handles taking voice-input and appends the text to the registered EditText-instance.
@@ -312,8 +312,7 @@ public class VoiceInputAssistant {
             packageName = "com.google.android.voicesearch";
 
         // User wants to install voice search, take them to the market
-        Intent marketIntent = new Intent(Intent.ACTION_VIEW,
-                Uri.parse("market://search?q=pname:" + packageName)); //$NON-NLS-1$
+        Intent marketIntent = Constants.MARKET_STRATEGY.generateMarketLink(packageName);
         if (activity != null) {
             try {
                 activity.startActivity(marketIntent);

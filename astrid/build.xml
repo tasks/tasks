@@ -59,7 +59,7 @@
               message="Cannot run two different modes at the same time. If you are running more than one debug/release/instrument type targets, call them from different Ant calls." />                                                                                  
     </target>  
 
-    <target name="-pre-build" depends="get-version, copy-sources, updatekeys, updatekeys-release, disable-market">
+    <target name="-pre-build" depends="get-version, copy-sources, updatekeys, updatekeys-release, update-market-strategy">
       <mkdir dir="gen" />
       <property name="proguard.jar" location="antlib/proguard.jar" />
       <taskdef name="proguard" classname="proguard.ant.ProGuardTask" classpath="${proguard.jar}" />
@@ -158,13 +158,13 @@
       <property name="has.keystore" value="true" />
     </target>
 
-    <target name="disable-market" if="custom.market.disabled">
-      <echo message="Disabling android market links" />
+    <target name="update-market-strategy" if="custom.market.strategy">
+      <echo message="Changing market strategy to ${custom.market.strategy}" />
       <replace token="market://" value="disabled://" 
                dir="${source.dir}" />
       <replaceregexp file="${source.dir}/com/todoroo/astrid/utility/Constants.java"
-                     match="(MARKET_DISABLED.*=).*"
-                     replace="\1 true;" />
+                     match="AndroidMarketStrategy"
+                     replace="${custom.market.strategy}" />
     </target>
 
     <target name="obfuscate" depends="-set-debug-files, -set-debug-mode, nodeps, -build-setup, 

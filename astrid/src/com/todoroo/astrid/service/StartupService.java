@@ -110,7 +110,8 @@ public class StartupService {
 
         if(!StatisticsService.dontCollectStatistics()) {
             Crittercism.init(context.getApplicationContext(), Constants.CRITTERCISM_APP_ID);
-            Crittercism.setShouldUseAmazonMarket(Constants.MARKET_DISABLED);
+            Crittercism.setShouldUseAmazonMarket(Constants.MARKET_STRATEGY.getClass() ==
+                MarketStrategy.AmazonMarketStrategy.class);
         }
 
         try {
@@ -217,6 +218,10 @@ public class StartupService {
         hasStartedUp = true;
     }
 
+    /**
+     * @param context
+     * @param e error that was raised
+     */
     public static void handleSQLiteColumnMissing(Context context, final SQLiteException e) {
         new AlertDialog.Builder(context)
             .setTitle(R.string.DB_corrupted_title)

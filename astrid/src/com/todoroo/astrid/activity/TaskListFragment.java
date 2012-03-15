@@ -422,10 +422,9 @@ public class TaskListFragment extends ListFragment implements OnScrollListener,
                 ThemeService.getDrawable(R.drawable.icn_menu_filters, isTablet ? ThemeService.FLAG_INVERT : 0), MENU_NEW_FILTER_ID, true);
 
         // --- addons
-        if (!Constants.MARKET_DISABLED) {
+        if(Constants.MARKET_STRATEGY.showAddonMenu())
             addMenuItem(menu, R.string.TLA_menu_addons,
-                    ThemeService.getDrawable(R.drawable.icn_menu_plugins, isTablet ? ThemeService.FLAG_FORCE_DARK : 0), MENU_ADDONS_ID, false);
-        }
+                ThemeService.getDrawable(R.drawable.icn_menu_plugins, isTablet ? ThemeService.FLAG_FORCE_DARK : 0), MENU_ADDONS_ID, false);
 
         // ask about plug-ins
         Intent queryIntent = new Intent(

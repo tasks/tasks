@@ -1,5 +1,7 @@
 package com.todoroo.astrid.utility;
 
+import com.todoroo.astrid.service.MarketStrategy;
+
 @SuppressWarnings("nls")
 public final class Constants {
 
@@ -21,9 +23,9 @@ public final class Constants {
     public static final boolean OEM = false;
 
     /**
-     * Whether this is an Android Market-disabled build
+     * Market selection strategy
      */
-    public static final boolean MARKET_DISABLED = false;
+    public static final MarketStrategy MARKET_STRATEGY = new MarketStrategy.AndroidMarketStrategy();
 
     /**
      * Interval to update the widget (in order to detect hidden tasks
