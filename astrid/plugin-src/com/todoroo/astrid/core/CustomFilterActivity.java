@@ -7,7 +7,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
-import android.app.ListActivity;
 import android.content.BroadcastReceiver;
 import android.content.ContentValues;
 import android.content.Context;
@@ -18,6 +17,8 @@ import android.database.Cursor;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.os.Parcelable;
+import android.support.v4.app.ActionBar;
+import android.support.v4.app.FragmentActivity;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
@@ -27,6 +28,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnCreateContextMenuListener;
 import android.widget.Button;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import com.timsu.astrid.R;
@@ -58,7 +60,7 @@ import com.todoroo.astrid.service.ThemeService;
  * @author Tim Su <tim@todoroo.com>
  *
  */
-public class CustomFilterActivity extends ListActivity {
+public class CustomFilterActivity extends FragmentActivity {
 
     private static final String IDENTIFIER_TITLE = "title"; //$NON-NLS-1$
     private static final String IDENTIFIER_IMPORTANCE = "importance"; //$NON-NLS-1$
@@ -125,6 +127,7 @@ public class CustomFilterActivity extends ListActivity {
         }
     }
 
+    private ListView listView;
     private TextView filterName;
     private boolean isDialog;
 
@@ -144,8 +147,14 @@ public class CustomFilterActivity extends ListActivity {
         super.onCreate(savedInstanceState);
         ContextManager.setContext(this);
 
+        ActionBar ab = getSupportActionBar();
+        if (ab != null)
+            ab.setDisplayHomeAsUpEnabled(true);
+
         setContentView(R.layout.custom_filter_activity);
         setTitle(R.string.CFA_title);
+
+        listView = (ListView) findViewById(android.R.id.list);
 
         DependencyInjectionService.getInstance().inject(this);
         database.openForReading();
@@ -155,7 +164,7 @@ public class CustomFilterActivity extends ListActivity {
         List<CriterionInstance> startingCriteria = new ArrayList<CriterionInstance>();
         startingCriteria.add(getStartingUniverse());
         adapter = new CustomFilterAdapter(this, startingCriteria);
-        setListAdapter(adapter);
+        listView.setAdapter(adapter);
         updateList();
 
         setUpListeners();
@@ -290,7 +299,7 @@ public class CustomFilterActivity extends ListActivity {
         ((Button)findViewById(R.id.add)).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                getListView().showContextMenu();
+                listView.showContextMenu();
             }
         });
 
@@ -325,7 +334,7 @@ public class CustomFilterActivity extends ListActivity {
             }
         });
 
-        getListView().setOnCreateContextMenuListener(new OnCreateContextMenuListener() {
+        listView.setOnCreateContextMenuListener(new OnCreateContextMenuListener() {
             @Override
             public void onCreateContextMenu(ContextMenu menu, View v,
                     ContextMenuInfo menuInfo) {
@@ -498,8 +507,16 @@ public class CustomFilterActivity extends ListActivity {
     }
 
     @Override
-    public boolean onMenuItemSelected(int featureId, MenuItem item) {
-        // group filter option
+    public boolean onOptionsItemSelected(android.support.v4.view.MenuItem item) {
+        if (item.getItemId() == android.R.id.home) {
+            finish();
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public boolean onContextItemSelected(MenuItem item) {
         if(item.getGroupId() == MENU_GROUP_FILTER) {
             // give an initial value for the row before adding it
             CustomFilterCriterion criterion = getNth(item.getItemId(), criteria);
@@ -528,7 +545,7 @@ public class CustomFilterActivity extends ListActivity {
             updateList();
         }
 
-        return super.onMenuItemSelected(featureId, item);
+        return super.onContextItemSelected(item);
     }
 
     public class FilterCriteriaReceiver extends BroadcastReceiver {
