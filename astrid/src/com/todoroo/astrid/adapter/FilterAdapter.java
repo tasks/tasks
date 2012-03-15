@@ -419,7 +419,7 @@ public class FilterAdapter extends ArrayAdapter<Filter> {
         } else {
             viewHolder.name.setTextAppearance(activity, filterStyle);
             viewHolder.name.setShadowLayer(0, 0, 0, 0);
-            viewHolder.view.setPadding((int) (7 * metrics.density), 8, 0, 8);
+            viewHolder.view.setPadding((int) (7 * metrics.density), 2, 0, 2);
             viewHolder.view.getLayoutParams().height = (int) (58 * metrics.density);
         }
 
