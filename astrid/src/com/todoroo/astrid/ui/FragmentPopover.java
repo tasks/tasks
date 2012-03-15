@@ -68,4 +68,11 @@ public class FragmentPopover extends QuickActionWidget {
     protected int getArrowLeftMargin(View arrow) {
         return mRect.left + arrow.getMeasuredWidth() / 2 - (int) (10 * metrics.density);
     }
+
+    @Override
+    public void show(View anchor) {
+        if (isShowing())
+            return;
+        super.show(anchor);
+    }
 }
