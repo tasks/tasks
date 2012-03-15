@@ -4,16 +4,17 @@ package com.todoroo.astrid.activity;
 import java.util.ArrayList;
 
 import android.app.Activity;
-import android.app.TabActivity;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.res.Resources;
-import android.graphics.Color;
 import android.os.Bundle;
+import android.support.v4.app.ActionBar;
+import android.support.v4.app.ActionBar.Tab;
+import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.FragmentTransaction;
+import android.support.v4.view.MenuItem;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ListView;
-import android.widget.TabHost;
 
 import com.timsu.astrid.R;
 import com.todoroo.andlib.service.Autowired;
@@ -22,6 +23,7 @@ import com.todoroo.astrid.adapter.AddOnAdapter;
 import com.todoroo.astrid.data.AddOn;
 import com.todoroo.astrid.service.AddOnService;
 import com.todoroo.astrid.service.AstridDependencyInjector;
+import com.todoroo.astrid.service.ThemeService;
 
 /**
  * TODO: fix deprecation or get rid of me
@@ -29,11 +31,13 @@ import com.todoroo.astrid.service.AstridDependencyInjector;
  * @author Tim Su <tim@todoroo.com>
  *
  */
-@SuppressWarnings("deprecation")
-public class AddOnActivity extends TabActivity {
+public class AddOnActivity extends FragmentActivity {
 
     /** boolean: whether to start on available page */
     public static final String TOKEN_START_WITH_AVAILABLE = "av"; //$NON-NLS-1$
+
+    private View installedView;
+    private View availableView;
 
     @Autowired
     AddOnService addOnService;
@@ -48,27 +52,64 @@ public class AddOnActivity extends TabActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        ThemeService.applyTheme(this);
         super.onCreate(savedInstanceState);
 
-        // set up tab host
-        Resources r = getResources();
-        TabHost tabHost = getTabHost();
-        tabHost.setPadding(0, 4, 0, 0);
-        LayoutInflater.from(this).inflate(R.layout.addon_activity,
-                tabHost.getTabContentView(), true);
-        tabHost.addTab(tabHost.newTabSpec(r.getString(R.string.AOA_tab_installed)).
-                setIndicator(r.getString(R.string.AOA_tab_installed),
-                        r.getDrawable(R.drawable.gl_pencil)).setContent(
-                                R.id.tab_installed));
-        tabHost.addTab(tabHost.newTabSpec(r.getString(R.string.AOA_tab_available)).
-                setIndicator(r.getString(R.string.AOA_tab_available),
-                        r.getDrawable(R.drawable.gl_more)).setContent(
-                                R.id.tab_available));
-        getTabWidget().setBackgroundColor(Color.BLACK);
+        LayoutInflater inflater = LayoutInflater.from(this);
+        installedView = inflater.inflate(R.layout.addon_list_container, null);
+        availableView = inflater.inflate(R.layout.addon_list_container, null);
+
+        ActionBar ab = getSupportActionBar();
+        ab.setDisplayHomeAsUpEnabled(true);
+        ab.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
+        ActionBar.Tab installedTab = ab.newTab().setText(R.string.AOA_tab_installed)
+                                      .setIcon(R.drawable.gl_pencil)
+                                      .setTabListener(new AddOnTabListener(installedView));
+
+        ActionBar.Tab availableTab = ab.newTab().setText(R.string.AOA_tab_available)
+                                                .setIcon(R.drawable.gl_more)
+                                                .setTabListener(new AddOnTabListener(availableView));
+
+        ab.addTab(installedTab);
+        ab.addTab(availableTab);
 
         setTitle(R.string.AOA_title);
 
         populate();
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == android.R.id.home) {
+            finish();
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    private class AddOnTabListener implements ActionBar.TabListener {
+
+        private final View mView;
+
+        public AddOnTabListener(View v) {
+            this.mView = v;
+        }
+
+        @Override
+        public void onTabReselected(Tab tab, FragmentTransaction ft) {
+            //
+        }
+
+        @Override
+        public void onTabSelected(Tab tab, FragmentTransaction ft) {
+            setContentView(mView);
+        }
+
+        @Override
+        public void onTabUnselected(Tab tab, FragmentTransaction ft) {
+            //
+        }
+
     }
 
     private void populate() {
@@ -92,18 +133,16 @@ public class AddOnActivity extends TabActivity {
                     available.add(addOn);
             }
         }
-        if(installed.size() == 0 || getIntent().getBooleanExtra(TOKEN_START_WITH_AVAILABLE, false))
-            getTabHost().setCurrentTab(1);
 
-        ListView installedList = (ListView) findViewById(R.id.installed);
+        ListView installedList = (ListView) installedView.findViewById(R.id.list);
         installedList.setAdapter(new AddOnAdapter(this, true, installed));
         if(installed.size() > 0)
-            findViewById(R.id.empty_installed).setVisibility(View.GONE);
+            installedView.findViewById(R.id.empty).setVisibility(View.GONE);
 
-        ListView availableList = (ListView) findViewById(R.id.available);
+        ListView availableList = (ListView) availableView.findViewById(R.id.list);
         availableList.setAdapter(new AddOnAdapter(this, false, available));
         if(available.size() > 0)
-            findViewById(R.id.empty_available).setVisibility(View.GONE);
+            availableView.findViewById(R.id.empty).setVisibility(View.GONE);
     }
 
     /**

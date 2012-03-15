@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout 
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/tab_installed"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    style="@style/Content">
+    
+    <TextView android:id="@+id/empty"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:gravity="center"
+        android:text="@string/AOA_no_addons"
+        style="@style/TextAppearance.TLA_NoItems" />
+  
+    <ListView android:id="@+id/list"
+        android:paddingRight="8dip"
+        android:orientation="vertical"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:background="@android:color/transparent" 
+        android:cacheColorHint="#00000000"/>
+        
+</FrameLayout>
