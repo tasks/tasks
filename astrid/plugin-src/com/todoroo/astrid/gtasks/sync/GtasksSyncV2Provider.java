@@ -112,7 +112,6 @@ public class GtasksSyncV2Provider extends SyncV2Provider {
                     gtasksListService.updateLists(invoker.allGtaskLists());
                 } catch (IOException e) {
                     handler.handleException("gtasks-sync=io", e); //$NON-NLS-1$
-//                    Crittercism.logHandledException(e);
                 }
 
                 StoreObject[] lists = gtasksListService.getLists();
@@ -154,7 +153,6 @@ public class GtasksSyncV2Provider extends SyncV2Provider {
                     gtasksSyncService.pushTaskOnSave(task, task.getMergedValues(), invoker, false);
                 } catch (IOException e) {
                     handler.handleException("gtasks-sync-io", e); //$NON-NLS-1$
-//                    Crittercism.logHandledException(e);
                 } finally {
                     callback.incrementProgress(10);
                 }

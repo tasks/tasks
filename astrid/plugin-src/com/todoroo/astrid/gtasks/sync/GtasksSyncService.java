@@ -88,7 +88,6 @@ public final class GtasksSyncService {
                            }
                        }
                    } catch (IOException e) {
-//                       Crittercism.logHandledException(e);
                        Log.w("gtasks-sync-error", "Sync on save failed", e);
                    }
                }

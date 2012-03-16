@@ -132,10 +132,8 @@ public class ActFmSyncV2Provider extends SyncV2Provider {
                     Preferences.setInt(LAST_TAG_FETCH_TIME, time);
                 } catch (JSONException e) {
                     handler.handleException("actfm-sync", e); //$NON-NLS-1$
-//                    Crittercism.logHandledException(e);
                 } catch (IOException e) {
                     handler.handleException("actfm-sync", e); //$NON-NLS-1$
-//                    Crittercism.logHandledException(e);
                 } finally {
                     callback.incrementProgress(20);
                     if(finisher.decrementAndGet() == 0) {
