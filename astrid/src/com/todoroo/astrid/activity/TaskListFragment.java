@@ -265,6 +265,7 @@ public class TaskListFragment extends ListFragment implements OnScrollListener,
         // We have a menu item to show in action bar.
         setHasOptionsMenu(true);
 
+        syncActionHelper = new SyncActionHelper(getActivity(), this);
         setUpUiComponents();
         onNewIntent(getActivity().getIntent());
         setupQuickAddBar();
@@ -293,6 +294,7 @@ public class TaskListFragment extends ListFragment implements OnScrollListener,
                 Thread.currentThread().setPriority(Thread.MAX_PRIORITY);
             }
         });
+
     }
 
     /**
@@ -833,7 +835,6 @@ public class TaskListFragment extends ListFragment implements OnScrollListener,
         setListAdapter(taskAdapter);
         getListView().setOnScrollListener(this);
         registerForContextMenu(getListView());
-        syncActionHelper = new SyncActionHelper(getActivity(), this);
 
         loadTaskListContent(true);
     }
