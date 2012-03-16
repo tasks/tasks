@@ -40,6 +40,7 @@ import com.todoroo.astrid.utility.AstridPreferences;
 
 public final class UpgradeService {
 
+    public static final int V4_0_4_2 = 258;
     public static final int V4_0_4_1 = 257;
     public static final int V4_0_4 = 256;
     public static final int V4_0_3 = 255;
@@ -181,6 +182,12 @@ public final class UpgradeService {
         Preferences.clear(AstridPreferences.P_UPGRADE_FROM);
         StringBuilder changeLog = new StringBuilder();
 
+        if (from >= V4_0_4 && from < V4_0_4_2) {
+            newVersionString(changeLog, "4.0.4.2 (3/16/15)", new String[] {
+               "Fixed a crash related to error reporting"
+            });
+        }
+
         if (from >= V4_0_4 && from < V4_0_4_1) {
             newVersionString(changeLog, "4.0.4.1 (3/15/12)", new String[] {
                "Updated 2x2 widget to look better and conform to new style",
@@ -188,7 +195,7 @@ public final class UpgradeService {
                "Added Search to Menu and moved some items to settings"
             });
         }
-        
+
         if (from >= V4_0_0 && from < V4_0_4) {
             newVersionString(changeLog, "4.0.4 (3/7/12)", new String[] {
                "Fixed crashes related to error reporting",
