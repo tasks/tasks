@@ -939,8 +939,13 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
         // abandon editing in this case
         if (title.getText().length() == 0
                 || TextUtils.isEmpty(model.getValue(Task.TITLE))) {
-            if (isNewTask)
+            if (isNewTask) {
                 taskService.delete(model);
+                if (getActivity() instanceof TaskListActivity) {
+                    TaskListActivity tla = (TaskListActivity) getActivity();
+                    tla.refreshTaskList();
+                }
+            }
         }
 
         showCancelToast();
