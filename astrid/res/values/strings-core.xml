@@ -561,6 +561,7 @@
     <item>Night</item>
     <item>Transparent (White Text)</item>
     <item>Transparent (Black Text)</item>
+    <item>Old Style</item>
   </string-array>
   
   <!-- ========================================== Task Management Settings == -->

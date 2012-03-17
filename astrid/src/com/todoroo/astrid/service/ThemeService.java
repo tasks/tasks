@@ -9,6 +9,7 @@ import com.timsu.astrid.R;
 import com.todoroo.andlib.service.ContextManager;
 import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.andlib.utility.Preferences;
+import com.todoroo.astrid.widget.TasksWidget;
 
 @SuppressWarnings("nls")
 public class ThemeService {
@@ -20,6 +21,7 @@ public class ThemeService {
     public static final String THEME_TRANSPARENT_WHITE = "transparent-white";
 
     public static final String THEME_WIDGET_SAME_AS_APP = "same-as-app";
+    public static final String THEME_WIDGET_LEGACY = "legacy-widget";
 
     public static final int FLAG_FORCE_DARK = 1;
     public static final int FLAG_FORCE_LIGHT = 2;
@@ -44,6 +46,8 @@ public class ThemeService {
         String preference = Preferences.getStringValue(R.string.p_theme_widget);
         if (TextUtils.isEmpty(preference) || THEME_WIDGET_SAME_AS_APP.equals(preference))
             return getTheme();
+        else if (THEME_WIDGET_LEGACY.equals(preference))
+            return TasksWidget.THEME_LEGACY;
         else
             return getStyleForSetting(preference);
     }

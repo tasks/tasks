@@ -45,6 +45,8 @@ import com.todoroo.astrid.utility.Constants;
 
 public class TasksWidget extends AppWidgetProvider {
 
+    public static final int THEME_LEGACY = -1;
+
     static {
         AstridDependencyInjector.initialize();
     }
@@ -174,15 +176,18 @@ public class TasksWidget extends AppWidgetProvider {
                     task.readFromCursor(cursor);
 
                     String textContent = "";
-                    int textColor = context.getResources()
+                    Resources r = context.getResources();
+                    int textColor = r
                             .getColor(isDarkTheme() ? R.color.widget_text_color_dark : R.color.widget_text_color_light);
+                    if (isLegacyTheme())
+                        textColor = r.getColor(android.R.color.white);
 
                     textContent = task.getValue(Task.TITLE);
 
                     if(task.isCompleted())
-                        textColor = context.getResources().getColor(R.color.task_list_done);
+                        textColor = r.getColor(R.color.task_list_done);
                     else if(task.hasDueDate() && task.getValue(Task.DUE_DATE) < DateUtilities.now())
-                        textColor = context.getResources().getColor(R.color.task_list_overdue);
+                        textColor = r.getColor(R.color.task_list_overdue);
 
                     RemoteViews row = new RemoteViews(Constants.PACKAGE, R.layout.widget_row);
 
@@ -192,7 +197,9 @@ public class TasksWidget extends AppWidgetProvider {
                     views.addView(R.id.taskbody, row);
 
                     RemoteViews separator = new RemoteViews(Constants.PACKAGE, R.layout.widget_separator);
-                    views.addView(R.id.taskbody, separator);
+                    boolean isLastRow = (i == cursor.getCount() - 1) || (i == numberOfTasks - 1);
+                    if (!isLastRow)
+                        views.addView(R.id.taskbody, separator);
                 }
                 for (; i < numberOfTasks; i++) {
                     RemoteViews row = new RemoteViews(Constants.PACKAGE, R.layout.widget_row);
@@ -260,6 +267,11 @@ public class TasksWidget extends AppWidgetProvider {
             return (theme == R.style.Theme || theme == R.style.Theme_Transparent);
         }
 
+        private boolean isLegacyTheme() {
+            int theme = ThemeService.getWidgetTheme();
+            return theme == THEME_LEGACY;
+        }
+
         @SuppressWarnings("nls")
         private void applyThemeToWidget(RemoteViews views) {
             int theme = ThemeService.getWidgetTheme();
@@ -269,6 +281,16 @@ public class TasksWidget extends AppWidgetProvider {
             int bodyColor;
             int buttonDrawable;
             int separatorColor;
+
+            if (isLegacyTheme()) {
+                views.setInt(R.id.widget_header, "setBackgroundResource", R.drawable.widget_header_legacy);
+                views.setInt(R.id.taskbody, "setBackgroundResource", R.drawable.widget_body_legacy);
+                views.setTextColor(R.id.widget_title, r.getColor(android.R.color.white));
+                views.setInt(R.id.widget_button, "setImageResource", R.drawable.button_plus);
+                views.setViewVisibility(R.id.widget_header_separator, View.GONE);
+                return;
+            }
+
             if (isDarkTheme()) {
                 headerColor = r.getColor(R.color.widget_header_dark);
                 titleColor = r.getColor(R.color.widget_text_color_dark);

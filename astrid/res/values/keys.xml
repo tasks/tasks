@@ -189,6 +189,7 @@
     <item>black</item>
     <item>transparent</item>
     <item>transparent-white</item>
+    <item>legacy-widget</item>
   </string-array>
   
   <string-array name="EPr_font_size">
