@@ -184,7 +184,9 @@ public final class UpgradeService {
 
         if (from >= V4_0_4 && from < V4_0_4_2) {
             newVersionString(changeLog, "4.0.4.2 (3/16/15)", new String[] {
-               "Fixed a crash related to error reporting"
+               "Fixed a crash that would occur during Google Tasks background sync.",
+               "Fixed infinite loop bug that would happen sometimes with dragging in Google Tasks.",
+               "Fixed other crashes that users have been experiencing."
             });
         }
 

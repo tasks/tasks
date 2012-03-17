@@ -1,6 +1,7 @@
 package com.todoroo.astrid.gtasks;
 
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicLong;
 
@@ -133,25 +134,30 @@ public class GtasksTaskListUpdater extends OrderedListUpdater<StoreObject> {
     }
 
     public void correctOrderAndIndentForList(String listId) {
-        orderAndIndentHelper(listId, new AtomicLong(0L), Task.NO_ID, 0);
+        orderAndIndentHelper(listId, new AtomicLong(0L), Task.NO_ID, 0,
+                new HashSet<Long>());
     }
 
-    private void orderAndIndentHelper(String listId, AtomicLong order, long parent, int indentLevel) {
+    private void orderAndIndentHelper(String listId, AtomicLong order, long parent, int indentLevel,
+            HashSet<Long> alreadyChecked) {
         TodorooCursor<Metadata> metadata = metadataDao.query(Query.select(Metadata.PROPERTIES)
                 .where(Criterion.and(Metadata.KEY.eq(GtasksMetadata.METADATA_KEY),
-                        GtasksMetadata.LIST_ID.eq(listId), GtasksMetadata.PARENT_TASK.eq(parent),
-                        GtasksMetadata.INDENT.lt(indentLevel == 0 ? 1 : indentLevel)))
+                        GtasksMetadata.LIST_ID.eq(listId), GtasksMetadata.PARENT_TASK.eq(parent)))
                 .orderBy(Order.asc(Functions.cast(GtasksMetadata.GTASKS_ORDER, "INTEGER")))); //$NON-NLS-1$
         try {
             if (metadata.getCount() > 0) {
                 Metadata curr = new Metadata();
                 for (metadata.moveToFirst(); !metadata.isAfterLast(); metadata.moveToNext()) {
                     curr.readFromCursor(metadata);
+                    if(alreadyChecked.contains(curr.getValue(Metadata.TASK)))
+                        continue;
+
                     curr.setValue(GtasksMetadata.INDENT, indentLevel);
                     curr.setValue(GtasksMetadata.ORDER, order.getAndIncrement());
                     metadataDao.saveExisting(curr);
+                    alreadyChecked.add(curr.getValue(Metadata.TASK));
 
-                    orderAndIndentHelper(listId, order, curr.getValue(Metadata.TASK), indentLevel + 1);
+                    orderAndIndentHelper(listId, order, curr.getValue(Metadata.TASK), indentLevel + 1, alreadyChecked);
                 }
             }
         } finally {
