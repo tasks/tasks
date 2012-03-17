@@ -139,7 +139,8 @@ public class GtasksTaskListUpdater extends OrderedListUpdater<StoreObject> {
     private void orderAndIndentHelper(String listId, AtomicLong order, long parent, int indentLevel) {
         TodorooCursor<Metadata> metadata = metadataDao.query(Query.select(Metadata.PROPERTIES)
                 .where(Criterion.and(Metadata.KEY.eq(GtasksMetadata.METADATA_KEY),
-                        GtasksMetadata.LIST_ID.eq(listId), GtasksMetadata.PARENT_TASK.eq(parent)))
+                        GtasksMetadata.LIST_ID.eq(listId), GtasksMetadata.PARENT_TASK.eq(parent),
+                        GtasksMetadata.INDENT.lt(indentLevel == 0 ? 1 : indentLevel)))
                 .orderBy(Order.asc(Functions.cast(GtasksMetadata.GTASKS_ORDER, "INTEGER")))); //$NON-NLS-1$
         try {
             if (metadata.getCount() > 0) {
