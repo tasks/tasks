@@ -40,6 +40,7 @@ import com.todoroo.astrid.utility.AstridPreferences;
 
 public final class UpgradeService {
 
+    public static final int V4_0_4_3 = 259;
     public static final int V4_0_4_2 = 258;
     public static final int V4_0_4_1 = 257;
     public static final int V4_0_4 = 256;
@@ -182,8 +183,15 @@ public final class UpgradeService {
         Preferences.clear(AstridPreferences.P_UPGRADE_FROM);
         StringBuilder changeLog = new StringBuilder();
 
+        if (from >= V4_0_4 && from < V4_0_4_3) {
+            newVersionString(changeLog, "4.0.4.3 (3/17/12)", new String[] {
+               "Added option to configure widget theme from Settings, including a legacy-style option",
+               "Fixed a bug where tasks added with quickadd on tablets weren't always saved correctly",
+            });
+        }
+
         if (from >= V4_0_4 && from < V4_0_4_2) {
-            newVersionString(changeLog, "4.0.4.2 (3/16/15)", new String[] {
+            newVersionString(changeLog, "4.0.4.2 (3/16/12)", new String[] {
                "Fixed a crash that would occur during Google Tasks background sync.",
                "Fixed infinite loop bug that would happen sometimes with dragging in Google Tasks.",
                "Fixed other crashes that users have been experiencing."
