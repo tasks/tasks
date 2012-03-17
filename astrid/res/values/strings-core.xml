@@ -533,6 +533,8 @@
   <!-- Preference: Theme Description (android 1.6) -->
   <string name="EPr_theme_desc_unsupported">Setting requires Android 2.0+</string>
   
+  <string name="EPr_theme_widget_title">Widget Theme</string>
+  
   <!-- Preference screen: all task row settings -->
   <string name="EPr_taskRowPrefs_title">Task Row Appearance</string>
     
@@ -545,6 +547,15 @@
     
   <string-array name="EPr_themes">
     <!-- theme_settings: labels for Theme preference menu -->
+    <item>Day - Blue</item>
+    <item>Day - Red</item>
+    <item>Night</item>
+    <item>Transparent (White Text)</item>
+    <item>Transparent (Black Text)</item>
+  </string-array>
+  
+  <string-array name="EPr_themes_widget">
+    <item>Same as app</item>
     <item>Day - Blue</item>
     <item>Day - Red</item>
     <item>Night</item>

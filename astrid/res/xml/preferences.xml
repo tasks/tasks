@@ -50,6 +50,12 @@
             android:entries="@array/EPr_themes"
             android:entryValues="@array/EPr_theme_settings"
             android:title="@string/EPr_theme_title" />
+        
+        <com.todoroo.astrid.ui.MultilineListPreference
+            android:key="@string/p_theme_widget"
+            android:entries="@array/EPr_themes_widget"
+            android:entryValues="@array/EPr_theme_widget_settings"
+            android:title="@string/EPr_theme_widget_title" />
 
         <com.todoroo.astrid.ui.MultilineCheckboxPreference
             android:key="@string/p_showSmartConfirmation_key"

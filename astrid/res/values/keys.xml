@@ -167,6 +167,7 @@
   <string name="p_beastMode">beastMode</string>
   <string name="p_transparent_deprecated">transparent</string>
   <string name="p_theme">theme</string>
+  <string name="p_theme_widget">theme_widget</string>
   <string name="p_voiceInputEnabled">voiceInputEnabled</string>
   <string name="p_voiceInputCreatesTask">voiceInputCreatesTask</string>
   <string name="p_voiceRemindersEnabled">voiceRemindersEnabled</string>
@@ -180,6 +181,16 @@
     <item>transparent-white</item>
   </string-array>
     
+  <string-array name="EPr_theme_widget_settings">
+    <!-- theme_settings: options for preference menu -->
+    <item>same-as-app</item>
+    <item>white</item>
+    <item>white-red</item>
+    <item>black</item>
+    <item>transparent</item>
+    <item>transparent-white</item>
+  </string-array>
+  
   <string-array name="EPr_font_size">
     <!-- font_size: options for preference menu -->
     <item>10</item>

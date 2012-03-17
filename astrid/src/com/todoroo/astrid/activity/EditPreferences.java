@@ -56,6 +56,7 @@ import com.todoroo.astrid.utility.Flags;
 import com.todoroo.astrid.voice.VoiceInputAssistant;
 import com.todoroo.astrid.voice.VoiceOutputService;
 import com.todoroo.astrid.welcome.tutorial.WelcomeWalkthrough;
+import com.todoroo.astrid.widget.TasksWidget;
 
 /**
  * Displays the preference screen for users to edit their preferences
@@ -327,6 +328,19 @@ public class EditPreferences extends TodorooPreferenceActivity {
                 preference.setSummary(getString(R.string.EPr_theme_desc,
                         r.getStringArray(R.array.EPr_themes)[index]));
             }
+        } else if (r.getString(R.string.p_theme_widget).equals(preference.getKey())) {
+            if(AndroidUtilities.getSdkVersion() < 5) {
+                preference.setEnabled(false);
+                preference.setSummary(R.string.EPr_theme_desc_unsupported);
+            } else {
+                int index = 0;
+                if(value instanceof String && !TextUtils.isEmpty((String)value))
+                    index = AndroidUtilities.indexOf(r.getStringArray(R.array.EPr_theme_widget_settings), (String)value);
+                if (index < 0)
+                    index = 0;
+                preference.setSummary(getString(R.string.EPr_theme_desc,
+                        r.getStringArray(R.array.EPr_themes_widget)[index]));
+            }
         }
 
         // pp preferences
@@ -394,6 +408,14 @@ public class EditPreferences extends TodorooPreferenceActivity {
             @Override
             public boolean onPreferenceChange(Preference preference, Object newValue) {
                 setResult(RESULT_CODE_THEME_CHANGED);
+                return true;
+            }
+        });
+
+        findPreference(getString(R.string.p_theme_widget)).setOnPreferenceChangeListener(new OnPreferenceChangeListener() {
+            @Override
+            public boolean onPreferenceChange(Preference preference, Object newValue) {
+                TasksWidget.updateWidgets(EditPreferences.this);
                 return true;
             }
         });

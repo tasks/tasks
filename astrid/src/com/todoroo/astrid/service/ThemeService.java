@@ -2,6 +2,7 @@ package com.todoroo.astrid.service;
 
 import android.app.Activity;
 import android.graphics.PixelFormat;
+import android.text.TextUtils;
 import android.view.WindowManager;
 
 import com.timsu.astrid.R;
@@ -17,6 +18,8 @@ public class ThemeService {
     public static final String THEME_BLACK = "black";
     public static final String THEME_TRANSPARENT = "transparent";
     public static final String THEME_TRANSPARENT_WHITE = "transparent-white";
+
+    public static final String THEME_WIDGET_SAME_AS_APP = "same-as-app";
 
     public static final int FLAG_FORCE_DARK = 1;
     public static final int FLAG_FORCE_LIGHT = 2;
@@ -34,13 +37,25 @@ public class ThemeService {
 
     public static int getTheme() {
         String preference = Preferences.getStringValue(R.string.p_theme);
-        if(THEME_BLACK.equals(preference))
+        return getStyleForSetting(preference);
+    }
+
+    public static int getWidgetTheme() {
+        String preference = Preferences.getStringValue(R.string.p_theme_widget);
+        if (TextUtils.isEmpty(preference) || THEME_WIDGET_SAME_AS_APP.equals(preference))
+            return getTheme();
+        else
+            return getStyleForSetting(preference);
+    }
+
+    private static int getStyleForSetting(String setting) {
+        if(THEME_BLACK.equals(setting))
             return R.style.Theme;
-        else if(THEME_TRANSPARENT.equals(preference))
+        else if(THEME_TRANSPARENT.equals(setting))
             return R.style.Theme_Transparent;
-        else if(THEME_TRANSPARENT_WHITE.equals(preference))
+        else if(THEME_TRANSPARENT_WHITE.equals(setting))
             return R.style.Theme_TransparentWhite;
-        else if (THEME_WHITE_RED.equals(preference))
+        else if (THEME_WHITE_RED.equals(setting))
             return R.style.Theme_White;
         else
             return R.style.Theme_White_Blue;

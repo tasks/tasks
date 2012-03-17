@@ -256,13 +256,13 @@ public class TasksWidget extends AppWidgetProvider {
         }
 
         private boolean isDarkTheme() {
-            int theme = ThemeService.getTheme();
+            int theme = ThemeService.getWidgetTheme();
             return (theme == R.style.Theme || theme == R.style.Theme_Transparent);
         }
 
         @SuppressWarnings("nls")
         private void applyThemeToWidget(RemoteViews views) {
-            int theme = ThemeService.getTheme();
+            int theme = ThemeService.getWidgetTheme();
             Resources r = getResources();
             int headerColor;
             int titleColor;
@@ -287,6 +287,10 @@ public class TasksWidget extends AppWidgetProvider {
                 bodyColor = r.getColor(R.color.widget_body_light);
                 buttonDrawable = R.drawable.plus_button_dark_blue;
                 separatorColor = r.getColor(R.color.dark_blue_theme_color);
+            }
+
+            if (theme == R.style.Theme_Transparent || theme == R.style.Theme_TransparentWhite) {
+                bodyColor = headerColor = r.getColor(android.R.color.transparent);
             }
 
             views.setInt(R.id.widget_header, "setBackgroundColor", headerColor);

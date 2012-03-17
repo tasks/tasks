@@ -706,9 +706,7 @@ public class TaskListFragment extends ListFragment implements OnScrollListener,
                             R.anim.slide_right_in, R.anim.slide_right_out);
                 }
                 getActivity().startActivity(getActivity().getIntent());
-                ContextManager.getContext().startService(
-                        new Intent(ContextManager.getContext(),
-                                TasksWidget.WidgetUpdateService.class));
+                TasksWidget.updateWidgets(getActivity());
             } else if (resultCode == SyncProviderPreferences.RESULT_CODE_SYNCHRONIZE) {
                 Preferences.setLong(SyncActionHelper.PREF_LAST_AUTO_SYNC, 0); // Forces autosync to occur after login
             }
@@ -1214,9 +1212,7 @@ public class TaskListFragment extends ListFragment implements OnScrollListener,
             editor.putInt(SortHelper.PREF_SORT_FLAGS, flags);
             editor.putInt(SortHelper.PREF_SORT_SORT, sort);
             editor.commit();
-            ContextManager.getContext().startService(
-                    new Intent(ContextManager.getContext(),
-                            TasksWidget.WidgetUpdateService.class));
+            TasksWidget.updateWidgets(ContextManager.getContext());
         }
 
         try {
