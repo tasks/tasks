@@ -268,7 +268,7 @@ public class AstridActivity extends FragmentActivity
             editActivity.repopulateFromScratch(intent);
             TaskListFragment tlf = getTaskListFragment();
             if (tlf != null)
-                tlf.refresh();
+                tlf.loadTaskListContent(true);
 
         } else {
             startActivityForResult(intent, TaskListFragment.ACTIVITY_EDIT_TASK);
