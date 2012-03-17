@@ -171,7 +171,7 @@ public class TitleParserTest extends DatabaseTestCase {
         task.setValue(Task.TITLE, "Jog tomorrow");
         taskService.quickAdd(task);
         date = new Date(task.getValue(Task.DUE_DATE));
-        assertEquals(date.getDay()+1 % 7, today.get(Calendar.DAY_OF_WEEK)+1 % 7);
+        assertEquals((date.getDay()+1) % 7, (today.get(Calendar.DAY_OF_WEEK)+1) % 7);
 
         String[] days = {
                 "sunday",
