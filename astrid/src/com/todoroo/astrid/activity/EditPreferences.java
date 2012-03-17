@@ -402,10 +402,14 @@ public class EditPreferences extends TodorooPreferenceActivity {
             @Override
             public boolean onPreferenceChange(Preference preference, Object newValue) {
                 Boolean value = (Boolean) newValue;
-                if (!value.booleanValue()) {
-                    Crittercism.setOptOutStatus(true);
-                } else {
-                    Crittercism.setOptOutStatus(false);
+                try {
+                    if (!value.booleanValue()) {
+                        Crittercism.setOptOutStatus(true);
+                    } else {
+                        Crittercism.setOptOutStatus(false);
+                    }
+                } catch (NullPointerException e) {
+                    return false;
                 }
                 return true;
             }

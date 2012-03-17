@@ -160,6 +160,8 @@ public class C2DMReceiver extends BroadcastReceiver {
                     }
 
                     actFmSyncService.fetchTask(task);
+                } catch(NumberFormatException e) {
+                    // invalid task id
                 } finally {
                     cursor.close();
                 }

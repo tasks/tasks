@@ -1128,8 +1128,8 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
                 (tabStyle == TAB_STYLE_ACTIVITY_WEB && position == 2))
             return TAB_VIEW_WEB_SERVICES;
 
-        throw new RuntimeException("Error - requested position " + position
-                + ", tab style " + tabStyle);
+        // error experienced
+        return TAB_VIEW_MORE;
     }
 
     /**
