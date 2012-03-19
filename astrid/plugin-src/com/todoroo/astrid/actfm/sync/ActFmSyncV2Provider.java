@@ -112,6 +112,8 @@ public class ActFmSyncV2Provider extends SyncV2Provider {
 
         final AtomicInteger finisher = new AtomicInteger(2);
 
+        actFmPreferenceService.recordSyncStart();
+
         startTagFetcher(callback, finisher);
 
         startTaskFetcher(manual, callback, finisher);

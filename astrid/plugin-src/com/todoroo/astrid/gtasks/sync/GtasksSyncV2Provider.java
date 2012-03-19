@@ -103,6 +103,8 @@ public class GtasksSyncV2Provider extends SyncV2Provider {
         callback.started();
         callback.incrementMax(100);
 
+        gtasksPreferenceService.recordSyncStart();
+
         new Thread(new Runnable() {
             public void run() {
                 callback.incrementProgress(50);

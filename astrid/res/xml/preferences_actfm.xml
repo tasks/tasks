@@ -3,11 +3,17 @@
     xmlns:android="http://schemas.android.com/apk/res/android">  
        
     <PreferenceCategory
+        android:key="@string/sync_SPr_group_status"
         android:title="@string/sync_SPr_group_status">
     
         <com.todoroo.astrid.ui.MultilinePreference
             android:layout="@layout/status_preference"
             android:key="@string/sync_SPr_status_key"  
+            android:textSize="24sp"
+            android:gravity="center"/>
+        
+        <com.todoroo.astrid.ui.MultilinePreference
+            android:key="@string/sync_SPr_key_last_error"
             android:textSize="24sp"
             android:gravity="center"/>
         

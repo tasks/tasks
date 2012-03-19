@@ -95,7 +95,7 @@ abstract public class SyncProviderUtilities {
         editor.commit();
     }
 
-    /** Set Last Successful Sync Date */
+    /** Set Last Error */
     public void setLastError(String error) {
         Editor editor = getPrefs().edit();
         editor.putString(getIdentifier() + PREF_LAST_ERROR, error);
@@ -123,7 +123,7 @@ abstract public class SyncProviderUtilities {
         editor.putLong(getIdentifier() + PREF_LAST_ATTEMPTED_SYNC,
                 DateUtilities.now());
         editor.remove(getIdentifier() + PREF_LAST_ERROR);
-        editor.putBoolean(getIdentifier() + PREF_ONGOING, true);
+        // editor.putBoolean(getIdentifier() + PREF_ONGOING, true);
         editor.commit();
     }
 

@@ -314,6 +314,8 @@
     <string name="sync_SPr_forget_key">sync_forget</string>
     <!-- Preference Key (do not translate) -->
     <string name="sync_SPr_key_options">sync_options</string>
+    <!-- Preference Key (do not translate) -->
+    <string name="sync_SPr_key_last_error">sync_last_error</string>
     
   <!-- ===========================================================ACTFM == -->
   <string name="actfm_https_key">actfmHttps</string>

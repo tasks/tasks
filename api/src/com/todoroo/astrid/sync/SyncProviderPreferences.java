@@ -2,6 +2,7 @@ package com.todoroo.astrid.sync;
 
 import java.util.Date;
 
+import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
 import android.content.Intent;
@@ -169,6 +170,43 @@ abstract public class SyncProviderPreferences extends TodorooPreferenceActivity 
             View view = findViewById(R.id.status);
             if(view != null)
                 view.setBackgroundColor(statusColor);
+        }
+        else if (r.getString(R.string.sync_SPr_key_last_error).equals(preference.getKey())) {
+            if (getUtilities().getLastError() != null) {
+                // Display error
+                final String lastError = getUtilities().getLastError();
+                preference.setTitle(R.string.sync_SPr_last_error);
+                preference.setSummary(R.string.sync_SPr_last_error_subtitle);
+
+                preference.setOnPreferenceClickListener(new OnPreferenceClickListener() {
+                    @Override
+                    @SuppressWarnings("nls")
+                    public boolean onPreferenceClick(Preference pref) {
+                        // Show last error
+                        new AlertDialog.Builder(SyncProviderPreferences.this)
+                            .setTitle(R.string.sync_SPr_last_error)
+                            .setMessage(lastError)
+                            .setPositiveButton(R.string.sync_SPr_send_report, new OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    Intent emailIntent = new Intent(Intent.ACTION_SEND);
+                                    emailIntent.setType("plain/text")
+                                               .putExtra(Intent.EXTRA_EMAIL, new String[] { "android-bugs@astrid.com"} )
+                                               .putExtra(Intent.EXTRA_SUBJECT, getTitle() + " Sync Error")
+                                               .putExtra(Intent.EXTRA_TEXT, lastError);
+                                    startActivity(Intent.createChooser(emailIntent, r.getString(R.string.sync_SPr_send_report)));
+                                }
+                            })
+                            .setNegativeButton(R.string.DLG_close, null)
+                            .create().show();
+                        return true;
+                    }
+                });
+
+            } else {
+                PreferenceCategory statusCategory = (PreferenceCategory) findPreference(r.getString(R.string.sync_SPr_group_status));
+                statusCategory.removePreference(findPreference(r.getString(R.string.sync_SPr_key_last_error)));
+            }
         }
         // log out button
         else if (r.getString(R.string.sync_SPr_forget_key).equals(preference.getKey())) {

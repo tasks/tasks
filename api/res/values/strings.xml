@@ -200,6 +200,13 @@
   <!-- Sync: Prefix string before logged in identifier -->
   <string name="sync_SPr_logged_in_prefix">Logged in as:</string>
   
+  <!-- Sync: Last error -->
+  <string name="sync_SPr_last_error">Last Error</string>
+  <!-- Sync: last error click for more -->
+  <string name="sync_SPr_last_error_subtitle">Click to send a report to the Astrid team</string>
+  <!-- Sync: send error report button -->
+  <string name="sync_SPr_send_report">Send Report</string>
+  
   <!-- Sync: Clear Data Title -->
   <string name="sync_SPr_forget">Log Out</string>
   <!-- Sync: Clear Data Description -->
