@@ -430,9 +430,10 @@ public final class ActFmSyncService {
         } catch (IOException e) {
             if (notPermanentError(e))
                 addFailedPush(new FailedPush(PUSH_TYPE_TASK, task.getId()));
-            else
-            handleException("task-save-io", e);
-            task.setValue(Task.LAST_SYNC, DateUtilities.now() + 1000L);
+            else {
+                handleException("task-save-io", e);
+                task.setValue(Task.LAST_SYNC, DateUtilities.now() + 1000L);
+            }
         }
 
         task.putTransitory(SyncFlags.ACTFM_SUPPRESS_SYNC, true);
@@ -445,7 +446,7 @@ public final class ActFmSyncService {
      */
     public void pushTask(long taskId) {
         Task task = taskService.fetchById(taskId, Task.PROPERTIES);
-        if (task != null)
+        if (task != null && task.getValue(Task.MODIFICATION_DATE) > task.getValue(Task.LAST_SYNC))
             pushTaskOnSave(task, task.getMergedValues());
     }
 
