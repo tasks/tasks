@@ -428,9 +428,9 @@ public final class ActFmSyncService {
         } catch (JSONException e) {
             handleException("task-save-json", e);
         } catch (IOException e) {
-            if (notPermanentError(e))
+            if (notPermanentError(e)) {
                 addFailedPush(new FailedPush(PUSH_TYPE_TASK, task.getId()));
-            else {
+            } else {
                 handleException("task-save-io", e);
                 task.setValue(Task.LAST_SYNC, DateUtilities.now() + 1000L);
             }
@@ -717,57 +717,58 @@ public final class ActFmSyncService {
      * @param done
      */
     public void fetchActiveTasks(final boolean manual, SyncExceptionHandler handler, Runnable done) {
-        invokeFetchList("task", manual, handler, new ListItemProcessor<Task>() {
-            @Override
-            protected void mergeAndSave(JSONArray list, HashMap<Long,Long> locals) throws JSONException {
-                Task remote = new Task();
-
-                ArrayList<Metadata> metadata = new ArrayList<Metadata>();
-                HashSet<Long> ids = new HashSet<Long>(list.length());
-                for(int i = 0; i < list.length(); i++) {
-                    JSONObject item = list.getJSONObject(i);
-                    readIds(locals, item, remote);
-                    JsonHelper.taskFromJson(item, remote, metadata);
-
-                    if(remote.getValue(Task.USER_ID) == 0) {
-                        if(!remote.isSaved())
-                            StatisticsService.reportEvent(StatisticsConstants.ACTFM_TASK_CREATED);
-                        else if(remote.isCompleted())
-                            StatisticsService.reportEvent(StatisticsConstants.ACTFM_TASK_COMPLETED);
-                    }
-
-                    if(!remote.isSaved() && remote.hasDueDate() &&
-                            remote.getValue(Task.DUE_DATE) < DateUtilities.now())
-                        remote.setFlag(Task.REMINDER_FLAGS, Task.NOTIFY_AFTER_DEADLINE, false);
-
-                    remote.putTransitory(SyncFlags.ACTFM_SUPPRESS_SYNC, true);
-                    taskService.save(remote);
-                    ids.add(remote.getId());
-                    metadataService.synchronizeMetadata(remote.getId(), metadata, MetadataCriteria.withKey(TagService.KEY));
-                    remote.clear();
-                }
-
-                if(manual) {
-                    Long[] localIds = ids.toArray(new Long[ids.size()]);
-                    taskService.deleteWhere(Criterion.and(TaskCriteria.activeAndVisible(),
-                            Task.REMOTE_ID.isNotNull(),
-                            Criterion.not(Task.ID.in(localIds))));
-                }
-            }
-
-            @Override
-            protected HashMap<Long, Long> getLocalModels() {
-                TodorooCursor<Task> cursor = taskService.query(Query.select(Task.ID,
-                        Task.REMOTE_ID).where(Task.REMOTE_ID.in(remoteIds)).orderBy(
-                                Order.asc(Task.REMOTE_ID)));
-                return cursorToMap(cursor, taskDao, Task.REMOTE_ID, Task.ID);
-            }
-
-            @Override
-            protected Class<Task> typeClass() {
-                return Task.class;
-            }
-        }, done, "active_tasks");
+        invokeFetchList("task", manual, handler, new TaskListItemProcessor(manual), done, "active_tasks");
+//        invokeFetchList("task", manual, handler, new ListItemProcessor<Task>() {
+//            @Override
+//            protected void mergeAndSave(JSONArray list, HashMap<Long,Long> locals) throws JSONException {
+//                Task remote = new Task();
+//
+//                ArrayList<Metadata> metadata = new ArrayList<Metadata>();
+//                HashSet<Long> ids = new HashSet<Long>(list.length());
+//                for(int i = 0; i < list.length(); i++) {
+//                    JSONObject item = list.getJSONObject(i);
+//                    readIds(locals, item, remote);
+//                    JsonHelper.taskFromJson(item, remote, metadata);
+//
+//                    if(remote.getValue(Task.USER_ID) == 0) {
+//                        if(!remote.isSaved())
+//                            StatisticsService.reportEvent(StatisticsConstants.ACTFM_TASK_CREATED);
+//                        else if(remote.isCompleted())
+//                            StatisticsService.reportEvent(StatisticsConstants.ACTFM_TASK_COMPLETED);
+//                    }
+//
+//                    if(!remote.isSaved() && remote.hasDueDate() &&
+//                            remote.getValue(Task.DUE_DATE) < DateUtilities.now())
+//                        remote.setFlag(Task.REMINDER_FLAGS, Task.NOTIFY_AFTER_DEADLINE, false);
+//
+//                    remote.putTransitory(SyncFlags.ACTFM_SUPPRESS_SYNC, true);
+//                    taskService.save(remote);
+//                    ids.add(remote.getId());
+//                    metadataService.synchronizeMetadata(remote.getId(), metadata, MetadataCriteria.withKey(TagService.KEY));
+//                    remote.clear();
+//                }
+//
+//                if(manual) {
+//                    Long[] localIds = ids.toArray(new Long[ids.size()]);
+//                    taskService.deleteWhere(Criterion.and(TaskCriteria.activeAndVisible(),
+//                            Task.REMOTE_ID.isNotNull(),
+//                            Criterion.not(Task.ID.in(localIds))));
+//                }
+//            }
+//
+//            @Override
+//            protected HashMap<Long, Long> getLocalModels() {
+//                TodorooCursor<Task> cursor = taskService.query(Query.select(Task.ID,
+//                        Task.REMOTE_ID).where(Task.REMOTE_ID.in(remoteIds)).orderBy(
+//                                Order.asc(Task.REMOTE_ID)));
+//                return cursorToMap(cursor, taskDao, Task.REMOTE_ID, Task.ID);
+//            }
+//
+//            @Override
+//            protected Class<Task> typeClass() {
+//                return Task.class;
+//            }
+//        }, done, "active_tasks");
     }
 
     /**
@@ -1059,6 +1060,82 @@ public final class ActFmSyncService {
             } finally {
                 cursor.close();
             }
+        }
+
+    }
+
+    private class TaskListItemProcessor extends ListItemProcessor<Task> {
+
+        private final boolean deleteExtras;
+        private final HashMap<Long, Long> modificationDates;
+
+        public TaskListItemProcessor(boolean deleteExtras) {
+            this.deleteExtras = deleteExtras;
+            this.modificationDates = new HashMap<Long, Long>();
+        }
+
+        @Override
+        protected void mergeAndSave(JSONArray list, HashMap<Long,Long> locals) throws JSONException {
+            Task remote = new Task();
+
+            ArrayList<Metadata> metadata = new ArrayList<Metadata>();
+            HashSet<Long> ids = new HashSet<Long>(list.length());
+            for(int i = 0; i < list.length(); i++) {
+                JSONObject item = list.getJSONObject(i);
+                readIds(locals, item, remote);
+
+                long serverModificationDate = item.optLong("updated_at") * 1000;
+                System.err.println("Server mod: " + serverModificationDate + ", local mod: " + modificationDates.get(remote.getId()));
+                if (serverModificationDate > 0 && modificationDates.containsKey(remote.getId()) && serverModificationDate < modificationDates.get(remote.getId())) {
+                    ids.add(remote.getId());
+                    continue; // Modified locally more recently than remotely -- don't overwrite changes
+                }
+
+                JsonHelper.taskFromJson(item, remote, metadata);
+
+                if(remote.getValue(Task.USER_ID) == 0) {
+                    if(!remote.isSaved())
+                        StatisticsService.reportEvent(StatisticsConstants.ACTFM_TASK_CREATED);
+                    else if(remote.isCompleted())
+                        StatisticsService.reportEvent(StatisticsConstants.ACTFM_TASK_COMPLETED);
+                }
+
+                if(!remote.isSaved() && remote.hasDueDate() &&
+                        remote.getValue(Task.DUE_DATE) < DateUtilities.now())
+                    remote.setFlag(Task.REMINDER_FLAGS, Task.NOTIFY_AFTER_DEADLINE, false);
+
+                remote.putTransitory(SyncFlags.ACTFM_SUPPRESS_SYNC, true);
+                taskService.save(remote);
+                ids.add(remote.getId());
+                metadataService.synchronizeMetadata(remote.getId(), metadata, MetadataCriteria.withKey(TagService.KEY));
+                remote.clear();
+            }
+
+            if(deleteExtras) {
+                Long[] localIds = ids.toArray(new Long[ids.size()]);
+                taskService.deleteWhere(Criterion.and(TaskCriteria.activeAndVisible(),
+                        Task.REMOTE_ID.isNotNull(),
+                        Criterion.not(Task.ID.in(localIds))));
+            }
+        }
+
+        @Override
+        protected HashMap<Long, Long> getLocalModels() {
+            TodorooCursor<Task> cursor = taskService.query(Query.select(Task.ID, Task.MODIFICATION_DATE,
+                    Task.REMOTE_ID).where(Task.REMOTE_ID.in(remoteIds)).orderBy(
+                            Order.asc(Task.REMOTE_ID)));
+            Task task = new Task();
+            for (cursor.moveToFirst(); !cursor.isAfterLast(); cursor.moveToNext()) {
+                task.readFromCursor(cursor);
+                modificationDates.put(task.getId(), task.getValue(Task.MODIFICATION_DATE));
+            }
+
+            return cursorToMap(cursor, taskDao, Task.REMOTE_ID, Task.ID);
+        }
+
+        @Override
+        protected Class<Task> typeClass() {
+            return Task.class;
         }
 
     }
