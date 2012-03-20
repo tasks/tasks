@@ -609,7 +609,7 @@ public final class ActFmSyncService {
     public void fetchTagDataDashboard(boolean manual, final Runnable done) {
         invokeFetchList("goal", manual, null, new ListItemProcessor<TagData>() {
             @Override
-            protected void mergeAndSave(JSONArray list, HashMap<Long,Long> locals) throws JSONException {
+            protected void mergeAndSave(JSONArray list, HashMap<Long,Long> locals, long serverTime) throws JSONException {
                 TagData remote = new TagData();
                 for(int i = 0; i < list.length(); i++) {
                     JSONObject item = list.getJSONObject(i);
@@ -843,7 +843,7 @@ public final class ActFmSyncService {
 
     private class UpdateListItemProcessor extends ListItemProcessor<Update> {
         @Override
-        protected void mergeAndSave(JSONArray list, HashMap<Long,Long> locals) throws JSONException {
+        protected void mergeAndSave(JSONArray list, HashMap<Long,Long> locals, long serverTime) throws JSONException {
             Update remote = new Update();
             for(int i = 0; i < list.length(); i++) {
                 JSONObject item = list.getJSONObject(i);
@@ -927,13 +927,13 @@ public final class ActFmSyncService {
         abstract protected Class<TYPE> typeClass();
 
         abstract protected void mergeAndSave(JSONArray list,
-                HashMap<Long,Long> locals) throws JSONException;
+                HashMap<Long,Long> locals, long serverTime) throws JSONException;
 
-        public void process(JSONArray list) throws JSONException {
+        public void process(JSONArray list, long serverTime) throws JSONException {
             readRemoteIds(list);
             synchronized (typeClass()) {
                 HashMap<Long, Long> locals = getLocalModels();
-                mergeAndSave(list, locals);
+                mergeAndSave(list, locals, serverTime);
             }
         }
 
@@ -984,17 +984,21 @@ public final class ActFmSyncService {
         }
 
         @Override
-        protected void mergeAndSave(JSONArray list, HashMap<Long,Long> locals) throws JSONException {
+        protected void mergeAndSave(JSONArray list, HashMap<Long,Long> locals, long serverTime) throws JSONException {
             Task remote = new Task();
 
             ArrayList<Metadata> metadata = new ArrayList<Metadata>();
             HashSet<Long> ids = new HashSet<Long>(list.length());
+
+            long timeDelta = serverTime == 0 ? 0 : DateUtilities.now() - serverTime * 1000;
+
             for(int i = 0; i < list.length(); i++) {
                 JSONObject item = list.getJSONObject(i);
                 readIds(locals, item, remote);
 
                 long serverModificationDate = item.optLong("updated_at") * 1000;
-                if (serverModificationDate > 0 && modificationDates.containsKey(remote.getId()) && serverModificationDate < modificationDates.get(remote.getId())) {
+                if (serverModificationDate > 0 && modificationDates.containsKey(remote.getId())
+                        && serverModificationDate < (modificationDates.get(remote.getId()) - timeDelta)) {
                     ids.add(remote.getId());
                     continue; // Modified locally more recently than remotely -- don't overwrite changes
                 }
@@ -1069,9 +1073,10 @@ public final class ActFmSyncService {
                 JSONObject result = null;
                 try {
                     result = actFmInvoker.invoke(model + "_list", getParams);
+                    long serverTime = result.optLong("time", 0);
                     JSONArray list = result.getJSONArray("list");
-                    processor.process(list);
-                    Preferences.setLong("actfm_time_" + lastSyncKey, result.optLong("time", 0));
+                    processor.process(list, serverTime);
+                    Preferences.setLong("actfm_time_" + lastSyncKey, serverTime);
                     Preferences.setLong("actfm_last_" + lastSyncKey, DateUtilities.now());
 
                     if(done != null)
