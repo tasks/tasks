@@ -405,23 +405,23 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
         }
 
 
-            mAdapter = new TaskEditViewPager(getActivity(), tabStyle);
-            mAdapter.parent = this;
+        mAdapter = new TaskEditViewPager(getActivity(), tabStyle);
+        mAdapter.parent = this;
 
-            mPager = (NestableViewPager) getView().findViewById(R.id.pager);
-            mPager.setAdapter(mAdapter);
+        mPager = (NestableViewPager) getView().findViewById(R.id.pager);
+        mPager.setAdapter(mAdapter);
 
-            mIndicator = (TabPageIndicator) getView().findViewById(
-                    R.id.indicator);
-            mIndicator.setViewPager(mPager);
-            mIndicator.setOnPageChangeListener(this);
+        mIndicator = (TabPageIndicator) getView().findViewById(
+                R.id.indicator);
+        mIndicator.setViewPager(mPager);
+        mIndicator.setOnPageChangeListener(this);
 
-            if (moreControls.getParent() != null && moreControls.getParent() != mPager) {
-                ((ViewGroup) moreControls.getParent()).removeView(moreControls);
-            }
+        if (moreControls.getParent() != null && moreControls.getParent() != mPager) {
+            ((ViewGroup) moreControls.getParent()).removeView(moreControls);
+        }
 
-            commentsBar.setVisibility(View.VISIBLE);
-            moreTab.setVisibility(View.VISIBLE);
+        commentsBar.setVisibility(View.VISIBLE);
+        moreTab.setVisibility(View.VISIBLE);
     }
 
     private void setCurrentTab(int position) {

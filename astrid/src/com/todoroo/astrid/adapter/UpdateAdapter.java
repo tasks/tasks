@@ -143,45 +143,8 @@ public class UpdateAdapter extends CursorAdapter {
 
         final AsyncImageView commentPictureView = (AsyncImageView)view.findViewById(R.id.comment_picture); {
             final String updatePicture = update.getValue(Update.PICTURE);
-            if (!TextUtils.isEmpty(updatePicture) && !"null".equals(updatePicture)) {
-                commentPictureView.setVisibility(View.VISIBLE);
-                commentPictureView.setUrl(updatePicture);
-
-                if(imageCache.contains(updatePicture)) {
-                    try {
-                        commentPictureView.setDefaultImageBitmap(imageCache.get(updatePicture));
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                }
-                else {
-                    commentPictureView.setUrl(updatePicture);
-                }
-
-                final String message = update.getValue(Update.MESSAGE);
-                view.setOnClickListener(new OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        AlertDialog image = new AlertDialog.Builder(fragment.getActivity()).create();
-                        AsyncImageView imageView = new AsyncImageView(fragment.getActivity());
-                        imageView.setLayoutParams(new LayoutParams(LayoutParams.FILL_PARENT, LayoutParams.WRAP_CONTENT));
-                        imageView.setDefaultImageResource(android.R.drawable.ic_menu_gallery);
-                        imageView.setUrl(updatePicture);
-                        image.setView(imageView);
-
-                        image.setMessage(message);
-                        image.setButton(fragment.getString(R.string.DLG_close), new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                return;
-                            }
-                        });
-                        image.show();
-                    }
-                });
-            } else {
-                commentPictureView.setVisibility(View.GONE);
-            }
+            setupImagePopupForCommentView(view, commentPictureView, updatePicture,
+                    update.getValue(Update.MESSAGE), fragment, imageCache);
         }
 
         // name
@@ -198,6 +161,48 @@ public class UpdateAdapter extends CursorAdapter {
             date.setText(dateString);
         }
 
+    }
+
+    public static void setupImagePopupForCommentView(View view, AsyncImageView commentPictureView, final String updatePicture,
+            final String message, final Fragment fragment, ImageDiskCache imageCache) {
+        if (!TextUtils.isEmpty(updatePicture) && !"null".equals(updatePicture)) { //$NON-NLS-1$
+            commentPictureView.setVisibility(View.VISIBLE);
+            commentPictureView.setUrl(updatePicture);
+
+            if(imageCache.contains(updatePicture)) {
+                try {
+                    commentPictureView.setDefaultImageBitmap(imageCache.get(updatePicture));
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+            else {
+                commentPictureView.setUrl(updatePicture);
+            }
+
+            view.setOnClickListener(new OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    AlertDialog image = new AlertDialog.Builder(fragment.getActivity()).create();
+                    AsyncImageView imageView = new AsyncImageView(fragment.getActivity());
+                    imageView.setLayoutParams(new LayoutParams(LayoutParams.FILL_PARENT, LayoutParams.WRAP_CONTENT));
+                    imageView.setDefaultImageResource(android.R.drawable.ic_menu_gallery);
+                    imageView.setUrl(updatePicture);
+                    image.setView(imageView);
+
+                    image.setMessage(message);
+                    image.setButton(fragment.getString(R.string.DLG_close), new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            return;
+                        }
+                    });
+                    image.show();
+                }
+            });
+        } else {
+            commentPictureView.setVisibility(View.GONE);
+        }
     }
 
     public static String linkify (String string, String linkColor) {

@@ -303,7 +303,7 @@ public class EditNoteActivity extends LinearLayout implements TimerActionListene
             this.addView(notesView);
         }
 
-        if ( items.size() > commentItems) {
+        if (items.size() > commentItems) {
             Button loadMore = new Button(getContext());
             loadMore.setText(R.string.TEA_load_more);
             loadMore.setBackgroundColor(Color.alpha(0));
@@ -368,12 +368,7 @@ public class EditNoteActivity extends LinearLayout implements TimerActionListene
 
         // picture
         final AsyncImageView commentPictureView = (AsyncImageView)view.findViewById(R.id.comment_picture); {
-            if(TextUtils.isEmpty(item.commentPicture) || item.commentPicture.equals("null"))  //$NON-NLS-1$
-                commentPictureView.setVisibility(View.GONE);
-            else {
-                commentPictureView.setVisibility(View.VISIBLE);
-                commentPictureView.setUrl(item.commentPicture);
-            }
+            UpdateAdapter.setupImagePopupForCommentView(view, commentPictureView, item.commentPicture, item.title.toString(), fragment, imageCache);
         }
     }
 
