@@ -17,9 +17,11 @@ import com.todoroo.andlib.data.TodorooCursor;
 import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.ContextManager;
 import com.todoroo.andlib.sql.Criterion;
+import com.todoroo.andlib.sql.Join;
 import com.todoroo.andlib.sql.Query;
 import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.astrid.dao.TaskDao.TaskCriteria;
+import com.todoroo.astrid.data.Metadata;
 import com.todoroo.astrid.data.RemoteModel;
 import com.todoroo.astrid.data.TagData;
 import com.todoroo.astrid.data.Task;
@@ -306,11 +308,24 @@ public class ActFmSyncV2Provider extends SyncV2Provider {
         actFmSyncService.fetchTasksForTag(tagData, manual, new Runnable() {
             @Override
             public void run() {
+                pushQueuedTasksByTag(tagData, callback, finisher);
+
                 callback.incrementProgress(30);
                 if(finisher.decrementAndGet() == 0)
                     callback.finished();
             }
         });
+    }
+
+    private void pushQueuedTasksByTag(TagData tagData, SyncResultCallback callback, AtomicInteger finisher) {
+        TodorooCursor<Task> taskCursor = taskService.query(Query.select(Task.PROPERTIES)
+                .join(Join.inner(Metadata.TABLE, Criterion.and(Metadata.KEY.eq(TagService.KEY), Metadata.TASK.eq(Task.ID), TagService.TAG.eq(tagData.getId()))))
+                .where(Criterion.or(
+                        Criterion.and(TaskCriteria.isActive(),
+                                Task.REMOTE_ID.isNull()),
+                        Criterion.and(Task.REMOTE_ID.isNotNull(),
+                                Task.MODIFICATION_DATE.gt(Task.LAST_SYNC)))));
+        pushQueued(callback, finisher, taskCursor, false, taskPusher);
     }
 
 }
