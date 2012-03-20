@@ -10,7 +10,6 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.Spinner;
 
@@ -25,7 +24,6 @@ import com.todoroo.astrid.api.FilterListItem;
 import com.todoroo.astrid.core.PluginServices;
 import com.todoroo.astrid.service.StatisticsConstants;
 import com.todoroo.astrid.service.StatisticsService;
-import com.todoroo.astrid.service.ThemeService;
 import com.twofortyfouram.SharedResources;
 
 /**
@@ -100,7 +98,7 @@ public final class LocaleEditAlerts extends ListActivity {
     /** Called when the activity is first created. */
     @Override
     public void onCreate(Bundle savedInstanceState) {
-        ThemeService.forceTheme(R.style.Theme_White);
+        setTheme(R.style.Theme);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.locale_edit_alerts);
 
@@ -118,9 +116,9 @@ public final class LocaleEditAlerts extends ListActivity {
         /*
          * Load the Locale background frame from Locale
          */
-        ((LinearLayout) findViewById(R.id.frame)).setBackgroundDrawable(
-                SharedResources.getDrawableResource(getPackageManager(),
-                        SharedResources.DRAWABLE_LOCALE_BORDER));
+//        ((LinearLayout) findViewById(R.id.frame)).setBackgroundDrawable(
+//                SharedResources.getDrawableResource(getPackageManager(),
+//                        SharedResources.DRAWABLE_LOCALE_BORDER));
 
         // set up UI components
         interval = (Spinner) findViewById(R.id.intervalSpinner);

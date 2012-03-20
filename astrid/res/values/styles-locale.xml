@@ -12,7 +12,7 @@
   <!-- Locale filter list styles -->
   <style name="TextAppearance.LEA_Filter">
       <item name="android:textSize">14sp</item>
-      <item name="android:textColor">@android:color/black</item>
+      <item name="android:textColor">@android:color/white</item>
   </style>
   
   <style name="TextAppearance.LEA_Header" parent="TextAppearance.LEA_Filter">

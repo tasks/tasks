@@ -3,7 +3,8 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     android:layout_width="fill_parent"
-    android:layout_height="fill_parent">
+    android:layout_height="fill_parent"
+    style="@style/Content">
     
     <!-- At runtime, we'll load the Locale background frame -->
     <LinearLayout
@@ -19,7 +20,7 @@
             android:paddingBottom="10px"
             android:gravity="center"
             android:text="@string/locale_edit_intro"
-            style="@style/TextAppearance.Locale_Label" />
+            style="@style/TextAppearance" />
             
             <FrameLayout
                 android:layout_width="fill_parent"
@@ -32,7 +33,8 @@
                     android:layout_width="fill_parent"
                     android:layout_height="fill_parent"
                     android:scrollbars="vertical"
-                    android:cacheColorHint="@android:color/white"/>
+                    android:background="@android:color/black"
+                    android:cacheColorHint="@android:color/black"/>
                 
             </FrameLayout>
                 
@@ -42,14 +44,13 @@
                 android:layout_weight="1"
                 android:gravity="center"
                 android:text="@string/locale_interval_label"
-                style="@style/TextAppearance.Locale_Label" />
+                style="@style/TextAppearance" />
         
             <Spinner android:id="@+id/intervalSpinner"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content" 
                 android:layout_weight="1"
                 android:paddingBottom="10dip"
-                android:textColor="@android:color/black"
                 android:entries="@array/locale_interval" />
             
     </LinearLayout>
