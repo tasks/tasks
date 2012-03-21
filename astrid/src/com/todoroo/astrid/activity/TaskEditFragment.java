@@ -450,7 +450,7 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
 
         // populate control set
         EditTitleControlSet editTitle = new EditTitleControlSet(getActivity(),
-                R.layout.control_set_title, Task.TITLE, R.id.title);
+                R.layout.control_set_title, R.id.title);
         title = (EditText) editTitle.getView().findViewById(R.id.title);
         controls.add(editTitle);
         titleControls.addView(editTitle.getDisplayView(), 0, new LinearLayout.LayoutParams(LayoutParams.FILL_PARENT, LayoutParams.WRAP_CONTENT, 1.0f));
