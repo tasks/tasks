@@ -27,7 +27,7 @@ public class GtasksTokenValidator {
      * @param token
      * @return valid token on success, null on failure
      */
-    public static String validateAuthToken(Context c, String token) throws GoogleTasksException {
+    public static synchronized String validateAuthToken(Context c, String token) throws GoogleTasksException {
         GoogleAccountManager accountManager = new GoogleAccountManager(ContextManager.getContext());
 
         if(testToken(token))
