@@ -142,6 +142,7 @@ public class ActFmSyncV2Provider extends SyncV2Provider {
                     callback.incrementProgress(20);
                     if(finisher.decrementAndGet() == 0) {
                         actFmPreferenceService.recordSuccessfulSync();
+                        actFmPreferenceService.stopOngoing();
                         callback.finished();
                     }
                 }
@@ -160,6 +161,7 @@ public class ActFmSyncV2Provider extends SyncV2Provider {
                 callback.incrementProgress(30);
                 if(finisher.decrementAndGet() == 0) {
                     actFmPreferenceService.recordSuccessfulSync();
+                    actFmPreferenceService.stopOngoing();
                     callback.finished();
                 }
             }
@@ -190,6 +192,7 @@ public class ActFmSyncV2Provider extends SyncV2Provider {
                             callback.incrementProgress(20);
                             if(finisher.decrementAndGet() == 0) {
                                 actFmPreferenceService.recordSuccessfulSync();
+                                actFmPreferenceService.stopOngoing();
                                 callback.finished();
                             }
                         }

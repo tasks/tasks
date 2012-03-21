@@ -201,7 +201,8 @@
   <string name="sync_SPr_logged_in_prefix">Logged in as:</string>
   
   <!-- Sync: Last error -->
-  <string name="sync_SPr_last_error">Last Error</string>
+  <string name="sync_SPr_last_error">Status Report</string>
+  
   <!-- Sync: last error click for more -->
   <string name="sync_SPr_last_error_subtitle">Click to send a report to the Astrid team</string>
   <!-- Sync: send error report button -->
@@ -216,8 +217,8 @@
   <string name="sync_forget_confirm">Log out / clear synchronization data?</string>
   
   <!-- Sync error: network connectivity problems. %s-> name of sync service-->
-  <string name="sync_error_offline">It looks like you had some network connectivity problems
-      the last time you tried to sync with %s. Please try again later!</string>
+  <string name="sync_error_offline">There was a problem connecting to the network
+      during the last sync with %s. Please try again later.</string>
   
   <string-array name="sync_SPr_interval_entries">
       <!-- sync_SPr_interval_entries: Synchronization Intervals -->

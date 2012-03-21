@@ -252,6 +252,7 @@ abstract public class SyncProviderPreferences extends TodorooPreferenceActivity 
             exceptionsToDisplayMessages = new HashMap<String, Integer>();
             exceptionsToDisplayMessages.put("java.net.ConnectionException", R.string.sync_error_offline);
             exceptionsToDisplayMessages.put("java.net.UnknownHostException", R.string.sync_error_offline);
+            exceptionsToDisplayMessages.put("org.apache.http.conn.HttpHostConnectionException", R.string.sync_error_offline);
         }
         return exceptionsToDisplayMessages;
     }

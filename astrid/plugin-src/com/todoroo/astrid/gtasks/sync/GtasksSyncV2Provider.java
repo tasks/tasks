@@ -130,6 +130,7 @@ public class GtasksSyncV2Provider extends SyncV2Provider {
                             callback.incrementProgress(25);
                             if (finisher.decrementAndGet() == 0) {
                                 gtasksPreferenceService.recordSuccessfulSync();
+                                gtasksPreferenceService.stopOngoing();
                                 callback.finished();
                             }
                         }

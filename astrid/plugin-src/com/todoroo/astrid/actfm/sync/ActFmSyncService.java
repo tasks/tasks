@@ -1079,8 +1079,6 @@ public final class ActFmSyncService {
                     Preferences.setLong("actfm_time_" + lastSyncKey, serverTime);
                     Preferences.setLong("actfm_last_" + lastSyncKey, DateUtilities.now());
 
-                    if(done != null)
-                        done.run();
                 } catch (IOException e) {
                     if (handler != null)
                         handler.handleException("io-exception-list-" + model, e);
@@ -1088,6 +1086,9 @@ public final class ActFmSyncService {
                         handleException("io-exception-list-" + model, e);
                 } catch (JSONException e) {
                     handleException("json: " + result.toString(), e);
+                } finally {
+                    if(done != null)
+                        done.run();
                 }
             }
         }).start();
