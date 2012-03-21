@@ -2,6 +2,7 @@ package com.todoroo.astrid.sync;
 
 import java.util.Date;
 import java.util.HashMap;
+import java.util.Set;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
@@ -238,7 +239,10 @@ abstract public class SyncProviderPreferences extends TodorooPreferenceActivity 
 
     /**
      * We can define exception strings in this map that we want to replace with more user-friendly
-     * messages. As we discover new exception types, we can expand the map
+     * messages. As we discover new exception types, we can expand the map.
+     *
+     * NOTE: All resources are currently required to have a single string format argument
+     * for inserting the service name into the error message
      */
     private static HashMap<String, Integer> exceptionsToDisplayMessages;
 
@@ -247,12 +251,20 @@ abstract public class SyncProviderPreferences extends TodorooPreferenceActivity 
         if (exceptionsToDisplayMessages == null) {
             exceptionsToDisplayMessages = new HashMap<String, Integer>();
             exceptionsToDisplayMessages.put("java.net.ConnectionException", R.string.sync_error_offline);
+            exceptionsToDisplayMessages.put("java.net.UnknownHostException", R.string.sync_error_offline);
         }
         return exceptionsToDisplayMessages;
     }
 
     private static final String adjustErrorForDisplay(Resources r, String lastError, String service) {
-        Integer resource = getExceptionMap().get(lastError);
+        Set<String> exceptions = getExceptionMap().keySet();
+        Integer resource = null;
+        for (String key : exceptions) {
+            if (lastError.contains(key)) {
+                resource = getExceptionMap().get(key);
+                break;
+            }
+        }
         if (resource == null)
             return lastError;
         return r.getString(resource.intValue(), service);
