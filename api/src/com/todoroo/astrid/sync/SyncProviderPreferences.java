@@ -1,6 +1,7 @@
 package com.todoroo.astrid.sync;
 
 import java.util.Date;
+import java.util.HashMap;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
@@ -174,7 +175,9 @@ abstract public class SyncProviderPreferences extends TodorooPreferenceActivity 
         else if (r.getString(R.string.sync_SPr_key_last_error).equals(preference.getKey())) {
             if (getUtilities().getLastError() != null) {
                 // Display error
-                final String lastError = getUtilities().getLastError();
+                final String service = getTitle().toString();
+                final String lastErrorFull = getUtilities().getLastError();
+                final String lastErrorDisplay = adjustErrorForDisplay(r, lastErrorFull, service);
                 preference.setTitle(R.string.sync_SPr_last_error);
                 preference.setSummary(R.string.sync_SPr_last_error_subtitle);
 
@@ -185,15 +188,15 @@ abstract public class SyncProviderPreferences extends TodorooPreferenceActivity 
                         // Show last error
                         new AlertDialog.Builder(SyncProviderPreferences.this)
                             .setTitle(R.string.sync_SPr_last_error)
-                            .setMessage(lastError)
+                            .setMessage(lastErrorDisplay)
                             .setPositiveButton(R.string.sync_SPr_send_report, new OnClickListener() {
                                 @Override
                                 public void onClick(DialogInterface dialog, int which) {
                                     Intent emailIntent = new Intent(Intent.ACTION_SEND);
                                     emailIntent.setType("plain/text")
                                                .putExtra(Intent.EXTRA_EMAIL, new String[] { "android-bugs@astrid.com"} )
-                                               .putExtra(Intent.EXTRA_SUBJECT, getTitle() + " Sync Error")
-                                               .putExtra(Intent.EXTRA_TEXT, lastError);
+                                               .putExtra(Intent.EXTRA_SUBJECT, service + " Sync Error")
+                                               .putExtra(Intent.EXTRA_TEXT, lastErrorFull);
                                     startActivity(Intent.createChooser(emailIntent, r.getString(R.string.sync_SPr_send_report)));
                                 }
                             })
@@ -231,6 +234,28 @@ abstract public class SyncProviderPreferences extends TodorooPreferenceActivity 
             }
 
         }
+    }
+
+    /**
+     * We can define exception strings in this map that we want to replace with more user-friendly
+     * messages. As we discover new exception types, we can expand the map
+     */
+    private static HashMap<String, Integer> exceptionsToDisplayMessages;
+
+    @SuppressWarnings("nls")
+    private static HashMap<String, Integer> getExceptionMap() {
+        if (exceptionsToDisplayMessages == null) {
+            exceptionsToDisplayMessages = new HashMap<String, Integer>();
+            exceptionsToDisplayMessages.put("java.net.ConnectionException", R.string.sync_error_offline);
+        }
+        return exceptionsToDisplayMessages;
+    }
+
+    private static final String adjustErrorForDisplay(Resources r, String lastError, String service) {
+        Integer resource = getExceptionMap().get(lastError);
+        if (resource == null)
+            return lastError;
+        return r.getString(resource.intValue(), service);
     }
 
     @Override

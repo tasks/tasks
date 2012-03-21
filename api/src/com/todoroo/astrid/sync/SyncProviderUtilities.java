@@ -123,7 +123,7 @@ abstract public class SyncProviderUtilities {
         editor.putLong(getIdentifier() + PREF_LAST_ATTEMPTED_SYNC,
                 DateUtilities.now());
         editor.remove(getIdentifier() + PREF_LAST_ERROR);
-        // editor.putBoolean(getIdentifier() + PREF_ONGOING, true);
+        editor.putBoolean(getIdentifier() + PREF_ONGOING, true);
         editor.commit();
     }
 

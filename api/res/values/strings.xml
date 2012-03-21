@@ -215,6 +215,10 @@
   <!-- confirmation dialog for sync log out -->
   <string name="sync_forget_confirm">Log out / clear synchronization data?</string>
   
+  <!-- Sync error: network connectivity problems. %s-> name of sync service-->
+  <string name="sync_error_offline">It looks like you had some network connectivity problems
+      the last time you tried to sync with %s. Please try again later!</string>
+  
   <string-array name="sync_SPr_interval_entries">
       <!-- sync_SPr_interval_entries: Synchronization Intervals -->
       <item>disable</item>
