@@ -21,6 +21,7 @@ public class GtasksTokenValidator {
 
     private static final String TOKEN_INTENT_RECEIVED = "intent!"; //$NON-NLS-1$
 
+    private static final int REVALIDATION_TRIES = 4;
     /**
      * Invalidates and then revalidates the auth token for the currently logged in user
      * Shouldn't be called from the main thread--will block on network calls
@@ -40,15 +41,19 @@ public class GtasksTokenValidator {
             throw new GoogleTasksException(c.getString(R.string.gtasks_error_accountNotFound, accountName));
         }
 
-        accountManager.invalidateAuthToken(token);
+        for (int i = 0; i < REVALIDATION_TRIES; i++) {
+            accountManager.invalidateAuthToken(token);
 
-        // try with notify-auth-failure = false
-        AccountManagerFuture<Bundle> future = accountManager.manager.getAuthToken(a, GtasksInvoker.AUTH_TOKEN_TYPE, false, null, null);
-        token = getTokenFromFuture(c, future);
-        if(TOKEN_INTENT_RECEIVED.equals(token))
-            return null;
-        else if(token != null)
-            return token;
+            // try with notify-auth-failure = false
+            AccountManagerFuture<Bundle> future = accountManager.manager.getAuthToken(a, GtasksInvoker.AUTH_TOKEN_TYPE, false, null, null);
+            token = getTokenFromFuture(c, future);
+
+            if(TOKEN_INTENT_RECEIVED.equals(token))
+                return null;
+            else if(token != null && testToken(token))
+                return token;
+        }
+
 
         throw new GoogleTasksException(c.getString(R.string.gtasks_error_authRefresh));
     }
@@ -85,10 +90,6 @@ public class GtasksTokenValidator {
         } else {
             throw new GoogleTasksException(c.getString(R.string.gtasks_error_accountManager));
         }
-
-        if(testToken(token))
-            return token;
-
-        return null;
+        return token;
     }
 }
