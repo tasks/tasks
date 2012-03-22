@@ -93,7 +93,7 @@ public class FilterAdapter extends ArrayAdapter<Filter> {
     private final boolean selectable;
 
     /** Pattern for matching filter counts in listing titles */
-    private final Pattern countPattern = Pattern.compile(".* \\((\\d+\\))$"); //$NON-NLS-1$
+    private final Pattern countPattern = Pattern.compile(".* \\((\\d+)\\)$"); //$NON-NLS-1$
 
     private int mSelectedIndex;
 
@@ -150,6 +150,7 @@ public class FilterAdapter extends ArrayAdapter<Filter> {
                             size = Integer.parseInt(countString);
                         } catch (NumberFormatException e) {
                             // Count manually
+                            e.printStackTrace();
                         }
                     }
 
