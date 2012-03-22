@@ -40,6 +40,7 @@ import com.todoroo.astrid.utility.AstridPreferences;
 
 public final class UpgradeService {
 
+    public static final int V4_0_5 = 260;
     public static final int V4_0_4_3 = 259;
     public static final int V4_0_4_2 = 258;
     public static final int V4_0_4_1 = 257;
@@ -182,6 +183,14 @@ public final class UpgradeService {
 
         Preferences.clear(AstridPreferences.P_UPGRADE_FROM);
         StringBuilder changeLog = new StringBuilder();
+
+        if (from >= V4_0_0 && from < V4_0_5) {
+            newVersionString(changeLog, "4.0.5 (3/22/12)", new String[] {
+               "Better conflict resolution for Astrid.com sync",
+               "Fixes and improvements to Gtasks sync",
+               "Added option to report sync errors in sync preference screen"
+            });
+        }
 
         if (from >= V4_0_4 && from < V4_0_4_3) {
             newVersionString(changeLog, "4.0.4.3 (3/17/12)", new String[] {
