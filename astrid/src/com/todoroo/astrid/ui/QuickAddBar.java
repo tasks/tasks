@@ -321,6 +321,8 @@ public class QuickAddBar extends LinearLayout {
                 }
             }
 
+            fragment.incrementFilterCount();
+
             StatisticsService.reportEvent(StatisticsConstants.TASK_CREATED_TASKLIST);
             return task;
         } catch (Exception e) {
