@@ -95,7 +95,7 @@ public class TasksWidget extends AppWidgetProvider {
 
     public static class WidgetUpdateService extends Service {
 
-        public static String EXTRA_WIDGET_ID = "widget_id"; //$NON-NLS-1$
+        public static final String EXTRA_WIDGET_ID = "widget_id"; //$NON-NLS-1$
 
         @Autowired
         Database database;
@@ -145,12 +145,7 @@ public class TasksWidget extends AppWidgetProvider {
         public RemoteViews buildUpdate(Context context, int widgetId) {
             DependencyInjectionService.getInstance().inject(this);
 
-            RemoteViews views = null;
-
-            views = new RemoteViews(context.getPackageName(),
-                    R.layout.widget_initialized);
-
-            applyThemeToWidget(views);
+            RemoteViews views = getThemedRemoteViews(context);
 
             int numberOfTasks = getNumberOfTasks();
 
@@ -272,54 +267,50 @@ public class TasksWidget extends AppWidgetProvider {
             return theme == THEME_LEGACY;
         }
 
+
+        /**
+         * The reason we use a bunch of different but almost identical layouts is that there is a bug with
+         * Android 2.1 (level 7) that doesn't allow setting backgrounds on remote views. I know it's lame,
+         * but I didn't see a better solution. Alternatively, we could disallow theming widgets on
+         * Android 2.1.
+         * @param context
+         * @return
+         */
         @SuppressWarnings("nls")
-        private void applyThemeToWidget(RemoteViews views) {
+        private RemoteViews getThemedRemoteViews(Context context) {
             int theme = ThemeService.getWidgetTheme();
-            Resources r = getResources();
-            int headerColor;
+            String packageName = context.getPackageName();
+            Resources r = context.getResources();
+            int layout;
+            RemoteViews views = null;
+
             int titleColor;
-            int bodyColor;
             int buttonDrawable;
-            int separatorColor;
 
             if (isLegacyTheme()) {
-                views.setInt(R.id.widget_header, "setBackgroundResource", R.drawable.widget_header_legacy);
-                views.setInt(R.id.taskbody, "setBackgroundResource", R.drawable.widget_body_legacy);
+                views = new RemoteViews(packageName, R.layout.widget_initialized_legacy);
                 views.setTextColor(R.id.widget_title, r.getColor(android.R.color.white));
                 views.setInt(R.id.widget_button, "setImageResource", R.drawable.button_plus);
                 views.setViewVisibility(R.id.widget_header_separator, View.GONE);
-                return;
-            }
-
-            if (isDarkTheme()) {
-                headerColor = r.getColor(R.color.widget_header_dark);
+                return views;
+            } else if(isDarkTheme()) {
+                layout = (theme == R.style.Theme_Transparent ? R.layout.widget_initialized_dark_transparent : R.layout.widget_initialized_dark);
                 titleColor = r.getColor(R.color.widget_text_color_dark);
-                bodyColor = r.getColor(R.color.widget_body_dark);
                 buttonDrawable = R.drawable.plus_button_blue;
-                separatorColor = r.getColor(R.color.blue_theme_color);
             } else if (theme == R.style.Theme_White) {
-                headerColor = r.getColor(R.color.widget_header_light);
+                layout = R.layout.widget_initialized_red;
                 titleColor = r.getColor(R.color.widget_text_color_light);
-                bodyColor = r.getColor(R.color.widget_body_light);
                 buttonDrawable = R.drawable.plus_button_red;
-                separatorColor = r.getColor(R.color.red_theme_color);
             } else {
-                headerColor = r.getColor(R.color.widget_header_light);
+                layout = (theme == R.style.Theme_TransparentWhite ? R.layout.widget_initialized_transparent : R.layout.widget_initialized);
                 titleColor = r.getColor(R.color.widget_text_color_light);
-                bodyColor = r.getColor(R.color.widget_body_light);
                 buttonDrawable = R.drawable.plus_button_dark_blue;
-                separatorColor = r.getColor(R.color.dark_blue_theme_color);
             }
 
-            if (theme == R.style.Theme_Transparent || theme == R.style.Theme_TransparentWhite) {
-                bodyColor = headerColor = r.getColor(android.R.color.transparent);
-            }
-
-            views.setInt(R.id.widget_header, "setBackgroundColor", headerColor);
+            views = new RemoteViews(packageName, layout);
             views.setTextColor(R.id.widget_title, titleColor);
-            views.setInt(R.id.taskbody, "setBackgroundColor", bodyColor);
             views.setInt(R.id.widget_button, "setImageResource", buttonDrawable);
-            views.setInt(R.id.widget_header_separator, "setBackgroundColor", separatorColor);
+            return views;
         }
 
         private int getNumberOfTasks() {
