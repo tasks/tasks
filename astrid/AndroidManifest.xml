@@ -64,8 +64,7 @@
   <!-- ========================================================== Metadata = -->
 
   <uses-sdk android:targetSdkVersion="10"
-            android:minSdkVersion="7" 
-            android:maxSdkVersion="7"/>
+            android:minSdkVersion="7"/>
   <supports-screens android:xlargeScreens="true" android:largeScreens="true"/>
   
   <application android:icon="@drawable/icon" android:label="@string/app_name"
