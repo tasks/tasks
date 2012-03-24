@@ -40,6 +40,7 @@ import com.todoroo.astrid.utility.AstridPreferences;
 
 public final class UpgradeService {
 
+    public static final int V4_0_5_1 = 261;
     public static final int V4_0_5 = 260;
     public static final int V4_0_4_3 = 259;
     public static final int V4_0_4_2 = 258;
@@ -183,6 +184,12 @@ public final class UpgradeService {
 
         Preferences.clear(AstridPreferences.P_UPGRADE_FROM);
         StringBuilder changeLog = new StringBuilder();
+
+        if (from >= V4_0_5 && from < V4_0_5_1) {
+            newVersionString(changeLog, "4.0.5.1 (3/23/12)", new String[] {
+               "Fixed a bug that would prevent widgets from displaying on Android 2.1"
+            });
+        }
 
         if (from >= V4_0_0 && from < V4_0_5) {
             newVersionString(changeLog, "4.0.5 (3/22/12)", new String[] {
