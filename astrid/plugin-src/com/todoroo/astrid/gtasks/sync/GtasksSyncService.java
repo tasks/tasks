@@ -107,6 +107,9 @@ public final class GtasksSyncService {
                     return;
 
                 Task toPush = taskDao.fetch(model.getId(), TASK_PROPERTIES);
+                if (toPush.getValue(Task.USER_ID) != Task.USER_ID_SELF)
+                    return;
+
                 operationQueue.offer(new TaskPushOp(toPush));
             }
         });

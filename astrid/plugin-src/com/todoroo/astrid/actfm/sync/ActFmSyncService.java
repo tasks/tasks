@@ -1017,6 +1017,8 @@ public final class ActFmSyncService {
                     remote.setFlag(Task.REMINDER_FLAGS, Task.NOTIFY_AFTER_DEADLINE, false);
 
                 remote.putTransitory(SyncFlags.ACTFM_SUPPRESS_SYNC, true);
+                if (remote.getValue(Task.USER_ID) != Task.USER_ID_SELF)
+                    remote.putTransitory(SyncFlags.GTASKS_SUPPRESS_SYNC, true);
                 taskService.save(remote);
                 ids.add(remote.getId());
                 metadataService.synchronizeMetadata(remote.getId(), metadata, MetadataCriteria.withKey(TagService.KEY));
