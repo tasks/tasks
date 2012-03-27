@@ -3,10 +3,13 @@
  */
 package com.todoroo.astrid.adapter;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import android.app.Activity;
 import android.app.PendingIntent;
@@ -89,7 +92,12 @@ public class FilterAdapter extends ArrayAdapter<Filter> {
     /** whether rows are selectable */
     private final boolean selectable;
 
+    /** Pattern for matching filter counts in listing titles */
+    private final Pattern countPattern = Pattern.compile(".* \\((\\d+)\\)$"); //$NON-NLS-1$
+
     private int mSelectedIndex;
+
+    private final HashMap<Filter, Integer> filterCounts;
 
     // Previous solution involved a queue of filters and a filterSizeLoadingThread. The filterSizeLoadingThread had
     // a few problems: how to make sure that the thread is resumed when the controlling activity is resumed, and
@@ -116,6 +124,7 @@ public class FilterAdapter extends ArrayAdapter<Filter> {
         this.layout = rowLayout;
         this.skipIntentFilters = skipIntentFilters;
         this.selectable = selectable;
+        this.filterCounts = new HashMap<Filter, Integer>();
 
         if (activity instanceof AstridActivity && ((AstridActivity) activity).getFragmentLayout() != AstridActivity.LAYOUT_SINGLE)
             filterStyle = R.style.TextAppearance_FLA_Filter_Tablet;
@@ -133,11 +142,25 @@ public class FilterAdapter extends ArrayAdapter<Filter> {
             @Override
             public void run() {
                 try {
-                    if(filter.listingTitle.matches(".* \\(\\d+\\)$")) //$NON-NLS-1$
-                        return;
-                    int size = taskService.countTasks(filter);
-                    filter.listingTitle = filter.listingTitle + (" (" + //$NON-NLS-1$
-                        size + ")"); //$NON-NLS-1$
+                    int size = -1;
+                    Matcher m = countPattern.matcher(filter.listingTitle);
+                    if(m.find()) {
+                        String countString = m.group(1);
+                        try {
+                            size = Integer.parseInt(countString);
+                        } catch (NumberFormatException e) {
+                            // Count manually
+                            e.printStackTrace();
+                        }
+                    }
+
+                    if (size < 0) {
+                        size = taskService.countTasks(filter);
+                        filter.listingTitle = filter.listingTitle + (" (" + //$NON-NLS-1$
+                                size + ")"); //$NON-NLS-1$
+                    }
+
+                    filterCounts.put(filter, size);
                     activity.runOnUiThread(new Runnable() {
                         public void run() {
                             notifyDataSetInvalidated();
@@ -167,6 +190,24 @@ public class FilterAdapter extends ArrayAdapter<Filter> {
         mSelectedIndex = lastSelected;
     }
 
+    public int adjustFilterCount(Filter filter, int delta) {
+        int filterCount = 0;
+        if (filterCounts.containsKey(filter)) {
+            filterCount = filterCounts.get(filter);
+        }
+        int newCount = Math.max(filterCount + delta, 0);
+        filterCounts.put(filter, newCount);
+        notifyDataSetInvalidated();
+        return newCount;
+    }
+
+    public int incrementFilterCount(Filter filter) {
+        return adjustFilterCount(filter, 1);
+    }
+
+    public int decrementFilterCount(Filter filter) {
+        return adjustFilterCount(filter, -1);
+    }
 
     /**
      * Create or reuse a view
@@ -434,11 +475,25 @@ public class FilterAdapter extends ArrayAdapter<Filter> {
         }
 
         // title / size
-        if(filter.listingTitle.matches(".* \\(\\d+\\)$")) { //$NON-NLS-1$
+        if(filterCounts.containsKey(filter) || filter.listingTitle.matches(".* \\(\\d+\\)$")) { //$NON-NLS-1$
             viewHolder.size.setVisibility(View.VISIBLE);
-            viewHolder.size.setText(filter.listingTitle.substring(filter.listingTitle.lastIndexOf('(') + 1,
-                    filter.listingTitle.length() - 1));
-            viewHolder.name.setText(filter.listingTitle.substring(0, filter.listingTitle.lastIndexOf(' ')));
+            String count;
+            if (filterCounts.containsKey(filter)) {
+                count = filterCounts.get(filter).toString();
+            } else {
+                count = filter.listingTitle.substring(filter.listingTitle.lastIndexOf('(') + 1,
+                        filter.listingTitle.length() - 1);
+            }
+            viewHolder.size.setText(count);
+
+            String title;
+            int listingTitleSplit = filter.listingTitle.lastIndexOf(' ');
+            if (listingTitleSplit > 0) {
+                title = filter.listingTitle.substring(0, listingTitleSplit);
+            } else {
+                title = filter.listingTitle;
+            }
+            viewHolder.name.setText(title);
         } else {
             viewHolder.name.setText(filter.listingTitle);
             viewHolder.size.setVisibility(View.GONE);

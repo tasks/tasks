@@ -1054,6 +1054,19 @@ public class TaskListFragment extends ListFragment implements OnScrollListener,
 
     protected void onTaskDelete(@SuppressWarnings("unused") Task task) {
         // hook
+        decrementFilterCount();
+    }
+
+    public void incrementFilterCount() {
+        if (getActivity() instanceof TaskListActivity) {
+            ((TaskListActivity) getActivity()).incrementFilterCount(filter);
+        }
+    }
+
+    public void decrementFilterCount() {
+        if (getActivity() instanceof TaskListActivity) {
+            ((TaskListActivity) getActivity()).decrementFilterCount(filter);
+        }
     }
 
     @Override
