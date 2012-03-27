@@ -163,7 +163,7 @@ public class FilterAdapter extends ArrayAdapter<Filter> {
                     filterCounts.put(filter, size);
                     activity.runOnUiThread(new Runnable() {
                         public void run() {
-                            notifyDataSetInvalidated();
+                            notifyDataSetChanged();
                         }
                     });
                 } catch (Exception e) {
@@ -181,7 +181,7 @@ public class FilterAdapter extends ArrayAdapter<Filter> {
     @Override
     public void add(Filter item) {
         super.add(item);
-
+        notifyDataSetChanged();
         // load sizes
         offerFilter(item);
     }
@@ -197,7 +197,7 @@ public class FilterAdapter extends ArrayAdapter<Filter> {
         }
         int newCount = Math.max(filterCount + delta, 0);
         filterCounts.put(filter, newCount);
-        notifyDataSetInvalidated();
+        notifyDataSetChanged();
         return newCount;
     }
 
@@ -207,6 +207,23 @@ public class FilterAdapter extends ArrayAdapter<Filter> {
 
     public int decrementFilterCount(Filter filter) {
         return adjustFilterCount(filter, -1);
+    }
+
+    public void refreshFilterCount(final Filter filter) {
+        filterExecutor.submit(new Runnable() {
+            @Override
+            public void run() {
+                int size = taskService.countTasks(filter);
+                filterCounts.put(filter, size);
+                activity.runOnUiThread(new Runnable() {
+
+                    @Override
+                    public void run() {
+                        notifyDataSetChanged();
+                    }
+                });
+            }
+        });
     }
 
     /**

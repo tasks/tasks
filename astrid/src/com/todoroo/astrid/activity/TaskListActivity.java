@@ -471,6 +471,13 @@ public class TaskListActivity extends AstridActivity implements MainMenuListener
         }
     }
 
+    public void refreshFilterCount(Filter filter) {
+        FilterListFragment flf = getFilterListFragment();
+        if (flf != null) {
+            flf.adapter.refreshFilterCount(filter);
+        }
+    }
+
     @Override
     public void mainMenuItemSelected(int item, Intent customIntent) {
         TaskListFragment tlf = getTaskListFragment();

@@ -601,7 +601,7 @@ public class TaskListFragment extends ListFragment implements OnScrollListener,
         } else if (!Preferences.getBoolean(R.string.p_showed_lists_help, false)) {
             showListsHelp();
         }
-
+        refreshFilterCount();
         initiateAutomaticSync();
     }
 
@@ -1066,6 +1066,12 @@ public class TaskListFragment extends ListFragment implements OnScrollListener,
     public void decrementFilterCount() {
         if (getActivity() instanceof TaskListActivity) {
             ((TaskListActivity) getActivity()).decrementFilterCount(filter);
+        }
+    }
+
+    public void refreshFilterCount() {
+        if (getActivity() instanceof TaskListActivity) {
+            ((TaskListActivity) getActivity()).refreshFilterCount(filter);
         }
     }
 
