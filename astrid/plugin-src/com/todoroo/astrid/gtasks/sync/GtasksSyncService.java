@@ -107,6 +107,9 @@ public final class GtasksSyncService {
                     return;
 
                 Task toPush = taskDao.fetch(model.getId(), TASK_PROPERTIES);
+                if (toPush.getValue(Task.USER_ID) != Task.USER_ID_SELF)
+                    return;
+
                 operationQueue.offer(new TaskPushOp(toPush));
             }
         });
@@ -187,9 +190,10 @@ public final class GtasksSyncService {
         }
 
         //If task was newly created but without a title, don't sync--we're in the middle of
-        //creating a task which may end up being cancelled
+        //creating a task which may end up being cancelled. Also don't sync new but already
+        //deleted tasks
         if (newlyCreated &&
-                (!values.containsKey(Task.TITLE.name) || TextUtils.isEmpty(task.getValue(Task.TITLE)))) {
+                (!values.containsKey(Task.TITLE.name) || TextUtils.isEmpty(task.getValue(Task.TITLE)) || task.getValue(Task.DELETION_DATE) > 0)) {
             return;
         }
 
