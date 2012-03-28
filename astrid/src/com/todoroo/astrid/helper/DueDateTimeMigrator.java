@@ -2,6 +2,8 @@ package com.todoroo.astrid.helper;
 
 import java.util.Date;
 
+import android.content.Context;
+
 import com.todoroo.andlib.data.TodorooCursor;
 import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.DependencyInjectionService;
@@ -27,27 +29,27 @@ public class DueDateTimeMigrator {
         public void adjust(Date date);
     }
 
-    public void migrateDueTimes() {
+    public void migrateDueTimes(Context c) {
         if (!Preferences.getBoolean(PREF_MIGRATED_DUE_TIMES, false)) {
             // Get tasks with due time (i.e. due date != 23:59:59)
-            TodorooCursor<Task> tasksWithSeconds = taskDao.query(Query.select(Task.ID, Task.TITLE, Task.DUE_DATE).where(
+            TodorooCursor<Task> tasksWithDueTime = taskDao.query(Query.select(Task.ID, Task.TITLE, Task.DUE_DATE).where(
                     Criterion.and(Task.DUE_DATE.gt(0),
                             Criterion.not(Functions.strftime(Task.DUE_DATE).eq(LEGACY_NO_TIME_STRING)))));
-
-            // Set those tassk to have time HH:MM:00
-            processCursor(tasksWithSeconds, new TaskDateAdjuster() {
-                @Override
-                public void adjust(Date date) {
-                    date.setSeconds(1);
-                }
-            });
 
             // Get tasks with no due time (i.e. due date = 23:59:59)
             TodorooCursor<Task> tasksWithoutDueTime = taskDao.query(Query.select(Task.ID, Task.TITLE, Task.DUE_DATE).where(
                     Criterion.and(Task.DUE_DATE.gt(0),
                             Functions.strftime(Task.DUE_DATE).eq(LEGACY_NO_TIME_STRING))));
 
-            // Set those tasks to have time 12:00:00
+            // Set tasks with time to have time HH:MM:01
+            processCursor(tasksWithDueTime, new TaskDateAdjuster() {
+                @Override
+                public void adjust(Date date) {
+                    date.setSeconds(1);
+                }
+            });
+
+            // Set tasks without time to 12:00:00
             processCursor(tasksWithoutDueTime, new TaskDateAdjuster() {
                 @Override
                 public void adjust(Date date) {
@@ -65,7 +67,6 @@ public class DueDateTimeMigrator {
         try {
             for (cursor.moveToFirst(); !cursor.isAfterLast(); cursor.moveToNext()) {
                 curr.readFromCursor(cursor);
-                System.err.println("Processing task: " + curr.getValue(Task.TITLE) + ", ID: " + curr.getId());
                 long time = curr.getValue(Task.DUE_DATE) / 1000L * 1000L;
                 Date date = new Date(time);
                 adjuster.adjust(date);

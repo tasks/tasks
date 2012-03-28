@@ -9,6 +9,7 @@ import org.weloveastrid.rmilk.data.MilkNoteHelper;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 
@@ -26,6 +27,7 @@ import com.todoroo.andlib.utility.DialogUtilities;
 import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.astrid.actfm.sync.ActFmPreferenceService;
 import com.todoroo.astrid.activity.Eula;
+import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.core.SortHelper;
 import com.todoroo.astrid.dao.Database;
 import com.todoroo.astrid.data.Metadata;
@@ -137,17 +139,13 @@ public final class UpgradeService {
 
         // long running tasks: pop up a progress dialog
         final ProgressDialog dialog;
-        if(from < V3_0_0 && context instanceof Activity)
+        if(from < V4_0_6 && context instanceof Activity)
             dialog = DialogUtilities.progressDialog(context,
                     context.getString(R.string.DLG_upgrading));
         else
             dialog = null;
 
         Preferences.setInt(AstridPreferences.P_UPGRADE_FROM, from);
-
-        // This needs to happen synchronously otherwise the tasklist will look wrong on first launch.
-        if (from < V4_0_6)
-            new DueDateTimeMigrator().migrateDueTimes();
 
         new Thread(new Runnable() {
             @Override
@@ -165,8 +163,12 @@ public final class UpgradeService {
                     if(from < V3_8_4 && Preferences.getBoolean(R.string.p_showNotes, false))
                         taskService.clearDetails(Task.NOTES.neq("")); //$NON-NLS-1$
 
+                    if (from < V4_0_6)
+                        new DueDateTimeMigrator().migrateDueTimes(context);
+
                 } finally {
                     DialogUtilities.dismissDialog((Activity)context, dialog);
+                    context.sendBroadcast(new Intent(AstridApiConstants.BROADCAST_EVENT_REFRESH));
                 }
             }
 
