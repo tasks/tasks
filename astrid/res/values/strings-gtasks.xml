@@ -101,6 +101,8 @@
     <!-- Error when account manager returns no auth token or throws exception -->
     <string name="gtasks_error_accountManager">Error in your phone\'s account manager. Please log out and log back in from the Google Tasks settings.</string>
 
+    <!-- Error when authorization error happens in background sync -->
+    <string name="gtasks_error_background_sync_auth">Error authenticating in background. Please try initiating a sync while Astrid is running.</string>
     
         
 </resources>

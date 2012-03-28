@@ -5,6 +5,7 @@ import java.io.IOException;
 import android.accounts.Account;
 import android.accounts.AccountManager;
 import android.accounts.AccountManagerFuture;
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -85,7 +86,10 @@ public class GtasksTokenValidator {
             token = result.getString(AccountManager.KEY_AUTHTOKEN);
         } else if (result.containsKey(AccountManager.KEY_INTENT)) {
             Intent intent = (Intent) result.get(AccountManager.KEY_INTENT);
-            c.startActivity(intent);
+            if (c instanceof Activity)
+                c.startActivity(intent);
+            else
+                throw new GoogleTasksException(c.getString(R.string.gtasks_error_background_sync_auth));
             return TOKEN_INTENT_RECEIVED;
         } else {
             throw new GoogleTasksException(c.getString(R.string.gtasks_error_accountManager));
