@@ -87,9 +87,9 @@ public class DateAndTimePicker extends LinearLayout {
 
     private Date getDateForCalendar(Date date) {
         Date forCalendar = new Date(date.getTime() / 1000L * 1000L);
-        forCalendar.setHours(23);
-        forCalendar.setMinutes(59);
-        forCalendar.setSeconds(59);
+        forCalendar.setHours(12);
+        forCalendar.setMinutes(0);
+        forCalendar.setSeconds(0);
         return forCalendar;
     }
 

@@ -31,6 +31,7 @@ import com.todoroo.astrid.dao.Database;
 import com.todoroo.astrid.data.Metadata;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.gtasks.GtasksPreferenceService;
+import com.todoroo.astrid.helper.DueDateTimeMigrator;
 import com.todoroo.astrid.notes.NoteMetadata;
 import com.todoroo.astrid.producteev.sync.ProducteevDataService;
 import com.todoroo.astrid.service.abtesting.ABChooser;
@@ -40,6 +41,7 @@ import com.todoroo.astrid.utility.AstridPreferences;
 
 public final class UpgradeService {
 
+    public static final int V4_0_6 = 262;
     public static final int V4_0_5_1 = 261;
     public static final int V4_0_5 = 260;
     public static final int V4_0_4_3 = 259;
@@ -143,6 +145,10 @@ public final class UpgradeService {
 
         Preferences.setInt(AstridPreferences.P_UPGRADE_FROM, from);
 
+        // This needs to happen synchronously otherwise the tasklist will look wrong on first launch.
+        if (from < V4_0_6)
+            new DueDateTimeMigrator().migrateDueTimes();
+
         new Thread(new Runnable() {
             @Override
             public void run() {
@@ -158,6 +164,7 @@ public final class UpgradeService {
 
                     if(from < V3_8_4 && Preferences.getBoolean(R.string.p_showNotes, false))
                         taskService.clearDetails(Task.NOTES.neq("")); //$NON-NLS-1$
+
                 } finally {
                     DialogUtilities.dismissDialog((Activity)context, dialog);
                 }
