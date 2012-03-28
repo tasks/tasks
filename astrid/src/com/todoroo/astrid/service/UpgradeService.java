@@ -194,6 +194,10 @@ public final class UpgradeService {
         Preferences.clear(AstridPreferences.P_UPGRADE_FROM);
         StringBuilder changeLog = new StringBuilder();
 
+        newVersionString(changeLog, "4.0.6 (3/29/12)", new String[] {
+               "Fixed a bug that could put duetimes on tasks when changing timezones"
+        });
+
         if (from >= V4_0_5 && from < V4_0_5_1) {
             newVersionString(changeLog, "4.0.5.1 (3/23/12)", new String[] {
                "Fixed a bug that would prevent widgets from displaying on Android 2.1"

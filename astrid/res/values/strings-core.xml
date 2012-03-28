@@ -659,9 +659,6 @@ you get stuff done. It features reminders, tags, sync, Locale plug-in, a widget 
   
   <string name="DB_corrupted_title">Corrupted Database</string>
   
-  <!-- Progress dialog title for long upgrades/migrations -->
-  <string name="upgrade_progress">Upgrading...</string>
-  
   <string name="DB_corrupted_body">
       Uh oh! It looks like you may have a corrupted database. 
       If you see this error regularly, we suggest you clear all
