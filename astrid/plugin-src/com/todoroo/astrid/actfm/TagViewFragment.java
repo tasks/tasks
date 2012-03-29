@@ -460,7 +460,9 @@ public class TagViewFragment extends TaskListFragment {
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == REQUEST_CODE_SETTINGS && resultCode == Activity.RESULT_OK) {
-            tagData = tagDataService.fetchById(tagData.getId(), TagData.PROPERTIES);
+            tagData = tagDataService.fetchById(tagData.getId(), TagData.PROPERTIES); // refetch
+            if (tagData == null) // This can happen if a tag has been deleted as part of a sync
+                return;
             filter = TagFilterExposer.filterFromTagData(getActivity(), tagData);
             getActivity().getIntent().putExtra(TOKEN_FILTER, filter);
             Activity activity = getActivity();
