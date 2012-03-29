@@ -191,7 +191,6 @@ public final class GtasksMetadataService extends SyncMetadataService<GtasksTaskC
         final AtomicInteger indentToMatch = new AtomicInteger(gtasksMetadata.getValue(GtasksMetadata.INDENT).intValue());
         final AtomicLong parentToMatch = new AtomicLong(gtasksMetadata.getValue(GtasksMetadata.PARENT_TASK).longValue());
         final AtomicReference<String> sibling = new AtomicReference<String>();
-
         OrderedListIterator iterator = new OrderedListIterator() {
             @Override
             public void processTask(long taskId, Metadata metadata) {

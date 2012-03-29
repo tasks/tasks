@@ -82,9 +82,9 @@ abstract public class OrderedListUpdater<LIST> {
 
         beforeIndent(list);
 
-        final AtomicInteger targetTaskIndent = new AtomicInteger(-1);
+        final AtomicInteger targetTaskIndent = new AtomicInteger(0);
         final AtomicInteger previousIndent = new AtomicInteger(-1);
-        final AtomicLong previousTask = new AtomicLong(-1);
+        final AtomicLong previousTask = new AtomicLong(Task.NO_ID);
         final AtomicLong globalOrder = new AtomicLong(-1);
 
         iterateThroughList(filter, list, new OrderedListIterator() {
@@ -146,7 +146,7 @@ abstract public class OrderedListUpdater<LIST> {
     private long computeNewParent(Filter filter, LIST list, long targetTaskId, int targetParentIndent) {
         final AtomicInteger desiredParentIndent = new AtomicInteger(targetParentIndent);
         final AtomicLong targetTask = new AtomicLong(targetTaskId);
-        final AtomicLong lastPotentialParent = new AtomicLong(-1);
+        final AtomicLong lastPotentialParent = new AtomicLong(Task.NO_ID);
         final AtomicBoolean computedParent = new AtomicBoolean(false);
 
         iterateThroughList(filter, list, new OrderedListIterator() {
@@ -228,7 +228,7 @@ abstract public class OrderedListUpdater<LIST> {
     }
 
     protected void traverseTreeAndWriteValues(LIST list, Node node, AtomicLong order, int indent) {
-        if(node.taskId != -1) {
+        if(node.taskId != Task.NO_ID) {
             Metadata metadata = getTaskMetadata(list, node.taskId);
             if(metadata == null)
                 metadata = createEmptyMetadata(list, node.taskId);
@@ -262,7 +262,7 @@ abstract public class OrderedListUpdater<LIST> {
     }
 
     protected Node buildTreeModel(Filter filter, LIST list) {
-        final Node root = new Node(-1, null);
+        final Node root = new Node(Task.NO_ID, null);
         final AtomicInteger previoustIndent = new AtomicInteger(-1);
         final AtomicReference<Node> currentNode = new AtomicReference<Node>(root);
 
@@ -364,7 +364,7 @@ abstract public class OrderedListUpdater<LIST> {
                 System.err.format("id %d: order %d, indent:%d, parent:%d\n", taskId, //$NON-NLS-1$
                         metadata.getValue(orderProperty()),
                         metadata.getValue(indentProperty()),
-                        parentProperty() == null ? -1 : metadata.getValue(parentProperty()));
+                        parentProperty() == null ? Task.NO_ID : metadata.getValue(parentProperty()));
             }
         });
     }

@@ -166,8 +166,8 @@ public class GtasksTaskListUpdater extends OrderedListUpdater<StoreObject> {
     }
 
     private void updateParentSiblingMapsFor(StoreObject list) {
-        final AtomicLong previousTask = new AtomicLong(-1L);
-        final AtomicInteger previousIndent = new AtomicInteger(-1);
+        final AtomicLong previousTask = new AtomicLong(Task.NO_ID);
+        final AtomicInteger previousIndent = new AtomicInteger(0);
 
         gtasksMetadataService.iterateThroughList(list, new OrderedListIterator() {
             @Override
@@ -178,10 +178,13 @@ public class GtasksTaskListUpdater extends OrderedListUpdater<StoreObject> {
                     long parent, sibling;
                     if(indent > previousIndent.get()) {
                         parent = previousTask.get();
-                        sibling = -1L;
+                        sibling = Task.NO_ID;
                     } else if(indent == previousIndent.get()) {
                         sibling = previousTask.get();
-                        parent = parents.get(sibling);
+                        if (parents.containsKey(sibling))
+                            parent = parents.get(sibling);
+                        else
+                            parent = Task.NO_ID;
                     } else {
                         // move up once for each indent
                         sibling = previousTask.get();
@@ -190,7 +193,7 @@ public class GtasksTaskListUpdater extends OrderedListUpdater<StoreObject> {
                         if(parents.containsKey(sibling))
                             parent = parents.get(sibling);
                         else
-                            parent = -1L;
+                            parent = Task.NO_ID;
                     }
                     parents.put(taskId, parent);
                     siblings.put(taskId, sibling);
