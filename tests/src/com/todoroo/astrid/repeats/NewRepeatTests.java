@@ -119,6 +119,9 @@ public class NewRepeatTests<REMOTE_MODEL> extends DatabaseTestCase {
         Task t = new Task();
         t.setValue(Task.TITLE, title);
         long dueDate = DateUtilities.now() + DateUtilities.ONE_DAY * 3;
+        Date adjustDate = new Date(dueDate);
+        adjustDate.setSeconds(1);
+        dueDate = adjustDate.getTime();
         dueDate = (dueDate / 1000L) * 1000L; // Strip milliseconds
         if (fromCompletion)
             t.setFlag(Task.FLAGS, Task.FLAG_REPEAT_AFTER_COMPLETION, true);

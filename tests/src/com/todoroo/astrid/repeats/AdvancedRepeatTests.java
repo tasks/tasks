@@ -60,7 +60,7 @@ public class AdvancedRepeatTests extends TodorooTestCase {
         Date todayWithTime = new Date();
         todayWithTime.setHours(10);
         todayWithTime.setMinutes(4);
-        todayWithTime.setSeconds(0);
+        todayWithTime.setSeconds(1);
         long nextDayWithTimeLong = todayWithTime.getTime();
         nextDayWithTimeLong += DateUtilities.ONE_DAY;
         nextDayWithTimeLong = nextDayWithTimeLong / 1000L * 1000;
