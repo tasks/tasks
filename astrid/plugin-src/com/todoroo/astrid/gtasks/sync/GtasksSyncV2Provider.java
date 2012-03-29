@@ -184,6 +184,7 @@ public class GtasksSyncV2Provider extends SyncV2Provider {
                 try {
                     String authToken = getValidatedAuthToken();
                     callback.incrementProgress(25);
+                    gtasksSyncService.waitUntilEmpty();
                     final GtasksInvoker service = new GtasksInvoker(authToken);
                     synchronizeListHelper(gtasksList, service, manual, null, callback);
                 } finally {

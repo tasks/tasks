@@ -2,6 +2,7 @@ package com.todoroo.astrid.gtasks.sync;
 
 import java.io.IOException;
 import java.util.concurrent.LinkedBlockingQueue;
+import java.util.concurrent.Semaphore;
 
 import android.content.ContentValues;
 import android.text.TextUtils;
@@ -43,7 +44,9 @@ public final class GtasksSyncService {
 
     private final LinkedBlockingQueue<SyncOnSaveOperation> operationQueue = new LinkedBlockingQueue<SyncOnSaveOperation>();
 
-    private abstract class SyncOnSaveOperation { /**/ }
+    private abstract class SyncOnSaveOperation {
+        abstract public void op(GtasksInvoker invoker) throws IOException;
+    }
 
     private class TaskPushOp extends SyncOnSaveOperation {
         protected Task model;
@@ -52,47 +55,44 @@ public final class GtasksSyncService {
         public TaskPushOp(Task model) {
             this.model = model;
         }
+
+        @Override
+        public void op(GtasksInvoker invoker) throws IOException {
+            if(DateUtilities.now() - creationDate < 1000)
+                AndroidUtilities.sleepDeep(1000 - (DateUtilities.now() - creationDate));
+            pushTaskOnSave(model, model.getMergedValues(), invoker, false);
+        }
     }
 
-    class MoveOp extends SyncOnSaveOperation {
+    private class MoveOp extends SyncOnSaveOperation {
         protected Metadata metadata;
 
         public MoveOp(Metadata metadata) {
             this.metadata = metadata;
         }
+
+        @Override
+        public void op(GtasksInvoker invoker) throws IOException {
+            pushMetadataOnSave(metadata, invoker);
+        }
+    }
+
+    private class NotifyOp extends SyncOnSaveOperation {
+        private final Semaphore sema;
+
+        public NotifyOp(Semaphore sema) {
+            this.sema = sema;
+        }
+
+        @Override
+        public void op(GtasksInvoker invoker) throws IOException {
+            sema.release();
+        }
     }
 
 
-    @SuppressWarnings("nls")
     public void initialize() {
-        new Thread(new Runnable() {
-        public void run() {
-               while (true) {
-                   SyncOnSaveOperation op;
-                   try {
-                       op = operationQueue.take();
-                   } catch (InterruptedException e) {
-                       continue;
-                   }
-                   try {
-                       if (!gtasksPreferenceService.isOngoing()) {
-                           GtasksInvoker invoker = new GtasksInvoker(gtasksPreferenceService.getToken());
-                           if (op instanceof TaskPushOp) {
-                               TaskPushOp taskPush = (TaskPushOp)op;
-                               if(DateUtilities.now() - taskPush.creationDate < 1000)
-                                   AndroidUtilities.sleepDeep(1000 - (DateUtilities.now() - taskPush.creationDate));
-                               pushTaskOnSave(taskPush.model, taskPush.model.getMergedValues(), invoker, false);
-                           } else if (op instanceof MoveOp) {
-                               MoveOp move = (MoveOp)op;
-                               pushMetadataOnSave(move.metadata, invoker);
-                           }
-                       }
-                   } catch (IOException e) {
-                       Log.w("gtasks-sync-error", "Sync on save failed", e);
-                   }
-               }
-           }
-        }).start();
+        new OperationPushThread(operationQueue).start();
 
         taskDao.addListener(new ModelUpdateListener<Task>() {
             public void onModelUpdated(final Task model) {
@@ -113,6 +113,43 @@ public final class GtasksSyncService {
                 operationQueue.offer(new TaskPushOp(toPush));
             }
         });
+    }
+
+    private class OperationPushThread extends Thread {
+        private final LinkedBlockingQueue<SyncOnSaveOperation> queue;
+
+        public OperationPushThread(LinkedBlockingQueue<SyncOnSaveOperation> queue) {
+            this.queue = queue;
+        }
+
+        @SuppressWarnings("nls")
+        @Override
+        public void run() {
+            while (true) {
+                SyncOnSaveOperation op;
+                try {
+                    op = queue.take();
+                } catch (InterruptedException e) {
+                    continue;
+                }
+                try {
+                    GtasksInvoker invoker = new GtasksInvoker(gtasksPreferenceService.getToken());
+                    op.op(invoker);
+                } catch (IOException e) {
+                    Log.w("gtasks-sync-error", "Sync on save failed", e);
+                }
+            }
+        }
+    }
+
+    public void waitUntilEmpty() {
+        Semaphore sema = new Semaphore(0);
+        operationQueue.offer(new NotifyOp(sema));
+        try {
+            sema.acquire();
+        } catch (InterruptedException e) {
+            // Ignored
+        }
     }
 
     private static final Property<?>[] TASK_PROPERTIES = { Task.ID, Task.TITLE,
