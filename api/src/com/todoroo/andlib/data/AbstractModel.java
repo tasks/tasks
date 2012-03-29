@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Map.Entry;
 import java.util.Set;
 
 import android.content.ContentValues;
@@ -404,9 +405,10 @@ public abstract class AbstractModel implements Parcelable, Cloneable {
     private void restoreTransitories(ContentValues cv) {
         if (transitoryData == null)
             transitoryData = new HashMap<String, Object>();
-        Set<String> keys = cv.keySet();
+        Set<Entry<String, Object>> entries = cv.valueSet();
         Set<String> keysToRemove = new HashSet<String>();
-        for (String key : keys) {
+        for (Entry<String, Object> entry: entries) {
+            String key = entry.getKey();
             if (key.startsWith(RETAIN_TRANSITORY_PREFIX)) {
                 String newKey = key.substring(RETAIN_TRANSITORY_PREFIX.length());
                 Object value = cv.get(key);
