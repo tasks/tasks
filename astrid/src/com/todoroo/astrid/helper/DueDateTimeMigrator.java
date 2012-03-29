@@ -36,13 +36,28 @@ public class DueDateTimeMigrator {
             TodorooCursor<Task> tasksWithDueTime = taskDao.query(Query.select(Task.ID, Task.TITLE, Task.DUE_DATE).where(
                     Criterion.and(Task.DUE_DATE.gt(0),
                             Criterion.not(Functions.strftime(Task.DUE_DATE, STRFTIME_FORMAT).eq(LEGACY_NO_TIME_STRING)))));
-
-            // Get tasks with no due time (i.e. due date = 23:59:59)
-            TodorooCursor<Task> tasksWithoutDueTime = taskDao.query(Query.select(Task.ID, Task.TITLE, Task.DUE_DATE).where(
-                    Criterion.and(Task.DUE_DATE.gt(0),
-                            Functions.strftime(Task.DUE_DATE, STRFTIME_FORMAT).eq(LEGACY_NO_TIME_STRING))));
-
             try {
+
+                // Get tasks with no due time (i.e. due date = 23:59:59)
+                TodorooCursor<Task> tasksWithoutDueTime = taskDao.query(Query.select(Task.ID, Task.TITLE, Task.DUE_DATE).where(
+                        Criterion.and(Task.DUE_DATE.gt(0),
+                                Functions.strftime(Task.DUE_DATE, STRFTIME_FORMAT).eq(LEGACY_NO_TIME_STRING))));
+
+                try {
+                    // Set tasks without time to 12:00:00
+                    processCursor(tasksWithoutDueTime, new TaskDateAdjuster() {
+                        @Override
+                        public void adjust(Date date) {
+                            date.setHours(12);
+                            date.setMinutes(0);
+                            date.setSeconds(0);
+                        }
+                    });
+
+                } finally {
+                    tasksWithoutDueTime.close();
+                }
+
                 // Set tasks with time to have time HH:MM:01
                 processCursor(tasksWithDueTime, new TaskDateAdjuster() {
                     @Override
@@ -51,19 +66,10 @@ public class DueDateTimeMigrator {
                     }
                 });
 
-                // Set tasks without time to 12:00:00
-                processCursor(tasksWithoutDueTime, new TaskDateAdjuster() {
-                    @Override
-                    public void adjust(Date date) {
-                        date.setHours(12);
-                        date.setMinutes(0);
-                        date.setSeconds(0);
-                    }
-                });
             } finally {
                 tasksWithDueTime.close();
-                tasksWithoutDueTime.close();
             }
+
             Preferences.setBoolean(PREF_MIGRATED_DUE_TIMES, true);
         }
     }
