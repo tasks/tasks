@@ -35,16 +35,8 @@ public final class Functions {
         return new Field("(strftime('%s','now')*1000 + " + millis + ")");
     }
 
-    public static Field strftime(LongProperty field) {
-        return strftimeWithFormat(field, "%H:%M:%S");
-    }
-
-    public static Field strftimeWithFormat(LongProperty field, String format) {
+    public static Field strftime(LongProperty field, String format) {
         return new Field("(strftime('" + format + "', datetime(" + field.toString() + "/1000, 'unixepoch', 'localtime')))");
-    }
-
-    public static Field strftimeSeconds(LongProperty field) {
-        return cast(strftimeWithFormat(field, "%S"), "LONG");
     }
 
     public static Field cast(Field field, String newType) {
