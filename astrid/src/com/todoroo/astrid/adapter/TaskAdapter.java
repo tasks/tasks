@@ -355,7 +355,6 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
     public synchronized void setFieldContentsAndVisibility(View view) {
         ViewHolder viewHolder = (ViewHolder)view.getTag();
         Task task = viewHolder.task;
-
         if (Preferences.getBoolean(R.string.p_allowCompressedTaskRows, false)) {
             viewHolder.rowBody.setMinimumHeight(0);
         } else {
@@ -377,24 +376,27 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
         // due date / completion date
         float dueDateTextWidth = 0;
         final TextView dueDateView = viewHolder.dueDate; {
-            if(!task.isCompleted() && task.hasDueDate()) {
-                long dueDate = task.getValue(Task.DUE_DATE);
-                if(dueDate > DateUtilities.now())
-                    dueDateView.setTextAppearance(fragment.getActivity(), R.style.TextAppearance_TAd_ItemDueDate);
-                else
-                    dueDateView.setTextAppearance(fragment.getActivity(), R.style.TextAppearance_TAd_ItemDueDate_Overdue);
-                String dateValue = formatDate(dueDate);
-                dueDateView.setText(dateValue);
-                dueDateTextWidth = paint.measureText(dateValue);
-                setVisibility(dueDateView);
-            } else if(task.isCompleted()) {
-                String dateValue = formatDate(task.getValue(Task.COMPLETION_DATE));
-                dueDateView.setText(resources.getString(R.string.TAd_completed, dateValue));
-                dueDateView.setTextAppearance(fragment.getActivity(), R.style.TextAppearance_TAd_ItemDueDate_Completed);
-                dueDateTextWidth = paint.measureText(dateValue);
-                setVisibility(dueDateView);
-            } else {
-                dueDateView.setVisibility(View.GONE);
+            Activity activity = fragment.getActivity();
+            if (activity != null) {
+                if(!task.isCompleted() && task.hasDueDate()) {
+                    long dueDate = task.getValue(Task.DUE_DATE);
+                    if(dueDate > DateUtilities.now())
+                        dueDateView.setTextAppearance(fragment.getActivity(), R.style.TextAppearance_TAd_ItemDueDate);
+                    else
+                        dueDateView.setTextAppearance(fragment.getActivity(), R.style.TextAppearance_TAd_ItemDueDate_Overdue);
+                    String dateValue = formatDate(dueDate);
+                    dueDateView.setText(dateValue);
+                    dueDateTextWidth = paint.measureText(dateValue);
+                    setVisibility(dueDateView);
+                } else if(task.isCompleted()) {
+                    String dateValue = formatDate(task.getValue(Task.COMPLETION_DATE));
+                    dueDateView.setText(resources.getString(R.string.TAd_completed, dateValue));
+                    dueDateView.setTextAppearance(fragment.getActivity(), R.style.TextAppearance_TAd_ItemDueDate_Completed);
+                    dueDateTextWidth = paint.measureText(dateValue);
+                    setVisibility(dueDateView);
+                } else {
+                    dueDateView.setVisibility(View.GONE);
+                }
             }
         }
 
