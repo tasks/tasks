@@ -893,9 +893,11 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
                     R.anim.slide_right_in, R.anim.slide_right_out);
         }
 
-        if (title.getText().length() == 0 && isNewTask
-                && model != null && model.isSaved()) {
-            taskService.delete(model);
+        if (getActivity() instanceof TaskListActivity) {
+            if (title.getText().length() == 0 && isNewTask
+                    && model != null && model.isSaved()) {
+                taskService.delete(model);
+            }
         }
     }
 
