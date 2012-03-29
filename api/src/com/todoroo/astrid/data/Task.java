@@ -387,11 +387,11 @@ public final class Task extends RemoteModel {
 
         Date dueDate = new Date(date / 1000L * 1000L); // get rid of millis
         if(setting != URGENCY_SPECIFIC_DAY_TIME) {
-            dueDate.setHours(23);
-            dueDate.setMinutes(59);
-            dueDate.setSeconds(59);
-        } else if(isEndOfDay(dueDate)) {
-            dueDate.setSeconds(58);
+            dueDate.setHours(12);
+            dueDate.setMinutes(0);
+            dueDate.setSeconds(0); // Seconds == 0 means no due time
+        } else {
+            dueDate.setSeconds(1); // Seconds > 0 means due time exists
         }
         return dueDate.getTime();
     }
@@ -436,18 +436,10 @@ public final class Task extends RemoteModel {
             hideUntil.setHours(0);
             hideUntil.setMinutes(0);
             hideUntil.setSeconds(0);
+        } else {
+            hideUntil.setSeconds(1);
         }
         return hideUntil.getTime();
-    }
-
-    /**
-     * @return true if hours, minutes, and seconds indicate end of day
-     */
-    private static boolean isEndOfDay(Date date) {
-        int hours = date.getHours();
-        int minutes = date.getMinutes();
-        int seconds = date.getSeconds();
-        return hours == 23 && minutes == 59 && seconds == 59;
     }
 
     /**
@@ -463,7 +455,7 @@ public final class Task extends RemoteModel {
      * Checks whether provided due date has a due time or only a date
      */
     public static boolean hasDueTime(long dueDate) {
-        return dueDate > 0 && !isEndOfDay(new Date(dueDate));
+        return dueDate > 0 && (dueDate % 60000 > 0);
     }
 
 }

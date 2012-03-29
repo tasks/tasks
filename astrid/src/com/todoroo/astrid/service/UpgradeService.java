@@ -9,6 +9,7 @@ import org.weloveastrid.rmilk.data.MilkNoteHelper;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 
@@ -26,11 +27,13 @@ import com.todoroo.andlib.utility.DialogUtilities;
 import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.astrid.actfm.sync.ActFmPreferenceService;
 import com.todoroo.astrid.activity.Eula;
+import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.core.SortHelper;
 import com.todoroo.astrid.dao.Database;
 import com.todoroo.astrid.data.Metadata;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.gtasks.GtasksPreferenceService;
+import com.todoroo.astrid.helper.DueDateTimeMigrator;
 import com.todoroo.astrid.notes.NoteMetadata;
 import com.todoroo.astrid.producteev.sync.ProducteevDataService;
 import com.todoroo.astrid.service.abtesting.ABChooser;
@@ -40,6 +43,7 @@ import com.todoroo.astrid.utility.AstridPreferences;
 
 public final class UpgradeService {
 
+    public static final int V4_0_6 = 262;
     public static final int V4_0_5_1 = 261;
     public static final int V4_0_5 = 260;
     public static final int V4_0_4_3 = 259;
@@ -135,7 +139,7 @@ public final class UpgradeService {
 
         // long running tasks: pop up a progress dialog
         final ProgressDialog dialog;
-        if(from < V3_0_0 && context instanceof Activity)
+        if(from < V4_0_6 && context instanceof Activity)
             dialog = DialogUtilities.progressDialog(context,
                     context.getString(R.string.DLG_upgrading));
         else
@@ -158,8 +162,13 @@ public final class UpgradeService {
 
                     if(from < V3_8_4 && Preferences.getBoolean(R.string.p_showNotes, false))
                         taskService.clearDetails(Task.NOTES.neq("")); //$NON-NLS-1$
+
+                    if (from < V4_0_6)
+                        new DueDateTimeMigrator().migrateDueTimes(context);
+
                 } finally {
                     DialogUtilities.dismissDialog((Activity)context, dialog);
+                    context.sendBroadcast(new Intent(AstridApiConstants.BROADCAST_EVENT_REFRESH));
                 }
             }
 
@@ -184,6 +193,10 @@ public final class UpgradeService {
 
         Preferences.clear(AstridPreferences.P_UPGRADE_FROM);
         StringBuilder changeLog = new StringBuilder();
+
+        newVersionString(changeLog, "4.0.6 (3/29/12)", new String[] {
+               "Fixed a bug that could put duetimes on tasks when changing timezones"
+        });
 
         if (from >= V4_0_5 && from < V4_0_5_1) {
             newVersionString(changeLog, "4.0.5.1 (3/23/12)", new String[] {

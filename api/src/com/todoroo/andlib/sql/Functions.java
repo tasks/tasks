@@ -1,6 +1,7 @@
 package com.todoroo.andlib.sql;
 
 import com.todoroo.andlib.data.Property.IntegerProperty;
+import com.todoroo.andlib.data.Property.LongProperty;
 import com.todoroo.andlib.data.Property.StringProperty;
 
 
@@ -34,6 +35,10 @@ public final class Functions {
         return new Field("(strftime('%s','now')*1000 + " + millis + ")");
     }
 
+    public static Field strftime(LongProperty field, String format) {
+        return new Field("(strftime('" + format + "', datetime(" + field.toString() + "/1000, 'unixepoch', 'localtime')))");
+    }
+
     public static Field cast(Field field, String newType) {
         return new Field("CAST(" + field.toString() + " AS " +
                 newType + ")");
@@ -54,5 +59,6 @@ public final class Functions {
     public static Field bitwiseAnd(IntegerProperty field, int value) {
         return new Field(field.toString() + " & " + value);
     }
+
 
 }
