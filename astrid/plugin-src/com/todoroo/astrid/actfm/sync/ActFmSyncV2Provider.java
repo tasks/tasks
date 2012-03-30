@@ -118,6 +118,7 @@ public class ActFmSyncV2Provider extends SyncV2Provider {
 
         startTagFetcher(callback, finisher);
 
+        actFmSyncService.waitUntilEmpty();
         startTaskFetcher(manual, callback, finisher);
 
         callback.incrementProgress(50);
@@ -255,6 +256,7 @@ public class ActFmSyncV2Provider extends SyncV2Provider {
         fetchTagData(tagData, noRemoteId, manual, callback, finisher);
 
         if(!noRemoteId) {
+            actFmSyncService.waitUntilEmpty();
             fetchTasksForTag(tagData, manual, callback, finisher);
             fetchUpdatesForTag(tagData, manual, callback, finisher);
         }

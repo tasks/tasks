@@ -12,6 +12,8 @@ import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
+import java.util.concurrent.Semaphore;
+import java.util.concurrent.atomic.AtomicInteger;
 
 import org.apache.http.entity.mime.MultipartEntity;
 import org.apache.http.entity.mime.content.ByteArrayBody;
@@ -112,8 +114,10 @@ public final class ActFmSyncService {
     }
 
     private final List<FailedPush> failedPushes = Collections.synchronizedList(new LinkedList<FailedPush>());
-    Thread pushRetryThread = null;
-    Runnable pushRetryRunnable;
+    private Thread pushRetryThread = null;
+    private Runnable pushRetryRunnable;
+    private final AtomicInteger taskPushThreads = new AtomicInteger(0);
+    private Semaphore waiter = null;
 
     public void initialize() {
         initializeRetryRunnable();
@@ -135,9 +139,17 @@ public final class ActFmSyncService {
                 new Thread(new Runnable() {
                     @Override
                     public void run() {
+                        taskPushThreads.incrementAndGet();
                         // sleep so metadata associated with task is saved
                         AndroidUtilities.sleepDeep(1000L);
                         pushTaskOnSave(model, setValues);
+                        synchronized(ActFmSyncService.this) {
+                            if (taskPushThreads.decrementAndGet() == 0) {
+                                if (waiter != null) {
+                                    waiter.release();
+                                }
+                            }
+                        }
                     }
                 }).start();
             }
@@ -232,6 +244,23 @@ public final class ActFmSyncService {
                 pushRetryThread = new Thread(pushRetryRunnable);
                 pushRetryThread.start();
             }
+        }
+    }
+
+    public void waitUntilEmpty() {
+        synchronized(this) {
+            if (taskPushThreads.get() > 0)
+                waiter = new Semaphore(0);
+            else
+                return;
+        }
+        try {
+            waiter.acquire();
+        } catch (InterruptedException e) {
+            // Ignored
+        }
+        synchronized(this) {
+            waiter = null;
         }
     }
 
