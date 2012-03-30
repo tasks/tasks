@@ -106,21 +106,26 @@ public class ActFmSyncV2Provider extends SyncV2Provider {
     // --- synchronize active tasks
 
     @Override
-    public void synchronizeActiveTasks(boolean manual,
+    public void synchronizeActiveTasks(final boolean manual,
             final SyncResultCallback callback) {
 
-        callback.started();
-        callback.incrementMax(100);
+        new Thread(new Runnable() {
+            public void run() {
+                callback.started();
+                callback.incrementMax(100);
 
-        final AtomicInteger finisher = new AtomicInteger(2);
+                final AtomicInteger finisher = new AtomicInteger(2);
 
-        actFmPreferenceService.recordSyncStart();
+                actFmPreferenceService.recordSyncStart();
 
-        startTagFetcher(callback, finisher);
+                startTagFetcher(callback, finisher);
 
-        startTaskFetcher(manual, callback, finisher);
+                actFmSyncService.waitUntilEmpty();
+                startTaskFetcher(manual, callback, finisher);
 
-        callback.incrementProgress(50);
+                callback.incrementProgress(50);
+            }
+        }).start();
     }
 
     /** fetch changes to tags */
@@ -238,28 +243,33 @@ public class ActFmSyncV2Provider extends SyncV2Provider {
     // --- synchronize list
 
     @Override
-    public void synchronizeList(Object list, boolean manual,
+    public void synchronizeList(Object list, final boolean manual,
             final SyncResultCallback callback) {
 
         if(!(list instanceof TagData))
             return;
 
-        TagData tagData = (TagData) list;
+        final TagData tagData = (TagData) list;
         final boolean noRemoteId = tagData.getValue(TagData.REMOTE_ID) == 0;
 
-        callback.started();
-        callback.incrementMax(100);
+        new Thread(new Runnable() {
+            public void run() {
+                callback.started();
+                callback.incrementMax(100);
 
-        final AtomicInteger finisher = new AtomicInteger(3);
+                final AtomicInteger finisher = new AtomicInteger(3);
 
-        fetchTagData(tagData, noRemoteId, manual, callback, finisher);
+                fetchTagData(tagData, noRemoteId, manual, callback, finisher);
 
-        if(!noRemoteId) {
-            fetchTasksForTag(tagData, manual, callback, finisher);
-            fetchUpdatesForTag(tagData, manual, callback, finisher);
-        }
+                if(!noRemoteId) {
+                    actFmSyncService.waitUntilEmpty();
+                    fetchTasksForTag(tagData, manual, callback, finisher);
+                    fetchUpdatesForTag(tagData, manual, callback, finisher);
+                }
 
-        callback.incrementProgress(50);
+                callback.incrementProgress(50);
+            }
+        }).start();
     }
 
     private void fetchTagData(final TagData tagData, final boolean noRemoteId,

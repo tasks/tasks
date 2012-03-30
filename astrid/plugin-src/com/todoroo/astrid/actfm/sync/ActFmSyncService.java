@@ -12,6 +12,7 @@ import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
+import java.util.concurrent.atomic.AtomicInteger;
 
 import org.apache.http.entity.mime.MultipartEntity;
 import org.apache.http.entity.mime.content.ByteArrayBody;
@@ -22,6 +23,7 @@ import org.json.JSONObject;
 import android.content.ContentValues;
 import android.content.Context;
 import android.graphics.Bitmap;
+import android.os.ConditionVariable;
 import android.os.Handler;
 import android.os.Looper;
 import android.text.TextUtils;
@@ -112,8 +114,10 @@ public final class ActFmSyncService {
     }
 
     private final List<FailedPush> failedPushes = Collections.synchronizedList(new LinkedList<FailedPush>());
-    Thread pushRetryThread = null;
-    Runnable pushRetryRunnable;
+    private Thread pushRetryThread = null;
+    private Runnable pushRetryRunnable;
+    private final AtomicInteger taskPushThreads = new AtomicInteger(0);
+    private final ConditionVariable waitUntilEmpty = new ConditionVariable();
 
     public void initialize() {
         initializeRetryRunnable();
@@ -135,9 +139,17 @@ public final class ActFmSyncService {
                 new Thread(new Runnable() {
                     @Override
                     public void run() {
+                        waitUntilEmpty.close();
+                        taskPushThreads.incrementAndGet();
                         // sleep so metadata associated with task is saved
-                        AndroidUtilities.sleepDeep(1000L);
-                        pushTaskOnSave(model, setValues);
+                        try {
+                            AndroidUtilities.sleepDeep(1000L);
+                            pushTaskOnSave(model, setValues);
+                        } finally {
+                            if (taskPushThreads.decrementAndGet() == 0) {
+                                waitUntilEmpty.open();
+                            }
+                        }
                     }
                 }).start();
             }
@@ -233,6 +245,10 @@ public final class ActFmSyncService {
                 pushRetryThread.start();
             }
         }
+    }
+
+    public void waitUntilEmpty() {
+        waitUntilEmpty.block();
     }
 
     // --- data push methods
