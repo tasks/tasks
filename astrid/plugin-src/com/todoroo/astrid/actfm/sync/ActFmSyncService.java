@@ -12,7 +12,6 @@ import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
-import java.util.concurrent.Semaphore;
 import java.util.concurrent.atomic.AtomicInteger;
 
 import org.apache.http.entity.mime.MultipartEntity;
@@ -24,6 +23,7 @@ import org.json.JSONObject;
 import android.content.ContentValues;
 import android.content.Context;
 import android.graphics.Bitmap;
+import android.os.ConditionVariable;
 import android.os.Handler;
 import android.os.Looper;
 import android.text.TextUtils;
@@ -117,7 +117,7 @@ public final class ActFmSyncService {
     private Thread pushRetryThread = null;
     private Runnable pushRetryRunnable;
     private final AtomicInteger taskPushThreads = new AtomicInteger(0);
-    private Semaphore waiter = null;
+    private final ConditionVariable waitUntilEmpty = new ConditionVariable();
 
     public void initialize() {
         initializeRetryRunnable();
@@ -140,15 +140,12 @@ public final class ActFmSyncService {
                     @Override
                     public void run() {
                         taskPushThreads.incrementAndGet();
+                        waitUntilEmpty.close();
                         // sleep so metadata associated with task is saved
                         AndroidUtilities.sleepDeep(1000L);
                         pushTaskOnSave(model, setValues);
-                        synchronized(ActFmSyncService.this) {
-                            if (taskPushThreads.decrementAndGet() == 0) {
-                                if (waiter != null) {
-                                    waiter.release();
-                                }
-                            }
+                        if (taskPushThreads.decrementAndGet() == 0) {
+                            waitUntilEmpty.open();
                         }
                     }
                 }).start();
@@ -248,19 +245,8 @@ public final class ActFmSyncService {
     }
 
     public void waitUntilEmpty() {
-        synchronized(this) {
-            if (taskPushThreads.get() > 0)
-                waiter = new Semaphore(0);
-            else
-                return;
-        }
-        try {
-            waiter.acquire();
-        } catch (InterruptedException e) {
-            // Ignored
-        }
-        synchronized(this) {
-            waiter = null;
+        while (taskPushThreads.get() > 0) {
+            waitUntilEmpty.block();
         }
     }
 
