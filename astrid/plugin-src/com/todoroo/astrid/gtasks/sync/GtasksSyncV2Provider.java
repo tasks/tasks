@@ -47,6 +47,7 @@ import com.todoroo.astrid.service.StatisticsService;
 import com.todoroo.astrid.service.TaskService;
 import com.todoroo.astrid.sync.SyncResultCallback;
 import com.todoroo.astrid.sync.SyncV2Provider;
+import com.todoroo.astrid.sync.SyncV2Provider.SyncExceptionHandler;
 
 public class GtasksSyncV2Provider extends SyncV2Provider {
 
@@ -183,8 +184,9 @@ public class GtasksSyncV2Provider extends SyncV2Provider {
                 callback.incrementProgress(50);
                 try {
                     String authToken = getValidatedAuthToken();
-                    callback.incrementProgress(25);
+                    callback.incrementProgress(12);
                     gtasksSyncService.waitUntilEmpty();
+                    callback.incrementProgress(13);
                     final GtasksInvoker service = new GtasksInvoker(authToken);
                     synchronizeListHelper(gtasksList, service, manual, null, callback);
                 } finally {

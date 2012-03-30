@@ -13,6 +13,7 @@ import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.core.PluginServices;
 import com.todoroo.astrid.data.Metadata;
 import com.todoroo.astrid.data.Task;
+import com.todoroo.astrid.subtasks.OrderedListUpdater.OrderedListIterator;
 
 abstract public class OrderedListUpdater<LIST> {
 
@@ -82,7 +83,7 @@ abstract public class OrderedListUpdater<LIST> {
 
         beforeIndent(list);
 
-        final AtomicInteger targetTaskIndent = new AtomicInteger(0);
+        final AtomicInteger targetTaskIndent = new AtomicInteger(-1);
         final AtomicInteger previousIndent = new AtomicInteger(-1);
         final AtomicLong previousTask = new AtomicLong(Task.NO_ID);
         final AtomicLong globalOrder = new AtomicLong(-1);
@@ -163,7 +164,7 @@ abstract public class OrderedListUpdater<LIST> {
             }
         });
 
-        if (lastPotentialParent.get() == -1) return Task.NO_ID;
+        if (lastPotentialParent.get() == Task.NO_ID) return Task.NO_ID;
         return lastPotentialParent.get();
     }
 

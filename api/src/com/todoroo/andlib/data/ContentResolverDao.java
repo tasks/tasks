@@ -94,17 +94,13 @@ public class ContentResolverDao<TYPE extends AbstractModel> {
      * @return true if data was written to the db, false otherwise
      */
     public boolean save(TYPE model) {
-        boolean retainedTransitories = false;
+        writeTransitoriesToModelContentValues(model);
         if(model.isSaved()) {
             if(model.getSetValues() == null)
                 return false;
-            writeTransitoriesToModelContentValues(model);
-            retainedTransitories = true;
             if(cr.update(uriWithId(model.getId()), model.getSetValues(), null, null) != 0)
                 return true;
         }
-        if (!retainedTransitories)
-            writeTransitoriesToModelContentValues(model);
         Uri uri = cr.insert(baseUri, model.getMergedValues());
         long id = Long.parseLong(uri.getLastPathSegment());
         model.setId(id);

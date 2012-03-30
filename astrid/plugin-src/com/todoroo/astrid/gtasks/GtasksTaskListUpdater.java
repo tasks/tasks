@@ -24,6 +24,7 @@ import com.todoroo.astrid.data.StoreObject;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.gtasks.sync.GtasksSyncService;
 import com.todoroo.astrid.subtasks.OrderedListUpdater;
+import com.todoroo.astrid.subtasks.OrderedListUpdater.OrderedListIterator;
 
 public class GtasksTaskListUpdater extends OrderedListUpdater<StoreObject> {
 
@@ -167,7 +168,7 @@ public class GtasksTaskListUpdater extends OrderedListUpdater<StoreObject> {
 
     private void updateParentSiblingMapsFor(StoreObject list) {
         final AtomicLong previousTask = new AtomicLong(Task.NO_ID);
-        final AtomicInteger previousIndent = new AtomicInteger(0);
+        final AtomicInteger previousIndent = new AtomicInteger(-1);
 
         gtasksMetadataService.iterateThroughList(list, new OrderedListIterator() {
             @Override
@@ -181,10 +182,7 @@ public class GtasksTaskListUpdater extends OrderedListUpdater<StoreObject> {
                         sibling = Task.NO_ID;
                     } else if(indent == previousIndent.get()) {
                         sibling = previousTask.get();
-                        if (parents.containsKey(sibling))
-                            parent = parents.get(sibling);
-                        else
-                            parent = Task.NO_ID;
+                        parent = parents.get(sibling);
                     } else {
                         // move up once for each indent
                         sibling = previousTask.get();
