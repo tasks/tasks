@@ -142,10 +142,13 @@ public final class ActFmSyncService {
                         taskPushThreads.incrementAndGet();
                         waitUntilEmpty.close();
                         // sleep so metadata associated with task is saved
-                        AndroidUtilities.sleepDeep(1000L);
-                        pushTaskOnSave(model, setValues);
-                        if (taskPushThreads.decrementAndGet() == 0) {
-                            waitUntilEmpty.open();
+                        try {
+                            AndroidUtilities.sleepDeep(1000L);
+                            pushTaskOnSave(model, setValues);
+                        } finally {
+                            if (taskPushThreads.decrementAndGet() == 0) {
+                                waitUntilEmpty.open();
+                            }
                         }
                     }
                 }).start();
