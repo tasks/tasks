@@ -11,8 +11,6 @@ import java.lang.reflect.Modifier;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Map.Entry;
 import java.util.Set;
 
 import android.content.ContentValues;
@@ -319,7 +317,6 @@ public abstract class AbstractModel implements Parcelable, Cloneable {
     public synchronized <TYPE> void mergeWith(ContentValues other) {
         if (setValues == null)
             setValues = new ContentValues();
-        restoreTransitories(other);
         setValues.putAll(other);
     }
 
@@ -378,75 +375,11 @@ public abstract class AbstractModel implements Parcelable, Cloneable {
         return transitoryData.remove(key);
     }
 
-    /**
-     * Move transitory values (those that can be saved) to setValues,
-     * to be restored later. This is useful for the api daos that go
-     * through the content provider
-     */
-    public synchronized void retainTransitories() {
+    public Set<String> getAllTransitoryKeys() {
         if (transitoryData == null)
-            return;
-        if (setValues == null)
-            setValues = new ContentValues();
-        Set<String> keys = transitoryData.keySet();
-        for (String key : keys) {
-            String newKey = RETAIN_TRANSITORY_PREFIX + key;
-            Object value = transitoryData.get(key);
-            putObjectInContentValues(newKey, value, setValues);
-        }
+            return null;
+        return transitoryData.keySet();
     }
-
-    /**
-     * Read keys from ContentValues. Remove those that match the
-     * RETAIN_TRANSITORY_PREFIX pattern and set those values
-     * on transitory data
-     * @param cv
-     */
-    private void restoreTransitories(ContentValues cv) {
-        if (transitoryData == null)
-            transitoryData = new HashMap<String, Object>();
-        Set<Entry<String, Object>> entries = cv.valueSet();
-        Set<String> keysToRemove = new HashSet<String>();
-        for (Entry<String, Object> entry: entries) {
-            String key = entry.getKey();
-            if (key.startsWith(RETAIN_TRANSITORY_PREFIX)) {
-                String newKey = key.substring(RETAIN_TRANSITORY_PREFIX.length());
-                Object value = cv.get(key);
-                transitoryData.put(newKey, value);
-                keysToRemove.add(key);
-            }
-        }
-
-        for (String key : keysToRemove) {
-            cv.remove(key);
-        }
-    }
-
-    /**
-     * If value is of a type that is puttable in ContentValues, cast and put it
-     * @param key
-     * @param value
-     * @param cv
-     */
-    private void putObjectInContentValues(String key, Object value, ContentValues cv) {
-        if (value instanceof Boolean)
-            cv.put(key, (Boolean) value);
-        if (value instanceof Byte)
-            cv.put(key, (Byte) value);
-        if (value instanceof Double)
-            cv.put(key, (Double) value);
-        if (value instanceof Float)
-            cv.put(key, (Float) value);
-        if (value instanceof Integer)
-            cv.put(key, (Integer) value);
-        if (value instanceof Long)
-            cv.put(key, (Long) value);
-        if (value instanceof Short)
-            cv.put(key, (Short) value);
-        if (value instanceof String)
-            cv.put(key, (String) value);
-    }
-
 
     // --- Convenience wrappers for using transitories as flags
     public boolean checkTransitory(String flag) {

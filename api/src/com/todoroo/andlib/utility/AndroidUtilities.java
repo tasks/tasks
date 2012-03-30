@@ -150,16 +150,24 @@ public class AndroidUtilities {
      * @param key
      * @param value
      */
-    public static void putInto(ContentValues target, String key, Object value) {
-        if(value instanceof String)
-            target.put(key, (String) value);
-        else if(value instanceof Long)
-            target.put(key, (Long) value);
-        else if(value instanceof Integer)
-            target.put(key, (Integer) value);
-        else if(value instanceof Double)
+    public static void putInto(ContentValues target, String key, Object value, boolean errorOnFail) {
+        if (value instanceof Boolean)
+            target.put(key, (Boolean) value);
+        else if (value instanceof Byte)
+            target.put(key, (Byte) value);
+        else if (value instanceof Double)
             target.put(key, (Double) value);
-        else
+        else if (value instanceof Float)
+            target.put(key, (Float) value);
+        else if (value instanceof Integer)
+            target.put(key, (Integer) value);
+        else if (value instanceof Long)
+            target.put(key, (Long) value);
+        else if (value instanceof Short)
+            target.put(key, (Short) value);
+        else if (value instanceof String)
+            target.put(key, (String) value);
+        else if (errorOnFail)
             throw new UnsupportedOperationException("Could not handle type " + //$NON-NLS-1$
                     value.getClass());
     }

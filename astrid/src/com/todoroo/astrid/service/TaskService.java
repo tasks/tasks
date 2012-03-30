@@ -437,11 +437,11 @@ public class TaskService {
 
                 for (Property<?> property : Metadata.PROPERTIES)
                     if (property.name.equals(key)) {
-                        AndroidUtilities.putInto(forMetadata, key, value);
+                        AndroidUtilities.putInto(forMetadata, key, value, true);
                         continue outer;
                     }
 
-                AndroidUtilities.putInto(forTask, key, value);
+                AndroidUtilities.putInto(forTask, key, value, true);
             }
             task.mergeWith(forTask);
         }

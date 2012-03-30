@@ -3,6 +3,10 @@
  */
 package com.todoroo.astrid.provider;
 
+import java.util.HashSet;
+import java.util.Map.Entry;
+import java.util.Set;
+
 import android.content.ContentProvider;
 import android.content.ContentResolver;
 import android.content.ContentUris;
@@ -266,6 +270,7 @@ public class Astrid3ContentProvider extends ContentProvider {
 
         case URI_DIR: {
             helper.model.mergeWith(values);
+            readTransitoriesFromModelContentValues(helper.model);
             if(!helper.create())
                 throw new SQLException("Could not insert row into database (constraint failed?)");
 
@@ -321,6 +326,7 @@ public class Astrid3ContentProvider extends ContentProvider {
             for(cursor.moveToFirst(); !cursor.isAfterLast(); cursor.moveToNext()) {
                 long id = cursor.getLong(0);
                 helper.model.mergeWith(values);
+                readTransitoriesFromModelContentValues(helper.model);
                 helper.model.setId(id);
                 helper.update();
                 helper.model.clear();
@@ -330,6 +336,27 @@ public class Astrid3ContentProvider extends ContentProvider {
             return cursor.getCount();
         } finally {
             cursor.close();
+        }
+    }
+
+    private void readTransitoriesFromModelContentValues(AbstractModel model) {
+        ContentValues setValues = model.getSetValues();
+        if (setValues != null) {
+            Set<Entry<String, Object>> entries = setValues.valueSet();
+            Set<String> keysToRemove = new HashSet<String>();
+            for (Entry<String, Object> entry: entries) {
+                String key = entry.getKey();
+                if (key.startsWith(AbstractModel.RETAIN_TRANSITORY_PREFIX)) {
+                    String newKey = key.substring(AbstractModel.RETAIN_TRANSITORY_PREFIX.length());
+                    Object value = setValues.get(key);
+                    model.putTransitory(newKey, value);
+                    keysToRemove.add(key);
+                }
+            }
+
+            for (String key : keysToRemove) {
+                setValues.remove(key);
+            }
         }
     }
 
