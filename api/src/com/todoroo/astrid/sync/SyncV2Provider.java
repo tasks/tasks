@@ -10,9 +10,9 @@ import com.todoroo.andlib.service.ExceptionService;
 abstract public class SyncV2Provider {
 
     public class SyncExceptionHandler {
-        public void handleException(String tag, Exception e) {
+        public void handleException(String tag, Exception e, String type) {
             //TODO: When Crittercism supports it, report error to them
-            getUtilities().setLastError(e.toString());
+            getUtilities().setLastError(e.toString(), type);
 
             // occurs when application was closed
             if(e instanceof IllegalStateException) {
@@ -75,6 +75,14 @@ abstract public class SyncV2Provider {
      * @return sync utility instance
      */
     abstract protected SyncProviderUtilities getUtilities();
+
+    protected void finishSync(SyncResultCallback callback) {
+        SyncProviderUtilities utilities = getUtilities();
+        utilities.recordSuccessfulSync();
+        utilities.reportLastError();
+        utilities.stopOngoing();
+        callback.finished();
+    }
 
     @Override
     public String toString() {

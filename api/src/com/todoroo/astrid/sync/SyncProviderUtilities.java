@@ -3,6 +3,7 @@ package com.todoroo.astrid.sync;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.preference.PreferenceManager;
+import android.text.TextUtils;
 
 import com.todoroo.andlib.service.ContextManager;
 import com.todoroo.andlib.utility.DateUtilities;
@@ -31,6 +32,8 @@ abstract public class SyncProviderUtilities {
     protected static final String PREF_LAST_ATTEMPTED_SYNC = "_last_attempted"; //$NON-NLS-1$
 
     protected static final String PREF_LAST_ERROR = "_last_err"; //$NON-NLS-1$
+
+    protected static final String PREF_LAST_ERROR_TYPE = "_last_err_type"; //$NON-NLS-1$
 
     protected static final String PREF_ONGOING = "_ongoing"; //$NON-NLS-1$
 
@@ -83,6 +86,11 @@ abstract public class SyncProviderUtilities {
         return getPrefs().getString(getIdentifier() + PREF_LAST_ERROR, null);
     }
 
+    /** @return Last Error type, or null if no last error */
+    public String getLastErrorType() {
+        return getPrefs().getString(getIdentifier() + PREF_LAST_ERROR_TYPE, null);
+    }
+
     /** @return Last Error, or null if no last error */
     public boolean isOngoing() {
         return getPrefs().getBoolean(getIdentifier() + PREF_ONGOING, false);
@@ -96,9 +104,10 @@ abstract public class SyncProviderUtilities {
     }
 
     /** Set Last Error */
-    public void setLastError(String error) {
+    public void setLastError(String error, String type) {
         Editor editor = getPrefs().edit();
         editor.putString(getIdentifier() + PREF_LAST_ERROR, error);
+        editor.putString(getIdentifier() + PREF_LAST_ERROR_TYPE, type);
         editor.commit();
     }
 
@@ -117,12 +126,26 @@ abstract public class SyncProviderUtilities {
         editor.commit();
     }
 
+    /** Report last error if one exists */
+    public void reportLastError() {
+        String lastError = getLastError();
+        if (!TextUtils.isEmpty(lastError)) {
+            String type = getLastErrorType();
+            reportLastErrorImpl(lastError, type);
+        }
+    }
+
+    protected void reportLastErrorImpl(String lastError, String type) {
+        // Subclasses can override if necessary
+    }
+
     /** Set Last Attempted Sync Date */
     public void recordSyncStart() {
         Editor editor = getPrefs().edit();
         editor.putLong(getIdentifier() + PREF_LAST_ATTEMPTED_SYNC,
                 DateUtilities.now());
         editor.remove(getIdentifier() + PREF_LAST_ERROR);
+        editor.remove(getIdentifier() + PREF_LAST_ERROR_TYPE);
         editor.putBoolean(getIdentifier() + PREF_ONGOING, true);
         editor.commit();
     }

@@ -1099,7 +1099,7 @@ public final class ActFmSyncService {
 
                 } catch (IOException e) {
                     if (handler != null)
-                        handler.handleException("io-exception-list-" + model, e);
+                        handler.handleException("io-exception-list-" + model, e, e.getMessage());
                     else
                         handleException("io-exception-list-" + model, e);
                 } catch (JSONException e) {

@@ -379,7 +379,7 @@ public abstract class SyncProvider<TYPE extends SyncContainer> {
     protected void handleException(String tag, Exception e, boolean displayError) {
         //TODO: When Crittercism supports it, report error to them
         final Context context = ContextManager.getContext();
-        getUtilities().setLastError(e.toString());
+        getUtilities().setLastError(e.toString(), "");
 
         String message = null;
 

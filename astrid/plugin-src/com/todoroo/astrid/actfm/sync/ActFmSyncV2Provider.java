@@ -140,15 +140,13 @@ public class ActFmSyncV2Provider extends SyncV2Provider {
                     time = actFmSyncService.fetchTags(time);
                     Preferences.setInt(LAST_TAG_FETCH_TIME, time);
                 } catch (JSONException e) {
-                    handler.handleException("actfm-sync", e); //$NON-NLS-1$
+                    handler.handleException("actfm-sync", e, e.getMessage()); //$NON-NLS-1$
                 } catch (IOException e) {
-                    handler.handleException("actfm-sync", e); //$NON-NLS-1$
+                    handler.handleException("actfm-sync", e, e.getMessage()); //$NON-NLS-1$
                 } finally {
                     callback.incrementProgress(20);
                     if(finisher.decrementAndGet() == 0) {
-                        actFmPreferenceService.recordSuccessfulSync();
-                        actFmPreferenceService.stopOngoing();
-                        callback.finished();
+                        finishSync(callback);
                     }
                 }
             }
@@ -165,9 +163,7 @@ public class ActFmSyncV2Provider extends SyncV2Provider {
 
                 callback.incrementProgress(30);
                 if(finisher.decrementAndGet() == 0) {
-                    actFmPreferenceService.recordSuccessfulSync();
-                    actFmPreferenceService.stopOngoing();
-                    callback.finished();
+                    finishSync(callback);
                 }
             }
         });
@@ -196,9 +192,7 @@ public class ActFmSyncV2Provider extends SyncV2Provider {
                         } finally {
                             callback.incrementProgress(20);
                             if(finisher.decrementAndGet() == 0) {
-                                actFmPreferenceService.recordSuccessfulSync();
-                                actFmPreferenceService.stopOngoing();
-                                callback.finished();
+                                finishSync(callback);
                             }
                         }
                     }

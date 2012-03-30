@@ -9,6 +9,8 @@ import com.timsu.astrid.R;
 import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.astrid.data.RemoteModel;
 import com.todoroo.astrid.data.Update;
+import com.todoroo.astrid.service.StatisticsConstants;
+import com.todoroo.astrid.service.StatisticsService;
 import com.todoroo.astrid.sync.SyncProviderUtilities;
 import com.todoroo.astrid.utility.AstridPreferences;
 
@@ -71,6 +73,11 @@ public class ActFmPreferenceService extends SyncProviderUtilities {
     public static final String PREF_SERVER_TIME = IDENTIFIER + "_time"; //$NON-NLS-1$
 
     private static JSONObject user = null;
+
+    @Override
+    protected void reportLastErrorImpl(String lastError, String type) {
+        StatisticsService.reportEvent(StatisticsConstants.ACTFM_SYNC_ERROR, "type", type); //$NON-NLS-1$
+    }
 
     /**
      * Return JSON object user, either yourself or the user of the model

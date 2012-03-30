@@ -41,7 +41,9 @@ public class StatisticsConstants {
     public static final String TASK_COMPLETED_FILTER = "task-completed-filter";
     public static final String TASK_COMPLETED_NOTIFICATION = "task-completed-notification";
     public static final String ACTFM_SYNC_FINISHED = "actfm-sync-finished";
+    public static final String ACTFM_SYNC_ERROR = "actfm-sync-error";
     public static final String GTASKS_SYNC_FINISHED = "gtasks-sync-finished";
+    public static final String GTASKS_SYNC_ERROR = "gtasks-sync-error";
     public static final String PDV_SYNC_FINISHED = "pdv-sync-finished";
     public static final String TASK_CREATED_TASKLIST = "task-created-tasklist";
     public static final String ACTFM_LOGIN_SHOW = "actfm-login-show";

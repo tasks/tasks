@@ -38,7 +38,7 @@ public class MilkBackgroundService extends Service {
             if(intent != null && SYNC_ACTION.equals(intent.getAction()))
                 startSynchronization(this);
         } catch (Exception e) {
-            MilkUtilities.INSTANCE.setLastError(e.toString());
+            MilkUtilities.INSTANCE.setLastError(e.toString(), "");
         }
     }
 
