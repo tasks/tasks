@@ -139,8 +139,8 @@ public final class ActFmSyncService {
                 new Thread(new Runnable() {
                     @Override
                     public void run() {
-                        taskPushThreads.incrementAndGet();
                         waitUntilEmpty.close();
+                        taskPushThreads.incrementAndGet();
                         // sleep so metadata associated with task is saved
                         try {
                             AndroidUtilities.sleepDeep(1000L);
@@ -248,9 +248,7 @@ public final class ActFmSyncService {
     }
 
     public void waitUntilEmpty() {
-        while (taskPushThreads.get() > 0) {
-            waitUntilEmpty.block();
-        }
+        waitUntilEmpty.block();
     }
 
     // --- data push methods
