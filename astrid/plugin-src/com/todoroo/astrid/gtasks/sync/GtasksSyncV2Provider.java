@@ -115,7 +115,7 @@ public class GtasksSyncV2Provider extends SyncV2Provider {
                 } catch (GoogleTasksException e) {
                     handler.handleException("gtasks-sync=io", e, e.getType()); //$NON-NLS-1$
                 } catch (IOException e) {
-                    handler.handleException("gtasks-sync=io", e, e.getMessage()); //$NON-NLS-1$
+                    handler.handleException("gtasks-sync=io", e, e.toString()); //$NON-NLS-1$
                 }
 
                 StoreObject[] lists = gtasksListService.getLists();
@@ -158,7 +158,7 @@ public class GtasksSyncV2Provider extends SyncV2Provider {
                 } catch (GoogleTasksException e) {
                     handler.handleException("gtasks-sync-io", e, e.getType()); //$NON-NLS-1$
                 } catch (IOException e) {
-                    handler.handleException("gtasks-sync-io", e, e.getMessage()); //$NON-NLS-1$
+                    handler.handleException("gtasks-sync-io", e, e.toString()); //$NON-NLS-1$
                 } finally {
                     callback.incrementProgress(10);
                 }
@@ -262,7 +262,7 @@ public class GtasksSyncV2Provider extends SyncV2Provider {
                 errorHandler.handleException("gtasks-sync-io", e, e.getType()); //$NON-NLS-1$
         } catch (IOException e) {
             if (errorHandler != null)
-                errorHandler.handleException("gtasks-sync-io", e, e.getMessage()); //$NON-NLS-1$
+                errorHandler.handleException("gtasks-sync-io", e, e.toString()); //$NON-NLS-1$
         }
     }
 

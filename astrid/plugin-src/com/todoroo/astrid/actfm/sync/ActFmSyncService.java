@@ -117,7 +117,7 @@ public final class ActFmSyncService {
     private Thread pushRetryThread = null;
     private Runnable pushRetryRunnable;
     private final AtomicInteger taskPushThreads = new AtomicInteger(0);
-    private final ConditionVariable waitUntilEmpty = new ConditionVariable();
+    private final ConditionVariable waitUntilEmpty = new ConditionVariable(true);
 
     public void initialize() {
         initializeRetryRunnable();
@@ -1099,7 +1099,7 @@ public final class ActFmSyncService {
 
                 } catch (IOException e) {
                     if (handler != null)
-                        handler.handleException("io-exception-list-" + model, e, e.getMessage());
+                        handler.handleException("io-exception-list-" + model, e, e.toString());
                     else
                         handleException("io-exception-list-" + model, e);
                 } catch (JSONException e) {
