@@ -19,7 +19,7 @@ public class DueDateTimeMigrator {
     @Autowired TaskDao taskDao;
 
     private static final String PREF_MIGRATED_DUE_TIMES = "migrated_due_times";  //$NON-NLS-1$
-    private static final String STRFTIME_FORMAT = "%H:%M%S"; //$NON-NLS-1$
+    private static final String STRFTIME_FORMAT = "%H:%M:%S"; //$NON-NLS-1$
     private static final String LEGACY_NO_TIME_STRING = "23:59:59"; //$NON-NLS-1$
 
     public DueDateTimeMigrator() {
