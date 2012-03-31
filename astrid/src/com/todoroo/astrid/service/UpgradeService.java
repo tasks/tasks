@@ -164,7 +164,7 @@ public final class UpgradeService {
                         taskService.clearDetails(Task.NOTES.neq("")); //$NON-NLS-1$
 
                     if (from < V4_0_6)
-                        new DueDateTimeMigrator().migrateDueTimes(context);
+                        new DueDateTimeMigrator().migrateDueTimes();
 
                 } finally {
                     DialogUtilities.dismissDialog((Activity)context, dialog);

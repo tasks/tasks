@@ -2,8 +2,6 @@ package com.todoroo.astrid.helper;
 
 import java.util.Date;
 
-import android.content.Context;
-
 import com.todoroo.andlib.data.TodorooCursor;
 import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.DependencyInjectionService;
@@ -30,12 +28,12 @@ public class DueDateTimeMigrator {
         public void adjust(Date date);
     }
 
-    public void migrateDueTimes(Context c) {
+    public void migrateDueTimes() {
         if (!Preferences.getBoolean(PREF_MIGRATED_DUE_TIMES, false)) {
             // Get tasks with due time (i.e. due date != 23:59:59)
             TodorooCursor<Task> tasksWithDueTime = taskDao.query(Query.select(Task.ID, Task.TITLE, Task.DUE_DATE).where(
                     Criterion.and(Task.DUE_DATE.gt(0),
-                            Criterion.not(Functions.strftime(Task.DUE_DATE, STRFTIME_FORMAT).eq(LEGACY_NO_TIME_STRING)))));
+                            Functions.strftime(Task.DUE_DATE, STRFTIME_FORMAT).neq(LEGACY_NO_TIME_STRING))));
             try {
 
                 // Get tasks with no due time (i.e. due date = 23:59:59)
@@ -45,6 +43,7 @@ public class DueDateTimeMigrator {
 
                 try {
                     // Set tasks without time to 12:00:00
+                    System.err.println("Processing tasks without due time");
                     processCursor(tasksWithoutDueTime, new TaskDateAdjuster() {
                         @Override
                         public void adjust(Date date) {
@@ -59,6 +58,7 @@ public class DueDateTimeMigrator {
                 }
 
                 // Set tasks with time to have time HH:MM:01
+                System.err.println("Processing tasks with due time");
                 processCursor(tasksWithDueTime, new TaskDateAdjuster() {
                     @Override
                     public void adjust(Date date) {
@@ -78,6 +78,7 @@ public class DueDateTimeMigrator {
         Task curr = new Task();
         for (cursor.moveToFirst(); !cursor.isAfterLast(); cursor.moveToNext()) {
                 curr.readFromCursor(cursor);
+                System.err.println("Processing task: " + curr.getValue(Task.TITLE));
                 long time = curr.getValue(Task.DUE_DATE) / 1000L * 1000L;
                 Date date = new Date(time);
                 adjuster.adjust(date);
