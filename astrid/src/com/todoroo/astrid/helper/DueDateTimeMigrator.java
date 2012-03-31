@@ -41,9 +41,11 @@ public class DueDateTimeMigrator {
                         Criterion.and(Task.DUE_DATE.gt(0),
                                 Functions.strftime(Task.DUE_DATE, STRFTIME_FORMAT).eq(LEGACY_NO_TIME_STRING))));
 
+                tasksWithoutDueTime.getCount();
+                tasksWithDueTime.getCount();
+
                 try {
                     // Set tasks without time to 12:00:00
-                    System.err.println("Processing tasks without due time");
                     processCursor(tasksWithoutDueTime, new TaskDateAdjuster() {
                         @Override
                         public void adjust(Date date) {
@@ -58,7 +60,6 @@ public class DueDateTimeMigrator {
                 }
 
                 // Set tasks with time to have time HH:MM:01
-                System.err.println("Processing tasks with due time");
                 processCursor(tasksWithDueTime, new TaskDateAdjuster() {
                     @Override
                     public void adjust(Date date) {
@@ -77,13 +78,12 @@ public class DueDateTimeMigrator {
     private void processCursor(TodorooCursor<Task> cursor, TaskDateAdjuster adjuster) {
         Task curr = new Task();
         for (cursor.moveToFirst(); !cursor.isAfterLast(); cursor.moveToNext()) {
-                curr.readFromCursor(cursor);
-                System.err.println("Processing task: " + curr.getValue(Task.TITLE));
-                long time = curr.getValue(Task.DUE_DATE) / 1000L * 1000L;
-                Date date = new Date(time);
-                adjuster.adjust(date);
-                curr.setValue(Task.DUE_DATE, date.getTime());
-                taskDao.save(curr);
+            curr.readFromCursor(cursor);
+            long time = curr.getValue(Task.DUE_DATE) / 1000L * 1000L;
+            Date date = new Date(time);
+            adjuster.adjust(date);
+            curr.setValue(Task.DUE_DATE, date.getTime());
+            taskDao.save(curr);
         }
     }
 
