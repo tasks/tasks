@@ -99,7 +99,7 @@ public class GtasksTaskListUpdaterTest extends DatabaseTestCase {
     private void thenExpectSibling(Task task, Task expectedSibling) {
         long sibling = gtasksTaskListUpdater.siblings.get(task.getId());
         if(expectedSibling == null)
-            assertEquals("Task " + task.getValue(Task.TITLE) + " sibling null", -1L, sibling);
+            assertEquals("Task " + task.getValue(Task.TITLE) + " sibling null", 0L, sibling);
         else
             assertEquals("Task " + task.getValue(Task.TITLE) + " sibling " +
                     expectedSibling.getValue(Task.TITLE), expectedSibling.getId(), sibling);
@@ -108,7 +108,7 @@ public class GtasksTaskListUpdaterTest extends DatabaseTestCase {
     private void thenExpectParent(Task task, Task expectedParent) {
         long parent = gtasksTaskListUpdater.parents.get(task.getId());
         if(expectedParent == null)
-            assertEquals("Task " + task.getValue(Task.TITLE) + " parent null", -1L, parent);
+            assertEquals("Task " + task.getValue(Task.TITLE) + " parent null", 0L, parent);
         else
             assertEquals("Task " + task.getValue(Task.TITLE) + " parent " +
                     expectedParent.getValue(Task.TITLE), expectedParent.getId(), parent);
