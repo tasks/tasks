@@ -269,6 +269,8 @@ public class QuickAddBar extends LinearLayout {
             }
 
             Task task = new Task();
+            if (title != null)
+                task.setValue(Task.TITLE, title); // need this for calendar
 
             if (repeatControl.isRecurrenceSet())
                 repeatControl.writeToModel(task);
@@ -293,7 +295,7 @@ public class QuickAddBar extends LinearLayout {
             boolean gcalCreateEventEnabled = Preferences.getStringValue(R.string.gcal_p_default) != null
                     && !Preferences.getStringValue(R.string.gcal_p_default).equals(
                             "-1");
-            if (title.length() > 0 && gcalCreateEventEnabled) {
+            if (!TextUtils.isEmpty(title) && gcalCreateEventEnabled && TextUtils.isEmpty(task.getValue(Task.CALENDAR_URI))) {
                 Uri calendarUri = GCalHelper.createTaskEvent(task,
                         activity.getContentResolver(), new ContentValues());
                 task.setValue(Task.CALENDAR_URI, calendarUri.toString());
@@ -302,7 +304,7 @@ public class QuickAddBar extends LinearLayout {
                 taskService.save(task);
             }
 
-            if(title.length() > 0)
+            if(!TextUtils.isEmpty(title))
                 fragment.showTaskEditHelpPopover();
 
             if (activity instanceof TaskListActivity && !assignedToMe)
