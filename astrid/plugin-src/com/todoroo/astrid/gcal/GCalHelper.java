@@ -22,6 +22,8 @@ public class GCalHelper {
     /** If task has no estimated time, how early to set a task in calendar (seconds)*/
     private static final long DEFAULT_CAL_TIME = DateUtilities.ONE_HOUR;
 
+    public static final String CALENDAR_ID_COLUMN = "calendar_id"; //$NON-NLS-1$
+
     public static String getTaskEventUri(Task task) {
         String uri;
         if (!TextUtils.isEmpty(task.getValue(Task.CALENDAR_URI)))
@@ -72,8 +74,8 @@ public class GCalHelper {
                 values.put("transparency", 0);
                 values.put("visibility", 0);
             }
-            boolean valuesContainCalendarId = (values.containsKey("calendar_id") &&
-                    !TextUtils.isEmpty(values.getAsString("calendar_id")));
+            boolean valuesContainCalendarId = (values.containsKey(CALENDAR_ID_COLUMN) &&
+                    !TextUtils.isEmpty(values.getAsString(CALENDAR_ID_COLUMN)));
             if (!valuesContainCalendarId) {
                 String calendarId = Calendars.getDefaultCalendar();
                 if (!TextUtils.isEmpty(calendarId)) {
@@ -95,6 +97,30 @@ public class GCalHelper {
         }
 
         return null;
+    }
+
+    public static void rescheduleRepeatingTask(Task task, ContentResolver cr) {
+        String taskUri = getTaskEventUri(task);
+        if (TextUtils.isEmpty(taskUri))
+            return;
+
+        Uri eventUri = Uri.parse(taskUri);
+        String calendarId = getCalendarId(eventUri, cr);
+        ContentValues cv = new ContentValues();
+        cv.put(CALENDAR_ID_COLUMN, calendarId);
+
+        Uri uri = createTaskEvent(task, cr, cv, false);
+        task.setValue(Task.CALENDAR_URI, uri.toString());
+    }
+
+    private static String getCalendarId(Uri uri, ContentResolver cr) {
+        Cursor calendar = cr.query(uri, new String[] { CALENDAR_ID_COLUMN }, null, null, null);
+        calendar.moveToFirst();
+        try {
+            return calendar.getString(0);
+        } finally  {
+            calendar.close();
+        }
     }
 
     @SuppressWarnings("nls")

@@ -9,8 +9,11 @@ import java.util.List;
 import java.util.TimeZone;
 
 import android.content.BroadcastReceiver;
+import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
+import android.database.Cursor;
+import android.net.Uri;
 
 import com.google.ical.iter.RecurrenceIterator;
 import com.google.ical.iter.RecurrenceIteratorFactory;
@@ -74,7 +77,9 @@ public class RepeatTaskCompleteListener extends BroadcastReceiver {
             task.setValue(Task.DUE_DATE, newDueDate);
             task.setValue(Task.HIDE_UNTIL, hideUntil);
             task.putTransitory("repeat-complete", true); //$NON-NLS-1$
-            GCalHelper.createTaskEventIfEnabled(task, false);
+
+            ContentResolver cr = ContextManager.getContext().getContentResolver();
+            GCalHelper.rescheduleRepeatingTask(task, cr);
             PluginServices.getTaskService().save(task);
 
             // send a broadcast
