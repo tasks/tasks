@@ -195,7 +195,10 @@ public final class UpgradeService {
         StringBuilder changeLog = new StringBuilder();
 
         newVersionString(changeLog, "4.0.6 (3/29/12)", new String[] {
-               "Fixed a bug that could put duetimes on tasks when changing timezones"
+               "Fixes and performance improvements to Astrid.com and Google Tasks sync",
+               "Google TV support! (Beta)",
+               "Fixed a bug that could put duetimes on tasks when changing timezones",
+               "Fixed a rare crash when starting a task timer"
         });
 
         if (from >= V4_0_5 && from < V4_0_5_1) {
