@@ -57,6 +57,7 @@ import com.todoroo.astrid.service.ThemeService;
 import com.todoroo.astrid.subtasks.SubtasksTagListFragment;
 import com.todoroo.astrid.tags.TagFilterExposer;
 import com.todoroo.astrid.tags.TagService.Tag;
+import com.todoroo.astrid.utility.AstridPreferences;
 import com.todoroo.astrid.welcome.HelpInfoPopover;
 
 public class TagViewFragment extends TaskListFragment {
@@ -147,6 +148,8 @@ public class TagViewFragment extends TaskListFragment {
     }
 
     private void showListSettingsPopover() {
+        if (!AstridPreferences.canShowPopover())
+            return;
         if (!Preferences.getBoolean(R.string.p_showed_list_settings_help, false)) {
             Preferences.setBoolean(R.string.p_showed_list_settings_help, true);
             View tabView = getView().findViewById(R.id.members_edit);
