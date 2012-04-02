@@ -135,7 +135,7 @@ public class SubtasksUpdater extends OrderedListUpdater<String> {
 
                 int indent = metadata.getValue(SubtasksMetadata.INDENT);
                 if(indent < 0 || indent > previousIndent.get() + 1) // bad
-                    indent = Math.max(0, previousIndent.get());
+                    indent = Math.max(0, previousIndent.get() + 1);
 
                 metadata.setValue(SubtasksMetadata.ORDER, order);
                 metadata.setValue(SubtasksMetadata.INDENT, indent);
