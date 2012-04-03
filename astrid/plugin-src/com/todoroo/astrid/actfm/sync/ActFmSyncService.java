@@ -127,7 +127,7 @@ public final class ActFmSyncService {
             public void onModelUpdated(final Task model) {
                 if(model.checkAndClearTransitory(SyncFlags.ACTFM_SUPPRESS_SYNC))
                     return;
-                if (actFmPreferenceService.isOngoing() && model.getTransitory("task-edit-save") == null)
+                if (actFmPreferenceService.isOngoing() && model.getTransitory(TaskService.TRANS_EDIT_SAVE) == null)
                     return;
                 final ContentValues setValues = model.getSetValues();
                 if(setValues == null || !checkForToken() ||
@@ -361,7 +361,7 @@ public final class ActFmSyncService {
         if(values.containsKey(Task.DELETION_DATE.name)) {
             params.add("deleted_at"); params.add(task.getValue(Task.DELETION_DATE) / 1000L);
         }
-        if(task.getTransitory("repeat-complete") != null) {
+        if(task.getTransitory(TaskService.TRANS_REPEAT_COMPLETE) != null) {
             params.add("completed"); params.add(DateUtilities.now() / 1000L);
         } else if(values.containsKey(Task.COMPLETION_DATE.name)) {
             params.add("completed"); params.add(task.getValue(Task.COMPLETION_DATE) / 1000L);
@@ -377,7 +377,7 @@ public final class ActFmSyncService {
             params.add("repeat"); params.add(recurrence);
         }
 
-        if(values.containsKey(Task.USER_ID.name) && task.getTransitory("task-assigned") != null) {
+        if(values.containsKey(Task.USER_ID.name) && task.getTransitory(TaskService.TRANS_ASSIGNED) != null) {
             if(task.getValue(Task.USER_ID) == Task.USER_ID_EMAIL) {
                 try {
                     JSONObject user = new JSONObject(task.getValue(Task.USER));

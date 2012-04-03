@@ -58,8 +58,6 @@ import com.todoroo.astrid.voice.VoiceInputAssistant;
  */
 public class QuickAddBar extends LinearLayout {
 
-    private static final String TRANS_TAGS = "tags"; //$NON-NLS-1$
-
     private ImageButton voiceAddButton;
     private ImageButton quickAddButton;
     private EditText quickAddBox;
@@ -214,7 +212,7 @@ public class QuickAddBar extends LinearLayout {
         if (tagData != null) {
             HashSet<String> tagsTransitory = new HashSet<String>();
             tagsTransitory.add(tagData.getValue(TagData.NAME));
-            empty.putTransitory(TRANS_TAGS, tagsTransitory);
+            empty.putTransitory(TaskService.TRANS_TAGS, tagsTransitory);
         }
         repeatControl.readFromTask(empty);
         gcalControl.readFromTask(empty);

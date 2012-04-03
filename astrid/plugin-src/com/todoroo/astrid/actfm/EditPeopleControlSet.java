@@ -344,8 +344,8 @@ public class EditPeopleControlSet extends PopupControlSet {
             myself.put("id", Task.USER_ID_SELF);
             sharedPeople.add(0, myself);
 
-            boolean hasTags = t.getTransitory("tags") != null &&
-                    ((HashSet<String>)t.getTransitory("tags")).size() > 0;
+            boolean hasTags = t.getTransitory(TaskService.TRANS_TAGS) != null &&
+                    ((HashSet<String>)t.getTransitory(TaskService.TRANS_TAGS)).size() > 0;
             if (actFmPreferenceService.isLoggedIn() && hasTags) {
                 JSONObject unassigned = new JSONObject();
                 unassigned.put("id", Task.USER_ID_UNASSIGNED);
@@ -636,8 +636,8 @@ public class EditPeopleControlSet extends PopupControlSet {
 
                 String assignedName = userJson.optString("name", userEmail);
 
-                if(task.getTransitory("tags") == null ||
-                        ((HashSet<String>)task.getTransitory("tags")).size() == 0) {
+                if(task.getTransitory(TaskService.TRANS_TAGS) == null ||
+                        ((HashSet<String>)task.getTransitory(TaskService.TRANS_TAGS)).size() == 0) {
                     sharedToast = activity.getString(R.string.actfm_EPA_assigned_toast, assignedName,
                             assignedName);
                 }
@@ -680,7 +680,7 @@ public class EditPeopleControlSet extends PopupControlSet {
             if(!TextUtils.isEmpty(task.getValue(Task.SHARED_WITH)) || sharedWith.length() != 0)
                 task.setValue(Task.SHARED_WITH, sharedWith.toString());
 
-            task.putTransitory("task-assigned", true);
+            task.putTransitory(TaskService.TRANS_ASSIGNED, true);
 
             if(sharedToast != null)
                 toast = (toast != null) ? toast + "\n" + sharedToast : sharedToast + "\n";

@@ -17,6 +17,7 @@ import com.todoroo.andlib.sql.Functions;
 import com.todoroo.andlib.sql.Query;
 import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.andlib.utility.DateUtilities;
+import com.todoroo.astrid.actfm.sync.ActFmPreferenceService;
 import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.api.PermaSql;
 import com.todoroo.astrid.dao.MetadataDao;
@@ -46,6 +47,13 @@ public class TaskService {
 
     public static final String TRANS_REPEAT_CHANGED = "repeat_changed"; //$NON-NLS-1$
 
+    public static final String TRANS_TAGS = "tags"; //$NON-NLS-1$
+
+    public static final String TRANS_ASSIGNED = "task-assigned"; //$NON-NLS-1$
+
+    public static final String TRANS_EDIT_SAVE = "task-edit-save"; //$NON-NLS-1$
+
+    public static final String TRANS_REPEAT_COMPLETE = "repeat-complete"; //$NON-NLS-1$
     @Autowired
     private TaskDao taskDao;
 
@@ -384,6 +392,9 @@ public class TaskService {
         Task original = new Task();
         original.setId(itemId);
         Task clone = clone(original);
+        long userId = clone.getValue(Task.USER_ID);
+        if (userId != Task.USER_ID_SELF && userId != ActFmPreferenceService.userId())
+            clone.putTransitory(TRANS_ASSIGNED, true);
         clone.setValue(Task.CREATION_DATE, DateUtilities.now());
         clone.setValue(Task.COMPLETION_DATE, 0L);
         clone.setValue(Task.DELETION_DATE, 0L);

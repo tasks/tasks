@@ -820,7 +820,7 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
         && !peopleControlSet.saveSharingSettings(processedToast) && !onPause;
 
         boolean tagsChanged = Flags.check(Flags.TAGS_CHANGED);
-        model.putTransitory("task-edit-save", true); //$NON-NLS-1$
+        model.putTransitory(TaskService.TRANS_EDIT_SAVE, true);
         taskService.save(model);
 
         if (!onPause && !cancelFinish) {
