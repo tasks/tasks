@@ -671,15 +671,6 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
                     voiceNoteAssistant.configureMicrophoneButton(prompt);
                 }
 
-                // re-read all
-                synchronized (controls) {
-                    for (TaskEditControlSet controlSet : controls)
-                        controlSet.readFromTask(model);
-                    if (isNewTask) {
-                        hideUntilControls.setDefaults();
-                    }
-                }
-
                 loadMoreContainer();
             }
         }
