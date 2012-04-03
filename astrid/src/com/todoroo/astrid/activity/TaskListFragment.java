@@ -41,7 +41,9 @@ import android.view.View.OnTouchListener;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
 import android.widget.AbsListView.OnScrollListener;
+import android.widget.AdapterView;
 import android.widget.AdapterView.AdapterContextMenuInfo;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -295,6 +297,20 @@ public class TaskListFragment extends ListFragment implements OnScrollListener,
             }
         });
 
+        getListView().setOnItemClickListener(new OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view,
+                    int position, long id) {
+                TodorooCursor<Task> cursor = (TodorooCursor<Task>)taskAdapter.getItem(position);
+                Task task = new Task(cursor);
+                if(task.isDeleted())
+                    return;
+
+                if (!task.getFlag(Task.FLAGS, Task.FLAG_IS_READONLY)) {
+                    onTaskListItemClicked(id);
+                }
+            }
+        });
     }
 
     /**

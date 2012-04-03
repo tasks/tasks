@@ -30,13 +30,10 @@ import android.text.Spanned;
 import android.text.TextUtils;
 import android.util.DisplayMetrics;
 import android.util.Log;
-import android.view.ContextMenu;
-import android.view.ContextMenu.ContextMenuInfo;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.view.View.OnCreateContextMenuListener;
 import android.view.View.OnTouchListener;
 import android.view.ViewGroup;
 import android.view.ViewGroup.LayoutParams;
@@ -596,14 +593,6 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
                 }
             }
         });
-
-        if(applyListeners == APPLY_LISTENERS_ROW_BODY) {
-            viewHolder.rowBody.setOnCreateContextMenuListener(listener);
-            viewHolder.rowBody.setOnClickListener(listener);
-        } else if(applyListeners == APPLY_LISTENERS_PARENT) {
-            container.setOnCreateContextMenuListener(listener);
-            container.setOnClickListener(listener);
-        }
     }
 
     /* ======================================================================
@@ -1000,14 +989,7 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
         return (ViewHolder)((View)v.getParent()).getTag();
     }
 
-    public class TaskRowListener implements OnCreateContextMenuListener, OnClickListener {
-
-        public void onCreateContextMenu(ContextMenu menu, View v,
-                ContextMenuInfo menuInfo) {
-            // this is all a big sham. it's actually handled in Task List
-            // Activity. however, we need this to be here.
-        }
-
+    public class TaskRowListener implements OnClickListener {
         @Override
         public void onClick(View v) {
             // expand view (unless deleted)
