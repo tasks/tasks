@@ -211,6 +211,7 @@ public class DateAndTimePicker extends LinearLayout {
         if (timePicker.hasTime() && calendarDate.getTime() > 0) {
             calendarDate.setHours(timePicker.getHours());
             calendarDate.setMinutes(timePicker.getMinutes());
+            calendarDate.setSeconds(1);
         }
         return calendarDate.getTime();
     }
