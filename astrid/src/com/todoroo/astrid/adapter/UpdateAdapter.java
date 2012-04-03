@@ -61,6 +61,7 @@ public class UpdateAdapter extends CursorAdapter {
     private static final String UPDATE_TASK_ASSIGNED = "task_assigned"; //$NON-NLS-1$
     public static final String UPDATE_TASK_COMMENT = "task_comment"; //$NON-NLS-1$
     private static final String UPDATE_TAG_COMMENT = "tag_comment"; //$NON-NLS-1$
+    private static final String UPDATE_TAG_CREATED = "tag_created"; //$NON-NLS-1$
     public static final String FROM_TAG_VIEW = "from_tag"; //$NON-NLS-1$
     public static final String FROM_TASK_VIEW = "from_task"; //$NON-NLS-1$
     public static final String FROM_RECENT_ACTIVITY_VIEW = "from_recent_activity"; //$NON-NLS-1$
@@ -249,6 +250,8 @@ public class UpdateAdapter extends CursorAdapter {
         else if (actionCode.equals(UPDATE_TASK_CREATED)) {
             if (fromView.equals(FROM_TAG_VIEW))
                 commentResource = R.string.update_string_task_created_on_list;
+            else if (fromView.equals(FROM_RECENT_ACTIVITY_VIEW))
+                commentResource = R.string.update_string_task_created_global;
             else
                 commentResource = R.string.update_string_task_created;
         }
@@ -279,6 +282,12 @@ public class UpdateAdapter extends CursorAdapter {
             else
                 commentResource = R.string.update_string_tag_comment;
 
+        }
+        else if (actionCode.equals(UPDATE_TAG_CREATED)) {
+            if (fromView.equals(FROM_RECENT_ACTIVITY_VIEW))
+                commentResource = R.string.update_string_tag_created_global;
+            else
+                commentResource = R.string.update_string_tag_created;
         }
 
         if (commentResource == 0) {
