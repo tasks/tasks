@@ -81,13 +81,7 @@ public final class CoreFilterExposer extends BroadcastReceiver implements Astrid
      * @return
      */
     public static boolean isInbox(Filter filter) {
-        String title = ContextManager.getString(R.string.BFE_Active);
-        if(filter.listingIcon != null &&
-                filter.listingTitle != null &&
-                filter.listingTitle.startsWith(title) &&
-                title.equals(filter.title))
-            return true;
-        return false;
+        return (filter != null && filter.equals(buildInboxFilter(ContextManager.getContext().getResources())));
     }
 
     @Override
