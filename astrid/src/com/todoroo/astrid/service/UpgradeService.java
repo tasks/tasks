@@ -43,6 +43,7 @@ import com.todoroo.astrid.utility.AstridPreferences;
 
 public final class UpgradeService {
 
+    public static final int V4_0_6_1 = 263;
     public static final int V4_0_6 = 262;
     public static final int V4_0_5_1 = 261;
     public static final int V4_0_5 = 260;
@@ -194,12 +195,22 @@ public final class UpgradeService {
         Preferences.clear(AstridPreferences.P_UPGRADE_FROM);
         StringBuilder changeLog = new StringBuilder();
 
-        newVersionString(changeLog, "4.0.6 (3/29/12)", new String[] {
-               "Fixes and performance improvements to Astrid.com and Google Tasks sync",
-               "Google TV support! (Beta)",
-               "Fixed a bug that could put duetimes on tasks when changing timezones",
-               "Fixed a rare crash when starting a task timer"
-        });
+        if (from >= V4_0_6 && from < V4_0_6_1) {
+            newVersionString(changeLog, "4.0.6 (4/03/12)", new String[] {
+                "Fixed a bug where old tasks could become uncompleted. Sorry to those of you" +
+                        " who were affected by this! To recover, you can try reinstalling and restoring your" +
+                        " tasks from the backup file."
+            });
+        }
+
+        if (from < V4_0_6) {
+            newVersionString(changeLog, "4.0.6 (4/02/12)", new String[] {
+                    "Fixes and performance improvements to Astrid.com and Google Tasks sync",
+                    "Google TV support! (Beta)",
+                    "Fixed a bug that could put duetimes on tasks when changing timezones",
+                    "Fixed a rare crash when starting a task timer"
+            });
+        }
 
         if (from >= V4_0_5 && from < V4_0_5_1) {
             newVersionString(changeLog, "4.0.5.1 (3/23/12)", new String[] {
