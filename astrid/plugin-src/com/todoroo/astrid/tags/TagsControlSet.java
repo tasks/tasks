@@ -234,6 +234,7 @@ public final class TagsControlSet extends PopupControlSet {
                 cursor.close();
             }
             model.putTransitory(TRANSITORY_TAGS, tags);
+            refreshDisplayView();
         }
     }
 
