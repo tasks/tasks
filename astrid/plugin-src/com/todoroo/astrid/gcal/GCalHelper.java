@@ -5,6 +5,7 @@ import java.util.TimeZone;
 import android.content.ContentResolver;
 import android.content.ContentValues;
 import android.database.Cursor;
+import android.database.CursorIndexOutOfBoundsException;
 import android.net.Uri;
 import android.text.TextUtils;
 import android.text.format.Time;
@@ -106,6 +107,10 @@ public class GCalHelper {
 
         Uri eventUri = Uri.parse(taskUri);
         String calendarId = getCalendarId(eventUri, cr);
+        if (calendarId == null) { // Bail out, no calendar id
+            task.setValue(Task.CALENDAR_URI, ""); //$NON-NLS-1$
+            return;
+        }
         ContentValues cv = new ContentValues();
         cv.put(CALENDAR_ID_COLUMN, calendarId);
 
@@ -115,9 +120,11 @@ public class GCalHelper {
 
     private static String getCalendarId(Uri uri, ContentResolver cr) {
         Cursor calendar = cr.query(uri, new String[] { CALENDAR_ID_COLUMN }, null, null, null);
-        calendar.moveToFirst();
         try {
+            calendar.moveToFirst();
             return calendar.getString(0);
+        } catch (CursorIndexOutOfBoundsException e) {
+            return null;
         } finally  {
             calendar.close();
         }
