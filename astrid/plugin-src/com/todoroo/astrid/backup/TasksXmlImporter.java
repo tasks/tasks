@@ -254,15 +254,21 @@ public class TasksXmlImporter {
             }
 
             // if the task's name and creation date match an existing task, skip
-            TodorooCursor<Task> cursor = taskService.query(Query.select(Task.ID).
+            long existingTask = 0;
+            TodorooCursor<Task> cursor = taskService.query(Query.select(Task.ID, Task.COMPLETION_DATE).
                     where(Criterion.and(Task.TITLE.eq(title),
-                            Task.CREATION_DATE.eq(created),
-                            Task.DUE_DATE.eq(dueDate),
-                            Task.COMPLETION_DATE.eq(completionDate))));
+                            Task.CREATION_DATE.eq(created))));
             try {
                 if(cursor.getCount() > 0) {
-                    skipCount++;
-                    return;
+                    if(version < UpgradeService.V4_0_6 &&
+                            !completionDate.equals("0") && //$NON-NLS-1$
+                            !completionDate.equals(Long.toString(cursor.get(Task.COMPLETION_DATE)))) {
+                        // fix for failed migration in 4.0.6
+                        existingTask = cursor.get(Task.ID);
+                    } else {
+                        skipCount++;
+                        return;
+                    }
                 }
             } finally {
                 cursor.close();
@@ -272,7 +278,11 @@ public class TasksXmlImporter {
             deserializeModel(currentTask, Task.PROPERTIES);
             if(version < UpgradeService.V4_0_6)
                 adjustDueDateScheme(currentTask);
-            currentTask.setId(Task.NO_ID);
+
+            if(existingTask > 0)
+                currentTask.setId(existingTask);
+            else
+                currentTask.setId(Task.NO_ID);
 
             // Save the task to the database.
             taskService.save(currentTask);
