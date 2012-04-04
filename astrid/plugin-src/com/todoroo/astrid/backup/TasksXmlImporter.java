@@ -44,6 +44,7 @@ import com.todoroo.astrid.legacy.LegacyRepeatInfo.LegacyRepeatInterval;
 import com.todoroo.astrid.legacy.LegacyTaskModel;
 import com.todoroo.astrid.service.MetadataService;
 import com.todoroo.astrid.service.TaskService;
+import com.todoroo.astrid.service.UpgradeService;
 import com.todoroo.astrid.tags.TagService;
 
 public class TasksXmlImporter {
@@ -197,12 +198,21 @@ public class TasksXmlImporter {
     private static final String FORMAT2 = "2"; //$NON-NLS-1$
     private class Format2TaskImporter {
 
+        private int version;
         private final XmlPullParser xpp;
         private final Task currentTask = new Task();
         private final Metadata metadata = new Metadata();
 
         public Format2TaskImporter(XmlPullParser xpp) throws XmlPullParserException, IOException {
             this.xpp = xpp;
+
+            try {
+                this.version = Integer.parseInt(xpp.getAttributeValue(null, BackupConstants.ASTRID_ATTR_VERSION));
+            } catch (NumberFormatException e) {
+                // can't read version, assume max version
+                this.version = Integer.MAX_VALUE;
+            }
+
             while (xpp.next() != XmlPullParser.END_DOCUMENT) {
                 String tag = xpp.getName();
                 if (tag == null || xpp.getEventType() == XmlPullParser.END_TAG)
@@ -260,7 +270,8 @@ public class TasksXmlImporter {
 
             // else, make a new task model and add away.
             deserializeModel(currentTask, Task.PROPERTIES);
-            adjustDueDateScheme(currentTask);
+            if(version < UpgradeService.V4_0_6)
+                adjustDueDateScheme(currentTask);
             currentTask.setId(Task.NO_ID);
 
             // Save the task to the database.
@@ -270,12 +281,15 @@ public class TasksXmlImporter {
 
         private void adjustDueDateScheme(Task model) {
             long dueDate = model.getValue(Task.DUE_DATE);
+
             if (dueDate > 0) {
                 Date date = new Date(dueDate);
                 if (date.getHours() == 23 && date.getMinutes() == 59 && date.getSeconds() == 59) {
                     date.setHours(12);
                     date.setMinutes(0);
                     date.setSeconds(0);
+                } else {
+                    date.setSeconds(1);
                 }
                 model.setValue(Task.DUE_DATE, date.getTime());
             }
