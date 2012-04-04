@@ -260,6 +260,7 @@ public class TasksXmlImporter {
                             Task.CREATION_DATE.eq(created))));
             try {
                 if(cursor.getCount() > 0) {
+                    cursor.moveToNext();
                     if(version < UpgradeService.V4_0_6 &&
                             !completionDate.equals("0") && //$NON-NLS-1$
                             !completionDate.equals(Long.toString(cursor.get(Task.COMPLETION_DATE)))) {
