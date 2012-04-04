@@ -10,6 +10,7 @@ import com.todoroo.andlib.sql.Functions;
 import com.todoroo.andlib.sql.Query;
 import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.astrid.dao.TaskDao;
+import com.todoroo.astrid.data.SyncFlags;
 import com.todoroo.astrid.data.Task;
 
 public class DueDateTimeMigrator {
@@ -31,13 +32,13 @@ public class DueDateTimeMigrator {
     public void migrateDueTimes() {
         if (!Preferences.getBoolean(PREF_MIGRATED_DUE_TIMES, false)) {
             // Get tasks with due time (i.e. due date != 23:59:59)
-            TodorooCursor<Task> tasksWithDueTime = taskDao.query(Query.select(Task.ID, Task.TITLE, Task.DUE_DATE).where(
+            TodorooCursor<Task> tasksWithDueTime = taskDao.query(Query.select(Task.ID, Task.DUE_DATE, Task.MODIFICATION_DATE).where(
                     Criterion.and(Task.DUE_DATE.gt(0),
                             Functions.strftime(Task.DUE_DATE, STRFTIME_FORMAT).neq(LEGACY_NO_TIME_STRING))));
             try {
 
                 // Get tasks with no due time (i.e. due date = 23:59:59)
-                TodorooCursor<Task> tasksWithoutDueTime = taskDao.query(Query.select(Task.ID, Task.TITLE, Task.DUE_DATE).where(
+                TodorooCursor<Task> tasksWithoutDueTime = taskDao.query(Query.select(Task.ID, Task.DUE_DATE, Task.MODIFICATION_DATE).where(
                         Criterion.and(Task.DUE_DATE.gt(0),
                                 Functions.strftime(Task.DUE_DATE, STRFTIME_FORMAT).eq(LEGACY_NO_TIME_STRING))));
 
@@ -83,6 +84,9 @@ public class DueDateTimeMigrator {
             Date date = new Date(time);
             adjuster.adjust(date);
             curr.setValue(Task.DUE_DATE, date.getTime());
+            curr.getSetValues().put(Task.MODIFICATION_DATE.name, curr.getValue(Task.MODIFICATION_DATE)); // Don't change modification date
+            curr.putTransitory(SyncFlags.ACTFM_SUPPRESS_SYNC, true);
+            curr.putTransitory(SyncFlags.GTASKS_SUPPRESS_SYNC, true);
             taskDao.save(curr);
         }
     }
