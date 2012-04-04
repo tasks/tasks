@@ -64,6 +64,20 @@ public class BackupDateUtilities {
         }
     }
 
+    public static Date getTaskDueDateFromIso8601String(String s) {
+        System.err.println("Importing date string: " + s);
+        Date date = getDateFromIso8601String(s);
+        System.err.println("Got date: " + date);
+        if (date != null) {
+            if (date.getHours() == 23 && date.getMinutes() == 59 && date.getSeconds() == 59) {
+                date.setHours(12);
+                date.setMinutes(0);
+                date.setSeconds(0);
+            }
+        }
+        return date;
+    }
+
     /**
      * Get current date and time as a string. Used for naming backup files.
      */

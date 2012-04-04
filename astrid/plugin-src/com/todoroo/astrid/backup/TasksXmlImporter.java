@@ -260,11 +260,25 @@ public class TasksXmlImporter {
 
             // else, make a new task model and add away.
             deserializeModel(currentTask, Task.PROPERTIES);
+            adjustDueDateScheme(currentTask);
             currentTask.setId(Task.NO_ID);
 
             // Save the task to the database.
             taskService.save(currentTask);
             importCount++;
+        }
+
+        private void adjustDueDateScheme(Task model) {
+            long dueDate = model.getValue(Task.DUE_DATE);
+            if (dueDate > 0) {
+                Date date = new Date(dueDate);
+                if (date.getHours() == 23 && date.getMinutes() == 59 && date.getSeconds() == 59) {
+                    date.setHours(12);
+                    date.setMinutes(0);
+                    date.setSeconds(0);
+                }
+                model.setValue(Task.DUE_DATE, date.getTime());
+            }
         }
 
         private void parseMetadata() {
@@ -521,7 +535,7 @@ public class TasksXmlImporter {
                                     preferredDate);
                 }
                 task.setValue(Task.DUE_DATE,
-                        BackupDateUtilities.getDateFromIso8601String(value).getTime());
+                        BackupDateUtilities.getTaskDueDateFromIso8601String(value).getTime());
             }
             else if(field.equals(LegacyTaskModel.PREFERRED_DUE_DATE)) {
                 String definite = xpp.getAttributeValue(null, LegacyTaskModel.DEFINITE_DUE_DATE);
@@ -529,7 +543,7 @@ public class TasksXmlImporter {
                     ; // handled above
                 else
                     task.setValue(Task.DUE_DATE,
-                            BackupDateUtilities.getDateFromIso8601String(value).getTime());
+                            BackupDateUtilities.getTaskDueDateFromIso8601String(value).getTime());
             }
             else if(field.equals(LegacyTaskModel.HIDDEN_UNTIL)) {
                 task.setValue(Task.HIDE_UNTIL,
