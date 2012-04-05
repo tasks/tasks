@@ -34,6 +34,7 @@ import com.todoroo.astrid.actfm.sync.ActFmPreferenceService;
 import com.todoroo.astrid.actfm.sync.ActFmSyncService;
 import com.todoroo.astrid.backup.BackupConstants;
 import com.todoroo.astrid.backup.BackupService;
+import com.todoroo.astrid.backup.TasksXmlExporter;
 import com.todoroo.astrid.backup.TasksXmlImporter;
 import com.todoroo.astrid.dao.Database;
 import com.todoroo.astrid.gtasks.GtasksPreferenceService;
@@ -148,10 +149,12 @@ public class StartupService {
         }
 
         int version = 0;
+        String versionName = "0"; //$NON-NLS-1$
         try {
             PackageManager pm = context.getPackageManager();
             PackageInfo pi = pm.getPackageInfo(Constants.PACKAGE, PackageManager.GET_META_DATA);
             version = pi.versionCode;
+            versionName = pi.versionName;
         } catch (Exception e) {
             exceptionService.reportError("astrid-startup-package-read", e); //$NON-NLS-1$
         }
@@ -165,9 +168,12 @@ public class StartupService {
         boolean justUpgraded = latestSetVersion != version;
         if(justUpgraded && version > 0) {
             if(latestSetVersion > 0) {
+                // Perform backup before upgrade
+                TasksXmlExporter.exportTasks(context, TasksXmlExporter.ExportType.EXPORT_TYPE_ON_UPGRADE, null, null);
                 upgradeService.performUpgrade(context, latestSetVersion);
             }
             AstridPreferences.setCurrentVersion(version);
+            AstridPreferences.setCurrentVersionName(versionName);
         }
 
         upgradeService.performSecondaryUpgrade(context);

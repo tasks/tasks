@@ -56,6 +56,8 @@ public class BackupConstants {
 
     public static final String BACKUP_FILE_NAME = "auto.%s.xml";
 
+    public static final String UPGRADE_FILE_NAME = "upgradefrom.%s.xml";
+
     // --- methods
 
     /**
