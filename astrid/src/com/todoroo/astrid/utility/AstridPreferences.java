@@ -81,7 +81,10 @@ public class AstridPreferences {
 
     /** The name (e.g. 4.0.1) of the currently installed version of astrid*/
     public static String getCurrentVersionName() {
-        return Preferences.getStringValue(P_CURRENT_VERSION_NAME);
+        String versionName = Preferences.getStringValue(P_CURRENT_VERSION_NAME);
+        if (versionName == null)
+            versionName = "0"; //$NON-NLS-1$
+        return versionName;
     }
 
     public static void setCurrentVersionName(String versionName) {
