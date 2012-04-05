@@ -46,9 +46,9 @@ public class TasksXmlExporter {
      * @param backupDirectoryOverride new backupdirectory, or null to use default
      */
     public static void exportTasks(Context context, ExportType exportType,
-            Runnable runAfterExport, File backupDirectoryOverride) {
+            Runnable runAfterExport, File backupDirectoryOverride, String versionName) {
         new TasksXmlExporter(context, exportType, runAfterExport,
-                backupDirectoryOverride);
+                backupDirectoryOverride, versionName);
     }
 
     public static enum ExportType {
@@ -83,12 +83,12 @@ public class TasksXmlExporter {
     }
 
     private TasksXmlExporter(final Context context, final ExportType exportType,
-            final Runnable runAfterExport, File backupDirectoryOverride) {
+            final Runnable runAfterExport, File backupDirectoryOverride, String versionName) {
         this.context = context;
         this.exportCount = 0;
         this.backupDirectory = backupDirectoryOverride == null ?
                 BackupConstants.defaultExportDirectory() : backupDirectoryOverride;
-        this.latestSetVersionName = AstridPreferences.getCurrentVersionName();
+        this.latestSetVersionName = versionName;
 
         handler = new Handler();
         progressDialog = new ProgressDialog(context);

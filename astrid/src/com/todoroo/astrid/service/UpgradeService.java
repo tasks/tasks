@@ -145,12 +145,17 @@ public final class UpgradeService {
         else
             dialog = null;
 
+        final String lastSetVersionName = AstridPreferences.getCurrentVersionName();
+
         Preferences.setInt(AstridPreferences.P_UPGRADE_FROM, from);
 
         new Thread(new Runnable() {
             @Override
             public void run() {
                 try {
+                    // NOTE: This line should be uncommented whenever any new version requires a data migration
+                    // TasksXmlExporter.exportTasks(context, TasksXmlExporter.ExportType.EXPORT_TYPE_ON_UPGRADE, null, null, lastSetVersionName);
+
                     if(from < V3_0_0)
                         new Astrid2To3UpgradeHelper().upgrade2To3(context, from);
 

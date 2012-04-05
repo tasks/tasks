@@ -62,7 +62,7 @@ public class BackupActivity extends Activity {
                 setResult(RESULT_OK);
                 finish();
             }
-        }, null);
+        }, null, null);
     }
 
 }
