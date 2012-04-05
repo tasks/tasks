@@ -196,10 +196,12 @@ public final class UpgradeService {
         StringBuilder changeLog = new StringBuilder();
 
         if (from >= V4_0_6 && from < V4_0_6_1) {
-            newVersionString(changeLog, "4.0.6 (4/03/12)", new String[] {
+            newVersionString(changeLog, "4.0.6.1 (4/03/12)", new String[] {
                 "Fixed a bug where old tasks could become uncompleted. Sorry to those of you" +
-                        " who were affected by this! To recover, you can try reinstalling and restoring your" +
-                        " tasks from the backup file."
+                        " who were affected by this! To recover, you can import your old tasks" +
+                        " from any backup file created before April 3 by clicking Menu -> Settings ->" +
+                        " Backups -> Manage Backups -> Import Tasks. Backup files from April 3 will start" +
+                        " with 'auto.120403'."
             });
         }
 
