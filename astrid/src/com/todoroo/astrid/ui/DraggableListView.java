@@ -248,12 +248,14 @@ public class DraggableListView extends ListView {
         switch (action) {
         case MotionEvent.ACTION_UP:
         case MotionEvent.ACTION_CANCEL:
-            if(mDragging)
+            if(mDragging) {
                 stopDragging();
-
-            else {
-                if (dragThread != null && mClickListener != null)
+            } else {
+                if (dragThread != null && mClickListener != null) {
+                    dragThread.interrupt();
+                    dragThread = null;
                     mClickListener.onClick(viewAtPosition());
+                }
 
                 else if (mSwipeListener != null &&
                             Math.abs(mTouchCurrentY - mTouchStartY) < MOVEMENT_THRESHOLD) {
@@ -480,6 +482,7 @@ public class DraggableListView extends ListView {
         unExpandViews(false);
 
         if (mDragView != null) {
+            System.err.println("removing view");
             WindowManager wm = (WindowManager) getContext().getSystemService(
                     Context.WINDOW_SERVICE);
             wm.removeView(mDragView);
