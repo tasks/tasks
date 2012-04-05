@@ -235,6 +235,7 @@ public class TasksXmlImporter {
             }
         }
 
+        @SuppressWarnings("nls")
         private void parseTask() {
             taskCount++;
             setProgressMessage(context.getString(R.string.import_progress_read,
@@ -243,30 +244,36 @@ public class TasksXmlImporter {
 
             String title = xpp.getAttributeValue(null, Task.TITLE.name);
             String created = xpp.getAttributeValue(null, Task.CREATION_DATE.name);
-            String dueDate = xpp.getAttributeValue(null, Task.DUE_DATE.name);
+            String deletionDate = xpp.getAttributeValue(null, Task.DELETION_DATE.name);
             String completionDate = xpp.getAttributeValue(null, Task.COMPLETION_DATE.name);
 
             // if we don't have task name or creation date, skip
-            if (created == null || title == null || dueDate == null
-                    || completionDate == null) {
+            if (created == null || title == null) {
                 skipCount++;
                 return;
             }
 
             // if the task's name and creation date match an existing task, skip
             long existingTask = 0;
-            TodorooCursor<Task> cursor = taskService.query(Query.select(Task.ID, Task.COMPLETION_DATE).
-                    where(Criterion.and(Task.TITLE.eq(title),
-                            Task.CREATION_DATE.eq(created))));
+            TodorooCursor<Task> cursor = taskService.query(Query.select(Task.ID,
+                        Task.COMPLETION_DATE, Task.DELETION_DATE).
+                    where(Criterion.and(Task.TITLE.eq(title), Task.CREATION_DATE.eq(created))));
             try {
                 if(cursor.getCount() > 0) {
                     cursor.moveToNext();
-                    if(version < UpgradeService.V4_0_6 &&
-                            !completionDate.equals("0") && //$NON-NLS-1$
-                            !completionDate.equals(Long.toString(cursor.get(Task.COMPLETION_DATE)))) {
-                        // fix for failed migration in 4.0.6
-                        existingTask = cursor.get(Task.ID);
-                    } else {
+
+                    // fix for failed migration in 4.0.6
+                    if(version < UpgradeService.V4_0_6) {
+                        if(!completionDate.equals("0") &&
+                                !completionDate.equals(Long.toString(cursor.get(Task.COMPLETION_DATE))))
+                            existingTask = cursor.get(Task.ID);
+
+                        if(!deletionDate.equals("0") &&
+                                !deletionDate.equals(Long.toString(cursor.get(Task.DELETION_DATE))))
+                            existingTask = cursor.get(Task.ID);
+                    }
+
+                    if(existingTask == 0) {
                         skipCount++;
                         return;
                     }
