@@ -8,6 +8,7 @@ import android.widget.Button;
 
 import com.timsu.astrid.R;
 import com.todoroo.andlib.service.ContextManager;
+import com.todoroo.astrid.utility.Flags;
 
 public class BackupActivity extends Activity {
 
@@ -43,6 +44,7 @@ public class BackupActivity extends Activity {
                     public void run() {
                         setResult(RESULT_OK);
                         finish();
+                        Flags.set(Flags.REFRESH);
                     }
                 });
             }

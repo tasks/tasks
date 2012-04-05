@@ -597,6 +597,10 @@ public class TaskListFragment extends ListFragment implements OnScrollListener,
                 new IntentFilter(AstridApiConstants.BROADCAST_EVENT_REFRESH));
         syncActionHelper.register();
 
+        if (Flags.checkAndClear(Flags.REFRESH)) {
+            refresh();
+        }
+
         setUpBackgroundJobs();
 
         if (!Preferences.getBoolean(
@@ -699,13 +703,6 @@ public class TaskListFragment extends ListFragment implements OnScrollListener,
                         intent.getStringExtra(AstridApiConstants.EXTRAS_ADDON),
                         e);
             }
-        }
-    }
-
-    public void onWindowFocusChanged(boolean hasFocus) {
-        if (hasFocus && Flags.checkAndClear(Flags.REFRESH)) {
-            taskAdapter.flushCaches();
-            loadTaskListContent(true);
         }
     }
 
