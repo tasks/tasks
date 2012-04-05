@@ -1,7 +1,5 @@
 package com.todoroo.astrid.service;
 
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Date;
 
 import org.weloveastrid.rmilk.data.MilkNoteHelper;
@@ -65,7 +63,7 @@ public final class UpgradeService {
     public static final int V3_9_1 = 205;
     public static final int V3_9_0_2 = 204;
     public static final int V3_9_0_1 = 203;
-    public static final int V3_9 = 202;
+    public static final int V3_9_0 = 202;
     public static final int V3_8_5_1 = 201;
     public static final int V3_8_5 = 200;
     public static final int V3_8_4_4 = 199;
@@ -221,40 +219,11 @@ public final class UpgradeService {
             });
         }
 
-        if (from >= V4_0_5 && from < V4_0_5_1) {
-            newVersionString(changeLog, "4.0.5.1 (3/23/12)", new String[] {
-               "Fixed a bug that would prevent widgets from displaying on Android 2.1"
-            });
-        }
-
         if (from >= V4_0_0 && from < V4_0_5) {
             newVersionString(changeLog, "4.0.5 (3/22/12)", new String[] {
                "Better conflict resolution for Astrid.com sync",
                "Fixes and improvements to Gtasks sync",
                "Added option to report sync errors in sync preference screen"
-            });
-        }
-
-        if (from >= V4_0_4 && from < V4_0_4_3) {
-            newVersionString(changeLog, "4.0.4.3 (3/17/12)", new String[] {
-               "Added option to configure widget theme from Settings, including a legacy-style option",
-               "Fixed a bug where tasks added with quickadd on tablets weren't always saved correctly",
-            });
-        }
-
-        if (from >= V4_0_4 && from < V4_0_4_2) {
-            newVersionString(changeLog, "4.0.4.2 (3/16/12)", new String[] {
-               "Fixed a crash that would occur during Google Tasks background sync.",
-               "Fixed infinite loop bug that would happen sometimes with dragging in Google Tasks.",
-               "Fixed other crashes that users have been experiencing."
-            });
-        }
-
-        if (from >= V4_0_4 && from < V4_0_4_1) {
-            newVersionString(changeLog, "4.0.4.1 (3/15/12)", new String[] {
-               "Updated 2x2 widget to look better and conform to new style",
-               "Fixed crashes related to catching exceptions",
-               "Added Search to Menu and moved some items to settings"
             });
         }
 
@@ -307,59 +276,9 @@ public final class UpgradeService {
             });
         }
 
-        if (from >= V3_9_2 && from < V3_9_2_3) {
-            newVersionString(changeLog, "3.9.2.3 (1/20/12)", new String[] {
-               "Fixed a bug with displaying update messages",
-               "Fixed an occasional crash in Gtasks Sync",
-               "Other minor bugfixes"
-            });
-        }
+        // --- old messages
 
-        if (from >= V3_9_2 && from < V3_9_2_2) {
-            newVersionString(changeLog, "3.9.2.2 (1/19/12)", new String[] {
-                "Astrid now recognizes words like 'tomorrow', 'monday', '!!!' and '2 pm' to set date and importance",
-                "New tutorial walkthrough for new users. Access it from the settings menu!",
-                "Reduced APK size",
-                "Minor UI tweaks, bug fixes",
-                "Feedback welcomed!"
-            });
-        }
-
-        if (from >= V3_9_1 && from < V3_9_1_1) {
-            newVersionString(changeLog, "3.9.1.1 (01/06/12)", new String[] {
-                "Fixed a few bugs:",
-                " Crash when selecting certain lists",
-                " Some lists not displayed",
-                " Wrong text color when assigning tasks in Night theme"
-            });
-        }
-
-        if (from < V3_9_1) {
-            newVersionString(changeLog, "3.9.1 (01/04/12)", new String[] {
-                    "Improvements to new user experience",
-                    "Bug fixes for task sharing",
-                    "Bug fixes for the time picker",
-                    "Fixes for some common crashes"
-            });
-        }
-
-        if (from >= V3_9 && from < V3_9_0_2) {
-            newVersionString(changeLog, "3.9.0.2 (12/23/11)", new String[] {
-                    "UI enhancements, better scrolling performance, and themed task edit dialogs",
-                    "Clickable links in task notes",
-                    "Fixed fields that were getting hidden under the keyboard",
-                    "Minor UI improvements and bug fixes"
-            });
-        }
-
-        if (from >= V3_9 && from < V3_9_0_1) {
-            newVersionString(changeLog, "3.9.0.1 (12/09/11)", new String[] {
-                    "Fix for a bug when adding premium widgets for Google Tasks lists",
-                    "Updated with new translations",
-            });
-        }
-
-        if (from < V3_9) {
+        if (from >= V3_0_0 && from < V3_9_0) {
             newVersionString(changeLog, "3.9 (12/09/11)", new String[] {
                     "Cleaner design (especially the task edit page)!",
                     "Customize the edit page (\"Beast Mode\" in preferences)",
@@ -371,97 +290,7 @@ public final class UpgradeService {
             });
         }
 
-        // current message
-        if (from >= V3_8_5 && from < V3_8_5_1) {
-            newVersionString(changeLog, "3.8.5.1 (11/09/11)", new String[] {
-                    "Fixed an issue where shared lists could accidentally be sent to the wrong people",
-                    "For small screens, don't let save and cancel buttons hover over task edit page",
-                    "Fix for null pointer crash when adding power pack widget",
-                    "Minor tweaks to margins and background of power pack widget",
-            });
-        }
-        if (from < V3_8_5) {
-            String iPhoneAnnouncement = "The Astrid team is proud to announce that Astrid is now available for iPhone! ";
-            if (!addOnService.hasPowerPack())
-                iPhoneAnnouncement += "To celebrate, <b>get the Astrid Power Pack for free when " +
-                "you invite three or more new users</b> to join Astrid.com by " +
-                "sharing a list or task with them";
-            else
-                iPhoneAnnouncement += "Make sure to let all of your friends know!";
-
-            newVersionString(changeLog, "3.8.5 (11/08/11)", new String[] {
-                    iPhoneAnnouncement,
-                    "Improvements to sync with Astrid's Google Chrome App and Astrid.com",
-                    "Improvements to error recovery in Google Tasks sync",
-                    "Improvements to Power Pack widget - voice and quick add of tasks",
-                    "Fixed duplicate task issues during sync with Astrid.com",
-                    "Fixed crashes that users have been experiencing",
-            });
-        }
-
-        if (from >= V3_8_0 && from < V3_8_4) {
-            String[] base = new String[] {
-                    "Lists are now case insensitive. If you have existing lists with the same " +
-                        "name, except for capitalization, they will be renamed to avoid collision.",
-                    "Fixed google tasks login on non-US Samsung phones",
-                    "Astrid.com sync now occurring over HTTPS",
-                    "Repeat from completion date now synced to Astrid.com",
-                    "Added ability to post a picture in list comments with Astrid.com",
-                    "Reorganized list view when synchronizing with Astrid.com to highlight shared/private lists",
-                    "Added default notification type, fixed default calendar in task default settings",
-                    "Fixed bug where wrong task would get checked when completing a task",
-                    "Allow adding a picture when commenting on a list",
-                    "Added task default settings for reminder type, fixed default add to calendar",
-                    "Fixed widgets created from lists not launching the app",
-                    "Repeating tasks don't lose reminders anymore",
-                    "Empty lists should now show up in the dropdown menu on task edit page",
-            };
-            ArrayList<String> stringList = new ArrayList<String>();
-            Collections.addAll(stringList, base);
-            if (showTagCaseMigration)
-                stringList.add(0, context.getString(R.string.tag_case_migration_notice));
-
-            newVersionString(changeLog, "3.8.4 (9/30/11)", stringList.toArray(new String[stringList.size()]));
-        }
-        if(from >= V3_8_0 && from < V3_8_3) {
-            newVersionString(changeLog, "3.8.3 (9/02/11)", new String[] {
-                    "Several Google Tasks sync bug fixes / improvements",
-                    "Fixed voice-add while viewing lists",
-                    "Fix for Astrid.com keyboard covers up newest comments",
-                    "Fixed issues with repeat-after-complete hourly and minutely",
-                    "Google Calendar integration now deletes events when you delete tasks",
-                    "Sync preference page now shows who you are logged in as",
-                    "List task counts are working again",
-                    "Fixed reminders for tasks without due time notifying repeatedly",
-                    "Fixed day-of-week checkboxes not having labels",
-                    "Fixed completing repeating tasks from powerpack widget broken",
-                    "Added 'default add to calendar' setting for new task creation",
-            });
-        }
-        if(from >= V3_8_0 && from < V3_8_2) {
-            newVersionString(changeLog, "3.8.2 (8/10/11)", new String[] {
-                    "New theme options for Astrid - white, black, transparent with white or black text",
-                    "New style for filter list page - same great functionality",
-                    "Search for tasks by pressing the search hardware button",
-                    "Fix for failed Google Tasks migration sync",
-                    "Fix for Google Tasks sync date-off-by-one error",
-                    "Fix for Astrid.com deleting tag information when syncing",
-                    "Fix for Astrid.com and repeat-after-complete",
-                    "Fix for some Astrid.com timeout and task sync errors",
-                    "Fix for duplicated Producteev notes",
-                    "Fix for reported market crashes",
-                    "Updated translations to latest",
-                    "And, Astrid has trimmed down by 25 percent in memory size!",
-            });
-        }
-        if(from >= V3_8_0 && from < V3_8_0_2) {
-            newVersionString(changeLog, "3.8.0.2 (7/16/11)", new String[] {
-                    "Fix for due time lost during Astrid.com sync",
-                    "Fix for disappearing Producteev workspace editor",
-                    "Fix for crashes. Keep on reporting them!",
-            });
-        }
-        if(from < V3_8_0) {
+        if(from >= V3_0_0 && from < V3_8_0) {
             newVersionString(changeLog, "3.8.0 (7/15/11)", new String[] {
                     "Astrid.com: sync & share tasks / lists with others!",
                     "GTasks Sync using Google's official task API! Gtasks users " +
@@ -472,8 +301,6 @@ public final class UpgradeService {
             });
             gtasksPreferenceService.setToken(null);
         }
-
-        // --- old messages
 
         if(from >= V3_0_0 && from < V3_7_0) {
             newVersionString(changeLog, "3.7.0 (2/7/11)", new String[] {
