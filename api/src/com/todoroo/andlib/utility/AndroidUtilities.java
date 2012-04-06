@@ -760,6 +760,8 @@ public class AndroidUtilities {
      * @return
      */
     public static boolean isTabletSized(Context context) {
+        if (context.getPackageManager().hasSystemFeature("com.google.android.tv")) //$NON-NLS-1$
+            return true;
         int size = context.getResources().getConfiguration().screenLayout
                 & Configuration.SCREENLAYOUT_SIZE_MASK;
         if (size == Configuration.SCREENLAYOUT_SIZE_XLARGE) return true;
