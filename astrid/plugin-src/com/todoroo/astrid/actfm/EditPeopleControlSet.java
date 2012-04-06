@@ -15,7 +15,10 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.database.Cursor;
 import android.graphics.Color;
+import android.net.Uri;
+import android.provider.ContactsContract;
 import android.support.v4.app.Fragment;
 import android.text.TextUtils;
 import android.util.DisplayMetrics;
@@ -45,6 +48,7 @@ import com.todoroo.andlib.service.ExceptionService;
 import com.todoroo.andlib.utility.DialogUtilities;
 import com.todoroo.astrid.actfm.sync.ActFmPreferenceService;
 import com.todoroo.astrid.actfm.sync.ActFmSyncService;
+import com.todoroo.astrid.activity.TaskEditFragment;
 import com.todoroo.astrid.data.Metadata;
 import com.todoroo.astrid.data.TagData;
 import com.todoroo.astrid.data.Task;
@@ -112,6 +116,8 @@ public class EditPeopleControlSet extends PopupControlSet {
 
     private boolean loadedUI = false;
 
+    private boolean dontClearAssignedCustom = false;
+
     private final List<AssignedChangedListener> listeners = new LinkedList<AssignedChangedListener>();
 
     public interface AssignedChangedListener {
@@ -175,7 +181,9 @@ public class EditPeopleControlSet extends PopupControlSet {
     @Override
     public void readFromTask(Task sourceTask) {
         setTask(sourceTask);
-        assignedCustom.setText(""); //$NON-NLS-1$
+        if (!dontClearAssignedCustom)
+            assignedCustom.setText(""); //$NON-NLS-1$
+        dontClearAssignedCustom = false;
         setUpData(task, null);
     }
 
@@ -531,6 +539,14 @@ public class EditPeopleControlSet extends PopupControlSet {
                 sharedWithDialog.show();
             }
         });
+
+        assignedCustom.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Intent.ACTION_PICK, ContactsContract.Contacts.CONTENT_URI);
+                fragment.startActivityForResult(intent, TaskEditFragment.REQUEST_CODE_CONTACT);
+            }
+        });
     }
 
     // --- events
@@ -811,9 +827,29 @@ public class EditPeopleControlSet extends PopupControlSet {
             // clear user values & reset them to trigger a save
             task.clearValue(Task.USER_ID);
             task.clearValue(Task.USER);
-        }
-        else if (requestCode == loginRequestCode)
+        } else if (requestCode == loginRequestCode) {
             makePrivateTask();
+        } else if (requestCode == TaskEditFragment.REQUEST_CODE_CONTACT && resultCode == Activity.RESULT_OK) {
+            Uri contactData = data.getData();
+            String contactId = contactData.getLastPathSegment();
+            String[] args = { contactId };
+            String[] projection = { ContactsContract.CommonDataKinds.Email.DATA };
+            String selection = ContactsContract.CommonDataKinds.Email.CONTACT_ID + " = ?"; //$NON-NLS-1$
+            Cursor c = activity.managedQuery(ContactsContract.CommonDataKinds.Email.CONTENT_URI, projection, selection, args, null);
+            if (c.getCount() > 0) {
+                c.moveToFirst();
+                int emailIndex = c.getColumnIndex(ContactsContract.CommonDataKinds.Email.DATA);
+                String email = c.getString(emailIndex);
+                if (!TextUtils.isEmpty(email)) {
+                    assignedCustom.setText(email);
+                    dontClearAssignedCustom = true;
+                } else {
+                    DialogUtilities.okDialog(activity, activity.getString(R.string.TEA_contact_error), null);
+                }
+            } else {
+                DialogUtilities.okDialog(activity, activity.getString(R.string.TEA_contact_error), null);
+            }
+        }
     }
 
     @Override

@@ -450,6 +450,8 @@
   
   <string name="WSV_not_online">I can do more when connected to the Internet. Please check your connection.</string>
   
+  <string name="TEA_contact_error">Sorry! We couldn\'t find an email address for the selected contact.</string>
+  
   <!-- ============================================= IntroductionActivity == -->
   
   <!-- Introduction Window title -->
