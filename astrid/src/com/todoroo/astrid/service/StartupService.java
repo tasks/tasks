@@ -148,10 +148,12 @@ public class StartupService {
         }
 
         int version = 0;
+        String versionName = "0"; //$NON-NLS-1$
         try {
             PackageManager pm = context.getPackageManager();
             PackageInfo pi = pm.getPackageInfo(Constants.PACKAGE, PackageManager.GET_META_DATA);
             version = pi.versionCode;
+            versionName = pi.versionName;
         } catch (Exception e) {
             exceptionService.reportError("astrid-startup-package-read", e); //$NON-NLS-1$
         }
@@ -168,6 +170,7 @@ public class StartupService {
                 upgradeService.performUpgrade(context, latestSetVersion);
             }
             AstridPreferences.setCurrentVersion(version);
+            AstridPreferences.setCurrentVersionName(versionName);
         }
 
         upgradeService.performSecondaryUpgrade(context);

@@ -77,8 +77,8 @@ public class BackupService extends Service {
                 Log.e("error-deleting", "Error deleting old backups", e); //$NON-NLS-1$ //$NON-NLS-2$
             }
 
-            TasksXmlExporter.exportTasks(context, true, null,
-                    backupDirectorySetting.getBackupDirectory());
+            TasksXmlExporter.exportTasks(context, TasksXmlExporter.ExportType.EXPORT_TYPE_SERVICE, null,
+                    backupDirectorySetting.getBackupDirectory(), null);
 
         } catch (Exception e) {
             Log.e("error-backup", "Error starting backups", e); //$NON-NLS-1$ //$NON-NLS-2$

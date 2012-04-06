@@ -16,6 +16,8 @@ public class AstridPreferences {
 
     private static final String P_CURRENT_VERSION = "cv"; //$NON-NLS-1$
 
+    private static final String P_CURRENT_VERSION_NAME = "cvname"; //$NON-NLS-1$
+
     public static final String P_FIRST_TASK = "ft"; //$NON-NLS-1$
 
     public static final String P_FIRST_LIST = "fl"; //$NON-NLS-1$
@@ -75,6 +77,18 @@ public class AstridPreferences {
     /** CurrentVersion: the currently installed version of Astrid */
     public static void setCurrentVersion(int version) {
         Preferences.setInt(P_CURRENT_VERSION, version);
+    }
+
+    /** The name (e.g. 4.0.1) of the currently installed version of astrid*/
+    public static String getCurrentVersionName() {
+        String versionName = Preferences.getStringValue(P_CURRENT_VERSION_NAME);
+        if (versionName == null)
+            versionName = "0"; //$NON-NLS-1$
+        return versionName;
+    }
+
+    public static void setCurrentVersionName(String versionName) {
+        Preferences.setString(P_CURRENT_VERSION_NAME, versionName);
     }
 
     /** If true, can show a help popover. If false, another one was recently shown */

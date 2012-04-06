@@ -41,14 +41,20 @@ public class TasksXmlExporter {
      * Import tasks from the given file
      *
      * @param context context
-     * @param isService if false, displays ui dialogs
+     * @param exportType from service, manual, or on upgrade
      * @param runAfterExport runnable to run after exporting
      * @param backupDirectoryOverride new backupdirectory, or null to use default
      */
-    public static void exportTasks(Context context, boolean isService,
-            Runnable runAfterExport, File backupDirectoryOverride) {
-        new TasksXmlExporter(context, isService, runAfterExport,
-                backupDirectoryOverride);
+    public static void exportTasks(Context context, ExportType exportType,
+            Runnable runAfterExport, File backupDirectoryOverride, String versionName) {
+        new TasksXmlExporter(context, exportType, runAfterExport,
+                backupDirectoryOverride, versionName);
+    }
+
+    public static enum ExportType {
+        EXPORT_TYPE_SERVICE,
+        EXPORT_TYPE_MANUAL,
+        EXPORT_TYPE_ON_UPGRADE
     }
 
     // --- implementation
@@ -65,6 +71,7 @@ public class TasksXmlExporter {
     private final ProgressDialog progressDialog;
     private final Handler handler;
     private final File backupDirectory;
+    private final String latestSetVersionName;
 
     private void setProgress(final int taskNumber, final int total) {
         handler.post(new Runnable() {
@@ -75,16 +82,17 @@ public class TasksXmlExporter {
         });
     }
 
-    private TasksXmlExporter(final Context context, final boolean isService,
-            final Runnable runAfterExport, File backupDirectoryOverride) {
+    private TasksXmlExporter(final Context context, final ExportType exportType,
+            final Runnable runAfterExport, File backupDirectoryOverride, String versionName) {
         this.context = context;
         this.exportCount = 0;
         this.backupDirectory = backupDirectoryOverride == null ?
                 BackupConstants.defaultExportDirectory() : backupDirectoryOverride;
+        this.latestSetVersionName = versionName;
 
         handler = new Handler();
         progressDialog = new ProgressDialog(context);
-        if(!isService) {
+        if(exportType == ExportType.EXPORT_TYPE_MANUAL) {
             progressDialog.setIcon(android.R.drawable.ic_dialog_info);
             progressDialog.setTitle(R.string.export_progress_title);
             progressDialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
@@ -101,7 +109,7 @@ public class TasksXmlExporter {
             public void run() {
                 try {
                     String output = setupFile(backupDirectory,
-                            isService);
+                            exportType);
                     int tasks = taskService.countTasks();
 
                     if(tasks > 0)
@@ -111,15 +119,22 @@ public class TasksXmlExporter {
                             DateUtilities.now());
                     Preferences.setString(BackupPreferences.PREF_BACKUP_LAST_ERROR, null);
 
-                    if (!isService)
+                    if (exportType == ExportType.EXPORT_TYPE_MANUAL)
                         onFinishExport(output);
                 } catch (IOException e) {
-                    if(!isService)
+                    switch(exportType) {
+                    case EXPORT_TYPE_MANUAL:
                         exceptionService.displayAndReportError(context,
                             context.getString(R.string.backup_TXI_error), e);
-                    else {
+                        break;
+                    case EXPORT_TYPE_SERVICE:
                         exceptionService.reportError("background-backup", e); //$NON-NLS-1$
                         Preferences.setString(BackupPreferences.PREF_BACKUP_LAST_ERROR, e.toString());
+                        break;
+                    case EXPORT_TYPE_ON_UPGRADE:
+                        exceptionService.reportError("background-backup", e); //$NON-NLS-1$
+                        Preferences.setString(BackupPreferences.PREF_BACKUP_LAST_ERROR, e.toString());
+                        break;
                     }
                 } finally {
                     if(runAfterExport != null)
@@ -320,18 +335,25 @@ public class TasksXmlExporter {
      * @return output file name
      * @throws IOException
      */
-    private String setupFile(File directory, boolean isService) throws IOException {
+    private String setupFile(File directory, ExportType exportType) throws IOException {
         File astridDir = directory;
         if (astridDir != null) {
             // Check for /sdcard/astrid directory. If it doesn't exist, make it.
             if (astridDir.exists() || astridDir.mkdir()) {
-                String fileName;
-                if (isService) {
-                    fileName = BackupConstants.BACKUP_FILE_NAME;
-                } else {
-                    fileName = BackupConstants.EXPORT_FILE_NAME;
+                String fileName = ""; //$NON-NLS-1$
+                switch(exportType) {
+                case EXPORT_TYPE_SERVICE:
+                    fileName = String.format(BackupConstants.BACKUP_FILE_NAME, BackupDateUtilities.getDateForExport());
+                    break;
+                case EXPORT_TYPE_MANUAL:
+                    fileName = String.format(BackupConstants.EXPORT_FILE_NAME, BackupDateUtilities.getDateForExport());
+                    break;
+                case EXPORT_TYPE_ON_UPGRADE:
+                    fileName = String.format(BackupConstants.UPGRADE_FILE_NAME, latestSetVersionName);
+                    break;
+                default:
+                     throw new IllegalArgumentException("Invalid export type"); //$NON-NLS-1$
                 }
-                fileName = String.format(fileName, BackupDateUtilities.getDateForExport());
                 return astridDir.getAbsolutePath() + File.separator + fileName;
             } else {
                 // Unable to make the /sdcard/astrid directory.
