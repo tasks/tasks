@@ -864,14 +864,27 @@ public class EditPeopleControlSet extends PopupControlSet {
             String[] args = { contactId };
             String[] projection = { ContactsContract.CommonDataKinds.Email.DATA };
             String selection = ContactsContract.CommonDataKinds.Email.CONTACT_ID + " = ?"; //$NON-NLS-1$
-            Cursor c = activity.managedQuery(ContactsContract.CommonDataKinds.Email.CONTENT_URI, projection, selection, args, null);
-            if (c.getCount() > 0) {
-                c.moveToFirst();
-                int emailIndex = c.getColumnIndex(ContactsContract.CommonDataKinds.Email.DATA);
-                String email = c.getString(emailIndex);
+            Cursor emailCursor = activity.managedQuery(ContactsContract.CommonDataKinds.Email.CONTENT_URI, projection, selection, args, null);
+            if (emailCursor.getCount() > 0) {
+                emailCursor.moveToFirst();
+                int emailIndex = emailCursor.getColumnIndex(ContactsContract.CommonDataKinds.Email.DATA);
+                String email = emailCursor.getString(emailIndex);
                 if (!TextUtils.isEmpty(email)) {
+                    String[] nameProjection = { ContactsContract.Contacts.DISPLAY_NAME };
+                    Cursor nameCursor = activity.managedQuery(contactData, nameProjection, null, null, null);
+                    if (nameCursor.getCount() > 0) {
+                        nameCursor.moveToFirst();
+                        int nameIndex = nameCursor.getColumnIndex(ContactsContract.Contacts.DISPLAY_NAME);
+                        String name = nameCursor.getString(nameIndex);
+                        if (!TextUtils.isEmpty(name)) {
+                            StringBuilder fullName = new StringBuilder();
+                            fullName.append(name).append(" <").append(email).append('>'); //$NON-NLS-1$
+                            email = fullName.toString();
+                        }
+                    }
                     assignedCustom.setText(email);
                     dontClearAssignedCustom = true;
+                    dialog.dismiss();
                 } else {
                     DialogUtilities.okDialog(activity, activity.getString(R.string.TEA_contact_error), null);
                 }
