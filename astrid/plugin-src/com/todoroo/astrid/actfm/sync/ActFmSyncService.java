@@ -1048,7 +1048,7 @@ public final class ActFmSyncService {
         }
 
         protected void deleteExtras(Long[] localIds) {
-            taskService.deleteWhere(Criterion.and(TaskCriteria.activeAndVisible(),
+            taskService.deleteWhere(Criterion.and(TaskCriteria.activeVisibleMine(),
                     Task.REMOTE_ID.isNotNull(),
                     Criterion.not(Task.ID.in(localIds))));
         }
