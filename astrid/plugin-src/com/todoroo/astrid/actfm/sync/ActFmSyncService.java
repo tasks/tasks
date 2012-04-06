@@ -735,9 +735,16 @@ public final class ActFmSyncService {
         JSONObject result = actFmInvoker.invoke("user_list",
                 "token", token, "modified_after", serverTime);
         JSONArray users = result.getJSONArray("list");
+        HashSet<Long> ids = new HashSet<Long>();
         for (int i = 0; i < users.length(); i++) {
             JSONObject userObject = users.getJSONObject(i);
+            ids.add(userObject.optLong("id"));
             actFmDataService.saveUserData(userObject);
+        }
+
+        if (serverTime == 0) {
+            Long[] allIds = ids.toArray(new Long[ids.size()]);
+            actFmDataService.userDao.deleteWhere(Criterion.not(User.ID.in(allIds)));
         }
 
         return result.optInt("time", 0);

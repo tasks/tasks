@@ -72,6 +72,8 @@ public class EditPeopleControlSet extends PopupControlSet {
 
     public static final String EXTRA_TASK_ID = "task"; //$NON-NLS-1$
 
+    private static final String CONTACT_CHOOSER_USER = "the_contact_user"; //$NON-NLS-1$
+
     private Task task;
 
     private final ArrayList<Metadata> nonSharedTags = new ArrayList<Metadata>();
@@ -366,6 +368,7 @@ public class EditPeopleControlSet extends PopupControlSet {
                 unassigned.put("id", Task.USER_ID_UNASSIGNED);
                 sharedPeople.add(1, unassigned);
             }
+
             addAstridFriends(sharedPeople);
 
             // de-duplicate by user id and/or email
@@ -425,12 +428,23 @@ public class EditPeopleControlSet extends PopupControlSet {
                 }
             }
 
+            AssignedToUser chooseContact = new AssignedToUser(activity.getString(R.string.actfm_EPA_choose_contact),
+                    new JSONObject().put("default_picture", R.drawable.icn_friends)
+                        .put(CONTACT_CHOOSER_USER, true));
+            int contactsIndex = addUnassigned ? 2 : 1;
+            listValues.add(contactsIndex, chooseContact);
+            if (assignedIndex >= contactsIndex)
+                assignedIndex++;
+
             for (AssignedChangedListener l : listeners) {
                 if (l.shouldShowTaskRabbit()) {
                     taskRabbitUser = new AssignedToUser(activity.getString(R.string.actfm_EPA_task_rabbit), new JSONObject().put("default_picture", R.drawable.task_rabbit_image));
-                    listValues.add(addUnassigned ? 2 : 1, taskRabbitUser);
+                    int taskRabbitIndex = addUnassigned ? 3 : 2;
+                    listValues.add(taskRabbitIndex, taskRabbitUser);
                     if(l.didPostToTaskRabbit()){
-                        assignedIndex = listValues.size()-1;
+                        assignedIndex = taskRabbitIndex;
+                    } else if (assignedIndex >= taskRabbitIndex) {
+                        assignedIndex++;
                     }
                 }
             }
@@ -524,8 +538,6 @@ public class EditPeopleControlSet extends PopupControlSet {
 
                 for (AssignedChangedListener l : listeners) {
                     if(l.showTaskRabbitForUser(user.label, user.user)) {
-//                        assignedList.setItemChecked(selected, true);
-//                        assignedList.setItemChecked(position, false);
                         assignedDisplay.setText(user.toString());
                         assignedCustom.setText(""); //$NON-NLS-1$
                         DialogUtilities.dismissDialog(activity, dialog);
@@ -533,6 +545,13 @@ public class EditPeopleControlSet extends PopupControlSet {
                     }
 
                 }
+
+                if (user.user.has(CONTACT_CHOOSER_USER)) {
+                    Intent intent = new Intent(Intent.ACTION_PICK, ContactsContract.Contacts.CONTENT_URI);
+                    fragment.startActivityForResult(intent, TaskEditFragment.REQUEST_CODE_CONTACT);
+                    return;
+                }
+
                 assignedDisplay.setText(user.toString());
                 assignedCustom.setText(""); //$NON-NLS-1$
                 selected = position;
@@ -568,14 +587,6 @@ public class EditPeopleControlSet extends PopupControlSet {
                 sharedWithDialog.show();
             }
         });
-
-//        assignedCustom.setOnClickListener(new OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Intent intent = new Intent(Intent.ACTION_PICK, ContactsContract.Contacts.CONTENT_URI);
-//                fragment.startActivityForResult(intent, TaskEditFragment.REQUEST_CODE_CONTACT);
-//            }
-//        });
     }
 
     // --- events

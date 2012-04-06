@@ -139,6 +139,9 @@
   <!-- task sharing dialog: anyone -->
   <string name="actfm_EPA_unassigned">Unassigned</string>
   
+  <!-- task sharing dialog: choose a contact -->
+  <string name="actfm_EPA_choose_contact">Choose a contact</string>
+  
   <!-- task sharing dialog: use task rabbit -->
   <string name="actfm_EPA_task_rabbit">Outsource it!</string>
   
