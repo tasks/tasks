@@ -329,6 +329,13 @@
         <item name="android:textStyle">bold</item>
         <item name="android:textColor">?attr/asTextColor</item>
     </style>
+    
+    <style name="TEA_list_header">
+        <item name="android:textColor">?attr/asTextColor</item>
+        <item name="android:textSize">18sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:background">#aaaaaaaa</item>
+    </style>
    	    
     <!-- ==================================================== TaskAdapter == -->
 

@@ -30,5 +30,6 @@
 	<classpathentry exported="true" kind="lib" path="libs/gson-1.7.1.jar"/>
 	<classpathentry kind="lib" path="libs/crittercism_v2_1_2.jar"/>
 	<classpathentry kind="lib" path="libs/findbugs-annotations.jar"/>
+	<classpathentry kind="lib" path="libs/CWAC-SackOfViewsAdapter.jar"/>
 	<classpathentry kind="output" path="bin/classes"/>
 </classpath>

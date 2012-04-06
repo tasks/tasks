@@ -40,6 +40,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.commonsware.cwac.merge.MergeAdapter;
 import com.timsu.astrid.R;
 import com.todoroo.andlib.data.TodorooCursor;
 import com.todoroo.andlib.service.Autowired;
@@ -113,8 +114,6 @@ public class EditPeopleControlSet extends PopupControlSet {
     private final EditText assignedCustom;
 
     private final View assignedClear;
-
-    private final ArrayList<AssignedToUser> listValues = new ArrayList<AssignedToUser>();
 
     private final int loginRequestCode;
 
@@ -351,16 +350,17 @@ public class EditPeopleControlSet extends PopupControlSet {
         HashSet<String> emails = new HashSet<String>();
         HashMap<String, AssignedToUser> names = new HashMap<String, AssignedToUser>();
 
+        ArrayList<AssignedToUser> coreUsers = new ArrayList<AssignedToUser>();
+        ArrayList<AssignedToUser> listUsers = new ArrayList<AssignedToUser>();
+        ArrayList<AssignedToUser> astridUsers = new ArrayList<AssignedToUser>();
+
         int assignedIndex = 0;
         try {
-            if(t.getValue(Task.USER_ID) > 0) {
-                JSONObject user = new JSONObject(t.getValue(Task.USER));
-                sharedPeople.add(0, user);
-            }
-
+            ArrayList<JSONObject> coreUsersJson = new ArrayList<JSONObject>();
             JSONObject myself = new JSONObject();
             myself.put("id", Task.USER_ID_SELF);
-            sharedPeople.add(0, myself);
+            myself.put("picture", ActFmPreferenceService.thisUser().optString("picture"));
+            coreUsersJson.add(myself);
 
             boolean hasTags = t.getTransitory("tags") != null &&
                     ((HashSet<String>)t.getTransitory("tags")).size() > 0;
@@ -368,106 +368,154 @@ public class EditPeopleControlSet extends PopupControlSet {
             if (addUnassigned) {
                 JSONObject unassigned = new JSONObject();
                 unassigned.put("id", Task.USER_ID_UNASSIGNED);
-                sharedPeople.add(1, unassigned);
+                unassigned.put("default_picture", R.drawable.icn_anyone);
+                coreUsersJson.add(unassigned);
             }
 
-            addAstridFriends(sharedPeople);
+            if(t.getValue(Task.USER_ID) > 0) {
+                JSONObject user = new JSONObject(t.getValue(Task.USER));
+                coreUsersJson.add(0, user);
+            }
+
+            ArrayList<JSONObject> astridFriends = getAstridFriends();
 
             // de-duplicate by user id and/or email
-            listValues.clear();
-            for(int i = 0; i < sharedPeople.size(); i++) {
-                JSONObject person = sharedPeople.get(i);
-                if(person == null)
-                    continue;
-                long id = person.optLong("id", -2);
-                if(id == ActFmPreferenceService.userId() || (id >= -1 && userIds.contains(id)))
-                    continue;
-                userIds.add(id);
-
-                String email = person.optString("email");
-                if(!TextUtils.isEmpty(email) && emails.contains(email))
-                    continue;
-                emails.add(email);
-
-                String name = person.optString("name");
-                if(id == 0)
-                    name = activity.getString(R.string.actfm_EPA_assign_me);
-                if (id == -1)
-                    name = activity.getString(R.string.actfm_EPA_unassigned);
-
-                AssignedToUser atu = new AssignedToUser(name, person);
-                listValues.add(atu);
-                if(names.containsKey(name)) {
-                    AssignedToUser user = names.get(name);
-                    if(user != null && user.user.has("email")) {
-                        user.label += " (" + user.user.optString("email") + ")";
-                        names.put(name, null);
-                    }
-                    if(!TextUtils.isEmpty("email"))
-                        atu.label += " (" + email + ")";
-                } else if(TextUtils.isEmpty(name)) {
-                    if(!TextUtils.isEmpty("email"))
-                        atu.label = email;
-                    else
-                        listValues.remove(atu);
-                } else
-                    names.put(name, atu);
-            }
-
-            String assignedStr = t.getValue(Task.USER);
-            if (!TextUtils.isEmpty(assignedStr)) {
-                JSONObject assigned = new JSONObject(assignedStr);
-                long assignedId = assigned.optLong("id", -2);
-                String assignedEmail = assigned.optString("email");
-                for (int i = 0; i < listValues.size(); i++) {
-                    JSONObject user = listValues.get(i).user;
-                    if (user != null) {
-                        if (user.optLong("id") == assignedId ||
-                                (user.optString("email").equals(assignedEmail) &&
-                                        !(TextUtils.isEmpty(assignedEmail))))
-                            assignedIndex = i;
-                    }
-                }
-            }
+            coreUsers = convertJsonUsersToAssignedUsers(coreUsersJson, userIds, emails, names);
+            listUsers = convertJsonUsersToAssignedUsers(sharedPeople, userIds, emails, names);
+            astridUsers = convertJsonUsersToAssignedUsers(astridFriends, userIds, emails, names);
 
             contactPickerUser = new AssignedToUser(activity.getString(R.string.actfm_EPA_choose_contact),
                     new JSONObject().put("default_picture", R.drawable.icn_friends)
-                        .put(CONTACT_CHOOSER_USER, true));
+                    .put(CONTACT_CHOOSER_USER, true));
             int contactsIndex = addUnassigned ? 2 : 1;
-            listValues.add(contactsIndex, contactPickerUser);
-            if (assignedIndex >= contactsIndex)
-                assignedIndex++;
+            coreUsers.add(contactsIndex, contactPickerUser);
 
             for (AssignedChangedListener l : listeners) {
                 if (l.shouldShowTaskRabbit()) {
                     taskRabbitUser = new AssignedToUser(activity.getString(R.string.actfm_EPA_task_rabbit), new JSONObject().put("default_picture", R.drawable.task_rabbit_image));
                     int taskRabbitIndex = addUnassigned ? 3 : 2;
-                    listValues.add(taskRabbitIndex, taskRabbitUser);
+                    coreUsers.add(taskRabbitIndex, taskRabbitUser);
                     if(l.didPostToTaskRabbit()){
                         assignedIndex = taskRabbitIndex;
-                    } else if (assignedIndex >= taskRabbitIndex) {
-                        assignedIndex++;
                     }
                 }
             }
+
+            if (assignedIndex == 0) {
+                assignedIndex = findAssignedIndex(t, coreUsers, listUsers, astridUsers);
+            }
+
         } catch (JSONException e) {
             exceptionService.reportError("json-reading-data", e);
         }
 
         selected = assignedIndex;
 
-        final AssignedUserAdapter usersAdapter = new AssignedUserAdapter(activity, listValues);
+        final MergeAdapter mergeAdapter = new MergeAdapter();
+        AssignedUserAdapter coreUserAdapter = new AssignedUserAdapter(activity, coreUsers, 0);
+        AssignedUserAdapter listUserAdapter = new AssignedUserAdapter(activity, listUsers, coreUserAdapter.getCount() + 1);
+        int offsetForAstridUsers = listUserAdapter.getCount() > 0 ? 2 : 1;
+        AssignedUserAdapter astridUserAdapter = new AssignedUserAdapter(activity, astridUsers, coreUserAdapter.getCount() + listUserAdapter.getCount() + offsetForAstridUsers);
+
+        LayoutInflater inflater = activity.getLayoutInflater();
+        TextView header1 = (TextView) inflater.inflate(R.layout.list_header, null);
+        header1.setText(R.string.actfm_EPA_assign_header_members);
+        TextView header2 = (TextView) inflater.inflate(R.layout.list_header, null);
+        header2.setText(R.string.actfm_EPA_assign_header_friends);
+
+        mergeAdapter.addAdapter(coreUserAdapter);
+        if (listUserAdapter.getCount() > 0) {
+            mergeAdapter.addView(header1);
+            mergeAdapter.addAdapter(listUserAdapter);
+        }
+        if (astridUserAdapter.getCount() > 0) {
+            mergeAdapter.addView(header2);
+            mergeAdapter.addAdapter(astridUserAdapter);
+        }
+
         activity.runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                assignedList.setAdapter(usersAdapter);
+                assignedList.setAdapter(mergeAdapter);
                 assignedList.setItemChecked(selected, true);
                 refreshDisplayView();
             }
         });
     }
 
-    private void addAstridFriends(ArrayList<JSONObject> sharedPeople) {
+    @SuppressWarnings("nls")
+    private ArrayList<AssignedToUser> convertJsonUsersToAssignedUsers(ArrayList<JSONObject> jsonUsers,
+            HashSet<Long> userIds, HashSet<String> emails, HashMap<String, AssignedToUser> names) {
+        ArrayList<AssignedToUser> users = new ArrayList<AssignedToUser>();
+        for(int i = 0; i < jsonUsers.size(); i++) {
+            JSONObject person = jsonUsers.get(i);
+            if(person == null)
+                continue;
+            long id = person.optLong("id", -2);
+            if(id == ActFmPreferenceService.userId() || (id >= -1 && userIds.contains(id)))
+                continue;
+            userIds.add(id);
+
+            String email = person.optString("email");
+            if(!TextUtils.isEmpty(email) && emails.contains(email))
+                continue;
+            emails.add(email);
+
+            String name = person.optString("name");
+            if(id == 0)
+                name = activity.getString(R.string.actfm_EPA_assign_me);
+            if (id == -1)
+                name = activity.getString(R.string.actfm_EPA_unassigned);
+
+            AssignedToUser atu = new AssignedToUser(name, person);
+            users.add(atu);
+            if(names.containsKey(name)) {
+                AssignedToUser user = names.get(name);
+                if(user != null && user.user.has("email")) {
+                    user.label += " (" + user.user.optString("email") + ")";
+                    names.put(name, null);
+                }
+                if(!TextUtils.isEmpty("email"))
+                    atu.label += " (" + email + ")";
+            } else if(TextUtils.isEmpty(name)) {
+                if(!TextUtils.isEmpty("email"))
+                    atu.label = email;
+                else
+                    users.remove(atu);
+            } else
+                names.put(name, atu);
+        }
+        return users;
+    }
+
+    @SuppressWarnings("nls")
+    private int findAssignedIndex(Task t, ArrayList<AssignedToUser>... userLists) throws JSONException {
+        String assignedStr = t.getValue(Task.USER);
+        if (!TextUtils.isEmpty(assignedStr)) {
+            JSONObject assigned = new JSONObject(assignedStr);
+            long assignedId = assigned.optLong("id", -2);
+            String assignedEmail = assigned.optString("email");
+
+            int index = 0;
+            for (ArrayList<AssignedToUser> userList : userLists) {
+                for (int i = 0; i < userList.size(); i++) {
+                    JSONObject user = userList.get(i).user;
+                    if (user != null) {
+                        if (user.optLong("id") == assignedId ||
+                                (user.optString("email").equals(assignedEmail) &&
+                                        !(TextUtils.isEmpty(assignedEmail))))
+                            return index;
+                    }
+                    index++;
+                }
+                index++; // Add one for headers separating user lists
+            }
+        }
+        return 0;
+    }
+
+    private ArrayList<JSONObject> getAstridFriends() {
+        ArrayList<JSONObject> astridFriends = new ArrayList<JSONObject>();
         TodorooCursor<User> users = userDao.query(Query.select(User.PROPERTIES).orderBy(Order.asc(User.NAME)));
         try {
             User user = new User();
@@ -476,7 +524,7 @@ public class EditPeopleControlSet extends PopupControlSet {
                 JSONObject userJson = new JSONObject();
                 try {
                     ActFmSyncService.JsonHelper.jsonFromUser(userJson, user);
-                    sharedPeople.add(userJson);
+                    astridFriends.add(userJson);
                 } catch (JSONException e) {
                     // Ignored
                 }
@@ -484,14 +532,18 @@ public class EditPeopleControlSet extends PopupControlSet {
         } finally {
             users.close();
         }
+        return astridFriends;
     }
 
 
 
     private class AssignedUserAdapter extends ArrayAdapter<AssignedToUser> {
 
-        public AssignedUserAdapter(Context context, ArrayList<AssignedToUser> people)  {
+        private final int positionOffset;
+
+        public AssignedUserAdapter(Context context, ArrayList<AssignedToUser> people, int positionOffset)  {
             super(context, R.layout.assigned_adapter_row, people);
+            this.positionOffset = positionOffset;
         }
 
         @SuppressWarnings("nls")
@@ -501,21 +553,14 @@ public class EditPeopleControlSet extends PopupControlSet {
                 convertView = activity.getLayoutInflater().inflate(R.layout.assigned_adapter_row, parent, false);
             CheckedTextView ctv = (CheckedTextView) convertView.findViewById(android.R.id.text1);
             super.getView(position, ctv, parent);
-            if (assignedList.getCheckedItemPosition() == position) {
+            if (assignedList.getCheckedItemPosition() == position + positionOffset) {
                 ctv.setChecked(true);
             } else {
                 ctv.setChecked(false);
             }
             AsyncImageView image = (AsyncImageView) convertView.findViewById(R.id.person_image);
             image.setDefaultImageResource(R.drawable.icn_default_person_image);
-            if (position == 0) {
-                image.setUrl(ActFmPreferenceService.thisUser().optString("picture"));
-            } else if (position == 1) {
-                image.setUrl("");
-                image.setDefaultImageResource(R.drawable.icn_anyone);
-            } else {
-                image.setUrl(getItem(position).user.optString("picture"));
-            }
+            image.setUrl(getItem(position).user.optString("picture"));
             if (getItem(position).user.optInt("default_picture", 0) > 0) {
                 image.setDefaultImageResource(getItem(position).user.optInt("default_picture"));
             }
