@@ -569,13 +569,13 @@ public class EditPeopleControlSet extends PopupControlSet {
             }
         });
 
-        assignedCustom.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(Intent.ACTION_PICK, ContactsContract.Contacts.CONTENT_URI);
-                fragment.startActivityForResult(intent, TaskEditFragment.REQUEST_CODE_CONTACT);
-            }
-        });
+//        assignedCustom.setOnClickListener(new OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Intent intent = new Intent(Intent.ACTION_PICK, ContactsContract.Contacts.CONTENT_URI);
+//                fragment.startActivityForResult(intent, TaskEditFragment.REQUEST_CODE_CONTACT);
+//            }
+//        });
     }
 
     // --- events
