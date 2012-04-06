@@ -744,7 +744,7 @@ public final class ActFmSyncService {
 
         if (serverTime == 0) {
             Long[] allIds = ids.toArray(new Long[ids.size()]);
-            actFmDataService.userDao.deleteWhere(Criterion.not(User.ID.in(allIds)));
+            actFmDataService.userDao.deleteWhere(Criterion.not(User.REMOTE_ID.in(allIds)));
         }
 
         return result.optInt("time", 0);
