@@ -122,6 +122,8 @@ public class EditPeopleControlSet extends PopupControlSet {
 
     private AssignedToUser taskRabbitUser = null;
 
+    private AssignedToUser contactPickerUser = null;
+
     private boolean loadedUI = false;
 
     private boolean dontClearAssignedCustom = false;
@@ -428,11 +430,11 @@ public class EditPeopleControlSet extends PopupControlSet {
                 }
             }
 
-            AssignedToUser chooseContact = new AssignedToUser(activity.getString(R.string.actfm_EPA_choose_contact),
+            contactPickerUser = new AssignedToUser(activity.getString(R.string.actfm_EPA_choose_contact),
                     new JSONObject().put("default_picture", R.drawable.icn_friends)
                         .put(CONTACT_CHOOSER_USER, true));
             int contactsIndex = addUnassigned ? 2 : 1;
-            listValues.add(contactsIndex, chooseContact);
+            listValues.add(contactsIndex, contactPickerUser);
             if (assignedIndex >= contactsIndex)
                 assignedIndex++;
 
@@ -640,10 +642,7 @@ public class EditPeopleControlSet extends PopupControlSet {
                     return true;
                 AssignedToUser item = (AssignedToUser) assignedList.getAdapter().getItem(assignedList.getCheckedItemPosition());
                 if (item != null) {
-                    if (item.equals(taskRabbitUser)) { //don't want to ever set the user as the task rabbit user
-
-                        /*item = (AssignedToUser) assignedList.getAdapter().getItem(0);
-                        selected = 0;*/
+                    if (item.equals(taskRabbitUser) || item.equals(contactPickerUser)) { //don't want to ever set the user as the task rabbit user
                         return true;
                     }
                     userJson = item.user;
