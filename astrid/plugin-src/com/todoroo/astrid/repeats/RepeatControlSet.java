@@ -389,17 +389,17 @@ public class RepeatControlSet extends PopupControlSet {
     }
 
     @Override
-    protected Dialog buildDialog(String title, final DialogInterface.OnClickListener okListener, final DialogInterface.OnCancelListener cancelListener) {
+    protected Dialog buildDialog(String title, final PopupDialogClickListener okListener, final DialogInterface.OnCancelListener cancelListener) {
 
-        DialogInterface.OnClickListener doRepeatButton = new DialogInterface.OnClickListener() {
+        PopupDialogClickListener doRepeatButton = new PopupDialogClickListener() {
             @Override
-            public void onClick(DialogInterface d, int which) {
+            public boolean onClick(DialogInterface d, int which) {
                 doRepeat = true;
-                okListener.onClick(d, which);
 
                 for (RepeatChangedListener l : listeners) {
                     l.repeatChanged(doRepeat);
                 }
+                return okListener.onClick(d, which);
             }
         };
         final Dialog d = super.buildDialog(title, doRepeatButton, cancelListener);

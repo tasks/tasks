@@ -176,10 +176,10 @@ public class TaskRabbitNameControlSet extends PopupControlSet implements TaskRab
     }
 
     @Override
-    protected void onOkClick() {
-        super.onOkClick();
+    protected boolean onOkClick() {
         InputMethodManager imm = (InputMethodManager)activity.getSystemService(Context.INPUT_METHOD_SERVICE);
         imm.hideSoftInputFromWindow(editText.getWindowToken(), 0);
+        return super.onOkClick();
     }
 
     @Override

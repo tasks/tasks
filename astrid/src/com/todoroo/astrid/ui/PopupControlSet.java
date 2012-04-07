@@ -27,10 +27,14 @@ public abstract class PopupControlSet extends TaskEditControlSet {
     protected final TextView displayText;
     private final String titleString;
 
-    final DialogInterface.OnClickListener okListener = new DialogInterface.OnClickListener() {
+    public interface PopupDialogClickListener {
+        public boolean onClick(DialogInterface d, int which);
+    }
+
+    final PopupDialogClickListener okListener = new PopupDialogClickListener() {
         @Override
-        public void onClick(DialogInterface d, int which) {
-            onOkClick();
+        public boolean onClick(DialogInterface d, int which) {
+            return onOkClick();
         }
     };
 
@@ -66,7 +70,7 @@ public abstract class PopupControlSet extends TaskEditControlSet {
         return displayView;
     }
 
-    protected Dialog buildDialog(String title, final DialogInterface.OnClickListener okClickListener, DialogInterface.OnCancelListener cancelClickListener) {
+    protected Dialog buildDialog(String title, final PopupDialogClickListener okClickListener, DialogInterface.OnCancelListener cancelClickListener) {
         int theme = ThemeService.getEditDialogTheme();
         dialog = new Dialog(activity, theme);
         if (title.length() == 0)
@@ -82,8 +86,8 @@ public abstract class PopupControlSet extends TaskEditControlSet {
             dismiss.setOnClickListener(new OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    okClickListener.onClick(dialog, 0);
-                    DialogUtilities.dismissDialog(activity, dialog);
+                    if (okClickListener.onClick(dialog, 0))
+                        DialogUtilities.dismissDialog(activity, dialog);
                 }
             });
         }
@@ -122,8 +126,13 @@ public abstract class PopupControlSet extends TaskEditControlSet {
         // Subclasses can override
     }
 
-    protected void onOkClick() {
+    /**
+     * @return true if the dialog should be dismissed as the result of
+     * the click. Default is true.
+     */
+    protected boolean onOkClick() {
         refreshDisplayView();
+        return true;
     }
 
     protected void onCancelClick() {
