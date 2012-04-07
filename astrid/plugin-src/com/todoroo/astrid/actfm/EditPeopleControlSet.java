@@ -962,6 +962,21 @@ public class EditPeopleControlSet extends PopupControlSet {
     }
 
     @Override
+    protected boolean onOkClick() {
+        if (!TextUtils.isEmpty(assignedCustom.getText())) {
+            JSONObject assigned = PeopleContainer.createUserJson(assignedCustom);
+            String email = assigned.optString("email"); //$NON-NLS-1$
+            if (!TextUtils.isEmpty(email) && email.indexOf('@') == -1) {
+                assignedCustom.requestFocus();
+                DialogUtilities.okDialog(activity, activity.getString(R.string.actfm_EPA_invalid_email,
+                        assigned.optString("email")), null); //$NON-NLS-1$
+                return false;
+            }
+        }
+        return super.onOkClick();
+    }
+
+    @Override
     protected void additionalDialogSetup() {
         super.additionalDialogSetup();
         dialog.getWindow()
