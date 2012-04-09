@@ -60,7 +60,7 @@ public class Filter extends FilterListItem {
      * Field for holding a modified sqlQuery based on sqlQuery. Useful for adjusting
      * query for sort/subtasks without breaking the equality checking based on sqlQuery.
      */
-    protected String adjustedSqlQuery;
+    protected String filterOverride;
 
     /**
      * Values to apply to a task when quick-adding a task from this filter.
@@ -105,13 +105,13 @@ public class Filter extends FilterListItem {
         this.listingTitle = listingTitle;
         this.title = title;
         this.sqlQuery = sqlQuery;
-        this.adjustedSqlQuery = null;
+        this.filterOverride = null;
         this.valuesForNewTasks = valuesForNewTasks;
     }
 
     public String getSqlQuery() {
-        if (adjustedSqlQuery != null)
-            return adjustedSqlQuery;
+        if (filterOverride != null)
+            return filterOverride;
         return sqlQuery;
     }
 
@@ -119,8 +119,8 @@ public class Filter extends FilterListItem {
         this.sqlQuery = sqlQuery;
     }
 
-    public void setAdjustedSqlQuery(String adjustedSqlQuery) {
-        this.adjustedSqlQuery = adjustedSqlQuery;
+    public void setFilterOverrideQuery(String filterOverride) {
+        this.filterOverride = filterOverride;
     }
 
     /**

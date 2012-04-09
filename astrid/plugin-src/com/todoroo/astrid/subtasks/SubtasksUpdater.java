@@ -109,7 +109,7 @@ public class SubtasksUpdater extends OrderedListUpdater<String> {
             query = query.replace(TaskCriteria.isVisible().toString(),
                     Criterion.all.toString());
 
-            filter.setAdjustedSqlQuery(query);
+            filter.setFilterOverrideQuery(query);
         }
     }
 
