@@ -254,7 +254,8 @@ public class DraggableListView extends ListView {
                 if (dragThread != null && mClickListener != null) {
                     dragThread.interrupt();
                     dragThread = null;
-                    mClickListener.onClick(viewAtPosition());
+                    if (action == MotionEvent.ACTION_UP)
+                        mClickListener.onClick(viewAtPosition());
                 }
 
                 else if (mSwipeListener != null &&
@@ -482,7 +483,6 @@ public class DraggableListView extends ListView {
         unExpandViews(false);
 
         if (mDragView != null) {
-            System.err.println("removing view");
             WindowManager wm = (WindowManager) getContext().getSystemService(
                     Context.WINDOW_SERVICE);
             wm.removeView(mDragView);
