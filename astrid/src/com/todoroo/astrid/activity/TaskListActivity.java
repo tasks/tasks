@@ -196,15 +196,6 @@ public class TaskListActivity extends AstridActivity implements MainMenuListener
     }
 
     @Override
-    public void setupTasklistFragmentWithFilter(Filter filter, Bundle extras) {
-        if (fragmentLayout == LAYOUT_SINGLE) {
-            tlfPager.showFilter(filter);
-        } else {
-            super.setupTasklistFragmentWithFilter(filter, extras);
-        }
-    }
-
-    @Override
     public void setupTasklistFragmentWithFilterAndCustomTaskList(Filter filter, Bundle extras, Class<?> customTaskList) {
         if (fragmentLayout == LAYOUT_SINGLE) {
             tlfPager.showFilterWithCustomTaskList(filter, customTaskList);

@@ -201,12 +201,8 @@ public class AstridActivity extends FragmentActivity
     public void setupTasklistFragmentWithFilter(Filter filter, Bundle extras) {
         Class<?> customTaskList = TaskListFragment.class;
 
-        if(filter == null || CoreFilterExposer.isInbox(filter)) {
-            SharedPreferences publicPrefs = AstridPreferences.getPublicPrefs(this);
-            int sortFlags = publicPrefs.getInt(SortHelper.PREF_SORT_FLAGS, 0);
-            if(SortHelper.isManualSort(sortFlags))
-                customTaskList = SubtasksListFragment.class;
-        }
+        if (shouldUseSubtasksFragmentForFilter(filter))
+            customTaskList = SubtasksListFragment.class;
 
         setupTasklistFragmentWithFilterAndCustomTaskList(filter, extras, customTaskList);
     }
@@ -230,6 +226,16 @@ public class AstridActivity extends FragmentActivity
             // Don't worry about it
             e.printStackTrace();
         }
+    }
+
+    public boolean shouldUseSubtasksFragmentForFilter(Filter filter) {
+        if(filter == null || CoreFilterExposer.isInbox(filter)) {
+            SharedPreferences publicPrefs = AstridPreferences.getPublicPrefs(this);
+            int sortFlags = publicPrefs.getInt(SortHelper.PREF_SORT_FLAGS, 0);
+            if(SortHelper.isManualSort(sortFlags))
+                return true;
+        }
+        return false;
     }
 
     @Override
