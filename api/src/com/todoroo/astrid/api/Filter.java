@@ -102,6 +102,8 @@ public class Filter extends FilterListItem {
         this.valuesForNewTasks = valuesForNewTasks;
     }
 
+
+
     /**
      * Utility constructor
      *

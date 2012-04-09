@@ -73,7 +73,7 @@ public class SyncActionHelper {
 
         this.activity = activity;
         this.fragment = fragment;
-        syncResultCallback = new ProgressBarSyncResultCallback(activity,
+        syncResultCallback = new ProgressBarSyncResultCallback(activity, fragment,
                 R.id.progressBar, new Runnable() {
                     @Override
                     public void run() {
