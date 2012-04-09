@@ -855,7 +855,7 @@ public class TaskListFragment extends ListFragment implements OnScrollListener,
             return;
 
         sqlQueryTemplate.set(SortHelper.adjustQueryForFlagsAndSort(
-                filter.sqlQuery, sortFlags, sortSort));
+                filter.getSqlQuery(), sortFlags, sortSort));
 
         // perform query
         TodorooCursor<Task> currentCursor;

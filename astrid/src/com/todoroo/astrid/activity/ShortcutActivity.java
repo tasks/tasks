@@ -161,7 +161,7 @@ public class ShortcutActivity extends Activity {
         shortcutIntent.putExtra(ShortcutActivity.TOKEN_FILTER_TITLE,
                 filter.title);
         shortcutIntent.putExtra(ShortcutActivity.TOKEN_FILTER_SQL,
-                filter.sqlQuery);
+                filter.getSqlQuery());
         if (filter.valuesForNewTasks != null) {
             for (Entry<String, Object> item : filter.valuesForNewTasks.valueSet()) {
                 String key = TOKEN_FILTER_VALUES_ITEM + item.getKey();

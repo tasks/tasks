@@ -54,7 +54,13 @@ public class Filter extends FilterListItem {
      *      metadata.value = 'b' GROUP BY tasks.id ORDER BY tasks.title"</code>
      * </ul>
      */
-    public String sqlQuery;
+    protected String sqlQuery;
+
+    /**
+     * Field for holding a modified sqlQuery based on sqlQuery. Useful for adjusting
+     * query for sort/subtasks without breaking the equality checking based on sqlQuery.
+     */
+    protected String adjustedSqlQuery;
 
     /**
      * Values to apply to a task when quick-adding a task from this filter.
@@ -99,10 +105,23 @@ public class Filter extends FilterListItem {
         this.listingTitle = listingTitle;
         this.title = title;
         this.sqlQuery = sqlQuery;
+        this.adjustedSqlQuery = null;
         this.valuesForNewTasks = valuesForNewTasks;
     }
 
+    public String getSqlQuery() {
+        if (adjustedSqlQuery != null)
+            return adjustedSqlQuery;
+        return sqlQuery;
+    }
 
+    public void setSqlQuery(String sqlQuery) {
+        this.sqlQuery = sqlQuery;
+    }
+
+    public void setAdjustedSqlQuery(String adjustedSqlQuery) {
+        this.adjustedSqlQuery = adjustedSqlQuery;
+    }
 
     /**
      * Utility constructor

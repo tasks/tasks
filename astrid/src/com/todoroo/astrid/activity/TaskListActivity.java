@@ -208,6 +208,7 @@ public class TaskListActivity extends AstridActivity implements MainMenuListener
     public void setupTasklistFragmentWithFilterAndCustomTaskList(Filter filter, Bundle extras, Class<?> customTaskList) {
         if (fragmentLayout == LAYOUT_SINGLE) {
             tlfPager.showFilterWithCustomTaskList(filter, customTaskList);
+            tlfPager.setAdapter(tlfPagerAdapter); // Hack to force reload of current page
         } else {
             super.setupTasklistFragmentWithFilterAndCustomTaskList(filter, extras, customTaskList);
         }
@@ -640,7 +641,7 @@ public class TaskListActivity extends AstridActivity implements MainMenuListener
                 Filter currentlyShowing = getIntent().getParcelableExtra(TaskListFragment.TOKEN_FILTER);
                 if (currentlyShowing != null) {
                     boolean titlesMatch = currentlyShowing.title != null && currentlyShowing.title.equals(deletedTag);
-                    boolean sqlMatches = currentlyShowing.sqlQuery != null && currentlyShowing.sqlQuery.equals(deletedTagSql);
+                    boolean sqlMatches = currentlyShowing.getSqlQuery() != null && currentlyShowing.getSqlQuery().equals(deletedTagSql);
                     if (titlesMatch && sqlMatches)
                         fl.switchToActiveTasks();
                 }
