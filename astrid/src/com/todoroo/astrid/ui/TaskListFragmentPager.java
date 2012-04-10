@@ -4,10 +4,12 @@ import android.content.Context;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.util.AttributeSet;
+import android.view.MotionEvent;
 
 import com.todoroo.astrid.activity.TaskListFragment;
 import com.todoroo.astrid.adapter.TaskListFragmentPagerAdapter;
 import com.todoroo.astrid.api.Filter;
+import com.todoroo.astrid.utility.Flags;
 
 public class TaskListFragmentPager extends ViewPager {
 
@@ -51,5 +53,12 @@ public class TaskListFragmentPager extends ViewPager {
      */
     public TaskListFragment getCurrentFragment() {
         return (TaskListFragment) ((TaskListFragmentPagerAdapter) getAdapter()).lookupFragmentForPosition(getCurrentItem());
+    }
+
+    @Override
+    public boolean onInterceptTouchEvent(MotionEvent ev) {
+        if (!Flags.check(Flags.TLFP_NO_INTERCEPT_TOUCH))
+            return super.onInterceptTouchEvent(ev);
+        return false;
     }
 }
