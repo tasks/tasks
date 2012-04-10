@@ -207,7 +207,6 @@ public class PeopleContainer extends LinearLayout {
         JSONArray peopleList = new JSONArray();
         for(int i = 0; i < getChildCount(); i++) {
             TextView textView = getTextView(i);
-            textView.setTextAppearance(activity, android.R.style.TextAppearance_Medium_Inverse);
             String text = textView.getText().toString();
 
             if(text.length() == 0)
