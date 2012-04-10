@@ -103,6 +103,8 @@ public class ActFmSyncV2Provider extends SyncV2Provider {
 
     private static final String LAST_TAG_FETCH_TIME = "actfm_lastTag"; //$NON-NLS-1$
 
+    private static final String LAST_USERS_FETCH_TIME = "actfm_lastUsers";  //$NON-NLS-1$
+
     // --- synchronize active tasks
 
     @Override
@@ -112,11 +114,14 @@ public class ActFmSyncV2Provider extends SyncV2Provider {
         new Thread(new Runnable() {
             public void run() {
                 callback.started();
-                callback.incrementMax(100);
+                callback.incrementMax(120);
 
-                final AtomicInteger finisher = new AtomicInteger(2);
+                final AtomicInteger finisher = new AtomicInteger(3);
 
                 actFmPreferenceService.recordSyncStart();
+
+
+                startUsersFetcher(manual, callback, finisher);
 
                 startTagFetcher(callback, finisher);
 
@@ -124,6 +129,31 @@ public class ActFmSyncV2Provider extends SyncV2Provider {
                 startTaskFetcher(manual, callback, finisher);
 
                 callback.incrementProgress(50);
+            }
+        }).start();
+    }
+
+    /** fetch changes to users/friends */
+    private void startUsersFetcher(final boolean manual, final SyncResultCallback callback,
+            final AtomicInteger finisher) {
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                int time = manual ? 0 : Preferences.getInt(LAST_USERS_FETCH_TIME, 0);
+                try {
+                    time = actFmSyncService.fetchUsers(time);
+                    Preferences.setInt(LAST_USERS_FETCH_TIME, time);
+                } catch (JSONException e) {
+                    handler.handleException("actfm-sync", e, e.toString()); //$NON-NLS-1$
+                } catch (IOException e) {
+                    handler.handleException("actfm-sync", e, e.toString()); //$NON-NLS-1$
+                } finally {
+                    callback.incrementProgress(20);
+                    if(finisher.decrementAndGet() == 0) {
+                        actFmPreferenceService.recordSuccessfulSync();
+                        callback.finished();
+                    }
+                }
             }
         }).start();
     }

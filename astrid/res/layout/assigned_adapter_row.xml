@@ -2,12 +2,12 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:astrid="http://schemas.android.com/apk/res/com.timsu.astrid"
     android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
+    android:layout_height="wrap_content"
     android:paddingLeft="8dip">
 
     <com.todoroo.astrid.helper.AsyncImageView android:id="@+id/person_image"
-        android:layout_width="40dip"
-        android:layout_height="44dip"
+        android:layout_width="35dip"
+        android:layout_height="35dip"
         android:gravity="center"
         android:layout_gravity="center_vertical"
         android:scaleType="fitCenter"
@@ -15,8 +15,8 @@
 	<CheckedTextView
 		android:id="@android:id/text1"
 		android:layout_width="match_parent"
-		android:layout_height="?android:attr/listPreferredItemHeight"
-		android:textAppearance="?android:attr/textAppearanceLarge"
+		android:layout_height="wrap_content"
+		style="@style/TextAppearance.TEA_assigned"
 		android:textColor="?attr/asTextColor"
 		android:gravity="center_vertical"
 		android:checkMark="?android:attr/listChoiceIndicatorSingle"

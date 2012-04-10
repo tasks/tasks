@@ -23,8 +23,16 @@
           android:layout_width="32dip"
           android:layout_height="32dip"
           android:layout_gravity="center"
+          android:layout_marginLeft="2dip"
+          android:gravity="center_vertical" />
+        <Button
+          android:id="@+id/edit_dlg_ok"
+		  android:background="@drawable/btn_add"
+          android:layout_width="32dip"
+          android:layout_height="32dip"
+          android:layout_gravity="center"
+          android:layout_marginLeft="2dip"
           android:layout_marginRight="3dip"
-          android:layout_marginLeft="4dip"
           android:gravity="center_vertical" />
     </LinearLayout>
     
@@ -33,6 +41,5 @@
 	    android:layout_width="fill_parent"
 	    android:layout_height="fill_parent"
 	    android:layout_weight="100"/>
-	<include layout="@layout/control_dialog_ok"/>
     
 </LinearLayout>

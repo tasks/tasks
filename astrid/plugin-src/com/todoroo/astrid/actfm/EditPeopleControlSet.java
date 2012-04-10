@@ -15,7 +15,10 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.database.Cursor;
 import android.graphics.Color;
+import android.net.Uri;
+import android.provider.ContactsContract;
 import android.support.v4.app.Fragment;
 import android.text.TextUtils;
 import android.util.DisplayMetrics;
@@ -37,17 +40,23 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.commonsware.cwac.merge.MergeAdapter;
 import com.timsu.astrid.R;
 import com.todoroo.andlib.data.TodorooCursor;
 import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.andlib.service.ExceptionService;
+import com.todoroo.andlib.sql.Order;
+import com.todoroo.andlib.sql.Query;
 import com.todoroo.andlib.utility.DialogUtilities;
 import com.todoroo.astrid.actfm.sync.ActFmPreferenceService;
 import com.todoroo.astrid.actfm.sync.ActFmSyncService;
+import com.todoroo.astrid.activity.TaskEditFragment;
+import com.todoroo.astrid.dao.UserDao;
 import com.todoroo.astrid.data.Metadata;
 import com.todoroo.astrid.data.TagData;
 import com.todoroo.astrid.data.Task;
+import com.todoroo.astrid.data.User;
 import com.todoroo.astrid.helper.AsyncImageView;
 import com.todoroo.astrid.service.AstridDependencyInjector;
 import com.todoroo.astrid.service.MetadataService;
@@ -64,6 +73,8 @@ public class EditPeopleControlSet extends PopupControlSet {
 
     public static final String EXTRA_TASK_ID = "task"; //$NON-NLS-1$
 
+    private static final String CONTACT_CHOOSER_USER = "the_contact_user"; //$NON-NLS-1$
+
     private Task task;
 
     private final ArrayList<Metadata> nonSharedTags = new ArrayList<Metadata>();
@@ -73,6 +84,8 @@ public class EditPeopleControlSet extends PopupControlSet {
     @Autowired ActFmSyncService actFmSyncService;
 
     @Autowired TaskService taskService;
+
+    @Autowired UserDao userDao;
 
     @Autowired MetadataService metadataService;
 
@@ -102,15 +115,17 @@ public class EditPeopleControlSet extends PopupControlSet {
 
     private final View assignedClear;
 
-    private final ArrayList<AssignedToUser> listValues = new ArrayList<AssignedToUser>();
-
     private final int loginRequestCode;
 
     private boolean assignedToMe = false;
 
     private AssignedToUser taskRabbitUser = null;
 
+    private AssignedToUser contactPickerUser = null;
+
     private boolean loadedUI = false;
+
+    private boolean dontClearAssignedCustom = false;
 
     private final List<AssignedChangedListener> listeners = new LinkedList<AssignedChangedListener>();
 
@@ -175,7 +190,9 @@ public class EditPeopleControlSet extends PopupControlSet {
     @Override
     public void readFromTask(Task sourceTask) {
         setTask(sourceTask);
-        assignedCustom.setText(""); //$NON-NLS-1$
+        if (!dontClearAssignedCustom)
+            assignedCustom.setText(""); //$NON-NLS-1$
+        dontClearAssignedCustom = false;
         setUpData(task, null);
     }
 
@@ -333,112 +350,200 @@ public class EditPeopleControlSet extends PopupControlSet {
         HashSet<String> emails = new HashSet<String>();
         HashMap<String, AssignedToUser> names = new HashMap<String, AssignedToUser>();
 
+        ArrayList<AssignedToUser> coreUsers = new ArrayList<AssignedToUser>();
+        ArrayList<AssignedToUser> listUsers = new ArrayList<AssignedToUser>();
+        ArrayList<AssignedToUser> astridUsers = new ArrayList<AssignedToUser>();
+
         int assignedIndex = 0;
         try {
-            if(t.getValue(Task.USER_ID) > 0) {
-                JSONObject user = new JSONObject(t.getValue(Task.USER));
-                sharedPeople.add(0, user);
-            }
-
+            ArrayList<JSONObject> coreUsersJson = new ArrayList<JSONObject>();
             JSONObject myself = new JSONObject();
             myself.put("id", Task.USER_ID_SELF);
-            sharedPeople.add(0, myself);
+            myself.put("picture", ActFmPreferenceService.thisUser().optString("picture"));
+            coreUsersJson.add(myself);
 
-            boolean hasTags = t.getTransitory(TaskService.TRANS_TAGS) != null &&
-                    ((HashSet<String>)t.getTransitory(TaskService.TRANS_TAGS)).size() > 0;
-            if (actFmPreferenceService.isLoggedIn() && hasTags) {
+            boolean hasTags = t.getTransitory("tags") != null &&
+                    ((HashSet<String>)t.getTransitory("tags")).size() > 0;
+            boolean addUnassigned = actFmPreferenceService.isLoggedIn() && hasTags;
+            if (addUnassigned) {
                 JSONObject unassigned = new JSONObject();
                 unassigned.put("id", Task.USER_ID_UNASSIGNED);
-                sharedPeople.add(1, unassigned);
+                unassigned.put("default_picture", R.drawable.icn_anyone);
+                coreUsersJson.add(unassigned);
             }
+
+            if(t.getValue(Task.USER_ID) > 0) {
+                JSONObject user = new JSONObject(t.getValue(Task.USER));
+                coreUsersJson.add(0, user);
+            }
+
+            ArrayList<JSONObject> astridFriends = getAstridFriends();
 
             // de-duplicate by user id and/or email
-            listValues.clear();
-            for(int i = 0; i < sharedPeople.size(); i++) {
-                JSONObject person = sharedPeople.get(i);
-                if(person == null)
-                    continue;
-                long id = person.optLong("id", -2);
-                if(id == ActFmPreferenceService.userId() || (id >= -1 && userIds.contains(id)))
-                    continue;
-                userIds.add(id);
+            coreUsers = convertJsonUsersToAssignedUsers(coreUsersJson, userIds, emails, names);
+            listUsers = convertJsonUsersToAssignedUsers(sharedPeople, userIds, emails, names);
+            astridUsers = convertJsonUsersToAssignedUsers(astridFriends, userIds, emails, names);
 
-                String email = person.optString("email");
-                if(!TextUtils.isEmpty(email) && emails.contains(email))
-                    continue;
-                emails.add(email);
-
-                String name = person.optString("name");
-                if(id == 0)
-                    name = activity.getString(R.string.actfm_EPA_assign_me);
-                if (id == -1)
-                    name = activity.getString(R.string.actfm_EPA_unassigned);
-
-                AssignedToUser atu = new AssignedToUser(name, person);
-                listValues.add(atu);
-                if(names.containsKey(name)) {
-                    AssignedToUser user = names.get(name);
-                    if(user != null && user.user.has("email")) {
-                        user.label += " (" + user.user.optString("email") + ")";
-                        names.put(name, null);
-                    }
-                    if(!TextUtils.isEmpty("email"))
-                        atu.label += " (" + email + ")";
-                } else if(TextUtils.isEmpty(name)) {
-                    if(!TextUtils.isEmpty("email"))
-                        atu.label = email;
-                    else
-                        listValues.remove(atu);
-                } else
-                    names.put(name, atu);
-            }
-
-            String assignedStr = t.getValue(Task.USER);
-            if (!TextUtils.isEmpty(assignedStr)) {
-                JSONObject assigned = new JSONObject(assignedStr);
-                long assignedId = assigned.optLong("id", -2);
-                String assignedEmail = assigned.optString("email");
-                for (int i = 0; i < listValues.size(); i++) {
-                    JSONObject user = listValues.get(i).user;
-                    if (user != null) {
-                        if (user.optLong("id") == assignedId ||
-                                (user.optString("email").equals(assignedEmail) &&
-                                        !(TextUtils.isEmpty(assignedEmail))))
-                            assignedIndex = i;
-                    }
-                }
-            }
+            contactPickerUser = new AssignedToUser(activity.getString(R.string.actfm_EPA_choose_contact),
+                    new JSONObject().put("default_picture", R.drawable.icn_friends)
+                    .put(CONTACT_CHOOSER_USER, true));
+            int contactsIndex = addUnassigned ? 2 : 1;
+            coreUsers.add(contactsIndex, contactPickerUser);
 
             for (AssignedChangedListener l : listeners) {
                 if (l.shouldShowTaskRabbit()) {
                     taskRabbitUser = new AssignedToUser(activity.getString(R.string.actfm_EPA_task_rabbit), new JSONObject().put("default_picture", R.drawable.task_rabbit_image));
-                    listValues.add(taskRabbitUser);
+                    int taskRabbitIndex = addUnassigned ? 3 : 2;
+                    coreUsers.add(taskRabbitIndex, taskRabbitUser);
                     if(l.didPostToTaskRabbit()){
-                        assignedIndex = listValues.size()-1;
+                        assignedIndex = taskRabbitIndex;
                     }
                 }
             }
+
+            if (assignedIndex == 0) {
+                assignedIndex = findAssignedIndex(t, coreUsers, listUsers, astridUsers);
+            }
+
         } catch (JSONException e) {
             exceptionService.reportError("json-reading-data", e);
         }
 
         selected = assignedIndex;
 
-        final AssignedUserAdapter usersAdapter = new AssignedUserAdapter(activity, listValues);
+        final MergeAdapter mergeAdapter = new MergeAdapter();
+        AssignedUserAdapter coreUserAdapter = new AssignedUserAdapter(activity, coreUsers, 0);
+        AssignedUserAdapter listUserAdapter = new AssignedUserAdapter(activity, listUsers, coreUserAdapter.getCount() + 1);
+        int offsetForAstridUsers = listUserAdapter.getCount() > 0 ? 2 : 1;
+        AssignedUserAdapter astridUserAdapter = new AssignedUserAdapter(activity, astridUsers, coreUserAdapter.getCount() + listUserAdapter.getCount() + offsetForAstridUsers);
+
+        LayoutInflater inflater = activity.getLayoutInflater();
+        TextView header1 = (TextView) inflater.inflate(R.layout.list_header, null);
+        header1.setText(R.string.actfm_EPA_assign_header_members);
+        TextView header2 = (TextView) inflater.inflate(R.layout.list_header, null);
+        header2.setText(R.string.actfm_EPA_assign_header_friends);
+
+        mergeAdapter.addAdapter(coreUserAdapter);
+        if (listUserAdapter.getCount() > 0) {
+            mergeAdapter.addView(header1);
+            mergeAdapter.addAdapter(listUserAdapter);
+        }
+        if (astridUserAdapter.getCount() > 0) {
+            mergeAdapter.addView(header2);
+            mergeAdapter.addAdapter(astridUserAdapter);
+        }
+
         activity.runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                assignedList.setAdapter(usersAdapter);
+                assignedList.setAdapter(mergeAdapter);
                 assignedList.setItemChecked(selected, true);
                 refreshDisplayView();
             }
         });
     }
 
+    @SuppressWarnings("nls")
+    private ArrayList<AssignedToUser> convertJsonUsersToAssignedUsers(ArrayList<JSONObject> jsonUsers,
+            HashSet<Long> userIds, HashSet<String> emails, HashMap<String, AssignedToUser> names) {
+        ArrayList<AssignedToUser> users = new ArrayList<AssignedToUser>();
+        for(int i = 0; i < jsonUsers.size(); i++) {
+            JSONObject person = jsonUsers.get(i);
+            if(person == null)
+                continue;
+            long id = person.optLong("id", -2);
+            if(id == ActFmPreferenceService.userId() || (id >= -1 && userIds.contains(id)))
+                continue;
+            userIds.add(id);
+
+            String email = person.optString("email");
+            if(!TextUtils.isEmpty(email) && emails.contains(email))
+                continue;
+            emails.add(email);
+
+            String name = person.optString("name");
+            if(id == 0)
+                name = activity.getString(R.string.actfm_EPA_assign_me);
+            if (id == -1)
+                name = activity.getString(R.string.actfm_EPA_unassigned);
+
+            AssignedToUser atu = new AssignedToUser(name, person);
+            users.add(atu);
+            if(names.containsKey(name)) {
+                AssignedToUser user = names.get(name);
+                if(user != null && user.user.has("email")) {
+                    user.label += " (" + user.user.optString("email") + ")";
+                    names.put(name, null);
+                }
+                if(!TextUtils.isEmpty("email"))
+                    atu.label += " (" + email + ")";
+            } else if(TextUtils.isEmpty(name)) {
+                if(!TextUtils.isEmpty("email"))
+                    atu.label = email;
+                else
+                    users.remove(atu);
+            } else
+                names.put(name, atu);
+        }
+        return users;
+    }
+
+    @SuppressWarnings("nls")
+    private int findAssignedIndex(Task t, ArrayList<AssignedToUser>... userLists) throws JSONException {
+        String assignedStr = t.getValue(Task.USER);
+        if (!TextUtils.isEmpty(assignedStr)) {
+            JSONObject assigned = new JSONObject(assignedStr);
+            long assignedId = assigned.optLong("id", -2);
+            String assignedEmail = assigned.optString("email");
+
+            int index = 0;
+            for (ArrayList<AssignedToUser> userList : userLists) {
+                for (int i = 0; i < userList.size(); i++) {
+                    JSONObject user = userList.get(i).user;
+                    if (user != null) {
+                        if (user.optLong("id") == assignedId ||
+                                (user.optString("email").equals(assignedEmail) &&
+                                        !(TextUtils.isEmpty(assignedEmail))))
+                            return index;
+                    }
+                    index++;
+                }
+                index++; // Add one for headers separating user lists
+            }
+        }
+        return 0;
+    }
+
+    private ArrayList<JSONObject> getAstridFriends() {
+        ArrayList<JSONObject> astridFriends = new ArrayList<JSONObject>();
+        TodorooCursor<User> users = userDao.query(Query.select(User.PROPERTIES).orderBy(Order.asc(User.NAME)));
+        try {
+            User user = new User();
+            for (users.moveToFirst(); !users.isAfterLast(); users.moveToNext()) {
+                user.readFromCursor(users);
+                JSONObject userJson = new JSONObject();
+                try {
+                    ActFmSyncService.JsonHelper.jsonFromUser(userJson, user);
+                    astridFriends.add(userJson);
+                } catch (JSONException e) {
+                    // Ignored
+                }
+            }
+        } finally {
+            users.close();
+        }
+        return astridFriends;
+    }
+
+
+
     private class AssignedUserAdapter extends ArrayAdapter<AssignedToUser> {
 
-        public AssignedUserAdapter(Context context, ArrayList<AssignedToUser> people)  {
+        private final int positionOffset;
+
+        public AssignedUserAdapter(Context context, ArrayList<AssignedToUser> people, int positionOffset)  {
             super(context, R.layout.assigned_adapter_row, people);
+            this.positionOffset = positionOffset;
         }
 
         @SuppressWarnings("nls")
@@ -448,21 +553,14 @@ public class EditPeopleControlSet extends PopupControlSet {
                 convertView = activity.getLayoutInflater().inflate(R.layout.assigned_adapter_row, parent, false);
             CheckedTextView ctv = (CheckedTextView) convertView.findViewById(android.R.id.text1);
             super.getView(position, ctv, parent);
-            if (assignedList.getCheckedItemPosition() == position) {
+            if (assignedList.getCheckedItemPosition() == position + positionOffset) {
                 ctv.setChecked(true);
             } else {
                 ctv.setChecked(false);
             }
             AsyncImageView image = (AsyncImageView) convertView.findViewById(R.id.person_image);
             image.setDefaultImageResource(R.drawable.icn_default_person_image);
-            if (position == 0) {
-                image.setUrl(ActFmPreferenceService.thisUser().optString("picture"));
-            } else if (position == 1) {
-                image.setUrl("");
-                image.setDefaultImageResource(R.drawable.icn_anyone);
-            } else {
-                image.setUrl(getItem(position).user.optString("picture"));
-            }
+            image.setUrl(getItem(position).user.optString("picture"));
             if (getItem(position).user.optInt("default_picture", 0) > 0) {
                 image.setDefaultImageResource(getItem(position).user.optInt("default_picture"));
             }
@@ -487,8 +585,6 @@ public class EditPeopleControlSet extends PopupControlSet {
 
                 for (AssignedChangedListener l : listeners) {
                     if(l.showTaskRabbitForUser(user.label, user.user)) {
-//                        assignedList.setItemChecked(selected, true);
-//                        assignedList.setItemChecked(position, false);
                         assignedDisplay.setText(user.toString());
                         assignedCustom.setText(""); //$NON-NLS-1$
                         DialogUtilities.dismissDialog(activity, dialog);
@@ -496,6 +592,13 @@ public class EditPeopleControlSet extends PopupControlSet {
                     }
 
                 }
+
+                if (user.user.has(CONTACT_CHOOSER_USER)) {
+                    Intent intent = new Intent(Intent.ACTION_PICK, ContactsContract.Contacts.CONTENT_URI);
+                    fragment.startActivityForResult(intent, TaskEditFragment.REQUEST_CODE_CONTACT);
+                    return;
+                }
+
                 assignedDisplay.setText(user.toString());
                 assignedCustom.setText(""); //$NON-NLS-1$
                 selected = position;
@@ -584,10 +687,7 @@ public class EditPeopleControlSet extends PopupControlSet {
                     return true;
                 AssignedToUser item = (AssignedToUser) assignedList.getAdapter().getItem(assignedList.getCheckedItemPosition());
                 if (item != null) {
-                    if (item.equals(taskRabbitUser)) { //don't want to ever set the user as the task rabbit user
-
-                        /*item = (AssignedToUser) assignedList.getAdapter().getItem(0);
-                        selected = 0;*/
+                    if (item.equals(taskRabbitUser) || item.equals(contactPickerUser)) { //don't want to ever set the user as the task rabbit user
                         return true;
                     }
                     userJson = item.user;
@@ -811,9 +911,42 @@ public class EditPeopleControlSet extends PopupControlSet {
             // clear user values & reset them to trigger a save
             task.clearValue(Task.USER_ID);
             task.clearValue(Task.USER);
-        }
-        else if (requestCode == loginRequestCode)
+        } else if (requestCode == loginRequestCode) {
             makePrivateTask();
+        } else if (requestCode == TaskEditFragment.REQUEST_CODE_CONTACT && resultCode == Activity.RESULT_OK) {
+            Uri contactData = data.getData();
+            String contactId = contactData.getLastPathSegment();
+            String[] args = { contactId };
+            String[] projection = { ContactsContract.CommonDataKinds.Email.DATA };
+            String selection = ContactsContract.CommonDataKinds.Email.CONTACT_ID + " = ?"; //$NON-NLS-1$
+            Cursor emailCursor = activity.managedQuery(ContactsContract.CommonDataKinds.Email.CONTENT_URI, projection, selection, args, null);
+            if (emailCursor.getCount() > 0) {
+                emailCursor.moveToFirst();
+                int emailIndex = emailCursor.getColumnIndex(ContactsContract.CommonDataKinds.Email.DATA);
+                String email = emailCursor.getString(emailIndex);
+                if (!TextUtils.isEmpty(email)) {
+                    String[] nameProjection = { ContactsContract.Contacts.DISPLAY_NAME };
+                    Cursor nameCursor = activity.managedQuery(contactData, nameProjection, null, null, null);
+                    if (nameCursor.getCount() > 0) {
+                        nameCursor.moveToFirst();
+                        int nameIndex = nameCursor.getColumnIndex(ContactsContract.Contacts.DISPLAY_NAME);
+                        String name = nameCursor.getString(nameIndex);
+                        if (!TextUtils.isEmpty(name)) {
+                            StringBuilder fullName = new StringBuilder();
+                            fullName.append(name).append(" <").append(email).append('>'); //$NON-NLS-1$
+                            email = fullName.toString();
+                        }
+                    }
+                    assignedCustom.setText(email);
+                    dontClearAssignedCustom = true;
+                    dialog.dismiss();
+                } else {
+                    DialogUtilities.okDialog(activity, activity.getString(R.string.TEA_contact_error), null);
+                }
+            } else {
+                DialogUtilities.okDialog(activity, activity.getString(R.string.TEA_contact_error), null);
+            }
+        }
     }
 
     @Override
@@ -826,6 +959,21 @@ public class EditPeopleControlSet extends PopupControlSet {
                 user = (AssignedToUser) assignedList.getAdapter().getItem(0);
             assignedDisplay.setText(user.toString());
         }
+    }
+
+    @Override
+    protected boolean onOkClick() {
+        if (!TextUtils.isEmpty(assignedCustom.getText())) {
+            JSONObject assigned = PeopleContainer.createUserJson(assignedCustom);
+            String email = assigned.optString("email"); //$NON-NLS-1$
+            if (!TextUtils.isEmpty(email) && email.indexOf('@') == -1) {
+                assignedCustom.requestFocus();
+                DialogUtilities.okDialog(activity, activity.getString(R.string.actfm_EPA_invalid_email,
+                        assigned.optString("email")), null); //$NON-NLS-1$
+                return false;
+            }
+        }
+        return super.onOkClick();
     }
 
     @Override

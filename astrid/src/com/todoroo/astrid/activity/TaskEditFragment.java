@@ -149,6 +149,7 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
 
     public static final int REQUEST_LOG_IN = 0;
     private static final int REQUEST_VOICE_RECOG = 10;
+    public static final int REQUEST_CODE_CONTACT = 20;
 
     // --- menu codes
 
@@ -1058,11 +1059,9 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (taskRabbitControl != null && taskRabbitControl.activityResult(requestCode, resultCode, data)) {
             return;
-        }
-        else if (editNotes != null && editNotes.activityResult(requestCode, resultCode, data)) {
+        } else if (editNotes != null && editNotes.activityResult(requestCode, resultCode, data)) {
             return;
-        }
-        else if (requestCode == REQUEST_VOICE_RECOG
+        } else if (requestCode == REQUEST_VOICE_RECOG
                 && resultCode == Activity.RESULT_OK) {
             // handle the result of voice recognition, put it into the
             // appropiate textfield

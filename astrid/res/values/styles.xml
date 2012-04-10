@@ -288,6 +288,10 @@
     
     <style name="TextAppearance.GEN_EditLabel.DLG_EditLabel">
     </style>
+
+    <style name="TextAppearance.TEA_assigned">
+        <item name="android:textSize">18sp</item>
+    </style>
    	
    	<style name="Theme.WhenDialog">
    	    <item name="android:windowAnimationStyle">@style/TEA_WhenDialog_Anim</item>
@@ -324,6 +328,13 @@
         <item name="android:textSize">18sp</item>
         <item name="android:textStyle">bold</item>
         <item name="android:textColor">?attr/asTextColor</item>
+    </style>
+    
+    <style name="TEA_list_header">
+        <item name="android:textColor">?attr/asTextColor</item>
+        <item name="android:textSize">18sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:background">#aaaaaaaa</item>
     </style>
    	    
     <!-- ==================================================== TaskAdapter == -->

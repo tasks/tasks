@@ -59,6 +59,7 @@ import com.todoroo.astrid.data.TagData;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.data.TaskApiDao;
 import com.todoroo.astrid.data.Update;
+import com.todoroo.astrid.data.User;
 import com.todoroo.astrid.helper.ImageDiskCache;
 import com.todoroo.astrid.service.MetadataService;
 import com.todoroo.astrid.service.StatisticsConstants;
@@ -727,6 +728,29 @@ public final class ActFmSyncService {
         return result.optInt("time", 0);
     }
 
+    public int fetchUsers(int serverTime) throws JSONException, IOException {
+        if (!checkForToken())
+            return 0;
+
+        JSONObject result = actFmInvoker.invoke("user_list",
+                "token", token, "modified_after", serverTime);
+        JSONArray users = result.getJSONArray("list");
+        HashSet<Long> ids = new HashSet<Long>();
+        for (int i = 0; i < users.length(); i++) {
+            JSONObject userObject = users.getJSONObject(i);
+            ids.add(userObject.optLong("id"));
+            actFmDataService.saveUserData(userObject);
+        }
+
+        if (serverTime == 0) {
+            Long[] allIds = ids.toArray(new Long[ids.size()]);
+            actFmDataService.userDao.deleteWhere(Criterion.not(User.REMOTE_ID.in(allIds)));
+        }
+
+        return result.optInt("time", 0);
+    }
+
+
     /**
      * Fetch active tasks asynchronously
      * @param manual
@@ -1132,6 +1156,20 @@ public final class ActFmSyncService {
 
         protected static long readDate(JSONObject item, String key) {
             return item.optLong(key, 0) * 1000L;
+        }
+
+        public static void userFromJson(JSONObject json, User model) throws JSONException {
+            model.setValue(User.REMOTE_ID, json.getLong("id"));
+            model.setValue(User.NAME, json.optString("name"));
+            model.setValue(User.EMAIL, json.optString("email"));
+            model.setValue(User.PICTURE, json.optString("picture"));
+        }
+
+        public static void jsonFromUser(JSONObject json, User model) throws JSONException {
+            json.put("id", model.getValue(User.REMOTE_ID));
+            json.put("name", model.getValue(User.NAME));
+            json.put("email", model.getValue(User.EMAIL));
+            json.put("picture", model.getValue(User.PICTURE));
         }
 
         public static void updateFromJson(JSONObject json, Update model) throws JSONException {

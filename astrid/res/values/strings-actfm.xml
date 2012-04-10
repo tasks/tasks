@@ -139,6 +139,9 @@
   <!-- task sharing dialog: anyone -->
   <string name="actfm_EPA_unassigned">Unassigned</string>
   
+  <!-- task sharing dialog: choose a contact -->
+  <string name="actfm_EPA_choose_contact">Choose a contact</string>
+  
   <!-- task sharing dialog: use task rabbit -->
   <string name="actfm_EPA_task_rabbit">Outsource it!</string>
   
@@ -166,6 +169,12 @@
   <!-- task sharing dialog: message body -->
   <string name="actfm_EPA_message_body">Help me get this done!</string>
   
+  <!-- task sharing dialog: list members section header -->
+  <string name="actfm_EPA_assign_header_members">List Members</string>
+
+  <!-- task sharing dialog: astrid friends section header -->
+  <string name="actfm_EPA_assign_header_friends">Astrid Friends</string>
+
   <!-- task sharing dialog: message hint -->
   <string name="actfm_EPA_tag_label">Create a shared tag?</string>
   
@@ -196,6 +205,7 @@
   <string name="actfm_EPA_login_button">Log in</string>
   
   <string name="actfm_EPA_dont_share_button">Make private</string>
+  
 
   <!-- ========================================= sharing login activity == -->
 
