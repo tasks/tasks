@@ -74,7 +74,7 @@ public class SubtasksUpdater extends OrderedListUpdater<String> {
     protected void iterateThroughList(Filter filter, String list, OrderedListIterator iterator) {
         TodorooCursor<Task> cursor = taskService.query(Query.select(Task.ID,
                 Metadata.ID.as(METADATA_ID), Metadata.TASK, Metadata.KEY, SubtasksMetadata.INDENT,
-                SubtasksMetadata.ORDER).withQueryTemplate(filter.sqlQuery));
+                SubtasksMetadata.ORDER).withQueryTemplate(filter.getSqlQuery()));
         TodorooCursor<Metadata> metadataCursor = new TodorooCursor<Metadata>(cursor.getCursor(),
                 cursor.getProperties());
         Metadata metadata = new Metadata();
@@ -91,7 +91,7 @@ public class SubtasksUpdater extends OrderedListUpdater<String> {
 
     @SuppressWarnings("nls")
     public void applySubtasksToFilter(Filter filter, String tagName) {
-        String query = filter.sqlQuery;
+        String query = filter.getSqlQuery();
 
         if(tagName == null)
             tagName = SubtasksMetadata.LIST_ACTIVE_TASKS;
@@ -109,7 +109,7 @@ public class SubtasksUpdater extends OrderedListUpdater<String> {
             query = query.replace(TaskCriteria.isVisible().toString(),
                     Criterion.all.toString());
 
-            filter.sqlQuery = query;
+            filter.setFilterOverrideQuery(query);
         }
     }
 

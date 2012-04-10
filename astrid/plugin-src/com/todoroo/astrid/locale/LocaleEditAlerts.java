@@ -162,14 +162,14 @@ public final class LocaleEditAlerts extends ListActivity {
                 if(adapter.getSelection() != null || finalSelection == null)
                     return;
                 if(item instanceof Filter) {
-                    if(finalSelection.equals(((Filter)item).sqlQuery))
+                    if(finalSelection.equals(((Filter)item).getSqlQuery()))
                         adapter.setSelection(item);
                 } else if(item instanceof FilterCategory) {
                     Filter[] filters = ((FilterCategory)item).children;
                     if(filters == null)
                         return;
                     for(Filter filter : filters)
-                        if(finalSelection.equals(filter.sqlQuery)) {
+                        if(finalSelection.equals(filter.getSqlQuery())) {
                             adapter.setSelection(filter);
                             break;
                         }
@@ -242,7 +242,7 @@ public final class LocaleEditAlerts extends ListActivity {
 
                 Filter filterItem = (Filter) selected;
                 storeAndForwardExtras.putString(KEY_FILTER_TITLE, filterItem.title);
-                storeAndForwardExtras.putString(KEY_SQL, filterItem.sqlQuery);
+                storeAndForwardExtras.putString(KEY_SQL, filterItem.getSqlQuery());
                 if(filterItem.valuesForNewTasks != null)
                     storeAndForwardExtras.putString(KEY_VALUES, AndroidUtilities.contentValuesToSerializedString(filterItem.valuesForNewTasks));
                 storeAndForwardExtras.putInt(KEY_INTERVAL, INTERVALS[intervalIndex]);

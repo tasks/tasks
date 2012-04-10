@@ -160,7 +160,7 @@ public class TasksWidget extends AppWidgetProvider {
                 int flags = publicPrefs.getInt(SortHelper.PREF_SORT_FLAGS, 0);
                 int sort = publicPrefs.getInt(SortHelper.PREF_SORT_SORT, 0);
                 String query = SortHelper.adjustQueryForFlagsAndSort(
-                        filter.sqlQuery, flags, sort).replaceAll("LIMIT \\d+", "") + " LIMIT " + numberOfTasks;
+                        filter.getSqlQuery(), flags, sort).replaceAll("LIMIT \\d+", "") + " LIMIT " + numberOfTasks;
 
                 database.openForReading();
                 cursor = taskService.fetchFiltered(query, null, Task.ID, Task.TITLE, Task.DUE_DATE, Task.COMPLETION_DATE);
@@ -219,11 +219,11 @@ public class TasksWidget extends AppWidgetProvider {
                 Bundle extras = AndroidUtilities.bundleFromSerializedString(serializedExtras);
                 listIntent.putExtras(extras);
             }
-            listIntent.putExtra(TaskListFragment.TOKEN_SOURCE, Constants.SOURCE_WIDGET);
+            listIntent.putExtra(TaskListActivity.TOKEN_SOURCE, Constants.SOURCE_WIDGET);
             listIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_MULTIPLE_TASK);
             if(filter != null) {
                 listIntent.putExtra(TaskListFragment.TOKEN_FILTER, filter);
-                listIntent.setAction("L" + widgetId + filter.sqlQuery);
+                listIntent.setAction("L" + widgetId + filter.getSqlQuery());
             } else {
                 listIntent.setAction("L" + widgetId);
             }
@@ -332,7 +332,7 @@ public class TasksWidget extends AppWidgetProvider {
             Filter filter = CoreFilterExposer.buildInboxFilter(getResources());
             String sql = Preferences.getStringValue(WidgetConfigActivity.PREF_SQL + widgetId);
             if(sql != null)
-                filter.sqlQuery = sql;
+                filter.setSqlQuery(sql);
             String title = Preferences.getStringValue(WidgetConfigActivity.PREF_TITLE + widgetId);
             if(title != null)
                 filter.title = title;
@@ -344,7 +344,7 @@ public class TasksWidget extends AppWidgetProvider {
                     + widgetId);
             if (customComponent != null) {
                 ComponentName component = ComponentName.unflattenFromString(customComponent);
-                filter = new FilterWithCustomIntent(filter.title, filter.title, filter.sqlQuery, filter.valuesForNewTasks);
+                filter = new FilterWithCustomIntent(filter.title, filter.title, filter.getSqlQuery(), filter.valuesForNewTasks);
                 ((FilterWithCustomIntent) filter).customTaskList = component;
             }
 

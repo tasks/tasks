@@ -136,7 +136,7 @@ abstract public class WidgetConfigActivity extends ListActivity {
         String sql = null, contentValuesString = null, title = null;
 
         if(filterListItem != null && filterListItem instanceof Filter) {
-            sql = ((Filter)filterListItem).sqlQuery;
+            sql = ((Filter)filterListItem).getSqlQuery();
             ContentValues values = ((Filter)filterListItem).valuesForNewTasks;
             if(values != null)
                 contentValuesString = AndroidUtilities.contentValuesToSerializedString(values);

@@ -28,6 +28,7 @@ import android.support.v4.app.SupportActivity;
 import android.support.v4.view.Menu;
 import android.support.v4.view.MenuItem;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
 import android.view.KeyEvent;
@@ -68,6 +69,7 @@ import com.todoroo.astrid.adapter.TaskAdapter.OnCompletedTaskListener;
 import com.todoroo.astrid.adapter.TaskAdapter.ViewHolder;
 import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.api.Filter;
+import com.todoroo.astrid.api.FilterWithCustomIntent;
 import com.todoroo.astrid.api.TaskContextActionExposer;
 import com.todoroo.astrid.api.TaskDecoration;
 import com.todoroo.astrid.core.CoreFilterExposer;
@@ -146,10 +148,7 @@ public class TaskListFragment extends ListFragment implements OnScrollListener,
     /** token for passing a {@link Filter} object through extras */
     public static final String TOKEN_FILTER = "filter"; //$NON-NLS-1$
 
-    /** token for indicating source of TLA launch */
-    public static final String TOKEN_SOURCE = "source"; //$NON-NLS-1$
-
-    public static final String TOKEN_OVERRIDE_ANIM = "finishAnim"; //$NON-NLS-1$
+    private static final String TOKEN_EXTRAS = "extras"; //$NON-NLS-1$
 
     // --- instance variables
 
@@ -184,10 +183,10 @@ public class TaskListFragment extends ListFragment implements OnScrollListener,
     protected Filter filter;
     protected int sortFlags;
     protected int sortSort;
-    protected boolean overrideFinishAnim;
     protected QuickAddBar quickAddBar;
 
     private Timer backgroundTimer;
+    protected Bundle extras;
     private boolean isInbox;
 
     private final TaskListContextMenuExtensionLoader contextMenuExtensionLoader = new TaskListContextMenuExtensionLoader();
@@ -204,6 +203,57 @@ public class TaskListFragment extends ListFragment implements OnScrollListener,
 
     static {
         AstridDependencyInjector.initialize();
+    }
+
+    /**
+     * Instantiates and returns an instance of TaskListFragment (or some subclass). Custom types of
+     * TaskListFragment can be created, with the following precedence:
+     *
+     * --If the filter is of type {@link FilterWithCustomIntent}, the task list type it specifies will be used
+     * --Otherwise, the specified customComponent will be used
+     *
+     * See also: instantiateWithFilterAndExtras(Filter, Bundle) which uses TaskListFragment as the default
+     * custom component.
+     * @param filter
+     * @param extras
+     * @param customComponent
+     * @return
+     */
+    @SuppressWarnings("nls")
+    public static TaskListFragment instantiateWithFilterAndExtras(Filter filter, Bundle extras, Class<?> customComponent) {
+        Class<?> component = customComponent;
+        if (filter instanceof FilterWithCustomIntent) {
+            try {
+                component = Class.forName(((FilterWithCustomIntent) filter).customTaskList.getClassName());
+            } catch (Exception e) {
+                // Invalid
+            }
+        }
+        TaskListFragment newFragment;
+        try {
+            newFragment = (TaskListFragment) component.newInstance();
+        } catch (java.lang.InstantiationException e) {
+            Log.e("tla-instantiate", "tla-instantiate", e);
+            newFragment = new TaskListFragment();
+        } catch (IllegalAccessException e) {
+            Log.e("tla-instantiate", "tla-instantiate", e);
+            newFragment = new TaskListFragment();
+        }
+        Bundle args = new Bundle();
+        args.putBundle(TOKEN_EXTRAS, extras);
+        newFragment.setArguments(args);
+        return newFragment;
+    }
+
+    /**
+     * Convenience method for calling instantiateWithFilterAndExtras(Filter, Bundle, Class<?>) with
+     * TaskListFragment as the default component
+     * @param filter
+     * @param extras
+     * @return
+     */
+    public static TaskListFragment instantiateWithFilterAndExtras(Filter filter, Bundle extras) {
+        return instantiateWithFilterAndExtras(filter, extras, TaskListFragment.class);
     }
 
     /**
@@ -242,6 +292,7 @@ public class TaskListFragment extends ListFragment implements OnScrollListener,
     public void onCreate(Bundle savedInstanceState) {
         DependencyInjectionService.getInstance().inject(this);
         super.onCreate(savedInstanceState);
+        extras = getArguments() != null ? getArguments().getBundle(TOKEN_EXTRAS) : null;
     }
 
     /*
@@ -287,10 +338,6 @@ public class TaskListFragment extends ListFragment implements OnScrollListener,
             upgradeService.showChangeLog(getActivity(),
                     Preferences.getInt(AstridPreferences.P_UPGRADE_FROM, -1));
 
-        if (getActivity().getIntent().hasExtra(TOKEN_SOURCE)) {
-            trackActivitySource();
-        }
-
         getActivity().runOnUiThread(new Runnable() {
             public void run() {
                 Thread.currentThread().setPriority(Thread.MAX_PRIORITY);
@@ -314,31 +361,6 @@ public class TaskListFragment extends ListFragment implements OnScrollListener,
     }
 
     /**
-     * Report who launched this activity
-     */
-    protected void trackActivitySource() {
-        switch (getActivity().getIntent().getIntExtra(TOKEN_SOURCE,
-                Constants.SOURCE_DEFAULT)) {
-        case Constants.SOURCE_NOTIFICATION:
-            StatisticsService.reportEvent(StatisticsConstants.LAUNCH_FROM_NOTIFICATION);
-            break;
-        case Constants.SOURCE_OTHER:
-            StatisticsService.reportEvent(StatisticsConstants.LAUNCH_FROM_OTHER);
-            break;
-        case Constants.SOURCE_PPWIDGET:
-            StatisticsService.reportEvent(StatisticsConstants.LAUNCH_FROM_PPW);
-            break;
-        case Constants.SOURCE_WIDGET:
-            StatisticsService.reportEvent(StatisticsConstants.LAUNCH_FROM_WIDGET);
-            break;
-        case Constants.SOURCE_C2DM:
-            StatisticsService.reportEvent(StatisticsConstants.LAUNCH_FROM_C2DM);
-            break;
-        }
-        getActivity().getIntent().putExtra(TOKEN_SOURCE, Constants.SOURCE_DEFAULT); // Only report source once
-    }
-
-    /**
      * @return the current tag you are viewing, or null if you're not viewing a tag
      */
     public TagData getActiveTagData() {
@@ -346,12 +368,6 @@ public class TaskListFragment extends ListFragment implements OnScrollListener,
     }
 
     protected void onNewIntent(Intent intent) {
-        Bundle extras = intent.getExtras();
-        if (extras != null) {
-            overrideFinishAnim = extras.getBoolean(TOKEN_OVERRIDE_ANIM);
-        } else {
-            overrideFinishAnim = false;
-        }
         String intentAction = intent.getAction();
         if (Intent.ACTION_SEARCH.equals(intentAction)) {
             String query = intent.getStringExtra(SearchManager.QUERY).trim();
@@ -361,17 +377,14 @@ public class TaskListFragment extends ListFragment implements OnScrollListener,
                             "%" + //$NON-NLS-1$
                                     query.toUpperCase() + "%")), //$NON-NLS-1$
                     null);
-            intent = new Intent(getActivity(), TaskListActivity.class);
-            intent.putExtra(TaskListFragment.TOKEN_FILTER, searchFilter);
-            startActivity(intent);
+            Intent searchIntent = new Intent(getActivity(), TaskListActivity.class);
+            searchIntent.putExtra(TaskListFragment.TOKEN_FILTER, searchFilter);
+            startActivity(searchIntent);
             getActivity().finish();
-            if (overrideFinishAnim) {
-                AndroidUtilities.callOverridePendingTransition(getActivity(),
-                        R.anim.slide_right_in, R.anim.slide_right_out);
-            }
             return;
         } else if (extras != null && extras.containsKey(TOKEN_FILTER)) {
             filter = extras.getParcelable(TOKEN_FILTER);
+            extras.remove(TOKEN_FILTER); // Otherwise writing this filter to parcel gives infinite recursion
         } else {
             filter = CoreFilterExposer.buildInboxFilter(getResources());
         }
@@ -420,6 +433,8 @@ public class TaskListFragment extends ListFragment implements OnScrollListener,
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         Activity activity = getActivity();
         if (activity == null)
+            return;
+        if (!isCurrentTaskListFragment())
             return;
 
         boolean isTablet = AndroidUtilities.isTabletSized(activity);
@@ -625,8 +640,24 @@ public class TaskListFragment extends ListFragment implements OnScrollListener,
         initiateAutomaticSync();
     }
 
-    protected void initiateAutomaticSync() {
-        syncActionHelper.initiateAutomaticSync(filter);
+    protected boolean isCurrentTaskListFragment() {
+        AstridActivity activity = (AstridActivity) getActivity();
+        if (activity != null) {
+            return activity.getTaskListFragment() == this;
+        }
+        return false;
+    }
+
+    public void initiateAutomaticSync() {
+        if (isCurrentTaskListFragment())
+            syncActionHelper.initiateAutomaticSync(filter);
+    }
+
+    // Subclasses should override this
+    public void requestCommentCountUpdate() {
+        TaskListActivity activity = (TaskListActivity) getActivity();
+        if (activity != null)
+            activity.setCommentsCount(0);
     }
 
     @Override
@@ -686,16 +717,16 @@ public class TaskListFragment extends ListFragment implements OnScrollListener,
         @Override
         public void onReceive(Context context, Intent intent) {
             try {
-                Bundle extras = intent.getExtras();
-                long taskId = extras.getLong(AstridApiConstants.EXTRAS_TASK_ID);
-                String addOn = extras.getString(AstridApiConstants.EXTRAS_ADDON);
+                Bundle receivedExtras = intent.getExtras();
+                long taskId = receivedExtras.getLong(AstridApiConstants.EXTRAS_TASK_ID);
+                String addOn = receivedExtras.getString(AstridApiConstants.EXTRAS_ADDON);
 
                 if (AstridApiConstants.BROADCAST_SEND_DECORATIONS.equals(intent.getAction())) {
-                    TaskDecoration deco = extras.getParcelable(AstridApiConstants.EXTRAS_RESPONSE);
+                    TaskDecoration deco = receivedExtras.getParcelable(AstridApiConstants.EXTRAS_RESPONSE);
                     taskAdapter.decorationManager.addNew(taskId, addOn, deco,
                             null);
                 } else if (AstridApiConstants.BROADCAST_SEND_DETAILS.equals(intent.getAction())) {
-                    String detail = extras.getString(AstridApiConstants.EXTRAS_RESPONSE);
+                    String detail = receivedExtras.getString(AstridApiConstants.EXTRAS_RESPONSE);
                     taskAdapter.addDetails(taskId, detail);
                 }
             } catch (Exception e) {
@@ -714,10 +745,6 @@ public class TaskListFragment extends ListFragment implements OnScrollListener,
         if (requestCode == ACTIVITY_SETTINGS) {
             if (resultCode == EditPreferences.RESULT_CODE_THEME_CHANGED) {
                 getActivity().finish();
-                if (overrideFinishAnim) {
-                    AndroidUtilities.callOverridePendingTransition(getActivity(),
-                            R.anim.slide_right_in, R.anim.slide_right_out);
-                }
                 getActivity().startActivity(getActivity().getIntent());
                 TasksWidget.updateWidgets(getActivity());
             } else if (resultCode == SyncProviderPreferences.RESULT_CODE_SYNCHRONIZE) {
@@ -828,7 +855,7 @@ public class TaskListFragment extends ListFragment implements OnScrollListener,
             return;
 
         sqlQueryTemplate.set(SortHelper.adjustQueryForFlagsAndSort(
-                filter.sqlQuery, sortFlags, sortSort));
+                filter.getSqlQuery(), sortFlags, sortSort));
 
         // perform query
         TodorooCursor<Task> currentCursor;
@@ -1215,11 +1242,11 @@ public class TaskListFragment extends ListFragment implements OnScrollListener,
 
     protected void toggleDragDrop(boolean newState) {
         if(newState)
-            ((AstridActivity)getActivity()).setupTasklistFragmentWithFilterAndCustomTaskList(null,
-                    SubtasksListFragment.class);
+            ((AstridActivity)getActivity()).setupTasklistFragmentWithFilterAndCustomTaskList(filter,
+                    extras, SubtasksListFragment.class);
         else
-            ((AstridActivity)getActivity()).setupTasklistFragmentWithFilterAndCustomTaskList(null,
-                    TaskListFragment.class);
+            ((AstridActivity)getActivity()).setupTasklistFragmentWithFilterAndCustomTaskList(filter,
+                    extras, TaskListFragment.class);
     }
 
     protected boolean isDraggable() {

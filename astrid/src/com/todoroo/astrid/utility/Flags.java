@@ -31,6 +31,11 @@ public class Flags {
      */
     public static final int TLA_RESUMED_FROM_VOICE_ADD = 1 << 6;
 
+    /**
+     * If set, indicates that TaskListFragmentPager should not intercept touch events
+     */
+    public static final int TLFP_NO_INTERCEPT_TOUCH = 1 << 7;
+
     public static boolean checkAndClear(int flag) {
         boolean set = (state & flag) > 0;
         state &= ~flag;

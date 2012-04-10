@@ -41,6 +41,7 @@ import com.commonsware.cwac.tlv.TouchListView.DropListener;
 import com.commonsware.cwac.tlv.TouchListView.GrabberClickListener;
 import com.commonsware.cwac.tlv.TouchListView.SwipeListener;
 import com.timsu.astrid.R;
+import com.todoroo.astrid.utility.Flags;
 
 public class DraggableListView extends ListView {
 
@@ -254,7 +255,8 @@ public class DraggableListView extends ListView {
                 if (dragThread != null && mClickListener != null) {
                     dragThread.interrupt();
                     dragThread = null;
-                    mClickListener.onClick(viewAtPosition());
+                    if (action == MotionEvent.ACTION_UP)
+                        mClickListener.onClick(viewAtPosition());
                 }
 
                 else if (mSwipeListener != null &&
@@ -421,6 +423,7 @@ public class DraggableListView extends ListView {
         mWindowManager.addView(v, mWindowParams);
         mDragView = v;
         mDragging = true;
+        Flags.set(Flags.TLFP_NO_INTERCEPT_TOUCH);
     }
 
     private void dragView(MotionEvent ev) {
@@ -482,7 +485,6 @@ public class DraggableListView extends ListView {
         unExpandViews(false);
 
         if (mDragView != null) {
-            System.err.println("removing view");
             WindowManager wm = (WindowManager) getContext().getSystemService(
                     Context.WINDOW_SERVICE);
             wm.removeView(mDragView);
@@ -505,6 +507,7 @@ public class DraggableListView extends ListView {
         }
 
         mDragging = false;
+        Flags.checkAndClear(Flags.TLFP_NO_INTERCEPT_TOUCH);
     }
 
     // --- getters and setters

@@ -122,6 +122,8 @@ public class FilterListFragment extends ListFragment {
         // Check that the container activity has implemented the callback interface
         try {
             mListener = (OnFilterItemClickedListener) activity;
+            adapter = new FilterAdapter(getActivity(), null,
+                    R.layout.filter_adapter_row, false);
         } catch (ClassCastException e) {
             throw new ClassCastException(activity.toString()
                     + " must implement OnFilterItemClickedListener"); //$NON-NLS-1$
@@ -257,8 +259,7 @@ public class FilterListFragment extends ListFragment {
 
     /** Sets up the coach list adapter */
     protected void setUpList() {
-        adapter = new FilterAdapter(getActivity(), getListView(),
-                R.layout.filter_adapter_row, false);
+        adapter.setListView(getListView());
         setListAdapter(adapter);
 
         adapter.setLastSelected(mSelectedIndex);

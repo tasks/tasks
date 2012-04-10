@@ -70,7 +70,9 @@ public class GtasksListFragment extends SubtasksListFragment {
     }
 
     @Override
-    protected void initiateAutomaticSync() {
+    public void initiateAutomaticSync() {
+        if (!isCurrentTaskListFragment())
+            return;
         if (list != null && DateUtilities.now() - list.getValue(GtasksList.LAST_SYNC) > DateUtilities.ONE_HOUR) {
             syncService.synchronizeList(list, false, syncActionHelper.syncResultCallback);
         }
@@ -104,7 +106,7 @@ public class GtasksListFragment extends SubtasksListFragment {
 
     private void clearCompletedTasks() {
         final ProgressDialog pd = new ProgressDialog(getActivity());
-        final TodorooCursor<Task> tasks = taskService.fetchFiltered(filter.sqlQuery,
+        final TodorooCursor<Task> tasks = taskService.fetchFiltered(filter.getSqlQuery(),
                 null, Task.ID, Task.COMPLETION_DATE);
         pd.setMessage(this.getString(R.string.gtasks_GTA_clearing));
         pd.show();

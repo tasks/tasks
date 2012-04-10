@@ -30,7 +30,6 @@ import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.andlib.utility.DialogUtilities;
 import com.todoroo.astrid.actfm.TagViewFragment;
-import com.todoroo.astrid.activity.TaskListFragment;
 import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.api.AstridFilterExposer;
 import com.todoroo.astrid.api.Filter;
@@ -114,7 +113,6 @@ public class TagFilterExposer extends BroadcastReceiver implements AstridFilterE
         Bundle extras = new Bundle();
         extras.putString(TagViewFragment.EXTRA_TAG_NAME, tag.tag);
         extras.putLong(TagViewFragment.EXTRA_TAG_REMOTE_ID, tag.remoteId);
-        extras.putBoolean(TaskListFragment.TOKEN_OVERRIDE_ANIM, true);
         filter.customExtras = extras;
 
         return filter;

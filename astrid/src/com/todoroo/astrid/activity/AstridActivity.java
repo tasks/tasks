@@ -145,21 +145,12 @@ public class AstridActivity extends FragmentActivity
 
             if(item instanceof Filter) {
                 Filter filter = (Filter)item;
-                if(filter instanceof FilterWithCustomIntent) {
-                    int lastSelectedList = intent.getIntExtra(FilterListFragment.TOKEN_LAST_SELECTED, 0);
-                    intent = ((FilterWithCustomIntent)filter).getCustomIntent();
-                    intent.putExtra(FilterListFragment.TOKEN_LAST_SELECTED, lastSelectedList);
-                } else {
-                    intent.putExtra(TaskListFragment.TOKEN_FILTER, filter);
-                }
 
-                setIntent(intent);
-
+                Bundle extras = configureIntentAndExtrasWithFilter(intent, filter);
                 if (fragmentLayout == LAYOUT_TRIPLE && getTaskEditFragment() != null) {
                     onBackPressed(); // remove the task edit fragment when switching between lists
                 }
-
-                setupTasklistFragmentWithFilter(filter);
+                setupTasklistFragmentWithFilter(filter, extras);
 
                 // no animation for dualpane-layout
                 AndroidUtilities.callOverridePendingTransition(this, 0, 0);
@@ -176,6 +167,23 @@ public class AstridActivity extends FragmentActivity
         }
     }
 
+    protected Bundle configureIntentAndExtrasWithFilter(Intent intent, Filter filter) {
+        if(filter instanceof FilterWithCustomIntent) {
+            int lastSelectedList = intent.getIntExtra(FilterListFragment.TOKEN_LAST_SELECTED, 0);
+            intent = ((FilterWithCustomIntent)filter).getCustomIntent();
+            intent.putExtra(FilterListFragment.TOKEN_LAST_SELECTED, lastSelectedList);
+        } else {
+            intent.putExtra(TaskListFragment.TOKEN_FILTER, filter);
+        }
+
+        setIntent(intent);
+
+        Bundle extras = intent.getExtras();
+        if (extras != null)
+            extras = (Bundle) extras.clone();
+        return extras;
+    }
+
     public void setupActivityFragment(TagData tagData) {
         if (fragmentLayout == LAYOUT_SINGLE)
             return;
@@ -190,37 +198,21 @@ public class AstridActivity extends FragmentActivity
         transaction.commit();
     }
 
-    public final void setupTasklistFragmentWithFilter(Filter filter) {
+    public void setupTasklistFragmentWithFilter(Filter filter, Bundle extras) {
         Class<?> customTaskList = TaskListFragment.class;
 
-        if(filter == null || CoreFilterExposer.isInbox(filter)) {
-            SharedPreferences publicPrefs = AstridPreferences.getPublicPrefs(this);
-            int sortFlags = publicPrefs.getInt(SortHelper.PREF_SORT_FLAGS, 0);
-            if(SortHelper.isManualSort(sortFlags))
-                customTaskList = SubtasksListFragment.class;
-        }
+        if (shouldUseSubtasksFragmentForFilter(filter))
+            customTaskList = SubtasksListFragment.class;
 
-        setupTasklistFragmentWithFilterAndCustomTaskList(filter, customTaskList);
+        setupTasklistFragmentWithFilterAndCustomTaskList(filter, extras, customTaskList);
     }
 
-    public final void setupTasklistFragmentWithFilterAndCustomTaskList(Filter filter, Class<?> customTaskList) {
-        Class<?> component = customTaskList;
-        if (filter == null)
-            getIntent().removeExtra(TaskListFragment.TOKEN_FILTER);
-        else
-            getIntent().putExtra(TaskListFragment.TOKEN_FILTER, filter);
-        if (filter instanceof FilterWithCustomIntent) {
-            try {
-                component = Class.forName(((FilterWithCustomIntent) filter).customTaskList.getClassName());
-            } catch (Exception e) {
-                // Invalid
-            }
-        }
-        FragmentManager manager = getSupportFragmentManager();
-        FragmentTransaction transaction = manager.beginTransaction();
+    public void setupTasklistFragmentWithFilterAndCustomTaskList(Filter filter, Bundle extras, Class<?> customTaskList) {
+        TaskListFragment newFragment = TaskListFragment.instantiateWithFilterAndExtras(filter, extras, customTaskList);
 
         try {
-            TaskListFragment newFragment = (TaskListFragment) component.newInstance();
+            FragmentManager manager = getSupportFragmentManager();
+            FragmentTransaction transaction = manager.beginTransaction();
             transaction.replace(R.id.tasklist_fragment_container, newFragment,
                     TaskListFragment.TAG_TASKLIST_FRAGMENT);
             transaction.commit();
@@ -234,6 +226,16 @@ public class AstridActivity extends FragmentActivity
             // Don't worry about it
             e.printStackTrace();
         }
+    }
+
+    public boolean shouldUseSubtasksFragmentForFilter(Filter filter) {
+        if(filter == null || CoreFilterExposer.isInbox(filter)) {
+            SharedPreferences publicPrefs = AstridPreferences.getPublicPrefs(this);
+            int sortFlags = publicPrefs.getInt(SortHelper.PREF_SORT_FLAGS, 0);
+            if(SortHelper.isManualSort(sortFlags))
+                return true;
+        }
+        return false;
     }
 
     @Override
@@ -299,8 +301,8 @@ public class AstridActivity extends FragmentActivity
         }
     }
 
-    protected Fragment setupFragment(String tag, int container, Class<? extends Fragment> cls) {
-        FragmentManager fm = getSupportFragmentManager();
+    protected Fragment setupFragment(String tag, int container, Class<? extends Fragment> cls, boolean createImmediate) {
+        final FragmentManager fm = getSupportFragmentManager();
         Fragment fragment = fm.findFragmentByTag(tag);
         if(fragment == null) {
             try {
@@ -317,6 +319,13 @@ public class AstridActivity extends FragmentActivity
             else
                 ft.replace(container, fragment, tag);
             ft.commit();
+            if (createImmediate)
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        fm.executePendingTransactions();
+                    }
+                });
         }
         return fragment;
     }

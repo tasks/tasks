@@ -87,8 +87,8 @@ public class ShortcutActivity extends Activity {
 
         Intent taskListIntent = new Intent(this, TaskListActivity.class);
 
-        if(extras != null && extras.containsKey(TaskListFragment.TOKEN_SOURCE))
-                taskListIntent.putExtra(TaskListFragment.TOKEN_SOURCE, extras.getInt(TaskListFragment.TOKEN_SOURCE));
+        if(extras != null && extras.containsKey(TaskListActivity.TOKEN_SOURCE))
+                taskListIntent.putExtra(TaskListActivity.TOKEN_SOURCE, extras.getInt(TaskListActivity.TOKEN_SOURCE));
 
         if(extras != null && extras.containsKey(TOKEN_CUSTOM_CLASS)) {
             taskListIntent.putExtras(intent.getExtras());
@@ -161,7 +161,7 @@ public class ShortcutActivity extends Activity {
         shortcutIntent.putExtra(ShortcutActivity.TOKEN_FILTER_TITLE,
                 filter.title);
         shortcutIntent.putExtra(ShortcutActivity.TOKEN_FILTER_SQL,
-                filter.sqlQuery);
+                filter.getSqlQuery());
         if (filter.valuesForNewTasks != null) {
             for (Entry<String, Object> item : filter.valuesForNewTasks.valueSet()) {
                 String key = TOKEN_FILTER_VALUES_ITEM + item.getKey();
