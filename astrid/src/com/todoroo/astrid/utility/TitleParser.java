@@ -137,6 +137,8 @@ public class TitleParser {
     //Day of week (e.g. Monday, Tuesday,..) is overridden by a set date (e.g. October 23 2013).
     //Vague times (e.g. breakfast, night) are overridden by a set time (9 am, at 10, 17:00)
     private static boolean dayHelper(Task task ) {
+        if (task.containsNonNullValue(Task.DUE_DATE))
+            return false;
         String inputText = task.getValue(Task.TITLE);
         Calendar cal = null;
         Boolean containsSpecificTime = false;
@@ -336,6 +338,8 @@ public class TitleParser {
 
     //Parses through the text and sets the frequency of the task.
     private static boolean repeatHelper(Task task) {
+        if (task.containsNonNullValue(Task.RECURRENCE))
+            return false;
         String inputText = task.getValue(Task.TITLE);
         HashMap<String, Frequency> repeatTimes = new HashMap<String, Frequency>();
         repeatTimes.put("(?i)\\bevery ?\\w{0,6} days?\\b" , Frequency.DAILY);

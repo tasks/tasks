@@ -272,7 +272,7 @@ public class QuickAddBar extends LinearLayout {
 
             if (repeatControl.isRecurrenceSet())
                 repeatControl.writeToModel(task);
-            if (deadlineControl.isDeadlineSet()) { // Need to redo hide until using defaults in case it was set by some markup magic
+            if (deadlineControl.isDeadlineSet()) {
                 task.clearValue(Task.HIDE_UNTIL);
                 deadlineControl.writeToModel(task);
                 TaskDao.createDefaultHideUntil(task);
