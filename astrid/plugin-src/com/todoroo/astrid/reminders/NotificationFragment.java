@@ -37,15 +37,12 @@ import android.widget.Spinner;
 import android.widget.TimePicker;
 
 import com.timsu.astrid.R;
-import com.todoroo.andlib.sql.QueryTemplate;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.astrid.activity.AstridActivity;
 import com.todoroo.astrid.activity.TaskListActivity;
 import com.todoroo.astrid.activity.TaskListFragment;
-import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.core.PluginServices;
-import com.todoroo.astrid.dao.TaskDao.TaskCriteria;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.repeats.RepeatControlSet;
 import com.todoroo.astrid.service.StartupService;
@@ -94,23 +91,8 @@ public class NotificationFragment extends TaskListFragment implements OnTimeSetL
 
     @Override
     protected void onNewIntent(Intent intent) {
-        populateFilter(intent);
         displayNotificationPopup();
         super.onNewIntent(intent);
-    }
-
-    private void populateFilter(Intent intent) {
-        taskId = intent.getLongExtra(TOKEN_ID, -1);
-        if(taskId == -1)
-            return;
-
-        Filter itemFilter = new Filter(getString(R.string.rmd_NoA_filter),
-                getString(R.string.rmd_NoA_filter),
-                new QueryTemplate().where(TaskCriteria.byId(taskId)),
-                null);
-        intent.putExtra(TaskListFragment.TOKEN_FILTER, itemFilter);
-        if (getActivity() instanceof TaskListActivity) // Title was already set before this fragment took over; set it again
-            ((TaskListActivity) getActivity()).setListsTitle(itemFilter.title);
     }
 
     /**
@@ -122,6 +104,16 @@ public class NotificationFragment extends TaskListFragment implements OnTimeSetL
 
         String title = extras.getString(Notifications.EXTRAS_TEXT);
         new ReminderDialog((AstridActivity) getActivity(), taskId, title).show();
+    }
+
+    @Override
+    public void onDetach() {
+        Activity activity = getActivity();
+        if (activity instanceof TaskListActivity) {
+            TaskListActivity tla = (TaskListActivity) activity;
+            tla.getFragmentPagerAdapter().remove(filter);
+        }
+        super.onDetach();
     }
 
     public static class SnoozeDialog extends FrameLayout implements DialogInterface.OnClickListener {

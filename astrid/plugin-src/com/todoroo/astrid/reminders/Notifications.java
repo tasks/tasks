@@ -5,12 +5,14 @@ import java.util.Date;
 import android.app.Notification;
 import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.Color;
 import android.media.AudioManager;
 import android.net.Uri;
+import android.os.Bundle;
 import android.telephony.TelephonyManager;
 import android.util.Log;
 
@@ -21,12 +23,16 @@ import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.andlib.service.ExceptionService;
 import com.todoroo.andlib.service.NotificationManager;
 import com.todoroo.andlib.service.NotificationManager.AndroidNotificationManager;
+import com.todoroo.andlib.sql.QueryTemplate;
 import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.astrid.activity.TaskListActivity;
+import com.todoroo.astrid.activity.TaskListFragment;
 import com.todoroo.astrid.api.AstridApiConstants;
+import com.todoroo.astrid.api.FilterWithCustomIntent;
 import com.todoroo.astrid.dao.TaskDao;
+import com.todoroo.astrid.dao.TaskDao.TaskCriteria;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.service.AstridDependencyInjector;
 import com.todoroo.astrid.utility.Constants;
@@ -176,9 +182,18 @@ public class Notifications extends BroadcastReceiver {
         String text = reminder + " " + taskTitle; //$NON-NLS-1$
 
         Intent notifyIntent = new Intent(context, TaskListActivity.class);
+        FilterWithCustomIntent itemFilter = new FilterWithCustomIntent(context.getString(R.string.rmd_NoA_filter),
+                context.getString(R.string.rmd_NoA_filter),
+                new QueryTemplate().where(TaskCriteria.byId(id)),
+                null);
+        Bundle customExtras = new Bundle();
+        customExtras.putLong(NotificationFragment.TOKEN_ID, id);
+        customExtras.putString(EXTRAS_TEXT, text);
+        itemFilter.customExtras = customExtras;
+        itemFilter.customTaskList = new ComponentName(context, NotificationFragment.class);
+
         notifyIntent.setAction("NOTIFY" + id); //$NON-NLS-1$
-        notifyIntent.putExtra(NotificationFragment.TOKEN_ID, id);
-        notifyIntent.putExtra(EXTRAS_TEXT, text);
+        notifyIntent.putExtra(TaskListFragment.TOKEN_FILTER, itemFilter);
         notifyIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_MULTIPLE_TASK);
         notifyIntent.putExtra(TaskListActivity.TOKEN_SOURCE, Constants.SOURCE_NOTIFICATION);
 

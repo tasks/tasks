@@ -38,7 +38,6 @@ import com.todoroo.astrid.api.FilterListItem;
 import com.todoroo.astrid.core.CoreFilterExposer;
 import com.todoroo.astrid.core.CustomFilterExposer;
 import com.todoroo.astrid.data.Task;
-import com.todoroo.astrid.reminders.NotificationFragment;
 import com.todoroo.astrid.service.StatisticsConstants;
 import com.todoroo.astrid.service.StatisticsService;
 import com.todoroo.astrid.service.ThemeService;
@@ -172,11 +171,7 @@ public class TaskListActivity extends AstridActivity implements MainMenuListener
             tlfPager.setOnPageChangeListener(this);
         }
 
-        if (getIntent().getIntExtra(TOKEN_SOURCE, Constants.SOURCE_DEFAULT) ==
-                Constants.SOURCE_NOTIFICATION)
-            setupTasklistFragmentWithFilterAndCustomTaskList(savedFilter, extras, NotificationFragment.class);
-        else
-            setupTasklistFragmentWithFilter(savedFilter, extras);
+        setupTasklistFragmentWithFilter(savedFilter, extras);
 
         if (savedFilter != null)
             setListsTitle(savedFilter.title);
@@ -394,6 +389,10 @@ public class TaskListActivity extends AstridActivity implements MainMenuListener
 
     public void setSelectedItem(Filter item) {
         lists.setText(item.title);
+    }
+
+    public TaskListFragmentPagerAdapter getFragmentPagerAdapter() {
+        return tlfPagerAdapter;
     }
 
     @Override
