@@ -119,7 +119,7 @@ public class Filter extends FilterListItem {
         this.sqlQuery = sqlQuery;
     }
 
-    public void setFilterOverrideQuery(String filterOverride) {
+    public void setFilterQueryOverride(String filterOverride) {
         this.filterOverride = filterOverride;
     }
 

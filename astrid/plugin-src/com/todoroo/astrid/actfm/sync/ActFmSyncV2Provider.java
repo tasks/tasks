@@ -121,7 +121,7 @@ public class ActFmSyncV2Provider extends SyncV2Provider {
                 actFmPreferenceService.recordSyncStart();
 
 
-                startUsersFetcher(manual, callback, finisher);
+                startUsersFetcher(callback, finisher);
 
                 startTagFetcher(callback, finisher);
 
@@ -134,12 +134,12 @@ public class ActFmSyncV2Provider extends SyncV2Provider {
     }
 
     /** fetch changes to users/friends */
-    private void startUsersFetcher(final boolean manual, final SyncResultCallback callback,
+    private void startUsersFetcher(final SyncResultCallback callback,
             final AtomicInteger finisher) {
         new Thread(new Runnable() {
             @Override
             public void run() {
-                int time = manual ? 0 : Preferences.getInt(LAST_USERS_FETCH_TIME, 0);
+                int time = Preferences.getInt(LAST_USERS_FETCH_TIME, 0);
                 try {
                     time = actFmSyncService.fetchUsers(time);
                     Preferences.setInt(LAST_USERS_FETCH_TIME, time);
