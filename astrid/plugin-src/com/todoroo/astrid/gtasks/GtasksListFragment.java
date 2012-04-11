@@ -6,16 +6,20 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.view.Menu;
 import android.view.MenuInflater;
+import android.widget.TextView;
 
 import com.timsu.astrid.R;
 import com.todoroo.andlib.data.Property;
 import com.todoroo.andlib.data.TodorooCursor;
 import com.todoroo.andlib.service.Autowired;
+import com.todoroo.andlib.service.ContextManager;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.andlib.utility.DialogUtilities;
+import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.dao.StoreObjectDao;
 import com.todoroo.astrid.data.StoreObject;
 import com.todoroo.astrid.data.Task;
+import com.todoroo.astrid.helper.ProgressBarSyncResultCallback;
 import com.todoroo.astrid.service.SyncV2Service;
 import com.todoroo.astrid.service.ThemeService;
 import com.todoroo.astrid.subtasks.OrderedListFragmentHelper;
@@ -74,8 +78,24 @@ public class GtasksListFragment extends SubtasksListFragment {
         if (!isCurrentTaskListFragment())
             return;
         if (list != null && DateUtilities.now() - list.getValue(GtasksList.LAST_SYNC) > DateUtilities.ONE_HOUR) {
-            syncService.synchronizeList(list, false, syncActionHelper.syncResultCallback);
+            refreshData(false);
         }
+    }
+
+    private void refreshData(final boolean manual) {
+        ((TextView)getView().findViewById(android.R.id.empty)).setText(R.string.DLG_loading);
+
+        syncService.synchronizeList(list, manual, new ProgressBarSyncResultCallback(getActivity(), this,
+                R.id.progressBar, new Runnable() {
+            @Override
+            public void run() {
+                if (manual)
+                    ContextManager.getContext().sendBroadcast(new Intent(AstridApiConstants.BROADCAST_EVENT_REFRESH));
+                else
+                    refresh();
+                ((TextView)getView().findViewById(android.R.id.empty)).setText(R.string.TLA_no_items);
+            }
+        }));
     }
 
     @Override
@@ -94,7 +114,7 @@ public class GtasksListFragment extends SubtasksListFragment {
      // handle my own menus
         switch (id) {
         case MENU_REFRESH_ID:
-            syncService.synchronizeList(list, true, syncActionHelper.syncResultCallback);
+            refreshData(true);
             return true;
         case MENU_CLEAR_COMPLETED_ID:
             clearCompletedTasks();

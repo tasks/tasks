@@ -281,7 +281,10 @@ public class TagViewFragment extends TaskListFragment {
                 R.id.progressBar, new Runnable() {
             @Override
             public void run() {
-                ContextManager.getContext().sendBroadcast(new Intent(AstridApiConstants.BROADCAST_EVENT_REFRESH));
+                if (manual)
+                    ContextManager.getContext().sendBroadcast(new Intent(AstridApiConstants.BROADCAST_EVENT_REFRESH));
+                else
+                    refresh();
                 ((TextView)taskListView.findViewById(android.R.id.empty)).setText(R.string.TLA_no_items);
             }
         }));
