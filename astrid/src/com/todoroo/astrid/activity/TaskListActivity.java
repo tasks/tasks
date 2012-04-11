@@ -403,8 +403,10 @@ public class TaskListActivity extends AstridActivity implements MainMenuListener
             setListsTitle(tlfPagerAdapter.getPageTitle(position).toString());
 
             TaskListFragment fragment = getTaskListFragment();
-            fragment.initiateAutomaticSync();
-            fragment.requestCommentCountUpdate();
+            if (fragment != null) {
+                fragment.initiateAutomaticSync();
+                fragment.requestCommentCountUpdate();
+            }
         }
     }
 
