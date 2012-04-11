@@ -1244,9 +1244,11 @@ public class TaskListFragment extends ListFragment implements OnScrollListener,
         if(newState)
             ((AstridActivity)getActivity()).setupTasklistFragmentWithFilterAndCustomTaskList(filter,
                     extras, SubtasksListFragment.class);
-        else
+        else {
+            filter.setFilterQueryOverride(null);
             ((AstridActivity)getActivity()).setupTasklistFragmentWithFilterAndCustomTaskList(filter,
                     extras, TaskListFragment.class);
+        }
     }
 
     protected boolean isDraggable() {
