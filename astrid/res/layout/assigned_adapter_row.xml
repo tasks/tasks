@@ -3,11 +3,13 @@
     xmlns:astrid="http://schemas.android.com/apk/res/com.timsu.astrid"
     android:layout_width="fill_parent"
     android:layout_height="wrap_content"
-    android:paddingLeft="8dip">
+    android:paddingLeft="8dip"
+    android:paddingTop="2dip"
+    android:paddingBottom="2dip">
 
     <com.todoroo.astrid.helper.AsyncImageView android:id="@+id/person_image"
-        android:layout_width="35dip"
-        android:layout_height="35dip"
+        android:layout_width="37dip"
+        android:layout_height="37dip"
         android:gravity="center"
         android:layout_gravity="center_vertical"
         android:scaleType="fitCenter"
