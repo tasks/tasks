@@ -83,8 +83,8 @@
                 <ProgressBar
                     android:id="@+id/progressBar"
                     style="@android:style/Widget.ProgressBar.Horizontal"
-                    android:layout_width="0dip"
-                    android:layout_height="1dip"
+                    android:layout_width="fill_parent"
+                    android:layout_height="5dip"
                     android:layout_weight="1"
                     android:visibility="gone" />
 
