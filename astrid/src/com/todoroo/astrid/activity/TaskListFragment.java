@@ -7,7 +7,6 @@ import java.util.concurrent.atomic.AtomicReference;
 
 import android.app.Activity;
 import android.app.AlertDialog;
-import android.app.SearchManager;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -55,8 +54,6 @@ import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.ContextManager;
 import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.andlib.service.ExceptionService;
-import com.todoroo.andlib.sql.Functions;
-import com.todoroo.andlib.sql.QueryTemplate;
 import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.astrid.actfm.ActFmLoginActivity;
@@ -320,7 +317,7 @@ public class TaskListFragment extends ListFragment implements OnScrollListener,
 
         syncActionHelper = new SyncActionHelper(getActivity(), this);
         setUpUiComponents();
-        onNewIntent(getActivity().getIntent());
+        initializeData();
         setupQuickAddBar();
 
         Fragment filterlistFrame = getFragmentManager().findFragmentByTag(
@@ -367,22 +364,8 @@ public class TaskListFragment extends ListFragment implements OnScrollListener,
         return null;
     }
 
-    protected void onNewIntent(Intent intent) {
-        String intentAction = intent.getAction();
-        if (Intent.ACTION_SEARCH.equals(intentAction)) {
-            String query = intent.getStringExtra(SearchManager.QUERY).trim();
-            Filter searchFilter = new Filter(null, getString(
-                    R.string.FLA_search_filter, query),
-                    new QueryTemplate().where(Functions.upper(Task.TITLE).like(
-                            "%" + //$NON-NLS-1$
-                                    query.toUpperCase() + "%")), //$NON-NLS-1$
-                    null);
-            Intent searchIntent = new Intent(getActivity(), TaskListActivity.class);
-            searchIntent.putExtra(TaskListFragment.TOKEN_FILTER, searchFilter);
-            startActivity(searchIntent);
-            getActivity().finish();
-            return;
-        } else if (extras != null && extras.containsKey(TOKEN_FILTER)) {
+    protected void initializeData() {
+        if (extras != null && extras.containsKey(TOKEN_FILTER)) {
             filter = extras.getParcelable(TOKEN_FILTER);
             extras.remove(TOKEN_FILTER); // Otherwise writing this filter to parcel gives infinite recursion
         } else {

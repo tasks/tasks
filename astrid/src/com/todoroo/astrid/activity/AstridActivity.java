@@ -100,15 +100,6 @@ public class AstridActivity extends FragmentActivity
     }
 
     @Override
-    protected void onNewIntent(Intent intent) {
-        super.onNewIntent(intent);
-        FilterListFragment frag = getFilterListFragment();
-        if (frag != null) {
-            frag.onNewIntent(intent);
-        }
-    }
-
-    @Override
     protected void onResume() {
         super.onResume();
 

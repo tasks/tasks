@@ -6,7 +6,6 @@ package com.todoroo.astrid.activity;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
-import android.app.SearchManager;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -46,14 +45,11 @@ import com.timsu.astrid.R;
 import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.andlib.service.ExceptionService;
-import com.todoroo.andlib.sql.Functions;
-import com.todoroo.andlib.sql.QueryTemplate;
 import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.astrid.adapter.FilterAdapter;
 import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.api.FilterListItem;
-import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.service.StatisticsService;
 import com.todoroo.astrid.tags.TagService;
 import com.todoroo.astrid.tags.TagsPlugin;
@@ -171,35 +167,13 @@ public class FilterListFragment extends ListFragment {
             mDualFragments = true;
             mSelectedIndex = activity.getIntent().getIntExtra(TOKEN_LAST_SELECTED, 0);
         }
-        onNewIntent(activity.getIntent());
+
+        setUpList();
 
         if (mDualFragments) {
             // In dual-pane mode, the list view highlights the selected item.
             getListView().setChoiceMode(ListView.CHOICE_MODE_SINGLE);
             getListView().setItemsCanFocus(false);
-        }
-    }
-
-    /**
-     * Called when receiving a new intent. Intents this class handles:
-     * <ul>
-     * <li>ACTION_SEARCH - displays a search bar
-     * <li>ACTION_ADD_LIST - adds new lists to the merge adapter
-     * </ul>
-     */
-    public void onNewIntent(Intent intent) {
-        final String intentAction = intent.getAction();
-        if (Intent.ACTION_SEARCH.equals(intentAction)) {
-            String query = intent.getStringExtra(SearchManager.QUERY).trim();
-            Filter filter = new Filter(null, getString(R.string.FLA_search_filter, query),
-                    new QueryTemplate().where(Functions.upper(Task.TITLE).like("%" + //$NON-NLS-1$
-                            query.toUpperCase() + "%")), //$NON-NLS-1$
-                    null);
-            intent = new Intent(getActivity(), TaskListActivity.class);
-            intent.putExtra(TaskListFragment.TOKEN_FILTER, filter);
-            startActivity(intent);
-        } else {
-            setUpList();
         }
     }
 

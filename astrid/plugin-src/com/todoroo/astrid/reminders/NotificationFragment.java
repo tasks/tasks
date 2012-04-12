@@ -27,7 +27,6 @@ import android.app.TimePickerDialog;
 import android.app.TimePickerDialog.OnTimeSetListener;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -90,9 +89,9 @@ public class NotificationFragment extends TaskListFragment implements OnTimeSetL
     }
 
     @Override
-    protected void onNewIntent(Intent intent) {
+    protected void initializeData() {
         displayNotificationPopup();
-        super.onNewIntent(intent);
+        super.initializeData();
     }
 
     /**

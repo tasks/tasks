@@ -171,7 +171,7 @@ public class TagViewFragment extends TaskListFragment {
     // --- data loading
 
     @Override
-    protected void onNewIntent(Intent intent) {
+    protected void initializeData() {
         synchronized(this) {
             if(dataLoaded)
                 return;
@@ -204,7 +204,7 @@ public class TagViewFragment extends TaskListFragment {
         postLoadTagData();
         setUpMembersGallery();
 
-        super.onNewIntent(intent);
+        super.initializeData();
 
         if (extras.getBoolean(TOKEN_START_ACTIVITY, false)) {
             extras.remove(TOKEN_START_ACTIVITY);

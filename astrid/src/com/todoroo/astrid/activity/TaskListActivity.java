@@ -1,6 +1,7 @@
 package com.todoroo.astrid.activity;
 
 import android.app.Activity;
+import android.app.SearchManager;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -25,6 +26,8 @@ import android.widget.PopupWindow.OnDismissListener;
 import android.widget.TextView;
 
 import com.timsu.astrid.R;
+import com.todoroo.andlib.sql.Functions;
+import com.todoroo.andlib.sql.QueryTemplate;
 import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.andlib.utility.DialogUtilities;
 import com.todoroo.astrid.actfm.TagSettingsActivity;
@@ -153,6 +156,15 @@ public class TaskListActivity extends AstridActivity implements MainMenuListener
         commentsButton.setOnClickListener(commentsButtonClickListener);
 
         Filter savedFilter = getIntent().getParcelableExtra(TaskListFragment.TOKEN_FILTER);
+        if (Intent.ACTION_SEARCH.equals(getIntent().getAction())) {
+            String query = getIntent().getStringExtra(SearchManager.QUERY).trim();
+            String title = getString(R.string.FLA_search_filter, query);
+            savedFilter = new Filter(title, title,
+                    new QueryTemplate().where(Functions.upper(Task.TITLE).like(
+                            "%" + //$NON-NLS-1$
+                                    query.toUpperCase() + "%")), //$NON-NLS-1$
+                    null);
+        }
         if (savedFilter == null)
             savedFilter = CoreFilterExposer.buildInboxFilter(getResources());
 
