@@ -6,12 +6,14 @@ import android.app.Dialog;
 import android.app.TimePickerDialog.OnTimeSetListener;
 import android.content.Intent;
 import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
 import com.timsu.astrid.R;
 import com.todoroo.andlib.utility.DateUtilities;
+import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.astrid.activity.AstridActivity;
 import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.core.PluginServices;
@@ -28,7 +30,7 @@ import com.todoroo.astrid.service.StatisticsService;
 public class ReminderDialog extends Dialog {
 
     public ReminderDialog(final AstridActivity activity, final long taskId,
-            final String title) {
+            String title) {
         super(activity, R.style.ReminderDialog);
         final SnoozeCallback dialogSnooze = new SnoozeCallback() {
             @Override
@@ -52,7 +54,17 @@ public class ReminderDialog extends Dialog {
                 dialogSnooze.snoozeForTime(alarmTime.getTime());
             }
         };
-        setContentView(R.layout.astrid_reminder_view);
+
+        if (Preferences.getBoolean(R.string.p_rmd_nagging, true)) {
+            setContentView(R.layout.astrid_reminder_view);
+            ((TextView) findViewById(R.id.reminder_message)).setText(
+                    Notifications.getRandomReminder(activity.getResources().getStringArray(R.array.reminder_responses)));
+        } else {
+            setContentView(R.layout.astrid_reminder_view_portrait);
+            title = activity.getString(R.string.rmd_NoA_dlg_title) + " " + title; //$NON-NLS-1$
+            removeSpeechBubble();
+        }
+
 
         // set up listeners
         findViewById(R.id.dismiss).setOnClickListener(new View.OnClickListener() {
@@ -92,10 +104,13 @@ public class ReminderDialog extends Dialog {
         });
 
         ((TextView) findViewById(R.id.reminder_title)).setText(title);
-        ((TextView) findViewById(R.id.reminder_message)).setText(
-                Notifications.getRandomReminder(activity.getResources().getStringArray(R.array.reminder_responses)));
 
         setOwnerActivity(activity);
     }
 
+
+    private void removeSpeechBubble() {
+        LinearLayout container = (LinearLayout) findViewById(R.id.speech_bubble_container);
+        container.setVisibility(View.GONE);
+    }
 }
