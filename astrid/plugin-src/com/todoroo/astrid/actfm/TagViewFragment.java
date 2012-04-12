@@ -263,7 +263,7 @@ public class TagViewFragment extends TaskListFragment {
 
 
     @Override
-    public void initiateAutomaticSync() {
+    protected void initiateAutomaticSyncImpl() {
         if (!isCurrentTaskListFragment())
             return;
         if (tagData != null) {

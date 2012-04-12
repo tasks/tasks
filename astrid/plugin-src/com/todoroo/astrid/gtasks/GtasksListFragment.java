@@ -74,7 +74,7 @@ public class GtasksListFragment extends SubtasksListFragment {
     }
 
     @Override
-    public void initiateAutomaticSync() {
+    protected void initiateAutomaticSyncImpl() {
         if (!isCurrentTaskListFragment())
             return;
         if (list != null && DateUtilities.now() - list.getValue(GtasksList.LAST_SYNC) > DateUtilities.ONE_HOUR) {

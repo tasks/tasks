@@ -115,6 +115,7 @@ public class TaskListFragment extends ListFragment implements OnScrollListener,
     // --- activities
 
     private static final long BACKGROUND_REFRESH_INTERVAL = 120000L;
+    private static final long WAIT_BEFORE_AUTOSYNC = 2000L;
     public static final int ACTIVITY_EDIT_TASK = 0;
     public static final int ACTIVITY_SETTINGS = 1;
     public static final int ACTIVITY_SORT = 2;
@@ -631,7 +632,35 @@ public class TaskListFragment extends ListFragment implements OnScrollListener,
         return false;
     }
 
-    public void initiateAutomaticSync() {
+    public final void initiateAutomaticSync() {
+        final AstridActivity activity = (AstridActivity) getActivity();
+        if (activity == null)
+            return;
+        if (activity.fragmentLayout != AstridActivity.LAYOUT_SINGLE) {
+            initiateAutomaticSyncImpl();
+        } else {
+            // In single fragment case, we're using swipe between lists,
+            // so wait a couple seconds before initiating the autosync.
+            new Thread() {
+                @Override
+                public void run() {
+                    AndroidUtilities.sleepDeep(WAIT_BEFORE_AUTOSYNC);
+                    activity.runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            initiateAutomaticSyncImpl();
+                        }
+                    });
+                }
+            }.start();
+        }
+    }
+
+    /**
+     * Implementation of initiation automatic sync. Subclasses should override this method;
+     * the above method takes care of calling it in the correct way
+     */
+    protected void initiateAutomaticSyncImpl() {
         if (isCurrentTaskListFragment())
             syncActionHelper.initiateAutomaticSync(filter);
     }
