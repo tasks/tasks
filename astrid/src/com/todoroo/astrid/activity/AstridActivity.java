@@ -332,8 +332,7 @@ public class AstridActivity extends FragmentActivity
         @Override
         public void onReceive(Context context, final Intent intent) {
             // Process in app notification
-            Intent customIntent = intent.getExtras().getParcelable(Notifications.EXTRAS_CUSTOM_INTENT);
-            long taskId = customIntent.getLongExtra(NotificationFragment.TOKEN_ID, 0);
+            long taskId = intent.getLongExtra(NotificationFragment.TOKEN_ID, 0);
             if (taskId > 0) {
                 String text = intent.getStringExtra(Notifications.EXTRAS_TEXT);
                 try {

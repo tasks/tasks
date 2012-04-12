@@ -194,6 +194,7 @@ public class Notifications extends BroadcastReceiver {
 
         notifyIntent.setAction("NOTIFY" + id); //$NON-NLS-1$
         notifyIntent.putExtra(TaskListFragment.TOKEN_FILTER, itemFilter);
+        notifyIntent.putExtra(NotificationFragment.TOKEN_ID, id);
         notifyIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_MULTIPLE_TASK);
         notifyIntent.putExtra(TaskListActivity.TOKEN_SOURCE, Constants.SOURCE_NOTIFICATION);
 
@@ -201,10 +202,11 @@ public class Notifications extends BroadcastReceiver {
         return true;
     }
 
-    private static void requestNotification(int notificationId, Intent intent, int type, String title, String text, int ringTimes) {
+    private static void requestNotification(long taskId, Intent intent, int type, String title, String text, int ringTimes) {
         Context context = ContextManager.getContext();
         Intent inAppNotify = new Intent(BROADCAST_IN_APP_NOTIFY);
-        inAppNotify.putExtra(EXTRAS_NOTIF_ID, notificationId);
+        inAppNotify.putExtra(EXTRAS_NOTIF_ID, (int)taskId);
+        inAppNotify.putExtra(NotificationFragment.TOKEN_ID, taskId);
         inAppNotify.putExtra(EXTRAS_CUSTOM_INTENT, intent);
         inAppNotify.putExtra(EXTRAS_TYPE, type);
         inAppNotify.putExtra(EXTRAS_TITLE, title);
