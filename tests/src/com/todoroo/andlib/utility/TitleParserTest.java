@@ -150,6 +150,7 @@ public class TitleParserTest extends DatabaseTestCase {
   }
 
   private void insertTitleAddTask(String title, Task task, TaskService taskService) {
+      task.clear();
       task.setValue(Task.TITLE, title);
       taskService.quickAdd(task);
   }
