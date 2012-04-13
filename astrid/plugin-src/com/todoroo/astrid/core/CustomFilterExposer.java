@@ -87,7 +87,7 @@ public final class CustomFilterExposer extends BroadcastReceiver implements Astr
             // stock filters
             String todayTitle = AndroidUtilities.capitalize(r.getString(R.string.today));
             ContentValues todayValues = new ContentValues();
-            todayValues.put(Task.DUE_DATE.name, PermaSql.VALUE_EOD);
+            todayValues.put(Task.DUE_DATE.name, PermaSql.VALUE_NOON);
             list[0] = new Filter(todayTitle,
                     todayTitle,
                     new QueryTemplate().where(

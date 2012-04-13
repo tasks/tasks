@@ -39,8 +39,7 @@ import com.timsu.astrid.R;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.astrid.activity.AstridActivity;
-import com.todoroo.astrid.activity.TaskListActivity;
-import com.todoroo.astrid.activity.TaskListFragment;
+import com.todoroo.astrid.activity.DisposableTaskListFragment;
 import com.todoroo.astrid.core.PluginServices;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.repeats.RepeatControlSet;
@@ -56,7 +55,7 @@ import com.todoroo.astrid.ui.NumberPicker;
  * @author timsu
  *
  */
-public class NotificationFragment extends TaskListFragment implements OnTimeSetListener, SnoozeCallback {
+public class NotificationFragment extends DisposableTaskListFragment implements OnTimeSetListener, SnoozeCallback {
 
     // --- constants
 
@@ -104,16 +103,6 @@ public class NotificationFragment extends TaskListFragment implements OnTimeSetL
         String title = extras.getString(Notifications.EXTRAS_TEXT);
         taskId = extras.getLong(TOKEN_ID);
         new ReminderDialog((AstridActivity) getActivity(), taskId, title).show();
-    }
-
-    @Override
-    public void onDetach() {
-        Activity activity = getActivity();
-        if (activity instanceof TaskListActivity) {
-            TaskListActivity tla = (TaskListActivity) activity;
-            tla.getFragmentPagerAdapter().remove(filter);
-        }
-        super.onDetach();
     }
 
     public static class SnoozeDialog extends FrameLayout implements DialogInterface.OnClickListener {
