@@ -1173,6 +1173,9 @@ public class TaskListFragment extends ListFragment implements OnScrollListener,
         Intent intent;
         long itemId;
 
+        if (!isCurrentTaskListFragment())
+            return false;
+
         // handle my own menus
         if (handleOptionsMenuItemSelected(item.getItemId(), item.getIntent()))
             return true;
