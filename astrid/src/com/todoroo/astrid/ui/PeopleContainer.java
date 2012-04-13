@@ -1,5 +1,7 @@
 package com.todoroo.astrid.ui;
 
+import java.util.HashSet;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -204,6 +206,8 @@ public class PeopleContainer extends LinearLayout {
     JSONException, ParseSharedException {
         JSONObject sharedWith = new JSONObject();
 
+        HashSet<String> addedEmails = new HashSet<String>();
+
         JSONArray peopleList = new JSONArray();
         for(int i = 0; i < getChildCount(); i++) {
             TextView textView = getTextView(i);
@@ -217,9 +221,15 @@ public class PeopleContainer extends LinearLayout {
                         activity.getString(R.string.actfm_EPA_invalid_email, text));
             if (peopleAsJSON) {
                 JSONObject person = PeopleContainer.createUserJson(textView);
-                if (person != null)
-                    peopleList.put(person);
-            } else {
+                if (person != null) {
+                    String email = person.optString("email");
+                    if (!TextUtils.isEmpty(email) && !addedEmails.contains(email)) {
+                        addedEmails.add(email);
+                        peopleList.put(person);
+                    }
+                }
+            } else if (!addedEmails.contains(text)) {
+                addedEmails.add(text);
                 peopleList.put(text);
             }
         }
