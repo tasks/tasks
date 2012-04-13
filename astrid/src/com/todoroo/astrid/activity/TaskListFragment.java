@@ -930,9 +930,8 @@ public class TaskListFragment extends ListFragment implements OnScrollListener,
         taskAdapter.changeCursor(currentCursor);
 
         // update title
-        filter.title = getString(R.string.TLA_custom);
         if (getActivity() instanceof TaskListActivity)
-            ((TaskListActivity) getActivity()).setListsTitle(filter.title);
+            ((TaskListActivity) getActivity()).setListsTitle(getString(R.string.TLA_custom));
 
         // try selecting again
         for (int i = 0; i < currentCursor.getCount(); i++) {
