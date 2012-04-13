@@ -1027,6 +1027,9 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
      * @param progress
      */
     void setTaskAppearance(ViewHolder viewHolder, Task task) {
+        Activity activity = fragment.getActivity();
+        if (activity == null)
+            return;
         boolean state = task.isCompleted();
 
         viewHolder.completeBox.setChecked(state);
@@ -1035,10 +1038,10 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
         TextView name = viewHolder.nameView;
         if(state) {
             name.setPaintFlags(name.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
-            name.setTextAppearance(fragment.getActivity(), R.style.TextAppearance_TAd_ItemTitle_Completed);
+            name.setTextAppearance(activity, R.style.TextAppearance_TAd_ItemTitle_Completed);
         } else {
             name.setPaintFlags(name.getPaintFlags() & ~Paint.STRIKE_THRU_TEXT_FLAG);
-            name.setTextAppearance(fragment.getActivity(), R.style.TextAppearance_TAd_ItemTitle);
+            name.setTextAppearance(activity, R.style.TextAppearance_TAd_ItemTitle);
         }
         name.setTextSize(fontSize);
         float detailTextSize = Math.max(10, fontSize * 12 / 20);
