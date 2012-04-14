@@ -1,6 +1,7 @@
 package com.todoroo.astrid.adapter;
 
 import java.io.IOException;
+import java.util.regex.PatternSyntaxException;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -11,9 +12,13 @@ import android.content.DialogInterface;
 import android.database.Cursor;
 import android.support.v4.app.Fragment;
 import android.text.Html;
+import android.text.SpannableString;
+import android.text.SpannableStringBuilder;
 import android.text.Spanned;
 import android.text.TextUtils;
 import android.text.format.DateUtils;
+import android.text.method.LinkMovementMethod;
+import android.text.style.ClickableSpan;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -29,6 +34,8 @@ import com.todoroo.andlib.service.ContextManager;
 import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.astrid.actfm.sync.ActFmPreferenceService;
+import com.todoroo.astrid.core.PluginServices;
+import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.data.Update;
 import com.todoroo.astrid.helper.AsyncImageView;
 import com.todoroo.astrid.helper.ImageDiskCache;
@@ -50,6 +57,7 @@ public class UpdateAdapter extends CursorAdapter {
     private final String linkColor;
     private final String fromView;
 
+    private static final String TASK_LINK_TOKEN = "@task"; //$NON-NLS-1$
 
     private static final String UPDATE_FRIENDS = "friends";  //$NON-NLS-1$
     private static final String UPDATE_REQUEST_FRIENDSHIP = "request_friendship"; //$NON-NLS-1$
@@ -151,6 +159,7 @@ public class UpdateAdapter extends CursorAdapter {
         // name
         final TextView nameView = (TextView)view.findViewById(R.id.title); {
             nameView.setText(getUpdateComment(update, user, linkColor, fromView));
+            nameView.setMovementMethod(new LinkMovementMethod());
         }
 
 
@@ -162,6 +171,11 @@ public class UpdateAdapter extends CursorAdapter {
             date.setText(dateString);
         }
 
+    }
+
+    @Override
+    public boolean isEnabled(int position) {
+        return false;
     }
 
     public static void setupImagePopupForCommentView(View view, AsyncImageView commentPictureView, final String updatePicture,
@@ -222,13 +236,20 @@ public class UpdateAdapter extends CursorAdapter {
             otherUser = new JSONObject();
         }
 
+        long taskId = update.getValue(Update.TASK_LOCAL);
+        if (taskId <= 0) {
+            Task local = PluginServices.getTaskService().fetchByRemoteId(update.getValue(Update.TASK), Task.ID);
+            if (local != null)
+                taskId = local.getId();
+        }
+
         return getUpdateComment(update.getValue(Update.ACTION_CODE),
                 user.optString("name"), update.getValue(Update.TARGET_NAME),
                 update.getValue(Update.MESSAGE), otherUser.optString("name"),
-                update.getValue(Update.ACTION), linkColor, fromView);
+                update.getValue(Update.ACTION), linkColor, fromView, taskId);
     }
 
-    public static Spanned getUpdateComment (String actionCode, String user, String targetName, String message, String otherUser, String action, String linkColor, String fromView) {
+    public static Spanned getUpdateComment (String actionCode, String user, String targetName, String message, String otherUser, String action, String linkColor, String fromView, final long taskId) {
         if (TextUtils.isEmpty(user)) {
             user = ContextManager.getString(R.string.ENA_no_user);
         }
@@ -294,6 +315,52 @@ public class UpdateAdapter extends CursorAdapter {
             return Html.fromHtml(String.format("%s %s", userLink, action)); //$NON-NLS-1$
         }
 
-        return Html.fromHtml(ContextManager.getString(commentResource, userLink, targetNameLink, message, otherUserLink));
+        String original = ContextManager.getString(commentResource, userLink, targetNameLink, message, otherUserLink);
+        int taskLinkIndex = original.indexOf(TASK_LINK_TOKEN);
+
+        if (taskLinkIndex < 0)
+            return Html.fromHtml(original);
+
+        if (taskId <= 0) {
+            original = original.replace(TASK_LINK_TOKEN, targetNameLink);
+            return Html.fromHtml(original);
+        }
+
+        try {
+            SpannableStringBuilder builder = new SpannableStringBuilder();
+            SpannableString taskSpan = new SpannableString(targetName);
+            taskSpan.setSpan(new ClickableSpan() {
+                @Override
+                public void onClick(View widget) {
+                    System.err.println("Click " + taskId);
+                }
+            }, 0, targetName.length(), Spanned.SPAN_INCLUSIVE_EXCLUSIVE);
+
+            String[] components = original.split(TASK_LINK_TOKEN);
+            if (components.length > 1) {
+                Spanned comp1 = Html.fromHtml(components[0]);
+                Spanned comp2 = Html.fromHtml(components[1]);
+
+                builder.append(comp1)
+                       .append(taskSpan)
+                       .append(' ')
+                       .append(comp2);
+            } else if (original.endsWith(TASK_LINK_TOKEN)) {
+                Spanned startComp = Html.fromHtml(components[0]);
+                builder.append(startComp)
+                       .append(taskSpan);
+            } else {
+                Spanned endComp = Html.fromHtml(components[0]);
+                builder.append(taskSpan)
+                       .append(' ')
+                       .append(endComp);
+
+            }
+
+            return builder;
+        } catch (PatternSyntaxException e) {
+            original = original.replace(TASK_LINK_TOKEN, targetNameLink);
+            return Html.fromHtml(original);
+        }
     }
 }
