@@ -222,6 +222,22 @@ public class DateUtilities {
         return DateUtilities.getRelativeDay(context, date, true);
     }
 
+    public static long getStartOfDay(long time) {
+        Date date = new Date(time);
+        date.setHours(0);
+        date.setMinutes(0);
+        date.setSeconds(0);
+        return date.getTime();
+    }
+
+    public static long getEndOfDay(long time) {
+        Date date = new Date(time);
+        date.setHours(23);
+        date.setMinutes(59);
+        date.setSeconds(59);
+        return date.getTime();
+    }
+
     private static long clearTime(Date date) {
         date.setTime(date.getTime() / 1000L * 1000);
         date.setHours(0);

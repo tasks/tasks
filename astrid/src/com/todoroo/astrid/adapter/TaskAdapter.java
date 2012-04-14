@@ -377,7 +377,9 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
             if (activity != null) {
                 if(!task.isCompleted() && task.hasDueDate()) {
                     long dueDate = task.getValue(Task.DUE_DATE);
-                    if(dueDate > DateUtilities.now())
+                    long compareTo = task.hasDueTime() ? DateUtilities.now() : DateUtilities.getStartOfDay(DateUtilities.now());
+
+                    if(dueDate > compareTo)
                         dueDateView.setTextAppearance(fragment.getActivity(), R.style.TextAppearance_TAd_ItemDueDate);
                     else
                         dueDateView.setTextAppearance(fragment.getActivity(), R.style.TextAppearance_TAd_ItemDueDate_Overdue);
