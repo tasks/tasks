@@ -12,8 +12,8 @@
     <string name="update_string_task_created_on_list">%1$s added %2$s to this list</string>
     <string name="update_string_task_completed">%1$s completed %2$s. Huzzah!</string>
     <string name="update_string_task_uncompleted">%1$s un-completed %2$s.</string>
-    <string name="update_string_task_tagged">%1$s added %4$s to %2$s</string>
-    <string name="update_string_task_tagged_list">%1$s added %4$s to this list</string>
+    <string name="update_string_task_tagged">%1$s added %2$s to %4$s</string>
+    <string name="update_string_task_tagged_list">%1$s added %2$s to this list</string>
     <string name="update_string_task_assigned">%1$s assigned %2$s to %4$s</string>
     <string name="update_string_default_comment">%1$s commented: %3$s</string>
     <string name="update_string_task_comment">%1$s Re: %2$s: %3$s</string>
