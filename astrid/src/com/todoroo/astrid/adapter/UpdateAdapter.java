@@ -34,6 +34,7 @@ import com.todoroo.andlib.service.ContextManager;
 import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.astrid.actfm.sync.ActFmPreferenceService;
+import com.todoroo.astrid.activity.AstridActivity;
 import com.todoroo.astrid.core.PluginServices;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.data.Update;
@@ -51,6 +52,7 @@ public class UpdateAdapter extends CursorAdapter {
     // --- instance variables
 
     protected final Fragment fragment;
+    protected final AstridActivity activity;
     private final int resource;
     private final LayoutInflater inflater;
     private final ImageDiskCache imageCache;
@@ -102,7 +104,7 @@ public class UpdateAdapter extends CursorAdapter {
 
         this.resource = resource;
         this.fragment = fragment;
-
+        this.activity = (AstridActivity) fragment.getActivity();
     }
 
     public static String getLinkColor(Fragment f) {
@@ -158,7 +160,7 @@ public class UpdateAdapter extends CursorAdapter {
 
         // name
         final TextView nameView = (TextView)view.findViewById(R.id.title); {
-            nameView.setText(getUpdateComment(update, user, linkColor, fromView));
+            nameView.setText(getUpdateComment(activity, update, user, linkColor, fromView));
             nameView.setMovementMethod(new LinkMovementMethod());
         }
 
@@ -225,7 +227,7 @@ public class UpdateAdapter extends CursorAdapter {
     }
 
     @SuppressWarnings("nls")
-    public static Spanned getUpdateComment (Update update, JSONObject user, String linkColor, String fromView) {
+    public static Spanned getUpdateComment (final AstridActivity activity, Update update, JSONObject user, String linkColor, String fromView) {
         if (user == null) {
             user = ActFmPreferenceService.userFromModel(update);
         }
@@ -243,13 +245,14 @@ public class UpdateAdapter extends CursorAdapter {
                 taskId = local.getId();
         }
 
-        return getUpdateComment(update.getValue(Update.ACTION_CODE),
+        return getUpdateComment(activity, update.getValue(Update.ACTION_CODE),
                 user.optString("name"), update.getValue(Update.TARGET_NAME),
                 update.getValue(Update.MESSAGE), otherUser.optString("name"),
                 update.getValue(Update.ACTION), linkColor, fromView, taskId);
     }
 
-    public static Spanned getUpdateComment (String actionCode, String user, String targetName, String message, String otherUser, String action, String linkColor, String fromView, final long taskId) {
+    public static Spanned getUpdateComment (final AstridActivity activity, String actionCode, String user, String targetName,
+            String message, String otherUser, String action, String linkColor, String fromView, final long taskId) {
         if (TextUtils.isEmpty(user)) {
             user = ContextManager.getString(R.string.ENA_no_user);
         }
@@ -321,7 +324,7 @@ public class UpdateAdapter extends CursorAdapter {
         if (taskLinkIndex < 0)
             return Html.fromHtml(original);
 
-        if (taskId <= 0) {
+        if (taskId <= 0 || activity == null) {
             original = original.replace(TASK_LINK_TOKEN, targetNameLink);
             return Html.fromHtml(original);
         }
@@ -332,7 +335,7 @@ public class UpdateAdapter extends CursorAdapter {
             taskSpan.setSpan(new ClickableSpan() {
                 @Override
                 public void onClick(View widget) {
-                    System.err.println("Click " + taskId);
+                    activity.onTaskListItemClicked(taskId);
                 }
             }, 0, targetName.length(), Spanned.SPAN_INCLUSIVE_EXCLUSIVE);
 

@@ -499,7 +499,7 @@ public class EditNoteActivity extends LinearLayout implements TimerActionListene
 
             String commentPicture = u.getValue(Update.PICTURE);
 
-            Spanned title = UpdateAdapter.getUpdateComment(u, user, linkColor, UpdateAdapter.FROM_TASK_VIEW);
+            Spanned title = UpdateAdapter.getUpdateComment(null, u, user, linkColor, UpdateAdapter.FROM_TASK_VIEW);
             return new NoteOrUpdate(user.optString("picture"),
                     title,
                     commentPicture,
