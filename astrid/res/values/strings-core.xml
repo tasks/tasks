@@ -638,6 +638,9 @@ Astrid is open-source and proudly maintained by Todoroo, Inc.</string>
   <!-- Title of "Help" option in settings -->
   <string name="p_help">Support</string>
   
+  <!-- Title of "Forums" option in settings -->
+  <string name="p_forums">Forums</string>
+  
   <!-- ============================================================= Misc == -->
   
   <!-- Displayed when task killer found. %s => name of the application -->

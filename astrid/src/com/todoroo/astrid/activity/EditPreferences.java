@@ -18,6 +18,7 @@ import android.content.pm.PackageManager;
 import android.content.pm.PackageManager.NameNotFoundException;
 import android.content.pm.ResolveInfo;
 import android.content.res.Resources;
+import android.net.Uri;
 import android.os.Bundle;
 import android.preference.CheckBoxPreference;
 import android.preference.Preference;
@@ -66,8 +67,10 @@ import com.todoroo.astrid.widget.TasksWidget;
  */
 public class EditPreferences extends TodorooPreferenceActivity {
 
-    private static final int APPEARANCE_PREFERENCE = 3;
-    private static final int POWER_PACK_PREFERENCE = 4;
+    private static final String SUPPORT_URL = "http://blog.astrid.com/topics/support/android"; //$NON-NLS-1$
+
+    private static final int APPEARANCE_PREFERENCE = 4;
+    private static final int POWER_PACK_PREFERENCE = 5;
 
     private static final int REQUEST_CODE_SYNC = 0;
 
@@ -132,7 +135,16 @@ public class EditPreferences extends TodorooPreferenceActivity {
         preference.setOnPreferenceClickListener(new OnPreferenceClickListener() {
             @Override
             public boolean onPreferenceClick(Preference p) {
-                showHelp();
+                showSupport();
+                return true;
+            }
+        });
+
+        preference = screen.findPreference(getString(R.string.p_forums));
+        preference.setOnPreferenceClickListener(new OnPreferenceClickListener() {
+            @Override
+            public boolean onPreferenceClick(Preference p) {
+                showForums();
                 return true;
             }
         });
@@ -164,7 +176,12 @@ public class EditPreferences extends TodorooPreferenceActivity {
         About.showAbout(this, version);
     }
 
-    private void showHelp() {
+    private void showSupport() {
+        Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(SUPPORT_URL));
+        startActivity(intent);
+    }
+
+    private void showForums() {
         StatisticsService.reportEvent(StatisticsConstants.TLA_MENU_HELP);
         Intent intent = new Intent(this, NewFeedbackSpringboardActivity.class);
         startActivity(intent);
