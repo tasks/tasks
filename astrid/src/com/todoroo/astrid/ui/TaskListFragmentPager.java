@@ -13,8 +13,11 @@ import com.todoroo.astrid.utility.Flags;
 
 public class TaskListFragmentPager extends ViewPager {
 
+    private static final int OFFSCREEN_PAGE_LIMIT = 2;
+
     public TaskListFragmentPager(Context context, AttributeSet attrs) {
         super(context, attrs);
+        setOffscreenPageLimit(OFFSCREEN_PAGE_LIMIT);
     }
 
     @Override
