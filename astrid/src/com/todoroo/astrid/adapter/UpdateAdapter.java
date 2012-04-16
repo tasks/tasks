@@ -60,11 +60,9 @@ public class UpdateAdapter extends CursorAdapter {
     private final String linkColor;
     private final String fromView;
 
-    private static final String TARGET_LINK_PREFIX = "@link_"; //$NON-NLS-1$
-    private static final String TARGET_LINK_EXPR = TARGET_LINK_PREFIX + "(\\w*)"; //$NON-NLS-1$
+    private static final String TARGET_LINK_PREFIX = "$link_"; //$NON-NLS-1$
+    private static final Pattern TARGET_LINK_PATTERN = Pattern.compile("\\" + TARGET_LINK_PREFIX + "(\\w*)");  //$NON-NLS-1$//$NON-NLS-2$
     private static final String TASK_LINK_TYPE = "task"; //$NON-NLS-1$
-
-    private static final Pattern TARGET_LINK_PATTERN = Pattern.compile(TARGET_LINK_EXPR);
 
     private static final String UPDATE_FRIENDS = "friends";  //$NON-NLS-1$
     private static final String UPDATE_REQUEST_FRIENDSHIP = "request_friendship"; //$NON-NLS-1$
