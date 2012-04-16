@@ -89,6 +89,25 @@ public class TaskService {
     }
 
     /**
+     *
+     * @param remoteId
+     * @param properties
+     * @return item, or null if it doesn't exist
+     */
+    public Task fetchByRemoteId(long remoteId, Property<?>... properties) {
+        TodorooCursor<Task> task = query(Query.select(properties).where(Task.REMOTE_ID.eq(remoteId)));
+        try {
+            if (task.getCount() > 0) {
+                task.moveToFirst();
+                return new Task(task);
+            }
+            return null;
+        } finally {
+            task.close();
+        }
+    }
+
+    /**
      * Mark the given task as completed and save it.
      *
      * @param item

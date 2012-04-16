@@ -4,19 +4,22 @@
 
     <!-- Update string from activity codes %1$s - user, %2$s - target name, %3$s - message, %4$s - other_user-->
     
+    <!-- NOTE TO TRANSLATORS: things beginning with $link_ are special tokens we use for string formatting.
+    Please do not translate this part of the string. -->
+    
     <string name="update_string_friends">%1$s is now friends with %2$s</string>
     <string name="update_string_request_friendship">%1$s wants to be friends with you</string>
     <string name="update_string_confirmed_friendship">%1$s has confirmed your friendship request</string>
     <string name="update_string_task_created">%1$s created this task</string>
-    <string name="update_string_task_created_global">%1$s created %2$s</string>
-    <string name="update_string_task_created_on_list">%1$s added %2$s to this list</string>
-    <string name="update_string_task_completed">%1$s completed %2$s. Huzzah!</string>
-    <string name="update_string_task_uncompleted">%1$s un-completed %2$s.</string>
-    <string name="update_string_task_tagged">%1$s added %2$s to %4$s</string>
-    <string name="update_string_task_tagged_list">%1$s added %2$s to this list</string>
-    <string name="update_string_task_assigned">%1$s assigned %2$s to %4$s</string>
+    <string name="update_string_task_created_global">%1$s created $link_task</string>
+    <string name="update_string_task_created_on_list">%1$s added $link_task to this list</string>
+    <string name="update_string_task_completed">%1$s completed $link_task. Huzzah!</string>
+    <string name="update_string_task_uncompleted">%1$s un-completed $link_task.</string>
+    <string name="update_string_task_tagged">%1$s added $link_task to %4$s</string>
+    <string name="update_string_task_tagged_list">%1$s added $link_task to this list</string>
+    <string name="update_string_task_assigned">%1$s assigned $link_task to %4$s</string>
     <string name="update_string_default_comment">%1$s commented: %3$s</string>
-    <string name="update_string_task_comment">%1$s Re: %2$s: %3$s</string>
+    <string name="update_string_task_comment">%1$s Re: $link_task: %3$s</string>
     <string name="update_string_tag_comment">%1$s Re: %2$s: %3$s</string>
     <string name="update_string_tag_created">%1$s created this list</string>
     <string name="update_string_tag_created_global">%1$s created the list %2$s</string>

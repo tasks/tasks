@@ -1,6 +1,8 @@
 package com.todoroo.astrid.adapter;
 
 import java.io.IOException;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -11,9 +13,13 @@ import android.content.DialogInterface;
 import android.database.Cursor;
 import android.support.v4.app.Fragment;
 import android.text.Html;
+import android.text.SpannableString;
+import android.text.SpannableStringBuilder;
 import android.text.Spanned;
 import android.text.TextUtils;
 import android.text.format.DateUtils;
+import android.text.method.LinkMovementMethod;
+import android.text.style.ClickableSpan;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -29,6 +35,9 @@ import com.todoroo.andlib.service.ContextManager;
 import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.astrid.actfm.sync.ActFmPreferenceService;
+import com.todoroo.astrid.activity.AstridActivity;
+import com.todoroo.astrid.core.PluginServices;
+import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.data.Update;
 import com.todoroo.astrid.helper.AsyncImageView;
 import com.todoroo.astrid.helper.ImageDiskCache;
@@ -44,12 +53,16 @@ public class UpdateAdapter extends CursorAdapter {
     // --- instance variables
 
     protected final Fragment fragment;
+    protected final AstridActivity activity;
     private final int resource;
     private final LayoutInflater inflater;
     private final ImageDiskCache imageCache;
     private final String linkColor;
     private final String fromView;
 
+    private static final String TARGET_LINK_PREFIX = "$link_"; //$NON-NLS-1$
+    private static final Pattern TARGET_LINK_PATTERN = Pattern.compile("\\" + TARGET_LINK_PREFIX + "(\\w*)");  //$NON-NLS-1$//$NON-NLS-2$
+    private static final String TASK_LINK_TYPE = "task"; //$NON-NLS-1$
 
     private static final String UPDATE_FRIENDS = "friends";  //$NON-NLS-1$
     private static final String UPDATE_REQUEST_FRIENDSHIP = "request_friendship"; //$NON-NLS-1$
@@ -94,7 +107,7 @@ public class UpdateAdapter extends CursorAdapter {
 
         this.resource = resource;
         this.fragment = fragment;
-
+        this.activity = (AstridActivity) fragment.getActivity();
     }
 
     public static String getLinkColor(Fragment f) {
@@ -150,7 +163,8 @@ public class UpdateAdapter extends CursorAdapter {
 
         // name
         final TextView nameView = (TextView)view.findViewById(R.id.title); {
-            nameView.setText(getUpdateComment(update, user, linkColor, fromView));
+            nameView.setText(getUpdateComment(activity, update, user, linkColor, fromView));
+            nameView.setMovementMethod(new LinkMovementMethod());
         }
 
 
@@ -162,6 +176,11 @@ public class UpdateAdapter extends CursorAdapter {
             date.setText(dateString);
         }
 
+    }
+
+    @Override
+    public boolean isEnabled(int position) {
+        return false;
     }
 
     public static void setupImagePopupForCommentView(View view, AsyncImageView commentPictureView, final String updatePicture,
@@ -211,7 +230,7 @@ public class UpdateAdapter extends CursorAdapter {
     }
 
     @SuppressWarnings("nls")
-    public static Spanned getUpdateComment (Update update, JSONObject user, String linkColor, String fromView) {
+    public static Spanned getUpdateComment (final AstridActivity activity, Update update, JSONObject user, String linkColor, String fromView) {
         if (user == null) {
             user = ActFmPreferenceService.userFromModel(update);
         }
@@ -222,13 +241,14 @@ public class UpdateAdapter extends CursorAdapter {
             otherUser = new JSONObject();
         }
 
-        return getUpdateComment(update.getValue(Update.ACTION_CODE),
+        return getUpdateComment(activity, update, update.getValue(Update.ACTION_CODE),
                 user.optString("name"), update.getValue(Update.TARGET_NAME),
                 update.getValue(Update.MESSAGE), otherUser.optString("name"),
                 update.getValue(Update.ACTION), linkColor, fromView);
     }
 
-    public static Spanned getUpdateComment (String actionCode, String user, String targetName, String message, String otherUser, String action, String linkColor, String fromView) {
+    public static Spanned getUpdateComment (final AstridActivity activity, Update update, String actionCode, String user, String targetName,
+            String message, String otherUser, String action, String linkColor, String fromView) {
         if (TextUtils.isEmpty(user)) {
             user = ContextManager.getString(R.string.ENA_no_user);
         }
@@ -294,6 +314,69 @@ public class UpdateAdapter extends CursorAdapter {
             return Html.fromHtml(String.format("%s %s", userLink, action)); //$NON-NLS-1$
         }
 
-        return Html.fromHtml(ContextManager.getString(commentResource, userLink, targetNameLink, message, otherUserLink));
+        String original = ContextManager.getString(commentResource, userLink, targetNameLink, message, otherUserLink);
+        int taskLinkIndex = original.indexOf(TARGET_LINK_PREFIX);
+
+        if (taskLinkIndex < 0)
+            return Html.fromHtml(original);
+
+        String[] components = original.split(" "); //$NON-NLS-1$
+        SpannableStringBuilder builder = new SpannableStringBuilder();
+        StringBuilder htmlStringBuilder = new StringBuilder();
+
+        for (String comp : components) {
+            Matcher m = TARGET_LINK_PATTERN.matcher(comp);
+            if (m.find()) {
+                builder.append(Html.fromHtml(htmlStringBuilder.toString()));
+                htmlStringBuilder.setLength(0);
+
+                String linkType = m.group(1);
+                CharSequence link = getLinkSpan(activity, update, actionCode, user,
+                        targetName, message, otherUser, action, linkColor, linkType);
+                if (link != null) {
+                    builder.append(link);
+                    if (!m.hitEnd()) {
+                        builder.append(comp.substring(m.end()));
+                    }
+                    builder.append(' ');
+                }
+            } else {
+                htmlStringBuilder.append(comp);
+                htmlStringBuilder.append(' ');
+            }
+        }
+
+        if (htmlStringBuilder.length() > 0)
+            builder.append(Html.fromHtml(htmlStringBuilder.toString()));
+
+        return builder;
+    }
+
+    private static CharSequence getLinkSpan(final AstridActivity activity, Update update, String actionCode, String user, String targetName,
+            String message, String otherUser, String action, String linkColor, String linkType) {
+        if (TASK_LINK_TYPE.equals(linkType)) {
+            long taskId = update.getValue(Update.TASK_LOCAL);
+            if (taskId <= 0) {
+                Task local = PluginServices.getTaskService().fetchByRemoteId(update.getValue(Update.TASK), Task.ID);
+                if (local != null)
+                    taskId = local.getId();
+            }
+
+            final long taskIdToUse = taskId;
+
+            if (taskId > 0) {
+                SpannableString taskSpan = new SpannableString(targetName);
+                taskSpan.setSpan(new ClickableSpan() {
+                    @Override
+                  public void onClick(View widget) {
+                      activity.onTaskListItemClicked(taskIdToUse);
+                  }
+                }, 0, targetName.length(), Spanned.SPAN_INCLUSIVE_EXCLUSIVE);
+                return taskSpan;
+            } else {
+                return Html.fromHtml(linkify(targetName, linkColor));
+            }
+        }
+        return null;
     }
 }
