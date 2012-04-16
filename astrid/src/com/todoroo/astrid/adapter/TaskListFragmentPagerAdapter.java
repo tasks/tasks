@@ -106,12 +106,13 @@ public class TaskListFragmentPagerAdapter extends FragmentStatePagerAdapter impl
 
     // Constructs extras corresponding to the specified filter that can be used as arguments to the fragment
     private Bundle getExtrasForFilter(Filter filter) {
-        Bundle extras;
-        if (filter instanceof FilterWithCustomIntent) {
+        Bundle extras = null;
+        if (filter instanceof FilterWithCustomIntent)
             extras = ((FilterWithCustomIntent) filter).customExtras;
-        } else {
+
+        if (extras == null)
             extras = new Bundle();
-        }
+
         if (filter != null)
             extras.putParcelable(TaskListFragment.TOKEN_FILTER, filter);
         return extras;
