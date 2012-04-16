@@ -1245,8 +1245,12 @@ public class TaskListFragment extends ListFragment implements OnScrollListener,
     }
 
     public void showSettings() {
+        Activity activity = getActivity();
+        if (activity == null)
+            return;
+
         StatisticsService.reportEvent(StatisticsConstants.TLA_MENU_SETTINGS);
-        Intent intent = new Intent(getActivity(), EditPreferences.class);
+        Intent intent = new Intent(activity, EditPreferences.class);
         startActivityForResult(intent, ACTIVITY_SETTINGS);
     }
 
