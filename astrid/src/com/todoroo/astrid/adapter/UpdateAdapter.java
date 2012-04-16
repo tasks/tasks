@@ -1,7 +1,8 @@
 package com.todoroo.astrid.adapter;
 
 import java.io.IOException;
-import java.util.regex.PatternSyntaxException;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -59,7 +60,11 @@ public class UpdateAdapter extends CursorAdapter {
     private final String linkColor;
     private final String fromView;
 
-    private static final String TASK_LINK_TOKEN = "@task"; //$NON-NLS-1$
+    private static final String TARGET_LINK_PREFIX = "@link_"; //$NON-NLS-1$
+    private static final String TARGET_LINK_EXPR = TARGET_LINK_PREFIX + "(\\w*)"; //$NON-NLS-1$
+    private static final String TASK_LINK_TYPE = "task"; //$NON-NLS-1$
+
+    private static final Pattern TARGET_LINK_PATTERN = Pattern.compile(TARGET_LINK_EXPR);
 
     private static final String UPDATE_FRIENDS = "friends";  //$NON-NLS-1$
     private static final String UPDATE_REQUEST_FRIENDSHIP = "request_friendship"; //$NON-NLS-1$
@@ -238,21 +243,14 @@ public class UpdateAdapter extends CursorAdapter {
             otherUser = new JSONObject();
         }
 
-        long taskId = update.getValue(Update.TASK_LOCAL);
-        if (taskId <= 0) {
-            Task local = PluginServices.getTaskService().fetchByRemoteId(update.getValue(Update.TASK), Task.ID);
-            if (local != null)
-                taskId = local.getId();
-        }
-
-        return getUpdateComment(activity, update.getValue(Update.ACTION_CODE),
+        return getUpdateComment(activity, update, update.getValue(Update.ACTION_CODE),
                 user.optString("name"), update.getValue(Update.TARGET_NAME),
                 update.getValue(Update.MESSAGE), otherUser.optString("name"),
-                update.getValue(Update.ACTION), linkColor, fromView, taskId);
+                update.getValue(Update.ACTION), linkColor, fromView);
     }
 
-    public static Spanned getUpdateComment (final AstridActivity activity, String actionCode, String user, String targetName,
-            String message, String otherUser, String action, String linkColor, String fromView, final long taskId) {
+    public static Spanned getUpdateComment (final AstridActivity activity, Update update, String actionCode, String user, String targetName,
+            String message, String otherUser, String action, String linkColor, String fromView) {
         if (TextUtils.isEmpty(user)) {
             user = ContextManager.getString(R.string.ENA_no_user);
         }
@@ -319,51 +317,68 @@ public class UpdateAdapter extends CursorAdapter {
         }
 
         String original = ContextManager.getString(commentResource, userLink, targetNameLink, message, otherUserLink);
-        int taskLinkIndex = original.indexOf(TASK_LINK_TOKEN);
+        int taskLinkIndex = original.indexOf(TARGET_LINK_PREFIX);
 
         if (taskLinkIndex < 0)
             return Html.fromHtml(original);
 
-        if (taskId <= 0 || activity == null) {
-            original = original.replace(TASK_LINK_TOKEN, targetNameLink);
-            return Html.fromHtml(original);
+        String[] components = original.split(" "); //$NON-NLS-1$
+        SpannableStringBuilder builder = new SpannableStringBuilder();
+        StringBuilder htmlStringBuilder = new StringBuilder();
+
+        for (String comp : components) {
+            Matcher m = TARGET_LINK_PATTERN.matcher(comp);
+            if (m.find()) {
+                builder.append(Html.fromHtml(htmlStringBuilder.toString()));
+                htmlStringBuilder.setLength(0);
+
+                String linkType = m.group(1);
+                CharSequence link = getLinkSpan(activity, update, actionCode, user,
+                        targetName, message, otherUser, action, linkColor, linkType);
+                if (link != null) {
+                    builder.append(link);
+                    if (!m.hitEnd()) {
+                        builder.append(comp.substring(m.end()));
+                    }
+                    builder.append(' ');
+                }
+            } else {
+                htmlStringBuilder.append(comp);
+                htmlStringBuilder.append(' ');
+            }
         }
 
-        try {
-            SpannableStringBuilder builder = new SpannableStringBuilder();
-            SpannableString taskSpan = new SpannableString(targetName);
-            taskSpan.setSpan(new ClickableSpan() {
-                @Override
-                public void onClick(View widget) {
-                    activity.onTaskListItemClicked(taskId);
-                }
-            }, 0, targetName.length(), Spanned.SPAN_INCLUSIVE_EXCLUSIVE);
+        if (htmlStringBuilder.length() > 0)
+            builder.append(Html.fromHtml(htmlStringBuilder.toString()));
 
-            String[] components = original.split(TASK_LINK_TOKEN);
-            if (components.length > 1) {
-                Spanned comp1 = Html.fromHtml(components[0]);
-                Spanned comp2 = Html.fromHtml(components[1]);
+        return builder;
+    }
 
-                builder.append(comp1)
-                       .append(taskSpan)
-                       .append(' ')
-                       .append(comp2);
-            } else if (original.endsWith(TASK_LINK_TOKEN)) {
-                Spanned startComp = Html.fromHtml(components[0]);
-                builder.append(startComp)
-                       .append(taskSpan);
-            } else {
-                Spanned endComp = Html.fromHtml(components[0]);
-                builder.append(taskSpan)
-                       .append(' ')
-                       .append(endComp);
-
+    private static CharSequence getLinkSpan(final AstridActivity activity, Update update, String actionCode, String user, String targetName,
+            String message, String otherUser, String action, String linkColor, String linkType) {
+        if (TASK_LINK_TYPE.equals(linkType)) {
+            long taskId = update.getValue(Update.TASK_LOCAL);
+            if (taskId <= 0) {
+                Task local = PluginServices.getTaskService().fetchByRemoteId(update.getValue(Update.TASK), Task.ID);
+                if (local != null)
+                    taskId = local.getId();
             }
 
-            return builder;
-        } catch (PatternSyntaxException e) {
-            original = original.replace(TASK_LINK_TOKEN, targetNameLink);
-            return Html.fromHtml(original);
+            final long taskIdToUse = taskId;
+
+            if (taskId > 0) {
+                SpannableString taskSpan = new SpannableString(targetName);
+                taskSpan.setSpan(new ClickableSpan() {
+                    @Override
+                  public void onClick(View widget) {
+                      activity.onTaskListItemClicked(taskIdToUse);
+                  }
+                }, 0, targetName.length(), Spanned.SPAN_INCLUSIVE_EXCLUSIVE);
+                return taskSpan;
+            } else {
+                return Html.fromHtml(linkify(targetName, linkColor));
+            }
         }
+        return null;
     }
 }
