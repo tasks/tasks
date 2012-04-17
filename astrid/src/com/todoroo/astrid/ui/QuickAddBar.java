@@ -23,6 +23,7 @@ import android.widget.TextView.OnEditorActionListener;
 
 import com.timsu.astrid.R;
 import com.todoroo.andlib.service.Autowired;
+import com.todoroo.andlib.service.ContextManager;
 import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.andlib.service.ExceptionService;
 import com.todoroo.andlib.utility.DialogUtilities;
@@ -35,6 +36,7 @@ import com.todoroo.astrid.activity.TaskEditFragment;
 import com.todoroo.astrid.activity.TaskListActivity;
 import com.todoroo.astrid.activity.TaskListFragment;
 import com.todoroo.astrid.activity.TaskListFragment.OnTaskListItemClickedListener;
+import com.todoroo.astrid.core.PluginServices;
 import com.todoroo.astrid.dao.TaskDao;
 import com.todoroo.astrid.data.SyncFlags;
 import com.todoroo.astrid.data.TagData;
@@ -290,17 +292,7 @@ public class QuickAddBar extends LinearLayout {
 
             resetControlSets();
 
-            boolean gcalCreateEventEnabled = Preferences.getStringValue(R.string.gcal_p_default) != null
-                    && !Preferences.getStringValue(R.string.gcal_p_default).equals(
-                            "-1");
-            if (!TextUtils.isEmpty(title) && gcalCreateEventEnabled && TextUtils.isEmpty(task.getValue(Task.CALENDAR_URI))) {
-                Uri calendarUri = GCalHelper.createTaskEvent(task,
-                        activity.getContentResolver(), new ContentValues());
-                task.setValue(Task.CALENDAR_URI, calendarUri.toString());
-                task.putTransitory(SyncFlags.ACTFM_SUPPRESS_SYNC, true);
-                task.putTransitory(SyncFlags.GTASKS_SUPPRESS_SYNC, true);
-                taskService.save(task);
-            }
+            addToCalendar(task, title, taskService);
 
             if(!TextUtils.isEmpty(title))
                 fragment.showTaskEditHelpPopover();
@@ -330,6 +322,40 @@ public class QuickAddBar extends LinearLayout {
                     "quick-add-task", e);
             return new Task();
         }
+    }
+
+    private static void addToCalendar(Task task, String title, TaskService taskService) {
+        boolean gcalCreateEventEnabled = Preferences.getStringValue(R.string.gcal_p_default) != null
+                && !Preferences.getStringValue(R.string.gcal_p_default).equals("-1"); //$NON-NLS-1$
+
+        if (!TextUtils.isEmpty(title) && gcalCreateEventEnabled && TextUtils.isEmpty(task.getValue(Task.CALENDAR_URI))) {
+            Uri calendarUri = GCalHelper.createTaskEvent(task,
+                    ContextManager.getContext().getContentResolver(), new ContentValues());
+            task.setValue(Task.CALENDAR_URI, calendarUri.toString());
+            task.putTransitory(SyncFlags.ACTFM_SUPPRESS_SYNC, true);
+            task.putTransitory(SyncFlags.GTASKS_SUPPRESS_SYNC, true);
+            taskService.save(task);
+        }
+    }
+
+    /**
+     * Static method to quickly add tasks without all the control set nonsense.
+     * Used from the share link activity.
+     * @param title
+     * @return
+     */
+    public static Task basicQuickAddTask(String title) {
+        if (TextUtils.isEmpty(title))
+            return null;
+
+        TaskService taskService = PluginServices.getTaskService();
+        MetadataService metadataService = PluginServices.getMetadataService();
+        title = title.trim();
+
+        Task task = TaskService.createWithValues(null, title, taskService, metadataService);
+        addToCalendar(task, title, taskService);
+
+        return task;
     }
 
     private static void showAlertForMarkupTask(AstridActivity activity, Task task, String originalText) {
