@@ -14,6 +14,7 @@ import android.media.AudioManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.telephony.TelephonyManager;
+import android.text.TextUtils;
 import android.util.Log;
 
 import com.timsu.astrid.R;
@@ -154,6 +155,10 @@ public class Notifications extends BroadcastReceiver {
             return false;
         // you're done, or not yours - don't sound, do delete
         if(task.isCompleted() || task.isDeleted() || task.getValue(Task.USER_ID) != 0)
+            return false;
+
+        // new task edit in progress
+        if(TextUtils.isEmpty(task.getValue(Task.TITLE)))
             return false;
 
         // it's hidden - don't sound, don't delete

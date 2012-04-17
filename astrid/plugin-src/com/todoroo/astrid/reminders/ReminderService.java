@@ -255,13 +255,19 @@ public final class ReminderService  {
     private long calculateNextOverdueReminder(Task task) {
      // Uses getNowValue() instead of DateUtilities.now()
         if(task.hasDueDate() && task.getFlag(Task.REMINDER_FLAGS, Task.NOTIFY_AFTER_DEADLINE)) {
-            long dueDate = task.getValue(Task.DUE_DATE);
+            Date due = new Date(task.getValue(Task.DUE_DATE));
+            if (!task.hasDueTime()) {
+                due.setHours(23);
+                due.setMinutes(59);
+                due.setSeconds(59);
+            }
+            long dueDateForOverdue = due.getTime();
             long lastReminder = task.getValue(Task.REMINDER_LAST);
 
-            if(dueDate > getNowValue())
-                return dueDate + (long)((0.5f + 2f * random.nextFloat()) * DateUtilities.ONE_HOUR);
+            if(dueDateForOverdue > getNowValue())
+                return dueDateForOverdue + (long)((0.5f + 2f * random.nextFloat()) * DateUtilities.ONE_HOUR);
 
-            if(lastReminder < dueDate)
+            if(lastReminder < dueDateForOverdue)
                 return getNowValue();
 
             if(getNowValue() - lastReminder < 6 * DateUtilities.ONE_HOUR)
