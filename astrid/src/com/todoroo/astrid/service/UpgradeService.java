@@ -41,6 +41,7 @@ import com.todoroo.astrid.utility.AstridPreferences;
 
 public final class UpgradeService {
 
+    public static final int V4_1_0 = 265;
     public static final int V4_0_6_2 = 264;
     public static final int V4_0_6_1 = 263;
     public static final int V4_0_6 = 262;
@@ -193,11 +194,20 @@ public final class UpgradeService {
         if(!(context instanceof Activity) || from == 0)
             return;
 
-        boolean showTagCaseMigration = Preferences.getBoolean(TagCaseMigrator.PREF_SHOW_MIGRATION_ALERT, false);
         Preferences.clear(TagCaseMigrator.PREF_SHOW_MIGRATION_ALERT);
 
         Preferences.clear(AstridPreferences.P_UPGRADE_FROM);
         StringBuilder changeLog = new StringBuilder();
+
+        if (from < V4_1_0) {
+            newVersionString(changeLog, "4.1.0 (4/16/12)", new String[] {
+                "Swipe between lists! Swipe left and right to move through your lists",
+                "Assign tasks to friends by choosing from your phone contacts",
+                "Click on task titles in comments to edit those tasks",
+                "Astrid.com sync improvements",
+                "Other minor bugfixes",
+            });
+        }
 
         if (from >= V4_0_6 && from < V4_0_6_2) {
             newVersionString(changeLog, "4.0.6.2 (4/03/12)", new String[] {
