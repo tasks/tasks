@@ -483,7 +483,7 @@ public class TaskListActivity extends AstridActivity implements MainMenuListener
             if (newList != null) {
                 onFilterItemClicked(newList); // Switch to the new list
                 FilterListFragment fla = getFilterListFragment();
-                if (fla != null)
+                if (fla != null && getFragmentLayout() != LAYOUT_SINGLE)
                     fla.clear();
             }
         } else if (requestCode == TaskListFragment.ACTIVITY_EDIT_TASK && resultCode != Activity.RESULT_CANCELED) {
