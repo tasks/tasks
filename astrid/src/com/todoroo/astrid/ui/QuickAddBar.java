@@ -395,6 +395,12 @@ public class QuickAddBar extends LinearLayout {
             // the rest of onActivityResult is totally unrelated to
             // voicerecognition, so bail out
             return true;
+        } else if (requestCode == TaskEditFragment.REQUEST_CODE_CONTACT) {
+            if (resultCode == Activity.RESULT_OK)
+                peopleControl.onActivityResult(requestCode, resultCode, data);
+            else
+                peopleControl.assignToMe();
+            return true;
         }
 
 
