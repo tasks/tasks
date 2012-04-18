@@ -68,7 +68,7 @@ public class GtasksListFragment extends SubtasksListFragment {
     public void onActivityCreated(Bundle icicle) {
         super.onActivityCreated(icicle);
 
-        long storeObjectId = getActivity().getIntent().getLongExtra(TOKEN_STORE_ID, 0);
+        long storeObjectId = extras.getLong(TOKEN_STORE_ID, 0);
         list = storeObjectDao.fetch(storeObjectId, LIST_PROPERTIES);
         ((OrderedListFragmentHelper<StoreObject>)helper).setList(list);
     }
