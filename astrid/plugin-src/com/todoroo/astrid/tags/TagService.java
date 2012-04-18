@@ -7,7 +7,10 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedHashSet;
 
+import android.content.Context;
+import android.content.Intent;
 import android.text.TextUtils;
+import android.widget.Toast;
 
 import com.timsu.astrid.R;
 import com.todoroo.andlib.data.Property.CountProperty;
@@ -23,7 +26,10 @@ import com.todoroo.andlib.sql.Join;
 import com.todoroo.andlib.sql.Order;
 import com.todoroo.andlib.sql.Query;
 import com.todoroo.andlib.sql.QueryTemplate;
+import com.todoroo.andlib.utility.DateUtilities;
+import com.todoroo.astrid.actfm.TagViewFragment;
 import com.todoroo.astrid.actfm.sync.ActFmPreferenceService;
+import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.core.PluginServices;
 import com.todoroo.astrid.dao.MetadataDao;
 import com.todoroo.astrid.dao.MetadataDao.MetadataCriteria;
@@ -46,6 +52,9 @@ import com.todoroo.astrid.utility.Flags;
  */
 @SuppressWarnings("nls")
 public final class TagService {
+
+    public static final String TOKEN_TAG_SQL = "tagSql"; //$NON-NLS-1$
+    public static final String SHOW_ACTIVE_TASKS = "show_main_task_view"; //$NON-NLS-1$
 
     // --- public constants
 
@@ -249,6 +258,25 @@ public final class TagService {
         return tagBuilder.toString();
     }
 
+    public boolean deleteOrLeaveTag(Context context, String tag, String sql) {
+        int deleted = deleteTagMetadata(tag);
+        TagData tagData = PluginServices.getTagDataService().getTag(tag, TagData.ID, TagData.DELETION_DATE, TagData.MEMBER_COUNT, TagData.USER_ID);
+        boolean shared = false;
+        if(tagData != null) {
+            tagData.setValue(TagData.DELETION_DATE, DateUtilities.now());
+            PluginServices.getTagDataService().save(tagData);
+            shared = tagData.getValue(TagData.MEMBER_COUNT) > 0 && tagData.getValue(TagData.USER_ID) != 0; // Was I a list member and NOT owner?
+        }
+        Toast.makeText(context, context.getString(shared ? R.string.TEA_tags_left : R.string.TEA_tags_deleted, tag, deleted),
+                Toast.LENGTH_SHORT).show();
+
+        Intent tagDeleted = new Intent(AstridApiConstants.BROADCAST_EVENT_TAG_DELETED);
+        tagDeleted.putExtra(TagViewFragment.EXTRA_TAG_NAME, tag);
+        tagDeleted.putExtra(TOKEN_TAG_SQL, sql);
+        context.sendBroadcast(tagDeleted);
+        return true;
+    }
+
     /**
      * Return all tags (including metadata tags and TagData tags) in an array list
      * @return
@@ -352,7 +380,7 @@ public final class TagService {
         return tagWithCase;
     }
 
-    public int delete(String tag) {
+    public int deleteTagMetadata(String tag) {
         invalidateTaskCache(tag);
         return PluginServices.getMetadataService().deleteWhere(tagEqIgnoreCase(tag, Criterion.all));
     }

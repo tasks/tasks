@@ -33,7 +33,6 @@ import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.andlib.service.ExceptionService;
 import com.todoroo.andlib.utility.AndroidUtilities;
-import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.andlib.utility.DialogUtilities;
 import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.astrid.actfm.ActFmCameraModule.CameraResultCallback;
@@ -41,9 +40,7 @@ import com.todoroo.astrid.actfm.sync.ActFmPreferenceService;
 import com.todoroo.astrid.actfm.sync.ActFmSyncService;
 import com.todoroo.astrid.activity.FilterListFragment;
 import com.todoroo.astrid.activity.ShortcutActivity;
-import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.api.Filter;
-import com.todoroo.astrid.core.PluginServices;
 import com.todoroo.astrid.data.SyncFlags;
 import com.todoroo.astrid.data.TagData;
 import com.todoroo.astrid.helper.AsyncImageView;
@@ -72,6 +69,8 @@ public class TagSettingsActivity extends FragmentActivity {
 
     private TagData tagData;
     private Filter filter; // Used for creating shortcuts, only initialized if necessary
+
+    @Autowired TagService tagService;
 
     @Autowired TagDataService tagDataService;
 
@@ -527,20 +526,9 @@ public class TagSettingsActivity extends FragmentActivity {
     }
 
     protected boolean deleteTag() {
-        tagDataService.delete(tagData.getId());
-        if(tagData != null) {
-            tagData.setValue(TagData.DELETION_DATE, DateUtilities.now());
-            PluginServices.getTagDataService().save(tagData);
-        }
-
-        Intent tagDeleted = new Intent(AstridApiConstants.BROADCAST_EVENT_TAG_DELETED);
-        tagDeleted.putExtra(TagViewFragment.EXTRA_TAG_NAME, tagData.getValue(TagData.NAME));
-        tagDeleted.putExtra(TagFilterExposer.TAG_SQL, TagFilterExposer.SHOW_ACTIVE_TASKS);
-
-        this.finish();
-        sendBroadcast(tagDeleted);
-
-        return true;
+        boolean result = tagService.deleteOrLeaveTag(this, tagData.getValue(TagData.NAME), TagService.SHOW_ACTIVE_TASKS);
+        finish();
+        return result;
     }
 
 }

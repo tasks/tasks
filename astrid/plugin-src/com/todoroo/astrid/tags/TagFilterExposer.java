@@ -27,7 +27,6 @@ import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.andlib.sql.Criterion;
 import com.todoroo.andlib.sql.QueryTemplate;
 import com.todoroo.andlib.utility.AndroidUtilities;
-import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.andlib.utility.DialogUtilities;
 import com.todoroo.astrid.actfm.TagViewFragment;
 import com.todoroo.astrid.api.AstridApiConstants;
@@ -59,8 +58,6 @@ import com.todoroo.astrid.utility.AstridPreferences;
 public class TagFilterExposer extends BroadcastReceiver implements AstridFilterExposer {
 
     private static final String TAG = "tag"; //$NON-NLS-1$
-    public static final String TAG_SQL = "tagSql"; //$NON-NLS-1$
-    public static final String SHOW_ACTIVE_TASKS = "show_main_task_view"; //$NON-NLS-1$
 
     @Autowired TagDataService tagDataService;
     @Autowired GtasksPreferenceService gtasksPreferenceService;
@@ -129,7 +126,7 @@ public class TagFilterExposer extends BroadcastReceiver implements AstridFilterE
     private static Intent newTagIntent(Context context, Class<? extends Activity> activity, Tag tag, String sql) {
         Intent ret = new Intent(context, activity);
         ret.putExtra(TAG, tag.tag);
-        ret.putExtra(TAG_SQL, sql);
+        ret.putExtra(TagService.TOKEN_TAG_SQL, sql);
         return ret;
     }
 
@@ -207,7 +204,7 @@ public class TagFilterExposer extends BroadcastReceiver implements AstridFilterE
             super.onCreate(savedInstanceState);
 
             tag = getIntent().getStringExtra(TAG);
-            sql = getIntent().getStringExtra(TAG_SQL);
+            sql = getIntent().getStringExtra(TagService.TOKEN_TAG_SQL);
             if(tag == null) {
                 finish();
                 return;
@@ -280,22 +277,7 @@ public class TagFilterExposer extends BroadcastReceiver implements AstridFilterE
 
         @Override
         protected boolean ok() {
-            int deleted = tagService.delete(tag);
-            TagData tagData = PluginServices.getTagDataService().getTag(tag, TagData.ID, TagData.DELETION_DATE, TagData.MEMBER_COUNT, TagData.USER_ID);
-            boolean shared = false;
-            if(tagData != null) {
-                tagData.setValue(TagData.DELETION_DATE, DateUtilities.now());
-                PluginServices.getTagDataService().save(tagData);
-                shared = tagData.getValue(TagData.MEMBER_COUNT) > 0 && tagData.getValue(TagData.USER_ID) != 0; // Was I a list member and NOT owner?
-            }
-            Toast.makeText(this, getString(shared ? R.string.TEA_tags_left : R.string.TEA_tags_deleted, tag, deleted),
-                    Toast.LENGTH_SHORT).show();
-
-            Intent tagDeleted = new Intent(AstridApiConstants.BROADCAST_EVENT_TAG_DELETED);
-            tagDeleted.putExtra(TagViewFragment.EXTRA_TAG_NAME, tag);
-            tagDeleted.putExtra(TAG_SQL, sql);
-            sendBroadcast(tagDeleted);
-            return true;
+            return tagService.deleteOrLeaveTag(this, tag, sql);
         }
 
     }
