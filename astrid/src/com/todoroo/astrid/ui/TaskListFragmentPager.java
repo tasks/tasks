@@ -1,11 +1,14 @@
 package com.todoroo.astrid.ui;
 
 import android.content.Context;
+import android.graphics.Rect;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
+import android.view.View;
 
+import com.timsu.astrid.R;
 import com.todoroo.astrid.activity.TaskListFragment;
 import com.todoroo.astrid.adapter.TaskListFragmentPagerAdapter;
 import com.todoroo.astrid.api.Filter;
@@ -60,8 +63,29 @@ public class TaskListFragmentPager extends ViewPager {
 
     @Override
     public boolean onInterceptTouchEvent(MotionEvent ev) {
-        if (!Flags.check(Flags.TLFP_NO_INTERCEPT_TOUCH))
-            return super.onInterceptTouchEvent(ev);
+        if (checkForPeopleHeaderScroll(ev))
+            return false;
+
+        if (Flags.check(Flags.TLFP_NO_INTERCEPT_TOUCH))
+            return false;
+
+        return super.onInterceptTouchEvent(ev);
+    }
+
+    private boolean checkForPeopleHeaderScroll(MotionEvent ev) {
+        TaskListFragment current = getCurrentFragment();
+        if (current != null) {
+            View v = current.getView();
+            if (v != null) {
+                View peopleView = v.findViewById(R.id.shared_with);
+                if (peopleView != null) {
+                    Rect rect = new Rect();
+                    peopleView.getHitRect(rect);
+                    if (rect.contains((int) ev.getX(), (int) ev.getY()))
+                        return true;
+                }
+            }
+        }
         return false;
     }
 }
