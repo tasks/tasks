@@ -46,6 +46,7 @@ public class AstridPreferences {
         Preferences.setIfUnset(prefs, editor, r, R.string.p_rmd_default_random_hours, 0);
         Preferences.setIfUnset(prefs, editor, r, R.string.p_fontSize, 18);
         Preferences.setIfUnset(prefs, editor, r, R.string.p_showNotes, false);
+        Preferences.setIfUnset(prefs, editor, r, R.string.p_swipe_lists_performance_key, 3);
 
         if ("white-blue".equals(Preferences.getStringValue(R.string.p_theme))) { //$NON-NLS-1$ migrate from when white-blue wasn't the default
             Preferences.setString(R.string.p_theme, ThemeService.THEME_WHITE);

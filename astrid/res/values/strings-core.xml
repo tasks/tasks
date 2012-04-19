@@ -539,6 +539,19 @@
   
   <!-- Preference screen: all task row settings -->
   <string name="EPr_taskRowPrefs_title">Task Row Appearance</string>
+  
+  <!-- Preference screen: performance -->
+  <string name="EPr_performance_header">Performance</string>
+  
+  <!-- Preference: swipe between lists performance -->
+  <string name="EPr_swipe_lists_performance_title">Swipe between lists</string>
+  <string name="EPr_swipe_lists_performance_subtitle">Controls the memory performance of swipe between lists</string>
+  
+  <string-array name="EPr_swipe_lists_performance_mode">
+      <item>Memory Conservation</item>
+      <item>Normal</item>
+      <item>High Performance</item>
+  </string-array>
     
   <string-array name="EPr_default_reminders_mode">
       <!-- reminders duration: labels for "Task Defaults" preference item. -->

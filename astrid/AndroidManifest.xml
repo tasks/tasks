@@ -261,6 +261,15 @@
       </intent-filter>
     </activity>
     
+    <activity android:name="com.todoroo.astrid.core.PerformancePreferences"
+              android:theme="@android:style/Theme"
+              android:label="@string/EPr_performance_header">
+        <intent-filter>
+            <action android:name="com.todoroo.astrid.SETTINGS" />
+            <category android:name="android.intent.category.DEFAULT" />
+        </intent-filter>
+    </activity>
+    
     <!-- tags -->
     <receiver android:name="com.todoroo.astrid.tags.TagsPlugin">
       <intent-filter>

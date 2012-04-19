@@ -9,6 +9,7 @@ import android.view.MotionEvent;
 import android.view.View;
 
 import com.timsu.astrid.R;
+import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.astrid.activity.TaskListFragment;
 import com.todoroo.astrid.adapter.TaskListFragmentPagerAdapter;
 import com.todoroo.astrid.api.Filter;
@@ -16,11 +17,10 @@ import com.todoroo.astrid.utility.Flags;
 
 public class TaskListFragmentPager extends ViewPager {
 
-    private static final int OFFSCREEN_PAGE_LIMIT = 2;
-
     public TaskListFragmentPager(Context context, AttributeSet attrs) {
         super(context, attrs);
-        setOffscreenPageLimit(OFFSCREEN_PAGE_LIMIT);
+        int offscreenPageLimit = Preferences.getIntegerFromString(R.string.p_swipe_lists_performance_key, 3);
+        setOffscreenPageLimit(offscreenPageLimit);
     }
 
     @Override

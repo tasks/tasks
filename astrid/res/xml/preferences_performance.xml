@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:title="@string/EPr_performance_header">
+    <ListPreference
+        android:key="@string/p_swipe_lists_performance_key"
+        android:title="@string/EPr_swipe_lists_performance_title"
+        android:entries="@array/EPr_swipe_lists_performance_mode"
+        android:entryValues="@array/EPr_swipe_lists_performance_mode_values" 
+        android:summary="@string/EPr_swipe_lists_performance_subtitle" />
+</PreferenceScreen>
