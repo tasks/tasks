@@ -346,6 +346,10 @@ public class TasksWidget extends AppWidgetProvider {
                 ComponentName component = ComponentName.unflattenFromString(customComponent);
                 filter = new FilterWithCustomIntent(filter.title, filter.title, filter.getSqlQuery(), filter.valuesForNewTasks);
                 ((FilterWithCustomIntent) filter).customTaskList = component;
+                String serializedExtras = Preferences.getStringValue(WidgetConfigActivity.PREF_CUSTOM_EXTRAS
+                        + widgetId);
+                Bundle extras = AndroidUtilities.bundleFromSerializedString(serializedExtras);
+                ((FilterWithCustomIntent) filter).customExtras = extras;
             }
 
             return filter;
