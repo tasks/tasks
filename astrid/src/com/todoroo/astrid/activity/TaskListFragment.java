@@ -714,7 +714,8 @@ public class TaskListFragment extends ListFragment implements OnScrollListener,
      * broadcast. Subclasses should override this.
      */
     protected void refresh() {
-        taskAdapter.flushCaches();
+        if (taskAdapter != null)
+            taskAdapter.flushCaches();
         loadTaskListContent(true);
         taskService.cleanup();
     }

@@ -255,7 +255,8 @@ public class TagViewFragment extends TaskListFragment {
             }
 
             TaskListActivity tla = (TaskListActivity) getActivity();
-            tla.setCommentsCount(unreadCount);
+            if (tla != null)
+                tla.setCommentsCount(unreadCount);
         }
     }
 
