@@ -42,6 +42,7 @@ import com.todoroo.astrid.opencrx.OpencrxCoreUtils;
 import com.todoroo.astrid.producteev.ProducteevUtilities;
 import com.todoroo.astrid.reminders.ReminderStartupReceiver;
 import com.todoroo.astrid.service.abtesting.ABChooser;
+import com.todoroo.astrid.service.abtesting.ABOptions;
 import com.todoroo.astrid.service.abtesting.FeatureFlipper;
 import com.todoroo.astrid.utility.AstridPreferences;
 import com.todoroo.astrid.utility.Constants;
@@ -212,6 +213,7 @@ public class StartupService {
             }
         }).start();
 
+        abChooser.getChoiceForOption(ABOptions.AB_OPTION_SWIPE_ENABLED_KEY);
         AstridPreferences.setPreferenceDefaults();
 
         // check for task killers

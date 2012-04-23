@@ -201,7 +201,8 @@ public final class UpgradeService {
 
         if (from < V4_1_0) {
             newVersionString(changeLog, "4.1.0 (4/16/12)", new String[] {
-                "Swipe between lists! Swipe left and right to move through your lists",
+                "Swipe between lists! Swipe left and right to move through your lists. Enable or adjust " +
+                "performance of this feature in the 'Performance' section of Settings.",
                 "Assign tasks to friends by choosing from your phone contacts",
                 "Click on task titles in comments to edit those tasks",
                 "Astrid.com sync improvements",

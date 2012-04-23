@@ -248,7 +248,10 @@ public class TaskDao extends DatabaseDao<Task> {
         long firstLaunchTime = Preferences.getLong(AstridPreferences.P_FIRST_LAUNCH, 0);
         long now = DateUtilities.now();
         long timeSinceFirst = now - firstLaunchTime;
-        if (timeSinceFirst < DateUtilities.ONE_WEEK && !Preferences.getBoolean(StatisticsConstants.TASK_ONE_WEEK, false)) {
+        if (timeSinceFirst < DateUtilities.ONE_DAY * 3 && !Preferences.getBoolean(StatisticsConstants.TASK_THREE_DAYS, false)) {
+            StatisticsService.reportEvent(StatisticsConstants.TASK_THREE_DAYS);
+            Preferences.setBoolean(StatisticsConstants.TASK_THREE_DAYS, true);
+        } else if (timeSinceFirst < DateUtilities.ONE_WEEK && !Preferences.getBoolean(StatisticsConstants.TASK_ONE_WEEK, false)) {
             StatisticsService.reportEvent(StatisticsConstants.TASK_ONE_WEEK);
             Preferences.setBoolean(StatisticsConstants.TASK_ONE_WEEK, true);
         } else if (timeSinceFirst < 2 * DateUtilities.ONE_WEEK && !Preferences.getBoolean(StatisticsConstants.TASK_TWO_WEEKS, false)) {

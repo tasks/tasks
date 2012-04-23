@@ -578,15 +578,12 @@ public class TaskListFragment extends ListFragment implements OnScrollListener,
 
     @Override
     public void onStop() {
-        StatisticsService.sessionStop(getActivity());
         super.onStop();
     }
 
     @Override
     public void onResume() {
         super.onResume();
-
-        StatisticsService.sessionStart(getActivity());
 
         getActivity().registerReceiver(detailReceiver,
                 new IntentFilter(AstridApiConstants.BROADCAST_SEND_DETAILS));
@@ -675,7 +672,6 @@ public class TaskListFragment extends ListFragment implements OnScrollListener,
     @Override
     public void onPause() {
         super.onPause();
-        StatisticsService.sessionPause();
 
         AndroidUtilities.tryUnregisterReceiver(getActivity(), detailReceiver);
         AndroidUtilities.tryUnregisterReceiver(getActivity(), refreshReceiver);

@@ -29,6 +29,7 @@ import com.timsu.astrid.R;
 import com.todoroo.andlib.sql.Functions;
 import com.todoroo.andlib.sql.QueryTemplate;
 import com.todoroo.andlib.utility.AndroidUtilities;
+import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.andlib.utility.DialogUtilities;
 import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.astrid.actfm.TagSettingsActivity;
@@ -51,6 +52,7 @@ import com.todoroo.astrid.ui.FragmentPopover;
 import com.todoroo.astrid.ui.MainMenuPopover;
 import com.todoroo.astrid.ui.MainMenuPopover.MainMenuListener;
 import com.todoroo.astrid.ui.TaskListFragmentPager;
+import com.todoroo.astrid.utility.AstridPreferences;
 import com.todoroo.astrid.utility.Constants;
 import com.todoroo.astrid.utility.Flags;
 
@@ -198,10 +200,32 @@ public class TaskListActivity extends AstridActivity implements MainMenuListener
         if (getIntent().hasExtra(TOKEN_SOURCE)) {
             trackActivitySource();
         }
+
+        trackUserRetention();
     }
 
     private boolean swipeIsEnabled() {
         return fragmentLayout == LAYOUT_SINGLE && swipeEnabled;
+    }
+
+    private void trackUserRetention() {
+        long firstLaunchTime = Preferences.getLong(AstridPreferences.P_FIRST_LAUNCH, 0);
+        long now = DateUtilities.now();
+        long timeSinceFirst = now - firstLaunchTime;
+
+        if (timeSinceFirst < DateUtilities.ONE_DAY * 3 && !Preferences.getBoolean(StatisticsConstants.APP_OPEN_THREE_DAYS, false)) {
+            StatisticsService.reportEvent(StatisticsConstants.APP_OPEN_THREE_DAYS);
+            Preferences.setBoolean(StatisticsConstants.APP_OPEN_THREE_DAYS, true);
+        } else if (timeSinceFirst < DateUtilities.ONE_WEEK && !Preferences.getBoolean(StatisticsConstants.APP_OPEN_ONE_WEEK, false)) {
+            StatisticsService.reportEvent(StatisticsConstants.APP_OPEN_ONE_WEEK);
+            Preferences.setBoolean(StatisticsConstants.APP_OPEN_ONE_WEEK, true);
+        } else if (timeSinceFirst < 2 * DateUtilities.ONE_WEEK && !Preferences.getBoolean(StatisticsConstants.APP_OPEN_TWO_WEEKS, false)) {
+            StatisticsService.reportEvent(StatisticsConstants.APP_OPEN_TWO_WEEKS);
+            Preferences.setBoolean(StatisticsConstants.APP_OPEN_TWO_WEEKS, true);
+        } else if (timeSinceFirst < 3 * DateUtilities.ONE_WEEK && !Preferences.getBoolean(StatisticsConstants.APP_OPEN_THREE_WEEKS, false)) {
+            StatisticsService.reportEvent(StatisticsConstants.APP_OPEN_THREE_WEEKS);
+            Preferences.setBoolean(StatisticsConstants.APP_OPEN_THREE_WEEKS, true);
+        }
     }
 
     @Override

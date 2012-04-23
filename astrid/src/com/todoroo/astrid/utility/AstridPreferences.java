@@ -11,6 +11,8 @@ import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.service.ThemeService;
+import com.todoroo.astrid.service.abtesting.ABChooser;
+import com.todoroo.astrid.service.abtesting.ABOptions;
 
 public class AstridPreferences {
 
@@ -46,7 +48,9 @@ public class AstridPreferences {
         Preferences.setIfUnset(prefs, editor, r, R.string.p_rmd_default_random_hours, 0);
         Preferences.setIfUnset(prefs, editor, r, R.string.p_fontSize, 18);
         Preferences.setIfUnset(prefs, editor, r, R.string.p_showNotes, false);
-        Preferences.setIfUnset(prefs, editor, r, R.string.p_swipe_lists_performance_key, 3);
+
+        boolean swipeEnabled = (ABChooser.readChoiceForOption(ABOptions.AB_OPTION_SWIPE_ENABLED_KEY) == 0);
+        Preferences.setIfUnset(prefs, editor, r, R.string.p_swipe_lists_performance_key, swipeEnabled ? 3 : 0);
 
         if ("white-blue".equals(Preferences.getStringValue(R.string.p_theme))) { //$NON-NLS-1$ migrate from when white-blue wasn't the default
             Preferences.setString(R.string.p_theme, ThemeService.THEME_WHITE);

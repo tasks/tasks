@@ -96,6 +96,8 @@ public class AstridActivity extends FragmentActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         ContextManager.setContext(this);
+        StatisticsService.sessionStart(this);
+
         new StartupService().onStartupApplication(this);
     }
 
@@ -115,8 +117,16 @@ public class AstridActivity extends FragmentActivity
     @Override
     protected void onPause() {
         super.onPause();
+
+        StatisticsService.sessionPause();
         AndroidUtilities.tryUnregisterReceiver(this, reminderReceiver);
         AndroidUtilities.tryUnregisterReceiver(this, repeatConfirmationReceiver);
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        StatisticsService.sessionStop(this);
     }
 
     /**
