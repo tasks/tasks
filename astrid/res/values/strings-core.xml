@@ -547,12 +547,25 @@
   <string name="EPr_swipe_lists_performance_title">Swipe between lists</string>
   <string name="EPr_swipe_lists_performance_subtitle">Controls the memory performance of swipe between lists</string>
   
+  <string name="EPr_swipe_lists_restart_alert">You will need to restart Astrid for this change to take effect</string>
+  
   <string-array name="EPr_swipe_lists_performance_mode">
-      <item>Memory Conservation</item>
-      <item>Normal</item>
+      <item>No swipe</item>
+      <item>Conserve Memory</item>
+      <item>Normal Performance</item>
       <item>High Performance</item>
   </string-array>
+  
+  <string-array name="EPr_swipe_lists_performance_desc">
+      <item>Swipe between lists is disabled</item>
+      <item>Slower performance</item>
+      <item>Default setting</item>
+      <item>Uses more system resources</item>
+  </string-array>
     
+  <!-- Format string for displaying the currently selected preference. $1 is name of selected mode, $2 is description -->
+  <string name="EPr_swipe_lists_display">%1$s - %2$s</string>
+  
   <string-array name="EPr_default_reminders_mode">
       <!-- reminders duration: labels for "Task Defaults" preference item. -->
       <item>@string/TEA_reminder_mode_once</item>

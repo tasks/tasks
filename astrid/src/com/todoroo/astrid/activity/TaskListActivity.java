@@ -30,6 +30,7 @@ import com.todoroo.andlib.sql.Functions;
 import com.todoroo.andlib.sql.QueryTemplate;
 import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.andlib.utility.DialogUtilities;
+import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.astrid.actfm.TagSettingsActivity;
 import com.todoroo.astrid.actfm.TagUpdatesFragment;
 import com.todoroo.astrid.actfm.TagViewFragment;
@@ -73,6 +74,8 @@ public class TaskListActivity extends AstridActivity implements MainMenuListener
     private FragmentPopover editPopover;
     private FragmentPopover commentsPopover;
     private MainMenuPopover mainMenuPopover;
+
+    private boolean swipeEnabled = false;
 
     private final TagDeletedReceiver tagDeletedReceiver = new TagDeletedReceiver();
 
@@ -134,10 +137,14 @@ public class TaskListActivity extends AstridActivity implements MainMenuListener
         ThemeService.applyTheme(this);
         super.onCreate(savedInstanceState);
 
-        if (AndroidUtilities.isTabletSized(this))
+        if (AndroidUtilities.isTabletSized(this)) {
             setContentView(R.layout.task_list_wrapper_activity_3pane);
-        else
+        } else if (Preferences.getIntegerFromString(R.string.p_swipe_lists_performance_key, 3) == 0) {
+            setContentView(R.layout.task_list_wrapper_activity_no_swipe);
+        } else {
             setContentView(R.layout.task_list_wrapper_activity);
+            swipeEnabled = true;
+        }
 
         ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayOptions(0, ActionBar.DISPLAY_SHOW_TITLE);
@@ -172,7 +179,7 @@ public class TaskListActivity extends AstridActivity implements MainMenuListener
         if (extras != null)
             extras = (Bundle) extras.clone();
 
-        if (fragmentLayout == LAYOUT_SINGLE) {
+        if (swipeIsEnabled()) {
             FilterListFragment flf = getFilterListFragment();
             if (flf == null)
                 throw new RuntimeException("Filterlist fragment was null, needs to exist to construct the fragment pager"); //$NON-NLS-1$
@@ -193,9 +200,13 @@ public class TaskListActivity extends AstridActivity implements MainMenuListener
         }
     }
 
+    private boolean swipeIsEnabled() {
+        return fragmentLayout == LAYOUT_SINGLE && swipeEnabled;
+    }
+
     @Override
     public TaskListFragment getTaskListFragment() {
-        if (fragmentLayout == LAYOUT_SINGLE) {
+        if (swipeIsEnabled()) {
             return tlfPager.getCurrentFragment();
         } else {
             return super.getTaskListFragment();
@@ -204,7 +215,7 @@ public class TaskListActivity extends AstridActivity implements MainMenuListener
 
     @Override
     public void setupTasklistFragmentWithFilterAndCustomTaskList(Filter filter, Bundle extras, Class<?> customTaskList) {
-        if (fragmentLayout == LAYOUT_SINGLE) {
+        if (swipeIsEnabled()) {
             tlfPager.showFilterWithCustomTaskList(filter, customTaskList);
             tlfPager.setAdapter(tlfPagerAdapter); // Hack to force reload of current page
         } else {
@@ -336,7 +347,7 @@ public class TaskListActivity extends AstridActivity implements MainMenuListener
             listsPopover.dismiss();
         setCommentsCount(0);
 
-        if (fragmentLayout == LAYOUT_SINGLE) {
+        if (swipeIsEnabled()) {
             tlfPager.showFilter((Filter) item);
             return true;
         }
