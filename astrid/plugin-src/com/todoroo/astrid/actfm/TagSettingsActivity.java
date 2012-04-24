@@ -26,7 +26,6 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.timsu.astrid.R;
 import com.todoroo.andlib.service.Autowired;
@@ -53,7 +52,6 @@ import com.todoroo.astrid.tags.TagFilterExposer;
 import com.todoroo.astrid.tags.TagService;
 import com.todoroo.astrid.ui.PeopleContainer;
 import com.todoroo.astrid.ui.PeopleContainer.ParseSharedException;
-import com.todoroo.astrid.utility.Flags;
 import com.todoroo.astrid.welcome.HelpInfoPopover;
 
 public class TagSettingsActivity extends FragmentActivity {
@@ -295,7 +293,6 @@ public class TagSettingsActivity extends FragmentActivity {
                     getString(R.string.actfm_TVA_login_to_share), R.string.actfm_EPA_login_button,
                     R.string.actfm_EPA_dont_share_button, android.R.drawable.ic_dialog_alert,
                     okListener, cancelListener);
-            Toast.makeText(this, R.string.tag_list_saved, Toast.LENGTH_LONG).show();
 
             return;
 
@@ -308,11 +305,6 @@ public class TagSettingsActivity extends FragmentActivity {
         tagData.setValue(TagData.MEMBERS, members.toString());
         tagData.setValue(TagData.MEMBER_COUNT, members.length());
         tagData.setFlag(TagData.FLAGS, TagData.FLAG_SILENT, isSilent.isChecked());
-
-        if(actFmPreferenceService.isLoggedIn())
-            Flags.set(Flags.TOAST_ON_SAVE);
-        else
-            Toast.makeText(this, R.string.tag_list_saved, Toast.LENGTH_LONG).show();
 
         InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
         imm.hideSoftInputFromWindow(tagName.getWindowToken(), 0);

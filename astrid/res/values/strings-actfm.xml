@@ -16,9 +16,6 @@
   <!-- toast on transmit success -->
   <string name="actfm_toast_success">Saved on Server</string>
 
-  <!-- toast on transmit error (%s => error) -->
-  <string name="actfm_toast_error">Save Failed: %s</string>
-
   <!-- can't rename or delete shared tag message -->
   <string name="actfm_tag_operation_disabled">Sorry, this operation is not yet supported for shared tags.</string>
   

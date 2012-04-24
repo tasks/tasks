@@ -78,7 +78,7 @@ public class EditPreferences extends TodorooPreferenceActivity {
     private static final int REQUEST_CODE_PERFORMANCE = 1;
 
     public static final int RESULT_CODE_THEME_CHANGED = 1;
-    public static final int RESULT_CODE_PERFORMANCE_PREF_CHANGED = 2;
+    public static final int RESULT_CODE_PERFORMANCE_PREF_CHANGED = 3;
 
     // --- instance variables
 
@@ -228,6 +228,8 @@ public class EditPreferences extends TodorooPreferenceActivity {
             preference.setTitle(resolveInfo.activityInfo.loadLabel(pm));
             try {
                 Class<?> intentComponent = Class.forName(intent.getComponent().getClassName());
+                if (intentComponent.getSuperclass().equals(SyncProviderPreferences.class))
+                    intentComponent = SyncProviderPreferences.class;
                 if (PREFERENCE_REQUEST_CODES.containsKey(intentComponent)) {
                     final int code = PREFERENCE_REQUEST_CODES.get(intentComponent);
                     preference.setOnPreferenceClickListener(new OnPreferenceClickListener() {

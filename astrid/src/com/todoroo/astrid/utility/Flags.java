@@ -17,11 +17,6 @@ public class Flags {
     public static final int TAGS_CHANGED = 1 << 1;
 
     /**
-     * If set, sync service should toast on save or failure
-     */
-    public static final int TOAST_ON_SAVE = 1 << 2;
-
-    /**
      * If set, indicates that the edit popover was dismissed by the edit fragment/back button
      */
     public static final int TLA_DISMISSED_FROM_TASK_EDIT = 1 << 5;

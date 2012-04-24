@@ -21,16 +21,11 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.content.ContentValues;
-import android.content.Context;
 import android.graphics.Bitmap;
 import android.os.ConditionVariable;
-import android.os.Handler;
-import android.os.Looper;
 import android.text.TextUtils;
 import android.util.Log;
-import android.widget.Toast;
 
-import com.timsu.astrid.R;
 import com.todoroo.andlib.data.AbstractModel;
 import com.todoroo.andlib.data.DatabaseDao;
 import com.todoroo.andlib.data.DatabaseDao.ModelUpdateListener;
@@ -38,7 +33,6 @@ import com.todoroo.andlib.data.Property.LongProperty;
 import com.todoroo.andlib.data.Property.StringProperty;
 import com.todoroo.andlib.data.TodorooCursor;
 import com.todoroo.andlib.service.Autowired;
-import com.todoroo.andlib.service.ContextManager;
 import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.andlib.sql.Criterion;
 import com.todoroo.andlib.sql.Order;
@@ -566,7 +560,6 @@ public final class ActFmSyncService {
             params.add("id"); params.add(remoteId);
         }
 
-        String error = null;
         try {
             params.add("token"); params.add(token);
             JSONObject result = actFmInvoker.invoke("tag_save", params.toArray(new Object[params.size()]));
@@ -577,7 +570,6 @@ public final class ActFmSyncService {
             }
         } catch (ActFmServiceException e) {
             handleException("tag-save", e);
-            error = e.getMessage();
 
             try {
                 fetchTag(tagData);
@@ -589,33 +581,7 @@ public final class ActFmSyncService {
         } catch (IOException e) {
             addFailedPush(new FailedPush(PUSH_TYPE_TAG, tagData.getId()));
             handleException("tag-save", e);
-            error = e.getMessage();
         }
-        if(!Flags.checkAndClear(Flags.TOAST_ON_SAVE))
-            return;
-
-        toastSuccessOrFailure(error);
-    }
-
-    /**
-     * Show a toast on success (error = nil) or failure
-     * @param error
-     */
-    private void toastSuccessOrFailure(String error) {
-        final String finalError = error;
-        Handler handler = new Handler(Looper.getMainLooper());
-        handler.post(new Runnable() {
-            @Override
-            public void run() {
-                Context context = ContextManager.getContext();
-                if(finalError == null)
-                    Toast.makeText(context,
-                            R.string.actfm_toast_success, Toast.LENGTH_LONG).show();
-                else
-                    Toast.makeText(context,
-                            context.getString(R.string.actfm_toast_error, finalError), Toast.LENGTH_LONG).show();
-            }
-        });
     }
 
     // --- data fetch methods
