@@ -752,10 +752,11 @@ public class TaskListFragment extends ListFragment implements OnScrollListener,
             return;
 
         if (requestCode == ACTIVITY_SETTINGS) {
-            if (resultCode == EditPreferences.RESULT_CODE_THEME_CHANGED) {
+            if (resultCode == EditPreferences.RESULT_CODE_THEME_CHANGED || resultCode == EditPreferences.RESULT_CODE_PERFORMANCE_PREF_CHANGED) {
                 getActivity().finish();
                 getActivity().startActivity(getActivity().getIntent());
                 TasksWidget.updateWidgets(getActivity());
+                return;
             } else if (resultCode == SyncProviderPreferences.RESULT_CODE_SYNCHRONIZE) {
                 Preferences.setLong(SyncActionHelper.PREF_LAST_AUTO_SYNC, 0); // Forces autosync to occur after login
             }

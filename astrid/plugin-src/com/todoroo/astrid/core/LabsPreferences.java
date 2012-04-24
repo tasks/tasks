@@ -7,7 +7,6 @@ import android.text.TextUtils;
 
 import com.timsu.astrid.R;
 import com.todoroo.andlib.utility.AndroidUtilities;
-import com.todoroo.andlib.utility.DialogUtilities;
 import com.todoroo.andlib.utility.TodorooPreferenceActivity;
 
 public class LabsPreferences extends TodorooPreferenceActivity {
@@ -17,6 +16,8 @@ public class LabsPreferences extends TodorooPreferenceActivity {
         return R.xml.preferences_labs;
     }
 
+    public static final int PERFORMANCE_SETTING_CHANGED = 3;
+
     @Override
     public void updatePreferences(Preference preference, Object value) {
         final Resources r = getResources();
@@ -25,7 +26,7 @@ public class LabsPreferences extends TodorooPreferenceActivity {
             preference.setOnPreferenceChangeListener(new OnPreferenceChangeListener() {
                 @Override
                 public boolean onPreferenceChange(Preference p, Object newValue) {
-                    DialogUtilities.okDialog(LabsPreferences.this, r.getString(R.string.EPr_swipe_lists_restart_alert), null);
+                    setResult(PERFORMANCE_SETTING_CHANGED);
                     return true;
                 }
             });

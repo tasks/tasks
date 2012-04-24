@@ -4,6 +4,7 @@
 package com.todoroo.astrid.activity;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map.Entry;
@@ -42,6 +43,7 @@ import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.andlib.utility.TodorooPreferenceActivity;
 import com.todoroo.astrid.actfm.ActFmLoginActivity;
 import com.todoroo.astrid.api.AstridApiConstants;
+import com.todoroo.astrid.core.LabsPreferences;
 import com.todoroo.astrid.dao.Database;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.helper.MetadataHelper;
@@ -73,8 +75,10 @@ public class EditPreferences extends TodorooPreferenceActivity {
     private static final int POWER_PACK_PREFERENCE = 5;
 
     private static final int REQUEST_CODE_SYNC = 0;
+    private static final int REQUEST_CODE_PERFORMANCE = 1;
 
     public static final int RESULT_CODE_THEME_CHANGED = 1;
+    public static final int RESULT_CODE_PERFORMANCE_PREF_CHANGED = 2;
 
     // --- instance variables
 
@@ -193,6 +197,12 @@ public class EditPreferences extends TodorooPreferenceActivity {
         startActivity(intent);
     }
 
+    private static final HashMap<Class<?>, Integer> PREFERENCE_REQUEST_CODES = new HashMap<Class<?>, Integer>();
+    static {
+        PREFERENCE_REQUEST_CODES.put(SyncProviderPreferences.class, REQUEST_CODE_SYNC);
+        PREFERENCE_REQUEST_CODES.put(LabsPreferences.class, REQUEST_CODE_PERFORMANCE);
+    }
+
     private void addPluginPreferences(PreferenceScreen screen) {
         Intent queryIntent = new Intent(AstridApiConstants.ACTION_SETTINGS);
         PackageManager pm = getPackageManager();
@@ -218,11 +228,12 @@ public class EditPreferences extends TodorooPreferenceActivity {
             preference.setTitle(resolveInfo.activityInfo.loadLabel(pm));
             try {
                 Class<?> intentComponent = Class.forName(intent.getComponent().getClassName());
-                if (SyncProviderPreferences.class.equals(intentComponent.getSuperclass())) {
+                if (PREFERENCE_REQUEST_CODES.containsKey(intentComponent)) {
+                    final int code = PREFERENCE_REQUEST_CODES.get(intentComponent);
                     preference.setOnPreferenceClickListener(new OnPreferenceClickListener() {
                         @Override
                         public boolean onPreferenceClick(Preference pref) {
-                            startActivityForResult(intent, REQUEST_CODE_SYNC);
+                            startActivityForResult(intent, code);
                             return true;
                         }
                     });
@@ -410,6 +421,9 @@ public class EditPreferences extends TodorooPreferenceActivity {
         if (requestCode == REQUEST_CODE_SYNC && resultCode == SyncProviderPreferences.RESULT_CODE_SYNCHRONIZE) {
             setResult(SyncProviderPreferences.RESULT_CODE_SYNCHRONIZE);
             finish();
+            return;
+        } else if (requestCode == REQUEST_CODE_PERFORMANCE && resultCode == LabsPreferences.PERFORMANCE_SETTING_CHANGED) {
+            setResult(RESULT_CODE_PERFORMANCE_PREF_CHANGED);
             return;
         }
         try {
