@@ -355,6 +355,8 @@
     <activity android:name="com.todoroo.astrid.actfm.TagCreateActivity"
               android:theme="@android:style/Theme.Dialog"/>
     <activity android:name="com.todoroo.astrid.actfm.TagSettingsActivity"
+              android:windowSoftInputMode="stateHidden"/>
+    <activity android:name="com.todoroo.astrid.actfm.TagSettingsActivityTablet"
               android:windowSoftInputMode="stateHidden"
               android:theme="@style/Theme.Dialog"/>
     <activity android:name="com.todoroo.astrid.actfm.TagUpdatesActivity"
