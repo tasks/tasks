@@ -261,9 +261,9 @@
       </intent-filter>
     </activity>
     
-    <activity android:name="com.todoroo.astrid.core.PerformancePreferences"
+    <activity android:name="com.todoroo.astrid.core.LabsPreferences"
               android:theme="@android:style/Theme"
-              android:label="@string/EPr_performance_header">
+              android:label="@string/EPr_labs_header">
         <intent-filter>
             <action android:name="com.todoroo.astrid.SETTINGS" />
             <category android:name="android.intent.category.DEFAULT" />

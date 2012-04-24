@@ -214,6 +214,7 @@ public class StartupService {
         }).start();
 
         abChooser.getChoiceForOption(ABOptions.AB_OPTION_SWIPE_ENABLED_KEY);
+        abChooser.getChoiceForOption(ABOptions.AB_OPTION_CONTACTS_PICKER_ENABLED);
         AstridPreferences.setPreferenceDefaults();
 
         // check for task killers

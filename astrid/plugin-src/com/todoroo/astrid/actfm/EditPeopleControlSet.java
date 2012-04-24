@@ -49,6 +49,7 @@ import com.todoroo.andlib.service.ExceptionService;
 import com.todoroo.andlib.sql.Order;
 import com.todoroo.andlib.sql.Query;
 import com.todoroo.andlib.utility.DialogUtilities;
+import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.astrid.actfm.sync.ActFmPreferenceService;
 import com.todoroo.astrid.actfm.sync.ActFmSyncService;
 import com.todoroo.astrid.activity.TaskEditFragment;
@@ -66,7 +67,6 @@ import com.todoroo.astrid.service.TagDataService;
 import com.todoroo.astrid.service.TaskService;
 import com.todoroo.astrid.service.ThemeService;
 import com.todoroo.astrid.service.abtesting.ABChooser;
-import com.todoroo.astrid.service.abtesting.ABOptions;
 import com.todoroo.astrid.tags.TagService;
 import com.todoroo.astrid.ui.PeopleContainer;
 import com.todoroo.astrid.ui.PeopleContainer.OnAddNewPersonListener;
@@ -394,17 +394,15 @@ public class EditPeopleControlSet extends PopupControlSet {
                     new JSONObject().put("default_picture", R.drawable.icn_friends)
                     .put(CONTACT_CHOOSER_USER, true));
             int contactsIndex = addUnassigned ? 2 : 1;
-            boolean addedContacts = true;
-            if (abChooser.getChoiceForOption(ABOptions.AB_OPTION_CONTACTS_PICKER_ENABLED) == 0)
+            boolean addContactPicker = Preferences.getBoolean(R.string.p_use_contact_picker, true);
+            if (addContactPicker)
                 coreUsers.add(contactsIndex, contactPickerUser);
-            else
-                addedContacts = false;
 
             for (AssignedChangedListener l : listeners) {
                 if (l.shouldShowTaskRabbit()) {
                     taskRabbitUser = new AssignedToUser(activity.getString(R.string.actfm_EPA_task_rabbit), new JSONObject().put("default_picture", R.drawable.task_rabbit_image));
                     int taskRabbitIndex = addUnassigned ? 3 : 2;
-                    if (!addedContacts)
+                    if (!addContactPicker)
                         taskRabbitIndex--;
                     coreUsers.add(taskRabbitIndex, taskRabbitUser);
                     if(l.didPostToTaskRabbit()){

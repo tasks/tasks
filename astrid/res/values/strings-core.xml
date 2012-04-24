@@ -540,12 +540,17 @@
   <!-- Preference screen: all task row settings -->
   <string name="EPr_taskRowPrefs_title">Task Row Appearance</string>
   
-  <!-- Preference screen: performance -->
-  <string name="EPr_performance_header">Performance</string>
+  <!-- Preference screen: Astrid Labs (experimental features)-->
+  <string name="EPr_labs_header">Astrid Labs</string>
+  <string name="EPr_labs_desc">Enable or disable experimental features</string>
   
   <!-- Preference: swipe between lists performance -->
   <string name="EPr_swipe_lists_performance_title">Swipe between lists</string>
   <string name="EPr_swipe_lists_performance_subtitle">Controls the memory performance of swipe between lists</string>
+  
+  <!-- Preferences: use the system contact picker for task assignment -->
+  <string name="EPr_use_contact_picker">Use contact picker</string>
+  <string name="EPr_use_contact_picker_desc">Display the system contact picker option in the task assignment window</string>
   
   <string name="EPr_swipe_lists_restart_alert">You will need to restart Astrid for this change to take effect</string>
   

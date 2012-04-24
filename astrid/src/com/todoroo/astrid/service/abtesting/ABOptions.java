@@ -174,7 +174,7 @@ public class ABOptions {
 
     public static final String AB_OPTION_SWIPE_ENABLED_KEY = "swipeEnabled"; //$NON-NLS-1$
     private static final int[] AB_OPTION_SWIPE_ENABLED_PROBS = { 1, 1 };
-    private static final String[] AB_OPTION_SWIPE_ENABLED_DESC = { "swipe-lists-enabled", "swipe-lists-disabled" };  //$NON-NLS-1$//$NON-NLS-2$
+    private static final String[] AB_OPTION_SWIPE_ENABLED_DESC = { "swipe-lists-disabled", "swipe-lists-enabled" };  //$NON-NLS-1$//$NON-NLS-2$
     private static final String[] AB_OPTION_SWIPE_ENABLED_EVENTS = { StatisticsConstants.APP_OPEN_THREE_DAYS,
                                                                      StatisticsConstants.APP_OPEN_ONE_WEEK,
                                                                      StatisticsConstants.APP_OPEN_TWO_WEEKS,
@@ -182,7 +182,7 @@ public class ABOptions {
 
     public static final String AB_OPTION_CONTACTS_PICKER_ENABLED = "contactsEnabled"; //$NON-NLS-1$
     private static final int[] AB_OPTION_CONTACTS_ENABLED_PROBS = { 1, 1 };
-    private static final String[] AB_OPTION_CONTACTS_ENABLED_DESC = { "contacts-enabled", "contacts-disabled" };  //$NON-NLS-1$//$NON-NLS-2$
+    private static final String[] AB_OPTION_CONTACTS_ENABLED_DESC = { "contacts-disabled", "contacts-enabled" };  //$NON-NLS-1$//$NON-NLS-2$
     private static final String[] AB_OPTION_CONTACTS_ENABLED_EVENTS = { StatisticsConstants.APP_OPEN_THREE_DAYS,
                                                                         StatisticsConstants.APP_OPEN_ONE_WEEK,
                                                                         StatisticsConstants.APP_OPEN_TWO_WEEKS,

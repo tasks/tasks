@@ -10,11 +10,11 @@ import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.andlib.utility.DialogUtilities;
 import com.todoroo.andlib.utility.TodorooPreferenceActivity;
 
-public class PerformancePreferences extends TodorooPreferenceActivity {
+public class LabsPreferences extends TodorooPreferenceActivity {
 
     @Override
     public int getPreferenceResource() {
-        return R.xml.preferences_performance;
+        return R.xml.preferences_labs;
     }
 
     @Override
@@ -25,7 +25,7 @@ public class PerformancePreferences extends TodorooPreferenceActivity {
             preference.setOnPreferenceChangeListener(new OnPreferenceChangeListener() {
                 @Override
                 public boolean onPreferenceChange(Preference p, Object newValue) {
-                    DialogUtilities.okDialog(PerformancePreferences.this, r.getString(R.string.EPr_swipe_lists_restart_alert), null);
+                    DialogUtilities.okDialog(LabsPreferences.this, r.getString(R.string.EPr_swipe_lists_restart_alert), null);
                     return true;
                 }
             });
