@@ -48,6 +48,8 @@ public class StatisticsConstants {
     public static final String TASK_CREATED_TASKLIST = "task-created-tasklist";
     public static final String ACTFM_LOGIN_SHOW = "actfm-login-show";
     public static final String ACTFM_TASK_SHARED = "actfm-task-shared";
+    public static final String TASK_ASSIGNED_EMAIL = "task-assigned-email";
+    public static final String TASK_ASSIGNED_PICKER = "task-assigned-picker";
     public static final String PRODUCTEEV_LOGIN = "producteev-login";
     public static final String PRODUCTEEV_SIGNUP = "producteev-signup";
     public static final String TASK_SNOOZE = "task-snooze";

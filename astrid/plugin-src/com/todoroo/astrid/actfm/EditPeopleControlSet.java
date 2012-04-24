@@ -60,9 +60,13 @@ import com.todoroo.astrid.data.User;
 import com.todoroo.astrid.helper.AsyncImageView;
 import com.todoroo.astrid.service.AstridDependencyInjector;
 import com.todoroo.astrid.service.MetadataService;
+import com.todoroo.astrid.service.StatisticsConstants;
+import com.todoroo.astrid.service.StatisticsService;
 import com.todoroo.astrid.service.TagDataService;
 import com.todoroo.astrid.service.TaskService;
 import com.todoroo.astrid.service.ThemeService;
+import com.todoroo.astrid.service.abtesting.ABChooser;
+import com.todoroo.astrid.service.abtesting.ABOptions;
 import com.todoroo.astrid.tags.TagService;
 import com.todoroo.astrid.ui.PeopleContainer;
 import com.todoroo.astrid.ui.PeopleContainer.OnAddNewPersonListener;
@@ -92,6 +96,8 @@ public class EditPeopleControlSet extends PopupControlSet {
     @Autowired ExceptionService exceptionService;
 
     @Autowired TagDataService tagDataService;
+
+    @Autowired ABChooser abChooser;
 
     private final Fragment fragment;
 
@@ -388,12 +394,18 @@ public class EditPeopleControlSet extends PopupControlSet {
                     new JSONObject().put("default_picture", R.drawable.icn_friends)
                     .put(CONTACT_CHOOSER_USER, true));
             int contactsIndex = addUnassigned ? 2 : 1;
-            coreUsers.add(contactsIndex, contactPickerUser);
+            boolean addedContacts = true;
+            if (abChooser.getChoiceForOption(ABOptions.AB_OPTION_CONTACTS_PICKER_ENABLED) == 0)
+                coreUsers.add(contactsIndex, contactPickerUser);
+            else
+                addedContacts = false;
 
             for (AssignedChangedListener l : listeners) {
                 if (l.shouldShowTaskRabbit()) {
                     taskRabbitUser = new AssignedToUser(activity.getString(R.string.actfm_EPA_task_rabbit), new JSONObject().put("default_picture", R.drawable.task_rabbit_image));
                     int taskRabbitIndex = addUnassigned ? 3 : 2;
+                    if (!addedContacts)
+                        taskRabbitIndex--;
                     coreUsers.add(taskRabbitIndex, taskRabbitUser);
                     if(l.didPostToTaskRabbit()){
                         assignedIndex = taskRabbitIndex;
@@ -781,6 +793,11 @@ public class EditPeopleControlSet extends PopupControlSet {
                 task.setValue(Task.SHARED_WITH, sharedWith.toString());
 
             task.putTransitory(TaskService.TRANS_ASSIGNED, true);
+
+            if (assignedView == assignedCustom)
+                StatisticsService.reportEvent(StatisticsConstants.TASK_ASSIGNED_EMAIL);
+            else if (task.getValue(Task.USER_ID) != Task.USER_ID_SELF)
+                StatisticsService.reportEvent(StatisticsConstants.TASK_ASSIGNED_PICKER);
 
             if(sharedToast != null)
                 toast = (toast != null) ? toast + "\n" + sharedToast : sharedToast + "\n";
