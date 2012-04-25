@@ -31,6 +31,15 @@ public class TaskListFragmentPager extends ViewPager {
     }
 
     /**
+     * Hack to enable reloading fragments while they are being viewed
+     */
+    public void forceReload() {
+        int position = getCurrentItem();
+        setAdapter(getAdapter());
+        setCurrentItem(position, false);
+    }
+
+    /**
      * Show the supplied filter, adding it to the data source if it doesn't exist
      * @param f
      */

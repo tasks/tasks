@@ -515,16 +515,19 @@ public class TagViewFragment extends TaskListFragment {
 
     @Override
     protected void toggleDragDrop(boolean newState) {
-        Filter newFilter = TagFilterExposer.filterFromTagData(getActivity(), tagData);
+        Class<?> customComponent;
 
         if(newState)
-            ((FilterWithCustomIntent)newFilter).customTaskList =
-                new ComponentName(getActivity(), SubtasksTagListFragment.class);
-        else
-            ((FilterWithCustomIntent)newFilter).customTaskList =
-                new ComponentName(getActivity(), TagViewFragment.class);
+            customComponent = SubtasksTagListFragment.class;
+        else {
+            filter.setFilterQueryOverride(null);
+            customComponent = TagViewFragment.class;
+        }
 
-        ((AstridActivity)getActivity()).onFilterItemClicked(newFilter);
+        ((FilterWithCustomIntent) filter).customTaskList = new ComponentName(getActivity(), customComponent);
+
+        ((AstridActivity)getActivity()).setupTasklistFragmentWithFilterAndCustomTaskList(filter,
+                extras, customComponent);
     }
 
     @Override
