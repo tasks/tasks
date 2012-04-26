@@ -15,6 +15,7 @@ import com.todoroo.andlib.sql.Order;
 import com.todoroo.andlib.sql.Query;
 import com.todoroo.astrid.dao.ABTestEventDao;
 import com.todoroo.astrid.data.ABTestEvent;
+import com.todoroo.astrid.service.StatisticsService;
 
 @SuppressWarnings("nls")
 public final class ABTestEventReportingService {
@@ -46,7 +47,9 @@ public final class ABTestEventReportingService {
         }).start();
     }
 
-    public void pushAllUnreportedABTestEvents() {
+    private void pushAllUnreportedABTestEvents() {
+        if (StatisticsService.dontCollectStatistics())
+            return;
         final TodorooCursor<ABTestEvent> unreported = abTestEventDao.query(Query.select(ABTestEvent.PROPERTIES)
                 .where(ABTestEvent.REPORTED.eq(0))
                 .orderBy(Order.asc(ABTestEvent.TEST_NAME))
