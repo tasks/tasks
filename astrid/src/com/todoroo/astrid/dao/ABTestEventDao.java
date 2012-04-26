@@ -67,4 +67,34 @@ public class ABTestEventDao extends DatabaseDao<ABTestEvent> {
         return true;
     }
 
+    public void createRelativeDateEvents() {
+        TodorooCursor<ABTestEvent> allEvents = query(Query.select(ABTestEvent.TEST_NAME, ABTestEvent.DATE_RECORDED)
+                .where(ABTestEvent.TIME_INTERVAL.eq(ABTestEvent.TIME_INTERVAL_0)));
+
+        try {
+            long now = DateUtilities.now();
+            for (allEvents.moveToFirst(); !allEvents.isAfterLast(); allEvents.moveToNext()) {
+                ABTestEvent event = new ABTestEvent(allEvents);
+                long baseTime = event.getValue(ABTestEvent.DATE_RECORDED);
+                long timeSinceBase = now - baseTime;
+
+                String testName = event.getValue(ABTestEvent.TEST_NAME);
+                int timeInterval = -1;
+                if (timeSinceBase > 3 * DateUtilities.ONE_WEEK)
+                    timeInterval = ABTestEvent.TIME_INTERVAL_21;
+                else if (timeSinceBase > 2 * DateUtilities.ONE_WEEK)
+                    timeInterval = ABTestEvent.TIME_INTERVAL_14;
+                else if (timeSinceBase > DateUtilities.ONE_WEEK)
+                    timeInterval = ABTestEvent.TIME_INTERVAL_7;
+                else if (timeSinceBase > 3 * DateUtilities.ONE_DAY)
+                    timeInterval = ABTestEvent.TIME_INTERVAL_3;
+
+                if (timeInterval > 0)
+                    createTestEventWithTimeInterval(testName, timeInterval);
+            }
+        } finally {
+            allEvents.close();
+        }
+    }
+
 }

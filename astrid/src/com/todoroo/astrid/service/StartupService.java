@@ -35,6 +35,7 @@ import com.todoroo.astrid.actfm.sync.ActFmSyncService;
 import com.todoroo.astrid.backup.BackupConstants;
 import com.todoroo.astrid.backup.BackupService;
 import com.todoroo.astrid.backup.TasksXmlImporter;
+import com.todoroo.astrid.dao.ABTestEventDao;
 import com.todoroo.astrid.dao.Database;
 import com.todoroo.astrid.gtasks.GtasksPreferenceService;
 import com.todoroo.astrid.gtasks.sync.GtasksSyncService;
@@ -90,6 +91,8 @@ public class StartupService {
     @Autowired ABChooser abChooser;
 
     @Autowired ABTestEventReportingService abTestEventReportingService;
+
+    @Autowired ABTestEventDao abTestEventDao;
 
     /**
      * bit to prevent multiple initializations
@@ -218,8 +221,6 @@ public class StartupService {
         initializeABTesting(latestSetVersion == 0);
         AstridPreferences.setPreferenceDefaults();
 
-        trackABTestingData();
-
         // check for task killers
         if(!Constants.OEM)
             showTaskKillerHelp(context);
@@ -231,28 +232,7 @@ public class StartupService {
         abTestEventReportingService.initialize();
         abTestEventReportingService.pushAllUnreportedABTestEvents();
         abChooser.makeChoicesForAllTests(newUser, taskService.getUserActivationStatus());
-    }
-
-    private void trackABTestingData() {
-        long firstLaunchTime = Preferences.getLong(AstridPreferences.P_FIRST_LAUNCH, 0);
-        long now = DateUtilities.now();
-        long timeSinceFirst = now - firstLaunchTime;
-
-        if (firstLaunchTime == 0) {
-            // Event days +0
-        }
-        if (timeSinceFirst > DateUtilities.ONE_DAY * 3 /*&& !some condition*/) {
-            // Event days +3
-        }
-        if (timeSinceFirst > DateUtilities.ONE_WEEK /*&& !some condition*/) {
-            // Event days +7
-        }
-        if (timeSinceFirst > 2 * DateUtilities.ONE_WEEK /*&& !some condition*/) {
-            // Event days +14
-        }
-        if (timeSinceFirst > 3 * DateUtilities.ONE_WEEK /*&& !some condition*/) {
-            // Event days +21
-        }
+        abTestEventDao.createRelativeDateEvents();
     }
 
     /**
