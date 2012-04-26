@@ -36,6 +36,16 @@ public final class ABTestEventReportingService {
         DependencyInjectionService.getInstance().inject(this);
     }
 
+    public void trackUserRetention() {
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                abTestEventDao.createRelativeDateEvents();
+                pushAllUnreportedABTestEvents();
+            }
+        }).start();
+    }
+
     public void pushAllUnreportedABTestEvents() {
         final TodorooCursor<ABTestEvent> unreported = abTestEventDao.query(Query.select(ABTestEvent.PROPERTIES)
                 .where(ABTestEvent.REPORTED.eq(0))

@@ -26,6 +26,8 @@ import android.widget.PopupWindow.OnDismissListener;
 import android.widget.TextView;
 
 import com.timsu.astrid.R;
+import com.todoroo.andlib.service.Autowired;
+import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.andlib.sql.Functions;
 import com.todoroo.andlib.sql.QueryTemplate;
 import com.todoroo.andlib.utility.AndroidUtilities;
@@ -45,6 +47,7 @@ import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.service.StatisticsConstants;
 import com.todoroo.astrid.service.StatisticsService;
 import com.todoroo.astrid.service.ThemeService;
+import com.todoroo.astrid.service.abtesting.ABTestEventReportingService;
 import com.todoroo.astrid.tags.TagService;
 import com.todoroo.astrid.ui.DateChangedAlerts;
 import com.todoroo.astrid.ui.FragmentPopover;
@@ -60,6 +63,8 @@ public class TaskListActivity extends AstridActivity implements MainMenuListener
 
     /** token for indicating source of TLA launch */
     public static final String TOKEN_SOURCE = "source"; //$NON-NLS-1$
+
+    @Autowired private ABTestEventReportingService abTestEventReportingService;
 
     private View listsNav;
     private ImageView listsNavDisclosure;
@@ -136,6 +141,7 @@ public class TaskListActivity extends AstridActivity implements MainMenuListener
     protected void onCreate(Bundle savedInstanceState) {
         ThemeService.applyTheme(this);
         super.onCreate(savedInstanceState);
+        DependencyInjectionService.getInstance().inject(this);
 
         if (AndroidUtilities.isTabletSized(this)) {
             setContentView(R.layout.task_list_wrapper_activity_3pane);
@@ -198,6 +204,8 @@ public class TaskListActivity extends AstridActivity implements MainMenuListener
         if (getIntent().hasExtra(TOKEN_SOURCE)) {
             trackActivitySource();
         }
+
+        abTestEventReportingService.trackUserRetention();
     }
 
     private boolean swipeIsEnabled() {
