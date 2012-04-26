@@ -212,7 +212,7 @@ public class StartupService {
             }
         }).start();
 
-        abChooser.makeChoicesForAllTests();
+        abChooser.makeChoicesForAllTests(latestSetVersion == 0, taskService.getUserActivationStatus());
         AstridPreferences.setPreferenceDefaults();
 
         trackABTestingData();
