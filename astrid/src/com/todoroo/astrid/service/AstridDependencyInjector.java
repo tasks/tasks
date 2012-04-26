@@ -26,6 +26,7 @@ import com.todoroo.astrid.gtasks.GtasksPreferenceService;
 import com.todoroo.astrid.gtasks.GtasksTaskListUpdater;
 import com.todoroo.astrid.gtasks.sync.GtasksSyncService;
 import com.todoroo.astrid.service.abtesting.ABChooser;
+import com.todoroo.astrid.service.abtesting.ABTestReporter;
 import com.todoroo.astrid.service.abtesting.ABTests;
 import com.todoroo.astrid.service.abtesting.FeatureFlipper;
 import com.todoroo.astrid.tags.TagService;
@@ -63,9 +64,9 @@ public class AstridDependencyInjector extends AbstractDependencyInjector {
 
         // com.todoroo.astrid.dao
         injectables.put("database", Database.class);
-        injectables.put("taskDao", TaskDao.class);
-        injectables.put("metadataDao", MetadataDao.class);
-        injectables.put("tagDataDao", TagDataDao.class);
+        injectables.put("taskDao", new TaskDao());
+        injectables.put("metadataDao", new MetadataDao());
+        injectables.put("tagDataDao", new TagDataDao());
         injectables.put("storeObjectDao", StoreObjectDao.class);
         injectables.put("updateDao", UpdateDao.class);
         injectables.put("userDao", UserDao.class);
@@ -101,7 +102,8 @@ public class AstridDependencyInjector extends AbstractDependencyInjector {
         // AB testing
         injectables.put("abChooser", ABChooser.class);
         injectables.put("abTests", new ABTests());
-        injectables.put("abTestEventDao", ABTestEventDao.class);
+        injectables.put("abTestEventDao", new ABTestEventDao());
+        injectables.put("abTestReporter", ABTestReporter.class);
         injectables.put("featureFlipper", FeatureFlipper.class);
 
         // com.todoroo.astrid.tags

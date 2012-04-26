@@ -50,8 +50,7 @@ public class ABTestEventDao extends DatabaseDao<ABTestEvent> {
             int currentTimeIntervalIndex = AndroidUtilities.indexOf(
                     ABTestEvent.TIME_INTERVALS, timeInterval);
 
-            if (lastRecordedTimeIntervalIndex < 0 || currentTimeIntervalIndex < 0
-                    || lastRecordedTimeIntervalIndex >= currentTimeIntervalIndex)
+            if (lastRecordedTimeIntervalIndex < 0 || currentTimeIntervalIndex < 0)
                 return false;
 
             long now = DateUtilities.now();
