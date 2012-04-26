@@ -42,7 +42,6 @@ import com.todoroo.astrid.opencrx.OpencrxCoreUtils;
 import com.todoroo.astrid.producteev.ProducteevUtilities;
 import com.todoroo.astrid.reminders.ReminderStartupReceiver;
 import com.todoroo.astrid.service.abtesting.ABChooser;
-import com.todoroo.astrid.service.abtesting.ABOptions;
 import com.todoroo.astrid.service.abtesting.FeatureFlipper;
 import com.todoroo.astrid.utility.AstridPreferences;
 import com.todoroo.astrid.utility.Constants;
@@ -213,15 +212,38 @@ public class StartupService {
             }
         }).start();
 
-        abChooser.getChoiceForOption(ABOptions.AB_OPTION_SWIPE_ENABLED_KEY);
-        abChooser.getChoiceForOption(ABOptions.AB_OPTION_CONTACTS_PICKER_ENABLED);
+        abChooser.makeChoicesForAllTests();
         AstridPreferences.setPreferenceDefaults();
+
+        trackABTestingData();
 
         // check for task killers
         if(!Constants.OEM)
             showTaskKillerHelp(context);
 
         hasStartedUp = true;
+    }
+
+    private void trackABTestingData() {
+        long firstLaunchTime = Preferences.getLong(AstridPreferences.P_FIRST_LAUNCH, 0);
+        long now = DateUtilities.now();
+        long timeSinceFirst = now - firstLaunchTime;
+
+        if (firstLaunchTime == 0) {
+            // Event days +0
+        }
+        if (timeSinceFirst > DateUtilities.ONE_DAY * 3 /*&& !some condition*/) {
+            // Event days +3
+        }
+        if (timeSinceFirst > DateUtilities.ONE_WEEK /*&& !some condition*/) {
+            // Event days +7
+        }
+        if (timeSinceFirst > 2 * DateUtilities.ONE_WEEK /*&& !some condition*/) {
+            // Event days +14
+        }
+        if (timeSinceFirst > 3 * DateUtilities.ONE_WEEK /*&& !some condition*/) {
+            // Event days +21
+        }
     }
 
     /**

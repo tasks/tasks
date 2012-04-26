@@ -11,21 +11,12 @@ import android.content.Context;
 
 import com.localytics.android.LocalyticsSession;
 import com.timsu.astrid.R;
-import com.todoroo.andlib.service.Autowired;
-import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.andlib.utility.Preferences;
-import com.todoroo.astrid.service.abtesting.ABOptions;
 import com.todoroo.astrid.utility.Constants;
 
 public class StatisticsService {
 
     private static LocalyticsSession localyticsSession;
-    private static class StatisticsDependencies {
-        @Autowired ABOptions abOptions;
-        public StatisticsDependencies() {
-            DependencyInjectionService.getInstance().inject(this);
-        }
-    }
 
     /**
      * Indicate session started
@@ -93,15 +84,12 @@ public class StatisticsService {
             return;
 
         if(localyticsSession != null) {
-            String[] abAttributes = new StatisticsDependencies().abOptions.getLocalyticsAttributeArrayForEvent(event);
-            if(attributes.length > 0 || abAttributes.length > 0) {
+            if(attributes.length > 0) {
                 HashMap<String, String> attrMap = new HashMap<String, String>();
                 for(int i = 1; i < attributes.length; i += 2) {
                     if(attributes[i] != null)
                         attrMap.put(attributes[i-1], attributes[i]);
                 }
-                for (int i = 1; i < abAttributes.length; i += 2)
-                    attrMap.put(abAttributes[i-1], abAttributes[i]);
                 localyticsSession.tagEvent(event, attrMap);
             } else
                 localyticsSession.tagEvent(event);

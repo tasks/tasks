@@ -1,6 +1,7 @@
 package com.todoroo.astrid.service.abtesting;
 
 import java.util.Random;
+import java.util.Set;
 
 import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.DependencyInjectionService;
@@ -18,7 +19,7 @@ public class ABChooser {
     public static final int NO_OPTION = -1;
 
     @Autowired
-    private ABOptions abOptions;
+    private ABTests abTests;
 
     private final Random random;
 
@@ -28,48 +29,59 @@ public class ABChooser {
     }
 
     /**
+     * Iterates through the list of all available tests and makes sure that a choice
+     * is made for each of them
+     */
+    public void makeChoicesForAllTests() {
+        Set<String> tests = abTests.getAllTestKeys();
+        for (String test : tests) {
+            getChoiceForTest(test);
+        }
+    }
+
+    /**
      * Retrieves the choice for the specified feature if already made,
      * or chooses one randomly from the distribution of feature probabilities
      * if not.
      *
      * The statistics session needs to be open here in order to collect statistics
      *
-     * @param optionKey - the preference key string of the option (defined in ABOptions)
+     * @param testKey - the preference key string of the option (defined in ABTests)
      * @return
      */
-    public int getChoiceForOption(String optionKey) {
-        int pref = readChoiceForOption(optionKey);
+    private int getChoiceForTest(String testKey) {
+        int pref = readChoiceForTest(testKey);
         if (pref > NO_OPTION) return pref;
 
         int chosen = NO_OPTION;
-        if (abOptions.isValidKey(optionKey)) {
-            int[] optionProbs = abOptions.getProbsForKey(optionKey);
+        if (abTests.isValidTestKey(testKey)) {
+            int[] optionProbs = abTests.getProbsForTestKey(testKey);
             chosen = chooseOption(optionProbs);
-            setChoiceForOption(optionKey, chosen);
+            setChoiceForTest(testKey, chosen);
 
-            StatisticsService.reportEvent(abOptions.getDescriptionForOption(optionKey, chosen)); // Session should be open
+            StatisticsService.reportEvent(abTests.getDescriptionForTestOption(testKey, chosen)); // Session should be open
         }
         return chosen;
     }
 
     /**
      * Returns the chosen option if set or NO_OPTION if unset
-     * @param optionKey
+     * @param testKey
      * @return
      */
-    public static int readChoiceForOption(String optionKey) {
-        return Preferences.getInt(optionKey, NO_OPTION);
+    public static int readChoiceForTest(String testKey) {
+        return Preferences.getInt(testKey, NO_OPTION);
     }
 
     /**
      * Changes the choice of an A/B feature in the preferences. Useful for
      * the feature flipper (can manually override previous choice)
-     * @param optionKey
+     * @param testKey
      * @param choiceIndex
      */
-    public void setChoiceForOption(String optionKey, int choiceIndex) {
-        if (abOptions.isValidKey(optionKey))
-            Preferences.setInt(optionKey, choiceIndex);
+    public void setChoiceForTest(String testKey, int choiceIndex) {
+        if (abTests.isValidTestKey(testKey))
+            Preferences.setInt(testKey, choiceIndex);
     }
 
     /*

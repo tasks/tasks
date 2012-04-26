@@ -70,11 +70,4 @@ public class StatisticsConstants {
     public static final String TASK_ONE_WEEK = "task-created-one-week";
     public static final String TASK_TWO_WEEKS = "task-created-two-weeks";
     public static final String TASK_THREE_WEEKS = "task-created-three-weeks";
-
-    public static final String APP_OPEN_THREE_DAYS = "app-open-three-days";
-    public static final String APP_OPEN_ONE_WEEK = "app-open-one-week";
-    public static final String APP_OPEN_TWO_WEEKS = "app-open-two-weeks";
-    public static final String APP_OPEN_THREE_WEEKS = "app-open-three-weeks";
-
-
 }
