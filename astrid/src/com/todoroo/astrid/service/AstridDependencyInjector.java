@@ -12,6 +12,7 @@ import com.todoroo.astrid.actfm.sync.ActFmDataService;
 import com.todoroo.astrid.actfm.sync.ActFmInvoker;
 import com.todoroo.astrid.actfm.sync.ActFmPreferenceService;
 import com.todoroo.astrid.actfm.sync.ActFmSyncService;
+import com.todoroo.astrid.dao.ABTestEventDao;
 import com.todoroo.astrid.dao.Database;
 import com.todoroo.astrid.dao.MetadataDao;
 import com.todoroo.astrid.dao.StoreObjectDao;
@@ -100,6 +101,7 @@ public class AstridDependencyInjector extends AbstractDependencyInjector {
         // AB testing
         injectables.put("abChooser", ABChooser.class);
         injectables.put("abTests", new ABTests());
+        injectables.put("abTestEventDao", ABTestEventDao.class);
         injectables.put("featureFlipper", FeatureFlipper.class);
 
         // com.todoroo.astrid.tags
