@@ -20,7 +20,7 @@ import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.andlib.service.RestClient;
 
 @SuppressWarnings("nls")
-public class ABTestReporter {
+public class ABTestInvoker {
 
     /** NOTE: these values are development values and will not work on production */
     private static final String URL = "http://analytics.astrid.com/api/1/retention";
@@ -29,7 +29,7 @@ public class ABTestReporter {
 
     @Autowired private RestClient restClient;
 
-    public ABTestReporter() {
+    public ABTestInvoker() {
         DependencyInjectionService.getInstance().inject(this);
     }
 

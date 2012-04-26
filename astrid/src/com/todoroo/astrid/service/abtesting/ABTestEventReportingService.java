@@ -30,7 +30,7 @@ public final class ABTestEventReportingService {
     private ABTestEventDao abTestEventDao;
 
     @Autowired
-    private ABTestReporter abTestReporter;
+    private ABTestInvoker abTestInvoker;
 
     public ABTestEventReportingService() {
         DependencyInjectionService.getInstance().inject(this);
@@ -53,7 +53,7 @@ public final class ABTestEventReportingService {
             public void run() {
                 try {
                     JSONArray payload = new JSONArray().put(jsonFromABTestEvent(model));
-                    abTestReporter.post(payload);
+                    abTestInvoker.post(payload);
                     model.setValue(ABTestEvent.REPORTED, 1);
                     abTestEventDao.saveExisting(model);
                 } catch (JSONException e) {
@@ -66,31 +66,34 @@ public final class ABTestEventReportingService {
     }
 
     public void pushAllUnreportedABTestEvents() {
-        TodorooCursor<ABTestEvent> unreported = abTestEventDao.query(Query.select(ABTestEvent.PROPERTIES)
+        final TodorooCursor<ABTestEvent> unreported = abTestEventDao.query(Query.select(ABTestEvent.PROPERTIES)
                 .where(ABTestEvent.REPORTED.eq(0)));
-        try {
-            if (unreported.getCount() > 0) {
-                JSONArray payload = jsonArrayFromABTestEvents(unreported);
-                abTestReporter.post(payload);
-                for (unreported.moveToFirst(); !unreported.isAfterLast(); unreported.moveToNext()) {
-                    ABTestEvent model = new ABTestEvent(unreported);
-                    model.setValue(ABTestEvent.REPORTED, 1);
-                    abTestEventDao.saveExisting(model);
+        if (unreported.getCount() > 0) {
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    try {
+                        JSONArray payload = jsonArrayFromABTestEvents(unreported);
+                        abTestInvoker.post(payload);
+                        for (unreported.moveToFirst(); !unreported.isAfterLast(); unreported.moveToNext()) {
+                            ABTestEvent model = new ABTestEvent(unreported);
+                            model.setValue(ABTestEvent.REPORTED, 1);
+                            abTestEventDao.saveExisting(model);
+                        }
+                    }  catch (JSONException e) {
+                        handleException(e);
+                    } catch (IOException e) {
+                        handleException(e);
+                    } finally {
+                        unreported.close();
+                    }
                 }
-            }
-        } catch (JSONException e) {
-            handleException(e);
-        } catch (IOException e) {
-            handleException(e);
-        } finally {
-            unreported.close();
+            }).start();
         }
     }
 
     private void handleException(Exception e) {
         Log.e("analytics", "analytics-error", e);
-
-        // TODO: Schedule retry
     }
 
     private static JSONObject jsonFromABTestEvent(ABTestEvent model) throws JSONException {

@@ -42,6 +42,7 @@ import com.todoroo.astrid.opencrx.OpencrxCoreUtils;
 import com.todoroo.astrid.producteev.ProducteevUtilities;
 import com.todoroo.astrid.reminders.ReminderStartupReceiver;
 import com.todoroo.astrid.service.abtesting.ABChooser;
+import com.todoroo.astrid.service.abtesting.ABTestEventReportingService;
 import com.todoroo.astrid.service.abtesting.FeatureFlipper;
 import com.todoroo.astrid.utility.AstridPreferences;
 import com.todoroo.astrid.utility.Constants;
@@ -87,6 +88,8 @@ public class StartupService {
     @Autowired FeatureFlipper featureFlipper;
 
     @Autowired ABChooser abChooser;
+
+    @Autowired ABTestEventReportingService abTestEventReportingService;
 
     /**
      * bit to prevent multiple initializations
@@ -212,7 +215,7 @@ public class StartupService {
             }
         }).start();
 
-        abChooser.makeChoicesForAllTests(latestSetVersion == 0, taskService.getUserActivationStatus());
+        initializeABTesting(latestSetVersion == 0);
         AstridPreferences.setPreferenceDefaults();
 
         trackABTestingData();
@@ -222,6 +225,12 @@ public class StartupService {
             showTaskKillerHelp(context);
 
         hasStartedUp = true;
+    }
+
+    private void initializeABTesting(boolean newUser) {
+        abTestEventReportingService.initialize();
+        abTestEventReportingService.pushAllUnreportedABTestEvents();
+        abChooser.makeChoicesForAllTests(newUser, taskService.getUserActivationStatus());
     }
 
     private void trackABTestingData() {
