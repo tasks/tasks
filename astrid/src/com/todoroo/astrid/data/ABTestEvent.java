@@ -9,18 +9,25 @@ import com.todoroo.andlib.data.Property.IntegerProperty;
 import com.todoroo.andlib.data.Property.LongProperty;
 import com.todoroo.andlib.data.Property.StringProperty;
 import com.todoroo.andlib.data.Table;
-import com.todoroo.andlib.utility.DateUtilities;
+import com.todoroo.andlib.data.TodorooCursor;
 import com.todoroo.astrid.api.AstridApiConstants;
 
 @SuppressWarnings("nls")
 public class ABTestEvent extends AbstractModel {
 
-    public static final long TEST_INTERVAL_0 = 0;
-    public static final long TEST_INTERVAL_3 = 3 * DateUtilities.ONE_DAY;
-    public static final long TEST_INTERVAL_7 = DateUtilities.ONE_WEEK;
-    public static final long TEST_INTERVAL_14 = 2 * DateUtilities.ONE_WEEK;
-    public static final long TEST_INTERVAL_21 = 3 * DateUtilities.ONE_WEEK;
+    public static final int TIME_INTERVAL_0 = 0;
+    public static final int TIME_INTERVAL_3 = 3;
+    public static final int TIME_INTERVAL_7 = 7;
+    public static final int TIME_INTERVAL_14 = 14;
+    public static final int TIME_INTERVAL_21 = 21;
 
+    public static final int[] TIME_INTERVALS = {
+        TIME_INTERVAL_0,
+        TIME_INTERVAL_3,
+        TIME_INTERVAL_7,
+        TIME_INTERVAL_14,
+        TIME_INTERVAL_21
+    };
 
     // --- table and uri
 
@@ -70,7 +77,7 @@ public class ABTestEvent extends AbstractModel {
      * Which time interval event this data point corresponds to.
      * Should be one of the time interval constants defined above.
      */
-    public static final LongProperty TIME_INTERVAL = new LongProperty(
+    public static final IntegerProperty TIME_INTERVAL = new IntegerProperty(
             TABLE, "timeInterval"); // one of the constants defined above
 
     /** The actual date on which this data point was recorded. */
@@ -90,6 +97,17 @@ public class ABTestEvent extends AbstractModel {
     @Override
     public ContentValues getDefaultValues() {
         return defaultValues;
+    }
+
+    // --- data access boilerplate
+
+    public ABTestEvent() {
+        super();
+    }
+
+    public ABTestEvent(TodorooCursor<ABTestEvent> cursor) {
+        this();
+        readPropertiesFromCursor(cursor);
     }
 
     @Override

@@ -6,7 +6,7 @@ import java.util.Set;
 import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.andlib.utility.Preferences;
-import com.todoroo.astrid.service.StatisticsService;
+import com.todoroo.astrid.dao.ABTestEventDao;
 
 /**
  * Helper class to facilitate A/B testing by randomly choosing an option
@@ -21,6 +21,9 @@ public class ABChooser {
     @Autowired
     private ABTests abTests;
 
+    @Autowired
+    private ABTestEventDao abTestEventDao;
+
     private final Random random;
 
     public ABChooser() {
@@ -32,10 +35,10 @@ public class ABChooser {
      * Iterates through the list of all available tests and makes sure that a choice
      * is made for each of them
      */
-    public void makeChoicesForAllTests() {
+    public void makeChoicesForAllTests(boolean newUser, boolean activatedUser) {
         Set<String> tests = abTests.getAllTestKeys();
         for (String test : tests) {
-            getChoiceForTest(test);
+            makeChoiceForTest(test, newUser, activatedUser);
         }
     }
 
@@ -47,21 +50,22 @@ public class ABChooser {
      * The statistics session needs to be open here in order to collect statistics
      *
      * @param testKey - the preference key string of the option (defined in ABTests)
-     * @return
      */
-    private int getChoiceForTest(String testKey) {
+    private void makeChoiceForTest(String testKey, boolean newUser, boolean activatedUser) {
         int pref = readChoiceForTest(testKey);
-        if (pref > NO_OPTION) return pref;
+        if (pref > NO_OPTION) return;
 
         int chosen = NO_OPTION;
         if (abTests.isValidTestKey(testKey)) {
             int[] optionProbs = abTests.getProbsForTestKey(testKey);
+            String[] optionDescriptions = abTests.getDescriptionsForTestKey(testKey);
             chosen = chooseOption(optionProbs);
             setChoiceForTest(testKey, chosen);
 
-            StatisticsService.reportEvent(abTests.getDescriptionForTestOption(testKey, chosen)); // Session should be open
+            String desc = optionDescriptions[chosen];
+            abTestEventDao.createInitialTestEvent(testKey, desc, newUser, activatedUser);
         }
-        return chosen;
+        return;
     }
 
     /**

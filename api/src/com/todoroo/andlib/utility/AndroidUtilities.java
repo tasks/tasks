@@ -201,6 +201,19 @@ public class AndroidUtilities {
     }
 
     /**
+     * Return index of value in integer array
+     * @param array array to search
+     * @param value value to look for
+     * @return
+     */
+    public static int indexOf(int[] array, int value) {
+        for (int i = 0; i < array.length; i++)
+            if (array[i] == value)
+                return i;
+        return -1;
+    }
+
+    /**
      * Serializes a content value into a string
      */
     public static String contentValuesToSerializedString(ContentValues source) {
