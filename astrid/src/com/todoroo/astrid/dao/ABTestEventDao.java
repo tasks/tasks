@@ -34,13 +34,13 @@ public class ABTestEventDao extends DatabaseDao<ABTestEvent> {
         createNew(event);
     }
 
-    public boolean createTestEventWithTimeInterval(String testName, int timeInterval) {
+    private void createTestEventWithTimeInterval(String testName, int timeInterval) {
         TodorooCursor<ABTestEvent> existing = query(Query.select(ABTestEvent.PROPERTIES)
                 .where(ABTestEvent.TEST_NAME.eq(testName)).orderBy(Order.asc(ABTestEvent.TIME_INTERVAL)));
 
         try {
             if (existing.getCount() == 0)
-                return false;
+                return;
 
             existing.moveToLast();
             ABTestEvent item = new ABTestEvent(existing);
@@ -51,7 +51,7 @@ public class ABTestEventDao extends DatabaseDao<ABTestEvent> {
                     ABTestEvent.TIME_INTERVALS, timeInterval);
 
             if (lastRecordedTimeIntervalIndex < 0 || currentTimeIntervalIndex < 0)
-                return false;
+                return;
 
             long now = DateUtilities.now();
             for (int i = lastRecordedTimeIntervalIndex + 1; i <= currentTimeIntervalIndex; i++) {
@@ -64,7 +64,7 @@ public class ABTestEventDao extends DatabaseDao<ABTestEvent> {
         } finally {
             existing.close();
         }
-        return true;
+        return;
     }
 
     public void createRelativeDateEvents() {
