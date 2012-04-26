@@ -89,7 +89,7 @@ public class ABTestEvent extends AbstractModel {
             TABLE, "reported"); // 0 if not yet reported, 1 if reported successfully
 
     /** List of all properties for this model */
-    public static final Property<?>[] PROPERTIES = generateProperties(Task.class);
+    public static final Property<?>[] PROPERTIES = generateProperties(ABTestEvent.class);
 
 
 

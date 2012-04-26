@@ -65,9 +65,9 @@ public class AstridDependencyInjector extends AbstractDependencyInjector {
 
         // com.todoroo.astrid.dao
         injectables.put("database", Database.class);
-        injectables.put("taskDao", new TaskDao());
-        injectables.put("metadataDao", new MetadataDao());
-        injectables.put("tagDataDao", new TagDataDao());
+        injectables.put("taskDao", TaskDao.class);
+        injectables.put("metadataDao", MetadataDao.class);
+        injectables.put("tagDataDao", TagDataDao.class);
         injectables.put("storeObjectDao", StoreObjectDao.class);
         injectables.put("updateDao", UpdateDao.class);
         injectables.put("userDao", UserDao.class);
@@ -103,7 +103,7 @@ public class AstridDependencyInjector extends AbstractDependencyInjector {
         // AB testing
         injectables.put("abChooser", ABChooser.class);
         injectables.put("abTests", new ABTests());
-        injectables.put("abTestEventDao", new ABTestEventDao());
+        injectables.put("abTestEventDao", ABTestEventDao.class);
         injectables.put("abTestEventReportingService", ABTestEventReportingService.class);
         injectables.put("abTestInvoker", ABTestInvoker.class);
         injectables.put("featureFlipper", FeatureFlipper.class);

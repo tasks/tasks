@@ -8,10 +8,10 @@ import org.json.JSONObject;
 
 import android.util.Log;
 
-import com.todoroo.andlib.data.DatabaseDao.ModelUpdateListener;
 import com.todoroo.andlib.data.TodorooCursor;
 import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.DependencyInjectionService;
+import com.todoroo.andlib.sql.Order;
 import com.todoroo.andlib.sql.Query;
 import com.todoroo.astrid.dao.ABTestEventDao;
 import com.todoroo.astrid.data.ABTestEvent;
@@ -36,38 +36,11 @@ public final class ABTestEventReportingService {
         DependencyInjectionService.getInstance().inject(this);
     }
 
-    public void initialize() {
-        abTestEventDao.addListener(new ModelUpdateListener<ABTestEvent>() {
-            @Override
-            public void onModelUpdated(ABTestEvent model) {
-                if (model.getValue(ABTestEvent.REPORTED) == 1)
-                    return;
-
-                pushABTestEvent(model);
-            }
-        });
-    }
-
-    public void pushABTestEvent(final ABTestEvent model) {
-        new Thread(new Runnable() {
-            public void run() {
-                try {
-                    JSONArray payload = new JSONArray().put(jsonFromABTestEvent(model));
-                    abTestInvoker.post(payload);
-                    model.setValue(ABTestEvent.REPORTED, 1);
-                    abTestEventDao.saveExisting(model);
-                } catch (JSONException e) {
-                    handleException(e);
-                } catch (IOException e) {
-                    handleException(e);
-                }
-            };
-         }).start();
-    }
-
     public void pushAllUnreportedABTestEvents() {
         final TodorooCursor<ABTestEvent> unreported = abTestEventDao.query(Query.select(ABTestEvent.PROPERTIES)
-                .where(ABTestEvent.REPORTED.eq(0)));
+                .where(ABTestEvent.REPORTED.eq(0))
+                .orderBy(Order.asc(ABTestEvent.TEST_NAME))
+                .orderBy(Order.asc(ABTestEvent.TIME_INTERVAL)));
         if (unreported.getCount() > 0) {
             new Thread(new Runnable() {
                 @Override
@@ -102,7 +75,7 @@ public final class ABTestEventReportingService {
         payload.put(KEY_VARIANT, model.getValue(ABTestEvent.TEST_VARIANT));
         payload.put(KEY_NEW_USER, model.getValue(ABTestEvent.NEW_USER) > 0 ? true : false);
         payload.put(KEY_ACTIVE_USER, model.getValue(ABTestEvent.ACTIVATED_USER) > 0 ? true : false);
-        payload.put(KEY_DAYS, model.getValue(ABTestEvent.TIME_INTERVAL));
+        payload.put(KEY_DAYS, new JSONArray().put(model.getValue(ABTestEvent.TIME_INTERVAL)));
 
         long date = model.getValue(ABTestEvent.DATE_RECORDED) / 1000L;
         payload.put(KEY_DATE, date);
@@ -112,10 +85,28 @@ public final class ABTestEventReportingService {
 
     private static JSONArray jsonArrayFromABTestEvents(TodorooCursor<ABTestEvent> events) throws JSONException {
         JSONArray result = new JSONArray();
+
+        String lastTestKey = "";
+        JSONObject testAcc = null;
         for (events.moveToFirst(); !events.isAfterLast(); events.moveToNext()) {
             ABTestEvent model = new ABTestEvent(events);
-            result.put(jsonFromABTestEvent(model));
+
+            if (!model.getValue(ABTestEvent.TEST_NAME).equals(lastTestKey)) {
+                if (testAcc != null)
+                    result.put(testAcc);
+                testAcc = jsonFromABTestEvent(model);
+                lastTestKey = model.getValue(ABTestEvent.TEST_NAME);
+            } else {
+                int interval = model.getValue(ABTestEvent.TIME_INTERVAL);
+                if (testAcc != null) { // this should never happen, just stopping the compiler from complaining
+                    JSONArray daysArray = testAcc.getJSONArray(KEY_DAYS);
+                    daysArray.put(interval);
+                }
+            }
+
         }
+        if (testAcc != null)
+            result.put(testAcc);
         return result;
     }
 

@@ -184,7 +184,7 @@ public class StartupService {
         // perform startup activities in a background thread
         final int finalLatestVersion = latestSetVersion;
 
-        initializeABTesting(latestSetVersion == 0);
+        abChooser.makeChoicesForAllTests(latestSetVersion == 0, taskService.getUserActivationStatus());
 
         new Thread(new Runnable() {
             public void run() {
@@ -220,6 +220,7 @@ public class StartupService {
                 featureFlipper.updateFeatures();
 
                 abTestEventDao.createRelativeDateEvents();
+                abTestEventReportingService.pushAllUnreportedABTestEvents();
             }
         }).start();
 
@@ -230,12 +231,6 @@ public class StartupService {
             showTaskKillerHelp(context);
 
         hasStartedUp = true;
-    }
-
-    private void initializeABTesting(boolean newUser) {
-        abTestEventReportingService.initialize();
-        abTestEventReportingService.pushAllUnreportedABTestEvents();
-        abChooser.makeChoicesForAllTests(newUser, taskService.getUserActivationStatus());
     }
 
     /**
