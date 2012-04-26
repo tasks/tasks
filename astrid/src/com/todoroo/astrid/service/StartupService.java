@@ -183,6 +183,9 @@ public class StartupService {
 
         // perform startup activities in a background thread
         final int finalLatestVersion = latestSetVersion;
+
+        initializeABTesting(latestSetVersion == 0);
+
         new Thread(new Runnable() {
             public void run() {
                 // start widget updating alarm
@@ -215,10 +218,11 @@ public class StartupService {
 
                 // Check for feature flips
                 featureFlipper.updateFeatures();
+
+                abTestEventDao.createRelativeDateEvents();
             }
         }).start();
 
-        initializeABTesting(latestSetVersion == 0);
         AstridPreferences.setPreferenceDefaults();
 
         // check for task killers
@@ -232,7 +236,6 @@ public class StartupService {
         abTestEventReportingService.initialize();
         abTestEventReportingService.pushAllUnreportedABTestEvents();
         abChooser.makeChoicesForAllTests(newUser, taskService.getUserActivationStatus());
-        abTestEventDao.createRelativeDateEvents();
     }
 
     /**
