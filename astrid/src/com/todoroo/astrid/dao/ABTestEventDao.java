@@ -57,6 +57,7 @@ public class ABTestEventDao extends DatabaseDao<ABTestEvent> {
             long now = DateUtilities.now();
             for (int i = lastRecordedTimeIntervalIndex + 1; i <= currentTimeIntervalIndex; i++) {
                 item.clearValue(ABTestEvent.ID);
+                item.setValue(ABTestEvent.REPORTED, 0);
                 item.setValue(ABTestEvent.TIME_INTERVAL, ABTestEvent.TIME_INTERVALS[i]);
                 item.setValue(ABTestEvent.DATE_RECORDED, now);
                 createNew(item);

@@ -84,14 +84,20 @@ public class ABTestEvent extends AbstractModel {
     public static final LongProperty DATE_RECORDED = new LongProperty(
             TABLE, "dateRecorded");
 
+    /** Whether or not this data point has been reported to the server */
+    public static final IntegerProperty REPORTED = new IntegerProperty(
+            TABLE, "reported"); // 0 if not yet reported, 1 if reported successfully
+
     /** List of all properties for this model */
     public static final Property<?>[] PROPERTIES = generateProperties(Task.class);
 
-    private static final ContentValues defaultValues = new ContentValues();
 
+
+    private static final ContentValues defaultValues = new ContentValues();
 
     static {
         // initialize with default values
+        defaultValues.put(REPORTED.name, 0);
     }
 
     @Override
