@@ -30,10 +30,12 @@ import com.todoroo.astrid.dao.Database;
 import com.todoroo.astrid.dao.MetadataDao;
 import com.todoroo.astrid.dao.StoreObjectDao;
 import com.todoroo.astrid.dao.TaskDao;
+import com.todoroo.astrid.dao.UpdateDao;
 import com.todoroo.astrid.data.Metadata;
 import com.todoroo.astrid.data.StoreObject;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.data.TaskApiDao;
+import com.todoroo.astrid.data.Update;
 import com.todoroo.astrid.service.AstridDependencyInjector;
 
 /**
@@ -99,6 +101,9 @@ public class Astrid3ContentProvider extends ContentProvider {
     private StoreObjectDao storeObjectDao;
 
     @Autowired
+    private UpdateDao updateDao;
+
+    @Autowired
     private ExceptionService exceptionService;
 
     @Override
@@ -115,7 +120,7 @@ public class Astrid3ContentProvider extends ContentProvider {
     static {
         uriMatcher = new UriMatcher(UriMatcher.NO_MATCH);
 
-        for(Uri uri : new Uri[] { Task.CONTENT_URI, Metadata.CONTENT_URI, StoreObject.CONTENT_URI }) {
+        for(Uri uri : new Uri[] { Task.CONTENT_URI, Metadata.CONTENT_URI, StoreObject.CONTENT_URI, Update.CONTENT_URI }) {
             String authority = AstridApiConstants.PACKAGE;
 
             String table = uri.toString();
@@ -189,6 +194,12 @@ public class Astrid3ContentProvider extends ContentProvider {
             UriHelper<StoreObject> helper = new UriHelper<StoreObject>();
             helper.model = populateModel ? new StoreObject() : null;
             helper.dao = storeObjectDao;
+            helper.dao.setDatabase(getDatabase());
+            return helper;
+        } else if(uri.toString().startsWith(Update.CONTENT_URI.toString())) {
+            UriHelper<Update> helper = new UriHelper<Update>();
+            helper.model = populateModel ? new Update() : null;
+            helper.dao = updateDao;
             helper.dao.setDatabase(getDatabase());
             return helper;
         }
