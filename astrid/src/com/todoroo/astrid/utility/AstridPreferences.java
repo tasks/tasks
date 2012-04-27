@@ -12,7 +12,7 @@ import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.service.ThemeService;
 import com.todoroo.astrid.service.abtesting.ABChooser;
-import com.todoroo.astrid.service.abtesting.ABOptions;
+import com.todoroo.astrid.service.abtesting.ABTests;
 
 public class AstridPreferences {
 
@@ -49,10 +49,10 @@ public class AstridPreferences {
         Preferences.setIfUnset(prefs, editor, r, R.string.p_fontSize, 18);
         Preferences.setIfUnset(prefs, editor, r, R.string.p_showNotes, false);
 
-        boolean swipeEnabled = (ABChooser.readChoiceForOption(ABOptions.AB_OPTION_SWIPE_ENABLED_KEY) == 1);
+        boolean swipeEnabled = (ABChooser.readChoiceForTest(ABTests.AB_TEST_SWIPE_ENABLED_KEY) == 1);
         Preferences.setIfUnset(prefs, editor, r, R.string.p_swipe_lists_performance_key, swipeEnabled ? 3 : 0);
 
-        boolean contactsPickerEnabled = (ABChooser.readChoiceForOption(ABOptions.AB_OPTION_CONTACTS_PICKER_ENABLED) == 1);
+        boolean contactsPickerEnabled = (ABChooser.readChoiceForTest(ABTests.AB_TEST_CONTACTS_PICKER_ENABLED) == 1);
         Preferences.setIfUnset(prefs, editor, r, R.string.p_use_contact_picker, contactsPickerEnabled);
 
         if ("white-blue".equals(Preferences.getStringValue(R.string.p_theme))) { //$NON-NLS-1$ migrate from when white-blue wasn't the default

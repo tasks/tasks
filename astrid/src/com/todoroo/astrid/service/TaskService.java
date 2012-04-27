@@ -17,6 +17,7 @@ import com.todoroo.andlib.sql.Functions;
 import com.todoroo.andlib.sql.Query;
 import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.andlib.utility.DateUtilities;
+import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.astrid.actfm.sync.ActFmPreferenceService;
 import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.api.PermaSql;
@@ -54,6 +55,10 @@ public class TaskService {
     public static final String TRANS_EDIT_SAVE = "task-edit-save"; //$NON-NLS-1$
 
     public static final String TRANS_REPEAT_COMPLETE = "repeat-complete"; //$NON-NLS-1$
+
+    private static final int TOTAL_TASKS_FOR_ACTIVATION = 3;
+    private static final int COMPLETED_TASKS_FOR_ACTIVATION = 1;
+    private static final String PREF_USER_ACTVATED = "user-activated"; //$NON-NLS-1$
     @Autowired
     private TaskDao taskDao;
 
@@ -265,6 +270,30 @@ public class TaskService {
         sql = PermaSql.replacePlaceholders(sql);
 
         return taskDao.query(Query.select(properties).withQueryTemplate(sql));
+    }
+
+    public boolean getUserActivationStatus() {
+        if (Preferences.getBoolean(PREF_USER_ACTVATED, false))
+            return true;
+
+        TodorooCursor<Task> all = query(Query.select(Task.ID));
+        try {
+            if (all.getCount() < TOTAL_TASKS_FOR_ACTIVATION)
+                return false;
+
+            TodorooCursor<Task> completed = query(Query.select(Task.ID).where(TaskCriteria.completed()));
+            try {
+                if (completed.getCount() < COMPLETED_TASKS_FOR_ACTIVATION)
+                    return false;
+            } finally {
+                completed.close();
+            }
+        } finally {
+            all.close();
+        }
+
+        Preferences.setBoolean(PREF_USER_ACTVATED, true);
+        return true;
     }
 
     /**

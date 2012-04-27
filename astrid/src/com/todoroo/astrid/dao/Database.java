@@ -13,6 +13,7 @@ import com.todoroo.andlib.data.AbstractModel;
 import com.todoroo.andlib.data.Property;
 import com.todoroo.andlib.data.Table;
 import com.todoroo.andlib.service.ContextManager;
+import com.todoroo.astrid.data.ABTestEvent;
 import com.todoroo.astrid.data.Metadata;
 import com.todoroo.astrid.data.StoreObject;
 import com.todoroo.astrid.data.TagData;
@@ -38,7 +39,7 @@ public class Database extends AbstractDatabase {
      * Database version number. This variable must be updated when database
      * tables are updated, as it determines whether a database needs updating.
      */
-    public static final int VERSION = 23;
+    public static final int VERSION = 24;
 
     /**
      * Database name (must be unique)
@@ -55,7 +56,8 @@ public class Database extends AbstractDatabase {
         StoreObject.TABLE,
         TagData.TABLE,
         Update.TABLE,
-        User.TABLE
+        User.TABLE,
+        ABTestEvent.TABLE,
     };
 
     // --- listeners
@@ -306,6 +308,12 @@ public class Database extends AbstractDatabase {
         case 22: try {
             database.execSQL(createTableSql(visitor, User.TABLE.name, User.PROPERTIES));
             onCreateTables();
+        } catch (SQLiteException e) {
+            Log.e("astrid", "db-upgrade-" + oldVersion + "-" + newVersion, e);
+        }
+
+        case 23: try {
+            database.execSQL(createTableSql(visitor, ABTestEvent.TABLE.name, ABTestEvent.PROPERTIES));
         } catch (SQLiteException e) {
             Log.e("astrid", "db-upgrade-" + oldVersion + "-" + newVersion, e);
         }

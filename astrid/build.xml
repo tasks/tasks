@@ -137,6 +137,13 @@
       <replaceregexp file="${source.dir}/com/todoroo/astrid/utility/Constants.java"
                      match="AWS_SECRET_KEY_ID = .*"
                      replace="AWS_SECRET_KEY_ID = &quot;${apikey.amazon.secret}&quot;;" />
+    	
+      <replaceregexp file="${source.dir}/com/todoroo/astrid/service/abtesting/ABTestInvoker.java"
+                     match="API_KEY = .*"
+                     replace="API_KEY = &quot;${apikey.analytics.id}&quot;;" />
+      <replaceregexp file="${source.dir}/com/todoroo/astrid/service/abtesting/ABTestInvoker.java"
+    	             match="API_SECRET = .*"
+    	             replace="API_SECRET = &quot;${apikey.analytics.secret}&quot;;" />
     </target>
 
     <!-- update api keys that require release signing -->

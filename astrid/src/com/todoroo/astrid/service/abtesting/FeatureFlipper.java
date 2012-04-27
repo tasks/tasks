@@ -29,7 +29,7 @@ public class FeatureFlipper {
 
     @Autowired private RestClient restClient;
     @Autowired private ABChooser abChooser;
-    @Autowired private ABOptions abOptions;
+    @Autowired private ABTests abTests;
 
     public FeatureFlipper() {
         DependencyInjectionService.getInstance().inject(this);
@@ -52,16 +52,7 @@ public class FeatureFlipper {
 
                 if (settings.has(KEY_SET_OPTION)) {
                     int option = settings.getInt(KEY_SET_OPTION);
-                    abChooser.setChoiceForOption(key, option);
-                } else if (settings.has(KEY_PROBABILITIES)) {
-                    JSONArray newProbabilities = settings.getJSONArray(KEY_PROBABILITIES);
-                    int[] probs = new int[newProbabilities.length()];
-
-                    for (int j = 0; j < newProbabilities.length(); j++) {
-                        probs[j] = newProbabilities.getInt(j);
-                    }
-
-                    abOptions.setProbsForKey(key, probs);
+                    abChooser.setChoiceForTest(key, option);
                 }
             } catch (Exception e) {
                 e.printStackTrace();

@@ -14,9 +14,11 @@ import java.lang.reflect.Method;
 import java.math.BigInteger;
 import java.net.URL;
 import java.net.URLConnection;
+import java.net.URLEncoder;
 import java.security.MessageDigest;
 import java.util.Arrays;
 import java.util.Comparator;
+import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
@@ -196,6 +198,19 @@ public class AndroidUtilities {
     public static <TYPE> int indexOf(TYPE[] array, TYPE value) {
         for(int i = 0; i < array.length; i++)
             if(array[i].equals(value))
+                return i;
+        return -1;
+    }
+
+    /**
+     * Return index of value in integer array
+     * @param array array to search
+     * @param value value to look for
+     * @return
+     */
+    public static int indexOf(int[] array, int value) {
+        for (int i = 0; i < array.length; i++)
+            if (array[i] == value)
                 return i;
         return -1;
     }

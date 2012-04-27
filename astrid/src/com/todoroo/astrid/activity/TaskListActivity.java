@@ -26,10 +26,11 @@ import android.widget.PopupWindow.OnDismissListener;
 import android.widget.TextView;
 
 import com.timsu.astrid.R;
+import com.todoroo.andlib.service.Autowired;
+import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.andlib.sql.Functions;
 import com.todoroo.andlib.sql.QueryTemplate;
 import com.todoroo.andlib.utility.AndroidUtilities;
-import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.andlib.utility.DialogUtilities;
 import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.astrid.actfm.TagSettingsActivity;
@@ -46,13 +47,13 @@ import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.service.StatisticsConstants;
 import com.todoroo.astrid.service.StatisticsService;
 import com.todoroo.astrid.service.ThemeService;
+import com.todoroo.astrid.service.abtesting.ABTestEventReportingService;
 import com.todoroo.astrid.tags.TagService;
 import com.todoroo.astrid.ui.DateChangedAlerts;
 import com.todoroo.astrid.ui.FragmentPopover;
 import com.todoroo.astrid.ui.MainMenuPopover;
 import com.todoroo.astrid.ui.MainMenuPopover.MainMenuListener;
 import com.todoroo.astrid.ui.TaskListFragmentPager;
-import com.todoroo.astrid.utility.AstridPreferences;
 import com.todoroo.astrid.utility.Constants;
 import com.todoroo.astrid.utility.Flags;
 
@@ -62,6 +63,8 @@ public class TaskListActivity extends AstridActivity implements MainMenuListener
 
     /** token for indicating source of TLA launch */
     public static final String TOKEN_SOURCE = "source"; //$NON-NLS-1$
+
+    @Autowired private ABTestEventReportingService abTestEventReportingService;
 
     private View listsNav;
     private ImageView listsNavDisclosure;
@@ -138,6 +141,7 @@ public class TaskListActivity extends AstridActivity implements MainMenuListener
     protected void onCreate(Bundle savedInstanceState) {
         ThemeService.applyTheme(this);
         super.onCreate(savedInstanceState);
+        DependencyInjectionService.getInstance().inject(this);
 
         if (AndroidUtilities.isTabletSized(this)) {
             setContentView(R.layout.task_list_wrapper_activity_3pane);
@@ -201,34 +205,13 @@ public class TaskListActivity extends AstridActivity implements MainMenuListener
             trackActivitySource();
         }
 
-        trackUserRetention();
+        // Have to call this here because sometimes StartupService
+        // isn't called (i.e. if the app was silently alive in the background)
+        abTestEventReportingService.trackUserRetention();
     }
 
     private boolean swipeIsEnabled() {
         return fragmentLayout == LAYOUT_SINGLE && swipeEnabled;
-    }
-
-    private void trackUserRetention() {
-        long firstLaunchTime = Preferences.getLong(AstridPreferences.P_FIRST_LAUNCH, 0);
-        long now = DateUtilities.now();
-        long timeSinceFirst = now - firstLaunchTime;
-
-        if (timeSinceFirst > DateUtilities.ONE_DAY * 3 && !Preferences.getBoolean(StatisticsConstants.APP_OPEN_THREE_DAYS, false)) {
-            StatisticsService.reportEvent(StatisticsConstants.APP_OPEN_THREE_DAYS);
-            Preferences.setBoolean(StatisticsConstants.APP_OPEN_THREE_DAYS, true);
-        }
-        if (timeSinceFirst > DateUtilities.ONE_WEEK && !Preferences.getBoolean(StatisticsConstants.APP_OPEN_ONE_WEEK, false)) {
-            StatisticsService.reportEvent(StatisticsConstants.APP_OPEN_ONE_WEEK);
-            Preferences.setBoolean(StatisticsConstants.APP_OPEN_ONE_WEEK, true);
-        }
-        if (timeSinceFirst > 2 * DateUtilities.ONE_WEEK && !Preferences.getBoolean(StatisticsConstants.APP_OPEN_TWO_WEEKS, false)) {
-            StatisticsService.reportEvent(StatisticsConstants.APP_OPEN_TWO_WEEKS);
-            Preferences.setBoolean(StatisticsConstants.APP_OPEN_TWO_WEEKS, true);
-        }
-        if (timeSinceFirst > 3 * DateUtilities.ONE_WEEK && !Preferences.getBoolean(StatisticsConstants.APP_OPEN_THREE_WEEKS, false)) {
-            StatisticsService.reportEvent(StatisticsConstants.APP_OPEN_THREE_WEEKS);
-            Preferences.setBoolean(StatisticsConstants.APP_OPEN_THREE_WEEKS, true);
-        }
     }
 
     @Override

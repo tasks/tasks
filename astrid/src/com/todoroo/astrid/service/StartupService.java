@@ -42,7 +42,6 @@ import com.todoroo.astrid.opencrx.OpencrxCoreUtils;
 import com.todoroo.astrid.producteev.ProducteevUtilities;
 import com.todoroo.astrid.reminders.ReminderStartupReceiver;
 import com.todoroo.astrid.service.abtesting.ABChooser;
-import com.todoroo.astrid.service.abtesting.ABOptions;
 import com.todoroo.astrid.service.abtesting.FeatureFlipper;
 import com.todoroo.astrid.utility.AstridPreferences;
 import com.todoroo.astrid.utility.Constants;
@@ -176,8 +175,12 @@ public class StartupService {
 
         upgradeService.performSecondaryUpgrade(context);
 
-        // perform startup activities in a background thread
         final int finalLatestVersion = latestSetVersion;
+
+        // For any uninitialized ab test, make sure an option is chosen
+        abChooser.makeChoicesForAllTests(latestSetVersion == 0, taskService.getUserActivationStatus());
+
+        // perform startup activities in a background thread
         new Thread(new Runnable() {
             public void run() {
                 // start widget updating alarm
@@ -213,8 +216,6 @@ public class StartupService {
             }
         }).start();
 
-        abChooser.getChoiceForOption(ABOptions.AB_OPTION_SWIPE_ENABLED_KEY);
-        abChooser.getChoiceForOption(ABOptions.AB_OPTION_CONTACTS_PICKER_ENABLED);
         AstridPreferences.setPreferenceDefaults();
 
         // check for task killers
