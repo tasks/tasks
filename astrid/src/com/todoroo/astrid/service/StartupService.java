@@ -175,11 +175,12 @@ public class StartupService {
 
         upgradeService.performSecondaryUpgrade(context);
 
-        // perform startup activities in a background thread
         final int finalLatestVersion = latestSetVersion;
 
+        // For any uninitialized ab test, make sure an option is chosen
         abChooser.makeChoicesForAllTests(latestSetVersion == 0, taskService.getUserActivationStatus());
 
+        // perform startup activities in a background thread
         new Thread(new Runnable() {
             public void run() {
                 // start widget updating alarm

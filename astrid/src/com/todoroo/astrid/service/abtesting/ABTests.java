@@ -93,10 +93,14 @@ public class ABTests {
      * @param testKey = "<key>"
      * --This key is used to identify the option in the application and in the preferences
      *
-     * @param probs = { int, int, ... }
+     * @param newUserProbs = { int, int, ... }
+     * @param existingUserProbs = { int, int, ... }
      * --The different choices in an option correspond to an index in the probability array.
      * Probabilities are expressed as integers to easily define relative weights. For example,
      * the array { 1, 2 } would mean option 0 would happen one time for every two occurrences of option 1
+     *
+     * The first array is used for new users and the second is used for existing/upgrading users,
+     * allowing us to specify different distributions for each group.
      *
      * (optional)
      * @param descriptions = { "...", "...", ... }
@@ -104,11 +108,6 @@ public class ABTests {
      * each description should correspond to the events location in the probability array
      * (i.e. the arrays should be the same length if this one exists)
      *
-     * (optional)
-     * @param relevantEvents = { "...", "...", ... }
-     * --An arbitrary length list of relevant localytics events. When events are
-     * tagged from StatisticsService, they will be appended with attributes
-     * that have that event in this array
      */
     public void addTest(String testKey, int[] newUserProbs, int[] existingUserProbs, String[] descriptions) {
         ABTestBundle bundle = new ABTestBundle(newUserProbs, existingUserProbs, descriptions);

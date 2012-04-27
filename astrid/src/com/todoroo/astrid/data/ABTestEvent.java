@@ -12,6 +12,11 @@ import com.todoroo.andlib.data.Table;
 import com.todoroo.andlib.data.TodorooCursor;
 import com.todoroo.astrid.api.AstridApiConstants;
 
+/**
+ * Model for data points used for tracking user retention in AB tests
+ * @author Sam
+ *
+ */
 @SuppressWarnings("nls")
 public class ABTestEvent extends AbstractModel {
 

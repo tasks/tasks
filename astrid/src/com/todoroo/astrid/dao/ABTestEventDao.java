@@ -21,6 +21,14 @@ public class ABTestEventDao extends DatabaseDao<ABTestEvent> {
         setDatabase(database);
     }
 
+    /**
+     * Creates the baseline +0 days event (i.e. the first time the user
+     * launches the app containing this test)
+     * @param testName - the name of the test
+     * @param testVariant - which option was chosen for this user
+     * @param newUser - are they a new user?
+     * @param activeUser - are they an activated user?
+     */
     public void createInitialTestEvent(String testName, String testVariant,
             boolean newUser, boolean activeUser) {
         ABTestEvent event = new ABTestEvent();
@@ -36,6 +44,9 @@ public class ABTestEventDao extends DatabaseDao<ABTestEvent> {
 
     /**
      * Only public for unit testing--don't use unless you really mean it!
+     *
+     * Creates data points for the specified test name, creating one data point
+     * for each time interval that hasn't yet been recorded up to the specified one
      * @param testName
      * @param timeInterval
      */
@@ -72,6 +83,11 @@ public class ABTestEventDao extends DatabaseDao<ABTestEvent> {
         return;
     }
 
+    /**
+     * For each baseline data point that exists in the database, check the current
+     * time against the time that baseline was recorded and report the appropriate
+     * +n days events. Called on startup.
+     */
     public void createRelativeDateEvents() {
         TodorooCursor<ABTestEvent> allEvents = query(Query.select(ABTestEvent.TEST_NAME, ABTestEvent.DATE_RECORDED)
                 .where(ABTestEvent.TIME_INTERVAL.eq(ABTestEvent.TIME_INTERVAL_0)));

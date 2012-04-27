@@ -205,6 +205,8 @@ public class TaskListActivity extends AstridActivity implements MainMenuListener
             trackActivitySource();
         }
 
+        // Have to call this here because sometimes StartupService
+        // isn't called (i.e. if the app was silently alive in the background)
         abTestEventReportingService.trackUserRetention();
     }
 

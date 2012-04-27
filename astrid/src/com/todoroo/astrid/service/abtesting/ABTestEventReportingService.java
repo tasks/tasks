@@ -17,6 +17,14 @@ import com.todoroo.astrid.dao.ABTestEventDao;
 import com.todoroo.astrid.data.ABTestEvent;
 import com.todoroo.astrid.service.StatisticsService;
 
+/**
+ * Service to manage the reporting of launch events for AB testing.
+ * On startup, queries the ABTestEvent database for unreported data
+ * points, merges them into the expected JSONArray format, and
+ * pushes them to the server.
+ * @author Sam
+ *
+ */
 @SuppressWarnings("nls")
 public final class ABTestEventReportingService {
 
@@ -37,6 +45,11 @@ public final class ABTestEventReportingService {
         DependencyInjectionService.getInstance().inject(this);
     }
 
+    /**
+     * Called on startup from TaskListActivity. Creates any +n days
+     * launch events that need to be recorded, and pushes all unreported
+     * data to the server.
+     */
     public void trackUserRetention() {
         new Thread(new Runnable() {
             @Override

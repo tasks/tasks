@@ -43,11 +43,8 @@ public class ABChooser {
     }
 
     /**
-     * Retrieves the choice for the specified feature if already made,
-     * or chooses one randomly from the distribution of feature probabilities
-     * if not.
-     *
-     * The statistics session needs to be open here in order to collect statistics
+     * If a choice/variant has not yet been selected for the specified test,
+     * make one and create the initial +0 analytics data point
      *
      * @param testKey - the preference key string of the option (defined in ABTests)
      */

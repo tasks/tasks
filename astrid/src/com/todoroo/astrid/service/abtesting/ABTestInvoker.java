@@ -19,6 +19,11 @@ import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.andlib.service.RestClient;
 
+/**
+ * Invoker for communicating with the Astrid Analytics server
+ * @author Sam
+ *
+ */
 @SuppressWarnings("nls")
 public class ABTestInvoker {
 
@@ -33,6 +38,13 @@ public class ABTestInvoker {
         DependencyInjectionService.getInstance().inject(this);
     }
 
+    /**
+     * Posts the payload to the analytics server
+     * @param payload - JSONArray of data points. Created by the
+     * helper method in ABTestReportingService
+     * @return
+     * @throws IOException
+     */
     public JSONObject post(JSONArray payload) throws IOException {
         try {
             HttpEntity postData  = createPostData(payload);
@@ -51,6 +63,12 @@ public class ABTestInvoker {
 
     }
 
+    /**
+     * Converts the JSONArray payload into an HTTPEntity suitable for
+     * POSTing.
+     * @param payload
+     * @return
+     */
     private HttpEntity createPostData(JSONArray payload) {
         List<NameValuePair> params = new ArrayList<NameValuePair>();
         params.add(new BasicNameValuePair("apikey", API_KEY));
