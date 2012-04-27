@@ -34,7 +34,12 @@ public class ABTestEventDao extends DatabaseDao<ABTestEvent> {
         createNew(event);
     }
 
-    private void createTestEventWithTimeInterval(String testName, int timeInterval) {
+    /**
+     * Only public for unit testing--don't use unless you really mean it!
+     * @param testName
+     * @param timeInterval
+     */
+    public void createTestEventWithTimeInterval(String testName, int timeInterval) {
         TodorooCursor<ABTestEvent> existing = query(Query.select(ABTestEvent.PROPERTIES)
                 .where(ABTestEvent.TEST_NAME.eq(testName)).orderBy(Order.asc(ABTestEvent.TIME_INTERVAL)));
 
