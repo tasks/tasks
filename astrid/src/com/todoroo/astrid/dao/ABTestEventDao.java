@@ -36,7 +36,7 @@ public class ABTestEventDao extends DatabaseDao<ABTestEvent> {
         event.setValue(ABTestEvent.TEST_VARIANT, testVariant);
         event.setValue(ABTestEvent.NEW_USER, newUser ? 1 : 0);
         event.setValue(ABTestEvent.ACTIVATED_USER, activeUser ? 1 : 0);
-        event.setValue(ABTestEvent.TIME_INTERVAL, ABTestEvent.TIME_INTERVAL_0);
+        event.setValue(ABTestEvent.TIME_INTERVAL, 0);
         event.setValue(ABTestEvent.DATE_RECORDED, DateUtilities.now());
 
         createNew(event);
@@ -90,25 +90,22 @@ public class ABTestEventDao extends DatabaseDao<ABTestEvent> {
      */
     public void createRelativeDateEvents() {
         TodorooCursor<ABTestEvent> allEvents = query(Query.select(ABTestEvent.TEST_NAME, ABTestEvent.DATE_RECORDED)
-                .where(ABTestEvent.TIME_INTERVAL.eq(ABTestEvent.TIME_INTERVAL_0)));
+                .where(ABTestEvent.TIME_INTERVAL.eq(0)));
 
         try {
             long now = DateUtilities.now();
+            ABTestEvent event = new ABTestEvent();
             for (allEvents.moveToFirst(); !allEvents.isAfterLast(); allEvents.moveToNext()) {
-                ABTestEvent event = new ABTestEvent(allEvents);
+                event.readFromCursor(allEvents);
                 long baseTime = event.getValue(ABTestEvent.DATE_RECORDED);
                 long timeSinceBase = now - baseTime;
 
                 String testName = event.getValue(ABTestEvent.TEST_NAME);
                 int timeInterval = -1;
-                if (timeSinceBase > 3 * DateUtilities.ONE_WEEK)
-                    timeInterval = ABTestEvent.TIME_INTERVAL_21;
-                else if (timeSinceBase > 2 * DateUtilities.ONE_WEEK)
-                    timeInterval = ABTestEvent.TIME_INTERVAL_14;
-                else if (timeSinceBase > DateUtilities.ONE_WEEK)
-                    timeInterval = ABTestEvent.TIME_INTERVAL_7;
-                else if (timeSinceBase > 3 * DateUtilities.ONE_DAY)
-                    timeInterval = ABTestEvent.TIME_INTERVAL_3;
+                long days = timeSinceBase / DateUtilities.ONE_DAY;
+                for(int i = 0; i < ABTestEvent.TIME_INTERVALS.length; i++)
+                    if(days >= ABTestEvent.TIME_INTERVALS[i])
+                        timeInterval = ABTestEvent.TIME_INTERVALS[i];
 
                 if (timeInterval > 0)
                     createTestEventWithTimeInterval(testName, timeInterval);

@@ -48,8 +48,6 @@ public class ABTestInvoker {
     public JSONObject post(JSONArray payload) throws IOException {
         try {
             HttpEntity postData  = createPostData(payload);
-            if (postData == null)
-                throw new IOException("Unsupported URL encoding");
             String response = restClient.post(URL, postData);
             JSONObject object = new JSONObject(response);
             if (object.getString("status").equals("error")) {
@@ -69,7 +67,7 @@ public class ABTestInvoker {
      * @param payload
      * @return
      */
-    private HttpEntity createPostData(JSONArray payload) {
+    private HttpEntity createPostData(JSONArray payload) throws IOException {
         List<NameValuePair> params = new ArrayList<NameValuePair>();
         params.add(new BasicNameValuePair("apikey", API_KEY));
         params.add(new BasicNameValuePair("payload", payload.toString()));
@@ -92,7 +90,7 @@ public class ABTestInvoker {
         try {
             return new UrlEncodedFormEntity(params, HTTP.UTF_8);
         } catch (UnsupportedEncodingException e) {
-            return null;
+            throw new IOException("Unsupported URL encoding");
         }
     }
 

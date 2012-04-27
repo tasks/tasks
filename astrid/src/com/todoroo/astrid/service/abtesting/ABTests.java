@@ -116,21 +116,13 @@ public class ABTests {
 
     private void initialize() { // Set up
         //Calls to addTest go here
-        addTest(AB_TEST_SWIPE_ENABLED_KEY, AB_TEST_SWIPE_ENABLED_PROBS_NEW_USER,
-                AB_TEST_SWIPE_ENABLED_PROBS_EXISTING_USER, AB_TEST_SWIPE_ENABLED_DESC);
-        addTest(AB_TEST_CONTACTS_PICKER_ENABLED, AB_TEST_CONTACTS_ENABLED_PROBS_NEW_USER,
-                AB_TEST_CONTACTS_ENABLED_PROBS_EXISTING_USER, AB_TEST_CONTACTS_ENABLED_DESC);
+        addTest(AB_TEST_SWIPE_ENABLED_KEY, new int[] { 1, 1 },
+                new int[] { 1, 1 }, new String[] { "swipe-lists-disabled", "swipe-lists-enabled" }); //$NON-NLS-1$//$NON-NLS-2$
+        addTest(AB_TEST_CONTACTS_PICKER_ENABLED, new int[] { 1, 1 },
+                new int[] { 1, 1 }, new String[] { "contacts-disabled", "contacts-enabled" }); //$NON-NLS-1$//$NON-NLS-2$
     }
 
     public static final String AB_TEST_SWIPE_ENABLED_KEY = "swipeEnabled"; //$NON-NLS-1$
-    private static final int[] AB_TEST_SWIPE_ENABLED_PROBS_NEW_USER = { 1, 1 };
-    private static final int[] AB_TEST_SWIPE_ENABLED_PROBS_EXISTING_USER = { 1, 1 };
-    private static final String[] AB_TEST_SWIPE_ENABLED_DESC = { "swipe-lists-disabled", "swipe-lists-enabled" };  //$NON-NLS-1$//$NON-NLS-2$
-
     public static final String AB_TEST_CONTACTS_PICKER_ENABLED = "contactsEnabled"; //$NON-NLS-1$
-    private static final int[] AB_TEST_CONTACTS_ENABLED_PROBS_NEW_USER = { 1, 1 };
-    private static final int[] AB_TEST_CONTACTS_ENABLED_PROBS_EXISTING_USER = { 1, 1 };
-    private static final String[] AB_TEST_CONTACTS_ENABLED_DESC = { "contacts-disabled", "contacts-enabled" };  //$NON-NLS-1$//$NON-NLS-2$
-
 
 }

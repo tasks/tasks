@@ -27,7 +27,7 @@ public class ABTestingServiceTest extends DatabaseTestCase {
     }
 
     private void testInitialEvents(boolean newUser, boolean activatedUser) {
-        testInterval(newUser, activatedUser, ABTestEvent.TIME_INTERVAL_0);
+        testInterval(newUser, activatedUser, 0);
     }
 
     public void testIntervalEventWithShortIntervalNewUser() {
@@ -47,11 +47,11 @@ public class ABTestingServiceTest extends DatabaseTestCase {
     }
 
     private void testIntervalEventWithShortInterval(boolean newUser, boolean activatedUser) {
-        testInterval(newUser, activatedUser, ABTestEvent.TIME_INTERVAL_3);
+        testInterval(newUser, activatedUser, 3);
     }
 
     private void testIntervalEventWithLongInterval(boolean newUser, boolean activatedUser) {
-        testInterval(newUser, activatedUser, ABTestEvent.TIME_INTERVAL_14);
+        testInterval(newUser, activatedUser, 14);
     }
 
     private void testInterval(boolean newUser, boolean activatedUser, int testInterval) {

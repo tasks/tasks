@@ -20,19 +20,7 @@ import com.todoroo.astrid.api.AstridApiConstants;
 @SuppressWarnings("nls")
 public class ABTestEvent extends AbstractModel {
 
-    public static final int TIME_INTERVAL_0 = 0;
-    public static final int TIME_INTERVAL_3 = 3;
-    public static final int TIME_INTERVAL_7 = 7;
-    public static final int TIME_INTERVAL_14 = 14;
-    public static final int TIME_INTERVAL_21 = 21;
-
-    public static final int[] TIME_INTERVALS = {
-        TIME_INTERVAL_0,
-        TIME_INTERVAL_3,
-        TIME_INTERVAL_7,
-        TIME_INTERVAL_14,
-        TIME_INTERVAL_21
-    };
+    public static final int[] TIME_INTERVALS = { 0, 3, 7, 14, 21 };
 
     // --- table and uri
 
@@ -80,7 +68,8 @@ public class ABTestEvent extends AbstractModel {
 
     /**
      * Which time interval event this data point corresponds to.
-     * Should be one of the time interval constants defined above.
+     * Should be one of the time interval constants defined int the
+     * above array.
      */
     public static final IntegerProperty TIME_INTERVAL = new IntegerProperty(
             TABLE, "timeInterval"); // one of the constants defined above
@@ -119,6 +108,10 @@ public class ABTestEvent extends AbstractModel {
     public ABTestEvent(TodorooCursor<ABTestEvent> cursor) {
         this();
         readPropertiesFromCursor(cursor);
+    }
+
+    public void readFromCursor(TodorooCursor<ABTestEvent> cursor) {
+        super.readPropertiesFromCursor(cursor);
     }
 
     @Override

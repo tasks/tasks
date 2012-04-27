@@ -74,8 +74,9 @@ public final class ABTestEventReportingService {
                     try {
                         JSONArray payload = jsonArrayFromABTestEvents(unreported);
                         abTestInvoker.post(payload);
+                        ABTestEvent model = new ABTestEvent();
                         for (unreported.moveToFirst(); !unreported.isAfterLast(); unreported.moveToNext()) {
-                            ABTestEvent model = new ABTestEvent(unreported);
+                            model.readFromCursor(unreported);
                             model.setValue(ABTestEvent.REPORTED, 1);
                             abTestEventDao.saveExisting(model);
                         }
@@ -114,9 +115,9 @@ public final class ABTestEventReportingService {
 
         String lastTestKey = "";
         JSONObject testAcc = null;
+        ABTestEvent model = new ABTestEvent();
         for (events.moveToFirst(); !events.isAfterLast(); events.moveToNext()) {
-            ABTestEvent model = new ABTestEvent(events);
-
+            model.readFromCursor(events);
             if (!model.getValue(ABTestEvent.TEST_NAME).equals(lastTestKey)) {
                 if (testAcc != null)
                     result.put(testAcc);
