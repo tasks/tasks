@@ -57,7 +57,7 @@ public class ABChooser {
 
         int chosen = NO_OPTION;
         if (abTests.isValidTestKey(testKey)) {
-            int[] optionProbs = abTests.getProbsForTestKey(testKey);
+            int[] optionProbs = abTests.getProbsForTestKey(testKey, newUser);
             String[] optionDescriptions = abTests.getDescriptionsForTestKey(testKey);
             chosen = chooseOption(optionProbs);
             setChoiceForTest(testKey, chosen);

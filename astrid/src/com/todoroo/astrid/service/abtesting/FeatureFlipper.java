@@ -53,15 +53,6 @@ public class FeatureFlipper {
                 if (settings.has(KEY_SET_OPTION)) {
                     int option = settings.getInt(KEY_SET_OPTION);
                     abChooser.setChoiceForTest(key, option);
-                } else if (settings.has(KEY_PROBABILITIES)) {
-                    JSONArray newProbabilities = settings.getJSONArray(KEY_PROBABILITIES);
-                    int[] probs = new int[newProbabilities.length()];
-
-                    for (int j = 0; j < newProbabilities.length(); j++) {
-                        probs[j] = newProbabilities.getInt(j);
-                    }
-
-                    abTests.setProbsForTestKey(key, probs);
                 }
             } catch (Exception e) {
                 e.printStackTrace();

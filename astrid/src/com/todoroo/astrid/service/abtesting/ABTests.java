@@ -20,32 +20,16 @@ public class ABTests {
      * @param key
      * @return
      */
-    public synchronized int[] getProbsForTestKey(String key) {
+    public synchronized int[] getProbsForTestKey(String key, boolean newUser) {
         if (bundles.containsKey(key)) {
             ABTestBundle bundle = bundles.get(key);
-            return bundle.weightedProbs;
+            if (newUser)
+                return bundle.newUserProbs;
+            else
+                return bundle.existingUserProbs;
         } else {
             return null;
         }
-    }
-
-    /**
-     * Updates the weighted probability array for a given key. Returns true
-     * on success, false if they key doesn't exist or if the array is the wrong
-     * length.
-     * @param key
-     * @param newProbs
-     * @return
-     */
-    public synchronized boolean setProbsForTestKey(String key, int[] newProbs) {
-        if (bundles.containsKey(newProbs)) {
-            ABTestBundle bundle = bundles.get(key);
-            if (bundle.descriptions == null || newProbs.length == bundle.descriptions.length) {
-                bundle.weightedProbs = newProbs;
-                return true;
-            }
-        }
-        return false;
     }
 
     /**
@@ -88,11 +72,13 @@ public class ABTests {
     private final HashMap<String, ABTestBundle> bundles;
 
     private static class ABTestBundle {
-        public int[] weightedProbs;
-        public String[] descriptions;
+        protected final int[] newUserProbs;
+        protected final int[] existingUserProbs;
+        protected final String[] descriptions;
 
-        public ABTestBundle(int[] weightedProbs, String[] descriptions) {
-            this.weightedProbs = weightedProbs;
+        protected ABTestBundle(int[] newUserProbs, int[] existingUserProbs, String[] descriptions) {
+            this.newUserProbs = newUserProbs;
+            this.existingUserProbs = existingUserProbs;
             this.descriptions = descriptions;
         }
     }
@@ -124,23 +110,27 @@ public class ABTests {
      * tagged from StatisticsService, they will be appended with attributes
      * that have that event in this array
      */
-    public void addTest(String testKey, int[] probs, String[] descriptions) {
-        ABTestBundle bundle = new ABTestBundle(probs, descriptions);
+    public void addTest(String testKey, int[] newUserProbs, int[] existingUserProbs, String[] descriptions) {
+        ABTestBundle bundle = new ABTestBundle(newUserProbs, existingUserProbs, descriptions);
         bundles.put(testKey, bundle);
     }
 
     private void initialize() { // Set up
         //Calls to addTest go here
-        addTest(AB_TEST_SWIPE_ENABLED_KEY, AB_TEST_SWIPE_ENABLED_PROBS, AB_TEST_SWIPE_ENABLED_DESC);
-        addTest(AB_TEST_CONTACTS_PICKER_ENABLED, AB_TEST_CONTACTS_ENABLED_PROBS, AB_TEST_CONTACTS_ENABLED_DESC);
+        addTest(AB_TEST_SWIPE_ENABLED_KEY, AB_TEST_SWIPE_ENABLED_PROBS_NEW_USER,
+                AB_TEST_SWIPE_ENABLED_PROBS_EXISTING_USER, AB_TEST_SWIPE_ENABLED_DESC);
+        addTest(AB_TEST_CONTACTS_PICKER_ENABLED, AB_TEST_CONTACTS_ENABLED_PROBS_NEW_USER,
+                AB_TEST_CONTACTS_ENABLED_PROBS_EXISTING_USER, AB_TEST_CONTACTS_ENABLED_DESC);
     }
 
     public static final String AB_TEST_SWIPE_ENABLED_KEY = "swipeEnabled"; //$NON-NLS-1$
-    private static final int[] AB_TEST_SWIPE_ENABLED_PROBS = { 1, 1 };
+    private static final int[] AB_TEST_SWIPE_ENABLED_PROBS_NEW_USER = { 1, 1 };
+    private static final int[] AB_TEST_SWIPE_ENABLED_PROBS_EXISTING_USER = { 1, 1 };
     private static final String[] AB_TEST_SWIPE_ENABLED_DESC = { "swipe-lists-disabled", "swipe-lists-enabled" };  //$NON-NLS-1$//$NON-NLS-2$
 
     public static final String AB_TEST_CONTACTS_PICKER_ENABLED = "contactsEnabled"; //$NON-NLS-1$
-    private static final int[] AB_TEST_CONTACTS_ENABLED_PROBS = { 1, 1 };
+    private static final int[] AB_TEST_CONTACTS_ENABLED_PROBS_NEW_USER = { 1, 1 };
+    private static final int[] AB_TEST_CONTACTS_ENABLED_PROBS_EXISTING_USER = { 1, 1 };
     private static final String[] AB_TEST_CONTACTS_ENABLED_DESC = { "contacts-disabled", "contacts-enabled" };  //$NON-NLS-1$//$NON-NLS-2$
 
 
