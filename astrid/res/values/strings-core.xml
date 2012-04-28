@@ -469,14 +469,19 @@
   <string name="MCA_title">Missed call!</string>
 
   <!-- Missed call: return call -->
-  <string name="MCA_return_call">Call back</string>
+  <string name="MCA_return_call">Call now</string>
 
   <!-- Missed call: return call -->
-  <string name="MCA_add_task">Add to task list</string>
+  <string name="MCA_add_task">Call later</string>
 
   <!-- Missed call: return call -->
   <string name="MCA_ignore">Ignore</string>
-    
+  
+  <!-- Missed call: dialog with name. %s->caller name -->
+  <string name="MCA_dialog_with_name">%s just called you!</string>
+
+  <!-- Missed call: dialog without name. %s->phone number -->
+  <string name="MCA_dialog_without_name">Someone just called you from %s.</string>
   
   <!-- ===================================================== HelpActivity == -->
   

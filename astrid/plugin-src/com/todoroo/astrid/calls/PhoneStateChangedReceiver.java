@@ -42,8 +42,14 @@ public class PhoneStateChangedReceiver extends BroadcastReceiver {
 
             try {
                 if (calls.getCount() > 0) {
+                    calls.moveToFirst();
+                    int nameIndex = calls.getColumnIndex(Calls.CACHED_NAME);
+                    String name = "";
+                    if (nameIndex > -1)
+                        name = calls.getString(nameIndex);
                     Intent missedCallIntent = new Intent(context, MissedCallActivity.class);
                     missedCallIntent.putExtra(MissedCallActivity.EXTRA_NUMBER, lastNumber);
+                    missedCallIntent.putExtra(MissedCallActivity.EXTRA_NAME, name);
                     missedCallIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                     context.startActivity(missedCallIntent);
                 }

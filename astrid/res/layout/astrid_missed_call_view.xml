@@ -37,7 +37,7 @@
     <include layout="@layout/astrid_speech_bubble"/>
     
     <TextView
-        android:id="@+id/call_return"
+        android:id="@+id/call_now"
         android:layout_width="fill_parent"
         android:layout_height="35dip"
         android:layout_marginLeft="10dip"
@@ -48,7 +48,7 @@
         android:gravity="center"
         android:text="@string/MCA_return_call"/>
     <TextView
-        android:id="@+id/call_add"
+        android:id="@+id/call_later"
         android:layout_width="fill_parent"
         android:layout_height="35dip"
         android:layout_marginLeft="10dip"
