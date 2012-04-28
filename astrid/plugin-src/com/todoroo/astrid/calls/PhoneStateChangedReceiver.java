@@ -42,8 +42,10 @@ public class PhoneStateChangedReceiver extends BroadcastReceiver {
 
             try {
                 if (calls.getCount() > 0) {
-                    calls.moveToFirst();
-                    System.err.println("Should display notification for number: " + lastNumber);
+                    Intent missedCallIntent = new Intent(context, MissedCallActivity.class);
+                    missedCallIntent.putExtra(MissedCallActivity.EXTRA_NUMBER, lastNumber);
+                    missedCallIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    context.startActivity(missedCallIntent);
                 }
             } finally {
                 calls.close();
