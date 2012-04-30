@@ -29,8 +29,7 @@ public class PhoneStateChangedReceiver extends BroadcastReceiver {
         String state = intent.getStringExtra(TelephonyManager.EXTRA_STATE);
 
         if (TelephonyManager.EXTRA_STATE_RINGING.equals(state)) {
-            String number = intent.getStringExtra(TelephonyManager.EXTRA_INCOMING_NUMBER);
-            System.err.println("Ringing: " + number);
+            String number = digitsOnly(intent.getStringExtra(TelephonyManager.EXTRA_INCOMING_NUMBER));
             if (TextUtils.isEmpty(number))
                 return;
 
@@ -44,14 +43,31 @@ public class PhoneStateChangedReceiver extends BroadcastReceiver {
             Cursor calls = context.getContentResolver().query(
                     Calls.CONTENT_URI,
                     null,
-                    Calls.TYPE + " = ? AND " + Calls.NEW + " = ? AND " + Calls.NUMBER + " = ?" ,
-                    new String[] { Integer.toString(Calls.MISSED_TYPE), "1", lastNumber },
+                    Calls.TYPE + " = ? AND " + Calls.NEW + " = ?",
+                    new String[] { Integer.toString(Calls.MISSED_TYPE), "1" },
                     Calls.DATE + " DESC"
                     );
 
             try {
                 if (calls.getCount() > 0) {
                     calls.moveToFirst();
+
+                    int numberIndex = calls.getColumnIndex(Calls.NUMBER);
+                    String number = calls.getString(numberIndex);
+
+                    // Check for phone number match
+                    if (!lastNumber.equals(digitsOnly(number)))
+                        return;
+
+                    // If a lot of time has passed since the most recent missed call, ignore
+                    // It could be the same person calling you back before you call them back,
+                    // but if you answer this time, the missed call will still be in the database
+                    // and will be processed again.
+                    int dateIndex = calls.getColumnIndex(Calls.DATE);
+                    long date = calls.getLong(dateIndex);
+                    if (DateUtilities.now() - date > 2 * DateUtilities.ONE_MINUTE)
+                        return;
+
                     int nameIndex = calls.getColumnIndex(Calls.CACHED_NAME);
                     String name = calls.getString(nameIndex);
 
@@ -59,8 +75,9 @@ public class PhoneStateChangedReceiver extends BroadcastReceiver {
                     long time = calls.getLong(timeIndex);
                     String timeString = DateUtilities.getTimeString(context, new Date(time));
 
+
                     Intent missedCallIntent = new Intent(context, MissedCallActivity.class);
-                    missedCallIntent.putExtra(MissedCallActivity.EXTRA_NUMBER, lastNumber);
+                    missedCallIntent.putExtra(MissedCallActivity.EXTRA_NUMBER, number);
                     missedCallIntent.putExtra(MissedCallActivity.EXTRA_NAME, name);
                     missedCallIntent.putExtra(MissedCallActivity.EXTRA_TIME, timeString);
                     missedCallIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_MULTIPLE_TASK);
@@ -70,8 +87,18 @@ public class PhoneStateChangedReceiver extends BroadcastReceiver {
                 calls.close();
             }
         } else {
-            System.err.println("Other state: " + state);
+            System.err.println("ASTRID Other state: " + state);
         }
+    }
+
+    private String digitsOnly(String number) {
+        StringBuilder builder = new StringBuilder();
+        for (int i = 0; i < number.length(); i++) {
+            char c = number.charAt(i);
+            if (Character.isDigit(c))
+                builder.append(c);
+        }
+        return builder.toString();
     }
 
 }
