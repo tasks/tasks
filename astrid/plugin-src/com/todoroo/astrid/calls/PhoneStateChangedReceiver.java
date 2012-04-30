@@ -1,5 +1,7 @@
 package com.todoroo.astrid.calls;
 
+import java.util.Date;
+
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -9,6 +11,7 @@ import android.telephony.TelephonyManager;
 import android.text.TextUtils;
 
 import com.timsu.astrid.R;
+import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.andlib.utility.Preferences;
 
 @SuppressWarnings("nls")
@@ -50,12 +53,16 @@ public class PhoneStateChangedReceiver extends BroadcastReceiver {
                 if (calls.getCount() > 0) {
                     calls.moveToFirst();
                     int nameIndex = calls.getColumnIndex(Calls.CACHED_NAME);
-                    String name = "";
-                    if (nameIndex > -1)
-                        name = calls.getString(nameIndex);
+                    String name = calls.getString(nameIndex);
+
+                    int timeIndex = calls.getColumnIndex(Calls.DATE);
+                    long time = calls.getLong(timeIndex);
+                    String timeString = DateUtilities.getTimeString(context, new Date(time));
+
                     Intent missedCallIntent = new Intent(context, MissedCallActivity.class);
                     missedCallIntent.putExtra(MissedCallActivity.EXTRA_NUMBER, lastNumber);
                     missedCallIntent.putExtra(MissedCallActivity.EXTRA_NAME, name);
+                    missedCallIntent.putExtra(MissedCallActivity.EXTRA_TIME, timeString);
                     missedCallIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                     context.startActivity(missedCallIntent);
                 }

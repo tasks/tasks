@@ -465,8 +465,8 @@
   
   <!-- ===================================================== MissedCallActivity == -->
   
-  <!-- Missed call: return call -->
-  <string name="MCA_title">Missed call!</string>
+  <!-- Missed call: return call (%s -> time of call)-->
+  <string name="MCA_title">Missed call at %s</string>
 
   <!-- Missed call: return call -->
   <string name="MCA_return_call">Call now</string>
@@ -478,10 +478,10 @@
   <string name="MCA_ignore">Ignore</string>
   
   <!-- Missed call: dialog with name. %s->caller name -->
-  <string name="MCA_dialog_with_name">%s just called you!</string>
+  <string name="MCA_dialog_with_name">%s just called. What do you want to do?</string>
 
   <!-- Missed call: dialog without name. %s->phone number -->
-  <string name="MCA_dialog_without_name">Someone just called you from %s.</string>
+  <string name="MCA_dialog_without_name">Someone just called you from %s. What do you want to do?</string>
   
   <!-- Missed call: dialog to ignore all missed calls title -->
   <string name="MCA_ignore_title">Ignore all missed calls?</string>
@@ -500,6 +500,14 @@
 
   <!-- Missed call: preference description -->
   <string name="MCA_missed_calls_pref_desc">Astrid will notify you about missed calls and offer to remind you to call back</string>
+
+  <!-- Missed call: task title with name (%1$s -> name, %2$s -> number)-->
+  <string name="MCA_task_title_name">Call %1$s back at %2$s</string>
+
+  <!-- Missed call: task title no name (%s -> number)-->
+  <string name="MCA_task_title_no_name">Call %s back</string>
+  
+  
   
   <!-- ===================================================== HelpActivity == -->
   

@@ -1,7 +1,5 @@
 package com.todoroo.astrid.calls;
 
-import java.util.Date;
-
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
@@ -15,19 +13,26 @@ import android.view.View.OnClickListener;
 import android.widget.TextView;
 
 import com.timsu.astrid.R;
+import com.todoroo.andlib.service.Autowired;
+import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.andlib.utility.DialogUtilities;
 import com.todoroo.andlib.utility.Preferences;
+import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.reminders.NotificationFragment.SnoozeDialog;
 import com.todoroo.astrid.reminders.SnoozeCallback;
+import com.todoroo.astrid.service.TaskService;
 import com.todoroo.astrid.service.ThemeService;
 
 public class MissedCallActivity extends Activity {
 
     public static final String EXTRA_NUMBER = "number"; //$NON-NLS-1$
     public static final String EXTRA_NAME = "name"; //$NON-NLS-1$
+    public static final String EXTRA_TIME = "time";  //$NON-NLS-1$
 
-    private static final String PREF_IGNORE_PRESSES = "missedCallsIgnored";
+    private static final String PREF_IGNORE_PRESSES = "missedCallsIgnored"; //$NON-NLS-1$
+
+    @Autowired private TaskService taskService;
 
     private final OnClickListener dismissListener = new OnClickListener() {
         @Override
@@ -72,6 +77,7 @@ public class MissedCallActivity extends Activity {
 
     private String name;
     private String number;
+    private String timeString;
 
     private TextView returnCallButton;
     private TextView callLaterButton;
@@ -81,6 +87,7 @@ public class MissedCallActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        DependencyInjectionService.getInstance().inject(this);
 
         setContentView(R.layout.missed_call_activity);
 
@@ -88,6 +95,7 @@ public class MissedCallActivity extends Activity {
 
         name = intent.getStringExtra(EXTRA_NAME);
         number = intent.getStringExtra(EXTRA_NUMBER);
+        timeString = intent.getStringExtra(EXTRA_TIME);
 
         int color = ThemeService.getThemeColor();
 
@@ -95,6 +103,7 @@ public class MissedCallActivity extends Activity {
         callLaterButton = (TextView) findViewById(R.id.call_later);
         ignoreButton = (TextView) findViewById(R.id.call_ignore);
         dismissButton = findViewById(R.id.dismiss);
+        ((TextView) findViewById(R.id.reminder_title)).setText(getString(R.string.MCA_title, timeString));
 
         Resources r = getResources();
         returnCallButton.setBackgroundColor(r.getColor(color));
@@ -135,8 +144,17 @@ public class MissedCallActivity extends Activity {
                 SnoozeDialog sd = new SnoozeDialog(MissedCallActivity.this, new SnoozeCallback() {
                     @Override
                     public void snoozeForTime(long time) {
-                        // Create task with due time 'time'
-                        System.err.println("Should create a task for: " + new Date(time));
+                        String title;
+                        if (TextUtils.isEmpty(name))
+                            title = getString(R.string.MCA_task_title_no_name, number);
+                        else
+                            title = getString(R.string.MCA_task_title_name, name, number);
+
+                        Task newTask = new Task();
+                        newTask.setValue(Task.TITLE, title);
+                        newTask.setValue(Task.DUE_DATE, time);
+                        taskService.save(newTask);
+
                         finish();
                     }
                 });
