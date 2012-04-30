@@ -141,17 +141,21 @@ public class MissedCallActivity extends Activity {
         callLaterButton.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
+                final String taskTitle;
+                String dialogTitle;
+                if (TextUtils.isEmpty(name)) {
+                    taskTitle = getString(R.string.MCA_task_title_no_name, number);
+                    dialogTitle = getString(R.string.MCA_schedule_dialog_title, number);
+                } else {
+                    taskTitle = getString(R.string.MCA_task_title_name, name, number);
+                    dialogTitle = getString(R.string.MCA_schedule_dialog_title, name);
+                }
                 SnoozeDialog sd = new SnoozeDialog(MissedCallActivity.this, new SnoozeCallback() {
                     @Override
                     public void snoozeForTime(long time) {
-                        String title;
-                        if (TextUtils.isEmpty(name))
-                            title = getString(R.string.MCA_task_title_no_name, number);
-                        else
-                            title = getString(R.string.MCA_task_title_name, name, number);
 
                         Task newTask = new Task();
-                        newTask.setValue(Task.TITLE, title);
+                        newTask.setValue(Task.TITLE, taskTitle);
                         newTask.setValue(Task.DUE_DATE, time);
                         taskService.save(newTask);
 
@@ -159,7 +163,7 @@ public class MissedCallActivity extends Activity {
                     }
                 });
                 new AlertDialog.Builder(MissedCallActivity.this)
-                    .setTitle(R.string.rmd_NoA_snooze)
+                    .setTitle(dialogTitle)
                     .setView(sd)
                     .setPositiveButton(android.R.string.ok, sd)
                     .setNegativeButton(android.R.string.cancel, null)
