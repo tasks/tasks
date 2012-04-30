@@ -48,6 +48,7 @@ public class AstridPreferences {
         Preferences.setIfUnset(prefs, editor, r, R.string.p_rmd_default_random_hours, 0);
         Preferences.setIfUnset(prefs, editor, r, R.string.p_fontSize, 18);
         Preferences.setIfUnset(prefs, editor, r, R.string.p_showNotes, false);
+        Preferences.setIfUnset(prefs, editor, r, R.string.p_field_missed_calls, true);
 
         boolean swipeEnabled = (ABChooser.readChoiceForTest(ABTests.AB_TEST_SWIPE_ENABLED_KEY) == 1);
         Preferences.setIfUnset(prefs, editor, r, R.string.p_swipe_lists_performance_key, swipeEnabled ? 3 : 0);

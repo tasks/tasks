@@ -8,6 +8,7 @@ import android.provider.CallLog.Calls;
 import android.telephony.TelephonyManager;
 import android.text.TextUtils;
 
+import com.timsu.astrid.R;
 import com.todoroo.andlib.utility.Preferences;
 
 @SuppressWarnings("nls")
@@ -17,6 +18,11 @@ public class PhoneStateChangedReceiver extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {
+        if (!Preferences.getBoolean(R.string.p_field_missed_calls, true)) {
+            Preferences.clear(PREF_LAST_INCOMING_NUMBER);
+            return;
+        }
+
         String state = intent.getStringExtra(TelephonyManager.EXTRA_STATE);
 
         if (TelephonyManager.EXTRA_STATE_RINGING.equals(state)) {

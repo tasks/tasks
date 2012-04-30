@@ -483,6 +483,24 @@
   <!-- Missed call: dialog without name. %s->phone number -->
   <string name="MCA_dialog_without_name">Someone just called you from %s.</string>
   
+  <!-- Missed call: dialog to ignore all missed calls title -->
+  <string name="MCA_ignore_title">Ignore all missed calls?</string>
+
+  <!-- Missed call: dialog to ignore all missed calls body -->
+  <string name="MCA_ignore_body">You\'ve ignored several missed calls. Should Astrid stop asking you about them?</string>
+
+  <!-- Missed call: dialog to ignore all missed calls ignore all button -->
+  <string name="MCA_ignore_all">Ignore all calls</string>
+
+  <!-- Missed call: dialog to ignore all missed calls ignore just this button -->
+  <string name="MCA_ignore_this">Ignore this call only</string>
+
+  <!-- Missed call: preference title -->
+  <string name="MCA_missed_calls_pref_title">Field missed calls</string>
+
+  <!-- Missed call: preference description -->
+  <string name="MCA_missed_calls_pref_desc">Astrid will notify you about missed calls and offer to remind you to call back</string>
+  
   <!-- ===================================================== HelpActivity == -->
   
   <!-- Help: Button to get support from our website -->
