@@ -64,6 +64,8 @@ public class TaskListActivity extends AstridActivity implements MainMenuListener
     /** token for indicating source of TLA launch */
     public static final String TOKEN_SOURCE = "source"; //$NON-NLS-1$
 
+    public static final String NEW_LIST = "newList";
+
     @Autowired private ABTestEventReportingService abTestEventReportingService;
 
     private View listsNav;
@@ -385,6 +387,12 @@ public class TaskListActivity extends AstridActivity implements MainMenuListener
             if (tea != null)
                 onBackPressed();
         }
+
+        if (getIntent().hasExtra(NEW_LIST)) {
+            Filter newList = getIntent().getParcelableExtra(NEW_LIST);
+            onFilterItemClicked(newList);
+            getIntent().removeExtra(NEW_LIST);
+        }
     }
 
     public void setListsTitle(String title) {
@@ -502,7 +510,7 @@ public class TaskListActivity extends AstridActivity implements MainMenuListener
 
             Filter newList = data.getParcelableExtra(TagSettingsActivity.TOKEN_NEW_FILTER);
             if (newList != null) {
-                onFilterItemClicked(newList); // Switch to the new list
+                getIntent().putExtra(NEW_LIST, newList); // Handle in onPostResume()
                 FilterListFragment fla = getFilterListFragment();
                 if (fla != null && getFragmentLayout() != LAYOUT_SINGLE)
                     fla.clear();
