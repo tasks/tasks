@@ -63,7 +63,7 @@ public class PhoneStateChangedReceiver extends BroadcastReceiver {
                     missedCallIntent.putExtra(MissedCallActivity.EXTRA_NUMBER, lastNumber);
                     missedCallIntent.putExtra(MissedCallActivity.EXTRA_NAME, name);
                     missedCallIntent.putExtra(MissedCallActivity.EXTRA_TIME, timeString);
-                    missedCallIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    missedCallIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_MULTIPLE_TASK);
                     context.startActivity(missedCallIntent);
                 }
             } finally {
