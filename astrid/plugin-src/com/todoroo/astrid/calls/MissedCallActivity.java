@@ -123,10 +123,10 @@ public class MissedCallActivity extends Activity {
        if (contactId >= 0) {
            Uri uri = ContentUris.withAppendedId(ContactsContract.Contacts.CONTENT_URI, contactId);
            InputStream input = ContactsContract.Contacts.openContactPhotoInputStream(getContentResolver(), uri);
-           if (input == null)
-               return;
-           pictureView.setImageBitmap(BitmapFactory.decodeStream(input));
-           pictureView.setVisibility(View.VISIBLE);
+           if (input != null) {
+               pictureView.setImageBitmap(BitmapFactory.decodeStream(input));
+               pictureView.setVisibility(View.VISIBLE);
+           }
        }
 
         Resources r = getResources();
