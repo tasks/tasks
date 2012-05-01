@@ -20,7 +20,7 @@ import com.todoroo.astrid.api.AstridApiConstants;
 @SuppressWarnings("nls")
 public class ABTestEvent extends AbstractModel {
 
-    public static final int[] TIME_INTERVALS = { 0, 3, 7, 14, 21 };
+    public static final int[] TIME_INTERVALS = { 0, 1, 3, 7, 14, 21 };
 
     // --- table and uri
 
