@@ -53,7 +53,7 @@
             android:scaleType="fitCenter"
             android:layout_gravity="right"
             android:layout_marginBottom="10dip"
-            android:src="@android:drawable/ic_menu_close_clear_cancel"/>
+            android:src="@drawable/close_clear_cancel"/>
 	    <Button
 	        android:id="@+id/reminder_edit"
 	        android:layout_width="fill_parent"

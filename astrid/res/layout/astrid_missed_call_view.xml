@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/reminder_root"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginLeft="10dip"
+    android:layout_marginRight="10dip"
+    android:orientation="vertical"
+    android:background="@drawable/reminder_dialog_background">
+    
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="5dip"
+        android:layout_marginRight="5dip"
+        android:layout_marginBottom="15dip"
+        android:layout_marginLeft="10dip">
+        
+        <ImageView
+            android:id="@+id/contact_picture"
+            android:layout_marginTop="5dip"
+            android:layout_marginRight="10dip"
+            android:visibility="gone"
+            android:layout_width="46dip"
+            android:layout_height="46dip"
+            android:scaleType="fitCenter" />
+        
+        <TextView 
+            android:id="@+id/reminder_title"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="3dip"
+            android:textSize="24sp"
+            android:textColor="@android:color/white"
+            android:layout_weight="1"
+            android:text="@string/MCA_title"/>
+        <ImageView
+            android:id="@+id/dismiss"
+            android:layout_width="25dip"
+            android:layout_height="25dip"
+            android:scaleType="fitCenter"
+            android:src="@drawable/close_clear_cancel"/>
+    
+    </LinearLayout>
+    
+    
+    <TextView
+        android:id="@+id/call_now"
+        android:layout_width="fill_parent"
+        android:layout_height="35dip"
+        android:layout_marginLeft="10dip"
+        android:layout_marginRight="10dip"
+        android:layout_marginBottom="10dip"
+        android:textColor="@android:color/white"
+        android:textSize="24sp"
+        android:gravity="center"
+        android:text="@string/MCA_return_call"/>
+    <TextView
+        android:id="@+id/call_later"
+        android:layout_width="fill_parent"
+        android:layout_height="35dip"
+        android:layout_marginLeft="10dip"
+        android:layout_marginRight="10dip"
+        android:layout_marginBottom="10dip"
+        android:textColor="@android:color/white"
+        android:textSize="24sp"
+        android:gravity="center"
+        android:text="@string/MCA_add_task"/>
+    <TextView
+        android:id="@+id/call_ignore"
+        android:layout_width="fill_parent"
+        android:layout_height="35dip"
+        android:layout_marginLeft="10dip"
+        android:layout_marginRight="10dip"
+        android:layout_marginBottom="10dip"
+        android:textColor="@android:color/white"
+        android:textSize="24sp"
+        android:gravity="center"
+        android:text="@string/MCA_ignore"
+        android:background="#707070"/>
+
+    <include layout="@layout/astrid_speech_bubble" android:id="@+id/missed_calls_speech_bubble"/>
+
+</LinearLayout>

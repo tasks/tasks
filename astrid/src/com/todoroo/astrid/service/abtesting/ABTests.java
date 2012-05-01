@@ -117,12 +117,15 @@ public class ABTests {
     private void initialize() { // Set up
         //Calls to addTest go here
         addTest(AB_TEST_SWIPE_ENABLED_KEY, new int[] { 1, 1 },
-                new int[] { 1, 1 }, new String[] { "swipe-lists-disabled", "swipe-lists-enabled" }); //$NON-NLS-1$//$NON-NLS-2$
+                new int[] { 9, 1 }, new String[] { "swipe-lists-disabled", "swipe-lists-enabled" }); //$NON-NLS-1$//$NON-NLS-2$
         addTest(AB_TEST_CONTACTS_PICKER_ENABLED, new int[] { 1, 1 },
-                new int[] { 1, 1 }, new String[] { "contacts-disabled", "contacts-enabled" }); //$NON-NLS-1$//$NON-NLS-2$
+                new int[] { 9, 1 }, new String[] { "contacts-disabled", "contacts-enabled" }); //$NON-NLS-1$//$NON-NLS-2$
+        addTest(AB_TEST_MISSED_CALLS_ENABLED, new int[] { 1, 1 },
+                new int[] { 9, 1 }, new String[] { "missed-calls-disabled", "missed-calls-enabled" }); //$NON-NLS-1$//$NON-NLS-2$
     }
 
     public static final String AB_TEST_SWIPE_ENABLED_KEY = "swipeEnabled"; //$NON-NLS-1$
     public static final String AB_TEST_CONTACTS_PICKER_ENABLED = "contactsEnabled"; //$NON-NLS-1$
+    public static final String AB_TEST_MISSED_CALLS_ENABLED = "missedCalls";  //$NON-NLS-1$
 
 }

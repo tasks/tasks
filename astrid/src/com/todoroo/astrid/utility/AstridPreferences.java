@@ -55,6 +55,9 @@ public class AstridPreferences {
         boolean contactsPickerEnabled = (ABChooser.readChoiceForTest(ABTests.AB_TEST_CONTACTS_PICKER_ENABLED) == 1);
         Preferences.setIfUnset(prefs, editor, r, R.string.p_use_contact_picker, contactsPickerEnabled);
 
+        boolean missedCallsEnabled = (ABChooser.readChoiceForTest(ABTests.AB_TEST_MISSED_CALLS_ENABLED) == 1);
+        Preferences.setIfUnset(prefs, editor, r, R.string.p_field_missed_calls, missedCallsEnabled);
+
         if ("white-blue".equals(Preferences.getStringValue(R.string.p_theme))) { //$NON-NLS-1$ migrate from when white-blue wasn't the default
             Preferences.setString(R.string.p_theme, ThemeService.THEME_WHITE);
         }

@@ -28,7 +28,7 @@
             android:layout_width="25dip"
             android:layout_height="25dip"
             android:scaleType="fitCenter"
-            android:src="@android:drawable/ic_menu_close_clear_cancel"/>
+            android:src="@drawable/close_clear_cancel"/>
     
     </LinearLayout>
     

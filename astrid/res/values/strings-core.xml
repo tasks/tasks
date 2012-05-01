@@ -463,6 +463,58 @@
   <!-- Button to disagree with EULA -->
   <string name="InA_disagree">I Disagree</string>
   
+  <!-- ===================================================== MissedCallActivity == -->
+  
+  <!-- Missed call: return call (%1$s -> caller, %2$s -> time of call)-->
+  <string name="MCA_title"> %1$s\ncalled at %2$s</string>
+
+  <!-- Missed call: return call -->
+  <string name="MCA_return_call">Call now</string>
+
+  <!-- Missed call: return call -->
+  <string name="MCA_add_task">Call later</string>
+
+  <!-- Missed call: return call -->
+  <string name="MCA_ignore">Ignore</string>
+  
+  <!-- Missed call: dialog to ignore all missed calls title -->
+  <string name="MCA_ignore_title">Ignore all missed calls?</string>
+
+  <!-- Missed call: dialog to ignore all missed calls body -->
+  <string name="MCA_ignore_body">You\'ve ignored several missed calls. Should Astrid stop asking you about them?</string>
+
+  <!-- Missed call: dialog to ignore all missed calls ignore all button -->
+  <string name="MCA_ignore_all">Ignore all calls</string>
+
+  <!-- Missed call: dialog to ignore all missed calls ignore just this button -->
+  <string name="MCA_ignore_this">Ignore this call only</string>
+
+  <!-- Missed call: preference title -->
+  <string name="MCA_missed_calls_pref_title">Field missed calls</string>
+
+  <!-- Missed call: preference description -->
+  <string name="MCA_missed_calls_pref_desc">Astrid will notify you about missed calls and offer to remind you to call back</string>
+
+  <!-- Missed call: task title with name (%1$s -> name, %2$s -> number)-->
+  <string name="MCA_task_title_name">Call %1$s back at %2$s</string>
+
+  <!-- Missed call: task title no name (%s -> number)-->
+  <string name="MCA_task_title_no_name">Call %s back</string>
+  
+  <!-- Missed call: schedule dialog title (%s -> name or number)-->
+  <string name="MCA_schedule_dialog_title">Call %s back in...</string>
+  
+  <!-- Missed call speech bubble options -->
+  <string-array name="MCA_dialog_speech_options">
+      <item>It must be nice to be so popular!</item>
+      <item>Yay! People like you!</item>
+      <item>Make their day, give \'em a call!</item>
+      <item>Wouldn\'t you be happy if people called you back?</item>
+      <item>You can do it!</item>
+      <item>You can always send a text...</item>
+  </string-array>
+  
+  
   <!-- ===================================================== HelpActivity == -->
   
   <!-- Help: Button to get support from our website -->

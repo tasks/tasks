@@ -65,6 +65,21 @@ public class ThemeService {
             return R.style.Theme_White_Blue;
     }
 
+    public static int getThemeColor() {
+        int theme = getTheme();
+        switch(theme) {
+        case R.style.Theme:
+        case R.style.Theme_Transparent:
+            return R.color.blue_theme_color;
+        case R.style.Theme_White:
+        case R.style.Theme_TransparentWhite:
+            return R.color.red_theme_color;
+        case R.style.Theme_White_Blue:
+        default:
+            return R.color.dark_blue_theme_color;
+        }
+    }
+
     public static int getEditDialogTheme() {
         int themeSetting = ThemeService.getTheme();
         int theme;

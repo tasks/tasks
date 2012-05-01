@@ -13,4 +13,8 @@
         android:key="@string/p_use_contact_picker"
         android:title="@string/EPr_use_contact_picker"
         android:summary="@string/EPr_use_contact_picker_desc"/>
+    <CheckBoxPreference
+        android:key="@string/p_field_missed_calls"
+        android:title="@string/MCA_missed_calls_pref_title"
+        android:summary="@string/MCA_missed_calls_pref_desc" />
 </PreferenceScreen>

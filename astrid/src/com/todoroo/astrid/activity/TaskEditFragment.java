@@ -1014,7 +1014,7 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
         AstridActivity activity = (AstridActivity) getActivity();
         if (activity instanceof TaskListActivity && activity.fragmentLayout != AstridActivity.LAYOUT_DOUBLE || activity instanceof TaskEditActivity) {
             item = menu.add(Menu.NONE, MENU_DISCARD_ID, 0, R.string.TEA_menu_discard);
-            item.setIcon(android.R.drawable.ic_menu_close_clear_cancel);
+            item.setIcon(R.drawable.close_clear_cancel);
             item.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
 
             item = menu.add(Menu.NONE, MENU_SAVE_ID, 0, R.string.TEA_menu_save);
