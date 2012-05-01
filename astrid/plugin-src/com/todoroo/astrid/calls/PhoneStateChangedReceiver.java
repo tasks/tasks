@@ -26,7 +26,7 @@ public class PhoneStateChangedReceiver extends BroadcastReceiver {
 
     @Override
     public void onReceive(final Context context, Intent intent) {
-        if (!Preferences.getBoolean(R.string.p_field_missed_calls, true)) {
+        if (!Preferences.getBoolean(R.string.p_field_missed_calls, false)) {
             Preferences.clear(PREF_LAST_INCOMING_NUMBER);
             return;
         }
