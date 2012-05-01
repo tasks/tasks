@@ -40,6 +40,9 @@ public class MissedCallActivity extends Activity {
 
     private static final String PREF_IGNORE_PRESSES = "missedCallsIgnored"; //$NON-NLS-1$
 
+    // Prompt user to ignore all missed calls after this many ignore presses
+    private static final int IGNORE_PROMPT_COUNT = 3;
+
     @Autowired private TaskService taskService;
 
     private final OnClickListener dismissListener = new OnClickListener() {
@@ -56,7 +59,7 @@ public class MissedCallActivity extends Activity {
             // Check for number of ignore presses
             int ignorePresses = Preferences.getInt(PREF_IGNORE_PRESSES, 0);
             ignorePresses++;
-            if (ignorePresses % 3 == 0) {
+            if (ignorePresses == IGNORE_PROMPT_COUNT) {
                 DialogUtilities.okCancelCustomDialog(MissedCallActivity.this,
                         getString(R.string.MCA_ignore_title),
                         getString(R.string.MCA_ignore_body),

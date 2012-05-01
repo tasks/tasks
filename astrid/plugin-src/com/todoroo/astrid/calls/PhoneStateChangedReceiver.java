@@ -22,6 +22,8 @@ public class PhoneStateChangedReceiver extends BroadcastReceiver {
 
     private static final String PREF_LAST_INCOMING_NUMBER = "last_incoming_number";
 
+    private static final long WAIT_BEFORE_READ_LOG = 3000L;
+
     @Override
     public void onReceive(final Context context, Intent intent) {
         if (!Preferences.getBoolean(R.string.p_field_missed_calls, true)) {
@@ -40,7 +42,6 @@ public class PhoneStateChangedReceiver extends BroadcastReceiver {
         } else if (TelephonyManager.EXTRA_STATE_IDLE.equals(state)) {
             final String lastNumber = Preferences.getStringValue(PREF_LAST_INCOMING_NUMBER);
             if (TextUtils.isEmpty(lastNumber)) {
-                System.err.println("Empty number");
                 return;
             }
 
@@ -49,7 +50,7 @@ public class PhoneStateChangedReceiver extends BroadcastReceiver {
             new Thread() {
                 @Override
                 public void run() {
-                    AndroidUtilities.sleepDeep(3000L);
+                    AndroidUtilities.sleepDeep(WAIT_BEFORE_READ_LOG);
                     Cursor calls = context.getContentResolver().query(
                             Calls.CONTENT_URI,
                             null,
@@ -59,13 +60,12 @@ public class PhoneStateChangedReceiver extends BroadcastReceiver {
                             );
                     try {
                         if (calls.moveToFirst()) {
-                            System.err.println("Processing");
                             int numberIndex = calls.getColumnIndex(Calls.NUMBER);
                             String number = calls.getString(numberIndex);
 
-                            // Check for phone number match
+                            // Sanity check for phone number match
+                            // in case the phone logs haven't updated for some reaosn
                             if (!lastNumber.equals(digitsOnly(number))) {
-                                System.err.println("Number mismatch");
                                 return;
                             }
 
@@ -76,9 +76,6 @@ public class PhoneStateChangedReceiver extends BroadcastReceiver {
                             int dateIndex = calls.getColumnIndex(Calls.DATE);
                             long date = calls.getLong(dateIndex);
                             if (DateUtilities.now() - date > 2 * DateUtilities.ONE_MINUTE) {
-                                System.err.println("Date: " + date);
-                                System.err.println("Diff: " + (DateUtilities.now() - date));
-                                System.err.println("Time mismatch");
                                 return;
                             }
 
@@ -104,8 +101,6 @@ public class PhoneStateChangedReceiver extends BroadcastReceiver {
                     }
                 }
             }.start();
-        } else {
-            System.err.println("ASTRID Other state: " + state);
         }
     }
 
