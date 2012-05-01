@@ -42,7 +42,6 @@ import com.todoroo.astrid.opencrx.OpencrxCoreUtils;
 import com.todoroo.astrid.producteev.ProducteevUtilities;
 import com.todoroo.astrid.reminders.ReminderStartupReceiver;
 import com.todoroo.astrid.service.abtesting.ABChooser;
-import com.todoroo.astrid.service.abtesting.FeatureFlipper;
 import com.todoroo.astrid.utility.AstridPreferences;
 import com.todoroo.astrid.utility.Constants;
 import com.todoroo.astrid.widget.TasksWidget.WidgetUpdateService;
@@ -83,8 +82,6 @@ public class StartupService {
     @Autowired ActFmPreferenceService actFmPreferenceService;
 
     @Autowired GtasksSyncService gtasksSyncService;
-
-    @Autowired FeatureFlipper featureFlipper;
 
     @Autowired ABChooser abChooser;
 
@@ -210,9 +207,6 @@ public class StartupService {
                 // get and display update messages
                 if (finalLatestVersion != 0)
                     new UpdateMessageService().processUpdates(context);
-
-                // Check for feature flips
-                featureFlipper.updateFeatures();
             }
         }).start();
 

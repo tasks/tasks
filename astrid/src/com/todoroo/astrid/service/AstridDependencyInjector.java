@@ -29,7 +29,6 @@ import com.todoroo.astrid.service.abtesting.ABChooser;
 import com.todoroo.astrid.service.abtesting.ABTestEventReportingService;
 import com.todoroo.astrid.service.abtesting.ABTestInvoker;
 import com.todoroo.astrid.service.abtesting.ABTests;
-import com.todoroo.astrid.service.abtesting.FeatureFlipper;
 import com.todoroo.astrid.tags.TagService;
 import com.todoroo.astrid.utility.Constants;
 
@@ -106,7 +105,6 @@ public class AstridDependencyInjector extends AbstractDependencyInjector {
         injectables.put("abTestEventDao", ABTestEventDao.class);
         injectables.put("abTestEventReportingService", ABTestEventReportingService.class);
         injectables.put("abTestInvoker", ABTestInvoker.class);
-        injectables.put("featureFlipper", FeatureFlipper.class);
 
         // com.todoroo.astrid.tags
         injectables.put("tagService", TagService.class);
