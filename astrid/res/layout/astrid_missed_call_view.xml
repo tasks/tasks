@@ -31,7 +31,7 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="3dip"
-            android:textSize="20sp"
+            android:textSize="24sp"
             android:textColor="@android:color/white"
             android:layout_weight="1"
             android:text="@string/MCA_title"/>
@@ -53,7 +53,7 @@
         android:layout_marginRight="10dip"
         android:layout_marginBottom="10dip"
         android:textColor="@android:color/white"
-        android:textSize="20sp"
+        android:textSize="24sp"
         android:gravity="center"
         android:text="@string/MCA_return_call"/>
     <TextView
@@ -64,7 +64,7 @@
         android:layout_marginRight="10dip"
         android:layout_marginBottom="10dip"
         android:textColor="@android:color/white"
-        android:textSize="20sp"
+        android:textSize="24sp"
         android:gravity="center"
         android:text="@string/MCA_add_task"/>
     <TextView
@@ -75,11 +75,11 @@
         android:layout_marginRight="10dip"
         android:layout_marginBottom="10dip"
         android:textColor="@android:color/white"
-        android:textSize="20sp"
+        android:textSize="24sp"
         android:gravity="center"
         android:text="@string/MCA_ignore"
         android:background="#707070"/>
 
-    <include layout="@layout/astrid_speech_bubble"/>
+    <include layout="@layout/astrid_speech_bubble" android:id="@+id/missed_calls_speech_bubble"/>
 
 </LinearLayout>

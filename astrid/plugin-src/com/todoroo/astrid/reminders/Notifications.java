@@ -128,7 +128,7 @@ public class Notifications extends BroadcastReceiver {
     // --- notification creation
 
     /** @return a random reminder string */
-    static String getRandomReminder(String[] reminders) {
+    public static String getRandomReminder(String[] reminders) {
         int next = ReminderService.random.nextInt(reminders.length);
         String reminder = reminders[next];
         return reminder;

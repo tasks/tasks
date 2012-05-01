@@ -477,12 +477,6 @@
   <!-- Missed call: return call -->
   <string name="MCA_ignore">Ignore</string>
   
-  <!-- Missed call: dialog with name. %s->caller name -->
-  <string name="MCA_dialog_with_name">%s just called. What do you want to do?</string>
-
-  <!-- Missed call: dialog without name. %s->phone number -->
-  <string name="MCA_dialog_without_name">Someone just called you from %s. What do you want to do?</string>
-  
   <!-- Missed call: dialog to ignore all missed calls title -->
   <string name="MCA_ignore_title">Ignore all missed calls?</string>
 
@@ -510,6 +504,15 @@
   <!-- Missed call: schedule dialog title (%s -> name or number)-->
   <string name="MCA_schedule_dialog_title">Call %s back in...</string>
   
+  <!-- Missed call speech bubble options -->
+  <string-array name="MCA_dialog_speech_options">
+      <item>It must be nice to be so popular!</item>
+      <item>Yay! People like you!</item>
+      <item>Make their day, give \'em a call!</item>
+      <item>Wouldn\'t you be happy if people called you back?</item>
+      <item>You can do it!</item>
+      <item>You can always send a text...</item>
+  </string-array>
   
   
   <!-- ===================================================== HelpActivity == -->

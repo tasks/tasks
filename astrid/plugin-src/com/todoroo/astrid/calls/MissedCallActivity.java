@@ -26,6 +26,7 @@ import com.todoroo.andlib.utility.DialogUtilities;
 import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.reminders.NotificationFragment.SnoozeDialog;
+import com.todoroo.astrid.reminders.Notifications;
 import com.todoroo.astrid.reminders.SnoozeCallback;
 import com.todoroo.astrid.service.TaskService;
 import com.todoroo.astrid.service.ThemeService;
@@ -131,16 +132,13 @@ public class MissedCallActivity extends Activity {
 
         addListeners();
 
-        String dialog;
 
-        if (TextUtils.isEmpty(name)) {
-            dialog = getString(R.string.MCA_dialog_without_name, number);
+        if (!Preferences.getBoolean(R.string.p_rmd_nagging, true)) {
+            findViewById(R.id.missed_calls_speech_bubble).setVisibility(View.GONE);
         } else {
-            dialog = getString(R.string.MCA_dialog_with_name, name);
+            TextView dialogView = (TextView) findViewById(R.id.reminder_message);
+            dialogView.setText(Notifications.getRandomReminder(getResources().getStringArray(R.array.MCA_dialog_speech_options)));
         }
-
-        TextView dialogView = (TextView) findViewById(R.id.reminder_message);
-        dialogView.setText(dialog);
     }
 
     private void addListeners() {
