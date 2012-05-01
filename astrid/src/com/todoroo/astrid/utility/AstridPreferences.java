@@ -48,13 +48,15 @@ public class AstridPreferences {
         Preferences.setIfUnset(prefs, editor, r, R.string.p_rmd_default_random_hours, 0);
         Preferences.setIfUnset(prefs, editor, r, R.string.p_fontSize, 18);
         Preferences.setIfUnset(prefs, editor, r, R.string.p_showNotes, false);
-        Preferences.setIfUnset(prefs, editor, r, R.string.p_field_missed_calls, true);
 
         boolean swipeEnabled = (ABChooser.readChoiceForTest(ABTests.AB_TEST_SWIPE_ENABLED_KEY) == 1);
         Preferences.setIfUnset(prefs, editor, r, R.string.p_swipe_lists_performance_key, swipeEnabled ? 3 : 0);
 
         boolean contactsPickerEnabled = (ABChooser.readChoiceForTest(ABTests.AB_TEST_CONTACTS_PICKER_ENABLED) == 1);
         Preferences.setIfUnset(prefs, editor, r, R.string.p_use_contact_picker, contactsPickerEnabled);
+
+        boolean missedCallsEnabled = (ABChooser.readChoiceForTest(ABTests.AB_TEST_MISSED_CALLS_ENABLED) == 1);
+        Preferences.setIfUnset(prefs, editor, r, R.string.p_field_missed_calls, missedCallsEnabled);
 
         if ("white-blue".equals(Preferences.getStringValue(R.string.p_theme))) { //$NON-NLS-1$ migrate from when white-blue wasn't the default
             Preferences.setString(R.string.p_theme, ThemeService.THEME_WHITE);

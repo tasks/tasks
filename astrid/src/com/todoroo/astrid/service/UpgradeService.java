@@ -203,6 +203,8 @@ public final class UpgradeService {
             newVersionString(changeLog, "4.1.0 (4/16/12)", new String[] {
                 "Swipe between lists! Swipe left and right to move through your lists. Enable or adjust " +
                 "in Settings > Performance",
+                "Respond to or set reminders for missed calls. This feature requires a new permission to read " +
+                "the phone state.",
                 "Assign tasks to contacts without typing",
                 "Links to tasks in comments",
                 "Astrid.com sync improvements",

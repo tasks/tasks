@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.timsu.astrid.R;
@@ -29,6 +30,7 @@ public class MissedCallActivity extends Activity {
     public static final String EXTRA_NUMBER = "number"; //$NON-NLS-1$
     public static final String EXTRA_NAME = "name"; //$NON-NLS-1$
     public static final String EXTRA_TIME = "time";  //$NON-NLS-1$
+    public static final String EXTRA_PHOTO = "photo"; //$NON-NLS-1$
 
     private static final String PREF_IGNORE_PRESSES = "missedCallsIgnored"; //$NON-NLS-1$
 
@@ -96,6 +98,7 @@ public class MissedCallActivity extends Activity {
         name = intent.getStringExtra(EXTRA_NAME);
         number = intent.getStringExtra(EXTRA_NUMBER);
         timeString = intent.getStringExtra(EXTRA_TIME);
+        String picture = intent.getStringExtra(EXTRA_PHOTO);
 
         int color = ThemeService.getThemeColor();
 
@@ -103,7 +106,15 @@ public class MissedCallActivity extends Activity {
         callLaterButton = (TextView) findViewById(R.id.call_later);
         ignoreButton = (TextView) findViewById(R.id.call_ignore);
         dismissButton = findViewById(R.id.dismiss);
-        ((TextView) findViewById(R.id.reminder_title)).setText(getString(R.string.MCA_title, timeString));
+        ((TextView) findViewById(R.id.reminder_title))
+            .setText(getString(R.string.MCA_title,
+                    TextUtils.isEmpty(name) ? number : name, timeString));
+
+       ImageView pictureView = ((ImageView) findViewById(R.id.contact_picture));
+       if (TextUtils.isEmpty(picture))
+           pictureView.setImageDrawable(getResources().getDrawable(R.drawable.none));
+       else
+           pictureView.setImageURI(Uri.parse(picture));
 
         Resources r = getResources();
         returnCallButton.setBackgroundColor(r.getColor(color));

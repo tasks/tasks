@@ -6,7 +6,9 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
+import android.net.Uri;
 import android.provider.CallLog.Calls;
+import android.provider.ContactsContract;
 import android.telephony.TelephonyManager;
 import android.text.TextUtils;
 
@@ -49,9 +51,7 @@ public class PhoneStateChangedReceiver extends BroadcastReceiver {
                     );
 
             try {
-                if (calls.getCount() > 0) {
-                    calls.moveToFirst();
-
+                if (calls.moveToFirst()) {
                     int numberIndex = calls.getColumnIndex(Calls.NUMBER);
                     String number = calls.getString(numberIndex);
 
@@ -65,7 +65,7 @@ public class PhoneStateChangedReceiver extends BroadcastReceiver {
                     // and will be processed again.
                     int dateIndex = calls.getColumnIndex(Calls.DATE);
                     long date = calls.getLong(dateIndex);
-                    if (DateUtilities.now() - date > 2 * DateUtilities.ONE_MINUTE)
+                    if (DateUtilities.now() - date < 2 * DateUtilities.ONE_MINUTE)
                         return;
 
                     int nameIndex = calls.getColumnIndex(Calls.CACHED_NAME);
@@ -75,11 +75,13 @@ public class PhoneStateChangedReceiver extends BroadcastReceiver {
                     long time = calls.getLong(timeIndex);
                     String timeString = DateUtilities.getTimeString(context, new Date(time));
 
+                    String photo = getContactPhotoFromNumber(context, number);
 
                     Intent missedCallIntent = new Intent(context, MissedCallActivity.class);
                     missedCallIntent.putExtra(MissedCallActivity.EXTRA_NUMBER, number);
                     missedCallIntent.putExtra(MissedCallActivity.EXTRA_NAME, name);
                     missedCallIntent.putExtra(MissedCallActivity.EXTRA_TIME, timeString);
+                    missedCallIntent.putExtra(MissedCallActivity.EXTRA_PHOTO, photo);
                     missedCallIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_MULTIPLE_TASK);
                     context.startActivity(missedCallIntent);
                 }
@@ -99,6 +101,42 @@ public class PhoneStateChangedReceiver extends BroadcastReceiver {
                 builder.append(c);
         }
         return builder.toString();
+    }
+
+    private String getContactPhotoFromNumber(Context context, String number) {
+        return getPhotoForContactId(context, getContactIdFromNumber(context, number));
+    }
+
+    private long getContactIdFromNumber(Context context, String number) {
+        Uri contactUri = Uri.withAppendedPath(ContactsContract.PhoneLookup.CONTENT_FILTER_URI, Uri.encode(number));
+        Cursor c = context.getContentResolver().query(contactUri, new String[] { ContactsContract.PhoneLookup._ID }, null, null, null);
+
+        try {
+            if (c.moveToFirst()) {
+                long id = c.getLong(c.getColumnIndex(ContactsContract.PhoneLookup._ID));
+                return id;
+            }
+        } finally {
+            c.close();
+        }
+        return -1;
+    }
+
+    private String getPhotoForContactId(Context context, long contactId) {
+        if (contactId < 0)
+            return "";
+        Cursor c = context.getContentResolver().query(ContactsContract.Contacts.CONTENT_FILTER_URI,
+                new String[] { ContactsContract.Contacts.PHOTO_URI },
+                ContactsContract.Contacts._ID + " = ?", new String[] { Long.toString(contactId) }, null);
+        try {
+            if (c.moveToFirst()) {
+                String uri = c.getString(c.getColumnIndex(ContactsContract.Contacts.PHOTO_URI));
+                return uri;
+            }
+        } finally {
+            c.close();
+        }
+        return "";
     }
 
 }
