@@ -152,7 +152,7 @@ public class MissedCallActivity extends Activity {
 
             @Override
             public void onClick(View v) {
-                Intent call = new Intent(Intent.ACTION_CALL);
+                Intent call = new Intent(Intent.ACTION_VIEW);
                 call.setData(Uri.parse("tel:" + number)); //$NON-NLS-1$
                 startActivity(call);
                 finish();
