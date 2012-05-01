@@ -14,18 +14,22 @@
         android:orientation="horizontal"
         android:layout_marginTop="5dip"
         android:layout_marginRight="5dip"
-        android:layout_marginBottom="20dip"
-        android:layout_marginLeft="5dip">
+        android:layout_marginBottom="15dip"
+        android:layout_marginLeft="10dip">
         
         <ImageView
             android:id="@+id/contact_picture"
-            android:layout_width="30dip"
-            android:layout_height="30dip" />
+            android:layout_marginTop="5dip"
+            android:layout_width="46dip"
+            android:layout_height="46dip"
+            android:scaleType="fitCenter" />
         
         <TextView 
             android:id="@+id/reminder_title"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="3dip"
+            android:layout_marginLeft="5dip"
             android:textSize="20sp"
             android:textColor="@android:color/white"
             android:layout_weight="1"

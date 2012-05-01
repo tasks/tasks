@@ -112,7 +112,7 @@ public class MissedCallActivity extends Activity {
 
        ImageView pictureView = ((ImageView) findViewById(R.id.contact_picture));
        if (TextUtils.isEmpty(picture))
-           pictureView.setImageDrawable(getResources().getDrawable(R.drawable.none));
+           pictureView.setImageDrawable(getResources().getDrawable(R.drawable.ic_contact_picture_2));
        else
            pictureView.setImageURI(Uri.parse(picture));
 
