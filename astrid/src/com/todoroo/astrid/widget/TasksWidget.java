@@ -233,12 +233,18 @@ public class TasksWidget extends AppWidgetProvider {
                 views.setOnClickPendingIntent(R.id.taskbody, pListIntent);
 
 
-            Intent editIntent = new Intent(context, TaskEditActivity.class);
+            Intent editIntent;
+            boolean tablet = AndroidUtilities.isTabletSized(context);
+            if (tablet)
+                editIntent = new Intent(context, TaskListActivity.class);
+            else
+                editIntent = new Intent(context, TaskEditActivity.class);
+
             editIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_MULTIPLE_TASK);
             editIntent.putExtra(TaskEditFragment.OVERRIDE_FINISH_ANIM, false);
             if(filter != null) {
                 editIntent.putExtra(TaskListFragment.TOKEN_FILTER, filter);
-                if (filter.valuesForNewTasks != null) {
+                if (filter.valuesForNewTasks != null && tablet) {
                     String values = AndroidUtilities.contentValuesToSerializedString(filter.valuesForNewTasks);
                     values = PermaSql.replacePlaceholders(values);
                     editIntent.putExtra(TaskEditFragment.TOKEN_VALUES, values);
@@ -247,6 +253,7 @@ public class TasksWidget extends AppWidgetProvider {
             } else {
                 editIntent.setAction("E" + widgetId);
             }
+
             PendingIntent pEditIntent = PendingIntent.getActivity(context, -widgetId,
                     editIntent, 0);
             if (pEditIntent != null) {
