@@ -466,7 +466,7 @@
   <!-- ===================================================== MissedCallActivity == -->
   
   <!-- Missed call: return call (%1$s -> caller, %2$s -> time of call)-->
-  <string name="MCA_title"> %1$s called at %2$s</string>
+  <string name="MCA_title"> %1$s\ncalled at %2$s</string>
 
   <!-- Missed call: return call -->
   <string name="MCA_return_call">Call now</string>

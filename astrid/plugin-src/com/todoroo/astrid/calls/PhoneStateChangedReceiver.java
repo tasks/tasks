@@ -13,6 +13,7 @@ import android.telephony.TelephonyManager;
 import android.text.TextUtils;
 
 import com.timsu.astrid.R;
+import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.andlib.utility.Preferences;
 
@@ -22,7 +23,7 @@ public class PhoneStateChangedReceiver extends BroadcastReceiver {
     private static final String PREF_LAST_INCOMING_NUMBER = "last_incoming_number";
 
     @Override
-    public void onReceive(Context context, Intent intent) {
+    public void onReceive(final Context context, Intent intent) {
         if (!Preferences.getBoolean(R.string.p_field_missed_calls, true)) {
             Preferences.clear(PREF_LAST_INCOMING_NUMBER);
             return;
@@ -37,57 +38,72 @@ public class PhoneStateChangedReceiver extends BroadcastReceiver {
 
             Preferences.setString(PREF_LAST_INCOMING_NUMBER, number);
         } else if (TelephonyManager.EXTRA_STATE_IDLE.equals(state)) {
-            String lastNumber = Preferences.getStringValue(PREF_LAST_INCOMING_NUMBER);
-            if (TextUtils.isEmpty(lastNumber))
+            final String lastNumber = Preferences.getStringValue(PREF_LAST_INCOMING_NUMBER);
+            if (TextUtils.isEmpty(lastNumber)) {
+                System.err.println("Empty number");
                 return;
+            }
 
             Preferences.clear(PREF_LAST_INCOMING_NUMBER);
-            Cursor calls = context.getContentResolver().query(
-                    Calls.CONTENT_URI,
-                    null,
-                    Calls.TYPE + " = ? AND " + Calls.NEW + " = ?",
-                    new String[] { Integer.toString(Calls.MISSED_TYPE), "1" },
-                    Calls.DATE + " DESC"
-                    );
 
-            try {
-                if (calls.moveToFirst()) {
-                    int numberIndex = calls.getColumnIndex(Calls.NUMBER);
-                    String number = calls.getString(numberIndex);
+            new Thread() {
+                @Override
+                public void run() {
+                    AndroidUtilities.sleepDeep(3000L);
+                    Cursor calls = context.getContentResolver().query(
+                            Calls.CONTENT_URI,
+                            null,
+                            Calls.TYPE + " = ? AND " + Calls.NEW + " = ?",
+                            new String[] { Integer.toString(Calls.MISSED_TYPE), "1" },
+                            Calls.DATE + " DESC"
+                            );
+                    try {
+                        if (calls.moveToFirst()) {
+                            System.err.println("Processing");
+                            int numberIndex = calls.getColumnIndex(Calls.NUMBER);
+                            String number = calls.getString(numberIndex);
 
-                    // Check for phone number match
-                    if (!lastNumber.equals(digitsOnly(number)))
-                        return;
+                            // Check for phone number match
+                            if (!lastNumber.equals(digitsOnly(number))) {
+                                System.err.println("Number mismatch");
+                                return;
+                            }
 
-                    // If a lot of time has passed since the most recent missed call, ignore
-                    // It could be the same person calling you back before you call them back,
-                    // but if you answer this time, the missed call will still be in the database
-                    // and will be processed again.
-                    int dateIndex = calls.getColumnIndex(Calls.DATE);
-                    long date = calls.getLong(dateIndex);
-                    if (DateUtilities.now() - date < 2 * DateUtilities.ONE_MINUTE)
-                        return;
+                            // If a lot of time has passed since the most recent missed call, ignore
+                            // It could be the same person calling you back before you call them back,
+                            // but if you answer this time, the missed call will still be in the database
+                            // and will be processed again.
+                            int dateIndex = calls.getColumnIndex(Calls.DATE);
+                            long date = calls.getLong(dateIndex);
+                            if (DateUtilities.now() - date > 2 * DateUtilities.ONE_MINUTE) {
+                                System.err.println("Date: " + date);
+                                System.err.println("Diff: " + (DateUtilities.now() - date));
+                                System.err.println("Time mismatch");
+                                return;
+                            }
 
-                    int nameIndex = calls.getColumnIndex(Calls.CACHED_NAME);
-                    String name = calls.getString(nameIndex);
+                            int nameIndex = calls.getColumnIndex(Calls.CACHED_NAME);
+                            String name = calls.getString(nameIndex);
 
-                    int timeIndex = calls.getColumnIndex(Calls.DATE);
-                    long time = calls.getLong(timeIndex);
-                    String timeString = DateUtilities.getTimeString(context, new Date(time));
+                            int timeIndex = calls.getColumnIndex(Calls.DATE);
+                            long time = calls.getLong(timeIndex);
+                            String timeString = DateUtilities.getTimeString(context, new Date(time));
 
-                    String photo = getContactPhotoFromNumber(context, number);
+                            long contactId = getContactIdFromNumber(context, number);
 
-                    Intent missedCallIntent = new Intent(context, MissedCallActivity.class);
-                    missedCallIntent.putExtra(MissedCallActivity.EXTRA_NUMBER, number);
-                    missedCallIntent.putExtra(MissedCallActivity.EXTRA_NAME, name);
-                    missedCallIntent.putExtra(MissedCallActivity.EXTRA_TIME, timeString);
-                    missedCallIntent.putExtra(MissedCallActivity.EXTRA_PHOTO, photo);
-                    missedCallIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_MULTIPLE_TASK);
-                    context.startActivity(missedCallIntent);
+                            Intent missedCallIntent = new Intent(context, MissedCallActivity.class);
+                            missedCallIntent.putExtra(MissedCallActivity.EXTRA_NUMBER, number);
+                            missedCallIntent.putExtra(MissedCallActivity.EXTRA_NAME, name);
+                            missedCallIntent.putExtra(MissedCallActivity.EXTRA_TIME, timeString);
+                            missedCallIntent.putExtra(MissedCallActivity.EXTRA_CONTACT_ID, contactId);
+                            missedCallIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_MULTIPLE_TASK);
+                            context.startActivity(missedCallIntent);
+                        }
+                    } finally {
+                        calls.close();
+                    }
                 }
-            } finally {
-                calls.close();
-            }
+            }.start();
         } else {
             System.err.println("ASTRID Other state: " + state);
         }
@@ -103,10 +119,6 @@ public class PhoneStateChangedReceiver extends BroadcastReceiver {
         return builder.toString();
     }
 
-    private String getContactPhotoFromNumber(Context context, String number) {
-        return getPhotoForContactId(context, getContactIdFromNumber(context, number));
-    }
-
     private long getContactIdFromNumber(Context context, String number) {
         Uri contactUri = Uri.withAppendedPath(ContactsContract.PhoneLookup.CONTENT_FILTER_URI, Uri.encode(number));
         Cursor c = context.getContentResolver().query(contactUri, new String[] { ContactsContract.PhoneLookup._ID }, null, null, null);
@@ -120,23 +132,6 @@ public class PhoneStateChangedReceiver extends BroadcastReceiver {
             c.close();
         }
         return -1;
-    }
-
-    private String getPhotoForContactId(Context context, long contactId) {
-        if (contactId < 0)
-            return "";
-        Cursor c = context.getContentResolver().query(ContactsContract.Contacts.CONTENT_FILTER_URI,
-                new String[] { ContactsContract.Contacts.PHOTO_URI },
-                ContactsContract.Contacts._ID + " = ?", new String[] { Long.toString(contactId) }, null);
-        try {
-            if (c.moveToFirst()) {
-                String uri = c.getString(c.getColumnIndex(ContactsContract.Contacts.PHOTO_URI));
-                return uri;
-            }
-        } finally {
-            c.close();
-        }
-        return "";
     }
 
 }

@@ -1,12 +1,17 @@
 package com.todoroo.astrid.calls;
 
+import java.io.InputStream;
+
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.content.ContentUris;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.Resources;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
+import android.provider.ContactsContract;
 import android.text.TextUtils;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -30,7 +35,7 @@ public class MissedCallActivity extends Activity {
     public static final String EXTRA_NUMBER = "number"; //$NON-NLS-1$
     public static final String EXTRA_NAME = "name"; //$NON-NLS-1$
     public static final String EXTRA_TIME = "time";  //$NON-NLS-1$
-    public static final String EXTRA_PHOTO = "photo"; //$NON-NLS-1$
+    public static final String EXTRA_CONTACT_ID = "contactId"; //$NON-NLS-1$
 
     private static final String PREF_IGNORE_PRESSES = "missedCallsIgnored"; //$NON-NLS-1$
 
@@ -98,7 +103,7 @@ public class MissedCallActivity extends Activity {
         name = intent.getStringExtra(EXTRA_NAME);
         number = intent.getStringExtra(EXTRA_NUMBER);
         timeString = intent.getStringExtra(EXTRA_TIME);
-        String picture = intent.getStringExtra(EXTRA_PHOTO);
+        long contactId = intent.getExtras().getLong(EXTRA_CONTACT_ID);
 
         int color = ThemeService.getThemeColor();
 
@@ -111,10 +116,14 @@ public class MissedCallActivity extends Activity {
                     TextUtils.isEmpty(name) ? number : name, timeString));
 
        ImageView pictureView = ((ImageView) findViewById(R.id.contact_picture));
-       if (TextUtils.isEmpty(picture))
-           pictureView.setImageDrawable(getResources().getDrawable(R.drawable.ic_contact_picture_2));
-       else
-           pictureView.setImageURI(Uri.parse(picture));
+       if (contactId >= 0) {
+           Uri uri = ContentUris.withAppendedId(ContactsContract.Contacts.CONTENT_URI, contactId);
+           InputStream input = ContactsContract.Contacts.openContactPhotoInputStream(getContentResolver(), uri);
+           if (input == null)
+               return;
+           pictureView.setImageBitmap(BitmapFactory.decodeStream(input));
+           pictureView.setVisibility(View.VISIBLE);
+       }
 
         Resources r = getResources();
         returnCallButton.setBackgroundColor(r.getColor(color));

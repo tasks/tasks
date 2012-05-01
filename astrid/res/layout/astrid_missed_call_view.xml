@@ -20,6 +20,8 @@
         <ImageView
             android:id="@+id/contact_picture"
             android:layout_marginTop="5dip"
+            android:layout_marginRight="10dip"
+            android:visibility="gone"
             android:layout_width="46dip"
             android:layout_height="46dip"
             android:scaleType="fitCenter" />
@@ -29,7 +31,6 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="3dip"
-            android:layout_marginLeft="5dip"
             android:textSize="20sp"
             android:textColor="@android:color/white"
             android:layout_weight="1"
