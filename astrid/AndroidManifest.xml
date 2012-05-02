@@ -648,7 +648,6 @@
     </receiver>
     
     <!-- Task Rabbit -->
-    <activity android:name="com.todoroo.astrid.taskrabbit.TaskRabbitControlSet"></activity>
     <activity android:name="com.todoroo.astrid.taskrabbit.TaskRabbitMapActivity"></activity>
     <activity android:name="com.todoroo.astrid.taskrabbit.TaskRabbitActivity"></activity><activity android:name="com.todoroo.astrid.welcome.tutorial.WelcomeWalkthrough"
               android:windowSoftInputMode="stateHidden"
