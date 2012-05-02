@@ -49,7 +49,7 @@
       <fileset file="astrid/build.xml" />
       <property name="custom.version.name" value=".1000" />
       <property name="custom.market.strategy" value="AmazonMarketStrategy" />
-      <target name="release-custom" />
+      <target name="unsigned-custom" />
     </subant>
   </target>
 

@@ -196,8 +196,26 @@
 
       <move file="AndroidManifest_old.xml" tofile="AndroidManifest.xml" />
     </target>
+ 
+    <!-- build custom unsigned package with updated version name -->
+    <target name="unsigned-custom" depends="clean">
+      <fail message="need to set custom.version.name">
+        <condition>
+          <not>
+            <isset property="custom.version.name" />
+          </not>
+        </condition>
+      </fail>
+      <copy file="AndroidManifest.xml" tofile="AndroidManifest_old.xml" />
+      <replaceregexp file="AndroidManifest.xml"
+                     match="(android:versionName=&quot;[^&quot; ]*)[^&quot;]*"
+                     replace="\1${custom.version.name}" />
+      <antcall target="release-unsigned" />
 
-    <target name="crittercism-permissions"
+      <move file="AndroidManifest_old.xml" tofile="AndroidManifest.xml" />
+    </target>
+
+   <target name="crittercism-permissions"
             description="Apply extra crittercism permissions">
       <if>
         <condition>
@@ -282,6 +300,26 @@
       <property name="out.final.file" location="${out.absolute.dir}/${ant.project.name}-release.apk" />
       <property name="out.release.file"
                 location="../release/${ant.project.name}-${manifest.version.code}-${manifest.version.name}-release.apk" />
+      <zipalign-helper in.package="${out.unaligned.file}"
+                       out.package="${out.final.file}" />
+      <copy file="${out.final.file}" tofile="${out.release.file}" />
+      <echo>Final Release Package: ${out.release.file}</echo>
+      <record-build-info />
+    </target>
+
+    <target name="release-unsigned"
+                depends="-set-release-mode, -release-obfuscation-check, -package, -release-prompt-for-password, -release-nosign"
+                if="has.keystore"
+                description="Builds the application. The generated apk file must be signed before
+                            it is published.">
+
+      <property name="out.unaligned.file" location="${out.absolute.dir}/${ant.project.name}-release-unsigned.apk" />
+
+      <!-- Zip aligns the APK -->
+      <mkdir dir="../release" />
+      <property name="out.final.file" location="${out.absolute.dir}/${ant.project.name}-aligned-unsigned.apk" />
+      <property name="out.release.file"
+                location="../release/${ant.project.name}-${manifest.version.code}-${manifest.version.name}-unsigned.apk" />
       <zipalign-helper in.package="${out.unaligned.file}"
                        out.package="${out.final.file}" />
       <copy file="${out.final.file}" tofile="${out.release.file}" />
