@@ -315,7 +315,6 @@ public class TaskListFragment extends ListFragment implements OnScrollListener,
         super.onActivityCreated(savedInstanceState);
         // We have a menu item to show in action bar.
         setHasOptionsMenu(true);
-        System.err.println("Initializing fragment");
         syncActionHelper = new SyncActionHelper(getActivity(), this);
         setUpUiComponents();
         initializeData();
@@ -368,7 +367,6 @@ public class TaskListFragment extends ListFragment implements OnScrollListener,
     protected void initializeData() {
         if (extras != null && extras.containsKey(TOKEN_FILTER)) {
             filter = extras.getParcelable(TOKEN_FILTER);
-            System.err.println("Filter on init: " + filter);
             extras.remove(TOKEN_FILTER); // Otherwise writing this filter to parcel gives infinite recursion
         } else {
             filter = CoreFilterExposer.buildInboxFilter(getResources());

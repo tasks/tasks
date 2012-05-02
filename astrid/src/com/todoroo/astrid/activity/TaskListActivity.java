@@ -403,7 +403,6 @@ public class TaskListActivity extends AstridActivity implements MainMenuListener
             } else {
                 TaskListFragment tlf = getTaskListFragment();
                 if (tlf != null) {
-                    System.err.println("Adding task");
                     Task result = tlf.quickAddBar.quickAddTask("", true); //$NON-NLS-1$
                     if (result != null)
                         onTaskListItemClicked(result.getId());
@@ -439,11 +438,7 @@ public class TaskListActivity extends AstridActivity implements MainMenuListener
     @Override
     protected void onStop() {
         super.onStop();
-        try {
-            unregisterReceiver(tagDeletedReceiver);
-        } catch (IllegalArgumentException e) {
-            // Receiver might not be registered if for example activity is stopped before on resume (?)
-        }
+        AndroidUtilities.tryUnregisterReceiver(this, tagDeletedReceiver);
     }
 
     public void setSelectedItem(Filter item) {

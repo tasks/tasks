@@ -169,7 +169,8 @@ public class TaskRabbitControlSet extends TaskEditControlSet implements Assigned
     /** Fire task rabbit if assigned **/
     @Override
     public boolean showTaskRabbitForUser(String name, JSONObject json) {
-        if (name.equals(fragment.getActivity().getString(R.string.actfm_EPA_task_rabbit))) {
+        Activity fragActivity = fragment.getActivity();
+        if (fragActivity != null && name.equals(fragActivity.getString(R.string.actfm_EPA_task_rabbit))) {
             showTaskRabbitActivity();
             return true;
         }
