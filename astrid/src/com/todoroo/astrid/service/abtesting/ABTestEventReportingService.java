@@ -61,33 +61,30 @@ public final class ABTestEventReportingService {
     }
 
     private void pushAllUnreportedABTestEvents() {
-        if (StatisticsService.dontCollectStatistics())
-            return;
-        final TodorooCursor<ABTestEvent> unreported = abTestEventDao.query(Query.select(ABTestEvent.PROPERTIES)
-                .where(ABTestEvent.REPORTED.eq(0))
-                .orderBy(Order.asc(ABTestEvent.TEST_NAME), Order.asc(ABTestEvent.TIME_INTERVAL)));
-        if (unreported.getCount() > 0) {
-            new Thread(new Runnable() {
-                @Override
-                public void run() {
-                    try {
-                        JSONArray payload = jsonArrayFromABTestEvents(unreported);
-                        abTestInvoker.post(payload);
-                        ABTestEvent model = new ABTestEvent();
-                        for (unreported.moveToFirst(); !unreported.isAfterLast(); unreported.moveToNext()) {
-                            model.readFromCursor(unreported);
-                            model.setValue(ABTestEvent.REPORTED, 1);
-                            abTestEventDao.saveExisting(model);
-                        }
-                    }  catch (JSONException e) {
-                        handleException(e);
-                    } catch (IOException e) {
-                        handleException(e);
-                    } finally {
-                        unreported.close();
+        synchronized(ABTestEventReportingService.class) {
+            if (StatisticsService.dontCollectStatistics())
+                return;
+            final TodorooCursor<ABTestEvent> unreported = abTestEventDao.query(Query.select(ABTestEvent.PROPERTIES)
+                    .where(ABTestEvent.REPORTED.eq(0))
+                    .orderBy(Order.asc(ABTestEvent.TEST_NAME), Order.asc(ABTestEvent.TIME_INTERVAL)));
+            if (unreported.getCount() > 0) {
+                try {
+                    JSONArray payload = jsonArrayFromABTestEvents(unreported);
+                    abTestInvoker.post(payload);
+                    ABTestEvent model = new ABTestEvent();
+                    for (unreported.moveToFirst(); !unreported.isAfterLast(); unreported.moveToNext()) {
+                        model.readFromCursor(unreported);
+                        model.setValue(ABTestEvent.REPORTED, 1);
+                        abTestEventDao.saveExisting(model);
                     }
+                } catch (JSONException e) {
+                    handleException(e);
+                } catch (IOException e) {
+                    handleException(e);
+                } finally {
+                    unreported.close();
                 }
-            }).start();
+            }
         }
     }
 
