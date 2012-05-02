@@ -65,8 +65,7 @@ public final class ABTestEventReportingService {
             return;
         final TodorooCursor<ABTestEvent> unreported = abTestEventDao.query(Query.select(ABTestEvent.PROPERTIES)
                 .where(ABTestEvent.REPORTED.eq(0))
-                .orderBy(Order.asc(ABTestEvent.TEST_NAME))
-                .orderBy(Order.asc(ABTestEvent.TIME_INTERVAL)));
+                .orderBy(Order.asc(ABTestEvent.TEST_NAME), Order.asc(ABTestEvent.TIME_INTERVAL)));
         if (unreported.getCount() > 0) {
             new Thread(new Runnable() {
                 @Override
