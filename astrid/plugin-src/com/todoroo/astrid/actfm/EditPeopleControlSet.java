@@ -592,7 +592,6 @@ public class EditPeopleControlSet extends PopupControlSet {
             public void onItemClick(AdapterView<?> arg0, View arg1, int position,
                     long id) {
                 AssignedToUser user = (AssignedToUser) assignedList.getAdapter().getItem(position);
-                System.err.println("Position: " + position + ", label: " + user.label + ", user: " + user.user);
 
                 for (AssignedChangedListener l : listeners) {
                     if(l.showTaskRabbitForUser(user.label, user.user)) {

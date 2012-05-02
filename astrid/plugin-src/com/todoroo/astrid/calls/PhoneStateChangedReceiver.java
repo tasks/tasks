@@ -105,6 +105,8 @@ public class PhoneStateChangedReceiver extends BroadcastReceiver {
     }
 
     private String digitsOnly(String number) {
+        if (number == null)
+            return "";
         StringBuilder builder = new StringBuilder();
         for (int i = 0; i < number.length(); i++) {
             char c = number.charAt(i);
