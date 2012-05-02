@@ -227,6 +227,10 @@ public class TasksWidget extends AppWidgetProvider {
             } else {
                 listIntent.setAction("L" + widgetId);
             }
+            if (filter instanceof FilterWithCustomIntent) {
+                listIntent.putExtras(((FilterWithCustomIntent) filter).customExtras);
+            }
+
             PendingIntent pListIntent = PendingIntent.getActivity(context, widgetId,
                     listIntent, PendingIntent.FLAG_CANCEL_CURRENT);
             if (pListIntent != null)
@@ -235,8 +239,10 @@ public class TasksWidget extends AppWidgetProvider {
 
             Intent editIntent;
             boolean tablet = AndroidUtilities.isTabletSized(context);
-            if (tablet)
+            if (tablet) {
                 editIntent = new Intent(context, TaskListActivity.class);
+                editIntent.putExtra(TaskListActivity.OPEN_TASK, 0L);
+            }
             else
                 editIntent = new Intent(context, TaskEditActivity.class);
 
@@ -244,11 +250,17 @@ public class TasksWidget extends AppWidgetProvider {
             editIntent.putExtra(TaskEditFragment.OVERRIDE_FINISH_ANIM, false);
             if(filter != null) {
                 editIntent.putExtra(TaskListFragment.TOKEN_FILTER, filter);
-                if (filter.valuesForNewTasks != null && tablet) {
-                    String values = AndroidUtilities.contentValuesToSerializedString(filter.valuesForNewTasks);
-                    values = PermaSql.replacePlaceholders(values);
-                    editIntent.putExtra(TaskEditFragment.TOKEN_VALUES, values);
-                    editIntent.setAction("E" + widgetId + values);
+                if (tablet) {
+                    if (filter.valuesForNewTasks != null) {
+                        String values = AndroidUtilities.contentValuesToSerializedString(filter.valuesForNewTasks);
+                        values = PermaSql.replacePlaceholders(values);
+                        editIntent.putExtra(TaskEditFragment.TOKEN_VALUES, values);
+                        editIntent.setAction("E" + widgetId + values);
+                    }
+                    if (filter instanceof FilterWithCustomIntent) {
+                        Bundle customExtras = ((FilterWithCustomIntent) filter).customExtras;
+                        editIntent.putExtras(customExtras);
+                    }
                 }
             } else {
                 editIntent.setAction("E" + widgetId);

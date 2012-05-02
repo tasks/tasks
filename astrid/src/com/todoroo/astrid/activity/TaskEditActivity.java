@@ -18,10 +18,7 @@ public class TaskEditActivity extends AstridActivity {
 	protected void onCreate(Bundle savedInstanceState) {
         ThemeService.applyTheme(this);
 		super.onCreate(savedInstanceState);
-		if (AndroidUtilities.isTabletSized(this))
-		    setContentView(R.layout.task_edit_wrapper_activity_3pane);
-		else
-		    setContentView(R.layout.task_edit_wrapper_activity);
+		setContentView(R.layout.task_edit_wrapper_activity);
 
 		ActionBar actionBar = getSupportActionBar();
 		actionBar.setDisplayHomeAsUpEnabled(true);

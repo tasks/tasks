@@ -285,6 +285,10 @@ public class QuickAddBar extends LinearLayout {
                 peopleControl.saveSharingSettings(null);
             }
 
+            System.err.println("Fragment: " + fragment);
+            if (fragment != null)
+                System.err.println("Filter: " + fragment.getFilter());
+
             TaskService.createWithValues(task, fragment.getFilter().valuesForNewTasks, title,
                     taskService, metadataService);
 

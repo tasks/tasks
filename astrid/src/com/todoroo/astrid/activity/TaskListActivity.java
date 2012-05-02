@@ -402,8 +402,12 @@ public class TaskListActivity extends AstridActivity implements MainMenuListener
                 onTaskListItemClicked(id);
             } else {
                 TaskListFragment tlf = getTaskListFragment();
-                if (tlf != null)
-                    tlf.quickAddBar.quickAddTask("", true); //$NON-NLS-1$
+                if (tlf != null) {
+                    System.err.println("Adding task");
+                    Task result = tlf.quickAddBar.quickAddTask("", true); //$NON-NLS-1$
+                    if (result != null)
+                        onTaskListItemClicked(result.getId());
+                }
             }
             getIntent().removeExtra(OPEN_TASK);
         }
