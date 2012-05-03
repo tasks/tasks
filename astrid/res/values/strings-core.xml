@@ -107,7 +107,7 @@
   <string name="TLA_menu_sort">Sort &amp; Subtasks</string>
   
   <!-- Menu: Sync Now -->    
-  <string name="TLA_menu_sync">Sync Now!</string>
+  <string name="TLA_menu_sync">Sync Now</string>
   
   <!-- Menu: Search -->
   <string name="TLA_menu_search">Search</string>
