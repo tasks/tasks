@@ -1,4 +1,4 @@
-# Translations template for PROJECT.
+# Norwegian Bokmål translations for PROJECT.
 # Copyright (C) 2012 ORGANIZATION
 # This file is distributed under the same license as the PROJECT project.
 # FIRST AUTHOR <EMAIL@ADDRESS>, 2012.
@@ -7,15 +7,14 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2012-02-29 14:56-0800\n"
+"POT-Creation-Date: 2012-05-02 20:22-0700\n"
 "PO-Revision-Date: 2012-03-01 06:42+0000\n"
 "Last-Translator: Tim Su <tim@todoroo.com>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language-Team: nb <LL@li.org>\n"
+"Plural-Forms: nplurals=2; plural=(n != 1)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2012-05-03 02:37+0000\n"
-"X-Generator: Launchpad (build 15185)\n"
 "Generated-By: Babel 1.0dev\n"
 
 #. ==================================================== Generic Units ==
@@ -152,12 +151,12 @@ msgctxt "yesterday"
 msgid "Yesterday"
 msgstr "I går"
 
-#. tomorrow abbreviated
+#. tomorrow, abbreviated
 msgctxt "tmrw"
 msgid "Tmrw"
 msgstr ""
 
-#. today abbreviated
+#. yesterday, abbreviated
 msgctxt "yest"
 msgid "Yest"
 msgstr ""
@@ -257,9 +256,16 @@ msgctxt "sync_SPr_group_status"
 msgid "Status"
 msgstr ""
 
+#. Sync status subtitle, %s-> status message
+#, c-format
+msgctxt "sync_SPr_status_subtitle"
+msgid "Status: %s"
+msgstr ""
+
 #. Sync Status: log in
+#, fuzzy
 msgctxt "sync_status_loggedout"
-msgid "Not Logged In!"
+msgid "Not Logged In"
 msgstr "Ikke innlogget!"
 
 #. Status: ongoing
@@ -342,8 +348,9 @@ msgid "Actions"
 msgstr "Handlinger"
 
 #. Synchronize Now Button
+#, fuzzy
 msgctxt "sync_SPr_sync"
-msgid "Synchronize Now!"
+msgid "Synchronize Now"
 msgstr "Synkroniser nå!"
 
 #. Synchronize Now Button if not logged in
@@ -354,6 +361,21 @@ msgstr "Logg inn & Synkroniser!"
 #. Sync: Prefix string before logged in identifier
 msgctxt "sync_SPr_logged_in_prefix"
 msgid "Logged in as:"
+msgstr ""
+
+#. Sync: Last error
+msgctxt "sync_SPr_last_error"
+msgid "Status Report"
+msgstr ""
+
+#. Sync: last error click for more
+msgctxt "sync_SPr_last_error_subtitle"
+msgid "Click to send a report to the Astrid team"
+msgstr ""
+
+#. Sync: send error report button
+msgctxt "sync_SPr_send_report"
+msgid "Send Report"
 msgstr ""
 
 #. Sync: Clear Data Title
@@ -370,6 +392,14 @@ msgstr "Sletter all synkroniseringsdata"
 msgctxt "sync_forget_confirm"
 msgid "Log out / clear synchronization data?"
 msgstr "Logg ut / slett synkroniseringsdata?"
+
+#. Sync error: network connectivity problems. %s-> name of sync service
+#, c-format
+msgctxt "sync_error_offline"
+msgid ""
+"There was a problem connecting to the network during the last sync with "
+"%s. Please try again later."
+msgstr ""
 
 msgctxt "sync_SPr_interval_entries:0"
 msgid "disable"
@@ -410,3 +440,4 @@ msgstr "hver tredje dag"
 msgctxt "sync_SPr_interval_entries:9"
 msgid "every week"
 msgstr "hver uke"
+

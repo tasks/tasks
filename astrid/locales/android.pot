@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2012-03-06 17:01-0800\n"
+"POT-Creation-Date: 2012-05-02 20:22-0700\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -36,12 +36,6 @@ msgstr ""
 #. toast on transmit success
 msgctxt "actfm_toast_success"
 msgid "Saved on Server"
-msgstr ""
-
-#. toast on transmit error (%s => error)
-#, c-format
-msgctxt "actfm_toast_error"
-msgid "Save Failed: %s"
 msgstr ""
 
 #. can't rename or delete shared tag message
@@ -247,6 +241,11 @@ msgctxt "actfm_EPA_unassigned"
 msgid "Unassigned"
 msgstr ""
 
+#. task sharing dialog: choose a contact
+msgctxt "actfm_EPA_choose_contact"
+msgid "Choose a contact"
+msgstr ""
+
 #. task sharing dialog: use task rabbit
 msgctxt "actfm_EPA_task_rabbit"
 msgid "Outsource it!"
@@ -292,6 +291,16 @@ msgstr ""
 #. task sharing dialog: message body
 msgctxt "actfm_EPA_message_body"
 msgid "Help me get this done!"
+msgstr ""
+
+#. task sharing dialog: list members section header
+msgctxt "actfm_EPA_assign_header_members"
+msgid "List Members"
+msgstr ""
+
+#. task sharing dialog: astrid friends section header
+msgctxt "actfm_EPA_assign_header_friends"
+msgid "Astrid Friends"
 msgstr ""
 
 #. task sharing dialog: message hint
@@ -788,7 +797,7 @@ msgstr ""
 
 #. EditNoteActivity - no username for comment
 msgctxt "ENA_no_user"
-msgid "You"
+msgid "Someone"
 msgstr ""
 
 #. EditNoteActivity - refresh comments
@@ -817,6 +826,11 @@ msgstr ""
 #. Menu: Sync Now
 msgctxt "TLA_menu_sync"
 msgid "Sync Now!"
+msgstr ""
+
+#. Menu: Search
+msgctxt "TLA_menu_search"
+msgid "Search"
 msgstr ""
 
 #. Menu: Tasks
@@ -1431,6 +1445,10 @@ msgctxt "TEA_date_and_time"
 msgid "Date/Time"
 msgstr ""
 
+msgctxt "TEA_new_task"
+msgid "New Task"
+msgstr ""
+
 msgctxt "WSV_click_to_load"
 msgid "Tap me to search for ways to get this done!"
 msgstr ""
@@ -1439,6 +1457,10 @@ msgctxt "WSV_not_online"
 msgid ""
 "I can do more when connected to the Internet. Please check your "
 "connection."
+msgstr ""
+
+msgctxt "TEA_contact_error"
+msgid "Sorry! We couldn't find an email address for the selected contact."
 msgstr ""
 
 #. ============================================= IntroductionActivity ==
@@ -1455,6 +1477,112 @@ msgstr ""
 #. Button to disagree with EULA
 msgctxt "InA_disagree"
 msgid "I Disagree"
+msgstr ""
+
+#. ===================================================== MissedCallActivity ==
+#. Missed call: return call (%1$s -> caller, %2$s -> time of call)
+#, c-format
+msgctxt "MCA_title"
+msgid ""
+"%1$s\n"
+"called at %2$s"
+msgstr ""
+
+#. Missed call: return call
+msgctxt "MCA_return_call"
+msgid "Call now"
+msgstr ""
+
+#. Missed call: return call
+msgctxt "MCA_add_task"
+msgid "Call later"
+msgstr ""
+
+#. Missed call: return call
+msgctxt "MCA_ignore"
+msgid "Ignore"
+msgstr ""
+
+#. Missed call: dialog to ignore all missed calls title
+msgctxt "MCA_ignore_title"
+msgid "Ignore all missed calls?"
+msgstr ""
+
+#. Missed call: dialog to ignore all missed calls body
+msgctxt "MCA_ignore_body"
+msgid ""
+"You've ignored several missed calls. Should Astrid stop asking you about "
+"them?"
+msgstr ""
+
+#. Missed call: dialog to ignore all missed calls ignore all button
+msgctxt "MCA_ignore_all"
+msgid "Ignore all calls"
+msgstr ""
+
+#. Missed call: dialog to ignore all missed calls ignore just this button
+msgctxt "MCA_ignore_this"
+msgid "Ignore this call only"
+msgstr ""
+
+#. Missed call: preference title
+msgctxt "MCA_missed_calls_pref_title"
+msgid "Field missed calls"
+msgstr ""
+
+#. Missed call: preference description
+msgctxt "MCA_missed_calls_pref_desc"
+msgid ""
+"Astrid will notify you about missed calls and offer to remind you to call"
+" back"
+msgstr ""
+
+#. Missed call: task title with name (%1$s -> name, %2$s -> number)
+#, c-format
+msgctxt "MCA_task_title_name"
+msgid "Call %1$s back at %2$s"
+msgstr ""
+
+#. Missed call: task title no name (%s -> number)
+#, c-format
+msgctxt "MCA_task_title_no_name"
+msgid "Call %s back"
+msgstr ""
+
+#. Missed call: schedule dialog title (%s -> name or number)
+#, c-format
+msgctxt "MCA_schedule_dialog_title"
+msgid "Call %s back in..."
+msgstr ""
+
+#. Missed call speech bubble options
+msgctxt "MCA_dialog_speech_options:0"
+msgid "It must be nice to be so popular!"
+msgstr ""
+
+#. Missed call speech bubble options
+msgctxt "MCA_dialog_speech_options:1"
+msgid "Yay! People like you!"
+msgstr ""
+
+#. Missed call speech bubble options
+msgctxt "MCA_dialog_speech_options:2"
+msgid "Make their day, give 'em a call!"
+msgstr ""
+
+#. Missed call speech bubble options
+msgctxt "MCA_dialog_speech_options:3"
+msgid "Wouldn't you be happy if people called you back?"
+msgstr ""
+
+#. Missed call speech bubble options
+msgctxt "MCA_dialog_speech_options:4"
+msgid "You can do it!"
+msgstr ""
+
+#. Missed call speech bubble options
+msgctxt "MCA_dialog_speech_options:5"
+msgid "You can always send a text..."
 msgstr ""
 
 #. ===================================================== HelpActivity ==
@@ -1600,9 +1728,83 @@ msgctxt "EPr_theme_desc_unsupported"
 msgid "Setting requires Android 2.0+"
 msgstr ""
 
+msgctxt "EPr_theme_widget_title"
+msgid "Widget Theme"
+msgstr ""
+
 #. Preference screen: all task row settings
 msgctxt "EPr_taskRowPrefs_title"
 msgid "Task Row Appearance"
+msgstr ""
+
+#. Preference screen: Astrid Labs (experimental features)
+msgctxt "EPr_labs_header"
+msgid "Astrid Labs"
+msgstr ""
+
+msgctxt "EPr_labs_desc"
+msgid "Enable or disable experimental features"
+msgstr ""
+
+#. Preference: swipe between lists performance
+msgctxt "EPr_swipe_lists_performance_title"
+msgid "Swipe between lists"
+msgstr ""
+
+msgctxt "EPr_swipe_lists_performance_subtitle"
+msgid "Controls the memory performance of swipe between lists"
+msgstr ""
+
+#. Preferences: use the system contact picker for task assignment
+msgctxt "EPr_use_contact_picker"
+msgid "Use contact picker"
+msgstr ""
+
+msgctxt "EPr_use_contact_picker_desc"
+msgid "Display the system contact picker option in the task assignment window"
+msgstr ""
+
+msgctxt "EPr_swipe_lists_restart_alert"
+msgid "You will need to restart Astrid for this change to take effect"
+msgstr ""
+
+msgctxt "EPr_swipe_lists_performance_mode:0"
+msgid "No swipe"
+msgstr ""
+
+msgctxt "EPr_swipe_lists_performance_mode:1"
+msgid "Conserve Memory"
+msgstr ""
+
+msgctxt "EPr_swipe_lists_performance_mode:2"
+msgid "Normal Performance"
+msgstr ""
+
+msgctxt "EPr_swipe_lists_performance_mode:3"
+msgid "High Performance"
+msgstr ""
+
+msgctxt "EPr_swipe_lists_performance_desc:0"
+msgid "Swipe between lists is disabled"
+msgstr ""
+
+msgctxt "EPr_swipe_lists_performance_desc:1"
+msgid "Slower performance"
+msgstr ""
+
+msgctxt "EPr_swipe_lists_performance_desc:2"
+msgid "Default setting"
+msgstr ""
+
+msgctxt "EPr_swipe_lists_performance_desc:3"
+msgid "Uses more system resources"
+msgstr ""
+
+#. Format string for displaying the currently selected preference. $1 is name
+#. of selected mode, $2 is description
+#, c-format
+msgctxt "EPr_swipe_lists_display"
+msgid "%1$s - %2$s"
 msgstr ""
 
 msgctxt "EPr_themes:0"
@@ -1623,6 +1825,34 @@ msgstr ""
 
 msgctxt "EPr_themes:4"
 msgid "Transparent (Black Text)"
+msgstr ""
+
+msgctxt "EPr_themes_widget:0"
+msgid "Same as app"
+msgstr ""
+
+msgctxt "EPr_themes_widget:1"
+msgid "Day - Blue"
+msgstr ""
+
+msgctxt "EPr_themes_widget:2"
+msgid "Day - Red"
+msgstr ""
+
+msgctxt "EPr_themes_widget:3"
+msgid "Night"
+msgstr ""
+
+msgctxt "EPr_themes_widget:4"
+msgid "Transparent (White Text)"
+msgstr ""
+
+msgctxt "EPr_themes_widget:5"
+msgid "Transparent (Black Text)"
+msgstr ""
+
+msgctxt "EPr_themes_widget:6"
+msgid "Old Style"
 msgstr ""
 
 #. ========================================== Task Management Settings ==
@@ -1774,7 +2004,12 @@ msgstr ""
 
 #. Title of "Help" option in settings
 msgctxt "p_help"
-msgid "Help"
+msgid "Support"
+msgstr ""
+
+#. Title of "Forums" option in settings
+msgctxt "p_forums"
+msgid "Forums"
 msgstr ""
 
 #. ============================================================= Misc ==
@@ -1804,6 +2039,18 @@ msgid ""
 "Astrid is the much loved open-source todo list / task manager designed to"
 " help you get stuff done. It features reminders, tags, sync, Locale plug-"
 "in, a widget and more."
+msgstr ""
+
+msgctxt "DB_corrupted_title"
+msgid "Corrupted Database"
+msgstr ""
+
+msgctxt "DB_corrupted_body"
+msgid ""
+"Uh oh! It looks like you may have a corrupted database. If you see this "
+"error regularly, we suggest you clear all data (Settings-&gt;Manage All "
+"Tasks-&gt;Clear all data) and restore your tasks from a backup "
+"(Settings-&gt;Backup-&gt;Import Tasks) in Astrid."
 msgstr ""
 
 #. Preference Category: Defaults Title
@@ -2366,6 +2613,13 @@ msgctxt "gtasks_error_accountManager"
 msgid ""
 "Error in your phone's account manager. Please log out and log back in "
 "from the Google Tasks settings."
+msgstr ""
+
+#. Error when authorization error happens in background sync
+msgctxt "gtasks_error_background_sync_auth"
+msgid ""
+"Error authenticating in background. Please try initiating a sync while "
+"Astrid is running."
 msgstr ""
 
 #. See the file "LICENSE" for the full license governing this code.
@@ -3089,6 +3343,11 @@ msgstr ""
 #. Reminder: Completed Toast
 msgctxt "rmd_NoA_completed_toast"
 msgid "Congratulations on finishing!"
+msgstr ""
+
+#. Prefix for reminder dialog title
+msgctxt "rmd_NoA_dlg_title"
+msgid "Reminder:"
 msgstr ""
 
 #. ============================================= reminder preferences ==
@@ -3999,9 +4258,17 @@ msgctxt "repeat_rescheduling_dialog_title"
 msgid "Rescheduling task \"%s\""
 msgstr ""
 
+#. text for when a repeating task was rescheduled
 #, c-format
 msgctxt "repeat_rescheduling_dialog_bubble"
 msgid "%1$s I've rescheduled this repeating task from %2$s to %3$s"
+msgstr ""
+
+#. text for when a repeating task was rescheduled but didn't have a due date
+#. yet
+#, c-format
+msgctxt "repeat_rescheduling_dialog_bubble_no_date"
+msgid "%1$s I've rescheduled this repeating task to %2$s"
 msgstr ""
 
 msgctxt "repeat_encouragement:0"
@@ -4013,7 +4280,7 @@ msgid "Wow… I'm so proud of you!"
 msgstr ""
 
 msgctxt "repeat_encouragement:2"
-msgid "I love it when you're productive!"
+msgid "I love when you're productive!"
 msgstr ""
 
 msgctxt "repeat_encouragement:3"
@@ -4367,6 +4634,8 @@ msgstr ""
 #. See the file "LICENSE" for the full license governing this code.
 #. Update string from activity codes %1$s - user, %2$s - target name, %3$s -
 #. message, %4$s - other_user
+#. NOTE TO TRANSLATORS: things beginning with $link_ are special tokens we use
+#. for string formatting.     Please do not translate this part of the string.
 #, c-format
 msgctxt "update_string_friends"
 msgid "%1$s is now friends with %2$s"
@@ -4388,33 +4657,38 @@ msgid "%1$s created this task"
 msgstr ""
 
 #, c-format
+msgctxt "update_string_task_created_global"
+msgid "%1$s created $link_task"
+msgstr ""
+
+#, c-format
 msgctxt "update_string_task_created_on_list"
-msgid "%1$s added %2$s to this list"
+msgid "%1$s added $link_task to this list"
 msgstr ""
 
 #, c-format
 msgctxt "update_string_task_completed"
-msgid "%1$s completed %2$s. Huzzah!"
+msgid "%1$s completed $link_task. Huzzah!"
 msgstr ""
 
 #, c-format
 msgctxt "update_string_task_uncompleted"
-msgid "%1$s un-completed %2$s."
+msgid "%1$s un-completed $link_task."
 msgstr ""
 
 #, c-format
 msgctxt "update_string_task_tagged"
-msgid "%1$s added %4$s to %2$s"
+msgid "%1$s added $link_task to %4$s"
 msgstr ""
 
 #, c-format
 msgctxt "update_string_task_tagged_list"
-msgid "%1$s added %4$s to this list"
+msgid "%1$s added $link_task to this list"
 msgstr ""
 
 #, c-format
 msgctxt "update_string_task_assigned"
-msgid "%1$s assigned %4$s to %2$s"
+msgid "%1$s assigned $link_task to %4$s"
 msgstr ""
 
 #, c-format
@@ -4424,12 +4698,22 @@ msgstr ""
 
 #, c-format
 msgctxt "update_string_task_comment"
-msgid "%1$s Re: %2$s: %3$s"
+msgid "%1$s Re: $link_task: %3$s"
 msgstr ""
 
 #, c-format
 msgctxt "update_string_tag_comment"
 msgid "%1$s Re: %2$s: %3$s"
+msgstr ""
+
+#, c-format
+msgctxt "update_string_tag_created"
+msgid "%1$s created this list"
+msgstr ""
+
+#, c-format
+msgctxt "update_string_tag_created_global"
+msgid "%1$s created the list %2$s"
 msgstr ""
 
 #. See the file "LICENSE" for the full license governing this code.
