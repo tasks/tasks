@@ -8,49 +8,49 @@ msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
 "POT-Creation-Date: 2012-02-29 14:56-0800\n"
-"PO-Revision-Date: 2012-03-01 06:42+0000\n"
-"Last-Translator: Tim Su <tim@todoroo.com>\n"
+"PO-Revision-Date: 2012-04-10 11:27+0000\n"
+"Last-Translator: Xiscu <Unknown>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2012-03-07 00:04+0000\n"
-"X-Generator: Launchpad (build 14900)\n"
+"X-Launchpad-Export-Date: 2012-05-03 02:37+0000\n"
+"X-Generator: Launchpad (build 15185)\n"
 "Generated-By: Babel 1.0dev\n"
 
 #. ==================================================== Generic Units ==
 #, c-format
 msgctxt "DUt_years:quantity=other"
 msgid "%d Years"
-msgstr "%d Anys"
+msgstr "%d anys"
 
 #. ==================================================== Generic Units ==
 msgctxt "DUt_years:quantity=one"
 msgid "1 Year"
-msgstr "1 Any"
+msgstr "1 any"
 
 #, c-format
 msgctxt "DUt_months:quantity=other"
 msgid "%d Months"
-msgstr "%d Mesos"
+msgstr "%d mesos"
 
 msgctxt "DUt_months:quantity=one"
 msgid "1 Month"
-msgstr "1 Mes"
+msgstr "1 mes"
 
 #, c-format
 msgctxt "DUt_weeks:quantity=other"
 msgid "%d Weeks"
-msgstr "%d Setmanes"
+msgstr "%d setmanes"
 
 msgctxt "DUt_weeks:quantity=one"
 msgid "1 Week"
-msgstr "1 Setmana"
+msgstr "1 setmana"
 
 #, c-format
 msgctxt "DUt_days:quantity=other"
 msgid "%d Days"
-msgstr "%d Dies"
+msgstr "%d dies"
 
 msgctxt "DUt_days:quantity=one"
 msgid "1 Day"
@@ -72,7 +72,7 @@ msgstr "%d Hores"
 
 msgctxt "DUt_hours:quantity=one"
 msgid "1 Hour"
-msgstr "1 Hora"
+msgstr "1 hora"
 
 #, c-format
 msgctxt "DUt_minutes:quantity=other"
@@ -81,7 +81,7 @@ msgstr "%d Minuts"
 
 msgctxt "DUt_minutes:quantity=one"
 msgid "1 Minute"
-msgstr "1 Minut"
+msgstr "1 minut"
 
 #, c-format
 msgctxt "DUt_seconds:quantity=other"
@@ -90,7 +90,7 @@ msgstr "%d Segons"
 
 msgctxt "DUt_seconds:quantity=one"
 msgid "1 Second"
-msgstr "1 Segon"
+msgstr "1 segon"
 
 #, c-format
 msgctxt "DUt_hoursShort:quantity=other"
@@ -181,7 +181,7 @@ msgstr "Informació"
 #. error dialog title
 msgctxt "DLG_error_title"
 msgid "Error!"
-msgstr ""
+msgstr "S'ha produït un error"
 
 #. general dialog save
 msgctxt "DLG_save"
@@ -196,7 +196,7 @@ msgstr "Sí"
 #. general dialog no
 msgctxt "DLG_no"
 msgid "No"
-msgstr ""
+msgstr "No"
 
 #. general dialog close
 msgctxt "DLG_close"

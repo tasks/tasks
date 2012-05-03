@@ -8,14 +8,14 @@ msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
 "POT-Creation-Date: 2012-02-29 14:56-0800\n"
-"PO-Revision-Date: 2012-03-01 06:23+0000\n"
-"Last-Translator: Tim Su <tim@todoroo.com>\n"
+"PO-Revision-Date: 2012-04-18 03:25+0000\n"
+"Last-Translator: Dennis Baudys <Unknown>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2012-03-07 00:04+0000\n"
-"X-Generator: Launchpad (build 14900)\n"
+"X-Launchpad-Export-Date: 2012-05-03 02:37+0000\n"
+"X-Generator: Launchpad (build 15185)\n"
 "Generated-By: Babel 1.0dev\n"
 
 #. ==================================================== Generic Units ==
@@ -104,11 +104,11 @@ msgstr "1 Std"
 #, c-format
 msgctxt "DUt_minutesShort:quantity=other"
 msgid "%d Min"
-msgstr ""
+msgstr "%d min"
 
 msgctxt "DUt_minutesShort:quantity=one"
 msgid "1 Min"
-msgstr ""
+msgstr "1 min"
 
 #, c-format
 msgctxt "DUt_secondsShort:quantity=other"
@@ -155,12 +155,12 @@ msgstr "Gestern"
 #. tomorrow abbreviated
 msgctxt "tmrw"
 msgid "Tmrw"
-msgstr ""
+msgstr "Morg."
 
 #. today abbreviated
 msgctxt "yest"
 msgid "Yest"
-msgstr ""
+msgstr "Gest."
 
 #. ================================================== Generic Dialogs ==
 #. confirmation dialog title
@@ -176,7 +176,7 @@ msgstr "Frage:"
 #. information dialog title
 msgctxt "DLG_information_title"
 msgid "Information"
-msgstr ""
+msgstr "Informationen"
 
 #. error dialog title
 msgctxt "DLG_error_title"
@@ -354,7 +354,7 @@ msgstr "Einloggen & Synchroniseren!"
 #. Sync: Prefix string before logged in identifier
 msgctxt "sync_SPr_logged_in_prefix"
 msgid "Logged in as:"
-msgstr ""
+msgstr "Angemeldet als:"
 
 #. Sync: Clear Data Title
 msgctxt "sync_SPr_forget"

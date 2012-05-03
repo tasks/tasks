@@ -7,15 +7,15 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2012-02-29 17:17-0800\n"
-"PO-Revision-Date: 2012-03-01 06:15+0000\n"
-"Last-Translator: Tim Su <tim@todoroo.com>\n"
+"POT-Creation-Date: 2012-03-06 17:01-0800\n"
+"PO-Revision-Date: 2012-04-04 14:27+0000\n"
+"Last-Translator: Kihyen Kim <kihyen52@gmail.com>\n"
 "Language-Team: ko <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2012-03-07 00:04+0000\n"
-"X-Generator: Launchpad (build 14900)\n"
+"X-Launchpad-Export-Date: 2012-05-03 02:36+0000\n"
+"X-Generator: Launchpad (build 15185)\n"
 "Generated-By: Babel 1.0dev\n"
 
 #. ================================================== general terms ==
@@ -27,7 +27,7 @@ msgstr "공유"
 #. task sharing dialog: assigned hint
 msgctxt "actfm_person_hint"
 msgid "Contact or Email"
-msgstr ""
+msgstr "연락처 혹은 전자우편"
 
 #. task sharing dialog: shared with hint
 msgctxt "actfm_person_or_tag_hint"
@@ -414,7 +414,7 @@ msgstr ""
 #. share login: Email
 msgctxt "actfm_ALA_email_label"
 msgid "Email"
-msgstr ""
+msgstr "전자우편"
 
 #. share login: Username / Email
 msgctxt "actfm_ALA_username_email_label"
@@ -1163,6 +1163,11 @@ msgctxt "FLA_new_list"
 msgid "New List"
 msgstr ""
 
+#. Alert when creating a shortcut without selecting a filter
+msgctxt "FLA_no_filter_selected"
+msgid "No filter selected! Please select a filter or list."
+msgstr ""
+
 #. ================================================= TaskEditActivity ==
 #. Title when editing a task (%s => task title)
 #, c-format
@@ -1582,11 +1587,12 @@ msgid "Auto-load Ideas Tab"
 msgstr ""
 
 msgctxt "EPr_ideaAuto_desc_enabled"
-msgid "Web searches for Ideas tab will be performed when task is edited"
+msgid "Web searches for Ideas tab will be performed when tab is clicked"
 msgstr ""
 
 msgctxt "EPr_ideaAuto_desc_disabled"
-msgid "Web searches for Ideas tab will be performed when tab is clicked"
+msgid ""
+"Web searches for Ideas tab will be performed only when manually requested"
 msgstr ""
 
 #. Preference: Theme
@@ -2380,55 +2386,6 @@ msgid ""
 msgstr ""
 
 #. See the file "LICENSE" for the full license governing this code.
-#. Resources initial tasks added
-#. Intro Tag or click prompt
-msgctxt "intro_click_prompt"
-msgid "Intro: Press me to see notes"
-msgstr ""
-
-#. Task 1 Summary
-msgctxt "intro_task_1_summary"
-msgid "Create your first task"
-msgstr ""
-
-#. Task 1 Note
-msgctxt "intro_task_1_note"
-msgid ""
-"Two ways to add a task:\n"
-" 1) Quick Add: Type the task into the quick entry box at bottom of screen "
-"and press the + button on the right.\n"
-" 2) Regular Add: Press the + button of the quick entry box. Add as much "
-"detail as you want. Then press \"Save\" or use your phone's back button.\n"
-msgstr ""
-
-#. Task 2 Summary
-msgctxt "intro_task_2_summary"
-msgid "Add a widget to your desktop"
-msgstr "바탕화면에 위젯 추가"
-
-#. Task 2 Note
-msgctxt "intro_task_2_note"
-msgid ""
-"1) Long Press on your phone's desktop\n"
-"      2) Choose \"Widget\"\n"
-"      3) Choose the Astrid widget\n"
-"      4) Select the list you want and press OK.\n"
-msgstr ""
-
-#. Task 3 Summary
-msgctxt "intro_task_3_summary"
-msgid "Setup sync with Astrid.com"
-msgstr ""
-
-#. Task 3 Note
-msgctxt "intro_task_3_note"
-msgid ""
-"1) Press your Menu button\n"
-"      2) Choose \"Sync Now\"\n"
-"      3) Select \"Astrid.com\"\n"
-"      4) Log In & Synchronize!\n"
-msgstr ""
-
 #. NEW USER EXPERIENCE
 #. help bubbles
 #. Shown the first time a user sees the task list activity
@@ -4866,396 +4823,3 @@ msgstr ""
 msgctxt "PPW_check_share_lists"
 msgid "Share lists!"
 msgstr ""
-
-#. See the file "LICENSE" for the full license governing this code.
-#. ==================================================== Generic Units ==
-#, c-format
-msgctxt "DUt_years:quantity=other"
-msgid "%d Years"
-msgstr ""
-
-#. See the file "LICENSE" for the full license governing this code.
-#. ==================================================== Generic Units ==
-msgctxt "DUt_years:quantity=one"
-msgid "1 Year"
-msgstr ""
-
-#, c-format
-msgctxt "DUt_months:quantity=other"
-msgid "%d Months"
-msgstr ""
-
-msgctxt "DUt_months:quantity=one"
-msgid "1 Month"
-msgstr ""
-
-#, c-format
-msgctxt "DUt_weeks:quantity=other"
-msgid "%d Weeks"
-msgstr ""
-
-msgctxt "DUt_weeks:quantity=one"
-msgid "1 Week"
-msgstr ""
-
-#, c-format
-msgctxt "DUt_days:quantity=other"
-msgid "%d Days"
-msgstr ""
-
-msgctxt "DUt_days:quantity=one"
-msgid "1 Day"
-msgstr ""
-
-#, c-format
-msgctxt "DUt_weekdays:quantity=other"
-msgid "%d Weekdays"
-msgstr ""
-
-msgctxt "DUt_weekdays:quantity=one"
-msgid "1 Weekday"
-msgstr ""
-
-#, c-format
-msgctxt "DUt_hours:quantity=other"
-msgid "%d Hours"
-msgstr ""
-
-msgctxt "DUt_hours:quantity=one"
-msgid "1 Hour"
-msgstr ""
-
-#, c-format
-msgctxt "DUt_minutes:quantity=other"
-msgid "%d Minutes"
-msgstr ""
-
-msgctxt "DUt_minutes:quantity=one"
-msgid "1 Minute"
-msgstr ""
-
-#, c-format
-msgctxt "DUt_seconds:quantity=other"
-msgid "%d Seconds"
-msgstr ""
-
-msgctxt "DUt_seconds:quantity=one"
-msgid "1 Second"
-msgstr ""
-
-#, c-format
-msgctxt "DUt_hoursShort:quantity=other"
-msgid "%d Hrs"
-msgstr ""
-
-msgctxt "DUt_hoursShort:quantity=one"
-msgid "1 Hr"
-msgstr ""
-
-#, c-format
-msgctxt "DUt_minutesShort:quantity=other"
-msgid "%d Min"
-msgstr ""
-
-msgctxt "DUt_minutesShort:quantity=one"
-msgid "1 Min"
-msgstr ""
-
-#, c-format
-msgctxt "DUt_secondsShort:quantity=other"
-msgid "%d Sec"
-msgstr ""
-
-msgctxt "DUt_secondsShort:quantity=one"
-msgid "1 Sec"
-msgstr ""
-
-#, c-format
-msgctxt "Ntasks:quantity=other"
-msgid "%d tasks"
-msgstr ""
-
-msgctxt "Ntasks:quantity=one"
-msgid "1 task"
-msgstr ""
-
-#, c-format
-msgctxt "Npeople:quantity=other"
-msgid "%d people"
-msgstr ""
-
-msgctxt "Npeople:quantity=one"
-msgid "1 person"
-msgstr ""
-
-#. today
-msgctxt "today"
-msgid "Today"
-msgstr ""
-
-#. tomorrow
-msgctxt "tomorrow"
-msgid "Tomorrow"
-msgstr ""
-
-#. today
-msgctxt "yesterday"
-msgid "Yesterday"
-msgstr ""
-
-#. tomorrow abbreviated
-msgctxt "tmrw"
-msgid "Tmrw"
-msgstr ""
-
-#. today abbreviated
-msgctxt "yest"
-msgid "Yest"
-msgstr ""
-
-#. ================================================== Generic Dialogs ==
-#. confirmation dialog title
-msgctxt "DLG_confirm_title"
-msgid "Confirm?"
-msgstr "확인?"
-
-#. question dialog title
-msgctxt "DLG_question_title"
-msgid "Question:"
-msgstr "질문:"
-
-#. information dialog title
-msgctxt "DLG_information_title"
-msgid "Information"
-msgstr "정보"
-
-#. error dialog title
-msgctxt "DLG_error_title"
-msgid "Error!"
-msgstr "오류!"
-
-#. general dialog save
-msgctxt "DLG_save"
-msgid "Save"
-msgstr "저장"
-
-#. general dialog yes
-msgctxt "DLG_yes"
-msgid "Yes"
-msgstr "네"
-
-#. general dialog no
-msgctxt "DLG_no"
-msgid "No"
-msgstr "아니오"
-
-#. general dialog close
-msgctxt "DLG_close"
-msgid "Close"
-msgstr "닫기"
-
-#. general dialog done
-msgctxt "DLG_done"
-msgid "Done"
-msgstr ""
-
-#. error dialog (%s => error message)
-#, c-format
-msgctxt "DLG_error"
-msgid ""
-"Oops, looks like an error occurred! Here's what happened:\n"
-"\n"
-"%s"
-msgstr ""
-"오류가 발생한 것 같습니다! 원인은 다음과 같습니다:\n"
-"\n"
-"%s"
-
-#. error dialog (no message indicated)
-msgctxt "DLG_error_generic"
-msgid "Oops, looks like an error occurred!"
-msgstr "오류가 발생한 것 같습니다!"
-
-#. Progress dialog shown when doing something slow
-msgctxt "DLG_wait"
-msgid "Please wait..."
-msgstr "잠시만 기다려주세요..."
-
-#. ====================================================== SyncProvider ==
-#. Sync Notification: message when sync service active
-msgctxt "SyP_progress"
-msgid "Synchronizing your tasks..."
-msgstr "작업 동기화 중입니다..."
-
-#. Sync Notification: toast when sync activated from activity
-msgctxt "SyP_progress_toast"
-msgid "Synchronizing..."
-msgstr "동기화하는 중..."
-
-#. Sync Label: used in menu to denote synchronization
-msgctxt "SyP_label"
-msgid "Synchronization"
-msgstr "동기화"
-
-#. Error msg when io exception
-msgctxt "SyP_ioerror"
-msgid "Connection Error! Check your Internet connection."
-msgstr ""
-
-#. ================================================== SyncPreferences ==
-#. Status Group Label
-msgctxt "sync_SPr_group_status"
-msgid "Status"
-msgstr ""
-
-#. Sync Status: log in
-msgctxt "sync_status_loggedout"
-msgid "Not Logged In!"
-msgstr "로그인 되지 않았습니다!"
-
-#. Status: ongoing
-msgctxt "sync_status_ongoing"
-msgid "Sync Ongoing..."
-msgstr "동기화 진행중..."
-
-#. Sync Status: success status (%s -> last sync date). Keep it short!
-#, c-format
-msgctxt "sync_status_success"
-msgid ""
-"Last Sync:\n"
-"%s"
-msgstr ""
-
-#. Sync Status: failure status (%s -> last attempted sync date)
-#, c-format
-msgctxt "sync_status_failed"
-msgid "Failed On: %s"
-msgstr "실패: %s"
-
-#. Sync Status: error status (%s -> last sync date)
-#, c-format
-msgctxt "sync_status_errors"
-msgid "Sync w/ Errors: %s"
-msgstr ""
-
-#. Sync Status: error subtitle (%s -> last successful sync date)
-#, c-format
-msgctxt "sync_status_failed_subtitle"
-msgid "Last Successful Sync: %s"
-msgstr "마지막 동기화 성공시간: %s"
-
-#. Sync Status: never sync'd
-msgctxt "sync_status_never"
-msgid "Never Synchronized!"
-msgstr "한번도 동기화 되지 않았습니다!"
-
-#. Options Group Label
-msgctxt "sync_SPr_group_options"
-msgid "Options"
-msgstr ""
-
-#. Preference: Synchronization Interval Title
-msgctxt "sync_SPr_interval_title"
-msgid "Background Sync"
-msgstr "백그라운드 동기화"
-
-#. Preference: Synchronization Interval Description (when disabled)
-msgctxt "sync_SPr_interval_desc_disabled"
-msgid "Background synchronization is disabled"
-msgstr "백그라운드 동기화가 설정되지 않았습니다."
-
-#. Preference: Synchronization Interval Description (%s => setting)
-#, c-format
-msgctxt "sync_SPr_interval_desc"
-msgid "Currently set to: %s"
-msgstr "현재 설정: %s"
-
-#. Preference: Background Wifi Title
-msgctxt "sync_SPr_bgwifi_title"
-msgid "Wifi Only Setting"
-msgstr "WiFi 일때만 설정"
-
-#. Preference: Background Wifi Description (enabled)
-msgctxt "sync_SPr_bgwifi_desc_enabled"
-msgid "Background synchronization only happens when on Wifi"
-msgstr "백그라운드 동기화는 WiFi 지역에서만 작동합니다."
-
-#. Preference: Background Wifi Description (disabled)
-msgctxt "sync_SPr_bgwifi_desc_disabled"
-msgid "Background synchronization will always occur"
-msgstr "백그라운드 동기화는 항상 작동합니다."
-
-#. Actions Group Label
-msgctxt "sync_SPr_group_actions"
-msgid "Actions"
-msgstr "작업"
-
-#. Synchronize Now Button
-msgctxt "sync_SPr_sync"
-msgid "Synchronize Now!"
-msgstr "동기화 시작!"
-
-#. Synchronize Now Button if not logged in
-msgctxt "sync_SPr_sync_log_in"
-msgid "Log In & Synchronize!"
-msgstr "로그인 &amp; 동기화!"
-
-#. Sync: Prefix string before logged in identifier
-msgctxt "sync_SPr_logged_in_prefix"
-msgid "Logged in as:"
-msgstr ""
-
-#. Sync: Clear Data Title
-msgctxt "sync_SPr_forget"
-msgid "Log Out"
-msgstr "로그아웃"
-
-#. Sync: Clear Data Description
-msgctxt "sync_SPr_forget_description"
-msgid "Clears all synchronization data"
-msgstr "모든 동기화 데이터 삭제"
-
-#. confirmation dialog for sync log out
-msgctxt "sync_forget_confirm"
-msgid "Log out / clear synchronization data?"
-msgstr "로그아웃 / 모든 동기화 데이터 삭제?"
-
-msgctxt "sync_SPr_interval_entries:0"
-msgid "disable"
-msgstr "사용안함"
-
-msgctxt "sync_SPr_interval_entries:1"
-msgid "every fifteen minutes"
-msgstr "매 15분 마다"
-
-msgctxt "sync_SPr_interval_entries:2"
-msgid "every thirty minutes"
-msgstr "매 30분마다"
-
-msgctxt "sync_SPr_interval_entries:3"
-msgid "every hour"
-msgstr "매 시간"
-
-msgctxt "sync_SPr_interval_entries:4"
-msgid "every three hours"
-msgstr "매 3시간마다"
-
-msgctxt "sync_SPr_interval_entries:5"
-msgid "every six hours"
-msgstr "매 6시간마다"
-
-msgctxt "sync_SPr_interval_entries:6"
-msgid "every twelve hours"
-msgstr "매 12시간마다"
-
-msgctxt "sync_SPr_interval_entries:7"
-msgid "every day"
-msgstr "매일"
-
-msgctxt "sync_SPr_interval_entries:8"
-msgid "every three days"
-msgstr "매 3일마다"
-
-msgctxt "sync_SPr_interval_entries:9"
-msgid "every week"
-msgstr "매주"

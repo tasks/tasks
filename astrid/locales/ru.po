@@ -7,15 +7,15 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2012-02-29 17:17-0800\n"
-"PO-Revision-Date: 2012-03-06 19:56+0000\n"
-"Last-Translator: Alexey Glukhov <Glukhov86@gmail.com>\n"
+"POT-Creation-Date: 2012-03-06 17:01-0800\n"
+"PO-Revision-Date: 2012-04-23 09:44+0000\n"
+"Last-Translator: R.I.P. <rip239@gmail.com>\n"
 "Language-Team: ru <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2012-03-07 00:04+0000\n"
-"X-Generator: Launchpad (build 14900)\n"
+"X-Launchpad-Export-Date: 2012-05-03 02:36+0000\n"
+"X-Generator: Launchpad (build 15185)\n"
 "Generated-By: Babel 1.0dev\n"
 
 #. ================================================== general terms ==
@@ -672,7 +672,7 @@ msgstr "Выберите файл для восстановления"
 #. Application Name (shown on home screen & in launcher)
 msgctxt "app_name"
 msgid "Astrid Tasks"
-msgstr ""
+msgstr "Astrid Tasks"
 
 #. permission title for READ_TASKS
 msgctxt "read_permission_label"
@@ -758,7 +758,7 @@ msgstr "Загрузка…"
 #. Dialog - dismiss
 msgctxt "DLG_dismiss"
 msgid "Dismiss"
-msgstr ""
+msgstr "Отменить"
 
 msgctxt "DLG_ok"
 msgid "OK"
@@ -766,7 +766,7 @@ msgstr "OK"
 
 msgctxt "DLG_cancel"
 msgid "Cancel"
-msgstr ""
+msgstr "Отмена"
 
 msgctxt "DLG_more"
 msgid "More"
@@ -774,7 +774,7 @@ msgstr "Подробнее"
 
 msgctxt "DLG_undo"
 msgid "Undo"
-msgstr ""
+msgstr "Назад"
 
 #. =============================================================== UI ==
 #. Label for DateButtons with no value
@@ -905,7 +905,7 @@ msgstr ""
 
 msgctxt "TLA_filters:0"
 msgid "Active"
-msgstr ""
+msgstr "Активные"
 
 msgctxt "TLA_filters:1"
 msgid "Today"
@@ -913,11 +913,11 @@ msgstr "Сегодня"
 
 msgctxt "TLA_filters:2"
 msgid "Soon"
-msgstr ""
+msgstr "Скоро"
 
 msgctxt "TLA_filters:3"
 msgid "Late"
-msgstr ""
+msgstr "С опозданием"
 
 msgctxt "TLA_filters:4"
 msgid "Done"
@@ -925,7 +925,7 @@ msgstr "Готово"
 
 msgctxt "TLA_filters:5"
 msgid "Hidden"
-msgstr ""
+msgstr "Скрытые"
 
 #. Title for confirmation dialog after quick add markup
 #, c-format
@@ -938,12 +938,12 @@ msgstr "Вы сказали, \"%s\""
 #, c-format
 msgctxt "TLA_quickadd_confirm_speech_bubble"
 msgid "I created a task called \"%1$s\" %2$s at %3$s"
-msgstr ""
+msgstr "Я создал задачу \"%1$s\" %2$s в %3$s"
 
 #, c-format
 msgctxt "TLA_quickadd_confirm_speech_bubble_date"
 msgid "for %s"
-msgstr ""
+msgstr "для %s"
 
 msgctxt "TLA_quickadd_confirm_hide_helpers"
 msgid "Don't display future confirmations"
@@ -959,23 +959,23 @@ msgstr "Новая повторяющаяся задача %s"
 #, c-format
 msgctxt "TLA_repeat_scheduled_speech_bubble"
 msgid "I'll remind you about this %s."
-msgstr ""
+msgstr "Я напомню вам об этом %s."
 
 msgctxt "TLA_priority_strings:0"
 msgid "highest priority"
-msgstr ""
+msgstr "наивысший приоритет"
 
 msgctxt "TLA_priority_strings:1"
 msgid "high priority"
-msgstr ""
+msgstr "высокий приоритет"
 
 msgctxt "TLA_priority_strings:2"
 msgid "medium priority"
-msgstr ""
+msgstr "средний приоритет"
 
 msgctxt "TLA_priority_strings:3"
 msgid "low priority"
-msgstr ""
+msgstr "низкий приоритет"
 
 msgctxt "TLA_all_activity"
 msgid "All Activity"
@@ -1022,7 +1022,7 @@ msgstr "Копировать задачу"
 #. Context Item: delete task
 msgctxt "TAd_contextHelpTask"
 msgid "Get help"
-msgstr ""
+msgstr "Получить помощь"
 
 msgctxt "TAd_contextDeleteTask"
 msgid "Delete Task"
@@ -1047,7 +1047,7 @@ msgstr "Сортировка и скрытые задачи"
 #. Hidden: title
 msgctxt "SSD_hidden_title"
 msgid "Hidden Tasks"
-msgstr ""
+msgstr "Скрытые задачи"
 
 #. Hidden Task Selection: show completed tasks
 msgctxt "SSD_completed"
@@ -1067,7 +1067,7 @@ msgstr "Показать удалённые задачи"
 #. Sort Selection: drag with subtasks
 msgctxt "SSD_sort_drag"
 msgid "Drag & Drop with Subtasks"
-msgstr ""
+msgstr "Потяни и Отпусти с Подзадачами"
 
 #. Sort Selection: smart sort
 msgctxt "SSD_sort_auto"
@@ -1113,7 +1113,7 @@ msgstr "Всегда"
 #. Astrid Filter Shortcut
 msgctxt "FSA_label"
 msgid "Astrid List or Filter"
-msgstr ""
+msgstr "Список или Фильтр Astrid"
 
 #. Filter List Activity Title
 msgctxt "FLA_title"
@@ -1170,12 +1170,17 @@ msgstr "Ярлык %s создан"
 #. Menu: new filter
 msgctxt "FLA_new_filter"
 msgid "New Filter"
-msgstr ""
+msgstr "Новый фильтр"
 
 #. Button: new list
 msgctxt "FLA_new_list"
 msgid "New List"
-msgstr ""
+msgstr "Новый список"
+
+#. Alert when creating a shortcut without selecting a filter
+msgctxt "FLA_no_filter_selected"
+msgid "No filter selected! Please select a filter or list."
+msgstr "Фильтры не выбраны! Пожалуйста, выберите фильтр или список"
 
 #. ================================================= TaskEditActivity ==
 #. Title when editing a task (%s => task title)
@@ -1187,7 +1192,7 @@ msgstr "Astrid: Редактирование '%s'"
 #. Title when creating a new task
 msgctxt "TEA_view_titleNew"
 msgid "New Task"
-msgstr ""
+msgstr "Новая задача"
 
 #. Task title label
 msgctxt "TEA_title_label"
@@ -1197,7 +1202,7 @@ msgstr "Название"
 #. Task when label
 msgctxt "TEA_when_header_label"
 msgid "When"
-msgstr ""
+msgstr "Когда"
 
 #. Task title hint (displayed when edit box is empty)
 msgctxt "TEA_title_hint"
@@ -1227,13 +1232,13 @@ msgstr "Пусто"
 #. Task hide until label
 msgctxt "TEA_hideUntil_label"
 msgid "Show Task"
-msgstr ""
+msgstr "Отобразить задачу"
 
 #. Task hide until toast
 #, c-format
 msgctxt "TEA_hideUntil_message"
 msgid "Task will be hidden until %s"
-msgstr ""
+msgstr "Задача будет скрыта до %s"
 
 #. Task editing data being loaded label
 msgctxt "TEA_loading:0"
@@ -1299,7 +1304,7 @@ msgstr "Правка задачи отменена"
 #. Toast: task was deleted
 msgctxt "TEA_onTaskDelete"
 msgid "Task deleted!"
-msgstr ""
+msgstr "Задача удалена!"
 
 #. Task edit tab: activity
 msgctxt "TEA_tab_activity"
@@ -1314,11 +1319,11 @@ msgstr "Ещё"
 #. Task edit tab: web services
 msgctxt "TEA_tab_web"
 msgid "Ideas"
-msgstr ""
+msgstr "Идеи"
 
 msgctxt "TEA_urgency:0"
 msgid "No deadline"
-msgstr "Нет срока выполнения"
+msgstr "Без срока выполнения"
 
 msgctxt "TEA_urgency:1"
 msgid "Specific Day"
@@ -1338,7 +1343,7 @@ msgstr "(день спустя)"
 
 msgctxt "TEA_urgency:5"
 msgid "Next Week"
-msgstr "На следующей неделе"
+msgstr "Через неделю"
 
 msgctxt "TEA_urgency:6"
 msgid "In Two Weeks"
@@ -1346,11 +1351,11 @@ msgstr "В течении двух недель"
 
 msgctxt "TEA_urgency:7"
 msgid "Next Month"
-msgstr "Следующий месяц"
+msgstr "Через месяц"
 
 msgctxt "TEA_no_time"
 msgid "No time"
-msgstr ""
+msgstr "Без времени"
 
 msgctxt "TEA_hideUntil:0"
 msgid "Always"
@@ -1358,15 +1363,15 @@ msgstr "Всегда"
 
 msgctxt "TEA_hideUntil:1"
 msgid "At due date"
-msgstr ""
+msgstr "В намеченный срок"
 
 msgctxt "TEA_hideUntil:2"
 msgid "Day before due"
-msgstr "Дня до намеченного срока"
+msgstr "За день до намеченного срока"
 
 msgctxt "TEA_hideUntil:3"
 msgid "Week before due"
-msgstr "Недели до намеченного срока"
+msgstr "За неделю до намеченного срока"
 
 msgctxt "TEA_hideUntil:4"
 msgid "Specific Day/Time"
@@ -1375,15 +1380,15 @@ msgstr "Определённый день/время"
 #. Task edit control set descriptors
 msgctxt "TEA_control_title"
 msgid "Task Title"
-msgstr ""
+msgstr "Название задачи"
 
 msgctxt "TEA_control_who"
 msgid "Who"
-msgstr ""
+msgstr "Кто"
 
 msgctxt "TEA_control_when"
 msgid "When"
-msgstr ""
+msgstr "Когда"
 
 msgctxt "TEA_control_more_section"
 msgid "----Details----"
@@ -1403,19 +1408,19 @@ msgstr "Примечания"
 
 msgctxt "TEA_control_reminders"
 msgid "Reminders"
-msgstr ""
+msgstr "Напоминания"
 
 msgctxt "TEA_control_timer"
 msgid "Timer Controls"
-msgstr ""
+msgstr "Учет времени"
 
 msgctxt "TEA_control_share"
 msgid "Share With Friends"
-msgstr ""
+msgstr "Опубликовать для друзей"
 
 msgctxt "hide_until_prompt"
 msgid "Show in my list"
-msgstr ""
+msgstr "Отобразить в моем листе"
 
 #. Add Ons tab when no add-ons found
 msgctxt "TEA_addons_text"
@@ -1435,30 +1440,32 @@ msgstr "Ещё"
 #. Text when no activity to show
 msgctxt "TEA_no_activity"
 msgid "No Activity to Show."
-msgstr ""
+msgstr "Нет активности."
 
 #. Text to load more activity
 msgctxt "TEA_load_more"
 msgid "Load more..."
-msgstr ""
+msgstr "Загрузить больше..."
 
 #. When controls dialog
 msgctxt "TEA_when_dialog_title"
 msgid "When is this due?"
-msgstr ""
+msgstr "Когда это должно произойти?"
 
 msgctxt "TEA_date_and_time"
 msgid "Date/Time"
-msgstr ""
+msgstr "Дата/время"
 
 msgctxt "WSV_click_to_load"
 msgid "Tap me to search for ways to get this done!"
-msgstr ""
+msgstr "Нажми меня для поиска решений этой задачи!"
 
 msgctxt "WSV_not_online"
 msgid ""
 "I can do more when connected to the Internet. Please check your connection."
 msgstr ""
+"Я способен на большее при подключении к Интернету. Пожалуйста, проверьте "
+"ваше подключение."
 
 #. ============================================= IntroductionActivity ==
 #. Introduction Window title
@@ -1500,6 +1507,9 @@ msgid ""
 "your progress as well as\n"
 "activity on shared lists."
 msgstr ""
+"Войдите, чтобы увидеть\n"
+"свой прогресс и активность\n"
+"в опубликованных списках."
 
 #. ================================================== EditPreferences ==
 #. Preference Window Title
@@ -1509,7 +1519,7 @@ msgstr "Astrid: Настройки"
 
 msgctxt "EPr_deactivated"
 msgid "deactivated"
-msgstr ""
+msgstr "выключен"
 
 #. Preference Category: Appearance Title
 msgctxt "EPr_appearance_header"
@@ -1524,7 +1534,7 @@ msgstr "Размер списка задач"
 #. Preference: Show confirmation for smart reminders
 msgctxt "EPr_showSmartConfirmation_title"
 msgid "Show confirmation for smart reminders"
-msgstr ""
+msgstr "Показать подтверждения для умных напоминаний"
 
 #. Preference: Task List Font Size Description
 msgctxt "EPr_fontSize_desc"
@@ -1539,20 +1549,20 @@ msgstr "Показывать примечания в задаче"
 #. Preference: Beast mode (auto-expand edit page)
 msgctxt "EPr_beastMode_title"
 msgid "Customize Task Edit Screen"
-msgstr ""
+msgstr "Настроить экран Правка задачи"
 
 msgctxt "EPr_beastMode_desc"
 msgid "Customize the layout of the Task Edit Screen"
-msgstr ""
+msgstr "Настроить внешний вид экрана Правка задачи"
 
 msgctxt "EPr_beastMode_reset"
 msgid "Reset to defaults"
-msgstr ""
+msgstr "Настройки по умолчанию"
 
 #. Preference: Task List Show Notes Description (disabled)
 msgctxt "EPr_showNotes_desc_disabled"
 msgid "Notes will be accessible from the Task Edit Page"
-msgstr ""
+msgstr "Заметки будут доступны на странице Правка задачи"
 
 #. Preference: Task List Show Notes Description (enabled)
 msgctxt "EPr_showNotes_desc_enabled"
@@ -1562,51 +1572,54 @@ msgstr "Заметки показываются всегда"
 #. Preferences: Allow task rows to compress to size of task
 msgctxt "EPr_compressTaskRows_title"
 msgid "Compact Task Row"
-msgstr ""
+msgstr "Компактные строки задач"
 
 msgctxt "EPr_compressTaskRows_desc"
 msgid "Compress task rows to fit title"
-msgstr ""
+msgstr "Сжать строки задач до высоты названий"
 
 #. Preferences: Use legacy importance and checkbox style
 msgctxt "EPr_userLegacyImportance_title"
 msgid "Use legacy importance style"
-msgstr ""
+msgstr "Использовать классический стиль важности"
 
 msgctxt "EPr_userLegacyImportance_desc"
 msgid "Use legacy importance style"
-msgstr ""
+msgstr "Использовать классический стиль важности"
 
 #. Preferences: Wrap task titles to two lines
 msgctxt "EPr_fullTask_title"
 msgid "Show full task title"
-msgstr ""
+msgstr "Показывать полное название задачи"
 
 msgctxt "EPr_fullTask_desc_enabled"
 msgid "Full task title will be shown"
-msgstr ""
+msgstr "Будет показано полное название задачи"
 
 msgctxt "EPr_fullTask_desc_disabled"
 msgid "First two lines of task title will be shown"
-msgstr ""
+msgstr "Будут показаны первые две строки названия"
 
 #. Preferences: Auto-load Ideas Tab
 msgctxt "EPr_ideaAuto_title"
 msgid "Auto-load Ideas Tab"
-msgstr ""
+msgstr "Автозагрузка закладки Идеи"
 
 msgctxt "EPr_ideaAuto_desc_enabled"
-msgid "Web searches for Ideas tab will be performed when task is edited"
-msgstr ""
-
-msgctxt "EPr_ideaAuto_desc_disabled"
 msgid "Web searches for Ideas tab will be performed when tab is clicked"
 msgstr ""
+"Веб-поиск для закладки Идеи будет выполняться при нажатии на закладку"
+
+msgctxt "EPr_ideaAuto_desc_disabled"
+msgid ""
+"Web searches for Ideas tab will be performed only when manually requested"
+msgstr ""
+"Веб-поиск для закладки Идеи будет выполняться только при вызове вручную"
 
 #. Preference: Theme
 msgctxt "EPr_theme_title"
 msgid "Color Theme"
-msgstr ""
+msgstr "Цветовая тема"
 
 #. Preference: Theme Description (%s => value)
 #, c-format
@@ -1622,27 +1635,27 @@ msgstr "Настройка требует Android 2.0+"
 #. Preference screen: all task row settings
 msgctxt "EPr_taskRowPrefs_title"
 msgid "Task Row Appearance"
-msgstr ""
+msgstr "Внешний вид задач в списке"
 
 msgctxt "EPr_themes:0"
 msgid "Day - Blue"
-msgstr ""
+msgstr "День - Синий"
 
 msgctxt "EPr_themes:1"
 msgid "Day - Red"
-msgstr ""
+msgstr "День - Красный"
 
 msgctxt "EPr_themes:2"
 msgid "Night"
-msgstr ""
+msgstr "Ночь"
 
 msgctxt "EPr_themes:3"
 msgid "Transparent (White Text)"
-msgstr ""
+msgstr "Прозрачный (белый текст)"
 
 msgctxt "EPr_themes:4"
 msgid "Transparent (Black Text)"
-msgstr ""
+msgstr "Прозрачный (черный текст)"
 
 #. ========================================== Task Management Settings ==
 #. Preference Screen Header: Old Task Management
@@ -1694,7 +1707,7 @@ msgstr ""
 
 msgctxt "EPr_manage_clear_all"
 msgid "Clear All Data"
-msgstr ""
+msgstr "Очистить все данные"
 
 msgctxt "EPr_manage_clear_all_message"
 msgid ""
@@ -1702,32 +1715,36 @@ msgid ""
 "\n"
 "Warning: can't be undone!"
 msgstr ""
+"Удалить  все задачи и настройки в Astrid?\n"
+"\n"
+"Внимание: действие необратимо!"
 
 msgctxt "EPr_manage_delete_completed_gcal"
 msgid "Delete Calendar Events for Completed Tasks"
-msgstr ""
+msgstr "Удалить календарные события для завершенных задач"
 
 msgctxt "EPr_manage_delete_completed_gcal_message"
 msgid "Do you really want to delete all your events for completed tasks?"
 msgstr ""
+"Вы уверены, что хотите удалить все ваши события для завершенных задач?"
 
 #, c-format
 msgctxt "EPr_manage_delete_completed_gcal_status"
 msgid "Deleted %d calendar events!"
-msgstr ""
+msgstr "Удалено %d календарных событий!"
 
 msgctxt "EPr_manage_delete_all_gcal"
 msgid "Delete All Calendar Events for Tasks"
-msgstr ""
+msgstr "Удалить все календарные события для задач"
 
 msgctxt "EPr_manage_delete_all_gcal_message"
 msgid "Do you really want to delete all your events for tasks?"
-msgstr ""
+msgstr "Вы уверены, что хотите удалить все ваши события для задач?"
 
 #, c-format
 msgctxt "EPr_manage_delete_all_gcal_status"
 msgid "Deleted %d calendar events!"
-msgstr ""
+msgstr "Удалено %d календарных событий!"
 
 #. ==================================================== AddOnActivity ==
 #. Add Ons Activity Title
@@ -1763,7 +1780,7 @@ msgstr "Посетить сайт"
 #. Add-on Activity - menu item to visit android market
 msgctxt "AOA_visit_market"
 msgid "Android Market"
-msgstr ""
+msgstr "Android Market"
 
 #. Add-on Activity - when list is empty
 msgctxt "AOA_no_addons"
@@ -1795,6 +1812,10 @@ msgid ""
 "\n"
 " Astrid is open-source and proudly maintained by Todoroo, Inc."
 msgstr ""
+"Текущая версия: %s\n"
+"\n"
+" Astrid имеет открытый исходный код и с гордостью поддерживается Todoroo, "
+"Inc."
 
 #. Title of "Help" option in settings
 msgctxt "p_help"
@@ -1831,9 +1852,9 @@ msgid ""
 "help you get stuff done. It features reminders, tags, sync, Locale plug-in, "
 "a widget and more."
 msgstr ""
-"Astrid - распространённый список задач с открытым исходным кодом "
-"предназначенный помочь Вам справиться с делами. В нём есть напоминания, "
-"метки, синхронизация, плагин Locale, виджет и много другого."
+"Astrid - распространённый список задач с открытым исходным кодом призванный "
+"помочь Вам справиться с делами. В нём есть напоминания, метки, "
+"синхронизация, плагин Locale, виджет и многое другое."
 
 #. Preference Category: Defaults Title
 msgctxt "EPr_defaults_header"
@@ -1887,23 +1908,23 @@ msgstr "Текущая: %s"
 #. Preference: Default Add To Calendar Title
 msgctxt "EPr_default_addtocalendar_title"
 msgid "Default Add To Calendar"
-msgstr ""
+msgstr "Добавлять в календарь по умолчанию"
 
 #. Preference: Default Add To Calendar Setting Description (disabled)
 msgctxt "EPr_default_addtocalendar_desc_disabled"
 msgid "New tasks will not create an event in the Google Calendar"
-msgstr ""
+msgstr "Новые задачи не будут создавать события в Календаре Google"
 
 #. Preference: Default Add To Calendar Setting Description (%s => setting)
 #, c-format
 msgctxt "EPr_default_addtocalendar_desc"
 msgid "New tasks will be in the calendar: \"%s\""
-msgstr ""
+msgstr "Новые задачи будут в календаре: \"%s\""
 
 #. Reminder Mode Preference: Default Reminders Duration
 msgctxt "EPr_default_reminders_mode_title"
 msgid "Default Ring/Vibrate type"
-msgstr ""
+msgstr "Тип звонка/вибрации по умолчанию"
 
 #. Preference: Default Reminders Description (%s => setting)
 #, c-format
@@ -1917,11 +1938,11 @@ msgstr "!!! (Наивысшая)"
 
 msgctxt "EPr_default_importance:1"
 msgid "!!"
-msgstr ""
+msgstr "!!"
 
 msgctxt "EPr_default_importance:2"
 msgid "!"
-msgstr ""
+msgstr "!"
 
 msgctxt "EPr_default_importance:3"
 msgid "o (Lowest)"
@@ -1929,7 +1950,7 @@ msgstr "o (Низшая)"
 
 msgctxt "EPr_default_urgency:0"
 msgid "No Deadline"
-msgstr "Нет срока выполнения"
+msgstr "Без срока выполнения"
 
 msgctxt "EPr_default_urgency:1"
 msgid "Today"
@@ -1945,7 +1966,7 @@ msgstr "Через день"
 
 msgctxt "EPr_default_urgency:4"
 msgid "Next Week"
-msgstr "На следующей неделе"
+msgstr "Через неделю"
 
 msgctxt "EPr_default_hideUntil:0"
 msgid "Don't hide"
@@ -1957,11 +1978,11 @@ msgstr "Времени начала выполнения"
 
 msgctxt "EPr_default_hideUntil:2"
 msgid "Day before due"
-msgstr "Дня до намеченного срока"
+msgstr "За день до намеченного срока"
 
 msgctxt "EPr_default_hideUntil:3"
 msgid "Week before due"
-msgstr "Недели до намеченного срока"
+msgstr "За неделю до намеченного срока"
 
 msgctxt "EPr_default_reminders:0"
 msgid "No deadline reminders"
@@ -2000,7 +2021,7 @@ msgstr "Недавно изменённые"
 #. I've assigned
 msgctxt "BFE_Assigned"
 msgid "I've Assigned"
-msgstr ""
+msgstr "Назначенные мной"
 
 #. Build Your Own Filter
 msgctxt "BFE_Custom"
@@ -2010,7 +2031,7 @@ msgstr "Собственный фильтр…"
 #. Saved Filters Header
 msgctxt "BFE_Saved"
 msgid "Filters"
-msgstr ""
+msgstr "Фильтры"
 
 #. Saved Filters Context Menu: delete
 msgctxt "BFE_Saved_delete"
@@ -2123,11 +2144,11 @@ msgstr "Через день"
 
 msgctxt "CFC_dueBefore_entries:5"
 msgid "Next Week"
-msgstr "На следующей неделе"
+msgstr "Через неделю"
 
 msgctxt "CFC_dueBefore_entries:6"
 msgid "Next Month"
-msgstr "Следующий месяц"
+msgstr "Через месяц"
 
 #. Criteria: importance - display text (? -> user input)
 msgctxt "CFC_importance_text"
@@ -2142,7 +2163,7 @@ msgstr "Важность…"
 #. Criteria: tag - display text (? -> user input)
 msgctxt "CFC_tag_text"
 msgid "List: ?"
-msgstr ""
+msgstr "Список: ?"
 
 #. Criteria: tag - name of criteria
 msgctxt "CFC_tag_name"
@@ -2185,7 +2206,7 @@ msgstr "Интеграция с календарём:"
 #. Label for adding task to calendar
 msgctxt "gcal_TEA_addToCalendar_label"
 msgid "Add to Calendar"
-msgstr ""
+msgstr "Добавить в календарь"
 
 #. Label when calendar event already exists
 msgctxt "gcal_TEA_showCalendar_label"
@@ -2205,15 +2226,15 @@ msgstr "Календарное событие также обновлено!"
 #. No calendar label (don't add option)
 msgctxt "gcal_TEA_nocal"
 msgid "Don't add"
-msgstr ""
+msgstr "Не добавлять"
 
 msgctxt "gcal_TEA_none_selected"
 msgid "Add to cal..."
-msgstr ""
+msgstr "Добавить в календарь..."
 
 msgctxt "gcal_TEA_has_event"
 msgid "Cal event"
-msgstr ""
+msgstr "Календарное событие"
 
 #. ======================================================== Calendars ==
 #. Calendar event name when task is completed (%s => task title)
@@ -2243,17 +2264,17 @@ msgstr "По списку"
 #, c-format
 msgctxt "gtasks_FEx_title"
 msgid "Google Tasks: %s"
-msgstr ""
+msgstr "Задачи Google: %s"
 
 #. dialog prompt for creating a new gtasks list
 msgctxt "gtasks_FEx_creating_list"
 msgid "Creating list..."
-msgstr ""
+msgstr "Создание списка..."
 
 #. dialog prompt for creating a new gtasks list
 msgctxt "gtasks_FEx_create_list_dialog"
 msgid "New List Name:"
-msgstr ""
+msgstr "Имя нового списка:"
 
 #. error to show when list creation fails
 msgctxt "gtasks_FEx_create_list_error"
@@ -2276,12 +2297,12 @@ msgstr "В GTask Список..."
 #. Message while clearing completed tasks
 msgctxt "gtasks_GTA_clearing"
 msgid "Clearing completed tasks..."
-msgstr ""
+msgstr "Очистка выполненных задач..."
 
 #. Label for clear completed menu item
 msgctxt "gtasks_GTA_clear_completed"
 msgid "Clear Completed"
-msgstr ""
+msgstr "Очистить завершенные"
 
 #. ============================================ GtasksLoginActivity ==
 #. Activity Title: Gtasks Login
@@ -2295,6 +2316,8 @@ msgid ""
 "Please log in to Google Tasks Sync (Beta!). Non-migrated Google Apps "
 "accounts are currently unsupported."
 msgstr ""
+"Пожалуйста, войдите в Google Tasks Sync (Beta!). Не переехавшие аккаунты "
+"Google Apps в данный момент не поддерживаются."
 
 msgctxt "gtasks_GLA_noaccounts"
 msgid "No available Google accounts to sync with."
@@ -2347,6 +2370,8 @@ msgid ""
 "Error authenticating! Please check your username and password in your "
 "phone's account manager"
 msgstr ""
+"Ошибка аутентификации! Пожалуйста, проверьте имя пользователя и пароль в "
+"меню управления аккаунтами телефона"
 
 #. Error Message when we receive an IO Exception
 msgctxt "gtasks_GLA_errorIOAuth"
@@ -2354,6 +2379,8 @@ msgid ""
 "Sorry, we had trouble communicating with Google servers. Please try again "
 "later."
 msgstr ""
+"Извините, проблемы при обращении к серверам Google. Пожалуйста, попробуйте "
+"позже."
 
 #. Error Message when we receive a HTTP 401 Unauthorized multiple times
 msgctxt "gtasks_GLA_errorAuth_captcha"
@@ -2368,7 +2395,7 @@ msgstr ""
 #. GTasks Preferences Title
 msgctxt "gtasks_GPr_header"
 msgid "Google Tasks"
-msgstr ""
+msgstr "Google Tasks"
 
 #. ================================================ Synchronization ==
 #. title for notification tray when synchronizing
@@ -2382,6 +2409,8 @@ msgid ""
 "Google's Task API is in beta and has encountered an error. The service may "
 "be down, please try again later."
 msgstr ""
+"Google's Task API в стадии бета и произошла ошибка. Служба может быть не "
+"доступна, пожалуйста, попробуйте позже."
 
 #. Error for account not found
 #, c-format
@@ -2390,6 +2419,8 @@ msgid ""
 "Account %s not found--please log out and log back in from the Google Tasks "
 "settings."
 msgstr ""
+"Аккаунт %s не найден--пожалуйста, выйдите и войдите снова через настройки "
+"Google Tasks."
 
 #. Error when ping after refreshing token fails
 msgctxt "gtasks_error_authRefresh"
@@ -2397,6 +2428,8 @@ msgid ""
 "Unable to authenticate with Google Tasks. Please check your account password "
 "or try again later."
 msgstr ""
+"Не удалось пройти аутентификацию в Google Tasks. Пожалуйста, проверьте "
+"пароль к учетной записи или попробуйте еще раз позже."
 
 #. Error when account manager returns no auth token or throws exception
 msgctxt "gtasks_error_accountManager"
@@ -2406,102 +2439,47 @@ msgid ""
 msgstr ""
 
 #. See the file "LICENSE" for the full license governing this code.
-#. Resources initial tasks added
-#. Intro Tag or click prompt
-msgctxt "intro_click_prompt"
-msgid "Intro: Press me to see notes"
-msgstr "Нажмите меня для просмотра заметок"
-
-#. Task 1 Summary
-msgctxt "intro_task_1_summary"
-msgid "Create your first task"
-msgstr "Создайте первую задачу"
-
-#. Task 1 Note
-msgctxt "intro_task_1_note"
-msgid ""
-"Two ways to add a task:\n"
-" 1) Quick Add: Type the task into the quick entry box at bottom of screen "
-"and press the + button on the right.\n"
-" 2) Regular Add: Press the + button of the quick entry box. Add as much "
-"detail as you want. Then press \"Save\" or use your phone's back button.\n"
-msgstr ""
-"Есть два способа добавить задачу:\n"
-" 1) Быстрое добавление: просто опишите задачу в поле быстрого ввода и "
-"нажмите кнопку + слева от него.\n"
-"\n"
-" 2) Обычное добавление: нажмите кнопку справа от поля быстрого ввода. "
-"Назначьте основные параметры (намеченную дату, метки, примечания) или "
-"используйте расширенные настройки. Сохраните задачу с помощью кнопки "
-"сохрания или кнопки назад на телефоне.\n"
-
-#. Task 2 Summary
-msgctxt "intro_task_2_summary"
-msgid "Add a widget to your desktop"
-msgstr "Добавьте виджет на рабочий стол"
-
-#. Task 2 Note
-msgctxt "intro_task_2_note"
-msgid ""
-"1) Long Press on your phone's desktop\n"
-"      2) Choose \"Widget\"\n"
-"      3) Choose the Astrid widget\n"
-"      4) Select the list you want and press OK.\n"
-msgstr ""
-
-#. Task 3 Summary
-msgctxt "intro_task_3_summary"
-msgid "Setup sync with Astrid.com"
-msgstr "Настройте синхронизацию с Astrid.com"
-
-#. Task 3 Note
-msgctxt "intro_task_3_note"
-msgid ""
-"1) Press your Menu button\n"
-"      2) Choose \"Sync Now\"\n"
-"      3) Select \"Astrid.com\"\n"
-"      4) Log In & Synchronize!\n"
-msgstr ""
-
 #. NEW USER EXPERIENCE
 #. help bubbles
 #. Shown the first time a user sees the task list activity
 msgctxt "help_popover_add_task"
 msgid "Start by adding a task or two"
-msgstr ""
+msgstr "Начните с добавления одной-двух задач"
 
 #. Shown the first time a user adds a task to a list
 msgctxt "help_popover_tap_task"
 msgid "Tap task to edit and share"
-msgstr ""
+msgstr "Нажмите на задачу, чтобы изменить или поделиться"
 
 #. Shown the first time a user sees the list activity
 msgctxt "help_popover_list_settings"
 msgid "Tap to edit or share this list"
-msgstr ""
+msgstr "Нажмите, чтобы изменить или поделиться списком"
 
 #. Shown the first time a user sees the list settings tab
 msgctxt "help_popover_collaborators"
 msgid "People you share with can help you build your list or finish tasks"
 msgstr ""
+"Люди, с которыми вы делитесь, могут помочь вам в составлении списка и "
+"выполнении задач"
 
 #. Shown after user adds a task on tablet
 msgctxt "help_popover_add_lists"
 msgid "Tap add a list"
-msgstr ""
+msgstr "Нажмите добавить список"
 
 #. Shown after a user adds a task on phones
 msgctxt "help_popover_switch_lists"
 msgid "Tap to add a list or switch between lists"
-msgstr ""
+msgstr "Нажмите, чтобы добавить список или переключиться между списками"
 
 msgctxt "help_popover_when_shortcut"
 msgid "Tap this shortcut to quick select date and time"
-msgstr ""
+msgstr "Нажмите на ярлык для быстрого выбора даты и времени"
 
 msgctxt "help_popover_when_row"
 msgid "Tap anywhere on this row to access options like repeat"
-msgstr ""
+msgstr "Нажмите в любом месте строки для правки таких опций как повторение"
 
 #. Login activity
 msgctxt "welcome_login_title"
@@ -2526,7 +2504,7 @@ msgstr ""
 
 msgctxt "welcome_login_confirm_later_title"
 msgid "Why not sign in?"
-msgstr ""
+msgstr "Почему бы не войти?"
 
 msgctxt "welcome_login_confirm_later_ok"
 msgid "I'll do it!"
@@ -2534,7 +2512,7 @@ msgstr ""
 
 msgctxt "welcome_login_confirm_later_cancel"
 msgid "No thanks"
-msgstr ""
+msgstr "Спасибо, не надо"
 
 msgctxt "welcome_login_confirm_later_dialog"
 msgid ""
@@ -2546,7 +2524,7 @@ msgstr ""
 #. Shown after user goes to task rabbit activity
 msgctxt "help_popover_taskrabbit_type"
 msgid "Change the type of task"
-msgstr ""
+msgstr "Изменить тип задачи"
 
 #. See the file "LICENSE" for the full license governing this code.
 #. Resources for built-in locale plug-in
@@ -2649,11 +2627,11 @@ msgstr "Добавить комментарий"
 
 msgctxt "opencrx_creator_input_hint"
 msgid "Creator"
-msgstr ""
+msgstr "Автор"
 
 msgctxt "opencrx_contact_input_hint"
 msgid "Assigned to"
-msgstr ""
+msgstr "Назначено на"
 
 #. ==================================================== Preferences ==
 #. Preferences Title: OpenCRX
@@ -2691,7 +2669,7 @@ msgstr ""
 #. preference description for OpenCRX host
 msgctxt "opencrx_host_title"
 msgid "Host"
-msgstr ""
+msgstr "Хост"
 
 #. dialog title for OpenCRX host
 msgctxt "opencrx_host_dialog_title"
@@ -2706,7 +2684,7 @@ msgstr "Например: <i>mydomain.com</i>"
 #. preference description for OpenCRX segment
 msgctxt "opencrx_segment_title"
 msgid "Segment"
-msgstr ""
+msgstr "Сегмент"
 
 #. dialog title for OpenCRX segment
 msgctxt "opencrx_segment_dialog_title"
@@ -2716,17 +2694,17 @@ msgstr ""
 #. example for OpenCRX segment
 msgctxt "opencrx_segment_summary"
 msgid "For example: <i>Standard</i>"
-msgstr ""
+msgstr "Для примера: <i>Standard</i>"
 
 #. default value for OpenCRX segment
 msgctxt "opencrx_segment_default"
 msgid "Standard"
-msgstr ""
+msgstr "Стандарт"
 
 #. preference description for OpenCRX provider
 msgctxt "opencrx_provider_title"
 msgid "Provider"
-msgstr ""
+msgstr "Поставщик"
 
 #. dialog title for OpenCRX provider
 msgctxt "opencrx_provider_dialog_title"
@@ -2736,7 +2714,7 @@ msgstr ""
 #. example for OpenCRX provider
 msgctxt "opencrx_provider_summary"
 msgid "For example: <i>CRX</i>"
-msgstr ""
+msgstr "Для примера: <i>CRX</i>"
 
 #. default value for OpenCRX provider
 msgctxt "opencrx_provider_default"
@@ -2762,7 +2740,7 @@ msgstr "Войти"
 #. Login Label
 msgctxt "opencrx_PLA_login"
 msgid "Login"
-msgstr ""
+msgstr "Вход"
 
 #. Password Label
 msgctxt "opencrx_PLA_password"
@@ -2772,7 +2750,7 @@ msgstr "Пароль"
 #. Error Message when fields aren't filled out
 msgctxt "opencrx_PLA_errorEmpty"
 msgid "Error: fillout all fields"
-msgstr ""
+msgstr "Ошибка: заполните все поля"
 
 #. Error Message when we receive a HTTP 401 Unauthorized
 msgctxt "opencrx_PLA_errorAuth"
@@ -2887,12 +2865,12 @@ msgstr "Рабочие области"
 #. filter category for Producteev responsible person
 msgctxt "producteev_FEx_responsible_byme"
 msgid "Assigned by me to"
-msgstr ""
+msgstr "Назначено мною"
 
 #. filter category for Producteev responsible person
 msgctxt "producteev_FEx_responsible_byothers"
 msgid "Assigned by others to"
-msgstr ""
+msgstr "Назначено другими"
 
 #. Producteev responsible filter title (%s => responsiblename)
 #, c-format
@@ -3104,7 +3082,7 @@ msgstr "Присвоено ..."
 #. Task Edit: Reminder group label
 msgctxt "TEA_reminders_group_label"
 msgid "Reminders"
-msgstr ""
+msgstr "Напоминания"
 
 #. Task Edit: Reminder header label
 msgctxt "TEA_reminder_label"
@@ -3124,7 +3102,7 @@ msgstr "… при завершении намеченного времени"
 #. Task Edit: Reminder at random times (%s => time plural)
 msgctxt "TEA_reminder_randomly"
 msgid "Randomly once"
-msgstr ""
+msgstr "Случайно один раз"
 
 #. Task Edit: Reminder alarm clock label
 msgctxt "TEA_reminder_alarm_label"
@@ -3148,27 +3126,27 @@ msgstr "Звонить до выключения звонка"
 
 msgctxt "TEA_reminder_random:0"
 msgid "an hour"
-msgstr ""
+msgstr "час"
 
 msgctxt "TEA_reminder_random:1"
 msgid "a day"
-msgstr ""
+msgstr "день"
 
 msgctxt "TEA_reminder_random:2"
 msgid "a week"
-msgstr ""
+msgstr "неделя"
 
 msgctxt "TEA_reminder_random:3"
 msgid "in two weeks"
-msgstr ""
+msgstr "в две недели"
 
 msgctxt "TEA_reminder_random:4"
 msgid "a month"
-msgstr ""
+msgstr "месяц"
 
 msgctxt "TEA_reminder_random:5"
 msgid "in two months"
-msgstr ""
+msgstr "в два месяца"
 
 #. ==================================================== notifications ==
 #. Name of filter when viewing a reminder
@@ -3189,7 +3167,7 @@ msgstr "Дремать…"
 #. Reminder: Completed Toast
 msgctxt "rmd_NoA_completed_toast"
 msgid "Congratulations on finishing!"
-msgstr ""
+msgstr "Поздравляем с окончанием!"
 
 #. ============================================= reminder preferences ==
 #. Reminder Preference Screen Title
@@ -3200,17 +3178,17 @@ msgstr "Настройки напоминаний"
 #. Reminder Preference: Reminders Enabled Title
 msgctxt "rmd_EPr_enabled_title"
 msgid "Reminders Enabled?"
-msgstr ""
+msgstr "Включить напоминания?"
 
 #. Reminder Preference Reminders Enabled Description (true)
 msgctxt "rmd_EPr_enabled_desc_true"
 msgid "Astrid reminders are enabled (this is normal)"
-msgstr ""
+msgstr "Напоминания Astrid включены (это нормально)"
 
 #. Reminder Preference Reminders Enabled Description (false)
 msgctxt "rmd_EPr_enabled_desc_false"
 msgid "Astrid reminders will never appear on your phone"
-msgstr ""
+msgstr "Напоминания Astrid никогда не появятся на вашем телефоне"
 
 #. Reminder Preference: Quiet Hours Start Title
 msgctxt "rmd_EPr_quiet_hours_start_title"
@@ -3224,6 +3202,8 @@ msgid ""
 "Notifications will be silent after %s.\n"
 "Note: vibrations are controlled by the setting below!"
 msgstr ""
+"Уведомления будут беззвучными после %s.\n"
+"Примечание: вибрация управляется настройками ниже!"
 
 #. Reminder Preference: Quiet Hours Start/End Description (disabled)
 msgctxt "rmd_EPr_quiet_hours_desc_none"
@@ -3239,18 +3219,18 @@ msgstr "Конец тихих часов"
 #, c-format
 msgctxt "rmd_EPr_quiet_hours_end_desc"
 msgid "Notifications will stop being silent starting at %s"
-msgstr ""
+msgstr "Уведомления перестануть быть беззвучными начиная с %s."
 
 #. Reminder Preference: Default Reminder Title
 msgctxt "rmd_EPr_rmd_time_title"
 msgid "Default Reminder"
-msgstr ""
+msgstr "Напоминание по умолчанию"
 
 #. Reminder Preference: Default Reminder Description (%s => time set)
 #, c-format
 msgctxt "rmd_EPr_rmd_time_desc"
 msgid "Notifications for tasks without duetimes will appear at %s"
-msgstr ""
+msgstr "Уведомления для задач без срока выполнения появятся в %s"
 
 #. Reminder Preference: Notification Ringtone Title
 msgctxt "rmd_EPr_ringtone_title"
@@ -4018,7 +3998,7 @@ msgstr "No Repeat"
 
 msgctxt "repeat_dont"
 msgid "Don't repeat"
-msgstr ""
+msgstr "Не повторять"
 
 msgctxt "repeat_interval_short:0"
 msgid "d"
@@ -4030,19 +4010,19 @@ msgstr ""
 
 msgctxt "repeat_interval_short:2"
 msgid "mo"
-msgstr ""
+msgstr "мес."
 
 msgctxt "repeat_interval_short:3"
 msgid "hr"
-msgstr ""
+msgstr "час."
 
 msgctxt "repeat_interval_short:4"
 msgid "min"
-msgstr ""
+msgstr "мин."
 
 msgctxt "repeat_interval_short:5"
 msgid "yr"
-msgstr ""
+msgstr "г."
 
 msgctxt "repeat_interval:0"
 msgid "Day(s)"
@@ -4066,7 +4046,7 @@ msgstr ""
 
 msgctxt "repeat_interval:5"
 msgid "Year(s)"
-msgstr ""
+msgstr "Лет (Года)"
 
 msgctxt "repeat_type:0"
 msgid "from due date"
@@ -4107,11 +4087,11 @@ msgstr ""
 
 msgctxt "repeat_encouragement:0"
 msgid "Good job!"
-msgstr ""
+msgstr "Хорошая работа!"
 
 msgctxt "repeat_encouragement:1"
 msgid "Wow… I'm so proud of you!"
-msgstr ""
+msgstr "Вау... Я так горжусь тобой!"
 
 msgctxt "repeat_encouragement:2"
 msgid "I love it when you're productive!"
@@ -4179,7 +4159,7 @@ msgstr "например, каждую неделю, спустя 14 дней"
 #. Milk Preferences Title
 msgctxt "rmilk_MPr_header"
 msgid "Remember the Milk"
-msgstr ""
+msgstr "Помни про молоко"
 
 #. ======================= MilkLoginActivity =========================
 #. RTM Login Instructions
@@ -4203,7 +4183,7 @@ msgstr ""
 #. title for notification tray when synchronizing
 msgctxt "rmilk_notification_title"
 msgid "Astrid: Remember the Milk"
-msgstr ""
+msgstr "Astrid: Помни про молоко"
 
 #. Error msg when io exception with rmilk
 msgctxt "rmilk_ioerror"
@@ -4218,7 +4198,7 @@ msgstr ""
 #. Subtasks Help Introduction
 msgctxt "subtasks_help_title"
 msgid "Sort and Indent in Astrid"
-msgstr ""
+msgstr "Сортировка и отступ в Astrid"
 
 msgctxt "subtasks_help_1"
 msgid "Tap and hold to move a task"
@@ -4243,7 +4223,7 @@ msgstr "Списки"
 #. Tags label long version
 msgctxt "TEA_tags_label_long"
 msgid "Put task on one or more lists"
-msgstr ""
+msgstr "Поместите задачу в один или несколько списков"
 
 #. Tags none
 msgctxt "TEA_tags_none"
@@ -4253,7 +4233,7 @@ msgstr "Пусто"
 #. Tags hint
 msgctxt "TEA_tag_hint"
 msgid "New list"
-msgstr ""
+msgstr "Новый список"
 
 #. Tags dropdown
 msgctxt "TEA_tag_dropdown"
@@ -4275,7 +4255,7 @@ msgstr "Показать список"
 #. Dialog: new list
 msgctxt "tag_new_list"
 msgid "New List"
-msgstr ""
+msgstr "Новый список"
 
 #. Dialog: list saved
 msgctxt "tag_list_saved"
@@ -4291,7 +4271,7 @@ msgstr "Пожалуйста, для начала введите названи�
 #. filter button to add tag
 msgctxt "tag_FEx_add_new"
 msgid "New"
-msgstr ""
+msgstr "Новый"
 
 #. filter header for tags
 msgctxt "tag_FEx_header"
@@ -4316,12 +4296,12 @@ msgstr ""
 #. filter for untagged tasks
 msgctxt "tag_FEx_untagged"
 msgid "Not in any List"
-msgstr ""
+msgstr "Не входит в списки"
 
 #. clarifying title for people who have Google and Astrid lists
 msgctxt "tag_FEx_untagged_w_astrid"
 msgid "Not in an Astrid List"
-msgstr ""
+msgstr "Не в списке Astrid"
 
 #. %s => tag name
 #, c-format
@@ -4356,7 +4336,7 @@ msgstr "Удалить этот список: %s? (Задачи не будут 
 #, c-format
 msgctxt "DLG_leave_this_shared_tag_question"
 msgid "Leave this shared list: %s? (No tasks will be deleted.)"
-msgstr ""
+msgstr "Покинуть этот обедоступный список: %s? (Задачи не будут удалены.)"
 
 #. Dialog to rename tag
 #, c-format
@@ -4410,12 +4390,12 @@ msgstr "Settings:"
 #, c-format
 msgctxt "tag_updates_title"
 msgid "Activity: %s"
-msgstr ""
+msgstr "Активность: %s"
 
 #. Delete button for tag settings
 msgctxt "tag_delete_button"
 msgid "Delete List"
-msgstr ""
+msgstr "Удалить список"
 
 #. Leave button for tag settings
 msgctxt "tag_leave_button"
@@ -4432,7 +4412,7 @@ msgstr "Таймер"
 #. Task List: Stop Timer button
 msgctxt "TAE_stopTimer"
 msgid "Stop"
-msgstr ""
+msgstr "Стоп"
 
 #. Android Notification Title (%s => # tasks)
 #, c-format
@@ -4453,7 +4433,7 @@ msgstr "Задачи для замера времени"
 #. Title for TEA
 msgctxt "TEA_timer_controls"
 msgid "Timer Controls"
-msgstr ""
+msgstr "Учет времени"
 
 #. Edit Notes: create comment for when timer is started
 msgctxt "TEA_timer_comment_started"
@@ -4476,27 +4456,27 @@ msgstr ""
 #, c-format
 msgctxt "update_string_friends"
 msgid "%1$s is now friends with %2$s"
-msgstr ""
+msgstr "%1$s теперь друзья с %2$s"
 
 #, c-format
 msgctxt "update_string_request_friendship"
 msgid "%1$s wants to be friends with you"
-msgstr ""
+msgstr "%1$s хочет дружить с вами"
 
 #, c-format
 msgctxt "update_string_confirmed_friendship"
 msgid "%1$s has confirmed your friendship request"
-msgstr ""
+msgstr "%1$s подтвердил(а) ваш запрос на дружбу"
 
 #, c-format
 msgctxt "update_string_task_created"
 msgid "%1$s created this task"
-msgstr ""
+msgstr "%1$s создал(а) эту задачу"
 
 #, c-format
 msgctxt "update_string_task_created_on_list"
 msgid "%1$s added %2$s to this list"
-msgstr ""
+msgstr "%1$s добавил(а) %2$s в этот список"
 
 #, c-format
 msgctxt "update_string_task_completed"
@@ -4635,7 +4615,7 @@ msgstr ""
 
 msgctxt "welcome_setting"
 msgid "Show Tutorial"
-msgstr ""
+msgstr "Показать обучение"
 
 msgctxt "welcome_title_1"
 msgid "Welcome to Astrid!"
@@ -4643,15 +4623,15 @@ msgstr "Добро пожаловать в Astrid!"
 
 msgctxt "welcome_title_2"
 msgid "Make lists"
-msgstr ""
+msgstr "Пишите списки"
 
 msgctxt "welcome_title_3"
 msgid "Switch between lists"
-msgstr ""
+msgstr "Переходи между списками"
 
 msgctxt "welcome_title_4"
 msgid "Share lists"
-msgstr ""
+msgstr "Делитесь списками"
 
 msgctxt "welcome_title_5"
 msgid "Divvy up tasks"
@@ -4669,25 +4649,31 @@ msgstr ""
 
 msgctxt "welcome_title_7_return"
 msgid "That's it!"
-msgstr ""
+msgstr "Вот и всё!"
 
 msgctxt "welcome_body_1"
 msgid ""
 "The perfect personal to-do list \n"
 "that works great with friends"
 msgstr ""
+"Лучший персональный менеджер задач,\n"
+"в нем удобно работать с друзьями"
 
 msgctxt "welcome_body_2"
 msgid ""
 "Great for any list:\n"
 "read, watch, buy, visit!"
 msgstr ""
+"Удобен для любого списка:\n"
+"что почитать, посмотреть, купить, посетить!"
 
 msgctxt "welcome_body_3"
 msgid ""
 "Tap the list title \n"
 "to see all your lists"
 msgstr ""
+"Нажми на название списка,\n"
+"чтобы увидеть все свои списки"
 
 msgctxt "welcome_body_4"
 msgid ""
@@ -4695,6 +4681,9 @@ msgid ""
 "friends, housemates,\n"
 "or your sweetheart!"
 msgstr ""
+"Поделитесь списками с\n"
+"друзьями, соседями\n"
+"или любимым человеком!"
 
 msgctxt "welcome_body_5"
 msgid ""
@@ -4708,22 +4697,25 @@ msgid ""
 "set reminders,\n"
 "and much more!"
 msgstr ""
+"Нажмите чтобы добавить заметки,\n"
+"установить напоминания,\n"
+"и многое другое!"
 
 msgctxt "welcome_body_7"
 msgid "Login"
-msgstr ""
+msgstr "Вход"
 
 msgctxt "welcome_body_7_return"
 msgid "Tap Astrid to return."
-msgstr ""
+msgstr "Нажми Astrid, чтобы вернуться"
 
 msgctxt "welcome_back"
 msgid "Back"
-msgstr ""
+msgstr "Назад"
 
 msgctxt "welcome_next"
 msgid "Next"
-msgstr ""
+msgstr "Далее"
 
 #. See the file "LICENSE" for the full license governing this code.
 #. Resources for power pack widget
@@ -4737,7 +4729,7 @@ msgstr ""
 
 msgctxt "PPW_widget_44_label"
 msgid "Astrid Premium 4x4"
-msgstr ""
+msgstr "Astrid Премиум 4x4"
 
 msgctxt "PPW_configure_title"
 msgid "Configure Widget"
@@ -4866,11 +4858,11 @@ msgstr "Прозрачный"
 
 msgctxt "PPW_widget_dlg_text"
 msgid "This widget is only available to owners of the PowerPack!"
-msgstr ""
+msgstr "Этот виджет доступен только для владельцев PowerPack!"
 
 msgctxt "PPW_widget_dlg_ok"
 msgid "Preview"
-msgstr ""
+msgstr "Предпросмотр"
 
 #, c-format
 msgctxt "PPW_demo_title1"
@@ -4879,7 +4871,7 @@ msgstr ""
 
 msgctxt "PPW_demo_title2"
 msgid "Power Pack includes Premium Widgets..."
-msgstr ""
+msgstr "Power Pack включает премиум-виджеты..."
 
 msgctxt "PPW_demo_title3"
 msgid "...voice add and good feelings!"
@@ -4887,423 +4879,32 @@ msgstr ""
 
 msgctxt "PPW_demo_title4"
 msgid "Tap to learn more!"
-msgstr ""
+msgstr "Нажми и узнай больше!"
 
 msgctxt "PPW_info_title"
 msgid "Free Power Pack!"
-msgstr ""
+msgstr "Бесплатный Power Pack!"
 
 msgctxt "PPW_info_signin"
 msgid "Sign in!"
-msgstr ""
+msgstr "Войди!"
 
 msgctxt "PPW_info_later"
 msgid "Later"
-msgstr ""
+msgstr "Позже"
 
 msgctxt "PPW_unlock_howto"
 msgid ""
 "Share lists with friends! Unlock the free Power Pack when 3 friends sign up "
 "with Astrid."
 msgstr ""
+"Опубликуй списки для друзей! Получи бесплатный Power Pack когда 3 друга "
+"зарегистрируются в Astrid."
 
 msgctxt "PPW_check_button"
 msgid "Get the Power Pack for free!"
-msgstr ""
+msgstr "Получи Power Pack бесплатно!"
 
 msgctxt "PPW_check_share_lists"
 msgid "Share lists!"
-msgstr ""
-
-#. See the file "LICENSE" for the full license governing this code.
-#. ==================================================== Generic Units ==
-#, c-format
-msgctxt "DUt_years:quantity=other"
-msgid "%d Years"
-msgstr ""
-
-#. See the file "LICENSE" for the full license governing this code.
-#. ==================================================== Generic Units ==
-msgctxt "DUt_years:quantity=one"
-msgid "1 Year"
-msgstr ""
-
-#, c-format
-msgctxt "DUt_months:quantity=other"
-msgid "%d Months"
-msgstr ""
-
-msgctxt "DUt_months:quantity=one"
-msgid "1 Month"
-msgstr ""
-
-#, c-format
-msgctxt "DUt_weeks:quantity=other"
-msgid "%d Weeks"
-msgstr ""
-
-msgctxt "DUt_weeks:quantity=one"
-msgid "1 Week"
-msgstr ""
-
-#, c-format
-msgctxt "DUt_days:quantity=other"
-msgid "%d Days"
-msgstr ""
-
-msgctxt "DUt_days:quantity=one"
-msgid "1 Day"
-msgstr ""
-
-#, c-format
-msgctxt "DUt_weekdays:quantity=other"
-msgid "%d Weekdays"
-msgstr ""
-
-msgctxt "DUt_weekdays:quantity=one"
-msgid "1 Weekday"
-msgstr ""
-
-#, c-format
-msgctxt "DUt_hours:quantity=other"
-msgid "%d Hours"
-msgstr ""
-
-msgctxt "DUt_hours:quantity=one"
-msgid "1 Hour"
-msgstr ""
-
-#, c-format
-msgctxt "DUt_minutes:quantity=other"
-msgid "%d Minutes"
-msgstr ""
-
-msgctxt "DUt_minutes:quantity=one"
-msgid "1 Minute"
-msgstr ""
-
-#, c-format
-msgctxt "DUt_seconds:quantity=other"
-msgid "%d Seconds"
-msgstr ""
-
-msgctxt "DUt_seconds:quantity=one"
-msgid "1 Second"
-msgstr ""
-
-#, c-format
-msgctxt "DUt_hoursShort:quantity=other"
-msgid "%d Hrs"
-msgstr ""
-
-msgctxt "DUt_hoursShort:quantity=one"
-msgid "1 Hr"
-msgstr ""
-
-#, c-format
-msgctxt "DUt_minutesShort:quantity=other"
-msgid "%d Min"
-msgstr ""
-
-msgctxt "DUt_minutesShort:quantity=one"
-msgid "1 Min"
-msgstr ""
-
-#, c-format
-msgctxt "DUt_secondsShort:quantity=other"
-msgid "%d Sec"
-msgstr ""
-
-msgctxt "DUt_secondsShort:quantity=one"
-msgid "1 Sec"
-msgstr ""
-
-#, c-format
-msgctxt "Ntasks:quantity=other"
-msgid "%d tasks"
-msgstr ""
-
-msgctxt "Ntasks:quantity=one"
-msgid "1 task"
-msgstr ""
-
-#, c-format
-msgctxt "Npeople:quantity=other"
-msgid "%d people"
-msgstr ""
-
-msgctxt "Npeople:quantity=one"
-msgid "1 person"
-msgstr ""
-
-#. today
-msgctxt "today"
-msgid "Today"
-msgstr ""
-
-#. tomorrow
-msgctxt "tomorrow"
-msgid "Tomorrow"
-msgstr ""
-
-#. today
-msgctxt "yesterday"
-msgid "Yesterday"
-msgstr ""
-
-#. tomorrow abbreviated
-msgctxt "tmrw"
-msgid "Tmrw"
-msgstr ""
-
-#. today abbreviated
-msgctxt "yest"
-msgid "Yest"
-msgstr ""
-
-#. ================================================== Generic Dialogs ==
-#. confirmation dialog title
-msgctxt "DLG_confirm_title"
-msgid "Confirm?"
-msgstr "Подтвердить?"
-
-#. question dialog title
-msgctxt "DLG_question_title"
-msgid "Question:"
-msgstr "Вопрос:"
-
-#. information dialog title
-msgctxt "DLG_information_title"
-msgid "Information"
-msgstr "Информация"
-
-#. error dialog title
-msgctxt "DLG_error_title"
-msgid "Error!"
-msgstr "Ошибка!"
-
-#. general dialog save
-msgctxt "DLG_save"
-msgid "Save"
-msgstr "Готово"
-
-#. general dialog yes
-msgctxt "DLG_yes"
-msgid "Yes"
-msgstr "Да"
-
-#. general dialog no
-msgctxt "DLG_no"
-msgid "No"
-msgstr "Нет"
-
-#. general dialog close
-msgctxt "DLG_close"
-msgid "Close"
-msgstr "Закрыть"
-
-#. general dialog done
-msgctxt "DLG_done"
-msgid "Done"
-msgstr ""
-
-#. error dialog (%s => error message)
-#, c-format
-msgctxt "DLG_error"
-msgid ""
-"Oops, looks like an error occurred! Here's what happened:\n"
-"\n"
-"%s"
-msgstr ""
-"Ой, похоже произошла ошибка! Подробности ниже:\n"
-"\n"
-"%s"
-
-#. error dialog (no message indicated)
-msgctxt "DLG_error_generic"
-msgid "Oops, looks like an error occurred!"
-msgstr "Ой, похоже произошла ошибка!"
-
-#. Progress dialog shown when doing something slow
-msgctxt "DLG_wait"
-msgid "Please wait..."
-msgstr "Пожалуйста, подождите…"
-
-#. ====================================================== SyncProvider ==
-#. Sync Notification: message when sync service active
-msgctxt "SyP_progress"
-msgid "Synchronizing your tasks..."
-msgstr "Синхронизация задач…"
-
-#. Sync Notification: toast when sync activated from activity
-msgctxt "SyP_progress_toast"
-msgid "Synchronizing..."
-msgstr "Синхронизация…"
-
-#. Sync Label: used in menu to denote synchronization
-msgctxt "SyP_label"
-msgid "Synchronization"
-msgstr "Синхронизация"
-
-#. Error msg when io exception
-msgctxt "SyP_ioerror"
-msgid "Connection Error! Check your Internet connection."
-msgstr ""
-
-#. ================================================== SyncPreferences ==
-#. Status Group Label
-msgctxt "sync_SPr_group_status"
-msgid "Status"
-msgstr ""
-
-#. Sync Status: log in
-msgctxt "sync_status_loggedout"
-msgid "Not Logged In!"
-msgstr "Вы не вошли в систему!"
-
-#. Status: ongoing
-msgctxt "sync_status_ongoing"
-msgid "Sync Ongoing..."
-msgstr "Процесс синхронизации…"
-
-#. Sync Status: success status (%s -> last sync date). Keep it short!
-#, c-format
-msgctxt "sync_status_success"
-msgid ""
-"Last Sync:\n"
-"%s"
-msgstr ""
-
-#. Sync Status: failure status (%s -> last attempted sync date)
-#, c-format
-msgctxt "sync_status_failed"
-msgid "Failed On: %s"
-msgstr "Ошибка: %s"
-
-#. Sync Status: error status (%s -> last sync date)
-#, c-format
-msgctxt "sync_status_errors"
-msgid "Sync w/ Errors: %s"
-msgstr "Синхронизировано с ошибками: %s"
-
-#. Sync Status: error subtitle (%s -> last successful sync date)
-#, c-format
-msgctxt "sync_status_failed_subtitle"
-msgid "Last Successful Sync: %s"
-msgstr "Последняя успешная синхронизация: %s"
-
-#. Sync Status: never sync'd
-msgctxt "sync_status_never"
-msgid "Never Synchronized!"
-msgstr "Синхронизаций не выполнялось!"
-
-#. Options Group Label
-msgctxt "sync_SPr_group_options"
-msgid "Options"
-msgstr ""
-
-#. Preference: Synchronization Interval Title
-msgctxt "sync_SPr_interval_title"
-msgid "Background Sync"
-msgstr "Фоновая синхронизация"
-
-#. Preference: Synchronization Interval Description (when disabled)
-msgctxt "sync_SPr_interval_desc_disabled"
-msgid "Background synchronization is disabled"
-msgstr "Фоновая синхронизация отключена"
-
-#. Preference: Synchronization Interval Description (%s => setting)
-#, c-format
-msgctxt "sync_SPr_interval_desc"
-msgid "Currently set to: %s"
-msgstr "Сейчас установлено: %s"
-
-#. Preference: Background Wifi Title
-msgctxt "sync_SPr_bgwifi_title"
-msgid "Wifi Only Setting"
-msgstr "Только через Wifi"
-
-#. Preference: Background Wifi Description (enabled)
-msgctxt "sync_SPr_bgwifi_desc_enabled"
-msgid "Background synchronization only happens when on Wifi"
-msgstr "Фоновая синхронизация происходит только через Wifi"
-
-#. Preference: Background Wifi Description (disabled)
-msgctxt "sync_SPr_bgwifi_desc_disabled"
-msgid "Background synchronization will always occur"
-msgstr "Фоновая синхронизация происходит всегда"
-
-#. Actions Group Label
-msgctxt "sync_SPr_group_actions"
-msgid "Actions"
-msgstr "Действия"
-
-#. Synchronize Now Button
-msgctxt "sync_SPr_sync"
-msgid "Synchronize Now!"
-msgstr "Синхронизировать!"
-
-#. Synchronize Now Button if not logged in
-msgctxt "sync_SPr_sync_log_in"
-msgid "Log In & Synchronize!"
-msgstr "Войти и синхронизировать!"
-
-#. Sync: Prefix string before logged in identifier
-msgctxt "sync_SPr_logged_in_prefix"
-msgid "Logged in as:"
-msgstr ""
-
-#. Sync: Clear Data Title
-msgctxt "sync_SPr_forget"
-msgid "Log Out"
-msgstr "Выход"
-
-#. Sync: Clear Data Description
-msgctxt "sync_SPr_forget_description"
-msgid "Clears all synchronization data"
-msgstr "Очищает все данные синхронизации"
-
-#. confirmation dialog for sync log out
-msgctxt "sync_forget_confirm"
-msgid "Log out / clear synchronization data?"
-msgstr "Выйти / очистить данные синхронизации?"
-
-msgctxt "sync_SPr_interval_entries:0"
-msgid "disable"
-msgstr "отключить"
-
-msgctxt "sync_SPr_interval_entries:1"
-msgid "every fifteen minutes"
-msgstr "каждые 15 минут"
-
-msgctxt "sync_SPr_interval_entries:2"
-msgid "every thirty minutes"
-msgstr "каждые 30 минут"
-
-msgctxt "sync_SPr_interval_entries:3"
-msgid "every hour"
-msgstr "каждый час"
-
-msgctxt "sync_SPr_interval_entries:4"
-msgid "every three hours"
-msgstr "каждые 3 часа"
-
-msgctxt "sync_SPr_interval_entries:5"
-msgid "every six hours"
-msgstr "каждые 6 часов"
-
-msgctxt "sync_SPr_interval_entries:6"
-msgid "every twelve hours"
-msgstr "каждые 12 часов"
-
-msgctxt "sync_SPr_interval_entries:7"
-msgid "every day"
-msgstr "каждый день"
-
-msgctxt "sync_SPr_interval_entries:8"
-msgid "every three days"
-msgstr "каждые 3 дня"
-
-msgctxt "sync_SPr_interval_entries:9"
-msgid "every week"
-msgstr "каждую неделю"
+msgstr "Опубликовать списки!"

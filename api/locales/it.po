@@ -8,44 +8,44 @@ msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
 "POT-Creation-Date: 2012-02-29 14:56-0800\n"
-"PO-Revision-Date: 2012-03-01 06:24+0000\n"
-"Last-Translator: Tim Su <tim@todoroo.com>\n"
+"PO-Revision-Date: 2012-03-17 13:52+0000\n"
+"Last-Translator: Guybrush88 <Unknown>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2012-03-07 00:04+0000\n"
-"X-Generator: Launchpad (build 14900)\n"
+"X-Launchpad-Export-Date: 2012-05-03 02:37+0000\n"
+"X-Generator: Launchpad (build 15185)\n"
 "Generated-By: Babel 1.0dev\n"
 
 #. ==================================================== Generic Units ==
 #, c-format
 msgctxt "DUt_years:quantity=other"
 msgid "%d Years"
-msgstr "%d Anni"
+msgstr "%d anni"
 
 #. ==================================================== Generic Units ==
 msgctxt "DUt_years:quantity=one"
 msgid "1 Year"
-msgstr "1 Anno"
+msgstr "1 anno"
 
 #, c-format
 msgctxt "DUt_months:quantity=other"
 msgid "%d Months"
-msgstr "%d Mesi"
+msgstr "%d mesi"
 
 msgctxt "DUt_months:quantity=one"
 msgid "1 Month"
-msgstr "1 Mese"
+msgstr "1 mese"
 
 #, c-format
 msgctxt "DUt_weeks:quantity=other"
 msgid "%d Weeks"
-msgstr "%d Settimane"
+msgstr "%d settimane"
 
 msgctxt "DUt_weeks:quantity=one"
 msgid "1 Week"
-msgstr "1 Settimana"
+msgstr "1 settimana"
 
 #, c-format
 msgctxt "DUt_days:quantity=other"
@@ -59,11 +59,11 @@ msgstr "1 giorno"
 #, c-format
 msgctxt "DUt_weekdays:quantity=other"
 msgid "%d Weekdays"
-msgstr ""
+msgstr "%d giorni della settimana"
 
 msgctxt "DUt_weekdays:quantity=one"
 msgid "1 Weekday"
-msgstr ""
+msgstr "1 giorno della settimana"
 
 #, c-format
 msgctxt "DUt_hours:quantity=other"
@@ -131,11 +131,11 @@ msgstr "1 Attività"
 #, c-format
 msgctxt "Npeople:quantity=other"
 msgid "%d people"
-msgstr ""
+msgstr "%d persone"
 
 msgctxt "Npeople:quantity=one"
 msgid "1 person"
-msgstr ""
+msgstr "1 persona"
 
 #. today
 msgctxt "today"
@@ -155,7 +155,7 @@ msgstr "Ieri"
 #. tomorrow abbreviated
 msgctxt "tmrw"
 msgid "Tmrw"
-msgstr ""
+msgstr "Tmrw"
 
 #. today abbreviated
 msgctxt "yest"
@@ -196,7 +196,7 @@ msgstr "Sì"
 #. general dialog no
 msgctxt "DLG_no"
 msgid "No"
-msgstr ""
+msgstr "No"
 
 #. general dialog close
 msgctxt "DLG_close"
@@ -287,7 +287,7 @@ msgstr "Fallita Su: %s"
 #, c-format
 msgctxt "sync_status_errors"
 msgid "Sync w/ Errors: %s"
-msgstr ""
+msgstr "Sincronizza con gli errori: %s"
 
 #. Sync Status: error subtitle (%s -> last successful sync date)
 #, c-format
@@ -356,7 +356,7 @@ msgstr "Esegui l'accesso & Sincronizza!"
 #. Sync: Prefix string before logged in identifier
 msgctxt "sync_SPr_logged_in_prefix"
 msgid "Logged in as:"
-msgstr ""
+msgstr "Connesso come:"
 
 #. Sync: Clear Data Title
 msgctxt "sync_SPr_forget"

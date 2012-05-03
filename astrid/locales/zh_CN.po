@@ -7,15 +7,15 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2012-02-29 17:17-0800\n"
-"PO-Revision-Date: 2012-03-03 11:44+0000\n"
-"Last-Translator: noxskl <Unknown>\n"
+"POT-Creation-Date: 2012-03-06 17:01-0800\n"
+"PO-Revision-Date: 2012-04-12 17:32+0000\n"
+"Last-Translator: Aron Xu <happyaron.xu@gmail.com>\n"
 "Language-Team: zh_CN <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2012-03-07 00:04+0000\n"
-"X-Generator: Launchpad (build 14900)\n"
+"X-Launchpad-Export-Date: 2012-05-03 02:36+0000\n"
+"X-Generator: Launchpad (build 15185)\n"
 "Generated-By: Babel 1.0dev\n"
 
 #. ================================================== general terms ==
@@ -1030,7 +1030,7 @@ msgstr "排序和隐藏任务"
 #. Hidden: title
 msgctxt "SSD_hidden_title"
 msgid "Hidden Tasks"
-msgstr ""
+msgstr "隐藏任务"
 
 #. Hidden Task Selection: show completed tasks
 msgctxt "SSD_completed"
@@ -1060,22 +1060,22 @@ msgstr "Astrid 智能排序"
 #. Sort Selection: sort by alpha
 msgctxt "SSD_sort_alpha"
 msgid "By Title"
-msgstr "依标题"
+msgstr "按标题"
 
 #. Sort Selection: sort by due date
 msgctxt "SSD_sort_due"
 msgid "By Due Date"
-msgstr "依到期日"
+msgstr "按到期日"
 
 #. Sort Selection: sort by importance
 msgctxt "SSD_sort_importance"
 msgid "By Importance"
-msgstr "依重要性"
+msgstr "按重要性"
 
 #. Sort Selection: sort by modified date
 msgctxt "SSD_sort_modified"
 msgid "By Last Modified"
-msgstr "依最后修改"
+msgstr "按最后修改"
 
 #. Sort Selection: reverse
 msgctxt "SSD_sort_reverse"
@@ -1153,12 +1153,17 @@ msgstr "建立快捷方式: %s"
 #. Menu: new filter
 msgctxt "FLA_new_filter"
 msgid "New Filter"
-msgstr ""
+msgstr "新建过滤器"
 
 #. Button: new list
 msgctxt "FLA_new_list"
 msgid "New List"
-msgstr "新列表"
+msgstr "新建列表"
+
+#. Alert when creating a shortcut without selecting a filter
+msgctxt "FLA_no_filter_selected"
+msgid "No filter selected! Please select a filter or list."
+msgstr ""
 
 #. ================================================= TaskEditActivity ==
 #. Title when editing a task (%s => task title)
@@ -1170,7 +1175,7 @@ msgstr "Astrid: 编辑 '%s'"
 #. Title when creating a new task
 msgctxt "TEA_view_titleNew"
 msgid "New Task"
-msgstr ""
+msgstr "新建任务"
 
 #. Task title label
 msgctxt "TEA_title_label"
@@ -1210,7 +1215,7 @@ msgstr "无"
 #. Task hide until label
 msgctxt "TEA_hideUntil_label"
 msgid "Show Task"
-msgstr ""
+msgstr "显示任务"
 
 #. Task hide until toast
 #, c-format
@@ -1386,7 +1391,7 @@ msgstr "备注"
 
 msgctxt "TEA_control_reminders"
 msgid "Reminders"
-msgstr ""
+msgstr "提醒"
 
 msgctxt "TEA_control_timer"
 msgid "Timer Controls"
@@ -1398,7 +1403,7 @@ msgstr ""
 
 msgctxt "hide_until_prompt"
 msgid "Show in my list"
-msgstr ""
+msgstr "在我的列表中显示"
 
 #. Add Ons tab when no add-ons found
 msgctxt "TEA_addons_text"
@@ -1530,7 +1535,7 @@ msgstr ""
 
 msgctxt "EPr_beastMode_reset"
 msgid "Reset to defaults"
-msgstr ""
+msgstr "恢复默认值"
 
 #. Preference: Task List Show Notes Description (disabled)
 msgctxt "EPr_showNotes_desc_disabled"
@@ -1579,17 +1584,18 @@ msgid "Auto-load Ideas Tab"
 msgstr ""
 
 msgctxt "EPr_ideaAuto_desc_enabled"
-msgid "Web searches for Ideas tab will be performed when task is edited"
+msgid "Web searches for Ideas tab will be performed when tab is clicked"
 msgstr ""
 
 msgctxt "EPr_ideaAuto_desc_disabled"
-msgid "Web searches for Ideas tab will be performed when tab is clicked"
+msgid ""
+"Web searches for Ideas tab will be performed only when manually requested"
 msgstr ""
 
 #. Preference: Theme
 msgctxt "EPr_theme_title"
 msgid "Color Theme"
-msgstr ""
+msgstr "主题"
 
 #. Preference: Theme Description (%s => value)
 #, c-format
@@ -1609,23 +1615,23 @@ msgstr ""
 
 msgctxt "EPr_themes:0"
 msgid "Day - Blue"
-msgstr ""
+msgstr "蓝"
 
 msgctxt "EPr_themes:1"
 msgid "Day - Red"
-msgstr ""
+msgstr "红"
 
 msgctxt "EPr_themes:2"
 msgid "Night"
-msgstr ""
+msgstr "夜间模式"
 
 msgctxt "EPr_themes:3"
 msgid "Transparent (White Text)"
-msgstr ""
+msgstr "透明(白色文字)"
 
 msgctxt "EPr_themes:4"
 msgid "Transparent (Black Text)"
-msgstr ""
+msgstr "透明(黑色文字)"
 
 #. ========================================== Task Management Settings ==
 #. Preference Screen Header: Old Task Management
@@ -1675,7 +1681,7 @@ msgstr "请注意！若事先没有备份，已清除的任务将无法恢复！
 
 msgctxt "EPr_manage_clear_all"
 msgid "Clear All Data"
-msgstr ""
+msgstr "清除所有数据"
 
 msgctxt "EPr_manage_clear_all_message"
 msgid ""
@@ -1971,7 +1977,7 @@ msgstr "进行中的任务"
 #. Search Filter
 msgctxt "BFE_Search"
 msgid "Search..."
-msgstr "查找..."
+msgstr "搜索..."
 
 #. Recently Modified
 msgctxt "BFE_Recent"
@@ -2061,7 +2067,7 @@ msgstr "加入条件"
 #. Filter Button: view without saving
 msgctxt "CFA_button_view"
 msgid "View"
-msgstr "预览"
+msgstr "查看"
 
 #. Filter Button: save & view filter
 msgctxt "CFA_button_save"
@@ -2379,71 +2385,6 @@ msgid ""
 msgstr ""
 
 #. See the file "LICENSE" for the full license governing this code.
-#. Resources initial tasks added
-#. Intro Tag or click prompt
-msgctxt "intro_click_prompt"
-msgid "Intro: Press me to see notes"
-msgstr "简介: 按我阅读注释"
-
-#. Task 1 Summary
-msgctxt "intro_task_1_summary"
-msgid "Create your first task"
-msgstr "建立您的第一个任务"
-
-#. Task 1 Note
-msgctxt "intro_task_1_note"
-msgid ""
-"Two ways to add a task:\n"
-" 1) Quick Add: Type the task into the quick entry box at bottom of screen "
-"and press the + button on the right.\n"
-" 2) Regular Add: Press the + button of the quick entry box. Add as much "
-"detail as you want. Then press \"Save\" or use your phone's back button.\n"
-msgstr ""
-"两种新增任务的方式:\n"
-" 1)快速新增:只要在快速输入框中输入任务并按下左侧的+按钮。\n"
-"\n"
-" 2)一般新增:按下快速输入框右侧的按钮。加入一般细节(到期日、标签、备注)或设定更多进阶选项。按下储存按钮或是手机上的返回键将任务储存。\n"
-
-#. Task 2 Summary
-msgctxt "intro_task_2_summary"
-msgid "Add a widget to your desktop"
-msgstr "在桌面上添加小工具"
-
-#. Task 2 Note
-msgctxt "intro_task_2_note"
-msgid ""
-"1) Long Press on your phone's desktop\n"
-"      2) Choose \"Widget\"\n"
-"      3) Choose the Astrid widget\n"
-"      4) Select the list you want and press OK.\n"
-msgstr ""
-"桌面小工具是一种跟踪您要做的事及添加新任务的极好的方式。\n"
-"\n"
-" 如何添加小工具：\n"
-" 1) 长按您手机的桌面\n"
-" 2) 在出现的菜单中选择“小工具”\n"
-" 3) 选择 Astrid 小工具。\n"
-" 4) 您可以选择一个 Astrid 过滤器，或选择“活动任务”来显示所有任务。\n"
-"\n"
-" 提示：可以用小工具来添加任务！\n"
-
-#. Task 3 Summary
-msgctxt "intro_task_3_summary"
-msgid "Setup sync with Astrid.com"
-msgstr "设置与 Astrid.com 的同步"
-
-#. Task 3 Note
-msgctxt "intro_task_3_note"
-msgid ""
-"1) Press your Menu button\n"
-"      2) Choose \"Sync Now\"\n"
-"      3) Select \"Astrid.com\"\n"
-"      4) Log In & Synchronize!\n"
-msgstr ""
-"可用 Astrid 将您的任务与 Astrid.com，Google Tasks 和 Producteev 同步。\n"
-"\n"
-" 要在 Astrid 开启同步，请点击“菜单” -&gt; “设置” -&gt; “同步”。然后选择您喜好的同步提供者。\n"
-
 #. NEW USER EXPERIENCE
 #. help bubbles
 #. Shown the first time a user sees the task list activity
@@ -2737,12 +2678,12 @@ msgstr "用您的 OpenCRX 帐号登陆"
 #. Sign In Button
 msgctxt "opencrx_PLA_signIn"
 msgid "Sign In"
-msgstr "登陆"
+msgstr "登录"
 
 #. Login Label
 msgctxt "opencrx_PLA_login"
 msgid "Login"
-msgstr "登陆"
+msgstr "登录"
 
 #. Password Label
 msgctxt "opencrx_PLA_password"
@@ -4292,7 +4233,7 @@ msgstr "不活动的"
 #. filter for untagged tasks
 msgctxt "tag_FEx_untagged"
 msgid "Not in any List"
-msgstr ""
+msgstr "不在任何列表"
 
 #. clarifying title for people who have Google and Astrid lists
 msgctxt "tag_FEx_untagged_w_astrid"
@@ -4391,7 +4332,7 @@ msgstr ""
 #. Delete button for tag settings
 msgctxt "tag_delete_button"
 msgid "Delete List"
-msgstr ""
+msgstr "删除列表"
 
 #. Leave button for tag settings
 msgctxt "tag_leave_button"
@@ -4611,7 +4552,7 @@ msgstr ""
 
 msgctxt "welcome_setting"
 msgid "Show Tutorial"
-msgstr ""
+msgstr "显示教程"
 
 msgctxt "welcome_title_1"
 msgid "Welcome to Astrid!"
@@ -4733,7 +4674,7 @@ msgstr ""
 
 msgctxt "PPW_filter"
 msgid "Select Filter"
-msgstr ""
+msgstr "选择过滤器"
 
 msgctxt "PPW_due"
 msgid "Due:"
@@ -4825,19 +4766,19 @@ msgstr ""
 
 msgctxt "PPW_colors:0"
 msgid "Black"
-msgstr ""
+msgstr "黑色"
 
 msgctxt "PPW_colors:1"
 msgid "White"
-msgstr ""
+msgstr "白色"
 
 msgctxt "PPW_colors:2"
 msgid "Blue"
-msgstr ""
+msgstr "蓝色"
 
 msgctxt "PPW_colors:3"
 msgid "Translucent"
-msgstr ""
+msgstr "半透明"
 
 msgctxt "PPW_widget_dlg_text"
 msgid "This widget is only available to owners of the PowerPack!"
@@ -4845,7 +4786,7 @@ msgstr ""
 
 msgctxt "PPW_widget_dlg_ok"
 msgid "Preview"
-msgstr ""
+msgstr "预览"
 
 #, c-format
 msgctxt "PPW_demo_title1"
@@ -4889,393 +4830,3 @@ msgstr ""
 msgctxt "PPW_check_share_lists"
 msgid "Share lists!"
 msgstr ""
-
-#. See the file "LICENSE" for the full license governing this code.
-#. ==================================================== Generic Units ==
-#, c-format
-msgctxt "DUt_years:quantity=other"
-msgid "%d Years"
-msgstr ""
-
-#. See the file "LICENSE" for the full license governing this code.
-#. ==================================================== Generic Units ==
-msgctxt "DUt_years:quantity=one"
-msgid "1 Year"
-msgstr ""
-
-#, c-format
-msgctxt "DUt_months:quantity=other"
-msgid "%d Months"
-msgstr ""
-
-msgctxt "DUt_months:quantity=one"
-msgid "1 Month"
-msgstr ""
-
-#, c-format
-msgctxt "DUt_weeks:quantity=other"
-msgid "%d Weeks"
-msgstr ""
-
-msgctxt "DUt_weeks:quantity=one"
-msgid "1 Week"
-msgstr ""
-
-#, c-format
-msgctxt "DUt_days:quantity=other"
-msgid "%d Days"
-msgstr ""
-
-msgctxt "DUt_days:quantity=one"
-msgid "1 Day"
-msgstr ""
-
-#, c-format
-msgctxt "DUt_weekdays:quantity=other"
-msgid "%d Weekdays"
-msgstr ""
-
-msgctxt "DUt_weekdays:quantity=one"
-msgid "1 Weekday"
-msgstr ""
-
-#, c-format
-msgctxt "DUt_hours:quantity=other"
-msgid "%d Hours"
-msgstr ""
-
-msgctxt "DUt_hours:quantity=one"
-msgid "1 Hour"
-msgstr ""
-
-#, c-format
-msgctxt "DUt_minutes:quantity=other"
-msgid "%d Minutes"
-msgstr ""
-
-msgctxt "DUt_minutes:quantity=one"
-msgid "1 Minute"
-msgstr ""
-
-#, c-format
-msgctxt "DUt_seconds:quantity=other"
-msgid "%d Seconds"
-msgstr ""
-
-msgctxt "DUt_seconds:quantity=one"
-msgid "1 Second"
-msgstr ""
-
-#, c-format
-msgctxt "DUt_hoursShort:quantity=other"
-msgid "%d Hrs"
-msgstr ""
-
-msgctxt "DUt_hoursShort:quantity=one"
-msgid "1 Hr"
-msgstr ""
-
-#, c-format
-msgctxt "DUt_minutesShort:quantity=other"
-msgid "%d Min"
-msgstr ""
-
-msgctxt "DUt_minutesShort:quantity=one"
-msgid "1 Min"
-msgstr ""
-
-#, c-format
-msgctxt "DUt_secondsShort:quantity=other"
-msgid "%d Sec"
-msgstr ""
-
-msgctxt "DUt_secondsShort:quantity=one"
-msgid "1 Sec"
-msgstr ""
-
-#, c-format
-msgctxt "Ntasks:quantity=other"
-msgid "%d tasks"
-msgstr ""
-
-msgctxt "Ntasks:quantity=one"
-msgid "1 task"
-msgstr ""
-
-#, c-format
-msgctxt "Npeople:quantity=other"
-msgid "%d people"
-msgstr ""
-
-msgctxt "Npeople:quantity=one"
-msgid "1 person"
-msgstr ""
-
-#. today
-msgctxt "today"
-msgid "Today"
-msgstr ""
-
-#. tomorrow
-msgctxt "tomorrow"
-msgid "Tomorrow"
-msgstr ""
-
-#. today
-msgctxt "yesterday"
-msgid "Yesterday"
-msgstr ""
-
-#. tomorrow abbreviated
-msgctxt "tmrw"
-msgid "Tmrw"
-msgstr ""
-
-#. today abbreviated
-msgctxt "yest"
-msgid "Yest"
-msgstr ""
-
-#. ================================================== Generic Dialogs ==
-#. confirmation dialog title
-msgctxt "DLG_confirm_title"
-msgid "Confirm?"
-msgstr "确认?"
-
-#. question dialog title
-msgctxt "DLG_question_title"
-msgid "Question:"
-msgstr "问题："
-
-#. information dialog title
-msgctxt "DLG_information_title"
-msgid "Information"
-msgstr "信息"
-
-#. error dialog title
-msgctxt "DLG_error_title"
-msgid "Error!"
-msgstr "错误！"
-
-#. general dialog save
-msgctxt "DLG_save"
-msgid "Save"
-msgstr "保存"
-
-#. general dialog yes
-msgctxt "DLG_yes"
-msgid "Yes"
-msgstr "确定"
-
-#. general dialog no
-msgctxt "DLG_no"
-msgid "No"
-msgstr "取消"
-
-#. general dialog close
-msgctxt "DLG_close"
-msgid "Close"
-msgstr "关闭"
-
-#. general dialog done
-msgctxt "DLG_done"
-msgid "Done"
-msgstr ""
-
-#. error dialog (%s => error message)
-#, c-format
-msgctxt "DLG_error"
-msgid ""
-"Oops, looks like an error occurred! Here's what happened:\n"
-"\n"
-"%s"
-msgstr ""
-
-#. error dialog (no message indicated)
-msgctxt "DLG_error_generic"
-msgid "Oops, looks like an error occurred!"
-msgstr "糟糕，发生错误！"
-
-#. Progress dialog shown when doing something slow
-msgctxt "DLG_wait"
-msgid "Please wait..."
-msgstr "请稍候..."
-
-#. ====================================================== SyncProvider ==
-#. Sync Notification: message when sync service active
-msgctxt "SyP_progress"
-msgid "Synchronizing your tasks..."
-msgstr "任务同步中..."
-
-#. Sync Notification: toast when sync activated from activity
-msgctxt "SyP_progress_toast"
-msgid "Synchronizing..."
-msgstr "正在同步中..."
-
-#. Sync Label: used in menu to denote synchronization
-msgctxt "SyP_label"
-msgid "Synchronization"
-msgstr "同步"
-
-#. Error msg when io exception
-msgctxt "SyP_ioerror"
-msgid "Connection Error! Check your Internet connection."
-msgstr ""
-
-#. ================================================== SyncPreferences ==
-#. Status Group Label
-msgctxt "sync_SPr_group_status"
-msgid "Status"
-msgstr ""
-
-#. Sync Status: log in
-msgctxt "sync_status_loggedout"
-msgid "Not Logged In!"
-msgstr "未登陆!"
-
-#. Status: ongoing
-msgctxt "sync_status_ongoing"
-msgid "Sync Ongoing..."
-msgstr "同步中..."
-
-#. Sync Status: success status (%s -> last sync date). Keep it short!
-#, c-format
-msgctxt "sync_status_success"
-msgid ""
-"Last Sync:\n"
-"%s"
-msgstr ""
-
-#. Sync Status: failure status (%s -> last attempted sync date)
-#, c-format
-msgctxt "sync_status_failed"
-msgid "Failed On: %s"
-msgstr "失败：%s"
-
-#. Sync Status: error status (%s -> last sync date)
-#, c-format
-msgctxt "sync_status_errors"
-msgid "Sync w/ Errors: %s"
-msgstr "同步 w/ 错误： %s 上次同步日期"
-
-#. Sync Status: error subtitle (%s -> last successful sync date)
-#, c-format
-msgctxt "sync_status_failed_subtitle"
-msgid "Last Successful Sync: %s"
-msgstr "上次成功同步：%s"
-
-#. Sync Status: never sync'd
-msgctxt "sync_status_never"
-msgid "Never Synchronized!"
-msgstr "未同步过！"
-
-#. Options Group Label
-msgctxt "sync_SPr_group_options"
-msgid "Options"
-msgstr ""
-
-#. Preference: Synchronization Interval Title
-msgctxt "sync_SPr_interval_title"
-msgid "Background Sync"
-msgstr "后台同步"
-
-#. Preference: Synchronization Interval Description (when disabled)
-msgctxt "sync_SPr_interval_desc_disabled"
-msgid "Background synchronization is disabled"
-msgstr "后台同步已关闭"
-
-#. Preference: Synchronization Interval Description (%s => setting)
-#, c-format
-msgctxt "sync_SPr_interval_desc"
-msgid "Currently set to: %s"
-msgstr "目前同步间隔：%s"
-
-#. Preference: Background Wifi Title
-msgctxt "sync_SPr_bgwifi_title"
-msgid "Wifi Only Setting"
-msgstr "Wifi 才可使用的设置"
-
-#. Preference: Background Wifi Description (enabled)
-msgctxt "sync_SPr_bgwifi_desc_enabled"
-msgid "Background synchronization only happens when on Wifi"
-msgstr "使用 Wifi 才启动后台同步"
-
-#. Preference: Background Wifi Description (disabled)
-msgctxt "sync_SPr_bgwifi_desc_disabled"
-msgid "Background synchronization will always occur"
-msgstr "总是使用后台同步"
-
-#. Actions Group Label
-msgctxt "sync_SPr_group_actions"
-msgid "Actions"
-msgstr "动作"
-
-#. Synchronize Now Button
-msgctxt "sync_SPr_sync"
-msgid "Synchronize Now!"
-msgstr "现在同步！"
-
-#. Synchronize Now Button if not logged in
-msgctxt "sync_SPr_sync_log_in"
-msgid "Log In & Synchronize!"
-msgstr "登陆并同步！"
-
-#. Sync: Prefix string before logged in identifier
-msgctxt "sync_SPr_logged_in_prefix"
-msgid "Logged in as:"
-msgstr ""
-
-#. Sync: Clear Data Title
-msgctxt "sync_SPr_forget"
-msgid "Log Out"
-msgstr "登出"
-
-#. Sync: Clear Data Description
-msgctxt "sync_SPr_forget_description"
-msgid "Clears all synchronization data"
-msgstr "清除所有同步资料"
-
-#. confirmation dialog for sync log out
-msgctxt "sync_forget_confirm"
-msgid "Log out / clear synchronization data?"
-msgstr "登出/清除同步资料?"
-
-msgctxt "sync_SPr_interval_entries:0"
-msgid "disable"
-msgstr "停用"
-
-msgctxt "sync_SPr_interval_entries:1"
-msgid "every fifteen minutes"
-msgstr "每15分钟"
-
-msgctxt "sync_SPr_interval_entries:2"
-msgid "every thirty minutes"
-msgstr "每30分钟"
-
-msgctxt "sync_SPr_interval_entries:3"
-msgid "every hour"
-msgstr "每小时"
-
-msgctxt "sync_SPr_interval_entries:4"
-msgid "every three hours"
-msgstr "每3小时"
-
-msgctxt "sync_SPr_interval_entries:5"
-msgid "every six hours"
-msgstr "每6小时"
-
-msgctxt "sync_SPr_interval_entries:6"
-msgid "every twelve hours"
-msgstr "每12小时"
-
-msgctxt "sync_SPr_interval_entries:7"
-msgid "every day"
-msgstr "每天"
-
-msgctxt "sync_SPr_interval_entries:8"
-msgid "every three days"
-msgstr "每3天"
-
-msgctxt "sync_SPr_interval_entries:9"
-msgid "every week"
-msgstr "每周"

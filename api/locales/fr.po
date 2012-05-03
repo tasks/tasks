@@ -8,14 +8,14 @@ msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
 "POT-Creation-Date: 2012-02-29 14:56-0800\n"
-"PO-Revision-Date: 2012-03-01 23:06+0000\n"
+"PO-Revision-Date: 2012-03-23 13:46+0000\n"
 "Last-Translator: 16aR <Unknown>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2012-03-07 00:04+0000\n"
-"X-Generator: Launchpad (build 14900)\n"
+"X-Launchpad-Export-Date: 2012-05-03 02:37+0000\n"
+"X-Generator: Launchpad (build 15185)\n"
 "Generated-By: Babel 1.0dev\n"
 
 #. ==================================================== Generic Units ==
@@ -155,12 +155,12 @@ msgstr "Hier"
 #. tomorrow abbreviated
 msgctxt "tmrw"
 msgid "Tmrw"
-msgstr ""
+msgstr "Demain"
 
 #. today abbreviated
 msgctxt "yest"
 msgid "Yest"
-msgstr ""
+msgstr "Hier"
 
 #. ================================================== Generic Dialogs ==
 #. confirmation dialog title

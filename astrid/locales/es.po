@@ -7,15 +7,15 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2012-02-29 17:17-0800\n"
-"PO-Revision-Date: 2012-03-06 22:40+0000\n"
-"Last-Translator: Fitoschido <fitoschido@gmail.com>\n"
+"POT-Creation-Date: 2012-03-06 17:01-0800\n"
+"PO-Revision-Date: 2012-04-22 19:45+0000\n"
+"Last-Translator: Patricio Pérez Valverde <pato@boaboa.org>\n"
 "Language-Team: es <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2012-03-07 00:04+0000\n"
-"X-Generator: Launchpad (build 14900)\n"
+"X-Launchpad-Export-Date: 2012-05-03 02:36+0000\n"
+"X-Generator: Launchpad (build 15185)\n"
 "Generated-By: Babel 1.0dev\n"
 
 #. ================================================== general terms ==
@@ -93,6 +93,8 @@ msgid ""
 "Task was sent to %s! You're currently viewing your own tasks. Do you want to "
 "view this and other tasks you've assigned?"
 msgstr ""
+"La tarea se envió a %s. Está viendo sus propias tareas. ¿Quiere ver además "
+"otras tareas que ha asignado?"
 
 #. Ok button for task view prompt
 msgctxt "actfm_view_task_ok"
@@ -145,7 +147,7 @@ msgstr "Tareas sin asignar. Toque para ver todas."
 #. Tag View: list is private, no members
 msgctxt "actfm_TVA_no_members_alert"
 msgid "Private: tap to edit or share list"
-msgstr ""
+msgstr "Lista privada: Toque para editar o compartir la lista"
 
 #. Tag View Menu: refresh
 msgctxt "actfm_TVA_menu_refresh"
@@ -195,7 +197,7 @@ msgstr "Descripción"
 #. Tag Settings: list settings label
 msgctxt "actfm_TVA_tag_settings_label"
 msgid "Settings"
-msgstr "Opciones"
+msgstr "Preferencias"
 
 #. Tag Settings: list description hint
 msgctxt "actfm_TVA_tag_description_hint"
@@ -205,7 +207,7 @@ msgstr "Escriba una descripción aquí"
 #. Tag Settings: list name hint
 msgctxt "actfm_TVA_tag_name_hint"
 msgid "Enter list name"
-msgstr ""
+msgstr "Ingrese el nombre de la lista"
 
 #. Tag settings: login prompt from share
 msgctxt "actfm_TVA_login_to_share"
@@ -213,6 +215,8 @@ msgid ""
 "You need to be logged in to Astrid.com to share lists! Please log in or make "
 "this a private list."
 msgstr ""
+"Necesitas iniciar sesión en Astrid.com para compartir listas! Por favor "
+"inicia sesión o haz esta lista privada."
 
 #. ============================================ edit people dialog ==
 #. task sharing dialog: intro
@@ -252,7 +256,7 @@ msgstr "Yo"
 #. task sharing dialog: anyone
 msgctxt "actfm_EPA_unassigned"
 msgid "Unassigned"
-msgstr "Cualquiera"
+msgstr "Sin asignar"
 
 #. task sharing dialog: use task rabbit
 msgctxt "actfm_EPA_task_rabbit"
@@ -273,7 +277,7 @@ msgstr "Compartir con:"
 #, c-format
 msgctxt "actfm_EPA_assigned_toast"
 msgid "Sent to %1$s (you can see it in the list between you and %2$s)."
-msgstr ""
+msgstr "Enviado a %1$s (Puedes verla en la lista entre tu y %2$s)."
 
 #. task sharing dialog: shared with label
 msgctxt "actfm_EPA_collaborators_header"
@@ -299,7 +303,7 @@ msgstr "Mensaje de invitación:"
 #. task sharing dialog: message body
 msgctxt "actfm_EPA_message_body"
 msgid "Help me get this done!"
-msgstr ""
+msgstr "Ayudenme a completar esto!"
 
 #. task sharing dialog: message hint
 msgctxt "actfm_EPA_tag_label"
@@ -603,7 +607,7 @@ msgstr "Error al importar"
 #, c-format
 msgctxt "export_toast"
 msgid "Backed Up %1$s to %2$s."
-msgstr ""
+msgstr "Respaldadas %1$s a %2$s."
 
 msgctxt "export_toast_no_tasks"
 msgid "No Tasks to Export."
@@ -630,6 +634,11 @@ msgid ""
 " %4$s already exist\n"
 " %5$s had errors\n"
 msgstr ""
+"El fichero %1$s contenia %2$s.\n"
+"\n"
+" %3$s importadas\n"
+" %4$s ya existian\n"
+" %5$s tenian errores\n"
 
 #. Progress Dialog Title for importing
 msgctxt "import_progress_title"
@@ -781,7 +790,7 @@ msgstr "Toque para grabar"
 #. String formatter for DateButtons ($D => date, $T => time)
 msgctxt "WID_dateButtonLabel"
 msgid "$D $T"
-msgstr ""
+msgstr "$D $T"
 
 #. String formatter for Disable button
 msgctxt "WID_disableButton"
@@ -807,7 +816,7 @@ msgstr "Nada que mostrar"
 #. EditNoteActivity - no username for comment
 msgctxt "ENA_no_user"
 msgid "You"
-msgstr ""
+msgstr "Usted"
 
 #. EditNoteActivity - refresh comments
 msgctxt "ENA_refresh_comments"
@@ -821,6 +830,8 @@ msgid ""
 "You have no tasks! \n"
 " Want to add something?"
 msgstr ""
+"No tienes tareas! \n"
+" Quieres agregar alguna?"
 
 #. Menu: Add-ons
 msgctxt "TLA_menu_addons"
@@ -840,22 +851,22 @@ msgstr "¡Sincronizar ahora!"
 #. Menu: Tasks
 msgctxt "TLA_menu_lists"
 msgid "Lists"
-msgstr ""
+msgstr "Listas"
 
 #. Menu: Friends
 msgctxt "TLA_menu_friends"
 msgid "Friends"
-msgstr ""
+msgstr "Amigos"
 
 #. Menu: Suggestions
 msgctxt "TLA_menu_suggestions"
 msgid "Suggestions"
-msgstr ""
+msgstr "Sugerencias"
 
 #. Menu: Tutorial
 msgctxt "TLA_menu_tutorial"
 msgid "Tutorial"
-msgstr ""
+msgstr "Tutorial"
 
 #. Menu: Settings
 msgctxt "TLA_menu_settings"
@@ -865,7 +876,7 @@ msgstr "Preferencias"
 #. Menu: Support
 msgctxt "TLA_menu_support"
 msgid "Support"
-msgstr ""
+msgstr "Soporte"
 
 #. Search Label
 msgctxt "TLA_search_label"
@@ -880,13 +891,13 @@ msgstr "Personalizar"
 #. Quick Add Edit Box Hint
 msgctxt "TLA_quick_add_hint"
 msgid "Add a task"
-msgstr ""
+msgstr "Añadir una tarea"
 
 #. Quick Add Edit Box Hint for assigning
 #, c-format
 msgctxt "TLA_quick_add_hint_assign"
 msgid "Tap to assign %s a task"
-msgstr ""
+msgstr "Toque para asignar a %s una tarea"
 
 #. Notification Volumne notification
 msgctxt "TLA_notification_volume_low"
@@ -897,6 +908,8 @@ msgstr "Las notificaciones están silenciadas. ¡No será capaz de oír Astrid!"
 msgctxt "TLA_notification_disabled"
 msgid "Astrid reminders are disabled! You will not receive any reminders"
 msgstr ""
+"Los recordatorios de Astrid estan deshabilitados! No recibiras ningun "
+"recordatorio"
 
 msgctxt "TLA_filters:0"
 msgid "Active"
@@ -908,7 +921,7 @@ msgstr "Hoy"
 
 msgctxt "TLA_filters:2"
 msgid "Soon"
-msgstr ""
+msgstr "Próximamente"
 
 msgctxt "TLA_filters:3"
 msgid "Late"
@@ -926,7 +939,7 @@ msgstr ""
 #, c-format
 msgctxt "TLA_quickadd_confirm_title"
 msgid "You said, \"%s\""
-msgstr ""
+msgstr "Dijiste, \"%s\""
 
 #. Text for speech bubble in dialog after quick add markup
 #. First string is task title, second is due date, third is priority
@@ -942,13 +955,13 @@ msgstr ""
 
 msgctxt "TLA_quickadd_confirm_hide_helpers"
 msgid "Don't display future confirmations"
-msgstr ""
+msgstr "En el futuro no mostrar confirmaciones"
 
 #. Title for alert on new repeating task. %s-> task title
 #, c-format
 msgctxt "TLA_repeat_scheduled_title"
 msgid "New repeating task %s"
-msgstr ""
+msgstr "Nueva tarea repetitiva %s"
 
 #. Speech bubble for when a new repeating task scheduled. %s->repeat interval
 #, c-format
@@ -958,19 +971,19 @@ msgstr ""
 
 msgctxt "TLA_priority_strings:0"
 msgid "highest priority"
-msgstr ""
+msgstr "mayor prioridad"
 
 msgctxt "TLA_priority_strings:1"
 msgid "high priority"
-msgstr ""
+msgstr "prioridad alta"
 
 msgctxt "TLA_priority_strings:2"
 msgid "medium priority"
-msgstr ""
+msgstr "prioridad media"
 
 msgctxt "TLA_priority_strings:3"
 msgid "low priority"
-msgstr ""
+msgstr "prioridad baja"
 
 msgctxt "TLA_all_activity"
 msgid "All Activity"
@@ -1017,7 +1030,7 @@ msgstr "Copiar tarea"
 #. Context Item: delete task
 msgctxt "TAd_contextHelpTask"
 msgid "Get help"
-msgstr ""
+msgstr "Obtener ayuda"
 
 msgctxt "TAd_contextDeleteTask"
 msgid "Delete Task"
@@ -1042,7 +1055,7 @@ msgstr "Clasificar y Filtrar Tareas"
 #. Hidden: title
 msgctxt "SSD_hidden_title"
 msgid "Hidden Tasks"
-msgstr ""
+msgstr "Tareas Ocultas"
 
 #. Hidden Task Selection: show completed tasks
 msgctxt "SSD_completed"
@@ -1062,7 +1075,7 @@ msgstr "Mostrar Tareas Eliminadas"
 #. Sort Selection: drag with subtasks
 msgctxt "SSD_sort_drag"
 msgid "Drag & Drop with Subtasks"
-msgstr ""
+msgstr "Arrastrar y Soltar con SubTareas"
 
 #. Sort Selection: smart sort
 msgctxt "SSD_sort_auto"
@@ -1165,12 +1178,17 @@ msgstr "Acceso directo creado: %s"
 #. Menu: new filter
 msgctxt "FLA_new_filter"
 msgid "New Filter"
-msgstr ""
+msgstr "Nuevo filtro"
 
 #. Button: new list
 msgctxt "FLA_new_list"
 msgid "New List"
 msgstr "Nueva lista"
+
+#. Alert when creating a shortcut without selecting a filter
+msgctxt "FLA_no_filter_selected"
+msgid "No filter selected! Please select a filter or list."
+msgstr ""
 
 #. ================================================= TaskEditActivity ==
 #. Title when editing a task (%s => task title)
@@ -1182,7 +1200,7 @@ msgstr "Astrid: Editando '%s'"
 #. Title when creating a new task
 msgctxt "TEA_view_titleNew"
 msgid "New Task"
-msgstr ""
+msgstr "Nueva tarea"
 
 #. Task title label
 msgctxt "TEA_title_label"
@@ -1192,7 +1210,7 @@ msgstr "Título"
 #. Task when label
 msgctxt "TEA_when_header_label"
 msgid "When"
-msgstr ""
+msgstr "Cuando"
 
 #. Task title hint (displayed when edit box is empty)
 msgctxt "TEA_title_hint"
@@ -1217,18 +1235,18 @@ msgstr "A una hora específica?"
 #. Task urgency specific time title when specific time false
 msgctxt "TEA_urgency_none"
 msgid "None"
-msgstr ""
+msgstr "Ninguna"
 
 #. Task hide until label
 msgctxt "TEA_hideUntil_label"
 msgid "Show Task"
-msgstr ""
+msgstr "Mostrar Tarea"
 
 #. Task hide until toast
 #, c-format
 msgctxt "TEA_hideUntil_message"
 msgid "Task will be hidden until %s"
-msgstr ""
+msgstr "La tarea estara oculta hasta %s"
 
 #. Task editing data being loaded label
 msgctxt "TEA_loading:0"
@@ -1294,7 +1312,7 @@ msgstr "Se canceló la edición de la tarea"
 #. Toast: task was deleted
 msgctxt "TEA_onTaskDelete"
 msgid "Task deleted!"
-msgstr ""
+msgstr "Tarea Eliminada!"
 
 #. Task edit tab: activity
 msgctxt "TEA_tab_activity"
@@ -1309,7 +1327,7 @@ msgstr "Más"
 #. Task edit tab: web services
 msgctxt "TEA_tab_web"
 msgid "Ideas"
-msgstr ""
+msgstr "Ideas"
 
 msgctxt "TEA_urgency:0"
 msgid "No deadline"
@@ -1370,7 +1388,7 @@ msgstr "Día/Hora específicos"
 #. Task edit control set descriptors
 msgctxt "TEA_control_title"
 msgid "Task Title"
-msgstr ""
+msgstr "Título de la tarea"
 
 msgctxt "TEA_control_who"
 msgid "Who"
@@ -1378,7 +1396,7 @@ msgstr "Quién"
 
 msgctxt "TEA_control_when"
 msgid "When"
-msgstr ""
+msgstr "Cuando"
 
 msgctxt "TEA_control_more_section"
 msgid "----Details----"
@@ -1398,7 +1416,7 @@ msgstr "Notas"
 
 msgctxt "TEA_control_reminders"
 msgid "Reminders"
-msgstr ""
+msgstr "Recordatorios"
 
 msgctxt "TEA_control_timer"
 msgid "Timer Controls"
@@ -1406,11 +1424,11 @@ msgstr ""
 
 msgctxt "TEA_control_share"
 msgid "Share With Friends"
-msgstr ""
+msgstr "Compartir Con Amigos"
 
 msgctxt "hide_until_prompt"
 msgid "Show in my list"
-msgstr ""
+msgstr "Mostrar en mi lista"
 
 #. Add Ons tab when no add-ons found
 msgctxt "TEA_addons_text"
@@ -1591,11 +1609,12 @@ msgid "Auto-load Ideas Tab"
 msgstr ""
 
 msgctxt "EPr_ideaAuto_desc_enabled"
-msgid "Web searches for Ideas tab will be performed when task is edited"
+msgid "Web searches for Ideas tab will be performed when tab is clicked"
 msgstr ""
 
 msgctxt "EPr_ideaAuto_desc_disabled"
-msgid "Web searches for Ideas tab will be performed when tab is clicked"
+msgid ""
+"Web searches for Ideas tab will be performed only when manually requested"
 msgstr ""
 
 #. Preference: Theme
@@ -2406,55 +2425,6 @@ msgid ""
 msgstr ""
 
 #. See the file "LICENSE" for the full license governing this code.
-#. Resources initial tasks added
-#. Intro Tag or click prompt
-msgctxt "intro_click_prompt"
-msgid "Intro: Press me to see notes"
-msgstr ""
-
-#. Task 1 Summary
-msgctxt "intro_task_1_summary"
-msgid "Create your first task"
-msgstr "Crea su primera tarea"
-
-#. Task 1 Note
-msgctxt "intro_task_1_note"
-msgid ""
-"Two ways to add a task:\n"
-" 1) Quick Add: Type the task into the quick entry box at bottom of screen "
-"and press the + button on the right.\n"
-" 2) Regular Add: Press the + button of the quick entry box. Add as much "
-"detail as you want. Then press \"Save\" or use your phone's back button.\n"
-msgstr ""
-
-#. Task 2 Summary
-msgctxt "intro_task_2_summary"
-msgid "Add a widget to your desktop"
-msgstr "Añadir un widget a su escritorio"
-
-#. Task 2 Note
-msgctxt "intro_task_2_note"
-msgid ""
-"1) Long Press on your phone's desktop\n"
-"      2) Choose \"Widget\"\n"
-"      3) Choose the Astrid widget\n"
-"      4) Select the list you want and press OK.\n"
-msgstr ""
-
-#. Task 3 Summary
-msgctxt "intro_task_3_summary"
-msgid "Setup sync with Astrid.com"
-msgstr ""
-
-#. Task 3 Note
-msgctxt "intro_task_3_note"
-msgid ""
-"1) Press your Menu button\n"
-"      2) Choose \"Sync Now\"\n"
-"      3) Select \"Astrid.com\"\n"
-"      4) Log In & Synchronize!\n"
-msgstr ""
-
 #. NEW USER EXPERIENCE
 #. help bubbles
 #. Shown the first time a user sees the task list activity
@@ -2646,7 +2616,7 @@ msgstr ""
 
 msgctxt "opencrx_contact_input_hint"
 msgid "Assigned to"
-msgstr ""
+msgstr "Asignado a"
 
 #. ==================================================== Preferences ==
 #. Preferences Title: OpenCRX
@@ -2839,7 +2809,7 @@ msgstr "Asignado a:"
 
 msgctxt "CFC_opencrx_assigned_to_name"
 msgid "Assigned to..."
-msgstr "Asginado a..."
+msgstr "Asignado a..."
 
 #. See the file "LICENSE" for the full license governing this code.
 #. ================================================== EditPreferences ==
@@ -4907,399 +4877,3 @@ msgstr ""
 msgctxt "PPW_check_share_lists"
 msgid "Share lists!"
 msgstr ""
-
-#. See the file "LICENSE" for the full license governing this code.
-#. ==================================================== Generic Units ==
-#, c-format
-msgctxt "DUt_years:quantity=other"
-msgid "%d Years"
-msgstr ""
-
-#. See the file "LICENSE" for the full license governing this code.
-#. ==================================================== Generic Units ==
-msgctxt "DUt_years:quantity=one"
-msgid "1 Year"
-msgstr ""
-
-#, c-format
-msgctxt "DUt_months:quantity=other"
-msgid "%d Months"
-msgstr ""
-
-msgctxt "DUt_months:quantity=one"
-msgid "1 Month"
-msgstr ""
-
-#, c-format
-msgctxt "DUt_weeks:quantity=other"
-msgid "%d Weeks"
-msgstr ""
-
-msgctxt "DUt_weeks:quantity=one"
-msgid "1 Week"
-msgstr ""
-
-#, c-format
-msgctxt "DUt_days:quantity=other"
-msgid "%d Days"
-msgstr ""
-
-msgctxt "DUt_days:quantity=one"
-msgid "1 Day"
-msgstr ""
-
-#, c-format
-msgctxt "DUt_weekdays:quantity=other"
-msgid "%d Weekdays"
-msgstr ""
-
-msgctxt "DUt_weekdays:quantity=one"
-msgid "1 Weekday"
-msgstr ""
-
-#, c-format
-msgctxt "DUt_hours:quantity=other"
-msgid "%d Hours"
-msgstr ""
-
-msgctxt "DUt_hours:quantity=one"
-msgid "1 Hour"
-msgstr ""
-
-#, c-format
-msgctxt "DUt_minutes:quantity=other"
-msgid "%d Minutes"
-msgstr ""
-
-msgctxt "DUt_minutes:quantity=one"
-msgid "1 Minute"
-msgstr ""
-
-#, c-format
-msgctxt "DUt_seconds:quantity=other"
-msgid "%d Seconds"
-msgstr ""
-
-msgctxt "DUt_seconds:quantity=one"
-msgid "1 Second"
-msgstr ""
-
-#, c-format
-msgctxt "DUt_hoursShort:quantity=other"
-msgid "%d Hrs"
-msgstr ""
-
-msgctxt "DUt_hoursShort:quantity=one"
-msgid "1 Hr"
-msgstr ""
-
-#, c-format
-msgctxt "DUt_minutesShort:quantity=other"
-msgid "%d Min"
-msgstr ""
-
-msgctxt "DUt_minutesShort:quantity=one"
-msgid "1 Min"
-msgstr ""
-
-#, c-format
-msgctxt "DUt_secondsShort:quantity=other"
-msgid "%d Sec"
-msgstr ""
-
-msgctxt "DUt_secondsShort:quantity=one"
-msgid "1 Sec"
-msgstr ""
-
-#, c-format
-msgctxt "Ntasks:quantity=other"
-msgid "%d tasks"
-msgstr ""
-
-msgctxt "Ntasks:quantity=one"
-msgid "1 task"
-msgstr ""
-
-#, c-format
-msgctxt "Npeople:quantity=other"
-msgid "%d people"
-msgstr ""
-
-msgctxt "Npeople:quantity=one"
-msgid "1 person"
-msgstr ""
-
-#. today
-msgctxt "today"
-msgid "Today"
-msgstr ""
-
-#. tomorrow
-msgctxt "tomorrow"
-msgid "Tomorrow"
-msgstr ""
-
-#. today
-msgctxt "yesterday"
-msgid "Yesterday"
-msgstr ""
-
-#. tomorrow abbreviated
-msgctxt "tmrw"
-msgid "Tmrw"
-msgstr ""
-
-#. today abbreviated
-msgctxt "yest"
-msgid "Yest"
-msgstr ""
-
-#. ================================================== Generic Dialogs ==
-#. confirmation dialog title
-msgctxt "DLG_confirm_title"
-msgid "Confirm?"
-msgstr "¿Confirmar?"
-
-#. question dialog title
-msgctxt "DLG_question_title"
-msgid "Question:"
-msgstr "Pregunta:"
-
-#. information dialog title
-msgctxt "DLG_information_title"
-msgid "Information"
-msgstr "Información"
-
-#. error dialog title
-msgctxt "DLG_error_title"
-msgid "Error!"
-msgstr "¡Error!"
-
-#. general dialog save
-msgctxt "DLG_save"
-msgid "Save"
-msgstr "Guardar"
-
-#. general dialog yes
-msgctxt "DLG_yes"
-msgid "Yes"
-msgstr "Sí"
-
-#. general dialog no
-msgctxt "DLG_no"
-msgid "No"
-msgstr "No"
-
-#. general dialog close
-msgctxt "DLG_close"
-msgid "Close"
-msgstr "Cerrar"
-
-#. general dialog done
-msgctxt "DLG_done"
-msgid "Done"
-msgstr ""
-
-#. error dialog (%s => error message)
-#, c-format
-msgctxt "DLG_error"
-msgid ""
-"Oops, looks like an error occurred! Here's what happened:\n"
-"\n"
-"%s"
-msgstr ""
-"¡Uy, al parecer hay algún problema! Esto es lo que pasó:\n"
-"\n"
-"%s"
-
-#. error dialog (no message indicated)
-msgctxt "DLG_error_generic"
-msgid "Oops, looks like an error occurred!"
-msgstr "¡Uy, al parecer hay algún problema!"
-
-#. Progress dialog shown when doing something slow
-msgctxt "DLG_wait"
-msgid "Please wait..."
-msgstr "Espere un momento..."
-
-#. ====================================================== SyncProvider ==
-#. Sync Notification: message when sync service active
-msgctxt "SyP_progress"
-msgid "Synchronizing your tasks..."
-msgstr "Sincronizando sus tareas..."
-
-#. Sync Notification: toast when sync activated from activity
-msgctxt "SyP_progress_toast"
-msgid "Synchronizing..."
-msgstr "Sincronizando..."
-
-#. Sync Label: used in menu to denote synchronization
-msgctxt "SyP_label"
-msgid "Synchronization"
-msgstr "Sincronización"
-
-#. Error msg when io exception
-msgctxt "SyP_ioerror"
-msgid "Connection Error! Check your Internet connection."
-msgstr ""
-
-#. ================================================== SyncPreferences ==
-#. Status Group Label
-msgctxt "sync_SPr_group_status"
-msgid "Status"
-msgstr ""
-
-#. Sync Status: log in
-msgctxt "sync_status_loggedout"
-msgid "Not Logged In!"
-msgstr "No conectado!"
-
-#. Status: ongoing
-msgctxt "sync_status_ongoing"
-msgid "Sync Ongoing..."
-msgstr "Sincronización en curso..."
-
-#. Sync Status: success status (%s -> last sync date). Keep it short!
-#, c-format
-msgctxt "sync_status_success"
-msgid ""
-"Last Sync:\n"
-"%s"
-msgstr ""
-"Última sincronizacion:\n"
-"%s"
-
-#. Sync Status: failure status (%s -> last attempted sync date)
-#, c-format
-msgctxt "sync_status_failed"
-msgid "Failed On: %s"
-msgstr "Falló el: %s"
-
-#. Sync Status: error status (%s -> last sync date)
-#, c-format
-msgctxt "sync_status_errors"
-msgid "Sync w/ Errors: %s"
-msgstr ""
-
-#. Sync Status: error subtitle (%s -> last successful sync date)
-#, c-format
-msgctxt "sync_status_failed_subtitle"
-msgid "Last Successful Sync: %s"
-msgstr "Última sincronización exitosa: %s"
-
-#. Sync Status: never sync'd
-msgctxt "sync_status_never"
-msgid "Never Synchronized!"
-msgstr "¡Jamás se sincronizó!"
-
-#. Options Group Label
-msgctxt "sync_SPr_group_options"
-msgid "Options"
-msgstr ""
-
-#. Preference: Synchronization Interval Title
-msgctxt "sync_SPr_interval_title"
-msgid "Background Sync"
-msgstr "Sincronizar en segundo plano"
-
-#. Preference: Synchronization Interval Description (when disabled)
-msgctxt "sync_SPr_interval_desc_disabled"
-msgid "Background synchronization is disabled"
-msgstr "Sincronización en segundo plano desactivada"
-
-#. Preference: Synchronization Interval Description (%s => setting)
-#, c-format
-msgctxt "sync_SPr_interval_desc"
-msgid "Currently set to: %s"
-msgstr "Actualmente configurado para: %s"
-
-#. Preference: Background Wifi Title
-msgctxt "sync_SPr_bgwifi_title"
-msgid "Wifi Only Setting"
-msgstr "Sólo Configuración Wifi"
-
-#. Preference: Background Wifi Description (enabled)
-msgctxt "sync_SPr_bgwifi_desc_enabled"
-msgid "Background synchronization only happens when on Wifi"
-msgstr ""
-"La sincronización en segundo plano sólo funciona con el Wifi activado"
-
-#. Preference: Background Wifi Description (disabled)
-msgctxt "sync_SPr_bgwifi_desc_disabled"
-msgid "Background synchronization will always occur"
-msgstr "La sincronización en segundo plano funciona siempre"
-
-#. Actions Group Label
-msgctxt "sync_SPr_group_actions"
-msgid "Actions"
-msgstr "Acciones"
-
-#. Synchronize Now Button
-msgctxt "sync_SPr_sync"
-msgid "Synchronize Now!"
-msgstr "¡Sincronizar ahora!"
-
-#. Synchronize Now Button if not logged in
-msgctxt "sync_SPr_sync_log_in"
-msgid "Log In & Synchronize!"
-msgstr ""
-
-#. Sync: Prefix string before logged in identifier
-msgctxt "sync_SPr_logged_in_prefix"
-msgid "Logged in as:"
-msgstr "Sesión iniciada como:"
-
-#. Sync: Clear Data Title
-msgctxt "sync_SPr_forget"
-msgid "Log Out"
-msgstr "Cerrar sesión"
-
-#. Sync: Clear Data Description
-msgctxt "sync_SPr_forget_description"
-msgid "Clears all synchronization data"
-msgstr "Borra todos los datos de sincronización"
-
-#. confirmation dialog for sync log out
-msgctxt "sync_forget_confirm"
-msgid "Log out / clear synchronization data?"
-msgstr "Cierre de sesión / cancelar la sincronización de datos?"
-
-msgctxt "sync_SPr_interval_entries:0"
-msgid "disable"
-msgstr "desactivar"
-
-msgctxt "sync_SPr_interval_entries:1"
-msgid "every fifteen minutes"
-msgstr "cada quince minutos"
-
-msgctxt "sync_SPr_interval_entries:2"
-msgid "every thirty minutes"
-msgstr "cada treinta minutos"
-
-msgctxt "sync_SPr_interval_entries:3"
-msgid "every hour"
-msgstr "cada hora"
-
-msgctxt "sync_SPr_interval_entries:4"
-msgid "every three hours"
-msgstr "cada tres horas"
-
-msgctxt "sync_SPr_interval_entries:5"
-msgid "every six hours"
-msgstr "cada seis horas"
-
-msgctxt "sync_SPr_interval_entries:6"
-msgid "every twelve hours"
-msgstr "cada doce horas"
-
-msgctxt "sync_SPr_interval_entries:7"
-msgid "every day"
-msgstr "cada día"
-
-msgctxt "sync_SPr_interval_entries:8"
-msgid "every three days"
-msgstr "cada tres días"
-
-msgctxt "sync_SPr_interval_entries:9"
-msgid "every week"
-msgstr "cada semana"

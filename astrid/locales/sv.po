@@ -7,15 +7,15 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2012-02-29 17:17-0800\n"
-"PO-Revision-Date: 2012-03-04 21:58+0000\n"
-"Last-Translator: zacha <Unknown>\n"
+"POT-Creation-Date: 2012-03-06 17:01-0800\n"
+"PO-Revision-Date: 2012-04-04 07:32+0000\n"
+"Last-Translator: Niklas Bönnemark <niklas@ryska.nu>\n"
 "Language-Team: sv <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2012-03-07 00:04+0000\n"
-"X-Generator: Launchpad (build 14900)\n"
+"X-Launchpad-Export-Date: 2012-05-03 02:36+0000\n"
+"X-Generator: Launchpad (build 15185)\n"
 "Generated-By: Babel 1.0dev\n"
 
 #. ================================================== general terms ==
@@ -32,7 +32,7 @@ msgstr "Kontakt eller e-post"
 #. task sharing dialog: shared with hint
 msgctxt "actfm_person_or_tag_hint"
 msgid "Contact or Shared List"
-msgstr "Kontakt eller Delad Lista"
+msgstr "Kontakt eller Delad lista"
 
 #. toast on transmit success
 msgctxt "actfm_toast_success"
@@ -43,12 +43,12 @@ msgstr "Sparad på server"
 #, c-format
 msgctxt "actfm_toast_error"
 msgid "Save Failed: %s"
-msgstr "Fel vid sparning: %s"
+msgstr "Fel vid lagning: %s"
 
 #. can't rename or delete shared tag message
 msgctxt "actfm_tag_operation_disabled"
 msgid "Sorry, this operation is not yet supported for shared tags."
-msgstr "Ledsen, men den här operationen stödjs inte än för delade etiketter."
+msgstr "Den här åtgärden stöds inte än för delade etiketter."
 
 #. warning before deleting a list you're the owner of
 msgctxt "actfm_tag_operation_owner_delete"
@@ -56,6 +56,8 @@ msgid ""
 "You are the owner of this shared list! If you delete it, it will be deleted "
 "for all list members. Are you sure you want to continue?"
 msgstr ""
+"Du är ägare till den här delade listan! Om du tar bort den, tas den bort för "
+"alla medlemmar på listan. Är du säker på att du vill fortsätta?"
 
 #. menu item to take a picture
 msgctxt "actfm_picture_camera"
@@ -70,7 +72,7 @@ msgstr "Välj från galleri"
 #. menu item to clear picture selection
 msgctxt "actfm_picture_clear"
 msgid "Clear Picture"
-msgstr ""
+msgstr "Ingen bild"
 
 #. filter list activity: refresh tags
 msgctxt "actfm_FLA_menu_refresh"
@@ -80,7 +82,7 @@ msgstr "Uppdatera listor"
 #. Title for prompt after sharing a task
 msgctxt "actfm_view_task_title"
 msgid "View Task?"
-msgstr ""
+msgstr "Se uppgift?"
 
 #. Text for prompt after sharing a task
 #, c-format
@@ -89,16 +91,18 @@ msgid ""
 "Task was sent to %s! You're currently viewing your own tasks. Do you want to "
 "view this and other tasks you've assigned?"
 msgstr ""
+"Uppgiften skickad till %s! Dina egna uppgifter visas. Vill du visa denna och "
+"andra uppgifter du har delat ut?"
 
 #. Ok button for task view prompt
 msgctxt "actfm_view_task_ok"
 msgid "View Assigned"
-msgstr ""
+msgstr "Visa utdelade"
 
 #. Cancel button for task view prompt
 msgctxt "actfm_view_task_cancel"
 msgid "Stay Here"
-msgstr ""
+msgstr "Stanna här"
 
 #. ================================================== TagViewActivity ==
 #. Tag View Activity: Add Comment hint
@@ -110,7 +114,7 @@ msgstr "Lägg till en kommentar..."
 #, c-format
 msgctxt "UAd_title_comment"
 msgid "%1$s re: %2$s"
-msgstr ""
+msgstr "%1$s re: %2$s"
 
 #. Tabs for Tag view
 msgctxt "TVA_tabs:0"
@@ -125,23 +129,23 @@ msgstr "Aktivitet"
 #. Tabs for Tag view
 msgctxt "TVA_tabs:2"
 msgid "List Settings"
-msgstr ""
+msgstr "Listinställningar"
 
 #. Tag View: filtered by assigned to user (%s => user name)
 #, c-format
 msgctxt "actfm_TVA_filtered_by_assign"
 msgid "%s's tasks. Tap for all."
-msgstr ""
+msgstr "%ss uppgifter. Tryck för alla."
 
 #. Tag View: filter by unassigned tasks
 msgctxt "actfm_TVA_filter_by_unassigned"
 msgid "Unassigned tasks. Tap for all."
-msgstr ""
+msgstr "Ej utdelade uppgifter. Tryck för alla."
 
 #. Tag View: list is private, no members
 msgctxt "actfm_TVA_no_members_alert"
 msgid "Private: tap to edit or share list"
-msgstr ""
+msgstr "Privat: tryck för att ändra eller dela lista"
 
 #. Tag View Menu: refresh
 msgctxt "actfm_TVA_menu_refresh"
@@ -156,7 +160,7 @@ msgstr "Namn på lista:"
 #. Tag Settings: tag owner label
 msgctxt "actfm_TVA_tag_owner_label"
 msgid "List Creator:"
-msgstr ""
+msgstr "Lista skapad av"
 
 #. Tag Settings: tag owner value when there is no owner
 msgctxt "actfm_TVA_tag_owner_none"
@@ -166,42 +170,42 @@ msgstr "ingen"
 #. Tag Settings: list collaborators label
 msgctxt "actfm_TVA_members_label"
 msgid "Shared With"
-msgstr ""
+msgstr "Delad med"
 
 #. Tag Settings: tag picture
 msgctxt "actfm_TVA_tag_picture"
 msgid "List Picture"
-msgstr ""
+msgstr "Listbild"
 
 #. Tag Settings: silence notifications label
 msgctxt "actfm_TVA_silence_label"
 msgid "Silence Notifications"
-msgstr ""
+msgstr "Påminnelser vid ljudlöst"
 
 #. Tag Settings: list icon label
 msgctxt "actfm_TVA_list_icon_label"
 msgid "List Icon:"
-msgstr ""
+msgstr "Listikon:"
 
 #. Tag Settings: list description label
 msgctxt "actfm_TVA_tag_description_label"
 msgid "Description"
-msgstr ""
+msgstr "Beskrivning"
 
 #. Tag Settings: list settings label
 msgctxt "actfm_TVA_tag_settings_label"
 msgid "Settings"
-msgstr ""
+msgstr "Inställningar"
 
 #. Tag Settings: list description hint
 msgctxt "actfm_TVA_tag_description_hint"
 msgid "Type a description here"
-msgstr ""
+msgstr "Beskriv listan här"
 
 #. Tag Settings: list name hint
 msgctxt "actfm_TVA_tag_name_hint"
 msgid "Enter list name"
-msgstr ""
+msgstr "Ange listnamn"
 
 #. Tag settings: login prompt from share
 msgctxt "actfm_TVA_login_to_share"
@@ -209,6 +213,8 @@ msgid ""
 "You need to be logged in to Astrid.com to share lists! Please log in or make "
 "this a private list."
 msgstr ""
+"Du måste vara inloggad på Astrid.com för att dela listor! Logga in eller gör "
+"listan privat."
 
 #. ============================================ edit people dialog ==
 #. task sharing dialog: intro
@@ -217,26 +223,28 @@ msgid ""
 "Use Astrid to share shopping lists, party plans, or team projects and "
 "instantly see when people get stuff done!"
 msgstr ""
+"Använd Astrid för att dela inköpslistor, festplaner eller projekt och se "
+"direkt när folk får gjort saker och ting!"
 
 #. task sharing dialog: window title
 msgctxt "actfm_EPA_title"
 msgid "Share / Assign"
-msgstr ""
+msgstr "Dela/tilldela"
 
 #. task sharing dialog: save button
 msgctxt "actfm_EPA_save"
 msgid "Save & Share"
-msgstr ""
+msgstr "Spara och dela"
 
 #. task sharing dialog: assigned label
 msgctxt "actfm_EPA_assign_label"
 msgid "Who"
-msgstr ""
+msgstr "Vem"
 
 #. task sharing dialog: assigned label long version
 msgctxt "actfm_EPA_assign_label_long"
 msgid "Who should do this?"
-msgstr ""
+msgstr "Vem ska göra det här?"
 
 #. task sharing dialog: assigned to me
 msgctxt "actfm_EPA_assign_me"
@@ -251,7 +259,7 @@ msgstr "Vem som helst"
 #. task sharing dialog: use task rabbit
 msgctxt "actfm_EPA_task_rabbit"
 msgid "Outsource it!"
-msgstr ""
+msgstr "Lägg ut det på någon annan!"
 
 #. task sharing dialog: custom email assignment
 msgctxt "actfm_EPA_assign_custom"
@@ -261,82 +269,82 @@ msgstr "Anpassad..."
 #. task sharing dialog: shared with label
 msgctxt "actfm_EPA_share_with"
 msgid "Share with:"
-msgstr ""
+msgstr "Dela med:"
 
 #. Toast when assigning a task
 #, c-format
 msgctxt "actfm_EPA_assigned_toast"
 msgid "Sent to %1$s (you can see it in the list between you and %2$s)."
-msgstr ""
+msgstr "Skickat till %1$s (du kan se det i listan mellan dig och %2$s)."
 
 #. task sharing dialog: shared with label
 msgctxt "actfm_EPA_collaborators_header"
 msgid "Share with Friends"
-msgstr ""
+msgstr "Dela med vänner"
 
 #. task sharing dialog: collaborator list name (%s => name of list)
 #, c-format
 msgctxt "actfm_EPA_list"
 msgid "List: %s"
-msgstr ""
+msgstr "Lista: %s"
 
 #. task sharing dialog: assigned hint
 msgctxt "actfm_EPA_assigned_hint"
 msgid "Contact Name"
-msgstr ""
+msgstr "Kontaktnamn"
 
 #. task sharing dialog: message label text
 msgctxt "actfm_EPA_message_text"
 msgid "Invitation Message:"
-msgstr ""
+msgstr "Meddelande i inbjudan:"
 
 #. task sharing dialog: message body
 msgctxt "actfm_EPA_message_body"
 msgid "Help me get this done!"
-msgstr ""
+msgstr "Hjälp mig att få gjort det här!"
 
 #. task sharing dialog: message hint
 msgctxt "actfm_EPA_tag_label"
 msgid "Create a shared tag?"
-msgstr ""
+msgstr "Skapa en delad etikett?"
 
 #. task sharing dialog: message hint
 msgctxt "actfm_EPA_tag_hint"
 msgid "(i.e. Silly Hats Club)"
-msgstr ""
+msgstr "(t.ex. Hattklubben)"
 
 #. task sharing dialog: share with Facebook
 msgctxt "actfm_EPA_facebook"
 msgid "Facebook"
-msgstr ""
+msgstr "Facebook"
 
 #. task sharing dialog: share with Twitter
 msgctxt "actfm_EPA_twitter"
 msgid "Twitter"
-msgstr ""
+msgstr "Twitter"
 
 #. task sharing dialog: # of e-mails sent (%s => # people plural string)
 #, c-format
 msgctxt "actfm_EPA_emailed_toast"
 msgid "Task shared with %s"
-msgstr ""
+msgstr "Uppgift delad med %s"
 
 #. task sharing dialog: edit people settings saved
 msgctxt "actfm_EPA_saved_toast"
 msgid "People Settings Saved"
-msgstr ""
+msgstr "Inställningarna sparade"
 
 #. task sharing dialog: invalid email (%s => email)
 #, c-format
 msgctxt "actfm_EPA_invalid_email"
 msgid "Invalid E-mail: %s"
-msgstr ""
+msgstr "Felaktig e-postadress: %s"
 
 #. task sharing dialog: tag not found (%s => tag)
 #, c-format
 msgctxt "actfm_EPA_invalid_tag"
 msgid "List Not Found: %s"
-msgstr ""
+msgstr "Listan finns inte: %s"
 
 #. task sharing login prompt
 msgctxt "actfm_EPA_login_to_share"
@@ -344,20 +352,22 @@ msgid ""
 "You need to be logged in to Astrid.com to share tasks! Please log in or make "
 "this a private task."
 msgstr ""
+"Du måste vara inloggad på Astrid.com för att dela uppgifter! Logga in eller "
+"gör uppgiften privat."
 
 msgctxt "actfm_EPA_login_button"
 msgid "Log in"
-msgstr ""
+msgstr "Logga in"
 
 msgctxt "actfm_EPA_dont_share_button"
 msgid "Make private"
-msgstr ""
+msgstr "Gör privat"
 
 #. ========================================= sharing login activity ==
 #. share login: Title
 msgctxt "actfm_ALA_title"
 msgid "Welcome to Astrid.com!"
-msgstr ""
+msgstr "Välkommen till Astrid.com!"
 
 #. share login: Sharing Description
 msgctxt "actfm_ALA_body"
@@ -365,61 +375,63 @@ msgid ""
 "Astrid.com lets you access your tasks online, share, and delegate with "
 "others."
 msgstr ""
+"Astrid.com låter dig komma åt dina uppgifter via nätet, dela dem med andra "
+"och dela ut dem till andra."
 
 #. share login: Sharing Login FB Prompt
 msgctxt "actfm_ALA_fb_login"
 msgid "Connect with Facebook"
-msgstr ""
+msgstr "Logga in med Facebook"
 
 #. share login: Sharing Login GG Prompt
 msgctxt "actfm_ALA_gg_login"
 msgid "Connect with Google"
-msgstr ""
+msgstr "Logga in med Facebook"
 
 #. share login: Sharing Footer Password Label
 msgctxt "actfm_ALA_pw_login"
 msgid "Don't use Google or Facebook?"
-msgstr ""
+msgstr "Använder du inte Google eller Facebook?"
 
 #. share login: Sharing Password Link
 msgctxt "actfm_ALA_pw_link"
 msgid "Sign In Here"
-msgstr ""
+msgstr "Logga in här"
 
 #. share login: Password Are you a New User?
 msgctxt "actfm_ALA_pw_new"
 msgid "Create a new account?"
-msgstr ""
+msgstr "Skapa ett nytt konto?"
 
 #. share login: Password Are you a Returning User?
 msgctxt "actfm_ALA_pw_returning"
 msgid "Already have an account?"
-msgstr ""
+msgstr "Har du redan ett konto?"
 
 #. share login: Name
 msgctxt "actfm_ALA_name_label"
 msgid "Name"
-msgstr ""
+msgstr "Namn"
 
 #. share login: Name
 msgctxt "actfm_ALA_firstname_label"
 msgid "First Name"
-msgstr ""
+msgstr "Förnamn"
 
 #. share login: Name
 msgctxt "actfm_ALA_lastname_label"
 msgid "Last Name"
-msgstr ""
+msgstr "Efternamn"
 
 #. share login: Email
 msgctxt "actfm_ALA_email_label"
 msgid "Email"
-msgstr ""
+msgstr "E-postadress"
 
 #. share login: Username / Email
 msgctxt "actfm_ALA_username_email_label"
 msgid "Username / Email"
-msgstr ""
+msgstr "Användarnamn/e-postadress"
 
 #. share login: Password
 msgctxt "actfm_ALA_password_label"
@@ -429,50 +441,50 @@ msgstr "Lösenord"
 #. share login: Sign Up Title
 msgctxt "actfm_ALA_signup_title"
 msgid "Create New Account"
-msgstr ""
+msgstr "Skapa nytt konto"
 
 #. share login: Login Title
 msgctxt "actfm_ALA_login_title"
 msgid "Login to Astrid.com"
-msgstr ""
+msgstr "Logga in på Astrid.com"
 
 #. share login: Google Auth title
 msgctxt "actfm_GAA_title"
 msgid "Select the Google account you want to use:"
-msgstr ""
+msgstr "Välj vilket Googlekonto du vill använda:"
 
 #. share login: OAUTH Login Prompt
 msgctxt "actfm_OLA_prompt"
 msgid "Please log in:"
-msgstr ""
+msgstr "Logga in:"
 
 #. ================================================ Synchronization ==
 #. Preferences Title: Act.fm
 msgctxt "actfm_APr_header"
 msgid "Astrid.com"
-msgstr ""
+msgstr "Astrid.com"
 
 msgctxt "actfm_https_title"
 msgid "Use HTTPS"
-msgstr ""
+msgstr "Använd HTTPS"
 
 msgctxt "actfm_https_enabled"
 msgid "HTTPS enabled (slower)"
-msgstr ""
+msgstr "HTTPS aktiverat (långsammare)"
 
 msgctxt "actfm_https_disabled"
 msgid "HTTPS disabled (faster)"
-msgstr ""
+msgstr "HTTPS avaktiverat (snabbare)"
 
 #. title for notification tray after synchronizing
 msgctxt "actfm_notification_title"
 msgid "Astrid.com Sync"
-msgstr ""
+msgstr "Synkronisering med Astrid.com"
 
 #. text for notification when comments are received
 msgctxt "actfm_notification_comments"
 msgid "New comments received / click for more details"
-msgstr ""
+msgstr "Ny kommentar mottagen, klicka för detaljer"
 
 #. See the file "LICENSE" for the full license governing this code.
 #. Resources for built-in timers plug-in
@@ -488,7 +500,7 @@ msgstr "Lägg till ett alarm"
 
 msgctxt "reminders_alarm:0"
 msgid "Alarm!"
-msgstr ""
+msgstr "Alarm!"
 
 #. See the file "LICENSE" for the full license governing this code.
 #. Resources for built-in backup plug-in
@@ -501,7 +513,7 @@ msgstr "Säkerhetskopior"
 #. Backup: Status Header
 msgctxt "backup_BPr_group_status"
 msgid "Status"
-msgstr ""
+msgstr "Status"
 
 #. Backup Status: last backup was a success (%s -> last date). Keep it short!
 #, c-format
@@ -565,7 +577,7 @@ msgstr ""
 #. backup activity label
 msgctxt "backup_BAc_label"
 msgid "Manage Backups"
-msgstr ""
+msgstr "Hantera säkerhetskopior"
 
 #. backup activity title
 msgctxt "backup_BAc_title"
@@ -737,7 +749,7 @@ msgstr "Astrid Användarvillkor"
 #. Progress Dialog generic text
 msgctxt "DLG_please_wait"
 msgid "Please Wait"
-msgstr ""
+msgstr "Vänta"
 
 #. Dialog - loading
 msgctxt "DLG_loading"
@@ -747,23 +759,23 @@ msgstr "Laddar..."
 #. Dialog - dismiss
 msgctxt "DLG_dismiss"
 msgid "Dismiss"
-msgstr ""
+msgstr "Avbryt"
 
 msgctxt "DLG_ok"
 msgid "OK"
-msgstr ""
+msgstr "OK"
 
 msgctxt "DLG_cancel"
 msgid "Cancel"
-msgstr ""
+msgstr "Avbryt"
 
 msgctxt "DLG_more"
 msgid "More"
-msgstr ""
+msgstr "Mer"
 
 msgctxt "DLG_undo"
 msgid "Undo"
-msgstr ""
+msgstr "Ångra"
 
 #. =============================================================== UI ==
 #. Label for DateButtons with no value
@@ -774,7 +786,7 @@ msgstr "Klicka för att ställa"
 #. String formatter for DateButtons ($D => date, $T => time)
 msgctxt "WID_dateButtonLabel"
 msgid "$D $T"
-msgstr ""
+msgstr "$D $T"
 
 #. String formatter for Disable button
 msgctxt "WID_disableButton"
@@ -790,22 +802,22 @@ msgstr "Anteckningar"
 #. Note Exposer / Comments
 msgctxt "ENE_label_comments"
 msgid "Comments"
-msgstr ""
+msgstr "Kommentarer"
 
 #. EditNoteActivity - no comments
 msgctxt "ENA_no_comments"
 msgid "No activity yet"
-msgstr ""
+msgstr "Ännu ingen aktivitet"
 
 #. EditNoteActivity - no username for comment
 msgctxt "ENA_no_user"
 msgid "You"
-msgstr ""
+msgstr "Du"
 
 #. EditNoteActivity - refresh comments
 msgctxt "ENA_refresh_comments"
 msgid "Refresh Comments"
-msgstr ""
+msgstr "Uppdatera kommentarer"
 
 #. ================================================= TaskListActivity ==
 #. Task List: Displayed instead of list when no items present
@@ -814,6 +826,8 @@ msgid ""
 "You have no tasks! \n"
 " Want to add something?"
 msgstr ""
+"Du har inga uppgifter!\n"
+" Vill du lägga till någonting?"
 
 #. Menu: Add-ons
 msgctxt "TLA_menu_addons"
@@ -833,22 +847,22 @@ msgstr "Synkronisera Nu!"
 #. Menu: Tasks
 msgctxt "TLA_menu_lists"
 msgid "Lists"
-msgstr ""
+msgstr "Listor"
 
 #. Menu: Friends
 msgctxt "TLA_menu_friends"
 msgid "Friends"
-msgstr ""
+msgstr "Vänner"
 
 #. Menu: Suggestions
 msgctxt "TLA_menu_suggestions"
 msgid "Suggestions"
-msgstr ""
+msgstr "Förslag"
 
 #. Menu: Tutorial
 msgctxt "TLA_menu_tutorial"
 msgid "Tutorial"
-msgstr ""
+msgstr "Handledning"
 
 #. Menu: Settings
 msgctxt "TLA_menu_settings"
@@ -858,7 +872,7 @@ msgstr "Inställningar"
 #. Menu: Support
 msgctxt "TLA_menu_support"
 msgid "Support"
-msgstr ""
+msgstr "Support"
 
 #. Search Label
 msgctxt "TLA_search_label"
@@ -873,27 +887,29 @@ msgstr "Egendefinierad"
 #. Quick Add Edit Box Hint
 msgctxt "TLA_quick_add_hint"
 msgid "Add a task"
-msgstr ""
+msgstr "Lägg till uppgift"
 
 #. Quick Add Edit Box Hint for assigning
 #, c-format
 msgctxt "TLA_quick_add_hint_assign"
 msgid "Tap to assign %s a task"
-msgstr ""
+msgstr "Tryck för att tilldela %s en uppgift"
 
 #. Notification Volumne notification
 msgctxt "TLA_notification_volume_low"
 msgid "Notifications are muted. You won't be able to hear Astrid!"
-msgstr ""
+msgstr "Påminnelseljudet är avstängt! Du kommer inte att höra Astrid!"
 
 #. Notifications disabled warning
 msgctxt "TLA_notification_disabled"
 msgid "Astrid reminders are disabled! You will not receive any reminders"
 msgstr ""
+"Påminnelserna från Astrid är avstängda! Du kommer inte att få några "
+"påminnelser"
 
 msgctxt "TLA_filters:0"
 msgid "Active"
-msgstr ""
+msgstr "Aktiv"
 
 msgctxt "TLA_filters:1"
 msgid "Today"
@@ -901,11 +917,11 @@ msgstr "Idag"
 
 msgctxt "TLA_filters:2"
 msgid "Soon"
-msgstr ""
+msgstr "Snart"
 
 msgctxt "TLA_filters:3"
 msgid "Late"
-msgstr ""
+msgstr "Sent"
 
 msgctxt "TLA_filters:4"
 msgid "Done"
@@ -913,61 +929,61 @@ msgstr "Klar"
 
 msgctxt "TLA_filters:5"
 msgid "Hidden"
-msgstr ""
+msgstr "Dold"
 
 #. Title for confirmation dialog after quick add markup
 #, c-format
 msgctxt "TLA_quickadd_confirm_title"
 msgid "You said, \"%s\""
-msgstr ""
+msgstr "Du sa: \"%s\""
 
 #. Text for speech bubble in dialog after quick add markup
 #. First string is task title, second is due date, third is priority
 #, c-format
 msgctxt "TLA_quickadd_confirm_speech_bubble"
 msgid "I created a task called \"%1$s\" %2$s at %3$s"
-msgstr ""
+msgstr "Jag skapade en uppgift med namnet \"%1$s\" %2$s med %3$s"
 
 #, c-format
 msgctxt "TLA_quickadd_confirm_speech_bubble_date"
 msgid "for %s"
-msgstr ""
+msgstr "för %s"
 
 msgctxt "TLA_quickadd_confirm_hide_helpers"
 msgid "Don't display future confirmations"
-msgstr ""
+msgstr "Visa inte bekräftelser i fortsättningen"
 
 #. Title for alert on new repeating task. %s-> task title
 #, c-format
 msgctxt "TLA_repeat_scheduled_title"
 msgid "New repeating task %s"
-msgstr ""
+msgstr "Ny återkommande uppgift %s"
 
 #. Speech bubble for when a new repeating task scheduled. %s->repeat interval
 #, c-format
 msgctxt "TLA_repeat_scheduled_speech_bubble"
 msgid "I'll remind you about this %s."
-msgstr ""
+msgstr "Jag kommer att påminna dig om det här %s."
 
 msgctxt "TLA_priority_strings:0"
 msgid "highest priority"
-msgstr ""
+msgstr "högsta prioritet"
 
 msgctxt "TLA_priority_strings:1"
 msgid "high priority"
-msgstr ""
+msgstr "hög prioritet"
 
 msgctxt "TLA_priority_strings:2"
 msgid "medium priority"
-msgstr ""
+msgstr "medelhög prioritet"
 
 msgctxt "TLA_priority_strings:3"
 msgid "low priority"
-msgstr ""
+msgstr "låg prioritet"
 
 msgctxt "TLA_all_activity"
 msgid "All Activity"
-msgstr ""
+msgstr "Alla händelser"
 
 #. ====================================================== TaskAdapter ==
 #. Format string to indicate task is hidden (%s => task name)
@@ -1005,12 +1021,12 @@ msgstr "Redigera uppgift"
 #. Context Item: copy task
 msgctxt "TAd_contextCopyTask"
 msgid "Copy Task"
-msgstr ""
+msgstr "Kopiera uppgift"
 
 #. Context Item: delete task
 msgctxt "TAd_contextHelpTask"
 msgid "Get help"
-msgstr ""
+msgstr "Hjälp"
 
 msgctxt "TAd_contextDeleteTask"
 msgid "Delete Task"
@@ -1035,7 +1051,7 @@ msgstr "Sortering och Dolda Uppgifter"
 #. Hidden: title
 msgctxt "SSD_hidden_title"
 msgid "Hidden Tasks"
-msgstr ""
+msgstr "Dolda uppgifter"
 
 #. Hidden Task Selection: show completed tasks
 msgctxt "SSD_completed"
@@ -1055,7 +1071,7 @@ msgstr "Visa raderade uppgifter"
 #. Sort Selection: drag with subtasks
 msgctxt "SSD_sort_drag"
 msgid "Drag & Drop with Subtasks"
-msgstr ""
+msgstr "Dra och släpp med underuppgifter"
 
 #. Sort Selection: smart sort
 msgctxt "SSD_sort_auto"
@@ -1101,7 +1117,7 @@ msgstr "Alltid"
 #. Astrid Filter Shortcut
 msgctxt "FSA_label"
 msgid "Astrid List or Filter"
-msgstr ""
+msgstr "Lista eller filter i Astrid"
 
 #. Filter List Activity Title
 msgctxt "FLA_title"
@@ -1158,12 +1174,17 @@ msgstr "Skapad genväg: %s"
 #. Menu: new filter
 msgctxt "FLA_new_filter"
 msgid "New Filter"
-msgstr ""
+msgstr "Nytt filter"
 
 #. Button: new list
 msgctxt "FLA_new_list"
 msgid "New List"
-msgstr ""
+msgstr "Ny lista"
+
+#. Alert when creating a shortcut without selecting a filter
+msgctxt "FLA_no_filter_selected"
+msgid "No filter selected! Please select a filter or list."
+msgstr "Inget filter valt! Välj ett filter eller en lista."
 
 #. ================================================= TaskEditActivity ==
 #. Title when editing a task (%s => task title)
@@ -1175,7 +1196,7 @@ msgstr "Astrid: Redigerar '%s'"
 #. Title when creating a new task
 msgctxt "TEA_view_titleNew"
 msgid "New Task"
-msgstr ""
+msgstr "Ny uppgift"
 
 #. Task title label
 msgctxt "TEA_title_label"
@@ -1185,7 +1206,7 @@ msgstr "Titel"
 #. Task when label
 msgctxt "TEA_when_header_label"
 msgid "When"
-msgstr ""
+msgstr "När"
 
 #. Task title hint (displayed when edit box is empty)
 msgctxt "TEA_title_hint"
@@ -1210,18 +1231,18 @@ msgstr "Vid bestämd tid?"
 #. Task urgency specific time title when specific time false
 msgctxt "TEA_urgency_none"
 msgid "None"
-msgstr ""
+msgstr "Ingen"
 
 #. Task hide until label
 msgctxt "TEA_hideUntil_label"
 msgid "Show Task"
-msgstr ""
+msgstr "Visa uppgift"
 
 #. Task hide until toast
 #, c-format
 msgctxt "TEA_hideUntil_message"
 msgid "Task will be hidden until %s"
-msgstr ""
+msgstr "Uppgiften är dold fram till %s"
 
 #. Task editing data being loaded label
 msgctxt "TEA_loading:0"
@@ -1266,7 +1287,7 @@ msgstr "Radera uppgift"
 #. Menu: Task comments
 msgctxt "TEA_menu_comments"
 msgid "Comments"
-msgstr ""
+msgstr "Kommentarer"
 
 #. Toast: task saved with deadline (%s => preposition + time units)
 #, c-format
@@ -1287,7 +1308,7 @@ msgstr "Uppgiftsredigering avbröts"
 #. Toast: task was deleted
 msgctxt "TEA_onTaskDelete"
 msgid "Task deleted!"
-msgstr ""
+msgstr "Uppgiften borttagen!"
 
 #. Task edit tab: activity
 msgctxt "TEA_tab_activity"
@@ -1302,7 +1323,7 @@ msgstr "Mer"
 #. Task edit tab: web services
 msgctxt "TEA_tab_web"
 msgid "Ideas"
-msgstr ""
+msgstr "Idéer"
 
 msgctxt "TEA_urgency:0"
 msgid "No deadline"
@@ -1330,7 +1351,7 @@ msgstr "Nästa vecka"
 
 msgctxt "TEA_urgency:6"
 msgid "In Two Weeks"
-msgstr ""
+msgstr "Om två veckor"
 
 msgctxt "TEA_urgency:7"
 msgid "Next Month"
@@ -1338,7 +1359,7 @@ msgstr "Nästa månad"
 
 msgctxt "TEA_no_time"
 msgid "No time"
-msgstr ""
+msgstr "Ingen tid"
 
 msgctxt "TEA_hideUntil:0"
 msgid "Always"
@@ -1346,7 +1367,7 @@ msgstr "Alltid"
 
 msgctxt "TEA_hideUntil:1"
 msgid "At due date"
-msgstr ""
+msgstr "På förfallodagen"
 
 msgctxt "TEA_hideUntil:2"
 msgid "Day before due"
@@ -1363,15 +1384,15 @@ msgstr "Specifik dag/tid"
 #. Task edit control set descriptors
 msgctxt "TEA_control_title"
 msgid "Task Title"
-msgstr ""
+msgstr "Uppgiftens namn"
 
 msgctxt "TEA_control_who"
 msgid "Who"
-msgstr ""
+msgstr "Vem"
 
 msgctxt "TEA_control_when"
 msgid "When"
-msgstr ""
+msgstr "När"
 
 msgctxt "TEA_control_more_section"
 msgid "----Details----"
@@ -1391,19 +1412,19 @@ msgstr "Anteckningar"
 
 msgctxt "TEA_control_reminders"
 msgid "Reminders"
-msgstr ""
+msgstr "Påminnelser"
 
 msgctxt "TEA_control_timer"
 msgid "Timer Controls"
-msgstr ""
+msgstr "Inställningar för tidtagarur"
 
 msgctxt "TEA_control_share"
 msgid "Share With Friends"
-msgstr ""
+msgstr "Dela med vänner"
 
 msgctxt "hide_until_prompt"
 msgid "Show in my list"
-msgstr ""
+msgstr "Visa i min lista"
 
 #. Add Ons tab when no add-ons found
 msgctxt "TEA_addons_text"
@@ -1423,30 +1444,31 @@ msgstr "Mer"
 #. Text when no activity to show
 msgctxt "TEA_no_activity"
 msgid "No Activity to Show."
-msgstr ""
+msgstr "Ingen aktivitet att visa."
 
 #. Text to load more activity
 msgctxt "TEA_load_more"
 msgid "Load more..."
-msgstr ""
+msgstr "Ladda mer..."
 
 #. When controls dialog
 msgctxt "TEA_when_dialog_title"
 msgid "When is this due?"
-msgstr ""
+msgstr "När ska uppgiften vara slutförd?"
 
 msgctxt "TEA_date_and_time"
 msgid "Date/Time"
-msgstr ""
+msgstr "Datum/tid"
 
 msgctxt "WSV_click_to_load"
 msgid "Tap me to search for ways to get this done!"
-msgstr ""
+msgstr "Klicka på mig för att hitta sätt att få det här gjort!"
 
 msgctxt "WSV_not_online"
 msgid ""
 "I can do more when connected to the Internet. Please check your connection."
 msgstr ""
+"Jag kan göra mer när jag är uppkopplad. Kontrollera din internetförbindelse."
 
 #. ============================================= IntroductionActivity ==
 #. Introduction Window title
@@ -1488,6 +1510,9 @@ msgid ""
 "your progress as well as\n"
 "activity on shared lists."
 msgstr ""
+"Logga in för att se hur\n"
+"det går för dig och vad\n"
+"som händer på delade listor."
 
 #. ================================================== EditPreferences ==
 #. Preference Window Title
@@ -1497,7 +1522,7 @@ msgstr "Astrid: Inställningar"
 
 msgctxt "EPr_deactivated"
 msgid "deactivated"
-msgstr ""
+msgstr "inaktiverad"
 
 #. Preference Category: Appearance Title
 msgctxt "EPr_appearance_header"
@@ -1512,7 +1537,7 @@ msgstr "Textstorlek för uppgiftslistan"
 #. Preference: Show confirmation for smart reminders
 msgctxt "EPr_showSmartConfirmation_title"
 msgid "Show confirmation for smart reminders"
-msgstr ""
+msgstr "Visa bekräftelse vid smarta påminnelser"
 
 #. Preference: Task List Font Size Description
 msgctxt "EPr_fontSize_desc"
@@ -1527,15 +1552,15 @@ msgstr "Visa anteckningar i uppgiften"
 #. Preference: Beast mode (auto-expand edit page)
 msgctxt "EPr_beastMode_title"
 msgid "Customize Task Edit Screen"
-msgstr ""
+msgstr "Ställ in uppgiftsredigeringsrutan"
 
 msgctxt "EPr_beastMode_desc"
 msgid "Customize the layout of the Task Edit Screen"
-msgstr ""
+msgstr "Ställ in layouten för uppgiftsredigeringsrutan"
 
 msgctxt "EPr_beastMode_reset"
 msgid "Reset to defaults"
-msgstr ""
+msgstr "Återställ till standardvärden"
 
 #. Preference: Task List Show Notes Description (disabled)
 msgctxt "EPr_showNotes_desc_disabled"
@@ -1550,51 +1575,52 @@ msgstr "Anteckningar visas alltid"
 #. Preferences: Allow task rows to compress to size of task
 msgctxt "EPr_compressTaskRows_title"
 msgid "Compact Task Row"
-msgstr ""
+msgstr "Kompakt uppgiftsrad"
 
 msgctxt "EPr_compressTaskRows_desc"
 msgid "Compress task rows to fit title"
-msgstr ""
+msgstr "Anpassa rader efter uppgiftens titel"
 
 #. Preferences: Use legacy importance and checkbox style
 msgctxt "EPr_userLegacyImportance_title"
 msgid "Use legacy importance style"
-msgstr ""
+msgstr "Använd prioritet från högre nivå"
 
 msgctxt "EPr_userLegacyImportance_desc"
 msgid "Use legacy importance style"
-msgstr ""
+msgstr "Använd prioritet från högre nivå"
 
 #. Preferences: Wrap task titles to two lines
 msgctxt "EPr_fullTask_title"
 msgid "Show full task title"
-msgstr ""
+msgstr "Visa hela namnet på uppgiften"
 
 msgctxt "EPr_fullTask_desc_enabled"
 msgid "Full task title will be shown"
-msgstr ""
+msgstr "Uppgiftens namn kommer att visas i sin helhet"
 
 msgctxt "EPr_fullTask_desc_disabled"
 msgid "First two lines of task title will be shown"
-msgstr ""
+msgstr "De första två raderna i uppgiftens namn kommer att visas"
 
 #. Preferences: Auto-load Ideas Tab
 msgctxt "EPr_ideaAuto_title"
 msgid "Auto-load Ideas Tab"
-msgstr ""
+msgstr "Ladda fliken Idéer automatiskt"
 
 msgctxt "EPr_ideaAuto_desc_enabled"
-msgid "Web searches for Ideas tab will be performed when task is edited"
-msgstr ""
+msgid "Web searches for Ideas tab will be performed when tab is clicked"
+msgstr "Webbsökning till fliken Idéer utförs när du klickar på fliken"
 
 msgctxt "EPr_ideaAuto_desc_disabled"
-msgid "Web searches for Ideas tab will be performed when tab is clicked"
-msgstr ""
+msgid ""
+"Web searches for Ideas tab will be performed only when manually requested"
+msgstr "Webbsökning till fliken Idéer utförs manuellt"
 
 #. Preference: Theme
 msgctxt "EPr_theme_title"
 msgid "Color Theme"
-msgstr ""
+msgstr "Färgtema"
 
 #. Preference: Theme Description (%s => value)
 #, c-format
@@ -1605,59 +1631,59 @@ msgstr "Aktuellt: %s"
 #. Preference: Theme Description (android 1.6)
 msgctxt "EPr_theme_desc_unsupported"
 msgid "Setting requires Android 2.0+"
-msgstr ""
+msgstr "Inställningen kräver Android 2.0 eller senare version"
 
 #. Preference screen: all task row settings
 msgctxt "EPr_taskRowPrefs_title"
 msgid "Task Row Appearance"
-msgstr ""
+msgstr "Utseende på uppgiftsraden"
 
 msgctxt "EPr_themes:0"
 msgid "Day - Blue"
-msgstr ""
+msgstr "Dag - blå"
 
 msgctxt "EPr_themes:1"
 msgid "Day - Red"
-msgstr ""
+msgstr "Dag - röd"
 
 msgctxt "EPr_themes:2"
 msgid "Night"
-msgstr ""
+msgstr "Natt"
 
 msgctxt "EPr_themes:3"
 msgid "Transparent (White Text)"
-msgstr ""
+msgstr "Genomskinlig (vit text)"
 
 msgctxt "EPr_themes:4"
 msgid "Transparent (Black Text)"
-msgstr ""
+msgstr "Genomskinlig (svart text)"
 
 #. ========================================== Task Management Settings ==
 #. Preference Screen Header: Old Task Management
 msgctxt "EPr_manage_header"
 msgid "Manage Old Tasks"
-msgstr ""
+msgstr "Hantera gamla uppgifter"
 
 msgctxt "EPr_manage_delete_completed"
 msgid "Delete Completed Tasks"
-msgstr ""
+msgstr "Radera färdiga uppgifter"
 
 msgctxt "EPr_manage_delete_completed_message"
 msgid "Do you really want to delete all your completed tasks?"
-msgstr ""
+msgstr "Vill du verkligen radera alla dina färdiga uppgifter?"
 
 msgctxt "EPr_manage_delete_completed_summary"
 msgid "Deleted tasks can be undeleted one-by-one"
-msgstr ""
+msgstr "Raderade uppgifter kan tas tillbaka en och en"
 
 #, c-format
 msgctxt "EPr_manage_delete_completed_status"
 msgid "Deleted %d tasks!"
-msgstr ""
+msgstr "%d uppgifter raderade!"
 
 msgctxt "EPr_manage_purge_deleted"
 msgid "Purge Deleted Tasks"
-msgstr ""
+msgstr "Rensa bort raderade uppgifter"
 
 msgctxt "EPr_manage_purge_deleted_message"
 msgid ""
@@ -1665,19 +1691,23 @@ msgid ""
 "\n"
 "These tasks will be gone forever!"
 msgstr ""
+"Vill du verkligen rensa bort alla dina raderade uppgifter?\n"
+"\n"
+"De här uppgifterna kommer att tas bort för alltid!"
 
 #, c-format
 msgctxt "EPr_manage_purge_deleted_status"
 msgid "Purged %d tasks!"
-msgstr ""
+msgstr "%d uppgifter bortrensade!"
 
 msgctxt "EPr_manage_purge_deleted_summary"
 msgid "Caution! Purged tasks can't be recovered without backup file!"
 msgstr ""
+"Varning! Bortrensade uppgifter kan inte återställas utan en säkerhetskopia!"
 
 msgctxt "EPr_manage_clear_all"
 msgid "Clear All Data"
-msgstr ""
+msgstr "Radera alla data"
 
 msgctxt "EPr_manage_clear_all_message"
 msgid ""
@@ -1685,32 +1715,38 @@ msgid ""
 "\n"
 "Warning: can't be undone!"
 msgstr ""
+"Radera alla uppgifter och inställningar i Astrid?\n"
+"\n"
+"Varning: denna åtgärd kan inte ångras!"
 
 msgctxt "EPr_manage_delete_completed_gcal"
 msgid "Delete Calendar Events for Completed Tasks"
-msgstr ""
+msgstr "Radera kalenderhändelser för färdiga uppgifter"
 
 msgctxt "EPr_manage_delete_completed_gcal_message"
 msgid "Do you really want to delete all your events for completed tasks?"
 msgstr ""
+"Vill du verkligen radera alla händelser i kalendern för uppgifter som är "
+"färdiga?"
 
 #, c-format
 msgctxt "EPr_manage_delete_completed_gcal_status"
 msgid "Deleted %d calendar events!"
-msgstr ""
+msgstr "%d kalenderhändelser raderade!"
 
 msgctxt "EPr_manage_delete_all_gcal"
 msgid "Delete All Calendar Events for Tasks"
-msgstr ""
+msgstr "Radera alla kalenderhändelser för uppgifter"
 
 msgctxt "EPr_manage_delete_all_gcal_message"
 msgid "Do you really want to delete all your events for tasks?"
 msgstr ""
+"Vill du verkligen radera alla dina händelser i kalendern för uppgifter?"
 
 #, c-format
 msgctxt "EPr_manage_delete_all_gcal_status"
 msgid "Deleted %d calendar events!"
-msgstr ""
+msgstr "%d kalenderhändelser raderade!"
 
 #. ==================================================== AddOnActivity ==
 #. Add Ons Activity Title
@@ -1746,7 +1782,7 @@ msgstr "Besök webbsida"
 #. Add-on Activity - menu item to visit android market
 msgctxt "AOA_visit_market"
 msgid "Android Market"
-msgstr ""
+msgstr "Android Market"
 
 #. Add-on Activity - when list is empty
 msgctxt "AOA_no_addons"
@@ -1768,7 +1804,7 @@ msgstr "Välj uppgifter att se på..."
 #. Title of "About" option in settings
 msgctxt "p_about"
 msgid "About Astrid"
-msgstr ""
+msgstr "Om Astrid"
 
 #. About text (%s => current version)
 #, c-format
@@ -1778,6 +1814,9 @@ msgid ""
 "\n"
 " Astrid is open-source and proudly maintained by Todoroo, Inc."
 msgstr ""
+"Aktuell version: %s\n"
+"\n"
+" Astrid är öppen programvara och underhålls av Todoroo, Inc."
 
 #. Title of "Help" option in settings
 msgctxt "p_help"
@@ -1871,23 +1910,23 @@ msgstr "Aktuellt: %s"
 #. Preference: Default Add To Calendar Title
 msgctxt "EPr_default_addtocalendar_title"
 msgid "Default Add To Calendar"
-msgstr ""
+msgstr "Standardkalender för att lägga till händelser"
 
 #. Preference: Default Add To Calendar Setting Description (disabled)
 msgctxt "EPr_default_addtocalendar_desc_disabled"
 msgid "New tasks will not create an event in the Google Calendar"
-msgstr ""
+msgstr "Nya uppgifter skapar inga händelser i Googlekalendern"
 
 #. Preference: Default Add To Calendar Setting Description (%s => setting)
 #, c-format
 msgctxt "EPr_default_addtocalendar_desc"
 msgid "New tasks will be in the calendar: \"%s\""
-msgstr ""
+msgstr "Nya uppgifter hamnar i kalendern \"%s\""
 
 #. Reminder Mode Preference: Default Reminders Duration
 msgctxt "EPr_default_reminders_mode_title"
 msgid "Default Ring/Vibrate type"
-msgstr ""
+msgstr "Standardtyp av ringsignal/vibration"
 
 #. Preference: Default Reminders Description (%s => setting)
 #, c-format
@@ -1897,19 +1936,19 @@ msgstr "Aktuellt: %s"
 
 msgctxt "EPr_default_importance:0"
 msgid "!!! (Highest)"
-msgstr ""
+msgstr "!!! (Högst)"
 
 msgctxt "EPr_default_importance:1"
 msgid "!!"
-msgstr ""
+msgstr "!!"
 
 msgctxt "EPr_default_importance:2"
 msgid "!"
-msgstr ""
+msgstr "!"
 
 msgctxt "EPr_default_importance:3"
 msgid "o (Lowest)"
-msgstr ""
+msgstr "o (Lägst)"
 
 msgctxt "EPr_default_urgency:0"
 msgid "No Deadline"
@@ -1984,7 +2023,7 @@ msgstr "Nyligen ändrade"
 #. I've assigned
 msgctxt "BFE_Assigned"
 msgid "I've Assigned"
-msgstr ""
+msgstr "Jag har delat ut"
 
 #. Build Your Own Filter
 msgctxt "BFE_Custom"
@@ -1994,7 +2033,7 @@ msgstr "Egendefinierat filter..."
 #. Saved Filters Header
 msgctxt "BFE_Saved"
 msgid "Filters"
-msgstr ""
+msgstr "Filter"
 
 #. Saved Filters Context Menu: delete
 msgctxt "BFE_Saved_delete"
@@ -2126,22 +2165,22 @@ msgstr "Viktighetsgrad..."
 #. Criteria: tag - display text (? -> user input)
 msgctxt "CFC_tag_text"
 msgid "List: ?"
-msgstr ""
+msgstr "Lista: ?"
 
 #. Criteria: tag - name of criteria
 msgctxt "CFC_tag_name"
 msgid "List..."
-msgstr ""
+msgstr "Lista..."
 
 #. Criteria: tag_contains - name of criteria
 msgctxt "CFC_tag_contains_name"
 msgid "List name contains..."
-msgstr ""
+msgstr "Namnet på listan innehåller..."
 
 #. Criteria: tag_contains - text (? -> user input)
 msgctxt "CFC_tag_contains_text"
 msgid "List name contains: ?"
-msgstr ""
+msgstr "Namnet på listan innehåller: ?"
 
 #. Criteria: title_contains - name of criteria
 msgctxt "CFC_title_contains_name"
@@ -2189,15 +2228,15 @@ msgstr "Kalenderhändelsen uppdaterades också!"
 #. No calendar label (don't add option)
 msgctxt "gcal_TEA_nocal"
 msgid "Don't add"
-msgstr ""
+msgstr "Lägg inte till"
 
 msgctxt "gcal_TEA_none_selected"
 msgid "Add to cal..."
-msgstr ""
+msgstr "Lägg till i kalender..."
 
 msgctxt "gcal_TEA_has_event"
 msgid "Cal event"
-msgstr ""
+msgstr "Kalenderhändelse"
 
 #. ======================================================== Calendars ==
 #. Calendar event name when task is completed (%s => task title)
@@ -2216,7 +2255,7 @@ msgstr "Standardkalender"
 #. filters header: GTasks
 msgctxt "gtasks_FEx_header"
 msgid "Google Tasks"
-msgstr ""
+msgstr "Google Uppgifter"
 
 #. filter category for GTasks lists
 msgctxt "gtasks_FEx_list"
@@ -2227,22 +2266,22 @@ msgstr "Efter lista"
 #, c-format
 msgctxt "gtasks_FEx_title"
 msgid "Google Tasks: %s"
-msgstr ""
+msgstr "Google Uppgifter: %s"
 
 #. dialog prompt for creating a new gtasks list
 msgctxt "gtasks_FEx_creating_list"
 msgid "Creating list..."
-msgstr ""
+msgstr "Skapar lista..."
 
 #. dialog prompt for creating a new gtasks list
 msgctxt "gtasks_FEx_create_list_dialog"
 msgid "New List Name:"
-msgstr ""
+msgstr "Nytt listnamn:"
 
 #. error to show when list creation fails
 msgctxt "gtasks_FEx_create_list_error"
 msgid "Error creating new list"
-msgstr ""
+msgstr "Det gick inte att skapa en ny lista"
 
 #. short help title for Gtasks
 msgctxt "gtasks_help_title"
@@ -2251,21 +2290,21 @@ msgstr "Välkommen till Google Tasks!"
 
 msgctxt "CFC_gtasks_list_text"
 msgid "In List: ?"
-msgstr ""
+msgstr "I listan: ?"
 
 msgctxt "CFC_gtasks_list_name"
 msgid "In GTasks List..."
-msgstr ""
+msgstr "I lista på Google Uppgifter..."
 
 #. Message while clearing completed tasks
 msgctxt "gtasks_GTA_clearing"
 msgid "Clearing completed tasks..."
-msgstr ""
+msgstr "Rensar bort färdiga uppgifter..."
 
 #. Label for clear completed menu item
 msgctxt "gtasks_GTA_clear_completed"
 msgid "Clear Completed"
-msgstr ""
+msgstr "Rensa bort färdiga"
 
 #. ============================================ GtasksLoginActivity ==
 #. Activity Title: Gtasks Login
@@ -2284,7 +2323,7 @@ msgstr ""
 
 msgctxt "gtasks_GLA_noaccounts"
 msgid "No available Google accounts to sync with."
-msgstr ""
+msgstr "Inga tillgängliga Googlekonton att synkronisera med."
 
 #. Instructions: Gtasks further help
 msgctxt "gtasks_GLA_further_help"
@@ -2315,7 +2354,7 @@ msgstr "Lösenord"
 #. Authenticating toast
 msgctxt "gtasks_GLA_authenticating"
 msgid "Authenticating..."
-msgstr ""
+msgstr "Autentiserar..."
 
 #. Google Apps for Domain checkbox
 msgctxt "gtasks_GLA_domain"
@@ -2333,6 +2372,8 @@ msgid ""
 "Error authenticating! Please check your username and password in your "
 "phone's account manager"
 msgstr ""
+"Autentisering misslyckad! Kontrollera ditt användarnamn och lösenord i "
+"kontoinställningarna i din telefon"
 
 #. Error Message when we receive an IO Exception
 msgctxt "gtasks_GLA_errorIOAuth"
@@ -2340,6 +2381,7 @@ msgid ""
 "Sorry, we had trouble communicating with Google servers. Please try again "
 "later."
 msgstr ""
+"Vi hade problem med förbindelsen till Googles servrar. Försök igen senare."
 
 #. Error Message when we receive a HTTP 401 Unauthorized multiple times
 msgctxt "gtasks_GLA_errorAuth_captcha"
@@ -2354,13 +2396,13 @@ msgstr ""
 #. GTasks Preferences Title
 msgctxt "gtasks_GPr_header"
 msgid "Google Tasks"
-msgstr ""
+msgstr "Google Uppgifter"
 
 #. ================================================ Synchronization ==
 #. title for notification tray when synchronizing
 msgctxt "gtasks_notification_title"
 msgid "Astrid: Google Tasks"
-msgstr ""
+msgstr "Astrid: Google Uppgifter"
 
 #. Error Message when we receive a HTTP 503 error
 msgctxt "gtasks_error_backend"
@@ -2368,6 +2410,8 @@ msgid ""
 "Google's Task API is in beta and has encountered an error. The service may "
 "be down, please try again later."
 msgstr ""
+"Googles API för uppgifter är ännu i betaversion och har råkat ut för ett "
+"fel. Kanske är tjänsten otillgänglig för tillfället. Försök igen senare."
 
 #. Error for account not found
 #, c-format
@@ -2376,6 +2420,8 @@ msgid ""
 "Account %s not found--please log out and log back in from the Google Tasks "
 "settings."
 msgstr ""
+"Kontot %s kunde inte hittas. Logga ut och in på nytt i inställningarna för "
+"Google Uppgifter."
 
 #. Error when ping after refreshing token fails
 msgctxt "gtasks_error_authRefresh"
@@ -2383,6 +2429,8 @@ msgid ""
 "Unable to authenticate with Google Tasks. Please check your account password "
 "or try again later."
 msgstr ""
+"Kunde inte autentisera med Google Uppgifter. Kontrollera ditt lösenord och "
+"försök igen."
 
 #. Error when account manager returns no auth token or throws exception
 msgctxt "gtasks_error_accountManager"
@@ -2390,104 +2438,51 @@ msgid ""
 "Error in your phone's account manager. Please log out and log back in from "
 "the Google Tasks settings."
 msgstr ""
+"Fel i din telefons kontohantering. Logga ut och in på nytt i inställningarna "
+"för Google Uppgifter."
 
 #. See the file "LICENSE" for the full license governing this code.
-#. Resources initial tasks added
-#. Intro Tag or click prompt
-msgctxt "intro_click_prompt"
-msgid "Intro: Press me to see notes"
-msgstr "Intro: Klicka på mig för anteckningar"
-
-#. Task 1 Summary
-msgctxt "intro_task_1_summary"
-msgid "Create your first task"
-msgstr "Skapa din första aktivitet"
-
-#. Task 1 Note
-msgctxt "intro_task_1_note"
-msgid ""
-"Two ways to add a task:\n"
-" 1) Quick Add: Type the task into the quick entry box at bottom of screen "
-"and press the + button on the right.\n"
-" 2) Regular Add: Press the + button of the quick entry box. Add as much "
-"detail as you want. Then press \"Save\" or use your phone's back button.\n"
-msgstr ""
-"Två sätt att lägga till en uppgift:\n"
-" 1) Snabbtillägg: Skriv bara uppgiften i snabbinmatningsrutan och klicka på "
-"+-knappen som visas till vänster.\n"
-"\n"
-" 2) Vanligt tillägg: Klicka på knappen till höger om snabbinmatningsrutan. "
-"Lägg till grundläggande detaljer (deadline, etiketter, anteckningar) eller "
-"ange mer avancerade alternativ. Spara uppgiften med spara-knappen eller din "
-"telefons bakåtknapp.\n"
-
-#. Task 2 Summary
-msgctxt "intro_task_2_summary"
-msgid "Add a widget to your desktop"
-msgstr "Lägg till en widget på skrivbordet"
-
-#. Task 2 Note
-msgctxt "intro_task_2_note"
-msgid ""
-"1) Long Press on your phone's desktop\n"
-"      2) Choose \"Widget\"\n"
-"      3) Choose the Astrid widget\n"
-"      4) Select the list you want and press OK.\n"
-msgstr ""
-
-#. Task 3 Summary
-msgctxt "intro_task_3_summary"
-msgid "Setup sync with Astrid.com"
-msgstr ""
-
-#. Task 3 Note
-msgctxt "intro_task_3_note"
-msgid ""
-"1) Press your Menu button\n"
-"      2) Choose \"Sync Now\"\n"
-"      3) Select \"Astrid.com\"\n"
-"      4) Log In & Synchronize!\n"
-msgstr ""
-
 #. NEW USER EXPERIENCE
 #. help bubbles
 #. Shown the first time a user sees the task list activity
 msgctxt "help_popover_add_task"
 msgid "Start by adding a task or two"
-msgstr ""
+msgstr "Börja med att lägga in en eller två uppgifter"
 
 #. Shown the first time a user adds a task to a list
 msgctxt "help_popover_tap_task"
 msgid "Tap task to edit and share"
-msgstr ""
+msgstr "Tryck på en uppgift för att redigera och dela"
 
 #. Shown the first time a user sees the list activity
 msgctxt "help_popover_list_settings"
 msgid "Tap to edit or share this list"
-msgstr ""
+msgstr "Tryck för att redigera eller dela den här listan"
 
 #. Shown the first time a user sees the list settings tab
 msgctxt "help_popover_collaborators"
 msgid "People you share with can help you build your list or finish tasks"
 msgstr ""
+"De du delar med kan hjälpa till att bygga upp din lista eller göra färdigt "
+"uppgifter"
 
 #. Shown after user adds a task on tablet
 msgctxt "help_popover_add_lists"
 msgid "Tap add a list"
-msgstr ""
+msgstr "Lägg till en lista"
 
 #. Shown after a user adds a task on phones
 msgctxt "help_popover_switch_lists"
 msgid "Tap to add a list or switch between lists"
-msgstr ""
+msgstr "Tryck för att lägga till eller byta lista"
 
 msgctxt "help_popover_when_shortcut"
 msgid "Tap this shortcut to quick select date and time"
-msgstr ""
+msgstr "Tryck på denna genväg för att snabbt välja datum och tid"
 
 msgctxt "help_popover_when_row"
 msgid "Tap anywhere on this row to access options like repeat"
-msgstr ""
+msgstr "Tryck på denna rad för andra alternativ, t.ex. återkommande"
 
 #. Login activity
 msgctxt "welcome_login_title"
@@ -2496,31 +2491,31 @@ msgstr "Välkommen till Astrid!"
 
 msgctxt "welcome_login_tos_base"
 msgid "By using Astrid you agree to the"
-msgstr ""
+msgstr "Genom att använda Astrid godkänner du"
 
 msgctxt "welcome_login_tos_link"
 msgid "\"Terms of Service\""
-msgstr ""
+msgstr "villkoren för tjänsten"
 
 msgctxt "welcome_login_pw"
 msgid "Login with Username/Password"
-msgstr ""
+msgstr "Logga in med användarnamn och lösenord"
 
 msgctxt "welcome_login_later"
 msgid "Connect Later"
-msgstr ""
+msgstr "Koppla upp senare"
 
 msgctxt "welcome_login_confirm_later_title"
 msgid "Why not sign in?"
-msgstr ""
+msgstr "Om du skulle ta och logga in?"
 
 msgctxt "welcome_login_confirm_later_ok"
 msgid "I'll do it!"
-msgstr ""
+msgstr "Jag ska göra det!"
 
 msgctxt "welcome_login_confirm_later_cancel"
 msgid "No thanks"
-msgstr ""
+msgstr "Nej tack"
 
 msgctxt "welcome_login_confirm_later_dialog"
 msgid ""
@@ -2528,11 +2523,15 @@ msgid ""
 "synchronization with Astrid.com, the ability to add tasks via email, and you "
 "can even share task lists with friends!"
 msgstr ""
+"Logga in för att få ut så mycket som möjligt av Astrid! Utan kostnad får du "
+"säkerhetskopia via nätet, full synkronisering med Astrid.com, möjlighet att "
+"lägga till uppgifter via e-post, och du kan till och med dela uppgiftslistor "
+"med vänner!"
 
 #. Shown after user goes to task rabbit activity
 msgctxt "help_popover_taskrabbit_type"
 msgid "Change the type of task"
-msgstr ""
+msgstr "Byt typ av uppgift"
 
 #. See the file "LICENSE" for the full license governing this code.
 #. Resources for built-in locale plug-in
@@ -2551,7 +2550,7 @@ msgstr "Astrid ger dig en påminnelse när du har uppgifter i följande filter:"
 #. Locale Window Filter Picker UI
 msgctxt "locale_pick_filter"
 msgid "Filter:"
-msgstr ""
+msgstr "Filter:"
 
 #. Locale Window Interval Label
 msgctxt "locale_interval_label"
@@ -2603,7 +2602,7 @@ msgstr "Var god installera Astrid Locale-tillägget"
 #. filters header: OpenCRX
 msgctxt "opencrx_FEx_header"
 msgid "OpenCRX"
-msgstr ""
+msgstr "OpenCRX"
 
 #. filter category for OpenCRX ActivityCreators
 msgctxt "opencrx_FEx_dashboard"
@@ -2634,17 +2633,17 @@ msgstr "Lägg till en kommentar"
 
 msgctxt "opencrx_creator_input_hint"
 msgid "Creator"
-msgstr ""
+msgstr "Upphovsman"
 
 msgctxt "opencrx_contact_input_hint"
 msgid "Assigned to"
-msgstr ""
+msgstr "Tilldelad"
 
 #. ==================================================== Preferences ==
 #. Preferences Title: OpenCRX
 msgctxt "opencrx_PPr_header"
 msgid "OpenCRX"
-msgstr ""
+msgstr "OpenCRX"
 
 #. creator title for tasks that are not synchronized
 msgctxt "opencrx_no_creator"
@@ -2654,90 +2653,90 @@ msgstr "(synkronisera inte)"
 #. preference title for default creator
 msgctxt "opencrx_PPr_defaultcreator_title"
 msgid "Default ActivityCreator"
-msgstr ""
+msgstr "Default ActivityCreator"
 
 #. preference description for default creator (%s -> setting)
 #, c-format
 msgctxt "opencrx_PPr_defaultcreator_summary"
 msgid "New activities will be created by: %s"
-msgstr ""
+msgstr "Nya aktiviteter skapas av: %s"
 
 #. preference description for default dashboard (when set to 'not
 #. synchronized')
 msgctxt "opencrx_PPr_defaultcreator_summary_none"
 msgid "New activities will not be synchronized by default"
-msgstr ""
+msgstr "Nya aktiviteter synkroniseras som standard"
 
 #. OpenCRX host and segment group name
 msgctxt "opencrx_group"
 msgid "OpenCRX server"
-msgstr ""
+msgstr "OpenCRX-server"
 
 #. preference description for OpenCRX host
 msgctxt "opencrx_host_title"
 msgid "Host"
-msgstr ""
+msgstr "Värddator"
 
 #. dialog title for OpenCRX host
 msgctxt "opencrx_host_dialog_title"
 msgid "OpenCRX host"
-msgstr ""
+msgstr "OpenCRX-värd"
 
 #. example for OpenCRX host
 msgctxt "opencrx_host_summary"
 msgid "For example: <i>mydomain.com</i>"
-msgstr ""
+msgstr "Till exempel: <i>mindomän.com</i>"
 
 #. preference description for OpenCRX segment
 msgctxt "opencrx_segment_title"
 msgid "Segment"
-msgstr ""
+msgstr "Segment"
 
 #. dialog title for OpenCRX segment
 msgctxt "opencrx_segment_dialog_title"
 msgid "Synchronized segment"
-msgstr ""
+msgstr "Synkroniserat segment"
 
 #. example for OpenCRX segment
 msgctxt "opencrx_segment_summary"
 msgid "For example: <i>Standard</i>"
-msgstr ""
+msgstr "Till exempel: <i>Standard</i>"
 
 #. default value for OpenCRX segment
 msgctxt "opencrx_segment_default"
 msgid "Standard"
-msgstr ""
+msgstr "Standard"
 
 #. preference description for OpenCRX provider
 msgctxt "opencrx_provider_title"
 msgid "Provider"
-msgstr ""
+msgstr "Leverantör"
 
 #. dialog title for OpenCRX provider
 msgctxt "opencrx_provider_dialog_title"
 msgid "OpenCRX data provider"
-msgstr ""
+msgstr "Leverantör av OpenCRX-data"
 
 #. example for OpenCRX provider
 msgctxt "opencrx_provider_summary"
 msgid "For example: <i>CRX</i>"
-msgstr ""
+msgstr "Till exempel: <i>CRX</i>"
 
 #. default value for OpenCRX provider
 msgctxt "opencrx_provider_default"
 msgid "CRX"
-msgstr ""
+msgstr "CRX"
 
 #. ================================================= Login Activity ==
 #. Activity Title: Opencrx Login
 msgctxt "opencrx_PLA_title"
 msgid "Log In to OpenCRX"
-msgstr ""
+msgstr "Logga in på OpenCRX"
 
 #. Instructions: Opencrx login
 msgctxt "opencrx_PLA_body"
 msgid "Sign in with your OpenCRX account"
-msgstr ""
+msgstr "Logga in på ditt OpenCRX-konto"
 
 #. Sign In Button
 msgctxt "opencrx_PLA_signIn"
@@ -2747,7 +2746,7 @@ msgstr "Logga in"
 #. Login Label
 msgctxt "opencrx_PLA_login"
 msgid "Login"
-msgstr ""
+msgstr "Logga in"
 
 #. Password Label
 msgctxt "opencrx_PLA_password"
@@ -2757,18 +2756,18 @@ msgstr "Lösenord"
 #. Error Message when fields aren't filled out
 msgctxt "opencrx_PLA_errorEmpty"
 msgid "Error: fillout all fields"
-msgstr ""
+msgstr "Fel: fyll i alla fält"
 
 #. Error Message when we receive a HTTP 401 Unauthorized
 msgctxt "opencrx_PLA_errorAuth"
 msgid "Error: login or password incorrect!"
-msgstr ""
+msgstr "Fel användarnamn eller lösenord!"
 
 #. ================================================ Synchronization ==
 #. title for notification tray after synchronizing
 msgctxt "opencrx_notification_title"
 msgid "OpenCRX"
-msgstr ""
+msgstr "OpenCRX"
 
 #. text for notification tray when synchronizing
 #, c-format
@@ -2784,7 +2783,7 @@ msgstr "Tillkopplingsfel! Kontrollera din tillkoppling till internet."
 #. opencrx Login not specified
 msgctxt "opencrx_MLA_email_empty"
 msgid "Login was not specified!"
-msgstr ""
+msgstr "Användarnamn ej angivet!"
 
 #. opencrx password not specified
 msgctxt "opencrx_MLA_password_empty"
@@ -2806,7 +2805,7 @@ msgstr "&lt;Otilldelad&gt;"
 #. label for dashboard-assignment spinner on taskeditactivity
 msgctxt "opencrx_TEA_creator_assign_label"
 msgid "Assign this task to this creator:"
-msgstr ""
+msgstr "Upphovsman som ska tilldelas uppgiften:"
 
 #. Spinner-item for default dashboard on taskeditactivity
 msgctxt "opencrx_TEA_dashboard_default"
@@ -2815,7 +2814,7 @@ msgstr "&lt;Standard&gt;"
 
 msgctxt "opencrx_TEA_opencrx_title"
 msgid "OpenCRX Controls"
-msgstr ""
+msgstr "OpenCRX-inställningar"
 
 msgctxt "CFC_opencrx_in_workspace_text"
 msgid "In workspace: ?"
@@ -2838,7 +2837,7 @@ msgstr "Tilldelad..."
 #. Preference Category: Power Pack
 msgctxt "EPr_powerpack_header"
 msgid "Astrid Power Pack"
-msgstr ""
+msgstr "Astrid Power Pack"
 
 #. Preference: Anonymous User Statistics
 msgctxt "EPr_statistics_title"
@@ -2861,7 +2860,7 @@ msgstr ""
 #. filters header: Producteev
 msgctxt "producteev_FEx_header"
 msgid "Producteev"
-msgstr ""
+msgstr "Producteev"
 
 #. filter category for Producteev dashboards
 msgctxt "producteev_FEx_dashboard"
@@ -2876,7 +2875,7 @@ msgstr "Tilldelad"
 #. filter category for Producteev responsible person
 msgctxt "producteev_FEx_responsible_byothers"
 msgid "Assigned by others to"
-msgstr ""
+msgstr "Tilldelad av andra till"
 
 #. Producteev responsible filter title (%s => responsiblename)
 #, c-format
@@ -2899,7 +2898,7 @@ msgstr "Lägg till en kommentar"
 #. Preferences Title: Producteev
 msgctxt "producteev_PPr_header"
 msgid "Producteev"
-msgstr ""
+msgstr "Producteev"
 
 #. dashboard title for producteev default dashboard
 msgctxt "producteev_default_dashboard"
@@ -3015,7 +3014,7 @@ msgstr "Fel: fel e-post eller lösenord!"
 #. title for notification tray after synchronizing
 msgctxt "producteev_notification_title"
 msgid "Producteev"
-msgstr ""
+msgstr "Producteev"
 
 #. text for notification tray when synchronizing
 #, c-format
@@ -3043,7 +3042,7 @@ msgstr "Lösenord specificerades inte!"
 #. Label for Producteev control set row
 msgctxt "producteev_TEA_control_set_display"
 msgid "Producteev Assignment"
-msgstr ""
+msgstr "Uppgift i Producteev"
 
 #. label for task-assignment spinner on taskeditactivity
 msgctxt "producteev_TEA_task_assign_label"
@@ -3087,7 +3086,7 @@ msgstr "Tilldelad..."
 #. Task Edit: Reminder group label
 msgctxt "TEA_reminders_group_label"
 msgid "Reminders"
-msgstr ""
+msgstr "Påminnelser"
 
 #. Task Edit: Reminder header label
 msgctxt "TEA_reminder_label"
@@ -3107,7 +3106,7 @@ msgstr "...när uppgiften har förfallit"
 #. Task Edit: Reminder at random times (%s => time plural)
 msgctxt "TEA_reminder_randomly"
 msgid "Randomly once"
-msgstr ""
+msgstr "En gång slumpmässigt"
 
 #. Task Edit: Reminder alarm clock label
 msgctxt "TEA_reminder_alarm_label"
@@ -3122,7 +3121,7 @@ msgstr "Ring en gång"
 #. Task Edit: Reminder mode: ring five times
 msgctxt "TEA_reminder_mode_five"
 msgid "Ring Five Times"
-msgstr ""
+msgstr "Ring fem gånger"
 
 #. Task Edit: Reminder mode: ring nonstop
 msgctxt "TEA_reminder_mode_nonstop"
@@ -3131,27 +3130,27 @@ msgstr "Ring tills jag stänger av alarmet"
 
 msgctxt "TEA_reminder_random:0"
 msgid "an hour"
-msgstr ""
+msgstr "en timme"
 
 msgctxt "TEA_reminder_random:1"
 msgid "a day"
-msgstr ""
+msgstr "ett dygn"
 
 msgctxt "TEA_reminder_random:2"
 msgid "a week"
-msgstr ""
+msgstr "en vecka"
 
 msgctxt "TEA_reminder_random:3"
 msgid "in two weeks"
-msgstr ""
+msgstr "två veckor"
 
 msgctxt "TEA_reminder_random:4"
 msgid "a month"
-msgstr ""
+msgstr "en månad"
 
 msgctxt "TEA_reminder_random:5"
 msgid "in two months"
-msgstr ""
+msgstr "två månader"
 
 #. ==================================================== notifications ==
 #. Name of filter when viewing a reminder
@@ -3172,7 +3171,7 @@ msgstr "Vänta..."
 #. Reminder: Completed Toast
 msgctxt "rmd_NoA_completed_toast"
 msgid "Congratulations on finishing!"
-msgstr ""
+msgstr "Grattis till den slutförda uppgiften!"
 
 #. ============================================= reminder preferences ==
 #. Reminder Preference Screen Title
@@ -3183,17 +3182,17 @@ msgstr "Påminnelseinställningar"
 #. Reminder Preference: Reminders Enabled Title
 msgctxt "rmd_EPr_enabled_title"
 msgid "Reminders Enabled?"
-msgstr ""
+msgstr "Påminnelser valda?"
 
 #. Reminder Preference Reminders Enabled Description (true)
 msgctxt "rmd_EPr_enabled_desc_true"
 msgid "Astrid reminders are enabled (this is normal)"
-msgstr ""
+msgstr "Påminnelser från Astrid är valda (normalt)"
 
 #. Reminder Preference Reminders Enabled Description (false)
 msgctxt "rmd_EPr_enabled_desc_false"
 msgid "Astrid reminders will never appear on your phone"
-msgstr ""
+msgstr "Påminnelser från Astrid visas inte i telefonen"
 
 #. Reminder Preference: Quiet Hours Start Title
 msgctxt "rmd_EPr_quiet_hours_start_title"
@@ -3222,18 +3221,18 @@ msgstr "Tyst period slutar"
 #, c-format
 msgctxt "rmd_EPr_quiet_hours_end_desc"
 msgid "Notifications will stop being silent starting at %s"
-msgstr ""
+msgstr "Påminnelser är ljudlösa med början %s"
 
 #. Reminder Preference: Default Reminder Title
 msgctxt "rmd_EPr_rmd_time_title"
 msgid "Default Reminder"
-msgstr ""
+msgstr "Standardpåminnelse"
 
 #. Reminder Preference: Default Reminder Description (%s => time set)
 #, c-format
 msgctxt "rmd_EPr_rmd_time_desc"
 msgid "Notifications for tasks without duetimes will appear at %s"
-msgstr ""
+msgstr "Påminnelser om uppgifter utan sluttid visas %s"
 
 #. Reminder Preference: Notification Ringtone Title
 msgctxt "rmd_EPr_ringtone_title"
@@ -3286,19 +3285,19 @@ msgstr "Välj Astrids statusfältikon"
 #. Reminder Preference: Max Volume for Multiple-Ring reminders Title
 msgctxt "rmd_EPr_multiple_maxvolume_title"
 msgid "Max volume for multiple-ring reminders"
-msgstr ""
+msgstr "Maxvolym för flera ringande påminnelser"
 
 #. Reminder Preference: Max Volume for Multiple-Ring reminders Description
 #. (true)
 msgctxt "rmd_EPr_multiple_maxvolume_desc_true"
 msgid "Astrid will max out the volume for multiple-ring reminders"
-msgstr ""
+msgstr "Astrid sätter volymen på max för flera ringande påminnelser"
 
 #. Reminder Preference: Max Volume for Multiple-Ring reminders Description
 #. (false)
 msgctxt "rmd_EPr_multiple_maxvolume_desc_false"
 msgid "Astrid will use the system-setting for the volume"
-msgstr ""
+msgstr "Astrid använder systeminställningen för volym"
 
 #. Reminder Preference: Vibrate Title
 msgctxt "rmd_EPr_vibrate_title"
@@ -3872,44 +3871,45 @@ msgstr "Dags att korta ned din att-göra-lista!"
 
 msgctxt "reminder_responses:17"
 msgid "Are you on Team Order or Team Chaos? Team Order! Let's go!"
-msgstr ""
+msgstr "Ingår du i lag Ordning eller i lag Kaos? Lag Ordning! Kom igen!"
 
 msgctxt "reminder_responses:18"
 msgid "Have I mentioned you are awesome recently? Keep it up!"
-msgstr ""
+msgstr "Har jag sagt att du är toppen på sistone? Fortsätt så!"
 
 msgctxt "reminder_responses:19"
 msgid "A task a day keeps the clutter away... Goodbye clutter!"
-msgstr ""
+msgstr "Undvik röra - bara att sätta i gång och göra!"
 
 msgctxt "reminder_responses:20"
 msgid "How do you do it? Wow, I'm impressed!"
-msgstr ""
+msgstr "Hur lyckas du med det här? Jag är verkligen imponerad!"
 
 msgctxt "reminder_responses:21"
 msgid "You can't just get by on your good looks. Let's get to it!"
-msgstr ""
+msgstr "Du klarar dig inte enbart med ditt utseende. Sätt i gång!"
 
 msgctxt "reminder_responses:22"
 msgid "Lovely weather for a job like this, isn't it?"
-msgstr ""
+msgstr "Fint väder för ett jobb som det här, ìnte sant?"
 
 msgctxt "reminder_responses:23"
 msgid "A spot of tea while you work on this?"
-msgstr ""
+msgstr "En skvätt te medan du håller på med det här?"
 
 msgctxt "reminder_responses:24"
 msgid ""
 "If only you had already done this, then you could go outside and play."
 msgstr ""
+"Om du bara hade varit klar med det här redan, kunde du ha gått ut och lekt."
 
 msgctxt "reminder_responses:25"
 msgid "It's time. You can't put off the inevitable."
-msgstr ""
+msgstr "Det är dags. Du kan inte skjuta upp det ofrånkomliga."
 
 msgctxt "reminder_responses:26"
 msgid "I die a little every time you ignore me."
-msgstr ""
+msgstr "Jag dör en smula varje gång du ignorerar mig."
 
 msgctxt "postpone_nags:0"
 msgid "Please tell me it isn't true that you're a procrastinator!"
@@ -4004,31 +4004,31 @@ msgstr "No Repeat"
 
 msgctxt "repeat_dont"
 msgid "Don't repeat"
-msgstr ""
+msgstr "Upprepa inte"
 
 msgctxt "repeat_interval_short:0"
 msgid "d"
-msgstr ""
+msgstr "d"
 
 msgctxt "repeat_interval_short:1"
 msgid "wk"
-msgstr ""
+msgstr "v"
 
 msgctxt "repeat_interval_short:2"
 msgid "mo"
-msgstr ""
+msgstr "mån"
 
 msgctxt "repeat_interval_short:3"
 msgid "hr"
-msgstr ""
+msgstr "tim"
 
 msgctxt "repeat_interval_short:4"
 msgid "min"
-msgstr ""
+msgstr "min"
 
 msgctxt "repeat_interval_short:5"
 msgid "yr"
-msgstr ""
+msgstr "år"
 
 msgctxt "repeat_interval:0"
 msgid "Day(s)"
@@ -4048,11 +4048,11 @@ msgstr "Timme (timmar)"
 
 msgctxt "repeat_interval:4"
 msgid "Minute(s)"
-msgstr ""
+msgstr "Minut(er)"
 
 msgctxt "repeat_interval:5"
 msgid "Year(s)"
-msgstr ""
+msgstr "År"
 
 msgctxt "repeat_type:0"
 msgid "from due date"
@@ -4084,28 +4084,28 @@ msgstr "%s efter avslutning"
 #, c-format
 msgctxt "repeat_rescheduling_dialog_title"
 msgid "Rescheduling task \"%s\""
-msgstr ""
+msgstr "Ändrar tid för uppgiften \"%s\""
 
 #, c-format
 msgctxt "repeat_rescheduling_dialog_bubble"
 msgid "%1$s I've rescheduled this repeating task from %2$s to %3$s"
-msgstr ""
+msgstr "%1$s Återkommande uppgift ändrad från %2$s till %3$s"
 
 msgctxt "repeat_encouragement:0"
 msgid "Good job!"
-msgstr ""
+msgstr "Bra jobbat!"
 
 msgctxt "repeat_encouragement:1"
 msgid "Wow… I'm so proud of you!"
-msgstr ""
+msgstr "Häftigt! Jag är så stolt över dig!"
 
 msgctxt "repeat_encouragement:2"
 msgid "I love it when you're productive!"
-msgstr ""
+msgstr "Jag älskar när du är produktiv!"
 
 msgctxt "repeat_encouragement:3"
 msgid "Doesn't it feel good to check something off?"
-msgstr ""
+msgstr "Visst känns det skönt att bocka av någonting?"
 
 #. See the file "LICENSE" for the full license governing this code.
 #. ====================== Plugin Boilerplate =========================
@@ -4127,7 +4127,7 @@ msgstr "Behöver synkronisering med RTM"
 #. filters header: RTM
 msgctxt "rmilk_FEx_header"
 msgid "Remember the Milk"
-msgstr ""
+msgstr "Kom ihåg mjölk"
 
 #. filter category for RTM lists
 msgctxt "rmilk_FEx_list"
@@ -4144,7 +4144,7 @@ msgstr "RTM Lista '%s'"
 #. RTM edit activity Title
 msgctxt "rmilk_MEA_title"
 msgid "Remember the Milk"
-msgstr ""
+msgstr "Kom ihåg mjölk"
 
 #. RTM edit List Edit Label
 msgctxt "rmilk_MEA_list_label"
@@ -4165,7 +4165,7 @@ msgstr "t.ex. varje vecka, efter 14 dagar"
 #. Milk Preferences Title
 msgctxt "rmilk_MPr_header"
 msgid "Remember the Milk"
-msgstr ""
+msgstr "Kom ihåg mjölk"
 
 #. ======================= MilkLoginActivity =========================
 #. RTM Login Instructions
@@ -4189,7 +4189,7 @@ msgstr ""
 #. title for notification tray when synchronizing
 msgctxt "rmilk_notification_title"
 msgid "Astrid: Remember the Milk"
-msgstr ""
+msgstr "Astrid: Kom ihåg mjölk"
 
 #. Error msg when io exception with rmilk
 msgctxt "rmilk_ioerror"
@@ -4204,19 +4204,19 @@ msgstr ""
 #. Subtasks Help Introduction
 msgctxt "subtasks_help_title"
 msgid "Sort and Indent in Astrid"
-msgstr ""
+msgstr "Sortera och gör indrag i Astrid"
 
 msgctxt "subtasks_help_1"
 msgid "Tap and hold to move a task"
-msgstr ""
+msgstr "Rör vid och håll kvar fingret för att flytta en uppgift"
 
 msgctxt "subtasks_help_2"
 msgid "Drag vertically to rearrange"
-msgstr ""
+msgstr "Dra upp eller ner för att ändra ordningen"
 
 msgctxt "subtasks_help_3"
 msgid "Drag horizontally to indent"
-msgstr ""
+msgstr "Dra åt höger för att göra indrag"
 
 #. See the file "LICENSE" for the full license governing this code.
 #. Resources for built-in tag plug-in
@@ -4229,22 +4229,22 @@ msgstr "Listor"
 #. Tags label long version
 msgctxt "TEA_tags_label_long"
 msgid "Put task on one or more lists"
-msgstr ""
+msgstr "Koppla uppgiften till en eller flera listor"
 
 #. Tags none
 msgctxt "TEA_tags_none"
 msgid "None"
-msgstr ""
+msgstr "Ingen"
 
 #. Tags hint
 msgctxt "TEA_tag_hint"
 msgid "New list"
-msgstr ""
+msgstr "Ny lista"
 
 #. Tags dropdown
 msgctxt "TEA_tag_dropdown"
 msgid "Select a list"
-msgstr ""
+msgstr "Välj lista"
 
 #. =============================================== Task List Controls ==
 #. menu item for tags
@@ -4256,28 +4256,28 @@ msgstr "Listor"
 #. Context Item: show tag
 msgctxt "TAd_contextFilterByTag"
 msgid "Show List"
-msgstr ""
+msgstr "Visa lista"
 
 #. Dialog: new list
 msgctxt "tag_new_list"
 msgid "New List"
-msgstr ""
+msgstr "Ny lista"
 
 #. Dialog: list saved
 msgctxt "tag_list_saved"
 msgid "List Saved"
-msgstr ""
+msgstr "Listan sparad"
 
 #. Dialog: task created without title
 msgctxt "tag_no_title_error"
 msgid "Please enter a name for this list first!"
-msgstr ""
+msgstr "Ange först ett namn på listan!"
 
 #. ========================================================== Filters ==
 #. filter button to add tag
 msgctxt "tag_FEx_add_new"
 msgid "New"
-msgstr ""
+msgstr "Ny"
 
 #. filter header for tags
 msgctxt "tag_FEx_header"
@@ -4287,68 +4287,68 @@ msgstr "Listor"
 #. filter header for tags user created
 msgctxt "tag_FEx_category_mine"
 msgid "My Lists"
-msgstr ""
+msgstr "Mina listor"
 
 #. filter header for tags, shared with user
 msgctxt "tag_FEx_category_shared"
 msgid "Shared With Me"
-msgstr ""
+msgstr "Delas med mig"
 
 #. filter header for tags which have no active tasks
 msgctxt "tag_FEx_category_inactive"
 msgid "Inactive"
-msgstr ""
+msgstr "Inaktiv"
 
 #. filter for untagged tasks
 msgctxt "tag_FEx_untagged"
 msgid "Not in any List"
-msgstr ""
+msgstr "Ingen lista"
 
 #. clarifying title for people who have Google and Astrid lists
 msgctxt "tag_FEx_untagged_w_astrid"
 msgid "Not in an Astrid List"
-msgstr ""
+msgstr "Ingen lista i Astrid"
 
 #. %s => tag name
 #, c-format
 msgctxt "tag_FEx_name"
 msgid "List: %s"
-msgstr ""
+msgstr "Lista: %s"
 
 #. context menu option to rename a tag
 msgctxt "tag_cm_rename"
 msgid "Rename List"
-msgstr ""
+msgstr "Byt namn på listan"
 
 #. context menu option to delete a tag
 msgctxt "tag_cm_delete"
 msgid "Delete List"
-msgstr ""
+msgstr "Radera listan"
 
 #. context menu option to leave a shared list
 msgctxt "tag_cm_leave"
 msgid "Leave List"
-msgstr ""
+msgstr "Lämna listan"
 
 #. Dialog to confirm deletion of a tag (%s -> the name of the list to be
 #. deleted)
 #, c-format
 msgctxt "DLG_delete_this_tag_question"
 msgid "Delete this list: %s? (No tasks will be deleted.)"
-msgstr ""
+msgstr "Radera listan %s? (Inga uppgifter raderas.)"
 
 #. Dialog to confirm leaving a shared tag (%s -> the name of the shared list
 #. to leave)
 #, c-format
 msgctxt "DLG_leave_this_shared_tag_question"
 msgid "Leave this shared list: %s? (No tasks will be deleted.)"
-msgstr ""
+msgstr "Lämna den delade listan %s? (Inga uppgifter raderas.)"
 
 #. Dialog to rename tag
 #, c-format
 msgctxt "DLG_rename_this_tag_header"
 msgid "Rename the list %s to:"
-msgstr ""
+msgstr "Byt namn på listan %s till:"
 
 #. Toast notification that no changes have been made
 msgctxt "TEA_no_tags_modified"
@@ -4360,21 +4360,21 @@ msgstr "Inga ändringar gjordes"
 #, c-format
 msgctxt "TEA_tags_deleted"
 msgid "List %1$s was deleted, affecting %2$d tasks"
-msgstr ""
+msgstr "Listan %1$s raderad. Det påverkar %2$d uppgifter"
 
 #. Toast notification that a shared tag has been left (%1$s - list name, %2$d
 #. - # tasks)
 #, c-format
 msgctxt "TEA_tags_left"
 msgid "You left shared list %1$s, affecting %2$d tasks"
-msgstr ""
+msgstr "Du lämnade listan %1$s. Det påverkar %2$d uppgifter"
 
 #. Toast notification that a tag has been renamed (%1$s - old name, %2$s - new
 #. name, %3$d - # tasks)
 #, c-format
 msgctxt "TEA_tags_renamed"
 msgid "Renamed %1$s with %2$s for %3$d tasks"
-msgstr ""
+msgstr "Bytte namn på %1$s till %2$s för %3$d uppgifter"
 
 #. Tag case migration
 msgctxt "tag_case_migration_notice"
@@ -4386,6 +4386,12 @@ msgid ""
 "Shopping_2). If you don't want this, you can simply delete the new combined "
 "list!"
 msgstr ""
+"Vi har märkt att du har några listor som har samma namn men som skiljer sig "
+"åt med stora och små bokstäver. Vi tror att du kan ha velat att de skulle "
+"vara samma lista, så vi har kombinerat dubbletterna. Var inte orolig, de "
+"ursprungliga listorna har fått nya namn med siffror (t.ex. Arbete_1, "
+"Arbete_2). Om du inte vill ha det så, kan du bara ta bort den nya "
+"kombinerade listan!"
 
 #. Header for tag settings
 msgctxt "tag_settings_title"
@@ -4396,29 +4402,29 @@ msgstr "Settings:"
 #, c-format
 msgctxt "tag_updates_title"
 msgid "Activity: %s"
-msgstr ""
+msgstr "Aktivitet: %s"
 
 #. Delete button for tag settings
 msgctxt "tag_delete_button"
 msgid "Delete List"
-msgstr ""
+msgstr "Radera listan"
 
 #. Leave button for tag settings
 msgctxt "tag_leave_button"
 msgid "Leave This List"
-msgstr ""
+msgstr "Lämna den här listan"
 
 #. See the file "LICENSE" for the full license governing this code.
 #. Resources for built-in timers plug-in
 #. Task List: Start Timer button
 msgctxt "TAE_startTimer"
 msgid "Timer"
-msgstr ""
+msgstr "Tidtagarur"
 
 #. Task List: Stop Timer button
 msgctxt "TAE_stopTimer"
 msgid "Stop"
-msgstr ""
+msgstr "Stoppa"
 
 #. Android Notification Title (%s => # tasks)
 #, c-format
@@ -4439,22 +4445,22 @@ msgstr "Uppgifter med tidtagning"
 #. Title for TEA
 msgctxt "TEA_timer_controls"
 msgid "Timer Controls"
-msgstr ""
+msgstr "Inställningar för tidtagarur"
 
 #. Edit Notes: create comment for when timer is started
 msgctxt "TEA_timer_comment_started"
 msgid "started this task:"
-msgstr ""
+msgstr "påbörjade uppgiften:"
 
 #. Edit Notes: create comment for when timer is stopped
 msgctxt "TEA_timer_comment_stopped"
 msgid "stopped doing this task:"
-msgstr ""
+msgstr "slutade arbeta med uppgiften:"
 
 #. Edit Notes: comment to notify how long was spent on task
 msgctxt "TEA_timer_comment_spent"
 msgid "Time spent:"
-msgstr ""
+msgstr "Nedlagt tid:"
 
 #. See the file "LICENSE" for the full license governing this code.
 #. Update string from activity codes %1$s - user, %2$s - target name, %3$s -
@@ -4462,67 +4468,67 @@ msgstr ""
 #, c-format
 msgctxt "update_string_friends"
 msgid "%1$s is now friends with %2$s"
-msgstr ""
+msgstr "%1$s är nu vän med %2$s"
 
 #, c-format
 msgctxt "update_string_request_friendship"
 msgid "%1$s wants to be friends with you"
-msgstr ""
+msgstr "%1s vill bli vän med dig"
 
 #, c-format
 msgctxt "update_string_confirmed_friendship"
 msgid "%1$s has confirmed your friendship request"
-msgstr ""
+msgstr "%1$s har accepterat din vänförfrågan"
 
 #, c-format
 msgctxt "update_string_task_created"
 msgid "%1$s created this task"
-msgstr ""
+msgstr "%1$s skapade den här uppgiften"
 
 #, c-format
 msgctxt "update_string_task_created_on_list"
 msgid "%1$s added %2$s to this list"
-msgstr ""
+msgstr "%1$s lade in %2$s på den här listan"
 
 #, c-format
 msgctxt "update_string_task_completed"
 msgid "%1$s completed %2$s. Huzzah!"
-msgstr ""
+msgstr "%1$s slutförde %2$s. Hurra!"
 
 #, c-format
 msgctxt "update_string_task_uncompleted"
 msgid "%1$s un-completed %2$s."
-msgstr ""
+msgstr "%1$s avmarkerade %2$s som slutförd."
 
 #, c-format
 msgctxt "update_string_task_tagged"
 msgid "%1$s added %4$s to %2$s"
-msgstr ""
+msgstr "%1$s lade in %4$s på %2$s"
 
 #, c-format
 msgctxt "update_string_task_tagged_list"
 msgid "%1$s added %4$s to this list"
-msgstr ""
+msgstr "%1$s lade in %4$s på listan"
 
 #, c-format
 msgctxt "update_string_task_assigned"
 msgid "%1$s assigned %4$s to %2$s"
-msgstr ""
+msgstr "%1$s tilldelade %2$s uppgiften %4$s"
 
 #, c-format
 msgctxt "update_string_default_comment"
 msgid "%1$s commented: %3$s"
-msgstr ""
+msgstr "%1$s kommenterade: %3$s"
 
 #, c-format
 msgctxt "update_string_task_comment"
 msgid "%1$s Re: %2$s: %3$s"
-msgstr ""
+msgstr "%1$s Re: %2$s: %3$s"
 
 #, c-format
 msgctxt "update_string_tag_comment"
 msgid "%1$s Re: %2$s: %3$s"
-msgstr ""
+msgstr "%1$s Re: %2$s: %3$s"
 
 #. See the file "LICENSE" for the full license governing this code.
 #. Voice Add Prompt Text
@@ -4617,11 +4623,11 @@ msgstr "Röstindata inställningar"
 
 msgctxt "welcome_show_eula"
 msgid "Accept EULA to get started!"
-msgstr ""
+msgstr "Acceptera användaravtalet för att starta!"
 
 msgctxt "welcome_setting"
 msgid "Show Tutorial"
-msgstr ""
+msgstr "Visa handledning"
 
 msgctxt "welcome_title_1"
 msgid "Welcome to Astrid!"
@@ -4629,51 +4635,59 @@ msgstr "Välkommen till Astrid!"
 
 msgctxt "welcome_title_2"
 msgid "Make lists"
-msgstr ""
+msgstr "Göra listor"
 
 msgctxt "welcome_title_3"
 msgid "Switch between lists"
-msgstr ""
+msgstr "Byta mellan listor"
 
 msgctxt "welcome_title_4"
 msgid "Share lists"
-msgstr ""
+msgstr "Dela listor"
 
 msgctxt "welcome_title_5"
 msgid "Divvy up tasks"
-msgstr ""
+msgstr "Dela upp uppgifter"
 
 msgctxt "welcome_title_6"
 msgid "Provide details"
-msgstr ""
+msgstr "Ange detaljer"
 
 msgctxt "welcome_title_7"
 msgid ""
 "Connect now\n"
 "to get started!"
 msgstr ""
+"Anslut nu\n"
+"för att starta!"
 
 msgctxt "welcome_title_7_return"
 msgid "That's it!"
-msgstr ""
+msgstr "Det var det!"
 
 msgctxt "welcome_body_1"
 msgid ""
 "The perfect personal to-do list \n"
 "that works great with friends"
 msgstr ""
+"Den perfekta att göra-listan\n"
+"som funkar bra med vänner"
 
 msgctxt "welcome_body_2"
 msgid ""
 "Great for any list:\n"
 "read, watch, buy, visit!"
 msgstr ""
+"Utmärkt för alla listor:\n"
+"att läsa, att titta på, att köpa, att besöka"
 
 msgctxt "welcome_body_3"
 msgid ""
 "Tap the list title \n"
 "to see all your lists"
 msgstr ""
+"Tryck på listans namn\n"
+"för att se alla dina listor"
 
 msgctxt "welcome_body_4"
 msgid ""
@@ -4681,6 +4695,9 @@ msgid ""
 "friends, housemates,\n"
 "or your sweetheart!"
 msgstr ""
+"Dela listor med \n"
+"kompisarna\n"
+"eller din älskling!"
 
 msgctxt "welcome_body_5"
 msgid ""
@@ -4694,36 +4711,39 @@ msgid ""
 "set reminders,\n"
 "and much more!"
 msgstr ""
+"Klicka för att göra anteckningar,\n"
+"ställa in påminnelser,\n"
+"och mycket annat!"
 
 msgctxt "welcome_body_7"
 msgid "Login"
-msgstr ""
+msgstr "Logga in"
 
 msgctxt "welcome_body_7_return"
 msgid "Tap Astrid to return."
-msgstr ""
+msgstr "Klicka på Astrid för att återvända."
 
 msgctxt "welcome_back"
 msgid "Back"
-msgstr ""
+msgstr "Bakåt"
 
 msgctxt "welcome_next"
 msgid "Next"
-msgstr ""
+msgstr "Nästa"
 
 #. See the file "LICENSE" for the full license governing this code.
 #. Resources for power pack widget
 msgctxt "PPW_widget_42_label"
 msgid "Astrid Premium 4x2"
-msgstr ""
+msgstr "Astrid Premium 4x2"
 
 msgctxt "PPW_widget_43_label"
 msgid "Astrid Premium 4x3"
-msgstr ""
+msgstr "Astrid Premium 4x3"
 
 msgctxt "PPW_widget_44_label"
 msgid "Astrid Premium 4x4"
-msgstr ""
+msgstr "Astrid Premium 4x4"
 
 msgctxt "PPW_configure_title"
 msgid "Configure Widget"
@@ -4852,441 +4872,53 @@ msgstr "Genomskinlig"
 
 msgctxt "PPW_widget_dlg_text"
 msgid "This widget is only available to owners of the PowerPack!"
-msgstr ""
+msgstr "Widgeten är tillgänglig endast för användare av Astrid Power Pack!"
 
 msgctxt "PPW_widget_dlg_ok"
 msgid "Preview"
-msgstr ""
+msgstr "Förhandsgranska"
 
 #, c-format
 msgctxt "PPW_demo_title1"
 msgid "Items on %s will go here"
-msgstr ""
+msgstr "Poster på %s hamnar här"
 
 msgctxt "PPW_demo_title2"
 msgid "Power Pack includes Premium Widgets..."
-msgstr ""
+msgstr "I Power Pack ingår premiumwidgetar..."
 
 msgctxt "PPW_demo_title3"
 msgid "...voice add and good feelings!"
-msgstr ""
+msgstr "...ljud och härliga känslor!"
 
 msgctxt "PPW_demo_title4"
 msgid "Tap to learn more!"
-msgstr ""
+msgstr "Tryck för att läsa mer!"
 
 msgctxt "PPW_info_title"
 msgid "Free Power Pack!"
-msgstr ""
+msgstr "Gratis Power Pack!"
 
 msgctxt "PPW_info_signin"
 msgid "Sign in!"
-msgstr ""
+msgstr "Logga in!"
 
 msgctxt "PPW_info_later"
 msgid "Later"
-msgstr ""
+msgstr "Senare"
 
 msgctxt "PPW_unlock_howto"
 msgid ""
 "Share lists with friends! Unlock the free Power Pack when 3 friends sign up "
 "with Astrid."
 msgstr ""
+"Dela listor med dina vänner! Gratis Power Pack när tre vänner börjar använda "
+"Astrid."
 
 msgctxt "PPW_check_button"
 msgid "Get the Power Pack for free!"
-msgstr ""
+msgstr "Du kan få Power Pack gratis!"
 
 msgctxt "PPW_check_share_lists"
 msgid "Share lists!"
-msgstr ""
-
-#. See the file "LICENSE" for the full license governing this code.
-#. ==================================================== Generic Units ==
-#, c-format
-msgctxt "DUt_years:quantity=other"
-msgid "%d Years"
-msgstr ""
-
-#. See the file "LICENSE" for the full license governing this code.
-#. ==================================================== Generic Units ==
-msgctxt "DUt_years:quantity=one"
-msgid "1 Year"
-msgstr ""
-
-#, c-format
-msgctxt "DUt_months:quantity=other"
-msgid "%d Months"
-msgstr ""
-
-msgctxt "DUt_months:quantity=one"
-msgid "1 Month"
-msgstr ""
-
-#, c-format
-msgctxt "DUt_weeks:quantity=other"
-msgid "%d Weeks"
-msgstr ""
-
-msgctxt "DUt_weeks:quantity=one"
-msgid "1 Week"
-msgstr ""
-
-#, c-format
-msgctxt "DUt_days:quantity=other"
-msgid "%d Days"
-msgstr ""
-
-msgctxt "DUt_days:quantity=one"
-msgid "1 Day"
-msgstr ""
-
-#, c-format
-msgctxt "DUt_weekdays:quantity=other"
-msgid "%d Weekdays"
-msgstr ""
-
-msgctxt "DUt_weekdays:quantity=one"
-msgid "1 Weekday"
-msgstr ""
-
-#, c-format
-msgctxt "DUt_hours:quantity=other"
-msgid "%d Hours"
-msgstr ""
-
-msgctxt "DUt_hours:quantity=one"
-msgid "1 Hour"
-msgstr ""
-
-#, c-format
-msgctxt "DUt_minutes:quantity=other"
-msgid "%d Minutes"
-msgstr ""
-
-msgctxt "DUt_minutes:quantity=one"
-msgid "1 Minute"
-msgstr ""
-
-#, c-format
-msgctxt "DUt_seconds:quantity=other"
-msgid "%d Seconds"
-msgstr ""
-
-msgctxt "DUt_seconds:quantity=one"
-msgid "1 Second"
-msgstr ""
-
-#, c-format
-msgctxt "DUt_hoursShort:quantity=other"
-msgid "%d Hrs"
-msgstr ""
-
-msgctxt "DUt_hoursShort:quantity=one"
-msgid "1 Hr"
-msgstr ""
-
-#, c-format
-msgctxt "DUt_minutesShort:quantity=other"
-msgid "%d Min"
-msgstr ""
-
-msgctxt "DUt_minutesShort:quantity=one"
-msgid "1 Min"
-msgstr ""
-
-#, c-format
-msgctxt "DUt_secondsShort:quantity=other"
-msgid "%d Sec"
-msgstr ""
-
-msgctxt "DUt_secondsShort:quantity=one"
-msgid "1 Sec"
-msgstr ""
-
-#, c-format
-msgctxt "Ntasks:quantity=other"
-msgid "%d tasks"
-msgstr ""
-
-msgctxt "Ntasks:quantity=one"
-msgid "1 task"
-msgstr ""
-
-#, c-format
-msgctxt "Npeople:quantity=other"
-msgid "%d people"
-msgstr ""
-
-msgctxt "Npeople:quantity=one"
-msgid "1 person"
-msgstr ""
-
-#. today
-msgctxt "today"
-msgid "Today"
-msgstr ""
-
-#. tomorrow
-msgctxt "tomorrow"
-msgid "Tomorrow"
-msgstr ""
-
-#. today
-msgctxt "yesterday"
-msgid "Yesterday"
-msgstr ""
-
-#. tomorrow abbreviated
-msgctxt "tmrw"
-msgid "Tmrw"
-msgstr ""
-
-#. today abbreviated
-msgctxt "yest"
-msgid "Yest"
-msgstr ""
-
-#. ================================================== Generic Dialogs ==
-#. confirmation dialog title
-msgctxt "DLG_confirm_title"
-msgid "Confirm?"
-msgstr "Bekräfta?"
-
-#. question dialog title
-msgctxt "DLG_question_title"
-msgid "Question:"
-msgstr "Fråga:"
-
-#. information dialog title
-msgctxt "DLG_information_title"
-msgid "Information"
-msgstr "Information"
-
-#. error dialog title
-msgctxt "DLG_error_title"
-msgid "Error!"
-msgstr "Fel!"
-
-#. general dialog save
-msgctxt "DLG_save"
-msgid "Save"
-msgstr "Spara"
-
-#. general dialog yes
-msgctxt "DLG_yes"
-msgid "Yes"
-msgstr "Ja"
-
-#. general dialog no
-msgctxt "DLG_no"
-msgid "No"
-msgstr "Nej"
-
-#. general dialog close
-msgctxt "DLG_close"
-msgid "Close"
-msgstr "Stäng"
-
-#. general dialog done
-msgctxt "DLG_done"
-msgid "Done"
-msgstr ""
-
-#. error dialog (%s => error message)
-#, c-format
-msgctxt "DLG_error"
-msgid ""
-"Oops, looks like an error occurred! Here's what happened:\n"
-"\n"
-"%s"
-msgstr ""
-
-#. error dialog (no message indicated)
-msgctxt "DLG_error_generic"
-msgid "Oops, looks like an error occurred!"
-msgstr "Oj, det uppstod ett fel!"
-
-#. Progress dialog shown when doing something slow
-msgctxt "DLG_wait"
-msgid "Please wait..."
-msgstr "Var god vänta..."
-
-#. ====================================================== SyncProvider ==
-#. Sync Notification: message when sync service active
-msgctxt "SyP_progress"
-msgid "Synchronizing your tasks..."
-msgstr "Synkroniserar dina uppgifter..."
-
-#. Sync Notification: toast when sync activated from activity
-msgctxt "SyP_progress_toast"
-msgid "Synchronizing..."
-msgstr "Synkroniserar..."
-
-#. Sync Label: used in menu to denote synchronization
-msgctxt "SyP_label"
-msgid "Synchronization"
-msgstr "Synkronisering"
-
-#. Error msg when io exception
-msgctxt "SyP_ioerror"
-msgid "Connection Error! Check your Internet connection."
-msgstr ""
-
-#. ================================================== SyncPreferences ==
-#. Status Group Label
-msgctxt "sync_SPr_group_status"
-msgid "Status"
-msgstr ""
-
-#. Sync Status: log in
-msgctxt "sync_status_loggedout"
-msgid "Not Logged In!"
-msgstr "Ej inloggad!"
-
-#. Status: ongoing
-msgctxt "sync_status_ongoing"
-msgid "Sync Ongoing..."
-msgstr "Synkronisering pågår..."
-
-#. Sync Status: success status (%s -> last sync date). Keep it short!
-#, c-format
-msgctxt "sync_status_success"
-msgid ""
-"Last Sync:\n"
-"%s"
-msgstr ""
-
-#. Sync Status: failure status (%s -> last attempted sync date)
-#, c-format
-msgctxt "sync_status_failed"
-msgid "Failed On: %s"
-msgstr "Misslyckades: %s"
-
-#. Sync Status: error status (%s -> last sync date)
-#, c-format
-msgctxt "sync_status_errors"
-msgid "Sync w/ Errors: %s"
-msgstr ""
-
-#. Sync Status: error subtitle (%s -> last successful sync date)
-#, c-format
-msgctxt "sync_status_failed_subtitle"
-msgid "Last Successful Sync: %s"
-msgstr "Synkronisering lyckades senast: %s"
-
-#. Sync Status: never sync'd
-msgctxt "sync_status_never"
-msgid "Never Synchronized!"
-msgstr "Aldrig synkroniserad!"
-
-#. Options Group Label
-msgctxt "sync_SPr_group_options"
-msgid "Options"
-msgstr ""
-
-#. Preference: Synchronization Interval Title
-msgctxt "sync_SPr_interval_title"
-msgid "Background Sync"
-msgstr "Bakgrundssynkronisering"
-
-#. Preference: Synchronization Interval Description (when disabled)
-msgctxt "sync_SPr_interval_desc_disabled"
-msgid "Background synchronization is disabled"
-msgstr "Bakgrundssynkronisering är inaktiverad"
-
-#. Preference: Synchronization Interval Description (%s => setting)
-#, c-format
-msgctxt "sync_SPr_interval_desc"
-msgid "Currently set to: %s"
-msgstr "Aktuell inställning: %s"
-
-#. Preference: Background Wifi Title
-msgctxt "sync_SPr_bgwifi_title"
-msgid "Wifi Only Setting"
-msgstr "Endast Wi-Fi Inställning"
-
-#. Preference: Background Wifi Description (enabled)
-msgctxt "sync_SPr_bgwifi_desc_enabled"
-msgid "Background synchronization only happens when on Wifi"
-msgstr "Bakgrundssynkronisering sker endast när du är ansluten till Wi-Fi"
-
-#. Preference: Background Wifi Description (disabled)
-msgctxt "sync_SPr_bgwifi_desc_disabled"
-msgid "Background synchronization will always occur"
-msgstr "Bakgrundssynkronisering sker alltid"
-
-#. Actions Group Label
-msgctxt "sync_SPr_group_actions"
-msgid "Actions"
-msgstr "Åtgärder"
-
-#. Synchronize Now Button
-msgctxt "sync_SPr_sync"
-msgid "Synchronize Now!"
-msgstr "Synkronisera nu!"
-
-#. Synchronize Now Button if not logged in
-msgctxt "sync_SPr_sync_log_in"
-msgid "Log In & Synchronize!"
-msgstr "Logga in &amp; synkronisera!"
-
-#. Sync: Prefix string before logged in identifier
-msgctxt "sync_SPr_logged_in_prefix"
-msgid "Logged in as:"
-msgstr "Inloggad som:"
-
-#. Sync: Clear Data Title
-msgctxt "sync_SPr_forget"
-msgid "Log Out"
-msgstr "Logga ut"
-
-#. Sync: Clear Data Description
-msgctxt "sync_SPr_forget_description"
-msgid "Clears all synchronization data"
-msgstr "Rensar alla synkroniseringsdata"
-
-#. confirmation dialog for sync log out
-msgctxt "sync_forget_confirm"
-msgid "Log out / clear synchronization data?"
-msgstr "Logga ut / rensa synkroniseringsdata?"
-
-msgctxt "sync_SPr_interval_entries:0"
-msgid "disable"
-msgstr "inaktivera"
-
-msgctxt "sync_SPr_interval_entries:1"
-msgid "every fifteen minutes"
-msgstr "varje kvartstimme"
-
-msgctxt "sync_SPr_interval_entries:2"
-msgid "every thirty minutes"
-msgstr "varje halvtimme"
-
-msgctxt "sync_SPr_interval_entries:3"
-msgid "every hour"
-msgstr "varje timme"
-
-msgctxt "sync_SPr_interval_entries:4"
-msgid "every three hours"
-msgstr "var tredje timme"
-
-msgctxt "sync_SPr_interval_entries:5"
-msgid "every six hours"
-msgstr "var sjätte timme"
-
-msgctxt "sync_SPr_interval_entries:6"
-msgid "every twelve hours"
-msgstr "var tolfte timme"
-
-msgctxt "sync_SPr_interval_entries:7"
-msgid "every day"
-msgstr "varje dag"
-
-msgctxt "sync_SPr_interval_entries:8"
-msgid "every three days"
-msgstr "var tredje dag"
-
-msgctxt "sync_SPr_interval_entries:9"
-msgid "every week"
-msgstr "varje vecka"
+msgstr "Dela listor!"

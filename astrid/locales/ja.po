@@ -7,75 +7,75 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2012-02-29 17:17-0800\n"
-"PO-Revision-Date: 2012-03-01 06:34+0000\n"
-"Last-Translator: Tim Su <tim@todoroo.com>\n"
+"POT-Creation-Date: 2012-03-06 17:01-0800\n"
+"PO-Revision-Date: 2012-04-25 23:16+0000\n"
+"Last-Translator: matsuu <matsuu@gmail.com>\n"
 "Language-Team: ja <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2012-03-07 00:04+0000\n"
-"X-Generator: Launchpad (build 14900)\n"
+"X-Launchpad-Export-Date: 2012-05-03 02:36+0000\n"
+"X-Generator: Launchpad (build 15185)\n"
 "Generated-By: Babel 1.0dev\n"
 
 #. ================================================== general terms ==
 #. People Editing Activity
 msgctxt "EPE_action"
 msgid "Share"
-msgstr "重要性"
+msgstr "共有"
 
 #. task sharing dialog: assigned hint
 msgctxt "actfm_person_hint"
 msgid "Contact or Email"
-msgstr ""
+msgstr "連絡先またはEメール"
 
 #. task sharing dialog: shared with hint
 msgctxt "actfm_person_or_tag_hint"
 msgid "Contact or Shared List"
-msgstr ""
+msgstr "連絡先または共有リスト"
 
 #. toast on transmit success
 msgctxt "actfm_toast_success"
 msgid "Saved on Server"
-msgstr ""
+msgstr "サーバに保存"
 
 #. toast on transmit error (%s => error)
 #, c-format
 msgctxt "actfm_toast_error"
 msgid "Save Failed: %s"
-msgstr ""
+msgstr "保存に失敗: %s"
 
 #. can't rename or delete shared tag message
 msgctxt "actfm_tag_operation_disabled"
 msgid "Sorry, this operation is not yet supported for shared tags."
-msgstr ""
+msgstr "すみません、この操作は共有タグではまだサポートされていません。"
 
 #. warning before deleting a list you're the owner of
 msgctxt "actfm_tag_operation_owner_delete"
 msgid ""
 "You are the owner of this shared list! If you delete it, it will be deleted "
 "for all list members. Are you sure you want to continue?"
-msgstr ""
+msgstr "あなたはこの共有リストの所有者です！もしリストを削除すると、リストのすべてのメンバーからも削除されます。本当によろしいですか？"
 
 #. menu item to take a picture
 msgctxt "actfm_picture_camera"
 msgid "Take a Picture"
-msgstr ""
+msgstr "写真を撮る"
 
 #. menu item to select from gallery
 msgctxt "actfm_picture_gallery"
 msgid "Pick from Gallery"
-msgstr ""
+msgstr "ギャラリーから選択"
 
 #. menu item to clear picture selection
 msgctxt "actfm_picture_clear"
 msgid "Clear Picture"
-msgstr ""
+msgstr "写真を削除"
 
 #. filter list activity: refresh tags
 msgctxt "actfm_FLA_menu_refresh"
 msgid "Refresh Lists"
-msgstr ""
+msgstr "リストを更新"
 
 #. Title for prompt after sharing a task
 msgctxt "actfm_view_task_title"
@@ -104,7 +104,7 @@ msgstr ""
 #. Tag View Activity: Add Comment hint
 msgctxt "TVA_add_comment"
 msgid "Add a comment..."
-msgstr ""
+msgstr "コメントを追加する..."
 
 #. Tag View Activity: task comment ($1 - user name, $2 - task title)
 #, c-format
@@ -115,17 +115,17 @@ msgstr ""
 #. Tabs for Tag view
 msgctxt "TVA_tabs:0"
 msgid "Tasks"
-msgstr ""
+msgstr "タスク"
 
 #. Tabs for Tag view
 msgctxt "TVA_tabs:1"
 msgid "Activity"
-msgstr ""
+msgstr "アクティビティ"
 
 #. Tabs for Tag view
 msgctxt "TVA_tabs:2"
 msgid "List Settings"
-msgstr ""
+msgstr "リストの設定"
 
 #. Tag View: filtered by assigned to user (%s => user name)
 #, c-format
@@ -146,27 +146,27 @@ msgstr ""
 #. Tag View Menu: refresh
 msgctxt "actfm_TVA_menu_refresh"
 msgid "Refresh"
-msgstr ""
+msgstr "更新"
 
 #. Tag Settings: tag name label
 msgctxt "actfm_TVA_tag_label"
 msgid "List"
-msgstr ""
+msgstr "リスト"
 
 #. Tag Settings: tag owner label
 msgctxt "actfm_TVA_tag_owner_label"
 msgid "List Creator:"
-msgstr ""
+msgstr "リスト作成者:"
 
 #. Tag Settings: tag owner value when there is no owner
 msgctxt "actfm_TVA_tag_owner_none"
 msgid "none"
-msgstr ""
+msgstr "なし"
 
 #. Tag Settings: list collaborators label
 msgctxt "actfm_TVA_members_label"
 msgid "Shared With"
-msgstr ""
+msgstr "だれと共有しますか"
 
 #. Tag Settings: tag picture
 msgctxt "actfm_TVA_tag_picture"
@@ -186,29 +186,29 @@ msgstr ""
 #. Tag Settings: list description label
 msgctxt "actfm_TVA_tag_description_label"
 msgid "Description"
-msgstr ""
+msgstr "概要"
 
 #. Tag Settings: list settings label
 msgctxt "actfm_TVA_tag_settings_label"
 msgid "Settings"
-msgstr ""
+msgstr "設定"
 
 #. Tag Settings: list description hint
 msgctxt "actfm_TVA_tag_description_hint"
 msgid "Type a description here"
-msgstr ""
+msgstr "ここに概要を記入してください"
 
 #. Tag Settings: list name hint
 msgctxt "actfm_TVA_tag_name_hint"
 msgid "Enter list name"
-msgstr ""
+msgstr "リスト名称を記入してください"
 
 #. Tag settings: login prompt from share
 msgctxt "actfm_TVA_login_to_share"
 msgid ""
 "You need to be logged in to Astrid.com to share lists! Please log in or make "
 "this a private list."
-msgstr ""
+msgstr "リストを共有するためにはAstrid.comへのログインが必要です！ログインするか、プライベートリストに設定してください。"
 
 #. ============================================ edit people dialog ==
 #. task sharing dialog: intro
@@ -221,32 +221,32 @@ msgstr ""
 #. task sharing dialog: window title
 msgctxt "actfm_EPA_title"
 msgid "Share / Assign"
-msgstr ""
+msgstr "共有 / アサイン"
 
 #. task sharing dialog: save button
 msgctxt "actfm_EPA_save"
 msgid "Save & Share"
-msgstr ""
+msgstr "保存＆共有"
 
 #. task sharing dialog: assigned label
 msgctxt "actfm_EPA_assign_label"
 msgid "Who"
-msgstr ""
+msgstr "誰が"
 
 #. task sharing dialog: assigned label long version
 msgctxt "actfm_EPA_assign_label_long"
 msgid "Who should do this?"
-msgstr ""
+msgstr "これは誰がすべきですか？"
 
 #. task sharing dialog: assigned to me
 msgctxt "actfm_EPA_assign_me"
 msgid "Me"
-msgstr ""
+msgstr "自分"
 
 #. task sharing dialog: anyone
 msgctxt "actfm_EPA_unassigned"
 msgid "Unassigned"
-msgstr ""
+msgstr "アサインなし"
 
 #. task sharing dialog: use task rabbit
 msgctxt "actfm_EPA_task_rabbit"
@@ -261,7 +261,7 @@ msgstr ""
 #. task sharing dialog: shared with label
 msgctxt "actfm_EPA_share_with"
 msgid "Share with:"
-msgstr ""
+msgstr "共有者:"
 
 #. Toast when assigning a task
 #, c-format
@@ -272,23 +272,23 @@ msgstr ""
 #. task sharing dialog: shared with label
 msgctxt "actfm_EPA_collaborators_header"
 msgid "Share with Friends"
-msgstr ""
+msgstr "ともだちと共有する"
 
 #. task sharing dialog: collaborator list name (%s => name of list)
 #, c-format
 msgctxt "actfm_EPA_list"
 msgid "List: %s"
-msgstr ""
+msgstr "リスト: %s"
 
 #. task sharing dialog: assigned hint
 msgctxt "actfm_EPA_assigned_hint"
 msgid "Contact Name"
-msgstr ""
+msgstr "連絡先名"
 
 #. task sharing dialog: message label text
 msgctxt "actfm_EPA_message_text"
 msgid "Invitation Message:"
-msgstr ""
+msgstr "招待メッセージ:"
 
 #. task sharing dialog: message body
 msgctxt "actfm_EPA_message_body"
@@ -308,18 +308,18 @@ msgstr ""
 #. task sharing dialog: share with Facebook
 msgctxt "actfm_EPA_facebook"
 msgid "Facebook"
-msgstr ""
+msgstr "Facebook"
 
 #. task sharing dialog: share with Twitter
 msgctxt "actfm_EPA_twitter"
 msgid "Twitter"
-msgstr ""
+msgstr "Twitter"
 
 #. task sharing dialog: # of e-mails sent (%s => # people plural string)
 #, c-format
 msgctxt "actfm_EPA_emailed_toast"
 msgid "Task shared with %s"
-msgstr ""
+msgstr "タスクは%sと共有されました"
 
 #. task sharing dialog: edit people settings saved
 msgctxt "actfm_EPA_saved_toast"
@@ -330,13 +330,13 @@ msgstr ""
 #, c-format
 msgctxt "actfm_EPA_invalid_email"
 msgid "Invalid E-mail: %s"
-msgstr ""
+msgstr "無効なEメール: %s"
 
 #. task sharing dialog: tag not found (%s => tag)
 #, c-format
 msgctxt "actfm_EPA_invalid_tag"
 msgid "List Not Found: %s"
-msgstr ""
+msgstr "リストが見つかりません: %s"
 
 #. task sharing login prompt
 msgctxt "actfm_EPA_login_to_share"
@@ -347,7 +347,7 @@ msgstr ""
 
 msgctxt "actfm_EPA_login_button"
 msgid "Log in"
-msgstr ""
+msgstr "ログイン"
 
 msgctxt "actfm_EPA_dont_share_button"
 msgid "Make private"
@@ -357,7 +357,7 @@ msgstr ""
 #. share login: Title
 msgctxt "actfm_ALA_title"
 msgid "Welcome to Astrid.com!"
-msgstr ""
+msgstr "Asteroid.comにようこそ！"
 
 #. share login: Sharing Description
 msgctxt "actfm_ALA_body"
@@ -369,12 +369,12 @@ msgstr ""
 #. share login: Sharing Login FB Prompt
 msgctxt "actfm_ALA_fb_login"
 msgid "Connect with Facebook"
-msgstr ""
+msgstr "Facebookと接続する"
 
 #. share login: Sharing Login GG Prompt
 msgctxt "actfm_ALA_gg_login"
 msgid "Connect with Google"
-msgstr ""
+msgstr "Googleと接続する"
 
 #. share login: Sharing Footer Password Label
 msgctxt "actfm_ALA_pw_login"
@@ -389,37 +389,37 @@ msgstr ""
 #. share login: Password Are you a New User?
 msgctxt "actfm_ALA_pw_new"
 msgid "Create a new account?"
-msgstr ""
+msgstr "新しいアカウントを作成しますか?"
 
 #. share login: Password Are you a Returning User?
 msgctxt "actfm_ALA_pw_returning"
 msgid "Already have an account?"
-msgstr ""
+msgstr "すでにアカウントをお持ちですか？"
 
 #. share login: Name
 msgctxt "actfm_ALA_name_label"
 msgid "Name"
-msgstr ""
+msgstr "名前"
 
 #. share login: Name
 msgctxt "actfm_ALA_firstname_label"
 msgid "First Name"
-msgstr ""
+msgstr "名"
 
 #. share login: Name
 msgctxt "actfm_ALA_lastname_label"
 msgid "Last Name"
-msgstr ""
+msgstr "姓"
 
 #. share login: Email
 msgctxt "actfm_ALA_email_label"
 msgid "Email"
-msgstr ""
+msgstr "Eメール"
 
 #. share login: Username / Email
 msgctxt "actfm_ALA_username_email_label"
 msgid "Username / Email"
-msgstr ""
+msgstr "ユーザ名 / Eメール"
 
 #. share login: Password
 msgctxt "actfm_ALA_password_label"
@@ -429,40 +429,40 @@ msgstr "パスワード"
 #. share login: Sign Up Title
 msgctxt "actfm_ALA_signup_title"
 msgid "Create New Account"
-msgstr ""
+msgstr "新規アカウント作成"
 
 #. share login: Login Title
 msgctxt "actfm_ALA_login_title"
 msgid "Login to Astrid.com"
-msgstr ""
+msgstr "Astrid.comにログイン"
 
 #. share login: Google Auth title
 msgctxt "actfm_GAA_title"
 msgid "Select the Google account you want to use:"
-msgstr ""
+msgstr "使用したいGoogleアカウントを選択してください:"
 
 #. share login: OAUTH Login Prompt
 msgctxt "actfm_OLA_prompt"
 msgid "Please log in:"
-msgstr ""
+msgstr "ログインしてください:"
 
 #. ================================================ Synchronization ==
 #. Preferences Title: Act.fm
 msgctxt "actfm_APr_header"
 msgid "Astrid.com"
-msgstr ""
+msgstr "Astrid.com"
 
 msgctxt "actfm_https_title"
 msgid "Use HTTPS"
-msgstr ""
+msgstr "HTTPS を使う"
 
 msgctxt "actfm_https_enabled"
 msgid "HTTPS enabled (slower)"
-msgstr ""
+msgstr "HTTPS有効(遅い)"
 
 msgctxt "actfm_https_disabled"
 msgid "HTTPS disabled (faster)"
-msgstr ""
+msgstr "HTTPS無効(早い)"
 
 #. title for notification tray after synchronizing
 msgctxt "actfm_notification_title"
@@ -488,7 +488,7 @@ msgstr "アラームを追加する"
 
 msgctxt "reminders_alarm:0"
 msgid "Alarm!"
-msgstr ""
+msgstr "アラーム"
 
 #. See the file "LICENSE" for the full license governing this code.
 #. Resources for built-in backup plug-in
@@ -658,7 +658,7 @@ msgstr "復元に使うファイルを選択してください"
 #. Application Name (shown on home screen & in launcher)
 msgctxt "app_name"
 msgid "Astrid Tasks"
-msgstr ""
+msgstr "Astridタスク"
 
 #. permission title for READ_TASKS
 msgctxt "read_permission_label"
@@ -732,7 +732,7 @@ msgstr "Astrid 利用規定"
 #. Progress Dialog generic text
 msgctxt "DLG_please_wait"
 msgid "Please Wait"
-msgstr ""
+msgstr "お待ちください"
 
 #. Dialog - loading
 msgctxt "DLG_loading"
@@ -746,19 +746,19 @@ msgstr ""
 
 msgctxt "DLG_ok"
 msgid "OK"
-msgstr ""
+msgstr "OK"
 
 msgctxt "DLG_cancel"
 msgid "Cancel"
-msgstr ""
+msgstr "キャンセル"
 
 msgctxt "DLG_more"
 msgid "More"
-msgstr ""
+msgstr "もっと"
 
 msgctxt "DLG_undo"
 msgid "Undo"
-msgstr ""
+msgstr "元に戻す"
 
 #. =============================================================== UI ==
 #. Label for DateButtons with no value
@@ -785,7 +785,7 @@ msgstr "メモ"
 #. Note Exposer / Comments
 msgctxt "ENE_label_comments"
 msgid "Comments"
-msgstr ""
+msgstr "コメント"
 
 #. EditNoteActivity - no comments
 msgctxt "ENA_no_comments"
@@ -795,12 +795,12 @@ msgstr ""
 #. EditNoteActivity - no username for comment
 msgctxt "ENA_no_user"
 msgid "You"
-msgstr ""
+msgstr "あなた"
 
 #. EditNoteActivity - refresh comments
 msgctxt "ENA_refresh_comments"
 msgid "Refresh Comments"
-msgstr ""
+msgstr "コメントを更新"
 
 #. ================================================= TaskListActivity ==
 #. Task List: Displayed instead of list when no items present
@@ -828,22 +828,22 @@ msgstr "すぐに同期！"
 #. Menu: Tasks
 msgctxt "TLA_menu_lists"
 msgid "Lists"
-msgstr ""
+msgstr "リスト"
 
 #. Menu: Friends
 msgctxt "TLA_menu_friends"
 msgid "Friends"
-msgstr ""
+msgstr "ともだち"
 
 #. Menu: Suggestions
 msgctxt "TLA_menu_suggestions"
 msgid "Suggestions"
-msgstr ""
+msgstr "提案"
 
 #. Menu: Tutorial
 msgctxt "TLA_menu_tutorial"
 msgid "Tutorial"
-msgstr ""
+msgstr "チュートリアル"
 
 #. Menu: Settings
 msgctxt "TLA_menu_settings"
@@ -853,7 +853,7 @@ msgstr "設定"
 #. Menu: Support
 msgctxt "TLA_menu_support"
 msgid "Support"
-msgstr ""
+msgstr "サポート"
 
 #. Search Label
 msgctxt "TLA_search_label"
@@ -868,7 +868,7 @@ msgstr "カスタムフィルタ"
 #. Quick Add Edit Box Hint
 msgctxt "TLA_quick_add_hint"
 msgid "Add a task"
-msgstr ""
+msgstr "タスクを追加"
 
 #. Quick Add Edit Box Hint for assigning
 #, c-format
@@ -896,11 +896,11 @@ msgstr "今日"
 
 msgctxt "TLA_filters:2"
 msgid "Soon"
-msgstr ""
+msgstr "すぐに"
 
 msgctxt "TLA_filters:3"
 msgid "Late"
-msgstr ""
+msgstr "遅れ"
 
 msgctxt "TLA_filters:4"
 msgid "Done"
@@ -908,7 +908,7 @@ msgstr "完了"
 
 msgctxt "TLA_filters:5"
 msgid "Hidden"
-msgstr ""
+msgstr "非表示"
 
 #. Title for confirmation dialog after quick add markup
 #, c-format
@@ -946,19 +946,19 @@ msgstr ""
 
 msgctxt "TLA_priority_strings:0"
 msgid "highest priority"
-msgstr ""
+msgstr "最優先"
 
 msgctxt "TLA_priority_strings:1"
 msgid "high priority"
-msgstr ""
+msgstr "優先度高"
 
 msgctxt "TLA_priority_strings:2"
 msgid "medium priority"
-msgstr ""
+msgstr "優先度中"
 
 msgctxt "TLA_priority_strings:3"
 msgid "low priority"
-msgstr ""
+msgstr "優先度低"
 
 msgctxt "TLA_all_activity"
 msgid "All Activity"
@@ -1005,7 +1005,7 @@ msgstr "タスクをコピー"
 #. Context Item: delete task
 msgctxt "TAd_contextHelpTask"
 msgid "Get help"
-msgstr ""
+msgstr "ヘルプを読む"
 
 msgctxt "TAd_contextDeleteTask"
 msgid "Delete Task"
@@ -1019,7 +1019,7 @@ msgstr "元に戻す"
 #. Context Item: purge task
 msgctxt "TAd_contextPurgeTask"
 msgid "Purge Task"
-msgstr ""
+msgstr "タスクを削除"
 
 #. ============================================== SortSelectionDialog ==
 #. Sort Selection: dialog title
@@ -1030,7 +1030,7 @@ msgstr "並び順と表示項目"
 #. Hidden: title
 msgctxt "SSD_hidden_title"
 msgid "Hidden Tasks"
-msgstr ""
+msgstr "非表示のタスク"
 
 #. Hidden Task Selection: show completed tasks
 msgctxt "SSD_completed"
@@ -1153,11 +1153,16 @@ msgstr "ショートカット %s を作成しました"
 #. Menu: new filter
 msgctxt "FLA_new_filter"
 msgid "New Filter"
-msgstr ""
+msgstr "新しいフィルタ"
 
 #. Button: new list
 msgctxt "FLA_new_list"
 msgid "New List"
+msgstr "新しいリスト"
+
+#. Alert when creating a shortcut without selecting a filter
+msgctxt "FLA_no_filter_selected"
+msgid "No filter selected! Please select a filter or list."
 msgstr ""
 
 #. ================================================= TaskEditActivity ==
@@ -1170,7 +1175,7 @@ msgstr "Astrid: 「%s」の編集"
 #. Title when creating a new task
 msgctxt "TEA_view_titleNew"
 msgid "New Task"
-msgstr ""
+msgstr "新しいタスク"
 
 #. Task title label
 msgctxt "TEA_title_label"
@@ -1180,7 +1185,7 @@ msgstr "タスク名"
 #. Task when label
 msgctxt "TEA_when_header_label"
 msgid "When"
-msgstr ""
+msgstr "いつ"
 
 #. Task title hint (displayed when edit box is empty)
 msgctxt "TEA_title_hint"
@@ -1205,12 +1210,12 @@ msgstr "時刻を設定する"
 #. Task urgency specific time title when specific time false
 msgctxt "TEA_urgency_none"
 msgid "None"
-msgstr ""
+msgstr "なし"
 
 #. Task hide until label
 msgctxt "TEA_hideUntil_label"
 msgid "Show Task"
-msgstr ""
+msgstr "タスクを表示"
 
 #. Task hide until toast
 #, c-format
@@ -1261,7 +1266,7 @@ msgstr "タスクを削除"
 #. Menu: Task comments
 msgctxt "TEA_menu_comments"
 msgid "Comments"
-msgstr ""
+msgstr "コメント"
 
 #. Toast: task saved with deadline (%s => preposition + time units)
 #, c-format
@@ -1282,7 +1287,7 @@ msgstr "編集は中断されました"
 #. Toast: task was deleted
 msgctxt "TEA_onTaskDelete"
 msgid "Task deleted!"
-msgstr ""
+msgstr "タスクは削除されました！"
 
 #. Task edit tab: activity
 msgctxt "TEA_tab_activity"
@@ -1297,11 +1302,11 @@ msgstr "さらに"
 #. Task edit tab: web services
 msgctxt "TEA_tab_web"
 msgid "Ideas"
-msgstr ""
+msgstr "アイデア"
 
 msgctxt "TEA_urgency:0"
 msgid "No deadline"
-msgstr ""
+msgstr "無期限"
 
 msgctxt "TEA_urgency:1"
 msgid "Specific Day"
@@ -1325,7 +1330,7 @@ msgstr "来週"
 
 msgctxt "TEA_urgency:6"
 msgid "In Two Weeks"
-msgstr ""
+msgstr "2週間以内"
 
 msgctxt "TEA_urgency:7"
 msgid "Next Month"
@@ -1362,11 +1367,11 @@ msgstr ""
 
 msgctxt "TEA_control_who"
 msgid "Who"
-msgstr ""
+msgstr "誰が"
 
 msgctxt "TEA_control_when"
 msgid "When"
-msgstr ""
+msgstr "いつ"
 
 msgctxt "TEA_control_more_section"
 msgid "----Details----"
@@ -1386,7 +1391,7 @@ msgstr "メモ"
 
 msgctxt "TEA_control_reminders"
 msgid "Reminders"
-msgstr ""
+msgstr "リマインダー"
 
 msgctxt "TEA_control_timer"
 msgid "Timer Controls"
@@ -1394,7 +1399,7 @@ msgstr ""
 
 msgctxt "TEA_control_share"
 msgid "Share With Friends"
-msgstr ""
+msgstr "ともだちと共有"
 
 msgctxt "hide_until_prompt"
 msgid "Show in my list"
@@ -1432,7 +1437,7 @@ msgstr ""
 
 msgctxt "TEA_date_and_time"
 msgid "Date/Time"
-msgstr ""
+msgstr "日付/時刻"
 
 msgctxt "WSV_click_to_load"
 msgid "Tap me to search for ways to get this done!"
@@ -1474,7 +1479,7 @@ msgstr "Astrid の変更点"
 #. Updates Window Title
 msgctxt "UpS_updates_title"
 msgid "Latest Astrid News"
-msgstr ""
+msgstr "最新のAstridニュース"
 
 #. Updats No Activity to show for offline users
 msgctxt "UpS_no_activity_log_in"
@@ -1579,11 +1584,12 @@ msgid "Auto-load Ideas Tab"
 msgstr ""
 
 msgctxt "EPr_ideaAuto_desc_enabled"
-msgid "Web searches for Ideas tab will be performed when task is edited"
+msgid "Web searches for Ideas tab will be performed when tab is clicked"
 msgstr ""
 
 msgctxt "EPr_ideaAuto_desc_disabled"
-msgid "Web searches for Ideas tab will be performed when tab is clicked"
+msgid ""
+"Web searches for Ideas tab will be performed only when manually requested"
 msgstr ""
 
 #. Preference: Theme
@@ -2322,7 +2328,7 @@ msgctxt "gtasks_GLA_errorIOAuth"
 msgid ""
 "Sorry, we had trouble communicating with Google servers. Please try again "
 "later."
-msgstr ""
+msgstr "すみません、Googleのサーバとの通信で問題が発生しました。しばらくしてから再度やり直してください。"
 
 #. Error Message when we receive a HTTP 401 Unauthorized multiple times
 msgctxt "gtasks_GLA_errorAuth_captcha"
@@ -2373,59 +2379,6 @@ msgid ""
 msgstr ""
 
 #. See the file "LICENSE" for the full license governing this code.
-#. Resources initial tasks added
-#. Intro Tag or click prompt
-msgctxt "intro_click_prompt"
-msgid "Intro: Press me to see notes"
-msgstr ""
-
-#. Task 1 Summary
-msgctxt "intro_task_1_summary"
-msgid "Create your first task"
-msgstr ""
-
-#. Task 1 Note
-msgctxt "intro_task_1_note"
-msgid ""
-"Two ways to add a task:\n"
-" 1) Quick Add: Type the task into the quick entry box at bottom of screen "
-"and press the + button on the right.\n"
-" 2) Regular Add: Press the + button of the quick entry box. Add as much "
-"detail as you want. Then press \"Save\" or use your phone's back button.\n"
-msgstr ""
-"タスクを登録する2つの方法\n"
-" 1) 素早い登録: 入力欄にタスク名を入力し、入力欄の左に表示される + ボタンを押します。\n"
-"\n"
-"2) 標準の登録: 入力欄の右側にあるボタンを押します。期限やタグ、メモやより高度な設定を行えます。保存ボタンか電話機のバックボタンで保存します。\n"
-
-#. Task 2 Summary
-msgctxt "intro_task_2_summary"
-msgid "Add a widget to your desktop"
-msgstr "ホーム画面にウィジェットを追加する"
-
-#. Task 2 Note
-msgctxt "intro_task_2_note"
-msgid ""
-"1) Long Press on your phone's desktop\n"
-"      2) Choose \"Widget\"\n"
-"      3) Choose the Astrid widget\n"
-"      4) Select the list you want and press OK.\n"
-msgstr ""
-
-#. Task 3 Summary
-msgctxt "intro_task_3_summary"
-msgid "Setup sync with Astrid.com"
-msgstr ""
-
-#. Task 3 Note
-msgctxt "intro_task_3_note"
-msgid ""
-"1) Press your Menu button\n"
-"      2) Choose \"Sync Now\"\n"
-"      3) Select \"Astrid.com\"\n"
-"      4) Log In & Synchronize!\n"
-msgstr ""
-
 #. NEW USER EXPERIENCE
 #. help bubbles
 #. Shown the first time a user sees the task list activity
@@ -4719,7 +4672,7 @@ msgstr ""
 msgctxt "PPW_old_astrid_notice"
 msgid ""
 "You need at least version 3.6 of Astrid in order to use this widget. Sorry!"
-msgstr ""
+msgstr "このウィジェットを使うためにはAstridのバージョン3.6以降が必要です。"
 
 msgctxt "PPW_encouragements:0"
 msgid "Hi there!"
@@ -4861,394 +4814,4 @@ msgstr ""
 
 msgctxt "PPW_check_share_lists"
 msgid "Share lists!"
-msgstr ""
-
-#. See the file "LICENSE" for the full license governing this code.
-#. ==================================================== Generic Units ==
-#, c-format
-msgctxt "DUt_years:quantity=other"
-msgid "%d Years"
-msgstr ""
-
-#. See the file "LICENSE" for the full license governing this code.
-#. ==================================================== Generic Units ==
-msgctxt "DUt_years:quantity=one"
-msgid "1 Year"
-msgstr ""
-
-#, c-format
-msgctxt "DUt_months:quantity=other"
-msgid "%d Months"
-msgstr ""
-
-msgctxt "DUt_months:quantity=one"
-msgid "1 Month"
-msgstr ""
-
-#, c-format
-msgctxt "DUt_weeks:quantity=other"
-msgid "%d Weeks"
-msgstr ""
-
-msgctxt "DUt_weeks:quantity=one"
-msgid "1 Week"
-msgstr ""
-
-#, c-format
-msgctxt "DUt_days:quantity=other"
-msgid "%d Days"
-msgstr ""
-
-msgctxt "DUt_days:quantity=one"
-msgid "1 Day"
-msgstr ""
-
-#, c-format
-msgctxt "DUt_weekdays:quantity=other"
-msgid "%d Weekdays"
-msgstr ""
-
-msgctxt "DUt_weekdays:quantity=one"
-msgid "1 Weekday"
-msgstr ""
-
-#, c-format
-msgctxt "DUt_hours:quantity=other"
-msgid "%d Hours"
-msgstr ""
-
-msgctxt "DUt_hours:quantity=one"
-msgid "1 Hour"
-msgstr ""
-
-#, c-format
-msgctxt "DUt_minutes:quantity=other"
-msgid "%d Minutes"
-msgstr ""
-
-msgctxt "DUt_minutes:quantity=one"
-msgid "1 Minute"
-msgstr ""
-
-#, c-format
-msgctxt "DUt_seconds:quantity=other"
-msgid "%d Seconds"
-msgstr ""
-
-msgctxt "DUt_seconds:quantity=one"
-msgid "1 Second"
-msgstr ""
-
-#, c-format
-msgctxt "DUt_hoursShort:quantity=other"
-msgid "%d Hrs"
-msgstr ""
-
-msgctxt "DUt_hoursShort:quantity=one"
-msgid "1 Hr"
-msgstr ""
-
-#, c-format
-msgctxt "DUt_minutesShort:quantity=other"
-msgid "%d Min"
-msgstr ""
-
-msgctxt "DUt_minutesShort:quantity=one"
-msgid "1 Min"
-msgstr ""
-
-#, c-format
-msgctxt "DUt_secondsShort:quantity=other"
-msgid "%d Sec"
-msgstr ""
-
-msgctxt "DUt_secondsShort:quantity=one"
-msgid "1 Sec"
-msgstr ""
-
-#, c-format
-msgctxt "Ntasks:quantity=other"
-msgid "%d tasks"
-msgstr ""
-
-msgctxt "Ntasks:quantity=one"
-msgid "1 task"
-msgstr ""
-
-#, c-format
-msgctxt "Npeople:quantity=other"
-msgid "%d people"
-msgstr ""
-
-msgctxt "Npeople:quantity=one"
-msgid "1 person"
-msgstr ""
-
-#. today
-msgctxt "today"
-msgid "Today"
-msgstr ""
-
-#. tomorrow
-msgctxt "tomorrow"
-msgid "Tomorrow"
-msgstr ""
-
-#. today
-msgctxt "yesterday"
-msgid "Yesterday"
-msgstr ""
-
-#. tomorrow abbreviated
-msgctxt "tmrw"
-msgid "Tmrw"
-msgstr ""
-
-#. today abbreviated
-msgctxt "yest"
-msgid "Yest"
-msgstr ""
-
-#. ================================================== Generic Dialogs ==
-#. confirmation dialog title
-msgctxt "DLG_confirm_title"
-msgid "Confirm?"
-msgstr ""
-
-#. question dialog title
-msgctxt "DLG_question_title"
-msgid "Question:"
-msgstr ""
-
-#. information dialog title
-msgctxt "DLG_information_title"
-msgid "Information"
-msgstr ""
-
-#. error dialog title
-msgctxt "DLG_error_title"
-msgid "Error!"
-msgstr ""
-
-#. general dialog save
-msgctxt "DLG_save"
-msgid "Save"
-msgstr ""
-
-#. general dialog yes
-msgctxt "DLG_yes"
-msgid "Yes"
-msgstr ""
-
-#. general dialog no
-msgctxt "DLG_no"
-msgid "No"
-msgstr ""
-
-#. general dialog close
-msgctxt "DLG_close"
-msgid "Close"
-msgstr ""
-
-#. general dialog done
-msgctxt "DLG_done"
-msgid "Done"
-msgstr ""
-
-#. error dialog (%s => error message)
-#, c-format
-msgctxt "DLG_error"
-msgid ""
-"Oops, looks like an error occurred! Here's what happened:\n"
-"\n"
-"%s"
-msgstr ""
-
-#. error dialog (no message indicated)
-msgctxt "DLG_error_generic"
-msgid "Oops, looks like an error occurred!"
-msgstr ""
-
-#. Progress dialog shown when doing something slow
-msgctxt "DLG_wait"
-msgid "Please wait..."
-msgstr ""
-
-#. ====================================================== SyncProvider ==
-#. Sync Notification: message when sync service active
-msgctxt "SyP_progress"
-msgid "Synchronizing your tasks..."
-msgstr ""
-
-#. Sync Notification: toast when sync activated from activity
-msgctxt "SyP_progress_toast"
-msgid "Synchronizing..."
-msgstr ""
-
-#. Sync Label: used in menu to denote synchronization
-msgctxt "SyP_label"
-msgid "Synchronization"
-msgstr ""
-
-#. Error msg when io exception
-msgctxt "SyP_ioerror"
-msgid "Connection Error! Check your Internet connection."
-msgstr ""
-
-#. ================================================== SyncPreferences ==
-#. Status Group Label
-msgctxt "sync_SPr_group_status"
-msgid "Status"
-msgstr ""
-
-#. Sync Status: log in
-msgctxt "sync_status_loggedout"
-msgid "Not Logged In!"
-msgstr ""
-
-#. Status: ongoing
-msgctxt "sync_status_ongoing"
-msgid "Sync Ongoing..."
-msgstr ""
-
-#. Sync Status: success status (%s -> last sync date). Keep it short!
-#, c-format
-msgctxt "sync_status_success"
-msgid ""
-"Last Sync:\n"
-"%s"
-msgstr ""
-
-#. Sync Status: failure status (%s -> last attempted sync date)
-#, c-format
-msgctxt "sync_status_failed"
-msgid "Failed On: %s"
-msgstr ""
-
-#. Sync Status: error status (%s -> last sync date)
-#, c-format
-msgctxt "sync_status_errors"
-msgid "Sync w/ Errors: %s"
-msgstr ""
-
-#. Sync Status: error subtitle (%s -> last successful sync date)
-#, c-format
-msgctxt "sync_status_failed_subtitle"
-msgid "Last Successful Sync: %s"
-msgstr ""
-
-#. Sync Status: never sync'd
-msgctxt "sync_status_never"
-msgid "Never Synchronized!"
-msgstr ""
-
-#. Options Group Label
-msgctxt "sync_SPr_group_options"
-msgid "Options"
-msgstr ""
-
-#. Preference: Synchronization Interval Title
-msgctxt "sync_SPr_interval_title"
-msgid "Background Sync"
-msgstr ""
-
-#. Preference: Synchronization Interval Description (when disabled)
-msgctxt "sync_SPr_interval_desc_disabled"
-msgid "Background synchronization is disabled"
-msgstr ""
-
-#. Preference: Synchronization Interval Description (%s => setting)
-#, c-format
-msgctxt "sync_SPr_interval_desc"
-msgid "Currently set to: %s"
-msgstr ""
-
-#. Preference: Background Wifi Title
-msgctxt "sync_SPr_bgwifi_title"
-msgid "Wifi Only Setting"
-msgstr ""
-
-#. Preference: Background Wifi Description (enabled)
-msgctxt "sync_SPr_bgwifi_desc_enabled"
-msgid "Background synchronization only happens when on Wifi"
-msgstr ""
-
-#. Preference: Background Wifi Description (disabled)
-msgctxt "sync_SPr_bgwifi_desc_disabled"
-msgid "Background synchronization will always occur"
-msgstr ""
-
-#. Actions Group Label
-msgctxt "sync_SPr_group_actions"
-msgid "Actions"
-msgstr ""
-
-#. Synchronize Now Button
-msgctxt "sync_SPr_sync"
-msgid "Synchronize Now!"
-msgstr ""
-
-#. Synchronize Now Button if not logged in
-msgctxt "sync_SPr_sync_log_in"
-msgid "Log In & Synchronize!"
-msgstr ""
-
-#. Sync: Prefix string before logged in identifier
-msgctxt "sync_SPr_logged_in_prefix"
-msgid "Logged in as:"
-msgstr ""
-
-#. Sync: Clear Data Title
-msgctxt "sync_SPr_forget"
-msgid "Log Out"
-msgstr ""
-
-#. Sync: Clear Data Description
-msgctxt "sync_SPr_forget_description"
-msgid "Clears all synchronization data"
-msgstr ""
-
-#. confirmation dialog for sync log out
-msgctxt "sync_forget_confirm"
-msgid "Log out / clear synchronization data?"
-msgstr ""
-
-msgctxt "sync_SPr_interval_entries:0"
-msgid "disable"
-msgstr ""
-
-msgctxt "sync_SPr_interval_entries:1"
-msgid "every fifteen minutes"
-msgstr ""
-
-msgctxt "sync_SPr_interval_entries:2"
-msgid "every thirty minutes"
-msgstr ""
-
-msgctxt "sync_SPr_interval_entries:3"
-msgid "every hour"
-msgstr ""
-
-msgctxt "sync_SPr_interval_entries:4"
-msgid "every three hours"
-msgstr ""
-
-msgctxt "sync_SPr_interval_entries:5"
-msgid "every six hours"
-msgstr ""
-
-msgctxt "sync_SPr_interval_entries:6"
-msgid "every twelve hours"
-msgstr ""
-
-msgctxt "sync_SPr_interval_entries:7"
-msgid "every day"
-msgstr ""
-
-msgctxt "sync_SPr_interval_entries:8"
-msgid "every three days"
-msgstr ""
-
-msgctxt "sync_SPr_interval_entries:9"
-msgid "every week"
 msgstr ""

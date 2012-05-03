@@ -7,48 +7,50 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2012-02-29 17:17-0800\n"
-"PO-Revision-Date: 2012-03-01 06:32+0000\n"
-"Last-Translator: Tim Su <tim@todoroo.com>\n"
+"POT-Creation-Date: 2012-03-06 17:01-0800\n"
+"PO-Revision-Date: 2012-04-02 15:30+0000\n"
+"Last-Translator: Asier Iturralde Sarasola <Unknown>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2012-03-07 00:04+0000\n"
-"X-Generator: Launchpad (build 14900)\n"
+"X-Launchpad-Export-Date: 2012-05-03 02:36+0000\n"
+"X-Generator: Launchpad (build 15185)\n"
 "Generated-By: Babel 1.0dev\n"
 
 #. ================================================== general terms ==
 #. People Editing Activity
 msgctxt "EPE_action"
 msgid "Share"
-msgstr ""
+msgstr "Partekatu"
 
 #. task sharing dialog: assigned hint
 msgctxt "actfm_person_hint"
 msgid "Contact or Email"
-msgstr ""
+msgstr "Kontaktua edo e-posta"
 
 #. task sharing dialog: shared with hint
 msgctxt "actfm_person_or_tag_hint"
 msgid "Contact or Shared List"
-msgstr ""
+msgstr "Kontaktua edo partekatutako zerrenda"
 
 #. toast on transmit success
 msgctxt "actfm_toast_success"
 msgid "Saved on Server"
-msgstr ""
+msgstr "Zerbitzarian gordea"
 
 #. toast on transmit error (%s => error)
 #, c-format
 msgctxt "actfm_toast_error"
 msgid "Save Failed: %s"
-msgstr ""
+msgstr "Errorea gordetzean: %s"
 
 #. can't rename or delete shared tag message
 msgctxt "actfm_tag_operation_disabled"
 msgid "Sorry, this operation is not yet supported for shared tags."
 msgstr ""
+"Sentitzen dugu, oraingoz eragiketa hau ez da bateragarria partekatutako "
+"etiketekin."
 
 #. warning before deleting a list you're the owner of
 msgctxt "actfm_tag_operation_owner_delete"
@@ -56,31 +58,33 @@ msgid ""
 "You are the owner of this shared list! If you delete it, it will be deleted "
 "for all list members. Are you sure you want to continue?"
 msgstr ""
+"Partekatutako zerrenda honen jabea zara! Ezabatzen baduzu, zerrendako "
+"partaide guztientzat ezabatuko da. Ziur zaude aurrera egin nahi duzula?"
 
 #. menu item to take a picture
 msgctxt "actfm_picture_camera"
 msgid "Take a Picture"
-msgstr ""
+msgstr "Egin argazki bat"
 
 #. menu item to select from gallery
 msgctxt "actfm_picture_gallery"
 msgid "Pick from Gallery"
-msgstr ""
+msgstr "Hautatu galeriatik"
 
 #. menu item to clear picture selection
 msgctxt "actfm_picture_clear"
 msgid "Clear Picture"
-msgstr ""
+msgstr "Garbitu argazkia"
 
 #. filter list activity: refresh tags
 msgctxt "actfm_FLA_menu_refresh"
 msgid "Refresh Lists"
-msgstr ""
+msgstr "Freskatu zerrendak"
 
 #. Title for prompt after sharing a task
 msgctxt "actfm_view_task_title"
 msgid "View Task?"
-msgstr ""
+msgstr "Zeregina ikusi?"
 
 #. Text for prompt after sharing a task
 #, c-format
@@ -98,13 +102,13 @@ msgstr ""
 #. Cancel button for task view prompt
 msgctxt "actfm_view_task_cancel"
 msgid "Stay Here"
-msgstr ""
+msgstr "Gelditu hemen"
 
 #. ================================================== TagViewActivity ==
 #. Tag View Activity: Add Comment hint
 msgctxt "TVA_add_comment"
 msgid "Add a comment..."
-msgstr ""
+msgstr "Gehitu iruzkin bat..."
 
 #. Tag View Activity: task comment ($1 - user name, $2 - task title)
 #, c-format
@@ -115,17 +119,17 @@ msgstr ""
 #. Tabs for Tag view
 msgctxt "TVA_tabs:0"
 msgid "Tasks"
-msgstr ""
+msgstr "Zereginak"
 
 #. Tabs for Tag view
 msgctxt "TVA_tabs:1"
 msgid "Activity"
-msgstr ""
+msgstr "Jarduera"
 
 #. Tabs for Tag view
 msgctxt "TVA_tabs:2"
 msgid "List Settings"
-msgstr ""
+msgstr "Zerrendaren ezarpenak"
 
 #. Tag View: filtered by assigned to user (%s => user name)
 #, c-format
@@ -146,27 +150,27 @@ msgstr ""
 #. Tag View Menu: refresh
 msgctxt "actfm_TVA_menu_refresh"
 msgid "Refresh"
-msgstr ""
+msgstr "Freskatu"
 
 #. Tag Settings: tag name label
 msgctxt "actfm_TVA_tag_label"
 msgid "List"
-msgstr ""
+msgstr "Zerrenda"
 
 #. Tag Settings: tag owner label
 msgctxt "actfm_TVA_tag_owner_label"
 msgid "List Creator:"
-msgstr ""
+msgstr "Zerrendaren sortzailea:"
 
 #. Tag Settings: tag owner value when there is no owner
 msgctxt "actfm_TVA_tag_owner_none"
 msgid "none"
-msgstr ""
+msgstr "inor ez"
 
 #. Tag Settings: list collaborators label
 msgctxt "actfm_TVA_members_label"
 msgid "Shared With"
-msgstr ""
+msgstr "Honekin partekatua"
 
 #. Tag Settings: tag picture
 msgctxt "actfm_TVA_tag_picture"
@@ -176,7 +180,7 @@ msgstr ""
 #. Tag Settings: silence notifications label
 msgctxt "actfm_TVA_silence_label"
 msgid "Silence Notifications"
-msgstr ""
+msgstr "Isildu jakinarazpenak"
 
 #. Tag Settings: list icon label
 msgctxt "actfm_TVA_list_icon_label"
@@ -186,7 +190,7 @@ msgstr ""
 #. Tag Settings: list description label
 msgctxt "actfm_TVA_tag_description_label"
 msgid "Description"
-msgstr ""
+msgstr "Deskribapena"
 
 #. Tag Settings: list settings label
 msgctxt "actfm_TVA_tag_settings_label"
@@ -196,12 +200,12 @@ msgstr "Ezarpenak"
 #. Tag Settings: list description hint
 msgctxt "actfm_TVA_tag_description_hint"
 msgid "Type a description here"
-msgstr ""
+msgstr "Idatzi deskribapena hemen"
 
 #. Tag Settings: list name hint
 msgctxt "actfm_TVA_tag_name_hint"
 msgid "Enter list name"
-msgstr ""
+msgstr "Sartu zerrendaren izena"
 
 #. Tag settings: login prompt from share
 msgctxt "actfm_TVA_login_to_share"
@@ -226,27 +230,27 @@ msgstr ""
 #. task sharing dialog: save button
 msgctxt "actfm_EPA_save"
 msgid "Save & Share"
-msgstr ""
+msgstr "Gorde eta partekatu"
 
 #. task sharing dialog: assigned label
 msgctxt "actfm_EPA_assign_label"
 msgid "Who"
-msgstr ""
+msgstr "Nork"
 
 #. task sharing dialog: assigned label long version
 msgctxt "actfm_EPA_assign_label_long"
 msgid "Who should do this?"
-msgstr ""
+msgstr "Nork egin behar luke hau?"
 
 #. task sharing dialog: assigned to me
 msgctxt "actfm_EPA_assign_me"
 msgid "Me"
-msgstr ""
+msgstr "Nik"
 
 #. task sharing dialog: anyone
 msgctxt "actfm_EPA_unassigned"
 msgid "Unassigned"
-msgstr ""
+msgstr "Esleitu gabea"
 
 #. task sharing dialog: use task rabbit
 msgctxt "actfm_EPA_task_rabbit"
@@ -256,12 +260,12 @@ msgstr ""
 #. task sharing dialog: custom email assignment
 msgctxt "actfm_EPA_assign_custom"
 msgid "Custom..."
-msgstr ""
+msgstr "Pertsonalizatua..."
 
 #. task sharing dialog: shared with label
 msgctxt "actfm_EPA_share_with"
 msgid "Share with:"
-msgstr ""
+msgstr "Partekatu honekin:"
 
 #. Toast when assigning a task
 #, c-format
@@ -272,33 +276,33 @@ msgstr ""
 #. task sharing dialog: shared with label
 msgctxt "actfm_EPA_collaborators_header"
 msgid "Share with Friends"
-msgstr ""
+msgstr "Partekatu lagunekin"
 
 #. task sharing dialog: collaborator list name (%s => name of list)
 #, c-format
 msgctxt "actfm_EPA_list"
 msgid "List: %s"
-msgstr ""
+msgstr "Zerrenda: %s"
 
 #. task sharing dialog: assigned hint
 msgctxt "actfm_EPA_assigned_hint"
 msgid "Contact Name"
-msgstr ""
+msgstr "Kontaktuaren izena"
 
 #. task sharing dialog: message label text
 msgctxt "actfm_EPA_message_text"
 msgid "Invitation Message:"
-msgstr ""
+msgstr "Gonbidapen mezua:"
 
 #. task sharing dialog: message body
 msgctxt "actfm_EPA_message_body"
 msgid "Help me get this done!"
-msgstr ""
+msgstr "Lagun zaidazu honekin!"
 
 #. task sharing dialog: message hint
 msgctxt "actfm_EPA_tag_label"
 msgid "Create a shared tag?"
-msgstr ""
+msgstr "Partekatutako etiketa bat sortu?"
 
 #. task sharing dialog: message hint
 msgctxt "actfm_EPA_tag_hint"
@@ -308,18 +312,18 @@ msgstr ""
 #. task sharing dialog: share with Facebook
 msgctxt "actfm_EPA_facebook"
 msgid "Facebook"
-msgstr ""
+msgstr "Facebook"
 
 #. task sharing dialog: share with Twitter
 msgctxt "actfm_EPA_twitter"
 msgid "Twitter"
-msgstr ""
+msgstr "Twitter"
 
 #. task sharing dialog: # of e-mails sent (%s => # people plural string)
 #, c-format
 msgctxt "actfm_EPA_emailed_toast"
 msgid "Task shared with %s"
-msgstr ""
+msgstr "%s-(e)kin partekatutako zeregina"
 
 #. task sharing dialog: edit people settings saved
 msgctxt "actfm_EPA_saved_toast"
@@ -330,13 +334,13 @@ msgstr ""
 #, c-format
 msgctxt "actfm_EPA_invalid_email"
 msgid "Invalid E-mail: %s"
-msgstr ""
+msgstr "E-posta baliogabea: %s"
 
 #. task sharing dialog: tag not found (%s => tag)
 #, c-format
 msgctxt "actfm_EPA_invalid_tag"
 msgid "List Not Found: %s"
-msgstr ""
+msgstr "Ez da zerrenda aurkitu: %s"
 
 #. task sharing login prompt
 msgctxt "actfm_EPA_login_to_share"
@@ -347,17 +351,17 @@ msgstr ""
 
 msgctxt "actfm_EPA_login_button"
 msgid "Log in"
-msgstr ""
+msgstr "Hasi saioa"
 
 msgctxt "actfm_EPA_dont_share_button"
 msgid "Make private"
-msgstr ""
+msgstr "Egin pribatu"
 
 #. ========================================= sharing login activity ==
 #. share login: Title
 msgctxt "actfm_ALA_title"
 msgid "Welcome to Astrid.com!"
-msgstr ""
+msgstr "Ongietorri Astrid.com-era!"
 
 #. share login: Sharing Description
 msgctxt "actfm_ALA_body"
@@ -369,126 +373,126 @@ msgstr ""
 #. share login: Sharing Login FB Prompt
 msgctxt "actfm_ALA_fb_login"
 msgid "Connect with Facebook"
-msgstr ""
+msgstr "Konektatu Facebook-ekin"
 
 #. share login: Sharing Login GG Prompt
 msgctxt "actfm_ALA_gg_login"
 msgid "Connect with Google"
-msgstr ""
+msgstr "Konektatu Google-ekin"
 
 #. share login: Sharing Footer Password Label
 msgctxt "actfm_ALA_pw_login"
 msgid "Don't use Google or Facebook?"
-msgstr ""
+msgstr "Ez duzu erabiltzen ez Google ez Facebook?"
 
 #. share login: Sharing Password Link
 msgctxt "actfm_ALA_pw_link"
 msgid "Sign In Here"
-msgstr ""
+msgstr "Erregistratu hemen"
 
 #. share login: Password Are you a New User?
 msgctxt "actfm_ALA_pw_new"
 msgid "Create a new account?"
-msgstr ""
+msgstr "Kontu berria sortu?"
 
 #. share login: Password Are you a Returning User?
 msgctxt "actfm_ALA_pw_returning"
 msgid "Already have an account?"
-msgstr ""
+msgstr "Dagoeneko baduzu kontua?"
 
 #. share login: Name
 msgctxt "actfm_ALA_name_label"
 msgid "Name"
-msgstr ""
+msgstr "Izena"
 
 #. share login: Name
 msgctxt "actfm_ALA_firstname_label"
 msgid "First Name"
-msgstr ""
+msgstr "Izena"
 
 #. share login: Name
 msgctxt "actfm_ALA_lastname_label"
 msgid "Last Name"
-msgstr ""
+msgstr "Abizena"
 
 #. share login: Email
 msgctxt "actfm_ALA_email_label"
 msgid "Email"
-msgstr ""
+msgstr "E-posta"
 
 #. share login: Username / Email
 msgctxt "actfm_ALA_username_email_label"
 msgid "Username / Email"
-msgstr ""
+msgstr "Erabiltzaile-izena / E-posta"
 
 #. share login: Password
 msgctxt "actfm_ALA_password_label"
 msgid "Password"
-msgstr ""
+msgstr "Pasahitza"
 
 #. share login: Sign Up Title
 msgctxt "actfm_ALA_signup_title"
 msgid "Create New Account"
-msgstr ""
+msgstr "Sortu kontu berria"
 
 #. share login: Login Title
 msgctxt "actfm_ALA_login_title"
 msgid "Login to Astrid.com"
-msgstr ""
+msgstr "Hasi saioa Astrid.com-en"
 
 #. share login: Google Auth title
 msgctxt "actfm_GAA_title"
 msgid "Select the Google account you want to use:"
-msgstr ""
+msgstr "Hautatu erabili nahi duzun Google kontua:"
 
 #. share login: OAUTH Login Prompt
 msgctxt "actfm_OLA_prompt"
 msgid "Please log in:"
-msgstr ""
+msgstr "Mesedez, hasi saioa:"
 
 #. ================================================ Synchronization ==
 #. Preferences Title: Act.fm
 msgctxt "actfm_APr_header"
 msgid "Astrid.com"
-msgstr ""
+msgstr "Astrid.com"
 
 msgctxt "actfm_https_title"
 msgid "Use HTTPS"
-msgstr ""
+msgstr "Erabili HTTPS"
 
 msgctxt "actfm_https_enabled"
 msgid "HTTPS enabled (slower)"
-msgstr ""
+msgstr "HTTPS gaituta (mantsoagoa)"
 
 msgctxt "actfm_https_disabled"
 msgid "HTTPS disabled (faster)"
-msgstr ""
+msgstr "HTTPS gaituta (azkarragoa)"
 
 #. title for notification tray after synchronizing
 msgctxt "actfm_notification_title"
 msgid "Astrid.com Sync"
-msgstr ""
+msgstr "Astrid.com-ekin sinkronizatuta"
 
 #. text for notification when comments are received
 msgctxt "actfm_notification_comments"
 msgid "New comments received / click for more details"
-msgstr ""
+msgstr "Iruzkin berriak jaso dira / egin klik xehetasunak ikusteko"
 
 #. See the file "LICENSE" for the full license governing this code.
 #. Resources for built-in timers plug-in
 #. Task Edit Activity: Container Label
 msgctxt "alarm_ACS_label"
 msgid "Alarms"
-msgstr ""
+msgstr "Alarmak"
 
 #. Task Edit Activity: Add New Alarm
 msgctxt "alarm_ACS_button"
 msgid "Add an Alarm"
-msgstr ""
+msgstr "Gehitu alarma bat"
 
 msgctxt "reminders_alarm:0"
 msgid "Alarm!"
-msgstr ""
+msgstr "Alarma!"
 
 #. See the file "LICENSE" for the full license governing this code.
 #. Resources for built-in backup plug-in
@@ -496,12 +500,12 @@ msgstr ""
 #. Backup Preferences Title
 msgctxt "backup_BPr_header"
 msgid "Backups"
-msgstr ""
+msgstr "Babeskopiak"
 
 #. Backup: Status Header
 msgctxt "backup_BPr_group_status"
 msgid "Status"
-msgstr ""
+msgstr "Egoera"
 
 #. Backup Status: last backup was a success (%s -> last date). Keep it short!
 #, c-format
@@ -510,11 +514,13 @@ msgid ""
 "Latest backup:\n"
 "%s"
 msgstr ""
+"Azken babeskopia:\n"
+"%s"
 
 #. Backup Status: last error failed. Keep it short!
 msgctxt "backup_status_failed"
 msgid "Last Backup Failed"
-msgstr ""
+msgstr "Azken babeskopiak huts egin zuen"
 
 #. Backup Status: error subtitle
 msgctxt "backup_status_failed_subtitle"
@@ -524,32 +530,32 @@ msgstr ""
 #. Backup Status: never backed up
 msgctxt "backup_status_never"
 msgid "Never Backed Up!"
-msgstr ""
+msgstr "Ez da inoiz babeskopiarik egin!"
 
 #. Backup Options Group Label
 msgctxt "backup_BPr_group_options"
 msgid "Options"
-msgstr "Hobespenak"
+msgstr "Aukerak"
 
 #. Preference: Automatic Backup Title
 msgctxt "backup_BPr_auto_title"
 msgid "Automatic Backups"
-msgstr ""
+msgstr "Babeskopia automatikoak"
 
 #. Preference: Automatic Backup Description (when disabled)
 msgctxt "backup_BPr_auto_disabled"
 msgid "Automatic Backups Disabled"
-msgstr ""
+msgstr "Babeskopia automatikoak desgaituta"
 
 #. Preference: Automatic Backup Description (when enabled)
 msgctxt "backup_BPr_auto_enabled"
 msgid "Backup will occur daily"
-msgstr ""
+msgstr "Babeskopia egunero egingo da"
 
 #. Preference screen restoring Tasks Help
 msgctxt "backup_BPr_how_to_restore"
 msgid "How do I restore backups?"
-msgstr ""
+msgstr "Nola berrezarri dezaket babeskopia?"
 
 #. Preference screen Restoring Tasks Help Dialog Text
 msgctxt "backup_BPr_how_to_restore_dialog"
@@ -562,28 +568,28 @@ msgstr ""
 #. backup activity label
 msgctxt "backup_BAc_label"
 msgid "Manage Backups"
-msgstr ""
+msgstr "Kudeatu babeskopiak"
 
 #. backup activity title
 msgctxt "backup_BAc_title"
 msgid "Manage Your Backups"
-msgstr ""
+msgstr "Kudeatu zure babeskopiak"
 
 #. backup activity import button
 msgctxt "backup_BAc_import"
 msgid "Import Tasks"
-msgstr ""
+msgstr "Inportatu zereginak"
 
 #. backup activity export button
 msgctxt "backup_BAc_export"
 msgid "Export Tasks"
-msgstr ""
+msgstr "Esportatu zereginak"
 
 #. ============================================== Importer / Exporter ==
 #. Message displayed when error occurs
 msgctxt "backup_TXI_error"
 msgid "Import Error"
-msgstr ""
+msgstr "Errorea inportatzean"
 
 #, c-format
 msgctxt "export_toast"
@@ -592,17 +598,17 @@ msgstr ""
 
 msgctxt "export_toast_no_tasks"
 msgid "No Tasks to Export."
-msgstr ""
+msgstr "Ez dago zereginik esportatzeko."
 
 #. Progress Dialog Title for exporting
 msgctxt "export_progress_title"
 msgid "Exporting..."
-msgstr ""
+msgstr "Esportatzen..."
 
 #. Backup: Title of Import Summary Dialog
 msgctxt "import_summary_title"
 msgid "Restore Summary"
-msgstr ""
+msgstr "Berrezarpenaren laburpena"
 
 #. Backup: Summary message for import. (%s => file name, %s => total # tasks,
 #. %s => imported, %s => skipped, %s => errors)
@@ -619,73 +625,73 @@ msgstr ""
 #. Progress Dialog Title for importing
 msgctxt "import_progress_title"
 msgid "Importing..."
-msgstr ""
+msgstr "Inportatzen..."
 
 #. Progress Dialog text for import reading task (%d -> task number)
 #, c-format
 msgctxt "import_progress_read"
 msgid "Reading task %d..."
-msgstr ""
+msgstr "%d zeregina irakurtzen..."
 
 #. Backup: Dialog when unable to open a file
 msgctxt "DLG_error_opening"
 msgid "Could not find this item:"
-msgstr ""
+msgstr "Ezin izan da elementu hau aurkitu:"
 
 #. Backup: Dialog when unable to open SD card folder (%s => folder)
 #, c-format
 msgctxt "DLG_error_sdcard"
 msgid "Cannot access folder: %s"
-msgstr ""
+msgstr "Ezin da atzitu karpeta hau: %s"
 
 #. Backup: Dialog when unable to open SD card in general
 msgctxt "DLG_error_sdcard_general"
 msgid "Cannot access your SD card!"
-msgstr ""
+msgstr "Ezin da zure SD txartela atzitu!"
 
 #. Backup: File Selector dialog for import
 msgctxt "import_file_prompt"
 msgid "Select a File to Restore"
-msgstr ""
+msgstr "Hautatu fitxategi bat berrezartzeko"
 
 #. See the file "LICENSE" for the full license governing this code.
 #. ================================================== AndroidManifest ==
 #. Application Name (shown on home screen & in launcher)
 msgctxt "app_name"
 msgid "Astrid Tasks"
-msgstr ""
+msgstr "Astrid zereginak"
 
 #. permission title for READ_TASKS
 msgctxt "read_permission_label"
 msgid "Astrid Permission"
-msgstr ""
+msgstr "Astrid baimena"
 
 #. permission description for READ_TASKS
 msgctxt "read_permission_desc"
 msgid "read tasks, display task filters"
-msgstr ""
+msgstr "irakurri zereginak, bistaratu zereginen iragazkiak"
 
 #. permission title for READ_TASKS
 msgctxt "write_permission_label"
 msgid "Astrid Permission"
-msgstr ""
+msgstr "Astrid baimena"
 
 #. permission description for READ_TASKS
 msgctxt "write_permission_desc"
 msgid "create new tasks, edit existing tasks"
-msgstr ""
+msgstr "sortu zeregin berriak, editatu existitzen diren zereginak"
 
 #. ================================================== Generic Dialogs ==
 #. question for deleting tasks
 msgctxt "DLG_delete_this_task_question"
 msgid "Delete this task?"
-msgstr ""
+msgstr "Ezabatu zeregin hau?"
 
 #. question for deleting items (%s => item name)
 #, c-format
 msgctxt "DLG_delete_this_item_question"
 msgid "Delete this item: %s?"
-msgstr ""
+msgstr "Ezabatu elementu hau: %s?"
 
 #. Progress dialog shown when upgrading
 msgctxt "DLG_upgrading"
@@ -707,17 +713,17 @@ msgstr ""
 #. Button for going to Market
 msgctxt "DLG_to_market"
 msgid "Go To Market"
-msgstr ""
+msgstr "Joan Market-era"
 
 #. Button for accepting EULA
 msgctxt "DLG_accept"
 msgid "I Accept"
-msgstr ""
+msgstr "Onartzen dut"
 
 #. Button for declining EULA
 msgctxt "DLG_decline"
 msgid "I Decline"
-msgstr ""
+msgstr "Ez dut onartzen"
 
 #. EULA title
 msgctxt "DLG_eula_title"
@@ -727,25 +733,25 @@ msgstr ""
 #. Progress Dialog generic text
 msgctxt "DLG_please_wait"
 msgid "Please Wait"
-msgstr ""
+msgstr "Itxaron, mesedez"
 
 #. Dialog - loading
 msgctxt "DLG_loading"
 msgid "Loading..."
-msgstr ""
+msgstr "Kargatzen..."
 
 #. Dialog - dismiss
 msgctxt "DLG_dismiss"
 msgid "Dismiss"
-msgstr ""
+msgstr "Baztertu"
 
 msgctxt "DLG_ok"
 msgid "OK"
-msgstr ""
+msgstr "Ados"
 
 msgctxt "DLG_cancel"
 msgid "Cancel"
-msgstr ""
+msgstr "Utzi"
 
 msgctxt "DLG_more"
 msgid "More"
@@ -753,23 +759,23 @@ msgstr "Gehiago"
 
 msgctxt "DLG_undo"
 msgid "Undo"
-msgstr ""
+msgstr "Desegin"
 
 #. =============================================================== UI ==
 #. Label for DateButtons with no value
 msgctxt "WID_dateButtonUnset"
 msgid "Click To Set"
-msgstr ""
+msgstr "Egin klik ezartzeko"
 
 #. String formatter for DateButtons ($D => date, $T => time)
 msgctxt "WID_dateButtonLabel"
 msgid "$D $T"
-msgstr ""
+msgstr "$D $T"
 
 #. String formatter for Disable button
 msgctxt "WID_disableButton"
 msgid "Disable"
-msgstr ""
+msgstr "Desgaitu"
 
 #. ============================================================= notes
 #. Note Exposer
@@ -780,7 +786,7 @@ msgstr "Oharrak"
 #. Note Exposer / Comments
 msgctxt "ENE_label_comments"
 msgid "Comments"
-msgstr ""
+msgstr "Iruzkinak"
 
 #. EditNoteActivity - no comments
 msgctxt "ENA_no_comments"
@@ -790,12 +796,12 @@ msgstr ""
 #. EditNoteActivity - no username for comment
 msgctxt "ENA_no_user"
 msgid "You"
-msgstr ""
+msgstr "Zu"
 
 #. EditNoteActivity - refresh comments
 msgctxt "ENA_refresh_comments"
 msgid "Refresh Comments"
-msgstr ""
+msgstr "Freskatu iruzkinak"
 
 #. ================================================= TaskListActivity ==
 #. Task List: Displayed instead of list when no items present
@@ -804,11 +810,13 @@ msgid ""
 "You have no tasks! \n"
 " Want to add something?"
 msgstr ""
+"Ez daukazu zereginik! \n"
+" Zerbait gehitu nahi duzu?"
 
 #. Menu: Add-ons
 msgctxt "TLA_menu_addons"
 msgid "Add-ons"
-msgstr ""
+msgstr "Gehigarriak"
 
 #. Menu: Adjust Sort and Hidden Task Settings
 msgctxt "TLA_menu_sort"
@@ -818,27 +826,27 @@ msgstr ""
 #. Menu: Sync Now
 msgctxt "TLA_menu_sync"
 msgid "Sync Now!"
-msgstr ""
+msgstr "Sinkronizatu orain!"
 
 #. Menu: Tasks
 msgctxt "TLA_menu_lists"
 msgid "Lists"
-msgstr ""
+msgstr "Zerrendak"
 
 #. Menu: Friends
 msgctxt "TLA_menu_friends"
 msgid "Friends"
-msgstr ""
+msgstr "Lagunak"
 
 #. Menu: Suggestions
 msgctxt "TLA_menu_suggestions"
 msgid "Suggestions"
-msgstr ""
+msgstr "Iradokizunak"
 
 #. Menu: Tutorial
 msgctxt "TLA_menu_tutorial"
 msgid "Tutorial"
-msgstr ""
+msgstr "Tutoriala"
 
 #. Menu: Settings
 msgctxt "TLA_menu_settings"
@@ -858,12 +866,12 @@ msgstr ""
 #. Window title for displaying Custom Filter
 msgctxt "TLA_custom"
 msgid "Custom"
-msgstr ""
+msgstr "Pertsonalizatuta"
 
 #. Quick Add Edit Box Hint
 msgctxt "TLA_quick_add_hint"
 msgid "Add a task"
-msgstr ""
+msgstr "Gehitu zeregin bat"
 
 #. Quick Add Edit Box Hint for assigning
 #, c-format
@@ -883,33 +891,33 @@ msgstr ""
 
 msgctxt "TLA_filters:0"
 msgid "Active"
-msgstr ""
+msgstr "Aktiboa"
 
 msgctxt "TLA_filters:1"
 msgid "Today"
-msgstr ""
+msgstr "Gaur"
 
 msgctxt "TLA_filters:2"
 msgid "Soon"
-msgstr ""
+msgstr "Laster"
 
 msgctxt "TLA_filters:3"
 msgid "Late"
-msgstr ""
+msgstr "Berandu"
 
 msgctxt "TLA_filters:4"
 msgid "Done"
-msgstr ""
+msgstr "Eginda"
 
 msgctxt "TLA_filters:5"
 msgid "Hidden"
-msgstr ""
+msgstr "Ezkutatua"
 
 #. Title for confirmation dialog after quick add markup
 #, c-format
 msgctxt "TLA_quickadd_confirm_title"
 msgid "You said, \"%s\""
-msgstr ""
+msgstr "\"%s\" esan duzu"
 
 #. Text for speech bubble in dialog after quick add markup
 #. First string is task title, second is due date, third is priority
@@ -941,19 +949,19 @@ msgstr ""
 
 msgctxt "TLA_priority_strings:0"
 msgid "highest priority"
-msgstr ""
+msgstr "lehentasun handiena"
 
 msgctxt "TLA_priority_strings:1"
 msgid "high priority"
-msgstr ""
+msgstr "lehentasun handia"
 
 msgctxt "TLA_priority_strings:2"
 msgid "medium priority"
-msgstr ""
+msgstr "lehentasun ertaina"
 
 msgctxt "TLA_priority_strings:3"
 msgid "low priority"
-msgstr ""
+msgstr "lehentasun txikia"
 
 msgctxt "TLA_all_activity"
 msgid "All Activity"
@@ -964,13 +972,13 @@ msgstr ""
 #, c-format
 msgctxt "TAd_hiddenFormat"
 msgid "%s [hidden]"
-msgstr ""
+msgstr "%s [ezkutatua]"
 
 #. Format string to indicate task is deleted (%s => task name)
 #, c-format
 msgctxt "TAd_deletedFormat"
 msgid "%s [deleted]"
-msgstr ""
+msgstr "%s [ezabatua]"
 
 #. indicates task was completed. %s => date or time ago
 #, c-format
@@ -979,6 +987,8 @@ msgid ""
 "Finished\n"
 "%s"
 msgstr ""
+"Amaitua\n"
+"%s"
 
 #. Action Button: edit task
 msgctxt "TAd_actionEditTask"
@@ -988,17 +998,17 @@ msgstr "Editatu"
 #. Context Item: edit task
 msgctxt "TAd_contextEditTask"
 msgid "Edit Task"
-msgstr "Editatu zereginak"
+msgstr "Editatu zeregina"
 
 #. Context Item: copy task
 msgctxt "TAd_contextCopyTask"
 msgid "Copy Task"
-msgstr ""
+msgstr "Kopiatu zeregina"
 
 #. Context Item: delete task
 msgctxt "TAd_contextHelpTask"
 msgid "Get help"
-msgstr ""
+msgstr "Lortu laguntza"
 
 msgctxt "TAd_contextDeleteTask"
 msgid "Delete Task"
@@ -1023,22 +1033,22 @@ msgstr ""
 #. Hidden: title
 msgctxt "SSD_hidden_title"
 msgid "Hidden Tasks"
-msgstr ""
+msgstr "Ezkutatutako zereginak"
 
 #. Hidden Task Selection: show completed tasks
 msgctxt "SSD_completed"
 msgid "Show Completed Tasks"
-msgstr ""
+msgstr "Erakutsi osatutako zereginak"
 
 #. Hidden Task Selection: show hidden tasks
 msgctxt "SSD_hidden"
 msgid "Show Hidden Tasks"
-msgstr ""
+msgstr "Erakutsi ezkutatutako zereginak"
 
 #. Hidden Task Selection: show deleted tasks
 msgctxt "SSD_deleted"
 msgid "Show Deleted Tasks"
-msgstr ""
+msgstr "Erakutsi ezabatutako zereginak"
 
 #. Sort Selection: drag with subtasks
 msgctxt "SSD_sort_drag"
@@ -1053,22 +1063,22 @@ msgstr ""
 #. Sort Selection: sort by alpha
 msgctxt "SSD_sort_alpha"
 msgid "By Title"
-msgstr ""
+msgstr "Izenburuaren arabera"
 
 #. Sort Selection: sort by due date
 msgctxt "SSD_sort_due"
 msgid "By Due Date"
-msgstr ""
+msgstr "Epe-mugaren arabera"
 
 #. Sort Selection: sort by importance
 msgctxt "SSD_sort_importance"
 msgid "By Importance"
-msgstr ""
+msgstr "Garrantziaren arabera"
 
 #. Sort Selection: sort by modified date
 msgctxt "SSD_sort_modified"
 msgid "By Last Modified"
-msgstr ""
+msgstr "Azken aldatze-dataren arabera"
 
 #. Sort Selection: reverse
 msgctxt "SSD_sort_reverse"
@@ -1078,132 +1088,138 @@ msgstr ""
 #. Sort Button: sort temporarily
 msgctxt "SSD_save_temp"
 msgid "Just Once"
-msgstr ""
+msgstr "Soilik behin"
 
 #. Sort Button: sort permanently
 msgctxt "SSD_save_always"
 msgid "Always"
-msgstr ""
+msgstr "Beti"
 
 #. =============================================== FilterListActivity ==
 #. Astrid Filter Shortcut
 msgctxt "FSA_label"
 msgid "Astrid List or Filter"
-msgstr ""
+msgstr "Astrid zerrenda edo iragazkia"
 
 #. Filter List Activity Title
 msgctxt "FLA_title"
 msgid "Lists"
-msgstr ""
+msgstr "Zerrendak"
 
 #. Displayed when loading filters
 msgctxt "FLA_loading"
 msgid "Loading Filters..."
-msgstr ""
+msgstr "Iragazkiak kargatzen..."
 
 #. Context Menu: Create Shortcut
 msgctxt "FLA_context_shortcut"
 msgid "Create Shortcut On Desktop"
-msgstr ""
+msgstr "Sortu lasterbidea mahaigainean"
 
 #. Menu: Search
 msgctxt "FLA_menu_search"
 msgid "Search Tasks..."
-msgstr ""
+msgstr "Bilatu zereginak..."
 
 #. Menu: Help
 msgctxt "FLA_menu_help"
 msgid "Help"
-msgstr ""
+msgstr "Laguntza"
 
 #. Create Shortcut Dialog Title
 msgctxt "FLA_shortcut_dialog_title"
 msgid "Create Desktop Shortcut"
-msgstr ""
+msgstr "Sortu mahaigaineko lasterbidea"
 
 #. Create Shortcut Dialog (asks to name shortcut)
 msgctxt "FLA_shortcut_dialog"
 msgid "Name of shortcut:"
-msgstr ""
+msgstr "Lasterbidearen izena:"
 
 #. Search Hint
 msgctxt "FLA_search_hint"
 msgid "Search For Tasks"
-msgstr ""
+msgstr "Bilatu zereginak"
 
 #. Search Filter name (%s => query)
 #, c-format
 msgctxt "FLA_search_filter"
 msgid "Matching '%s'"
-msgstr ""
+msgstr "'%s'-(r)ekin bat datozenak"
 
 #. Toast: created shortcut (%s => label)
 #, c-format
 msgctxt "FLA_toast_onCreateShortcut"
 msgid "Created Shortcut: %s"
-msgstr ""
+msgstr "Lasterbidea sortu da: %s"
 
 #. Menu: new filter
 msgctxt "FLA_new_filter"
 msgid "New Filter"
-msgstr ""
+msgstr "Iragazki berria"
 
 #. Button: new list
 msgctxt "FLA_new_list"
 msgid "New List"
+msgstr "Zerrenda berria"
+
+#. Alert when creating a shortcut without selecting a filter
+msgctxt "FLA_no_filter_selected"
+msgid "No filter selected! Please select a filter or list."
 msgstr ""
+"Ez dago iragazkirik hautatuta! Mesedez, hautatu iragazki edo zerrenda bat."
 
 #. ================================================= TaskEditActivity ==
 #. Title when editing a task (%s => task title)
 #, c-format
 msgctxt "TEA_view_title"
 msgid "Astrid: Editing '%s'"
-msgstr ""
+msgstr "Astrid: '%s' editatzen"
 
 #. Title when creating a new task
 msgctxt "TEA_view_titleNew"
 msgid "New Task"
-msgstr ""
+msgstr "Zeregin berria"
 
 #. Task title label
 msgctxt "TEA_title_label"
 msgid "Title"
-msgstr ""
+msgstr "Izenburua"
 
 #. Task when label
 msgctxt "TEA_when_header_label"
 msgid "When"
-msgstr ""
+msgstr "Noiz"
 
 #. Task title hint (displayed when edit box is empty)
 msgctxt "TEA_title_hint"
 msgid "Task Summary"
-msgstr ""
+msgstr "Zereginaren laburpena"
 
 #. Task importance label
 msgctxt "TEA_importance_label"
 msgid "Importance"
-msgstr ""
+msgstr "Garrantzia"
 
 #. Task urgency label
 msgctxt "TEA_urgency_label"
 msgid "Deadline"
-msgstr ""
+msgstr "Epemuga"
 
 #. Task urgency specific time checkbox
 msgctxt "TEA_urgency_specific_time"
 msgid "At specific time?"
-msgstr ""
+msgstr "Ordu jakin batean?"
 
 #. Task urgency specific time title when specific time false
 msgctxt "TEA_urgency_none"
 msgid "None"
-msgstr ""
+msgstr "Ez"
 
 #. Task hide until label
 msgctxt "TEA_hideUntil_label"
 msgid "Show Task"
-msgstr ""
+msgstr "Erakutsi zeregina"
 
 #. Task hide until toast
 #, c-format
@@ -1214,7 +1230,7 @@ msgstr ""
 #. Task editing data being loaded label
 msgctxt "TEA_loading:0"
 msgid "Loading..."
-msgstr ""
+msgstr "Kargatzen..."
 
 #. Task note label
 msgctxt "TEA_note_label"
@@ -1224,7 +1240,7 @@ msgstr "Oharrak"
 #. Task note hint
 msgctxt "TEA_notes_hint"
 msgid "Enter Task Notes..."
-msgstr ""
+msgstr "Sartu zereginaren oharrak..."
 
 #. Estimated time label
 msgctxt "TEA_estimatedDuration_label"
@@ -1239,12 +1255,12 @@ msgstr "Zereginean dagoeneko emandako denbora"
 #. Menu: Save
 msgctxt "TEA_menu_save"
 msgid "Save Changes"
-msgstr ""
+msgstr "Gorde aldaketak"
 
 #. Menu: Don't Save
 msgctxt "TEA_menu_discard"
 msgid "Don't Save"
-msgstr ""
+msgstr "Ez gorde"
 
 #. Menu: Delete Task
 msgctxt "TEA_menu_delete"
@@ -1254,7 +1270,7 @@ msgstr "Ezabatu zeregina"
 #. Menu: Task comments
 msgctxt "TEA_menu_comments"
 msgid "Comments"
-msgstr ""
+msgstr "Iruzkinak"
 
 #. Toast: task saved with deadline (%s => preposition + time units)
 #, c-format
@@ -1265,64 +1281,64 @@ msgstr ""
 #. Toast: task saved without deadlines
 msgctxt "TEA_onTaskSave_notDue"
 msgid "Task Saved"
-msgstr "Ataza gordeta"
+msgstr "Zeregina gordeta"
 
 #. Toast: task was not saved
 msgctxt "TEA_onTaskCancel"
 msgid "Task Editing Was Canceled"
-msgstr ""
+msgstr "Zeregina editatzea ezeztatu da"
 
 #. Toast: task was deleted
 msgctxt "TEA_onTaskDelete"
 msgid "Task deleted!"
-msgstr ""
+msgstr "Zeregina ezabatuta!"
 
 #. Task edit tab: activity
 msgctxt "TEA_tab_activity"
 msgid "Activity"
-msgstr ""
+msgstr "Jarduera"
 
 #. Task edit tab: more editing settings
 msgctxt "TEA_tab_more"
 msgid "Details"
-msgstr ""
+msgstr "Xehetasunak"
 
 #. Task edit tab: web services
 msgctxt "TEA_tab_web"
 msgid "Ideas"
-msgstr ""
+msgstr "Ideiak"
 
 msgctxt "TEA_urgency:0"
 msgid "No deadline"
-msgstr ""
+msgstr "Epemugarik ez"
 
 msgctxt "TEA_urgency:1"
 msgid "Specific Day"
-msgstr ""
+msgstr "Egun zehatza"
 
 msgctxt "TEA_urgency:2"
 msgid "Today"
-msgstr ""
+msgstr "Gaur"
 
 msgctxt "TEA_urgency:3"
 msgid "Tomorrow"
-msgstr ""
+msgstr "Bihar"
 
 msgctxt "TEA_urgency:4"
 msgid "(day after)"
-msgstr ""
+msgstr "(ondorengo eguna)"
 
 msgctxt "TEA_urgency:5"
 msgid "Next Week"
-msgstr ""
+msgstr "Hurrengo astea"
 
 msgctxt "TEA_urgency:6"
 msgid "In Two Weeks"
-msgstr ""
+msgstr "Bi aste barru"
 
 msgctxt "TEA_urgency:7"
 msgid "Next Month"
-msgstr ""
+msgstr "Hurrengo hilabetea"
 
 msgctxt "TEA_no_time"
 msgid "No time"
@@ -1330,7 +1346,7 @@ msgstr ""
 
 msgctxt "TEA_hideUntil:0"
 msgid "Always"
-msgstr ""
+msgstr "Beti"
 
 msgctxt "TEA_hideUntil:1"
 msgid "At due date"
@@ -1346,32 +1362,32 @@ msgstr ""
 
 msgctxt "TEA_hideUntil:4"
 msgid "Specific Day/Time"
-msgstr ""
+msgstr "Egun/ordu zehatza"
 
 #. Task edit control set descriptors
 msgctxt "TEA_control_title"
 msgid "Task Title"
-msgstr ""
+msgstr "Zereginaren izenburua"
 
 msgctxt "TEA_control_who"
 msgid "Who"
-msgstr ""
+msgstr "Nork"
 
 msgctxt "TEA_control_when"
 msgid "When"
-msgstr ""
+msgstr "Noiz"
 
 msgctxt "TEA_control_more_section"
 msgid "----Details----"
-msgstr ""
+msgstr "----Xehetasunak----"
 
 msgctxt "TEA_control_importance"
 msgid "Importance"
-msgstr ""
+msgstr "Garrantzia"
 
 msgctxt "TEA_control_lists"
 msgid "Lists"
-msgstr ""
+msgstr "Zerrendak"
 
 msgctxt "TEA_control_notes"
 msgid "Notes"
@@ -1387,21 +1403,21 @@ msgstr ""
 
 msgctxt "TEA_control_share"
 msgid "Share With Friends"
-msgstr ""
+msgstr "Partekatu lagunekin"
 
 msgctxt "hide_until_prompt"
 msgid "Show in my list"
-msgstr ""
+msgstr "Erakutsi nire zerrendan"
 
 #. Add Ons tab when no add-ons found
 msgctxt "TEA_addons_text"
 msgid "Looking for more features?"
-msgstr ""
+msgstr "Ezaugarri gehiagoren bila?"
 
 #. Add Ons button
 msgctxt "TEA_addons_button"
 msgid "Get the Power Pack!"
-msgstr ""
+msgstr "Lortu Power Pack-a!"
 
 #. More row
 msgctxt "TEA_more"
@@ -1411,21 +1427,21 @@ msgstr "Gehiago"
 #. Text when no activity to show
 msgctxt "TEA_no_activity"
 msgid "No Activity to Show."
-msgstr ""
+msgstr "Ez dago jarduerarik erakusteko"
 
 #. Text to load more activity
 msgctxt "TEA_load_more"
 msgid "Load more..."
-msgstr ""
+msgstr "Kargatu gehiago"
 
 #. When controls dialog
 msgctxt "TEA_when_dialog_title"
 msgid "When is this due?"
-msgstr ""
+msgstr "Noiz da epe-muga?"
 
 msgctxt "TEA_date_and_time"
 msgid "Date/Time"
-msgstr ""
+msgstr "Data/Ordua"
 
 msgctxt "WSV_click_to_load"
 msgid "Tap me to search for ways to get this done!"
@@ -1440,17 +1456,17 @@ msgstr ""
 #. Introduction Window title
 msgctxt "InA_title"
 msgid "Welcome to Astrid!"
-msgstr ""
+msgstr "Ongietorri Astrid-era!"
 
 #. Button to agree to EULA
 msgctxt "InA_agree"
 msgid "I Agree!!"
-msgstr ""
+msgstr "Ados nago!"
 
 #. Button to disagree with EULA
 msgctxt "InA_disagree"
 msgid "I Disagree"
-msgstr ""
+msgstr "Ez nago ados!"
 
 #. ===================================================== HelpActivity ==
 #. Help: Button to get support from our website
@@ -1467,7 +1483,7 @@ msgstr ""
 #. Updates Window Title
 msgctxt "UpS_updates_title"
 msgid "Latest Astrid News"
-msgstr ""
+msgstr "Astrid-en azken berriak"
 
 #. Updats No Activity to show for offline users
 msgctxt "UpS_no_activity_log_in"
@@ -1481,21 +1497,21 @@ msgstr ""
 #. Preference Window Title
 msgctxt "EPr_title"
 msgid "Astrid: Settings"
-msgstr ""
+msgstr "Astrid: Ezarpenak"
 
 msgctxt "EPr_deactivated"
 msgid "deactivated"
-msgstr ""
+msgstr "desaktibatuta"
 
 #. Preference Category: Appearance Title
 msgctxt "EPr_appearance_header"
 msgid "Appearance"
-msgstr ""
+msgstr "Itxura"
 
 #. Preference: Task List Font Size Title
 msgctxt "EPr_fontSize_title"
 msgid "Task List Size"
-msgstr ""
+msgstr "Zeregin zerrendaren tamaina"
 
 #. Preference: Show confirmation for smart reminders
 msgctxt "EPr_showSmartConfirmation_title"
@@ -1510,20 +1526,20 @@ msgstr ""
 #. Preference: Task List Show Notes
 msgctxt "EPr_showNotes_title"
 msgid "Show Notes In Task"
-msgstr ""
+msgstr "Erakutsi oharrak zereginean"
 
 #. Preference: Beast mode (auto-expand edit page)
 msgctxt "EPr_beastMode_title"
 msgid "Customize Task Edit Screen"
-msgstr ""
+msgstr "Pertsonalizatu zeregina editatzeko pantaila"
 
 msgctxt "EPr_beastMode_desc"
 msgid "Customize the layout of the Task Edit Screen"
-msgstr ""
+msgstr "Pertsonalizatu zeregina editatzeko pantailaren diseinua"
 
 msgctxt "EPr_beastMode_reset"
 msgid "Reset to defaults"
-msgstr ""
+msgstr "Berrezarri balio lehenetsiak"
 
 #. Preference: Task List Show Notes Description (disabled)
 msgctxt "EPr_showNotes_desc_disabled"
@@ -1533,7 +1549,7 @@ msgstr ""
 #. Preference: Task List Show Notes Description (enabled)
 msgctxt "EPr_showNotes_desc_enabled"
 msgid "Notes will always be displayed"
-msgstr ""
+msgstr "Oharrak beti bistaratuko dira"
 
 #. Preferences: Allow task rows to compress to size of task
 msgctxt "EPr_compressTaskRows_title"
@@ -1556,44 +1572,45 @@ msgstr ""
 #. Preferences: Wrap task titles to two lines
 msgctxt "EPr_fullTask_title"
 msgid "Show full task title"
-msgstr ""
+msgstr "Erakutsi zereginaren izenburu osoa"
 
 msgctxt "EPr_fullTask_desc_enabled"
 msgid "Full task title will be shown"
-msgstr ""
+msgstr "Zereginaren izenburu osoa erakutsiko da"
 
 msgctxt "EPr_fullTask_desc_disabled"
 msgid "First two lines of task title will be shown"
-msgstr ""
+msgstr "Zereginaren izenburuaren lehen bi lerroak erakutsiko dira"
 
 #. Preferences: Auto-load Ideas Tab
 msgctxt "EPr_ideaAuto_title"
 msgid "Auto-load Ideas Tab"
-msgstr ""
+msgstr "Kargatu automatikoki Ideiak fitxa"
 
 msgctxt "EPr_ideaAuto_desc_enabled"
-msgid "Web searches for Ideas tab will be performed when task is edited"
+msgid "Web searches for Ideas tab will be performed when tab is clicked"
 msgstr ""
 
 msgctxt "EPr_ideaAuto_desc_disabled"
-msgid "Web searches for Ideas tab will be performed when tab is clicked"
+msgid ""
+"Web searches for Ideas tab will be performed only when manually requested"
 msgstr ""
 
 #. Preference: Theme
 msgctxt "EPr_theme_title"
 msgid "Color Theme"
-msgstr ""
+msgstr "Kolore gaia"
 
 #. Preference: Theme Description (%s => value)
 #, c-format
 msgctxt "EPr_theme_desc"
 msgid "Currently: %s"
-msgstr ""
+msgstr "Unean: %s"
 
 #. Preference: Theme Description (android 1.6)
 msgctxt "EPr_theme_desc_unsupported"
 msgid "Setting requires Android 2.0+"
-msgstr ""
+msgstr "Ezarpen honek Android 2.0+ eskatzen du"
 
 #. Preference screen: all task row settings
 msgctxt "EPr_taskRowPrefs_title"
@@ -1602,37 +1619,37 @@ msgstr ""
 
 msgctxt "EPr_themes:0"
 msgid "Day - Blue"
-msgstr ""
+msgstr "Eguna - Urdina"
 
 msgctxt "EPr_themes:1"
 msgid "Day - Red"
-msgstr ""
+msgstr "Eguna - Gorria"
 
 msgctxt "EPr_themes:2"
 msgid "Night"
-msgstr ""
+msgstr "Gaua"
 
 msgctxt "EPr_themes:3"
 msgid "Transparent (White Text)"
-msgstr ""
+msgstr "Gardena (Testu zuria)"
 
 msgctxt "EPr_themes:4"
 msgid "Transparent (Black Text)"
-msgstr ""
+msgstr "Gardena (Testu beltza)"
 
 #. ========================================== Task Management Settings ==
 #. Preference Screen Header: Old Task Management
 msgctxt "EPr_manage_header"
 msgid "Manage Old Tasks"
-msgstr ""
+msgstr "Kudeatu zeregin zaharrak"
 
 msgctxt "EPr_manage_delete_completed"
 msgid "Delete Completed Tasks"
-msgstr ""
+msgstr "Ezabatu osatutako zereginak"
 
 msgctxt "EPr_manage_delete_completed_message"
 msgid "Do you really want to delete all your completed tasks?"
-msgstr ""
+msgstr "Ziur zaude zure osatutako zeregin guztiak ezabatu nahi dituzula?"
 
 msgctxt "EPr_manage_delete_completed_summary"
 msgid "Deleted tasks can be undeleted one-by-one"
@@ -1641,7 +1658,7 @@ msgstr ""
 #, c-format
 msgctxt "EPr_manage_delete_completed_status"
 msgid "Deleted %d tasks!"
-msgstr ""
+msgstr "%d zeregin ezabatu dira!"
 
 msgctxt "EPr_manage_purge_deleted"
 msgid "Purge Deleted Tasks"
@@ -1665,14 +1682,14 @@ msgstr ""
 
 msgctxt "EPr_manage_clear_all"
 msgid "Clear All Data"
-msgstr ""
+msgstr "Garbitu datu guztiak"
 
 msgctxt "EPr_manage_clear_all_message"
 msgid ""
 "Delete all tasks and settings in Astrid?\n"
 "\n"
 "Warning: can't be undone!"
-msgstr ""
+msgstr "Astrid-eko zeregin eta ezarpen guztiak ezabatu?"
 
 msgctxt "EPr_manage_delete_completed_gcal"
 msgid "Delete Calendar Events for Completed Tasks"
@@ -1704,59 +1721,59 @@ msgstr ""
 #. Add Ons Activity Title
 msgctxt "AOA_title"
 msgid "Astrid: Add Ons"
-msgstr ""
+msgstr "Astrid: Gehigarriak"
 
 #. Add-on Activity: author for internal authors
 msgctxt "AOA_internal_author"
 msgid "Astrid Team"
-msgstr ""
+msgstr "Astrid taldea"
 
 #. Add-on Activity: installed add-ons tab
 msgctxt "AOA_tab_installed"
 msgid "Installed"
-msgstr ""
+msgstr "Instalatuta"
 
 #. Add-on Activity - available add-ons tab
 msgctxt "AOA_tab_available"
 msgid "Available"
-msgstr ""
+msgstr "Eskuragarri"
 
 #. Add-on Activity - free add-ons label
 msgctxt "AOA_free"
 msgid "Free"
-msgstr ""
+msgstr "Libre"
 
 #. Add-on Activity - menu item to visit add-on website
 msgctxt "AOA_visit_website"
 msgid "Visit Website"
-msgstr ""
+msgstr "Bisitatu webgunea"
 
 #. Add-on Activity - menu item to visit android market
 msgctxt "AOA_visit_market"
 msgid "Android Market"
-msgstr ""
+msgstr "Android Market-a"
 
 #. Add-on Activity - when list is empty
 msgctxt "AOA_no_addons"
 msgid "Empty List!"
-msgstr ""
+msgstr "Zerrrenda hutsa!"
 
 #. ====================================================== TasksWidget ==
 #. Widget text when loading tasks
 msgctxt "TWi_loading"
 msgid "Loading..."
-msgstr ""
+msgstr "Kargatzen..."
 
 #. Widget configuration activity title: select a filter
 msgctxt "WCA_title"
 msgid "Select tasks to view..."
-msgstr ""
+msgstr "Hautatu zereginak ikusteko..."
 
 #. ============================================================= About ==
 #. Title of "About" option in settings
 msgctxt "p_about"
 msgid "About Astrid"
-msgstr ""
+msgstr "Astrid-i buruz"
 
 #. About text (%s => current version)
 #, c-format
@@ -1770,7 +1787,7 @@ msgstr ""
 #. Title of "Help" option in settings
 msgctxt "p_help"
 msgid "Help"
-msgstr ""
+msgstr "Laguntza"
 
 #. ============================================================= Misc ==
 #. Displayed when task killer found. %s => name of the application
@@ -1785,7 +1802,7 @@ msgstr ""
 #. Task killer dialog ok button
 msgctxt "task_killer_help_ok"
 msgid "I Won't Kill Astrid!"
-msgstr ""
+msgstr "Ez dut Astrid hilko!"
 
 #. Astrid's Android Marketplace title. It never appears in the app itself.
 msgctxt "marketplace_title"
@@ -1815,18 +1832,18 @@ msgstr ""
 #, c-format
 msgctxt "EPr_default_urgency_desc"
 msgid "Currently: %s"
-msgstr ""
+msgstr "Unean: %s"
 
 #. Preference: Default Importance Title
 msgctxt "EPr_default_importance_title"
 msgid "Default Importance"
-msgstr ""
+msgstr "Garrantzi lehenetsia"
 
 #. Preference: Default Importance Description (%s => setting)
 #, c-format
 msgctxt "EPr_default_importance_desc"
 msgid "Currently: %s"
-msgstr ""
+msgstr "Unean: %s"
 
 #. Preference: Default Hide Until Title
 msgctxt "EPr_default_hideUntil_title"
@@ -1837,7 +1854,7 @@ msgstr ""
 #, c-format
 msgctxt "EPr_default_hideUntil_desc"
 msgid "Currently: %s"
-msgstr ""
+msgstr "Unean: %s"
 
 #. Preference: Default Reminders Title
 msgctxt "EPr_default_reminders_title"
@@ -1848,7 +1865,7 @@ msgstr ""
 #, c-format
 msgctxt "EPr_default_reminders_desc"
 msgid "Currently: %s"
-msgstr ""
+msgstr "Unean: %s"
 
 #. Preference: Default Add To Calendar Title
 msgctxt "EPr_default_addtocalendar_title"
@@ -1875,47 +1892,47 @@ msgstr ""
 #, c-format
 msgctxt "EPr_default_reminders_mode_desc"
 msgid "Currently: %s"
-msgstr ""
+msgstr "Unean: %s"
 
 msgctxt "EPr_default_importance:0"
 msgid "!!! (Highest)"
-msgstr ""
+msgstr "!!! (Altuena)"
 
 msgctxt "EPr_default_importance:1"
 msgid "!!"
-msgstr ""
+msgstr "!!"
 
 msgctxt "EPr_default_importance:2"
 msgid "!"
-msgstr ""
+msgstr "!"
 
 msgctxt "EPr_default_importance:3"
 msgid "o (Lowest)"
-msgstr ""
+msgstr "o (Baxuena)"
 
 msgctxt "EPr_default_urgency:0"
 msgid "No Deadline"
-msgstr ""
+msgstr "Epemugarik ez"
 
 msgctxt "EPr_default_urgency:1"
 msgid "Today"
-msgstr ""
+msgstr "Gaur"
 
 msgctxt "EPr_default_urgency:2"
 msgid "Tomorrow"
-msgstr ""
+msgstr "Bihar"
 
 msgctxt "EPr_default_urgency:3"
 msgid "Day After Tomorrow"
-msgstr ""
+msgstr "Etzi"
 
 msgctxt "EPr_default_urgency:4"
 msgid "Next Week"
-msgstr ""
+msgstr "Hurrengo astea"
 
 msgctxt "EPr_default_hideUntil:0"
 msgid "Don't hide"
-msgstr ""
+msgstr "Ez ezkutatu"
 
 msgctxt "EPr_default_hideUntil:1"
 msgid "Task is due"
@@ -1935,7 +1952,7 @@ msgstr ""
 
 msgctxt "EPr_default_reminders:1"
 msgid "At deadline"
-msgstr ""
+msgstr "Epemugan"
 
 msgctxt "EPr_default_reminders:2"
 msgid "When overdue"
@@ -1951,12 +1968,12 @@ msgstr ""
 #. Active Tasks Filter
 msgctxt "BFE_Active"
 msgid "Active Tasks"
-msgstr ""
+msgstr "Zeregin aktiboak"
 
 #. Search Filter
 msgctxt "BFE_Search"
 msgid "Search..."
-msgstr ""
+msgstr "Bilatu..."
 
 #. Recently Modified
 msgctxt "BFE_Recent"
@@ -1971,23 +1988,23 @@ msgstr ""
 #. Build Your Own Filter
 msgctxt "BFE_Custom"
 msgid "Custom Filter..."
-msgstr ""
+msgstr "Iragazki pertsonalizatua..."
 
 #. Saved Filters Header
 msgctxt "BFE_Saved"
 msgid "Filters"
-msgstr ""
+msgstr "Iragazkiak"
 
 #. Saved Filters Context Menu: delete
 msgctxt "BFE_Saved_delete"
 msgid "Delete Filter"
-msgstr ""
+msgstr "Ezabatu iragazkia"
 
 #. =========================================== CustomFilterActivity ==
 #. Build Your Own Filter Activity Title
 msgctxt "CFA_title"
 msgid "Custom Filter"
-msgstr ""
+msgstr "Iragazki pertsonalizatua"
 
 #. Filter Name edit box hint (if user types here, filter will be saved)
 msgctxt "CFA_filterName_hint"
@@ -1998,27 +2015,27 @@ msgstr ""
 #, c-format
 msgctxt "CFA_filterName_copy"
 msgid "Copy of %s"
-msgstr ""
+msgstr "%s-(r)en kopia"
 
 #. Filter Starting Universe: all tasks
 msgctxt "CFA_universe_all"
 msgid "Active Tasks"
-msgstr ""
+msgstr "Zeregin aktiboak"
 
 #. Filter Criteria Type: add (at the begging of title of the criteria)
 msgctxt "CFA_type_add"
 msgid "or"
-msgstr ""
+msgstr "edo"
 
 #. Filter Criteria Type: subtract (at the begging of title of the criteria)
 msgctxt "CFA_type_subtract"
 msgid "not"
-msgstr ""
+msgstr "ez"
 
 #. Filter Criteria Type: intersect (at the begging of title of the criteria)
 msgctxt "CFA_type_intersect"
 msgid "also"
-msgstr ""
+msgstr "baita"
 
 #. Filter Criteria Context Menu: chaining (%s chain type as above)
 #, c-format
@@ -2029,7 +2046,7 @@ msgstr ""
 #. Filter Criteria Context Menu: delete
 msgctxt "CFA_context_delete"
 msgid "Delete Row"
-msgstr ""
+msgstr "Ezabatu lerroa"
 
 #. Filter Screen Help Text
 msgctxt "CFA_help"
@@ -2041,17 +2058,17 @@ msgstr ""
 #. Filter Button: add new
 msgctxt "CFA_button_add"
 msgid "Add Criteria"
-msgstr ""
+msgstr "Gehitu irizpidea"
 
 #. Filter Button: view without saving
 msgctxt "CFA_button_view"
 msgid "View"
-msgstr ""
+msgstr "Ikusi"
 
 #. Filter Button: save & view filter
 msgctxt "CFA_button_save"
 msgid "Save & View"
-msgstr ""
+msgstr "Gorde eta ikusi"
 
 #. =========================================== CustomFilterCriteria ==
 #. Criteria: due by X - display text (? -> user input)
@@ -2066,31 +2083,31 @@ msgstr ""
 
 msgctxt "CFC_dueBefore_entries:0"
 msgid "No Due Date"
-msgstr ""
+msgstr "Epemugarik ez"
 
 msgctxt "CFC_dueBefore_entries:1"
 msgid "Yesterday"
-msgstr ""
+msgstr "Atzo"
 
 msgctxt "CFC_dueBefore_entries:2"
 msgid "Today"
-msgstr ""
+msgstr "Gaur"
 
 msgctxt "CFC_dueBefore_entries:3"
 msgid "Tomorrow"
-msgstr ""
+msgstr "Bihar"
 
 msgctxt "CFC_dueBefore_entries:4"
 msgid "Day After Tomorrow"
-msgstr ""
+msgstr "Etzi"
 
 msgctxt "CFC_dueBefore_entries:5"
 msgid "Next Week"
-msgstr ""
+msgstr "Hurrengo astea"
 
 msgctxt "CFC_dueBefore_entries:6"
 msgid "Next Month"
-msgstr ""
+msgstr "Hurrengo hilabetea"
 
 #. Criteria: importance - display text (? -> user input)
 msgctxt "CFC_importance_text"
@@ -2100,17 +2117,17 @@ msgstr ""
 #. Criteria: importance - name of criteria
 msgctxt "CFC_importance_name"
 msgid "Importance..."
-msgstr ""
+msgstr "Garrantzia..."
 
 #. Criteria: tag - display text (? -> user input)
 msgctxt "CFC_tag_text"
 msgid "List: ?"
-msgstr ""
+msgstr "Zerrenda: ?"
 
 #. Criteria: tag - name of criteria
 msgctxt "CFC_tag_name"
 msgid "List..."
-msgstr ""
+msgstr "Zerrenda..."
 
 #. Criteria: tag_contains - name of criteria
 msgctxt "CFC_tag_contains_name"
@@ -2138,7 +2155,7 @@ msgstr ""
 #. Error message for adding to calendar
 msgctxt "gcal_TEA_error"
 msgid "Error adding task to calendar!"
-msgstr ""
+msgstr "Errorea zeregina egutegira gehitzean!"
 
 #. Label for adding task to calendar
 msgctxt "gcal_TEA_calendar_label"
@@ -2148,7 +2165,7 @@ msgstr ""
 #. Label for adding task to calendar
 msgctxt "gcal_TEA_addToCalendar_label"
 msgid "Add to Calendar"
-msgstr ""
+msgstr "Gehitu egutegira"
 
 #. Label when calendar event already exists
 msgctxt "gcal_TEA_showCalendar_label"
@@ -2168,7 +2185,7 @@ msgstr ""
 #. No calendar label (don't add option)
 msgctxt "gcal_TEA_nocal"
 msgid "Don't add"
-msgstr ""
+msgstr "Ez gehitu"
 
 msgctxt "gcal_TEA_none_selected"
 msgid "Add to cal..."
@@ -2183,12 +2200,12 @@ msgstr ""
 #, c-format
 msgctxt "gcal_completed_title"
 msgid "%s (completed)"
-msgstr ""
+msgstr "%s (osatuta)"
 
 #. System Default Calendar (displayed if we can't figure out calendars)
 msgctxt "gcal_GCP_default"
 msgid "Default Calendar"
-msgstr ""
+msgstr "Egutegi lehenetsia"
 
 #. See the file "LICENSE" for the full license governing this code.
 #. ============================================================= UI ==
@@ -2211,7 +2228,7 @@ msgstr ""
 #. dialog prompt for creating a new gtasks list
 msgctxt "gtasks_FEx_creating_list"
 msgid "Creating list..."
-msgstr ""
+msgstr "Zerrenda sortzen..."
 
 #. dialog prompt for creating a new gtasks list
 msgctxt "gtasks_FEx_create_list_dialog"
@@ -2221,7 +2238,7 @@ msgstr ""
 #. error to show when list creation fails
 msgctxt "gtasks_FEx_create_list_error"
 msgid "Error creating new list"
-msgstr ""
+msgstr "Errorea zerrenda berria sortzean"
 
 #. short help title for Gtasks
 msgctxt "gtasks_help_title"
@@ -2239,12 +2256,12 @@ msgstr ""
 #. Message while clearing completed tasks
 msgctxt "gtasks_GTA_clearing"
 msgid "Clearing completed tasks..."
-msgstr ""
+msgstr "Osatutako zereginak garbitzen..."
 
 #. Label for clear completed menu item
 msgctxt "gtasks_GTA_clear_completed"
 msgid "Clear Completed"
-msgstr ""
+msgstr "Garbitu osatutakoak"
 
 #. ============================================ GtasksLoginActivity ==
 #. Activity Title: Gtasks Login
@@ -2274,22 +2291,22 @@ msgstr ""
 #. Sign In Button
 msgctxt "gtasks_GLA_signIn"
 msgid "Sign In"
-msgstr ""
+msgstr "Hasi saioa"
 
 #. E-mail Address Label
 msgctxt "gtasks_GLA_email"
 msgid "E-mail"
-msgstr ""
+msgstr "E-posta"
 
 #. Password Label
 msgctxt "gtasks_GLA_password"
 msgid "Password"
-msgstr ""
+msgstr "Pasahitza"
 
 #. Authenticating toast
 msgctxt "gtasks_GLA_authenticating"
 msgid "Authenticating..."
-msgstr ""
+msgstr "Autentifikatzen..."
 
 #. Google Apps for Domain checkbox
 msgctxt "gtasks_GLA_domain"
@@ -2299,7 +2316,7 @@ msgstr ""
 #. Error Message when fields aren't filled out
 msgctxt "gtasks_GLA_errorEmpty"
 msgid "Error: fill out all fields!"
-msgstr ""
+msgstr "Errorea: bete eremu guztiak!"
 
 #. Error Message when we receive a HTTP 401 Unauthorized
 msgctxt "gtasks_GLA_errorAuth"
@@ -2364,55 +2381,6 @@ msgid ""
 msgstr ""
 
 #. See the file "LICENSE" for the full license governing this code.
-#. Resources initial tasks added
-#. Intro Tag or click prompt
-msgctxt "intro_click_prompt"
-msgid "Intro: Press me to see notes"
-msgstr ""
-
-#. Task 1 Summary
-msgctxt "intro_task_1_summary"
-msgid "Create your first task"
-msgstr ""
-
-#. Task 1 Note
-msgctxt "intro_task_1_note"
-msgid ""
-"Two ways to add a task:\n"
-" 1) Quick Add: Type the task into the quick entry box at bottom of screen "
-"and press the + button on the right.\n"
-" 2) Regular Add: Press the + button of the quick entry box. Add as much "
-"detail as you want. Then press \"Save\" or use your phone's back button.\n"
-msgstr ""
-
-#. Task 2 Summary
-msgctxt "intro_task_2_summary"
-msgid "Add a widget to your desktop"
-msgstr ""
-
-#. Task 2 Note
-msgctxt "intro_task_2_note"
-msgid ""
-"1) Long Press on your phone's desktop\n"
-"      2) Choose \"Widget\"\n"
-"      3) Choose the Astrid widget\n"
-"      4) Select the list you want and press OK.\n"
-msgstr ""
-
-#. Task 3 Summary
-msgctxt "intro_task_3_summary"
-msgid "Setup sync with Astrid.com"
-msgstr ""
-
-#. Task 3 Note
-msgctxt "intro_task_3_note"
-msgid ""
-"1) Press your Menu button\n"
-"      2) Choose \"Sync Now\"\n"
-"      3) Select \"Astrid.com\"\n"
-"      4) Log In & Synchronize!\n"
-msgstr ""
-
 #. NEW USER EXPERIENCE
 #. help bubbles
 #. Shown the first time a user sees the task list activity
@@ -2456,7 +2424,7 @@ msgstr ""
 #. Login activity
 msgctxt "welcome_login_title"
 msgid "Welcome to Astrid!"
-msgstr ""
+msgstr "Ongietorri Astrid-era!"
 
 msgctxt "welcome_login_tos_base"
 msgid "By using Astrid you agree to the"
@@ -2472,7 +2440,7 @@ msgstr ""
 
 msgctxt "welcome_login_later"
 msgid "Connect Later"
-msgstr ""
+msgstr "Konektatu geroago"
 
 msgctxt "welcome_login_confirm_later_title"
 msgid "Why not sign in?"
@@ -2484,7 +2452,7 @@ msgstr ""
 
 msgctxt "welcome_login_confirm_later_cancel"
 msgid "No thanks"
-msgstr ""
+msgstr "Ez, eskerrik asko"
 
 msgctxt "welcome_login_confirm_later_dialog"
 msgid ""
@@ -2496,7 +2464,7 @@ msgstr ""
 #. Shown after user goes to task rabbit activity
 msgctxt "help_popover_taskrabbit_type"
 msgid "Change the type of task"
-msgstr ""
+msgstr "Aldatu zeregin mota"
 
 #. See the file "LICENSE" for the full license governing this code.
 #. Resources for built-in locale plug-in
@@ -2515,7 +2483,7 @@ msgstr ""
 #. Locale Window Filter Picker UI
 msgctxt "locale_pick_filter"
 msgid "Filter:"
-msgstr ""
+msgstr "Iragazkia:"
 
 #. Locale Window Interval Label
 msgctxt "locale_interval_label"
@@ -2525,32 +2493,32 @@ msgstr ""
 #. Locale Window Interval Values
 msgctxt "locale_interval:0"
 msgid "once an hour"
-msgstr ""
+msgstr "ordubetean behin"
 
 #. Locale Window Interval Values
 msgctxt "locale_interval:1"
 msgid "once every six hours"
-msgstr ""
+msgstr "sei orduan behin"
 
 #. Locale Window Interval Values
 msgctxt "locale_interval:2"
 msgid "once every twelve hours"
-msgstr ""
+msgstr "hamabi orduan behin"
 
 #. Locale Window Interval Values
 msgctxt "locale_interval:3"
 msgid "once a day"
-msgstr ""
+msgstr "egunean behin"
 
 #. Locale Window Interval Values
 msgctxt "locale_interval:4"
 msgid "once every three days"
-msgstr ""
+msgstr "hiru egunean behin"
 
 #. Locale Window Interval Values
 msgctxt "locale_interval:5"
 msgid "once a week"
-msgstr ""
+msgstr "astean behin"
 
 #. Locale Notification text
 msgctxt "locale_notification"
@@ -2560,19 +2528,19 @@ msgstr ""
 #. Locale Plugin was not found, it is required
 msgctxt "locale_plugin_required"
 msgid "Please install the Astrid Locale plugin!"
-msgstr ""
+msgstr "Mesedez, instalatu Astrid Locale plugina!"
 
 #. See the file "LICENSE" for the full license governing this code.
 #. ====================== Plugin Boilerplate =========================
 #. filters header: OpenCRX
 msgctxt "opencrx_FEx_header"
 msgid "OpenCRX"
-msgstr ""
+msgstr "OpenCRX"
 
 #. filter category for OpenCRX ActivityCreators
 msgctxt "opencrx_FEx_dashboard"
 msgid "Workspaces"
-msgstr ""
+msgstr "Laneko areak"
 
 #. filter category for OpenCRX responsible person
 msgctxt "opencrx_FEx_responsible"
@@ -2594,11 +2562,11 @@ msgstr ""
 #. replacement string for task edit "Notes" when using OpenCRX
 msgctxt "opencrx_TEA_notes"
 msgid "Add a Comment"
-msgstr ""
+msgstr "Gehitu iruzkin bat"
 
 msgctxt "opencrx_creator_input_hint"
 msgid "Creator"
-msgstr ""
+msgstr "Sortzailea"
 
 msgctxt "opencrx_contact_input_hint"
 msgid "Assigned to"
@@ -2608,12 +2576,12 @@ msgstr ""
 #. Preferences Title: OpenCRX
 msgctxt "opencrx_PPr_header"
 msgid "OpenCRX"
-msgstr ""
+msgstr "OpenCRX"
 
 #. creator title for tasks that are not synchronized
 msgctxt "opencrx_no_creator"
 msgid "(Do Not Synchronize)"
-msgstr ""
+msgstr "(Ez sinkronizatu)"
 
 #. preference title for default creator
 msgctxt "opencrx_PPr_defaultcreator_title"
@@ -2635,62 +2603,62 @@ msgstr ""
 #. OpenCRX host and segment group name
 msgctxt "opencrx_group"
 msgid "OpenCRX server"
-msgstr ""
+msgstr "OpenCRX zerbitzaria"
 
 #. preference description for OpenCRX host
 msgctxt "opencrx_host_title"
 msgid "Host"
-msgstr ""
+msgstr "Ostalaria"
 
 #. dialog title for OpenCRX host
 msgctxt "opencrx_host_dialog_title"
 msgid "OpenCRX host"
-msgstr ""
+msgstr "OpenCRX ostalaria"
 
 #. example for OpenCRX host
 msgctxt "opencrx_host_summary"
 msgid "For example: <i>mydomain.com</i>"
-msgstr ""
+msgstr "Adibidez: <i>niredomeinua.com</i>"
 
 #. preference description for OpenCRX segment
 msgctxt "opencrx_segment_title"
 msgid "Segment"
-msgstr ""
+msgstr "Segmentua"
 
 #. dialog title for OpenCRX segment
 msgctxt "opencrx_segment_dialog_title"
 msgid "Synchronized segment"
-msgstr ""
+msgstr "Sinkronizatutako segmentua"
 
 #. example for OpenCRX segment
 msgctxt "opencrx_segment_summary"
 msgid "For example: <i>Standard</i>"
-msgstr ""
+msgstr "Adibidez: <i>Estandarra</i>"
 
 #. default value for OpenCRX segment
 msgctxt "opencrx_segment_default"
 msgid "Standard"
-msgstr ""
+msgstr "Estandarra"
 
 #. preference description for OpenCRX provider
 msgctxt "opencrx_provider_title"
 msgid "Provider"
-msgstr ""
+msgstr "Hornitzailea"
 
 #. dialog title for OpenCRX provider
 msgctxt "opencrx_provider_dialog_title"
 msgid "OpenCRX data provider"
-msgstr ""
+msgstr "OpenCRX datu hornitzailea"
 
 #. example for OpenCRX provider
 msgctxt "opencrx_provider_summary"
 msgid "For example: <i>CRX</i>"
-msgstr ""
+msgstr "Adibidez: <i>CRX</i>"
 
 #. default value for OpenCRX provider
 msgctxt "opencrx_provider_default"
 msgid "CRX"
-msgstr ""
+msgstr "CRX"
 
 #. ================================================= Login Activity ==
 #. Activity Title: Opencrx Login
@@ -2716,23 +2684,23 @@ msgstr ""
 #. Password Label
 msgctxt "opencrx_PLA_password"
 msgid "Password"
-msgstr ""
+msgstr "Pasahitza"
 
 #. Error Message when fields aren't filled out
 msgctxt "opencrx_PLA_errorEmpty"
 msgid "Error: fillout all fields"
-msgstr ""
+msgstr "Errorea: bete eremu guztiak"
 
 #. Error Message when we receive a HTTP 401 Unauthorized
 msgctxt "opencrx_PLA_errorAuth"
 msgid "Error: login or password incorrect!"
-msgstr ""
+msgstr "Errorea: erabiltzaile edo pasahitz okerra!"
 
 #. ================================================ Synchronization ==
 #. title for notification tray after synchronizing
 msgctxt "opencrx_notification_title"
 msgid "OpenCRX"
-msgstr ""
+msgstr "OpenCRX"
 
 #. text for notification tray when synchronizing
 #, c-format
@@ -2743,17 +2711,17 @@ msgstr ""
 #. Error msg when io exception
 msgctxt "opencrx_ioerror"
 msgid "Connection Error! Check your Internet connection."
-msgstr ""
+msgstr "Konexio errorea! Egiaztatu zure interneteko konexioa."
 
 #. opencrx Login not specified
 msgctxt "opencrx_MLA_email_empty"
 msgid "Login was not specified!"
-msgstr ""
+msgstr "Ez da erabiltzailerik zehaztu!"
 
 #. opencrx password not specified
 msgctxt "opencrx_MLA_password_empty"
 msgid "Password was not specified!"
-msgstr ""
+msgstr "Ez da pasahitzik zehaztu!"
 
 #. ================================================ labels for layout-elements
 #. ==
@@ -2775,11 +2743,11 @@ msgstr ""
 #. Spinner-item for default dashboard on taskeditactivity
 msgctxt "opencrx_TEA_dashboard_default"
 msgid "&lt;Default&gt;"
-msgstr ""
+msgstr "&lt;Lehenetsia&gt;"
 
 msgctxt "opencrx_TEA_opencrx_title"
 msgid "OpenCRX Controls"
-msgstr ""
+msgstr "OpenCRX kontrolak"
 
 msgctxt "CFC_opencrx_in_workspace_text"
 msgid "In workspace: ?"
@@ -2829,7 +2797,7 @@ msgstr ""
 #. filter category for Producteev dashboards
 msgctxt "producteev_FEx_dashboard"
 msgid "Workspaces"
-msgstr ""
+msgstr "Laneko areak"
 
 #. filter category for Producteev responsible person
 msgctxt "producteev_FEx_responsible_byme"
@@ -2856,38 +2824,38 @@ msgstr ""
 #. replacement string for task edit "Notes" when using Producteev
 msgctxt "producteev_TEA_notes"
 msgid "Add a Comment"
-msgstr ""
+msgstr "Gehitu iruzkin bat"
 
 #. ==================================================== Preferences ==
 #. Preferences Title: Producteev
 msgctxt "producteev_PPr_header"
 msgid "Producteev"
-msgstr ""
+msgstr "Producteev"
 
 #. dashboard title for producteev default dashboard
 msgctxt "producteev_default_dashboard"
 msgid "Default Workspace"
-msgstr ""
+msgstr "Laneko area lehenetsia"
 
 #. dashboard title for tasks that are not synchronized
 msgctxt "producteev_no_dashboard"
 msgid "(Do Not Synchronize)"
-msgstr ""
+msgstr "(Ez sinkronizatu)"
 
 #. dashboard spinner entry on TEA for adding a new dashboard
 msgctxt "producteev_create_dashboard"
 msgid "Add new Workspace..."
-msgstr ""
+msgstr "Gehitu laneko area berria..."
 
 #. dashboard spinner entry on TEA for adding a new dashboard
 msgctxt "producteev_create_dashboard_name"
 msgid "Name for new Workspace"
-msgstr ""
+msgstr "Laneko area berriaren izena"
 
 #. preference title for default dashboard
 msgctxt "producteev_PPr_defaultdash_title"
 msgid "Default Workspace"
-msgstr ""
+msgstr "Laneko area lehenetsia"
 
 #. preference description for default dashboard (%s -> setting)
 #, c-format
@@ -2926,58 +2894,58 @@ msgstr ""
 #. Create New User Button
 msgctxt "producteev_PLA_createNew"
 msgid "Create New User"
-msgstr ""
+msgstr "Sortu erabiltzaile berria"
 
 #. E-mail Address Label
 msgctxt "producteev_PLA_email"
 msgid "E-mail"
-msgstr ""
+msgstr "E-posta"
 
 #. Password Label
 msgctxt "producteev_PLA_password"
 msgid "Password"
-msgstr ""
+msgstr "Pasahitza"
 
 #. Timezone Spinner
 msgctxt "producteev_PLA_timezone"
 msgid "Timezone"
-msgstr ""
+msgstr "Ordu-eremua"
 
 #. Confirm Password Label
 msgctxt "producteev_PLA_confirmPassword"
 msgid "Confirm Password"
-msgstr ""
+msgstr "Berretsi sarhitza"
 
 #. First Name Label
 msgctxt "producteev_PLA_firstName"
 msgid "First Name"
-msgstr ""
+msgstr "Izena"
 
 #. Last Name Label
 msgctxt "producteev_PLA_lastName"
 msgid "Last Name"
-msgstr ""
+msgstr "Abizena"
 
 #. Error Message when fields aren't filled out
 msgctxt "producteev_PLA_errorEmpty"
 msgid "Error: fill out all fields!"
-msgstr ""
+msgstr "Errorea: bete eremu guztiak!"
 
 #. Error Message when passwords don't match
 msgctxt "producteev_PLA_errorMatch"
 msgid "Error: passwords don't match!"
-msgstr ""
+msgstr "Errorea: pasahitzak ez datoz bat!"
 
 #. Error Message when we receive a HTTP 401 Unauthorized
 msgctxt "producteev_PLA_errorAuth"
 msgid "Error: e-mail or password incorrect!"
-msgstr ""
+msgstr "Errorea: e-posta edo pasahitz okerra!"
 
 #. ================================================ Synchronization ==
 #. title for notification tray after synchronizing
 msgctxt "producteev_notification_title"
 msgid "Producteev"
-msgstr ""
+msgstr "Producteev"
 
 #. text for notification tray when synchronizing
 #, c-format
@@ -2988,17 +2956,17 @@ msgstr ""
 #. Error msg when io exception
 msgctxt "producteev_ioerror"
 msgid "Connection Error! Check your Internet connection."
-msgstr ""
+msgstr "Konexio errorea! Egiaztatu zure interneteko konexioa."
 
 #. Prod Login email not specified
 msgctxt "producteev_MLA_email_empty"
 msgid "E-Mail was not specified!"
-msgstr ""
+msgstr "Ez da e-postarik zehaztu!"
 
 #. Prod Login password not specified
 msgctxt "producteev_MLA_password_empty"
 msgid "Password was not specified!"
-msgstr ""
+msgstr "Ez da pasahitzik zehaztu!"
 
 #. ================================================ labels for layout-elements
 #. ==
@@ -3025,7 +2993,7 @@ msgstr ""
 #. Spinner-item for default dashboard on taskeditactivity
 msgctxt "producteev_TEA_dashboard_default"
 msgid "&lt;Default&gt;"
-msgstr ""
+msgstr "&lt;Lehenetsia&gt;"
 
 msgctxt "CFC_producteev_in_workspace_text"
 msgid "In workspace: ?"
@@ -3093,15 +3061,15 @@ msgstr ""
 
 msgctxt "TEA_reminder_random:0"
 msgid "an hour"
-msgstr ""
+msgstr "ordu bat"
 
 msgctxt "TEA_reminder_random:1"
 msgid "a day"
-msgstr ""
+msgstr "egun bat"
 
 msgctxt "TEA_reminder_random:2"
 msgid "a week"
-msgstr ""
+msgstr "aste bat"
 
 msgctxt "TEA_reminder_random:3"
 msgid "in two weeks"
@@ -3330,19 +3298,19 @@ msgstr ""
 
 msgctxt "EPr_reminder_random:0"
 msgid "disabled"
-msgstr ""
+msgstr "desgaituta"
 
 msgctxt "EPr_reminder_random:1"
 msgid "hourly"
-msgstr ""
+msgstr "orduero"
 
 msgctxt "EPr_reminder_random:2"
 msgid "daily"
-msgstr ""
+msgstr "egunero"
 
 msgctxt "EPr_reminder_random:3"
 msgid "weekly"
-msgstr ""
+msgstr "astero"
 
 msgctxt "EPr_reminder_random:4"
 msgid "bi-weekly"
@@ -3350,7 +3318,7 @@ msgstr ""
 
 msgctxt "EPr_reminder_random:5"
 msgid "monthly"
-msgstr ""
+msgstr "hilero"
 
 msgctxt "EPr_reminder_random:6"
 msgid "bi-monthly"
@@ -3358,295 +3326,295 @@ msgstr ""
 
 msgctxt "EPr_quiet_hours_start:0"
 msgid "disabled"
-msgstr ""
+msgstr "desgaituta"
 
 msgctxt "EPr_quiet_hours_start:1"
 msgid "8 PM"
-msgstr ""
+msgstr "8 PM"
 
 msgctxt "EPr_quiet_hours_start:2"
 msgid "9 PM"
-msgstr ""
+msgstr "9 PM"
 
 msgctxt "EPr_quiet_hours_start:3"
 msgid "10 PM"
-msgstr ""
+msgstr "10 PM"
 
 msgctxt "EPr_quiet_hours_start:4"
 msgid "11 PM"
-msgstr ""
+msgstr "11 PM"
 
 msgctxt "EPr_quiet_hours_start:5"
 msgid "12 AM"
-msgstr ""
+msgstr "12 AM"
 
 msgctxt "EPr_quiet_hours_start:6"
 msgid "1 AM"
-msgstr ""
+msgstr "1 AM"
 
 msgctxt "EPr_quiet_hours_start:7"
 msgid "2 AM"
-msgstr ""
+msgstr "2 AM"
 
 msgctxt "EPr_quiet_hours_start:8"
 msgid "3 AM"
-msgstr ""
+msgstr "3 AM"
 
 msgctxt "EPr_quiet_hours_start:9"
 msgid "4 AM"
-msgstr ""
+msgstr "4 AM"
 
 msgctxt "EPr_quiet_hours_start:10"
 msgid "5 AM"
-msgstr ""
+msgstr "5 AM"
 
 msgctxt "EPr_quiet_hours_start:11"
 msgid "6 AM"
-msgstr ""
+msgstr "6 AM"
 
 msgctxt "EPr_quiet_hours_start:12"
 msgid "7 AM"
-msgstr ""
+msgstr "7 AM"
 
 msgctxt "EPr_quiet_hours_start:13"
 msgid "8 AM"
-msgstr ""
+msgstr "8 AM"
 
 msgctxt "EPr_quiet_hours_start:14"
 msgid "9 AM"
-msgstr ""
+msgstr "9 AM"
 
 msgctxt "EPr_quiet_hours_start:15"
 msgid "10 AM"
-msgstr ""
+msgstr "10 AM"
 
 msgctxt "EPr_quiet_hours_start:16"
 msgid "11 AM"
-msgstr ""
+msgstr "11 AM"
 
 msgctxt "EPr_quiet_hours_start:17"
 msgid "12 PM"
-msgstr ""
+msgstr "12 PM"
 
 msgctxt "EPr_quiet_hours_start:18"
 msgid "1 PM"
-msgstr ""
+msgstr "1 PM"
 
 msgctxt "EPr_quiet_hours_start:19"
 msgid "2 PM"
-msgstr ""
+msgstr "2 PM"
 
 msgctxt "EPr_quiet_hours_start:20"
 msgid "3 PM"
-msgstr ""
+msgstr "3 PM"
 
 msgctxt "EPr_quiet_hours_start:21"
 msgid "4 PM"
-msgstr ""
+msgstr "4 PM"
 
 msgctxt "EPr_quiet_hours_start:22"
 msgid "5 PM"
-msgstr ""
+msgstr "5 PM"
 
 msgctxt "EPr_quiet_hours_start:23"
 msgid "6 PM"
-msgstr ""
+msgstr "6 PM"
 
 msgctxt "EPr_quiet_hours_start:24"
 msgid "7 PM"
-msgstr ""
+msgstr "7 PM"
 
 msgctxt "EPr_quiet_hours_end:0"
 msgid "9 AM"
-msgstr ""
+msgstr "9 AM"
 
 msgctxt "EPr_quiet_hours_end:1"
 msgid "10 AM"
-msgstr ""
+msgstr "10 AM"
 
 msgctxt "EPr_quiet_hours_end:2"
 msgid "11 AM"
-msgstr ""
+msgstr "11 AM"
 
 msgctxt "EPr_quiet_hours_end:3"
 msgid "12 PM"
-msgstr ""
+msgstr "12 PM"
 
 msgctxt "EPr_quiet_hours_end:4"
 msgid "1 PM"
-msgstr ""
+msgstr "1 PM"
 
 msgctxt "EPr_quiet_hours_end:5"
 msgid "2 PM"
-msgstr ""
+msgstr "2 PM"
 
 msgctxt "EPr_quiet_hours_end:6"
 msgid "3 PM"
-msgstr ""
+msgstr "3 PM"
 
 msgctxt "EPr_quiet_hours_end:7"
 msgid "4 PM"
-msgstr ""
+msgstr "4 PM"
 
 msgctxt "EPr_quiet_hours_end:8"
 msgid "5 PM"
-msgstr ""
+msgstr "5 PM"
 
 msgctxt "EPr_quiet_hours_end:9"
 msgid "6 PM"
-msgstr ""
+msgstr "6 PM"
 
 msgctxt "EPr_quiet_hours_end:10"
 msgid "7 PM"
-msgstr ""
+msgstr "7 PM"
 
 msgctxt "EPr_quiet_hours_end:11"
 msgid "8 PM"
-msgstr ""
+msgstr "8 PM"
 
 msgctxt "EPr_quiet_hours_end:12"
 msgid "9 PM"
-msgstr ""
+msgstr "9 PM"
 
 msgctxt "EPr_quiet_hours_end:13"
 msgid "10 PM"
-msgstr ""
+msgstr "10 PM"
 
 msgctxt "EPr_quiet_hours_end:14"
 msgid "11 PM"
-msgstr ""
+msgstr "11 PM"
 
 msgctxt "EPr_quiet_hours_end:15"
 msgid "12 AM"
-msgstr ""
+msgstr "12 AM"
 
 msgctxt "EPr_quiet_hours_end:16"
 msgid "1 AM"
-msgstr ""
+msgstr "1 AM"
 
 msgctxt "EPr_quiet_hours_end:17"
 msgid "2 AM"
-msgstr ""
+msgstr "2 AM"
 
 msgctxt "EPr_quiet_hours_end:18"
 msgid "3 AM"
-msgstr ""
+msgstr "3 AM"
 
 msgctxt "EPr_quiet_hours_end:19"
 msgid "4 AM"
-msgstr ""
+msgstr "4 AM"
 
 msgctxt "EPr_quiet_hours_end:20"
 msgid "5 AM"
-msgstr ""
+msgstr "5 AM"
 
 msgctxt "EPr_quiet_hours_end:21"
 msgid "6 AM"
-msgstr ""
+msgstr "6 AM"
 
 msgctxt "EPr_quiet_hours_end:22"
 msgid "7 AM"
-msgstr ""
+msgstr "7 AM"
 
 msgctxt "EPr_quiet_hours_end:23"
 msgid "8 AM"
-msgstr ""
+msgstr "8 AM"
 
 msgctxt "EPr_rmd_time:0"
 msgid "9 AM"
-msgstr ""
+msgstr "9 AM"
 
 msgctxt "EPr_rmd_time:1"
 msgid "10 AM"
-msgstr ""
+msgstr "10 AM"
 
 msgctxt "EPr_rmd_time:2"
 msgid "11 AM"
-msgstr ""
+msgstr "11 AM"
 
 msgctxt "EPr_rmd_time:3"
 msgid "12 PM"
-msgstr ""
+msgstr "12 PM"
 
 msgctxt "EPr_rmd_time:4"
 msgid "1 PM"
-msgstr ""
+msgstr "1 PM"
 
 msgctxt "EPr_rmd_time:5"
 msgid "2 PM"
-msgstr ""
+msgstr "2 PM"
 
 msgctxt "EPr_rmd_time:6"
 msgid "3 PM"
-msgstr ""
+msgstr "3 PM"
 
 msgctxt "EPr_rmd_time:7"
 msgid "4 PM"
-msgstr ""
+msgstr "4 PM"
 
 msgctxt "EPr_rmd_time:8"
 msgid "5 PM"
-msgstr ""
+msgstr "5 PM"
 
 msgctxt "EPr_rmd_time:9"
 msgid "6 PM"
-msgstr ""
+msgstr "6 PM"
 
 msgctxt "EPr_rmd_time:10"
 msgid "7 PM"
-msgstr ""
+msgstr "7 PM"
 
 msgctxt "EPr_rmd_time:11"
 msgid "8 PM"
-msgstr ""
+msgstr "8 PM"
 
 msgctxt "EPr_rmd_time:12"
 msgid "9 PM"
-msgstr ""
+msgstr "9 PM"
 
 msgctxt "EPr_rmd_time:13"
 msgid "10 PM"
-msgstr ""
+msgstr "10 PM"
 
 msgctxt "EPr_rmd_time:14"
 msgid "11 PM"
-msgstr ""
+msgstr "11 PM"
 
 msgctxt "EPr_rmd_time:15"
 msgid "12 AM"
-msgstr ""
+msgstr "12 AM"
 
 msgctxt "EPr_rmd_time:16"
 msgid "1 AM"
-msgstr ""
+msgstr "1 AM"
 
 msgctxt "EPr_rmd_time:17"
 msgid "2 AM"
-msgstr ""
+msgstr "2 AM"
 
 msgctxt "EPr_rmd_time:18"
 msgid "3 AM"
-msgstr ""
+msgstr "3 AM"
 
 msgctxt "EPr_rmd_time:19"
 msgid "4 AM"
-msgstr ""
+msgstr "4 AM"
 
 msgctxt "EPr_rmd_time:20"
 msgid "5 AM"
-msgstr ""
+msgstr "5 AM"
 
 msgctxt "EPr_rmd_time:21"
 msgid "6 AM"
-msgstr ""
+msgstr "6 AM"
 
 msgctxt "EPr_rmd_time:22"
 msgid "7 AM"
-msgstr ""
+msgstr "7 AM"
 
 msgctxt "EPr_rmd_time:23"
 msgid "8 AM"
-msgstr ""
+msgstr "8 AM"
 
 #. =============================================== random reminders ==
 msgctxt "reminders:0"
@@ -3671,7 +3639,7 @@ msgstr ""
 #. =============================================== random reminders ==
 msgctxt "reminders:4"
 msgid "Excuse me!"
-msgstr ""
+msgstr "Barkatu!"
 
 #. =============================================== random reminders ==
 msgctxt "reminders:5"
@@ -3681,7 +3649,7 @@ msgstr ""
 #. =============================================== random reminders ==
 msgctxt "reminders:6"
 msgid "On your agenda:"
-msgstr ""
+msgstr "Zure agendan:"
 
 #. =============================================== random reminders ==
 msgctxt "reminders:7"
@@ -3730,11 +3698,11 @@ msgstr ""
 
 msgctxt "reminders_due:5"
 msgid "Time to start:"
-msgstr ""
+msgstr "Hasteko ordua:"
 
 msgctxt "reminders_due:6"
 msgid "It's time!"
-msgstr ""
+msgstr "Ordua da!"
 
 msgctxt "reminders_due:7"
 msgid "Excuse me! Time for"
@@ -3746,7 +3714,7 @@ msgstr ""
 
 msgctxt "reminders_snooze:0"
 msgid "Don't be lazy now!"
-msgstr ""
+msgstr "Ez izan alferra orain!"
 
 msgctxt "reminders_snooze:1"
 msgid "Snooze time is up!"
@@ -3758,7 +3726,7 @@ msgstr ""
 
 msgctxt "reminders_snooze:3"
 msgid "Now are you ready?"
-msgstr ""
+msgstr "Prest zaude orain?"
 
 msgctxt "reminders_snooze:4"
 msgid "No more postponing!"
@@ -3963,31 +3931,31 @@ msgstr ""
 
 msgctxt "repeat_dont"
 msgid "Don't repeat"
-msgstr ""
+msgstr "Ez errepikatu"
 
 msgctxt "repeat_interval_short:0"
 msgid "d"
-msgstr ""
+msgstr "eg"
 
 msgctxt "repeat_interval_short:1"
 msgid "wk"
-msgstr ""
+msgstr "ast"
 
 msgctxt "repeat_interval_short:2"
 msgid "mo"
-msgstr ""
+msgstr "hl"
 
 msgctxt "repeat_interval_short:3"
 msgid "hr"
-msgstr ""
+msgstr "or"
 
 msgctxt "repeat_interval_short:4"
 msgid "min"
-msgstr ""
+msgstr "min"
 
 msgctxt "repeat_interval_short:5"
 msgid "yr"
-msgstr ""
+msgstr "urt"
 
 msgctxt "repeat_interval:0"
 msgid "Day(s)"
@@ -4007,11 +3975,11 @@ msgstr "Ordu"
 
 msgctxt "repeat_interval:4"
 msgid "Minute(s)"
-msgstr ""
+msgstr "Minutu(ak)"
 
 msgctxt "repeat_interval:5"
 msgid "Year(s)"
-msgstr ""
+msgstr "Urte(ak)"
 
 msgctxt "repeat_type:0"
 msgid "from due date"
@@ -4052,7 +4020,7 @@ msgstr ""
 
 msgctxt "repeat_encouragement:0"
 msgid "Good job!"
-msgstr ""
+msgstr "Lan bikaina!"
 
 msgctxt "repeat_encouragement:1"
 msgid "Wow… I'm so proud of you!"
@@ -4091,13 +4059,13 @@ msgstr ""
 #. filter category for RTM lists
 msgctxt "rmilk_FEx_list"
 msgid "Lists"
-msgstr ""
+msgstr "Zerrendak"
 
 #. RTM list filter title (%s => list)
 #, c-format
 msgctxt "rmilk_FEx_list_title"
 msgid "RTM List '%s'"
-msgstr ""
+msgstr "RTM zerrenda '%s'"
 
 #. ======================= MilkEditActivity ==========================
 #. RTM edit activity Title
@@ -4108,7 +4076,7 @@ msgstr ""
 #. RTM edit List Edit Label
 msgctxt "rmilk_MEA_list_label"
 msgid "RTM List:"
-msgstr ""
+msgstr "RTM zerrenda"
 
 #. RTM edit Repeat Label
 msgctxt "rmilk_MEA_repeat_label"
@@ -4118,7 +4086,7 @@ msgstr ""
 #. RTM edit Repeat Hint
 msgctxt "rmilk_MEA_repeat_hint"
 msgid "i.e. every week, after 14 days"
-msgstr ""
+msgstr "adibidez, astero, 14 egun igarotakoan"
 
 #. ======================== MilkPreferences ==========================
 #. Milk Preferences Title
@@ -4178,75 +4146,75 @@ msgstr ""
 #. Tags label
 msgctxt "TEA_tags_label"
 msgid "Lists"
-msgstr ""
+msgstr "Zerrendak"
 
 #. Tags label long version
 msgctxt "TEA_tags_label_long"
 msgid "Put task on one or more lists"
-msgstr ""
+msgstr "Jarri zeregina zerrenda bat edo gehiagotan"
 
 #. Tags none
 msgctxt "TEA_tags_none"
 msgid "None"
-msgstr ""
+msgstr "Bat ere ez"
 
 #. Tags hint
 msgctxt "TEA_tag_hint"
 msgid "New list"
-msgstr ""
+msgstr "Zerrenda berria"
 
 #. Tags dropdown
 msgctxt "TEA_tag_dropdown"
 msgid "Select a list"
-msgstr ""
+msgstr "Hautatu zerrenda bat"
 
 #. =============================================== Task List Controls ==
 #. menu item for tags
 msgctxt "tag_TLA_menu"
 msgid "Lists"
-msgstr ""
+msgstr "Zerrendak"
 
 #. ========================================================== Extras ==
 #. Context Item: show tag
 msgctxt "TAd_contextFilterByTag"
 msgid "Show List"
-msgstr ""
+msgstr "Erakutsi zerrenda"
 
 #. Dialog: new list
 msgctxt "tag_new_list"
 msgid "New List"
-msgstr ""
+msgstr "Zerrenda berria"
 
 #. Dialog: list saved
 msgctxt "tag_list_saved"
 msgid "List Saved"
-msgstr ""
+msgstr "Zerrenda gordeta"
 
 #. Dialog: task created without title
 msgctxt "tag_no_title_error"
 msgid "Please enter a name for this list first!"
-msgstr ""
+msgstr "Mesedez, sartu zerrenda honen izena lehenik!"
 
 #. ========================================================== Filters ==
 #. filter button to add tag
 msgctxt "tag_FEx_add_new"
 msgid "New"
-msgstr ""
+msgstr "Berria"
 
 #. filter header for tags
 msgctxt "tag_FEx_header"
 msgid "Lists"
-msgstr ""
+msgstr "Zerrendak"
 
 #. filter header for tags user created
 msgctxt "tag_FEx_category_mine"
 msgid "My Lists"
-msgstr ""
+msgstr "Nire zerrendak"
 
 #. filter header for tags, shared with user
 msgctxt "tag_FEx_category_shared"
 msgid "Shared With Me"
-msgstr ""
+msgstr "Nirekin partekatua"
 
 #. filter header for tags which have no active tasks
 msgctxt "tag_FEx_category_inactive"
@@ -4267,17 +4235,17 @@ msgstr ""
 #, c-format
 msgctxt "tag_FEx_name"
 msgid "List: %s"
-msgstr ""
+msgstr "Zerrenda: %s"
 
 #. context menu option to rename a tag
 msgctxt "tag_cm_rename"
 msgid "Rename List"
-msgstr ""
+msgstr "Berrizendatu zerrenda"
 
 #. context menu option to delete a tag
 msgctxt "tag_cm_delete"
 msgid "Delete List"
-msgstr ""
+msgstr "Ezabatu zerrenda"
 
 #. context menu option to leave a shared list
 msgctxt "tag_cm_leave"
@@ -4289,7 +4257,7 @@ msgstr ""
 #, c-format
 msgctxt "DLG_delete_this_tag_question"
 msgid "Delete this list: %s? (No tasks will be deleted.)"
-msgstr ""
+msgstr "Zerrenda hau ezabatu: %s? (Zereginak ez dira ezabatuko.)"
 
 #. Dialog to confirm leaving a shared tag (%s -> the name of the shared list
 #. to leave)
@@ -4302,12 +4270,12 @@ msgstr ""
 #, c-format
 msgctxt "DLG_rename_this_tag_header"
 msgid "Rename the list %s to:"
-msgstr ""
+msgstr "Berrizendatu %s zerrenda honela:"
 
 #. Toast notification that no changes have been made
 msgctxt "TEA_no_tags_modified"
 msgid "No changes made"
-msgstr ""
+msgstr "Ez da aldaketarik egin"
 
 #. Toast notification that a tag has been deleted (%1$s - list name, %2$d - #
 #. tasks)
@@ -4344,7 +4312,7 @@ msgstr ""
 #. Header for tag settings
 msgctxt "tag_settings_title"
 msgid "List Settings"
-msgstr ""
+msgstr "Zerrendaren ezarpenak"
 
 #. Header for tag activity
 #, c-format
@@ -4355,7 +4323,7 @@ msgstr ""
 #. Delete button for tag settings
 msgctxt "tag_delete_button"
 msgid "Delete List"
-msgstr ""
+msgstr "Ezabatu zerrenda"
 
 #. Leave button for tag settings
 msgctxt "tag_leave_button"
@@ -4372,7 +4340,7 @@ msgstr ""
 #. Task List: Stop Timer button
 msgctxt "TAE_stopTimer"
 msgid "Stop"
-msgstr ""
+msgstr "Gelditu"
 
 #. Android Notification Title (%s => # tasks)
 #, c-format
@@ -4569,15 +4537,15 @@ msgstr ""
 
 msgctxt "welcome_setting"
 msgid "Show Tutorial"
-msgstr ""
+msgstr "Erakutsi tutoriala"
 
 msgctxt "welcome_title_1"
 msgid "Welcome to Astrid!"
-msgstr ""
+msgstr "Ongietorri Astrid-era!"
 
 msgctxt "welcome_title_2"
 msgid "Make lists"
-msgstr ""
+msgstr "Egin zerrendak"
 
 msgctxt "welcome_title_3"
 msgid "Switch between lists"
@@ -4585,7 +4553,7 @@ msgstr ""
 
 msgctxt "welcome_title_4"
 msgid "Share lists"
-msgstr ""
+msgstr "Partekatu zerrendak"
 
 msgctxt "welcome_title_5"
 msgid "Divvy up tasks"
@@ -4600,6 +4568,8 @@ msgid ""
 "Connect now\n"
 "to get started!"
 msgstr ""
+"Konektatu orain\n"
+"hasteko!"
 
 msgctxt "welcome_title_7_return"
 msgid "That's it!"
@@ -4629,6 +4599,9 @@ msgid ""
 "friends, housemates,\n"
 "or your sweetheart!"
 msgstr ""
+"Partekatu zerrendak \n"
+"zure lagun, pisukide\n"
+"edo azukre-koxkorrarekin!"
 
 msgctxt "welcome_body_5"
 msgid ""
@@ -4653,33 +4626,33 @@ msgstr ""
 
 msgctxt "welcome_back"
 msgid "Back"
-msgstr ""
+msgstr "Atzera"
 
 msgctxt "welcome_next"
 msgid "Next"
-msgstr ""
+msgstr "Hurrengoa"
 
 #. See the file "LICENSE" for the full license governing this code.
 #. Resources for power pack widget
 msgctxt "PPW_widget_42_label"
 msgid "Astrid Premium 4x2"
-msgstr ""
+msgstr "Astrid Premium 4x2"
 
 msgctxt "PPW_widget_43_label"
 msgid "Astrid Premium 4x3"
-msgstr ""
+msgstr "Astrid Premium 4x3"
 
 msgctxt "PPW_widget_44_label"
 msgid "Astrid Premium 4x4"
-msgstr ""
+msgstr "Astrid Premium 4x4"
 
 msgctxt "PPW_configure_title"
 msgid "Configure Widget"
-msgstr ""
+msgstr "Konfiguratu trepeta"
 
 msgctxt "PPW_color"
 msgid "Widget color"
-msgstr ""
+msgstr "Trepetaren kolorea"
 
 msgctxt "PPW_enable_calendar"
 msgid "Show calendar events"
@@ -4691,7 +4664,7 @@ msgstr ""
 
 msgctxt "PPW_filter"
 msgid "Select Filter"
-msgstr ""
+msgstr "Hautatu iragazkia"
 
 msgctxt "PPW_due"
 msgid "Due:"
@@ -4732,15 +4705,15 @@ msgstr ""
 
 msgctxt "PPW_encouragements_tod:0"
 msgid "Good morning!"
-msgstr ""
+msgstr "Egun on"
 
 msgctxt "PPW_encouragements_tod:1"
 msgid "Good afternoon!"
-msgstr ""
+msgstr "Arratsalde on"
 
 msgctxt "PPW_encouragements_tod:2"
 msgid "Good evening!"
-msgstr ""
+msgstr "Gabon"
 
 msgctxt "PPW_encouragements_tod:3"
 msgid "Late night?"
@@ -4748,7 +4721,7 @@ msgstr ""
 
 msgctxt "PPW_encouragements_tod:4"
 msgid "It's early, get something done!"
-msgstr ""
+msgstr "Goiz da, egizu zerbait!"
 
 msgctxt "PPW_encouragements_tod:5"
 msgid "Afternoon tea, perhaps?"
@@ -4756,16 +4729,16 @@ msgstr ""
 
 msgctxt "PPW_encouragements_tod:6"
 msgid "Enjoy the evening!"
-msgstr ""
+msgstr "Gozatu ilunabarra!"
 
 msgctxt "PPW_encouragements_tod:7"
 msgid "Sleep is good for you, you know!"
-msgstr ""
+msgstr "Lo egitea osasuntsua da, badakizu!"
 
 #, c-format
 msgctxt "PPW_encouragements_completed:0"
 msgid "You've already completed %d tasks!"
-msgstr ""
+msgstr "%d zeregin osatu dituzu dagoeneko!"
 
 #, c-format
 msgctxt "PPW_encouragements_completed:1"
@@ -4775,27 +4748,27 @@ msgstr ""
 #, c-format
 msgctxt "PPW_encouragements_completed:2"
 msgid "Smile! You've already finished %d tasks!"
-msgstr ""
+msgstr "Egin irribarre! %d zeregin bukatu dituzu dagoeneko!"
 
 msgctxt "PPW_encouragements_none_completed"
 msgid "You haven't completed any tasks yet! Shall we?"
-msgstr ""
+msgstr "Ez duzu zeregin bat bera ere osatu oraindik! Hasiko gara?"
 
 msgctxt "PPW_colors:0"
 msgid "Black"
-msgstr ""
+msgstr "Beltza"
 
 msgctxt "PPW_colors:1"
 msgid "White"
-msgstr ""
+msgstr "Zuria"
 
 msgctxt "PPW_colors:2"
 msgid "Blue"
-msgstr ""
+msgstr "Urdina"
 
 msgctxt "PPW_colors:3"
 msgid "Translucent"
-msgstr ""
+msgstr "Zeharrargia"
 
 msgctxt "PPW_widget_dlg_text"
 msgid "This widget is only available to owners of the PowerPack!"
@@ -4803,7 +4776,7 @@ msgstr ""
 
 msgctxt "PPW_widget_dlg_ok"
 msgid "Preview"
-msgstr ""
+msgstr "Aurreikusi"
 
 #, c-format
 msgctxt "PPW_demo_title1"
@@ -4832,7 +4805,7 @@ msgstr ""
 
 msgctxt "PPW_info_later"
 msgid "Later"
-msgstr ""
+msgstr "Geroago"
 
 msgctxt "PPW_unlock_howto"
 msgid ""
@@ -4846,394 +4819,4 @@ msgstr ""
 
 msgctxt "PPW_check_share_lists"
 msgid "Share lists!"
-msgstr ""
-
-#. See the file "LICENSE" for the full license governing this code.
-#. ==================================================== Generic Units ==
-#, c-format
-msgctxt "DUt_years:quantity=other"
-msgid "%d Years"
-msgstr ""
-
-#. See the file "LICENSE" for the full license governing this code.
-#. ==================================================== Generic Units ==
-msgctxt "DUt_years:quantity=one"
-msgid "1 Year"
-msgstr ""
-
-#, c-format
-msgctxt "DUt_months:quantity=other"
-msgid "%d Months"
-msgstr ""
-
-msgctxt "DUt_months:quantity=one"
-msgid "1 Month"
-msgstr ""
-
-#, c-format
-msgctxt "DUt_weeks:quantity=other"
-msgid "%d Weeks"
-msgstr ""
-
-msgctxt "DUt_weeks:quantity=one"
-msgid "1 Week"
-msgstr ""
-
-#, c-format
-msgctxt "DUt_days:quantity=other"
-msgid "%d Days"
-msgstr ""
-
-msgctxt "DUt_days:quantity=one"
-msgid "1 Day"
-msgstr ""
-
-#, c-format
-msgctxt "DUt_weekdays:quantity=other"
-msgid "%d Weekdays"
-msgstr ""
-
-msgctxt "DUt_weekdays:quantity=one"
-msgid "1 Weekday"
-msgstr ""
-
-#, c-format
-msgctxt "DUt_hours:quantity=other"
-msgid "%d Hours"
-msgstr ""
-
-msgctxt "DUt_hours:quantity=one"
-msgid "1 Hour"
-msgstr ""
-
-#, c-format
-msgctxt "DUt_minutes:quantity=other"
-msgid "%d Minutes"
-msgstr ""
-
-msgctxt "DUt_minutes:quantity=one"
-msgid "1 Minute"
-msgstr ""
-
-#, c-format
-msgctxt "DUt_seconds:quantity=other"
-msgid "%d Seconds"
-msgstr ""
-
-msgctxt "DUt_seconds:quantity=one"
-msgid "1 Second"
-msgstr ""
-
-#, c-format
-msgctxt "DUt_hoursShort:quantity=other"
-msgid "%d Hrs"
-msgstr ""
-
-msgctxt "DUt_hoursShort:quantity=one"
-msgid "1 Hr"
-msgstr ""
-
-#, c-format
-msgctxt "DUt_minutesShort:quantity=other"
-msgid "%d Min"
-msgstr ""
-
-msgctxt "DUt_minutesShort:quantity=one"
-msgid "1 Min"
-msgstr ""
-
-#, c-format
-msgctxt "DUt_secondsShort:quantity=other"
-msgid "%d Sec"
-msgstr ""
-
-msgctxt "DUt_secondsShort:quantity=one"
-msgid "1 Sec"
-msgstr ""
-
-#, c-format
-msgctxt "Ntasks:quantity=other"
-msgid "%d tasks"
-msgstr ""
-
-msgctxt "Ntasks:quantity=one"
-msgid "1 task"
-msgstr ""
-
-#, c-format
-msgctxt "Npeople:quantity=other"
-msgid "%d people"
-msgstr ""
-
-msgctxt "Npeople:quantity=one"
-msgid "1 person"
-msgstr ""
-
-#. today
-msgctxt "today"
-msgid "Today"
-msgstr ""
-
-#. tomorrow
-msgctxt "tomorrow"
-msgid "Tomorrow"
-msgstr ""
-
-#. today
-msgctxt "yesterday"
-msgid "Yesterday"
-msgstr ""
-
-#. tomorrow abbreviated
-msgctxt "tmrw"
-msgid "Tmrw"
-msgstr ""
-
-#. today abbreviated
-msgctxt "yest"
-msgid "Yest"
-msgstr ""
-
-#. ================================================== Generic Dialogs ==
-#. confirmation dialog title
-msgctxt "DLG_confirm_title"
-msgid "Confirm?"
-msgstr ""
-
-#. question dialog title
-msgctxt "DLG_question_title"
-msgid "Question:"
-msgstr ""
-
-#. information dialog title
-msgctxt "DLG_information_title"
-msgid "Information"
-msgstr ""
-
-#. error dialog title
-msgctxt "DLG_error_title"
-msgid "Error!"
-msgstr ""
-
-#. general dialog save
-msgctxt "DLG_save"
-msgid "Save"
-msgstr ""
-
-#. general dialog yes
-msgctxt "DLG_yes"
-msgid "Yes"
-msgstr ""
-
-#. general dialog no
-msgctxt "DLG_no"
-msgid "No"
-msgstr ""
-
-#. general dialog close
-msgctxt "DLG_close"
-msgid "Close"
-msgstr ""
-
-#. general dialog done
-msgctxt "DLG_done"
-msgid "Done"
-msgstr ""
-
-#. error dialog (%s => error message)
-#, c-format
-msgctxt "DLG_error"
-msgid ""
-"Oops, looks like an error occurred! Here's what happened:\n"
-"\n"
-"%s"
-msgstr ""
-
-#. error dialog (no message indicated)
-msgctxt "DLG_error_generic"
-msgid "Oops, looks like an error occurred!"
-msgstr ""
-
-#. Progress dialog shown when doing something slow
-msgctxt "DLG_wait"
-msgid "Please wait..."
-msgstr ""
-
-#. ====================================================== SyncProvider ==
-#. Sync Notification: message when sync service active
-msgctxt "SyP_progress"
-msgid "Synchronizing your tasks..."
-msgstr ""
-
-#. Sync Notification: toast when sync activated from activity
-msgctxt "SyP_progress_toast"
-msgid "Synchronizing..."
-msgstr ""
-
-#. Sync Label: used in menu to denote synchronization
-msgctxt "SyP_label"
-msgid "Synchronization"
-msgstr ""
-
-#. Error msg when io exception
-msgctxt "SyP_ioerror"
-msgid "Connection Error! Check your Internet connection."
-msgstr ""
-
-#. ================================================== SyncPreferences ==
-#. Status Group Label
-msgctxt "sync_SPr_group_status"
-msgid "Status"
-msgstr ""
-
-#. Sync Status: log in
-msgctxt "sync_status_loggedout"
-msgid "Not Logged In!"
-msgstr ""
-
-#. Status: ongoing
-msgctxt "sync_status_ongoing"
-msgid "Sync Ongoing..."
-msgstr ""
-
-#. Sync Status: success status (%s -> last sync date). Keep it short!
-#, c-format
-msgctxt "sync_status_success"
-msgid ""
-"Last Sync:\n"
-"%s"
-msgstr ""
-
-#. Sync Status: failure status (%s -> last attempted sync date)
-#, c-format
-msgctxt "sync_status_failed"
-msgid "Failed On: %s"
-msgstr ""
-
-#. Sync Status: error status (%s -> last sync date)
-#, c-format
-msgctxt "sync_status_errors"
-msgid "Sync w/ Errors: %s"
-msgstr ""
-
-#. Sync Status: error subtitle (%s -> last successful sync date)
-#, c-format
-msgctxt "sync_status_failed_subtitle"
-msgid "Last Successful Sync: %s"
-msgstr ""
-
-#. Sync Status: never sync'd
-msgctxt "sync_status_never"
-msgid "Never Synchronized!"
-msgstr ""
-
-#. Options Group Label
-msgctxt "sync_SPr_group_options"
-msgid "Options"
-msgstr ""
-
-#. Preference: Synchronization Interval Title
-msgctxt "sync_SPr_interval_title"
-msgid "Background Sync"
-msgstr ""
-
-#. Preference: Synchronization Interval Description (when disabled)
-msgctxt "sync_SPr_interval_desc_disabled"
-msgid "Background synchronization is disabled"
-msgstr ""
-
-#. Preference: Synchronization Interval Description (%s => setting)
-#, c-format
-msgctxt "sync_SPr_interval_desc"
-msgid "Currently set to: %s"
-msgstr ""
-
-#. Preference: Background Wifi Title
-msgctxt "sync_SPr_bgwifi_title"
-msgid "Wifi Only Setting"
-msgstr ""
-
-#. Preference: Background Wifi Description (enabled)
-msgctxt "sync_SPr_bgwifi_desc_enabled"
-msgid "Background synchronization only happens when on Wifi"
-msgstr ""
-
-#. Preference: Background Wifi Description (disabled)
-msgctxt "sync_SPr_bgwifi_desc_disabled"
-msgid "Background synchronization will always occur"
-msgstr ""
-
-#. Actions Group Label
-msgctxt "sync_SPr_group_actions"
-msgid "Actions"
-msgstr ""
-
-#. Synchronize Now Button
-msgctxt "sync_SPr_sync"
-msgid "Synchronize Now!"
-msgstr ""
-
-#. Synchronize Now Button if not logged in
-msgctxt "sync_SPr_sync_log_in"
-msgid "Log In & Synchronize!"
-msgstr ""
-
-#. Sync: Prefix string before logged in identifier
-msgctxt "sync_SPr_logged_in_prefix"
-msgid "Logged in as:"
-msgstr ""
-
-#. Sync: Clear Data Title
-msgctxt "sync_SPr_forget"
-msgid "Log Out"
-msgstr ""
-
-#. Sync: Clear Data Description
-msgctxt "sync_SPr_forget_description"
-msgid "Clears all synchronization data"
-msgstr ""
-
-#. confirmation dialog for sync log out
-msgctxt "sync_forget_confirm"
-msgid "Log out / clear synchronization data?"
-msgstr ""
-
-msgctxt "sync_SPr_interval_entries:0"
-msgid "disable"
-msgstr ""
-
-msgctxt "sync_SPr_interval_entries:1"
-msgid "every fifteen minutes"
-msgstr ""
-
-msgctxt "sync_SPr_interval_entries:2"
-msgid "every thirty minutes"
-msgstr ""
-
-msgctxt "sync_SPr_interval_entries:3"
-msgid "every hour"
-msgstr ""
-
-msgctxt "sync_SPr_interval_entries:4"
-msgid "every three hours"
-msgstr ""
-
-msgctxt "sync_SPr_interval_entries:5"
-msgid "every six hours"
-msgstr ""
-
-msgctxt "sync_SPr_interval_entries:6"
-msgid "every twelve hours"
-msgstr ""
-
-msgctxt "sync_SPr_interval_entries:7"
-msgid "every day"
-msgstr ""
-
-msgctxt "sync_SPr_interval_entries:8"
-msgid "every three days"
-msgstr ""
-
-msgctxt "sync_SPr_interval_entries:9"
-msgid "every week"
-msgstr ""
+msgstr "Partekatu zerrendak!"

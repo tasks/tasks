@@ -8,14 +8,14 @@ msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
 "POT-Creation-Date: 2012-02-29 14:56-0800\n"
-"PO-Revision-Date: 2012-03-01 06:24+0000\n"
-"Last-Translator: Tim Su <tim@todoroo.com>\n"
+"PO-Revision-Date: 2012-03-13 23:28+0000\n"
+"Last-Translator: Shahar Or <mightyiampresence@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2012-03-07 00:04+0000\n"
-"X-Generator: Launchpad (build 14900)\n"
+"X-Launchpad-Export-Date: 2012-05-03 02:37+0000\n"
+"X-Generator: Launchpad (build 15185)\n"
 "Generated-By: Babel 1.0dev\n"
 
 #. ==================================================== Generic Units ==
@@ -59,11 +59,11 @@ msgstr "יום אחד"
 #, c-format
 msgctxt "DUt_weekdays:quantity=other"
 msgid "%d Weekdays"
-msgstr ""
+msgstr "%d ימי חול"
 
 msgctxt "DUt_weekdays:quantity=one"
 msgid "1 Weekday"
-msgstr ""
+msgstr "יום חול אחד"
 
 #, c-format
 msgctxt "DUt_hours:quantity=other"
@@ -131,11 +131,11 @@ msgstr "משימה אחת"
 #, c-format
 msgctxt "Npeople:quantity=other"
 msgid "%d people"
-msgstr ""
+msgstr "%d אנשים"
 
 msgctxt "Npeople:quantity=one"
 msgid "1 person"
-msgstr ""
+msgstr "איש אחד"
 
 #. today
 msgctxt "today"
@@ -150,17 +150,17 @@ msgstr "מחר"
 #. today
 msgctxt "yesterday"
 msgid "Yesterday"
-msgstr ""
+msgstr "אתמול"
 
 #. tomorrow abbreviated
 msgctxt "tmrw"
 msgid "Tmrw"
-msgstr ""
+msgstr "מחר"
 
 #. today abbreviated
 msgctxt "yest"
 msgid "Yest"
-msgstr ""
+msgstr "אתמול"
 
 #. ================================================== Generic Dialogs ==
 #. confirmation dialog title
@@ -181,12 +181,12 @@ msgstr "פרטים"
 #. error dialog title
 msgctxt "DLG_error_title"
 msgid "Error!"
-msgstr ""
+msgstr "שגיאה!"
 
 #. general dialog save
 msgctxt "DLG_save"
 msgid "Save"
-msgstr ""
+msgstr "שמור"
 
 #. general dialog yes
 msgctxt "DLG_yes"
@@ -216,11 +216,14 @@ msgid ""
 "\n"
 "%s"
 msgstr ""
+"אופס, נראה שארתה שגיאה! הרי מה שהתרחש:\n"
+"\n"
+"%s"
 
 #. error dialog (no message indicated)
 msgctxt "DLG_error_generic"
 msgid "Oops, looks like an error occurred!"
-msgstr ""
+msgstr "אופס, נראה שארתה שגיאה!"
 
 #. Progress dialog shown when doing something slow
 msgctxt "DLG_wait"
@@ -246,7 +249,7 @@ msgstr "סינכרון"
 #. Error msg when io exception
 msgctxt "SyP_ioerror"
 msgid "Connection Error! Check your Internet connection."
-msgstr ""
+msgstr "שגיאה בחיבור! בדוק את חיבור האינטרנט שלך"
 
 #. ================================================== SyncPreferences ==
 #. Status Group Label
@@ -257,12 +260,12 @@ msgstr "מצב"
 #. Sync Status: log in
 msgctxt "sync_status_loggedout"
 msgid "Not Logged In!"
-msgstr ""
+msgstr "לא מחובר לחשבון!"
 
 #. Status: ongoing
 msgctxt "sync_status_ongoing"
 msgid "Sync Ongoing..."
-msgstr ""
+msgstr "מסנכרן..."
 
 #. Sync Status: success status (%s -> last sync date). Keep it short!
 #, c-format
@@ -271,29 +274,31 @@ msgid ""
 "Last Sync:\n"
 "%s"
 msgstr ""
+"סנכרון אחרון:\n"
+"%s"
 
 #. Sync Status: failure status (%s -> last attempted sync date)
 #, c-format
 msgctxt "sync_status_failed"
 msgid "Failed On: %s"
-msgstr ""
+msgstr "נכשל ב: %s"
 
 #. Sync Status: error status (%s -> last sync date)
 #, c-format
 msgctxt "sync_status_errors"
 msgid "Sync w/ Errors: %s"
-msgstr ""
+msgstr "סנכרון עם שגיאות: %s"
 
 #. Sync Status: error subtitle (%s -> last successful sync date)
 #, c-format
 msgctxt "sync_status_failed_subtitle"
 msgid "Last Successful Sync: %s"
-msgstr ""
+msgstr "סנכרון מוצלח אחרון: %s"
 
 #. Sync Status: never sync'd
 msgctxt "sync_status_never"
 msgid "Never Synchronized!"
-msgstr ""
+msgstr "לעולם לא סונכרן!"
 
 #. Options Group Label
 msgctxt "sync_SPr_group_options"
@@ -303,105 +308,105 @@ msgstr "אפשרויות"
 #. Preference: Synchronization Interval Title
 msgctxt "sync_SPr_interval_title"
 msgid "Background Sync"
-msgstr ""
+msgstr "סנכרון ברקע"
 
 #. Preference: Synchronization Interval Description (when disabled)
 msgctxt "sync_SPr_interval_desc_disabled"
 msgid "Background synchronization is disabled"
-msgstr ""
+msgstr "סנכרון ברקע אינו מופעל"
 
 #. Preference: Synchronization Interval Description (%s => setting)
 #, c-format
 msgctxt "sync_SPr_interval_desc"
 msgid "Currently set to: %s"
-msgstr ""
+msgstr "כרגע מוגדר ל: %s"
 
 #. Preference: Background Wifi Title
 msgctxt "sync_SPr_bgwifi_title"
 msgid "Wifi Only Setting"
-msgstr ""
+msgstr "הגדרת WiFi בלבד"
 
 #. Preference: Background Wifi Description (enabled)
 msgctxt "sync_SPr_bgwifi_desc_enabled"
 msgid "Background synchronization only happens when on Wifi"
-msgstr ""
+msgstr "סנכרון רקע מתרחש רק כאשר על WiFi"
 
 #. Preference: Background Wifi Description (disabled)
 msgctxt "sync_SPr_bgwifi_desc_disabled"
 msgid "Background synchronization will always occur"
-msgstr ""
+msgstr "סנכרון רקע תמיד יתבצע"
 
 #. Actions Group Label
 msgctxt "sync_SPr_group_actions"
 msgid "Actions"
-msgstr ""
+msgstr "פעולות"
 
 #. Synchronize Now Button
 msgctxt "sync_SPr_sync"
 msgid "Synchronize Now!"
-msgstr ""
+msgstr "סנכרן כעת!"
 
 #. Synchronize Now Button if not logged in
 msgctxt "sync_SPr_sync_log_in"
 msgid "Log In & Synchronize!"
-msgstr ""
+msgstr "היכנס לחשבון וסנכרן!"
 
 #. Sync: Prefix string before logged in identifier
 msgctxt "sync_SPr_logged_in_prefix"
 msgid "Logged in as:"
-msgstr ""
+msgstr "מחובר לחשבון בתור:"
 
 #. Sync: Clear Data Title
 msgctxt "sync_SPr_forget"
 msgid "Log Out"
-msgstr ""
+msgstr "צא מהחשבון"
 
 #. Sync: Clear Data Description
 msgctxt "sync_SPr_forget_description"
 msgid "Clears all synchronization data"
-msgstr ""
+msgstr "מסיר את כל נתוני הסנכרון"
 
 #. confirmation dialog for sync log out
 msgctxt "sync_forget_confirm"
 msgid "Log out / clear synchronization data?"
-msgstr ""
+msgstr "צא מהחשבון \\ הסר נתוני סנכרון?"
 
 msgctxt "sync_SPr_interval_entries:0"
 msgid "disable"
-msgstr ""
+msgstr "נטרל"
 
 msgctxt "sync_SPr_interval_entries:1"
 msgid "every fifteen minutes"
-msgstr ""
+msgstr "כל חמש עשרה דקות"
 
 msgctxt "sync_SPr_interval_entries:2"
 msgid "every thirty minutes"
-msgstr ""
+msgstr "כל שלושים דקות"
 
 msgctxt "sync_SPr_interval_entries:3"
 msgid "every hour"
-msgstr ""
+msgstr "כל שעה"
 
 msgctxt "sync_SPr_interval_entries:4"
 msgid "every three hours"
-msgstr ""
+msgstr "כל שלוש שעות"
 
 msgctxt "sync_SPr_interval_entries:5"
 msgid "every six hours"
-msgstr ""
+msgstr "כל שש שעות"
 
 msgctxt "sync_SPr_interval_entries:6"
 msgid "every twelve hours"
-msgstr ""
+msgstr "כל שתים עשרה שעות"
 
 msgctxt "sync_SPr_interval_entries:7"
 msgid "every day"
-msgstr ""
+msgstr "כל יום"
 
 msgctxt "sync_SPr_interval_entries:8"
 msgid "every three days"
-msgstr ""
+msgstr "כל שלושה ימים"
 
 msgctxt "sync_SPr_interval_entries:9"
 msgid "every week"
-msgstr ""
+msgstr "כל שבוע"

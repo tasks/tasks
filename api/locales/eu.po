@@ -8,44 +8,44 @@ msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
 "POT-Creation-Date: 2012-02-29 14:56-0800\n"
-"PO-Revision-Date: 2012-03-01 08:25+0000\n"
-"Last-Translator: Tim Su <tim@todoroo.com>\n"
+"PO-Revision-Date: 2012-03-13 16:21+0000\n"
+"Last-Translator: Asier Iturralde Sarasola <Unknown>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2012-03-07 00:04+0000\n"
-"X-Generator: Launchpad (build 14900)\n"
+"X-Launchpad-Export-Date: 2012-05-03 02:37+0000\n"
+"X-Generator: Launchpad (build 15185)\n"
 "Generated-By: Babel 1.0dev\n"
 
 #. ==================================================== Generic Units ==
 #, c-format
 msgctxt "DUt_years:quantity=other"
 msgid "%d Years"
-msgstr ""
+msgstr "%d urte"
 
 #. ==================================================== Generic Units ==
 msgctxt "DUt_years:quantity=one"
 msgid "1 Year"
-msgstr ""
+msgstr "Urte bat"
 
 #, c-format
 msgctxt "DUt_months:quantity=other"
 msgid "%d Months"
-msgstr ""
+msgstr "%d hilabete"
 
 msgctxt "DUt_months:quantity=one"
 msgid "1 Month"
-msgstr ""
+msgstr "Hilabete bat"
 
 #, c-format
 msgctxt "DUt_weeks:quantity=other"
 msgid "%d Weeks"
-msgstr ""
+msgstr "%d aste"
 
 msgctxt "DUt_weeks:quantity=one"
 msgid "1 Week"
-msgstr ""
+msgstr "Aste bat"
 
 #, c-format
 msgctxt "DUt_days:quantity=other"
@@ -59,11 +59,11 @@ msgstr "Egun bat"
 #, c-format
 msgctxt "DUt_weekdays:quantity=other"
 msgid "%d Weekdays"
-msgstr ""
+msgstr "%d astegun"
 
 msgctxt "DUt_weekdays:quantity=one"
 msgid "1 Weekday"
-msgstr ""
+msgstr "Astegun bat"
 
 #, c-format
 msgctxt "DUt_hours:quantity=other"
@@ -86,11 +86,11 @@ msgstr "Minutu bat"
 #, c-format
 msgctxt "DUt_seconds:quantity=other"
 msgid "%d Seconds"
-msgstr "%d segundu"
+msgstr "%d segundo"
 
 msgctxt "DUt_seconds:quantity=one"
 msgid "1 Second"
-msgstr "Segundu 1"
+msgstr "Segundo 1"
 
 #, c-format
 msgctxt "DUt_hoursShort:quantity=other"
@@ -122,66 +122,66 @@ msgstr "Seg 1"
 #, c-format
 msgctxt "Ntasks:quantity=other"
 msgid "%d tasks"
-msgstr ""
+msgstr "%d zeregin"
 
 msgctxt "Ntasks:quantity=one"
 msgid "1 task"
-msgstr ""
+msgstr "Zeregin bat"
 
 #, c-format
 msgctxt "Npeople:quantity=other"
 msgid "%d people"
-msgstr ""
+msgstr "%d pertsona"
 
 msgctxt "Npeople:quantity=one"
 msgid "1 person"
-msgstr ""
+msgstr "Pertsona bat"
 
 #. today
 msgctxt "today"
 msgid "Today"
-msgstr ""
+msgstr "Gaur"
 
 #. tomorrow
 msgctxt "tomorrow"
 msgid "Tomorrow"
-msgstr ""
+msgstr "Bihar"
 
 #. today
 msgctxt "yesterday"
 msgid "Yesterday"
-msgstr ""
+msgstr "Atzo"
 
 #. tomorrow abbreviated
 msgctxt "tmrw"
 msgid "Tmrw"
-msgstr ""
+msgstr "Bihar"
 
 #. today abbreviated
 msgctxt "yest"
 msgid "Yest"
-msgstr ""
+msgstr "Atzo"
 
 #. ================================================== Generic Dialogs ==
 #. confirmation dialog title
 msgctxt "DLG_confirm_title"
 msgid "Confirm?"
-msgstr ""
+msgstr "Baieztatu?"
 
 #. question dialog title
 msgctxt "DLG_question_title"
 msgid "Question:"
-msgstr ""
+msgstr "Galdera:"
 
 #. information dialog title
 msgctxt "DLG_information_title"
 msgid "Information"
-msgstr ""
+msgstr "Informazioa"
 
 #. error dialog title
 msgctxt "DLG_error_title"
 msgid "Error!"
-msgstr ""
+msgstr "Errorea!"
 
 #. general dialog save
 msgctxt "DLG_save"
@@ -191,22 +191,22 @@ msgstr "Gorde"
 #. general dialog yes
 msgctxt "DLG_yes"
 msgid "Yes"
-msgstr ""
+msgstr "Bai"
 
 #. general dialog no
 msgctxt "DLG_no"
 msgid "No"
-msgstr ""
+msgstr "Ez"
 
 #. general dialog close
 msgctxt "DLG_close"
 msgid "Close"
-msgstr ""
+msgstr "Itxi"
 
 #. general dialog done
 msgctxt "DLG_done"
 msgid "Done"
-msgstr ""
+msgstr "Eginda"
 
 #. error dialog (%s => error message)
 #, c-format
@@ -216,27 +216,30 @@ msgid ""
 "\n"
 "%s"
 msgstr ""
+"Errore bat gertatu dela dirudi! Hau da gertatu dena:\n"
+"\n"
+"%s"
 
 #. error dialog (no message indicated)
 msgctxt "DLG_error_generic"
 msgid "Oops, looks like an error occurred!"
-msgstr ""
+msgstr "Errore bat gertatu dela dirudi"
 
 #. Progress dialog shown when doing something slow
 msgctxt "DLG_wait"
 msgid "Please wait..."
-msgstr ""
+msgstr "Itxaron, mesedez..."
 
 #. ====================================================== SyncProvider ==
 #. Sync Notification: message when sync service active
 msgctxt "SyP_progress"
 msgid "Synchronizing your tasks..."
-msgstr ""
+msgstr "Zure zereginak sinkronizatzen..."
 
 #. Sync Notification: toast when sync activated from activity
 msgctxt "SyP_progress_toast"
 msgid "Synchronizing..."
-msgstr ""
+msgstr "Sinkronizatzen..."
 
 #. Sync Label: used in menu to denote synchronization
 msgctxt "SyP_label"
@@ -246,23 +249,23 @@ msgstr "Sinkronizazioa"
 #. Error msg when io exception
 msgctxt "SyP_ioerror"
 msgid "Connection Error! Check your Internet connection."
-msgstr ""
+msgstr "Konexio errorea! Egiaztatu zure interneteko konexioa."
 
 #. ================================================== SyncPreferences ==
 #. Status Group Label
 msgctxt "sync_SPr_group_status"
 msgid "Status"
-msgstr ""
+msgstr "Egoera"
 
 #. Sync Status: log in
 msgctxt "sync_status_loggedout"
 msgid "Not Logged In!"
-msgstr ""
+msgstr "Saioa hasi gabe!"
 
 #. Status: ongoing
 msgctxt "sync_status_ongoing"
 msgid "Sync Ongoing..."
-msgstr ""
+msgstr "Sinkronizazioa abian..."
 
 #. Sync Status: success status (%s -> last sync date). Keep it short!
 #, c-format
@@ -271,65 +274,67 @@ msgid ""
 "Last Sync:\n"
 "%s"
 msgstr ""
+"Azken sinkronizazioa:\n"
+"%s"
 
 #. Sync Status: failure status (%s -> last attempted sync date)
 #, c-format
 msgctxt "sync_status_failed"
 msgid "Failed On: %s"
-msgstr ""
+msgstr "Hutsegitea: %s"
 
 #. Sync Status: error status (%s -> last sync date)
 #, c-format
 msgctxt "sync_status_errors"
 msgid "Sync w/ Errors: %s"
-msgstr ""
+msgstr "Sinkronizazioa erroreekin: %s"
 
 #. Sync Status: error subtitle (%s -> last successful sync date)
 #, c-format
 msgctxt "sync_status_failed_subtitle"
 msgid "Last Successful Sync: %s"
-msgstr ""
+msgstr "Azken sinkronizazio arrakastatsua: %s"
 
 #. Sync Status: never sync'd
 msgctxt "sync_status_never"
 msgid "Never Synchronized!"
-msgstr ""
+msgstr "Inoiz sinkronizatu gabe!"
 
 #. Options Group Label
 msgctxt "sync_SPr_group_options"
 msgid "Options"
-msgstr "Hobespenak"
+msgstr "Aukerak"
 
 #. Preference: Synchronization Interval Title
 msgctxt "sync_SPr_interval_title"
 msgid "Background Sync"
-msgstr ""
+msgstr "Atzeko planoko sinkronizazioa"
 
 #. Preference: Synchronization Interval Description (when disabled)
 msgctxt "sync_SPr_interval_desc_disabled"
 msgid "Background synchronization is disabled"
-msgstr ""
+msgstr "Atzeko planoko sinkronizazioa desgaituta dago"
 
 #. Preference: Synchronization Interval Description (%s => setting)
 #, c-format
 msgctxt "sync_SPr_interval_desc"
 msgid "Currently set to: %s"
-msgstr ""
+msgstr "Uneko ezarpena: %s"
 
 #. Preference: Background Wifi Title
 msgctxt "sync_SPr_bgwifi_title"
 msgid "Wifi Only Setting"
-msgstr ""
+msgstr "Wifi soilik"
 
 #. Preference: Background Wifi Description (enabled)
 msgctxt "sync_SPr_bgwifi_desc_enabled"
 msgid "Background synchronization only happens when on Wifi"
-msgstr ""
+msgstr "Atzeko planoko sinkronizazioa Wifi-a erabiltzean soilik ematen da"
 
 #. Preference: Background Wifi Description (disabled)
 msgctxt "sync_SPr_bgwifi_desc_disabled"
 msgid "Background synchronization will always occur"
-msgstr ""
+msgstr "Atzeko planoko sinkronizazioa beti emango da"
 
 #. Actions Group Label
 msgctxt "sync_SPr_group_actions"
@@ -339,69 +344,69 @@ msgstr "Ekintzak"
 #. Synchronize Now Button
 msgctxt "sync_SPr_sync"
 msgid "Synchronize Now!"
-msgstr ""
+msgstr "Sinkronizatu orain!"
 
 #. Synchronize Now Button if not logged in
 msgctxt "sync_SPr_sync_log_in"
 msgid "Log In & Synchronize!"
-msgstr ""
+msgstr "Hasi saioa eta sinkronizatu!"
 
 #. Sync: Prefix string before logged in identifier
 msgctxt "sync_SPr_logged_in_prefix"
 msgid "Logged in as:"
-msgstr ""
+msgstr "Saioa hasita honekin:"
 
 #. Sync: Clear Data Title
 msgctxt "sync_SPr_forget"
 msgid "Log Out"
-msgstr ""
+msgstr "Amaitu saioa"
 
 #. Sync: Clear Data Description
 msgctxt "sync_SPr_forget_description"
 msgid "Clears all synchronization data"
-msgstr ""
+msgstr "Sinkronizazio datu guztiak garbitzen ditu"
 
 #. confirmation dialog for sync log out
 msgctxt "sync_forget_confirm"
 msgid "Log out / clear synchronization data?"
-msgstr ""
+msgstr "Amaitu saioa / garbitu sinkronizazio datuak?"
 
 msgctxt "sync_SPr_interval_entries:0"
 msgid "disable"
-msgstr ""
+msgstr "desgaitu"
 
 msgctxt "sync_SPr_interval_entries:1"
 msgid "every fifteen minutes"
-msgstr ""
+msgstr "hamabost minutuero"
 
 msgctxt "sync_SPr_interval_entries:2"
 msgid "every thirty minutes"
-msgstr ""
+msgstr "hogeitamar minutuero"
 
 msgctxt "sync_SPr_interval_entries:3"
 msgid "every hour"
-msgstr ""
+msgstr "orduero"
 
 msgctxt "sync_SPr_interval_entries:4"
 msgid "every three hours"
-msgstr ""
+msgstr "hiru orduero"
 
 msgctxt "sync_SPr_interval_entries:5"
 msgid "every six hours"
-msgstr ""
+msgstr "sei orduero"
 
 msgctxt "sync_SPr_interval_entries:6"
 msgid "every twelve hours"
-msgstr ""
+msgstr "hamabi orduero"
 
 msgctxt "sync_SPr_interval_entries:7"
 msgid "every day"
-msgstr ""
+msgstr "egunero"
 
 msgctxt "sync_SPr_interval_entries:8"
 msgid "every three days"
-msgstr ""
+msgstr "hiru egunero"
 
 msgctxt "sync_SPr_interval_entries:9"
 msgid "every week"
-msgstr ""
+msgstr "astero"

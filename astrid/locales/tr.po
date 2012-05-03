@@ -7,15 +7,15 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2012-02-29 17:17-0800\n"
-"PO-Revision-Date: 2012-03-01 06:19+0000\n"
-"Last-Translator: Tim Su <tim@todoroo.com>\n"
+"POT-Creation-Date: 2012-03-06 17:01-0800\n"
+"PO-Revision-Date: 2012-03-28 00:27+0000\n"
+"Last-Translator: Hasan Yılmaz <iletisim@hasanyilmaz.net>\n"
 "Language-Team: tr <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2012-03-07 00:04+0000\n"
-"X-Generator: Launchpad (build 14900)\n"
+"X-Launchpad-Export-Date: 2012-05-03 02:36+0000\n"
+"X-Generator: Launchpad (build 15185)\n"
 "Generated-By: Babel 1.0dev\n"
 
 #. ================================================== general terms ==
@@ -56,6 +56,8 @@ msgid ""
 "You are the owner of this shared list! If you delete it, it will be deleted "
 "for all list members. Are you sure you want to continue?"
 msgstr ""
+"Bu paylaşılan listenin sahibisiniz. Bunu silerseniz, tüm liste üyeleri için "
+"silinecek. Devam etmek istiyor musunuz?"
 
 #. menu item to take a picture
 msgctxt "actfm_picture_camera"
@@ -80,7 +82,7 @@ msgstr "Listeleri Yenile"
 #. Title for prompt after sharing a task
 msgctxt "actfm_view_task_title"
 msgid "View Task?"
-msgstr ""
+msgstr "Görevi görüntüle?"
 
 #. Text for prompt after sharing a task
 #, c-format
@@ -89,16 +91,18 @@ msgid ""
 "Task was sent to %s! You're currently viewing your own tasks. Do you want to "
 "view this and other tasks you've assigned?"
 msgstr ""
+"Görev gönderildi: %s! Şu anda kendi görevlerinizi görüntülüyorsunuz. Bunu ve "
+"diğer atanmış olduğunuz görevleri görmek istiyor musunuz?"
 
 #. Ok button for task view prompt
 msgctxt "actfm_view_task_ok"
 msgid "View Assigned"
-msgstr ""
+msgstr "Atananları Göster"
 
 #. Cancel button for task view prompt
 msgctxt "actfm_view_task_cancel"
 msgid "Stay Here"
-msgstr ""
+msgstr "Burada Kal"
 
 #. ================================================== TagViewActivity ==
 #. Tag View Activity: Add Comment hint
@@ -110,7 +114,7 @@ msgstr "Yorum Gir"
 #, c-format
 msgctxt "UAd_title_comment"
 msgid "%1$s re: %2$s"
-msgstr ""
+msgstr "%1$s cvp: %2$s"
 
 #. Tabs for Tag view
 msgctxt "TVA_tabs:0"
@@ -136,7 +140,7 @@ msgstr "%s'e ait görevler. Hepsi için dokunun."
 #. Tag View: filter by unassigned tasks
 msgctxt "actfm_TVA_filter_by_unassigned"
 msgid "Unassigned tasks. Tap for all."
-msgstr ""
+msgstr "Atanmamış görevler. Tümü için dokunun."
 
 #. Tag View: list is private, no members
 msgctxt "actfm_TVA_no_members_alert"
@@ -181,27 +185,27 @@ msgstr "Uyarıları Sessizleştir"
 #. Tag Settings: list icon label
 msgctxt "actfm_TVA_list_icon_label"
 msgid "List Icon:"
-msgstr ""
+msgstr "Simge Listesi:"
 
 #. Tag Settings: list description label
 msgctxt "actfm_TVA_tag_description_label"
 msgid "Description"
-msgstr ""
+msgstr "Açıklama"
 
 #. Tag Settings: list settings label
 msgctxt "actfm_TVA_tag_settings_label"
 msgid "Settings"
-msgstr ""
+msgstr "Ayarlar"
 
 #. Tag Settings: list description hint
 msgctxt "actfm_TVA_tag_description_hint"
 msgid "Type a description here"
-msgstr ""
+msgstr "Bir açıklama yazın"
 
 #. Tag Settings: list name hint
 msgctxt "actfm_TVA_tag_name_hint"
 msgid "Enter list name"
-msgstr ""
+msgstr "Liste adı girin"
 
 #. Tag settings: login prompt from share
 msgctxt "actfm_TVA_login_to_share"
@@ -209,6 +213,8 @@ msgid ""
 "You need to be logged in to Astrid.com to share lists! Please log in or make "
 "this a private list."
 msgstr ""
+"Liste paylaşmak için Astrid.com'da oturum açmış olmalısınız! Lütfen oturum "
+"açın ya da bunu özel bir liste yapın."
 
 #. ============================================ edit people dialog ==
 #. task sharing dialog: intro
@@ -239,7 +245,7 @@ msgstr "Kim"
 #. task sharing dialog: assigned label long version
 msgctxt "actfm_EPA_assign_label_long"
 msgid "Who should do this?"
-msgstr ""
+msgstr "Bunu kim yapmalı?"
 
 #. task sharing dialog: assigned to me
 msgctxt "actfm_EPA_assign_me"
@@ -254,7 +260,7 @@ msgstr "Herhangi biri"
 #. task sharing dialog: use task rabbit
 msgctxt "actfm_EPA_task_rabbit"
 msgid "Outsource it!"
-msgstr ""
+msgstr "Dış kaynak kullan!"
 
 #. task sharing dialog: custom email assignment
 msgctxt "actfm_EPA_assign_custom"
@@ -292,7 +298,7 @@ msgstr "Kişi Adı"
 #. task sharing dialog: message label text
 msgctxt "actfm_EPA_message_text"
 msgid "Invitation Message:"
-msgstr "Davet Mesajı:"
+msgstr "Davet İletisi:"
 
 #. task sharing dialog: message body
 msgctxt "actfm_EPA_message_body"
@@ -312,12 +318,12 @@ msgstr "(örn: Mavi İstiridye Kulübü)"
 #. task sharing dialog: share with Facebook
 msgctxt "actfm_EPA_facebook"
 msgid "Facebook"
-msgstr ""
+msgstr "Facebook"
 
 #. task sharing dialog: share with Twitter
 msgctxt "actfm_EPA_twitter"
 msgid "Twitter"
-msgstr ""
+msgstr "Twitter"
 
 #. task sharing dialog: # of e-mails sent (%s => # people plural string)
 #, c-format
@@ -377,12 +383,12 @@ msgstr ""
 #. share login: Sharing Login FB Prompt
 msgctxt "actfm_ALA_fb_login"
 msgid "Connect with Facebook"
-msgstr ""
+msgstr "Facebook ile bağlan"
 
 #. share login: Sharing Login GG Prompt
 msgctxt "actfm_ALA_gg_login"
 msgid "Connect with Google"
-msgstr ""
+msgstr "Google ile bağlan"
 
 #. share login: Sharing Footer Password Label
 msgctxt "actfm_ALA_pw_login"
@@ -412,12 +418,12 @@ msgstr "İsim"
 #. share login: Name
 msgctxt "actfm_ALA_firstname_label"
 msgid "First Name"
-msgstr ""
+msgstr "Ad"
 
 #. share login: Name
 msgctxt "actfm_ALA_lastname_label"
 msgid "Last Name"
-msgstr ""
+msgstr "Soyad"
 
 #. share login: Email
 msgctxt "actfm_ALA_email_label"
@@ -432,7 +438,7 @@ msgstr "Kullanıcı Adı / E-Posta"
 #. share login: Password
 msgctxt "actfm_ALA_password_label"
 msgid "Password"
-msgstr "Şifre"
+msgstr "Parola"
 
 #. share login: Sign Up Title
 msgctxt "actfm_ALA_signup_title"
@@ -442,23 +448,23 @@ msgstr "Yeni Hesap Oluştur"
 #. share login: Login Title
 msgctxt "actfm_ALA_login_title"
 msgid "Login to Astrid.com"
-msgstr "Astrid.com 'a Bağlan"
+msgstr "Astrid.com'a Bağlan"
 
 #. share login: Google Auth title
 msgctxt "actfm_GAA_title"
 msgid "Select the Google account you want to use:"
-msgstr ""
+msgstr "Kullanmak istediğiniz Google hesabını seçin:"
 
 #. share login: OAUTH Login Prompt
 msgctxt "actfm_OLA_prompt"
 msgid "Please log in:"
-msgstr "Lütfen Google 'a bağlan:"
+msgstr "Lütfen oturum açın:"
 
 #. ================================================ Synchronization ==
 #. Preferences Title: Act.fm
 msgctxt "actfm_APr_header"
 msgid "Astrid.com"
-msgstr ""
+msgstr "Astrid.com"
 
 msgctxt "actfm_https_title"
 msgid "Use HTTPS"
@@ -475,12 +481,12 @@ msgstr "HTTPS etkin değil (hızlı)"
 #. title for notification tray after synchronizing
 msgctxt "actfm_notification_title"
 msgid "Astrid.com Sync"
-msgstr "Astrid.com Senkronizayonu"
+msgstr "Astrid.com Eşleşterime"
 
 #. text for notification when comments are received
 msgctxt "actfm_notification_comments"
 msgid "New comments received / click for more details"
-msgstr "Yeni Yorum Alındı / Detaylar için tıklayın"
+msgstr "Yeni yorum alındı / ayrıntılar için tıklayın"
 
 #. See the file "LICENSE" for the full license governing this code.
 #. Resources for built-in timers plug-in
@@ -496,7 +502,7 @@ msgstr "Alarm Ekle"
 
 msgctxt "reminders_alarm:0"
 msgid "Alarm!"
-msgstr ""
+msgstr "Alarm!"
 
 #. See the file "LICENSE" for the full license governing this code.
 #. Resources for built-in backup plug-in
@@ -534,27 +540,27 @@ msgstr "(hatayı görmek için dokunun)"
 #. Backup Status: never backed up
 msgctxt "backup_status_never"
 msgid "Never Backed Up!"
-msgstr "Hiç yedeklenmemiş!"
+msgstr "Hiç Yedeklenmemiş!"
 
 #. Backup Options Group Label
 msgctxt "backup_BPr_group_options"
 msgid "Options"
-msgstr "Ayarlar"
+msgstr "Seçenekler"
 
 #. Preference: Automatic Backup Title
 msgctxt "backup_BPr_auto_title"
 msgid "Automatic Backups"
-msgstr "Otomatik yedekler"
+msgstr "Kendiliğinden Yedeklemeler"
 
 #. Preference: Automatic Backup Description (when disabled)
 msgctxt "backup_BPr_auto_disabled"
 msgid "Automatic Backups Disabled"
-msgstr "Otomatik Yedekleme Kapalı"
+msgstr "Kendiliğinden Yedekleme Etkisiz"
 
 #. Preference: Automatic Backup Description (when enabled)
 msgctxt "backup_BPr_auto_enabled"
 msgid "Backup will occur daily"
-msgstr "Yedekleme günlük yapılacak"
+msgstr "Günlük yedekleme yapılacak"
 
 #. Preference screen restoring Tasks Help
 msgctxt "backup_BPr_how_to_restore"
@@ -567,15 +573,15 @@ msgid ""
 "You need to add the Astrid Power Pack to manage and restore your backups. As "
 "a favor, Astrid also automatically backs up your tasks, just in case."
 msgstr ""
-"Yedeklerinizi yönetmek ve geri yüklemek için Astrid Power Pack 'i eklemeniz "
-"gerekmektedir. Bunun karşılığında Astrid görevlerinizi otomatik olarak "
+"Yedeklerinizi yönetmek ve geri yüklemek için Astrid Güç Paketi'ni eklemeniz "
+"gerekmektedir. Bunun karşılığında Astrid görevlerinizi kendiliğinden "
 "yedekleyecektir."
 
 #. ================================================= BackupActivity ==
 #. backup activity label
 msgctxt "backup_BAc_label"
 msgid "Manage Backups"
-msgstr "Yedekleri yönet"
+msgstr "Yedekleri Yönet"
 
 #. backup activity title
 msgctxt "backup_BAc_title"
@@ -610,12 +616,12 @@ msgstr "Dışa Aktarılacak Görev Yok."
 #. Progress Dialog Title for exporting
 msgctxt "export_progress_title"
 msgid "Exporting..."
-msgstr "Dışa aktarılıyor..."
+msgstr "Dışa Aktarılıyor..."
 
 #. Backup: Title of Import Summary Dialog
 msgctxt "import_summary_title"
 msgid "Restore Summary"
-msgstr "Geri çağırma işlem özeti."
+msgstr "Geri Alma Özeti"
 
 #. Backup: Summary message for import. (%s => file name, %s => total # tasks,
 #. %s => imported, %s => skipped, %s => errors)
@@ -637,13 +643,13 @@ msgstr ""
 #. Progress Dialog Title for importing
 msgctxt "import_progress_title"
 msgid "Importing..."
-msgstr "İçe aktarılıyor..."
+msgstr "İçe Aktarılıyor..."
 
 #. Progress Dialog text for import reading task (%d -> task number)
 #, c-format
 msgctxt "import_progress_read"
 msgid "Reading task %d..."
-msgstr "%d isimli iş okunuyor.."
+msgstr "%d görev okunuyor.."
 
 #. Backup: Dialog when unable to open a file
 msgctxt "DLG_error_opening"
@@ -654,7 +660,7 @@ msgstr "Bunu bulamadım:"
 #, c-format
 msgctxt "DLG_error_sdcard"
 msgid "Cannot access folder: %s"
-msgstr "%s klasörüne erişilemedi."
+msgstr "%s dizinine erişilemedi."
 
 #. Backup: Dialog when unable to open SD card in general
 msgctxt "DLG_error_sdcard_general"
@@ -664,7 +670,7 @@ msgstr "Hafıza kartına erişemiyorum!"
 #. Backup: File Selector dialog for import
 msgctxt "import_file_prompt"
 msgid "Select a File to Restore"
-msgstr "Geri çağırılacak dosyayı seçin"
+msgstr "Geri Alınacak Bir Dosya Seçin"
 
 #. See the file "LICENSE" for the full license governing this code.
 #. ================================================== AndroidManifest ==
@@ -691,7 +697,7 @@ msgstr "Astrid İzni"
 #. permission description for READ_TASKS
 msgctxt "write_permission_desc"
 msgid "create new tasks, edit existing tasks"
-msgstr "yeni görevler yarat, mevcut görevleri düzenle"
+msgstr "yeni görevler oluştur, mevcut görevleri düzenle"
 
 #. ================================================== Generic Dialogs ==
 #. question for deleting tasks
@@ -713,7 +719,7 @@ msgstr "Görevleriniz güncelleniyor..."
 #. Title for dialog selecting a time (hours and minutes)
 msgctxt "DLG_hour_minutes"
 msgid "Time (hours : minutes)"
-msgstr "Süre (dakika : saniye)"
+msgstr "Zaman (saat : dakika)"
 
 #. Dialog for Astrid having a critical update
 msgctxt "DLG_please_update"
@@ -721,13 +727,13 @@ msgid ""
 "Astrid should to be updated to the latest version in the Android market! "
 "Please do that before continuing, or wait a few seconds."
 msgstr ""
-"Astrid Android marketteki en son sürüme yükseltilmelidir! Lütfen devam "
-"etmeden bunu yapın ya da bir kaç saniye bekleyin."
+"Astrid Google Play'deki en son sürüme yükseltilmelidir! Lütfen devam etmeden "
+"bunu yapın ya da bir kaç saniye bekleyin."
 
 #. Button for going to Market
 msgctxt "DLG_to_market"
 msgid "Go To Market"
-msgstr "Markete Git"
+msgstr "Google Play'e Git"
 
 #. Button for accepting EULA
 msgctxt "DLG_accept"
@@ -765,26 +771,26 @@ msgstr "Tamam"
 
 msgctxt "DLG_cancel"
 msgid "Cancel"
-msgstr "İptal Et"
+msgstr "Vazgeç"
 
 msgctxt "DLG_more"
 msgid "More"
-msgstr ""
+msgstr "Daha Fazla"
 
 msgctxt "DLG_undo"
 msgid "Undo"
-msgstr ""
+msgstr "Geri al"
 
 #. =============================================================== UI ==
 #. Label for DateButtons with no value
 msgctxt "WID_dateButtonUnset"
 msgid "Click To Set"
-msgstr "Ayar için dokun"
+msgstr "Ayar İçin Dokun"
 
 #. String formatter for DateButtons ($D => date, $T => time)
 msgctxt "WID_dateButtonLabel"
 msgid "$D $T"
-msgstr ""
+msgstr "$D $T"
 
 #. String formatter for Disable button
 msgctxt "WID_disableButton"
@@ -810,7 +816,7 @@ msgstr "Gösterecek öğe yok"
 #. EditNoteActivity - no username for comment
 msgctxt "ENA_no_user"
 msgid "You"
-msgstr ""
+msgstr "Siz"
 
 #. EditNoteActivity - refresh comments
 msgctxt "ENA_refresh_comments"
@@ -824,6 +830,8 @@ msgid ""
 "You have no tasks! \n"
 " Want to add something?"
 msgstr ""
+"Hiç göreviniz yok! \n"
+" Bir şeyler eklemek nasıl olur?"
 
 #. Menu: Add-ons
 msgctxt "TLA_menu_addons"
@@ -833,7 +841,7 @@ msgstr "Eklentiler"
 #. Menu: Adjust Sort and Hidden Task Settings
 msgctxt "TLA_menu_sort"
 msgid "Sort & Subtasks"
-msgstr "Sınıflama Gizlilik"
+msgstr "Sınıflama & Altgörevler"
 
 #. Menu: Sync Now
 msgctxt "TLA_menu_sync"
@@ -843,22 +851,22 @@ msgstr "Şimdi Eşitle!"
 #. Menu: Tasks
 msgctxt "TLA_menu_lists"
 msgid "Lists"
-msgstr ""
+msgstr "Listeler"
 
 #. Menu: Friends
 msgctxt "TLA_menu_friends"
 msgid "Friends"
-msgstr ""
+msgstr "Arkadaşlar"
 
 #. Menu: Suggestions
 msgctxt "TLA_menu_suggestions"
 msgid "Suggestions"
-msgstr ""
+msgstr "Öneriler"
 
 #. Menu: Tutorial
 msgctxt "TLA_menu_tutorial"
 msgid "Tutorial"
-msgstr ""
+msgstr "Kılavuz"
 
 #. Menu: Settings
 msgctxt "TLA_menu_settings"
@@ -929,55 +937,55 @@ msgstr "Gizli"
 #, c-format
 msgctxt "TLA_quickadd_confirm_title"
 msgid "You said, \"%s\""
-msgstr ""
+msgstr "Dediniz ki, \"%s\""
 
 #. Text for speech bubble in dialog after quick add markup
 #. First string is task title, second is due date, third is priority
 #, c-format
 msgctxt "TLA_quickadd_confirm_speech_bubble"
 msgid "I created a task called \"%1$s\" %2$s at %3$s"
-msgstr ""
+msgstr "Bir görev oluşturdum; \"%1$s\" tarih; %2$s öncelik; %3$s"
 
 #, c-format
 msgctxt "TLA_quickadd_confirm_speech_bubble_date"
 msgid "for %s"
-msgstr ""
+msgstr "%s için"
 
 msgctxt "TLA_quickadd_confirm_hide_helpers"
 msgid "Don't display future confirmations"
-msgstr ""
+msgstr "İleriki doğrulamaları gösterme"
 
 #. Title for alert on new repeating task. %s-> task title
 #, c-format
 msgctxt "TLA_repeat_scheduled_title"
 msgid "New repeating task %s"
-msgstr ""
+msgstr "Yinelenen görev: %s"
 
 #. Speech bubble for when a new repeating task scheduled. %s->repeat interval
 #, c-format
 msgctxt "TLA_repeat_scheduled_speech_bubble"
 msgid "I'll remind you about this %s."
-msgstr ""
+msgstr "Bunu şu sıklıkta sana hatırlatacağım: %s."
 
 msgctxt "TLA_priority_strings:0"
 msgid "highest priority"
-msgstr ""
+msgstr "en yüksek öncelik"
 
 msgctxt "TLA_priority_strings:1"
 msgid "high priority"
-msgstr ""
+msgstr "yüksek öncelik"
 
 msgctxt "TLA_priority_strings:2"
 msgid "medium priority"
-msgstr ""
+msgstr "orta öncelik"
 
 msgctxt "TLA_priority_strings:3"
 msgid "low priority"
-msgstr ""
+msgstr "düşük öncelik"
 
 msgctxt "TLA_all_activity"
 msgid "All Activity"
-msgstr ""
+msgstr "Tüm Etkinlik"
 
 #. ====================================================== TaskAdapter ==
 #. Format string to indicate task is hidden (%s => task name)
@@ -999,6 +1007,8 @@ msgid ""
 "Finished\n"
 "%s"
 msgstr ""
+"Bitti\n"
+"%s"
 
 #. Action Button: edit task
 msgctxt "TAd_actionEditTask"
@@ -1018,7 +1028,7 @@ msgstr "Görevi Kopyala"
 #. Context Item: delete task
 msgctxt "TAd_contextHelpTask"
 msgid "Get help"
-msgstr ""
+msgstr "Yardım al"
 
 msgctxt "TAd_contextDeleteTask"
 msgid "Delete Task"
@@ -1038,12 +1048,12 @@ msgstr "Görevi Temizle"
 #. Sort Selection: dialog title
 msgctxt "SSD_title"
 msgid "Sort, Subtasks, and Hidden"
-msgstr "Sınıflama ve Gizli Görevler"
+msgstr "Sınıflama, Altgörevler ve Gizli"
 
 #. Hidden: title
 msgctxt "SSD_hidden_title"
 msgid "Hidden Tasks"
-msgstr ""
+msgstr "Gizli Görevler"
 
 #. Hidden Task Selection: show completed tasks
 msgctxt "SSD_completed"
@@ -1063,7 +1073,7 @@ msgstr "Silinmiş Görevleri Göster"
 #. Sort Selection: drag with subtasks
 msgctxt "SSD_sort_drag"
 msgid "Drag & Drop with Subtasks"
-msgstr ""
+msgstr "Alt Görevler ile Sürükle & Bırak"
 
 #. Sort Selection: smart sort
 msgctxt "SSD_sort_auto"
@@ -1109,7 +1119,7 @@ msgstr "Her zaman"
 #. Astrid Filter Shortcut
 msgctxt "FSA_label"
 msgid "Astrid List or Filter"
-msgstr ""
+msgstr "Astrid Listesi ya da Süzgeci"
 
 #. Filter List Activity Title
 msgctxt "FLA_title"
@@ -1173,6 +1183,11 @@ msgctxt "FLA_new_list"
 msgid "New List"
 msgstr "Yeni Liste"
 
+#. Alert when creating a shortcut without selecting a filter
+msgctxt "FLA_no_filter_selected"
+msgid "No filter selected! Please select a filter or list."
+msgstr "Süzgeç seçilmemiş! Lütfen bir süzgeç ya da liste seçin."
+
 #. ================================================= TaskEditActivity ==
 #. Title when editing a task (%s => task title)
 #, c-format
@@ -1223,7 +1238,7 @@ msgstr "Hiçbiri"
 #. Task hide until label
 msgctxt "TEA_hideUntil_label"
 msgid "Show Task"
-msgstr "Görevi göster"
+msgstr "Görevi Göster"
 
 #. Task hide until toast
 #, c-format
@@ -1290,12 +1305,12 @@ msgstr "Görev kaydedildi"
 #. Toast: task was not saved
 msgctxt "TEA_onTaskCancel"
 msgid "Task Editing Was Canceled"
-msgstr "Görev Düzenleme İptal Edildi"
+msgstr "Görev Düzenlemeden Vazgeçildi"
 
 #. Toast: task was deleted
 msgctxt "TEA_onTaskDelete"
 msgid "Task deleted!"
-msgstr ""
+msgstr "Görev silindi!"
 
 #. Task edit tab: activity
 msgctxt "TEA_tab_activity"
@@ -1305,12 +1320,12 @@ msgstr "Etkinlik"
 #. Task edit tab: more editing settings
 msgctxt "TEA_tab_more"
 msgid "Details"
-msgstr "Daha Fazla"
+msgstr "Ayrıntılar"
 
 #. Task edit tab: web services
 msgctxt "TEA_tab_web"
 msgid "Ideas"
-msgstr ""
+msgstr "Fikirler"
 
 msgctxt "TEA_urgency:0"
 msgid "No deadline"
@@ -1354,15 +1369,15 @@ msgstr "Her zaman"
 
 msgctxt "TEA_hideUntil:1"
 msgid "At due date"
-msgstr "Son anında"
+msgstr "Son tarihte"
 
 msgctxt "TEA_hideUntil:2"
 msgid "Day before due"
-msgstr "Son andan bir gün önce"
+msgstr "Son tarihten bir gün önce"
 
 msgctxt "TEA_hideUntil:3"
 msgid "Week before due"
-msgstr "Son andan bir hafta önce"
+msgstr "Son tarihten bir hafta önce"
 
 msgctxt "TEA_hideUntil:4"
 msgid "Specific Day/Time"
@@ -1403,11 +1418,11 @@ msgstr "Hatırlatmalar"
 
 msgctxt "TEA_control_timer"
 msgid "Timer Controls"
-msgstr "Geri sayım kontrolleri"
+msgstr "Geri Sayım Denetimleri"
 
 msgctxt "TEA_control_share"
 msgid "Share With Friends"
-msgstr "Arkadaşlarla paylaş"
+msgstr "Arkadaşlarla Paylaş"
 
 msgctxt "hide_until_prompt"
 msgid "Show in my list"
@@ -1421,7 +1436,7 @@ msgstr "Daha fazla özellik mi arıyorsun?"
 #. Add Ons button
 msgctxt "TEA_addons_button"
 msgid "Get the Power Pack!"
-msgstr "Power Pack 'i satın al!"
+msgstr "Güç Paketi'ni satın al!"
 
 #. More row
 msgctxt "TEA_more"
@@ -1431,12 +1446,12 @@ msgstr "Daha Fazla"
 #. Text when no activity to show
 msgctxt "TEA_no_activity"
 msgid "No Activity to Show."
-msgstr ""
+msgstr "Gösterilecek Etkinlik Yok."
 
 #. Text to load more activity
 msgctxt "TEA_load_more"
 msgid "Load more..."
-msgstr ""
+msgstr "Daha yükle..."
 
 #. When controls dialog
 msgctxt "TEA_when_dialog_title"
@@ -1449,12 +1464,14 @@ msgstr "Tarih/Saat"
 
 msgctxt "WSV_click_to_load"
 msgid "Tap me to search for ways to get this done!"
-msgstr ""
+msgstr "Bunu yapmanın yollarını bulmak için bana dokunun!"
 
 msgctxt "WSV_not_online"
 msgid ""
 "I can do more when connected to the Internet. Please check your connection."
 msgstr ""
+"İnternete bağlanırsam daha fazlasını yapabilirim. Lütfen bağlantınızı "
+"denetleyin."
 
 #. ============================================= IntroductionActivity ==
 #. Introduction Window title
@@ -1476,7 +1493,7 @@ msgstr "Reddet"
 #. Help: Button to get support from our website
 msgctxt "HlA_get_support"
 msgid "Get Support"
-msgstr "Destek"
+msgstr "Destek Al"
 
 #. ==================================================== UpdateService ==
 #. Changelog Window Title
@@ -1496,6 +1513,9 @@ msgid ""
 "your progress as well as\n"
 "activity on shared lists."
 msgstr ""
+"Paylaşılan listelerdeki etkinlik\n"
+"ilerlemenizin kaydını görmek\n"
+"için oturum açın."
 
 #. ================================================== EditPreferences ==
 #. Preference Window Title
@@ -1515,12 +1535,12 @@ msgstr "Görünüm"
 #. Preference: Task List Font Size Title
 msgctxt "EPr_fontSize_title"
 msgid "Task List Size"
-msgstr "Görev listesi boyutu"
+msgstr "Görev Listesi Boyutu"
 
 #. Preference: Show confirmation for smart reminders
 msgctxt "EPr_showSmartConfirmation_title"
 msgid "Show confirmation for smart reminders"
-msgstr ""
+msgstr "Akıllı hatırlatıcılar için doğrulamayı göster"
 
 #. Preference: Task List Font Size Description
 msgctxt "EPr_fontSize_desc"
@@ -1530,16 +1550,16 @@ msgstr "Ana listedeki yazı boyutu"
 #. Preference: Task List Show Notes
 msgctxt "EPr_showNotes_title"
 msgid "Show Notes In Task"
-msgstr "Görevde Notları Göster"
+msgstr "Görevdeki Notları Göster"
 
 #. Preference: Beast mode (auto-expand edit page)
 msgctxt "EPr_beastMode_title"
 msgid "Customize Task Edit Screen"
-msgstr "Canavar modu"
+msgstr "Görev Düzenleme Ekranını Özelleştir"
 
 msgctxt "EPr_beastMode_desc"
 msgid "Customize the layout of the Task Edit Screen"
-msgstr "Görev değiştirme sayfasının görünümünü değiştir"
+msgstr "Görev Düzenleme Ekranı yerleşimini özelleştir"
 
 msgctxt "EPr_beastMode_reset"
 msgid "Reset to defaults"
@@ -1548,7 +1568,7 @@ msgstr "Varsayılanlara sıfırla"
 #. Preference: Task List Show Notes Description (disabled)
 msgctxt "EPr_showNotes_desc_disabled"
 msgid "Notes will be accessible from the Task Edit Page"
-msgstr "Notlara Görev düzenleme sayfasından ulaşılabilir"
+msgstr "Notlara Görev Düzenleme Sayfası'ndan ulaşılabilir"
 
 #. Preference: Task List Show Notes Description (enabled)
 msgctxt "EPr_showNotes_desc_enabled"
@@ -1558,51 +1578,53 @@ msgstr "Notlar her zaman görüntülenecek"
 #. Preferences: Allow task rows to compress to size of task
 msgctxt "EPr_compressTaskRows_title"
 msgid "Compact Task Row"
-msgstr ""
+msgstr "Sıkışık Görev Sırası"
 
 msgctxt "EPr_compressTaskRows_desc"
 msgid "Compress task rows to fit title"
-msgstr ""
+msgstr "Başlığın sığması için görev sıralarını sıkıştır"
 
 #. Preferences: Use legacy importance and checkbox style
 msgctxt "EPr_userLegacyImportance_title"
 msgid "Use legacy importance style"
-msgstr ""
+msgstr "Artakalan önem biçemini kullan"
 
 msgctxt "EPr_userLegacyImportance_desc"
 msgid "Use legacy importance style"
-msgstr ""
+msgstr "Artakalan önem biçemini kullan"
 
 #. Preferences: Wrap task titles to two lines
 msgctxt "EPr_fullTask_title"
 msgid "Show full task title"
-msgstr ""
+msgstr "Tüm görev başlığını göster"
 
 msgctxt "EPr_fullTask_desc_enabled"
 msgid "Full task title will be shown"
-msgstr ""
+msgstr "Tüm görev başlığı gösterilecek"
 
 msgctxt "EPr_fullTask_desc_disabled"
 msgid "First two lines of task title will be shown"
-msgstr ""
+msgstr "Görev başlığının ilk iki satırı gösterilecek"
 
 #. Preferences: Auto-load Ideas Tab
 msgctxt "EPr_ideaAuto_title"
 msgid "Auto-load Ideas Tab"
-msgstr ""
+msgstr "Fikirleri Kendiliğinden-Yükle Sekmesi"
 
 msgctxt "EPr_ideaAuto_desc_enabled"
-msgid "Web searches for Ideas tab will be performed when task is edited"
-msgstr ""
+msgid "Web searches for Ideas tab will be performed when tab is clicked"
+msgstr "Fikirler için olan aramalar sekmesi, sekme tıklandığında belirecek"
 
 msgctxt "EPr_ideaAuto_desc_disabled"
-msgid "Web searches for Ideas tab will be performed when tab is clicked"
+msgid ""
+"Web searches for Ideas tab will be performed only when manually requested"
 msgstr ""
+"Fikirler için olan aramalar sekmesi, yalnızca kullanıcı isteğiyle belirecek"
 
 #. Preference: Theme
 msgctxt "EPr_theme_title"
 msgid "Color Theme"
-msgstr "Renk teması"
+msgstr "Renk Teması"
 
 #. Preference: Theme Description (%s => value)
 #, c-format
@@ -1618,15 +1640,15 @@ msgstr "Ayarlar için Android 2.0+ zorunludur."
 #. Preference screen: all task row settings
 msgctxt "EPr_taskRowPrefs_title"
 msgid "Task Row Appearance"
-msgstr ""
+msgstr "Görev Sırası Görünümü"
 
 msgctxt "EPr_themes:0"
 msgid "Day - Blue"
-msgstr "Gündüz - Blue"
+msgstr "Gündüz - Mavi"
 
 msgctxt "EPr_themes:1"
 msgid "Day - Red"
-msgstr "Gündüz - Red"
+msgstr "Gündüz - Kırmızı"
 
 msgctxt "EPr_themes:2"
 msgid "Night"
@@ -1634,11 +1656,11 @@ msgstr "Gece"
 
 msgctxt "EPr_themes:3"
 msgid "Transparent (White Text)"
-msgstr "Şeffaf (Beyaz yazı)"
+msgstr "Şeffaf (Beyaz Metin)"
 
 msgctxt "EPr_themes:4"
 msgid "Transparent (Black Text)"
-msgstr "Şeffaf (Siyah yazı)"
+msgstr "Şeffaf (Siyah Metin)"
 
 #. ========================================== Task Management Settings ==
 #. Preference Screen Header: Old Task Management
@@ -1665,7 +1687,7 @@ msgstr "%d görev silindi!"
 
 msgctxt "EPr_manage_purge_deleted"
 msgid "Purge Deleted Tasks"
-msgstr "Silinen görevleri temizle"
+msgstr "Silinen Görevleri Temizle"
 
 msgctxt "EPr_manage_purge_deleted_message"
 msgid ""
@@ -1688,7 +1710,7 @@ msgstr "Uyarı! Temizlenen görevler yedek dosyası olmadan kurtarılamaz!"
 
 msgctxt "EPr_manage_clear_all"
 msgid "Clear All Data"
-msgstr ""
+msgstr "Tüm Veriyi Temizle"
 
 msgctxt "EPr_manage_clear_all_message"
 msgid ""
@@ -1696,6 +1718,9 @@ msgid ""
 "\n"
 "Warning: can't be undone!"
 msgstr ""
+"Astrid ayarları ve tüm görevler silinsin mi?\n"
+"\n"
+"Uyarı: geri alınamaz!"
 
 msgctxt "EPr_manage_delete_completed_gcal"
 msgid "Delete Calendar Events for Completed Tasks"
@@ -1709,11 +1734,11 @@ msgstr ""
 #, c-format
 msgctxt "EPr_manage_delete_completed_gcal_status"
 msgid "Deleted %d calendar events!"
-msgstr "%d takvim olayı silindi"
+msgstr "%d takvim olayı silindi!"
 
 msgctxt "EPr_manage_delete_all_gcal"
 msgid "Delete All Calendar Events for Tasks"
-msgstr "Görevlerdeki bütün takvim olaylarını sil"
+msgstr "Görevlerdeki Bütün Takvim Olaylarını Sil"
 
 msgctxt "EPr_manage_delete_all_gcal_message"
 msgid "Do you really want to delete all your events for tasks?"
@@ -1722,7 +1747,7 @@ msgstr "Görevlerdeki bütün olayları silmek istediğinize emin misiniz?"
 #, c-format
 msgctxt "EPr_manage_delete_all_gcal_status"
 msgid "Deleted %d calendar events!"
-msgstr "%d takvim olayı silindi"
+msgstr "%d takvim olayı silindi!"
 
 #. ==================================================== AddOnActivity ==
 #. Add Ons Activity Title
@@ -1758,7 +1783,7 @@ msgstr "Web Sitesini Ziyaret Et"
 #. Add-on Activity - menu item to visit android market
 msgctxt "AOA_visit_market"
 msgid "Android Market"
-msgstr ""
+msgstr "Google Play"
 
 #. Add-on Activity - when list is empty
 msgctxt "AOA_no_addons"
@@ -1816,7 +1841,7 @@ msgstr ""
 #. Task killer dialog ok button
 msgctxt "task_killer_help_ok"
 msgid "I Won't Kill Astrid!"
-msgstr "Astrid'i kapatmayacağım!"
+msgstr "Astrid'i Kapatmayacağım!"
 
 #. Astrid's Android Marketplace title. It never appears in the app itself.
 msgctxt "marketplace_title"
@@ -1865,7 +1890,7 @@ msgstr "Geçerli: %s"
 #. Preference: Default Hide Until Title
 msgctxt "EPr_default_hideUntil_title"
 msgid "Default Hide Until"
-msgstr "Varsayılan gizlenme"
+msgstr "Öntanımlı Gizlenme"
 
 #. Preference: Default Hide Until Description (%s => setting)
 #, c-format
@@ -1876,7 +1901,7 @@ msgstr "Geçerli: %s"
 #. Preference: Default Reminders Title
 msgctxt "EPr_default_reminders_title"
 msgid "Default Reminders"
-msgstr "Varsayılan hatırlatmalar"
+msgstr "Öntanımlı Hatırlatmalar"
 
 #. Preference: Default Reminders Description (%s => setting)
 #, c-format
@@ -1887,18 +1912,18 @@ msgstr "Geçerli: %s"
 #. Preference: Default Add To Calendar Title
 msgctxt "EPr_default_addtocalendar_title"
 msgid "Default Add To Calendar"
-msgstr "Varsayılan olarak takvime ekle"
+msgstr "Öntanımlı olarak Takvime Ekle"
 
 #. Preference: Default Add To Calendar Setting Description (disabled)
 msgctxt "EPr_default_addtocalendar_desc_disabled"
 msgid "New tasks will not create an event in the Google Calendar"
-msgstr "Yeni görevler Google Takvimde yeni bir olay oluşturmayacak"
+msgstr "Yeni görevler Google Takvim'de yeni bir olay oluşturmayacak"
 
 #. Preference: Default Add To Calendar Setting Description (%s => setting)
 #, c-format
 msgctxt "EPr_default_addtocalendar_desc"
 msgid "New tasks will be in the calendar: \"%s\""
-msgstr "Yeni görevler\"%s\" takviminde olacak"
+msgstr "Yeni görevlerin olacağı takvim: \"%s\""
 
 #. Reminder Mode Preference: Default Reminders Duration
 msgctxt "EPr_default_reminders_mode_title"
@@ -1917,15 +1942,15 @@ msgstr "!!! (En yüksek)"
 
 msgctxt "EPr_default_importance:1"
 msgid "!!"
-msgstr ""
+msgstr "!!"
 
 msgctxt "EPr_default_importance:2"
 msgid "!"
-msgstr ""
+msgstr "!"
 
 msgctxt "EPr_default_importance:3"
 msgid "o (Lowest)"
-msgstr "(En Düşük)"
+msgstr "o (En Düşük)"
 
 msgctxt "EPr_default_urgency:0"
 msgid "No Deadline"
@@ -1941,7 +1966,7 @@ msgstr "Yarın"
 
 msgctxt "EPr_default_urgency:3"
 msgid "Day After Tomorrow"
-msgstr "Yarından sonra"
+msgstr "Yarından Sonra"
 
 msgctxt "EPr_default_urgency:4"
 msgid "Next Week"
@@ -1957,11 +1982,11 @@ msgstr "Görev günü"
 
 msgctxt "EPr_default_hideUntil:2"
 msgid "Day before due"
-msgstr "Son andan bir gün önce"
+msgstr "Son günden bir gün önce"
 
 msgctxt "EPr_default_hideUntil:3"
 msgid "Week before due"
-msgstr "Son andan bir hafta önce"
+msgstr "Son günden bir hafta önce"
 
 msgctxt "EPr_default_reminders:0"
 msgid "No deadline reminders"
@@ -1995,12 +2020,12 @@ msgstr "Ara..."
 #. Recently Modified
 msgctxt "BFE_Recent"
 msgid "Recently Modified"
-msgstr "Yakında değiştirilenler"
+msgstr "Yakında Değiştirilenler"
 
 #. I've assigned
 msgctxt "BFE_Assigned"
 msgid "I've Assigned"
-msgstr ""
+msgstr "Atanmış bulunuyorum"
 
 #. Build Your Own Filter
 msgctxt "BFE_Custom"
@@ -2010,18 +2035,18 @@ msgstr "Özel Süzgeç..."
 #. Saved Filters Header
 msgctxt "BFE_Saved"
 msgid "Filters"
-msgstr "Filtreler"
+msgstr "Süzgeçler"
 
 #. Saved Filters Context Menu: delete
 msgctxt "BFE_Saved_delete"
 msgid "Delete Filter"
-msgstr "Filtreyi Sil"
+msgstr "Süzgeci Sil"
 
 #. =========================================== CustomFilterActivity ==
 #. Build Your Own Filter Activity Title
 msgctxt "CFA_title"
 msgid "Custom Filter"
-msgstr "Özel Filtre"
+msgstr "Özel Süzgeç"
 
 #. Filter Name edit box hint (if user types here, filter will be saved)
 msgctxt "CFA_filterName_hint"
@@ -2058,7 +2083,7 @@ msgstr "aynı zamanda"
 #, c-format
 msgctxt "CFA_context_chain"
 msgid "%s has criteria"
-msgstr "%s kritere sahip"
+msgstr "%s ölçütüne sahip"
 
 #. Filter Criteria Context Menu: delete
 msgctxt "CFA_context_delete"
@@ -2180,40 +2205,40 @@ msgstr "Takvime görev eklenmesinde hata!"
 #. Label for adding task to calendar
 msgctxt "gcal_TEA_calendar_label"
 msgid "Calendar Integration:"
-msgstr "Takvim Entegrasyonu:"
+msgstr "Takvim Bütünleşmesi:"
 
 #. Label for adding task to calendar
 msgctxt "gcal_TEA_addToCalendar_label"
 msgid "Add to Calendar"
-msgstr "Takvime ekle"
+msgstr "Takvime Ekle"
 
 #. Label when calendar event already exists
 msgctxt "gcal_TEA_showCalendar_label"
 msgid "Open Calendar Event"
-msgstr "Ajanda içinde aç"
+msgstr "Takvim Olayı Aç"
 
 #. Toast when unable to open calendar event
 msgctxt "gcal_TEA_calendar_error"
 msgid "Error opening event!"
-msgstr "Etkinliği açmada hata!"
+msgstr "Olay açılırken hata!"
 
 #. Toast when calendar event updated because task changed
 msgctxt "gcal_TEA_calendar_updated"
 msgid "Calendar event also updated!"
-msgstr "Takvim etkinliği de güncellendi!"
+msgstr "Takvim olayı da güncellendi!"
 
 #. No calendar label (don't add option)
 msgctxt "gcal_TEA_nocal"
 msgid "Don't add"
-msgstr "Ekleme yapma"
+msgstr "Ekleme"
 
 msgctxt "gcal_TEA_none_selected"
 msgid "Add to cal..."
-msgstr ""
+msgstr "Takvime ekle..."
 
 msgctxt "gcal_TEA_has_event"
 msgid "Cal event"
-msgstr ""
+msgstr "Takvim olayı"
 
 #. ======================================================== Calendars ==
 #. Calendar event name when task is completed (%s => task title)
@@ -2225,7 +2250,7 @@ msgstr "%s (tamamlandı)"
 #. System Default Calendar (displayed if we can't figure out calendars)
 msgctxt "gcal_GCP_default"
 msgid "Default Calendar"
-msgstr "Varsayılan Takvim"
+msgstr "Öntanımlı Takvim"
 
 #. See the file "LICENSE" for the full license governing this code.
 #. ============================================================= UI ==
@@ -2237,7 +2262,7 @@ msgstr "Google Görevleri"
 #. filter category for GTasks lists
 msgctxt "gtasks_FEx_list"
 msgid "By List"
-msgstr "Liste ile"
+msgstr "Listeye Göre"
 
 #. filter title for GTasks lists (%s => list name)
 #, c-format
@@ -2253,7 +2278,7 @@ msgstr "Liste oluşturuluyor..."
 #. dialog prompt for creating a new gtasks list
 msgctxt "gtasks_FEx_create_list_dialog"
 msgid "New List Name:"
-msgstr "Yeni Liste İsmi:"
+msgstr "Yeni Liste Adı:"
 
 #. error to show when list creation fails
 msgctxt "gtasks_FEx_create_list_error"
@@ -2276,18 +2301,18 @@ msgstr "Gtasks Listesi içinde..."
 #. Message while clearing completed tasks
 msgctxt "gtasks_GTA_clearing"
 msgid "Clearing completed tasks..."
-msgstr "Tamamlanan görevler siliniyor..."
+msgstr "Tamamlanan görevler temizleniyor..."
 
 #. Label for clear completed menu item
 msgctxt "gtasks_GTA_clear_completed"
 msgid "Clear Completed"
-msgstr "Tamamlanlar temizlendi"
+msgstr "Tamamlanları Temizle"
 
 #. ============================================ GtasksLoginActivity ==
 #. Activity Title: Gtasks Login
 msgctxt "gtasks_GLA_title"
 msgid "Log In to Google Tasks"
-msgstr "Google Görevler 'e giriş yapın"
+msgstr "Google Görevler'e giriş yapın"
 
 #. Instructions: Gtasks login
 msgctxt "gtasks_GLA_body"
@@ -2295,12 +2320,12 @@ msgid ""
 "Please log in to Google Tasks Sync (Beta!). Non-migrated Google Apps "
 "accounts are currently unsupported."
 msgstr ""
-"Google Görevler Senkronizasyonu (Beta!). Taşınmamış Google Apps hesapları şu "
-"an desteklenmemektedir."
+"Lütfen Google Görevler Eşleştirmesi'ne (Beta!) giriş yapın. Taşınmamış "
+"Google Apps hesapları şu an desteklenmemektedir."
 
 msgctxt "gtasks_GLA_noaccounts"
 msgid "No available Google accounts to sync with."
-msgstr "Senkronize edilecek Google hesabı mevcut değil."
+msgstr "Eşleştirilecek Google hesabı mevcut değil."
 
 #. Instructions: Gtasks further help
 msgctxt "gtasks_GLA_further_help"
@@ -2316,7 +2341,7 @@ msgstr ""
 #. Sign In Button
 msgctxt "gtasks_GLA_signIn"
 msgid "Sign In"
-msgstr "Giriş Yap"
+msgstr "Oturum Aç"
 
 #. E-mail Address Label
 msgctxt "gtasks_GLA_email"
@@ -2326,7 +2351,7 @@ msgstr "E-Posta"
 #. Password Label
 msgctxt "gtasks_GLA_password"
 msgid "Password"
-msgstr "Şifre"
+msgstr "Parola"
 
 #. Authenticating toast
 msgctxt "gtasks_GLA_authenticating"
@@ -2336,7 +2361,7 @@ msgstr "Kimlik doğrulanıyor..."
 #. Google Apps for Domain checkbox
 msgctxt "gtasks_GLA_domain"
 msgid "Google Apps for Domain account"
-msgstr "Alan üyeliği için Google Apps"
+msgstr "Alanadı hesabı için Google Apps"
 
 #. Error Message when fields aren't filled out
 msgctxt "gtasks_GLA_errorEmpty"
@@ -2350,7 +2375,7 @@ msgid ""
 "phone's account manager"
 msgstr ""
 "Giriş başarısız! Lütfen kullanıcı ismi ve parolanızı telefondaki hesap "
-"yöneticisinden kontrol edin."
+"yöneticisinden denetleyin"
 
 #. Error Message when we receive an IO Exception
 msgctxt "gtasks_GLA_errorIOAuth"
@@ -2358,6 +2383,8 @@ msgid ""
 "Sorry, we had trouble communicating with Google servers. Please try again "
 "later."
 msgstr ""
+"Üzgünüm, Google sunucuları ile bağlanmakta sıkıntı yaşıyoruz. Lütfen daha "
+"sonra yeniden deneyin."
 
 #. Error Message when we receive a HTTP 401 Unauthorized multiple times
 msgctxt "gtasks_GLA_errorAuth_captcha"
@@ -2418,75 +2445,12 @@ msgstr ""
 "Ayarlarından tekrar giriş yapın."
 
 #. See the file "LICENSE" for the full license governing this code.
-#. Resources initial tasks added
-#. Intro Tag or click prompt
-msgctxt "intro_click_prompt"
-msgid "Intro: Press me to see notes"
-msgstr "Giriş: Notları görmek için basın"
-
-#. Task 1 Summary
-msgctxt "intro_task_1_summary"
-msgid "Create your first task"
-msgstr "İlk görevinizi oluşturun"
-
-#. Task 1 Note
-msgctxt "intro_task_1_note"
-msgid ""
-"Two ways to add a task:\n"
-" 1) Quick Add: Type the task into the quick entry box at bottom of screen "
-"and press the + button on the right.\n"
-" 2) Regular Add: Press the + button of the quick entry box. Add as much "
-"detail as you want. Then press \"Save\" or use your phone's back button.\n"
-msgstr ""
-"Görev eklemenin iki yolu:\n"
-" 1) Hızlı ekleme: Görevin ismini ekranın en altındaki çabuk giriş kutusuna "
-"yazıp + düğmesine basın.\n"
-" 2) Normal ekleme: Çabuk ekleme kutusunun + düğmesine basın. İstediğiniz "
-"kadar detay girin. Sonra \"Kaydet\"'e basın veya telefonunuzun \"geri\" "
-"düğmesine basın.\n"
-
-#. Task 2 Summary
-msgctxt "intro_task_2_summary"
-msgid "Add a widget to your desktop"
-msgstr "Masaüstüne widget ekle"
-
-#. Task 2 Note
-msgctxt "intro_task_2_note"
-msgid ""
-"1) Long Press on your phone's desktop\n"
-"      2) Choose \"Widget\"\n"
-"      3) Choose the Astrid widget\n"
-"      4) Select the list you want and press OK.\n"
-msgstr ""
-"1) Telefonun masaüstü ekranına uzun basın\n"
-"      2) \"Widget\"ı seçin\n"
-"      3) Astrid widget'ı seçin\n"
-"      4) İstediğiniz listeyi seçin ve tamam tuşuna basın.\n"
-
-#. Task 3 Summary
-msgctxt "intro_task_3_summary"
-msgid "Setup sync with Astrid.com"
-msgstr "Astrid.com ile senkronizasyonu ayarla"
-
-#. Task 3 Note
-msgctxt "intro_task_3_note"
-msgid ""
-"1) Press your Menu button\n"
-"      2) Choose \"Sync Now\"\n"
-"      3) Select \"Astrid.com\"\n"
-"      4) Log In & Synchronize!\n"
-msgstr ""
-"1) Menu düğmesine basın\n"
-"      2) \"Şimdi senkronize et\"i seçin\n"
-"      3) \"Astrid.com\"u seçin\n"
-"      4) Giriş yapın & Senkronize edin!\n"
-
 #. NEW USER EXPERIENCE
 #. help bubbles
 #. Shown the first time a user sees the task list activity
 msgctxt "help_popover_add_task"
 msgid "Start by adding a task or two"
-msgstr ""
+msgstr "Birkaç görev ekleyerek işe başlayın"
 
 #. Shown the first time a user adds a task to a list
 msgctxt "help_popover_tap_task"
@@ -2508,12 +2472,12 @@ msgstr ""
 #. Shown after user adds a task on tablet
 msgctxt "help_popover_add_lists"
 msgid "Tap add a list"
-msgstr ""
+msgstr "Bir liste eklemek için dokunun"
 
 #. Shown after a user adds a task on phones
 msgctxt "help_popover_switch_lists"
 msgid "Tap to add a list or switch between lists"
-msgstr ""
+msgstr "Bir liste eklemek için ya da listeyi değiştirmek için dokunun"
 
 msgctxt "help_popover_when_shortcut"
 msgid "Tap this shortcut to quick select date and time"
@@ -2543,7 +2507,7 @@ msgstr "Kullanıcı adı/Parola ile giriş yap"
 
 msgctxt "welcome_login_later"
 msgid "Connect Later"
-msgstr ""
+msgstr "Sonra Bağlan"
 
 msgctxt "welcome_login_confirm_later_title"
 msgid "Why not sign in?"
@@ -2570,14 +2534,14 @@ msgstr ""
 #. Shown after user goes to task rabbit activity
 msgctxt "help_popover_taskrabbit_type"
 msgid "Change the type of task"
-msgstr ""
+msgstr "Görev türünü değiştir"
 
 #. See the file "LICENSE" for the full license governing this code.
 #. Resources for built-in locale plug-in
 #. Locale Alert Editing Window Title
 msgctxt "locale_edit_alerts_title"
 msgid "Astrid Filter Alert"
-msgstr "Astrid konuma bağlı hatırlatma"
+msgstr "Astrid Süzgeç Alarmı"
 
 #. Locale Window Help
 msgctxt "locale_edit_intro"
@@ -2643,7 +2607,7 @@ msgstr "Lütfen Astrid Locale eklentisini yükleyin!"
 #. filters header: OpenCRX
 msgctxt "opencrx_FEx_header"
 msgid "OpenCRX"
-msgstr ""
+msgstr "OpenCRX"
 
 #. filter category for OpenCRX ActivityCreators
 msgctxt "opencrx_FEx_dashboard"
@@ -2659,7 +2623,7 @@ msgstr "Atanan"
 #, c-format
 msgctxt "opencrx_FEx_responsible_title"
 msgid "Assigned To '%s'"
-msgstr "Atanan '%s'"
+msgstr "Atandı: '%s'"
 
 #. detail for showing tasks created by someone else (%s => person name)
 #, c-format
@@ -2670,7 +2634,7 @@ msgstr "%s'den"
 #. replacement string for task edit "Notes" when using OpenCRX
 msgctxt "opencrx_TEA_notes"
 msgid "Add a Comment"
-msgstr "Açıklama Ekle"
+msgstr "Yorum Ekle"
 
 msgctxt "opencrx_creator_input_hint"
 msgid "Creator"
@@ -2678,18 +2642,18 @@ msgstr "Oluşturan"
 
 msgctxt "opencrx_contact_input_hint"
 msgid "Assigned to"
-msgstr "Atanan"
+msgstr "Atanan:"
 
 #. ==================================================== Preferences ==
 #. Preferences Title: OpenCRX
 msgctxt "opencrx_PPr_header"
 msgid "OpenCRX"
-msgstr ""
+msgstr "OpenCRX"
 
 #. creator title for tasks that are not synchronized
 msgctxt "opencrx_no_creator"
 msgid "(Do Not Synchronize)"
-msgstr "(Senkronize etme)"
+msgstr "(Eşleştirme Yapma)"
 
 #. preference title for default creator
 msgctxt "opencrx_PPr_defaultcreator_title"
@@ -2700,13 +2664,13 @@ msgstr "Öntanımlı EtkinlikOluşturucu"
 #, c-format
 msgctxt "opencrx_PPr_defaultcreator_summary"
 msgid "New activities will be created by: %s"
-msgstr "Yeni etkinlikler %s olarak yaratılacaktır"
+msgstr "Yeni etkinlikleri oluşturacak kişi: %s"
 
 #. preference description for default dashboard (when set to 'not
 #. synchronized')
 msgctxt "opencrx_PPr_defaultcreator_summary_none"
 msgid "New activities will not be synchronized by default"
-msgstr "Yeni aktiviteler öntanımlı olarak senkronize edilmeyecektir"
+msgstr "Yeni etkinlikler öntanımlı olarak eşleştirilmeyecek"
 
 #. OpenCRX host and segment group name
 msgctxt "opencrx_group"
@@ -2721,7 +2685,7 @@ msgstr "Sunucu"
 #. dialog title for OpenCRX host
 msgctxt "opencrx_host_dialog_title"
 msgid "OpenCRX host"
-msgstr "OpenCRX sunucu sahibi"
+msgstr "OpenCRX sunucusu"
 
 #. example for OpenCRX host
 msgctxt "opencrx_host_summary"
@@ -2736,7 +2700,7 @@ msgstr "Parça"
 #. dialog title for OpenCRX segment
 msgctxt "opencrx_segment_dialog_title"
 msgid "Synchronized segment"
-msgstr "Senkronize edilen parça"
+msgstr "Eşleştirilen parça"
 
 #. example for OpenCRX segment
 msgctxt "opencrx_segment_summary"
@@ -2766,13 +2730,13 @@ msgstr "Örnek: <i>CRX</i>"
 #. default value for OpenCRX provider
 msgctxt "opencrx_provider_default"
 msgid "CRX"
-msgstr ""
+msgstr "CRX"
 
 #. ================================================= Login Activity ==
 #. Activity Title: Opencrx Login
 msgctxt "opencrx_PLA_title"
 msgid "Log In to OpenCRX"
-msgstr "OpenCRX 'e bağlan"
+msgstr "OpenCRX'e bağlan"
 
 #. Instructions: Opencrx login
 msgctxt "opencrx_PLA_body"
@@ -2792,7 +2756,7 @@ msgstr "Oturum Aç"
 #. Password Label
 msgctxt "opencrx_PLA_password"
 msgid "Password"
-msgstr "Şifre"
+msgstr "Parola"
 
 #. Error Message when fields aren't filled out
 msgctxt "opencrx_PLA_errorEmpty"
@@ -2802,13 +2766,13 @@ msgstr "Hata: Tüm alanları doldurun"
 #. Error Message when we receive a HTTP 401 Unauthorized
 msgctxt "opencrx_PLA_errorAuth"
 msgid "Error: login or password incorrect!"
-msgstr "Hata: kullanıcı adı ya da şifre yanlış!"
+msgstr "Hata: kullanıcı adı ya da parola geçersiz!"
 
 #. ================================================ Synchronization ==
 #. title for notification tray after synchronizing
 msgctxt "opencrx_notification_title"
 msgid "OpenCRX"
-msgstr ""
+msgstr "OpenCRX"
 
 #. text for notification tray when synchronizing
 #, c-format
@@ -2819,7 +2783,7 @@ msgstr "%s görev güncellendi / daha fazla bilgi için tıklayın"
 #. Error msg when io exception
 msgctxt "opencrx_ioerror"
 msgid "Connection Error! Check your Internet connection."
-msgstr "Bağlantı Hatası! Internet bağlantınızı kontrol edin."
+msgstr "Bağlantı Hatası! Internet bağlantınızı denetleyin."
 
 #. opencrx Login not specified
 msgctxt "opencrx_MLA_email_empty"
@@ -2829,7 +2793,7 @@ msgstr "Giriş seçimi yapılmadı!"
 #. opencrx password not specified
 msgctxt "opencrx_MLA_password_empty"
 msgid "Password was not specified!"
-msgstr "Şifre belirtilmemiş!"
+msgstr "Parola belirtilmemiş!"
 
 #. ================================================ labels for layout-elements
 #. ==
@@ -2855,7 +2819,7 @@ msgstr "&lt;Öntanımlı&gt;"
 
 msgctxt "opencrx_TEA_opencrx_title"
 msgid "OpenCRX Controls"
-msgstr "OpenCRX Kontrolleri"
+msgstr "OpenCRX Ayarları"
 
 msgctxt "CFC_opencrx_in_workspace_text"
 msgid "In workspace: ?"
@@ -2902,7 +2866,7 @@ msgstr ""
 #. filters header: Producteev
 msgctxt "producteev_FEx_header"
 msgid "Producteev"
-msgstr ""
+msgstr "Producteev"
 
 #. filter category for Producteev dashboards
 msgctxt "producteev_FEx_dashboard"
@@ -2923,7 +2887,7 @@ msgstr "Diğerleri tarafından şu kişiye atandı:"
 #, c-format
 msgctxt "producteev_FEx_responsible_title"
 msgid "Assigned To '%s'"
-msgstr "Atanan '%s'"
+msgstr "Atandı: '%s'"
 
 #. detail for showing tasks created by someone else (%s => person name)
 #, c-format
@@ -2940,7 +2904,7 @@ msgstr "Açıklama Ekle"
 #. Preferences Title: Producteev
 msgctxt "producteev_PPr_header"
 msgid "Producteev"
-msgstr ""
+msgstr "Producteev"
 
 #. dashboard title for producteev default dashboard
 msgctxt "producteev_default_dashboard"
@@ -2950,7 +2914,7 @@ msgstr "Varsayılan Çalışma Alanı"
 #. dashboard title for tasks that are not synchronized
 msgctxt "producteev_no_dashboard"
 msgid "(Do Not Synchronize)"
-msgstr "(Senkronize etme)"
+msgstr "(Eşleştirme Yapma)"
 
 #. dashboard spinner entry on TEA for adding a new dashboard
 msgctxt "producteev_create_dashboard"
@@ -2977,7 +2941,7 @@ msgstr "Yeni görevler şuraya kaydedilecek: %s"
 #. synchronized')
 msgctxt "producteev_PPr_defaultdash_summary_none"
 msgid "New tasks will not be synchronized by default"
-msgstr "Yeni görevler öntanımlı olarak senkronize edilmeyecek"
+msgstr "Yeni görevler öntanımlı olarak eşleştirilmeyecek"
 
 #. ================================================= Login Activity ==
 #. Activity Title: Producteev Login
@@ -3014,7 +2978,7 @@ msgstr "E-Posta"
 #. Password Label
 msgctxt "producteev_PLA_password"
 msgid "Password"
-msgstr "Şifre"
+msgstr "Parola"
 
 #. Timezone Spinner
 msgctxt "producteev_PLA_timezone"
@@ -3024,7 +2988,7 @@ msgstr "Zaman dilimi"
 #. Confirm Password Label
 msgctxt "producteev_PLA_confirmPassword"
 msgid "Confirm Password"
-msgstr "Şifreyi Doğrula"
+msgstr "Parolayı Doğrula"
 
 #. First Name Label
 msgctxt "producteev_PLA_firstName"
@@ -3055,7 +3019,7 @@ msgstr "Hata: e-posta ya da şifre hatalı!"
 #. title for notification tray after synchronizing
 msgctxt "producteev_notification_title"
 msgid "Producteev"
-msgstr ""
+msgstr "Producteev"
 
 #. text for notification tray when synchronizing
 #, c-format
@@ -3147,7 +3111,7 @@ msgstr "Görev son tarihi aşıldığında"
 #. Task Edit: Reminder at random times (%s => time plural)
 msgctxt "TEA_reminder_randomly"
 msgid "Randomly once"
-msgstr ""
+msgstr "Bir kere gelişigüzel"
 
 #. Task Edit: Reminder alarm clock label
 msgctxt "TEA_reminder_alarm_label"
@@ -3280,7 +3244,7 @@ msgstr "Son tarihi olmayan görevlerin bildirimleri %s iken görünecektir."
 #. Reminder Preference: Notification Ringtone Title
 msgctxt "rmd_EPr_ringtone_title"
 msgid "Notification Ringtone"
-msgstr "Uyarı sesi"
+msgstr "Bildirim Sesi"
 
 #. Reminder Preference: Notification Ringtone Description (when custom tone is
 #. set)
@@ -3361,7 +3325,7 @@ msgstr "Astrid bildirimleri gönderirken titremeyecek"
 #. Reminder Preference: Nagging Title
 msgctxt "rmd_EPr_nagging_title"
 msgid "Astrid Encouragements"
-msgstr "Astrid Cesaretlendirmeleri"
+msgstr "Astrid Teşvikleri"
 
 #. Reminder Preference: Nagging Description (true)
 msgctxt "rmd_EPr_nagging_desc_true"
@@ -3371,7 +3335,7 @@ msgstr "Astrid hatırlatmalar sırasında sizi teşvik etmek için görünecekti
 #. Reminder Preference: Nagging Description (false)
 msgctxt "rmd_EPr_nagging_desc_false"
 msgid "Astrid will not give you any encouragement messages"
-msgstr "Astrid cesaretlendirme mesajları göstermeyecektir"
+msgstr "Astrid teşvik iletileri göstermeyecektir"
 
 #. Reminder Preference: Snooze Dialog Title
 msgctxt "rmd_EPr_snooze_dialog_title"
@@ -3443,291 +3407,291 @@ msgstr "devre dışı"
 
 msgctxt "EPr_quiet_hours_start:1"
 msgid "8 PM"
-msgstr ""
+msgstr "8 ÖS"
 
 msgctxt "EPr_quiet_hours_start:2"
 msgid "9 PM"
-msgstr ""
+msgstr "9 ÖS"
 
 msgctxt "EPr_quiet_hours_start:3"
 msgid "10 PM"
-msgstr ""
+msgstr "10 ÖS"
 
 msgctxt "EPr_quiet_hours_start:4"
 msgid "11 PM"
-msgstr ""
+msgstr "11 ÖS"
 
 msgctxt "EPr_quiet_hours_start:5"
 msgid "12 AM"
-msgstr ""
+msgstr "12 ÖÖ"
 
 msgctxt "EPr_quiet_hours_start:6"
 msgid "1 AM"
-msgstr ""
+msgstr "1ÖÖ"
 
 msgctxt "EPr_quiet_hours_start:7"
 msgid "2 AM"
-msgstr ""
+msgstr "2 ÖÖ"
 
 msgctxt "EPr_quiet_hours_start:8"
 msgid "3 AM"
-msgstr ""
+msgstr "3 ÖÖ"
 
 msgctxt "EPr_quiet_hours_start:9"
 msgid "4 AM"
-msgstr ""
+msgstr "4 ÖÖ"
 
 msgctxt "EPr_quiet_hours_start:10"
 msgid "5 AM"
-msgstr ""
+msgstr "5 ÖÖ"
 
 msgctxt "EPr_quiet_hours_start:11"
 msgid "6 AM"
-msgstr ""
+msgstr "6 ÖÖ"
 
 msgctxt "EPr_quiet_hours_start:12"
 msgid "7 AM"
-msgstr ""
+msgstr "7 ÖÖ"
 
 msgctxt "EPr_quiet_hours_start:13"
 msgid "8 AM"
-msgstr ""
+msgstr "8 ÖÖ"
 
 msgctxt "EPr_quiet_hours_start:14"
 msgid "9 AM"
-msgstr ""
+msgstr "9 ÖÖ"
 
 msgctxt "EPr_quiet_hours_start:15"
 msgid "10 AM"
-msgstr ""
+msgstr "10 ÖÖ"
 
 msgctxt "EPr_quiet_hours_start:16"
 msgid "11 AM"
-msgstr ""
+msgstr "11 ÖÖ"
 
 msgctxt "EPr_quiet_hours_start:17"
 msgid "12 PM"
-msgstr ""
+msgstr "12 ÖS"
 
 msgctxt "EPr_quiet_hours_start:18"
 msgid "1 PM"
-msgstr ""
+msgstr "1 ÖS"
 
 msgctxt "EPr_quiet_hours_start:19"
 msgid "2 PM"
-msgstr ""
+msgstr "2 ÖS"
 
 msgctxt "EPr_quiet_hours_start:20"
 msgid "3 PM"
-msgstr ""
+msgstr "3 ÖS"
 
 msgctxt "EPr_quiet_hours_start:21"
 msgid "4 PM"
-msgstr ""
+msgstr "4 ÖS"
 
 msgctxt "EPr_quiet_hours_start:22"
 msgid "5 PM"
-msgstr ""
+msgstr "5 ÖS"
 
 msgctxt "EPr_quiet_hours_start:23"
 msgid "6 PM"
-msgstr ""
+msgstr "6 ÖS"
 
 msgctxt "EPr_quiet_hours_start:24"
 msgid "7 PM"
-msgstr ""
+msgstr "7 ÖS"
 
 msgctxt "EPr_quiet_hours_end:0"
 msgid "9 AM"
-msgstr ""
+msgstr "9 ÖÖ"
 
 msgctxt "EPr_quiet_hours_end:1"
 msgid "10 AM"
-msgstr ""
+msgstr "10 ÖÖ"
 
 msgctxt "EPr_quiet_hours_end:2"
 msgid "11 AM"
-msgstr ""
+msgstr "11 ÖÖ"
 
 msgctxt "EPr_quiet_hours_end:3"
 msgid "12 PM"
-msgstr ""
+msgstr "12 ÖS"
 
 msgctxt "EPr_quiet_hours_end:4"
 msgid "1 PM"
-msgstr ""
+msgstr "1 ÖS"
 
 msgctxt "EPr_quiet_hours_end:5"
 msgid "2 PM"
-msgstr ""
+msgstr "2 ÖS"
 
 msgctxt "EPr_quiet_hours_end:6"
 msgid "3 PM"
-msgstr ""
+msgstr "3 ÖS"
 
 msgctxt "EPr_quiet_hours_end:7"
 msgid "4 PM"
-msgstr ""
+msgstr "4 ÖS"
 
 msgctxt "EPr_quiet_hours_end:8"
 msgid "5 PM"
-msgstr ""
+msgstr "5 ÖS"
 
 msgctxt "EPr_quiet_hours_end:9"
 msgid "6 PM"
-msgstr ""
+msgstr "6 ÖS"
 
 msgctxt "EPr_quiet_hours_end:10"
 msgid "7 PM"
-msgstr ""
+msgstr "7 ÖS"
 
 msgctxt "EPr_quiet_hours_end:11"
 msgid "8 PM"
-msgstr ""
+msgstr "8 ÖS"
 
 msgctxt "EPr_quiet_hours_end:12"
 msgid "9 PM"
-msgstr ""
+msgstr "9 ÖS"
 
 msgctxt "EPr_quiet_hours_end:13"
 msgid "10 PM"
-msgstr ""
+msgstr "10 ÖS"
 
 msgctxt "EPr_quiet_hours_end:14"
 msgid "11 PM"
-msgstr ""
+msgstr "11 ÖS"
 
 msgctxt "EPr_quiet_hours_end:15"
 msgid "12 AM"
-msgstr ""
+msgstr "12 ÖÖ"
 
 msgctxt "EPr_quiet_hours_end:16"
 msgid "1 AM"
-msgstr ""
+msgstr "1ÖÖ"
 
 msgctxt "EPr_quiet_hours_end:17"
 msgid "2 AM"
-msgstr ""
+msgstr "2 ÖÖ"
 
 msgctxt "EPr_quiet_hours_end:18"
 msgid "3 AM"
-msgstr ""
+msgstr "3 ÖÖ"
 
 msgctxt "EPr_quiet_hours_end:19"
 msgid "4 AM"
-msgstr ""
+msgstr "4 ÖÖ"
 
 msgctxt "EPr_quiet_hours_end:20"
 msgid "5 AM"
-msgstr ""
+msgstr "5 ÖÖ"
 
 msgctxt "EPr_quiet_hours_end:21"
 msgid "6 AM"
-msgstr ""
+msgstr "6 ÖÖ"
 
 msgctxt "EPr_quiet_hours_end:22"
 msgid "7 AM"
-msgstr ""
+msgstr "7 ÖÖ"
 
 msgctxt "EPr_quiet_hours_end:23"
 msgid "8 AM"
-msgstr ""
+msgstr "8 ÖÖ"
 
 msgctxt "EPr_rmd_time:0"
 msgid "9 AM"
-msgstr ""
+msgstr "9 ÖÖ"
 
 msgctxt "EPr_rmd_time:1"
 msgid "10 AM"
-msgstr ""
+msgstr "10 ÖÖ"
 
 msgctxt "EPr_rmd_time:2"
 msgid "11 AM"
-msgstr ""
+msgstr "11 ÖÖ"
 
 msgctxt "EPr_rmd_time:3"
 msgid "12 PM"
-msgstr ""
+msgstr "12 ÖS"
 
 msgctxt "EPr_rmd_time:4"
 msgid "1 PM"
-msgstr ""
+msgstr "1 ÖS"
 
 msgctxt "EPr_rmd_time:5"
 msgid "2 PM"
-msgstr ""
+msgstr "2 ÖS"
 
 msgctxt "EPr_rmd_time:6"
 msgid "3 PM"
-msgstr ""
+msgstr "3 ÖS"
 
 msgctxt "EPr_rmd_time:7"
 msgid "4 PM"
-msgstr ""
+msgstr "4 ÖS"
 
 msgctxt "EPr_rmd_time:8"
 msgid "5 PM"
-msgstr ""
+msgstr "5 ÖS"
 
 msgctxt "EPr_rmd_time:9"
 msgid "6 PM"
-msgstr ""
+msgstr "6 ÖS"
 
 msgctxt "EPr_rmd_time:10"
 msgid "7 PM"
-msgstr ""
+msgstr "7 ÖS"
 
 msgctxt "EPr_rmd_time:11"
 msgid "8 PM"
-msgstr ""
+msgstr "8 ÖS"
 
 msgctxt "EPr_rmd_time:12"
 msgid "9 PM"
-msgstr ""
+msgstr "9 ÖS"
 
 msgctxt "EPr_rmd_time:13"
 msgid "10 PM"
-msgstr ""
+msgstr "10 ÖS"
 
 msgctxt "EPr_rmd_time:14"
 msgid "11 PM"
-msgstr ""
+msgstr "11 ÖS"
 
 msgctxt "EPr_rmd_time:15"
 msgid "12 AM"
-msgstr ""
+msgstr "12 ÖÖ"
 
 msgctxt "EPr_rmd_time:16"
 msgid "1 AM"
-msgstr ""
+msgstr "1ÖÖ"
 
 msgctxt "EPr_rmd_time:17"
 msgid "2 AM"
-msgstr ""
+msgstr "2 ÖÖ"
 
 msgctxt "EPr_rmd_time:18"
 msgid "3 AM"
-msgstr ""
+msgstr "3 ÖÖ"
 
 msgctxt "EPr_rmd_time:19"
 msgid "4 AM"
-msgstr ""
+msgstr "4 ÖÖ"
 
 msgctxt "EPr_rmd_time:20"
 msgid "5 AM"
-msgstr ""
+msgstr "5 ÖÖ"
 
 msgctxt "EPr_rmd_time:21"
 msgid "6 AM"
-msgstr ""
+msgstr "6 ÖÖ"
 
 msgctxt "EPr_rmd_time:22"
 msgid "7 AM"
-msgstr ""
+msgstr "7 ÖÖ"
 
 msgctxt "EPr_rmd_time:23"
 msgid "8 AM"
-msgstr ""
+msgstr "8 ÖÖ"
 
 #. =============================================== random reminders ==
 msgctxt "reminders:0"
@@ -3787,7 +3751,7 @@ msgstr "Bir dakikanı alabilir miyim?"
 #. =============================================== random reminders ==
 msgctxt "reminders:11"
 msgid "It's a great day to"
-msgstr "Hadi şunu yapalım"
+msgstr "Hadi şunu yapalım:"
 
 msgctxt "reminders_due:0"
 msgid "Time to work!"
@@ -3915,7 +3879,9 @@ msgstr "Listeyi kısaltmanın zamanıdır!"
 
 msgctxt "reminder_responses:17"
 msgid "Are you on Team Order or Team Chaos? Team Order! Let's go!"
-msgstr "Team Order veya Team Chaos üyesimisin? Team Order! Haydi başlayalım!"
+msgstr ""
+"Düzen Takımını'ndan mısın yoksa Kaos Takımı'ndan mı? Düzen Takımı! Haydi "
+"başlayalım!"
 
 msgctxt "reminder_responses:18"
 msgid "Have I mentioned you are awesome recently? Keep it up!"
@@ -3948,7 +3914,7 @@ msgstr "Bunu yapmış olsaydın şimdi dışarıda geziyor olabilirdin."
 
 msgctxt "reminder_responses:25"
 msgid "It's time. You can't put off the inevitable."
-msgstr ""
+msgstr "Tam zamanı. Kaçınılmaz olayı geciktiremezsin."
 
 msgctxt "reminder_responses:26"
 msgid "I die a little every time you ignore me."
@@ -4036,63 +4002,63 @@ msgstr "Her %d"
 #. hint when opening repeat interval
 msgctxt "repeat_interval_prompt"
 msgid "Repeat Interval"
-msgstr "Tekrarlama Aralığı"
+msgstr "Yineleme Aralığı"
 
 msgctxt "repeat_never"
 msgid "Make Repeating?"
-msgstr "No Repeat"
+msgstr "Yineleme mi?"
 
 msgctxt "repeat_dont"
 msgid "Don't repeat"
-msgstr "Tekrarlama"
+msgstr "Yineleme Yapma"
 
 msgctxt "repeat_interval_short:0"
 msgid "d"
-msgstr ""
+msgstr "gün"
 
 msgctxt "repeat_interval_short:1"
 msgid "wk"
-msgstr ""
+msgstr "hafta"
 
 msgctxt "repeat_interval_short:2"
 msgid "mo"
-msgstr ""
+msgstr "ay"
 
 msgctxt "repeat_interval_short:3"
 msgid "hr"
-msgstr ""
+msgstr "sa"
 
 msgctxt "repeat_interval_short:4"
 msgid "min"
-msgstr ""
+msgstr "dk"
 
 msgctxt "repeat_interval_short:5"
 msgid "yr"
-msgstr ""
+msgstr "yıl"
 
 msgctxt "repeat_interval:0"
 msgid "Day(s)"
-msgstr "Gün(ler)"
+msgstr "Gün"
 
 msgctxt "repeat_interval:1"
 msgid "Week(s)"
-msgstr "Hafta(lar)"
+msgstr "Hafta"
 
 msgctxt "repeat_interval:2"
 msgid "Month(s)"
-msgstr "Ay(lar)"
+msgstr "Ay"
 
 msgctxt "repeat_interval:3"
 msgid "Hour(s)"
-msgstr "Saat(ler)"
+msgstr "Saat"
 
 msgctxt "repeat_interval:4"
 msgid "Minute(s)"
-msgstr "Dakika(lar)"
+msgstr "Dakika"
 
 msgctxt "repeat_interval:5"
 msgid "Year(s)"
-msgstr "Yıl(lar)"
+msgstr "Yıl"
 
 msgctxt "repeat_type:0"
 msgid "from due date"
@@ -4106,7 +4072,7 @@ msgstr "tamamlanma tarihinden itibaren"
 #. Monday, Tuesday)
 msgctxt "repeat_detail_byday"
 msgid "$I on $D"
-msgstr "$I her $D"
+msgstr "$I gün: $D"
 
 #. task detail for repeat from due date (%s -> interval)
 #, c-format
@@ -4124,28 +4090,28 @@ msgstr "Tamamlandıktan sonra %s"
 #, c-format
 msgctxt "repeat_rescheduling_dialog_title"
 msgid "Rescheduling task \"%s\""
-msgstr ""
+msgstr "Görev zamanı güncelleniyor: \"%s\""
 
 #, c-format
 msgctxt "repeat_rescheduling_dialog_bubble"
 msgid "%1$s I've rescheduled this repeating task from %2$s to %3$s"
-msgstr ""
+msgstr "%1$s bu yinelenen görev zamanını güncelledim: %2$s >> %3$s"
 
 msgctxt "repeat_encouragement:0"
 msgid "Good job!"
-msgstr ""
+msgstr "İyi iş çıkardın!"
 
 msgctxt "repeat_encouragement:1"
 msgid "Wow… I'm so proud of you!"
-msgstr ""
+msgstr "Vay be... Seninle gurur duyuyorum!"
 
 msgctxt "repeat_encouragement:2"
 msgid "I love it when you're productive!"
-msgstr ""
+msgstr "Verimli olduğun zamanı seviyorum!"
 
 msgctxt "repeat_encouragement:3"
 msgid "Doesn't it feel good to check something off?"
-msgstr ""
+msgstr "İş bitirmek iyi hissettirmiyor mu?"
 
 #. See the file "LICENSE" for the full license governing this code.
 #. ====================== Plugin Boilerplate =========================
@@ -4157,17 +4123,17 @@ msgstr "Remember the Milk Ayarları"
 #. task detail showing RTM repeat information
 msgctxt "rmilk_TLA_repeat"
 msgid "RTM Repeating Task"
-msgstr "RTM Tekrarlanan Görev"
+msgstr "RTM Yinelenen Görev"
 
 #. task detail showing item needs to be synchronized
 msgctxt "rmilk_TLA_sync"
 msgid "Needs synchronization with RTM"
-msgstr "RTM ile senkronizasyon gerekli"
+msgstr "RTM ile eşleştirme gerekli"
 
 #. filters header: RTM
 msgctxt "rmilk_FEx_header"
 msgid "Remember the Milk"
-msgstr ""
+msgstr "Remember the Milk"
 
 #. filter category for RTM lists
 msgctxt "rmilk_FEx_list"
@@ -4184,7 +4150,7 @@ msgstr "RTM Listesi '%s'"
 #. RTM edit activity Title
 msgctxt "rmilk_MEA_title"
 msgid "Remember the Milk"
-msgstr ""
+msgstr "Remember the Milk"
 
 #. RTM edit List Edit Label
 msgctxt "rmilk_MEA_list_label"
@@ -4194,7 +4160,7 @@ msgstr "RTM Listesi:"
 #. RTM edit Repeat Label
 msgctxt "rmilk_MEA_repeat_label"
 msgid "RTM Repeat Status:"
-msgstr "RTM Tekrarlama Durumu:"
+msgstr "RTM Yineleme Durumu:"
 
 #. RTM edit Repeat Hint
 msgctxt "rmilk_MEA_repeat_hint"
@@ -4205,7 +4171,7 @@ msgstr "örn: her hafta, 14 gün sonra"
 #. Milk Preferences Title
 msgctxt "rmilk_MPr_header"
 msgid "Remember the Milk"
-msgstr ""
+msgstr "Remember the Milk"
 
 #. ======================= MilkLoginActivity =========================
 #. RTM Login Instructions
@@ -4229,7 +4195,7 @@ msgstr ""
 #. title for notification tray when synchronizing
 msgctxt "rmilk_notification_title"
 msgid "Astrid: Remember the Milk"
-msgstr ""
+msgstr "Astrid: Remember the Milk"
 
 #. Error msg when io exception with rmilk
 msgctxt "rmilk_ioerror"
@@ -4244,19 +4210,19 @@ msgstr ""
 #. Subtasks Help Introduction
 msgctxt "subtasks_help_title"
 msgid "Sort and Indent in Astrid"
-msgstr ""
+msgstr "Astrid'te Sınıflandırma ve Giritili Yazma"
 
 msgctxt "subtasks_help_1"
 msgid "Tap and hold to move a task"
-msgstr ""
+msgstr "Bir görevi taşımak için dokunup sürükleyin"
 
 msgctxt "subtasks_help_2"
 msgid "Drag vertically to rearrange"
-msgstr ""
+msgstr "Yeniden sıralamak için dikine sürükle"
 
 msgctxt "subtasks_help_3"
 msgid "Drag horizontally to indent"
-msgstr ""
+msgstr "Girintili yazmak için yatay sürükle"
 
 #. See the file "LICENSE" for the full license governing this code.
 #. Resources for built-in tag plug-in
@@ -4269,7 +4235,7 @@ msgstr "Listeler"
 #. Tags label long version
 msgctxt "TEA_tags_label_long"
 msgid "Put task on one or more lists"
-msgstr ""
+msgstr "Görevi bir ya da daha çok listeye yerleştirin"
 
 #. Tags none
 msgctxt "TEA_tags_none"
@@ -4368,7 +4334,7 @@ msgstr "Listeyi Sil"
 #. context menu option to leave a shared list
 msgctxt "tag_cm_leave"
 msgid "Leave List"
-msgstr ""
+msgstr "Listeden Çık"
 
 #. Dialog to confirm deletion of a tag (%s -> the name of the list to be
 #. deleted)
@@ -4382,7 +4348,7 @@ msgstr "Bu Listeyi Sil: %s? (Hiçbir görev silinmeyecektir.)"
 #, c-format
 msgctxt "DLG_leave_this_shared_tag_question"
 msgid "Leave this shared list: %s? (No tasks will be deleted.)"
-msgstr ""
+msgstr "Bu paylaşılan listeden çık: %s? (Silinen görev olmayacak.)"
 
 #. Dialog to rename tag
 #, c-format
@@ -4407,7 +4373,7 @@ msgstr "%1$s listesi, %2$d görevlerini etkileyecek şekilde silindi"
 #, c-format
 msgctxt "TEA_tags_left"
 msgid "You left shared list %1$s, affecting %2$d tasks"
-msgstr ""
+msgstr "Paylaşılan %1$s listesinden çıktınız, %2$d görevi etkiliyor"
 
 #. Toast notification that a tag has been renamed (%1$s - old name, %2$s - new
 #. name, %3$d - # tasks)
@@ -4435,7 +4401,7 @@ msgstr ""
 #. Header for tag settings
 msgctxt "tag_settings_title"
 msgid "List Settings"
-msgstr "Ayarlar:"
+msgstr "Liste Ayarları:"
 
 #. Header for tag activity
 #, c-format
@@ -4446,12 +4412,12 @@ msgstr "Etkinlik: %s"
 #. Delete button for tag settings
 msgctxt "tag_delete_button"
 msgid "Delete List"
-msgstr ""
+msgstr "Listeyi Sil"
 
 #. Leave button for tag settings
 msgctxt "tag_leave_button"
 msgid "Leave This List"
-msgstr ""
+msgstr "Bu Listeden Çık"
 
 #. See the file "LICENSE" for the full license governing this code.
 #. Resources for built-in timers plug-in
@@ -4469,7 +4435,7 @@ msgstr "Durdur"
 #, c-format
 msgctxt "TPl_notification"
 msgid "Timers Active for %s!"
-msgstr "%s için kronometre aktif!"
+msgstr "%s için kronometre etkin!"
 
 #. Filter Header for Timer plugin
 msgctxt "TFE_category"
@@ -4484,7 +4450,7 @@ msgstr "Zaman Ölçümü Olan Görevler"
 #. Title for TEA
 msgctxt "TEA_timer_controls"
 msgid "Timer Controls"
-msgstr "Geri sayım kontrolleri"
+msgstr "Kronometre Ayarları"
 
 #. Edit Notes: create comment for when timer is started
 msgctxt "TEA_timer_comment_started"
@@ -4494,7 +4460,7 @@ msgstr "başlanan görev:"
 #. Edit Notes: create comment for when timer is stopped
 msgctxt "TEA_timer_comment_stopped"
 msgid "stopped doing this task:"
-msgstr ""
+msgstr "bu görevden vazgeç:"
 
 #. Edit Notes: comment to notify how long was spent on task
 msgctxt "TEA_timer_comment_spent"
@@ -4507,7 +4473,7 @@ msgstr "Harcanan zaman:"
 #, c-format
 msgctxt "update_string_friends"
 msgid "%1$s is now friends with %2$s"
-msgstr ""
+msgstr "%1$s ile %2$s artık arkadaş"
 
 #, c-format
 msgctxt "update_string_request_friendship"
@@ -4567,7 +4533,7 @@ msgstr "%1$s Re: %2$s: %3$s"
 #, c-format
 msgctxt "update_string_tag_comment"
 msgid "%1$s Re: %2$s: %3$s"
-msgstr ""
+msgstr "%1$s Cvp: %2$s: %3$s"
 
 #. See the file "LICENSE" for the full license governing this code.
 #. Voice Add Prompt Text
@@ -4590,7 +4556,7 @@ msgid ""
 "Do you want to go to the market and install it?"
 msgstr ""
 "Ses-girişi kurulu değil.\n"
-"Markete gidip yüklemek ister misin?"
+"Google Play'e gidip yüklemek ister misin?"
 
 #. Preference: Task List recognition-service is not available for this system
 msgctxt "EPr_voiceInputUnavailable_dlg"
@@ -4628,7 +4594,7 @@ msgstr "Ses girişi düğmesi görev listesinde görünmeyecek"
 #. Preference: Task List Voice-button directly creates tasks
 msgctxt "EPr_voiceInputCreatesTask_title"
 msgid "Directly Create Tasks"
-msgstr "Görevleri Doğrudan Yarat"
+msgstr "Görevleri Doğrudan Oluştur"
 
 #. Preference: Task List Voice-creation description (true)
 msgctxt "EPr_voiceInputCreatesTask_desc_enabled"
@@ -4741,7 +4707,7 @@ msgid ""
 "Never wonder who's\n"
 "bringing dessert!"
 msgstr ""
-"Tatlıyu kim getiriyor diye\n"
+"Tatlıyı kim getiriyor diye\n"
 "düşünmenize gerek kalmadı!"
 
 msgctxt "welcome_body_6"
@@ -4750,17 +4716,17 @@ msgid ""
 "set reminders,\n"
 "and much more!"
 msgstr ""
-"Notlar eklemek,\n"
-"hatırlatmalar kurmak,\n"
+"Not eklemek,\n"
+"hatırlatma kurmak,\n"
 "ve daha fazlası için dokunun!"
 
 msgctxt "welcome_body_7"
 msgid "Login"
-msgstr ""
+msgstr "Oturum Aç"
 
 msgctxt "welcome_body_7_return"
 msgid "Tap Astrid to return."
-msgstr ""
+msgstr "Geri dönmek için Astrid'e dokunun."
 
 msgctxt "welcome_back"
 msgid "Back"
@@ -4774,579 +4740,191 @@ msgstr "İleri"
 #. Resources for power pack widget
 msgctxt "PPW_widget_42_label"
 msgid "Astrid Premium 4x2"
-msgstr ""
+msgstr "Astrid Ücretli 4x2"
 
 msgctxt "PPW_widget_43_label"
 msgid "Astrid Premium 4x3"
-msgstr ""
+msgstr "Astrid Ücretli 4x3"
 
 msgctxt "PPW_widget_44_label"
 msgid "Astrid Premium 4x4"
-msgstr ""
+msgstr "Astrid Ücretli 4x4"
 
 msgctxt "PPW_configure_title"
 msgid "Configure Widget"
-msgstr ""
+msgstr "Bileşeni Yapılandır"
 
 msgctxt "PPW_color"
 msgid "Widget color"
-msgstr ""
+msgstr "Bileşen Rengi"
 
 msgctxt "PPW_enable_calendar"
 msgid "Show calendar events"
-msgstr ""
+msgstr "Takvim olaylarını göster"
 
 msgctxt "PPW_disable_encouragements"
 msgid "Hide encouragements"
-msgstr ""
+msgstr "Teşvikleri gizle"
 
 msgctxt "PPW_filter"
 msgid "Select Filter"
-msgstr ""
+msgstr "Süzgeç Seç"
 
 msgctxt "PPW_due"
 msgid "Due:"
-msgstr ""
+msgstr "Son:"
 
 msgctxt "PPW_past_due"
 msgid "Past Due:"
-msgstr ""
+msgstr "Gecikmiş:"
 
 msgctxt "PPW_old_astrid_notice"
 msgid ""
 "You need at least version 3.6 of Astrid in order to use this widget. Sorry!"
 msgstr ""
+"Bu bileşeni kullanmak için Astrid'in son sürümü olan 3.6'ya ihtiyacınız var. "
+"Üzgünüm!"
 
 msgctxt "PPW_encouragements:0"
 msgid "Hi there!"
-msgstr ""
+msgstr "Selamlar!"
 
 msgctxt "PPW_encouragements:1"
 msgid "Have time to finish something?"
-msgstr ""
+msgstr "Bir şeyler bitirmek için vaktin var mı?"
 
 msgctxt "PPW_encouragements:2"
 msgid "Gosh, you are looking suave today!"
-msgstr ""
+msgstr "Vay canına, bugün kendinden çok emin görünüyorsun!"
 
 msgctxt "PPW_encouragements:3"
 msgid "Do something great today!"
-msgstr ""
+msgstr "Bugün kendin için ne yaptın!"
 
 msgctxt "PPW_encouragements:4"
 msgid "Make me proud today!"
-msgstr ""
+msgstr "Bugün beni gururlandır!"
 
 msgctxt "PPW_encouragements:5"
 msgid "How are you doing today?"
-msgstr ""
+msgstr "Bugün nasılsın?"
 
 msgctxt "PPW_encouragements_tod:0"
 msgid "Good morning!"
-msgstr ""
+msgstr "Günaydın!"
 
 msgctxt "PPW_encouragements_tod:1"
 msgid "Good afternoon!"
-msgstr ""
+msgstr "İyi günler!"
 
 msgctxt "PPW_encouragements_tod:2"
 msgid "Good evening!"
-msgstr ""
+msgstr "İyi akşamlar!"
 
 msgctxt "PPW_encouragements_tod:3"
 msgid "Late night?"
-msgstr ""
+msgstr "Zor gece?"
 
 msgctxt "PPW_encouragements_tod:4"
 msgid "It's early, get something done!"
-msgstr ""
+msgstr "Hâlâ erken, bir şeyler yapabilirsin!"
 
 msgctxt "PPW_encouragements_tod:5"
 msgid "Afternoon tea, perhaps?"
-msgstr ""
+msgstr "Öğle çayına ne dersin?"
 
 msgctxt "PPW_encouragements_tod:6"
 msgid "Enjoy the evening!"
-msgstr ""
+msgstr "Gecenin tadını çıkar!"
 
 msgctxt "PPW_encouragements_tod:7"
 msgid "Sleep is good for you, you know!"
-msgstr ""
+msgstr "Uyku senin için güzel bir şey, biliyorsun!"
 
 #, c-format
 msgctxt "PPW_encouragements_completed:0"
 msgid "You've already completed %d tasks!"
-msgstr ""
+msgstr "Şimdiye kadar %d görev tamamladınız!"
 
 #, c-format
 msgctxt "PPW_encouragements_completed:1"
 msgid "Score in life: %d tasks completed"
-msgstr ""
+msgstr "Hayatının sayısı: %d görev bitti"
 
 #, c-format
 msgctxt "PPW_encouragements_completed:2"
 msgid "Smile! You've already finished %d tasks!"
-msgstr ""
+msgstr "Gülümse! Şimdiye kadar %d görev bitti!"
 
 msgctxt "PPW_encouragements_none_completed"
 msgid "You haven't completed any tasks yet! Shall we?"
-msgstr ""
+msgstr "Hiçbir görevinizi bitirmediniz! Hakkından gelelim mi?"
 
 msgctxt "PPW_colors:0"
 msgid "Black"
-msgstr ""
+msgstr "Siyah"
 
 msgctxt "PPW_colors:1"
 msgid "White"
-msgstr ""
+msgstr "Beyaz"
 
 msgctxt "PPW_colors:2"
 msgid "Blue"
-msgstr ""
+msgstr "Mavi"
 
 msgctxt "PPW_colors:3"
 msgid "Translucent"
-msgstr ""
+msgstr "Yarı saydam"
 
 msgctxt "PPW_widget_dlg_text"
 msgid "This widget is only available to owners of the PowerPack!"
-msgstr ""
+msgstr "Bu bileşen yalnızca PowerPack sahipleri tarafından kullanılabilir!"
 
 msgctxt "PPW_widget_dlg_ok"
 msgid "Preview"
-msgstr ""
+msgstr "Önizleme"
 
 #, c-format
 msgctxt "PPW_demo_title1"
 msgid "Items on %s will go here"
-msgstr ""
+msgstr "%s üzerindeki öğeler buraya gelecek"
 
 msgctxt "PPW_demo_title2"
 msgid "Power Pack includes Premium Widgets..."
-msgstr ""
+msgstr "Güç Paketi Ücretli Bileşenleri içermektedir..."
 
 msgctxt "PPW_demo_title3"
 msgid "...voice add and good feelings!"
-msgstr ""
+msgstr "...ses ekle ve iyi hisset!"
 
 msgctxt "PPW_demo_title4"
 msgid "Tap to learn more!"
-msgstr ""
+msgstr "Daha çok öğrenmek için dokunun!"
 
 msgctxt "PPW_info_title"
 msgid "Free Power Pack!"
-msgstr ""
+msgstr "Ücretsiz Güç Paketi!"
 
 msgctxt "PPW_info_signin"
 msgid "Sign in!"
-msgstr ""
+msgstr "Oturum aç!"
 
 msgctxt "PPW_info_later"
 msgid "Later"
-msgstr ""
+msgstr "Sonra"
 
 msgctxt "PPW_unlock_howto"
 msgid ""
 "Share lists with friends! Unlock the free Power Pack when 3 friends sign up "
 "with Astrid."
 msgstr ""
+"Listeleri arkadaşlarınızla paylaşın! Güç Paketi, 3 arkadaşınız Astrid'le "
+"oturum açtığında ücretsiz olacak."
 
 msgctxt "PPW_check_button"
 msgid "Get the Power Pack for free!"
-msgstr ""
+msgstr "Güç Paketi'ni ücretsiz alın!"
 
 msgctxt "PPW_check_share_lists"
 msgid "Share lists!"
-msgstr ""
-
-#. See the file "LICENSE" for the full license governing this code.
-#. ==================================================== Generic Units ==
-#, c-format
-msgctxt "DUt_years:quantity=other"
-msgid "%d Years"
-msgstr ""
-
-#. See the file "LICENSE" for the full license governing this code.
-#. ==================================================== Generic Units ==
-msgctxt "DUt_years:quantity=one"
-msgid "1 Year"
-msgstr ""
-
-#, c-format
-msgctxt "DUt_months:quantity=other"
-msgid "%d Months"
-msgstr ""
-
-msgctxt "DUt_months:quantity=one"
-msgid "1 Month"
-msgstr ""
-
-#, c-format
-msgctxt "DUt_weeks:quantity=other"
-msgid "%d Weeks"
-msgstr ""
-
-msgctxt "DUt_weeks:quantity=one"
-msgid "1 Week"
-msgstr ""
-
-#, c-format
-msgctxt "DUt_days:quantity=other"
-msgid "%d Days"
-msgstr ""
-
-msgctxt "DUt_days:quantity=one"
-msgid "1 Day"
-msgstr ""
-
-#, c-format
-msgctxt "DUt_weekdays:quantity=other"
-msgid "%d Weekdays"
-msgstr ""
-
-msgctxt "DUt_weekdays:quantity=one"
-msgid "1 Weekday"
-msgstr ""
-
-#, c-format
-msgctxt "DUt_hours:quantity=other"
-msgid "%d Hours"
-msgstr ""
-
-msgctxt "DUt_hours:quantity=one"
-msgid "1 Hour"
-msgstr ""
-
-#, c-format
-msgctxt "DUt_minutes:quantity=other"
-msgid "%d Minutes"
-msgstr ""
-
-msgctxt "DUt_minutes:quantity=one"
-msgid "1 Minute"
-msgstr ""
-
-#, c-format
-msgctxt "DUt_seconds:quantity=other"
-msgid "%d Seconds"
-msgstr ""
-
-msgctxt "DUt_seconds:quantity=one"
-msgid "1 Second"
-msgstr ""
-
-#, c-format
-msgctxt "DUt_hoursShort:quantity=other"
-msgid "%d Hrs"
-msgstr ""
-
-msgctxt "DUt_hoursShort:quantity=one"
-msgid "1 Hr"
-msgstr ""
-
-#, c-format
-msgctxt "DUt_minutesShort:quantity=other"
-msgid "%d Min"
-msgstr ""
-
-msgctxt "DUt_minutesShort:quantity=one"
-msgid "1 Min"
-msgstr ""
-
-#, c-format
-msgctxt "DUt_secondsShort:quantity=other"
-msgid "%d Sec"
-msgstr ""
-
-msgctxt "DUt_secondsShort:quantity=one"
-msgid "1 Sec"
-msgstr ""
-
-#, c-format
-msgctxt "Ntasks:quantity=other"
-msgid "%d tasks"
-msgstr ""
-
-msgctxt "Ntasks:quantity=one"
-msgid "1 task"
-msgstr ""
-
-#, c-format
-msgctxt "Npeople:quantity=other"
-msgid "%d people"
-msgstr ""
-
-msgctxt "Npeople:quantity=one"
-msgid "1 person"
-msgstr ""
-
-#. today
-msgctxt "today"
-msgid "Today"
-msgstr ""
-
-#. tomorrow
-msgctxt "tomorrow"
-msgid "Tomorrow"
-msgstr ""
-
-#. today
-msgctxt "yesterday"
-msgid "Yesterday"
-msgstr ""
-
-#. tomorrow abbreviated
-msgctxt "tmrw"
-msgid "Tmrw"
-msgstr "Yarın"
-
-#. today abbreviated
-msgctxt "yest"
-msgid "Yest"
-msgstr "Dün"
-
-#. ================================================== Generic Dialogs ==
-#. confirmation dialog title
-msgctxt "DLG_confirm_title"
-msgid "Confirm?"
-msgstr "Onayla?"
-
-#. question dialog title
-msgctxt "DLG_question_title"
-msgid "Question:"
-msgstr "Soru:"
-
-#. information dialog title
-msgctxt "DLG_information_title"
-msgid "Information"
-msgstr "Bilgi"
-
-#. error dialog title
-msgctxt "DLG_error_title"
-msgid "Error!"
-msgstr "Hata!"
-
-#. general dialog save
-msgctxt "DLG_save"
-msgid "Save"
-msgstr "Kaydet"
-
-#. general dialog yes
-msgctxt "DLG_yes"
-msgid "Yes"
-msgstr "Evet"
-
-#. general dialog no
-msgctxt "DLG_no"
-msgid "No"
-msgstr "Hayır"
-
-#. general dialog close
-msgctxt "DLG_close"
-msgid "Close"
-msgstr "Kapat"
-
-#. general dialog done
-msgctxt "DLG_done"
-msgid "Done"
-msgstr ""
-
-#. error dialog (%s => error message)
-#, c-format
-msgctxt "DLG_error"
-msgid ""
-"Oops, looks like an error occurred! Here's what happened:\n"
-"\n"
-"%s"
-msgstr ""
-
-#. error dialog (no message indicated)
-msgctxt "DLG_error_generic"
-msgid "Oops, looks like an error occurred!"
-msgstr "Oops, bir sorun meydana geldi!"
-
-#. Progress dialog shown when doing something slow
-msgctxt "DLG_wait"
-msgid "Please wait..."
-msgstr "Lütfen bekleyin..."
-
-#. ====================================================== SyncProvider ==
-#. Sync Notification: message when sync service active
-msgctxt "SyP_progress"
-msgid "Synchronizing your tasks..."
-msgstr "Görevleriniz eşleniyor..."
-
-#. Sync Notification: toast when sync activated from activity
-msgctxt "SyP_progress_toast"
-msgid "Synchronizing..."
-msgstr "Eşleniyor..."
-
-#. Sync Label: used in menu to denote synchronization
-msgctxt "SyP_label"
-msgid "Synchronization"
-msgstr "Senkronizasyon"
-
-#. Error msg when io exception
-msgctxt "SyP_ioerror"
-msgid "Connection Error! Check your Internet connection."
-msgstr ""
-
-#. ================================================== SyncPreferences ==
-#. Status Group Label
-msgctxt "sync_SPr_group_status"
-msgid "Status"
-msgstr ""
-
-#. Sync Status: log in
-msgctxt "sync_status_loggedout"
-msgid "Not Logged In!"
-msgstr "Giriş Yapılmadı!"
-
-#. Status: ongoing
-msgctxt "sync_status_ongoing"
-msgid "Sync Ongoing..."
-msgstr "Senkronizasyon devam ediyor..."
-
-#. Sync Status: success status (%s -> last sync date). Keep it short!
-#, c-format
-msgctxt "sync_status_success"
-msgid ""
-"Last Sync:\n"
-"%s"
-msgstr ""
-"Son Senk.\n"
-"%s"
-
-#. Sync Status: failure status (%s -> last attempted sync date)
-#, c-format
-msgctxt "sync_status_failed"
-msgid "Failed On: %s"
-msgstr "Başarısız: %s"
-
-#. Sync Status: error status (%s -> last sync date)
-#, c-format
-msgctxt "sync_status_errors"
-msgid "Sync w/ Errors: %s"
-msgstr "Hatalı Senkron: %s"
-
-#. Sync Status: error subtitle (%s -> last successful sync date)
-#, c-format
-msgctxt "sync_status_failed_subtitle"
-msgid "Last Successful Sync: %s"
-msgstr "Son Başarılı Eşleme: %s"
-
-#. Sync Status: never sync'd
-msgctxt "sync_status_never"
-msgid "Never Synchronized!"
-msgstr "Hiç Eşleme Yapılmamış!"
-
-#. Options Group Label
-msgctxt "sync_SPr_group_options"
-msgid "Options"
-msgstr ""
-
-#. Preference: Synchronization Interval Title
-msgctxt "sync_SPr_interval_title"
-msgid "Background Sync"
-msgstr "Arkaplanda senkronizasyon"
-
-#. Preference: Synchronization Interval Description (when disabled)
-msgctxt "sync_SPr_interval_desc_disabled"
-msgid "Background synchronization is disabled"
-msgstr "Arkaplanda senkronizasyon devre dışı"
-
-#. Preference: Synchronization Interval Description (%s => setting)
-#, c-format
-msgctxt "sync_SPr_interval_desc"
-msgid "Currently set to: %s"
-msgstr "Mevcut ayar: %s"
-
-#. Preference: Background Wifi Title
-msgctxt "sync_SPr_bgwifi_title"
-msgid "Wifi Only Setting"
-msgstr "Sadece Wifi Ayarı"
-
-#. Preference: Background Wifi Description (enabled)
-msgctxt "sync_SPr_bgwifi_desc_enabled"
-msgid "Background synchronization only happens when on Wifi"
-msgstr "Sadece Wifi ile arkaplan senkronu"
-
-#. Preference: Background Wifi Description (disabled)
-msgctxt "sync_SPr_bgwifi_desc_disabled"
-msgid "Background synchronization will always occur"
-msgstr "Arkaplan senkronu her zaman etkin"
-
-#. Actions Group Label
-msgctxt "sync_SPr_group_actions"
-msgid "Actions"
-msgstr "Eylemler"
-
-#. Synchronize Now Button
-msgctxt "sync_SPr_sync"
-msgid "Synchronize Now!"
-msgstr "Senkronize et"
-
-#. Synchronize Now Button if not logged in
-msgctxt "sync_SPr_sync_log_in"
-msgid "Log In & Synchronize!"
-msgstr "Giriş Yapı &amp; Senktronize et!"
-
-#. Sync: Prefix string before logged in identifier
-msgctxt "sync_SPr_logged_in_prefix"
-msgid "Logged in as:"
-msgstr "Giriş yapılan hesap:"
-
-#. Sync: Clear Data Title
-msgctxt "sync_SPr_forget"
-msgid "Log Out"
-msgstr "Çıkış Yap"
-
-#. Sync: Clear Data Description
-msgctxt "sync_SPr_forget_description"
-msgid "Clears all synchronization data"
-msgstr "Bütün eşleme verilerini temizle"
-
-#. confirmation dialog for sync log out
-msgctxt "sync_forget_confirm"
-msgid "Log out / clear synchronization data?"
-msgstr "Çıkış Yap / Senkron verisini sil?"
-
-msgctxt "sync_SPr_interval_entries:0"
-msgid "disable"
-msgstr "devre dışı bırak"
-
-msgctxt "sync_SPr_interval_entries:1"
-msgid "every fifteen minutes"
-msgstr "her 15 dakika"
-
-msgctxt "sync_SPr_interval_entries:2"
-msgid "every thirty minutes"
-msgstr "her 30 dakika"
-
-msgctxt "sync_SPr_interval_entries:3"
-msgid "every hour"
-msgstr "her saat"
-
-msgctxt "sync_SPr_interval_entries:4"
-msgid "every three hours"
-msgstr "her 3 saat"
-
-msgctxt "sync_SPr_interval_entries:5"
-msgid "every six hours"
-msgstr "her 6 saat"
-
-msgctxt "sync_SPr_interval_entries:6"
-msgid "every twelve hours"
-msgstr "her 12 saat"
-
-msgctxt "sync_SPr_interval_entries:7"
-msgid "every day"
-msgstr "hergün"
-
-msgctxt "sync_SPr_interval_entries:8"
-msgid "every three days"
-msgstr "her 3 gün"
-
-msgctxt "sync_SPr_interval_entries:9"
-msgid "every week"
-msgstr "her  hafta"
+msgstr "Listeleri paylaş!"
