@@ -955,7 +955,8 @@ public class EditPeopleControlSet extends PopupControlSet {
                     assignedCustom.setText(email);
                     dontClearAssignedCustom = true;
                     refreshDisplayView();
-                    dialog.dismiss();
+                    if (dialog != null)
+                        dialog.dismiss();
                 } else {
                     DialogUtilities.okDialog(activity, activity.getString(R.string.TEA_contact_error), null);
                 }
