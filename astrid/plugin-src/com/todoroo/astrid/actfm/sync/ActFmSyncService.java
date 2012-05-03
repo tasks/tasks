@@ -1206,6 +1206,9 @@ public final class ActFmSyncService {
                 model.setValue(TagData.MEMBER_COUNT, members.length());
             }
 
+            if (json.has("deleted_at"))
+                model.setValue(TagData.DELETION_DATE, readDate(json, "deleted_at"));
+
             if(json.has("tasks"))
                 model.setValue(TagData.TASK_COUNT, json.getInt("tasks"));
         }

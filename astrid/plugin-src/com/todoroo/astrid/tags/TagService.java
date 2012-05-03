@@ -297,7 +297,10 @@ public final class TagService {
                 tagData.readFromCursor(cursor);
                 String tagName = tagData.getValue(TagData.NAME).trim();
                 Tag tag = new Tag(tagData);
-                if(tagData.getValue(TagData.DELETION_DATE) > 0 && !tags.containsKey(tagName)) continue;
+                if(tagData.getValue(TagData.DELETION_DATE) > 0) {
+                    tags.remove(tagName);
+                    continue;
+                }
                 if(TextUtils.isEmpty(tag.tag))
                     continue;
                 tags.put(tagName, tag);
