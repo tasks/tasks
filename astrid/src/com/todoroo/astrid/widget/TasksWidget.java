@@ -250,13 +250,13 @@ public class TasksWidget extends AppWidgetProvider {
             editIntent.putExtra(TaskEditFragment.OVERRIDE_FINISH_ANIM, false);
             if(filter != null) {
                 editIntent.putExtra(TaskListFragment.TOKEN_FILTER, filter);
+                if (filter.valuesForNewTasks != null) {
+                    String values = AndroidUtilities.contentValuesToSerializedString(filter.valuesForNewTasks);
+                    values = PermaSql.replacePlaceholders(values);
+                    editIntent.putExtra(TaskEditFragment.TOKEN_VALUES, values);
+                    editIntent.setAction("E" + widgetId + values);
+                }
                 if (tablet) {
-                    if (filter.valuesForNewTasks != null) {
-                        String values = AndroidUtilities.contentValuesToSerializedString(filter.valuesForNewTasks);
-                        values = PermaSql.replacePlaceholders(values);
-                        editIntent.putExtra(TaskEditFragment.TOKEN_VALUES, values);
-                        editIntent.setAction("E" + widgetId + values);
-                    }
                     if (filter instanceof FilterWithCustomIntent) {
                         Bundle customExtras = ((FilterWithCustomIntent) filter).customExtras;
                         editIntent.putExtras(customExtras);
