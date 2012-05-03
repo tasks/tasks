@@ -57,7 +57,7 @@ public class LinkActionExposer {
             int start = titleSpan.getSpanStart(urlSpan);
             int end = titleSpan.getSpanEnd(urlSpan);
             String text = titleSpan.subSequence(start, end).toString();
-            TaskAction taskAction = createLinkAction(context, url, text);
+            TaskAction taskAction = createLinkAction(context, taskId, url, text);
             if (taskAction != null)
                 result.add(taskAction);
         }
@@ -65,7 +65,7 @@ public class LinkActionExposer {
     }
 
     @SuppressWarnings("nls")
-    private TaskAction createLinkAction(Context context, String url, String text) {
+    private TaskAction createLinkAction(Context context, long id, String url, String text) {
         Intent itemIntent = new Intent(Intent.ACTION_VIEW);
         itemIntent.setData(Uri.parse(url));
         List<ResolveInfo> resolveInfoList = pm.queryIntentActivities(itemIntent, 0);
@@ -101,7 +101,7 @@ public class LinkActionExposer {
             text = text.substring(0, 12) + "..."; //$NON-NLS-1$
 
         TaskAction action = new TaskAction(text,
-                PendingIntent.getActivity(context, 0, actionIntent, 0), bitmap);
+                PendingIntent.getActivity(context, (int)id, actionIntent, 0), bitmap);
         return action;
     }
 
