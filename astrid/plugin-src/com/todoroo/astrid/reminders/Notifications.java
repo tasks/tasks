@@ -200,6 +200,7 @@ public class Notifications extends BroadcastReceiver {
         notifyIntent.setAction("NOTIFY" + id); //$NON-NLS-1$
         notifyIntent.putExtra(TaskListFragment.TOKEN_FILTER, itemFilter);
         notifyIntent.putExtra(NotificationFragment.TOKEN_ID, id);
+        notifyIntent.putExtra(EXTRAS_TEXT, text);
         notifyIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_MULTIPLE_TASK);
         notifyIntent.putExtra(TaskListActivity.TOKEN_SOURCE, Constants.SOURCE_NOTIFICATION);
 
