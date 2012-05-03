@@ -759,6 +759,12 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
 
     }
 
+    public long getTaskIdInProgress() {
+        if (model != null && model.getId() > 0)
+            return model.getId();
+        return getActivity().getIntent().getLongExtra(TOKEN_ID, -1);
+    }
+
     private void setIsNewTask(boolean isNewTask) {
         this.isNewTask = isNewTask;
         if (isNewTask) {

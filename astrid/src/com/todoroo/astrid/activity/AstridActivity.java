@@ -343,6 +343,10 @@ public class AstridActivity extends FragmentActivity
         public void onReceive(Context context, final Intent intent) {
             // Process in app notification
             long taskId = intent.getLongExtra(NotificationFragment.TOKEN_ID, 0);
+            TaskEditFragment tef = getTaskEditFragment();
+            if (tef != null && tef.getTaskIdInProgress() == taskId)
+                return;
+
             if (taskId > 0) {
                 String text = intent.getStringExtra(Notifications.EXTRAS_TEXT);
                 try {
@@ -370,6 +374,7 @@ public class AstridActivity extends FragmentActivity
         public void onReceive(Context context, final Intent intent) {
             long taskId = intent.getLongExtra(
                     AstridApiConstants.EXTRAS_TASK_ID, 0);
+
             if (taskId > 0) {
                 long oldDueDate = intent.getLongExtra(
                         AstridApiConstants.EXTRAS_OLD_DUE_DATE, 0);
