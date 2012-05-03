@@ -49,14 +49,14 @@
     <item quantity="other">タスク %d 件</item>
   </plurals>
   <plurals name="Npeople">
-    <item quantity="one">1 person</item>
-    <item quantity="other">%d people</item>
+    <item quantity="one">1人</item>
+    <item quantity="other">%d人</item>
   </plurals>
   <string name="today">今日</string>
   <string name="tomorrow">明日</string>
   <string name="yesterday">昨日</string>
-  <string name="tmrw">Tmrw</string>
-  <string name="yest">Yest</string>
+  <string name="tmrw">明日</string>
+  <string name="yest">昨日</string>
   <string name="DLG_confirm_title">確認</string>
   <string name="DLG_question_title">確認</string>
   <string name="DLG_information_title">インフォメーション</string>
@@ -72,7 +72,7 @@
   <string name="SyP_progress">タスクの同期中...</string>
   <string name="SyP_progress_toast">同期中...</string>
   <string name="SyP_label">同期</string>
-  <string name="SyP_ioerror">Connection Error! Check your Internet connection.</string>
+  <string name="SyP_ioerror">接続エラー！インターネットに接続できるか確認してください。</string>
   <string name="sync_SPr_group_status">状況</string>
   <string name="sync_status_loggedout">ログインしていません</string>
   <string name="sync_status_ongoing">同期中</string>
@@ -91,7 +91,7 @@
   <string name="sync_SPr_group_actions">アクション</string>
   <string name="sync_SPr_sync">すぐに同期!</string>
   <string name="sync_SPr_sync_log_in">ログインと同期</string>
-  <string name="sync_SPr_logged_in_prefix">Logged in as:</string>
+  <string name="sync_SPr_logged_in_prefix">ログインアカウント：</string>
   <string name="sync_SPr_forget">ログアウト</string>
   <string name="sync_SPr_forget_description">すべての同期データを消去します</string>
   <string name="sync_forget_confirm">ログアウトと同期データを消去しますか?</string>

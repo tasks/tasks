@@ -1,21 +1,21 @@
 <?xml version='1.0' encoding='utf-8'?>
 <resources>
-  <string name="EPE_action">Freigeben</string>
+  <string name="EPE_action">Teilen</string>
   <string name="actfm_person_hint">Kontakt</string>
   <string name="actfm_person_or_tag_hint">Kontakt oder Liste</string>
   <string name="actfm_toast_success">Auf dem Server gespeichert</string>
   <string name="actfm_toast_error">Speichern nicht erfolgreich: %s</string>
   <string name="actfm_tag_operation_disabled">Entschuldigung, diese Aktion wird für geteilte Tags noch nicht unterstützt.</string>
-  <string name="actfm_tag_operation_owner_delete">Sie sind der Eigentümer dieser geteilten Liste! Wenn Sie die Liste löschen, wird sie bei allen Listenmitgliedern gelöscht. Sind sie sich sicher, dass sie fortfahren möchten?</string>
+  <string name="actfm_tag_operation_owner_delete">Sie sind der Eigentümer dieser geteilten Liste! Wenn Sie die Liste löschen, wird sie bei allen Listenmitgliedern gelöscht. Sind Sie sich sicher, dass Sie fortfahren möchten?</string>
   <string name="actfm_picture_camera">Bild aufnehmen</string>
   <string name="actfm_picture_gallery">Aus Galerie wählen</string>
   <string name="actfm_picture_clear">Bild entfernen</string>
-  <string name="actfm_FLA_menu_refresh">Listen aktualisieren</string>
+  <string name="actfm_FLA_menu_refresh">List aktualisieren</string>
   <string name="actfm_view_task_title">Aufgabe anzeigen?</string>
-  <string name="actfm_view_task_text">Diese Aufgabe wurde an %s gesandt! Sie sehen momentan ihre eigenen Aufgaben an. Möchten Sie diese und weitere Aufgaben, die sie Anderen zugewiesen haben, ansehen?</string>
+  <string name="actfm_view_task_text">Diese Aufgabe wurde an %s gesandt! Sie sehen momentan Ihre eigenen Aufgaben an. Möchten Sie diese und weitere Aufgaben, die Sie Anderen zugewiesen haben, ansehen?</string>
   <string name="actfm_view_task_ok">Zugewiesene ansehen</string>
   <string name="actfm_view_task_cancel">Hier bleiben</string>
-  <string name="TVA_add_comment">Kommentar hinzufügen</string>
+  <string name="TVA_add_comment">Kommentar hinzufügen …</string>
   <string name="UAd_title_comment">%1$s Aw: %2$s</string>
   <string-array name="TVA_tabs">
     <item>Aufgaben</item>
@@ -35,7 +35,7 @@
   <string name="actfm_TVA_list_icon_label">Listensymbol</string>
   <string name="actfm_TVA_tag_description_label">Beschreibung</string>
   <string name="actfm_TVA_tag_settings_label">Einstellungen</string>
-  <string name="actfm_TVA_tag_description_hint">Gebe eine Berschreibung ein</string>
+  <string name="actfm_TVA_tag_description_hint">Beschreibung eingeben</string>
   <string name="actfm_TVA_tag_name_hint">Vergebe einen Listenname</string>
   <string name="actfm_TVA_login_to_share">Sie müssen bei Astrid.com eingeloggt sein um Listen zu teilen! Bitte loggen Sie sich ein oder machen Sie diese Liste privat.</string>
   <string name="actfm_EPA_intro">Benutze Astrid um Einkaufslisten, Party Pläne, oder Team Projekte zu teilen und sehe sofort wenn Arbeit erledigt wurde.</string>
@@ -46,9 +46,9 @@
   <string name="actfm_EPA_assign_me">Mich</string>
   <string name="actfm_EPA_unassigned">Nicht zugewiesen</string>
   <string name="actfm_EPA_task_rabbit">deligiere es.</string>
-  <string name="actfm_EPA_assign_custom">Benutzerdefiniert ...</string>
+  <string name="actfm_EPA_assign_custom">Benutzerdefiniert …</string>
   <string name="actfm_EPA_share_with">Teilen mit:</string>
-  <string name="actfm_EPA_assigned_toast">Sent to %1$s (you can see it in the list between you and %2$s).</string>
+  <string name="actfm_EPA_assigned_toast">Zugewiesen an %1$s (Du kannst es in der mit %2$s geteilten Liste sehen)</string>
   <string name="actfm_EPA_collaborators_header">Mit Freunden teilen</string>
   <string name="actfm_EPA_list">Liste: %s</string>
   <string name="actfm_EPA_assigned_hint">Kontaktperson</string>
@@ -95,11 +95,11 @@
     <item>Alarm!</item>
   </string-array>
   <string name="backup_BPr_header">Backups</string>
-  <string name="backup_BPr_group_status">Zustand</string>
-  <string name="backup_status_success">Letztes Backup:\n%s</string>
-  <string name="backup_status_failed">Letztes Backup fehlgeschlagen</string>
-  <string name="backup_status_failed_subtitle">(klicken um Fehler anzuzeigen)</string>
-  <string name="backup_status_never">Bisher kein Backup erstellt!</string>
+  <string name="backup_BPr_group_status">Status</string>
+  <string name="backup_status_success">Letzte Datensicherung:\n%s</string>
+  <string name="backup_status_failed">Letzte Datensicherung gescheitert</string>
+  <string name="backup_status_failed_subtitle">(Anklicken, um Fehler anzuzeigen)</string>
+  <string name="backup_status_never">Bisher keine Datensicherung erstellt!</string>
   <string name="backup_BPr_group_options">Einstellungen</string>
   <string name="backup_BPr_auto_title">Automatische Backups</string>
   <string name="backup_BPr_auto_disabled">Automatische Backups deaktiviert</string>
@@ -113,11 +113,11 @@
   <string name="backup_TXI_error">Importfehler</string>
   <string name="export_toast">%1$s bis %2$s gesichert.</string>
   <string name="export_toast_no_tasks">Keine Aufgaben zu exportieren.</string>
-  <string name="export_progress_title">Exportieren...</string>
+  <string name="export_progress_title">Es wird exportiert …</string>
   <string name="import_summary_title">Zusammenfassung wiederherstellen</string>
   <string name="import_summary_message">Datei %1$s enthielt %2$s Aufgaben.\n\n %3$s wurden importiert,\n %4$s waren schon vorhanden (übersprungen)\n %5$s waren fehlerhaft\n</string>
-  <string name="import_progress_title">Importieren...</string>
-  <string name="import_progress_read">Lese Aufgabe %d...</string>
+  <string name="import_progress_title">Es wird importiert …</string>
+  <string name="import_progress_read">Aufgabe %d wird gelesen …</string>
   <string name="DLG_error_opening">Dieses Element konnte nicht gefunden werden:</string>
   <string name="DLG_error_sdcard">Ordner konnte nicht geöffnet werden: %s</string>
   <string name="DLG_error_sdcard_general">SD-Karte konnte nicht geöffnet werden!</string>
@@ -129,7 +129,7 @@
   <string name="write_permission_desc">Aufgaben erstellen, existierende bearbeiten</string>
   <string name="DLG_delete_this_task_question">Diese Aufgabe löschen?</string>
   <string name="DLG_delete_this_item_question">Dieses Element löschen: %s?</string>
-  <string name="DLG_upgrading">Ihre Aufgaben werden aktualisiert...</string>
+  <string name="DLG_upgrading">Ihre Aufgaben werden aktualisiert …</string>
   <string name="DLG_hour_minutes">Zeit (Stunden : Minuten)</string>
   <string name="DLG_please_update">Astrid sollte auf die aktuellste Version im Android Market aktualisiert werden! Bitte tun Sie dies, bevor Sie fortfahren, oder warten Sie ein paar Sekunden.</string>
   <string name="DLG_to_market">Gehe zum Market</string>
@@ -137,7 +137,7 @@
   <string name="DLG_decline">Ich akzeptiere nicht</string>
   <string name="DLG_eula_title">Astrid Nutzungsbedingungen</string>
   <string name="DLG_please_wait">Bitte warten Sie</string>
-  <string name="DLG_loading">Lade...</string>
+  <string name="DLG_loading">Ladevorgang …</string>
   <string name="DLG_dismiss">Verwerfen</string>
   <string name="DLG_ok">OK</string>
   <string name="DLG_cancel">Abbrechen</string>
@@ -153,7 +153,7 @@
   <string name="ENA_refresh_comments">Kommentare aktualisieren</string>
   <string name="TLA_no_items">Sie haben keine Aufgaben! \n Möchten Sie welche hinzufügen?</string>
   <string name="TLA_menu_addons">Add-Ons</string>
-  <string name="TLA_menu_sort">Sortieren &amp; Teilaufaben</string>
+  <string name="TLA_menu_sort">Sortierung &amp; Teilaufgaben</string>
   <string name="TLA_menu_sync">Jetzt Synchronisieren!</string>
   <string name="TLA_menu_lists">Listen</string>
   <string name="TLA_menu_friends">Freunde</string>
@@ -198,12 +198,12 @@
   <string name="TAd_contextDeleteTask">Aufgabe löschen</string>
   <string name="TAd_contextUndeleteTask">Aufgabe wiederherstellen</string>
   <string name="TAd_contextPurgeTask">Aufgabe löschen</string>
-  <string name="SSD_title">Sortieren, Teilaufgaben und Versteckte</string>
+  <string name="SSD_title">Sortierung, Teilaufgaben und Versteckte</string>
   <string name="SSD_hidden_title">Versteckte Aufgaben</string>
   <string name="SSD_completed">Erledigte Aufgaben anzeigen</string>
   <string name="SSD_hidden">Versteckte Aufgaben anzeigen</string>
   <string name="SSD_deleted">Gelöschte Aufgaben anzeigen</string>
-  <string name="SSD_sort_drag">Drag &amp; Drop mit Teilaufgaben</string>
+  <string name="SSD_sort_drag">Ziehen &amp; Ablegen mit Teilaufgaben</string>
   <string name="SSD_sort_auto">Astrid Smart Sort</string>
   <string name="SSD_sort_alpha">Nach Titel</string>
   <string name="SSD_sort_due">Nach Fälligkeit</string>
@@ -212,11 +212,11 @@
   <string name="SSD_sort_reverse">Umgekehrte Sortierung</string>
   <string name="SSD_save_temp">Nur einmal</string>
   <string name="SSD_save_always">Immer</string>
-  <string name="FSA_label">Astrid List or Filter</string>
+  <string name="FSA_label">Astrids Liste oder Filter</string>
   <string name="FLA_title">Listen</string>
-  <string name="FLA_loading">Lade Filter...</string>
+  <string name="FLA_loading">Filter werden geladen …</string>
   <string name="FLA_context_shortcut">Verknüpfung auf dem Desktop erstellen</string>
-  <string name="FLA_menu_search">Durchsuche Aufgaben...</string>
+  <string name="FLA_menu_search">Aufgaben durchsuchen …</string>
   <string name="FLA_menu_help">Hilfe</string>
   <string name="FLA_shortcut_dialog_title">Desktop Verküpfung erstellen</string>
   <string name="FLA_shortcut_dialog">Name der Verknüpfung</string>
@@ -225,6 +225,7 @@
   <string name="FLA_toast_onCreateShortcut">Verknüpfung erstellt: %s</string>
   <string name="FLA_new_filter">Neuer Filter</string>
   <string name="FLA_new_list">Neue Liste</string>
+  <string name="FLA_no_filter_selected">Kein Filter ausgewählt. Bitte Filter oder Liste auswählen.</string>
   <string name="TEA_view_title">Astrid: Bearbeite \'%s\'</string>
   <string name="TEA_view_titleNew">Neue Aufgabe</string>
   <string name="TEA_title_label">Titel</string>
@@ -237,10 +238,10 @@
   <string name="TEA_hideUntil_label">Aufgabe anzeigen</string>
   <string name="TEA_hideUntil_message">Aufgabe wird bis %s versteckt</string>
   <string-array name="TEA_loading">
-    <item>Lade...</item>
+    <item>Ladevorgang …</item>
   </string-array>
   <string name="TEA_note_label">Notizen</string>
-  <string name="TEA_notes_hint">Notizen zur Aufgabe hinzufügen</string>
+  <string name="TEA_notes_hint">Notizen zur Aufgabe hinzufügen …</string>
   <string name="TEA_estimatedDuration_label">Wie lange wird es dauern?</string>
   <string name="TEA_elapsedDuration_label">Für die Aufgabe bisher aufgewendete Zeit</string>
   <string name="TEA_menu_save">Änderungen speichern</string>
@@ -281,16 +282,16 @@
   <string name="TEA_control_notes">Notizen</string>
   <string name="TEA_control_reminders">Erinnerungen</string>
   <string name="TEA_control_timer">Timer-Einstellungen</string>
-  <string name="TEA_control_share">Share With Friends</string>
-  <string name="hide_until_prompt">Show in my list</string>
+  <string name="TEA_control_share">Freunden zuweisen</string>
+  <string name="hide_until_prompt">In meiner Liste anzeigen</string>
   <string name="TEA_addons_text">Wollen Sie mehr von Astrid?</string>
   <string name="TEA_addons_button">Lade das Power Pack herunter!</string>
   <string name="TEA_more">Mehr</string>
   <string name="TEA_no_activity">Keine Aktivitäten anzuzeigen</string>
-  <string name="TEA_load_more">Weitere laden...</string>
+  <string name="TEA_load_more">Weitere laden …</string>
   <string name="TEA_when_dialog_title">Wann ist das fällig?</string>
   <string name="TEA_date_and_time">Datum/Uhrzeit</string>
-  <string name="WSV_click_to_load">Tap me to search for ways to get this done!</string>
+  <string name="WSV_click_to_load">Drück mich, um dir beim Lösen der Aufgabe zu helfen!</string>
   <string name="WSV_not_online">Ich kann mehr erreichen, wenn ich eine Verbindung zum Internet habe. Bitte prüf deine Verbindung.</string>
   <string name="InA_title">Willkommen zu Astrid</string>
   <string name="InA_agree">Ich stimme zu!</string>
@@ -303,24 +304,24 @@
   <string name="EPr_deactivated">deaktiviert</string>
   <string name="EPr_appearance_header">Erscheinungsbild</string>
   <string name="EPr_fontSize_title">Größe der Aufgabenliste</string>
-  <string name="EPr_showSmartConfirmation_title">Show confirmation for smart reminders</string>
+  <string name="EPr_showSmartConfirmation_title">Bestätigung für Smart-Erinnerungen anzeigen</string>
   <string name="EPr_fontSize_desc">Schriftgröße auf der Hauptseite</string>
   <string name="EPr_showNotes_title">Notizen zu Aufgaben anzeigen</string>
-  <string name="EPr_beastMode_title">Aufgabenbearbeitungsseite anpassen</string>
-  <string name="EPr_beastMode_desc">Erscheiungsbild der Aufgabenbearbeitungsseite anpassen</string>
+  <string name="EPr_beastMode_title">Aufgabenseite anpassen</string>
+  <string name="EPr_beastMode_desc">Erscheinungsbild Aufgabenseite anpassen</string>
   <string name="EPr_beastMode_reset">Auf Standardeinstellungen zurücksetzen</string>
   <string name="EPr_showNotes_desc_disabled">Notizen können über die Aufgabenbearbeitungsseite eingesehen werden</string>
   <string name="EPr_showNotes_desc_enabled">Benachrichtigungen werden immer angezeigt</string>
   <string name="EPr_compressTaskRows_title">Kompakte Aufgabenzeile</string>
   <string name="EPr_compressTaskRows_desc">Aufgabenzeilengröße an Titel anpassen</string>
-  <string name="EPr_userLegacyImportance_title">Use legacy importance style</string>
-  <string name="EPr_userLegacyImportance_desc">Use legacy importance style</string>
-  <string name="EPr_fullTask_title">Zeige vollen Tasktitel</string>
+  <string name="EPr_userLegacyImportance_title">Veralteten Wichtigkeits-Stil verwenden</string>
+  <string name="EPr_userLegacyImportance_desc">Veralteten Wichtigkeits-Stil verwenden</string>
+  <string name="EPr_fullTask_title">Gesamten Aufgabentitel anzeigen</string>
   <string name="EPr_fullTask_desc_enabled">Aufgabentitel werden vollständig angezeigt</string>
   <string name="EPr_fullTask_desc_disabled">Zwei Zeilen des Aufgabentitels werden angezeigt</string>
-  <string name="EPr_ideaAuto_title">Auto-load Ideas Tab</string>
-  <string name="EPr_ideaAuto_desc_enabled">Internetsuche für Ideentab wird während des Editieren der Aufgabe durchgeführt</string>
-  <string name="EPr_ideaAuto_desc_disabled">Internetsuche für Ideas Tab wird ausgeführt, wenn Haken gesetzt ist</string>
+  <string name="EPr_ideaAuto_title">Ideas Tab automatisch laden</string>
+  <string name="EPr_ideaAuto_desc_enabled">Internetsuche für Ideas Tab wird ausgeführt, wenn Haken gesetzt ist</string>
+  <string name="EPr_ideaAuto_desc_disabled">Internetsuche für Ideas Tab wird nur durchgeführt, wenn vom Nutzer gewünscht</string>
   <string name="EPr_theme_title">Farbschema</string>
   <string name="EPr_theme_desc">Momentan: %s</string>
   <string name="EPr_theme_desc_unsupported">Einstellungen benötigen mindestens Android 2.0</string>
@@ -357,8 +358,8 @@
   <string name="AOA_visit_website">Webseite besuchen</string>
   <string name="AOA_visit_market">Android Market</string>
   <string name="AOA_no_addons">Leere Liste!</string>
-  <string name="TWi_loading">Lade...</string>
-  <string name="WCA_title">Wähle Aufgaben zum Anzeigen...</string>
+  <string name="TWi_loading">Ladevorgang …</string>
+  <string name="WCA_title">Aufgaben zum Anzeigen wählen …</string>
   <string name="p_about">Über Astrid</string>
   <string name="p_about_text">Aktuelle Version: %s\n\n Astrid ist Open-Source und wird stolz von Todoroo, Inc. gepflegt.</string>
   <string name="p_help">Hilfe</string>
@@ -369,16 +370,16 @@
   <string name="EPr_defaults_header">Standardeinstellungen für neue Aufgaben</string>
   <string name="EPr_default_urgency_title">Standard Dringlichkeit</string>
   <string name="EPr_default_urgency_desc">Momentan: %s</string>
-  <string name="EPr_default_importance_title">Standard Wichtigkeit</string>
+  <string name="EPr_default_importance_title">Standard-Wichtigkeit</string>
   <string name="EPr_default_importance_desc">Momentan: %s</string>
-  <string name="EPr_default_hideUntil_title">Standardmässig Verstecken bis</string>
+  <string name="EPr_default_hideUntil_title">Standardmäßig verstecken bis</string>
   <string name="EPr_default_hideUntil_desc">Momentan: %s</string>
   <string name="EPr_default_reminders_title">Standarderinnerungen</string>
   <string name="EPr_default_reminders_desc">Momentan: %s</string>
-  <string name="EPr_default_addtocalendar_title">Default Add To Calendar</string>
+  <string name="EPr_default_addtocalendar_title">Standardmäßig in Kalender eintragen</string>
   <string name="EPr_default_addtocalendar_desc_disabled">Neue Aufgaben legen keinen Eintrag in den Google Kalender an.</string>
-  <string name="EPr_default_addtocalendar_desc">New tasks will be in the calendar: \"%s\"</string>
-  <string name="EPr_default_reminders_mode_title">Default Ring/Vibrate type</string>
+  <string name="EPr_default_addtocalendar_desc">Neue Aufgaben werden in Kalender eingetragen: \"%s\"</string>
+  <string name="EPr_default_reminders_mode_title">Standard-Alarm/Vibrationssignal</string>
   <string name="EPr_default_reminders_mode_desc">Momentan: %s</string>
   <string-array name="EPr_default_importance">
     <item>!!! (Höchste)</item>
@@ -406,14 +407,14 @@
     <item>Am Stichtag oder überfällig</item>
   </string-array>
   <string name="BFE_Active">Aktuelle Aufgaben</string>
-  <string name="BFE_Search">Suchen...</string>
+  <string name="BFE_Search">Suchen …</string>
   <string name="BFE_Recent">Kürzlich bearbeitet</string>
   <string name="BFE_Assigned">Ich wurde damit betraut</string>
-  <string name="BFE_Custom">Benutzerdefinierter Filter...</string>
+  <string name="BFE_Custom">Benutzerdefinierter Filter …</string>
   <string name="BFE_Saved">Kürzlich bearbeitet</string>
   <string name="BFE_Saved_delete">Filter löschen</string>
   <string name="CFA_title">Benutzerdefinierter Filter</string>
-  <string name="CFA_filterName_hint">Geben Sie dem Filter einen Namen, um ihn zu speichern...</string>
+  <string name="CFA_filterName_hint">Benennen Sie den Filter, um ihn zu speichern …</string>
   <string name="CFA_filterName_copy">Kopie von %s</string>
   <string name="CFA_universe_all">Aktuelle Aufgaben</string>
   <string name="CFA_type_add">oder</string>
@@ -426,7 +427,7 @@
   <string name="CFA_button_view">Anzeigen</string>
   <string name="CFA_button_save">Speichern &amp; Anzeigen</string>
   <string name="CFC_dueBefore_text">Fällig am: ?</string>
-  <string name="CFC_dueBefore_name">Fällig am...</string>
+  <string name="CFC_dueBefore_name">Fällig am …</string>
   <string-array name="CFC_dueBefore_entries">
     <item>Kein Fälligkeitsdatum</item>
     <item>Gestern</item>
@@ -437,12 +438,12 @@
     <item>Nächster Monat</item>
   </string-array>
   <string name="CFC_importance_text">Wichtigkeit mindestens?</string>
-  <string name="CFC_importance_name">Wichtigkeit...</string>
+  <string name="CFC_importance_name">Wichtigkeit …</string>
   <string name="CFC_tag_text">Liste: ?</string>
-  <string name="CFC_tag_name">Liste...</string>
-  <string name="CFC_tag_contains_name">Listenname enthält ...</string>
+  <string name="CFC_tag_name">Liste …</string>
+  <string name="CFC_tag_contains_name">Listenname enthält …</string>
   <string name="CFC_tag_contains_text">Listenname enthält: ?</string>
-  <string name="CFC_title_contains_name">Titel enthält...</string>
+  <string name="CFC_title_contains_name">Titel enthält …</string>
   <string name="CFC_title_contains_text">Titel enthält: ?</string>
   <string name="gcal_TEA_error">Fehler beim Hinzufügen der Aufgabe zum Kalender</string>
   <string name="gcal_TEA_calendar_label">Kalenderintegration:</string>
@@ -451,20 +452,20 @@
   <string name="gcal_TEA_calendar_error">Fehler beim Öffnen des Termins!</string>
   <string name="gcal_TEA_calendar_updated">Termin im Kalender wurde ebenfalls aktualisiert!</string>
   <string name="gcal_TEA_nocal">Nicht eintragen</string>
-  <string name="gcal_TEA_none_selected">In Kalender...</string>
+  <string name="gcal_TEA_none_selected">Zum Kalender hinzufügen …</string>
   <string name="gcal_TEA_has_event">Kalendereintrag</string>
   <string name="gcal_completed_title">%s (abgeschlossen)</string>
   <string name="gcal_GCP_default">Standardkalender</string>
   <string name="gtasks_FEx_header">Google Tasks</string>
   <string name="gtasks_FEx_list">Nach Liste</string>
   <string name="gtasks_FEx_title">Google Tasks: %s</string>
-  <string name="gtasks_FEx_creating_list">Erstelle Liste...</string>
+  <string name="gtasks_FEx_creating_list">Liste wird erstellt …</string>
   <string name="gtasks_FEx_create_list_dialog">Neuer Listenname:</string>
   <string name="gtasks_FEx_create_list_error">Fehler beim Erstllen einer neuen Liste.</string>
   <string name="gtasks_help_title">Wilkommen bei Google Tasks!</string>
   <string name="CFC_gtasks_list_text">In der Liste: ?</string>
-  <string name="CFC_gtasks_list_name">In GTasks Liste ...</string>
-  <string name="gtasks_GTA_clearing">Entferne erledigte Aufgaben...</string>
+  <string name="CFC_gtasks_list_name">In GTasks-Liste …</string>
+  <string name="gtasks_GTA_clearing">Erledigte Aufgaben werden entfernt …</string>
   <string name="gtasks_GTA_clear_completed">Entferne erledigte Aufgaben</string>
   <string name="gtasks_GLA_title">Bei Google Tasks einloggen</string>
   <string name="gtasks_GLA_body">Bitte logge dich bei Google Tasks Sync (Beta!) ein. Nicht-migrierte Google Apps Accounts werden zur Zeit nicht unterstützt.</string>
@@ -473,7 +474,7 @@
   <string name="gtasks_GLA_signIn">Anmelden</string>
   <string name="gtasks_GLA_email">E-Mail</string>
   <string name="gtasks_GLA_password">Passwort</string>
-  <string name="gtasks_GLA_authenticating">Authentifizierung...</string>
+  <string name="gtasks_GLA_authenticating">Legitimierung …</string>
   <string name="gtasks_GLA_domain">Google Apps für Domänenkonto</string>
   <string name="gtasks_GLA_errorEmpty">Fehler: Füllen Sie alle Felder aus!</string>
   <string name="gtasks_GLA_errorAuth">Anmeldefehler! Bitte Nutzernamen und Passwort in den Kontoeinstellungen des Telefons prüfen</string>
@@ -485,19 +486,12 @@
   <string name="gtasks_error_accountNotFound">Konto %s nicht gefunden. Bitte ausloggen und erneut einloggen über die Einstellungen von Google Tasks.</string>
   <string name="gtasks_error_authRefresh">Anmeldung beo Google Tasks nicht möglich. Bitte Passwort prüfen oder später erneut versuchen.</string>
   <string name="gtasks_error_accountManager">Fehler in den</string>
-
-
-
-
-
-
-
   <string name="help_popover_add_task">Beginnen Sie, indem Sie ein oder zwei Aufgaben hinzufügen</string>
-  <string name="help_popover_tap_task">Tap task to edit and share</string>
-  <string name="help_popover_list_settings">Tap to edit or share this list</string>
-  <string name="help_popover_collaborators">People you share with can help you build your list or finish tasks</string>
-  <string name="help_popover_add_lists">Tap add a list</string>
-  <string name="help_popover_switch_lists">Tap to add a list or switch between lists</string>
+  <string name="help_popover_tap_task">Aufgabe zur Bearbeitung und Freigabe anklicken</string>
+  <string name="help_popover_list_settings">Liste uur Bearbeitung und Frage anklicken</string>
+  <string name="help_popover_collaborators">Wen du Listen freigibst, können dir andere Nutzer beim Bearbeiten der Liste helfen und Aufgaben erledigen</string>
+  <string name="help_popover_add_lists">Zum Hinzufügen einer Liste anklicken</string>
+  <string name="help_popover_switch_lists">ZUm Hinzufügen einer Liste oder zum Wechsel zwischen Listen anklicken</string>
   <string name="help_popover_when_shortcut">Schnellzugang zur Einstellung von Datum und Uhrzeit</string>
   <string name="help_popover_when_row">In diese Zeile klicken, um Optionen wie Wiederholungen einzustellen</string>
   <string name="welcome_login_title">Willkommen zu Astrid</string>
@@ -505,11 +499,11 @@
   <string name="welcome_login_tos_link">\"Nutzungsbedingungen\"</string>
   <string name="welcome_login_pw">Einloggen mit Nutzername und Passwort</string>
   <string name="welcome_login_later">Später verbinden</string>
-  <string name="welcome_login_confirm_later_title">Why not sign in?</string>
+  <string name="welcome_login_confirm_later_title">Warum meldest du dich nicht an?</string>
   <string name="welcome_login_confirm_later_ok">Ich mach\'s!</string>
   <string name="welcome_login_confirm_later_cancel">Kein Interesse</string>
   <string name="welcome_login_confirm_later_dialog">"Melde dich an, um alles aus Astrid rauszuholen! Gratis, du kannst mit Astrid.com synchronisieren, Aufgaben per email hinzufügen  und du kannst sogar Aufgaben mit Freunden teilen!"</string>
-  <string name="help_popover_taskrabbit_type">Change the type of task</string>
+  <string name="help_popover_taskrabbit_type">Aufgabentyp ändern</string>
   <string name="locale_edit_alerts_title">Astrid Filter Alarm</string>
   <string name="locale_edit_intro">Astrid wird dich erinnern, wenn du Aufgaben in den folgenden Filtern hast:</string>
   <string name="locale_pick_filter">Filter:</string>
@@ -565,11 +559,11 @@
   <string name="opencrx_TEA_task_unassigned">&lt;Nicht zugeordnet&gt;</string>
   <string name="opencrx_TEA_creator_assign_label">Aufgabe diesem Ersteller zuordnen:</string>
   <string name="opencrx_TEA_dashboard_default">&lt;Standard&gt;</string>
-  <string name="opencrx_TEA_opencrx_title">OpenCRX Controls</string>
+  <string name="opencrx_TEA_opencrx_title">OpenCRX-Steuerung</string>
   <string name="CFC_opencrx_in_workspace_text">Im Arbeitsbereich: ?</string>
-  <string name="CFC_opencrx_in_workspace_name">Im Arbeitsbereich...</string>
+  <string name="CFC_opencrx_in_workspace_name">Im Arbeitsbereich …</string>
   <string name="CFC_opencrx_assigned_to_text">Zugeordnet zu: ?</string>
-  <string name="CFC_opencrx_assigned_to_name">Zugeordnet zu...</string>
+  <string name="CFC_opencrx_assigned_to_name">Zugeordnet zu …</string>
   <string name="EPr_powerpack_header">Astrid Power Pack</string>
   <string name="EPr_statistics_title">Anonyme Nutzungsstatistiken</string>
   <string name="EPr_statistics_desc_disabled">Nutzungsstatistik wird nicht übertragen</string>
@@ -584,11 +578,11 @@
   <string name="producteev_PPr_header">Producteev</string>
   <string name="producteev_default_dashboard">Standard-Arbeitsbereich</string>
   <string name="producteev_no_dashboard">(Nicht syncronisieren)</string>
-  <string name="producteev_create_dashboard">Einen neuen Arbeitsbereich hinzufügen...</string>
+  <string name="producteev_create_dashboard">Einen neuen Arbeitsbereich hinzufügen …</string>
   <string name="producteev_create_dashboard_name">Name des neuen Arbeitsbereichs</string>
   <string name="producteev_PPr_defaultdash_title">Standard-Arbeitsbereich</string>
   <string name="producteev_PPr_defaultdash_summary">Neue Aufgaben werden hinzugefügt zu: %s</string>
-  <string name="producteev_PPr_defaultdash_summary_none">Neue Aufgaben werden standardmässig nicht synchronisiert</string>
+  <string name="producteev_PPr_defaultdash_summary_none">Neue Aufgaben werden standardmäßig nicht synchronisiert</string>
   <string name="producteev_PLA_title">Bei Producteev anmelden</string>
   <string name="producteev_PLA_body">Melden Sie sich mit Ihrem vorhandenen Producteev-Konto an, oder erstellen Sie ein neues Konto!</string>
   <string name="producteev_PLA_terms">Allgemeine Geschäftsbedingungen</string>
@@ -614,9 +608,9 @@
   <string name="producteev_TEA_dashboard_assign_label">Aufgabe diesem Arbeitsbereich zuordnen:</string>
   <string name="producteev_TEA_dashboard_default">&lt;Standard&gt;</string>
   <string name="CFC_producteev_in_workspace_text">Im Arbeitsbereich: ?</string>
-  <string name="CFC_producteev_in_workspace_name">Im Arbeitsbereich...</string>
+  <string name="CFC_producteev_in_workspace_name">Im Arbeitsbereich …</string>
   <string name="CFC_producteev_assigned_to_text">Zugeordnet zu: ?</string>
-  <string name="CFC_producteev_assigned_to_name">Zugeordnet zu...</string>
+  <string name="CFC_producteev_assigned_to_name">Zugeordnet zu …</string>
   <string name="TEA_reminders_group_label">Erinnerungen</string>
   <string name="TEA_reminder_label">Erinnere mich:</string>
   <string name="TEA_reminder_due">Wenn Aufgabe fällig ist</string>
@@ -627,7 +621,7 @@
   <string name="TEA_reminder_mode_five">Fünf mal klingenl</string>
   <string name="TEA_reminder_mode_nonstop">Klingeln, bis ich den Arlarm abschalte</string>
   <string-array name="TEA_reminder_random">
-    <item>an hour</item>
+    <item>einer Stunde</item>
     <item>einem Tag</item>
     <item>einer Woche</item>
     <item>2 Wochen</item>
@@ -797,12 +791,12 @@
   <string-array name="reminder_responses">
     <item>Ich hab was für dich!</item>
     <item>Bereit die Sache abzuhaken?</item>
-    <item>Warum erledigst du das nicht?</item>
+    <item>Warum erledigst du das nicht endlich?</item>
     <item>Wie sieht\'s hiermit aus? Fertig, Tiger?</item>
-    <item>Bereit für das?</item>
+    <item>Bist du bereit für diesen Job?</item>
     <item>Bist du dem gewachsen?</item>
     <item>Du kannst glücklich sein! Mach das eben fertig!</item>
-    <item>Ich verspreche dir, du wirst dich besser fühlen wenn es fertig ist!</item>
+    <item>Du wirst dich besser fühlen, wenn es fertig ist! Ich versprech\'s dir.</item>
     <item>Willst du es nicht heute erledigen?</item>
     <item>Mach es zu Ende, mir reicht\'s!</item>
     <item>Kannst du es erledigen? Yes, you can!</item>
@@ -810,18 +804,18 @@
     <item>Fühl dich gut! Pack\'s an!</item>
     <item>Ich bin stolz auf dich! Mach es endlich fertig!</item>
     <item>Wie wäre es mit einem kleinen Snack nach getaner Arbeit?</item>
-    <item>Bitte nur diese eine Aufgabe...</item>
-    <item>Es ist Zeit die Liste zu verkürzen!</item>
+    <item>Nur diese eine Aufgabe, bitte?</item>
+    <item>Es ist an der Zeit, deine Aufganliste zu verkürzen!</item>
     <item>Gehörst du zum \"Team Ordnung\" oder zum \"Team Chaos\"? Fang an!</item>
     <item>Habe ich dir schon gesagt, dass du mich zurzeit beeindruckst? Weiter so!</item>
     <item>Eine Aufgabe am Tag verhindert das Chaos! Tschüss Chaos!</item>
     <item>Wie machst du das nur? Ich bin schwer beeindruckt!</item>
-    <item>You can\'t just get by on your good looks. Let\'s get to it!</item>
+    <item>Du kommst mir nicht mit deinen schönen Aussehen davon! Kümmer dich drum!</item>
     <item>Gutes Wetter für so einen Job, nicht wahr?</item>
-    <item>A spot of tea while you work on this?</item>
+    <item>Ein Täschen Tee, während du die Aufgabe löst?</item>
     <item>Wenn du es endlich gemacht hättest, könntest du rausgehen und spielen.</item>
     <item>Its time. You cant put off the inevitable.</item>
-    <item>Es ist Zeit. Sie können das Unumgängliche nicht hinausschieben.</item>
+    <item>Es kränkt mich immer ein bisschen, wenn du mich ignorierst.</item>
   </string-array>
   <string-array name="postpone_nags">
     <item>Beweise bitte dass du kein Zauderer bist!</item>
@@ -892,10 +886,10 @@
   <string name="rmilk_MLA_error">Entschuldigung, beim Einloggen ist ein Fehler aufgetreten. Bitte versuche es erneut. \n\n Fehlermeldung: %s</string>
   <string name="rmilk_notification_title">Astrid: Remember the Milk</string>
   <string name="rmilk_ioerror">Verbindungsfehler! Bitte überprüfe deine Internetverbindung oder die RTM Server (status.rememberthemilk.com) zur Lösung des Problems.</string>
-  <string name="subtasks_help_title">Sort and Indent in Astrid</string>
+  <string name="subtasks_help_title">Sortieren und einrücken in Astrid</string>
   <string name="subtasks_help_1">Drücken und halten, um Aufgabe zu verschieben</string>
   <string name="subtasks_help_2">Sortieren ändern durch Ziehen nach oben oder unten</string>
-  <string name="subtasks_help_3">Drag horizontally to indent</string>
+  <string name="subtasks_help_3">Zum Einrücken waagerecht ziehen</string>
   <string name="TEA_tags_label">Listen</string>
   <string name="TEA_tags_label_long">Aufgabe in eine oder mehrere Listen eintragen</string>
   <string name="TEA_tags_none">Keine</string>
@@ -924,7 +918,7 @@
   <string name="TEA_tags_deleted">Löschen der Liste %1$s beeinflusste %2$d Aufgaben</string>
   <string name="TEA_tags_left">Sie haben die geteilte Liste %1$s verlassen (betrifft %2$d Aufgaben)</string>
   <string name="TEA_tags_renamed">%1$s umbennant nach %2$s für %3$d Aufgaben</string>
-  <string name="tag_case_migration_notice">We\'ve noticed that you have some lists that have the same name with different capitalizations. We think you may have intended them to be the same list, so we\'ve combined the duplicates. Don\'t worry though: the original lists are simply renamed with numbers (e.g. Shopping_1, Shopping_2). If you don\'t want this, you can simply delete the new combined list!</string>
+  <string name="tag_case_migration_notice">Ich habe festgestellt, dass du änhliche Listen mit leicht unterschiedlichen Schreibweisen angelegt hast. Du hast sicherlich die gleiche Liste gemeint, daher habe ich sie zusammenführt. Keine Angst, deine Listen habe ich erhalten (z. B. Einkauf_1, Einkauf_2). Fallls du keine automatische Zusammenfassung wünschst, lösche die zusammengefügte neue Liste einfach.</string>
   <string name="tag_settings_title">Listeneinstellungen</string>
   <string name="tag_updates_title">Aktivität: %s</string>
   <string name="tag_delete_button">Liste löschen</string>
@@ -938,19 +932,19 @@
   <string name="TEA_timer_comment_started">Aufgabe begonnen:</string>
   <string name="TEA_timer_comment_stopped">Bearbeitung abgebrochen:</string>
   <string name="TEA_timer_comment_spent">Benötigte Zeit:</string>
-  <string name="update_string_friends">%1$s is now friends with %2$s</string>
-  <string name="update_string_request_friendship">%1$s wants to be friends with you</string>
-  <string name="update_string_confirmed_friendship">%1$s has confirmed your friendship request</string>
-  <string name="update_string_task_created">%1$s created this task</string>
-  <string name="update_string_task_created_on_list">%1$s added %2$s to this list</string>
-  <string name="update_string_task_completed">%1$s completed %2$s. Huzzah!</string>
-  <string name="update_string_task_uncompleted">%1$s un-completed %2$s.</string>
-  <string name="update_string_task_tagged">%1$s added %4$s to %2$s</string>
-  <string name="update_string_task_tagged_list">%1$s added %4$s to this list</string>
-  <string name="update_string_task_assigned">%1$s assigned %4$s to %2$s</string>
-  <string name="update_string_default_comment">%1$s commented: %3$s</string>
-  <string name="update_string_task_comment">%1$s Re: %2$s: %3$s</string>
-  <string name="update_string_tag_comment">%1$s Re: %2$s: %3$s</string>
+  <string name="update_string_friends">%1$s ist jetzt Freund mit %2$s</string>
+  <string name="update_string_request_friendship">Freundschaftsanfrage von %1$s</string>
+  <string name="update_string_confirmed_friendship">%1$s hat deine Freundschaftsanfrage bestätigt</string>
+  <string name="update_string_task_created">%1$s hat diese Aufgabe angelegt</string>
+  <string name="update_string_task_created_on_list">%1$s fügte %2$s dieser Liste hinzu</string>
+  <string name="update_string_task_completed">%1$s hat %2$s erledigt. Super!</string>
+  <string name="update_string_task_uncompleted">%1$s hat \"erldigt\"-Status von %2$s aufgehoben</string>
+  <string name="update_string_task_tagged">1$s hat %4$s an %2$s hinzugefügt</string>
+  <string name="update_string_task_tagged_list">%1$s hat %4$s dieser Liste hinzugefügt</string>
+  <string name="update_string_task_assigned">1$s hat %4$s an %2$s zugewiesen</string>
+  <string name="update_string_default_comment">%1$s hat kommentiert: %3$s</string>
+  <string name="update_string_task_comment">%1$s hat geantwortet: %2$s: %3$s</string>
+  <string name="update_string_tag_comment">%1$s hat geantwortet: %2$s: %3$s</string>
   <string name="voice_create_prompt">Sprechen Sie, um eine Aufgabe anzulegen</string>
   <string name="voice_edit_title_prompt">Sprechen Sie, um einen Auftragsnamen zu vergeben</string>
   <string name="voice_edit_note_prompt">Sprechen Sie, um Aufgabennotizen zu setzen</string>
@@ -971,18 +965,18 @@
   <string name="welcome_setting">Einführung anzeigen</string>
   <string name="welcome_title_1">Willkommen zu Astrid</string>
   <string name="welcome_title_2">Erstelle Listen</string>
-  <string name="welcome_title_3">Switch between lists</string>
+  <string name="welcome_title_3">Zwischen Listen wechseln</string>
   <string name="welcome_title_4">Teile Listen</string>
   <string name="welcome_title_5">Verteile Aufgaben</string>
-  <string name="welcome_title_6">Provide details</string>
+  <string name="welcome_title_6">Details angeben</string>
   <string name="welcome_title_7">Jetzt verbinden\num anzufangen!</string>
   <string name="welcome_title_7_return">Fertig!</string>
-  <string name="welcome_body_1">The perfect personal to-do list \nthat works great with friends</string>
-  <string name="welcome_body_2">Great for any list:\nread, watch, buy, visit!</string>
+  <string name="welcome_body_1">Die perfekte Aufgabenverwaltung - \nperfekt für die Zusammenarbeit mit anderen geeignet</string>
+  <string name="welcome_body_2">In Listen erfassen: \nzu lesen, zu sehen, zu kaufen, zu besuchen!</string>
   <string name="welcome_body_3">Teilen Sie Listen mit\nFreunden, Mitbewohnern\noder Ihrem Partner!</string>
-  <string name="welcome_body_4">Share lists with \nfriends, housemates,\nor your sweetheart!</string>
+  <string name="welcome_body_4">Listen freigeben für\nFreunde, Haushaltshilfen\noder deine/deinen Liebsten!</string>
   <string name="welcome_body_5">and much more!</string>
-  <string name="welcome_body_6">Tap to add notes,\nset reminders,\nand much more!</string>
+  <string name="welcome_body_6">Zum Hinzufügen von Notizen anklicken\nErinnerungen einstellen\nund vieles mehr!</string>
   <string name="welcome_body_7">Anmelden</string>
   <string name="welcome_body_7_return">Berühren Sie Astrid\num zurückzukehren.</string>
   <string name="welcome_back">Zurück</string>
@@ -1028,123 +1022,16 @@
     <item>Blau</item>
     <item>Durchscheinend</item>
   </string-array>
-  <string name="PPW_widget_dlg_text">This widget is only available to owners of the PowerPack!</string>
-  <string name="PPW_widget_dlg_ok">Preview</string>
-  <string name="PPW_demo_title1">Items on %s will go here</string>
-  <string name="PPW_demo_title2">Power Pack includes Premium Widgets...</string>
-  <string name="PPW_demo_title3">...voice add and good feelings!</string>
-  <string name="PPW_demo_title4">Tap to learn more!</string>
-  <string name="PPW_info_title">Free Power Pack!</string>
-  <string name="PPW_info_signin">Sign in!</string>
-  <string name="PPW_info_later">Later</string>
-  <string name="PPW_unlock_howto">Share lists with friends! Unlock the free Power Pack when 3 friends sign up with Astrid.</string>
-  <string name="PPW_check_button">Get the Power Pack for free!</string>
-  <string name="PPW_check_share_lists">Share lists!</string>
-  <plurals name="DUt_years">
-    <item quantity="one">1 Year</item>
-    <item quantity="other">%d Years</item>
-  </plurals>
-  <plurals name="DUt_months">
-    <item quantity="one">1 Month</item>
-    <item quantity="other">%d Months</item>
-  </plurals>
-  <plurals name="DUt_weeks">
-    <item quantity="one">1 Week</item>
-    <item quantity="other">%d Weeks</item>
-  </plurals>
-  <plurals name="DUt_days">
-    <item quantity="one">1 Day</item>
-    <item quantity="other">%d Days</item>
-  </plurals>
-  <plurals name="DUt_weekdays">
-    <item quantity="one">1 Weekday</item>
-    <item quantity="other">%d Weekdays</item>
-  </plurals>
-  <plurals name="DUt_hours">
-    <item quantity="one">1 Hour</item>
-    <item quantity="other">%d Hours</item>
-  </plurals>
-  <plurals name="DUt_minutes">
-    <item quantity="one">1 Minute</item>
-    <item quantity="other">%d Minutes</item>
-  </plurals>
-  <plurals name="DUt_seconds">
-    <item quantity="one">1 Second</item>
-    <item quantity="other">%d Seconds</item>
-  </plurals>
-  <plurals name="DUt_hoursShort">
-    <item quantity="one">1 Hr</item>
-    <item quantity="other">%d Hrs</item>
-  </plurals>
-  <plurals name="DUt_minutesShort">
-    <item quantity="one">1 Min</item>
-    <item quantity="other">%d Min</item>
-  </plurals>
-  <plurals name="DUt_secondsShort">
-    <item quantity="one">1 Sec</item>
-    <item quantity="other">%d Sec</item>
-  </plurals>
-  <plurals name="Ntasks">
-    <item quantity="one">1 task</item>
-    <item quantity="other">%d tasks</item>
-  </plurals>
-  <plurals name="Npeople">
-    <item quantity="one">1 person</item>
-    <item quantity="other">%d people</item>
-  </plurals>
-  <string name="today">Today</string>
-  <string name="tomorrow">Tomorrow</string>
-  <string name="yesterday">Yesterday</string>
-  <string name="tmrw">Morgen</string>
-  <string name="yest">Gestern</string>
-  <string name="DLG_confirm_title">Bestätigen?</string>
-  <string name="DLG_question_title">Frage:</string>
-  <string name="DLG_information_title">Information</string>
-  <string name="DLG_error_title">Fehler!</string>
-  <string name="DLG_save">Speichern</string>
-  <string name="DLG_yes">Ja</string>
-  <string name="DLG_no">Nein</string>
-  <string name="DLG_close">Schließen</string>
-  <string name="DLG_done">Done</string>
-  <string name="DLG_error">Ups, sieht aus, als ob ein Fehler passiert ist! Hier, was passiert ist:\n\n%s</string>
-  <string name="DLG_error_generic">Ups, sieht aus, als ob ein Fehler passiert ist!</string>
-  <string name="DLG_wait">Bitte warten...</string>
-  <string name="SyP_progress">Synchronisiere deine Aufgaben</string>
-  <string name="SyP_progress_toast">Synchronisiere…</string>
-  <string name="SyP_label">Synchronisation</string>
-  <string name="SyP_ioerror">Connection Error! Check your Internet connection.</string>
-  <string name="sync_SPr_group_status">Status</string>
-  <string name="sync_status_loggedout">Nicht angemeldet!</string>
-  <string name="sync_status_ongoing">Synchronisierung läuft...</string>
-  <string name="sync_status_success">Letzer Sync:\n%s</string>
-  <string name="sync_status_failed">Fehlgeschlagen am: %s</string>
-  <string name="sync_status_errors">Synchronisation w/ Fehler: %s</string>
-  <string name="sync_status_failed_subtitle">Letzte erfolgreiche Synchronisierung: %s</string>
-  <string name="sync_status_never">Noch nie synchronisiert!</string>
-  <string name="sync_SPr_group_options">Options</string>
-  <string name="sync_SPr_interval_title">Hintergrund-Synchronisierung</string>
-  <string name="sync_SPr_interval_desc_disabled">Hintergrund-Synchronisierung ist deaktiviert</string>
-  <string name="sync_SPr_interval_desc">Gesetzt auf: %s</string>
-  <string name="sync_SPr_bgwifi_title">WLAN Einstellungen</string>
-  <string name="sync_SPr_bgwifi_desc_enabled">Hintergrund-Synchronisierung nur bei WLAN-Verbindung</string>
-  <string name="sync_SPr_bgwifi_desc_disabled">Hintergrund-Synchronisierung findet immer statt</string>
-  <string name="sync_SPr_group_actions">Aktionen</string>
-  <string name="sync_SPr_sync">Jetzt synchronisieren!</string>
-  <string name="sync_SPr_sync_log_in">Einloggen &amp;amp; Synchroniseren!</string>
-  <string name="sync_SPr_logged_in_prefix">Angemeldet als:</string>
-  <string name="sync_SPr_forget">Abmelden</string>
-  <string name="sync_SPr_forget_description">Alle Synchronisationsdaten löschen</string>
-  <string name="sync_forget_confirm">Ausloggen / synchronisierte Daten löschen?</string>
-  <string-array name="sync_SPr_interval_entries">
-    <item>deaktivieren</item>
-    <item>alle 15 Minuten</item>
-    <item>alle 30 Minuten</item>
-    <item>stündlich</item>
-    <item>alle 3 Stunden</item>
-    <item>alle 6 Stunden</item>
-    <item>alle 12 Stunden</item>
-    <item>täglich</item>
-    <item>jeden dritten Tag</item>
-    <item>wöchentlich</item>
-  </string-array>
+  <string name="PPW_widget_dlg_text">Dieses Widget steht nur für Käufer des PowerPacks zur Verfügung!</string>
+  <string name="PPW_widget_dlg_ok">Vorschau</string>
+  <string name="PPW_demo_title1">Eintragungen zu %s werden hier abgelegt</string>
+  <string name="PPW_demo_title2">Das Powerpack umfasst auch Premium-Widgets …</string>
+  <string name="PPW_demo_title3">… Aufgaben per Sprache hinzufügen und gut fühlen!</string>
+  <string name="PPW_demo_title4">Anllicken um mehr zu erfahren!</string>
+  <string name="PPW_info_title">Kostenloses Power</string>
+  <string name="PPW_info_signin">Melde dich an!</string>
+  <string name="PPW_info_later">Später</string>
+  <string name="PPW_unlock_howto">Listen mit andren teilen! Du kannst das kostenlose Powerpack freischalten, wenn sich 3 deiner Freunde bei Astrid angemeldet haben.</string>
+  <string name="PPW_check_button">Du kannst das Power Pack kostenlos bekommen!</string>
+  <string name="PPW_check_share_lists">Listen freigeben!</string>
 </resources>

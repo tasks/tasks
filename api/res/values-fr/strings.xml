@@ -55,8 +55,8 @@
   <string name="today">Aujourd\'hui</string>
   <string name="tomorrow">Demain</string>
   <string name="yesterday">Hier</string>
-  <string name="tmrw">Tmrw</string>
-  <string name="yest">Yest</string>
+  <string name="tmrw">Demain</string>
+  <string name="yest">Hier</string>
   <string name="DLG_confirm_title">Confirmer ?</string>
   <string name="DLG_question_title">Question :</string>
   <string name="DLG_information_title">Information</string>

@@ -2,93 +2,93 @@
 <resources>
   <string name="EPE_action">Dela</string>
   <string name="actfm_person_hint">Kontakt eller e-post</string>
-  <string name="actfm_person_or_tag_hint">Kontakt eller Delad Lista</string>
+  <string name="actfm_person_or_tag_hint">Kontakt eller Delad lista</string>
   <string name="actfm_toast_success">Sparad på server</string>
-  <string name="actfm_toast_error">Fel vid sparning: %s</string>
-  <string name="actfm_tag_operation_disabled">Ledsen, men den här operationen stödjs inte än för delade etiketter.</string>
-  <string name="actfm_tag_operation_owner_delete">You are the owner of this shared list! If you delete it, it will be deleted for all list members. Are you sure you want to continue?</string>
+  <string name="actfm_toast_error">Fel vid lagning: %s</string>
+  <string name="actfm_tag_operation_disabled">Den här åtgärden stöds inte än för delade etiketter.</string>
+  <string name="actfm_tag_operation_owner_delete">Du är ägare till den här delade listan! Om du tar bort den, tas den bort för alla medlemmar på listan. Är du säker på att du vill fortsätta?</string>
   <string name="actfm_picture_camera">Ta en bild</string>
   <string name="actfm_picture_gallery">Välj från galleri</string>
-  <string name="actfm_picture_clear">Clear Picture</string>
+  <string name="actfm_picture_clear">Ingen bild</string>
   <string name="actfm_FLA_menu_refresh">Uppdatera listor</string>
-  <string name="actfm_view_task_title">View Task?</string>
-  <string name="actfm_view_task_text">Task was sent to %s! You\'re currently viewing your own tasks. Do you want to view this and other tasks you\'ve assigned?</string>
-  <string name="actfm_view_task_ok">View Assigned</string>
-  <string name="actfm_view_task_cancel">Stay Here</string>
+  <string name="actfm_view_task_title">Se uppgift?</string>
+  <string name="actfm_view_task_text">Uppgiften skickad till %s! Dina egna uppgifter visas. Vill du visa denna och andra uppgifter du har delat ut?</string>
+  <string name="actfm_view_task_ok">Visa utdelade</string>
+  <string name="actfm_view_task_cancel">Stanna här</string>
   <string name="TVA_add_comment">Lägg till en kommentar...</string>
   <string name="UAd_title_comment">%1$s re: %2$s</string>
   <string-array name="TVA_tabs">
     <item>Uppgifter</item>
     <item>Aktivitet</item>
-    <item>List Settings</item>
+    <item>Listinställningar</item>
   </string-array>
-  <string name="actfm_TVA_filtered_by_assign">%s\'s tasks. Tap for all.</string>
-  <string name="actfm_TVA_filter_by_unassigned">Unassigned tasks. Tap for all.</string>
-  <string name="actfm_TVA_no_members_alert">Private: tap to edit or share list</string>
+  <string name="actfm_TVA_filtered_by_assign">%ss uppgifter. Tryck för alla.</string>
+  <string name="actfm_TVA_filter_by_unassigned">Ej utdelade uppgifter. Tryck för alla.</string>
+  <string name="actfm_TVA_no_members_alert">Privat: tryck för att ändra eller dela lista</string>
   <string name="actfm_TVA_menu_refresh">Uppdatera</string>
   <string name="actfm_TVA_tag_label">Namn på lista:</string>
-  <string name="actfm_TVA_tag_owner_label">List Creator:</string>
+  <string name="actfm_TVA_tag_owner_label">Lista skapad av</string>
   <string name="actfm_TVA_tag_owner_none">ingen</string>
-  <string name="actfm_TVA_members_label">Shared With</string>
-  <string name="actfm_TVA_tag_picture">List Picture</string>
-  <string name="actfm_TVA_silence_label">Silence Notifications</string>
-  <string name="actfm_TVA_list_icon_label">List Icon:</string>
-  <string name="actfm_TVA_tag_description_label">Description</string>
-  <string name="actfm_TVA_tag_settings_label">Settings</string>
-  <string name="actfm_TVA_tag_description_hint">Type a description here</string>
-  <string name="actfm_TVA_tag_name_hint">Enter list name</string>
-  <string name="actfm_TVA_login_to_share">You need to be logged in to Astrid.com to share lists! Please log in or make this a private list.</string>
-  <string name="actfm_EPA_intro">Use Astrid to share shopping lists, party plans, or team projects and instantly see when people get stuff done!</string>
-  <string name="actfm_EPA_title">Share / Assign</string>
-  <string name="actfm_EPA_save">Save &amp; Share</string>
-  <string name="actfm_EPA_assign_label">Who</string>
-  <string name="actfm_EPA_assign_label_long">Who should do this?</string>
+  <string name="actfm_TVA_members_label">Delad med</string>
+  <string name="actfm_TVA_tag_picture">Listbild</string>
+  <string name="actfm_TVA_silence_label">Påminnelser vid ljudlöst</string>
+  <string name="actfm_TVA_list_icon_label">Listikon:</string>
+  <string name="actfm_TVA_tag_description_label">Beskrivning</string>
+  <string name="actfm_TVA_tag_settings_label">Inställningar</string>
+  <string name="actfm_TVA_tag_description_hint">Beskriv listan här</string>
+  <string name="actfm_TVA_tag_name_hint">Ange listnamn</string>
+  <string name="actfm_TVA_login_to_share">Du måste vara inloggad på Astrid.com för att dela listor! Logga in eller gör listan privat.</string>
+  <string name="actfm_EPA_intro">Använd Astrid för att dela inköpslistor, festplaner eller projekt och se direkt när folk får gjort saker och ting!</string>
+  <string name="actfm_EPA_title">Dela/tilldela</string>
+  <string name="actfm_EPA_save">Spara och dela</string>
+  <string name="actfm_EPA_assign_label">Vem</string>
+  <string name="actfm_EPA_assign_label_long">Vem ska göra det här?</string>
   <string name="actfm_EPA_assign_me">Jag</string>
   <string name="actfm_EPA_unassigned">Vem som helst</string>
-  <string name="actfm_EPA_task_rabbit">Outsource it!</string>
+  <string name="actfm_EPA_task_rabbit">Lägg ut det på någon annan!</string>
   <string name="actfm_EPA_assign_custom">Anpassad...</string>
-  <string name="actfm_EPA_share_with">Share with:</string>
-  <string name="actfm_EPA_assigned_toast">Sent to %1$s (you can see it in the list between you and %2$s).</string>
-  <string name="actfm_EPA_collaborators_header">Share with Friends</string>
-  <string name="actfm_EPA_list">List: %s</string>
-  <string name="actfm_EPA_assigned_hint">Contact Name</string>
-  <string name="actfm_EPA_message_text">Invitation Message:</string>
-  <string name="actfm_EPA_message_body">Help me get this done!</string>
-  <string name="actfm_EPA_tag_label">Create a shared tag?</string>
-  <string name="actfm_EPA_tag_hint">(i.e. Silly Hats Club)</string>
+  <string name="actfm_EPA_share_with">Dela med:</string>
+  <string name="actfm_EPA_assigned_toast">Skickat till %1$s (du kan se det i listan mellan dig och %2$s).</string>
+  <string name="actfm_EPA_collaborators_header">Dela med vänner</string>
+  <string name="actfm_EPA_list">Lista: %s</string>
+  <string name="actfm_EPA_assigned_hint">Kontaktnamn</string>
+  <string name="actfm_EPA_message_text">Meddelande i inbjudan:</string>
+  <string name="actfm_EPA_message_body">Hjälp mig att få gjort det här!</string>
+  <string name="actfm_EPA_tag_label">Skapa en delad etikett?</string>
+  <string name="actfm_EPA_tag_hint">(t.ex. Hattklubben)</string>
   <string name="actfm_EPA_facebook">Facebook</string>
   <string name="actfm_EPA_twitter">Twitter</string>
-  <string name="actfm_EPA_emailed_toast">Task shared with %s</string>
-  <string name="actfm_EPA_saved_toast">People Settings Saved</string>
-  <string name="actfm_EPA_invalid_email">Invalid E-mail: %s</string>
-  <string name="actfm_EPA_invalid_tag">List Not Found: %s</string>
-  <string name="actfm_EPA_login_to_share">You need to be logged in to Astrid.com to share tasks! Please log in or make this a private task.</string>
-  <string name="actfm_EPA_login_button">Log in</string>
-  <string name="actfm_EPA_dont_share_button">Make private</string>
-  <string name="actfm_ALA_title">Welcome to Astrid.com!</string>
-  <string name="actfm_ALA_body">Astrid.com lets you access your tasks online, share, and delegate with others.</string>
-  <string name="actfm_ALA_fb_login">Connect with Facebook</string>
-  <string name="actfm_ALA_gg_login">Connect with Google</string>
-  <string name="actfm_ALA_pw_login">Don\'t use Google or Facebook?</string>
-  <string name="actfm_ALA_pw_link">Sign In Here</string>
-  <string name="actfm_ALA_pw_new">Create a new account?</string>
-  <string name="actfm_ALA_pw_returning">Already have an account?</string>
-  <string name="actfm_ALA_name_label">Name</string>
-  <string name="actfm_ALA_firstname_label">First Name</string>
-  <string name="actfm_ALA_lastname_label">Last Name</string>
-  <string name="actfm_ALA_email_label">Email</string>
-  <string name="actfm_ALA_username_email_label">Username / Email</string>
+  <string name="actfm_EPA_emailed_toast">Uppgift delad med %s</string>
+  <string name="actfm_EPA_saved_toast">Inställningarna sparade</string>
+  <string name="actfm_EPA_invalid_email">Felaktig e-postadress: %s</string>
+  <string name="actfm_EPA_invalid_tag">Listan finns inte: %s</string>
+  <string name="actfm_EPA_login_to_share">Du måste vara inloggad på Astrid.com för att dela uppgifter! Logga in eller gör uppgiften privat.</string>
+  <string name="actfm_EPA_login_button">Logga in</string>
+  <string name="actfm_EPA_dont_share_button">Gör privat</string>
+  <string name="actfm_ALA_title">Välkommen till Astrid.com!</string>
+  <string name="actfm_ALA_body">Astrid.com låter dig komma åt dina uppgifter via nätet, dela dem med andra och dela ut dem till andra.</string>
+  <string name="actfm_ALA_fb_login">Logga in med Facebook</string>
+  <string name="actfm_ALA_gg_login">Logga in med Facebook</string>
+  <string name="actfm_ALA_pw_login">Använder du inte Google eller Facebook?</string>
+  <string name="actfm_ALA_pw_link">Logga in här</string>
+  <string name="actfm_ALA_pw_new">Skapa ett nytt konto?</string>
+  <string name="actfm_ALA_pw_returning">Har du redan ett konto?</string>
+  <string name="actfm_ALA_name_label">Namn</string>
+  <string name="actfm_ALA_firstname_label">Förnamn</string>
+  <string name="actfm_ALA_lastname_label">Efternamn</string>
+  <string name="actfm_ALA_email_label">E-postadress</string>
+  <string name="actfm_ALA_username_email_label">Användarnamn/e-postadress</string>
   <string name="actfm_ALA_password_label">Lösenord</string>
-  <string name="actfm_ALA_signup_title">Create New Account</string>
-  <string name="actfm_ALA_login_title">Login to Astrid.com</string>
-  <string name="actfm_GAA_title">Select the Google account you want to use:</string>
-  <string name="actfm_OLA_prompt">Please log in:</string>
+  <string name="actfm_ALA_signup_title">Skapa nytt konto</string>
+  <string name="actfm_ALA_login_title">Logga in på Astrid.com</string>
+  <string name="actfm_GAA_title">Välj vilket Googlekonto du vill använda:</string>
+  <string name="actfm_OLA_prompt">Logga in:</string>
   <string name="actfm_APr_header">Astrid.com</string>
-  <string name="actfm_https_title">Use HTTPS</string>
-  <string name="actfm_https_enabled">HTTPS enabled (slower)</string>
-  <string name="actfm_https_disabled">HTTPS disabled (faster)</string>
-  <string name="actfm_notification_title">Astrid.com Sync</string>
-  <string name="actfm_notification_comments">New comments received / click for more details</string>
+  <string name="actfm_https_title">Använd HTTPS</string>
+  <string name="actfm_https_enabled">HTTPS aktiverat (långsammare)</string>
+  <string name="actfm_https_disabled">HTTPS avaktiverat (snabbare)</string>
+  <string name="actfm_notification_title">Synkronisering med Astrid.com</string>
+  <string name="actfm_notification_comments">Ny kommentar mottagen, klicka för detaljer</string>
   <string name="alarm_ACS_label">Alarm</string>
   <string name="alarm_ACS_button">Lägg till ett alarm</string>
   <string-array name="reminders_alarm">
@@ -106,7 +106,7 @@
   <string name="backup_BPr_auto_enabled">Säkerhetskopiering kommer att ske dagligen</string>
   <string name="backup_BPr_how_to_restore">Hur återställer jag säkerhetskopior?</string>
   <string name="backup_BPr_how_to_restore_dialog">Du måste lägga till Astrid Power Pack för att hantera och återställa dina säkerhetskopior. För säkerhets skull tar Astrid alltid en automatisk säkerhetskopia av dina uppgifter.</string>
-  <string name="backup_BAc_label">Manage Backups</string>
+  <string name="backup_BAc_label">Hantera säkerhetskopior</string>
   <string name="backup_BAc_title">Hantera dina säkerhetskopior</string>
   <string name="backup_BAc_import">Importera uppgifter</string>
   <string name="backup_BAc_export">Exportera uppgifter</string>
@@ -136,74 +136,74 @@
   <string name="DLG_accept">Jag godkänner</string>
   <string name="DLG_decline">Jag godkänner inte</string>
   <string name="DLG_eula_title">Astrid Användarvillkor</string>
-  <string name="DLG_please_wait">Please Wait</string>
+  <string name="DLG_please_wait">Vänta</string>
   <string name="DLG_loading">Laddar...</string>
-  <string name="DLG_dismiss">Dismiss</string>
+  <string name="DLG_dismiss">Avbryt</string>
   <string name="DLG_ok">OK</string>
-  <string name="DLG_cancel">Cancel</string>
-  <string name="DLG_more">More</string>
-  <string name="DLG_undo">Undo</string>
+  <string name="DLG_cancel">Avbryt</string>
+  <string name="DLG_more">Mer</string>
+  <string name="DLG_undo">Ångra</string>
   <string name="WID_dateButtonUnset">Klicka för att ställa</string>
   <string name="WID_dateButtonLabel">$D $T</string>
   <string name="WID_disableButton">Avaktivera</string>
   <string name="ENE_label">Anteckningar</string>
-  <string name="ENE_label_comments">Comments</string>
-  <string name="ENA_no_comments">No activity yet</string>
-  <string name="ENA_no_user">You</string>
-  <string name="ENA_refresh_comments">Refresh Comments</string>
-  <string name="TLA_no_items">You have no tasks! \n Want to add something?</string>
+  <string name="ENE_label_comments">Kommentarer</string>
+  <string name="ENA_no_comments">Ännu ingen aktivitet</string>
+  <string name="ENA_no_user">Du</string>
+  <string name="ENA_refresh_comments">Uppdatera kommentarer</string>
+  <string name="TLA_no_items">Du har inga uppgifter!\n Vill du lägga till någonting?</string>
   <string name="TLA_menu_addons">Tillägg</string>
   <string name="TLA_menu_sort">Sortera &amp; Dölj</string>
   <string name="TLA_menu_sync">Synkronisera Nu!</string>
-  <string name="TLA_menu_lists">Lists</string>
-  <string name="TLA_menu_friends">Friends</string>
-  <string name="TLA_menu_suggestions">Suggestions</string>
-  <string name="TLA_menu_tutorial">Tutorial</string>
+  <string name="TLA_menu_lists">Listor</string>
+  <string name="TLA_menu_friends">Vänner</string>
+  <string name="TLA_menu_suggestions">Förslag</string>
+  <string name="TLA_menu_tutorial">Handledning</string>
   <string name="TLA_menu_settings">Inställningar</string>
   <string name="TLA_menu_support">Support</string>
   <string name="TLA_search_label">Sök i denna lista</string>
   <string name="TLA_custom">Egendefinierad</string>
-  <string name="TLA_quick_add_hint">Add a task</string>
-  <string name="TLA_quick_add_hint_assign">Tap to assign %s a task</string>
-  <string name="TLA_notification_volume_low">Notifications are muted. You won\'t be able to hear Astrid!</string>
-  <string name="TLA_notification_disabled">Astrid reminders are disabled! You will not receive any reminders</string>
+  <string name="TLA_quick_add_hint">Lägg till uppgift</string>
+  <string name="TLA_quick_add_hint_assign">Tryck för att tilldela %s en uppgift</string>
+  <string name="TLA_notification_volume_low">Påminnelseljudet är avstängt! Du kommer inte att höra Astrid!</string>
+  <string name="TLA_notification_disabled">Påminnelserna från Astrid är avstängda! Du kommer inte att få några påminnelser</string>
   <string-array name="TLA_filters">
-    <item>Active</item>
+    <item>Aktiv</item>
     <item>Idag</item>
-    <item>Soon</item>
-    <item>Late</item>
+    <item>Snart</item>
+    <item>Sent</item>
     <item>Klar</item>
-    <item>Hidden</item>
+    <item>Dold</item>
   </string-array>
-  <string name="TLA_quickadd_confirm_title">You said, \"%s\"</string>
-  <string name="TLA_quickadd_confirm_speech_bubble">I created a task called \"%1$s\" %2$s at %3$s</string>
-  <string name="TLA_quickadd_confirm_speech_bubble_date">for %s</string>
-  <string name="TLA_quickadd_confirm_hide_helpers">Don\'t display future confirmations</string>
-  <string name="TLA_repeat_scheduled_title">New repeating task %s</string>
-  <string name="TLA_repeat_scheduled_speech_bubble">I\'ll remind you about this %s.</string>
+  <string name="TLA_quickadd_confirm_title">Du sa: \"%s\"</string>
+  <string name="TLA_quickadd_confirm_speech_bubble">Jag skapade en uppgift med namnet \"%1$s\" %2$s med %3$s</string>
+  <string name="TLA_quickadd_confirm_speech_bubble_date">för %s</string>
+  <string name="TLA_quickadd_confirm_hide_helpers">Visa inte bekräftelser i fortsättningen</string>
+  <string name="TLA_repeat_scheduled_title">Ny återkommande uppgift %s</string>
+  <string name="TLA_repeat_scheduled_speech_bubble">Jag kommer att påminna dig om det här %s.</string>
   <string-array name="TLA_priority_strings">
-    <item>highest priority</item>
-    <item>high priority</item>
-    <item>medium priority</item>
-    <item>low priority</item>
+    <item>högsta prioritet</item>
+    <item>hög prioritet</item>
+    <item>medelhög prioritet</item>
+    <item>låg prioritet</item>
   </string-array>
-  <string name="TLA_all_activity">All Activity</string>
+  <string name="TLA_all_activity">Alla händelser</string>
   <string name="TAd_hiddenFormat">%s [dold]</string>
   <string name="TAd_deletedFormat">%s [raderad]</string>
   <string name="TAd_completed">Avslutad\n%s</string>
   <string name="TAd_actionEditTask">Redigera</string>
   <string name="TAd_contextEditTask">Redigera uppgift</string>
-  <string name="TAd_contextCopyTask">Copy Task</string>
-  <string name="TAd_contextHelpTask">Get help</string>
+  <string name="TAd_contextCopyTask">Kopiera uppgift</string>
+  <string name="TAd_contextHelpTask">Hjälp</string>
   <string name="TAd_contextDeleteTask">Radera uppgift</string>
   <string name="TAd_contextUndeleteTask">Återställ raderad uppgift</string>
   <string name="TAd_contextPurgeTask">Rensa uppgift</string>
   <string name="SSD_title">Sortering och Dolda Uppgifter</string>
-  <string name="SSD_hidden_title">Hidden Tasks</string>
+  <string name="SSD_hidden_title">Dolda uppgifter</string>
   <string name="SSD_completed">Visa avslutade uppgifter</string>
   <string name="SSD_hidden">Visa dolda uppgifter</string>
   <string name="SSD_deleted">Visa raderade uppgifter</string>
-  <string name="SSD_sort_drag">Drag &amp; Drop with Subtasks</string>
+  <string name="SSD_sort_drag">Dra och släpp med underuppgifter</string>
   <string name="SSD_sort_auto">Astrid intelligent sortering</string>
   <string name="SSD_sort_alpha">Efter titel</string>
   <string name="SSD_sort_due">Efter förfallodatum</string>
@@ -212,7 +212,7 @@
   <string name="SSD_sort_reverse">Omvänd sortering</string>
   <string name="SSD_save_temp">Bara en gång</string>
   <string name="SSD_save_always">Alltid</string>
-  <string name="FSA_label">Astrid List or Filter</string>
+  <string name="FSA_label">Lista eller filter i Astrid</string>
   <string name="FLA_title">Listor</string>
   <string name="FLA_loading">Laddar filter...</string>
   <string name="FLA_context_shortcut">Skapa genväg på skrivbordet</string>
@@ -223,19 +223,20 @@
   <string name="FLA_search_hint">Sök efter uppgifter</string>
   <string name="FLA_search_filter">Matchar \'%s\'</string>
   <string name="FLA_toast_onCreateShortcut">Skapad genväg: %s</string>
-  <string name="FLA_new_filter">New Filter</string>
-  <string name="FLA_new_list">New List</string>
+  <string name="FLA_new_filter">Nytt filter</string>
+  <string name="FLA_new_list">Ny lista</string>
+  <string name="FLA_no_filter_selected">Inget filter valt! Välj ett filter eller en lista.</string>
   <string name="TEA_view_title">Astrid: Redigerar \'%s\'</string>
-  <string name="TEA_view_titleNew">New Task</string>
+  <string name="TEA_view_titleNew">Ny uppgift</string>
   <string name="TEA_title_label">Titel</string>
-  <string name="TEA_when_header_label">When</string>
+  <string name="TEA_when_header_label">När</string>
   <string name="TEA_title_hint">Uppgiftssammanfattning</string>
   <string name="TEA_importance_label">Viktighetsgrad</string>
   <string name="TEA_urgency_label">Frist</string>
   <string name="TEA_urgency_specific_time">Vid bestämd tid?</string>
-  <string name="TEA_urgency_none">None</string>
-  <string name="TEA_hideUntil_label">Show Task</string>
-  <string name="TEA_hideUntil_message">Task will be hidden until %s</string>
+  <string name="TEA_urgency_none">Ingen</string>
+  <string name="TEA_hideUntil_label">Visa uppgift</string>
+  <string name="TEA_hideUntil_message">Uppgiften är dold fram till %s</string>
   <string-array name="TEA_loading">
     <item>Laddar...</item>
   </string-array>
@@ -246,14 +247,14 @@
   <string name="TEA_menu_save">Spara ändringar</string>
   <string name="TEA_menu_discard">Spara inte</string>
   <string name="TEA_menu_delete">Radera uppgift</string>
-  <string name="TEA_menu_comments">Comments</string>
+  <string name="TEA_menu_comments">Kommentarer</string>
   <string name="TEA_onTaskSave_due">Uppgift sparad: förfaller %s</string>
   <string name="TEA_onTaskSave_notDue">Uppgift sparad</string>
   <string name="TEA_onTaskCancel">Uppgiftsredigering avbröts</string>
-  <string name="TEA_onTaskDelete">Task deleted!</string>
+  <string name="TEA_onTaskDelete">Uppgiften borttagen!</string>
   <string name="TEA_tab_activity">Aktivitet</string>
   <string name="TEA_tab_more">Mer</string>
-  <string name="TEA_tab_web">Ideas</string>
+  <string name="TEA_tab_web">Idéer</string>
   <string-array name="TEA_urgency">
     <item>Ingen frist</item>
     <item>Specifik dag</item>
@@ -261,94 +262,94 @@
     <item>Imorgon</item>
     <item>(dagen efter)</item>
     <item>Nästa vecka</item>
-    <item>In Two Weeks</item>
+    <item>Om två veckor</item>
     <item>Nästa månad</item>
   </string-array>
-  <string name="TEA_no_time">No time</string>
+  <string name="TEA_no_time">Ingen tid</string>
   <string-array name="TEA_hideUntil">
     <item>Alltid</item>
-    <item>At due date</item>
+    <item>På förfallodagen</item>
     <item>Dagen före förfall</item>
     <item>Veckan före förfall</item>
     <item>Specifik dag/tid</item>
   </string-array>
-  <string name="TEA_control_title">Task Title</string>
-  <string name="TEA_control_who">Who</string>
-  <string name="TEA_control_when">When</string>
+  <string name="TEA_control_title">Uppgiftens namn</string>
+  <string name="TEA_control_who">Vem</string>
+  <string name="TEA_control_when">När</string>
   <string name="TEA_control_more_section">----More Section----</string>
   <string name="TEA_control_importance">Viktighetsgrad</string>
   <string name="TEA_control_lists">Listor</string>
   <string name="TEA_control_notes">Anteckningar</string>
-  <string name="TEA_control_reminders">Reminders</string>
-  <string name="TEA_control_timer">Timer Controls</string>
-  <string name="TEA_control_share">Share With Friends</string>
-  <string name="hide_until_prompt">Show in my list</string>
+  <string name="TEA_control_reminders">Påminnelser</string>
+  <string name="TEA_control_timer">Inställningar för tidtagarur</string>
+  <string name="TEA_control_share">Dela med vänner</string>
+  <string name="hide_until_prompt">Visa i min lista</string>
   <string name="TEA_addons_text">Letar efter fler roliga funktioner?</string>
   <string name="TEA_addons_button">Skaffa Power Pack!</string>
   <string name="TEA_more">Mer</string>
-  <string name="TEA_no_activity">No Activity to Show.</string>
-  <string name="TEA_load_more">Load more...</string>
-  <string name="TEA_when_dialog_title">When is this due?</string>
-  <string name="TEA_date_and_time">Date/Time</string>
-  <string name="WSV_click_to_load">Tap me to search for ways to get this done!</string>
-  <string name="WSV_not_online">I can do more when connected to the Internet. Please check your connection.</string>
+  <string name="TEA_no_activity">Ingen aktivitet att visa.</string>
+  <string name="TEA_load_more">Ladda mer...</string>
+  <string name="TEA_when_dialog_title">När ska uppgiften vara slutförd?</string>
+  <string name="TEA_date_and_time">Datum/tid</string>
+  <string name="WSV_click_to_load">Klicka på mig för att hitta sätt att få det här gjort!</string>
+  <string name="WSV_not_online">Jag kan göra mer när jag är uppkopplad. Kontrollera din internetförbindelse.</string>
   <string name="InA_title">Välkommen till Astrid!</string>
   <string name="InA_agree">Jag samtycker!!</string>
   <string name="InA_disagree">Jag samtycker inte</string>
   <string name="HlA_get_support">Få hjälp</string>
   <string name="UpS_changelog_title">Vad är nytt i Astrid?</string>
   <string name="UpS_updates_title">Senaste Astrid nyheter</string>
-  <string name="UpS_no_activity_log_in">Log in to see a record of\nyour progress as well as\nactivity on shared lists.</string>
+  <string name="UpS_no_activity_log_in">Logga in för att se hur\ndet går för dig och vad\nsom händer på delade listor.</string>
   <string name="EPr_title">Astrid: Inställningar</string>
-  <string name="EPr_deactivated">deactivated</string>
+  <string name="EPr_deactivated">inaktiverad</string>
   <string name="EPr_appearance_header">Utseende</string>
   <string name="EPr_fontSize_title">Textstorlek för uppgiftslistan</string>
-  <string name="EPr_showSmartConfirmation_title">Show confirmation for smart reminders</string>
+  <string name="EPr_showSmartConfirmation_title">Visa bekräftelse vid smarta påminnelser</string>
   <string name="EPr_fontSize_desc">Textstorlek för huvudlistan</string>
   <string name="EPr_showNotes_title">Visa anteckningar i uppgiften</string>
-  <string name="EPr_beastMode_title">Customize Task Edit Screen</string>
-  <string name="EPr_beastMode_desc">Customize the layout of the Task Edit Screen</string>
-  <string name="EPr_beastMode_reset">Reset to defaults</string>
+  <string name="EPr_beastMode_title">Ställ in uppgiftsredigeringsrutan</string>
+  <string name="EPr_beastMode_desc">Ställ in layouten för uppgiftsredigeringsrutan</string>
+  <string name="EPr_beastMode_reset">Återställ till standardvärden</string>
   <string name="EPr_showNotes_desc_disabled">Anteckningar visas när du klickar på en uppgift</string>
   <string name="EPr_showNotes_desc_enabled">Anteckningar visas alltid</string>
-  <string name="EPr_compressTaskRows_title">Compact Task Row</string>
-  <string name="EPr_compressTaskRows_desc">Compress task rows to fit title</string>
-  <string name="EPr_userLegacyImportance_title">Use legacy importance style</string>
-  <string name="EPr_userLegacyImportance_desc">Use legacy importance style</string>
-  <string name="EPr_fullTask_title">Show full task title</string>
-  <string name="EPr_fullTask_desc_enabled">Full task title will be shown</string>
-  <string name="EPr_fullTask_desc_disabled">First two lines of task title will be shown</string>
-  <string name="EPr_ideaAuto_title">Auto-load Ideas Tab</string>
-  <string name="EPr_ideaAuto_desc_enabled">Web searches for Ideas tab will be performed when task is edited</string>
-  <string name="EPr_ideaAuto_desc_disabled">Web searches for Ideas tab will be performed when tab is clicked</string>
-  <string name="EPr_theme_title">Color Theme</string>
+  <string name="EPr_compressTaskRows_title">Kompakt uppgiftsrad</string>
+  <string name="EPr_compressTaskRows_desc">Anpassa rader efter uppgiftens titel</string>
+  <string name="EPr_userLegacyImportance_title">Använd prioritet från högre nivå</string>
+  <string name="EPr_userLegacyImportance_desc">Använd prioritet från högre nivå</string>
+  <string name="EPr_fullTask_title">Visa hela namnet på uppgiften</string>
+  <string name="EPr_fullTask_desc_enabled">Uppgiftens namn kommer att visas i sin helhet</string>
+  <string name="EPr_fullTask_desc_disabled">De första två raderna i uppgiftens namn kommer att visas</string>
+  <string name="EPr_ideaAuto_title">Ladda fliken Idéer automatiskt</string>
+  <string name="EPr_ideaAuto_desc_enabled">Webbsökning till fliken Idéer utförs när du klickar på fliken</string>
+  <string name="EPr_ideaAuto_desc_disabled">Webbsökning till fliken Idéer utförs manuellt</string>
+  <string name="EPr_theme_title">Färgtema</string>
   <string name="EPr_theme_desc">Aktuellt: %s</string>
-  <string name="EPr_theme_desc_unsupported">Setting requires Android 2.0+</string>
-  <string name="EPr_taskRowPrefs_title">Task Row Appearance</string>
+  <string name="EPr_theme_desc_unsupported">Inställningen kräver Android 2.0 eller senare version</string>
+  <string name="EPr_taskRowPrefs_title">Utseende på uppgiftsraden</string>
   <string-array name="EPr_themes">
-    <item>Day - Blue</item>
-    <item>Day - Red</item>
-    <item>Night</item>
-    <item>Transparent (White Text)</item>
-    <item>Transparent (Black Text)</item>
+    <item>Dag - blå</item>
+    <item>Dag - röd</item>
+    <item>Natt</item>
+    <item>Genomskinlig (vit text)</item>
+    <item>Genomskinlig (svart text)</item>
   </string-array>
-  <string name="EPr_manage_header">Manage Old Tasks</string>
-  <string name="EPr_manage_delete_completed">Delete Completed Tasks</string>
-  <string name="EPr_manage_delete_completed_message">Do you really want to delete all your completed tasks?</string>
-  <string name="EPr_manage_delete_completed_summary">Deleted tasks can be undeleted one-by-one</string>
-  <string name="EPr_manage_delete_completed_status">Deleted %d tasks!</string>
-  <string name="EPr_manage_purge_deleted">Purge Deleted Tasks</string>
-  <string name="EPr_manage_purge_deleted_message">Do you really want to purge all your deleted tasks?\n\nThese tasks will be gone forever!</string>
-  <string name="EPr_manage_purge_deleted_status">Purged %d tasks!</string>
-  <string name="EPr_manage_purge_deleted_summary">Caution! Purged tasks can\'t be recovered without backup file!</string>
-  <string name="EPr_manage_clear_all">Clear All Data</string>
-  <string name="EPr_manage_clear_all_message">Delete all tasks and settings in Astrid?\n\nWarning: can\'t be undone!</string>
-  <string name="EPr_manage_delete_completed_gcal">Delete Calendar Events for Completed Tasks</string>
-  <string name="EPr_manage_delete_completed_gcal_message">Do you really want to delete all your events for completed tasks?</string>
-  <string name="EPr_manage_delete_completed_gcal_status">Deleted %d calendar events!</string>
-  <string name="EPr_manage_delete_all_gcal">Delete All Calendar Events for Tasks</string>
-  <string name="EPr_manage_delete_all_gcal_message">Do you really want to delete all your events for tasks?</string>
-  <string name="EPr_manage_delete_all_gcal_status">Deleted %d calendar events!</string>
+  <string name="EPr_manage_header">Hantera gamla uppgifter</string>
+  <string name="EPr_manage_delete_completed">Radera färdiga uppgifter</string>
+  <string name="EPr_manage_delete_completed_message">Vill du verkligen radera alla dina färdiga uppgifter?</string>
+  <string name="EPr_manage_delete_completed_summary">Raderade uppgifter kan tas tillbaka en och en</string>
+  <string name="EPr_manage_delete_completed_status">%d uppgifter raderade!</string>
+  <string name="EPr_manage_purge_deleted">Rensa bort raderade uppgifter</string>
+  <string name="EPr_manage_purge_deleted_message">Vill du verkligen rensa bort alla dina raderade uppgifter?\n\nDe här uppgifterna kommer att tas bort för alltid!</string>
+  <string name="EPr_manage_purge_deleted_status">%d uppgifter bortrensade!</string>
+  <string name="EPr_manage_purge_deleted_summary">Varning! Bortrensade uppgifter kan inte återställas utan en säkerhetskopia!</string>
+  <string name="EPr_manage_clear_all">Radera alla data</string>
+  <string name="EPr_manage_clear_all_message">Radera alla uppgifter och inställningar i Astrid?\n\nVarning: denna åtgärd kan inte ångras!</string>
+  <string name="EPr_manage_delete_completed_gcal">Radera kalenderhändelser för färdiga uppgifter</string>
+  <string name="EPr_manage_delete_completed_gcal_message">Vill du verkligen radera alla händelser i kalendern för uppgifter som är färdiga?</string>
+  <string name="EPr_manage_delete_completed_gcal_status">%d kalenderhändelser raderade!</string>
+  <string name="EPr_manage_delete_all_gcal">Radera alla kalenderhändelser för uppgifter</string>
+  <string name="EPr_manage_delete_all_gcal_message">Vill du verkligen radera alla dina händelser i kalendern för uppgifter?</string>
+  <string name="EPr_manage_delete_all_gcal_status">%d kalenderhändelser raderade!</string>
   <string name="AOA_title">Astrid: Tillägg</string>
   <string name="AOA_internal_author">Astrid-teamet</string>
   <string name="AOA_tab_installed">Installerade</string>
@@ -359,8 +360,8 @@
   <string name="AOA_no_addons">Tom lista!</string>
   <string name="TWi_loading">Laddar...</string>
   <string name="WCA_title">Välj uppgifter att se på...</string>
-  <string name="p_about">About Astrid</string>
-  <string name="p_about_text">Current version: %s\n\n Astrid is open-source and proudly maintained by Todoroo, Inc.</string>
+  <string name="p_about">Om Astrid</string>
+  <string name="p_about_text">Aktuell version: %s\n\n Astrid är öppen programvara och underhålls av Todoroo, Inc.</string>
   <string name="p_help">Hjälp</string>
   <string name="task_killer_help">Det ser ut att du använder en app som kan avsluta processer (%s)! Om du kan, lägg till Astrid i exklusionslistan så att den inte avslutas. Annars kan det hända att Astrid inte meddelar när dina uppgifter förfaller.\n</string>
   <string name="task_killer_help_ok">Jag önskar inte avsluta Astrid!</string>
@@ -375,16 +376,16 @@
   <string name="EPr_default_hideUntil_desc">Aktuellt: %s</string>
   <string name="EPr_default_reminders_title">Standardpåminnelser</string>
   <string name="EPr_default_reminders_desc">Aktuellt: %s</string>
-  <string name="EPr_default_addtocalendar_title">Default Add To Calendar</string>
-  <string name="EPr_default_addtocalendar_desc_disabled">New tasks will not create an event in the Google Calendar</string>
-  <string name="EPr_default_addtocalendar_desc">New tasks will be in the calendar: \"%s\"</string>
-  <string name="EPr_default_reminders_mode_title">Default Ring/Vibrate type</string>
+  <string name="EPr_default_addtocalendar_title">Standardkalender för att lägga till händelser</string>
+  <string name="EPr_default_addtocalendar_desc_disabled">Nya uppgifter skapar inga händelser i Googlekalendern</string>
+  <string name="EPr_default_addtocalendar_desc">Nya uppgifter hamnar i kalendern \"%s\"</string>
+  <string name="EPr_default_reminders_mode_title">Standardtyp av ringsignal/vibration</string>
   <string name="EPr_default_reminders_mode_desc">Aktuellt: %s</string>
   <string-array name="EPr_default_importance">
-    <item>!!! (Highest)</item>
+    <item>!!! (Högst)</item>
     <item>!!</item>
     <item>!</item>
-    <item>o (Lowest)</item>
+    <item>o (Lägst)</item>
   </string-array>
   <string-array name="EPr_default_urgency">
     <item>Ingen frist</item>
@@ -408,9 +409,9 @@
   <string name="BFE_Active">Aktiva uppgifter</string>
   <string name="BFE_Search">Sök...</string>
   <string name="BFE_Recent">Nyligen ändrade</string>
-  <string name="BFE_Assigned">I\'ve Assigned</string>
+  <string name="BFE_Assigned">Jag har delat ut</string>
   <string name="BFE_Custom">Egendefinierat filter...</string>
-  <string name="BFE_Saved">Filters</string>
+  <string name="BFE_Saved">Filter</string>
   <string name="BFE_Saved_delete">Radera filter</string>
   <string name="CFA_title">Egendefinierat filter</string>
   <string name="CFA_filterName_hint">Spara detta filter genom att ge det ett namn</string>
@@ -438,10 +439,10 @@
   </string-array>
   <string name="CFC_importance_text">Viktighetsgrad minst ?</string>
   <string name="CFC_importance_name">Viktighetsgrad...</string>
-  <string name="CFC_tag_text">List: ?</string>
-  <string name="CFC_tag_name">List...</string>
-  <string name="CFC_tag_contains_name">List name contains...</string>
-  <string name="CFC_tag_contains_text">List name contains: ?</string>
+  <string name="CFC_tag_text">Lista: ?</string>
+  <string name="CFC_tag_name">Lista...</string>
+  <string name="CFC_tag_contains_name">Namnet på listan innehåller...</string>
+  <string name="CFC_tag_contains_text">Namnet på listan innehåller: ?</string>
   <string name="CFC_title_contains_name">Titeln innehåller...</string>
   <string name="CFC_title_contains_text">Titeln innehåller: ?</string>
   <string name="gcal_TEA_error">Misslyckades med att lägga uppgift till kalender!</string>
@@ -450,66 +451,59 @@
   <string name="gcal_TEA_showCalendar_label">Öppna kalenderhändelse</string>
   <string name="gcal_TEA_calendar_error">Misslyckades med att öppna kalenderhändelse!</string>
   <string name="gcal_TEA_calendar_updated">Kalenderhändelsen uppdaterades också!</string>
-  <string name="gcal_TEA_nocal">Don\'t add</string>
-  <string name="gcal_TEA_none_selected">Add to cal...</string>
-  <string name="gcal_TEA_has_event">Cal event</string>
+  <string name="gcal_TEA_nocal">Lägg inte till</string>
+  <string name="gcal_TEA_none_selected">Lägg till i kalender...</string>
+  <string name="gcal_TEA_has_event">Kalenderhändelse</string>
   <string name="gcal_completed_title">%s (avslutad)</string>
   <string name="gcal_GCP_default">Standardkalender</string>
-  <string name="gtasks_FEx_header">Google Tasks</string>
+  <string name="gtasks_FEx_header">Google Uppgifter</string>
   <string name="gtasks_FEx_list">Efter lista</string>
-  <string name="gtasks_FEx_title">Google Tasks: %s</string>
-  <string name="gtasks_FEx_creating_list">Creating list...</string>
-  <string name="gtasks_FEx_create_list_dialog">New List Name:</string>
-  <string name="gtasks_FEx_create_list_error">Error creating new list</string>
+  <string name="gtasks_FEx_title">Google Uppgifter: %s</string>
+  <string name="gtasks_FEx_creating_list">Skapar lista...</string>
+  <string name="gtasks_FEx_create_list_dialog">Nytt listnamn:</string>
+  <string name="gtasks_FEx_create_list_error">Det gick inte att skapa en ny lista</string>
   <string name="gtasks_help_title">Välkommen till Google Tasks!</string>
-  <string name="CFC_gtasks_list_text">In List: ?</string>
-  <string name="CFC_gtasks_list_name">In GTasks List...</string>
-  <string name="gtasks_GTA_clearing">Clearing completed tasks...</string>
-  <string name="gtasks_GTA_clear_completed">Clear Completed</string>
+  <string name="CFC_gtasks_list_text">I listan: ?</string>
+  <string name="CFC_gtasks_list_name">I lista på Google Uppgifter...</string>
+  <string name="gtasks_GTA_clearing">Rensar bort färdiga uppgifter...</string>
+  <string name="gtasks_GTA_clear_completed">Rensa bort färdiga</string>
   <string name="gtasks_GLA_title">Logga in till Google Tasks</string>
   <string name="gtasks_GLA_body">Vänligen logga in på Google Tasks Sync (Beta!). Google Apps för domäner stöds för närvarande inte, vi arbetar på detta.</string>
-  <string name="gtasks_GLA_noaccounts">No available Google accounts to sync with.</string>
+  <string name="gtasks_GLA_noaccounts">Inga tillgängliga Googlekonton att synkronisera med.</string>
   <string name="gtasks_GLA_further_help">Om du vill visa dina uppgifter med indrag och ordning bevarad, gå till Filter sidan och välj en lista under Google Tasks. Som standard använder Astrid sin egen sortering för uppgifter.</string>
   <string name="gtasks_GLA_signIn">Logga in</string>
   <string name="gtasks_GLA_email">E-post</string>
   <string name="gtasks_GLA_password">Lösenord</string>
-  <string name="gtasks_GLA_authenticating">Authenticating...</string>
+  <string name="gtasks_GLA_authenticating">Autentiserar...</string>
   <string name="gtasks_GLA_domain">Google Apps konto</string>
   <string name="gtasks_GLA_errorEmpty">Fel: fyll i alla fält!</string>
-  <string name="gtasks_GLA_errorAuth">Error authenticating! Please check your username and password in your phone\'s account manager</string>
-  <string name="gtasks_GLA_errorIOAuth">Sorry, we had trouble communicating with Google servers. Please try again later.</string>
+  <string name="gtasks_GLA_errorAuth">Autentisering misslyckad! Kontrollera ditt användarnamn och lösenord i kontoinställningarna i din telefon</string>
+  <string name="gtasks_GLA_errorIOAuth">Vi hade problem med förbindelsen till Googles servrar. Försök igen senare.</string>
   <string name="gtasks_GLA_errorAuth_captcha">Du kan ha stött på en captcha. Prova att logga in från webbläsaren, kom sedan tillbaka och försök igen:</string>
-  <string name="gtasks_GPr_header">Google Tasks</string>
-  <string name="gtasks_notification_title">Astrid: Google Tasks</string>
-  <string name="gtasks_error_backend">Google\'s Task API is in beta and has encountered an error. The service may be down, please try again later.</string>
-  <string name="gtasks_error_accountNotFound">Account %s not found--please log out and log back in from the Google Tasks settings.</string>
-  <string name="gtasks_error_authRefresh">Unable to authenticate with Google Tasks. Please check your account password or try again later.</string>
-  <string name="gtasks_error_accountManager">Error in your phone\'s account manager. Please log out and log back in from the Google Tasks settings.</string>
-
-
-
-
-
-
-
-  <string name="help_popover_add_task">Start by adding a task or two</string>
-  <string name="help_popover_tap_task">Tap task to edit and share</string>
-  <string name="help_popover_list_settings">Tap to edit or share this list</string>
-  <string name="help_popover_collaborators">People you share with can help you build your list or finish tasks</string>
-  <string name="help_popover_add_lists">Tap add a list</string>
-  <string name="help_popover_switch_lists">Tap to add a list or switch between lists</string>
-  <string name="help_popover_when_shortcut">Tap this shortcut to quick select date and time</string>
-  <string name="help_popover_when_row">Tap anywhere on this row to access options like repeat</string>
+  <string name="gtasks_GPr_header">Google Uppgifter</string>
+  <string name="gtasks_notification_title">Astrid: Google Uppgifter</string>
+  <string name="gtasks_error_backend">Googles API för uppgifter är ännu i betaversion och har råkat ut för ett fel. Kanske är tjänsten otillgänglig för tillfället. Försök igen senare.</string>
+  <string name="gtasks_error_accountNotFound">Kontot %s kunde inte hittas. Logga ut och in på nytt i inställningarna för Google Uppgifter.</string>
+  <string name="gtasks_error_authRefresh">Kunde inte autentisera med Google Uppgifter. Kontrollera ditt lösenord och försök igen.</string>
+  <string name="gtasks_error_accountManager">Fel i din telefons kontohantering. Logga ut och in på nytt i inställningarna för Google Uppgifter.</string>
+  <string name="help_popover_add_task">Börja med att lägga in en eller två uppgifter</string>
+  <string name="help_popover_tap_task">Tryck på en uppgift för att redigera och dela</string>
+  <string name="help_popover_list_settings">Tryck för att redigera eller dela den här listan</string>
+  <string name="help_popover_collaborators">De du delar med kan hjälpa till att bygga upp din lista eller göra färdigt uppgifter</string>
+  <string name="help_popover_add_lists">Lägg till en lista</string>
+  <string name="help_popover_switch_lists">Tryck för att lägga till eller byta lista</string>
+  <string name="help_popover_when_shortcut">Tryck på denna genväg för att snabbt välja datum och tid</string>
+  <string name="help_popover_when_row">Tryck på denna rad för andra alternativ, t.ex. återkommande</string>
   <string name="welcome_login_title">Välkommen till Astrid!</string>
-  <string name="welcome_login_tos_base">By using Astrid you agree to the</string>
-  <string name="welcome_login_tos_link">\"Terms of Service\"</string>
-  <string name="welcome_login_pw">Login with Username/Password</string>
-  <string name="welcome_login_later">Connect Later</string>
-  <string name="welcome_login_confirm_later_title">Why not sign in?</string>
-  <string name="welcome_login_confirm_later_ok">I\'ll do it!</string>
-  <string name="welcome_login_confirm_later_cancel">No thanks</string>
-  <string name="welcome_login_confirm_later_dialog">Sign in to get the most out of Astrid! For free, you get online backup, full synchronization with Astrid.com, the ability to add tasks via email, and you can even share task lists with friends!</string>
-  <string name="help_popover_taskrabbit_type">Change the type of task</string>
+  <string name="welcome_login_tos_base">Genom att använda Astrid godkänner du</string>
+  <string name="welcome_login_tos_link">villkoren för tjänsten</string>
+  <string name="welcome_login_pw">Logga in med användarnamn och lösenord</string>
+  <string name="welcome_login_later">Koppla upp senare</string>
+  <string name="welcome_login_confirm_later_title">Om du skulle ta och logga in?</string>
+  <string name="welcome_login_confirm_later_ok">Jag ska göra det!</string>
+  <string name="welcome_login_confirm_later_cancel">Nej tack</string>
+  <string name="welcome_login_confirm_later_dialog">Logga in för att få ut så mycket som möjligt av Astrid! Utan kostnad får du säkerhetskopia via nätet, full synkronisering med Astrid.com, möjlighet att lägga till uppgifter via e-post, och du kan till och med dela uppgiftslistor med vänner!</string>
+  <string name="help_popover_taskrabbit_type">Byt typ av uppgift</string>
   <string name="locale_edit_alerts_title">Astrid filteralarm</string>
   <string name="locale_edit_intro">Astrid ger dig en påminnelse när du har uppgifter i följande filter:</string>
   <string name="locale_pick_filter">Filter:</string>
@@ -530,42 +524,42 @@
   <string name="opencrx_FEx_responsible_title">Tilldelad \'%s\'</string>
   <string name="opencrx_PDE_task_from">från %s</string>
   <string name="opencrx_TEA_notes">Lägg till en kommentar</string>
-  <string name="opencrx_creator_input_hint">Creator</string>
-  <string name="opencrx_contact_input_hint">Assigned to</string>
+  <string name="opencrx_creator_input_hint">Upphovsman</string>
+  <string name="opencrx_contact_input_hint">Tilldelad</string>
   <string name="opencrx_PPr_header">OpenCRX</string>
   <string name="opencrx_no_creator">(synkronisera inte)</string>
   <string name="opencrx_PPr_defaultcreator_title">Default ActivityCreator</string>
-  <string name="opencrx_PPr_defaultcreator_summary">New activities will be created by: %s</string>
-  <string name="opencrx_PPr_defaultcreator_summary_none">New activities will not be synchronized by default</string>
-  <string name="opencrx_group">OpenCRX server</string>
-  <string name="opencrx_host_title">Host</string>
-  <string name="opencrx_host_dialog_title">OpenCRX host</string>
-  <string name="opencrx_host_summary">"For example: "<i>mydomain.com</i></string>
+  <string name="opencrx_PPr_defaultcreator_summary">Nya aktiviteter skapas av: %s</string>
+  <string name="opencrx_PPr_defaultcreator_summary_none">Nya aktiviteter synkroniseras som standard</string>
+  <string name="opencrx_group">OpenCRX-server</string>
+  <string name="opencrx_host_title">Värddator</string>
+  <string name="opencrx_host_dialog_title">OpenCRX-värd</string>
+  <string name="opencrx_host_summary">"Till exempel: "<i>mindomän.com</i></string>
   <string name="opencrx_segment_title">Segment</string>
-  <string name="opencrx_segment_dialog_title">Synchronized segment</string>
-  <string name="opencrx_segment_summary">"For example: "<i>Standard</i></string>
+  <string name="opencrx_segment_dialog_title">Synkroniserat segment</string>
+  <string name="opencrx_segment_summary">"Till exempel: "<i>Standard</i></string>
   <string name="opencrx_segment_default">Standard</string>
-  <string name="opencrx_provider_title">Provider</string>
-  <string name="opencrx_provider_dialog_title">OpenCRX data provider</string>
-  <string name="opencrx_provider_summary">"For example: "<i>CRX</i></string>
+  <string name="opencrx_provider_title">Leverantör</string>
+  <string name="opencrx_provider_dialog_title">Leverantör av OpenCRX-data</string>
+  <string name="opencrx_provider_summary">"Till exempel: "<i>CRX</i></string>
   <string name="opencrx_provider_default">CRX</string>
-  <string name="opencrx_PLA_title">Log In to OpenCRX</string>
-  <string name="opencrx_PLA_body">Sign in with your OpenCRX account</string>
+  <string name="opencrx_PLA_title">Logga in på OpenCRX</string>
+  <string name="opencrx_PLA_body">Logga in på ditt OpenCRX-konto</string>
   <string name="opencrx_PLA_signIn">Logga in</string>
-  <string name="opencrx_PLA_login">Login</string>
+  <string name="opencrx_PLA_login">Logga in</string>
   <string name="opencrx_PLA_password">Lösenord</string>
-  <string name="opencrx_PLA_errorEmpty">Error: fillout all fields</string>
-  <string name="opencrx_PLA_errorAuth">Error: login or password incorrect!</string>
+  <string name="opencrx_PLA_errorEmpty">Fel: fyll i alla fält</string>
+  <string name="opencrx_PLA_errorAuth">Fel användarnamn eller lösenord!</string>
   <string name="opencrx_notification_title">OpenCRX</string>
   <string name="opencrx_notification_text">%s uppgifter uppdaterade / klicka för ytterligare detaljer</string>
   <string name="opencrx_ioerror">Tillkopplingsfel! Kontrollera din tillkoppling till internet.</string>
-  <string name="opencrx_MLA_email_empty">Login was not specified!</string>
+  <string name="opencrx_MLA_email_empty">Användarnamn ej angivet!</string>
   <string name="opencrx_MLA_password_empty">Lösenord specificerades inte!</string>
   <string name="opencrx_TEA_task_assign_label">Tilldela denna uppgift följande person:</string>
   <string name="opencrx_TEA_task_unassigned">&lt;Otilldelad&gt;</string>
-  <string name="opencrx_TEA_creator_assign_label">Assign this task to this creator:</string>
+  <string name="opencrx_TEA_creator_assign_label">Upphovsman som ska tilldelas uppgiften:</string>
   <string name="opencrx_TEA_dashboard_default">&lt;Standard&gt;</string>
-  <string name="opencrx_TEA_opencrx_title">OpenCRX Controls</string>
+  <string name="opencrx_TEA_opencrx_title">OpenCRX-inställningar</string>
   <string name="CFC_opencrx_in_workspace_text">I arbetsyta: ?</string>
   <string name="CFC_opencrx_in_workspace_name">I arbetsyta...</string>
   <string name="CFC_opencrx_assigned_to_text">Tilldelad: ?</string>
@@ -577,7 +571,7 @@
   <string name="producteev_FEx_header">Producteev</string>
   <string name="producteev_FEx_dashboard">Arbetsytor</string>
   <string name="producteev_FEx_responsible_byme">Tilldelad</string>
-  <string name="producteev_FEx_responsible_byothers">Assigned by others to</string>
+  <string name="producteev_FEx_responsible_byothers">Tilldelad av andra till</string>
   <string name="producteev_FEx_responsible_title">Tilldelad \'%s\'</string>
   <string name="producteev_PDE_task_from">från %s</string>
   <string name="producteev_TEA_notes">Lägg till en kommentar</string>
@@ -608,7 +602,7 @@
   <string name="producteev_ioerror">Tillkopplingsfel! Kontrollera din tillkoppling till internet.</string>
   <string name="producteev_MLA_email_empty">E-post specificerades inte!</string>
   <string name="producteev_MLA_password_empty">Lösenord specificerades inte!</string>
-  <string name="producteev_TEA_control_set_display">Producteev Assignment</string>
+  <string name="producteev_TEA_control_set_display">Uppgift i Producteev</string>
   <string name="producteev_TEA_task_assign_label">Tilldela denna uppgift följande person:</string>
   <string name="producteev_TEA_task_unassigned">&lt;Otilldelad&gt;</string>
   <string name="producteev_TEA_dashboard_assign_label">Tilldela denna uppgift följande arbetsyta:</string>
@@ -617,38 +611,38 @@
   <string name="CFC_producteev_in_workspace_name">I arbetsyta...</string>
   <string name="CFC_producteev_assigned_to_text">Tilldelad: ?</string>
   <string name="CFC_producteev_assigned_to_name">Tilldelad...</string>
-  <string name="TEA_reminders_group_label">Reminders</string>
+  <string name="TEA_reminders_group_label">Påminnelser</string>
   <string name="TEA_reminder_label">Påminn mig...</string>
   <string name="TEA_reminder_due">...när uppgiften förfaller</string>
   <string name="TEA_reminder_overdue">...när uppgiften har förfallit</string>
-  <string name="TEA_reminder_randomly">Randomly once</string>
+  <string name="TEA_reminder_randomly">En gång slumpmässigt</string>
   <string name="TEA_reminder_alarm_label">Ring/Vibrationsinställning:</string>
   <string name="TEA_reminder_mode_once">Ring en gång</string>
-  <string name="TEA_reminder_mode_five">Ring Five Times</string>
+  <string name="TEA_reminder_mode_five">Ring fem gånger</string>
   <string name="TEA_reminder_mode_nonstop">Ring tills jag stänger av alarmet</string>
   <string-array name="TEA_reminder_random">
-    <item>an hour</item>
-    <item>a day</item>
-    <item>a week</item>
-    <item>in two weeks</item>
-    <item>a month</item>
-    <item>in two months</item>
+    <item>en timme</item>
+    <item>ett dygn</item>
+    <item>en vecka</item>
+    <item>två veckor</item>
+    <item>en månad</item>
+    <item>två månader</item>
   </string-array>
   <string name="rmd_NoA_filter">Påminnelse!</string>
   <string name="rmd_NoA_done">Redan klar!</string>
   <string name="rmd_NoA_snooze">Vänta...</string>
-  <string name="rmd_NoA_completed_toast">Congratulations on finishing!</string>
+  <string name="rmd_NoA_completed_toast">Grattis till den slutförda uppgiften!</string>
   <string name="rmd_EPr_alerts_header">Påminnelseinställningar</string>
-  <string name="rmd_EPr_enabled_title">Reminders Enabled?</string>
-  <string name="rmd_EPr_enabled_desc_true">Astrid reminders are enabled (this is normal)</string>
-  <string name="rmd_EPr_enabled_desc_false">Astrid reminders will never appear on your phone</string>
+  <string name="rmd_EPr_enabled_title">Påminnelser valda?</string>
+  <string name="rmd_EPr_enabled_desc_true">Påminnelser från Astrid är valda (normalt)</string>
+  <string name="rmd_EPr_enabled_desc_false">Påminnelser från Astrid visas inte i telefonen</string>
   <string name="rmd_EPr_quiet_hours_start_title">Tyst period börjar</string>
   <string name="rmd_EPr_quiet_hours_start_desc">Inga varsel visas efter %s</string>
   <string name="rmd_EPr_quiet_hours_desc_none">Tyst period är inaktiverad</string>
   <string name="rmd_EPr_quiet_hours_end_title">Tyst period slutar</string>
-  <string name="rmd_EPr_quiet_hours_end_desc">Notifications will stop being silent starting at %s</string>
-  <string name="rmd_EPr_rmd_time_title">Default Reminder</string>
-  <string name="rmd_EPr_rmd_time_desc">Notifications for tasks without duetimes will appear at %s</string>
+  <string name="rmd_EPr_quiet_hours_end_desc">Påminnelser är ljudlösa med början %s</string>
+  <string name="rmd_EPr_rmd_time_title">Standardpåminnelse</string>
+  <string name="rmd_EPr_rmd_time_desc">Påminnelser om uppgifter utan sluttid visas %s</string>
   <string name="rmd_EPr_ringtone_title">Ringsignal för påminnelser</string>
   <string name="rmd_EPr_ringtone_desc_custom">Egendefinierad ringsignal har ställts in</string>
   <string name="rmd_EPr_ringtone_desc_silent">Ringsignal ställdes till tyst</string>
@@ -658,9 +652,9 @@
   <string name="rmd_EPr_persistent_desc_false">Varsel kan rensas med \"Rensa alla\"-knappen</string>
   <string name="rmd_EPr_notificon_title">Välj ikon för varsel</string>
   <string name="rmd_Epr_notificon_desc">Välj Astrids statusfältikon</string>
-  <string name="rmd_EPr_multiple_maxvolume_title">Max volume for multiple-ring reminders</string>
-  <string name="rmd_EPr_multiple_maxvolume_desc_true">Astrid will max out the volume for multiple-ring reminders</string>
-  <string name="rmd_EPr_multiple_maxvolume_desc_false">Astrid will use the system-setting for the volume</string>
+  <string name="rmd_EPr_multiple_maxvolume_title">Maxvolym för flera ringande påminnelser</string>
+  <string name="rmd_EPr_multiple_maxvolume_desc_true">Astrid sätter volymen på max för flera ringande påminnelser</string>
+  <string name="rmd_EPr_multiple_maxvolume_desc_false">Astrid använder systeminställningen för volym</string>
   <string name="rmd_EPr_vibrate_title">Vibrera vid varsel</string>
   <string name="rmd_EPr_vibrate_desc_true">Astrid kommer att vibrera vid varsel</string>
   <string name="rmd_EPr_vibrate_desc_false">Astrid kommer inte att vibrera vid varsel</string>
@@ -812,16 +806,16 @@
     <item>En liten munsbit efter att du avslutat detta?</item>
     <item>Bara den här uppgiften? Snälla?</item>
     <item>Dags att korta ned din att-göra-lista!</item>
-    <item>Are you on Team Order or Team Chaos? Team Order! Let\'s go!</item>
-    <item>Have I mentioned you are awesome recently? Keep it up!</item>
-    <item>A task a day keeps the clutter away... Goodbye clutter!</item>
-    <item>How do you do it? Wow, I\'m impressed!</item>
-    <item>You can\'t just get by on your good looks. Let\'s get to it!</item>
-    <item>Lovely weather for a job like this, isn\'t it?</item>
-    <item>A spot of tea while you work on this?</item>
-    <item>If only you had already done this, then you could go outside and play.</item>
-    <item>It\'s time. You can\'t put off the inevitable.</item>
-    <item>I die a little every time you ignore me.</item>
+    <item>Ingår du i lag Ordning eller i lag Kaos? Lag Ordning! Kom igen!</item>
+    <item>Har jag sagt att du är toppen på sistone? Fortsätt så!</item>
+    <item>Undvik röra - bara att sätta i gång och göra!</item>
+    <item>Hur lyckas du med det här? Jag är verkligen imponerad!</item>
+    <item>Du klarar dig inte enbart med ditt utseende. Sätt i gång!</item>
+    <item>Fint väder för ett jobb som det här, ìnte sant?</item>
+    <item>En skvätt te medan du håller på med det här?</item>
+    <item>Om du bara hade varit klar med det här redan, kunde du ha gått ut och lekt.</item>
+    <item>Det är dags. Du kan inte skjuta upp det ofrånkomliga.</item>
+    <item>Jag dör en smula varje gång du ignorerar mig.</item>
   </string-array>
   <string-array name="postpone_nags">
     <item>Snälla, säg mig inte att du är en som förhalar!</item>
@@ -845,22 +839,22 @@
   <string name="repeat_every">Varje %d</string>
   <string name="repeat_interval_prompt">Upprepningsintervall</string>
   <string name="repeat_never">No Repeat</string>
-  <string name="repeat_dont">Don\'t repeat</string>
+  <string name="repeat_dont">Upprepa inte</string>
   <string-array name="repeat_interval_short">
     <item>d</item>
-    <item>wk</item>
-    <item>mo</item>
-    <item>hr</item>
+    <item>v</item>
+    <item>mån</item>
+    <item>tim</item>
     <item>min</item>
-    <item>yr</item>
+    <item>år</item>
   </string-array>
   <string-array name="repeat_interval">
     <item>Dag(ar)</item>
     <item>Vecka (veckor)</item>
     <item>Månad(er)</item>
     <item>Timme (timmar)</item>
-    <item>Minute(s)</item>
-    <item>Year(s)</item>
+    <item>Minut(er)</item>
+    <item>År</item>
   </string-array>
   <string-array name="repeat_type">
     <item>från förfallodatumet</item>
@@ -869,86 +863,86 @@
   <string name="repeat_detail_byday">$I på $D</string>
   <string name="repeat_detail_duedate">Varje %s</string>
   <string name="repeat_detail_completion">%s efter avslutning</string>
-  <string name="repeat_rescheduling_dialog_title">Rescheduling task \"%s\"</string>
-  <string name="repeat_rescheduling_dialog_bubble">%1$s I\'ve rescheduled this repeating task from %2$s to %3$s</string>
+  <string name="repeat_rescheduling_dialog_title">Ändrar tid för uppgiften \"%s\"</string>
+  <string name="repeat_rescheduling_dialog_bubble">%1$s Återkommande uppgift ändrad från %2$s till %3$s</string>
   <string-array name="repeat_encouragement">
-    <item>Good job!</item>
-    <item>Wow… I\'m so proud of you!</item>
-    <item>I love it when you\'re productive!</item>
-    <item>Doesn\'t it feel good to check something off?</item>
+    <item>Bra jobbat!</item>
+    <item>Häftigt! Jag är så stolt över dig!</item>
+    <item>Jag älskar när du är produktiv!</item>
+    <item>Visst känns det skönt att bocka av någonting?</item>
   </string-array>
   <string name="rmilk_EOE_button">Remember the Milk inställningar</string>
   <string name="rmilk_TLA_repeat">RTM upprepande uppgift</string>
   <string name="rmilk_TLA_sync">Behöver synkronisering med RTM</string>
-  <string name="rmilk_FEx_header">Remember the Milk</string>
+  <string name="rmilk_FEx_header">Kom ihåg mjölk</string>
   <string name="rmilk_FEx_list">Listor</string>
   <string name="rmilk_FEx_list_title">RTM Lista \'%s\'</string>
-  <string name="rmilk_MEA_title">Remember the Milk</string>
+  <string name="rmilk_MEA_title">Kom ihåg mjölk</string>
   <string name="rmilk_MEA_list_label">RTM Lista:</string>
   <string name="rmilk_MEA_repeat_label">RTM Upprepningsstatus:</string>
   <string name="rmilk_MEA_repeat_hint">t.ex. varje vecka, efter 14 dagar</string>
-  <string name="rmilk_MPr_header">Remember the Milk</string>
+  <string name="rmilk_MPr_header">Kom ihåg mjölk</string>
   <string name="rmilk_MLA_label">Var god logga in och auktorisera Astrid</string>
   <string name="rmilk_MLA_error">Förlåt, din inloggning kunde inte bekräftas. Var god försök igen. \n\n Felbesked: %s</string>
-  <string name="rmilk_notification_title">Astrid: Remember the Milk</string>
+  <string name="rmilk_notification_title">Astrid: Kom ihåg mjölk</string>
   <string name="rmilk_ioerror">Tillkopplingsfel! Kolla din internetförbindelse, eller kanske RTM servrarna (status.rememberthemilk.com), för möjliga lösningar.</string>
-  <string name="subtasks_help_title">Sort and Indent in Astrid</string>
-  <string name="subtasks_help_1">Tap and hold to move a task</string>
-  <string name="subtasks_help_2">Drag vertically to rearrange</string>
-  <string name="subtasks_help_3">Drag horizontally to indent</string>
+  <string name="subtasks_help_title">Sortera och gör indrag i Astrid</string>
+  <string name="subtasks_help_1">Rör vid och håll kvar fingret för att flytta en uppgift</string>
+  <string name="subtasks_help_2">Dra upp eller ner för att ändra ordningen</string>
+  <string name="subtasks_help_3">Dra åt höger för att göra indrag</string>
   <string name="TEA_tags_label">Listor</string>
-  <string name="TEA_tags_label_long">Put task on one or more lists</string>
-  <string name="TEA_tags_none">None</string>
-  <string name="TEA_tag_hint">New list</string>
-  <string name="TEA_tag_dropdown">Select a list</string>
+  <string name="TEA_tags_label_long">Koppla uppgiften till en eller flera listor</string>
+  <string name="TEA_tags_none">Ingen</string>
+  <string name="TEA_tag_hint">Ny lista</string>
+  <string name="TEA_tag_dropdown">Välj lista</string>
   <string name="tag_TLA_menu">Listor</string>
-  <string name="TAd_contextFilterByTag">Show List</string>
-  <string name="tag_new_list">New List</string>
-  <string name="tag_list_saved">List Saved</string>
-  <string name="tag_no_title_error">Please enter a name for this list first!</string>
-  <string name="tag_FEx_add_new">New</string>
+  <string name="TAd_contextFilterByTag">Visa lista</string>
+  <string name="tag_new_list">Ny lista</string>
+  <string name="tag_list_saved">Listan sparad</string>
+  <string name="tag_no_title_error">Ange först ett namn på listan!</string>
+  <string name="tag_FEx_add_new">Ny</string>
   <string name="tag_FEx_header">Listor</string>
-  <string name="tag_FEx_category_mine">My Lists</string>
-  <string name="tag_FEx_category_shared">Shared With Me</string>
-  <string name="tag_FEx_category_inactive">Inactive</string>
-  <string name="tag_FEx_untagged">Not in any List</string>
-  <string name="tag_FEx_untagged_w_astrid">Not in an Astrid List</string>
-  <string name="tag_FEx_name">List: %s</string>
-  <string name="tag_cm_rename">Rename List</string>
-  <string name="tag_cm_delete">Delete List</string>
-  <string name="tag_cm_leave">Leave List</string>
-  <string name="DLG_delete_this_tag_question">Delete this list: %s? (No tasks will be deleted.)</string>
-  <string name="DLG_leave_this_shared_tag_question">Leave this shared list: %s? (No tasks will be deleted.)</string>
-  <string name="DLG_rename_this_tag_header">Rename the list %s to:</string>
+  <string name="tag_FEx_category_mine">Mina listor</string>
+  <string name="tag_FEx_category_shared">Delas med mig</string>
+  <string name="tag_FEx_category_inactive">Inaktiv</string>
+  <string name="tag_FEx_untagged">Ingen lista</string>
+  <string name="tag_FEx_untagged_w_astrid">Ingen lista i Astrid</string>
+  <string name="tag_FEx_name">Lista: %s</string>
+  <string name="tag_cm_rename">Byt namn på listan</string>
+  <string name="tag_cm_delete">Radera listan</string>
+  <string name="tag_cm_leave">Lämna listan</string>
+  <string name="DLG_delete_this_tag_question">Radera listan %s? (Inga uppgifter raderas.)</string>
+  <string name="DLG_leave_this_shared_tag_question">Lämna den delade listan %s? (Inga uppgifter raderas.)</string>
+  <string name="DLG_rename_this_tag_header">Byt namn på listan %s till:</string>
   <string name="TEA_no_tags_modified">Inga ändringar gjordes</string>
-  <string name="TEA_tags_deleted">List %1$s was deleted, affecting %2$d tasks</string>
-  <string name="TEA_tags_left">You left shared list %1$s, affecting %2$d tasks</string>
-  <string name="TEA_tags_renamed">Renamed %1$s with %2$s for %3$d tasks</string>
-  <string name="tag_case_migration_notice">We\'ve noticed that you have some lists that have the same name with different capitalizations. We think you may have intended them to be the same list, so we\'ve combined the duplicates. Don\'t worry though: the original lists are simply renamed with numbers (e.g. Shopping_1, Shopping_2). If you don\'t want this, you can simply delete the new combined list!</string>
+  <string name="TEA_tags_deleted">Listan %1$s raderad. Det påverkar %2$d uppgifter</string>
+  <string name="TEA_tags_left">Du lämnade listan %1$s. Det påverkar %2$d uppgifter</string>
+  <string name="TEA_tags_renamed">Bytte namn på %1$s till %2$s för %3$d uppgifter</string>
+  <string name="tag_case_migration_notice">Vi har märkt att du har några listor som har samma namn men som skiljer sig åt med stora och små bokstäver. Vi tror att du kan ha velat att de skulle vara samma lista, så vi har kombinerat dubbletterna. Var inte orolig, de ursprungliga listorna har fått nya namn med siffror (t.ex. Arbete_1, Arbete_2). Om du inte vill ha det så, kan du bara ta bort den nya kombinerade listan!</string>
   <string name="tag_settings_title">Settings:</string>
-  <string name="tag_updates_title">Activity: %s</string>
-  <string name="tag_delete_button">Delete List</string>
-  <string name="tag_leave_button">Leave This List</string>
-  <string name="TAE_startTimer">Timer</string>
-  <string name="TAE_stopTimer">Stop</string>
+  <string name="tag_updates_title">Aktivitet: %s</string>
+  <string name="tag_delete_button">Radera listan</string>
+  <string name="tag_leave_button">Lämna den här listan</string>
+  <string name="TAE_startTimer">Tidtagarur</string>
+  <string name="TAE_stopTimer">Stoppa</string>
   <string name="TPl_notification">Tidtagarur aktivt för %s!</string>
   <string name="TFE_category">Tidtagningsfilter</string>
   <string name="TFE_workingOn">Uppgifter med tidtagning</string>
-  <string name="TEA_timer_controls">Timer Controls</string>
-  <string name="TEA_timer_comment_started">started this task:</string>
-  <string name="TEA_timer_comment_stopped">stopped doing this task:</string>
-  <string name="TEA_timer_comment_spent">Time spent:</string>
-  <string name="update_string_friends">%1$s is now friends with %2$s</string>
-  <string name="update_string_request_friendship">%1$s wants to be friends with you</string>
-  <string name="update_string_confirmed_friendship">%1$s has confirmed your friendship request</string>
-  <string name="update_string_task_created">%1$s created this task</string>
-  <string name="update_string_task_created_on_list">%1$s added %2$s to this list</string>
-  <string name="update_string_task_completed">%1$s completed %2$s. Huzzah!</string>
-  <string name="update_string_task_uncompleted">%1$s un-completed %2$s.</string>
-  <string name="update_string_task_tagged">%1$s added %4$s to %2$s</string>
-  <string name="update_string_task_tagged_list">%1$s added %4$s to this list</string>
-  <string name="update_string_task_assigned">%1$s assigned %4$s to %2$s</string>
-  <string name="update_string_default_comment">%1$s commented: %3$s</string>
+  <string name="TEA_timer_controls">Inställningar för tidtagarur</string>
+  <string name="TEA_timer_comment_started">påbörjade uppgiften:</string>
+  <string name="TEA_timer_comment_stopped">slutade arbeta med uppgiften:</string>
+  <string name="TEA_timer_comment_spent">Nedlagt tid:</string>
+  <string name="update_string_friends">%1$s är nu vän med %2$s</string>
+  <string name="update_string_request_friendship">%1s vill bli vän med dig</string>
+  <string name="update_string_confirmed_friendship">%1$s har accepterat din vänförfrågan</string>
+  <string name="update_string_task_created">%1$s skapade den här uppgiften</string>
+  <string name="update_string_task_created_on_list">%1$s lade in %2$s på den här listan</string>
+  <string name="update_string_task_completed">%1$s slutförde %2$s. Hurra!</string>
+  <string name="update_string_task_uncompleted">%1$s avmarkerade %2$s som slutförd.</string>
+  <string name="update_string_task_tagged">%1$s lade in %4$s på %2$s</string>
+  <string name="update_string_task_tagged_list">%1$s lade in %4$s på listan</string>
+  <string name="update_string_task_assigned">%1$s tilldelade %2$s uppgiften %4$s</string>
+  <string name="update_string_default_comment">%1$s kommenterade: %3$s</string>
   <string name="update_string_task_comment">%1$s Re: %2$s: %3$s</string>
   <string name="update_string_tag_comment">%1$s Re: %2$s: %3$s</string>
   <string name="voice_create_prompt">Prata för att skapa uppgift</string>
@@ -967,26 +961,26 @@
   <string name="EPr_voiceRemindersEnabled_desc_enabled">Astrid läser upp uppgifterna vid påminnelse</string>
   <string name="EPr_voiceRemindersEnabled_desc_disabled">Astrid kommer att spela en ringsignal vid påminnelse</string>
   <string name="EPr_voice_header">Röstindata inställningar</string>
-  <string name="welcome_show_eula">Accept EULA to get started!</string>
-  <string name="welcome_setting">Show Tutorial</string>
+  <string name="welcome_show_eula">Acceptera användaravtalet för att starta!</string>
+  <string name="welcome_setting">Visa handledning</string>
   <string name="welcome_title_1">Välkommen till Astrid!</string>
-  <string name="welcome_title_2">Make lists</string>
-  <string name="welcome_title_3">Switch between lists</string>
-  <string name="welcome_title_4">Share lists</string>
-  <string name="welcome_title_5">Divvy up tasks</string>
-  <string name="welcome_title_6">Provide details</string>
-  <string name="welcome_title_7">Connect now\nto get started!</string>
-  <string name="welcome_title_7_return">That\'s it!</string>
-  <string name="welcome_body_1">The perfect personal to-do list \nthat works great with friends</string>
-  <string name="welcome_body_2">Great for any list:\nread, watch, buy, visit!</string>
-  <string name="welcome_body_3">Tap the list title \nto see all your lists</string>
-  <string name="welcome_body_4">Share lists with \nfriends, housemates,\nor your sweetheart!</string>
+  <string name="welcome_title_2">Göra listor</string>
+  <string name="welcome_title_3">Byta mellan listor</string>
+  <string name="welcome_title_4">Dela listor</string>
+  <string name="welcome_title_5">Dela upp uppgifter</string>
+  <string name="welcome_title_6">Ange detaljer</string>
+  <string name="welcome_title_7">Anslut nu\nför att starta!</string>
+  <string name="welcome_title_7_return">Det var det!</string>
+  <string name="welcome_body_1">Den perfekta att göra-listan\nsom funkar bra med vänner</string>
+  <string name="welcome_body_2">Utmärkt för alla listor:\natt läsa, att titta på, att köpa, att besöka</string>
+  <string name="welcome_body_3">Tryck på listans namn\nför att se alla dina listor</string>
+  <string name="welcome_body_4">Dela listor med \nkompisarna\neller din älskling!</string>
   <string name="welcome_body_5">and much more!</string>
-  <string name="welcome_body_6">Tap to add notes,\nset reminders,\nand much more!</string>
-  <string name="welcome_body_7">Login</string>
-  <string name="welcome_body_7_return">Tap Astrid to return.</string>
-  <string name="welcome_back">Back</string>
-  <string name="welcome_next">Next</string>
+  <string name="welcome_body_6">Klicka för att göra anteckningar,\nställa in påminnelser,\noch mycket annat!</string>
+  <string name="welcome_body_7">Logga in</string>
+  <string name="welcome_body_7_return">Klicka på Astrid för att återvända.</string>
+  <string name="welcome_back">Bakåt</string>
+  <string name="welcome_next">Nästa</string>
   <string name="PPW_widget_42_label">Astrid Premium 4x2</string>
   <string name="PPW_widget_43_label">Astrid Premium 4x3</string>
   <string name="PPW_widget_44_label">Astrid Premium 4x4</string>
@@ -1028,123 +1022,16 @@
     <item>Blå</item>
     <item>Genomskinlig</item>
   </string-array>
-  <string name="PPW_widget_dlg_text">This widget is only available to owners of the PowerPack!</string>
-  <string name="PPW_widget_dlg_ok">Preview</string>
-  <string name="PPW_demo_title1">Items on %s will go here</string>
-  <string name="PPW_demo_title2">Power Pack includes Premium Widgets...</string>
-  <string name="PPW_demo_title3">...voice add and good feelings!</string>
-  <string name="PPW_demo_title4">Tap to learn more!</string>
-  <string name="PPW_info_title">Free Power Pack!</string>
-  <string name="PPW_info_signin">Sign in!</string>
-  <string name="PPW_info_later">Later</string>
-  <string name="PPW_unlock_howto">Share lists with friends! Unlock the free Power Pack when 3 friends sign up with Astrid.</string>
-  <string name="PPW_check_button">Get the Power Pack for free!</string>
-  <string name="PPW_check_share_lists">Share lists!</string>
-  <plurals name="DUt_years">
-    <item quantity="one">1 Year</item>
-    <item quantity="other">%d Years</item>
-  </plurals>
-  <plurals name="DUt_months">
-    <item quantity="one">1 Month</item>
-    <item quantity="other">%d Months</item>
-  </plurals>
-  <plurals name="DUt_weeks">
-    <item quantity="one">1 Week</item>
-    <item quantity="other">%d Weeks</item>
-  </plurals>
-  <plurals name="DUt_days">
-    <item quantity="one">1 Day</item>
-    <item quantity="other">%d Days</item>
-  </plurals>
-  <plurals name="DUt_weekdays">
-    <item quantity="one">1 Weekday</item>
-    <item quantity="other">%d Weekdays</item>
-  </plurals>
-  <plurals name="DUt_hours">
-    <item quantity="one">1 Hour</item>
-    <item quantity="other">%d Hours</item>
-  </plurals>
-  <plurals name="DUt_minutes">
-    <item quantity="one">1 Minute</item>
-    <item quantity="other">%d Minutes</item>
-  </plurals>
-  <plurals name="DUt_seconds">
-    <item quantity="one">1 Second</item>
-    <item quantity="other">%d Seconds</item>
-  </plurals>
-  <plurals name="DUt_hoursShort">
-    <item quantity="one">1 Hr</item>
-    <item quantity="other">%d Hrs</item>
-  </plurals>
-  <plurals name="DUt_minutesShort">
-    <item quantity="one">1 Min</item>
-    <item quantity="other">%d Min</item>
-  </plurals>
-  <plurals name="DUt_secondsShort">
-    <item quantity="one">1 Sec</item>
-    <item quantity="other">%d Sec</item>
-  </plurals>
-  <plurals name="Ntasks">
-    <item quantity="one">1 task</item>
-    <item quantity="other">%d tasks</item>
-  </plurals>
-  <plurals name="Npeople">
-    <item quantity="one">1 person</item>
-    <item quantity="other">%d people</item>
-  </plurals>
-  <string name="today">Today</string>
-  <string name="tomorrow">Tomorrow</string>
-  <string name="yesterday">Yesterday</string>
-  <string name="tmrw">Tmrw</string>
-  <string name="yest">Yest</string>
-  <string name="DLG_confirm_title">Bekräfta?</string>
-  <string name="DLG_question_title">Fråga:</string>
-  <string name="DLG_information_title">Information</string>
-  <string name="DLG_error_title">Fel!</string>
-  <string name="DLG_save">Spara</string>
-  <string name="DLG_yes">Ja</string>
-  <string name="DLG_no">Nej</string>
-  <string name="DLG_close">Stäng</string>
-  <string name="DLG_done">Done</string>
-  <string name="DLG_error">Oops, looks like an error occurred! Here\'s what happened:\n\n%s</string>
-  <string name="DLG_error_generic">Oj, det uppstod ett fel!</string>
-  <string name="DLG_wait">Var god vänta...</string>
-  <string name="SyP_progress">Synkroniserar dina uppgifter...</string>
-  <string name="SyP_progress_toast">Synkroniserar...</string>
-  <string name="SyP_label">Synkronisering</string>
-  <string name="SyP_ioerror">Connection Error! Check your Internet connection.</string>
-  <string name="sync_SPr_group_status">Status</string>
-  <string name="sync_status_loggedout">Ej inloggad!</string>
-  <string name="sync_status_ongoing">Synkronisering pågår...</string>
-  <string name="sync_status_success">Last Sync:\n%s</string>
-  <string name="sync_status_failed">Misslyckades: %s</string>
-  <string name="sync_status_errors">Sync w/ Errors: %s</string>
-  <string name="sync_status_failed_subtitle">Synkronisering lyckades senast: %s</string>
-  <string name="sync_status_never">Aldrig synkroniserad!</string>
-  <string name="sync_SPr_group_options">Options</string>
-  <string name="sync_SPr_interval_title">Bakgrundssynkronisering</string>
-  <string name="sync_SPr_interval_desc_disabled">Bakgrundssynkronisering är inaktiverad</string>
-  <string name="sync_SPr_interval_desc">Aktuell inställning: %s</string>
-  <string name="sync_SPr_bgwifi_title">Endast Wi-Fi Inställning</string>
-  <string name="sync_SPr_bgwifi_desc_enabled">Bakgrundssynkronisering sker endast när du är ansluten till Wi-Fi</string>
-  <string name="sync_SPr_bgwifi_desc_disabled">Bakgrundssynkronisering sker alltid</string>
-  <string name="sync_SPr_group_actions">Åtgärder</string>
-  <string name="sync_SPr_sync">Synkronisera nu!</string>
-  <string name="sync_SPr_sync_log_in">Logga in &amp;amp; synkronisera!</string>
-  <string name="sync_SPr_logged_in_prefix">Inloggad som:</string>
-  <string name="sync_SPr_forget">Logga ut</string>
-  <string name="sync_SPr_forget_description">Rensar alla synkroniseringsdata</string>
-  <string name="sync_forget_confirm">Logga ut / rensa synkroniseringsdata?</string>
-  <string-array name="sync_SPr_interval_entries">
-    <item>inaktivera</item>
-    <item>varje kvartstimme</item>
-    <item>varje halvtimme</item>
-    <item>varje timme</item>
-    <item>var tredje timme</item>
-    <item>var sjätte timme</item>
-    <item>var tolfte timme</item>
-    <item>varje dag</item>
-    <item>var tredje dag</item>
-    <item>varje vecka</item>
-  </string-array>
+  <string name="PPW_widget_dlg_text">Widgeten är tillgänglig endast för användare av Astrid Power Pack!</string>
+  <string name="PPW_widget_dlg_ok">Förhandsgranska</string>
+  <string name="PPW_demo_title1">Poster på %s hamnar här</string>
+  <string name="PPW_demo_title2">I Power Pack ingår premiumwidgetar...</string>
+  <string name="PPW_demo_title3">...ljud och härliga känslor!</string>
+  <string name="PPW_demo_title4">Tryck för att läsa mer!</string>
+  <string name="PPW_info_title">Gratis Power Pack!</string>
+  <string name="PPW_info_signin">Logga in!</string>
+  <string name="PPW_info_later">Senare</string>
+  <string name="PPW_unlock_howto">Dela listor med dina vänner! Gratis Power Pack när tre vänner börjar använda Astrid.</string>
+  <string name="PPW_check_button">Du kan få Power Pack gratis!</string>
+  <string name="PPW_check_share_lists">Dela listor!</string>
 </resources>

@@ -225,6 +225,7 @@
   <string name="FLA_toast_onCreateShortcut">Gemaakte snelkoppeling: %s</string>
   <string name="FLA_new_filter">New Filter</string>
   <string name="FLA_new_list">Nieuwe lijst</string>
+  <string name="FLA_no_filter_selected">No filter selected! Please select a filter or list.</string>
   <string name="TEA_view_title">Astrid: \'%s\' bewerken</string>
   <string name="TEA_view_titleNew">New Task</string>
   <string name="TEA_title_label">Titel</string>
@@ -319,8 +320,8 @@
   <string name="EPr_fullTask_desc_enabled">Full task title will be shown</string>
   <string name="EPr_fullTask_desc_disabled">First two lines of task title will be shown</string>
   <string name="EPr_ideaAuto_title">Auto-load Ideas Tab</string>
-  <string name="EPr_ideaAuto_desc_enabled">Web searches for Ideas tab will be performed when task is edited</string>
-  <string name="EPr_ideaAuto_desc_disabled">Web searches for Ideas tab will be performed when tab is clicked</string>
+  <string name="EPr_ideaAuto_desc_enabled">Web searches for Ideas tab will be performed when tab is clicked</string>
+  <string name="EPr_ideaAuto_desc_disabled">Web searches for Ideas tab will be performed only when manually requested</string>
   <string name="EPr_theme_title">Color Theme</string>
   <string name="EPr_theme_desc">Nu: %s</string>
   <string name="EPr_theme_desc_unsupported">Instelllingen vereisen Android 2.0+</string>
@@ -485,13 +486,6 @@
   <string name="gtasks_error_accountNotFound">Account %s not found--please log out and log back in from the Google Tasks settings.</string>
   <string name="gtasks_error_authRefresh">Unable to authenticate with Google Tasks. Please check your account password or try again later.</string>
   <string name="gtasks_error_accountManager">Error in your phone\'s account manager. Please log out and log back in from the Google Tasks settings.</string>
-
-
-
-
-
-
-
   <string name="help_popover_add_task">Start by adding a task or two</string>
   <string name="help_popover_tap_task">Tap task to edit and share</string>
   <string name="help_popover_list_settings">Tap to edit or share this list</string>
@@ -1040,111 +1034,4 @@
   <string name="PPW_unlock_howto">Share lists with friends! Unlock the free Power Pack when 3 friends sign up with Astrid.</string>
   <string name="PPW_check_button">Get the Power Pack for free!</string>
   <string name="PPW_check_share_lists">Share lists!</string>
-  <plurals name="DUt_years">
-    <item quantity="one">1 Year</item>
-    <item quantity="other">%d Years</item>
-  </plurals>
-  <plurals name="DUt_months">
-    <item quantity="one">1 Month</item>
-    <item quantity="other">%d Months</item>
-  </plurals>
-  <plurals name="DUt_weeks">
-    <item quantity="one">1 Week</item>
-    <item quantity="other">%d Weeks</item>
-  </plurals>
-  <plurals name="DUt_days">
-    <item quantity="one">1 Day</item>
-    <item quantity="other">%d Days</item>
-  </plurals>
-  <plurals name="DUt_weekdays">
-    <item quantity="one">1 Weekday</item>
-    <item quantity="other">%d Weekdays</item>
-  </plurals>
-  <plurals name="DUt_hours">
-    <item quantity="one">1 Hour</item>
-    <item quantity="other">%d Hours</item>
-  </plurals>
-  <plurals name="DUt_minutes">
-    <item quantity="one">1 Minute</item>
-    <item quantity="other">%d Minutes</item>
-  </plurals>
-  <plurals name="DUt_seconds">
-    <item quantity="one">1 Second</item>
-    <item quantity="other">%d Seconds</item>
-  </plurals>
-  <plurals name="DUt_hoursShort">
-    <item quantity="one">1 Hr</item>
-    <item quantity="other">%d Hrs</item>
-  </plurals>
-  <plurals name="DUt_minutesShort">
-    <item quantity="one">1 Min</item>
-    <item quantity="other">%d Min</item>
-  </plurals>
-  <plurals name="DUt_secondsShort">
-    <item quantity="one">1 Sec</item>
-    <item quantity="other">%d Sec</item>
-  </plurals>
-  <plurals name="Ntasks">
-    <item quantity="one">1 task</item>
-    <item quantity="other">%d tasks</item>
-  </plurals>
-  <plurals name="Npeople">
-    <item quantity="one">1 person</item>
-    <item quantity="other">%d people</item>
-  </plurals>
-  <string name="today">Today</string>
-  <string name="tomorrow">Tomorrow</string>
-  <string name="yesterday">Yesterday</string>
-  <string name="tmrw">Tmrw</string>
-  <string name="yest">Yest</string>
-  <string name="DLG_confirm_title">OK?</string>
-  <string name="DLG_question_title">Vraag:</string>
-  <string name="DLG_information_title">Informatie</string>
-  <string name="DLG_error_title">Fout!</string>
-  <string name="DLG_save">Opslaan</string>
-  <string name="DLG_yes">Ja</string>
-  <string name="DLG_no">Nee</string>
-  <string name="DLG_close">Sluiten</string>
-  <string name="DLG_done">Done</string>
-  <string name="DLG_error">Er is een fout opgetreden:\n\n%s</string>
-  <string name="DLG_error_generic">Er is een fout opgetreden!</string>
-  <string name="DLG_wait">Even geduld a.u.b.</string>
-  <string name="SyP_progress">Taken synchroniseren...</string>
-  <string name="SyP_progress_toast">Synchroniseren…</string>
-  <string name="SyP_label">Synchronisatie</string>
-  <string name="SyP_ioerror">Connection Error! Check your Internet connection.</string>
-  <string name="sync_SPr_group_status">Status</string>
-  <string name="sync_status_loggedout">Niet aangemeld!</string>
-  <string name="sync_status_ongoing">Synchronisatie bezig...</string>
-  <string name="sync_status_success">Last Sync:\n%s</string>
-  <string name="sync_status_failed">Mislukt op: %s</string>
-  <string name="sync_status_errors">Gesync. met fouten: %s</string>
-  <string name="sync_status_failed_subtitle">Gelukt op: %s</string>
-  <string name="sync_status_never">Nooit gesynct!</string>
-  <string name="sync_SPr_group_options">Options</string>
-  <string name="sync_SPr_interval_title">Achtergrond synchronisatie</string>
-  <string name="sync_SPr_interval_desc_disabled">Achtergrond synchronisatie uitgeschakeld</string>
-  <string name="sync_SPr_interval_desc">Huidige instelling: %s</string>
-  <string name="sync_SPr_bgwifi_title">Alleen via WiFi</string>
-  <string name="sync_SPr_bgwifi_desc_enabled">Achtergrond synchronisatie alleen met WiFi aan</string>
-  <string name="sync_SPr_bgwifi_desc_disabled">Achtergrond synchronisatie altijd aan</string>
-  <string name="sync_SPr_group_actions">Acties</string>
-  <string name="sync_SPr_sync">Synchroniseren</string>
-  <string name="sync_SPr_sync_log_in">Aanmelden &amp;amp; Sync.</string>
-  <string name="sync_SPr_logged_in_prefix">Logged in as:</string>
-  <string name="sync_SPr_forget">Afmelden</string>
-  <string name="sync_SPr_forget_description">Alle synchronisatie gegevens verwijderen</string>
-  <string name="sync_forget_confirm">Afmelden / synchronisatie gegevens verwijderen?</string>
-  <string-array name="sync_SPr_interval_entries">
-    <item>uitschakelen</item>
-    <item>elke 15 min.</item>
-    <item>elke 30 min.</item>
-    <item>elk uur</item>
-    <item>elke 3 uur</item>
-    <item>elke 6 uur</item>
-    <item>elke 12 uur</item>
-    <item>elke dag</item>
-    <item>elke 3 dagen</item>
-    <item>elke week</item>
-  </string-array>
 </resources>

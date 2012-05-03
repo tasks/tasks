@@ -1,53 +1,53 @@
 <?xml version='1.0' encoding='utf-8'?>
 <resources>
   <string name="EPE_action">Partilha</string>
-  <string name="actfm_person_hint">Nome de Contacto</string>
+  <string name="actfm_person_hint">Contacto ou Email</string>
   <string name="actfm_person_or_tag_hint">Contacto ou Lista Partilhada</string>
   <string name="actfm_toast_success">Guardado no Servidor</string>
-  <string name="actfm_toast_error">Save Failed: %s</string>
+  <string name="actfm_toast_error">Erro ao Guardar: %s</string>
   <string name="actfm_tag_operation_disabled">Sorry, this operation is not yet supported for shared tags.</string>
   <string name="actfm_tag_operation_owner_delete">You are the owner of this shared list! If you delete it, it will be deleted for all list members. Are you sure you want to continue?</string>
-  <string name="actfm_picture_camera">Take a Picture</string>
-  <string name="actfm_picture_gallery">Pick from Gallery</string>
+  <string name="actfm_picture_camera">Tirar uma Imagem</string>
+  <string name="actfm_picture_gallery">Seleccionar da Galeria</string>
   <string name="actfm_picture_clear">Clear Picture</string>
-  <string name="actfm_FLA_menu_refresh">Refresh Lists</string>
-  <string name="actfm_view_task_title">View Task?</string>
+  <string name="actfm_FLA_menu_refresh">Actualizar Listas</string>
+  <string name="actfm_view_task_title">Visualizar Tarefa?</string>
   <string name="actfm_view_task_text">Task was sent to %s! You\'re currently viewing your own tasks. Do you want to view this and other tasks you\'ve assigned?</string>
   <string name="actfm_view_task_ok">View Assigned</string>
-  <string name="actfm_view_task_cancel">Stay Here</string>
-  <string name="TVA_add_comment">Add a comment...</string>
+  <string name="actfm_view_task_cancel">Ficar Aqui</string>
+  <string name="TVA_add_comment">Adicionar um comentário...</string>
   <string name="UAd_title_comment">%1$s re: %2$s</string>
   <string-array name="TVA_tabs">
-    <item>Tasks</item>
-    <item>Activity</item>
-    <item>List Settings</item>
+    <item>Tarefas</item>
+    <item>Actividade</item>
+    <item>Definições da Lista</item>
   </string-array>
   <string name="actfm_TVA_filtered_by_assign">%s\'s tasks. Tap for all.</string>
   <string name="actfm_TVA_filter_by_unassigned">Unassigned tasks. Tap for all.</string>
   <string name="actfm_TVA_no_members_alert">Private: tap to edit or share list</string>
-  <string name="actfm_TVA_menu_refresh">Refresh</string>
-  <string name="actfm_TVA_tag_label">List</string>
-  <string name="actfm_TVA_tag_owner_label">List Creator:</string>
-  <string name="actfm_TVA_tag_owner_none">none</string>
-  <string name="actfm_TVA_members_label">Shared With</string>
+  <string name="actfm_TVA_menu_refresh">Actualizar</string>
+  <string name="actfm_TVA_tag_label">Lista</string>
+  <string name="actfm_TVA_tag_owner_label">Criador da Lista:</string>
+  <string name="actfm_TVA_tag_owner_none">nenhum</string>
+  <string name="actfm_TVA_members_label">Partilhado Com</string>
   <string name="actfm_TVA_tag_picture">List Picture</string>
-  <string name="actfm_TVA_silence_label">Silence Notifications</string>
+  <string name="actfm_TVA_silence_label">Notificações Silienciosas</string>
   <string name="actfm_TVA_list_icon_label">List Icon:</string>
-  <string name="actfm_TVA_tag_description_label">Description</string>
-  <string name="actfm_TVA_tag_settings_label">Settings</string>
-  <string name="actfm_TVA_tag_description_hint">Type a description here</string>
-  <string name="actfm_TVA_tag_name_hint">Enter list name</string>
+  <string name="actfm_TVA_tag_description_label">Descrição</string>
+  <string name="actfm_TVA_tag_settings_label">Definições</string>
+  <string name="actfm_TVA_tag_description_hint">Digita uma descrição aqui</string>
+  <string name="actfm_TVA_tag_name_hint">Introduza o nome da lista</string>
   <string name="actfm_TVA_login_to_share">You need to be logged in to Astrid.com to share lists! Please log in or make this a private list.</string>
   <string name="actfm_EPA_intro">Use Astrid to share shopping lists, party plans, or team projects and instantly see when people get stuff done!</string>
-  <string name="actfm_EPA_title">Share / Assign</string>
-  <string name="actfm_EPA_save">Save &amp; Share</string>
-  <string name="actfm_EPA_assign_label">Who</string>
+  <string name="actfm_EPA_title">Partilhar / Atribuir</string>
+  <string name="actfm_EPA_save">Gravar &amp; Partilhar</string>
+  <string name="actfm_EPA_assign_label">Quem</string>
   <string name="actfm_EPA_assign_label_long">Who should do this?</string>
   <string name="actfm_EPA_assign_me">Me</string>
-  <string name="actfm_EPA_unassigned">Unassigned</string>
+  <string name="actfm_EPA_unassigned">Não atribuído</string>
   <string name="actfm_EPA_task_rabbit">Outsource it!</string>
   <string name="actfm_EPA_assign_custom">Custom...</string>
-  <string name="actfm_EPA_share_with">Share with:</string>
+  <string name="actfm_EPA_share_with">Partilhar com:</string>
   <string name="actfm_EPA_assigned_toast">Sent to %1$s (you can see it in the list between you and %2$s).</string>
   <string name="actfm_EPA_collaborators_header">Share with Friends</string>
   <string name="actfm_EPA_list">List: %s</string>
@@ -225,6 +225,7 @@
   <string name="FLA_toast_onCreateShortcut">Atalho Criado: %s</string>
   <string name="FLA_new_filter">New Filter</string>
   <string name="FLA_new_list">New List</string>
+  <string name="FLA_no_filter_selected">No filter selected! Please select a filter or list.</string>
   <string name="TEA_view_title">Astrid: A editar \'%s\'</string>
   <string name="TEA_view_titleNew">New Task</string>
   <string name="TEA_title_label">Título</string>
@@ -319,8 +320,8 @@
   <string name="EPr_fullTask_desc_enabled">Full task title will be shown</string>
   <string name="EPr_fullTask_desc_disabled">First two lines of task title will be shown</string>
   <string name="EPr_ideaAuto_title">Auto-load Ideas Tab</string>
-  <string name="EPr_ideaAuto_desc_enabled">Web searches for Ideas tab will be performed when task is edited</string>
-  <string name="EPr_ideaAuto_desc_disabled">Web searches for Ideas tab will be performed when tab is clicked</string>
+  <string name="EPr_ideaAuto_desc_enabled">Web searches for Ideas tab will be performed when tab is clicked</string>
+  <string name="EPr_ideaAuto_desc_disabled">Web searches for Ideas tab will be performed only when manually requested</string>
   <string name="EPr_theme_title">Color Theme</string>
   <string name="EPr_theme_desc">Currently: %s</string>
   <string name="EPr_theme_desc_unsupported">Setting requires Android 2.0+</string>
@@ -485,13 +486,6 @@
   <string name="gtasks_error_accountNotFound">Account %s not found--please log out and log back in from the Google Tasks settings.</string>
   <string name="gtasks_error_authRefresh">Unable to authenticate with Google Tasks. Please check your account password or try again later.</string>
   <string name="gtasks_error_accountManager">Error in your phone\'s account manager. Please log out and log back in from the Google Tasks settings.</string>
-
-
-
-
-
-
-
   <string name="help_popover_add_task">Start by adding a task or two</string>
   <string name="help_popover_tap_task">Tap task to edit and share</string>
   <string name="help_popover_list_settings">Tap to edit or share this list</string>
@@ -1011,25 +1005,25 @@
     <item>Boa tarde!</item>
     <item>Good evening!</item>
     <item>Late night?</item>
-    <item>It\'s early, get something done!</item>
-    <item>Afternoon tea, perhaps?</item>
-    <item>Enjoy the evening!</item>
+    <item>É cedo, faça alguma coisa!</item>
+    <item>Chá da tarde, talvez?</item>
+    <item>Aproveite a noite!</item>
     <item>Sleep is good for you, you know!</item>
   </string-array>
   <string-array name="PPW_encouragements_completed">
     <item>You\'ve already completed %d tasks!</item>
     <item>Score in life: %d tasks completed</item>
-    <item>Smile! You\'ve already finished %d tasks!</item>
+    <item>sorria! Já completou as tarefas do %d</item>
   </string-array>
   <string name="PPW_encouragements_none_completed">You haven\'t completed any tasks yet! Shall we?</string>
   <string-array name="PPW_colors">
-    <item>Black</item>
-    <item>White</item>
+    <item>Preto</item>
+    <item>Branco</item>
     <item>Azul</item>
     <item>Translúcido</item>
   </string-array>
   <string name="PPW_widget_dlg_text">This widget is only available to owners of the PowerPack!</string>
-  <string name="PPW_widget_dlg_ok">Preview</string>
+  <string name="PPW_widget_dlg_ok">Pré-visualizar</string>
   <string name="PPW_demo_title1">Items on %s will go here</string>
   <string name="PPW_demo_title2">Power Pack includes Premium Widgets...</string>
   <string name="PPW_demo_title3">...voice add and good feelings!</string>
@@ -1038,113 +1032,6 @@
   <string name="PPW_info_signin">Sign in!</string>
   <string name="PPW_info_later">Later</string>
   <string name="PPW_unlock_howto">Share lists with friends! Unlock the free Power Pack when 3 friends sign up with Astrid.</string>
-  <string name="PPW_check_button">Get the Power Pack for free!</string>
-  <string name="PPW_check_share_lists">Share lists!</string>
-  <plurals name="DUt_years">
-    <item quantity="one">1 Year</item>
-    <item quantity="other">%d Years</item>
-  </plurals>
-  <plurals name="DUt_months">
-    <item quantity="one">1 Month</item>
-    <item quantity="other">%d Months</item>
-  </plurals>
-  <plurals name="DUt_weeks">
-    <item quantity="one">1 Week</item>
-    <item quantity="other">%d Weeks</item>
-  </plurals>
-  <plurals name="DUt_days">
-    <item quantity="one">1 Day</item>
-    <item quantity="other">%d Days</item>
-  </plurals>
-  <plurals name="DUt_weekdays">
-    <item quantity="one">1 Weekday</item>
-    <item quantity="other">%d Weekdays</item>
-  </plurals>
-  <plurals name="DUt_hours">
-    <item quantity="one">1 Hour</item>
-    <item quantity="other">%d Hours</item>
-  </plurals>
-  <plurals name="DUt_minutes">
-    <item quantity="one">1 Minute</item>
-    <item quantity="other">%d Minutes</item>
-  </plurals>
-  <plurals name="DUt_seconds">
-    <item quantity="one">1 Second</item>
-    <item quantity="other">%d Seconds</item>
-  </plurals>
-  <plurals name="DUt_hoursShort">
-    <item quantity="one">1 Hr</item>
-    <item quantity="other">%d Hrs</item>
-  </plurals>
-  <plurals name="DUt_minutesShort">
-    <item quantity="one">1 Min</item>
-    <item quantity="other">%d Min</item>
-  </plurals>
-  <plurals name="DUt_secondsShort">
-    <item quantity="one">1 Sec</item>
-    <item quantity="other">%d Sec</item>
-  </plurals>
-  <plurals name="Ntasks">
-    <item quantity="one">1 task</item>
-    <item quantity="other">%d tasks</item>
-  </plurals>
-  <plurals name="Npeople">
-    <item quantity="one">1 person</item>
-    <item quantity="other">%d people</item>
-  </plurals>
-  <string name="today">Today</string>
-  <string name="tomorrow">Tomorrow</string>
-  <string name="yesterday">Yesterday</string>
-  <string name="tmrw">Tmrw</string>
-  <string name="yest">Yest</string>
-  <string name="DLG_confirm_title">Confirma?</string>
-  <string name="DLG_question_title">Pergunta:</string>
-  <string name="DLG_information_title">Informação</string>
-  <string name="DLG_error_title">Error!</string>
-  <string name="DLG_save">Guardar</string>
-  <string name="DLG_yes">Sim</string>
-  <string name="DLG_no">Não</string>
-  <string name="DLG_close">Fechar</string>
-  <string name="DLG_done">Done</string>
-  <string name="DLG_error">Oops, looks like an error occurred! Here\'s what happened:\n\n%s</string>
-  <string name="DLG_error_generic">Oops, looks like an error occurred!</string>
-  <string name="DLG_wait">Por favor aguarde...</string>
-  <string name="SyP_progress">Synchronizing your tasks...</string>
-  <string name="SyP_progress_toast">A Sincronizar...</string>
-  <string name="SyP_label">Sincronização</string>
-  <string name="SyP_ioerror">Connection Error! Check your Internet connection.</string>
-  <string name="sync_SPr_group_status">Status</string>
-  <string name="sync_status_loggedout">Not Logged In!</string>
-  <string name="sync_status_ongoing">Sync Ongoing...</string>
-  <string name="sync_status_success">Last Sync:\n%s</string>
-  <string name="sync_status_failed">Failed On: %s</string>
-  <string name="sync_status_errors">Sync w/ Errors: %s</string>
-  <string name="sync_status_failed_subtitle">Last Successful Sync: %s</string>
-  <string name="sync_status_never">Never Synchronized!</string>
-  <string name="sync_SPr_group_options">Options</string>
-  <string name="sync_SPr_interval_title">Background Sync</string>
-  <string name="sync_SPr_interval_desc_disabled">Background synchronization is disabled</string>
-  <string name="sync_SPr_interval_desc">Currently set to: %s</string>
-  <string name="sync_SPr_bgwifi_title">Wifi Only Setting</string>
-  <string name="sync_SPr_bgwifi_desc_enabled">Background synchronization only happens when on Wifi</string>
-  <string name="sync_SPr_bgwifi_desc_disabled">Background synchronization will always occur</string>
-  <string name="sync_SPr_group_actions">Acções</string>
-  <string name="sync_SPr_sync">Sincronizar Agora!</string>
-  <string name="sync_SPr_sync_log_in">Log In &amp; Synchronize!</string>
-  <string name="sync_SPr_logged_in_prefix">Logged in as:</string>
-  <string name="sync_SPr_forget">Terminar sessão</string>
-  <string name="sync_SPr_forget_description">Clears all synchronization data</string>
-  <string name="sync_forget_confirm">Log out / clear synchronization data?</string>
-  <string-array name="sync_SPr_interval_entries">
-    <item>desactivar</item>
-    <item>every fifteen minutes</item>
-    <item>every thirty minutes</item>
-    <item>every hour</item>
-    <item>every three hours</item>
-    <item>every six hours</item>
-    <item>every twelve hours</item>
-    <item>every day</item>
-    <item>every three days</item>
-    <item>every week</item>
-  </string-array>
+  <string name="PPW_check_button">Obtenha o Power Pack grátis!</string>
+  <string name="PPW_check_share_lists">Partilhar Listas!</string>
 </resources>

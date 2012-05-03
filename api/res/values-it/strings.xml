@@ -1,24 +1,24 @@
 <?xml version='1.0' encoding='utf-8'?>
 <resources>
   <plurals name="DUt_years">
-    <item quantity="one">1 Anno</item>
-    <item quantity="other">%d Anni</item>
+    <item quantity="one">1 anno</item>
+    <item quantity="other">%d anni</item>
   </plurals>
   <plurals name="DUt_months">
-    <item quantity="one">1 Mese</item>
-    <item quantity="other">%d Mesi</item>
+    <item quantity="one">1 mese</item>
+    <item quantity="other">%d mesi</item>
   </plurals>
   <plurals name="DUt_weeks">
-    <item quantity="one">1 Settimana</item>
-    <item quantity="other">%d Settimane</item>
+    <item quantity="one">1 settimana</item>
+    <item quantity="other">%d settimane</item>
   </plurals>
   <plurals name="DUt_days">
     <item quantity="one">1 giorno</item>
     <item quantity="other">%d Giorni</item>
   </plurals>
   <plurals name="DUt_weekdays">
-    <item quantity="one">1 Weekday</item>
-    <item quantity="other">%d Weekdays</item>
+    <item quantity="one">1 giorno della settimana</item>
+    <item quantity="other">%d giorni della settimana</item>
   </plurals>
   <plurals name="DUt_hours">
     <item quantity="one">1 ora</item>
@@ -49,8 +49,8 @@
     <item quantity="other">%d attività</item>
   </plurals>
   <plurals name="Npeople">
-    <item quantity="one">1 person</item>
-    <item quantity="other">%d people</item>
+    <item quantity="one">1 persona</item>
+    <item quantity="other">%d persone</item>
   </plurals>
   <string name="today">Oggi</string>
   <string name="tomorrow">Domani</string>
@@ -78,7 +78,7 @@
   <string name="sync_status_ongoing">Sincronizzazione in corso ...</string>
   <string name="sync_status_success">Ultima Sincronizzazione:\n%s</string>
   <string name="sync_status_failed">Fallita Su: %s</string>
-  <string name="sync_status_errors">Sync w/ Errors: %s</string>
+  <string name="sync_status_errors">Sincronizza con gli errori: %s</string>
   <string name="sync_status_failed_subtitle">Ultima sincronizzazione eseguita con successo in data: %s</string>
   <string name="sync_status_never">Mai sincronizzato!</string>
   <string name="sync_SPr_group_options">Preferenze</string>
@@ -91,7 +91,7 @@
   <string name="sync_SPr_group_actions">Azioni</string>
   <string name="sync_SPr_sync">Sincronizza Ora!</string>
   <string name="sync_SPr_sync_log_in">Esegui l\'accesso &amp; Sincronizza!</string>
-  <string name="sync_SPr_logged_in_prefix">Logged in as:</string>
+  <string name="sync_SPr_logged_in_prefix">Connesso come:</string>
   <string name="sync_SPr_forget">Esci</string>
   <string name="sync_SPr_forget_description">Cancella tutti i dati di sincronizzazione</string>
   <string name="sync_forget_confirm">Esci / cancella i file di sincronizzazione?</string>

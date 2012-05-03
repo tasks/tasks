@@ -1,7 +1,7 @@
 <?xml version='1.0' encoding='utf-8'?>
 <resources>
   <string name="EPE_action">공유</string>
-  <string name="actfm_person_hint">Contact or Email</string>
+  <string name="actfm_person_hint">연락처 혹은 전자우편</string>
   <string name="actfm_person_or_tag_hint">Contact or Shared List</string>
   <string name="actfm_toast_success">Saved on Server</string>
   <string name="actfm_toast_error">Save Failed: %s</string>
@@ -76,7 +76,7 @@
   <string name="actfm_ALA_name_label">Name</string>
   <string name="actfm_ALA_firstname_label">First Name</string>
   <string name="actfm_ALA_lastname_label">Last Name</string>
-  <string name="actfm_ALA_email_label">Email</string>
+  <string name="actfm_ALA_email_label">전자우편</string>
   <string name="actfm_ALA_username_email_label">Username / Email</string>
   <string name="actfm_ALA_password_label">비밀번호</string>
   <string name="actfm_ALA_signup_title">Create New Account</string>
@@ -225,6 +225,7 @@
   <string name="FLA_toast_onCreateShortcut">바로가기 생성 완료: %s</string>
   <string name="FLA_new_filter">New Filter</string>
   <string name="FLA_new_list">New List</string>
+  <string name="FLA_no_filter_selected">No filter selected! Please select a filter or list.</string>
   <string name="TEA_view_title">Astrid: \'%s\' 편집중</string>
   <string name="TEA_view_titleNew">New Task</string>
   <string name="TEA_title_label">작업명</string>
@@ -319,8 +320,8 @@
   <string name="EPr_fullTask_desc_enabled">Full task title will be shown</string>
   <string name="EPr_fullTask_desc_disabled">First two lines of task title will be shown</string>
   <string name="EPr_ideaAuto_title">Auto-load Ideas Tab</string>
-  <string name="EPr_ideaAuto_desc_enabled">Web searches for Ideas tab will be performed when task is edited</string>
-  <string name="EPr_ideaAuto_desc_disabled">Web searches for Ideas tab will be performed when tab is clicked</string>
+  <string name="EPr_ideaAuto_desc_enabled">Web searches for Ideas tab will be performed when tab is clicked</string>
+  <string name="EPr_ideaAuto_desc_disabled">Web searches for Ideas tab will be performed only when manually requested</string>
   <string name="EPr_theme_title">Color Theme</string>
   <string name="EPr_theme_desc">현재 설정: %s</string>
   <string name="EPr_theme_desc_unsupported">Setting requires Android 2.0+</string>
@@ -485,13 +486,6 @@
   <string name="gtasks_error_accountNotFound">Account %s not found--please log out and log back in from the Google Tasks settings.</string>
   <string name="gtasks_error_authRefresh">Unable to authenticate with Google Tasks. Please check your account password or try again later.</string>
   <string name="gtasks_error_accountManager">Error in your phone\'s account manager. Please log out and log back in from the Google Tasks settings.</string>
-
-
-
-
-
-
-
   <string name="help_popover_add_task">Start by adding a task or two</string>
   <string name="help_popover_tap_task">Tap task to edit and share</string>
   <string name="help_popover_list_settings">Tap to edit or share this list</string>
@@ -1040,111 +1034,4 @@
   <string name="PPW_unlock_howto">Share lists with friends! Unlock the free Power Pack when 3 friends sign up with Astrid.</string>
   <string name="PPW_check_button">Get the Power Pack for free!</string>
   <string name="PPW_check_share_lists">Share lists!</string>
-  <plurals name="DUt_years">
-    <item quantity="one">1 Year</item>
-    <item quantity="other">%d Years</item>
-  </plurals>
-  <plurals name="DUt_months">
-    <item quantity="one">1 Month</item>
-    <item quantity="other">%d Months</item>
-  </plurals>
-  <plurals name="DUt_weeks">
-    <item quantity="one">1 Week</item>
-    <item quantity="other">%d Weeks</item>
-  </plurals>
-  <plurals name="DUt_days">
-    <item quantity="one">1 Day</item>
-    <item quantity="other">%d Days</item>
-  </plurals>
-  <plurals name="DUt_weekdays">
-    <item quantity="one">1 Weekday</item>
-    <item quantity="other">%d Weekdays</item>
-  </plurals>
-  <plurals name="DUt_hours">
-    <item quantity="one">1 Hour</item>
-    <item quantity="other">%d Hours</item>
-  </plurals>
-  <plurals name="DUt_minutes">
-    <item quantity="one">1 Minute</item>
-    <item quantity="other">%d Minutes</item>
-  </plurals>
-  <plurals name="DUt_seconds">
-    <item quantity="one">1 Second</item>
-    <item quantity="other">%d Seconds</item>
-  </plurals>
-  <plurals name="DUt_hoursShort">
-    <item quantity="one">1 Hr</item>
-    <item quantity="other">%d Hrs</item>
-  </plurals>
-  <plurals name="DUt_minutesShort">
-    <item quantity="one">1 Min</item>
-    <item quantity="other">%d Min</item>
-  </plurals>
-  <plurals name="DUt_secondsShort">
-    <item quantity="one">1 Sec</item>
-    <item quantity="other">%d Sec</item>
-  </plurals>
-  <plurals name="Ntasks">
-    <item quantity="one">1 task</item>
-    <item quantity="other">%d tasks</item>
-  </plurals>
-  <plurals name="Npeople">
-    <item quantity="one">1 person</item>
-    <item quantity="other">%d people</item>
-  </plurals>
-  <string name="today">Today</string>
-  <string name="tomorrow">Tomorrow</string>
-  <string name="yesterday">Yesterday</string>
-  <string name="tmrw">Tmrw</string>
-  <string name="yest">Yest</string>
-  <string name="DLG_confirm_title">확인?</string>
-  <string name="DLG_question_title">질문:</string>
-  <string name="DLG_information_title">정보</string>
-  <string name="DLG_error_title">오류!</string>
-  <string name="DLG_save">저장</string>
-  <string name="DLG_yes">네</string>
-  <string name="DLG_no">아니오</string>
-  <string name="DLG_close">닫기</string>
-  <string name="DLG_done">Done</string>
-  <string name="DLG_error">오류가 발생한 것 같습니다! 원인은 다음과 같습니다:\n\n%s</string>
-  <string name="DLG_error_generic">오류가 발생한 것 같습니다!</string>
-  <string name="DLG_wait">잠시만 기다려주세요...</string>
-  <string name="SyP_progress">작업 동기화 중입니다...</string>
-  <string name="SyP_progress_toast">동기화하는 중...</string>
-  <string name="SyP_label">동기화</string>
-  <string name="SyP_ioerror">Connection Error! Check your Internet connection.</string>
-  <string name="sync_SPr_group_status">Status</string>
-  <string name="sync_status_loggedout">로그인 되지 않았습니다!</string>
-  <string name="sync_status_ongoing">동기화 진행중...</string>
-  <string name="sync_status_success">Last Sync:\n%s</string>
-  <string name="sync_status_failed">실패: %s</string>
-  <string name="sync_status_errors">Sync w/ Errors: %s</string>
-  <string name="sync_status_failed_subtitle">마지막 동기화 성공시간: %s</string>
-  <string name="sync_status_never">한번도 동기화 되지 않았습니다!</string>
-  <string name="sync_SPr_group_options">Options</string>
-  <string name="sync_SPr_interval_title">백그라운드 동기화</string>
-  <string name="sync_SPr_interval_desc_disabled">백그라운드 동기화가 설정되지 않았습니다.</string>
-  <string name="sync_SPr_interval_desc">현재 설정: %s</string>
-  <string name="sync_SPr_bgwifi_title">WiFi 일때만 설정</string>
-  <string name="sync_SPr_bgwifi_desc_enabled">백그라운드 동기화는 WiFi 지역에서만 작동합니다.</string>
-  <string name="sync_SPr_bgwifi_desc_disabled">백그라운드 동기화는 항상 작동합니다.</string>
-  <string name="sync_SPr_group_actions">작업</string>
-  <string name="sync_SPr_sync">동기화 시작!</string>
-  <string name="sync_SPr_sync_log_in">로그인 &amp;amp; 동기화!</string>
-  <string name="sync_SPr_logged_in_prefix">Logged in as:</string>
-  <string name="sync_SPr_forget">로그아웃</string>
-  <string name="sync_SPr_forget_description">모든 동기화 데이터 삭제</string>
-  <string name="sync_forget_confirm">로그아웃 / 모든 동기화 데이터 삭제?</string>
-  <string-array name="sync_SPr_interval_entries">
-    <item>사용안함</item>
-    <item>매 15분 마다</item>
-    <item>매 30분마다</item>
-    <item>매 시간</item>
-    <item>매 3시간마다</item>
-    <item>매 6시간마다</item>
-    <item>매 12시간마다</item>
-    <item>매일</item>
-    <item>매 3일마다</item>
-    <item>매주</item>
-  </string-array>
 </resources>

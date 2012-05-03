@@ -55,8 +55,8 @@
   <string name="today">Bugün</string>
   <string name="tomorrow">Yarın</string>
   <string name="yesterday">Dün</string>
-  <string name="tmrw">Tmrw</string>
-  <string name="yest">Yest</string>
+  <string name="tmrw">Yarın</string>
+  <string name="yest">Dün</string>
   <string name="DLG_confirm_title">Onayla?</string>
   <string name="DLG_question_title">Soru:</string>
   <string name="DLG_information_title">Bilgi</string>

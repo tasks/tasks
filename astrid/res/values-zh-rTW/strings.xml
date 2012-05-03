@@ -225,6 +225,7 @@
   <string name="FLA_toast_onCreateShortcut">建立捷徑: %s</string>
   <string name="FLA_new_filter">New Filter</string>
   <string name="FLA_new_list">New List</string>
+  <string name="FLA_no_filter_selected">No filter selected! Please select a filter or list.</string>
   <string name="TEA_view_title">Astrid: 編輯 \'%s\'</string>
   <string name="TEA_view_titleNew">New Task</string>
   <string name="TEA_title_label">主旨</string>
@@ -319,8 +320,8 @@
   <string name="EPr_fullTask_desc_enabled">Full task title will be shown</string>
   <string name="EPr_fullTask_desc_disabled">First two lines of task title will be shown</string>
   <string name="EPr_ideaAuto_title">Auto-load Ideas Tab</string>
-  <string name="EPr_ideaAuto_desc_enabled">Web searches for Ideas tab will be performed when task is edited</string>
-  <string name="EPr_ideaAuto_desc_disabled">Web searches for Ideas tab will be performed when tab is clicked</string>
+  <string name="EPr_ideaAuto_desc_enabled">Web searches for Ideas tab will be performed when tab is clicked</string>
+  <string name="EPr_ideaAuto_desc_disabled">Web searches for Ideas tab will be performed only when manually requested</string>
   <string name="EPr_theme_title">Color Theme</string>
   <string name="EPr_theme_desc">目前設定: %s</string>
   <string name="EPr_theme_desc_unsupported">Setting requires Android 2.0+</string>
@@ -485,13 +486,6 @@
   <string name="gtasks_error_accountNotFound">Account %s not found--please log out and log back in from the Google Tasks settings.</string>
   <string name="gtasks_error_authRefresh">Unable to authenticate with Google Tasks. Please check your account password or try again later.</string>
   <string name="gtasks_error_accountManager">Error in your phone\'s account manager. Please log out and log back in from the Google Tasks settings.</string>
-
-
-
-
-
-
-
   <string name="help_popover_add_task">Start by adding a task or two</string>
   <string name="help_popover_tap_task">Tap task to edit and share</string>
   <string name="help_popover_list_settings">Tap to edit or share this list</string>
@@ -1040,111 +1034,4 @@
   <string name="PPW_unlock_howto">Share lists with friends! Unlock the free Power Pack when 3 friends sign up with Astrid.</string>
   <string name="PPW_check_button">Get the Power Pack for free!</string>
   <string name="PPW_check_share_lists">Share lists!</string>
-  <plurals name="DUt_years">
-    <item quantity="one">1 Year</item>
-    <item quantity="other">%d Years</item>
-  </plurals>
-  <plurals name="DUt_months">
-    <item quantity="one">1 Month</item>
-    <item quantity="other">%d Months</item>
-  </plurals>
-  <plurals name="DUt_weeks">
-    <item quantity="one">1 Week</item>
-    <item quantity="other">%d Weeks</item>
-  </plurals>
-  <plurals name="DUt_days">
-    <item quantity="one">1 Day</item>
-    <item quantity="other">%d Days</item>
-  </plurals>
-  <plurals name="DUt_weekdays">
-    <item quantity="one">1 Weekday</item>
-    <item quantity="other">%d Weekdays</item>
-  </plurals>
-  <plurals name="DUt_hours">
-    <item quantity="one">1 Hour</item>
-    <item quantity="other">%d Hours</item>
-  </plurals>
-  <plurals name="DUt_minutes">
-    <item quantity="one">1 Minute</item>
-    <item quantity="other">%d Minutes</item>
-  </plurals>
-  <plurals name="DUt_seconds">
-    <item quantity="one">1 Second</item>
-    <item quantity="other">%d Seconds</item>
-  </plurals>
-  <plurals name="DUt_hoursShort">
-    <item quantity="one">1 Hr</item>
-    <item quantity="other">%d Hrs</item>
-  </plurals>
-  <plurals name="DUt_minutesShort">
-    <item quantity="one">1 Min</item>
-    <item quantity="other">%d Min</item>
-  </plurals>
-  <plurals name="DUt_secondsShort">
-    <item quantity="one">1 Sec</item>
-    <item quantity="other">%d Sec</item>
-  </plurals>
-  <plurals name="Ntasks">
-    <item quantity="one">1 task</item>
-    <item quantity="other">%d tasks</item>
-  </plurals>
-  <plurals name="Npeople">
-    <item quantity="one">1 person</item>
-    <item quantity="other">%d people</item>
-  </plurals>
-  <string name="today">Today</string>
-  <string name="tomorrow">Tomorrow</string>
-  <string name="yesterday">Yesterday</string>
-  <string name="tmrw">Tmrw</string>
-  <string name="yest">Yest</string>
-  <string name="DLG_confirm_title">Confirm?</string>
-  <string name="DLG_question_title">Question:</string>
-  <string name="DLG_information_title">Information</string>
-  <string name="DLG_error_title">Error!</string>
-  <string name="DLG_save">Save</string>
-  <string name="DLG_yes">Yes</string>
-  <string name="DLG_no">No</string>
-  <string name="DLG_close">Close</string>
-  <string name="DLG_done">Done</string>
-  <string name="DLG_error">Oops, looks like an error occurred! Here\'s what happened:\n\n%s</string>
-  <string name="DLG_error_generic">Oops, looks like an error occurred!</string>
-  <string name="DLG_wait">Please wait...</string>
-  <string name="SyP_progress">Synchronizing your tasks...</string>
-  <string name="SyP_progress_toast">Synchronizing...</string>
-  <string name="SyP_label">Synchronization</string>
-  <string name="SyP_ioerror">Connection Error! Check your Internet connection.</string>
-  <string name="sync_SPr_group_status">Status</string>
-  <string name="sync_status_loggedout">Not Logged In!</string>
-  <string name="sync_status_ongoing">Sync Ongoing...</string>
-  <string name="sync_status_success">Last Sync:\n%s</string>
-  <string name="sync_status_failed">Failed On: %s</string>
-  <string name="sync_status_errors">Sync w/ Errors: %s</string>
-  <string name="sync_status_failed_subtitle">Last Successful Sync: %s</string>
-  <string name="sync_status_never">Never Synchronized!</string>
-  <string name="sync_SPr_group_options">Options</string>
-  <string name="sync_SPr_interval_title">Background Sync</string>
-  <string name="sync_SPr_interval_desc_disabled">Background synchronization is disabled</string>
-  <string name="sync_SPr_interval_desc">Currently set to: %s</string>
-  <string name="sync_SPr_bgwifi_title">Wifi Only Setting</string>
-  <string name="sync_SPr_bgwifi_desc_enabled">Background synchronization only happens when on Wifi</string>
-  <string name="sync_SPr_bgwifi_desc_disabled">Background synchronization will always occur</string>
-  <string name="sync_SPr_group_actions">Actions</string>
-  <string name="sync_SPr_sync">Synchronize Now!</string>
-  <string name="sync_SPr_sync_log_in">Log In &amp; Synchronize!</string>
-  <string name="sync_SPr_logged_in_prefix">Logged in as:</string>
-  <string name="sync_SPr_forget">Log Out</string>
-  <string name="sync_SPr_forget_description">Clears all synchronization data</string>
-  <string name="sync_forget_confirm">Log out / clear synchronization data?</string>
-  <string-array name="sync_SPr_interval_entries">
-    <item>disable</item>
-    <item>every fifteen minutes</item>
-    <item>every thirty minutes</item>
-    <item>every hour</item>
-    <item>every three hours</item>
-    <item>every six hours</item>
-    <item>every twelve hours</item>
-    <item>every day</item>
-    <item>every three days</item>
-    <item>每週</item>
-  </string-array>
 </resources>

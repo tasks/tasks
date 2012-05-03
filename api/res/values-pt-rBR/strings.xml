@@ -1,0 +1,110 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+  <plurals name="DUt_years">
+    <item quantity="one">1 ano</item>
+    <item quantity="other">%d anos</item>
+  </plurals>
+  <plurals name="DUt_months">
+    <item quantity="one">1 Mês</item>
+    <item quantity="other">%d meses</item>
+  </plurals>
+  <plurals name="DUt_weeks">
+    <item quantity="one">1 Semana</item>
+    <item quantity="other">%d Semanas</item>
+  </plurals>
+  <plurals name="DUt_days">
+    <item quantity="one">1 Dia</item>
+    <item quantity="other">%d Dias</item>
+  </plurals>
+  <plurals name="DUt_weekdays">
+    <item quantity="one">1 dia útil</item>
+    <item quantity="other">%d dias úteis</item>
+  </plurals>
+  <plurals name="DUt_hours">
+    <item quantity="one">1 Hora</item>
+    <item quantity="other">%d Horas</item>
+  </plurals>
+  <plurals name="DUt_minutes">
+    <item quantity="one">1 Minuto</item>
+    <item quantity="other">%d minutos</item>
+  </plurals>
+  <plurals name="DUt_seconds">
+    <item quantity="one">1 Segundo</item>
+    <item quantity="other">%d Segundos</item>
+  </plurals>
+  <plurals name="DUt_hoursShort">
+    <item quantity="one">1 h.</item>
+    <item quantity="other">%d hs.</item>
+  </plurals>
+  <plurals name="DUt_minutesShort">
+    <item quantity="one">1 min.</item>
+    <item quantity="other">%d mins.</item>
+  </plurals>
+  <plurals name="DUt_secondsShort">
+    <item quantity="one">1 seg.</item>
+    <item quantity="other">%d seg.</item>
+  </plurals>
+  <plurals name="Ntasks">
+    <item quantity="one">1 tarefa</item>
+    <item quantity="other">%d tarefas</item>
+  </plurals>
+  <plurals name="Npeople">
+    <item quantity="one">1 pessoa</item>
+    <item quantity="other">%d pessoas</item>
+  </plurals>
+  <string name="today">Hoje</string>
+  <string name="tomorrow">Amanhã</string>
+  <string name="yesterday">Ontem</string>
+  <string name="tmrw">amanhã</string>
+  <string name="yest">hj</string>
+  <string name="DLG_confirm_title">Confirmado?</string>
+  <string name="DLG_question_title">Pergunta:</string>
+  <string name="DLG_information_title">Informações</string>
+  <string name="DLG_error_title">Erro!</string>
+  <string name="DLG_save">Salvar</string>
+  <string name="DLG_yes">Sim</string>
+  <string name="DLG_no">Não</string>
+  <string name="DLG_close">Fechar</string>
+  <string name="DLG_done">Concluído</string>
+  <string name="DLG_error">Opa, parece que ocorreu um erro! Aqui está o que aconteceu:\n\n%s</string>
+  <string name="DLG_error_generic">Opa, parece que ocorreu um erro!</string>
+  <string name="DLG_wait">Por favor, aguarde...</string>
+  <string name="SyP_progress">Sincronizando suas tarefas...</string>
+  <string name="SyP_progress_toast">Sincronizando...</string>
+  <string name="SyP_label">Sincronização</string>
+  <string name="SyP_ioerror">Erro na Conexão! Verifique sua conexão com a internet.</string>
+  <string name="sync_SPr_group_status">Estado</string>
+  <string name="sync_status_loggedout">Desconectado!</string>
+  <string name="sync_status_ongoing">Sincronizando...</string>
+  <string name="sync_status_success">Sincronizado em:\n%s</string>
+  <string name="sync_status_failed">Falhou Em: %s</string>
+  <string name="sync_status_errors">Sincronização falhou: %s</string>
+  <string name="sync_status_failed_subtitle">Última Sincronização com Sucesso: %s</string>
+  <string name="sync_status_never">Nunca Sincronizado!</string>
+  <string name="sync_SPr_group_options">Opções</string>
+  <string name="sync_SPr_interval_title">Serviço de sincronização</string>
+  <string name="sync_SPr_interval_desc_disabled">O serviço de sincronização em segundo plano está desativado</string>
+  <string name="sync_SPr_interval_desc">Atualmente definido para: %s</string>
+  <string name="sync_SPr_bgwifi_title">Configuração Somente Wifi</string>
+  <string name="sync_SPr_bgwifi_desc_enabled">A sincronização ocorrerá somente se conectado ao Wifi</string>
+  <string name="sync_SPr_bgwifi_desc_disabled">O serviço de sincronização fica ativo o tempo todo</string>
+  <string name="sync_SPr_group_actions">Ações</string>
+  <string name="sync_SPr_sync">Sincronizar Agora!</string>
+  <string name="sync_SPr_sync_log_in">Log In e Sincronizar!</string>
+  <string name="sync_SPr_logged_in_prefix">Conectado como:</string>
+  <string name="sync_SPr_forget">Desconectar</string>
+  <string name="sync_SPr_forget_description">Limpar dados de sincronização</string>
+  <string name="sync_forget_confirm">Encerrar sessão / apagar dados de sincronização?</string>
+  <string-array name="sync_SPr_interval_entries">
+    <item>desativar</item>
+    <item>a cada quinze minutos</item>
+    <item>a cada trinta minutos</item>
+    <item>a cada hora</item>
+    <item>a cada três horas</item>
+    <item>a cada seis horas</item>
+    <item>a cada doze horas</item>
+    <item>diariamente</item>
+    <item>a cada três dias</item>
+    <item>semanalmente</item>
+  </string-array>
+</resources>

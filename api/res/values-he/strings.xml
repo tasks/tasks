@@ -17,8 +17,8 @@
     <item quantity="other">%d ימים</item>
   </plurals>
   <plurals name="DUt_weekdays">
-    <item quantity="one">1 Weekday</item>
-    <item quantity="other">%d Weekdays</item>
+    <item quantity="one">יום חול אחד</item>
+    <item quantity="other">%d ימי חול</item>
   </plurals>
   <plurals name="DUt_hours">
     <item quantity="one">שעה אחת</item>
@@ -49,62 +49,62 @@
     <item quantity="other">%d משימות</item>
   </plurals>
   <plurals name="Npeople">
-    <item quantity="one">1 person</item>
-    <item quantity="other">%d people</item>
+    <item quantity="one">איש אחד</item>
+    <item quantity="other">%d אנשים</item>
   </plurals>
   <string name="today">היום</string>
   <string name="tomorrow">מחר</string>
-  <string name="yesterday">Yesterday</string>
-  <string name="tmrw">Tmrw</string>
-  <string name="yest">Yest</string>
+  <string name="yesterday">אתמול</string>
+  <string name="tmrw">מחר</string>
+  <string name="yest">אתמול</string>
   <string name="DLG_confirm_title">האם לאשר?</string>
   <string name="DLG_question_title">שאלה:</string>
   <string name="DLG_information_title">פרטים</string>
-  <string name="DLG_error_title">Error!</string>
-  <string name="DLG_save">Save</string>
+  <string name="DLG_error_title">שגיאה!</string>
+  <string name="DLG_save">שמור</string>
   <string name="DLG_yes">כן</string>
   <string name="DLG_no">לא</string>
   <string name="DLG_close">סגירה</string>
   <string name="DLG_done">בוצע</string>
-  <string name="DLG_error">Oops, looks like an error occurred! Here\'s what happened:\n\n%s</string>
-  <string name="DLG_error_generic">Oops, looks like an error occurred!</string>
+  <string name="DLG_error">אופס, נראה שארתה שגיאה! הרי מה שהתרחש:\n\n%s</string>
+  <string name="DLG_error_generic">אופס, נראה שארתה שגיאה!</string>
   <string name="DLG_wait">נא להמתין...</string>
   <string name="SyP_progress">המשימות שלך מסונכרנות...</string>
   <string name="SyP_progress_toast">בסנכרון...</string>
   <string name="SyP_label">סינכרון</string>
-  <string name="SyP_ioerror">Connection Error! Check your Internet connection.</string>
+  <string name="SyP_ioerror">שגיאה בחיבור! בדוק את חיבור האינטרנט שלך</string>
   <string name="sync_SPr_group_status">מצב</string>
-  <string name="sync_status_loggedout">Not Logged In!</string>
-  <string name="sync_status_ongoing">Sync Ongoing...</string>
-  <string name="sync_status_success">Last Sync:\n%s</string>
-  <string name="sync_status_failed">Failed On: %s</string>
-  <string name="sync_status_errors">Sync w/ Errors: %s</string>
-  <string name="sync_status_failed_subtitle">Last Successful Sync: %s</string>
-  <string name="sync_status_never">Never Synchronized!</string>
+  <string name="sync_status_loggedout">לא מחובר לחשבון!</string>
+  <string name="sync_status_ongoing">מסנכרן...</string>
+  <string name="sync_status_success">סנכרון אחרון:\n%s</string>
+  <string name="sync_status_failed">נכשל ב: s%</string>
+  <string name="sync_status_errors">סנכרון עם שגיאות: s%</string>
+  <string name="sync_status_failed_subtitle">סנכרון מוצלח אחרון: %s</string>
+  <string name="sync_status_never">לעולם לא סונכרן!</string>
   <string name="sync_SPr_group_options">אפשרויות</string>
-  <string name="sync_SPr_interval_title">Background Sync</string>
-  <string name="sync_SPr_interval_desc_disabled">Background synchronization is disabled</string>
-  <string name="sync_SPr_interval_desc">Currently set to: %s</string>
-  <string name="sync_SPr_bgwifi_title">Wifi Only Setting</string>
-  <string name="sync_SPr_bgwifi_desc_enabled">Background synchronization only happens when on Wifi</string>
-  <string name="sync_SPr_bgwifi_desc_disabled">Background synchronization will always occur</string>
-  <string name="sync_SPr_group_actions">Actions</string>
-  <string name="sync_SPr_sync">Synchronize Now!</string>
-  <string name="sync_SPr_sync_log_in">Log In &amp; Synchronize!</string>
-  <string name="sync_SPr_logged_in_prefix">Logged in as:</string>
-  <string name="sync_SPr_forget">Log Out</string>
-  <string name="sync_SPr_forget_description">Clears all synchronization data</string>
-  <string name="sync_forget_confirm">Log out / clear synchronization data?</string>
+  <string name="sync_SPr_interval_title">סנכרון ברקע</string>
+  <string name="sync_SPr_interval_desc_disabled">סנכרון ברקע אינו מופעל</string>
+  <string name="sync_SPr_interval_desc">כרגע מוגדר ל: s%</string>
+  <string name="sync_SPr_bgwifi_title">הגדרת WiFi בלבד</string>
+  <string name="sync_SPr_bgwifi_desc_enabled">סנכרון רקע מתרחש רק כאשר על WiFi</string>
+  <string name="sync_SPr_bgwifi_desc_disabled">סנכרון רקע תמיד יתבצע</string>
+  <string name="sync_SPr_group_actions">פעולות</string>
+  <string name="sync_SPr_sync">סנכרן כעת!</string>
+  <string name="sync_SPr_sync_log_in">היכנס לחשבון וסנכרן!</string>
+  <string name="sync_SPr_logged_in_prefix">מחובר לחשבון בתור:</string>
+  <string name="sync_SPr_forget">צא מהחשבון</string>
+  <string name="sync_SPr_forget_description">מסיר את כל נתוני הסנכרון</string>
+  <string name="sync_forget_confirm">צא מהחשבון \\ הסר נתוני סנכרון?</string>
   <string-array name="sync_SPr_interval_entries">
-    <item>disable</item>
-    <item>every fifteen minutes</item>
-    <item>every thirty minutes</item>
-    <item>every hour</item>
-    <item>every three hours</item>
-    <item>every six hours</item>
-    <item>every twelve hours</item>
-    <item>every day</item>
-    <item>every three days</item>
-    <item>every week</item>
+    <item>נטרל</item>
+    <item>כל חמש עשרה דקות</item>
+    <item>כל שלושים דקות</item>
+    <item>כל שעה</item>
+    <item>כל שלוש שעות</item>
+    <item>כל שש שעות</item>
+    <item>כל שתים עשרה שעות</item>
+    <item>כל יום</item>
+    <item>כל שלושה ימים</item>
+    <item>כל שבוע</item>
   </string-array>
 </resources>

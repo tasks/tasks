@@ -37,8 +37,8 @@
     <item quantity="other">%d Std</item>
   </plurals>
   <plurals name="DUt_minutesShort">
-    <item quantity="one">1 Min</item>
-    <item quantity="other">%d Min</item>
+    <item quantity="one">1 min</item>
+    <item quantity="other">%d min</item>
   </plurals>
   <plurals name="DUt_secondsShort">
     <item quantity="one">1 Sek</item>
@@ -55,11 +55,11 @@
   <string name="today">Heute</string>
   <string name="tomorrow">Morgen</string>
   <string name="yesterday">Gestern</string>
-  <string name="tmrw">Tmrw</string>
-  <string name="yest">Yest</string>
+  <string name="tmrw">Morg.</string>
+  <string name="yest">Gest.</string>
   <string name="DLG_confirm_title">Bestätigen?</string>
   <string name="DLG_question_title">Frage:</string>
-  <string name="DLG_information_title">Information</string>
+  <string name="DLG_information_title">Informationen</string>
   <string name="DLG_error_title">Fehler!</string>
   <string name="DLG_save">Speichern</string>
   <string name="DLG_yes">Ja</string>
@@ -91,7 +91,7 @@
   <string name="sync_SPr_group_actions">Aktionen</string>
   <string name="sync_SPr_sync">Jetzt synchronisieren!</string>
   <string name="sync_SPr_sync_log_in">Einloggen &amp; Synchroniseren!</string>
-  <string name="sync_SPr_logged_in_prefix">Logged in as:</string>
+  <string name="sync_SPr_logged_in_prefix">Angemeldet als:</string>
   <string name="sync_SPr_forget">Abmelden</string>
   <string name="sync_SPr_forget_description">Alle Synchronisationsdaten löschen</string>
   <string name="sync_forget_confirm">Ausloggen / synchronisierte Daten löschen?</string>

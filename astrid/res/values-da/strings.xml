@@ -1,26 +1,26 @@
 <?xml version='1.0' encoding='utf-8'?>
 <resources>
-  <string name="EPE_action">Share</string>
+  <string name="EPE_action">Del</string>
   <string name="actfm_person_hint">Kontaktperson eller email</string>
   <string name="actfm_person_or_tag_hint">Kontaktperson eller delt liste</string>
   <string name="actfm_toast_success">Gemt på server</string>
   <string name="actfm_toast_error">Ikke gemt: %s</string>
-  <string name="actfm_tag_operation_disabled">Denne handling er endnu ikke mulig for delte emneord, beklager.</string>
-  <string name="actfm_tag_operation_owner_delete">You are the owner of this shared list! If you delete it, it will be deleted for all list members. Are you sure you want to continue?</string>
+  <string name="actfm_tag_operation_disabled">Beklager, denne handling er endnu ikke mulig for delte nøgleord.</string>
+  <string name="actfm_tag_operation_owner_delete">Du er ejeren af dette delte nøgleord! Hvis du sletter det, bliver det slettet for alle liste medlemmer. Er du sikker på du vil fortsætte?</string>
   <string name="actfm_picture_camera">Tag et billede</string>
   <string name="actfm_picture_gallery">Vælg fra galleri</string>
   <string name="actfm_picture_clear">Ryd markering</string>
   <string name="actfm_FLA_menu_refresh">Genopfrisk liste</string>
-  <string name="actfm_view_task_title">View Task?</string>
-  <string name="actfm_view_task_text">Task was sent to %s! You\'re currently viewing your own tasks. Do you want to view this and other tasks you\'ve assigned?</string>
-  <string name="actfm_view_task_ok">View Assigned</string>
+  <string name="actfm_view_task_title">Vis opgave?</string>
+  <string name="actfm_view_task_text">Opgaven blev sendt til %s! Du ser lige nu dine egne opgaver. Vil du se disse og andre opgaver, du har tildelt?</string>
+  <string name="actfm_view_task_ok">Vis tildelte</string>
   <string name="actfm_view_task_cancel">Stay Here</string>
   <string name="TVA_add_comment">Tilføj en kommentar</string>
   <string name="UAd_title_comment">%1$s sv:%2$s</string>
   <string-array name="TVA_tabs">
     <item>Opgaver</item>
     <item>Aktivitet</item>
-    <item>List Settings</item>
+    <item>Listeindstillinger</item>
   </string-array>
   <string name="actfm_TVA_filtered_by_assign">%s\'s tasks. Tap for all.</string>
   <string name="actfm_TVA_filter_by_unassigned">Unassigned tasks. Tap for all.</string>
@@ -225,6 +225,7 @@
   <string name="FLA_toast_onCreateShortcut">Oprettede genvej: %s</string>
   <string name="FLA_new_filter">New Filter</string>
   <string name="FLA_new_list">New List</string>
+  <string name="FLA_no_filter_selected">No filter selected! Please select a filter or list.</string>
   <string name="TEA_view_title">Astrid: Redigerer \'%s\'</string>
   <string name="TEA_view_titleNew">New Task</string>
   <string name="TEA_title_label">Titel</string>
@@ -319,8 +320,8 @@
   <string name="EPr_fullTask_desc_enabled">Full task title will be shown</string>
   <string name="EPr_fullTask_desc_disabled">First two lines of task title will be shown</string>
   <string name="EPr_ideaAuto_title">Auto-load Ideas Tab</string>
-  <string name="EPr_ideaAuto_desc_enabled">Web searches for Ideas tab will be performed when task is edited</string>
-  <string name="EPr_ideaAuto_desc_disabled">Web searches for Ideas tab will be performed when tab is clicked</string>
+  <string name="EPr_ideaAuto_desc_enabled">Web searches for Ideas tab will be performed when tab is clicked</string>
+  <string name="EPr_ideaAuto_desc_disabled">Web searches for Ideas tab will be performed only when manually requested</string>
   <string name="EPr_theme_title">Color Theme</string>
   <string name="EPr_theme_desc">Nuværende: %s</string>
   <string name="EPr_theme_desc_unsupported">Setting requires Android 2.0+</string>
@@ -485,13 +486,6 @@
   <string name="gtasks_error_accountNotFound">Account %s not found--please log out and log back in from the Google Tasks settings.</string>
   <string name="gtasks_error_authRefresh">Unable to authenticate with Google Tasks. Please check your account password or try again later.</string>
   <string name="gtasks_error_accountManager">Error in your phone\'s account manager. Please log out and log back in from the Google Tasks settings.</string>
-
-
-
-
-
-
-
   <string name="help_popover_add_task">Start by adding a task or two</string>
   <string name="help_popover_tap_task">Tap task to edit and share</string>
   <string name="help_popover_list_settings">Tap to edit or share this list</string>
@@ -1040,111 +1034,4 @@
   <string name="PPW_unlock_howto">Share lists with friends! Unlock the free Power Pack when 3 friends sign up with Astrid.</string>
   <string name="PPW_check_button">Get the Power Pack for free!</string>
   <string name="PPW_check_share_lists">Share lists!</string>
-  <plurals name="DUt_years">
-    <item quantity="one">1 Year</item>
-    <item quantity="other">%d Years</item>
-  </plurals>
-  <plurals name="DUt_months">
-    <item quantity="one">1 Month</item>
-    <item quantity="other">%d Months</item>
-  </plurals>
-  <plurals name="DUt_weeks">
-    <item quantity="one">1 Week</item>
-    <item quantity="other">%d Weeks</item>
-  </plurals>
-  <plurals name="DUt_days">
-    <item quantity="one">1 Day</item>
-    <item quantity="other">%d Days</item>
-  </plurals>
-  <plurals name="DUt_weekdays">
-    <item quantity="one">1 Weekday</item>
-    <item quantity="other">%d Weekdays</item>
-  </plurals>
-  <plurals name="DUt_hours">
-    <item quantity="one">1 Hour</item>
-    <item quantity="other">%d Hours</item>
-  </plurals>
-  <plurals name="DUt_minutes">
-    <item quantity="one">1 Minute</item>
-    <item quantity="other">%d Minutes</item>
-  </plurals>
-  <plurals name="DUt_seconds">
-    <item quantity="one">1 Second</item>
-    <item quantity="other">%d Seconds</item>
-  </plurals>
-  <plurals name="DUt_hoursShort">
-    <item quantity="one">1 Hr</item>
-    <item quantity="other">%d Hrs</item>
-  </plurals>
-  <plurals name="DUt_minutesShort">
-    <item quantity="one">1 Min</item>
-    <item quantity="other">%d Min</item>
-  </plurals>
-  <plurals name="DUt_secondsShort">
-    <item quantity="one">1 Sec</item>
-    <item quantity="other">%d Sec</item>
-  </plurals>
-  <plurals name="Ntasks">
-    <item quantity="one">1 task</item>
-    <item quantity="other">%d tasks</item>
-  </plurals>
-  <plurals name="Npeople">
-    <item quantity="one">1 person</item>
-    <item quantity="other">%d people</item>
-  </plurals>
-  <string name="today">Today</string>
-  <string name="tomorrow">Tomorrow</string>
-  <string name="yesterday">Yesterday</string>
-  <string name="tmrw">Tmrw</string>
-  <string name="yest">Yest</string>
-  <string name="DLG_confirm_title">Bekræft?</string>
-  <string name="DLG_question_title">Spørsmål:</string>
-  <string name="DLG_information_title">Information</string>
-  <string name="DLG_error_title">Fejl!</string>
-  <string name="DLG_save">Gem</string>
-  <string name="DLG_yes">Ja</string>
-  <string name="DLG_no">Nej</string>
-  <string name="DLG_close">Luk</string>
-  <string name="DLG_done">Done</string>
-  <string name="DLG_error">Ups, det ser ud til der er sket en fejl! Her ser du, hvad der skete:\n\n%s</string>
-  <string name="DLG_error_generic">Ups, det ser ud til, at der er sket en fejl</string>
-  <string name="DLG_wait">Vent venligst...</string>
-  <string name="SyP_progress">Synkroniserer dine opgaver</string>
-  <string name="SyP_progress_toast">Synkroniserer...</string>
-  <string name="SyP_label">Synkronisering</string>
-  <string name="SyP_ioerror">Connection Error! Check your Internet connection.</string>
-  <string name="sync_SPr_group_status">Status</string>
-  <string name="sync_status_loggedout">Ikke Logget Ind!</string>
-  <string name="sync_status_ongoing">Sync Ongoing...</string>
-  <string name="sync_status_success">Last Sync:\n%s</string>
-  <string name="sync_status_failed">Failed On: %s</string>
-  <string name="sync_status_errors">Sync w/ Errors: %s</string>
-  <string name="sync_status_failed_subtitle">Last Successful Sync: %s</string>
-  <string name="sync_status_never">Never Synchronized!</string>
-  <string name="sync_SPr_group_options">Options</string>
-  <string name="sync_SPr_interval_title">Baggrunds Synk</string>
-  <string name="sync_SPr_interval_desc_disabled">Baggrunds synkronisering er slået fra</string>
-  <string name="sync_SPr_interval_desc">Currently set to: %s</string>
-  <string name="sync_SPr_bgwifi_title">Wifi Only Setting</string>
-  <string name="sync_SPr_bgwifi_desc_enabled">Baggrunds synkronisering sker kun ved Wifi</string>
-  <string name="sync_SPr_bgwifi_desc_disabled">Baggrunds synkronisering sker uanset forbindelsestype</string>
-  <string name="sync_SPr_group_actions">Handlinger</string>
-  <string name="sync_SPr_sync">Synkroniser nu!</string>
-  <string name="sync_SPr_sync_log_in">Login &amp;amp; Synkroniser!</string>
-  <string name="sync_SPr_logged_in_prefix">Logget på som:</string>
-  <string name="sync_SPr_forget">Log af</string>
-  <string name="sync_SPr_forget_description">Sletter al synkroniserings data</string>
-  <string name="sync_forget_confirm">Log ud / slet synkroniseringsdata?</string>
-  <string-array name="sync_SPr_interval_entries">
-    <item>deaktiver</item>
-    <item>hvert femtende minut</item>
-    <item>hvert tredifte minut</item>
-    <item>hver time</item>
-    <item>hver 3. time</item>
-    <item>hver 6. time</item>
-    <item>hver 12. time</item>
-    <item>hver dag</item>
-    <item>hver 3. dag</item>
-    <item>hver uge</item>
-  </string-array>
 </resources>

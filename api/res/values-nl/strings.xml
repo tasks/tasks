@@ -91,7 +91,7 @@
   <string name="sync_SPr_group_actions">Acties</string>
   <string name="sync_SPr_sync">Synchroniseren</string>
   <string name="sync_SPr_sync_log_in">Aanmelden &amp; Sync.</string>
-  <string name="sync_SPr_logged_in_prefix">Logged in as:</string>
+  <string name="sync_SPr_logged_in_prefix">Aangemeld als:</string>
   <string name="sync_SPr_forget">Afmelden</string>
   <string name="sync_SPr_forget_description">Alle synchronisatie gegevens verwijderen</string>
   <string name="sync_forget_confirm">Afmelden / synchronisatie gegevens verwijderen?</string>

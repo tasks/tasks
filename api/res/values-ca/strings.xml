@@ -1,35 +1,35 @@
 <?xml version='1.0' encoding='utf-8'?>
 <resources>
   <plurals name="DUt_years">
-    <item quantity="one">1 Any</item>
-    <item quantity="other">%d Anys</item>
+    <item quantity="one">1 any</item>
+    <item quantity="other">%d anys</item>
   </plurals>
   <plurals name="DUt_months">
-    <item quantity="one">1 Mes</item>
-    <item quantity="other">%d Mesos</item>
+    <item quantity="one">1 mes</item>
+    <item quantity="other">%d mesos</item>
   </plurals>
   <plurals name="DUt_weeks">
-    <item quantity="one">1 Setmana</item>
-    <item quantity="other">%d Setmanes</item>
+    <item quantity="one">1 setmana</item>
+    <item quantity="other">%d setmanes</item>
   </plurals>
   <plurals name="DUt_days">
     <item quantity="one">1 dia</item>
-    <item quantity="other">%d Dies</item>
+    <item quantity="other">%d dies</item>
   </plurals>
   <plurals name="DUt_weekdays">
     <item quantity="one">1 Weekday</item>
     <item quantity="other">%d Weekdays</item>
   </plurals>
   <plurals name="DUt_hours">
-    <item quantity="one">1 Hora</item>
+    <item quantity="one">1 hora</item>
     <item quantity="other">%d Hores</item>
   </plurals>
   <plurals name="DUt_minutes">
-    <item quantity="one">1 Minut</item>
+    <item quantity="one">1 minut</item>
     <item quantity="other">%d Minuts</item>
   </plurals>
   <plurals name="DUt_seconds">
-    <item quantity="one">1 Segon</item>
+    <item quantity="one">1 segon</item>
     <item quantity="other">%d Segons</item>
   </plurals>
   <plurals name="DUt_hoursShort">
@@ -60,7 +60,7 @@
   <string name="DLG_confirm_title">Confirmar?</string>
   <string name="DLG_question_title">Pregunta:</string>
   <string name="DLG_information_title">Informació</string>
-  <string name="DLG_error_title">Error!</string>
+  <string name="DLG_error_title">S\'ha produït un error</string>
   <string name="DLG_save">Desar</string>
   <string name="DLG_yes">Sí</string>
   <string name="DLG_no">No</string>

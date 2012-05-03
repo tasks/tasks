@@ -6,24 +6,24 @@
   <string name="actfm_toast_success">Sunucuya kaydedildi</string>
   <string name="actfm_toast_error">Kaydetme başarısız:%s</string>
   <string name="actfm_tag_operation_disabled">Üzgünüz, bu işlem paylaşılan etiketler için henüz desteklenmiyor</string>
-  <string name="actfm_tag_operation_owner_delete">You are the owner of this shared list! If you delete it, it will be deleted for all list members. Are you sure you want to continue?</string>
+  <string name="actfm_tag_operation_owner_delete">Bu paylaşılan listenin sahibisiniz. Bunu silerseniz, tüm liste üyeleri için silinecek. Devam etmek istiyor musunuz?</string>
   <string name="actfm_picture_camera">Resim Çek</string>
   <string name="actfm_picture_gallery">Galeriden Seç</string>
   <string name="actfm_picture_clear">Resmi sil</string>
   <string name="actfm_FLA_menu_refresh">Listeleri Yenile</string>
-  <string name="actfm_view_task_title">View Task?</string>
-  <string name="actfm_view_task_text">Task was sent to %s! You\'re currently viewing your own tasks. Do you want to view this and other tasks you\'ve assigned?</string>
-  <string name="actfm_view_task_ok">View Assigned</string>
-  <string name="actfm_view_task_cancel">Stay Here</string>
+  <string name="actfm_view_task_title">Görevi görüntüle?</string>
+  <string name="actfm_view_task_text">Görev gönderildi: %s! Şu anda kendi görevlerinizi görüntülüyorsunuz. Bunu ve diğer atanmış olduğunuz görevleri görmek istiyor musunuz?</string>
+  <string name="actfm_view_task_ok">Atananları Göster</string>
+  <string name="actfm_view_task_cancel">Burada Kal</string>
   <string name="TVA_add_comment">Yorum Gir</string>
-  <string name="UAd_title_comment">%1$s re: %2$s</string>
+  <string name="UAd_title_comment">%1$s cvp: %2$s</string>
   <string-array name="TVA_tabs">
     <item>Görevler</item>
     <item>Etkinlik</item>
     <item>Liste Ayarları</item>
   </string-array>
   <string name="actfm_TVA_filtered_by_assign">%s\'e ait görevler. Hepsi için dokunun.</string>
-  <string name="actfm_TVA_filter_by_unassigned">Unassigned tasks. Tap for all.</string>
+  <string name="actfm_TVA_filter_by_unassigned">Atanmamış görevler. Tümü için dokunun.</string>
   <string name="actfm_TVA_no_members_alert">Özel: Paylaşmak veya düzenlemek için dokunun</string>
   <string name="actfm_TVA_menu_refresh">Yenile</string>
   <string name="actfm_TVA_tag_label">Liste İsmi:</string>
@@ -32,27 +32,27 @@
   <string name="actfm_TVA_members_label">Paylaşılanlar:</string>
   <string name="actfm_TVA_tag_picture">Liste Resmi</string>
   <string name="actfm_TVA_silence_label">Uyarıları Sessizleştir</string>
-  <string name="actfm_TVA_list_icon_label">List Icon:</string>
-  <string name="actfm_TVA_tag_description_label">Description</string>
-  <string name="actfm_TVA_tag_settings_label">Settings</string>
-  <string name="actfm_TVA_tag_description_hint">Type a description here</string>
-  <string name="actfm_TVA_tag_name_hint">Enter list name</string>
-  <string name="actfm_TVA_login_to_share">You need to be logged in to Astrid.com to share lists! Please log in or make this a private list.</string>
+  <string name="actfm_TVA_list_icon_label">Simge Listesi:</string>
+  <string name="actfm_TVA_tag_description_label">Açıklama</string>
+  <string name="actfm_TVA_tag_settings_label">Ayarlar</string>
+  <string name="actfm_TVA_tag_description_hint">Bir açıklama yazın</string>
+  <string name="actfm_TVA_tag_name_hint">Liste adı girin</string>
+  <string name="actfm_TVA_login_to_share">Liste paylaşmak için Astrid.com\'da oturum açmış olmalısınız! Lütfen oturum açın ya da bunu özel bir liste yapın.</string>
   <string name="actfm_EPA_intro">Alışveriş listelerinizi, parti planlarınızı ya da ekip projelerinizi paylaşmak için Astrid \'i kullanın ve kimlerin işleri tamamladığını anında görün!</string>
   <string name="actfm_EPA_title">Paylaş / Görevlendir</string>
   <string name="actfm_EPA_save">Kaydet &amp; Paylaş</string>
   <string name="actfm_EPA_assign_label">Kim</string>
-  <string name="actfm_EPA_assign_label_long">Who should do this?</string>
+  <string name="actfm_EPA_assign_label_long">Bunu kim yapmalı?</string>
   <string name="actfm_EPA_assign_me">Ben</string>
   <string name="actfm_EPA_unassigned">Herhangi biri</string>
-  <string name="actfm_EPA_task_rabbit">Outsource it!</string>
+  <string name="actfm_EPA_task_rabbit">Dış kaynak kullan!</string>
   <string name="actfm_EPA_assign_custom">Özel...</string>
   <string name="actfm_EPA_share_with">Şununla paylaş:</string>
   <string name="actfm_EPA_assigned_toast">Gönderilen yer: %1$s (bunu sen ve %2$s arasındaki listede görebilirsin).</string>
   <string name="actfm_EPA_collaborators_header">Arkadaşlarla paylaş</string>
   <string name="actfm_EPA_list">Liste: %s</string>
   <string name="actfm_EPA_assigned_hint">Kişi Adı</string>
-  <string name="actfm_EPA_message_text">Davet Mesajı:</string>
+  <string name="actfm_EPA_message_text">Davet İletisi:</string>
   <string name="actfm_EPA_message_body">Bunu bitirmeme yardım et!</string>
   <string name="actfm_EPA_tag_label">Paylaşılan bir etiket oluşturulsun mu?</string>
   <string name="actfm_EPA_tag_hint">(örn: Mavi İstiridye Kulübü)</string>
@@ -67,28 +67,28 @@
   <string name="actfm_EPA_dont_share_button">Özel yap</string>
   <string name="actfm_ALA_title">Astrid.com \'a Hoşgeldiniz!</string>
   <string name="actfm_ALA_body">Astrid.com, görevlerinize çevrimiçi ulaşmanızı, paylaşmanızı ve diğerleriyle görev paylaşımı yapmanızı sağlar.</string>
-  <string name="actfm_ALA_fb_login">Connect with Facebook</string>
-  <string name="actfm_ALA_gg_login">Connect with Google</string>
+  <string name="actfm_ALA_fb_login">Facebook ile bağlan</string>
+  <string name="actfm_ALA_gg_login">Google ile bağlan</string>
   <string name="actfm_ALA_pw_login">Google veya Facebook kullanmıyor musunuz?</string>
   <string name="actfm_ALA_pw_link">Giriş Yap</string>
   <string name="actfm_ALA_pw_new">Yeni Bir Hesap Aç</string>
   <string name="actfm_ALA_pw_returning">Zaten üye misiniz?</string>
   <string name="actfm_ALA_name_label">İsim</string>
-  <string name="actfm_ALA_firstname_label">First Name</string>
-  <string name="actfm_ALA_lastname_label">Last Name</string>
+  <string name="actfm_ALA_firstname_label">Ad</string>
+  <string name="actfm_ALA_lastname_label">Soyad</string>
   <string name="actfm_ALA_email_label">E-Posta</string>
   <string name="actfm_ALA_username_email_label">Kullanıcı Adı / E-Posta</string>
-  <string name="actfm_ALA_password_label">Şifre</string>
+  <string name="actfm_ALA_password_label">Parola</string>
   <string name="actfm_ALA_signup_title">Yeni Hesap Oluştur</string>
-  <string name="actfm_ALA_login_title">Astrid.com \'a Bağlan</string>
-  <string name="actfm_GAA_title">Select the Google account you want to use:</string>
-  <string name="actfm_OLA_prompt">Lütfen Google \'a bağlan:</string>
+  <string name="actfm_ALA_login_title">Astrid.com\'a Bağlan</string>
+  <string name="actfm_GAA_title">Kullanmak istediğiniz Google hesabını seçin:</string>
+  <string name="actfm_OLA_prompt">Lütfen oturum açın:</string>
   <string name="actfm_APr_header">Astrid.com</string>
   <string name="actfm_https_title">HTTPS kullan</string>
   <string name="actfm_https_enabled">HTTPS etkin (yavaş)</string>
   <string name="actfm_https_disabled">HTTPS etkin değil (hızlı)</string>
-  <string name="actfm_notification_title">Astrid.com Senkronizayonu</string>
-  <string name="actfm_notification_comments">Yeni Yorum Alındı / Detaylar için tıklayın</string>
+  <string name="actfm_notification_title">Astrid.com Eşleşterime</string>
+  <string name="actfm_notification_comments">Yeni yorum alındı / ayrıntılar için tıklayın</string>
   <string name="alarm_ACS_label">Alarmlar</string>
   <string name="alarm_ACS_button">Alarm Ekle</string>
   <string-array name="reminders_alarm">
@@ -99,40 +99,40 @@
   <string name="backup_status_success">Son yedek:\n%s</string>
   <string name="backup_status_failed">Son Yedekleme Başarısız</string>
   <string name="backup_status_failed_subtitle">(hatayı görmek için dokunun)</string>
-  <string name="backup_status_never">Hiç yedeklenmemiş!</string>
-  <string name="backup_BPr_group_options">Ayarlar</string>
-  <string name="backup_BPr_auto_title">Otomatik yedekler</string>
-  <string name="backup_BPr_auto_disabled">Otomatik Yedekleme Kapalı</string>
-  <string name="backup_BPr_auto_enabled">Yedekleme günlük yapılacak</string>
+  <string name="backup_status_never">Hiç Yedeklenmemiş!</string>
+  <string name="backup_BPr_group_options">Seçenekler</string>
+  <string name="backup_BPr_auto_title">Kendiliğinden Yedeklemeler</string>
+  <string name="backup_BPr_auto_disabled">Kendiliğinden Yedekleme Etkisiz</string>
+  <string name="backup_BPr_auto_enabled">Günlük yedekleme yapılacak</string>
   <string name="backup_BPr_how_to_restore">Yedeklerimi nasıl geri yüklerim?</string>
-  <string name="backup_BPr_how_to_restore_dialog">Yedeklerinizi yönetmek ve geri yüklemek için Astrid Power Pack \'i eklemeniz gerekmektedir. Bunun karşılığında Astrid görevlerinizi otomatik olarak yedekleyecektir.</string>
-  <string name="backup_BAc_label">Yedekleri yönet</string>
+  <string name="backup_BPr_how_to_restore_dialog">Yedeklerinizi yönetmek ve geri yüklemek için Astrid Güç Paketi\'ni eklemeniz gerekmektedir. Bunun karşılığında Astrid görevlerinizi kendiliğinden yedekleyecektir.</string>
+  <string name="backup_BAc_label">Yedekleri Yönet</string>
   <string name="backup_BAc_title">Yedeklerinizi Yönetin</string>
   <string name="backup_BAc_import">Görevleri İçe Aktar</string>
   <string name="backup_BAc_export">Görevleri Dışa Aktar</string>
   <string name="backup_TXI_error">İçe Aktarma Hatası</string>
   <string name="export_toast">%1$s şuraya yedeklendi: %2$s.</string>
   <string name="export_toast_no_tasks">Dışa Aktarılacak Görev Yok.</string>
-  <string name="export_progress_title">Dışa aktarılıyor...</string>
-  <string name="import_summary_title">Geri çağırma işlem özeti.</string>
+  <string name="export_progress_title">Dışa Aktarılıyor...</string>
+  <string name="import_summary_title">Geri Alma Özeti</string>
   <string name="import_summary_message">%1$s dosyası %2$s dosyasını kapsadı.\n\n %3$s içeri aktarıldı, \n %4$s zaten mevcut\n %5$s hatalar mevcut\n</string>
-  <string name="import_progress_title">İçe aktarılıyor...</string>
-  <string name="import_progress_read">%d isimli iş okunuyor..</string>
+  <string name="import_progress_title">İçe Aktarılıyor...</string>
+  <string name="import_progress_read">%d görev okunuyor..</string>
   <string name="DLG_error_opening">Bunu bulamadım:</string>
-  <string name="DLG_error_sdcard">%s klasörüne erişilemedi.</string>
+  <string name="DLG_error_sdcard">%s dizinine erişilemedi.</string>
   <string name="DLG_error_sdcard_general">Hafıza kartına erişemiyorum!</string>
-  <string name="import_file_prompt">Geri çağırılacak dosyayı seçin</string>
+  <string name="import_file_prompt">Geri Alınacak Bir Dosya Seçin</string>
   <string name="app_name">Astrid Görevleri</string>
   <string name="read_permission_label">Astrid İzni</string>
   <string name="read_permission_desc">görevlere gözat, görev süzgeçlerini görüntüle</string>
   <string name="write_permission_label">Astrid İzni</string>
-  <string name="write_permission_desc">yeni görevler yarat, mevcut görevleri düzenle</string>
+  <string name="write_permission_desc">yeni görevler oluştur, mevcut görevleri düzenle</string>
   <string name="DLG_delete_this_task_question">Bu görev silinsin mi?</string>
   <string name="DLG_delete_this_item_question">Öğe silinsin mi: %s?</string>
   <string name="DLG_upgrading">Görevleriniz güncelleniyor...</string>
-  <string name="DLG_hour_minutes">Süre (dakika : saniye)</string>
-  <string name="DLG_please_update">Astrid Android marketteki en son sürüme yükseltilmelidir! Lütfen devam etmeden bunu yapın ya da bir kaç saniye bekleyin.</string>
-  <string name="DLG_to_market">Markete Git</string>
+  <string name="DLG_hour_minutes">Zaman (saat : dakika)</string>
+  <string name="DLG_please_update">Astrid Google Play\'deki en son sürüme yükseltilmelidir! Lütfen devam etmeden bunu yapın ya da bir kaç saniye bekleyin.</string>
+  <string name="DLG_to_market">Google Play\'e Git</string>
   <string name="DLG_accept">Kabul Et</string>
   <string name="DLG_decline">Reddet</string>
   <string name="DLG_eula_title">Astrid Kullanım Koşulları</string>
@@ -140,25 +140,25 @@
   <string name="DLG_loading">Yükleniyor...</string>
   <string name="DLG_dismiss">Kapat</string>
   <string name="DLG_ok">Tamam</string>
-  <string name="DLG_cancel">İptal Et</string>
-  <string name="DLG_more">More</string>
-  <string name="DLG_undo">Undo</string>
-  <string name="WID_dateButtonUnset">Ayar için dokun</string>
+  <string name="DLG_cancel">Vazgeç</string>
+  <string name="DLG_more">Daha Fazla</string>
+  <string name="DLG_undo">Geri al</string>
+  <string name="WID_dateButtonUnset">Ayar İçin Dokun</string>
   <string name="WID_dateButtonLabel">$D $T</string>
   <string name="WID_disableButton">Etkisizleştir</string>
   <string name="ENE_label">Notlar</string>
   <string name="ENE_label_comments">Yorumlar</string>
   <string name="ENA_no_comments">Gösterecek öğe yok</string>
-  <string name="ENA_no_user">You</string>
+  <string name="ENA_no_user">Siz</string>
   <string name="ENA_refresh_comments">Yorumları Yenile</string>
-  <string name="TLA_no_items">You have no tasks! \n Want to add something?</string>
+  <string name="TLA_no_items">Hiç göreviniz yok! \n Bir şeyler eklemek nasıl olur?</string>
   <string name="TLA_menu_addons">Eklentiler</string>
-  <string name="TLA_menu_sort">Sınıflama Gizlilik</string>
+  <string name="TLA_menu_sort">Sınıflama &amp; Altgörevler</string>
   <string name="TLA_menu_sync">Şimdi Eşitle!</string>
-  <string name="TLA_menu_lists">Lists</string>
-  <string name="TLA_menu_friends">Friends</string>
-  <string name="TLA_menu_suggestions">Suggestions</string>
-  <string name="TLA_menu_tutorial">Tutorial</string>
+  <string name="TLA_menu_lists">Listeler</string>
+  <string name="TLA_menu_friends">Arkadaşlar</string>
+  <string name="TLA_menu_suggestions">Öneriler</string>
+  <string name="TLA_menu_tutorial">Kılavuz</string>
   <string name="TLA_menu_settings">Ayarlar</string>
   <string name="TLA_menu_support">Destek</string>
   <string name="TLA_search_label">Bu Listede Ara</string>
@@ -175,35 +175,35 @@
     <item>Yapıldı</item>
     <item>Gizli</item>
   </string-array>
-  <string name="TLA_quickadd_confirm_title">You said, \"%s\"</string>
-  <string name="TLA_quickadd_confirm_speech_bubble">I created a task called \"%1$s\" %2$s at %3$s</string>
-  <string name="TLA_quickadd_confirm_speech_bubble_date">for %s</string>
-  <string name="TLA_quickadd_confirm_hide_helpers">Don\'t display future confirmations</string>
-  <string name="TLA_repeat_scheduled_title">New repeating task %s</string>
-  <string name="TLA_repeat_scheduled_speech_bubble">I\'ll remind you about this %s.</string>
+  <string name="TLA_quickadd_confirm_title">Dediniz ki, \"%s\"</string>
+  <string name="TLA_quickadd_confirm_speech_bubble">Bir görev oluşturdum; \"%1$s\" tarih; %2$s öncelik; %3$s</string>
+  <string name="TLA_quickadd_confirm_speech_bubble_date">%s için</string>
+  <string name="TLA_quickadd_confirm_hide_helpers">İleriki doğrulamaları gösterme</string>
+  <string name="TLA_repeat_scheduled_title">Yinelenen görev: %s</string>
+  <string name="TLA_repeat_scheduled_speech_bubble">Bunu şu sıklıkta sana hatırlatacağım: %s.</string>
   <string-array name="TLA_priority_strings">
-    <item>highest priority</item>
-    <item>high priority</item>
-    <item>medium priority</item>
-    <item>low priority</item>
+    <item>en yüksek öncelik</item>
+    <item>yüksek öncelik</item>
+    <item>orta öncelik</item>
+    <item>düşük öncelik</item>
   </string-array>
-  <string name="TLA_all_activity">All Activity</string>
+  <string name="TLA_all_activity">Tüm Etkinlik</string>
   <string name="TAd_hiddenFormat">%s [gizli]</string>
   <string name="TAd_deletedFormat">%s [silinmiş]</string>
-  <string name="TAd_completed">Finished\n%s</string>
+  <string name="TAd_completed">Bitti\n%s</string>
   <string name="TAd_actionEditTask">Düzenle</string>
   <string name="TAd_contextEditTask">Görevi Düzenle</string>
   <string name="TAd_contextCopyTask">Görevi Kopyala</string>
-  <string name="TAd_contextHelpTask">Get help</string>
+  <string name="TAd_contextHelpTask">Yardım al</string>
   <string name="TAd_contextDeleteTask">Görevi Sil</string>
   <string name="TAd_contextUndeleteTask">Görevi Kurtar</string>
   <string name="TAd_contextPurgeTask">Görevi Temizle</string>
-  <string name="SSD_title">Sınıflama ve Gizli Görevler</string>
-  <string name="SSD_hidden_title">Hidden Tasks</string>
+  <string name="SSD_title">Sınıflama, Altgörevler ve Gizli</string>
+  <string name="SSD_hidden_title">Gizli Görevler</string>
   <string name="SSD_completed">Tamamlanan Görevleri Göster</string>
   <string name="SSD_hidden">Gizli Görevleri Göster</string>
   <string name="SSD_deleted">Silinmiş Görevleri Göster</string>
-  <string name="SSD_sort_drag">Drag &amp; Drop with Subtasks</string>
+  <string name="SSD_sort_drag">Alt Görevler ile Sürükle &amp; Bırak</string>
   <string name="SSD_sort_auto">Astrid Akıllı Sıralama</string>
   <string name="SSD_sort_alpha">Başlığa göre</string>
   <string name="SSD_sort_due">Bitiş Tarihine Göre</string>
@@ -212,7 +212,7 @@
   <string name="SSD_sort_reverse">Sıralamayı Tersine Çevir</string>
   <string name="SSD_save_temp">Bir Kereye Mahsus</string>
   <string name="SSD_save_always">Her zaman</string>
-  <string name="FSA_label">Astrid List or Filter</string>
+  <string name="FSA_label">Astrid Listesi ya da Süzgeci</string>
   <string name="FLA_title">Listeler</string>
   <string name="FLA_loading">Süzgeçler Yükleniyor...</string>
   <string name="FLA_context_shortcut">Masaüstünde Kısayol Oluştur</string>
@@ -225,6 +225,7 @@
   <string name="FLA_toast_onCreateShortcut">Oluşturulan Kısayol: %s</string>
   <string name="FLA_new_filter">Yeni Filtre</string>
   <string name="FLA_new_list">Yeni Liste</string>
+  <string name="FLA_no_filter_selected">Süzgeç seçilmemiş! Lütfen bir süzgeç ya da liste seçin.</string>
   <string name="TEA_view_title">Astrid: Düzenleniyor \'%s\'</string>
   <string name="TEA_view_titleNew">Yeni Görev</string>
   <string name="TEA_title_label">Başlık</string>
@@ -234,7 +235,7 @@
   <string name="TEA_urgency_label">Bitiş tarihi</string>
   <string name="TEA_urgency_specific_time">Belirli bir zamanda?</string>
   <string name="TEA_urgency_none">Hiçbiri</string>
-  <string name="TEA_hideUntil_label">Görevi göster</string>
+  <string name="TEA_hideUntil_label">Görevi Göster</string>
   <string name="TEA_hideUntil_message">Görev %s\'e kadar gizli kalacak</string>
   <string-array name="TEA_loading">
     <item>Yükleniyor...</item>
@@ -249,11 +250,11 @@
   <string name="TEA_menu_comments">Yorumlar</string>
   <string name="TEA_onTaskSave_due">Görev Kaydedildi: tarihi %s</string>
   <string name="TEA_onTaskSave_notDue">Görev kaydedildi</string>
-  <string name="TEA_onTaskCancel">Görev Düzenleme İptal Edildi</string>
-  <string name="TEA_onTaskDelete">Task deleted!</string>
+  <string name="TEA_onTaskCancel">Görev Düzenlemeden Vazgeçildi</string>
+  <string name="TEA_onTaskDelete">Görev silindi!</string>
   <string name="TEA_tab_activity">Etkinlik</string>
-  <string name="TEA_tab_more">Daha Fazla</string>
-  <string name="TEA_tab_web">Ideas</string>
+  <string name="TEA_tab_more">Ayrıntılar</string>
+  <string name="TEA_tab_web">Fikirler</string>
   <string-array name="TEA_urgency">
     <item>Son tarih yok</item>
     <item>Belirlenmiş Gün</item>
@@ -267,9 +268,9 @@
   <string name="TEA_no_time">Zaman yok</string>
   <string-array name="TEA_hideUntil">
     <item>Her zaman</item>
-    <item>Son anında</item>
-    <item>Son andan bir gün önce</item>
-    <item>Son andan bir hafta önce</item>
+    <item>Son tarihte</item>
+    <item>Son tarihten bir gün önce</item>
+    <item>Son tarihten bir hafta önce</item>
     <item>Belirli Gün/Zamanda</item>
   </string-array>
   <string name="TEA_control_title">Görev Başlığı</string>
@@ -280,82 +281,82 @@
   <string name="TEA_control_lists">Listeler</string>
   <string name="TEA_control_notes">Notlar</string>
   <string name="TEA_control_reminders">Hatırlatmalar</string>
-  <string name="TEA_control_timer">Geri sayım kontrolleri</string>
-  <string name="TEA_control_share">Arkadaşlarla paylaş</string>
+  <string name="TEA_control_timer">Geri Sayım Denetimleri</string>
+  <string name="TEA_control_share">Arkadaşlarla Paylaş</string>
   <string name="hide_until_prompt">Listemde göster</string>
   <string name="TEA_addons_text">Daha fazla özellik mi arıyorsun?</string>
-  <string name="TEA_addons_button">Power Pack \'i satın al!</string>
+  <string name="TEA_addons_button">Güç Paketi\'ni satın al!</string>
   <string name="TEA_more">Daha Fazla</string>
-  <string name="TEA_no_activity">No Activity to Show.</string>
-  <string name="TEA_load_more">Load more...</string>
+  <string name="TEA_no_activity">Gösterilecek Etkinlik Yok.</string>
+  <string name="TEA_load_more">Daha yükle...</string>
   <string name="TEA_when_dialog_title">Son zamanı nedir?</string>
   <string name="TEA_date_and_time">Tarih/Saat</string>
-  <string name="WSV_click_to_load">Tap me to search for ways to get this done!</string>
-  <string name="WSV_not_online">I can do more when connected to the Internet. Please check your connection.</string>
+  <string name="WSV_click_to_load">Bunu yapmanın yollarını bulmak için bana dokunun!</string>
+  <string name="WSV_not_online">İnternete bağlanırsam daha fazlasını yapabilirim. Lütfen bağlantınızı denetleyin.</string>
   <string name="InA_title">Astrid\'e Hoş geldiniz!</string>
   <string name="InA_agree">Kabul Et!!</string>
   <string name="InA_disagree">Reddet</string>
-  <string name="HlA_get_support">Destek</string>
+  <string name="HlA_get_support">Destek Al</string>
   <string name="UpS_changelog_title">Astrid\'te Yenilikler Neler?</string>
   <string name="UpS_updates_title">En Son Astrid Haberleri</string>
-  <string name="UpS_no_activity_log_in">Log in to see a record of\nyour progress as well as\nactivity on shared lists.</string>
+  <string name="UpS_no_activity_log_in">Paylaşılan listelerdeki etkinlik\nilerlemenizin kaydını görmek\niçin oturum açın.</string>
   <string name="EPr_title">Astrid: Ayarlar</string>
   <string name="EPr_deactivated">devre dışı</string>
   <string name="EPr_appearance_header">Görünüm</string>
-  <string name="EPr_fontSize_title">Görev listesi boyutu</string>
-  <string name="EPr_showSmartConfirmation_title">Show confirmation for smart reminders</string>
+  <string name="EPr_fontSize_title">Görev Listesi Boyutu</string>
+  <string name="EPr_showSmartConfirmation_title">Akıllı hatırlatıcılar için doğrulamayı göster</string>
   <string name="EPr_fontSize_desc">Ana listedeki yazı boyutu</string>
-  <string name="EPr_showNotes_title">Görevde Notları Göster</string>
-  <string name="EPr_beastMode_title">Canavar modu</string>
-  <string name="EPr_beastMode_desc">Görev değiştirme sayfasının görünümünü değiştir</string>
+  <string name="EPr_showNotes_title">Görevdeki Notları Göster</string>
+  <string name="EPr_beastMode_title">Görev Düzenleme Ekranını Özelleştir</string>
+  <string name="EPr_beastMode_desc">Görev Düzenleme Ekranı yerleşimini özelleştir</string>
   <string name="EPr_beastMode_reset">Varsayılanlara sıfırla</string>
-  <string name="EPr_showNotes_desc_disabled">Notlara Görev düzenleme sayfasından ulaşılabilir</string>
+  <string name="EPr_showNotes_desc_disabled">Notlara Görev Düzenleme Sayfası\'ndan ulaşılabilir</string>
   <string name="EPr_showNotes_desc_enabled">Notlar her zaman görüntülenecek</string>
-  <string name="EPr_compressTaskRows_title">Compact Task Row</string>
-  <string name="EPr_compressTaskRows_desc">Compress task rows to fit title</string>
-  <string name="EPr_userLegacyImportance_title">Use legacy importance style</string>
-  <string name="EPr_userLegacyImportance_desc">Use legacy importance style</string>
-  <string name="EPr_fullTask_title">Show full task title</string>
-  <string name="EPr_fullTask_desc_enabled">Full task title will be shown</string>
-  <string name="EPr_fullTask_desc_disabled">First two lines of task title will be shown</string>
-  <string name="EPr_ideaAuto_title">Auto-load Ideas Tab</string>
-  <string name="EPr_ideaAuto_desc_enabled">Web searches for Ideas tab will be performed when task is edited</string>
-  <string name="EPr_ideaAuto_desc_disabled">Web searches for Ideas tab will be performed when tab is clicked</string>
-  <string name="EPr_theme_title">Renk teması</string>
+  <string name="EPr_compressTaskRows_title">Sıkışık Görev Sırası</string>
+  <string name="EPr_compressTaskRows_desc">Başlığın sığması için görev sıralarını sıkıştır</string>
+  <string name="EPr_userLegacyImportance_title">Artakalan önem biçemini kullan</string>
+  <string name="EPr_userLegacyImportance_desc">Artakalan önem biçemini kullan</string>
+  <string name="EPr_fullTask_title">Tüm görev başlığını göster</string>
+  <string name="EPr_fullTask_desc_enabled">Tüm görev başlığı gösterilecek</string>
+  <string name="EPr_fullTask_desc_disabled">Görev başlığının ilk iki satırı gösterilecek</string>
+  <string name="EPr_ideaAuto_title">Fikirleri Kendiliğinden-Yükle Sekmesi</string>
+  <string name="EPr_ideaAuto_desc_enabled">Fikirler için olan aramalar sekmesi, sekme tıklandığında belirecek</string>
+  <string name="EPr_ideaAuto_desc_disabled">Fikirler için olan aramalar sekmesi, yalnızca kullanıcı isteğiyle belirecek</string>
+  <string name="EPr_theme_title">Renk Teması</string>
   <string name="EPr_theme_desc">Geçerli: %s</string>
   <string name="EPr_theme_desc_unsupported">Ayarlar için Android 2.0+ zorunludur.</string>
-  <string name="EPr_taskRowPrefs_title">Task Row Appearance</string>
+  <string name="EPr_taskRowPrefs_title">Görev Sırası Görünümü</string>
   <string-array name="EPr_themes">
-    <item>Gündüz - Blue</item>
-    <item>Gündüz - Red</item>
+    <item>Gündüz - Mavi</item>
+    <item>Gündüz - Kırmızı</item>
     <item>Gece</item>
-    <item>Şeffaf (Beyaz yazı)</item>
-    <item>Şeffaf (Siyah yazı)</item>
+    <item>Şeffaf (Beyaz Metin)</item>
+    <item>Şeffaf (Siyah Metin)</item>
   </string-array>
   <string name="EPr_manage_header">Eski Görevleri Yönet</string>
   <string name="EPr_manage_delete_completed">Tamamlanan Görevleri Sil</string>
   <string name="EPr_manage_delete_completed_message">Gerçekten tüm tamamlanmış görevleri silmek istiyor musun?</string>
   <string name="EPr_manage_delete_completed_summary">Silinen görevler tek tek yeniden yüklenebilir</string>
   <string name="EPr_manage_delete_completed_status">%d görev silindi!</string>
-  <string name="EPr_manage_purge_deleted">Silinen görevleri temizle</string>
+  <string name="EPr_manage_purge_deleted">Silinen Görevleri Temizle</string>
   <string name="EPr_manage_purge_deleted_message">Tüm silinen görevleri temizlemek istediğine emin misin?\n\nBu görevler tamamen silinecek!</string>
   <string name="EPr_manage_purge_deleted_status">%d görev temizlendi!</string>
   <string name="EPr_manage_purge_deleted_summary">Uyarı! Temizlenen görevler yedek dosyası olmadan kurtarılamaz!</string>
-  <string name="EPr_manage_clear_all">Clear All Data</string>
-  <string name="EPr_manage_clear_all_message">Delete all tasks and settings in Astrid?\n\nWarning: can\'t be undone!</string>
+  <string name="EPr_manage_clear_all">Tüm Veriyi Temizle</string>
+  <string name="EPr_manage_clear_all_message">Astrid ayarları ve tüm görevler silinsin mi?\n\nUyarı: geri alınamaz!</string>
   <string name="EPr_manage_delete_completed_gcal">Tamamlanan görevler için Takvim olaylarını sil</string>
   <string name="EPr_manage_delete_completed_gcal_message">Tamamlanmış görevlerden bütün olayları silmek istediğinize emin misiniz?</string>
-  <string name="EPr_manage_delete_completed_gcal_status">%d takvim olayı silindi</string>
-  <string name="EPr_manage_delete_all_gcal">Görevlerdeki bütün takvim olaylarını sil</string>
+  <string name="EPr_manage_delete_completed_gcal_status">%d takvim olayı silindi!</string>
+  <string name="EPr_manage_delete_all_gcal">Görevlerdeki Bütün Takvim Olaylarını Sil</string>
   <string name="EPr_manage_delete_all_gcal_message">Görevlerdeki bütün olayları silmek istediğinize emin misiniz?</string>
-  <string name="EPr_manage_delete_all_gcal_status">%d takvim olayı silindi</string>
+  <string name="EPr_manage_delete_all_gcal_status">%d takvim olayı silindi!</string>
   <string name="AOA_title">Astrid: Eklentiler</string>
   <string name="AOA_internal_author">Astrid Takımı</string>
   <string name="AOA_tab_installed">Yüklenen</string>
   <string name="AOA_tab_available">Kullanılabilir</string>
   <string name="AOA_free">Ücretsiz</string>
   <string name="AOA_visit_website">Web Sitesini Ziyaret Et</string>
-  <string name="AOA_visit_market">Android Market</string>
+  <string name="AOA_visit_market">Google Play</string>
   <string name="AOA_no_addons">Liste Boş!</string>
   <string name="TWi_loading">Yükleniyor...</string>
   <string name="WCA_title">Görüntülenecek görevi seç...</string>
@@ -363,7 +364,7 @@
   <string name="p_about_text">Güncel versiyon: %s\n\n Astrid açık kaynak kodlu olarak Todoroo, Inc tarafından gururla sürdürülmektedir.</string>
   <string name="p_help">Yardım</string>
   <string name="task_killer_help">Gönürüyor ki, işlemleri kapatabilen bir uygulama kullanıyorsunuz (%s)! Mümkünse, Astrid\'i programın muafiyet listesine ekleyin ki kapatılamasın. Aksi takdirde, Astrid görevlerin tarihi geldiğinde size bildiremeyebilir.\n</string>
-  <string name="task_killer_help_ok">Astrid\'i kapatmayacağım!</string>
+  <string name="task_killer_help_ok">Astrid\'i Kapatmayacağım!</string>
   <string name="marketplace_title">Astrid İş/Görev Listesi</string>
   <string name="marketplace_description">Astrid çok sevilen, yapacaklarınızı yapmanıza yardım eden açık kaynak kodlu bir hatırlatma / görev yönetimi programıdır. Hatırlatmalar, etiketlemeler, senkronizasyon, Locale eklentisi, widget ve daha fazla özelliğe sahiptir.</string>
   <string name="EPr_defaults_header">Yeni Görev Öntanımlıları</string>
@@ -371,33 +372,33 @@
   <string name="EPr_default_urgency_desc">Geçerli: %s</string>
   <string name="EPr_default_importance_title">Öntanımlı Önem Seviyesi</string>
   <string name="EPr_default_importance_desc">Geçerli: %s</string>
-  <string name="EPr_default_hideUntil_title">Varsayılan gizlenme</string>
+  <string name="EPr_default_hideUntil_title">Öntanımlı Gizlenme</string>
   <string name="EPr_default_hideUntil_desc">Geçerli: %s</string>
-  <string name="EPr_default_reminders_title">Varsayılan hatırlatmalar</string>
+  <string name="EPr_default_reminders_title">Öntanımlı Hatırlatmalar</string>
   <string name="EPr_default_reminders_desc">Geçerli: %s</string>
-  <string name="EPr_default_addtocalendar_title">Varsayılan olarak takvime ekle</string>
-  <string name="EPr_default_addtocalendar_desc_disabled">Yeni görevler Google Takvimde yeni bir olay oluşturmayacak</string>
-  <string name="EPr_default_addtocalendar_desc">Yeni görevler\"%s\" takviminde olacak</string>
+  <string name="EPr_default_addtocalendar_title">Öntanımlı olarak Takvime Ekle</string>
+  <string name="EPr_default_addtocalendar_desc_disabled">Yeni görevler Google Takvim\'de yeni bir olay oluşturmayacak</string>
+  <string name="EPr_default_addtocalendar_desc">Yeni görevlerin olacağı takvim: \"%s\"</string>
   <string name="EPr_default_reminders_mode_title">Varsayılan Zil/Titreşim tipi</string>
   <string name="EPr_default_reminders_mode_desc">Geçerli: %s</string>
   <string-array name="EPr_default_importance">
     <item>!!! (En yüksek)</item>
     <item>!!</item>
     <item>!</item>
-    <item>(En Düşük)</item>
+    <item>o (En Düşük)</item>
   </string-array>
   <string-array name="EPr_default_urgency">
     <item>Son tarih yok</item>
     <item>Bugün</item>
     <item>Yarın</item>
-    <item>Yarından sonra</item>
+    <item>Yarından Sonra</item>
     <item>Gelecek Hafta</item>
   </string-array>
   <string-array name="EPr_default_hideUntil">
     <item>Gizleme</item>
     <item>Görev günü</item>
-    <item>Son andan bir gün önce</item>
-    <item>Son andan bir hafta önce</item>
+    <item>Son günden bir gün önce</item>
+    <item>Son günden bir hafta önce</item>
   </string-array>
   <string-array name="EPr_default_reminders">
     <item>Son gün hatırlatması yok</item>
@@ -407,19 +408,19 @@
   </string-array>
   <string name="BFE_Active">Etkin Görevler</string>
   <string name="BFE_Search">Ara...</string>
-  <string name="BFE_Recent">Yakında değiştirilenler</string>
-  <string name="BFE_Assigned">I\'ve Assigned</string>
+  <string name="BFE_Recent">Yakında Değiştirilenler</string>
+  <string name="BFE_Assigned">Atanmış bulunuyorum</string>
   <string name="BFE_Custom">Özel Süzgeç...</string>
-  <string name="BFE_Saved">Filtreler</string>
-  <string name="BFE_Saved_delete">Filtreyi Sil</string>
-  <string name="CFA_title">Özel Filtre</string>
+  <string name="BFE_Saved">Süzgeçler</string>
+  <string name="BFE_Saved_delete">Süzgeci Sil</string>
+  <string name="CFA_title">Özel Süzgeç</string>
   <string name="CFA_filterName_hint">Süzgeci kaydetmek için ad yazın...</string>
   <string name="CFA_filterName_copy">%s kopyası</string>
   <string name="CFA_universe_all">Etkin Görevler</string>
   <string name="CFA_type_add">ya da</string>
   <string name="CFA_type_subtract">değil</string>
   <string name="CFA_type_intersect">aynı zamanda</string>
-  <string name="CFA_context_chain">%s kritere sahip</string>
+  <string name="CFA_context_chain">%s ölçütüne sahip</string>
   <string name="CFA_context_delete">Satırı Sil</string>
   <string name="CFA_help">Bu ekran yeni süzgeçler oluşturmanızı sağlar. Aşağıdaki tuşa basarak kriter belirleyin, kısa ya da uzun basarak hızını ayarlayın ve sonra \"Görüntüle\" ye basın!</string>
   <string name="CFA_button_add">Ölçüt Ekle</string>
@@ -445,39 +446,39 @@
   <string name="CFC_title_contains_name">Başlık şunu içersin...</string>
   <string name="CFC_title_contains_text">Başlık şunu içersin:?</string>
   <string name="gcal_TEA_error">Takvime görev eklenmesinde hata!</string>
-  <string name="gcal_TEA_calendar_label">Takvim Entegrasyonu:</string>
-  <string name="gcal_TEA_addToCalendar_label">Takvime ekle</string>
-  <string name="gcal_TEA_showCalendar_label">Ajanda içinde aç</string>
-  <string name="gcal_TEA_calendar_error">Etkinliği açmada hata!</string>
-  <string name="gcal_TEA_calendar_updated">Takvim etkinliği de güncellendi!</string>
-  <string name="gcal_TEA_nocal">Ekleme yapma</string>
-  <string name="gcal_TEA_none_selected">Add to cal...</string>
-  <string name="gcal_TEA_has_event">Cal event</string>
+  <string name="gcal_TEA_calendar_label">Takvim Bütünleşmesi:</string>
+  <string name="gcal_TEA_addToCalendar_label">Takvime Ekle</string>
+  <string name="gcal_TEA_showCalendar_label">Takvim Olayı Aç</string>
+  <string name="gcal_TEA_calendar_error">Olay açılırken hata!</string>
+  <string name="gcal_TEA_calendar_updated">Takvim olayı da güncellendi!</string>
+  <string name="gcal_TEA_nocal">Ekleme</string>
+  <string name="gcal_TEA_none_selected">Takvime ekle...</string>
+  <string name="gcal_TEA_has_event">Takvim olayı</string>
   <string name="gcal_completed_title">%s (tamamlandı)</string>
-  <string name="gcal_GCP_default">Varsayılan Takvim</string>
+  <string name="gcal_GCP_default">Öntanımlı Takvim</string>
   <string name="gtasks_FEx_header">Google Görevleri</string>
-  <string name="gtasks_FEx_list">Liste ile</string>
+  <string name="gtasks_FEx_list">Listeye Göre</string>
   <string name="gtasks_FEx_title">Google Görevleri: %s</string>
   <string name="gtasks_FEx_creating_list">Liste oluşturuluyor...</string>
-  <string name="gtasks_FEx_create_list_dialog">Yeni Liste İsmi:</string>
+  <string name="gtasks_FEx_create_list_dialog">Yeni Liste Adı:</string>
   <string name="gtasks_FEx_create_list_error">Yeni liste oluşturmada hata</string>
   <string name="gtasks_help_title">Google Görevler \'e Hoşgeldiniz!</string>
   <string name="CFC_gtasks_list_text">Liste içinde: ?</string>
   <string name="CFC_gtasks_list_name">Gtasks Listesi içinde...</string>
-  <string name="gtasks_GTA_clearing">Tamamlanan görevler siliniyor...</string>
-  <string name="gtasks_GTA_clear_completed">Tamamlanlar temizlendi</string>
-  <string name="gtasks_GLA_title">Google Görevler \'e giriş yapın</string>
-  <string name="gtasks_GLA_body">Google Görevler Senkronizasyonu (Beta!). Taşınmamış Google Apps hesapları şu an desteklenmemektedir.</string>
-  <string name="gtasks_GLA_noaccounts">Senkronize edilecek Google hesabı mevcut değil.</string>
+  <string name="gtasks_GTA_clearing">Tamamlanan görevler temizleniyor...</string>
+  <string name="gtasks_GTA_clear_completed">Tamamlanları Temizle</string>
+  <string name="gtasks_GLA_title">Google Görevler\'e giriş yapın</string>
+  <string name="gtasks_GLA_body">Lütfen Google Görevler Eşleştirmesi\'ne (Beta!) giriş yapın. Taşınmamış Google Apps hesapları şu an desteklenmemektedir.</string>
+  <string name="gtasks_GLA_noaccounts">Eşleştirilecek Google hesabı mevcut değil.</string>
   <string name="gtasks_GLA_further_help">Görevleri, sıralaması korunmuş ve girintili görebilmek için süzgeçler sayfasına gidin ve bir Google Görevler Listesine ekleyin. Öntanımlı olarak, Astrid görevler için kendi sınıflama ayarlarını kullanır.</string>
-  <string name="gtasks_GLA_signIn">Giriş Yap</string>
+  <string name="gtasks_GLA_signIn">Oturum Aç</string>
   <string name="gtasks_GLA_email">E-Posta</string>
-  <string name="gtasks_GLA_password">Şifre</string>
+  <string name="gtasks_GLA_password">Parola</string>
   <string name="gtasks_GLA_authenticating">Kimlik doğrulanıyor...</string>
-  <string name="gtasks_GLA_domain">Alan üyeliği için Google Apps</string>
+  <string name="gtasks_GLA_domain">Alanadı hesabı için Google Apps</string>
   <string name="gtasks_GLA_errorEmpty">Hata: bütün alanları doldurun!</string>
-  <string name="gtasks_GLA_errorAuth">Giriş başarısız! Lütfen kullanıcı ismi ve parolanızı telefondaki hesap yöneticisinden kontrol edin.</string>
-  <string name="gtasks_GLA_errorIOAuth">Sorry, we had trouble communicating with Google servers. Please try again later.</string>
+  <string name="gtasks_GLA_errorAuth">Giriş başarısız! Lütfen kullanıcı ismi ve parolanızı telefondaki hesap yöneticisinden denetleyin</string>
+  <string name="gtasks_GLA_errorIOAuth">Üzgünüm, Google sunucuları ile bağlanmakta sıkıntı yaşıyoruz. Lütfen daha sonra yeniden deneyin.</string>
   <string name="gtasks_GLA_errorAuth_captcha">Doğrulama (CAPTCHA) ile karşılaşmış olabilirsiniz. İnternet gezgini ile giriş yapıp sonra tekrar buradan deneyin:</string>
   <string name="gtasks_GPr_header">Google Görevleri (Beta!)</string>
   <string name="gtasks_notification_title">Astrid: Google Görevleri</string>
@@ -485,32 +486,25 @@
   <string name="gtasks_error_accountNotFound">%s hesabı bulunamadı--lütfen çıkış yapıp Google Görev ayarlarından tekrar giriş yapın.</string>
   <string name="gtasks_error_authRefresh">Google Görevlere giriş başarısız. Lütfen hesap parolanızı kontrol edip tekrar deneyin.</string>
   <string name="gtasks_error_accountManager">Telefon hesap yöneticisinde hata oluştu. Lütfen çıkış yapıp Google Görevler Ayarlarından tekrar giriş yapın.</string>
-
-
-
-
-
-
-
-  <string name="help_popover_add_task">Start by adding a task or two</string>
+  <string name="help_popover_add_task">Birkaç görev ekleyerek işe başlayın</string>
   <string name="help_popover_tap_task">Değiştirmek veya paylaşmak için göreve dokunun</string>
   <string name="help_popover_list_settings">Değiştirmek veya paylaşmak için listeye dokunun</string>
   <string name="help_popover_collaborators">Paylaştığınız insanlar listenizi oluşturmanıza veya görevleri bitirmenize yardımcı olabilir</string>
-  <string name="help_popover_add_lists">Tap add a list</string>
-  <string name="help_popover_switch_lists">Tap to add a list or switch between lists</string>
+  <string name="help_popover_add_lists">Bir liste eklemek için dokunun</string>
+  <string name="help_popover_switch_lists">Bir liste eklemek için ya da listeyi değiştirmek için dokunun</string>
   <string name="help_popover_when_shortcut">Tarih ve saati seçmek için bu kısayola dokunun</string>
   <string name="help_popover_when_row">Tekrarlama gibi özellikler için bu satırdaki herhangi bir yere dokunun</string>
   <string name="welcome_login_title">Astrid\'e Hoş geldiniz!</string>
   <string name="welcome_login_tos_base">Astridi kullanarak kabul ettiğiniz metin:</string>
   <string name="welcome_login_tos_link">\"Kullanıcı Sözleşmesi\"</string>
   <string name="welcome_login_pw">Kullanıcı adı/Parola ile giriş yap</string>
-  <string name="welcome_login_later">Connect Later</string>
+  <string name="welcome_login_later">Sonra Bağlan</string>
   <string name="welcome_login_confirm_later_title">Neden giriş yapmıyorsun?</string>
   <string name="welcome_login_confirm_later_ok">Yapacağım!</string>
   <string name="welcome_login_confirm_later_cancel">Hayır, teşekkürler</string>
   <string name="welcome_login_confirm_later_dialog">Astridden mümkün olduğunca faydalanmak için giriş yapın. Ücretsiz olarak çevirimiçi yedekleme, Astrid.com ile senkronizasyon, email ile görev ekleme ve arkadaşlar ile görev listesi paylaşma özelliklerine ulaşın.</string>
-  <string name="help_popover_taskrabbit_type">Change the type of task</string>
-  <string name="locale_edit_alerts_title">Astrid konuma bağlı hatırlatma</string>
+  <string name="help_popover_taskrabbit_type">Görev türünü değiştir</string>
+  <string name="locale_edit_alerts_title">Astrid Süzgeç Alarmı</string>
   <string name="locale_edit_intro">İlgili süzgeçte herhangi bir görev olduğunda Astrid size hatırlatma gönderecektir.</string>
   <string name="locale_pick_filter">Süzgeç:</string>
   <string name="locale_interval_label">Bildirimleri sınırlandır:</string>
@@ -527,45 +521,45 @@
   <string name="opencrx_FEx_header">OpenCRX</string>
   <string name="opencrx_FEx_dashboard">Çalışma Alanları</string>
   <string name="opencrx_FEx_responsible">Atanan</string>
-  <string name="opencrx_FEx_responsible_title">Atanan \'%s\'</string>
+  <string name="opencrx_FEx_responsible_title">Atandı: \'%s\'</string>
   <string name="opencrx_PDE_task_from">%s\'den</string>
-  <string name="opencrx_TEA_notes">Açıklama Ekle</string>
+  <string name="opencrx_TEA_notes">Yorum Ekle</string>
   <string name="opencrx_creator_input_hint">Oluşturan</string>
-  <string name="opencrx_contact_input_hint">Atanan</string>
+  <string name="opencrx_contact_input_hint">Atanan:</string>
   <string name="opencrx_PPr_header">OpenCRX</string>
-  <string name="opencrx_no_creator">(Senkronize etme)</string>
+  <string name="opencrx_no_creator">(Eşleştirme Yapma)</string>
   <string name="opencrx_PPr_defaultcreator_title">Öntanımlı EtkinlikOluşturucu</string>
-  <string name="opencrx_PPr_defaultcreator_summary">Yeni etkinlikler %s olarak yaratılacaktır</string>
-  <string name="opencrx_PPr_defaultcreator_summary_none">Yeni aktiviteler öntanımlı olarak senkronize edilmeyecektir</string>
+  <string name="opencrx_PPr_defaultcreator_summary">Yeni etkinlikleri oluşturacak kişi: %s</string>
+  <string name="opencrx_PPr_defaultcreator_summary_none">Yeni etkinlikler öntanımlı olarak eşleştirilmeyecek</string>
   <string name="opencrx_group">OpenCRX sunucu</string>
   <string name="opencrx_host_title">Sunucu</string>
-  <string name="opencrx_host_dialog_title">OpenCRX sunucu sahibi</string>
+  <string name="opencrx_host_dialog_title">OpenCRX sunucusu</string>
   <string name="opencrx_host_summary">"Örnek: "<i>mydomain.com</i></string>
   <string name="opencrx_segment_title">Parça</string>
-  <string name="opencrx_segment_dialog_title">Senkronize edilen parça</string>
+  <string name="opencrx_segment_dialog_title">Eşleştirilen parça</string>
   <string name="opencrx_segment_summary">"Örnek: "<i>Standard</i></string>
   <string name="opencrx_segment_default">Standart</string>
   <string name="opencrx_provider_title">Sağlayıcı</string>
   <string name="opencrx_provider_dialog_title">OpenCRX veri sağlayıcı</string>
   <string name="opencrx_provider_summary">"Örnek: "<i>CRX</i></string>
   <string name="opencrx_provider_default">CRX</string>
-  <string name="opencrx_PLA_title">OpenCRX \'e bağlan</string>
+  <string name="opencrx_PLA_title">OpenCRX\'e bağlan</string>
   <string name="opencrx_PLA_body">OpenCRX hesabınız ile giriş yapın</string>
   <string name="opencrx_PLA_signIn">Giriş Yap</string>
   <string name="opencrx_PLA_login">Oturum Aç</string>
-  <string name="opencrx_PLA_password">Şifre</string>
+  <string name="opencrx_PLA_password">Parola</string>
   <string name="opencrx_PLA_errorEmpty">Hata: Tüm alanları doldurun</string>
-  <string name="opencrx_PLA_errorAuth">Hata: kullanıcı adı ya da şifre yanlış!</string>
+  <string name="opencrx_PLA_errorAuth">Hata: kullanıcı adı ya da parola geçersiz!</string>
   <string name="opencrx_notification_title">OpenCRX</string>
   <string name="opencrx_notification_text">%s görev güncellendi / daha fazla bilgi için tıklayın</string>
-  <string name="opencrx_ioerror">Bağlantı Hatası! Internet bağlantınızı kontrol edin.</string>
+  <string name="opencrx_ioerror">Bağlantı Hatası! Internet bağlantınızı denetleyin.</string>
   <string name="opencrx_MLA_email_empty">Giriş seçimi yapılmadı!</string>
-  <string name="opencrx_MLA_password_empty">Şifre belirtilmemiş!</string>
+  <string name="opencrx_MLA_password_empty">Parola belirtilmemiş!</string>
   <string name="opencrx_TEA_task_assign_label">Bu görevi şu kişiye ata:</string>
   <string name="opencrx_TEA_task_unassigned">&lt;Atanmamış&gt;</string>
   <string name="opencrx_TEA_creator_assign_label">Bu görevi şu sahibe ata:</string>
   <string name="opencrx_TEA_dashboard_default">&lt;Öntanımlı&gt;</string>
-  <string name="opencrx_TEA_opencrx_title">OpenCRX Kontrolleri</string>
+  <string name="opencrx_TEA_opencrx_title">OpenCRX Ayarları</string>
   <string name="CFC_opencrx_in_workspace_text">Çalışma alanında: ?</string>
   <string name="CFC_opencrx_in_workspace_name">Çalışma alanında...</string>
   <string name="CFC_opencrx_assigned_to_text">Atandı: ?</string>
@@ -578,26 +572,26 @@
   <string name="producteev_FEx_dashboard">Çalışma Alanları</string>
   <string name="producteev_FEx_responsible_byme">Tarafımdan şu kişiye atandı:</string>
   <string name="producteev_FEx_responsible_byothers">Diğerleri tarafından şu kişiye atandı:</string>
-  <string name="producteev_FEx_responsible_title">Atanan \'%s\'</string>
+  <string name="producteev_FEx_responsible_title">Atandı: \'%s\'</string>
   <string name="producteev_PDE_task_from">%s\'den</string>
   <string name="producteev_TEA_notes">Açıklama Ekle</string>
   <string name="producteev_PPr_header">Producteev</string>
   <string name="producteev_default_dashboard">Varsayılan Çalışma Alanı</string>
-  <string name="producteev_no_dashboard">(Senkronize etme)</string>
+  <string name="producteev_no_dashboard">(Eşleştirme Yapma)</string>
   <string name="producteev_create_dashboard">Yeni Çalışma Alanı ekle</string>
   <string name="producteev_create_dashboard_name">Çalışma Alanı adı</string>
   <string name="producteev_PPr_defaultdash_title">Varsayılan Çalışma Alanı</string>
   <string name="producteev_PPr_defaultdash_summary">Yeni görevler şuraya kaydedilecek: %s</string>
-  <string name="producteev_PPr_defaultdash_summary_none">Yeni görevler öntanımlı olarak senkronize edilmeyecek</string>
+  <string name="producteev_PPr_defaultdash_summary_none">Yeni görevler öntanımlı olarak eşleştirilmeyecek</string>
   <string name="producteev_PLA_title">Producteev\'e giriş yap</string>
   <string name="producteev_PLA_body">Mevcut Producteev hesabı ile giriş yap</string>
   <string name="producteev_PLA_terms">Şartlar &amp; Koşullar</string>
   <string name="producteev_PLA_signIn">Giriş Yap</string>
   <string name="producteev_PLA_createNew">Yeni Kullanıcı Oluştur</string>
   <string name="producteev_PLA_email">E-Posta</string>
-  <string name="producteev_PLA_password">Şifre</string>
+  <string name="producteev_PLA_password">Parola</string>
   <string name="producteev_PLA_timezone">Zaman dilimi</string>
-  <string name="producteev_PLA_confirmPassword">Şifreyi Doğrula</string>
+  <string name="producteev_PLA_confirmPassword">Parolayı Doğrula</string>
   <string name="producteev_PLA_firstName">Ad</string>
   <string name="producteev_PLA_lastName">Soyad</string>
   <string name="producteev_PLA_errorEmpty">Hata: bütün alanları doldurun!</string>
@@ -621,7 +615,7 @@
   <string name="TEA_reminder_label">Bana Hatırlat:</string>
   <string name="TEA_reminder_due">Görev son tarihinde</string>
   <string name="TEA_reminder_overdue">Görev son tarihi aşıldığında</string>
-  <string name="TEA_reminder_randomly">Randomly once</string>
+  <string name="TEA_reminder_randomly">Bir kere gelişigüzel</string>
   <string name="TEA_reminder_alarm_label">Çalma/Titreme Tipi:</string>
   <string name="TEA_reminder_mode_once">Bir Kez Çal</string>
   <string name="TEA_reminder_mode_five">5 Kez Çal</string>
@@ -649,7 +643,7 @@
   <string name="rmd_EPr_quiet_hours_end_desc">Bildirim sesleri %s den itibaren sessiz olmayacak</string>
   <string name="rmd_EPr_rmd_time_title">Öntanımlı Hatırlatma</string>
   <string name="rmd_EPr_rmd_time_desc">Son tarihi olmayan görevlerin bildirimleri %s iken görünecektir.</string>
-  <string name="rmd_EPr_ringtone_title">Uyarı sesi</string>
+  <string name="rmd_EPr_ringtone_title">Bildirim Sesi</string>
   <string name="rmd_EPr_ringtone_desc_custom">Özel ses tonu atandı</string>
   <string name="rmd_EPr_ringtone_desc_silent">Sestonu sessiz konumda</string>
   <string name="rmd_EPr_ringtone_desc_default">Varsayılan zil sesi kullanılacak</string>
@@ -664,9 +658,9 @@
   <string name="rmd_EPr_vibrate_title">Uyarı esnasında titreşim</string>
   <string name="rmd_EPr_vibrate_desc_true">Astrid bildirimleri gönderirken titreyecek</string>
   <string name="rmd_EPr_vibrate_desc_false">Astrid bildirimleri gönderirken titremeyecek</string>
-  <string name="rmd_EPr_nagging_title">Astrid Cesaretlendirmeleri</string>
+  <string name="rmd_EPr_nagging_title">Astrid Teşvikleri</string>
   <string name="rmd_EPr_nagging_desc_true">Astrid hatırlatmalar sırasında sizi teşvik etmek için görünecektir</string>
-  <string name="rmd_EPr_nagging_desc_false">Astrid cesaretlendirme mesajları göstermeyecektir</string>
+  <string name="rmd_EPr_nagging_desc_false">Astrid teşvik iletileri göstermeyecektir</string>
   <string name="rmd_EPr_snooze_dialog_title">Erteleme İletisi SS:DD</string>
   <string name="rmd_EPr_snooze_dialog_desc_true">Yeni erteleme süresi ile ertele (SS:DD)</string>
   <string name="rmd_EPr_snooze_dialog_desc_false">Ertelemeyi # gün/saat seçerek yap</string>
@@ -685,82 +679,82 @@
   </string-array>
   <string-array name="EPr_quiet_hours_start">
     <item>devre dışı</item>
-    <item>8 PM</item>
-    <item>9 PM</item>
-    <item>10 PM</item>
-    <item>11 PM</item>
-    <item>12 AM</item>
-    <item>1 AM</item>
-    <item>2 AM</item>
-    <item>3 AM</item>
-    <item>4 AM</item>
-    <item>5 AM</item>
-    <item>6 AM</item>
-    <item>7 AM</item>
-    <item>8 AM</item>
-    <item>9 AM</item>
-    <item>10 AM</item>
-    <item>11 AM</item>
-    <item>12 PM</item>
-    <item>1 PM</item>
-    <item>2 PM</item>
-    <item>3 PM</item>
-    <item>4 PM</item>
-    <item>5 PM</item>
-    <item>6 PM</item>
-    <item>7 PM</item>
+    <item>8 ÖS</item>
+    <item>9 ÖS</item>
+    <item>10 ÖS</item>
+    <item>11 ÖS</item>
+    <item>12 ÖÖ</item>
+    <item>1ÖÖ</item>
+    <item>2 ÖÖ</item>
+    <item>3 ÖÖ</item>
+    <item>4 ÖÖ</item>
+    <item>5 ÖÖ</item>
+    <item>6 ÖÖ</item>
+    <item>7 ÖÖ</item>
+    <item>8 ÖÖ</item>
+    <item>9 ÖÖ</item>
+    <item>10 ÖÖ</item>
+    <item>11 ÖÖ</item>
+    <item>12 ÖS</item>
+    <item>1 ÖS</item>
+    <item>2 ÖS</item>
+    <item>3 ÖS</item>
+    <item>4 ÖS</item>
+    <item>5 ÖS</item>
+    <item>6 ÖS</item>
+    <item>7 ÖS</item>
   </string-array>
   <string-array name="EPr_quiet_hours_end">
-    <item>9 AM</item>
-    <item>10 AM</item>
-    <item>11 AM</item>
-    <item>12 PM</item>
-    <item>1 PM</item>
-    <item>2 PM</item>
-    <item>3 PM</item>
-    <item>4 PM</item>
-    <item>5 PM</item>
-    <item>6 PM</item>
-    <item>7 PM</item>
-    <item>8 PM</item>
-    <item>9 PM</item>
-    <item>10 PM</item>
-    <item>11 PM</item>
-    <item>12 AM</item>
-    <item>1 AM</item>
-    <item>2 AM</item>
-    <item>3 AM</item>
-    <item>4 AM</item>
-    <item>5 AM</item>
-    <item>6 AM</item>
-    <item>7 AM</item>
-    <item>8 AM</item>
+    <item>9 ÖÖ</item>
+    <item>10 ÖÖ</item>
+    <item>11 ÖÖ</item>
+    <item>12 ÖS</item>
+    <item>1 ÖS</item>
+    <item>2 ÖS</item>
+    <item>3 ÖS</item>
+    <item>4 ÖS</item>
+    <item>5 ÖS</item>
+    <item>6 ÖS</item>
+    <item>7 ÖS</item>
+    <item>8 ÖS</item>
+    <item>9 ÖS</item>
+    <item>10 ÖS</item>
+    <item>11 ÖS</item>
+    <item>12 ÖÖ</item>
+    <item>1ÖÖ</item>
+    <item>2 ÖÖ</item>
+    <item>3 ÖÖ</item>
+    <item>4 ÖÖ</item>
+    <item>5 ÖÖ</item>
+    <item>6 ÖÖ</item>
+    <item>7 ÖÖ</item>
+    <item>8 ÖÖ</item>
   </string-array>
   <string-array name="EPr_rmd_time">
-    <item>9 AM</item>
-    <item>10 AM</item>
-    <item>11 AM</item>
-    <item>12 PM</item>
-    <item>1 PM</item>
-    <item>2 PM</item>
-    <item>3 PM</item>
-    <item>4 PM</item>
-    <item>5 PM</item>
-    <item>6 PM</item>
-    <item>7 PM</item>
-    <item>8 PM</item>
-    <item>9 PM</item>
-    <item>10 PM</item>
-    <item>11 PM</item>
-    <item>12 AM</item>
-    <item>1 AM</item>
-    <item>2 AM</item>
-    <item>3 AM</item>
-    <item>4 AM</item>
-    <item>5 AM</item>
-    <item>6 AM</item>
-    <item>7 AM</item>
-    <item>8 AM</item>
+    <item>9 ÖÖ</item>
+    <item>10 ÖÖ</item>
+    <item>11 ÖÖ</item>
+    <item>12 ÖS</item>
+    <item>1 ÖS</item>
+    <item>2 ÖS</item>
+    <item>3 ÖS</item>
+    <item>4 ÖS</item>
+    <item>5 ÖS</item>
+    <item>6 ÖS</item>
+    <item>7 ÖS</item>
+    <item>8 ÖS</item>
+    <item>9 ÖS</item>
+    <item>10 ÖS</item>
+    <item>11 ÖS</item>
+    <item>12 ÖÖ</item>
+    <item>1ÖÖ</item>
+    <item>2 ÖÖ</item>
+    <item>3 ÖÖ</item>
+    <item>4 ÖÖ</item>
+    <item>5 ÖÖ</item>
+    <item>6 ÖÖ</item>
+    <item>7 ÖÖ</item>
+    <item>8 ÖÖ</item>
   </string-array>
   <string-array name="reminders">
     <item>Selam! Bir saniyen var mı?</item>
@@ -774,7 +768,7 @@
     <item>Konuşan benim, Astrid!</item>
     <item>Selam! Seni rahatsız edebilir miyim?</item>
     <item>Bir dakikanı alabilir miyim?</item>
-    <item>Hadi şunu yapalım</item>
+    <item>Hadi şunu yapalım:</item>
   </string-array>
   <string-array name="reminders_due">
     <item>Çalışma zamanı!</item>
@@ -812,7 +806,7 @@
     <item>Şunu halledip bi atıştırsak?</item>
     <item>Sadece bir bunu yapsan? Lütfen?</item>
     <item>Listeyi kısaltmanın zamanıdır!</item>
-    <item>Team Order veya Team Chaos üyesimisin? Team Order! Haydi başlayalım!</item>
+    <item>Düzen Takımını\'ndan mısın yoksa Kaos Takımı\'ndan mı? Düzen Takımı! Haydi başlayalım!</item>
     <item>Harika olduğunu en son ne zaman söylemiştim? Böyle devam et!</item>
     <item>Hergün bir görev, dağınıklığı azaltır. Güle güle dağınıklık!</item>
     <item>Nasıl gidiyor? Bence harika!</item>
@@ -820,7 +814,7 @@
     <item>Bu iş için hava fazla güzel değil mi?</item>
     <item>Bunu yaparken bir çaya ne dersin?</item>
     <item>Bunu yapmış olsaydın şimdi dışarıda geziyor olabilirdin.</item>
-    <item>It\'s time. You can\'t put off the inevitable.</item>
+    <item>Tam zamanı. Kaçınılmaz olayı geciktiremezsin.</item>
     <item>Beni her görmezden geldiğinde biraz daha ölüyorum.</item>
   </string-array>
   <string-array name="postpone_nags">
@@ -843,61 +837,61 @@
   <string name="repeat_plugin_desc">Görevlerin tekrarlanmasına izin ver</string>
   <string name="repeat_enabled">Tekrarlar</string>
   <string name="repeat_every">Her %d</string>
-  <string name="repeat_interval_prompt">Tekrarlama Aralığı</string>
-  <string name="repeat_never">No Repeat</string>
-  <string name="repeat_dont">Tekrarlama</string>
+  <string name="repeat_interval_prompt">Yineleme Aralığı</string>
+  <string name="repeat_never">Yineleme mi?</string>
+  <string name="repeat_dont">Yineleme Yapma</string>
   <string-array name="repeat_interval_short">
-    <item>d</item>
-    <item>wk</item>
-    <item>mo</item>
-    <item>hr</item>
-    <item>min</item>
-    <item>yr</item>
+    <item>gün</item>
+    <item>hafta</item>
+    <item>ay</item>
+    <item>sa</item>
+    <item>dk</item>
+    <item>yıl</item>
   </string-array>
   <string-array name="repeat_interval">
-    <item>Gün(ler)</item>
-    <item>Hafta(lar)</item>
-    <item>Ay(lar)</item>
-    <item>Saat(ler)</item>
-    <item>Dakika(lar)</item>
-    <item>Yıl(lar)</item>
+    <item>Gün</item>
+    <item>Hafta</item>
+    <item>Ay</item>
+    <item>Saat</item>
+    <item>Dakika</item>
+    <item>Yıl</item>
   </string-array>
   <string-array name="repeat_type">
     <item>son tarihten itibaren</item>
     <item>tamamlanma tarihinden itibaren</item>
   </string-array>
-  <string name="repeat_detail_byday">$I her $D</string>
+  <string name="repeat_detail_byday">$I gün: $D</string>
   <string name="repeat_detail_duedate">Her %s</string>
   <string name="repeat_detail_completion">Tamamlandıktan sonra %s</string>
-  <string name="repeat_rescheduling_dialog_title">Rescheduling task \"%s\"</string>
-  <string name="repeat_rescheduling_dialog_bubble">%1$s I\'ve rescheduled this repeating task from %2$s to %3$s</string>
+  <string name="repeat_rescheduling_dialog_title">Görev zamanı güncelleniyor: \"%s\"</string>
+  <string name="repeat_rescheduling_dialog_bubble">%1$s bu yinelenen görev zamanını güncelledim: %2$s &gt;&gt; %3$s</string>
   <string-array name="repeat_encouragement">
-    <item>Good job!</item>
-    <item>Wow… I\'m so proud of you!</item>
-    <item>I love it when you\'re productive!</item>
-    <item>Doesn\'t it feel good to check something off?</item>
+    <item>İyi iş çıkardın!</item>
+    <item>Vay be... Seninle gurur duyuyorum!</item>
+    <item>Verimli olduğun zamanı seviyorum!</item>
+    <item>İş bitirmek iyi hissettirmiyor mu?</item>
   </string-array>
   <string name="rmilk_EOE_button">Remember the Milk Ayarları</string>
-  <string name="rmilk_TLA_repeat">RTM Tekrarlanan Görev</string>
-  <string name="rmilk_TLA_sync">RTM ile senkronizasyon gerekli</string>
+  <string name="rmilk_TLA_repeat">RTM Yinelenen Görev</string>
+  <string name="rmilk_TLA_sync">RTM ile eşleştirme gerekli</string>
   <string name="rmilk_FEx_header">Remember the Milk</string>
   <string name="rmilk_FEx_list">Listeler</string>
   <string name="rmilk_FEx_list_title">RTM Listesi \'%s\'</string>
   <string name="rmilk_MEA_title">Remember the Milk</string>
   <string name="rmilk_MEA_list_label">RTM Listesi:</string>
-  <string name="rmilk_MEA_repeat_label">RTM Tekrarlama Durumu:</string>
+  <string name="rmilk_MEA_repeat_label">RTM Yineleme Durumu:</string>
   <string name="rmilk_MEA_repeat_hint">örn: her hafta, 14 gün sonra</string>
   <string name="rmilk_MPr_header">Remember the Milk</string>
   <string name="rmilk_MLA_label">Lütfen giriş yap ve Astrid\'i yetkilendir:</string>
   <string name="rmilk_MLA_error">Üzgünüz, kullanıcı adınızı doğrulamada hata oluştu. Lütfen tekrar deneyin. \n\n Hata Mesajı: %s</string>
   <string name="rmilk_notification_title">Astrid: Remember the Milk</string>
   <string name="rmilk_ioerror">Bağlantı Hatası! İnternet bağlantınızı kontrol edin ya da muhtemel çözümler için RTM sunucularını kontrol edin (status.rememberthemilk.com)</string>
-  <string name="subtasks_help_title">Sort and Indent in Astrid</string>
-  <string name="subtasks_help_1">Tap and hold to move a task</string>
-  <string name="subtasks_help_2">Drag vertically to rearrange</string>
-  <string name="subtasks_help_3">Drag horizontally to indent</string>
+  <string name="subtasks_help_title">Astrid\'te Sınıflandırma ve Giritili Yazma</string>
+  <string name="subtasks_help_1">Bir görevi taşımak için dokunup sürükleyin</string>
+  <string name="subtasks_help_2">Yeniden sıralamak için dikine sürükle</string>
+  <string name="subtasks_help_3">Girintili yazmak için yatay sürükle</string>
   <string name="TEA_tags_label">Listeler</string>
-  <string name="TEA_tags_label_long">Put task on one or more lists</string>
+  <string name="TEA_tags_label_long">Görevi bir ya da daha çok listeye yerleştirin</string>
   <string name="TEA_tags_none">Hiçbiri</string>
   <string name="TEA_tag_hint">Yeni liste</string>
   <string name="TEA_tag_dropdown">Liste Seç</string>
@@ -916,29 +910,29 @@
   <string name="tag_FEx_name">Liste: %s</string>
   <string name="tag_cm_rename">Listeyi yeniden adlandır</string>
   <string name="tag_cm_delete">Listeyi Sil</string>
-  <string name="tag_cm_leave">Leave List</string>
+  <string name="tag_cm_leave">Listeden Çık</string>
   <string name="DLG_delete_this_tag_question">Bu Listeyi Sil: %s? (Hiçbir görev silinmeyecektir.)</string>
-  <string name="DLG_leave_this_shared_tag_question">Leave this shared list: %s? (No tasks will be deleted.)</string>
+  <string name="DLG_leave_this_shared_tag_question">Bu paylaşılan listeden çık: %s? (Silinen görev olmayacak.)</string>
   <string name="DLG_rename_this_tag_header">%s listesini şu isimle adlandır:</string>
   <string name="TEA_no_tags_modified">Hiç değişiklik yapılmadı</string>
   <string name="TEA_tags_deleted">%1$s listesi, %2$d görevlerini etkileyecek şekilde silindi</string>
-  <string name="TEA_tags_left">You left shared list %1$s, affecting %2$d tasks</string>
+  <string name="TEA_tags_left">Paylaşılan %1$s listesinden çıktınız, %2$d görevi etkiliyor</string>
   <string name="TEA_tags_renamed">%1$s yeniden %3$d görevleri için %2$s olarak isimlendirildi.</string>
   <string name="tag_case_migration_notice">Farklı büyük harflere sahip aynı isimli listeler olduğunu farkettik. Belki de aynı isimli olması gerekir diye bunları birleştirdik. Merak etme, orjinallere birşey olmadı, sadece isimleri değişti. (Alışveriş listesi_1,Alışveriş listesi_2 vb) İstediğin bu değilse tek yapman gereken birleşmiş listeyi silmek!</string>
-  <string name="tag_settings_title">Ayarlar:</string>
+  <string name="tag_settings_title">Liste Ayarları:</string>
   <string name="tag_updates_title">Etkinlik: %s</string>
-  <string name="tag_delete_button">Delete List</string>
-  <string name="tag_leave_button">Leave This List</string>
+  <string name="tag_delete_button">Listeyi Sil</string>
+  <string name="tag_leave_button">Bu Listeden Çık</string>
   <string name="TAE_startTimer">Kronometre</string>
   <string name="TAE_stopTimer">Durdur</string>
-  <string name="TPl_notification">%s için kronometre aktif!</string>
+  <string name="TPl_notification">%s için kronometre etkin!</string>
   <string name="TFE_category">Kronometre Süzgeçleri</string>
   <string name="TFE_workingOn">Zaman Ölçümü Olan Görevler</string>
-  <string name="TEA_timer_controls">Geri sayım kontrolleri</string>
+  <string name="TEA_timer_controls">Kronometre Ayarları</string>
   <string name="TEA_timer_comment_started">başlanan görev:</string>
-  <string name="TEA_timer_comment_stopped">stopped doing this task:</string>
+  <string name="TEA_timer_comment_stopped">bu görevden vazgeç:</string>
   <string name="TEA_timer_comment_spent">Harcanan zaman:</string>
-  <string name="update_string_friends">%1$s is now friends with %2$s</string>
+  <string name="update_string_friends">%1$s ile %2$s artık arkadaş</string>
   <string name="update_string_request_friendship">%1$s arkadaşın olmak istiyor</string>
   <string name="update_string_confirmed_friendship">%1$s arkadaşlık teklifini onayladı</string>
   <string name="update_string_task_created">%1$s görevi tanımladı</string>
@@ -950,17 +944,17 @@
   <string name="update_string_task_assigned">"%1$s,  %4$s görevini %2$s kişisine atadı"</string>
   <string name="update_string_default_comment">%1$s şunu yorumladı: %3$s</string>
   <string name="update_string_task_comment">%1$s Re: %2$s: %3$s</string>
-  <string name="update_string_tag_comment">%1$s Re: %2$s: %3$s</string>
+  <string name="update_string_tag_comment">%1$s Cvp: %2$s: %3$s</string>
   <string name="voice_create_prompt">Yeni görev için konuş</string>
   <string name="voice_edit_title_prompt">Görev başlığı için konuş</string>
   <string name="voice_edit_note_prompt">Görev notları için konuş</string>
-  <string name="EPr_voiceInputInstall_dlg">Ses-girişi kurulu değil.\nMarkete gidip yüklemek ister misin?</string>
+  <string name="EPr_voiceInputInstall_dlg">Ses-girişi kurulu değil.\nGoogle Play\'e gidip yüklemek ister misin?</string>
   <string name="EPr_voiceInputUnavailable_dlg">Malesef ses-komutu, işletim sisteminiz için mevcut değil.\nMümkünse sisteminizi Android 2.1 ya da üzerine yükseltin.</string>
   <string name="EPr_marketUnavailable_dlg">Malesef market işletim sisteminiz için mevcut değil.\nMümkünse sesli aramayı başka bir kaynaktan indirin.</string>
   <string name="EPr_voiceInputEnabled_title">Ses Girişi</string>
   <string name="EPr_voiceInputEnabled_desc_enabled">Ses girişi düğmesi görev listesi sayfasında görüntülenecek</string>
   <string name="EPr_voiceInputEnabled_desc_disabled">Ses girişi düğmesi görev listesinde görünmeyecek</string>
-  <string name="EPr_voiceInputCreatesTask_title">Görevleri Doğrudan Yarat</string>
+  <string name="EPr_voiceInputCreatesTask_title">Görevleri Doğrudan Oluştur</string>
   <string name="EPr_voiceInputCreatesTask_desc_enabled">Görevler otomatik olarak ses komutu ile yaratılacak</string>
   <string name="EPr_voiceInputCreatesTask_desc_disabled">Ses komutu bittikten hemen sonra görev başlığını düzenleyebilirsin</string>
   <string name="EPr_voiceRemindersEnabled_title">Sesli Hatırlatmalar</string>
@@ -981,170 +975,63 @@
   <string name="welcome_body_2">Her liste için harika:\noku, izle, satın al, ziyaret et!</string>
   <string name="welcome_body_3">Listelerinizi görmek için liste başlığına tıklayın</string>
   <string name="welcome_body_4">Listeleri\narkadaşlarla, evdekilerle,\nveya sevdiklerinizle paylaşın!</string>
-  <string name="welcome_body_5">Tatlıyu kim getiriyor diye\ndüşünmenize gerek kalmadı!</string>
-  <string name="welcome_body_6">Notlar eklemek,\nhatırlatmalar kurmak,\nve daha fazlası için dokunun!</string>
-  <string name="welcome_body_7">Login</string>
-  <string name="welcome_body_7_return">Tap Astrid to return.</string>
+  <string name="welcome_body_5">Tatlıyı kim getiriyor diye\ndüşünmenize gerek kalmadı!</string>
+  <string name="welcome_body_6">Not eklemek,\nhatırlatma kurmak,\nve daha fazlası için dokunun!</string>
+  <string name="welcome_body_7">Oturum Aç</string>
+  <string name="welcome_body_7_return">Geri dönmek için Astrid\'e dokunun.</string>
   <string name="welcome_back">Geri</string>
   <string name="welcome_next">İleri</string>
-  <string name="PPW_widget_42_label">Astrid Premium 4x2</string>
-  <string name="PPW_widget_43_label">Astrid Premium 4x3</string>
-  <string name="PPW_widget_44_label">Astrid Premium 4x4</string>
-  <string name="PPW_configure_title">Configure Widget</string>
-  <string name="PPW_color">Widget color</string>
-  <string name="PPW_enable_calendar">Show calendar events</string>
-  <string name="PPW_disable_encouragements">Hide encouragements</string>
-  <string name="PPW_filter">Select Filter</string>
-  <string name="PPW_due">Due:</string>
-  <string name="PPW_past_due">Past Due:</string>
-  <string name="PPW_old_astrid_notice">You need at least version 3.6 of Astrid in order to use this widget. Sorry!</string>
+  <string name="PPW_widget_42_label">Astrid Ücretli 4x2</string>
+  <string name="PPW_widget_43_label">Astrid Ücretli 4x3</string>
+  <string name="PPW_widget_44_label">Astrid Ücretli 4x4</string>
+  <string name="PPW_configure_title">Bileşeni Yapılandır</string>
+  <string name="PPW_color">Bileşen Rengi</string>
+  <string name="PPW_enable_calendar">Takvim olaylarını göster</string>
+  <string name="PPW_disable_encouragements">Teşvikleri gizle</string>
+  <string name="PPW_filter">Süzgeç Seç</string>
+  <string name="PPW_due">Son:</string>
+  <string name="PPW_past_due">Gecikmiş:</string>
+  <string name="PPW_old_astrid_notice">Bu bileşeni kullanmak için Astrid\'in son sürümü olan 3.6\'ya ihtiyacınız var. Üzgünüm!</string>
   <string-array name="PPW_encouragements">
-    <item>Hi there!</item>
-    <item>Have time to finish something?</item>
-    <item>Gosh, you are looking suave today!</item>
-    <item>Do something great today!</item>
-    <item>Make me proud today!</item>
-    <item>How are you doing today?</item>
+    <item>Selamlar!</item>
+    <item>Bir şeyler bitirmek için vaktin var mı?</item>
+    <item>Vay canına, bugün kendinden çok emin görünüyorsun!</item>
+    <item>Bugün kendin için ne yaptın!</item>
+    <item>Bugün beni gururlandır!</item>
+    <item>Bugün nasılsın?</item>
   </string-array>
   <string-array name="PPW_encouragements_tod">
-    <item>Good morning!</item>
-    <item>Good afternoon!</item>
-    <item>Good evening!</item>
-    <item>Late night?</item>
-    <item>It\'s early, get something done!</item>
-    <item>Afternoon tea, perhaps?</item>
-    <item>Enjoy the evening!</item>
-    <item>Sleep is good for you, you know!</item>
+    <item>Günaydın!</item>
+    <item>İyi günler!</item>
+    <item>İyi akşamlar!</item>
+    <item>Zor gece?</item>
+    <item>Hâlâ erken, bir şeyler yapabilirsin!</item>
+    <item>Öğle çayına ne dersin?</item>
+    <item>Gecenin tadını çıkar!</item>
+    <item>Uyku senin için güzel bir şey, biliyorsun!</item>
   </string-array>
   <string-array name="PPW_encouragements_completed">
-    <item>You\'ve already completed %d tasks!</item>
-    <item>Score in life: %d tasks completed</item>
-    <item>Smile! You\'ve already finished %d tasks!</item>
+    <item>Şimdiye kadar %d görev tamamladınız!</item>
+    <item>Hayatının sayısı: %d görev bitti</item>
+    <item>Gülümse! Şimdiye kadar %d görev bitti!</item>
   </string-array>
-  <string name="PPW_encouragements_none_completed">You haven\'t completed any tasks yet! Shall we?</string>
+  <string name="PPW_encouragements_none_completed">Hiçbir görevinizi bitirmediniz! Hakkından gelelim mi?</string>
   <string-array name="PPW_colors">
-    <item>Black</item>
-    <item>White</item>
-    <item>Blue</item>
-    <item>Translucent</item>
+    <item>Siyah</item>
+    <item>Beyaz</item>
+    <item>Mavi</item>
+    <item>Yarı saydam</item>
   </string-array>
-  <string name="PPW_widget_dlg_text">This widget is only available to owners of the PowerPack!</string>
-  <string name="PPW_widget_dlg_ok">Preview</string>
-  <string name="PPW_demo_title1">Items on %s will go here</string>
-  <string name="PPW_demo_title2">Power Pack includes Premium Widgets...</string>
-  <string name="PPW_demo_title3">...voice add and good feelings!</string>
-  <string name="PPW_demo_title4">Tap to learn more!</string>
-  <string name="PPW_info_title">Free Power Pack!</string>
-  <string name="PPW_info_signin">Sign in!</string>
-  <string name="PPW_info_later">Later</string>
-  <string name="PPW_unlock_howto">Share lists with friends! Unlock the free Power Pack when 3 friends sign up with Astrid.</string>
-  <string name="PPW_check_button">Get the Power Pack for free!</string>
-  <string name="PPW_check_share_lists">Share lists!</string>
-  <plurals name="DUt_years">
-    <item quantity="one">1 Year</item>
-    <item quantity="other">%d Years</item>
-  </plurals>
-  <plurals name="DUt_months">
-    <item quantity="one">1 Month</item>
-    <item quantity="other">%d Months</item>
-  </plurals>
-  <plurals name="DUt_weeks">
-    <item quantity="one">1 Week</item>
-    <item quantity="other">%d Weeks</item>
-  </plurals>
-  <plurals name="DUt_days">
-    <item quantity="one">1 Day</item>
-    <item quantity="other">%d Days</item>
-  </plurals>
-  <plurals name="DUt_weekdays">
-    <item quantity="one">1 Weekday</item>
-    <item quantity="other">%d Weekdays</item>
-  </plurals>
-  <plurals name="DUt_hours">
-    <item quantity="one">1 Hour</item>
-    <item quantity="other">%d Hours</item>
-  </plurals>
-  <plurals name="DUt_minutes">
-    <item quantity="one">1 Minute</item>
-    <item quantity="other">%d Minutes</item>
-  </plurals>
-  <plurals name="DUt_seconds">
-    <item quantity="one">1 Second</item>
-    <item quantity="other">%d Seconds</item>
-  </plurals>
-  <plurals name="DUt_hoursShort">
-    <item quantity="one">1 Hr</item>
-    <item quantity="other">%d Hrs</item>
-  </plurals>
-  <plurals name="DUt_minutesShort">
-    <item quantity="one">1 Min</item>
-    <item quantity="other">%d Min</item>
-  </plurals>
-  <plurals name="DUt_secondsShort">
-    <item quantity="one">1 Sec</item>
-    <item quantity="other">%d Sec</item>
-  </plurals>
-  <plurals name="Ntasks">
-    <item quantity="one">1 task</item>
-    <item quantity="other">%d tasks</item>
-  </plurals>
-  <plurals name="Npeople">
-    <item quantity="one">1 person</item>
-    <item quantity="other">%d people</item>
-  </plurals>
-  <string name="today">Today</string>
-  <string name="tomorrow">Tomorrow</string>
-  <string name="yesterday">Yesterday</string>
-  <string name="tmrw">Yarın</string>
-  <string name="yest">Dün</string>
-  <string name="DLG_confirm_title">Onayla?</string>
-  <string name="DLG_question_title">Soru:</string>
-  <string name="DLG_information_title">Bilgi</string>
-  <string name="DLG_error_title">Hata!</string>
-  <string name="DLG_save">Kaydet</string>
-  <string name="DLG_yes">Evet</string>
-  <string name="DLG_no">Hayır</string>
-  <string name="DLG_close">Kapat</string>
-  <string name="DLG_done">Done</string>
-  <string name="DLG_error">Oops, looks like an error occurred! Here\'s what happened:\n\n%s</string>
-  <string name="DLG_error_generic">Oops, bir sorun meydana geldi!</string>
-  <string name="DLG_wait">Lütfen bekleyin...</string>
-  <string name="SyP_progress">Görevleriniz eşleniyor...</string>
-  <string name="SyP_progress_toast">Eşleniyor...</string>
-  <string name="SyP_label">Senkronizasyon</string>
-  <string name="SyP_ioerror">Connection Error! Check your Internet connection.</string>
-  <string name="sync_SPr_group_status">Status</string>
-  <string name="sync_status_loggedout">Giriş Yapılmadı!</string>
-  <string name="sync_status_ongoing">Senkronizasyon devam ediyor...</string>
-  <string name="sync_status_success">Son Senk.\n%s</string>
-  <string name="sync_status_failed">Başarısız: %s</string>
-  <string name="sync_status_errors">Hatalı Senkron: %s</string>
-  <string name="sync_status_failed_subtitle">Son Başarılı Eşleme: %s</string>
-  <string name="sync_status_never">Hiç Eşleme Yapılmamış!</string>
-  <string name="sync_SPr_group_options">Options</string>
-  <string name="sync_SPr_interval_title">Arkaplanda senkronizasyon</string>
-  <string name="sync_SPr_interval_desc_disabled">Arkaplanda senkronizasyon devre dışı</string>
-  <string name="sync_SPr_interval_desc">Mevcut ayar: %s</string>
-  <string name="sync_SPr_bgwifi_title">Sadece Wifi Ayarı</string>
-  <string name="sync_SPr_bgwifi_desc_enabled">Sadece Wifi ile arkaplan senkronu</string>
-  <string name="sync_SPr_bgwifi_desc_disabled">Arkaplan senkronu her zaman etkin</string>
-  <string name="sync_SPr_group_actions">Eylemler</string>
-  <string name="sync_SPr_sync">Senkronize et</string>
-  <string name="sync_SPr_sync_log_in">Giriş Yapı &amp;amp; Senktronize et!</string>
-  <string name="sync_SPr_logged_in_prefix">Giriş yapılan hesap:</string>
-  <string name="sync_SPr_forget">Çıkış Yap</string>
-  <string name="sync_SPr_forget_description">Bütün eşleme verilerini temizle</string>
-  <string name="sync_forget_confirm">Çıkış Yap / Senkron verisini sil?</string>
-  <string-array name="sync_SPr_interval_entries">
-    <item>devre dışı bırak</item>
-    <item>her 15 dakika</item>
-    <item>her 30 dakika</item>
-    <item>her saat</item>
-    <item>her 3 saat</item>
-    <item>her 6 saat</item>
-    <item>her 12 saat</item>
-    <item>hergün</item>
-    <item>her 3 gün</item>
-    <item>"her  hafta"</item>
-  </string-array>
+  <string name="PPW_widget_dlg_text">Bu bileşen yalnızca PowerPack sahipleri tarafından kullanılabilir!</string>
+  <string name="PPW_widget_dlg_ok">Önizleme</string>
+  <string name="PPW_demo_title1">%s üzerindeki öğeler buraya gelecek</string>
+  <string name="PPW_demo_title2">Güç Paketi Ücretli Bileşenleri içermektedir...</string>
+  <string name="PPW_demo_title3">...ses ekle ve iyi hisset!</string>
+  <string name="PPW_demo_title4">Daha çok öğrenmek için dokunun!</string>
+  <string name="PPW_info_title">Ücretsiz Güç Paketi!</string>
+  <string name="PPW_info_signin">Oturum aç!</string>
+  <string name="PPW_info_later">Sonra</string>
+  <string name="PPW_unlock_howto">Listeleri arkadaşlarınızla paylaşın! Güç Paketi, 3 arkadaşınız Astrid\'le oturum açtığında ücretsiz olacak.</string>
+  <string name="PPW_check_button">Güç Paketi\'ni ücretsiz alın!</string>
+  <string name="PPW_check_share_lists">Listeleri paylaş!</string>
 </resources>
