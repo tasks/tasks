@@ -526,6 +526,7 @@ public class TagViewFragment extends TaskListFragment {
 
         ((FilterWithCustomIntent) filter).customTaskList = new ComponentName(getActivity(), customComponent);
 
+        extras.putParcelable(TOKEN_FILTER, filter);
         ((AstridActivity)getActivity()).setupTasklistFragmentWithFilterAndCustomTaskList(filter,
                 extras, customComponent);
     }
