@@ -200,9 +200,9 @@ public final class UpgradeService {
         StringBuilder changeLog = new StringBuilder();
 
         if (from < V4_1_0) {
-            newVersionString(changeLog, "4.1.0 (4/16/12)", new String[] {
+            newVersionString(changeLog, "4.1.0 (5/03/12)", new String[] {
                 "Swipe between lists! Swipe left and right to move through your lists. Enable or adjust " +
-                "in Settings > Performance",
+                "in Settings > Astrid Labs",
                 "Respond to or set reminders for missed calls. This feature requires a new permission to read " +
                 "the phone state.",
                 "Assign tasks to contacts without typing",
