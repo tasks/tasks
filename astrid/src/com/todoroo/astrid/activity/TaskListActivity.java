@@ -172,6 +172,10 @@ public class TaskListActivity extends AstridActivity implements MainMenuListener
         mainMenu.setOnClickListener(mainMenuClickListener);
         commentsButton.setOnClickListener(commentsButtonClickListener);
 
+        Bundle extras = getIntent().getExtras();
+        if (extras != null)
+            extras = (Bundle) extras.clone();
+
         Filter savedFilter = getIntent().getParcelableExtra(TaskListFragment.TOKEN_FILTER);
         if (Intent.ACTION_SEARCH.equals(getIntent().getAction())) {
             String query = getIntent().getStringExtra(SearchManager.QUERY).trim();
@@ -181,13 +185,14 @@ public class TaskListActivity extends AstridActivity implements MainMenuListener
                             "%" + //$NON-NLS-1$
                                     query.toUpperCase() + "%")), //$NON-NLS-1$
                     null);
+            if (extras == null)
+                extras = new Bundle();
+            extras.putParcelable(TaskListFragment.TOKEN_FILTER, savedFilter);
         }
+
         if (savedFilter == null)
             savedFilter = CoreFilterExposer.buildInboxFilter(getResources());
 
-        Bundle extras = getIntent().getExtras();
-        if (extras != null)
-            extras = (Bundle) extras.clone();
 
         if (swipeIsEnabled()) {
             FilterListFragment flf = getFilterListFragment();
