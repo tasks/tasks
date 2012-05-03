@@ -14,6 +14,7 @@
     <View
         android:layout_width="1px"
         android:layout_height="fill_parent"
+        android:layout_marginLeft="-1px"
         android:background="?attr/asSeparatorBackground"
         android:layout_marginBottom="4dip"
         android:layout_marginTop="4dip"/>
