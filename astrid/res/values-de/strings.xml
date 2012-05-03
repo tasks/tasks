@@ -4,7 +4,7 @@
   <string name="actfm_person_hint">Kontakt</string>
   <string name="actfm_person_or_tag_hint">Kontakt oder Liste</string>
   <string name="actfm_toast_success">Auf dem Server gespeichert</string>
-  <string name="actfm_toast_error">Speichern nicht erfolgreich: %s</string>
+
   <string name="actfm_tag_operation_disabled">Entschuldigung, diese Aktion wird für geteilte Tags noch nicht unterstützt.</string>
   <string name="actfm_tag_operation_owner_delete">Sie sind der Eigentümer dieser geteilten Liste! Wenn Sie die Liste löschen, wird sie bei allen Listenmitgliedern gelöscht. Sind Sie sich sicher, dass Sie fortfahren möchten?</string>
   <string name="actfm_picture_camera">Bild aufnehmen</string>
@@ -935,15 +935,15 @@
   <string name="update_string_friends">%1$s ist jetzt Freund mit %2$s</string>
   <string name="update_string_request_friendship">Freundschaftsanfrage von %1$s</string>
   <string name="update_string_confirmed_friendship">%1$s hat deine Freundschaftsanfrage bestätigt</string>
-  <string name="update_string_task_created">%1$s hat diese Aufgabe angelegt</string>
-  <string name="update_string_task_created_on_list">%1$s fügte %2$s dieser Liste hinzu</string>
-  <string name="update_string_task_completed">%1$s hat %2$s erledigt. Super!</string>
-  <string name="update_string_task_uncompleted">%1$s hat \"erldigt\"-Status von %2$s aufgehoben</string>
-  <string name="update_string_task_tagged">1$s hat %4$s an %2$s hinzugefügt</string>
-  <string name="update_string_task_tagged_list">%1$s hat %4$s dieser Liste hinzugefügt</string>
-  <string name="update_string_task_assigned">1$s hat %4$s an %2$s zugewiesen</string>
+
+
+
+
+
+
+
   <string name="update_string_default_comment">%1$s hat kommentiert: %3$s</string>
-  <string name="update_string_task_comment">%1$s hat geantwortet: %2$s: %3$s</string>
+
   <string name="update_string_tag_comment">%1$s hat geantwortet: %2$s: %3$s</string>
   <string name="voice_create_prompt">Sprechen Sie, um eine Aufgabe anzulegen</string>
   <string name="voice_edit_title_prompt">Sprechen Sie, um einen Auftragsnamen zu vergeben</string>

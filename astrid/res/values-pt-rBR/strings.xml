@@ -4,7 +4,7 @@
   <string name="actfm_person_hint">Contato ou Email</string>
   <string name="actfm_person_or_tag_hint">Contato ou Lista compartilhada</string>
   <string name="actfm_toast_success">Salvo no servidor</string>
-  <string name="actfm_toast_error">Falha ao salvar: %s</string>
+
   <string name="actfm_tag_operation_disabled">Desculpe, esta operação ainda não foi implementada para tags compartilhadas.</string>
   <string name="actfm_tag_operation_owner_delete">Você é o dono desta lista compartilhada! Se apagá-la, ela será removida também dos membros da lista. Tem certeza?</string>
   <string name="actfm_picture_camera">Tirar uma foto</string>
@@ -935,15 +935,15 @@
   <string name="update_string_friends">%1$s é amigo de %2$s</string>
   <string name="update_string_request_friendship">%1$s quer sua amizade</string>
   <string name="update_string_confirmed_friendship">%1$s confirmou a amizade</string>
-  <string name="update_string_task_created">%1$s criou esta tarefa</string>
-  <string name="update_string_task_created_on_list">%1$s inseriu %2$s a esta lista</string>
-  <string name="update_string_task_completed">%1$s conclui %2$s. Ótimo!</string>
-  <string name="update_string_task_uncompleted">%1$s desfez %2$s.</string>
-  <string name="update_string_task_tagged">%1$s inseriu %4$s em %2$s</string>
-  <string name="update_string_task_tagged_list">%1$s inseriu %4$s a esta lista</string>
-  <string name="update_string_task_assigned">%1$s atribuiu %4$s para %2$s</string>
+
+
+
+
+
+
+
   <string name="update_string_default_comment">%1$s : %3$s</string>
-  <string name="update_string_task_comment">%1$s Re: %2$s: %3$s</string>
+
   <string name="update_string_tag_comment">%1$s Re: %2$s: %3$s</string>
   <string name="voice_create_prompt">Fale para criar uma tarefa</string>
   <string name="voice_edit_title_prompt">Fale para completar o título</string>

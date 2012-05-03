@@ -4,7 +4,7 @@
   <string name="actfm_person_hint">Kişi veya Email</string>
   <string name="actfm_person_or_tag_hint">Kişi ya da Paylaşılan Liste</string>
   <string name="actfm_toast_success">Sunucuya kaydedildi</string>
-  <string name="actfm_toast_error">Kaydetme başarısız:%s</string>
+
   <string name="actfm_tag_operation_disabled">Üzgünüz, bu işlem paylaşılan etiketler için henüz desteklenmiyor</string>
   <string name="actfm_tag_operation_owner_delete">Bu paylaşılan listenin sahibisiniz. Bunu silerseniz, tüm liste üyeleri için silinecek. Devam etmek istiyor musunuz?</string>
   <string name="actfm_picture_camera">Resim Çek</string>
@@ -935,15 +935,15 @@
   <string name="update_string_friends">%1$s ile %2$s artık arkadaş</string>
   <string name="update_string_request_friendship">%1$s arkadaşın olmak istiyor</string>
   <string name="update_string_confirmed_friendship">%1$s arkadaşlık teklifini onayladı</string>
-  <string name="update_string_task_created">%1$s görevi tanımladı</string>
-  <string name="update_string_task_created_on_list">%1$s, %2$s kişisini listeye ekledi</string>
-  <string name="update_string_task_completed">%1$s, %2$s görevi tarafından tamamlandı. Yaşasın!</string>
-  <string name="update_string_task_uncompleted">%1$s, %2$s görevini tamamlamadı.</string>
-  <string name="update_string_task_tagged">%1$s, %4$s kişisini şuna ekledi: %2$s</string>
-  <string name="update_string_task_tagged_list">%1$s, %4$s kişisini bu listeye ekledi</string>
-  <string name="update_string_task_assigned">"%1$s,  %4$s görevini %2$s kişisine atadı"</string>
+
+
+
+
+
+
+
   <string name="update_string_default_comment">%1$s şunu yorumladı: %3$s</string>
-  <string name="update_string_task_comment">%1$s Re: %2$s: %3$s</string>
+
   <string name="update_string_tag_comment">%1$s Cvp: %2$s: %3$s</string>
   <string name="voice_create_prompt">Yeni görev için konuş</string>
   <string name="voice_edit_title_prompt">Görev başlığı için konuş</string>

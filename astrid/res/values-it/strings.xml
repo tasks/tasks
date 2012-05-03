@@ -4,7 +4,7 @@
   <string name="actfm_person_hint">Nome del contatto</string>
   <string name="actfm_person_or_tag_hint">Contact or Shared List</string>
   <string name="actfm_toast_success">Salvato sul Server</string>
-  <string name="actfm_toast_error">Salvataggio fallito: %s</string>
+
   <string name="actfm_tag_operation_disabled">Sorry, this operation is not yet supported for shared tags.</string>
   <string name="actfm_tag_operation_owner_delete">You are the owner of this shared list! If you delete it, it will be deleted for all list members. Are you sure you want to continue?</string>
   <string name="actfm_picture_camera">Seleziona un\'Immagine</string>
@@ -935,15 +935,15 @@
   <string name="update_string_friends">%1$s is now friends with %2$s</string>
   <string name="update_string_request_friendship">%1$s wants to be friends with you</string>
   <string name="update_string_confirmed_friendship">%1$s has confirmed your friendship request</string>
-  <string name="update_string_task_created">%1$s created this task</string>
-  <string name="update_string_task_created_on_list">%1$s added %2$s to this list</string>
-  <string name="update_string_task_completed">%1$s completed %2$s. Huzzah!</string>
-  <string name="update_string_task_uncompleted">%1$s un-completed %2$s.</string>
-  <string name="update_string_task_tagged">%1$s added %4$s to %2$s</string>
-  <string name="update_string_task_tagged_list">%1$s added %4$s to this list</string>
-  <string name="update_string_task_assigned">%1$s assigned %4$s to %2$s</string>
+
+
+
+
+
+
+
   <string name="update_string_default_comment">%1$s commented: %3$s</string>
-  <string name="update_string_task_comment">%1$s Re: %2$s: %3$s</string>
+
   <string name="update_string_tag_comment">%1$s Re: %2$s: %3$s</string>
   <string name="voice_create_prompt">Parla per creare un\'attività</string>
   <string name="voice_edit_title_prompt">Parla per aggiungere il titolo</string>

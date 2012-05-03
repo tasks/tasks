@@ -4,7 +4,7 @@
   <string name="actfm_person_hint">Имя контакта</string>
   <string name="actfm_person_or_tag_hint">Контакт или общий список</string>
   <string name="actfm_toast_success">Сохранено на сервере</string>
-  <string name="actfm_toast_error">Ошибка сохранения: %s</string>
+
   <string name="actfm_tag_operation_disabled">Извините, эта операция не поддерживает общие метки</string>
   <string name="actfm_tag_operation_owner_delete">Вы владелец этого общего списка! Если вы удалите его, он будет удален для всех участников. Вы уверены, что хотите продолжить?</string>
   <string name="actfm_picture_camera">Сделать снимок</string>
@@ -935,15 +935,15 @@
   <string name="update_string_friends">%1$s теперь друзья с %2$s</string>
   <string name="update_string_request_friendship">%1$s хочет дружить с вами</string>
   <string name="update_string_confirmed_friendship">%1$s подтвердил(а) ваш запрос на дружбу</string>
-  <string name="update_string_task_created">%1$s создал(а) эту задачу</string>
-  <string name="update_string_task_created_on_list">%1$s добавил(а) %2$s в этот список</string>
-  <string name="update_string_task_completed">%1$s completed %2$s. Huzzah!</string>
-  <string name="update_string_task_uncompleted">%1$s un-completed %2$s.</string>
-  <string name="update_string_task_tagged">%1$s added %4$s to %2$s</string>
-  <string name="update_string_task_tagged_list">%1$s added %4$s to this list</string>
-  <string name="update_string_task_assigned">%1$s assigned %4$s to %2$s</string>
+
+
+
+
+
+
+
   <string name="update_string_default_comment">%1$s commented: %3$s</string>
-  <string name="update_string_task_comment">%1$s Re: %2$s: %3$s</string>
+
   <string name="update_string_tag_comment">%1$s Re: %2$s: %3$s</string>
   <string name="voice_create_prompt">Говорите чтобы создать задачу</string>
   <string name="voice_edit_title_prompt">Произнесите название задачи</string>
