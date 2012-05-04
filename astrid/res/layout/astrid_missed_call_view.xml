@@ -80,6 +80,11 @@
         android:text="@string/MCA_ignore"
         android:background="#707070"/>
 
-    <include layout="@layout/astrid_speech_bubble" android:id="@+id/missed_calls_speech_bubble"/>
+    <FrameLayout
+        android:id="@+id/missed_calls_speech_bubble"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content">
+        <include layout="@layout/astrid_speech_bubble" />
+    </FrameLayout>
 
 </LinearLayout>
