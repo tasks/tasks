@@ -126,15 +126,15 @@ public class ShortcutActivity extends Activity {
 
             Filter filter;
             if (extras.containsKey(TOKEN_CUSTOM_CLASS)) {
-                filter = new FilterWithCustomIntent("", title, sql, values); //$NON-NLS-1$
+                filter = new FilterWithCustomIntent(title, title, sql, values);
                 ComponentName customTaskList = ComponentName.unflattenFromString(extras.getString(TOKEN_CUSTOM_CLASS));
                 ((FilterWithCustomIntent) filter).customTaskList = customTaskList;
             } else {
-                filter = new Filter("", title, sql, values); //$NON-NLS-1$
+                filter = new Filter(title, title, sql, values);
             }
             taskListIntent.putExtra(TaskListFragment.TOKEN_FILTER, filter);
         } else if(extras != null && extras.containsKey(TOKEN_SINGLE_TASK)) {
-            Filter filter = new Filter("", getString(R.string.TLA_custom), //$NON-NLS-1$
+            Filter filter = new Filter(getString(R.string.TLA_custom), getString(R.string.TLA_custom),
                     new QueryTemplate().where(Task.ID.eq(extras.getLong(TOKEN_SINGLE_TASK, -1))), null);
 
             taskListIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
