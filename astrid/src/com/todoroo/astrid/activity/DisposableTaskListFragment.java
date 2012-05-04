@@ -4,6 +4,7 @@ import android.app.Activity;
 
 import com.timsu.astrid.R;
 import com.todoroo.andlib.utility.Preferences;
+import com.todoroo.astrid.adapter.TaskListFragmentPagerAdapter;
 
 /**
  * Task list fragment that will remove itself from the filterlist/fragment pager when it is detached
@@ -16,10 +17,13 @@ public class DisposableTaskListFragment extends TaskListFragment {
     public void onDetach() {
         Activity activity = getActivity();
         if (activity instanceof TaskListActivity &&
-                Preferences.getIntegerFromString(R.string.p_swipe_lists_performance_key, 0)> 0) {
+                Preferences.getIntegerFromString(R.string.p_swipe_lists_performance_key, 0) > 0) {
             TaskListActivity tla = (TaskListActivity) activity;
-            if (tla.getFragmentLayout() == AstridActivity.LAYOUT_SINGLE)
-                tla.getFragmentPagerAdapter().remove(filter);
+            if (tla.getFragmentLayout() == AstridActivity.LAYOUT_SINGLE) {
+                TaskListFragmentPagerAdapter adapter = tla.getFragmentPagerAdapter();
+                if (adapter != null)
+                    adapter.remove(filter);
+            }
         }
         super.onDetach();
     }
