@@ -397,8 +397,8 @@ public class TaskListActivity extends AstridActivity implements MainMenuListener
 
         if (getIntent().hasExtra(NEW_LIST)) {
             Filter newList = getIntent().getParcelableExtra(NEW_LIST);
-            onFilterItemClicked(newList);
             getIntent().removeExtra(NEW_LIST);
+            onFilterItemClicked(newList);
         }
 
         if (getIntent().hasExtra(OPEN_TASK)) {
