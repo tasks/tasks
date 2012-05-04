@@ -291,6 +291,8 @@ public class TaskListFragment extends ListFragment implements OnScrollListener,
         DependencyInjectionService.getInstance().inject(this);
         super.onCreate(savedInstanceState);
         extras = getArguments() != null ? getArguments().getBundle(TOKEN_EXTRAS) : null;
+        if (extras == null)
+            extras = new Bundle(); // Just need an empty one to prevent potential null pointers
     }
 
     /*
