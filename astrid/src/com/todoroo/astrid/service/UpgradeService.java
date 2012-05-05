@@ -41,6 +41,7 @@ import com.todoroo.astrid.utility.AstridPreferences;
 
 public final class UpgradeService {
 
+    public static final int V4_1_2 = 267;
     public static final int V4_1_1 = 266;
     public static final int V4_1_0 = 265;
     public static final int V4_0_6_2 = 264;
@@ -200,8 +201,14 @@ public final class UpgradeService {
         Preferences.clear(AstridPreferences.P_UPGRADE_FROM);
         StringBuilder changeLog = new StringBuilder();
 
+        if (from >= V4_1_1 && from < V4_1_2) {
+            newVersionString(changeLog, "4.1.2 (5/05/12)", new String[] {
+                "Fixed some crashes and minor bugs"
+            });
+        }
+
         if (from < V4_1_1) {
-            newVersionString(changeLog, "4.1.1 (5/04/12", new String[] {
+            newVersionString(changeLog, "4.1.1 (5/04/12)", new String[] {
                     "Respond to or set reminders for missed calls. This feature requires a new permission to read " +
                     "the phone state.",
             });
