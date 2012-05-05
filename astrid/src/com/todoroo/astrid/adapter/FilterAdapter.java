@@ -195,9 +195,22 @@ public class FilterAdapter extends ArrayAdapter<Filter> {
 
     public int addOrLookup(Filter filter) {
         int index = getPosition(filter);
-        if (index >= 0) return index;
+        if (index >= 0) {
+            Filter existing = getItem(index);
+            transferImageReferences(filter, existing);
+            return index;
+        }
         add(filter);
         return getCount() - 1;
+    }
+
+    // Helper function: if a filter was created from serialized extras, it may not
+    // have the same image data we can get from the in-app broadcast
+    private void transferImageReferences(Filter from, Filter to) {
+        if (from instanceof FilterWithUpdate && to instanceof FilterWithUpdate)
+            ((FilterWithUpdate) to).imageUrl = ((FilterWithUpdate) from).imageUrl;
+        else
+            to.listingIcon = from.listingIcon;
     }
 
     public void setLastSelected(int lastSelected) {
