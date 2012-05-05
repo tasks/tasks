@@ -2,6 +2,7 @@ package com.todoroo.astrid.sync.repeats;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.concurrent.Semaphore;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -95,18 +96,15 @@ public class RepeatTestsActFmSync extends AbstractSyncRepeatTests<Task> {
     @Override
     protected void waitAndSync() {
         AndroidUtilities.sleepDeep(3000L);
+        final Semaphore sema = new Semaphore(0);
         new ActFmSyncV2Provider().synchronizeActiveTasks(true, new SyncResultCallbackAdapter() {
         	@Override
         	public void finished() {
-        		synchronized(RepeatTestsActFmSync.this) {
-        			RepeatTestsActFmSync.this.notify();
-        		}
+        		sema.release();
         	}
 		});
         try {
-        	synchronized(this) {
-        		wait();
-        	}
+        	sema.acquire();
         } catch (InterruptedException e) {
         	fail("Interrupted while waiting for sync to finish");
         }
@@ -136,7 +134,7 @@ public class RepeatTestsActFmSync extends AbstractSyncRepeatTests<Task> {
         Task t = new Task();
         t.setValue(Task.TITLE, title);
         long dueDate = DateUtilities.now() + DateUtilities.ONE_DAY * 3;
-        dueDate = (dueDate / 1000L) * 1000L; // Strip milliseconds
+        dueDate = Task.createDueDate(Task.URGENCY_SPECIFIC_DAY_TIME, (dueDate / 1000L) * 1000L); // Strip milliseconds
         if (fromCompletion)
             t.setFlag(Task.FLAGS, Task.FLAG_REPEAT_AFTER_COMPLETION, true);
 

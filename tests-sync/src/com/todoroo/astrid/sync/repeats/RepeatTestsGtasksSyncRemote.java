@@ -31,19 +31,4 @@ public class RepeatTestsGtasksSyncRemote extends RepeatTestsGtasksSync {
         }
         return completionDate;
     }
-    @Override
-    protected long computeNextDueDateFromDate(long fromDate, RRule rrule, boolean fromCompletion) {
-        long expectedDate = super.computeNextDueDateFromDate(fromDate, rrule, fromCompletion);
-        Frequency freq = rrule.getFreq();
-        if (fromCompletion && (freq == Frequency.HOURLY || freq == Frequency.MINUTELY)) {
-            long millis = (freq == Frequency.HOURLY ? DateUtilities.ONE_HOUR : DateUtilities.ONE_MINUTE);
-            Date rounded = new Date(expectedDate);
-            rounded.setHours(0);
-            rounded.setMinutes(0);
-            rounded.setSeconds(0);
-            return rounded.getTime() + rrule.getInterval() * millis;
-        } else {
-            return expectedDate;
-        }
-    }
 }

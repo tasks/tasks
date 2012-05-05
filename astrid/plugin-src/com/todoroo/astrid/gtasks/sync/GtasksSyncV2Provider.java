@@ -119,6 +119,10 @@ public class GtasksSyncV2Provider extends SyncV2Provider {
                 }
 
                 StoreObject[] lists = gtasksListService.getLists();
+                if (lists.length == 0) {
+                    finishSync(callback);
+                    return;
+                }
                 callback.incrementMax(25 * lists.length);
                 final AtomicInteger finisher = new AtomicInteger(lists.length);
 

@@ -2,6 +2,7 @@ package com.todoroo.astrid.gtasks;
 
 import java.util.Date;
 import java.util.List;
+import java.util.concurrent.Semaphore;
 
 import android.accounts.Account;
 import android.accounts.AccountManager;
@@ -133,11 +134,13 @@ public class GtasksNewSyncTest extends DatabaseTestCase {
         localTask = refetchLocalTask(localTask);
         assertTrue(String.format("Expected %s, was %s", new Date(startDate), new Date(localTask.getValue(Task.DUE_DATE))),
                 Math.abs(startDate - localTask.getValue(Task.DUE_DATE)) < 5000);
-        assertEquals(startDate, GtasksApiUtilities.gtasksDueTimeToUnixTime(remoteTask.getDue(), 0));
+        long dueDate = GtasksApiUtilities.gtasksDueTimeToUnixTime(remoteTask.getDue(), 0);
+        long createdDate = Task.createDueDate(Task.URGENCY_SPECIFIC_DAY, dueDate);
+        assertEquals(startDate, createdDate);
         AndroidUtilities.sleepDeep(TIME_BETWEEN_SYNCS);
 
         //Set new due date on local task
-        long newDueDate = new Date(116, 1, 8).getTime();
+        long newDueDate = Task.createDueDate(Task.URGENCY_SPECIFIC_DAY, new Date(116, 1, 8).getTime());
         localTask.setValue(Task.DUE_DATE, newDueDate);
         taskService.save(localTask);
 
@@ -147,7 +150,9 @@ public class GtasksNewSyncTest extends DatabaseTestCase {
         localTask = refetchLocalTask(localTask);
         remoteTask = refetchRemoteTask(remoteTask);
         assertEquals(newDueDate, localTask.getValue(Task.DUE_DATE).longValue());
-        assertEquals(newDueDate, GtasksApiUtilities.gtasksDueTimeToUnixTime(remoteTask.getDue(), 0));
+        dueDate = GtasksApiUtilities.gtasksDueTimeToUnixTime(remoteTask.getDue(), 0);
+        createdDate = Task.createDueDate(Task.URGENCY_SPECIFIC_DAY, dueDate);
+        assertEquals(newDueDate, createdDate);
     }
 
     public void testDateChangedRemotely() throws Exception {
@@ -161,12 +166,15 @@ public class GtasksNewSyncTest extends DatabaseTestCase {
         localTask = refetchLocalTask(localTask);
         assertTrue(String.format("Expected %s, was %s", new Date(startDate), new Date(localTask.getValue(Task.DUE_DATE))),
                 Math.abs(startDate - localTask.getValue(Task.DUE_DATE)) < 5000);
-        assertEquals(startDate, GtasksApiUtilities.gtasksDueTimeToUnixTime(remoteTask.getDue(), 0));
+        long dueDate = GtasksApiUtilities.gtasksDueTimeToUnixTime(remoteTask.getDue(), 0);
+        long createdDate = Task.createDueDate(Task.URGENCY_SPECIFIC_DAY, dueDate);
+        assertEquals(startDate, createdDate);
         AndroidUtilities.sleepDeep(TIME_BETWEEN_SYNCS);
 
         //Set new due date on remote task
         long newDueDate = new Date(116, 1, 8).getTime();
         remoteTask.setDue(GtasksApiUtilities.unixTimeToGtasksDueDate(newDueDate));
+        newDueDate = Task.createDueDate(Task.URGENCY_SPECIFIC_DAY, newDueDate);
         gtasksService.updateGtask(DEFAULT_LIST, remoteTask);
 
         whenInvokeSync();
@@ -175,7 +183,9 @@ public class GtasksNewSyncTest extends DatabaseTestCase {
         localTask = refetchLocalTask(localTask);
         remoteTask = refetchRemoteTask(remoteTask);
         assertEquals(newDueDate, localTask.getValue(Task.DUE_DATE).longValue());
-        assertEquals(newDueDate, GtasksApiUtilities.gtasksDueTimeToUnixTime(remoteTask.getDue(), 0));
+        dueDate = GtasksApiUtilities.gtasksDueTimeToUnixTime(remoteTask.getDue(), 0);
+        createdDate = Task.createDueDate(Task.URGENCY_SPECIFIC_DAY, dueDate);
+        assertEquals(newDueDate, createdDate);
 
     }
 
@@ -190,11 +200,13 @@ public class GtasksNewSyncTest extends DatabaseTestCase {
         localTask = refetchLocalTask(localTask);
         assertTrue(String.format("Expected %s, was %s", new Date(startDate), new Date(localTask.getValue(Task.DUE_DATE))),
                 Math.abs(startDate - localTask.getValue(Task.DUE_DATE)) < 5000);
-        assertEquals(startDate, GtasksApiUtilities.gtasksDueTimeToUnixTime(remoteTask.getDue(), 0));
+        long dueDate = GtasksApiUtilities.gtasksDueTimeToUnixTime(remoteTask.getDue(), 0);
+        long createdDate = Task.createDueDate(Task.URGENCY_SPECIFIC_DAY, dueDate);
+        assertEquals(startDate, createdDate);
         AndroidUtilities.sleepDeep(TIME_BETWEEN_SYNCS);
 
         //Set new due date on remote task first
-        long newLocalDate = new Date(128, 5, 11).getTime();
+        long newLocalDate = Task.createDueDate(Task.URGENCY_SPECIFIC_DAY, new Date(128, 5, 11).getTime());
         long newRemoteDate = new Date(121, 5, 25).getTime();
 
         remoteTask.setDue(GtasksApiUtilities.unixTimeToGtasksDueDate(newRemoteDate));
@@ -211,7 +223,9 @@ public class GtasksNewSyncTest extends DatabaseTestCase {
         localTask = refetchLocalTask(localTask);
         remoteTask = refetchRemoteTask(remoteTask);
         assertEquals(newLocalDate, localTask.getValue(Task.DUE_DATE).longValue());
-        assertEquals(newLocalDate, GtasksApiUtilities.gtasksDueTimeToUnixTime(remoteTask.getDue(), 0));
+        dueDate = GtasksApiUtilities.gtasksDueTimeToUnixTime(remoteTask.getDue(), 0);
+        createdDate = Task.createDueDate(Task.URGENCY_SPECIFIC_DAY, dueDate);
+        assertEquals(newLocalDate, createdDate);
     }
 
     public void DISABLED_testDateChangedBoth_ChooseRemote() throws Exception {
@@ -255,7 +269,11 @@ public class GtasksNewSyncTest extends DatabaseTestCase {
      */
     private Task createLocalTaskForDateTests(String addToTitle) {
         Task localTask = createNewLocalTask("Due date will change" + addToTitle);
-        long dueDate = new Date(115, 2, 14).getTime();
+        Date date = new Date(115, 2, 14);
+        date.setHours(12);
+        date.setMinutes(0);
+        date.setSeconds(0);
+        long dueDate = date.getTime();
         localTask.setValue(Task.DUE_DATE, dueDate);
         taskService.save(localTask);
 
@@ -473,18 +491,15 @@ public class GtasksNewSyncTest extends DatabaseTestCase {
 
     //Perform a synchronization
     private void whenInvokeSync() {
+    	final Semaphore sema = new Semaphore(0);
         GtasksSyncV2Provider.getInstance().synchronizeActiveTasks(true, new SyncResultCallbackAdapter() {
         	@Override
         	public void finished() {
-        		synchronized(GtasksNewSyncTest.this) {
-        			GtasksNewSyncTest.this.notify();
-        		}
+        		sema.release();
         	}
 		});
         try {
-        	synchronized(this) {
-        		wait();
-        	}
+        	sema.acquire();
         } catch (InterruptedException e) {
         	fail("Interrupted while waiting for sync to finish");
         }

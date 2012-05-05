@@ -3,6 +3,7 @@ package com.todoroo.astrid.sync.repeats;
 import java.io.IOException;
 import java.util.Date;
 import java.util.List;
+import java.util.concurrent.Semaphore;
 
 import android.accounts.Account;
 import android.accounts.AccountManager;
@@ -25,6 +26,7 @@ import com.todoroo.astrid.gtasks.GtasksPreferenceService;
 import com.todoroo.astrid.gtasks.api.GtasksApiUtilities;
 import com.todoroo.astrid.gtasks.api.GtasksInvoker;
 import com.todoroo.astrid.gtasks.auth.GtasksTokenValidator;
+import com.todoroo.astrid.gtasks.sync.GtasksSyncService;
 import com.todoroo.astrid.gtasks.sync.GtasksSyncV2Provider;
 import com.todoroo.astrid.service.MetadataService;
 import com.todoroo.astrid.sync.SyncResultCallbackAdapter;
@@ -34,6 +36,7 @@ public class RepeatTestsGtasksSync extends AbstractSyncRepeatTests<com.google.ap
     @Autowired MetadataService metadataService;
     @Autowired GtasksMetadataService gtasksMetadataService;
     @Autowired GtasksPreferenceService gtasksPreferenceService;
+    @Autowired GtasksSyncService gtasksSyncService;
 
     private static final String TEST_ACCOUNT = "sync_tester2@astrid.com";
     public static final String DEFAULT_LIST = "@default";
@@ -49,6 +52,7 @@ public class RepeatTestsGtasksSync extends AbstractSyncRepeatTests<com.google.ap
         if (!initialized) {
             initializeTestService();
         }
+        gtasksSyncService.initialize();
 
         setupTestList();
     }
@@ -56,22 +60,20 @@ public class RepeatTestsGtasksSync extends AbstractSyncRepeatTests<com.google.ap
     @Override
     protected void waitAndSync() {
         AndroidUtilities.sleepDeep(3000L);
+        final Semaphore sema = new Semaphore(0);
         GtasksSyncV2Provider.getInstance().synchronizeActiveTasks(true, new SyncResultCallbackAdapter() {
         	@Override
         	public void finished() {
-        		synchronized(RepeatTestsGtasksSync.this) {
-        			RepeatTestsGtasksSync.this.notify();
-        		}
+        		sema.release();
         	}
 		});
         try {
-        	synchronized(this) {
-        		wait();
-        	}
+        	sema.acquire();
         } catch (InterruptedException e) {
         	fail("Interrupted while waiting for sync to finish");
         }
         AndroidUtilities.sleepDeep(3000L);
+        gtasksSyncService.waitUntilEmpty();
     }
 
     @Override
@@ -96,7 +98,7 @@ public class RepeatTestsGtasksSync extends AbstractSyncRepeatTests<com.google.ap
         expected.setSeconds(0);
 
         long gtasksTime = GtasksApiUtilities.gtasksDueTimeToUnixTime(remote.getDue(), 0);
-        assertEquals(expected.getTime(), gtasksTime);
+        assertTimesMatch(expected.getTime(), gtasksTime);
         return remote;
     }
 
@@ -116,8 +118,6 @@ public class RepeatTestsGtasksSync extends AbstractSyncRepeatTests<com.google.ap
 
         assertNotNull(remote);
         assertEquals(t.getValue(Task.TITLE), remote.getTitle());
-
-        assertEquals("completed", remote.getStatus());
     }
 
     private void initializeTestService() throws Exception {

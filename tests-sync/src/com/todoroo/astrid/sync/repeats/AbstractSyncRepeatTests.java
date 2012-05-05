@@ -120,7 +120,7 @@ abstract public class AbstractSyncRepeatTests<REMOTE_MODEL> extends DatabaseTest
         Task t = new Task();
         t.setValue(Task.TITLE, title);
         long dueDate = DateUtilities.now() + DateUtilities.ONE_DAY * 3;
-        dueDate = (dueDate / 1000L) * 1000L; // Strip milliseconds
+        dueDate = Task.createDueDate(Task.URGENCY_SPECIFIC_DAY_TIME, (dueDate / 1000L) * 1000L); // Strip milliseconds
         if (fromCompletion)
             t.setFlag(Task.FLAGS, Task.FLAG_REPEAT_AFTER_COMPLETION, true);
 
@@ -150,16 +150,10 @@ abstract public class AbstractSyncRepeatTests<REMOTE_MODEL> extends DatabaseTest
                 Task task = new Task(cursor);
                 System.err.println("Task: " + task.getValue(Task.TITLE) + ", due: " + task.getValue(Task.DUE_DATE));
             }
-            assertEquals(2, cursor.getCount());
+            assertEquals(1, cursor.getCount());
             cursor.moveToFirst();
             t.readFromCursor(cursor);
 
-            assertEquals(title, t.getValue(Task.TITLE));
-            assertEquals(dueDate, (long)t.getValue(Task.DUE_DATE));
-            assertTrue(t.isCompleted());
-
-            cursor.moveToNext();
-            t.readFromCursor(cursor);
             assertEquals(title, t.getValue(Task.TITLE));
             assertFalse(t.isCompleted());
             long newDueDate = t.getValue(Task.DUE_DATE);
@@ -191,7 +185,7 @@ abstract public class AbstractSyncRepeatTests<REMOTE_MODEL> extends DatabaseTest
         }
 
         Weekday[] allWeekdays = Weekday.values();
-        result -= DateUtilities.ONE_DAY;
+//        result -= DateUtilities.ONE_DAY;
         Date date = new Date(result);
         Weekday start = allWeekdays[date.getDay()];
         int i;
@@ -259,7 +253,8 @@ abstract public class AbstractSyncRepeatTests<REMOTE_MODEL> extends DatabaseTest
             originalCompleteDate.setYear(originalCompleteDate.getYear() + interval);
             expectedTime = originalCompleteDate.getTime();
         }
-        return expectedTime;
+        
+        return Task.createDueDate(Task.URGENCY_SPECIFIC_DAY_TIME, expectedTime);
     }
 
     private void testFromDueDate(boolean completeBefore, Frequency frequency, String title) {
@@ -372,7 +367,7 @@ abstract public class AbstractSyncRepeatTests<REMOTE_MODEL> extends DatabaseTest
         testFromCompletionDate(false, Frequency.YEARLY, "yearly-after");
     }
 
-    private void testAdvancedWeeklyFromCompleteDate(boolean completeBefore, String title) {
+    private void testAdvancedWeekly(boolean fromCompletion, boolean completeBefore, String title) {
         RRule rrule = new RRule();
         rrule.setFreq(Frequency.WEEKLY);
 
@@ -382,25 +377,25 @@ abstract public class AbstractSyncRepeatTests<REMOTE_MODEL> extends DatabaseTest
         weekdays.add(new WeekdayNum(0, Weekday.MO));
         weekdays.add(new WeekdayNum(0, Weekday.WE));
         rrule.setByDay(weekdays);
-        testRepeating(completeBefore, true, rrule, Frequency.WEEKLY, title);
+        testRepeating(completeBefore, fromCompletion, rrule, Frequency.WEEKLY, title);
     }
 
 
 
     // disabled until test can be fixed
     public void testAdvancedRepeatWeeklyFromDueDateCompleteBefore() {
-        // testAdvancedWeeklyFromDueDate(true, "advanced-weekly-before");
+        testAdvancedWeekly(false, true, "advanced-weekly-before");
     }
 
     public void testAdvancedRepeatWeeklyFromDueDateCompleteAfter() {
-        // testAdvancedWeeklyFromDueDate(false, "advanced-weekly-after");
+        testAdvancedWeekly(false, false, "advanced-weekly-after");
     }
 
     public void testAdvancedRepeatWeeklyFromCompleteDateCompleteBefore() {
-        testAdvancedWeeklyFromCompleteDate(true, "advanced-weekly-before");
+        testAdvancedWeekly(true, true, "advanced-weekly-before");
     }
 
     public void testAdvancedRepeatWeeklyFromCompleteDateCompleteAfter() {
-        testAdvancedWeeklyFromCompleteDate(false, "advanced-weekly-after");
+        testAdvancedWeekly(true, false, "advanced-weekly-after");
     }
 }

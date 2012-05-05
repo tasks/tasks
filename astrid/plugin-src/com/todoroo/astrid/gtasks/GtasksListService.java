@@ -1,5 +1,6 @@
 package com.todoroo.astrid.gtasks;
 
+import java.util.HashSet;
 import java.util.List;
 
 import com.google.api.services.tasks.model.TaskList;
@@ -27,8 +28,9 @@ public class GtasksListService {
     }
 
     private void readLists() {
-        if(lists != null)
+        if(lists != null) {
             return;
+        }
 
         TodorooCursor<StoreObject> cursor = storeObjectDao.query(Query.select(StoreObject.PROPERTIES).
                 where(StoreObjectCriteria.byType(GtasksList.TYPE)));
@@ -85,10 +87,12 @@ public class GtasksListService {
     public synchronized void updateLists(TaskLists remoteLists) {
         readLists();
 
+        HashSet<Long> previousLists = new HashSet<Long>(lists.length);
         for(StoreObject list : lists)
-            list.setValue(StoreObject.TYPE, "");
+            previousLists.add(list.getId());
 
         List<TaskList> items = remoteLists.getItems();
+        StoreObject[] newLists = new StoreObject[items.size()];
         for(int i = 0; i < items.size(); i++) {
             com.google.api.services.tasks.model.TaskList remote = items.get(i);
 
@@ -109,14 +113,15 @@ public class GtasksListService {
             local.setValue(GtasksList.NAME, remote.getTitle());
             local.setValue(GtasksList.ORDER, i);
             storeObjectDao.persist(local);
+            previousLists.remove(local.getId());
+            newLists[i] = local;
         }
+        lists = newLists;
 
         // check for lists that aren't on remote server
-        for(StoreObject list : lists)
-            if(list.getValue(StoreObject.TYPE).equals(""))
-                storeObjectDao.delete(list.getId());
-
-        clearListCache();
+        for(Long listId : previousLists) {
+            storeObjectDao.delete(listId);
+        }
     }
 
     public StoreObject addNewList(com.google.api.services.tasks.model.TaskList newList) {

@@ -28,6 +28,7 @@ import com.todoroo.astrid.gtasks.api.GtasksApiUtilities;
 import com.todoroo.astrid.gtasks.api.GtasksInvoker;
 import com.todoroo.astrid.gtasks.api.MoveRequest;
 import com.todoroo.astrid.service.MetadataService;
+import com.todoroo.astrid.service.TaskService;
 
 public final class GtasksSyncService {
 
@@ -98,7 +99,7 @@ public final class GtasksSyncService {
             public void onModelUpdated(final Task model) {
                 if(model.checkAndClearTransitory(SyncFlags.GTASKS_SUPPRESS_SYNC))
                     return;
-                if (gtasksPreferenceService.isOngoing()) //Don't try and sync changes that occur during a normal sync
+                if (gtasksPreferenceService.isOngoing() && !model.checkTransitory(TaskService.TRANS_REPEAT_COMPLETE)) //Don't try and sync changes that occur during a normal sync
                     return;
                 final ContentValues setValues = model.getSetValues();
                 if(setValues == null || !checkForToken())
