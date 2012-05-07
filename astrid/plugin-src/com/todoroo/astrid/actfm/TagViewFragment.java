@@ -58,6 +58,7 @@ import com.todoroo.astrid.subtasks.SubtasksTagListFragment;
 import com.todoroo.astrid.tags.TagFilterExposer;
 import com.todoroo.astrid.tags.TagService.Tag;
 import com.todoroo.astrid.utility.AstridPreferences;
+import com.todoroo.astrid.utility.Flags;
 import com.todoroo.astrid.welcome.HelpInfoPopover;
 
 public class TagViewFragment extends TaskListFragment {
@@ -490,7 +491,7 @@ public class TagViewFragment extends TaskListFragment {
                     flf.clear();
             }
             taskAdapter = null;
-            refresh();
+            Flags.set(Flags.REFRESH);
         } else {
             super.onActivityResult(requestCode, resultCode, data);
         }
