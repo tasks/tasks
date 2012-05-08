@@ -138,7 +138,7 @@ public class Astrid2TaskProvider extends ContentProvider {
 	public Cursor getTags() {
 
 		Tag[] tags = TagService.getInstance().getGroupedTags(TagService.GROUPED_TAGS_BY_SIZE,
-		        Criterion.all);
+		        Criterion.all, true);
 
 		MatrixCursor ret = new MatrixCursor(TAGS_FIELD_LIST);
 
@@ -195,7 +195,7 @@ public class Astrid2TaskProvider extends ContentProvider {
     			task.readFromCursor(cursor);
 
     			StringBuilder taskTags = new StringBuilder();
-    			TodorooCursor<Metadata> tagCursor = TagService.getInstance().getTags(task.getId());
+    			TodorooCursor<Metadata> tagCursor = TagService.getInstance().getTags(task.getId(), true);
     			try {
     			    for(tagCursor.moveToFirst(); !tagCursor.isAfterLast(); tagCursor.moveToNext())
     			        taskTags.append(tagCursor.get(TagService.TAG)).append(TAG_SEPARATOR);

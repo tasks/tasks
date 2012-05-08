@@ -394,7 +394,7 @@ public final class ActFmSyncService {
         }
 
         if(Flags.checkAndClear(Flags.TAGS_CHANGED) || newlyCreated) {
-            TodorooCursor<Metadata> cursor = TagService.getInstance().getTags(task.getId());
+            TodorooCursor<Metadata> cursor = TagService.getInstance().getTags(task.getId(), false);
             try {
                 if(cursor.getCount() == 0) {
                     params.add("tags");

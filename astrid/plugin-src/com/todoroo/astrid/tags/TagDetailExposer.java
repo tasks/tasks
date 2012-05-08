@@ -37,7 +37,7 @@ public class TagDetailExposer extends BroadcastReceiver {
     }
 
     public String getTaskDetails(long id) {
-        String tagList = TagService.getInstance().getTagsAsString(id);
+        String tagList = TagService.getInstance().getTagsAsString(id, false);
         if(tagList.length() == 0)
             return null;
 
