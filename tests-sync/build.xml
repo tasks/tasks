@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="astridTest" default="help">
+
+    <!-- The local.properties file is created and updated by the 'android' tool.
+         It contains the path to the SDK. It should *NOT* be checked into
+         Version Control Systems. -->
+    <property file="local.properties" />
+
+    <!-- The ant.properties file can be created by you. It is only edited by the
+         'android' tool to add properties to it.
+         This is the place to change some Ant specific build properties.
+         Here are some properties you may want to change/update:
+
+         source.dir
+             The name of the source directory. Default is 'src'.
+         out.dir
+             The name of the output directory. Default is 'bin'.
+
+         For other overridable properties, look at the beginning of the rules
+         files in the SDK, at tools/ant/build.xml
+
+         Properties related to the SDK location or the project target should
+         be updated using the 'android' tool with the 'update' action.
+
+         This file is an integral part of the build system for your
+         application and should be checked into Version Control Systems.
+
+         -->
+    <property file="ant.properties" />
+
+    <!-- The project.properties file is created and updated by the 'android'
+         tool, as well as ADT.
+
+         This contains project specific properties such as project target, and library
+         dependencies. Lower level build properties are stored in ant.properties
+         (or in .classpath for Eclipse projects).
+
+         This file is an integral part of the build system for your
+         application and should be checked into Version Control Systems. -->
+    <loadproperties srcFile="project.properties" />
+
+    <!-- quick check on sdk.dir -->
+    <fail
+            message="sdk.dir is missing. Make sure to generate local.properties using 'android update project' or to inject it through an env var"
+            unless="sdk.dir"
+    />
+
+    <target name="-pre-build">
+      <!-- copy library project jars -->
+      <unzip src="../api/bin/classes.jar" dest="${tested.project.absolute.dir}/bin/classes" />
+      <!-- copy antbuild to bin -->
+      <copy todir="${tested.project.absolute.dir}/bin">
+        <fileset dir="${tested.project.absolute.dir}/antbuild" />
+      </copy>
+    </target>
+
+    <!-- override coverage target with custom reporting and rules -->    
+    <target name="coverage"
+                description="Runs the tests against the instrumented code and generates emma code coverage report">
+
+      <property name="tested.project.absolute.dir" location="${tested.project.dir}" />
+      <property name="test.runner" value="com.zutubi.android.junitreport.JUnitReportTestRunner" />
+
+      <!-- Application package of the tested project extracted from its manifest file -->
+      <xpath input="${tested.project.absolute.dir}/AndroidManifest.xml"
+             expression="/manifest/@package" output="tested.manifest.package" />
+      <xpath input="AndroidManifest.xml"
+             expression="/manifest/@package" output="manifest.package" />
+
+      <property name="emma.dump.file"
+                value="/data/data/${tested.manifest.package}/coverage.ec" />
+
+      <run-tests-helper emma.enabled="true">
+        <extra-instrument-args>
+          <arg value="-e" />
+          <arg value="coverageFile" />
+          <arg value="${emma.dump.file}" />
+          <arg value="-e" />
+          <arg value="delay_msec" />
+          <arg value="15" />
+        </extra-instrument-args>
+      </run-tests-helper>
+
+      <property name="tested.project.absolute.dir" location="${tested.project.dir}" />
+      <xpath input="${tested.project.absolute.dir}/AndroidManifest.xml"
+             expression="/manifest/@package" output="tested.manifest.package" />
+
+
+      <echo>Downloading coverage file into project directory...</echo>
+      <property name="emma.dump.file"
+                value="/data/data/${tested.manifest.package}/coverage.ec" />
+      <exec executable="${adb}" failonerror="true">
+        <arg line="${adb.device.arg}" />
+        <arg value="pull" />
+        <arg value="${emma.dump.file}" />
+        <arg value="coverage.ec" />
+      </exec>
+
+      <antcall target="emma-parse" />      
+      <antcall target="pull-junit" />      
+    </target>
+
+    <target name="emma-parse" depends="-test-project-check">
+      <echo>Extracting coverage report...</echo>
+      <copy todir="${tested.project.absolute.dir}/src-combined">
+        <fileset dir="../api/src" includes="**/*.java" />
+      </copy>      
+      <mkdir dir="${reports.dir}" />
+      <emma>
+        <report sourcepath="${tested.project.absolute.dir}/src-combined"
+                verbosity="${verbosity}">
+          <infileset dir=".">
+            <include name="coverage.ec" />
+            <include name="coverage.em" />
+          </infileset>
+          <xml outfile="${reports.dir}/coverage.xml" />
+          <html outfile="coverage.html" />
+        </report>
+      </emma>
+      <echo>Cleaning up temporary files...</echo>
+      <delete file="coverage.ec" />
+      <delete file="coverage.em" />
+      <echo>Saving the report file in ${basedir}/coverage/coverage.html</echo>
+    </target>
+
+    <target name="pull-junit">
+      <echo>Extracting junit report...</echo>
+      <exec executable="${adb}" failonerror="true">
+        <arg line="${adb.device.arg}"/>
+        <arg value="pull" />
+        <arg value="/data/data/${tested.manifest.package}/files/junit-report.xml" />
+        <arg value="${reports.dir}/junit-report.xml" />
+      </exec>
+    </target>
+
+    <!-- Import the actual build file.
+
+         To customize existing targets, there are two options:
+         - Customize only one target:
+             - copy/paste the target into this file, *before* the
+               <import> task.
+             - customize it to your needs.
+         - Customize the whole content of build.xml
+             - copy/paste the content of the rules files (minus the top node)
+               into this file, replacing the <import> task.
+             - customize to your needs.
+
+         ***********************
+         ****** IMPORTANT ******
+         ***********************
+         In all cases you must update the value of version-tag below to read 'custom' instead of an integer,
+         in order to avoid having your file be overridden by tools such as "android update project"
+    -->
+    <!-- version-tag: custom -->
+    <import file="${sdk.dir}/tools/ant/build.xml" />
+
+</project>
