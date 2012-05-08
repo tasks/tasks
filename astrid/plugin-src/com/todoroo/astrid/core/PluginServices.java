@@ -8,6 +8,7 @@ import com.todoroo.andlib.sql.Query;
 import com.todoroo.astrid.dao.Database;
 import com.todoroo.astrid.dao.MetadataDao.MetadataCriteria;
 import com.todoroo.astrid.dao.StoreObjectDao;
+import com.todoroo.astrid.dao.UserDao;
 import com.todoroo.astrid.data.Metadata;
 import com.todoroo.astrid.service.AddOnService;
 import com.todoroo.astrid.service.AstridDependencyInjector;
@@ -43,6 +44,9 @@ public final class PluginServices {
 
     @Autowired
     StoreObjectDao storeObjectDao;
+
+    @Autowired
+    UserDao userDao;
 
     private static PluginServices instance;
 
@@ -84,6 +88,10 @@ public final class PluginServices {
 
     public static StoreObjectDao getStoreObjectDao() {
         return getInstance().storeObjectDao;
+    }
+
+    public static UserDao getUserDao() {
+        return getInstance().userDao;
     }
 
     // -- helpers

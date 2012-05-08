@@ -229,6 +229,7 @@ public class StartupService {
             .setMessage(R.string.DB_corrupted_body)
             .setPositiveButton(R.string.DLG_ok, null)
             .create().show();
+        e.printStackTrace();
     }
 
     /**
