@@ -70,6 +70,8 @@ public class TaskListActivity extends AstridActivity implements MainMenuListener
 
     public static final String OPEN_TASK = "openTask"; //$NON-NLS-1$
 
+    private static final String PEOPLE_VIEW = "peopleView";  //$NON-NLS-1$
+
     @Autowired private ABTestEventReportingService abTestEventReportingService;
 
     private View listsNav;
@@ -279,8 +281,12 @@ public class TaskListActivity extends AstridActivity implements MainMenuListener
                 createCommentsPopover();
             }
 
+            boolean peopleView = getIntent().getBooleanExtra(PEOPLE_VIEW, false);
+            Class<? extends FilterListFragment> filterFragmentClass =
+                    peopleView ? PeopleListFragment.class : FilterListFragment.class;
+
             setupFragment(FilterListFragment.TAG_FILTERLIST_FRAGMENT,
-                    R.id.filterlist_fragment_container, FilterListFragment.class, false, false);
+                    R.id.filterlist_fragment_container, filterFragmentClass, false, false);
         } else {
             fragmentLayout = LAYOUT_SINGLE;
             actionBar.setDisplayHomeAsUpEnabled(true);
@@ -702,6 +708,7 @@ public class TaskListActivity extends AstridActivity implements MainMenuListener
         else
             setupFragment(FilterListFragment.TAG_FILTERLIST_FRAGMENT,
                     R.id.filterlist_fragment_container, FilterListFragment.class, false, true);
+        getIntent().putExtra(PEOPLE_VIEW, peopleMode);
     }
 
     public MainMenuPopover getMainMenuPopover() {
