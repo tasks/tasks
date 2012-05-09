@@ -1,19 +1,40 @@
 package com.todoroo.astrid.people;
 
+import android.content.Intent;
+import android.support.v4.view.Menu;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.timsu.astrid.R;
 import com.todoroo.andlib.service.Autowired;
+import com.todoroo.andlib.service.ContextManager;
+import com.todoroo.andlib.utility.DateUtilities;
+import com.todoroo.andlib.utility.Preferences;
+import com.todoroo.astrid.actfm.sync.ActFmPreferenceService;
 import com.todoroo.astrid.activity.TaskListFragment;
+import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.dao.UserDao;
 import com.todoroo.astrid.data.User;
+import com.todoroo.astrid.helper.ProgressBarSyncResultCallback;
+import com.todoroo.astrid.service.SyncV2Service;
+import com.todoroo.astrid.service.ThemeService;
 
 public class PersonViewFragment extends TaskListFragment {
 
     public static final String EXTRA_USER_ID_LOCAL = "user_local_id"; //$NON-NLS-1$
 
+    private static final String LAST_FETCH_KEY = "actfm_last_user_"; //$NON-NLS-1$
+
+    protected static final int MENU_REFRESH_ID = MENU_SUPPORT_ID + 1;
+
     @Autowired UserDao userDao;
+
+    @Autowired SyncV2Service syncService;
+
+    @Autowired ActFmPreferenceService actFmPreferenceService;
+
+    protected View taskListView;
 
     private User user;
 
@@ -21,7 +42,7 @@ public class PersonViewFragment extends TaskListFragment {
     protected View getListBody(ViewGroup root) {
         ViewGroup parent = (ViewGroup) getActivity().getLayoutInflater().inflate(R.layout.task_list_body_person, root, false);
 
-        View taskListView = super.getListBody(parent);
+        taskListView = super.getListBody(parent);
         parent.addView(taskListView);
 
         return parent;
@@ -38,7 +59,56 @@ public class PersonViewFragment extends TaskListFragment {
     protected void setupQuickAddBar() {
         super.setupQuickAddBar();
         quickAddBar.setUsePeopleControl(false);
-        quickAddBar.getQuickAddBox().setHint(getString(R.string.TLA_quick_add_hint_assign, user.getDisplayName()));
+        if (user != null)
+            quickAddBar.getQuickAddBox().setHint(getString(R.string.TLA_quick_add_hint_assign, user.getDisplayName()));
+
+    }
+
+    @Override
+    protected void addSyncRefreshMenuItem(Menu menu, int themeFlags) {
+        if(actFmPreferenceService.isLoggedIn()) {
+            addMenuItem(menu, R.string.actfm_TVA_menu_refresh,
+                    ThemeService.getDrawable(R.drawable.icn_menu_refresh, themeFlags), MENU_REFRESH_ID, true);
+        } else {
+            super.addSyncRefreshMenuItem(menu, themeFlags);
+        }
+    }
+
+    @Override
+    public boolean handleOptionsMenuItemSelected(int id, Intent intent) {
+        switch (id) {
+        case MENU_REFRESH_ID:
+            refreshData(true);
+            return true;
+        }
+        return super.handleOptionsMenuItemSelected(id, intent);
+    }
+
+    @Override
+    protected void initiateAutomaticSyncImpl() {
+        if (!isCurrentTaskListFragment())
+            return;
+        if (user != null) {
+            long lastAutoSync = Preferences.getLong(LAST_FETCH_KEY + user.getId(), 0);
+            if (DateUtilities.now() - lastAutoSync > DateUtilities.ONE_HOUR)
+                refreshData(false);
+        }
+    }
+
+    private void refreshData(final boolean manual) {
+        ((TextView)taskListView.findViewById(android.R.id.empty)).setText(R.string.DLG_loading);
+
+        syncService.synchronizeList(user, manual, new ProgressBarSyncResultCallback(getActivity(), this,
+                R.id.progressBar, new Runnable() {
+            @Override
+            public void run() {
+                if (manual)
+                    ContextManager.getContext().sendBroadcast(new Intent(AstridApiConstants.BROADCAST_EVENT_REFRESH));
+                else
+                    refresh();
+                ((TextView)taskListView.findViewById(android.R.id.empty)).setText(R.string.TLA_no_items);
+            }
+        }));
     }
 
 }

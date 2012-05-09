@@ -740,6 +740,10 @@ public final class ActFmSyncService {
         }, done, "tasks:" + tagData.getId(), "tag_id", tagData.getValue(TagData.REMOTE_ID));
     }
 
+    public void fetchTasksForUser(final User user, final boolean manual, Runnable done) {
+        invokeFetchList("task", manual, null, new TaskListItemProcessor(false),
+                done, "user_" + user.getId(), "user_id", user.getValue(User.REMOTE_ID));
+    }
 
 
     /**
