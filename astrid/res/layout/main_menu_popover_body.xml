@@ -2,8 +2,9 @@
 <merge xmlns:android="http://schemas.android.com/apk/res/android">
     <ScrollView
         android:layout_width="280dip"
-        android:layout_height="340dip"
+        android:layout_height="wrap_content"
         android:layout_below="@+id/gdi_arrow_up"
+        android:paddingBottom="3dip"
         android:background="?attr/asListPopoverBg">
         <LinearLayout
             android:layout_width="wrap_content"
