@@ -14,11 +14,9 @@ import java.lang.reflect.Method;
 import java.math.BigInteger;
 import java.net.URL;
 import java.net.URLConnection;
-import java.net.URLEncoder;
 import java.security.MessageDigest;
 import java.util.Arrays;
 import java.util.Comparator;
-import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
@@ -169,6 +167,34 @@ public class AndroidUtilities {
             target.put(key, (Short) value);
         else if (value instanceof String)
             target.put(key, (String) value);
+        else if (errorOnFail)
+            throw new UnsupportedOperationException("Could not handle type " + //$NON-NLS-1$
+                    value.getClass());
+    }
+
+    /**
+     * Put an arbitrary object into a {@link ContentValues}
+     * @param target
+     * @param key
+     * @param value
+     */
+    public static void putInto(Bundle target, String key, Object value, boolean errorOnFail) {
+        if (value instanceof Boolean)
+            target.putBoolean(key, (Boolean) value);
+        else if (value instanceof Byte)
+            target.putByte(key, (Byte) value);
+        else if (value instanceof Double)
+            target.putDouble(key, (Double) value);
+        else if (value instanceof Float)
+            target.putFloat(key, (Float) value);
+        else if (value instanceof Integer)
+            target.putInt(key, (Integer) value);
+        else if (value instanceof Long)
+            target.putLong(key, (Long) value);
+        else if (value instanceof Short)
+            target.putShort(key, (Short) value);
+        else if (value instanceof String)
+            target.putString(key, (String) value);
         else if (errorOnFail)
             throw new UnsupportedOperationException("Could not handle type " + //$NON-NLS-1$
                     value.getClass());

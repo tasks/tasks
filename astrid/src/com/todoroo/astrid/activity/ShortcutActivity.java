@@ -20,6 +20,7 @@
 package com.todoroo.astrid.activity;
 
 import java.util.Map.Entry;
+import java.util.Set;
 
 import android.app.Activity;
 import android.content.ComponentName;
@@ -68,6 +69,17 @@ public class ShortcutActivity extends Activity {
 
     /** token for passing a image url*/
     public static final String TOKEN_IMAGE_URL = "imageUrl"; //$NON-NLS-1$
+
+    /** List of the above constants for searching */
+    private static final String[] CUSTOM_EXTRAS = {
+        TOKEN_SINGLE_TASK,
+        TOKEN_FILTER_TITLE,
+        TOKEN_FILTER_SQL,
+        TOKEN_FILTER_VALUES,
+        TOKEN_FILTER_VALUES_ITEM,
+        TOKEN_CUSTOM_CLASS,
+        TOKEN_IMAGE_URL
+    };
 
     // --- implementation
 
@@ -136,6 +148,15 @@ public class ShortcutActivity extends Activity {
                 }
                 else
                     filter = new FilterWithCustomIntent(title, title, sql, values);
+
+                Bundle customExtras = new Bundle();
+                Set<String> keys = extras.keySet();
+                for (String key : keys) {
+                    if (AndroidUtilities.indexOf(CUSTOM_EXTRAS, key) < 0)
+                        AndroidUtilities.putInto(customExtras, key, extras.get(key), false);
+                }
+
+                ((FilterWithCustomIntent) filter).customExtras = customExtras; // Something
                 ComponentName customTaskList = ComponentName.unflattenFromString(extras.getString(TOKEN_CUSTOM_CLASS));
                 ((FilterWithCustomIntent) filter).customTaskList = customTaskList;
             } else {
