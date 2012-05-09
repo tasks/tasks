@@ -29,7 +29,7 @@ import com.todoroo.astrid.data.User;
 public class PeopleFilterExposer extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
-        FilterListItem[] listAsArray = prepareFilters(context);
+        FilterListItem[] listAsArray = prepareFilters();
 
         Intent broadcastIntent = new Intent(PeopleFilterAdapter.BROADCAST_SEND_PEOPLE_FILTERS);
         broadcastIntent.putExtra(AstridApiConstants.EXTRAS_RESPONSE, listAsArray);
@@ -37,7 +37,7 @@ public class PeopleFilterExposer extends BroadcastReceiver {
         context.sendBroadcast(broadcastIntent);
     }
 
-    private FilterListItem[] prepareFilters(Context context) {
+    private FilterListItem[] prepareFilters() {
         TodorooCursor<User> users = PluginServices.getUserDao().query(Query.select(User.PROPERTIES)
                 .orderBy(Order.asc(User.NAME), Order.asc(User.EMAIL)));
         try {
