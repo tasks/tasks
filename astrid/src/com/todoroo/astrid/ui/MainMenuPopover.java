@@ -97,19 +97,26 @@ public class MainMenuPopover extends FragmentPopover implements InterceptTouchLi
 
     private void addFixedItems(boolean isTablet) {
         int themeFlags = isTablet ? ThemeService.FLAG_FORCE_DARK : 0;
-        if (!isTablet)
-            addMenuItem(R.string.TLA_menu_lists,
-                    ThemeService.getDrawable(R.drawable.icn_menu_lists, themeFlags),
-                    MAIN_MENU_ITEM_LISTS, null, topFixed); // Lists item
-        addMenuItem(R.string.TLA_menu_search,
-                ThemeService.getDrawable(R.drawable.icn_menu_search, themeFlags),
-                MAIN_MENU_ITEM_SEARCH, null, topFixed);
+        addMenuItem(R.string.TLA_menu_lists,
+                ThemeService.getDrawable(R.drawable.icn_menu_lists, themeFlags),
+                MAIN_MENU_ITEM_LISTS, null, topFixed); // Lists item
         addMenuItem(R.string.TLA_menu_friends,
                 R.drawable.icn_anyone,
                 MAIN_MENU_ITEM_FRIENDS, null, topFixed);
+        addMenuItem(R.string.TLA_menu_search,
+                ThemeService.getDrawable(R.drawable.icn_menu_search, themeFlags),
+                MAIN_MENU_ITEM_SEARCH, null, topFixed);
         addMenuItem(R.string.TLA_menu_settings,
                 ThemeService.getDrawable(R.drawable.icn_menu_settings, themeFlags),
                 MAIN_MENU_ITEM_SETTINGS, null, bottomFixed); // Settings item
+    }
+
+    public void setFixedItemVisibility(int index, int visibility, boolean top) {
+        LinearLayout container = top ? topFixed : bottomFixed;
+        if (index < 0 || index >= container.getChildCount())
+            return;
+
+        container.getChildAt(index).setVisibility(visibility);
     }
 
     @Override

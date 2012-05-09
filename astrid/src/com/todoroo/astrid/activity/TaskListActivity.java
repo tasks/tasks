@@ -341,7 +341,8 @@ public class TaskListActivity extends AstridActivity implements MainMenuListener
 
     private void createMainMenuPopover() {
         int layout;
-        if (AndroidUtilities.isTabletSized(this))
+        boolean isTablet = AndroidUtilities.isTabletSized(this);
+        if (isTablet)
             layout = R.layout.main_menu_popover_tablet;
         else
             layout = R.layout.main_menu_popover;
@@ -353,6 +354,9 @@ public class TaskListActivity extends AstridActivity implements MainMenuListener
                 mainMenu.setSelected(false);
             }
         });
+
+        if (isTablet)
+            setupMainMenuForPeopleViewState(getIntent().getBooleanExtra(PEOPLE_VIEW, false));
     }
 
     private void setupPopoverWithFragment(FragmentPopover popover, Fragment frag, LayoutParams params) {
@@ -675,7 +679,10 @@ public class TaskListActivity extends AstridActivity implements MainMenuListener
         TaskListFragment tlf = getTaskListFragment();
         switch (item) {
         case MainMenuPopover.MAIN_MENU_ITEM_LISTS:
-            listsNav.performClick();
+            if (fragmentLayout == LAYOUT_SINGLE)
+                listsNav.performClick();
+            else
+                togglePeopleView();
             return;
         case MainMenuPopover.MAIN_MENU_ITEM_SEARCH:
             onSearchRequested();
@@ -708,7 +715,14 @@ public class TaskListActivity extends AstridActivity implements MainMenuListener
         else
             setupFragment(FilterListFragment.TAG_FILTERLIST_FRAGMENT,
                     R.id.filterlist_fragment_container, FilterListFragment.class, false, true);
+
+        setupMainMenuForPeopleViewState(peopleMode);
         getIntent().putExtra(PEOPLE_VIEW, peopleMode);
+    }
+
+    private void setupMainMenuForPeopleViewState(boolean inPeopleMode) {
+        mainMenuPopover.setFixedItemVisibility(0, inPeopleMode ? View.VISIBLE : View.GONE, true);
+        mainMenuPopover.setFixedItemVisibility(1, inPeopleMode ? View.GONE : View.VISIBLE, true);
     }
 
     public MainMenuPopover getMainMenuPopover() {
