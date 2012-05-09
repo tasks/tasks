@@ -2,6 +2,7 @@ package com.todoroo.astrid.people;
 
 import android.content.Intent;
 import android.support.v4.view.Menu;
+import android.text.TextUtils;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
@@ -51,8 +52,10 @@ public class PersonViewFragment extends TaskListFragment {
     @Override
     protected void initializeData() {
         super.initializeData();
-        if (extras.containsKey(EXTRA_USER_ID_LOCAL))
+        if (extras.containsKey(EXTRA_USER_ID_LOCAL)) {
             user = userDao.fetch(extras.getLong(EXTRA_USER_ID_LOCAL), User.PROPERTIES);
+            ((TextView)taskListView.findViewById(android.R.id.empty)).setText(getEmptyDisplayString());
+        }
     }
 
     @Override
@@ -106,9 +109,14 @@ public class PersonViewFragment extends TaskListFragment {
                     ContextManager.getContext().sendBroadcast(new Intent(AstridApiConstants.BROADCAST_EVENT_REFRESH));
                 else
                     refresh();
-                ((TextView)taskListView.findViewById(android.R.id.empty)).setText(R.string.TLA_no_items);
+                ((TextView)taskListView.findViewById(android.R.id.empty)).setText(getEmptyDisplayString());
             }
         }));
+    }
+
+    private String getEmptyDisplayString() {
+        String userName = user != null ? user.getDisplayName() : null;
+        return TextUtils.isEmpty(userName) ? getString(R.string.TLA_no_items) : getString(R.string.TLA_no_items_person, userName);
     }
 
 }
