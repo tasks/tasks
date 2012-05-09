@@ -44,6 +44,7 @@ import com.todoroo.astrid.api.FilterListItem;
 import com.todoroo.astrid.core.CoreFilterExposer;
 import com.todoroo.astrid.core.CustomFilterExposer;
 import com.todoroo.astrid.data.Task;
+import com.todoroo.astrid.people.PeopleListFragment;
 import com.todoroo.astrid.people.PeopleViewActivity;
 import com.todoroo.astrid.service.StatisticsConstants;
 import com.todoroo.astrid.service.StatisticsService;
@@ -279,31 +280,20 @@ public class TaskListActivity extends AstridActivity implements MainMenuListener
             }
 
             setupFragment(FilterListFragment.TAG_FILTERLIST_FRAGMENT,
-                    R.id.filterlist_fragment_container, FilterListFragment.class, false);
+                    R.id.filterlist_fragment_container, FilterListFragment.class, false, false);
         } else {
             fragmentLayout = LAYOUT_SINGLE;
             actionBar.setDisplayHomeAsUpEnabled(true);
             listsNav.setOnClickListener(popupMenuClickListener);
             createListsPopover();
             setupPopoverWithFilterList((FilterListFragment) setupFragment(FilterListFragment.TAG_FILTERLIST_FRAGMENT, 0,
-                    getFilterListClass(), true));
+                    getFilterListClass(), true, false));
         }
     }
 
     protected Class<? extends FilterListFragment> getFilterListClass() {
         return FilterListFragment.class;
     }
-
-//    private void togglePeopleView(boolean peopleMode) {
-//        if (fragmentLayout != LAYOUT_SINGLE) {
-//            if (peopleMode)
-//                setupFragment(FilterListFragment.TAG_FILTERLIST_FRAGMENT, R.id.filterlist_fragment_container,
-//                        PeopleListFragment.class, false);
-//            else
-//                setupFragment(FilterListFragment.TAG_FILTERLIST_FRAGMENT,
-//                        R.id.filterlist_fragment_container, FilterListFragment.class, false);
-//        }
-//    }
 
     private void createListsPopover() {
         listsPopover = new FragmentPopover(this, R.layout.list_dropdown_popover);
@@ -685,8 +675,12 @@ public class TaskListActivity extends AstridActivity implements MainMenuListener
             onSearchRequested();
             return;
         case MainMenuPopover.MAIN_MENU_ITEM_FRIENDS:
-            Intent peopleIntent = new Intent(this, PeopleViewActivity.class);
-            startActivity(peopleIntent);
+            if (fragmentLayout != LAYOUT_SINGLE) {
+                togglePeopleView();
+            } else {
+                Intent peopleIntent = new Intent(this, PeopleViewActivity.class);
+                startActivity(peopleIntent);
+            }
             return;
         case MainMenuPopover.MAIN_MENU_ITEM_SUGGESTIONS:
             // Doesn't exist yet
@@ -697,6 +691,17 @@ public class TaskListActivity extends AstridActivity implements MainMenuListener
             return;
         }
         tlf.handleOptionsMenuItemSelected(item, customIntent);
+    }
+
+    private void togglePeopleView() {
+        FilterListFragment flf = getFilterListFragment();
+        boolean peopleMode = !(flf instanceof PeopleListFragment);
+        if (peopleMode)
+            setupFragment(FilterListFragment.TAG_FILTERLIST_FRAGMENT, R.id.filterlist_fragment_container,
+                    PeopleListFragment.class, false, true);
+        else
+            setupFragment(FilterListFragment.TAG_FILTERLIST_FRAGMENT,
+                    R.id.filterlist_fragment_container, FilterListFragment.class, false, true);
     }
 
     public MainMenuPopover getMainMenuPopover() {
