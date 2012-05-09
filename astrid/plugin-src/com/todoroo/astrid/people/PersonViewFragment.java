@@ -20,4 +20,10 @@ public class PersonViewFragment extends TaskListFragment {
         return parent;
     }
 
+    @Override
+    protected void setupQuickAddBar() {
+        super.setupQuickAddBar();
+        quickAddBar.setUsePeopleControl(false);
+    }
+
 }

@@ -509,7 +509,7 @@ public class TaskListFragment extends ListFragment implements OnScrollListener,
         getView().findViewById(R.id.progressBar).setVisibility(View.GONE);
     }
 
-    private void setupQuickAddBar() {
+    protected void setupQuickAddBar() {
         quickAddBar = (QuickAddBar) getView().findViewById(R.id.taskListFooter);
         quickAddBar.initialize(getActivity(), this, mListener);
 
