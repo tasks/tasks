@@ -723,6 +723,10 @@ public class TaskListActivity extends AstridActivity implements MainMenuListener
     private void setupMainMenuForPeopleViewState(boolean inPeopleMode) {
         mainMenuPopover.setFixedItemVisibility(0, inPeopleMode ? View.VISIBLE : View.GONE, true);
         mainMenuPopover.setFixedItemVisibility(1, inPeopleMode ? View.GONE : View.VISIBLE, true);
+
+        TypedValue tv = new TypedValue();
+        getTheme().resolveAttribute(inPeopleMode ? R.attr.asPeopleMenu : R.attr.asMainMenu, tv, false);
+        mainMenu.setImageResource(tv.data);
     }
 
     public MainMenuPopover getMainMenuPopover() {
