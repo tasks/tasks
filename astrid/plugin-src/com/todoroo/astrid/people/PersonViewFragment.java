@@ -25,6 +25,8 @@ public class PersonViewFragment extends TaskListFragment {
 
     public static final String EXTRA_USER_ID_LOCAL = "user_local_id"; //$NON-NLS-1$
 
+    public static final String EXTRA_HIDE_QUICK_ADD = "hide_quickAdd"; //$NON-NLS-1$
+
     private static final String LAST_FETCH_KEY = "actfm_last_user_"; //$NON-NLS-1$
 
     protected static final int MENU_REFRESH_ID = MENU_SUPPORT_ID + 1;
@@ -54,8 +56,8 @@ public class PersonViewFragment extends TaskListFragment {
         super.initializeData();
         if (extras.containsKey(EXTRA_USER_ID_LOCAL)) {
             user = userDao.fetch(extras.getLong(EXTRA_USER_ID_LOCAL), User.PROPERTIES);
-            ((TextView)taskListView.findViewById(android.R.id.empty)).setText(getEmptyDisplayString());
         }
+        ((TextView)taskListView.findViewById(android.R.id.empty)).setText(getEmptyDisplayString());
     }
 
     @Override
@@ -64,6 +66,9 @@ public class PersonViewFragment extends TaskListFragment {
         quickAddBar.setUsePeopleControl(false);
         if (user != null)
             quickAddBar.getQuickAddBox().setHint(getString(R.string.TLA_quick_add_hint_assign, user.getDisplayName()));
+
+        if (extras.containsKey(EXTRA_HIDE_QUICK_ADD))
+            quickAddBar.setVisibility(View.GONE);
 
     }
 
@@ -99,24 +104,26 @@ public class PersonViewFragment extends TaskListFragment {
     }
 
     private void refreshData(final boolean manual) {
-        ((TextView)taskListView.findViewById(android.R.id.empty)).setText(R.string.DLG_loading);
+        if (user != null) {
+            ((TextView)taskListView.findViewById(android.R.id.empty)).setText(R.string.DLG_loading);
 
-        syncService.synchronizeList(user, manual, new ProgressBarSyncResultCallback(getActivity(), this,
-                R.id.progressBar, new Runnable() {
-            @Override
-            public void run() {
-                if (manual)
-                    ContextManager.getContext().sendBroadcast(new Intent(AstridApiConstants.BROADCAST_EVENT_REFRESH));
-                else
-                    refresh();
-                ((TextView)taskListView.findViewById(android.R.id.empty)).setText(getEmptyDisplayString());
-            }
-        }));
+            syncService.synchronizeList(user, manual, new ProgressBarSyncResultCallback(getActivity(), this,
+                    R.id.progressBar, new Runnable() {
+                @Override
+                public void run() {
+                    if (manual)
+                        ContextManager.getContext().sendBroadcast(new Intent(AstridApiConstants.BROADCAST_EVENT_REFRESH));
+                    else
+                        refresh();
+                    ((TextView)taskListView.findViewById(android.R.id.empty)).setText(getEmptyDisplayString());
+                }
+            }));
+        }
     }
 
     private String getEmptyDisplayString() {
         String userName = user != null ? user.getDisplayName() : null;
-        return TextUtils.isEmpty(userName) ? getString(R.string.TLA_no_items) : getString(R.string.TLA_no_items_person, userName);
+        return TextUtils.isEmpty(userName) ? getString(R.string.actfm_my_shared_tasks_empty) : getString(R.string.TLA_no_items_person, userName);
     }
 
 }

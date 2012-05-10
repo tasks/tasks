@@ -154,7 +154,7 @@ public class TaskListActivity extends AstridActivity implements MainMenuListener
         int contentView = getContentView();
         if (contentView == R.layout.task_list_wrapper_activity)
             swipeEnabled = true;
-        setContentView(getContentView());
+        setContentView(contentView);
 
         ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayOptions(0, ActionBar.DISPLAY_SHOW_TITLE);
@@ -176,6 +176,7 @@ public class TaskListActivity extends AstridActivity implements MainMenuListener
         if (extras != null)
             extras = (Bundle) extras.clone();
 
+
         Filter savedFilter = getIntent().getParcelableExtra(TaskListFragment.TOKEN_FILTER);
         if (Intent.ACTION_SEARCH.equals(getIntent().getAction())) {
             String query = getIntent().getStringExtra(SearchManager.QUERY).trim();
@@ -185,14 +186,14 @@ public class TaskListActivity extends AstridActivity implements MainMenuListener
                             "%" + //$NON-NLS-1$
                                     query.toUpperCase() + "%")), //$NON-NLS-1$
                     null);
-            if (extras == null)
-                extras = new Bundle();
-            extras.putParcelable(TaskListFragment.TOKEN_FILTER, savedFilter);
         }
 
         if (savedFilter == null)
             savedFilter = getDefaultFilter();
 
+        if (extras == null)
+            extras = new Bundle();
+        extras.putParcelable(TaskListFragment.TOKEN_FILTER, savedFilter);
 
         if (swipeIsEnabled()) {
             FilterListFragment flf = getFilterListFragment();
