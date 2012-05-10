@@ -176,6 +176,9 @@ public class TaskListActivity extends AstridActivity implements MainMenuListener
         if (extras != null)
             extras = (Bundle) extras.clone();
 
+        if (extras == null)
+            extras = new Bundle();
+
         Filter savedFilter = getIntent().getParcelableExtra(TaskListFragment.TOKEN_FILTER);
         if (Intent.ACTION_SEARCH.equals(getIntent().getAction())) {
             String query = getIntent().getStringExtra(SearchManager.QUERY).trim();
@@ -187,11 +190,11 @@ public class TaskListActivity extends AstridActivity implements MainMenuListener
                     null);
         }
 
-        if (savedFilter == null)
+        if (savedFilter == null) {
             savedFilter = getDefaultFilter();
+            extras.putAll(configureIntentAndExtrasWithFilter(getIntent(), savedFilter));
+        }
 
-        if (extras == null)
-            extras = new Bundle();
         extras.putParcelable(TaskListFragment.TOKEN_FILTER, savedFilter);
 
         if (swipeIsEnabled()) {

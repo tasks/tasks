@@ -33,7 +33,8 @@ public class PeopleViewActivity extends TaskListActivity {
 
     @Override
     protected Filter getDefaultFilter() {
-        return PeopleFilterExposer.mySharedTasks(this);
+        Filter defaultFilter = PeopleFilterExposer.mySharedTasks(this);
+        return defaultFilter;
     }
 
     @Override
