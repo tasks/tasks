@@ -8,6 +8,7 @@ package com.todoroo.astrid.data;
 
 import android.content.ContentValues;
 import android.net.Uri;
+import android.text.TextUtils;
 
 import com.todoroo.andlib.data.AbstractModel;
 import com.todoroo.andlib.data.Property;
@@ -89,6 +90,13 @@ public final class User extends RemoteModel {
 
     public void readFromCursor(TodorooCursor<User> cursor) {
         super.readPropertiesFromCursor(cursor);
+    }
+
+    public String getDisplayName() {
+        String name = getValue(NAME);
+        if (!TextUtils.isEmpty(name))
+            return name;
+        return getValue(EMAIL);
     }
 
     @Override

@@ -118,12 +118,16 @@ public class FilterListFragment extends ListFragment {
         // Check that the container activity has implemented the callback interface
         try {
             mListener = (OnFilterItemClickedListener) activity;
-            adapter = new FilterAdapter(getActivity(), null,
-                    R.layout.filter_adapter_row, false);
+            adapter = instantiateAdapter();
         } catch (ClassCastException e) {
             throw new ClassCastException(activity.toString()
                     + " must implement OnFilterItemClickedListener"); //$NON-NLS-1$
         }
+    }
+
+    protected FilterAdapter instantiateAdapter() {
+        return new FilterAdapter(getActivity(), null,
+                R.layout.filter_adapter_row, false);
     }
 
     /* (non-Javadoc)
@@ -133,13 +137,16 @@ public class FilterListFragment extends ListFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
             Bundle savedInstanceState) {
         Activity activity = getActivity();
-        int layout;
-        if (AndroidUtilities.isTabletSized(activity))
-            layout = R.layout.filter_list_activity_3pane;
-        else
-            layout = R.layout.filter_list_activity;
+        int layout = getLayout(activity);
         ViewGroup parent = (ViewGroup) activity.getLayoutInflater().inflate(layout, container, false);
         return parent;
+    }
+
+    protected int getLayout(Activity activity) {
+        if (AndroidUtilities.isTabletSized(activity))
+            return R.layout.filter_list_activity_3pane;
+        else
+            return R.layout.filter_list_activity;
     }
 
     @Override
@@ -152,15 +159,16 @@ public class FilterListFragment extends ListFragment {
         //ImageView backButton = (ImageView) getView().findViewById(R.id.back);
         newListButton = getView().findViewById(R.id.new_list_button);
 
-        newListButton.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = TagsPlugin.newTagDialog(getActivity());
-                getActivity().startActivityForResult(intent, REQUEST_NEW_LIST);
-                if (!AndroidUtilities.isTabletSized(getActivity()))
-                    AndroidUtilities.callOverridePendingTransition(getActivity(), R.anim.slide_left_in, R.anim.slide_left_out);
-            }
-        });
+        if (newListButton != null)
+            newListButton.setOnClickListener(new OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = TagsPlugin.newTagDialog(getActivity());
+                    getActivity().startActivityForResult(intent, REQUEST_NEW_LIST);
+                    if (!AndroidUtilities.isTabletSized(getActivity()))
+                        AndroidUtilities.callOverridePendingTransition(getActivity(), R.anim.slide_left_in, R.anim.slide_left_out);
+                }
+            });
 
         AstridActivity activity = (AstridActivity) getActivity();
         if (activity.getFragmentLayout() > AstridActivity.LAYOUT_SINGLE) {

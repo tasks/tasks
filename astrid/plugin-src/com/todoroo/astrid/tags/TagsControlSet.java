@@ -223,7 +223,7 @@ public final class TagsControlSet extends PopupControlSet {
     public void readFromTask(Task task) {
         super.readFromTask(task);
         if(model.getId() != AbstractModel.NO_ID) {
-            TodorooCursor<Metadata> cursor = tagService.getTags(model.getId());
+            TodorooCursor<Metadata> cursor = tagService.getTags(model.getId(), false);
             LinkedHashSet<String> tags = new LinkedHashSet<String>(cursor.getCount());
             try {
                 for(cursor.moveToFirst(); !cursor.isAfterLast(); cursor.moveToNext()) {

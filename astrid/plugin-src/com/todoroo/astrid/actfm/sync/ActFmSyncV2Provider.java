@@ -25,6 +25,7 @@ import com.todoroo.astrid.data.Metadata;
 import com.todoroo.astrid.data.RemoteModel;
 import com.todoroo.astrid.data.TagData;
 import com.todoroo.astrid.data.Task;
+import com.todoroo.astrid.data.User;
 import com.todoroo.astrid.service.AstridDependencyInjector;
 import com.todoroo.astrid.service.TagDataService;
 import com.todoroo.astrid.service.TaskService;
@@ -273,6 +274,11 @@ public class ActFmSyncV2Provider extends SyncV2Provider {
     public void synchronizeList(Object list, final boolean manual,
             final SyncResultCallback callback) {
 
+        if (list instanceof User) {
+            synchronizeUser((User) list, manual, callback);
+            return;
+        }
+
         if(!(list instanceof TagData))
             return;
 
@@ -294,6 +300,27 @@ public class ActFmSyncV2Provider extends SyncV2Provider {
                     fetchUpdatesForTag(tagData, manual, callback, finisher);
                 }
 
+                callback.incrementProgress(50);
+            }
+        }).start();
+    }
+
+    private void synchronizeUser(final User user, final boolean manual, final SyncResultCallback callback) {
+        if (user.getValue(User.REMOTE_ID) == 0)
+            return;
+
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                callback.started();
+                callback.incrementMax(100);
+
+                actFmSyncService.waitUntilEmpty();
+                actFmSyncService.fetchTasksForUser(user, manual, new Runnable() {
+                    public void run() {
+                        callback.finished();
+                    }
+                });
                 callback.incrementProgress(50);
             }
         }).start();

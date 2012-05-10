@@ -193,10 +193,15 @@ public final class TagService {
      * @param activeStatus criterion for specifying completed or uncompleted
      * @return empty array if no tags, otherwise array
      */
-    public Tag[] getGroupedTags(Order order, Criterion activeStatus) {
+    public Tag[] getGroupedTags(Order order, Criterion activeStatus, boolean includeEmergent) {
+        Criterion criterion;
+        if (includeEmergent)
+            criterion = Criterion.and(activeStatus, MetadataCriteria.withKey(KEY));
+        else
+            criterion = Criterion.and(activeStatus, MetadataCriteria.withKey(KEY), Criterion.not(TAG.in(getEmergentTags())));
         Query query = Query.select(TAG, REMOTE_ID, COUNT).
             join(Join.inner(Task.TABLE, Metadata.TASK.eq(Task.ID))).
-            where(Criterion.and(activeStatus, MetadataCriteria.withKey(KEY))).
+            where(criterion).
             orderBy(order).groupBy(TAG);
         TodorooCursor<Metadata> cursor = metadataDao.query(query);
         try {
@@ -211,15 +216,38 @@ public final class TagService {
         }
     }
 
+    private String[] getEmergentTags() {
+        TodorooCursor<TagData> emergent = tagDataService.query(Query.select(TagData.NAME)
+                .where(Functions.bitwiseAnd(TagData.FLAGS, TagData.FLAG_EMERGENT).gt(0)));
+        try {
+            String[] tags = new String[emergent.getCount()];
+            TagData data = new TagData();
+            for (int i = 0; i < emergent.getCount(); i++) {
+                emergent.moveToPosition(i);
+                data.readFromCursor(emergent);
+                tags[i] = data.getValue(TagData.NAME);
+            }
+            return tags;
+        } finally {
+            emergent.close();
+        }
+    }
+
     /**
      * Return tags on the given task
      *
      * @param taskId
      * @return cursor. PLEASE CLOSE THE CURSOR!
      */
-    public TodorooCursor<Metadata> getTags(long taskId) {
-        Query query = Query.select(TAG, REMOTE_ID).where(Criterion.and(MetadataCriteria.withKey(KEY),
-                MetadataCriteria.byTask(taskId))).orderBy(Order.asc(Functions.upper(TAG)));
+    public TodorooCursor<Metadata> getTags(long taskId, boolean includeEmergent) {
+        Criterion criterion;
+        if (includeEmergent)
+            criterion = Criterion.and(MetadataCriteria.withKey(KEY),
+                    MetadataCriteria.byTask(taskId));
+        else
+            criterion = Criterion.and(MetadataCriteria.withKey(KEY),
+                    MetadataCriteria.byTask(taskId), Criterion.not(TAG.in(getEmergentTags())));
+        Query query = Query.select(TAG, REMOTE_ID).where(criterion).orderBy(Order.asc(Functions.upper(TAG)));
         return metadataDao.query(query);
     }
 
@@ -229,8 +257,8 @@ public final class TagService {
      * @param taskId
      * @return empty string if no tags, otherwise string
      */
-    public String getTagsAsString(long taskId) {
-        return getTagsAsString(taskId, ", ");
+    public String getTagsAsString(long taskId, boolean includeEmergent) {
+        return getTagsAsString(taskId, ", ", includeEmergent);
     }
 
     /**
@@ -239,9 +267,9 @@ public final class TagService {
      * @param taskId
      * @return empty string if no tags, otherwise string
      */
-    public String getTagsAsString(long taskId, String separator) {
+    protected String getTagsAsString(long taskId, String separator, boolean includeEmergent) {
         StringBuilder tagBuilder = new StringBuilder();
-        TodorooCursor<Metadata> tags = getTags(taskId);
+        TodorooCursor<Metadata> tags = getTags(taskId, includeEmergent);
         try {
             int length = tags.getCount();
             Metadata metadata = new Metadata();
@@ -285,7 +313,7 @@ public final class TagService {
         HashMap<String, Tag> tags = new HashMap<String, Tag>();
 
         Tag[] tagsByAlpha = getGroupedTags(TagService.GROUPED_TAGS_BY_ALPHA,
-                TaskCriteria.activeAndVisible());
+                TaskCriteria.activeAndVisible(), false);
         for(Tag tag : tagsByAlpha)
             if(!TextUtils.isEmpty(tag.tag))
                 tags.put(tag.tag, tag);
@@ -297,7 +325,7 @@ public final class TagService {
                 tagData.readFromCursor(cursor);
                 String tagName = tagData.getValue(TagData.NAME).trim();
                 Tag tag = new Tag(tagData);
-                if(tagData.getValue(TagData.DELETION_DATE) > 0) {
+                if(tagData.getValue(TagData.DELETION_DATE) > 0 || tagData.getFlag(TagData.FLAGS, TagData.FLAG_EMERGENT)) {
                     tags.remove(tagName);
                     continue;
                 }

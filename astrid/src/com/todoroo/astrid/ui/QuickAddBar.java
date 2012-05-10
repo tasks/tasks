@@ -70,6 +70,7 @@ public class QuickAddBar extends LinearLayout {
     private RepeatControlSet repeatControl;
     private GCalControlSet gcalControl;
     private EditPeopleControlSet peopleControl;
+    private boolean usePeopleControl = true;
 
     @Autowired AddOnService addOnService;
     @Autowired ExceptionService exceptionService;
@@ -178,6 +179,11 @@ public class QuickAddBar extends LinearLayout {
         setUpQuickAddControlSets();
     }
 
+    public void setUsePeopleControl(boolean usePeopleControl) {
+        this.usePeopleControl = usePeopleControl;
+        peopleControl.getDisplayView().setVisibility(usePeopleControl ? View.VISIBLE : View.GONE);
+    }
+
     private void setUpQuickAddControlSets() {
 
         repeatControl = new RepeatControlSet(activity,
@@ -245,7 +251,7 @@ public class QuickAddBar extends LinearLayout {
         try {
             if (title != null)
                 title = title.trim();
-            boolean assignedToMe = peopleControl.willBeAssignedToMe();
+            boolean assignedToMe = usePeopleControl ? peopleControl.willBeAssignedToMe() : true;
             if (!assignedToMe && !actFmPreferenceService.isLoggedIn()) {
                 DialogInterface.OnClickListener okListener = new DialogInterface.OnClickListener() {
                     @Override

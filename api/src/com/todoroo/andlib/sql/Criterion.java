@@ -11,7 +11,7 @@ import static com.todoroo.andlib.sql.SqlConstants.SPACE;
 public abstract class Criterion {
     protected final Operator operator;
 
-    Criterion(Operator operator) {
+    public Criterion(Operator operator) {
         this.operator = operator;
     }
 

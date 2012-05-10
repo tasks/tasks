@@ -100,6 +100,9 @@
   <!-- Task List: Displayed instead of list when no items present -->    
   <string name="TLA_no_items">You have no tasks! \n Want to add something?</string>
   
+  <!-- Task List: Displayed instead of list when no items present in people view (%s-> person's name) -->    
+  <string name="TLA_no_items_person">%s has no\ntasks shared with you</string>
+  
   <!-- Menu: Add-ons -->    
   <string name="TLA_menu_addons">Add-ons</string>
   
@@ -139,7 +142,7 @@
   <!-- Quick Add Edit Box Hint-->
   <string name="TLA_quick_add_hint">Add a task</string>
   
-  <!-- Quick Add Edit Box Hint for assigning -->
+  <!-- Quick Add Edit Box Hint for assigning (%s -> name)-->
   <string name="TLA_quick_add_hint_assign">Tap to assign %s a task</string>
   
   <!-- Notification Volumne notification-->

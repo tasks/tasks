@@ -38,7 +38,7 @@ public class TagCaseMigrator {
     public void performTagCaseMigration(@SuppressWarnings("unused") Context context) {
         if (!Preferences.getBoolean(PREF_CASE_MIGRATION_PERFORMED, false)) {
             TagService.Tag[] allTagData = TagService.getInstance().getGroupedTags(
-                    TagService.GROUPED_TAGS_BY_ALPHA, Criterion.all);
+                    TagService.GROUPED_TAGS_BY_ALPHA, Criterion.all, false);
 
             boolean shouldShowDialog = false;
             for (int i = 0; i < allTagData.length - 1; i++) {

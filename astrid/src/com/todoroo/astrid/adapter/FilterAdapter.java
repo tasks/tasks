@@ -80,7 +80,7 @@ public class FilterAdapter extends ArrayAdapter<Filter> {
     private final DisplayMetrics metrics = new DisplayMetrics();
 
     /** receiver for new filters */
-    private final FilterReceiver filterReceiver = new FilterReceiver();
+    protected final FilterReceiver filterReceiver = new FilterReceiver();
     private final BladeFilterReceiver bladeFilterReceiver = new BladeFilterReceiver();
     private boolean shouldUseBladeFilter = true;
 

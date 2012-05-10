@@ -125,12 +125,12 @@ public class TaskListFragment extends ListFragment implements OnScrollListener,
 
     // --- menu codes
 
-    protected static final int MENU_ADDONS_ID = R.string.TLA_menu_addons;
+    public static final int MENU_ADDONS_ID = R.string.TLA_menu_addons;
     protected static final int MENU_SETTINGS_ID = R.string.TLA_menu_settings;
     protected static final int MENU_SORT_ID = R.string.TLA_menu_sort;
     protected static final int MENU_SYNC_ID = R.string.TLA_menu_sync;
     protected static final int MENU_SUPPORT_ID = R.string.TLA_menu_support;
-    protected static final int MENU_NEW_FILTER_ID = R.string.FLA_new_filter;
+    public static final int MENU_NEW_FILTER_ID = R.string.FLA_new_filter;
     protected static final int MENU_ADDON_INTENT_ID = Menu.FIRST + 199;
 
     protected static final int CONTEXT_MENU_EDIT_TASK_ID = R.string.TAd_contextEditTask;
@@ -509,7 +509,7 @@ public class TaskListFragment extends ListFragment implements OnScrollListener,
         getView().findViewById(R.id.progressBar).setVisibility(View.GONE);
     }
 
-    private void setupQuickAddBar() {
+    protected void setupQuickAddBar() {
         quickAddBar = (QuickAddBar) getView().findViewById(R.id.taskListFooter);
         quickAddBar.initialize(getActivity(), this, mListener);
 

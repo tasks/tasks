@@ -45,6 +45,12 @@
       
   <!-- Cancel button for task view prompt -->
   <string name="actfm_view_task_cancel">Stay Here</string>
+  
+  <!-- Title for the "My Shared Tasks" filter -->
+  <string name="actfm_my_shared_tasks_title">My Shared Tasks</string>
+  
+  <!-- Empty list for the "My Shared Tasks" filter -->
+  <string name="actfm_my_shared_tasks_empty">No shared tasks</string>
 
   <!-- ================================================== TagViewActivity == -->  
 

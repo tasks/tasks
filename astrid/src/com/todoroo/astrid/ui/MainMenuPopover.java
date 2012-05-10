@@ -28,6 +28,7 @@ public class MainMenuPopover extends FragmentPopover implements InterceptTouchLi
     public static final int MAIN_MENU_ITEM_SETTINGS = R.string.TLA_menu_settings;
 
     public interface MainMenuListener {
+        public boolean shouldAddMenuItem(int itemId);
         public void mainMenuItemSelected(int item, Intent customIntent);
     }
 
@@ -43,7 +44,7 @@ public class MainMenuPopover extends FragmentPopover implements InterceptTouchLi
         this.mListener = listener;
     }
 
-    public MainMenuPopover(Context context, int layout, boolean isTablet) {
+    public MainMenuPopover(Context context, int layout, boolean isTablet, MainMenuListener listener) {
         super(context, layout);
 
         TouchInterceptingFrameLayout rootLayout = (TouchInterceptingFrameLayout) getContentView();
@@ -67,6 +68,8 @@ public class MainMenuPopover extends FragmentPopover implements InterceptTouchLi
 
         topFixed = (LinearLayout) getContentView().findViewById(R.id.topFixedItems);
         bottomFixed = (LinearLayout) getContentView().findViewById(R.id.bottomFixedItems);
+
+        mListener = listener;
 
         addFixedItems(isTablet);
     }
@@ -94,16 +97,26 @@ public class MainMenuPopover extends FragmentPopover implements InterceptTouchLi
 
     private void addFixedItems(boolean isTablet) {
         int themeFlags = isTablet ? ThemeService.FLAG_FORCE_DARK : 0;
-        if (!isTablet)
-            addMenuItem(R.string.TLA_menu_lists,
-                    ThemeService.getDrawable(R.drawable.icn_menu_lists, themeFlags),
-                    MAIN_MENU_ITEM_LISTS, null, topFixed); // Lists item
+        addMenuItem(R.string.TLA_menu_lists,
+                ThemeService.getDrawable(R.drawable.icn_menu_lists, themeFlags),
+                MAIN_MENU_ITEM_LISTS, null, topFixed); // Lists item
+        addMenuItem(R.string.TLA_menu_friends,
+                ThemeService.getDrawable(R.drawable.icn_menu_friends, themeFlags),
+                MAIN_MENU_ITEM_FRIENDS, null, topFixed);
         addMenuItem(R.string.TLA_menu_search,
                 ThemeService.getDrawable(R.drawable.icn_menu_search, themeFlags),
                 MAIN_MENU_ITEM_SEARCH, null, topFixed);
         addMenuItem(R.string.TLA_menu_settings,
                 ThemeService.getDrawable(R.drawable.icn_menu_settings, themeFlags),
                 MAIN_MENU_ITEM_SETTINGS, null, bottomFixed); // Settings item
+    }
+
+    public void setFixedItemVisibility(int index, int visibility, boolean top) {
+        LinearLayout container = top ? topFixed : bottomFixed;
+        if (index < 0 || index >= container.getChildCount())
+            return;
+
+        container.getChildAt(index).setVisibility(visibility);
     }
 
     @Override
@@ -136,11 +149,15 @@ public class MainMenuPopover extends FragmentPopover implements InterceptTouchLi
 
     // --- Private helpers ---
     private void addMenuItem(int title, int imageRes, int id, Intent customIntent, ViewGroup container) {
+        if (mListener != null && !mListener.shouldAddMenuItem(id))
+            return;
         View item = setupItemWithParams(title, imageRes);
         addViewWithListener(item, container, id, customIntent);
     }
 
     private void addMenuItem(CharSequence title, Drawable image, int id, Intent customIntent, ViewGroup container) {
+        if (mListener != null && !mListener.shouldAddMenuItem(id))
+            return;
         View item = setupItemWithParams(title, image);
         addViewWithListener(item, container, id, customIntent);
     }

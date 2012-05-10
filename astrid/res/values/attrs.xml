@@ -30,6 +30,7 @@
   <attr name="asTaskEditArrow" format="reference" />
   <attr name="asRepeatIcon" format="reference" />
   <attr name="asMainMenu" format="reference" />
+  <attr name="asPeopleMenu" format="reference" />
   <attr name="asAbBackgroundColor" format="color"/>
   <attr name="asListPopoverBg" format="reference"/>
   <attr name="asListArrowUp" format="reference"/>

@@ -302,10 +302,10 @@ public class AstridActivity extends FragmentActivity
         }
     }
 
-    protected Fragment setupFragment(String tag, int container, Class<? extends Fragment> cls, boolean createImmediate) {
+    protected Fragment setupFragment(String tag, int container, Class<? extends Fragment> cls, boolean createImmediate, boolean replace) {
         final FragmentManager fm = getSupportFragmentManager();
         Fragment fragment = fm.findFragmentByTag(tag);
-        if(fragment == null) {
+        if(fragment == null || replace) {
             try {
                 fragment = cls.newInstance();
             } catch (InstantiationException e) {

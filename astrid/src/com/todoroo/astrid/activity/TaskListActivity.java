@@ -44,6 +44,8 @@ import com.todoroo.astrid.api.FilterListItem;
 import com.todoroo.astrid.core.CoreFilterExposer;
 import com.todoroo.astrid.core.CustomFilterExposer;
 import com.todoroo.astrid.data.Task;
+import com.todoroo.astrid.people.PeopleListFragment;
+import com.todoroo.astrid.people.PeopleViewActivity;
 import com.todoroo.astrid.service.StatisticsConstants;
 import com.todoroo.astrid.service.StatisticsService;
 import com.todoroo.astrid.service.ThemeService;
@@ -67,6 +69,8 @@ public class TaskListActivity extends AstridActivity implements MainMenuListener
     public static final String NEW_LIST = "newList"; //$NON-NLS-1$
 
     public static final String OPEN_TASK = "openTask"; //$NON-NLS-1$
+
+    private static final String PEOPLE_VIEW = "peopleView";  //$NON-NLS-1$
 
     @Autowired private ABTestEventReportingService abTestEventReportingService;
 
@@ -147,19 +151,15 @@ public class TaskListActivity extends AstridActivity implements MainMenuListener
         super.onCreate(savedInstanceState);
         DependencyInjectionService.getInstance().inject(this);
 
-        if (AndroidUtilities.isTabletSized(this)) {
-            setContentView(R.layout.task_list_wrapper_activity_3pane);
-        } else if (Preferences.getIntegerFromString(R.string.p_swipe_lists_performance_key, 3) == 0) {
-            setContentView(R.layout.task_list_wrapper_activity_no_swipe);
-        } else {
-            setContentView(R.layout.task_list_wrapper_activity);
+        int contentView = getContentView();
+        if (contentView == R.layout.task_list_wrapper_activity)
             swipeEnabled = true;
-        }
+        setContentView(contentView);
 
         ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayOptions(0, ActionBar.DISPLAY_SHOW_TITLE);
         actionBar.setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
-        actionBar.setCustomView(R.layout.header_nav_views);
+        actionBar.setCustomView(getHeaderView());
 
         listsNav = actionBar.getCustomView().findViewById(R.id.lists_nav);
         listsNavDisclosure = (ImageView) actionBar.getCustomView().findViewById(R.id.list_disclosure_arrow);
@@ -176,6 +176,7 @@ public class TaskListActivity extends AstridActivity implements MainMenuListener
         if (extras != null)
             extras = (Bundle) extras.clone();
 
+
         Filter savedFilter = getIntent().getParcelableExtra(TaskListFragment.TOKEN_FILTER);
         if (Intent.ACTION_SEARCH.equals(getIntent().getAction())) {
             String query = getIntent().getStringExtra(SearchManager.QUERY).trim();
@@ -185,14 +186,14 @@ public class TaskListActivity extends AstridActivity implements MainMenuListener
                             "%" + //$NON-NLS-1$
                                     query.toUpperCase() + "%")), //$NON-NLS-1$
                     null);
-            if (extras == null)
-                extras = new Bundle();
-            extras.putParcelable(TaskListFragment.TOKEN_FILTER, savedFilter);
         }
 
         if (savedFilter == null)
-            savedFilter = CoreFilterExposer.buildInboxFilter(getResources());
+            savedFilter = getDefaultFilter();
 
+        if (extras == null)
+            extras = new Bundle();
+        extras.putParcelable(TaskListFragment.TOKEN_FILTER, savedFilter);
 
         if (swipeIsEnabled()) {
             FilterListFragment flf = getFilterListFragment();
@@ -217,6 +218,23 @@ public class TaskListActivity extends AstridActivity implements MainMenuListener
         // Have to call this here because sometimes StartupService
         // isn't called (i.e. if the app was silently alive in the background)
         abTestEventReportingService.trackUserRetention();
+    }
+
+    protected int getHeaderView() {
+        return R.layout.header_nav_views;
+    }
+
+    protected int getContentView() {
+        if (AndroidUtilities.isTabletSized(this))
+            return R.layout.task_list_wrapper_activity_3pane;
+        else if (Preferences.getIntegerFromString(R.string.p_swipe_lists_performance_key, 3) == 0)
+            return R.layout.task_list_wrapper_activity_no_swipe;
+        else
+            return R.layout.task_list_wrapper_activity;
+    }
+
+    protected Filter getDefaultFilter() {
+        return CoreFilterExposer.buildInboxFilter(getResources());
     }
 
     private boolean swipeIsEnabled() {
@@ -264,15 +282,24 @@ public class TaskListActivity extends AstridActivity implements MainMenuListener
                 createCommentsPopover();
             }
 
+            boolean peopleView = getIntent().getBooleanExtra(PEOPLE_VIEW, false);
+            Class<? extends FilterListFragment> filterFragmentClass =
+                    peopleView ? PeopleListFragment.class : FilterListFragment.class;
+
             setupFragment(FilterListFragment.TAG_FILTERLIST_FRAGMENT,
-                    R.id.filterlist_fragment_container, FilterListFragment.class, false);
+                    R.id.filterlist_fragment_container, filterFragmentClass, false, false);
         } else {
             fragmentLayout = LAYOUT_SINGLE;
             actionBar.setDisplayHomeAsUpEnabled(true);
             listsNav.setOnClickListener(popupMenuClickListener);
             createListsPopover();
-            setupPopoverWithFilterList((FilterListFragment) setupFragment(FilterListFragment.TAG_FILTERLIST_FRAGMENT, 0, FilterListFragment.class, true));
+            setupPopoverWithFilterList((FilterListFragment) setupFragment(FilterListFragment.TAG_FILTERLIST_FRAGMENT, 0,
+                    getFilterListClass(), true, false));
         }
+    }
+
+    protected Class<? extends FilterListFragment> getFilterListClass() {
+        return FilterListFragment.class;
     }
 
     private void createListsPopover() {
@@ -315,19 +342,22 @@ public class TaskListActivity extends AstridActivity implements MainMenuListener
 
     private void createMainMenuPopover() {
         int layout;
-        if (AndroidUtilities.isTabletSized(this))
+        boolean isTablet = AndroidUtilities.isTabletSized(this);
+        if (isTablet)
             layout = R.layout.main_menu_popover_tablet;
         else
             layout = R.layout.main_menu_popover;
 
-        mainMenuPopover = new MainMenuPopover(this, layout, (fragmentLayout != LAYOUT_SINGLE));
-        mainMenuPopover.setMenuListener(this);
+        mainMenuPopover = new MainMenuPopover(this, layout, (fragmentLayout != LAYOUT_SINGLE), this);
         mainMenuPopover.setOnDismissListener(new OnDismissListener() {
             @Override
             public void onDismiss() {
                 mainMenu.setSelected(false);
             }
         });
+
+        if (isTablet)
+            setupMainMenuForPeopleViewState(getIntent().getBooleanExtra(PEOPLE_VIEW, false));
     }
 
     private void setupPopoverWithFragment(FragmentPopover popover, Fragment frag, LayoutParams params) {
@@ -641,17 +671,30 @@ public class TaskListActivity extends AstridActivity implements MainMenuListener
     }
 
     @Override
+    public boolean shouldAddMenuItem(int itemId) {
+        return true;
+    }
+
+    @Override
     public void mainMenuItemSelected(int item, Intent customIntent) {
         TaskListFragment tlf = getTaskListFragment();
         switch (item) {
         case MainMenuPopover.MAIN_MENU_ITEM_LISTS:
-            listsNav.performClick();
+            if (fragmentLayout == LAYOUT_SINGLE)
+                listsNav.performClick();
+            else
+                togglePeopleView();
             return;
         case MainMenuPopover.MAIN_MENU_ITEM_SEARCH:
             onSearchRequested();
             return;
         case MainMenuPopover.MAIN_MENU_ITEM_FRIENDS:
-            // Doesn't exist yet
+            if (fragmentLayout != LAYOUT_SINGLE) {
+                togglePeopleView();
+            } else {
+                Intent peopleIntent = new Intent(this, PeopleViewActivity.class);
+                startActivity(peopleIntent);
+            }
             return;
         case MainMenuPopover.MAIN_MENU_ITEM_SUGGESTIONS:
             // Doesn't exist yet
@@ -662,6 +705,29 @@ public class TaskListActivity extends AstridActivity implements MainMenuListener
             return;
         }
         tlf.handleOptionsMenuItemSelected(item, customIntent);
+    }
+
+    private void togglePeopleView() {
+        FilterListFragment flf = getFilterListFragment();
+        boolean peopleMode = !(flf instanceof PeopleListFragment);
+        if (peopleMode)
+            setupFragment(FilterListFragment.TAG_FILTERLIST_FRAGMENT, R.id.filterlist_fragment_container,
+                    PeopleListFragment.class, false, true);
+        else
+            setupFragment(FilterListFragment.TAG_FILTERLIST_FRAGMENT,
+                    R.id.filterlist_fragment_container, FilterListFragment.class, false, true);
+
+        setupMainMenuForPeopleViewState(peopleMode);
+        getIntent().putExtra(PEOPLE_VIEW, peopleMode);
+    }
+
+    private void setupMainMenuForPeopleViewState(boolean inPeopleMode) {
+        mainMenuPopover.setFixedItemVisibility(0, inPeopleMode ? View.VISIBLE : View.GONE, true);
+        mainMenuPopover.setFixedItemVisibility(1, inPeopleMode ? View.GONE : View.VISIBLE, true);
+
+        TypedValue tv = new TypedValue();
+        getTheme().resolveAttribute(inPeopleMode ? R.attr.asPeopleMenu : R.attr.asMainMenu, tv, false);
+        mainMenu.setImageResource(tv.data);
     }
 
     public MainMenuPopover getMainMenuPopover() {

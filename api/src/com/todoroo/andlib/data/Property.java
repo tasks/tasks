@@ -5,7 +5,14 @@
  */
 package com.todoroo.andlib.data;
 
+import static com.todoroo.andlib.sql.SqlConstants.COMMA;
+import static com.todoroo.andlib.sql.SqlConstants.LEFT_PARENTHESIS;
+import static com.todoroo.andlib.sql.SqlConstants.RIGHT_PARENTHESIS;
+import static com.todoroo.andlib.sql.SqlConstants.SPACE;
+
+import com.todoroo.andlib.sql.Criterion;
 import com.todoroo.andlib.sql.Field;
+import com.todoroo.andlib.sql.Operator;
 
 /**
  * Property represents a typed column in a database.
@@ -149,6 +156,21 @@ public abstract class Property<TYPE> extends Field implements Cloneable {
         public <RETURN, PARAMETER> RETURN accept(
                 PropertyVisitor<RETURN, PARAMETER> visitor, PARAMETER data) {
             return visitor.visitString(this, data);
+        }
+
+        public Criterion in(final String[] value) {
+            final Field field = this;
+            return new Criterion(Operator.in) {
+
+                @Override
+                protected void populate(StringBuilder sb) {
+                    sb.append(field).append(SPACE).append(Operator.in).append(SPACE).append(LEFT_PARENTHESIS).append(SPACE);
+                    for (String s : value) {
+                        sb.append("\"").append(s.toString()).append("\"").append(COMMA);
+                    }
+                    sb.deleteCharAt(sb.length() - 1).append(RIGHT_PARENTHESIS);
+                }
+            };
         }
     }
 

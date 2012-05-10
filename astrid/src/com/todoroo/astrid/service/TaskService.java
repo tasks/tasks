@@ -505,6 +505,9 @@ public class TaskService {
             task.mergeWith(forTask);
         }
 
+        if (task.getValue(Task.USER_ID) != Task.USER_ID_SELF)
+            task.putTransitory(TRANS_ASSIGNED, true);
+
         boolean markup = taskService.quickAdd(task);
         if (markup)
             task.putTransitory(TRANS_QUICK_ADD_MARKUP, true);

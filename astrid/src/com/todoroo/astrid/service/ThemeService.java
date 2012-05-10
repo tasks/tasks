@@ -138,6 +138,8 @@ public class ThemeService {
             return R.drawable.icn_menu_sort_by_size_dark;
         case R.drawable.icn_menu_search:
             return R.drawable.icn_menu_search_dark;
+        case R.drawable.icn_menu_friends:
+            return R.drawable.icn_menu_friends_dark;
         case R.drawable.icn_menu_lists:
             return R.drawable.icn_menu_lists_dark;
         case R.drawable.icn_menu_plugins:
