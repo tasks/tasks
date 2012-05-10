@@ -28,6 +28,7 @@ import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.reminders.NotificationFragment.SnoozeDialog;
 import com.todoroo.astrid.reminders.Notifications;
 import com.todoroo.astrid.reminders.SnoozeCallback;
+import com.todoroo.astrid.service.StartupService;
 import com.todoroo.astrid.service.TaskService;
 import com.todoroo.astrid.service.ThemeService;
 
@@ -97,6 +98,7 @@ public class MissedCallActivity extends Activity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        new StartupService().onStartupApplication(this);
         super.onCreate(savedInstanceState);
         DependencyInjectionService.getInstance().inject(this);
 

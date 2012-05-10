@@ -176,7 +176,6 @@ public class TaskListActivity extends AstridActivity implements MainMenuListener
         if (extras != null)
             extras = (Bundle) extras.clone();
 
-
         Filter savedFilter = getIntent().getParcelableExtra(TaskListFragment.TOKEN_FILTER);
         if (Intent.ACTION_SEARCH.equals(getIntent().getAction())) {
             String query = getIntent().getStringExtra(SearchManager.QUERY).trim();

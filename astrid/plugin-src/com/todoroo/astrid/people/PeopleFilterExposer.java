@@ -19,7 +19,6 @@ import com.todoroo.andlib.sql.Join;
 import com.todoroo.andlib.sql.Order;
 import com.todoroo.andlib.sql.Query;
 import com.todoroo.andlib.sql.QueryTemplate;
-import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.astrid.actfm.sync.ActFmSyncService;
 import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.api.Filter;
@@ -100,7 +99,6 @@ public class PeopleFilterExposer extends BroadcastReceiver {
 
     @SuppressWarnings("nls")
     public static FilterWithCustomIntent mySharedTasks(Context context) {
-        AndroidUtilities.copyDatabases(context, "/sdcard/databases");
         TodorooCursor<TagData> tagsWithMembers = PluginServices.getTagDataService()
                 .query(Query.select(TagData.NAME, TagData.MEMBERS).where(TagData.MEMBER_COUNT.gt(0)));
         String[] names;
