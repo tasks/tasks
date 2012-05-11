@@ -8,6 +8,7 @@ import android.content.ComponentName;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 
 import com.timsu.astrid.R;
@@ -19,6 +20,7 @@ import com.todoroo.andlib.sql.Join;
 import com.todoroo.andlib.sql.Order;
 import com.todoroo.andlib.sql.Query;
 import com.todoroo.andlib.sql.QueryTemplate;
+import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.astrid.actfm.sync.ActFmSyncService;
 import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.api.Filter;
@@ -30,6 +32,7 @@ import com.todoroo.astrid.data.Metadata;
 import com.todoroo.astrid.data.TagData;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.data.User;
+import com.todoroo.astrid.service.ThemeService;
 import com.todoroo.astrid.tags.TagService;
 
 public class PeopleFilterExposer extends BroadcastReceiver {
@@ -120,19 +123,25 @@ public class PeopleFilterExposer extends BroadcastReceiver {
             tagsWithMembers.close();
         }
 
+        boolean isTablet = AndroidUtilities.isTabletSized(context);
+        int themeFlags = isTablet ? ThemeService.FLAG_FORCE_LIGHT : 0;
+
         String title = context.getString(R.string.actfm_my_shared_tasks_title);
         QueryTemplate template = new QueryTemplate().join(Join.inner(Metadata.TABLE.as("mtags"),
                 Criterion.and(Task.ID.eq(Field.field("mtags." + Metadata.TASK.name)),
                         Field.field("mtags." + Metadata.KEY.name).eq(TagService.KEY),
                         Field.field("mtags." + TagService.TAG.name).in(names))));
 
-        FilterWithUpdate filter = new FilterWithUpdate(title, title, template, null);
+        FilterWithCustomIntent filter = new FilterWithCustomIntent(title, title, template, null);
 
         filter.customTaskList = new ComponentName(ContextManager.getContext(), PersonViewFragment.class);
 
         Bundle extras = new Bundle();
         extras.putBoolean(PersonViewFragment.EXTRA_HIDE_QUICK_ADD, true);
         filter.customExtras = extras;
+
+        filter.listingIcon = ((BitmapDrawable)context.getResources().getDrawable(
+                ThemeService.getDrawable(R.drawable.icn_menu_friends, themeFlags))).getBitmap();
 
         return filter;
     }

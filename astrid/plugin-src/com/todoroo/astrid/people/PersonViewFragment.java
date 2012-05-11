@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.support.v4.view.Menu;
 import android.text.TextUtils;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.timsu.astrid.R;
@@ -37,19 +36,7 @@ public class PersonViewFragment extends TaskListFragment {
 
     @Autowired ActFmPreferenceService actFmPreferenceService;
 
-    protected View taskListView;
-
     private User user;
-
-    @Override
-    protected View getListBody(ViewGroup root) {
-        ViewGroup parent = (ViewGroup) getActivity().getLayoutInflater().inflate(R.layout.task_list_body_person, root, false);
-
-        taskListView = super.getListBody(parent);
-        parent.addView(taskListView);
-
-        return parent;
-    }
 
     @Override
     protected void initializeData() {
@@ -57,7 +44,7 @@ public class PersonViewFragment extends TaskListFragment {
         if (extras.containsKey(EXTRA_USER_ID_LOCAL)) {
             user = userDao.fetch(extras.getLong(EXTRA_USER_ID_LOCAL), User.PROPERTIES);
         }
-        ((TextView)taskListView.findViewById(android.R.id.empty)).setText(getEmptyDisplayString());
+        ((TextView) getView().findViewById(android.R.id.empty)).setText(getEmptyDisplayString());
     }
 
     @Override
@@ -105,7 +92,7 @@ public class PersonViewFragment extends TaskListFragment {
 
     private void refreshData(final boolean manual) {
         if (user != null) {
-            ((TextView)taskListView.findViewById(android.R.id.empty)).setText(R.string.DLG_loading);
+            ((TextView) getView().findViewById(android.R.id.empty)).setText(R.string.DLG_loading);
 
             syncService.synchronizeList(user, manual, new ProgressBarSyncResultCallback(getActivity(), this,
                     R.id.progressBar, new Runnable() {
@@ -115,7 +102,7 @@ public class PersonViewFragment extends TaskListFragment {
                         ContextManager.getContext().sendBroadcast(new Intent(AstridApiConstants.BROADCAST_EVENT_REFRESH));
                     else
                         refresh();
-                    ((TextView)taskListView.findViewById(android.R.id.empty)).setText(getEmptyDisplayString());
+                    ((TextView) getView().findViewById(android.R.id.empty)).setText(getEmptyDisplayString());
                 }
             }));
         }
