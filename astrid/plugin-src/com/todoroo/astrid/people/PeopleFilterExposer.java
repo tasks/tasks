@@ -28,6 +28,7 @@ import com.todoroo.astrid.api.FilterListItem;
 import com.todoroo.astrid.api.FilterWithCustomIntent;
 import com.todoroo.astrid.api.FilterWithUpdate;
 import com.todoroo.astrid.core.PluginServices;
+import com.todoroo.astrid.dao.TaskDao.TaskCriteria;
 import com.todoroo.astrid.data.Metadata;
 import com.todoroo.astrid.data.TagData;
 import com.todoroo.astrid.data.Task;
@@ -130,7 +131,8 @@ public class PeopleFilterExposer extends BroadcastReceiver {
         QueryTemplate template = new QueryTemplate().join(Join.inner(Metadata.TABLE.as("mtags"),
                 Criterion.and(Task.ID.eq(Field.field("mtags." + Metadata.TASK.name)),
                         Field.field("mtags." + Metadata.KEY.name).eq(TagService.KEY),
-                        Field.field("mtags." + TagService.TAG.name).in(names))));
+                        Field.field("mtags." + TagService.TAG.name).in(names),
+                        TaskCriteria.activeVisibleMine())));
 
         FilterWithCustomIntent filter = new FilterWithCustomIntent(title, title, template, null);
 
