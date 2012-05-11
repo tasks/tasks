@@ -597,7 +597,7 @@
   
   <!-- Preference screen: Astrid Labs (experimental features)-->
   <string name="EPr_labs_header">Astrid Labs</string>
-  <string name="EPr_labs_desc">Enable or disable experimental features</string>
+  <string name="EPr_labs_desc">Try and configure upcoming features</string>
   
   <!-- Preference: swipe between lists performance -->
   <string name="EPr_swipe_lists_performance_title">Swipe between lists</string>

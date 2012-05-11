@@ -113,7 +113,6 @@ public class PeopleFilterExposer extends BroadcastReceiver {
                 for (tagsWithMembers.moveToFirst(); !tagsWithMembers.isAfterLast(); tagsWithMembers.moveToNext()) {
                     curr.readFromCursor(tagsWithMembers);
                     names[i] = "\"" + curr.getValue(TagData.NAME) + "\"";
-                    System.err.println("Tag data " + curr.getValue(TagData.NAME) + " has members " + curr.getValue(TagData.MEMBERS));
                     i++;
                 }
             }

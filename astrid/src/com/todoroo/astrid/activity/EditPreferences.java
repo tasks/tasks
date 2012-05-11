@@ -214,6 +214,7 @@ public class EditPreferences extends TodorooPreferenceActivity {
 
         // Loop through a list of all packages (including plugins, addons)
         // that have a settings action
+        String labsTitle = getString(R.string.EPr_labs_header);
         for(int i = 0; i < length; i++) {
             ResolveInfo resolveInfo = resolveInfoList.get(i);
             final Intent intent = new Intent(AstridApiConstants.ACTION_SETTINGS);
@@ -226,6 +227,8 @@ public class EditPreferences extends TodorooPreferenceActivity {
 
             Preference preference = new Preference(this);
             preference.setTitle(resolveInfo.activityInfo.loadLabel(pm));
+            if (labsTitle.equals(preference.getTitle()))
+                preference.setSummary(R.string.EPr_labs_desc);
             try {
                 Class<?> intentComponent = Class.forName(intent.getComponent().getClassName());
                 if (intentComponent.getSuperclass().equals(SyncProviderPreferences.class))
