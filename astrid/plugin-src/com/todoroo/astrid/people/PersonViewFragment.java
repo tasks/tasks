@@ -57,6 +57,9 @@ public class PersonViewFragment extends TaskListFragment {
         if (extras.containsKey(EXTRA_HIDE_QUICK_ADD))
             quickAddBar.setVisibility(View.GONE);
 
+        // set listener for astrid icon
+        ((TextView) getView().findViewById(android.R.id.empty)).setOnClickListener(null);
+
     }
 
     @Override
