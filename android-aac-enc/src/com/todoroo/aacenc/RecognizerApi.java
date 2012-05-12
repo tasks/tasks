@@ -7,6 +7,7 @@ import java.util.ArrayList;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnCancelListener;
 import android.content.Intent;
@@ -21,43 +22,44 @@ import android.view.View.OnClickListener;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class Main extends Activity implements RecognitionListener {
+public class RecognizerApi implements RecognitionListener {
 
-    private String AAC_FILE;
-    private String M4A_FILE = "/sdcard/audio.m4a";
+    private String aacFile;
 
-    /** Called when the activity is first created. */
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.main);
+    private Context context;
+    
+    public static interface RecognizerApiListener {
+    	public void onSpeechResult(String result);
+    }
+    
+    private RecognizerApiListener mListener;
+    
+    public RecognizerApi(Context context) {
+    	this.context = context;
 
-        File dir = getFilesDir();
-        AAC_FILE = dir.toString() + "/audio.aac";
-
-
-        findViewById(R.id.write).setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                write();
-            }
-        });
-
-        findViewById(R.id.play).setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                play();
-            }
-        });
-
-        sr = SpeechRecognizer.createSpeechRecognizer(this);
+    	File dir = context.getFilesDir();
+    	aacFile = dir.toString() + "/audio.aac";
+    	
+    	sr = SpeechRecognizer.createSpeechRecognizer(context);
+    }
+    
+    public void setTemporaryFile(String fileName) {
+    	aacFile = context.getFilesDir().toString() + "/" + fileName;
+    }
+    
+    public String getTemporaryFile() {
+    	return aacFile;
+    }
+    
+    public void setListener(RecognizerApiListener listener) {
+    	this.mListener = listener;
     }
 
-    private void play() {
+    public void play(String file) {
         MediaPlayer mediaPlayer = new MediaPlayer();
 
         try {
-            mediaPlayer.setDataSource(M4A_FILE);
+            mediaPlayer.setDataSource(file);
             mediaPlayer.prepare();
             mediaPlayer.start();
         } catch (IllegalArgumentException e) {
@@ -68,7 +70,7 @@ public class Main extends Activity implements RecognitionListener {
             throw new RuntimeException(e);
         }
 
-        Toast.makeText(Main.this, "Playing Audio", Toast.LENGTH_LONG).show();
+        Toast.makeText(context, "Playing Audio", Toast.LENGTH_LONG).show();
     }
 
     private AACEncoder encoder = new AACEncoder();
@@ -76,7 +78,7 @@ public class Main extends Activity implements RecognitionListener {
     private SpeechRecognizer sr;
     private ProgressDialog pd;
 
-    private void write() {
+    public void write() {
         sr.setRecognitionListener(this);
 
         Intent intent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
@@ -87,7 +89,7 @@ public class Main extends Activity implements RecognitionListener {
         speechStarted = 0;
         baos.reset();
 
-        pd = new ProgressDialog(this);
+        pd = new ProgressDialog(context);
         pd.setMessage("Speak now...");
         pd.setIndeterminate(true);
         pd.setCancelable(true);
@@ -105,13 +107,30 @@ public class Main extends Activity implements RecognitionListener {
         speechStarted = System.currentTimeMillis();
     }
 
+    public void convert(String toFile) {
+    	try {
+    		new AACToM4A().convert(context, aacFile, toFile);
+    		
+    		Toast.makeText(context, "File Saved!", Toast.LENGTH_LONG).show();
+    	} catch (IOException e) {
+    		Toast.makeText(context, "Error :(", Toast.LENGTH_LONG).show();
+    		Log.e("ERROR", "error converting", e);
+    	}
+    }
+
+    public void destroy() {
+    	sr.destroy();
+    }
+    
+    // --- RecognitionListener methods --- //
+    
+    private ByteArrayOutputStream baos = new ByteArrayOutputStream();
+
     @Override
     public void onBeginningOfSpeech() {
         System.err.println("beginning");
 
     }
-
-    ByteArrayOutputStream baos = new ByteArrayOutputStream();
 
     @Override
     public void onBufferReceived(byte[] buffer) {
@@ -122,12 +141,6 @@ public class Main extends Activity implements RecognitionListener {
                 //
             }
         }
-    }
-
-    @Override
-    protected void onStop() {
-        super.onStop();
-        sr.destroy();
     }
 
     @Override
@@ -145,22 +158,13 @@ public class Main extends Activity implements RecognitionListener {
 
         System.err.println("computed sample rate: " + sampleRate);
 
-        encoder.init(64000, 1, sampleRate, 16, AAC_FILE);
+        encoder.init(64000, 1, sampleRate, 16, aacFile);
 
         encoder.encode(baos.toByteArray());
 
         System.err.println("end");
 
         encoder.uninit();
-
-        try {
-            new AACToM4A().convert(this, AAC_FILE, M4A_FILE);
-
-            Toast.makeText(Main.this, "File Saved!", Toast.LENGTH_LONG).show();
-        } catch (IOException e) {
-            Toast.makeText(Main.this, "Error :(", Toast.LENGTH_LONG).show();
-            Log.e("ERROR", "error converting", e);
-        }
     }
 
     @Override
@@ -185,11 +189,54 @@ public class Main extends Activity implements RecognitionListener {
     @Override
     public void onResults(Bundle results) {
         ArrayList<String> strings = results.getStringArrayList(SpeechRecognizer.RESULTS_RECOGNITION);
-        ((TextView)findViewById(R.id.text)).setText(
-                strings.size() == 0 ? "" : strings.get(0));
+        if (mListener != null)
+        	mListener.onSpeechResult(strings.size() == 0 ? "" : strings.get(0));
     }
 
     @Override
     public void onRmsChanged(float arg0) {
+    }
+    
+    public static class Main extends Activity implements RecognizerApiListener {
+    	private RecognizerApi api;
+    	
+    	private static final String M4A_FILE = "/sdcard/audio.m4a";
+    	
+    	/** Called when the activity is first created. */
+        @Override
+        public void onCreate(Bundle savedInstanceState) {
+            super.onCreate(savedInstanceState);
+            
+            api = new RecognizerApi(this);
+            
+            setContentView(R.layout.main);
+
+            findViewById(R.id.write).setOnClickListener(new OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    api.write();
+                }
+            });
+
+            findViewById(R.id.play).setOnClickListener(new OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    api.play(M4A_FILE);
+                }
+            });
+
+        }
+        
+        @Override
+        protected void onDestroy() {
+        	super.onDestroy();
+        	api.destroy();
+        }
+        
+        @Override
+        public void onSpeechResult(String result) {
+        	((TextView)findViewById(R.id.text)).setText(result);
+        	api.convert(M4A_FILE);
+        }
     }
 }
