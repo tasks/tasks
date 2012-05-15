@@ -10,7 +10,7 @@ local.properties
 lp-translations/
 translations/strings.xml
 
-astrid/coverage.em
+coverage.em
 astrid/src-combined
 antbuild
 greendroid/GDCatalog/.project
