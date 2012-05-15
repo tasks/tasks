@@ -78,6 +78,7 @@ import com.todoroo.astrid.actfm.sync.ActFmPreferenceService;
 import com.todoroo.astrid.activity.Eula;
 import com.todoroo.astrid.gtasks.auth.ModernAuthManager;
 import com.todoroo.astrid.service.AstridDependencyInjector;
+import com.todoroo.astrid.service.MarketStrategy.AmazonMarketStrategy;
 import com.todoroo.astrid.service.StatisticsConstants;
 import com.todoroo.astrid.service.StatisticsService;
 import com.todoroo.astrid.service.SyncV2Service;
@@ -238,7 +239,10 @@ public class ActFmLoginActivity extends FragmentActivity implements AuthListener
         loginButton.init(this, facebook, this, new String[] { "email",
                 "offline_access", "publish_stream" });
 
-        findViewById(R.id.gg_login).setOnClickListener(googleListener);
+        View googleLogin = findViewById(R.id.gg_login);
+        if(AmazonMarketStrategy.isKindleFire())
+            googleLogin.setVisibility(View.GONE);
+        googleLogin.setOnClickListener(googleListener);
         Button pwLogin = (Button) findViewById(R.id.pw_login);
         pwLogin.setOnClickListener(signUpListener);
         setupTermsOfService((TextView) findViewById(R.id.tos));
