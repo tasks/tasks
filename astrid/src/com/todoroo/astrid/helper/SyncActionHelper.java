@@ -34,6 +34,8 @@ import com.todoroo.astrid.activity.TaskListFragment;
 import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.api.SyncAction;
+import com.todoroo.astrid.gtasks.GtasksPreferences;
+import com.todoroo.astrid.service.MarketStrategy.AmazonMarketStrategy;
 import com.todoroo.astrid.service.SyncV2Service;
 import com.todoroo.astrid.sync.SyncResultCallback;
 import com.todoroo.astrid.sync.SyncV2Provider;
@@ -192,9 +194,15 @@ public class SyncActionHelper {
 
                 String category = MetadataHelper.resolveActivityCategoryName(
                         resolveInfo, pm);
+
                 if (MilkPreferences.class.getName().equals(
                         resolveInfo.activityInfo.name)
                         && !MilkUtilities.INSTANCE.isLoggedIn())
+                    continue;
+
+                if (GtasksPreferences.class.getName().equals(
+                        resolveInfo.activityInfo.name)
+                        && AmazonMarketStrategy.isKindleFire())
                     continue;
 
                 if (category.equals(desiredCategory)) {

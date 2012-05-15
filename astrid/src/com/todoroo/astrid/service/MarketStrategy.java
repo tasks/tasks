@@ -57,6 +57,19 @@ public abstract class MarketStrategy {
             return false;
         }
 
+        @Override
+        public boolean showAddonMenu() {
+            return !isKindleFire();
+        }
+
+        /**
+         * @return true if the device is a kindle fire and needs special treatment
+         */
+        public static boolean isKindleFire() {
+            return android.os.Build.MANUFACTURER.equals("Amazon") && //$NON-NLS-1$
+                android.os.Build.MODEL.equals("Kindle Fire"); //$NON-NLS-1$
+        }
+
     }
 
 }

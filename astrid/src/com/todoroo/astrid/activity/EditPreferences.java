@@ -46,8 +46,10 @@ import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.core.LabsPreferences;
 import com.todoroo.astrid.dao.Database;
 import com.todoroo.astrid.data.Task;
+import com.todoroo.astrid.gtasks.GtasksPreferences;
 import com.todoroo.astrid.helper.MetadataHelper;
 import com.todoroo.astrid.service.AddOnService;
+import com.todoroo.astrid.service.MarketStrategy.AmazonMarketStrategy;
 import com.todoroo.astrid.service.StartupService;
 import com.todoroo.astrid.service.StatisticsConstants;
 import com.todoroo.astrid.service.StatisticsService;
@@ -223,6 +225,10 @@ public class EditPreferences extends TodorooPreferenceActivity {
 
             if(MilkPreferences.class.getName().equals(resolveInfo.activityInfo.name) &&
                     !MilkUtilities.INSTANCE.isLoggedIn())
+                continue;
+
+            if (GtasksPreferences.class.getName().equals(resolveInfo.activityInfo.name)
+                    && AmazonMarketStrategy.isKindleFire())
                 continue;
 
             Preference preference = new Preference(this);
