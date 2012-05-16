@@ -67,7 +67,7 @@ public abstract class MarketStrategy {
          */
         public static boolean isKindleFire() {
             return android.os.Build.MANUFACTURER.equals("Amazon") && //$NON-NLS-1$
-                android.os.Build.MODEL.equals("Kindle Fire"); //$NON-NLS-1$
+                android.os.Build.MODEL.contains("Kindle"); //$NON-NLS-1$
         }
 
     }

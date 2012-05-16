@@ -34,12 +34,18 @@ public class ActFmCameraModule {
 
     public static void showPictureLauncher(final Activity activity, final ClearImageCallback clearImageOption) {
         ArrayList<String> options = new ArrayList<String>();
-        options.add(activity.getString(R.string.actfm_picture_camera));
+
+        final Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        PackageManager pm = activity.getPackageManager();
+
+        final boolean cameraAvailable = pm.queryIntentActivities(cameraIntent, 0).size() > 0;
+        if(cameraAvailable)
+            options.add(activity.getString(R.string.actfm_picture_camera));
         options.add(activity.getString(R.string.actfm_picture_gallery));
 
-        if (clearImageOption != null) {
+        if (clearImageOption != null)
             options.add(activity.getString(R.string.actfm_picture_clear));
-        }
+
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(activity,
                 android.R.layout.simple_spinner_dropdown_item, options.toArray(new String[options.size()]));
 
@@ -47,14 +53,14 @@ public class ActFmCameraModule {
             @SuppressWarnings("nls")
             @Override
             public void onClick(DialogInterface d, int which) {
-                if(which == 0) {
+                if(which == 0 && cameraAvailable) {
                     lastTempFile = getTempFile(activity);
                     Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
                     if (lastTempFile != null) {
                         intent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(lastTempFile));
                     }
                     activity.startActivityForResult(intent, REQUEST_CODE_CAMERA);
-                } else if (which == 1) {
+                } else if ((which == 1 && cameraAvailable) || (which == 0 && !cameraAvailable)) {
                     Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
                     intent.setType("image/*");
                     activity.startActivityForResult(Intent.createChooser(intent,
@@ -78,7 +84,8 @@ public class ActFmCameraModule {
 
         final Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         PackageManager pm = fragment.getActivity().getPackageManager();
-        if(pm.queryIntentActivities(cameraIntent, 0).size() > 0)
+        final boolean cameraAvailable = pm.queryIntentActivities(cameraIntent, 0).size() > 0;
+        if(cameraAvailable)
             options.add(fragment.getString(R.string.actfm_picture_camera));
 
         options.add(fragment.getString(R.string.actfm_picture_gallery));
@@ -93,12 +100,12 @@ public class ActFmCameraModule {
             @SuppressWarnings("nls")
             @Override
             public void onClick(DialogInterface d, int which) {
-                if(which == 0) {
+                if(which == 0 && cameraAvailable) {
                     lastTempFile = getTempFile(fragment.getActivity());
                     if (lastTempFile != null)
                         cameraIntent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(lastTempFile));
                     fragment.startActivityForResult(cameraIntent, REQUEST_CODE_CAMERA);
-                } else if (which == 1) {
+                } else if ((which == 1 && cameraAvailable) || (which == 0 && !cameraAvailable)) {
                     Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
                     intent.setType("image/*");
                     fragment.startActivityForResult(Intent.createChooser(intent,
