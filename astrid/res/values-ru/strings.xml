@@ -276,7 +276,7 @@
   <string name="TEA_control_title">Название задачи</string>
   <string name="TEA_control_who">Кто</string>
   <string name="TEA_control_when">Когда</string>
-  <string name="TEA_control_more_section">----More Section----</string>
+  <string name="TEA_control_more_section">----Еще----</string>
   <string name="TEA_control_importance">Важность</string>
   <string name="TEA_control_lists">Списки</string>
   <string name="TEA_control_notes">Примечания</string>
@@ -485,7 +485,7 @@
   <string name="gtasks_error_backend">Google\'s Task API в стадии бета и произошла ошибка. Служба может быть не доступна, пожалуйста, попробуйте позже.</string>
   <string name="gtasks_error_accountNotFound">Аккаунт %s не найден--пожалуйста, выйдите и войдите снова через настройки Google Tasks.</string>
   <string name="gtasks_error_authRefresh">Не удалось пройти аутентификацию в Google Tasks. Пожалуйста, проверьте пароль к учетной записи или попробуйте еще раз позже.</string>
-  <string name="gtasks_error_accountManager">Error in your phone\'s account manager. Please log out and log back in from the Google Tasks settings.</string>
+  <string name="gtasks_error_accountManager">Ошибка в менеджере аккаунтов вашего телефона, Пожалуйста выйдите и войдите снова в настройках Google Tasks.</string>
   <string name="help_popover_add_task">Начните с добавления одной-двух задач</string>
   <string name="help_popover_tap_task">Нажмите на задачу, чтобы изменить или поделиться</string>
   <string name="help_popover_list_settings">Нажмите, чтобы изменить или поделиться списком</string>
@@ -495,14 +495,14 @@
   <string name="help_popover_when_shortcut">Нажмите на ярлык для быстрого выбора даты и времени</string>
   <string name="help_popover_when_row">Нажмите в любом месте строки для правки таких опций как повторение</string>
   <string name="welcome_login_title">Добро пожаловать в Astrid!</string>
-  <string name="welcome_login_tos_base">By using Astrid you agree to the</string>
-  <string name="welcome_login_tos_link">\"Terms of Service\"</string>
-  <string name="welcome_login_pw">Login with Username/Password</string>
-  <string name="welcome_login_later">Connect Later</string>
+  <string name="welcome_login_tos_base">Используя Astrid, вы согласны с</string>
+  <string name="welcome_login_tos_link">\"Условия предоставления услуг\"</string>
+  <string name="welcome_login_pw">Войти, используя Имя пользователя/Пароль</string>
+  <string name="welcome_login_later">Подключиться позже</string>
   <string name="welcome_login_confirm_later_title">Почему бы не войти?</string>
-  <string name="welcome_login_confirm_later_ok">I\'ll do it!</string>
+  <string name="welcome_login_confirm_later_ok">Я сделаю это!</string>
   <string name="welcome_login_confirm_later_cancel">Спасибо, не надо</string>
-  <string name="welcome_login_confirm_later_dialog">Sign in to get the most out of Astrid! For free, you get online backup, full synchronization with Astrid.com, the ability to add tasks via email, and you can even share task lists with friends!</string>
+  <string name="welcome_login_confirm_later_dialog">Войдите, чтобы получить максимум от Astrid! Бесплатно вы получите онлайн резервирование, полную синхронизацию с Astrid.com, возможность добавлять задачи по почте и даже делиться своими списками задач с друзьями!</string>
   <string name="help_popover_taskrabbit_type">Изменить тип задачи</string>
   <string name="locale_edit_alerts_title">Предупреждение фильтра Astrid</string>
   <string name="locale_edit_intro">Astrid отправит вам напоминание при обнаружении задач по следующим фильтрам:</string>
@@ -528,23 +528,23 @@
   <string name="opencrx_contact_input_hint">Назначено на</string>
   <string name="opencrx_PPr_header">OpenCRX</string>
   <string name="opencrx_no_creator">(Не синхронизировано)</string>
-  <string name="opencrx_PPr_defaultcreator_title">Default ActivityCreator</string>
-  <string name="opencrx_PPr_defaultcreator_summary">New activities will be created by: %s</string>
+  <string name="opencrx_PPr_defaultcreator_title">Создатель событий по умолчанию</string>
+  <string name="opencrx_PPr_defaultcreator_summary">Новые события буду созданы: %s</string>
   <string name="opencrx_PPr_defaultcreator_summary_none">Новые события не будут синхронизироваться по-умолчанию</string>
-  <string name="opencrx_group">OpenCRX server</string>
+  <string name="opencrx_group">сервер OpenCRX</string>
   <string name="opencrx_host_title">Хост</string>
-  <string name="opencrx_host_dialog_title">OpenCRX host</string>
+  <string name="opencrx_host_dialog_title">хост OpenCRX</string>
   <string name="opencrx_host_summary">"Например: "<i>mydomain.com</i></string>
   <string name="opencrx_segment_title">Сегмент</string>
-  <string name="opencrx_segment_dialog_title">Synchronized segment</string>
+  <string name="opencrx_segment_dialog_title">Синхронизированный сегмент</string>
   <string name="opencrx_segment_summary">"Для примера: "<i>Standard</i></string>
   <string name="opencrx_segment_default">Стандарт</string>
   <string name="opencrx_provider_title">Поставщик</string>
-  <string name="opencrx_provider_dialog_title">OpenCRX data provider</string>
+  <string name="opencrx_provider_dialog_title">Поставщик данных OpenCRX</string>
   <string name="opencrx_provider_summary">"Для примера: "<i>CRX</i></string>
   <string name="opencrx_provider_default">CRX</string>
-  <string name="opencrx_PLA_title">Log In to OpenCRX</string>
-  <string name="opencrx_PLA_body">Sign in with your OpenCRX account</string>
+  <string name="opencrx_PLA_title">Войдите в openCRX</string>
+  <string name="opencrx_PLA_body">Войдите, используя ваш openCRX аккаунт</string>
   <string name="opencrx_PLA_signIn">Войти</string>
   <string name="opencrx_PLA_login">Вход</string>
   <string name="opencrx_PLA_password">Пароль</string>
@@ -557,9 +557,9 @@
   <string name="opencrx_MLA_password_empty">Не указан пароль!</string>
   <string name="opencrx_TEA_task_assign_label">Назначить эту задачу этому человеку:</string>
   <string name="opencrx_TEA_task_unassigned">&lt;Без назначения&gt;</string>
-  <string name="opencrx_TEA_creator_assign_label">Assign this task to this creator:</string>
+  <string name="opencrx_TEA_creator_assign_label">Назначить эту задачу этому создателю:</string>
   <string name="opencrx_TEA_dashboard_default">&lt;По умолчанию&gt;</string>
-  <string name="opencrx_TEA_opencrx_title">OpenCRX Controls</string>
+  <string name="opencrx_TEA_opencrx_title">Управление OpenCRX</string>
   <string name="CFC_opencrx_in_workspace_text">в среде: ?</string>
   <string name="CFC_opencrx_in_workspace_name">в среде...</string>
   <string name="CFC_opencrx_assigned_to_text">Присвоено: ?</string>
@@ -602,7 +602,7 @@
   <string name="producteev_ioerror">Ошибка соединения! Проверьте подключение к интернету.</string>
   <string name="producteev_MLA_email_empty">Не указана электронная почта!</string>
   <string name="producteev_MLA_password_empty">Не указан пароль!</string>
-  <string name="producteev_TEA_control_set_display">Producteev Assignment</string>
+  <string name="producteev_TEA_control_set_display">Назначение Producteev</string>
   <string name="producteev_TEA_task_assign_label">Назначить эту задачу этому человеку:</string>
   <string name="producteev_TEA_task_unassigned">&lt;Без назначения&gt;</string>
   <string name="producteev_TEA_dashboard_assign_label">Назначить эту задачу для этой рабочей области:</string>
@@ -652,15 +652,15 @@
   <string name="rmd_EPr_persistent_desc_false">Уведомления можно очистить кнопкой \"Очистить все\"</string>
   <string name="rmd_EPr_notificon_title">Набор иконок для уведомлений</string>
   <string name="rmd_Epr_notificon_desc">Выберите иконку для уведомлений Astrid</string>
-  <string name="rmd_EPr_multiple_maxvolume_title">Max volume for multiple-ring reminders</string>
-  <string name="rmd_EPr_multiple_maxvolume_desc_true">Astrid will max out the volume for multiple-ring reminders</string>
+  <string name="rmd_EPr_multiple_maxvolume_title">Максимальная громкость для многоразовых напоминаний</string>
+  <string name="rmd_EPr_multiple_maxvolume_desc_true">Astrid будет максимизировать громкость для многоразовых напоминаний</string>
   <string name="rmd_EPr_multiple_maxvolume_desc_false">Astrid будет использовать системные настройки громкости</string>
   <string name="rmd_EPr_vibrate_title">Будильник с вибрацией</string>
   <string name="rmd_EPr_vibrate_desc_true">Astrid будет вызывать вибрацию при уведомлении</string>
   <string name="rmd_EPr_vibrate_desc_false">Astrid не будет вызывать вибрацию при уведомлениях</string>
   <string name="rmd_EPr_nagging_title">Astrid Encouragements</string>
   <string name="rmd_EPr_nagging_desc_true">Astrid появится на экране, чтобы подбодрить вас при напоминаниях</string>
-  <string name="rmd_EPr_nagging_desc_false">Astrid will not give you any encouragement messages</string>
+  <string name="rmd_EPr_nagging_desc_false">Astrid не будет показывать приободряющих сообщений</string>
   <string name="rmd_EPr_snooze_dialog_title">Дремать HH:MM</string>
   <string name="rmd_EPr_snooze_dialog_desc_true">Дремать введя новое время (HH:MM)</string>
   <string name="rmd_EPr_snooze_dialog_desc_false">Отложить выбрав # дней/часов</string>
@@ -841,8 +841,8 @@
   <string name="repeat_never">No Repeat</string>
   <string name="repeat_dont">Не повторять</string>
   <string-array name="repeat_interval_short">
-    <item>d</item>
-    <item>wk</item>
+    <item>д</item>
+    <item>нед</item>
     <item>мес.</item>
     <item>час.</item>
     <item>мин.</item>
@@ -863,8 +863,8 @@
   <string name="repeat_detail_byday">$I каждый $D</string>
   <string name="repeat_detail_duedate">С интервалом %s</string>
   <string name="repeat_detail_completion">%s после завершения</string>
-  <string name="repeat_rescheduling_dialog_title">Rescheduling task \"%s\"</string>
-  <string name="repeat_rescheduling_dialog_bubble">%1$s I\'ve rescheduled this repeating task from %2$s to %3$s</string>
+  <string name="repeat_rescheduling_dialog_title">Перенос задачи \"%s\"</string>
+  <string name="repeat_rescheduling_dialog_bubble">%1$s Я перенс эту повторяющуюся задачу с %2$s на %3$s</string>
   <string-array name="repeat_encouragement">
     <item>Хорошая работа!</item>
     <item>Вау... Я так горжусь тобой!</item>
@@ -874,7 +874,7 @@
   <string name="rmilk_EOE_button">Запомнить настройки Milk</string>
   <string name="rmilk_TLA_repeat">Повторяющаяся задача RTM</string>
   <string name="rmilk_TLA_sync">Необходима синхронизация с RTM</string>
-  <string name="rmilk_FEx_header">Remember the Milk</string>
+  <string name="rmilk_FEx_header">Помни про молоко</string>
   <string name="rmilk_FEx_list">Списки</string>
   <string name="rmilk_FEx_list_title">Список RTM \'%s\'</string>
   <string name="rmilk_MEA_title">Remember the Milk</string>
@@ -887,9 +887,9 @@
   <string name="rmilk_notification_title">Astrid: Помни про молоко</string>
   <string name="rmilk_ioerror">Ошибка соединения! Проверьте соединение с интернетом и, возможно, сервером RTM (status.rememberthemilk.com) для возможного решения.</string>
   <string name="subtasks_help_title">Сортировка и отступ в Astrid</string>
-  <string name="subtasks_help_1">Tap and hold to move a task</string>
-  <string name="subtasks_help_2">Drag vertically to rearrange</string>
-  <string name="subtasks_help_3">Drag horizontally to indent</string>
+  <string name="subtasks_help_1">Нажмите и удерживайте, чтобы переместить задачу</string>
+  <string name="subtasks_help_2">Перетащите вертикально, чтобы перестроить</string>
+  <string name="subtasks_help_3">Перетащите горизонтально для отступа</string>
   <string name="TEA_tags_label">Списки</string>
   <string name="TEA_tags_label_long">Поместите задачу в один или несколько списков</string>
   <string name="TEA_tags_none">Пусто</string>
@@ -903,26 +903,26 @@
   <string name="tag_FEx_add_new">Новый</string>
   <string name="tag_FEx_header">Списки</string>
   <string name="tag_FEx_category_mine">Мои списки</string>
-  <string name="tag_FEx_category_shared">Shared With Me</string>
-  <string name="tag_FEx_category_inactive">Inactive</string>
+  <string name="tag_FEx_category_shared">Общедоступно со мной</string>
+  <string name="tag_FEx_category_inactive">Не активно</string>
   <string name="tag_FEx_untagged">Не входит в списки</string>
   <string name="tag_FEx_untagged_w_astrid">Не в списке Astrid</string>
   <string name="tag_FEx_name">Список: %s</string>
   <string name="tag_cm_rename">Переименовать список</string>
   <string name="tag_cm_delete">Удалить список</string>
-  <string name="tag_cm_leave">Leave List</string>
+  <string name="tag_cm_leave">Покинуть список</string>
   <string name="DLG_delete_this_tag_question">Удалить этот список: %s? (Задачи не будут удалены.)</string>
   <string name="DLG_leave_this_shared_tag_question">Покинуть этот обедоступный список: %s? (Задачи не будут удалены.)</string>
   <string name="DLG_rename_this_tag_header">Переименовать список %s в:</string>
   <string name="TEA_no_tags_modified">Без изменений</string>
-  <string name="TEA_tags_deleted">List %1$s was deleted, affecting %2$d tasks</string>
-  <string name="TEA_tags_left">You left shared list %1$s, affecting %2$d tasks</string>
-  <string name="TEA_tags_renamed">Renamed %1$s with %2$s for %3$d tasks</string>
-  <string name="tag_case_migration_notice">We\'ve noticed that you have some lists that have the same name with different capitalizations. We think you may have intended them to be the same list, so we\'ve combined the duplicates. Don\'t worry though: the original lists are simply renamed with numbers (e.g. Shopping_1, Shopping_2). If you don\'t want this, you can simply delete the new combined list!</string>
-  <string name="tag_settings_title">Settings:</string>
+  <string name="TEA_tags_deleted">Список %1$s был удален, затронуло %2$d задач</string>
+  <string name="TEA_tags_left">Вы покинули обший список %1$s, затронуло %2$d задач</string>
+  <string name="TEA_tags_renamed">Переименовано %1$s в %2$s для %3$d задач</string>
+  <string name="tag_case_migration_notice">Мы заметили, что у вас есть списки, которые имеют одинаковое имя с различной капитализации. Мы считаем, что вы, возможно, хотели бы, чтобы они были в одном списке, поэтому мы объединили дубликаты. Не волнуйтесь:  списки просто переименованы с номерами (например, Shopping_1, Shopping_2). Если вы не хотите этого, вы можете просто удалить новый объединенный список!</string>
+  <string name="tag_settings_title">Настройки:</string>
   <string name="tag_updates_title">Активность: %s</string>
   <string name="tag_delete_button">Удалить список</string>
-  <string name="tag_leave_button">Leave This List</string>
+  <string name="tag_leave_button">Покинуть этот список</string>
   <string name="TAE_startTimer">Таймер</string>
   <string name="TAE_stopTimer">Стоп</string>
   <string name="TPl_notification">Для %s действуют таймеры!</string>
@@ -942,7 +942,7 @@
 
 
 
-  <string name="update_string_default_comment">%1$s commented: %3$s</string>
+  <string name="update_string_default_comment">%1$s прокомментировал(а): %3$s</string>
 
   <string name="update_string_tag_comment">%1$s Re: %2$s: %3$s</string>
   <string name="voice_create_prompt">Говорите чтобы создать задачу</string>
@@ -961,15 +961,15 @@
   <string name="EPr_voiceRemindersEnabled_desc_enabled">Astrid должен произносить название задач во время напоминаний</string>
   <string name="EPr_voiceRemindersEnabled_desc_disabled">Оповещение звуком во время напоминания</string>
   <string name="EPr_voice_header">Параметры голосового ввода</string>
-  <string name="welcome_show_eula">Accept EULA to get started!</string>
+  <string name="welcome_show_eula">Примите EULA для начала!</string>
   <string name="welcome_setting">Показать обучение</string>
   <string name="welcome_title_1">Добро пожаловать в Astrid!</string>
   <string name="welcome_title_2">Пишите списки</string>
   <string name="welcome_title_3">Переходи между списками</string>
   <string name="welcome_title_4">Делитесь списками</string>
-  <string name="welcome_title_5">Divvy up tasks</string>
-  <string name="welcome_title_6">Provide details</string>
-  <string name="welcome_title_7">Connect now\nto get started!</string>
+  <string name="welcome_title_5">Делите задачи</string>
+  <string name="welcome_title_6">Подробности</string>
+  <string name="welcome_title_7">Подключиться сейчас\nчтобы начать!</string>
   <string name="welcome_title_7_return">Вот и всё!</string>
   <string name="welcome_body_1">Лучший персональный менеджер задач,\nв нем удобно работать с друзьями</string>
   <string name="welcome_body_2">Удобен для любого списка:\nчто почитать, посмотреть, купить, посетить!</string>
