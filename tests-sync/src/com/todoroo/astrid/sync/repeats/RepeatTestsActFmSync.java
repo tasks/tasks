@@ -133,7 +133,7 @@ public class RepeatTestsActFmSync extends AbstractSyncRepeatTests<Task> {
     protected void testRepeating(boolean completeBefore, boolean fromCompletion, RRule rrule, Frequency frequency, String title) {
         Task t = new Task();
         t.setValue(Task.TITLE, title);
-        long dueDate = DateUtilities.now() + DateUtilities.ONE_DAY * 3;
+        long dueDate = DateUtilities.now() + ((completeBefore ? -1 : 1) * DateUtilities.ONE_DAY * 3);
         dueDate = Task.createDueDate(Task.URGENCY_SPECIFIC_DAY_TIME, (dueDate / 1000L) * 1000L); // Strip milliseconds
         if (fromCompletion)
             t.setFlag(Task.FLAGS, Task.FLAG_REPEAT_AFTER_COMPLETION, true);

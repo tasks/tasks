@@ -80,11 +80,7 @@ abstract public class AbstractSyncRepeatTests<REMOTE_MODEL> extends DatabaseTest
      */
     protected long setCompletionDate(boolean completeBefore, Task t,
             REMOTE_MODEL remoteModel, long dueDate) {
-        long completionDate;
-        if (completeBefore)
-            completionDate = dueDate - DateUtilities.ONE_DAY;
-        else
-            completionDate = dueDate + DateUtilities.ONE_DAY;
+        long completionDate = DateUtilities.now();
         t.setValue(Task.COMPLETION_DATE, completionDate);
         saveAndTriggerRepeatListener(t);
         return completionDate;
@@ -92,7 +88,9 @@ abstract public class AbstractSyncRepeatTests<REMOTE_MODEL> extends DatabaseTest
 
     protected void assertTimesMatch(long expectedTime, long newDueDate) {
         assertTrue(String.format("Expected %s, was %s", new Date(expectedTime), new Date(newDueDate)),
-                Math.abs(expectedTime - newDueDate) < 5000);
+                Math.abs(expectedTime - newDueDate) <= 60000); 
+        // Timing issues between client and server can cause times to be off by one minute. 
+        // Since our smallest interval is 5 minutes, this shouldn't be an issue
     }
 
     /*
@@ -119,7 +117,7 @@ abstract public class AbstractSyncRepeatTests<REMOTE_MODEL> extends DatabaseTest
             RRule rrule, Frequency frequency, String title) {
         Task t = new Task();
         t.setValue(Task.TITLE, title);
-        long dueDate = DateUtilities.now() + DateUtilities.ONE_DAY * 3;
+        long dueDate = DateUtilities.now() + ((completeBefore ? -1 : 1) * DateUtilities.ONE_DAY * 3);
         dueDate = Task.createDueDate(Task.URGENCY_SPECIFIC_DAY_TIME, (dueDate / 1000L) * 1000L); // Strip milliseconds
         if (fromCompletion)
             t.setFlag(Task.FLAGS, Task.FLAG_REPEAT_AFTER_COMPLETION, true);

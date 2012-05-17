@@ -9,11 +9,7 @@ public class RepeatTestsActFmSyncRemote extends RepeatTestsActFmSync {
     @Override
     protected long setCompletionDate(boolean completeBefore, Task t,
             Task remoteModel, long dueDate) {
-        long completionDate;
-        if (completeBefore)
-            completionDate = dueDate - DateUtilities.ONE_DAY;
-        else
-            completionDate = dueDate + DateUtilities.ONE_DAY;
+        long completionDate = DateUtilities.now();
 
         ArrayList<Object> params = new ArrayList<Object>();
         params.add("completed"); params.add(completionDate / 1000L);
