@@ -143,7 +143,7 @@
   <string name="TLA_quick_add_hint">Add a task</string>
   
   <!-- Quick Add Edit Box Hint for assigning (%s -> name)-->
-  <string name="TLA_quick_add_hint_assign">Tap to assign %s a task</string>
+  <string name="TLA_quick_add_hint_assign">Add something for %s</string>
   
   <!-- Notification Volumne notification-->
   <string name="TLA_notification_volume_low">Notifications are muted. You won\'t be able to hear Astrid!</string>
