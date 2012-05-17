@@ -70,8 +70,8 @@ public class AddOnActivity extends FragmentActivity {
                                                 .setIcon(R.drawable.gl_more)
                                                 .setTabListener(new AddOnTabListener(availableView));
 
-        ab.addTab(installedTab);
         ab.addTab(availableTab);
+        ab.addTab(installedTab);
 
         setTitle(R.string.AOA_title);
 
