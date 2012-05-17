@@ -41,6 +41,7 @@ import com.todoroo.astrid.utility.AstridPreferences;
 
 public final class UpgradeService {
 
+    public static final int V4_1_3 = 268;
     public static final int V4_1_2 = 267;
     public static final int V4_1_1 = 266;
     public static final int V4_1_0 = 265;
@@ -200,6 +201,17 @@ public final class UpgradeService {
 
         Preferences.clear(AstridPreferences.P_UPGRADE_FROM);
         StringBuilder changeLog = new StringBuilder();
+
+        if (from >= V4_1_2 && from < V4_1_3) {
+            newVersionString(changeLog, "4.1.3 (5/17/12)", new String[] {
+                "Added an area where you can see what tasks you have shared with your friends! Enable or disable " +
+                "in Settings > Astrid Labs",
+                "Fixed a bug that caused certain shortcuts to show an empty list",
+                "Fixed a bug with adding tasks from the Power Pack widget",
+                "Fixed a Kindle Fire bug related to selecting photos",
+                "Various other minor bug and crash fixes"
+            });
+        }
 
         if (from >= V4_1_1 && from < V4_1_2) {
             newVersionString(changeLog, "4.1.2 (5/05/12)", new String[] {
@@ -405,7 +417,7 @@ public final class UpgradeService {
         if(changeLog.length() == 0)
             return;
 
-        changeLog.append("Please enjoy!</body></html>");
+        changeLog.append("Have a spectacular day!</body></html>");
         String color = ThemeService.getDialogTextColor();
         String changeLogHtml = "<html><body style='color: " + color +"'>" + changeLog;
 
