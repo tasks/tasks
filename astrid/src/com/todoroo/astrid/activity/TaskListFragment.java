@@ -429,7 +429,7 @@ public class TaskListFragment extends ListFragment implements OnScrollListener,
         // --- sort
         if (allowResorting()) {
             addMenuItem(menu, R.string.TLA_menu_sort,
-                    ThemeService.getDrawable(R.drawable.icn_menu_sort_by_size, isTablet ? ThemeService.FLAG_INVERT : 0), MENU_SORT_ID, true);
+                    ThemeService.getDrawable(R.drawable.icn_menu_sort_by_size, isTablet ? ThemeService.FLAG_INVERT : 0), MENU_SORT_ID, false);
         }
 
         // --- sync
@@ -437,7 +437,7 @@ public class TaskListFragment extends ListFragment implements OnScrollListener,
 
         // --- new filter
         addMenuItem(menu, R.string.FLA_new_filter,
-                ThemeService.getDrawable(R.drawable.icn_menu_filters, isTablet ? ThemeService.FLAG_INVERT : 0), MENU_NEW_FILTER_ID, true);
+                ThemeService.getDrawable(R.drawable.icn_menu_filters, isTablet ? ThemeService.FLAG_INVERT : 0), MENU_NEW_FILTER_ID, false);
 
         // --- addons
         if(Constants.MARKET_STRATEGY.showAddonMenu())
