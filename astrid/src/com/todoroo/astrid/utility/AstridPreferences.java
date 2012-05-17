@@ -11,6 +11,8 @@ import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.service.ThemeService;
+import com.todoroo.astrid.service.abtesting.ABChooser;
+import com.todoroo.astrid.service.abtesting.ABTests;
 
 public class AstridPreferences {
 
@@ -50,6 +52,8 @@ public class AstridPreferences {
         Preferences.setIfUnset(prefs, editor, r, R.string.p_swipe_lists_performance_key, 0);
         Preferences.setIfUnset(prefs, editor, r, R.string.p_use_contact_picker, true);
         Preferences.setIfUnset(prefs, editor, r, R.string.p_field_missed_calls, true);
+
+        boolean friendsViewEnabled = (ABChooser.readChoiceForTest(ABTests.AB_TEST_FRIENDS_VIEW_AVAILABLE) == 1);
 
         if ("white-blue".equals(Preferences.getStringValue(R.string.p_theme))) { //$NON-NLS-1$ migrate from when white-blue wasn't the default
             Preferences.setString(R.string.p_theme, ThemeService.THEME_WHITE);

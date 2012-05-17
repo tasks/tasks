@@ -16,6 +16,7 @@ import android.widget.TextView;
 
 import com.timsu.astrid.R;
 import com.todoroo.andlib.utility.AndroidUtilities;
+import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.astrid.service.ThemeService;
 import com.todoroo.astrid.ui.TouchInterceptingFrameLayout.InterceptTouchListener;
 
@@ -100,9 +101,12 @@ public class MainMenuPopover extends FragmentPopover implements InterceptTouchLi
         addMenuItem(R.string.TLA_menu_lists,
                 ThemeService.getDrawable(R.drawable.icn_menu_lists, themeFlags),
                 MAIN_MENU_ITEM_LISTS, null, topFixed); // Lists item
-        addMenuItem(R.string.TLA_menu_friends,
-                ThemeService.getDrawable(R.drawable.icn_menu_friends, themeFlags),
-                MAIN_MENU_ITEM_FRIENDS, null, topFixed);
+
+        if (Preferences.getBoolean(R.string.p_show_friends_view, false))
+            addMenuItem(R.string.TLA_menu_friends,
+                    ThemeService.getDrawable(R.drawable.icn_menu_friends, themeFlags),
+                    MAIN_MENU_ITEM_FRIENDS, null, topFixed);
+
         addMenuItem(R.string.TLA_menu_search,
                 ThemeService.getDrawable(R.drawable.icn_menu_search, themeFlags),
                 MAIN_MENU_ITEM_SEARCH, null, topFixed);

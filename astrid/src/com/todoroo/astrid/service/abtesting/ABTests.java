@@ -115,7 +115,10 @@ public class ABTests {
     }
 
     private void initialize() { // Set up
-        //Calls to addTest go here
+        addTest(AB_TEST_FRIENDS_VIEW_AVAILABLE, new int[] { 1, 1 },
+                new int[] { 8, 2 }, new String[] { "friends-view-disabled", "friends-view-enabled" }); //$NON-NLS-1$ //$NON-NLS-2$
     }
+
+    public static final String AB_TEST_FRIENDS_VIEW_AVAILABLE = "friends-view"; //$NON-NLS-1$
 
 }

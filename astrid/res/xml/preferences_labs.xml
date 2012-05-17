@@ -11,10 +11,11 @@
         android:summary="@string/EPr_swipe_lists_performance_subtitle" />
     <CheckBoxPreference
         android:key="@string/p_use_contact_picker"
-        android:title="@string/EPr_use_contact_picker"
-        android:summary="@string/EPr_use_contact_picker_desc"/>
+        android:title="@string/EPr_use_contact_picker"/>
     <CheckBoxPreference
         android:key="@string/p_field_missed_calls"
-        android:title="@string/MCA_missed_calls_pref_title"
-        android:summary="@string/MCA_missed_calls_pref_desc" />
+        android:title="@string/MCA_missed_calls_pref_title"/>
+    <CheckBoxPreference
+        android:key="@string/p_show_friends_view"
+        android:title="@string/EPr_show_friends_view"/>
 </PreferenceScreen>
