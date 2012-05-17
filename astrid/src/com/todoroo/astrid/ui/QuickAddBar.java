@@ -203,7 +203,7 @@ public class QuickAddBar extends LinearLayout {
         peopleControl = new EditPeopleControlSet(activity, fragment,
                 R.layout.control_set_assigned,
                 R.layout.control_set_default_display,
-                R.string.actfm_EPA_assign_label,
+                R.string.actfm_EPA_assign_label_long,
                 TaskEditFragment.REQUEST_LOG_IN);
 
         resetControlSets();
