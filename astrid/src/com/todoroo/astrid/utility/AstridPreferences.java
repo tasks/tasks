@@ -54,6 +54,7 @@ public class AstridPreferences {
         Preferences.setIfUnset(prefs, editor, r, R.string.p_field_missed_calls, true);
 
         boolean friendsViewEnabled = (ABChooser.readChoiceForTest(ABTests.AB_TEST_FRIENDS_VIEW_AVAILABLE) == 1);
+        Preferences.setIfUnset(prefs, editor, r, R.string.p_show_friends_view, friendsViewEnabled);
 
         if ("white-blue".equals(Preferences.getStringValue(R.string.p_theme))) { //$NON-NLS-1$ migrate from when white-blue wasn't the default
             Preferences.setString(R.string.p_theme, ThemeService.THEME_WHITE);
