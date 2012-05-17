@@ -1,4 +1,4 @@
-[Astrid](http://www.weloveastrid.com/) - Task Management Done Right
+[Astrid](http://www.astrid.com/) - Task Management Done Right
 ================================  
 Astrid strives to be a simple and effective organization tool for Google Android phones. It comes with features like reminders, tagging, widgets, and integration with online synchronization services.
 
@@ -14,8 +14,8 @@ Getting Started With Development
 2. Install the following: 
  • *[git](http://git.or.cz/)*
  • *[Eclipse](http://eclipse.org)* (preferred: Eclipse IDE for Java Developers)
- • *[Android SDK](http://developer.android.com/sdk/index.html)* (last tested with SDK v8)
- • *[ADT Plugin for Eclipse](http://developer.android.com/sdk/eclipse-adt.html)* (SDK Tools 8, Platform-tools 1, SDK Platform Android 2.3, 2.2, and 1.6)
+ • *[Android SDK](http://developer.android.com/sdk/index.html)* (Recommended SDK Platform: Android 4.0 Google APIs)
+ • *[ADT Plugin for Eclipse](http://developer.android.com/sdk/eclipse-adt.html)*
 
 3. Use **git** to clone your forked repositories 
 
@@ -92,6 +92,4 @@ For further information, read [Tim's Collaborator Guide](http://www.betaful.com/
 
 Contact
 -------
-For support requests, use the Astrid issue tracker. For development questions, contact [timsu](http://github.com/timsu) via e-mail.
-
-Astrid also has an IRC channel, irc.freenode.net #astrid
+For general support requests, use [Astrid's feedback page](http://astrid.com/feedback). For development questions, contact [timsu](http://github.com/timsu) via e-mail.
