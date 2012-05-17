@@ -32,9 +32,9 @@
     </subant>
   </target>
 
-  <target name="release-all" depends="clean,get-version,release,release-amazon">    
+  <target name="release-all" depends="clean,get-version,release,release-amazon,release-webmarket">    
     <!-- custom builds -->
-    <for list="-getjar,-verizon,-sprint,-orange,-vodafone,-other" param="name">
+    <for list="-other" param="name">
       <sequential>
         <subant target="release-custom">
           <fileset file="astrid/build.xml" />
@@ -50,6 +50,14 @@
       <property name="custom.version.name" value=".1000" />
       <property name="custom.market.strategy" value="AmazonMarketStrategy" />
       <target name="unsigned-custom" />
+    </subant>
+  </target>
+    
+  <target name="release-webmarket" depends="get-version">
+    <subant target="release-custom">
+      <fileset file="astrid/build.xml" />
+      <property name="custom.version.name" value="-web-market" />
+      <property name="custom.market.strategy" value="WebMarketStrategy" />
     </subant>
   </target>
 
