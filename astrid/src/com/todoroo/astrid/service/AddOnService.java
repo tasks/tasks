@@ -170,10 +170,10 @@ public class AddOnService {
                 LOCALE_PACKAGE, "http://www.weloveastrid.com/store",
                 ((BitmapDrawable)r.getDrawable(R.drawable.icon_locale)).getBitmap()));
 
-        list.add(new AddOn(true, true, "Producteev", null,
-                "Synchronize with Producteev service. Also changes Astrid's importance levels to stars.",
-                Constants.PACKAGE, "http://www.producteev.com",
-                ((BitmapDrawable)r.getDrawable(R.drawable.icon_producteev)).getBitmap()));
+//        list.add(new AddOn(true, true, "Producteev", null,
+//                "Synchronize with Producteev service. Also changes Astrid's importance levels to stars.",
+//                Constants.PACKAGE, "http://www.producteev.com",
+//                ((BitmapDrawable)r.getDrawable(R.drawable.icon_producteev)).getBitmap()));
 
         return list.toArray(new AddOn[list.size()]);
     }

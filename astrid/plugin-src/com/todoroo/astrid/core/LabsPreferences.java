@@ -46,23 +46,25 @@ public class LabsPreferences extends TodorooPreferenceActivity {
             preference.setSummary(r.getString(R.string.EPr_swipe_lists_display, name, desc));
         } else if (r.getString(R.string.p_show_friends_view).equals(key)) {
             preference.setOnPreferenceChangeListener(settingChangedListener);
-            if (value != null && (Boolean) value) {
-                preference.setSummary(R.string.EPr_show_friends_view_desc_enabled);
-            } else {
-                preference.setSummary(R.string.EPr_show_friends_view_desc_disabled);
-            }
+            setEnabledSummary(preference, value,
+                    R.string.EPr_show_friends_view_desc_enabled, R.string.EPr_show_friends_view_desc_disabled);
         } else if (r.getString(R.string.p_field_missed_calls).equals(key)) {
-            if (value != null && (Boolean) value) {
-                preference.setSummary(R.string.MCA_missed_calls_pref_desc_enabled);
-            } else {
-                preference.setSummary(R.string.MCA_missed_calls_pref_desc_disabled);
-            }
+            setEnabledSummary(preference, value,
+                    R.string.MCA_missed_calls_pref_desc_enabled, R.string.MCA_missed_calls_pref_desc_disabled);
         } else if (r.getString(R.string.p_use_contact_picker).equals(key)) {
-            if (value != null && (Boolean) value) {
-                preference.setSummary(R.string.EPr_use_contact_picker_desc_enabled);
-            } else {
-                preference.setSummary(R.string.EPr_use_contact_picker_desc_disabled);
-            }
+            setEnabledSummary(preference, value,
+                    R.string.EPr_use_contact_picker_desc_enabled, R.string.EPr_use_contact_picker_desc_disabled);
+        } else if (r.getString(R.string.p_third_party_addons).equals(key)) {
+            setEnabledSummary(preference, value,
+                    R.string.EPr_third_party_addons_desc_enabled, R.string.EPr_third_party_addons_desc_disabled);
+        }
+    }
+
+    private void setEnabledSummary(Preference preference, Object value, int enabledStr, int disabledStr) {
+        if (value != null && (Boolean) value) {
+            preference.setSummary(enabledStr);
+        } else {
+            preference.setSummary(disabledStr);
         }
     }
 

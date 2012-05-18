@@ -613,6 +613,11 @@
   <string name="EPr_show_friends_view">Show Friends View</string>
   <string name="EPr_show_friends_view_desc_enabled">Friends menu item will be shown</string>
   <string name="EPr_show_friends_view_desc_disabled">Friends menu item will be hidden</string>
+
+  <!-- Preferences: Third party addons -->
+  <string name="EPr_third_party_addons">Enable Third Party Add-ons</string>
+  <string name="EPr_third_party_addons_desc_enabled">Third party add-ons will be enabled</string>
+  <string name="EPr_third_party_addons_desc_disabled">Third party add-ons will be disabled</string>
   
   <string name="EPr_swipe_lists_restart_alert">You will need to restart Astrid for this change to take effect</string>
   

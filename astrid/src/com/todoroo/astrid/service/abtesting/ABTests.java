@@ -117,8 +117,12 @@ public class ABTests {
     private void initialize() { // Set up
         addTest(AB_TEST_FRIENDS_VIEW_AVAILABLE, new int[] { 1, 1 },
                 new int[] { 8, 2 }, new String[] { "friends-view-disabled", "friends-view-enabled" }); //$NON-NLS-1$ //$NON-NLS-2$
+
+        addTest(AB_TEST_PRODUCTEEV_ENABLED, new int[] { 1, 1 },
+                new int[] { 1, 0 }, new String[] { "producteev-disabled", "producteev-enabled" }); //$NON-NLS-1$ //$NON-NLS-2$
     }
 
     public static final String AB_TEST_FRIENDS_VIEW_AVAILABLE = "friends-view"; //$NON-NLS-1$
+    public static final String AB_TEST_PRODUCTEEV_ENABLED = "producteev";  //$NON-NLS-1$
 
 }

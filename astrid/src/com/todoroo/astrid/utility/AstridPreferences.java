@@ -10,6 +10,7 @@ import com.todoroo.andlib.service.ContextManager;
 import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.data.Task;
+import com.todoroo.astrid.producteev.ProducteevUtilities;
 import com.todoroo.astrid.service.ThemeService;
 import com.todoroo.astrid.service.abtesting.ABChooser;
 import com.todoroo.astrid.service.abtesting.ABTests;
@@ -55,6 +56,9 @@ public class AstridPreferences {
 
         boolean friendsViewEnabled = (ABChooser.readChoiceForTest(ABTests.AB_TEST_FRIENDS_VIEW_AVAILABLE) == 1);
         Preferences.setIfUnset(prefs, editor, r, R.string.p_show_friends_view, friendsViewEnabled);
+
+        boolean thirdPartyAddons = (ABChooser.readChoiceForTest(ABTests.AB_TEST_PRODUCTEEV_ENABLED) == 1) || ProducteevUtilities.INSTANCE.isLoggedIn();
+        Preferences.setIfUnset(prefs, editor, r, R.string.p_third_party_addons, thirdPartyAddons);
 
         if ("white-blue".equals(Preferences.getStringValue(R.string.p_theme))) { //$NON-NLS-1$ migrate from when white-blue wasn't the default
             Preferences.setString(R.string.p_theme, ThemeService.THEME_WHITE);
