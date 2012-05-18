@@ -22,10 +22,13 @@ import android.widget.TextView;
 import android.widget.TextView.OnEditorActionListener;
 
 import com.timsu.astrid.R;
+import com.todoroo.aacenc.RecognizerApi;
+import com.todoroo.aacenc.RecognizerApi.RecognizerApiListener;
 import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.ContextManager;
 import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.andlib.service.ExceptionService;
+import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.andlib.utility.DialogUtilities;
 import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.astrid.actfm.ActFmLoginActivity;
@@ -50,7 +53,6 @@ import com.todoroo.astrid.service.StatisticsConstants;
 import com.todoroo.astrid.service.StatisticsService;
 import com.todoroo.astrid.service.TaskService;
 import com.todoroo.astrid.utility.Flags;
-import com.todoroo.astrid.voice.VoiceInputAssistant;
 
 /**
  * Quick Add Bar lets you add tasks.
@@ -58,7 +60,7 @@ import com.todoroo.astrid.voice.VoiceInputAssistant;
  * @author Tim Su <tim@astrid.com>
  *
  */
-public class QuickAddBar extends LinearLayout {
+public class QuickAddBar extends LinearLayout implements RecognizerApiListener {
 
     private ImageButton voiceAddButton;
     private ImageButton quickAddButton;
@@ -72,13 +74,16 @@ public class QuickAddBar extends LinearLayout {
     private EditPeopleControlSet peopleControl;
     private boolean usePeopleControl = true;
 
+    private String currentVoiceFile = null;
+
     @Autowired AddOnService addOnService;
     @Autowired ExceptionService exceptionService;
     @Autowired TaskService taskService;
     @Autowired MetadataService metadataService;
     @Autowired ActFmPreferenceService actFmPreferenceService;
 
-    private VoiceInputAssistant voiceInputAssistant;
+    //private VoiceInputAssistant voiceInputAssistant;
+    private RecognizerApi recognizerApi;
 
     private Activity activity;
     private TaskListFragment fragment;
@@ -99,6 +104,9 @@ public class QuickAddBar extends LinearLayout {
             final OnTaskListItemClickedListener mListener) {
         activity = myActivity;
         fragment = myFragment;
+
+        recognizerApi = new RecognizerApi(activity);
+        recognizerApi.setListener(this);
 
         DependencyInjectionService.getInstance().inject(this);
         LayoutInflater.from(activity).inflate(R.layout.quick_add_bar, this);
@@ -150,9 +158,19 @@ public class QuickAddBar extends LinearLayout {
         int prompt = R.string.voice_edit_title_prompt;
         if (Preferences.getBoolean(R.string.p_voiceInputCreatesTask, false))
             prompt = R.string.voice_create_prompt;
-        voiceInputAssistant = new VoiceInputAssistant(fragment,
-                voiceAddButton, quickAddBox);
-        voiceInputAssistant.configureMicrophoneButton(prompt);
+//        voiceInputAssistant = new VoiceInputAssistant(fragment,
+//                voiceAddButton, quickAddBox);
+//        voiceInputAssistant.configureMicrophoneButton(prompt);
+        findViewById(R.id.voiceAddButton).setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (currentVoiceFile == null)
+                    currentVoiceFile = Long.toString(DateUtilities.now());
+
+                recognizerApi.setTemporaryFile(currentVoiceFile);
+                recognizerApi.write();
+            }
+        });
 
         // set listener for extended addbutton
         quickAddButton.setOnLongClickListener(new OnLongClickListener() {
@@ -170,7 +188,7 @@ public class QuickAddBar extends LinearLayout {
 
         if (addOnService.hasPowerPack()
                 && Preferences.getBoolean(R.string.p_voiceInputEnabled, true)
-                && voiceInputAssistant.isVoiceInputAvailable()) {
+                /*&& voiceInputAssistant.isVoiceInputAvailable()*/) {
             voiceAddButton.setVisibility(View.VISIBLE);
         } else {
             voiceAddButton.setVisibility(View.GONE);
@@ -319,6 +337,15 @@ public class QuickAddBar extends LinearLayout {
                 }
             }
 
+            if (currentVoiceFile != null) {
+                String voiceFile = activity.getExternalFilesDir("audio").toString() + "/" + task.getId() + "_audio.mp4";
+                System.err.println("Saving to " + voiceFile);
+                recognizerApi.convert(voiceFile);
+                currentVoiceFile = null;
+
+                // TODO: attach to task
+            }
+
             fragment.incrementFilterCount();
 
             StatisticsService.reportEvent(StatisticsConstants.TASK_CREATED_TASKLIST);
@@ -390,8 +417,8 @@ public class QuickAddBar extends LinearLayout {
 
     public boolean onActivityResult(int requestCode, int resultCode, Intent data) {
         // handle the result of voice recognition, put it into the textfield
-        if (voiceInputAssistant.handleActivityResult(requestCode, resultCode,
-                data)) {
+        if (false /*voiceInputAssistant.handleActivityResult(requestCode, resultCode,
+                data)*/) {
             // if user wants, create the task directly (with defaultvalues)
             // after saying it
             Flags.set(Flags.TLA_RESUMED_FROM_VOICE_ADD);
@@ -411,6 +438,11 @@ public class QuickAddBar extends LinearLayout {
 
 
         return false;
+    }
+
+    @Override
+    public void onSpeechResult(String result) {
+        quickAddBox.setText(result);
     }
 
     public void hideKeyboard() {
