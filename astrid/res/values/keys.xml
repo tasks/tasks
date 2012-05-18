@@ -401,6 +401,7 @@
       <item >@string/TEA_control_importance</item>
       <item >@string/TEA_control_lists</item>
       <item >@string/TEA_control_notes</item>
+      <item >@string/TEA_control_files</item>
       <item >@string/TEA_control_reminders</item>
       <item >@string/TEA_control_timer</item>
       <item >@string/TEA_control_share</item>
@@ -414,6 +415,7 @@
       <item>@string/TEA_control_importance</item>
       <item>@string/TEA_control_lists</item>
       <item>@string/TEA_control_notes</item>
+      <item>@string/TEA_control_files</item>
       <item>@string/TEA_control_reminders</item>
       <item>@string/TEA_control_timer</item>
       <item>@string/TEA_control_share</item>
@@ -427,6 +429,7 @@
   <string name="TEA_ctrl_importance_pref">TEA_ctrl_importance_pref</string>
   <string name="TEA_ctrl_lists_pref">TEA_ctrl_lists_pref</string>
   <string name="TEA_ctrl_notes_pref">TEA_ctrl_notes_pref</string>
+  <string name="TEA_ctrl_files_pref">TEA_ctrl_files_pref</string>
   <string name="TEA_ctrl_reminders_pref">TEA_ctrl_reminders_pref</string>
   <string name="TEA_ctrl_timer_pref">TEA_ctrl_timer_pref</string>
   <string name="TEA_ctrl_share_pref">TEA_ctrl_share_pref</string>
@@ -438,6 +441,7 @@
       <item>@string/TEA_ctrl_importance_pref</item>
       <item>@string/TEA_ctrl_lists_pref</item>
       <item>@string/TEA_ctrl_notes_pref</item>
+      <item>@string/TEA_ctrl_files_pref</item>
       <item>@string/TEA_ctrl_reminders_pref</item>
       <item>@string/TEA_ctrl_timer_pref</item>
       <item>@string/TEA_ctrl_share_pref</item>

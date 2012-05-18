@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import android.app.ListActivity;
+import android.content.Context;
 import android.content.res.Resources;
 import android.os.Bundle;
 import android.view.MotionEvent;
@@ -42,20 +43,7 @@ public class BeastModePreferences extends ListActivity {
         buildDescriptionMap(getResources());
 
         touchList = (TouchListView) getListView();
-        String order = Preferences.getStringValue(BEAST_MODE_ORDER_PREF);
-        String[] itemsArray;
-        if (order == null) {
-            itemsArray = getResources().getStringArray(R.array.TEA_control_sets_prefs);
-        } else {
-            itemsArray = order.split(BEAST_MODE_PREF_ITEM_SEPARATOR);
-        }
-
-        items = new ArrayList<String>();
-        for (String s : itemsArray) {
-            if (!s.equals(getResources().getString(R.string.TEA_ctrl_title_pref))){
-                items.add(s);
-            }
-        }
+        items = constructOrderedControlList(this);
 
         adapter = new ArrayAdapter<String>(this, R.layout.preference_draggable_row, R.id.text, items) {
             @Override
@@ -118,6 +106,33 @@ public class BeastModePreferences extends ListActivity {
         }
         Preferences.setString(BEAST_MODE_ORDER_PREF, newSetting.toString());
         super.finish();
+    }
+
+    public static ArrayList<String> constructOrderedControlList(Context context) {
+        String order = Preferences.getStringValue(BEAST_MODE_ORDER_PREF);
+        ArrayList<String> list = new ArrayList<String>();
+        String[] itemsArray;
+        if (order == null) {
+            itemsArray = context.getResources().getStringArray(R.array.TEA_control_sets_prefs);
+        } else {
+            itemsArray = order.split(BEAST_MODE_PREF_ITEM_SEPARATOR);
+        }
+
+        for (String s : itemsArray) {
+            if (!s.equals(context.getResources().getString(R.string.TEA_ctrl_title_pref))){
+                list.add(s);
+            }
+        }
+
+        if (order == null)
+            return list;
+
+        itemsArray = context.getResources().getStringArray(R.array.TEA_control_sets_prefs);
+        for (int i = 0; i < itemsArray.length; i++) {
+            if (!list.contains(itemsArray[i]))
+                list.add(i, itemsArray[i]);
+        }
+        return list;
     }
 
 }

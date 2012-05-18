@@ -70,6 +70,7 @@ import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.astrid.actfm.EditPeopleControlSet;
 import com.todoroo.astrid.actfm.sync.ActFmPreferenceService;
 import com.todoroo.astrid.data.Task;
+import com.todoroo.astrid.files.FilesControlSet;
 import com.todoroo.astrid.gcal.GCalControlSet;
 import com.todoroo.astrid.helper.TaskEditControlSet;
 import com.todoroo.astrid.notes.EditNoteActivity;
@@ -550,6 +551,13 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
         controls.add(timerControl);
         controlSetMap.put(getString(R.string.TEA_ctrl_timer_pref), timerControl);
 
+        FilesControlSet filesControl = new FilesControlSet(getActivity(),
+                -1,
+                R.layout.control_set_files_display,
+                R.string.TEA_control_files);
+        controls.add(filesControl);
+        controlSetMap.put(getString(R.string.TEA_ctrl_files_pref), filesControl);
+
         try {
             if (ProducteevUtilities.INSTANCE.isLoggedIn()) {
                 ProducteevControlSet producteevControl = new ProducteevControlSet(
@@ -578,13 +586,9 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
             Log.e("astrid-error", "loading-control-set", e); //$NON-NLS-1$ //$NON-NLS-2$
         }
 
-        String[] itemOrder;
-        String orderPreference = Preferences.getStringValue(BeastModePreferences.BEAST_MODE_ORDER_PREF);
-        if (orderPreference != null)
-            itemOrder = orderPreference.split(BeastModePreferences.BEAST_MODE_PREF_ITEM_SEPARATOR);
-        else
-            itemOrder = getResources().getStringArray(
-                    R.array.TEA_control_sets_prefs);
+        ArrayList<String> controlOrder = BeastModePreferences.constructOrderedControlList(getActivity());
+        String[] itemOrder = controlOrder.toArray(new String[controlOrder.size()]);
+
         String moreSectionTrigger = getString(R.string.TEA_ctrl_more_pref);
         String shareViewDescriptor = getString(R.string.TEA_ctrl_share_pref);
         LinearLayout section = basicControls;
