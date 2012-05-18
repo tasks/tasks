@@ -204,11 +204,11 @@ public final class UpgradeService {
 
         if (from >= V4_1_2 && from < V4_1_3) {
             newVersionString(changeLog, "4.1.3 (5/17/12)", new String[] {
-                "Added an area where you can see what tasks you have shared with your friends! Enable or disable " +
+                "Added ability to see shared tasks sorted by friend! Enable or disable " +
                 "in Settings > Astrid Labs",
-                "Fixed a bug that caused certain shortcuts to show an empty list",
-                "Fixed a bug with adding tasks from the Power Pack widget",
-                "Fixed a Kindle Fire bug related to selecting photos",
+                "Fixed desktop shortcuts",
+                "Fixed adding tasks from the Power Pack widget",
+                "Fixed selecting photos on the Kindle Fire",
                 "Various other minor bug and crash fixes"
             });
         }
