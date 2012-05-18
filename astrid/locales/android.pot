@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2012-05-02 20:22-0700\n"
+"POT-Creation-Date: 2012-05-17 23:26-0700\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -91,6 +91,16 @@ msgstr ""
 #. Cancel button for task view prompt
 msgctxt "actfm_view_task_cancel"
 msgid "Stay Here"
+msgstr ""
+
+#. Title for the "My Shared Tasks" filter
+msgctxt "actfm_my_shared_tasks_title"
+msgid "My Shared Tasks"
+msgstr ""
+
+#. Empty list for the "My Shared Tasks" filter
+msgctxt "actfm_my_shared_tasks_empty"
+msgid "No shared tasks"
 msgstr ""
 
 #. ================================================== TagViewActivity ==
@@ -813,6 +823,15 @@ msgid ""
 " Want to add something?"
 msgstr ""
 
+#. Task List: Displayed instead of list when no items present in people view
+#. (%s-> person's name)
+#, c-format
+msgctxt "TLA_no_items_person"
+msgid ""
+"%s has no\n"
+"tasks shared with you"
+msgstr ""
+
 #. Menu: Add-ons
 msgctxt "TLA_menu_addons"
 msgid "Add-ons"
@@ -825,7 +844,7 @@ msgstr ""
 
 #. Menu: Sync Now
 msgctxt "TLA_menu_sync"
-msgid "Sync Now!"
+msgid "Sync Now"
 msgstr ""
 
 #. Menu: Search
@@ -878,10 +897,10 @@ msgctxt "TLA_quick_add_hint"
 msgid "Add a task"
 msgstr ""
 
-#. Quick Add Edit Box Hint for assigning
+#. Quick Add Edit Box Hint for assigning (%s -> name)
 #, c-format
 msgctxt "TLA_quick_add_hint_assign"
-msgid "Tap to assign %s a task"
+msgid "Add something for %s"
 msgstr ""
 
 #. Notification Volumne notification
@@ -1531,10 +1550,14 @@ msgid "Field missed calls"
 msgstr ""
 
 #. Missed call: preference description
-msgctxt "MCA_missed_calls_pref_desc"
+msgctxt "MCA_missed_calls_pref_desc_enabled"
 msgid ""
 "Astrid will notify you about missed calls and offer to remind you to call"
 " back"
+msgstr ""
+
+msgctxt "MCA_missed_calls_pref_desc_disabled"
+msgid "Astrid will not notify you about missed calls"
 msgstr ""
 
 #. Missed call: task title with name (%1$s -> name, %2$s -> number)
@@ -1743,7 +1766,7 @@ msgid "Astrid Labs"
 msgstr ""
 
 msgctxt "EPr_labs_desc"
-msgid "Enable or disable experimental features"
+msgid "Try and configure experimental features"
 msgstr ""
 
 #. Preference: swipe between lists performance
@@ -1760,8 +1783,27 @@ msgctxt "EPr_use_contact_picker"
 msgid "Use contact picker"
 msgstr ""
 
-msgctxt "EPr_use_contact_picker_desc"
-msgid "Display the system contact picker option in the task assignment window"
+msgctxt "EPr_use_contact_picker_desc_enabled"
+msgid ""
+"The system contact picker option will be displayed in the task assignment"
+" window"
+msgstr ""
+
+msgctxt "EPr_use_contact_picker_desc_disabled"
+msgid "The system contact picker option will not be displayed"
+msgstr ""
+
+#. Preferences: show the friends view
+msgctxt "EPr_show_friends_view"
+msgid "Show Friends View"
+msgstr ""
+
+msgctxt "EPr_show_friends_view_desc_enabled"
+msgid "Friends menu item will be shown"
+msgstr ""
+
+msgctxt "EPr_show_friends_view_desc_disabled"
+msgid "Friends menu item will be hidden"
 msgstr ""
 
 msgctxt "EPr_swipe_lists_restart_alert"
