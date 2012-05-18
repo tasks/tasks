@@ -55,7 +55,7 @@ public class RecognizerApi implements RecognitionListener {
     	this.mListener = listener;
     }
 
-    public void play(String file) {
+    public static void play(String file) {
         MediaPlayer mediaPlayer = new MediaPlayer();
 
         try {
@@ -70,7 +70,7 @@ public class RecognizerApi implements RecognitionListener {
             throw new RuntimeException(e);
         }
 
-        Toast.makeText(context, "Playing Audio", Toast.LENGTH_LONG).show();
+        //Toast.makeText(context, "Playing Audio", Toast.LENGTH_LONG).show();
     }
 
     private AACEncoder encoder = new AACEncoder();

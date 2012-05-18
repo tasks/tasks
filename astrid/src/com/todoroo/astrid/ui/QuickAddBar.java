@@ -41,9 +41,11 @@ import com.todoroo.astrid.activity.TaskListFragment;
 import com.todoroo.astrid.activity.TaskListFragment.OnTaskListItemClickedListener;
 import com.todoroo.astrid.core.PluginServices;
 import com.todoroo.astrid.dao.TaskDao;
+import com.todoroo.astrid.data.Metadata;
 import com.todoroo.astrid.data.SyncFlags;
 import com.todoroo.astrid.data.TagData;
 import com.todoroo.astrid.data.Task;
+import com.todoroo.astrid.files.FileMetadata;
 import com.todoroo.astrid.gcal.GCalControlSet;
 import com.todoroo.astrid.gcal.GCalHelper;
 import com.todoroo.astrid.repeats.RepeatControlSet;
@@ -338,12 +340,20 @@ public class QuickAddBar extends LinearLayout implements RecognizerApiListener {
             }
 
             if (currentVoiceFile != null) {
-                String voiceFile = activity.getExternalFilesDir("audio").toString() + "/" + task.getId() + "_audio.mp4";
-                System.err.println("Saving to " + voiceFile);
-                recognizerApi.convert(voiceFile);
+                StringBuilder filePathBuilder = new StringBuilder();
+                filePathBuilder.append(activity.getExternalFilesDir("audio").toString())
+                        .append("/")
+                        .append(task.getId())
+                        .append("_")
+                        .append(DateUtilities.now())
+                        .append("_audio.mp4");
+                String filePath = filePathBuilder.toString();
+                System.err.println("Saving to " + filePath);
+                recognizerApi.convert(filePath);
                 currentVoiceFile = null;
 
-                // TODO: attach to task
+                Metadata fileMetadata = FileMetadata.createNewFileMetadata(task.getId(), filePath, FileMetadata.FILE_TYPE_AUDIO);
+                metadataService.save(fileMetadata);
             }
 
             fragment.incrementFilterCount();
