@@ -35,6 +35,8 @@ import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.api.SyncAction;
 import com.todoroo.astrid.gtasks.GtasksPreferences;
+import com.todoroo.astrid.producteev.ProducteevPreferences;
+import com.todoroo.astrid.producteev.ProducteevUtilities;
 import com.todoroo.astrid.service.MarketStrategy.AmazonMarketStrategy;
 import com.todoroo.astrid.service.SyncV2Service;
 import com.todoroo.astrid.sync.SyncResultCallback;
@@ -203,6 +205,11 @@ public class SyncActionHelper {
                 if (GtasksPreferences.class.getName().equals(
                         resolveInfo.activityInfo.name)
                         && AmazonMarketStrategy.isKindleFire())
+                    continue;
+
+                if (ProducteevPreferences.class.getName().equals(
+                        resolveInfo.activityInfo.name)
+                        && !ProducteevUtilities.INSTANCE.isLoggedIn() && !Preferences.getBoolean(R.string.p_third_party_addons, false))
                     continue;
 
                 if (category.equals(desiredCategory)) {

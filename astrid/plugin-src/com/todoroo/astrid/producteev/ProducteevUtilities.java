@@ -1,7 +1,5 @@
 package com.todoroo.astrid.producteev;
 
-import android.text.TextUtils;
-
 import com.timsu.astrid.R;
 import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.astrid.sync.SyncProviderUtilities;
@@ -76,11 +74,6 @@ public class ProducteevUtilities extends SyncProviderUtilities {
     @Override
     public String getLoggedInUserName() {
         return Preferences.getStringValue(R.string.producteev_PPr_email);
-    }
-
-    @Override
-    public boolean isLoggedIn() {
-        return !TextUtils.isEmpty(getLoggedInUserName());
     }
 
 }
