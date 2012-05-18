@@ -60,6 +60,14 @@
   <!-- Prefix for reminder dialog title -->
   <string name="rmd_NoA_dlg_title">Reminder:</string>
   
+  <!-- ==================================================== user reengagement == -->
+  
+  <string name="rmd_reengage_see_tasks">See my tasks</string>
+  
+  <string-array name="rmd_reengage_dialog_options">
+      <item>Some stuff!</item>
+  </string-array>
+  
   <!-- ============================================= reminder preferences == -->
   
   <!-- Reminder Preference Screen Title -->

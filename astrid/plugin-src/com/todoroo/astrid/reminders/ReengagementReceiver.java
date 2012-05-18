@@ -16,7 +16,9 @@ public class ReengagementReceiver extends BroadcastReceiver {
         int reengagementReminders = Preferences.getInt(ReengagementService.PREF_REENGAGEMENT_COUNT, 1);
         Preferences.setInt(ReengagementService.PREF_REENGAGEMENT_COUNT, reengagementReminders + 1);
 
-        // TODO: show dialog
+        Intent reengagement = new Intent(context, ReengagementActivity.class);
+        reengagement.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_MULTIPLE_TASK);
+        context.startActivity(reengagement);
 
         ReengagementService.scheduleReengagementAlarm(context);
     }
