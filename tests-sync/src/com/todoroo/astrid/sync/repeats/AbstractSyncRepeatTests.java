@@ -88,9 +88,8 @@ abstract public class AbstractSyncRepeatTests<REMOTE_MODEL> extends DatabaseTest
 
     protected void assertTimesMatch(long expectedTime, long newDueDate) {
         assertTrue(String.format("Expected %s, was %s", new Date(expectedTime), new Date(newDueDate)),
-                Math.abs(expectedTime - newDueDate) <= 60000); 
-        // Timing issues between client and server can cause times to be off by one minute. 
-        // Since our smallest interval is 5 minutes, this shouldn't be an issue
+                Math.abs(expectedTime - newDueDate) <= 600000); 
+        // Allow a few minutes of variance to account for timing issues in tests
     }
 
     /*
@@ -127,7 +126,7 @@ abstract public class AbstractSyncRepeatTests<REMOTE_MODEL> extends DatabaseTest
         if (rrule == null) {
             rrule = new RRule();
             rrule.setFreq(frequency);
-            int interval = 2;
+            int interval = frequency.equals(Frequency.MINUTELY) ? 100: 2;
             rrule.setInterval(interval);
         }
         t.setValue(Task.RECURRENCE, rrule.toIcal());
