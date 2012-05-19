@@ -1,6 +1,5 @@
 package com.todoroo.astrid.files;
 
-import java.io.File;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -30,7 +29,7 @@ public class FilesControlSet extends PopupControlSet {
     @Autowired
     private MetadataService metadataService;
 
-    private final ArrayList<File> files = new ArrayList<File>();
+    private final ArrayList<Metadata> files = new ArrayList<Metadata>();
     private final LinearLayout fileList;
 
     public FilesControlSet(Activity activity, int viewLayout, int displayViewLayout, int title) {
@@ -44,16 +43,16 @@ public class FilesControlSet extends PopupControlSet {
     @Override
     protected void refreshDisplayView() {
         fileList.removeAllViews();
-        for (final File f : files) {
+        for (final Metadata m : files) {
             TextView textView = new TextView(activity);
-            String name = parseName(f.getName());
+            String name = parseName(m);
             textView.setText(name);
             textView.setTextAppearance(activity, R.style.TextAppearance_EditRowDisplay);
-            if (name.contains("audio")) { //$NON-NLS-1$
+            if (m.getValue(FileMetadata.FILE_TYPE) == FileMetadata.FILE_TYPE_AUDIO) {
                 textView.setOnClickListener(new OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        RecognizerApi.play(f.getAbsolutePath());
+                        RecognizerApi.play(m.getValue(FileMetadata.FILE_PATH));
                     }
                 });
             }
@@ -72,11 +71,10 @@ public class FilesControlSet extends PopupControlSet {
                      .where(MetadataCriteria.byTaskAndwithKey(model.getId(), FileMetadata.METADATA_KEY)));
         try {
             files.clear();
-            Metadata metadata = new Metadata();
             for (cursor.moveToFirst(); !cursor.isAfterLast(); cursor.moveToNext()) {
+                Metadata metadata = new Metadata();
                 metadata.readFromCursor(cursor);
-                File file = new File(metadata.getValue(FileMetadata.FILE_PATH));
-                files.add(file);
+                files.add(metadata);
             }
         } finally {
             cursor.close();
@@ -105,11 +103,25 @@ public class FilesControlSet extends PopupControlSet {
         return null;
     }
 
-    private String parseName(String filename) {
-        String[] components = filename.split("_");
-        long date = Long.parseLong(components[1]);
-        String dateString = DateUtilities.getDateString(activity, new Date(date));
-        return components[2] + " " + dateString;
+    @SuppressWarnings("nls")
+    private String parseName(Metadata metadata) {
+        int prefix = 0;
+        switch(metadata.getValue(FileMetadata.FILE_TYPE)) {
+        case FileMetadata.FILE_TYPE_AUDIO:
+            prefix = R.string.files_type_audio;
+            break;
+        case FileMetadata.FILE_TYPE_PDF:
+            prefix = R.string.files_type_pdf;
+            break;
+        }
+
+        String prefixStr = "";
+        if (prefix > 0) {
+            prefixStr = activity.getString(prefix) + " ";
+        }
+
+        long date = metadata.getValue(FileMetadata.ATTACH_DATE);
+        return prefixStr + DateUtilities.getDateString(activity, new Date(date));
     }
 
 }
