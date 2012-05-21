@@ -2,7 +2,4 @@
 <!-- See the file "LICENSE" for the full license governing this code. -->
 <resources xmlns:android="http://schemas.android.com/apk/res/android">
     
-    <string name="files_type_audio">Audio</string>
-    <string name="files_type_pdf">PDF</string>
-    
 </resources>

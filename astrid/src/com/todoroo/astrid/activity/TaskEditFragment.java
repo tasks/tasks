@@ -552,7 +552,7 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
         controlSetMap.put(getString(R.string.TEA_ctrl_timer_pref), timerControl);
 
         FilesControlSet filesControl = new FilesControlSet(getActivity(),
-                -1,
+                R.layout.control_set_files,
                 R.layout.control_set_files_display,
                 R.string.TEA_control_files);
         controls.add(filesControl);

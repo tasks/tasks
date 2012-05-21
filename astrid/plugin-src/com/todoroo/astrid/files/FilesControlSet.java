@@ -6,6 +6,7 @@ import java.util.Date;
 
 import android.app.Activity;
 import android.content.DialogInterface;
+import android.text.TextUtils;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -34,7 +35,8 @@ public class FilesControlSet extends PopupControlSet {
     private MetadataService metadataService;
 
     private final ArrayList<Metadata> files = new ArrayList<Metadata>();
-    private final LinearLayout fileList;
+    private final LinearLayout fileDisplayList;
+    private LinearLayout fileList;
     private final LayoutInflater inflater;
 
     public FilesControlSet(Activity activity, int viewLayout, int displayViewLayout, int title) {
@@ -42,50 +44,16 @@ public class FilesControlSet extends PopupControlSet {
         DependencyInjectionService.getInstance().inject(this);
 
         displayText.setText(activity.getString(R.string.TEA_control_files));
-        fileList = (LinearLayout) getDisplayView().findViewById(R.id.files_list);
+        fileDisplayList = (LinearLayout) getDisplayView().findViewById(R.id.files_list);
         inflater = (LayoutInflater) activity.getSystemService(Activity.LAYOUT_INFLATER_SERVICE);
     }
 
     @Override
     protected void refreshDisplayView() {
-        fileList.removeAllViews();
+        fileDisplayList.removeAllViews();
         for (final Metadata m : files) {
             View fileRow = inflater.inflate(R.layout.file_row, null);
-
-            TextView textView = (TextView) fileRow.findViewById(R.id.file_text);
-            String name = parseName(m);
-            textView.setText(name);
-            if (m.getValue(FileMetadata.FILE_TYPE) == FileMetadata.FILE_TYPE_AUDIO) {
-                textView.setOnClickListener(new OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        RecognizerApi.play(m.getValue(FileMetadata.FILE_PATH));
-                    }
-                });
-            }
-
-            View clearFile = fileRow.findViewById(R.id.remove_file);
-            clearFile.setOnClickListener(new OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    DialogUtilities.okCancelDialog(activity, "Are you sure? Cannont be undone",
-                            new DialogInterface.OnClickListener() {
-                                @Override
-                                public void onClick(DialogInterface dialog, int which) {
-                                    File f = new File(m.getValue(FileMetadata.FILE_PATH));
-                                    if (f.delete()) {
-                                        metadataService.delete(m);
-                                        files.remove(m);
-                                        refreshDisplayView();
-                                    }
-                                }
-                            }, null);
-                }
-            });
-
-            LayoutParams lp = new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
-            lp.gravity = Gravity.RIGHT;
-            fileList.addView(fileRow, lp);
+            setUpFileRow(m, fileRow, fileDisplayList);
         }
     }
 
@@ -115,39 +83,91 @@ public class FilesControlSet extends PopupControlSet {
 
     @Override
     protected String writeToModelAfterInitialized(Task task) {
-        // TODO Auto-generated method stub
+        // Nothing to write
         return null;
     }
 
     @Override
     protected void afterInflate() {
-        // TODO Auto-generated method stub
+        fileList = (LinearLayout) getView().findViewById(R.id.files_list);
+        final LinearLayout finalList = fileList;
+        for (final Metadata m : files) {
+            final View fileRow = inflater.inflate(R.layout.file_row, null);
+
+            setUpFileRow(m, fileRow, fileList);
+            View name = fileRow.findViewById(R.id.file_text);
+            View clearFile = fileRow.findViewById(R.id.remove_file);
+            clearFile.setVisibility(View.VISIBLE);
+            if (m.getValue(FileMetadata.FILE_TYPE) == FileMetadata.FILE_TYPE_AUDIO) {
+                name.setOnClickListener(new OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        RecognizerApi.play(m.getValue(FileMetadata.FILE_PATH));
+                    }
+                });
+            }
+            clearFile.setOnClickListener(new OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    DialogUtilities.okCancelDialog(activity, "Are you sure? Cannont be undone",
+                            new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface d, int which) {
+                            File f = new File(m.getValue(FileMetadata.FILE_PATH));
+                            if (f.delete()) {
+                                metadataService.delete(m);
+                                files.remove(m);
+                                refreshDisplayView();
+                                finalList.removeView(fileRow);
+                            }
+                        }
+                    }, null);
+                }
+            });
+        }
     }
 
-    @Override
-    protected OnClickListener getDisplayClickListener() {
-        return null;
+    private void setUpFileRow(Metadata m, View row, LinearLayout parent) {
+        TextView nameView = (TextView) row.findViewById(R.id.file_text);
+        TextView typeView = (TextView) row.findViewById(R.id.file_type);
+        String name = getNameString(m);
+        String type = getTypeString(m);
+        nameView.setText(name);
+
+        if (TextUtils.isEmpty(type))
+            typeView.setVisibility(View.GONE);
+        else
+            typeView.setText(type);
+
+        LayoutParams lp = new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
+        lp.gravity = Gravity.RIGHT;
+        parent.addView(row, lp);
+    }
+
+    private String getNameString(Metadata metadata) {
+        if (metadata.getValue(FileMetadata.FILE_TYPE) == FileMetadata.FILE_TYPE_AUDIO) {
+            Date date = new Date(metadata.getValue(FileMetadata.ATTACH_DATE));
+            return DateUtilities.getDateStringWithTime(activity, date);
+        } else {
+            File f = new File(metadata.getValue(FileMetadata.FILE_PATH));
+            String name = f.getName();
+            int extension = name.lastIndexOf('.');
+            if (extension < 0)
+                return name;
+            return name.substring(0, extension);
+        }
     }
 
     @SuppressWarnings("nls")
-    private String parseName(Metadata metadata) {
-        int prefix = 0;
-        switch(metadata.getValue(FileMetadata.FILE_TYPE)) {
-        case FileMetadata.FILE_TYPE_AUDIO:
-            prefix = R.string.files_type_audio;
-            break;
-        case FileMetadata.FILE_TYPE_PDF:
-            prefix = R.string.files_type_pdf;
-            break;
-        }
+    private String getTypeString(Metadata metadata) {
+        File f = new File(metadata.getValue(FileMetadata.FILE_PATH));
+        String name = f.getName();
 
-        String prefixStr = "";
-        if (prefix > 0) {
-            prefixStr = activity.getString(prefix) + " ";
-        }
+        int extension = name.lastIndexOf('.');
+        if (extension < 0 || extension + 1 >= name.length())
+            return "";
+        return name.substring(extension + 1).toUpperCase();
 
-        long date = metadata.getValue(FileMetadata.ATTACH_DATE);
-        return prefixStr + DateUtilities.getDateString(activity, new Date(date));
     }
 
 }
