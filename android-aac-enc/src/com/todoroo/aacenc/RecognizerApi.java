@@ -76,7 +76,8 @@ public class RecognizerApi implements RecognitionListener {
     private AACEncoder encoder = new AACEncoder();
     private long speechStarted = 0;
     private SpeechRecognizer sr;
-    private ProgressDialog pd;
+    private ProgressDialog speakPd;
+    private ProgressDialog processingPd;
 
     public void write() {
         sr.setRecognitionListener(this);
@@ -89,11 +90,11 @@ public class RecognizerApi implements RecognitionListener {
         speechStarted = 0;
         baos.reset();
 
-        pd = new ProgressDialog(context);
-        pd.setMessage("Speak now...");
-        pd.setIndeterminate(true);
-        pd.setCancelable(true);
-        pd.setOnCancelListener(new OnCancelListener() {
+        speakPd = new ProgressDialog(context);
+        speakPd.setMessage("Speak now...");
+        speakPd.setIndeterminate(true);
+        speakPd.setCancelable(true);
+        speakPd.setOnCancelListener(new OnCancelListener() {
             @Override
             public void onCancel(DialogInterface dialog) {
                 sr.cancel();
@@ -101,7 +102,7 @@ public class RecognizerApi implements RecognitionListener {
             }
         });
 
-        pd.show();
+        speakPd.show();
         sr.startListening(intent);
 
         speechStarted = System.currentTimeMillis();
@@ -145,10 +146,21 @@ public class RecognizerApi implements RecognitionListener {
 
     @Override
     public void onEndOfSpeech() {
-        pd.dismiss();
+        speakPd.dismiss();
 
         if(speechStarted == 0)
             return;
+        
+        processingPd = new ProgressDialog(context);
+        processingPd.setMessage("Processing...");
+        processingPd.setIndeterminate(true);
+        processingPd.setCancelable(true);
+        processingPd.setOnCancelListener(new OnCancelListener() {
+            @Override
+            public void onCancel(DialogInterface dialog) {
+                sr.cancel();
+            }
+        });
 
         long delta = System.currentTimeMillis() - speechStarted;
 
@@ -188,6 +200,7 @@ public class RecognizerApi implements RecognitionListener {
 
     @Override
     public void onResults(Bundle results) {
+    	processingPd.dismiss();
         ArrayList<String> strings = results.getStringArrayList(SpeechRecognizer.RESULTS_RECOGNITION);
         if (mListener != null)
         	mListener.onSpeechResult(strings.size() == 0 ? "" : strings.get(0));
