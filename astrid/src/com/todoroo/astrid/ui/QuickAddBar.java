@@ -419,8 +419,7 @@ public class QuickAddBar extends LinearLayout implements RecognizerApiListener {
 
     public boolean onActivityResult(int requestCode, int resultCode, Intent data) {
         // handle the result of voice recognition, put it into the textfield
-        if (false /*voiceInputAssistant.handleActivityResult(requestCode, resultCode,
-                data)*/) {
+        if (voiceRecognizer.handleActivityResult(requestCode, resultCode, data)) {
             // if user wants, create the task directly (with defaultvalues)
             // after saying it
             Flags.set(Flags.TLA_RESUMED_FROM_VOICE_ADD);

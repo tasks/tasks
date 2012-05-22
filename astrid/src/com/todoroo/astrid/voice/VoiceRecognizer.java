@@ -70,7 +70,6 @@ public class VoiceRecognizer {
 
     public void startVoiceRecognition(Context context, String currentVoiceFile) {
         if (speechRecordingAvailable(context)) {
-
             recognizerApi.setTemporaryFile(currentVoiceFile);
             recognizerApi.start();
         } else {
@@ -79,6 +78,12 @@ public class VoiceRecognizer {
                 prompt = R.string.voice_create_prompt;
             voiceInputAssistant.startVoiceRecognitionActivity(prompt);
         }
+    }
+
+    public boolean handleActivityResult(int requestCode, int resultCode, Intent data) {
+        if (instance != null && instance.voiceInputAssistant != null)
+            return instance.voiceInputAssistant.handleActivityResult(requestCode, resultCode, data);
+        return false;
     }
 
     public void destroyRecognizerApi() {
