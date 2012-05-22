@@ -10,6 +10,7 @@ import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicInteger;
 
 import org.json.JSONException;
+import org.json.JSONObject;
 
 import com.timsu.astrid.C2DMReceiver;
 import com.timsu.astrid.R;
@@ -123,7 +124,7 @@ public class ActFmSyncV2Provider extends SyncV2Provider {
                 final AtomicInteger finisher = new AtomicInteger(3);
 
                 actFmPreferenceService.recordSyncStart();
-
+                updateUserStatus();
 
                 startUsersFetcher(callback, finisher);
 
@@ -135,6 +136,30 @@ public class ActFmSyncV2Provider extends SyncV2Provider {
                 callback.incrementProgress(50);
             }
         }).start();
+    }
+
+    /** fetch user status hash*/
+    @SuppressWarnings("nls")
+    private void updateUserStatus() {
+        try {
+            JSONObject status = actFmSyncService.invoke("user_status"); //$NON-NLS-1$
+            if (status.has("id"))
+                Preferences.setLong(ActFmPreferenceService.PREF_USER_ID, status.optLong("id"));
+            if (status.has("name"))
+                Preferences.setString(ActFmPreferenceService.PREF_NAME, status.optString("name"));
+            if (status.has("first_name"))
+                Preferences.setString(ActFmPreferenceService.PREF_FIRST_NAME, status.optString("first_name"));
+            if (status.has("last_name"))
+                Preferences.setString(ActFmPreferenceService.PREF_LAST_NAME, status.optString("first_name"));
+            if (status.has("premium"))
+                Preferences.setBoolean(ActFmPreferenceService.PREF_PREMIUM, status.optBoolean("premium"));
+            if (status.has("email"))
+                Preferences.setString(ActFmPreferenceService.PREF_EMAIL, status.optString("email"));
+            if (status.has("picture"))
+                Preferences.setString(ActFmPreferenceService.PREF_PICTURE, status.optString("picture"));
+        } catch (IOException e) {
+            handler.handleException("actfm-sync", e, e.toString()); //$NON-NLS-1$
+        }
     }
 
     /** fetch changes to users/friends */

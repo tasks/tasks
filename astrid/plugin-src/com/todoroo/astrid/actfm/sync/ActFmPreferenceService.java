@@ -63,6 +63,15 @@ public class ActFmPreferenceService extends SyncProviderUtilities {
     /** Act.fm current user name */
     public static final String PREF_NAME = IDENTIFIER + "_name"; //$NON-NLS-1$
 
+    /** Act.fm current user first name */
+    public static final String PREF_FIRST_NAME = IDENTIFIER + "_first_name"; //$NON-NLS-1$
+
+    /** Act.fm current user last name */
+    public static final String PREF_LAST_NAME = IDENTIFIER + "_last_name"; //$NON-NLS-1$
+
+    /** Act.fm current user premium status */
+    public static final String PREF_PREMIUM = IDENTIFIER + "_premium"; //$NON-NLS-1$
+
     /** Act.fm current user picture */
     public static final String PREF_PICTURE = IDENTIFIER + "_picture"; //$NON-NLS-1$
 
@@ -115,6 +124,9 @@ public class ActFmPreferenceService extends SyncProviderUtilities {
             user = new JSONObject();
             try {
                 user.put("name", Preferences.getStringValue(PREF_NAME));
+                user.put("first_name", Preferences.getStringValue(PREF_FIRST_NAME));
+                user.put("last_name", Preferences.getStringValue(PREF_LAST_NAME));
+                user.put("premium", Preferences.getBoolean(PREF_PREMIUM, false));
                 user.put("email", Preferences.getStringValue(PREF_EMAIL));
                 user.put("picture", Preferences.getStringValue(PREF_PICTURE));
                 user.put("id", Preferences.getLong(PREF_USER_ID, 0));
@@ -123,6 +135,10 @@ public class ActFmPreferenceService extends SyncProviderUtilities {
             }
         }
         return user;
+    }
+
+    public boolean isPremiumUser() {
+        return Preferences.getBoolean(PREF_PREMIUM, false);
     }
 
     @Override

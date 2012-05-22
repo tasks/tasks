@@ -527,6 +527,12 @@ public class ActFmLoginActivity extends FragmentActivity implements AuthListener
                 result.optLong("id"));
         Preferences.setString(ActFmPreferenceService.PREF_NAME,
                 result.optString("name"));
+        Preferences.setString(ActFmPreferenceService.PREF_FIRST_NAME,
+                result.optString("first_name"));
+        Preferences.setString(ActFmPreferenceService.PREF_LAST_NAME,
+                result.optString("last_name"));
+        Preferences.setBoolean(ActFmPreferenceService.PREF_PREMIUM,
+                result.optBoolean("premium"));
         Preferences.setString(ActFmPreferenceService.PREF_EMAIL,
                 result.optString("email"));
         Preferences.setString(ActFmPreferenceService.PREF_PICTURE,
