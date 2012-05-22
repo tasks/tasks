@@ -158,6 +158,8 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
     private static final int MENU_DISCARD_ID = R.string.TEA_menu_discard;
     private static final int MENU_DELETE_ID = R.string.TEA_menu_delete;
     private static final int MENU_COMMENTS_REFRESH_ID = R.string.TEA_menu_comments;
+    private static final int MENU_ATTACH_ID = R.string.premium_attach_file;
+    private static final int MENU_RECORD_ID = R.string.premium_record_audio;
 
     // --- result codes
 
@@ -1000,7 +1002,12 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
         case MENU_DELETE_ID:
             deleteButtonClick();
             return true;
-
+        case MENU_ATTACH_ID:
+            System.err.println("Attach file!"); //$NON-NLS-1$
+            return true;
+        case MENU_RECORD_ID:
+            System.err.println("Record audio!"); //$NON-NLS-1$
+            return true;
         case MENU_COMMENTS_REFRESH_ID: {
                 editNotes.refreshData(true, null);
             return true;
@@ -1022,13 +1029,22 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
         MenuItem item;
 
         AstridActivity activity = (AstridActivity) getActivity();
+
+        item = menu.add(Menu.NONE, MENU_ATTACH_ID, 0, R.string.premium_attach_file);
+        item.setIcon(R.drawable.ic_menu_attach);
+        item.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
+
+        item = menu.add(Menu.NONE, MENU_RECORD_ID, 0, R.string.premium_record_audio);
+        item.setIcon(R.drawable.ic_menu_mic);
+        item.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
+
         if (activity instanceof TaskListActivity && activity.fragmentLayout != AstridActivity.LAYOUT_DOUBLE || activity instanceof TaskEditActivity) {
             item = menu.add(Menu.NONE, MENU_DISCARD_ID, 0, R.string.TEA_menu_discard);
-            item.setIcon(R.drawable.close_clear_cancel);
+            item.setIcon(R.drawable.ic_menu_close);
             item.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
 
             item = menu.add(Menu.NONE, MENU_SAVE_ID, 0, R.string.TEA_menu_save);
-            item.setIcon(android.R.drawable.ic_menu_save);
+            item.setIcon(R.drawable.ic_menu_save);
             item.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
         }
 

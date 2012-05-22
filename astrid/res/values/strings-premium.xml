@@ -6,4 +6,7 @@
     <string name="speech_err_no_match">Sorry, I couldn\'t understand that! Please try again.</string>
     <string name="speech_err_default">Sorry, speech recognition encountered an error. Please try again.</string>
     
+    <string name="premium_attach_file">Attach a file</string>
+    <string name="premium_record_audio">Record a note</string>
+    
 </resources>
