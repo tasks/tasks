@@ -8,6 +8,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
+import android.speech.SpeechRecognizer;
 import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.view.KeyEvent;
@@ -20,6 +21,7 @@ import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.TextView.OnEditorActionListener;
+import android.widget.Toast;
 
 import com.timsu.astrid.R;
 import com.todoroo.aacenc.RecognizerApi;
@@ -107,9 +109,6 @@ public class QuickAddBar extends LinearLayout implements RecognizerApiListener {
         activity = myActivity;
         fragment = myFragment;
 
-        recognizerApi = new RecognizerApi(activity);
-        recognizerApi.setListener(this);
-
         DependencyInjectionService.getInstance().inject(this);
         LayoutInflater.from(activity).inflate(R.layout.quick_add_bar, this);
 
@@ -170,7 +169,7 @@ public class QuickAddBar extends LinearLayout implements RecognizerApiListener {
                     currentVoiceFile = Long.toString(DateUtilities.now());
 
                 recognizerApi.setTemporaryFile(currentVoiceFile);
-                recognizerApi.write();
+                recognizerApi.start();
             }
         });
 
@@ -450,9 +449,44 @@ public class QuickAddBar extends LinearLayout implements RecognizerApiListener {
         return false;
     }
 
+    public void setupRecognizerApi() {
+        if (recognizerApi != null)
+            recognizerApi.destroy();
+
+        recognizerApi = new RecognizerApi(activity);
+        recognizerApi.setListener(this);
+    }
+
+    public void destroyRecognizerApi() {
+        recognizerApi.destroy();
+        recognizerApi = null;
+    }
+
     @Override
     public void onSpeechResult(String result) {
         quickAddBox.setText(result);
+    }
+
+    @Override
+    public void onSpeechError(int error) {
+        recognizerApi.cancel();
+
+        int errorStr = 0;
+        switch(error) {
+        case SpeechRecognizer.ERROR_NETWORK:
+        case SpeechRecognizer.ERROR_NETWORK_TIMEOUT:
+            errorStr = R.string.speech_err_network;
+            break;
+        case SpeechRecognizer.ERROR_NO_MATCH:
+            Toast.makeText(activity, R.string.speech_err_no_match, Toast.LENGTH_LONG);
+            break;
+        default:
+            errorStr = R.string.speech_err_default;
+            break;
+        }
+
+        if (errorStr > 0)
+            DialogUtilities.okDialog(activity, activity.getString(errorStr), null);
     }
 
     public void hideKeyboard() {

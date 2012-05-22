@@ -30,6 +30,7 @@ public class RecognizerApi implements RecognitionListener {
     
     public static interface RecognizerApiListener {
     	public void onSpeechResult(String result);
+    	public void onSpeechError(int error);
     }
     
     private RecognizerApiListener mListener;
@@ -79,7 +80,7 @@ public class RecognizerApi implements RecognitionListener {
     private ProgressDialog speakPd;
     private ProgressDialog processingPd;
 
-    public void write() {
+    public void start() {
         sr.setRecognitionListener(this);
 
         Intent intent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
@@ -119,6 +120,10 @@ public class RecognizerApi implements RecognitionListener {
     	}
     }
 
+    public void cancel() {
+    	sr.cancel();
+    }
+    
     public void destroy() {
     	sr.destroy();
     }
@@ -161,6 +166,7 @@ public class RecognizerApi implements RecognitionListener {
                 sr.cancel();
             }
         });
+        processingPd.show();
 
         long delta = System.currentTimeMillis() - speechStarted;
 
@@ -181,6 +187,8 @@ public class RecognizerApi implements RecognitionListener {
 
     @Override
     public void onError(int error) {
+    	if (mListener != null)
+    		mListener.onSpeechError(error);
         Log.w("Speech Error", "Error code: " + error);
     }
 
@@ -227,7 +235,7 @@ public class RecognizerApi implements RecognitionListener {
             findViewById(R.id.write).setOnClickListener(new OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    api.write();
+                    api.start();
                 }
             });
 
@@ -250,6 +258,11 @@ public class RecognizerApi implements RecognitionListener {
         public void onSpeechResult(String result) {
         	((TextView)findViewById(R.id.text)).setText(result);
         	api.convert(M4A_FILE);
+        }
+        
+        @Override
+        public void onSpeechError(int error) {
+        	// TODO Auto-generated method stub
         }
     }
 }
