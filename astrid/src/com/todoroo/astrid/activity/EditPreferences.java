@@ -62,6 +62,7 @@ import com.todoroo.astrid.utility.Constants;
 import com.todoroo.astrid.utility.Flags;
 import com.todoroo.astrid.voice.VoiceInputAssistant;
 import com.todoroo.astrid.voice.VoiceOutputService;
+import com.todoroo.astrid.voice.VoiceRecognizer;
 import com.todoroo.astrid.welcome.tutorial.WelcomeWalkthrough;
 import com.todoroo.astrid.widget.TasksWidget;
 
@@ -503,7 +504,7 @@ public class EditPreferences extends TodorooPreferenceActivity {
             return;
 
         final Resources r = getResources();
-        if (!voiceInputAssistant.isVoiceInputAvailable()) {
+        if (!VoiceRecognizer.voiceInputAvailable(this)) {
             if (AndroidUtilities.getSdkVersion() > 6) {
                 DialogUtilities.okCancelDialog(this,
                         r.getString(R.string.EPr_voiceInputInstall_dlg),

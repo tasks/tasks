@@ -24,7 +24,6 @@ import android.widget.TextView.OnEditorActionListener;
 import android.widget.Toast;
 
 import com.timsu.astrid.R;
-import com.todoroo.aacenc.RecognizerApi;
 import com.todoroo.aacenc.RecognizerApi.RecognizerApiListener;
 import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.ContextManager;
@@ -57,6 +56,7 @@ import com.todoroo.astrid.service.StatisticsConstants;
 import com.todoroo.astrid.service.StatisticsService;
 import com.todoroo.astrid.service.TaskService;
 import com.todoroo.astrid.utility.Flags;
+import com.todoroo.astrid.voice.VoiceRecognizer;
 
 /**
  * Quick Add Bar lets you add tasks.
@@ -86,8 +86,10 @@ public class QuickAddBar extends LinearLayout implements RecognizerApiListener {
     @Autowired MetadataService metadataService;
     @Autowired ActFmPreferenceService actFmPreferenceService;
 
-    //private VoiceInputAssistant voiceInputAssistant;
-    private RecognizerApi recognizerApi;
+//    private VoiceInputAssistant voiceInputAssistant;
+//    private RecognizerApi recognizerApi;
+
+    private VoiceRecognizer voiceRecognizer;
 
     private Activity activity;
     private TaskListFragment fragment;
@@ -156,20 +158,11 @@ public class QuickAddBar extends LinearLayout implements RecognizerApiListener {
         // prepare and set listener for voice add button
         voiceAddButton = (ImageButton) findViewById(
                 R.id.voiceAddButton);
-        int prompt = R.string.voice_edit_title_prompt;
-        if (Preferences.getBoolean(R.string.p_voiceInputCreatesTask, false))
-            prompt = R.string.voice_create_prompt;
-//        voiceInputAssistant = new VoiceInputAssistant(fragment,
-//                voiceAddButton, quickAddBox);
-//        voiceInputAssistant.configureMicrophoneButton(prompt);
-        findViewById(R.id.voiceAddButton).setOnClickListener(new OnClickListener() {
+
+        voiceAddButton.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (currentVoiceFile == null)
-                    currentVoiceFile = Long.toString(DateUtilities.now());
-
-                recognizerApi.setTemporaryFile(currentVoiceFile);
-                recognizerApi.start();
+                startVoiceRecognition();
             }
         });
 
@@ -189,7 +182,7 @@ public class QuickAddBar extends LinearLayout implements RecognizerApiListener {
 
         if (addOnService.hasPowerPack()
                 && Preferences.getBoolean(R.string.p_voiceInputEnabled, true)
-                /*&& voiceInputAssistant.isVoiceInputAvailable()*/) {
+                && VoiceRecognizer.voiceInputAvailable(activity)) {
             voiceAddButton.setVisibility(View.VISIBLE);
         } else {
             voiceAddButton.setVisibility(View.GONE);
@@ -348,7 +341,7 @@ public class QuickAddBar extends LinearLayout implements RecognizerApiListener {
                         .append("_audio.mp4");
                 String filePath = filePathBuilder.toString();
                 System.err.println("Saving to " + filePath);
-                recognizerApi.convert(filePath);
+                voiceRecognizer.convert(filePath);
                 currentVoiceFile = null;
 
                 Metadata fileMetadata = FileMetadata.createNewFileMetadata(task.getId(), filePath, FileMetadata.FILE_TYPE_AUDIO);
@@ -449,17 +442,19 @@ public class QuickAddBar extends LinearLayout implements RecognizerApiListener {
         return false;
     }
 
-    public void setupRecognizerApi() {
-        if (recognizerApi != null)
-            recognizerApi.destroy();
+    public void startVoiceRecognition() {
+        if (VoiceRecognizer.speechRecordingAvailable(activity) && currentVoiceFile == null) {
+            currentVoiceFile = Long.toString(DateUtilities.now());
+        }
+        voiceRecognizer.startVoiceRecognition(activity, currentVoiceFile);
+    }
 
-        recognizerApi = new RecognizerApi(activity);
-        recognizerApi.setListener(this);
+    public void setupRecognizerApi() {
+        voiceRecognizer = VoiceRecognizer.instantiateVoiceRecognizer(activity, this, fragment, voiceAddButton, quickAddBox);
     }
 
     public void destroyRecognizerApi() {
-        recognizerApi.destroy();
-        recognizerApi = null;
+        voiceRecognizer.destroyRecognizerApi();
     }
 
     @Override
@@ -469,7 +464,7 @@ public class QuickAddBar extends LinearLayout implements RecognizerApiListener {
 
     @Override
     public void onSpeechError(int error) {
-        recognizerApi.cancel();
+        voiceRecognizer.cancel();
 
         int errorStr = 0;
         switch(error) {

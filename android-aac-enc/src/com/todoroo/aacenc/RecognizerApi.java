@@ -125,6 +125,7 @@ public class RecognizerApi implements RecognitionListener {
     }
     
     public void destroy() {
+    	sr.setRecognitionListener(null);
     	sr.destroy();
     }
     
