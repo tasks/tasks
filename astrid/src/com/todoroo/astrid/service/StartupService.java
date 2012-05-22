@@ -42,6 +42,7 @@ import com.todoroo.astrid.opencrx.OpencrxCoreUtils;
 import com.todoroo.astrid.producteev.ProducteevUtilities;
 import com.todoroo.astrid.reminders.ReminderStartupReceiver;
 import com.todoroo.astrid.service.abtesting.ABChooser;
+import com.todoroo.astrid.service.abtesting.ABTestInvoker;
 import com.todoroo.astrid.utility.AstridPreferences;
 import com.todoroo.astrid.utility.Constants;
 import com.todoroo.astrid.widget.TasksWidget.WidgetUpdateService;
@@ -84,6 +85,8 @@ public class StartupService {
     @Autowired GtasksSyncService gtasksSyncService;
 
     @Autowired ABChooser abChooser;
+
+    @Autowired ABTestInvoker abTestInvoker;
 
     /**
      * bit to prevent multiple initializations
@@ -176,6 +179,8 @@ public class StartupService {
 
         // For any uninitialized ab test, make sure an option is chosen
         abChooser.makeChoicesForAllTests(latestSetVersion == 0, taskService.getUserActivationStatus());
+
+        abTestInvoker.reportAcquisition();
 
         // perform startup activities in a background thread
         new Thread(new Runnable() {

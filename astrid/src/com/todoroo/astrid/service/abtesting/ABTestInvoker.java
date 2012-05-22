@@ -18,6 +18,8 @@ import org.json.JSONObject;
 import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.andlib.service.RestClient;
+import com.todoroo.andlib.utility.Preferences;
+import com.todoroo.astrid.service.StatisticsService;
 
 /**
  * Invoker for communicating with the Astrid Analytics server
@@ -28,14 +30,35 @@ import com.todoroo.andlib.service.RestClient;
 public class ABTestInvoker {
 
     /** NOTE: these values are development values and will not work on production */
-    private static final String URL = "http://analytics.astrid.com/api/1/retention";
+    private static final String URL = "http://analytics.astrid.com/api/2/ab_retention";
+    private static final String ACQ_URL = "http://analytics.astrid.com/api/2/aquisition";
     private static final String API_KEY = "ryyubd";
     private static final String API_SECRET = "q9ef3i";
+
+    private static final String PREF_REPORTED_ACQUISITION = "p_reported_acq";
 
     @Autowired private RestClient restClient;
 
     public ABTestInvoker() {
         DependencyInjectionService.getInstance().inject(this);
+    }
+
+    public void reportAcquisition() {
+        if (!Preferences.getBoolean(PREF_REPORTED_ACQUISITION, false) &&
+                !StatisticsService.dontCollectStatistics()) {
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    try {
+                        HttpEntity postData = createPostData(null);
+                        restClient.post(ACQ_URL, postData);
+                        Preferences.setBoolean(PREF_REPORTED_ACQUISITION, true);
+                    } catch (IOException e) {
+                        // Ignored
+                    }
+                }
+            }).start();
+        }
     }
 
     /**
@@ -70,7 +93,9 @@ public class ABTestInvoker {
     private HttpEntity createPostData(JSONArray payload) throws IOException {
         List<NameValuePair> params = new ArrayList<NameValuePair>();
         params.add(new BasicNameValuePair("apikey", API_KEY));
-        params.add(new BasicNameValuePair("payload", payload.toString()));
+
+        if (payload != null)
+            params.add(new BasicNameValuePair("payload", payload.toString()));
 
         StringBuilder sigBuilder = new StringBuilder();
         for(NameValuePair entry : params) {
