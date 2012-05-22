@@ -70,6 +70,7 @@ import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.astrid.actfm.EditPeopleControlSet;
 import com.todoroo.astrid.actfm.sync.ActFmPreferenceService;
 import com.todoroo.astrid.data.Task;
+import com.todoroo.astrid.files.FilesControlSet;
 import com.todoroo.astrid.gcal.GCalControlSet;
 import com.todoroo.astrid.helper.TaskEditControlSet;
 import com.todoroo.astrid.notes.EditNoteActivity;
@@ -157,6 +158,8 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
     private static final int MENU_DISCARD_ID = R.string.TEA_menu_discard;
     private static final int MENU_DELETE_ID = R.string.TEA_menu_delete;
     private static final int MENU_COMMENTS_REFRESH_ID = R.string.TEA_menu_comments;
+    private static final int MENU_ATTACH_ID = R.string.premium_attach_file;
+    private static final int MENU_RECORD_ID = R.string.premium_record_audio;
 
     // --- result codes
 
@@ -550,6 +553,13 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
         controls.add(timerControl);
         controlSetMap.put(getString(R.string.TEA_ctrl_timer_pref), timerControl);
 
+        FilesControlSet filesControl = new FilesControlSet(getActivity(),
+                R.layout.control_set_files,
+                R.layout.control_set_files_display,
+                R.string.TEA_control_files);
+        controls.add(filesControl);
+        controlSetMap.put(getString(R.string.TEA_ctrl_files_pref), filesControl);
+
         try {
             if (ProducteevUtilities.INSTANCE.isLoggedIn()) {
                 ProducteevControlSet producteevControl = new ProducteevControlSet(
@@ -578,13 +588,9 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
             Log.e("astrid-error", "loading-control-set", e); //$NON-NLS-1$ //$NON-NLS-2$
         }
 
-        String[] itemOrder;
-        String orderPreference = Preferences.getStringValue(BeastModePreferences.BEAST_MODE_ORDER_PREF);
-        if (orderPreference != null)
-            itemOrder = orderPreference.split(BeastModePreferences.BEAST_MODE_PREF_ITEM_SEPARATOR);
-        else
-            itemOrder = getResources().getStringArray(
-                    R.array.TEA_control_sets_prefs);
+        ArrayList<String> controlOrder = BeastModePreferences.constructOrderedControlList(getActivity());
+        String[] itemOrder = controlOrder.toArray(new String[controlOrder.size()]);
+
         String moreSectionTrigger = getString(R.string.TEA_ctrl_more_pref);
         String shareViewDescriptor = getString(R.string.TEA_ctrl_share_pref);
         LinearLayout section = basicControls;
@@ -996,7 +1002,12 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
         case MENU_DELETE_ID:
             deleteButtonClick();
             return true;
-
+        case MENU_ATTACH_ID:
+            System.err.println("Attach file!"); //$NON-NLS-1$
+            return true;
+        case MENU_RECORD_ID:
+            System.err.println("Record audio!"); //$NON-NLS-1$
+            return true;
         case MENU_COMMENTS_REFRESH_ID: {
                 editNotes.refreshData(true, null);
             return true;
@@ -1018,13 +1029,22 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
         MenuItem item;
 
         AstridActivity activity = (AstridActivity) getActivity();
+
+        item = menu.add(Menu.NONE, MENU_ATTACH_ID, 0, R.string.premium_attach_file);
+        item.setIcon(R.drawable.ic_menu_attach);
+        item.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
+
+        item = menu.add(Menu.NONE, MENU_RECORD_ID, 0, R.string.premium_record_audio);
+        item.setIcon(R.drawable.ic_menu_mic);
+        item.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
+
         if (activity instanceof TaskListActivity && activity.fragmentLayout != AstridActivity.LAYOUT_DOUBLE || activity instanceof TaskEditActivity) {
             item = menu.add(Menu.NONE, MENU_DISCARD_ID, 0, R.string.TEA_menu_discard);
-            item.setIcon(R.drawable.close_clear_cancel);
+            item.setIcon(R.drawable.ic_menu_close);
             item.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
 
             item = menu.add(Menu.NONE, MENU_SAVE_ID, 0, R.string.TEA_menu_save);
-            item.setIcon(android.R.drawable.ic_menu_save);
+            item.setIcon(R.drawable.ic_menu_save);
             item.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
         }
 

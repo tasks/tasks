@@ -575,11 +575,13 @@ public class TaskListFragment extends ListFragment implements OnScrollListener,
     @Override
     public void onStart() {
         super.onStart();
+        quickAddBar.setupRecognizerApi();
     }
 
     @Override
     public void onStop() {
         super.onStop();
+        quickAddBar.destroyRecognizerApi();
     }
 
     @Override

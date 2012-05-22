@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:gravity="center_vertical"
+    android:orientation="horizontal" >
+    
+    <TextView
+        android:id="@+id/file_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="@style/TextAppearance.EditRowDisplay"/>
+    <TextView
+        android:id="@+id/file_type"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/file_type_background"
+        android:layout_marginLeft="5dip"
+        android:paddingLeft="4dip"
+        android:paddingRight="4dip"
+        android:textColor="?attr/asTextColorInverse"/>
+    <ImageView
+        android:id="@+id/remove_file"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_menu_close"
+        android:layout_marginLeft="5dip"
+        android:layout_marginRight="5dip"
+        android:visibility="gone"/>
+</LinearLayout>
