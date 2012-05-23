@@ -8,7 +8,8 @@
         android:id="@+id/display_row_body"
         android:orientation="horizontal"
         android:layout_width="fill_parent"
-        android:layout_height="50dip"
+        android:layout_height="wrap_content"
+        android:minHeight="50dip"
         android:paddingLeft="10dip"
         android:paddingRight="10dip"
         android:gravity="center_vertical">
@@ -26,6 +27,8 @@
 		     android:layout_weight="1"
 	         android:gravity="right"
 	         android:paddingLeft="10dip"
+	         android:paddingTop="5dip"
+	         android:paddingBottom="5dip"
 	         android:orientation="vertical"/>
       </LinearLayout>
                <View

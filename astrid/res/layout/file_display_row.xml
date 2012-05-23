@@ -1,21 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="fill_parent"
+    android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:gravity="center_vertical"
     android:orientation="horizontal" >
     
     <TextView
         android:id="@+id/file_text"
-        android:layout_width="fill_parent"
-        android:layout_height="40dip"
-        android:layout_marginTop="5dip"
-        android:layout_marginBottom="5dip"
-        android:layout_marginLeft="10dip"
-        android:layout_weight="1"
-        android:textAppearance="@style/TextAppearance.EditRowDisplay"
-        android:background="@drawable/file_name_background"
-        android:gravity="center"/>
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="@style/TextAppearance.EditRowDisplay"/>
     <TextView
         android:id="@+id/file_type"
         android:layout_width="wrap_content"
@@ -30,5 +24,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:src="@drawable/ic_menu_close"
-        android:layout_marginRight="5dip"/>
+        android:layout_marginLeft="5dip"
+        android:layout_marginRight="5dip"
+        android:visibility="gone"/>
 </LinearLayout>

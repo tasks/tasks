@@ -52,8 +52,10 @@ public class FilesControlSet extends PopupControlSet {
     protected void refreshDisplayView() {
         fileDisplayList.removeAllViews();
         for (final Metadata m : files) {
-            View fileRow = inflater.inflate(R.layout.file_row, null);
-            setUpFileRow(m, fileRow, fileDisplayList);
+            View fileRow = inflater.inflate(R.layout.file_display_row, null);
+            LayoutParams lp = new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
+            lp.gravity = Gravity.RIGHT;
+            setUpFileRow(m, fileRow, fileDisplayList, lp);
         }
     }
 
@@ -99,10 +101,11 @@ public class FilesControlSet extends PopupControlSet {
         fileList = (LinearLayout) getView().findViewById(R.id.files_list);
         final LinearLayout finalList = fileList;
         fileList.removeAllViews();
+        LayoutParams lp = new LayoutParams(LayoutParams.FILL_PARENT, LayoutParams.WRAP_CONTENT);
         for (final Metadata m : files) {
             final View fileRow = inflater.inflate(R.layout.file_row, null);
 
-            setUpFileRow(m, fileRow, fileList);
+            setUpFileRow(m, fileRow, fileList, lp);
             View name = fileRow.findViewById(R.id.file_text);
             View clearFile = fileRow.findViewById(R.id.remove_file);
             clearFile.setVisibility(View.VISIBLE);
@@ -135,7 +138,7 @@ public class FilesControlSet extends PopupControlSet {
         }
     }
 
-    private void setUpFileRow(Metadata m, View row, LinearLayout parent) {
+    private void setUpFileRow(Metadata m, View row, LinearLayout parent, LayoutParams lp) {
         TextView nameView = (TextView) row.findViewById(R.id.file_text);
         TextView typeView = (TextView) row.findViewById(R.id.file_type);
         String name = getNameString(m);
@@ -147,8 +150,6 @@ public class FilesControlSet extends PopupControlSet {
         else
             typeView.setText(type);
 
-        LayoutParams lp = new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
-        lp.gravity = Gravity.RIGHT;
         parent.addView(row, lp);
     }
 
