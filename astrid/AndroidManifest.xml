@@ -500,6 +500,12 @@
         <category android:name="android.intent.category.DEFAULT" />
       </intent-filter>
     </receiver>
+    
+    <!-- files -->
+    <activity android:name="com.todoroo.astrid.files.AACRecordingActivity"
+        android:configChanges="orientation|screenSize"
+        android:screenOrientation="portrait"
+        android:theme="@android:style/Theme.Dialog"/>
         
     <!-- locale -->
     <activity android:name="com.todoroo.astrid.locale.LocaleEditAlerts"

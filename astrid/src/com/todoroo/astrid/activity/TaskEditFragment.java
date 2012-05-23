@@ -69,7 +69,10 @@ import com.todoroo.andlib.utility.DialogUtilities;
 import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.astrid.actfm.EditPeopleControlSet;
 import com.todoroo.astrid.actfm.sync.ActFmPreferenceService;
+import com.todoroo.astrid.data.Metadata;
 import com.todoroo.astrid.data.Task;
+import com.todoroo.astrid.files.AACRecordingActivity;
+import com.todoroo.astrid.files.FileMetadata;
 import com.todoroo.astrid.files.FilesControlSet;
 import com.todoroo.astrid.gcal.GCalControlSet;
 import com.todoroo.astrid.helper.TaskEditControlSet;
@@ -151,6 +154,7 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
     public static final int REQUEST_LOG_IN = 0;
     private static final int REQUEST_VOICE_RECOG = 10;
     public static final int REQUEST_CODE_CONTACT = 20;
+    public static final int REQUEST_CODE_RECORD = 30;
 
     // --- menu codes
 
@@ -205,6 +209,7 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
     private EditNotesControlSet notesControlSet = null;
     private HideUntilControlSet hideUntilControls = null;
     private TagsControlSet tagsControlSet = null;
+    private FilesControlSet filesControlSet = null;
     private TimerActionControlSet timerAction;
     private EditText title;
     private TaskEditMoreControls moreControls;
@@ -553,12 +558,12 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
         controls.add(timerControl);
         controlSetMap.put(getString(R.string.TEA_ctrl_timer_pref), timerControl);
 
-        FilesControlSet filesControl = new FilesControlSet(getActivity(),
+        filesControlSet = new FilesControlSet(getActivity(),
                 R.layout.control_set_files,
                 R.layout.control_set_files_display,
                 R.string.TEA_control_files);
-        controls.add(filesControl);
-        controlSetMap.put(getString(R.string.TEA_ctrl_files_pref), filesControl);
+        controls.add(filesControlSet);
+        controlSetMap.put(getString(R.string.TEA_ctrl_files_pref), filesControlSet);
 
         try {
             if (ProducteevUtilities.INSTANCE.isLoggedIn()) {
@@ -990,6 +995,13 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
                 Toast.LENGTH_SHORT).show();
     }
 
+    private void startRecordingAudio() {
+        Intent recordAudio = new Intent(getActivity(), AACRecordingActivity.class);
+        recordAudio.putExtra(AACRecordingActivity.EXTRA_TEMP_FILE, getActivity().getFilesDir() + "/" + "audio.aac");
+        recordAudio.putExtra(AACRecordingActivity.EXTRA_TASK_ID, model.getId());
+        startActivityForResult(recordAudio, REQUEST_CODE_RECORD);
+    }
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
@@ -1006,7 +1018,7 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
             System.err.println("Attach file!"); //$NON-NLS-1$
             return true;
         case MENU_RECORD_ID:
-            System.err.println("Record audio!"); //$NON-NLS-1$
+            startRecordingAudio();
             return true;
         case MENU_COMMENTS_REFRESH_ID: {
                 editNotes.refreshData(true, null);
@@ -1098,6 +1110,11 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
             // onResume.populateFields
             // (due to the activity-change)
             notesControlSet.writeToModel(model);
+        } else if (requestCode == REQUEST_CODE_RECORD && resultCode == Activity.RESULT_OK) {
+            String recordedAudio = data.getStringExtra(AACRecordingActivity.RESULT_OUTFILE);
+            Metadata fileMetadata = FileMetadata.createNewFileMetadata(model.getId(), recordedAudio, FileMetadata.FILE_TYPE_AUDIO);
+            metadataService.save(fileMetadata);
+            filesControlSet.refreshMetadata();
         }
 
         // respond to sharing logoin

@@ -60,6 +60,11 @@ public class FilesControlSet extends PopupControlSet {
     @Override
     public void readFromTask(Task task) {
         super.readFromTask(task);
+
+        refreshDisplayView();
+    }
+
+    public void refreshMetadata() {
         TodorooCursor<Metadata> cursor = metadataService.query(
                 Query.select(Metadata.PROPERTIES)
                      .where(MetadataCriteria.byTaskAndwithKey(model.getId(), FileMetadata.METADATA_KEY)));
@@ -73,7 +78,8 @@ public class FilesControlSet extends PopupControlSet {
         } finally {
             cursor.close();
         }
-        refreshDisplayView();
+        if (initialized)
+            afterInflate();
     }
 
     @Override
