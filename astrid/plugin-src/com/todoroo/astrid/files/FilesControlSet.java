@@ -61,6 +61,7 @@ public class FilesControlSet extends PopupControlSet {
     public void readFromTask(Task task) {
         super.readFromTask(task);
 
+        refreshMetadata();
         refreshDisplayView();
     }
 
@@ -97,6 +98,7 @@ public class FilesControlSet extends PopupControlSet {
     protected void afterInflate() {
         fileList = (LinearLayout) getView().findViewById(R.id.files_list);
         final LinearLayout finalList = fileList;
+        fileList.removeAllViews();
         for (final Metadata m : files) {
             final View fileRow = inflater.inflate(R.layout.file_row, null);
 

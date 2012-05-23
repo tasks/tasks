@@ -12,7 +12,7 @@
       android:layout_weight="100">
 	  <LinearLayout
 	    android:id="@+id/files_list"
-	    android:orientation="horizontal"
+	    android:orientation="vertical"
 	    android:layout_width="fill_parent"
 	    android:layout_height="wrap_content"
 	    android:gravity="right">
