@@ -22,8 +22,6 @@ public class AACRecorder {
 	private static final int NOTIFICATION_PERIOD = 160;
 	private static final int MIN_BUFFER_SIZE = AudioRecord.getMinBufferSize(SAMPLE_RATE, 
 			AudioFormat.CHANNEL_CONFIGURATION_MONO, AudioFormat.ENCODING_PCM_16BIT) * 10;
-
-	private byte[] buffer = new byte[NOTIFICATION_PERIOD * 2];
 	
 	public interface AACRecorderCallbacks {
 		public void encodingFinished();
