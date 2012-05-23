@@ -13,12 +13,13 @@ import android.widget.Toast;
 
 import com.timsu.astrid.R;
 import com.todoroo.aacenc.AACRecorder;
+import com.todoroo.aacenc.AACRecorder.AACRecorderCallbacks;
 import com.todoroo.aacenc.AACToM4A;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.andlib.utility.DialogUtilities;
 import com.todoroo.astrid.service.ThemeService;
 
-public class AACRecordingActivity extends Activity {
+public class AACRecordingActivity extends Activity implements AACRecorderCallbacks {
 
     public static final String EXTRA_TEMP_FILE = "tempFile"; //$NON-NLS-1$
     public static final String EXTRA_TASK_ID = "taskId"; //$NON-NLS-1$
@@ -27,6 +28,8 @@ public class AACRecordingActivity extends Activity {
     private AACRecorder recorder;
     private String tempFile;
     private long taskId;
+
+    private ProgressDialog pd;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,6 +43,7 @@ public class AACRecordingActivity extends Activity {
         taskId = getIntent().getLongExtra(EXTRA_TASK_ID, 0L);
 
         recorder = new AACRecorder(this);
+        recorder.setListener(this);
         recorder.startRecording(tempFile);
     }
 
@@ -50,7 +54,6 @@ public class AACRecordingActivity extends Activity {
         stopRecording.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                System.err.println("On click");
                 stopRecording();
             }
         });
@@ -70,13 +73,14 @@ public class AACRecordingActivity extends Activity {
 
     @SuppressWarnings("nls")
     private void stopRecording() {
-        System.err.println("Stopping...");
         recorder.stopRecording();
-        System.err.println("Stopped recorder");
 
-        ProgressDialog pd = DialogUtilities.progressDialog(this, "Encoding...");
+        pd = DialogUtilities.progressDialog(this, "Encoding...");
         pd.show();
-        System.err.println("Passed pd");
+    }
+
+    @SuppressWarnings("nls")
+    public void encodingFinished() {
         try {
             StringBuilder filePathBuilder = new StringBuilder();
             filePathBuilder.append(getExternalFilesDir("audio").toString())
@@ -87,14 +91,11 @@ public class AACRecordingActivity extends Activity {
                     .append("_audio.mp4");
 
             String outFile = filePathBuilder.toString();
-            System.err.println("Converting");
             new AACToM4A().convert(this, tempFile, outFile);
-            System.err.println("Finished Converting");
 
             Intent result = new Intent();
             result.putExtra(RESULT_OUTFILE, outFile);
             setResult(RESULT_OK, result);
-            System.err.println("Finishing");
             finish();
         } catch (IOException e) {
             e.printStackTrace();
@@ -102,6 +103,5 @@ public class AACRecordingActivity extends Activity {
         }
         pd.dismiss();
     }
-
 
 }

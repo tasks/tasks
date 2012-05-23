@@ -16,6 +16,7 @@ public class AACRecorder {
 	private String tempFile;
 	
 	private boolean recording;
+	private AACRecorderCallbacks listener;
 	
 	private static final int SAMPLE_RATE = 8000;
 	private static final int NOTIFICATION_PERIOD = 160;
@@ -24,20 +25,28 @@ public class AACRecorder {
 
 	private byte[] buffer = new byte[NOTIFICATION_PERIOD * 2];
 	
+	public interface AACRecorderCallbacks {
+		public void encodingFinished();
+	}
+	
 	private Thread readerThread = new Thread() {
 		private byte[] readBuffer = new byte[NOTIFICATION_PERIOD * 2];
 		public void run() {
 			ByteArrayOutputStream baos = new ByteArrayOutputStream();
+			int bytesRead = 0;
 			while(recording) {
-				int bytesRead = audioRecord.read(readBuffer, 0, readBuffer.length);
+				bytesRead = audioRecord.read(readBuffer, 0, readBuffer.length);
 				System.err.println("Bytes read: " + bytesRead);
 				try {
 					baos.write(readBuffer);
 				} catch (IOException e) {
 					//
 				}
+				if (bytesRead <= 0)
+					break;
 			}
 			encoder.encode(baos.toByteArray());
+			finishRecording();
 			baos.reset();
 		}
 	};
@@ -61,20 +70,29 @@ public class AACRecorder {
 		encoder.init(64000, 1, SAMPLE_RATE, 16, tempFile);
 		
 		recording = true;
-		readerThread.start();
-		
 		audioRecord.startRecording();
+
+		readerThread.start();
 	}
 	
 	public synchronized void stopRecording() {
 		if (!recording)
 			return;
-		
-		recording = false;
+
 		audioRecord.stop();
+	}
+	
+	public synchronized void finishRecording() {
+		recording = false;
 		audioRecord.release();
 		System.err.println("Uninit");
 		encoder.uninit();
+		if (listener != null)
+			listener.encodingFinished();
+	}
+	
+	public void setListener(AACRecorderCallbacks listener) {
+		this.listener = listener;
 	}
 	
 	public synchronized boolean convert(String outFile) {
