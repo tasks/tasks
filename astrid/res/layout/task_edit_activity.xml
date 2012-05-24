@@ -107,6 +107,7 @@
         android:minHeight="50dip"
         android:gravity="center_vertical"
         android:orientation="horizontal"
+        android:background="?attr/asAbBackgroundColor"
         android:padding="3dip" 
         android:paddingBottom="0dip">
 
