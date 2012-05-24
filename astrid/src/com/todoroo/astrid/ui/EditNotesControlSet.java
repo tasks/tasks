@@ -103,9 +103,11 @@ public class EditNotesControlSet extends PopupControlSet {
         if (hasNotes() && notesPreview.getLineCount() > 2) {
             notesBody.setGravity(Gravity.TOP);
             notesBody.setPadding( notesBody.getPaddingLeft(), (int) (metrics.density * 8),  notesBody.getPaddingRight(), (int) (metrics.density * 8));
+            notesPreview.setGravity(Gravity.LEFT);
         } else {
             notesBody.setGravity(Gravity.CENTER_VERTICAL);
             notesBody.setPadding( notesBody.getPaddingLeft(), 0,  notesBody.getPaddingRight(), 0);
+            notesPreview.setGravity(Gravity.RIGHT);
         }
     }
 
