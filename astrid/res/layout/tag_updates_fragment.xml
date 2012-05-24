@@ -57,7 +57,7 @@
         android:minHeight="50dip"
         android:orientation="horizontal"
         android:padding="3dip"
-        android:paddingBottom="5dip" >
+        android:paddingBottom="0dip" >
 
         <!-- Voice Add Button -->
 
@@ -80,6 +80,7 @@
             android:layout_width="wrap_content"
             android:layout_height="39dip"
             android:layout_marginBottom="2dip"
+            android:layout_marginTop="2dip"
             android:layout_marginLeft="1dip"
             android:layout_marginRight="1dip"
             android:layout_weight="100"
@@ -97,7 +98,6 @@
             android:id="@+id/commentButton"
             android:layout_width="39dip"
             android:layout_height="39dip"
-            android:layout_gravity="top"
             android:layout_marginLeft="3dip"
             android:layout_weight="1"
             android:background="?attr/asAddButtonImg"

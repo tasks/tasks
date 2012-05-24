@@ -108,7 +108,7 @@
         android:gravity="center_vertical"
         android:orientation="horizontal"
         android:padding="3dip" 
-        android:paddingBottom="5dip">
+        android:paddingBottom="0dip">
 
         <!-- Voice Add Button -->
 
@@ -133,6 +133,7 @@
             android:layout_marginLeft="1dip"
             android:layout_marginRight="1dip"
             android:layout_marginBottom="2dip"
+            android:layout_marginTop="2dip"
             android:layout_weight="100"
             android:autoText="true"
             android:background="?attr/asEditTextBackground"
