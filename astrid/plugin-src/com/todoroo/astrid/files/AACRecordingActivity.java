@@ -62,6 +62,7 @@ public class AACRecordingActivity extends Activity implements AACRecorderCallbac
         dismiss.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
+                recorder.setListener(null);
                 recorder.stopRecording();
                 finish();
             }
@@ -101,7 +102,8 @@ public class AACRecordingActivity extends Activity implements AACRecorderCallbac
             e.printStackTrace();
             Toast.makeText(this, R.string.audio_err_encoding, Toast.LENGTH_LONG);
         }
-        pd.dismiss();
+        if (pd != null)
+            pd.dismiss();
     }
 
 }

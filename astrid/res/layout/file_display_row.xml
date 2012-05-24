@@ -9,6 +9,10 @@
         android:id="@+id/file_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:maxLines="1"
+        android:singleLine="true"
+        android:ellipsize="end"
         android:textAppearance="@style/TextAppearance.EditRowDisplay"/>
     <TextView
         android:id="@+id/file_type"

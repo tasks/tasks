@@ -13,7 +13,8 @@ public class FileMetadata {
 
     /** Constants for file types */
     public static final int FILE_TYPE_AUDIO = 0;
-    public static final int FILE_TYPE_PDF = 1;
+    public static final int FILE_TYPE_IMG = 1;
+    public static final int FILE_TYPE_OTHER = 2;
 
     public static final StringProperty FILE_PATH = new StringProperty(Metadata.TABLE,
             Metadata.VALUE1.name);

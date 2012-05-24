@@ -124,13 +124,10 @@ public class FilesControlSet extends PopupControlSet {
                             new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface d, int which) {
-                            File f = new File(m.getValue(FileMetadata.FILE_PATH));
-                            if (f.delete()) {
-                                metadataService.delete(m);
-                                files.remove(m);
-                                refreshDisplayView();
-                                finalList.removeView(fileRow);
-                            }
+                            metadataService.delete(m);
+                            files.remove(m);
+                            refreshDisplayView();
+                            finalList.removeView(fileRow);
                         }
                     }, null);
                 }

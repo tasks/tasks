@@ -506,6 +506,8 @@
         android:configChanges="orientation|screenSize"
         android:screenOrientation="portrait"
         android:theme="@android:style/Theme.Dialog"/>
+    
+    <activity android:name="com.todoroo.astrid.files.FileExplore"/>
         
     <!-- locale -->
     <activity android:name="com.todoroo.astrid.locale.LocaleEditAlerts"
