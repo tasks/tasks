@@ -120,7 +120,7 @@ public class FilesControlSet extends PopupControlSet {
             clearFile.setOnClickListener(new OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    DialogUtilities.okCancelDialog(activity, "Are you sure? Cannont be undone",
+                    DialogUtilities.okCancelDialog(activity, activity.getString(R.string.premium_remove_file_confirm),
                             new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface d, int which) {
