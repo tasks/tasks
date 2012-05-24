@@ -8,12 +8,19 @@ import android.media.AudioFormat;
 import android.media.AudioRecord;
 import android.media.MediaRecorder.AudioSource;
 
+/**
+ * This class combines an Android AudioRecord and our own AACEncoder
+ * to directly record an AAC audio file from the mic. Users should call
+ * startRecording() and stopRecording() in sequence, and then listen
+ * for the encodingFinished() callback to perform final actions like
+ * converting to M4A format.
+ * @author Sam
+ *
+ */
 public class AACRecorder {
 
 	private AudioRecord audioRecord;
 	private AACEncoder encoder;
-	private Context context;
-	private String tempFile;
 	
 	private boolean recording;
 	private AACRecorderCallbacks listener;
@@ -34,7 +41,6 @@ public class AACRecorder {
 			int bytesRead = 0;
 			while(recording) {
 				bytesRead = audioRecord.read(readBuffer, 0, readBuffer.length);
-				System.err.println("Bytes read: " + bytesRead);
 				try {
 					baos.write(readBuffer);
 				} catch (IOException e) {
@@ -50,7 +56,7 @@ public class AACRecorder {
 	};
 	
 	
-	public AACRecorder(Context context) {
+	public AACRecorder() {
 		encoder = new AACEncoder();
 	}
 	
@@ -58,7 +64,6 @@ public class AACRecorder {
 		if (recording)
 			return;
 		
-		this.tempFile = tempFile;
 		audioRecord = new AudioRecord(AudioSource.MIC, SAMPLE_RATE, AudioFormat.CHANNEL_CONFIGURATION_MONO,
 				AudioFormat.ENCODING_PCM_16BIT, MIN_BUFFER_SIZE);
 		
@@ -83,7 +88,6 @@ public class AACRecorder {
 	public synchronized void finishRecording() {
 		recording = false;
 		audioRecord.release();
-		System.err.println("Uninit");
 		encoder.uninit();
 		if (listener != null)
 			listener.encodingFinished();
@@ -91,19 +95,6 @@ public class AACRecorder {
 	
 	public void setListener(AACRecorderCallbacks listener) {
 		this.listener = listener;
-	}
-	
-	public synchronized boolean convert(String outFile) {
-		if (recording || tempFile == null)
-			return false;
-		
-		try {
-			new AACToM4A().convert(context, tempFile, outFile);
-			tempFile = null;
-			return true;
-		} catch (IOException e) {
-			return false;
-		}
 	}
 	
 }

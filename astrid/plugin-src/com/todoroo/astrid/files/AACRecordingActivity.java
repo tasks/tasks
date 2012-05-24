@@ -42,7 +42,7 @@ public class AACRecordingActivity extends Activity implements AACRecorderCallbac
         tempFile = getIntent().getStringExtra(EXTRA_TEMP_FILE);
         taskId = getIntent().getLongExtra(EXTRA_TASK_ID, 0L);
 
-        recorder = new AACRecorder(this);
+        recorder = new AACRecorder();
         recorder.setListener(this);
         recorder.startRecording(tempFile);
     }
@@ -71,15 +71,15 @@ public class AACRecordingActivity extends Activity implements AACRecorderCallbac
         speechBubble.setText(R.string.audio_speak_now);
     }
 
-    @SuppressWarnings("nls")
     private void stopRecording() {
         recorder.stopRecording();
 
-        pd = DialogUtilities.progressDialog(this, "Encoding...");
+        pd = DialogUtilities.progressDialog(this, getString(R.string.audio_err_encoding));
         pd.show();
     }
 
     @SuppressWarnings("nls")
+    @Override
     public void encodingFinished() {
         try {
             StringBuilder filePathBuilder = new StringBuilder();
@@ -99,7 +99,7 @@ public class AACRecordingActivity extends Activity implements AACRecorderCallbac
             finish();
         } catch (IOException e) {
             e.printStackTrace();
-            Toast.makeText(this, "Error :(", Toast.LENGTH_LONG);
+            Toast.makeText(this, R.string.audio_err_encoding, Toast.LENGTH_LONG);
         }
         pd.dismiss();
     }

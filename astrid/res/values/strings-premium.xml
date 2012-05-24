@@ -12,4 +12,6 @@
     <string name="audio_recording_title">Recording Audio</string>
     <string name="audio_stop_recording">Stop Recording</string>
     <string name="audio_speak_now">Speak Now!</string>
+    <string name="audio_encoding">Encoding...</string>
+    <string name="audio_err_encoding">Error encoding audio</string>
 </resources>
