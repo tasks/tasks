@@ -135,10 +135,10 @@
             android:layout_marginBottom="2dip"
             android:layout_weight="100"
             android:autoText="true"
-            android:background="@drawable/footer_comment_edittext"
+            android:background="?attr/asEditTextBackground"
             android:capitalize="sentences"
             android:hint="@string/TVA_add_comment"
-            android:textColor="@android:color/black"
+            android:textColor="?attr/asTextColor"
             android:paddingLeft="10dip"
             android:textSize="16sp" />
 

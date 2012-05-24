@@ -22,6 +22,7 @@
   <attr name="asListDividerColor" format="color"/>
   
   <attr name="asThemeTextColor" format="color"/>
+  <attr name="asEditTextBackground" format="reference"/>
   <attr name="asListsDisclosure" format="reference"/>
   <attr name="asAddButtonImg" format="reference" />
   <attr name="asMicButtonImg" format="reference" />

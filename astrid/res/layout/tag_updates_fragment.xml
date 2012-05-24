@@ -84,11 +84,11 @@
             android:layout_marginRight="1dip"
             android:layout_weight="100"
             android:autoText="true"
-            android:background="@drawable/footer_comment_edittext"
+            android:background="?attr/asEditTextBackground"
             android:capitalize="sentences"
             android:hint="@string/TVA_add_comment"
             android:paddingLeft="10dip"
-            android:textColor="@android:color/black"
+            android:textColor="?attr/asTextColor"
             android:textSize="16sp" />
 
         <!-- Extended Add Button -->

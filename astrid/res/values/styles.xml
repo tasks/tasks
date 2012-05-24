@@ -23,6 +23,7 @@
         <item name="asMicButtonImg">@drawable/mic_button_blue</item>
         <item name="asCommentButtonImg">@drawable/comment_blue</item>
         <item name="asFilledCommentButtonImg">@drawable/comment_blue_filled</item>
+        <item name="asEditTextBackground">@drawable/edit_title_background_dark</item>
         <item name="asEditBackground">#101010</item>
         <item name="asEditRowBackground">@drawable/task_edit_background</item>
         <item name="asEditTabBackground">@drawable/custom_tab_indicator_dark</item>
@@ -74,6 +75,7 @@
         <item name="asCommentButtonImg">@drawable/comment_red</item>
         <item name="asFilledCommentButtonImg">@drawable/comment_red_filled</item>
         <item name="asEditRowBackground">@drawable/task_edit_background_white</item>
+        <item name="asEditTextBackground">@drawable/edit_title_background</item>
         <item name="asEditTabBackground">@drawable/custom_tab_indicator</item>
         <item name="asMainMenu">@drawable/menu_button_red</item>
         <item name="asPeopleMenu">@drawable/people_menu_button_red</item>

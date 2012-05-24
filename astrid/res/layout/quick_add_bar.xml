@@ -45,11 +45,11 @@
 	            android:layout_marginBottom="2dip"
 	            android:layout_weight="100"
 	            android:paddingLeft="5dip"
-	            android:background="@drawable/edit_title_background"
+	            android:background="?attr/asEditTextBackground"
+	            android:textColor="?attr/asTextColor"
 	            android:hint="@string/TLA_quick_add_hint"
 	            android:textSize="16sp"
 	            android:autoText="true"
-	            android:textColor="@android:color/black"
 	            android:capitalize="sentences"/>
 	        
 	        <!-- Extended Add Button -->
