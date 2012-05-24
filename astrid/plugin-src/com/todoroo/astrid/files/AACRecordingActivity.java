@@ -74,7 +74,7 @@ public class AACRecordingActivity extends Activity implements AACRecorderCallbac
     private void stopRecording() {
         recorder.stopRecording();
 
-        pd = DialogUtilities.progressDialog(this, getString(R.string.audio_err_encoding));
+        pd = DialogUtilities.progressDialog(this, getString(R.string.audio_encoding));
         pd.show();
     }
 

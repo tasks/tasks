@@ -37,7 +37,7 @@ public class AACRecorder {
 	private Thread readerThread = new Thread() {
 		private byte[] readBuffer = new byte[NOTIFICATION_PERIOD * 2];
 		public void run() {
-			ByteArrayOutputStream baos = new ByteArrayOutputStream();
+			ByteArrayOutputStream baos = new ByteArrayOutputStream(SAMPLE_RATE * 2);
 			int bytesRead = 0;
 			while(recording) {
 				bytesRead = audioRecord.read(readBuffer, 0, readBuffer.length);
