@@ -52,6 +52,7 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.view.ViewGroup.LayoutParams;
 import android.view.ViewParent;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.FrameLayout;
@@ -999,8 +1000,29 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
     }
 
     private void startAttachFile() {
-        Intent attachFile = new Intent(getActivity(), FileExplore.class);
-        startActivityForResult(attachFile, REQUEST_CODE_ATTACH_FILE);
+        ArrayList<String> options = new ArrayList<String>();
+        options.add(getString(R.string.file_add_picture));
+        options.add(getString(R.string.file_add_sdcard));
+
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(),
+                android.R.layout.simple_spinner_dropdown_item, options.toArray(new String[options.size()]));
+
+        DialogInterface.OnClickListener listener = new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface d, int which) {
+                if(which == 0) {
+                    System.err.println("Attach a picture");
+                } else if (which == 1) {
+                    Intent attachFile = new Intent(getActivity(), FileExplore.class);
+                    startActivityForResult(attachFile, REQUEST_CODE_ATTACH_FILE);
+                }
+            }
+        };
+
+        // show a menu of available options
+        new AlertDialog.Builder(getActivity())
+        .setAdapter(adapter, listener)
+        .show().setOwnerActivity(getActivity());
     }
 
     private void startRecordingAudio() {
