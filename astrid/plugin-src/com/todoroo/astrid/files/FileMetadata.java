@@ -11,6 +11,9 @@ public class FileMetadata {
     /** metadata key */
     public static final String METADATA_KEY = "file"; //$NON-NLS-1$
 
+    public static final String AUDIO_DIRECTORY = "audio"; //$NON-NLS-1$
+    public static final String FILES_DIRECTORY = "attachments"; //$NON-NLS-1$
+
     /** Constants for file types */
     public static final int FILE_TYPE_AUDIO = 0;
     public static final int FILE_TYPE_IMG = 1;

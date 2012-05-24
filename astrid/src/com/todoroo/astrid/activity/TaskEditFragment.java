@@ -1010,6 +1010,26 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
         startActivityForResult(recordAudio, REQUEST_CODE_RECORD);
     }
 
+    private void attachFile(String file) {
+        File src = new File(file);
+        if (!src.exists()) {
+            Toast.makeText(getActivity(), R.string.file_err_copy, Toast.LENGTH_LONG);
+            return;
+        }
+
+        File dst = new File(getActivity().getExternalFilesDir(FileMetadata.FILES_DIRECTORY) + File.separator + src.getName());
+        try {
+            AndroidUtilities.copyFile(src, dst);
+        } catch (Exception e) {
+            Toast.makeText(getActivity(), R.string.file_err_copy, Toast.LENGTH_LONG);
+            return;
+        }
+
+        Metadata fileMetadata = FileMetadata.createNewFileMetadata(model.getId(), dst.getAbsolutePath(), FileMetadata.FILE_TYPE_OTHER);
+        metadataService.save(fileMetadata);
+        filesControlSet.refreshMetadata();
+    }
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
@@ -1124,10 +1144,7 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
             metadataService.save(audioMetadata);
             filesControlSet.refreshMetadata();
         } else if (requestCode == REQUEST_CODE_ATTACH_FILE && resultCode == Activity.RESULT_OK) {
-            String selectedFile = data.getStringExtra(FileExplore.EXTRA_FILE_SELECTED);
-            Metadata fileMetadata = FileMetadata.createNewFileMetadata(model.getId(), selectedFile, FileMetadata.FILE_TYPE_OTHER);
-            metadataService.save(fileMetadata);
-            filesControlSet.refreshMetadata();
+            attachFile(data.getStringExtra(FileExplore.EXTRA_FILE_SELECTED));
         }
 
         // respond to sharing logoin

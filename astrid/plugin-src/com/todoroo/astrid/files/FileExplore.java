@@ -9,6 +9,7 @@ import android.app.AlertDialog;
 import android.app.AlertDialog.Builder;
 import android.app.Dialog;
 import android.content.DialogInterface;
+import android.content.DialogInterface.OnCancelListener;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Environment;
@@ -212,6 +213,13 @@ public class FileExplore extends Activity {
 			break;
 		}
 		dialog = builder.show();
+		dialog.setCancelable(true);
+		dialog.setOnCancelListener(new OnCancelListener() {
+            @Override
+            public void onCancel(DialogInterface d) {
+                finish();
+            }
+        });
 		return dialog;
 	}
 

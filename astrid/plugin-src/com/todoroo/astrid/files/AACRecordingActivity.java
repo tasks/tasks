@@ -1,5 +1,6 @@
 package com.todoroo.astrid.files;
 
+import java.io.File;
 import java.io.IOException;
 
 import android.app.Activity;
@@ -84,8 +85,8 @@ public class AACRecordingActivity extends Activity implements AACRecorderCallbac
     public void encodingFinished() {
         try {
             StringBuilder filePathBuilder = new StringBuilder();
-            filePathBuilder.append(getExternalFilesDir("audio").toString())
-                    .append("/")
+            filePathBuilder.append(getExternalFilesDir(FileMetadata.AUDIO_DIRECTORY).toString())
+                    .append(File.separator)
                     .append(taskId)
                     .append("_")
                     .append(DateUtilities.now())
