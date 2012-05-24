@@ -103,7 +103,15 @@ public class ThemeService {
     }
 
     public static String getDialogTextColor() {
-        return (AndroidUtilities.getSdkVersion() >= 11 ? "black" : "white");
+        if (AndroidUtilities.getSdkVersion() >= 11) {
+            int theme = getTheme();
+            if (theme == R.style.Theme || theme == R.style.Theme_Transparent)
+                return "white";
+            else
+                return "black";
+        } else {
+            return "white";
+        }
     }
 
     public static int getDrawable(int lightDrawable) {
