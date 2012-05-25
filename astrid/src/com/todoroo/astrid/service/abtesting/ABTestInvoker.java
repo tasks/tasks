@@ -31,7 +31,7 @@ public class ABTestInvoker {
 
     /** NOTE: these values are development values and will not work on production */
     private static final String URL = "http://analytics.astrid.com/api/2/ab_retention";
-    private static final String ACQ_URL = "http://analytics.astrid.com/api/2/aquisition";
+    private static final String ACQ_URL = "http://analytics.astrid.com/api/2/acquisition";
     private static final String API_KEY = "ryyubd";
     private static final String API_SECRET = "q9ef3i";
 
