@@ -20,6 +20,7 @@
 package com.todoroo.astrid.activity;
 
 import java.io.File;
+import java.io.FileOutputStream;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -32,6 +33,7 @@ import android.app.Dialog;
 import android.content.ContentValues;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.os.Handler;
 import android.speech.RecognizerIntent;
@@ -69,6 +71,8 @@ import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.andlib.utility.DialogUtilities;
 import com.todoroo.andlib.utility.Preferences;
+import com.todoroo.astrid.actfm.ActFmCameraModule;
+import com.todoroo.astrid.actfm.ActFmCameraModule.CameraResultCallback;
 import com.todoroo.astrid.actfm.EditPeopleControlSet;
 import com.todoroo.astrid.actfm.sync.ActFmPreferenceService;
 import com.todoroo.astrid.data.Metadata;
@@ -1011,7 +1015,7 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
             @Override
             public void onClick(DialogInterface d, int which) {
                 if(which == 0) {
-                    System.err.println("Attach a picture");
+                    ActFmCameraModule.showPictureLauncher(TaskEditFragment.this, null);
                 } else if (which == 1) {
                     Intent attachFile = new Intent(getActivity(), FileExplore.class);
                     startActivityForResult(attachFile, REQUEST_CODE_ATTACH_FILE);
@@ -1047,7 +1051,34 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
             return;
         }
 
-        Metadata fileMetadata = FileMetadata.createNewFileMetadata(model.getId(), dst.getAbsolutePath(), FileMetadata.FILE_TYPE_OTHER);
+        createNewFileAttachment(dst.getAbsolutePath(), FileMetadata.FILE_TYPE_OTHER);
+    }
+
+    @SuppressWarnings("nls")
+    private void attachImage(Bitmap bitmap) {
+        StringBuilder filePathBuilder = new StringBuilder();
+        filePathBuilder.append(getActivity().getExternalFilesDir(FileMetadata.FILES_DIRECTORY).toString())
+                .append(File.separator)
+                .append(model.getId())
+                .append("_")
+                .append(DateUtilities.now())
+                .append("_img.png");
+
+        String path = filePathBuilder.toString();
+        try {
+            FileOutputStream fos = new FileOutputStream(path);
+            bitmap.compress(Bitmap.CompressFormat.PNG, 100, fos);
+            fos.flush();
+            fos.close();
+
+            createNewFileAttachment(path, FileMetadata.FILE_TYPE_IMG);
+        } catch (Exception e) {
+            Toast.makeText(getActivity(), R.string.file_err_copy, Toast.LENGTH_LONG);
+        }
+    }
+
+    private void createNewFileAttachment(String path, int fileType) {
+        Metadata fileMetadata = FileMetadata.createNewFileMetadata(model.getId(), path, fileType);
         metadataService.save(fileMetadata);
         filesControlSet.refreshMetadata();
     }
@@ -1162,12 +1193,17 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
             notesControlSet.writeToModel(model);
         } else if (requestCode == REQUEST_CODE_RECORD && resultCode == Activity.RESULT_OK) {
             String recordedAudio = data.getStringExtra(AACRecordingActivity.RESULT_OUTFILE);
-            Metadata audioMetadata = FileMetadata.createNewFileMetadata(model.getId(), recordedAudio, FileMetadata.FILE_TYPE_AUDIO);
-            metadataService.save(audioMetadata);
-            filesControlSet.refreshMetadata();
+            createNewFileAttachment(recordedAudio, FileMetadata.FILE_TYPE_AUDIO);
         } else if (requestCode == REQUEST_CODE_ATTACH_FILE && resultCode == Activity.RESULT_OK) {
             attachFile(data.getStringExtra(FileExplore.EXTRA_FILE_SELECTED));
         }
+
+        ActFmCameraModule.activityResult(getActivity(), requestCode, resultCode, data, new CameraResultCallback() {
+            @Override
+            public void handleCameraResult(Bitmap bitmap) {
+                attachImage(bitmap);
+            }
+        });
 
         // respond to sharing logoin
         peopleControlSet.onActivityResult(requestCode, resultCode, data);

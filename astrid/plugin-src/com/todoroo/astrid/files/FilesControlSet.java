@@ -109,14 +109,8 @@ public class FilesControlSet extends PopupControlSet {
             View name = fileRow.findViewById(R.id.file_text);
             View clearFile = fileRow.findViewById(R.id.remove_file);
             clearFile.setVisibility(View.VISIBLE);
-            if (m.getValue(FileMetadata.FILE_TYPE) == FileMetadata.FILE_TYPE_AUDIO) {
-                name.setOnClickListener(new OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        RecognizerApi.play(m.getValue(FileMetadata.FILE_PATH));
-                    }
-                });
-            }
+
+            setupFileClickListener(name, m);
             clearFile.setOnClickListener(new OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -138,6 +132,29 @@ public class FilesControlSet extends PopupControlSet {
         }
     }
 
+    private void setupFileClickListener(View view, final Metadata m) {
+        int fileType = m.getValue(FileMetadata.FILE_TYPE);
+        final String filePath = m.getValue(FileMetadata.FILE_PATH);
+        switch(fileType) {
+        case FileMetadata.FILE_TYPE_AUDIO:
+            view.setOnClickListener(new OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    RecognizerApi.play(m.getValue(FileMetadata.FILE_PATH));
+                }
+            });
+            break;
+        case FileMetadata.FILE_TYPE_IMG:
+            view.setOnClickListener(new OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    // Show image
+                }
+            });
+            break;
+        }
+    }
+
     private void setUpFileRow(Metadata m, View row, LinearLayout parent, LayoutParams lp) {
         TextView nameView = (TextView) row.findViewById(R.id.file_text);
         TextView typeView = (TextView) row.findViewById(R.id.file_type);
@@ -154,7 +171,8 @@ public class FilesControlSet extends PopupControlSet {
     }
 
     private String getNameString(Metadata metadata) {
-        if (metadata.getValue(FileMetadata.FILE_TYPE) == FileMetadata.FILE_TYPE_AUDIO) {
+        int fileType = metadata.getValue(FileMetadata.FILE_TYPE);
+        if (fileType == FileMetadata.FILE_TYPE_AUDIO || fileType == FileMetadata.FILE_TYPE_IMG) {
             Date date = new Date(metadata.getValue(FileMetadata.ATTACH_DATE));
             return DateUtilities.getDateStringWithTime(activity, date);
         } else {
