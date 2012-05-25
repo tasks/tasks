@@ -338,7 +338,7 @@ public class QuickAddBar extends LinearLayout implements RecognizerApiListener {
                         .append(task.getId())
                         .append("_")
                         .append(DateUtilities.now())
-                        .append("_audio.mp4");
+                        .append("_audio.m4a");
                 String filePath = filePathBuilder.toString();
                 System.err.println("Saving to " + filePath);
                 voiceRecognizer.convert(filePath);

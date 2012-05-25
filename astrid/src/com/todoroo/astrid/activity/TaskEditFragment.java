@@ -1051,7 +1051,7 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
             return;
         }
 
-        createNewFileAttachment(dst.getAbsolutePath(), FileMetadata.FILE_TYPE_OTHER);
+        createNewFileAttachment(dst.getAbsolutePath(), "");
     }
 
     @SuppressWarnings("nls")
@@ -1077,7 +1077,7 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
         }
     }
 
-    private void createNewFileAttachment(String path, int fileType) {
+    private void createNewFileAttachment(String path, String fileType) {
         Metadata fileMetadata = FileMetadata.createNewFileMetadata(model.getId(), path, fileType);
         metadataService.save(fileMetadata);
         filesControlSet.refreshMetadata();

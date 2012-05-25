@@ -138,18 +138,16 @@ public class FilesControlSet extends PopupControlSet {
     }
 
     private void setupFileClickListener(View view, final Metadata m) {
-        int fileType = m.getValue(FileMetadata.FILE_TYPE);
+        String fileType = m.getValue(FileMetadata.FILE_TYPE);
         final String filePath = m.getValue(FileMetadata.FILE_PATH);
-        switch(fileType) {
-        case FileMetadata.FILE_TYPE_AUDIO:
+        if (FileMetadata.FILE_TYPE_AUDIO.equals(fileType)) {
             view.setOnClickListener(new OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     RecognizerApi.play(m.getValue(FileMetadata.FILE_PATH));
                 }
             });
-            break;
-        case FileMetadata.FILE_TYPE_IMG:
+        } else if (FileMetadata.FILE_TYPE_IMG.equals(fileType)) {
             view.setOnClickListener(new OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -175,7 +173,6 @@ public class FilesControlSet extends PopupControlSet {
                     image.show();
                 }
             });
-            break;
         }
     }
 

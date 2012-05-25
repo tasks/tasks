@@ -54,6 +54,7 @@ import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.data.TaskApiDao;
 import com.todoroo.astrid.data.Update;
 import com.todoroo.astrid.data.User;
+import com.todoroo.astrid.files.FileMetadata;
 import com.todoroo.astrid.helper.ImageDiskCache;
 import com.todoroo.astrid.service.MetadataService;
 import com.todoroo.astrid.service.StatisticsConstants;
@@ -1267,6 +1268,17 @@ public final class ActFmSyncService {
                 tagMetadata.setValue(TagService.REMOTE_ID, tag.getLong("id"));
                 metadata.add(tagMetadata);
             }
+        }
+
+        public static void taskAttachmentFromJson(JSONObject json, Metadata model) throws JSONException {
+            model.clearValue(FileMetadata.REMOTE_ID);
+
+            long remoteId = json.getLong("id");
+            if (remoteId > 0)
+                model.setValue(FileMetadata.REMOTE_ID, remoteId);
+
+            model.setValue(FileMetadata.URL, json.getString("url"));
+            model.setValue(FileMetadata.FILE_TYPE, json.getString("content_type"));
         }
 
         /** Filter out FROM */

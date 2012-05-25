@@ -85,12 +85,12 @@ public class AACRecordingActivity extends Activity implements AACRecorderCallbac
     public void encodingFinished() {
         try {
             StringBuilder filePathBuilder = new StringBuilder();
-            filePathBuilder.append(getExternalFilesDir(FileMetadata.AUDIO_DIRECTORY).toString())
+            filePathBuilder.append(getExternalFilesDir(FileMetadata.FILES_DIRECTORY).toString())
                     .append(File.separator)
                     .append(taskId)
                     .append("_")
                     .append(DateUtilities.now())
-                    .append("_audio.mp4");
+                    .append("_audio.m4a");
 
             String outFile = filePathBuilder.toString();
             new AACToM4A().convert(this, tempFile, outFile);
