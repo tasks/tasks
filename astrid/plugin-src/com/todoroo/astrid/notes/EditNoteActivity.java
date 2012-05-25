@@ -97,6 +97,8 @@ public class EditNoteActivity extends LinearLayout implements TimerActionListene
     private final int cameraButton;
     private final String linkColor;
 
+    private boolean respondToPicture;
+
     private final List<UpdatesChangedListener> listeners = new LinkedList<UpdatesChangedListener>();
 
     public interface UpdatesChangedListener {
@@ -232,6 +234,7 @@ public class EditNoteActivity extends LinearLayout implements TimerActionListene
                     ActFmCameraModule.showPictureLauncher(fragment, clearImage);
                 else
                     ActFmCameraModule.showPictureLauncher(fragment, null);
+                respondToPicture = true;
             }
         });
         if(!TextUtils.isEmpty(task.getValue(Task.NOTES))) {
@@ -541,16 +544,21 @@ public class EditNoteActivity extends LinearLayout implements TimerActionListene
      */
     public boolean activityResult(int requestCode, int resultCode, Intent data) {
 
-        CameraResultCallback callback = new CameraResultCallback() {
-            @Override
-            public void handleCameraResult(Bitmap bitmap) {
-                pendingCommentPicture = bitmap;
-                pictureButton.setImageBitmap(pendingCommentPicture);
-            }
-        };
+        if (respondToPicture) {
+            respondToPicture = false;
+            CameraResultCallback callback = new CameraResultCallback() {
+                @Override
+                public void handleCameraResult(Bitmap bitmap) {
+                    pendingCommentPicture = bitmap;
+                    pictureButton.setImageBitmap(pendingCommentPicture);
+                }
+            };
 
-        return (ActFmCameraModule.activityResult((Activity)getContext(),
-                requestCode, resultCode, data, callback));
+            return (ActFmCameraModule.activityResult((Activity)getContext(),
+                    requestCode, resultCode, data, callback));
+        } else {
+            return false;
+        }
     }
 
 }

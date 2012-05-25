@@ -5,15 +5,19 @@ import java.util.ArrayList;
 import java.util.Date;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.graphics.Bitmap;
 import android.text.TextUtils;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.LinearLayout.LayoutParams;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.timsu.astrid.R;
 import com.todoroo.aacenc.RecognizerApi;
@@ -21,6 +25,7 @@ import com.todoroo.andlib.data.TodorooCursor;
 import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.andlib.sql.Query;
+import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.andlib.utility.DialogUtilities;
 import com.todoroo.astrid.dao.MetadataDao.MetadataCriteria;
@@ -148,7 +153,26 @@ public class FilesControlSet extends PopupControlSet {
             view.setOnClickListener(new OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    // Show image
+                    AlertDialog image = new AlertDialog.Builder(activity).create();
+                    ImageView imageView = new ImageView(activity);
+                    imageView.setLayoutParams(new LayoutParams(LayoutParams.FILL_PARENT, LayoutParams.WRAP_CONTENT));
+                    Bitmap bitmap = AndroidUtilities.readScaledBitmap(filePath);
+
+                    if (bitmap == null) {
+                        Toast.makeText(activity, R.string.file_err_memory, Toast.LENGTH_LONG);
+                        return;
+                    }
+
+                    imageView.setImageBitmap(bitmap);
+                    image.setView(imageView);
+
+                    image.setButton(activity.getString(R.string.DLG_close), new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface d, int which) {
+                            return;
+                        }
+                    });
+                    image.show();
                 }
             });
             break;
