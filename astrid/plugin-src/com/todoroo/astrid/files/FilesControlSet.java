@@ -195,13 +195,13 @@ public class FilesControlSet extends PopupControlSet {
     }
 
     private String getNameString(Metadata metadata) {
-        int fileType = metadata.getValue(FileMetadata.FILE_TYPE);
-        if (fileType == FileMetadata.FILE_TYPE_AUDIO || fileType == FileMetadata.FILE_TYPE_IMG) {
+        File f = new File(metadata.getValue(FileMetadata.FILE_PATH));
+        String name = f.getName();
+
+        if (name.matches("\\d+_\\d+_\\w+.\\w+")) { //$NON-NLS-1$
             Date date = new Date(metadata.getValue(FileMetadata.ATTACH_DATE));
             return DateUtilities.getDateStringWithTime(activity, date);
         } else {
-            File f = new File(metadata.getValue(FileMetadata.FILE_PATH));
-            String name = f.getName();
             int extension = name.lastIndexOf('.');
             if (extension < 0)
                 return name;
