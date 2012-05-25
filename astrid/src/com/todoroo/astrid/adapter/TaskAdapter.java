@@ -13,9 +13,11 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.app.Activity;
+import android.app.Dialog;
 import android.app.PendingIntent.CanceledException;
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.database.Cursor;
 import android.graphics.Color;
@@ -67,10 +69,12 @@ import com.todoroo.astrid.core.LinkActionExposer;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.helper.AsyncImageView;
 import com.todoroo.astrid.helper.TaskAdapterAddOnManager;
+import com.todoroo.astrid.notes.NotesAction;
 import com.todoroo.astrid.notes.NotesDecorationExposer;
 import com.todoroo.astrid.service.StatisticsConstants;
 import com.todoroo.astrid.service.StatisticsService;
 import com.todoroo.astrid.service.TaskService;
+import com.todoroo.astrid.service.ThemeService;
 import com.todoroo.astrid.taskrabbit.TaskRabbitDataService;
 import com.todoroo.astrid.taskrabbit.TaskRabbitTaskContainer;
 import com.todoroo.astrid.timers.TimerDecorationExposer;
@@ -586,7 +590,9 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
             @Override
             public void onClick(View v) {
                 TaskAction action = (TaskAction) viewHolder.taskActionIcon.getTag();
-                if (action != null) {
+                if (action instanceof NotesAction) {
+                    showEditNotesDialog(viewHolder.task);
+                } else if (action != null) {
                     try {
                         action.intent.send();
                     } catch (CanceledException e) {
@@ -595,6 +601,37 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
                 }
             }
         });
+    }
+
+    private void showEditNotesDialog(final Task task) {
+        int theme = ThemeService.getEditDialogTheme();
+        final Dialog dialog = new Dialog(fragment.getActivity(), theme);
+        dialog.setTitle(R.string.TEA_note_label);
+        View notesView = LayoutInflater.from(fragment.getActivity()).inflate(R.layout.notes_view_dialog, null);
+        dialog.setContentView(notesView, new LayoutParams(LayoutParams.FILL_PARENT, LayoutParams.WRAP_CONTENT));
+
+        notesView.findViewById(R.id.edit_dlg_ok).setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
+
+        final TextView notesField = (TextView) notesView.findViewById(R.id.notes);
+        notesField.setText(task.getValue(Task.NOTES));
+
+        LayoutParams params = dialog.getWindow().getAttributes();
+        params.width = LayoutParams.FILL_PARENT;
+        params.height = LayoutParams.WRAP_CONTENT;
+        Configuration config = fragment.getResources().getConfiguration();
+        int size = config.screenLayout & Configuration.SCREENLAYOUT_SIZE_MASK;
+        if (AndroidUtilities.getSdkVersion() >= 9 && size == Configuration.SCREENLAYOUT_SIZE_XLARGE) {
+            DisplayMetrics metrics = fragment.getResources().getDisplayMetrics();
+            params.width = metrics.widthPixels / 2;
+        }
+        dialog.getWindow().setAttributes((android.view.WindowManager.LayoutParams) params);
+
+        dialog.show();
     }
 
     /* ======================================================================

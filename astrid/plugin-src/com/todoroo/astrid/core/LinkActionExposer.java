@@ -17,13 +17,16 @@ import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.text.Spannable;
+import android.text.TextUtils;
 import android.text.style.URLSpan;
 import android.text.util.Linkify;
 
 import com.timsu.astrid.R;
+import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.astrid.api.TaskAction;
 import com.todoroo.astrid.api.TaskDecoration;
 import com.todoroo.astrid.data.Task;
+import com.todoroo.astrid.notes.NotesAction;
 
 /**
  * Exposes {@link TaskDecoration} for phone numbers, emails, urls, etc
@@ -40,14 +43,15 @@ public class LinkActionExposer {
         if(taskId == -1)
             return result;
 
-        Task task = PluginServices.getTaskService().fetchById(taskId, Task.ID, Task.TITLE);
+        Task task = PluginServices.getTaskService().fetchById(taskId, Task.ID, Task.TITLE, Task.NOTES);
         if (task == null) return result;
 
+        String notes = task.getValue(Task.NOTES);
         Spannable titleSpan = Spannable.Factory.getInstance().newSpannable(task.getValue(Task.TITLE));
         Linkify.addLinks(titleSpan, Linkify.ALL);
 
         URLSpan[] urlSpans = titleSpan.getSpans(0, titleSpan.length(), URLSpan.class);
-        if(urlSpans.length == 0)
+        if(urlSpans.length == 0 && TextUtils.isEmpty(notes))
             return result;
 
         pm = context.getPackageManager();
@@ -61,6 +65,14 @@ public class LinkActionExposer {
             if (taskAction != null)
                 result.add(taskAction);
         }
+
+        if (!TextUtils.isEmpty(notes) && !Preferences.getBoolean(R.string.p_showNotes, false)) {
+            Resources r = context.getResources();
+            Bitmap icon = ((BitmapDrawable) r.getDrawable(R.drawable.action_notes)).getBitmap();
+            NotesAction notesAction = new NotesAction("", null, icon); //$NON-NLS-1$
+            result.add(notesAction);
+        }
+
         return result;
     }
 

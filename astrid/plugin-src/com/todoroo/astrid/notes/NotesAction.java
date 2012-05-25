@@ -1,0 +1,39 @@
+package com.todoroo.astrid.notes;
+
+import android.app.PendingIntent;
+import android.graphics.Bitmap;
+import android.os.Parcel;
+import android.os.Parcelable;
+
+import com.todoroo.astrid.api.TaskAction;
+
+public class NotesAction extends TaskAction {
+
+    public NotesAction(String text, PendingIntent intent, Bitmap icon) {
+        super(text, intent, icon);
+    }
+
+    /**
+     * Parcelable creator
+     */
+    public static final Parcelable.Creator<NotesAction> CREATOR = new Parcelable.Creator<NotesAction>() {
+        /**
+         * {@inheritDoc}
+         */
+        public NotesAction createFromParcel(Parcel source) {
+            NotesAction action = new NotesAction(source.readString(),
+                    (PendingIntent)source.readParcelable(PendingIntent.class.getClassLoader()),
+                    (Bitmap)source.readParcelable(Bitmap.class.getClassLoader()));
+            action.drawable = source.readInt();
+            return action;
+        }
+
+        /**
+         * {@inheritDoc}
+         */
+        public NotesAction[] newArray(int size) {
+            return new NotesAction[size];
+        };
+    };
+
+}

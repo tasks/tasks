@@ -80,7 +80,7 @@
 	            android:id="@+id/taskActionContainer"
 	            android:layout_width="wrap_content"
 	            android:layout_height="wrap_content"
-	            android:layout_marginRight="4dip"
+	            android:layout_marginRight="10dip"
 	            android:orientation="vertical"
 	            android:gravity="right|center_vertical">
 		        <TextView
