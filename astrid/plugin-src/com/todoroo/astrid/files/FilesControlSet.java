@@ -24,6 +24,7 @@ import com.todoroo.aacenc.RecognizerApi;
 import com.todoroo.andlib.data.TodorooCursor;
 import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.DependencyInjectionService;
+import com.todoroo.andlib.sql.Criterion;
 import com.todoroo.andlib.sql.Query;
 import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.andlib.utility.DateUtilities;
@@ -75,7 +76,8 @@ public class FilesControlSet extends PopupControlSet {
     public void refreshMetadata() {
         TodorooCursor<Metadata> cursor = metadataService.query(
                 Query.select(Metadata.PROPERTIES)
-                     .where(MetadataCriteria.byTaskAndwithKey(model.getId(), FileMetadata.METADATA_KEY)));
+                     .where(Criterion.and(MetadataCriteria.byTaskAndwithKey(model.getId(), FileMetadata.METADATA_KEY),
+                             FileMetadata.FILE_PATH.isNotNull())));
         try {
             files.clear();
             for (cursor.moveToFirst(); !cursor.isAfterLast(); cursor.moveToNext()) {

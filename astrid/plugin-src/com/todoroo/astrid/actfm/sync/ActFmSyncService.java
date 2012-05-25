@@ -4,6 +4,7 @@
 package com.todoroo.astrid.actfm.sync;
 
 import java.io.ByteArrayOutputStream;
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -12,6 +13,7 @@ import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
+import java.util.Set;
 import java.util.concurrent.atomic.AtomicInteger;
 
 import org.apache.http.entity.mime.MultipartEntity;
@@ -1011,6 +1013,7 @@ public final class ActFmSyncService {
 
                 JsonHelper.taskFromJson(item, remote, metadata);
 
+
                 if(remote.getValue(Task.USER_ID) == 0) {
                     if(!remote.isSaved())
                         StatisticsService.reportEvent(StatisticsConstants.ACTFM_TASK_CREATED);
@@ -1028,6 +1031,7 @@ public final class ActFmSyncService {
                 taskService.save(remote);
                 ids.add(remote.getId());
                 metadataService.synchronizeMetadata(remote.getId(), metadata, MetadataCriteria.withKey(TagService.KEY));
+                synchronizeAttachments(item, remote);
                 remote.clear();
             }
 
@@ -1060,6 +1064,51 @@ public final class ActFmSyncService {
         @Override
         protected Class<Task> typeClass() {
             return Task.class;
+        }
+
+        private void synchronizeAttachments(JSONObject item, Task model) {
+            TodorooCursor<Metadata> attachments = metadataService.query(Query.select(Metadata.PROPERTIES)
+                    .where(Criterion.and(MetadataCriteria.byTaskAndwithKey(model.getId(),
+                            FileMetadata.METADATA_KEY), FileMetadata.REMOTE_ID.gt(0))));
+            try {
+                HashMap<Long, Metadata> currentFiles = new HashMap<Long, Metadata>();
+                for (attachments.moveToFirst(); !attachments.isAfterLast(); attachments.moveToNext()) {
+                    Metadata m = new Metadata(attachments);
+                    currentFiles.put(m.getValue(FileMetadata.REMOTE_ID), m);
+                }
+
+                JSONArray remoteFiles = item.getJSONArray("attachments");
+                for (int i = 0; i < remoteFiles.length(); i++) {
+                    JSONObject file = remoteFiles.getJSONObject(i);
+
+                    long id = file.optLong("id");
+                    if (currentFiles.containsKey(id)) {
+                        // Match, nothing to do
+                        currentFiles.remove(id);
+                    } else {
+                        // Create new file attachment
+                        Metadata newAttachment = FileMetadata.createNewFileMetadata(model.getId(), null, file.getString("content_type"));
+                        newAttachment.setValue(FileMetadata.URL, file.getString("url"));
+                        newAttachment.setValue(FileMetadata.REMOTE_ID, id);
+                        metadataService.save(newAttachment);
+                    }
+                }
+
+                // Remove all the leftovers
+                Set<Long> attachmentsToDelete = currentFiles.keySet();
+                for (Long remoteId : attachmentsToDelete) {
+                    Metadata toDelete = currentFiles.get(remoteId);
+                    File f = new File(toDelete.getValue(FileMetadata.FILE_PATH));
+                    if (f.delete()) {
+                        metadataService.delete(toDelete);
+                    }
+                }
+
+            } catch (JSONException e) {
+                // Ignored
+            } finally {
+                attachments.close();
+            }
         }
 
     }
