@@ -16,6 +16,8 @@ public class FileMetadata {
     public static final String FILE_TYPE_AUDIO = "audio/m4a"; //$NON-NLS-1$
     public static final String FILE_TYPE_IMG = "image/png"; //$NON-NLS-1$
 
+    public static final String FILE_TYPE_OTHER = "application/octet-stream";  //$NON-NLS-1$
+
     public static final StringProperty FILE_PATH = new StringProperty(Metadata.TABLE,
             Metadata.VALUE1.name);
 

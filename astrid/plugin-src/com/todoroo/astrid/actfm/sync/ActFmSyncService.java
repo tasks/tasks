@@ -18,6 +18,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 import org.apache.http.entity.mime.MultipartEntity;
 import org.apache.http.entity.mime.content.ByteArrayBody;
+import org.apache.http.entity.mime.content.FileBody;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -584,6 +585,41 @@ public final class ActFmSyncService {
         } catch (IOException e) {
             addFailedPush(new FailedPush(PUSH_TYPE_TAG, tagData.getId()));
             handleException("tag-save", e);
+        }
+    }
+
+    /**
+     * Push a file attachment to the server
+     * @param remoteTaskId
+     * @param fileMetadata
+     */
+    public void pushAttachment(long remoteTaskId, Metadata fileMetadata) {
+        if (!fileMetadata.containsNonNullValue(FileMetadata.FILE_PATH) || remoteTaskId <= 0)
+            return;
+
+        File f = new File(fileMetadata.getValue(FileMetadata.FILE_PATH));
+        if (!f.exists())
+            return;
+
+        ArrayList<Object> params = new ArrayList<Object>();
+        params.add("task_id"); params.add(remoteTaskId);
+        params.add("token"); params.add(token);
+
+        try {
+            MultipartEntity entity = new MultipartEntity();
+            FileBody body = new FileBody(f, fileMetadata.getValue(FileMetadata.FILE_TYPE));
+            entity.addPart("file", body);
+
+            JSONObject result = actFmInvoker.post("task_attachment_create", entity,
+                    params.toArray(new Object[params.size()]));
+
+            fileMetadata.setValue(FileMetadata.REMOTE_ID, result.optLong("id"));
+            fileMetadata.setValue(FileMetadata.URL, result.optString("url"));
+            metadataService.save(fileMetadata);
+        } catch (ActFmServiceException e) {
+            handleException("push-attacgment-error", e);
+        } catch (IOException e) {
+            handleException("push-attacgment-error", e);
         }
     }
 

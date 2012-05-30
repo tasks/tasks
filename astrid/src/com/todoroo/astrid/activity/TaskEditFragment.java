@@ -1053,7 +1053,7 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
             return;
         }
 
-        createNewFileAttachment(dst.getAbsolutePath(), ""); //$NON-NLS-1$
+        createNewFileAttachment(dst.getAbsolutePath(), FileMetadata.FILE_TYPE_OTHER);
     }
 
     @SuppressWarnings("nls")
