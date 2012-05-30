@@ -137,7 +137,7 @@ public class ActFmPreferenceService extends SyncProviderUtilities {
         return user;
     }
 
-    public boolean isPremiumUser() {
+    public static boolean isPremiumUser() {
         return Preferences.getBoolean(PREF_PREMIUM, false);
     }
 

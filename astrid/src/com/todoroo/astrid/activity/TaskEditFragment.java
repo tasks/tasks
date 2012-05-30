@@ -19,6 +19,8 @@
  */
 package com.todoroo.astrid.activity;
 
+import java.io.File;
+import java.io.FileOutputStream;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -31,6 +33,7 @@ import android.app.Dialog;
 import android.content.ContentValues;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.os.Handler;
 import android.speech.RecognizerIntent;
@@ -51,6 +54,7 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.view.ViewGroup.LayoutParams;
 import android.view.ViewParent;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.FrameLayout;
@@ -67,9 +71,16 @@ import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.andlib.utility.DialogUtilities;
 import com.todoroo.andlib.utility.Preferences;
+import com.todoroo.astrid.actfm.ActFmCameraModule;
+import com.todoroo.astrid.actfm.ActFmCameraModule.CameraResultCallback;
 import com.todoroo.astrid.actfm.EditPeopleControlSet;
 import com.todoroo.astrid.actfm.sync.ActFmPreferenceService;
+import com.todoroo.astrid.data.Metadata;
 import com.todoroo.astrid.data.Task;
+import com.todoroo.astrid.files.AACRecordingActivity;
+import com.todoroo.astrid.files.FileExplore;
+import com.todoroo.astrid.files.FileMetadata;
+import com.todoroo.astrid.files.FilesControlSet;
 import com.todoroo.astrid.gcal.GCalControlSet;
 import com.todoroo.astrid.helper.TaskEditControlSet;
 import com.todoroo.astrid.notes.EditNoteActivity;
@@ -150,6 +161,8 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
     public static final int REQUEST_LOG_IN = 0;
     private static final int REQUEST_VOICE_RECOG = 10;
     public static final int REQUEST_CODE_CONTACT = 20;
+    public static final int REQUEST_CODE_RECORD = 30;
+    public static final int REQUEST_CODE_ATTACH_FILE = 40;
 
     // --- menu codes
 
@@ -157,6 +170,8 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
     private static final int MENU_DISCARD_ID = R.string.TEA_menu_discard;
     private static final int MENU_DELETE_ID = R.string.TEA_menu_delete;
     private static final int MENU_COMMENTS_REFRESH_ID = R.string.TEA_menu_comments;
+    private static final int MENU_ATTACH_ID = R.string.premium_attach_file;
+    private static final int MENU_RECORD_ID = R.string.premium_record_audio;
 
     // --- result codes
 
@@ -202,6 +217,7 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
     private EditNotesControlSet notesControlSet = null;
     private HideUntilControlSet hideUntilControls = null;
     private TagsControlSet tagsControlSet = null;
+    private FilesControlSet filesControlSet = null;
     private TimerActionControlSet timerAction;
     private EditText title;
     private TaskEditMoreControls moreControls;
@@ -550,6 +566,15 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
         controls.add(timerControl);
         controlSetMap.put(getString(R.string.TEA_ctrl_timer_pref), timerControl);
 
+        if (ActFmPreferenceService.isPremiumUser()) {
+            filesControlSet = new FilesControlSet(getActivity(),
+                    R.layout.control_set_files,
+                    R.layout.control_set_files_display,
+                    R.string.TEA_control_files);
+            controls.add(filesControlSet);
+            controlSetMap.put(getString(R.string.TEA_ctrl_files_pref), filesControlSet);
+        }
+
         try {
             if (ProducteevUtilities.INSTANCE.isLoggedIn()) {
                 ProducteevControlSet producteevControl = new ProducteevControlSet(
@@ -578,13 +603,9 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
             Log.e("astrid-error", "loading-control-set", e); //$NON-NLS-1$ //$NON-NLS-2$
         }
 
-        String[] itemOrder;
-        String orderPreference = Preferences.getStringValue(BeastModePreferences.BEAST_MODE_ORDER_PREF);
-        if (orderPreference != null)
-            itemOrder = orderPreference.split(BeastModePreferences.BEAST_MODE_PREF_ITEM_SEPARATOR);
-        else
-            itemOrder = getResources().getStringArray(
-                    R.array.TEA_control_sets_prefs);
+        ArrayList<String> controlOrder = BeastModePreferences.constructOrderedControlList(getActivity());
+        String[] itemOrder = controlOrder.toArray(new String[controlOrder.size()]);
+
         String moreSectionTrigger = getString(R.string.TEA_ctrl_more_pref);
         String shareViewDescriptor = getString(R.string.TEA_ctrl_share_pref);
         LinearLayout section = basicControls;
@@ -984,6 +1005,86 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
                 Toast.LENGTH_SHORT).show();
     }
 
+    private void startAttachFile() {
+        ArrayList<String> options = new ArrayList<String>();
+        options.add(getString(R.string.file_add_picture));
+        options.add(getString(R.string.file_add_sdcard));
+
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(),
+                android.R.layout.simple_spinner_dropdown_item, options.toArray(new String[options.size()]));
+
+        DialogInterface.OnClickListener listener = new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface d, int which) {
+                if(which == 0) {
+                    ActFmCameraModule.showPictureLauncher(TaskEditFragment.this, null);
+                } else if (which == 1) {
+                    Intent attachFile = new Intent(getActivity(), FileExplore.class);
+                    startActivityForResult(attachFile, REQUEST_CODE_ATTACH_FILE);
+                }
+            }
+        };
+
+        // show a menu of available options
+        new AlertDialog.Builder(getActivity())
+        .setAdapter(adapter, listener)
+        .show().setOwnerActivity(getActivity());
+    }
+
+    private void startRecordingAudio() {
+        Intent recordAudio = new Intent(getActivity(), AACRecordingActivity.class);
+        recordAudio.putExtra(AACRecordingActivity.EXTRA_TEMP_FILE, getActivity().getFilesDir() + File.separator + "audio.aac"); //$NON-NLS-1$
+        recordAudio.putExtra(AACRecordingActivity.EXTRA_TASK_ID, model.getId());
+        startActivityForResult(recordAudio, REQUEST_CODE_RECORD);
+    }
+
+    private void attachFile(String file) {
+        File src = new File(file);
+        if (!src.exists()) {
+            Toast.makeText(getActivity(), R.string.file_err_copy, Toast.LENGTH_LONG);
+            return;
+        }
+
+        File dst = new File(getActivity().getExternalFilesDir(FileMetadata.FILES_DIRECTORY) + File.separator + src.getName());
+        try {
+            AndroidUtilities.copyFile(src, dst);
+        } catch (Exception e) {
+            Toast.makeText(getActivity(), R.string.file_err_copy, Toast.LENGTH_LONG);
+            return;
+        }
+
+        createNewFileAttachment(dst.getAbsolutePath(), FileMetadata.FILE_TYPE_OTHER);
+    }
+
+    @SuppressWarnings("nls")
+    private void attachImage(Bitmap bitmap) {
+        StringBuilder filePathBuilder = new StringBuilder();
+        filePathBuilder.append(getActivity().getExternalFilesDir(FileMetadata.FILES_DIRECTORY).toString())
+                .append(File.separator)
+                .append(model.getId())
+                .append("_")
+                .append(DateUtilities.now())
+                .append("_img.png");
+
+        String path = filePathBuilder.toString();
+        try {
+            FileOutputStream fos = new FileOutputStream(path);
+            bitmap.compress(Bitmap.CompressFormat.PNG, 100, fos);
+            fos.flush();
+            fos.close();
+
+            createNewFileAttachment(path, FileMetadata.FILE_TYPE_IMG);
+        } catch (Exception e) {
+            Toast.makeText(getActivity(), R.string.file_err_copy, Toast.LENGTH_LONG);
+        }
+    }
+
+    private void createNewFileAttachment(String path, String fileType) {
+        Metadata fileMetadata = FileMetadata.createNewFileMetadata(model.getId(), path, fileType);
+        metadataService.save(fileMetadata);
+        filesControlSet.refreshMetadata();
+    }
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
@@ -996,7 +1097,12 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
         case MENU_DELETE_ID:
             deleteButtonClick();
             return true;
-
+        case MENU_ATTACH_ID:
+            startAttachFile();
+            return true;
+        case MENU_RECORD_ID:
+            startRecordingAudio();
+            return true;
         case MENU_COMMENTS_REFRESH_ID: {
                 editNotes.refreshData(true, null);
             return true;
@@ -1018,13 +1124,24 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
         MenuItem item;
 
         AstridActivity activity = (AstridActivity) getActivity();
+
+        if (ActFmPreferenceService.isPremiumUser()) {
+            item = menu.add(Menu.NONE, MENU_ATTACH_ID, 0, R.string.premium_attach_file);
+            item.setIcon(R.drawable.ic_menu_attach);
+            item.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
+
+            item = menu.add(Menu.NONE, MENU_RECORD_ID, 0, R.string.premium_record_audio);
+            item.setIcon(R.drawable.ic_menu_mic);
+            item.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
+        }
+
         if (activity instanceof TaskListActivity && activity.fragmentLayout != AstridActivity.LAYOUT_DOUBLE || activity instanceof TaskEditActivity) {
             item = menu.add(Menu.NONE, MENU_DISCARD_ID, 0, R.string.TEA_menu_discard);
-            item.setIcon(R.drawable.close_clear_cancel);
+            item.setIcon(R.drawable.ic_menu_close);
             item.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
 
             item = menu.add(Menu.NONE, MENU_SAVE_ID, 0, R.string.TEA_menu_save);
-            item.setIcon(android.R.drawable.ic_menu_save);
+            item.setIcon(R.drawable.ic_menu_save);
             item.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
         }
 
@@ -1078,7 +1195,19 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
             // onResume.populateFields
             // (due to the activity-change)
             notesControlSet.writeToModel(model);
+        } else if (requestCode == REQUEST_CODE_RECORD && resultCode == Activity.RESULT_OK) {
+            String recordedAudio = data.getStringExtra(AACRecordingActivity.RESULT_OUTFILE);
+            createNewFileAttachment(recordedAudio, FileMetadata.FILE_TYPE_AUDIO);
+        } else if (requestCode == REQUEST_CODE_ATTACH_FILE && resultCode == Activity.RESULT_OK) {
+            attachFile(data.getStringExtra(FileExplore.EXTRA_FILE_SELECTED));
         }
+
+        ActFmCameraModule.activityResult(getActivity(), requestCode, resultCode, data, new CameraResultCallback() {
+            @Override
+            public void handleCameraResult(Bitmap bitmap) {
+                attachImage(bitmap);
+            }
+        });
 
         // respond to sharing logoin
         peopleControlSet.onActivityResult(requestCode, resultCode, data);
@@ -1118,7 +1247,6 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
      * ======================================================================
      */
 
-    @SuppressWarnings("nls")
     public int getTabForPosition(int position) {
         if ((tabStyle == TAB_STYLE_WEB && position == 0) ||
                 (tabStyle != TAB_STYLE_WEB && position == 1))

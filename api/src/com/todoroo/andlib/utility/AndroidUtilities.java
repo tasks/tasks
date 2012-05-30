@@ -106,6 +106,25 @@ public class AndroidUtilities {
         }
     }
 
+    /** Read a bitmap from the specified file, scaling if necessary
+     *  Returns null if scaling failed after several tries */
+    public static Bitmap readScaledBitmap(String file) {
+        Bitmap bitmap = null;
+        int tries = 1;
+        BitmapFactory.Options opts = new BitmapFactory.Options();
+        while(bitmap == null && tries < 32) {
+            opts.inSampleSize = tries;
+            try {
+                bitmap = BitmapFactory.decodeFile(file, opts);
+            } catch (OutOfMemoryError e) {
+                // Too big
+            }
+            tries = tries * 2;
+        }
+
+        return bitmap;
+    }
+
     /**
      * Start the given intent, handling security exceptions if they arise
      *
