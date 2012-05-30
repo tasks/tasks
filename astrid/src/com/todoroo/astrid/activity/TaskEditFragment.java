@@ -566,12 +566,14 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
         controls.add(timerControl);
         controlSetMap.put(getString(R.string.TEA_ctrl_timer_pref), timerControl);
 
-        filesControlSet = new FilesControlSet(getActivity(),
-                R.layout.control_set_files,
-                R.layout.control_set_files_display,
-                R.string.TEA_control_files);
-        controls.add(filesControlSet);
-        controlSetMap.put(getString(R.string.TEA_ctrl_files_pref), filesControlSet);
+        if (ActFmPreferenceService.isPremiumUser()) {
+            filesControlSet = new FilesControlSet(getActivity(),
+                    R.layout.control_set_files,
+                    R.layout.control_set_files_display,
+                    R.string.TEA_control_files);
+            controls.add(filesControlSet);
+            controlSetMap.put(getString(R.string.TEA_ctrl_files_pref), filesControlSet);
+        }
 
         try {
             if (ProducteevUtilities.INSTANCE.isLoggedIn()) {
@@ -1051,7 +1053,7 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
             return;
         }
 
-        createNewFileAttachment(dst.getAbsolutePath(), "");
+        createNewFileAttachment(dst.getAbsolutePath(), ""); //$NON-NLS-1$
     }
 
     @SuppressWarnings("nls")
@@ -1123,13 +1125,15 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
 
         AstridActivity activity = (AstridActivity) getActivity();
 
-        item = menu.add(Menu.NONE, MENU_ATTACH_ID, 0, R.string.premium_attach_file);
-        item.setIcon(R.drawable.ic_menu_attach);
-        item.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
+        if (ActFmPreferenceService.isPremiumUser()) {
+            item = menu.add(Menu.NONE, MENU_ATTACH_ID, 0, R.string.premium_attach_file);
+            item.setIcon(R.drawable.ic_menu_attach);
+            item.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
 
-        item = menu.add(Menu.NONE, MENU_RECORD_ID, 0, R.string.premium_record_audio);
-        item.setIcon(R.drawable.ic_menu_mic);
-        item.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
+            item = menu.add(Menu.NONE, MENU_RECORD_ID, 0, R.string.premium_record_audio);
+            item.setIcon(R.drawable.ic_menu_mic);
+            item.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
+        }
 
         if (activity instanceof TaskListActivity && activity.fragmentLayout != AstridActivity.LAYOUT_DOUBLE || activity instanceof TaskEditActivity) {
             item = menu.add(Menu.NONE, MENU_DISCARD_ID, 0, R.string.TEA_menu_discard);
