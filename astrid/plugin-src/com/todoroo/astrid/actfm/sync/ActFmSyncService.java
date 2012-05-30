@@ -1088,7 +1088,10 @@ public final class ActFmSyncService {
                     } else {
                         // Create new file attachment
                         Metadata newAttachment = FileMetadata.createNewFileMetadata(model.getId(), null, file.getString("content_type"));
-                        newAttachment.setValue(FileMetadata.URL, file.getString("url"));
+                        String url = file.getString("url");
+                        if (url.contains("?"))
+                            url = url.substring(0, url.lastIndexOf('?'));
+                        newAttachment.setValue(FileMetadata.URL, url);
                         newAttachment.setValue(FileMetadata.REMOTE_ID, id);
                         metadataService.save(newAttachment);
                     }

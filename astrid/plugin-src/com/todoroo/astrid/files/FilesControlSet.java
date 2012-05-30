@@ -2,7 +2,6 @@ package com.todoroo.astrid.files;
 
 import java.io.File;
 import java.io.FileOutputStream;
-import java.io.IOException;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
@@ -145,15 +144,20 @@ public class FilesControlSet extends PopupControlSet {
 
     private void setupFileClickListener(View view, final Metadata m) {
         String fileType = m.getValue(FileMetadata.FILE_TYPE);
-        final String filePath = m.getValue(FileMetadata.FILE_PATH);
+        final String filePath = m.containsNonNullValue(FileMetadata.FILE_PATH) ? m.getValue(FileMetadata.FILE_PATH) : null;
         if (TextUtils.isEmpty(filePath)) {
-            DialogUtilities.okCancelDialog(activity, activity.getString(R.string.file_download_title),
-                    activity.getString(R.string.file_download_body), new DialogInterface.OnClickListener() {
+            view.setOnClickListener(new OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    DialogUtilities.okCancelDialog(activity, activity.getString(R.string.file_download_title),
+                            activity.getString(R.string.file_download_body), new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface d, int which) {
                             downloadFile(m);
                         }
                     }, null);
+                }
+            });
         } else if (FileMetadata.FILE_TYPE_AUDIO.equals(fileType)) {
             view.setOnClickListener(new OnClickListener() {
                 @Override
@@ -216,11 +220,13 @@ public class FilesControlSet extends PopupControlSet {
                     .append(name);
 
                 File file = new File(filePathBuilder.toString());
-                try {
-                    file.createNewFile();
-                } catch (IOException e) {
-                    pd.dismiss();
-                    Toast.makeText(activity, R.string.file_err_download, Toast.LENGTH_LONG);
+                if (file.exists()) {
+                    activity.runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            Toast.makeText(activity, R.string.file_err_download, Toast.LENGTH_LONG);
+                        }
+                    });
                     return;
                 }
 
@@ -246,7 +252,7 @@ public class FilesControlSet extends PopupControlSet {
 
                     int bufferLength = 0; //used to store a temporary size of the buffer
 
-                    while ((bufferLength = inputStream.read(buffer)) > 0 ) {
+                    while ((bufferLength = inputStream.read(buffer)) > 0) {
                         fileOutput.write(buffer, 0, bufferLength);
                         downloadedSize += bufferLength;
 
@@ -268,7 +274,12 @@ public class FilesControlSet extends PopupControlSet {
                 } catch (Exception e) {
                     e.printStackTrace();
                     file.delete();
-                    Toast.makeText(activity, R.string.file_err_download, Toast.LENGTH_LONG);
+                    activity.runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            Toast.makeText(activity, R.string.file_err_download, Toast.LENGTH_LONG);
+                        }
+                    });
                 } finally {
                     pd.dismiss();
                 }
@@ -291,11 +302,16 @@ public class FilesControlSet extends PopupControlSet {
         parent.addView(row, lp);
     }
 
+    @SuppressWarnings("nls")
     private String getNameString(Metadata metadata) {
-        String path = metadata.getValue(FileMetadata.FILE_PATH);
+        String path = metadata.containsNonNullValue(FileMetadata.FILE_PATH) ? metadata.getValue(FileMetadata.FILE_PATH) : null;
         String name;
         if (TextUtils.isEmpty(path)) {
             name = metadata.getValue(FileMetadata.URL);
+            if (name.endsWith("/"))
+                name = name.substring(0, name.length() - 1);
+            if (name.contains("/"))
+                name = name.substring(name.lastIndexOf('/') + 1);
         } else {
             File f = new File(path);
             name = f.getName();
@@ -314,8 +330,13 @@ public class FilesControlSet extends PopupControlSet {
 
     @SuppressWarnings("nls")
     private String getTypeString(Metadata metadata) {
-        File f = new File(metadata.getValue(FileMetadata.FILE_PATH));
-        String name = f.getName();
+        String name;
+        if (metadata.containsNonNullValue(FileMetadata.FILE_PATH)) {
+            File f = new File(metadata.getValue(FileMetadata.FILE_PATH));
+            name = f.getName();
+        } else {
+            name = metadata.getValue(FileMetadata.URL);
+        }
 
         int extension = name.lastIndexOf('.');
         if (extension < 0 || extension + 1 >= name.length())
