@@ -344,7 +344,7 @@ public class QuickAddBar extends LinearLayout implements RecognizerApiListener {
                 voiceRecognizer.convert(filePath);
                 currentVoiceFile = null;
 
-                Metadata fileMetadata = FileMetadata.createNewFileMetadata(task.getId(), filePath, FileMetadata.FILE_TYPE_AUDIO);
+                Metadata fileMetadata = FileMetadata.createNewFileMetadata(task.getId(), filePath, FileMetadata.FILE_TYPE_AUDIO + "m4a");
                 metadataService.save(fileMetadata);
             }
 

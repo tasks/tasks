@@ -54,6 +54,7 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.view.ViewGroup.LayoutParams;
 import android.view.ViewParent;
+import android.webkit.MimeTypeMap;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -1038,6 +1039,7 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
         startActivityForResult(recordAudio, REQUEST_CODE_RECORD);
     }
 
+    @SuppressWarnings("nls")
     private void attachFile(String file) {
         File src = new File(file);
         if (!src.exists()) {
@@ -1053,7 +1055,22 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
             return;
         }
 
-        createNewFileAttachment(dst.getAbsolutePath(), FileMetadata.FILE_TYPE_OTHER);
+        String path = dst.getAbsolutePath();
+        String name = dst.getName();
+        String extension = "";
+        if (name.matches("\\w+.\\w+")) {
+            extension = name.substring(name.lastIndexOf('.') + 1);
+        }
+
+        String type = FileMetadata.FILE_TYPE_OTHER;
+        if (!TextUtils.isEmpty(extension)) {
+            MimeTypeMap map = MimeTypeMap.getSingleton();
+            String guessedType = map.getMimeTypeFromExtension(extension);
+            if (!TextUtils.isEmpty(guessedType))
+                type = guessedType;
+        }
+
+        createNewFileAttachment(path, type);
     }
 
     @SuppressWarnings("nls")
@@ -1073,7 +1090,7 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
             fos.flush();
             fos.close();
 
-            createNewFileAttachment(path, FileMetadata.FILE_TYPE_IMG);
+            createNewFileAttachment(path, FileMetadata.FILE_TYPE_IMAGE + "png");
         } catch (Exception e) {
             Toast.makeText(getActivity(), R.string.file_err_copy, Toast.LENGTH_LONG);
         }
@@ -1197,7 +1214,7 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
             notesControlSet.writeToModel(model);
         } else if (requestCode == REQUEST_CODE_RECORD && resultCode == Activity.RESULT_OK) {
             String recordedAudio = data.getStringExtra(AACRecordingActivity.RESULT_OUTFILE);
-            createNewFileAttachment(recordedAudio, FileMetadata.FILE_TYPE_AUDIO);
+            createNewFileAttachment(recordedAudio, FileMetadata.FILE_TYPE_AUDIO + "m4a"); //$NON-NLS-1$
         } else if (requestCode == REQUEST_CODE_ATTACH_FILE && resultCode == Activity.RESULT_OK) {
             attachFile(data.getStringExtra(FileExplore.EXTRA_FILE_SELECTED));
         }

@@ -13,8 +13,10 @@ public class FileMetadata {
     public static final String FILES_DIRECTORY = "attachments"; //$NON-NLS-1$
 
     /** Constants for file types */
-    public static final String FILE_TYPE_AUDIO = "audio/m4a"; //$NON-NLS-1$
-    public static final String FILE_TYPE_IMG = "image/png"; //$NON-NLS-1$
+    public static final String FILE_TYPE_AUDIO = "audio/"; //$NON-NLS-1$
+    public static final String FILE_TYPE_IMAGE = "image/"; //$NON-NLS-1$
+
+
 
     public static final String FILE_TYPE_OTHER = "application/octet-stream";  //$NON-NLS-1$
 
