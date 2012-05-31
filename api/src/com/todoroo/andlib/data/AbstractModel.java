@@ -11,6 +11,7 @@ import java.lang.reflect.Modifier;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.Map.Entry;
 import java.util.Set;
 
 import android.content.ContentValues;
@@ -21,6 +22,7 @@ import com.todoroo.andlib.data.Property.DoubleProperty;
 import com.todoroo.andlib.data.Property.IntegerProperty;
 import com.todoroo.andlib.data.Property.LongProperty;
 import com.todoroo.andlib.data.Property.PropertyVisitor;
+import com.todoroo.andlib.utility.AndroidUtilities;
 
 /**
  * <code>AbstractModel</code> represents a row in a database.
@@ -318,6 +320,20 @@ public abstract class AbstractModel implements Parcelable, Cloneable {
         if (setValues == null)
             setValues = new ContentValues();
         setValues.putAll(other);
+    }
+
+    /**
+     * Merges set values with those coming from another source,
+     * keeping the existing value if one already exists
+     */
+    public synchronized <TYPE> void mergeWithoutReplacement(ContentValues other) {
+        if (setValues == null)
+            setValues = new ContentValues();
+        for (Entry<String, Object> item : other.valueSet()) {
+            if (setValues.containsKey(item.getKey()))
+                continue;
+            AndroidUtilities.putInto(setValues, item.getKey(), item.getValue(), true);
+        }
     }
 
     /**

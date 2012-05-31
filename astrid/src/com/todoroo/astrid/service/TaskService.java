@@ -502,7 +502,7 @@ public class TaskService {
 
                 AndroidUtilities.putInto(forTask, key, value, true);
             }
-            task.mergeWith(forTask);
+            task.mergeWithoutReplacement(forTask);
         }
 
         if (task.getValue(Task.USER_ID) != Task.USER_ID_SELF)
