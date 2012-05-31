@@ -439,6 +439,22 @@ public class ActFmSyncV2Provider extends SyncV2Provider {
     }
 
     private void pushQueuedTasksByTag(TagData tagData, SyncResultCallback callback, AtomicInteger finisher) {
+        Long[] ids;
+        TodorooCursor<Metadata> allTagged = metadataService.query(Query.select(Metadata.TASK).where(Criterion.and(Metadata.KEY.eq(TagService.KEY),
+                TagService.TAG.eqCaseInsensitive(tagData.getValue(TagData.NAME)))));
+        try {
+            ids = new Long[allTagged.getCount()];
+            Metadata m = new Metadata();
+            int i = 0;
+            for (allTagged.moveToFirst(); !allTagged.isAfterLast(); allTagged.moveToNext()) {
+                m.readFromCursor(allTagged);
+                ids[i] = m.getValue(Metadata.TASK);
+                i++;
+            }
+        } finally {
+            allTagged.close();
+        }
+
         TodorooCursor<Task> taskCursor = taskService.query(Query.select(Task.PROPERTIES)
                 .join(Join.inner(Metadata.TABLE, Criterion.and(Metadata.KEY.eq(TagService.KEY), Metadata.TASK.eq(Task.ID),
                         TagService.TAG.eqCaseInsensitive(tagData.getValue(TagData.NAME)))))
@@ -447,7 +463,15 @@ public class ActFmSyncV2Provider extends SyncV2Provider {
                                 Task.REMOTE_ID.isNull()),
                         Criterion.and(Task.REMOTE_ID.isNotNull(),
                                 Task.MODIFICATION_DATE.gt(Task.LAST_SYNC)))));
-        pushQueued(callback, finisher, taskCursor, false, taskPusher);
+
+        TodorooCursor<Metadata> filesCursor = metadataService.query(Query.select(Metadata.PROPERTIES)
+                .where(Criterion.and(
+                        MetadataCriteria.withKey(FileMetadata.METADATA_KEY),
+                        FileMetadata.REMOTE_ID.eq(0),
+                        Metadata.TASK.in(ids))));
+
+        pushQueued(callback, finisher, taskCursor, true, taskPusher);
+        pushQueued(callback, finisher, filesCursor, false, filesPusher);
     }
 
 }
