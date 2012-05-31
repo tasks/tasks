@@ -6,10 +6,14 @@ import android.content.SharedPreferences.Editor;
 import android.content.res.Resources;
 
 import com.timsu.astrid.R;
+import com.todoroo.andlib.data.TodorooCursor;
 import com.todoroo.andlib.service.ContextManager;
+import com.todoroo.andlib.sql.Query;
 import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.astrid.api.AstridApiConstants;
+import com.todoroo.astrid.core.PluginServices;
 import com.todoroo.astrid.data.Task;
+import com.todoroo.astrid.data.User;
 import com.todoroo.astrid.producteev.ProducteevUtilities;
 import com.todoroo.astrid.service.ThemeService;
 import com.todoroo.astrid.service.abtesting.ABChooser;
@@ -54,15 +58,22 @@ public class AstridPreferences {
         Preferences.setIfUnset(prefs, editor, r, R.string.p_use_contact_picker, true);
         Preferences.setIfUnset(prefs, editor, r, R.string.p_field_missed_calls, true);
 
-        boolean friendsViewEnabled = (ABChooser.readChoiceForTest(ABTests.AB_TEST_FRIENDS_VIEW_AVAILABLE) == 1);
-        Preferences.setIfUnset(prefs, editor, r, R.string.p_show_friends_view, friendsViewEnabled);
-
         boolean thirdPartyAddons = (ABChooser.readChoiceForTest(ABTests.AB_TEST_PRODUCTEEV_ENABLED) == 1) || ProducteevUtilities.INSTANCE.isLoggedIn();
         Preferences.setIfUnset(prefs, editor, r, R.string.p_third_party_addons, thirdPartyAddons);
 
         if ("white-blue".equals(Preferences.getStringValue(R.string.p_theme))) { //$NON-NLS-1$ migrate from when white-blue wasn't the default
             Preferences.setString(R.string.p_theme, ThemeService.THEME_WHITE);
         }
+
+        // Show friends view if necessary
+        boolean showFriends = false;
+        TodorooCursor<User> users = PluginServices.getUserDao().query(Query.select(User.ID).limit(1));
+        try {
+            showFriends = users.getCount() > 0;
+        } finally {
+            users.close();
+        }
+        Preferences.setBoolean(R.string.p_show_friends_view, showFriends);
 
         editor.commit();
     }

@@ -16,9 +16,6 @@
         android:key="@string/p_field_missed_calls"
         android:title="@string/MCA_missed_calls_pref_title"/>
     <CheckBoxPreference
-        android:key="@string/p_show_friends_view"
-        android:title="@string/EPr_show_friends_view"/>
-    <CheckBoxPreference
         android:key="@string/p_third_party_addons"
         android:title="@string/EPr_third_party_addons" />
 </PreferenceScreen>

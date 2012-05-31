@@ -26,6 +26,7 @@ import android.os.ConditionVariable;
 import android.text.TextUtils;
 import android.util.Log;
 
+import com.timsu.astrid.R;
 import com.todoroo.andlib.data.AbstractModel;
 import com.todoroo.andlib.data.DatabaseDao;
 import com.todoroo.andlib.data.DatabaseDao.ModelUpdateListener;
@@ -702,6 +703,9 @@ public final class ActFmSyncService {
                 "token", token, "modified_after", serverTime);
         JSONArray users = result.getJSONArray("list");
         HashSet<Long> ids = new HashSet<Long>();
+        if (users.length() > 0)
+            Preferences.setBoolean(R.string.p_show_friends_view, true);
+
         for (int i = 0; i < users.length(); i++) {
             JSONObject userObject = users.getJSONObject(i);
             ids.add(userObject.optLong("id"));

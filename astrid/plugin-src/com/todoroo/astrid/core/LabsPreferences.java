@@ -44,10 +44,6 @@ public class LabsPreferences extends TodorooPreferenceActivity {
             String name = r.getStringArray(R.array.EPr_swipe_lists_performance_mode)[index];
             String desc = r.getStringArray(R.array.EPr_swipe_lists_performance_desc)[index];
             preference.setSummary(r.getString(R.string.EPr_swipe_lists_display, name, desc));
-        } else if (r.getString(R.string.p_show_friends_view).equals(key)) {
-            preference.setOnPreferenceChangeListener(settingChangedListener);
-            setEnabledSummary(preference, value,
-                    R.string.EPr_show_friends_view_desc_enabled, R.string.EPr_show_friends_view_desc_disabled);
         } else if (r.getString(R.string.p_field_missed_calls).equals(key)) {
             setEnabledSummary(preference, value,
                     R.string.MCA_missed_calls_pref_desc_enabled, R.string.MCA_missed_calls_pref_desc_disabled);

@@ -609,11 +609,6 @@
   <string name="EPr_use_contact_picker_desc_enabled">The system contact picker option will be displayed in the task assignment window</string>
   <string name="EPr_use_contact_picker_desc_disabled">The system contact picker option will not be displayed</string>
 
-  <!-- Preferences: show the friends view -->
-  <string name="EPr_show_friends_view">Show Friends View</string>
-  <string name="EPr_show_friends_view_desc_enabled">Friends menu item will be shown</string>
-  <string name="EPr_show_friends_view_desc_disabled">Friends menu item will be hidden</string>
-
   <!-- Preferences: Third party addons -->
   <string name="EPr_third_party_addons">Enable Third Party Add-ons</string>
   <string name="EPr_third_party_addons_desc_enabled">Third party add-ons will be enabled</string>
