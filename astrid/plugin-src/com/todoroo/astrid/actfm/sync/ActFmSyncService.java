@@ -1123,7 +1123,8 @@ public final class ActFmSyncService {
                         currentFiles.remove(id);
                     } else {
                         // Create new file attachment
-                        Metadata newAttachment = FileMetadata.createNewFileMetadata(model.getId(), null, file.getString("content_type"));
+                        Metadata newAttachment = FileMetadata.createNewFileMetadata(model.getId(), null,
+                                file.getString("name"), file.getString("content_type"));
                         String url = file.getString("url");
                         if (url.contains("?"))
                             url = url.substring(0, url.lastIndexOf('?'));
@@ -1356,17 +1357,6 @@ public final class ActFmSyncService {
                 tagMetadata.setValue(TagService.REMOTE_ID, tag.getLong("id"));
                 metadata.add(tagMetadata);
             }
-        }
-
-        public static void taskAttachmentFromJson(JSONObject json, Metadata model) throws JSONException {
-            model.clearValue(FileMetadata.REMOTE_ID);
-
-            long remoteId = json.getLong("id");
-            if (remoteId > 0)
-                model.setValue(FileMetadata.REMOTE_ID, remoteId);
-
-            model.setValue(FileMetadata.URL, json.getString("url"));
-            model.setValue(FileMetadata.FILE_TYPE, json.getString("content_type"));
         }
 
         /** Filter out FROM */

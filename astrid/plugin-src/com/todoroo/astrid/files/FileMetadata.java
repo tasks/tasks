@@ -35,11 +35,15 @@ public class FileMetadata {
     public static final StringProperty URL = new StringProperty(Metadata.TABLE,
             Metadata.VALUE5.name);
 
+    public static final StringProperty NAME = new StringProperty(Metadata.TABLE,
+            Metadata.VALUE6.name);
 
-    public static Metadata createNewFileMetadata(long taskId, String filePath, String fileType) {
+
+    public static Metadata createNewFileMetadata(long taskId, String filePath, String fileName, String fileType) {
         Metadata metadata = new Metadata();
         metadata.setValue(Metadata.KEY, METADATA_KEY);
         metadata.setValue(Metadata.TASK, taskId);
+        metadata.setValue(NAME, fileName);
         metadata.setValue(FILE_PATH, filePath);
         metadata.setValue(FILE_TYPE, fileType);
         metadata.setValue(REMOTE_ID, 0L);

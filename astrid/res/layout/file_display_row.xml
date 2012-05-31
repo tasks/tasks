@@ -16,12 +16,14 @@
         android:textAppearance="@style/TextAppearance.EditRowDisplay"/>
     <TextView
         android:id="@+id/file_type"
+        android:minWidth="37dip"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@drawable/file_type_background"
         android:layout_marginLeft="5dip"
         android:paddingLeft="4dip"
         android:paddingRight="4dip"
+        android:gravity="center"
         android:textColor="?attr/asTextColorInverse"/>
     <ImageView
         android:id="@+id/remove_file"

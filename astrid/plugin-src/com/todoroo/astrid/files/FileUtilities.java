@@ -1,0 +1,74 @@
+package com.todoroo.astrid.files;
+
+import java.io.File;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.concurrent.atomic.AtomicReference;
+
+import android.content.Context;
+
+import com.timsu.astrid.R;
+import com.todoroo.andlib.utility.DateUtilities;
+
+public class FileUtilities {
+
+    /**
+     * @return Date string for use with file attachment names
+     */
+    public static String getDateStringForFilename(Context context, Date date) {
+        return DateUtilities.getDateStringHideYear(context, date) + ", " + getTimeStringForFilename(context, date); //$NON-NLS-1$
+    }
+
+    @SuppressWarnings("nls")
+    private static String getTimeStringForFilename(Context context, Date date) {
+        String value;
+        if (DateUtilities.is24HourFormat(context)) {
+            value = "HH.mm";
+        }
+        else {
+            value = "hh.mma";
+        }
+        return new SimpleDateFormat(value).format(date);
+    }
+
+    public static String getNewImageAttachmentPath(Context context, AtomicReference<String> nameReference) {
+        return getNewAttachmentPath(context, R.string.file_prefix_image, ".png", nameReference); //$NON-NLS-1$
+    }
+
+    public static String getNewAudioAttachmentPath(Context context, AtomicReference<String> nameReference) {
+        return getNewAttachmentPath(context, R.string.file_prefix_voice, ".m4a", nameReference); //$NON-NLS-1$
+    }
+
+    private static String getNewAttachmentPath(Context context, int prefixId, String extension, AtomicReference<String> nameReference) {
+        StringBuilder fileNameBuilder = new StringBuilder();
+        fileNameBuilder.append(context.getString(prefixId))
+                .append(" ") //$NON-NLS-1$
+                .append(getDateStringForFilename(context, new Date()));
+
+        String dir = context.getExternalFilesDir(FileMetadata.FILES_DIRECTORY).toString();
+
+        String name = getNonCollidingFileName(dir, fileNameBuilder.toString(), extension);
+
+        StringBuilder filePathBuilder = new StringBuilder();
+        filePathBuilder.append(dir)
+                .append(File.separator)
+                .append(name);
+        if (nameReference != null)
+            nameReference.set(name);
+
+        return filePathBuilder.toString();
+    }
+
+    private static String getNonCollidingFileName(String dir, String baseName, String extension) {
+        int tries = 1;
+        File f = new File(dir + File.separator + baseName + extension);
+        String tempName = baseName;
+        while (f.exists()) {
+            tempName = baseName + "-" + tries; //$NON-NLS-1$
+            f = new File(dir + File.separator + tempName + extension);
+            tries++;
+        }
+        return tempName + extension;
+    }
+
+}

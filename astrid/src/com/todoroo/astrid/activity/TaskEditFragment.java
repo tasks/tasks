@@ -26,6 +26,7 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
+import java.util.concurrent.atomic.AtomicReference;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -81,6 +82,7 @@ import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.files.AACRecordingActivity;
 import com.todoroo.astrid.files.FileExplore;
 import com.todoroo.astrid.files.FileMetadata;
+import com.todoroo.astrid.files.FileUtilities;
 import com.todoroo.astrid.files.FilesControlSet;
 import com.todoroo.astrid.gcal.GCalControlSet;
 import com.todoroo.astrid.helper.TaskEditControlSet;
@@ -1035,7 +1037,6 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
     private void startRecordingAudio() {
         Intent recordAudio = new Intent(getActivity(), AACRecordingActivity.class);
         recordAudio.putExtra(AACRecordingActivity.EXTRA_TEMP_FILE, getActivity().getFilesDir() + File.separator + "audio.aac"); //$NON-NLS-1$
-        recordAudio.putExtra(AACRecordingActivity.EXTRA_TASK_ID, model.getId());
         startActivityForResult(recordAudio, REQUEST_CODE_RECORD);
     }
 
@@ -1070,34 +1071,29 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
                 type = guessedType;
         }
 
-        createNewFileAttachment(path, type);
+        createNewFileAttachment(path, name, type);
     }
 
     @SuppressWarnings("nls")
     private void attachImage(Bitmap bitmap) {
-        StringBuilder filePathBuilder = new StringBuilder();
-        filePathBuilder.append(getActivity().getExternalFilesDir(FileMetadata.FILES_DIRECTORY).toString())
-                .append(File.separator)
-                .append(model.getId())
-                .append("_")
-                .append(DateUtilities.now())
-                .append("_img.png");
 
-        String path = filePathBuilder.toString();
+        AtomicReference<String> nameRef = new AtomicReference<String>();
+        String path = FileUtilities.getNewImageAttachmentPath(getActivity(), nameRef);
+
         try {
             FileOutputStream fos = new FileOutputStream(path);
             bitmap.compress(Bitmap.CompressFormat.PNG, 100, fos);
             fos.flush();
             fos.close();
 
-            createNewFileAttachment(path, FileMetadata.FILE_TYPE_IMAGE + "png");
+            createNewFileAttachment(path, nameRef.get(), FileMetadata.FILE_TYPE_IMAGE + "png");
         } catch (Exception e) {
             Toast.makeText(getActivity(), R.string.file_err_copy, Toast.LENGTH_LONG);
         }
     }
 
-    private void createNewFileAttachment(String path, String fileType) {
-        Metadata fileMetadata = FileMetadata.createNewFileMetadata(model.getId(), path, fileType);
+    private void createNewFileAttachment(String path, String fileName, String fileType) {
+        Metadata fileMetadata = FileMetadata.createNewFileMetadata(model.getId(), path, fileName, fileType);
         metadataService.save(fileMetadata);
         filesControlSet.refreshMetadata();
     }
@@ -1213,8 +1209,9 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
             // (due to the activity-change)
             notesControlSet.writeToModel(model);
         } else if (requestCode == REQUEST_CODE_RECORD && resultCode == Activity.RESULT_OK) {
-            String recordedAudio = data.getStringExtra(AACRecordingActivity.RESULT_OUTFILE);
-            createNewFileAttachment(recordedAudio, FileMetadata.FILE_TYPE_AUDIO + "m4a"); //$NON-NLS-1$
+            String recordedAudioPath = data.getStringExtra(AACRecordingActivity.RESULT_OUTFILE);
+            String recordedAudioName = data.getStringExtra(AACRecordingActivity.RESULT_FILENAME);
+            createNewFileAttachment(recordedAudioPath, recordedAudioName, FileMetadata.FILE_TYPE_AUDIO + "m4a"); //$NON-NLS-1$
         } else if (requestCode == REQUEST_CODE_ATTACH_FILE && resultCode == Activity.RESULT_OK) {
             attachFile(data.getStringExtra(FileExplore.EXTRA_FILE_SELECTED));
         }

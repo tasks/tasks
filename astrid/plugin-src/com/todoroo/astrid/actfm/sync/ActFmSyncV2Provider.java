@@ -258,37 +258,34 @@ public class ActFmSyncV2Provider extends SyncV2Provider {
 
     private <T extends AbstractModel> void pushQueued(final SyncResultCallback callback, final AtomicInteger finisher,
             TodorooCursor<T> cursor, boolean awaitTermination, final PushQueuedArgs<T> pusher) {
-        try {
-            callback.incrementMax(cursor.getCount() * 20);
-            finisher.addAndGet(cursor.getCount());
+        callback.incrementMax(cursor.getCount() * 20);
+        finisher.addAndGet(cursor.getCount());
 
-            ExecutorService executor = Executors.newFixedThreadPool(NUM_THREADS);
-            for(int i = 0; i < cursor.getCount(); i++) {
-                cursor.moveToNext();
-                final T model = pusher.getRemoteModelInstance(cursor);
+        ExecutorService executor = Executors.newFixedThreadPool(NUM_THREADS);
+        for(int i = 0; i < cursor.getCount(); i++) {
+            cursor.moveToNext();
+            final T model = pusher.getRemoteModelInstance(cursor);
 
-                executor.submit(new Runnable() {
-                    public void run() {
-                        try {
-                            pusher.pushRemoteModel(model);
-                        } finally {
-                            callback.incrementProgress(20);
-                            if(finisher.decrementAndGet() == 0) {
-                                finishSync(callback);
-                            }
+            executor.submit(new Runnable() {
+                public void run() {
+                    try {
+                        pusher.pushRemoteModel(model);
+                    } finally {
+                        callback.incrementProgress(20);
+                        if(finisher.decrementAndGet() == 0) {
+                            finishSync(callback);
                         }
                     }
-                });
-            }
-            executor.shutdown();
-            if (awaitTermination)
-                try {
-                    executor.awaitTermination(Long.MAX_VALUE, TimeUnit.MILLISECONDS);
-                } catch (InterruptedException e) {
-                    throw new RuntimeException(e);
                 }
-        } finally {
-            cursor.close();
+            });
+        }
+        executor.shutdown();
+        if (awaitTermination) {
+            try {
+                executor.awaitTermination(Long.MAX_VALUE, TimeUnit.MILLISECONDS);
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
         }
     }
 
@@ -300,14 +297,22 @@ public class ActFmSyncV2Provider extends SyncV2Provider {
                                 Task.REMOTE_ID.isNull()),
                                 Criterion.and(Task.REMOTE_ID.isNotNull(),
                                         Task.MODIFICATION_DATE.gt(Task.LAST_SYNC)))));
+        try {
+            pushQueued(callback, finisher, taskCursor, true, taskPusher);
+        } finally {
+            taskCursor.close();
+        }
 
         TodorooCursor<Metadata> filesCursor = metadataService.query(Query.select(Metadata.PROPERTIES)
                 .where(Criterion.and(
                         MetadataCriteria.withKey(FileMetadata.METADATA_KEY),
                         FileMetadata.REMOTE_ID.eq(0))));
+        try {
+            pushQueued(callback, finisher, filesCursor, false, filesPusher);
+        } finally {
+            filesCursor.close();
+        }
 
-        pushQueued(callback, finisher, taskCursor, true, taskPusher);
-        pushQueued(callback, finisher, filesCursor, false, filesPusher);
     }
 
     private void pushQueuedTags(final SyncResultCallback callback,
@@ -317,8 +322,11 @@ public class ActFmSyncV2Provider extends SyncV2Provider {
                         TagData.REMOTE_ID.eq(0),
                         Criterion.and(TagData.REMOTE_ID.gt(0),
                                 TagData.MODIFICATION_DATE.gt(lastTagSyncTime)))));
-
-        pushQueued(callback, finisher, tagDataCursor, true, tagPusher);
+        try {
+            pushQueued(callback, finisher, tagDataCursor, true, tagPusher);
+        } finally {
+            tagDataCursor.close();
+        }
 
     }
 
@@ -463,15 +471,22 @@ public class ActFmSyncV2Provider extends SyncV2Provider {
                                 Task.REMOTE_ID.isNull()),
                         Criterion.and(Task.REMOTE_ID.isNotNull(),
                                 Task.MODIFICATION_DATE.gt(Task.LAST_SYNC)))));
+        try {
+            pushQueued(callback, finisher, taskCursor, true, taskPusher);
+        } finally {
+            taskCursor.close();
+        }
 
         TodorooCursor<Metadata> filesCursor = metadataService.query(Query.select(Metadata.PROPERTIES)
                 .where(Criterion.and(
                         MetadataCriteria.withKey(FileMetadata.METADATA_KEY),
                         FileMetadata.REMOTE_ID.eq(0),
                         Metadata.TASK.in(ids))));
-
-        pushQueued(callback, finisher, taskCursor, true, taskPusher);
-        pushQueued(callback, finisher, filesCursor, false, filesPusher);
+        try {
+            pushQueued(callback, finisher, filesCursor, false, filesPusher);
+        } finally {
+            filesCursor.close();
+        }
     }
 
 }

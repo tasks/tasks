@@ -6,7 +6,6 @@ import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.Date;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -31,7 +30,6 @@ import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.andlib.sql.Query;
 import com.todoroo.andlib.utility.AndroidUtilities;
-import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.andlib.utility.DialogUtilities;
 import com.todoroo.astrid.dao.MetadataDao.MetadataCriteria;
 import com.todoroo.astrid.data.Metadata;
@@ -302,30 +300,12 @@ public class FilesControlSet extends PopupControlSet {
         parent.addView(row, lp);
     }
 
-    @SuppressWarnings("nls")
     private String getNameString(Metadata metadata) {
-        String path = metadata.containsNonNullValue(FileMetadata.FILE_PATH) ? metadata.getValue(FileMetadata.FILE_PATH) : null;
-        String name;
-        if (TextUtils.isEmpty(path)) {
-            name = metadata.getValue(FileMetadata.URL);
-            if (name.endsWith("/"))
-                name = name.substring(0, name.length() - 1);
-            if (name.contains("/"))
-                name = name.substring(name.lastIndexOf('/') + 1);
-        } else {
-            File f = new File(path);
-            name = f.getName();
-        }
-
-        if (name.matches("\\d+_\\d+_\\w+.\\w+")) { //$NON-NLS-1$
-            Date date = new Date(metadata.getValue(FileMetadata.ATTACH_DATE));
-            return DateUtilities.getDateStringWithTime(activity, date);
-        } else {
-            int extension = name.lastIndexOf('.');
-            if (extension < 0)
-                return name;
-            return name.substring(0, extension);
-        }
+        String name = metadata.getValue(FileMetadata.NAME);
+        int extension = name.lastIndexOf('.');
+        if (extension < 0)
+            return name;
+        return name.substring(0, extension);
     }
 
     @SuppressWarnings("nls")

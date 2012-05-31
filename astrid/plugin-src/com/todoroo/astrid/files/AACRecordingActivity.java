@@ -1,7 +1,7 @@
 package com.todoroo.astrid.files;
 
-import java.io.File;
 import java.io.IOException;
+import java.util.concurrent.atomic.AtomicReference;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
@@ -16,19 +16,17 @@ import com.timsu.astrid.R;
 import com.todoroo.aacenc.AACRecorder;
 import com.todoroo.aacenc.AACRecorder.AACRecorderCallbacks;
 import com.todoroo.aacenc.AACToM4A;
-import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.andlib.utility.DialogUtilities;
 import com.todoroo.astrid.service.ThemeService;
 
 public class AACRecordingActivity extends Activity implements AACRecorderCallbacks {
 
     public static final String EXTRA_TEMP_FILE = "tempFile"; //$NON-NLS-1$
-    public static final String EXTRA_TASK_ID = "taskId"; //$NON-NLS-1$
     public static final String RESULT_OUTFILE = "outfile"; //$NON-NLS-1$
+    public static final String RESULT_FILENAME = "filename";  //$NON-NLS-1$
 
     private AACRecorder recorder;
     private String tempFile;
-    private long taskId;
 
     private ProgressDialog pd;
 
@@ -41,7 +39,6 @@ public class AACRecordingActivity extends Activity implements AACRecorderCallbac
         setupUi();
 
         tempFile = getIntent().getStringExtra(EXTRA_TEMP_FILE);
-        taskId = getIntent().getLongExtra(EXTRA_TASK_ID, 0L);
 
         recorder = new AACRecorder();
         recorder.setListener(this);
@@ -80,23 +77,18 @@ public class AACRecordingActivity extends Activity implements AACRecorderCallbac
         pd.show();
     }
 
-    @SuppressWarnings("nls")
     @Override
     public void encodingFinished() {
         try {
-            StringBuilder filePathBuilder = new StringBuilder();
-            filePathBuilder.append(getExternalFilesDir(FileMetadata.FILES_DIRECTORY).toString())
-                    .append(File.separator)
-                    .append(taskId)
-                    .append("_")
-                    .append(DateUtilities.now())
-                    .append("_audio.m4a");
 
-            String outFile = filePathBuilder.toString();
+            AtomicReference<String> nameRef = new AtomicReference<String>();
+            String outFile = FileUtilities.getNewAudioAttachmentPath(this, nameRef);
+
             new AACToM4A().convert(this, tempFile, outFile);
 
             Intent result = new Intent();
             result.putExtra(RESULT_OUTFILE, outFile);
+            result.putExtra(RESULT_FILENAME, nameRef.get());
             setResult(RESULT_OK, result);
             finish();
         } catch (IOException e) {

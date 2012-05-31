@@ -17,6 +17,8 @@
     <string name="audio_encoding">Encoding...</string>
     <string name="audio_err_encoding">Error encoding audio</string>
     
+    <string name="file_prefix_image">Image</string>
+    <string name="file_prefix_voice">Voice</string>
     <string name="file_browser_up">Up</string>
     <string name="file_browser_title">Choose a file</string>
     <string name="file_browser_err_permissions">Permissions error! Please make sure you have not blocked Astrid from accessing the SD card.</string>
