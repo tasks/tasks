@@ -569,14 +569,12 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
         controls.add(timerControl);
         controlSetMap.put(getString(R.string.TEA_ctrl_timer_pref), timerControl);
 
-        if (ActFmPreferenceService.isPremiumUser()) {
-            filesControlSet = new FilesControlSet(getActivity(),
-                    R.layout.control_set_files,
-                    R.layout.control_set_files_display,
-                    R.string.TEA_control_files);
-            controls.add(filesControlSet);
-            controlSetMap.put(getString(R.string.TEA_ctrl_files_pref), filesControlSet);
-        }
+        filesControlSet = new FilesControlSet(getActivity(),
+                R.layout.control_set_files,
+                R.layout.control_set_files_display,
+                R.string.TEA_control_files);
+        controls.add(filesControlSet);
+        controlSetMap.put(getString(R.string.TEA_ctrl_files_pref), filesControlSet);
 
         try {
             if (ProducteevUtilities.INSTANCE.isLoggedIn()) {
