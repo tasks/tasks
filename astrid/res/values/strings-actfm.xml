@@ -203,11 +203,11 @@
   <string name="actfm_EPA_invalid_tag">List Not Found: %s</string>
   
   <!-- task sharing login prompt -->
-  <string name="actfm_EPA_login_to_share">You need to be logged in to Astrid.com to share tasks! Please log in or make this a private task.</string>
+  <string name="actfm_EPA_login_to_share">You need to be logged in to Astrid.com to share tasks!</string>
   
   <string name="actfm_EPA_login_button">Log in</string>
   
-  <string name="actfm_EPA_dont_share_button">Make private</string>
+  <string name="actfm_EPA_dont_share_button">Don\'t share</string>
   
 
   <!-- ========================================= sharing login activity == -->
