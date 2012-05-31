@@ -344,7 +344,7 @@ public class AstridActivity extends FragmentActivity
             // Process in app notification
             long taskId = intent.getLongExtra(NotificationFragment.TOKEN_ID, 0);
             TaskEditFragment tef = getTaskEditFragment();
-            if (tef != null && tef.getTaskIdInProgress() == taskId)
+            if (tef != null)
                 return;
 
             if (taskId > 0) {
