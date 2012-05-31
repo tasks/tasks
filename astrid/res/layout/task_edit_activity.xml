@@ -43,14 +43,14 @@
                         android:layout_height="wrap_content"
                         android:layout_marginRight="10dip"
                         android:background="@android:color/transparent"
-                        android:src="@drawable/close_clear_cancel" />
+                        android:src="@drawable/ic_menu_close" />
 
                     <ImageButton
                         android:id="@+id/save"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:background="@android:color/transparent"
-                        android:src="@android:drawable/ic_menu_save" />
+                        android:src="@drawable/ic_menu_save" />
                 </LinearLayout>
             </LinearLayout>
 

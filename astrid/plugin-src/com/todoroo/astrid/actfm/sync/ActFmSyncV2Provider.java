@@ -14,6 +14,7 @@ import org.json.JSONObject;
 
 import com.timsu.astrid.C2DMReceiver;
 import com.timsu.astrid.R;
+import com.todoroo.andlib.data.AbstractModel;
 import com.todoroo.andlib.data.TodorooCursor;
 import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.ContextManager;
@@ -21,13 +22,15 @@ import com.todoroo.andlib.sql.Criterion;
 import com.todoroo.andlib.sql.Join;
 import com.todoroo.andlib.sql.Query;
 import com.todoroo.andlib.utility.Preferences;
+import com.todoroo.astrid.dao.MetadataDao.MetadataCriteria;
 import com.todoroo.astrid.dao.TaskDao.TaskCriteria;
 import com.todoroo.astrid.data.Metadata;
-import com.todoroo.astrid.data.RemoteModel;
 import com.todoroo.astrid.data.TagData;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.data.User;
+import com.todoroo.astrid.files.FileMetadata;
 import com.todoroo.astrid.service.AstridDependencyInjector;
+import com.todoroo.astrid.service.MetadataService;
 import com.todoroo.astrid.service.TagDataService;
 import com.todoroo.astrid.service.TaskService;
 import com.todoroo.astrid.sync.SyncResultCallback;
@@ -49,6 +52,8 @@ public class ActFmSyncV2Provider extends SyncV2Provider {
     @Autowired TaskService taskService;
 
     @Autowired TagDataService tagDataService;
+
+    @Autowired MetadataService metadataService;
 
     private final PushQueuedArgs<Task> taskPusher = new PushQueuedArgs<Task>() {
         @Override
@@ -77,6 +82,24 @@ public class ActFmSyncV2Provider extends SyncV2Provider {
         public TagData getRemoteModelInstance(
                 TodorooCursor<TagData> cursor) {
             return new TagData(cursor);
+        }
+    };
+
+    private final PushQueuedArgs<Metadata> filesPusher = new PushQueuedArgs<Metadata>() {
+
+        @Override
+        public void pushRemoteModel(Metadata model) {
+            long taskId = model.getValue(Metadata.TASK);
+            Task localTask = taskService.fetchById(taskId, Task.REMOTE_ID);
+            long remoteTaskId = localTask.getValue(Task.REMOTE_ID);
+            if (remoteTaskId <= 0)
+                return;
+
+            actFmSyncService.pushAttachment(remoteTaskId, model);
+        };
+
+        public Metadata getRemoteModelInstance(TodorooCursor<Metadata> cursor) {
+            return new Metadata(cursor);
         }
     };
 
@@ -228,44 +251,41 @@ public class ActFmSyncV2Provider extends SyncV2Provider {
         });
     }
 
-    private static interface PushQueuedArgs<T extends RemoteModel> {
+    private static interface PushQueuedArgs<T extends AbstractModel> {
         public T getRemoteModelInstance(TodorooCursor<T> cursor);
         public void pushRemoteModel(T model);
     }
 
-    private <T extends RemoteModel> void pushQueued(final SyncResultCallback callback, final AtomicInteger finisher,
+    private <T extends AbstractModel> void pushQueued(final SyncResultCallback callback, final AtomicInteger finisher,
             TodorooCursor<T> cursor, boolean awaitTermination, final PushQueuedArgs<T> pusher) {
-        try {
-            callback.incrementMax(cursor.getCount() * 20);
-            finisher.addAndGet(cursor.getCount());
+        callback.incrementMax(cursor.getCount() * 20);
+        finisher.addAndGet(cursor.getCount());
 
-            ExecutorService executor = Executors.newFixedThreadPool(NUM_THREADS);
-            for(int i = 0; i < cursor.getCount(); i++) {
-                cursor.moveToNext();
-                final T model = pusher.getRemoteModelInstance(cursor);
+        ExecutorService executor = Executors.newFixedThreadPool(NUM_THREADS);
+        for(int i = 0; i < cursor.getCount(); i++) {
+            cursor.moveToNext();
+            final T model = pusher.getRemoteModelInstance(cursor);
 
-                executor.submit(new Runnable() {
-                    public void run() {
-                        try {
-                            pusher.pushRemoteModel(model);
-                        } finally {
-                            callback.incrementProgress(20);
-                            if(finisher.decrementAndGet() == 0) {
-                                finishSync(callback);
-                            }
+            executor.submit(new Runnable() {
+                public void run() {
+                    try {
+                        pusher.pushRemoteModel(model);
+                    } finally {
+                        callback.incrementProgress(20);
+                        if(finisher.decrementAndGet() == 0) {
+                            finishSync(callback);
                         }
                     }
-                });
-            }
-            executor.shutdown();
-            if (awaitTermination)
-                try {
-                    executor.awaitTermination(Long.MAX_VALUE, TimeUnit.MILLISECONDS);
-                } catch (InterruptedException e) {
-                    throw new RuntimeException(e);
                 }
-        } finally {
-            cursor.close();
+            });
+        }
+        executor.shutdown();
+        if (awaitTermination) {
+            try {
+                executor.awaitTermination(Long.MAX_VALUE, TimeUnit.MILLISECONDS);
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
         }
     }
 
@@ -277,8 +297,22 @@ public class ActFmSyncV2Provider extends SyncV2Provider {
                                 Task.REMOTE_ID.isNull()),
                                 Criterion.and(Task.REMOTE_ID.isNotNull(),
                                         Task.MODIFICATION_DATE.gt(Task.LAST_SYNC)))));
+        try {
+            pushQueued(callback, finisher, taskCursor, true, taskPusher);
+        } finally {
+            taskCursor.close();
+        }
 
-        pushQueued(callback, finisher, taskCursor, false, taskPusher);
+        TodorooCursor<Metadata> filesCursor = metadataService.query(Query.select(Metadata.PROPERTIES)
+                .where(Criterion.and(
+                        MetadataCriteria.withKey(FileMetadata.METADATA_KEY),
+                        FileMetadata.REMOTE_ID.eq(0))));
+        try {
+            pushQueued(callback, finisher, filesCursor, false, filesPusher);
+        } finally {
+            filesCursor.close();
+        }
+
     }
 
     private void pushQueuedTags(final SyncResultCallback callback,
@@ -288,8 +322,11 @@ public class ActFmSyncV2Provider extends SyncV2Provider {
                         TagData.REMOTE_ID.eq(0),
                         Criterion.and(TagData.REMOTE_ID.gt(0),
                                 TagData.MODIFICATION_DATE.gt(lastTagSyncTime)))));
-
-        pushQueued(callback, finisher, tagDataCursor, true, tagPusher);
+        try {
+            pushQueued(callback, finisher, tagDataCursor, true, tagPusher);
+        } finally {
+            tagDataCursor.close();
+        }
 
     }
 
@@ -410,6 +447,22 @@ public class ActFmSyncV2Provider extends SyncV2Provider {
     }
 
     private void pushQueuedTasksByTag(TagData tagData, SyncResultCallback callback, AtomicInteger finisher) {
+        Long[] ids;
+        TodorooCursor<Metadata> allTagged = metadataService.query(Query.select(Metadata.TASK).where(Criterion.and(Metadata.KEY.eq(TagService.KEY),
+                TagService.TAG.eqCaseInsensitive(tagData.getValue(TagData.NAME)))));
+        try {
+            ids = new Long[allTagged.getCount()];
+            Metadata m = new Metadata();
+            int i = 0;
+            for (allTagged.moveToFirst(); !allTagged.isAfterLast(); allTagged.moveToNext()) {
+                m.readFromCursor(allTagged);
+                ids[i] = m.getValue(Metadata.TASK);
+                i++;
+            }
+        } finally {
+            allTagged.close();
+        }
+
         TodorooCursor<Task> taskCursor = taskService.query(Query.select(Task.PROPERTIES)
                 .join(Join.inner(Metadata.TABLE, Criterion.and(Metadata.KEY.eq(TagService.KEY), Metadata.TASK.eq(Task.ID),
                         TagService.TAG.eqCaseInsensitive(tagData.getValue(TagData.NAME)))))
@@ -418,7 +471,22 @@ public class ActFmSyncV2Provider extends SyncV2Provider {
                                 Task.REMOTE_ID.isNull()),
                         Criterion.and(Task.REMOTE_ID.isNotNull(),
                                 Task.MODIFICATION_DATE.gt(Task.LAST_SYNC)))));
-        pushQueued(callback, finisher, taskCursor, false, taskPusher);
+        try {
+            pushQueued(callback, finisher, taskCursor, true, taskPusher);
+        } finally {
+            taskCursor.close();
+        }
+
+        TodorooCursor<Metadata> filesCursor = metadataService.query(Query.select(Metadata.PROPERTIES)
+                .where(Criterion.and(
+                        MetadataCriteria.withKey(FileMetadata.METADATA_KEY),
+                        FileMetadata.REMOTE_ID.eq(0),
+                        Metadata.TASK.in(ids))));
+        try {
+            pushQueued(callback, finisher, filesCursor, false, filesPusher);
+        } finally {
+            filesCursor.close();
+        }
     }
 
 }

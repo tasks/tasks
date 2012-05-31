@@ -2,15 +2,12 @@ package com.todoroo.astrid.voice;
 
 import java.security.InvalidParameterException;
 import java.util.ArrayList;
-import java.util.List;
 
 import junit.framework.Assert;
 import android.app.Activity;
 import android.content.ActivityNotFoundException;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.pm.PackageManager;
-import android.content.pm.ResolveInfo;
 import android.speech.RecognizerIntent;
 import android.support.v4.app.Fragment;
 import android.util.Log;
@@ -270,29 +267,8 @@ public class VoiceInputAssistant {
         return null;
     }
 
-    /**
-     * Call this to see if your phone supports voiceinput in its current configuration.
-     * If this method returns false, it could also mean that Google Voicesearch is simply
-     * not installed.
-     * If this method returns true, internal use of it enables the registered microphone-button.
-     *
-     * @return whether this phone supports voiceinput
-     */
-    public boolean isVoiceInputAvailable() {
-        // Check to see if a recognition activity is present
-        PackageManager pm = null;
-        if (fragment == null) {
-            pm = ContextManager.getContext().getPackageManager();
-        } else {
-            pm = fragment.getActivity().getPackageManager();
-        }
-        List<ResolveInfo> activities = pm.queryIntentActivities(
-                new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH), 0);
-        return (activities.size() != 0);
-    }
-
     public void configureMicrophoneButton(final int prompt) {
-        if (Preferences.getBoolean(R.string.p_voiceInputEnabled, true) && isVoiceInputAvailable()) {
+        if (Preferences.getBoolean(R.string.p_voiceInputEnabled, true) && VoiceRecognizer.voiceInputAvailable(ContextManager.getContext())) {
             voiceButton.setVisibility(View.VISIBLE);
             voiceButton.setOnClickListener(new OnClickListener() {
                 public void onClick(View v) {

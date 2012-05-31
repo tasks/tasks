@@ -4,6 +4,7 @@
 package com.todoroo.astrid.actfm.sync;
 
 import java.io.ByteArrayOutputStream;
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -12,10 +13,12 @@ import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
+import java.util.Set;
 import java.util.concurrent.atomic.AtomicInteger;
 
 import org.apache.http.entity.mime.MultipartEntity;
 import org.apache.http.entity.mime.content.ByteArrayBody;
+import org.apache.http.entity.mime.content.FileBody;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -55,6 +58,7 @@ import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.data.TaskApiDao;
 import com.todoroo.astrid.data.Update;
 import com.todoroo.astrid.data.User;
+import com.todoroo.astrid.files.FileMetadata;
 import com.todoroo.astrid.helper.ImageDiskCache;
 import com.todoroo.astrid.service.MetadataService;
 import com.todoroo.astrid.service.StatisticsConstants;
@@ -585,6 +589,41 @@ public final class ActFmSyncService {
         }
     }
 
+    /**
+     * Push a file attachment to the server
+     * @param remoteTaskId
+     * @param fileMetadata
+     */
+    public void pushAttachment(long remoteTaskId, Metadata fileMetadata) {
+        if (!fileMetadata.containsNonNullValue(FileMetadata.FILE_PATH) || remoteTaskId <= 0)
+            return;
+
+        File f = new File(fileMetadata.getValue(FileMetadata.FILE_PATH));
+        if (!f.exists())
+            return;
+
+        ArrayList<Object> params = new ArrayList<Object>();
+        params.add("task_id"); params.add(remoteTaskId);
+        params.add("token"); params.add(token);
+
+        try {
+            MultipartEntity entity = new MultipartEntity();
+            FileBody body = new FileBody(f, fileMetadata.getValue(FileMetadata.FILE_TYPE));
+            entity.addPart("file", body);
+
+            JSONObject result = actFmInvoker.post("task_attachment_create", entity,
+                    params.toArray(new Object[params.size()]));
+
+            fileMetadata.setValue(FileMetadata.REMOTE_ID, result.optLong("id"));
+            fileMetadata.setValue(FileMetadata.URL, result.optString("url"));
+            metadataService.save(fileMetadata);
+        } catch (ActFmServiceException e) {
+            handleException("push-attacgment-error", e);
+        } catch (IOException e) {
+            handleException("push-attacgment-error", e);
+        }
+    }
+
     // --- data fetch methods
 
     /**
@@ -1014,6 +1053,7 @@ public final class ActFmSyncService {
 
                 JsonHelper.taskFromJson(item, remote, metadata);
 
+
                 if(remote.getValue(Task.USER_ID) == 0) {
                     if(!remote.isSaved())
                         StatisticsService.reportEvent(StatisticsConstants.ACTFM_TASK_CREATED);
@@ -1031,6 +1071,7 @@ public final class ActFmSyncService {
                 taskService.save(remote);
                 ids.add(remote.getId());
                 metadataService.synchronizeMetadata(remote.getId(), metadata, MetadataCriteria.withKey(TagService.KEY));
+                synchronizeAttachments(item, remote);
                 remote.clear();
             }
 
@@ -1063,6 +1104,55 @@ public final class ActFmSyncService {
         @Override
         protected Class<Task> typeClass() {
             return Task.class;
+        }
+
+        private void synchronizeAttachments(JSONObject item, Task model) {
+            TodorooCursor<Metadata> attachments = metadataService.query(Query.select(Metadata.PROPERTIES)
+                    .where(Criterion.and(MetadataCriteria.byTaskAndwithKey(model.getId(),
+                            FileMetadata.METADATA_KEY), FileMetadata.REMOTE_ID.gt(0))));
+            try {
+                HashMap<Long, Metadata> currentFiles = new HashMap<Long, Metadata>();
+                for (attachments.moveToFirst(); !attachments.isAfterLast(); attachments.moveToNext()) {
+                    Metadata m = new Metadata(attachments);
+                    currentFiles.put(m.getValue(FileMetadata.REMOTE_ID), m);
+                }
+
+                JSONArray remoteFiles = item.getJSONArray("attachments");
+                for (int i = 0; i < remoteFiles.length(); i++) {
+                    JSONObject file = remoteFiles.getJSONObject(i);
+
+                    long id = file.optLong("id");
+                    if (currentFiles.containsKey(id)) {
+                        // Match, nothing to do
+                        currentFiles.remove(id);
+                    } else {
+                        // Create new file attachment
+                        Metadata newAttachment = FileMetadata.createNewFileMetadata(model.getId(), null,
+                                file.getString("name"), file.getString("content_type"));
+                        String url = file.getString("url");
+                        if (url.contains("?"))
+                            url = url.substring(0, url.lastIndexOf('?'));
+                        newAttachment.setValue(FileMetadata.URL, url);
+                        newAttachment.setValue(FileMetadata.REMOTE_ID, id);
+                        metadataService.save(newAttachment);
+                    }
+                }
+
+                // Remove all the leftovers
+                Set<Long> attachmentsToDelete = currentFiles.keySet();
+                for (Long remoteId : attachmentsToDelete) {
+                    Metadata toDelete = currentFiles.get(remoteId);
+                    File f = new File(toDelete.getValue(FileMetadata.FILE_PATH));
+                    if (f.delete()) {
+                        metadataService.delete(toDelete);
+                    }
+                }
+
+            } catch (JSONException e) {
+                // Ignored
+            } finally {
+                attachments.close();
+            }
         }
 
     }

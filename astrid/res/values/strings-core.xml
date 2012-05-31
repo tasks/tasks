@@ -419,8 +419,9 @@
   <string name="TEA_control_when">When</string>
   <string name="TEA_control_more_section">----Details----</string>
   <string name="TEA_control_importance">Importance</string>  
-  <string name="TEA_control_lists">Lists</string>  
+  <string name="TEA_control_lists">Lists</string>
   <string name="TEA_control_notes">Notes</string>  
+  <string name="TEA_control_files">Files</string>
   <string name="TEA_control_reminders">Reminders</string>
   <string name="TEA_control_timer">Timer Controls</string>
   <string name="TEA_control_share">Share With Friends</string>

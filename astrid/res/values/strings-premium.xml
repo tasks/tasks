@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- See the file "LICENSE" for the full license governing this code. -->
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
+    
+    <string name="speech_err_network">Network error! Speech recognition requires a network connection to work.</string>
+    <string name="speech_err_no_match">Sorry, I couldn\'t understand that! Please try again.</string>
+    <string name="speech_err_default">Sorry, speech recognition encountered an error. Please try again.</string>
+    
+    <string name="premium_attach_file">Attach a file</string>
+    <string name="premium_record_audio">Record a note</string>
+    <string name="premium_no_files">No files attached</string>
+    <string name="premium_remove_file_confirm">Are you sure? Cannot be undone</string>
+    
+    <string name="audio_recording_title">Recording Audio</string>
+    <string name="audio_stop_recording">Stop Recording</string>
+    <string name="audio_speak_now">Speak Now!</string>
+    <string name="audio_encoding">Encoding...</string>
+    <string name="audio_err_encoding">Error encoding audio</string>
+    
+    <string name="file_prefix_image">Image</string>
+    <string name="file_prefix_voice">Voice</string>
+    <string name="file_browser_up">Up</string>
+    <string name="file_browser_title">Choose a file</string>
+    <string name="file_browser_err_permissions">Permissions error! Please make sure you have not blocked Astrid from accessing the SD card.</string>
+    <string name="file_add_picture">Attach a picture</string>
+    <string name="file_add_sdcard">Attach a file from your SD card</string>
+    <string name="file_download_title">Download file?</string>
+    <string name="file_download_body">This file has not been downloaded to your SD card. Download now?</string>
+    <string name="file_download_progress">Downloading...</string>
+    <string name="file_err_memory">Image is too large to fit in memory</string>
+    <string name="file_err_copy">Error copying file for attachment</string>
+    <string name="file_err_download">Error downloading file</string>
+</resources>

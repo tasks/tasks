@@ -36,6 +36,7 @@
   <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
   <!-- required for ics -->
   <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
+  <uses-permission android:name="android.permission.RECORD_AUDIO" />
 
   <!-- ============================================== Exported Permissions = -->
 
@@ -499,6 +500,14 @@
         <category android:name="android.intent.category.DEFAULT" />
       </intent-filter>
     </receiver>
+    
+    <!-- files -->
+    <activity android:name="com.todoroo.astrid.files.AACRecordingActivity"
+        android:configChanges="orientation|screenSize"
+        android:screenOrientation="portrait"
+        android:theme="@android:style/Theme.Dialog"/>
+    
+    <activity android:name="com.todoroo.astrid.files.FileExplore"/>
         
     <!-- locale -->
     <activity android:name="com.todoroo.astrid.locale.LocaleEditAlerts"
