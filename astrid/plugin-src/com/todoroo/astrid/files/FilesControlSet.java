@@ -110,7 +110,7 @@ public class FilesControlSet extends PopupControlSet {
             if (m.containsNonNullValue(FileMetadata.FILE_PATH)) {
                 File f = new File(m.getValue(FileMetadata.FILE_PATH));
                 if (!f.exists()) {
-                    m.setValue(FileMetadata.FILE_PATH, null);
+                    m.setValue(FileMetadata.FILE_PATH, ""); //$NON-NLS-1$
                     if (m.containsNonNullValue(FileMetadata.URL)) { // We're ok, just the local file was deleted
                         metadataService.save(m);
                     } else { // No local file and no url -- delete the metadata
@@ -319,7 +319,7 @@ public class FilesControlSet extends PopupControlSet {
                         }
                     });
                 } finally {
-                    pd.dismiss();
+                    DialogUtilities.dismissDialog(activity, pd);
                 }
             }
         }.start();

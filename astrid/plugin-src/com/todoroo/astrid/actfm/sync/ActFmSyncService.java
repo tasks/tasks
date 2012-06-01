@@ -1171,7 +1171,7 @@ public final class ActFmSyncService {
                         currentFiles.remove(id);
                     } else {
                         // Create new file attachment
-                        Metadata newAttachment = FileMetadata.createNewFileMetadata(model.getId(), null,
+                        Metadata newAttachment = FileMetadata.createNewFileMetadata(model.getId(), "",
                                 file.getString("name"), file.getString("content_type"));
                         String url = file.getString("url");
                         newAttachment.setValue(FileMetadata.URL, url);
