@@ -11,7 +11,6 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Environment;
 import android.provider.MediaStore;
@@ -19,6 +18,7 @@ import android.support.v4.app.Fragment;
 import android.widget.ArrayAdapter;
 
 import com.timsu.astrid.R;
+import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.andlib.utility.DateUtilities;
 
 public class ActFmCameraModule {
@@ -156,7 +156,7 @@ public class ActFmCameraModule {
             path = uri.getPath();
         }
 
-        return BitmapFactory.decodeFile(path);
+        return AndroidUtilities.readScaledBitmap(path);
     }
 
     public static boolean activityResult(Activity activity, int requestCode, int resultCode, Intent data,
