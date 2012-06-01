@@ -147,7 +147,6 @@ public class FilesControlSet extends PopupControlSet {
     }
 
     private void setupFileClickListener(View view, final Metadata m) {
-        final String fileType = m.containsNonNullValue(FileMetadata.FILE_TYPE) ? m.getValue(FileMetadata.FILE_TYPE) : FileMetadata.FILE_TYPE_OTHER;
         final String filePath = m.containsNonNullValue(FileMetadata.FILE_PATH) ? m.getValue(FileMetadata.FILE_PATH) : null;
         if (TextUtils.isEmpty(filePath)) {
             view.setOnClickListener(new OnClickListener() {
@@ -162,39 +161,45 @@ public class FilesControlSet extends PopupControlSet {
                     }, null);
                 }
             });
-        } else if (fileType.startsWith(FileMetadata.FILE_TYPE_AUDIO)) {
+        } else {
             view.setOnClickListener(new OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    RecognizerApi.play(activity, m.getValue(FileMetadata.FILE_PATH), m.getValue(FileMetadata.FILE_TYPE), R.string.audio_err_playback);
+                    showFile(m);
                 }
             });
+        }
+    }
+
+    private void showFile(Metadata m) {
+        String fileType = m.containsNonNullValue(FileMetadata.FILE_TYPE) ? m.getValue(FileMetadata.FILE_TYPE) : FileMetadata.FILE_TYPE_OTHER;
+        String filePath = m.getValue(FileMetadata.FILE_PATH);
+
+        if (fileType.startsWith(FileMetadata.FILE_TYPE_AUDIO)) {
+            RecognizerApi.play(activity, m.getValue(FileMetadata.FILE_PATH), m.getValue(FileMetadata.FILE_TYPE), R.string.audio_err_playback);
         } else if (fileType.startsWith(FileMetadata.FILE_TYPE_IMAGE)) {
-            view.setOnClickListener(new OnClickListener() {
+            AlertDialog image = new AlertDialog.Builder(activity).create();
+            ImageView imageView = new ImageView(activity);
+            imageView.setLayoutParams(new LayoutParams(LayoutParams.FILL_PARENT, LayoutParams.WRAP_CONTENT));
+            Bitmap bitmap = AndroidUtilities.readScaledBitmap(filePath);
+
+            if (bitmap == null) {
+                Toast.makeText(activity, R.string.file_err_memory, Toast.LENGTH_LONG);
+                return;
+            }
+
+            imageView.setImageBitmap(bitmap);
+            image.setView(imageView);
+
+            image.setButton(activity.getString(R.string.DLG_close), new DialogInterface.OnClickListener() {
                 @Override
-                public void onClick(View v) {
-                    AlertDialog image = new AlertDialog.Builder(activity).create();
-                    ImageView imageView = new ImageView(activity);
-                    imageView.setLayoutParams(new LayoutParams(LayoutParams.FILL_PARENT, LayoutParams.WRAP_CONTENT));
-                    Bitmap bitmap = AndroidUtilities.readScaledBitmap(filePath);
-
-                    if (bitmap == null) {
-                        Toast.makeText(activity, R.string.file_err_memory, Toast.LENGTH_LONG);
-                        return;
-                    }
-
-                    imageView.setImageBitmap(bitmap);
-                    image.setView(imageView);
-
-                    image.setButton(activity.getString(R.string.DLG_close), new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface d, int which) {
-                            return;
-                        }
-                    });
-                    image.show();
+                public void onClick(DialogInterface d, int which) {
+                    return;
                 }
             });
+            image.show();
+        } else {
+            Toast.makeText(activity, R.string.file_err_show, Toast.LENGTH_LONG);
         }
     }
 
@@ -265,6 +270,7 @@ public class FilesControlSet extends PopupControlSet {
                         @Override
                         public void run() {
                             refreshMetadata();
+                            showFile(m);
                         }
                     });
                 } catch (Exception e) {

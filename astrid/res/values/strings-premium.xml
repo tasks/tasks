@@ -31,4 +31,5 @@
     <string name="file_err_memory">Image is too large to fit in memory</string>
     <string name="file_err_copy">Error copying file for attachment</string>
     <string name="file_err_download">Error downloading file</string>
+    <string name="file_err_show">Sorry, the system does not yet support this type of file</string>
 </resources>
