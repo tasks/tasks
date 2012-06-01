@@ -2,8 +2,11 @@ package com.todoroo.astrid.files;
 
 import com.todoroo.andlib.data.Property.LongProperty;
 import com.todoroo.andlib.data.Property.StringProperty;
-import com.todoroo.andlib.utility.DateUtilities;
+import com.todoroo.andlib.data.TodorooCursor;
+import com.todoroo.andlib.sql.Criterion;
+import com.todoroo.andlib.sql.Query;
 import com.todoroo.astrid.core.PluginServices;
+import com.todoroo.astrid.dao.MetadataDao.MetadataCriteria;
 import com.todoroo.astrid.data.Metadata;
 
 public class FileMetadata {
@@ -27,7 +30,7 @@ public class FileMetadata {
     public static final StringProperty FILE_TYPE = new StringProperty(Metadata.TABLE,
             Metadata.VALUE2.name);
 
-    public static final LongProperty ATTACH_DATE = new LongProperty(Metadata.TABLE,
+    public static final LongProperty DELETION_DATE = new LongProperty(Metadata.TABLE,
             Metadata.VALUE3.name);
 
     public static final LongProperty REMOTE_ID = new LongProperty(Metadata.TABLE,
@@ -48,12 +51,20 @@ public class FileMetadata {
         metadata.setValue(FILE_PATH, filePath);
         metadata.setValue(FILE_TYPE, fileType);
         metadata.setValue(REMOTE_ID, 0L);
-        metadata.setValue(ATTACH_DATE, DateUtilities.now());
+        metadata.setValue(DELETION_DATE, 0L);
         return metadata;
     }
 
     public static boolean taskHasAttachments(long taskId) {
-        return PluginServices.getMetadataByTaskAndWithKey(taskId, METADATA_KEY) != null;
+        TodorooCursor<Metadata> files = PluginServices.getMetadataService()
+                .query(Query.select(Metadata.TASK).where(
+                        Criterion.and(MetadataCriteria.byTaskAndwithKey(taskId, METADATA_KEY),
+                                DELETION_DATE.eq(0))).limit(1));
+        try {
+            return files.getCount() > 0;
+        } finally {
+            files.close();
+        }
     }
 
 }

@@ -28,8 +28,10 @@ import com.todoroo.aacenc.RecognizerApi;
 import com.todoroo.andlib.data.TodorooCursor;
 import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.DependencyInjectionService;
+import com.todoroo.andlib.sql.Criterion;
 import com.todoroo.andlib.sql.Query;
 import com.todoroo.andlib.utility.AndroidUtilities;
+import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.andlib.utility.DialogUtilities;
 import com.todoroo.astrid.actfm.sync.ActFmPreferenceService;
 import com.todoroo.astrid.dao.MetadataDao.MetadataCriteria;
@@ -80,7 +82,8 @@ public class FilesControlSet extends PopupControlSet {
         if (model != null) {
             TodorooCursor<Metadata> cursor = metadataService.query(
                     Query.select(Metadata.PROPERTIES)
-                    .where(MetadataCriteria.byTaskAndwithKey(model.getId(), FileMetadata.METADATA_KEY)));
+                    .where(Criterion.and(MetadataCriteria.byTaskAndwithKey(model.getId(), FileMetadata.METADATA_KEY),
+                            FileMetadata.DELETION_DATE.eq(0))));
             try {
                 files.clear();
                 for (cursor.moveToFirst(); !cursor.isAfterLast(); cursor.moveToNext()) {
@@ -91,8 +94,29 @@ public class FilesControlSet extends PopupControlSet {
             } finally {
                 cursor.close();
             }
+            validateFiles();
             if (initialized)
                 afterInflate();
+        }
+    }
+
+    private void validateFiles() {
+        for (int i = 0; i < files.size(); i++) {
+            Metadata m = files.get(i);
+            if (m.containsNonNullValue(FileMetadata.FILE_PATH)) {
+                File f = new File(m.getValue(FileMetadata.FILE_PATH));
+                if (!f.exists()) {
+                    m.setValue(FileMetadata.FILE_PATH, null);
+                    if (m.containsNonNullValue(FileMetadata.URL)) { // We're ok, just the local file was deleted
+                        metadataService.save(m);
+                    } else { // No local file and no url -- delete the metadata
+                        metadataService.delete(m);
+                        files.remove(i);
+                        i--;
+                    }
+                }
+            }
+
         }
     }
 
@@ -131,15 +155,20 @@ public class FilesControlSet extends PopupControlSet {
                                 new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface d, int which) {
+                                if (m.getValue(FileMetadata.REMOTE_ID) > 0) {
+                                    m.setValue(FileMetadata.DELETION_DATE, DateUtilities.now());
+                                    metadataService.save(m);
+                                } else {
+                                    metadataService.delete(m);
+                                }
+
                                 if (m.containsNonNullValue(FileMetadata.FILE_PATH)) {
                                     File f = new File(m.getValue(FileMetadata.FILE_PATH));
-                                    if (f.delete()) {
-                                        metadataService.delete(m);
-                                        files.remove(m);
-                                        refreshDisplayView();
-                                        finalList.removeView(fileRow);
-                                    }
+                                    f.delete();
                                 }
+                                files.remove(m);
+                                refreshDisplayView();
+                                finalList.removeView(fileRow);
                             }
                         }, null);
                     }

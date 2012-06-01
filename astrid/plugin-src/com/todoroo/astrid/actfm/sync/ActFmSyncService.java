@@ -624,6 +624,27 @@ public final class ActFmSyncService {
         }
     }
 
+    public void deleteAttachment(Metadata fileMetadata) {
+        long attachmentId = fileMetadata.getValue(FileMetadata.REMOTE_ID);
+        if (attachmentId <= 0)
+            return;
+
+        ArrayList<Object> params = new ArrayList<Object>();
+        params.add("id"); params.add(attachmentId);
+        params.add("token"); params.add(token);
+
+        try {
+            JSONObject result = actFmInvoker.post("task_attachment_remove", null, params.toArray(new Object[params.size()]));
+            if (result.optString("status").equals("success")) {
+                metadataService.delete(fileMetadata);
+            }
+        } catch (ActFmServiceException e) {
+            handleException("push-attacgment-error", e);
+        } catch (IOException e) {
+            handleException("push-attacgment-error", e);
+        }
+    }
+
     // --- data fetch methods
 
     /**

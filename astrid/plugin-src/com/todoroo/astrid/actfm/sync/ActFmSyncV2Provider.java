@@ -92,10 +92,11 @@ public class ActFmSyncV2Provider extends SyncV2Provider {
             long taskId = model.getValue(Metadata.TASK);
             Task localTask = taskService.fetchById(taskId, Task.REMOTE_ID);
             long remoteTaskId = localTask.getValue(Task.REMOTE_ID);
-            if (remoteTaskId <= 0)
-                return;
 
-            actFmSyncService.pushAttachment(remoteTaskId, model);
+            if (model.getValue(FileMetadata.DELETION_DATE) > 0)
+                actFmSyncService.deleteAttachment(model);
+            else if (remoteTaskId > 0)
+                actFmSyncService.pushAttachment(remoteTaskId, model);
         };
 
         public Metadata getRemoteModelInstance(TodorooCursor<Metadata> cursor) {
@@ -306,7 +307,7 @@ public class ActFmSyncV2Provider extends SyncV2Provider {
         TodorooCursor<Metadata> filesCursor = metadataService.query(Query.select(Metadata.PROPERTIES)
                 .where(Criterion.and(
                         MetadataCriteria.withKey(FileMetadata.METADATA_KEY),
-                        FileMetadata.REMOTE_ID.eq(0))));
+                        Criterion.or(FileMetadata.REMOTE_ID.eq(0), FileMetadata.DELETION_DATE.gt(0)))));
         try {
             pushQueued(callback, finisher, filesCursor, false, filesPusher);
         } finally {
