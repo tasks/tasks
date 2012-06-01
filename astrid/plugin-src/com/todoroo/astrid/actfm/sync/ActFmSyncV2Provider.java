@@ -173,7 +173,7 @@ public class ActFmSyncV2Provider extends SyncV2Provider {
             if (status.has("first_name"))
                 Preferences.setString(ActFmPreferenceService.PREF_FIRST_NAME, status.optString("first_name"));
             if (status.has("last_name"))
-                Preferences.setString(ActFmPreferenceService.PREF_LAST_NAME, status.optString("first_name"));
+                Preferences.setString(ActFmPreferenceService.PREF_LAST_NAME, status.optString("last_name"));
             if (status.has("premium"))
                 Preferences.setBoolean(ActFmPreferenceService.PREF_PREMIUM, status.optBoolean("premium"));
             if (status.has("email"))
