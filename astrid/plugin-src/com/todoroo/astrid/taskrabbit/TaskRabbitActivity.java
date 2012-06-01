@@ -59,7 +59,6 @@ import com.todoroo.astrid.dao.Database;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.helper.TaskEditControlSet;
 import com.todoroo.astrid.reminders.Notifications;
-import com.todoroo.astrid.service.MetadataService;
 import com.todoroo.astrid.service.StatisticsConstants;
 import com.todoroo.astrid.service.StatisticsService;
 import com.todoroo.astrid.service.TaskService;
@@ -92,9 +91,6 @@ public class TaskRabbitActivity extends FragmentActivity {
 
     @Autowired
     private TaskService taskService;
-
-    @Autowired
-    private MetadataService metadataService;
 
     @Autowired
     private ExceptionService exceptionService;
@@ -291,8 +287,7 @@ public class TaskRabbitActivity extends FragmentActivity {
             } catch (Exception e) {
                 // oops, can't serialize
             }
-            model = TaskService.createWithValues(values, null,
-                    taskService, metadataService);
+            model = TaskService.createWithValues(values, null);
         }
 
         if (model == null) {

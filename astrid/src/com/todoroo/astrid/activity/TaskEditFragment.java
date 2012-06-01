@@ -754,8 +754,7 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
             } catch (Exception e) {
                 // oops, can't serialize
             }
-            model = TaskService.createWithValues(values, null,
-                    taskService, metadataService);
+            model = TaskService.createWithValues(values, null);
             getActivity().getIntent().putExtra(TOKEN_ID, model.getId());
         }
 

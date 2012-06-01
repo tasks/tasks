@@ -84,7 +84,6 @@ public class QuickAddBar extends LinearLayout implements RecognizerApiListener {
 
     @Autowired AddOnService addOnService;
     @Autowired ExceptionService exceptionService;
-    @Autowired TaskService taskService;
     @Autowired MetadataService metadataService;
     @Autowired ActFmPreferenceService actFmPreferenceService;
 
@@ -305,14 +304,13 @@ public class QuickAddBar extends LinearLayout implements RecognizerApiListener {
                 peopleControl.saveSharingSettings(null);
             }
 
-            TaskService.createWithValues(task, fragment.getFilter().valuesForNewTasks, title,
-                    taskService, metadataService);
+            TaskService.createWithValues(task, fragment.getFilter().valuesForNewTasks, title);
 
             String assignedTo = peopleControl.getAssignedToString();
 
             resetControlSets();
 
-            addToCalendar(task, title, taskService);
+            addToCalendar(task, title);
 
             if(!TextUtils.isEmpty(title))
                 fragment.showTaskEditHelpPopover();
@@ -356,7 +354,7 @@ public class QuickAddBar extends LinearLayout implements RecognizerApiListener {
         }
     }
 
-    private static void addToCalendar(Task task, String title, TaskService taskService) {
+    private static void addToCalendar(Task task, String title) {
         boolean gcalCreateEventEnabled = Preferences.getStringValue(R.string.gcal_p_default) != null
                 && !Preferences.getStringValue(R.string.gcal_p_default).equals("-1"); //$NON-NLS-1$
 
@@ -366,7 +364,7 @@ public class QuickAddBar extends LinearLayout implements RecognizerApiListener {
             task.setValue(Task.CALENDAR_URI, calendarUri.toString());
             task.putTransitory(SyncFlags.ACTFM_SUPPRESS_SYNC, true);
             task.putTransitory(SyncFlags.GTASKS_SUPPRESS_SYNC, true);
-            taskService.save(task);
+            PluginServices.getTaskService().save(task);
         }
     }
 
@@ -380,12 +378,10 @@ public class QuickAddBar extends LinearLayout implements RecognizerApiListener {
         if (TextUtils.isEmpty(title))
             return null;
 
-        TaskService taskService = PluginServices.getTaskService();
-        MetadataService metadataService = PluginServices.getMetadataService();
         title = title.trim();
 
-        Task task = TaskService.createWithValues(null, title, taskService, metadataService);
-        addToCalendar(task, title, taskService);
+        Task task = TaskService.createWithValues(null, title);
+        addToCalendar(task, title);
 
         return task;
     }

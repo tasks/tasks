@@ -1,6 +1,7 @@
 package com.todoroo.astrid.service;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Map.Entry;
 
 import org.weloveastrid.rmilk.data.MilkTaskFields;
@@ -11,7 +12,6 @@ import com.todoroo.andlib.data.Property;
 import com.todoroo.andlib.data.TodorooCursor;
 import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.DependencyInjectionService;
-import com.todoroo.andlib.service.ExceptionService;
 import com.todoroo.andlib.sql.Criterion;
 import com.todoroo.andlib.sql.Functions;
 import com.todoroo.andlib.sql.Query;
@@ -21,6 +21,7 @@ import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.astrid.actfm.sync.ActFmPreferenceService;
 import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.api.PermaSql;
+import com.todoroo.astrid.core.PluginServices;
 import com.todoroo.astrid.dao.MetadataDao;
 import com.todoroo.astrid.dao.MetadataDao.MetadataCriteria;
 import com.todoroo.astrid.dao.TaskDao;
@@ -64,9 +65,6 @@ public class TaskService {
 
     @Autowired
     private MetadataDao metadataDao;
-
-    @Autowired
-    private ExceptionService exceptionService;
 
     public TaskService() {
         DependencyInjectionService.getInstance().inject(this);
@@ -401,14 +399,7 @@ public class TaskService {
      * <li>@context - add the tag "@context"
      * <li>!4 - set priority to !!!!
      */
-    public boolean quickAdd(Task task) {
-        ArrayList<String> tags = new ArrayList<String>();
-        boolean quickAddMarkup = false;
-        try {
-            quickAddMarkup = parseQuickAddMarkup(task, tags);
-        } catch (Throwable e) {
-            exceptionService.reportError("parse-quick-add", e); //$NON-NLS-1$
-        }
+    private void quickAdd(Task task, List<String> tags) {
         save(task);
 
         Metadata metadata = new Metadata();
@@ -418,7 +409,6 @@ public class TaskService {
             metadata.setValue(TagService.TAG, tag);
             metadataDao.createNew(metadata);
         }
-        return quickAddMarkup;
     }
 
     /**
@@ -463,10 +453,9 @@ public class TaskService {
      * @param metadataService
      * @return
      */
-    public static Task createWithValues(ContentValues values, String title,
-            TaskService taskService, MetadataService metadataService) {
+    public static Task createWithValues(ContentValues values, String title) {
         Task task = new Task();
-        return createWithValues(task, values, title, taskService, metadataService);
+        return createWithValues(task, values, title);
     }
 
     /**
@@ -479,10 +468,17 @@ public class TaskService {
      * @param metadataService
      * @return
      */
-    public static Task createWithValues(Task task, ContentValues values, String title,
-            TaskService taskService, MetadataService metadataService) {
+    public static Task createWithValues(Task task, ContentValues values, String title) {
         if (title != null)
             task.setValue(Task.TITLE, title);
+
+        ArrayList<String> tags = new ArrayList<String>();
+        boolean quickAddMarkup = false;
+        try {
+            quickAddMarkup = parseQuickAddMarkup(task, tags);
+        } catch (Throwable e) {
+            PluginServices.getExceptionService().reportError("parse-quick-add", e); //$NON-NLS-1$
+        }
 
         ContentValues forMetadata = null;
         if (values != null && values.size() > 0) {
@@ -508,15 +504,15 @@ public class TaskService {
         if (task.getValue(Task.USER_ID) != Task.USER_ID_SELF)
             task.putTransitory(TRANS_ASSIGNED, true);
 
-        boolean markup = taskService.quickAdd(task);
-        if (markup)
+        PluginServices.getTaskService().quickAdd(task, tags);
+        if (quickAddMarkup)
             task.putTransitory(TRANS_QUICK_ADD_MARKUP, true);
 
         if (forMetadata != null && forMetadata.size() > 0) {
             Metadata metadata = new Metadata();
             metadata.setValue(Metadata.TASK, task.getId());
             metadata.mergeWith(forMetadata);
-            metadataService.save(metadata);
+            PluginServices.getMetadataService().save(metadata);
         }
 
         return task;
