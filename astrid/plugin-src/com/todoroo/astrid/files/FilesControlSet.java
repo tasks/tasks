@@ -203,15 +203,7 @@ public class FilesControlSet extends PopupControlSet {
             @Override
             public void run() {
                 String urlString = m.getValue(FileMetadata.URL);
-                String name;
-                if (urlString.endsWith("/"))
-                    urlString = urlString.substring(0, urlString.length() - 1);
-
-                int lastComponent = urlString.lastIndexOf('/');
-                if (lastComponent > 0)
-                    name = urlString.substring(lastComponent + 1);
-                else
-                    name = urlString;
+                String name = m.getValue(FileMetadata.NAME);
                 StringBuilder filePathBuilder = new StringBuilder();
                 filePathBuilder.append(activity.getExternalFilesDir(FileMetadata.FILES_DIRECTORY).toString())
                     .append(File.separator)
@@ -290,7 +282,7 @@ public class FilesControlSet extends PopupControlSet {
         TextView nameView = (TextView) row.findViewById(R.id.file_text);
         TextView typeView = (TextView) row.findViewById(R.id.file_type);
         String name = getNameString(m);
-        String type = getTypeString(name);
+        String type = getTypeString(m.getValue(FileMetadata.NAME));
         nameView.setText(name);
 
         if (TextUtils.isEmpty(type))
