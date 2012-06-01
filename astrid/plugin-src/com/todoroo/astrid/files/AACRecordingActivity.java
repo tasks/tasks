@@ -9,7 +9,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.widget.TextView;
+import android.widget.Chronometer;
 import android.widget.Toast;
 
 import com.timsu.astrid.R;
@@ -17,7 +17,6 @@ import com.todoroo.aacenc.AACRecorder;
 import com.todoroo.aacenc.AACRecorder.AACRecorderCallbacks;
 import com.todoroo.aacenc.AACToM4A;
 import com.todoroo.andlib.utility.DialogUtilities;
-import com.todoroo.astrid.service.ThemeService;
 
 public class AACRecordingActivity extends Activity implements AACRecorderCallbacks {
 
@@ -26,6 +25,7 @@ public class AACRecordingActivity extends Activity implements AACRecorderCallbac
     public static final String RESULT_FILENAME = "filename";  //$NON-NLS-1$
 
     private AACRecorder recorder;
+    private Chronometer timer;
     private String tempFile;
 
     private ProgressDialog pd;
@@ -43,11 +43,11 @@ public class AACRecordingActivity extends Activity implements AACRecorderCallbac
         recorder = new AACRecorder();
         recorder.setListener(this);
         recorder.startRecording(tempFile);
+        timer.start();
     }
 
     private void setupUi() {
         View stopRecording = findViewById(R.id.stop_recording);
-        stopRecording.setBackgroundColor(getResources().getColor(ThemeService.getThemeColor()));
 
         stopRecording.setOnClickListener(new OnClickListener() {
             @Override
@@ -66,12 +66,12 @@ public class AACRecordingActivity extends Activity implements AACRecorderCallbac
             }
         });
 
-        TextView speechBubble = (TextView) findViewById(R.id.reminder_message);
-        speechBubble.setText(R.string.audio_speak_now);
+        timer = (Chronometer) findViewById(R.id.timer);
     }
 
     private void stopRecording() {
         recorder.stopRecording();
+        timer.stop();
 
         pd = DialogUtilities.progressDialog(this, getString(R.string.audio_encoding));
         pd.show();

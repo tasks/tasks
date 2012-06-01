@@ -14,7 +14,7 @@
         android:orientation="horizontal"
         android:layout_marginTop="5dip"
         android:layout_marginRight="5dip"
-        android:layout_marginBottom="15dip"
+        android:layout_marginBottom="10dip"
         android:layout_marginLeft="10dip">
         
         <TextView 
@@ -35,6 +35,14 @@
     
     </LinearLayout>
     
+    <Chronometer 
+        android:id="@+id/timer"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dip"
+        android:textColor="@android:color/white"
+        android:textSize="24sp"
+        android:gravity="center"/>
     
     <TextView
         android:id="@+id/stop_recording"
@@ -44,15 +52,9 @@
         android:layout_marginRight="10dip"
         android:layout_marginBottom="10dip"
         android:textColor="@android:color/white"
+        android:background="@color/red_theme_color"
         android:textSize="24sp"
         android:gravity="center"
         android:text="@string/audio_stop_recording"/>
-
-    <FrameLayout
-        android:id="@+id/missed_calls_speech_bubble"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content">
-        <include layout="@layout/astrid_speech_bubble" />
-    </FrameLayout>
 
 </LinearLayout>
