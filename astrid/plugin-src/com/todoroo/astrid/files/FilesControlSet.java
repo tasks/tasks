@@ -77,21 +77,23 @@ public class FilesControlSet extends PopupControlSet {
     }
 
     public void refreshMetadata() {
-        TodorooCursor<Metadata> cursor = metadataService.query(
-                Query.select(Metadata.PROPERTIES)
-                     .where(MetadataCriteria.byTaskAndwithKey(model.getId(), FileMetadata.METADATA_KEY)));
-        try {
-            files.clear();
-            for (cursor.moveToFirst(); !cursor.isAfterLast(); cursor.moveToNext()) {
-                Metadata metadata = new Metadata();
-                metadata.readFromCursor(cursor);
-                files.add(metadata);
+        if (model != null) {
+            TodorooCursor<Metadata> cursor = metadataService.query(
+                    Query.select(Metadata.PROPERTIES)
+                    .where(MetadataCriteria.byTaskAndwithKey(model.getId(), FileMetadata.METADATA_KEY)));
+            try {
+                files.clear();
+                for (cursor.moveToFirst(); !cursor.isAfterLast(); cursor.moveToNext()) {
+                    Metadata metadata = new Metadata();
+                    metadata.readFromCursor(cursor);
+                    files.add(metadata);
+                }
+            } finally {
+                cursor.close();
             }
-        } finally {
-            cursor.close();
+            if (initialized)
+                afterInflate();
         }
-        if (initialized)
-            afterInflate();
     }
 
     @Override
