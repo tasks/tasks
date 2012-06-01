@@ -505,7 +505,7 @@
     <activity android:name="com.todoroo.astrid.files.AACRecordingActivity"
         android:configChanges="orientation|screenSize"
         android:screenOrientation="portrait"
-        android:theme="@android:style/Theme.Dialog"/>
+        android:theme="@android:style/Theme.Translucent.NoTitleBar"/>
     
     <activity android:name="com.todoroo.astrid.files.FileExplore"/>
         
