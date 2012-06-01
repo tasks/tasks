@@ -16,6 +16,7 @@
     <string name="audio_speak_now">Speak Now!</string>
     <string name="audio_encoding">Encoding...</string>
     <string name="audio_err_encoding">Error encoding audio</string>
+    <string name="audio_err_playback">Sorry, the system does not support this type of audio file</string>
     
     <string name="file_prefix_image">Image</string>
     <string name="file_prefix_voice">Voice</string>

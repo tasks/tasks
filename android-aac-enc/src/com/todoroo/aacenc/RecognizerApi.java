@@ -12,6 +12,7 @@ import android.content.DialogInterface;
 import android.content.DialogInterface.OnCancelListener;
 import android.content.Intent;
 import android.media.MediaPlayer;
+import android.net.Uri;
 import android.os.Bundle;
 import android.speech.RecognitionListener;
 import android.speech.RecognizerIntent;
@@ -56,20 +57,24 @@ public class RecognizerApi implements RecognitionListener {
     	this.mListener = listener;
     }
 
-    public static void play(String file) {
+    public static void play(Activity activity, String file, String type, int errId) {
         MediaPlayer mediaPlayer = new MediaPlayer();
 
         try {
             mediaPlayer.setDataSource(file);
             mediaPlayer.prepare();
             mediaPlayer.start();
-        } catch (IllegalArgumentException e) {
-            throw new RuntimeException(e);
-        } catch (IllegalStateException e) {
-            throw new RuntimeException(e);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
+        } catch (Exception e) {
+            try {
+                Intent intent = new Intent(Intent.ACTION_VIEW);
+                intent.setDataAndType(Uri.fromFile(new File(file)), type);
+                activity.startActivity(intent);
+            } catch (Exception e2) {
+                Toast.makeText(activity, errId, Toast.LENGTH_LONG);
+            }
         }
+        
+        
 
         //Toast.makeText(context, "Playing Audio", Toast.LENGTH_LONG).show();
     }
@@ -219,51 +224,4 @@ public class RecognizerApi implements RecognitionListener {
     public void onRmsChanged(float arg0) {
     }
     
-    public static class Main extends Activity implements RecognizerApiListener {
-    	private RecognizerApi api;
-    	
-    	private static final String M4A_FILE = "/sdcard/audio.m4a";
-    	
-    	/** Called when the activity is first created. */
-        @Override
-        public void onCreate(Bundle savedInstanceState) {
-            super.onCreate(savedInstanceState);
-            
-            api = new RecognizerApi(this);
-            
-            setContentView(R.layout.main);
-
-            findViewById(R.id.write).setOnClickListener(new OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    api.start();
-                }
-            });
-
-            findViewById(R.id.play).setOnClickListener(new OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    api.play(M4A_FILE);
-                }
-            });
-
-        }
-        
-        @Override
-        protected void onDestroy() {
-        	super.onDestroy();
-        	api.destroy();
-        }
-        
-        @Override
-        public void onSpeechResult(String result) {
-        	((TextView)findViewById(R.id.text)).setText(result);
-        	api.convert(M4A_FILE);
-        }
-        
-        @Override
-        public void onSpeechError(int error) {
-        	// TODO Auto-generated method stub
-        }
-    }
 }

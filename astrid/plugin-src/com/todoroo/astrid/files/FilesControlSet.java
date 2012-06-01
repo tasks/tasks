@@ -160,7 +160,7 @@ public class FilesControlSet extends PopupControlSet {
             view.setOnClickListener(new OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    RecognizerApi.play(m.getValue(FileMetadata.FILE_PATH));
+                    RecognizerApi.play(activity, m.getValue(FileMetadata.FILE_PATH), m.getValue(FileMetadata.FILE_TYPE), R.string.audio_err_playback);
                 }
             });
         } else if (fileType.startsWith(FileMetadata.FILE_TYPE_IMAGE)) {
