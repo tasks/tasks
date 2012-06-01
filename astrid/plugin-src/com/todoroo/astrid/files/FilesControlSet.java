@@ -31,6 +31,7 @@ import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.andlib.sql.Query;
 import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.andlib.utility.DialogUtilities;
+import com.todoroo.astrid.actfm.sync.ActFmPreferenceService;
 import com.todoroo.astrid.dao.MetadataDao.MetadataCriteria;
 import com.todoroo.astrid.data.Metadata;
 import com.todoroo.astrid.data.Task;
@@ -116,27 +117,32 @@ public class FilesControlSet extends PopupControlSet {
             setUpFileRow(m, fileRow, fileList, lp);
             View name = fileRow.findViewById(R.id.file_text);
             View clearFile = fileRow.findViewById(R.id.remove_file);
-            clearFile.setVisibility(View.VISIBLE);
 
             setupFileClickListener(name, m);
-            clearFile.setOnClickListener(new OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    DialogUtilities.okCancelDialog(activity, activity.getString(R.string.premium_remove_file_confirm),
-                            new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface d, int which) {
-                            File f = new File(m.getValue(FileMetadata.FILE_PATH));
-                            if (f.delete()) {
-                                metadataService.delete(m);
-                                files.remove(m);
-                                refreshDisplayView();
-                                finalList.removeView(fileRow);
+
+            if (ActFmPreferenceService.isPremiumUser()) {
+                clearFile.setVisibility(View.VISIBLE);
+                clearFile.setOnClickListener(new OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        DialogUtilities.okCancelDialog(activity, activity.getString(R.string.premium_remove_file_confirm),
+                                new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface d, int which) {
+                                if (m.containsNonNullValue(FileMetadata.FILE_PATH)) {
+                                    File f = new File(m.getValue(FileMetadata.FILE_PATH));
+                                    if (f.delete()) {
+                                        metadataService.delete(m);
+                                        files.remove(m);
+                                        refreshDisplayView();
+                                        finalList.removeView(fileRow);
+                                    }
+                                }
                             }
-                        }
-                    }, null);
-                }
-            });
+                        }, null);
+                    }
+                });
+            }
         }
     }
 

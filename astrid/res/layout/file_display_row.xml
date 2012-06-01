@@ -25,12 +25,4 @@
         android:paddingRight="4dip"
         android:gravity="center"
         android:textColor="?attr/asTextColorInverse"/>
-    <ImageView
-        android:id="@+id/remove_file"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/ic_menu_close"
-        android:layout_marginLeft="5dip"
-        android:layout_marginRight="5dip"
-        android:visibility="gone"/>
 </LinearLayout>
