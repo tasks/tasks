@@ -141,7 +141,7 @@ public class FilesControlSet extends PopupControlSet {
     }
 
     private void setupFileClickListener(View view, final Metadata m) {
-        String fileType = m.containsNonNullValue(FileMetadata.FILE_TYPE) ? m.getValue(FileMetadata.FILE_TYPE) : FileMetadata.FILE_TYPE_OTHER;
+        final String fileType = m.containsNonNullValue(FileMetadata.FILE_TYPE) ? m.getValue(FileMetadata.FILE_TYPE) : FileMetadata.FILE_TYPE_OTHER;
         final String filePath = m.containsNonNullValue(FileMetadata.FILE_PATH) ? m.getValue(FileMetadata.FILE_PATH) : null;
         if (TextUtils.isEmpty(filePath)) {
             view.setOnClickListener(new OnClickListener() {
@@ -283,13 +283,14 @@ public class FilesControlSet extends PopupControlSet {
                 }
             }
         }.start();
+        pd.show();
     }
 
     private void setUpFileRow(Metadata m, View row, LinearLayout parent, LayoutParams lp) {
         TextView nameView = (TextView) row.findViewById(R.id.file_text);
         TextView typeView = (TextView) row.findViewById(R.id.file_type);
         String name = getNameString(m);
-        String type = getTypeString(m);
+        String type = getTypeString(name);
         nameView.setText(name);
 
         if (TextUtils.isEmpty(type))
@@ -309,15 +310,7 @@ public class FilesControlSet extends PopupControlSet {
     }
 
     @SuppressWarnings("nls")
-    private String getTypeString(Metadata metadata) {
-        String name;
-        if (metadata.containsNonNullValue(FileMetadata.FILE_PATH)) {
-            File f = new File(metadata.getValue(FileMetadata.FILE_PATH));
-            name = f.getName();
-        } else {
-            name = metadata.getValue(FileMetadata.URL);
-        }
-
+    private String getTypeString(String name) {
         int extension = name.lastIndexOf('.');
         if (extension < 0 || extension + 1 >= name.length())
             return "";

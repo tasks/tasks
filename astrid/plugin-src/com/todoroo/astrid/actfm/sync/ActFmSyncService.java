@@ -1149,7 +1149,7 @@ public final class ActFmSyncService {
                 }
 
             } catch (JSONException e) {
-                // Ignored
+                e.printStackTrace();
             } finally {
                 attachments.close();
             }
