@@ -34,6 +34,7 @@ import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.andlib.utility.DialogUtilities;
 import com.todoroo.astrid.actfm.sync.ActFmPreferenceService;
+import com.todoroo.astrid.actfm.sync.ActFmSyncService;
 import com.todoroo.astrid.dao.MetadataDao.MetadataCriteria;
 import com.todoroo.astrid.data.Metadata;
 import com.todoroo.astrid.data.Task;
@@ -44,6 +45,9 @@ public class FilesControlSet extends PopupControlSet {
 
     @Autowired
     private MetadataService metadataService;
+
+    @Autowired
+    private ActFmSyncService actFmSyncService;
 
     private final ArrayList<Metadata> files = new ArrayList<Metadata>();
     private final LinearLayout fileDisplayList;
@@ -158,6 +162,7 @@ public class FilesControlSet extends PopupControlSet {
                                 if (m.getValue(FileMetadata.REMOTE_ID) > 0) {
                                     m.setValue(FileMetadata.DELETION_DATE, DateUtilities.now());
                                     metadataService.save(m);
+                                    actFmSyncService.pushAttachmentInBackground(m);
                                 } else {
                                     metadataService.delete(m);
                                 }

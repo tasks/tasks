@@ -77,6 +77,7 @@ import com.todoroo.astrid.actfm.ActFmCameraModule;
 import com.todoroo.astrid.actfm.ActFmCameraModule.CameraResultCallback;
 import com.todoroo.astrid.actfm.EditPeopleControlSet;
 import com.todoroo.astrid.actfm.sync.ActFmPreferenceService;
+import com.todoroo.astrid.actfm.sync.ActFmSyncService;
 import com.todoroo.astrid.data.Metadata;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.files.AACRecordingActivity;
@@ -210,6 +211,9 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
 
     @Autowired
     private ActFmPreferenceService actFmPreferenceService;
+
+    @Autowired
+    private ActFmSyncService actFmSyncService;
 
     // --- UI components
 
@@ -1092,6 +1096,7 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
     private void createNewFileAttachment(String path, String fileName, String fileType) {
         Metadata fileMetadata = FileMetadata.createNewFileMetadata(model.getId(), path, fileName, fileType);
         metadataService.save(fileMetadata);
+        actFmSyncService.pushAttachmentInBackground(fileMetadata);
         filesControlSet.refreshMetadata();
     }
 

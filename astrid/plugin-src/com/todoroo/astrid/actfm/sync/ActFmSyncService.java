@@ -589,6 +589,29 @@ public final class ActFmSyncService {
         }
     }
 
+    public void pushAttachmentInBackground(final Metadata fileMetadata) {
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                waitUntilEmpty.close();
+                taskPushThreads.incrementAndGet();
+                try {
+                    Task t = taskDao.fetch(fileMetadata.getValue(Metadata.TASK), Task.REMOTE_ID);
+                    if (t == null || t.getValue(Task.REMOTE_ID) <= 0)
+                        return;
+                    if (fileMetadata.getValue(FileMetadata.DELETION_DATE) > 0)
+                        deleteAttachment(fileMetadata);
+                    else
+                        pushAttachment(t.getValue(Task.REMOTE_ID), fileMetadata);
+                } finally {
+                    if (taskPushThreads.decrementAndGet() == 0) {
+                        waitUntilEmpty.open();
+                    }
+                }
+            }
+        }).start();
+    }
+
     /**
      * Push a file attachment to the server
      * @param remoteTaskId
