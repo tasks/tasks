@@ -67,6 +67,8 @@ import com.todoroo.astrid.api.TaskDecoration;
 import com.todoroo.astrid.api.TaskDecorationExposer;
 import com.todoroo.astrid.core.LinkActionExposer;
 import com.todoroo.astrid.data.Task;
+import com.todoroo.astrid.files.FilesAction;
+import com.todoroo.astrid.files.FilesControlSet;
 import com.todoroo.astrid.helper.AsyncImageView;
 import com.todoroo.astrid.helper.TaskAdapterAddOnManager;
 import com.todoroo.astrid.notes.NotesAction;
@@ -592,6 +594,8 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
                 TaskAction action = (TaskAction) viewHolder.taskActionIcon.getTag();
                 if (action instanceof NotesAction) {
                     showEditNotesDialog(viewHolder.task);
+                } else if (action instanceof FilesAction) {
+                    showFilesDialog(viewHolder.task);
                 } else if (action != null) {
                     try {
                         action.intent.send();
@@ -632,6 +636,13 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
         dialog.getWindow().setAttributes((android.view.WindowManager.LayoutParams) params);
 
         dialog.show();
+    }
+
+    private void showFilesDialog(Task task) {
+        FilesControlSet filesControlSet = new FilesControlSet(fragment.getActivity(), R.layout.control_set_files,
+                R.layout.control_set_files_display, R.string.TEA_control_files);
+        filesControlSet.readFromTask(task);
+        filesControlSet.getDisplayView().performClick();
     }
 
     /* ======================================================================

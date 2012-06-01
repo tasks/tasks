@@ -26,6 +26,8 @@ import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.astrid.api.TaskAction;
 import com.todoroo.astrid.api.TaskDecoration;
 import com.todoroo.astrid.data.Task;
+import com.todoroo.astrid.files.FileMetadata;
+import com.todoroo.astrid.files.FilesAction;
 import com.todoroo.astrid.notes.NotesAction;
 
 /**
@@ -51,7 +53,9 @@ public class LinkActionExposer {
         Linkify.addLinks(titleSpan, Linkify.ALL);
 
         URLSpan[] urlSpans = titleSpan.getSpans(0, titleSpan.length(), URLSpan.class);
-        if(urlSpans.length == 0 && TextUtils.isEmpty(notes))
+        boolean hasAttachments = false;
+        if(urlSpans.length == 0 && TextUtils.isEmpty(notes) &&
+                !(hasAttachments = FileMetadata.taskHasAttachments(taskId)))
             return result;
 
         pm = context.getPackageManager();
@@ -66,8 +70,14 @@ public class LinkActionExposer {
                 result.add(taskAction);
         }
 
+        Resources r = context.getResources();
+        if (hasAttachments) {
+            Bitmap icon = ((BitmapDrawable) r.getDrawable(R.drawable.action_attachments)).getBitmap();
+            FilesAction filesAction = new FilesAction("", null, icon); //$NON-NLS-1$
+            result.add(filesAction);
+        }
+
         if (!TextUtils.isEmpty(notes) && !Preferences.getBoolean(R.string.p_showNotes, false)) {
-            Resources r = context.getResources();
             Bitmap icon = ((BitmapDrawable) r.getDrawable(R.drawable.action_notes)).getBitmap();
             NotesAction notesAction = new NotesAction("", null, icon); //$NON-NLS-1$
             result.add(notesAction);

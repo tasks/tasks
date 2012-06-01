@@ -3,6 +3,7 @@ package com.todoroo.astrid.files;
 import com.todoroo.andlib.data.Property.LongProperty;
 import com.todoroo.andlib.data.Property.StringProperty;
 import com.todoroo.andlib.utility.DateUtilities;
+import com.todoroo.astrid.core.PluginServices;
 import com.todoroo.astrid.data.Metadata;
 
 public class FileMetadata {
@@ -49,6 +50,10 @@ public class FileMetadata {
         metadata.setValue(REMOTE_ID, 0L);
         metadata.setValue(ATTACH_DATE, DateUtilities.now());
         return metadata;
+    }
+
+    public static boolean taskHasAttachments(long taskId) {
+        return PluginServices.getMetadataByTaskAndWithKey(taskId, METADATA_KEY) != null;
     }
 
 }
