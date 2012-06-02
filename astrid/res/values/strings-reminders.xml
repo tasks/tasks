@@ -62,10 +62,12 @@
   
   <!-- ==================================================== user reengagement == -->
   
-  <string name="rmd_reengage_see_tasks">See my tasks</string>
+  <string name="rmd_reengage_notif">Here are some tasks you might have missed!</string>
+  
+  <string name="rmd_reengage_snooze">Snooze all</string>
   
   <string-array name="rmd_reengage_dialog_options">
-      <item>Some stuff!</item>
+      <item>Time to shorten your to-do list!</item>
   </string-array>
   
   <!-- ============================================= reminder preferences == -->

@@ -43,7 +43,6 @@ import com.todoroo.astrid.activity.DisposableTaskListFragment;
 import com.todoroo.astrid.core.PluginServices;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.repeats.RepeatControlSet;
-import com.todoroo.astrid.service.StartupService;
 import com.todoroo.astrid.service.StatisticsConstants;
 import com.todoroo.astrid.service.StatisticsService;
 import com.todoroo.astrid.ui.NumberPicker;
@@ -65,13 +64,6 @@ public class NotificationFragment extends DisposableTaskListFragment implements 
     // --- implementation
 
     private long taskId;
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        StartupService.bypassInitialization();
-
-        super.onCreate(savedInstanceState);
-    }
 
     /* (non-Javadoc)
      * @see com.todoroo.astrid.activity.TaskListActivity#onActivityCreated(android.os.Bundle)

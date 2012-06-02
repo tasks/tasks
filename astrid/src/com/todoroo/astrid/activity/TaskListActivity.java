@@ -668,6 +668,8 @@ public class TaskListActivity extends AstridActivity implements MainMenuListener
         case Constants.SOURCE_C2DM:
             StatisticsService.reportEvent(StatisticsConstants.LAUNCH_FROM_C2DM);
             break;
+        case Constants.SOURCE_REENGAGEMENT:
+            StatisticsService.reportEvent(StatisticsConstants.LAUNCH_FROM_REENGAGEMENT);
         }
         getIntent().putExtra(TOKEN_SOURCE, Constants.SOURCE_DEFAULT); // Only report source once
     }

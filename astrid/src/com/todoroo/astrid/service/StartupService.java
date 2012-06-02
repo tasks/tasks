@@ -40,6 +40,7 @@ import com.todoroo.astrid.gtasks.GtasksPreferenceService;
 import com.todoroo.astrid.gtasks.sync.GtasksSyncService;
 import com.todoroo.astrid.opencrx.OpencrxCoreUtils;
 import com.todoroo.astrid.producteev.ProducteevUtilities;
+import com.todoroo.astrid.reminders.ReengagementService;
 import com.todoroo.astrid.reminders.ReminderStartupReceiver;
 import com.todoroo.astrid.service.abtesting.ABChooser;
 import com.todoroo.astrid.service.abtesting.ABTestInvoker;
@@ -104,6 +105,7 @@ public class StartupService {
     public synchronized void onStartupApplication(final Context context) {
         if(hasStartedUp || context == null)
             return;
+
 
         // sets up context manager
         ContextManager.setContext(context);
@@ -193,6 +195,7 @@ public class StartupService {
                 am.setInexactRepeating(AlarmManager.RTC, 0,
                         Constants.WIDGET_UPDATE_INTERVAL, pendingIntent);
 
+                ReengagementService.scheduleReengagementAlarm(context);
                 taskService.cleanup();
 
                 // if sync ongoing flag was set, clear it

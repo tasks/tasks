@@ -210,7 +210,7 @@
         </intent-filter>
     </receiver>
     
-    <receiver android:name="com.todoroo.astrid.reminder.ReengagementReceiver">
+    <receiver android:name="com.todoroo.astrid.reminders.ReengagementReceiver">
         <intent-filter>
             <action android:name="com.timsu.astrid.SHOW_REENGAGEMENT"/> 
         </intent-filter>
