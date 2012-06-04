@@ -23,6 +23,12 @@
 
     <string name="search_market_pdf">No PDF reader was found. Would you like to download a PDF reader from the Android Market?</string>
     <string name="search_market_pdf_title">No PDF reader found</string>
+
+    <string name="search_market_ms">No MS Office reader was found. Would you like to download an MS Office reader from the Android Market?</string>
+    <string name="search_market_ms_title">No MS Office reader found</string>
+    
+    <string name="file_type_unhandled">Sorry! No application was found to handle this file type.</string>
+    <string name="file_type_unhandled_title">No application found</string>
     
     <string name="file_prefix_image">Image</string>
     <string name="file_prefix_voice">Voice</string>

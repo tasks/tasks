@@ -260,12 +260,16 @@ public class FilesControlSet extends PopupControlSet {
     }
 
     private void handleActivityNotFound(String fileType) {
+        System.err.println("HANDLING FILE OF TYPE: " + fileType); //$NON-NLS-1$
         if (fileType.startsWith(FileMetadata.FILE_TYPE_AUDIO)) {
             searchMarket("com.clov4r.android.nil", R.string.search_market_audio_title, R.string.search_market_audio); //$NON-NLS-1$
-        } else if (fileType.startsWith(FileMetadata.FILE_TYPE_PDF)) {
+        } else if (fileType.equals(FileMetadata.FILE_TYPE_PDF)) {
             searchMarket("com.adobe.reader", R.string.search_market_pdf_title, R.string.search_market_pdf); //$NON-NLS-1$
+        } else if (AndroidUtilities.indexOf(FileMetadata.MS_FILETYPES, fileType) >= 0) {
+            searchMarket("com.dataviz.docstogo", R.string.search_market_ms_title, R.string.search_market_ms); //$NON-NLS-1$
         } else {
-            //
+            DialogUtilities.okDialog(activity, activity.getString(R.string.file_type_unhandled_title),
+                    0, activity.getString(R.string.file_type_unhandled), null);
         }
     }
 
