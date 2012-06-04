@@ -115,11 +115,14 @@ public class ABTests {
     }
 
     private void initialize() { // Set up
-
         addTest(AB_TEST_PRODUCTEEV_ENABLED, new int[] { 1, 1 },
                 new int[] { 1, 0 }, new String[] { "producteev-disabled", "producteev-enabled" }); //$NON-NLS-1$ //$NON-NLS-2$
+
+        addTest(AB_TEST_REENGAGEMENT_ENABLED, new int[] { 1, 9 },
+                new int[] { 1, 9 }, new String[] { "reengagement-disabled", "reengagement-enabled" }); //$NON-NLS-1$ //$NON-NLS-2$
     }
 
     public static final String AB_TEST_PRODUCTEEV_ENABLED = "producteev";  //$NON-NLS-1$
+    public static final String AB_TEST_REENGAGEMENT_ENABLED = "reengagement"; ////$NON-NLS-1$
 
 }

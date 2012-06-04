@@ -66,10 +66,15 @@
   
   <string name="rmd_reengage_snooze">Snooze all</string>
   
+  <string name="rmd_reengage_add_tasks">Add a task</string>
+  
   <string-array name="rmd_reengage_dialog_options">
       <item>Time to shorten your to-do list!</item>
   </string-array>
   
+  <string-array name="rmd_reengage_dialog_empty_options">
+      <item>Don\'t you want to get organized?</item>
+  </string-array>
   <!-- ============================================= reminder preferences == -->
   
   <!-- Reminder Preference Screen Title -->

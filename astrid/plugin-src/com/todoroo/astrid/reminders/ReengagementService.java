@@ -1,5 +1,7 @@
 package com.todoroo.astrid.reminders;
 
+import java.util.Date;
+
 import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.content.Context;
@@ -12,6 +14,8 @@ import com.todoroo.astrid.utility.Constants;
 public final class ReengagementService {
 
     private static final int REQUEST_CODE = 10;
+
+    private static final int DAYS_INTERVAL = 2;
 
     public static final String PREF_REENGAGEMENT_COUNT = "pref_reengagement_count"; //$NON-NLS-1$
 
@@ -31,11 +35,16 @@ public final class ReengagementService {
         int reengagementReminders = Preferences.getInt(PREF_REENGAGEMENT_COUNT, 1);
         int days;
         if (reengagementReminders >= 4)
-            days = 8;
+            days = DAYS_INTERVAL * 4;
         else
-            days = 2 * reengagementReminders;
+            days = DAYS_INTERVAL * reengagementReminders;
 
-        return DateUtilities.now() + DateUtilities.ONE_DAY * days;
+        Date date = new Date(DateUtilities.now() + DateUtilities.ONE_DAY * days / 1000L * 1000L);
+        date.setHours(18);
+        date.setMinutes(0);
+        date.setSeconds(0);
+
+        return date.getTime();
     }
 
 }

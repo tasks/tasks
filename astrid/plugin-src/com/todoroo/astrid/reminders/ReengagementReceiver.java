@@ -18,6 +18,8 @@ import com.todoroo.astrid.activity.TaskListFragment;
 import com.todoroo.astrid.api.FilterWithCustomIntent;
 import com.todoroo.astrid.core.SortHelper;
 import com.todoroo.astrid.data.TaskApiDao.TaskCriteria;
+import com.todoroo.astrid.service.abtesting.ABChooser;
+import com.todoroo.astrid.service.abtesting.ABTests;
 import com.todoroo.astrid.utility.Constants;
 
 public class ReengagementReceiver extends BroadcastReceiver {
@@ -26,6 +28,8 @@ public class ReengagementReceiver extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {
+        if (ABChooser.readChoiceForTest(ABTests.AB_TEST_REENGAGEMENT_ENABLED) == 0)
+            return;
 
         int reengagementReminders = Preferences.getInt(ReengagementService.PREF_REENGAGEMENT_COUNT, 1);
         Preferences.setInt(ReengagementService.PREF_REENGAGEMENT_COUNT, reengagementReminders + 1);

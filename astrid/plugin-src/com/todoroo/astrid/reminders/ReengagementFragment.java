@@ -19,21 +19,29 @@ public class ReengagementFragment extends DisposableTaskListFragment {
 
         Resources r = getActivity().getResources();
 
-        int color = r.getColor(ThemeService.getThemeColor());
-
-        View snooze = getView().findViewById(R.id.reminder_snooze);
-        snooze.setBackgroundColor(color);
-        snooze.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                getActivity().finish();
-            }
-        });
-
-        TextView reminder = (TextView) getView().findViewById(R.id.reminder_message);
-        reminder.setText(Notifications.getRandomReminder(r.getStringArray(R.array.rmd_reengage_dialog_options)));
-
         super.initializeData();
+
+        TextView snooze = (TextView) getView().findViewById(R.id.reminder_snooze);
+        snooze.setBackgroundColor(r.getColor(ThemeService.getThemeColor()));
+        TextView reminder = (TextView) getView().findViewById(R.id.reminder_message);
+        if (taskAdapter.getCount() == 0) {
+            reminder.setText(Notifications.getRandomReminder(r.getStringArray(R.array.rmd_reengage_dialog_empty_options)));
+            snooze.setText(R.string.rmd_reengage_add_tasks);
+            snooze.setOnClickListener(new OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    quickAddBar.performButtonClick();
+                }
+            });
+        } else {
+            reminder.setText(Notifications.getRandomReminder(r.getStringArray(R.array.rmd_reengage_dialog_options)));
+            snooze.setOnClickListener(new OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    getActivity().finish();
+                }
+            });
+        }
     }
 
     @Override
