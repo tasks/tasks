@@ -12,6 +12,8 @@ import com.todoroo.astrid.service.ThemeService;
 
 public class ReengagementFragment extends DisposableTaskListFragment {
 
+    public static final String EXTRA_TEXT = "dialogText"; //$NON-NLS-1$
+
     @Override
     protected void initializeData() {
         // hide quick add
@@ -25,7 +27,6 @@ public class ReengagementFragment extends DisposableTaskListFragment {
         snooze.setBackgroundColor(r.getColor(ThemeService.getThemeColor()));
         TextView reminder = (TextView) getView().findViewById(R.id.reminder_message);
         if (taskAdapter.getCount() == 0) {
-            reminder.setText(Notifications.getRandomReminder(r.getStringArray(R.array.rmd_reengage_dialog_empty_options)));
             snooze.setText(R.string.rmd_reengage_add_tasks);
             snooze.setOnClickListener(new OnClickListener() {
                 @Override
@@ -34,7 +35,6 @@ public class ReengagementFragment extends DisposableTaskListFragment {
                 }
             });
         } else {
-            reminder.setText(Notifications.getRandomReminder(r.getStringArray(R.array.rmd_reengage_dialog_options)));
             snooze.setOnClickListener(new OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -42,6 +42,8 @@ public class ReengagementFragment extends DisposableTaskListFragment {
                 }
             });
         }
+
+        reminder.setText(extras.getString(EXTRA_TEXT));
     }
 
     @Override
