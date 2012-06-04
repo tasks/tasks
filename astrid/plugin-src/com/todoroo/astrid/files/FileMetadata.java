@@ -19,7 +19,7 @@ public class FileMetadata {
     /** Constants for file types */
     public static final String FILE_TYPE_AUDIO = "audio/"; //$NON-NLS-1$
     public static final String FILE_TYPE_IMAGE = "image/"; //$NON-NLS-1$
-
+    public static final String FILE_TYPE_PDF = "application/pdf"; //$NON-NLS-1$
 
 
     public static final String FILE_TYPE_OTHER = "application/octet-stream";  //$NON-NLS-1$

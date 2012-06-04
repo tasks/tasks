@@ -25,6 +25,10 @@ import android.widget.Toast;
 
 public class RecognizerApi implements RecognitionListener {
 
+	public static interface PlaybackExceptionHandler {
+		public void playbackFailed(String file);
+	}
+	
     private String aacFile;
 
     private Context context;
@@ -57,7 +61,7 @@ public class RecognizerApi implements RecognitionListener {
     	this.mListener = listener;
     }
 
-    public static void play(Activity activity, String file, String type, int errId) {
+    public static void play(Activity activity, String file, PlaybackExceptionHandler handler) {
         MediaPlayer mediaPlayer = new MediaPlayer();
 
         try {
@@ -65,18 +69,8 @@ public class RecognizerApi implements RecognitionListener {
             mediaPlayer.prepare();
             mediaPlayer.start();
         } catch (Exception e) {
-            try {
-                Intent intent = new Intent(Intent.ACTION_VIEW);
-                intent.setDataAndType(Uri.fromFile(new File(file)), type);
-                activity.startActivity(intent);
-            } catch (Exception e2) {
-                Toast.makeText(activity, errId, Toast.LENGTH_LONG);
-            }
+        	handler.playbackFailed(file);
         }
-        
-        
-
-        //Toast.makeText(context, "Playing Audio", Toast.LENGTH_LONG).show();
     }
 
     private AACEncoder encoder = new AACEncoder();

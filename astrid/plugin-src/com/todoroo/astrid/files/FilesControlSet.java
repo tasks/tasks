@@ -10,8 +10,11 @@ import java.util.ArrayList;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
+import android.content.ActivityNotFoundException;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.Bitmap;
+import android.net.Uri;
 import android.text.TextUtils;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -25,6 +28,7 @@ import android.widget.Toast;
 
 import com.timsu.astrid.R;
 import com.todoroo.aacenc.RecognizerApi;
+import com.todoroo.aacenc.RecognizerApi.PlaybackExceptionHandler;
 import com.todoroo.andlib.data.TodorooCursor;
 import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.DependencyInjectionService;
@@ -40,6 +44,7 @@ import com.todoroo.astrid.data.Metadata;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.service.MetadataService;
 import com.todoroo.astrid.ui.PopupControlSet;
+import com.todoroo.astrid.utility.Constants;
 
 public class FilesControlSet extends PopupControlSet {
 
@@ -207,12 +212,17 @@ public class FilesControlSet extends PopupControlSet {
         }
     }
 
-    private void showFile(Metadata m) {
-        String fileType = m.containsNonNullValue(FileMetadata.FILE_TYPE) ? m.getValue(FileMetadata.FILE_TYPE) : FileMetadata.FILE_TYPE_OTHER;
-        String filePath = m.getValue(FileMetadata.FILE_PATH);
+    private void showFile(final Metadata m) {
+        final String fileType = m.containsNonNullValue(FileMetadata.FILE_TYPE) ? m.getValue(FileMetadata.FILE_TYPE) : FileMetadata.FILE_TYPE_OTHER;
+        final String filePath = m.getValue(FileMetadata.FILE_PATH);
 
         if (fileType.startsWith(FileMetadata.FILE_TYPE_AUDIO)) {
-            RecognizerApi.play(activity, m.getValue(FileMetadata.FILE_PATH), m.getValue(FileMetadata.FILE_TYPE), R.string.audio_err_playback);
+            RecognizerApi.play(activity, m.getValue(FileMetadata.FILE_PATH), new PlaybackExceptionHandler() {
+                @Override
+                public void playbackFailed(String file) {
+                    showFromIntent(filePath, fileType);
+                }
+            });
         } else if (fileType.startsWith(FileMetadata.FILE_TYPE_IMAGE)) {
             AlertDialog image = new AlertDialog.Builder(activity).create();
             ImageView imageView = new ImageView(activity);
@@ -235,8 +245,45 @@ public class FilesControlSet extends PopupControlSet {
             });
             image.show();
         } else {
-            Toast.makeText(activity, R.string.file_err_show, Toast.LENGTH_LONG);
+            showFromIntent(filePath, fileType);
         }
+    }
+
+    private void showFromIntent(String file, String type) {
+        try {
+            Intent intent = new Intent(Intent.ACTION_VIEW);
+            intent.setDataAndType(Uri.fromFile(new File(file)), type);
+            activity.startActivity(intent);
+        } catch (ActivityNotFoundException e) {
+            handleActivityNotFound(type);
+        }
+    }
+
+    private void handleActivityNotFound(String fileType) {
+        if (fileType.startsWith(FileMetadata.FILE_TYPE_AUDIO)) {
+            searchMarket("com.clov4r.android.nil", R.string.search_market_audio_title, R.string.search_market_audio); //$NON-NLS-1$
+        } else if (fileType.startsWith(FileMetadata.FILE_TYPE_PDF)) {
+            searchMarket("com.adobe.reader", R.string.search_market_pdf_title, R.string.search_market_pdf); //$NON-NLS-1$
+        } else {
+            //
+        }
+    }
+
+    private void searchMarket(final String packageName, int title, int body) {
+        DialogUtilities.okCancelDialog(activity, activity.getString(title),
+                activity.getString(body), new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface d, int which) {
+                Intent marketIntent = Constants.MARKET_STRATEGY.generateMarketLink(packageName);
+                try {
+                    activity.startActivity(marketIntent);
+                } catch (ActivityNotFoundException ane) {
+                    DialogUtilities.okDialog(activity,
+                            activity.getString(R.string.EPr_marketUnavailable_dlg),
+                            null);
+                }
+            }
+        }, null);
     }
 
     @SuppressWarnings("nls")
