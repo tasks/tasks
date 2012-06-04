@@ -16,8 +16,7 @@
 	        android:layout_marginBottom="5dip"
 	        android:src="@drawable/icon"
 	        android:scaleType="fitCenter"
-	        android:layout_alignParentLeft="true"
-	        android:layout_alignParentBottom="true"/>
+	        android:layout_alignParentLeft="true"/>
 	    
 	    
 	    <LinearLayout

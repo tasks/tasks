@@ -5,11 +5,14 @@ import java.util.Date;
 
 import android.app.Dialog;
 import android.content.Context;
+import android.content.res.Configuration;
 import android.text.Html;
 import android.text.Spanned;
 import android.text.TextUtils;
+import android.util.DisplayMetrics;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.ViewGroup.LayoutParams;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
@@ -20,6 +23,7 @@ import com.google.ical.values.Frequency;
 import com.google.ical.values.RRule;
 import com.timsu.astrid.R;
 import com.todoroo.andlib.data.Property;
+import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.astrid.activity.AstridActivity;
@@ -73,6 +77,7 @@ public class DateChangedAlerts {
             }
         });
 
+        setupDialogLayoutParams(activity, d);
         d.setOwnerActivity(activity);
         d.show();
     }
@@ -98,6 +103,7 @@ public class DateChangedAlerts {
         setupOkAndDismissButtons(d);
         setupHideCheckbox(d);
 
+        setupDialogLayoutParams(activity, d);
         d.setOwnerActivity(activity);
         d.show();
     }
@@ -116,6 +122,7 @@ public class DateChangedAlerts {
             return;
 
         final Dialog d = new Dialog(activity, R.style.ReminderDialog);
+
         d.setContentView(R.layout.astrid_reminder_view);
 
         Button okButton = (Button) d.findViewById(R.id.reminder_complete);
@@ -155,6 +162,8 @@ public class DateChangedAlerts {
             }
         });
 
+        setupDialogLayoutParams(activity, d);
+
         d.setOwnerActivity(activity);
         d.show();
     }
@@ -188,6 +197,20 @@ public class DateChangedAlerts {
             });
         }
         Preferences.setInt(PREF_NUM_HELPERS_SHOWN, numShows);
+    }
+
+    private static void setupDialogLayoutParams(Context context, Dialog d) {
+        LayoutParams params = d.getWindow().getAttributes();
+        params.width = LayoutParams.FILL_PARENT;
+        params.height = LayoutParams.WRAP_CONTENT;
+        Configuration config = context.getResources().getConfiguration();
+        int size = config.screenLayout & Configuration.SCREENLAYOUT_SIZE_MASK;
+        if (AndroidUtilities.getSdkVersion() >= 9 && size == Configuration.SCREENLAYOUT_SIZE_XLARGE || size == Configuration.SCREENLAYOUT_SIZE_LARGE) {
+            DisplayMetrics metrics = context.getResources().getDisplayMetrics();
+            params.width = metrics.widthPixels / 2;
+        }
+        d.getWindow().setAttributes((android.view.WindowManager.LayoutParams) params);
+
     }
 
 
