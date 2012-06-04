@@ -24,6 +24,7 @@ public class StatisticsConstants {
     public static final String LAUNCH_FROM_PPW = "launch-from-ppw";
     public static final String LAUNCH_FROM_WIDGET = "launch-from-widget";
     public static final String LAUNCH_FROM_C2DM = "launch-from-c2dm";
+    public static final String LAUNCH_FROM_REENGAGEMENT = "launch-from-reengagement";
     public static final String LOCALE_EDIT_ALERTS_NO_PLUGIN = "locale-edit-alerts-no-plugin";
     public static final String LOCALE_EDIT_ALERTS = "locale-edit-alerts";
     public static final String WIDGET_CONFIG = "widget-config";

@@ -209,6 +209,12 @@
             <action android:name="android.intent.action.PHONE_STATE"/>
         </intent-filter>
     </receiver>
+    
+    <receiver android:name="com.todoroo.astrid.reminders.ReengagementReceiver">
+        <intent-filter>
+            <action android:name="com.timsu.astrid.SHOW_REENGAGEMENT"/> 
+        </intent-filter>
+    </receiver>
 
     <!-- ======================================================== Services = -->
 
