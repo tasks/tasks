@@ -816,6 +816,10 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
         loadItem(intent);
 
         synchronized (controls) {
+            if (!(ActFmPreferenceService.isPremiumUser() || FileMetadata.taskHasAttachments(model.getId()))) {
+                controls.remove(filesControlSet);
+                filesControlSet.getDisplayView().setVisibility(View.GONE);
+            }
             for (TaskEditControlSet controlSet : controls)
                 controlSet.readFromTask(model);
         }
@@ -1041,7 +1045,6 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
         startActivityForResult(recordAudio, REQUEST_CODE_RECORD);
     }
 
-    @SuppressWarnings("nls")
     private void attachFile(String file) {
         File src = new File(file);
         if (!src.exists()) {
