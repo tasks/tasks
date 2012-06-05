@@ -53,7 +53,6 @@ public class UpdateAdapter extends CursorAdapter {
     // --- instance variables
 
     protected final Fragment fragment;
-    protected final AstridActivity activity;
     private final int resource;
     private final LayoutInflater inflater;
     private final ImageDiskCache imageCache;
@@ -107,7 +106,6 @@ public class UpdateAdapter extends CursorAdapter {
 
         this.resource = resource;
         this.fragment = fragment;
-        this.activity = (AstridActivity) fragment.getActivity();
     }
 
     public static String getLinkColor(Fragment f) {
@@ -163,7 +161,7 @@ public class UpdateAdapter extends CursorAdapter {
 
         // name
         final TextView nameView = (TextView)view.findViewById(R.id.title); {
-            nameView.setText(getUpdateComment(activity, update, user, linkColor, fromView));
+            nameView.setText(getUpdateComment((AstridActivity)fragment.getActivity(), update, user, linkColor, fromView));
             nameView.setMovementMethod(new LinkMovementMethod());
         }
 
@@ -369,7 +367,8 @@ public class UpdateAdapter extends CursorAdapter {
                 taskSpan.setSpan(new ClickableSpan() {
                     @Override
                   public void onClick(View widget) {
-                      activity.onTaskListItemClicked(taskIdToUse);
+                        if (activity != null) // TODO: This shouldn't happen, but sometimes does
+                            activity.onTaskListItemClicked(taskIdToUse);
                   }
                 }, 0, targetName.length(), Spanned.SPAN_INCLUSIVE_EXCLUSIVE);
                 return taskSpan;
