@@ -41,6 +41,7 @@ import android.view.View;
 import android.view.View.OnTouchListener;
 import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.PopupWindow;
 import android.widget.TextView;
 
 import com.todoroo.andlib.data.Property;
@@ -843,6 +844,22 @@ public class AndroidUtilities {
             activity.unregisterReceiver(receiver);
         } catch (IllegalArgumentException e) {
             // Receiver wasn't registered for some reason
+        }
+    }
+
+    /**
+     * Dismiss a popup window (should call from main thread)
+     *
+     * @param activity
+     * @param popup
+     */
+    public static void tryDismissPopup(Activity activity, final PopupWindow popup) {
+        if (popup == null)
+            return;
+        try {
+            popup.dismiss();
+        } catch (Exception e) {
+            // window already closed or something
         }
     }
 

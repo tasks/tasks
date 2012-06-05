@@ -462,14 +462,10 @@ public class TaskListActivity extends AstridActivity implements MainMenuListener
     @Override
     protected void onPause() {
         super.onPause();
-        if (listsPopover != null)
-            listsPopover.dismiss();
-        if (editPopover != null)
-            editPopover.dismiss();
-        if (mainMenuPopover != null)
-            mainMenuPopover.dismiss();
-        if (commentsPopover != null)
-            commentsPopover.dismiss();
+        AndroidUtilities.tryDismissPopup(this, listsPopover);
+        AndroidUtilities.tryDismissPopup(this, editPopover);
+        AndroidUtilities.tryDismissPopup(this, mainMenuPopover);
+        AndroidUtilities.tryDismissPopup(this, commentsPopover);
     }
 
     @Override
