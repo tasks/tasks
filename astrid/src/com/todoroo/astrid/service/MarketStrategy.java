@@ -82,4 +82,25 @@ public abstract class MarketStrategy {
 
     }
 
+    public static class NookMarketStrategy extends MarketStrategy {
+
+        @Override
+        public Intent generateMarketLink(String packageName) {
+            return new Intent(Intent.ACTION_VIEW,
+                    Uri.parse("market://search?q=pname:" + //$NON-NLS-1$
+                            packageName));
+        }
+
+        @Override
+        public boolean includesLocalePlugin() {
+            return false;
+        }
+
+        @Override
+        public boolean showAddonMenu() {
+            return false;
+        }
+
+    }
+
 }

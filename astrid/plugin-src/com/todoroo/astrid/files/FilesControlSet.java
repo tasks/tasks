@@ -294,7 +294,7 @@ public class FilesControlSet extends PopupControlSet {
                 Intent marketIntent = Constants.MARKET_STRATEGY.generateMarketLink(packageName);
                 try {
                     activity.startActivity(marketIntent);
-                } catch (ActivityNotFoundException ane) {
+                } catch (ActivityNotFoundException anf) {
                     DialogUtilities.okDialog(activity,
                             activity.getString(R.string.EPr_marketUnavailable_dlg),
                             null);
