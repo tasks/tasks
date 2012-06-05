@@ -100,7 +100,7 @@ public class FbDialog extends Dialog {
             @Override
             public void onClick(View v) {
                 mListener.onCancel();
-                FbDialog.this.dismiss();
+                tryDismissDialog(FbDialog.this);
             }
         });
         Drawable crossDrawable = getContext().getResources().getDrawable(R.drawable.close);
@@ -149,11 +149,11 @@ public class FbDialog extends Dialog {
                     mListener.onFacebookError(new FacebookError(error));
                 }
 
-                FbDialog.this.dismiss();
+                tryDismissDialog(FbDialog.this);
                 return true;
             } else if (url.startsWith(Facebook.CANCEL_URI)) {
                 mListener.onCancel();
-                FbDialog.this.dismiss();
+                tryDismissDialog(FbDialog.this);
                 return true;
             } else if (url.contains(DISPLAY_STRING)) {
                 return false;
@@ -170,20 +170,24 @@ public class FbDialog extends Dialog {
             super.onReceivedError(view, errorCode, description, failingUrl);
             mListener.onError(
                     new DialogError(description, errorCode, failingUrl));
-            FbDialog.this.dismiss();
+            tryDismissDialog(FbDialog.this);
         }
 
         @Override
         public void onPageStarted(WebView view, String url, Bitmap favicon) {
             Util.logd("Facebook-WebView", "Webview loading URL: " + url);
             super.onPageStarted(view, url, favicon);
-            mSpinner.show();
+            try {
+            	mSpinner.show();
+            } catch (Exception e) {
+            	// Activity killed or something
+            }
         }
 
         @Override
         public void onPageFinished(WebView view, String url) {
             super.onPageFinished(view, url);
-            mSpinner.dismiss();
+            tryDismissDialog(mSpinner);
             /* 
              * Once webview is fully loaded, set the mContent background to be transparent
              * and make visible the 'x' image. 
@@ -192,5 +196,13 @@ public class FbDialog extends Dialog {
             mWebView.setVisibility(View.VISIBLE);
             mCrossImage.setVisibility(View.VISIBLE);
         }
+    }
+    
+    private void tryDismissDialog(Dialog d) {
+    	try {
+    		d.dismiss();
+    	} catch (Exception e) {
+    		// Activity was killed or something
+    	}
     }
 }
