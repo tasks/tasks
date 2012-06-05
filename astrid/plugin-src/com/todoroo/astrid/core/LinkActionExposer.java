@@ -53,9 +53,9 @@ public class LinkActionExposer {
         Linkify.addLinks(titleSpan, Linkify.ALL);
 
         URLSpan[] urlSpans = titleSpan.getSpans(0, titleSpan.length(), URLSpan.class);
-        boolean hasAttachments = false;
+        boolean hasAttachments = FileMetadata.taskHasAttachments(taskId);
         if(urlSpans.length == 0 && TextUtils.isEmpty(notes) &&
-                !(hasAttachments = FileMetadata.taskHasAttachments(taskId)))
+                !hasAttachments)
             return result;
 
         pm = context.getPackageManager();
