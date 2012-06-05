@@ -863,4 +863,21 @@ public class AndroidUtilities {
         }
     }
 
+    /**
+     * Returns the final word characters after the last '.'
+     * @param file
+     * @return
+     */
+    @SuppressWarnings("nls")
+    public static String getFileExtension(String file) {
+        int index = file.lastIndexOf('.');
+        String extension = "";
+        if (index > 0) {
+            extension = file.substring(index + 1);
+            if (!extension.matches("\\w+"))
+                extension = "";
+        }
+        return extension;
+    }
+
 }

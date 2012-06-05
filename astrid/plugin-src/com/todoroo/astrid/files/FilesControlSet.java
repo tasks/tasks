@@ -20,6 +20,7 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.webkit.MimeTypeMap;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.LinearLayout.LayoutParams;
@@ -245,7 +246,20 @@ public class FilesControlSet extends PopupControlSet {
             });
             image.show();
         } else {
-            showFromIntent(filePath, fileType);
+            String useType = fileType;
+            if (fileType.equals(FileMetadata.FILE_TYPE_OTHER)) {
+                String extension = AndroidUtilities.getFileExtension(filePath);
+
+                MimeTypeMap map = MimeTypeMap.getSingleton();
+                String guessedType = map.getMimeTypeFromExtension(extension);
+                if (!TextUtils.isEmpty(guessedType))
+                    useType = guessedType;
+                if (useType != guessedType) {
+                    m.setValue(FileMetadata.FILE_TYPE, useType);
+                    metadataService.save(m);
+                }
+            }
+            showFromIntent(filePath, useType);
         }
     }
 
@@ -260,7 +274,6 @@ public class FilesControlSet extends PopupControlSet {
     }
 
     private void handleActivityNotFound(String fileType) {
-        System.err.println("HANDLING FILE OF TYPE: " + fileType); //$NON-NLS-1$
         if (fileType.startsWith(FileMetadata.FILE_TYPE_AUDIO)) {
             searchMarket("com.clov4r.android.nil", R.string.search_market_audio_title, R.string.search_market_audio); //$NON-NLS-1$
         } else if (fileType.equals(FileMetadata.FILE_TYPE_PDF)) {

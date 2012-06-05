@@ -1059,10 +1059,7 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
 
         String path = dst.getAbsolutePath();
         String name = dst.getName();
-        String extension = "";
-        if (name.matches("\\w+.\\w+")) {
-            extension = name.substring(name.lastIndexOf('.') + 1);
-        }
+        String extension = AndroidUtilities.getFileExtension(name);
 
         String type = FileMetadata.FILE_TYPE_OTHER;
         if (!TextUtils.isEmpty(extension)) {
