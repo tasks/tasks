@@ -135,11 +135,11 @@ public final class CustomFilterExposer extends BroadcastReceiver implements Astr
         int themeFlags = isTablet ? ThemeService.FLAG_FORCE_LIGHT : 0;
         Filter f = new Filter(r.getString(R.string.BFE_Assigned),
                 r.getString(R.string.BFE_Assigned),
-                new QueryTemplate().join(Join.left(Metadata.TABLE, Task.ID.eq(Metadata.TASK)))
+                new QueryTemplate().join(Join.left(Metadata.TABLE, Criterion.and(Metadata.KEY.eq(TaskRabbitMetadata.METADATA_KEY), Task.ID.eq(Metadata.TASK))))
                     .where(Criterion.and(TaskCriteria.isActive(),
                         Criterion.or(Task.CREATOR_ID.eq(0), Task.CREATOR_ID.eq(ActFmPreferenceService.userId())),
                         Criterion.or(Task.USER_ID.neq(0),
-                                    Criterion.and(Metadata.KEY.eq(TaskRabbitMetadata.METADATA_KEY), TaskRabbitMetadata.ID.gt(0))))),
+                                    TaskRabbitMetadata.ID.gt(0)))),
                         null);
         f.listingIcon = ((BitmapDrawable)r.getDrawable(
                 ThemeService.getDrawable(R.drawable.filter_assigned, themeFlags))).getBitmap();
