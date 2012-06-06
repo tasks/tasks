@@ -597,7 +597,7 @@ public final class ActFmSyncService {
                 taskPushThreads.incrementAndGet();
                 try {
                     Task t = taskDao.fetch(fileMetadata.getValue(Metadata.TASK), Task.REMOTE_ID);
-                    if (t == null || t.getValue(Task.REMOTE_ID) <= 0)
+                    if (t == null || t.getValue(Task.REMOTE_ID) == null || t.getValue(Task.REMOTE_ID) <= 0)
                         return;
                     if (fileMetadata.getValue(FileMetadata.DELETION_DATE) > 0)
                         deleteAttachment(fileMetadata);
