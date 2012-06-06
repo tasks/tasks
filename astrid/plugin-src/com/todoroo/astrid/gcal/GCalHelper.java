@@ -185,6 +185,7 @@ public class GCalHelper {
                 values.put("dtend", dueDate);
                 // setting a duetime to a previously timeless event requires explicitly setting allDay=0
                 values.put("allDay", "0");
+                values.put("eventTimezone", TimeZone.getDefault().getID());
             } else {
                 values.put("dtstart", tzCorrectedDueDate);
                 values.put("dtend", tzCorrectedDueDate);
