@@ -3,6 +3,7 @@ package com.todoroo.astrid.actfm;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.preference.Preference;
+import android.preference.PreferenceCategory;
 
 import com.timsu.astrid.R;
 import com.todoroo.andlib.service.Autowired;
@@ -57,6 +58,14 @@ public class ActFmPreferences extends SyncProviderPreferences {
     @Override
     public void updatePreferences(Preference preference, Object value) {
         final Resources r = getResources();
+
+        boolean loggedIn = getUtilities().isLoggedIn();
+        PreferenceCategory status = (PreferenceCategory) findPreference(r.getString(R.string.sync_SPr_group_status));
+
+        if (loggedIn)
+            status.setTitle(getString(R.string.actfm_status_title_logged_in, actFmPreferenceService.getLoggedInUserName()));
+        else
+            status.setTitle(R.string.sync_SPr_group_status);
 
         if (r.getString(R.string.actfm_https_key).equals(preference.getKey())) {
             if ((Boolean)value)

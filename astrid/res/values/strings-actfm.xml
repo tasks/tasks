@@ -269,6 +269,8 @@
   
   <!-- ================================================ Synchronization == -->
       
+  <string name="actfm_status_title_logged_in">Status - Logged in as %s</string>    
+      
   <!-- Preferences Title: Act.fm -->    
   <string name="actfm_APr_header">Astrid.com</string>
   
