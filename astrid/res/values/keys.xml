@@ -55,6 +55,9 @@
   <!-- enable third party addons preference -->
   <string name="p_third_party_addons">third_party_addons</string>
   
+  <!-- show ideas tab preference -->
+  <string name="p_ideas_tab_enabled">ideas_tab_enabled</string>
+  
   <string-array name="TEA_reminder_random_hours">
     <!-- values (in hours) associated with items above. -->
     <item>1</item>

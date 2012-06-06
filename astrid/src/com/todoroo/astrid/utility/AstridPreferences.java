@@ -61,6 +61,9 @@ public class AstridPreferences {
         boolean thirdPartyAddons = (ABChooser.readChoiceForTest(ABTests.AB_TEST_PRODUCTEEV_ENABLED) == 1) || ProducteevUtilities.INSTANCE.isLoggedIn();
         Preferences.setIfUnset(prefs, editor, r, R.string.p_third_party_addons, thirdPartyAddons);
 
+        boolean showIdeasTab = (ABChooser.readChoiceForTest(ABTests.AB_TEST_IDEAS_TAB) == 1);
+        Preferences.setIfUnset(prefs, editor, r, R.string.p_ideas_tab_enabled, showIdeasTab);
+
         if ("white-blue".equals(Preferences.getStringValue(R.string.p_theme))) { //$NON-NLS-1$ migrate from when white-blue wasn't the default
             Preferences.setString(R.string.p_theme, ThemeService.THEME_WHITE);
         }

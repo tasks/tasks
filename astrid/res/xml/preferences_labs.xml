@@ -18,4 +18,8 @@
     <CheckBoxPreference
         android:key="@string/p_third_party_addons"
         android:title="@string/EPr_third_party_addons" />
+    <CheckBoxPreference
+        android:key="@string/p_ideas_tab_enabled"
+        android:title="@string/EPr_ideas_tab_enabled" 
+        android:summary="EPr_ideas_tab_description" />
 </PreferenceScreen>

@@ -390,7 +390,7 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
 
         boolean hasTitle = !TextUtils.isEmpty(model.getValue(Task.TITLE));
 
-        if(hasTitle)
+        if(hasTitle && Preferences.getBoolean(R.string.p_ideas_tab_enabled, false))
             tabStyle = TAB_STYLE_ACTIVITY_WEB;
         else
             tabStyle = TAB_STYLE_ACTIVITY;
