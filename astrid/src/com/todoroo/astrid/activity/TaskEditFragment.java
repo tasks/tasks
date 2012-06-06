@@ -809,6 +809,7 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
             webServices.setTask(model);
             webServices.reset();
         }
+        loadMoreContainer();
     }
 
     /** Populate UI component values from the model */
