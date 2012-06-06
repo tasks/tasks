@@ -26,7 +26,9 @@ import android.view.View;
 import android.widget.Button;
 
 import com.timsu.astrid.R;
+import com.todoroo.andlib.data.Property.IntegerProperty;
 import com.todoroo.andlib.service.DependencyInjectionService;
+import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.ui.NNumberPickerDialog.OnNNumberPickedListener;
 
 @SuppressWarnings("nls")
@@ -40,17 +42,24 @@ public class TimeDurationControlSet implements OnNNumberPickedListener,
     private int[] initialValues = null;
     private final int titleResource;
     private NNumberPickerDialog dialog = null;
+    private Task model;
+    private final IntegerProperty property;
 
-    public TimeDurationControlSet(Activity activity, View view, int timeButtonId,
-            int prefixResource, int titleResource) {
+    public TimeDurationControlSet(Activity activity, View view, IntegerProperty property,
+            int timeButtonId, int prefixResource, int titleResource) {
         DependencyInjectionService.getInstance().inject(this);
 
         this.activity = activity;
         this.prefixResource = prefixResource;
         this.titleResource = titleResource;
+        this.property = property;
 
         timeButton = (Button)view.findViewById(timeButtonId);
         timeButton.setOnClickListener(this);
+    }
+
+    public void setModel(Task model) {
+        this.model = model;
     }
 
     public int getTimeDurationInSeconds() {
@@ -76,6 +85,9 @@ public class TimeDurationControlSet implements OnNNumberPickedListener,
         int hours = timeDuration / 3600;
         int minutes = timeDuration / 60 - 60 * hours;
         initialValues = new int[] { hours, minutes };
+
+        if (model != null)
+            model.setValue(property, timeDuration);
     }
 
     /** Called when NumberPicker activity is completed */

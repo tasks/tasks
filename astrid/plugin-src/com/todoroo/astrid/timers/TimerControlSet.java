@@ -68,12 +68,13 @@ public class TimerControlSet extends PopupControlSet implements TimerActionListe
                 int prefixResource, int titleResource) {
             super(activity, -1);
             this.property = property;
-            this.controlSet = new TimeDurationControlSet(activity, v,
+            this.controlSet = new TimeDurationControlSet(activity, v, property,
                     timeButtonId, prefixResource, titleResource);
         }
 
         @Override
         public void readFromTaskOnInitialize() {
+            controlSet.setModel(model);
             controlSet.setTimeDuration(model.getValue(property));
         }
 

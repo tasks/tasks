@@ -9,5 +9,6 @@
 	    android:layout_gravity="center_horizontal"
 	    android:background="@drawable/footer_editbutton"
 	    android:textStyle="bold"
+	    android:textColor="@android:color/black"
 	    android:layout_alignParentBottom="true"
 	    android:text="@string/DLG_ok"/>
