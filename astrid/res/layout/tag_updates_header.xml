@@ -23,7 +23,7 @@
                 android:layout_width="80dip"
                 android:layout_height="80dip"
                 astrid:defaultSrc="@android:drawable/ic_menu_gallery"
-                android:paddingRight="10dip"
+                android:layout_marginRight="10dip"
                 android:scaleType="fitCenter" />
 
             <TextView
