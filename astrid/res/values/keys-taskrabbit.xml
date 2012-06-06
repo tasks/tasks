@@ -416,8 +416,8 @@
     
     
     <string name="tr_alert_intro_title">Welcome to TaskRabbit!</string>
-    <string name="tr_alert_intro_location">TaskRabbit is an inexpensive way to delegate tasks to trust-worthy people in your area.</string>
-    <string name="tr_alert_intro_no_location">TaskRabbit is an inexpensive way to delegate tasks to trust-worthy people but it isn\'t  yet available in your location. You can use it to assign virtual tasks or tasks in <a href="http://www.taskrabbit.com/pickacity">supported locations</a></string>
+    <string name="tr_alert_intro_location">TaskRabbit is an inexpensive way to delegate tasks to trustworthy people in your area.</string>
+    <string name="tr_alert_intro_no_location">TaskRabbit is an inexpensive way to delegate tasks to trustworthy people but it isn\'t  yet available in your location. You can use it to assign virtual tasks or tasks in <a href="http://www.taskrabbit.com/pickacity">supported locations</a></string>
     
     <string name="tr_alert_location_not_supported_title">Location not supported</string>
     <string name="tr_alert_location_not_supported_message">TaskRabbit isn\'t yet supported in your current location.  Please choose a <a href="http://www.taskrabbit.com/pickacity">supported location</a> or set type to virtual before posting this task</string>
