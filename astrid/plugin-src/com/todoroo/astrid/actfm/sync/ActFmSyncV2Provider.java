@@ -194,7 +194,7 @@ public class ActFmSyncV2Provider extends SyncV2Provider {
             public void run() {
                 int time = Preferences.getInt(LAST_USERS_FETCH_TIME, 0);
                 try {
-                    time = actFmSyncService.fetchUsers(time);
+                    time = actFmSyncService.fetchUsers();
                     Preferences.setInt(LAST_USERS_FETCH_TIME, time);
                 } catch (JSONException e) {
                     handler.handleException("actfm-sync", e, e.toString()); //$NON-NLS-1$

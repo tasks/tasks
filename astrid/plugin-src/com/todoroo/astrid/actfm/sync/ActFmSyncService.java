@@ -778,12 +778,12 @@ public final class ActFmSyncService {
         return result.optInt("time", 0);
     }
 
-    public int fetchUsers(int serverTime) throws JSONException, IOException {
+    public int fetchUsers() throws JSONException, IOException {
         if (!checkForToken())
             return 0;
 
         JSONObject result = actFmInvoker.invoke("user_list",
-                "token", token, "modified_after", serverTime);
+                "token", token);
         JSONArray users = result.getJSONArray("list");
         HashSet<Long> ids = new HashSet<Long>();
         if (users.length() > 0)
