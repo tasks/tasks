@@ -17,6 +17,7 @@ import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -235,6 +236,10 @@ public class PeopleContainer extends LinearLayout {
         }
         if(peopleList.length() > 0)
             sharedWith.put("p", peopleList);
+
+        EditText message = (EditText) findViewById(R.id.message);
+        if (message.getText().length() > 0)
+            sharedWith.put("message", message.getText().toString());
 
         return sharedWith;
     }
