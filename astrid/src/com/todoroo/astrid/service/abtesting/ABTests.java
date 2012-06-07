@@ -3,6 +3,8 @@ package com.todoroo.astrid.service.abtesting;
 import java.util.HashMap;
 import java.util.Set;
 
+import com.todoroo.astrid.utility.Constants;
+
 /**
  * Helper class to define options with their probabilities and descriptions
  * @author Sam Bosley <sam@astrid.com>
@@ -121,8 +123,11 @@ public class ABTests {
         addTest(AB_TEST_REENGAGEMENT_ENABLED, new int[] { 1, 9 },
                 new int[] { 1, 9 }, new String[] { "reengagement-disabled", "reengagement-enabled" }); //$NON-NLS-1$ //$NON-NLS-2$
 
-        addTest(AB_TEST_IDEAS_TAB, new int[] { 1, 1 },
-                new int[] { 0, 1 }, new String[] { "ideas-tab-diabled", "ideas-tab-enabled" }); //$NON-NLS-1$ //$NON-NLS-2$
+        boolean allowIdeasTab = Constants.MARKET_STRATEGY.allowIdeasTab();
+        int[] noIdeasTab = new int[] { 1, 0 };
+
+        addTest(AB_TEST_IDEAS_TAB, allowIdeasTab ? new int[] { 1, 1 } : noIdeasTab,
+                allowIdeasTab ? new int[] { 0, 1 } : noIdeasTab, new String[] { "ideas-tab-diabled", "ideas-tab-enabled" }); //$NON-NLS-1$ //$NON-NLS-2$
     }
 
     public static final String AB_TEST_IDEAS_TAB = "ideasTab";  //$NON-NLS-1$

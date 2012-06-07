@@ -32,6 +32,13 @@ public abstract class MarketStrategy {
         return true;
     }
 
+    /**
+     * @return true if ideas tab should be shown
+     */
+    public boolean allowIdeasTab() {
+        return true;
+    }
+
     public static class AndroidMarketStrategy extends MarketStrategy {
 
         @Override
@@ -98,6 +105,11 @@ public abstract class MarketStrategy {
 
         @Override
         public boolean showAddonMenu() {
+            return false;
+        }
+
+        @Override
+        public boolean allowIdeasTab() {
             return false;
         }
 

@@ -3,11 +3,13 @@ package com.todoroo.astrid.core;
 import android.content.res.Resources;
 import android.preference.Preference;
 import android.preference.Preference.OnPreferenceChangeListener;
+import android.preference.PreferenceScreen;
 import android.text.TextUtils;
 
 import com.timsu.astrid.R;
 import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.andlib.utility.TodorooPreferenceActivity;
+import com.todoroo.astrid.utility.Constants;
 
 public class LabsPreferences extends TodorooPreferenceActivity {
 
@@ -53,6 +55,11 @@ public class LabsPreferences extends TodorooPreferenceActivity {
         } else if (r.getString(R.string.p_third_party_addons).equals(key)) {
             setEnabledSummary(preference, value,
                     R.string.EPr_third_party_addons_desc_enabled, R.string.EPr_third_party_addons_desc_disabled);
+        } else if (r.getString(R.string.p_ideas_tab_enabled).equals(key)) {
+            if (!Constants.MARKET_STRATEGY.allowIdeasTab()) {
+                PreferenceScreen screen = getPreferenceScreen();
+                screen.removePreference(preference);
+            }
         }
     }
 

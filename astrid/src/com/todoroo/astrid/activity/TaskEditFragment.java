@@ -115,6 +115,7 @@ import com.todoroo.astrid.ui.NestableViewPager;
 import com.todoroo.astrid.ui.ReminderControlSet;
 import com.todoroo.astrid.ui.TaskEditMoreControls;
 import com.todoroo.astrid.ui.WebServicesView;
+import com.todoroo.astrid.utility.Constants;
 import com.todoroo.astrid.utility.Flags;
 import com.todoroo.astrid.voice.VoiceInputAssistant;
 import com.viewpagerindicator.TabPageIndicator;
@@ -390,7 +391,7 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
 
         boolean hasTitle = !TextUtils.isEmpty(model.getValue(Task.TITLE));
 
-        if(hasTitle && Preferences.getBoolean(R.string.p_ideas_tab_enabled, false))
+        if(hasTitle && Preferences.getBoolean(R.string.p_ideas_tab_enabled, false) && Constants.MARKET_STRATEGY.allowIdeasTab())
             tabStyle = TAB_STYLE_ACTIVITY_WEB;
         else
             tabStyle = TAB_STYLE_ACTIVITY;
