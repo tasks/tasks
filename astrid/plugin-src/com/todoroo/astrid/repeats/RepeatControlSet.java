@@ -182,13 +182,13 @@ public class RepeatControlSet extends PopupControlSet {
     @Override
     protected void readFromTaskOnInitialize() {
         Date date;
-        if(model.getValue(Task.DUE_DATE) == 0)
-            date = new Date();
-        else
+        if(model.getValue(Task.DUE_DATE) != 0) {
             date = new Date(model.getValue(Task.DUE_DATE));
-        int dayOfWeek = date.getDay();
-        for(int i = 0; i < 7; i++)
-            daysOfWeek[i].setChecked(i == dayOfWeek);
+
+            int dayOfWeek = date.getDay();
+            for(int i = 0; i < 7; i++)
+                daysOfWeek[i].setChecked(i == dayOfWeek);
+        }
 
         // read recurrence rule
         if(recurrence.length() > 0) {

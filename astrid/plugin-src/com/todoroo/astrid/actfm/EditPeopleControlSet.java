@@ -754,6 +754,10 @@ public class EditPeopleControlSet extends PopupControlSet {
             }
 
             JSONObject sharedWith = sharedWithContainer.parseSharedWithAndTags(activity, false);
+            EditText message = (EditText) getSharedWithView().findViewById(R.id.message);
+            if (!TextUtils.isEmpty(message.getText()))
+                sharedWith.put("message", message.getText().toString());
+
             if(cbFacebook.isChecked())
                 sharedWith.put("fb", true);
             if(cbTwitter.isChecked())
