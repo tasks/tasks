@@ -68,6 +68,7 @@ public class SubtasksListFragment extends TaskListFragment {
 
     @Override
     protected void onTaskDelete(Task task) {
+        super.onTaskDelete(task);
         helper.onDeleteTask(task);
     }
 
