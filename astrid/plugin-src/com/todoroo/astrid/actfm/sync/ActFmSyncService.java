@@ -795,6 +795,9 @@ public final class ActFmSyncService {
             actFmDataService.saveUserData(userObject);
         }
 
+        Long[] idsArray = ids.toArray(new Long[ids.size()]);
+        actFmDataService.userDao.deleteWhere(Criterion.not(User.REMOTE_ID.in(idsArray)));
+
         return result.optInt("time", 0);
     }
 
