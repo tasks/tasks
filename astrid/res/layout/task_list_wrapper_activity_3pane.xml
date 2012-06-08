@@ -10,7 +10,7 @@
     <FrameLayout
 	    android:layout_width="match_parent"
 	    android:layout_height="match_parent"
-	    android:layout_weight="67"
+	    android:layout_weight="60"
 	    android:background="@android:color/white"
 	    android:id="@+id/filterlist_fragment_container" />
   
@@ -23,7 +23,7 @@
 	<FrameLayout
 	    android:layout_width="match_parent"
 	    android:layout_height="match_parent"
-        android:layout_weight="33"
+        android:layout_weight="40"
         android:id="@+id/tasklist_fragment_container" />
   
 	<View 
