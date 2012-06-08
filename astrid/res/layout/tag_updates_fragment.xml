@@ -84,7 +84,7 @@
             android:layout_marginBottom="2dip"
             android:layout_marginTop="2dip"
             android:layout_marginLeft="1dip"
-            android:layout_marginRight="1dip"
+            android:layout_marginRight="8dip"
             android:layout_weight="100"
             android:autoText="true"
             android:background="?attr/asEditTextBackground"
@@ -100,7 +100,7 @@
             android:id="@+id/commentButton"
             android:layout_width="39dip"
             android:layout_height="39dip"
-            android:layout_marginLeft="3dip"
+            android:layout_marginRight="5dip"
             android:layout_weight="1"
             android:background="?attr/asAddButtonImg"
             android:scaleType="center" />
