@@ -338,14 +338,14 @@ public class TagViewFragment extends TaskListFragment {
         DisplayMetrics displayMetrics = new DisplayMetrics();
         getActivity().getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
         AsyncImageView image = new AsyncImageView(getActivity());
-        image.setLayoutParams(new LinearLayout.LayoutParams((int)(50 * displayMetrics.density),
-                (int)(50 * displayMetrics.density)));
+        image.setLayoutParams(new LinearLayout.LayoutParams((int)(43 * displayMetrics.density),
+                (int)(43 * displayMetrics.density)));
 
         image.setDefaultImageResource(R.drawable.icn_default_person_image);
         if (member.optLong("id", Task.USER_ID_SELF) == Task.USER_ID_UNASSIGNED)
             image.setDefaultImageResource(R.drawable.icn_anyone);
 
-        image.setScaleType(ImageView.ScaleType.FIT_XY);
+        image.setScaleType(ImageView.ScaleType.FIT_CENTER);
         try {
             final long id = member.optLong("id", Task.USER_ID_EMAIL);
             if (id == ActFmPreferenceService.userId())
@@ -360,6 +360,8 @@ public class TagViewFragment extends TaskListFragment {
         } catch (JSONException e) {
             e.printStackTrace();
         }
+        int padding = (int) (3 * displayMetrics.density);
+        image.setPadding(padding, padding, padding, padding);
         membersView.addView(image);
     }
 
