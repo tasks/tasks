@@ -41,6 +41,7 @@ import com.todoroo.astrid.utility.AstridPreferences;
 
 public final class UpgradeService {
 
+    public static final int V4_2_1 = 271;
     public static final int V4_2_0 = 270;
     public static final int V4_1_3_1 = 269;
     public static final int V4_1_3 = 268;
@@ -203,6 +204,15 @@ public final class UpgradeService {
 
         Preferences.clear(AstridPreferences.P_UPGRADE_FROM);
         StringBuilder changeLog = new StringBuilder();
+
+        if (from >= V4_2_0 && from < V4_2_1) {
+            newVersionString(changeLog, "4.2.1 (6/08/12)", new String[] {
+                "Fix for MyTouch 4G Lists",
+                "Fixed a crash when adding tasks with due times to Google Calendar",
+                "Better syncing of the people list",
+                "Minor UI polish and bugfixes"
+            });
+        }
 
         if (from < V4_2_0) {
             newVersionString(changeLog, "4.2.0 (6/05/12)", new String[] {
