@@ -15,8 +15,7 @@
         android:layout_width="fill_parent" 
         android:layout_height="5dip"
         style="@android:style/Widget.ProgressBar.Horizontal"
-        android:visibility="gone"
-        android:layout_weight="1" />
+        android:visibility="gone"/>
         
     <!-- Body goes here -->
         
