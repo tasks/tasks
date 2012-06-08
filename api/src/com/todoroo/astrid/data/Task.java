@@ -171,6 +171,9 @@ public final class Task extends RemoteModel {
     /** whether task is read-only */
     public static final int FLAG_IS_READONLY = 1 << 2;
 
+    /** whether a task is public */
+    public static final int FLAG_PUBLIC = 1 << 3;
+
     // --- user id special values
 
     /** user id = doesn't exist/ignore it. For filtering in tags */

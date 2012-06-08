@@ -1404,6 +1404,9 @@ public final class ActFmSyncService {
                 model.setFlag(Task.FLAGS, Task.FLAG_REPEAT_AFTER_COMPLETION, true);
             else
                 model.setFlag(Task.FLAGS, Task.FLAG_REPEAT_AFTER_COMPLETION, false);
+
+            String privacy = json.optString("privacy");
+            model.setFlag(Task.FLAGS, Task.FLAG_PUBLIC, privacy.equals("public"));
             model.setValue(Task.NOTES, json.optString("notes", ""));
             model.setValue(Task.DETAILS_DATE, 0L);
             model.setValue(Task.LAST_SYNC, DateUtilities.now() + 1000L);
