@@ -229,9 +229,9 @@ public class UpdateAdapter extends CursorAdapter {
 
     @SuppressWarnings("nls")
     public static Spanned getUpdateComment (final AstridActivity activity, Update update, JSONObject user, String linkColor, String fromView) {
-        if (user == null) {
+        if (user == null)
             user = ActFmPreferenceService.userFromModel(update);
-        }
+
         JSONObject otherUser = null;
         try {
             otherUser = new JSONObject(update.getValue(Update.OTHER_USER));

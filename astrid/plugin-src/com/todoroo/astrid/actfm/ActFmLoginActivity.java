@@ -538,6 +538,8 @@ public class ActFmLoginActivity extends FragmentActivity implements AuthListener
         Preferences.setString(ActFmPreferenceService.PREF_PICTURE,
                 result.optString("picture"));
 
+        actFmPreferenceService.reloadThisUser();
+
         setResult(RESULT_OK);
         finish();
 

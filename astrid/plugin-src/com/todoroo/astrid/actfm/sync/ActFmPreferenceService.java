@@ -94,9 +94,9 @@ public class ActFmPreferenceService extends SyncProviderUtilities {
      * @return
      */
     public static JSONObject userFromModel(RemoteModel model) {
-        if(model.getValue(RemoteModel.USER_ID_PROPERTY) == 0)
+        if(model.getValue(RemoteModel.USER_ID_PROPERTY) == 0) {
             return thisUser();
-        else {
+        }else {
             try {
                 return new JSONObject(model.getValue(RemoteModel.USER_JSON_PROPERTY));
             } catch (JSONException e) {
@@ -118,23 +118,34 @@ public class ActFmPreferenceService extends SyncProviderUtilities {
         return String.format("%s: %s", updateUser.optString("name"), description);
     }
 
-    @SuppressWarnings("nls")
+
     public synchronized static JSONObject thisUser() {
         if(user == null) {
             user = new JSONObject();
-            try {
-                user.put("name", Preferences.getStringValue(PREF_NAME));
-                user.put("first_name", Preferences.getStringValue(PREF_FIRST_NAME));
-                user.put("last_name", Preferences.getStringValue(PREF_LAST_NAME));
-                user.put("premium", Preferences.getBoolean(PREF_PREMIUM, false));
-                user.put("email", Preferences.getStringValue(PREF_EMAIL));
-                user.put("picture", Preferences.getStringValue(PREF_PICTURE));
-                user.put("id", Preferences.getLong(PREF_USER_ID, 0));
-            } catch (JSONException e) {
-                throw new RuntimeException(e);
-            }
+            populateUser();
         }
         return user;
+    }
+
+    public synchronized static void reloadThisUser() {
+        if (user == null)
+            return;
+        populateUser();
+    }
+
+    @SuppressWarnings("nls")
+    private static void populateUser() {
+        try {
+            user.put("name", Preferences.getStringValue(PREF_NAME));
+            user.put("first_name", Preferences.getStringValue(PREF_FIRST_NAME));
+            user.put("last_name", Preferences.getStringValue(PREF_LAST_NAME));
+            user.put("premium", Preferences.getBoolean(PREF_PREMIUM, false));
+            user.put("email", Preferences.getStringValue(PREF_EMAIL));
+            user.put("picture", Preferences.getStringValue(PREF_PICTURE));
+            user.put("id", Preferences.getLong(PREF_USER_ID, 0));
+        } catch (JSONException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     public static boolean isPremiumUser() {

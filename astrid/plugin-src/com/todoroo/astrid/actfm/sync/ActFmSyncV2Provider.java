@@ -181,6 +181,8 @@ public class ActFmSyncV2Provider extends SyncV2Provider {
                 Preferences.setString(ActFmPreferenceService.PREF_EMAIL, status.optString("email"));
             if (status.has("picture"))
                 Preferences.setString(ActFmPreferenceService.PREF_PICTURE, status.optString("picture"));
+
+            actFmPreferenceService.reloadThisUser();
         } catch (IOException e) {
             handler.handleException("actfm-sync", e, e.toString()); //$NON-NLS-1$
         }
