@@ -352,7 +352,7 @@ public class TaskListFragment extends ListFragment implements OnScrollListener,
                 if(task.isDeleted())
                     return;
 
-                if (!task.getFlag(Task.FLAGS, Task.FLAG_IS_READONLY)) {
+                if (task.isEditable()) {
                     onTaskListItemClicked(id);
                 }
             }

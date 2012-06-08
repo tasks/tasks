@@ -1048,8 +1048,7 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
                 return;
 
             long taskId = viewHolder.task.getId();
-            if (!viewHolder.task.getFlag(Task.FLAGS, Task.FLAG_IS_READONLY) &&
-                    !(viewHolder.task.getFlag(Task.FLAGS, Task.FLAG_PUBLIC) && viewHolder.task.getValue(Task.USER_ID) != Task.USER_ID_SELF)) {
+            if (viewHolder.task.isEditable()) {
                 editTask(taskId);
             }
         }
