@@ -143,9 +143,10 @@ public class FilterListFragment extends ListFragment {
     }
 
     protected int getLayout(Activity activity) {
-        if (AndroidUtilities.isTabletSized(activity))
+        if (AndroidUtilities.isTabletSized(activity)) {
+            adapter.filterStyle = R.style.TextAppearance_FLA_Filter_Tablet;
             return R.layout.filter_list_activity_3pane;
-        else
+        } else
             return R.layout.filter_list_activity;
     }
 
