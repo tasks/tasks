@@ -134,6 +134,10 @@ public class ThemeService {
             break;
         }
 
+        if (lightDrawable == R.drawable.icn_menu_refresh &&
+                AndroidUtilities.isTabletSized(ContextManager.getContext()))
+            return R.drawable.icn_menu_refresh_tablet;
+
         if(!darkTheme)
             return lightDrawable;
 
