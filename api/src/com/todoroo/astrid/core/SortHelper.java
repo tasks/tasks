@@ -113,8 +113,14 @@ public class SortHelper {
     public static Order defaultTaskOrder() {
         return Order.asc(Functions.caseStatement(Task.DUE_DATE.eq(0),
                 Functions.now() + "*2",
-                Task.DUE_DATE) + " + " + (2 * DateUtilities.ONE_DAY) + " * " +
+                adjustedDueDateFunction()) + " + " + (2 * DateUtilities.ONE_DAY) + " * " +
                 Task.IMPORTANCE + " + 2*" + Task.COMPLETION_DATE);
+    }
+
+    private static String adjustedDueDateFunction() {
+        return new StringBuilder("(CASE WHEN (").append(Task.DUE_DATE.name).append(" / 1000) % 60 > 0")
+                .append(" THEN ").append(Task.DUE_DATE.name).append(" ELSE ").append("(").append(Task.DUE_DATE.name)
+                .append(" + ").append(DateUtilities.ONE_HOUR * 11 + DateUtilities.ONE_MINUTE * 59).append(") END)").toString();
     }
 
 }
