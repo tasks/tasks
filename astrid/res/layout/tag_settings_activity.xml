@@ -99,7 +99,7 @@
                 style="@style/TextAppearance"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="10dip"
+                android:layout_marginLeft="1dip"
                 android:layout_marginTop="10dip"
                 android:paddingBottom="5dip"
                 android:text="@string/actfm_TVA_members_label" />
@@ -116,7 +116,7 @@
                 style="@style/TextAppearance"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="10dip"
+                android:layout_marginLeft="1dip"
                 android:layout_marginTop="10dip"
                 android:text="@string/actfm_TVA_tag_description_label" />
 
@@ -147,7 +147,7 @@
                 style="@style/TextAppearance"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="10dip"
+                android:layout_marginLeft="1dip"
                 android:layout_marginTop="10dip"
                 android:text="@string/actfm_TVA_tag_settings_label" />
 
