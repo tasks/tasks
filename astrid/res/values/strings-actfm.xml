@@ -93,6 +93,9 @@
 
   <!-- Tag Settings: list collaborators label -->
   <string name="actfm_TVA_members_label">Shared With</string>
+  
+  <!-- Tag Settings: list collaborators hint -->
+  <string name="actfm_TVA_members_hint">Share with anyone who has an email address</string>
 
   <!-- Tag Settings: tag picture -->
   <string name="actfm_TVA_tag_picture">List Picture</string>
