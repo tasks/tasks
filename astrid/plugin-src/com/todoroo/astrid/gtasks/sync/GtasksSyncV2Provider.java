@@ -22,6 +22,7 @@ import com.todoroo.andlib.sql.Join;
 import com.todoroo.andlib.sql.Query;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.andlib.utility.Preferences;
+import com.todoroo.astrid.actfm.sync.ActFmPreferenceService;
 import com.todoroo.astrid.core.PluginServices;
 import com.todoroo.astrid.dao.MetadataDao.MetadataCriteria;
 import com.todoroo.astrid.dao.StoreObjectDao;
@@ -53,6 +54,7 @@ public class GtasksSyncV2Provider extends SyncV2Provider {
     @Autowired TaskService taskService;
     @Autowired MetadataService metadataService;
     @Autowired StoreObjectDao storeObjectDao;
+    @Autowired ActFmPreferenceService actFmPreferenceService;
     @Autowired GtasksPreferenceService gtasksPreferenceService;
     @Autowired GtasksSyncService gtasksSyncService;
     @Autowired GtasksListService gtasksListService;
@@ -126,8 +128,6 @@ public class GtasksSyncV2Provider extends SyncV2Provider {
                 callback.incrementMax(25 * lists.length);
                 final AtomicInteger finisher = new AtomicInteger(lists.length);
 
-                pushUpdated(invoker, callback);
-
                 for (final StoreObject list : lists) {
                     new Thread(new Runnable() {
                         @Override
@@ -140,6 +140,8 @@ public class GtasksSyncV2Provider extends SyncV2Provider {
                         }
                     }).start();
                 }
+
+                pushUpdated(invoker, callback);
             }
         }).start();
     }
@@ -303,6 +305,9 @@ public class GtasksSyncV2Provider extends SyncV2Provider {
 
     private void write(GtasksTaskContainer task) throws IOException {
         //  merge astrid dates with google dates
+        if (!task.task.isSaved() && actFmPreferenceService.isLoggedIn())
+            titleMatchWithActFm(task.task);
+
         if(task.task.isSaved()) {
             Task local = PluginServices.getTaskService().fetchById(task.task.getId(), Task.DUE_DATE, Task.COMPLETION_DATE);
             if (local == null) {
@@ -318,6 +323,24 @@ public class GtasksSyncV2Provider extends SyncV2Provider {
         if (!TextUtils.isEmpty(task.task.getValue(Task.TITLE))) {
             task.task.putTransitory(SyncFlags.GTASKS_SUPPRESS_SYNC, true);
             gtasksMetadataService.saveTaskAndMetadata(task);
+        }
+    }
+
+    private void titleMatchWithActFm(Task task) {
+        String title = task.getValue(Task.TITLE);
+        System.err.println("GTASKS Trying to match on title " + title);
+        TodorooCursor<Task> match = taskService.query(Query.select(Task.ID)
+                .join(Join.left(Metadata.TABLE, Criterion.and(Metadata.KEY.eq(GtasksMetadata.METADATA_KEY), Metadata.TASK.eq(Task.ID))))
+                .where(Criterion.and(Task.TITLE.eq(title), GtasksMetadata.ID.isNull())));
+        try {
+            System.err.println("Found: " + match.getCount());
+            if (match.getCount() > 0) {
+                match.moveToFirst();
+                Task matchedTask = new Task(match);
+                task.setId(matchedTask.getId());
+            }
+        } finally {
+            match.close();
         }
     }
 
