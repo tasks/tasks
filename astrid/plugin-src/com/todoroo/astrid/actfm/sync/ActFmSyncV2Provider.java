@@ -306,16 +306,17 @@ public class ActFmSyncV2Provider extends SyncV2Provider {
             taskCursor.close();
         }
 
-        TodorooCursor<Metadata> filesCursor = metadataService.query(Query.select(Metadata.PROPERTIES)
-                .where(Criterion.and(
-                        MetadataCriteria.withKey(FileMetadata.METADATA_KEY),
-                        Criterion.or(FileMetadata.REMOTE_ID.eq(0), FileMetadata.DELETION_DATE.gt(0)))));
-        try {
-            pushQueued(callback, finisher, filesCursor, false, filesPusher);
-        } finally {
-            filesCursor.close();
+        if (ActFmPreferenceService.isPremiumUser()) {
+            TodorooCursor<Metadata> filesCursor = metadataService.query(Query.select(Metadata.PROPERTIES)
+                    .where(Criterion.and(
+                            MetadataCriteria.withKey(FileMetadata.METADATA_KEY),
+                            Criterion.or(FileMetadata.REMOTE_ID.eq(0), FileMetadata.DELETION_DATE.gt(0)))));
+            try {
+                pushQueued(callback, finisher, filesCursor, false, filesPusher);
+            } finally {
+                filesCursor.close();
+            }
         }
-
     }
 
     private void pushQueuedTags(final SyncResultCallback callback,

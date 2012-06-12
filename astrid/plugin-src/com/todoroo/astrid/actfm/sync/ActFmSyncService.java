@@ -609,6 +609,8 @@ public final class ActFmSyncService {
     }
 
     public void pushAttachmentInBackground(final Metadata fileMetadata) {
+        if (!ActFmPreferenceService.isPremiumUser())
+            return;
         new Thread(new Runnable() {
             @Override
             public void run() {
@@ -637,6 +639,9 @@ public final class ActFmSyncService {
      * @param fileMetadata
      */
     public void pushAttachment(long remoteTaskId, Metadata fileMetadata) {
+        if (!ActFmPreferenceService.isPremiumUser())
+            return;
+
         if (!fileMetadata.containsNonNullValue(FileMetadata.FILE_PATH) || remoteTaskId <= 0)
             return;
 
