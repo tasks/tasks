@@ -91,13 +91,13 @@ public class EditNoteActivity extends LinearLayout implements TimerActionListene
     private View commentButton;
     private int commentItems = 10;
     private ImageButton pictureButton;
-    private Bitmap pendingCommentPicture = null;
+    private static Bitmap pendingCommentPicture = null;
     private final Fragment fragment;
     private final ImageDiskCache imageCache;
     private final int cameraButton;
     private final String linkColor;
 
-    private boolean respondToPicture;
+    private static boolean respondToPicture = false;
 
     private final List<UpdatesChangedListener> listeners = new LinkedList<UpdatesChangedListener>();
 
@@ -123,6 +123,9 @@ public class EditNoteActivity extends LinearLayout implements TimerActionListene
         parentView = parent;
 
         loadViewForTaskID(t);
+
+        if (pendingCommentPicture != null)
+            pictureButton.setImageBitmap(pendingCommentPicture);
     }
 
     private int getDefaultCameraButton() {

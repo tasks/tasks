@@ -383,6 +383,16 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
         }
     }
 
+    private void instantiateEditNotes() {
+        long idParam = getActivity().getIntent().getLongExtra(TOKEN_ID, -1L);
+        editNotes = new EditNoteActivity(this, getView(),
+                idParam);
+        editNotes.setLayoutParams(new FrameLayout.LayoutParams(LayoutParams.FILL_PARENT,
+                LayoutParams.WRAP_CONTENT));
+
+        editNotes.addListener(this);
+    }
+
     private void loadMoreContainer() {
         View moreTab = (View) getView().findViewById(R.id.more_container);
         View commentsBar = (View) getView().findViewById(R.id.updatesFooter);
@@ -397,18 +407,15 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
             tabStyle = TAB_STYLE_ACTIVITY;
 
         if (editNotes == null) {
-            editNotes = new EditNoteActivity(this, getView(),
-                    idParam);
-            editNotes.setLayoutParams(new FrameLayout.LayoutParams(LayoutParams.FILL_PARENT,
-                    LayoutParams.WRAP_CONTENT));
-
-            editNotes.addListener(this);
-            if (timerAction != null) {
-                timerAction.addListener(editNotes);
-            }
+            instantiateEditNotes();
         }
         else {
             editNotes.loadViewForTaskID(idParam);
+        }
+
+        if (timerAction != null) {
+            timerAction.removeListener(editNotes);
+            timerAction.addListener(editNotes);
         }
 
         editNotes.addListener(this);
@@ -1197,6 +1204,9 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (editNotes == null)
+            instantiateEditNotes();
+
         if (taskRabbitControl != null && taskRabbitControl.activityResult(requestCode, resultCode, data)) {
             return;
         } else if (editNotes != null && editNotes.activityResult(requestCode, resultCode, data)) {
