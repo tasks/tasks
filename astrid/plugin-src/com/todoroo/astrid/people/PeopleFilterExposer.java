@@ -72,14 +72,19 @@ public class PeopleFilterExposer extends BroadcastReceiver {
 
     @SuppressWarnings("nls")
     private static FilterWithCustomIntent filterFromUserData(User user) {
-        String email = user.getValue(User.EMAIL);
-        if (TextUtils.isEmpty(email) || email.equals("null"))
+        String title = user.getDisplayName();
+        if (TextUtils.isEmpty(title) || "null".equals(title))
             return null;
 
-        String title = user.getDisplayName();
-        QueryTemplate userTemplate = new QueryTemplate().where(
-                        Criterion.or(Task.USER.like("%" + email + "%"),
-                                Task.USER_ID.eq(user.getValue(User.REMOTE_ID))));
+        String email = user.getValue(User.EMAIL);
+        Criterion criterion;
+        if (TextUtils.isEmpty(email) || "null".equals(email))
+            criterion = Task.USER_ID.eq(user.getValue(User.REMOTE_ID));
+        else
+            criterion = Criterion.or(Task.USER.like("%" + email + "%"),
+                    Task.USER_ID.eq(user.getValue(User.REMOTE_ID)));
+
+        QueryTemplate userTemplate = new QueryTemplate().where(criterion);
 
         FilterWithUpdate filter = new FilterWithUpdate(title, title, userTemplate, null);
 
