@@ -41,6 +41,7 @@ import com.todoroo.astrid.utility.AstridPreferences;
 
 public final class UpgradeService {
 
+    public static final int V4_2_2 = 272;
     public static final int V4_2_1 = 271;
     public static final int V4_2_0 = 270;
     public static final int V4_1_3_1 = 269;
@@ -204,6 +205,14 @@ public final class UpgradeService {
 
         Preferences.clear(AstridPreferences.P_UPGRADE_FROM);
         StringBuilder changeLog = new StringBuilder();
+
+        if (from >= V4_2_0 && from < V4_2_2) {
+            newVersionString(changeLog, "4.2.2 (6/12/12)", new String[] {
+               "Fix for people views displaying the wrong list of tasks",
+               "Fixed a bug with Astrid Smart Sort",
+               "Fixed a bug when adding photo comments"
+            });
+        }
 
         if (from >= V4_2_0 && from < V4_2_1) {
             newVersionString(changeLog, "4.2.1 (6/08/12)", new String[] {
