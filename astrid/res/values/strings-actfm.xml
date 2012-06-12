@@ -287,5 +287,9 @@
   <!-- text for notification when comments are received -->
   <string name="actfm_notification_comments">New comments received / click for more details</string>
     
+  <string name="actfm_dual_sync_warning">You are currently synchronizing with Google Tasks. 
+      Be advised that synchronizing with both services can in some cases lead to unexpected results. 
+      Are you sure you want to sync with Astrid.com?</string>
+  
 </resources>
 
