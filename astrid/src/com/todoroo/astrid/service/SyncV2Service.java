@@ -55,10 +55,39 @@ public class SyncV2Service {
      * @param manual if manual sync
      * @param callback result callback
      */
-    public void synchronizeActiveTasks(boolean manual, SyncResultCallback callback) {
-        for(SyncV2Provider provider : providers) {
-            if(provider.isActive())
-                provider.synchronizeActiveTasks(manual, callback);
+    public void synchronizeActiveTasks(final boolean manual, final SyncResultCallback callback) {
+        final List<SyncV2Provider> active = activeProviders();
+
+        if (active.size() > 1) {
+            SyncResultCallback newCallback = new SyncResultCallback() {
+                private int next = 1;
+
+                @Override
+                public void started() {
+                    callback.started();
+                }
+
+                @Override
+                public void incrementProgress(int incrementBy) {
+                    callback.incrementProgress(incrementBy);
+                }
+
+                @Override
+                public void incrementMax(int incrementBy) {
+                    callback.incrementMax(incrementBy);
+                }
+
+                @Override
+                public void finished() {
+                    callback.finished();
+                    if (next < active.size())
+                        active.get(next++).synchronizeActiveTasks(manual, this);
+                }
+            };
+
+            active.get(0).synchronizeActiveTasks(manual, newCallback);
+        } else if (active.size() == 1) {
+            active.get(0).synchronizeActiveTasks(manual, callback);
         }
     }
 
