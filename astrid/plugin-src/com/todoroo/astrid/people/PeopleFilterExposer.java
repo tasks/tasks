@@ -1,5 +1,8 @@
 package com.todoroo.astrid.people;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -10,6 +13,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
+import android.text.TextUtils;
 
 import com.timsu.astrid.R;
 import com.todoroo.andlib.data.TodorooCursor;
@@ -51,25 +55,26 @@ public class PeopleFilterExposer extends BroadcastReceiver {
         TodorooCursor<User> users = PluginServices.getUserDao().query(Query.select(User.PROPERTIES)
                 .orderBy(Order.asc(User.NAME), Order.asc(User.EMAIL)));
         try {
-            FilterListItem[] items = new FilterListItem[users.getCount() + 1];
-            items[0] = mySharedTasks(context);
+            List<FilterListItem> items = new ArrayList<FilterListItem>();
+            items.add(mySharedTasks(context));
             User user = new User();
-            int i = 1;
             for (users.moveToFirst(); !users.isAfterLast(); users.moveToNext()) {
                 user.readFromCursor(users);
                 Filter currFilter = filterFromUserData(user);
-                items[i] = currFilter;
-                i++;
+                if (currFilter != null)
+                    items.add(currFilter);
             }
-            return items;
+            return items.toArray(new FilterListItem[items.size()]);
         } finally {
             users.close();
         }
     }
 
     @SuppressWarnings("nls")
-    public static FilterWithCustomIntent filterFromUserData(User user) {
+    private static FilterWithCustomIntent filterFromUserData(User user) {
         String email = user.getValue(User.EMAIL);
+        if (TextUtils.isEmpty(email) || email.equals("null"))
+            return null;
 
         String title = user.getDisplayName();
         QueryTemplate userTemplate = new QueryTemplate().where(
