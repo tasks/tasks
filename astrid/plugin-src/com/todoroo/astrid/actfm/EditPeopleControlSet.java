@@ -394,7 +394,7 @@ public class EditPeopleControlSet extends PopupControlSet {
                     new JSONObject().put("default_picture", R.drawable.icn_friends)
                     .put(CONTACT_CHOOSER_USER, true));
             int contactsIndex = addUnassigned ? 2 : 1;
-            boolean addContactPicker = Preferences.getBoolean(R.string.p_use_contact_picker, true);
+            boolean addContactPicker = Preferences.getBoolean(R.string.p_use_contact_picker, true) && contactPickerAvailable();
             if (addContactPicker)
                 coreUsers.add(contactsIndex, contactPickerUser);
 
@@ -644,6 +644,11 @@ public class EditPeopleControlSet extends PopupControlSet {
                 sharedWithDialog.show();
             }
         });
+    }
+
+    private boolean contactPickerAvailable() {
+        Intent intent = new Intent(Intent.ACTION_PICK, ContactsContract.Contacts.CONTENT_URI);
+        return activity.getPackageManager().queryIntentActivities(intent, 0).size() > 0;
     }
 
     // --- events
