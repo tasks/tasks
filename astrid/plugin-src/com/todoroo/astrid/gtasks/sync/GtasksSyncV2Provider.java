@@ -135,13 +135,13 @@ public class GtasksSyncV2Provider extends SyncV2Provider {
                             synchronizeListHelper(list, invoker, manual, handler, callback);
                             callback.incrementProgress(25);
                             if (finisher.decrementAndGet() == 0) {
+                                pushUpdated(invoker, callback);
                                 finishSync(callback);
                             }
                         }
                     }).start();
                 }
 
-                pushUpdated(invoker, callback);
             }
         }).start();
     }
