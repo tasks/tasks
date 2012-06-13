@@ -317,7 +317,9 @@ public class GtasksSyncV2Provider extends SyncV2Provider {
                 if(task.task.isCompleted() && !local.isCompleted())
                     StatisticsService.reportEvent(StatisticsConstants.GTASKS_TASK_COMPLETED);
             }
-        } else { // Set default reminders for remotely created tasks
+        } else { // Set default importance and reminders for remotely created tasks
+            task.task.setValue(Task.IMPORTANCE, Preferences.getIntegerFromString(
+                    R.string.p_default_importance_key, Task.IMPORTANCE_SHOULD_DO));
             TaskDao.setDefaultReminders(task.task);
         }
         if (!TextUtils.isEmpty(task.task.getValue(Task.TITLE))) {
