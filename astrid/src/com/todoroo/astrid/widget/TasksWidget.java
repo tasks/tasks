@@ -24,7 +24,6 @@ import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.ContextManager;
 import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.andlib.utility.AndroidUtilities;
-import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.astrid.activity.TaskEditActivity;
 import com.todoroo.astrid.activity.TaskEditFragment;
@@ -181,7 +180,7 @@ public class TasksWidget extends AppWidgetProvider {
 
                     if(task.isCompleted())
                         textColor = r.getColor(R.color.task_list_done);
-                    else if(task.hasDueDate() && task.getValue(Task.DUE_DATE) < DateUtilities.now())
+                    else if(task.hasDueDate() && task.isOverdue())
                         textColor = r.getColor(R.color.task_list_overdue);
 
                     RemoteViews row = new RemoteViews(Constants.PACKAGE, R.layout.widget_row);

@@ -454,6 +454,13 @@ public final class Task extends RemoteModel {
         return hasDueTime(getValue(Task.DUE_DATE));
     }
 
+    public boolean isOverdue() {
+        long dueDate = getValue(Task.DUE_DATE);
+        long compareTo = hasDueTime() ? DateUtilities.now() : DateUtilities.getStartOfDay(DateUtilities.now());
+
+        return dueDate < compareTo;
+    }
+
     public boolean isEditable() {
         return !getFlag(Task.FLAGS, Task.FLAG_IS_READONLY) &&
                 !(getFlag(Task.FLAGS, Task.FLAG_PUBLIC) && getValue(Task.USER_ID) != Task.USER_ID_SELF);
