@@ -24,6 +24,7 @@ import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.andlib.utility.DialogUtilities;
 import com.todoroo.andlib.utility.Preferences;
+import com.todoroo.astrid.core.LabsPreferences;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.reminders.NotificationFragment.SnoozeDialog;
 import com.todoroo.astrid.reminders.Notifications;
@@ -95,6 +96,7 @@ public class MissedCallActivity extends Activity {
     private TextView callLaterButton;
     private TextView ignoreButton;
     private View dismissButton;
+    private View ignoreSettingsButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -116,6 +118,7 @@ public class MissedCallActivity extends Activity {
         returnCallButton = (TextView) findViewById(R.id.call_now);
         callLaterButton = (TextView) findViewById(R.id.call_later);
         ignoreButton = (TextView) findViewById(R.id.call_ignore);
+        ignoreSettingsButton = findViewById(R.id.ignore_settings);
         dismissButton = findViewById(R.id.dismiss);
         ((TextView) findViewById(R.id.reminder_title))
             .setText(getString(R.string.MCA_title,
@@ -149,6 +152,15 @@ public class MissedCallActivity extends Activity {
     private void addListeners() {
         ignoreButton.setOnClickListener(ignoreListener);
         dismissButton.setOnClickListener(dismissListener);
+
+        ignoreSettingsButton.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent labsPreferences = new Intent(MissedCallActivity.this, LabsPreferences.class);
+                startActivity(labsPreferences);
+                finish();
+            }
+        });
 
         returnCallButton.setOnClickListener(new OnClickListener() {
 

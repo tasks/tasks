@@ -67,18 +67,33 @@
         android:textSize="24sp"
         android:gravity="center"
         android:text="@string/MCA_add_task"/>
-    <TextView
-        android:id="@+id/call_ignore"
+    
+    <RelativeLayout
         android:layout_width="fill_parent"
-        android:layout_height="35dip"
+        android:layout_height="wrap_content"
         android:layout_marginLeft="10dip"
         android:layout_marginRight="10dip"
-        android:layout_marginBottom="10dip"
-        android:textColor="@android:color/white"
-        android:textSize="24sp"
-        android:gravity="center"
-        android:text="@string/MCA_ignore"
-        android:background="#707070"/>
+        android:layout_marginBottom="10dip">
+	    
+	    <TextView
+	        android:id="@+id/call_ignore"
+	        android:layout_width="fill_parent"
+	        android:layout_height="35dip"
+	        android:textColor="@android:color/white"
+	        android:textSize="24sp"
+	        android:gravity="center"
+	        android:text="@string/MCA_ignore"
+	        android:background="#707070"/>
+	    
+	    <ImageView 
+	        android:id="@+id/ignore_settings"
+	        android:layout_alignParentRight="true"
+	        android:layout_width="35dip"
+	        android:layout_height="35dip"
+	        android:background="@android:color/transparent"
+	        android:scaleType="fitCenter"
+	        android:src="@drawable/single_gear"/>
+    </RelativeLayout>
 
     <FrameLayout
         android:id="@+id/missed_calls_speech_bubble"
