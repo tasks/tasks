@@ -24,8 +24,8 @@ public class SyncV2Service {
      * for responding to sync requests through this new API.
      */
     private static final SyncV2Provider[] providers = new SyncV2Provider[] {
+            GtasksSyncV2Provider.getInstance(),
             new ActFmSyncV2Provider(),
-            GtasksSyncV2Provider.getInstance()
     };
 
     /**
