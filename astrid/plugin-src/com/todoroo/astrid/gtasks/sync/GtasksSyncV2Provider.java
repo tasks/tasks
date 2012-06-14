@@ -330,12 +330,10 @@ public class GtasksSyncV2Provider extends SyncV2Provider {
 
     private void titleMatchWithActFm(Task task) {
         String title = task.getValue(Task.TITLE);
-        System.err.println("GTASKS Trying to match on title " + title);
         TodorooCursor<Task> match = taskService.query(Query.select(Task.ID)
                 .join(Join.left(Metadata.TABLE, Criterion.and(Metadata.KEY.eq(GtasksMetadata.METADATA_KEY), Metadata.TASK.eq(Task.ID))))
                 .where(Criterion.and(Task.TITLE.eq(title), GtasksMetadata.ID.isNull())));
         try {
-            System.err.println("Found: " + match.getCount());
             if (match.getCount() > 0) {
                 match.moveToFirst();
                 Task matchedTask = new Task(match);
