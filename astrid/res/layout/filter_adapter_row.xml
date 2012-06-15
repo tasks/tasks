@@ -23,7 +23,7 @@
         android:layout_height="48dip"
         android:layout_alignParentLeft="true"
         android:layout_marginTop="4dp" 
-        android:layout_marginLeft="10dip"
+        android:layout_marginLeft="6dip"
         android:scaleType="fitCenter"
         android:visibility="gone"/>
             

@@ -22,7 +22,7 @@
             android:layout_margin="6dip"
             android:gravity="left|center_vertical"
             android:background="?attr/asThemeTextColor"
-            android:paddingLeft="8dip"
+            android:paddingLeft="2dip"
             android:drawableLeft="@drawable/filter_plus_button"
             android:drawablePadding="13dip"
             android:text="@string/FLA_new_list"

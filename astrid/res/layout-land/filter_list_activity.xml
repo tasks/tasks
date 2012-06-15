@@ -35,7 +35,7 @@
             android:layout_height="fill_parent"
             android:gravity="left|center_vertical"
             android:background="?attr/asThemeTextColor"
-            android:paddingLeft="12dip"
+            android:paddingLeft="9dip"
             android:drawableLeft="@drawable/filter_plus_button"
             android:drawablePadding="13dip"
             android:text="@string/FLA_new_list"
