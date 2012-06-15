@@ -16,6 +16,7 @@ import android.text.Html;
 import android.text.SpannableString;
 import android.text.SpannableStringBuilder;
 import android.text.Spanned;
+import android.text.TextPaint;
 import android.text.TextUtils;
 import android.text.format.DateUtils;
 import android.text.method.LinkMovementMethod;
@@ -366,10 +367,16 @@ public class UpdateAdapter extends CursorAdapter {
                 SpannableString taskSpan = new SpannableString(targetName);
                 taskSpan.setSpan(new ClickableSpan() {
                     @Override
-                  public void onClick(View widget) {
+                    public void onClick(View widget) {
                         if (activity != null) // TODO: This shouldn't happen, but sometimes does
                             activity.onTaskListItemClicked(taskIdToUse);
-                  }
+                    }
+
+                    @Override
+                    public void updateDrawState(TextPaint ds) {
+                        super.updateDrawState(ds);
+                        ds.setUnderlineText(false);
+                    }
                 }, 0, targetName.length(), Spanned.SPAN_INCLUSIVE_EXCLUSIVE);
                 return taskSpan;
             } else {
