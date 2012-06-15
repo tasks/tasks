@@ -15,7 +15,6 @@ public final class ReengagementService {
 
     private static final int REQUEST_CODE = 10;
 
-    private static final int DAYS_INTERVAL = 2;
 
     public static final String PREF_REENGAGEMENT_COUNT = "pref_reengagement_count"; //$NON-NLS-1$
 
@@ -35,9 +34,9 @@ public final class ReengagementService {
         int reengagementReminders = Preferences.getInt(PREF_REENGAGEMENT_COUNT, 1);
         int days;
         if (reengagementReminders >= 4)
-            days = DAYS_INTERVAL * 4;
+            days = 5;
         else
-            days = DAYS_INTERVAL * reengagementReminders;
+            days = 1 + reengagementReminders;
 
         Date date = new Date(DateUtilities.now() + DateUtilities.ONE_DAY * days / 1000L * 1000L);
         date.setHours(18);
