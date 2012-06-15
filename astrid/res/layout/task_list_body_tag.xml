@@ -24,13 +24,13 @@
 		    <LinearLayout
 		       android:id="@+id/shared_with"
 		       android:layout_width="wrap_content"
+		       android:paddingLeft="6dip"
 		       android:layout_height="fill_parent">
 		       <TextView
 		          android:id="@+id/no_members"
 		          android:layout_width="fill_parent"
 		          android:layout_height="fill_parent"
 		          android:gravity="center_vertical"
-		          android:layout_marginLeft="10dip"
 		          style="@style/TextAppearance"
 		          android:textStyle="bold"
 		          android:textColor="#333333"
