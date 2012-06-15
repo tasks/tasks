@@ -51,7 +51,6 @@ import android.view.LayoutInflater;
 import android.view.MenuInflater;
 import android.view.View;
 import android.view.View.MeasureSpec;
-import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.view.ViewGroup.LayoutParams;
 import android.view.ViewParent;
@@ -354,21 +353,6 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
         setHasOptionsMenu(true);
 
         AstridActivity activity = (AstridActivity) getActivity();
-        if (activity instanceof TaskListActivity && activity.fragmentLayout == AstridActivity.LAYOUT_DOUBLE) {
-            getView().findViewById(R.id.save_and_cancel).setVisibility(View.VISIBLE);
-            getView().findViewById(R.id.save).setOnClickListener(new OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    saveButtonClick();
-                }
-            });
-            getView().findViewById(R.id.cancel).setOnClickListener(new OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    discardButtonClick();
-                }
-            });
-        }
 
         setUpUIComponents();
         adjustInfoPopovers();
@@ -901,6 +885,8 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
                 tla.refreshTaskList();
             }
 
+            Log.e("Not on pause", "not on pause", new Throwable());
+            getActivity().getIntent().removeExtra(TaskListActivity.OPEN_TASK);
             shouldSaveState = false;
             getActivity().onBackPressed();
 
@@ -986,6 +972,7 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
             }
         }
 
+        getActivity().getIntent().removeExtra(TaskListActivity.OPEN_TASK);
         showCancelToast();
         getActivity().onBackPressed();
     }
@@ -1147,8 +1134,6 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
         super.onCreateOptionsMenu(menu, inflater);
         MenuItem item;
 
-        AstridActivity activity = (AstridActivity) getActivity();
-
         if (ActFmPreferenceService.isPremiumUser()) {
             item = menu.add(Menu.NONE, MENU_ATTACH_ID, 0, R.string.premium_attach_file);
             item.setIcon(R.drawable.ic_menu_attach);
@@ -1159,15 +1144,13 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
             item.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
         }
 
-        if (activity instanceof TaskListActivity && activity.fragmentLayout != AstridActivity.LAYOUT_DOUBLE || activity instanceof TaskEditActivity) {
-            item = menu.add(Menu.NONE, MENU_DISCARD_ID, 0, R.string.TEA_menu_discard);
-            item.setIcon(R.drawable.ic_menu_close);
-            item.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
+        item = menu.add(Menu.NONE, MENU_DISCARD_ID, 0, R.string.TEA_menu_discard);
+        item.setIcon(R.drawable.ic_menu_close);
+        item.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
 
-            item = menu.add(Menu.NONE, MENU_SAVE_ID, 0, R.string.TEA_menu_save);
-            item.setIcon(R.drawable.ic_menu_save);
-            item.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
-        }
+        item = menu.add(Menu.NONE, MENU_SAVE_ID, 0, R.string.TEA_menu_save);
+        item.setIcon(R.drawable.ic_menu_save);
+        item.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
 
         item = menu.add(Menu.NONE, MENU_DELETE_ID, 0, R.string.TEA_menu_delete);
         item.setIcon(android.R.drawable.ic_menu_delete);

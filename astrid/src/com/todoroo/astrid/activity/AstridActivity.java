@@ -249,8 +249,7 @@ public class AstridActivity extends FragmentActivity
 
         if (fragmentLayout != LAYOUT_SINGLE) {
             TaskEditFragment editActivity = getTaskEditFragment();
-            if (fragmentLayout == LAYOUT_TRIPLE)
-                findViewById(R.id.taskedit_fragment_container).setVisibility(View.VISIBLE);
+            findViewById(R.id.taskedit_fragment_container).setVisibility(View.VISIBLE);
 
             if(editActivity == null) {
                 editActivity = new TaskEditFragment();

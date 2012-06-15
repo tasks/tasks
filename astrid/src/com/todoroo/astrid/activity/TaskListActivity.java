@@ -1,5 +1,6 @@
 package com.todoroo.astrid.activity;
 
+import android.animation.LayoutTransition;
 import android.app.Activity;
 import android.app.SearchManager;
 import android.content.BroadcastReceiver;
@@ -11,13 +12,11 @@ import android.os.Bundle;
 import android.support.v4.app.ActionBar;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
-import android.util.DisplayMetrics;
 import android.util.TypedValue;
 import android.view.KeyEvent;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.view.View.OnTouchListener;
+import android.view.ViewGroup;
 import android.view.ViewGroup.LayoutParams;
 import android.widget.Button;
 import android.widget.FrameLayout;
@@ -34,7 +33,6 @@ import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.andlib.utility.DialogUtilities;
 import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.astrid.actfm.TagSettingsActivity;
-import com.todoroo.astrid.actfm.TagUpdatesFragment;
 import com.todoroo.astrid.actfm.TagViewFragment;
 import com.todoroo.astrid.adapter.FilterAdapter;
 import com.todoroo.astrid.adapter.TaskListFragmentPagerAdapter;
@@ -84,9 +82,8 @@ public class TaskListActivity extends AstridActivity implements MainMenuListener
     private TaskListFragmentPagerAdapter tlfPagerAdapter;
 
     private FragmentPopover listsPopover;
-    private FragmentPopover editPopover;
-    private FragmentPopover commentsPopover;
     private MainMenuPopover mainMenuPopover;
+    private boolean commentsVisible = false;
 
     private boolean swipeEnabled = false;
 
@@ -112,32 +109,16 @@ public class TaskListActivity extends AstridActivity implements MainMenuListener
         @Override
         public void onClick(View v) {
             if (fragmentLayout == LAYOUT_DOUBLE) {
-                TagUpdatesFragment frag = getTagUpdatesFragment();
-                if (frag != null) {
-                    setupPopoverWithFragment(commentsPopover, frag, null);
-                    commentsPopover.show(listsNav);
-                    frag.setLastViewed();
-                }
+                View container = findViewById(R.id.taskedit_fragment_container);
+                View separator = findViewById(R.id.edit_separator);
+                container.setVisibility(container.getVisibility() == View.VISIBLE ? View.GONE : View.VISIBLE);
+                separator.setVisibility(container.getVisibility());
+                commentsVisible = container.getVisibility() == View.VISIBLE;
             } else {
                 // In this case we should be in LAYOUT_SINGLE--delegate to the task list fragment
                 TaskListFragment tlf = getTaskListFragment();
                 if (tlf != null)
                     tlf.handleCommentsButtonClicked();
-            }
-        }
-    };
-
-    private final OnDismissListener editPopoverDismissListener = new OnDismissListener() {
-        @Override
-        public void onDismiss() {
-            TaskEditFragment tea = getTaskEditFragment();
-            if (tea != null) {
-                try {
-                    if (!Flags.checkAndClear(Flags.TLA_DISMISSED_FROM_TASK_EDIT))
-                        tea.save(false);
-                } catch (IllegalStateException e) {
-                    // Save during pause, ignore it
-                }
             }
         }
     };
@@ -280,8 +261,9 @@ public class TaskListActivity extends AstridActivity implements MainMenuListener
                 actionBar.getCustomView().findViewById(R.id.comments).setVisibility(View.GONE);
             } else {
                 fragmentLayout = LAYOUT_DOUBLE;
-                createEditPopover();
-                createCommentsPopover();
+                if (AndroidUtilities.getSdkVersion() >= 11) {
+                    setupLayoutTransitions();
+                }
             }
 
             boolean peopleView = getIntent().getBooleanExtra(PEOPLE_VIEW, false);
@@ -300,6 +282,12 @@ public class TaskListActivity extends AstridActivity implements MainMenuListener
         }
     }
 
+    private void setupLayoutTransitions() {
+        LayoutTransition transition = new LayoutTransition();
+        ViewGroup container = (ViewGroup) findViewById(R.id.right_column);
+        container.setLayoutTransition(transition);
+    }
+
     protected Class<? extends FilterListFragment> getFilterListClass() {
         return FilterListFragment.class;
     }
@@ -310,34 +298,6 @@ public class TaskListActivity extends AstridActivity implements MainMenuListener
             @Override
             public void onDismiss() {
                 setListsDropdownSelected(false);
-            }
-        });
-    }
-
-    private void createEditPopover() {
-        editPopover = new FragmentPopover(this, R.layout.taskedit_popover);
-        editPopover.setOnDismissListener(editPopoverDismissListener);
-        editPopover.setTouchInterceptor(new OnTouchListener() {
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                int x = (int) event.getX();
-                int y = (int) event.getY();
-                if ((event.getAction() == MotionEvent.ACTION_DOWN)
-                        && ((x < 0) || (x >= editPopover.getContentView().getWidth()) || (y < 0) || (y >= editPopover.getContentView().getHeight()))) return true;
-                return false;
-            }
-        });
-    }
-
-    private void createCommentsPopover() {
-        commentsPopover = new FragmentPopover(this, R.layout.taskedit_popover);
-        commentsPopover.setOnDismissListener(new OnDismissListener() {
-            @Override
-            public void onDismiss() {
-                TagUpdatesFragment frag = getTagUpdatesFragment();
-                FrameLayout parent = (FrameLayout) frag.getView().getParent();
-                parent.removeView(frag.getView());
-                ((FrameLayout) findViewById(R.id.taskedit_fragment_container)).addView(frag.getView());
             }
         });
     }
@@ -380,17 +340,6 @@ public class TaskListActivity extends AstridActivity implements MainMenuListener
     public void setupPopoverWithFilterList(FilterListFragment fla) {
         setupPopoverWithFragment(listsPopover, fla, null);
     }
-
-    @Override
-    public void onTaskListItemClicked(long taskId) {
-        super.onTaskListItemClicked(taskId);
-        if (fragmentLayout == LAYOUT_DOUBLE && getTaskEditFragment() != null) {
-            DisplayMetrics metrics = getResources().getDisplayMetrics();
-            setupPopoverWithFragment(editPopover, getTaskEditFragment(), new LayoutParams((int) (400 * metrics.density), (int) (600 * metrics.density)));
-            editPopover.show(listsNav);
-        }
-    }
-
 
     @Override
     public boolean onFilterItemClicked(FilterListItem item) {
@@ -445,8 +394,16 @@ public class TaskListActivity extends AstridActivity implements MainMenuListener
                         onTaskListItemClicked(result.getId());
                 }
             }
-            getIntent().removeExtra(OPEN_TASK);
+            if (fragmentLayout == LAYOUT_SINGLE)
+                getIntent().removeExtra(OPEN_TASK);
         }
+    }
+
+    @Override
+    public void onTaskListItemClicked(long taskId) {
+        if (fragmentLayout != LAYOUT_SINGLE)
+            getIntent().putExtra(OPEN_TASK, taskId);
+        super.onTaskListItemClicked(taskId);
     }
 
     public void setListsTitle(String title) {
@@ -463,9 +420,7 @@ public class TaskListActivity extends AstridActivity implements MainMenuListener
     protected void onPause() {
         super.onPause();
         AndroidUtilities.tryDismissPopup(this, listsPopover);
-        AndroidUtilities.tryDismissPopup(this, editPopover);
         AndroidUtilities.tryDismissPopup(this, mainMenuPopover);
-        AndroidUtilities.tryDismissPopup(this, commentsPopover);
     }
 
     @Override
@@ -526,16 +481,11 @@ public class TaskListActivity extends AstridActivity implements MainMenuListener
         View taskeditFragmentContainer = findViewById(R.id.taskedit_fragment_container);
         if(taskeditFragmentContainer != null && taskeditFragmentContainer.getVisibility() == View.VISIBLE) {
             if(fragmentLayout == LAYOUT_DOUBLE) {
-                findViewById(R.id.taskedit_fragment_container).setVisibility(View.GONE);
-                findViewById(R.id.filterlist_fragment_container).setVisibility(View.VISIBLE);
+                if (!commentsVisible)
+                    findViewById(R.id.taskedit_fragment_container).setVisibility(View.GONE);
             }
             Flags.set(Flags.TLA_DISMISSED_FROM_TASK_EDIT);
             onPostResume();
-        } else {
-            if (editPopover != null && editPopover.isShowing()) {
-                Flags.set(Flags.TLA_DISMISSED_FROM_TASK_EDIT);
-                editPopover.dismiss();
-            }
         }
         super.onBackPressed();
     }

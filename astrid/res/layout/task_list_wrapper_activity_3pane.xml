@@ -19,24 +19,34 @@
         android:layout_height="match_parent"
         android:background="?attr/asSeparatorBackground"/>
   
-    <!-- Task List -->
-	<FrameLayout
+	<LinearLayout
+	    android:id="@+id/right_column"
 	    android:layout_width="match_parent"
 	    android:layout_height="match_parent"
-        android:layout_weight="40"
-        android:id="@+id/tasklist_fragment_container" />
-  
-	<View 
-        android:layout_width="1px"
-        android:layout_height="match_parent"
-        android:background="?attr/asSeparatorBackground"/>
-  
-  <!-- Task Edit -->
-    <FrameLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_weight="11"
-        android:id="@+id/taskedit_fragment_container"
-        android:visibility="gone" />
+	    android:layout_weight="40"
+	    android:orientation="vertical">
+	  <!-- Task Edit -->
+	    <FrameLayout
+	        android:layout_width="match_parent"
+	        android:layout_height="match_parent"
+	        android:layout_weight="50"
+	        android:id="@+id/taskedit_fragment_container"
+	        android:visibility="gone" />
+		
+	    <View
+	        android:id="@+id/edit_separator"
+	        android:layout_height="1px"
+	        android:layout_width="match_parent"
+	        android:background="?attr/asSeparatorBackground"
+	        android:visibility="gone"/>
+	    
+	    <!-- Task List -->
+		<FrameLayout
+		    android:layout_width="match_parent"
+		    android:layout_height="match_parent"
+	        android:layout_weight="50"
+	        android:id="@+id/tasklist_fragment_container" />
+	  
+    </LinearLayout>
   
 </LinearLayout>
