@@ -148,12 +148,9 @@ public class GtasksSyncV2Provider extends SyncV2Provider {
 
     private synchronized void pushUpdated(GtasksInvoker invoker, SyncResultCallback callback) {
         TodorooCursor<Task> queued = taskService.query(Query.select(Task.PROPERTIES).
-                join(Join.left(Metadata.TABLE, Task.ID.eq(Metadata.TASK))).where(
-                Criterion.and(Task.USER_ID.eq(Task.USER_ID_SELF),
-                        Criterion.or(
-                                Criterion.and(MetadataCriteria.withKey(GtasksMetadata.METADATA_KEY),
-                                        Task.MODIFICATION_DATE.gt(GtasksMetadata.LAST_SYNC)),
-                                        Metadata.KEY.isNull()))));
+                join(Join.left(Metadata.TABLE, Criterion.and(MetadataCriteria.withKey(GtasksMetadata.METADATA_KEY), Task.ID.eq(Metadata.TASK)))).where(
+                        Criterion.or(Task.MODIFICATION_DATE.gt(GtasksMetadata.LAST_SYNC),
+                                      Metadata.KEY.isNull())));
         callback.incrementMax(queued.getCount() * 10);
         try {
             Task task = new Task();
