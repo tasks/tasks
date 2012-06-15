@@ -10,15 +10,6 @@
         android:layout_height="fill_parent"
         android:src="?attr/asMainMenu"
         android:scaleType="fitCenter"/>
-    
-    <View
-        android:layout_width="1px"
-        android:layout_height="fill_parent"
-        android:layout_marginLeft="-1px"
-        android:background="?attr/asSeparatorBackground"
-        android:layout_marginBottom="4dip"
-        android:layout_marginTop="4dip"/>
-        
         
     <LinearLayout 
         android:layout_width="match_parent"
@@ -57,13 +48,6 @@
 		
 		</RelativeLayout>
     </LinearLayout>
-	
-	<View
-        android:layout_width="1px"
-        android:layout_height="fill_parent"
-        android:background="?attr/asSeparatorBackground"
-        android:layout_marginBottom="4dip"
-        android:layout_marginTop="4dip"/>
 	
 	<Button 
 	    android:id="@+id/comments"
