@@ -22,7 +22,7 @@
 	        android:layout_height="40dip"
 	        android:layout_alignParentTop="true"
 	        android:layout_alignParentLeft="true"
-	        android:layout_marginTop="1dip"
+	        android:layout_marginTop="5dip"
 	        android:layout_marginLeft="3dip"
 	        astrid:defaultSrc="@drawable/icn_default_person_image"
 	        android:scaleType="fitCenter" />
