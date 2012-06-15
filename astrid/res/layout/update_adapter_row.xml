@@ -4,6 +4,7 @@
     xmlns:astrid="http://schemas.android.com/apk/res/com.timsu.astrid"
     android:layout_width="fill_parent"
     android:layout_height="wrap_content"
+    android:minHeight="55dip"
     android:orientation="vertical">
 	
 	<RelativeLayout
@@ -43,9 +44,11 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"  
             android:layout_below="@id/title"
-            android:layout_marginLeft="50dip" 
-            android:paddingTop="3dip"
+            android:layout_alignLeft="@id/title"
+            android:layout_marginLeft="54dip" 
+            android:paddingTop="1dip"
             style="@style/TextAppearance.TAd_ItemDueDate"
+            android:textStyle="normal"
             android:gravity="left"
             android:ellipsize="end"
             android:textSize="12sp"

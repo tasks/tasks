@@ -69,7 +69,7 @@
         <item name="asFilterHeaderColor">#ffffff</item>
         <item name="asFilterHeaderBackground">@drawable/edit_titlebar_white</item>
         <item name="asMembersHeaderBackground">#d0d0d0</item>
-        <item name="asListDividerColor">#cccccc</item>
+        <item name="asListDividerColor">#dddddd</item>
         <item name="asAddButtonImg">@drawable/plus_button_red</item>
         <item name="asMicButtonImg">@drawable/mic_button_red</item>
         <item name="asCommentButtonImg">@drawable/comment_red</item>

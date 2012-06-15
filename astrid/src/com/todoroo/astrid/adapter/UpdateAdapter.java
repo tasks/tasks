@@ -251,9 +251,9 @@ public class UpdateAdapter extends CursorAdapter {
             user = ContextManager.getString(R.string.ENA_no_user);
         }
 
-        String userLink = linkify(user, linkColor);
-        String targetNameLink = linkify(targetName, linkColor);
-        String otherUserLink = linkify(otherUser, linkColor);
+        String userLink = user; //linkify(user, linkColor);
+        String targetNameLink = targetName; //linkify(targetName, linkColor);
+        String otherUserLink = otherUser; //linkify(otherUser, linkColor);
 
         int commentResource = 0;
         if (actionCode.equals(UPDATE_FRIENDS)) {

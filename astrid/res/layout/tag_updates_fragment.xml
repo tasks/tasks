@@ -37,8 +37,10 @@
         android:id="@android:id/list"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:layout_weight="100" />
-
+        android:layout_weight="100" 
+        style="@style/ListView"
+        android:divider="@android:color/transparent"/>
+        
     <ProgressBar
         android:id="@+id/comments_progressBar"
         style="@android:style/Widget.ProgressBar.Horizontal"
