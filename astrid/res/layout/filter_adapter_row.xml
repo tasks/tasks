@@ -4,7 +4,7 @@
      are defined in FilterAdapter.java -->
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
-    android:layout_height="58dip"
+    android:layout_height="55dip"
     android:orientation="horizontal">
         
     <!-- filter icon -->
@@ -12,7 +12,7 @@
         android:layout_width="25dip"
         android:layout_height="48dip"
         android:layout_alignParentLeft="true"
-        android:layout_marginTop="4dp" 
+        android:layout_centerVertical="true"
         android:layout_marginLeft="8dip"
         android:scaleType="fitCenter"
         android:visibility="gone"/>
@@ -22,7 +22,7 @@
         android:layout_width="30dip"
         android:layout_height="48dip"
         android:layout_alignParentLeft="true"
-        android:layout_marginTop="4dp" 
+        android:layout_centerVertical="true"
         android:layout_marginLeft="6dip"
         android:scaleType="fitCenter"
         android:visibility="gone"/>
@@ -35,8 +35,9 @@
         android:paddingRight="30dp"
         android:checked="false"
         android:checkMark="?android:attr/listChoiceIndicatorMultiple"
-        android:lines="2"
-        android:ellipsize="marquee"
+        android:lines="1"
+        android:singleLine="true"
+        android:ellipsize="end"
         android:gravity="center_vertical" />
         
     <!-- size -->
@@ -46,7 +47,7 @@
         android:layout_alignParentRight="true"
         android:background="@drawable/filter_count"
         android:layout_marginRight="5dip"
-        android:layout_marginTop="15dip"
+        android:layout_centerVertical="true"
         android:paddingLeft="7dip" 
         android:paddingRight="7dip"
         android:textColor="#ffffff"

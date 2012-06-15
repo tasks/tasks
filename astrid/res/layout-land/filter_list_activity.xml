@@ -14,6 +14,7 @@
         android:layout_alignParentTop="true"
         android:scrollbars="vertical"
         android:divider="@android:color/transparent"
+        android:dividerHeight="1px"
         android:background="@android:color/transparent"
         android:cacheColorHint="#00000000"/>
     

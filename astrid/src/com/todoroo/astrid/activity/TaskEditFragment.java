@@ -1171,9 +1171,6 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
 
         item = menu.add(Menu.NONE, MENU_DELETE_ID, 0, R.string.TEA_menu_delete);
         item.setIcon(android.R.drawable.ic_menu_delete);
-        if (((AstridActivity) getActivity()).getFragmentLayout() != AstridActivity.LAYOUT_SINGLE)
-            item.setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
-
 
     }
 

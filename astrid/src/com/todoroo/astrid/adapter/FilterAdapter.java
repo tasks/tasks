@@ -513,13 +513,9 @@ public class FilterAdapter extends ArrayAdapter<Filter> {
         if(viewHolder.item instanceof FilterListHeader || viewHolder.item instanceof FilterCategory) {
             viewHolder.name.setTextAppearance(activity, headerStyle);
             viewHolder.name.setShadowLayer(1, 1, 1, Color.BLACK);
-            viewHolder.view.setPadding((int) (7 * metrics.density), 5, 0, 5);
-            viewHolder.view.getLayoutParams().height = (int) (40 * metrics.density);
         } else {
             viewHolder.name.setTextAppearance(activity, filterStyle);
             viewHolder.name.setShadowLayer(0, 0, 0, 0);
-            viewHolder.view.setPadding((int) (7 * metrics.density), 2, 0, 2);
-            viewHolder.view.getLayoutParams().height = (int) (58 * metrics.density);
         }
 
         // update with filter attributes (listing icon, url, update text, size)
