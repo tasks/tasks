@@ -25,6 +25,7 @@ import com.todoroo.andlib.sql.Order;
 import com.todoroo.andlib.sql.Query;
 import com.todoroo.andlib.sql.QueryTemplate;
 import com.todoroo.andlib.utility.AndroidUtilities;
+import com.todoroo.astrid.actfm.sync.ActFmPreferenceService;
 import com.todoroo.astrid.actfm.sync.ActFmSyncService;
 import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.api.Filter;
@@ -60,6 +61,8 @@ public class PeopleFilterExposer extends BroadcastReceiver {
             User user = new User();
             for (users.moveToFirst(); !users.isAfterLast(); users.moveToNext()) {
                 user.readFromCursor(users);
+                if (user.getValue(User.REMOTE_ID) == ActFmPreferenceService.userId())
+                    continue;
                 Filter currFilter = filterFromUserData(user);
                 if (currFilter != null)
                     items.add(currFilter);
