@@ -40,7 +40,7 @@ public class Join {
         for (int i = 0; i < criterions.length; i++) {
             sb.append(criterions[i]);
             if (i < criterions.length - 1)
-                sb.append(SPACE).append(AND);
+                sb.append(SPACE).append(AND).append(SPACE);
         }
         sb.append(")");
         return sb.toString();
