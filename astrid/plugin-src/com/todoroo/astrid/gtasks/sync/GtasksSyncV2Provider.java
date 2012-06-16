@@ -22,6 +22,7 @@ import com.todoroo.andlib.sql.Join;
 import com.todoroo.andlib.sql.Query;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.andlib.utility.Preferences;
+import com.todoroo.astrid.actfm.sync.ActFmPreferenceService;
 import com.todoroo.astrid.core.PluginServices;
 import com.todoroo.astrid.dao.MetadataDao.MetadataCriteria;
 import com.todoroo.astrid.dao.StoreObjectDao;
@@ -53,6 +54,7 @@ public class GtasksSyncV2Provider extends SyncV2Provider {
     @Autowired TaskService taskService;
     @Autowired MetadataService metadataService;
     @Autowired StoreObjectDao storeObjectDao;
+    @Autowired ActFmPreferenceService actFmPreferenceService;
     @Autowired GtasksPreferenceService gtasksPreferenceService;
     @Autowired GtasksSyncService gtasksSyncService;
     @Autowired GtasksListService gtasksListService;
@@ -126,8 +128,6 @@ public class GtasksSyncV2Provider extends SyncV2Provider {
                 callback.incrementMax(25 * lists.length);
                 final AtomicInteger finisher = new AtomicInteger(lists.length);
 
-                pushUpdated(invoker, callback);
-
                 for (final StoreObject list : lists) {
                     new Thread(new Runnable() {
                         @Override
@@ -135,23 +135,23 @@ public class GtasksSyncV2Provider extends SyncV2Provider {
                             synchronizeListHelper(list, invoker, manual, handler, callback);
                             callback.incrementProgress(25);
                             if (finisher.decrementAndGet() == 0) {
+                                pushUpdated(invoker, callback);
                                 finishSync(callback);
                             }
                         }
                     }).start();
                 }
+
             }
         }).start();
     }
 
     private synchronized void pushUpdated(GtasksInvoker invoker, SyncResultCallback callback) {
         TodorooCursor<Task> queued = taskService.query(Query.select(Task.PROPERTIES).
-                join(Join.left(Metadata.TABLE, Task.ID.eq(Metadata.TASK))).where(
-                Criterion.and(Task.USER_ID.eq(Task.USER_ID_SELF),
-                        Criterion.or(
-                                Criterion.and(MetadataCriteria.withKey(GtasksMetadata.METADATA_KEY),
-                                        Task.MODIFICATION_DATE.gt(GtasksMetadata.LAST_SYNC)),
-                                        Metadata.KEY.isNull()))));
+                join(Join.left(Metadata.TABLE, Criterion.and(MetadataCriteria.withKey(GtasksMetadata.METADATA_KEY), Task.ID.eq(Metadata.TASK)))).where(
+                        Criterion.or(Task.MODIFICATION_DATE.gt(GtasksMetadata.LAST_SYNC),
+                                    Criterion.and(Task.USER_ID.neq(Task.USER_ID_SELF), GtasksMetadata.ID.isNotNull()),
+                                      Metadata.KEY.isNull())));
         callback.incrementMax(queued.getCount() * 10);
         try {
             Task task = new Task();
@@ -303,6 +303,9 @@ public class GtasksSyncV2Provider extends SyncV2Provider {
 
     private void write(GtasksTaskContainer task) throws IOException {
         //  merge astrid dates with google dates
+        if (!task.task.isSaved() && actFmPreferenceService.isLoggedIn())
+            titleMatchWithActFm(task.task);
+
         if(task.task.isSaved()) {
             Task local = PluginServices.getTaskService().fetchById(task.task.getId(), Task.DUE_DATE, Task.COMPLETION_DATE);
             if (local == null) {
@@ -312,12 +315,29 @@ public class GtasksSyncV2Provider extends SyncV2Provider {
                 if(task.task.isCompleted() && !local.isCompleted())
                     StatisticsService.reportEvent(StatisticsConstants.GTASKS_TASK_COMPLETED);
             }
-        } else { // Set default reminders for remotely created tasks
+        } else { // Set default importance and reminders for remotely created tasks
+            task.task.setValue(Task.IMPORTANCE, Preferences.getIntegerFromString(
+                    R.string.p_default_importance_key, Task.IMPORTANCE_SHOULD_DO));
             TaskDao.setDefaultReminders(task.task);
         }
         if (!TextUtils.isEmpty(task.task.getValue(Task.TITLE))) {
             task.task.putTransitory(SyncFlags.GTASKS_SUPPRESS_SYNC, true);
             gtasksMetadataService.saveTaskAndMetadata(task);
+        }
+    }
+
+    private void titleMatchWithActFm(Task task) {
+        String title = task.getValue(Task.TITLE);
+        TodorooCursor<Task> match = taskService.query(Query.select(Task.ID)
+                .join(Join.left(Metadata.TABLE, Criterion.and(Metadata.KEY.eq(GtasksMetadata.METADATA_KEY), Metadata.TASK.eq(Task.ID))))
+                .where(Criterion.and(Task.TITLE.eq(title), GtasksMetadata.ID.isNull())));
+        try {
+            if (match.getCount() > 0) {
+                match.moveToFirst();
+                task.setId(match.get(Task.ID));
+            }
+        } finally {
+            match.close();
         }
     }
 

@@ -1,5 +1,6 @@
 package com.todoroo.astrid.actfm;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.preference.Preference;
@@ -7,8 +8,10 @@ import android.preference.PreferenceCategory;
 
 import com.timsu.astrid.R;
 import com.todoroo.andlib.service.Autowired;
+import com.todoroo.andlib.utility.DialogUtilities;
 import com.todoroo.astrid.actfm.sync.ActFmPreferenceService;
 import com.todoroo.astrid.actfm.sync.ActFmSyncV2Provider;
+import com.todoroo.astrid.gtasks.GtasksPreferenceService;
 import com.todoroo.astrid.sync.SyncProviderPreferences;
 import com.todoroo.astrid.sync.SyncProviderUtilities;
 
@@ -22,6 +25,7 @@ import com.todoroo.astrid.sync.SyncProviderUtilities;
 public class ActFmPreferences extends SyncProviderPreferences {
 
     @Autowired ActFmPreferenceService actFmPreferenceService;
+    @Autowired GtasksPreferenceService gtasksPreferenceService;
 
     @Override
     public int getPreferenceResource() {
@@ -31,12 +35,26 @@ public class ActFmPreferences extends SyncProviderPreferences {
     @Override
     public void startSync() {
         if (!actFmPreferenceService.isLoggedIn()) {
-            Intent intent = new Intent(this, ActFmLoginActivity.class);
-            startActivityForResult(intent, REQUEST_LOGIN);
+            if (gtasksPreferenceService.isLoggedIn()) {
+                DialogUtilities.okCancelDialog(this, getString(R.string.DLG_warning), getString(R.string.actfm_dual_sync_warning),
+                        new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                startLogin();
+                            }
+                        }, null);
+            } else {
+                startLogin();
+            }
         } else {
             setResult(RESULT_CODE_SYNCHRONIZE);
             finish();
         }
+    }
+
+    private void startLogin() {
+        Intent intent = new Intent(this, ActFmLoginActivity.class);
+        startActivityForResult(intent, REQUEST_LOGIN);
     }
 
     @Override

@@ -108,9 +108,6 @@ public final class GtasksSyncService {
                     return;
 
                 Task toPush = taskDao.fetch(model.getId(), TASK_PROPERTIES);
-                if (toPush.getValue(Task.USER_ID) != Task.USER_ID_SELF)
-                    return;
-
                 operationQueue.offer(new TaskPushOp(toPush));
             }
         });
@@ -154,7 +151,7 @@ public final class GtasksSyncService {
     }
 
     private static final Property<?>[] TASK_PROPERTIES = { Task.ID, Task.TITLE,
-            Task.NOTES, Task.DUE_DATE, Task.COMPLETION_DATE, Task.DELETION_DATE };
+            Task.NOTES, Task.DUE_DATE, Task.COMPLETION_DATE, Task.DELETION_DATE, Task.USER_ID };
 
     /**
      * Checks to see if any of the values changed are among the properties we sync
@@ -196,6 +193,18 @@ public final class GtasksSyncService {
         Metadata gtasksMetadata = gtasksMetadataService.getTaskMetadata(task.getId());
         com.google.api.services.tasks.model.Task remoteModel = null;
         boolean newlyCreated = false;
+
+        if (values.containsKey(Task.USER_ID.name) && values.getAsLong(Task.USER_ID.name) != Task.USER_ID_SELF) {
+            if (gtasksMetadata != null && !TextUtils.isEmpty(gtasksMetadata.getValue(GtasksMetadata.ID))) {
+                try {
+                    invoker.deleteGtask(gtasksMetadata.getValue(GtasksMetadata.LIST_ID), gtasksMetadata.getValue(GtasksMetadata.ID));
+                    metadataDao.delete(gtasksMetadata.getId());
+                } catch (IOException e) {
+                    //
+                }
+            }
+            return;
+        }
 
         String remoteId = null;
         String listId = Preferences.getStringValue(GtasksPreferenceService.PREF_DEFAULT_LIST);

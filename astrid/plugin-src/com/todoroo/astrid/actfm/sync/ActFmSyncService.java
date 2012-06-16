@@ -39,6 +39,7 @@ import com.todoroo.andlib.data.TodorooCursor;
 import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.andlib.sql.Criterion;
+import com.todoroo.andlib.sql.Join;
 import com.todoroo.andlib.sql.Order;
 import com.todoroo.andlib.sql.Query;
 import com.todoroo.andlib.utility.AndroidUtilities;
@@ -59,6 +60,8 @@ import com.todoroo.astrid.data.TaskApiDao;
 import com.todoroo.astrid.data.Update;
 import com.todoroo.astrid.data.User;
 import com.todoroo.astrid.files.FileMetadata;
+import com.todoroo.astrid.gtasks.GtasksMetadata;
+import com.todoroo.astrid.gtasks.GtasksPreferenceService;
 import com.todoroo.astrid.helper.ImageDiskCache;
 import com.todoroo.astrid.service.MetadataService;
 import com.todoroo.astrid.service.StatisticsConstants;
@@ -84,6 +87,7 @@ public final class ActFmSyncService {
     @Autowired MetadataService metadataService;
     @Autowired TaskService taskService;
     @Autowired ActFmPreferenceService actFmPreferenceService;
+    @Autowired GtasksPreferenceService gtasksPreferenceService;
     @Autowired ActFmInvoker actFmInvoker;
     @Autowired ActFmDataService actFmDataService;
     @Autowired TaskDao taskDao;
@@ -1139,6 +1143,11 @@ public final class ActFmSyncService {
                 remote.putTransitory(SyncFlags.ACTFM_SUPPRESS_SYNC, true);
                 if (remote.getValue(Task.USER_ID) != Task.USER_ID_SELF)
                     remote.putTransitory(SyncFlags.GTASKS_SUPPRESS_SYNC, true);
+
+                if (!remote.isSaved() && gtasksPreferenceService.isLoggedIn()) {
+                    titleMatchOnGoogleTask(remote);
+                }
+
                 taskService.save(remote);
                 ids.add(remote.getId());
                 metadataService.synchronizeMetadata(remote.getId(), metadata, MetadataCriteria.withKey(TagService.KEY));
@@ -1149,6 +1158,21 @@ public final class ActFmSyncService {
             if(deleteExtras) {
                 Long[] localIds = ids.toArray(new Long[ids.size()]);
                 deleteExtras(localIds);
+            }
+        }
+
+        private void titleMatchOnGoogleTask(Task remote) {
+            String title = remote.getValue(Task.TITLE);
+            TodorooCursor<Task> match = taskService.query(Query.select(Task.ID)
+                    .join(Join.inner(Metadata.TABLE, Criterion.and(Metadata.KEY.eq(GtasksMetadata.METADATA_KEY), Metadata.TASK.eq(Task.ID))))
+                    .where(Criterion.and(Task.TITLE.eq(title), Task.REMOTE_ID.isNull())));
+            try {
+                if (match.getCount() > 0) {
+                    match.moveToFirst();
+                    remote.setId(match.get(Task.ID));
+                }
+            } finally {
+                match.close();
             }
         }
 

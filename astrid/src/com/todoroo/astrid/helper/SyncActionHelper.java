@@ -9,7 +9,6 @@ import org.weloveastrid.rmilk.MilkUtilities;
 
 import android.app.Activity;
 import android.app.AlertDialog;
-import android.app.PendingIntent.CanceledException;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -20,7 +19,6 @@ import android.content.pm.ResolveInfo;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.widget.ArrayAdapter;
-import android.widget.Toast;
 
 import com.timsu.astrid.R;
 import com.todoroo.andlib.service.Autowired;
@@ -229,35 +227,7 @@ public class SyncActionHelper {
             showSyncOptionMenu(actions, listener);
 
         } else {
-            // We have sync actions, pop up a dialogue so the user can
-            // select just one of them (only sync one at a time)
-            final Object[] actions = new Object[activeSyncs];
-
-            int i;
-            for (i = 0; i < activeV2Providers.size(); i++)
-                actions[i] = activeV2Providers.get(i);
-            for (SyncAction syncAction : syncActions)
-                actions[i++] = syncAction;
-
-            DialogInterface.OnClickListener listener = new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface click, int which) {
-                    if (actions[which] instanceof SyncAction) {
-                        try {
-                            ((SyncAction) actions[which]).intent.send();
-                            Toast.makeText(activity,
-                                    R.string.SyP_progress_toast,
-                                    Toast.LENGTH_LONG).show();
-                        } catch (CanceledException e) {
-                            //
-                        }
-                    } else {
-                        ((SyncV2Provider) actions[which]).synchronizeActiveTasks(
-                                true, syncResultCallback);
-                    }
-                }
-            };
-            showSyncOptionMenu(actions, listener);
+            syncService.synchronizeActiveTasks(true, syncResultCallback);
         }
     }
 

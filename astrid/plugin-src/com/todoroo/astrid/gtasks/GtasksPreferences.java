@@ -1,11 +1,14 @@
 package com.todoroo.astrid.gtasks;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 
 import com.timsu.astrid.R;
 import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.DependencyInjectionService;
+import com.todoroo.andlib.utility.DialogUtilities;
+import com.todoroo.astrid.actfm.sync.ActFmPreferenceService;
 import com.todoroo.astrid.gtasks.auth.GtasksLoginActivity;
 import com.todoroo.astrid.gtasks.sync.GtasksSyncV2Provider;
 import com.todoroo.astrid.sync.SyncProviderPreferences;
@@ -21,6 +24,7 @@ import com.todoroo.astrid.sync.SyncProviderUtilities;
 public class GtasksPreferences extends SyncProviderPreferences {
 
     @Autowired private GtasksPreferenceService gtasksPreferenceService;
+    @Autowired private ActFmPreferenceService actFmPreferenceService;
 
     public GtasksPreferences() {
         super();
@@ -40,12 +44,26 @@ public class GtasksPreferences extends SyncProviderPreferences {
     @Override
     public void startSync() {
         if (!gtasksPreferenceService.isLoggedIn()) {
-            Intent intent = new Intent(this, GtasksLoginActivity.class);
-            startActivityForResult(intent, REQUEST_LOGIN);
+            if (actFmPreferenceService.isLoggedIn()) {
+                DialogUtilities.okCancelDialog(this, getString(R.string.DLG_warning), getString(R.string.gtasks_dual_sync_warning),
+                        new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                startLogin();
+                            }
+                        }, null);
+            } else {
+                startLogin();
+            }
         } else {
             setResult(RESULT_CODE_SYNCHRONIZE);
             finish();
         }
+    }
+
+    private void startLogin() {
+        Intent intent = new Intent(this, GtasksLoginActivity.class);
+        startActivityForResult(intent, REQUEST_LOGIN);
     }
 
     @Override

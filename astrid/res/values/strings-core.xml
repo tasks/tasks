@@ -67,6 +67,8 @@
   
   <string name="DLG_undo">Undo</string>
   
+  <string name="DLG_warning">Warning</string>
+  
   <!-- =============================================================== UI == -->
   
   <!-- Label for DateButtons with no value -->
