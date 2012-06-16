@@ -1169,8 +1169,7 @@ public final class ActFmSyncService {
             try {
                 if (match.getCount() > 0) {
                     match.moveToFirst();
-                    Task matchedTitle = new Task(match);
-                    remote.setId(matchedTitle.getId());
+                    remote.setId(match.get(Task.ID));
                 }
             } finally {
                 match.close();

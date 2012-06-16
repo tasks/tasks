@@ -227,36 +227,6 @@ public class SyncActionHelper {
             showSyncOptionMenu(actions, listener);
 
         } else {
-            // We have sync actions, pop up a dialogue so the user can
-            // select just one of them (only sync one at a time)
-//            final Object[] actions = new Object[activeSyncs];
-//
-//            int i;
-//            for (i = 0; i < activeV2Providers.size(); i++)
-//                actions[i] = activeV2Providers.get(i);
-//            for (SyncAction syncAction : syncActions)
-//                actions[i++] = syncAction;
-//
-//            DialogInterface.OnClickListener listener = new DialogInterface.OnClickListener() {
-//                @Override
-//                public void onClick(DialogInterface click, int which) {
-//                    if (actions[which] instanceof SyncAction) {
-//                        try {
-//                            ((SyncAction) actions[which]).intent.send();
-//                            Toast.makeText(activity,
-//                                    R.string.SyP_progress_toast,
-//                                    Toast.LENGTH_LONG).show();
-//                        } catch (CanceledException e) {
-//                            //
-//                        }
-//                    } else {
-//                        ((SyncV2Provider) actions[which]).synchronizeActiveTasks(
-//                                true, syncResultCallback);
-//                    }
-//                }
-//            };
-//            showSyncOptionMenu(actions, listener);
-
             syncService.synchronizeActiveTasks(true, syncResultCallback);
         }
     }

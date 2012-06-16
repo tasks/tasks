@@ -33,14 +33,16 @@ public class Join {
     }
 
     @Override
+    @SuppressWarnings("nls")
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        sb.append(joinType).append(SPACE).append(JOIN).append(SPACE).append(joinTable).append(SPACE).append(ON);
+        sb.append(joinType).append(SPACE).append(JOIN).append(SPACE).append(joinTable).append(SPACE).append(ON).append(SPACE).append("(");
         for (int i = 0; i < criterions.length; i++) {
-            sb.append(SPACE).append(criterions[i]);
+            sb.append(criterions[i]);
             if (i < criterions.length - 1)
                 sb.append(SPACE).append(AND);
         }
+        sb.append(")");
         return sb.toString();
     }
 }

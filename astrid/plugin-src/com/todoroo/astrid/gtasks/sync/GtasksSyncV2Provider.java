@@ -334,8 +334,7 @@ public class GtasksSyncV2Provider extends SyncV2Provider {
         try {
             if (match.getCount() > 0) {
                 match.moveToFirst();
-                Task matchedTask = new Task(match);
-                task.setId(matchedTask.getId());
+                task.setId(match.get(Task.ID));
             }
         } finally {
             match.close();
