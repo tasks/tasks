@@ -41,6 +41,7 @@ import com.todoroo.astrid.utility.AstridPreferences;
 
 public final class UpgradeService {
 
+    public static final int V4_2_3 = 274;
     public static final int V4_2_2_1 = 273;
     public static final int V4_2_2 = 272;
     public static final int V4_2_1 = 271;
@@ -206,6 +207,14 @@ public final class UpgradeService {
 
         Preferences.clear(AstridPreferences.P_UPGRADE_FROM);
         StringBuilder changeLog = new StringBuilder();
+
+        if (from >= V4_2_0 && from < V4_2_3) {
+            newVersionString(changeLog, "4.2.3 (6/25/12)", new String[] {
+               "Fixes for Google Tasks and Astrid.com sync",
+               "New layout for tablets in portrait mode",
+               "Minor UI polish and bugfixes"
+            });
+        }
 
         if (from >= V4_2_0 && from < V4_2_2_1) {
             newVersionString(changeLog, "4.2.2.1 (6/13/12)", new String[] {
