@@ -351,6 +351,10 @@ public class TaskListActivity extends AstridActivity implements MainMenuListener
             tlfPager.showFilter((Filter) item);
             return true;
         }
+        TaskEditFragment tef = getTaskEditFragment();
+        if (tef != null)
+            onBackPressed();
+
         return super.onFilterItemClicked(item);
     }
 
