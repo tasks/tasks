@@ -1424,10 +1424,21 @@ public final class ActFmSyncService {
          * @throws JSONException
          */
         public static void tagFromJson(JSONObject json, TagData model) throws JSONException {
+            parseTagDataFromJson(json, model, false);
+        }
+
+        public static void featuredListFromJson(JSONObject json, TagData model) throws JSONException {
+            parseTagDataFromJson(json, model, true);
+        }
+
+        private static void parseTagDataFromJson(JSONObject json, TagData model, boolean featuredList) throws JSONException {
             model.clearValue(TagData.REMOTE_ID);
             model.setValue(TagData.REMOTE_ID, json.getLong("id"));
             model.setValue(TagData.NAME, json.getString("name"));
-            readUser(json.getJSONObject("user"), model, TagData.USER_ID, TagData.USER);
+            readUser(json.getJSONObject(featuredList ? "author" : "user"), model, TagData.USER_ID, TagData.USER);
+
+            if (featuredList)
+                model.setFlag(TagData.FLAGS, TagData.FLAG_FEATURED, true);
 
             if(json.has("picture"))
                 model.setValue(TagData.PICTURE, json.optString("picture", ""));

@@ -185,9 +185,13 @@ public class TagFilterExposer extends BroadcastReceiver implements AstridFilterE
         filters[0] = untagged;
 
         for(int i = 0; i < tags.length; i++)
-            filters[i+1] = filterFromTag(context, tags[i], TaskCriteria.activeAndVisible());
+            filters[i+1] = constructFilter(context, tags[i]);
         FilterCategory filter = new FilterCategory(context.getString(name), filters);
         return filter;
+    }
+
+    protected Filter constructFilter(Context context, Tag tag) {
+        return filterFromTag(context, tag, TaskCriteria.activeAndVisible());
     }
 
     // --- tag manipulation activities

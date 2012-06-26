@@ -216,8 +216,7 @@ public final class ActFmDataService {
                     TagService.getInstance().rename(tagData.getValue(TagData.NAME), featObject.getString("name"));
                 cursor.moveToNext();
             }
-            ActFmSyncService.JsonHelper.tagFromJson(featObject, tagData);
-            tagData.setFlag(TagData.FLAGS, TagData.FLAG_FEATURED, true);
+            ActFmSyncService.JsonHelper.featuredListFromJson(featObject, tagData);
             tagDataService.save(tagData);
 
         } finally {
