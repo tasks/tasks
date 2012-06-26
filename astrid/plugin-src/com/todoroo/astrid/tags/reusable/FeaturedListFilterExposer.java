@@ -45,7 +45,7 @@ public class FeaturedListFilterExposer extends TagFilterExposer {
                 title, tagTemplate,
                 contentValues);
 
-        Class<?> fragmentClass = FeaturedListFragment.class;
+        Class<?> fragmentClass = FeaturedTaskListFragment.class;
         filter.customTaskList = new ComponentName(ContextManager.getContext(), fragmentClass);
         if(tag.image != null)
             filter.imageUrl = tag.image;

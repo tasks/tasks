@@ -1435,7 +1435,8 @@ public final class ActFmSyncService {
             model.clearValue(TagData.REMOTE_ID);
             model.setValue(TagData.REMOTE_ID, json.getLong("id"));
             model.setValue(TagData.NAME, json.getString("name"));
-            readUser(json.getJSONObject(featuredList ? "author" : "user"), model, TagData.USER_ID, TagData.USER);
+            if (!featuredList)
+                readUser(json.getJSONObject("user"), model, TagData.USER_ID, TagData.USER);
 
             if (featuredList)
                 model.setFlag(TagData.FLAGS, TagData.FLAG_FEATURED, true);
