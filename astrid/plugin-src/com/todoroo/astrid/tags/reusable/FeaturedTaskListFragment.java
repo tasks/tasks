@@ -14,6 +14,7 @@ import com.todoroo.astrid.adapter.TaskAdapter;
 import com.todoroo.astrid.data.TagData;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.service.TagDataService;
+import com.todoroo.astrid.utility.Flags;
 
 public class FeaturedTaskListFragment extends TagViewFragment {
 
@@ -75,6 +76,7 @@ public class FeaturedTaskListFragment extends TagViewFragment {
                             taskService.cloneReusableTask(t,
                                     localName, remoteId);
                         }
+                        Flags.set(Flags.REFRESH);
                         DialogUtilities.okDialog(getActivity(), "Success!", null);
                     } finally {
                         tasks.close();
