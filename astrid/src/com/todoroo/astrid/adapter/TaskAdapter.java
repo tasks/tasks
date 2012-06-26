@@ -258,6 +258,10 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
         return newCursor;
     }
 
+    public String getQuery() {
+        return query.get();
+    }
+
     /* ======================================================================
      * =========================================================== view setup
      * ====================================================================== */

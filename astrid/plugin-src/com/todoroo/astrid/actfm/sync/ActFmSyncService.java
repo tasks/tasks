@@ -40,6 +40,7 @@ import com.todoroo.andlib.data.TodorooCursor;
 import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.andlib.sql.Criterion;
+import com.todoroo.andlib.sql.Functions;
 import com.todoroo.andlib.sql.Join;
 import com.todoroo.andlib.sql.Order;
 import com.todoroo.andlib.sql.Query;
@@ -827,7 +828,9 @@ public final class ActFmSyncService {
 
         if(serverTime == 0) {
             Long[] remoteIdArray = remoteIds.toArray(new Long[remoteIds.size()]);
-            tagDataService.deleteWhere(Criterion.not(TagData.REMOTE_ID.in(remoteIdArray)));
+            tagDataService.deleteWhere(Criterion.and(
+                    Criterion.not(Functions.bitwiseAnd(TagData.FLAGS, TagData.FLAG_FEATURED).gt(0)),
+                    Criterion.not(TagData.REMOTE_ID.in(remoteIdArray))));
         }
 
         return result.optInt("time", 0);
@@ -1201,6 +1204,7 @@ public final class ActFmSyncService {
                 } catch (SQLiteConstraintException e) {
                     taskDao.handleSQLiteConstraintException(remote);
                 }
+
                 ids.add(remote.getId());
                 metadataService.synchronizeMetadata(remote.getId(), metadata, MetadataCriteria.withKey(TagService.KEY));
                 synchronizeAttachments(item, remote);
@@ -1435,6 +1439,7 @@ public final class ActFmSyncService {
             model.clearValue(TagData.REMOTE_ID);
             model.setValue(TagData.REMOTE_ID, json.getLong("id"));
             model.setValue(TagData.NAME, json.getString("name"));
+
             if (!featuredList)
                 readUser(json.getJSONObject("user"), model, TagData.USER_ID, TagData.USER);
 

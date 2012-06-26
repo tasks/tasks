@@ -19,7 +19,9 @@ public class FeaturedListActivity extends TaskListActivity {
     private static final int[] FORBIDDEN_MENU_ITEMS = {
         TaskListFragment.MENU_NEW_FILTER_ID,
         TaskListFragment.MENU_ADDONS_ID,
-        MainMenuPopover.MAIN_MENU_ITEM_FRIENDS
+        TaskListFragment.MENU_SORT_ID,
+        MainMenuPopover.MAIN_MENU_ITEM_FRIENDS,
+        MainMenuPopover.MAIN_MENU_ITEM_FEATURED_LISTS,
     };
 
     @Override

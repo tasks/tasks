@@ -19,6 +19,7 @@ import com.todoroo.andlib.data.TodorooCursor;
 import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.ContextManager;
 import com.todoroo.andlib.sql.Criterion;
+import com.todoroo.andlib.sql.Functions;
 import com.todoroo.andlib.sql.Join;
 import com.todoroo.andlib.sql.Query;
 import com.todoroo.andlib.utility.Preferences;
@@ -366,10 +367,12 @@ public class ActFmSyncV2Provider extends SyncV2Provider {
     private void pushQueuedTags(final SyncResultCallback callback,
             final AtomicInteger finisher, int lastTagSyncTime) {
         TodorooCursor<TagData> tagDataCursor = tagDataService.query(Query.select(TagData.PROPERTIES)
-                .where(Criterion.or(
+                .where(Criterion.and(
+                        Functions.bitwiseAnd(TagData.FLAGS, TagData.FLAG_FEATURED).eq(0),
+                        Criterion.or(
                         TagData.REMOTE_ID.eq(0),
                         Criterion.and(TagData.REMOTE_ID.gt(0),
-                                TagData.MODIFICATION_DATE.gt(lastTagSyncTime)))));
+                                TagData.MODIFICATION_DATE.gt(lastTagSyncTime))))));
         try {
             pushQueued(callback, finisher, tagDataCursor, true, tagPusher);
         } finally {

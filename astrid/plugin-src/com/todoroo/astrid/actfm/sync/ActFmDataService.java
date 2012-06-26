@@ -206,7 +206,7 @@ public final class ActFmDataService {
     @SuppressWarnings("nls")
     public void saveFeaturedList(JSONObject featObject) throws JSONException {
         TodorooCursor<TagData> cursor = tagDataService.query(Query.select(TagData.PROPERTIES).where(
-                Criterion.and(Functions.bitwiseAnd(TagData.FLAGS, TagData.FLAG_FEATURED).gt(0),TagData.REMOTE_ID.eq(featObject.get("id")))));
+                Criterion.and(Functions.bitwiseAnd(TagData.FLAGS, TagData.FLAG_FEATURED).gt(0), TagData.REMOTE_ID.eq(featObject.get("id")))));
         try {
             cursor.moveToNext();
             TagData tagData = new TagData();

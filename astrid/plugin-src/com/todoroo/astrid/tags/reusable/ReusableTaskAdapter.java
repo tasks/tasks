@@ -48,7 +48,7 @@ public class ReusableTaskAdapter extends TaskAdapter {
             @Override
             public void onClick(View v) {
                 ReusableTaskViewHolder holder = (ReusableTaskViewHolder) v.getTag();
-                taskService.cloneReusableTask(holder.task);
+                taskService.cloneReusableTask(holder.task, null, 0);
                 Flags.set(Flags.REFRESH);
             }
         });
