@@ -163,8 +163,8 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
     protected final HashMap<Long, Boolean> completedItems = new HashMap<Long, Boolean>(0);
     protected OnCompletedTaskListener onCompletedTaskListener = null;
     public boolean isFling = false;
-    private final int resource;
-    private final LayoutInflater inflater;
+    protected final int resource;
+    protected final LayoutInflater inflater;
     private DetailLoaderThread detailLoader;
     private ActionsLoaderThread actionsLoader;
     private int fontSize;
@@ -174,7 +174,7 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
 
     private final AtomicReference<String> query;
 
-    private final int minRowHeight;
+    protected final int minRowHeight;
 
     // measure utilities
     protected final Paint paint;
@@ -1008,7 +1008,6 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
     public void notifyDataSetChanged() {
         super.notifyDataSetChanged();
         fontSize = Preferences.getIntegerFromString(R.string.p_fontSize, 18);
-
     }
 
     protected final View.OnClickListener completeBoxListener = new View.OnClickListener() {

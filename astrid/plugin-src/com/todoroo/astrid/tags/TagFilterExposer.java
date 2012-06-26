@@ -63,6 +63,8 @@ public class TagFilterExposer extends BroadcastReceiver implements AstridFilterE
     @Autowired TagDataService tagDataService;
     @Autowired GtasksPreferenceService gtasksPreferenceService;
 
+    protected boolean addUntaggedFilter = true;
+
     /** Create filter from new tag object */
     @SuppressWarnings("nls")
     public static FilterWithCustomIntent filterFromTag(Context context, Tag tag, Criterion criterion) {
@@ -165,7 +167,8 @@ public class TagFilterExposer extends BroadcastReceiver implements AstridFilterE
     }
 
     private FilterCategory filterFromTags(Tag[] tags, int name) {
-        Filter[] filters = new Filter[tags.length + 1];
+        int length = addUntaggedFilter ? tags.length + 1 : tags.length;
+        Filter[] filters = new Filter[length];
 
         Context context = ContextManager.getContext();
         Resources r = context.getResources();
@@ -174,18 +177,22 @@ public class TagFilterExposer extends BroadcastReceiver implements AstridFilterE
         int themeFlags = isTablet ? ThemeService.FLAG_FORCE_LIGHT : 0;
 
         // --- untagged
-        int untaggedLabel = gtasksPreferenceService.isLoggedIn() ?
-                R.string.tag_FEx_untagged_w_astrid : R.string.tag_FEx_untagged;
-        Filter untagged = new Filter(r.getString(untaggedLabel),
-                r.getString(R.string.tag_FEx_untagged),
-                TagService.untaggedTemplate(),
-                null);
-        untagged.listingIcon = ((BitmapDrawable)r.getDrawable(
-                ThemeService.getDrawable(R.drawable.gl_lists, themeFlags))).getBitmap();
-        filters[0] = untagged;
+        if (addUntaggedFilter) {
+            int untaggedLabel = gtasksPreferenceService.isLoggedIn() ?
+                    R.string.tag_FEx_untagged_w_astrid : R.string.tag_FEx_untagged;
+            Filter untagged = new Filter(r.getString(untaggedLabel),
+                    r.getString(R.string.tag_FEx_untagged),
+                    TagService.untaggedTemplate(),
+                    null);
+            untagged.listingIcon = ((BitmapDrawable)r.getDrawable(
+                    ThemeService.getDrawable(R.drawable.gl_lists, themeFlags))).getBitmap();
+            filters[0] = untagged;
+        }
 
-        for(int i = 0; i < tags.length; i++)
-            filters[i+1] = constructFilter(context, tags[i]);
+        for(int i = 0; i < tags.length; i++) {
+            int index = addUntaggedFilter ? i + 1 : i;
+            filters[index] = constructFilter(context, tags[i]);
+        }
         FilterCategory filter = new FilterCategory(context.getString(name), filters);
         return filter;
     }

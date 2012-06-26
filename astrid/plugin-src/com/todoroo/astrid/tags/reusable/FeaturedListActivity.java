@@ -1,28 +1,39 @@
 package com.todoroo.astrid.tags.reusable;
 
 import android.content.Intent;
-import android.os.Bundle;
 
-import com.timsu.astrid.R;
-import com.todoroo.astrid.activity.AstridActivity;
+import com.todoroo.andlib.utility.AndroidUtilities;
+import com.todoroo.astrid.activity.FilterListFragment;
 import com.todoroo.astrid.activity.TaskListActivity;
 import com.todoroo.astrid.activity.TaskListFragment;
-import com.todoroo.astrid.api.FilterListItem;
+import com.todoroo.astrid.ui.MainMenuPopover;
 
-public class FeaturedListActivity extends AstridActivity {
+public class FeaturedListActivity extends TaskListActivity {
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.featured_list_activity);
+    protected Class<? extends FilterListFragment> getFilterListClass() {
+        return FeaturedListFragment.class;
+    }
+
+
+    private static final int[] FORBIDDEN_MENU_ITEMS = {
+        TaskListFragment.MENU_NEW_FILTER_ID,
+        TaskListFragment.MENU_ADDONS_ID,
+        MainMenuPopover.MAIN_MENU_ITEM_FRIENDS
+    };
+
+    @Override
+    public boolean shouldAddMenuItem(int itemId) {
+        return AndroidUtilities.indexOf(FORBIDDEN_MENU_ITEMS, itemId) < 0;
     }
 
     @Override
-    public boolean onFilterItemClicked(FilterListItem item) {
-        Intent taskList = new Intent(this, TaskListActivity.class);
-        taskList.putExtra(TaskListFragment.TOKEN_FILTER, item);
-        startActivity(taskList);
-        return true;
-    }
+    public void mainMenuItemSelected(int item, Intent customIntent) {
+        if (item == MainMenuPopover.MAIN_MENU_ITEM_LISTS) {
+            finish();
+            return;
+        }
 
+        super.mainMenuItemSelected(item, customIntent);
+    }
 }

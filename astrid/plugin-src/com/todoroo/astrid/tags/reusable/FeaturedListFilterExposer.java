@@ -27,6 +27,7 @@ public class FeaturedListFilterExposer extends TagFilterExposer {
 
     @Override
     public void onReceive(Context context, Intent intent) {
+        addUntaggedFilter = false;
         FilterListItem[] listAsArray = prepareFilters(context);
 
         Intent broadcastIntent = new Intent(FeaturedListFilterAdapter.BROADCAST_SEND_FEATURED_LISTS);

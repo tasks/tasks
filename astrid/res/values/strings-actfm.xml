@@ -270,6 +270,10 @@
   <!-- share login: OAUTH Login Prompt -->
   <string name="actfm_OLA_prompt">Please log in:</string>
   
+  <!-- ================================================ Featured Lists -->
+
+  <string name="actfm_feat_list_clone">Copy this list</string>
+  
   <!-- ================================================ Synchronization == -->
       
   <string name="actfm_status_title_logged_in">Status - Logged in as %s</string>    

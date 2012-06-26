@@ -96,8 +96,6 @@ public class TagViewFragment extends TaskListFragment {
 
     private Filter originalFilter;
 
-    //private ImageAdapter galleryAdapter;
-
     // --- UI initialization
 
     @Override
@@ -142,12 +140,16 @@ public class TagViewFragment extends TaskListFragment {
      */
     @Override
     protected View getListBody(ViewGroup root) {
-        ViewGroup parent = (ViewGroup) getActivity().getLayoutInflater().inflate(R.layout.task_list_body_tag, root, false);
+        ViewGroup parent = (ViewGroup) getActivity().getLayoutInflater().inflate(getTaskListBodyLayout(), root, false);
 
         taskListView = super.getListBody(parent);
         parent.addView(taskListView);
 
         return parent;
+    }
+
+    protected int getTaskListBodyLayout() {
+        return R.layout.task_list_body_tag;
     }
 
     private void showListSettingsPopover() {
@@ -295,7 +297,7 @@ public class TagViewFragment extends TaskListFragment {
         Preferences.setLong(LAST_FETCH_KEY + tagData.getId(), DateUtilities.now());
     }
 
-    private void setUpMembersGallery() {
+    protected void setUpMembersGallery() {
         LinearLayout membersView = (LinearLayout)getView().findViewById(R.id.shared_with);
         membersView.setOnClickListener(settingsListener);
         try {
