@@ -16,6 +16,7 @@ import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.astrid.activity.TaskListFragment;
 import com.todoroo.astrid.adapter.TaskAdapter;
 import com.todoroo.astrid.data.Task;
+import com.todoroo.astrid.utility.Flags;
 
 public class ReusableTaskAdapter extends TaskAdapter {
 
@@ -46,8 +47,9 @@ public class ReusableTaskAdapter extends TaskAdapter {
         viewHolder.clone.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Clone task
-                System.err.println("Cloning task");
+                ReusableTaskViewHolder holder = (ReusableTaskViewHolder) v.getTag();
+                taskService.cloneReusableTask(holder.task);
+                Flags.set(Flags.REFRESH);
             }
         });
 

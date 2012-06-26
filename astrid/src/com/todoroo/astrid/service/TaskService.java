@@ -184,6 +184,19 @@ public class TaskService {
         return newTask;
     }
 
+    public Task cloneReusableTask(Task task) {
+        Task newTask = fetchById(task.getId(), Task.PROPERTIES);
+        if (newTask == null)
+            return new Task();
+        newTask.clearValue(Task.ID);
+        newTask.clearValue(Task.REMOTE_ID);
+        newTask.clearValue(Task.USER);
+        newTask.clearValue(Task.USER_ID);
+
+        taskDao.save(newTask);
+        return newTask;
+    }
+
     /**
      * Delete the given task. Instead of deleting from the database, we set
      * the deleted flag.

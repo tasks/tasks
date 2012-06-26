@@ -152,7 +152,7 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
     // --- instance variables
 
     @Autowired
-    private TaskService taskService;
+    protected TaskService taskService;
 
     public static int APPLY_LISTENERS_PARENT = 0;
     public static int APPLY_LISTENERS_ROW_BODY= 1;
