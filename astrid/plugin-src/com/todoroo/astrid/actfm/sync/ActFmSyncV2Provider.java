@@ -132,6 +132,8 @@ public class ActFmSyncV2Provider extends SyncV2Provider {
 
     private static final String LAST_TAG_FETCH_TIME = "actfm_lastTag"; //$NON-NLS-1$
 
+    private static final String LAST_FEATURED_TAG_FETCH_TIME = "actfm_last_featuredTag"; //$NON-NLS-1$
+
     private static final String LAST_USERS_FETCH_TIME = "actfm_lastUsers";  //$NON-NLS-1$
 
     // --- synchronize active tasks
@@ -143,9 +145,9 @@ public class ActFmSyncV2Provider extends SyncV2Provider {
         new Thread(new Runnable() {
             public void run() {
                 callback.started();
-                callback.incrementMax(140);
+                callback.incrementMax(160);
 
-                final AtomicInteger finisher = new AtomicInteger(4);
+                final AtomicInteger finisher = new AtomicInteger(5);
 
                 actFmPreferenceService.recordSyncStart();
                 updateUserStatus();
@@ -155,6 +157,8 @@ public class ActFmSyncV2Provider extends SyncV2Provider {
                 startTagFetcher(callback, finisher);
 
                 startUpdatesFetcher(manual, callback, finisher);
+
+                startFeaturedListFetcher(callback, finisher);
 
                 actFmSyncService.waitUntilEmpty();
                 startTaskFetcher(manual, callback, finisher);
@@ -252,7 +256,30 @@ public class ActFmSyncV2Provider extends SyncV2Provider {
                 }
             }
         });
+    }
 
+    /** fetch changes to tags */
+    private void startFeaturedListFetcher(final SyncResultCallback callback,
+            final AtomicInteger finisher) {
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                int time = Preferences.getInt(LAST_FEATURED_TAG_FETCH_TIME, 0);
+                try {
+                    time = actFmSyncService.fetchFeaturedLists(time);
+                    Preferences.setInt(LAST_FEATURED_TAG_FETCH_TIME, time);
+                } catch (JSONException e) {
+                    handler.handleException("actfm-sync", e, e.toString()); //$NON-NLS-1$
+                } catch (IOException e) {
+                    handler.handleException("actfm-sync", e, e.toString()); //$NON-NLS-1$
+                } finally {
+                    callback.incrementProgress(20);
+                    if(finisher.decrementAndGet() == 0) {
+                        finishSync(callback);
+                    }
+                }
+            }
+        }).start();
     }
 
     /** @return runnable to fetch changes to tags */

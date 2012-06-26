@@ -17,6 +17,7 @@ import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.ContextManager;
 import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.andlib.sql.Criterion;
+import com.todoroo.andlib.sql.Functions;
 import com.todoroo.andlib.sql.Join;
 import com.todoroo.andlib.sql.Query;
 import com.todoroo.astrid.dao.MetadataDao.MetadataCriteria;
@@ -197,6 +198,28 @@ public final class ActFmDataService {
                     TagService.getInstance().rename(tagData.getValue(TagData.NAME), tagObject.getString("name"));
                 tagDataService.delete(tagData.getId());
             }
+        } finally {
+            cursor.close();
+        }
+    }
+
+    @SuppressWarnings("nls")
+    public void saveFeaturedList(JSONObject featObject) throws JSONException {
+        TodorooCursor<TagData> cursor = tagDataService.query(Query.select(TagData.PROPERTIES).where(
+                Criterion.and(Functions.bitwiseAnd(TagData.FLAGS, TagData.FLAG_FEATURED).gt(0),TagData.REMOTE_ID.eq(featObject.get("id")))));
+        try {
+            cursor.moveToNext();
+            TagData tagData = new TagData();
+            if (!cursor.isAfterLast()) {
+                tagData.readFromCursor(cursor);
+                if(!tagData.getValue(TagData.NAME).equals(featObject.getString("name")))
+                    TagService.getInstance().rename(tagData.getValue(TagData.NAME), featObject.getString("name"));
+                cursor.moveToNext();
+            }
+            ActFmSyncService.JsonHelper.tagFromJson(featObject, tagData);
+            tagData.setFlag(TagData.FLAGS, TagData.FLAG_FEATURED, true);
+            tagDataService.save(tagData);
+
         } finally {
             cursor.close();
         }

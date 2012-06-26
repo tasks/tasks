@@ -833,6 +833,20 @@ public final class ActFmSyncService {
         return result.optInt("time", 0);
     }
 
+    public int fetchFeaturedLists(int serverTime) throws JSONException, IOException {
+        if (!checkForToken())
+            return 0;
+        JSONObject result = actFmInvoker.invoke("featured_lists",
+                "token", token, "modified_after", serverTime);
+        JSONArray featuredLists = result.getJSONArray("list");
+        for (int i = 0; i < featuredLists.length(); i++) {
+            JSONObject featObject = featuredLists.getJSONObject(i);
+            actFmDataService.saveFeaturedList(featObject);
+        }
+
+        return result.optInt("time", 0);
+    }
+
     public int fetchUsers() throws JSONException, IOException {
         if (!checkForToken())
             return 0;

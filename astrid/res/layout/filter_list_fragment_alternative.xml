@@ -10,10 +10,12 @@
     <!-- List -->
     <ListView android:id="@android:id/list"
         android:layout_width="fill_parent"
-        android:layout_height="230dip"
+        android:layout_height="370dip"
         android:layout_alignParentTop="true"
         android:scrollbars="vertical"
         android:divider="@android:color/transparent"
+        android:dividerHeight="1px"
+        android:background="@android:color/transparent"
         android:cacheColorHint="#00000000"/>
         
 </LinearLayout>

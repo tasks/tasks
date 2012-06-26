@@ -325,7 +325,7 @@ public final class TagService {
                 tagData.readFromCursor(cursor);
                 String tagName = tagData.getValue(TagData.NAME).trim();
                 Tag tag = new Tag(tagData);
-                if(tagData.getValue(TagData.DELETION_DATE) > 0 || tagData.getFlag(TagData.FLAGS, TagData.FLAG_EMERGENT)) {
+                if(tagData.getValue(TagData.DELETION_DATE) > 0 || tagData.getFlag(TagData.FLAGS, TagData.FLAG_EMERGENT) || tagData.getFlag(TagData.FLAGS, TagData.FLAG_FEATURED)) {
                     tags.remove(tagName);
                     continue;
                 }
@@ -336,6 +336,37 @@ public final class TagService {
                 Update update = tagDataService.getLatestUpdate(tagData);
                 if(update != null)
                     tag.updateText = ActFmPreferenceService.updateToString(update);
+            }
+        } finally {
+            cursor.close();
+        }
+        ArrayList<Tag> tagList = new ArrayList<Tag>(tags.values());
+        Collections.sort(tagList,
+                new Comparator<Tag>() {
+            @Override
+            public int compare(Tag object1, Tag object2) {
+                return object1.tag.compareToIgnoreCase(object2.tag);
+            }
+        });
+        return tagList;
+    }
+
+    public ArrayList<Tag> getFeaturedLists() {
+        HashMap<String, Tag> tags = new HashMap<String, Tag>();
+
+        TodorooCursor<TagData> cursor = tagDataService.query(Query.select(TagData.PROPERTIES)
+                .where(Functions.bitwiseAnd(TagData.FLAGS, TagData.FLAG_FEATURED).gt(0)));
+        try {
+            TagData tagData = new TagData();
+            for(cursor.moveToFirst(); !cursor.isAfterLast(); cursor.moveToNext()) {
+                tagData.readFromCursor(cursor);
+                if (tagData.getValue(TagData.DELETION_DATE) > 0)
+                    continue;
+                String tagName = tagData.getValue(TagData.NAME).trim();
+                Tag tag = new Tag(tagData);
+                if(TextUtils.isEmpty(tag.tag))
+                    continue;
+                tags.put(tagName, tag);
             }
         } finally {
             cursor.close();

@@ -4,6 +4,7 @@
 package com.todoroo.astrid.tags;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import android.app.Activity;
 import android.content.BroadcastReceiver;
@@ -140,7 +141,7 @@ public class TagFilterExposer extends BroadcastReceiver implements AstridFilterE
         context.sendBroadcast(broadcastIntent, AstridApiConstants.PERMISSION_READ);
     }
 
-    private FilterListItem[] prepareFilters(Context context) {
+    protected FilterListItem[] prepareFilters(Context context) {
         DependencyInjectionService.getInstance().inject(this);
         ContextManager.setContext(context);
 
@@ -154,9 +155,13 @@ public class TagFilterExposer extends BroadcastReceiver implements AstridFilterE
     }
 
     private void addTags(ArrayList<FilterListItem> list) {
-        ArrayList<Tag> tagList = TagService.getInstance().getTagList();
+        List<Tag> tagList = getTagList();
         list.add(filterFromTags(tagList.toArray(new Tag[tagList.size()]),
                 R.string.tag_FEx_header));
+    }
+
+    protected List<Tag> getTagList() {
+        return TagService.getInstance().getTagList();
     }
 
     private FilterCategory filterFromTags(Tag[] tags, int name) {

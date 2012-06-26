@@ -17,8 +17,8 @@ public class PeopleListFragment extends FilterListFragment {
     @Override
     protected int getLayout(Activity activity) {
         if (AndroidUtilities.isTabletSized(activity))
-            return R.layout.people_list_fragment_3pane;
+            return R.layout.filter_list_fragment_alternative_3pane;
         else
-            return R.layout.people_list_fragment;
+            return R.layout.filter_list_fragment_alternative;
     }
 }
