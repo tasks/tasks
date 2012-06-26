@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- See the file "LICENSE" for the full license governing this code. -->
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:astrid="http://schemas.android.com/apk/res/com.timsu.astrid"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:background="@android:drawable/list_selector_background"
+    android:orientation="horizontal">
+	    
+    <ImageView 
+        android:id="@+id/clone_task"
+        android:layout_width="45dip"
+        android:layout_height="45dip"
+        android:layout_centerVertical="true"
+        android:background="@android:color/black"/>
+
+    <!-- task name -->
+    <TextView
+        android:id="@+id/title"
+        style="@style/TextAppearance.TAd_ItemTitle"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="100"
+        android:gravity="center_vertical"
+        android:maxLines="2" />
+
+</LinearLayout>
