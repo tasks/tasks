@@ -24,6 +24,7 @@ public class MainMenuPopover extends FragmentPopover implements InterceptTouchLi
 
     public static final int MAIN_MENU_ITEM_LISTS = R.string.TLA_menu_lists;
     public static final int MAIN_MENU_ITEM_FRIENDS = R.string.TLA_menu_friends;
+    public static final int MAIN_MENU_ITEM_FEATURED_LISTS = R.string.TLA_menu_featured_lists;
     public static final int MAIN_MENU_ITEM_SEARCH = R.string.TLA_menu_search;
     public static final int MAIN_MENU_ITEM_SUGGESTIONS = R.string.TLA_menu_suggestions;
     public static final int MAIN_MENU_ITEM_SETTINGS = R.string.TLA_menu_settings;
@@ -106,6 +107,10 @@ public class MainMenuPopover extends FragmentPopover implements InterceptTouchLi
             addMenuItem(R.string.TLA_menu_friends,
                     ThemeService.getDrawable(R.drawable.icn_menu_friends, themeFlags),
                     MAIN_MENU_ITEM_FRIENDS, null, topFixed);
+
+        addMenuItem(R.string.TLA_menu_featured_lists,
+                0,
+                MAIN_MENU_ITEM_FEATURED_LISTS, null, topFixed);
 
         addMenuItem(R.string.TLA_menu_search,
                 ThemeService.getDrawable(R.drawable.icn_menu_search, themeFlags),

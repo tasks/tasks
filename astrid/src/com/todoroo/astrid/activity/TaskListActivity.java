@@ -49,6 +49,7 @@ import com.todoroo.astrid.service.StatisticsService;
 import com.todoroo.astrid.service.ThemeService;
 import com.todoroo.astrid.service.abtesting.ABTestEventReportingService;
 import com.todoroo.astrid.tags.TagService;
+import com.todoroo.astrid.tags.reusable.FeaturedListActivity;
 import com.todoroo.astrid.ui.DateChangedAlerts;
 import com.todoroo.astrid.ui.FragmentPopover;
 import com.todoroo.astrid.ui.MainMenuPopover;
@@ -641,6 +642,10 @@ public class TaskListActivity extends AstridActivity implements MainMenuListener
             return;
         case MainMenuPopover.MAIN_MENU_ITEM_SEARCH:
             onSearchRequested();
+            return;
+        case MainMenuPopover.MAIN_MENU_ITEM_FEATURED_LISTS:
+            Intent featured = new Intent(this, FeaturedListActivity.class);
+            startActivity(featured);
             return;
         case MainMenuPopover.MAIN_MENU_ITEM_FRIENDS:
             if (fragmentLayout != LAYOUT_SINGLE) {
