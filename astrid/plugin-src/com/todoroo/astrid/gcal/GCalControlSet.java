@@ -199,7 +199,7 @@ public class GCalControlSet extends PopupControlSet {
 
         } catch (Exception e) {
             Log.e("gcal-error", "Error opening calendar", e); //$NON-NLS-1$ //$NON-NLS-2$
-            Toast.makeText(activity, R.string.gcal_TEA_error, Toast.LENGTH_LONG);
+            Toast.makeText(activity, R.string.gcal_TEA_error, Toast.LENGTH_LONG).show();
         } finally {
             cursor.close();
         }

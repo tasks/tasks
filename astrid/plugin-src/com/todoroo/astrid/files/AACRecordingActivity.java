@@ -93,7 +93,7 @@ public class AACRecordingActivity extends Activity implements AACRecorderCallbac
             finish();
         } catch (IOException e) {
             e.printStackTrace();
-            Toast.makeText(this, R.string.audio_err_encoding, Toast.LENGTH_LONG);
+            Toast.makeText(this, R.string.audio_err_encoding, Toast.LENGTH_LONG).show();
         }
         if (pd != null)
             pd.dismiss();

@@ -231,7 +231,7 @@ public class FilesControlSet extends PopupControlSet {
             Bitmap bitmap = AndroidUtilities.readScaledBitmap(filePath);
 
             if (bitmap == null) {
-                Toast.makeText(activity, R.string.file_err_memory, Toast.LENGTH_LONG);
+                Toast.makeText(activity, R.string.file_err_memory, Toast.LENGTH_LONG).show();
                 return;
             }
 
@@ -326,7 +326,7 @@ public class FilesControlSet extends PopupControlSet {
                     activity.runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                            Toast.makeText(activity, R.string.file_err_download, Toast.LENGTH_LONG);
+                            Toast.makeText(activity, R.string.file_err_download, Toast.LENGTH_LONG).show();
                         }
                     });
                     return;
@@ -380,7 +380,7 @@ public class FilesControlSet extends PopupControlSet {
                     activity.runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                            Toast.makeText(activity, R.string.file_err_download, Toast.LENGTH_LONG);
+                            Toast.makeText(activity, R.string.file_err_download, Toast.LENGTH_LONG).show();
                         }
                     });
                 } finally {

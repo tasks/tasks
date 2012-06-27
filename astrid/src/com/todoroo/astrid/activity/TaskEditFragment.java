@@ -1044,7 +1044,7 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
     private void attachFile(String file) {
         File src = new File(file);
         if (!src.exists()) {
-            Toast.makeText(getActivity(), R.string.file_err_copy, Toast.LENGTH_LONG);
+            Toast.makeText(getActivity(), R.string.file_err_copy, Toast.LENGTH_LONG).show();
             return;
         }
 
@@ -1052,7 +1052,7 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
         try {
             AndroidUtilities.copyFile(src, dst);
         } catch (Exception e) {
-            Toast.makeText(getActivity(), R.string.file_err_copy, Toast.LENGTH_LONG);
+            Toast.makeText(getActivity(), R.string.file_err_copy, Toast.LENGTH_LONG).show();
             return;
         }
 
@@ -1085,7 +1085,7 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
 
             createNewFileAttachment(path, nameRef.get(), FileMetadata.FILE_TYPE_IMAGE + "png");
         } catch (Exception e) {
-            Toast.makeText(getActivity(), R.string.file_err_copy, Toast.LENGTH_LONG);
+            Toast.makeText(getActivity(), R.string.file_err_copy, Toast.LENGTH_LONG).show();
         }
     }
 

@@ -465,7 +465,7 @@ public class QuickAddBar extends LinearLayout implements RecognizerApiListener {
             errorStr = R.string.speech_err_network;
             break;
         case SpeechRecognizer.ERROR_NO_MATCH:
-            Toast.makeText(activity, R.string.speech_err_no_match, Toast.LENGTH_LONG);
+            Toast.makeText(activity, R.string.speech_err_no_match, Toast.LENGTH_LONG).show();
             break;
         default:
             errorStr = R.string.speech_err_default;
