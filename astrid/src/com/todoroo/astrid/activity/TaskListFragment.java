@@ -696,12 +696,14 @@ public class TaskListFragment extends ListFragment implements OnScrollListener,
                     || !AstridApiConstants.BROADCAST_EVENT_REFRESH.equals(intent.getAction()))
                 return;
 
-            Activity activity = getActivity();
+            final Activity activity = getActivity();
             if (activity != null) {
                 activity.runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
                         refresh();
+                        if (activity instanceof TaskListActivity)
+                            ((TaskListActivity) activity).refreshMainMenu();
                     }
                 });
             }

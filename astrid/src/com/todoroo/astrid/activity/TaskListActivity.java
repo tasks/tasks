@@ -695,7 +695,7 @@ public class TaskListActivity extends AstridActivity implements MainMenuListener
         getIntent().putExtra(FILTER_MODE, mode);
     }
 
-    private void refreshMainMenu() {
+    public void refreshMainMenu() {
         mainMenuPopover.refreshFixedItems();
         TypedValue tv = new TypedValue();
         getTheme().resolveAttribute(filterModeSpec.getMainMenuIconAttr(), tv, false);

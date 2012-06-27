@@ -842,6 +842,9 @@ public final class ActFmSyncService {
         JSONObject result = actFmInvoker.invoke("featured_lists",
                 "token", token, "modified_after", serverTime);
         JSONArray featuredLists = result.getJSONArray("list");
+        if (featuredLists.length() > 0)
+            Preferences.setBoolean(R.string.p_show_featured_lists, true);
+
         for (int i = 0; i < featuredLists.length(); i++) {
             JSONObject featObject = featuredLists.getJSONObject(i);
             actFmDataService.saveFeaturedList(featObject);
