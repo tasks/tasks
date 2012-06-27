@@ -1,8 +1,11 @@
 package com.todoroo.astrid.tags.reusable;
 
+import android.app.Activity;
+import android.app.ProgressDialog;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.timsu.astrid.R;
 import com.todoroo.andlib.data.TodorooCursor;
@@ -47,44 +50,57 @@ public class FeaturedTaskListFragment extends TagViewFragment {
     protected void setUpMembersGallery() {
         // Repurposed this method to set up listener for clone list button
         View clone = getView().findViewById(R.id.clone_list);
-        if (taskAdapter == null || taskAdapter.getCount() == 0) {
-            clone.setOnClickListener(null);
-        } else {
-            clone.setOnClickListener(new OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    // Clone list
-                    String localName = tagData.getValue(TagData.NAME) + " (Copy)";
-                    long remoteId = 0;
-                    TodorooCursor<TagData> existing = tagDataService.query(Query.select(TagData.REMOTE_ID)
-                            .where(TagData.NAME.eqCaseInsensitive(localName)));
-                    try {
-                        if (existing.getCount() > 0) {
-                            existing.moveToFirst();
-                            TagData match = new TagData(existing);
-                            remoteId = match.getValue(TagData.REMOTE_ID);
-                        }
-
-                    } finally {
-                        existing.close();
-                    }
-
-                    TodorooCursor<Task> tasks = taskService.fetchFiltered(taskAdapter.getQuery(), null, Task.PROPERTIES);
-                    try {
-                        Task t = new Task();
-                        for (tasks.moveToFirst(); !tasks.isAfterLast(); tasks.moveToNext()) {
-                            t.readFromCursor(tasks);
-                            taskService.cloneReusableTask(t,
-                                    localName, remoteId);
-                        }
-                        Flags.set(Flags.REFRESH);
-                        DialogUtilities.okDialog(getActivity(), "Success!", null);
-                    } finally {
-                        tasks.close();
-                    }
+        clone.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Clone list
+                if (taskAdapter == null || taskAdapter.getCount() == 0) {
+                    Toast.makeText(getActivity(), R.string.actfm_feat_list_clone_empty, Toast.LENGTH_LONG);
+                    return;
                 }
-            });
-        }
+                final String localName = tagData.getValue(TagData.NAME) + " " + getString(R.string.actfm_feat_list_suffix); //$NON-NLS-1$
+                long remoteId = 0;
+                TodorooCursor<TagData> existing = tagDataService.query(Query.select(TagData.REMOTE_ID)
+                        .where(TagData.NAME.eqCaseInsensitive(localName)));
+                try {
+                    if (existing.getCount() > 0) {
+                        existing.moveToFirst();
+                        TagData match = new TagData(existing);
+                        remoteId = match.getValue(TagData.REMOTE_ID);
+                    }
+
+                } finally {
+                    existing.close();
+                }
+
+                final ProgressDialog pd = DialogUtilities.progressDialog(getActivity(), getString(R.string.actfm_feat_list_cloning));
+
+                final long finalRemoteId = remoteId;
+                new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        TodorooCursor<Task> tasks = taskService.fetchFiltered(taskAdapter.getQuery(), null, Task.PROPERTIES);
+                        try {
+                            Task t = new Task();
+                            for (tasks.moveToFirst(); !tasks.isAfterLast(); tasks.moveToNext()) {
+                                t.readFromCursor(tasks);
+                                taskService.cloneReusableTask(t,
+                                        localName, finalRemoteId);
+                            }
+                            Activity activity = getActivity();
+                            if (activity != null) {
+                                DialogUtilities.dismissDialog(activity, pd);
+                                DialogUtilities.okDialog(activity, getString(R.string.actfm_feat_list_clone_success), null);
+                            }
+
+                            Flags.set(Flags.REFRESH);
+                        } finally {
+                            tasks.close();
+                        }
+                    }
+                }).start();
+            }
+        });
     }
 
     @Override

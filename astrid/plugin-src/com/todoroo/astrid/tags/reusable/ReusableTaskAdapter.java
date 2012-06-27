@@ -9,6 +9,7 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.timsu.astrid.R;
 import com.todoroo.andlib.data.TodorooCursor;
@@ -49,6 +50,7 @@ public class ReusableTaskAdapter extends TaskAdapter {
             public void onClick(View v) {
                 ReusableTaskViewHolder holder = (ReusableTaskViewHolder) v.getTag();
                 taskService.cloneReusableTask(holder.task, null, 0);
+                Toast.makeText(fragment.getActivity(), R.string.actfm_feat_list_task_clone_success, Toast.LENGTH_LONG);
                 Flags.set(Flags.REFRESH);
             }
         });
