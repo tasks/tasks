@@ -57,7 +57,7 @@ public class PeopleViewActivity extends TaskListActivity {
         return result;
     }
 
-    private static final int[] FORBIDDEN_MENU_ITEMS = {
+    public static final int[] FORBIDDEN_MENU_ITEMS = {
         TaskListFragment.MENU_NEW_FILTER_ID,
         TaskListFragment.MENU_ADDONS_ID,
         MainMenuPopover.MAIN_MENU_ITEM_FRIENDS

@@ -83,6 +83,7 @@ public class TaskListActivity extends AstridActivity implements MainMenuListener
     private ImageView mainMenu;
     private Button commentsButton;
     private int filterMode;
+    private int[] forbiddenMenuItems = {};
 
     private TaskListFragmentPager tlfPager;
     private TaskListFragmentPagerAdapter tlfPagerAdapter;
@@ -281,7 +282,7 @@ public class TaskListActivity extends AstridActivity implements MainMenuListener
             listsNav.setOnClickListener(popupMenuClickListener);
             createListsPopover();
             setupPopoverWithFilterList((FilterListFragment) setupFragment(FilterListFragment.TAG_FILTERLIST_FRAGMENT, 0,
-                    getFilterListClass(), true, false));
+                    getFilterFragmentClass(filterMode), true, false));
         }
     }
 
@@ -629,7 +630,7 @@ public class TaskListActivity extends AstridActivity implements MainMenuListener
 
     @Override
     public boolean shouldAddMenuItem(int itemId) {
-        return true;
+        return AndroidUtilities.indexOf(forbiddenMenuItems, itemId) < 0;
     }
 
     @Override
@@ -637,7 +638,7 @@ public class TaskListActivity extends AstridActivity implements MainMenuListener
         TaskListFragment tlf = getTaskListFragment();
         switch (item) {
         case MainMenuPopover.MAIN_MENU_ITEM_LISTS:
-            if (fragmentLayout == LAYOUT_SINGLE || filterMode == FILTER_MODE_NORMAL)
+            if (filterMode == FILTER_MODE_NORMAL)
                 listsNav.performClick();
             else
                 setFilterMode(FILTER_MODE_NORMAL);
@@ -646,20 +647,10 @@ public class TaskListActivity extends AstridActivity implements MainMenuListener
             onSearchRequested();
             return;
         case MainMenuPopover.MAIN_MENU_ITEM_FEATURED_LISTS:
-            if (fragmentLayout != LAYOUT_SINGLE) {
-                setFilterMode(FILTER_MODE_FEATURED);
-            } else {
-                Intent featured = new Intent(this, FeaturedListActivity.class);
-                startActivity(featured);
-            }
+            setFilterMode(FILTER_MODE_FEATURED);
             return;
         case MainMenuPopover.MAIN_MENU_ITEM_FRIENDS:
-            if (fragmentLayout != LAYOUT_SINGLE) {
-                setFilterMode(FILTER_MODE_PEOPLE);
-            } else {
-                Intent peopleIntent = new Intent(this, PeopleViewActivity.class);
-                startActivity(peopleIntent);
-            }
+            setFilterMode(FILTER_MODE_PEOPLE);
             return;
         case MainMenuPopover.MAIN_MENU_ITEM_SUGGESTIONS:
             // Doesn't exist yet
@@ -686,14 +677,34 @@ public class TaskListActivity extends AstridActivity implements MainMenuListener
 
     private void setFilterMode(int mode) {
         filterMode = mode;
-        setupFragment(FilterListFragment.TAG_FILTERLIST_FRAGMENT, R.id.filterlist_fragment_container,
-                getFilterFragmentClass(mode), false, true);
         refreshMainMenuForFilterMode(mode);
+        if (fragmentLayout == LAYOUT_SINGLE) {
+            createListsPopover();
+            setupPopoverWithFilterList((FilterListFragment) setupFragment(FilterListFragment.TAG_FILTERLIST_FRAGMENT, 0,
+                    getFilterFragmentClass(filterMode), true, true));
+            listsNav.performClick();
+        } else {
+            setupFragment(FilterListFragment.TAG_FILTERLIST_FRAGMENT, R.id.filterlist_fragment_container,
+                    getFilterFragmentClass(mode), false, true);
+        }
         getIntent().putExtra(FILTER_MODE, mode);
     }
 
-    private void refreshMainMenuForFilterMode(int filterMode) {
-        // TODO: IMPLEMENT ME!
+    private void refreshMainMenuForFilterMode(int mode) {
+        switch (mode) {
+        case FILTER_MODE_PEOPLE:
+            forbiddenMenuItems = PeopleViewActivity.FORBIDDEN_MENU_ITEMS;
+            break;
+        case FILTER_MODE_FEATURED:
+            forbiddenMenuItems = FeaturedListActivity.FORBIDDEN_MENU_ITEMS;
+            break;
+        case FILTER_MODE_NORMAL:
+        default:
+            forbiddenMenuItems = new int[0];
+            break;
+        }
+
+        mainMenuPopover.refreshFixedItems();
     }
 
     public MainMenuPopover getMainMenuPopover() {

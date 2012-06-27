@@ -41,6 +41,7 @@ public class MainMenuPopover extends FragmentPopover implements InterceptTouchLi
     private final LinearLayout bottomFixed;
     private final int rowLayout;
     private boolean suppressNextKeyEvent = false;
+    private final boolean isTablet;
 
     public void setMenuListener(MainMenuListener listener) {
         this.mListener = listener;
@@ -71,9 +72,11 @@ public class MainMenuPopover extends FragmentPopover implements InterceptTouchLi
         topFixed = (LinearLayout) getContentView().findViewById(R.id.topFixedItems);
         bottomFixed = (LinearLayout) getContentView().findViewById(R.id.bottomFixedItems);
 
+        this.isTablet = isTablet;
+
         mListener = listener;
 
-        addFixedItems(isTablet);
+        addFixedItems();
     }
 
     public boolean didInterceptTouch(KeyEvent event) {
@@ -97,7 +100,7 @@ public class MainMenuPopover extends FragmentPopover implements InterceptTouchLi
         super.setBackgroundDrawable(null);
     }
 
-    private void addFixedItems(boolean isTablet) {
+    private void addFixedItems() {
         int themeFlags = isTablet ? ThemeService.FLAG_FORCE_DARK : 0;
         addMenuItem(R.string.TLA_menu_lists,
                 ThemeService.getDrawable(R.drawable.icn_menu_lists, themeFlags),
@@ -118,6 +121,12 @@ public class MainMenuPopover extends FragmentPopover implements InterceptTouchLi
         addMenuItem(R.string.TLA_menu_settings,
                 ThemeService.getDrawable(R.drawable.icn_menu_settings, themeFlags),
                 MAIN_MENU_ITEM_SETTINGS, null, bottomFixed); // Settings item
+    }
+
+    public void refreshFixedItems() {
+        topFixed.removeAllViews();
+        bottomFixed.removeAllViews();
+        addFixedItems();
     }
 
     public void setFixedItemVisibility(int index, int visibility, boolean top) {
