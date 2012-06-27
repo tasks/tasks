@@ -515,7 +515,7 @@ public class TagViewFragment extends TaskListFragment {
 
     @Override
     protected boolean hasDraggableOption() {
-        return true;
+        return tagData != null && !tagData.getFlag(TagData.FLAGS, TagData.FLAG_FEATURED);
     }
 
     @Override
