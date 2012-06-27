@@ -12,6 +12,7 @@ import com.todoroo.andlib.data.TodorooCursor;
 import com.todoroo.andlib.service.ContextManager;
 import com.todoroo.andlib.sql.Criterion;
 import com.todoroo.andlib.sql.Functions;
+import com.todoroo.andlib.sql.Order;
 import com.todoroo.andlib.sql.Query;
 import com.todoroo.andlib.sql.QueryTemplate;
 import com.todoroo.astrid.actfm.TagViewFragment;
@@ -69,7 +70,11 @@ public class FeaturedListFilterExposer extends TagFilterExposer {
         .query(Query.select(TagData.PROPERTIES)
                 .where(Criterion.and(
                         Functions.bitwiseAnd(TagData.FLAGS, TagData.FLAG_FEATURED).gt(0),
-                        TagData.DELETION_DATE.eq(0))).limit(1));
+                        TagData.DELETION_DATE.eq(0),
+                        TagData.NAME.isNotNull(),
+                        TagData.NAME.neq(""))) //$NON-NLS-1$
+                        .orderBy(Order.asc(TagData.NAME))
+                        .limit(1));
         try {
             if (firstFilter.getCount() > 0) {
                 firstFilter.moveToFirst();
