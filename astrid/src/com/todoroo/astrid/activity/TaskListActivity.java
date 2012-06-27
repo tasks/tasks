@@ -42,14 +42,13 @@ import com.todoroo.astrid.api.FilterListItem;
 import com.todoroo.astrid.core.CoreFilterExposer;
 import com.todoroo.astrid.core.CustomFilterExposer;
 import com.todoroo.astrid.data.Task;
+import com.todoroo.astrid.people.PeopleFilterMode;
 import com.todoroo.astrid.people.PeopleListFragment;
-import com.todoroo.astrid.people.PeopleViewActivity;
 import com.todoroo.astrid.service.StatisticsConstants;
 import com.todoroo.astrid.service.StatisticsService;
 import com.todoroo.astrid.service.ThemeService;
 import com.todoroo.astrid.service.abtesting.ABTestEventReportingService;
 import com.todoroo.astrid.tags.TagService;
-import com.todoroo.astrid.tags.reusable.FeaturedListActivity;
 import com.todoroo.astrid.tags.reusable.FeaturedListFragment;
 import com.todoroo.astrid.ui.DateChangedAlerts;
 import com.todoroo.astrid.ui.FragmentPopover;
@@ -83,7 +82,7 @@ public class TaskListActivity extends AstridActivity implements MainMenuListener
     private ImageView mainMenu;
     private Button commentsButton;
     private int filterMode;
-    private int[] forbiddenMenuItems = {};
+    private FilterModeSpec filterModeSpec;
 
     private TaskListFragmentPager tlfPager;
     private TaskListFragmentPagerAdapter tlfPagerAdapter;
@@ -323,7 +322,7 @@ public class TaskListActivity extends AstridActivity implements MainMenuListener
         });
 
         if (isTablet)
-            refreshMainMenuForFilterMode(filterMode);
+            mainMenuPopover.refreshFixedItems();
     }
 
     private void setupPopoverWithFragment(FragmentPopover popover, Fragment frag, LayoutParams params) {
@@ -359,7 +358,9 @@ public class TaskListActivity extends AstridActivity implements MainMenuListener
         if (tef != null)
             onBackPressed();
 
-        return super.onFilterItemClicked(item);
+        boolean result = super.onFilterItemClicked(item);
+        filterModeSpec.onFilterItemClickedCallback(item);
+        return result;
     }
 
     private void setListsDropdownSelected(boolean selected) {
@@ -630,7 +631,7 @@ public class TaskListActivity extends AstridActivity implements MainMenuListener
 
     @Override
     public boolean shouldAddMenuItem(int itemId) {
-        return AndroidUtilities.indexOf(forbiddenMenuItems, itemId) < 0;
+        return AndroidUtilities.indexOf(filterModeSpec.getForbiddenMenuItems(), itemId) < 0;
     }
 
     @Override
@@ -677,7 +678,8 @@ public class TaskListActivity extends AstridActivity implements MainMenuListener
 
     private void setFilterMode(int mode) {
         filterMode = mode;
-        refreshMainMenuForFilterMode(mode);
+        filterModeSpec = getFilterModeSpec();
+        mainMenuPopover.refreshFixedItems();
         if (fragmentLayout == LAYOUT_SINGLE) {
             createListsPopover();
             setupPopoverWithFilterList((FilterListFragment) setupFragment(FilterListFragment.TAG_FILTERLIST_FRAGMENT, 0,
@@ -690,21 +692,13 @@ public class TaskListActivity extends AstridActivity implements MainMenuListener
         getIntent().putExtra(FILTER_MODE, mode);
     }
 
-    private void refreshMainMenuForFilterMode(int mode) {
-        switch (mode) {
+    private FilterModeSpec getFilterModeSpec() {
+        switch(filterMode) {
         case FILTER_MODE_PEOPLE:
-            forbiddenMenuItems = PeopleViewActivity.FORBIDDEN_MENU_ITEMS;
-            break;
-        case FILTER_MODE_FEATURED:
-            forbiddenMenuItems = FeaturedListActivity.FORBIDDEN_MENU_ITEMS;
-            break;
-        case FILTER_MODE_NORMAL:
+            return new PeopleFilterMode();
         default:
-            forbiddenMenuItems = new int[0];
-            break;
+            return null;
         }
-
-        mainMenuPopover.refreshFixedItems();
     }
 
     public MainMenuPopover getMainMenuPopover() {
