@@ -11,6 +11,7 @@ public interface FilterModeSpec {
     public int[] getForbiddenMenuItems();
     public Class<? extends FilterListFragment> getFilterListClass();
     public Filter getDefaultFilter(Context context);
+    public int getMainMenuIconAttr();
     public void onFilterItemClickedCallback(FilterListItem item);
 
 }

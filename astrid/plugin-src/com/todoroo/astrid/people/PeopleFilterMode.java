@@ -2,6 +2,7 @@ package com.todoroo.astrid.people;
 
 import android.content.Context;
 
+import com.timsu.astrid.R;
 import com.todoroo.astrid.activity.FilterListFragment;
 import com.todoroo.astrid.activity.FilterModeSpec;
 import com.todoroo.astrid.activity.TaskListFragment;
@@ -43,6 +44,11 @@ public class PeopleFilterMode implements FilterModeSpec {
     @Override
     public int[] getForbiddenMenuItems() {
         return FORBIDDEN_MENU_ITEMS;
+    }
+
+    @Override
+    public int getMainMenuIconAttr() {
+        return R.attr.asPeopleMenu;
     }
 
     private static final int[] FORBIDDEN_MENU_ITEMS = {

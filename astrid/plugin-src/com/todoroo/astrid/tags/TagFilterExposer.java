@@ -60,7 +60,7 @@ public class TagFilterExposer extends BroadcastReceiver implements AstridFilterE
 
     private static final String TAG = "tag"; //$NON-NLS-1$
 
-    @Autowired TagDataService tagDataService;
+    @Autowired protected TagDataService tagDataService;
     @Autowired GtasksPreferenceService gtasksPreferenceService;
 
     protected boolean addUntaggedFilter = true;

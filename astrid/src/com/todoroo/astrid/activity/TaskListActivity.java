@@ -39,17 +39,15 @@ import com.todoroo.astrid.adapter.TaskListFragmentPagerAdapter;
 import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.api.FilterListItem;
-import com.todoroo.astrid.core.CoreFilterExposer;
 import com.todoroo.astrid.core.CustomFilterExposer;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.people.PeopleFilterMode;
-import com.todoroo.astrid.people.PeopleListFragment;
 import com.todoroo.astrid.service.StatisticsConstants;
 import com.todoroo.astrid.service.StatisticsService;
 import com.todoroo.astrid.service.ThemeService;
 import com.todoroo.astrid.service.abtesting.ABTestEventReportingService;
 import com.todoroo.astrid.tags.TagService;
-import com.todoroo.astrid.tags.reusable.FeaturedListFragment;
+import com.todoroo.astrid.tags.reusable.FeaturedListFilterMode;
 import com.todoroo.astrid.ui.DateChangedAlerts;
 import com.todoroo.astrid.ui.FragmentPopover;
 import com.todoroo.astrid.ui.MainMenuPopover;
@@ -223,7 +221,7 @@ public class TaskListActivity extends AstridActivity implements MainMenuListener
     }
 
     protected Filter getDefaultFilter() {
-        return CoreFilterExposer.buildInboxFilter(getResources());
+        return filterModeSpec.getDefaultFilter(this);
     }
 
     private boolean swipeIsEnabled() {
@@ -257,6 +255,7 @@ public class TaskListActivity extends AstridActivity implements MainMenuListener
         View filterFragment = findViewById(R.id.filterlist_fragment_container);
         View editFragment = findViewById(R.id.taskedit_fragment_container);
         filterMode = getIntent().getIntExtra(FILTER_MODE, FILTER_MODE_NORMAL);
+        updateFilterModeSpec(filterMode);
 
         if (filterFragment != null) {
             actionBar.setDisplayHomeAsUpEnabled(false);
@@ -274,14 +273,14 @@ public class TaskListActivity extends AstridActivity implements MainMenuListener
             }
 
             setupFragment(FilterListFragment.TAG_FILTERLIST_FRAGMENT,
-                    R.id.filterlist_fragment_container, getFilterFragmentClass(filterMode), false, false);
+                    R.id.filterlist_fragment_container, filterModeSpec.getFilterListClass(), false, false);
         } else {
             fragmentLayout = LAYOUT_SINGLE;
             actionBar.setDisplayHomeAsUpEnabled(true);
             listsNav.setOnClickListener(popupMenuClickListener);
             createListsPopover();
             setupPopoverWithFilterList((FilterListFragment) setupFragment(FilterListFragment.TAG_FILTERLIST_FRAGMENT, 0,
-                    getFilterFragmentClass(filterMode), true, false));
+                    filterModeSpec.getFilterListClass(), true, false));
         }
     }
 
@@ -664,40 +663,44 @@ public class TaskListActivity extends AstridActivity implements MainMenuListener
         tlf.handleOptionsMenuItemSelected(item, customIntent);
     }
 
-    private Class<? extends FilterListFragment> getFilterFragmentClass(int mode) {
-        switch (mode) {
-        case FILTER_MODE_PEOPLE:
-            return PeopleListFragment.class;
-        case FILTER_MODE_FEATURED:
-            return FeaturedListFragment.class;
-        case FILTER_MODE_NORMAL:
-        default:
-            return FilterListFragment.class;
-        }
-    }
-
     private void setFilterMode(int mode) {
         filterMode = mode;
-        filterModeSpec = getFilterModeSpec();
-        mainMenuPopover.refreshFixedItems();
+        updateFilterModeSpec(mode);
+
+        refreshMainMenu();
         if (fragmentLayout == LAYOUT_SINGLE) {
             createListsPopover();
             setupPopoverWithFilterList((FilterListFragment) setupFragment(FilterListFragment.TAG_FILTERLIST_FRAGMENT, 0,
-                    getFilterFragmentClass(filterMode), true, true));
-            listsNav.performClick();
+                    filterModeSpec.getFilterListClass(), true, true));
         } else {
             setupFragment(FilterListFragment.TAG_FILTERLIST_FRAGMENT, R.id.filterlist_fragment_container,
-                    getFilterFragmentClass(mode), false, true);
+                    filterModeSpec.getFilterListClass(), false, true);
         }
+
+        onFilterItemClicked(getDefaultFilter());
+        if (fragmentLayout == LAYOUT_SINGLE)
+            listsNav.performClick();
         getIntent().putExtra(FILTER_MODE, mode);
     }
 
-    private FilterModeSpec getFilterModeSpec() {
-        switch(filterMode) {
+    private void refreshMainMenu() {
+        mainMenuPopover.refreshFixedItems();
+        TypedValue tv = new TypedValue();
+        getTheme().resolveAttribute(filterModeSpec.getMainMenuIconAttr(), tv, false);
+        mainMenu.setImageResource(tv.data);
+    }
+
+    private void updateFilterModeSpec(int mode) {
+        switch(mode) {
         case FILTER_MODE_PEOPLE:
-            return new PeopleFilterMode();
+            filterModeSpec = new PeopleFilterMode();
+            break;
+        case FILTER_MODE_FEATURED:
+            filterModeSpec = new FeaturedListFilterMode();
+            break;
+        case FILTER_MODE_NORMAL:
         default:
-            return null;
+            filterModeSpec = new DefaultFilterMode();
         }
     }
 

@@ -8,8 +8,11 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 
+import com.todoroo.andlib.data.TodorooCursor;
 import com.todoroo.andlib.service.ContextManager;
 import com.todoroo.andlib.sql.Criterion;
+import com.todoroo.andlib.sql.Functions;
+import com.todoroo.andlib.sql.Query;
 import com.todoroo.andlib.sql.QueryTemplate;
 import com.todoroo.astrid.actfm.TagViewFragment;
 import com.todoroo.astrid.api.AstridApiConstants;
@@ -17,7 +20,9 @@ import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.api.FilterListItem;
 import com.todoroo.astrid.api.FilterWithCustomIntent;
 import com.todoroo.astrid.api.FilterWithUpdate;
+import com.todoroo.astrid.core.PluginServices;
 import com.todoroo.astrid.data.Metadata;
+import com.todoroo.astrid.data.TagData;
 import com.todoroo.astrid.data.TaskApiDao.TaskCriteria;
 import com.todoroo.astrid.tags.TagFilterExposer;
 import com.todoroo.astrid.tags.TagService;
@@ -57,6 +62,26 @@ public class FeaturedListFilterExposer extends TagFilterExposer {
         filter.customExtras = extras;
 
         return filter;
+    }
+
+    public static Filter getDefaultFilter() {
+        TodorooCursor<TagData> firstFilter = PluginServices.getTagDataService()
+        .query(Query.select(TagData.PROPERTIES)
+                .where(Criterion.and(
+                        Functions.bitwiseAnd(TagData.FLAGS, TagData.FLAG_FEATURED).gt(0),
+                        TagData.DELETION_DATE.eq(0))).limit(1));
+        try {
+            if (firstFilter.getCount() > 0) {
+                firstFilter.moveToFirst();
+                TagData tagData = new TagData(firstFilter);
+                Tag tag = new Tag(tagData);
+                return filterFromFeaturedList(tag, TaskCriteria.activeAndVisible());
+            } else {
+                return null;
+            }
+        } finally {
+            firstFilter.close();
+        }
     }
 
     @Override
