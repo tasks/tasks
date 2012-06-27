@@ -41,6 +41,7 @@ import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.api.FilterListItem;
 import com.todoroo.astrid.core.CustomFilterExposer;
 import com.todoroo.astrid.data.Task;
+import com.todoroo.astrid.helper.AsyncImageView;
 import com.todoroo.astrid.people.PeopleFilterMode;
 import com.todoroo.astrid.service.StatisticsConstants;
 import com.todoroo.astrid.service.StatisticsService;
@@ -78,6 +79,7 @@ public class TaskListActivity extends AstridActivity implements MainMenuListener
     private ImageView listsNavDisclosure;
     private TextView lists;
     private ImageView mainMenu;
+    private AsyncImageView personImage;
     private Button commentsButton;
     private int filterMode;
     private FilterModeSpec filterModeSpec;
@@ -150,6 +152,8 @@ public class TaskListActivity extends AstridActivity implements MainMenuListener
         listsNavDisclosure = (ImageView) actionBar.getCustomView().findViewById(R.id.list_disclosure_arrow);
         lists = (TextView) actionBar.getCustomView().findViewById(R.id.list_title);
         mainMenu = (ImageView) actionBar.getCustomView().findViewById(R.id.main_menu);
+        personImage = (AsyncImageView) actionBar.getCustomView().findViewById(R.id.person_image);
+        personImage.setDefaultImageResource(R.drawable.icn_default_person_image);
         commentsButton = (Button) actionBar.getCustomView().findViewById(R.id.comments);
 
         initializeFragments(actionBar);
@@ -672,6 +676,14 @@ public class TaskListActivity extends AstridActivity implements MainMenuListener
             createListsPopover();
             setupPopoverWithFilterList((FilterListFragment) setupFragment(FilterListFragment.TAG_FILTERLIST_FRAGMENT, 0,
                     filterModeSpec.getFilterListClass(), true, true));
+            if (mode == FILTER_MODE_PEOPLE) {
+                personImage.setVisibility(View.VISIBLE);
+                commentsButton.setVisibility(View.GONE);
+                ((PeopleFilterMode) filterModeSpec).setImageView(personImage);
+            } else {
+                personImage.setVisibility(View.GONE);
+                commentsButton.setVisibility(View.VISIBLE);
+            }
         } else {
             setupFragment(FilterListFragment.TAG_FILTERLIST_FRAGMENT, R.id.filterlist_fragment_container,
                     filterModeSpec.getFilterListClass(), false, true);
