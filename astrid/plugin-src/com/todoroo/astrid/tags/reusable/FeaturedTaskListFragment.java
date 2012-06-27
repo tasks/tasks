@@ -55,7 +55,7 @@ public class FeaturedTaskListFragment extends TagViewFragment {
             public void onClick(View v) {
                 // Clone list
                 if (taskAdapter == null || taskAdapter.getCount() == 0) {
-                    Toast.makeText(getActivity(), R.string.actfm_feat_list_clone_empty, Toast.LENGTH_LONG);
+                    Toast.makeText(getActivity(), R.string.actfm_feat_list_clone_empty, Toast.LENGTH_LONG).show();
                     return;
                 }
                 final String localName = tagData.getValue(TagData.NAME) + " " + getString(R.string.actfm_feat_list_suffix); //$NON-NLS-1$
