@@ -50,6 +50,7 @@ import com.todoroo.astrid.service.ThemeService;
 import com.todoroo.astrid.service.abtesting.ABTestEventReportingService;
 import com.todoroo.astrid.tags.TagService;
 import com.todoroo.astrid.tags.reusable.FeaturedListActivity;
+import com.todoroo.astrid.tags.reusable.FeaturedListFragment;
 import com.todoroo.astrid.ui.DateChangedAlerts;
 import com.todoroo.astrid.ui.FragmentPopover;
 import com.todoroo.astrid.ui.MainMenuPopover;
@@ -69,7 +70,10 @@ public class TaskListActivity extends AstridActivity implements MainMenuListener
 
     public static final String OPEN_TASK = "openTask"; //$NON-NLS-1$
 
-    private static final String PEOPLE_VIEW = "peopleView";  //$NON-NLS-1$
+    private static final String FILTER_MODE = "filterMode"; //$NON-NLS-1$
+    private static final int FILTER_MODE_NORMAL = 0;
+    private static final int FILTER_MODE_PEOPLE = 1;
+    private static final int FILTER_MODE_FEATURED = 2;
 
     @Autowired private ABTestEventReportingService abTestEventReportingService;
 
@@ -78,6 +82,7 @@ public class TaskListActivity extends AstridActivity implements MainMenuListener
     private TextView lists;
     private ImageView mainMenu;
     private Button commentsButton;
+    private int filterMode;
 
     private TaskListFragmentPager tlfPager;
     private TaskListFragmentPagerAdapter tlfPagerAdapter;
@@ -251,6 +256,7 @@ public class TaskListActivity extends AstridActivity implements MainMenuListener
     protected void initializeFragments(ActionBar actionBar) {
         View filterFragment = findViewById(R.id.filterlist_fragment_container);
         View editFragment = findViewById(R.id.taskedit_fragment_container);
+        filterMode = getIntent().getIntExtra(FILTER_MODE, FILTER_MODE_NORMAL);
 
         if (filterFragment != null) {
             actionBar.setDisplayHomeAsUpEnabled(false);
@@ -267,12 +273,8 @@ public class TaskListActivity extends AstridActivity implements MainMenuListener
                 }
             }
 
-            boolean peopleView = getIntent().getBooleanExtra(PEOPLE_VIEW, false);
-            Class<? extends FilterListFragment> filterFragmentClass =
-                    peopleView ? PeopleListFragment.class : FilterListFragment.class;
-
             setupFragment(FilterListFragment.TAG_FILTERLIST_FRAGMENT,
-                    R.id.filterlist_fragment_container, filterFragmentClass, false, false);
+                    R.id.filterlist_fragment_container, getFilterFragmentClass(filterMode), false, false);
         } else {
             fragmentLayout = LAYOUT_SINGLE;
             actionBar.setDisplayHomeAsUpEnabled(true);
@@ -320,7 +322,7 @@ public class TaskListActivity extends AstridActivity implements MainMenuListener
         });
 
         if (isTablet)
-            setupMainMenuForPeopleViewState(getIntent().getBooleanExtra(PEOPLE_VIEW, false));
+            refreshMainMenuForFilterMode(filterMode);
     }
 
     private void setupPopoverWithFragment(FragmentPopover popover, Fragment frag, LayoutParams params) {
@@ -635,21 +637,25 @@ public class TaskListActivity extends AstridActivity implements MainMenuListener
         TaskListFragment tlf = getTaskListFragment();
         switch (item) {
         case MainMenuPopover.MAIN_MENU_ITEM_LISTS:
-            if (fragmentLayout == LAYOUT_SINGLE)
+            if (fragmentLayout == LAYOUT_SINGLE || filterMode == FILTER_MODE_NORMAL)
                 listsNav.performClick();
             else
-                togglePeopleView();
+                setFilterMode(FILTER_MODE_NORMAL);
             return;
         case MainMenuPopover.MAIN_MENU_ITEM_SEARCH:
             onSearchRequested();
             return;
         case MainMenuPopover.MAIN_MENU_ITEM_FEATURED_LISTS:
-            Intent featured = new Intent(this, FeaturedListActivity.class);
-            startActivity(featured);
+            if (fragmentLayout != LAYOUT_SINGLE) {
+                setFilterMode(FILTER_MODE_FEATURED);
+            } else {
+                Intent featured = new Intent(this, FeaturedListActivity.class);
+                startActivity(featured);
+            }
             return;
         case MainMenuPopover.MAIN_MENU_ITEM_FRIENDS:
             if (fragmentLayout != LAYOUT_SINGLE) {
-                togglePeopleView();
+                setFilterMode(FILTER_MODE_PEOPLE);
             } else {
                 Intent peopleIntent = new Intent(this, PeopleViewActivity.class);
                 startActivity(peopleIntent);
@@ -666,27 +672,28 @@ public class TaskListActivity extends AstridActivity implements MainMenuListener
         tlf.handleOptionsMenuItemSelected(item, customIntent);
     }
 
-    private void togglePeopleView() {
-        FilterListFragment flf = getFilterListFragment();
-        boolean peopleMode = !(flf instanceof PeopleListFragment);
-        if (peopleMode)
-            setupFragment(FilterListFragment.TAG_FILTERLIST_FRAGMENT, R.id.filterlist_fragment_container,
-                    PeopleListFragment.class, false, true);
-        else
-            setupFragment(FilterListFragment.TAG_FILTERLIST_FRAGMENT,
-                    R.id.filterlist_fragment_container, FilterListFragment.class, false, true);
-
-        setupMainMenuForPeopleViewState(peopleMode);
-        getIntent().putExtra(PEOPLE_VIEW, peopleMode);
+    private Class<? extends FilterListFragment> getFilterFragmentClass(int mode) {
+        switch (mode) {
+        case FILTER_MODE_PEOPLE:
+            return PeopleListFragment.class;
+        case FILTER_MODE_FEATURED:
+            return FeaturedListFragment.class;
+        case FILTER_MODE_NORMAL:
+        default:
+            return FilterListFragment.class;
+        }
     }
 
-    private void setupMainMenuForPeopleViewState(boolean inPeopleMode) {
-        mainMenuPopover.setFixedItemVisibility(0, inPeopleMode ? View.VISIBLE : View.GONE, true);
-        mainMenuPopover.setFixedItemVisibility(1, inPeopleMode ? View.GONE : View.VISIBLE, true);
+    private void setFilterMode(int mode) {
+        filterMode = mode;
+        setupFragment(FilterListFragment.TAG_FILTERLIST_FRAGMENT, R.id.filterlist_fragment_container,
+                getFilterFragmentClass(mode), false, true);
+        refreshMainMenuForFilterMode(mode);
+        getIntent().putExtra(FILTER_MODE, mode);
+    }
 
-        TypedValue tv = new TypedValue();
-        getTheme().resolveAttribute(inPeopleMode ? R.attr.asPeopleMenu : R.attr.asMainMenu, tv, false);
-        mainMenu.setImageResource(tv.data);
+    private void refreshMainMenuForFilterMode(int filterMode) {
+        // TODO: IMPLEMENT ME!
     }
 
     public MainMenuPopover getMainMenuPopover() {
