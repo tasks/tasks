@@ -327,6 +327,9 @@
   <!-- Task title hint (displayed when edit box is empty) -->
   <string name="TEA_title_hint">Task Summary</string>
   
+  <!-- Task importance label -->
+  <string name="TEA_importance_label">Importance</string>
+  
   <!-- Task urgency label -->
   <string name="TEA_urgency_label">Deadline</string>
   
@@ -429,6 +432,8 @@
   <string name="TEA_control_lists">Lists</string>  
   <!-- slide 16c/35e -->
   <string name="TEA_control_notes">Notes</string>  
+  
+  <string name="TEA_control_files">Files</string>
 
   <!-- slide 16e / slide 35g-->
   <string name="TEA_control_reminders">Reminders</string>
