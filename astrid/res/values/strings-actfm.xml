@@ -7,7 +7,7 @@
   <!-- People Editing Activity -->    
   <string name="EPE_action">Share</string>
   
-  <!-- task sharing dialog: assigned hint -->
+  <!-- slide 18b/ 25e/ 27c: task sharing dialog: assigned hint -->
   <string name="actfm_person_hint">Contact or Email</string>
   
   <!-- task sharing dialog: shared with hint -->
@@ -22,10 +22,10 @@
   <!-- warning before deleting a list you're the owner of -->
   <string name="actfm_tag_operation_owner_delete">You are the owner of this shared list! If you delete it, it will be deleted for all list members. Are you sure you want to continue?</string>
 
-  <!-- menu item to take a picture -->
+  <!-- slide 29a: menu item to take a picture -->
   <string name="actfm_picture_camera">Take a Picture</string>
 
-  <!-- menu item to select from gallery -->
+  <!-- slide 29b: menu item to select from gallery -->
   <string name="actfm_picture_gallery">Pick from Gallery</string>
   
   <!-- menu item to clear picture selection -->
@@ -46,7 +46,7 @@
   <!-- Cancel button for task view prompt -->
   <string name="actfm_view_task_cancel">Stay Here</string>
   
-  <!-- Title for the "My Shared Tasks" filter -->
+  <!-- slide 13a: Title for the "My Shared Tasks" filter -->
   <string name="actfm_my_shared_tasks_title">My Shared Tasks</string>
   
   <!-- Empty list for the "My Shared Tasks" filter -->
@@ -91,7 +91,7 @@
   <!-- Tag Settings: tag owner value when there is no owner -->
   <string name="actfm_TVA_tag_owner_none">none</string>
 
-  <!-- Tag Settings: list collaborators label -->
+  <!-- slide 26a and 27b: Tag Settings: list collaborators label -->
   <string name="actfm_TVA_members_label">Shared With</string>
   
   <!-- Tag Settings: list collaborators hint -->
@@ -100,22 +100,22 @@
   <!-- Tag Settings: tag picture -->
   <string name="actfm_TVA_tag_picture">List Picture</string>
 
-  <!-- Tag Settings: silence notifications label -->
+  <!-- slide 25c/28b: Tag Settings: silence notifications label -->
   <string name="actfm_TVA_silence_label">Silence Notifications</string>
   
   <!-- Tag Settings: list icon label -->
   <string name="actfm_TVA_list_icon_label">List Icon:</string>
   
-  <!-- Tag Settings: list description label -->
+  <!-- slide 25b/27d: Tag Settings: list description label -->
   <string name="actfm_TVA_tag_description_label">Description</string>
   
-  <!-- Tag Settings: list settings label -->
+  <!-- slide 28a: Tag Settings: list settings label -->
   <string name="actfm_TVA_tag_settings_label">Settings</string>
 
-  <!-- Tag Settings: list description hint -->
+  <!-- slide 25b: Tag Settings: list description hint -->
   <string name="actfm_TVA_tag_description_hint">Type a description here</string>
   
-  <!-- Tag Settings: list name hint -->
+  <!-- slide 25d: Tag Settings: list name hint -->
   <string name="actfm_TVA_tag_name_hint">Enter list name</string>
   
   <!-- Tag settings: login prompt from share-->
@@ -136,7 +136,7 @@
   <!-- task sharing dialog: assigned label -->
   <string name="actfm_EPA_assign_label">Who</string>
   
-  <!-- task sharing dialog: assigned label long version -->
+  <!-- slide 18a: task sharing dialog: assigned label long version -->
   <string name="actfm_EPA_assign_label_long">Who should do this?</string>
   
   <!-- task sharing dialog: assigned to me -->
@@ -145,10 +145,10 @@
   <!-- task sharing dialog: anyone -->
   <string name="actfm_EPA_unassigned">Unassigned</string>
   
-  <!-- task sharing dialog: choose a contact -->
+  <!-- slide 18c: task sharing dialog: choose a contact -->
   <string name="actfm_EPA_choose_contact">Choose a contact</string>
   
-  <!-- task sharing dialog: use task rabbit -->
+  <!-- slide 17a: task sharing dialog: use task rabbit -->
   <string name="actfm_EPA_task_rabbit">Outsource it!</string>
   
   <!-- task sharing dialog: custom email assignment -->

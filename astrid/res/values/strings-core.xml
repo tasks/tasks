@@ -4,7 +4,7 @@
 
   <!-- ================================================== AndroidManifest == -->
 
-  <!-- Application Name (shown on home screen & in launcher) -->
+  <!-- slide 32k: Application Name (shown on home screen & in launcher) -->
   <string name="app_name">Astrid Tasks</string>
   
   <!-- permission title for READ_TASKS -->
@@ -58,9 +58,10 @@
   
   <!-- Dialog - dismiss -->
   <string name="DLG_dismiss">Dismiss</string>
-  
+
+  <!-- slide 20d -->
   <string name="DLG_ok">OK</string>
-  
+  <!-- slide 36g -->
   <string name="DLG_cancel">Cancel</string>
   
   <string name="DLG_more">More</string>
@@ -99,7 +100,7 @@
   
   <!-- ================================================= TaskListActivity == -->
   
-  <!-- Task List: Displayed instead of list when no items present -->    
+  <!-- slide 8b: Task List: Displayed instead of list when no items present -->    
   <string name="TLA_no_items">You have no tasks! \n Want to add something?</string>
   
   <!-- Task List: Displayed instead of list when no items present in people view (%s-> person's name) -->    
@@ -132,7 +133,7 @@
   <!-- Menu: Settings -->    
   <string name="TLA_menu_settings">Settings</string>
   
-  <!-- Menu: Support -->
+  <!-- slide 30b: Menu: Support -->
   <string name="TLA_menu_support">Support</string>
   
   <!-- Search Label-->
@@ -141,7 +142,7 @@
   <!-- Window title for displaying Custom Filter -->
   <string name="TLA_custom">Custom</string>
   
-  <!-- Quick Add Edit Box Hint-->
+  <!-- slide 8d: Quick Add Edit Box Hint-->
   <string name="TLA_quick_add_hint">Add a task</string>
   
   <!-- Quick Add Edit Box Hint for assigning (%s -> name)-->
@@ -186,7 +187,7 @@
       <item>medium priority</item>
       <item>low priority</item>
   </string-array>
-  
+  <!-- slide 22a -->
   <string name="TLA_all_activity">All Activity</string>
   
   <!-- ====================================================== TaskAdapter == -->
@@ -200,10 +201,10 @@
   <!-- Displayed when adapter is flung (scrolled quickly) -->
   <string name="TAd_flingText"></string>
   
-  <!-- indicates task was completed. %s => date or time ago -->
+  <!-- slide 22b: indicates task was completed. %s => date or time ago -->
   <string name="TAd_completed">Finished\n%s</string>
   
-  <!-- Action Button: edit task -->
+  <!-- slide 15a: Action Button: edit task -->
   <string name="TAd_actionEditTask">Edit</string>
   
   <!-- Context Item: edit task -->
@@ -223,10 +224,10 @@
   
   <!-- ============================================== SortSelectionDialog == -->
   
-  <!-- Sort Selection: dialog title -->    
+  <!-- slide 23a: Sort Selection: dialog title -->    
   <string name="SSD_title">Sort, Subtasks, and Hidden</string>
   
-  <!-- Hidden: title -->
+  <!-- slide 23h:  Hidden: title -->
   <string name="SSD_hidden_title">Hidden Tasks</string>
   
   <!-- Hidden Task Selection: show completed tasks -->    
@@ -241,28 +242,28 @@
   <!-- Sort Selection: drag with subtasks -->
   <string name="SSD_sort_drag">Drag &amp; Drop with Subtasks</string>
   
-  <!-- Sort Selection: smart sort -->
+  <!-- slide 23b: Sort Selection: smart sort -->
   <string name="SSD_sort_auto">Astrid Smart Sort</string>
   
-  <!-- Sort Selection: sort by alpha -->
+  <!-- slide 23e: Sort Selection: sort by alpha -->
   <string name="SSD_sort_alpha">By Title</string>
   
-  <!-- Sort Selection: sort by due date -->
+  <!-- slide 23c: Sort Selection: sort by due date -->
   <string name="SSD_sort_due">By Due Date</string>
   
-  <!-- Sort Selection: sort by importance -->
+  <!-- slide 23d: Sort Selection: sort by importance -->
   <string name="SSD_sort_importance">By Importance</string>
   
-  <!-- Sort Selection: sort by modified date -->
+  <!-- slide 23f: Sort Selection: sort by modified date -->
   <string name="SSD_sort_modified">By Last Modified</string>
   
-  <!-- Sort Selection: reverse -->
+  <!-- slide 23g: Sort Selection: reverse -->
   <string name="SSD_sort_reverse">Reverse Sort</string>
   
-  <!-- Sort Button: sort temporarily -->
+  <!-- slide 23j: Sort Button: sort temporarily -->
   <string name="SSD_save_temp">Just Once</string>
   
-  <!-- Sort Button: sort permanently -->
+  <!-- slide 23i: Sort Button: sort permanently -->
   <string name="SSD_save_always">Always</string>
   
   <!-- =============================================== FilterListActivity == -->
@@ -285,7 +286,7 @@
   <!-- Menu: Help -->    
   <string name="FLA_menu_help">Help</string>
   
-  <!-- Create Shortcut Dialog Title -->    
+  <!-- slide 28c: Create Shortcut Dialog Title -->    
   <string name="FLA_shortcut_dialog_title">Create Desktop Shortcut</string>
   
   <!-- Create Shortcut Dialog (asks to name shortcut) -->    
@@ -303,7 +304,7 @@
   <!-- Menu: new filter -->
   <string name="FLA_new_filter">New Filter</string>
   
-  <!-- Button: new list -->
+  <!-- slide 10e: Button: new list -->
   <string name="FLA_new_list">New List</string>
   
   <!-- Alert when creating a shortcut without selecting a filter -->
@@ -326,9 +327,6 @@
   <!-- Task title hint (displayed when edit box is empty) -->
   <string name="TEA_title_hint">Task Summary</string>
   
-  <!-- Task importance label -->
-  <string name="TEA_importance_label">Importance</string>
-  
   <!-- Task urgency label -->
   <string name="TEA_urgency_label">Deadline</string>
   
@@ -347,7 +345,7 @@
   <!-- Task editing data being loaded label -->
   <string-array name="TEA_loading"><item>Loading...</item></string-array>
   
-  <!-- Task note label -->
+  <!-- slide 16c: Task note label -->
   <string name="TEA_note_label">Notes</string>
   
   <!-- Task note hint -->
@@ -383,17 +381,17 @@
   <!-- Toast: task was deleted -->
   <string name="TEA_onTaskDelete">Task deleted!</string>
   
-  <!-- Task edit tab: activity -->
+  <!-- slide 15b: Task edit tab: activity -->
   <string name="TEA_tab_activity">Activity</string>
   
-  <!-- Task edit tab: more editing settings -->
+  <!-- slide 15e:  Task edit tab: more editing settings -->
   <string name="TEA_tab_more">Details</string>
   
-  <!-- Task edit tab: web services -->
+  <!-- slide 15d: Task edit tab: web services -->
   <string name="TEA_tab_web">Ideas</string>
   
   <string-array name="TEA_urgency">
-      <!-- urgency: labels for edit page. item #4 -> auto filled -->
+      <!-- slide 19: urgency: labels for edit page. item #4 -> auto filled -->
       <item>No deadline</item>
       <item>Specific Day</item>
       <item>Today</item>
@@ -417,15 +415,28 @@
   
   <!-- Task edit control set descriptors -->
   <string name="TEA_control_title">Task Title</string>
+
+  <!-- slide 9b/35i -->
   <string name="TEA_control_who">Who</string>
+
+  <!-- slide 9c/ 35a -->
   <string name="TEA_control_when">When</string>
+  <!-- slide 35b -->
   <string name="TEA_control_more_section">----Details----</string>
+  <!-- slide 16a/35c -->
   <string name="TEA_control_importance">Importance</string>  
-  <string name="TEA_control_lists">Lists</string>
+  <!-- slide 16b/35d -->
+  <string name="TEA_control_lists">Lists</string>  
+  <!-- slide 16c/35e -->
   <string name="TEA_control_notes">Notes</string>  
-  <string name="TEA_control_files">Files</string>
+
+  <!-- slide 16e / slide 35g-->
   <string name="TEA_control_reminders">Reminders</string>
+
+  <!-- slide 16f -->
   <string name="TEA_control_timer">Timer Controls</string>
+
+  <!-- slide 16g -->
   <string name="TEA_control_share">Share With Friends</string>
   
   <string name="hide_until_prompt">Show in my list</string>
@@ -439,7 +450,7 @@
   <!-- More row -->
   <string name="TEA_more">More</string>
   
-  <!-- Text when no activity to show -->
+  <!-- slide 15c: Text when no activity to show -->
   <string name="TEA_no_activity">No Activity to Show.</string>
   
   <!-- Text to load more activity -->
@@ -460,7 +471,7 @@
   
   <!-- ============================================= IntroductionActivity == -->
   
-  <!-- Introduction Window title -->
+  <!-- slide 1a: Introduction Window title -->
   <string name="InA_title">Welcome to Astrid!</string>
   
   <!-- Button to agree to EULA -->
@@ -498,7 +509,7 @@
   <!-- Missed call: preference title -->
   <string name="MCA_missed_calls_pref_title">Field missed calls</string>
 
-  <!-- Missed call: preference description -->
+  <!-- slide 49c: Missed call: preference description -->
   <string name="MCA_missed_calls_pref_desc_enabled">Astrid will notify you about missed calls and offer to remind you to call back</string>
   <string name="MCA_missed_calls_pref_desc_disabled">Astrid will not notify you about missed calls</string>
 
@@ -540,81 +551,91 @@
   
   <!-- ================================================== EditPreferences == -->
     
-  <!-- Preference Window Title -->
+  <!-- slide 31g: Preference Window Title -->
   <string name="EPr_title">Astrid: Settings</string>
   
+  <!-- slide 46a -->
   <string name="EPr_deactivated">deactivated</string>
 
-  <!-- Preference Category: Appearance Title -->
+  <!-- slide 30i: Preference Category: Appearance Title -->
   <string name="EPr_appearance_header">Appearance</string>
   
-  <!-- Preference: Task List Font Size Title -->
+  <!-- slide 34a: Preference: Task List Font Size Title -->
   <string name="EPr_fontSize_title">Task List Size</string>
   
-  <!-- Preference: Show confirmation for smart reminders -->
+  <!-- slide 32a: Preference: Show confirmation for smart reminders -->
   <string name="EPr_showSmartConfirmation_title">Show confirmation for smart reminders</string>
   
-  <!-- Preference: Task List Font Size Description -->                                                                                                                                                  
+  <!-- slide 34g: Preference: Task List Font Size Description -->                                                                                                                                                  
   <string name="EPr_fontSize_desc">Font size on the main listing page</string>  
   
-  <!-- Preference: Task List Show Notes -->
+  <!-- slide 34c: Preference: Task List Show Notes -->
   <string name="EPr_showNotes_title">Show Notes In Task</string>
-  <!-- Preference: Beast mode (auto-expand edit page) -->
+  <!-- slide 30e: Preference: Beast mode (auto-expand edit page) -->
   <string name="EPr_beastMode_title">Customize Task Edit Screen</string>
+  <!-- slide 35h -->
   <string name="EPr_beastMode_desc">Customize the layout of the Task Edit Screen</string>
+  <!-- slide 35j -->
   <string name="EPr_beastMode_reset">Reset to defaults</string>
       
-  <!-- Preference: Task List Show Notes Description (disabled) -->
+  <!-- slide 34i: Preference: Task List Show Notes Description (disabled) -->
   <string name="EPr_showNotes_desc_disabled">Notes will be accessible from the Task Edit Page</string>  
   <!-- Preference: Task List Show Notes Description (enabled) -->
   <string name="EPr_showNotes_desc_enabled">Notes will always be displayed</string>
   
-  <!-- Preferences: Allow task rows to compress to size of task -->
+  <!-- slide 34d: Preferences: Allow task rows to compress to size of task -->
   <string name="EPr_compressTaskRows_title">Compact Task Row</string>
+  <!-- slide 34j -->
   <string name="EPr_compressTaskRows_desc">Compress task rows to fit title</string>
   
-  <!-- Preferences: Use legacy importance and checkbox style -->
+  <!-- slide 34e: Preferences: Use legacy importance and checkbox style -->
   <string name="EPr_userLegacyImportance_title">Use legacy importance style</string>
+  <!-- slide 34k-->
   <string name="EPr_userLegacyImportance_desc">Use legacy importance style</string>
   
-  <!-- Preferences: Wrap task titles to two lines -->
+  <!-- slide 34b: Preferences: Wrap task titles to two lines -->
   <string name="EPr_fullTask_title">Show full task title</string>
   <string name="EPr_fullTask_desc_enabled">Full task title will be shown</string>
+  <!-- slide 34h -->
   <string name="EPr_fullTask_desc_disabled">First two lines of task title will be shown</string>
   
-  <!-- Preferences: Auto-load Ideas Tab -->
+  <!-- slide 32b: Preferences: Auto-load Ideas Tab -->
   <string name="EPr_ideaAuto_title">Auto-load Ideas Tab</string>
+  <!-- slide 32c -->
   <string name="EPr_ideaAuto_desc_enabled">Web searches for Ideas tab will be performed when tab is clicked</string>
   <string name="EPr_ideaAuto_desc_disabled">Web searches for Ideas tab will be performed only when manually requested</string>
   
-  <!-- Preference: Theme -->
+  <!-- slide 30f/ 36f: Preference: Theme -->
   <string name="EPr_theme_title">Color Theme</string>
   <!-- Preference: Theme Description (%s => value) -->
   <string name="EPr_theme_desc">Currently: %s</string>  
   <!-- Preference: Theme Description (android 1.6) -->
   <string name="EPr_theme_desc_unsupported">Setting requires Android 2.0+</string>
-  
+  <!-- slide 32h/ 37b -->
   <string name="EPr_theme_widget_title">Widget Theme</string>
   
-  <!-- Preference screen: all task row settings -->
+  <!-- slide 30d/ 34f: Preference screen: all task row settings -->
   <string name="EPr_taskRowPrefs_title">Task Row Appearance</string>
   
-  <!-- Preference screen: Astrid Labs (experimental features)-->
+  <!-- slide 33b/ 49e: Preference screen: Astrid Labs (experimental features)-->
   <string name="EPr_labs_header">Astrid Labs</string>
+  <!-- slide 33f -->
   <string name="EPr_labs_desc">Try and configure experimental features</string>
   
   <!-- Preference: swipe between lists performance -->
   <string name="EPr_swipe_lists_performance_title">Swipe between lists</string>
   <string name="EPr_swipe_lists_performance_subtitle">Controls the memory performance of swipe between lists</string>
   
-  <!-- Preferences: use the system contact picker for task assignment -->
+  <!-- slide 49g: Preferences: use the system contact picker for task assignment -->
   <string name="EPr_use_contact_picker">Use contact picker</string>
+  <!-- slide 49b -->
   <string name="EPr_use_contact_picker_desc_enabled">The system contact picker option will be displayed in the task assignment window</string>
   <string name="EPr_use_contact_picker_desc_disabled">The system contact picker option will not be displayed</string>
 
-  <!-- Preferences: Third party addons -->
+  <!-- slide 49i: Preferences: Third party addons -->
   <string name="EPr_third_party_addons">Enable Third Party Add-ons</string>
   <string name="EPr_third_party_addons_desc_enabled">Third party add-ons will be enabled</string>
+  <!-- slide 49d -->
   <string name="EPr_third_party_addons_desc_disabled">Third party add-ons will be disabled</string>
   
   <!-- Preferences: ideas tab -->
@@ -631,6 +652,7 @@
   </string-array>
   
   <string-array name="EPr_swipe_lists_performance_desc">
+  <!-- slide 49a -->
       <item>Swipe between lists is disabled</item>
       <item>Slower performance</item>
       <item>Default setting</item>
@@ -649,14 +671,20 @@
     
   <string-array name="EPr_themes">
     <!-- theme_settings: labels for Theme preference menu -->
+    <!-- slide 36a-->
     <item>Day - Blue</item>
+    <!-- slide 36b -->
     <item>Day - Red</item>
+    <!-- slide 36c -->
     <item>Night</item>
+    <!-- slide 36d -->
     <item>Transparent (White Text)</item>
+    <!-- slide 36e -->
     <item>Transparent (Black Text)</item>
   </string-array>
   
   <string-array name="EPr_themes_widget">
+    <!-- slide 32i / 37a-->
     <item>Same as app</item>
     <item>Day - Blue</item>
     <item>Day - Red</item>
@@ -668,24 +696,31 @@
   
   <!-- ========================================== Task Management Settings == -->
 
-  <!-- Preference Screen Header: Old Task Management -->
+  <!-- slide 33a/47c: Preference Screen Header: Old Task Management -->
   <string name="EPr_manage_header">Manage Old Tasks</string>
+  <!-- slide 47d -->
   <string name="EPr_manage_delete_completed">Delete Completed Tasks</string>
   <string name="EPr_manage_delete_completed_message">Do you really want to delete all your completed tasks?</string>
+  <!-- slide 47a -->
   <string name="EPr_manage_delete_completed_summary">Deleted tasks can be undeleted one-by-one</string>
   <string name="EPr_manage_delete_completed_status">Deleted %d tasks!</string>
+  <!-- slide 47e -->
   <string name="EPr_manage_purge_deleted">Purge Deleted Tasks</string>
   <string name="EPr_manage_purge_deleted_message">Do you really want to purge all your deleted tasks?\n\nThese tasks will be gone forever!</string>
   <string name="EPr_manage_purge_deleted_status">Purged %d tasks!</string>
+  <!-- slide 47b-->
   <string name="EPr_manage_purge_deleted_summary">Caution! Purged tasks can\'t be recovered without backup file!</string>
+  <!-- slide 47h-->
   <string name="EPr_manage_clear_all">Clear All Data</string>
   <string name="EPr_manage_clear_all_message">Delete all tasks and settings in Astrid?\n\nWarning: can\'t be undone!</string>
 
+  <!-- slide 47f -->
   <string name="EPr_manage_delete_completed_gcal">Delete Calendar Events for Completed Tasks</string>
   <string name="EPr_manage_delete_completed_gcal_message">Do you really want to delete all your events for completed tasks?</string>
   <string name="EPr_manage_delete_completed_gcal_summary"></string>
   <string name="EPr_manage_delete_completed_gcal_status">Deleted %d calendar events!</string>
       
+  <!-- slide 47g-->
   <string name="EPr_manage_delete_all_gcal">Delete All Calendar Events for Tasks</string>
   <string name="EPr_manage_delete_all_gcal_message">Do you really want to delete all your events for tasks?</string>
   <string name="EPr_manage_delete_all_gcal_summary"></string>
@@ -727,18 +762,18 @@
 
   <!-- ============================================================= About == -->
   
-  <!-- Title of "About" option in settings -->
+  <!-- slide 30h: Title of "About" option in settings -->
   <string name="p_about">About Astrid</string>
   
   <!-- About text (%s => current version)-->
-<string name="p_about_text">Current version: %s\n\n
+  <string name="p_about_text">Current version: %s\n\n
 
 Astrid is open-source and proudly maintained by Todoroo, Inc.</string>
 
   <!-- Title of "Help" option in settings -->
   <string name="p_help">Support</string>
   
-  <!-- Title of "Forums" option in settings -->
+  <!-- slide 30c: Title of "Forums" option in settings -->
   <string name="p_forums">Forums</string>
   
   <!-- ============================================================= Misc == -->

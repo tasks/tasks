@@ -10,17 +10,18 @@
   <!-- repeating plugin description -->
   <string name="repeat_plugin_desc">Allows tasks to repeat</string>
   
-  <!-- checkbox for turning on/off repeats -->
+  <!-- slide 20a: checkbox for turning on/off repeats -->
   <string name="repeat_enabled">Repeats</string>
   
-  <!-- button for "every x" part of repeat (%d -> repeat value)  -->
+  <!-- slide 20b: button for "every x" part of repeat (%d -> repeat value)  -->
   <string name="repeat_every">Every %d</string>
   
   <!-- hint when opening repeat interval -->
   <string name="repeat_interval_prompt">Repeat Interval</string>
   
+  <!-- slide 19b-->
   <string name="repeat_never">Make Repeating?</string>
-  
+  <!-- slide 20f-->
   <string name="repeat_dont">Don\'t repeat</string>
       
   <string-array name="repeat_interval_short">
@@ -35,7 +36,7 @@
   
   
   <string-array name="repeat_interval">
-    <!-- repeat interval (days,weeks,months,hours,minutes,years) -->
+    <!-- slide 20e: repeat interval (days,weeks,months,hours,minutes,years) -->
     <item>Day(s)</item>
     <item>Week(s)</item>
     <item>Month(s)</item>
@@ -45,8 +46,9 @@
   </string-array>
   
   <string-array name="repeat_type">
-    <!-- repeat type (date to repeat from) -->
+    <!-- slide 20c: repeat type (date to repeat from) -->
     <item>from due date</item>
+    <!-- slide 20c -->
     <item>from completion date</item>
   </string-array>
   

@@ -83,19 +83,19 @@
     <item quantity="other">%d people</item>
   </plurals>
   
-  <!-- today -->
+  <!-- slide 10a, 12c: today -->
   <string name="today">Today</string>
   
   <!-- tomorrow -->
   <string name="tomorrow">Tomorrow</string>
   
-  <!-- today -->
+  <!-- yesterday -->
   <string name="yesterday">Yesterday</string>
   
-  <!-- tomorrow, abbreviated -->
+  <!-- slide 12c: tomorrow, abbreviated -->
   <string name="tmrw">Tmrw</string>
   
-  <!-- yesterday, abbreviated -->
+  <!-- slide 12c: yesterday, abbreviated -->
   <string name="yest">Yest</string>
   
   <!-- ================================================== Generic Dialogs == -->

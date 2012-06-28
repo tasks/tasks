@@ -12,7 +12,7 @@
   <!-- Tags label long version -->
   <string name="TEA_tags_label_long">Put task on one or more lists</string>
   
-  <!-- Tags none -->
+  <!-- slide 16h: Tags none -->
   <string name="TEA_tags_none">None</string>
 
   <!-- Tags hint -->
@@ -28,16 +28,16 @@
   
   <!-- ========================================================== Extras == -->
   
-    <!-- Context Item: show tag -->
+  <!-- Context Item: show tag -->
   <string name="TAd_contextFilterByTag">Show List</string>
   
-    <!-- Dialog: new list -->
+  <!-- slide 25a: Dialog: new list -->
   <string name="tag_new_list">New List</string>
   
-    <!-- Dialog: list saved -->
+  <!-- Dialog: list saved -->
   <string name="tag_list_saved">List Saved</string>
   
-    <!-- Dialog: task created without title -->
+  <!-- Dialog: task created without title -->
   <string name="tag_no_title_error">Please enter a name for this list first!</string>
   
   <!-- ========================================================== Filters == -->
@@ -57,13 +57,13 @@
   <!-- filter header for tags which have no active tasks -->
   <string name="tag_FEx_category_inactive">Inactive</string>
   
-  <!-- filter for untagged tasks -->
+  <!-- slide 10d: filter for untagged tasks -->
   <string name="tag_FEx_untagged">Not in any List</string>
   
   <!-- clarifying title for people who have Google and Astrid lists -->
   <string name="tag_FEx_untagged_w_astrid">Not in an Astrid List</string>
   
-  <!-- %s => tag name -->
+  <!-- slide 27a: %s => tag name -->
   <string name="tag_FEx_name">List: %s</string>
 
   <!-- context menu option to rename a tag -->
@@ -110,7 +110,7 @@
   <!-- Delete button for tag settings -->
   <string name="tag_delete_button">Delete List</string>
   
-  <!-- Leave button for tag settings -->
+  <!-- slide 28d: Leave button for tag settings -->
   <string name="tag_leave_button">Leave This List</string>
 
 </resources>

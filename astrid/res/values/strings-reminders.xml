@@ -24,13 +24,13 @@
   <!-- Task Edit: Reminder alarm clock label -->  
   <string name="TEA_reminder_alarm_label">Ring/Vibrate Type:</string>
 
-  <!-- Task Edit: Reminder mode: ring once -->  
+  <!--  slide 45a: Task Edit: Reminder mode: ring once -->  
   <string name="TEA_reminder_mode_once">Ring Once</string>
 
-  <!-- Task Edit: Reminder mode: ring five times -->  
+  <!-- slide 45b: Task Edit: Reminder mode: ring five times -->  
   <string name="TEA_reminder_mode_five">Ring Five Times</string>
 
-  <!-- Task Edit: Reminder mode: ring nonstop -->  
+  <!-- slide 45c: Task Edit: Reminder mode: ring nonstop -->  
   <string name="TEA_reminder_mode_nonstop">Ring Until I Dismiss Alarm</string>
 
   <string-array name="TEA_reminder_random">
@@ -95,7 +95,7 @@
   </string-array>
   <!-- ============================================= reminder preferences == -->
   
-  <!-- Reminder Preference Screen Title -->
+  <!-- slide 33d: Reminder Preference Screen Title -->
   <string name="rmd_EPr_alerts_header">Reminder Settings</string>
     
   <!-- Reminder Preference: Reminders Enabled Title -->
@@ -171,23 +171,28 @@
   <!-- Reminder Preference: Nagging Description (false) -->
   <string name="rmd_EPr_snooze_dialog_desc_false">Snooze by selecting # days/hours to snooze</string>
   
-  <!-- Reminder Preference: Default Reminders Title -->
+  <!-- slide 44g: Reminder Preference: Default Reminders Title -->
   <string name="rmd_EPr_defaultRemind_title">Random Reminders</string>
   <!-- Reminder Preference: Default Reminders Setting (disabled) -->
   <string name="rmd_EPr_defaultRemind_desc_disabled">New tasks will have no random reminders</string>
   <!-- Reminder Preference: Default Reminders Setting (%s => setting) -->
   <string name="rmd_EPr_defaultRemind_desc">New tasks will remind randomly: %s</string>
   
-  <!-- Defaults Title -->
+  <!-- slide 39a: Defaults Title -->
   <string name="rmd_EPr_defaults_header">New Task Defaults</string>
   
   <string-array name="EPr_reminder_random">
-    <!-- Reminder Preference: random reminder choices for preference page. -->
+    <!-- slide 44a: Reminder Preference: random reminder choices for preference page. -->
     <item>disabled</item>
+    <!-- slide 44b -->
     <item>hourly</item>
+    <!-- slide 44c -->
     <item>daily</item>
+    <!-- slide 44d-->
     <item>weekly</item>
+    <!-- slide 44e-->
     <item>bi-weekly</item>
+    <!-- slide 44f -->
     <item>monthly</item>
     <item>bi-monthly</item>
   </string-array>

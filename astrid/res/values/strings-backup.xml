@@ -6,10 +6,10 @@
   
   <!-- ================================================= BackupPreferences == -->
 
-    <!-- Backup Preferences Title -->    
+    <!-- slide 33c/48d: Backup Preferences Title -->    
     <string name="backup_BPr_header">Backups</string>
 
-    <!-- Backup: Status Header -->    
+    <!-- slide 48e/50c: Backup: Status Header -->    
     <string name="backup_BPr_group_status">Status</string>
     
     <!-- Backup Status: last backup was a success (%s -> last date). Keep it short! -->    
@@ -18,17 +18,17 @@
     <string name="backup_status_failed">Last Backup Failed</string>
     <!-- Backup Status: error subtitle -->    
     <string name="backup_status_failed_subtitle">(tap to show error)</string>
-    <!-- Backup Status: never backed up -->    
+    <!-- slide 48a: Backup Status: never backed up -->    
     <string name="backup_status_never">Never Backed Up!</string>
 
-    <!-- Backup Options Group Label -->    
+    <!-- slide 48f/ 50e: Backup Options Group Label -->    
     <string name="backup_BPr_group_options">Options</string>
 
-    <!-- Preference: Automatic Backup Title -->    
+    <!-- slide 48b: Preference: Automatic Backup Title -->    
     <string name="backup_BPr_auto_title">Automatic Backups</string>
     <!-- Preference: Automatic Backup Description (when disabled) -->
     <string name="backup_BPr_auto_disabled">Automatic Backups Disabled</string>    
-    <!-- Preference: Automatic Backup Description (when enabled) -->
+    <!-- slide 48g: Preference: Automatic Backup Description (when enabled) -->
     <string name="backup_BPr_auto_enabled">Backup will occur daily</string>
     
     <!-- Preference screen restoring Tasks Help -->
@@ -38,7 +38,7 @@
   
   <!-- ================================================= BackupActivity == -->
 
-  <!-- backup activity label -->
+  <!-- slide 48c: backup activity label -->
   <string name="backup_BAc_label">Manage Backups</string>
 
   <!-- backup activity title -->
