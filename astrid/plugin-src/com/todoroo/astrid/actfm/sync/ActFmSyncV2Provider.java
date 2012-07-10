@@ -143,9 +143,9 @@ public class ActFmSyncV2Provider extends SyncV2Provider {
         new Thread(new Runnable() {
             public void run() {
                 callback.started();
-                callback.incrementMax(120);
+                callback.incrementMax(140);
 
-                final AtomicInteger finisher = new AtomicInteger(3);
+                final AtomicInteger finisher = new AtomicInteger(4);
 
                 actFmPreferenceService.recordSyncStart();
                 updateUserStatus();
@@ -153,6 +153,8 @@ public class ActFmSyncV2Provider extends SyncV2Provider {
                 startUsersFetcher(callback, finisher);
 
                 startTagFetcher(callback, finisher);
+
+                startUpdatesFetcher(manual, callback, finisher);
 
                 actFmSyncService.waitUntilEmpty();
                 startTaskFetcher(manual, callback, finisher);
@@ -182,7 +184,7 @@ public class ActFmSyncV2Provider extends SyncV2Provider {
             if (status.has("picture"))
                 Preferences.setString(ActFmPreferenceService.PREF_PICTURE, status.optString("picture"));
 
-            actFmPreferenceService.reloadThisUser();
+            ActFmPreferenceService.reloadThisUser();
         } catch (IOException e) {
             handler.handleException("actfm-sync", e, e.toString()); //$NON-NLS-1$
         }
@@ -236,6 +238,21 @@ public class ActFmSyncV2Provider extends SyncV2Provider {
                 }
             }
         }).start();
+    }
+
+    /** fetch changes to personal updates and push unpushed updates */
+    private void startUpdatesFetcher(final boolean manual, final SyncResultCallback callback,
+            final AtomicInteger finisher) {
+        actFmSyncService.fetchPersonalUpdates(manual, new Runnable() { // Also pushes queued updates
+            @Override
+            public void run() {
+                callback.incrementProgress(20);
+                if (finisher.decrementAndGet() == 0) {
+                    finishSync(callback);
+                }
+            }
+        });
+
     }
 
     /** @return runnable to fetch changes to tags */

@@ -874,7 +874,7 @@ public final class ActFmSyncService {
         invokeFetchList("activity", manual, null, new UpdateListItemProcessor(), done,
                 "updates:" + tagData.getId(), "tag_id", tagData.getValue(TagData.REMOTE_ID));
 
-        pushQueuedUpdates(tagData);
+        pushQueuedUpdatesForTag(tagData);
     }
 
     /**
@@ -887,7 +887,7 @@ public final class ActFmSyncService {
         invokeFetchList("activity", manual, null, new UpdateListItemProcessor(), done,
                 "comments:" + task.getId(), "task_id", task.getValue(Task.REMOTE_ID));
 
-        pushQueuedUpdates(task);
+        pushQueuedUpdatesForTask(task);
     }
 
     /**
@@ -898,10 +898,10 @@ public final class ActFmSyncService {
     public void fetchPersonalUpdates(boolean manual, Runnable done) {
         invokeFetchList("activity", manual, null, new UpdateListItemProcessor(), done, "personal");
 
+        pushAllQueuedUpdates();
     }
 
-    private void pushQueuedUpdates(TagData tagData) {
-
+    private void pushQueuedUpdatesForTag(TagData tagData) {
         Criterion criterion = null;
         if (tagData.getValue(TagData.REMOTE_ID) < 1) {
             criterion = Criterion.and(Update.REMOTE_ID.eq(0),
@@ -922,7 +922,7 @@ public final class ActFmSyncService {
         pushQueuedUpdates(cursor);
     }
 
-    private void pushQueuedUpdates(Task task) {
+    private void pushQueuedUpdatesForTask(Task task) {
         Criterion criterion = null;
         if (task.containsNonNullValue(Task.REMOTE_ID)) {
             criterion = Criterion.and(Update.REMOTE_ID.eq(0),
@@ -935,6 +935,11 @@ public final class ActFmSyncService {
         updateDao.update(criterion, template);
 
         TodorooCursor<Update> cursor = updateDao.query(Query.select(Update.ID, Update.PICTURE).where(criterion));
+        pushQueuedUpdates(cursor);
+    }
+
+    private void pushAllQueuedUpdates() {
+        TodorooCursor<Update> cursor = updateDao.query(Query.select(Update.ID, Update.PICTURE).where(Update.REMOTE_ID.eq(0)));
         pushQueuedUpdates(cursor);
     }
 
