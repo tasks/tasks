@@ -210,7 +210,8 @@ public final class ActFmDataService {
     @SuppressWarnings("nls")
     public void saveUserData(JSONObject userObject) throws JSONException {
         TodorooCursor<User> cursor = userDao.query(Query.select(User.PROPERTIES).where(
-                User.REMOTE_ID.eq(userObject.get("id"))));
+                Criterion.or(User.REMOTE_ID.eq(userObject.get("id")),
+                        Criterion.and(User.EMAIL.isNotNull(), User.EMAIL.eq(userObject.optString("email"))))));
         try {
             cursor.moveToFirst();
             User user = new User();
@@ -220,6 +221,20 @@ public final class ActFmDataService {
             ActFmSyncService.JsonHelper.userFromJson(userObject, user);
             userDao.persist(user);
 
+        } finally {
+            cursor.close();
+        }
+    }
+
+    public void addUserByEmail(String email) {
+        TodorooCursor<User> cursor = userDao.query(Query.select(User.ID).where(User.EMAIL.eq(email)));
+        try {
+            if (cursor.getCount() == 0) {
+                User user = new User();
+                user.setValue(User.REMOTE_ID, Task.USER_ID_IGNORE);
+                user.setValue(User.EMAIL, email);
+                userDao.persist(user);
+            }
         } finally {
             cursor.close();
         }

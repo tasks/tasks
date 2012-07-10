@@ -46,6 +46,8 @@ import com.todoroo.andlib.data.TodorooCursor;
 import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.andlib.service.ExceptionService;
+import com.todoroo.andlib.sql.Criterion;
+import com.todoroo.andlib.sql.Functions;
 import com.todoroo.andlib.sql.Order;
 import com.todoroo.andlib.sql.Query;
 import com.todoroo.andlib.utility.DialogUtilities;
@@ -413,6 +415,7 @@ public class EditPeopleControlSet extends PopupControlSet {
 
             if (assignedIndex == 0) {
                 assignedIndex = findAssignedIndex(t, coreUsers, listUsers, astridUsers);
+                System.err.println("Returned index: " + assignedIndex);
             }
 
         } catch (JSONException e) {
@@ -503,7 +506,7 @@ public class EditPeopleControlSet extends PopupControlSet {
         String assignedStr = t.getValue(Task.USER);
         if (!TextUtils.isEmpty(assignedStr)) {
             JSONObject assigned = new JSONObject(assignedStr);
-            long assignedId = assigned.optLong("id", -2);
+            long assignedId = assigned.optLong("id", Task.USER_ID_EMAIL);
             String assignedEmail = assigned.optString("email");
 
             int index = 0;
@@ -526,7 +529,10 @@ public class EditPeopleControlSet extends PopupControlSet {
 
     private ArrayList<JSONObject> getAstridFriends() {
         ArrayList<JSONObject> astridFriends = new ArrayList<JSONObject>();
-        TodorooCursor<User> users = userDao.query(Query.select(User.PROPERTIES).orderBy(Order.asc(User.NAME)));
+        TodorooCursor<User> users = userDao.query(Query.select(User.PROPERTIES)
+                .orderBy(Order.asc(Functions.caseStatement(Criterion.or(User.NAME.isNull(), User.NAME.eq("")), //$NON-NLS-1$
+                        Functions.upper(User.EMAIL),
+                        Functions.upper(User.NAME)))));
         try {
             User user = new User();
             for (users.moveToFirst(); !users.isAfterLast(); users.moveToNext()) {

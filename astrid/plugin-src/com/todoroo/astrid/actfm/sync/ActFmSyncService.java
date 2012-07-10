@@ -389,6 +389,8 @@ public final class ActFmSyncService {
                     if (!TextUtils.isEmpty(userEmail)) {
                         params.add("user_email");
                         params.add(userEmail);
+
+                        actFmDataService.addUserByEmail(userEmail);
                     }
                 } catch (JSONException e) {
                     Log.e("Error parsing user", task.getValue(Task.USER), e);

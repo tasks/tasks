@@ -117,6 +117,7 @@ public class SortHelper {
                 Task.IMPORTANCE + " + 2*" + Task.COMPLETION_DATE);
     }
 
+    @SuppressWarnings("nls")
     private static String adjustedDueDateFunction() {
         return new StringBuilder("(CASE WHEN (").append(Task.DUE_DATE.name).append(" / 1000) % 60 > 0")
                 .append(" THEN ").append(Task.DUE_DATE.name).append(" ELSE ").append("(").append(Task.DUE_DATE.name)
