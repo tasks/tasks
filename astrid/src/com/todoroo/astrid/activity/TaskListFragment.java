@@ -1104,9 +1104,18 @@ public class TaskListFragment extends ListFragment implements OnScrollListener,
                 }).setNegativeButton(android.R.string.cancel, null).show();
     }
 
-    protected void onTaskDelete(@SuppressWarnings("unused") Task task) {
-        // hook
+    protected void onTaskDelete(Task task) {
         decrementFilterCount();
+
+        Activity a = getActivity();
+        if (a instanceof AstridActivity) {
+            AstridActivity activity = (AstridActivity) a;
+            TaskEditFragment tef = activity.getTaskEditFragment();
+            if (tef != null) {
+                if (task.getId() == tef.model.getId())
+                    tef.discardButtonClick();
+            }
+        }
     }
 
     public void incrementFilterCount() {

@@ -415,7 +415,6 @@ public class EditPeopleControlSet extends PopupControlSet {
 
             if (assignedIndex == 0) {
                 assignedIndex = findAssignedIndex(t, coreUsers, listUsers, astridUsers);
-                System.err.println("Returned index: " + assignedIndex);
             }
 
         } catch (JSONException e) {
