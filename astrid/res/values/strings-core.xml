@@ -656,6 +656,12 @@
       <item>High Performance</item>
   </string-array>
   
+  <string name = "Cal_end_or_start_at_due_time">Calendar Events</string>
+  <string name = "Cal_end_at_due_time">End Calendar Events at Due Time</string>
+  <string name = "Cal_start_at_due_time">Starts Calendar Events at Due Time</string>
+  
+  
+  
   <string-array name="EPr_swipe_lists_performance_desc">
   <!-- slide 49a -->
       <item>Swipe between lists is disabled</item>

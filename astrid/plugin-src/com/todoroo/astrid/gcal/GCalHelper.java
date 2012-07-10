@@ -181,8 +181,13 @@ public class GCalHelper {
                 long estimatedTime = task.getValue(Task.ESTIMATED_SECONDS)  * 1000;
                 if(estimatedTime <= 0)
                     estimatedTime = DEFAULT_CAL_TIME;
-                values.put("dtstart", dueDate - estimatedTime);
-                values.put("dtend", dueDate);
+                if (Preferences.getBoolean(R.string.p_end_at_deadline, true)){
+                    values.put("dtstart", dueDate - estimatedTime);
+                    values.put("dtend", dueDate);
+                }else{
+                    values.put("dtstart", dueDate);
+                    values.put("dtend", dueDate + estimatedTime);
+                }
                 // setting a duetime to a previously timeless event requires explicitly setting allDay=0
                 values.put("allDay", "0");
                 values.put("eventTimezone", TimeZone.getDefault().getID());

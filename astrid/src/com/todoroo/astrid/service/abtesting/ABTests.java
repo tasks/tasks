@@ -114,7 +114,19 @@ public class ABTests {
         bundles.put(testKey, bundle);
     }
 
-    private void initialize() { // Set up
+    public static final String AB_TEST_CAL_KEY = "cal_ab_test"; //$NON-NLS-1$
+
+    private static final int[] calTestNewUserProbs = new int[] {1, 1};
+
+    private static final int[] calTestExistingUserProbs = new int[] {1, 1};
+
+    private static final String[] calTestDescriptions = new String[] {"Start at due time", "End at due time"};  //$NON-NLS-1$//$NON-NLS-2$
+
+
+
+
+    private void initialize() {
+        addTest(AB_TEST_CAL_KEY, calTestNewUserProbs, calTestExistingUserProbs, calTestDescriptions);
 
     }
 }

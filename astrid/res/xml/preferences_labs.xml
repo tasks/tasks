@@ -22,4 +22,8 @@
         android:key="@string/p_ideas_tab_enabled"
         android:title="@string/EPr_ideas_tab_enabled" 
         android:summary="@string/EPr_ideas_tab_description" />
+    <CheckBoxPreference
+        android:title="@string/Cal_end_or_start_at_due_time"
+        android:key = "@string/p_end_at_deadline" />
+    
 </PreferenceScreen>
