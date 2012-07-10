@@ -34,9 +34,9 @@ public final class ReengagementService {
         int reengagementReminders = Preferences.getInt(PREF_REENGAGEMENT_COUNT, 1);
         int days;
         if (reengagementReminders >= 4)
-            days = 5;
+            days = 9;
         else
-            days = 1 + reengagementReminders;
+            days = 1 + reengagementReminders * 2;
 
         Date date = new Date(DateUtilities.now() + DateUtilities.ONE_DAY * days / 1000L * 1000L);
         date.setHours(18);
