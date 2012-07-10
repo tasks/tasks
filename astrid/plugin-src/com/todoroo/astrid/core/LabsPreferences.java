@@ -56,7 +56,7 @@ public class LabsPreferences extends TodorooPreferenceActivity {
             setEnabledSummary(preference, value,
                     R.string.EPr_third_party_addons_desc_enabled, R.string.EPr_third_party_addons_desc_disabled);
         } else if (r.getString(R.string.p_end_at_deadline).equals(key)){
-            setEnabledSummary(preference, value, R.string.Cal_end_at_due_time, R.string.Cal_start_at_due_time);
+            setEnabledSummary(preference, value, R.string.EPr_cal_start_at_due_time, R.string.EPr_cal_end_at_due_time);
         } else if (r.getString(R.string.p_ideas_tab_enabled).equals(key)) {
             if (!Constants.MARKET_STRATEGY.allowIdeasTab()) {
                 PreferenceScreen screen = getPreferenceScreen();
