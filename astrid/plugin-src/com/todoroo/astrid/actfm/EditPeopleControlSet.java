@@ -485,10 +485,10 @@ public class EditPeopleControlSet extends PopupControlSet {
                     user.label += " (" + user.user.optString("email") + ")";
                     names.put(name, null);
                 }
-                if(!TextUtils.isEmpty("email"))
+                if(!TextUtils.isEmpty(email))
                     atu.label += " (" + email + ")";
-            } else if(TextUtils.isEmpty(name)) {
-                if(!TextUtils.isEmpty("email"))
+            } else if(TextUtils.isEmpty(name) || "null".equals(name)) {
+                if(!TextUtils.isEmpty(email))
                     atu.label = email;
                 else
                     users.remove(atu);
