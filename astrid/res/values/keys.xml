@@ -305,6 +305,9 @@
   <!-- use new contact picker setting -->
   <string name="p_use_contact_picker">p_use_contact_picker</string>
   
+  <!-- on calendar end at dealline if true, start at deadline if false -->
+  <string name="p_end_at_deadline">p_end_at_deadline</string>
+  
   <string-array name="EPr_default_addtocalendar_values">
     <!-- addtocalendar: labels that map EPr_default_addtocalendar items to calendar selection in settings. -->
     <item>-1</item>

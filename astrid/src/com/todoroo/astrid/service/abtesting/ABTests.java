@@ -114,7 +114,10 @@ public class ABTests {
         bundles.put(testKey, bundle);
     }
 
-    private void initialize() { // Set up
+    public static final String AB_TEST_CAL_KEY = "cal_ab_test"; //$NON-NLS-1$
 
+    private void initialize() {
+        addTest(AB_TEST_CAL_KEY, new int[] {1, 1}, new int[] {1, 1},
+                new String[] {"end-at-due-time", "start-at-due-time"}); //$NON-NLS-1$ //$NON-NLS-2$
     }
 }

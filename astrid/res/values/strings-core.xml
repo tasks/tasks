@@ -647,6 +647,12 @@
   <string name="EPr_ideas_tab_enabled">Task Ideas</string>
   <string name="EPr_ideas_tab_description">Get ideas to help you complete tasks</string>
   
+  <!-- Preferences: calendar event start time -->
+  <string name = "EPr_cal_end_or_start_at_due_time">Calendar event time</string>
+  <string name = "EPr_cal_end_at_due_time">End calendar events at due time</string>
+  <string name = "EPr_cal_start_at_due_time">Start calendar events at due time</string>
+  
+  
   <string name="EPr_swipe_lists_restart_alert">You will need to restart Astrid for this change to take effect</string>
   
   <string-array name="EPr_swipe_lists_performance_mode">
@@ -655,6 +661,7 @@
       <item>Normal Performance</item>
       <item>High Performance</item>
   </string-array>
+  
   
   <string-array name="EPr_swipe_lists_performance_desc">
   <!-- slide 49a -->
