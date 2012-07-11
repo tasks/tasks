@@ -68,29 +68,19 @@ public class RepeatTaskCompleteListener extends BroadcastReceiver {
 
             long oldDueDate = task.getValue(Task.DUE_DATE);
             long repeatUntil = task.getValue(Task.REPEAT_UNTIL);
-            if (repeatUntil > 0 && newDueDate >= repeatUntil) {
-                Intent repeatFinished = new Intent(AstridApiConstants.BROADCAST_EVENT_TASK_REPEAT_FINISHED);
-                repeatFinished.putExtra(AstridApiConstants.EXTRAS_TASK_ID, task.getId());
-                repeatFinished.putExtra(AstridApiConstants.EXTRAS_OLD_DUE_DATE, oldDueDate);
-                repeatFinished.putExtra(AstridApiConstants.EXTRAS_NEW_DUE_DATE, newDueDate);
-                context.sendOrderedBroadcast(repeatFinished, null);
+
+            boolean repeatFinished = repeatUntil > 0 && newDueDate >= repeatUntil;
+            if (repeatFinished) {
+                Intent repeatFinishedIntent = new Intent(AstridApiConstants.BROADCAST_EVENT_TASK_REPEAT_FINISHED);
+                repeatFinishedIntent.putExtra(AstridApiConstants.EXTRAS_TASK_ID, task.getId());
+                repeatFinishedIntent.putExtra(AstridApiConstants.EXTRAS_OLD_DUE_DATE, oldDueDate);
+                repeatFinishedIntent.putExtra(AstridApiConstants.EXTRAS_NEW_DUE_DATE, newDueDate);
+                context.sendOrderedBroadcast(repeatFinishedIntent, null);
+                System.err.println("SENDING BROADCAST");
                 return;
             }
 
-            long hideUntil = task.getValue(Task.HIDE_UNTIL);
-            if(hideUntil > 0 && task.getValue(Task.DUE_DATE) > 0) {
-                hideUntil += newDueDate - task.getValue(Task.DUE_DATE);
-            }
-
-            // update repeat time when it repeats on the server
-            task.setValue(Task.COMPLETION_DATE, 0L);
-            task.setValue(Task.DUE_DATE, newDueDate);
-            task.setValue(Task.HIDE_UNTIL, hideUntil);
-            task.putTransitory(TaskService.TRANS_REPEAT_COMPLETE, true);
-
-            ContentResolver cr = ContextManager.getContext().getContentResolver();
-            GCalHelper.rescheduleRepeatingTask(task, cr);
-            PluginServices.getTaskService().save(task);
+            rescheduleTask(task, newDueDate);
 
             // send a broadcast
             Intent broadcastIntent = new Intent(AstridApiConstants.BROADCAST_EVENT_TASK_REPEATED);
@@ -101,6 +91,22 @@ public class RepeatTaskCompleteListener extends BroadcastReceiver {
             Flags.set(Flags.REFRESH);
             return;
         }
+    }
+
+    public static void rescheduleTask(Task task, long newDueDate) {
+        long hideUntil = task.getValue(Task.HIDE_UNTIL);
+        if(hideUntil > 0 && task.getValue(Task.DUE_DATE) > 0) {
+            hideUntil += newDueDate - task.getValue(Task.DUE_DATE);
+        }
+
+        task.setValue(Task.COMPLETION_DATE, 0L);
+        task.setValue(Task.DUE_DATE, newDueDate);
+        task.setValue(Task.HIDE_UNTIL, hideUntil);
+        task.putTransitory(TaskService.TRANS_REPEAT_COMPLETE, true);
+
+        ContentResolver cr = ContextManager.getContext().getContentResolver();
+        GCalHelper.rescheduleRepeatingTask(task, cr);
+        PluginServices.getTaskService().save(task);
     }
 
     /** Compute next due date */

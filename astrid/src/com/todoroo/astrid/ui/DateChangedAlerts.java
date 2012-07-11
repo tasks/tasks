@@ -29,6 +29,8 @@ import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.astrid.activity.AstridActivity;
 import com.todoroo.astrid.core.PluginServices;
 import com.todoroo.astrid.data.Task;
+import com.todoroo.astrid.repeats.RepeatTaskCompleteListener;
+import com.todoroo.astrid.ui.DateAndTimeDialog.DateAndTimeDialogListener;
 import com.todoroo.astrid.utility.Flags;
 
 /**
@@ -114,10 +116,12 @@ public class DateChangedAlerts {
                     Task.ID,
                     Task.TITLE,
                     Task.DUE_DATE,
-                    Task.HIDE_UNTIL
+                    Task.HIDE_UNTIL,
+                    Task.REPEAT_UNTIL
             };
 
-    public static void showRepeatTaskRescheduledDialog(final AstridActivity activity, final Task task, final long oldDueDate, final long newDueDate) {
+    public static void showRepeatTaskRescheduledDialog(final AstridActivity activity, final Task task,
+            final long oldDueDate, final long newDueDate, final boolean lastTime) {
         if (!Preferences.getBoolean(PREF_SHOW_HELPERS, true))
             return;
 
@@ -128,18 +132,54 @@ public class DateChangedAlerts {
         Button okButton = (Button) d.findViewById(R.id.reminder_complete);
         Button undoButton = (Button) d.findViewById(R.id.reminder_edit);
 
-        d.findViewById(R.id.reminder_snooze).setVisibility(View.GONE);
+        Button keepGoing = (Button) d.findViewById(R.id.reminder_snooze);
+        if (!lastTime) {
+            keepGoing.setVisibility(View.GONE);
+        } else {
+            keepGoing.setText(R.string.repeat_keep_going);
+            keepGoing.setOnClickListener(new OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    long startDate = 0;
+                    DateAndTimeDialog picker = new DateAndTimeDialog(activity, startDate, R.layout.repeat_until_dialog, R.string.repeat_until_title);
+                    picker.setDateAndTimeDialogListener(new DateAndTimeDialogListener() {
+                        @Override
+                        public void onDateAndTimeSelected(long date) {
+                            d.dismiss();
+                            task.setValue(Task.REPEAT_UNTIL, date);
+                            RepeatTaskCompleteListener.rescheduleTask(task, newDueDate);
+                            Flags.set(Flags.REFRESH);
+                        }
+
+                        @Override
+                        public void onDateAndTimeCancelled() {
+                            //
+                        }
+                    });
+                    picker.show();
+                }
+            });
+        }
+
         okButton.setText(R.string.DLG_ok);
         undoButton.setText(R.string.DLG_undo);
-        ((TextView) d.findViewById(R.id.reminder_title)).setText(activity.getString(R.string.repeat_rescheduling_dialog_title, task.getValue(Task.TITLE)));
+
+        int titleResource = lastTime ? R.string.repeat_rescheduling_dialog_title_last_time : R.string.repeat_rescheduling_dialog_title;
+        ((TextView) d.findViewById(R.id.reminder_title)).setText(
+                activity.getString(titleResource, task.getValue(Task.TITLE)));
 
         String oldDueDateString = getRelativeDateAndTimeString(activity, oldDueDate);
         String newDueDateString = getRelativeDateAndTimeString(activity, newDueDate);
-        String[] encouragements = activity.getResources().getStringArray(R.array.repeat_encouragement);
+        String repeatUntilDateString = getRelativeDateAndTimeString(activity, task.getValue(Task.REPEAT_UNTIL));
+
+        int encouragementResource = lastTime ? R.array.repeat_encouragement_last_time : R.array.repeat_encouragement;
+        String[] encouragements = activity.getResources().getStringArray(encouragementResource);
         String encouragement = encouragements[(int) (Math.random()*encouragements.length)];
 
         String speechBubbleText;
-        if (!TextUtils.isEmpty(oldDueDateString))
+        if (lastTime)
+            speechBubbleText = activity.getString(R.string.repeat_rescheduling_dialog_bubble_last_time, repeatUntilDateString, encouragement);
+        else if (!TextUtils.isEmpty(oldDueDateString))
             speechBubbleText = activity.getString(R.string.repeat_rescheduling_dialog_bubble, encouragement, oldDueDateString, newDueDateString);
         else
             speechBubbleText = activity.getString(R.string.repeat_rescheduling_dialog_bubble_no_date, encouragement, newDueDateString);
@@ -154,6 +194,7 @@ public class DateChangedAlerts {
             public void onClick(View v) {
                 d.dismiss();
                 task.setValue(Task.DUE_DATE, oldDueDate);
+                task.setValue(Task.COMPLETION_DATE, 0L);
                 long hideUntil = task.getValue(Task.HIDE_UNTIL);
                 if (hideUntil > 0)
                     task.setValue(Task.HIDE_UNTIL, hideUntil - (newDueDate - oldDueDate));

@@ -109,9 +109,11 @@ public class AstridActivity extends FragmentActivity
                 Notifications.BROADCAST_IN_APP_NOTIFY);
         reminderIntentFilter.setPriority(1);
         registerReceiver(reminderReceiver, reminderIntentFilter);
-        registerReceiver(repeatConfirmationReceiver,
-                new android.content.IntentFilter(
-                        AstridApiConstants.BROADCAST_EVENT_TASK_REPEATED));
+
+        android.content.IntentFilter repeatFilter = new android.content.IntentFilter(
+                AstridApiConstants.BROADCAST_EVENT_TASK_REPEATED);
+        repeatFilter.addAction(AstridApiConstants.BROADCAST_EVENT_TASK_REPEAT_FINISHED);
+        registerReceiver(repeatConfirmationReceiver, repeatFilter);
     }
 
     @Override
@@ -383,8 +385,10 @@ public class AstridActivity extends FragmentActivity
                         DateChangedAlerts.REPEAT_RESCHEDULED_PROPERTIES);
 
                 try {
+                    boolean lastTime = AstridApiConstants.BROADCAST_EVENT_TASK_REPEAT_FINISHED.equals(intent.getAction());
                     DateChangedAlerts.showRepeatTaskRescheduledDialog(
-                            AstridActivity.this, task, oldDueDate, newDueDate);
+                            AstridActivity.this, task, oldDueDate, newDueDate, lastTime);
+
                 } catch (BadTokenException e) { // Activity not running when tried to show dialog--rebroadcast
                     new Thread() {
                         @Override

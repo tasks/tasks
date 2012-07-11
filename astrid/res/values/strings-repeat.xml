@@ -58,6 +58,8 @@
   
   <string name="repeat_until_title">Repeat until...</string>
   
+  <string name="repeat_keep_going">Keep going</string>
+  
   <string-array name="repeat_type">
     <!-- slide 20c: repeat type (date to repeat from) -->
     <item>from due date</item>
@@ -85,13 +87,18 @@
   
   <!-- text for confirmation dialog after repeating a task -->
   <string name="repeat_rescheduling_dialog_title">Rescheduling task \"%s\"</string>
-    
+
+  <!-- text for confirmation dialog after repeating a task for the last time -->
+  <string name="repeat_rescheduling_dialog_title_last_time">Completed repeating task \"%s\"</string>
+      
   <!-- text for when a repeating task was rescheduled -->  
   <string name="repeat_rescheduling_dialog_bubble">%1$s I\'ve rescheduled this repeating task from %2$s to %3$s</string>
   
   <!-- text for when a repeating task was rescheduled but didn't have a due date yet -->
   <string name="repeat_rescheduling_dialog_bubble_no_date">%1$s I\'ve rescheduled this repeating task to %2$s</string>
   
+  <!-- text for when a repeating task was rescheduled for the last time -->
+  <string name="repeat_rescheduling_dialog_bubble_last_time">You had this repeating until %1$s, and now you\'re all done. %2$s</string>
   
   <string-array name="repeat_encouragement">
       <!-- Encouragement in rescheduling dialog bubble -->
@@ -99,6 +106,13 @@
       <item>Wow… I\'m so proud of you!</item>
       <item>I love when you\'re productive!</item>
       <item>Doesn\'t it feel good to check something off?</item>
+  </string-array>
+
+  <string-array name="repeat_encouragement_last_time">
+      <!-- Encouragement in rescheduling dialog bubble -->
+      <item>Good job!</item>
+      <item>I\'m so proud of you!</item>
+      <item>I love when you\'re productive!</item>
   </string-array>
   
 </resources>
