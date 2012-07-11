@@ -6,6 +6,7 @@
 package com.todoroo.andlib.utility;
 
 import java.text.SimpleDateFormat;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
@@ -108,6 +109,12 @@ public class DateUtilities {
         return new SimpleDateFormat(value).format(date);
     }
 
+    /* Returns true if search string is in sortedValues */
+
+    private static boolean arrayBinaryContains(String search, String... sortedValues) {
+        return Arrays.binarySearch(sortedValues, search) >= 0;
+    }
+
     /**
      * @param context android context
      * @param date date to format
@@ -118,14 +125,22 @@ public class DateUtilities {
         String month = DateUtils.getMonthString(date.getMonth() +
                 Calendar.JANUARY, DateUtils.LENGTH_MEDIUM);
         String value;
+        String standardDate;
         // united states, you are special
-        if (Locale.US.equals(Locale.getDefault())
-                || Locale.CANADA.equals(Locale.getDefault()))
-            value = "'#' d yyyy";
+        Locale locale = Locale.getDefault();
+        if (arrayBinaryContains(locale.getLanguage(), "ja", "ko", "zh")
+                || arrayBinaryContains(locale.getCountry(),  "BZ", "CA", "KE", "MN" ,"US"))
+            value = "'#' d'$' yyyy";
         else
-            value = "d '#' yyyy";
-        return new SimpleDateFormat(value).format(date).replace("#", month);
-    }
+            value = "d'$' '#' yyyy";
+        if (arrayBinaryContains(locale.getLanguage(), "ja", "zh")){
+            standardDate = new SimpleDateFormat(value).format(date).replace("#", month).replace("$", "\u65E5"); //$NON-NLS-1$
+        }else if ("ko".equals(Locale.getDefault().getLanguage())){
+            standardDate = new SimpleDateFormat(value).format(date).replace("#", month).replace("$", "\uC77C"); //$NON-NLS-1$
+        }else{
+            standardDate = new SimpleDateFormat(value).format(date).replace("#", month).replace("$", "");
+        }
+        return standardDate;}
 
     /**
      * @param context android context
@@ -137,9 +152,10 @@ public class DateUtilities {
         String month = DateUtils.getMonthString(date.getMonth() +
                 Calendar.JANUARY, DateUtils.LENGTH_MEDIUM);
         String value;
+        Locale locale = Locale.getDefault();
         // united states, you are special
-        if (Locale.US.equals(Locale.getDefault())
-                || Locale.CANADA.equals(Locale.getDefault()))
+        if (arrayBinaryContains(locale.getLanguage(), "ja", "ko", "zh")
+                || arrayBinaryContains(locale.getCountry(),  "BZ", "CA", "KE", "MN" ,"US"))
             value = "'#' d";
         else
             value = "d '#'";
@@ -147,7 +163,12 @@ public class DateUtilities {
         if (date.getYear() !=  (new Date()).getYear()) {
             value = value + "\nyyyy";
         }
-        return new SimpleDateFormat(value).format(date).replace("#", month);
+        if (arrayBinaryContains(locale.getLanguage(), "ja", "zh")) //$NON-NLS-1$
+            return new SimpleDateFormat(value).format(date).replace("#", month) + "\u65E5"; //$NON-NLS-1$
+        else if ("ko".equals(Locale.getDefault().getLanguage())) //$NON-NLS-1$
+            return new SimpleDateFormat(value).format(date).replace("#", month) + "\uC77C"; //$NON-NLS-1$
+        else
+            return new SimpleDateFormat(value).format(date).replace("#", month);
     }
 
     /**
