@@ -119,13 +119,23 @@ public class DateUtilities {
                 Calendar.JANUARY, DateUtils.LENGTH_MEDIUM);
         String value;
         // united states, you are special
-        if (Locale.US.equals(Locale.getDefault())
-                || Locale.CANADA.equals(Locale.getDefault()))
+        if ("ko".equals(Locale.getDefault().getLanguage()) || Locale.US.equals(Locale.getDefault()) || "BZ".equals(Locale.getDefault().getCountry())
+                || Locale.CANADA.equals(Locale.getDefault()) || "KE".equals(Locale.getDefault().getCountry())
+                || "MN".equals(Locale.getDefault().getCountry()) || "zh".equals(Locale.getDefault().getLanguage())
+                || "ja".equals(Locale.getDefault().getLanguage()))
             value = "'#' d yyyy";
         else
             value = "d '#' yyyy";
-        return new SimpleDateFormat(value).format(date).replace("#", month);
-    }
+        String standardDate = new SimpleDateFormat(value).format(date).replace("#", month);
+        if (standardDate.length() < 5)
+            return standardDate;
+        if ("zh".equals(Locale.getDefault().getLanguage()) //$NON-NLS-1$
+                || "ja".equals(Locale.getDefault().getLanguage())) //$NON-NLS-1$
+            return new StringBuilder(standardDate).insert(standardDate.length()-5, "\u65E5").toString(); //$NON-NLS-1$
+        else if ("ko".equals(Locale.getDefault().getLanguage())) //$NON-NLS-1$
+            return new StringBuilder(standardDate).insert(standardDate.length()-5, "\uC77C").toString(); //$NON-NLS-1$
+        else
+            return standardDate;    }
 
     /**
      * @param context android context
@@ -138,8 +148,10 @@ public class DateUtilities {
                 Calendar.JANUARY, DateUtils.LENGTH_MEDIUM);
         String value;
         // united states, you are special
-        if (Locale.US.equals(Locale.getDefault())
-                || Locale.CANADA.equals(Locale.getDefault()))
+        if ("ko".equals(Locale.getDefault().getLanguage()) || Locale.US.equals(Locale.getDefault()) || "BZ".equals(Locale.getDefault().getCountry())
+                || Locale.CANADA.equals(Locale.getDefault()) || "KE".equals(Locale.getDefault().getCountry())
+                || "MN".equals(Locale.getDefault().getCountry()) || "zh".equals(Locale.getDefault().getLanguage())
+                || "ja".equals(Locale.getDefault().getLanguage()))
             value = "'#' d";
         else
             value = "d '#'";
@@ -147,7 +159,13 @@ public class DateUtilities {
         if (date.getYear() !=  (new Date()).getYear()) {
             value = value + "\nyyyy";
         }
-        return new SimpleDateFormat(value).format(date).replace("#", month);
+        if ("zh".equals(Locale.getDefault().getLanguage()) //$NON-NLS-1$
+                || "ja".equals(Locale.getDefault().getLanguage())) //$NON-NLS-1$
+            return new SimpleDateFormat(value).format(date).replace("#", month) + "\u65E5"; //$NON-NLS-1$
+        else if ("ko".equals(Locale.getDefault().getLanguage())) //$NON-NLS-1$
+            return new SimpleDateFormat(value).format(date).replace("#", month) + "\uC77C"; //$NON-NLS-1$
+        else
+            return new SimpleDateFormat(value).format(date).replace("#", month);
     }
 
     /**
