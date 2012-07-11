@@ -1151,6 +1151,7 @@ public final class ActFmSyncService {
                 if (remote.getValue(Task.USER_ID) != Task.USER_ID_SELF)
                     remote.putTransitory(SyncFlags.GTASKS_SUPPRESS_SYNC, true);
 
+                // TODO: It seems like something about this title matching might be causing SQLiteConstraint exceptions. Think about it.
                 if (!remote.isSaved() && gtasksPreferenceService.isLoggedIn()) {
                     titleMatchOnGoogleTask(remote);
                 }

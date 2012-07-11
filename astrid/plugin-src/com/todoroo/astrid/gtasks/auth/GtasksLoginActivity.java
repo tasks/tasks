@@ -110,7 +110,7 @@ public class GtasksLoginActivity extends ListActivity {
         findViewById(R.id.empty_button).setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                finish();
+                onAuthCancel();
             }
         });
     }

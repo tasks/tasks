@@ -596,7 +596,9 @@ public class ActFmLoginActivity extends FragmentActivity implements AuthListener
             }
             errors.setVisibility(View.GONE);
         } else if (requestCode == REQUEST_CODE_GOOGLE) {
-            String email= data.getStringExtra(ActFmGoogleAuthActivity.RESULT_EMAIL);
+            if (data == null)
+                return;
+            String email = data.getStringExtra(ActFmGoogleAuthActivity.RESULT_EMAIL);
             String token = data.getStringExtra(ActFmGoogleAuthActivity.RESULT_TOKEN);
             authenticate(email, email, "", "google", token);
         }
