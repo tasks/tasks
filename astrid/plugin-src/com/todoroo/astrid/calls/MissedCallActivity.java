@@ -8,6 +8,7 @@ import android.content.ContentUris;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.Resources;
+import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
@@ -128,8 +129,14 @@ public class MissedCallActivity extends Activity {
        if (contactId >= 0) {
            Uri uri = ContentUris.withAppendedId(ContactsContract.Contacts.CONTENT_URI, contactId);
            InputStream input = ContactsContract.Contacts.openContactPhotoInputStream(getContentResolver(), uri);
-           if (input != null) {
-               pictureView.setImageBitmap(BitmapFactory.decodeStream(input));
+           Bitmap b = null;
+           try {
+               b = BitmapFactory.decodeStream(input);
+           } catch (OutOfMemoryError e) {
+               //
+           }
+           if (b != null) {
+               pictureView.setImageBitmap(b);
                pictureView.setVisibility(View.VISIBLE);
            }
        }
