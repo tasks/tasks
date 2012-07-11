@@ -396,6 +396,7 @@ public final class ActFmSyncService {
                         params.add(userEmail);
 
                         actFmDataService.addUserByEmail(userEmail);
+                        sharing = true;
                     }
                 } catch (JSONException e) {
                     Log.e("Error parsing user", task.getValue(Task.USER), e);
@@ -407,7 +408,6 @@ public final class ActFmSyncService {
                 else
                     params.add(task.getValue(Task.USER_ID));
             }
-            sharing = true;
         }
 
         if (values.containsKey(Task.SHARED_WITH.name)) {
