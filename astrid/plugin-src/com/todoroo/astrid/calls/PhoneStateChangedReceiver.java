@@ -59,6 +59,8 @@ public class PhoneStateChangedReceiver extends BroadcastReceiver {
                             Calls.DATE + " DESC"
                             );
                     try {
+                        if (calls == null)
+                            return;
                         if (calls.moveToFirst()) {
                             int numberIndex = calls.getColumnIndex(Calls.NUMBER);
                             String number = calls.getString(numberIndex);
@@ -97,7 +99,8 @@ public class PhoneStateChangedReceiver extends BroadcastReceiver {
                             context.startActivity(missedCallIntent);
                         }
                     } finally {
-                        calls.close();
+                        if (calls != null)
+                            calls.close();
                     }
                 }
             }.start();
