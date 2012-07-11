@@ -44,6 +44,10 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content" 
         android:gravity="center"/>
+    
+    <Button android:id="@+id/repeatUntil"
+          android:layout_width="fill_parent"
+          android:layout_height="wrap_content" />
               
   </LinearLayout>  
   <LinearLayout

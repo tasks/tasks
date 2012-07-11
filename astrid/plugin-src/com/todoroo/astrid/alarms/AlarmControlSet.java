@@ -19,6 +19,7 @@ import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.helper.TaskEditControlSet;
 import com.todoroo.astrid.ui.DateAndTimeDialog;
 import com.todoroo.astrid.ui.DateAndTimeDialog.DateAndTimeDialogListener;
+import com.todoroo.astrid.ui.DateAndTimePicker;
 
 /**
  * Control set to manage adding and removing tags
@@ -100,7 +101,7 @@ public final class AlarmControlSet extends TaskEditControlSet {
                             }
                             v.setTag(date);
                             TextView label = (TextView) v.findViewById(R.id.alarm_string);
-                            label.setText(pickerDialog.getDisplayString(activity, date));
+                            label.setText(DateAndTimePicker.getDisplayString(activity, date));
                         }
                     }
 
@@ -115,7 +116,7 @@ public final class AlarmControlSet extends TaskEditControlSet {
 
         alertItem.setTag(alert.getTime());
         TextView display = (TextView) alertItem.findViewById(R.id.alarm_string);
-        display.setText(pickerDialog.getDisplayString(activity, alert.getTime()));
+        display.setText(DateAndTimePicker.getDisplayString(activity, alert.getTime()));
 
         ImageButton reminderRemoveButton;
         reminderRemoveButton = (ImageButton)alertItem.findViewById(R.id.button1);

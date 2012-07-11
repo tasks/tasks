@@ -5,6 +5,7 @@ import java.util.Date;
 
 import android.content.Context;
 import android.content.res.Resources;
+import android.content.res.TypedArray;
 import android.util.AttributeSet;
 import android.util.DisplayMetrics;
 import android.util.TypedValue;
@@ -28,7 +29,7 @@ public class DateAndTimePicker extends LinearLayout {
 
     private static final int SHORTCUT_PADDING = 8;
 
-    ArrayList<UrgencyValue> urgencyValues;
+    private ArrayList<UrgencyValue> urgencyValues;
 
     private class UrgencyValue {
         public String label;
@@ -62,7 +63,7 @@ public class DateAndTimePicker extends LinearLayout {
         dateShortcuts = (LinearLayout) findViewById(R.id.date_shortcuts);
 
         setUpListeners();
-        constructShortcutList(context);
+        constructShortcutList(context, attrs);
     }
 
     public void initializeWithDate(long dateValue) {
@@ -119,8 +120,18 @@ public class DateAndTimePicker extends LinearLayout {
         }
     }
 
-    private void constructShortcutList(Context context) {
-        String[] labels = context.getResources().getStringArray(R.array.TEA_urgency);
+    private void constructShortcutList(Context context, AttributeSet attrs) {
+        int arrayResource = R.array.TEA_urgency;
+        TypedArray t = context.obtainStyledAttributes(attrs, R.styleable.DateAndTimePicker);
+        for (int i = 0; i < t.getIndexCount(); i++) {
+            int attr = t.getIndex(i);
+            switch(attr) {
+            case R.styleable.DateAndTimePicker_shortcutLabels:
+                arrayResource = t.getResourceId(attr, R.array.TEA_urgency);
+            }
+        }
+
+        String[] labels = context.getResources().getStringArray(arrayResource);
         urgencyValues = new ArrayList<UrgencyValue>();
         urgencyValues.add(new UrgencyValue(labels[2],
                 Task.URGENCY_TODAY));
@@ -228,10 +239,14 @@ public class DateAndTimePicker extends LinearLayout {
 
     public String getDisplayString(Context context, boolean useNewline, boolean hideYear) {
         long dueDate = constructDueDate();
-        return getDisplayString(context, dueDate, useNewline, hideYear);
+        return getDisplayString(context, dueDate, useNewline, hideYear, false);
     }
 
-    public static String getDisplayString(Context context, long forDate, boolean useNewline, boolean hideYear) {
+    public static String getDisplayString(Context context, long forDate) {
+        return getDisplayString(context, forDate, false, false, false);
+    }
+
+    public static String getDisplayString(Context context, long forDate, boolean useNewline, boolean hideYear, boolean hideTime) {
         StringBuilder displayString = new StringBuilder();
         Date d = new Date(forDate);
         if (d.getTime() > 0) {
@@ -239,7 +254,7 @@ public class DateAndTimePicker extends LinearLayout {
                 displayString.append(DateUtilities.getDateStringHideYear(context, d));
             else
                 displayString.append(DateUtilities.getDateString(context, d));
-            if (Task.hasDueTime(forDate)) {
+            if (Task.hasDueTime(forDate) && !hideTime) {
                 displayString.append(useNewline ? "\n" : ", "); //$NON-NLS-1$ //$NON-NLS-2$
                 displayString.append(DateUtilities.getTimeString(context, d));
             }

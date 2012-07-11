@@ -36,7 +36,7 @@ public class DeadlineControlSet extends PopupControlSet {
         if (initialized)
             displayString.append(dateAndTimePicker.getDisplayString(activity, isQuickadd, isQuickadd));
         else
-            displayString.append(DateAndTimePicker.getDisplayString(activity, model.getValue(Task.DUE_DATE), isQuickadd, isQuickadd));
+            displayString.append(DateAndTimePicker.getDisplayString(activity, model.getValue(Task.DUE_DATE), isQuickadd, isQuickadd, false));
 
         if (!isQuickadd && repeatControlSet != null) {
             String repeatString = repeatControlSet.getStringForExternalDisplay();

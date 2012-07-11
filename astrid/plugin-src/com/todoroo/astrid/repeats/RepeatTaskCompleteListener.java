@@ -63,7 +63,19 @@ public class RepeatTaskCompleteListener extends BroadcastReceiver {
                 return;
             }
 
+
             StatisticsService.reportEvent(StatisticsConstants.V2_TASK_REPEAT);
+
+            long oldDueDate = task.getValue(Task.DUE_DATE);
+            long repeatUntil = task.getValue(Task.REPEAT_UNTIL);
+            if (repeatUntil > 0 && newDueDate >= repeatUntil) {
+                Intent repeatFinished = new Intent(AstridApiConstants.BROADCAST_EVENT_TASK_REPEAT_FINISHED);
+                repeatFinished.putExtra(AstridApiConstants.EXTRAS_TASK_ID, task.getId());
+                repeatFinished.putExtra(AstridApiConstants.EXTRAS_OLD_DUE_DATE, oldDueDate);
+                repeatFinished.putExtra(AstridApiConstants.EXTRAS_NEW_DUE_DATE, newDueDate);
+                context.sendOrderedBroadcast(repeatFinished, null);
+                return;
+            }
 
             long hideUntil = task.getValue(Task.HIDE_UNTIL);
             if(hideUntil > 0 && task.getValue(Task.DUE_DATE) > 0) {
@@ -71,7 +83,6 @@ public class RepeatTaskCompleteListener extends BroadcastReceiver {
             }
 
             // update repeat time when it repeats on the server
-            long oldDueDate = task.getValue(Task.DUE_DATE);
             task.setValue(Task.COMPLETION_DATE, 0L);
             task.setValue(Task.DUE_DATE, newDueDate);
             task.setValue(Task.HIDE_UNTIL, hideUntil);

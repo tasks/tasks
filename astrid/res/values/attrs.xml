@@ -41,5 +41,9 @@
     <attr name="allowMultiple" format="boolean"/>
     <attr name="completeTags" format="boolean"/>
   </declare-styleable>
+  
+  <declare-styleable name="DateAndTimePicker">
+      <attr name="shortcutLabels" format="reference"/>
+  </declare-styleable>
     
 </resources>

@@ -26,12 +26,18 @@ public class DateAndTimeDialog extends Dialog {
     private DateAndTimeDialogListener listener;
 
     public DateAndTimeDialog(Context context, long startDate) {
+        this(context, startDate, R.layout.date_time_dialog, 0);
+    }
+
+    public DateAndTimeDialog(Context context, long startDate, int contentView, int title) {
         super(context, ThemeService.getEditDialogTheme());
 
-        /** 'Window.FEATURE_NO_TITLE' - Used to hide the title */
-        requestWindowFeature(Window.FEATURE_NO_TITLE);
+        if (title == 0)
+            requestWindowFeature(Window.FEATURE_NO_TITLE);
+        else
+            setTitle(title);
         /** Design the dialog in main.xml file */
-        setContentView(R.layout.date_time_dialog);
+        setContentView(contentView);
 
         LayoutParams params = getWindow().getAttributes();
         params.height = LayoutParams.FILL_PARENT;
@@ -94,9 +100,5 @@ public class DateAndTimeDialog extends Dialog {
 
     public String getDisplayString(Context context) {
         return dateAndTimePicker.getDisplayString(context, false, false);
-    }
-
-    public String getDisplayString(Context context, long forDate) {
-        return DateAndTimePicker.getDisplayString(context, forDate, false, false);
     }
 }

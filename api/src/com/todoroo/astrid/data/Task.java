@@ -128,6 +128,9 @@ public final class Task extends RemoteModel {
     public static final StringProperty RECURRENCE = new StringProperty(
             TABLE, "recurrence");
 
+    public static final LongProperty REPEAT_UNTIL = new LongProperty(
+            TABLE, "repeatUntil");
+
     public static final StringProperty CALENDAR_URI = new StringProperty(
             TABLE, "calendarUri");
 
@@ -241,6 +244,7 @@ public final class Task extends RemoteModel {
 
         defaultValues.put(CALENDAR_URI.name, "");
         defaultValues.put(RECURRENCE.name, "");
+        defaultValues.put(REPEAT_UNTIL.name, 0);
         defaultValues.put(REMINDER_PERIOD.name, 0);
         defaultValues.put(REMINDER_FLAGS.name, 0);
         defaultValues.put(REMINDER_LAST.name, 0);

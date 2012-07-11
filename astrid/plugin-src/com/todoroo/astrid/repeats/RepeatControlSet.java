@@ -37,6 +37,9 @@ import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.service.StatisticsConstants;
 import com.todoroo.astrid.service.StatisticsService;
 import com.todoroo.astrid.service.TaskService;
+import com.todoroo.astrid.ui.DateAndTimeDialog;
+import com.todoroo.astrid.ui.DateAndTimeDialog.DateAndTimeDialogListener;
+import com.todoroo.astrid.ui.DateAndTimePicker;
 import com.todoroo.astrid.ui.NumberPicker;
 import com.todoroo.astrid.ui.NumberPickerDialog;
 import com.todoroo.astrid.ui.NumberPickerDialog.OnNumberPickedListener;
@@ -67,12 +70,14 @@ public class RepeatControlSet extends PopupControlSet {
     private Button value;
     private Spinner interval;
     private Spinner type;
+    private Button repeatUntil;
     private LinearLayout daysOfWeekContainer;
     private final CompoundButton[] daysOfWeek = new CompoundButton[7];
 
     private String recurrence;
     private int repeatValue;
     private int intervalValue;
+    private long repeatUntilValue;
 
 
     private final List<RepeatChangedListener> listeners = new LinkedList<RepeatChangedListener>();
@@ -99,26 +104,45 @@ public class RepeatControlSet extends PopupControlSet {
         value.setText(activity.getString(R.string.repeat_every, newValue));
     }
 
+    private void setRepeatUntilValue(long newValue) {
+        repeatUntilValue = newValue;
+
+        if (newValue == 0)
+            repeatUntil.setText(activity.getString(R.string.repeat_forever));
+        else
+            repeatUntil.setText(activity.getString(R.string.repeat_until, DateAndTimePicker.getDisplayString(activity, newValue)));
+    }
+
     protected void repeatValueClick() {
+        int dialogValue = repeatValue;
+        if(dialogValue == 0)
+            dialogValue = 1;
 
-        final Runnable openDialogRunnable = new Runnable() {
-            public void run() {
-                int dialogValue = repeatValue;
-                if(dialogValue == 0)
-                    dialogValue = 1;
-
-                new NumberPickerDialog(activity, new OnNumberPickedListener() {
-                    @Override
-                    public void onNumberPicked(NumberPicker view,
-                            int number) {
-                        setRepeatValue(number);
-                    }
-                }, activity.getResources().getString(R.string.repeat_interval_prompt),
-                dialogValue, 1, 1, 365).show();
+        new NumberPickerDialog(activity, new OnNumberPickedListener() {
+            @Override
+            public void onNumberPicked(NumberPicker view,
+                    int number) {
+                setRepeatValue(number);
             }
-        };
+        }, activity.getResources().getString(R.string.repeat_interval_prompt),
+        dialogValue, 1, 1, 365).show();
+    }
 
-        openDialogRunnable.run();
+    private void repeatUntilClick() {
+        DateAndTimeDialog d = new DateAndTimeDialog(activity, repeatUntilValue,
+                R.layout.repeat_until_dialog, R.string.repeat_until_title);
+        d.setDateAndTimeDialogListener(new DateAndTimeDialogListener() {
+            @Override
+            public void onDateAndTimeSelected(long date) {
+                setRepeatUntilValue(date);
+            }
+
+            @Override
+            public void onDateAndTimeCancelled() {
+                //
+            }
+        });
+        d.show();
     }
 
 
@@ -138,6 +162,8 @@ public class RepeatControlSet extends PopupControlSet {
         recurrence = model.getValue(Task.RECURRENCE);
         if(recurrence == null)
             recurrence = "";
+
+        repeatUntilValue = model.getValue(Task.REPEAT_UNTIL);
 
         if(recurrence.length() > 0) {
             try {
@@ -196,6 +222,7 @@ public class RepeatControlSet extends PopupControlSet {
                 RRule rrule = new RRule(recurrence);
 
                 setRepeatValue(rrule.getInterval());
+                setRepeatUntilValue(model.getValue(Task.REPEAT_UNTIL));
                 interval.setSelection(intervalValue);
 
                 // clear all day of week checks, then update them
@@ -233,7 +260,9 @@ public class RepeatControlSet extends PopupControlSet {
         interval = (Spinner) getView().findViewById(R.id.repeatInterval);
         type = (Spinner) getView().findViewById(R.id.repeatType);
         daysOfWeekContainer = (LinearLayout) getView().findViewById(R.id.repeatDayOfWeekContainer);
+        repeatUntil = (Button) getView().findViewById(R.id.repeatUntil);
         setRepeatValue(1);
+        setRepeatUntilValue(0);
 
         // set up days of week
         DateFormatSymbols dfs = new DateFormatSymbols();
@@ -278,6 +307,13 @@ public class RepeatControlSet extends PopupControlSet {
             @Override
             public void onNothingSelected(AdapterView<?> arg0) {
                 //
+            }
+        });
+
+        repeatUntil.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                repeatUntilClick();
             }
         });
         daysOfWeekContainer.setVisibility(View.GONE);
@@ -329,6 +365,7 @@ public class RepeatControlSet extends PopupControlSet {
         if (!result.equals(task.getValue(Task.RECURRENCE)))
             task.putTransitory(TaskService.TRANS_REPEAT_CHANGED, true);
         task.setValue(Task.RECURRENCE, result);
+        task.setValue(Task.REPEAT_UNTIL, repeatUntilValue);
 
         switch(type.getSelectedItemPosition()) {
         case TYPE_DUE_DATE:
@@ -385,7 +422,10 @@ public class RepeatControlSet extends PopupControlSet {
         String[] dates = activity.getResources().getStringArray(
                     arrayResource);
         String date = String.format("%s %s", repeatValue, dates[intervalValue]); //$NON-NLS-1$
-        return String.format(activity.getString(R.string.repeat_detail_duedate), date); // Every freq int
+        if (repeatUntilValue > 0)
+            return activity.getString(R.string.repeat_detail_duedate_until, date, DateAndTimePicker.getDisplayString(activity, repeatUntilValue, false, useAbbrev, useAbbrev));
+        else
+            return activity.getString(R.string.repeat_detail_duedate, date); // Every freq int
     }
 
     @Override

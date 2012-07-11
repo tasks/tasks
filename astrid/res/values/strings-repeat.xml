@@ -45,6 +45,19 @@
     <item>Year(s)</item>
   </string-array>
   
+  <string-array name="repeat_until_shortcuts">
+      <item>Forever</item>
+      <item>Specific Day</item>
+      <item>Today</item>
+      <item>Tomorrow</item>
+      <item>(day after)</item>
+      <item>Next Week</item>
+      <item>In Two Weeks</item>
+      <item>Next Month</item>
+  </string-array>
+  
+  <string name="repeat_until_title">Repeat until...</string>
+  
   <string-array name="repeat_type">
     <!-- slide 20c: repeat type (date to repeat from) -->
     <item>from due date</item>
@@ -57,9 +70,18 @@
   
   <!-- task detail for repeat from due date (%s -> interval) -->
   <string name="repeat_detail_duedate">Every %s</string>
+
+  <!-- task detail for repeat until a specific date (%1$s -> interval, %2$s -> finish date)-->
+  <string name="repeat_detail_duedate_until">Every %1$s\nuntil %2$s</string>
   
   <!-- task detail for repeat from completion date (%s -> interval) -->
   <string name="repeat_detail_completion">%s after completion</string>
+  
+  <!-- text for button when repeating task indefinitely -->
+  <string name="repeat_forever">Repeat forever</string>
+
+  <!-- text for button when repeating task until specified date (%s -> date string) -->
+  <string name="repeat_until">Repeat until %s</string>
   
   <!-- text for confirmation dialog after repeating a task -->
   <string name="repeat_rescheduling_dialog_title">Rescheduling task \"%s\"</string>
