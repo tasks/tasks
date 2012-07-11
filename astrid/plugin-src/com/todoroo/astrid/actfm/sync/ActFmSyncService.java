@@ -69,6 +69,7 @@ import com.todoroo.astrid.service.StatisticsConstants;
 import com.todoroo.astrid.service.StatisticsService;
 import com.todoroo.astrid.service.TagDataService;
 import com.todoroo.astrid.service.TaskService;
+import com.todoroo.astrid.service.abtesting.ABTestEventReportingService;
 import com.todoroo.astrid.sync.SyncV2Provider.SyncExceptionHandler;
 import com.todoroo.astrid.tags.TagService;
 import com.todoroo.astrid.utility.Flags;
@@ -95,6 +96,7 @@ public final class ActFmSyncService {
     @Autowired TagDataDao tagDataDao;
     @Autowired UpdateDao updateDao;
     @Autowired MetadataDao metadataDao;
+    @Autowired ABTestEventReportingService abTestEventReportingService;
 
     public static final long TIME_BETWEEN_TRIES = 5 * DateUtilities.ONE_MINUTE;
 
@@ -382,6 +384,8 @@ public final class ActFmSyncService {
             params.add("repeat"); params.add(recurrence);
         }
 
+
+        boolean sharing = false;
         if(values.containsKey(Task.USER_ID.name) && task.getTransitory(TaskService.TRANS_ASSIGNED) != null) {
             if(task.getValue(Task.USER_ID) == Task.USER_ID_EMAIL) {
                 try {
@@ -403,6 +407,7 @@ public final class ActFmSyncService {
                 else
                     params.add(task.getValue(Task.USER_ID));
             }
+            sharing = true;
         }
 
         if (values.containsKey(Task.SHARED_WITH.name)) {
@@ -421,6 +426,18 @@ public final class ActFmSyncService {
                 }
             } catch (JSONException e) {
                 Log.e("Error parsing shared_with", task.getValue(Task.SHARED_WITH), e);
+            }
+            sharing = true;
+        }
+
+        if (sharing) {
+            JSONArray abTestInfo = abTestEventReportingService.getTestsWithVariantsArray();
+            try {
+                for (int i = 0; i < abTestInfo.length(); i++) {
+                    params.add("ab_variants[]"); params.add(abTestInfo.getString(i));
+                }
+            } catch (JSONException e) {
+                Log.e("Error parsing AB test info", abTestInfo.toString(), e);
             }
         }
 

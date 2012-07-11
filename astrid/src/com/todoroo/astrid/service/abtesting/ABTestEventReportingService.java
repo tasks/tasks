@@ -1,6 +1,7 @@
 package com.todoroo.astrid.service.abtesting;
 
 import java.io.IOException;
+import java.util.Set;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -40,6 +41,9 @@ public final class ABTestEventReportingService {
 
     @Autowired
     private ABTestInvoker abTestInvoker;
+
+    @Autowired
+    private ABTests abTests;
 
     public ABTestEventReportingService() {
         DependencyInjectionService.getInstance().inject(this);
@@ -86,6 +90,16 @@ public final class ABTestEventReportingService {
                 }
             }
         }
+    }
+
+    public JSONArray getTestsWithVariantsArray() {
+        JSONArray array = new JSONArray();
+        Set<String> tests = abTests.getAllTestKeys();
+
+        for (String key : tests) {
+            array.put(key + ":" + abTests.getDescriptionForTestOption(key, ABChooser.readChoiceForTest(key)));
+        }
+        return array;
     }
 
     private void handleException(Exception e) {
