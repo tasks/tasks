@@ -431,14 +431,7 @@ public final class ActFmSyncService {
         }
 
         if (sharing) {
-            JSONArray abTestInfo = abTestEventReportingService.getTestsWithVariantsArray();
-            try {
-                for (int i = 0; i < abTestInfo.length(); i++) {
-                    params.add("ab_variants[]"); params.add(abTestInfo.getString(i));
-                }
-            } catch (JSONException e) {
-                Log.e("Error parsing AB test info", abTestInfo.toString(), e);
-            }
+            addAbTestEventInfo(params);
         }
 
         if(Flags.checkAndClear(Flags.TAGS_CHANGED) || newlyCreated) {
@@ -497,6 +490,17 @@ public final class ActFmSyncService {
 
         task.putTransitory(SyncFlags.ACTFM_SUPPRESS_SYNC, true);
         taskDao.saveExistingWithSqlConstraintCheck(task);
+    }
+
+    private void addAbTestEventInfo(List<Object> params) {
+        JSONArray abTestInfo = abTestEventReportingService.getTestsWithVariantsArray();
+        try {
+            for (int i = 0; i < abTestInfo.length(); i++) {
+                params.add("ab_variants[]"); params.add(abTestInfo.getString(i));
+            }
+        } catch (JSONException e) {
+            Log.e("Error parsing AB test info", abTestInfo.toString(), e);
+        }
     }
 
     /**
@@ -590,6 +594,9 @@ public final class ActFmSyncService {
                     }
                     params.add(array);
                 }
+
+                addAbTestEventInfo(params);
+
             } catch (JSONException e) {
                 throw new RuntimeException(e);
             }
