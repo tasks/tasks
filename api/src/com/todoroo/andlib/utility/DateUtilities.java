@@ -130,15 +130,15 @@ public class DateUtilities {
         Locale locale = Locale.getDefault();
         if (arrayBinaryContains(locale.getLanguage(), "ja", "ko", "zh")
                 || arrayBinaryContains(locale.getCountry(),  "BZ", "CA", "KE", "MN" ,"US"))
-            value = "'#' d'%' yyyy";
+            value = "'#' d'$' yyyy";
         else
-            value = "d'%' '#' yyyy";
+            value = "d'$' '#' yyyy";
         if (arrayBinaryContains(locale.getLanguage(), "ja", "zh")){
-            standardDate = new SimpleDateFormat(value).format(date).replace("#", month).replace("%", "\u65E5"); //$NON-NLS-1$
+            standardDate = new SimpleDateFormat(value).format(date).replace("#", month).replace("$", "\u65E5"); //$NON-NLS-1$
         }else if ("ko".equals(Locale.getDefault().getLanguage())){
-            standardDate = new SimpleDateFormat(value).format(date).replace("#", month).replace("%", "\uC77C"); //$NON-NLS-1$
+            standardDate = new SimpleDateFormat(value).format(date).replace("#", month).replace("$", "\uC77C"); //$NON-NLS-1$
         }else{
-            standardDate = new SimpleDateFormat(value).format(date).replace("#", month).replace("%", "");
+            standardDate = new SimpleDateFormat(value).format(date).replace("#", month).replace("$", "");
         }
         return standardDate;}
 
