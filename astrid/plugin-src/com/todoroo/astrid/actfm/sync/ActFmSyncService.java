@@ -24,6 +24,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.content.ContentValues;
+import android.database.sqlite.SQLiteConstraintException;
 import android.graphics.Bitmap;
 import android.os.ConditionVariable;
 import android.text.TextUtils;
@@ -1151,12 +1152,17 @@ public final class ActFmSyncService {
                 if (remote.getValue(Task.USER_ID) != Task.USER_ID_SELF)
                     remote.putTransitory(SyncFlags.GTASKS_SUPPRESS_SYNC, true);
 
-                // TODO: It seems like something about this title matching might be causing SQLiteConstraint exceptions. Think about it.
+                // TODO: It seems like something about this title matching might be causing
+                // SQLiteConstraint exceptions. Think about it. In the meantime, catch and merge
                 if (!remote.isSaved() && gtasksPreferenceService.isLoggedIn()) {
                     titleMatchOnGoogleTask(remote);
                 }
 
-                taskService.save(remote);
+                try {
+                    taskService.save(remote);
+                } catch (SQLiteConstraintException e) {
+                    taskDao.handleSQLiteConstraintException(remote);
+                }
                 ids.add(remote.getId());
                 metadataService.synchronizeMetadata(remote.getId(), metadata, MetadataCriteria.withKey(TagService.KEY));
                 synchronizeAttachments(item, remote);

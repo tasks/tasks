@@ -186,14 +186,7 @@ public class TaskDao extends DatabaseDao<Task> {
             } catch (SQLiteConstraintException e) {
                 if(e.getMessage().contains(Task.REMOTE_ID_PROPERTY_NAME)) {
                     // Tried to create task with remote id that already exists
-                    saveSuccessful = false;
-                    TodorooCursor<Task> cursor = query(Query.select(Task.ID).where(
-                            Task.REMOTE_ID.eq(task.getValue(Task.REMOTE_ID))));
-                    if (cursor.getCount() > 0) {
-                        cursor.moveToFirst();
-                        task.setId(cursor.get(Task.ID));
-                        saveSuccessful = saveExisting(task);
-                    }
+                    saveSuccessful = handleSQLiteConstraintException(task);
                 }
             }
         } else {
@@ -201,6 +194,17 @@ public class TaskDao extends DatabaseDao<Task> {
         }
 
         return saveSuccessful;
+    }
+
+    public boolean handleSQLiteConstraintException(Task task) {
+        TodorooCursor<Task> cursor = query(Query.select(Task.ID).where(
+                Task.REMOTE_ID.eq(task.getValue(Task.REMOTE_ID))));
+        if (cursor.getCount() > 0) {
+            cursor.moveToFirst();
+            task.setId(cursor.get(Task.ID));
+            return saveExisting(task);
+        }
+        return false;
     }
 
     @Override
