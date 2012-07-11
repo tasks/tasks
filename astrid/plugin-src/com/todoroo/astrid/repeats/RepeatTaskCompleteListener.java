@@ -76,7 +76,6 @@ public class RepeatTaskCompleteListener extends BroadcastReceiver {
                 repeatFinishedIntent.putExtra(AstridApiConstants.EXTRAS_OLD_DUE_DATE, oldDueDate);
                 repeatFinishedIntent.putExtra(AstridApiConstants.EXTRAS_NEW_DUE_DATE, newDueDate);
                 context.sendOrderedBroadcast(repeatFinishedIntent, null);
-                System.err.println("SENDING BROADCAST");
                 return;
             }
 
