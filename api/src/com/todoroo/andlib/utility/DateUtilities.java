@@ -6,6 +6,7 @@
 package com.todoroo.andlib.utility;
 
 import java.text.SimpleDateFormat;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
@@ -108,6 +109,12 @@ public class DateUtilities {
         return new SimpleDateFormat(value).format(date);
     }
 
+    /* Returns true if search string is in sortedValues */
+
+    private static boolean arrayBinaryContains(String search, String... sortedValues) {
+        return Arrays.binarySearch(sortedValues, search) >= 0;
+    }
+
     /**
      * @param context android context
      * @param date date to format
@@ -118,24 +125,22 @@ public class DateUtilities {
         String month = DateUtils.getMonthString(date.getMonth() +
                 Calendar.JANUARY, DateUtils.LENGTH_MEDIUM);
         String value;
+        String standardDate;
         // united states, you are special
-        if ("ko".equals(Locale.getDefault().getLanguage()) || Locale.US.equals(Locale.getDefault()) || "BZ".equals(Locale.getDefault().getCountry())
-                || Locale.CANADA.equals(Locale.getDefault()) || "KE".equals(Locale.getDefault().getCountry())
-                || "MN".equals(Locale.getDefault().getCountry()) || "zh".equals(Locale.getDefault().getLanguage())
-                || "ja".equals(Locale.getDefault().getLanguage()))
-            value = "'#' d yyyy";
+        Locale locale = Locale.getDefault();
+        if (arrayBinaryContains(locale.getLanguage(), "ja", "ko", "zh")
+                || arrayBinaryContains(locale.getCountry(),  "BZ", "CA", "KE", "MN" ,"US"))
+            value = "'#' d'%' yyyy";
         else
-            value = "d '#' yyyy";
-        String standardDate = new SimpleDateFormat(value).format(date).replace("#", month);
-        if (standardDate.length() < 5)
-            return standardDate;
-        if ("zh".equals(Locale.getDefault().getLanguage()) //$NON-NLS-1$
-                || "ja".equals(Locale.getDefault().getLanguage())) //$NON-NLS-1$
-            return new StringBuilder(standardDate).insert(standardDate.length()-5, "\u65E5").toString(); //$NON-NLS-1$
-        else if ("ko".equals(Locale.getDefault().getLanguage())) //$NON-NLS-1$
-            return new StringBuilder(standardDate).insert(standardDate.length()-5, "\uC77C").toString(); //$NON-NLS-1$
-        else
-            return standardDate;    }
+            value = "d'%' '#' yyyy";
+        if (arrayBinaryContains(locale.getLanguage(), "ja", "zh")){
+            standardDate = new SimpleDateFormat(value).format(date).replace("#", month).replace("%", "\u65E5"); //$NON-NLS-1$
+        }else if ("ko".equals(Locale.getDefault().getLanguage())){
+            standardDate = new SimpleDateFormat(value).format(date).replace("#", month).replace("%", "\uC77C"); //$NON-NLS-1$
+        }else{
+            standardDate = new SimpleDateFormat(value).format(date).replace("#", month).replace("%", "");
+        }
+        return standardDate;}
 
     /**
      * @param context android context
@@ -147,11 +152,10 @@ public class DateUtilities {
         String month = DateUtils.getMonthString(date.getMonth() +
                 Calendar.JANUARY, DateUtils.LENGTH_MEDIUM);
         String value;
+        Locale locale = Locale.getDefault();
         // united states, you are special
-        if ("ko".equals(Locale.getDefault().getLanguage()) || Locale.US.equals(Locale.getDefault()) || "BZ".equals(Locale.getDefault().getCountry())
-                || Locale.CANADA.equals(Locale.getDefault()) || "KE".equals(Locale.getDefault().getCountry())
-                || "MN".equals(Locale.getDefault().getCountry()) || "zh".equals(Locale.getDefault().getLanguage())
-                || "ja".equals(Locale.getDefault().getLanguage()))
+        if (arrayBinaryContains(locale.getLanguage(), "ja", "ko", "zh")
+                || arrayBinaryContains(locale.getCountry(),  "BZ", "CA", "KE", "MN" ,"US"))
             value = "'#' d";
         else
             value = "d '#'";
@@ -159,8 +163,7 @@ public class DateUtilities {
         if (date.getYear() !=  (new Date()).getYear()) {
             value = value + "\nyyyy";
         }
-        if ("zh".equals(Locale.getDefault().getLanguage()) //$NON-NLS-1$
-                || "ja".equals(Locale.getDefault().getLanguage())) //$NON-NLS-1$
+        if (arrayBinaryContains(locale.getLanguage(), "ja", "zh")) //$NON-NLS-1$
             return new SimpleDateFormat(value).format(date).replace("#", month) + "\u65E5"; //$NON-NLS-1$
         else if ("ko".equals(Locale.getDefault().getLanguage())) //$NON-NLS-1$
             return new SimpleDateFormat(value).format(date).replace("#", month) + "\uC77C"; //$NON-NLS-1$
