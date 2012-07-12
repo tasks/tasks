@@ -1256,7 +1256,11 @@ public final class ActFmSyncService {
 
                     long id = file.optLong("id");
                     if (currentFiles.containsKey(id)) {
-                        // Match, nothing to do
+                        // Match, make sure name and url are up to date, then remove from map
+                        Metadata fileMetadata = currentFiles.get(id);
+                        fileMetadata.setValue(FileMetadata.URL, file.getString("url"));
+                        fileMetadata.setValue(FileMetadata.NAME, file.getString("name"));
+                        metadataService.save(fileMetadata);
                         currentFiles.remove(id);
                     } else {
                         // Create new file attachment
