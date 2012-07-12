@@ -27,7 +27,7 @@ import com.todoroo.astrid.billing.BillingService.RestoreTransactions;
  * are used to update the UI.
  */
 public abstract class PurchaseObserver {
-    private static final String TAG = "purchase-observer"; //$NON-NLS-1$
+    protected static final String TAG = "purchase-observer"; //$NON-NLS-1$
     private final Activity mActivity;
     private final Handler mHandler;
     private Method mStartIntentSender;
