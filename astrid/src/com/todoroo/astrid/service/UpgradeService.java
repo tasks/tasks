@@ -211,9 +211,9 @@ public final class UpgradeService {
 
         if (from >= V4_2_0 && from < V4_2_4) {
             newVersionString(changeLog, "4.2.4 (7/11/12)", new String[] {
-               "Added ability to specify end date for repeating tasks",
+               "Ability to specify end date on repeating tasks",
                "Improved sync of comments made while offline",
-               "Several crash fixes"
+               "Crash fixes"
             });
         }
 
