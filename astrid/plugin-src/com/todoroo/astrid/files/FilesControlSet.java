@@ -315,6 +315,7 @@ public class FilesControlSet extends PopupControlSet {
             public void run() {
                 String urlString = m.getValue(FileMetadata.URL);
                 urlString = urlString.replace(" ", "%20");
+                urlString = urlString.replace("+", "%20");
                 String name = m.getValue(FileMetadata.NAME);
                 StringBuilder filePathBuilder = new StringBuilder();
                 filePathBuilder.append(activity.getExternalFilesDir(FileMetadata.FILES_DIRECTORY).toString())
@@ -337,8 +338,6 @@ public class FilesControlSet extends PopupControlSet {
 
                     HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
                     urlConnection.setRequestMethod("GET");
-
-                    urlConnection.setDoOutput(true);
 
                     urlConnection.connect();
 
