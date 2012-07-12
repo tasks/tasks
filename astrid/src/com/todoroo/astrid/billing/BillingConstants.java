@@ -53,6 +53,10 @@ public class BillingConstants {
     public static final String ITEM_TYPE_SUBSCRIPTION = "subs";
 
 
+
+    public static final String PRODUCT_ID_MONTHLY = "premium_monthly";
+    public static final String PRODUCT_ID_YEARLY = "premium_yearly";
+
  // The response codes for a request, defined by Android Market.
     public enum ResponseCode {
         RESULT_OK,

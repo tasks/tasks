@@ -44,4 +44,12 @@
     <string name="file_err_copy">Error copying file for attachment</string>
     <string name="file_err_download">Error downloading file</string>
     <string name="file_err_show">Sorry, the system does not yet support this type of file</string>
+    
+    <!-- in app billing -->
+    <string name="subscriptions_not_supported">Subscriptions not supported</string>
+    <string name="subscriptions_not_supported_message">Sorry! The Market billing
+     service on this device does not support subscriptions at this time.</string>
+    <string name="subscriptions_learn_more">Learn more</string>
+    <string name="subscriptions_help_url" formatted="false">http://market.android.com/support/bin/answer.py?answer=1050566&amp;hl=%lang%&amp;dl=%region%</string>
+    
 </resources>
