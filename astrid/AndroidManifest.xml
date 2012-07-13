@@ -521,7 +521,8 @@
       </intent-filter>
     </receiver>
     
-    <activity android:name="com.todoroo.astrid.billing.BillingActivity"/>
+    <activity android:name="com.todoroo.astrid.billing.BillingActivity"
+        android:screenOrientation="portrait"/>
     
     <activity android:name="com.todoroo.astrid.files.AACRecordingActivity"
         android:configChanges="orientation|screenSize"
