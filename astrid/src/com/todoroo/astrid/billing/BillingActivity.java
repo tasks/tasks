@@ -19,6 +19,7 @@ import android.widget.Toast;
 import com.timsu.astrid.R;
 import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.DependencyInjectionService;
+import com.todoroo.andlib.utility.DialogUtilities;
 import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.astrid.actfm.sync.ActFmPreferenceService;
 import com.todoroo.astrid.billing.BillingConstants.PurchaseState;
@@ -59,12 +60,15 @@ public class BillingActivity extends Activity {
 
         ResponseHandler.register(purchaseObserver);
 
-        if (!actFmPreferenceService.isLoggedIn()) {
-            // Handle
-        } else if (ActFmPreferenceService.isPremiumUser()) {
-            // Handle
-        } else if (!billingService.checkBillingSupported(BillingConstants.ITEM_TYPE_SUBSCRIPTION)) {
+        if (!billingService.checkBillingSupported(BillingConstants.ITEM_TYPE_SUBSCRIPTION)) {
             showDialog(DIALOG_SUBSCRIPTIONS_NOT_SUPPORTED_ID);
+        } else if (ActFmPreferenceService.isPremiumUser()) {
+            DialogUtilities.okDialog(this, getString(R.string.premium_already_subscribed), new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    finish();
+                }
+            });
         }
     }
 

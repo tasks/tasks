@@ -74,4 +74,6 @@
     <string name="premium_description_4">Save voice notes at audio files</string>
     <string name="premium_description_5">Preview upcoming features</string>
     <string name="premium_description_6">Support the Astrid Team!</string>
+    <string name="premium_already_subscribed">You are already subscribed to Astrid Premium!</string>
+    <string name="premium_login_prompt">You need to have an Astrid.com account in order to subscribe to premium. Please log in or sign up.</string>
 </resources>
