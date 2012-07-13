@@ -17,7 +17,10 @@ import android.widget.Button;
 import android.widget.Toast;
 
 import com.timsu.astrid.R;
+import com.todoroo.andlib.service.Autowired;
+import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.andlib.utility.Preferences;
+import com.todoroo.astrid.actfm.sync.ActFmPreferenceService;
 import com.todoroo.astrid.billing.BillingConstants.PurchaseState;
 import com.todoroo.astrid.billing.BillingConstants.ResponseCode;
 import com.todoroo.astrid.billing.BillingService.RequestPurchase;
@@ -38,9 +41,12 @@ public class BillingActivity extends Activity {
     private Button buyMonth;
     private Button buyYear;
 
+    @Autowired private ActFmPreferenceService actFmPreferenceService;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        DependencyInjectionService.getInstance().inject(this);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.billing_activity);
 
@@ -53,7 +59,11 @@ public class BillingActivity extends Activity {
 
         ResponseHandler.register(purchaseObserver);
 
-        if (!billingService.checkBillingSupported(BillingConstants.ITEM_TYPE_SUBSCRIPTION)) {
+        if (!actFmPreferenceService.isLoggedIn()) {
+            // Handle
+        } else if (ActFmPreferenceService.isPremiumUser()) {
+            // Handle
+        } else if (!billingService.checkBillingSupported(BillingConstants.ITEM_TYPE_SUBSCRIPTION)) {
             showDialog(DIALOG_SUBSCRIPTIONS_NOT_SUPPORTED_ID);
         }
     }
@@ -61,6 +71,9 @@ public class BillingActivity extends Activity {
     private void setupButtons() {
         buyMonth = (Button) findViewById(R.id.buy_month);
         buyYear = (Button) findViewById(R.id.buy_year);
+
+        buyMonth.setEnabled(false);
+        buyYear.setEnabled(false);
 
         //TODO: Figure out if we need a payload for any reason
 
@@ -187,26 +200,19 @@ public class BillingActivity extends Activity {
                 Log.i(TAG, "onPurchaseStateChange() itemId: " + itemId + " " + purchaseState);
             }
 
-            if (developerPayload == null) {
-                //
-            } else {
-                //
-            }
+//            if (developerPayload == null) {
+//                //
+//            } else {
+//                //
+//            }
 
             if (purchaseState == PurchaseState.PURCHASED) {
-//                mOwnedItems.add(itemId);
-//
-//                // If this is a subscription, then enable the "Edit
-//                // Subscriptions" button.
-//                for (CatalogEntry e : CATALOG) {
-//                    if (e.sku.equals(itemId) &&
-//                            e.managed.equals(Managed.SUBSCRIPTION)) {
-//                        mEditSubscriptionsButton.setVisibility(View.VISIBLE);
-//                    }
-//                }
+                // Success
+                // Report premium activation to server
+            } else if (purchaseState == PurchaseState.REFUNDED || purchaseState == PurchaseState.EXPIRED) {
+                // Subscription ended
+                // Report premium deactivation to server
             }
-//            mCatalogAdapter.setOwnedItems(mOwnedItems);
-//            mOwnedItemsCursor.requery();
         }
 
         @Override

@@ -53,7 +53,6 @@ public class BillingConstants {
     public static final String ITEM_TYPE_SUBSCRIPTION = "subs";
 
 
-
     public static final String PRODUCT_ID_MONTHLY = "premium_monthly";
     public static final String PRODUCT_ID_YEARLY = "premium_yearly";
 
@@ -81,8 +80,9 @@ public class BillingConstants {
     public enum PurchaseState {
         // Responses to requestPurchase or restoreTransactions.
         PURCHASED,   // User was charged for the order.
-        CANCELED,    // The charge failed on the server.
-        REFUNDED;    // User received a refund for the order.
+        CANCELED,    // The charge failed on the server. (NOT THE SAME AS CANCELING A SUBSCRIPTION)
+        REFUNDED,   // User received a refund for the order.
+        EXPIRED;    // Subscription expired due to non-payment or cancellation
 
         // Converts from an ordinal value to the PurchaseState
         public static PurchaseState valueOf(int index) {
