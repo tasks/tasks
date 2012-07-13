@@ -64,4 +64,14 @@
     <string name="subscriptions_learn_more">Learn more</string>
     <string name="subscriptions_help_url" formatted="false">http://market.android.com/support/bin/answer.py?answer=1050566&amp;hl=%lang%&amp;dl=%region%</string>
     
+    <string name="premium_billing_title">Astrid Premium</string>
+    <string name="premium_buy_month">$4.99\n1 month</string>
+    <string name="premium_buy_year">$39.99\n1 year</string>
+    <string name="premium_description_header">Do more with Astrid!</string>
+    <string name="premium_description_1">Attach files to to-dos (pdfs, doc, ppt…)</string>
+    <string name="premium_description_2">Syncs files with astrid.com</string>
+    <string name="premium_description_3">Turn emails with attachments into tasks</string>
+    <string name="premium_description_4">Save voice notes at audio files</string>
+    <string name="premium_description_5">Preview upcoming features</string>
+    <string name="premium_description_6">Support the Astrid Team!</string>
 </resources>

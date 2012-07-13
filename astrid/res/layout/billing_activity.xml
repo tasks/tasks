@@ -3,18 +3,179 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical" >
-    
-
-    <Button
-        android:id="@+id/buy_month"
+    <TextView 
+        android:id="@+id/premium_title"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:text="Buy one month"/>
+        android:gravity="center"
+        android:textSize="24dip"
+        android:text="@string/premium_billing_title" />
 
-    <Button
-        android:id="@+id/buy_year"
+    <LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/premium_description_holder"
+        android:layout_width="wrap_content"
+        android:layout_height="0dip"
+        android:layout_weight="1"
+        android:background="@drawable/post_it"
+        android:orientation="vertical"
+        android:paddingRight="30dip"
+        android:paddingLeft="30dip"
+        android:paddingTop="30dip"
+        android:paddingBottom="70dip" >
+ 
+        <TextView
+            android:id="@+id/premium_description_title"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dip"
+            android:gravity="left"
+            android:text="@string/premium_description_header"
+            android:textColor="@color/dark_blue_theme_color"
+            android:textSize="24dip" />
+
+        <LinearLayout 
+            android:layout_width="fill_parent"
+    		android:layout_height="wrap_content"
+   			android:orientation="horizontal">
+    		<ImageView 
+    		    android:layout_height="15dip"
+		        android:layout_width="15dip"
+        		android:src="@drawable/icn_premium_checkmark"
+       			android:layout_gravity="top|left"/>
+		    <TextView 
+		        android:layout_height="wrap_content"
+		        android:layout_width="wrap_content"
+		        android:layout_gravity="left"
+		        android:text="@string/premium_description_1"
+		        android:textSize="14dip"
+		        android:layout_marginBottom="12dip"
+		        android:textColor="@color/black"/>
+		</LinearLayout>
+		<LinearLayout 
+            android:layout_width="fill_parent"
+    		android:layout_height="wrap_content"
+   			android:orientation="horizontal">
+    		<ImageView 
+    		    android:layout_height="15dip"
+		        android:layout_width="15dip"
+        		android:src="@drawable/icn_premium_checkmark"
+       			android:layout_gravity="top|left"/>
+		    <TextView 
+		        android:layout_height="wrap_content"
+		        android:layout_width="wrap_content"
+		        android:layout_gravity="left"
+		        android:text="@string/premium_description_2"
+		        android:textSize="14dip"
+		        android:layout_marginBottom="12dip"
+		        android:textColor="@color/black"/>
+		</LinearLayout>
+		<LinearLayout 
+            android:layout_width="fill_parent"
+    		android:layout_height="wrap_content"
+   			android:orientation="horizontal">
+    		<ImageView 
+    		    android:layout_height="15dip"
+		        android:layout_width="15dip"
+        		android:src="@drawable/icn_premium_checkmark"
+       			android:layout_gravity="top|left"/>
+		    <TextView 
+		        android:layout_height="wrap_content"
+		        android:layout_width="wrap_content"
+		        android:layout_gravity="left"
+		        android:text="@string/premium_description_3"
+		        android:textSize="14dip"
+		        android:layout_marginBottom="12dip"
+		        android:textColor="@color/black"/>
+		</LinearLayout>
+		<LinearLayout 
+            android:layout_width="fill_parent"
+    		android:layout_height="wrap_content"
+   			android:orientation="horizontal">
+    		<ImageView 
+    		    android:layout_height="15dip"
+		        android:layout_width="15dip"
+        		android:src="@drawable/icn_premium_checkmark"
+       			android:layout_gravity="top|left"/>
+		    <TextView 
+		        android:layout_height="wrap_content"
+		        android:layout_width="wrap_content"
+		        android:layout_gravity="left"
+		        android:text="@string/premium_description_4"
+		        android:textSize="14dip"
+		        android:layout_marginBottom="12dip"
+		        android:textColor="@color/black"/>
+		</LinearLayout>
+		<LinearLayout 
+            android:layout_width="fill_parent"
+    		android:layout_height="wrap_content"
+   			android:orientation="horizontal">
+    		<ImageView 
+    		    android:layout_height="15dip"
+		        android:layout_width="15dip"
+        		android:src="@drawable/icn_premium_checkmark"
+       			android:layout_gravity="top|left"/>
+		    <TextView 
+		        android:layout_height="wrap_content"
+		        android:layout_width="wrap_content"
+		        android:layout_gravity="left"
+		        android:text="@string/premium_description_5"
+		        android:textSize="14dip"
+		        android:layout_marginBottom="12dip"
+		        android:textColor="@color/black"/>
+		</LinearLayout>
+		<LinearLayout 
+            android:layout_width="fill_parent"
+    		android:layout_height="wrap_content"
+   			android:orientation="horizontal">
+    		<ImageView 
+    		    android:layout_height="15dip"
+		        android:layout_width="15dip"
+        		android:src="@drawable/icn_premium_checkmark"
+       			android:layout_gravity="top|left"/>
+		    <TextView 
+		        android:layout_height="wrap_content"
+		        android:layout_width="wrap_content"
+		        android:layout_gravity="left"
+		        android:text="@string/premium_description_6"
+		        android:textSize="14dip"
+		        android:layout_marginBottom="12dip"
+		        android:textColor="@color/black"/>
+		</LinearLayout>
+    </LinearLayout>
+        
+            
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:text="Buy one year"/>
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/premium_buy_month"
+            android:layout_width="fill_parent"
+            android:layout_height="50dip"
+            android:layout_marginLeft="15dip"
+            android:layout_marginRight="15dip"
+            android:layout_marginBottom="15dip"
+            android:layout_marginTop="0dip"
+            android:layout_weight="1"
+            android:background="@drawable/bluebutton"
+            android:text="@string/premium_buy_month"
+            android:gravity="center"/>
+
+        <Button
+            android:id="@+id/premium_buy_year"
+            android:layout_width="fill_parent"
+            android:layout_height="50dip"
+            android:layout_marginLeft="15dip"
+            android:layout_marginRight="15dip"
+            android:layout_marginBottom="15dip"
+            android:layout_marginTop="0dip"
+            android:layout_weight="1"
+            android:background="@drawable/bluebutton"
+            android:text="@string/premium_buy_year"
+            android:gravity="center" />
+
+    </LinearLayout>
     
 </LinearLayout>
