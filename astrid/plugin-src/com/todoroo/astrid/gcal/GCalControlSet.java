@@ -74,7 +74,7 @@ public class GCalControlSet extends PopupControlSet {
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         calendarSelector.setPromptId(title);
         calendarSelector.setAdapter(adapter);
-        calendarSelector.setSelection(calendars.defaultIndex + 1); // plus 1 for the no selection item
+        resetCalendarSelector();
         calendarSelector.setOnItemSelectedListener(new OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> arg0, View arg1,
@@ -115,8 +115,16 @@ public class GCalControlSet extends PopupControlSet {
                 exceptionService.reportError("unable-to-parse-calendar: " +  //$NON-NLS-1$
                         model.getValue(Task.CALENDAR_URI), e);
             }
+        } else {
+            hasEvent = false;
+            calendarUri = null;
         }
         refreshDisplayView();
+    }
+
+    public void resetCalendarSelector() {
+        if (calendarSelector != null)
+            calendarSelector.setSelection(calendars.defaultIndex + 1); // plus 1 for the no selection item
     }
 
     @SuppressWarnings("nls")

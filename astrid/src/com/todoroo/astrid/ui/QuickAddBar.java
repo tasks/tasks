@@ -237,6 +237,7 @@ public class QuickAddBar extends LinearLayout implements RecognizerApiListener {
         }
         repeatControl.readFromTask(empty);
         gcalControl.readFromTask(empty);
+        gcalControl.resetCalendarSelector();
         deadlineControl.readFromTask(empty);
         peopleControl.setUpData(empty, fragment.getActiveTagData());
         peopleControl.assignToMe();
