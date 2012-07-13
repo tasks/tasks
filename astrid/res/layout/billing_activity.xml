@@ -48,9 +48,8 @@
 		        android:layout_width="wrap_content"
 		        android:layout_gravity="left"
 		        android:text="@string/premium_description_1"
-		        android:textSize="14dip"
 		        android:layout_marginBottom="12dip"
-		        android:textColor="@color/black"/>
+		        style="@style/TextAppearance.Premium_Billing"/>
 		</LinearLayout>
 		<LinearLayout 
             android:layout_width="fill_parent"
@@ -66,9 +65,8 @@
 		        android:layout_width="wrap_content"
 		        android:layout_gravity="left"
 		        android:text="@string/premium_description_2"
-		        android:textSize="14dip"
 		        android:layout_marginBottom="12dip"
-		        android:textColor="@color/black"/>
+		        style="@style/TextAppearance.Premium_Billing"/>
 		</LinearLayout>
 		<LinearLayout 
             android:layout_width="fill_parent"
@@ -84,9 +82,8 @@
 		        android:layout_width="wrap_content"
 		        android:layout_gravity="left"
 		        android:text="@string/premium_description_3"
-		        android:textSize="14dip"
 		        android:layout_marginBottom="12dip"
-		        android:textColor="@color/black"/>
+                style="@style/TextAppearance.Premium_Billing"/>
 		</LinearLayout>
 		<LinearLayout 
             android:layout_width="fill_parent"
@@ -102,9 +99,8 @@
 		        android:layout_width="wrap_content"
 		        android:layout_gravity="left"
 		        android:text="@string/premium_description_4"
-		        android:textSize="14dip"
 		        android:layout_marginBottom="12dip"
-		        android:textColor="@color/black"/>
+		        style="@style/TextAppearance.Premium_Billing"/>
 		</LinearLayout>
 		<LinearLayout 
             android:layout_width="fill_parent"
@@ -120,9 +116,8 @@
 		        android:layout_width="wrap_content"
 		        android:layout_gravity="left"
 		        android:text="@string/premium_description_5"
-		        android:textSize="14dip"
 		        android:layout_marginBottom="12dip"
-		        android:textColor="@color/black"/>
+		        style="@style/TextAppearance.Premium_Billing"/>
 		</LinearLayout>
 		<LinearLayout 
             android:layout_width="fill_parent"
@@ -138,9 +133,8 @@
 		        android:layout_width="wrap_content"
 		        android:layout_gravity="left"
 		        android:text="@string/premium_description_6"
-		        android:textSize="14dip"
 		        android:layout_marginBottom="12dip"
-		        android:textColor="@color/black"/>
+		        style="@style/TextAppearance.Premium_Billing"/>
 		</LinearLayout>
     </LinearLayout>
         

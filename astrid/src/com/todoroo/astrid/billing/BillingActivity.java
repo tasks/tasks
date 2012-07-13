@@ -69,8 +69,8 @@ public class BillingActivity extends Activity {
     }
 
     private void setupButtons() {
-        buyMonth = (Button) findViewById(R.id.buy_month);
-        buyYear = (Button) findViewById(R.id.buy_year);
+        buyMonth = (Button) findViewById(R.id.premium_buy_month);
+        buyYear = (Button) findViewById(R.id.premium_buy_year);
 
         buyMonth.setEnabled(false);
         buyYear.setEnabled(false);

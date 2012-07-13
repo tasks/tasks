@@ -42,7 +42,6 @@
     <color name="widget_header_legacy_start">#fc1c2334</color>
     <color name="widget_header_legacy_end">#fc243455</color>
     <color name="widget_body_legacy">#fc1c1c1c</color>
-    <color name="black">#000</color>
         
 </resources>
 

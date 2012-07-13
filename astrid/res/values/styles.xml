@@ -437,4 +437,10 @@
         <item name="android:layout_marginRight">0dip</item>
     </style>
     
+    <!-- ========================================================= Premium == -->
+    <style name="TextAppearance.Premium_Billing">
+        <item name="android:textSize">14dip</item>                                                                                                                                                                    
+        <item name="android:textColor">@android:color/black</item> 
+    </style>
+    
 </resources>
