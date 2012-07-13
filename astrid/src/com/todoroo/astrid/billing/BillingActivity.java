@@ -195,7 +195,7 @@ public class BillingActivity extends Activity {
 
         @Override
         public void onPurchaseStateChange(PurchaseState purchaseState, String itemId,
-                int quantity, long purchaseTime, String developerPayload) {
+                int quantity, long purchaseTime, String developerPayload, String purchaseToken) {
             if (Constants.DEBUG) {
                 Log.i(TAG, "onPurchaseStateChange() itemId: " + itemId + " " + purchaseState);
             }

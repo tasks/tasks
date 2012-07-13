@@ -62,15 +62,17 @@ public class Security {
         public String orderId;
         public long purchaseTime;
         public String developerPayload;
+        public String purchaseToken;
 
         public VerifiedPurchase(PurchaseState purchaseState, String notificationId,
-                String productId, String orderId, long purchaseTime, String developerPayload) {
+                String productId, String orderId, long purchaseTime, String developerPayload, String purchaseToken) {
             this.purchaseState = purchaseState;
             this.notificationId = notificationId;
             this.productId = productId;
             this.orderId = orderId;
             this.purchaseTime = purchaseTime;
             this.developerPayload = developerPayload;
+            this.purchaseToken = purchaseToken;
         }
     }
 
@@ -169,6 +171,7 @@ public class Security {
                 if (jElement.has("notificationId")) {
                     notifyId = jElement.getString("notificationId");
                 }
+                String purchaseToken = jElement.optString("purchaseToken");
                 String developerPayload = jElement.optString("developerPayload", null);
 
                 // If the purchase state is PURCHASED, then we require a
@@ -177,7 +180,7 @@ public class Security {
                     continue;
                 }
                 purchases.add(new VerifiedPurchase(purchaseState, notifyId, productId,
-                        orderId, purchaseTime, developerPayload));
+                        orderId, purchaseTime, developerPayload, purchaseToken));
             }
         } catch (JSONException e) {
             Log.e(TAG, "JSON exception: ", e);

@@ -104,7 +104,7 @@ public class ResponseHandler {
      */
     public static void purchaseResponse(
             final Context context, final PurchaseState purchaseState, final String productId,
-            final String orderId, final long purchaseTime, final String developerPayload) {
+            final String orderId, final long purchaseTime, final String developerPayload, final String purchaseToken) {
 
         // Update the database with the purchase state. We shouldn't do that
         // from the main thread so we do the work in a background thread.
@@ -118,15 +118,15 @@ public class ResponseHandler {
 //                int quantity = db.updatePurchase(
 //                        orderId, productId, purchaseState, purchaseTime, developerPayload);
 //                db.close();
-//
-//                // This needs to be synchronized because the UI thread can change the
-//                // value of sPurchaseObserver.
-//                synchronized(ResponseHandler.class) {
-//                    if (sPurchaseObserver != null) {
-//                        sPurchaseObserver.postPurchaseStateChange(
-//                                purchaseState, productId, quantity, purchaseTime, developerPayload);
-//                    }
-//                }
+
+                // This needs to be synchronized because the UI thread can change the
+                // value of sPurchaseObserver.
+                synchronized(ResponseHandler.class) {
+                    if (sPurchaseObserver != null) {
+                        sPurchaseObserver.postPurchaseStateChange(
+                                purchaseState, productId, 1, purchaseTime, developerPayload, purchaseToken);
+                    }
+                }
             }
         }).start();
     }

@@ -551,7 +551,7 @@ public class BillingService extends Service implements ServiceConnection {
                 notifyList.add(vp.notificationId);
             }
             ResponseHandler.purchaseResponse(this, vp.purchaseState, vp.productId,
-                    vp.orderId, vp.purchaseTime, vp.developerPayload);
+                    vp.orderId, vp.purchaseTime, vp.developerPayload, vp.purchaseToken);
         }
         if (!notifyList.isEmpty()) {
             String[] notifyIds = notifyList.toArray(new String[notifyList.size()]);
