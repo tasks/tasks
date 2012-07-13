@@ -5,25 +5,19 @@ package com.todoroo.astrid.billing;
 public class BillingConstants {
 
     /** This is the action we use to bind to the MarketBillingService. */
-    public static final String MARKET_BILLING_SERVICE_ACTION =
-        "com.android.vending.billing.MarketBillingService.BIND";
+    public static final String MARKET_BILLING_SERVICE_ACTION = "com.android.vending.billing.MarketBillingService.BIND";
 
     // Intent actions that we send from the BillingReceiver to the
     // BillingService.  Defined by this application.
-    public static final String ACTION_CONFIRM_NOTIFICATION =
-            "com.example.subscriptions.CONFIRM_NOTIFICATION";
-    public static final String ACTION_GET_PURCHASE_INFORMATION =
-            "com.example.subscriptions.GET_PURCHASE_INFORMATION";
-    public static final String ACTION_RESTORE_TRANSACTIONS =
-            "com.example.subscriptions.RESTORE_TRANSACTIONS";
+    public static final String ACTION_CONFIRM_NOTIFICATION = "com.example.subscriptions.CONFIRM_NOTIFICATION";
+    public static final String ACTION_GET_PURCHASE_INFORMATION = "com.example.subscriptions.GET_PURCHASE_INFORMATION";
+    public static final String ACTION_RESTORE_TRANSACTIONS = "com.example.subscriptions.RESTORE_TRANSACTIONS";
 
     // Intent actions that we receive in the BillingReceiver from Market.
     // These are defined by Market and cannot be changed.
     public static final String ACTION_NOTIFY = "com.android.vending.billing.IN_APP_NOTIFY";
-    public static final String ACTION_RESPONSE_CODE =
-        "com.android.vending.billing.RESPONSE_CODE";
-    public static final String ACTION_PURCHASE_STATE_CHANGED =
-        "com.android.vending.billing.PURCHASE_STATE_CHANGED";
+    public static final String ACTION_RESPONSE_CODE = "com.android.vending.billing.RESPONSE_CODE";
+    public static final String ACTION_PURCHASE_STATE_CHANGED = "com.android.vending.billing.PURCHASE_STATE_CHANGED";
 
     // These are the names of the extras that are passed in an intent from
     // Market to this application and cannot be changed.
@@ -56,7 +50,7 @@ public class BillingConstants {
     public static final String PRODUCT_ID_MONTHLY = "premium_monthly";
     public static final String PRODUCT_ID_YEARLY = "premium_yearly";
 
- // The response codes for a request, defined by Android Market.
+    // The response codes for a request, defined by Android Market.
     public enum ResponseCode {
         RESULT_OK,
         RESULT_USER_CANCELED,
@@ -81,8 +75,8 @@ public class BillingConstants {
         // Responses to requestPurchase or restoreTransactions.
         PURCHASED,   // User was charged for the order.
         CANCELED,    // The charge failed on the server. (NOT THE SAME AS CANCELING A SUBSCRIPTION)
-        REFUNDED,   // User received a refund for the order.
-        EXPIRED;    // Subscription expired due to non-payment or cancellation
+        REFUNDED,    // User received a refund for the order.
+        EXPIRED;     // Subscription expired due to non-payment or cancellation
 
         // Converts from an ordinal value to the PurchaseState
         public static PurchaseState valueOf(int index) {
