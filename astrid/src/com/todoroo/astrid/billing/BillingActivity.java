@@ -17,7 +17,6 @@ import android.widget.Button;
 import android.widget.Toast;
 
 import com.timsu.astrid.R;
-import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.andlib.utility.DialogUtilities;
 import com.todoroo.andlib.utility.Preferences;
@@ -41,9 +40,6 @@ public class BillingActivity extends Activity {
     private AstridPurchaseObserver purchaseObserver;
     private Button buyMonth;
     private Button buyYear;
-
-    @Autowired private ActFmPreferenceService actFmPreferenceService;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -213,9 +209,11 @@ public class BillingActivity extends Activity {
             if (purchaseState == PurchaseState.PURCHASED) {
                 // Success
                 // Report premium activation to server
+                System.err.println("====== SUCCESS! ======");
             } else if (purchaseState == PurchaseState.REFUNDED || purchaseState == PurchaseState.EXPIRED) {
                 // Subscription ended
                 // Report premium deactivation to server
+                System.err.println("====== REFUNDED ======");
             }
         }
 

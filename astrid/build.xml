@@ -144,6 +144,14 @@
       <replaceregexp file="${source.dir}/com/todoroo/astrid/service/abtesting/ABTestInvoker.java"
     	             match="API_SECRET = .*"
     	             replace="API_SECRET = &quot;${apikey.analytics.secret}&quot;;" />
+    	
+      <replaceregexp file="${source.dir}/com/todoroo/astrid/billing/BillingConstants.java"
+                     match="PUB_KEY_REPLACE_CHAR = .*"
+    	             replace="PUB_KEY_REPLACE_CHAR = &#39;${apikey.googleplay.replacechar}&#39;;" />
+    	
+      <replaceregexp file="${source.dir}/com/todoroo/astrid/billing/BillingConstants.java"
+    	             match="PUB_KEY_OBFUSCATED = .*"
+    	             replace="PUB_KEY_OBFUSCATED = &quot;${apikey.googleplay.pubkey}&quot;;" />
     </target>
 
     <!-- update api keys that require release signing -->

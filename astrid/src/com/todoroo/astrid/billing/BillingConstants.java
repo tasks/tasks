@@ -47,8 +47,12 @@ public class BillingConstants {
     public static final String ITEM_TYPE_SUBSCRIPTION = "subs";
 
 
-    public static final String PRODUCT_ID_MONTHLY = "premium_monthly";
-    public static final String PRODUCT_ID_YEARLY = "premium_yearly";
+    public static final String PRODUCT_ID_MONTHLY = "com.timsu.astrid.premium_monthly";
+    public static final String PRODUCT_ID_YEARLY = "com.timsu.astrid.premium_yearly";
+
+    public static final char PUB_KEY_OBFUSCATION_CHAR = '!';
+    public static final char PUB_KEY_REPLACE_CHAR = 'B';
+    public static final String PUB_KEY_OBFUSCATED = "pubkey";
 
     // The response codes for a request, defined by Android Market.
     public enum ResponseCode {

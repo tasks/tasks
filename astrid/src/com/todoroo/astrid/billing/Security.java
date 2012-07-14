@@ -126,7 +126,8 @@ public class Security {
              * Generally, encryption keys / passwords should only be kept in memory
              * long enough to perform the operation they need to perform.
              */
-            String base64EncodedPublicKey = "your public key here";
+
+            String base64EncodedPublicKey = constructPublicKey();
             PublicKey key = Security.generatePublicKey(base64EncodedPublicKey);
             verified = Security.verify(key, signedData, signature);
             if (!verified) {
@@ -188,6 +189,11 @@ public class Security {
         }
         removeNonce(nonce);
         return purchases;
+    }
+
+    private static String constructPublicKey() {
+        return BillingConstants.PUB_KEY_OBFUSCATED.replace(BillingConstants.PUB_KEY_OBFUSCATION_CHAR,
+                BillingConstants.PUB_KEY_REPLACE_CHAR);
     }
 
     /**
