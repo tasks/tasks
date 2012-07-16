@@ -46,7 +46,7 @@ import com.todoroo.andlib.sql.Query;
 import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.andlib.utility.Preferences;
-import com.todoroo.astrid.actfm.sync.ActFmSyncService.JsonHelper;
+import com.todoroo.astrid.billing.BillingConstants;
 import com.todoroo.astrid.dao.MetadataDao;
 import com.todoroo.astrid.dao.TagDataDao;
 import com.todoroo.astrid.dao.TaskDao;
@@ -927,6 +927,19 @@ public final class ActFmSyncService {
         invokeFetchList("activity", manual, null, new UpdateListItemProcessor(), done, "personal");
 
         pushAllQueuedUpdates();
+    }
+
+    public void updateUserSubscriptionStatus(Runnable onError) {
+        String purchaseToken = Preferences.getStringValue(BillingConstants.PREF_PURCHASE_TOKEN);
+        String productId = Preferences.getStringValue(BillingConstants.PREF_PRODUCT_ID);
+        try {
+            actFmInvoker.invoke("premium_update_android", "purchaseToken", purchaseToken, "productId", productId);
+            Preferences.setBoolean(BillingConstants.PREF_NEEDS_SERVER_UPDATE, false);
+        } catch (Exception e) {
+            Preferences.setBoolean(BillingConstants.PREF_NEEDS_SERVER_UPDATE, true);
+            if (onError != null)
+                onError.run();
+        }
     }
 
     private void pushQueuedUpdatesForTag(TagData tagData) {

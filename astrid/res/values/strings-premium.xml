@@ -76,4 +76,6 @@
     <string name="premium_description_6">Support the Astrid Team!</string>
     <string name="premium_already_subscribed">You are already subscribed to Astrid Premium!</string>
     <string name="premium_login_prompt">You need to have an Astrid.com account in order to subscribe to premium. Please log in or sign up.</string>
+    <string name="premium_success">Thanks for subscribing to Astrid Premium!</string>
+    <string name="premium_success_with_server_error">Thanks for subscribing to Astrid Premium! The new features will be unlocked for you on astrid.com soon, and should be available on your phone right away.</string>
 </resources>

@@ -21,8 +21,8 @@ import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.andlib.utility.DialogUtilities;
 import com.todoroo.andlib.utility.Preferences;
-import com.todoroo.astrid.actfm.sync.ActFmInvoker;
 import com.todoroo.astrid.actfm.sync.ActFmPreferenceService;
+import com.todoroo.astrid.actfm.sync.ActFmSyncService;
 import com.todoroo.astrid.billing.BillingConstants.PurchaseState;
 import com.todoroo.astrid.billing.BillingConstants.ResponseCode;
 import com.todoroo.astrid.billing.BillingService.RequestPurchase;
@@ -43,7 +43,7 @@ public class BillingActivity extends Activity {
     private Button buyMonth;
     private Button buyYear;
 
-    @Autowired private ActFmInvoker actFmInvoker;
+    @Autowired private ActFmSyncService actFmSyncService;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -196,8 +196,8 @@ public class BillingActivity extends Activity {
         }
 
         @Override
-        public void onPurchaseStateChange(PurchaseState purchaseState, String itemId,
-                int quantity, long purchaseTime, String developerPayload, String purchaseToken) {
+        public void onPurchaseStateChange(PurchaseState purchaseState, final String itemId,
+                int quantity, long purchaseTime, String developerPayload, final String purchaseToken) {
             if (Constants.DEBUG) {
                 Log.i(TAG, "onPurchaseStateChange() itemId: " + itemId + " " + purchaseState);
             }
@@ -206,24 +206,26 @@ public class BillingActivity extends Activity {
             Preferences.setString(BillingConstants.PREF_PURCHASE_TOKEN, purchaseToken);
 
             if (purchaseState == PurchaseState.PURCHASED) {
-                try {
-                    actFmInvoker.invoke("premium_update_android", "purchaseToken", purchaseToken, "productId", itemId);
-                    Preferences.setBoolean(ActFmPreferenceService.PREF_PREMIUM, true);
-                    Preferences.setBoolean(BillingConstants.PREF_NEEDS_SERVER_UPDATE, false);
-                } catch (Exception e) {
-                    Preferences.setBoolean(BillingConstants.PREF_NEEDS_SERVER_UPDATE, true);
-                    // Reassure user
-                }
-                System.err.println("====== SUCCESS! ======");
+                new Thread() {
+                    @Override
+                    public void run() {
+                        Preferences.setBoolean(ActFmPreferenceService.PREF_PREMIUM, true);
+                        actFmSyncService.updateUserSubscriptionStatus(new Runnable() {
+                            @Override
+                            public void run() {
+                                Toast.makeText(BillingActivity.this, R.string.premium_success_with_server_error, Toast.LENGTH_LONG).show();
+                            }
+                        });
+                    }
+                }.start();
             } else if (purchaseState == PurchaseState.REFUNDED || purchaseState == PurchaseState.EXPIRED) {
-                try {
-                    Preferences.setBoolean(ActFmPreferenceService.PREF_PREMIUM, false);
-                    actFmInvoker.invoke("premium_update_android", "purchaseToken", purchaseToken, "productId", itemId);
-                    Preferences.setBoolean(BillingConstants.PREF_NEEDS_SERVER_UPDATE, false);
-                } catch (Exception e) {
-                    Preferences.setBoolean(BillingConstants.PREF_NEEDS_SERVER_UPDATE, true);
-                }
-                System.err.println("====== REFUNDED OR EXPIRED ======");
+                new Thread() {
+                    @Override
+                    public void run() {
+                        Preferences.setBoolean(ActFmPreferenceService.PREF_PREMIUM, false);
+                        actFmSyncService.updateUserSubscriptionStatus(null);
+                    }
+                }.start();
             }
         }
 
