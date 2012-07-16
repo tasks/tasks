@@ -1,5 +1,7 @@
 package com.todoroo.astrid.billing;
 
+import com.todoroo.astrid.actfm.sync.ActFmPreferenceService;
+
 
 @SuppressWarnings("nls")
 public class BillingConstants {
@@ -49,6 +51,10 @@ public class BillingConstants {
 
     public static final String PRODUCT_ID_MONTHLY = "com.timsu.astrid.premium_monthly";
     public static final String PRODUCT_ID_YEARLY = "com.timsu.astrid.premium_yearly";
+
+    public static final String PREF_PRODUCT_ID = ActFmPreferenceService.IDENTIFIER + "_inapp_product_id";
+    public static final String PREF_PURCHASE_TOKEN = ActFmPreferenceService.IDENTIFIER + "_inapp_purchase_token";
+    public static final String PREF_NEEDS_SERVER_UPDATE = ActFmPreferenceService.IDENTIFIER + "_inapp_needs_server_update";
 
     public static final char PUB_KEY_OBFUSCATION_CHAR = '!';
     public static final char PUB_KEY_REPLACE_CHAR = 'B';

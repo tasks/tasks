@@ -17,9 +17,11 @@ import android.widget.Button;
 import android.widget.Toast;
 
 import com.timsu.astrid.R;
+import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.andlib.utility.DialogUtilities;
 import com.todoroo.andlib.utility.Preferences;
+import com.todoroo.astrid.actfm.sync.ActFmInvoker;
 import com.todoroo.astrid.actfm.sync.ActFmPreferenceService;
 import com.todoroo.astrid.billing.BillingConstants.PurchaseState;
 import com.todoroo.astrid.billing.BillingConstants.ResponseCode;
@@ -40,6 +42,8 @@ public class BillingActivity extends Activity {
     private AstridPurchaseObserver purchaseObserver;
     private Button buyMonth;
     private Button buyYear;
+
+    @Autowired private ActFmInvoker actFmInvoker;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -74,8 +78,6 @@ public class BillingActivity extends Activity {
 
         buyMonth.setEnabled(false);
         buyYear.setEnabled(false);
-
-        //TODO: Figure out if we need a payload for any reason
 
         buyMonth.setOnClickListener(new OnClickListener() {
             @Override
@@ -200,20 +202,28 @@ public class BillingActivity extends Activity {
                 Log.i(TAG, "onPurchaseStateChange() itemId: " + itemId + " " + purchaseState);
             }
 
-//            if (developerPayload == null) {
-//                //
-//            } else {
-//                //
-//            }
+            Preferences.setString(BillingConstants.PREF_PRODUCT_ID, itemId);
+            Preferences.setString(BillingConstants.PREF_PURCHASE_TOKEN, purchaseToken);
 
             if (purchaseState == PurchaseState.PURCHASED) {
-                // Success
-                // Report premium activation to server
+                try {
+                    actFmInvoker.invoke("premium_update_android", "purchaseToken", purchaseToken, "productId", itemId);
+                    Preferences.setBoolean(ActFmPreferenceService.PREF_PREMIUM, true);
+                    Preferences.setBoolean(BillingConstants.PREF_NEEDS_SERVER_UPDATE, false);
+                } catch (Exception e) {
+                    Preferences.setBoolean(BillingConstants.PREF_NEEDS_SERVER_UPDATE, true);
+                    // Reassure user
+                }
                 System.err.println("====== SUCCESS! ======");
             } else if (purchaseState == PurchaseState.REFUNDED || purchaseState == PurchaseState.EXPIRED) {
-                // Subscription ended
-                // Report premium deactivation to server
-                System.err.println("====== REFUNDED ======");
+                try {
+                    Preferences.setBoolean(ActFmPreferenceService.PREF_PREMIUM, false);
+                    actFmInvoker.invoke("premium_update_android", "purchaseToken", purchaseToken, "productId", itemId);
+                    Preferences.setBoolean(BillingConstants.PREF_NEEDS_SERVER_UPDATE, false);
+                } catch (Exception e) {
+                    Preferences.setBoolean(BillingConstants.PREF_NEEDS_SERVER_UPDATE, true);
+                }
+                System.err.println("====== REFUNDED OR EXPIRED ======");
             }
         }
 
