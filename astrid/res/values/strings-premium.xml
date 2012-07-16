@@ -52,7 +52,7 @@
      won\'t be able to make purchases.</string>
     <string name="subscriptions_not_supported_title">Can\'t purchase subscriptions</string>
     <string name="subscriptions_not_supported_message">The Market billing
-     service on this device does not support subscriptions at this time.</string>
+     service on this device does not support subscriptions at this time. You can subscribe to Astrid Premium at http://astrid.com/premium.</string>
     <string name="cannot_connect_title">Can\'t connect to Market</string>
     <string name="cannot_connect_message">This app cannot connect to Market.
      Your version of Market may be out of date.

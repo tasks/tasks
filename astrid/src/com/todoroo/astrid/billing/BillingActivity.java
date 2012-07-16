@@ -44,6 +44,8 @@ public class BillingActivity extends Activity {
     private Button buyYear;
 
     @Autowired private ActFmSyncService actFmSyncService;
+    @Autowired private ActFmPreferenceService actFmPreferenceService;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,7 +62,23 @@ public class BillingActivity extends Activity {
 
         ResponseHandler.register(purchaseObserver);
 
-        if (!billingService.checkBillingSupported(BillingConstants.ITEM_TYPE_SUBSCRIPTION)) {
+        // Enforce logged in here? If so, barrier to subscribing, if not, has the possibility of double subscribing.
+        if (!actFmPreferenceService.isLoggedIn()) {
+            // Prompt to log in
+            DialogUtilities.okCancelDialog(this, getString(R.string.premium_login_prompt), new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    // Set result, finish, use callback to prompt for login
+                }
+            },
+            new DialogInterface.OnClickListener() {
+
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    finish();
+                }
+            });
+        } else if (!billingService.checkBillingSupported(BillingConstants.ITEM_TYPE_SUBSCRIPTION)) {
             showDialog(DIALOG_SUBSCRIPTIONS_NOT_SUPPORTED_ID);
         } else if (ActFmPreferenceService.isPremiumUser()) {
             DialogUtilities.okDialog(this, getString(R.string.premium_already_subscribed), new DialogInterface.OnClickListener() {
