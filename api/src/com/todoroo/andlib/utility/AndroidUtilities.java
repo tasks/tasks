@@ -813,6 +813,7 @@ public class AndroidUtilities {
      */
     private static final String[] THREE_PANE_DEVICES = new String[] {
         "kindle", //$NON-NLS-1$
+        "nexus 7", //$NON-NLS-1$
     };
 
     /**
