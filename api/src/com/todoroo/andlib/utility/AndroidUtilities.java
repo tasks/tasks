@@ -35,6 +35,7 @@ import android.net.NetworkInfo;
 import android.net.NetworkInfo.State;
 import android.os.Bundle;
 import android.text.InputType;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
@@ -807,15 +808,6 @@ public class AndroidUtilities {
         }
     }
 
-
-    /**
-     * Array of device names that should be considered tablets
-     */
-    private static final String[] THREE_PANE_DEVICES = new String[] {
-        "kindle", //$NON-NLS-1$
-        "nexus 7", //$NON-NLS-1$
-    };
-
     /**
      * Returns true if the screen is large or xtra large
      * @param context
@@ -826,12 +818,21 @@ public class AndroidUtilities {
             return true;
         int size = context.getResources().getConfiguration().screenLayout
                 & Configuration.SCREENLAYOUT_SIZE_MASK;
-        if (size == Configuration.SCREENLAYOUT_SIZE_XLARGE) return true;
-        String model = android.os.Build.MODEL.toLowerCase();
-        for (String s : THREE_PANE_DEVICES) {
-            if (model.contains(s)) return true;
+
+        if (size == Configuration.SCREENLAYOUT_SIZE_XLARGE) {
+            return true;
+        } else if (size == Configuration.SCREENLAYOUT_SIZE_LARGE) {
+            DisplayMetrics metrics = context.getResources().getDisplayMetrics();
+            float width = metrics.widthPixels / metrics.density;
+            float height = metrics.heightPixels / metrics.density;
+
+            float effectiveWidth = Math.min(width, height);
+            float effectiveHeight = Math.max(width, height);
+
+            return (effectiveWidth >= 550 && effectiveHeight >= 800);
+        } else {
+            return false;
         }
-        return false;
     }
 
     /**
