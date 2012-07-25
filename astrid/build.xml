@@ -1,4 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!-- 
+** Copyright (c) 2012 Todoroo Inc
+**
+** See the file "LICENSE" for the full license governing this code. 
+-->
 <project name="astrid" default="help">
 
     <!-- The local.properties file is created and updated by the 'android' tool.
