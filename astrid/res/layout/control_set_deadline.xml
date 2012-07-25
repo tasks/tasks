@@ -1,4 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!-- 
+** Copyright (c) 2012 Todoroo Inc
+**
+** See the file "LICENSE" for the full license governing this code. 
+-->
 <com.todoroo.astrid.ui.DateAndTimePicker
   xmlns:android="http://schemas.android.com/apk/res/android"
   xmlns:astrid="http://schemas.android.com/apk/res/com.timsu.astrid"

@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) 2012 Todoroo Inc
+ *
+ * See the file "LICENSE" for the full license governing this code.
+ */
 package org.weloveastrid.rmilk.data;
 
 import org.weloveastrid.rmilk.api.data.RtmTaskNote;
