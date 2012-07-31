@@ -48,7 +48,6 @@
   <string name="actfm_EPA_task_rabbit">Sous-traitez le !</string>
   <string name="actfm_EPA_assign_custom">Personnalisé...</string>
   <string name="actfm_EPA_share_with">Partager avec :</string>
-  <string name="actfm_EPA_assigned_toast">Envoyez a %1$s (vous pouvez la voir dans la liste partagée entre vous et %2$s).</string>
   <string name="actfm_EPA_collaborators_header">Partager avec des amis</string>
   <string name="actfm_EPA_list">Liste : %s</string>
   <string name="actfm_EPA_assigned_hint">Nom du contact</string>

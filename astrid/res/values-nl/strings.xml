@@ -48,7 +48,6 @@
   <string name="actfm_EPA_task_rabbit">Besteed dit uit!</string>
   <string name="actfm_EPA_assign_custom">Aangepast...</string>
   <string name="actfm_EPA_share_with">Deel met:</string>
-  <string name="actfm_EPA_assigned_toast">Naar %1$s gestuurd (je kan dit zien in de lijst die je deelt met %2$s).</string>
   <string name="actfm_EPA_collaborators_header">Deel met Vrienden</string>
   <string name="actfm_EPA_list">Lijst: %s</string>
   <string name="actfm_EPA_assigned_hint">Naam van contactpersoon</string>

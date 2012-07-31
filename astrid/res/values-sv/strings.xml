@@ -48,7 +48,6 @@
   <string name="actfm_EPA_task_rabbit">Lägg ut det på någon annan!</string>
   <string name="actfm_EPA_assign_custom">Anpassad...</string>
   <string name="actfm_EPA_share_with">Dela med:</string>
-  <string name="actfm_EPA_assigned_toast">Skickat till %1$s (du kan se det i listan mellan dig och %2$s).</string>
   <string name="actfm_EPA_collaborators_header">Dela med vänner</string>
   <string name="actfm_EPA_list">Lista: %s</string>
   <string name="actfm_EPA_assigned_hint">Kontaktnamn</string>

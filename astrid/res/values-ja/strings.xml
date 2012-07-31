@@ -48,7 +48,6 @@
   <string name="actfm_EPA_task_rabbit">Outsource it!</string>
   <string name="actfm_EPA_assign_custom">Custom...</string>
   <string name="actfm_EPA_share_with">共有者:</string>
-  <string name="actfm_EPA_assigned_toast">Sent to %1$s (you can see it in the list between you and %2$s).</string>
   <string name="actfm_EPA_collaborators_header">ともだちと共有する</string>
   <string name="actfm_EPA_list">リスト: %s</string>
   <string name="actfm_EPA_assigned_hint">連絡先名</string>
