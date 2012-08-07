@@ -48,7 +48,6 @@
   <string name="actfm_EPA_task_rabbit">将任务外包</string>
   <string name="actfm_EPA_assign_custom">自定义...</string>
   <string name="actfm_EPA_share_with">共享给：</string>
-  <string name="actfm_EPA_assigned_toast">发送给%1$s（你可以在你与%2$s的列表中查看到）</string>
   <string name="actfm_EPA_collaborators_header">与朋友分享</string>
   <string name="actfm_EPA_list">列表：%s</string>
   <string name="actfm_EPA_assigned_hint">联系人姓名</string>

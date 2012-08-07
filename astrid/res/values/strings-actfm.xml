@@ -161,9 +161,6 @@
   <!-- task sharing dialog: shared with label -->
   <string name="actfm_EPA_share_with">Share with:</string>
   
-  <!-- Toast when assigning a task -->
-  <string name="actfm_EPA_assigned_toast">Sent to %1$s (you can see it in the list between you and %2$s).</string>
-  
   <!-- task sharing dialog: shared with label -->
   <string name="actfm_EPA_collaborators_header">Share with Friends</string>
 

@@ -48,7 +48,6 @@
   <string name="actfm_EPA_task_rabbit">Outsource it!</string>
   <string name="actfm_EPA_assign_custom">Свой...</string>
   <string name="actfm_EPA_share_with">Опубликовать для:</string>
-  <string name="actfm_EPA_assigned_toast">Отправлено %1$s (вы можете увидеть его в списке между вами и %2$s)</string>
   <string name="actfm_EPA_collaborators_header">Опубликовать для друзей</string>
   <string name="actfm_EPA_list">Список: %s</string>
   <string name="actfm_EPA_assigned_hint">Имя контакта</string>

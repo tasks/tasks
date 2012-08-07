@@ -48,7 +48,6 @@
   <string name="actfm_EPA_task_rabbit">Outsource it!</string>
   <string name="actfm_EPA_assign_custom">Personalizado…</string>
   <string name="actfm_EPA_share_with">Compartir con:</string>
-  <string name="actfm_EPA_assigned_toast">Enviado a %1$s (Puedes verla en la lista entre tu y %2$s).</string>
   <string name="actfm_EPA_collaborators_header">Compartir con amigos</string>
   <string name="actfm_EPA_list">Lista: %s</string>
   <string name="actfm_EPA_assigned_hint">Nombre del contacto</string>

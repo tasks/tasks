@@ -48,7 +48,6 @@
   <string name="actfm_EPA_task_rabbit">Dış kaynak kullan!</string>
   <string name="actfm_EPA_assign_custom">Özel...</string>
   <string name="actfm_EPA_share_with">Şununla paylaş:</string>
-  <string name="actfm_EPA_assigned_toast">Gönderilen yer: %1$s (bunu sen ve %2$s arasındaki listede görebilirsin).</string>
   <string name="actfm_EPA_collaborators_header">Arkadaşlarla paylaş</string>
   <string name="actfm_EPA_list">Liste: %s</string>
   <string name="actfm_EPA_assigned_hint">Kişi Adı</string>

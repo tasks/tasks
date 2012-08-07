@@ -48,7 +48,6 @@
   <string name="actfm_EPA_task_rabbit">Zleć to!</string>
   <string name="actfm_EPA_assign_custom">Inny...</string>
   <string name="actfm_EPA_share_with">Podziel się z:</string>
-  <string name="actfm_EPA_assigned_toast">Wyślij do %1$s (możesz to zobaczyć w liście między Tobą i %2$s).</string>
   <string name="actfm_EPA_collaborators_header">Podziel się z przyjaciółmi</string>
   <string name="actfm_EPA_list">Lista: %s</string>
   <string name="actfm_EPA_assigned_hint">Nazwa kontaktu</string>
