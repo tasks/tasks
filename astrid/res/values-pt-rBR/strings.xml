@@ -48,7 +48,6 @@
   <string name="actfm_EPA_task_rabbit">Delegar!</string>
   <string name="actfm_EPA_assign_custom">Personalizado...</string>
   <string name="actfm_EPA_share_with">Compartilhar com:</string>
-  <string name="actfm_EPA_assigned_toast">Enviada para %1$s (você pode vê-la na lista entre você e %2$s).</string>
   <string name="actfm_EPA_collaborators_header">Compartilhar com Amigos</string>
   <string name="actfm_EPA_list">Lista: %s</string>
   <string name="actfm_EPA_assigned_hint">Nome do contato</string>

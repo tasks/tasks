@@ -1,5 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- See the file "LICENSE" for the full license governing this code. -->
+<!-- 
+** Copyright (c) 2012 Todoroo Inc
+**
+** See the file "LICENSE" for the full license governing this code. 
+-->
 <merge xmlns:android="http://schemas.android.com/apk/res/android">
     <LinearLayout
         android:layout_width="fill_parent"

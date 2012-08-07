@@ -1,5 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- See the file "LICENSE" for the full license governing this code. -->
+<!-- 
+** Copyright (c) 2012 Todoroo Inc
+**
+** See the file "LICENSE" for the full license governing this code. 
+-->
 <resources xmlns:android="http://schemas.android.com/apk/res/android">
 
   <!-- Resources for built-in reminders plug-in -->
@@ -62,9 +66,11 @@
   
   <!-- ==================================================== user reengagement == -->
 
+  <!-- Titles for user reengagement notifications -->
   <string-array name="rmd_reengage_notif_titles">
     <item>A note from Astrid</item>
-    <item>Memo for %s.</item> <!-- %s -> first name -->
+    <!-- %s -> first name -->
+    <item>Memo for %s.</item> 
     <item>Your Astrid digest</item>
     <item>Reminders from Astrid</item>
   </string-array>
@@ -75,6 +81,7 @@
   
   <string name="rmd_reengage_add_tasks">Add a task</string>
   
+  <!-- Speech bubble options for astrid in reengagement notifs -->
   <string-array name="rmd_reengage_dialog_options">
     <item>Time to shorten your to-do list!</item>
     <item>Dear sir or madam, some tasks await your inspection!</item>
@@ -85,6 +92,7 @@
     <item>A lovely day for getting some work done, I think!</item>
   </string-array>
   
+  <!-- Speech bubble options for astrid in reengagement notifs when no tasks present -->
   <string-array name="rmd_reengage_dialog_empty_options">
     <item>Don\'t you want to get organized?</item>
     <item>I\'m Astrid! I\'m here to help you do more!</item>

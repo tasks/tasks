@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) 2012 Todoroo Inc
+ *
+ * See the file "LICENSE" for the full license governing this code.
+ */
 package com.todoroo.astrid.files;
 
 import java.io.File;
@@ -315,7 +320,6 @@ public class FilesControlSet extends PopupControlSet {
             public void run() {
                 String urlString = m.getValue(FileMetadata.URL);
                 urlString = urlString.replace(" ", "%20");
-                urlString = urlString.replace("+", "%20");
                 String name = m.getValue(FileMetadata.NAME);
                 StringBuilder filePathBuilder = new StringBuilder();
                 filePathBuilder.append(activity.getExternalFilesDir(FileMetadata.FILES_DIRECTORY).toString())

@@ -1,18 +1,22 @@
-/*
- * Copyright (c) 2009, Todoroo Inc
- * All Rights Reserved
- * http://www.todoroo.com
+/**
+ * Copyright (c) 2012 Todoroo Inc
+ *
+ * See the file "LICENSE" for the full license governing this code.
  */
 package com.todoroo.astrid.dao;
 
 import android.content.ContentValues;
+import android.content.Context;
+import android.content.Intent;
 import android.database.sqlite.SQLiteConstraintException;
+import android.util.Log;
 
 import com.timsu.astrid.R;
 import com.todoroo.andlib.data.DatabaseDao;
 import com.todoroo.andlib.data.Property;
 import com.todoroo.andlib.data.TodorooCursor;
 import com.todoroo.andlib.service.Autowired;
+import com.todoroo.andlib.service.ContextManager;
 import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.andlib.sql.Criterion;
 import com.todoroo.andlib.sql.Field;
@@ -20,6 +24,7 @@ import com.todoroo.andlib.sql.Functions;
 import com.todoroo.andlib.sql.Query;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.andlib.utility.Preferences;
+import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.dao.MetadataDao.MetadataCriteria;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.data.TaskApiDao;
@@ -164,7 +169,7 @@ public class TaskDao extends DatabaseDao<Task> {
         // delete all metadata
         metadataDao.deleteWhere(MetadataCriteria.byTask(id));
 
-        TaskApiDao.afterTaskListChanged();
+        broadcastTaskChanged();
 
         return true;
     }
@@ -390,7 +395,40 @@ public class TaskDao extends DatabaseDao<Task> {
         }
 
         // run api save hooks
-        TaskApiDao.afterSave(task, values);
+        broadcastTaskSave(task, values);
+    }
+
+    /**
+     * Send broadcasts on task change (triggers things like task repeats)
+     * @param task task that was saved
+     * @param values values that were updated
+     */
+    public static void broadcastTaskSave(Task task, ContentValues values) {
+        if(TaskApiDao.insignificantChange(values))
+            return;
+
+        if(values.containsKey(Task.COMPLETION_DATE.name) && task.isCompleted()) {
+            Context context = ContextManager.getContext();
+            if(context != null) {
+                Intent broadcastIntent;
+                broadcastIntent = new Intent(AstridApiConstants.BROADCAST_EVENT_TASK_COMPLETED);
+                broadcastIntent.putExtra(AstridApiConstants.EXTRAS_TASK_ID, task.getId());
+                context.sendOrderedBroadcast(broadcastIntent, null);
+            }
+        }
+
+        broadcastTaskChanged();
+    }
+
+    /**
+     * Send broadcast when task list changes. Widgets should update.
+     */
+    public static void broadcastTaskChanged() {
+        Context context = ContextManager.getContext();
+        if(context != null) {
+            Intent broadcastIntent = new Intent(AstridApiConstants.BROADCAST_EVENT_TASK_LIST_UPDATED);
+            context.sendOrderedBroadcast(broadcastIntent, null);
+        }
     }
 
     /**

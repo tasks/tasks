@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) 2012 Todoroo Inc
+ *
+ * See the file "LICENSE" for the full license governing this code.
+ */
 package com.todoroo.astrid.ui;
 
 import java.util.HashSet;
@@ -237,6 +242,7 @@ public class QuickAddBar extends LinearLayout implements RecognizerApiListener {
         }
         repeatControl.readFromTask(empty);
         gcalControl.readFromTask(empty);
+        gcalControl.resetCalendarSelector();
         deadlineControl.readFromTask(empty);
         peopleControl.setUpData(empty, fragment.getActiveTagData());
         peopleControl.assignToMe();

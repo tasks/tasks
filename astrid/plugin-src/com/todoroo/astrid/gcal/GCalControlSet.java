@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) 2012 Todoroo Inc
+ *
+ * See the file "LICENSE" for the full license governing this code.
+ */
 package com.todoroo.astrid.gcal;
 
 import java.util.ArrayList;
@@ -74,7 +79,7 @@ public class GCalControlSet extends PopupControlSet {
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         calendarSelector.setPromptId(title);
         calendarSelector.setAdapter(adapter);
-        calendarSelector.setSelection(calendars.defaultIndex + 1); // plus 1 for the no selection item
+        resetCalendarSelector();
         calendarSelector.setOnItemSelectedListener(new OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> arg0, View arg1,
@@ -115,8 +120,16 @@ public class GCalControlSet extends PopupControlSet {
                 exceptionService.reportError("unable-to-parse-calendar: " +  //$NON-NLS-1$
                         model.getValue(Task.CALENDAR_URI), e);
             }
+        } else {
+            hasEvent = false;
+            calendarUri = null;
         }
         refreshDisplayView();
+    }
+
+    public void resetCalendarSelector() {
+        if (calendarSelector != null)
+            calendarSelector.setSelection(calendars.defaultIndex + 1); // plus 1 for the no selection item
     }
 
     @SuppressWarnings("nls")
@@ -219,10 +232,10 @@ public class GCalControlSet extends PopupControlSet {
                 calendar.setText(R.string.gcal_TEA_none_selected);
             }
         } else {
-            int index = calendars.defaultIndex + 1;
+            int index = calendars.defaultIndex;
             if (!TextUtils.isEmpty(model.getValue(Task.CALENDAR_URI))) {
                 calendar.setText(R.string.gcal_TEA_has_event);
-            } else if (index != 0 && index < calendars.calendars.length) {
+            } else if (index >= 0 && index < calendars.calendars.length) {
                 calendar.setText(calendars.calendars[index]);
             } else {
                 calendar.setText(R.string.gcal_TEA_none_selected);

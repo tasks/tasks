@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) 2012 Todoroo Inc
+ *
+ * See the file "LICENSE" for the full license governing this code.
+ */
 package com.todoroo.astrid.actfm;
 
 import java.util.ArrayList;
@@ -695,7 +700,6 @@ public class EditPeopleControlSet extends PopupControlSet {
             return false;
 
         boolean dirty = false;
-        String sharedToast = null;
         try {
             JSONObject userJson = null;
             TextView assignedView = null;
@@ -755,12 +759,6 @@ public class EditPeopleControlSet extends PopupControlSet {
                 task.setValue(Task.USER, user);
 
                 String assignedName = userJson.optString("name", userEmail);
-
-                if(task.getTransitory(TaskService.TRANS_TAGS) == null ||
-                        ((HashSet<String>)task.getTransitory(TaskService.TRANS_TAGS)).size() == 0) {
-                    sharedToast = activity.getString(R.string.actfm_EPA_assigned_toast, assignedName,
-                            assignedName);
-                }
             }
 
             JSONObject sharedWith = sharedWithContainer.parseSharedWithAndTags(activity, false);
@@ -811,8 +809,6 @@ public class EditPeopleControlSet extends PopupControlSet {
             else if (task.getValue(Task.USER_ID) != Task.USER_ID_SELF)
                 StatisticsService.reportEvent(StatisticsConstants.TASK_ASSIGNED_PICKER);
 
-            if(sharedToast != null)
-                toast = (toast != null) ? toast + "\n" + sharedToast : sharedToast + "\n";
             showSaveToast(toast);
 
             return true;

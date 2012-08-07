@@ -48,7 +48,6 @@
   <string name="actfm_EPA_task_rabbit">deligiere es.</string>
   <string name="actfm_EPA_assign_custom">Benutzerdefiniert …</string>
   <string name="actfm_EPA_share_with">Teilen mit:</string>
-  <string name="actfm_EPA_assigned_toast">Zugewiesen an %1$s (Du kannst es in der mit %2$s geteilten Liste sehen)</string>
   <string name="actfm_EPA_collaborators_header">Mit Freunden teilen</string>
   <string name="actfm_EPA_list">Liste: %s</string>
   <string name="actfm_EPA_assigned_hint">Kontaktperson</string>

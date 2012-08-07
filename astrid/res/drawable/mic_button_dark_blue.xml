@@ -1,4 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!-- 
+** Copyright (c) 2012 Todoroo Inc
+**
+** See the file "LICENSE" for the full license governing this code. 
+-->
 <selector xmlns:android="http://schemas.android.com/apk/res/android" >
     <item android:state_pressed="true" android:drawable="@drawable/mic_button_dark_blue_pressed"/>
     <item android:state_focused="true" android:drawable="@drawable/mic_button_dark_blue_pressed"/>

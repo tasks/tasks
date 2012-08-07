@@ -1,18 +1,20 @@
+/**
+ * Copyright (c) 2012 Todoroo Inc
+ *
+ * See the file "LICENSE" for the full license governing this code.
+ */
 package com.todoroo.astrid.data;
 
 import android.content.ContentValues;
 import android.content.Context;
-import android.content.Intent;
 import android.database.SQLException;
 
 import com.todoroo.andlib.data.ContentResolverDao;
 import com.todoroo.andlib.data.TodorooCursor;
-import com.todoroo.andlib.service.ContextManager;
 import com.todoroo.andlib.sql.Criterion;
 import com.todoroo.andlib.sql.Field;
 import com.todoroo.andlib.sql.Functions;
 import com.todoroo.andlib.sql.Query;
-import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.api.PermaSql;
 
 /**
@@ -143,23 +145,15 @@ public class TaskApiDao extends ContentResolverDao<Task> {
 
     @Override
     public boolean save(Task model) {
-        ContentValues setValues = model.getSetValues();
         try {
-            if(super.save(model)) {
-                afterSave(model, setValues);
-                return true;
-            }
+            return super.save(model);
         } catch (SQLException e) {
             if (model.containsNonNullValue(Task.REMOTE_ID)) {
                 TodorooCursor<Task> cursor = query(Query.select(Task.ID).where(Task.REMOTE_ID.eq(model.getValue(Task.REMOTE_ID))));
                 if (cursor.getCount() > 0) {
                     cursor.moveToFirst();
                     model.setId(cursor.get(Task.ID));
-                    setValues = model.getSetValues();
-                    if (super.save(model)) {
-                        afterSave(model, setValues);
-                        return true;
-                    }
+                    return super.save(model);
                 }
             }
         }
@@ -188,39 +182,6 @@ public class TaskApiDao extends ContentResolverDao<Task> {
             return true;
 
         return false;
-    }
-
-    /**
-     * Send broadcasts on task change (triggers things like task repeats)
-     * @param task task that was saved
-     * @param values values that were updated
-     */
-    public static void afterSave(Task task, ContentValues values) {
-        if(insignificantChange(values))
-            return;
-
-        if(values.containsKey(Task.COMPLETION_DATE.name) && task.isCompleted()) {
-            Context context = ContextManager.getContext();
-            if(context != null) {
-                Intent broadcastIntent;
-                broadcastIntent = new Intent(AstridApiConstants.BROADCAST_EVENT_TASK_COMPLETED);
-                broadcastIntent.putExtra(AstridApiConstants.EXTRAS_TASK_ID, task.getId());
-                context.sendOrderedBroadcast(broadcastIntent, null);
-            }
-        }
-
-        afterTaskListChanged();
-    }
-
-    /**
-     * Send broadcast when task list changes. Widgets should update.
-     */
-    public static void afterTaskListChanged() {
-        Context context = ContextManager.getContext();
-        if(context != null) {
-            Intent broadcastIntent = new Intent(AstridApiConstants.BROADCAST_EVENT_TASK_LIST_UPDATED);
-            context.sendOrderedBroadcast(broadcastIntent, null);
-        }
     }
 
 }

@@ -1,4 +1,6 @@
 /**
+ * Copyright (c) 2012 Todoroo Inc
+ *
  * See the file "LICENSE" for the full license governing this code.
  */
 package com.todoroo.astrid.adapter;
@@ -359,7 +361,7 @@ public class FilterAdapter extends ArrayAdapter<Filter> {
                 extras.setClassLoader(FilterListHeader.class.getClassLoader());
                 final Parcelable[] filters = extras.getParcelableArray(AstridApiConstants.EXTRAS_RESPONSE);
                 populateFiltersToAdapter(filters);
-                shouldUseBladeFilter = false;
+                shouldUseBladeFilter = getCount() == 0;
             } catch (Exception e) {
                 Log.e("receive-filter-" +  //$NON-NLS-1$
                         intent.getStringExtra(AstridApiConstants.EXTRAS_ADDON),

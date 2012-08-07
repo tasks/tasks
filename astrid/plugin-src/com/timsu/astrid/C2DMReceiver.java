@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) 2012 Todoroo Inc
+ *
+ * See the file "LICENSE" for the full license governing this code.
+ */
 package com.timsu.astrid;
 
 import java.io.IOException;
@@ -159,7 +164,6 @@ public class C2DMReceiver extends BroadcastReceiver {
                         task.readFromCursor(cursor);
                     }
 
-                    task.putTransitory(SyncFlags.GTASKS_SUPPRESS_SYNC, true);
                     actFmSyncService.fetchTask(task);
                 } catch(NumberFormatException e) {
                     // invalid task id
@@ -301,7 +305,6 @@ public class C2DMReceiver extends BroadcastReceiver {
                 task.setValue(Task.TITLE, intent.getStringExtra("title"));
                 task.setValue(Task.REMOTE_ID, Long.parseLong(intent.getStringExtra("task_id")));
                 task.setValue(Task.USER_ID, Task.USER_ID_UNASSIGNED);
-                task.putTransitory(SyncFlags.GTASKS_SUPPRESS_SYNC, true);
                 task.putTransitory(SyncFlags.ACTFM_SUPPRESS_SYNC, true);
                 taskService.save(task);
 
