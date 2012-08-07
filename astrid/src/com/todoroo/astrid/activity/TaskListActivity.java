@@ -699,6 +699,10 @@ public class TaskListActivity extends AstridActivity implements MainMenuListener
             mainMenuPopover.suppressNextKeyEvent();
             mainMenu.performClick();
             return true;
+        } else if (keyCode == KeyEvent.KEYCODE_BACK) {
+            TaskEditFragment tef = getTaskEditFragment();
+            if (tef != null && tef.onKeyDown(keyCode))
+                return true;
         }
         return super.onKeyDown(keyCode, event);
     }
