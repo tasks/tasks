@@ -23,6 +23,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.view.ViewGroup.LayoutParams;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
@@ -99,6 +100,7 @@ public class TaskListActivity extends AstridActivity implements MainMenuListener
         public void onClick(View v) {
             mainMenu.setSelected(true);
             mainMenuPopover.show(v);
+            hideKeyboard();
         }
     };
 
@@ -107,6 +109,7 @@ public class TaskListActivity extends AstridActivity implements MainMenuListener
         public void onClick(View v) {
             setListsDropdownSelected(true);
             listsPopover.show(v);
+            hideKeyboard();
         }
     };
 
@@ -691,6 +694,15 @@ public class TaskListActivity extends AstridActivity implements MainMenuListener
 
     public MainMenuPopover getMainMenuPopover() {
         return mainMenuPopover;
+    }
+
+    private void hideKeyboard() {
+        TaskListFragment tlf = getTaskListFragment();
+        if (tlf == null)
+            return;
+        InputMethodManager imm = (InputMethodManager)getSystemService(
+                Context.INPUT_METHOD_SERVICE);
+        imm.hideSoftInputFromWindow(tlf.quickAddBar.getQuickAddBox().getWindowToken(), 0);
     }
 
     @Override
