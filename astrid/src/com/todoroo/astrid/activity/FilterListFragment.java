@@ -182,8 +182,6 @@ public class FilterListFragment extends ListFragment {
         setUpList();
 
         if (mDualFragments) {
-            // In dual-pane mode, the list view highlights the selected item.
-            getListView().setChoiceMode(ListView.CHOICE_MODE_SINGLE);
             getListView().setItemsCanFocus(false);
         }
     }

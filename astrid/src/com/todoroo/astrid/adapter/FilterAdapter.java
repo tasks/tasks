@@ -44,6 +44,7 @@ import com.todoroo.andlib.service.ContextManager;
 import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.astrid.activity.AstridActivity;
 import com.todoroo.astrid.activity.FilterListFragment;
+import com.todoroo.astrid.activity.TaskListFragment;
 import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.api.AstridFilterExposer;
 import com.todoroo.astrid.api.Filter;
@@ -305,7 +306,16 @@ public class FilterAdapter extends ArrayAdapter<Filter> {
         viewHolder.item = (FilterListItem) getItem(position);
         populateView(viewHolder);
 
-        if (listView.isItemChecked(position)) {
+        Filter selected = null;
+        if (activity instanceof AstridActivity) {
+            boolean shouldHighlightSelected = ((AstridActivity) activity).getFragmentLayout() != AstridActivity.LAYOUT_SINGLE;
+            if (shouldHighlightSelected) {
+                TaskListFragment tlf = ((AstridActivity) activity).getTaskListFragment();
+                selected = tlf.getFilter();
+            }
+        }
+
+        if (selected != null && selected.equals(viewHolder.item)) {
             convertView.setBackgroundColor(activity.getResources().getColor(R.color.tablet_list_selected));
         } else {
             convertView.setBackgroundColor(activity.getResources().getColor(android.R.color.transparent));
