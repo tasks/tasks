@@ -29,7 +29,7 @@ import com.todoroo.astrid.producteev.ProducteevUtilities;
  */
 public class ImportanceControlSet extends TaskEditControlSet {
     private final List<CompoundButton> buttons = new LinkedList<CompoundButton>();
-    private int[] colors;
+    private final int[] colors;
     //private final int grayColor;
     private final List<ImportanceChangedListener> listeners = new LinkedList<ImportanceChangedListener>();
 
@@ -39,6 +39,7 @@ public class ImportanceControlSet extends TaskEditControlSet {
 
     public ImportanceControlSet(Activity activity, int layout) {
         super(activity, layout);
+        colors = Task.getImportanceColors(activity.getResources());
     }
 
     public void setImportance(Integer i) {
@@ -88,7 +89,6 @@ public class ImportanceControlSet extends TaskEditControlSet {
     @Override
     protected void afterInflate() {
         LinearLayout container = (LinearLayout) getView().findViewById(R.id.importance_container);
-        colors = Task.getImportanceColors(activity.getResources());
 
         int min = Task.IMPORTANCE_MOST;
         int max = Task.IMPORTANCE_LEAST;
@@ -149,6 +149,14 @@ public class ImportanceControlSet extends TaskEditControlSet {
         }
     }
 
+    @Override
+    public void readFromTask(Task task) {
+        super.readFromTask(task);
+        setImportance(model.getValue(Task.IMPORTANCE));
+    }
+
+    // Same as above because we need the setImportance listeners to fire even in
+    // the case when the UI hasn't been created yet
     @Override
     protected void readFromTaskOnInitialize() {
         setImportance(model.getValue(Task.IMPORTANCE));
