@@ -15,6 +15,7 @@ import com.todoroo.andlib.data.TodorooCursor;
 import com.todoroo.andlib.service.ContextManager;
 import com.todoroo.andlib.sql.Query;
 import com.todoroo.andlib.utility.Preferences;
+import com.todoroo.astrid.activity.BeastModePreferences;
 import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.core.PluginServices;
 import com.todoroo.astrid.data.Task;
@@ -68,6 +69,12 @@ public class AstridPreferences {
 
         Preferences.setIfUnset(prefs, editor, r, R.string.p_rmd_persistent,
                 ABChooser.readChoiceForTest(ABTests.AB_TEST_PERSISTENT_REMINDERS) != 0);
+
+        boolean simpleEdit = ABChooser.readChoiceForTest(ABTests.AB_TEST_SIMPLE_EDIT) != 0;
+        if (simpleEdit && !Preferences.isSet(BeastModePreferences.BEAST_MODE_ORDER_PREF)) {
+            Preferences.setString(BeastModePreferences.BEAST_MODE_ORDER_PREF,
+                    BeastModePreferences.getSimpleEditOrderForABTest(context));
+        }
 
         if ("white-blue".equals(Preferences.getStringValue(R.string.p_theme))) { //$NON-NLS-1$ migrate from when white-blue wasn't the default
             Preferences.setString(R.string.p_theme, ThemeService.THEME_WHITE);
