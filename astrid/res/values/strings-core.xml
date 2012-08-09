@@ -448,6 +448,8 @@
   <!-- slide 16g -->
   <string name="TEA_control_share">Share With Friends</string>
   
+  <string name="TEA_control_hidden_section">----Hide Always----</string>
+  
   <string name="hide_until_prompt">Show in my list</string>
   
   <!-- Add Ons tab when no add-ons found -->
