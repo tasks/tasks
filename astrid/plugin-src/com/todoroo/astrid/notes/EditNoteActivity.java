@@ -556,6 +556,7 @@ public class EditNoteActivity extends LinearLayout implements TimerActionListene
                 public void handleCameraResult(Bitmap bitmap) {
                     pendingCommentPicture = bitmap;
                     pictureButton.setImageBitmap(pendingCommentPicture);
+                    commentField.requestFocus();
                 }
             };
 
