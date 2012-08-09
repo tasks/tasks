@@ -271,10 +271,11 @@ public class AstridActivity extends FragmentActivity
                         getSupportFragmentManager().executePendingTransactions();
                     }
                 });
+            } else {
+                editActivity.save(true);
+                editActivity.repopulateFromScratch(intent);
             }
 
-            editActivity.save(true);
-            editActivity.repopulateFromScratch(intent);
             TaskListFragment tlf = getTaskListFragment();
             if (tlf != null)
                 tlf.loadTaskListContent(true);

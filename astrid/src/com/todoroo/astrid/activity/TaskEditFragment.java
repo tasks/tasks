@@ -724,7 +724,6 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
         }
 
         long idParam = intent.getLongExtra(TOKEN_ID, -1L);
-        System.err.println("ID: " + idParam);
         if (idParam > -1L) {
             model = taskService.fetchById(idParam, Task.PROPERTIES);
             if (model != null && model.containsNonNullValue(Task.REMOTE_ID)) {
@@ -735,7 +734,6 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
 
         // not found by id or was never passed an id
         if (model == null) {
-            System.err.println("Model is null");
             String valuesAsString = intent.getStringExtra(TOKEN_VALUES);
             ContentValues values = null;
             try {
