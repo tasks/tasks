@@ -68,6 +68,7 @@ public class BeastModePreferences extends ListActivity {
 
             builder.append(hideSectionPref);
             builder.append(BEAST_MODE_PREF_ITEM_SEPARATOR);
+            order = builder.toString();
         } else if (!order.contains(hideSectionPref)) {
             order += (hideSectionPref + BEAST_MODE_PREF_ITEM_SEPARATOR);
         }
