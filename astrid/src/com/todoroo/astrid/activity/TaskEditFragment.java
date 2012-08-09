@@ -724,7 +724,7 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
         }
 
         long idParam = intent.getLongExtra(TOKEN_ID, -1L);
-
+        System.err.println("ID: " + idParam);
         if (idParam > -1L) {
             model = taskService.fetchById(idParam, Task.PROPERTIES);
             if (model != null && model.containsNonNullValue(Task.REMOTE_ID)) {
@@ -735,6 +735,7 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
 
         // not found by id or was never passed an id
         if (model == null) {
+            System.err.println("Model is null");
             String valuesAsString = intent.getStringExtra(TOKEN_VALUES);
             ContentValues values = null;
             try {
@@ -1257,14 +1258,15 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
      */
 
     public int getTabForPosition(int position) {
-        Activity activity = getActivity();
-        String pageTitle = mAdapter.getTitle(position);
-        if (pageTitle.equals(activity.getString(R.string.TEA_tab_activity)))
+        int tab = TaskEditViewPager.getPageForPosition(position, tabStyle);
+        switch(tab) {
+        case TaskEditViewPager.TAB_SHOW_ACTIVITY:
             return TAB_VIEW_UPDATES;
-        else if (pageTitle.equals(activity.getString(R.string.TEA_tab_more)))
+        case TaskEditViewPager.TAB_SHOW_MORE:
             return TAB_VIEW_MORE;
-        else if (pageTitle.equals(activity.getString(R.string.TEA_tab_web)))
+        case TaskEditViewPager.TAB_SHOW_WEB:
             return TAB_VIEW_WEB_SERVICES;
+        }
 
         // error experienced
         return TAB_VIEW_MORE;
