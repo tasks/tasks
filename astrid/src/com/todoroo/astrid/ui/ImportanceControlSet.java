@@ -30,7 +30,6 @@ import com.todoroo.astrid.producteev.ProducteevUtilities;
 public class ImportanceControlSet extends TaskEditControlSet {
     private final List<CompoundButton> buttons = new LinkedList<CompoundButton>();
     private final int[] colors;
-    //private final int grayColor;
     private final List<ImportanceChangedListener> listeners = new LinkedList<ImportanceChangedListener>();
 
     public interface ImportanceChangedListener {
@@ -47,8 +46,6 @@ public class ImportanceControlSet extends TaskEditControlSet {
             if(b.getTag() == i) {
                 b.setTextSize(getTextSize());
                 b.setChecked(true);
-                //if (i.intValue() == Task.IMPORTANCE_LEAST)
-                //    b.setTextColor(grayColor);
                 b.setBackgroundResource(R.drawable.importance_background_selected);
             } else {
                 b.setTextSize(getTextSize());
@@ -92,11 +89,8 @@ public class ImportanceControlSet extends TaskEditControlSet {
 
         int min = Task.IMPORTANCE_MOST;
         int max = Task.IMPORTANCE_LEAST;
-        //grayColor = colors[max];
         if(ProducteevUtilities.INSTANCE.isLoggedIn() || OpencrxCoreUtils.INSTANCE.isLoggedIn())
             max = 5;
-        //else
-            //colors[max] = activity.getResources().getColor(android.R.color.white);
 
         DisplayMetrics metrics = new DisplayMetrics();
         activity.getWindowManager().getDefaultDisplay().getMetrics(metrics);
