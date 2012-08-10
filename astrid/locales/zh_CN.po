@@ -1454,16 +1454,6 @@ msgctxt "EPr_swipe_lists_performance_title"
 msgid "Swipe between lists"
 msgstr "Share lists"
 
-#, fuzzy
-msgctxt "EPr_swipe_lists_performance_desc:0"
-msgid "Swipe between lists is disabled"
-msgstr "未设定无声时间"
-
-#, fuzzy
-msgctxt "EPr_swipe_lists_performance_desc:2"
-msgid "Default setting"
-msgstr "默认提示"
-
 #. Format string for displaying the currently selected preference. $1 is name
 #. of selected mode, $2 is description
 #, fuzzy, c-format
@@ -1488,31 +1478,6 @@ msgid "Transparent (White Text)"
 msgstr "透明(白色文字)"
 
 msgctxt "EPr_themes:4"
-msgid "Transparent (Black Text)"
-msgstr "透明(黑色文字)"
-
-#, fuzzy
-msgctxt "EPr_themes_widget:1"
-msgid "Day - Blue"
-msgstr "蓝"
-
-#, fuzzy
-msgctxt "EPr_themes_widget:2"
-msgid "Day - Red"
-msgstr "红"
-
-#, fuzzy
-msgctxt "EPr_themes_widget:3"
-msgid "Night"
-msgstr "夜间模式"
-
-#, fuzzy
-msgctxt "EPr_themes_widget:4"
-msgid "Transparent (White Text)"
-msgstr "透明(白色文字)"
-
-#, fuzzy
-msgctxt "EPr_themes_widget:5"
 msgid "Transparent (Black Text)"
 msgstr "透明(黑色文字)"
 

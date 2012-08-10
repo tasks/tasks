@@ -213,6 +213,7 @@
   <string name="FLA_no_filter_selected">还没有选定过滤器呢！请选择一个过滤器或列表呗。</string>
   <string name="TEA_view_title">Astrid: 编辑 \'%s\'</string>
   <string name="TEA_view_titleNew">新建任务</string>
+  <string name="TEA_new_task">新建任务</string>
   <string name="TEA_title_label">标题</string>
   <string name="TEA_when_header_label">时间</string>
   <string name="TEA_title_hint">任务摘要</string>
@@ -1023,11 +1024,18 @@
     <item>高效性能</item>
   </string-array>
   <string-array name="EPr_swipe_lists_performance_desc">
+    <item>滑动屏幕切换列表已被禁用</item>
     <item>较低速性能</item>
+    <item>默认设置</item>
     <item>使用更多系统资源</item>
   </string-array>
   <string-array name="EPr_themes_widget">
     <item>与应用相同</item>
+    <item>日间——蓝色</item>
+    <item>日间——红色</item>
+    <item>夜间</item>
+    <item>透明（白色文字）</item>
+    <item>透明（黑色文字）</item>
     <item>老式风格</item>
   </string-array>
   <string name="EPr_manage_clear_all_message">要删除 Astrid 中所有任务和设置吗？\n\n系统提醒：无法还原的喔！</string>
