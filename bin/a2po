@@ -1,10 +1,23 @@
 #!/bin/bash
 ###############################################################################
+# usage: a2po [command]
+# import - reads .po files, imports to .xml
+# export - reads .xml files, exports to .po
 
+# concatenate astrid XML files
 catxml="`dirname $0`/catxml"
+rm -f astrid/res/values/strings.xml
 ${catxml} astrid/res/values/strings*.xml > astrid/res/values/strings.xml
 
+# invoke a2po
 a2po $* --android astrid/res --gettext astrid/locales --groups strings --ignore-fuzzy --template android.pot
 a2po $* --android api/res --gettext api/locales --groups strings --ignore-fuzzy --template api.pot
 
+# remove unused lp translations
+UNUSED=( ar bg el en-rGB eo et eu fi fo gl hr hu id ka lt ml oc ro sl ta uk vi )
+for LANG in "${UNUSED[@]}"; do
+  rm -rf astrid/res/values-$LANG api/res/values-$LANG
+done
+
+# remove temporary
 rm -f astrid/res/values/strings.xml
