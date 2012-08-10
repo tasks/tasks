@@ -1,4 +1,4 @@
-# Portuguese (Brazil) translations for PROJECT.
+# Translations template for PROJECT.
 # Copyright (C) 2012 ORGANIZATION
 # This file is distributed under the same license as the PROJECT project.
 # FIRST AUTHOR <EMAIL@ADDRESS>, 2012.
@@ -7,14 +7,15 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2012-05-02 20:22-0700\n"
-"PO-Revision-Date: 2012-03-02 01:07+0000\n"
-"Last-Translator: Claudio Bastos <Unknown>\n"
-"Language-Team: pt_BR <LL@li.org>\n"
-"Plural-Forms: nplurals=2; plural=(n > 1)\n"
+"POT-Creation-Date: 2012-08-06 21:20-0700\n"
+"PO-Revision-Date: 2012-06-22 19:42+0000\n"
+"Last-Translator: Marcos M <Unknown>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"X-Launchpad-Export-Date: 2012-08-10 23:41+0000\n"
+"X-Generator: Launchpad (build 15780)\n"
 "Generated-By: Babel 1.0dev\n"
 
 #. ==================================================== Generic Units ==
@@ -35,25 +36,25 @@ msgstr "%d meses"
 
 msgctxt "DUt_months:quantity=one"
 msgid "1 Month"
-msgstr "1 Mês"
+msgstr "1 mês"
 
 #, c-format
 msgctxt "DUt_weeks:quantity=other"
 msgid "%d Weeks"
-msgstr "%d Semanas"
+msgstr "%d semanas"
 
 msgctxt "DUt_weeks:quantity=one"
 msgid "1 Week"
-msgstr "1 Semana"
+msgstr "1 semana"
 
 #, c-format
 msgctxt "DUt_days:quantity=other"
 msgid "%d Days"
-msgstr "%d Dias"
+msgstr "%d dias"
 
 msgctxt "DUt_days:quantity=one"
 msgid "1 Day"
-msgstr "1 Dia"
+msgstr "1 dia"
 
 #, c-format
 msgctxt "DUt_weekdays:quantity=other"
@@ -67,11 +68,11 @@ msgstr "1 dia útil"
 #, c-format
 msgctxt "DUt_hours:quantity=other"
 msgid "%d Hours"
-msgstr "%d Horas"
+msgstr "%d horas"
 
 msgctxt "DUt_hours:quantity=one"
 msgid "1 Hour"
-msgstr "1 Hora"
+msgstr "1 hora"
 
 #, c-format
 msgctxt "DUt_minutes:quantity=other"
@@ -80,43 +81,43 @@ msgstr "%d minutos"
 
 msgctxt "DUt_minutes:quantity=one"
 msgid "1 Minute"
-msgstr "1 Minuto"
+msgstr "1 minuto"
 
 #, c-format
 msgctxt "DUt_seconds:quantity=other"
 msgid "%d Seconds"
-msgstr "%d Segundos"
+msgstr "%d segundos"
 
 msgctxt "DUt_seconds:quantity=one"
 msgid "1 Second"
-msgstr "1 Segundo"
+msgstr "1 segundo"
 
 #, c-format
 msgctxt "DUt_hoursShort:quantity=other"
 msgid "%d Hrs"
-msgstr "%d hs."
+msgstr "%d h"
 
 msgctxt "DUt_hoursShort:quantity=one"
 msgid "1 Hr"
-msgstr "1 h."
+msgstr "1 h"
 
 #, c-format
 msgctxt "DUt_minutesShort:quantity=other"
 msgid "%d Min"
-msgstr "%d mins."
+msgstr "%d min"
 
 msgctxt "DUt_minutesShort:quantity=one"
 msgid "1 Min"
-msgstr "1 min."
+msgstr "1 min"
 
 #, c-format
 msgctxt "DUt_secondsShort:quantity=other"
 msgid "%d Sec"
-msgstr "%d seg."
+msgstr "%d s"
 
 msgctxt "DUt_secondsShort:quantity=one"
 msgid "1 Sec"
-msgstr "1 seg."
+msgstr "1 s"
 
 #, c-format
 msgctxt "Ntasks:quantity=other"
@@ -136,7 +137,7 @@ msgctxt "Npeople:quantity=one"
 msgid "1 person"
 msgstr "1 pessoa"
 
-#. today
+#. slide 10a, 12c: today
 msgctxt "today"
 msgid "Today"
 msgstr "Hoje"
@@ -146,26 +147,26 @@ msgctxt "tomorrow"
 msgid "Tomorrow"
 msgstr "Amanhã"
 
-#. today
+#. yesterday
 msgctxt "yesterday"
 msgid "Yesterday"
 msgstr "Ontem"
 
-#. tomorrow, abbreviated
+#. slide 12c: tomorrow, abbreviated
 msgctxt "tmrw"
 msgid "Tmrw"
 msgstr "amanhã"
 
-#. yesterday, abbreviated
+#. slide 12c: yesterday, abbreviated
 msgctxt "yest"
 msgid "Yest"
-msgstr "hj"
+msgstr "ontem"
 
 #. ================================================== Generic Dialogs ==
 #. confirmation dialog title
 msgctxt "DLG_confirm_title"
 msgid "Confirm?"
-msgstr "Confirmado?"
+msgstr "Confirmar?"
 
 #. question dialog title
 msgctxt "DLG_question_title"
@@ -248,25 +249,24 @@ msgstr "Sincronização"
 #. Error msg when io exception
 msgctxt "SyP_ioerror"
 msgid "Connection Error! Check your Internet connection."
-msgstr "Erro na Conexão! Verifique sua conexão com a internet."
+msgstr "Erro de conexão! Verifique sua conexão com a internet."
 
 #. ================================================== SyncPreferences ==
 #. Status Group Label
 msgctxt "sync_SPr_group_status"
 msgid "Status"
-msgstr "Estado"
+msgstr "Status"
 
 #. Sync status subtitle, %s-> status message
-#, fuzzy, c-format
+#, c-format
 msgctxt "sync_SPr_status_subtitle"
 msgid "Status: %s"
-msgstr "Estado"
+msgstr "Status: %s"
 
 #. Sync Status: log in
-#, fuzzy
 msgctxt "sync_status_loggedout"
 msgid "Not Logged In"
-msgstr "Desconectado!"
+msgstr "Não Registrado"
 
 #. Status: ongoing
 msgctxt "sync_status_ongoing"
@@ -280,31 +280,31 @@ msgid ""
 "Last Sync:\n"
 "%s"
 msgstr ""
-"Sincronizado em:\n"
+"Última sincronização:\n"
 "%s"
 
 #. Sync Status: failure status (%s -> last attempted sync date)
 #, c-format
 msgctxt "sync_status_failed"
 msgid "Failed On: %s"
-msgstr "Falhou Em: %s"
+msgstr "Falhou em: %s"
 
 #. Sync Status: error status (%s -> last sync date)
 #, c-format
 msgctxt "sync_status_errors"
 msgid "Sync w/ Errors: %s"
-msgstr "Sincronização falhou: %s"
+msgstr "Sicronizou com erros: %s"
 
 #. Sync Status: error subtitle (%s -> last successful sync date)
 #, c-format
 msgctxt "sync_status_failed_subtitle"
 msgid "Last Successful Sync: %s"
-msgstr "Última Sincronização com Sucesso: %s"
+msgstr "Última sincronização com sucesso: %s"
 
 #. Sync Status: never sync'd
 msgctxt "sync_status_never"
 msgid "Never Synchronized!"
-msgstr "Nunca Sincronizado!"
+msgstr "Nunca sincronizado!"
 
 #. Options Group Label
 msgctxt "sync_SPr_group_options"
@@ -314,7 +314,7 @@ msgstr "Opções"
 #. Preference: Synchronization Interval Title
 msgctxt "sync_SPr_interval_title"
 msgid "Background Sync"
-msgstr "Serviço de sincronização"
+msgstr "Sincronização em segundo plano"
 
 #. Preference: Synchronization Interval Description (when disabled)
 msgctxt "sync_SPr_interval_desc_disabled"
@@ -335,12 +335,12 @@ msgstr "Configuração Somente Wifi"
 #. Preference: Background Wifi Description (enabled)
 msgctxt "sync_SPr_bgwifi_desc_enabled"
 msgid "Background synchronization only happens when on Wifi"
-msgstr "A sincronização ocorrerá somente se conectado ao Wifi"
+msgstr "Sincronização em segundo plano só ocorre se conectado ao Wifi"
 
 #. Preference: Background Wifi Description (disabled)
 msgctxt "sync_SPr_bgwifi_desc_disabled"
 msgid "Background synchronization will always occur"
-msgstr "O serviço de sincronização fica ativo o tempo todo"
+msgstr "Sincronização em segundo plano sempre ocorre"
 
 #. Actions Group Label
 msgctxt "sync_SPr_group_actions"
@@ -348,15 +348,14 @@ msgid "Actions"
 msgstr "Ações"
 
 #. Synchronize Now Button
-#, fuzzy
 msgctxt "sync_SPr_sync"
 msgid "Synchronize Now"
-msgstr "Sincronizar Agora!"
+msgstr "Sincronizar agora"
 
 #. Synchronize Now Button if not logged in
 msgctxt "sync_SPr_sync_log_in"
 msgid "Log In & Synchronize!"
-msgstr "Log In e Sincronizar!"
+msgstr "Conectar e sincronizar!"
 
 #. Sync: Prefix string before logged in identifier
 msgctxt "sync_SPr_logged_in_prefix"
@@ -366,17 +365,17 @@ msgstr "Conectado como:"
 #. Sync: Last error
 msgctxt "sync_SPr_last_error"
 msgid "Status Report"
-msgstr ""
+msgstr "Relatório de status"
 
 #. Sync: last error click for more
 msgctxt "sync_SPr_last_error_subtitle"
 msgid "Click to send a report to the Astrid team"
-msgstr ""
+msgstr "Clique para enviar um relatório para a equipe do Astrid"
 
 #. Sync: send error report button
 msgctxt "sync_SPr_send_report"
 msgid "Send Report"
-msgstr ""
+msgstr "Enviar relatório"
 
 #. Sync: Clear Data Title
 msgctxt "sync_SPr_forget"
@@ -386,24 +385,26 @@ msgstr "Desconectar"
 #. Sync: Clear Data Description
 msgctxt "sync_SPr_forget_description"
 msgid "Clears all synchronization data"
-msgstr "Limpar dados de sincronização"
+msgstr "Limpar todos os dados de sincronização"
 
 #. confirmation dialog for sync log out
 msgctxt "sync_forget_confirm"
 msgid "Log out / clear synchronization data?"
-msgstr "Encerrar sessão / apagar dados de sincronização?"
+msgstr "Desconectar / limpar dados de sincronização?"
 
 #. Sync error: network connectivity problems. %s-> name of sync service
 #, c-format
 msgctxt "sync_error_offline"
 msgid ""
-"There was a problem connecting to the network during the last sync with "
-"%s. Please try again later."
+"There was a problem connecting to the network during the last sync with %s. "
+"Please try again later."
 msgstr ""
+"Houve um problema na conexão durante a última sincronia com %s. Por favor "
+"tente novamente mais tarde."
 
 msgctxt "sync_SPr_interval_entries:0"
 msgid "disable"
-msgstr "desativar"
+msgstr "desabilitar"
 
 msgctxt "sync_SPr_interval_entries:1"
 msgid "every fifteen minutes"
@@ -440,4 +441,3 @@ msgstr "a cada três dias"
 msgctxt "sync_SPr_interval_entries:9"
 msgid "every week"
 msgstr "semanalmente"
-

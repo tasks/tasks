@@ -7,14 +7,15 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2012-05-02 20:22-0700\n"
-"PO-Revision-Date: 2012-04-22 19:45+0000\n"
-"Last-Translator: Patricio Pérez Valverde <pato@boaboa.org>\n"
+"POT-Creation-Date: 2012-08-06 21:19-0700\n"
+"PO-Revision-Date: 2012-07-31 21:19+0000\n"
+"Last-Translator: Fernando Lopez <fernando_ld@vauxoo.com>\n"
 "Language-Team: es <LL@li.org>\n"
-"Plural-Forms: nplurals=2; plural=(n != 1)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"X-Launchpad-Export-Date: 2012-08-10 23:41+0000\n"
+"X-Generator: Launchpad (build 15780)\n"
 "Generated-By: Babel 1.0dev\n"
 
 #. ================================================== general terms ==
@@ -23,7 +24,7 @@ msgctxt "EPE_action"
 msgid "Share"
 msgstr "Compartir"
 
-#. task sharing dialog: assigned hint
+#. slide 18b/ 25e/ 27c: task sharing dialog: assigned hint
 msgctxt "actfm_person_hint"
 msgid "Contact or Email"
 msgstr "Contacto o email"
@@ -42,24 +43,23 @@ msgstr "Guardado en el servidor"
 msgctxt "actfm_tag_operation_disabled"
 msgid "Sorry, this operation is not yet supported for shared tags."
 msgstr ""
-"Lo sentimos, esta operación aún no es compatible con las etiquetas "
-"compartidas."
+"Lo sentimos, esta operación aún no es compatible para etiquetas compartidas."
 
 #. warning before deleting a list you're the owner of
 msgctxt "actfm_tag_operation_owner_delete"
 msgid ""
-"You are the owner of this shared list! If you delete it, it will be "
-"deleted for all list members. Are you sure you want to continue?"
+"You are the owner of this shared list! If you delete it, it will be deleted "
+"for all list members. Are you sure you want to continue?"
 msgstr ""
 "Usted es el propietario de esta lista compartida. Si la elimina, se "
 "eliminará para todos los miembros de la lista. ¿Continuar?"
 
-#. menu item to take a picture
+#. slide 29a: menu item to take a picture
 msgctxt "actfm_picture_camera"
 msgid "Take a Picture"
 msgstr "Tomar una fotografía"
 
-#. menu item to select from gallery
+#. slide 29b: menu item to select from gallery
 msgctxt "actfm_picture_gallery"
 msgid "Pick from Gallery"
 msgstr "Elegir de la galería"
@@ -67,7 +67,7 @@ msgstr "Elegir de la galería"
 #. menu item to clear picture selection
 msgctxt "actfm_picture_clear"
 msgid "Clear Picture"
-msgstr "Limpiar imagen"
+msgstr "Borrar imagen"
 
 #. filter list activity: refresh tags
 msgctxt "actfm_FLA_menu_refresh"
@@ -83,11 +83,11 @@ msgstr "¿Ver tarea?"
 #, c-format
 msgctxt "actfm_view_task_text"
 msgid ""
-"Task was sent to %s! You're currently viewing your own tasks. Do you want"
-" to view this and other tasks you've assigned?"
+"Task was sent to %s! You're currently viewing your own tasks. Do you want to "
+"view this and other tasks you've assigned?"
 msgstr ""
-"La tarea se envió a %s. Está viendo sus propias tareas. ¿Quiere ver "
-"además otras tareas que ha asignado?"
+"La tarea se envió a %s. Está viendo sus propias tareas. ¿Quiere ver además "
+"otras tareas que ha asignado?"
 
 #. Ok button for task view prompt
 msgctxt "actfm_view_task_ok"
@@ -98,6 +98,16 @@ msgstr "Ver asignadas"
 msgctxt "actfm_view_task_cancel"
 msgid "Stay Here"
 msgstr "Quedarse aquí"
+
+#. slide 13a: Title for the "My Shared Tasks" filter
+msgctxt "actfm_my_shared_tasks_title"
+msgid "My Shared Tasks"
+msgstr "Mis tareas compartidas"
+
+#. Empty list for the "My Shared Tasks" filter
+msgctxt "actfm_my_shared_tasks_empty"
+msgid "No shared tasks"
+msgstr "No hay tareas compartidas"
 
 #. ================================================== TagViewActivity ==
 #. Tag View Activity: Add Comment hint
@@ -124,7 +134,7 @@ msgstr "Actividad"
 #. Tabs for Tag view
 msgctxt "TVA_tabs:2"
 msgid "List Settings"
-msgstr "Opciones de lista"
+msgstr "Configuración de lista"
 
 #. Tag View: filtered by assigned to user (%s => user name)
 #, c-format
@@ -162,17 +172,22 @@ msgctxt "actfm_TVA_tag_owner_none"
 msgid "none"
 msgstr "ninguno"
 
-#. Tag Settings: list collaborators label
+#. slide 26a and 27b: Tag Settings: list collaborators label
 msgctxt "actfm_TVA_members_label"
 msgid "Shared With"
 msgstr "Compartido con"
+
+#. Tag Settings: list collaborators hint
+msgctxt "actfm_TVA_members_hint"
+msgid "Share with anyone who has an email address"
+msgstr "Compartir con cualquiera que tenga una dirección de email"
 
 #. Tag Settings: tag picture
 msgctxt "actfm_TVA_tag_picture"
 msgid "List Picture"
 msgstr "Listar imagenes"
 
-#. Tag Settings: silence notifications label
+#. slide 25c/28b: Tag Settings: silence notifications label
 msgctxt "actfm_TVA_silence_label"
 msgid "Silence Notifications"
 msgstr "Silenciar notificaciones"
@@ -182,22 +197,22 @@ msgctxt "actfm_TVA_list_icon_label"
 msgid "List Icon:"
 msgstr "Icono de la lista:"
 
-#. Tag Settings: list description label
+#. slide 25b/27d: Tag Settings: list description label
 msgctxt "actfm_TVA_tag_description_label"
 msgid "Description"
 msgstr "Descripción"
 
-#. Tag Settings: list settings label
+#. slide 28a: Tag Settings: list settings label
 msgctxt "actfm_TVA_tag_settings_label"
 msgid "Settings"
-msgstr "Preferencias"
+msgstr "Configuración"
 
-#. Tag Settings: list description hint
+#. slide 25b: Tag Settings: list description hint
 msgctxt "actfm_TVA_tag_description_hint"
 msgid "Type a description here"
 msgstr "Escriba una descripción aquí"
 
-#. Tag Settings: list name hint
+#. slide 25d: Tag Settings: list name hint
 msgctxt "actfm_TVA_tag_name_hint"
 msgid "Enter list name"
 msgstr "Ingrese el nombre de la lista"
@@ -205,11 +220,11 @@ msgstr "Ingrese el nombre de la lista"
 #. Tag settings: login prompt from share
 msgctxt "actfm_TVA_login_to_share"
 msgid ""
-"You need to be logged in to Astrid.com to share lists! Please log in or "
-"make this a private list."
+"You need to be logged in to Astrid.com to share lists! Please log in or make "
+"this a private list."
 msgstr ""
-"Necesitas iniciar sesión en Astrid.com para compartir listas! Por favor "
-"inicia sesión o haz esta lista privada."
+"Necesita iniciar sesión en Astrid.com para compartir listas! Por favor "
+"inicie sesión o haga esta lista privada."
 
 #. ============================================ edit people dialog ==
 #. task sharing dialog: intro
@@ -218,8 +233,8 @@ msgid ""
 "Use Astrid to share shopping lists, party plans, or team projects and "
 "instantly see when people get stuff done!"
 msgstr ""
-"¡Utilice Astrid para compartir listas de la compra, planes de fiesta o "
-"proyectos en equipo y vea al instante cuándo la gente hace cosas!"
+"¡Utilice Astrid para compartir listas de compras, planes de fiesta o "
+"proyectos en equipo y vea al instante cuándo la gente concluye sus tareas!"
 
 #. task sharing dialog: window title
 msgctxt "actfm_EPA_title"
@@ -236,7 +251,7 @@ msgctxt "actfm_EPA_assign_label"
 msgid "Who"
 msgstr "Quién"
 
-#. task sharing dialog: assigned label long version
+#. slide 18a: task sharing dialog: assigned label long version
 msgctxt "actfm_EPA_assign_label_long"
 msgid "Who should do this?"
 msgstr "¿Quién debería hacer esto?"
@@ -251,15 +266,15 @@ msgctxt "actfm_EPA_unassigned"
 msgid "Unassigned"
 msgstr "Sin asignar"
 
-#. task sharing dialog: choose a contact
+#. slide 18c: task sharing dialog: choose a contact
 msgctxt "actfm_EPA_choose_contact"
 msgid "Choose a contact"
-msgstr ""
+msgstr "Elegir un contacto"
 
-#. task sharing dialog: use task rabbit
+#. slide 17a: task sharing dialog: use task rabbit
 msgctxt "actfm_EPA_task_rabbit"
 msgid "Outsource it!"
-msgstr ""
+msgstr "Subcontrátelo!"
 
 #. task sharing dialog: custom email assignment
 msgctxt "actfm_EPA_assign_custom"
@@ -275,7 +290,7 @@ msgstr "Compartir con:"
 #, c-format
 msgctxt "actfm_EPA_assigned_toast"
 msgid "Sent to %1$s (you can see it in the list between you and %2$s)."
-msgstr "Enviado a %1$s (Puedes verla en la lista entre tu y %2$s)."
+msgstr "Enviado a %1$s (Puede verla en la lista entre usted y %2$s)."
 
 #. task sharing dialog: shared with label
 msgctxt "actfm_EPA_collaborators_header"
@@ -306,13 +321,12 @@ msgstr "Ayudenme a completar esto!"
 #. task sharing dialog: list members section header
 msgctxt "actfm_EPA_assign_header_members"
 msgid "List Members"
-msgstr ""
+msgstr "Lista de miembros"
 
 #. task sharing dialog: astrid friends section header
-#, fuzzy
 msgctxt "actfm_EPA_assign_header_friends"
 msgid "Astrid Friends"
-msgstr "Astrid: Preferencias"
+msgstr "Amigos Astrid"
 
 #. task sharing dialog: message hint
 msgctxt "actfm_EPA_tag_label"
@@ -343,7 +357,7 @@ msgstr "Tarea compartida con %s"
 #. task sharing dialog: edit people settings saved
 msgctxt "actfm_EPA_saved_toast"
 msgid "People Settings Saved"
-msgstr ""
+msgstr "La configuración de la edición de personas fue guardada"
 
 #. task sharing dialog: invalid email (%s => email)
 #, c-format
@@ -359,20 +373,17 @@ msgstr "Lista no encontrada: %s"
 
 #. task sharing login prompt
 msgctxt "actfm_EPA_login_to_share"
-msgid ""
-"You need to be logged in to Astrid.com to share tasks! Please log in or "
-"make this a private task."
+msgid "You need to be logged in to Astrid.com to share tasks!"
 msgstr ""
-"Necesita iniciar sesión en Astrid.com para compartir tareas. Inicie "
-"sesión o convierta esta tarea en privada."
+"¡Necesitas haber iniciado seción en Astrid.com para compartir tareas!"
 
 msgctxt "actfm_EPA_login_button"
 msgid "Log in"
 msgstr "Iniciar sesión"
 
 msgctxt "actfm_EPA_dont_share_button"
-msgid "Make private"
-msgstr "Hacer privada"
+msgid "Don't share"
+msgstr "No compartir"
 
 #. ========================================= sharing login activity ==
 #. share login: Title
@@ -470,6 +481,12 @@ msgid "Please log in:"
 msgstr "Inicie sesión:"
 
 #. ================================================ Synchronization ==
+#. Indicates the logged in user name. %s -> user's name
+#, c-format
+msgctxt "actfm_status_title_logged_in"
+msgid "Status - Logged in as %s"
+msgstr "Estado - sesión iniciada como %s"
+
 #. Preferences Title: Act.fm
 msgctxt "actfm_APr_header"
 msgid "Astrid.com"
@@ -497,7 +514,18 @@ msgctxt "actfm_notification_comments"
 msgid "New comments received / click for more details"
 msgstr "Nuevos comentarios recibidos / pulse para más detalles"
 
-#. See the file "LICENSE" for the full license governing this code.
+msgctxt "actfm_dual_sync_warning"
+msgid ""
+"You are currently synchronizing with Google Tasks. Be advised that "
+"synchronizing with both services can in some cases lead to unexpected "
+"results. Are you sure you want to sync with Astrid.com?"
+msgstr ""
+"Estas sincronizando con Google Tasks. Tenga en cuenta que sincronizar con "
+"ambos servicios puede llevar en algunos casos a resultados inesperados. "
+"¿Estas seguro que te quieres sincronizar con Astrid.com?"
+
+#. ** Copyright (c) 2012 Todoroo Inc ** ** See the file "LICENSE" for the
+#. full license governing this code.
 #. Resources for built-in timers plug-in
 #. Task Edit Activity: Container Label
 msgctxt "alarm_ACS_label"
@@ -513,15 +541,16 @@ msgctxt "reminders_alarm:0"
 msgid "Alarm!"
 msgstr "¡Alarma!"
 
-#. See the file "LICENSE" for the full license governing this code.
+#. ** Copyright (c) 2012 Todoroo Inc ** ** See the file "LICENSE" for the
+#. full license governing this code.
 #. Resources for built-in backup plug-in
 #. ================================================= BackupPreferences ==
-#. Backup Preferences Title
+#. slide 33c/48d: Backup Preferences Title
 msgctxt "backup_BPr_header"
 msgid "Backups"
 msgstr "Copias de seguridad"
 
-#. Backup: Status Header
+#. slide 48e/50c: Backup: Status Header
 msgctxt "backup_BPr_group_status"
 msgid "Status"
 msgstr "Estado"
@@ -546,17 +575,17 @@ msgctxt "backup_status_failed_subtitle"
 msgid "(tap to show error)"
 msgstr "(toque para visualizar los errores)"
 
-#. Backup Status: never backed up
+#. slide 48a: Backup Status: never backed up
 msgctxt "backup_status_never"
 msgid "Never Backed Up!"
 msgstr "Copia de seguridad nunca realizada"
 
-#. Backup Options Group Label
+#. slide 48f/ 50e: Backup Options Group Label
 msgctxt "backup_BPr_group_options"
 msgid "Options"
 msgstr "Opciones"
 
-#. Preference: Automatic Backup Title
+#. slide 48b: Preference: Automatic Backup Title
 msgctxt "backup_BPr_auto_title"
 msgid "Automatic Backups"
 msgstr "Copias de seguridad automáticas"
@@ -566,7 +595,7 @@ msgctxt "backup_BPr_auto_disabled"
 msgid "Automatic Backups Disabled"
 msgstr "Copias de seguridad automáticas desactivadas"
 
-#. Preference: Automatic Backup Description (when enabled)
+#. slide 48g: Preference: Automatic Backup Description (when enabled)
 msgctxt "backup_BPr_auto_enabled"
 msgid "Backup will occur daily"
 msgstr "La copia de seguridad se hará diariamente"
@@ -579,15 +608,15 @@ msgstr "¿Cómo restauro mis copias de seguridad?"
 #. Preference screen Restoring Tasks Help Dialog Text
 msgctxt "backup_BPr_how_to_restore_dialog"
 msgid ""
-"You need to add the Astrid Power Pack to manage and restore your backups."
-" As a favor, Astrid also automatically backs up your tasks, just in case."
+"You need to add the Astrid Power Pack to manage and restore your backups. As "
+"a favor, Astrid also automatically backs up your tasks, just in case."
 msgstr ""
 "Necesita añadir Astrid Power Pack para poder gestionar y restaurar las "
-"copias de seguridad. Además, Astrid hará automáticamente copias de "
-"seguridad de sus tareas, sólo por si acaso."
+"copias de seguridad. Además, Astrid hará automáticamente copias de seguridad "
+"de sus tareas, sólo por si acaso."
 
 #. ================================================= BackupActivity ==
-#. backup activity label
+#. slide 48c: backup activity label
 msgctxt "backup_BAc_label"
 msgid "Manage Backups"
 msgstr "Copias de seguridad"
@@ -681,9 +710,10 @@ msgctxt "import_file_prompt"
 msgid "Select a File to Restore"
 msgstr "Selecciona un archivo a restaurar"
 
-#. See the file "LICENSE" for the full license governing this code.
+#. ** Copyright (c) 2012 Todoroo Inc ** ** See the file "LICENSE" for the
+#. full license governing this code.
 #. ================================================== AndroidManifest ==
-#. Application Name (shown on home screen & in launcher)
+#. slide 32k: Application Name (shown on home screen & in launcher)
 msgctxt "app_name"
 msgid "Astrid Tasks"
 msgstr "Tareas de Astrid"
@@ -736,9 +766,8 @@ msgid ""
 "Astrid should to be updated to the latest version in the Android market! "
 "Please do that before continuing, or wait a few seconds."
 msgstr ""
-"¡Astrid debería ser actualizado a la última versión disponible en el "
-"Android Market! Por favor, hágalo antes de continuar, o espere unos "
-"segundos."
+"¡Astrid debería ser actualizado a la última versión disponible en el Android "
+"Market! Por favor, hágalo antes de continuar, o espere unos segundos."
 
 #. Button for going to Market
 msgctxt "DLG_to_market"
@@ -775,10 +804,12 @@ msgctxt "DLG_dismiss"
 msgid "Dismiss"
 msgstr "Ignorar"
 
+#. slide 20d
 msgctxt "DLG_ok"
 msgid "OK"
 msgstr "Aceptar"
 
+#. slide 36g
 msgctxt "DLG_cancel"
 msgid "Cancel"
 msgstr "Cancelar"
@@ -790,6 +821,10 @@ msgstr "Más"
 msgctxt "DLG_undo"
 msgid "Undo"
 msgstr "Deshacer"
+
+msgctxt "DLG_warning"
+msgid "Warning"
+msgstr "Advertencia"
 
 #. =============================================================== UI ==
 #. Label for DateButtons with no value
@@ -824,10 +859,9 @@ msgid "No activity yet"
 msgstr "Nada que mostrar"
 
 #. EditNoteActivity - no username for comment
-#, fuzzy
 msgctxt "ENA_no_user"
 msgid "Someone"
-msgstr "Huso horario"
+msgstr "Alguien"
 
 #. EditNoteActivity - refresh comments
 msgctxt "ENA_refresh_comments"
@@ -835,7 +869,7 @@ msgid "Refresh Comments"
 msgstr "Actualizar Comentarios"
 
 #. ================================================= TaskListActivity ==
-#. Task List: Displayed instead of list when no items present
+#. slide 8b: Task List: Displayed instead of list when no items present
 msgctxt "TLA_no_items"
 msgid ""
 "You have no tasks! \n"
@@ -843,6 +877,17 @@ msgid ""
 msgstr ""
 "No tienes tareas! \n"
 " Quieres agregar alguna?"
+
+#. Task List: Displayed instead of list when no items present in people view
+#. (%s-> person's name)
+#, c-format
+msgctxt "TLA_no_items_person"
+msgid ""
+"%s has no\n"
+"tasks shared with you"
+msgstr ""
+"%s no hay\n"
+"tareas compartidas para ti"
 
 #. Menu: Add-ons
 msgctxt "TLA_menu_addons"
@@ -856,14 +901,13 @@ msgstr "Ordenar y Ocultar"
 
 #. Menu: Sync Now
 msgctxt "TLA_menu_sync"
-msgid "Sync Now!"
-msgstr "¡Sincronizar ahora!"
+msgid "Sync Now"
+msgstr "Sincronizar ahora"
 
 #. Menu: Search
-#, fuzzy
 msgctxt "TLA_menu_search"
 msgid "Search"
-msgstr "Buscar..."
+msgstr "Búsqueda"
 
 #. Menu: Tasks
 msgctxt "TLA_menu_lists"
@@ -872,8 +916,8 @@ msgstr "Listas"
 
 #. Menu: Friends
 msgctxt "TLA_menu_friends"
-msgid "Friends"
-msgstr "Amigos"
+msgid "People"
+msgstr "Gente"
 
 #. Menu: Suggestions
 msgctxt "TLA_menu_suggestions"
@@ -890,7 +934,7 @@ msgctxt "TLA_menu_settings"
 msgid "Settings"
 msgstr "Preferencias"
 
-#. Menu: Support
+#. slide 30b: Menu: Support
 msgctxt "TLA_menu_support"
 msgid "Support"
 msgstr "Soporte"
@@ -905,16 +949,16 @@ msgctxt "TLA_custom"
 msgid "Custom"
 msgstr "Personalizar"
 
-#. Quick Add Edit Box Hint
+#. slide 8d: Quick Add Edit Box Hint
 msgctxt "TLA_quick_add_hint"
 msgid "Add a task"
 msgstr "Añadir una tarea"
 
-#. Quick Add Edit Box Hint for assigning
+#. Quick Add Edit Box Hint for assigning (%s -> name)
 #, c-format
 msgctxt "TLA_quick_add_hint_assign"
-msgid "Tap to assign %s a task"
-msgstr "Toque para asignar a %s una tarea"
+msgid "Add something for %s"
+msgstr "Agregar algo para %s"
 
 #. Notification Volumne notification
 msgctxt "TLA_notification_volume_low"
@@ -930,7 +974,7 @@ msgstr ""
 
 msgctxt "TLA_filters:0"
 msgid "Active"
-msgstr ""
+msgstr "Activo"
 
 msgctxt "TLA_filters:1"
 msgid "Today"
@@ -942,7 +986,7 @@ msgstr "Próximamente"
 
 msgctxt "TLA_filters:3"
 msgid "Late"
-msgstr ""
+msgstr "Retrasado"
 
 msgctxt "TLA_filters:4"
 msgid "Done"
@@ -950,7 +994,7 @@ msgstr "Listo"
 
 msgctxt "TLA_filters:5"
 msgid "Hidden"
-msgstr ""
+msgstr "Oculto"
 
 #. Title for confirmation dialog after quick add markup
 #, c-format
@@ -963,12 +1007,12 @@ msgstr "Dijiste, \"%s\""
 #, c-format
 msgctxt "TLA_quickadd_confirm_speech_bubble"
 msgid "I created a task called \"%1$s\" %2$s at %3$s"
-msgstr ""
+msgstr "He creado una tarea llamada \"%1$s\" %2$s con prioridad %3$s"
 
 #, c-format
 msgctxt "TLA_quickadd_confirm_speech_bubble_date"
 msgid "for %s"
-msgstr ""
+msgstr "para %s"
 
 msgctxt "TLA_quickadd_confirm_hide_helpers"
 msgid "Don't display future confirmations"
@@ -984,7 +1028,7 @@ msgstr "Nueva tarea repetitiva %s"
 #, c-format
 msgctxt "TLA_repeat_scheduled_speech_bubble"
 msgid "I'll remind you about this %s."
-msgstr ""
+msgstr "Te recuerdo acerca de %s"
 
 msgctxt "TLA_priority_strings:0"
 msgid "highest priority"
@@ -1002,9 +1046,10 @@ msgctxt "TLA_priority_strings:3"
 msgid "low priority"
 msgstr "prioridad baja"
 
+#. slide 22a
 msgctxt "TLA_all_activity"
 msgid "All Activity"
-msgstr ""
+msgstr "Toda la actividad"
 
 #. ====================================================== TaskAdapter ==
 #. Format string to indicate task is hidden (%s => task name)
@@ -1019,7 +1064,7 @@ msgctxt "TAd_deletedFormat"
 msgid "%s [deleted]"
 msgstr "%s [borrado]"
 
-#. indicates task was completed. %s => date or time ago
+#. slide 22b: indicates task was completed. %s => date or time ago
 #, c-format
 msgctxt "TAd_completed"
 msgid ""
@@ -1029,7 +1074,7 @@ msgstr ""
 "Terminado\n"
 "%s"
 
-#. Action Button: edit task
+#. slide 15a: Action Button: edit task
 msgctxt "TAd_actionEditTask"
 msgid "Edit"
 msgstr "Editar"
@@ -1064,12 +1109,12 @@ msgid "Purge Task"
 msgstr "Purgar Tareas"
 
 #. ============================================== SortSelectionDialog ==
-#. Sort Selection: dialog title
+#. slide 23a: Sort Selection: dialog title
 msgctxt "SSD_title"
 msgid "Sort, Subtasks, and Hidden"
 msgstr "Clasificar y Filtrar Tareas"
 
-#. Hidden: title
+#. slide 23h:  Hidden: title
 msgctxt "SSD_hidden_title"
 msgid "Hidden Tasks"
 msgstr "Tareas Ocultas"
@@ -1094,42 +1139,42 @@ msgctxt "SSD_sort_drag"
 msgid "Drag & Drop with Subtasks"
 msgstr "Arrastrar y Soltar con SubTareas"
 
-#. Sort Selection: smart sort
+#. slide 23b: Sort Selection: smart sort
 msgctxt "SSD_sort_auto"
 msgid "Astrid Smart Sort"
 msgstr "Clasificación Inteligente Astrid"
 
-#. Sort Selection: sort by alpha
+#. slide 23e: Sort Selection: sort by alpha
 msgctxt "SSD_sort_alpha"
 msgid "By Title"
 msgstr "Por título"
 
-#. Sort Selection: sort by due date
+#. slide 23c: Sort Selection: sort by due date
 msgctxt "SSD_sort_due"
 msgid "By Due Date"
 msgstr "Por fecha límite"
 
-#. Sort Selection: sort by importance
+#. slide 23d: Sort Selection: sort by importance
 msgctxt "SSD_sort_importance"
 msgid "By Importance"
 msgstr "Por importancia"
 
-#. Sort Selection: sort by modified date
+#. slide 23f: Sort Selection: sort by modified date
 msgctxt "SSD_sort_modified"
 msgid "By Last Modified"
 msgstr "Por última modificación"
 
-#. Sort Selection: reverse
+#. slide 23g: Sort Selection: reverse
 msgctxt "SSD_sort_reverse"
 msgid "Reverse Sort"
 msgstr "Invertir Orden"
 
-#. Sort Button: sort temporarily
+#. slide 23j: Sort Button: sort temporarily
 msgctxt "SSD_save_temp"
 msgid "Just Once"
 msgstr "Sólo una vez"
 
-#. Sort Button: sort permanently
+#. slide 23i: Sort Button: sort permanently
 msgctxt "SSD_save_always"
 msgid "Always"
 msgstr "Siempre"
@@ -1138,7 +1183,7 @@ msgstr "Siempre"
 #. Astrid Filter Shortcut
 msgctxt "FSA_label"
 msgid "Astrid List or Filter"
-msgstr ""
+msgstr "Lista Astrid o Filtro"
 
 #. Filter List Activity Title
 msgctxt "FLA_title"
@@ -1165,7 +1210,7 @@ msgctxt "FLA_menu_help"
 msgid "Help"
 msgstr "Ayuda"
 
-#. Create Shortcut Dialog Title
+#. slide 28c: Create Shortcut Dialog Title
 msgctxt "FLA_shortcut_dialog_title"
 msgid "Create Desktop Shortcut"
 msgstr "Crear acceso directo"
@@ -1197,7 +1242,7 @@ msgctxt "FLA_new_filter"
 msgid "New Filter"
 msgstr "Nuevo filtro"
 
-#. Button: new list
+#. slide 10e: Button: new list
 msgctxt "FLA_new_list"
 msgid "New List"
 msgstr "Nueva lista"
@@ -1205,7 +1250,7 @@ msgstr "Nueva lista"
 #. Alert when creating a shortcut without selecting a filter
 msgctxt "FLA_no_filter_selected"
 msgid "No filter selected! Please select a filter or list."
-msgstr ""
+msgstr "No hay filtro seleccionado! Por favor seleccione un filtro o lista."
 
 #. ================================================= TaskEditActivity ==
 #. Title when editing a task (%s => task title)
@@ -1270,7 +1315,7 @@ msgctxt "TEA_loading:0"
 msgid "Loading..."
 msgstr "Cargando..."
 
-#. Task note label
+#. slide 16c: Task note label
 msgctxt "TEA_note_label"
 msgid "Notes"
 msgstr "Notas"
@@ -1331,17 +1376,17 @@ msgctxt "TEA_onTaskDelete"
 msgid "Task deleted!"
 msgstr "Tarea Eliminada!"
 
-#. Task edit tab: activity
+#. slide 15b: Task edit tab: activity
 msgctxt "TEA_tab_activity"
 msgid "Activity"
 msgstr "Actividad"
 
-#. Task edit tab: more editing settings
+#. slide 15e:  Task edit tab: more editing settings
 msgctxt "TEA_tab_more"
 msgid "Details"
 msgstr "Más"
 
-#. Task edit tab: web services
+#. slide 15d: Task edit tab: web services
 msgctxt "TEA_tab_web"
 msgid "Ideas"
 msgstr "Ideas"
@@ -1380,7 +1425,7 @@ msgstr "Mes siguiente"
 
 msgctxt "TEA_no_time"
 msgid "No time"
-msgstr ""
+msgstr "Sin tiempo"
 
 msgctxt "TEA_hideUntil:0"
 msgid "Always"
@@ -1388,7 +1433,7 @@ msgstr "Siempre"
 
 msgctxt "TEA_hideUntil:1"
 msgid "At due date"
-msgstr ""
+msgstr "En la fecha de vencimiento"
 
 msgctxt "TEA_hideUntil:2"
 msgid "Day before due"
@@ -1407,38 +1452,51 @@ msgctxt "TEA_control_title"
 msgid "Task Title"
 msgstr "Título de la tarea"
 
+#. slide 9b/35i
 msgctxt "TEA_control_who"
 msgid "Who"
 msgstr "Quién"
 
+#. slide 9c/ 35a
 msgctxt "TEA_control_when"
 msgid "When"
 msgstr "Cuando"
 
+#. slide 35b
 msgctxt "TEA_control_more_section"
 msgid "----Details----"
 msgstr "----More Section----"
 
+#. slide 16a/35c
 msgctxt "TEA_control_importance"
 msgid "Importance"
 msgstr "Importancia"
 
+#. slide 16b/35d
 msgctxt "TEA_control_lists"
 msgid "Lists"
 msgstr "Listas"
 
+#. slide 16c/35e
 msgctxt "TEA_control_notes"
 msgid "Notes"
 msgstr "Notas"
 
+msgctxt "TEA_control_files"
+msgid "Files"
+msgstr "Archivos"
+
+#. slide 16e / slide 35g
 msgctxt "TEA_control_reminders"
 msgid "Reminders"
 msgstr "Recordatorios"
 
+#. slide 16f
 msgctxt "TEA_control_timer"
 msgid "Timer Controls"
-msgstr ""
+msgstr "Controles de tiempo"
 
+#. slide 16g
 msgctxt "TEA_control_share"
 msgid "Share With Friends"
 msgstr "Compartir Con Amigos"
@@ -1462,46 +1520,48 @@ msgctxt "TEA_more"
 msgid "More"
 msgstr "Más"
 
-#. Text when no activity to show
+#. slide 15c: Text when no activity to show
 msgctxt "TEA_no_activity"
 msgid "No Activity to Show."
-msgstr ""
+msgstr "No hay actividad para mostrar"
 
 #. Text to load more activity
 msgctxt "TEA_load_more"
 msgid "Load more..."
-msgstr ""
+msgstr "Cargar mas..."
 
 #. When controls dialog
 msgctxt "TEA_when_dialog_title"
 msgid "When is this due?"
-msgstr ""
+msgstr "¿Para cuando esta previsto?"
 
 msgctxt "TEA_date_and_time"
 msgid "Date/Time"
-msgstr ""
+msgstr "Fecha/Hora"
 
-#, fuzzy
 msgctxt "TEA_new_task"
 msgid "New Task"
-msgstr "Nueva tarea"
+msgstr "Nueva Tarea"
 
 msgctxt "WSV_click_to_load"
 msgid "Tap me to search for ways to get this done!"
-msgstr ""
+msgstr "¡Dame clic para buscar formas de que esto se realice!"
 
 msgctxt "WSV_not_online"
 msgid ""
-"I can do more when connected to the Internet. Please check your "
-"connection."
+"I can do more when connected to the Internet. Please check your connection."
 msgstr ""
+"Puedo hacer mas cuando estoy conectado a Internet. Por favor revisa tu "
+"conexión."
 
 msgctxt "TEA_contact_error"
 msgid "Sorry! We couldn't find an email address for the selected contact."
 msgstr ""
+"¡Disculpa! No pudimos encontrar una dirección de email para el contacto "
+"seleccionado."
 
 #. ============================================= IntroductionActivity ==
-#. Introduction Window title
+#. slide 1a: Introduction Window title
 msgctxt "InA_title"
 msgid "Welcome to Astrid!"
 msgstr "¡Bienvenido a Astrid!"
@@ -1518,33 +1578,34 @@ msgstr "No acepto"
 
 #. ===================================================== MissedCallActivity ==
 #. Missed call: return call (%1$s -> caller, %2$s -> time of call)
-#, fuzzy, c-format
+#, c-format
 msgctxt "MCA_title"
 msgid ""
 "%1$s\n"
 "called at %2$s"
-msgstr "%1$s re: %2$s"
+msgstr ""
+"%1$s\n"
+"llamó a las %2$s"
 
 #. Missed call: return call
 msgctxt "MCA_return_call"
 msgid "Call now"
-msgstr ""
+msgstr "Llame ahora"
 
 #. Missed call: return call
 msgctxt "MCA_add_task"
 msgid "Call later"
-msgstr ""
+msgstr "Llamar luego"
 
 #. Missed call: return call
-#, fuzzy
 msgctxt "MCA_ignore"
 msgid "Ignore"
-msgstr "ninguno"
+msgstr "Ignorar"
 
 #. Missed call: dialog to ignore all missed calls title
 msgctxt "MCA_ignore_title"
 msgid "Ignore all missed calls?"
-msgstr ""
+msgstr "Ignorar todas las llamadas perdidas?"
 
 #. Missed call: dialog to ignore all missed calls body
 msgctxt "MCA_ignore_body"
@@ -1552,76 +1613,84 @@ msgid ""
 "You've ignored several missed calls. Should Astrid stop asking you about "
 "them?"
 msgstr ""
+"Ha ignorado varias llamadas perdidas. ¿Quiere que Astrid deje de preguntarle "
+"sobre ellas?"
 
 #. Missed call: dialog to ignore all missed calls ignore all button
 msgctxt "MCA_ignore_all"
 msgid "Ignore all calls"
-msgstr ""
+msgstr "Ignorar todas las llamadas"
 
 #. Missed call: dialog to ignore all missed calls ignore just this button
 msgctxt "MCA_ignore_this"
 msgid "Ignore this call only"
-msgstr ""
+msgstr "Ignorar solamente esta llamada"
 
 #. Missed call: preference title
 msgctxt "MCA_missed_calls_pref_title"
 msgid "Field missed calls"
-msgstr ""
+msgstr "Campo de llamadas perdidas"
 
-#. Missed call: preference description
-msgctxt "MCA_missed_calls_pref_desc"
+#. slide 49c: Missed call: preference description
+msgctxt "MCA_missed_calls_pref_desc_enabled"
 msgid ""
-"Astrid will notify you about missed calls and offer to remind you to call"
-" back"
+"Astrid will notify you about missed calls and offer to remind you to call "
+"back"
 msgstr ""
+"Astrid te notificará de las llamadas perdidas y ofrece recordarte regresar "
+"la llamada."
+
+msgctxt "MCA_missed_calls_pref_desc_disabled"
+msgid "Astrid will not notify you about missed calls"
+msgstr "Astrid no te notificara acerca de las llamadas perdidas"
 
 #. Missed call: task title with name (%1$s -> name, %2$s -> number)
 #, c-format
 msgctxt "MCA_task_title_name"
 msgid "Call %1$s back at %2$s"
-msgstr ""
+msgstr "Devolver la llamada a %1$s al %2$s"
 
 #. Missed call: task title no name (%s -> number)
 #, c-format
 msgctxt "MCA_task_title_no_name"
 msgid "Call %s back"
-msgstr ""
+msgstr "Regresarle la llamada a %s"
 
 #. Missed call: schedule dialog title (%s -> name or number)
 #, c-format
 msgctxt "MCA_schedule_dialog_title"
 msgid "Call %s back in..."
-msgstr ""
+msgstr "Regresar la llamada a %s en..."
 
 #. Missed call speech bubble options
 msgctxt "MCA_dialog_speech_options:0"
 msgid "It must be nice to be so popular!"
-msgstr ""
+msgstr "Debe ser bueno ser tan popular!"
 
 #. Missed call speech bubble options
 msgctxt "MCA_dialog_speech_options:1"
 msgid "Yay! People like you!"
-msgstr ""
+msgstr "¡Yei! ¡Le gustas a las personas!"
 
 #. Missed call speech bubble options
 msgctxt "MCA_dialog_speech_options:2"
 msgid "Make their day, give 'em a call!"
-msgstr ""
+msgstr "Anímales el día, ¡llámalos!"
 
 #. Missed call speech bubble options
 msgctxt "MCA_dialog_speech_options:3"
 msgid "Wouldn't you be happy if people called you back?"
-msgstr ""
+msgstr "¿No sería feliz si la gente le devolviera las llamadas?"
 
 #. Missed call speech bubble options
 msgctxt "MCA_dialog_speech_options:4"
 msgid "You can do it!"
-msgstr ""
+msgstr "No puedes hacer eso!"
 
 #. Missed call speech bubble options
 msgctxt "MCA_dialog_speech_options:5"
 msgid "You can always send a text..."
-msgstr ""
+msgstr "Siempre puede enviar un mensaje de texto..."
 
 #. ===================================================== HelpActivity ==
 #. Help: Button to get support from our website
@@ -1647,56 +1716,62 @@ msgid ""
 "your progress as well as\n"
 "activity on shared lists."
 msgstr ""
+"Ingresa para ver un registro de\n"
+"tu progreso así como la\n"
+"actividad en listas compartidas."
 
 #. ================================================== EditPreferences ==
-#. Preference Window Title
+#. slide 31g: Preference Window Title
 msgctxt "EPr_title"
 msgid "Astrid: Settings"
 msgstr "Astrid: Preferencias"
 
+#. slide 46a
 msgctxt "EPr_deactivated"
 msgid "deactivated"
-msgstr ""
+msgstr "desactivada"
 
-#. Preference Category: Appearance Title
+#. slide 30i: Preference Category: Appearance Title
 msgctxt "EPr_appearance_header"
 msgid "Appearance"
 msgstr "Apariencia"
 
-#. Preference: Task List Font Size Title
+#. slide 34a: Preference: Task List Font Size Title
 msgctxt "EPr_fontSize_title"
 msgid "Task List Size"
 msgstr "Tamaño de la lista de tareas"
 
-#. Preference: Show confirmation for smart reminders
+#. slide 32a: Preference: Show confirmation for smart reminders
 msgctxt "EPr_showSmartConfirmation_title"
 msgid "Show confirmation for smart reminders"
-msgstr ""
+msgstr "Mostrar confirmación para recordatorios inteligentes"
 
-#. Preference: Task List Font Size Description
+#. slide 34g: Preference: Task List Font Size Description
 msgctxt "EPr_fontSize_desc"
 msgid "Font size on the main listing page"
 msgstr "Tamaño de letra en el listado de la página principal"
 
-#. Preference: Task List Show Notes
+#. slide 34c: Preference: Task List Show Notes
 msgctxt "EPr_showNotes_title"
 msgid "Show Notes In Task"
 msgstr "Mostrar notas en tareas"
 
-#. Preference: Beast mode (auto-expand edit page)
+#. slide 30e: Preference: Beast mode (auto-expand edit page)
 msgctxt "EPr_beastMode_title"
 msgid "Customize Task Edit Screen"
-msgstr ""
+msgstr "Personalizar la pantalla de Edición de Tareas"
 
+#. slide 35h
 msgctxt "EPr_beastMode_desc"
 msgid "Customize the layout of the Task Edit Screen"
-msgstr ""
+msgstr "Personalizar el aspecto de la pantalla de Edición de Tareas"
 
+#. slide 35j
 msgctxt "EPr_beastMode_reset"
 msgid "Reset to defaults"
-msgstr ""
+msgstr "Restablecer los valores predeterminados"
 
-#. Preference: Task List Show Notes Description (disabled)
+#. slide 34i: Preference: Task List Show Notes Description (disabled)
 msgctxt "EPr_showNotes_desc_disabled"
 msgid "Notes will be accessible from the Task Edit Page"
 msgstr "Las notas se mostrarán cuando se toca una tarea."
@@ -1706,54 +1781,63 @@ msgctxt "EPr_showNotes_desc_enabled"
 msgid "Notes will always be displayed"
 msgstr "Se mostrarán siempre las notas"
 
-#. Preferences: Allow task rows to compress to size of task
+#. slide 34d: Preferences: Allow task rows to compress to size of task
 msgctxt "EPr_compressTaskRows_title"
 msgid "Compact Task Row"
-msgstr ""
+msgstr "Fila de tarea compacta"
 
+#. slide 34j
 msgctxt "EPr_compressTaskRows_desc"
 msgid "Compress task rows to fit title"
-msgstr ""
+msgstr "Comprimir las filas de la tarea para ajustar al título"
 
-#. Preferences: Use legacy importance and checkbox style
+#. slide 34e: Preferences: Use legacy importance and checkbox style
 msgctxt "EPr_userLegacyImportance_title"
 msgid "Use legacy importance style"
-msgstr ""
+msgstr "Usar el estilo de importancia de legado"
 
+#. slide 34k
 msgctxt "EPr_userLegacyImportance_desc"
 msgid "Use legacy importance style"
-msgstr ""
+msgstr "Usar el estilo de importancia de legado"
 
-#. Preferences: Wrap task titles to two lines
+#. slide 34b: Preferences: Wrap task titles to two lines
 msgctxt "EPr_fullTask_title"
 msgid "Show full task title"
-msgstr ""
+msgstr "Mostrar completo el título de la tarea"
 
 msgctxt "EPr_fullTask_desc_enabled"
 msgid "Full task title will be shown"
-msgstr ""
+msgstr "El título completo de la tarea será mostrado"
 
+#. slide 34h
 msgctxt "EPr_fullTask_desc_disabled"
 msgid "First two lines of task title will be shown"
-msgstr ""
+msgstr "Las primeras dos lineas de las tareas serán mostradas"
 
-#. Preferences: Auto-load Ideas Tab
+#. slide 32b: Preferences: Auto-load Ideas Tab
 msgctxt "EPr_ideaAuto_title"
 msgid "Auto-load Ideas Tab"
-msgstr ""
+msgstr "Auto cargar la pestaña Ideas"
 
+#. slide 32c
 msgctxt "EPr_ideaAuto_desc_enabled"
 msgid "Web searches for Ideas tab will be performed when tab is clicked"
 msgstr ""
+"La búsqueda para la pestaña Ideas se realizará cuando a la pestaña se le de "
+"clic"
 
 msgctxt "EPr_ideaAuto_desc_disabled"
-msgid "Web searches for Ideas tab will be performed only when manually requested"
+msgid ""
+"Web searches for Ideas tab will be performed only when manually requested"
 msgstr ""
+"La búsqueda para la pestaña Ideas se realizará solo cuando sea pedida "
+"manualmente"
 
-#. Preference: Theme
+#. slide 30f/ 36f: Preference: Theme
 msgctxt "EPr_theme_title"
 msgid "Color Theme"
-msgstr ""
+msgstr "Combinación de colores"
 
 #. Preference: Theme Description (%s => value)
 #, c-format
@@ -1764,146 +1848,189 @@ msgstr "Actualmente: %s"
 #. Preference: Theme Description (android 1.6)
 msgctxt "EPr_theme_desc_unsupported"
 msgid "Setting requires Android 2.0+"
-msgstr ""
+msgstr "La configuración requiere Android 2.0+"
 
+#. slide 32h/ 37b
 msgctxt "EPr_theme_widget_title"
 msgid "Widget Theme"
-msgstr ""
+msgstr "Tema del widget"
 
-#. Preference screen: all task row settings
+#. slide 30d/ 34f: Preference screen: all task row settings
 msgctxt "EPr_taskRowPrefs_title"
 msgid "Task Row Appearance"
-msgstr ""
+msgstr "Apariencia de la fila de tareas"
 
-#. Preference screen: Astrid Labs (experimental features)
-#, fuzzy
+#. slide 33b/ 49e: Preference screen: Astrid Labs (experimental features)
 msgctxt "EPr_labs_header"
 msgid "Astrid Labs"
-msgstr "Tareas de Astrid"
+msgstr "Laboratorios Astrid"
 
+#. slide 33f
 msgctxt "EPr_labs_desc"
-msgid "Enable or disable experimental features"
-msgstr ""
+msgid "Try and configure experimental features"
+msgstr "Probar y configurar las características experimentales"
 
 #. Preference: swipe between lists performance
 msgctxt "EPr_swipe_lists_performance_title"
 msgid "Swipe between lists"
-msgstr ""
+msgstr "Deslizar entre las listas"
 
 msgctxt "EPr_swipe_lists_performance_subtitle"
 msgid "Controls the memory performance of swipe between lists"
-msgstr ""
+msgstr "Controla el rendimiento de memoria de deslizar entre listas"
 
-#. Preferences: use the system contact picker for task assignment
+#. slide 49g: Preferences: use the system contact picker for task assignment
 msgctxt "EPr_use_contact_picker"
 msgid "Use contact picker"
-msgstr ""
+msgstr "Usar selector de contactos"
 
-msgctxt "EPr_use_contact_picker_desc"
-msgid "Display the system contact picker option in the task assignment window"
+#. slide 49b
+msgctxt "EPr_use_contact_picker_desc_enabled"
+msgid ""
+"The system contact picker option will be displayed in the task assignment "
+"window"
 msgstr ""
+"La opción del sistema de elector de contactos será mostrada en la ventana de "
+"asignación de tareas"
+
+msgctxt "EPr_use_contact_picker_desc_disabled"
+msgid "The system contact picker option will not be displayed"
+msgstr "La opción del sistema de elector de contactos no será mostrada"
+
+#. slide 49i: Preferences: Third party addons
+msgctxt "EPr_third_party_addons"
+msgid "Enable Third Party Add-ons"
+msgstr "Habilitar complementos de terceros"
+
+msgctxt "EPr_third_party_addons_desc_enabled"
+msgid "Third party add-ons will be enabled"
+msgstr "Complementos hechos por terceros estarán habilitados"
+
+#. slide 49d
+msgctxt "EPr_third_party_addons_desc_disabled"
+msgid "Third party add-ons will be disabled"
+msgstr "Complementos hechos por terceros estarán deshabilitados"
+
+#. Preferences: ideas tab
+msgctxt "EPr_ideas_tab_enabled"
+msgid "Task Ideas"
+msgstr "Ideas de tareas"
+
+msgctxt "EPr_ideas_tab_description"
+msgid "Get ideas to help you complete tasks"
+msgstr "Obtener idead para ayudarte a completar tus tareas"
+
+#. Preferences: calendar event start time
+msgctxt "EPr_cal_end_or_start_at_due_time"
+msgid "Calendar event time"
+msgstr "Tiempo del calendario de eventos"
+
+msgctxt "EPr_cal_end_at_due_time"
+msgid "End calendar events at due time"
+msgstr "Finalizar eventos del calendario al tiempo debido"
+
+msgctxt "EPr_cal_start_at_due_time"
+msgid "Start calendar events at due time"
+msgstr "Iniciar eventos del calendario al tiempo debido"
 
 msgctxt "EPr_swipe_lists_restart_alert"
 msgid "You will need to restart Astrid for this change to take effect"
-msgstr ""
+msgstr "Necesitarás reiniciar Astrid para que éste cambio surta efecto"
 
 msgctxt "EPr_swipe_lists_performance_mode:0"
 msgid "No swipe"
-msgstr ""
+msgstr "Sin deslizar"
 
 msgctxt "EPr_swipe_lists_performance_mode:1"
 msgid "Conserve Memory"
-msgstr ""
+msgstr "Mantener Memoria"
 
 msgctxt "EPr_swipe_lists_performance_mode:2"
 msgid "Normal Performance"
-msgstr ""
+msgstr "Rendimiento Normal"
 
-#, fuzzy
 msgctxt "EPr_swipe_lists_performance_mode:3"
 msgid "High Performance"
-msgstr "prioridad alta"
+msgstr "Rendimiento Alto"
 
-#, fuzzy
 msgctxt "EPr_swipe_lists_performance_desc:0"
 msgid "Swipe between lists is disabled"
-msgstr "Horario en silencio deshabilitado"
+msgstr "Deslizarse entre las listas esta deshabilitado"
 
 msgctxt "EPr_swipe_lists_performance_desc:1"
 msgid "Slower performance"
-msgstr ""
+msgstr "Rendimiento bajo"
 
-#, fuzzy
 msgctxt "EPr_swipe_lists_performance_desc:2"
 msgid "Default setting"
-msgstr "Recordatorios por defecto"
+msgstr "Configuración predeterminada"
 
 msgctxt "EPr_swipe_lists_performance_desc:3"
 msgid "Uses more system resources"
-msgstr ""
+msgstr "Usar mas recursos del sistema"
 
 #. Format string for displaying the currently selected preference. $1 is name
 #. of selected mode, $2 is description
-#, fuzzy, c-format
+#, c-format
 msgctxt "EPr_swipe_lists_display"
 msgid "%1$s - %2$s"
-msgstr "%1$s re: %2$s"
+msgstr "%1$s - %2$s"
 
 msgctxt "EPr_themes:0"
 msgid "Day - Blue"
-msgstr ""
+msgstr "Día - Azul"
 
 msgctxt "EPr_themes:1"
 msgid "Day - Red"
-msgstr ""
+msgstr "Día - Rojo"
 
 msgctxt "EPr_themes:2"
 msgid "Night"
-msgstr ""
+msgstr "Noche"
 
 msgctxt "EPr_themes:3"
 msgid "Transparent (White Text)"
-msgstr ""
+msgstr "Transparente (Texto Blanco)"
 
 msgctxt "EPr_themes:4"
 msgid "Transparent (Black Text)"
-msgstr ""
+msgstr "Transparente (Texto Negro)"
 
 msgctxt "EPr_themes_widget:0"
 msgid "Same as app"
-msgstr ""
+msgstr "El mismo que la app"
 
 msgctxt "EPr_themes_widget:1"
 msgid "Day - Blue"
-msgstr ""
+msgstr "Día - Azul"
 
 msgctxt "EPr_themes_widget:2"
 msgid "Day - Red"
-msgstr ""
+msgstr "Día - Rojo"
 
-#, fuzzy
 msgctxt "EPr_themes_widget:3"
 msgid "Night"
-msgstr "¿Desvelándose?"
+msgstr "Noche"
 
 msgctxt "EPr_themes_widget:4"
 msgid "Transparent (White Text)"
-msgstr ""
+msgstr "Transparente (Texto Blanco)"
 
 msgctxt "EPr_themes_widget:5"
 msgid "Transparent (Black Text)"
-msgstr ""
+msgstr "Transparente (Texto Negro)"
 
 msgctxt "EPr_themes_widget:6"
 msgid "Old Style"
-msgstr ""
+msgstr "Estilo antiguo"
 
 #. ========================================== Task Management Settings ==
-#. Preference Screen Header: Old Task Management
+#. slide 33a/47c: Preference Screen Header: Old Task Management
 msgctxt "EPr_manage_header"
 msgid "Manage Old Tasks"
-msgstr ""
+msgstr "Manejar Tareas Antiguas"
 
+#. slide 47d
 msgctxt "EPr_manage_delete_completed"
 msgid "Delete Completed Tasks"
 msgstr "Borrar tareas completadas"
@@ -1912,6 +2039,7 @@ msgctxt "EPr_manage_delete_completed_message"
 msgid "Do you really want to delete all your completed tasks?"
 msgstr "¿Desea realmente borrar todas las tareas completadas?"
 
+#. slide 47a
 msgctxt "EPr_manage_delete_completed_summary"
 msgid "Deleted tasks can be undeleted one-by-one"
 msgstr "Las tareas borradas pueden ser recuperadas una a una"
@@ -1919,8 +2047,9 @@ msgstr "Las tareas borradas pueden ser recuperadas una a una"
 #, c-format
 msgctxt "EPr_manage_delete_completed_status"
 msgid "Deleted %d tasks!"
-msgstr ""
+msgstr "¡Tareas %d Borradas!"
 
+#. slide 47e
 msgctxt "EPr_manage_purge_deleted"
 msgid "Purge Deleted Tasks"
 msgstr "Limpiar tareas eliminadas"
@@ -1938,17 +2067,19 @@ msgstr ""
 #, c-format
 msgctxt "EPr_manage_purge_deleted_status"
 msgid "Purged %d tasks!"
-msgstr ""
+msgstr "¡Tareas %d Purgadas!"
 
+#. slide 47b
 msgctxt "EPr_manage_purge_deleted_summary"
 msgid "Caution! Purged tasks can't be recovered without backup file!"
 msgstr ""
-"¡Cuidado! Las tareas purgadas no pueden ser recuperadas sin el archivo de"
-" copia de seguridad!"
+"¡Cuidado! Las tareas purgadas no pueden ser recuperadas sin el archivo de "
+"copia de seguridad!"
 
+#. slide 47h
 msgctxt "EPr_manage_clear_all"
 msgid "Clear All Data"
-msgstr ""
+msgstr "Limpiar todos los datos"
 
 msgctxt "EPr_manage_clear_all_message"
 msgid ""
@@ -1956,32 +2087,38 @@ msgid ""
 "\n"
 "Warning: can't be undone!"
 msgstr ""
+"¿Borrar todas las tareas y configuraciones en Astrid?\n"
+"\n"
+"¡Advertencia: La acción no puede ser deshecha!"
 
+#. slide 47f
 msgctxt "EPr_manage_delete_completed_gcal"
 msgid "Delete Calendar Events for Completed Tasks"
-msgstr ""
+msgstr "Borrar eventos del calendario para las tareas completas"
 
 msgctxt "EPr_manage_delete_completed_gcal_message"
 msgid "Do you really want to delete all your events for completed tasks?"
 msgstr ""
+"¿De verdad quieres borrar todos tus eventos para las tareas completas?"
 
 #, c-format
 msgctxt "EPr_manage_delete_completed_gcal_status"
 msgid "Deleted %d calendar events!"
-msgstr ""
+msgstr "Deleted %d calendar events!"
 
+#. slide 47g
 msgctxt "EPr_manage_delete_all_gcal"
 msgid "Delete All Calendar Events for Tasks"
-msgstr ""
+msgstr "Borrar todos los eventos del calendario para las Tareas"
 
 msgctxt "EPr_manage_delete_all_gcal_message"
 msgid "Do you really want to delete all your events for tasks?"
-msgstr ""
+msgstr "¿De verdad quieres borrar borrar todos tus eventos para las tareas?"
 
 #, c-format
 msgctxt "EPr_manage_delete_all_gcal_status"
 msgid "Deleted %d calendar events!"
-msgstr ""
+msgstr "¡Eventos del calendario %d borrados!"
 
 #. ==================================================== AddOnActivity ==
 #. Add Ons Activity Title
@@ -2017,7 +2154,7 @@ msgstr "Visitar sitio web"
 #. Add-on Activity - menu item to visit android market
 msgctxt "AOA_visit_market"
 msgid "Android Market"
-msgstr ""
+msgstr "Tienda Android"
 
 #. Add-on Activity - when list is empty
 msgctxt "AOA_no_addons"
@@ -2036,7 +2173,7 @@ msgid "Select tasks to view..."
 msgstr "Seleccione las tareas que ver..."
 
 #. ============================================================= About ==
-#. Title of "About" option in settings
+#. slide 30h: Title of "About" option in settings
 msgctxt "p_about"
 msgid "About Astrid"
 msgstr "Sobre Astrid"
@@ -2054,29 +2191,27 @@ msgstr ""
 " Astrid es código abierto y orgullosamente mantenido por Todoroo, Inc."
 
 #. Title of "Help" option in settings
-#, fuzzy
 msgctxt "p_help"
 msgid "Support"
 msgstr "Soporte"
 
-#. Title of "Forums" option in settings
-#, fuzzy, c-format
+#. slide 30c: Title of "Forums" option in settings
 msgctxt "p_forums"
 msgid "Forums"
-msgstr "de %s"
+msgstr "Foros"
 
 #. ============================================================= Misc ==
 #. Displayed when task killer found. %s => name of the application
 #, c-format
 msgctxt "task_killer_help"
 msgid ""
-"It looks like you are using an app that can kill processes (%s)! If you "
-"can, add Astrid to the exclusion list so it doesn't get killed. "
-"Otherwise, Astrid might not let you know when your tasks are due.\n"
+"It looks like you are using an app that can kill processes (%s)! If you can, "
+"add Astrid to the exclusion list so it doesn't get killed. Otherwise, Astrid "
+"might not let you know when your tasks are due.\n"
 msgstr ""
-"Parece que está usando una app que puede matar procesos (%s)! Si puede "
-"añada Astrid a la lista de exclusión de modo que no sea matada. De otro "
-"modo podría no avisarle cuando venza una Tarea.\n"
+"Parece que está usando una app que puede matar procesos (%s)! Si puede añada "
+"Astrid a la lista de exclusión de modo que no sea matada. De otro modo "
+"podría no avisarle cuando venza una Tarea.\n"
 
 #. Task killer dialog ok button
 msgctxt "task_killer_help_ok"
@@ -2092,33 +2227,40 @@ msgstr "Astrid lista Tareas/hacer"
 #. itself.
 msgctxt "marketplace_description"
 msgid ""
-"Astrid is the much loved open-source todo list / task manager designed to"
-" help you get stuff done. It features reminders, tags, sync, Locale plug-"
-"in, a widget and more."
+"Astrid is the much loved open-source todo list / task manager designed to "
+"help you get stuff done. It features reminders, tags, sync, Locale plug-in, "
+"a widget and more."
 msgstr ""
-"Astrid es el administrador de listas tareas de código abierto más querido"
-" diseñado para ayudarte a conseguir acabar tus quehaceres. Entre sus "
+"Astrid es el administrador de listas tareas de código abierto más querido "
+"diseñado para ayudarte a conseguir acabar tus quehaceres. Entre sus "
 "características se incluye recordatorios, etiquetas, sincronización, un "
 "complemento para Locale, un widget y mucho más."
 
 msgctxt "DB_corrupted_title"
 msgid "Corrupted Database"
-msgstr ""
+msgstr "Base de datos corrupta"
 
 msgctxt "DB_corrupted_body"
 msgid ""
 "Uh oh! It looks like you may have a corrupted database. If you see this "
 "error regularly, we suggest you clear all data (Settings-&gt;Manage All "
-"Tasks-&gt;Clear all data) and restore your tasks from a backup "
-"(Settings-&gt;Backup-&gt;Import Tasks) in Astrid."
+"Tasks-&gt;Clear all data) and restore your tasks from a backup (Settings-"
+"&gt;Backup-&gt;Import Tasks) in Astrid."
 msgstr ""
+"¡Ups! Parece que tal vez has corrompido la base de datos. Si ves éste error "
+"regularmente, te sugerimos borrar todos los datos (Configuración-"
+"&gt;Administrar todas las tareas-&gt;Borrar todos los datos) y restaurar tus "
+"tareas desde un respaldo (Configuración-&gt;Respaldar-&gt;Importar tareas) "
+"en Astrid."
 
-#. Preference Category: Defaults Title
+#. ** Copyright (c) 2012 Todoroo Inc ** ** See the file "LICENSE" for the
+#. full license governing this code.
+#. slide 32g: Preference Category: Defaults Title
 msgctxt "EPr_defaults_header"
 msgid "New Task Defaults"
 msgstr "Configuración de nuevas tareas por defecto"
 
-#. Preference: Default Urgency Title
+#. slide 41f:  Preference: Default Urgency Title
 msgctxt "EPr_default_urgency_title"
 msgid "Default Urgency"
 msgstr "Fecha límite por defecto"
@@ -2129,7 +2271,7 @@ msgctxt "EPr_default_urgency_desc"
 msgid "Currently: %s"
 msgstr "Actualmente: %s"
 
-#. Preference: Default Importance Title
+#. slide 40a: Preference: Default Importance Title
 msgctxt "EPr_default_importance_title"
 msgid "Default Importance"
 msgstr "Importancia por defecto"
@@ -2140,7 +2282,7 @@ msgctxt "EPr_default_importance_desc"
 msgid "Currently: %s"
 msgstr "Actualmente: %s"
 
-#. Preference: Default Hide Until Title
+#. slide 42e: Preference: Default Hide Until Title
 msgctxt "EPr_default_hideUntil_title"
 msgid "Default Hide Until"
 msgstr "Ocultar tarea por defecto"
@@ -2151,7 +2293,7 @@ msgctxt "EPr_default_hideUntil_desc"
 msgid "Currently: %s"
 msgstr "Actualmente: %s"
 
-#. Preference: Default Reminders Title
+#. slide 43e: Preference: Default Reminders Title
 msgctxt "EPr_default_reminders_title"
 msgid "Default Reminders"
 msgstr "Recordatorios por defecto"
@@ -2162,26 +2304,26 @@ msgctxt "EPr_default_reminders_desc"
 msgid "Currently: %s"
 msgstr "Actualmente: %s"
 
-#. Preference: Default Add To Calendar Title
+#. slide 19a/46c: Preference: Default Add To Calendar Title
 msgctxt "EPr_default_addtocalendar_title"
 msgid "Default Add To Calendar"
-msgstr ""
+msgstr "Agregar Al Calendario Predeterminado"
 
 #. Preference: Default Add To Calendar Setting Description (disabled)
 msgctxt "EPr_default_addtocalendar_desc_disabled"
 msgid "New tasks will not create an event in the Google Calendar"
-msgstr ""
+msgstr "Las nuevas tareas no crearán un evento en Google Calendar"
 
 #. Preference: Default Add To Calendar Setting Description (%s => setting)
 #, c-format
 msgctxt "EPr_default_addtocalendar_desc"
 msgid "New tasks will be in the calendar: \"%s\""
-msgstr ""
+msgstr "Las nuevas tareas estarán en el calendario: \"%s\""
 
-#. Reminder Mode Preference: Default Reminders Duration
+#. slide 45d: Reminder Mode Preference: Default Reminders Duration
 msgctxt "EPr_default_reminders_mode_title"
 msgid "Default Ring/Vibrate type"
-msgstr ""
+msgstr "Tipo predeterminado de Timbre/Vibrado"
 
 #. Preference: Default Reminders Description (%s => setting)
 #, c-format
@@ -2195,11 +2337,11 @@ msgstr "!!! (Alto)"
 
 msgctxt "EPr_default_importance:1"
 msgid "!!"
-msgstr ""
+msgstr "!!"
 
 msgctxt "EPr_default_importance:2"
 msgid "!"
-msgstr ""
+msgstr "!"
 
 msgctxt "EPr_default_importance:3"
 msgid "o (Lowest)"
@@ -2257,7 +2399,8 @@ msgctxt "EPr_default_reminders:3"
 msgid "At deadline or overdue"
 msgstr "En fecha límite o atrasada"
 
-#. See the file "LICENSE" for the full license governing this code.
+#. ** Copyright (c) 2012 Todoroo Inc ** ** See the file "LICENSE" for the
+#. full license governing this code.
 #. Resources for built-in filter plug-in
 #. ================================================= Filter Exposer ==
 #. Active Tasks Filter
@@ -2270,15 +2413,15 @@ msgctxt "BFE_Search"
 msgid "Search..."
 msgstr "Buscar..."
 
-#. Recently Modified
+#. slide 10b: Recently Modified
 msgctxt "BFE_Recent"
 msgid "Recently Modified"
 msgstr "Recién modificadas"
 
-#. I've assigned
+#. slide 10c: I've assigned
 msgctxt "BFE_Assigned"
 msgid "I've Assigned"
-msgstr ""
+msgstr "Yo he asignado"
 
 #. Build Your Own Filter
 msgctxt "BFE_Custom"
@@ -2288,7 +2431,7 @@ msgstr "Filtro personalizado..."
 #. Saved Filters Header
 msgctxt "BFE_Saved"
 msgid "Filters"
-msgstr ""
+msgstr "Filtros"
 
 #. Saved Filters Context Menu: delete
 msgctxt "BFE_Saved_delete"
@@ -2296,12 +2439,13 @@ msgid "Delete Filter"
 msgstr "Borrar filtro"
 
 #. =========================================== CustomFilterActivity ==
-#. Build Your Own Filter Activity Title
+#. slide 30d: Build Your Own Filter Activity Title
 msgctxt "CFA_title"
 msgid "Custom Filter"
 msgstr "Filtro Personalizado"
 
-#. Filter Name edit box hint (if user types here, filter will be saved)
+#. slide 30e: Filter Name edit box hint (if user types here, filter will be
+#. saved)
 msgctxt "CFA_filterName_hint"
 msgid "Name this filter to save it..."
 msgstr "Da nombre al filtro para grabarlo..."
@@ -2312,7 +2456,7 @@ msgctxt "CFA_filterName_copy"
 msgid "Copy of %s"
 msgstr "Copia de %s"
 
-#. Filter Starting Universe: all tasks
+#. slide 30a: Filter Starting Universe: all tasks
 msgctxt "CFA_universe_all"
 msgid "Active Tasks"
 msgstr "Tareas activas"
@@ -2343,22 +2487,22 @@ msgctxt "CFA_context_delete"
 msgid "Delete Row"
 msgstr "Eliminar fila"
 
-#. Filter Screen Help Text
+#. slide 30b: Filter Screen Help Text
 msgctxt "CFA_help"
 msgid ""
 "This screen lets you create a new filters. Add criteria using the button "
 "below, short or long-press them to adjust, and then click \"View\"!"
 msgstr ""
 "Esta pantalla le permite crear nuevos filtros. Añade criterios usando el "
-"botón de abajo, presione breve o un rato para ajustarlos, luego presiona "
-"en \"Ver\"!"
+"botón de abajo, presione breve o un rato para ajustarlos, luego presiona en "
+"\"Ver\"!"
 
-#. Filter Button: add new
+#. slide 30c: Filter Button: add new
 msgctxt "CFA_button_add"
 msgid "Add Criteria"
 msgstr "Añadir Criterio"
 
-#. Filter Button: view without saving
+#. slide 30f: Filter Button: view without saving
 msgctxt "CFA_button_view"
 msgid "View"
 msgstr "Ver"
@@ -2420,22 +2564,22 @@ msgstr "Importancia..."
 #. Criteria: tag - display text (? -> user input)
 msgctxt "CFC_tag_text"
 msgid "List: ?"
-msgstr ""
+msgstr "Lista: ?"
 
 #. Criteria: tag - name of criteria
 msgctxt "CFC_tag_name"
 msgid "List..."
-msgstr ""
+msgstr "Lista..."
 
 #. Criteria: tag_contains - name of criteria
 msgctxt "CFC_tag_contains_name"
 msgid "List name contains..."
-msgstr ""
+msgstr "El nombre de la lista contiene..."
 
 #. Criteria: tag_contains - text (? -> user input)
 msgctxt "CFC_tag_contains_text"
 msgid "List name contains: ?"
-msgstr ""
+msgstr "El nombre de la lista contiene: ?"
 
 #. Criteria: title_contains - name of criteria
 msgctxt "CFC_title_contains_name"
@@ -2447,7 +2591,8 @@ msgctxt "CFC_title_contains_text"
 msgid "Title contains: ?"
 msgstr "Título contiene: ?"
 
-#. See the file "LICENSE" for the full license governing this code.
+#. ** Copyright (c) 2012 Todoroo Inc ** ** See the file "LICENSE" for the
+#. full license governing this code.
 #. Resources for built-in tag plug-in
 #. =============================================== Task Edit Controls ==
 #. Error message for adding to calendar
@@ -2460,10 +2605,10 @@ msgctxt "gcal_TEA_calendar_label"
 msgid "Calendar Integration:"
 msgstr "Añadir tarea al calendario"
 
-#. Label for adding task to calendar
+#. slide 21c: Label for adding task to calendar
 msgctxt "gcal_TEA_addToCalendar_label"
 msgid "Add to Calendar"
-msgstr ""
+msgstr "Agregar al calendario"
 
 #. Label when calendar event already exists
 msgctxt "gcal_TEA_showCalendar_label"
@@ -2483,15 +2628,15 @@ msgstr "También actualizado el evento de calendario!"
 #. No calendar label (don't add option)
 msgctxt "gcal_TEA_nocal"
 msgid "Don't add"
-msgstr ""
+msgstr "No agregar"
 
 msgctxt "gcal_TEA_none_selected"
 msgid "Add to cal..."
-msgstr ""
+msgstr "Agregar al calendario"
 
 msgctxt "gcal_TEA_has_event"
 msgid "Cal event"
-msgstr ""
+msgstr "Evento de llamada"
 
 #. ======================================================== Calendars ==
 #. Calendar event name when task is completed (%s => task title)
@@ -2505,12 +2650,13 @@ msgctxt "gcal_GCP_default"
 msgid "Default Calendar"
 msgstr "Calendario predeterminado"
 
-#. See the file "LICENSE" for the full license governing this code.
+#. ** Copyright (c) 2012 Todoroo Inc ** ** See the file "LICENSE" for the
+#. full license governing this code.
 #. ============================================================= UI ==
 #. filters header: GTasks
 msgctxt "gtasks_FEx_header"
 msgid "Google Tasks"
-msgstr ""
+msgstr "Tareas de Google"
 
 #. filter category for GTasks lists
 msgctxt "gtasks_FEx_list"
@@ -2521,12 +2667,12 @@ msgstr "Lista"
 #, c-format
 msgctxt "gtasks_FEx_title"
 msgid "Google Tasks: %s"
-msgstr ""
+msgstr "Google Tasks: %s"
 
 #. dialog prompt for creating a new gtasks list
 msgctxt "gtasks_FEx_creating_list"
 msgid "Creating list..."
-msgstr ""
+msgstr "Creando lista..."
 
 #. dialog prompt for creating a new gtasks list
 msgctxt "gtasks_FEx_create_list_dialog"
@@ -2545,21 +2691,21 @@ msgstr "Bienvenido a Google Tasks!"
 
 msgctxt "CFC_gtasks_list_text"
 msgid "In List: ?"
-msgstr ""
+msgstr "En la Lista: ?"
 
 msgctxt "CFC_gtasks_list_name"
 msgid "In GTasks List..."
-msgstr ""
+msgstr "en la Lista GTasks..."
 
 #. Message while clearing completed tasks
 msgctxt "gtasks_GTA_clearing"
 msgid "Clearing completed tasks..."
-msgstr ""
+msgstr "Limpiando tareas completadas..."
 
 #. Label for clear completed menu item
 msgctxt "gtasks_GTA_clear_completed"
 msgid "Clear Completed"
-msgstr ""
+msgstr "Limpiar finalizados"
 
 #. ============================================ GtasksLoginActivity ==
 #. Activity Title: Gtasks Login
@@ -2573,21 +2719,23 @@ msgid ""
 "Please log in to Google Tasks Sync (Beta!). Non-migrated Google Apps "
 "accounts are currently unsupported."
 msgstr ""
+"Por favor inicia sesión en Google Tasks Sync (Beta!). Cuentas de Google Apps "
+"sin migrar no están soportadas actualmente."
 
 msgctxt "gtasks_GLA_noaccounts"
 msgid "No available Google accounts to sync with."
-msgstr ""
+msgstr "No hay disponible una cuenta de Google con la cual sincronizarse."
 
 #. Instructions: Gtasks further help
 msgctxt "gtasks_GLA_further_help"
 msgid ""
-"To view your tasks with indentation and order preserved, go to the "
-"Filters page and select a Google Tasks list. By default, Astrid uses its "
-"own sort settings for tasks."
+"To view your tasks with indentation and order preserved, go to the Filters "
+"page and select a Google Tasks list. By default, Astrid uses its own sort "
+"settings for tasks."
 msgstr ""
-"Para visualizar sus tareas con sangría y orden preservado, vaya a Filtros"
-" y seleccione una lista de Google Tasks. De manera predeterminada, Astrid"
-" usa sus propias configuraciones de ordenación para tareas."
+"Para visualizar sus tareas con sangría y orden preservado, vaya a Filtros y "
+"seleccione una lista de Google Tasks. De manera predeterminada, Astrid usa "
+"sus propias configuraciones de ordenación para tareas."
 
 #. Sign In Button
 msgctxt "gtasks_GLA_signIn"
@@ -2625,63 +2773,75 @@ msgid ""
 "Error authenticating! Please check your username and password in your "
 "phone's account manager"
 msgstr ""
+"¡Error de autenticación! ¡Por favor revisa tu nombre de usuario y contraseña "
+"en el administrador de cuentas de tu teléfono!"
 
 #. Error Message when we receive an IO Exception
 msgctxt "gtasks_GLA_errorIOAuth"
 msgid ""
-"Sorry, we had trouble communicating with Google servers. Please try again"
-" later."
+"Sorry, we had trouble communicating with Google servers. Please try again "
+"later."
 msgstr ""
+"Perdón, hubo un problema al comunicarse con los servidores de Google. Por "
+"favor inténtalo mas tarde."
 
 #. Error Message when we receive a HTTP 401 Unauthorized multiple times
 msgctxt "gtasks_GLA_errorAuth_captcha"
 msgid ""
-"You may have encountered a captcha. Try logging in from the browser, then"
-" come back to try again:"
+"You may have encountered a captcha. Try logging in from the browser, then "
+"come back to try again:"
 msgstr ""
-"Usted puede haber encontrado un captcha. Intente acceder desde el "
-"navegador, a continuación, vuelve a intentarlo de nuevo:"
+"Usted puede haber encontrado un captcha. Intente acceder desde el navegador, "
+"a continuación, vuelve a intentarlo de nuevo:"
 
 #. ============================================== GtasksPreferences ==
 #. GTasks Preferences Title
 msgctxt "gtasks_GPr_header"
 msgid "Google Tasks"
-msgstr ""
+msgstr "Google Tasks"
 
 #. ================================================ Synchronization ==
 #. title for notification tray when synchronizing
 msgctxt "gtasks_notification_title"
 msgid "Astrid: Google Tasks"
-msgstr ""
+msgstr "Astrid: Google Tasks"
 
 #. Error Message when we receive a HTTP 503 error
 msgctxt "gtasks_error_backend"
 msgid ""
-"Google's Task API is in beta and has encountered an error. The service "
-"may be down, please try again later."
+"Google's Task API is in beta and has encountered an error. The service may "
+"be down, please try again later."
 msgstr ""
+"La API de Google Tasks está aun en beta y ha encontrado un error. El "
+"servicio tal vez no esté disponible, por favor inténtalo mas tarde."
 
 #. Error for account not found
 #, c-format
 msgctxt "gtasks_error_accountNotFound"
 msgid ""
-"Account %s not found--please log out and log back in from the Google "
-"Tasks settings."
+"Account %s not found--please log out and log back in from the Google Tasks "
+"settings."
 msgstr ""
+"La cuenta %s no se encontró--por favor cierra sesión y vuelve a iniciarla "
+"desde la configuración de Google Tasks"
 
 #. Error when ping after refreshing token fails
 msgctxt "gtasks_error_authRefresh"
 msgid ""
-"Unable to authenticate with Google Tasks. Please check your account "
-"password or try again later."
+"Unable to authenticate with Google Tasks. Please check your account password "
+"or try again later."
 msgstr ""
+"No se pudo autenticar con Google Tasks. Por favor revisa la contraseña de tu "
+"cuenta o intenta de nuevo mas tarde."
 
 #. Error when account manager returns no auth token or throws exception
 msgctxt "gtasks_error_accountManager"
 msgid ""
-"Error in your phone's account manager. Please log out and log back in "
-"from the Google Tasks settings."
+"Error in your phone's account manager. Please log out and log back in from "
+"the Google Tasks settings."
 msgstr ""
+"Error en el administrador de cuentas de tu teléfono. Por favor reinicia "
+"sesión desde la configuración de Google Tasks."
 
 #. Error when authorization error happens in background sync
 msgctxt "gtasks_error_background_sync_auth"
@@ -2689,94 +2849,118 @@ msgid ""
 "Error authenticating in background. Please try initiating a sync while "
 "Astrid is running."
 msgstr ""
+"Error al autenticarse en segundo plano. Por favor intenta iniciando una "
+"sincronización mientras Astrid está ejecutándose."
 
-#. See the file "LICENSE" for the full license governing this code.
+msgctxt "gtasks_dual_sync_warning"
+msgid ""
+"You are currently synchronizing with Astrid.com. Be advised that "
+"synchronizing with both services can in some cases lead to unexpected "
+"results. Are you sure you want to sync with Google Tasks?"
+msgstr ""
+"Tú estas sincronizando con Astrid.com ahora. Ten en cuenta que sincronizarse "
+"con ambos dispositivos puede en algunos casos llevar a resultados "
+"inesperados. ¿Estás seguro de que quieres sincronizar con Google Tasks?"
+
+#. ** Copyright (c) 2012 Todoroo Inc ** ** See the file "LICENSE" for the
+#. full license governing this code.
 #. NEW USER EXPERIENCE
 #. help bubbles
-#. Shown the first time a user sees the task list activity
+#. slide 8c: Shown the first time a user sees the task list activity
 msgctxt "help_popover_add_task"
 msgid "Start by adding a task or two"
-msgstr ""
+msgstr "Comienza añadiendo una tarea o dos"
 
 #. Shown the first time a user adds a task to a list
 msgctxt "help_popover_tap_task"
 msgid "Tap task to edit and share"
-msgstr ""
+msgstr "Toca tarea para editar y compartir"
 
-#. Shown the first time a user sees the list activity
+#. slide 14a: Shown the first time a user sees the list activity
 msgctxt "help_popover_list_settings"
 msgid "Tap to edit or share this list"
-msgstr ""
+msgstr "Toca para editar o compartir ésta lista"
 
-#. Shown the first time a user sees the list settings tab
+#. slide 26c: Shown the first time a user sees the list settings tab
 msgctxt "help_popover_collaborators"
 msgid "People you share with can help you build your list or finish tasks"
 msgstr ""
+"Las personas con quien compartas te pueden ayudar a construir tus listas o "
+"terminar tareas"
 
 #. Shown after user adds a task on tablet
 msgctxt "help_popover_add_lists"
 msgid "Tap add a list"
-msgstr ""
+msgstr "Toca agregar una lista"
 
 #. Shown after a user adds a task on phones
 msgctxt "help_popover_switch_lists"
 msgid "Tap to add a list or switch between lists"
-msgstr ""
+msgstr "Toca para agregar una lista o cambiar entre listas"
 
 msgctxt "help_popover_when_shortcut"
 msgid "Tap this shortcut to quick select date and time"
-msgstr ""
+msgstr "Toca este atajo para seleccionar rápidamente fecha y hora"
 
 msgctxt "help_popover_when_row"
 msgid "Tap anywhere on this row to access options like repeat"
 msgstr ""
+"Toca en cualquier lugar de esta fila para acceder a opciones como repetir"
 
 #. Login activity
 msgctxt "welcome_login_title"
 msgid "Welcome to Astrid!"
 msgstr "¡Bienvenido a Astrid!"
 
+#. slide 7b
 msgctxt "welcome_login_tos_base"
 msgid "By using Astrid you agree to the"
-msgstr ""
+msgstr "Al usar Astrid estás de acuerdo con el"
 
 msgctxt "welcome_login_tos_link"
 msgid "\"Terms of Service\""
-msgstr ""
+msgstr "\"Términos del servicio\""
 
+#. slide 7e
 msgctxt "welcome_login_pw"
 msgid "Login with Username/Password"
-msgstr ""
+msgstr "Ingrese con usuario/contraseña"
 
+#. slide 7f
 msgctxt "welcome_login_later"
 msgid "Connect Later"
-msgstr ""
+msgstr "Conectar mas tarde"
 
 msgctxt "welcome_login_confirm_later_title"
 msgid "Why not sign in?"
-msgstr ""
+msgstr "¿Porqué no iniciar seción?"
 
 msgctxt "welcome_login_confirm_later_ok"
 msgid "I'll do it!"
-msgstr ""
+msgstr "¡Lo haré!"
 
 msgctxt "welcome_login_confirm_later_cancel"
 msgid "No thanks"
-msgstr ""
+msgstr "No gracias"
 
 msgctxt "welcome_login_confirm_later_dialog"
 msgid ""
-"Sign in to get the most out of Astrid! For free, you get online backup, "
-"full synchronization with Astrid.com, the ability to add tasks via email,"
-" and you can even share task lists with friends!"
+"Sign in to get the most out of Astrid! For free, you get online backup, full "
+"synchronization with Astrid.com, the ability to add tasks via email, and you "
+"can even share task lists with friends!"
 msgstr ""
+"¡Inicia sesión para sacar el máximo provecho de Astrid! Sin costo, obtienes "
+"respaldo en linea, sincronización completa con Astrid.com, la capacidad de "
+"agregar tareas vía email, e incluso puedes compartir listas de tareas con "
+"tus amigos!"
 
 #. Shown after user goes to task rabbit activity
 msgctxt "help_popover_taskrabbit_type"
 msgid "Change the type of task"
-msgstr ""
+msgstr "Cambiar el tipo de tarea"
 
-#. See the file "LICENSE" for the full license governing this code.
+#. ** Copyright (c) 2012 Todoroo Inc ** ** See the file "LICENSE" for the
+#. full license governing this code.
 #. Resources for built-in locale plug-in
 #. Locale Alert Editing Window Title
 msgctxt "locale_edit_alerts_title"
@@ -2842,12 +3026,13 @@ msgctxt "locale_plugin_required"
 msgid "Please install the Astrid Locale plugin!"
 msgstr "Por favor, instale el complemento Astrid Locale"
 
-#. See the file "LICENSE" for the full license governing this code.
+#. ** Copyright (c) 2012 Todoroo Inc ** ** See the file "LICENSE" for the
+#. full license governing this code.
 #. ====================== Plugin Boilerplate =========================
 #. filters header: OpenCRX
 msgctxt "opencrx_FEx_header"
 msgid "OpenCRX"
-msgstr ""
+msgstr "OpenCRX"
 
 #. filter category for OpenCRX ActivityCreators
 msgctxt "opencrx_FEx_dashboard"
@@ -2878,7 +3063,7 @@ msgstr "Añadir un comentario"
 
 msgctxt "opencrx_creator_input_hint"
 msgid "Creator"
-msgstr ""
+msgstr "Creador"
 
 msgctxt "opencrx_contact_input_hint"
 msgid "Assigned to"
@@ -2888,29 +3073,29 @@ msgstr "Asignado a"
 #. Preferences Title: OpenCRX
 msgctxt "opencrx_PPr_header"
 msgid "OpenCRX"
-msgstr ""
+msgstr "OpenCRX"
 
 #. creator title for tasks that are not synchronized
 msgctxt "opencrx_no_creator"
 msgid "(Do Not Synchronize)"
-msgstr ""
+msgstr "No sincronizar"
 
 #. preference title for default creator
 msgctxt "opencrx_PPr_defaultcreator_title"
 msgid "Default ActivityCreator"
-msgstr ""
+msgstr "Creador de actividades predeterminado"
 
 #. preference description for default creator (%s -> setting)
 #, c-format
 msgctxt "opencrx_PPr_defaultcreator_summary"
 msgid "New activities will be created by: %s"
-msgstr ""
+msgstr "Nuevas actividades serán creadas por: : %s"
 
 #. preference description for default dashboard (when set to 'not
 #. synchronized')
 msgctxt "opencrx_PPr_defaultcreator_summary_none"
 msgid "New activities will not be synchronized by default"
-msgstr ""
+msgstr "Por defecto, las actividades nuevas  no serán sincronizadas"
 
 #. OpenCRX host and segment group name
 msgctxt "opencrx_group"
@@ -2920,12 +3105,12 @@ msgstr "servidor de OpenCRX"
 #. preference description for OpenCRX host
 msgctxt "opencrx_host_title"
 msgid "Host"
-msgstr ""
+msgstr "Servidor"
 
 #. dialog title for OpenCRX host
 msgctxt "opencrx_host_dialog_title"
 msgid "OpenCRX host"
-msgstr ""
+msgstr "huésped OpenCRX"
 
 #. example for OpenCRX host
 msgctxt "opencrx_host_summary"
@@ -2935,12 +3120,12 @@ msgstr "Por ejemplo: <i>midominio.com</i>"
 #. preference description for OpenCRX segment
 msgctxt "opencrx_segment_title"
 msgid "Segment"
-msgstr ""
+msgstr "Segmento"
 
 #. dialog title for OpenCRX segment
 msgctxt "opencrx_segment_dialog_title"
 msgid "Synchronized segment"
-msgstr ""
+msgstr "Segmento sincronizado"
 
 #. example for OpenCRX segment
 msgctxt "opencrx_segment_summary"
@@ -2960,7 +3145,7 @@ msgstr "Proveedor"
 #. dialog title for OpenCRX provider
 msgctxt "opencrx_provider_dialog_title"
 msgid "OpenCRX data provider"
-msgstr ""
+msgstr "Proveedor de datos OpenCRX"
 
 #. example for OpenCRX provider
 msgctxt "opencrx_provider_summary"
@@ -2970,7 +3155,7 @@ msgstr "Por ejemplo: <i>CRX</i>"
 #. default value for OpenCRX provider
 msgctxt "opencrx_provider_default"
 msgid "CRX"
-msgstr ""
+msgstr "CRX"
 
 #. ================================================= Login Activity ==
 #. Activity Title: Opencrx Login
@@ -2991,7 +3176,7 @@ msgstr "Ingresar"
 #. Login Label
 msgctxt "opencrx_PLA_login"
 msgid "Login"
-msgstr ""
+msgstr "Iniciar sesión"
 
 #. Password Label
 msgctxt "opencrx_PLA_password"
@@ -3001,7 +3186,7 @@ msgstr "Contraseña"
 #. Error Message when fields aren't filled out
 msgctxt "opencrx_PLA_errorEmpty"
 msgid "Error: fillout all fields"
-msgstr ""
+msgstr "Error: debe llenar todos los campos"
 
 #. Error Message when we receive a HTTP 401 Unauthorized
 msgctxt "opencrx_PLA_errorAuth"
@@ -3012,7 +3197,7 @@ msgstr "¡Error: usuario o contraseña incorrectos!"
 #. title for notification tray after synchronizing
 msgctxt "opencrx_notification_title"
 msgid "OpenCRX"
-msgstr ""
+msgstr "OpenCRX"
 
 #. text for notification tray when synchronizing
 #, c-format
@@ -3028,7 +3213,7 @@ msgstr "Error de conexión! Verifique su conexión a internet."
 #. opencrx Login not specified
 msgctxt "opencrx_MLA_email_empty"
 msgid "Login was not specified!"
-msgstr ""
+msgstr "¡El inicio de sesión no fue especificado!"
 
 #. opencrx password not specified
 msgctxt "opencrx_MLA_password_empty"
@@ -3059,7 +3244,7 @@ msgstr "&lt;Predeterminado&gt;"
 
 msgctxt "opencrx_TEA_opencrx_title"
 msgid "OpenCRX Controls"
-msgstr ""
+msgstr "Controles de OpenCRX"
 
 msgctxt "CFC_opencrx_in_workspace_text"
 msgid "In workspace: ?"
@@ -3077,14 +3262,15 @@ msgctxt "CFC_opencrx_assigned_to_name"
 msgid "Assigned to..."
 msgstr "Asignado a..."
 
-#. See the file "LICENSE" for the full license governing this code.
+#. ** Copyright (c) 2012 Todoroo Inc ** ** See the file "LICENSE" for the
+#. full license governing this code.
 #. ================================================== EditPreferences ==
-#. Preference Category: Power Pack
+#. slide 32j: Preference Category: Power Pack
 msgctxt "EPr_powerpack_header"
 msgid "Astrid Power Pack"
-msgstr ""
+msgstr "Paquete de Poder Astrid"
 
-#. Preference: Anonymous User Statistics
+#. slide 32e: Preference: Anonymous User Statistics
 msgctxt "EPr_statistics_title"
 msgid "Anonymous Usage Stats"
 msgstr "Estadísticas de uso anónimas"
@@ -3094,19 +3280,186 @@ msgctxt "EPr_statistics_desc_disabled"
 msgid "No usage data will be reported"
 msgstr "No se enviará ninguna información"
 
-#. Preference: User Statistics (enabled)
+#. slide 32f: Preference: User Statistics (enabled)
 msgctxt "EPr_statistics_desc_enabled"
 msgid "Help us make Astrid better by sending anonymous usage data"
 msgstr ""
-"Ayúdanos a mejorar Astrid permitiendo el envío anónimo de datos "
-"relacionados con el uso de la aplicación"
+"Ayúdanos a mejorar Astrid permitiendo el envío anónimo de datos relacionados "
+"con el uso de la aplicación"
 
-#. See the file "LICENSE" for the full license governing this code.
+#. ** Copyright (c) 2012 Todoroo Inc ** ** See the file "LICENSE" for the
+#. full license governing this code.
+msgctxt "speech_err_network"
+msgid ""
+"Network error! Speech recognition requires a network connection to work."
+msgstr ""
+"¡Error en la red! El reconocimiento de voz requiere una conexión de red para "
+"funcionar."
+
+msgctxt "speech_err_no_match"
+msgid "Sorry, I couldn't understand that! Please try again."
+msgstr "Lo siento. No entendí lo que dijo! Por favor, intente de nuevo."
+
+msgctxt "speech_err_default"
+msgid "Sorry, speech recognition encountered an error. Please try again."
+msgstr ""
+"Lo sentimos. Hubo un error en la función de reconocimiento de voz. Intente "
+"de nuevo, por favor."
+
+msgctxt "premium_attach_file"
+msgid "Attach a file"
+msgstr "Adjunte un archivo"
+
+msgctxt "premium_record_audio"
+msgid "Record a note"
+msgstr "Grabe una nota"
+
+msgctxt "premium_no_files"
+msgid "No files attached"
+msgstr "No se adjuntó ningún archivo"
+
+msgctxt "premium_remove_file_confirm"
+msgid "Are you sure? Cannot be undone"
+msgstr "Está seguro? No se puede revertir"
+
+msgctxt "audio_recording_title"
+msgid "Recording Audio"
+msgstr "Grabando Audio"
+
+msgctxt "audio_stop_recording"
+msgid "Stop Recording"
+msgstr "Detener grabación"
+
+msgctxt "audio_speak_now"
+msgid "Speak Now!"
+msgstr "Hable ahora!"
+
+msgctxt "audio_encoding"
+msgid "Encoding..."
+msgstr "Codificación..."
+
+msgctxt "audio_err_encoding"
+msgid "Error encoding audio"
+msgstr "Error codificando audio"
+
+msgctxt "audio_err_playback"
+msgid "Sorry, the system does not support this type of audio file"
+msgstr "Lo sentimos. El sistema no reconoce este tipo de archivo de audio"
+
+msgctxt "search_market_audio"
+msgid ""
+"No player found to handle that audio type. Would you like to download an "
+"audio player from the Android Market?"
+msgstr ""
+"No fue encontrado un reproductor para manejar ese tipo de audio. ¿Te "
+"gustaría bajar un reproductor de audio desde el Android Market?"
+
+msgctxt "search_market_audio_title"
+msgid "No audio player found"
+msgstr "No se encontró un reproductor de audio"
+
+msgctxt "search_market_pdf"
+msgid ""
+"No PDF reader was found. Would you like to download a PDF reader from the "
+"Android Market?"
+msgstr ""
+"No se encontró un lector de archivos PDF. Desea descargar uno de Android "
+"Market?"
+
+msgctxt "search_market_pdf_title"
+msgid "No PDF reader found"
+msgstr "No se encontró un lector de archivos PDF"
+
+msgctxt "search_market_ms"
+msgid ""
+"No MS Office reader was found. Would you like to download an MS Office "
+"reader from the Android Market?"
+msgstr ""
+"No se encontró un lector de archivos MS Office. Desea descargar uno de "
+"Android Market?"
+
+msgctxt "search_market_ms_title"
+msgid "No MS Office reader found"
+msgstr "No se encontró un lector para archivos de MS Office"
+
+msgctxt "file_type_unhandled"
+msgid "Sorry! No application was found to handle this file type."
+msgstr ""
+"Lo sentimos! No se encontró una aplicación para manipular este tipo de "
+"archivo."
+
+msgctxt "file_type_unhandled_title"
+msgid "No application found"
+msgstr "No se encontró una aplicación"
+
+msgctxt "file_prefix_image"
+msgid "Image"
+msgstr "Imagen"
+
+msgctxt "file_prefix_voice"
+msgid "Voice"
+msgstr "Voz"
+
+msgctxt "file_browser_up"
+msgid "Up"
+msgstr "Arriba"
+
+msgctxt "file_browser_title"
+msgid "Choose a file"
+msgstr "Seleccione un archivo"
+
+msgctxt "file_browser_err_permissions"
+msgid ""
+"Permissions error! Please make sure you have not blocked Astrid from "
+"accessing the SD card."
+msgstr ""
+"¡Permiso denegado! Por favor asegúrate de no haber bloqueado a Astrid de "
+"accesar a la tarjeta SD."
+
+msgctxt "file_add_picture"
+msgid "Attach a picture"
+msgstr "Adjuntar una imagen"
+
+msgctxt "file_add_sdcard"
+msgid "Attach a file from your SD card"
+msgstr "Adjuntar un archivo desde su tarjeta SD"
+
+msgctxt "file_download_title"
+msgid "Download file?"
+msgstr "Descargar el archivo?"
+
+msgctxt "file_download_body"
+msgid "This file has not been downloaded to your SD card. Download now?"
+msgstr "Este archivo no ha sido descargado a su tarjeta SD. Descargar ahora?"
+
+msgctxt "file_download_progress"
+msgid "Downloading..."
+msgstr "Descargando..."
+
+msgctxt "file_err_memory"
+msgid "Image is too large to fit in memory"
+msgstr "La imagen es muy grande para caber en la memoria"
+
+msgctxt "file_err_copy"
+msgid "Error copying file for attachment"
+msgstr "Error al copiar el archivo a adjuntar"
+
+msgctxt "file_err_download"
+msgid "Error downloading file"
+msgstr "Error al descargar el archivo"
+
+msgctxt "file_err_show"
+msgid "Sorry, the system does not yet support this type of file"
+msgstr ""
+"Lo sentimos. El sistema aun no tiene soporte para este tipo de archivo"
+
+#. ** Copyright (c) 2012 Todoroo Inc ** ** See the file "LICENSE" for the
+#. full license governing this code.
 #. ====================== Plugin Boilerplate =========================
 #. filters header: Producteev
 msgctxt "producteev_FEx_header"
 msgid "Producteev"
-msgstr ""
+msgstr "Producteev"
 
 #. filter category for Producteev dashboards
 msgctxt "producteev_FEx_dashboard"
@@ -3144,7 +3497,7 @@ msgstr "Añadir un comentario"
 #. Preferences Title: Producteev
 msgctxt "producteev_PPr_header"
 msgid "Producteev"
-msgstr ""
+msgstr "Producteev"
 
 #. dashboard title for producteev default dashboard
 msgctxt "producteev_default_dashboard"
@@ -3154,7 +3507,7 @@ msgstr "Espacio de trabajo por defecto"
 #. dashboard title for tasks that are not synchronized
 msgctxt "producteev_no_dashboard"
 msgid "(Do Not Synchronize)"
-msgstr ""
+msgstr "(No sincronizar)"
 
 #. dashboard spinner entry on TEA for adding a new dashboard
 msgctxt "producteev_create_dashboard"
@@ -3191,7 +3544,8 @@ msgstr "Ingresar a Producteev"
 
 #. Instructions: Producteev login
 msgctxt "producteev_PLA_body"
-msgid "Sign in with your existing Producteev account, or create a new account!"
+msgid ""
+"Sign in with your existing Producteev account, or create a new account!"
 msgstr "Ingrese en Producteev con su cuenta existente, o cree una nueva!"
 
 #. Producteev Terms Link
@@ -3258,7 +3612,7 @@ msgstr "Error: correo o contraseña incorrectos!"
 #. title for notification tray after synchronizing
 msgctxt "producteev_notification_title"
 msgid "Producteev"
-msgstr ""
+msgstr "Producteev"
 
 #. text for notification tray when synchronizing
 #, c-format
@@ -3286,7 +3640,7 @@ msgstr "No se especificó una contraseña!"
 #. Label for Producteev control set row
 msgctxt "producteev_TEA_control_set_display"
 msgid "Producteev Assignment"
-msgstr ""
+msgstr "Tareas de producteev"
 
 #. label for task-assignment spinner on taskeditactivity
 msgctxt "producteev_TEA_task_assign_label"
@@ -3324,77 +3678,78 @@ msgctxt "CFC_producteev_assigned_to_name"
 msgid "Assigned to..."
 msgstr "Asginado a..."
 
-#. See the file "LICENSE" for the full license governing this code.
+#. ** Copyright (c) 2012 Todoroo Inc ** ** See the file "LICENSE" for the
+#. full license governing this code.
 #. Resources for built-in reminders plug-in
 #. =============================================== task edit activity ==
 #. Task Edit: Reminder group label
 msgctxt "TEA_reminders_group_label"
 msgid "Reminders"
-msgstr ""
+msgstr "Recordatorios"
 
 #. Task Edit: Reminder header label
 msgctxt "TEA_reminder_label"
 msgid "Remind Me:"
-msgstr ""
+msgstr "Recordarme:"
 
 #. Task Edit: Reminder @ deadline
 msgctxt "TEA_reminder_due"
 msgid "When task is due"
-msgstr ""
+msgstr "Cuando la tarea esté en debido tiempo"
 
 #. Task Edit: Reminder after deadline
 msgctxt "TEA_reminder_overdue"
 msgid "When task is overdue"
-msgstr ""
+msgstr "Cuando la tarea se ha pasado del tiempo debido"
 
 #. Task Edit: Reminder at random times (%s => time plural)
 msgctxt "TEA_reminder_randomly"
 msgid "Randomly once"
-msgstr ""
+msgstr "Aleatorio, una sola vez"
 
 #. Task Edit: Reminder alarm clock label
 msgctxt "TEA_reminder_alarm_label"
 msgid "Ring/Vibrate Type:"
 msgstr "Tipo de Tono/Vibración:"
 
-#. Task Edit: Reminder mode: ring once
+#. slide 45a: Task Edit: Reminder mode: ring once
 msgctxt "TEA_reminder_mode_once"
 msgid "Ring Once"
 msgstr "Sonar una vez"
 
-#. Task Edit: Reminder mode: ring five times
+#. slide 45b: Task Edit: Reminder mode: ring five times
 msgctxt "TEA_reminder_mode_five"
 msgid "Ring Five Times"
-msgstr ""
+msgstr "Sonar cinco veces"
 
-#. Task Edit: Reminder mode: ring nonstop
+#. slide 45c: Task Edit: Reminder mode: ring nonstop
 msgctxt "TEA_reminder_mode_nonstop"
 msgid "Ring Until I Dismiss Alarm"
 msgstr "Sonar hasta que apague la alarma"
 
 msgctxt "TEA_reminder_random:0"
 msgid "an hour"
-msgstr ""
+msgstr "una hora"
 
 msgctxt "TEA_reminder_random:1"
 msgid "a day"
-msgstr ""
+msgstr "un día"
 
 msgctxt "TEA_reminder_random:2"
 msgid "a week"
-msgstr ""
+msgstr "una semana"
 
 msgctxt "TEA_reminder_random:3"
 msgid "in two weeks"
-msgstr ""
+msgstr "en dos semanas"
 
 msgctxt "TEA_reminder_random:4"
 msgid "a month"
-msgstr ""
+msgstr "un mes"
 
 msgctxt "TEA_reminder_random:5"
 msgid "in two months"
-msgstr ""
+msgstr "en dos meses"
 
 #. ==================================================== notifications ==
 #. Name of filter when viewing a reminder
@@ -3415,16 +3770,123 @@ msgstr "Espera..."
 #. Reminder: Completed Toast
 msgctxt "rmd_NoA_completed_toast"
 msgid "Congratulations on finishing!"
-msgstr ""
+msgstr "¡Felicitaciones por terminar!"
 
 #. Prefix for reminder dialog title
-#, fuzzy
 msgctxt "rmd_NoA_dlg_title"
 msgid "Reminder:"
-msgstr "Recordatorios"
+msgstr "Recordatorio:"
+
+#. ==================================================== user reengagement ==
+#. Titles for user reengagement notifications
+msgctxt "rmd_reengage_notif_titles:0"
+msgid "A note from Astrid"
+msgstr "Una nota de Astrid"
+
+#. ==================================================== user reengagement ==
+#. Titles for user reengagement notifications
+#, c-format
+msgctxt "rmd_reengage_notif_titles:1"
+msgid "Memo for %s."
+msgstr "Memorándum para %s."
+
+#. ==================================================== user reengagement ==
+#. Titles for user reengagement notifications
+msgctxt "rmd_reengage_notif_titles:2"
+msgid "Your Astrid digest"
+msgstr "Tu resumen Astrid"
+
+#. ==================================================== user reengagement ==
+#. Titles for user reengagement notifications
+msgctxt "rmd_reengage_notif_titles:3"
+msgid "Reminders from Astrid"
+msgstr "Recordatorios de Astrid"
+
+msgctxt "rmd_reengage_name_default"
+msgid "you"
+msgstr "tú"
+
+msgctxt "rmd_reengage_snooze"
+msgid "Snooze all"
+msgstr "Activar repetición en todas"
+
+msgctxt "rmd_reengage_add_tasks"
+msgid "Add a task"
+msgstr "Añadir una tarea"
+
+#. Speech bubble options for astrid in reengagement notifs
+msgctxt "rmd_reengage_dialog_options:0"
+msgid "Time to shorten your to-do list!"
+msgstr "¡Tiempo a acortar en tu lista 'por hacer'!"
+
+#. Speech bubble options for astrid in reengagement notifs
+msgctxt "rmd_reengage_dialog_options:1"
+msgid "Dear sir or madam, some tasks await your inspection!"
+msgstr "Querido dama o caballero, ¡algunas tareas esperan su inspección!"
+
+#. Speech bubble options for astrid in reengagement notifs
+msgctxt "rmd_reengage_dialog_options:2"
+msgid "Hi there, could you take a look at these?"
+msgstr "Hola, ¿Podrías darle una revisada a éstas?"
+
+#. Speech bubble options for astrid in reengagement notifs
+msgctxt "rmd_reengage_dialog_options:3"
+msgid "I've got some tasks with your name on them!"
+msgstr "¡Tengo unas tareas con tu nombre en ellas!"
+
+#. Speech bubble options for astrid in reengagement notifs
+msgctxt "rmd_reengage_dialog_options:4"
+msgid "A fresh batch of tasks for you today!"
+msgstr "¡Un lote de tareas fresco para ti hoy!"
+
+#. Speech bubble options for astrid in reengagement notifs
+msgctxt "rmd_reengage_dialog_options:5"
+msgid "You look fabulous! Ready to get started?"
+msgstr "!Luces de fábula! ¿Listo para empezar?"
+
+#. Speech bubble options for astrid in reengagement notifs
+msgctxt "rmd_reengage_dialog_options:6"
+msgid "A lovely day for getting some work done, I think!"
+msgstr "Un hermoso día para hacer un poco de trabajo, ¡creo!"
+
+#. Speech bubble options for astrid in reengagement notifs when no tasks
+#. present
+msgctxt "rmd_reengage_dialog_empty_options:0"
+msgid "Don't you want to get organized?"
+msgstr "¿No quieres estar organizado?"
+
+#. Speech bubble options for astrid in reengagement notifs when no tasks
+#. present
+msgctxt "rmd_reengage_dialog_empty_options:1"
+msgid "I'm Astrid! I'm here to help you do more!"
+msgstr "¡Soy Astrid! ¡Estoy aquí para ayudarte a hacer más!"
+
+#. Speech bubble options for astrid in reengagement notifs when no tasks
+#. present
+msgctxt "rmd_reengage_dialog_empty_options:2"
+msgid "You look busy! Let me take some of those tasks off of your plate."
+msgstr "¡Pareces ocupado! Déjame quitarte alguna de esas tareas de tu plato."
+
+#. Speech bubble options for astrid in reengagement notifs when no tasks
+#. present
+msgctxt "rmd_reengage_dialog_empty_options:3"
+msgid "I can help you keep track of all of the details in your life."
+msgstr "Puedo ayudarte a rastrear todos los detalles en tu vida."
+
+#. Speech bubble options for astrid in reengagement notifs when no tasks
+#. present
+msgctxt "rmd_reengage_dialog_empty_options:4"
+msgid "You're serious about getting more done? So am I!"
+msgstr "Vas en serio acerca de hacer más? ¡Yo también!"
+
+#. Speech bubble options for astrid in reengagement notifs when no tasks
+#. present
+msgctxt "rmd_reengage_dialog_empty_options:5"
+msgid "Pleasure to make your acquaintance!"
+msgstr "¡Es un placer conocerlo!"
 
 #. ============================================= reminder preferences ==
-#. Reminder Preference Screen Title
+#. slide 33d: Reminder Preference Screen Title
 msgctxt "rmd_EPr_alerts_header"
 msgid "Reminder Settings"
 msgstr "Configurar notificaciones"
@@ -3432,17 +3894,17 @@ msgstr "Configurar notificaciones"
 #. Reminder Preference: Reminders Enabled Title
 msgctxt "rmd_EPr_enabled_title"
 msgid "Reminders Enabled?"
-msgstr ""
+msgstr "¿Recordatorios habilitados?"
 
 #. Reminder Preference Reminders Enabled Description (true)
 msgctxt "rmd_EPr_enabled_desc_true"
 msgid "Astrid reminders are enabled (this is normal)"
-msgstr ""
+msgstr "Los recordatorios de Astrid están habilitados (esto es normal)"
 
 #. Reminder Preference Reminders Enabled Description (false)
 msgctxt "rmd_EPr_enabled_desc_false"
 msgid "Astrid reminders will never appear on your phone"
-msgstr ""
+msgstr "Recordatorios de Astrid nunca aparecerán en su teléfono"
 
 #. Reminder Preference: Quiet Hours Start Title
 msgctxt "rmd_EPr_quiet_hours_start_title"
@@ -3456,6 +3918,8 @@ msgid ""
 "Notifications will be silent after %s.\n"
 "Note: vibrations are controlled by the setting below!"
 msgstr ""
+"Notificaciones silenciadas después de %s.\n"
+"Nota: ¡Vibración controlada según configuración abajo!"
 
 #. Reminder Preference: Quiet Hours Start/End Description (disabled)
 msgctxt "rmd_EPr_quiet_hours_desc_none"
@@ -3471,18 +3935,18 @@ msgstr "Fin del horario en silencio"
 #, c-format
 msgctxt "rmd_EPr_quiet_hours_end_desc"
 msgid "Notifications will stop being silent starting at %s"
-msgstr ""
+msgstr "Notificaciones con sonido comenzando a las  %s"
 
 #. Reminder Preference: Default Reminder Title
 msgctxt "rmd_EPr_rmd_time_title"
 msgid "Default Reminder"
-msgstr ""
+msgstr "Recordatorio por Defecto"
 
 #. Reminder Preference: Default Reminder Description (%s => time set)
 #, c-format
 msgctxt "rmd_EPr_rmd_time_desc"
 msgid "Notifications for tasks without duetimes will appear at %s"
-msgstr ""
+msgstr "Notificaciones de tareas sin fecha tope aparecerán a las %s"
 
 #. Reminder Preference: Notification Ringtone Title
 msgctxt "rmd_EPr_ringtone_title"
@@ -3535,19 +3999,20 @@ msgstr "Elige el icono de la barra de notificación"
 #. Reminder Preference: Max Volume for Multiple-Ring reminders Title
 msgctxt "rmd_EPr_multiple_maxvolume_title"
 msgid "Max volume for multiple-ring reminders"
-msgstr ""
+msgstr "Máximo volumen para recordatorios con tonos múltiples"
 
 #. Reminder Preference: Max Volume for Multiple-Ring reminders Description
 #. (true)
 msgctxt "rmd_EPr_multiple_maxvolume_desc_true"
 msgid "Astrid will max out the volume for multiple-ring reminders"
 msgstr ""
+"Astrid fijará el volumen máximo para recordatorios con tonos múltiples"
 
 #. Reminder Preference: Max Volume for Multiple-Ring reminders Description
 #. (false)
 msgctxt "rmd_EPr_multiple_maxvolume_desc_false"
 msgid "Astrid will use the system-setting for the volume"
-msgstr ""
+msgstr "Para el volumen, Astrid utilizará configuración del sistema"
 
 #. Reminder Preference: Vibrate Title
 msgctxt "rmd_EPr_vibrate_title"
@@ -3567,7 +4032,7 @@ msgstr "Astrid no vibrará en el envío de notificaciones"
 #. Reminder Preference: Nagging Title
 msgctxt "rmd_EPr_nagging_title"
 msgid "Astrid Encouragements"
-msgstr ""
+msgstr "Incentivos de Astrid"
 
 #. Reminder Preference: Nagging Description (true)
 msgctxt "rmd_EPr_nagging_desc_true"
@@ -3577,7 +4042,7 @@ msgstr "Astrid aparecerán para darle un estímulo durante los recordatorios"
 #. Reminder Preference: Nagging Description (false)
 msgctxt "rmd_EPr_nagging_desc_false"
 msgid "Astrid will not give you any encouragement messages"
-msgstr ""
+msgstr "Astrid no ofrecerá mensajes de insentivo"
 
 #. Reminder Preference: Snooze Dialog Title
 msgctxt "rmd_EPr_snooze_dialog_title"
@@ -3594,7 +4059,7 @@ msgctxt "rmd_EPr_snooze_dialog_desc_false"
 msgid "Snooze by selecting # days/hours to snooze"
 msgstr "Retrasar seleccionando # días/horas de espera"
 
-#. Reminder Preference: Default Reminders Title
+#. slide 44g: Reminder Preference: Default Reminders Title
 msgctxt "rmd_EPr_defaultRemind_title"
 msgid "Random Reminders"
 msgstr "Recordatorios aleatorios"
@@ -3610,7 +4075,7 @@ msgctxt "rmd_EPr_defaultRemind_desc"
 msgid "New tasks will remind randomly: %s"
 msgstr "Las tareas nuevas tendrán recordatorios al azar: %s"
 
-#. Defaults Title
+#. slide 39a: Defaults Title
 msgctxt "rmd_EPr_defaults_header"
 msgid "New Task Defaults"
 msgstr "Configuración de nuevas tareas por defecto"
@@ -3649,291 +4114,291 @@ msgstr "desactivado"
 
 msgctxt "EPr_quiet_hours_start:1"
 msgid "8 PM"
-msgstr ""
+msgstr "8 p. m."
 
 msgctxt "EPr_quiet_hours_start:2"
 msgid "9 PM"
-msgstr ""
+msgstr "9 p. m."
 
 msgctxt "EPr_quiet_hours_start:3"
 msgid "10 PM"
-msgstr ""
+msgstr "10 p. m."
 
 msgctxt "EPr_quiet_hours_start:4"
 msgid "11 PM"
-msgstr ""
+msgstr "11 p. m."
 
 msgctxt "EPr_quiet_hours_start:5"
 msgid "12 AM"
-msgstr ""
+msgstr "12 a. m."
 
 msgctxt "EPr_quiet_hours_start:6"
 msgid "1 AM"
-msgstr ""
+msgstr "1 a. m."
 
 msgctxt "EPr_quiet_hours_start:7"
 msgid "2 AM"
-msgstr ""
+msgstr "2 a. m."
 
 msgctxt "EPr_quiet_hours_start:8"
 msgid "3 AM"
-msgstr ""
+msgstr "3 a. m."
 
 msgctxt "EPr_quiet_hours_start:9"
 msgid "4 AM"
-msgstr ""
+msgstr "4 a. m."
 
 msgctxt "EPr_quiet_hours_start:10"
 msgid "5 AM"
-msgstr ""
+msgstr "5 a. m."
 
 msgctxt "EPr_quiet_hours_start:11"
 msgid "6 AM"
-msgstr ""
+msgstr "6 a. m."
 
 msgctxt "EPr_quiet_hours_start:12"
 msgid "7 AM"
-msgstr ""
+msgstr "7 a. m."
 
 msgctxt "EPr_quiet_hours_start:13"
 msgid "8 AM"
-msgstr ""
+msgstr "8 a. m."
 
 msgctxt "EPr_quiet_hours_start:14"
 msgid "9 AM"
-msgstr ""
+msgstr "9 a. m."
 
 msgctxt "EPr_quiet_hours_start:15"
 msgid "10 AM"
-msgstr ""
+msgstr "10 a. m."
 
 msgctxt "EPr_quiet_hours_start:16"
 msgid "11 AM"
-msgstr ""
+msgstr "11 a. m."
 
 msgctxt "EPr_quiet_hours_start:17"
 msgid "12 PM"
-msgstr ""
+msgstr "12 p. m."
 
 msgctxt "EPr_quiet_hours_start:18"
 msgid "1 PM"
-msgstr ""
+msgstr "1 p. m."
 
 msgctxt "EPr_quiet_hours_start:19"
 msgid "2 PM"
-msgstr ""
+msgstr "2 p. m."
 
 msgctxt "EPr_quiet_hours_start:20"
 msgid "3 PM"
-msgstr ""
+msgstr "3 p. m."
 
 msgctxt "EPr_quiet_hours_start:21"
 msgid "4 PM"
-msgstr ""
+msgstr "4 p. m."
 
 msgctxt "EPr_quiet_hours_start:22"
 msgid "5 PM"
-msgstr ""
+msgstr "5 p. m."
 
 msgctxt "EPr_quiet_hours_start:23"
 msgid "6 PM"
-msgstr ""
+msgstr "6 p. m."
 
 msgctxt "EPr_quiet_hours_start:24"
 msgid "7 PM"
-msgstr ""
+msgstr "7 p. m."
 
 msgctxt "EPr_quiet_hours_end:0"
 msgid "9 AM"
-msgstr ""
+msgstr "9 a. m."
 
 msgctxt "EPr_quiet_hours_end:1"
 msgid "10 AM"
-msgstr ""
+msgstr "10 a. m."
 
 msgctxt "EPr_quiet_hours_end:2"
 msgid "11 AM"
-msgstr ""
+msgstr "11 a. m."
 
 msgctxt "EPr_quiet_hours_end:3"
 msgid "12 PM"
-msgstr ""
+msgstr "12 p. m."
 
 msgctxt "EPr_quiet_hours_end:4"
 msgid "1 PM"
-msgstr ""
+msgstr "1 p. m."
 
 msgctxt "EPr_quiet_hours_end:5"
 msgid "2 PM"
-msgstr ""
+msgstr "2 p. m."
 
 msgctxt "EPr_quiet_hours_end:6"
 msgid "3 PM"
-msgstr ""
+msgstr "3 p. m."
 
 msgctxt "EPr_quiet_hours_end:7"
 msgid "4 PM"
-msgstr ""
+msgstr "4 p. m."
 
 msgctxt "EPr_quiet_hours_end:8"
 msgid "5 PM"
-msgstr ""
+msgstr "5 p. m."
 
 msgctxt "EPr_quiet_hours_end:9"
 msgid "6 PM"
-msgstr ""
+msgstr "6 p. m."
 
 msgctxt "EPr_quiet_hours_end:10"
 msgid "7 PM"
-msgstr ""
+msgstr "7 p. m."
 
 msgctxt "EPr_quiet_hours_end:11"
 msgid "8 PM"
-msgstr ""
+msgstr "8 p. m."
 
 msgctxt "EPr_quiet_hours_end:12"
 msgid "9 PM"
-msgstr ""
+msgstr "9 p. m."
 
 msgctxt "EPr_quiet_hours_end:13"
 msgid "10 PM"
-msgstr ""
+msgstr "10 p. m."
 
 msgctxt "EPr_quiet_hours_end:14"
 msgid "11 PM"
-msgstr ""
+msgstr "11 p. m."
 
 msgctxt "EPr_quiet_hours_end:15"
 msgid "12 AM"
-msgstr ""
+msgstr "12 a. m."
 
 msgctxt "EPr_quiet_hours_end:16"
 msgid "1 AM"
-msgstr ""
+msgstr "1 a. m."
 
 msgctxt "EPr_quiet_hours_end:17"
 msgid "2 AM"
-msgstr ""
+msgstr "2 a. m."
 
 msgctxt "EPr_quiet_hours_end:18"
 msgid "3 AM"
-msgstr ""
+msgstr "3 a. m."
 
 msgctxt "EPr_quiet_hours_end:19"
 msgid "4 AM"
-msgstr ""
+msgstr "4 a. m."
 
 msgctxt "EPr_quiet_hours_end:20"
 msgid "5 AM"
-msgstr ""
+msgstr "5 a. m."
 
 msgctxt "EPr_quiet_hours_end:21"
 msgid "6 AM"
-msgstr ""
+msgstr "6 a. m."
 
 msgctxt "EPr_quiet_hours_end:22"
 msgid "7 AM"
-msgstr ""
+msgstr "7 a. m."
 
 msgctxt "EPr_quiet_hours_end:23"
 msgid "8 AM"
-msgstr ""
+msgstr "8 a. m."
 
 msgctxt "EPr_rmd_time:0"
 msgid "9 AM"
-msgstr ""
+msgstr "9 a. m."
 
 msgctxt "EPr_rmd_time:1"
 msgid "10 AM"
-msgstr ""
+msgstr "10 a. m."
 
 msgctxt "EPr_rmd_time:2"
 msgid "11 AM"
-msgstr ""
+msgstr "11 a. m."
 
 msgctxt "EPr_rmd_time:3"
 msgid "12 PM"
-msgstr ""
+msgstr "12 p. m."
 
 msgctxt "EPr_rmd_time:4"
 msgid "1 PM"
-msgstr ""
+msgstr "1 p. m."
 
 msgctxt "EPr_rmd_time:5"
 msgid "2 PM"
-msgstr ""
+msgstr "2 p. m."
 
 msgctxt "EPr_rmd_time:6"
 msgid "3 PM"
-msgstr ""
+msgstr "3 p. m."
 
 msgctxt "EPr_rmd_time:7"
 msgid "4 PM"
-msgstr ""
+msgstr "4 p. m."
 
 msgctxt "EPr_rmd_time:8"
 msgid "5 PM"
-msgstr ""
+msgstr "5 p. m."
 
 msgctxt "EPr_rmd_time:9"
 msgid "6 PM"
-msgstr ""
+msgstr "6 p. m."
 
 msgctxt "EPr_rmd_time:10"
 msgid "7 PM"
-msgstr ""
+msgstr "7 p. m."
 
 msgctxt "EPr_rmd_time:11"
 msgid "8 PM"
-msgstr ""
+msgstr "8 p. m."
 
 msgctxt "EPr_rmd_time:12"
 msgid "9 PM"
-msgstr ""
+msgstr "9 p. m."
 
 msgctxt "EPr_rmd_time:13"
 msgid "10 PM"
-msgstr ""
+msgstr "10 p. m."
 
 msgctxt "EPr_rmd_time:14"
 msgid "11 PM"
-msgstr ""
+msgstr "11 p. m."
 
 msgctxt "EPr_rmd_time:15"
 msgid "12 AM"
-msgstr ""
+msgstr "12 a. m."
 
 msgctxt "EPr_rmd_time:16"
 msgid "1 AM"
-msgstr ""
+msgstr "1 a. m."
 
 msgctxt "EPr_rmd_time:17"
 msgid "2 AM"
-msgstr ""
+msgstr "2 a. m."
 
 msgctxt "EPr_rmd_time:18"
 msgid "3 AM"
-msgstr ""
+msgstr "3 a. m."
 
 msgctxt "EPr_rmd_time:19"
 msgid "4 AM"
-msgstr ""
+msgstr "4 a. m."
 
 msgctxt "EPr_rmd_time:20"
 msgid "5 AM"
-msgstr ""
+msgstr "5 a. m."
 
 msgctxt "EPr_rmd_time:21"
 msgid "6 AM"
-msgstr ""
+msgstr "6 a. m."
 
 msgctxt "EPr_rmd_time:22"
 msgid "7 AM"
-msgstr ""
+msgstr "7 a. m."
 
 msgctxt "EPr_rmd_time:23"
 msgid "8 AM"
-msgstr ""
+msgstr "8 a. m."
 
 #. =============================================== random reminders ==
 msgctxt "reminders:0"
@@ -4033,7 +4498,7 @@ msgstr "¿Está libre? Tiempo para:"
 
 msgctxt "reminders_snooze:0"
 msgid "Don't be lazy now!"
-msgstr "No sea perezoso ahora!"
+msgstr "¡No sea perezoso ahora!"
 
 msgctxt "reminders_snooze:1"
 msgid "Snooze time is up!"
@@ -4121,43 +4586,44 @@ msgstr "Es hora de reducir su lista de tareas!"
 
 msgctxt "reminder_responses:17"
 msgid "Are you on Team Order or Team Chaos? Team Order! Let's go!"
-msgstr ""
+msgstr "¿Pertenece al equipo Orden o al equipo Caos! ¡Vamos... equipo Orden!"
 
 msgctxt "reminder_responses:18"
 msgid "Have I mentioned you are awesome recently? Keep it up!"
-msgstr ""
+msgstr "¿Mencioné que últimamente usted es impresionante? ¡Siga así!"
 
 msgctxt "reminder_responses:19"
 msgid "A task a day keeps the clutter away... Goodbye clutter!"
-msgstr ""
+msgstr "Una tarea al día mantiene el desorden lejos... ¡Adiós al desorden!"
 
 msgctxt "reminder_responses:20"
 msgid "How do you do it? Wow, I'm impressed!"
-msgstr ""
+msgstr "¿Cómo lo logras? ¡Vaya, me impresionas!"
 
 msgctxt "reminder_responses:21"
 msgid "You can't just get by on your good looks. Let's get to it!"
-msgstr ""
+msgstr "Con solo mirar no lo logrará. ¡Vamos a trabajar!"
 
 msgctxt "reminder_responses:22"
 msgid "Lovely weather for a job like this, isn't it?"
-msgstr ""
+msgstr "Muy buen clima para un trabajo como éste. ¿No?"
 
 msgctxt "reminder_responses:23"
 msgid "A spot of tea while you work on this?"
-msgstr ""
+msgstr "¿Una tacita de té mientras trabaja en esto?"
 
 msgctxt "reminder_responses:24"
-msgid "If only you had already done this, then you could go outside and play."
-msgstr ""
+msgid ""
+"If only you had already done this, then you could go outside and play."
+msgstr "Si ya hubiese terminado esto, podría salir a divertirse."
 
 msgctxt "reminder_responses:25"
 msgid "It's time. You can't put off the inevitable."
-msgstr ""
+msgstr "¡Ya es hora! No puede postergar lo inevitable."
 
 msgctxt "reminder_responses:26"
 msgid "I die a little every time you ignore me."
-msgstr ""
+msgstr "Cada vez que me ignora, muero un poco."
 
 msgctxt "postpone_nags:0"
 msgid "Please tell me it isn't true that you're a procrastinator!"
@@ -4174,8 +4640,7 @@ msgstr "¡En algún lugar, alguien está esperando a que termines esto!"
 msgctxt "postpone_nags:3"
 msgid "When you said postpone, you really meant 'I'm doing this', right?"
 msgstr ""
-"¿Cuando dice posponer... realmente quiere decir 'lo estoy haciendo'? "
-"¿verdad?"
+"¿Cuando dice posponer... realmente quiere decir 'lo estoy haciendo'? ¿verdad?"
 
 msgctxt "postpone_nags:4"
 msgid "This is the last time you postpone this, right?"
@@ -4183,11 +4648,11 @@ msgstr "¿Esta es la última vez que pospone esto? ¿verdad?"
 
 msgctxt "postpone_nags:5"
 msgid "Just finish this today, I won't tell anyone!"
-msgstr "Sólo termíne esto hoy, no se lo diré a nadie!"
+msgstr "Sólo termine esto hoy. ¡No se lo diré a nadie!"
 
 msgctxt "postpone_nags:6"
 msgid "Why postpone when you can um... not postpone!"
-msgstr "Porqué posponer cuando puede... no posponer!"
+msgstr "Por qué posponer cuando puede... no posponer!"
 
 msgctxt "postpone_nags:7"
 msgid "You'll finish this eventually, I presume?"
@@ -4217,7 +4682,8 @@ msgctxt "postpone_nags:13"
 msgid "I can't help you organize your life if you do that..."
 msgstr "No puedo ayudarlo a organizar su vida si hace eso..."
 
-#. See the file "LICENSE" for the full license governing this code.
+#. ** Copyright (c) 2012 Todoroo Inc ** ** See the file "LICENSE" for the
+#. full license governing this code.
 #. Resources for built-in repeat plug-in
 #. repeating plugin name
 msgctxt "repeat_plugin"
@@ -4229,12 +4695,12 @@ msgctxt "repeat_plugin_desc"
 msgid "Allows tasks to repeat"
 msgstr "Permite repetir las tareas"
 
-#. checkbox for turning on/off repeats
+#. slide 20a: checkbox for turning on/off repeats
 msgctxt "repeat_enabled"
 msgid "Repeats"
 msgstr "Repeticiones"
 
-#. button for "every x" part of repeat (%d -> repeat value)
+#. slide 20b: button for "every x" part of repeat (%d -> repeat value)
 #, c-format
 msgctxt "repeat_every"
 msgid "Every %d"
@@ -4245,37 +4711,39 @@ msgctxt "repeat_interval_prompt"
 msgid "Repeat Interval"
 msgstr "Intervalo de repetición"
 
+#. slide 19b
 msgctxt "repeat_never"
 msgid "Make Repeating?"
 msgstr "No Repeat"
 
+#. slide 20f
 msgctxt "repeat_dont"
 msgid "Don't repeat"
-msgstr ""
+msgstr "No repetir"
 
 msgctxt "repeat_interval_short:0"
 msgid "d"
-msgstr ""
+msgstr "día"
 
 msgctxt "repeat_interval_short:1"
 msgid "wk"
-msgstr ""
+msgstr "sem"
 
 msgctxt "repeat_interval_short:2"
 msgid "mo"
-msgstr ""
+msgstr "mes"
 
 msgctxt "repeat_interval_short:3"
 msgid "hr"
-msgstr ""
+msgstr "hor"
 
 msgctxt "repeat_interval_short:4"
 msgid "min"
-msgstr ""
+msgstr "min"
 
 msgctxt "repeat_interval_short:5"
 msgid "yr"
-msgstr ""
+msgstr "año"
 
 msgctxt "repeat_interval:0"
 msgid "Day(s)"
@@ -4299,7 +4767,47 @@ msgstr "Minuto(s)"
 
 msgctxt "repeat_interval:5"
 msgid "Year(s)"
-msgstr ""
+msgstr "Año(s)"
+
+msgctxt "repeat_until_shortcuts:0"
+msgid "Forever"
+msgstr "Para siempre"
+
+msgctxt "repeat_until_shortcuts:1"
+msgid "Specific Day"
+msgstr "Día Específico"
+
+msgctxt "repeat_until_shortcuts:2"
+msgid "Today"
+msgstr "Hoy"
+
+msgctxt "repeat_until_shortcuts:3"
+msgid "Tomorrow"
+msgstr "Mañana"
+
+msgctxt "repeat_until_shortcuts:4"
+msgid "(day after)"
+msgstr "(día siguiente)"
+
+msgctxt "repeat_until_shortcuts:5"
+msgid "Next Week"
+msgstr "Semana Próxima"
+
+msgctxt "repeat_until_shortcuts:6"
+msgid "In Two Weeks"
+msgstr "En Dos Semanas"
+
+msgctxt "repeat_until_shortcuts:7"
+msgid "Next Month"
+msgstr "Mes próximo"
+
+msgctxt "repeat_until_title"
+msgid "Repeat until..."
+msgstr "Repetir hasta..."
+
+msgctxt "repeat_keep_going"
+msgid "Keep going"
+msgstr "Continúe"
 
 msgctxt "repeat_type:0"
 msgid "from due date"
@@ -4321,48 +4829,100 @@ msgctxt "repeat_detail_duedate"
 msgid "Every %s"
 msgstr "Cada %s"
 
+#. task detail for repeat until a specific date (%1$s -> interval, %2$s ->
+#. finish date)
+#, c-format
+msgctxt "repeat_detail_duedate_until"
+msgid ""
+"Every %1$s\n"
+"until %2$s"
+msgstr ""
+"Cada %1s\n"
+"hasta %2s"
+
 #. task detail for repeat from completion date (%s -> interval)
 #, c-format
 msgctxt "repeat_detail_completion"
 msgid "%s after completion"
 msgstr "%s después de la finalización"
 
-#. text for confirmation dialog after repeating a task
+#. text for button when repeating task indefinitely
+msgctxt "repeat_forever"
+msgid "Repeat forever"
+msgstr "Repetir por siempre"
+
+#. text for button when repeating task until specified date (%s -> date
+#. string)
+#, c-format
+msgctxt "repeat_until"
+msgid "Repeat until %s"
+msgstr "Repetir hasta %s"
+
+#. text for confirmation dialog after repeating a task (%s -> task title)
 #, c-format
 msgctxt "repeat_rescheduling_dialog_title"
 msgid "Rescheduling task \"%s\""
-msgstr ""
+msgstr "Reprogramar tarea \"%s\""
 
-#. text for when a repeating task was rescheduled
+#. text for confirmation dialog after repeating a task for the last time (%s
+#. -> task title)
+#, c-format
+msgctxt "repeat_rescheduling_dialog_title_last_time"
+msgid "Completed repeating task \"%s\""
+msgstr "Concluyó repetición de tarea \"%s\""
+
+#. text for when a repeating task was rescheduled (%1$s -> encouragment
+#. string, %2$s -> old due date, %3$s -> new due date)
 #, c-format
 msgctxt "repeat_rescheduling_dialog_bubble"
 msgid "%1$s I've rescheduled this repeating task from %2$s to %3$s"
-msgstr ""
+msgstr "%1$s Tarea recurrente reprogramada desde %2$s hasta %3$s"
 
 #. text for when a repeating task was rescheduled but didn't have a due date
-#. yet
+#. yet, (%1$s -> encouragement string, %2$s -> new due date)
 #, c-format
 msgctxt "repeat_rescheduling_dialog_bubble_no_date"
 msgid "%1$s I've rescheduled this repeating task to %2$s"
+msgstr "%1$s He reprogramado esta tarea recurrente para %2$s"
+
+#. text for when a repeating task was rescheduled for the last time (%1$s ->
+#. repeat end date, %2$s -> encouragement string)
+#, c-format
+msgctxt "repeat_rescheduling_dialog_bubble_last_time"
+msgid "You had this repeating until %1$s, and now you're all done. %2$s"
 msgstr ""
+"Tenía esta tarea recurrente programada hasta %1$s, y ahora ya terminó. %2$s"
 
 msgctxt "repeat_encouragement:0"
 msgid "Good job!"
-msgstr ""
+msgstr "¡Buen trabajo!"
 
 msgctxt "repeat_encouragement:1"
 msgid "Wow… I'm so proud of you!"
-msgstr ""
+msgstr "¡Guao... Estoy muy orgulloso de usted!"
 
 msgctxt "repeat_encouragement:2"
 msgid "I love when you're productive!"
-msgstr ""
+msgstr "¡Me encanta cuando usted es productivo!"
 
 msgctxt "repeat_encouragement:3"
 msgid "Doesn't it feel good to check something off?"
-msgstr ""
+msgstr "¿No se siente bien por haber concluido algo?"
 
-#. See the file "LICENSE" for the full license governing this code.
+msgctxt "repeat_encouragement_last_time:0"
+msgid "Good job!"
+msgstr "¡Buen trabajo!"
+
+msgctxt "repeat_encouragement_last_time:1"
+msgid "I'm so proud of you!"
+msgstr "¡Estoy muy orgulloso de usted!"
+
+msgctxt "repeat_encouragement_last_time:2"
+msgid "I love when you're productive!"
+msgstr "¡Me encanta cuando usted es productivo!"
+
+#. ** Copyright (c) 2012 Todoroo Inc ** ** See the file "LICENSE" for the
+#. full license governing this code.
 #. ====================== Plugin Boilerplate =========================
 #. label for RMilk button in Task Edit Activity
 msgctxt "rmilk_EOE_button"
@@ -4382,7 +4942,7 @@ msgstr "Se necesita sincronizar con RTM"
 #. filters header: RTM
 msgctxt "rmilk_FEx_header"
 msgid "Remember the Milk"
-msgstr ""
+msgstr "Remember the Milk"
 
 #. filter category for RTM lists
 msgctxt "rmilk_FEx_list"
@@ -4399,7 +4959,7 @@ msgstr "RTM Lista '%s'"
 #. RTM edit activity Title
 msgctxt "rmilk_MEA_title"
 msgid "Remember the Milk"
-msgstr ""
+msgstr "Remember the Milk"
 
 #. RTM edit List Edit Label
 msgctxt "rmilk_MEA_list_label"
@@ -4414,19 +4974,19 @@ msgstr "RTM Repita Estado:"
 #. RTM edit Repeat Hint
 msgctxt "rmilk_MEA_repeat_hint"
 msgid "i.e. every week, after 14 days"
-msgstr "Es decir cada semana, después de catorce días"
+msgstr "Es decir, cada semana, después de 14 días"
 
 #. ======================== MilkPreferences ==========================
 #. Milk Preferences Title
 msgctxt "rmilk_MPr_header"
 msgid "Remember the Milk"
-msgstr ""
+msgstr "Remember the Milk"
 
 #. ======================= MilkLoginActivity =========================
 #. RTM Login Instructions
 msgctxt "rmilk_MLA_label"
 msgid "Please Log In and Authorize Astrid:"
-msgstr "Por favor, inicie sesión y autorice Astrid:"
+msgstr "Por favor, inicie sesión y autorice a Astrid:"
 
 #. Login Error Dialog (%s => message)
 #, c-format
@@ -4436,16 +4996,16 @@ msgid ""
 "\n"
 " Error Message: %s"
 msgstr ""
-"Lo siento, ha habido un error verificando sus credenciales. Por favor, "
-"inténtelo de nuevo. \n"
+"Lo siento. Se produjo un error al verificar sus credenciales. Por favor, "
+"intente de nuevo. \n"
 "\n"
-" Mensaje de error: %s"
+"Mensaje de error: %s"
 
 #. ======================== Synchronization ==========================
 #. title for notification tray when synchronizing
 msgctxt "rmilk_notification_title"
 msgid "Astrid: Remember the Milk"
-msgstr ""
+msgstr "Astrid: Remember the Milk"
 
 #. Error msg when io exception with rmilk
 msgctxt "rmilk_ioerror"
@@ -4453,28 +5013,30 @@ msgid ""
 "Connection Error! Check your Internet connection, or maybe RTM servers "
 "(status.rememberthemilk.com), for possible solutions."
 msgstr ""
-"Error de conexión! Compruebe su conexión a Internet, o quizá los "
-"servidores de RTM (status.rememberthemilk.com), para posibles soluciones."
+"Error de conexión! Compruebe su conexión a Internet, o quizá los servidores "
+"de RTM (status.rememberthemilk.com), para posibles soluciones."
 
-#. See the file "LICENSE" for the full license governing this code.
+#. ** Copyright (c) 2012 Todoroo Inc ** ** See the file "LICENSE" for the
+#. full license governing this code.
 #. Subtasks Help Introduction
 msgctxt "subtasks_help_title"
 msgid "Sort and Indent in Astrid"
-msgstr ""
+msgstr "Organice y Aplique Sangrías en Astrid"
 
 msgctxt "subtasks_help_1"
 msgid "Tap and hold to move a task"
-msgstr ""
+msgstr "Mantenga presionado para mover una tarea"
 
 msgctxt "subtasks_help_2"
 msgid "Drag vertically to rearrange"
-msgstr ""
+msgstr "Arrastre verticalmente para reacomodar"
 
 msgctxt "subtasks_help_3"
 msgid "Drag horizontally to indent"
-msgstr ""
+msgstr "Arrastre horizontalmente para aplicar una sangría"
 
-#. See the file "LICENSE" for the full license governing this code.
+#. ** Copyright (c) 2012 Todoroo Inc ** ** See the file "LICENSE" for the
+#. full license governing this code.
 #. Resources for built-in tag plug-in
 #. =============================================== Task Edit Controls ==
 #. Tags label
@@ -4485,22 +5047,22 @@ msgstr "Listas"
 #. Tags label long version
 msgctxt "TEA_tags_label_long"
 msgid "Put task on one or more lists"
-msgstr ""
+msgstr "Incluir tarea en una o más listas"
 
-#. Tags none
+#. slide 16h: Tags none
 msgctxt "TEA_tags_none"
 msgid "None"
-msgstr ""
+msgstr "ninguna"
 
 #. Tags hint
 msgctxt "TEA_tag_hint"
 msgid "New list"
-msgstr ""
+msgstr "Nueva lista"
 
 #. Tags dropdown
 msgctxt "TEA_tag_dropdown"
 msgid "Select a list"
-msgstr "Seleccionar una lista"
+msgstr "Seleccione una lista"
 
 #. =============================================== Task List Controls ==
 #. menu item for tags
@@ -4514,7 +5076,7 @@ msgctxt "TAd_contextFilterByTag"
 msgid "Show List"
 msgstr "Mostrar lista"
 
-#. Dialog: new list
+#. slide 25a: Dialog: new list
 msgctxt "tag_new_list"
 msgid "New List"
 msgstr "Nueva lista"
@@ -4527,13 +5089,13 @@ msgstr "Lista guardada"
 #. Dialog: task created without title
 msgctxt "tag_no_title_error"
 msgid "Please enter a name for this list first!"
-msgstr "¡Por favor, introduzca un nombre a esta lista primero!"
+msgstr "¡Por favor, primero dele un nombre a esta lista!"
 
 #. ========================================================== Filters ==
 #. filter button to add tag
 msgctxt "tag_FEx_add_new"
 msgid "New"
-msgstr ""
+msgstr "Nueva"
 
 #. filter header for tags
 msgctxt "tag_FEx_header"
@@ -4555,17 +5117,17 @@ msgctxt "tag_FEx_category_inactive"
 msgid "Inactive"
 msgstr "Inactivo"
 
-#. filter for untagged tasks
+#. slide 10d: filter for untagged tasks
 msgctxt "tag_FEx_untagged"
 msgid "Not in any List"
-msgstr ""
+msgstr "En ninguna lista"
 
 #. clarifying title for people who have Google and Astrid lists
 msgctxt "tag_FEx_untagged_w_astrid"
 msgid "Not in an Astrid List"
-msgstr ""
+msgstr "No en una Lista de Astrid"
 
-#. %s => tag name
+#. slide 27a: %s => tag name
 #, c-format
 msgctxt "tag_FEx_name"
 msgid "List: %s"
@@ -4584,14 +5146,14 @@ msgstr "Eliminar lista"
 #. context menu option to leave a shared list
 msgctxt "tag_cm_leave"
 msgid "Leave List"
-msgstr ""
+msgstr "Abandonar la Lista"
 
 #. Dialog to confirm deletion of a tag (%s -> the name of the list to be
 #. deleted)
 #, c-format
 msgctxt "DLG_delete_this_tag_question"
 msgid "Delete this list: %s? (No tasks will be deleted.)"
-msgstr ""
+msgstr "¿Eliminar esta lista: %s? (No se eliminará ninguna tarea.)"
 
 #. Dialog to confirm leaving a shared tag (%s -> the name of the shared list
 #. to leave)
@@ -4599,6 +5161,7 @@ msgstr ""
 msgctxt "DLG_leave_this_shared_tag_question"
 msgid "Leave this shared list: %s? (No tasks will be deleted.)"
 msgstr ""
+"¿Abandonar esta lista compartida: %s? (No se eliminará ninguna tarea.)"
 
 #. Dialog to rename tag
 #, c-format
@@ -4616,21 +5179,21 @@ msgstr "No se realizaron cambios"
 #, c-format
 msgctxt "TEA_tags_deleted"
 msgid "List %1$s was deleted, affecting %2$d tasks"
-msgstr ""
+msgstr "La lista %1$s fue eliminada, afectando %2$d tareas"
 
 #. Toast notification that a shared tag has been left (%1$s - list name, %2$d
 #. - # tasks)
 #, c-format
 msgctxt "TEA_tags_left"
 msgid "You left shared list %1$s, affecting %2$d tasks"
-msgstr ""
+msgstr "Abandonó la lista compartida %1$s, afectando %2$d tareas"
 
 #. Toast notification that a tag has been renamed (%1$s - old name, %2$s - new
 #. name, %3$d - # tasks)
 #, c-format
 msgctxt "TEA_tags_renamed"
 msgid "Renamed %1$s with %2$s for %3$d tasks"
-msgstr ""
+msgstr "Renombrada %1$s como %2$s en %3$d tareas"
 
 #. Tag case migration
 msgctxt "tag_case_migration_notice"
@@ -4639,32 +5202,38 @@ msgid ""
 "different capitalizations. We think you may have intended them to be the "
 "same list, so we've combined the duplicates. Don't worry though: the "
 "original lists are simply renamed with numbers (e.g. Shopping_1, "
-"Shopping_2). If you don't want this, you can simply delete the new "
-"combined list!"
+"Shopping_2). If you don't want this, you can simply delete the new combined "
+"list!"
 msgstr ""
+"Detectamos que tiene algunas listas con los mismos nombres pero "
+"capitalizaciones distintas. Consideramos que su intención era que fuesen la "
+"misma lista, así que combinamos los duplicados. No se preocupe: las listas "
+"originales fueron renombradas con números (ej. Shopping_1, Shopping_2). Si "
+"no está de acuerdo, puede simplemente ¡borrar las nuevas listas combinadas!"
 
 #. Header for tag settings
 msgctxt "tag_settings_title"
 msgid "List Settings"
-msgstr "Settings:"
+msgstr "Configuración de lista"
 
 #. Header for tag activity
 #, c-format
 msgctxt "tag_updates_title"
 msgid "Activity: %s"
-msgstr ""
+msgstr "Actividad: %s"
 
 #. Delete button for tag settings
 msgctxt "tag_delete_button"
 msgid "Delete List"
-msgstr ""
+msgstr "Eliminar lista"
 
-#. Leave button for tag settings
+#. slide 28d: Leave button for tag settings
 msgctxt "tag_leave_button"
 msgid "Leave This List"
-msgstr ""
+msgstr "Abandonar esta Lista"
 
-#. See the file "LICENSE" for the full license governing this code.
+#. ** Copyright (c) 2012 Todoroo Inc ** ** See the file "LICENSE" for the
+#. full license governing this code.
 #. Resources for built-in timers plug-in
 #. Task List: Start Timer button
 msgctxt "TAE_startTimer"
@@ -4674,7 +5243,7 @@ msgstr "Temporizador"
 #. Task List: Stop Timer button
 msgctxt "TAE_stopTimer"
 msgid "Stop"
-msgstr ""
+msgstr "Parar"
 
 #. Android Notification Title (%s => # tasks)
 #, c-format
@@ -4695,24 +5264,25 @@ msgstr "Tareas siendo cronometradas"
 #. Title for TEA
 msgctxt "TEA_timer_controls"
 msgid "Timer Controls"
-msgstr ""
+msgstr "Controles del Temporizador"
 
 #. Edit Notes: create comment for when timer is started
 msgctxt "TEA_timer_comment_started"
 msgid "started this task:"
-msgstr ""
+msgstr "comenzó esta tarea:"
 
 #. Edit Notes: create comment for when timer is stopped
 msgctxt "TEA_timer_comment_stopped"
 msgid "stopped doing this task:"
-msgstr ""
+msgstr "dejó de hacer esta tarea:"
 
 #. Edit Notes: comment to notify how long was spent on task
 msgctxt "TEA_timer_comment_spent"
 msgid "Time spent:"
-msgstr ""
+msgstr "Tiempo dedicado:"
 
-#. See the file "LICENSE" for the full license governing this code.
+#. ** Copyright (c) 2012 Todoroo Inc ** ** See the file "LICENSE" for the
+#. full license governing this code.
 #. Update string from activity codes %1$s - user, %2$s - target name, %3$s -
 #. message, %4$s - other_user
 #. NOTE TO TRANSLATORS: things beginning with $link_ are special tokens we use
@@ -4720,96 +5290,102 @@ msgstr ""
 #, c-format
 msgctxt "update_string_friends"
 msgid "%1$s is now friends with %2$s"
-msgstr ""
+msgstr "Ahora %1$s es amigo de %2$s"
 
 #, c-format
 msgctxt "update_string_request_friendship"
 msgid "%1$s wants to be friends with you"
-msgstr ""
+msgstr "%1$s desea ser su amigo"
 
+#. slide 22e
 #, c-format
 msgctxt "update_string_confirmed_friendship"
 msgid "%1$s has confirmed your friendship request"
-msgstr ""
+msgstr "%1$s ha confirmado su solicitud de amistad"
 
 #, c-format
 msgctxt "update_string_task_created"
 msgid "%1$s created this task"
-msgstr ""
+msgstr "%1$s creó esta tarea"
 
 #, c-format
 msgctxt "update_string_task_created_global"
 msgid "%1$s created $link_task"
-msgstr ""
+msgstr "%1$s creó $link_task"
 
+#. slide 24 b and c
 #, c-format
 msgctxt "update_string_task_created_on_list"
 msgid "%1$s added $link_task to this list"
-msgstr ""
+msgstr "%1$s agregó $link_task a esta lista"
 
+#. slide 22c
 #, c-format
 msgctxt "update_string_task_completed"
 msgid "%1$s completed $link_task. Huzzah!"
-msgstr ""
+msgstr "%1$s completó $link_task. ¡Hurra!"
 
 #, c-format
 msgctxt "update_string_task_uncompleted"
 msgid "%1$s un-completed $link_task."
-msgstr ""
+msgstr "%1$s descompletó $link_task."
 
 #, c-format
 msgctxt "update_string_task_tagged"
 msgid "%1$s added $link_task to %4$s"
-msgstr ""
+msgstr "%1$s añadió $link_task a %4$s"
 
 #, c-format
 msgctxt "update_string_task_tagged_list"
 msgid "%1$s added $link_task to this list"
-msgstr ""
+msgstr "%1$s agregó $link_task a esta lista"
 
+#. slide 22d
 #, c-format
 msgctxt "update_string_task_assigned"
 msgid "%1$s assigned $link_task to %4$s"
-msgstr ""
+msgstr "%1$s asignó $link_task a %4$s"
 
+#. slide 24d
 #, c-format
 msgctxt "update_string_default_comment"
 msgid "%1$s commented: %3$s"
-msgstr ""
+msgstr "%1$s comentó: %3$s"
 
-#, fuzzy, c-format
+#, c-format
 msgctxt "update_string_task_comment"
 msgid "%1$s Re: $link_task: %3$s"
-msgstr "%1$s re: %2$s"
+msgstr "%1$s Re: $link_task: %3$s"
 
 #, c-format
 msgctxt "update_string_tag_comment"
 msgid "%1$s Re: %2$s: %3$s"
-msgstr ""
+msgstr "%1$s Re: %2$s: %3$s"
 
 #, c-format
 msgctxt "update_string_tag_created"
 msgid "%1$s created this list"
-msgstr ""
+msgstr "%1$s creó esta lista"
 
-#, fuzzy, c-format
+#, c-format
 msgctxt "update_string_tag_created_global"
 msgid "%1$s created the list %2$s"
-msgstr "Renombrar la lista %s a :"
+msgstr "%1$s creó la lista %2$s"
 
-#. See the file "LICENSE" for the full license governing this code.
+#. ** Copyright (c) 2012 Todoroo Inc ** ** See the file "LICENSE" for the
+#. full license governing this code.
 #. Voice Add Prompt Text
 msgctxt "voice_create_prompt"
 msgid "Speak to create a task"
-msgstr ""
+msgstr "Hable para crear una tarea"
 
 msgctxt "voice_edit_title_prompt"
 msgid "Speak to set task title"
-msgstr ""
+msgstr "Hable para establecer título de tarea"
 
 msgctxt "voice_edit_note_prompt"
 msgid "Speak to set task notes"
-msgstr ""
+msgstr "Hable para establecer notas de tarea"
 
 #. Preference: Task List recognition-service is not installed, but available
 msgctxt "EPr_voiceInputInstall_dlg"
@@ -4817,8 +5393,8 @@ msgid ""
 "Voice-input is not installed.\n"
 "Do you want to go to the market and install it?"
 msgstr ""
-"La entrada de datos por voz no está instalada.\n"
-"Desea ir al market e instalarla?"
+"El ingreso de datos por voz no está instalado.\n"
+"¿Desea ir al market e instalarlo?"
 
 #. Preference: Task List recognition-service is not available for this system
 msgctxt "EPr_voiceInputUnavailable_dlg"
@@ -4836,38 +5412,42 @@ msgid ""
 "Unfortunately the market is not available for your system.\n"
 "If possible, try downloading voice search from another source."
 msgstr ""
+"Lamentablemente el market no está disponible para su sistema.\n"
+"De ser posible, descargue \"búsqueda por voz\" desde otra fuente."
 
-#. Preference: Task List Show Voice-button if recognition-service is available
+#. slide 38d:  Preference: Task List Show Voice-button if recognition-service
+#. is available
 msgctxt "EPr_voiceInputEnabled_title"
 msgid "Voice Input"
-msgstr "Entrada de voz"
+msgstr "Ingreso por voz"
 
-#. Preference: voice button description (true)
+#. slide 38a: Preference: voice button description (true)
 msgctxt "EPr_voiceInputEnabled_desc_enabled"
 msgid "Voice input button will be displayed in task list page"
-msgstr ""
+msgstr "El botón de ingreso por voz se mostrará en la página de tareas"
 
 #. Preference: voice button description (false)
 msgctxt "EPr_voiceInputEnabled_desc_disabled"
 msgid "Voice input button will be hidden on task list page"
-msgstr ""
+msgstr "El botón de ingreso por voz se ocultará en la página de tareas"
 
-#. Preference: Task List Voice-button directly creates tasks
+#. slide 38e: Preference: Task List Voice-button directly creates tasks
 msgctxt "EPr_voiceInputCreatesTask_title"
 msgid "Directly Create Tasks"
-msgstr ""
+msgstr "Crear Tarea Directamente"
 
 #. Preference: Task List Voice-creation description (true)
 msgctxt "EPr_voiceInputCreatesTask_desc_enabled"
 msgid "Tasks will automatically be created from voice input"
-msgstr ""
+msgstr "Las tareas serán creadas automáticamente del \"ingreso por voz\""
 
-#. Preference: Task List Voice-creation description (false)
+#. slide 38b: Preference: Task List Voice-creation description (false)
 msgctxt "EPr_voiceInputCreatesTask_desc_disabled"
 msgid "You can edit the task title after voice input finishes"
 msgstr ""
+"Puede editar el título de la tarea al finalizar el \"ingreso por voz\""
 
-#. Preference: Voice reminders if TTS-service is available
+#. slide 38f: Preference: Voice reminders if TTS-service is available
 msgctxt "EPr_voiceRemindersEnabled_title"
 msgid "Voice Reminders"
 msgstr "Recordatorios de voz"
@@ -4877,124 +5457,169 @@ msgctxt "EPr_voiceRemindersEnabled_desc_enabled"
 msgid "Astrid will speak task names during task reminders"
 msgstr "Astrid dirá los nombres de las tareas durante los recordatorios"
 
-#. Preference: Voice reminders description (false)
+#. slide 38c: Preference: Voice reminders description (false)
 msgctxt "EPr_voiceRemindersEnabled_desc_disabled"
 msgid "Astrid will sound a ringtone during task reminders"
 msgstr "Astrid sonará un tono durante los recordatorios"
 
-#. Preference Category: Voice Title
+#. slide 32d: Preference Category: Voice Title
 msgctxt "EPr_voice_header"
 msgid "Voice Input Settings"
-msgstr ""
+msgstr "Configuración de Ingreso por Voz"
 
+#. ** Copyright (c) 2012 Todoroo Inc ** ** See the file "LICENSE" for the
+#. full license governing this code.
 msgctxt "welcome_show_eula"
 msgid "Accept EULA to get started!"
-msgstr ""
+msgstr "¡Acepte el EULA para comenzar!"
 
+#. slide 30a
 msgctxt "welcome_setting"
 msgid "Show Tutorial"
-msgstr ""
+msgstr "Mostrar Instructivo"
 
 msgctxt "welcome_title_1"
 msgid "Welcome to Astrid!"
 msgstr "¡Bienvenido a Astrid!"
 
+#. slide 2a
 msgctxt "welcome_title_2"
 msgid "Make lists"
-msgstr ""
+msgstr "Cree listas"
 
+#. slide 3a
 msgctxt "welcome_title_3"
 msgid "Switch between lists"
-msgstr ""
+msgstr "Alternar entre listas"
 
+#. slide 4a
 msgctxt "welcome_title_4"
 msgid "Share lists"
-msgstr ""
+msgstr "Comparta listas"
 
+#. slide 5a
 msgctxt "welcome_title_5"
 msgid "Divvy up tasks"
-msgstr ""
+msgstr "Divida tareas"
 
+#. slide 6a
 msgctxt "welcome_title_6"
 msgid "Provide details"
-msgstr ""
+msgstr "Proporcione detalles"
 
+#. slide 7a
 msgctxt "welcome_title_7"
 msgid ""
 "Connect now\n"
 "to get started!"
 msgstr ""
+"¡Conéctese ahora\n"
+"Para comenzar!"
 
 msgctxt "welcome_title_7_return"
 msgid "That's it!"
-msgstr ""
+msgstr "¡Eso es todo!"
 
+#. slide 1b
 msgctxt "welcome_body_1"
 msgid ""
 "The perfect personal to-do list \n"
 "that works great with friends"
 msgstr ""
+"El perfecto administrador personal de tareas \n"
+"grandioso para operar con sus amigos"
 
+#. slide 2b
 msgctxt "welcome_body_2"
 msgid ""
 "Great for any list:\n"
 "read, watch, buy, visit!"
 msgstr ""
+"¡Excelente para cualquier lista:\n"
+"lea, observe, compre, visite!"
 
+#. slide 3b
 msgctxt "welcome_body_3"
 msgid ""
 "Tap the list title \n"
 "to see all your lists"
 msgstr ""
+"Toque el título de la lista \n"
+"para ver todas sus listas"
 
+#. slide 4b
 msgctxt "welcome_body_4"
 msgid ""
 "Share lists with \n"
 "friends, housemates,\n"
 "or your sweetheart!"
 msgstr ""
+"¡Comparta sus listas con\n"
+"amigos, compañeros\n"
+"o con su amor!"
 
+#. slide 5b
 msgctxt "welcome_body_5"
 msgid ""
 "Never wonder who's\n"
 "bringing dessert!"
-msgstr "and much more!"
+msgstr ""
+"¡Jamás se pregunte\n"
+"quién trae el postre!"
 
+#. slide 6b
 msgctxt "welcome_body_6"
 msgid ""
 "Tap to add notes,\n"
 "set reminders,\n"
 "and much more!"
 msgstr ""
+"¡Toque para añadir notas,\n"
+"establecer recordatorios\n"
+"y mucho más!"
 
 msgctxt "welcome_body_7"
 msgid "Login"
-msgstr ""
+msgstr "Iniciar sesión"
 
 msgctxt "welcome_body_7_return"
 msgid "Tap Astrid to return."
-msgstr ""
+msgstr "Toque en Astrid para regresar."
 
 msgctxt "welcome_back"
 msgid "Back"
-msgstr ""
+msgstr "de vuelta"
 
+#. slide 1c
 msgctxt "welcome_next"
 msgid "Next"
-msgstr ""
+msgstr "Siguiente"
 
-#. See the file "LICENSE" for the full license governing this code.
+#. ** Copyright (c) 2012 Todoroo Inc ** ** See the file "LICENSE" for the
+#. full license governing this code.
 #. Resources for power pack widget
 msgctxt "PPW_widget_42_label"
 msgid "Astrid Premium 4x2"
-msgstr ""
+msgstr "Astrid Premium 4x2"
 
 msgctxt "PPW_widget_43_label"
 msgid "Astrid Premium 4x3"
-msgstr ""
+msgstr "Astrid Premium 4x3"
 
 msgctxt "PPW_widget_44_label"
 msgid "Astrid Premium 4x4"
+msgstr "Astrid Premium 4x4"
+
+msgctxt "PPW_widget_v11_label"
+msgid "Astrid Scrollable Premium"
+msgstr ""
+
+msgctxt "PPW_widget_custom_label"
+msgid "Astrid Scrollable Premium for Custom Launchers"
+msgstr ""
+
+msgctxt "PPW_widget_custom_launcherpro_label"
+msgid "Astrid Scrollable Premium 4x4 for Launcher Pro"
 msgstr ""
 
 msgctxt "PPW_configure_title"
@@ -5019,7 +5644,7 @@ msgstr "Seleccionar filtro"
 
 msgctxt "PPW_due"
 msgid "Due:"
-msgstr "Vencimiento:"
+msgstr "Vence:"
 
 msgctxt "PPW_past_due"
 msgid "Past Due:"
@@ -5027,11 +5652,10 @@ msgstr "Vencido:"
 
 msgctxt "PPW_old_astrid_notice"
 msgid ""
-"You need at least version 3.6 of Astrid in order to use this widget. "
-"Sorry!"
+"You need at least version 3.6 of Astrid in order to use this widget. Sorry!"
 msgstr ""
-"Usted requiere al menos la version 3.6 de Astrid para usar este widget. "
-"Lo sentimos!"
+"Se requiere como mínimo la version 3.6 de Astrid para usar este widget. ¡Lo "
+"sentimos!"
 
 msgctxt "PPW_encouragements:0"
 msgid "Hi there!"
@@ -5039,11 +5663,11 @@ msgstr "¡Qué tal!"
 
 msgctxt "PPW_encouragements:1"
 msgid "Have time to finish something?"
-msgstr "Tiene tiempo para acabar una cosa?"
+msgstr "¿Tiene tiempo para concluir algo?"
 
 msgctxt "PPW_encouragements:2"
 msgid "Gosh, you are looking suave today!"
-msgstr "Vaya, se le ve muy tranquilo hoy!"
+msgstr "¡Vaya, se le ve muy tranquilo hoy!"
 
 msgctxt "PPW_encouragements:3"
 msgid "Do something great today!"
@@ -5055,7 +5679,7 @@ msgstr "¡Hágame sentirme orgulloso hoy!"
 
 msgctxt "PPW_encouragements:5"
 msgid "How are you doing today?"
-msgstr "¿Qué tal lo estás haciendo hoy?"
+msgstr "¿Cómo te esta yendo hoy?"
 
 msgctxt "PPW_encouragements_tod:0"
 msgid "Good morning!"
@@ -5075,11 +5699,11 @@ msgstr "¿Desvelándose?"
 
 msgctxt "PPW_encouragements_tod:4"
 msgid "It's early, get something done!"
-msgstr "Es temprano, haz algo!"
+msgstr "¡Es temprano, haz algo!"
 
 msgctxt "PPW_encouragements_tod:5"
 msgid "Afternoon tea, perhaps?"
-msgstr "Tarde de té, tal vez?"
+msgstr "¿Tarde de té, tal vez?"
 
 msgctxt "PPW_encouragements_tod:6"
 msgid "Enjoy the evening!"
@@ -5092,7 +5716,7 @@ msgstr "¡Dormir es bueno para usted, lo sabe!"
 #, c-format
 msgctxt "PPW_encouragements_completed:0"
 msgid "You've already completed %d tasks!"
-msgstr "¡Ha terminado %d tareas!"
+msgstr "¡Ya ha terminado %d tareas!"
 
 #, c-format
 msgctxt "PPW_encouragements_completed:1"
@@ -5106,7 +5730,7 @@ msgstr "¡Sonría! ¡Ha terminado %d tareas!"
 
 msgctxt "PPW_encouragements_none_completed"
 msgid "You haven't completed any tasks yet! Shall we?"
-msgstr "No ha completado ninguna tarea hasta ahora! comenzamos?"
+msgstr "No ha completado ninguna tarea hasta ahora! ¿Comenzamos?"
 
 msgctxt "PPW_colors:0"
 msgid "Black"
@@ -5126,96 +5750,53 @@ msgstr "Translúcido"
 
 msgctxt "PPW_widget_dlg_text"
 msgid "This widget is only available to owners of the PowerPack!"
-msgstr ""
+msgstr "¡Este widget está sólo disponible para propietarios del PowerPack!"
 
 msgctxt "PPW_widget_dlg_ok"
 msgid "Preview"
-msgstr ""
+msgstr "Vista previa"
 
 #, c-format
 msgctxt "PPW_demo_title1"
 msgid "Items on %s will go here"
-msgstr ""
+msgstr "ítems en %s irán aquí"
 
 msgctxt "PPW_demo_title2"
 msgid "Power Pack includes Premium Widgets..."
-msgstr ""
+msgstr "El Power Pack incluye widgets Premium"
 
 msgctxt "PPW_demo_title3"
 msgid "...voice add and good feelings!"
-msgstr ""
+msgstr "...¡agregar voz y buenos sentimientos!"
 
 msgctxt "PPW_demo_title4"
 msgid "Tap to learn more!"
-msgstr ""
+msgstr "¡Toque para aprender más!"
 
 msgctxt "PPW_info_title"
 msgid "Free Power Pack!"
-msgstr ""
+msgstr "¡Power Pack Gratuito!"
 
 msgctxt "PPW_info_signin"
 msgid "Sign in!"
-msgstr ""
+msgstr "¡Inicie sesión!"
 
 msgctxt "PPW_info_later"
 msgid "Later"
-msgstr ""
+msgstr "Más tarde"
 
 msgctxt "PPW_unlock_howto"
 msgid ""
-"Share lists with friends! Unlock the free Power Pack when 3 friends sign "
-"up with Astrid."
+"Share lists with friends! Unlock the free Power Pack when 3 friends sign up "
+"with Astrid."
 msgstr ""
+"¡Comparta listas con sus amigos! Desbloquee el Power Pack gratuito una vez "
+"que 3 amigos se registren en Astrid."
 
 msgctxt "PPW_check_button"
 msgid "Get the Power Pack for free!"
-msgstr ""
+msgstr "¡Obtenga gratis el Power Pack!"
 
 msgctxt "PPW_check_share_lists"
 msgid "Share lists!"
-msgstr ""
-
-#~ msgctxt "actfm_toast_error"
-#~ msgid "Save Failed: %s"
-#~ msgstr "Falló al guardar: %s"
-
-#~ msgctxt "ENA_no_user"
-#~ msgid "You"
-#~ msgstr "Usted"
-
-#~ msgctxt "p_help"
-#~ msgid "Help"
-#~ msgstr "Ayuda"
-
-#~ msgctxt "repeat_encouragement:2"
-#~ msgid "I love it when you're productive!"
-#~ msgstr ""
-
-#~ msgctxt "update_string_task_created_on_list"
-#~ msgid "%1$s added %2$s to this list"
-#~ msgstr ""
-
-#~ msgctxt "update_string_task_completed"
-#~ msgid "%1$s completed %2$s. Huzzah!"
-#~ msgstr ""
-
-#~ msgctxt "update_string_task_uncompleted"
-#~ msgid "%1$s un-completed %2$s."
-#~ msgstr ""
-
-#~ msgctxt "update_string_task_tagged"
-#~ msgid "%1$s added %4$s to %2$s"
-#~ msgstr ""
-
-#~ msgctxt "update_string_task_tagged_list"
-#~ msgid "%1$s added %4$s to this list"
-#~ msgstr ""
-
-#~ msgctxt "update_string_task_assigned"
-#~ msgid "%1$s assigned %4$s to %2$s"
-#~ msgstr ""
-
-#~ msgctxt "update_string_task_comment"
-#~ msgid "%1$s Re: %2$s: %3$s"
-#~ msgstr ""
-
+msgstr "¡Comparta listas!"

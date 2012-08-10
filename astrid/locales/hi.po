@@ -1,48 +1,47 @@
-# Translations template for PROJECT.
-# Copyright (C) 2012 ORGANIZATION
-# This file is distributed under the same license as the PROJECT project.
+# Hindi translation for astrid
+# Copyright (c) 2012 Rosetta Contributors and Canonical Ltd 2012
+# This file is distributed under the same license as the astrid package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, 2012.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: PROJECT VERSION\n"
-"Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
+"Project-Id-Version: astrid\n"
+"Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2012-08-06 21:19-0700\n"
-"PO-Revision-Date: 2012-03-01 06:26+0000\n"
-"Last-Translator: Tim Su <tim@todoroo.com>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
+"PO-Revision-Date: 2012-07-27 16:47+0000\n"
+"Last-Translator: Abhishek Anand <ajaxor1@gmail.com>\n"
+"Language-Team: Hindi <hi@li.org>\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=utf-8\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2012-08-10 23:40+0000\n"
+"X-Launchpad-Export-Date: 2012-08-10 23:41+0000\n"
 "X-Generator: Launchpad (build 15780)\n"
-"Generated-By: Babel 1.0dev\n"
 
 #. ================================================== general terms ==
 #. People Editing Activity
 msgctxt "EPE_action"
 msgid "Share"
-msgstr ""
+msgstr "बाटें"
 
 #. slide 18b/ 25e/ 27c: task sharing dialog: assigned hint
 msgctxt "actfm_person_hint"
 msgid "Contact or Email"
-msgstr ""
+msgstr "संपर्क"
 
 #. task sharing dialog: shared with hint
 msgctxt "actfm_person_or_tag_hint"
 msgid "Contact or Shared List"
-msgstr ""
+msgstr "संपर्क या साझा सूची"
 
 #. toast on transmit success
 msgctxt "actfm_toast_success"
 msgid "Saved on Server"
-msgstr ""
+msgstr "सर्वर पर सुरक्षित"
 
 #. can't rename or delete shared tag message
 msgctxt "actfm_tag_operation_disabled"
 msgid "Sorry, this operation is not yet supported for shared tags."
-msgstr ""
+msgstr "क्षमा करें, यह आपरेशन साझा टैग के लिए अभी समर्थित नहीं है."
 
 #. warning before deleting a list you're the owner of
 msgctxt "actfm_tag_operation_owner_delete"
@@ -50,31 +49,33 @@ msgid ""
 "You are the owner of this shared list! If you delete it, it will be deleted "
 "for all list members. Are you sure you want to continue?"
 msgstr ""
+"आप इस साझा सूची के मालिक हैं!, यदि आप इसे हटा दें, तो यह सभी सदस्यों की सूची "
+"से हट जाएगा | क्या आप जारी रखना चाहते हैं?"
 
 #. slide 29a: menu item to take a picture
 msgctxt "actfm_picture_camera"
 msgid "Take a Picture"
-msgstr ""
+msgstr "तस्वीर लें"
 
 #. slide 29b: menu item to select from gallery
 msgctxt "actfm_picture_gallery"
 msgid "Pick from Gallery"
-msgstr ""
+msgstr "गैलरी से चुनें"
 
 #. menu item to clear picture selection
 msgctxt "actfm_picture_clear"
 msgid "Clear Picture"
-msgstr ""
+msgstr "तस्वीर त्यागें"
 
 #. filter list activity: refresh tags
 msgctxt "actfm_FLA_menu_refresh"
 msgid "Refresh Lists"
-msgstr ""
+msgstr "सूची ताजा करें"
 
 #. Title for prompt after sharing a task
 msgctxt "actfm_view_task_title"
 msgid "View Task?"
-msgstr ""
+msgstr "टास्क देखें?"
 
 #. Text for prompt after sharing a task
 #, c-format
@@ -83,134 +84,136 @@ msgid ""
 "Task was sent to %s! You're currently viewing your own tasks. Do you want to "
 "view this and other tasks you've assigned?"
 msgstr ""
+"टास्क %s को भेजा गया! आप फिलहाल अपने टास्क देख रहे हैं | क्या आप इन्हें और "
+"अपने द्वारा नियत अन्य टास्क को देखना चाहते हैं?"
 
 #. Ok button for task view prompt
 msgctxt "actfm_view_task_ok"
 msgid "View Assigned"
-msgstr ""
+msgstr "नियत टास्क  देखें"
 
 #. Cancel button for task view prompt
 msgctxt "actfm_view_task_cancel"
 msgid "Stay Here"
-msgstr ""
+msgstr "यहीं रूकें"
 
 #. slide 13a: Title for the "My Shared Tasks" filter
 msgctxt "actfm_my_shared_tasks_title"
 msgid "My Shared Tasks"
-msgstr ""
+msgstr "मेरे साझा टास्क"
 
 #. Empty list for the "My Shared Tasks" filter
 msgctxt "actfm_my_shared_tasks_empty"
 msgid "No shared tasks"
-msgstr ""
+msgstr "कोई साझा टास्क नहीं"
 
 #. ================================================== TagViewActivity ==
 #. Tag View Activity: Add Comment hint
 msgctxt "TVA_add_comment"
 msgid "Add a comment..."
-msgstr ""
+msgstr "टिप्पणी जोड़ें ..."
 
 #. Tag View Activity: task comment ($1 - user name, $2 - task title)
 #, c-format
 msgctxt "UAd_title_comment"
 msgid "%1$s re: %2$s"
-msgstr ""
+msgstr "%1$s उ: %2$s"
 
 #. Tabs for Tag view
 msgctxt "TVA_tabs:0"
 msgid "Tasks"
-msgstr ""
+msgstr "टास्क"
 
 #. Tabs for Tag view
 msgctxt "TVA_tabs:1"
 msgid "Activity"
-msgstr ""
+msgstr "गतिविधि"
 
 #. Tabs for Tag view
 msgctxt "TVA_tabs:2"
 msgid "List Settings"
-msgstr ""
+msgstr "सूची सेटिंग्स"
 
 #. Tag View: filtered by assigned to user (%s => user name)
 #, c-format
 msgctxt "actfm_TVA_filtered_by_assign"
 msgid "%s's tasks. Tap for all."
-msgstr ""
+msgstr "%s के टास्क. सभी के लिए टैप करें."
 
 #. Tag View: filter by unassigned tasks
 msgctxt "actfm_TVA_filter_by_unassigned"
 msgid "Unassigned tasks. Tap for all."
-msgstr ""
+msgstr "अनियत टास्क. सभी के लिए टैप करें."
 
 #. Tag View: list is private, no members
 msgctxt "actfm_TVA_no_members_alert"
 msgid "Private: tap to edit or share list"
-msgstr ""
+msgstr "निजी: संपादित करने या साझा सूची के लिए टैप करें"
 
 #. Tag View Menu: refresh
 msgctxt "actfm_TVA_menu_refresh"
 msgid "Refresh"
-msgstr ""
+msgstr "ताज़ा करें"
 
 #. Tag Settings: tag name label
 msgctxt "actfm_TVA_tag_label"
 msgid "List"
-msgstr ""
+msgstr "सूची"
 
 #. Tag Settings: tag owner label
 msgctxt "actfm_TVA_tag_owner_label"
 msgid "List Creator:"
-msgstr ""
+msgstr "सूची  निर्माता:"
 
 #. Tag Settings: tag owner value when there is no owner
 msgctxt "actfm_TVA_tag_owner_none"
 msgid "none"
-msgstr ""
+msgstr "शून्य"
 
 #. slide 26a and 27b: Tag Settings: list collaborators label
 msgctxt "actfm_TVA_members_label"
 msgid "Shared With"
-msgstr ""
+msgstr "साथ साझा किए गए"
 
 #. Tag Settings: list collaborators hint
 msgctxt "actfm_TVA_members_hint"
 msgid "Share with anyone who has an email address"
-msgstr ""
+msgstr "किसी के पास एक ईमेल पता होने पर साझा करें"
 
 #. Tag Settings: tag picture
 msgctxt "actfm_TVA_tag_picture"
 msgid "List Picture"
-msgstr ""
+msgstr "तस्वीर टैग करें"
 
 #. slide 25c/28b: Tag Settings: silence notifications label
 msgctxt "actfm_TVA_silence_label"
 msgid "Silence Notifications"
-msgstr ""
+msgstr "सूचनाएँ मौन करें"
 
 #. Tag Settings: list icon label
 msgctxt "actfm_TVA_list_icon_label"
 msgid "List Icon:"
-msgstr ""
+msgstr "सूची  चिह्न:"
 
 #. slide 25b/27d: Tag Settings: list description label
 msgctxt "actfm_TVA_tag_description_label"
 msgid "Description"
-msgstr ""
+msgstr "वर्णन"
 
 #. slide 28a: Tag Settings: list settings label
 msgctxt "actfm_TVA_tag_settings_label"
 msgid "Settings"
-msgstr ""
+msgstr "सेटिंग्स"
 
 #. slide 25b: Tag Settings: list description hint
 msgctxt "actfm_TVA_tag_description_hint"
 msgid "Type a description here"
-msgstr ""
+msgstr "यहाँ वर्णन लिखें"
 
 #. slide 25d: Tag Settings: list name hint
 msgctxt "actfm_TVA_tag_name_hint"
 msgid "Enter list name"
-msgstr ""
+msgstr "सूची का नाम लिखें"
 
 #. Tag settings: login prompt from share
 msgctxt "actfm_TVA_login_to_share"
@@ -218,6 +221,8 @@ msgid ""
 "You need to be logged in to Astrid.com to share lists! Please log in or make "
 "this a private list."
 msgstr ""
+"सूची साझा करने के लिए लॉग इन  करने की आवश्यकता है ! कृपया  निजी सूची बनाने "
+"के लिए  प्रवेश करें."
 
 #. ============================================ edit people dialog ==
 #. task sharing dialog: intro
@@ -226,113 +231,115 @@ msgid ""
 "Use Astrid to share shopping lists, party plans, or team projects and "
 "instantly see when people get stuff done!"
 msgstr ""
+"खरीदारी की सूची, पार्टी की योजना, या टीम परियोजनाओं को साझा करें और काम "
+"ख़त्म होने पर तुरन्त  देखें"
 
 #. task sharing dialog: window title
 msgctxt "actfm_EPA_title"
 msgid "Share / Assign"
-msgstr ""
+msgstr "साझा करें / नियत करें"
 
 #. task sharing dialog: save button
 msgctxt "actfm_EPA_save"
 msgid "Save & Share"
-msgstr ""
+msgstr "सुरक्षित और साझा करें"
 
 #. task sharing dialog: assigned label
 msgctxt "actfm_EPA_assign_label"
 msgid "Who"
-msgstr ""
+msgstr "कौन"
 
 #. slide 18a: task sharing dialog: assigned label long version
 msgctxt "actfm_EPA_assign_label_long"
 msgid "Who should do this?"
-msgstr ""
+msgstr "यह किसे करना चाहिए?"
 
 #. task sharing dialog: assigned to me
 msgctxt "actfm_EPA_assign_me"
 msgid "Me"
-msgstr ""
+msgstr "मैं"
 
 #. task sharing dialog: anyone
 msgctxt "actfm_EPA_unassigned"
 msgid "Unassigned"
-msgstr ""
+msgstr "गैर आबंटित"
 
 #. slide 18c: task sharing dialog: choose a contact
 msgctxt "actfm_EPA_choose_contact"
 msgid "Choose a contact"
-msgstr ""
+msgstr "कोई संपर्क चुनें"
 
 #. slide 17a: task sharing dialog: use task rabbit
 msgctxt "actfm_EPA_task_rabbit"
 msgid "Outsource it!"
-msgstr ""
+msgstr "इसे आउटसोर्स करें!"
 
 #. task sharing dialog: custom email assignment
 msgctxt "actfm_EPA_assign_custom"
 msgid "Custom..."
-msgstr ""
+msgstr "विशेष"
 
 #. task sharing dialog: shared with label
 msgctxt "actfm_EPA_share_with"
 msgid "Share with:"
-msgstr ""
+msgstr "साझेदारी इनके साथ:"
 
 #. Toast when assigning a task
 #, c-format
 msgctxt "actfm_EPA_assigned_toast"
 msgid "Sent to %1$s (you can see it in the list between you and %2$s)."
-msgstr ""
+msgstr "%1$s को भेजा ( इसे अपने और %2$s के बीच सूची में देख सकते हैं )."
 
 #. task sharing dialog: shared with label
 msgctxt "actfm_EPA_collaborators_header"
 msgid "Share with Friends"
-msgstr ""
+msgstr "दोस्तों के साथ साझा करें"
 
 #. task sharing dialog: collaborator list name (%s => name of list)
 #, c-format
 msgctxt "actfm_EPA_list"
 msgid "List: %s"
-msgstr ""
+msgstr "सूची: %s"
 
 #. task sharing dialog: assigned hint
 msgctxt "actfm_EPA_assigned_hint"
 msgid "Contact Name"
-msgstr ""
+msgstr "संपर्क नाम"
 
 #. task sharing dialog: message label text
 msgctxt "actfm_EPA_message_text"
 msgid "Invitation Message:"
-msgstr ""
+msgstr "निमंत्रण संदेश:"
 
 #. task sharing dialog: message body
 msgctxt "actfm_EPA_message_body"
 msgid "Help me get this done!"
-msgstr ""
+msgstr "मेरी मदद करो इसे पूरा करने में !"
 
 #. task sharing dialog: list members section header
 msgctxt "actfm_EPA_assign_header_members"
 msgid "List Members"
-msgstr ""
+msgstr "सदस्य सूची"
 
 #. task sharing dialog: astrid friends section header
 msgctxt "actfm_EPA_assign_header_friends"
 msgid "Astrid Friends"
-msgstr ""
+msgstr "Astrid मित्र"
 
 #. task sharing dialog: message hint
 msgctxt "actfm_EPA_tag_label"
 msgid "Create a shared tag?"
-msgstr ""
+msgstr "साझा टैग बनाएँ?"
 
 #. task sharing dialog: message hint
 msgctxt "actfm_EPA_tag_hint"
 msgid "(i.e. Silly Hats Club)"
-msgstr ""
+msgstr "(जैसे  बेवकूफ सलाम क्लब)"
 
 #. task sharing dialog: share with Facebook
 msgctxt "actfm_EPA_facebook"
 msgid "Facebook"
-msgstr ""
+msgstr "फेसबुक"
 
 #. task sharing dialog: share with Twitter
 msgctxt "actfm_EPA_twitter"
@@ -4612,19 +4619,19 @@ msgstr ""
 
 msgctxt "repeat_interval:0"
 msgid "Day(s)"
-msgstr "Ден(и)"
+msgstr ""
 
 msgctxt "repeat_interval:1"
 msgid "Week(s)"
-msgstr "Седмица(и)"
+msgstr ""
 
 msgctxt "repeat_interval:2"
 msgid "Month(s)"
-msgstr "Месец(и)"
+msgstr ""
 
 msgctxt "repeat_interval:3"
 msgid "Hour(s)"
-msgstr "Час(ове)"
+msgstr ""
 
 msgctxt "repeat_interval:4"
 msgid "Minute(s)"

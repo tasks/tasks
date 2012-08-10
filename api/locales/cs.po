@@ -1,4 +1,4 @@
-# Czech translations for PROJECT.
+# Translations template for PROJECT.
 # Copyright (C) 2012 ORGANIZATION
 # This file is distributed under the same license as the PROJECT project.
 # FIRST AUTHOR <EMAIL@ADDRESS>, 2012.
@@ -7,15 +7,15 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2012-05-02 20:22-0700\n"
-"PO-Revision-Date: 2012-03-01 06:42+0000\n"
-"Last-Translator: Tim Su <tim@todoroo.com>\n"
-"Language-Team: cs <LL@li.org>\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
-"n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2)\n"
+"POT-Creation-Date: 2012-08-06 21:20-0700\n"
+"PO-Revision-Date: 2012-07-16 07:18+0000\n"
+"Last-Translator: neal_cz <Unknown>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"X-Launchpad-Export-Date: 2012-08-10 23:41+0000\n"
+"X-Generator: Launchpad (build 15780)\n"
 "Generated-By: Babel 1.0dev\n"
 
 #. ==================================================== Generic Units ==
@@ -59,11 +59,11 @@ msgstr "1 den"
 #, c-format
 msgctxt "DUt_weekdays:quantity=other"
 msgid "%d Weekdays"
-msgstr ""
+msgstr "%d pracovních dnů"
 
 msgctxt "DUt_weekdays:quantity=one"
 msgid "1 Weekday"
-msgstr ""
+msgstr "1 pracovní den"
 
 #, c-format
 msgctxt "DUt_hours:quantity=other"
@@ -131,13 +131,13 @@ msgstr "1 úkol"
 #, c-format
 msgctxt "Npeople:quantity=other"
 msgid "%d people"
-msgstr ""
+msgstr "%d lidí"
 
 msgctxt "Npeople:quantity=one"
 msgid "1 person"
-msgstr ""
+msgstr "1 osoba"
 
-#. today
+#. slide 10a, 12c: today
 msgctxt "today"
 msgid "Today"
 msgstr "Dnes"
@@ -147,20 +147,20 @@ msgctxt "tomorrow"
 msgid "Tomorrow"
 msgstr "Zítra"
 
-#. today
+#. yesterday
 msgctxt "yesterday"
 msgid "Yesterday"
 msgstr "Včera"
 
-#. tomorrow, abbreviated
+#. slide 12c: tomorrow, abbreviated
 msgctxt "tmrw"
 msgid "Tmrw"
-msgstr ""
+msgstr "Zítra"
 
-#. yesterday, abbreviated
+#. slide 12c: yesterday, abbreviated
 msgctxt "yest"
 msgid "Yest"
-msgstr ""
+msgstr "Včera"
 
 #. ================================================== Generic Dialogs ==
 #. confirmation dialog title
@@ -228,7 +228,7 @@ msgstr "Jejda, vypadá to, že se vyskytla chyba!"
 #. Progress dialog shown when doing something slow
 msgctxt "DLG_wait"
 msgid "Please wait..."
-msgstr "Prosím čekejte..."
+msgstr "Čekejte prosím..."
 
 #. ====================================================== SyncProvider ==
 #. Sync Notification: message when sync service active
@@ -258,16 +258,15 @@ msgid "Status"
 msgstr "Stav"
 
 #. Sync status subtitle, %s-> status message
-#, fuzzy, c-format
+#, c-format
 msgctxt "sync_SPr_status_subtitle"
 msgid "Status: %s"
-msgstr "Stav"
+msgstr "Stav: %s"
 
 #. Sync Status: log in
-#, fuzzy
 msgctxt "sync_status_loggedout"
 msgid "Not Logged In"
-msgstr "Nejste přihlášen!"
+msgstr "Nepřihlášen"
 
 #. Status: ongoing
 msgctxt "sync_status_ongoing"
@@ -310,7 +309,7 @@ msgstr "Nikdo nesynchronizováno!"
 #. Options Group Label
 msgctxt "sync_SPr_group_options"
 msgid "Options"
-msgstr "Možnosti"
+msgstr "Nastavení"
 
 #. Preference: Synchronization Interval Title
 msgctxt "sync_SPr_interval_title"
@@ -346,13 +345,12 @@ msgstr "Synchronizovat na pozadí se bude vždy"
 #. Actions Group Label
 msgctxt "sync_SPr_group_actions"
 msgid "Actions"
-msgstr "Činnosti"
+msgstr "Akce"
 
 #. Synchronize Now Button
-#, fuzzy
 msgctxt "sync_SPr_sync"
 msgid "Synchronize Now"
-msgstr "Synchronizuj teď!"
+msgstr "Synchronizovat nyní"
 
 #. Synchronize Now Button if not logged in
 msgctxt "sync_SPr_sync_log_in"
@@ -377,7 +375,7 @@ msgstr ""
 #. Sync: send error report button
 msgctxt "sync_SPr_send_report"
 msgid "Send Report"
-msgstr ""
+msgstr "Odeslat zprávu"
 
 #. Sync: Clear Data Title
 msgctxt "sync_SPr_forget"
@@ -398,8 +396,8 @@ msgstr "Odhlásit se / vymazat synchronizační data?"
 #, c-format
 msgctxt "sync_error_offline"
 msgid ""
-"There was a problem connecting to the network during the last sync with "
-"%s. Please try again later."
+"There was a problem connecting to the network during the last sync with %s. "
+"Please try again later."
 msgstr ""
 
 msgctxt "sync_SPr_interval_entries:0"
@@ -441,4 +439,3 @@ msgstr "každé tři dny"
 msgctxt "sync_SPr_interval_entries:9"
 msgid "every week"
 msgstr "každý týden"
-

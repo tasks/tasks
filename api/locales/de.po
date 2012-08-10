@@ -1,4 +1,4 @@
-# German translations for PROJECT.
+# Translations template for PROJECT.
 # Copyright (C) 2012 ORGANIZATION
 # This file is distributed under the same license as the PROJECT project.
 # FIRST AUTHOR <EMAIL@ADDRESS>, 2012.
@@ -7,14 +7,15 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2012-05-02 20:22-0700\n"
-"PO-Revision-Date: 2012-04-18 03:25+0000\n"
-"Last-Translator: Dennis Baudys <Unknown>\n"
-"Language-Team: de <LL@li.org>\n"
-"Plural-Forms: nplurals=2; plural=(n != 1)\n"
+"POT-Creation-Date: 2012-08-06 21:20-0700\n"
+"PO-Revision-Date: 2012-07-01 18:35+0000\n"
+"Last-Translator: Net-Zwerg <Unknown>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"X-Launchpad-Export-Date: 2012-08-10 23:41+0000\n"
+"X-Generator: Launchpad (build 15780)\n"
 "Generated-By: Babel 1.0dev\n"
 
 #. ==================================================== Generic Units ==
@@ -136,7 +137,7 @@ msgctxt "Npeople:quantity=one"
 msgid "1 person"
 msgstr "Eine Person"
 
-#. today
+#. slide 10a, 12c: today
 msgctxt "today"
 msgid "Today"
 msgstr "Heute"
@@ -146,17 +147,17 @@ msgctxt "tomorrow"
 msgid "Tomorrow"
 msgstr "Morgen"
 
-#. today
+#. yesterday
 msgctxt "yesterday"
 msgid "Yesterday"
 msgstr "Gestern"
 
-#. tomorrow, abbreviated
+#. slide 12c: tomorrow, abbreviated
 msgctxt "tmrw"
 msgid "Tmrw"
 msgstr "Morg."
 
-#. yesterday, abbreviated
+#. slide 12c: yesterday, abbreviated
 msgctxt "yest"
 msgid "Yest"
 msgstr "Gest."
@@ -257,16 +258,15 @@ msgid "Status"
 msgstr "Zustand"
 
 #. Sync status subtitle, %s-> status message
-#, fuzzy, c-format
+#, c-format
 msgctxt "sync_SPr_status_subtitle"
 msgid "Status: %s"
-msgstr "Zustand"
+msgstr "Status: %s"
 
 #. Sync Status: log in
-#, fuzzy
 msgctxt "sync_status_loggedout"
 msgid "Not Logged In"
-msgstr "Nicht angemeldet!"
+msgstr "Nicht angemeldet"
 
 #. Status: ongoing
 msgctxt "sync_status_ongoing"
@@ -348,10 +348,9 @@ msgid "Actions"
 msgstr "Aktionen"
 
 #. Synchronize Now Button
-#, fuzzy
 msgctxt "sync_SPr_sync"
 msgid "Synchronize Now"
-msgstr "Jetzt synchronisieren!"
+msgstr "Jetzt synchronisieren"
 
 #. Synchronize Now Button if not logged in
 msgctxt "sync_SPr_sync_log_in"
@@ -366,17 +365,17 @@ msgstr "Angemeldet als:"
 #. Sync: Last error
 msgctxt "sync_SPr_last_error"
 msgid "Status Report"
-msgstr ""
+msgstr "Statusbericht"
 
 #. Sync: last error click for more
 msgctxt "sync_SPr_last_error_subtitle"
 msgid "Click to send a report to the Astrid team"
-msgstr ""
+msgstr "Klicke um einen Bericht ans Astrid Team zu senden"
 
 #. Sync: send error report button
 msgctxt "sync_SPr_send_report"
 msgid "Send Report"
-msgstr ""
+msgstr "Bericht Senden"
 
 #. Sync: Clear Data Title
 msgctxt "sync_SPr_forget"
@@ -397,9 +396,11 @@ msgstr "Ausloggen / synchronisierte Daten löschen?"
 #, c-format
 msgctxt "sync_error_offline"
 msgid ""
-"There was a problem connecting to the network during the last sync with "
-"%s. Please try again later."
+"There was a problem connecting to the network during the last sync with %s. "
+"Please try again later."
 msgstr ""
+"Es gab ein Problem mit der Netzwerkverbindung während der letzten "
+"Syncronisation mit %s. Versuche es bitte später noch einmal."
 
 msgctxt "sync_SPr_interval_entries:0"
 msgid "disable"
@@ -440,4 +441,3 @@ msgstr "jeden dritten Tag"
 msgctxt "sync_SPr_interval_entries:9"
 msgid "every week"
 msgstr "wöchentlich"
-
