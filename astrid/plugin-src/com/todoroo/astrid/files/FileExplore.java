@@ -50,7 +50,7 @@ public class FileExplore extends Activity {
 	public static final String EXTRA_DIRECTORIES_SELECTABLE = "directoriesSelectable"; //$NON-NLS-1$
 
 	private Item[] fileList;
-	private File path = new File(Environment.getExternalStorageDirectory().toString());
+	private File path;
 	private String chosenFile;
 	private static final int DIALOG_LOAD_FILE = 1000;
 	private String upString;
@@ -63,6 +63,11 @@ public class FileExplore extends Activity {
 	public void onCreate(Bundle savedInstanceState) {
 
 		super.onCreate(savedInstanceState);
+
+		if (Environment.MEDIA_MOUNTED.equals(Environment.getExternalStorageState()))
+		    path = new File(Environment.getExternalStorageDirectory().toString());
+		else
+		    path = Environment.getRootDirectory();
 
 		loadFileList();
 
