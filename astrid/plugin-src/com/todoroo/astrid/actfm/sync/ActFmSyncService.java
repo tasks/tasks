@@ -48,7 +48,6 @@ import com.todoroo.andlib.sql.Query;
 import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.andlib.utility.Preferences;
-import com.todoroo.astrid.actfm.sync.ActFmSyncService.JsonHelper;
 import com.todoroo.astrid.dao.MetadataDao;
 import com.todoroo.astrid.dao.TagDataDao;
 import com.todoroo.astrid.dao.TaskDao;
@@ -720,9 +719,12 @@ public final class ActFmSyncService {
                 metadataService.delete(fileMetadata);
             }
         } catch (ActFmServiceException e) {
-            handleException("push-attacgment-error", e);
+            if (e.result != null && e.result.optString("code").equals("not_found"))
+                metadataService.delete(fileMetadata);
+            else
+                handleException("push-attachment-error", e);
         } catch (IOException e) {
-            handleException("push-attacgment-error", e);
+            handleException("push-attachment-error", e);
         }
     }
 
@@ -1066,7 +1068,7 @@ public final class ActFmSyncService {
     public JSONObject invoke(String method, Object... getParameters) throws IOException,
     ActFmServiceException {
         if(!checkForToken())
-            throw new ActFmServiceException("not logged in");
+            throw new ActFmServiceException("not logged in", null);
         Object[] parameters = new Object[getParameters.length + 2];
         parameters[0] = "token";
         parameters[1] = token;
