@@ -1048,7 +1048,7 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
             return;
         }
 
-        File dst = new File(getActivity().getExternalFilesDir(FileMetadata.FILES_DIRECTORY) + File.separator + src.getName());
+        File dst = new File(FileUtilities.getAttachmentsDirectory(getActivity()) + File.separator + src.getName());
         try {
             AndroidUtilities.copyFile(src, dst);
         } catch (Exception e) {
@@ -1207,7 +1207,7 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
             String recordedAudioName = data.getStringExtra(AACRecordingActivity.RESULT_FILENAME);
             createNewFileAttachment(recordedAudioPath, recordedAudioName, FileMetadata.FILE_TYPE_AUDIO + "m4a"); //$NON-NLS-1$
         } else if (requestCode == REQUEST_CODE_ATTACH_FILE && resultCode == Activity.RESULT_OK) {
-            attachFile(data.getStringExtra(FileExplore.EXTRA_FILE_SELECTED));
+            attachFile(data.getStringExtra(FileExplore.RESULT_FILE_SELECTED));
         }
 
         ActFmCameraModule.activityResult(getActivity(), requestCode, resultCode, data, new CameraResultCallback() {

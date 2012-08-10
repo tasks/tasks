@@ -38,6 +38,7 @@
     <string name="file_prefix_voice">Voice</string>
     <string name="file_browser_up">Up</string>
     <string name="file_browser_title">Choose a file</string>
+    <string name="dir_browser_title">Choose a directory</string>
     <string name="file_browser_err_permissions">Permissions error! Please make sure you have not blocked Astrid from accessing the SD card.</string>
     <string name="file_add_picture">Attach a picture</string>
     <string name="file_add_sdcard">Attach a file from your SD card</string>
@@ -47,5 +48,14 @@
     <string name="file_err_memory">Image is too large to fit in memory</string>
     <string name="file_err_copy">Error copying file for attachment</string>
     <string name="file_err_download">Error downloading file</string>
+    <string name="file_err_no_directory">Whoops! Looks like the files directory doesn\'t exist. Please choose a directory to save files to in the Astrid Preferences.</string>
     <string name="file_err_show">Sorry, the system does not yet support this type of file</string>
+    <string name="file_dir_dialog_ok">Use this directory</string>
+    <string name="file_dir_dialog_default">Reset to default</string>
+    
+    <string name="p_files_dir">Premium Downloads Directory</string>
+    <!-- Description for file download directory preference. %s -> chosen directory -->
+    <string name="p_files_dir_desc">Task attachments saved to: %s</string>
+    <string name="p_files_dir_desc_default">Default directory</string>
+    
 </resources>

@@ -322,7 +322,15 @@ public class FilesControlSet extends PopupControlSet {
                 urlString = urlString.replace(" ", "%20");
                 String name = m.getValue(FileMetadata.NAME);
                 StringBuilder filePathBuilder = new StringBuilder();
-                filePathBuilder.append(activity.getExternalFilesDir(FileMetadata.FILES_DIRECTORY).toString())
+
+                File directory = FileUtilities.getAttachmentsDirectory(activity);
+
+                if (directory == null) {
+                    Toast.makeText(activity, R.string.file_err_no_directory, Toast.LENGTH_LONG).show();
+                    return;
+                }
+
+                filePathBuilder.append(directory.toString())
                     .append(File.separator)
                     .append(name);
 

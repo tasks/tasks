@@ -65,6 +65,7 @@ abstract public class TodorooPreferenceActivity extends PreferenceActivity {
             for(int i = 0; i < group.getPreferenceCount(); i++) {
                 initializePreference(group.getPreference(i));
             }
+            updatePreferences(group, null);
         } else {
             Object value = null;
             if(preference instanceof ListPreference)
