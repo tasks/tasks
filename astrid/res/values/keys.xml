@@ -187,6 +187,8 @@
   <string name="p_transparent_deprecated">transparent</string>
   <string name="p_theme">theme</string>
   <string name="p_theme_widget">theme_widget</string>
+  
+  <string name="p_voicePrefSection">voicePrefSection</string>
   <string name="p_voiceInputEnabled">voiceInputEnabled</string>
   <string name="p_voiceInputCreatesTask">voiceInputCreatesTask</string>
   <string name="p_voiceRemindersEnabled">voiceRemindersEnabled</string>

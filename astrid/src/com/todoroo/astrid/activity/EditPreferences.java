@@ -28,6 +28,7 @@ import android.preference.Preference;
 import android.preference.Preference.OnPreferenceChangeListener;
 import android.preference.Preference.OnPreferenceClickListener;
 import android.preference.PreferenceCategory;
+import android.preference.PreferenceGroup;
 import android.preference.PreferenceScreen;
 import android.text.TextUtils;
 import android.widget.Toast;
@@ -174,6 +175,37 @@ public class EditPreferences extends TodorooPreferenceActivity {
         addDebugPreferences();
 
         addPreferenceListeners();
+
+        removeForbiddenPreferences(screen, r);
+    }
+
+    public static void removeForbiddenPreferences(PreferenceScreen screen, Resources r) {
+        int[] forbiddenPrefs = Constants.MARKET_STRATEGY.excludedSettings();
+        if (forbiddenPrefs == null)
+            return;
+        for (int i : forbiddenPrefs) {
+            searchForAndRemovePreference(screen, r.getString(i));
+        }
+    }
+
+    private static boolean searchForAndRemovePreference(PreferenceGroup group, String key) {
+        int preferenceCount = group.getPreferenceCount();
+        for (int i = 0; i < preferenceCount; i++) {
+            final Preference preference = group.getPreference(i);
+            final String curKey = preference.getKey();
+
+            if (curKey != null && curKey.equals(key)) {
+                group.removePreference(preference);
+                return true;
+            }
+
+            if (preference instanceof PreferenceGroup) {
+                if (searchForAndRemovePreference((PreferenceGroup) preference, key)) {
+                    return true;
+                }
+            }
+        }
+        return false;
     }
 
     /** Show about dialog */

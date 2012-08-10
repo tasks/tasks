@@ -8,6 +8,8 @@ package com.todoroo.astrid.service;
 import android.content.Intent;
 import android.net.Uri;
 
+import com.timsu.astrid.R;
+
 public abstract class MarketStrategy {
 
     /**
@@ -35,6 +37,10 @@ public abstract class MarketStrategy {
      */
     public boolean showAddonMenu() {
         return true;
+    }
+
+    public int[] excludedSettings() {
+        return null;
     }
 
     /**
@@ -92,6 +98,17 @@ public abstract class MarketStrategy {
                 android.os.Build.MODEL.contains("Kindle"); //$NON-NLS-1$
         }
 
+        @Override
+        public int[] excludedSettings() {
+            return new int[] {
+                R.string.p_theme_widget,
+                R.string.p_voicePrefSection,
+                R.string.p_end_at_deadline,
+                R.string.p_swipe_lists_performance_key,
+                R.string.p_field_missed_calls
+            };
+        }
+
     }
 
     public static class NookMarketStrategy extends MarketStrategy {
@@ -116,6 +133,17 @@ public abstract class MarketStrategy {
         @Override
         public boolean allowIdeasTab() {
             return false;
+        }
+
+        @Override
+        public int[] excludedSettings() {
+            return new int[] {
+                R.string.p_theme_widget,
+                R.string.p_voicePrefSection,
+                R.string.p_end_at_deadline,
+                R.string.p_swipe_lists_performance_key,
+                R.string.p_field_missed_calls
+            };
         }
 
     }
