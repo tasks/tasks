@@ -118,9 +118,9 @@ public class TaskListActivity extends AstridActivity implements MainMenuListener
         public void onClick(View v) {
             if (fragmentLayout == LAYOUT_DOUBLE) {
                 View container = findViewById(R.id.taskedit_fragment_container);
-                View separator = findViewById(R.id.edit_separator);
+                if (getTaskEditFragment() != null)
+                    return;
                 container.setVisibility(container.getVisibility() == View.VISIBLE ? View.GONE : View.VISIBLE);
-                separator.setVisibility(container.getVisibility());
                 commentsVisible = container.getVisibility() == View.VISIBLE;
             } else {
                 // In this case we should be in LAYOUT_SINGLE--delegate to the task list fragment

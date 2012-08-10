@@ -30,27 +30,19 @@
 	    android:layout_height="match_parent"
 	    android:layout_weight="40"
 	    android:orientation="vertical">
-	  <!-- Task Edit -->
-	    <FrameLayout
-	        android:layout_width="match_parent"
-	        android:layout_height="match_parent"
-	        android:layout_weight="50"
-	        android:id="@+id/taskedit_fragment_container"
-	        android:visibility="gone" />
-		
-	    <View
-	        android:id="@+id/edit_separator"
-	        android:layout_height="1px"
-	        android:layout_width="match_parent"
-	        android:background="?attr/asSeparatorBackground"
-	        android:visibility="gone"/>
+        <!-- Task List -->
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="50"
+            android:id="@+id/tasklist_fragment_container" />	    
 	    
-	    <!-- Task List -->
+        <!-- Task Edit -->
 		<FrameLayout
-		    android:layout_width="match_parent"
-		    android:layout_height="match_parent"
-	        android:layout_weight="50"
-	        android:id="@+id/tasklist_fragment_container" />
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/taskedit_fragment_container"
+            android:visibility="gone" />
 	  
     </LinearLayout>
   
