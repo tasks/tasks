@@ -14,7 +14,7 @@ a2po $* --android astrid/res --gettext astrid/locales --groups strings --ignore-
 a2po $* --android api/res --gettext api/locales --groups strings --ignore-fuzzy --template api.pot
 
 # remove unused lp translations
-UNUSED=( ar bg el en-rGB eo et eu fi fo gl hr hu id ka lt ml oc ro sl ta uk vi )
+UNUSED=( ar bg el en-rGB eo et eu fi fo gl hi hr hu id ka lt ml oc ro sk sl ta uk vi )
 for LANG in "${UNUSED[@]}"; do
   rm -rf astrid/res/values-$LANG api/res/values-$LANG
 done
