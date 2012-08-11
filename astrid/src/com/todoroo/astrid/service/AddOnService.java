@@ -7,9 +7,7 @@ package com.todoroo.astrid.service;
 
 import java.util.ArrayList;
 
-import android.app.Activity;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.res.Resources;
 import android.graphics.drawable.BitmapDrawable;
 
@@ -58,29 +56,6 @@ public class AddOnService {
             return true;
         return false;
     }
-
-    /**
-     * Takes users to the market
-     *
-     * @author Tim Su <tim@todoroo.com>
-     *
-     */
-    public static class MarketClickListener implements DialogInterface.OnClickListener {
-        private final Context context;
-        private final String packageName;
-
-        public MarketClickListener(Context activity, String packageName) {
-            this.context = activity;
-            this.packageName = packageName;
-        }
-
-        @Override
-        public void onClick(DialogInterface arg0, int arg1) {
-            context.startActivity(Constants.MARKET_STRATEGY.generateMarketLink(packageName));
-            if(context instanceof Activity)
-                ((Activity)context).finish();
-        }
-    };
 
     /**
      * Record that a version was an OEM install

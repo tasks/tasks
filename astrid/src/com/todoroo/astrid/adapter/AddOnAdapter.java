@@ -128,14 +128,19 @@ public class AddOnAdapter extends ArrayAdapter<AddOn> {
             viewHolder.market.setVisibility(View.VISIBLE);
             viewHolder.installedIcon.setVisibility(View.GONE);
             Intent marketIntent = Constants.MARKET_STRATEGY.generateMarketLink(item.getPackageName());
-            viewHolder.market.setTag(new ButtonTag("market-" + item.getPackageName(), //$NON-NLS-1$
-                    marketIntent));
-            Drawable icon = getIntentIcon(marketIntent);
-            if(icon == null)
-                viewHolder.market.setImageResource(
-                        android.R.drawable.stat_sys_download);
-            else
-                viewHolder.market.setImageDrawable(icon);
+            if (marketIntent == null) {
+                convertView.setVisibility(View.GONE);
+            } else {
+                convertView.setVisibility(View.VISIBLE);
+                viewHolder.market.setTag(new ButtonTag("market-" + item.getPackageName(), //$NON-NLS-1$
+                        marketIntent));
+                Drawable icon = getIntentIcon(marketIntent);
+                if(icon == null)
+                    viewHolder.market.setImageResource(
+                            android.R.drawable.stat_sys_download);
+                else
+                    viewHolder.market.setImageDrawable(icon);
+            }
         }
     }
 

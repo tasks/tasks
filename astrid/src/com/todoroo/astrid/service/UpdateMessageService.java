@@ -196,7 +196,8 @@ public class UpdateMessageService {
             PackageInfo pi = pm.getPackageInfo(Constants.PACKAGE, PackageManager.GET_META_DATA);
             int versionCode = pi.versionCode;
             String result = restClient.get(URL + "?version=" + versionCode + "&" +
-                    "language=" + Locale.getDefault().getISO3Language()); //$NON-NLS-1$
+                    "language=" + Locale.getDefault().getISO3Language() + "&" +
+                    "market=" + Constants.MARKET_STRATEGY.strategyId()); //$NON-NLS-1$
             if(TextUtils.isEmpty(result))
                 return null;
 

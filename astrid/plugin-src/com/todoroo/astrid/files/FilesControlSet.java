@@ -298,6 +298,8 @@ public class FilesControlSet extends PopupControlSet {
             public void onClick(DialogInterface d, int which) {
                 Intent marketIntent = Constants.MARKET_STRATEGY.generateMarketLink(packageName);
                 try {
+                    if (marketIntent == null)
+                        throw new ActivityNotFoundException("No market link supplied"); //$NON-NLS-1$
                     activity.startActivity(marketIntent);
                 } catch (ActivityNotFoundException anf) {
                     DialogUtilities.okDialog(activity,

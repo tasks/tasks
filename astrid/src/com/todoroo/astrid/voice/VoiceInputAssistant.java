@@ -296,6 +296,8 @@ public class VoiceInputAssistant {
         Intent marketIntent = Constants.MARKET_STRATEGY.generateMarketLink(packageName);
         if (activity != null) {
             try {
+                if (marketIntent == null)
+                    throw new ActivityNotFoundException("No market link supplied"); //$NON-NLS-1$
                 activity.startActivity(marketIntent);
             } catch (ActivityNotFoundException ane) {
                 DialogUtilities.okDialog(activity,

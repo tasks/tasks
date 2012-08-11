@@ -18,6 +18,8 @@ public abstract class MarketStrategy {
      */
     abstract public Intent generateMarketLink(String packageName);
 
+    abstract public String strategyId();
+
     /**
      * @return if this market has power pack
      */
@@ -50,6 +52,18 @@ public abstract class MarketStrategy {
         return true;
     }
 
+    public static class NoMarketStrategy extends MarketStrategy {
+        @Override
+        public Intent generateMarketLink(String packageName) {
+            return null;
+        }
+
+        @Override
+        public String strategyId() {
+            return "no_market"; //$NON-NLS-1$
+        }
+    }
+
     public static class AndroidMarketStrategy extends MarketStrategy {
 
         @Override
@@ -57,6 +71,11 @@ public abstract class MarketStrategy {
             return new Intent(Intent.ACTION_VIEW,
                     Uri.parse("market://search?q=pname:" + //$NON-NLS-1$
                             packageName));
+        }
+
+        @Override
+        public String strategyId() {
+            return "android_market"; //$NON-NLS-1$
         }
 
     }
@@ -67,6 +86,11 @@ public abstract class MarketStrategy {
         public Intent generateMarketLink(String packageName) {
             return new Intent(Intent.ACTION_VIEW,
                     Uri.parse("http://weloveastrid.com/store")); //$NON-NLS-1$
+        }
+
+        @Override
+        public String strategyId() {
+            return "web_market"; //$NON-NLS-1$
         }
 
     }
@@ -109,6 +133,11 @@ public abstract class MarketStrategy {
             };
         }
 
+        @Override
+        public String strategyId() {
+            return "amazon_market"; //$NON-NLS-1$
+        }
+
     }
 
     public static class NookMarketStrategy extends MarketStrategy {
@@ -144,6 +173,11 @@ public abstract class MarketStrategy {
                 R.string.p_swipe_lists_performance_key,
                 R.string.p_field_missed_calls
             };
+        }
+
+        @Override
+        public String strategyId() {
+            return "nook_market"; //$NON-NLS-1$
         }
 
     }
