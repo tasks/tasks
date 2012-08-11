@@ -74,7 +74,7 @@
   <string name="SyP_label">동기화</string>
   <string name="SyP_ioerror">연결 오류! 인터넷 연결을 확인하세요.</string>
   <string name="sync_SPr_group_status">상태</string>
-  <string name="sync_status_loggedout">로그인 되지 않았습니다!</string>
+  <string name="sync_status_loggedout">로그인 되지 않았습니다</string>
   <string name="sync_status_ongoing">동기화 진행중...</string>
   <string name="sync_status_success">마지막 동기화: \n%s</string>
   <string name="sync_status_failed">실패: %s</string>
@@ -89,22 +89,26 @@
   <string name="sync_SPr_bgwifi_desc_enabled">백그라운드 동기화는 WiFi 지역에서만 작동합니다.</string>
   <string name="sync_SPr_bgwifi_desc_disabled">백그라운드 동기화는 항상 작동합니다.</string>
   <string name="sync_SPr_group_actions">작업</string>
-  <string name="sync_SPr_sync">동기화 시작!</string>
+  <string name="sync_SPr_sync">동기화 시작</string>
   <string name="sync_SPr_sync_log_in">로그인 &amp; 동기화!</string>
   <string name="sync_SPr_logged_in_prefix">Logged in as:</string>
+  <string name="sync_SPr_last_error">Status Report</string>
+  <string name="sync_SPr_last_error_subtitle">Click to send a report to the Astrid team</string>
+  <string name="sync_SPr_send_report">Send Report</string>
   <string name="sync_SPr_forget">로그아웃</string>
   <string name="sync_SPr_forget_description">모든 동기화 데이터 삭제</string>
   <string name="sync_forget_confirm">로그아웃 / 모든 동기화 데이터 삭제?</string>
+  <string name="sync_error_offline">There was a problem connecting to the network during the last sync with %s. Please try again later.</string>
   <string-array name="sync_SPr_interval_entries">
     <item>사용안함</item>
-    <item>매 15분 마다</item>
-    <item>매 30분마다</item>
+    <item>15분 마다</item>
+    <item>30분마다</item>
     <item>매 시간</item>
-    <item>매 3시간마다</item>
-    <item>매 6시간마다</item>
-    <item>매 12시간마다</item>
+    <item>3시간마다</item>
+    <item>6시간마다</item>
+    <item>12시간마다</item>
     <item>매일</item>
-    <item>매 3일마다</item>
-    <item>매주</item>
+    <item>3일마다</item>
+    <item>일주일 마다</item>
   </string-array>
 </resources>
