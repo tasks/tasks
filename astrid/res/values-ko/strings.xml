@@ -51,7 +51,7 @@
   <string name="actfm_EPA_task_rabbit">Outsource it!</string>
   <string name="actfm_EPA_assign_custom">사용자 정의...</string>
   <string name="actfm_EPA_share_with">Share with:</string>
-  <string name="actfm_EPA_assigned_toast">Sent to %1$s (you can see it in the list between you and %2$s).</string>
+
   <string name="actfm_EPA_collaborators_header">친구들과 공유하기</string>
   <string name="actfm_EPA_list">리스트: %s</string>
   <string name="actfm_EPA_assigned_hint">연락처</string>

@@ -51,7 +51,7 @@
   <string name="actfm_EPA_task_rabbit">העבר למיקור חוץ!</string>
   <string name="actfm_EPA_assign_custom">מותאם...</string>
   <string name="actfm_EPA_share_with">שתף עם:</string>
-  <string name="actfm_EPA_assigned_toast">נשלח ל%1$s (תוכל לראות זאת ברשימה השיתופים עם %2$s).</string>
+
   <string name="actfm_EPA_collaborators_header">שתף עם חברים</string>
   <string name="actfm_EPA_list">רשימה: %s</string>
   <string name="actfm_EPA_assigned_hint">שם איש הקשר</string>
