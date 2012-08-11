@@ -1015,7 +1015,7 @@
   </string-array>
   <string name="repeat_detail_byday">$I en $D</string>
   <string name="repeat_detail_duedate">Cada %s</string>
-  <string name="repeat_detail_duedate_until">Cada %1s\nhasta %2s</string>
+  <string name="repeat_detail_duedate_until">Cada %1$s\nhasta %2$s</string>
   <string name="repeat_detail_completion">%s después de la finalización</string>
   <string name="repeat_forever">Repetir por siempre</string>
   <string name="repeat_until">Repetir hasta %s</string>
