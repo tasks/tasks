@@ -74,7 +74,8 @@
   <string name="SyP_label">Sincronização</string>
   <string name="SyP_ioerror">Connection Error! Check your Internet connection.</string>
   <string name="sync_SPr_group_status">Estado</string>
-  <string name="sync_status_loggedout">Not Logged In!</string>
+  <string name="sync_SPr_status_subtitle">Status: %s</string>
+  <string name="sync_status_loggedout">Not Logged In</string>
   <string name="sync_status_ongoing">Sync Ongoing...</string>
   <string name="sync_status_success">Last Sync:\n%s</string>
   <string name="sync_status_failed">Failed On: %s</string>
@@ -89,12 +90,16 @@
   <string name="sync_SPr_bgwifi_desc_enabled">Background synchronization only happens when on Wifi</string>
   <string name="sync_SPr_bgwifi_desc_disabled">Background synchronization will always occur</string>
   <string name="sync_SPr_group_actions">Acções</string>
-  <string name="sync_SPr_sync">Sincronizar Agora!</string>
+  <string name="sync_SPr_sync">Synchronize Now</string>
   <string name="sync_SPr_sync_log_in">Log In &amp; Synchronize!</string>
   <string name="sync_SPr_logged_in_prefix">Logged in as:</string>
+  <string name="sync_SPr_last_error">Status Report</string>
+  <string name="sync_SPr_last_error_subtitle">Click to send a report to the Astrid team</string>
+  <string name="sync_SPr_send_report">Send Report</string>
   <string name="sync_SPr_forget">Terminar sessão</string>
   <string name="sync_SPr_forget_description">Clears all synchronization data</string>
   <string name="sync_forget_confirm">Log out / clear synchronization data?</string>
+  <string name="sync_error_offline">There was a problem connecting to the network during the last sync with %s. Please try again later.</string>
   <string-array name="sync_SPr_interval_entries">
     <item>desactivar</item>
     <item>every fifteen minutes</item>

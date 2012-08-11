@@ -55,8 +55,8 @@
   <string name="today">Vandaag</string>
   <string name="tomorrow">Morgen</string>
   <string name="yesterday">Gisteren</string>
-  <string name="tmrw">Tmrw</string>
-  <string name="yest">Yest</string>
+  <string name="tmrw">mrgn</string>
+  <string name="yest">gisteren</string>
   <string name="DLG_confirm_title">OK?</string>
   <string name="DLG_question_title">Vraag:</string>
   <string name="DLG_information_title">Informatie</string>
@@ -74,7 +74,8 @@
   <string name="SyP_label">Synchronisatie</string>
   <string name="SyP_ioerror">Verbindingsfout! Controleer de internetverbinding</string>
   <string name="sync_SPr_group_status">Status</string>
-  <string name="sync_status_loggedout">Niet aangemeld!</string>
+  <string name="sync_SPr_status_subtitle">Status: %s</string>
+  <string name="sync_status_loggedout">Niet aangemeld</string>
   <string name="sync_status_ongoing">Synchronisatie bezig...</string>
   <string name="sync_status_success">Vorige:\n%s</string>
   <string name="sync_status_failed">Mislukt op: %s</string>
@@ -89,12 +90,16 @@
   <string name="sync_SPr_bgwifi_desc_enabled">Achtergrond synchronisatie alleen met WiFi aan</string>
   <string name="sync_SPr_bgwifi_desc_disabled">Achtergrond synchronisatie altijd aan</string>
   <string name="sync_SPr_group_actions">Acties</string>
-  <string name="sync_SPr_sync">Synchroniseren</string>
+  <string name="sync_SPr_sync">Nu synchroniseren</string>
   <string name="sync_SPr_sync_log_in">Aanmelden &amp; Sync.</string>
   <string name="sync_SPr_logged_in_prefix">Aangemeld als:</string>
+  <string name="sync_SPr_last_error">Statusrapport</string>
+  <string name="sync_SPr_last_error_subtitle">Klik om een rapport naar het Astrid team te versturen</string>
+  <string name="sync_SPr_send_report">Rapport verzenden</string>
   <string name="sync_SPr_forget">Afmelden</string>
   <string name="sync_SPr_forget_description">Alle synchronisatie gegevens verwijderen</string>
   <string name="sync_forget_confirm">Afmelden / synchronisatie gegevens verwijderen?</string>
+  <string name="sync_error_offline">Er was een probleem met de netwerkverbinding tijdens de laatste synchronisatie met %s. Probeer het a.u.b. later nog eens.</string>
   <string-array name="sync_SPr_interval_entries">
     <item>uitschakelen</item>
     <item>elke 15 min.</item>

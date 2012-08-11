@@ -5,44 +5,44 @@
     <item quantity="other">%d anos</item>
   </plurals>
   <plurals name="DUt_months">
-    <item quantity="one">1 Mês</item>
+    <item quantity="one">1 mês</item>
     <item quantity="other">%d meses</item>
   </plurals>
   <plurals name="DUt_weeks">
-    <item quantity="one">1 Semana</item>
-    <item quantity="other">%d Semanas</item>
+    <item quantity="one">1 semana</item>
+    <item quantity="other">%d semanas</item>
   </plurals>
   <plurals name="DUt_days">
-    <item quantity="one">1 Dia</item>
-    <item quantity="other">%d Dias</item>
+    <item quantity="one">1 dia</item>
+    <item quantity="other">%d dias</item>
   </plurals>
   <plurals name="DUt_weekdays">
     <item quantity="one">1 dia útil</item>
     <item quantity="other">%d dias úteis</item>
   </plurals>
   <plurals name="DUt_hours">
-    <item quantity="one">1 Hora</item>
-    <item quantity="other">%d Horas</item>
+    <item quantity="one">1 hora</item>
+    <item quantity="other">%d horas</item>
   </plurals>
   <plurals name="DUt_minutes">
-    <item quantity="one">1 Minuto</item>
+    <item quantity="one">1 minuto</item>
     <item quantity="other">%d minutos</item>
   </plurals>
   <plurals name="DUt_seconds">
-    <item quantity="one">1 Segundo</item>
-    <item quantity="other">%d Segundos</item>
+    <item quantity="one">1 segundo</item>
+    <item quantity="other">%d segundos</item>
   </plurals>
   <plurals name="DUt_hoursShort">
-    <item quantity="one">1 h.</item>
-    <item quantity="other">%d hs.</item>
+    <item quantity="one">1 h</item>
+    <item quantity="other">%d h</item>
   </plurals>
   <plurals name="DUt_minutesShort">
-    <item quantity="one">1 min.</item>
-    <item quantity="other">%d mins.</item>
+    <item quantity="one">1 min</item>
+    <item quantity="other">%d min</item>
   </plurals>
   <plurals name="DUt_secondsShort">
-    <item quantity="one">1 seg.</item>
-    <item quantity="other">%d seg.</item>
+    <item quantity="one">1 s</item>
+    <item quantity="other">%d s</item>
   </plurals>
   <plurals name="Ntasks">
     <item quantity="one">1 tarefa</item>
@@ -56,8 +56,8 @@
   <string name="tomorrow">Amanhã</string>
   <string name="yesterday">Ontem</string>
   <string name="tmrw">amanhã</string>
-  <string name="yest">hj</string>
-  <string name="DLG_confirm_title">Confirmado?</string>
+  <string name="yest">ontem</string>
+  <string name="DLG_confirm_title">Confirmar?</string>
   <string name="DLG_question_title">Pergunta:</string>
   <string name="DLG_information_title">Informações</string>
   <string name="DLG_error_title">Erro!</string>
@@ -72,31 +72,36 @@
   <string name="SyP_progress">Sincronizando suas tarefas...</string>
   <string name="SyP_progress_toast">Sincronizando...</string>
   <string name="SyP_label">Sincronização</string>
-  <string name="SyP_ioerror">Erro na Conexão! Verifique sua conexão com a internet.</string>
-  <string name="sync_SPr_group_status">Estado</string>
-  <string name="sync_status_loggedout">Desconectado!</string>
+  <string name="SyP_ioerror">Erro de conexão! Verifique sua conexão com a internet.</string>
+  <string name="sync_SPr_group_status">Status</string>
+  <string name="sync_SPr_status_subtitle">Status: %s</string>
+  <string name="sync_status_loggedout">Não Registrado</string>
   <string name="sync_status_ongoing">Sincronizando...</string>
-  <string name="sync_status_success">Sincronizado em:\n%s</string>
-  <string name="sync_status_failed">Falhou Em: %s</string>
-  <string name="sync_status_errors">Sincronização falhou: %s</string>
-  <string name="sync_status_failed_subtitle">Última Sincronização com Sucesso: %s</string>
-  <string name="sync_status_never">Nunca Sincronizado!</string>
+  <string name="sync_status_success">Última sincronização:\n%s</string>
+  <string name="sync_status_failed">Falhou em: %s</string>
+  <string name="sync_status_errors">Sicronizou com erros: %s</string>
+  <string name="sync_status_failed_subtitle">Última sincronização com sucesso: %s</string>
+  <string name="sync_status_never">Nunca sincronizado!</string>
   <string name="sync_SPr_group_options">Opções</string>
-  <string name="sync_SPr_interval_title">Serviço de sincronização</string>
+  <string name="sync_SPr_interval_title">Sincronização em segundo plano</string>
   <string name="sync_SPr_interval_desc_disabled">O serviço de sincronização em segundo plano está desativado</string>
   <string name="sync_SPr_interval_desc">Atualmente definido para: %s</string>
   <string name="sync_SPr_bgwifi_title">Configuração Somente Wifi</string>
-  <string name="sync_SPr_bgwifi_desc_enabled">A sincronização ocorrerá somente se conectado ao Wifi</string>
-  <string name="sync_SPr_bgwifi_desc_disabled">O serviço de sincronização fica ativo o tempo todo</string>
+  <string name="sync_SPr_bgwifi_desc_enabled">Sincronização em segundo plano só ocorre se conectado ao Wifi</string>
+  <string name="sync_SPr_bgwifi_desc_disabled">Sincronização em segundo plano sempre ocorre</string>
   <string name="sync_SPr_group_actions">Ações</string>
-  <string name="sync_SPr_sync">Sincronizar Agora!</string>
-  <string name="sync_SPr_sync_log_in">Log In e Sincronizar!</string>
+  <string name="sync_SPr_sync">Sincronizar agora</string>
+  <string name="sync_SPr_sync_log_in">Conectar e sincronizar!</string>
   <string name="sync_SPr_logged_in_prefix">Conectado como:</string>
+  <string name="sync_SPr_last_error">Relatório de status</string>
+  <string name="sync_SPr_last_error_subtitle">Clique para enviar um relatório para a equipe do Astrid</string>
+  <string name="sync_SPr_send_report">Enviar relatório</string>
   <string name="sync_SPr_forget">Desconectar</string>
-  <string name="sync_SPr_forget_description">Limpar dados de sincronização</string>
-  <string name="sync_forget_confirm">Encerrar sessão / apagar dados de sincronização?</string>
+  <string name="sync_SPr_forget_description">Limpar todos os dados de sincronização</string>
+  <string name="sync_forget_confirm">Desconectar / limpar dados de sincronização?</string>
+  <string name="sync_error_offline">Houve um problema na conexão durante a última sincronia com %s. Por favor tente novamente mais tarde.</string>
   <string-array name="sync_SPr_interval_entries">
-    <item>desativar</item>
+    <item>desabilitar</item>
     <item>a cada quinze minutos</item>
     <item>a cada trinta minutos</item>
     <item>a cada hora</item>

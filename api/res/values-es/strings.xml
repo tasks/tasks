@@ -74,6 +74,7 @@
   <string name="SyP_label">Sincronización</string>
   <string name="SyP_ioerror">¡Error de conexión! Compruebe su conexión a Internet.</string>
   <string name="sync_SPr_group_status">Estado</string>
+  <string name="sync_SPr_status_subtitle">Estado: %s</string>
   <string name="sync_status_loggedout">No ha iniciado sesión</string>
   <string name="sync_status_ongoing">Sincronización en curso...</string>
   <string name="sync_status_success">Última sincronización:\n%s</string>
@@ -89,12 +90,16 @@
   <string name="sync_SPr_bgwifi_desc_enabled">La sincronización en segundo plano sólo funciona con el Wifi activado</string>
   <string name="sync_SPr_bgwifi_desc_disabled">La sincronización en segundo plano funciona siempre</string>
   <string name="sync_SPr_group_actions">Acciones</string>
-  <string name="sync_SPr_sync">¡Sincronizar ahora!</string>
+  <string name="sync_SPr_sync">Sincronizar ahora</string>
   <string name="sync_SPr_sync_log_in">¡Iniciar sesión y sincronizar!</string>
   <string name="sync_SPr_logged_in_prefix">Sesión iniciada como:</string>
+  <string name="sync_SPr_last_error">Reporte de Estado</string>
+  <string name="sync_SPr_last_error_subtitle">Click para enviar un reporte al equipo de Astrid</string>
+  <string name="sync_SPr_send_report">Enviar Reporte</string>
   <string name="sync_SPr_forget">Cerrar sesión</string>
   <string name="sync_SPr_forget_description">Limpia todos los datos de sincronización</string>
   <string name="sync_forget_confirm">Cerrar sesión / ¿limpiar datos de sincronización?</string>
+  <string name="sync_error_offline">Ha ocurrido un problema conectando a la red durante la última sincronización con %s. Por favor inténtelo nuevamente después.</string>
   <string-array name="sync_SPr_interval_entries">
     <item>desactivar</item>
     <item>cada quince minutos</item>
