@@ -29,6 +29,7 @@ import com.todoroo.astrid.data.AddOn;
 import com.todoroo.astrid.service.AddOnService;
 import com.todoroo.astrid.service.AstridDependencyInjector;
 import com.todoroo.astrid.service.ThemeService;
+import com.todoroo.astrid.utility.Constants;
 
 /**
  * TODO: fix deprecation or get rid of me
@@ -129,13 +130,14 @@ public class AddOnActivity extends FragmentActivity {
             if (AddOnService.POWER_PACK_PACKAGE.equals(addOn.getPackageName())) {
                 if (addOnService.hasPowerPack())
                     installed.add(addOn);
-                else
+                else if (Constants.MARKET_STRATEGY.generateMarketLink(addOn.getPackageName()) != null)
                     available.add(addOn);
             } else {
                 if(addOnService.isInstalled(addOn))
                     installed.add(addOn);
-                else
+                else if (Constants.MARKET_STRATEGY.generateMarketLink(addOn.getPackageName()) != null)
                     available.add(addOn);
+
             }
         }
 
