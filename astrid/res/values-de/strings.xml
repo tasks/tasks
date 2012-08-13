@@ -1075,7 +1075,7 @@
   <string name="tag_cm_rename">Liste umbenennen</string>
   <string name="tag_cm_delete">Liste löschen</string>
   <string name="tag_cm_leave">Liste verlassen</string>
-  <string name="DLG_delete_this_tag_question">Diese Liste löschen: %s ? (Es werden keine Aufgaben werden gelöscht.)</string>
+  <string name="DLG_delete_this_tag_question">Diese Liste löschen: %s ? (Es werden keine Aufgaben gelöscht.)</string>
   <string name="DLG_leave_this_shared_tag_question">Geteilte Liste \"%s\" verlassen? (Aufgaben werden nicht gelöscht)</string>
   <string name="DLG_rename_this_tag_header">Die Liste %s umbnennen nach:</string>
   <string name="TEA_no_tags_modified">Es gibt keine Änderungen</string>
@@ -1096,14 +1096,14 @@
   <string name="TEA_timer_comment_started">Aufgabe begonnen:</string>
   <string name="TEA_timer_comment_stopped">Bearbeitung abgebrochen:</string>
   <string name="TEA_timer_comment_spent">Benötigte Zeit:</string>
-  <string name="update_string_friends">%1$s ist jetzt Freund mit %2$s</string>
+  <string name="update_string_friends">%1$s ist jetzt mit %2$s befreundet</string>
   <string name="update_string_request_friendship">Freundschaftsanfrage von %1$s</string>
   <string name="update_string_confirmed_friendship">%1$s hat deine Freundschaftsanfrage bestätigt</string>
   <string name="update_string_task_created">%1$s hat diese Aufgabe angelegt</string>
   <string name="update_string_task_created_global">%1$s hat $link_task erstellt</string>
   <string name="update_string_task_created_on_list">%1$s hat $link_task dieser Liste hinzugefügt</string>
   <string name="update_string_task_completed">Hurra, %1$s hat $link_task fertiggestellt</string>
-  <string name="update_string_task_uncompleted">%1$s hat $link_task wiedereröffnet</string>
+  <string name="update_string_task_uncompleted">%1$s hat $link_task wieder geöffnet</string>
   <string name="update_string_task_tagged">%1$s hat $link_task zu %4$s hinzugefügt</string>
   <string name="update_string_task_tagged_list">%1$s hat $link_task dieser Liste hinzugefügt</string>
   <string name="update_string_task_assigned">%1$s hat $link_task %4$s zugeordnet</string>
@@ -1128,7 +1128,7 @@
   <string name="EPr_voiceRemindersEnabled_desc_enabled">Astrid wird Aufgabennamen bei der Erinnerung aussprechen</string>
   <string name="EPr_voiceRemindersEnabled_desc_disabled">Astrid wird bei der Erinnerung einen Klingelton abspielen</string>
   <string name="EPr_voice_header">Sprachfunktionen</string>
-  <string name="welcome_show_eula">Akzeptieren Sie EULE um zu starten!</string>
+  <string name="welcome_show_eula">Akzeptieren Sie EULA um zu starten!</string>
   <string name="welcome_setting">Einführung anzeigen</string>
   <string name="welcome_title_1">Willkommen zu Astrid</string>
   <string name="welcome_title_2">Erstelle Listen</string>
@@ -1142,7 +1142,7 @@
   <string name="welcome_body_2">In Listen erfassen: \nzu lesen, zu sehen, zu kaufen, zu besuchen!</string>
   <string name="welcome_body_3">Teilen Sie Listen mit\nFreunden, Mitbewohnern\noder Ihrem Partner!</string>
   <string name="welcome_body_4">Listen freigeben für\nFreunde, Haushaltshilfen\noder deine/deinen Liebsten!</string>
-  <string name="welcome_body_5">and much more!</string>
+  <string name="welcome_body_5">und vieles mehr!</string>
   <string name="welcome_body_6">Zum Hinzufügen von Notizen anklicken\nErinnerungen einstellen\nund vieles mehr!</string>
   <string name="welcome_body_7">Anmelden</string>
   <string name="welcome_body_7_return">Berühren Sie Astrid\num zurückzukehren.</string>
