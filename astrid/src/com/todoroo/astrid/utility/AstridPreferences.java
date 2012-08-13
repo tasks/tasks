@@ -64,7 +64,6 @@ public class AstridPreferences {
         Preferences.setIfUnset(prefs, editor, r, R.string.p_field_missed_calls, true);
 
         Preferences.setIfUnset(prefs, editor, r, R.string.p_third_party_addons, false);
-        Preferences.setIfUnset(prefs, editor, r, R.string.p_ideas_tab_enabled, true);
         Preferences.setIfUnset(prefs, editor, r, R.string.p_end_at_deadline, true);
 
         Preferences.setIfUnset(prefs, editor, r, R.string.p_rmd_persistent,
@@ -75,6 +74,7 @@ public class AstridPreferences {
             Preferences.setString(BeastModePreferences.BEAST_MODE_ORDER_PREF,
                     BeastModePreferences.getSimpleEditOrderForABTest(context));
         }
+        Preferences.setIfUnset(prefs, editor, r, R.string.p_ideas_tab_enabled, !simpleEdit);
 
         if ("white-blue".equals(Preferences.getStringValue(R.string.p_theme))) { //$NON-NLS-1$ migrate from when white-blue wasn't the default
             Preferences.setString(R.string.p_theme, ThemeService.THEME_WHITE);

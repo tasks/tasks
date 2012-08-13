@@ -331,7 +331,7 @@ public class EditNoteActivity extends LinearLayout implements TimerActionListene
                     LayoutParams.WRAP_CONTENT));
             noUpdates.setPadding(10, 10, 10, 10);
             noUpdates.setGravity(Gravity.CENTER);
-            noUpdates.setTextSize(20);
+            noUpdates.setTextSize(16);
             this.addView(noUpdates);
         }
 
