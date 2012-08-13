@@ -217,13 +217,11 @@ public final class UpgradeService {
 
         if (from >= V4_2_0 && from < V4_2_5) {
             newVersionString(changeLog, "4.2.5 (8/13/12)", new String[] {
-               "Fixed bugs with task attachment syncing for premium users",
-               "Minor tablet layout polish",
-               "Added ability to hide sections from the task edit page",
-               "Fixed some bugs when adding tasks to calendar",
-               "Calendar events now start at task due time by default",
+               "Improved tablet UX",
+               "More customizable task edit screen",
+               "Add to calendar now starts at task due time (by default)",
                "Updated translations for several languages",
-               "Other minor fixes and polish"
+               "Numerous bug fixes"
             });
         }
 
