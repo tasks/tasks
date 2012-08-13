@@ -54,7 +54,7 @@
   </target>
 
   <target name="release-nomarket" depends="get-version">
-    <subant>
+    <subant target="release-custom">
       <fileset file="astrid/build.xml" />
       <property name="custom.version.name" value="-nomarket" />
       <property name="custom.market.strategy" value="NoMarketStrategy" />
