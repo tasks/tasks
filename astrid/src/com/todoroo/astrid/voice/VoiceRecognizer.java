@@ -77,7 +77,7 @@ public class VoiceRecognizer {
     }
 
     public void startVoiceRecognition(Context context, String currentVoiceFile) {
-        if (speechRecordingAvailable(context)) {
+        if (speechRecordingAvailable(context) && recognizerApi != null) {
             recognizerApi.setTemporaryFile(currentVoiceFile);
             recognizerApi.start();
         } else {
