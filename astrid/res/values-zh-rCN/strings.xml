@@ -1137,6 +1137,12 @@
   <string name="file_err_copy">复制文件添加附件时出错</string>
   <string name="file_err_download">下载文件时出错</string>
   <string name="file_err_show">对不起，系统尚未支持这种类型的文件</string>
+  <string name="p_files_dir">尊贵版下载目录</string>
+  <string name="p_files_dir_desc">文件保存到: %s</string>
+  <string name="p_files_dir_desc_default">默认目录</string>
+  <string name="dir_browser_title">选择目录</string>
+  <string name="file_dir_dialog_ok">使用此目录</string>
+  <string name="file_dir_dialog_default">重置为默认</string>
   <string name="producteev_FEx_header">Producteev</string>
   <string name="producteev_TEA_control_set_display">Producteev 任务分配系统</string>
   <string name="TEA_reminders_group_label">提醒</string>
