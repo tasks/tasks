@@ -46,6 +46,7 @@ import com.todoroo.astrid.utility.AstridPreferences;
 
 public final class UpgradeService {
 
+    public static final int V4_2_5 = 276;
     public static final int V4_2_4 = 275;
     public static final int V4_2_3 = 274;
     public static final int V4_2_2_1 = 273;
@@ -213,6 +214,18 @@ public final class UpgradeService {
 
         Preferences.clear(AstridPreferences.P_UPGRADE_FROM);
         StringBuilder changeLog = new StringBuilder();
+
+        if (from >= V4_2_0 && from < V4_2_5) {
+            newVersionString(changeLog, "4.2.5 (8/13/12)", new String[] {
+               "Fixed bugs with task attachment syncing for premium users",
+               "Minor tablet layout polish",
+               "Added ability to hide sections from the task edit page",
+               "Fixed some bugs when adding tasks to calendar",
+               "Calendar events now start at task due time by default",
+               "Updated translations for several languages",
+               "Other minor fixes and polish"
+            });
+        }
 
         if (from >= V4_2_0 && from < V4_2_4) {
             newVersionString(changeLog, "4.2.4 (7/11/12)", new String[] {
