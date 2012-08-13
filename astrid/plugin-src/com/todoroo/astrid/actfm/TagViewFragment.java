@@ -101,6 +101,8 @@ public class TagViewFragment extends TaskListFragment {
 
     private Filter originalFilter;
 
+    private boolean justDeleted = false;
+
     //private ImageAdapter galleryAdapter;
 
     // --- UI initialization
@@ -465,6 +467,17 @@ public class TagViewFragment extends TaskListFragment {
 
     @Override
     public void onResume() {
+        if (justDeleted) {
+            // tag was deleted locally in settings
+            // go back to active tasks
+            FilterListFragment fl = ((AstridActivity) getActivity()).getFilterListFragment();
+            if (fl != null) {
+                fl.switchToActiveTasks();
+                fl.clear(); // Should auto refresh
+            }
+            return;
+        }
+
         super.onResume();
 
         IntentFilter intentFilter = new IntentFilter(BROADCAST_TAG_ACTIVITY);
@@ -489,13 +502,7 @@ public class TagViewFragment extends TaskListFragment {
                 // This can happen if a tag has been deleted as part of a sync
                 return;
             } else if (tagData.isDeleted()) {
-                // tag was deleted locally in settings
-                // go back to active tasks
-                FilterListFragment fl = ((AstridActivity) getActivity()).getFilterListFragment();
-                if (fl != null) {
-                    fl.switchToActiveTasks();
-                    fl.clear(); // Should auto refresh
-                }
+                justDeleted = true;
                 return;
             }
             filter = TagFilterExposer.filterFromTagData(getActivity(), tagData);
