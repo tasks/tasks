@@ -524,6 +524,7 @@ public class TagSettingsActivity extends FragmentActivity {
 
     protected boolean deleteTag() {
         boolean result = tagService.deleteOrLeaveTag(this, tagData.getValue(TagData.NAME), TagService.SHOW_ACTIVE_TASKS);
+        setResult(Activity.RESULT_OK);
         finish();
         return result;
     }

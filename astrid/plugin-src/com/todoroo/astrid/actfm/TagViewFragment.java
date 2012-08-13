@@ -485,8 +485,19 @@ public class TagViewFragment extends TaskListFragment {
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == REQUEST_CODE_SETTINGS && resultCode == Activity.RESULT_OK) {
             tagData = tagDataService.fetchById(tagData.getId(), TagData.PROPERTIES); // refetch
-            if (tagData == null) // This can happen if a tag has been deleted as part of a sync
+            if (tagData == null) {
+                // This can happen if a tag has been deleted as part of a sync
                 return;
+            } else if (tagData.isDeleted()) {
+                // tag was deleted locally in settings
+                // go back to active tasks
+                FilterListFragment fl = ((AstridActivity) getActivity()).getFilterListFragment();
+                if (fl != null) {
+                    fl.switchToActiveTasks();
+                    fl.clear(); // Should auto refresh
+                }
+                return;
+            }
             filter = TagFilterExposer.filterFromTagData(getActivity(), tagData);
             getActivity().getIntent().putExtra(TOKEN_FILTER, filter);
             extras.putParcelable(TOKEN_FILTER, filter);
