@@ -7,15 +7,15 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2012-08-06 21:19-0700\n"
+"POT-Creation-Date: 2012-08-13 17:20-0700\n"
 "PO-Revision-Date: 2012-07-25 14:49+0000\n"
 "Last-Translator: neal_cz <Unknown>\n"
 "Language-Team: cs <LL@li.org>\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
+"n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2012-08-10 23:41+0000\n"
-"X-Generator: Launchpad (build 15780)\n"
 "Generated-By: Babel 1.0dev\n"
 
 #. ================================================== general terms ==
@@ -47,8 +47,8 @@ msgstr "Tato operace není bohužel se sdílenými tagy zatím podporována."
 #. warning before deleting a list you're the owner of
 msgctxt "actfm_tag_operation_owner_delete"
 msgid ""
-"You are the owner of this shared list! If you delete it, it will be deleted "
-"for all list members. Are you sure you want to continue?"
+"You are the owner of this shared list! If you delete it, it will be "
+"deleted for all list members. Are you sure you want to continue?"
 msgstr ""
 "Jste vlastníkem tohoto sdíleného seznamu! Pokud ho smažete, smaže se i u "
 "všech členů seznamu. Chcete skutečně pokračovat?"
@@ -82,11 +82,11 @@ msgstr ""
 #, c-format
 msgctxt "actfm_view_task_text"
 msgid ""
-"Task was sent to %s! You're currently viewing your own tasks. Do you want to "
-"view this and other tasks you've assigned?"
+"Task was sent to %s! You're currently viewing your own tasks. Do you want"
+" to view this and other tasks you've assigned?"
 msgstr ""
-"%s se stal novým vlastníkem úkolu! Teď si prohlížíte vlastní úkoly. Chcete "
-"vidět úkoly, které jste delegoval(a)?"
+"%s se stal novým vlastníkem úkolu! Teď si prohlížíte vlastní úkoly. "
+"Chcete vidět úkoly, které jste delegoval(a)?"
 
 #. Ok button for task view prompt
 msgctxt "actfm_view_task_ok"
@@ -219,8 +219,8 @@ msgstr "Název seznamu"
 #. Tag settings: login prompt from share
 msgctxt "actfm_TVA_login_to_share"
 msgid ""
-"You need to be logged in to Astrid.com to share lists! Please log in or make "
-"this a private list."
+"You need to be logged in to Astrid.com to share lists! Please log in or "
+"make this a private list."
 msgstr ""
 
 #. ============================================ edit people dialog ==
@@ -282,12 +282,6 @@ msgstr ""
 msgctxt "actfm_EPA_share_with"
 msgid "Share with:"
 msgstr "Přidat spolupracovníky:"
-
-#. Toast when assigning a task
-#, c-format
-msgctxt "actfm_EPA_assigned_toast"
-msgid "Sent to %1$s (you can see it in the list between you and %2$s)."
-msgstr ""
 
 #. task sharing dialog: shared with label
 msgctxt "actfm_EPA_collaborators_header"
@@ -393,8 +387,8 @@ msgid ""
 "Astrid.com lets you access your tasks online, share, and delegate with "
 "others."
 msgstr ""
-"Díky Astrid.com můžete k úkolům přistupovat online nebo je můžete sdílet s "
-"ostatníma."
+"Díky Astrid.com můžete k úkolům přistupovat online nebo je můžete sdílet "
+"s ostatníma."
 
 #. share login: Sharing Login FB Prompt
 msgctxt "actfm_ALA_fb_login"
@@ -516,8 +510,8 @@ msgid ""
 "synchronizing with both services can in some cases lead to unexpected "
 "results. Are you sure you want to sync with Astrid.com?"
 msgstr ""
-"Synchronizujete úkoly s Google Tasks. Berte na vědomí, že synchronizace s "
-"oběma službami může v některých případech vést k nečekaným důsledkům. "
+"Synchronizujete úkoly s Google Tasks. Berte na vědomí, že synchronizace s"
+" oběma službami může v některých případech vést k nečekaným důsledkům. "
 "Opravdu si přejete synchronizovat s Astrid.com?"
 
 #. ** Copyright (c) 2012 Todoroo Inc ** ** See the file "LICENSE" for the
@@ -604,11 +598,11 @@ msgstr "Jak mohu obnovit zálohy?"
 #. Preference screen Restoring Tasks Help Dialog Text
 msgctxt "backup_BPr_how_to_restore_dialog"
 msgid ""
-"You need to add the Astrid Power Pack to manage and restore your backups. As "
-"a favor, Astrid also automatically backs up your tasks, just in case."
+"You need to add the Astrid Power Pack to manage and restore your backups."
+" As a favor, Astrid also automatically backs up your tasks, just in case."
 msgstr ""
-"Pro správu a obnovení vašich záloh musíte zakoupit \"Astrid Power Pack\". "
-"Získáte tím také funkci automatického zálohování vašich úkolů."
+"Pro správu a obnovení vašich záloh musíte zakoupit \"Astrid Power Pack\"."
+" Získáte tím také funkci automatického zálohování vašich úkolů."
 
 #. ================================================= BackupActivity ==
 #. slide 48c: backup activity label
@@ -761,8 +755,8 @@ msgid ""
 "Astrid should to be updated to the latest version in the Android market! "
 "Please do that before continuing, or wait a few seconds."
 msgstr ""
-"Astrid by měl být aktualizován na poslední verzi z Android market! Prosím "
-"udělej to, než budeš pokračovat, nebo chvíli počkej."
+"Astrid by měl být aktualizován na poslední verzi z Android market! Prosím"
+" udělej to, než budeš pokračovat, nebo chvíli počkej."
 
 #. Button for going to Market
 msgctxt "DLG_to_market"
@@ -1492,6 +1486,11 @@ msgctxt "TEA_control_share"
 msgid "Share With Friends"
 msgstr "Sdílet s přáteli"
 
+#, fuzzy
+msgctxt "TEA_control_hidden_section"
+msgid "----Hide Always----"
+msgstr "----More Section----"
+
 msgctxt "hide_until_prompt"
 msgid "Show in my list"
 msgstr "Zobrazit v mém seznamu"
@@ -1512,9 +1511,10 @@ msgid "More"
 msgstr "Více"
 
 #. slide 15c: Text when no activity to show
+#, fuzzy
 msgctxt "TEA_no_activity"
-msgid "No Activity to Show."
-msgstr "Není co zobrazit"
+msgid "No activity"
+msgstr "Nic k zobrazení"
 
 #. Text to load more activity
 msgctxt "TEA_load_more"
@@ -1540,9 +1540,11 @@ msgstr "Klepnutím vyhledáte jak na to!"
 
 msgctxt "WSV_not_online"
 msgid ""
-"I can do more when connected to the Internet. Please check your connection."
+"I can do more when connected to the Internet. Please check your "
+"connection."
 msgstr ""
-"S připojením k internetu by to byla jiná káva. Zkontrolujte prosím spojení."
+"S připojením k internetu by to byla jiná káva. Zkontrolujte prosím "
+"spojení."
 
 msgctxt "TEA_contact_error"
 msgid "Sorry! We couldn't find an email address for the selected contact."
@@ -1598,8 +1600,7 @@ msgctxt "MCA_ignore_body"
 msgid ""
 "You've ignored several missed calls. Should Astrid stop asking you about "
 "them?"
-msgstr ""
-"Ignoroval jste několik zmeškaných hovorů. Má Astrid ignorovat všechny?"
+msgstr "Ignoroval jste několik zmeškaných hovorů. Má Astrid ignorovat všechny?"
 
 #. Missed call: dialog to ignore all missed calls ignore all button
 msgctxt "MCA_ignore_all"
@@ -1619,10 +1620,11 @@ msgstr ""
 #. slide 49c: Missed call: preference description
 msgctxt "MCA_missed_calls_pref_desc_enabled"
 msgid ""
-"Astrid will notify you about missed calls and offer to remind you to call "
-"back"
+"Astrid will notify you about missed calls and offer to remind you to call"
+" back"
 msgstr ""
-"Astrid Vás upozorní na zmeškané hovory a připomene Vám, abyste zavolal zpět"
+"Astrid Vás upozorní na zmeškané hovory a připomene Vám, abyste zavolal "
+"zpět"
 
 msgctxt "MCA_missed_calls_pref_desc_disabled"
 msgid "Astrid will not notify you about missed calls"
@@ -1807,10 +1809,10 @@ msgid "Web searches for Ideas tab will be performed when tab is clicked"
 msgstr "Při klepnutí na záložky Tipy se spustí hledání na webu"
 
 msgctxt "EPr_ideaAuto_desc_disabled"
-msgid ""
-"Web searches for Ideas tab will be performed only when manually requested"
+msgid "Web searches for Ideas tab will be performed only when manually requested"
 msgstr ""
-"Při klepnutí na záložku Tipy se hledání na webu spustí až po ručním vyžádání"
+"Při klepnutí na záložku Tipy se hledání na webu spustí až po ručním "
+"vyžádání"
 
 #. slide 30f/ 36f: Preference: Theme
 msgctxt "EPr_theme_title"
@@ -1865,8 +1867,8 @@ msgstr ""
 #. slide 49b
 msgctxt "EPr_use_contact_picker_desc_enabled"
 msgid ""
-"The system contact picker option will be displayed in the task assignment "
-"window"
+"The system contact picker option will be displayed in the task assignment"
+" window"
 msgstr ""
 
 msgctxt "EPr_use_contact_picker_desc_disabled"
@@ -2178,13 +2180,13 @@ msgstr ""
 #, c-format
 msgctxt "task_killer_help"
 msgid ""
-"It looks like you are using an app that can kill processes (%s)! If you can, "
-"add Astrid to the exclusion list so it doesn't get killed. Otherwise, Astrid "
-"might not let you know when your tasks are due.\n"
+"It looks like you are using an app that can kill processes (%s)! If you "
+"can, add Astrid to the exclusion list so it doesn't get killed. "
+"Otherwise, Astrid might not let you know when your tasks are due.\n"
 msgstr ""
-"Vypadá to, že používate aplikaci, která ukončuje programy(%s)! Pokud můžete, "
-"přidejte Astrid do vyjímek, aby nebyla ukončována. Jinak se může stát, že "
-"vás nebude upozorňovat na úkoly.\n"
+"Vypadá to, že používate aplikaci, která ukončuje programy(%s)! Pokud "
+"můžete, přidejte Astrid do vyjímek, aby nebyla ukončována. Jinak se může "
+"stát, že vás nebude upozorňovat na úkoly.\n"
 
 #. Task killer dialog ok button
 msgctxt "task_killer_help_ok"
@@ -2200,12 +2202,12 @@ msgstr "Astrid Úkol/Todo Seznam"
 #. itself.
 msgctxt "marketplace_description"
 msgid ""
-"Astrid is the much loved open-source todo list / task manager designed to "
-"help you get stuff done. It features reminders, tags, sync, Locale plug-in, "
-"a widget and more."
+"Astrid is the much loved open-source todo list / task manager designed to"
+" help you get stuff done. It features reminders, tags, sync, Locale plug-"
+"in, a widget and more."
 msgstr ""
-"Astrid je vysoce oceňovaný open source úkolovník, jednoduše ovladatelný a "
-"přesto velice výkonný, vytvořen k tomu,aby Vám pomohl mít vše hotovo. "
+"Astrid je vysoce oceňovaný open source úkolovník, jednoduše ovladatelný a"
+" přesto velice výkonný, vytvořen k tomu,aby Vám pomohl mít vše hotovo. "
 "Značky, připomenutí, synchronizace, lokalizace, widget a další."
 
 msgctxt "DB_corrupted_title"
@@ -2216,8 +2218,8 @@ msgctxt "DB_corrupted_body"
 msgid ""
 "Uh oh! It looks like you may have a corrupted database. If you see this "
 "error regularly, we suggest you clear all data (Settings-&gt;Manage All "
-"Tasks-&gt;Clear all data) and restore your tasks from a backup (Settings-"
-"&gt;Backup-&gt;Import Tasks) in Astrid."
+"Tasks-&gt;Clear all data) and restore your tasks from a backup "
+"(Settings-&gt;Backup-&gt;Import Tasks) in Astrid."
 msgstr ""
 
 #. ** Copyright (c) 2012 Todoroo Inc ** ** See the file "LICENSE" for the
@@ -2693,9 +2695,9 @@ msgstr ""
 #. Instructions: Gtasks further help
 msgctxt "gtasks_GLA_further_help"
 msgid ""
-"To view your tasks with indentation and order preserved, go to the Filters "
-"page and select a Google Tasks list. By default, Astrid uses its own sort "
-"settings for tasks."
+"To view your tasks with indentation and order preserved, go to the "
+"Filters page and select a Google Tasks list. By default, Astrid uses its "
+"own sort settings for tasks."
 msgstr ""
 
 #. Sign In Button
@@ -2738,16 +2740,17 @@ msgstr ""
 #. Error Message when we receive an IO Exception
 msgctxt "gtasks_GLA_errorIOAuth"
 msgid ""
-"Sorry, we had trouble communicating with Google servers. Please try again "
-"later."
+"Sorry, we had trouble communicating with Google servers. Please try again"
+" later."
 msgstr ""
-"Nastali problémy při komunikaci se servery Google. Zkuste to prosím později."
+"Nastali problémy při komunikaci se servery Google. Zkuste to prosím "
+"později."
 
 #. Error Message when we receive a HTTP 401 Unauthorized multiple times
 msgctxt "gtasks_GLA_errorAuth_captcha"
 msgid ""
-"You may have encountered a captcha. Try logging in from the browser, then "
-"come back to try again:"
+"You may have encountered a captcha. Try logging in from the browser, then"
+" come back to try again:"
 msgstr ""
 "Pravděpodobně jste narazili na stránky chráněné Captchou. Zkuste se "
 "přihlásit pomocí prohlížeče a poté se vraťte sem a zkuste to znovu:"
@@ -2767,16 +2770,16 @@ msgstr "Astrid: Google Úkoly"
 #. Error Message when we receive a HTTP 503 error
 msgctxt "gtasks_error_backend"
 msgid ""
-"Google's Task API is in beta and has encountered an error. The service may "
-"be down, please try again later."
+"Google's Task API is in beta and has encountered an error. The service "
+"may be down, please try again later."
 msgstr ""
 
 #. Error for account not found
 #, c-format
 msgctxt "gtasks_error_accountNotFound"
 msgid ""
-"Account %s not found--please log out and log back in from the Google Tasks "
-"settings."
+"Account %s not found--please log out and log back in from the Google "
+"Tasks settings."
 msgstr ""
 "Účet %s nebyl nalezen -- přes nastavení Google Tasks se odhlašte a znovu "
 "přihlaste."
@@ -2784,15 +2787,15 @@ msgstr ""
 #. Error when ping after refreshing token fails
 msgctxt "gtasks_error_authRefresh"
 msgid ""
-"Unable to authenticate with Google Tasks. Please check your account password "
-"or try again later."
+"Unable to authenticate with Google Tasks. Please check your account "
+"password or try again later."
 msgstr ""
 
 #. Error when account manager returns no auth token or throws exception
 msgctxt "gtasks_error_accountManager"
 msgid ""
-"Error in your phone's account manager. Please log out and log back in from "
-"the Google Tasks settings."
+"Error in your phone's account manager. Please log out and log back in "
+"from the Google Tasks settings."
 msgstr ""
 
 #. Error when authorization error happens in background sync
@@ -2889,9 +2892,9 @@ msgstr "Ne, díky"
 
 msgctxt "welcome_login_confirm_later_dialog"
 msgid ""
-"Sign in to get the most out of Astrid! For free, you get online backup, full "
-"synchronization with Astrid.com, the ability to add tasks via email, and you "
-"can even share task lists with friends!"
+"Sign in to get the most out of Astrid! For free, you get online backup, "
+"full synchronization with Astrid.com, the ability to add tasks via email,"
+" and you can even share task lists with friends!"
 msgstr ""
 
 #. Shown after user goes to task rabbit activity
@@ -2912,8 +2915,7 @@ msgctxt "locale_edit_intro"
 msgid ""
 "Astrid will send you a reminder when you have any tasks in the following "
 "filter:"
-msgstr ""
-"Astrid Ti pošle upozornění, když budeš mít úkoly v následujícím filtru:"
+msgstr "Astrid Ti pošle upozornění, když budeš mít úkoly v následujícím filtru:"
 
 #. Locale Window Filter Picker UI
 msgctxt "locale_pick_filter"
@@ -3227,8 +3229,7 @@ msgstr "Pomozte nám dělat Astrid lepší, anonymním odesláním dat o použí
 #. ** Copyright (c) 2012 Todoroo Inc ** ** See the file "LICENSE" for the
 #. full license governing this code.
 msgctxt "speech_err_network"
-msgid ""
-"Network error! Speech recognition requires a network connection to work."
+msgid "Network error! Speech recognition requires a network connection to work."
 msgstr "Chyba sítě! Rozpoznávání řeči vyžaduje funkční síťové připojení."
 
 msgctxt "speech_err_no_match"
@@ -3291,8 +3292,8 @@ msgstr ""
 
 msgctxt "search_market_pdf"
 msgid ""
-"No PDF reader was found. Would you like to download a PDF reader from the "
-"Android Market?"
+"No PDF reader was found. Would you like to download a PDF reader from the"
+" Android Market?"
 msgstr ""
 
 msgctxt "search_market_pdf_title"
@@ -3333,13 +3334,17 @@ msgctxt "file_browser_title"
 msgid "Choose a file"
 msgstr ""
 
+msgctxt "dir_browser_title"
+msgid "Choose a directory"
+msgstr ""
+
 msgctxt "file_browser_err_permissions"
 msgid ""
 "Permissions error! Please make sure you have not blocked Astrid from "
 "accessing the SD card."
 msgstr ""
-"Chyba oprávnění! Ujistěte se prosím, že jste Astrid nezabránil v přístupu k "
-"SD kartě."
+"Chyba oprávnění! Ujistěte se prosím, že jste Astrid nezabránil v přístupu"
+" k SD kartě."
 
 msgctxt "file_add_picture"
 msgid "Attach a picture"
@@ -3373,9 +3378,38 @@ msgctxt "file_err_download"
 msgid "Error downloading file"
 msgstr "Chyba při stahování souboru"
 
+msgctxt "file_err_no_directory"
+msgid ""
+"Whoops! Looks like the files directory doesn't exist. Please choose a "
+"directory to save files to in the Astrid Preferences."
+msgstr ""
+
 msgctxt "file_err_show"
 msgid "Sorry, the system does not yet support this type of file"
 msgstr "Je nám líto, ale systém zatím tento typ souboru nepodporuje"
+
+msgctxt "file_dir_dialog_ok"
+msgid "Use this directory"
+msgstr ""
+
+#, fuzzy
+msgctxt "file_dir_dialog_default"
+msgid "Reset to default"
+msgstr "Obnovit výchozí hodnoty"
+
+msgctxt "p_files_dir"
+msgid "Premium Downloads Directory"
+msgstr ""
+
+#. Description for file download directory preference. %s -> chosen directory
+#, c-format
+msgctxt "p_files_dir_desc"
+msgid "Task attachments saved to: %s"
+msgstr ""
+
+msgctxt "p_files_dir_desc_default"
+msgid "Default directory"
+msgstr ""
 
 #. ** Copyright (c) 2012 Todoroo Inc ** ** See the file "LICENSE" for the
 #. full license governing this code.
@@ -3468,8 +3502,7 @@ msgstr "Přihlaste se k Producteev"
 
 #. Instructions: Producteev login
 msgctxt "producteev_PLA_body"
-msgid ""
-"Sign in with your existing Producteev account, or create a new account!"
+msgid "Sign in with your existing Producteev account, or create a new account!"
 msgstr "Přihlašte se pomocí existujícího účtu Producteev nebo vytvořte nový!"
 
 #. Producteev Terms Link
@@ -4534,8 +4567,7 @@ msgid "A spot of tea while you work on this?"
 msgstr ""
 
 msgctxt "reminder_responses:24"
-msgid ""
-"If only you had already done this, then you could go outside and play."
+msgid "If only you had already done this, then you could go outside and play."
 msgstr ""
 
 msgctxt "reminder_responses:25"
@@ -4913,8 +4945,8 @@ msgid ""
 "\n"
 " Error Message: %s"
 msgstr ""
-"Omlouvám se, nastala chyba při ověřování tvého přihlášení. Prosím, zkus to "
-"znovu. \n"
+"Omlouvám se, nastala chyba při ověřování tvého přihlášení. Prosím, zkus "
+"to znovu. \n"
 "\n"
 " Chybová hláška: %s"
 
@@ -4930,8 +4962,8 @@ msgid ""
 "Connection Error! Check your Internet connection, or maybe RTM servers "
 "(status.rememberthemilk.com), for possible solutions."
 msgstr ""
-"Chyba připojení! Zkontroluj Tvé Internetové připojení nebo možná RTM servery "
-"(status.rememberthemilk.com), pro možná řešení."
+"Chyba připojení! Zkontroluj Tvé Internetové připojení nebo možná RTM "
+"servery (status.rememberthemilk.com), pro možná řešení."
 
 #. ** Copyright (c) 2012 Todoroo Inc ** ** See the file "LICENSE" for the
 #. full license governing this code.
@@ -5118,8 +5150,8 @@ msgid ""
 "different capitalizations. We think you may have intended them to be the "
 "same list, so we've combined the duplicates. Don't worry though: the "
 "original lists are simply renamed with numbers (e.g. Shopping_1, "
-"Shopping_2). If you don't want this, you can simply delete the new combined "
-"list!"
+"Shopping_2). If you don't want this, you can simply delete the new "
+"combined list!"
 msgstr ""
 
 #. Header for tag settings
@@ -5502,11 +5534,11 @@ msgid "Astrid Scrollable Premium"
 msgstr ""
 
 msgctxt "PPW_widget_custom_label"
-msgid "Astrid Scrollable Premium for Custom Launchers"
+msgid "Astrid Custom Launcher Premium"
 msgstr ""
 
 msgctxt "PPW_widget_custom_launcherpro_label"
-msgid "Astrid Scrollable Premium 4x4 for Launcher Pro"
+msgid "Astrid Launcher Pro Premium"
 msgstr ""
 
 msgctxt "PPW_configure_title"
@@ -5539,7 +5571,8 @@ msgstr ""
 
 msgctxt "PPW_old_astrid_notice"
 msgid ""
-"You need at least version 3.6 of Astrid in order to use this widget. Sorry!"
+"You need at least version 3.6 of Astrid in order to use this widget. "
+"Sorry!"
 msgstr "K používání tohoto widgetu potřebujete Astrid ve verzi 3.6 a vyšší!"
 
 msgctxt "PPW_encouragements:0"
@@ -5672,8 +5705,8 @@ msgstr ""
 
 msgctxt "PPW_unlock_howto"
 msgid ""
-"Share lists with friends! Unlock the free Power Pack when 3 friends sign up "
-"with Astrid."
+"Share lists with friends! Unlock the free Power Pack when 3 friends sign "
+"up with Astrid."
 msgstr ""
 
 msgctxt "PPW_check_button"
@@ -5683,3 +5716,12 @@ msgstr ""
 msgctxt "PPW_check_share_lists"
 msgid "Share lists!"
 msgstr ""
+
+#~ msgctxt "PPW_widget_custom_label"
+#~ msgid "Astrid Scrollable Premium for Custom Launchers"
+#~ msgstr ""
+
+#~ msgctxt "PPW_widget_custom_launcherpro_label"
+#~ msgid "Astrid Scrollable Premium 4x4 for Launcher Pro"
+#~ msgstr ""
+

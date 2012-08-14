@@ -1,4 +1,4 @@
-# Translations template for PROJECT.
+# Korean translations for PROJECT.
 # Copyright (C) 2012 ORGANIZATION
 # This file is distributed under the same license as the PROJECT project.
 # FIRST AUTHOR <EMAIL@ADDRESS>, 2012.
@@ -7,15 +7,14 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2012-08-06 21:20-0700\n"
+"POT-Creation-Date: 2012-08-13 17:20-0700\n"
 "PO-Revision-Date: 2012-07-20 22:55+0000\n"
 "Last-Translator: Scott Chung <scottc52@gmail.com>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language-Team: ko <LL@li.org>\n"
+"Plural-Forms: nplurals=1; plural=0\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2012-08-10 23:41+0000\n"
-"X-Generator: Launchpad (build 15780)\n"
 "Generated-By: Babel 1.0dev\n"
 
 #. ==================================================== Generic Units ==
@@ -396,8 +395,8 @@ msgstr "로그아웃 / 모든 동기화 데이터 삭제?"
 #, c-format
 msgctxt "sync_error_offline"
 msgid ""
-"There was a problem connecting to the network during the last sync with %s. "
-"Please try again later."
+"There was a problem connecting to the network during the last sync with "
+"%s. Please try again later."
 msgstr ""
 
 msgctxt "sync_SPr_interval_entries:0"
@@ -439,3 +438,4 @@ msgstr "3일마다"
 msgctxt "sync_SPr_interval_entries:9"
 msgid "every week"
 msgstr "일주일 마다"
+
