@@ -57,6 +57,9 @@
   
   <!-- show ideas tab preference -->
   <string name="p_ideas_tab_enabled">ideas_tab_enabled</string>
+
+  <!-- force tablets to use phone layout -->
+  <string name="p_force_phone_layout">force_phone_layout</string>
   
   <string-array name="TEA_reminder_random_hours">
     <!-- values (in hours) associated with items above. -->

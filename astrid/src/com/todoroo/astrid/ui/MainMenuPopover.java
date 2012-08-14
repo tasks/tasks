@@ -20,10 +20,10 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.timsu.astrid.R;
-import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.astrid.service.ThemeService;
 import com.todoroo.astrid.ui.TouchInterceptingFrameLayout.InterceptTouchListener;
+import com.todoroo.astrid.utility.AstridPreferences;
 
 public class MainMenuPopover extends FragmentPopover implements InterceptTouchListener {
 
@@ -63,7 +63,7 @@ public class MainMenuPopover extends FragmentPopover implements InterceptTouchLi
             }
         });
 
-        if (AndroidUtilities.isTabletSized(context))
+        if (AstridPreferences.useTabletLayout(context))
             rowLayout = R.layout.main_menu_row_tablet;
         else
             rowLayout = R.layout.main_menu_row;

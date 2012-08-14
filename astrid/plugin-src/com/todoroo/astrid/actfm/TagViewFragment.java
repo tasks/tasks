@@ -134,11 +134,11 @@ public class TagViewFragment extends TaskListFragment {
         @Override
         public void onClick(View v) {
             Activity activity = getActivity();
-            Class<?> settingsClass = AndroidUtilities.isTabletSized(activity) ? TagSettingsActivityTablet.class : TagSettingsActivity.class;
+            Class<?> settingsClass = AstridPreferences.useTabletLayout(activity) ? TagSettingsActivityTablet.class : TagSettingsActivity.class;
             Intent intent = new Intent(getActivity(), settingsClass);
             intent.putExtra(EXTRA_TAG_DATA, tagData);
             startActivityForResult(intent, REQUEST_CODE_SETTINGS);
-            if (!AndroidUtilities.isTabletSized(activity)) {
+            if (!AstridPreferences.useTabletLayout(activity)) {
                 AndroidUtilities.callOverridePendingTransition(activity, R.anim.slide_left_in, R.anim.slide_left_out);
             }
         }

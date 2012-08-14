@@ -45,7 +45,6 @@ import com.todoroo.andlib.sql.Criterion;
 import com.todoroo.andlib.sql.Field;
 import com.todoroo.andlib.sql.Query;
 import com.todoroo.andlib.sql.UnaryCriterion;
-import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.astrid.actfm.TagSettingsActivity;
 import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.api.CustomFilterCriterion;
@@ -58,6 +57,7 @@ import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.data.TaskApiDao.TaskCriteria;
 import com.todoroo.astrid.service.StatisticsService;
 import com.todoroo.astrid.service.ThemeService;
+import com.todoroo.astrid.utility.AstridPreferences;
 
 /**
  * Activity that allows users to build custom filters
@@ -176,7 +176,7 @@ public class CustomFilterActivity extends FragmentActivity {
     }
 
     private void setupForDialogOrFullscreen() {
-        isDialog = AndroidUtilities.isTabletSized(this);
+        isDialog = AstridPreferences.useTabletLayout(this);
         if (isDialog)
             setTheme(ThemeService.getDialogTheme());
         else

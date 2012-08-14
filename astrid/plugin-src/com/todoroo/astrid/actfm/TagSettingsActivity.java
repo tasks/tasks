@@ -57,6 +57,7 @@ import com.todoroo.astrid.tags.TagFilterExposer;
 import com.todoroo.astrid.tags.TagService;
 import com.todoroo.astrid.ui.PeopleContainer;
 import com.todoroo.astrid.ui.PeopleContainer.ParseSharedException;
+import com.todoroo.astrid.utility.AstridPreferences;
 import com.todoroo.astrid.welcome.HelpInfoPopover;
 
 public class TagSettingsActivity extends FragmentActivity {
@@ -140,7 +141,7 @@ public class TagSettingsActivity extends FragmentActivity {
     }
 
     private void setupForDialogOrFullscreen() {
-        isDialog = AndroidUtilities.isTabletSized(this);
+        isDialog = AstridPreferences.useTabletLayout(this);
         if (isDialog)
             setTheme(ThemeService.getDialogTheme());
         else

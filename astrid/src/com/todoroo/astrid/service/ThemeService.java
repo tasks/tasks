@@ -14,6 +14,7 @@ import com.timsu.astrid.R;
 import com.todoroo.andlib.service.ContextManager;
 import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.andlib.utility.Preferences;
+import com.todoroo.astrid.utility.AstridPreferences;
 import com.todoroo.astrid.widget.TasksWidget;
 
 @SuppressWarnings("nls")
@@ -140,7 +141,7 @@ public class ThemeService {
         }
 
         if (lightDrawable == R.drawable.icn_menu_refresh &&
-                AndroidUtilities.isTabletSized(ContextManager.getContext()))
+                AstridPreferences.useTabletLayout(ContextManager.getContext()))
             return R.drawable.icn_menu_refresh_tablet;
 
         if(!darkTheme)

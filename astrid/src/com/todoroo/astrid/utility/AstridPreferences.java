@@ -14,6 +14,7 @@ import com.timsu.astrid.R;
 import com.todoroo.andlib.data.TodorooCursor;
 import com.todoroo.andlib.service.ContextManager;
 import com.todoroo.andlib.sql.Query;
+import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.astrid.activity.BeastModePreferences;
 import com.todoroo.astrid.api.AstridApiConstants;
@@ -137,6 +138,10 @@ public class AstridPreferences {
             return false;
         Preferences.setLong(P_LAST_POPOVER, System.currentTimeMillis());
         return true;
+    }
+
+    public static boolean useTabletLayout(Context context) {
+        return AndroidUtilities.isTabletSized(context) && !Preferences.getBoolean(R.string.p_force_phone_layout, false);
     }
 
 }

@@ -75,6 +75,13 @@ public class LabsPreferences extends TodorooPreferenceActivity {
                 PreferenceScreen screen = getPreferenceScreen();
                 screen.removePreference(preference);
             }
+        } else if (r.getString(R.string.p_force_phone_layout).equals(key)) {
+            if (!AndroidUtilities.isTabletSized(this)) {
+                PreferenceScreen screen = getPreferenceScreen();
+                screen.removePreference(preference);
+            } else {
+                preference.setOnPreferenceChangeListener(settingChangedListener);
+            }
         }
     }
 

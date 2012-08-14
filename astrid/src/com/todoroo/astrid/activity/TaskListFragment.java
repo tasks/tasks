@@ -427,7 +427,7 @@ public class TaskListFragment extends ListFragment implements OnScrollListener,
         if (!isCurrentTaskListFragment())
             return;
 
-        boolean isTablet = AndroidUtilities.isTabletSized(activity);
+        boolean isTablet = AstridPreferences.useTabletLayout(activity);
         if (activity instanceof TaskListActivity)
             ((TaskListActivity) activity).getMainMenuPopover().clear();
 
@@ -1004,7 +1004,7 @@ public class TaskListFragment extends ListFragment implements OnScrollListener,
                 R.string.p_showed_lists_help, false)) {
             AstridActivity activity = (AstridActivity) getActivity();
             if (activity != null) {
-                if (AndroidUtilities.isTabletSized(activity)) {
+                if (AstridPreferences.useTabletLayout(activity)) {
                     FilterListFragment flf = activity.getFilterListFragment();
                     if (flf != null)
                         flf.showAddListPopover();

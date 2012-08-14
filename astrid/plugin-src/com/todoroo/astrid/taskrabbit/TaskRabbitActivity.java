@@ -309,10 +309,6 @@ public class TaskRabbitActivity extends FragmentActivity {
 
 
     private void setupForDialogOrFullscreen() {
-        //        isDialog = AndroidUtilities.isTabletSized(this);
-        //        if (isDialog)
-        //            setTheme(ThemeService.getDialogTheme());
-        //        else
         ThemeService.applyTheme(this);
     }
 

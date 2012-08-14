@@ -60,6 +60,7 @@ import com.todoroo.astrid.ui.FragmentPopover;
 import com.todoroo.astrid.ui.MainMenuPopover;
 import com.todoroo.astrid.ui.MainMenuPopover.MainMenuListener;
 import com.todoroo.astrid.ui.TaskListFragmentPager;
+import com.todoroo.astrid.utility.AstridPreferences;
 import com.todoroo.astrid.utility.Constants;
 import com.todoroo.astrid.utility.Flags;
 
@@ -216,7 +217,7 @@ public class TaskListActivity extends AstridActivity implements MainMenuListener
     }
 
     protected int getContentView() {
-        if (AndroidUtilities.isTabletSized(this))
+        if (AstridPreferences.useTabletLayout(this))
             return R.layout.task_list_wrapper_activity_3pane;
         else if (Preferences.getIntegerFromString(R.string.p_swipe_lists_performance_key, 3) == 0)
             return R.layout.task_list_wrapper_activity_no_swipe;
@@ -312,7 +313,7 @@ public class TaskListActivity extends AstridActivity implements MainMenuListener
 
     private void createMainMenuPopover() {
         int layout;
-        boolean isTablet = AndroidUtilities.isTabletSized(this);
+        boolean isTablet = AstridPreferences.useTabletLayout(this);
         if (isTablet)
             layout = R.layout.main_menu_popover_tablet;
         else
