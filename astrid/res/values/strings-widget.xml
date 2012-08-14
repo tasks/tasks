@@ -12,8 +12,8 @@
     <string name="PPW_widget_43_label">Astrid Premium 4x3</string>
     <string name="PPW_widget_44_label">Astrid Premium 4x4</string>
     <string name="PPW_widget_v11_label">Astrid Scrollable Premium</string>
-    <string name="PPW_widget_custom_label">Astrid Scrollable Premium for Custom Launchers</string>
-    <string name="PPW_widget_custom_launcherpro_label">Astrid Scrollable Premium 4x4 for Launcher Pro</string>
+    <string name="PPW_widget_custom_label">Astrid Custom Launcher Premium</string>
+    <string name="PPW_widget_custom_launcherpro_label">Astrid Launcher Pro Premium</string>
     
     <string name="PPW_configure_title">Configure Widget</string>
     
@@ -57,9 +57,7 @@
     	<item>Smile! You\'ve already finished %d tasks!</item>
     </string-array>
   	<string name="PPW_encouragements_none_completed">You haven\'t completed any tasks yet! Shall we?</string>
-    
-    <string name="PPW_encouragements_completed"></string>
-    
+        
     <string-array name="PPW_colors">
         <item>Black</item>
         <item>White</item>
