@@ -46,6 +46,7 @@ import com.todoroo.astrid.utility.AstridPreferences;
 
 public final class UpgradeService {
 
+    public static final int V4_2_6 = 277;
     public static final int V4_2_5 = 276;
     public static final int V4_2_4 = 275;
     public static final int V4_2_3 = 274;
@@ -214,6 +215,13 @@ public final class UpgradeService {
 
         Preferences.clear(AstridPreferences.P_UPGRADE_FROM);
         StringBuilder changeLog = new StringBuilder();
+
+        if (from >= V4_2_0 && from < V4_2_6) {
+            newVersionString(changeLog, "4.2.6 (8/14/12)", new String[] {
+               "Tablet users can opt to use the single-pane phone layout (Settings -> Astrid Labs)",
+               "Minor polish and bug fixes"
+            });
+        }
 
         if (from >= V4_2_0 && from < V4_2_5) {
             newVersionString(changeLog, "4.2.5 (8/13/12)", new String[] {
