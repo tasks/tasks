@@ -748,13 +748,13 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
 
         if (model.getValue(Task.TITLE).length() == 0) {
             StatisticsService.reportEvent(StatisticsConstants.CREATE_TASK);
-            setIsNewTask(true);
 
             // set deletion date until task gets a title
             model.setValue(Task.DELETION_DATE, DateUtilities.now());
         } else {
             StatisticsService.reportEvent(StatisticsConstants.EDIT_TASK);
         }
+        setIsNewTask(model.getValue(Task.TITLE).length() == 0);
 
         if (model == null) {
             exceptionService.reportError("task-edit-no-task",
@@ -776,11 +776,9 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
 
     private void setIsNewTask(boolean isNewTask) {
         this.isNewTask = isNewTask;
-        if (isNewTask) {
-            Activity activity = getActivity();
-            if (activity instanceof TaskEditActivity) {
-                ((TaskEditActivity) activity).updateTitle(isNewTask);
-            }
+        Activity activity = getActivity();
+        if (activity instanceof TaskEditActivity) {
+            ((TaskEditActivity) activity).updateTitle(isNewTask);
         }
     }
 
