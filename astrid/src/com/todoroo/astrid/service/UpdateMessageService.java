@@ -31,6 +31,7 @@ import com.todoroo.andlib.service.RestClient;
 import com.todoroo.andlib.sql.Query;
 import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.andlib.utility.DialogUtilities;
+import com.todoroo.astrid.actfm.sync.ActFmPreferenceService;
 import com.todoroo.astrid.dao.StoreObjectDao;
 import com.todoroo.astrid.dao.StoreObjectDao.StoreObjectCriteria;
 import com.todoroo.astrid.data.StoreObject;
@@ -55,6 +56,7 @@ public class UpdateMessageService {
 
     @Autowired protected RestClient restClient;
     @Autowired private GtasksPreferenceService gtasksPreferenceService;
+    @Autowired private ActFmPreferenceService actFmPreferenceService;
     @Autowired private AddOnService addOnService;
     @Autowired private StoreObjectDao storeObjectDao;
 
@@ -197,7 +199,8 @@ public class UpdateMessageService {
             int versionCode = pi.versionCode;
             String result = restClient.get(URL + "?version=" + versionCode + "&" +
                     "language=" + Locale.getDefault().getISO3Language() + "&" +
-                    "market=" + Constants.MARKET_STRATEGY.strategyId()); //$NON-NLS-1$
+                    "market=" + Constants.MARKET_STRATEGY.strategyId() + "&" +
+                    "actfm=" + (actFmPreferenceService.isLoggedIn() ? "1" : "0")); //$NON-NLS-1$
             if(TextUtils.isEmpty(result))
                 return null;
 
