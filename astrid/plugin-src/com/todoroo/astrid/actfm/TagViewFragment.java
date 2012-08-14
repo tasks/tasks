@@ -468,6 +468,7 @@ public class TagViewFragment extends TaskListFragment {
     @Override
     public void onResume() {
         if (justDeleted) {
+            parentOnResume();
             // tag was deleted locally in settings
             // go back to active tasks
             FilterListFragment fl = ((AstridActivity) getActivity()).getFilterListFragment();
@@ -477,8 +478,8 @@ public class TagViewFragment extends TaskListFragment {
             }
             return;
         }
-
         super.onResume();
+
 
         IntentFilter intentFilter = new IntentFilter(BROADCAST_TAG_ACTIVITY);
         getActivity().registerReceiver(notifyReceiver, intentFilter);
