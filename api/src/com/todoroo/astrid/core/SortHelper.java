@@ -93,16 +93,16 @@ public class SortHelper {
         case SORT_DUE:
             order = Order.asc(Functions.caseStatement(Task.DUE_DATE.eq(0),
                     DateUtilities.now()*2, Task.DUE_DATE) + "+" + Task.IMPORTANCE +
-                    "+3*" + Task.COMPLETION_DATE);
+                    "+3*" + Task.COMPLETION_DATE + ", " + Task.TITLE);
             break;
         case SORT_IMPORTANCE:
             order = Order.asc(Task.IMPORTANCE + "*" + (2*DateUtilities.now()) + //$NON-NLS-1$
                     "+" + Functions.caseStatement(Task.DUE_DATE.eq(0), //$NON-NLS-1$
                             2 * DateUtilities.now(),
-                            Task.DUE_DATE) + "+8*" + Task.COMPLETION_DATE);
+                            Task.DUE_DATE) + "+8*" + Task.COMPLETION_DATE + ", " + Task.TITLE);
             break;
         case SORT_MODIFIED:
-            order = Order.desc(Task.MODIFICATION_DATE);
+            order = Order.desc(Task.MODIFICATION_DATE + ", " + Task.TITLE);
             break;
         default:
             order = defaultTaskOrder();
@@ -119,7 +119,7 @@ public class SortHelper {
         return Order.asc(Functions.caseStatement(Task.DUE_DATE.eq(0),
                 Functions.now() + "*2",
                 adjustedDueDateFunction()) + " + " + (2 * DateUtilities.ONE_DAY) + " * " +
-                Task.IMPORTANCE + " + 2*" + Task.COMPLETION_DATE);
+                Task.IMPORTANCE + " + 2*" + Task.COMPLETION_DATE + ", " + Task.TITLE);
     }
 
     @SuppressWarnings("nls")
