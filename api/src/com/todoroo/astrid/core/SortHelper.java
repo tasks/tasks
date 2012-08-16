@@ -92,7 +92,7 @@ public class SortHelper {
             break;
         case SORT_DUE:
             order = Order.asc(Functions.caseStatement(Task.DUE_DATE.eq(0),
-                    DateUtilities.now()*2, Task.DUE_DATE) + "+" + Task.IMPORTANCE +
+                    Functions.now()  + "*2", adjustedDueDateFunction()) + "+" + Task.IMPORTANCE +
                     "+3*" + Task.COMPLETION_DATE + ", " + Task.TITLE);
             break;
         case SORT_IMPORTANCE:
