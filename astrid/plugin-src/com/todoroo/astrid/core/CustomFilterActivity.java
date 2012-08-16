@@ -45,6 +45,7 @@ import com.todoroo.andlib.sql.Criterion;
 import com.todoroo.andlib.sql.Field;
 import com.todoroo.andlib.sql.Query;
 import com.todoroo.andlib.sql.UnaryCriterion;
+import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.astrid.actfm.TagSettingsActivity;
 import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.api.CustomFilterCriterion;
@@ -321,10 +322,8 @@ public class CustomFilterActivity extends FragmentActivity {
             public void afterTextChanged(Editable s) {
                 if(s.length() == 0) {
                     saveAndView.setText(R.string.CFA_button_view);
-                    saveAndView.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.tango_next, 0);
                 } else {
                     saveAndView.setText(R.string.CFA_button_save);
-                    saveAndView.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.tango_save, 0);
                 }
             }
             @Override
@@ -364,6 +363,14 @@ public class CustomFilterActivity extends FragmentActivity {
             }
         });
     }
+
+    @Override
+    public void finish() {
+        super.finish();
+        if (!AstridPreferences.useTabletLayout(this))
+            AndroidUtilities.callOverridePendingTransition(this, R.anim.slide_right_in, R.anim.slide_right_out);
+    }
+
 
     // --- listeners and action events
 
