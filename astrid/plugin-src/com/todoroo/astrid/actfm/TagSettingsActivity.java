@@ -477,7 +477,7 @@ public class TagSettingsActivity extends FragmentActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuItem item;
         item = menu.add(Menu.NONE, MENU_DISCARD_ID, 0, R.string.TEA_menu_discard);
-        item.setIcon(android.R.drawable.ic_menu_close_clear_cancel);
+        item.setIcon(R.drawable.ic_menu_close);
         item.setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
 
         item = menu.add(Menu.NONE, MENU_SAVE_ID, 0, R.string.TEA_menu_save);
