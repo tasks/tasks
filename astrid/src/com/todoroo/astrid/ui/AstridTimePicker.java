@@ -108,12 +108,12 @@ public class AstridTimePicker extends LinearLayout {
         hours.findViewById(R.id.timepicker_left_border).setVisibility(View.VISIBLE);
         minutes.findViewById(R.id.timepicker_right_border).setVisibility(View.VISIBLE);
 
-        String amString = DateUtils.getAMPMString(Calendar.AM).toLowerCase();
+        String amString = DateUtils.getAMPMString(Calendar.AM).toUpperCase();
         amButton.setTextOff(amString);
         amButton.setTextOn(amString);
         amButton.setChecked(false);
 
-        String pmString = DateUtils.getAMPMString(Calendar.PM).toLowerCase();
+        String pmString = DateUtils.getAMPMString(Calendar.PM).toUpperCase();
         pmButton.setTextOff(pmString);
         pmButton.setTextOn(pmString);
         pmButton.setChecked(false);
@@ -138,7 +138,7 @@ public class AstridTimePicker extends LinearLayout {
             }
         });
 
-        String noTime = context.getString(R.string.TEA_no_time).toLowerCase();
+        String noTime = context.getString(R.string.TEA_no_time);
         noTimeCheck.setTextOff(noTime);
         noTimeCheck.setTextOn(noTime);
 

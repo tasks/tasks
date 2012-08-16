@@ -165,7 +165,7 @@ public class DateAndTimePicker extends LinearLayout {
             UrgencyValue uv = urgencyValues.get(i);
 
             ToggleButton tb = new ToggleButton(context);
-            String label = uv.label.toLowerCase();
+            String label = uv.label;
             tb.setTextOff(label);
             tb.setTextOn(label);
             tb.setTag(uv);
