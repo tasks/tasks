@@ -356,13 +356,13 @@
   <string name="TEA_note_label">Notes</string>
   
   <!-- Task note hint -->
-  <string name="TEA_notes_hint">Enter Task Notes...</string>
+  <string name="TEA_notes_hint">Enter task notes...</string>
   
   <!-- Estimated time label -->
-  <string name="TEA_estimatedDuration_label">How Long Will it Take?</string>
+  <string name="TEA_estimatedDuration_label">How long will it take?</string>
   
   <!-- Elapsed time label -->
-  <string name="TEA_elapsedDuration_label">Time Already Spent on Task</string>
+  <string name="TEA_elapsedDuration_label">Time already spent on task</string>
 
   <!-- Menu: Save -->    
   <string name="TEA_menu_save">Save Changes</string>
