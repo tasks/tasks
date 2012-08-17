@@ -938,12 +938,14 @@ public final class ActFmSyncService {
         pushAllQueuedUpdates();
     }
 
-    public void updateUserSubscriptionStatus(Runnable onError) {
+    public void updateUserSubscriptionStatus(Runnable onSuccess, Runnable onError) {
         String purchaseToken = Preferences.getStringValue(BillingConstants.PREF_PURCHASE_TOKEN);
         String productId = Preferences.getStringValue(BillingConstants.PREF_PRODUCT_ID);
         try {
             actFmInvoker.invoke("premium_update_android", "purchaseToken", purchaseToken, "productId", productId);
             Preferences.setBoolean(BillingConstants.PREF_NEEDS_SERVER_UPDATE, false);
+            if (onSuccess != null)
+                onSuccess.run();
         } catch (Exception e) {
             Preferences.setBoolean(BillingConstants.PREF_NEEDS_SERVER_UPDATE, true);
             if (onError != null)

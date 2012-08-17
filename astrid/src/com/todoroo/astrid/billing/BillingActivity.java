@@ -227,8 +227,13 @@ public class BillingActivity extends Activity {
                 new Thread() {
                     @Override
                     public void run() {
-                        Preferences.setBoolean(ActFmPreferenceService.PREF_PREMIUM, true);
+                        Preferences.setBoolean(ActFmPreferenceService.PREF_LOCAL_PREMIUM, true);
                         actFmSyncService.updateUserSubscriptionStatus(new Runnable() {
+                            @Override
+                            public void run() {
+                                Preferences.setBoolean(ActFmPreferenceService.PREF_PREMIUM, true);
+                            }
+                        }, new Runnable() {
                             @Override
                             public void run() {
                                 Toast.makeText(BillingActivity.this, R.string.premium_success_with_server_error, Toast.LENGTH_LONG).show();
@@ -240,8 +245,8 @@ public class BillingActivity extends Activity {
                 new Thread() {
                     @Override
                     public void run() {
-                        Preferences.setBoolean(ActFmPreferenceService.PREF_PREMIUM, false);
-                        actFmSyncService.updateUserSubscriptionStatus(null);
+                        Preferences.setBoolean(ActFmPreferenceService.PREF_LOCAL_PREMIUM, false);
+                        actFmSyncService.updateUserSubscriptionStatus(null, null);
                     }
                 }.start();
             }

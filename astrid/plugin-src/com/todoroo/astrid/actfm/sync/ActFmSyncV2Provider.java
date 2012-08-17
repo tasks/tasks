@@ -169,9 +169,9 @@ public class ActFmSyncV2Provider extends SyncV2Provider {
 
     /** fetch user status hash*/
     @SuppressWarnings("nls")
-    private void updateUserStatus() {
+    public void updateUserStatus() {
         if (Preferences.getBoolean(BillingConstants.PREF_NEEDS_SERVER_UPDATE, false)) {
-            actFmSyncService.updateUserSubscriptionStatus(null);
+            actFmSyncService.updateUserSubscriptionStatus(null, null);
         }
 
         try {
