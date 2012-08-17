@@ -9,6 +9,8 @@ local.properties
 /dev
 lp-translations/
 translations/strings.xml
+.idea
+*.iml
 
 coverage.em
 astrid/src-combined
