@@ -326,15 +326,15 @@
   <string-array name="MCA_dialog_speech_options">
     <item>Schön, wenn man so bekannt ist!</item>
     <item>Wow, die Leute mögen Sie!</item>
-    <item>Ein Anruf macht Ihnen sicher eine Freude</item>
-    <item>Würde es dich nicht freuen, wenn Sie zurückgerufen werden?</item>
+    <item>Ein Anruf macht Ihnen sicher eine Freude.</item>
+    <item>Würde es Sie nicht freuen, wenn Sie zurückgerufen werden?</item>
     <item>Du schaffst es!</item>
-    <item>Du kannst auch eine SMS senden ...</item>
+    <item>Du kannst auch eine SMS senden...</item>
   </string-array>
   <string name="HlA_get_support">Support erhalten</string>
   <string name="UpS_changelog_title">Was ist neu bei Astrid?</string>
   <string name="UpS_updates_title">Astrid Neuigkeiten</string>
-  <string name="UpS_no_activity_log_in">Wenn du dich einloggst, kann du den \nFortschritt deiner eigenen also auch \ngemeinsamer Aufgabenlisten einsehen.</string>
+  <string name="UpS_no_activity_log_in">Wenn du dich einloggst, kannst du den \nFortschritt deiner eigenen als auch \ngemeinsamer Aufgabenlisten sehen.</string>
   <string name="EPr_title">Astrid: Einstellungen</string>
   <string name="EPr_deactivated">deaktiviert</string>
   <string name="EPr_appearance_header">Erscheinungsbild</string>
