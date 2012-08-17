@@ -97,6 +97,7 @@ import com.todoroo.astrid.service.ThemeService;
 import com.todoroo.astrid.service.UpgradeService;
 import com.todoroo.astrid.subtasks.SubtasksListFragment;
 import com.todoroo.astrid.sync.SyncProviderPreferences;
+import com.todoroo.astrid.timers.TimerPlugin;
 import com.todoroo.astrid.ui.QuickAddBar;
 import com.todoroo.astrid.utility.AstridPreferences;
 import com.todoroo.astrid.utility.Constants;
@@ -1113,6 +1114,7 @@ public class TaskListFragment extends ListFragment implements OnScrollListener,
                     public void onClick(DialogInterface dialog, int which) {
                         onTaskDelete(task);
                         taskService.delete(task);
+                        TimerPlugin.updateTimer(getActivity(), task, false);
                         loadTaskListContent(true);
                     }
                 }).setNegativeButton(android.R.string.cancel, null).show();
@@ -1239,6 +1241,9 @@ public class TaskListFragment extends ListFragment implements OnScrollListener,
         }
         case CONTEXT_MENU_PURGE_TASK_ID: {
             itemId = item.getGroupId();
+            Task task = new Task();
+            task.setId(itemId);
+            TimerPlugin.updateTimer(getActivity(), task, false);
             taskService.purge(itemId);
             loadTaskListContent(true);
             return true;
