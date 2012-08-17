@@ -193,8 +193,10 @@ public final class ReminderService  {
             }
         }
 
+        // Make sure no alarms are scheduled other than the next one. When that one is shown, it
+        // will schedule the next one after it, and so on and so forth.
+        clearAllAlarms(task);
         if(task.isCompleted() || task.isDeleted() || task.getValue(Task.USER_ID) != 0) {
-            clearAllAlarms(task);
             return;
         }
 
@@ -223,16 +225,21 @@ public final class ReminderService  {
             whenRandom = NO_ALARM;
 
         // snooze trumps all
-        if(whenSnooze != NO_ALARM)
+        if(whenSnooze != NO_ALARM) {
             scheduler.createAlarm(task, whenSnooze, TYPE_SNOOZE);
-        else if(whenRandom < whenDueDate && whenRandom < whenOverdue)
+        }
+        else if(whenRandom < whenDueDate && whenRandom < whenOverdue) {
             scheduler.createAlarm(task, whenRandom, TYPE_RANDOM);
-        else if(whenDueDate < whenOverdue)
+        }
+        else if(whenDueDate < whenOverdue) {
             scheduler.createAlarm(task, whenDueDate, TYPE_DUE);
-        else if(whenOverdue != NO_ALARM)
+        }
+        else if(whenOverdue != NO_ALARM) {
             scheduler.createAlarm(task, whenOverdue, TYPE_OVERDUE);
-        else
+        }
+        else {
             scheduler.createAlarm(task, 0, 0);
+        }
     }
 
     /**

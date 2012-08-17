@@ -19,14 +19,12 @@ import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
-import android.widget.TimePicker;
 
 import com.timsu.astrid.R;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.astrid.activity.AstridActivity;
 import com.todoroo.astrid.activity.DisposableTaskListFragment;
-import com.todoroo.astrid.core.PluginServices;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.repeats.RepeatControlSet;
 import com.todoroo.astrid.service.StatisticsConstants;
@@ -40,7 +38,7 @@ import com.todoroo.astrid.ui.NumberPicker;
  * @author timsu
  *
  */
-public class NotificationFragment extends DisposableTaskListFragment implements OnTimeSetListener, SnoozeCallback {
+public class NotificationFragment extends DisposableTaskListFragment {
 
     // --- constants
 
@@ -158,26 +156,6 @@ public class NotificationFragment extends DisposableTaskListFragment implements 
                 .setNegativeButton(android.R.string.cancel, null)
                 .show().setOwnerActivity(activity);
         }
-    }
-
-    /** on time dialog return set */
-    @Override
-    public void onTimeSet(TimePicker picker, int hours, int minutes) {
-        Date alarmTime = new Date();
-        alarmTime.setHours(hours);
-        alarmTime.setMinutes(minutes);
-        if(alarmTime.getTime() < DateUtilities.now())
-            alarmTime.setDate(alarmTime.getDate() + 1);
-        snoozeForTime(alarmTime.getTime());
-    }
-
-    public void snoozeForTime(long time) {
-        Task task = new Task();
-        task.setId(taskId);
-        task.setValue(Task.REMINDER_SNOOZE, time);
-        PluginServices.getTaskService().save(task);
-        getActivity().finish();
-        StatisticsService.reportEvent(StatisticsConstants.TASK_SNOOZE);
     }
 
 }
