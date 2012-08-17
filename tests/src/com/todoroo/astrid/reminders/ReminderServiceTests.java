@@ -54,9 +54,9 @@ public class ReminderServiceTests extends DatabaseTestCase {
         service.setScheduler(new AlarmExpected() {
             @Override
             public void createAlarm(Task task, long time, int type) {
-                super.createAlarm(task, time, type);
                 if (time == ReminderService.NO_ALARM)
                     return;
+                super.createAlarm(task, time, type);
                 assertEquals((long)task.getValue(Task.DUE_DATE), time);
                 assertEquals(type, ReminderService.TYPE_DUE);
             }
