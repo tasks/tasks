@@ -30,6 +30,10 @@ import com.todoroo.astrid.data.Metadata;
  */
 public class MetadataService {
 
+    public static interface SynchronizeMetadataCallback {
+        public void beforeDeleteMetadata(Metadata m);
+    }
+
     @Autowired
     private MetadataDao metadataDao;
 
@@ -102,7 +106,7 @@ public class MetadataService {
      * @return true if there were changes
      */
     public boolean synchronizeMetadata(long taskId, ArrayList<Metadata> metadata,
-            Criterion metadataCriterion) {
+            Criterion metadataCriterion, SynchronizeMetadataCallback callback) {
         boolean dirty = false;
         HashSet<ContentValues> newMetadataValues = new HashSet<ContentValues>();
         for(Metadata metadatum : metadata) {
@@ -138,6 +142,10 @@ public class MetadataService {
                 }
 
                 // not matched. cut it
+                if (callback != null) {
+                    item.setId(id);
+                    callback.beforeDeleteMetadata(item);
+                }
                 metadataDao.delete(id);
                 dirty = true;
             }
@@ -155,6 +163,11 @@ public class MetadataService {
         }
 
         return dirty;
+    }
+
+    public boolean synchronizeMetadata(long taskId, ArrayList<Metadata> metadata,
+            Criterion metadataCriterion) {
+        return synchronizeMetadata(taskId, metadata, metadataCriterion, null);
     }
 
     /**

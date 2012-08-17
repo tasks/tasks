@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2012-07-18 14:58-0700\n"
+"POT-Creation-Date: 2012-08-13 17:20-0700\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -276,12 +276,6 @@ msgctxt "actfm_EPA_share_with"
 msgid "Share with:"
 msgstr ""
 
-#. Toast when assigning a task
-#, c-format
-msgctxt "actfm_EPA_assigned_toast"
-msgid "Sent to %1$s (you can see it in the list between you and %2$s)."
-msgstr ""
-
 #. task sharing dialog: shared with label
 msgctxt "actfm_EPA_collaborators_header"
 msgid "Share with Friends"
@@ -508,7 +502,8 @@ msgid ""
 "results. Are you sure you want to sync with Astrid.com?"
 msgstr ""
 
-#. See the file "LICENSE" for the full license governing this code.
+#. ** Copyright (c) 2012 Todoroo Inc ** ** See the file "LICENSE" for the
+#. full license governing this code.
 #. Resources for built-in timers plug-in
 #. Task Edit Activity: Container Label
 msgctxt "alarm_ACS_label"
@@ -524,7 +519,8 @@ msgctxt "reminders_alarm:0"
 msgid "Alarm!"
 msgstr ""
 
-#. See the file "LICENSE" for the full license governing this code.
+#. ** Copyright (c) 2012 Todoroo Inc ** ** See the file "LICENSE" for the
+#. full license governing this code.
 #. Resources for built-in backup plug-in
 #. ================================================= BackupPreferences ==
 #. slide 33c/48d: Backup Preferences Title
@@ -682,7 +678,8 @@ msgctxt "import_file_prompt"
 msgid "Select a File to Restore"
 msgstr ""
 
-#. See the file "LICENSE" for the full license governing this code.
+#. ** Copyright (c) 2012 Todoroo Inc ** ** See the file "LICENSE" for the
+#. full license governing this code.
 #. ================================================== AndroidManifest ==
 #. slide 32k: Application Name (shown on home screen & in launcher)
 msgctxt "app_name"
@@ -1462,6 +1459,10 @@ msgctxt "TEA_control_share"
 msgid "Share With Friends"
 msgstr ""
 
+msgctxt "TEA_control_hidden_section"
+msgid "----Hide Always----"
+msgstr ""
+
 msgctxt "hide_until_prompt"
 msgid "Show in my list"
 msgstr ""
@@ -1483,7 +1484,7 @@ msgstr ""
 
 #. slide 15c: Text when no activity to show
 msgctxt "TEA_no_activity"
-msgid "No Activity to Show."
+msgid "No activity"
 msgstr ""
 
 #. Text to load more activity
@@ -2171,6 +2172,8 @@ msgid ""
 "(Settings-&gt;Backup-&gt;Import Tasks) in Astrid."
 msgstr ""
 
+#. ** Copyright (c) 2012 Todoroo Inc ** ** See the file "LICENSE" for the
+#. full license governing this code.
 #. slide 32g: Preference Category: Defaults Title
 msgctxt "EPr_defaults_header"
 msgid "New Task Defaults"
@@ -2315,7 +2318,8 @@ msgctxt "EPr_default_reminders:3"
 msgid "At deadline or overdue"
 msgstr ""
 
-#. See the file "LICENSE" for the full license governing this code.
+#. ** Copyright (c) 2012 Todoroo Inc ** ** See the file "LICENSE" for the
+#. full license governing this code.
 #. Resources for built-in filter plug-in
 #. ================================================= Filter Exposer ==
 #. Active Tasks Filter
@@ -2503,7 +2507,8 @@ msgctxt "CFC_title_contains_text"
 msgid "Title contains: ?"
 msgstr ""
 
-#. See the file "LICENSE" for the full license governing this code.
+#. ** Copyright (c) 2012 Todoroo Inc ** ** See the file "LICENSE" for the
+#. full license governing this code.
 #. Resources for built-in tag plug-in
 #. =============================================== Task Edit Controls ==
 #. Error message for adding to calendar
@@ -2561,7 +2566,8 @@ msgctxt "gcal_GCP_default"
 msgid "Default Calendar"
 msgstr ""
 
-#. See the file "LICENSE" for the full license governing this code.
+#. ** Copyright (c) 2012 Todoroo Inc ** ** See the file "LICENSE" for the
+#. full license governing this code.
 #. ============================================================= UI ==
 #. filters header: GTasks
 msgctxt "gtasks_FEx_header"
@@ -2748,7 +2754,8 @@ msgid ""
 "results. Are you sure you want to sync with Google Tasks?"
 msgstr ""
 
-#. See the file "LICENSE" for the full license governing this code.
+#. ** Copyright (c) 2012 Todoroo Inc ** ** See the file "LICENSE" for the
+#. full license governing this code.
 #. NEW USER EXPERIENCE
 #. help bubbles
 #. slide 8c: Shown the first time a user sees the task list activity
@@ -2837,7 +2844,8 @@ msgctxt "help_popover_taskrabbit_type"
 msgid "Change the type of task"
 msgstr ""
 
-#. See the file "LICENSE" for the full license governing this code.
+#. ** Copyright (c) 2012 Todoroo Inc ** ** See the file "LICENSE" for the
+#. full license governing this code.
 #. Resources for built-in locale plug-in
 #. Locale Alert Editing Window Title
 msgctxt "locale_edit_alerts_title"
@@ -2901,7 +2909,8 @@ msgctxt "locale_plugin_required"
 msgid "Please install the Astrid Locale plugin!"
 msgstr ""
 
-#. See the file "LICENSE" for the full license governing this code.
+#. ** Copyright (c) 2012 Todoroo Inc ** ** See the file "LICENSE" for the
+#. full license governing this code.
 #. ====================== Plugin Boilerplate =========================
 #. filters header: OpenCRX
 msgctxt "opencrx_FEx_header"
@@ -3136,7 +3145,8 @@ msgctxt "CFC_opencrx_assigned_to_name"
 msgid "Assigned to..."
 msgstr ""
 
-#. See the file "LICENSE" for the full license governing this code.
+#. ** Copyright (c) 2012 Todoroo Inc ** ** See the file "LICENSE" for the
+#. full license governing this code.
 #. ================================================== EditPreferences ==
 #. slide 32j: Preference Category: Power Pack
 msgctxt "EPr_powerpack_header"
@@ -3158,7 +3168,8 @@ msgctxt "EPr_statistics_desc_enabled"
 msgid "Help us make Astrid better by sending anonymous usage data"
 msgstr ""
 
-#. See the file "LICENSE" for the full license governing this code.
+#. ** Copyright (c) 2012 Todoroo Inc ** ** See the file "LICENSE" for the
+#. full license governing this code.
 msgctxt "speech_err_network"
 msgid "Network error! Speech recognition requires a network connection to work."
 msgstr ""
@@ -3265,6 +3276,10 @@ msgctxt "file_browser_title"
 msgid "Choose a file"
 msgstr ""
 
+msgctxt "dir_browser_title"
+msgid "Choose a directory"
+msgstr ""
+
 msgctxt "file_browser_err_permissions"
 msgid ""
 "Permissions error! Please make sure you have not blocked Astrid from "
@@ -3303,11 +3318,40 @@ msgctxt "file_err_download"
 msgid "Error downloading file"
 msgstr ""
 
+msgctxt "file_err_no_directory"
+msgid ""
+"Whoops! Looks like the files directory doesn't exist. Please choose a "
+"directory to save files to in the Astrid Preferences."
+msgstr ""
+
 msgctxt "file_err_show"
 msgid "Sorry, the system does not yet support this type of file"
 msgstr ""
 
-#. See the file "LICENSE" for the full license governing this code.
+msgctxt "file_dir_dialog_ok"
+msgid "Use this directory"
+msgstr ""
+
+msgctxt "file_dir_dialog_default"
+msgid "Reset to default"
+msgstr ""
+
+msgctxt "p_files_dir"
+msgid "Premium Downloads Directory"
+msgstr ""
+
+#. Description for file download directory preference. %s -> chosen directory
+#, c-format
+msgctxt "p_files_dir_desc"
+msgid "Task attachments saved to: %s"
+msgstr ""
+
+msgctxt "p_files_dir_desc_default"
+msgid "Default directory"
+msgstr ""
+
+#. ** Copyright (c) 2012 Todoroo Inc ** ** See the file "LICENSE" for the
+#. full license governing this code.
 #. ====================== Plugin Boilerplate =========================
 #. filters header: Producteev
 msgctxt "producteev_FEx_header"
@@ -3530,7 +3574,8 @@ msgctxt "CFC_producteev_assigned_to_name"
 msgid "Assigned to..."
 msgstr ""
 
-#. See the file "LICENSE" for the full license governing this code.
+#. ** Copyright (c) 2012 Todoroo Inc ** ** See the file "LICENSE" for the
+#. full license governing this code.
 #. Resources for built-in reminders plug-in
 #. =============================================== task edit activity ==
 #. Task Edit: Reminder group label
@@ -4528,7 +4573,8 @@ msgctxt "postpone_nags:13"
 msgid "I can't help you organize your life if you do that..."
 msgstr ""
 
-#. See the file "LICENSE" for the full license governing this code.
+#. ** Copyright (c) 2012 Todoroo Inc ** ** See the file "LICENSE" for the
+#. full license governing this code.
 #. Resources for built-in repeat plug-in
 #. repeating plugin name
 msgctxt "repeat_plugin"
@@ -4763,7 +4809,8 @@ msgctxt "repeat_encouragement_last_time:2"
 msgid "I love when you're productive!"
 msgstr ""
 
-#. See the file "LICENSE" for the full license governing this code.
+#. ** Copyright (c) 2012 Todoroo Inc ** ** See the file "LICENSE" for the
+#. full license governing this code.
 #. ====================== Plugin Boilerplate =========================
 #. label for RMilk button in Task Edit Activity
 msgctxt "rmilk_EOE_button"
@@ -4851,7 +4898,8 @@ msgid ""
 "(status.rememberthemilk.com), for possible solutions."
 msgstr ""
 
-#. See the file "LICENSE" for the full license governing this code.
+#. ** Copyright (c) 2012 Todoroo Inc ** ** See the file "LICENSE" for the
+#. full license governing this code.
 #. Subtasks Help Introduction
 msgctxt "subtasks_help_title"
 msgid "Sort and Indent in Astrid"
@@ -4869,7 +4917,8 @@ msgctxt "subtasks_help_3"
 msgid "Drag horizontally to indent"
 msgstr ""
 
-#. See the file "LICENSE" for the full license governing this code.
+#. ** Copyright (c) 2012 Todoroo Inc ** ** See the file "LICENSE" for the
+#. full license governing this code.
 #. Resources for built-in tag plug-in
 #. =============================================== Task Edit Controls ==
 #. Tags label
@@ -5059,7 +5108,8 @@ msgctxt "tag_leave_button"
 msgid "Leave This List"
 msgstr ""
 
-#. See the file "LICENSE" for the full license governing this code.
+#. ** Copyright (c) 2012 Todoroo Inc ** ** See the file "LICENSE" for the
+#. full license governing this code.
 #. Resources for built-in timers plug-in
 #. Task List: Start Timer button
 msgctxt "TAE_startTimer"
@@ -5107,7 +5157,8 @@ msgctxt "TEA_timer_comment_spent"
 msgid "Time spent:"
 msgstr ""
 
-#. See the file "LICENSE" for the full license governing this code.
+#. ** Copyright (c) 2012 Todoroo Inc ** ** See the file "LICENSE" for the
+#. full license governing this code.
 #. Update string from activity codes %1$s - user, %2$s - target name, %3$s -
 #. message, %4$s - other_user
 #. NOTE TO TRANSLATORS: things beginning with $link_ are special tokens we use
@@ -5197,7 +5248,8 @@ msgctxt "update_string_tag_created_global"
 msgid "%1$s created the list %2$s"
 msgstr ""
 
-#. See the file "LICENSE" for the full license governing this code.
+#. ** Copyright (c) 2012 Todoroo Inc ** ** See the file "LICENSE" for the
+#. full license governing this code.
 #. Voice Add Prompt Text
 msgctxt "voice_create_prompt"
 msgid "Speak to create a task"
@@ -5283,6 +5335,8 @@ msgctxt "EPr_voice_header"
 msgid "Voice Input Settings"
 msgstr ""
 
+#. ** Copyright (c) 2012 Todoroo Inc ** ** See the file "LICENSE" for the
+#. full license governing this code.
 msgctxt "welcome_show_eula"
 msgid "Accept EULA to get started!"
 msgstr ""
@@ -5393,7 +5447,8 @@ msgctxt "welcome_next"
 msgid "Next"
 msgstr ""
 
-#. See the file "LICENSE" for the full license governing this code.
+#. ** Copyright (c) 2012 Todoroo Inc ** ** See the file "LICENSE" for the
+#. full license governing this code.
 #. Resources for power pack widget
 msgctxt "PPW_widget_42_label"
 msgid "Astrid Premium 4x2"
@@ -5405,6 +5460,18 @@ msgstr ""
 
 msgctxt "PPW_widget_44_label"
 msgid "Astrid Premium 4x4"
+msgstr ""
+
+msgctxt "PPW_widget_v11_label"
+msgid "Astrid Scrollable Premium"
+msgstr ""
+
+msgctxt "PPW_widget_custom_label"
+msgid "Astrid Custom Launcher Premium"
+msgstr ""
+
+msgctxt "PPW_widget_custom_launcherpro_label"
+msgid "Astrid Launcher Pro Premium"
 msgstr ""
 
 msgctxt "PPW_configure_title"

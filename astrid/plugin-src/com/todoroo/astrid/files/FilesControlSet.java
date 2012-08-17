@@ -298,6 +298,8 @@ public class FilesControlSet extends PopupControlSet {
             public void onClick(DialogInterface d, int which) {
                 Intent marketIntent = Constants.MARKET_STRATEGY.generateMarketLink(packageName);
                 try {
+                    if (marketIntent == null)
+                        throw new ActivityNotFoundException("No market link supplied"); //$NON-NLS-1$
                     activity.startActivity(marketIntent);
                 } catch (ActivityNotFoundException anf) {
                     DialogUtilities.okDialog(activity,
@@ -322,7 +324,15 @@ public class FilesControlSet extends PopupControlSet {
                 urlString = urlString.replace(" ", "%20");
                 String name = m.getValue(FileMetadata.NAME);
                 StringBuilder filePathBuilder = new StringBuilder();
-                filePathBuilder.append(activity.getExternalFilesDir(FileMetadata.FILES_DIRECTORY).toString())
+
+                File directory = FileUtilities.getAttachmentsDirectory(activity);
+
+                if (directory == null) {
+                    Toast.makeText(activity, R.string.file_err_no_directory, Toast.LENGTH_LONG).show();
+                    return;
+                }
+
+                filePathBuilder.append(directory.toString())
                     .append(File.separator)
                     .append(name);
 

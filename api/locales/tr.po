@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2012-05-02 20:22-0700\n"
-"PO-Revision-Date: 2012-03-26 13:35+0000\n"
+"POT-Creation-Date: 2012-08-13 17:20-0700\n"
+"PO-Revision-Date: 2012-05-22 11:33+0000\n"
 "Last-Translator: Hasan Yılmaz <iletisim@hasanyilmaz.net>\n"
 "Language-Team: tr <LL@li.org>\n"
 "Plural-Forms: nplurals=1; plural=0\n"
@@ -136,7 +136,7 @@ msgctxt "Npeople:quantity=one"
 msgid "1 person"
 msgstr "1 kişi"
 
-#. today
+#. slide 10a, 12c: today
 msgctxt "today"
 msgid "Today"
 msgstr "Bugün"
@@ -146,17 +146,17 @@ msgctxt "tomorrow"
 msgid "Tomorrow"
 msgstr "Yarın"
 
-#. today
+#. yesterday
 msgctxt "yesterday"
 msgid "Yesterday"
 msgstr "Dün"
 
-#. tomorrow, abbreviated
+#. slide 12c: tomorrow, abbreviated
 msgctxt "tmrw"
 msgid "Tmrw"
 msgstr "Yarın"
 
-#. yesterday, abbreviated
+#. slide 12c: yesterday, abbreviated
 msgctxt "yest"
 msgid "Yest"
 msgstr "Dün"
@@ -257,16 +257,15 @@ msgid "Status"
 msgstr "Durum"
 
 #. Sync status subtitle, %s-> status message
-#, fuzzy, c-format
+#, c-format
 msgctxt "sync_SPr_status_subtitle"
 msgid "Status: %s"
-msgstr "Durum"
+msgstr "Durum: %s"
 
 #. Sync Status: log in
-#, fuzzy
 msgctxt "sync_status_loggedout"
 msgid "Not Logged In"
-msgstr "Giriş Yapılmadı!"
+msgstr "Oturum açılmadı"
 
 #. Status: ongoing
 msgctxt "sync_status_ongoing"
@@ -348,10 +347,9 @@ msgid "Actions"
 msgstr "Eylemler"
 
 #. Synchronize Now Button
-#, fuzzy
 msgctxt "sync_SPr_sync"
 msgid "Synchronize Now"
-msgstr "Senkronize et"
+msgstr "Şimdi Eşle"
 
 #. Synchronize Now Button if not logged in
 msgctxt "sync_SPr_sync_log_in"
@@ -366,17 +364,17 @@ msgstr "Giriş yapılan hesap:"
 #. Sync: Last error
 msgctxt "sync_SPr_last_error"
 msgid "Status Report"
-msgstr ""
+msgstr "Durum Raporu"
 
 #. Sync: last error click for more
 msgctxt "sync_SPr_last_error_subtitle"
 msgid "Click to send a report to the Astrid team"
-msgstr ""
+msgstr "Astrid takımına bildirmek için tıklayın"
 
 #. Sync: send error report button
 msgctxt "sync_SPr_send_report"
 msgid "Send Report"
-msgstr ""
+msgstr "Rapor Gönder"
 
 #. Sync: Clear Data Title
 msgctxt "sync_SPr_forget"
@@ -400,6 +398,8 @@ msgid ""
 "There was a problem connecting to the network during the last sync with "
 "%s. Please try again later."
 msgstr ""
+"%s ile son eşleme yapılırken bir ağ bağlantı sorunu oluştu. Lütfen daha "
+"sonra yeniden deneyin."
 
 msgctxt "sync_SPr_interval_entries:0"
 msgid "disable"

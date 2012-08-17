@@ -110,7 +110,7 @@ public class ActFmInvoker {
             Log.e("act-fm-invoke-response", response);
             JSONObject object = new JSONObject(response);
             if(object.getString("status").equals("error"))
-                throw new ActFmServiceException(object.getString("message"));
+                throw new ActFmServiceException(object.getString("message"), object);
             return object;
         } catch (JSONException e) {
             throw new IOException(e.getMessage());
@@ -139,7 +139,7 @@ public class ActFmInvoker {
             Log.e("act-fm-post-response", response);
             JSONObject object = new JSONObject(response);
             if(object.getString("status").equals("error"))
-                throw new ActFmServiceException(object.getString("message"));
+                throw new ActFmServiceException(object.getString("message"), object);
             return object;
         } catch (JSONException e) {
             throw new IOException(e.getMessage());

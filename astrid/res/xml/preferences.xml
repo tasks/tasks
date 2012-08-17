@@ -79,7 +79,10 @@
     <PreferenceCategory
         android:title="@string/EPr_powerpack_header">
         
+        <PreferenceScreen android:title="@string/p_files_dir" android:key="@string/p_files_dir" />
+        
         <PreferenceScreen
+            android:key="@string/p_voicePrefSection"
             android:title="@string/EPr_voice_header">
             
             <com.todoroo.astrid.ui.MultilineCheckboxPreference

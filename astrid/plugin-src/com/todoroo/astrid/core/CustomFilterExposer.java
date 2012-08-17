@@ -43,6 +43,7 @@ import com.todoroo.astrid.gtasks.GtasksPreferenceService;
 import com.todoroo.astrid.service.TagDataService;
 import com.todoroo.astrid.service.ThemeService;
 import com.todoroo.astrid.taskrabbit.TaskRabbitMetadata;
+import com.todoroo.astrid.utility.AstridPreferences;
 
 /**
  * Exposes Astrid's built in filters to the {@link FilterListFragment}
@@ -77,7 +78,7 @@ public final class CustomFilterExposer extends BroadcastReceiver implements Astr
     }
 
     private Filter[] buildSavedFilters(Context context, Resources r) {
-        boolean isTablet = AndroidUtilities.isTabletSized(context);
+        boolean isTablet = AstridPreferences.useTabletLayout(context);
         int themeFlags = isTablet ? ThemeService.FLAG_FORCE_LIGHT : 0;
 
         StoreObjectDao dao = PluginServices.getStoreObjectDao();
@@ -133,7 +134,7 @@ public final class CustomFilterExposer extends BroadcastReceiver implements Astr
     }
 
     public static Filter getAssignedByMeFilter(Resources r) {
-        boolean isTablet = AndroidUtilities.isTabletSized(ContextManager.getContext());
+        boolean isTablet = AstridPreferences.useTabletLayout(ContextManager.getContext());
         int themeFlags = isTablet ? ThemeService.FLAG_FORCE_LIGHT : 0;
         Filter f = new Filter(r.getString(R.string.BFE_Assigned),
                 r.getString(R.string.BFE_Assigned),

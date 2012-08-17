@@ -8,6 +8,8 @@ package com.todoroo.astrid.service;
 import android.content.Intent;
 import android.net.Uri;
 
+import com.timsu.astrid.R;
+
 public abstract class MarketStrategy {
 
     /**
@@ -15,6 +17,8 @@ public abstract class MarketStrategy {
      * @return an intent to launch market with this package
      */
     abstract public Intent generateMarketLink(String packageName);
+
+    abstract public String strategyId();
 
     /**
      * @return if this market has power pack
@@ -37,11 +41,27 @@ public abstract class MarketStrategy {
         return true;
     }
 
+    public int[] excludedSettings() {
+        return null;
+    }
+
     /**
      * @return true if ideas tab should be shown
      */
     public boolean allowIdeasTab() {
         return true;
+    }
+
+    public static class NoMarketStrategy extends MarketStrategy {
+        @Override
+        public Intent generateMarketLink(String packageName) {
+            return null;
+        }
+
+        @Override
+        public String strategyId() {
+            return "no_market"; //$NON-NLS-1$
+        }
     }
 
     public static class AndroidMarketStrategy extends MarketStrategy {
@@ -53,6 +73,11 @@ public abstract class MarketStrategy {
                             packageName));
         }
 
+        @Override
+        public String strategyId() {
+            return "android_market"; //$NON-NLS-1$
+        }
+
     }
 
     public static class WebMarketStrategy extends MarketStrategy {
@@ -61,6 +86,11 @@ public abstract class MarketStrategy {
         public Intent generateMarketLink(String packageName) {
             return new Intent(Intent.ACTION_VIEW,
                     Uri.parse("http://weloveastrid.com/store")); //$NON-NLS-1$
+        }
+
+        @Override
+        public String strategyId() {
+            return "web_market"; //$NON-NLS-1$
         }
 
     }
@@ -92,6 +122,22 @@ public abstract class MarketStrategy {
                 android.os.Build.MODEL.contains("Kindle"); //$NON-NLS-1$
         }
 
+        @Override
+        public int[] excludedSettings() {
+            return new int[] {
+                R.string.p_theme_widget,
+                R.string.p_voicePrefSection,
+                R.string.p_end_at_deadline,
+                R.string.p_swipe_lists_performance_key,
+                R.string.p_field_missed_calls
+            };
+        }
+
+        @Override
+        public String strategyId() {
+            return "amazon_market"; //$NON-NLS-1$
+        }
+
     }
 
     public static class NookMarketStrategy extends MarketStrategy {
@@ -116,6 +162,22 @@ public abstract class MarketStrategy {
         @Override
         public boolean allowIdeasTab() {
             return false;
+        }
+
+        @Override
+        public int[] excludedSettings() {
+            return new int[] {
+                R.string.p_theme_widget,
+                R.string.p_voicePrefSection,
+                R.string.p_end_at_deadline,
+                R.string.p_swipe_lists_performance_key,
+                R.string.p_field_missed_calls
+            };
+        }
+
+        @Override
+        public String strategyId() {
+            return "nook_market"; //$NON-NLS-1$
         }
 
     }

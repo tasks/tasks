@@ -7,9 +7,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2012-05-02 20:22-0700\n"
-"PO-Revision-Date: 2012-03-13 23:28+0000\n"
-"Last-Translator: Shahar Or <mightyiampresence@gmail.com>\n"
+"POT-Creation-Date: 2012-08-13 17:20-0700\n"
+"PO-Revision-Date: 2012-08-03 17:54+0000\n"
+"Last-Translator: Yossi Gil <Unknown>\n"
 "Language-Team: he <LL@li.org>\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
 "MIME-Version: 1.0\n"
@@ -58,11 +58,11 @@ msgstr "יום אחד"
 #, c-format
 msgctxt "DUt_weekdays:quantity=other"
 msgid "%d Weekdays"
-msgstr "%d ימי חול"
+msgstr "%d ימי עבודה"
 
 msgctxt "DUt_weekdays:quantity=one"
 msgid "1 Weekday"
-msgstr "יום חול אחד"
+msgstr "יום עבודה אחד"
 
 #, c-format
 msgctxt "DUt_hours:quantity=other"
@@ -130,13 +130,13 @@ msgstr "משימה אחת"
 #, c-format
 msgctxt "Npeople:quantity=other"
 msgid "%d people"
-msgstr "%d אנשים"
+msgstr "%d שותפים"
 
 msgctxt "Npeople:quantity=one"
 msgid "1 person"
-msgstr "איש אחד"
+msgstr "שותף אחד"
 
-#. today
+#. slide 10a, 12c: today
 msgctxt "today"
 msgid "Today"
 msgstr "היום"
@@ -146,17 +146,17 @@ msgctxt "tomorrow"
 msgid "Tomorrow"
 msgstr "מחר"
 
-#. today
+#. yesterday
 msgctxt "yesterday"
 msgid "Yesterday"
 msgstr "אתמול"
 
-#. tomorrow, abbreviated
+#. slide 12c: tomorrow, abbreviated
 msgctxt "tmrw"
 msgid "Tmrw"
 msgstr "מחר"
 
-#. yesterday, abbreviated
+#. slide 12c: yesterday, abbreviated
 msgctxt "yest"
 msgid "Yest"
 msgstr "אתמול"
@@ -200,7 +200,7 @@ msgstr "לא"
 #. general dialog close
 msgctxt "DLG_close"
 msgid "Close"
-msgstr "סגירה"
+msgstr "סגור"
 
 #. general dialog done
 msgctxt "DLG_done"
@@ -215,25 +215,25 @@ msgid ""
 "\n"
 "%s"
 msgstr ""
-"אופס, נראה שארתה שגיאה! הרי מה שהתרחש:\n"
+"אוּפְּס, נראה שארעה שגיאה! הנה מה שקה:\n"
 "\n"
 "%s"
 
 #. error dialog (no message indicated)
 msgctxt "DLG_error_generic"
 msgid "Oops, looks like an error occurred!"
-msgstr "אופס, נראה שארתה שגיאה!"
+msgstr "אוּפְּס, נראה שארעה שגיאה!"
 
 #. Progress dialog shown when doing something slow
 msgctxt "DLG_wait"
 msgid "Please wait..."
-msgstr "נא להמתין..."
+msgstr "אנא המתן..."
 
 #. ====================================================== SyncProvider ==
 #. Sync Notification: message when sync service active
 msgctxt "SyP_progress"
 msgid "Synchronizing your tasks..."
-msgstr "המשימות שלך מסונכרנות..."
+msgstr "מסנכרן את המשימות שלך..."
 
 #. Sync Notification: toast when sync activated from activity
 msgctxt "SyP_progress_toast"
@@ -257,16 +257,15 @@ msgid "Status"
 msgstr "מצב"
 
 #. Sync status subtitle, %s-> status message
-#, fuzzy, c-format
+#, c-format
 msgctxt "sync_SPr_status_subtitle"
 msgid "Status: %s"
-msgstr "מצב"
+msgstr "מצב: %s"
 
 #. Sync Status: log in
-#, fuzzy
 msgctxt "sync_status_loggedout"
 msgid "Not Logged In"
-msgstr "לא מחובר לחשבון!"
+msgstr "לא מחובר"
 
 #. Status: ongoing
 msgctxt "sync_status_ongoing"
@@ -348,10 +347,9 @@ msgid "Actions"
 msgstr "פעולות"
 
 #. Synchronize Now Button
-#, fuzzy
 msgctxt "sync_SPr_sync"
 msgid "Synchronize Now"
-msgstr "סנכרן כעת!"
+msgstr "מסנכרן כעת"
 
 #. Synchronize Now Button if not logged in
 msgctxt "sync_SPr_sync_log_in"
@@ -366,22 +364,22 @@ msgstr "מחובר לחשבון בתור:"
 #. Sync: Last error
 msgctxt "sync_SPr_last_error"
 msgid "Status Report"
-msgstr ""
+msgstr "דו\"ח מצב"
 
 #. Sync: last error click for more
 msgctxt "sync_SPr_last_error_subtitle"
 msgid "Click to send a report to the Astrid team"
-msgstr ""
+msgstr "הקלק כדי לשלוח דוח לצוות של אסטריד"
 
 #. Sync: send error report button
 msgctxt "sync_SPr_send_report"
 msgid "Send Report"
-msgstr ""
+msgstr "שלח דוח"
 
 #. Sync: Clear Data Title
 msgctxt "sync_SPr_forget"
 msgid "Log Out"
-msgstr "צא מהחשבון"
+msgstr "התנתק"
 
 #. Sync: Clear Data Description
 msgctxt "sync_SPr_forget_description"
@@ -399,7 +397,7 @@ msgctxt "sync_error_offline"
 msgid ""
 "There was a problem connecting to the network during the last sync with "
 "%s. Please try again later."
-msgstr ""
+msgstr "נתקלתי בבעית חיבור לרשת בזמן הסינכרון האחרון עם %s. אנא נסה מאוחר יותר."
 
 msgctxt "sync_SPr_interval_entries:0"
 msgid "disable"
@@ -407,11 +405,11 @@ msgstr "נטרל"
 
 msgctxt "sync_SPr_interval_entries:1"
 msgid "every fifteen minutes"
-msgstr "כל חמש עשרה דקות"
+msgstr "כל רבע שעה"
 
 msgctxt "sync_SPr_interval_entries:2"
 msgid "every thirty minutes"
-msgstr "כל שלושים דקות"
+msgstr "כל חצי שעה"
 
 msgctxt "sync_SPr_interval_entries:3"
 msgid "every hour"

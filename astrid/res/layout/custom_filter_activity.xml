@@ -32,7 +32,8 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_weight="1"
-        android:gravity="center"
+        android:gravity="left"
+        android:paddingLeft="5dip"
         android:text="@string/CFA_help"
         style="@style/TextAppearance"/>
     
@@ -48,17 +49,25 @@
       <Button android:id="@+id/add"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
+        android:paddingTop="10dip"
+        android:paddingBottom="10dip"
+        android:layout_marginRight="3dip"
         android:layout_weight="1"
-        android:drawableLeft="@drawable/tango_add"
-        android:text="@string/CFA_button_add" />
+        android:text="@string/CFA_button_add"
+        android:background="?attr/asThemeTextColor"
+        android:textColor="?attr/asContentBackground" />
         
       <Button
         android:id="@+id/saveAndView"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_weight="1"
+        android:paddingTop="10dip"
+        android:paddingBottom="10dip"
+        android:layout_marginLeft="3dip"
         android:text="@string/CFA_button_view"
-        android:drawableRight="@drawable/tango_next" />
+        android:background="?attr/asThemeTextColor"
+        android:textColor="?attr/asContentBackground" />
         
     </LinearLayout>
     

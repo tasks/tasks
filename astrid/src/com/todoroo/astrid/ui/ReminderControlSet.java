@@ -120,8 +120,6 @@ public class ReminderControlSet extends PopupControlSet {
     @Override
     protected String writeToModelAfterInitialized(Task task) {
         task.setValue(Task.REMINDER_FLAGS, getValue());
-        // clear snooze if task is being edited
-        task.setValue(Task.REMINDER_SNOOZE, 0L);
 
         randomControlSet.writeToModel(task);
         alarmControl.writeToModel(task);

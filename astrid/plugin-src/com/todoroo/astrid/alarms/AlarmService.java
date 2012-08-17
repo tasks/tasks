@@ -30,6 +30,7 @@ import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.reminders.Notifications;
 import com.todoroo.astrid.reminders.ReminderService;
 import com.todoroo.astrid.service.MetadataService;
+import com.todoroo.astrid.service.MetadataService.SynchronizeMetadataCallback;
 import com.todoroo.astrid.utility.Constants;
 
 /**
@@ -71,7 +72,7 @@ public class AlarmService {
      * @param tags
      * @return true if data was changed
      */
-    public boolean synchronizeAlarms(long taskId, LinkedHashSet<Long> alarms) {
+    public boolean synchronizeAlarms(final long taskId, LinkedHashSet<Long> alarms) {
         MetadataService service = PluginServices.getMetadataService();
 
         ArrayList<Metadata> metadata = new ArrayList<Metadata>();
@@ -83,7 +84,18 @@ public class AlarmService {
             metadata.add(item);
         }
 
-        boolean changed = service.synchronizeMetadata(taskId, metadata, Metadata.KEY.eq(AlarmFields.METADATA_KEY));
+        final Context context = ContextManager.getContext();
+        final AlarmManager am = (AlarmManager)context.getSystemService(Context.ALARM_SERVICE);
+
+        boolean changed = service.synchronizeMetadata(taskId, metadata, Metadata.KEY.eq(AlarmFields.METADATA_KEY), new SynchronizeMetadataCallback() {
+            @Override
+            public void beforeDeleteMetadata(Metadata m) {
+                // Cancel the alarm before the metadata is deleted
+                PendingIntent pendingIntent = pendingIntentForAlarm(m, taskId);
+                am.cancel(pendingIntent);
+            }
+        });
+
         if(changed)
             scheduleAlarms(taskId);
         return changed;
@@ -153,6 +165,17 @@ public class AlarmService {
         }
     }
 
+    private PendingIntent pendingIntentForAlarm(Metadata alarm, long taskId) {
+        Context context = ContextManager.getContext();
+        Intent intent = new Intent(context, Notifications.class);
+        intent.setAction("ALARM" + alarm.getId()); //$NON-NLS-1$
+        intent.putExtra(Notifications.ID_KEY, taskId);
+        intent.putExtra(Notifications.EXTRAS_TYPE, ReminderService.TYPE_ALARM);
+
+        return PendingIntent.getBroadcast(context, (int)alarm.getId(),
+                intent, PendingIntent.FLAG_UPDATE_CURRENT);
+    }
+
     /**
      * Schedules alarms for a single task
      *
@@ -165,24 +188,17 @@ public class AlarmService {
             return;
 
         long taskId = alarm.getValue(Metadata.TASK);
-        int type = ReminderService.TYPE_ALARM;
 
         Context context = ContextManager.getContext();
-        Intent intent = new Intent(context, Notifications.class);
-        intent.setAction("ALARM" + alarm.getId()); //$NON-NLS-1$
-        intent.putExtra(Notifications.ID_KEY, taskId);
-        intent.putExtra(Notifications.EXTRAS_TYPE, type);
-
         AlarmManager am = (AlarmManager)context.getSystemService(Context.ALARM_SERVICE);
-        PendingIntent pendingIntent = PendingIntent.getBroadcast(context, (int)alarm.getId(),
-                intent, PendingIntent.FLAG_UPDATE_CURRENT);
+        PendingIntent pendingIntent = pendingIntentForAlarm(alarm, taskId);
 
         long time = alarm.getValue(AlarmFields.TIME);
         if(time == 0 || time == NO_ALARM)
             am.cancel(pendingIntent);
         else if(time > DateUtilities.now()) {
             if(Constants.DEBUG)
-                Log.e("Astrid", "Alarm (" + taskId + ", " + type +
+                Log.e("Astrid", "Alarm (" + taskId + ", " + ReminderService.TYPE_ALARM +
                     ", " + alarm.getId() + ") set for " + new Date(time));
             am.set(AlarmManager.RTC_WAKEUP, time, pendingIntent);
         }

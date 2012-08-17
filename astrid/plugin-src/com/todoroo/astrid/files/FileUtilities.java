@@ -11,9 +11,11 @@ import java.util.Date;
 import java.util.concurrent.atomic.AtomicReference;
 
 import android.content.Context;
+import android.text.TextUtils;
 
 import com.timsu.astrid.R;
 import com.todoroo.andlib.utility.DateUtilities;
+import com.todoroo.andlib.utility.Preferences;
 
 public class FileUtilities {
 
@@ -50,7 +52,7 @@ public class FileUtilities {
                 .append(" ") //$NON-NLS-1$
                 .append(getDateStringForFilename(context, new Date()));
 
-        String dir = context.getExternalFilesDir(FileMetadata.FILES_DIRECTORY).toString();
+        String dir = getAttachmentsDirectory(context).getAbsolutePath();
 
         String name = getNonCollidingFileName(dir, fileNameBuilder.toString(), extension);
 
@@ -62,6 +64,18 @@ public class FileUtilities {
             nameReference.set(name);
 
         return filePathBuilder.toString();
+    }
+
+    public static File getAttachmentsDirectory(Context context) {
+        File directory = null;
+        String customDir = Preferences.getStringValue(FileMetadata.FILES_DIRECTORY_PREF);
+        if (!TextUtils.isEmpty(customDir))
+            directory = new File(customDir);
+
+        if (directory == null || !directory.exists())
+            directory = context.getExternalFilesDir(FileMetadata.FILES_DIRECTORY_DEFAULT);
+
+        return directory;
     }
 
     private static String getNonCollidingFileName(String dir, String baseName, String extension) {

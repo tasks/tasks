@@ -29,6 +29,7 @@ import com.todoroo.astrid.data.AddOn;
 import com.todoroo.astrid.service.AddOnService;
 import com.todoroo.astrid.service.AstridDependencyInjector;
 import com.todoroo.astrid.service.ThemeService;
+import com.todoroo.astrid.utility.Constants;
 
 /**
  * TODO: fix deprecation or get rid of me
@@ -67,11 +68,11 @@ public class AddOnActivity extends FragmentActivity {
         ActionBar ab = getSupportActionBar();
         ab.setDisplayHomeAsUpEnabled(true);
         ab.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
-        ActionBar.Tab installedTab = ab.newTab().setText(R.string.AOA_tab_installed)
+        ActionBar.Tab installedTab = ab.newTab().setText("  " + getString(R.string.AOA_tab_installed)) //$NON-NLS-1$
                                       .setIcon(R.drawable.gl_pencil)
                                       .setTabListener(new AddOnTabListener(installedView));
 
-        ActionBar.Tab availableTab = ab.newTab().setText(R.string.AOA_tab_available)
+        ActionBar.Tab availableTab = ab.newTab().setText("  " + getString(R.string.AOA_tab_available)) //$NON-NLS-1$
                                                 .setIcon(R.drawable.gl_more)
                                                 .setTabListener(new AddOnTabListener(availableView));
 
@@ -129,13 +130,14 @@ public class AddOnActivity extends FragmentActivity {
             if (AddOnService.POWER_PACK_PACKAGE.equals(addOn.getPackageName())) {
                 if (addOnService.hasPowerPack())
                     installed.add(addOn);
-                else
+                else if (Constants.MARKET_STRATEGY.generateMarketLink(addOn.getPackageName()) != null)
                     available.add(addOn);
             } else {
                 if(addOnService.isInstalled(addOn))
                     installed.add(addOn);
-                else
+                else if (Constants.MARKET_STRATEGY.generateMarketLink(addOn.getPackageName()) != null)
                     available.add(addOn);
+
             }
         }
 

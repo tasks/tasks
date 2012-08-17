@@ -43,22 +43,35 @@ public class FileExplore extends Activity {
 
 	private static final String TAG = "F_PATH"; //$NON-NLS-1$
 
-	public static final String EXTRA_FILE_SELECTED = "fileSelected"; //$NON-NLS-1$
+	public static final String RESULT_FILE_SELECTED = "fileSelected"; //$NON-NLS-1$
+
+	public static final String RESULT_DIR_SELECTED = "dirSelected"; //$NON-NLS-1$
+
+	public static final String EXTRA_DIRECTORIES_SELECTABLE = "directoriesSelectable"; //$NON-NLS-1$
 
 	private Item[] fileList;
-	private File path = new File(Environment.getExternalStorageDirectory().toString());
+	private File path;
 	private String chosenFile;
 	private static final int DIALOG_LOAD_FILE = 1000;
 	private String upString;
 
-	ListAdapter adapter;
+	private boolean directoryMode;
+
+	private ListAdapter adapter;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 
 		super.onCreate(savedInstanceState);
 
+		if (Environment.MEDIA_MOUNTED.equals(Environment.getExternalStorageState()))
+		    path = new File(Environment.getExternalStorageDirectory().toString());
+		else
+		    path = Environment.getRootDirectory();
+
 		loadFileList();
+
+		directoryMode = getIntent().getBooleanExtra(EXTRA_DIRECTORIES_SELECTABLE, false);
 
 		showDialog(DIALOG_LOAD_FILE);
 		upString = getString(R.string.file_browser_up);
@@ -169,7 +182,7 @@ public class FileExplore extends Activity {
 
 		switch (id) {
 		case DIALOG_LOAD_FILE:
-			builder.setTitle(getString(R.string.file_browser_title));
+			builder.setTitle(getString(directoryMode ? R.string.dir_browser_title : R.string.file_browser_title));
 			builder.setAdapter(adapter, new DialogInterface.OnClickListener() {
 				@Override
 				public void onClick(DialogInterface d, int which) {
@@ -207,7 +220,11 @@ public class FileExplore extends Activity {
 						showDialog(DIALOG_LOAD_FILE);
 					} else {
 					    Intent result = new Intent();
-					    result.putExtra(EXTRA_FILE_SELECTED, sel.getAbsolutePath());
+					    if (directoryMode) {
+					        result.putExtra(RESULT_DIR_SELECTED, path.getAbsolutePath());
+					    } else {
+					        result.putExtra(RESULT_FILE_SELECTED, sel.getAbsolutePath());
+					    }
 					    setResult(RESULT_OK, result);
 					    removeDialog(DIALOG_LOAD_FILE);
 					    finish();
@@ -217,6 +234,29 @@ public class FileExplore extends Activity {
 			});
 			break;
 		}
+		if (directoryMode) {
+		    builder.setPositiveButton(R.string.file_dir_dialog_ok, new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface d, int which) {
+                    Intent result = new Intent();
+                    result.putExtra(RESULT_DIR_SELECTED, path.getAbsolutePath());
+                    setResult(RESULT_OK, result);
+                    removeDialog(DIALOG_LOAD_FILE);
+                    finish();
+                }
+            });
+		    builder.setNegativeButton(R.string.file_dir_dialog_default, new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface d, int which) {
+                    Intent result = new Intent();
+                    result.putExtra(RESULT_DIR_SELECTED, ""); //$NON-NLS-1$
+                    setResult(RESULT_OK, result);
+                    removeDialog(DIALOG_LOAD_FILE);
+                    finish();
+                }
+            });
+		}
+
 		dialog = builder.show();
 		dialog.setCancelable(true);
 		dialog.setOnCancelListener(new OnCancelListener() {

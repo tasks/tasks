@@ -28,7 +28,6 @@ import com.todoroo.andlib.service.ContextManager;
 import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.andlib.sql.Criterion;
 import com.todoroo.andlib.sql.QueryTemplate;
-import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.andlib.utility.DialogUtilities;
 import com.todoroo.astrid.actfm.TagViewFragment;
 import com.todoroo.astrid.api.AstridApiConstants;
@@ -167,7 +166,7 @@ public class TagFilterExposer extends BroadcastReceiver implements AstridFilterE
         Context context = ContextManager.getContext();
         Resources r = context.getResources();
 
-        boolean isTablet = AndroidUtilities.isTabletSized(context);
+        boolean isTablet = AstridPreferences.useTabletLayout(context);
         int themeFlags = isTablet ? ThemeService.FLAG_FORCE_LIGHT : 0;
 
         // --- untagged

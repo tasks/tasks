@@ -356,13 +356,13 @@
   <string name="TEA_note_label">Notes</string>
   
   <!-- Task note hint -->
-  <string name="TEA_notes_hint">Enter Task Notes...</string>
+  <string name="TEA_notes_hint">Enter task notes...</string>
   
   <!-- Estimated time label -->
-  <string name="TEA_estimatedDuration_label">How Long Will it Take?</string>
+  <string name="TEA_estimatedDuration_label">How long will it take?</string>
   
   <!-- Elapsed time label -->
-  <string name="TEA_elapsedDuration_label">Time Already Spent on Task</string>
+  <string name="TEA_elapsedDuration_label">Time already spent on task</string>
 
   <!-- Menu: Save -->    
   <string name="TEA_menu_save">Save Changes</string>
@@ -400,13 +400,13 @@
   <string-array name="TEA_urgency">
       <!-- slide 19: urgency: labels for edit page. item #4 -> auto filled -->
       <item>No deadline</item>
-      <item>Specific Day</item>
+      <item>Specific day</item>
       <item>Today</item>
       <item>Tomorrow</item>
       <item>(day after)</item>
-      <item>Next Week</item>
-      <item>In Two Weeks</item>
-      <item>Next Month</item>
+      <item>Next week</item>
+      <item>In two weeks</item>
+      <item>Next month</item>
   </string-array>
   
   <string name="TEA_no_time">No time</string>
@@ -448,6 +448,8 @@
   <!-- slide 16g -->
   <string name="TEA_control_share">Share With Friends</string>
   
+  <string name="TEA_control_hidden_section">----Hide Always----</string>
+  
   <string name="hide_until_prompt">Show in my list</string>
   
   <!-- Add Ons tab when no add-ons found -->
@@ -460,7 +462,7 @@
   <string name="TEA_more">More</string>
   
   <!-- slide 15c: Text when no activity to show -->
-  <string name="TEA_no_activity">No Activity to Show.</string>
+  <string name="TEA_no_activity">No activity</string>
   
   <!-- Text to load more activity -->
   <string name="TEA_load_more">Load more...</string>
@@ -656,6 +658,7 @@
   <string name = "EPr_cal_end_at_due_time">End calendar events at due time</string>
   <string name = "EPr_cal_start_at_due_time">Start calendar events at due time</string>
   
+  <string name="EPr_force_phone_layout">Use phone layout</string>
   
   <string name="EPr_swipe_lists_restart_alert">You will need to restart Astrid for this change to take effect</string>
   
@@ -745,7 +748,7 @@
   <!-- ==================================================== AddOnActivity == -->
   
   <!-- Add Ons Activity Title -->
-  <string name="AOA_title">Astrid: Add Ons</string>
+  <string name="AOA_title">Add-ons</string>
     
   <!-- Add-on Activity: author for internal authors  -->
   <string name="AOA_internal_author">Astrid Team</string>

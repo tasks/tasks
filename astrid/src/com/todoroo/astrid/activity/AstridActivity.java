@@ -33,9 +33,6 @@ import com.todoroo.astrid.core.SearchFilter;
 import com.todoroo.astrid.core.SortHelper;
 import com.todoroo.astrid.data.TagData;
 import com.todoroo.astrid.data.Task;
-import com.todoroo.astrid.reminders.NotificationFragment;
-import com.todoroo.astrid.reminders.Notifications;
-import com.todoroo.astrid.reminders.ReminderDialog;
 import com.todoroo.astrid.service.StartupService;
 import com.todoroo.astrid.service.StatisticsConstants;
 import com.todoroo.astrid.service.StatisticsService;
@@ -65,7 +62,6 @@ public class AstridActivity extends FragmentActivity
 
     protected int fragmentLayout = LAYOUT_SINGLE;
 
-    private final ReminderReceiver reminderReceiver = new ReminderReceiver();
     private final RepeatConfirmationReceiver repeatConfirmationReceiver = new RepeatConfirmationReceiver();
 
     public FilterListFragment getFilterListFragment() {
@@ -110,11 +106,6 @@ public class AstridActivity extends FragmentActivity
     protected void onResume() {
         super.onResume();
 
-        android.content.IntentFilter reminderIntentFilter = new android.content.IntentFilter(
-                Notifications.BROADCAST_IN_APP_NOTIFY);
-        reminderIntentFilter.setPriority(1);
-        registerReceiver(reminderReceiver, reminderIntentFilter);
-
         android.content.IntentFilter repeatFilter = new android.content.IntentFilter(
                 AstridApiConstants.BROADCAST_EVENT_TASK_REPEATED);
         repeatFilter.addAction(AstridApiConstants.BROADCAST_EVENT_TASK_REPEAT_FINISHED);
@@ -126,7 +117,6 @@ public class AstridActivity extends FragmentActivity
         super.onPause();
 
         StatisticsService.sessionPause();
-        AndroidUtilities.tryUnregisterReceiver(this, reminderReceiver);
         AndroidUtilities.tryUnregisterReceiver(this, repeatConfirmationReceiver);
     }
 
@@ -271,10 +261,11 @@ public class AstridActivity extends FragmentActivity
                         getSupportFragmentManager().executePendingTransactions();
                     }
                 });
+            } else {
+                editActivity.save(true);
+                editActivity.repopulateFromScratch(intent);
             }
 
-            editActivity.save(true);
-            editActivity.repopulateFromScratch(intent);
             TaskListFragment tlf = getTaskListFragment();
             if (tlf != null)
                 tlf.loadTaskListContent(true);
@@ -342,37 +333,6 @@ public class AstridActivity extends FragmentActivity
      */
     public int getFragmentLayout() {
         return fragmentLayout;
-    }
-
-    private class ReminderReceiver extends BroadcastReceiver {
-        @Override
-        public void onReceive(Context context, final Intent intent) {
-            // Process in app notification
-            long taskId = intent.getLongExtra(NotificationFragment.TOKEN_ID, 0);
-            TaskEditFragment tef = getTaskEditFragment();
-            if (tef != null)
-                return;
-
-            if (taskId > 0) {
-                String text = intent.getStringExtra(Notifications.EXTRAS_TEXT);
-                try {
-                    new ReminderDialog(AstridActivity.this, taskId, text).show();
-                } catch (BadTokenException e) { // Activity not running when tried to show dialog--rebroadcast
-                    new Thread() {
-                        @Override
-                        public void run() {
-                            AndroidUtilities.sleepDeep(500L);
-                            sendBroadcast(intent);
-                        }
-                    }.start();
-                    return;
-                }
-            }
-
-            // Remove broadcast
-            abortBroadcast();
-        }
-
     }
 
     private class RepeatConfirmationReceiver extends BroadcastReceiver {

@@ -4,7 +4,6 @@
   <string name="actfm_person_hint">連絡先またはEメール</string>
   <string name="actfm_person_or_tag_hint">連絡先または共有リスト</string>
   <string name="actfm_toast_success">サーバに保存</string>
-
   <string name="actfm_tag_operation_disabled">すみません、この操作は共有タグではまだサポートされていません。</string>
   <string name="actfm_tag_operation_owner_delete">あなたはこの共有リストの所有者です！もしリストを削除すると、リストのすべてのメンバーからも削除されます。本当によろしいですか？</string>
   <string name="actfm_picture_camera">写真を撮る</string>
@@ -15,6 +14,8 @@
   <string name="actfm_view_task_text">Task was sent to %s! You\'re currently viewing your own tasks. Do you want to view this and other tasks you\'ve assigned?</string>
   <string name="actfm_view_task_ok">View Assigned</string>
   <string name="actfm_view_task_cancel">Stay Here</string>
+  <string name="actfm_my_shared_tasks_title">My Shared Tasks</string>
+  <string name="actfm_my_shared_tasks_empty">No shared tasks</string>
   <string name="TVA_add_comment">コメントを追加する...</string>
   <string name="UAd_title_comment">%1$s re: %2$s</string>
   <string-array name="TVA_tabs">
@@ -30,6 +31,7 @@
   <string name="actfm_TVA_tag_owner_label">リスト作成者:</string>
   <string name="actfm_TVA_tag_owner_none">なし</string>
   <string name="actfm_TVA_members_label">だれと共有しますか</string>
+  <string name="actfm_TVA_members_hint">Share with anyone who has an email address</string>
   <string name="actfm_TVA_tag_picture">List Picture</string>
   <string name="actfm_TVA_silence_label">Silence Notifications</string>
   <string name="actfm_TVA_list_icon_label">List Icon:</string>
@@ -45,14 +47,18 @@
   <string name="actfm_EPA_assign_label_long">これは誰がすべきですか？</string>
   <string name="actfm_EPA_assign_me">自分</string>
   <string name="actfm_EPA_unassigned">アサインなし</string>
+  <string name="actfm_EPA_choose_contact">Choose a contact</string>
   <string name="actfm_EPA_task_rabbit">Outsource it!</string>
   <string name="actfm_EPA_assign_custom">Custom...</string>
   <string name="actfm_EPA_share_with">共有者:</string>
+
   <string name="actfm_EPA_collaborators_header">ともだちと共有する</string>
   <string name="actfm_EPA_list">リスト: %s</string>
   <string name="actfm_EPA_assigned_hint">連絡先名</string>
   <string name="actfm_EPA_message_text">招待メッセージ:</string>
   <string name="actfm_EPA_message_body">Help me get this done!</string>
+  <string name="actfm_EPA_assign_header_members">List Members</string>
+  <string name="actfm_EPA_assign_header_friends">Astrid Friends</string>
   <string name="actfm_EPA_tag_label">Create a shared tag?</string>
   <string name="actfm_EPA_tag_hint">(i.e. Silly Hats Club)</string>
   <string name="actfm_EPA_facebook">Facebook</string>
@@ -61,9 +67,9 @@
   <string name="actfm_EPA_saved_toast">People Settings Saved</string>
   <string name="actfm_EPA_invalid_email">無効なEメール: %s</string>
   <string name="actfm_EPA_invalid_tag">リストが見つかりません: %s</string>
-  <string name="actfm_EPA_login_to_share">You need to be logged in to Astrid.com to share tasks! Please log in or make this a private task.</string>
+  <string name="actfm_EPA_login_to_share">You need to be logged in to Astrid.com to share tasks!</string>
   <string name="actfm_EPA_login_button">ログイン</string>
-  <string name="actfm_EPA_dont_share_button">Make private</string>
+  <string name="actfm_EPA_dont_share_button">Don\'t share</string>
   <string name="actfm_ALA_title">Asteroid.comにようこそ！</string>
   <string name="actfm_ALA_body">Astrid.com lets you access your tasks online, share, and delegate with others.</string>
   <string name="actfm_ALA_fb_login">Facebookと接続する</string>
@@ -82,12 +88,14 @@
   <string name="actfm_ALA_login_title">Astrid.comにログイン</string>
   <string name="actfm_GAA_title">使用したいGoogleアカウントを選択してください:</string>
   <string name="actfm_OLA_prompt">ログインしてください:</string>
+  <string name="actfm_status_title_logged_in">Status - Logged in as %s</string>
   <string name="actfm_APr_header">Astrid.com</string>
   <string name="actfm_https_title">HTTPS を使う</string>
   <string name="actfm_https_enabled">HTTPS有効(遅い)</string>
   <string name="actfm_https_disabled">HTTPS無効(早い)</string>
   <string name="actfm_notification_title">Astrid.com Sync</string>
   <string name="actfm_notification_comments">New comments received / click for more details</string>
+  <string name="actfm_dual_sync_warning">You are currently synchronizing with Google Tasks. Be advised that synchronizing with both services can in some cases lead to unexpected results. Are you sure you want to sync with Astrid.com?</string>
   <string name="alarm_ACS_label">アラーム</string>
   <string name="alarm_ACS_button">アラームを追加する</string>
   <string-array name="reminders_alarm">
@@ -142,20 +150,22 @@
   <string name="DLG_cancel">キャンセル</string>
   <string name="DLG_more">もっと</string>
   <string name="DLG_undo">元に戻す</string>
+  <string name="DLG_warning">Warning</string>
   <string name="WID_dateButtonUnset">入力する</string>
   <string name="WID_dateButtonLabel">$D 日 $T 時間</string>
   <string name="WID_disableButton">無効にする</string>
   <string name="ENE_label">メモ</string>
   <string name="ENE_label_comments">コメント</string>
   <string name="ENA_no_comments">No activity yet</string>
-  <string name="ENA_no_user">あなた</string>
+  <string name="ENA_no_user">Someone</string>
   <string name="ENA_refresh_comments">コメントを更新</string>
   <string name="TLA_no_items">タスクなし</string>
+  <string name="TLA_no_items_person">%s has no\ntasks shared with you</string>
   <string name="TLA_menu_addons">アドオン</string>
   <string name="TLA_menu_sort">表示設定</string>
-  <string name="TLA_menu_sync">すぐに同期！</string>
+  <string name="TLA_menu_sync">すぐに同期</string>
   <string name="TLA_menu_lists">リスト</string>
-  <string name="TLA_menu_friends">ともだち</string>
+  <string name="TLA_menu_friends">People</string>
   <string name="TLA_menu_suggestions">提案</string>
   <string name="TLA_menu_tutorial">チュートリアル</string>
   <string name="TLA_menu_settings">設定</string>
@@ -163,7 +173,7 @@
   <string name="TLA_search_label">このリストの検索</string>
   <string name="TLA_custom">カスタムフィルタ</string>
   <string name="TLA_quick_add_hint">タスクを追加</string>
-  <string name="TLA_quick_add_hint_assign">Tap to assign %s a task</string>
+  <string name="TLA_quick_add_hint_assign">Add something for %s</string>
   <string name="TLA_notification_volume_low">Notifications are muted. You won\'t be able to hear Astrid!</string>
   <string name="TLA_notification_disabled">Astrid reminders are disabled! You will not receive any reminders</string>
   <string-array name="TLA_filters">
@@ -279,6 +289,7 @@
   <string name="TEA_control_importance">重要性</string>
   <string name="TEA_control_lists">リスト</string>
   <string name="TEA_control_notes">メモ</string>
+  <string name="TEA_control_files">Files</string>
   <string name="TEA_control_reminders">リマインダー</string>
   <string name="TEA_control_timer">Timer Controls</string>
   <string name="TEA_control_share">ともだちと共有</string>
@@ -290,11 +301,35 @@
   <string name="TEA_load_more">Load more...</string>
   <string name="TEA_when_dialog_title">When is this due?</string>
   <string name="TEA_date_and_time">日付/時刻</string>
+  <string name="TEA_new_task">New Task</string>
   <string name="WSV_click_to_load">Tap me to search for ways to get this done!</string>
   <string name="WSV_not_online">I can do more when connected to the Internet. Please check your connection.</string>
+  <string name="TEA_contact_error">Sorry! We couldn\'t find an email address for the selected contact.</string>
   <string name="InA_title">Welcome to Astrid!</string>
   <string name="InA_agree">同意する</string>
   <string name="InA_disagree">同意しない</string>
+  <string name="MCA_title">%1$s\ncalled at %2$s</string>
+  <string name="MCA_return_call">Call now</string>
+  <string name="MCA_add_task">Call later</string>
+  <string name="MCA_ignore">Ignore</string>
+  <string name="MCA_ignore_title">Ignore all missed calls?</string>
+  <string name="MCA_ignore_body">You\'ve ignored several missed calls. Should Astrid stop asking you about them?</string>
+  <string name="MCA_ignore_all">Ignore all calls</string>
+  <string name="MCA_ignore_this">Ignore this call only</string>
+  <string name="MCA_missed_calls_pref_title">Field missed calls</string>
+  <string name="MCA_missed_calls_pref_desc_enabled">Astrid will notify you about missed calls and offer to remind you to call back</string>
+  <string name="MCA_missed_calls_pref_desc_disabled">Astrid will not notify you about missed calls</string>
+  <string name="MCA_task_title_name">Call %1$s back at %2$s</string>
+  <string name="MCA_task_title_no_name">Call %s back</string>
+  <string name="MCA_schedule_dialog_title">Call %s back in...</string>
+  <string-array name="MCA_dialog_speech_options">
+    <item>It must be nice to be so popular!</item>
+    <item>Yay! People like you!</item>
+    <item>Make their day, give \'em a call!</item>
+    <item>Wouldn\'t you be happy if people called you back?</item>
+    <item>You can do it!</item>
+    <item>You can always send a text...</item>
+  </string-array>
   <string name="HlA_get_support">サポートサイト</string>
   <string name="UpS_changelog_title">Astrid の変更点</string>
   <string name="UpS_updates_title">最新のAstridニュース</string>
@@ -324,13 +359,52 @@
   <string name="EPr_theme_title">Color Theme</string>
   <string name="EPr_theme_desc">現在の設定: %s</string>
   <string name="EPr_theme_desc_unsupported">Setting requires Android 2.0+</string>
+  <string name="EPr_theme_widget_title">Widget Theme</string>
   <string name="EPr_taskRowPrefs_title">Task Row Appearance</string>
+  <string name="EPr_labs_header">Astrid Labs</string>
+  <string name="EPr_labs_desc">Try and configure experimental features</string>
+  <string name="EPr_swipe_lists_performance_title">Swipe between lists</string>
+  <string name="EPr_swipe_lists_performance_subtitle">Controls the memory performance of swipe between lists</string>
+  <string name="EPr_use_contact_picker">Use contact picker</string>
+  <string name="EPr_use_contact_picker_desc_enabled">The system contact picker option will be displayed in the task assignment window</string>
+  <string name="EPr_use_contact_picker_desc_disabled">The system contact picker option will not be displayed</string>
+  <string name="EPr_third_party_addons">Enable Third Party Add-ons</string>
+  <string name="EPr_third_party_addons_desc_enabled">Third party add-ons will be enabled</string>
+  <string name="EPr_third_party_addons_desc_disabled">Third party add-ons will be disabled</string>
+  <string name="EPr_ideas_tab_enabled">Task Ideas</string>
+  <string name="EPr_ideas_tab_description">Get ideas to help you complete tasks</string>
+  <string name="EPr_cal_end_or_start_at_due_time">Calendar event time</string>
+  <string name="EPr_cal_end_at_due_time">End calendar events at due time</string>
+  <string name="EPr_cal_start_at_due_time">Start calendar events at due time</string>
+  <string name="EPr_swipe_lists_restart_alert">You will need to restart Astrid for this change to take effect</string>
+  <string-array name="EPr_swipe_lists_performance_mode">
+    <item>No swipe</item>
+    <item>Conserve Memory</item>
+    <item>Normal Performance</item>
+    <item>High Performance</item>
+  </string-array>
+  <string-array name="EPr_swipe_lists_performance_desc">
+    <item>Swipe between lists is disabled</item>
+    <item>Slower performance</item>
+    <item>Default setting</item>
+    <item>Uses more system resources</item>
+  </string-array>
+  <string name="EPr_swipe_lists_display">%1$s - %2$s</string>
   <string-array name="EPr_themes">
     <item>Day - Blue</item>
     <item>Day - Red</item>
     <item>Night</item>
     <item>Transparent (White Text)</item>
     <item>Transparent (Black Text)</item>
+  </string-array>
+  <string-array name="EPr_themes_widget">
+    <item>Same as app</item>
+    <item>Day - Blue</item>
+    <item>Day - Red</item>
+    <item>Night</item>
+    <item>Transparent (White Text)</item>
+    <item>Transparent (Black Text)</item>
+    <item>Old Style</item>
   </string-array>
   <string name="EPr_manage_header">Manage Old Tasks</string>
   <string name="EPr_manage_delete_completed">Delete Completed Tasks</string>
@@ -361,11 +435,14 @@
   <string name="WCA_title">ウィジェットに表示する項目</string>
   <string name="p_about">About Astrid</string>
   <string name="p_about_text">Current version: %s\n\n Astrid is open-source and proudly maintained by Todoroo, Inc.</string>
-  <string name="p_help">ヘルプ</string>
+  <string name="p_help">Support</string>
+  <string name="p_forums">Forums</string>
   <string name="task_killer_help">タスクキラー (%s) を使用中です。Astrid が終了しないように、除外リストに登録してください。そうしないと、期限が来たタスクを通知できなくなります。\n</string>
   <string name="task_killer_help_ok">I Won\'t Kill Astrid!</string>
   <string name="marketplace_title">Astrid Task/Todo List</string>
   <string name="marketplace_description">Astrid is the much loved open-source todo list / task manager designed to help you get stuff done. It features reminders, tags, sync, Locale plug-in, a widget and more.</string>
+  <string name="DB_corrupted_title">Corrupted Database</string>
+  <string name="DB_corrupted_body">Uh oh! It looks like you may have a corrupted database. If you see this error regularly, we suggest you clear all data (Settings-&gt;Manage All Tasks-&gt;Clear all data) and restore your tasks from a backup (Settings-&gt;Backup-&gt;Import Tasks) in Astrid.</string>
   <string name="EPr_defaults_header">タスクのデフォルト設定</string>
   <string name="EPr_default_urgency_title">期限</string>
   <string name="EPr_default_urgency_desc">現在の設定: %s</string>
@@ -485,6 +562,8 @@
   <string name="gtasks_error_accountNotFound">Account %s not found--please log out and log back in from the Google Tasks settings.</string>
   <string name="gtasks_error_authRefresh">Unable to authenticate with Google Tasks. Please check your account password or try again later.</string>
   <string name="gtasks_error_accountManager">Error in your phone\'s account manager. Please log out and log back in from the Google Tasks settings.</string>
+  <string name="gtasks_error_background_sync_auth">Error authenticating in background. Please try initiating a sync while Astrid is running.</string>
+  <string name="gtasks_dual_sync_warning">You are currently synchronizing with Astrid.com. Be advised that synchronizing with both services can in some cases lead to unexpected results. Are you sure you want to sync with Google Tasks?</string>
   <string name="help_popover_add_task">Start by adding a task or two</string>
   <string name="help_popover_tap_task">Tap task to edit and share</string>
   <string name="help_popover_list_settings">Tap to edit or share this list</string>
@@ -567,6 +646,41 @@
   <string name="EPr_statistics_title">匿名の使用統計データ</string>
   <string name="EPr_statistics_desc_disabled">使用統計情報は送信されません</string>
   <string name="EPr_statistics_desc_enabled">送られた使用統計情報は Astrid の改善に使用されます</string>
+  <string name="speech_err_network">Network error! Speech recognition requires a network connection to work.</string>
+  <string name="speech_err_no_match">Sorry, I couldn\'t understand that! Please try again.</string>
+  <string name="speech_err_default">Sorry, speech recognition encountered an error. Please try again.</string>
+  <string name="premium_attach_file">Attach a file</string>
+  <string name="premium_record_audio">Record a note</string>
+  <string name="premium_no_files">No files attached</string>
+  <string name="premium_remove_file_confirm">Are you sure? Cannot be undone</string>
+  <string name="audio_recording_title">Recording Audio</string>
+  <string name="audio_stop_recording">Stop Recording</string>
+  <string name="audio_speak_now">Speak Now!</string>
+  <string name="audio_encoding">Encoding...</string>
+  <string name="audio_err_encoding">Error encoding audio</string>
+  <string name="audio_err_playback">Sorry, the system does not support this type of audio file</string>
+  <string name="search_market_audio">No player found to handle that audio type. Would you like to download an audio player from the Android Market?</string>
+  <string name="search_market_audio_title">No audio player found</string>
+  <string name="search_market_pdf">No PDF reader was found. Would you like to download a PDF reader from the Android Market?</string>
+  <string name="search_market_pdf_title">No PDF reader found</string>
+  <string name="search_market_ms">No MS Office reader was found. Would you like to download an MS Office reader from the Android Market?</string>
+  <string name="search_market_ms_title">No MS Office reader found</string>
+  <string name="file_type_unhandled">Sorry! No application was found to handle this file type.</string>
+  <string name="file_type_unhandled_title">No application found</string>
+  <string name="file_prefix_image">Image</string>
+  <string name="file_prefix_voice">Voice</string>
+  <string name="file_browser_up">Up</string>
+  <string name="file_browser_title">Choose a file</string>
+  <string name="file_browser_err_permissions">Permissions error! Please make sure you have not blocked Astrid from accessing the SD card.</string>
+  <string name="file_add_picture">Attach a picture</string>
+  <string name="file_add_sdcard">Attach a file from your SD card</string>
+  <string name="file_download_title">Download file?</string>
+  <string name="file_download_body">This file has not been downloaded to your SD card. Download now?</string>
+  <string name="file_download_progress">Downloading...</string>
+  <string name="file_err_memory">Image is too large to fit in memory</string>
+  <string name="file_err_copy">Error copying file for attachment</string>
+  <string name="file_err_download">Error downloading file</string>
+  <string name="file_err_show">Sorry, the system does not yet support this type of file</string>
   <string name="producteev_FEx_header">Producteev</string>
   <string name="producteev_FEx_dashboard">Workspaces</string>
   <string name="producteev_FEx_responsible_byme">Assigned by me to</string>
@@ -631,6 +745,33 @@
   <string name="rmd_NoA_done">既に完了しています!</string>
   <string name="rmd_NoA_snooze">後で通知</string>
   <string name="rmd_NoA_completed_toast">Congratulations on finishing!</string>
+  <string name="rmd_NoA_dlg_title">Reminder:</string>
+  <string-array name="rmd_reengage_notif_titles">
+    <item>A note from Astrid</item>
+    <item>Memo for %s.</item>
+    <item>Your Astrid digest</item>
+    <item>Reminders from Astrid</item>
+  </string-array>
+  <string name="rmd_reengage_name_default">you</string>
+  <string name="rmd_reengage_snooze">Snooze all</string>
+  <string name="rmd_reengage_add_tasks">Add a task</string>
+  <string-array name="rmd_reengage_dialog_options">
+    <item>Time to shorten your to-do list!</item>
+    <item>Dear sir or madam, some tasks await your inspection!</item>
+    <item>Hi there, could you take a look at these?</item>
+    <item>I\'ve got some tasks with your name on them!</item>
+    <item>A fresh batch of tasks for you today!</item>
+    <item>You look fabulous! Ready to get started?</item>
+    <item>A lovely day for getting some work done, I think!</item>
+  </string-array>
+  <string-array name="rmd_reengage_dialog_empty_options">
+    <item>Don\'t you want to get organized?</item>
+    <item>I\'m Astrid! I\'m here to help you do more!</item>
+    <item>You look busy! Let me take some of those tasks off of your plate.</item>
+    <item>I can help you keep track of all of the details in your life.</item>
+    <item>You\'re serious about getting more done? So am I!</item>
+    <item>Pleasure to make your acquaintance!</item>
+  </string-array>
   <string name="rmd_EPr_alerts_header">通知の設定</string>
   <string name="rmd_EPr_enabled_title">Reminders Enabled?</string>
   <string name="rmd_EPr_enabled_desc_true">Astrid reminders are enabled (this is normal)</string>
@@ -855,20 +996,43 @@
     <item>Minute(s)</item>
     <item>Year(s)</item>
   </string-array>
+  <string-array name="repeat_until_shortcuts">
+    <item>Forever</item>
+    <item>Specific Day</item>
+    <item>Today</item>
+    <item>Tomorrow</item>
+    <item>(day after)</item>
+    <item>Next Week</item>
+    <item>In Two Weeks</item>
+    <item>Next Month</item>
+  </string-array>
+  <string name="repeat_until_title">Repeat until...</string>
+  <string name="repeat_keep_going">Keep going</string>
   <string-array name="repeat_type">
     <item>期限から</item>
     <item>完了日から</item>
   </string-array>
   <string name="repeat_detail_byday">$I ($D 曜日)</string>
   <string name="repeat_detail_duedate">%s</string>
+  <string name="repeat_detail_duedate_until">Every %1$s\nuntil %2$s</string>
   <string name="repeat_detail_completion">完了日から %s</string>
+  <string name="repeat_forever">Repeat forever</string>
+  <string name="repeat_until">Repeat until %s</string>
   <string name="repeat_rescheduling_dialog_title">Rescheduling task \"%s\"</string>
+  <string name="repeat_rescheduling_dialog_title_last_time">Completed repeating task \"%s\"</string>
   <string name="repeat_rescheduling_dialog_bubble">%1$s I\'ve rescheduled this repeating task from %2$s to %3$s</string>
+  <string name="repeat_rescheduling_dialog_bubble_no_date">%1$s I\'ve rescheduled this repeating task to %2$s</string>
+  <string name="repeat_rescheduling_dialog_bubble_last_time">You had this repeating until %1$s, and now you\'re all done. %2$s</string>
   <string-array name="repeat_encouragement">
     <item>Good job!</item>
     <item>Wow… I\'m so proud of you!</item>
-    <item>I love it when you\'re productive!</item>
+    <item>I love when you\'re productive!</item>
     <item>Doesn\'t it feel good to check something off?</item>
+  </string-array>
+  <string-array name="repeat_encouragement_last_time">
+    <item>Good job!</item>
+    <item>I\'m so proud of you!</item>
+    <item>I love when you\'re productive!</item>
   </string-array>
   <string name="rmilk_EOE_button">Remember the Milk の設定</string>
   <string name="rmilk_TLA_repeat">RTM Repeating Task</string>
@@ -934,16 +1098,19 @@
   <string name="update_string_friends">%1$s is now friends with %2$s</string>
   <string name="update_string_request_friendship">%1$s wants to be friends with you</string>
   <string name="update_string_confirmed_friendship">%1$s has confirmed your friendship request</string>
-
-
-
-
-
-
-
+  <string name="update_string_task_created">%1$s created this task</string>
+  <string name="update_string_task_created_global">%1$s created $link_task</string>
+  <string name="update_string_task_created_on_list">%1$s added $link_task to this list</string>
+  <string name="update_string_task_completed">%1$s completed $link_task. Huzzah!</string>
+  <string name="update_string_task_uncompleted">%1$s un-completed $link_task.</string>
+  <string name="update_string_task_tagged">%1$s added $link_task to %4$s</string>
+  <string name="update_string_task_tagged_list">%1$s added $link_task to this list</string>
+  <string name="update_string_task_assigned">%1$s assigned $link_task to %4$s</string>
   <string name="update_string_default_comment">%1$s commented: %3$s</string>
-
+  <string name="update_string_task_comment">%1$s Re: $link_task: %3$s</string>
   <string name="update_string_tag_comment">%1$s Re: %2$s: %3$s</string>
+  <string name="update_string_tag_created">%1$s created this list</string>
+  <string name="update_string_tag_created_global">%1$s created the list %2$s</string>
   <string name="voice_create_prompt">Speak to create a task</string>
   <string name="voice_edit_title_prompt">Speak to set task title</string>
   <string name="voice_edit_note_prompt">Speak to set task notes</string>
@@ -983,6 +1150,9 @@
   <string name="PPW_widget_42_label">Astrid Premium 4x2</string>
   <string name="PPW_widget_43_label">Astrid Premium 4x3</string>
   <string name="PPW_widget_44_label">Astrid Premium 4x4</string>
+  <string name="PPW_widget_v11_label">Astrid Scrollable Premium</string>
+  <string name="PPW_widget_custom_label">Astrid Scrollable Premium for Custom Launchers</string>
+  <string name="PPW_widget_custom_launcherpro_label">Astrid Scrollable Premium 4x4 for Launcher Pro</string>
   <string name="PPW_configure_title">Configure Widget</string>
   <string name="PPW_color">Widget color</string>
   <string name="PPW_enable_calendar">Show calendar events</string>

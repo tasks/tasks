@@ -58,6 +58,7 @@ import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.data.TaskApiDao.TaskCriteria;
 import com.todoroo.astrid.service.StatisticsService;
 import com.todoroo.astrid.service.ThemeService;
+import com.todoroo.astrid.utility.AstridPreferences;
 
 /**
  * Activity that allows users to build custom filters
@@ -176,7 +177,7 @@ public class CustomFilterActivity extends FragmentActivity {
     }
 
     private void setupForDialogOrFullscreen() {
-        isDialog = AndroidUtilities.isTabletSized(this);
+        isDialog = AstridPreferences.useTabletLayout(this);
         if (isDialog)
             setTheme(ThemeService.getDialogTheme());
         else
@@ -321,10 +322,8 @@ public class CustomFilterActivity extends FragmentActivity {
             public void afterTextChanged(Editable s) {
                 if(s.length() == 0) {
                     saveAndView.setText(R.string.CFA_button_view);
-                    saveAndView.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.tango_next, 0);
                 } else {
                     saveAndView.setText(R.string.CFA_button_save);
-                    saveAndView.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.tango_save, 0);
                 }
             }
             @Override
@@ -364,6 +363,14 @@ public class CustomFilterActivity extends FragmentActivity {
             }
         });
     }
+
+    @Override
+    public void finish() {
+        super.finish();
+        if (!AstridPreferences.useTabletLayout(this))
+            AndroidUtilities.callOverridePendingTransition(this, R.anim.slide_right_in, R.anim.slide_right_out);
+    }
+
 
     // --- listeners and action events
 

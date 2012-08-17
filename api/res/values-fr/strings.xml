@@ -1,8 +1,8 @@
 <?xml version='1.0' encoding='utf-8'?>
 <resources>
   <plurals name="DUt_years">
-    <item quantity="one">1 année</item>
-    <item quantity="other">%d années</item>
+    <item quantity="one">1 an</item>
+    <item quantity="other">%d ans</item>
   </plurals>
   <plurals name="DUt_months">
     <item quantity="one">1 mois</item>
@@ -74,7 +74,8 @@
   <string name="SyP_label">Synchronisation</string>
   <string name="SyP_ioerror">Erreur de connexion ! Veuillez vérifier votre connexion Internet.</string>
   <string name="sync_SPr_group_status">Statut</string>
-  <string name="sync_status_loggedout">Pas connecté !</string>
+  <string name="sync_SPr_status_subtitle">État : %s</string>
+  <string name="sync_status_loggedout">Non connecté</string>
   <string name="sync_status_ongoing">Synchronisation en cours...</string>
   <string name="sync_status_success">Dernière synchro. :\n%s</string>
   <string name="sync_status_failed">Échec sur : %s</string>
@@ -89,12 +90,16 @@
   <string name="sync_SPr_bgwifi_desc_enabled">La synchronisation en arrière-plan ne s\'effectue uniquement sous Wifi</string>
   <string name="sync_SPr_bgwifi_desc_disabled">La synchronisation en arrière-plan s\'effectuera toujours</string>
   <string name="sync_SPr_group_actions">Actions</string>
-  <string name="sync_SPr_sync">Synchroniser maintenant !</string>
+  <string name="sync_SPr_sync">Synchroniser maintenant</string>
   <string name="sync_SPr_sync_log_in">Se connecter et synchroniser !</string>
   <string name="sync_SPr_logged_in_prefix">Connecté en tant que :</string>
+  <string name="sync_SPr_last_error">Rapport d\'état</string>
+  <string name="sync_SPr_last_error_subtitle">Cliquez pour envoyer un rapport à l\'équipe Astrid</string>
+  <string name="sync_SPr_send_report">Envoyer le rapport</string>
   <string name="sync_SPr_forget">Se déconnecter</string>
   <string name="sync_SPr_forget_description">Purger toutes les données de synchronisation</string>
   <string name="sync_forget_confirm">Se déconnecter/purger les données de synchronisation ?</string>
+  <string name="sync_error_offline">Un problème de connexion réseau est survenu lors de la dernière synchronisation avec %s. Merci de réessayer plus tard.</string>
   <string-array name="sync_SPr_interval_entries">
     <item>désactiver</item>
     <item>toutes les quinze minutes</item>

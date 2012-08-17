@@ -7,9 +7,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2012-05-02 20:22-0700\n"
-"PO-Revision-Date: 2012-03-03 11:29+0000\n"
-"Last-Translator: 邵开来 <Unknown>\n"
+"POT-Creation-Date: 2012-08-13 17:20-0700\n"
+"PO-Revision-Date: 2012-05-19 13:01+0000\n"
+"Last-Translator: Wang Dianjin <Unknown>\n"
 "Language-Team: zh_CN <LL@li.org>\n"
 "Plural-Forms: nplurals=1; plural=0\n"
 "MIME-Version: 1.0\n"
@@ -136,7 +136,7 @@ msgctxt "Npeople:quantity=one"
 msgid "1 person"
 msgstr "一个人"
 
-#. today
+#. slide 10a, 12c: today
 msgctxt "today"
 msgid "Today"
 msgstr "今天"
@@ -146,17 +146,17 @@ msgctxt "tomorrow"
 msgid "Tomorrow"
 msgstr "明天"
 
-#. today
+#. yesterday
 msgctxt "yesterday"
 msgid "Yesterday"
 msgstr "昨天"
 
-#. tomorrow, abbreviated
+#. slide 12c: tomorrow, abbreviated
 msgctxt "tmrw"
 msgid "Tmrw"
 msgstr "明天"
 
-#. yesterday, abbreviated
+#. slide 12c: yesterday, abbreviated
 msgctxt "yest"
 msgid "Yest"
 msgstr "昨天"
@@ -257,16 +257,15 @@ msgid "Status"
 msgstr "状态"
 
 #. Sync status subtitle, %s-> status message
-#, fuzzy, c-format
+#, c-format
 msgctxt "sync_SPr_status_subtitle"
 msgid "Status: %s"
-msgstr "状态"
+msgstr "状态：%s"
 
 #. Sync Status: log in
-#, fuzzy
 msgctxt "sync_status_loggedout"
 msgid "Not Logged In"
-msgstr "未登陆!"
+msgstr "未登陆"
 
 #. Status: ongoing
 msgctxt "sync_status_ongoing"
@@ -348,10 +347,9 @@ msgid "Actions"
 msgstr "动作"
 
 #. Synchronize Now Button
-#, fuzzy
 msgctxt "sync_SPr_sync"
 msgid "Synchronize Now"
-msgstr "现在同步！"
+msgstr "现在同步"
 
 #. Synchronize Now Button if not logged in
 msgctxt "sync_SPr_sync_log_in"
@@ -366,17 +364,17 @@ msgstr "已经登录为："
 #. Sync: Last error
 msgctxt "sync_SPr_last_error"
 msgid "Status Report"
-msgstr ""
+msgstr "状态报告"
 
 #. Sync: last error click for more
 msgctxt "sync_SPr_last_error_subtitle"
 msgid "Click to send a report to the Astrid team"
-msgstr ""
+msgstr "点击给 Astrid 团队发送报告"
 
 #. Sync: send error report button
 msgctxt "sync_SPr_send_report"
 msgid "Send Report"
-msgstr ""
+msgstr "发送报告"
 
 #. Sync: Clear Data Title
 msgctxt "sync_SPr_forget"
@@ -399,7 +397,7 @@ msgctxt "sync_error_offline"
 msgid ""
 "There was a problem connecting to the network during the last sync with "
 "%s. Please try again later."
-msgstr ""
+msgstr "在最近与 %s 同步时网络连接发生问题。请重试。"
 
 msgctxt "sync_SPr_interval_entries:0"
 msgid "disable"

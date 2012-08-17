@@ -55,6 +55,7 @@ import com.todoroo.astrid.api.FilterListItem;
 import com.todoroo.astrid.service.StatisticsService;
 import com.todoroo.astrid.tags.TagService;
 import com.todoroo.astrid.tags.TagsPlugin;
+import com.todoroo.astrid.utility.AstridPreferences;
 import com.todoroo.astrid.welcome.HelpInfoPopover;
 
 /**
@@ -145,7 +146,7 @@ public class FilterListFragment extends ListFragment {
     }
 
     protected int getLayout(Activity activity) {
-        if (AndroidUtilities.isTabletSized(activity)) {
+        if (AstridPreferences.useTabletLayout(activity)) {
             adapter.filterStyle = R.style.TextAppearance_FLA_Filter_Tablet;
             return R.layout.filter_list_activity_3pane;
         } else
@@ -168,7 +169,7 @@ public class FilterListFragment extends ListFragment {
                 public void onClick(View v) {
                     Intent intent = TagsPlugin.newTagDialog(getActivity());
                     getActivity().startActivityForResult(intent, REQUEST_NEW_LIST);
-                    if (!AndroidUtilities.isTabletSized(getActivity()))
+                    if (!AstridPreferences.useTabletLayout(getActivity()))
                         AndroidUtilities.callOverridePendingTransition(getActivity(), R.anim.slide_left_in, R.anim.slide_left_out);
                 }
             });
@@ -182,8 +183,6 @@ public class FilterListFragment extends ListFragment {
         setUpList();
 
         if (mDualFragments) {
-            // In dual-pane mode, the list view highlights the selected item.
-            getListView().setChoiceMode(ListView.CHOICE_MODE_SINGLE);
             getListView().setItemsCanFocus(false);
         }
     }

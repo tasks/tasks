@@ -7,9 +7,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2012-05-02 20:22-0700\n"
-"PO-Revision-Date: 2012-03-23 13:46+0000\n"
-"Last-Translator: 16aR <Unknown>\n"
+"POT-Creation-Date: 2012-08-13 17:20-0700\n"
+"PO-Revision-Date: 2012-07-07 17:33+0000\n"
+"Last-Translator: aminecmi <aminecmi@yahoo.fr>\n"
 "Language-Team: fr <LL@li.org>\n"
 "Plural-Forms: nplurals=2; plural=(n > 1)\n"
 "MIME-Version: 1.0\n"
@@ -21,12 +21,12 @@ msgstr ""
 #, c-format
 msgctxt "DUt_years:quantity=other"
 msgid "%d Years"
-msgstr "%d années"
+msgstr "%d ans"
 
 #. ==================================================== Generic Units ==
 msgctxt "DUt_years:quantity=one"
 msgid "1 Year"
-msgstr "1 année"
+msgstr "1 an"
 
 #, c-format
 msgctxt "DUt_months:quantity=other"
@@ -136,7 +136,7 @@ msgctxt "Npeople:quantity=one"
 msgid "1 person"
 msgstr "1 personne"
 
-#. today
+#. slide 10a, 12c: today
 msgctxt "today"
 msgid "Today"
 msgstr "Aujourd'hui"
@@ -146,17 +146,17 @@ msgctxt "tomorrow"
 msgid "Tomorrow"
 msgstr "Demain"
 
-#. today
+#. yesterday
 msgctxt "yesterday"
 msgid "Yesterday"
 msgstr "Hier"
 
-#. tomorrow, abbreviated
+#. slide 12c: tomorrow, abbreviated
 msgctxt "tmrw"
 msgid "Tmrw"
 msgstr "Demain"
 
-#. yesterday, abbreviated
+#. slide 12c: yesterday, abbreviated
 msgctxt "yest"
 msgid "Yest"
 msgstr "Hier"
@@ -257,16 +257,15 @@ msgid "Status"
 msgstr "Statut"
 
 #. Sync status subtitle, %s-> status message
-#, fuzzy, c-format
+#, c-format
 msgctxt "sync_SPr_status_subtitle"
 msgid "Status: %s"
-msgstr "Statut"
+msgstr "État : %s"
 
 #. Sync Status: log in
-#, fuzzy
 msgctxt "sync_status_loggedout"
 msgid "Not Logged In"
-msgstr "Pas connecté !"
+msgstr "Non connecté"
 
 #. Status: ongoing
 msgctxt "sync_status_ongoing"
@@ -348,10 +347,9 @@ msgid "Actions"
 msgstr "Actions"
 
 #. Synchronize Now Button
-#, fuzzy
 msgctxt "sync_SPr_sync"
 msgid "Synchronize Now"
-msgstr "Synchroniser maintenant !"
+msgstr "Synchroniser maintenant"
 
 #. Synchronize Now Button if not logged in
 msgctxt "sync_SPr_sync_log_in"
@@ -366,17 +364,17 @@ msgstr "Connecté en tant que :"
 #. Sync: Last error
 msgctxt "sync_SPr_last_error"
 msgid "Status Report"
-msgstr ""
+msgstr "Rapport d'état"
 
 #. Sync: last error click for more
 msgctxt "sync_SPr_last_error_subtitle"
 msgid "Click to send a report to the Astrid team"
-msgstr ""
+msgstr "Cliquez pour envoyer un rapport à l'équipe Astrid"
 
 #. Sync: send error report button
 msgctxt "sync_SPr_send_report"
 msgid "Send Report"
-msgstr ""
+msgstr "Envoyer le rapport"
 
 #. Sync: Clear Data Title
 msgctxt "sync_SPr_forget"
@@ -400,6 +398,8 @@ msgid ""
 "There was a problem connecting to the network during the last sync with "
 "%s. Please try again later."
 msgstr ""
+"Un problème de connexion réseau est survenu lors de la dernière "
+"synchronisation avec %s. Merci de réessayer plus tard."
 
 msgctxt "sync_SPr_interval_entries:0"
 msgid "disable"

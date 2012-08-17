@@ -2,92 +2,100 @@
 <resources>
   <string name="EPE_action">공유</string>
   <string name="actfm_person_hint">연락처 혹은 전자우편</string>
-  <string name="actfm_person_or_tag_hint">Contact or Shared List</string>
-  <string name="actfm_toast_success">Saved on Server</string>
-
-  <string name="actfm_tag_operation_disabled">Sorry, this operation is not yet supported for shared tags.</string>
+  <string name="actfm_person_or_tag_hint">연락처 혹은 공유리스트</string>
+  <string name="actfm_toast_success">저장하기</string>
+  <string name="actfm_tag_operation_disabled">죄송합니다.공유는 아직 지원되지않습니다.</string>
   <string name="actfm_tag_operation_owner_delete">You are the owner of this shared list! If you delete it, it will be deleted for all list members. Are you sure you want to continue?</string>
-  <string name="actfm_picture_camera">Take a Picture</string>
-  <string name="actfm_picture_gallery">Pick from Gallery</string>
+  <string name="actfm_picture_camera">카메라</string>
+  <string name="actfm_picture_gallery">갤러리</string>
   <string name="actfm_picture_clear">Clear Picture</string>
-  <string name="actfm_FLA_menu_refresh">Refresh Lists</string>
-  <string name="actfm_view_task_title">View Task?</string>
+  <string name="actfm_FLA_menu_refresh">목록을 새로고침</string>
+  <string name="actfm_view_task_title">일정을 보시겠습니까?</string>
   <string name="actfm_view_task_text">Task was sent to %s! You\'re currently viewing your own tasks. Do you want to view this and other tasks you\'ve assigned?</string>
-  <string name="actfm_view_task_ok">View Assigned</string>
-  <string name="actfm_view_task_cancel">Stay Here</string>
-  <string name="TVA_add_comment">Add a comment...</string>
+  <string name="actfm_view_task_ok">완료된 일정 보기</string>
+  <string name="actfm_view_task_cancel">머무르기</string>
+  <string name="actfm_my_shared_tasks_title">공유된 일정들</string>
+  <string name="actfm_my_shared_tasks_empty">일정 공유 하지않기</string>
+  <string name="TVA_add_comment">댓글</string>
   <string name="UAd_title_comment">%1$s re: %2$s</string>
   <string-array name="TVA_tabs">
     <item>Tasks</item>
     <item>Activity</item>
-    <item>List Settings</item>
+    <item>설정</item>
   </string-array>
   <string name="actfm_TVA_filtered_by_assign">%s\'s tasks. Tap for all.</string>
   <string name="actfm_TVA_filter_by_unassigned">Unassigned tasks. Tap for all.</string>
   <string name="actfm_TVA_no_members_alert">Private: tap to edit or share list</string>
-  <string name="actfm_TVA_menu_refresh">Refresh</string>
-  <string name="actfm_TVA_tag_label">List</string>
+  <string name="actfm_TVA_menu_refresh">새로 고침</string>
+  <string name="actfm_TVA_tag_label">리스트</string>
   <string name="actfm_TVA_tag_owner_label">List Creator:</string>
-  <string name="actfm_TVA_tag_owner_none">none</string>
-  <string name="actfm_TVA_members_label">Shared With</string>
-  <string name="actfm_TVA_tag_picture">List Picture</string>
-  <string name="actfm_TVA_silence_label">Silence Notifications</string>
-  <string name="actfm_TVA_list_icon_label">List Icon:</string>
-  <string name="actfm_TVA_tag_description_label">Description</string>
-  <string name="actfm_TVA_tag_settings_label">Settings</string>
-  <string name="actfm_TVA_tag_description_hint">Type a description here</string>
-  <string name="actfm_TVA_tag_name_hint">Enter list name</string>
-  <string name="actfm_TVA_login_to_share">You need to be logged in to Astrid.com to share lists! Please log in or make this a private list.</string>
+  <string name="actfm_TVA_tag_owner_none">없음</string>
+  <string name="actfm_TVA_members_label">공유</string>
+  <string name="actfm_TVA_members_hint">회원과 공유하기</string>
+  <string name="actfm_TVA_tag_picture">사진</string>
+  <string name="actfm_TVA_silence_label">알림 끄기</string>
+  <string name="actfm_TVA_list_icon_label">아이콘</string>
+  <string name="actfm_TVA_tag_description_label">설명</string>
+  <string name="actfm_TVA_tag_settings_label">설정</string>
+  <string name="actfm_TVA_tag_description_hint">여기에 설명을 입력해주세요</string>
+  <string name="actfm_TVA_tag_name_hint">리스트명 입력</string>
+  <string name="actfm_TVA_login_to_share">일정을 공유하기 위해선 로그인이 필요합니다.</string>
   <string name="actfm_EPA_intro">Use Astrid to share shopping lists, party plans, or team projects and instantly see when people get stuff done!</string>
-  <string name="actfm_EPA_title">Share / Assign</string>
-  <string name="actfm_EPA_save">Save &amp; Share</string>
+  <string name="actfm_EPA_title">공유/할당</string>
+  <string name="actfm_EPA_save">저장&amp;공유</string>
   <string name="actfm_EPA_assign_label">Who</string>
-  <string name="actfm_EPA_assign_label_long">Who should do this?</string>
-  <string name="actfm_EPA_assign_me">Me</string>
-  <string name="actfm_EPA_unassigned">Unassigned</string>
+  <string name="actfm_EPA_assign_label_long">누가 할일?</string>
+  <string name="actfm_EPA_assign_me">나</string>
+  <string name="actfm_EPA_unassigned">할당되지 않음</string>
+  <string name="actfm_EPA_choose_contact">선택하세요</string>
   <string name="actfm_EPA_task_rabbit">Outsource it!</string>
-  <string name="actfm_EPA_assign_custom">Custom...</string>
+  <string name="actfm_EPA_assign_custom">사용자 정의...</string>
   <string name="actfm_EPA_share_with">Share with:</string>
-  <string name="actfm_EPA_collaborators_header">Share with Friends</string>
-  <string name="actfm_EPA_list">List: %s</string>
-  <string name="actfm_EPA_assigned_hint">Contact Name</string>
-  <string name="actfm_EPA_message_text">Invitation Message:</string>
-  <string name="actfm_EPA_message_body">Help me get this done!</string>
-  <string name="actfm_EPA_tag_label">Create a shared tag?</string>
+
+  <string name="actfm_EPA_collaborators_header">친구들과 공유하기</string>
+  <string name="actfm_EPA_list">리스트: %s</string>
+  <string name="actfm_EPA_assigned_hint">연락처</string>
+  <string name="actfm_EPA_message_text">초대 메시지</string>
+  <string name="actfm_EPA_message_body">이걸 마칠 수 있게 도와주세요!</string>
+  <string name="actfm_EPA_assign_header_members">구성원</string>
+  <string name="actfm_EPA_assign_header_friends">친구들</string>
+  <string name="actfm_EPA_tag_label">공유 태그를 만드시겠습니까?</string>
   <string name="actfm_EPA_tag_hint">(i.e. Silly Hats Club)</string>
-  <string name="actfm_EPA_facebook">Facebook</string>
-  <string name="actfm_EPA_twitter">Twitter</string>
-  <string name="actfm_EPA_emailed_toast">Task shared with %s</string>
+  <string name="actfm_EPA_facebook">페이스북</string>
+  <string name="actfm_EPA_twitter">트위터</string>
+  <string name="actfm_EPA_emailed_toast">할 일이 %s와 공유됨</string>
   <string name="actfm_EPA_saved_toast">People Settings Saved</string>
-  <string name="actfm_EPA_invalid_email">Invalid E-mail: %s</string>
-  <string name="actfm_EPA_invalid_tag">List Not Found: %s</string>
-  <string name="actfm_EPA_login_to_share">You need to be logged in to Astrid.com to share tasks! Please log in or make this a private task.</string>
-  <string name="actfm_EPA_login_button">Log in</string>
-  <string name="actfm_EPA_dont_share_button">Make private</string>
-  <string name="actfm_ALA_title">Welcome to Astrid.com!</string>
+  <string name="actfm_EPA_invalid_email">유효하지 않은 이메일: %s</string>
+  <string name="actfm_EPA_invalid_tag">리스트를 찾을 수 없음: %s</string>
+  <string name="actfm_EPA_login_to_share">로그인이 필요합니다</string>
+  <string name="actfm_EPA_login_button">로그인</string>
+  <string name="actfm_EPA_dont_share_button">공유하지 않음</string>
+  <string name="actfm_ALA_title">환영합니다</string>
   <string name="actfm_ALA_body">Astrid.com lets you access your tasks online, share, and delegate with others.</string>
-  <string name="actfm_ALA_fb_login">Connect with Facebook</string>
-  <string name="actfm_ALA_gg_login">Connect with Google</string>
-  <string name="actfm_ALA_pw_login">Don\'t use Google or Facebook?</string>
-  <string name="actfm_ALA_pw_link">Sign In Here</string>
-  <string name="actfm_ALA_pw_new">Create a new account?</string>
-  <string name="actfm_ALA_pw_returning">Already have an account?</string>
-  <string name="actfm_ALA_name_label">Name</string>
-  <string name="actfm_ALA_firstname_label">First Name</string>
-  <string name="actfm_ALA_lastname_label">Last Name</string>
-  <string name="actfm_ALA_email_label">전자우편</string>
-  <string name="actfm_ALA_username_email_label">Username / Email</string>
+  <string name="actfm_ALA_fb_login">페이스북과 연동하기</string>
+  <string name="actfm_ALA_gg_login">구글과 연동하기</string>
+  <string name="actfm_ALA_pw_login">구글 또는 페이스북을 사용하지 않습니까?</string>
+  <string name="actfm_ALA_pw_link">동의하기</string>
+  <string name="actfm_ALA_pw_new">새 계정을 만드시겠습니까?</string>
+  <string name="actfm_ALA_pw_returning">이미 계정이 있으십니까?</string>
+  <string name="actfm_ALA_name_label">이름:</string>
+  <string name="actfm_ALA_firstname_label">성</string>
+  <string name="actfm_ALA_lastname_label">이름</string>
+  <string name="actfm_ALA_email_label">이메일</string>
+  <string name="actfm_ALA_username_email_label">사용자명/이메일</string>
   <string name="actfm_ALA_password_label">비밀번호</string>
-  <string name="actfm_ALA_signup_title">Create New Account</string>
-  <string name="actfm_ALA_login_title">Login to Astrid.com</string>
-  <string name="actfm_GAA_title">Select the Google account you want to use:</string>
-  <string name="actfm_OLA_prompt">Please log in:</string>
+  <string name="actfm_ALA_signup_title">새 계정 만들기</string>
+  <string name="actfm_ALA_login_title">로그인하기</string>
+  <string name="actfm_GAA_title">사용하려는 구글계정을 선택해주십시오</string>
+  <string name="actfm_OLA_prompt">로그인해주세요</string>
+  <string name="actfm_status_title_logged_in">상태 - %s(으)로 로그인됨</string>
   <string name="actfm_APr_header">Astrid.com</string>
-  <string name="actfm_https_title">Use HTTPS</string>
-  <string name="actfm_https_enabled">HTTPS enabled (slower)</string>
-  <string name="actfm_https_disabled">HTTPS disabled (faster)</string>
+  <string name="actfm_https_title">HTTPS 사용</string>
+  <string name="actfm_https_enabled">HTTPS 활성화됨 (느림)</string>
+  <string name="actfm_https_disabled">HTTPS 비활성화됨 (빠름)</string>
   <string name="actfm_notification_title">Astrid.com Sync</string>
-  <string name="actfm_notification_comments">New comments received / click for more details</string>
+  <string name="actfm_notification_comments">새로운 코멘트를 받음 / 자세히 보려면 클릭</string>
+  <string name="actfm_dual_sync_warning">You are currently synchronizing with Google Tasks. Be advised that synchronizing with both services can in some cases lead to unexpected results. Are you sure you want to sync with Astrid.com?</string>
   <string name="alarm_ACS_label">알람</string>
   <string name="alarm_ACS_button">알람 추가</string>
   <string-array name="reminders_alarm">
@@ -96,7 +104,7 @@
   <string name="backup_BPr_header">백업</string>
   <string name="backup_BPr_group_status">상태</string>
   <string name="backup_status_success">마지막:%s</string>
-  <string name="backup_status_failed">마지막 백업 실패</string>
+  <string name="backup_status_failed">최근 백업 실패</string>
   <string name="backup_status_failed_subtitle">(오류 내용을 보려면 탭하세요)</string>
   <string name="backup_status_never">백업한 적이 없습니다!</string>
   <string name="backup_BPr_group_options">옵션</string>
@@ -105,7 +113,7 @@
   <string name="backup_BPr_auto_enabled">백업 매일 할껀가요?</string>
   <string name="backup_BPr_how_to_restore">백업 어떻게 하실껀가요?</string>
   <string name="backup_BPr_how_to_restore_dialog">당신은 관리 및 복원 백업 Astrid Power Pack을 추가해야합니다. 그리고 Astrid는 혹시나 모를 상황에 대비하여 이전 상태를 자동으로 백업합니다.</string>
-  <string name="backup_BAc_label">백업</string>
+  <string name="backup_BAc_label">백업 설정</string>
   <string name="backup_BAc_title">백업 관리</string>
   <string name="backup_BAc_import">작업 가져오기</string>
   <string name="backup_BAc_export">작업 내보내기</string>
@@ -135,70 +143,73 @@
   <string name="DLG_accept">동의</string>
   <string name="DLG_decline">거절</string>
   <string name="DLG_eula_title">Astrid 사용 약관</string>
-  <string name="DLG_please_wait">Please Wait</string>
+  <string name="DLG_please_wait">기다려 주십시오</string>
   <string name="DLG_loading">로딩중...</string>
   <string name="DLG_dismiss">Dismiss</string>
-  <string name="DLG_ok">OK</string>
-  <string name="DLG_cancel">Cancel</string>
-  <string name="DLG_more">More</string>
-  <string name="DLG_undo">Undo</string>
+  <string name="DLG_ok">확인</string>
+  <string name="DLG_cancel">취소</string>
+  <string name="DLG_more">더보기</string>
+  <string name="DLG_undo">실행취소</string>
+  <string name="DLG_warning">주의</string>
   <string name="WID_dateButtonUnset">직접 입력</string>
   <string name="WID_dateButtonLabel">$D $T</string>
   <string name="WID_disableButton">사용 안 함</string>
   <string name="ENE_label">노트</string>
-  <string name="ENE_label_comments">Comments</string>
+  <string name="ENE_label_comments">댓글</string>
   <string name="ENA_no_comments">No activity yet</string>
-  <string name="ENA_no_user">You</string>
-  <string name="ENA_refresh_comments">Refresh Comments</string>
+  <string name="ENA_no_user">Someone</string>
+  <string name="ENA_refresh_comments">코멘트를 새로고침</string>
   <string name="TLA_no_items">작업이 없네요!</string>
+  <string name="TLA_no_items_person">%s has no\ntasks shared with you</string>
   <string name="TLA_menu_addons">확장기능</string>
   <string name="TLA_menu_sort">정렬 &amp; 숨김</string>
-  <string name="TLA_menu_sync">지금 싱크!</string>
-  <string name="TLA_menu_lists">Lists</string>
-  <string name="TLA_menu_friends">Friends</string>
-  <string name="TLA_menu_suggestions">Suggestions</string>
-  <string name="TLA_menu_tutorial">Tutorial</string>
+  <string name="TLA_menu_sync">지금 동기화</string>
+  <string name="TLA_menu_search">검색</string>
+  <string name="TLA_menu_lists">리스트</string>
+  <string name="TLA_menu_friends">People</string>
+  <string name="TLA_menu_suggestions">제안</string>
+  <string name="TLA_menu_tutorial">튜토리얼</string>
   <string name="TLA_menu_settings">설정</string>
-  <string name="TLA_menu_support">Support</string>
+  <string name="TLA_menu_support">지원</string>
   <string name="TLA_search_label">이 목록 검색</string>
   <string name="TLA_custom">사용자 설정</string>
-  <string name="TLA_quick_add_hint">Add a task</string>
-  <string name="TLA_quick_add_hint_assign">Tap to assign %s a task</string>
-  <string name="TLA_notification_volume_low">Notifications are muted. You won\'t be able to hear Astrid!</string>
-  <string name="TLA_notification_disabled">Astrid reminders are disabled! You will not receive any reminders</string>
+  <string name="TLA_quick_add_hint">할일 추가하기</string>
+  <string name="TLA_quick_add_hint_assign">Add something for %s</string>
+  <string name="TLA_notification_volume_low">알림이 음소거 되었습니다. 당신은 Astrid를 듣지 못할 것입니다!</string>
+  <string name="TLA_notification_disabled">Astrid 알림이 비활성화 되었습니다! 당신은 어떤 알림도 받을 수 없을 것입니다.</string>
   <string-array name="TLA_filters">
     <item>Active</item>
     <item>오늘</item>
-    <item>Soon</item>
-    <item>Late</item>
+    <item>곧</item>
+    <item>늦음</item>
     <item>마침</item>
-    <item>Hidden</item>
+    <item>숨김</item>
   </string-array>
   <string name="TLA_quickadd_confirm_title">You said, \"%s\"</string>
   <string name="TLA_quickadd_confirm_speech_bubble">I created a task called \"%1$s\" %2$s at %3$s</string>
   <string name="TLA_quickadd_confirm_speech_bubble_date">for %s</string>
   <string name="TLA_quickadd_confirm_hide_helpers">Don\'t display future confirmations</string>
-  <string name="TLA_repeat_scheduled_title">New repeating task %s</string>
+  <string name="TLA_repeat_scheduled_title">새로운 반복 할 일 %s</string>
   <string name="TLA_repeat_scheduled_speech_bubble">I\'ll remind you about this %s.</string>
   <string-array name="TLA_priority_strings">
-    <item>highest priority</item>
-    <item>high priority</item>
-    <item>medium priority</item>
-    <item>low priority</item>
+    <item>최우선순위</item>
+    <item>우선순위</item>
+    <item>보통</item>
+    <item>하위순위</item>
   </string-array>
-  <string name="TLA_all_activity">All Activity</string>
+  <string name="TLA_all_activity">모든 활동</string>
   <string name="TAd_hiddenFormat">%s [숨김]</string>
   <string name="TAd_deletedFormat">%s [삭제]</string>
   <string name="TAd_completed">%s\n전에 완료됨</string>
   <string name="TAd_actionEditTask">편집</string>
   <string name="TAd_contextEditTask">작업 편집</string>
-  <string name="TAd_contextCopyTask">Copy Task</string>
+  <string name="TAd_contextCopyTask">할 일 복사</string>
   <string name="TAd_contextHelpTask">Get help</string>
   <string name="TAd_contextDeleteTask">작업 삭제</string>
   <string name="TAd_contextUndeleteTask">작업 삭제 취소</string>
   <string name="TAd_contextPurgeTask">작업 정리</string>
   <string name="SSD_title">작업 정렬 및 숨김</string>
-  <string name="SSD_hidden_title">Hidden Tasks</string>
+  <string name="SSD_hidden_title">숨겨진 할 일</string>
   <string name="SSD_completed">완료한 작업 보여주기</string>
   <string name="SSD_hidden">숨긴 작업 보여주기</string>
   <string name="SSD_deleted">지운 작업 보여주기</string>
@@ -211,7 +222,7 @@
   <string name="SSD_sort_reverse">역순 정렬</string>
   <string name="SSD_save_temp">임시 정렬</string>
   <string name="SSD_save_always">항상 정렬</string>
-  <string name="FSA_label">Astrid List or Filter</string>
+  <string name="FSA_label">Astrid 리스트 또는 필터</string>
   <string name="FLA_title">리스트</string>
   <string name="FLA_loading">필터 로딩중...</string>
   <string name="FLA_context_shortcut">바탕화면 바로가기 만들기</string>
@@ -222,19 +233,19 @@
   <string name="FLA_search_hint">작업 검색</string>
   <string name="FLA_search_filter">\'%s\' 검색중</string>
   <string name="FLA_toast_onCreateShortcut">바로가기 생성 완료: %s</string>
-  <string name="FLA_new_filter">New Filter</string>
-  <string name="FLA_new_list">New List</string>
-  <string name="FLA_no_filter_selected">No filter selected! Please select a filter or list.</string>
+  <string name="FLA_new_filter">새 필터</string>
+  <string name="FLA_new_list">새 리스트</string>
+  <string name="FLA_no_filter_selected">필터가 선택되지 않았습니다! 필터 또는 리스트를 선택해 주세요.</string>
   <string name="TEA_view_title">Astrid: \'%s\' 편집중</string>
-  <string name="TEA_view_titleNew">New Task</string>
-  <string name="TEA_title_label">작업명</string>
-  <string name="TEA_when_header_label">When</string>
+  <string name="TEA_view_titleNew">새로운 할일</string>
+  <string name="TEA_title_label">제목</string>
+  <string name="TEA_when_header_label">시간</string>
   <string name="TEA_title_hint">요약정보</string>
   <string name="TEA_importance_label">중요도</string>
   <string name="TEA_urgency_label">마감일</string>
   <string name="TEA_urgency_specific_time">정해진 시간에?</string>
-  <string name="TEA_urgency_none">None</string>
-  <string name="TEA_hideUntil_label">Show Task</string>
+  <string name="TEA_urgency_none">없음</string>
+  <string name="TEA_hideUntil_label">할 일 보이기</string>
   <string name="TEA_hideUntil_message">Task will be hidden until %s</string>
   <string-array name="TEA_loading">
     <item>로딩중...</item>
@@ -246,14 +257,14 @@
   <string name="TEA_menu_save">변경사항 저장</string>
   <string name="TEA_menu_discard">저장하지 않음</string>
   <string name="TEA_menu_delete">작업 삭제</string>
-  <string name="TEA_menu_comments">Comments</string>
+  <string name="TEA_menu_comments">댓글</string>
   <string name="TEA_onTaskSave_due">작업 저장 완료: 완료일 %s</string>
   <string name="TEA_onTaskSave_notDue">작업 저장 완료</string>
   <string name="TEA_onTaskCancel">작업 편집 취소</string>
   <string name="TEA_onTaskDelete">Task deleted!</string>
-  <string name="TEA_tab_activity">Activity</string>
+  <string name="TEA_tab_activity">활동</string>
   <string name="TEA_tab_more">자세히</string>
-  <string name="TEA_tab_web">Ideas</string>
+  <string name="TEA_tab_web">아이디어</string>
   <string-array name="TEA_urgency">
     <item>마감일 없음</item>
     <item>정해진 일자/시간</item>
@@ -267,40 +278,65 @@
   <string name="TEA_no_time">No time</string>
   <string-array name="TEA_hideUntil">
     <item>항상 정렬</item>
-    <item>At due date</item>
+    <item>마감일에</item>
     <item>작업 마감일 몇일전</item>
     <item>작업 마감일 1주일 전</item>
     <item>정해진 일자/시간</item>
   </string-array>
-  <string name="TEA_control_title">Task Title</string>
+  <string name="TEA_control_title">할 일 제목</string>
   <string name="TEA_control_who">Who</string>
-  <string name="TEA_control_when">When</string>
+  <string name="TEA_control_when">언제</string>
   <string name="TEA_control_more_section">----More Section----</string>
   <string name="TEA_control_importance">중요도</string>
   <string name="TEA_control_lists">리스트</string>
   <string name="TEA_control_notes">노트</string>
+  <string name="TEA_control_files">파일</string>
   <string name="TEA_control_reminders">Reminders</string>
   <string name="TEA_control_timer">Timer Controls</string>
-  <string name="TEA_control_share">Share With Friends</string>
-  <string name="hide_until_prompt">Show in my list</string>
-  <string name="TEA_addons_text">Looking for more features?</string>
-  <string name="TEA_addons_button">Get the Power Pack!</string>
+  <string name="TEA_control_share">친구와 공유</string>
+  <string name="hide_until_prompt">내 리스트에 표시</string>
+  <string name="TEA_addons_text">새로운 기능을 찾고 있습니까?</string>
+  <string name="TEA_addons_button">Power Pack을 얻으십시오!</string>
   <string name="TEA_more">자세히</string>
-  <string name="TEA_no_activity">No Activity to Show.</string>
+  <string name="TEA_no_activity">표시할 활동이 없습니다.</string>
   <string name="TEA_load_more">Load more...</string>
-  <string name="TEA_when_dialog_title">When is this due?</string>
-  <string name="TEA_date_and_time">Date/Time</string>
+  <string name="TEA_when_dialog_title">마감이 언제입니까?</string>
+  <string name="TEA_date_and_time">날짜/시간</string>
+  <string name="TEA_new_task">New Task</string>
   <string name="WSV_click_to_load">Tap me to search for ways to get this done!</string>
-  <string name="WSV_not_online">I can do more when connected to the Internet. Please check your connection.</string>
+  <string name="WSV_not_online">저는 인터넷과 연결되었을 때 더 많은 일을 할 수 있습니다. 인터넷 연결을 확인해 주세요.</string>
+  <string name="TEA_contact_error">Sorry! We couldn\'t find an email address for the selected contact.</string>
   <string name="InA_title">Astrid 사용을 환영합니다!</string>
   <string name="InA_agree">동의합니다!!</string>
   <string name="InA_disagree">동의하지 않습니다.</string>
+  <string name="MCA_title">%1$s\ncalled at %2$s</string>
+  <string name="MCA_return_call">지금 전화하기</string>
+  <string name="MCA_add_task">나중에 전화하기</string>
+  <string name="MCA_ignore">무시</string>
+  <string name="MCA_ignore_title">모든 부재 중 전화를 무시하시겠습니까?</string>
+  <string name="MCA_ignore_body">You\'ve ignored several missed calls. Should Astrid stop asking you about them?</string>
+  <string name="MCA_ignore_all">모든 전화 무시</string>
+  <string name="MCA_ignore_this">이 전화만 무시</string>
+  <string name="MCA_missed_calls_pref_title">Field missed calls</string>
+  <string name="MCA_missed_calls_pref_desc_enabled">Astrid will notify you about missed calls and offer to remind you to call back</string>
+  <string name="MCA_missed_calls_pref_desc_disabled">Astrid will not notify you about missed calls</string>
+  <string name="MCA_task_title_name">Call %1$s back at %2$s</string>
+  <string name="MCA_task_title_no_name">Call %s back</string>
+  <string name="MCA_schedule_dialog_title">Call %s back in...</string>
+  <string-array name="MCA_dialog_speech_options">
+    <item>It must be nice to be so popular!</item>
+    <item>Yay! People like you!</item>
+    <item>Make their day, give \'em a call!</item>
+    <item>사람들이 당신에게 연락한다면 행복해지지 않겠어요?</item>
+    <item>할 수 있어요!</item>
+    <item>You can always send a text...</item>
+  </string-array>
   <string name="HlA_get_support">고객지원 받기</string>
   <string name="UpS_changelog_title">Astrid 의 새로운 기능</string>
-  <string name="UpS_updates_title">Latest Astrid News</string>
+  <string name="UpS_updates_title">최신 Astrid 뉴스</string>
   <string name="UpS_no_activity_log_in">Log in to see a record of\nyour progress as well as\nactivity on shared lists.</string>
   <string name="EPr_title">Astrid: 환경 설정</string>
-  <string name="EPr_deactivated">deactivated</string>
+  <string name="EPr_deactivated">비활성화됨</string>
   <string name="EPr_appearance_header">모양</string>
   <string name="EPr_fontSize_title">작업 목록 폰트크기</string>
   <string name="EPr_showSmartConfirmation_title">Show confirmation for smart reminders</string>
@@ -308,7 +344,7 @@
   <string name="EPr_showNotes_title">작업과 함께 노트 보이기</string>
   <string name="EPr_beastMode_title">Customize Task Edit Screen</string>
   <string name="EPr_beastMode_desc">Customize the layout of the Task Edit Screen</string>
-  <string name="EPr_beastMode_reset">Reset to defaults</string>
+  <string name="EPr_beastMode_reset">기본 설정으로 돌아가기</string>
   <string name="EPr_showNotes_desc_disabled">Notes will be accessible from the Task Edit Page</string>
   <string name="EPr_showNotes_desc_enabled">노트 항상 보여주기</string>
   <string name="EPr_compressTaskRows_title">Compact Task Row</string>
@@ -316,38 +352,77 @@
   <string name="EPr_userLegacyImportance_title">Use legacy importance style</string>
   <string name="EPr_userLegacyImportance_desc">Use legacy importance style</string>
   <string name="EPr_fullTask_title">Show full task title</string>
-  <string name="EPr_fullTask_desc_enabled">Full task title will be shown</string>
-  <string name="EPr_fullTask_desc_disabled">First two lines of task title will be shown</string>
-  <string name="EPr_ideaAuto_title">Auto-load Ideas Tab</string>
+  <string name="EPr_fullTask_desc_enabled">전체 할 일 제목이 표시됩니다.</string>
+  <string name="EPr_fullTask_desc_disabled">할 일 제목의 첫 두 줄이 표시됩니다.</string>
+  <string name="EPr_ideaAuto_title">아이디어 탭 자동 불러오기</string>
   <string name="EPr_ideaAuto_desc_enabled">Web searches for Ideas tab will be performed when tab is clicked</string>
   <string name="EPr_ideaAuto_desc_disabled">Web searches for Ideas tab will be performed only when manually requested</string>
-  <string name="EPr_theme_title">Color Theme</string>
+  <string name="EPr_theme_title">색상 테마</string>
   <string name="EPr_theme_desc">현재 설정: %s</string>
   <string name="EPr_theme_desc_unsupported">Setting requires Android 2.0+</string>
-  <string name="EPr_taskRowPrefs_title">Task Row Appearance</string>
+  <string name="EPr_theme_widget_title">위젯 테마</string>
+  <string name="EPr_taskRowPrefs_title">할 일 행 외관</string>
+  <string name="EPr_labs_header">Astrid Labs</string>
+  <string name="EPr_labs_desc">실험적 기능들을 경험하고 설정</string>
+  <string name="EPr_swipe_lists_performance_title">리스트 간 스와이프 이동</string>
+  <string name="EPr_swipe_lists_performance_subtitle">Controls the memory performance of swipe between lists</string>
+  <string name="EPr_use_contact_picker">Use contact picker</string>
+  <string name="EPr_use_contact_picker_desc_enabled">The system contact picker option will be displayed in the task assignment window</string>
+  <string name="EPr_use_contact_picker_desc_disabled">The system contact picker option will not be displayed</string>
+  <string name="EPr_third_party_addons">서드 파티 애드-온 활성화</string>
+  <string name="EPr_third_party_addons_desc_enabled">서드 파티 애드-온이 활성화됩니다.</string>
+  <string name="EPr_third_party_addons_desc_disabled">서드 파티 애드-온이 비활성화됩니다.</string>
+  <string name="EPr_ideas_tab_enabled">할 일 아이디어</string>
+  <string name="EPr_ideas_tab_description">할 일을 마무리할 수 있도록 도와주는 아이디어를 얻습니다.</string>
+  <string name="EPr_cal_end_or_start_at_due_time">Calendar event time</string>
+  <string name="EPr_cal_end_at_due_time">End calendar events at due time</string>
+  <string name="EPr_cal_start_at_due_time">Start calendar events at due time</string>
+  <string name="EPr_swipe_lists_restart_alert">You will need to restart Astrid for this change to take effect</string>
+  <string-array name="EPr_swipe_lists_performance_mode">
+    <item>No swipe</item>
+    <item>Conserve Memory</item>
+    <item>보통 성능</item>
+    <item>높은 성능</item>
+  </string-array>
+  <string-array name="EPr_swipe_lists_performance_desc">
+    <item>리스트 간 스와이프 이동이 비활성화됨</item>
+    <item>느린 성능</item>
+    <item>기본 설정</item>
+    <item>더 많은 시스템 리소스를 사용</item>
+  </string-array>
+  <string name="EPr_swipe_lists_display">%1$s - %2$s</string>
   <string-array name="EPr_themes">
     <item>Day - Blue</item>
     <item>Day - Red</item>
-    <item>Night</item>
-    <item>Transparent (White Text)</item>
-    <item>Transparent (Black Text)</item>
+    <item>밤</item>
+    <item>투명 (흰색 텍스트)</item>
+    <item>투명 (검은색 텍스트)</item>
   </string-array>
-  <string name="EPr_manage_header">Manage Old Tasks</string>
-  <string name="EPr_manage_delete_completed">Delete Completed Tasks</string>
-  <string name="EPr_manage_delete_completed_message">Do you really want to delete all your completed tasks?</string>
-  <string name="EPr_manage_delete_completed_summary">Deleted tasks can be undeleted one-by-one</string>
+  <string-array name="EPr_themes_widget">
+    <item>애플리케이션과 동일하게</item>
+    <item>Day - Blue</item>
+    <item>Day - Red</item>
+    <item>밤</item>
+    <item>투명 (흰색 텍스트)</item>
+    <item>투명 (검은색 텍스트)</item>
+    <item>Old Style</item>
+  </string-array>
+  <string name="EPr_manage_header">오래된 할 일 관리</string>
+  <string name="EPr_manage_delete_completed">완료된 할 일 제거</string>
+  <string name="EPr_manage_delete_completed_message">완료된 할 일을 모두 삭제하시겠습니까?</string>
+  <string name="EPr_manage_delete_completed_summary">삭제된 할 일은 하나씩 삭제 취소 할 수 있습니다.</string>
   <string name="EPr_manage_delete_completed_status">Deleted %d tasks!</string>
-  <string name="EPr_manage_purge_deleted">Purge Deleted Tasks</string>
-  <string name="EPr_manage_purge_deleted_message">Do you really want to purge all your deleted tasks?\n\nThese tasks will be gone forever!</string>
+  <string name="EPr_manage_purge_deleted">삭제된 할 일을 제거</string>
+  <string name="EPr_manage_purge_deleted_message">모든 삭제된 할 일을 제거하시겠습니까?</string>
   <string name="EPr_manage_purge_deleted_status">Purged %d tasks!</string>
-  <string name="EPr_manage_purge_deleted_summary">Caution! Purged tasks can\'t be recovered without backup file!</string>
+  <string name="EPr_manage_purge_deleted_summary">주의! 제거된 할 일은 백업 파일 없이 복구할 수 없습니다!</string>
   <string name="EPr_manage_clear_all">Clear All Data</string>
-  <string name="EPr_manage_clear_all_message">Delete all tasks and settings in Astrid?\n\nWarning: can\'t be undone!</string>
+  <string name="EPr_manage_clear_all_message">Astrid에서 모든 할 일과 설정을 삭제하시겠습니까?</string>
   <string name="EPr_manage_delete_completed_gcal">Delete Calendar Events for Completed Tasks</string>
   <string name="EPr_manage_delete_completed_gcal_message">Do you really want to delete all your events for completed tasks?</string>
   <string name="EPr_manage_delete_completed_gcal_status">Deleted %d calendar events!</string>
-  <string name="EPr_manage_delete_all_gcal">Delete All Calendar Events for Tasks</string>
-  <string name="EPr_manage_delete_all_gcal_message">Do you really want to delete all your events for tasks?</string>
+  <string name="EPr_manage_delete_all_gcal">할 일에 대한 모든 달력 이벤트 삭제</string>
+  <string name="EPr_manage_delete_all_gcal_message">할 일에 대한 모든 달력 이벤트를 삭제하시겠습니까?</string>
   <string name="EPr_manage_delete_all_gcal_status">Deleted %d calendar events!</string>
   <string name="AOA_title">Astrid: 확장기능</string>
   <string name="AOA_internal_author">Astrid 개발팀</string>
@@ -356,16 +431,19 @@
   <string name="AOA_free">무료</string>
   <string name="AOA_visit_website">웹사이트 방문</string>
   <string name="AOA_visit_market">안드로이드 마켓</string>
-  <string name="AOA_no_addons">Empty List!</string>
+  <string name="AOA_no_addons">빈 리스트!</string>
   <string name="TWi_loading">로딩중...</string>
   <string name="WCA_title">보여줄 작업리스트 선택</string>
   <string name="p_about">About Astrid</string>
-  <string name="p_about_text">Current version: %s\n\n Astrid is open-source and proudly maintained by Todoroo, Inc.</string>
-  <string name="p_help">도움말</string>
+  <string name="p_about_text">현재 버전: %s</string>
+  <string name="p_help">지원</string>
+  <string name="p_forums">포럼</string>
   <string name="task_killer_help">프로세스를 강제종료 할 수 있는 (%s) 앱을 사용하고 있는 것 같습니다! 가능하시면, 강제종료가 안되도록 제외목록에 포함시켜 주시기 바랍니다. 그렇지 않으면, Astrid 가 당신에게 마감일이 되어도 알려줄 수 없을 수 있습니다.\n</string>
   <string name="task_killer_help_ok">Astrid 를 강제종료하지 않겠습니다!</string>
   <string name="marketplace_title">Astrid 작업/할일 목록</string>
   <string name="marketplace_description">Astrid 는 많은 사람들로부터 사랑받는 할일/작업 관리 프로그램입니다. 이 프로그램은 당신이 작업들을 마칠 수 있도록 도와줍니다. 마감일 알려주기, 태그기능, 싱크, 언어 추가 기능, 위젯 등 다양한 기능을 제공합니다.</string>
+  <string name="DB_corrupted_title">Corrupted Database</string>
+  <string name="DB_corrupted_body">Uh oh! It looks like you may have a corrupted database. If you see this error regularly, we suggest you clear all data (Settings-&gt;Manage All Tasks-&gt;Clear all data) and restore your tasks from a backup (Settings-&gt;Backup-&gt;Import Tasks) in Astrid.</string>
   <string name="EPr_defaults_header">새 작업 기본값</string>
   <string name="EPr_default_urgency_title">기본 중요도</string>
   <string name="EPr_default_urgency_desc">현재 설정: %s</string>
@@ -378,7 +456,7 @@
   <string name="EPr_default_addtocalendar_title">Default Add To Calendar</string>
   <string name="EPr_default_addtocalendar_desc_disabled">New tasks will not create an event in the Google Calendar</string>
   <string name="EPr_default_addtocalendar_desc">New tasks will be in the calendar: \"%s\"</string>
-  <string name="EPr_default_reminders_mode_title">Default Ring/Vibrate type</string>
+  <string name="EPr_default_reminders_mode_title">기본 벨소리/진동 타입</string>
   <string name="EPr_default_reminders_mode_desc">현재 설정: %s</string>
   <string-array name="EPr_default_importance">
     <item>!!! (Highest)</item>
@@ -416,7 +494,7 @@
   <string name="CFA_filterName_hint">필터의 저장할 이름을 정하세요...</string>
   <string name="CFA_filterName_copy">%s의 복사</string>
   <string name="CFA_universe_all">처리할 작업들</string>
-  <string name="CFA_type_add">or</string>
+  <string name="CFA_type_add">또는</string>
   <string name="CFA_type_subtract">not</string>
   <string name="CFA_type_intersect">also</string>
   <string name="CFA_context_chain">%s has criteria</string>
@@ -450,8 +528,8 @@
   <string name="gcal_TEA_showCalendar_label">캘린더 일정 열기</string>
   <string name="gcal_TEA_calendar_error">일정 열기 실패!</string>
   <string name="gcal_TEA_calendar_updated">캘린더 일정도 함께 업데이트 되었습니다!</string>
-  <string name="gcal_TEA_nocal">Don\'t add</string>
-  <string name="gcal_TEA_none_selected">Add to cal...</string>
+  <string name="gcal_TEA_nocal">추가하지 않음</string>
+  <string name="gcal_TEA_none_selected">달력에 추가</string>
   <string name="gcal_TEA_has_event">Cal event</string>
   <string name="gcal_completed_title">%s (완료)</string>
   <string name="gcal_GCP_default">기본 캘린더</string>
@@ -459,38 +537,40 @@
   <string name="gtasks_FEx_list">리스트 순</string>
   <string name="gtasks_FEx_title">Google Tasks: %s</string>
   <string name="gtasks_FEx_creating_list">Creating list...</string>
-  <string name="gtasks_FEx_create_list_dialog">New List Name:</string>
-  <string name="gtasks_FEx_create_list_error">Error creating new list</string>
+  <string name="gtasks_FEx_create_list_dialog">새 리스트 이름:</string>
+  <string name="gtasks_FEx_create_list_error">새 리스트를 만드는 중 오류 발생</string>
   <string name="gtasks_help_title">Google Tasks에 오신 것을 환영합니다!</string>
   <string name="CFC_gtasks_list_text">In List: ?</string>
   <string name="CFC_gtasks_list_name">In GTasks List...</string>
-  <string name="gtasks_GTA_clearing">Clearing completed tasks...</string>
-  <string name="gtasks_GTA_clear_completed">Clear Completed</string>
+  <string name="gtasks_GTA_clearing">완료된 할 일을 삭제하는 중...</string>
+  <string name="gtasks_GTA_clear_completed">삭제 완료</string>
   <string name="gtasks_GLA_title">Log In to Google Tasks</string>
   <string name="gtasks_GLA_body">Please log in to Google Tasks Sync (Beta!). Non-migrated Google Apps accounts are currently unsupported.</string>
-  <string name="gtasks_GLA_noaccounts">No available Google accounts to sync with.</string>
-  <string name="gtasks_GLA_further_help">To view your tasks with indentation and order preserved, go to the Filters page and select a Google Tasks list. By default, Astrid uses its own sort settings for tasks.</string>
+  <string name="gtasks_GLA_noaccounts">동기화 가능한 Google 계정이 없음</string>
+  <string name="gtasks_GLA_further_help">할 일의 들어쓰기와 순서를 유지하면서 보고자 하는 경우, 필터 페이지로 이동하여 Google Tasks 리스트를 선택하십시오. Astrid는 이러한 종류의 할 일을 정렬하기 위해 고유한 설정을 사용합니다.</string>
   <string name="gtasks_GLA_signIn">로그인</string>
-  <string name="gtasks_GLA_email">E-mail</string>
+  <string name="gtasks_GLA_email">이메일</string>
   <string name="gtasks_GLA_password">비밀번호</string>
-  <string name="gtasks_GLA_authenticating">Authenticating...</string>
+  <string name="gtasks_GLA_authenticating">인증 중...</string>
   <string name="gtasks_GLA_domain">Google Apps for Domain 계정</string>
   <string name="gtasks_GLA_errorEmpty">Error: 모든 필드값을 입력하세요!</string>
-  <string name="gtasks_GLA_errorAuth">Error authenticating! Please check your username and password in your phone\'s account manager</string>
-  <string name="gtasks_GLA_errorIOAuth">Sorry, we had trouble communicating with Google servers. Please try again later.</string>
+  <string name="gtasks_GLA_errorAuth">인증 오류! 휴대폰 계정 관리자의 사용자명과 비밀번호를 확인해 주십시오.</string>
+  <string name="gtasks_GLA_errorIOAuth">죄송합니다, Google 서버와 통신하는 데에 문제가 있습니다. 잠시 후 다시 시도해 주십시오.</string>
   <string name="gtasks_GLA_errorAuth_captcha">You may have encountered a captcha. Try logging in from the browser, then come back to try again:</string>
   <string name="gtasks_GPr_header">Google Tasks</string>
   <string name="gtasks_notification_title">Astrid: Google Tasks</string>
   <string name="gtasks_error_backend">Google\'s Task API is in beta and has encountered an error. The service may be down, please try again later.</string>
   <string name="gtasks_error_accountNotFound">Account %s not found--please log out and log back in from the Google Tasks settings.</string>
   <string name="gtasks_error_authRefresh">Unable to authenticate with Google Tasks. Please check your account password or try again later.</string>
-  <string name="gtasks_error_accountManager">Error in your phone\'s account manager. Please log out and log back in from the Google Tasks settings.</string>
-  <string name="help_popover_add_task">Start by adding a task or two</string>
-  <string name="help_popover_tap_task">Tap task to edit and share</string>
-  <string name="help_popover_list_settings">Tap to edit or share this list</string>
-  <string name="help_popover_collaborators">People you share with can help you build your list or finish tasks</string>
+  <string name="gtasks_error_accountManager">휴대폰 계정 관리자에서 오류 발생. 로그아웃 후 Google Tasks 설정에 다시 로그인 해 주십시오.</string>
+  <string name="gtasks_error_background_sync_auth">백그라운드에서 인증 오류 발생. Astrid가 실행 중일 때 동기화를 시작해 보십시오.</string>
+  <string name="gtasks_dual_sync_warning">현재 Astrid.com과 동기화 중입니다. 두 서비스를 동시에 동기화 하는 것은 예상치 않은 결과를 발생시킬 수 있습니다. Google Tasks와 동기화 하시겠습니까?</string>
+  <string name="help_popover_add_task">하나 또는 두 개의 태스크를 추가하여 시작</string>
+  <string name="help_popover_tap_task">할 일을 편집하거나 공유하려면 탭</string>
+  <string name="help_popover_list_settings">리스트를 편집하거나 공유하려면 탭</string>
+  <string name="help_popover_collaborators">공유된 사람들은 당신이 할 일을 마치거나 리스트를 만드는 것을 도와줄 수 있습니다.</string>
   <string name="help_popover_add_lists">Tap add a list</string>
-  <string name="help_popover_switch_lists">Tap to add a list or switch between lists</string>
+  <string name="help_popover_switch_lists">리스트를 추가하거나 리스트를 전환하려면 탭</string>
   <string name="help_popover_when_shortcut">Tap this shortcut to quick select date and time</string>
   <string name="help_popover_when_row">Tap anywhere on this row to access options like repeat</string>
   <string name="welcome_login_title">Astrid 사용을 환영합니다!</string>
@@ -567,6 +647,41 @@
   <string name="EPr_statistics_title">사용 통계정보(익명보장)</string>
   <string name="EPr_statistics_desc_disabled">사용 정보가 보고되지 않습니다.</string>
   <string name="EPr_statistics_desc_enabled">익명성이 보장되는 사용 통계정보 전송으로 우리가 Astrid 를 더욱 발전시킬 수 있도록 도와주세요.</string>
+  <string name="speech_err_network">Network error! Speech recognition requires a network connection to work.</string>
+  <string name="speech_err_no_match">Sorry, I couldn\'t understand that! Please try again.</string>
+  <string name="speech_err_default">Sorry, speech recognition encountered an error. Please try again.</string>
+  <string name="premium_attach_file">Attach a file</string>
+  <string name="premium_record_audio">Record a note</string>
+  <string name="premium_no_files">No files attached</string>
+  <string name="premium_remove_file_confirm">Are you sure? Cannot be undone</string>
+  <string name="audio_recording_title">Recording Audio</string>
+  <string name="audio_stop_recording">Stop Recording</string>
+  <string name="audio_speak_now">Speak Now!</string>
+  <string name="audio_encoding">Encoding...</string>
+  <string name="audio_err_encoding">Error encoding audio</string>
+  <string name="audio_err_playback">Sorry, the system does not support this type of audio file</string>
+  <string name="search_market_audio">No player found to handle that audio type. Would you like to download an audio player from the Android Market?</string>
+  <string name="search_market_audio_title">No audio player found</string>
+  <string name="search_market_pdf">No PDF reader was found. Would you like to download a PDF reader from the Android Market?</string>
+  <string name="search_market_pdf_title">No PDF reader found</string>
+  <string name="search_market_ms">No MS Office reader was found. Would you like to download an MS Office reader from the Android Market?</string>
+  <string name="search_market_ms_title">No MS Office reader found</string>
+  <string name="file_type_unhandled">Sorry! No application was found to handle this file type.</string>
+  <string name="file_type_unhandled_title">No application found</string>
+  <string name="file_prefix_image">Image</string>
+  <string name="file_prefix_voice">Voice</string>
+  <string name="file_browser_up">Up</string>
+  <string name="file_browser_title">Choose a file</string>
+  <string name="file_browser_err_permissions">Permissions error! Please make sure you have not blocked Astrid from accessing the SD card.</string>
+  <string name="file_add_picture">Attach a picture</string>
+  <string name="file_add_sdcard">Attach a file from your SD card</string>
+  <string name="file_download_title">Download file?</string>
+  <string name="file_download_body">This file has not been downloaded to your SD card. Download now?</string>
+  <string name="file_download_progress">Downloading...</string>
+  <string name="file_err_memory">Image is too large to fit in memory</string>
+  <string name="file_err_copy">Error copying file for attachment</string>
+  <string name="file_err_download">Error downloading file</string>
+  <string name="file_err_show">Sorry, the system does not yet support this type of file</string>
   <string name="producteev_FEx_header">Producteev</string>
   <string name="producteev_FEx_dashboard">작업 공간</string>
   <string name="producteev_FEx_responsible_byme">Assigned by me to</string>
@@ -631,6 +746,33 @@
   <string name="rmd_NoA_done">이미 마침!</string>
   <string name="rmd_NoA_snooze">Snooze...</string>
   <string name="rmd_NoA_completed_toast">Congratulations on finishing!</string>
+  <string name="rmd_NoA_dlg_title">Reminder:</string>
+  <string-array name="rmd_reengage_notif_titles">
+    <item>A note from Astrid</item>
+    <item>Memo for %s.</item>
+    <item>Your Astrid digest</item>
+    <item>Reminders from Astrid</item>
+  </string-array>
+  <string name="rmd_reengage_name_default">you</string>
+  <string name="rmd_reengage_snooze">Snooze all</string>
+  <string name="rmd_reengage_add_tasks">Add a task</string>
+  <string-array name="rmd_reengage_dialog_options">
+    <item>Time to shorten your to-do list!</item>
+    <item>Dear sir or madam, some tasks await your inspection!</item>
+    <item>Hi there, could you take a look at these?</item>
+    <item>I\'ve got some tasks with your name on them!</item>
+    <item>A fresh batch of tasks for you today!</item>
+    <item>You look fabulous! Ready to get started?</item>
+    <item>A lovely day for getting some work done, I think!</item>
+  </string-array>
+  <string-array name="rmd_reengage_dialog_empty_options">
+    <item>Don\'t you want to get organized?</item>
+    <item>I\'m Astrid! I\'m here to help you do more!</item>
+    <item>You look busy! Let me take some of those tasks off of your plate.</item>
+    <item>I can help you keep track of all of the details in your life.</item>
+    <item>You\'re serious about getting more done? So am I!</item>
+    <item>Pleasure to make your acquaintance!</item>
+  </string-array>
   <string name="rmd_EPr_alerts_header">알림 설정</string>
   <string name="rmd_EPr_enabled_title">Reminders Enabled?</string>
   <string name="rmd_EPr_enabled_desc_true">Astrid reminders are enabled (this is normal)</string>
@@ -855,20 +997,43 @@
     <item>Minute(s)</item>
     <item>Year(s)</item>
   </string-array>
+  <string-array name="repeat_until_shortcuts">
+    <item>Forever</item>
+    <item>Specific Day</item>
+    <item>Today</item>
+    <item>Tomorrow</item>
+    <item>(day after)</item>
+    <item>Next Week</item>
+    <item>In Two Weeks</item>
+    <item>Next Month</item>
+  </string-array>
+  <string name="repeat_until_title">Repeat until...</string>
+  <string name="repeat_keep_going">Keep going</string>
   <string-array name="repeat_type">
     <item>마감일로부터</item>
     <item>완료일로부터</item>
   </string-array>
   <string name="repeat_detail_byday">$I on $D</string>
   <string name="repeat_detail_duedate">Every %s</string>
+  <string name="repeat_detail_duedate_until">Every %1$s\nuntil %2$s</string>
   <string name="repeat_detail_completion">완료후 %s</string>
+  <string name="repeat_forever">Repeat forever</string>
+  <string name="repeat_until">Repeat until %s</string>
   <string name="repeat_rescheduling_dialog_title">Rescheduling task \"%s\"</string>
+  <string name="repeat_rescheduling_dialog_title_last_time">Completed repeating task \"%s\"</string>
   <string name="repeat_rescheduling_dialog_bubble">%1$s I\'ve rescheduled this repeating task from %2$s to %3$s</string>
+  <string name="repeat_rescheduling_dialog_bubble_no_date">%1$s I\'ve rescheduled this repeating task to %2$s</string>
+  <string name="repeat_rescheduling_dialog_bubble_last_time">You had this repeating until %1$s, and now you\'re all done. %2$s</string>
   <string-array name="repeat_encouragement">
     <item>Good job!</item>
     <item>Wow… I\'m so proud of you!</item>
-    <item>I love it when you\'re productive!</item>
+    <item>I love when you\'re productive!</item>
     <item>Doesn\'t it feel good to check something off?</item>
+  </string-array>
+  <string-array name="repeat_encouragement_last_time">
+    <item>Good job!</item>
+    <item>I\'m so proud of you!</item>
+    <item>I love when you\'re productive!</item>
   </string-array>
   <string name="rmilk_EOE_button">Remember the Milk 설정</string>
   <string name="rmilk_TLA_repeat">RTM 반복 작업</string>
@@ -934,16 +1099,19 @@
   <string name="update_string_friends">%1$s is now friends with %2$s</string>
   <string name="update_string_request_friendship">%1$s wants to be friends with you</string>
   <string name="update_string_confirmed_friendship">%1$s has confirmed your friendship request</string>
-
-
-
-
-
-
-
+  <string name="update_string_task_created">%1$s created this task</string>
+  <string name="update_string_task_created_global">%1$s created $link_task</string>
+  <string name="update_string_task_created_on_list">%1$s added $link_task to this list</string>
+  <string name="update_string_task_completed">%1$s completed $link_task. Huzzah!</string>
+  <string name="update_string_task_uncompleted">%1$s un-completed $link_task.</string>
+  <string name="update_string_task_tagged">%1$s added $link_task to %4$s</string>
+  <string name="update_string_task_tagged_list">%1$s added $link_task to this list</string>
+  <string name="update_string_task_assigned">%1$s assigned $link_task to %4$s</string>
   <string name="update_string_default_comment">%1$s commented: %3$s</string>
-
+  <string name="update_string_task_comment">%1$s Re: $link_task: %3$s</string>
   <string name="update_string_tag_comment">%1$s Re: %2$s: %3$s</string>
+  <string name="update_string_tag_created">%1$s created this list</string>
+  <string name="update_string_tag_created_global">%1$s created the list %2$s</string>
   <string name="voice_create_prompt">Speak to create a task</string>
   <string name="voice_edit_title_prompt">Speak to set task title</string>
   <string name="voice_edit_note_prompt">Speak to set task notes</string>
@@ -983,6 +1151,9 @@
   <string name="PPW_widget_42_label">Astrid Premium 4x2</string>
   <string name="PPW_widget_43_label">Astrid Premium 4x3</string>
   <string name="PPW_widget_44_label">Astrid Premium 4x4</string>
+  <string name="PPW_widget_v11_label">Astrid Scrollable Premium</string>
+  <string name="PPW_widget_custom_label">Astrid Scrollable Premium for Custom Launchers</string>
+  <string name="PPW_widget_custom_launcherpro_label">Astrid Scrollable Premium 4x4 for Launcher Pro</string>
   <string name="PPW_configure_title">위젯 설정</string>
   <string name="PPW_color">위젯 컬러</string>
   <string name="PPW_enable_calendar">캘린더 일정 보여주기</string>

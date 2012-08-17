@@ -29,7 +29,6 @@ import com.todoroo.andlib.sql.Join;
 import com.todoroo.andlib.sql.Order;
 import com.todoroo.andlib.sql.Query;
 import com.todoroo.andlib.sql.QueryTemplate;
-import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.astrid.actfm.sync.ActFmPreferenceService;
 import com.todoroo.astrid.actfm.sync.ActFmSyncService;
 import com.todoroo.astrid.api.AstridApiConstants;
@@ -45,6 +44,7 @@ import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.data.User;
 import com.todoroo.astrid.service.ThemeService;
 import com.todoroo.astrid.tags.TagService;
+import com.todoroo.astrid.utility.AstridPreferences;
 
 public class PeopleFilterExposer extends BroadcastReceiver {
     @Override
@@ -142,7 +142,7 @@ public class PeopleFilterExposer extends BroadcastReceiver {
             tagsWithMembers.close();
         }
 
-        boolean isTablet = AndroidUtilities.isTabletSized(context);
+        boolean isTablet = AstridPreferences.useTabletLayout(context);
         int themeFlags = isTablet ? ThemeService.FLAG_FORCE_LIGHT : 0;
 
         String title = context.getString(R.string.actfm_my_shared_tasks_title);

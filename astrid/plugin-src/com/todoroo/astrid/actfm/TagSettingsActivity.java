@@ -57,6 +57,7 @@ import com.todoroo.astrid.tags.TagFilterExposer;
 import com.todoroo.astrid.tags.TagService;
 import com.todoroo.astrid.ui.PeopleContainer;
 import com.todoroo.astrid.ui.PeopleContainer.ParseSharedException;
+import com.todoroo.astrid.utility.AstridPreferences;
 import com.todoroo.astrid.welcome.HelpInfoPopover;
 
 public class TagSettingsActivity extends FragmentActivity {
@@ -140,7 +141,7 @@ public class TagSettingsActivity extends FragmentActivity {
     }
 
     private void setupForDialogOrFullscreen() {
-        isDialog = AndroidUtilities.isTabletSized(this);
+        isDialog = AstridPreferences.useTabletLayout(this);
         if (isDialog)
             setTheme(ThemeService.getDialogTheme());
         else
@@ -476,7 +477,7 @@ public class TagSettingsActivity extends FragmentActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuItem item;
         item = menu.add(Menu.NONE, MENU_DISCARD_ID, 0, R.string.TEA_menu_discard);
-        item.setIcon(android.R.drawable.ic_menu_close_clear_cancel);
+        item.setIcon(R.drawable.ic_menu_close);
         item.setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
 
         item = menu.add(Menu.NONE, MENU_SAVE_ID, 0, R.string.TEA_menu_save);
@@ -524,6 +525,7 @@ public class TagSettingsActivity extends FragmentActivity {
 
     protected boolean deleteTag() {
         boolean result = tagService.deleteOrLeaveTag(this, tagData.getValue(TagData.NAME), TagService.SHOW_ACTIVE_TASKS);
+        setResult(Activity.RESULT_OK);
         finish();
         return result;
     }

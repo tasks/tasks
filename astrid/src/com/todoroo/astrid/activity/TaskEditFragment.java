@@ -257,12 +257,9 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
 
     private WebServicesView webServices = null;
 
-    public static final int TAB_STYLE_NONE = 0;
-    public static final int TAB_STYLE_ACTIVITY = 1;
-    public static final int TAB_STYLE_ACTIVITY_WEB = 2;
-    public static final int TAB_STYLE_WEB = 3;
+    private int tabStyle = 0;
 
-    private int tabStyle = TAB_STYLE_NONE;
+    private boolean moreSectionHasControls;
 
     /*
      * ======================================================================
@@ -372,9 +369,12 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
         boolean hasTitle = !TextUtils.isEmpty(model.getValue(Task.TITLE));
 
         if(hasTitle && Preferences.getBoolean(R.string.p_ideas_tab_enabled, false) && Constants.MARKET_STRATEGY.allowIdeasTab())
-            tabStyle = TAB_STYLE_ACTIVITY_WEB;
+            tabStyle = (TaskEditViewPager.TAB_SHOW_ACTIVITY | TaskEditViewPager.TAB_SHOW_WEB);
         else
-            tabStyle = TAB_STYLE_ACTIVITY;
+            tabStyle = TaskEditViewPager.TAB_SHOW_ACTIVITY;
+
+        if (moreSectionHasControls)
+            tabStyle |= TaskEditViewPager.TAB_SHOW_MORE;
 
         if (editNotes == null) {
             instantiateEditNotes();
@@ -590,12 +590,17 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
         String[] itemOrder = controlOrder.toArray(new String[controlOrder.size()]);
 
         String moreSectionTrigger = getString(R.string.TEA_ctrl_more_pref);
+        String hideAlwaysTrigger = getString(R.string.TEA_ctrl_hide_section_pref);
         String shareViewDescriptor = getString(R.string.TEA_ctrl_share_pref);
         LinearLayout section = basicControls;
 
+        moreSectionHasControls = false;
+
         for (int i = 0; i < itemOrder.length; i++) {
             String item = itemOrder[i];
-            if (item.equals(moreSectionTrigger)) {
+            if (item.equals(hideAlwaysTrigger)) {
+                break; // As soon as we hit the hide section, we're done
+            } else if (item.equals(moreSectionTrigger)) {
                 section = moreControls;
                 if (taskRabbitControl != null) {
                     taskRabbitControl.getDisplayView().setVisibility(View.GONE);
@@ -603,19 +608,21 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
                 }
 
             } else {
-                View control_set = null;
+                View controlSet = null;
                 TaskEditControlSet curr = controlSetMap.get(item);
 
                 if (item.equals(shareViewDescriptor))
-                    control_set = peopleControlSet.getSharedWithRow();
+                    controlSet = peopleControlSet.getSharedWithRow();
                 else if (curr != null)
-                    control_set = (LinearLayout) curr.getDisplayView();
+                    controlSet = (LinearLayout) curr.getDisplayView();
 
-                if (control_set != null) {
+                if (controlSet != null) {
                     if ((i + 1 >= itemOrder.length || itemOrder[i + 1].equals(moreSectionTrigger))) {
-                        removeTeaSeparator(control_set);
+                        removeTeaSeparator(controlSet);
                     }
-                    section.addView(control_set);
+                    section.addView(controlSet);
+                    if (section == moreControls)
+                        moreSectionHasControls = true;
                 }
             }
         }
@@ -717,7 +724,6 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
         }
 
         long idParam = intent.getLongExtra(TOKEN_ID, -1L);
-
         if (idParam > -1L) {
             model = taskService.fetchById(idParam, Task.PROPERTIES);
             if (model != null && model.containsNonNullValue(Task.REMOTE_ID)) {
@@ -742,13 +748,13 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
 
         if (model.getValue(Task.TITLE).length() == 0) {
             StatisticsService.reportEvent(StatisticsConstants.CREATE_TASK);
-            setIsNewTask(true);
 
             // set deletion date until task gets a title
             model.setValue(Task.DELETION_DATE, DateUtilities.now());
         } else {
             StatisticsService.reportEvent(StatisticsConstants.EDIT_TASK);
         }
+        setIsNewTask(model.getValue(Task.TITLE).length() == 0);
 
         if (model == null) {
             exceptionService.reportError("task-edit-no-task",
@@ -770,11 +776,9 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
 
     private void setIsNewTask(boolean isNewTask) {
         this.isNewTask = isNewTask;
-        if (isNewTask) {
-            Activity activity = getActivity();
-            if (activity instanceof TaskEditActivity) {
-                ((TaskEditActivity) activity).updateTitle(isNewTask);
-            }
+        Activity activity = getActivity();
+        if (activity instanceof TaskEditActivity) {
+            ((TaskEditActivity) activity).updateTitle(isNewTask);
         }
     }
 
@@ -1042,7 +1046,7 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
             return;
         }
 
-        File dst = new File(getActivity().getExternalFilesDir(FileMetadata.FILES_DIRECTORY) + File.separator + src.getName());
+        File dst = new File(FileUtilities.getAttachmentsDirectory(getActivity()) + File.separator + src.getName());
         try {
             AndroidUtilities.copyFile(src, dst);
         } catch (Exception e) {
@@ -1201,7 +1205,7 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
             String recordedAudioName = data.getStringExtra(AACRecordingActivity.RESULT_FILENAME);
             createNewFileAttachment(recordedAudioPath, recordedAudioName, FileMetadata.FILE_TYPE_AUDIO + "m4a"); //$NON-NLS-1$
         } else if (requestCode == REQUEST_CODE_ATTACH_FILE && resultCode == Activity.RESULT_OK) {
-            attachFile(data.getStringExtra(FileExplore.EXTRA_FILE_SELECTED));
+            attachFile(data.getStringExtra(FileExplore.RESULT_FILE_SELECTED));
         }
 
         ActFmCameraModule.activityResult(getActivity(), requestCode, resultCode, data, new CameraResultCallback() {
@@ -1250,16 +1254,15 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
      */
 
     public int getTabForPosition(int position) {
-        if ((tabStyle == TAB_STYLE_WEB && position == 0) ||
-                (tabStyle != TAB_STYLE_WEB && position == 1))
-            return TAB_VIEW_MORE;
-
-        else if (tabStyle != TAB_STYLE_WEB && position == 0)
+        int tab = TaskEditViewPager.getPageForPosition(position, tabStyle);
+        switch(tab) {
+        case TaskEditViewPager.TAB_SHOW_ACTIVITY:
             return TAB_VIEW_UPDATES;
-
-        else if((tabStyle == TAB_STYLE_WEB && position == 1) ||
-                (tabStyle == TAB_STYLE_ACTIVITY_WEB && position == 2))
+        case TaskEditViewPager.TAB_SHOW_MORE:
+            return TAB_VIEW_MORE;
+        case TaskEditViewPager.TAB_SHOW_WEB:
             return TAB_VIEW_WEB_SERVICES;
+        }
 
         // error experienced
         return TAB_VIEW_MORE;
@@ -1352,10 +1355,8 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
                 setPagerHeightForPosition(position);
 
                 NestableScrollView scrollView = (NestableScrollView)getView().findViewById(R.id.edit_scroll);
-                if((tabStyle == TAB_STYLE_WEB && position == 1) ||
-                        (tabStyle == TAB_STYLE_ACTIVITY_WEB && position == 2))
-                    scrollView.
-                    setScrollabelViews(webServices.getScrollableViews());
+                if(getTabForPosition(position) == TAB_VIEW_WEB_SERVICES)
+                    scrollView.setScrollabelViews(webServices.getScrollableViews());
                 else
                     scrollView.setScrollabelViews(null);
             }

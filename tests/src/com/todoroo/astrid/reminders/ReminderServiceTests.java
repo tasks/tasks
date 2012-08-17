@@ -54,6 +54,8 @@ public class ReminderServiceTests extends DatabaseTestCase {
         service.setScheduler(new AlarmExpected() {
             @Override
             public void createAlarm(Task task, long time, int type) {
+                if (time == ReminderService.NO_ALARM)
+                    return;
                 super.createAlarm(task, time, type);
                 assertEquals((long)task.getValue(Task.DUE_DATE), time);
                 assertEquals(type, ReminderService.TYPE_DUE);
@@ -82,6 +84,8 @@ public class ReminderServiceTests extends DatabaseTestCase {
         service.setScheduler(new AlarmExpected() {
             @Override
             public void createAlarm(Task task, long time, int type) {
+                if (time == ReminderService.NO_ALARM)
+                    return;
                 super.createAlarm(task, time, type);
                 assertTrue(time > DateUtilities.now());
                 assertTrue(time < DateUtilities.now() + 1.2 * DateUtilities.ONE_WEEK);
@@ -98,6 +102,8 @@ public class ReminderServiceTests extends DatabaseTestCase {
         service.setScheduler(new AlarmExpected() {
             @Override
             public void createAlarm(Task task, long time, int type) {
+                if (time == ReminderService.NO_ALARM)
+                    return;
                 super.createAlarm(task, time, type);
                 assertTrue(time > task.getValue(Task.DUE_DATE));
                 assertTrue(time < task.getValue(Task.DUE_DATE) + DateUtilities.ONE_DAY);
@@ -115,6 +121,8 @@ public class ReminderServiceTests extends DatabaseTestCase {
         service.setScheduler(new AlarmExpected() {
             @Override
             public void createAlarm(Task task, long time, int type) {
+                if (time == ReminderService.NO_ALARM)
+                    return;
                 super.createAlarm(task, time, type);
                 assertTrue(time > DateUtilities.now() - 1000L);
                 assertTrue(time < DateUtilities.now() + 2 * DateUtilities.ONE_DAY);
@@ -129,6 +137,8 @@ public class ReminderServiceTests extends DatabaseTestCase {
         service.setScheduler(new AlarmExpected() {
             @Override
             public void createAlarm(Task task, long time, int type) {
+                if (time == ReminderService.NO_ALARM)
+                    return;
                 super.createAlarm(task, time, type);
                 assertTrue(time > DateUtilities.now() + DateUtilities.ONE_HOUR);
                 assertTrue(time < DateUtilities.now() + DateUtilities.ONE_DAY);
@@ -150,6 +160,8 @@ public class ReminderServiceTests extends DatabaseTestCase {
         service.setScheduler(new AlarmExpected() {
             @Override
             public void createAlarm(Task task, long time, int type) {
+                if (time == ReminderService.NO_ALARM)
+                    return;
                 super.createAlarm(task, time, type);
                 assertTrue(time > DateUtilities.now());
                 assertTrue(time < DateUtilities.now() + DateUtilities.ONE_DAY);
@@ -170,6 +182,8 @@ public class ReminderServiceTests extends DatabaseTestCase {
         service.setScheduler(new AlarmExpected() {
             @Override
             public void createAlarm(Task task, long time, int type) {
+                if (time == ReminderService.NO_ALARM)
+                    return;
                 super.createAlarm(task, time, type);
                 assertEquals((long)task.getValue(Task.DUE_DATE), time);
                 assertEquals(type, ReminderService.TYPE_DUE);
@@ -191,6 +205,8 @@ public class ReminderServiceTests extends DatabaseTestCase {
         service.setScheduler(new AlarmExpected() {
             @Override
             public void createAlarm(Task task, long time, int type) {
+                if (time == ReminderService.NO_ALARM)
+                    return;
                 super.createAlarm(task, time, type);
                 assertTrue(time > DateUtilities.now() + DateUtilities.ONE_WEEK - 1000L);
                 assertTrue(time < DateUtilities.now() + DateUtilities.ONE_WEEK + 1000L);
@@ -205,6 +221,8 @@ public class ReminderServiceTests extends DatabaseTestCase {
         service.setScheduler(new AlarmExpected() {
             @Override
             public void createAlarm(Task task, long time, int type) {
+                if (time == ReminderService.NO_ALARM)
+                    return;
                 super.createAlarm(task, time, type);
                 assertTrue(time > DateUtilities.now() - 1000L);
                 assertTrue(time < DateUtilities.now() + 5000L);

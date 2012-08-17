@@ -7,9 +7,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2012-05-02 20:22-0700\n"
-"PO-Revision-Date: 2012-03-01 06:23+0000\n"
-"Last-Translator: Tim Su <tim@todoroo.com>\n"
+"POT-Creation-Date: 2012-08-13 17:20-0700\n"
+"PO-Revision-Date: 2012-07-20 22:55+0000\n"
+"Last-Translator: Scott Chung <scottc52@gmail.com>\n"
 "Language-Team: ko <LL@li.org>\n"
 "Plural-Forms: nplurals=1; plural=0\n"
 "MIME-Version: 1.0\n"
@@ -136,7 +136,7 @@ msgctxt "Npeople:quantity=one"
 msgid "1 person"
 msgstr ""
 
-#. today
+#. slide 10a, 12c: today
 msgctxt "today"
 msgid "Today"
 msgstr "오늘"
@@ -146,17 +146,17 @@ msgctxt "tomorrow"
 msgid "Tomorrow"
 msgstr "내일"
 
-#. today
+#. yesterday
 msgctxt "yesterday"
 msgid "Yesterday"
 msgstr "어제"
 
-#. tomorrow, abbreviated
+#. slide 12c: tomorrow, abbreviated
 msgctxt "tmrw"
 msgid "Tmrw"
 msgstr ""
 
-#. yesterday, abbreviated
+#. slide 12c: yesterday, abbreviated
 msgctxt "yest"
 msgid "Yest"
 msgstr ""
@@ -257,16 +257,15 @@ msgid "Status"
 msgstr "상태"
 
 #. Sync status subtitle, %s-> status message
-#, fuzzy, c-format
+#, c-format
 msgctxt "sync_SPr_status_subtitle"
 msgid "Status: %s"
-msgstr "상태"
+msgstr ""
 
 #. Sync Status: log in
-#, fuzzy
 msgctxt "sync_status_loggedout"
 msgid "Not Logged In"
-msgstr "로그인 되지 않았습니다!"
+msgstr ""
 
 #. Status: ongoing
 msgctxt "sync_status_ongoing"
@@ -348,10 +347,9 @@ msgid "Actions"
 msgstr "작업"
 
 #. Synchronize Now Button
-#, fuzzy
 msgctxt "sync_SPr_sync"
 msgid "Synchronize Now"
-msgstr "동기화 시작!"
+msgstr ""
 
 #. Synchronize Now Button if not logged in
 msgctxt "sync_SPr_sync_log_in"
@@ -407,11 +405,11 @@ msgstr "사용안함"
 
 msgctxt "sync_SPr_interval_entries:1"
 msgid "every fifteen minutes"
-msgstr "매 15분 마다"
+msgstr "15분 마다"
 
 msgctxt "sync_SPr_interval_entries:2"
 msgid "every thirty minutes"
-msgstr "매 30분마다"
+msgstr "30분마다"
 
 msgctxt "sync_SPr_interval_entries:3"
 msgid "every hour"
@@ -419,15 +417,15 @@ msgstr "매 시간"
 
 msgctxt "sync_SPr_interval_entries:4"
 msgid "every three hours"
-msgstr "매 3시간마다"
+msgstr "3시간마다"
 
 msgctxt "sync_SPr_interval_entries:5"
 msgid "every six hours"
-msgstr "매 6시간마다"
+msgstr "6시간마다"
 
 msgctxt "sync_SPr_interval_entries:6"
 msgid "every twelve hours"
-msgstr "매 12시간마다"
+msgstr "12시간마다"
 
 msgctxt "sync_SPr_interval_entries:7"
 msgid "every day"
@@ -435,9 +433,9 @@ msgstr "매일"
 
 msgctxt "sync_SPr_interval_entries:8"
 msgid "every three days"
-msgstr "매 3일마다"
+msgstr "3일마다"
 
 msgctxt "sync_SPr_interval_entries:9"
 msgid "every week"
-msgstr "매주"
+msgstr "일주일 마다"
 

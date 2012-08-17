@@ -28,6 +28,7 @@ import android.preference.Preference;
 import android.preference.Preference.OnPreferenceChangeListener;
 import android.preference.Preference.OnPreferenceClickListener;
 import android.preference.PreferenceCategory;
+import android.preference.PreferenceGroup;
 import android.preference.PreferenceScreen;
 import android.text.TextUtils;
 import android.widget.Toast;
@@ -48,6 +49,8 @@ import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.core.LabsPreferences;
 import com.todoroo.astrid.dao.Database;
 import com.todoroo.astrid.data.Task;
+import com.todoroo.astrid.files.FileExplore;
+import com.todoroo.astrid.files.FileMetadata;
 import com.todoroo.astrid.gtasks.GtasksPreferences;
 import com.todoroo.astrid.helper.MetadataHelper;
 import com.todoroo.astrid.producteev.ProducteevPreferences;
@@ -83,6 +86,7 @@ public class EditPreferences extends TodorooPreferenceActivity {
 
     private static final int REQUEST_CODE_SYNC = 0;
     private static final int REQUEST_CODE_PERFORMANCE = 1;
+    private static final int REQUEST_CODE_FILES_DIR = 2;
 
     public static final int RESULT_CODE_THEME_CHANGED = 1;
     public static final int RESULT_CODE_PERFORMANCE_PREF_CHANGED = 3;
@@ -171,9 +175,51 @@ public class EditPreferences extends TodorooPreferenceActivity {
             }
         });
 
+        preference = screen.findPreference(getString(R.string.p_files_dir));
+        preference.setOnPreferenceClickListener(new OnPreferenceClickListener() {
+            @Override
+            public boolean onPreferenceClick(Preference p) {
+                Intent filesDir = new Intent(EditPreferences.this, FileExplore.class);
+                filesDir.putExtra(FileExplore.EXTRA_DIRECTORIES_SELECTABLE, true);
+                startActivityForResult(filesDir, REQUEST_CODE_FILES_DIR);
+                return true;
+            }
+        });
+
         addDebugPreferences();
 
         addPreferenceListeners();
+
+        removeForbiddenPreferences(screen, r);
+    }
+
+    public static void removeForbiddenPreferences(PreferenceScreen screen, Resources r) {
+        int[] forbiddenPrefs = Constants.MARKET_STRATEGY.excludedSettings();
+        if (forbiddenPrefs == null)
+            return;
+        for (int i : forbiddenPrefs) {
+            searchForAndRemovePreference(screen, r.getString(i));
+        }
+    }
+
+    private static boolean searchForAndRemovePreference(PreferenceGroup group, String key) {
+        int preferenceCount = group.getPreferenceCount();
+        for (int i = 0; i < preferenceCount; i++) {
+            final Preference preference = group.getPreference(i);
+            final String curKey = preference.getKey();
+
+            if (curKey != null && curKey.equals(key)) {
+                group.removePreference(preference);
+                return true;
+            }
+
+            if (preference instanceof PreferenceGroup) {
+                if (searchForAndRemovePreference((PreferenceGroup) preference, key)) {
+                    return true;
+                }
+            }
+        }
+        return false;
     }
 
     /** Show about dialog */
@@ -392,12 +438,18 @@ public class EditPreferences extends TodorooPreferenceActivity {
         }
 
         // pp preferences
+        else if (r.getString(R.string.p_files_dir).equals(preference.getKey())) {
+            String dir = Preferences.getStringValue(FileMetadata.FILES_DIRECTORY_PREF);
+
+            if (TextUtils.isEmpty(dir)) {
+                dir = r.getString(R.string.p_files_dir_desc_default);
+            }
+            preference.setSummary(r.getString(R.string.p_files_dir_desc, dir));
+        }
         else if (booleanPreference(preference, value, R.string.p_statistics,
-                R.string.EPr_statistics_desc_disabled, R.string.EPr_statistics_desc_enabled))
-            ;
+                R.string.EPr_statistics_desc_disabled, R.string.EPr_statistics_desc_enabled));
         else if (booleanPreference(preference, value, R.string.p_autoIdea,
-                R.string.EPr_ideaAuto_desc_disabled, R.string.EPr_ideaAuto_desc_enabled))
-            ;
+                R.string.EPr_ideaAuto_desc_disabled, R.string.EPr_ideaAuto_desc_enabled));
 
 
         // voice input and output
@@ -444,6 +496,12 @@ public class EditPreferences extends TodorooPreferenceActivity {
             return;
         } else if (requestCode == REQUEST_CODE_PERFORMANCE && resultCode == LabsPreferences.PERFORMANCE_SETTING_CHANGED) {
             setResult(RESULT_CODE_PERFORMANCE_PREF_CHANGED);
+            return;
+        } else if (requestCode == REQUEST_CODE_FILES_DIR && resultCode == RESULT_OK) {
+            if (data != null) {
+                String dir = data.getStringExtra(FileExplore.RESULT_DIR_SELECTED);
+                Preferences.setString(FileMetadata.FILES_DIRECTORY_PREF, dir);
+            }
             return;
         }
         try {

@@ -17,8 +17,8 @@
     <item quantity="other">%d ימים</item>
   </plurals>
   <plurals name="DUt_weekdays">
-    <item quantity="one">יום חול אחד</item>
-    <item quantity="other">%d ימי חול</item>
+    <item quantity="one">יום עבודה אחד</item>
+    <item quantity="other">%d ימי עבודה</item>
   </plurals>
   <plurals name="DUt_hours">
     <item quantity="one">שעה אחת</item>
@@ -49,8 +49,8 @@
     <item quantity="other">%d משימות</item>
   </plurals>
   <plurals name="Npeople">
-    <item quantity="one">איש אחד</item>
-    <item quantity="other">%d אנשים</item>
+    <item quantity="one">שותף אחד</item>
+    <item quantity="other">%d שותפים</item>
   </plurals>
   <string name="today">היום</string>
   <string name="tomorrow">מחר</string>
@@ -64,41 +64,46 @@
   <string name="DLG_save">שמור</string>
   <string name="DLG_yes">כן</string>
   <string name="DLG_no">לא</string>
-  <string name="DLG_close">סגירה</string>
+  <string name="DLG_close">סגור</string>
   <string name="DLG_done">בוצע</string>
-  <string name="DLG_error">אופס, נראה שארתה שגיאה! הרי מה שהתרחש:\n\n%s</string>
-  <string name="DLG_error_generic">אופס, נראה שארתה שגיאה!</string>
-  <string name="DLG_wait">נא להמתין...</string>
-  <string name="SyP_progress">המשימות שלך מסונכרנות...</string>
+  <string name="DLG_error">אוּפְּס, נראה שארעה שגיאה! הנה מה שקה:\n\n%s</string>
+  <string name="DLG_error_generic">אוּפְּס, נראה שארעה שגיאה!</string>
+  <string name="DLG_wait">אנא המתן...</string>
+  <string name="SyP_progress">מסנכרן את המשימות שלך...</string>
   <string name="SyP_progress_toast">בסנכרון...</string>
   <string name="SyP_label">סינכרון</string>
   <string name="SyP_ioerror">שגיאה בחיבור! בדוק את חיבור האינטרנט שלך</string>
   <string name="sync_SPr_group_status">מצב</string>
-  <string name="sync_status_loggedout">לא מחובר לחשבון!</string>
+  <string name="sync_SPr_status_subtitle">מצב: %s</string>
+  <string name="sync_status_loggedout">לא מחובר</string>
   <string name="sync_status_ongoing">מסנכרן...</string>
   <string name="sync_status_success">סנכרון אחרון:\n%s</string>
-  <string name="sync_status_failed">נכשל ב: s%</string>
-  <string name="sync_status_errors">סנכרון עם שגיאות: s%</string>
+  <string name="sync_status_failed">נכשל ב: %s</string>
+  <string name="sync_status_errors">סנכרון עם שגיאות: %s</string>
   <string name="sync_status_failed_subtitle">סנכרון מוצלח אחרון: %s</string>
   <string name="sync_status_never">לעולם לא סונכרן!</string>
   <string name="sync_SPr_group_options">אפשרויות</string>
   <string name="sync_SPr_interval_title">סנכרון ברקע</string>
   <string name="sync_SPr_interval_desc_disabled">סנכרון ברקע אינו מופעל</string>
-  <string name="sync_SPr_interval_desc">כרגע מוגדר ל: s%</string>
+  <string name="sync_SPr_interval_desc">כרגע מוגדר ל: %s</string>
   <string name="sync_SPr_bgwifi_title">הגדרת WiFi בלבד</string>
   <string name="sync_SPr_bgwifi_desc_enabled">סנכרון רקע מתרחש רק כאשר על WiFi</string>
   <string name="sync_SPr_bgwifi_desc_disabled">סנכרון רקע תמיד יתבצע</string>
   <string name="sync_SPr_group_actions">פעולות</string>
-  <string name="sync_SPr_sync">סנכרן כעת!</string>
+  <string name="sync_SPr_sync">מסנכרן כעת</string>
   <string name="sync_SPr_sync_log_in">היכנס לחשבון וסנכרן!</string>
   <string name="sync_SPr_logged_in_prefix">מחובר לחשבון בתור:</string>
-  <string name="sync_SPr_forget">צא מהחשבון</string>
+  <string name="sync_SPr_last_error">דו\"ח מצב</string>
+  <string name="sync_SPr_last_error_subtitle">הקלק כדי לשלוח דוח לצוות של אסטריד</string>
+  <string name="sync_SPr_send_report">שלח דוח</string>
+  <string name="sync_SPr_forget">התנתק</string>
   <string name="sync_SPr_forget_description">מסיר את כל נתוני הסנכרון</string>
   <string name="sync_forget_confirm">צא מהחשבון \\ הסר נתוני סנכרון?</string>
+  <string name="sync_error_offline">נתקלתי בבעית חיבור לרשת בזמן הסינכרון האחרון עם %s. אנא נסה מאוחר יותר.</string>
   <string-array name="sync_SPr_interval_entries">
     <item>נטרל</item>
-    <item>כל חמש עשרה דקות</item>
-    <item>כל שלושים דקות</item>
+    <item>כל רבע שעה</item>
+    <item>כל חצי שעה</item>
     <item>כל שעה</item>
     <item>כל שלוש שעות</item>
     <item>כל שש שעות</item>

@@ -74,7 +74,8 @@
   <string name="SyP_label">Senkronizasyon</string>
   <string name="SyP_ioerror">Bağlantı Hatası! Internet bağlantınızı kontrol edin.</string>
   <string name="sync_SPr_group_status">Durum</string>
-  <string name="sync_status_loggedout">Giriş Yapılmadı!</string>
+  <string name="sync_SPr_status_subtitle">Durum: %s</string>
+  <string name="sync_status_loggedout">Oturum açılmadı</string>
   <string name="sync_status_ongoing">Senkronizasyon devam ediyor...</string>
   <string name="sync_status_success">Son Senk.\n%s</string>
   <string name="sync_status_failed">Başarısız: %s</string>
@@ -89,12 +90,16 @@
   <string name="sync_SPr_bgwifi_desc_enabled">Sadece Wifi ile arkaplan senkronu</string>
   <string name="sync_SPr_bgwifi_desc_disabled">Arkaplan senkronu her zaman etkin</string>
   <string name="sync_SPr_group_actions">Eylemler</string>
-  <string name="sync_SPr_sync">Senkronize et</string>
+  <string name="sync_SPr_sync">Şimdi Eşle</string>
   <string name="sync_SPr_sync_log_in">Giriş Yapı &amp; Senktronize et!</string>
   <string name="sync_SPr_logged_in_prefix">Giriş yapılan hesap:</string>
+  <string name="sync_SPr_last_error">Durum Raporu</string>
+  <string name="sync_SPr_last_error_subtitle">Astrid takımına bildirmek için tıklayın</string>
+  <string name="sync_SPr_send_report">Rapor Gönder</string>
   <string name="sync_SPr_forget">Çıkış Yap</string>
   <string name="sync_SPr_forget_description">Bütün eşleme verilerini temizle</string>
   <string name="sync_forget_confirm">Çıkış Yap / Senkron verisini sil?</string>
+  <string name="sync_error_offline">%s ile son eşleme yapılırken bir ağ bağlantı sorunu oluştu. Lütfen daha sonra yeniden deneyin.</string>
   <string-array name="sync_SPr_interval_entries">
     <item>devre dışı bırak</item>
     <item>her 15 dakika</item>

@@ -14,7 +14,9 @@ import com.timsu.astrid.R;
 import com.todoroo.andlib.data.TodorooCursor;
 import com.todoroo.andlib.service.ContextManager;
 import com.todoroo.andlib.sql.Query;
+import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.andlib.utility.Preferences;
+import com.todoroo.astrid.activity.BeastModePreferences;
 import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.core.PluginServices;
 import com.todoroo.astrid.data.Task;
@@ -63,9 +65,17 @@ public class AstridPreferences {
         Preferences.setIfUnset(prefs, editor, r, R.string.p_field_missed_calls, true);
 
         Preferences.setIfUnset(prefs, editor, r, R.string.p_third_party_addons, false);
-        Preferences.setIfUnset(prefs, editor, r, R.string.p_ideas_tab_enabled, true);
-        Preferences.setIfUnset(prefs, editor, r, R.string.p_end_at_deadline,
-                ABChooser.readChoiceForTest(ABTests.AB_TEST_CAL_KEY) != 0);
+        Preferences.setIfUnset(prefs, editor, r, R.string.p_end_at_deadline, true);
+
+        Preferences.setIfUnset(prefs, editor, r, R.string.p_rmd_persistent,
+                ABChooser.readChoiceForTest(ABTests.AB_TEST_PERSISTENT_REMINDERS) != 0);
+
+        boolean simpleEdit = ABChooser.readChoiceForTest(ABTests.AB_TEST_SIMPLE_EDIT) != 0;
+        if (simpleEdit && !Preferences.isSet(BeastModePreferences.BEAST_MODE_ORDER_PREF)) {
+            Preferences.setString(BeastModePreferences.BEAST_MODE_ORDER_PREF,
+                    BeastModePreferences.getSimpleEditOrderForABTest(context));
+        }
+        Preferences.setIfUnset(prefs, editor, r, R.string.p_ideas_tab_enabled, !simpleEdit);
 
         if ("white-blue".equals(Preferences.getStringValue(R.string.p_theme))) { //$NON-NLS-1$ migrate from when white-blue wasn't the default
             Preferences.setString(R.string.p_theme, ThemeService.THEME_WHITE);
@@ -128,6 +138,10 @@ public class AstridPreferences {
             return false;
         Preferences.setLong(P_LAST_POPOVER, System.currentTimeMillis());
         return true;
+    }
+
+    public static boolean useTabletLayout(Context context) {
+        return AndroidUtilities.isTabletSized(context) && !Preferences.getBoolean(R.string.p_force_phone_layout, false);
     }
 
 }

@@ -57,6 +57,9 @@
   
   <!-- show ideas tab preference -->
   <string name="p_ideas_tab_enabled">ideas_tab_enabled</string>
+
+  <!-- force tablets to use phone layout -->
+  <string name="p_force_phone_layout">force_phone_layout</string>
   
   <string-array name="TEA_reminder_random_hours">
     <!-- values (in hours) associated with items above. -->
@@ -187,6 +190,8 @@
   <string name="p_transparent_deprecated">transparent</string>
   <string name="p_theme">theme</string>
   <string name="p_theme_widget">theme_widget</string>
+  
+  <string name="p_voicePrefSection">voicePrefSection</string>
   <string name="p_voiceInputEnabled">voiceInputEnabled</string>
   <string name="p_voiceInputCreatesTask">voiceInputCreatesTask</string>
   <string name="p_voiceRemindersEnabled">voiceRemindersEnabled</string>
@@ -408,23 +413,10 @@
       <item >@string/TEA_control_lists</item>
       <item >@string/TEA_control_notes</item>
       <item >@string/TEA_control_files</item>
+      <item >@string/TEA_control_hidden_section</item>
       <item >@string/TEA_control_reminders</item>
       <item >@string/TEA_control_timer</item>
       <item >@string/TEA_control_share</item>
-  </string-array>
-  
-  <string-array name="TEA_control_sets">
-      <item>@string/TEA_control_title</item>
-      <item>@string/TEA_control_who</item>
-      <item>@string/TEA_control_when</item>
-      <item>@string/TEA_control_more_section</item>
-      <item>@string/TEA_control_importance</item>
-      <item>@string/TEA_control_lists</item>
-      <item>@string/TEA_control_notes</item>
-      <item>@string/TEA_control_files</item>
-      <item>@string/TEA_control_reminders</item>
-      <item>@string/TEA_control_timer</item>
-      <item>@string/TEA_control_share</item>
   </string-array>
   
   <string name="TEA_ctrl_title_pref">TEA_ctrl_title_pref</string> <!-- Deprecated -->
@@ -436,6 +428,7 @@
   <string name="TEA_ctrl_lists_pref">TEA_ctrl_lists_pref</string>
   <string name="TEA_ctrl_notes_pref">TEA_ctrl_notes_pref</string>
   <string name="TEA_ctrl_files_pref">TEA_ctrl_files_pref</string>
+  <string name="TEA_ctrl_hide_section_pref">TEA_ctrl_hide_section_pref</string>
   <string name="TEA_ctrl_reminders_pref">TEA_ctrl_reminders_pref</string>
   <string name="TEA_ctrl_timer_pref">TEA_ctrl_timer_pref</string>
   <string name="TEA_ctrl_share_pref">TEA_ctrl_share_pref</string>
@@ -448,6 +441,7 @@
       <item>@string/TEA_ctrl_lists_pref</item>
       <item>@string/TEA_ctrl_notes_pref</item>
       <item>@string/TEA_ctrl_files_pref</item>
+      <item>@string/TEA_ctrl_hide_section_pref</item>
       <item>@string/TEA_ctrl_reminders_pref</item>
       <item>@string/TEA_ctrl_timer_pref</item>
       <item>@string/TEA_ctrl_share_pref</item>

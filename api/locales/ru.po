@@ -7,9 +7,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2012-05-02 20:22-0700\n"
-"PO-Revision-Date: 2012-03-06 01:11+0000\n"
-"Last-Translator: Tim Su <tim@todoroo.com>\n"
+"POT-Creation-Date: 2012-08-13 17:20-0700\n"
+"PO-Revision-Date: 2012-06-10 14:50+0000\n"
+"Last-Translator: R.I.P. <rip239@gmail.com>\n"
 "Language-Team: ru <LL@li.org>\n"
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
 "n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2)\n"
@@ -137,7 +137,7 @@ msgctxt "Npeople:quantity=one"
 msgid "1 person"
 msgstr "1 человек"
 
-#. today
+#. slide 10a, 12c: today
 msgctxt "today"
 msgid "Today"
 msgstr "Сегодня"
@@ -147,20 +147,20 @@ msgctxt "tomorrow"
 msgid "Tomorrow"
 msgstr "Завтра"
 
-#. today
+#. yesterday
 msgctxt "yesterday"
 msgid "Yesterday"
 msgstr "Вчера"
 
-#. tomorrow, abbreviated
+#. slide 12c: tomorrow, abbreviated
 msgctxt "tmrw"
 msgid "Tmrw"
-msgstr ""
+msgstr "Завт"
 
-#. yesterday, abbreviated
+#. slide 12c: yesterday, abbreviated
 msgctxt "yest"
 msgid "Yest"
-msgstr ""
+msgstr "Сег"
 
 #. ================================================== Generic Dialogs ==
 #. confirmation dialog title
@@ -258,16 +258,15 @@ msgid "Status"
 msgstr "Состояние"
 
 #. Sync status subtitle, %s-> status message
-#, fuzzy, c-format
+#, c-format
 msgctxt "sync_SPr_status_subtitle"
 msgid "Status: %s"
-msgstr "Состояние"
+msgstr "Состояние: %s"
 
 #. Sync Status: log in
-#, fuzzy
 msgctxt "sync_status_loggedout"
 msgid "Not Logged In"
-msgstr "Вы не вошли в систему!"
+msgstr "Вход не выполнен"
 
 #. Status: ongoing
 msgctxt "sync_status_ongoing"
@@ -281,6 +280,8 @@ msgid ""
 "Last Sync:\n"
 "%s"
 msgstr ""
+"Последняя синхронизация\n"
+"%s"
 
 #. Sync Status: failure status (%s -> last attempted sync date)
 #, c-format
@@ -347,10 +348,9 @@ msgid "Actions"
 msgstr "Действия"
 
 #. Synchronize Now Button
-#, fuzzy
 msgctxt "sync_SPr_sync"
 msgid "Synchronize Now"
-msgstr "Синхронизировать!"
+msgstr "Синхронизировать"
 
 #. Synchronize Now Button if not logged in
 msgctxt "sync_SPr_sync_log_in"
@@ -365,17 +365,17 @@ msgstr "Вы вошли в систему как:"
 #. Sync: Last error
 msgctxt "sync_SPr_last_error"
 msgid "Status Report"
-msgstr ""
+msgstr "Отчёт о состоянии"
 
 #. Sync: last error click for more
 msgctxt "sync_SPr_last_error_subtitle"
 msgid "Click to send a report to the Astrid team"
-msgstr ""
+msgstr "Нажмите, чтобы отправить отчет команде Astrid"
 
 #. Sync: send error report button
 msgctxt "sync_SPr_send_report"
 msgid "Send Report"
-msgstr ""
+msgstr "Послать отчёт"
 
 #. Sync: Clear Data Title
 msgctxt "sync_SPr_forget"
@@ -399,6 +399,8 @@ msgid ""
 "There was a problem connecting to the network during the last sync with "
 "%s. Please try again later."
 msgstr ""
+"В процессе последней синхронизации с %s возникли проблемы подключения к "
+"сети. Пожалуйста, повторите попытку позже."
 
 msgctxt "sync_SPr_interval_entries:0"
 msgid "disable"

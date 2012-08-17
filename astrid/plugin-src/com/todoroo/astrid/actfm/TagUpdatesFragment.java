@@ -36,7 +36,6 @@ import android.widget.TextView.OnEditorActionListener;
 import com.timsu.astrid.R;
 import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.DependencyInjectionService;
-import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.astrid.actfm.ActFmCameraModule.CameraResultCallback;
@@ -57,6 +56,7 @@ import com.todoroo.astrid.service.StatisticsConstants;
 import com.todoroo.astrid.service.StatisticsService;
 import com.todoroo.astrid.service.TagDataService;
 import com.todoroo.astrid.tags.TagService;
+import com.todoroo.astrid.utility.AstridPreferences;
 
 public class TagUpdatesFragment extends ListFragment {
 
@@ -247,7 +247,7 @@ public class TagUpdatesFragment extends ListFragment {
     }
 
     private void addHeaderToListView(ListView listView) {
-        if (AndroidUtilities.isTabletSized(getActivity()) && tagData != null) {
+        if (AstridPreferences.useTabletLayout(getActivity()) && tagData != null) {
             listHeader = (ViewGroup) getActivity().getLayoutInflater().inflate(R.layout.tag_updates_header, listView, false);
             populateListHeader(listHeader);
             listView.addHeaderView(listHeader);

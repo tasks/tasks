@@ -5,6 +5,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import android.annotation.TargetApi;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
@@ -12,51 +13,47 @@ import android.content.DialogInterface;
 import android.content.DialogInterface.OnCancelListener;
 import android.content.Intent;
 import android.media.MediaPlayer;
-import android.net.Uri;
 import android.os.Bundle;
 import android.speech.RecognitionListener;
 import android.speech.RecognizerIntent;
 import android.speech.SpeechRecognizer;
 import android.util.Log;
-import android.view.View;
-import android.view.View.OnClickListener;
-import android.widget.TextView;
-import android.widget.Toast;
 
+@TargetApi(8)
 public class RecognizerApi implements RecognitionListener {
 
 	public static interface PlaybackExceptionHandler {
 		public void playbackFailed(String file);
 	}
-	
+
     private String aacFile;
 
     private Context context;
-    
+
     public static interface RecognizerApiListener {
     	public void onSpeechResult(String result);
     	public void onSpeechError(int error);
     }
-    
+
     private RecognizerApiListener mListener;
-    
+
     public RecognizerApi(Context context) {
     	this.context = context;
 
     	File dir = context.getFilesDir();
     	aacFile = dir.toString() + "/audio.aac";
-    	
+
     	sr = SpeechRecognizer.createSpeechRecognizer(context);
     }
-    
+
     public void setTemporaryFile(String fileName) {
     	aacFile = context.getFilesDir().toString() + "/" + fileName;
     }
-    
+
     public String getTemporaryFile() {
     	return aacFile;
     }
-    
+
     public void setListener(RecognizerApiListener listener) {
     	this.mListener = listener;
     }
@@ -78,20 +75,28 @@ public class RecognizerApi implements RecognitionListener {
     private SpeechRecognizer sr;
     private ProgressDialog speakPd;
     private ProgressDialog processingPd;
+    private String processingMessage;
 
-    public void start() {
+    /**
+     * Start speech recognition
+     *
+     * @param callingPackage e.g. com.myapp.example
+     * @param speakNowMessage e.g. "Speak now!"
+     * @param processingMessage e.g. "Processing..."
+     */
+    public void start(String callingPackage, String speakNowMessage, String processingMessage) {
         sr.setRecognitionListener(this);
 
         Intent intent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
         intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL,
                 RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);
-        intent.putExtra(RecognizerIntent.EXTRA_CALLING_PACKAGE, "com.domain.app");
+        intent.putExtra(RecognizerIntent.EXTRA_CALLING_PACKAGE, callingPackage);
 
         speechStarted = 0;
         baos.reset();
 
         speakPd = new ProgressDialog(context);
-        speakPd.setMessage("Speak now...");
+        speakPd.setMessage(speakNowMessage);
         speakPd.setIndeterminate(true);
         speakPd.setCancelable(true);
         speakPd.setOnCancelListener(new OnCancelListener() {
@@ -108,34 +113,31 @@ public class RecognizerApi implements RecognitionListener {
         speechStarted = System.currentTimeMillis();
     }
 
-    public void convert(String toFile) {
-    	try {
-    		new AACToM4A().convert(context, aacFile, toFile);
-    		
-    		Toast.makeText(context, "File Saved!", Toast.LENGTH_LONG).show();
-    	} catch (IOException e) {
-    		Toast.makeText(context, "Error :(", Toast.LENGTH_LONG).show();
-    		Log.e("ERROR", "error converting", e);
-    	}
+    /**
+     * Convert AAC file to M4A
+     *
+     * @param toFile
+     * @throws IOException
+     */
+    public void convert(String toFile) throws IOException {
+		new AACToM4A().convert(context, aacFile, toFile);
     }
 
     public void cancel() {
     	sr.cancel();
     }
-    
+
     public void destroy() {
     	sr.setRecognitionListener(null);
     	sr.destroy();
     }
-    
+
     // --- RecognitionListener methods --- //
-    
+
     private ByteArrayOutputStream baos = new ByteArrayOutputStream();
 
     @Override
     public void onBeginningOfSpeech() {
-        System.err.println("beginning");
-
     }
 
     @Override
@@ -155,9 +157,9 @@ public class RecognizerApi implements RecognitionListener {
 
         if(speechStarted == 0)
             return;
-        
+
         processingPd = new ProgressDialog(context);
-        processingPd.setMessage("Processing...");
+        processingPd.setMessage(processingMessage);
         processingPd.setIndeterminate(true);
         processingPd.setCancelable(true);
         processingPd.setOnCancelListener(new OnCancelListener() {
@@ -174,13 +176,9 @@ public class RecognizerApi implements RecognitionListener {
         sampleRate = 8000; // THIS IS A MAGIC NUMBER@?!!?!?!
         // can i has calculate?
 
-        System.err.println("computed sample rate: " + sampleRate);
-
         encoder.init(64000, 1, sampleRate, 16, aacFile);
 
         encoder.encode(baos.toByteArray());
-
-        System.err.println("end");
 
         encoder.uninit();
     }
@@ -217,5 +215,5 @@ public class RecognizerApi implements RecognitionListener {
     @Override
     public void onRmsChanged(float arg0) {
     }
-    
+
 }

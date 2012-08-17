@@ -12,6 +12,7 @@ import android.app.ListActivity;
 import android.content.Context;
 import android.content.res.Resources;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnTouchListener;
@@ -36,7 +37,67 @@ public class BeastModePreferences extends ListActivity {
 
     public static final String BEAST_MODE_PREF_ITEM_SEPARATOR = ";"; //$NON-NLS-1$
 
+    private static final String BEAST_MODE_ASSERTED_HIDE_ALWAYS = "asserted_hide_always"; //$NON-NLS-1$
+
     private HashMap<String, String> prefsToDescriptions;
+
+    /**
+     * Migration for existing users to assert that the "hide always" section divider exists in the preferences.
+     * Knowing that this section will always be in the constructed list of controls simplifies the logic a bit.
+     * @param c
+     */
+    public static void assertHideUntilSectionExists(Context c, long latestSetVersion) {
+        if (latestSetVersion == 0)
+            Preferences.setBoolean(BEAST_MODE_ASSERTED_HIDE_ALWAYS, true);
+
+        if (Preferences.getBoolean(BEAST_MODE_ASSERTED_HIDE_ALWAYS, false))
+            return;
+
+        String order = Preferences.getStringValue(BEAST_MODE_ORDER_PREF);
+        String hideSectionPref = c.getString(R.string.TEA_ctrl_hide_section_pref);
+        if (TextUtils.isEmpty(order)) {
+            // create preference and stick hide always at the end of it
+            String[] items = c.getResources().getStringArray(R.array.TEA_control_sets_prefs);
+            StringBuilder builder = new StringBuilder();
+            for (String item : items) {
+                if (item.equals(hideSectionPref))
+                    continue;
+                builder.append(item);
+                builder.append(BEAST_MODE_PREF_ITEM_SEPARATOR);
+            }
+
+            builder.append(hideSectionPref);
+            builder.append(BEAST_MODE_PREF_ITEM_SEPARATOR);
+            order = builder.toString();
+        } else if (!order.contains(hideSectionPref)) {
+            order += (hideSectionPref + BEAST_MODE_PREF_ITEM_SEPARATOR);
+        }
+        Preferences.setString(BEAST_MODE_ORDER_PREF, order);
+
+        Preferences.setBoolean(BEAST_MODE_ASSERTED_HIDE_ALWAYS, true);
+    }
+
+    /**
+     * returns the beast mode preference string that would correspond to almost everything hidden
+     * used for ab testing the effect of simple edit page
+     */
+    public static String getSimpleEditOrderForABTest(Context c) {
+        ArrayList<String> defaultOrder = constructOrderedControlList(c);
+        String hideSectionPref = c.getString(R.string.TEA_ctrl_hide_section_pref);
+        String detailsSectionPref = c.getString(R.string.TEA_ctrl_more_pref);
+        int moreIndex = defaultOrder.indexOf(detailsSectionPref);
+        if (moreIndex > - 1) {
+            defaultOrder.remove(hideSectionPref);
+            defaultOrder.add(moreIndex + 1, hideSectionPref);
+        }
+
+        StringBuilder builder = new StringBuilder();
+        for (int i = 0; i < defaultOrder.size(); i++) {
+            builder.append(defaultOrder.get(i));
+            builder.append(BEAST_MODE_PREF_ITEM_SEPARATOR);
+        }
+        return builder.toString();
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

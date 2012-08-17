@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2012-05-02 20:22-0700\n"
+"POT-Creation-Date: 2012-08-13 17:20-0700\n"
 "PO-Revision-Date: 2012-04-10 11:27+0000\n"
 "Last-Translator: Xiscu <Unknown>\n"
 "Language-Team: ca <LL@li.org>\n"
@@ -136,7 +136,7 @@ msgctxt "Npeople:quantity=one"
 msgid "1 person"
 msgstr ""
 
-#. today
+#. slide 10a, 12c: today
 msgctxt "today"
 msgid "Today"
 msgstr "Avui"
@@ -146,17 +146,17 @@ msgctxt "tomorrow"
 msgid "Tomorrow"
 msgstr "Demà"
 
-#. today
+#. yesterday
 msgctxt "yesterday"
 msgid "Yesterday"
 msgstr "Ahir"
 
-#. tomorrow, abbreviated
+#. slide 12c: tomorrow, abbreviated
 msgctxt "tmrw"
 msgid "Tmrw"
 msgstr ""
 
-#. yesterday, abbreviated
+#. slide 12c: yesterday, abbreviated
 msgctxt "yest"
 msgid "Yest"
 msgstr ""
@@ -257,16 +257,15 @@ msgid "Status"
 msgstr "Estat"
 
 #. Sync status subtitle, %s-> status message
-#, fuzzy, c-format
+#, c-format
 msgctxt "sync_SPr_status_subtitle"
 msgid "Status: %s"
-msgstr "Estat"
+msgstr ""
 
 #. Sync Status: log in
-#, fuzzy
 msgctxt "sync_status_loggedout"
 msgid "Not Logged In"
-msgstr "No conectat!"
+msgstr ""
 
 #. Status: ongoing
 msgctxt "sync_status_ongoing"
@@ -348,10 +347,9 @@ msgid "Actions"
 msgstr "Accions"
 
 #. Synchronize Now Button
-#, fuzzy
 msgctxt "sync_SPr_sync"
 msgid "Synchronize Now"
-msgstr "Sincronitzar Ara!"
+msgstr ""
 
 #. Synchronize Now Button if not logged in
 msgctxt "sync_SPr_sync_log_in"

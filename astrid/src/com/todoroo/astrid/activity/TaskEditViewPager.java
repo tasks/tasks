@@ -5,6 +5,8 @@
  */
 package com.todoroo.astrid.activity;
 
+import java.util.ArrayList;
+
 import android.content.Context;
 import android.os.Parcelable;
 import android.support.v4.view.PagerAdapter;
@@ -16,31 +18,34 @@ import com.viewpagerindicator.TitleProvider;
 
 public class TaskEditViewPager extends PagerAdapter implements TitleProvider {
 
-    private static String[] titles;
+    private final String[] titles;
     public TaskEditFragment parent;
 
-    public TaskEditViewPager(Context context, int tabStyle) {
-        switch(tabStyle) {
-        case TaskEditFragment.TAB_STYLE_ACTIVITY_WEB:
-            titles = new String[] {
-                    context.getString(R.string.TEA_tab_activity),
-                    context.getString(R.string.TEA_tab_more),
-                    context.getString(R.string.TEA_tab_web),
-            };
-            break;
-        case TaskEditFragment.TAB_STYLE_ACTIVITY:
-            titles = new String[] {
-                context.getString(R.string.TEA_tab_activity),
-                context.getString(R.string.TEA_tab_more),
-            };
-            break;
-        case TaskEditFragment.TAB_STYLE_WEB:
-            titles = new String[] {
-                    context.getString(R.string.TEA_tab_more),
-                    context.getString(R.string.TEA_tab_web),
-            };
-            break;
+    public static final int TAB_SHOW_ACTIVITY = 1 << 0;
+    public static final int TAB_SHOW_MORE = 1 << 1;
+    public static final int TAB_SHOW_WEB = 1 << 2;
+
+    public TaskEditViewPager(Context context, int tabStyleMask) {
+        ArrayList<String> titleList = new ArrayList<String>();
+        if ((tabStyleMask & TAB_SHOW_ACTIVITY) > 0)
+            titleList.add(context.getString(R.string.TEA_tab_activity));
+        if ((tabStyleMask & TAB_SHOW_MORE) > 0)
+            titleList.add(context.getString(R.string.TEA_tab_more));
+        if ((tabStyleMask & TAB_SHOW_WEB) > 0)
+            titleList.add(context.getString(R.string.TEA_tab_web));
+
+        titles = titleList.toArray(new String[titleList.size()]);
+    }
+
+    public static int getPageForPosition(int position, int tabStyle) {
+        int numOnesEncountered = 0;
+        for (int i = 0; i <= 2; i++) {
+            if ((tabStyle & (1 << i)) > 0)
+                numOnesEncountered++;
+            if (numOnesEncountered == position + 1)
+                return 1 << i;
         }
+        return -1;
     }
 
     @Override

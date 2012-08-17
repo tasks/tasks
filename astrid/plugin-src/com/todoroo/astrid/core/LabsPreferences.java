@@ -14,6 +14,7 @@ import android.text.TextUtils;
 import com.timsu.astrid.R;
 import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.andlib.utility.TodorooPreferenceActivity;
+import com.todoroo.astrid.activity.EditPreferences;
 import com.todoroo.astrid.utility.Constants;
 
 public class LabsPreferences extends TodorooPreferenceActivity {
@@ -33,6 +34,13 @@ public class LabsPreferences extends TodorooPreferenceActivity {
             return true;
         }
     };
+
+    @Override
+    public void onCreate(android.os.Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        EditPreferences.removeForbiddenPreferences(getPreferenceScreen(), getResources());
+    }
 
     @Override
     public void updatePreferences(Preference preference, Object value) {
@@ -66,6 +74,13 @@ public class LabsPreferences extends TodorooPreferenceActivity {
             if (!Constants.MARKET_STRATEGY.allowIdeasTab()) {
                 PreferenceScreen screen = getPreferenceScreen();
                 screen.removePreference(preference);
+            }
+        } else if (r.getString(R.string.p_force_phone_layout).equals(key)) {
+            if (!AndroidUtilities.isTabletSized(this)) {
+                PreferenceScreen screen = getPreferenceScreen();
+                screen.removePreference(preference);
+            } else {
+                preference.setOnPreferenceChangeListener(settingChangedListener);
             }
         }
     }

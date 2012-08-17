@@ -101,6 +101,8 @@ public class TagViewFragment extends TaskListFragment {
 
     private Filter originalFilter;
 
+    private boolean justDeleted = false;
+
     //private ImageAdapter galleryAdapter;
 
     // --- UI initialization
@@ -132,11 +134,11 @@ public class TagViewFragment extends TaskListFragment {
         @Override
         public void onClick(View v) {
             Activity activity = getActivity();
-            Class<?> settingsClass = AndroidUtilities.isTabletSized(activity) ? TagSettingsActivityTablet.class : TagSettingsActivity.class;
+            Class<?> settingsClass = AstridPreferences.useTabletLayout(activity) ? TagSettingsActivityTablet.class : TagSettingsActivity.class;
             Intent intent = new Intent(getActivity(), settingsClass);
             intent.putExtra(EXTRA_TAG_DATA, tagData);
             startActivityForResult(intent, REQUEST_CODE_SETTINGS);
-            if (!AndroidUtilities.isTabletSized(activity)) {
+            if (!AstridPreferences.useTabletLayout(activity)) {
                 AndroidUtilities.callOverridePendingTransition(activity, R.anim.slide_left_in, R.anim.slide_left_out);
             }
         }
@@ -465,7 +467,19 @@ public class TagViewFragment extends TaskListFragment {
 
     @Override
     public void onResume() {
+        if (justDeleted) {
+            parentOnResume();
+            // tag was deleted locally in settings
+            // go back to active tasks
+            FilterListFragment fl = ((AstridActivity) getActivity()).getFilterListFragment();
+            if (fl != null) {
+                fl.switchToActiveTasks();
+                fl.clear(); // Should auto refresh
+            }
+            return;
+        }
         super.onResume();
+
 
         IntentFilter intentFilter = new IntentFilter(BROADCAST_TAG_ACTIVITY);
         getActivity().registerReceiver(notifyReceiver, intentFilter);
@@ -485,8 +499,13 @@ public class TagViewFragment extends TaskListFragment {
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == REQUEST_CODE_SETTINGS && resultCode == Activity.RESULT_OK) {
             tagData = tagDataService.fetchById(tagData.getId(), TagData.PROPERTIES); // refetch
-            if (tagData == null) // This can happen if a tag has been deleted as part of a sync
+            if (tagData == null) {
+                // This can happen if a tag has been deleted as part of a sync
                 return;
+            } else if (tagData.isDeleted()) {
+                justDeleted = true;
+                return;
+            }
             filter = TagFilterExposer.filterFromTagData(getActivity(), tagData);
             getActivity().getIntent().putExtra(TOKEN_FILTER, filter);
             extras.putParcelable(TOKEN_FILTER, filter);

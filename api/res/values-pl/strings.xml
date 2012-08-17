@@ -74,9 +74,10 @@
   <string name="SyP_label">Synchronizacja</string>
   <string name="SyP_ioerror">Błąd połączenia! Sprawdź swoje połączenie z Internetem!</string>
   <string name="sync_SPr_group_status">Stan</string>
-  <string name="sync_status_loggedout">Nie zalogowano!</string>
+  <string name="sync_SPr_status_subtitle">Status: %s</string>
+  <string name="sync_status_loggedout">Niezalogowany</string>
   <string name="sync_status_ongoing">Synchronizacja trwa...</string>
-  <string name="sync_status_success">Last Sync:\n%s</string>
+  <string name="sync_status_success">Ostatnia synchronizacja:\n%s</string>
   <string name="sync_status_failed">Nieudana: %s</string>
   <string name="sync_status_errors">Synch w/ Błędy: %s</string>
   <string name="sync_status_failed_subtitle">Ostatnia udana synchronizacja: %s</string>
@@ -89,12 +90,16 @@
   <string name="sync_SPr_bgwifi_desc_enabled">Synchronizacja w tle przebiega tylko poprzez Wi-Fi</string>
   <string name="sync_SPr_bgwifi_desc_disabled">Synchronizowanie w tle zawsze, niezależnie od rodzaju połączenia</string>
   <string name="sync_SPr_group_actions">Działania</string>
-  <string name="sync_SPr_sync">Synchronizuj teraz!</string>
+  <string name="sync_SPr_sync">Synchronizuj teraz</string>
   <string name="sync_SPr_sync_log_in">Zaloguj &amp; Synchronizuj!</string>
-  <string name="sync_SPr_logged_in_prefix">Logged in as:</string>
+  <string name="sync_SPr_logged_in_prefix">Zalogowany jako:</string>
+  <string name="sync_SPr_last_error">Status Report</string>
+  <string name="sync_SPr_last_error_subtitle">Kliknij by wysłać raport do zespłu Astrid</string>
+  <string name="sync_SPr_send_report">Wyślij raport</string>
   <string name="sync_SPr_forget">Wyloguj</string>
   <string name="sync_SPr_forget_description">Czyści wszystkie dane synchronizacji</string>
   <string name="sync_forget_confirm">Wyloguj / wyczyść dane synchronizacji?</string>
+  <string name="sync_error_offline">Wystąpił problem łączenia się z siecią w trakcie ostatniej synchronizacji z %s. Spróbuj jeszcze raz.</string>
   <string-array name="sync_SPr_interval_entries">
     <item>Wyłączone</item>
     <item>co 15 minut</item>

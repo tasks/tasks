@@ -31,6 +31,8 @@ import com.todoroo.astrid.dao.TaskDao;
 import com.todoroo.astrid.dao.TaskDao.TaskCriteria;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.data.TaskApiDao;
+import com.todoroo.astrid.service.abtesting.ABChooser;
+import com.todoroo.astrid.service.abtesting.ABTests;
 import com.todoroo.astrid.utility.Constants;
 
 
@@ -114,7 +116,8 @@ public final class ReminderService  {
         Preferences.setIfUnset(prefs, editor, r, R.string.p_rmd_default_random_hours, 0);
         Preferences.setIfUnset(prefs, editor, r, R.string.p_rmd_time, 18);
         Preferences.setIfUnset(prefs, editor, r, R.string.p_rmd_nagging, true);
-        Preferences.setIfUnset(prefs, editor, r, R.string.p_rmd_persistent, true);
+        Preferences.setIfUnset(prefs, editor, r, R.string.p_rmd_persistent,
+                ABChooser.readChoiceForTest(ABTests.AB_TEST_PERSISTENT_REMINDERS) != 0);
 
         editor.commit();
         preferencesInitialized = true;
@@ -190,8 +193,10 @@ public final class ReminderService  {
             }
         }
 
+        // Make sure no alarms are scheduled other than the next one. When that one is shown, it
+        // will schedule the next one after it, and so on and so forth.
+        clearAllAlarms(task);
         if(task.isCompleted() || task.isDeleted() || task.getValue(Task.USER_ID) != 0) {
-            clearAllAlarms(task);
             return;
         }
 
@@ -220,16 +225,21 @@ public final class ReminderService  {
             whenRandom = NO_ALARM;
 
         // snooze trumps all
-        if(whenSnooze != NO_ALARM)
+        if(whenSnooze != NO_ALARM) {
             scheduler.createAlarm(task, whenSnooze, TYPE_SNOOZE);
-        else if(whenRandom < whenDueDate && whenRandom < whenOverdue)
+        }
+        else if(whenRandom < whenDueDate && whenRandom < whenOverdue) {
             scheduler.createAlarm(task, whenRandom, TYPE_RANDOM);
-        else if(whenDueDate < whenOverdue)
+        }
+        else if(whenDueDate < whenOverdue) {
             scheduler.createAlarm(task, whenDueDate, TYPE_DUE);
-        else if(whenOverdue != NO_ALARM)
+        }
+        else if(whenOverdue != NO_ALARM) {
             scheduler.createAlarm(task, whenOverdue, TYPE_OVERDUE);
-        else
+        }
+        else {
             scheduler.createAlarm(task, 0, 0);
+        }
     }
 
     /**

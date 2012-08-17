@@ -13,6 +13,7 @@ import android.widget.TextView;
 
 import com.timsu.astrid.R;
 import com.todoroo.andlib.utility.AndroidUtilities;
+import com.todoroo.astrid.actfm.sync.ActFmPreferenceService;
 import com.todoroo.astrid.service.ThemeService;
 
 public class TaskEditActivity extends AstridActivity {
@@ -36,8 +37,13 @@ public class TaskEditActivity extends AstridActivity {
 
 	public void updateTitle(boolean isNewTask) {
 	    ActionBar actionBar = getSupportActionBar();
-	    if (actionBar != null)
-	        ((TextView) actionBar.getCustomView().findViewById(R.id.title)).setText(isNewTask ? R.string.TEA_new_task : R.string.TAd_contextEditTask);
+	    if (actionBar != null) {
+	        TextView title = ((TextView) actionBar.getCustomView().findViewById(R.id.title));
+	        if (ActFmPreferenceService.isPremiumUser())
+	            title.setText(""); //$NON-NLS-1$
+	        else
+	            title.setText(isNewTask ? R.string.TEA_new_task : R.string.TAd_contextEditTask);
+	    }
 	}
 
     /* (non-Javadoc)

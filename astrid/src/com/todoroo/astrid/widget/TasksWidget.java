@@ -242,7 +242,7 @@ public class TasksWidget extends AppWidgetProvider {
 
 
             Intent editIntent;
-            boolean tablet = AndroidUtilities.isTabletSized(context);
+            boolean tablet = AstridPreferences.useTabletLayout(context);
             if (tablet) {
                 editIntent = new Intent(context, TaskListActivity.class);
                 editIntent.putExtra(TaskListActivity.OPEN_TASK, 0L);
