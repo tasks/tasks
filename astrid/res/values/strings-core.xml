@@ -662,6 +662,8 @@
   <string name = "EPr_cal_start_at_due_time">Start calendar events at due time</string>
   
   <string name="EPr_force_phone_layout">Use phone layout</string>
+
+  <string name="EPr_show_featured_lists">Show featured lists</string>
   
   <string name="EPr_swipe_lists_restart_alert">You will need to restart Astrid for this change to take effect</string>
   

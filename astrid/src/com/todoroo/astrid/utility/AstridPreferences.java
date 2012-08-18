@@ -83,6 +83,14 @@ public class AstridPreferences {
             Preferences.setString(R.string.p_theme, ThemeService.THEME_WHITE);
         }
 
+        setShowFriendsView();
+
+        setShowFeaturedLists();
+
+        editor.commit();
+    }
+
+    private static void setShowFriendsView() {
         // Show friends view if necessary
         boolean showFriends = false;
         TodorooCursor<User> users = PluginServices.getUserDao().query(Query.select(User.ID).limit(1));
@@ -92,7 +100,10 @@ public class AstridPreferences {
             users.close();
         }
         Preferences.setBoolean(R.string.p_show_friends_view, showFriends);
+    }
 
+    private static void setShowFeaturedLists() {
+        // Show featured lists if necessary
         boolean showFeaturedLists = false;
         TodorooCursor<TagData> featLists = PluginServices.getTagDataService().query(Query.select(TagData.ID)
                 .where(Functions.bitwiseAnd(TagData.FLAGS, TagData.FLAG_FEATURED).gt(0)).limit(1));
@@ -102,8 +113,6 @@ public class AstridPreferences {
             featLists.close();
         }
         Preferences.setBoolean(R.string.p_show_featured_lists, showFeaturedLists);
-
-        editor.commit();
     }
 
     /* ======================================================================

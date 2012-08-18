@@ -269,8 +269,10 @@ public class ActFmSyncV2Provider extends SyncV2Provider {
             public void run() {
                 int time = Preferences.getInt(LAST_FEATURED_TAG_FETCH_TIME, 0);
                 try {
-                    time = actFmSyncService.fetchFeaturedLists(time);
-                    Preferences.setInt(LAST_FEATURED_TAG_FETCH_TIME, time);
+                    if (Preferences.getBoolean(R.string.p_show_featured_lists_labs, false)) {
+                        time = actFmSyncService.fetchFeaturedLists(time);
+                        Preferences.setInt(LAST_FEATURED_TAG_FETCH_TIME, time);
+                    }
                 } catch (JSONException e) {
                     handler.handleException("actfm-sync", e, e.toString()); //$NON-NLS-1$
                 } catch (IOException e) {
