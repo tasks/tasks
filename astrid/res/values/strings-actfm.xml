@@ -271,6 +271,20 @@
   <!-- share login: OAUTH Login Prompt -->
   <string name="actfm_OLA_prompt">Please log in:</string>
   
+  <!-- ================================================ Featured Lists -->
+
+  <string name="actfm_feat_list_clone">Copy this list</string>
+  
+  <string name="actfm_feat_list_suffix">(Copy)</string>
+
+  <string name="actfm_feat_list_cloning">Copying...</string>
+
+  <string name="actfm_feat_list_clone_success">Success!</string>
+
+  <string name="actfm_feat_list_task_clone_success">Task copied</string>
+
+  <string name="actfm_feat_list_clone_empty">No tasks to copy</string>
+  
   <!-- ================================================ Synchronization == -->
       
   <!-- Indicates the logged in user name. %s -> user's name -->

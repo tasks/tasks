@@ -45,16 +45,16 @@ import com.todoroo.astrid.adapter.TaskListFragmentPagerAdapter;
 import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.api.FilterListItem;
-import com.todoroo.astrid.core.CoreFilterExposer;
 import com.todoroo.astrid.core.CustomFilterExposer;
 import com.todoroo.astrid.data.Task;
-import com.todoroo.astrid.people.PeopleListFragment;
-import com.todoroo.astrid.people.PeopleViewActivity;
+import com.todoroo.astrid.helper.AsyncImageView;
+import com.todoroo.astrid.people.PeopleFilterMode;
 import com.todoroo.astrid.service.StatisticsConstants;
 import com.todoroo.astrid.service.StatisticsService;
 import com.todoroo.astrid.service.ThemeService;
 import com.todoroo.astrid.service.abtesting.ABTestEventReportingService;
 import com.todoroo.astrid.tags.TagService;
+import com.todoroo.astrid.tags.reusable.FeaturedListFilterMode;
 import com.todoroo.astrid.ui.DateChangedAlerts;
 import com.todoroo.astrid.ui.FragmentPopover;
 import com.todoroo.astrid.ui.MainMenuPopover;
@@ -75,7 +75,10 @@ public class TaskListActivity extends AstridActivity implements MainMenuListener
 
     public static final String OPEN_TASK = "openTask"; //$NON-NLS-1$
 
-    private static final String PEOPLE_VIEW = "peopleView";  //$NON-NLS-1$
+    private static final String FILTER_MODE = "filterMode"; //$NON-NLS-1$
+    private static final int FILTER_MODE_NORMAL = 0;
+    private static final int FILTER_MODE_PEOPLE = 1;
+    private static final int FILTER_MODE_FEATURED = 2;
 
     @Autowired private ABTestEventReportingService abTestEventReportingService;
 
@@ -83,7 +86,10 @@ public class TaskListActivity extends AstridActivity implements MainMenuListener
     private ImageView listsNavDisclosure;
     private TextView lists;
     private ImageView mainMenu;
+    private AsyncImageView personImage;
     private Button commentsButton;
+    private int filterMode;
+    private FilterModeSpec filterModeSpec;
 
     private TaskListFragmentPager tlfPager;
     private TaskListFragmentPagerAdapter tlfPagerAdapter;
@@ -155,6 +161,8 @@ public class TaskListActivity extends AstridActivity implements MainMenuListener
         listsNavDisclosure = (ImageView) actionBar.getCustomView().findViewById(R.id.list_disclosure_arrow);
         lists = (TextView) actionBar.getCustomView().findViewById(R.id.list_title);
         mainMenu = (ImageView) actionBar.getCustomView().findViewById(R.id.main_menu);
+        personImage = (AsyncImageView) actionBar.getCustomView().findViewById(R.id.person_image);
+        personImage.setDefaultImageResource(R.drawable.icn_default_person_image);
         commentsButton = (Button) actionBar.getCustomView().findViewById(R.id.comments);
 
         initializeFragments(actionBar);
@@ -226,7 +234,7 @@ public class TaskListActivity extends AstridActivity implements MainMenuListener
     }
 
     protected Filter getDefaultFilter() {
-        return CoreFilterExposer.buildInboxFilter(getResources());
+        return filterModeSpec.getDefaultFilter(this);
     }
 
     private boolean swipeIsEnabled() {
@@ -259,6 +267,8 @@ public class TaskListActivity extends AstridActivity implements MainMenuListener
     protected void initializeFragments(ActionBar actionBar) {
         View filterFragment = findViewById(R.id.filterlist_fragment_container);
         View editFragment = findViewById(R.id.taskedit_fragment_container);
+        filterMode = getIntent().getIntExtra(FILTER_MODE, FILTER_MODE_NORMAL);
+        updateFilterModeSpec(filterMode);
 
         if (filterFragment != null) {
             actionBar.setDisplayHomeAsUpEnabled(false);
@@ -275,19 +285,15 @@ public class TaskListActivity extends AstridActivity implements MainMenuListener
                 }
             }
 
-            boolean peopleView = getIntent().getBooleanExtra(PEOPLE_VIEW, false);
-            Class<? extends FilterListFragment> filterFragmentClass =
-                    peopleView ? PeopleListFragment.class : FilterListFragment.class;
-
             setupFragment(FilterListFragment.TAG_FILTERLIST_FRAGMENT,
-                    R.id.filterlist_fragment_container, filterFragmentClass, false, false);
+                    R.id.filterlist_fragment_container, filterModeSpec.getFilterListClass(), false, false);
         } else {
             fragmentLayout = LAYOUT_SINGLE;
             actionBar.setDisplayHomeAsUpEnabled(true);
             listsNav.setOnClickListener(popupMenuClickListener);
             createListsPopover();
             setupPopoverWithFilterList((FilterListFragment) setupFragment(FilterListFragment.TAG_FILTERLIST_FRAGMENT, 0,
-                    getFilterListClass(), true, false));
+                    filterModeSpec.getFilterListClass(), true, false));
         }
     }
 
@@ -328,7 +334,7 @@ public class TaskListActivity extends AstridActivity implements MainMenuListener
         });
 
         if (isTablet)
-            setupMainMenuForPeopleViewState(getIntent().getBooleanExtra(PEOPLE_VIEW, false));
+            mainMenuPopover.refreshFixedItems();
     }
 
     private void setupPopoverWithFragment(FragmentPopover popover, Fragment frag, LayoutParams params) {
@@ -366,7 +372,9 @@ public class TaskListActivity extends AstridActivity implements MainMenuListener
         if (tef != null)
             onBackPressed();
 
-        return super.onFilterItemClicked(item);
+        boolean result = super.onFilterItemClicked(item);
+        filterModeSpec.onFilterItemClickedCallback(item);
+        return result;
     }
 
     private void setListsDropdownSelected(boolean selected) {
@@ -637,7 +645,7 @@ public class TaskListActivity extends AstridActivity implements MainMenuListener
 
     @Override
     public boolean shouldAddMenuItem(int itemId) {
-        return true;
+        return AndroidUtilities.indexOf(filterModeSpec.getForbiddenMenuItems(), itemId) < 0;
     }
 
     @Override
@@ -645,21 +653,19 @@ public class TaskListActivity extends AstridActivity implements MainMenuListener
         TaskListFragment tlf = getTaskListFragment();
         switch (item) {
         case MainMenuPopover.MAIN_MENU_ITEM_LISTS:
-            if (fragmentLayout == LAYOUT_SINGLE)
+            if (filterMode == FILTER_MODE_NORMAL)
                 listsNav.performClick();
             else
-                togglePeopleView();
+                setFilterMode(FILTER_MODE_NORMAL);
             return;
         case MainMenuPopover.MAIN_MENU_ITEM_SEARCH:
             onSearchRequested();
             return;
+        case MainMenuPopover.MAIN_MENU_ITEM_FEATURED_LISTS:
+            setFilterMode(FILTER_MODE_FEATURED);
+            return;
         case MainMenuPopover.MAIN_MENU_ITEM_FRIENDS:
-            if (fragmentLayout != LAYOUT_SINGLE) {
-                togglePeopleView();
-            } else {
-                Intent peopleIntent = new Intent(this, PeopleViewActivity.class);
-                startActivity(peopleIntent);
-            }
+            setFilterMode(FILTER_MODE_PEOPLE);
             return;
         case MainMenuPopover.MAIN_MENU_ITEM_SUGGESTIONS:
             // Doesn't exist yet
@@ -672,27 +678,53 @@ public class TaskListActivity extends AstridActivity implements MainMenuListener
         tlf.handleOptionsMenuItemSelected(item, customIntent);
     }
 
-    private void togglePeopleView() {
-        FilterListFragment flf = getFilterListFragment();
-        boolean peopleMode = !(flf instanceof PeopleListFragment);
-        if (peopleMode)
-            setupFragment(FilterListFragment.TAG_FILTERLIST_FRAGMENT, R.id.filterlist_fragment_container,
-                    PeopleListFragment.class, false, true);
-        else
-            setupFragment(FilterListFragment.TAG_FILTERLIST_FRAGMENT,
-                    R.id.filterlist_fragment_container, FilterListFragment.class, false, true);
+    private void setFilterMode(int mode) {
+        filterMode = mode;
+        updateFilterModeSpec(mode);
 
-        setupMainMenuForPeopleViewState(peopleMode);
-        getIntent().putExtra(PEOPLE_VIEW, peopleMode);
+        refreshMainMenu();
+        if (fragmentLayout == LAYOUT_SINGLE) {
+            createListsPopover();
+            setupPopoverWithFilterList((FilterListFragment) setupFragment(FilterListFragment.TAG_FILTERLIST_FRAGMENT, 0,
+                    filterModeSpec.getFilterListClass(), true, true));
+            if (mode == FILTER_MODE_PEOPLE) {
+                personImage.setVisibility(View.VISIBLE);
+                commentsButton.setVisibility(View.GONE);
+                ((PeopleFilterMode) filterModeSpec).setImageView(personImage);
+            } else {
+                personImage.setVisibility(View.GONE);
+                commentsButton.setVisibility(View.VISIBLE);
+            }
+        } else {
+            setupFragment(FilterListFragment.TAG_FILTERLIST_FRAGMENT, R.id.filterlist_fragment_container,
+                    filterModeSpec.getFilterListClass(), false, true);
+        }
+
+        onFilterItemClicked(getDefaultFilter());
+        if (fragmentLayout == LAYOUT_SINGLE)
+            listsNav.performClick();
+        getIntent().putExtra(FILTER_MODE, mode);
     }
 
-    private void setupMainMenuForPeopleViewState(boolean inPeopleMode) {
-        mainMenuPopover.setFixedItemVisibility(0, inPeopleMode ? View.VISIBLE : View.GONE, true);
-        mainMenuPopover.setFixedItemVisibility(1, inPeopleMode ? View.GONE : View.VISIBLE, true);
-
+    public void refreshMainMenu() {
+        mainMenuPopover.refreshFixedItems();
         TypedValue tv = new TypedValue();
-        getTheme().resolveAttribute(inPeopleMode ? R.attr.asPeopleMenu : R.attr.asMainMenu, tv, false);
+        getTheme().resolveAttribute(filterModeSpec.getMainMenuIconAttr(), tv, false);
         mainMenu.setImageResource(tv.data);
+    }
+
+    private void updateFilterModeSpec(int mode) {
+        switch(mode) {
+        case FILTER_MODE_PEOPLE:
+            filterModeSpec = new PeopleFilterMode();
+            break;
+        case FILTER_MODE_FEATURED:
+            filterModeSpec = new FeaturedListFilterMode();
+            break;
+        case FILTER_MODE_NORMAL:
+        default:
+            filterModeSpec = new DefaultFilterMode();
+        }
     }
 
     public MainMenuPopover getMainMenuPopover() {

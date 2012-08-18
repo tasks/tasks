@@ -42,6 +42,7 @@ import com.todoroo.andlib.data.TodorooCursor;
 import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.andlib.sql.Criterion;
+import com.todoroo.andlib.sql.Functions;
 import com.todoroo.andlib.sql.Join;
 import com.todoroo.andlib.sql.Order;
 import com.todoroo.andlib.sql.Query;
@@ -836,7 +837,26 @@ public final class ActFmSyncService {
 
         if(serverTime == 0) {
             Long[] remoteIdArray = remoteIds.toArray(new Long[remoteIds.size()]);
-            tagDataService.deleteWhere(Criterion.not(TagData.REMOTE_ID.in(remoteIdArray)));
+            tagDataService.deleteWhere(Criterion.and(
+                    Criterion.not(Functions.bitwiseAnd(TagData.FLAGS, TagData.FLAG_FEATURED).gt(0)),
+                    Criterion.not(TagData.REMOTE_ID.in(remoteIdArray))));
+        }
+
+        return result.optInt("time", 0);
+    }
+
+    public int fetchFeaturedLists(int serverTime) throws JSONException, IOException {
+        if (!checkForToken())
+            return 0;
+        JSONObject result = actFmInvoker.invoke("featured_lists",
+                "token", token, "modified_after", serverTime);
+        JSONArray featuredLists = result.getJSONArray("list");
+        if (featuredLists.length() > 0)
+            Preferences.setBoolean(R.string.p_show_featured_lists, true);
+
+        for (int i = 0; i < featuredLists.length(); i++) {
+            JSONObject featObject = featuredLists.getJSONObject(i);
+            actFmDataService.saveFeaturedList(featObject);
         }
 
         return result.optInt("time", 0);
@@ -1196,6 +1216,7 @@ public final class ActFmSyncService {
                 } catch (SQLiteConstraintException e) {
                     taskDao.handleSQLiteConstraintException(remote);
                 }
+
                 ids.add(remote.getId());
                 metadataService.synchronizeMetadata(remote.getId(), metadata, MetadataCriteria.withKey(TagService.KEY));
                 synchronizeAttachments(item, remote);
@@ -1428,10 +1449,23 @@ public final class ActFmSyncService {
          * @throws JSONException
          */
         public static void tagFromJson(JSONObject json, TagData model) throws JSONException {
+            parseTagDataFromJson(json, model, false);
+        }
+
+        public static void featuredListFromJson(JSONObject json, TagData model) throws JSONException {
+            parseTagDataFromJson(json, model, true);
+        }
+
+        private static void parseTagDataFromJson(JSONObject json, TagData model, boolean featuredList) throws JSONException {
             model.clearValue(TagData.REMOTE_ID);
             model.setValue(TagData.REMOTE_ID, json.getLong("id"));
             model.setValue(TagData.NAME, json.getString("name"));
-            readUser(json.getJSONObject("user"), model, TagData.USER_ID, TagData.USER);
+
+            if (!featuredList)
+                readUser(json.getJSONObject("user"), model, TagData.USER_ID, TagData.USER);
+
+            if (featuredList)
+                model.setFlag(TagData.FLAGS, TagData.FLAG_FEATURED, true);
 
             if(json.has("picture"))
                 model.setValue(TagData.PICTURE, json.optString("picture", ""));

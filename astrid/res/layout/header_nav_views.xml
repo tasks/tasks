@@ -54,6 +54,13 @@
 		</RelativeLayout>
     </LinearLayout>
 	
+    <com.todoroo.astrid.helper.AsyncImageView 
+        android:id="@+id/person_image"
+        android:layout_width="51dip"
+        android:layout_height="fill_parent"
+        android:scaleType="centerCrop"
+        android:visibility="gone"/>
+    
 	<Button 
 	    android:id="@+id/comments"
 	    android:layout_width="51dip"

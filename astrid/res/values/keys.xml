@@ -51,6 +51,9 @@
   
   <!-- show friends view preference -->
   <string name="p_show_friends_view">show_friends_view</string>
+  
+  <!-- show featured lists preference -->
+  <string name="p_show_featured_lists">show_featured_lists</string>
 
   <!-- enable third party addons preference -->
   <string name="p_third_party_addons">third_party_addons</string>

@@ -13,12 +13,14 @@ import android.content.res.Resources;
 import com.timsu.astrid.R;
 import com.todoroo.andlib.data.TodorooCursor;
 import com.todoroo.andlib.service.ContextManager;
+import com.todoroo.andlib.sql.Functions;
 import com.todoroo.andlib.sql.Query;
 import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.astrid.activity.BeastModePreferences;
 import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.core.PluginServices;
+import com.todoroo.astrid.data.TagData;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.data.User;
 import com.todoroo.astrid.service.ThemeService;
@@ -90,6 +92,16 @@ public class AstridPreferences {
             users.close();
         }
         Preferences.setBoolean(R.string.p_show_friends_view, showFriends);
+
+        boolean showFeaturedLists = false;
+        TodorooCursor<TagData> featLists = PluginServices.getTagDataService().query(Query.select(TagData.ID)
+                .where(Functions.bitwiseAnd(TagData.FLAGS, TagData.FLAG_FEATURED).gt(0)).limit(1));
+        try {
+            showFeaturedLists = featLists.getCount() > 0;
+        } finally {
+            featLists.close();
+        }
+        Preferences.setBoolean(R.string.p_show_featured_lists, showFeaturedLists);
 
         editor.commit();
     }

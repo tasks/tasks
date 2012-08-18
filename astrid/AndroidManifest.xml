@@ -341,7 +341,16 @@
             <category android:name="android.intent.category.DEFAULT"/>
         </intent-filter>
     </receiver>
-    <activity android:name="com.todoroo.astrid.people.PeopleViewActivity"
+    
+    
+    <!-- Featured lists -->
+    <receiver android:name="com.todoroo.astrid.tags.reusable.FeaturedListFilterExposer">
+        <intent-filter>
+            <action android:name="com.timsu.astrid.REQUEST_FEATURED_LISTS"/>
+            <category android:name="android.intent.category.DEFAULT"/>
+        </intent-filter>
+    </receiver>
+    <activity android:name="com.todoroo.astrid.tags.reusable.FeaturedListActivity"
               android:windowSoftInputMode="stateHidden|adjustResize"/>
     
     <!-- alarms -->

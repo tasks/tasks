@@ -128,6 +128,9 @@
   <!-- Menu: Friends -->
   <string name="TLA_menu_friends">People</string>
 
+  <!-- Menu: Featured Lists -->
+  <string name="TLA_menu_featured_lists">Featured Lists</string>
+
   <!-- Menu: Suggestions -->
   <string name="TLA_menu_suggestions">Suggestions</string>
   

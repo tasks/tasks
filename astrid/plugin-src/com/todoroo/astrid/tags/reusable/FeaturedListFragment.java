@@ -1,29 +1,25 @@
-/**
- * Copyright (c) 2012 Todoroo Inc
- *
- * See the file "LICENSE" for the full license governing this code.
- */
-package com.todoroo.astrid.people;
+package com.todoroo.astrid.tags.reusable;
 
 import android.app.Activity;
 
 import com.timsu.astrid.R;
+import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.astrid.activity.FilterListFragment;
 import com.todoroo.astrid.adapter.FilterAdapter;
-import com.todoroo.astrid.utility.AstridPreferences;
 
-public class PeopleListFragment extends FilterListFragment {
+public class FeaturedListFragment extends FilterListFragment {
 
     @Override
     protected FilterAdapter instantiateAdapter() {
-        return new PeopleFilterAdapter(getActivity(), null, R.layout.filter_adapter_row, false);
+        return new FeaturedListFilterAdapter(getActivity(), null, R.layout.filter_adapter_row, false);
     }
 
     @Override
     protected int getLayout(Activity activity) {
-        if (AstridPreferences.useTabletLayout(activity))
+        if (AndroidUtilities.isTabletSized(activity))
             return R.layout.filter_list_fragment_alternative_3pane;
         else
             return R.layout.filter_list_fragment_alternative;
     }
+
 }
