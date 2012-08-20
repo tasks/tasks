@@ -58,7 +58,7 @@ public class PhoneStateChangedReceiver extends BroadcastReceiver {
                     AndroidUtilities.sleepDeep(WAIT_BEFORE_READ_LOG);
                     Cursor calls = context.getContentResolver().query(
                             Calls.CONTENT_URI,
-                            null,
+                            new String[] { Calls.NUMBER, Calls.DATE, Calls.CACHED_NAME },
                             Calls.TYPE + " = ? AND " + Calls.NEW + " = ?",
                             new String[] { Integer.toString(Calls.MISSED_TYPE), "1" },
                             Calls.DATE + " DESC"
@@ -89,9 +89,7 @@ public class PhoneStateChangedReceiver extends BroadcastReceiver {
                             int nameIndex = calls.getColumnIndex(Calls.CACHED_NAME);
                             String name = calls.getString(nameIndex);
 
-                            int timeIndex = calls.getColumnIndex(Calls.DATE);
-                            long time = calls.getLong(timeIndex);
-                            String timeString = DateUtilities.getTimeString(context, new Date(time));
+                            String timeString = DateUtilities.getTimeString(context, new Date(date));
 
                             long contactId = getContactIdFromNumber(context, number);
 
