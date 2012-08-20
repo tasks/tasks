@@ -157,15 +157,6 @@ public class EditPreferences extends TodorooPreferenceActivity {
             }
         });
 
-        preference = screen.findPreference(getString(R.string.p_forums));
-        preference.setOnPreferenceClickListener(new OnPreferenceClickListener() {
-            @Override
-            public boolean onPreferenceClick(Preference p) {
-                showForums();
-                return true;
-            }
-        });
-
         preference = screen.findPreference(getString(R.string.p_premium));
         if (ActFmPreferenceService.isPremiumUser())
             screen.removePreference(preference);
@@ -177,7 +168,6 @@ public class EditPreferences extends TodorooPreferenceActivity {
                     return true;
                 }
             });
-
 
         PreferenceCategory appearance = (PreferenceCategory) screen.getPreference(APPEARANCE_PREFERENCE);
         Preference beastMode = appearance.getPreference(1);
