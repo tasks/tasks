@@ -21,6 +21,7 @@ import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.andlib.utility.DialogUtilities;
 import com.todoroo.andlib.utility.Preferences;
+import com.todoroo.astrid.actfm.ActFmLoginActivity;
 import com.todoroo.astrid.actfm.sync.ActFmPreferenceService;
 import com.todoroo.astrid.actfm.sync.ActFmSyncService;
 import com.todoroo.astrid.billing.BillingConstants.PurchaseState;
@@ -61,18 +62,21 @@ public class BillingActivity extends Activity {
         purchaseObserver = new AstridPurchaseObserver(handler);
 
         ResponseHandler.register(purchaseObserver);
+    }
 
-        // Enforce logged in here? If so, barrier to subscribing, if not, has the possibility of double subscribing.
+    @Override
+    protected void onResume() {
+        super.onResume();
         if (!actFmPreferenceService.isLoggedIn()) {
             // Prompt to log in
             DialogUtilities.okCancelDialog(this, getString(R.string.premium_login_prompt), new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
-                    // Set result, finish, use callback to prompt for login
+                    Intent login = new Intent(BillingActivity.this, ActFmLoginActivity.class);
+                    startActivity(login);
                 }
             },
             new DialogInterface.OnClickListener() {
-
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
                     finish();
@@ -181,7 +185,6 @@ public class BillingActivity extends Activity {
         boolean initialized = Preferences.getBoolean(TRANSACTIONS_INITIALIZED, false);
         if (!initialized) {
             billingService.restoreTransactions();
-            Toast.makeText(this, R.string.restoring_transactions, Toast.LENGTH_LONG).show();
         }
     }
 
@@ -232,6 +235,7 @@ public class BillingActivity extends Activity {
                             @Override
                             public void run() {
                                 Preferences.setBoolean(ActFmPreferenceService.PREF_PREMIUM, true);
+                                Toast.makeText(BillingActivity.this, R.string.premium_success, Toast.LENGTH_LONG).show();
                             }
                         }, new Runnable() {
                             @Override

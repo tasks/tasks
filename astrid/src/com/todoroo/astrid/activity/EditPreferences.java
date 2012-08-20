@@ -45,7 +45,9 @@ import com.todoroo.andlib.utility.DialogUtilities;
 import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.andlib.utility.TodorooPreferenceActivity;
 import com.todoroo.astrid.actfm.ActFmLoginActivity;
+import com.todoroo.astrid.actfm.sync.ActFmPreferenceService;
 import com.todoroo.astrid.api.AstridApiConstants;
+import com.todoroo.astrid.billing.BillingActivity;
 import com.todoroo.astrid.core.LabsPreferences;
 import com.todoroo.astrid.dao.Database;
 import com.todoroo.astrid.data.Task;
@@ -81,8 +83,8 @@ public class EditPreferences extends TodorooPreferenceActivity {
 
     private static final String SUPPORT_URL = "http://blog.astrid.com/topics/support/android"; //$NON-NLS-1$
 
-    private static final int APPEARANCE_PREFERENCE = 4;
-    private static final int POWER_PACK_PREFERENCE = 5;
+    private static final int APPEARANCE_PREFERENCE = 5;
+    private static final int POWER_PACK_PREFERENCE = 6;
 
     private static final int REQUEST_CODE_SYNC = 0;
     private static final int REQUEST_CODE_LABS = 1;
@@ -163,6 +165,19 @@ public class EditPreferences extends TodorooPreferenceActivity {
                 return true;
             }
         });
+
+        preference = screen.findPreference(getString(R.string.p_premium));
+        if (ActFmPreferenceService.isPremiumUser())
+            screen.removePreference(preference);
+        else
+            preference.setOnPreferenceClickListener(new OnPreferenceClickListener() {
+                @Override
+                public boolean onPreferenceClick(Preference p) {
+                    showPremium();
+                    return true;
+                }
+            });
+
 
         PreferenceCategory appearance = (PreferenceCategory) screen.getPreference(APPEARANCE_PREFERENCE);
         Preference beastMode = appearance.getPreference(1);
@@ -247,6 +262,11 @@ public class EditPreferences extends TodorooPreferenceActivity {
     private void showBeastMode() {
         Intent intent = new Intent(this, BeastModePreferences.class);
         intent.setAction(AstridApiConstants.ACTION_SETTINGS);
+        startActivity(intent);
+    }
+
+    private void showPremium() {
+        Intent intent = new Intent(this, BillingActivity.class);
         startActivity(intent);
     }
 

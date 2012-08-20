@@ -12,6 +12,7 @@
     <PreferenceScreen android:title="@string/welcome_setting" android:key="@string/p_tutorial"/>
     <PreferenceScreen android:title="@string/p_help" android:key="@string/p_help"/>
     <PreferenceScreen android:title="@string/p_forums" android:key="@string/p_forums"/>
+    <PreferenceScreen android:title="@string/p_premium" android:key="@string/p_premium"/>
     
     <PreferenceCategory
         android:title="@string/EPr_appearance_header">
