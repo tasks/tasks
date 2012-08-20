@@ -21,6 +21,7 @@ import com.todoroo.andlib.data.TodorooCursor;
 import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.ContextManager;
 import com.todoroo.andlib.sql.Criterion;
+import com.todoroo.andlib.sql.Functions;
 import com.todoroo.andlib.sql.Join;
 import com.todoroo.andlib.sql.Query;
 import com.todoroo.andlib.utility.Preferences;
@@ -135,6 +136,8 @@ public class ActFmSyncV2Provider extends SyncV2Provider {
 
     private static final String LAST_TAG_FETCH_TIME = "actfm_lastTag"; //$NON-NLS-1$
 
+    private static final String LAST_FEATURED_TAG_FETCH_TIME = "actfm_last_featuredTag"; //$NON-NLS-1$
+
     private static final String LAST_USERS_FETCH_TIME = "actfm_lastUsers";  //$NON-NLS-1$
 
     // --- synchronize active tasks
@@ -146,9 +149,9 @@ public class ActFmSyncV2Provider extends SyncV2Provider {
         new Thread(new Runnable() {
             public void run() {
                 callback.started();
-                callback.incrementMax(140);
+                callback.incrementMax(160);
 
-                final AtomicInteger finisher = new AtomicInteger(4);
+                final AtomicInteger finisher = new AtomicInteger(5);
 
                 actFmPreferenceService.recordSyncStart();
                 updateUserStatus();
@@ -158,6 +161,8 @@ public class ActFmSyncV2Provider extends SyncV2Provider {
                 startTagFetcher(callback, finisher);
 
                 startUpdatesFetcher(manual, callback, finisher);
+
+                startFeaturedListFetcher(callback, finisher);
 
                 actFmSyncService.waitUntilEmpty();
                 startTaskFetcher(manual, callback, finisher);
@@ -259,7 +264,32 @@ public class ActFmSyncV2Provider extends SyncV2Provider {
                 }
             }
         });
+    }
 
+    /** fetch changes to tags */
+    private void startFeaturedListFetcher(final SyncResultCallback callback,
+            final AtomicInteger finisher) {
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                int time = Preferences.getInt(LAST_FEATURED_TAG_FETCH_TIME, 0);
+                try {
+                    if (Preferences.getBoolean(R.string.p_show_featured_lists_labs, false)) {
+                        time = actFmSyncService.fetchFeaturedLists(time);
+                        Preferences.setInt(LAST_FEATURED_TAG_FETCH_TIME, time);
+                    }
+                } catch (JSONException e) {
+                    handler.handleException("actfm-sync", e, e.toString()); //$NON-NLS-1$
+                } catch (IOException e) {
+                    handler.handleException("actfm-sync", e, e.toString()); //$NON-NLS-1$
+                } finally {
+                    callback.incrementProgress(20);
+                    if(finisher.decrementAndGet() == 0) {
+                        finishSync(callback);
+                    }
+                }
+            }
+        }).start();
     }
 
     /** @return runnable to fetch changes to tags */
@@ -346,10 +376,12 @@ public class ActFmSyncV2Provider extends SyncV2Provider {
     private void pushQueuedTags(final SyncResultCallback callback,
             final AtomicInteger finisher, int lastTagSyncTime) {
         TodorooCursor<TagData> tagDataCursor = tagDataService.query(Query.select(TagData.PROPERTIES)
-                .where(Criterion.or(
+                .where(Criterion.and(
+                        Functions.bitwiseAnd(TagData.FLAGS, TagData.FLAG_FEATURED).eq(0),
+                        Criterion.or(
                         TagData.REMOTE_ID.eq(0),
                         Criterion.and(TagData.REMOTE_ID.gt(0),
-                                TagData.MODIFICATION_DATE.gt(lastTagSyncTime)))));
+                                TagData.MODIFICATION_DATE.gt(lastTagSyncTime))))));
         try {
             pushQueued(callback, finisher, tagDataCursor, true, tagPusher);
         } finally {

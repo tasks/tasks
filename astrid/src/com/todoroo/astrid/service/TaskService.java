@@ -189,6 +189,29 @@ public class TaskService {
         return newTask;
     }
 
+    public Task cloneReusableTask(Task task, String listName, long remoteId) {
+        Task newTask = fetchById(task.getId(), Task.PROPERTIES);
+        if (newTask == null)
+            return new Task();
+        newTask.clearValue(Task.ID);
+        newTask.clearValue(Task.REMOTE_ID);
+        newTask.clearValue(Task.USER);
+        newTask.clearValue(Task.USER_ID);
+
+        taskDao.save(newTask);
+
+        if (listName != null) {
+            Metadata tag = new Metadata();
+            tag.setValue(Metadata.TASK, newTask.getId());
+            tag.setValue(Metadata.KEY, TagService.KEY);
+            tag.setValue(TagService.TAG, listName);
+            if (remoteId > 0)
+                tag.setValue(TagService.REMOTE_ID, remoteId);
+            metadataDao.createNew(tag);
+        }
+        return newTask;
+    }
+
     /**
      * Delete the given task. Instead of deleting from the database, we set
      * the deleted flag.

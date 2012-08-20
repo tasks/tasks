@@ -132,7 +132,7 @@ public class TaskListFragment extends ListFragment implements OnScrollListener,
 
     public static final int MENU_ADDONS_ID = R.string.TLA_menu_addons;
     protected static final int MENU_SETTINGS_ID = R.string.TLA_menu_settings;
-    protected static final int MENU_SORT_ID = R.string.TLA_menu_sort;
+    public static final int MENU_SORT_ID = R.string.TLA_menu_sort;
     protected static final int MENU_SYNC_ID = R.string.TLA_menu_sync;
     protected static final int MENU_SUPPORT_ID = R.string.TLA_menu_support;
     public static final int MENU_NEW_FILTER_ID = R.string.FLA_new_filter;
@@ -710,12 +710,14 @@ public class TaskListFragment extends ListFragment implements OnScrollListener,
                     || !AstridApiConstants.BROADCAST_EVENT_REFRESH.equals(intent.getAction()))
                 return;
 
-            Activity activity = getActivity();
+            final Activity activity = getActivity();
             if (activity != null) {
                 activity.runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
                         refresh();
+                        if (activity instanceof TaskListActivity)
+                            ((TaskListActivity) activity).refreshMainMenu();
                     }
                 });
             }

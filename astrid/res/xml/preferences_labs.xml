@@ -34,5 +34,9 @@
         android:title="@string/EPr_force_phone_layout"
         android:key="@string/p_force_phone_layout"
         android:defaultValue="false"/>
+    <CheckBoxPreference
+        android:title="@string/EPr_show_featured_lists"
+        android:key="@string/p_show_featured_lists_labs"
+        android:defaultValue="false"/>
     
 </PreferenceScreen>

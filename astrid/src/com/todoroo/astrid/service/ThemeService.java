@@ -152,6 +152,8 @@ public class ThemeService {
             return R.drawable.icn_menu_refresh_dark;
         case R.drawable.icn_menu_filters:
             return R.drawable.icn_menu_filters_dark;
+        case R.drawable.icn_featured_lists:
+            return R.drawable.icn_featured_lists_dark;
         case R.drawable.icn_menu_sort_by_size:
             return R.drawable.icn_menu_sort_by_size_dark;
         case R.drawable.icn_menu_search:

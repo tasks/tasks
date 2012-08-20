@@ -128,6 +128,9 @@ public final class TagData extends RemoteModel {
     /** whether tag is emergent */
     public static final int FLAG_EMERGENT = 1 << 2;
 
+    /** whether tag represents a featured list */
+    public static final int FLAG_FEATURED = 1 << 3;
+
     // --- defaults
 
     /** Default values container */

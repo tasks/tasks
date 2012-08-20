@@ -7,7 +7,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent" 
     android:layout_height="fill_parent"
-    android:background="?attr/asListPopoverBg"
+    android:background="@color/tablet_list_bg"
     android:orientation="vertical">
 
 
@@ -18,6 +18,8 @@
         android:layout_alignParentTop="true"
         android:scrollbars="vertical"
         android:divider="@android:color/transparent"
+        android:dividerHeight="1px"
+        android:background="@android:color/transparent"        
         android:cacheColorHint="#00000000"/>
         
 </LinearLayout>

@@ -85,7 +85,7 @@ public class EditPreferences extends TodorooPreferenceActivity {
     private static final int POWER_PACK_PREFERENCE = 5;
 
     private static final int REQUEST_CODE_SYNC = 0;
-    private static final int REQUEST_CODE_PERFORMANCE = 1;
+    private static final int REQUEST_CODE_LABS = 1;
     private static final int REQUEST_CODE_FILES_DIR = 2;
 
     public static final int RESULT_CODE_THEME_CHANGED = 1;
@@ -253,7 +253,7 @@ public class EditPreferences extends TodorooPreferenceActivity {
     private static final HashMap<Class<?>, Integer> PREFERENCE_REQUEST_CODES = new HashMap<Class<?>, Integer>();
     static {
         PREFERENCE_REQUEST_CODES.put(SyncProviderPreferences.class, REQUEST_CODE_SYNC);
-        PREFERENCE_REQUEST_CODES.put(LabsPreferences.class, REQUEST_CODE_PERFORMANCE);
+        PREFERENCE_REQUEST_CODES.put(LabsPreferences.class, REQUEST_CODE_LABS);
     }
 
     private void addPluginPreferences(PreferenceScreen screen) {
@@ -494,8 +494,12 @@ public class EditPreferences extends TodorooPreferenceActivity {
             setResult(SyncProviderPreferences.RESULT_CODE_SYNCHRONIZE);
             finish();
             return;
-        } else if (requestCode == REQUEST_CODE_PERFORMANCE && resultCode == LabsPreferences.PERFORMANCE_SETTING_CHANGED) {
+        } else if (requestCode == REQUEST_CODE_LABS && resultCode == LabsPreferences.RESULT_TLA_NEEDS_REFRESH) {
             setResult(RESULT_CODE_PERFORMANCE_PREF_CHANGED);
+            return;
+        } else if (requestCode == REQUEST_CODE_LABS && resultCode == LabsPreferences.RESULT_NEEDS_SYNC) {
+            if (Preferences.getBoolean(R.string.p_show_featured_lists_labs, false))
+                setResult(SyncProviderPreferences.RESULT_CODE_SYNCHRONIZE);
             return;
         } else if (requestCode == REQUEST_CODE_FILES_DIR && resultCode == RESULT_OK) {
             if (data != null) {
