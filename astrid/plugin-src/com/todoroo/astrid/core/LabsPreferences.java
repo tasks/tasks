@@ -24,22 +24,32 @@ public class LabsPreferences extends TodorooPreferenceActivity {
         return R.xml.preferences_labs;
     }
 
-    public static final int PERFORMANCE_SETTING_CHANGED = 3;
+    public static final int RESULT_TLA_NEEDS_REFRESH = 3;
+    public static final int RESULT_NEEDS_SYNC = 4;
 
-    private final OnPreferenceChangeListener settingChangedListener = new OnPreferenceChangeListener() {
+    private class SetResultOnPreferenceChangeListener implements OnPreferenceChangeListener {
+        private final int resultCode;
+        public SetResultOnPreferenceChangeListener(int resultCode) {
+            this.resultCode = resultCode;
+        }
+
         @Override
         public boolean onPreferenceChange(Preference p, Object newValue) {
-            setResult(PERFORMANCE_SETTING_CHANGED);
+            setResult(resultCode);
             updatePreferences(p, newValue);
             return true;
         }
-    };
+    }
 
     @Override
     public void onCreate(android.os.Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         EditPreferences.removeForbiddenPreferences(getPreferenceScreen(), getResources());
+
+        if (!AndroidUtilities.isTabletSized(this)) {
+            PreferenceScreen screen = getPreferenceScreen();
+            screen.removePreference(screen.findPreference(getString(R.string.p_force_phone_layout)));
+        }
     }
 
     @Override
@@ -48,7 +58,7 @@ public class LabsPreferences extends TodorooPreferenceActivity {
 
         String key = preference.getKey();
         if (r.getString(R.string.p_swipe_lists_performance_key).equals(key)) {
-            preference.setOnPreferenceChangeListener(settingChangedListener);
+            preference.setOnPreferenceChangeListener(new SetResultOnPreferenceChangeListener(RESULT_TLA_NEEDS_REFRESH));
 
             int index = 0;
             if(value instanceof String && !TextUtils.isEmpty((String)value))
@@ -76,12 +86,9 @@ public class LabsPreferences extends TodorooPreferenceActivity {
                 screen.removePreference(preference);
             }
         } else if (r.getString(R.string.p_force_phone_layout).equals(key)) {
-            if (!AndroidUtilities.isTabletSized(this)) {
-                PreferenceScreen screen = getPreferenceScreen();
-                screen.removePreference(preference);
-            } else {
-                preference.setOnPreferenceChangeListener(settingChangedListener);
-            }
+             preference.setOnPreferenceChangeListener(new SetResultOnPreferenceChangeListener(RESULT_TLA_NEEDS_REFRESH));
+        } else if (r.getString(R.string.p_show_featured_lists_labs).equals(key)) {
+            preference.setOnPreferenceChangeListener(new SetResultOnPreferenceChangeListener(RESULT_NEEDS_SYNC));
         }
     }
 
