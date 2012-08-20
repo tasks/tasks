@@ -11,7 +11,6 @@
     <PreferenceScreen android:title="@string/p_about" android:key="@string/p_about" />
     <PreferenceScreen android:title="@string/welcome_setting" android:key="@string/p_tutorial"/>
     <PreferenceScreen android:title="@string/p_help" android:key="@string/p_help"/>
-    <PreferenceScreen android:title="@string/p_forums" android:key="@string/p_forums"/>
     <PreferenceScreen android:title="@string/p_premium" android:key="@string/p_premium"/>
     
     <PreferenceCategory
