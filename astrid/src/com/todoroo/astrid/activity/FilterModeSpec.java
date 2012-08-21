@@ -13,5 +13,6 @@ public interface FilterModeSpec {
     public Filter getDefaultFilter(Context context);
     public int getMainMenuIconAttr();
     public void onFilterItemClickedCallback(FilterListItem item);
+    public boolean showComments();
 
 }
