@@ -962,7 +962,7 @@ public final class ActFmSyncService {
         String purchaseToken = Preferences.getStringValue(BillingConstants.PREF_PURCHASE_TOKEN);
         String productId = Preferences.getStringValue(BillingConstants.PREF_PRODUCT_ID);
         try {
-            actFmInvoker.invoke("premium_update_android", "purchaseToken", purchaseToken, "productId", productId);
+            actFmInvoker.invoke("premium_update_android", "purchase_token", purchaseToken, "product_id", productId);
             Preferences.setBoolean(BillingConstants.PREF_NEEDS_SERVER_UPDATE, false);
             if (onSuccess != null)
                 onSuccess.run();

@@ -235,12 +235,22 @@ public class BillingActivity extends Activity {
                             @Override
                             public void run() {
                                 Preferences.setBoolean(ActFmPreferenceService.PREF_PREMIUM, true);
-                                Toast.makeText(BillingActivity.this, R.string.premium_success, Toast.LENGTH_LONG).show();
+                                runOnUiThread(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        Toast.makeText(BillingActivity.this, R.string.premium_success, Toast.LENGTH_LONG).show();
+                                    }
+                                });
                             }
                         }, new Runnable() {
                             @Override
                             public void run() {
-                                Toast.makeText(BillingActivity.this, R.string.premium_success_with_server_error, Toast.LENGTH_LONG).show();
+                                runOnUiThread(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        Toast.makeText(BillingActivity.this, R.string.premium_success_with_server_error, Toast.LENGTH_LONG).show();
+                                    }
+                                });
                             }
                         });
                     }
