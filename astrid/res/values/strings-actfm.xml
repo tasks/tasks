@@ -273,7 +273,7 @@
   
   <!-- ================================================ Featured Lists -->
 
-  <string name="actfm_feat_list_clone">Copy this list</string>
+  <string name="actfm_feat_list_clone">Copy list</string>
   
   <string name="actfm_feat_list_suffix">(Copy)</string>
 

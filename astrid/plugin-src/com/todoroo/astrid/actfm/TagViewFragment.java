@@ -123,7 +123,8 @@ public class TagViewFragment extends TaskListFragment {
         ((EditText) getView().findViewById(R.id.quickAddText)).setOnTouchListener(onTouch);
 
         View membersEdit = getView().findViewById(R.id.members_edit);
-        membersEdit.setOnClickListener(settingsListener);
+        if (membersEdit != null)
+            membersEdit.setOnClickListener(settingsListener);
 
         originalFilter = filter;
     }
@@ -165,8 +166,9 @@ public class TagViewFragment extends TaskListFragment {
         if (!Preferences.getBoolean(R.string.p_showed_list_settings_help, false)) {
             Preferences.setBoolean(R.string.p_showed_list_settings_help, true);
             View tabView = getView().findViewById(R.id.members_edit);
-            HelpInfoPopover.showPopover(getActivity(), tabView,
-                    R.string.help_popover_list_settings, null);
+            if (tabView != null)
+                HelpInfoPopover.showPopover(getActivity(), tabView,
+                        R.string.help_popover_list_settings, null);
         }
     }
 
@@ -214,9 +216,9 @@ public class TagViewFragment extends TaskListFragment {
         }
 
         postLoadTagData();
-        setUpMembersGallery();
-
         super.initializeData();
+
+        setUpMembersGallery();
 
         if (extras.getBoolean(TOKEN_START_ACTIVITY, false)) {
             extras.remove(TOKEN_START_ACTIVITY);
@@ -334,12 +336,15 @@ public class TagViewFragment extends TaskListFragment {
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        getView().findViewById(R.id.filter_assigned).setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                resetAssignedFilter();
-            }
-        });
+
+        View filterAssigned = getView().findViewById(R.id.filter_assigned);
+        if (filterAssigned != null)
+            filterAssigned.setOnClickListener(new OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    resetAssignedFilter();
+                }
+            });
     }
 
     @SuppressWarnings("nls")
@@ -395,11 +400,13 @@ public class TagViewFragment extends TaskListFragment {
                     Criterion assigned = Criterion.and(TaskCriteria.activeAndVisible(), assignedCriterion);
                     filter = TagFilterExposer.filterFromTag(getActivity(), new Tag(tagData), assigned);
                     TextView filterByAssigned = (TextView) getView().findViewById(R.id.filter_assigned);
-                    filterByAssigned.setVisibility(View.VISIBLE);
-                    if (id == Task.USER_ID_UNASSIGNED)
-                        filterByAssigned.setText(getString(R.string.actfm_TVA_filter_by_unassigned));
-                    else
-                        filterByAssigned.setText(getString(R.string.actfm_TVA_filtered_by_assign, displayName));
+                    if (filterByAssigned != null) {
+                        filterByAssigned.setVisibility(View.VISIBLE);
+                        if (id == Task.USER_ID_UNASSIGNED)
+                            filterByAssigned.setText(getString(R.string.actfm_TVA_filter_by_unassigned));
+                        else
+                            filterByAssigned.setText(getString(R.string.actfm_TVA_filtered_by_assign, displayName));
+                    }
                     setUpTaskList();
                 }
             }
@@ -416,7 +423,9 @@ public class TagViewFragment extends TaskListFragment {
     private void resetAssignedFilter() {
         currentId = Task.USER_ID_IGNORE;
         filter = originalFilter;
-        getView().findViewById(R.id.filter_assigned).setVisibility(View.GONE);
+        View filterAssigned = getView().findViewById(R.id.filter_assigned);
+        if (filterAssigned != null)
+            filterAssigned.setVisibility(View.GONE);
         setUpTaskList();
     }
 
