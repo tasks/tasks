@@ -30,7 +30,7 @@ import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.andlib.utility.DialogUtilities;
 import com.todoroo.andlib.utility.Preferences;
-import com.todoroo.astrid.core.LabsPreferences;
+import com.todoroo.astrid.activity.EditPreferences;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.reminders.NotificationFragment.SnoozeDialog;
 import com.todoroo.astrid.reminders.Notifications;
@@ -168,7 +168,7 @@ public class MissedCallActivity extends Activity {
         ignoreSettingsButton.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent labsPreferences = new Intent(MissedCallActivity.this, LabsPreferences.class);
+                Intent labsPreferences = new Intent(MissedCallActivity.this, EditPreferences.class);
                 startActivity(labsPreferences);
                 finish();
             }

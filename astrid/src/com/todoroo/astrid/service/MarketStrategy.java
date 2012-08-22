@@ -171,7 +171,8 @@ public abstract class MarketStrategy {
                 R.string.p_voicePrefSection,
                 R.string.p_end_at_deadline,
                 R.string.p_swipe_lists_performance_key,
-                R.string.p_field_missed_calls
+                R.string.p_field_missed_calls,
+                R.string.p_ideas_tab_enabled
             };
         }
 
