@@ -134,6 +134,8 @@ public class EditPreferences extends TodorooPreferenceActivity {
 
         addPluginPreferences(screen);
 
+        addPreferencesFromResource(R.xml.preferences_misc);
+
         final Resources r = getResources();
 
         // first-order preferences

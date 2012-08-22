@@ -110,41 +110,4 @@
              
     </PreferenceScreen>
 
-
-    <PreferenceScreen
-        android:title="@string/EPr_powerpack_header"
-        android:summary="@string/EPr_powerpack_summary">
-        
-        <PreferenceScreen android:title="@string/p_files_dir" android:key="@string/p_files_dir" />
-        
-        <com.todoroo.astrid.ui.MultilineCheckboxPreference
-            android:key="@string/p_voiceRemindersEnabled"
-            android:title="@string/EPr_voiceRemindersEnabled_title"
-            android:defaultValue="false" />
-
-        <CheckBoxPreference
-            android:key="@string/p_field_missed_calls"
-            android:title="@string/MCA_missed_calls_pref_title"/>
-        
-        <CheckBoxPreference
-            android:key="@string/p_third_party_addons"
-            android:title="@string/EPr_third_party_addons" />
-        
-        <CheckBoxPreference
-            android:key="@string/p_ideas_tab_enabled"
-            android:title="@string/EPr_ideas_tab_enabled" 
-            android:summary="@string/EPr_ideas_tab_description" />
-        
-        <CheckBoxPreference
-            android:title="@string/EPr_cal_end_or_start_at_due_time"
-            android:key = "@string/p_end_at_deadline" />
-        
-        <com.todoroo.astrid.ui.MultilineCheckboxPreference
-	        android:key="@string/p_statistics"
-	        android:title="@string/EPr_statistics_title"
-	        android:defaultValue="true" />   
-          
-    </PreferenceScreen>
-
-
 </PreferenceScreen>
