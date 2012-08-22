@@ -36,6 +36,7 @@
         <item name="asThemeTextColor">@color/blue_theme_color</item>
         <item name="asListsDisclosure">@drawable/lists_disclosure_blue</item>
         <item name="asAbBackgroundColor">#000000</item>
+        <item name="asQuickaddBackgroundColor">?attr/asAbBackgroundColor</item>
         <item name="asTaskEditArrow">@drawable/taskedit_arrow_up_white</item>
         <item name="asRepeatIcon">@drawable/icn_edit_repeats_blue</item>
         <item name="asListPopoverBg">@drawable/list_popover_bg_white</item>
@@ -53,6 +54,7 @@
     <style name="Theme.Transparent" parent="Theme">
 		<item name="asContentBackground">#22000000</item>
         <item name="abBackground">#aa000000</item>
+        <item name="asQuickaddBackgroundColor">#22000000</item>
         <item name="asEditBackground">#33272327</item>
         <item name="asEditRowBackground">@drawable/task_edit_background_transparent_black</item>
         <item name="asMembersHeaderBackground">@android:color/transparent</item>
@@ -117,6 +119,7 @@
     <style name="Theme.TransparentWhite" parent="Theme.White">
         <item name="asContentBackground">#22ffffff</item>
         <item name="abBackground">#aaffffff</item>
+        <item name="asQuickaddBackgroundColor">#22ffffff</item>
         <item name="asEditBackground">#33f7f3f7</item>
         <item name="asEditRowBackground">@drawable/task_edit_background_transparent_white</item>
         <item name="asMembersHeaderBackground">@android:color/transparent</item>
