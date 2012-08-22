@@ -23,6 +23,7 @@ import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.database.sqlite.SQLiteException;
 import android.media.AudioManager;
+import android.os.Handler;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -41,6 +42,11 @@ import com.todoroo.astrid.activity.BeastModePreferences;
 import com.todoroo.astrid.backup.BackupConstants;
 import com.todoroo.astrid.backup.BackupService;
 import com.todoroo.astrid.backup.TasksXmlImporter;
+import com.todoroo.astrid.billing.AstridPurchaseObserver;
+import com.todoroo.astrid.billing.BillingConstants;
+import com.todoroo.astrid.billing.BillingService;
+import com.todoroo.astrid.billing.PurchaseObserver;
+import com.todoroo.astrid.billing.ResponseHandler;
 import com.todoroo.astrid.dao.Database;
 import com.todoroo.astrid.gtasks.GtasksPreferenceService;
 import com.todoroo.astrid.gtasks.sync.GtasksSyncService;
@@ -108,7 +114,7 @@ public class StartupService {
     }
 
     /** Called when this application is started up */
-    public synchronized void onStartupApplication(final Context context) {
+    public synchronized void onStartupApplication(final Activity context) {
         if(hasStartedUp || context == null)
             return;
 
@@ -192,9 +198,30 @@ public class StartupService {
 
         abTestInvoker.reportAcquisition();
 
+        final Handler purchaseHandler = new Handler();
+
         // perform startup activities in a background thread
         new Thread(new Runnable() {
             public void run() {
+                final BillingService billingService = new BillingService();
+                billingService.setContext(context);
+                PurchaseObserver purchaseObserver = new AstridPurchaseObserver(context, purchaseHandler) {
+
+                    @Override
+                    protected void billingSupportedCallback() {
+                        billingService.restoreTransactions();
+                    }
+
+                    @Override
+                    protected void subscriptionsNotSupportedCallback() {/**/}
+
+                    @Override
+                    protected void billingNotSupportedCallback() {/**/}
+                };
+
+                ResponseHandler.register(purchaseObserver);
+                billingService.checkBillingSupported(BillingConstants.ITEM_TYPE_SUBSCRIPTION);
+
                 // start widget updating alarm
                 AlarmManager am = (AlarmManager)context.getSystemService(Context.ALARM_SERVICE);
                 Intent intent = new Intent(context, WidgetUpdateService.class);

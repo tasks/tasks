@@ -28,7 +28,7 @@ import com.todoroo.astrid.billing.BillingService.RestoreTransactions;
  */
 public abstract class PurchaseObserver {
     protected static final String TAG = "purchase-observer"; //$NON-NLS-1$
-    private final Activity mActivity;
+    protected final Activity mActivity;
     private final Handler mHandler;
     private Method mStartIntentSender;
     private final Object[] mStartIntentSenderArgs = new Object[5];
