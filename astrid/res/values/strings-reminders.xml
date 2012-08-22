@@ -105,6 +105,7 @@
   
   <!-- slide 33d: Reminder Preference Screen Title -->
   <string name="rmd_EPr_alerts_header">Reminder Settings</string>
+  <string name="rmd_EPr_alerts_summary">Quiet hours, snooze options, persistence level</string>
     
   <!-- Reminder Preference: Reminders Enabled Title -->
   <string name="rmd_EPr_enabled_title">Reminders Enabled?</string>

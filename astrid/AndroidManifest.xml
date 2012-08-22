@@ -265,6 +265,8 @@
     <activity android:name="com.todoroo.astrid.core.DefaultsPreferences"
               android:theme="@android:style/Theme" 
               android:label="@string/EPr_defaults_header">
+      <meta-data android:name="summary"
+                 android:resource="@string/EPr_defaults_summary" />
       <intent-filter>
         <action android:name="com.todoroo.astrid.SETTINGS" />
         <category android:name="android.intent.category.DEFAULT" />
@@ -272,24 +274,6 @@
     </activity>
     <activity android:name="com.todoroo.astrid.activity.BeastModePreferences"
               android:theme="@android:style/Theme">
-    </activity>
-        
-    <activity android:name="com.todoroo.astrid.core.OldTaskPreferences"
-              android:theme="@android:style/Theme" 
-              android:label="@string/EPr_manage_header">
-      <intent-filter>
-        <action android:name="com.todoroo.astrid.SETTINGS" />
-        <category android:name="android.intent.category.DEFAULT" />
-      </intent-filter>
-    </activity>
-    
-    <activity android:name="com.todoroo.astrid.core.LabsPreferences"
-              android:theme="@android:style/Theme"
-              android:label="@string/EPr_labs_header">
-        <intent-filter>
-            <action android:name="com.todoroo.astrid.SETTINGS" />
-            <category android:name="android.intent.category.DEFAULT" />
-        </intent-filter>
     </activity>
     
     <activity android:name="com.todoroo.astrid.calls.MissedCallActivity"
@@ -502,6 +486,18 @@
       </intent-filter>
     </receiver>
     
+    <!-- old tasks -->
+    <activity android:name="com.todoroo.astrid.core.OldTaskPreferences"
+              android:theme="@android:style/Theme" 
+              android:label="@string/EPr_manage_header">
+      <meta-data android:name="category"
+                 android:resource="@string/SyP_label" />
+      <intent-filter>
+        <action android:name="com.todoroo.astrid.SETTINGS" />
+        <category android:name="android.intent.category.DEFAULT" />
+      </intent-filter>
+    </activity>
+    
     <!-- backup -->
     <service android:name="com.todoroo.astrid.backup.BackupService"/>
     <activity android:name="com.todoroo.astrid.backup.BackupActivity"
@@ -509,6 +505,8 @@
     <activity android:name="com.todoroo.astrid.backup.BackupPreferences"
               android:theme="@android:style/Theme" 
               android:label="@string/backup_BPr_header">
+      <meta-data android:name="category"
+                 android:resource="@string/SyP_label" />
       <intent-filter>
         <action android:name="com.todoroo.astrid.SETTINGS" />
         <category android:name="android.intent.category.DEFAULT" />
@@ -569,6 +567,8 @@
     <activity android:name="com.todoroo.astrid.reminders.ReminderPreferences"
               android:theme="@android:style/Theme" 
               android:label="@string/rmd_EPr_alerts_header">
+      <meta-data android:name="summary"
+                 android:resource="@string/rmd_EPr_alerts_summary" />
       <intent-filter>
         <action android:name="com.todoroo.astrid.SETTINGS" />
         <category android:name="android.intent.category.DEFAULT" />

@@ -101,7 +101,8 @@
 
 
     <PreferenceScreen
-        android:title="@string/EPr_powerpack_header">
+        android:title="@string/EPr_powerpack_header"
+        android:summary="@string/EPr_powerpack_summary">
         
         <PreferenceScreen android:title="@string/p_files_dir" android:key="@string/p_files_dir" />
         

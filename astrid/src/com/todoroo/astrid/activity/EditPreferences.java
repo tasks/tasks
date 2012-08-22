@@ -5,12 +5,21 @@
  */
 package com.todoroo.astrid.activity;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map.Entry;
+
+import org.weloveastrid.rmilk.MilkPreferences;
+import org.weloveastrid.rmilk.MilkUtilities;
 
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.content.pm.PackageManager.NameNotFoundException;
+import android.content.pm.ResolveInfo;
 import android.content.res.Resources;
 import android.net.Uri;
 import android.os.Bundle;
@@ -20,6 +29,7 @@ import android.preference.Preference.OnPreferenceChangeListener;
 import android.preference.Preference.OnPreferenceClickListener;
 import android.preference.PreferenceCategory;
 import android.preference.PreferenceGroup;
+import android.preference.PreferenceManager;
 import android.preference.PreferenceScreen;
 import android.text.TextUtils;
 import android.widget.Toast;
@@ -41,7 +51,12 @@ import com.todoroo.astrid.dao.Database;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.files.FileExplore;
 import com.todoroo.astrid.files.FileMetadata;
+import com.todoroo.astrid.gtasks.GtasksPreferences;
+import com.todoroo.astrid.helper.MetadataHelper;
+import com.todoroo.astrid.producteev.ProducteevPreferences;
+import com.todoroo.astrid.producteev.ProducteevUtilities;
 import com.todoroo.astrid.service.AddOnService;
+import com.todoroo.astrid.service.MarketStrategy.AmazonMarketStrategy;
 import com.todoroo.astrid.service.StartupService;
 import com.todoroo.astrid.service.StatisticsConstants;
 import com.todoroo.astrid.service.StatisticsService;
@@ -118,7 +133,7 @@ public class EditPreferences extends TodorooPreferenceActivity {
         PreferenceScreen screen = getPreferenceScreen();
         voiceInputAssistant = new VoiceInputAssistant(this);
 
-//        addPluginPreferences(screen);
+        addPluginPreferences(screen);
 
         screen.getPreference(POWER_PACK_PREFERENCE).setEnabled(addOnService.hasPowerPack());
 
@@ -249,78 +264,90 @@ public class EditPreferences extends TodorooPreferenceActivity {
 //        PREFERENCE_REQUEST_CODES.put(LabsPreferences.class, REQUEST_CODE_LABS);
     }
 
-//    private void addPluginPreferences(PreferenceScreen screen) {
-//        Intent queryIntent = new Intent(AstridApiConstants.ACTION_SETTINGS);
-//        PackageManager pm = getPackageManager();
-//        List<ResolveInfo> resolveInfoList = pm.queryIntentActivities(queryIntent,
-//                PackageManager.GET_META_DATA);
-//        int length = resolveInfoList.size();
-//        LinkedHashMap<String, ArrayList<Preference>> categoryPreferences =
-//            new LinkedHashMap<String, ArrayList<Preference>>();
-//
-//        // Loop through a list of all packages (including plugins, addons)
-//        // that have a settings action
-//        String labsTitle = getString(R.string.EPr_labs_header);
-//        for(int i = 0; i < length; i++) {
-//            ResolveInfo resolveInfo = resolveInfoList.get(i);
-//            final Intent intent = new Intent(AstridApiConstants.ACTION_SETTINGS);
-//            intent.setClassName(resolveInfo.activityInfo.packageName,
-//                    resolveInfo.activityInfo.name);
-//
-//            if(MilkPreferences.class.getName().equals(resolveInfo.activityInfo.name) &&
-//                    !MilkUtilities.INSTANCE.isLoggedIn())
-//                continue;
-//
-//            if (GtasksPreferences.class.getName().equals(resolveInfo.activityInfo.name)
-//                    && AmazonMarketStrategy.isKindleFire())
-//                continue;
-//
-//            if (ProducteevPreferences.class.getName().equals(resolveInfo.activityInfo.name)
-//                    && !Preferences.getBoolean(R.string.p_third_party_addons, false) && !ProducteevUtilities.INSTANCE.isLoggedIn())
-//                continue;
-//
-//            Preference preference = new Preference(this);
-//            preference.setTitle(resolveInfo.activityInfo.loadLabel(pm));
-//            if (labsTitle.equals(preference.getTitle()))
-//                preference.setSummary(R.string.EPr_labs_desc);
-//            try {
-//                Class<?> intentComponent = Class.forName(intent.getComponent().getClassName());
-//                if (intentComponent.getSuperclass().equals(SyncProviderPreferences.class))
-//                    intentComponent = SyncProviderPreferences.class;
-//                if (PREFERENCE_REQUEST_CODES.containsKey(intentComponent)) {
-//                    final int code = PREFERENCE_REQUEST_CODES.get(intentComponent);
-//                    preference.setOnPreferenceClickListener(new OnPreferenceClickListener() {
-//                        @Override
-//                        public boolean onPreferenceClick(Preference pref) {
-//                            startActivityForResult(intent, code);
-//                            return true;
-//                        }
-//                    });
-//                } else {
-//                    preference.setIntent(intent);
-//                }
-//            } catch (ClassNotFoundException e) {
-//                preference.setIntent(intent);
-//            }
-//
-//            String category = MetadataHelper.resolveActivityCategoryName(resolveInfo, pm);
-//
-//            if(!categoryPreferences.containsKey(category))
-//                categoryPreferences.put(category, new ArrayList<Preference>());
-//            ArrayList<Preference> arrayList = categoryPreferences.get(category);
-//            arrayList.add(preference);
-//        }
-//
-//        for(Entry<String, ArrayList<Preference>> entry : categoryPreferences.entrySet()) {
-//            Preference header = new Preference(this);
-//            header.setLayoutResource(android.R.layout.preference_category);
-//            header.setTitle(entry.getKey());
-//            screen.addPreference(header);
-//
-//            for(Preference preference : entry.getValue())
-//                screen.addPreference(preference);
-//        }
-//    }
+    private void addPluginPreferences(PreferenceScreen screen) {
+        Intent queryIntent = new Intent(AstridApiConstants.ACTION_SETTINGS);
+        PackageManager pm = getPackageManager();
+        List<ResolveInfo> resolveInfoList = pm.queryIntentActivities(queryIntent,
+                PackageManager.GET_META_DATA);
+        int length = resolveInfoList.size();
+        LinkedHashMap<String, ArrayList<Preference>> categoryPreferences =
+            new LinkedHashMap<String, ArrayList<Preference>>();
+
+        // Loop through a list of all packages (including plugins, addons)
+        // that have a settings action
+        for(int i = 0; i < length; i++) {
+            ResolveInfo resolveInfo = resolveInfoList.get(i);
+            final Intent intent = new Intent(AstridApiConstants.ACTION_SETTINGS);
+            intent.setClassName(resolveInfo.activityInfo.packageName,
+                    resolveInfo.activityInfo.name);
+
+            if(MilkPreferences.class.getName().equals(resolveInfo.activityInfo.name) &&
+                    !MilkUtilities.INSTANCE.isLoggedIn())
+                continue;
+
+            if (GtasksPreferences.class.getName().equals(resolveInfo.activityInfo.name)
+                    && AmazonMarketStrategy.isKindleFire())
+                continue;
+
+            if (ProducteevPreferences.class.getName().equals(resolveInfo.activityInfo.name)
+                    && !Preferences.getBoolean(R.string.p_third_party_addons, false) && !ProducteevUtilities.INSTANCE.isLoggedIn())
+                continue;
+
+            Preference preference = new Preference(this);
+            preference.setTitle(resolveInfo.activityInfo.loadLabel(pm));
+            Bundle metadata = resolveInfo.activityInfo.metaData;
+            if (metadata != null) {
+                int resource = metadata.getInt("summary", 0); //$NON-NLS-1$
+                if (resource > 0)
+                    preference.setSummary(resource);
+            }
+            try {
+                Class<?> intentComponent = Class.forName(intent.getComponent().getClassName());
+                if (intentComponent.getSuperclass().equals(SyncProviderPreferences.class))
+                    intentComponent = SyncProviderPreferences.class;
+                if (PREFERENCE_REQUEST_CODES.containsKey(intentComponent)) {
+                    final int code = PREFERENCE_REQUEST_CODES.get(intentComponent);
+                    preference.setOnPreferenceClickListener(new OnPreferenceClickListener() {
+                        @Override
+                        public boolean onPreferenceClick(Preference pref) {
+                            startActivityForResult(intent, code);
+                            return true;
+                        }
+                    });
+                } else {
+                    preference.setIntent(intent);
+                }
+            } catch (ClassNotFoundException e) {
+                preference.setIntent(intent);
+            }
+
+            String category = MetadataHelper.resolveActivityCategoryName(resolveInfo, pm);
+
+            if(!categoryPreferences.containsKey(category))
+                categoryPreferences.put(category, new ArrayList<Preference>());
+            ArrayList<Preference> arrayList = categoryPreferences.get(category);
+            arrayList.add(preference);
+        }
+
+        for(Entry<String, ArrayList<Preference>> entry : categoryPreferences.entrySet()) {
+            if (entry.getKey().equals(getString(R.string.app_name))) {
+                for(Preference preference : entry.getValue())
+                    screen.addPreference(preference);
+            } else {
+                PreferenceManager manager = getPreferenceManager();
+                PreferenceScreen header = manager.createPreferenceScreen(this);
+                header.setTitle(entry.getKey());
+                if (entry.getKey().equals(getString(R.string.SyP_label)))
+                    header.setSummary(R.string.SyP_summary);
+                screen.addPreference(header);
+
+                for(Preference preference : entry.getValue())
+                    header.addPreference(preference);
+            }
+
+
+        }
+    }
 
     @SuppressWarnings("nls")
     private void addDebugPreferences() {
