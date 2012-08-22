@@ -59,9 +59,13 @@ public class SyncV2Service {
      *
      * @param manual if manual sync
      * @param callback result callback
+     * @return true if any servide was logged in and initiated a sync
      */
-    public void synchronizeActiveTasks(final boolean manual, final SyncResultCallback callback) {
+    public boolean synchronizeActiveTasks(final boolean manual, final SyncResultCallback callback) {
         final List<SyncV2Provider> active = activeProviders();
+
+        if (active.size() == 0)
+            return false;
 
         if (active.size() > 1) {
             SyncResultCallback newCallback = new SyncResultCallback() {
@@ -94,6 +98,8 @@ public class SyncV2Service {
         } else if (active.size() == 1) {
             active.get(0).synchronizeActiveTasks(manual, callback);
         }
+
+        return true;
     }
 
     /**

@@ -428,8 +428,11 @@ public class TaskListFragment extends ListFragment implements OnScrollListener,
             return;
 
         boolean isTablet = AstridPreferences.useTabletLayout(activity);
-        if (activity instanceof TaskListActivity)
-            ((TaskListActivity) activity).getMainMenuPopover().clear();
+        TaskListActivity tla = null;
+        if (activity instanceof TaskListActivity) {
+            tla = (TaskListActivity) activity;
+            tla.getMainMenuPopover().clear();
+        }
 
         // --- sort
         if (allowResorting()) {
@@ -438,7 +441,8 @@ public class TaskListFragment extends ListFragment implements OnScrollListener,
         }
 
         // --- sync
-        addSyncRefreshMenuItem(menu, isTablet ? ThemeService.FLAG_INVERT : 0);
+        if (tla == null || tla.getTaskEditFragment() == null)
+            addSyncRefreshMenuItem(menu, isTablet ? ThemeService.FLAG_INVERT : 0);
 
         // --- new filter
         addMenuItem(menu, R.string.FLA_new_filter,

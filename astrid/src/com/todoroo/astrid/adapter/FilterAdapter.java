@@ -80,7 +80,7 @@ public class FilterAdapter extends ArrayAdapter<Filter> {
     protected ListView listView;
 
     /** display metrics for scaling icons */
-    private final DisplayMetrics metrics = new DisplayMetrics();
+    protected final DisplayMetrics metrics = new DisplayMetrics();
 
     /** receiver for new filters */
     protected final FilterReceiver filterReceiver = new FilterReceiver();

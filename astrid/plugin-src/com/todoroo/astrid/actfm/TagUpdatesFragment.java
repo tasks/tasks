@@ -289,7 +289,15 @@ public class TagUpdatesFragment extends ListFragment {
             return;
 
         MenuItem item;
-        if(actFmPreferenceService.isLoggedIn()) {
+        boolean showCommentsRefresh = actFmPreferenceService.isLoggedIn();
+        if (showCommentsRefresh) {
+        Activity activity = getActivity();
+            if (activity instanceof TaskListActivity) {
+                TaskListActivity tla = (TaskListActivity) activity;
+                showCommentsRefresh = tla.getTaskEditFragment() == null;
+            }
+        }
+        if(showCommentsRefresh) {
             item = menu.add(Menu.NONE, MENU_REFRESH_ID, Menu.NONE,
                     R.string.ENA_refresh_comments);
             item.setIcon(R.drawable.icn_menu_refresh_dark);

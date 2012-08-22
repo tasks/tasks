@@ -56,4 +56,9 @@ public class PeopleFilterMode implements FilterModeSpec {
         TaskListFragment.MENU_ADDONS_ID,
         MainMenuPopover.MAIN_MENU_ITEM_FRIENDS
     };
+
+    @Override
+    public boolean showComments() {
+        return false;
+    }
 }

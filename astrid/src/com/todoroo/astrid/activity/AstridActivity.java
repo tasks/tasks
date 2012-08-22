@@ -303,6 +303,7 @@ public class AstridActivity extends FragmentActivity
         final FragmentManager fm = getSupportFragmentManager();
         Fragment fragment = fm.findFragmentByTag(tag);
         if(fragment == null || replace) {
+            Fragment oldFragment = fragment;
             try {
                 fragment = cls.newInstance();
             } catch (InstantiationException e) {
@@ -312,8 +313,11 @@ public class AstridActivity extends FragmentActivity
             }
 
             FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-            if (container == 0)
+            if (container == 0) {
+                if (oldFragment != null && replace)
+                    ft.remove(oldFragment);
                 ft.add(fragment, tag);
+            }
             else
                 ft.replace(container, fragment, tag);
             ft.commit();

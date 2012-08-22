@@ -39,4 +39,9 @@ public class DefaultFilterMode implements FilterModeSpec {
         //
     }
 
+    @Override
+    public boolean showComments() {
+        return true;
+    }
+
 }

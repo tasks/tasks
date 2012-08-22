@@ -48,6 +48,9 @@ public class FeaturedListFilterMode implements FilterModeSpec {
         //
     }
 
-
+    @Override
+    public boolean showComments() {
+        return false;
+    }
 
 }
