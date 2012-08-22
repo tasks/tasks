@@ -360,6 +360,8 @@
               android:label="@string/actfm_APr_header">
       <meta-data android:name="category"
                  android:resource="@string/SyP_label" />
+      <meta-data android:name="syncAction"
+                 android:value="true" />
       <intent-filter>   
         <action android:name="com.todoroo.astrid.SETTINGS" />
         <category android:name="android.intent.category.DEFAULT" />
@@ -440,6 +442,8 @@
               android:label="@string/gtasks_GPr_header">
       <meta-data android:name="category"
                  android:resource="@string/SyP_label" />
+      <meta-data android:name="syncAction"
+                 android:value="true" />
       <intent-filter>   
         <action android:name="com.todoroo.astrid.SETTINGS" />
         <category android:name="android.intent.category.DEFAULT" />
@@ -605,6 +609,8 @@
               android:label="@string/producteev_PPr_header">
       <meta-data android:name="category"
                  android:resource="@string/SyP_label" />
+      <meta-data android:name="syncAction"
+                 android:value="true" />
       <intent-filter>   
         <action android:name="com.todoroo.astrid.SETTINGS" />
         <category android:name="android.intent.category.DEFAULT" />

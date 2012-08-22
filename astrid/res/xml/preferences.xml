@@ -96,6 +96,17 @@
 	        android:entries="@array/EPr_swipe_lists_performance_mode"
 	        android:entryValues="@array/EPr_swipe_lists_performance_mode_values" 
 	        android:summary="@string/EPr_swipe_lists_performance_subtitle" />
+        
+        <com.todoroo.astrid.ui.MultilineCheckboxPreference
+            android:key="@string/p_voiceInputEnabled"
+            android:title="@string/EPr_voiceInputEnabled_title"
+            android:defaultValue="true" />
+                
+        <com.todoroo.astrid.ui.MultilineCheckboxPreference
+            android:key="@string/p_voiceInputCreatesTask"
+            android:title="@string/EPr_voiceInputCreatesTask_title"
+            android:dependency="@string/p_voiceInputEnabled"
+            android:defaultValue="false" />
              
     </PreferenceScreen>
 
@@ -106,27 +117,10 @@
         
         <PreferenceScreen android:title="@string/p_files_dir" android:key="@string/p_files_dir" />
         
-        <PreferenceScreen
-            android:key="@string/p_voicePrefSection"
-            android:title="@string/EPr_voice_header">
-            
-            <com.todoroo.astrid.ui.MultilineCheckboxPreference
-                android:key="@string/p_voiceInputEnabled"
-                android:title="@string/EPr_voiceInputEnabled_title"
-                android:defaultValue="true" />
-                
-            <com.todoroo.astrid.ui.MultilineCheckboxPreference
-                android:key="@string/p_voiceInputCreatesTask"
-                android:title="@string/EPr_voiceInputCreatesTask_title"
-                android:dependency="@string/p_voiceInputEnabled"
-                android:defaultValue="false" />
-                
-            <com.todoroo.astrid.ui.MultilineCheckboxPreference
-                android:key="@string/p_voiceRemindersEnabled"
-                android:title="@string/EPr_voiceRemindersEnabled_title"
-                android:defaultValue="false" />
-            
-        </PreferenceScreen>
+        <com.todoroo.astrid.ui.MultilineCheckboxPreference
+            android:key="@string/p_voiceRemindersEnabled"
+            android:title="@string/EPr_voiceRemindersEnabled_title"
+            android:defaultValue="false" />
 
         <CheckBoxPreference
             android:key="@string/p_field_missed_calls"

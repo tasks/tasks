@@ -46,6 +46,7 @@ import com.todoroo.andlib.utility.DialogUtilities;
 import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.andlib.utility.TodorooPreferenceActivity;
 import com.todoroo.astrid.actfm.ActFmLoginActivity;
+import com.todoroo.astrid.actfm.sync.ActFmPreferenceService;
 import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.dao.Database;
 import com.todoroo.astrid.data.Task;
@@ -82,10 +83,8 @@ public class EditPreferences extends TodorooPreferenceActivity {
     private static final String SUPPORT_URL = "http://blog.astrid.com/topics/support/android"; //$NON-NLS-1$
 
     private static final int APPEARANCE_PREFERENCE = 1;
-    private static final int POWER_PACK_PREFERENCE = 2;
 
     private static final int REQUEST_CODE_SYNC = 0;
-//    private static final int REQUEST_CODE_LABS = 1;
     private static final int REQUEST_CODE_FILES_DIR = 2;
 
     public static final int RESULT_CODE_THEME_CHANGED = 1;
@@ -134,8 +133,6 @@ public class EditPreferences extends TodorooPreferenceActivity {
         voiceInputAssistant = new VoiceInputAssistant(this);
 
         addPluginPreferences(screen);
-
-        screen.getPreference(POWER_PACK_PREFERENCE).setEnabled(addOnService.hasPowerPack());
 
         final Resources r = getResources();
 
@@ -194,6 +191,8 @@ public class EditPreferences extends TodorooPreferenceActivity {
 
         addPreferenceListeners();
 
+        disablePremiumPrefs();
+
         if (!AndroidUtilities.isTabletSized(this)) {
             screen.removePreference(screen.findPreference(getString(R.string.p_force_phone_layout)));
         }
@@ -228,6 +227,13 @@ public class EditPreferences extends TodorooPreferenceActivity {
             }
         }
         return false;
+    }
+
+    private void disablePremiumPrefs() {
+        boolean hasPowerPack = addOnService.hasPowerPack();
+        findPreference(getString(R.string.p_files_dir)).setEnabled(ActFmPreferenceService.isPremiumUser());
+        findPreference(getString(R.string.p_voiceRemindersEnabled)).setEnabled(hasPowerPack);
+        findPreference(getString(R.string.p_statistics)).setEnabled(hasPowerPack);
     }
 
     /** Show about dialog */
@@ -496,12 +502,7 @@ public class EditPreferences extends TodorooPreferenceActivity {
         } else if (r.getString(R.string.p_show_featured_lists_labs).equals(preference.getKey())) {
             preference.setOnPreferenceChangeListener(new SetResultOnPreferenceChangeListener(SyncProviderPreferences.RESULT_CODE_SYNCHRONIZE));
         }
-
-        // voice input and output
-        if(!addOnService.hasPowerPack())
-            return;
-
-        if (r.getString(R.string.p_voiceInputEnabled).equals(preference.getKey())) {
+        else if (r.getString(R.string.p_voiceInputEnabled).equals(preference.getKey())) {
             if (value != null && !(Boolean)value)
                 preference.setSummary(R.string.EPr_voiceInputEnabled_desc_disabled);
             else
