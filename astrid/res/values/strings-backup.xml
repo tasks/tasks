@@ -39,6 +39,8 @@
     <string name="backup_BPr_how_to_restore">How do I restore backups?</string>    
     <!-- Preference screen Restoring Tasks Help Dialog Text-->
     <string name="backup_BPr_how_to_restore_dialog">You need to add the Astrid Power Pack to manage and restore your backups. As a favor, Astrid also automatically backs up your tasks, just in case.</string>
+    
+    <string name="backup_BPr_cloud_already_logged_in">You already have cloud backup on Astrid.com!</string>
   
   <!-- ================================================= BackupActivity == -->
 
@@ -53,6 +55,9 @@
 
   <!-- backup activity export button -->
   <string name="backup_BAc_export">Export Tasks</string>
+  
+  <!-- backup activity cloud (Astrid.com) option -->
+  <string name="backup_BAc_cloud">Click for free cloud backup on Astrid.com</string>
     
   <!-- ============================================== Importer / Exporter == -->
   
