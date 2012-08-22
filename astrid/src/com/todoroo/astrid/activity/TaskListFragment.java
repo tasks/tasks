@@ -434,15 +434,15 @@ public class TaskListFragment extends ListFragment implements OnScrollListener,
             tla.getMainMenuPopover().clear();
         }
 
+        // --- sync
+        if (tla == null || tla.getTaskEditFragment() == null)
+            addSyncRefreshMenuItem(menu, isTablet ? ThemeService.FLAG_INVERT : 0);
+
         // --- sort
         if (allowResorting()) {
             addMenuItem(menu, R.string.TLA_menu_sort,
                     ThemeService.getDrawable(R.drawable.icn_menu_sort_by_size, isTablet ? ThemeService.FLAG_FORCE_DARK: 0), MENU_SORT_ID, false);
         }
-
-        // --- sync
-        if (tla == null || tla.getTaskEditFragment() == null)
-            addSyncRefreshMenuItem(menu, isTablet ? ThemeService.FLAG_INVERT : 0);
 
         // --- new filter
         addMenuItem(menu, R.string.FLA_new_filter,

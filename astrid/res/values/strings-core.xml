@@ -138,7 +138,7 @@
   <string name="TLA_menu_tutorial">Tutorial</string>
 
   <!-- Menu: Settings -->    
-  <string name="TLA_menu_settings">Settings</string>
+  <string name="TLA_menu_settings">Account &amp; Settings</string>
   
   <!-- slide 30b: Menu: Support -->
   <string name="TLA_menu_support">Support</string>
@@ -573,6 +573,15 @@
 
   <!-- slide 30i: Preference Category: Appearance Title -->
   <string name="EPr_appearance_header">Appearance</string>
+  
+  <!-- Preference Category: Appearance Summary -->
+  <string name="EPr_appearance_summary">Themes, Widgets, Task Rows, Edit Screen</string>
+  
+  <!-- FAQ Preference title -->
+  <string name="EPr_faq_title">FAQ</string>
+
+  <!-- Support preferences summary -->
+  <string name="EPr_support_summary">Tutorial, FAQ, About Astrid</string>
   
   <!-- slide 34a: Preference: Task List Font Size Title -->
   <string name="EPr_fontSize_title">Task List Size</string>

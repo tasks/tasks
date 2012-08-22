@@ -81,8 +81,8 @@ public class EditPreferences extends TodorooPreferenceActivity {
 
     private static final String SUPPORT_URL = "http://blog.astrid.com/topics/support/android"; //$NON-NLS-1$
 
-    private static final int APPEARANCE_PREFERENCE = 3;
-    private static final int POWER_PACK_PREFERENCE = 4;
+    private static final int APPEARANCE_PREFERENCE = 1;
+    private static final int POWER_PACK_PREFERENCE = 2;
 
     private static final int REQUEST_CODE_SYNC = 0;
     private static final int REQUEST_CODE_LABS = 1;
@@ -155,9 +155,8 @@ public class EditPreferences extends TodorooPreferenceActivity {
             }
         });
 
-        PreferenceCategory appearance = (PreferenceCategory) screen.getPreference(APPEARANCE_PREFERENCE);
+        PreferenceScreen appearance = (PreferenceScreen) screen.getPreference(APPEARANCE_PREFERENCE);
         Preference beastMode = appearance.getPreference(1);
-        beastMode.setTitle(r.getString(R.string.EPr_beastMode_title));
         beastMode.setOnPreferenceClickListener(new OnPreferenceClickListener() {
             @Override
             public boolean onPreferenceClick(Preference p) {

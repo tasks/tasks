@@ -8,12 +8,15 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:title="@string/EPr_title">
 
-    <PreferenceScreen android:title="@string/p_about" android:key="@string/p_about" />
-    <PreferenceScreen android:title="@string/welcome_setting" android:key="@string/p_tutorial"/>
-    <PreferenceScreen android:title="@string/p_help" android:key="@string/p_help"/>
+    <PreferenceScreen android:title="@string/p_help" android:summary="@string/EPr_support_summary">
+	    <PreferenceScreen android:title="@string/p_about" android:key="@string/p_about" />
+	    <PreferenceScreen android:title="@string/welcome_setting" android:key="@string/p_tutorial"/>
+	    <PreferenceScreen android:title="@string/EPr_faq_title" android:key="@string/p_help"/>
+    </PreferenceScreen>
     
-    <PreferenceCategory
-        android:title="@string/EPr_appearance_header">
+    <PreferenceScreen
+        android:title="@string/EPr_appearance_header"
+        android:summary="@string/EPr_appearance_summary">
         
         <PreferenceScreen android:title="@string/EPr_taskRowPrefs_title" android:key="@string/p_taskRowPrefs">
         
@@ -48,7 +51,8 @@
         
         </PreferenceScreen>
         
-        <PreferenceScreen android:title="" android:key="@string/p_beastMode"/>
+        <PreferenceScreen android:title="@string/EPr_beastMode_title" 
+            android:key="@string/p_beastMode"/>
 
         <com.todoroo.astrid.ui.MultilineListPreference
             android:key="@string/p_theme"
@@ -72,7 +76,7 @@
 	        android:title="@string/EPr_ideaAuto_title"
 	        android:defaultValue="true" />
              
-    </PreferenceCategory>
+    </PreferenceScreen>
 
 
     <PreferenceCategory
