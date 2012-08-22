@@ -59,6 +59,6 @@ public class PeopleFilterMode implements FilterModeSpec {
 
     @Override
     public boolean showComments() {
-        return true;
+        return false;
     }
 }

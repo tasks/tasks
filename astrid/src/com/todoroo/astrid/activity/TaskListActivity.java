@@ -78,9 +78,9 @@ public class TaskListActivity extends AstridActivity implements MainMenuListener
 
     private static final String FILTER_MODE = "filterMode"; //$NON-NLS-1$
 
-    private static final int FILTER_MODE_NORMAL = 0;
-    private static final int FILTER_MODE_PEOPLE = 1;
-    private static final int FILTER_MODE_FEATURED = 2;
+    public static final int FILTER_MODE_NORMAL = 0;
+    public static final int FILTER_MODE_PEOPLE = 1;
+    public static final int FILTER_MODE_FEATURED = 2;
 
     @Autowired private ABTestEventReportingService abTestEventReportingService;
 
@@ -703,9 +703,10 @@ public class TaskListActivity extends AstridActivity implements MainMenuListener
         tlf.handleOptionsMenuItemSelected(item, customIntent);
     }
 
-    private void setFilterMode(int mode) {
+    public void setFilterMode(int mode) {
         filterMode = mode;
         updateFilterModeSpec(mode);
+        getIntent().putExtra(FILTER_MODE, mode);
 
         refreshMainMenu();
         if (fragmentLayout == LAYOUT_SINGLE) {
@@ -728,7 +729,6 @@ public class TaskListActivity extends AstridActivity implements MainMenuListener
         onFilterItemClicked(getDefaultFilter());
         if (fragmentLayout == LAYOUT_SINGLE)
             listsNav.performClick();
-        getIntent().putExtra(FILTER_MODE, mode);
     }
 
     public void refreshMainMenu() {

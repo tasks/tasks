@@ -20,11 +20,16 @@ import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.sql.Query;
 import com.todoroo.andlib.utility.DialogUtilities;
 import com.todoroo.astrid.actfm.TagViewFragment;
+import com.todoroo.astrid.activity.TaskListActivity;
 import com.todoroo.astrid.adapter.TaskAdapter;
+import com.todoroo.astrid.api.Filter;
+import com.todoroo.astrid.dao.TaskDao.TaskCriteria;
 import com.todoroo.astrid.data.TagData;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.helper.AsyncImageView;
 import com.todoroo.astrid.service.TagDataService;
+import com.todoroo.astrid.tags.TagFilterExposer;
+import com.todoroo.astrid.tags.TagService.Tag;
 import com.todoroo.astrid.utility.Flags;
 
 public class FeaturedTaskListFragment extends TagViewFragment {
@@ -134,7 +139,7 @@ public class FeaturedTaskListFragment extends TagViewFragment {
         new Thread(new Runnable() {
             @Override
             public void run() {
-                TodorooCursor<Task> tasks = taskService.fetchFiltered(taskAdapter.getQuery(), null, Task.PROPERTIES);
+                final TodorooCursor<Task> tasks = taskService.fetchFiltered(taskAdapter.getQuery(), null, Task.PROPERTIES);
                 try {
                     Task t = new Task();
                     for (tasks.moveToFirst(); !tasks.isAfterLast(); tasks.moveToNext()) {
@@ -142,13 +147,28 @@ public class FeaturedTaskListFragment extends TagViewFragment {
                         taskService.cloneReusableTask(t,
                                 localName, finalRemoteId);
                     }
-                    Activity activity = getActivity();
+                    final Activity activity = getActivity();
                     if (activity != null) {
                         DialogUtilities.dismissDialog(activity, pd);
                         DialogUtilities.okDialog(activity, getString(R.string.actfm_feat_list_clone_success), null);
                     }
 
                     Flags.set(Flags.REFRESH);
+                    if (activity instanceof TaskListActivity) {
+                        activity.runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                TaskListActivity tla = (TaskListActivity) activity;
+                                tla.setFilterMode(TaskListActivity.FILTER_MODE_NORMAL);
+
+                                Filter clonedFilter;
+                                Tag tag = new Tag(localName, tasks.getCount(), finalRemoteId);
+                                clonedFilter = TagFilterExposer.filterFromTag(activity, tag, TaskCriteria.activeAndVisible());
+
+                                tla.onFilterItemClicked(clonedFilter);
+                            }
+                        });
+                    }
                 } finally {
                     tasks.close();
                 }
