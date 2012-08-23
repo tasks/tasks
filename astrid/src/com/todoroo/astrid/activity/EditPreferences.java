@@ -81,7 +81,7 @@ public class EditPreferences extends TodorooPreferenceActivity {
 
     private static final String SUPPORT_URL = "http://blog.astrid.com/topics/support/android"; //$NON-NLS-1$
 
-    private static final int APPEARANCE_PREFERENCE = 1;
+    private static final int APPEARANCE_PREFERENCE = 2;
 
     private static final int REQUEST_CODE_SYNC = 0;
     private static final int REQUEST_CODE_FILES_DIR = 2;
