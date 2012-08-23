@@ -186,8 +186,7 @@ public class QuickAddBar extends LinearLayout implements RecognizerApiListener {
             }
         });
 
-        if (addOnService.hasPowerPack()
-                && Preferences.getBoolean(R.string.p_voiceInputEnabled, true)
+        if (Preferences.getBoolean(R.string.p_voiceInputEnabled, true)
                 && VoiceRecognizer.voiceInputAvailable(activity)) {
             voiceAddButton.setVisibility(View.VISIBLE);
         } else {

@@ -39,6 +39,7 @@ import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.andlib.utility.DialogUtilities;
 import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.astrid.actfm.TagSettingsActivity;
+import com.todoroo.astrid.actfm.TagUpdatesFragment;
 import com.todoroo.astrid.actfm.TagViewFragment;
 import com.todoroo.astrid.adapter.FilterAdapter;
 import com.todoroo.astrid.adapter.TaskListFragmentPagerAdapter;
@@ -451,6 +452,10 @@ public class TaskListActivity extends AstridActivity implements MainMenuListener
     public void onTaskListItemClicked(long taskId) {
         if (fragmentLayout != LAYOUT_SINGLE)
             getIntent().putExtra(OPEN_TASK, taskId);
+        TagUpdatesFragment tuf = getTagUpdatesFragment();
+        if (tuf != null)
+            tuf.getView().setVisibility(View.INVISIBLE);
+
         super.onTaskListItemClicked(taskId);
     }
 
@@ -534,6 +539,10 @@ public class TaskListActivity extends AstridActivity implements MainMenuListener
             }
             Flags.set(Flags.TLA_DISMISSED_FROM_TASK_EDIT);
             onPostResume();
+
+            TagUpdatesFragment tuf = getTagUpdatesFragment();
+            if (tuf != null)
+                tuf.getView().setVisibility(View.VISIBLE);
         }
         super.onBackPressed();
     }

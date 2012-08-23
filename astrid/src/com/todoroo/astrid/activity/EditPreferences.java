@@ -29,11 +29,11 @@ import android.preference.Preference.OnPreferenceChangeListener;
 import android.preference.Preference.OnPreferenceClickListener;
 import android.preference.PreferenceCategory;
 import android.preference.PreferenceGroup;
+import android.preference.PreferenceManager;
 import android.preference.PreferenceScreen;
 import android.text.TextUtils;
 import android.widget.Toast;
 
-import com.crittercism.NewFeedbackSpringboardActivity;
 import com.crittercism.app.Crittercism;
 import com.timsu.astrid.R;
 import com.todoroo.andlib.service.Autowired;
@@ -45,10 +45,9 @@ import com.todoroo.andlib.utility.DialogUtilities;
 import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.andlib.utility.TodorooPreferenceActivity;
 import com.todoroo.astrid.actfm.ActFmLoginActivity;
+import com.todoroo.astrid.actfm.ActFmPreferences;
 import com.todoroo.astrid.actfm.sync.ActFmPreferenceService;
 import com.todoroo.astrid.api.AstridApiConstants;
-import com.todoroo.astrid.billing.BillingActivity;
-import com.todoroo.astrid.core.LabsPreferences;
 import com.todoroo.astrid.dao.Database;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.files.FileExplore;
@@ -60,7 +59,6 @@ import com.todoroo.astrid.producteev.ProducteevUtilities;
 import com.todoroo.astrid.service.AddOnService;
 import com.todoroo.astrid.service.MarketStrategy.AmazonMarketStrategy;
 import com.todoroo.astrid.service.StartupService;
-import com.todoroo.astrid.service.StatisticsConstants;
 import com.todoroo.astrid.service.StatisticsService;
 import com.todoroo.astrid.service.TaskService;
 import com.todoroo.astrid.sync.SyncProviderPreferences;
@@ -83,11 +81,9 @@ public class EditPreferences extends TodorooPreferenceActivity {
 
     private static final String SUPPORT_URL = "http://blog.astrid.com/topics/support/android"; //$NON-NLS-1$
 
-    private static final int APPEARANCE_PREFERENCE = 4;
-    private static final int POWER_PACK_PREFERENCE = 5;
+    private static final int APPEARANCE_PREFERENCE = 2;
 
     private static final int REQUEST_CODE_SYNC = 0;
-    private static final int REQUEST_CODE_LABS = 1;
     private static final int REQUEST_CODE_FILES_DIR = 2;
 
     public static final int RESULT_CODE_THEME_CHANGED = 1;
@@ -97,6 +93,7 @@ public class EditPreferences extends TodorooPreferenceActivity {
 
     @Autowired private TaskService taskService;
     @Autowired private AddOnService addOnService;
+    @Autowired private ActFmPreferenceService actFmPreferenceService;
 
     @Autowired
     private Database database;
@@ -105,6 +102,20 @@ public class EditPreferences extends TodorooPreferenceActivity {
 
     public EditPreferences() {
         DependencyInjectionService.getInstance().inject(this);
+    }
+
+    private class SetResultOnPreferenceChangeListener implements OnPreferenceChangeListener {
+        private final int resultCode;
+        public SetResultOnPreferenceChangeListener(int resultCode) {
+            this.resultCode = resultCode;
+        }
+
+        @Override
+        public boolean onPreferenceChange(Preference p, Object newValue) {
+            setResult(resultCode);
+            updatePreferences(p, newValue);
+            return true;
+        }
     }
 
     @Override
@@ -123,7 +134,7 @@ public class EditPreferences extends TodorooPreferenceActivity {
 
         addPluginPreferences(screen);
 
-        screen.getPreference(POWER_PACK_PREFERENCE).setEnabled(addOnService.hasPowerPack());
+        addPreferencesFromResource(R.xml.preferences_misc);
 
         final Resources r = getResources();
 
@@ -157,21 +168,17 @@ public class EditPreferences extends TodorooPreferenceActivity {
             }
         });
 
-        preference = screen.findPreference(getString(R.string.p_premium));
-        if (ActFmPreferenceService.isPremiumUser())
-            screen.removePreference(preference);
-        else
-            preference.setOnPreferenceClickListener(new OnPreferenceClickListener() {
-                @Override
-                public boolean onPreferenceClick(Preference p) {
-                    showPremium();
-                    return true;
-                }
-            });
+        preference = screen.findPreference(getString(R.string.p_account));
+        preference.setOnPreferenceClickListener(new OnPreferenceClickListener() {
+            @Override
+            public boolean onPreferenceClick(Preference p) {
+                showAccountPrefs();
+                return true;
+            }
+        });
 
-        PreferenceCategory appearance = (PreferenceCategory) screen.getPreference(APPEARANCE_PREFERENCE);
+        PreferenceScreen appearance = (PreferenceScreen) screen.getPreference(APPEARANCE_PREFERENCE);
         Preference beastMode = appearance.getPreference(1);
-        beastMode.setTitle(r.getString(R.string.EPr_beastMode_title));
         beastMode.setOnPreferenceClickListener(new OnPreferenceClickListener() {
             @Override
             public boolean onPreferenceClick(Preference p) {
@@ -194,6 +201,12 @@ public class EditPreferences extends TodorooPreferenceActivity {
         addDebugPreferences();
 
         addPreferenceListeners();
+
+        disablePremiumPrefs();
+
+        if (!AndroidUtilities.isTabletSized(this)) {
+            screen.removePreference(screen.findPreference(getString(R.string.p_force_phone_layout)));
+        }
 
         removeForbiddenPreferences(screen, r);
     }
@@ -227,6 +240,13 @@ public class EditPreferences extends TodorooPreferenceActivity {
         return false;
     }
 
+    private void disablePremiumPrefs() {
+        boolean hasPowerPack = addOnService.hasPowerPack();
+        findPreference(getString(R.string.p_files_dir)).setEnabled(ActFmPreferenceService.isPremiumUser());
+        findPreference(getString(R.string.p_voiceRemindersEnabled)).setEnabled(hasPowerPack);
+        findPreference(getString(R.string.p_statistics)).setEnabled(hasPowerPack);
+    }
+
     /** Show about dialog */
     private void showAbout () {
         String version = "unknown"; //$NON-NLS-1$
@@ -243,27 +263,22 @@ public class EditPreferences extends TodorooPreferenceActivity {
         startActivity(intent);
     }
 
-    private void showForums() {
-        StatisticsService.reportEvent(StatisticsConstants.TLA_MENU_HELP);
-        Intent intent = new Intent(this, NewFeedbackSpringboardActivity.class);
-        startActivity(intent);
-    }
-
     private void showBeastMode() {
         Intent intent = new Intent(this, BeastModePreferences.class);
         intent.setAction(AstridApiConstants.ACTION_SETTINGS);
         startActivity(intent);
     }
 
-    private void showPremium() {
-        Intent intent = new Intent(this, BillingActivity.class);
-        startActivity(intent);
+    private void showAccountPrefs() {
+        Intent intent = new Intent(this, ActFmPreferences.class);
+        intent.setAction(AstridApiConstants.ACTION_SETTINGS);
+        startActivityForResult(intent, REQUEST_CODE_SYNC);
     }
 
     private static final HashMap<Class<?>, Integer> PREFERENCE_REQUEST_CODES = new HashMap<Class<?>, Integer>();
     static {
         PREFERENCE_REQUEST_CODES.put(SyncProviderPreferences.class, REQUEST_CODE_SYNC);
-        PREFERENCE_REQUEST_CODES.put(LabsPreferences.class, REQUEST_CODE_LABS);
+//        PREFERENCE_REQUEST_CODES.put(LabsPreferences.class, REQUEST_CODE_LABS);
     }
 
     private void addPluginPreferences(PreferenceScreen screen) {
@@ -277,7 +292,6 @@ public class EditPreferences extends TodorooPreferenceActivity {
 
         // Loop through a list of all packages (including plugins, addons)
         // that have a settings action
-        String labsTitle = getString(R.string.EPr_labs_header);
         for(int i = 0; i < length; i++) {
             ResolveInfo resolveInfo = resolveInfoList.get(i);
             final Intent intent = new Intent(AstridApiConstants.ACTION_SETTINGS);
@@ -298,8 +312,12 @@ public class EditPreferences extends TodorooPreferenceActivity {
 
             Preference preference = new Preference(this);
             preference.setTitle(resolveInfo.activityInfo.loadLabel(pm));
-            if (labsTitle.equals(preference.getTitle()))
-                preference.setSummary(R.string.EPr_labs_desc);
+            Bundle metadata = resolveInfo.activityInfo.metaData;
+            if (metadata != null) {
+                int resource = metadata.getInt("summary", 0); //$NON-NLS-1$
+                if (resource > 0)
+                    preference.setSummary(resource);
+            }
             try {
                 Class<?> intentComponent = Class.forName(intent.getComponent().getClassName());
                 if (intentComponent.getSuperclass().equals(SyncProviderPreferences.class))
@@ -329,13 +347,22 @@ public class EditPreferences extends TodorooPreferenceActivity {
         }
 
         for(Entry<String, ArrayList<Preference>> entry : categoryPreferences.entrySet()) {
-            Preference header = new Preference(this);
-            header.setLayoutResource(android.R.layout.preference_category);
-            header.setTitle(entry.getKey());
-            screen.addPreference(header);
+            if (entry.getKey().equals(getString(R.string.app_name))) {
+                for(Preference preference : entry.getValue())
+                    screen.addPreference(preference);
+            } else {
+                PreferenceManager manager = getPreferenceManager();
+                PreferenceScreen header = manager.createPreferenceScreen(this);
+                header.setTitle(entry.getKey());
+                if (entry.getKey().equals(getString(R.string.SyP_label)))
+                    header.setSummary(R.string.SyP_summary);
+                screen.addPreference(header);
 
-            for(Preference preference : entry.getValue())
-                screen.addPreference(preference);
+                for(Preference preference : entry.getValue())
+                    header.addPreference(preference);
+            }
+
+
         }
     }
 
@@ -405,7 +432,17 @@ public class EditPreferences extends TodorooPreferenceActivity {
     public void updatePreferences(final Preference preference, Object value) {
         final Resources r = getResources();
 
-        if (r.getString(R.string.p_showNotes).equals(preference.getKey())) {
+        if (r.getString(R.string.p_account).equals(preference.getKey())) {
+            String accountType;
+            if (ActFmPreferenceService.isPremiumUser()) {
+                accountType = getString(R.string.actfm_account_premium);
+            } else if (actFmPreferenceService.isLoggedIn()) {
+                accountType = getString(R.string.actfm_account_premium);
+            } else {
+                accountType = getString(R.string.actfm_account_none);
+            }
+            preference.setTitle(getString(R.string.EPr_account_title, accountType));
+        } else if (r.getString(R.string.p_showNotes).equals(preference.getKey())) {
             if (value != null && !(Boolean)value)
                 preference.setSummary(R.string.EPr_showNotes_desc_disabled);
             else
@@ -460,13 +497,33 @@ public class EditPreferences extends TodorooPreferenceActivity {
                 R.string.EPr_statistics_desc_disabled, R.string.EPr_statistics_desc_enabled));
         else if (booleanPreference(preference, value, R.string.p_autoIdea,
                 R.string.EPr_ideaAuto_desc_disabled, R.string.EPr_ideaAuto_desc_enabled));
+        else if (r.getString(R.string.p_swipe_lists_performance_key).equals(preference.getKey())) {
+            preference.setOnPreferenceChangeListener(new SetResultOnPreferenceChangeListener(RESULT_CODE_PERFORMANCE_PREF_CHANGED));
 
+            int index = 0;
+            if(value instanceof String && !TextUtils.isEmpty((String)value))
+                index = AndroidUtilities.indexOf(r.getStringArray(R.array.EPr_swipe_lists_performance_mode_values), (String)value);
+            if (index < 0)
+                index = 0;
 
-        // voice input and output
-        if(!addOnService.hasPowerPack())
-            return;
-
-        if (r.getString(R.string.p_voiceInputEnabled).equals(preference.getKey())) {
+            String name = r.getStringArray(R.array.EPr_swipe_lists_performance_mode)[index];
+            String desc = r.getStringArray(R.array.EPr_swipe_lists_performance_desc)[index];
+            preference.setSummary(r.getString(R.string.EPr_swipe_lists_display, name, desc));
+        }
+        else if (booleanPreference(preference, value, R.string.p_field_missed_calls,
+                    R.string.MCA_missed_calls_pref_desc_enabled, R.string.MCA_missed_calls_pref_desc_disabled));
+        else if (booleanPreference(preference, value, R.string.p_use_contact_picker,
+                    R.string.EPr_use_contact_picker_desc_enabled, R.string.EPr_use_contact_picker_desc_disabled));
+        else if (booleanPreference(preference, value, R.string.p_third_party_addons,
+                    R.string.EPr_third_party_addons_desc_enabled, R.string.EPr_third_party_addons_desc_disabled));
+        else if (booleanPreference(preference, value, R.string.p_end_at_deadline,
+                    R.string.EPr_cal_start_at_due_time, R.string.EPr_cal_end_at_due_time));
+        else if (r.getString(R.string.p_force_phone_layout).equals(preference.getKey())) {
+             preference.setOnPreferenceChangeListener(new SetResultOnPreferenceChangeListener(RESULT_CODE_PERFORMANCE_PREF_CHANGED));
+        } else if (r.getString(R.string.p_show_featured_lists_labs).equals(preference.getKey())) {
+            preference.setOnPreferenceChangeListener(new SetResultOnPreferenceChangeListener(SyncProviderPreferences.RESULT_CODE_SYNCHRONIZE));
+        }
+        else if (r.getString(R.string.p_voiceInputEnabled).equals(preference.getKey())) {
             if (value != null && !(Boolean)value)
                 preference.setSummary(R.string.EPr_voiceInputEnabled_desc_disabled);
             else
@@ -503,13 +560,6 @@ public class EditPreferences extends TodorooPreferenceActivity {
         if (requestCode == REQUEST_CODE_SYNC && resultCode == SyncProviderPreferences.RESULT_CODE_SYNCHRONIZE) {
             setResult(SyncProviderPreferences.RESULT_CODE_SYNCHRONIZE);
             finish();
-            return;
-        } else if (requestCode == REQUEST_CODE_LABS && resultCode == LabsPreferences.RESULT_TLA_NEEDS_REFRESH) {
-            setResult(RESULT_CODE_PERFORMANCE_PREF_CHANGED);
-            return;
-        } else if (requestCode == REQUEST_CODE_LABS && resultCode == LabsPreferences.RESULT_NEEDS_SYNC) {
-            if (Preferences.getBoolean(R.string.p_show_featured_lists_labs, false))
-                setResult(SyncProviderPreferences.RESULT_CODE_SYNCHRONIZE);
             return;
         } else if (requestCode == REQUEST_CODE_FILES_DIR && resultCode == RESULT_OK) {
             if (data != null) {

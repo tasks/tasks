@@ -216,6 +216,12 @@ public class SyncActionHelper {
                         && !ProducteevUtilities.INSTANCE.isLoggedIn() && !Preferences.getBoolean(R.string.p_third_party_addons, false))
                     continue;
 
+                if (resolveInfo.activityInfo.metaData != null) {
+                    Bundle metadata = resolveInfo.activityInfo.metaData;
+                    if (!metadata.getBoolean("syncAction")) //$NON-NLS-1$
+                        continue;
+                }
+
                 if (category.equals(desiredCategory)) {
                     syncIntents.add(new IntentWithLabel(intent,
                             resolveInfo.activityInfo.loadLabel(pm).toString()));

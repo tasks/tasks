@@ -8,6 +8,7 @@
 
   <!-- slide 32g: Preference Category: Defaults Title -->
   <string name="EPr_defaults_header">New Task Defaults</string>
+  <string name="EPr_defaults_summary">Importance, Due Date, Add to Calendar</string>
   
   <!-- slide 41f:  Preference: Default Urgency Title -->
   <string name="EPr_default_urgency_title">Default Urgency</string>
