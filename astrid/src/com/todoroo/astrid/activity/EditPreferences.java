@@ -34,7 +34,6 @@ import android.preference.PreferenceScreen;
 import android.text.TextUtils;
 import android.widget.Toast;
 
-import com.crittercism.NewFeedbackSpringboardActivity;
 import com.crittercism.app.Crittercism;
 import com.timsu.astrid.R;
 import com.todoroo.andlib.service.Autowired;
@@ -46,6 +45,7 @@ import com.todoroo.andlib.utility.DialogUtilities;
 import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.andlib.utility.TodorooPreferenceActivity;
 import com.todoroo.astrid.actfm.ActFmLoginActivity;
+import com.todoroo.astrid.actfm.ActFmPreferences;
 import com.todoroo.astrid.actfm.sync.ActFmPreferenceService;
 import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.dao.Database;
@@ -59,7 +59,6 @@ import com.todoroo.astrid.producteev.ProducteevUtilities;
 import com.todoroo.astrid.service.AddOnService;
 import com.todoroo.astrid.service.MarketStrategy.AmazonMarketStrategy;
 import com.todoroo.astrid.service.StartupService;
-import com.todoroo.astrid.service.StatisticsConstants;
 import com.todoroo.astrid.service.StatisticsService;
 import com.todoroo.astrid.service.TaskService;
 import com.todoroo.astrid.sync.SyncProviderPreferences;
@@ -94,6 +93,7 @@ public class EditPreferences extends TodorooPreferenceActivity {
 
     @Autowired private TaskService taskService;
     @Autowired private AddOnService addOnService;
+    @Autowired private ActFmPreferenceService actFmPreferenceService;
 
     @Autowired
     private Database database;
@@ -164,6 +164,15 @@ public class EditPreferences extends TodorooPreferenceActivity {
             @Override
             public boolean onPreferenceClick(Preference p) {
                 showSupport();
+                return true;
+            }
+        });
+
+        preference = screen.findPreference(getString(R.string.p_account));
+        preference.setOnPreferenceClickListener(new OnPreferenceClickListener() {
+            @Override
+            public boolean onPreferenceClick(Preference p) {
+                showAccountPrefs();
                 return true;
             }
         });
@@ -254,16 +263,16 @@ public class EditPreferences extends TodorooPreferenceActivity {
         startActivity(intent);
     }
 
-    private void showForums() {
-        StatisticsService.reportEvent(StatisticsConstants.TLA_MENU_HELP);
-        Intent intent = new Intent(this, NewFeedbackSpringboardActivity.class);
-        startActivity(intent);
-    }
-
     private void showBeastMode() {
         Intent intent = new Intent(this, BeastModePreferences.class);
         intent.setAction(AstridApiConstants.ACTION_SETTINGS);
         startActivity(intent);
+    }
+
+    private void showAccountPrefs() {
+        Intent intent = new Intent(this, ActFmPreferences.class);
+        intent.setAction(AstridApiConstants.ACTION_SETTINGS);
+        startActivityForResult(intent, REQUEST_CODE_SYNC);
     }
 
     private static final HashMap<Class<?>, Integer> PREFERENCE_REQUEST_CODES = new HashMap<Class<?>, Integer>();
@@ -423,7 +432,17 @@ public class EditPreferences extends TodorooPreferenceActivity {
     public void updatePreferences(final Preference preference, Object value) {
         final Resources r = getResources();
 
-        if (r.getString(R.string.p_showNotes).equals(preference.getKey())) {
+        if (r.getString(R.string.p_account).equals(preference.getKey())) {
+            String accountType;
+            if (ActFmPreferenceService.isPremiumUser()) {
+                accountType = getString(R.string.actfm_account_premium);
+            } else if (actFmPreferenceService.isLoggedIn()) {
+                accountType = getString(R.string.actfm_account_premium);
+            } else {
+                accountType = getString(R.string.actfm_account_none);
+            }
+            preference.setTitle(getString(R.string.EPr_account_title, accountType));
+        } else if (r.getString(R.string.p_showNotes).equals(preference.getKey())) {
             if (value != null && !(Boolean)value)
                 preference.setSummary(R.string.EPr_showNotes_desc_disabled);
             else

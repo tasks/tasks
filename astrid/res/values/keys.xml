@@ -67,6 +67,9 @@
   <!-- show featured lists -->
   <string name="p_show_featured_lists_labs">show_featured_lists_labs</string>
   
+  <!-- account status section key -->
+  <string name="p_account">account</string>
+  
   <string-array name="TEA_reminder_random_hours">
     <!-- values (in hours) associated with items above. -->
     <item>1</item>

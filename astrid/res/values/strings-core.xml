@@ -579,6 +579,12 @@
   
   <!-- FAQ Preference title -->
   <string name="EPr_faq_title">FAQ</string>
+  
+  <!-- Account status preference (%s -> account type) -->
+  <string name="EPr_account_title">Account: %s</string>
+  
+  <!-- Account status description -->
+  <string name="EPr_account_desc">Cloud sync status and options</string>
 
   <!-- Support preferences summary -->
   <string name="EPr_support_summary">Tutorial, FAQ, About Astrid</string>
