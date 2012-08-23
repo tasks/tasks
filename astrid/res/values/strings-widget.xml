@@ -79,4 +79,7 @@
     <string name="PPW_unlock_howto">Share lists with friends! Unlock the free Power Pack when 3 friends sign up with Astrid.</string>
     <string name="PPW_check_button">Get the Power Pack for free!</string>
     <string name="PPW_check_share_lists">Share lists!</string>
+    
+    <string name="EPr_widget_enabled_title">Enable/Disable Widgets</string>
+    <string name="PPW_restart_for_enabled_state">You may need to restart your phone for this change to take effect.</string>
 </resources>
