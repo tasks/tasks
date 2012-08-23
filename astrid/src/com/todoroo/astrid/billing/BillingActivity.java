@@ -68,7 +68,24 @@ public class BillingActivity extends Activity {
             }
         };
 
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
         ResponseHandler.register(purchaseObserver);
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        ResponseHandler.unregister(purchaseObserver);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        billingService.unbind();
     }
 
     @Override

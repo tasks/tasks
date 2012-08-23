@@ -403,6 +403,8 @@ public class BillingService extends Service implements ServiceConnection {
      * @param startId an identifier for the invocation instance of this service
      */
     public void handleCommand(Intent intent, int startId) {
+        if (intent == null)
+            return;
         String action = intent.getAction();
         if (Constants.DEBUG) {
             Log.i(TAG, "handleCommand() action: " + action);
