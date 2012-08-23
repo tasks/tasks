@@ -5,20 +5,27 @@
  */
 package com.todoroo.astrid.actfm;
 
+import android.content.ActivityNotFoundException;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.Resources;
+import android.net.Uri;
+import android.os.Bundle;
 import android.preference.Preference;
+import android.preference.Preference.OnPreferenceClickListener;
 import android.preference.PreferenceCategory;
+import android.widget.Toast;
 
 import com.timsu.astrid.R;
 import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.utility.DialogUtilities;
 import com.todoroo.astrid.actfm.sync.ActFmPreferenceService;
 import com.todoroo.astrid.actfm.sync.ActFmSyncV2Provider;
+import com.todoroo.astrid.billing.BillingActivity;
 import com.todoroo.astrid.gtasks.GtasksPreferenceService;
 import com.todoroo.astrid.sync.SyncProviderPreferences;
 import com.todoroo.astrid.sync.SyncProviderUtilities;
+import com.todoroo.astrid.utility.Constants;
 
 /**
  * Displays synchronization preferences and an action panel so users can
@@ -55,6 +62,19 @@ public class ActFmPreferences extends SyncProviderPreferences {
             setResult(RESULT_CODE_SYNCHRONIZE);
             finish();
         }
+    }
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        findPreference(getString(R.string.actfm_inapp_billing)).setOnPreferenceClickListener(new OnPreferenceClickListener() {
+            @Override
+            public boolean onPreferenceClick(Preference preference) {
+                handleInAppBillingClicked();
+                return true;
+            }
+        });
     }
 
     private void startLogin() {
@@ -95,8 +115,25 @@ public class ActFmPreferences extends SyncProviderPreferences {
                 preference.setSummary(R.string.actfm_https_enabled);
             else
                 preference.setSummary(R.string.actfm_https_disabled);
+        } else if (r.getString(R.string.actfm_inapp_billing).equals(preference.getKey())) {
+            //
         } else {
             super.updatePreferences(preference, value);
+        }
+    }
+
+    private void handleInAppBillingClicked() {
+        if (ActFmPreferenceService.isPremiumUser()) {
+            Intent intent = new Intent(Intent.ACTION_VIEW);
+            intent.setData(Uri.parse("market://details?id=" + Constants.PACKAGE)); //$NON-NLS-1$
+            try {
+                startActivity(intent);
+            } catch (ActivityNotFoundException e) {
+                Toast.makeText(this, R.string.market_unavailable, Toast.LENGTH_LONG).show();
+            }
+        } else {
+            Intent intent = new Intent(this, BillingActivity.class);
+            startActivity(intent);
         }
     }
 

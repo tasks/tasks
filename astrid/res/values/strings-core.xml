@@ -846,5 +846,7 @@ you get stuff done. It features reminders, tags, sync, Locale plug-in, a widget 
       If you see this error regularly, we suggest you clear all
       data (Settings->Manage All Tasks->Clear all data) and restore
       your tasks from a backup (Settings->Backup->Import Tasks) in Astrid.</string>
+      
+  <string name="market_unavailable">Unfortunately the market is not available for your system.</string>
   
 </resources>

@@ -20,7 +20,6 @@ import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.andlib.utility.DialogUtilities;
 import com.todoroo.andlib.utility.Preferences;
-import com.todoroo.astrid.actfm.ActFmLoginActivity;
 import com.todoroo.astrid.actfm.sync.ActFmPreferenceService;
 import com.todoroo.astrid.utility.Constants;
 
@@ -77,19 +76,13 @@ public class BillingActivity extends Activity {
         super.onResume();
         if (!actFmPreferenceService.isLoggedIn()) {
             // Prompt to log in
-            DialogUtilities.okCancelDialog(this, getString(R.string.premium_login_prompt), new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
-                    Intent login = new Intent(BillingActivity.this, ActFmLoginActivity.class);
-                    startActivity(login);
-                }
-            },
-            new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
-                    finish();
-                }
-            });
+            DialogUtilities.okDialog(this, getString(R.string.premium_login_prompt),
+                    new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        finish();
+                    }
+                });
         } else if (!billingService.checkBillingSupported(BillingConstants.ITEM_TYPE_SUBSCRIPTION)) {
             showDialog(DIALOG_SUBSCRIPTIONS_NOT_SUPPORTED_ID);
         } else if (ActFmPreferenceService.isPremiumUser()) {

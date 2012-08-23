@@ -312,5 +312,7 @@
   <string name="actfm_account_basic">Basic</string>
   <string name="actfm_account_none">None</string>
   
+  <string name="actfm_inapp_billing">In App Billing</string>
+  
 </resources>
 
