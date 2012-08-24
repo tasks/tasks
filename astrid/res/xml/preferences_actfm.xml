@@ -18,23 +18,6 @@
         android:summary="@string/actfm_inapp_billing_summary"/>
     
     <PreferenceCategory
-        android:key="@string/sync_SPr_group_status"
-        android:title="@string/sync_SPr_group_status">
-    
-        <com.todoroo.astrid.ui.MultilinePreference
-            android:layout="@layout/status_preference"
-            android:key="@string/sync_SPr_status_key"  
-            android:textSize="24sp"
-            android:gravity="center"/>
-        
-        <com.todoroo.astrid.ui.MultilinePreference
-            android:key="@string/sync_SPr_key_last_error"
-            android:textSize="24sp"
-            android:gravity="center"/>
-            
-    </PreferenceCategory>
-    
-    <PreferenceCategory
         android:key="@string/sync_SPr_key_options"
         android:title="@string/sync_SPr_group_options">
     
@@ -54,6 +37,23 @@
             android:title="@string/sync_SPr_forget"
             android:summary="@string/sync_SPr_forget_description" />
 
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        android:key="@string/sync_SPr_group_status"
+        android:title="@string/sync_SPr_group_status">
+    
+        <com.todoroo.astrid.ui.MultilinePreference
+            android:layout="@layout/status_preference"
+            android:key="@string/sync_SPr_status_key"  
+            android:textSize="24sp"
+            android:gravity="center"/>
+        
+        <com.todoroo.astrid.ui.MultilinePreference
+            android:key="@string/sync_SPr_key_last_error"
+            android:textSize="24sp"
+            android:gravity="center"/>
+            
     </PreferenceCategory>
             
 </PreferenceScreen>  
