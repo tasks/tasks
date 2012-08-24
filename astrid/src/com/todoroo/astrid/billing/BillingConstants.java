@@ -62,7 +62,7 @@ public class BillingConstants {
     public static final char PUB_KEY_REPLACE_CHAR = 'B';
     public static final String PUB_KEY_OBFUSCATED = "pubkey";
 
-    public static final boolean DEBUG = false || Constants.DEBUG;
+    public static final boolean DEBUG = true || Constants.DEBUG;
 
     // The response codes for a request, defined by Android Market.
     public enum ResponseCode {

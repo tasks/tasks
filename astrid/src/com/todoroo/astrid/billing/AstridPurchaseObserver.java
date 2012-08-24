@@ -1,13 +1,14 @@
 package com.todoroo.astrid.billing;
 
 import android.app.Activity;
+import android.content.DialogInterface;
 import android.os.Handler;
 import android.util.Log;
-import android.widget.Toast;
 
 import com.timsu.astrid.R;
 import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.DependencyInjectionService;
+import com.todoroo.andlib.utility.DialogUtilities;
 import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.astrid.actfm.sync.ActFmPreferenceService;
 import com.todoroo.astrid.actfm.sync.ActFmSyncService;
@@ -56,6 +57,7 @@ public abstract class AstridPurchaseObserver extends PurchaseObserver {
 
     protected abstract void subscriptionsNotSupportedCallback();
 
+
     @Override
     public void onPurchaseStateChange(PurchaseState purchaseState, final String itemId,
             int quantity, long purchaseTime, String developerPayload, final String purchaseToken) {
@@ -79,7 +81,13 @@ public abstract class AstridPurchaseObserver extends PurchaseObserver {
                                 mActivity.runOnUiThread(new Runnable() {
                                     @Override
                                     public void run() {
-                                        Toast.makeText(mActivity, R.string.premium_success, Toast.LENGTH_LONG).show();
+                                        DialogUtilities.okDialog(mActivity, mActivity.getString(R.string.DLG_information_title),
+                                                0, mActivity.getString(R.string.premium_success), new DialogInterface.OnClickListener() {
+                                                    @Override
+                                                    public void onClick(DialogInterface dialog, int which) {
+                                                        mActivity.finish();
+                                                    }
+                                                });
                                     }
                                 });
                             }
@@ -89,11 +97,19 @@ public abstract class AstridPurchaseObserver extends PurchaseObserver {
                                 mActivity.runOnUiThread(new Runnable() {
                                     @Override
                                     public void run() {
-                                        Toast.makeText(mActivity, R.string.premium_success_with_server_error, Toast.LENGTH_LONG).show();
+                                        DialogUtilities.okDialog(mActivity, mActivity.getString(R.string.DLG_information_title),
+                                                0, mActivity.getString(R.string.premium_success_with_server_error), new DialogInterface.OnClickListener() {
+                                                    @Override
+                                                    public void onClick(DialogInterface dialog, int which) {
+                                                        mActivity.finish();
+                                                    }
+                                                });
                                     }
                                 });
                             }
                         });
+                    } else {
+                        Preferences.setBoolean(BillingConstants.PREF_NEEDS_SERVER_UPDATE, true);
                     }
                 }
             }.start();
