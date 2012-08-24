@@ -8,13 +8,11 @@
     <LinearLayout
         android:id="@+id/premium_description_holder"
         android:layout_width="wrap_content"
-        android:layout_height="0dip"
+        android:layout_height="fill_parent"
         android:layout_weight="1"
         android:orientation="vertical"
         android:paddingRight="5dip"
-        android:paddingLeft="5dip"
-        android:paddingTop="15dip"
-        android:paddingBottom="70dip" >
+        android:paddingTop="10dip" >
  
         <TextView
             android:id="@+id/premium_description_title"
@@ -24,8 +22,8 @@
             android:gravity="left"
             android:text="@string/premium_description_header"
             android:textColor="#404040"
-            android:paddingLeft="15dip"
-            android:textSize="24dip"
+            android:paddingLeft="20dip"
+            android:textSize="20dip"
             android:textStyle="bold" />
         <WebView
             android:id="@+id/premium_bullets"

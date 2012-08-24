@@ -11,6 +11,8 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.ActionBar;
 import android.support.v4.app.FragmentActivity;
+import android.text.Html;
+import android.text.Spanned;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.View;
@@ -171,8 +173,13 @@ public class BillingActivity extends FragmentActivity {
 
         StringBuilder builder = new StringBuilder("<html><body><ul>");
 
-        for(int item : bullets)
-            builder.append("<li><font style='color=#404040; font-size: 18px'>").append(getString(item)).append("</font></li>\n");
+        for (int i = 0; i < bullets.length; i++) {
+            builder.append("<li><font style='color=#404040; font-size: 18px'>").append(getString(bullets[i]));
+            if (i != bullets.length - 1)
+                builder.append("<br><br>");
+            builder.append("</font></li>\n");
+        }
+
         builder.append("</ul></body></html>");
 
         WebView list = (WebView) findViewById(R.id.premium_bullets);
@@ -190,7 +197,15 @@ public class BillingActivity extends FragmentActivity {
         icon.setScaleType(ScaleType.FIT_CENTER);
 
         TextView speechBubble = (TextView) findViewById(R.id.reminder_message);
-        speechBubble.setText(R.string.premium_speech_bubble);
+
+        // Construct speech bubble text
+        String html = String.format("%s <font color=\"#%s\">%s</font>",
+                getString(R.string.premium_speech_bubble_1),
+                Integer.toHexString(getResources().getColor(R.color.red_theme_color) - 0xff000000),
+                getString(R.string.premium_speech_bubble_2));
+        Spanned spanned = Html.fromHtml(html);
+        speechBubble.setText(spanned);
+        speechBubble.setTextSize(17);
     }
 
     /**
