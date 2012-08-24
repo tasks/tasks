@@ -75,6 +75,14 @@ public class ActFmPreferences extends SyncProviderPreferences {
                 return true;
             }
         });
+
+        findPreference(getString(R.string.actfm_account_type)).setOnPreferenceClickListener(new OnPreferenceClickListener() {
+            @Override
+            public boolean onPreferenceClick(Preference preference) {
+                startSync();
+                return true;
+            }
+        });
     }
 
     private void startLogin() {
@@ -90,6 +98,16 @@ public class ActFmPreferences extends SyncProviderPreferences {
     @Override
     public SyncProviderUtilities getUtilities() {
         return actFmPreferenceService;
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        Preference premiumUpgrade = findPreference(getString(R.string.actfm_inapp_billing));
+        if (premiumUpgrade != null && (!actFmPreferenceService.isLoggedIn() || ActFmPreferenceService.isPremiumUser())) {
+            getPreferenceScreen().removePreference(premiumUpgrade);
+        }
     }
 
     @Override
@@ -115,8 +133,19 @@ public class ActFmPreferences extends SyncProviderPreferences {
                 preference.setSummary(R.string.actfm_https_enabled);
             else
                 preference.setSummary(R.string.actfm_https_disabled);
-        } else if (r.getString(R.string.actfm_inapp_billing).equals(preference.getKey())) {
-            //
+        } else if (r.getString(R.string.actfm_account_type).equals(preference.getKey())) {
+            if (ActFmPreferenceService.isPremiumUser()) {
+                // Premium user
+                preference.setSummary(R.string.actfm_account_premium);
+            } else if (actFmPreferenceService.isLoggedIn()) {
+                // Non premium user
+                preference.setSummary(R.string.actfm_account_basic);
+            } else {
+                // Not logged in
+                preference.setEnabled(true);
+                preference.setTitle(R.string.account_type_title_not_logged_in);
+                preference.setSummary(R.string.account_type_summary_not_logged_in);
+            }
         } else {
             super.updatePreferences(preference, value);
         }

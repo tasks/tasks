@@ -6,7 +6,17 @@
 -->
 <PreferenceScreen  
     xmlns:android="http://schemas.android.com/apk/res/android">  
-       
+    
+    <com.todoroo.astrid.ui.MultilinePreference
+        android:key="@string/actfm_account_type"
+        android:title="@string/actfm_account_type"
+        android:enabled="false"/>
+    
+    <PreferenceScreen
+        android:key="@string/actfm_inapp_billing"
+        android:title="@string/actfm_inapp_billing"
+        android:summary="@string/actfm_inapp_billing_summary"/>
+    
     <PreferenceCategory
         android:key="@string/sync_SPr_group_status"
         android:title="@string/sync_SPr_group_status">
@@ -21,13 +31,8 @@
             android:key="@string/sync_SPr_key_last_error"
             android:textSize="24sp"
             android:gravity="center"/>
-        
+            
     </PreferenceCategory>
-    
-    <PreferenceScreen
-        android:key="@string/actfm_inapp_billing"
-        android:title="@string/actfm_inapp_billing"
-        android:summary="@string/actfm_inapp_billing_summary"/>
     
     <PreferenceCategory
         android:key="@string/sync_SPr_key_options"
