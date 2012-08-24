@@ -12,9 +12,9 @@ public class BillingConstants {
 
     // Intent actions that we send from the BillingReceiver to the
     // BillingService.  Defined by this application.
-    public static final String ACTION_CONFIRM_NOTIFICATION = "com.example.subscriptions.CONFIRM_NOTIFICATION";
-    public static final String ACTION_GET_PURCHASE_INFORMATION = "com.example.subscriptions.GET_PURCHASE_INFORMATION";
-    public static final String ACTION_RESTORE_TRANSACTIONS = "com.example.subscriptions.RESTORE_TRANSACTIONS";
+    public static final String ACTION_CONFIRM_NOTIFICATION = "com.timsu.astrid.subscriptions.CONFIRM_NOTIFICATION";
+    public static final String ACTION_GET_PURCHASE_INFORMATION = "com.timsu.astrid.subscriptions.GET_PURCHASE_INFORMATION";
+    public static final String ACTION_RESTORE_TRANSACTIONS = "com.timsu.astrid.subscriptions.RESTORE_TRANSACTIONS";
 
     // Intent actions that we receive in the BillingReceiver from Market.
     // These are defined by Market and cannot be changed.
@@ -62,7 +62,7 @@ public class BillingConstants {
     public static final char PUB_KEY_REPLACE_CHAR = 'B';
     public static final String PUB_KEY_OBFUSCATED = "pubkey";
 
-    public static final boolean DEBUG = true || Constants.DEBUG;
+    public static final boolean DEBUG = false || Constants.DEBUG;
 
     // The response codes for a request, defined by Android Market.
     public enum ResponseCode {

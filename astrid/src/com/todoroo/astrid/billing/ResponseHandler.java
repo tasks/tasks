@@ -75,7 +75,7 @@ public class ResponseHandler {
     public static void buyPageIntentResponse(PendingIntent pendingIntent, Intent intent) {
         if (sPurchaseObserver == null) {
             if (BillingConstants.DEBUG) {
-                Log.d(TAG, "UI is not running");
+                Log.d(TAG, "UI is not running"); //$NON-NLS-1$
             }
             return;
         }
@@ -105,18 +105,9 @@ public class ResponseHandler {
             final Context context, final PurchaseState purchaseState, final String productId,
             final String orderId, final long purchaseTime, final String developerPayload, final String purchaseToken) {
 
-        // Update the database with the purchase state. We shouldn't do that
-        // from the main thread so we do the work in a background thread.
-        // We don't update the UI here. We will update the UI after we update
-        // the database because we need to read and update the current quantity
-        // first.
         new Thread(new Runnable() {
             @Override
             public void run() {
-//                PurchaseDatabase db = new PurchaseDatabase(context);
-//                int quantity = db.updatePurchase(
-//                        orderId, productId, purchaseState, purchaseTime, developerPayload);
-//                db.close();
 
                 // This needs to be synchronized because the UI thread can change the
                 // value of sPurchaseObserver.

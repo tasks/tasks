@@ -160,19 +160,6 @@ public class BillingService extends Service implements ServiceConnection {
     class CheckBillingSupported extends BillingRequest {
         public String mProductType = null;
 
-//        /** Legacy contrustor
-//         *
-//         * This constructor is provided for legacy purposes. Assumes the calling application will
-//         * not be using any features not present in API v1, such as subscriptions.
-//         */
-//        @Deprecated
-//        public CheckBillingSupported() {
-//            // This object is never created as a side effect of starting this
-//            // service so we pass -1 as the startId to indicate that we should
-//            // not stop this service after executing this request.
-//            super(-1);
-//        }
-
         /** Constructor
          *
          * Note: Support for subscriptions implies support for one-time purchases. However, the
@@ -214,27 +201,6 @@ public class BillingService extends Service implements ServiceConnection {
         public final String mProductId;
         public final String mDeveloperPayload;
         public final String mProductType;
-
-//        /** Legacy constructor
-//         *
-//         * @param itemId  The ID of the item to be purchased. Will be assumed to be a one-time
-//         *                purchase.
-//         */
-//        @Deprecated
-//        public RequestPurchase(String itemId) {
-//            this(itemId, null, null);
-//        }
-//
-//        /** Legacy constructor
-//         *
-//         * @param itemId  The ID of the item to be purchased. Will be assumed to be a one-time
-//         *                purchase.
-//         * @param developerPayload Optional data.
-//         */
-//        @Deprecated
-//        public RequestPurchase(String itemId, String developerPayload) {
-//            this(itemId, null, developerPayload);
-//        }
 
         /** Constructor
          *
@@ -452,16 +418,6 @@ public class BillingService extends Service implements ServiceConnection {
         }
         return false;
     }
-//
-//    /**
-//     * Checks if in-app billing is supported. Assumes this is a one-time purchase.
-//     *
-//     * @return true if supported; false otherwise
-//     */
-//    @Deprecated
-//    public boolean checkBillingSupported() {
-//        return new CheckBillingSupported().runRequest();
-//    }
 
     /**
      * Checks if in-app billing is supported.
