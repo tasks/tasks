@@ -31,7 +31,6 @@ import com.todoroo.andlib.utility.DialogUtilities;
 import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.astrid.actfm.sync.ActFmPreferenceService;
 import com.todoroo.astrid.service.ThemeService;
-import com.todoroo.astrid.utility.Constants;
 
 public class BillingActivity extends FragmentActivity {
 
@@ -246,7 +245,7 @@ public class BillingActivity extends FragmentActivity {
 
     private Dialog createDialog(int titleId, int messageId) {
         String helpUrl = replaceLanguageAndRegion(getString(R.string.subscriptions_help_url));
-        if (Constants.DEBUG) {
+        if (BillingConstants.DEBUG) {
             Log.i("billing-activity-url", helpUrl); //$NON-NLS-1$
         }
         final Uri helpUri = Uri.parse(helpUrl);

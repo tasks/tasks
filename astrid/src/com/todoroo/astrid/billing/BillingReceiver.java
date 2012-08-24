@@ -6,7 +6,6 @@ import android.content.Intent;
 import android.util.Log;
 
 import com.todoroo.astrid.billing.BillingConstants.ResponseCode;
-import com.todoroo.astrid.utility.Constants;
 
 public class BillingReceiver extends BroadcastReceiver {
     private static final String TAG = "billing-receiver"; //$NON-NLS-1$
@@ -27,7 +26,7 @@ public class BillingReceiver extends BroadcastReceiver {
             purchaseStateChanged(context, signedData, signature);
         } else if (BillingConstants.ACTION_NOTIFY.equals(action)) {
             String notifyId = intent.getStringExtra(BillingConstants.NOTIFICATION_ID);
-            if (Constants.DEBUG) {
+            if (BillingConstants.DEBUG) {
                 Log.i(TAG, "notifyId: " + notifyId); //$NON-NLS-1$
             }
             notify(context, notifyId);

@@ -15,7 +15,6 @@ import com.todoroo.astrid.billing.BillingConstants.PurchaseState;
 import com.todoroo.astrid.billing.BillingConstants.ResponseCode;
 import com.todoroo.astrid.billing.BillingService.RequestPurchase;
 import com.todoroo.astrid.billing.BillingService.RestoreTransactions;
-import com.todoroo.astrid.utility.Constants;
 
 @SuppressWarnings("nls")
 public abstract class AstridPurchaseObserver extends PurchaseObserver {
@@ -37,7 +36,7 @@ public abstract class AstridPurchaseObserver extends PurchaseObserver {
 
     @Override
     public void onBillingSupported(boolean supported, String type) {
-        if (Constants.DEBUG) {
+        if (BillingConstants.DEBUG) {
             Log.i(TAG, "supported: " + supported);
         }
         if (type != null && type.equals(BillingConstants.ITEM_TYPE_SUBSCRIPTION)) {
@@ -60,7 +59,7 @@ public abstract class AstridPurchaseObserver extends PurchaseObserver {
     @Override
     public void onPurchaseStateChange(PurchaseState purchaseState, final String itemId,
             int quantity, long purchaseTime, String developerPayload, final String purchaseToken) {
-        if (Constants.DEBUG) {
+        if (BillingConstants.DEBUG) {
             Log.i(TAG, "onPurchaseStateChange() itemId: " + itemId + " " + purchaseState);
         }
 
@@ -113,19 +112,19 @@ public abstract class AstridPurchaseObserver extends PurchaseObserver {
     @Override
     public void onRequestPurchaseResponse(RequestPurchase request,
             ResponseCode responseCode) {
-        if (Constants.DEBUG) {
+        if (BillingConstants.DEBUG) {
             Log.d(TAG, request.mProductId + ": " + responseCode);
         }
         if (responseCode == ResponseCode.RESULT_OK) {
-            if (Constants.DEBUG) {
+            if (BillingConstants.DEBUG) {
                 Log.i(TAG, "purchase was successfully sent to server");
             }
         } else if (responseCode == ResponseCode.RESULT_USER_CANCELED) {
-            if (Constants.DEBUG) {
+            if (BillingConstants.DEBUG) {
                 Log.i(TAG, "user canceled purchase");
             }
         } else {
-            if (Constants.DEBUG) {
+            if (BillingConstants.DEBUG) {
                 Log.i(TAG, "purchase failed");
             }
         }
@@ -135,14 +134,14 @@ public abstract class AstridPurchaseObserver extends PurchaseObserver {
     public void onRestoreTransactionsResponse(RestoreTransactions request,
             ResponseCode responseCode) {
         if (responseCode == ResponseCode.RESULT_OK) {
-            if (Constants.DEBUG) {
+            if (BillingConstants.DEBUG) {
                 Log.d(TAG, "completed RestoreTransactions request");
             }
             // Update the shared preferences so that we don't perform
             // a RestoreTransactions again.
             Preferences.setBoolean(BillingConstants.PREF_TRANSACTIONS_INITIALIZED, true);
         } else {
-            if (Constants.DEBUG) {
+            if (BillingConstants.DEBUG) {
                 Log.d(TAG, "RestoreTransactions error: " + responseCode);
             }
         }

@@ -22,7 +22,6 @@ import android.text.TextUtils;
 import android.util.Log;
 
 import com.todoroo.astrid.billing.BillingConstants.PurchaseState;
-import com.todoroo.astrid.utility.Constants;
 
 /**
  * Security-related methods. For a secure implementation, all of this code
@@ -108,7 +107,7 @@ public class Security {
             Log.e(TAG, "data is null");
             return null;
         }
-        if (Constants.DEBUG) {
+        if (BillingConstants.DEBUG) {
             Log.i(TAG, "signedData: " + signedData);
         }
         boolean verified = false;
@@ -229,7 +228,7 @@ public class Security {
      * @return true if the data and signature match
      */
     public static boolean verify(PublicKey publicKey, String signedData, String signature) {
-        if (Constants.DEBUG) {
+        if (BillingConstants.DEBUG) {
             Log.i(TAG, "signature: " + signature);
         }
         Signature sig;

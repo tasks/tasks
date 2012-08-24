@@ -12,7 +12,6 @@ import com.todoroo.astrid.billing.BillingConstants.PurchaseState;
 import com.todoroo.astrid.billing.BillingConstants.ResponseCode;
 import com.todoroo.astrid.billing.BillingService.RequestPurchase;
 import com.todoroo.astrid.billing.BillingService.RestoreTransactions;
-import com.todoroo.astrid.utility.Constants;
 
 /**
  * This class contains the methods that handle responses from Android Market.  The
@@ -75,7 +74,7 @@ public class ResponseHandler {
      */
     public static void buyPageIntentResponse(PendingIntent pendingIntent, Intent intent) {
         if (sPurchaseObserver == null) {
-            if (Constants.DEBUG) {
+            if (BillingConstants.DEBUG) {
                 Log.d(TAG, "UI is not running");
             }
             return;

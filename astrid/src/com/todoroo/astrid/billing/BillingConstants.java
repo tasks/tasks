@@ -1,6 +1,7 @@
 package com.todoroo.astrid.billing;
 
 import com.todoroo.astrid.actfm.sync.ActFmPreferenceService;
+import com.todoroo.astrid.utility.Constants;
 
 
 @SuppressWarnings("nls")
@@ -60,6 +61,8 @@ public class BillingConstants {
     public static final char PUB_KEY_OBFUSCATION_CHAR = '!';
     public static final char PUB_KEY_REPLACE_CHAR = 'B';
     public static final String PUB_KEY_OBFUSCATED = "pubkey";
+
+    public static final boolean DEBUG = false || Constants.DEBUG;
 
     // The response codes for a request, defined by Android Market.
     public enum ResponseCode {
