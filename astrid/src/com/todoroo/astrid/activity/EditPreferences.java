@@ -437,7 +437,7 @@ public class EditPreferences extends TodorooPreferenceActivity {
             if (ActFmPreferenceService.isPremiumUser()) {
                 accountType = getString(R.string.actfm_account_premium);
             } else if (actFmPreferenceService.isLoggedIn()) {
-                accountType = getString(R.string.actfm_account_premium);
+                accountType = getString(R.string.actfm_account_basic);
             } else {
                 accountType = getString(R.string.actfm_account_none);
             }
