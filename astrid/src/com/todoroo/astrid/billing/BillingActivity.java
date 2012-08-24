@@ -11,11 +11,15 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.ActionBar;
 import android.support.v4.app.FragmentActivity;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.webkit.WebView;
 import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.ImageView.ScaleType;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.timsu.astrid.R;
@@ -177,6 +181,13 @@ public class BillingActivity extends FragmentActivity {
 
         View speechBubbleBackground = findViewById(R.id.speech_bubble_container);
         speechBubbleBackground.setBackgroundColor(0);
+
+        DisplayMetrics metrics = getResources().getDisplayMetrics();
+        ImageView icon = (ImageView) findViewById(R.id.astridIcon);
+
+        int dim = (int) (80 * metrics.density);
+        icon.setLayoutParams(new LinearLayout.LayoutParams(dim, dim));
+        icon.setScaleType(ScaleType.FIT_CENTER);
 
         TextView speechBubble = (TextView) findViewById(R.id.reminder_message);
         speechBubble.setText(R.string.premium_speech_bubble);
