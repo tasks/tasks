@@ -116,14 +116,14 @@ public class BillingActivity extends FragmentActivity {
     protected void onResume() {
         super.onResume();
         if (!actFmPreferenceService.isLoggedIn()) {
-            // Prompt to log in
-//            DialogUtilities.okDialog(this, getString(R.string.premium_login_prompt),
-//                    new DialogInterface.OnClickListener() {
-//                    @Override
-//                    public void onClick(DialogInterface dialog, int which) {
-//                        finish();
-//                    }
-//                });
+            // Prompt to log in, but this shouldn't happen anyways since we hide the entry path to this screen when not logged in
+            DialogUtilities.okDialog(this, getString(R.string.premium_login_prompt),
+                    new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        finish();
+                    }
+                });
         } else if (!billingService.checkBillingSupported(BillingConstants.ITEM_TYPE_SUBSCRIPTION)) {
             showDialog(DIALOG_SUBSCRIPTIONS_NOT_SUPPORTED_ID);
         } else if (ActFmPreferenceService.isPremiumUser()) {
@@ -170,12 +170,10 @@ public class BillingActivity extends FragmentActivity {
                 R.string.premium_description_4, R.string.premium_description_5, R.string.premium_description_6
         };
 
-        StringBuilder builder = new StringBuilder("<html><body><ul>");
+        StringBuilder builder = new StringBuilder("<html><style type=\"text/css\">li { padding-bottom: 13px } </style><body><ul>");
 
         for (int i = 0; i < bullets.length; i++) {
             builder.append("<li><font style='color=#404040; font-size: 18px'>").append(getString(bullets[i]));
-            if (i != bullets.length - 1)
-                builder.append("<br><br>");
             builder.append("</font></li>\n");
         }
 

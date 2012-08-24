@@ -7,6 +7,7 @@ package com.todoroo.astrid.actfm;
 
 import android.content.ActivityNotFoundException;
 import android.content.DialogInterface;
+import android.content.DialogInterface.OnClickListener;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.net.Uri;
@@ -146,6 +147,26 @@ public class ActFmPreferences extends SyncProviderPreferences {
                 preference.setTitle(R.string.account_type_title_not_logged_in);
                 preference.setSummary(R.string.account_type_summary_not_logged_in);
             }
+        } else if (r.getString(R.string.sync_SPr_forget_key).equals(preference.getKey())) {
+            preference.setOnPreferenceClickListener(new OnPreferenceClickListener() {
+                public boolean onPreferenceClick(Preference p) {
+                    DialogUtilities.okCancelDialog(ActFmPreferences.this,
+                            r.getString(R.string.sync_forget_confirm), new OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog,
+                                int which) {
+                            logOut();
+                            initializePreference(getPreferenceScreen());
+                        }
+                    }, null);
+                    return true;
+                }
+            });
+            if(!loggedIn) {
+                PreferenceCategory category = (PreferenceCategory) findPreference(r.getString(R.string.sync_SPr_group_status));
+                category.removePreference(preference);
+            }
+
         } else {
             super.updatePreferences(preference, value);
         }
