@@ -2,26 +2,18 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+        android:background="#aaa"
     android:orientation="vertical" >
-    <TextView 
-        android:id="@+id/premium_title"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:textSize="24dip"
-        android:text="@string/premium_billing_title" />
 
     <LinearLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
         android:id="@+id/premium_description_holder"
         android:layout_width="wrap_content"
         android:layout_height="0dip"
         android:layout_weight="1"
-        android:background="@drawable/post_it"
         android:orientation="vertical"
-        android:paddingRight="30dip"
-        android:paddingLeft="30dip"
-        android:paddingTop="30dip"
+        android:paddingRight="5dip"
+        android:paddingLeft="5dip"
+        android:paddingTop="15dip"
         android:paddingBottom="70dip" >
  
         <TextView
@@ -31,129 +23,40 @@
             android:layout_marginBottom="16dip"
             android:gravity="left"
             android:text="@string/premium_description_header"
-            android:textColor="@color/dark_blue_theme_color"
-            android:textSize="24dip" />
-
-        <LinearLayout 
+            android:textColor="#404040"
+            android:paddingLeft="15dip"
+            android:textSize="24dip"
+            android:textStyle="bold" />
+        <WebView
+            android:id="@+id/premium_bullets"
             android:layout_width="fill_parent"
-    		android:layout_height="wrap_content"
-   			android:orientation="horizontal">
-    		<ImageView 
-    		    android:layout_height="15dip"
-		        android:layout_width="15dip"
-        		android:src="@drawable/icn_premium_checkmark"
-       			android:layout_gravity="top|left"/>
-		    <TextView 
-		        android:layout_height="wrap_content"
-		        android:layout_width="wrap_content"
-		        android:layout_gravity="left"
-		        android:text="@string/premium_description_1"
-		        android:layout_marginBottom="12dip"
-		        style="@style/TextAppearance.Premium_Billing"/>
-		</LinearLayout>
-		<LinearLayout 
-            android:layout_width="fill_parent"
-    		android:layout_height="wrap_content"
-   			android:orientation="horizontal">
-    		<ImageView 
-    		    android:layout_height="15dip"
-		        android:layout_width="15dip"
-        		android:src="@drawable/icn_premium_checkmark"
-       			android:layout_gravity="top|left"/>
-		    <TextView 
-		        android:layout_height="wrap_content"
-		        android:layout_width="wrap_content"
-		        android:layout_gravity="left"
-		        android:text="@string/premium_description_2"
-		        android:layout_marginBottom="12dip"
-		        style="@style/TextAppearance.Premium_Billing"/>
-		</LinearLayout>
-		<LinearLayout 
-            android:layout_width="fill_parent"
-    		android:layout_height="wrap_content"
-   			android:orientation="horizontal">
-    		<ImageView 
-    		    android:layout_height="15dip"
-		        android:layout_width="15dip"
-        		android:src="@drawable/icn_premium_checkmark"
-       			android:layout_gravity="top|left"/>
-		    <TextView 
-		        android:layout_height="wrap_content"
-		        android:layout_width="wrap_content"
-		        android:layout_gravity="left"
-		        android:text="@string/premium_description_3"
-		        android:layout_marginBottom="12dip"
-                style="@style/TextAppearance.Premium_Billing"/>
-		</LinearLayout>
-		<LinearLayout 
-            android:layout_width="fill_parent"
-    		android:layout_height="wrap_content"
-   			android:orientation="horizontal">
-    		<ImageView 
-    		    android:layout_height="15dip"
-		        android:layout_width="15dip"
-        		android:src="@drawable/icn_premium_checkmark"
-       			android:layout_gravity="top|left"/>
-		    <TextView 
-		        android:layout_height="wrap_content"
-		        android:layout_width="wrap_content"
-		        android:layout_gravity="left"
-		        android:text="@string/premium_description_4"
-		        android:layout_marginBottom="12dip"
-		        style="@style/TextAppearance.Premium_Billing"/>
-		</LinearLayout>
-		<LinearLayout 
-            android:layout_width="fill_parent"
-    		android:layout_height="wrap_content"
-   			android:orientation="horizontal">
-    		<ImageView 
-    		    android:layout_height="15dip"
-		        android:layout_width="15dip"
-        		android:src="@drawable/icn_premium_checkmark"
-       			android:layout_gravity="top|left"/>
-		    <TextView 
-		        android:layout_height="wrap_content"
-		        android:layout_width="wrap_content"
-		        android:layout_gravity="left"
-		        android:text="@string/premium_description_5"
-		        android:layout_marginBottom="12dip"
-		        style="@style/TextAppearance.Premium_Billing"/>
-		</LinearLayout>
-		<LinearLayout 
-            android:layout_width="fill_parent"
-    		android:layout_height="wrap_content"
-   			android:orientation="horizontal">
-    		<ImageView 
-    		    android:layout_height="15dip"
-		        android:layout_width="15dip"
-        		android:src="@drawable/icn_premium_checkmark"
-       			android:layout_gravity="top|left"/>
-		    <TextView 
-		        android:layout_height="wrap_content"
-		        android:layout_width="wrap_content"
-		        android:layout_gravity="left"
-		        android:text="@string/premium_description_6"
-		        android:layout_marginBottom="12dip"
-		        style="@style/TextAppearance.Premium_Billing"/>
-		</LinearLayout>
+            android:layout_height="fill_parent"
+            android:textSize="20dip" />
     </LinearLayout>
         
+    
+    <include layout="@layout/astrid_speech_bubble"/>
             
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    <LinearLayout
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:background="@android:color/white">
 
         <Button
             android:id="@+id/premium_buy_month"
             android:layout_width="fill_parent"
             android:layout_height="50dip"
-            android:layout_marginLeft="15dip"
-            android:layout_marginRight="15dip"
-            android:layout_marginBottom="15dip"
-            android:layout_marginTop="0dip"
+            android:layout_marginLeft="8dip"
+            android:layout_marginRight="8dip"
+            android:layout_marginBottom="8dip"
+            android:layout_marginTop="8dip"
             android:layout_weight="1"
-            android:background="@drawable/bluebutton"
+            android:background="#707070"
+            android:textColor="@android:color/white"
+            android:textStyle="bold"
+            android:textSize="24sp"
             android:text="@string/premium_buy_month"
             android:gravity="center"/>
 
@@ -161,12 +64,15 @@
             android:id="@+id/premium_buy_year"
             android:layout_width="fill_parent"
             android:layout_height="50dip"
-            android:layout_marginLeft="15dip"
-            android:layout_marginRight="15dip"
-            android:layout_marginBottom="15dip"
-            android:layout_marginTop="0dip"
+            android:layout_marginLeft="8dip"
+            android:layout_marginRight="8dip"
+            android:layout_marginBottom="8dip"
+            android:layout_marginTop="8dip"
             android:layout_weight="1"
-            android:background="@drawable/bluebutton"
+            android:background="?attr/asThemeTextColor"
+            android:textColor="@android:color/white"
+            android:textSize="24sp"
+            android:textStyle="bold"
             android:text="@string/premium_buy_year"
             android:gravity="center" />
 

@@ -2,7 +2,6 @@ package com.todoroo.astrid.billing;
 
 import java.util.Locale;
 
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
@@ -10,10 +9,14 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.v4.app.ActionBar;
+import android.support.v4.app.FragmentActivity;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.webkit.WebView;
 import android.widget.Button;
+import android.widget.TextView;
 
 import com.timsu.astrid.R;
 import com.todoroo.andlib.service.Autowired;
@@ -21,9 +24,10 @@ import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.andlib.utility.DialogUtilities;
 import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.astrid.actfm.sync.ActFmPreferenceService;
+import com.todoroo.astrid.service.ThemeService;
 import com.todoroo.astrid.utility.Constants;
 
-public class BillingActivity extends Activity {
+public class BillingActivity extends FragmentActivity {
 
     private static final int DIALOG_CANNOT_CONNECT_ID = 1;
     private static final int DIALOG_BILLING_NOT_SUPPORTED_ID = 2;
@@ -40,11 +44,16 @@ public class BillingActivity extends Activity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        ThemeService.applyTheme(this);
         DependencyInjectionService.getInstance().inject(this);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.billing_activity);
 
+        setupActionBar();
+
         setupButtons();
+
+        setupText();
 
         handler = new Handler();
         billingService = new BillingService();
@@ -70,6 +79,16 @@ public class BillingActivity extends Activity {
 
     }
 
+    private void setupActionBar() {
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.setDisplayHomeAsUpEnabled(true);
+        actionBar.setDisplayShowTitleEnabled(false);
+
+        actionBar.setDisplayShowCustomEnabled(true);
+        actionBar.setCustomView(R.layout.header_title_view);
+        ((TextView) actionBar.getCustomView().findViewById(R.id.title)).setText(R.string.premium_billing_title);
+    }
+
     @Override
     protected void onStart() {
         super.onStart();
@@ -93,13 +112,13 @@ public class BillingActivity extends Activity {
         super.onResume();
         if (!actFmPreferenceService.isLoggedIn()) {
             // Prompt to log in
-            DialogUtilities.okDialog(this, getString(R.string.premium_login_prompt),
-                    new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        finish();
-                    }
-                });
+//            DialogUtilities.okDialog(this, getString(R.string.premium_login_prompt),
+//                    new DialogInterface.OnClickListener() {
+//                    @Override
+//                    public void onClick(DialogInterface dialog, int which) {
+//                        finish();
+//                    }
+//                });
         } else if (!billingService.checkBillingSupported(BillingConstants.ITEM_TYPE_SUBSCRIPTION)) {
             showDialog(DIALOG_SUBSCRIPTIONS_NOT_SUPPORTED_ID);
         } else if (ActFmPreferenceService.isPremiumUser()) {
@@ -138,6 +157,29 @@ public class BillingActivity extends Activity {
                 }
             }
         });
+    }
+
+    @SuppressWarnings("nls")
+    private void setupText() {
+        int[] bullets = new int[] { R.string.premium_description_1, R.string.premium_description_2, R.string.premium_description_3,
+                R.string.premium_description_4, R.string.premium_description_5, R.string.premium_description_6
+        };
+
+        StringBuilder builder = new StringBuilder("<html><body><ul>");
+
+        for(int item : bullets)
+            builder.append("<li><font style='color=#404040; font-size: 18px'>").append(getString(item)).append("</font></li>\n");
+        builder.append("</ul></body></html>");
+
+        WebView list = (WebView) findViewById(R.id.premium_bullets);
+        list.loadDataWithBaseURL("file:///android_asset/", builder.toString(), "text/html", "utf-8", null);
+        list.setBackgroundColor(0);
+
+        View speechBubbleBackground = findViewById(R.id.speech_bubble_container);
+        speechBubbleBackground.setBackgroundColor(0);
+
+        TextView speechBubble = (TextView) findViewById(R.id.reminder_message);
+        speechBubble.setText(R.string.premium_speech_bubble);
     }
 
     /**

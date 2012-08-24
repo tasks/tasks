@@ -26,7 +26,8 @@
     
     <PreferenceScreen
         android:key="@string/actfm_inapp_billing"
-        android:title="@string/actfm_inapp_billing"/>
+        android:title="@string/actfm_inapp_billing"
+        android:summary="@string/actfm_inapp_billing_summary"/>
     
     <PreferenceCategory
         android:key="@string/sync_SPr_key_options"
