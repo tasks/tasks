@@ -97,7 +97,7 @@ public abstract class AstridPurchaseObserver extends PurchaseObserver {
                     }
                 }
             }.start();
-        } else if (purchaseState == PurchaseState.REFUNDED || purchaseState == PurchaseState.EXPIRED) {
+        } else if (purchaseState == PurchaseState.REFUNDED) {
             new Thread() {
                 @Override
                 public void run() {
