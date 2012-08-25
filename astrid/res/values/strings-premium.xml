@@ -83,7 +83,7 @@
     <string name="premium_buy_month">1 Month</string>
     <string name="premium_buy_year">1 Year</string>
     <string name="premium_description_header">Do more with premium!</string>
-    <string name="premium_description_1">Attach files to to-dos &lt;br&gt;(pdfs, doc, ppt…)</string>
+    <string name="premium_description_1">Attach files to to-dos \n(pdfs, doc, ppt…)</string>
     <string name="premium_description_2">Syncs files with astrid.com</string>
     <string name="premium_description_3">Add attachments via email</string>
     <string name="premium_description_4">Save voice notes as audio files</string>

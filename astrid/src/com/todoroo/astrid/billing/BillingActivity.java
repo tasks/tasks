@@ -173,7 +173,11 @@ public class BillingActivity extends FragmentActivity {
         StringBuilder builder = new StringBuilder("<html><style type=\"text/css\">li { padding-bottom: 13px } </style><body><ul>");
 
         for (int i = 0; i < bullets.length; i++) {
-            builder.append("<li><font style='color=#404040; font-size: 18px'>").append(getString(bullets[i]));
+            String curr = getString(bullets[i]);
+            if (curr.contains("\n"))
+                curr = curr.replace("\n", "<br>");
+            builder.append("<li><font style='color=#404040; font-size: 18px'>").append(curr);
+
             builder.append("</font></li>\n");
         }
 
