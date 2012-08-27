@@ -218,7 +218,7 @@ public abstract class Property<TYPE> extends Field implements Cloneable {
             super(table, name, nullable);
         }
 
-        protected LongProperty(Table table, String name, String expression) {
+        public LongProperty(Table table, String name, String expression) {
             super(table, name, expression);
         }
 

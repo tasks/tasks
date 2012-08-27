@@ -57,11 +57,13 @@ import android.widget.TextView;
 
 import com.timsu.astrid.R;
 import com.todoroo.andlib.data.Property;
+import com.todoroo.andlib.data.Property.LongProperty;
 import com.todoroo.andlib.data.TodorooCursor;
 import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.ContextManager;
 import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.andlib.sql.Criterion;
+import com.todoroo.andlib.sql.Field;
 import com.todoroo.andlib.sql.Join;
 import com.todoroo.andlib.sql.Query;
 import com.todoroo.andlib.utility.AndroidUtilities;
@@ -107,6 +109,8 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
 
     public static final String BROADCAST_EXTRA_TASK = "model"; //$NON-NLS-1$
 
+    private static final String TASK_RABBIT_COL = "taskRabbitMd";
+
     // --- other constants
 
     /** Properties that need to be read from the action item */
@@ -126,7 +130,8 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
         Task.RECURRENCE,
         Task.NOTES,
         Task.USER_ID,
-        Task.USER
+        Task.USER,
+        (LongProperty) Metadata.ID.as(TASK_RABBIT_COL) // Task rabbit metadata id (non-zero means it exists
     };
 
     public static int[] IMPORTANCE_RESOURCES = new int[] {
@@ -326,6 +331,9 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
         TodorooCursor<Task> cursor = (TodorooCursor<Task>)c;
         ViewHolder viewHolder = ((ViewHolder)view.getTag());
 
+        int taskRabbitIndex = cursor.getColumnIndex(TASK_RABBIT_COL);
+        viewHolder.isTaskRabbit = (taskRabbitIndex >= 0 && c.getLong(taskRabbitIndex) > 0);
+
         Task task = viewHolder.task;
         task.clear();
         task.readFromCursor(cursor);
@@ -362,6 +370,7 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
         public LinearLayout taskRow;
         public View taskActionContainer;
         public ImageView taskActionIcon;
+        public boolean isTaskRabbit;
 
         public View[] decorations;
     }
@@ -430,8 +439,6 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
         // image view
         final AsyncImageView pictureView = viewHolder.picture; {
             if (pictureView != null) {
-//                TaskRabbitTaskContainer container = TaskRabbitDataService.getInstance().getContainerForTask(task);
-
                 if(task.getValue(Task.USER_ID) == Task.USER_ID_SELF /*&& !container.isTaskRabbit()*/) {
                     pictureView.setVisibility(View.GONE);
                     if (viewHolder.pictureBorder != null)
@@ -441,7 +448,7 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
                     if (viewHolder.pictureBorder != null)
                         viewHolder.pictureBorder.setVisibility(View.VISIBLE);
                     pictureView.setUrl(null);
-                    if (false/*container.isTaskRabbit()*/) {
+                    if (viewHolder.isTaskRabbit) {
                         pictureView.setDefaultImageResource(R.drawable.task_rabbit_image);
                     } else if(task.getValue(Task.USER_ID) == Task.USER_ID_UNASSIGNED)
                         pictureView.setDefaultImageResource(R.drawable.icn_anyone_transparent);
@@ -780,6 +787,7 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
     @SuppressWarnings("nls")
     public class ActionsLoaderThread extends Thread {
         public static final String FILE_COLUMN = "fileId";
+        private static final String METADATA_JOIN = "for_actions";
 
         @Override
         public void run() {
@@ -790,8 +798,12 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
             else
                 groupedQuery = query.get() + " GROUP BY " + Task.ID;
 
-            final TodorooCursor<Task> fetchCursor = taskService.query(Query.select(Task.ID, Task.TITLE, Task.NOTES, Task.COMPLETION_DATE, Metadata.ID.as(FILE_COLUMN)).join(Join.left(Metadata.TABLE,
-                    Criterion.and(Metadata.KEY.eq(FileMetadata.METADATA_KEY), Task.ID.eq(Metadata.TASK)))).withQueryTemplate(groupedQuery));
+            Query q = Query.select(Task.ID, Task.TITLE, Task.NOTES, Task.COMPLETION_DATE,
+                    new LongProperty(Metadata.TABLE, Metadata.ID.name, METADATA_JOIN + "." + Metadata.ID.name).as(FILE_COLUMN))
+                    .join(Join.left(Metadata.TABLE.as(METADATA_JOIN),
+                            Criterion.and(Field.field(METADATA_JOIN + "." + Metadata.KEY.name).eq(FileMetadata.METADATA_KEY),
+                                    Task.ID.eq(Field.field(METADATA_JOIN + "." + Metadata.TASK.name))))).withQueryTemplate(groupedQuery);
+            final TodorooCursor<Task> fetchCursor = taskService.query(q);
 
             try {
                 Task task = new Task();
