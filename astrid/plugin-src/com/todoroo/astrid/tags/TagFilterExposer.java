@@ -109,8 +109,6 @@ public class TagFilterExposer extends BroadcastReceiver implements AstridFilterE
         filter.customTaskList = new ComponentName(ContextManager.getContext(), fragmentClass);
         if(tag.image != null)
             filter.imageUrl = tag.image;
-        if(tag.updateText != null)
-            filter.updateText = tag.updateText;
         Bundle extras = new Bundle();
         extras.putString(TagViewFragment.EXTRA_TAG_NAME, tag.tag);
         extras.putLong(TagViewFragment.EXTRA_TAG_REMOTE_ID, tag.remoteId);
