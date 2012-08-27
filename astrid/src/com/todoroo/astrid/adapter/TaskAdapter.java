@@ -61,6 +61,9 @@ import com.todoroo.andlib.data.TodorooCursor;
 import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.ContextManager;
 import com.todoroo.andlib.service.DependencyInjectionService;
+import com.todoroo.andlib.sql.Criterion;
+import com.todoroo.andlib.sql.Join;
+import com.todoroo.andlib.sql.Query;
 import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.andlib.utility.Pair;
@@ -71,7 +74,9 @@ import com.todoroo.astrid.api.TaskAction;
 import com.todoroo.astrid.api.TaskDecoration;
 import com.todoroo.astrid.api.TaskDecorationExposer;
 import com.todoroo.astrid.core.LinkActionExposer;
+import com.todoroo.astrid.data.Metadata;
 import com.todoroo.astrid.data.Task;
+import com.todoroo.astrid.files.FileMetadata;
 import com.todoroo.astrid.files.FilesAction;
 import com.todoroo.astrid.files.FilesControlSet;
 import com.todoroo.astrid.helper.AsyncImageView;
@@ -771,25 +776,37 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
 
 
     private final Map<Long, TaskAction> taskActionLoader = Collections.synchronizedMap(new HashMap<Long, TaskAction>());
+
+    @SuppressWarnings("nls")
     public class ActionsLoaderThread extends Thread {
+        public static final String FILE_COLUMN = "fileId";
+
         @Override
         public void run() {
             AndroidUtilities.sleepDeep(500L);
-            final TodorooCursor<Task> fetchCursor = taskService.fetchFiltered(
-                    query.get(), null, Task.ID, Task.TITLE, Task.NOTES, Task.COMPLETION_DATE);
+            String groupedQuery;
+            if (query.get().contains("ORDER BY")) //$NON-NLS-1$
+                groupedQuery = query.get().replace("ORDER BY", "GROUP BY " + Task.ID + " ORDER BY"); //$NON-NLS-1$
+            else
+                groupedQuery = query.get() + " GROUP BY " + Task.ID;
+
+            final TodorooCursor<Task> fetchCursor = taskService.query(Query.select(Task.ID, Task.TITLE, Task.NOTES, Task.COMPLETION_DATE, Metadata.ID.as(FILE_COLUMN)).join(Join.left(Metadata.TABLE,
+                    Criterion.and(Metadata.KEY.eq(FileMetadata.METADATA_KEY), Task.ID.eq(Metadata.TASK)))).withQueryTemplate(groupedQuery));
 
             try {
                 Task task = new Task();
                 LinkActionExposer linkActionExposer = new LinkActionExposer();
 
+                int filesIndex = fetchCursor.getColumnIndex(FILE_COLUMN);
                 for(fetchCursor.moveToFirst(); !fetchCursor.isAfterLast(); fetchCursor.moveToNext()) {
                     task.clear();
                     task.readFromCursor(fetchCursor);
                     if(task.isCompleted())
                         continue;
 
+                    boolean hasAttachments = (filesIndex > 0 && fetchCursor.getLong(filesIndex) > 0);
                     List<TaskAction> actions = linkActionExposer.
-                            getActionsForTask(ContextManager.getContext(), task);
+                            getActionsForTask(ContextManager.getContext(), task, hasAttachments);
                     if (actions.size() > 0)
                         taskActionLoader.put(task.getId(), actions.get(0));
                 }

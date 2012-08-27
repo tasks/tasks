@@ -28,7 +28,6 @@ import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.astrid.api.TaskAction;
 import com.todoroo.astrid.api.TaskDecoration;
 import com.todoroo.astrid.data.Task;
-import com.todoroo.astrid.files.FileMetadata;
 import com.todoroo.astrid.files.FilesAction;
 import com.todoroo.astrid.notes.NotesAction;
 
@@ -42,7 +41,7 @@ public class LinkActionExposer {
 
     private PackageManager pm;
 
-    public List<TaskAction> getActionsForTask(Context context, Task task) {
+    public List<TaskAction> getActionsForTask(Context context, Task task, boolean hasAttachments) {
         List<TaskAction> result = new ArrayList<TaskAction>();
         if (task == null) return result;
 
@@ -51,7 +50,6 @@ public class LinkActionExposer {
         Linkify.addLinks(titleSpan, Linkify.ALL);
 
         URLSpan[] urlSpans = titleSpan.getSpans(0, titleSpan.length(), URLSpan.class);
-        boolean hasAttachments = FileMetadata.taskHasAttachments(task.getId());
         if(urlSpans.length == 0 && TextUtils.isEmpty(notes) &&
                 !hasAttachments)
             return result;
