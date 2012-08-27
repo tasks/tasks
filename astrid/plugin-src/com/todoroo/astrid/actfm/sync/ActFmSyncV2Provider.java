@@ -25,6 +25,7 @@ import com.todoroo.andlib.sql.Functions;
 import com.todoroo.andlib.sql.Join;
 import com.todoroo.andlib.sql.Query;
 import com.todoroo.andlib.utility.Preferences;
+import com.todoroo.astrid.billing.BillingConstants;
 import com.todoroo.astrid.dao.MetadataDao.MetadataCriteria;
 import com.todoroo.astrid.dao.TaskDao.TaskCriteria;
 import com.todoroo.astrid.data.Metadata;
@@ -173,7 +174,11 @@ public class ActFmSyncV2Provider extends SyncV2Provider {
 
     /** fetch user status hash*/
     @SuppressWarnings("nls")
-    private void updateUserStatus() {
+    public void updateUserStatus() {
+        if (Preferences.getBoolean(BillingConstants.PREF_NEEDS_SERVER_UPDATE, false)) {
+            actFmSyncService.updateUserSubscriptionStatus(null, null);
+        }
+
         try {
             JSONObject status = actFmSyncService.invoke("user_status"); //$NON-NLS-1$
             if (status.has("id"))
@@ -184,7 +189,7 @@ public class ActFmSyncV2Provider extends SyncV2Provider {
                 Preferences.setString(ActFmPreferenceService.PREF_FIRST_NAME, status.optString("first_name"));
             if (status.has("last_name"))
                 Preferences.setString(ActFmPreferenceService.PREF_LAST_NAME, status.optString("last_name"));
-            if (status.has("premium"))
+            if (status.has("premium") && !Preferences.getBoolean(BillingConstants.PREF_NEEDS_SERVER_UPDATE, false))
                 Preferences.setBoolean(ActFmPreferenceService.PREF_PREMIUM, status.optBoolean("premium"));
             if (status.has("email"))
                 Preferences.setString(ActFmPreferenceService.PREF_EMAIL, status.optString("email"));

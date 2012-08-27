@@ -303,7 +303,7 @@ public class FilesControlSet extends PopupControlSet {
                     activity.startActivity(marketIntent);
                 } catch (ActivityNotFoundException anf) {
                     DialogUtilities.okDialog(activity,
-                            activity.getString(R.string.EPr_marketUnavailable_dlg),
+                            activity.getString(R.string.market_unavailable),
                             null);
                 }
             }

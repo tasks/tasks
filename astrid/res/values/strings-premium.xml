@@ -50,6 +50,7 @@
     <string name="file_err_download">Error downloading file</string>
     <string name="file_err_no_directory">Whoops! Looks like the files directory doesn\'t exist. Please choose a directory to save files to in the Astrid Preferences.</string>
     <string name="file_err_show">Sorry, the system does not yet support this type of file</string>
+    
     <string name="file_dir_dialog_ok">Use this directory</string>
     <string name="file_dir_dialog_default">Reset to default</string>
     
@@ -57,5 +58,42 @@
     <!-- Description for file download directory preference. %s -> chosen directory -->
     <string name="p_files_dir_desc">Task attachments saved to: %s</string>
     <string name="p_files_dir_desc_default">Default directory</string>
+
+    
+    <!-- in app billing -->
+    <string name="billing_not_supported_title">Can\'t make purchases</string>
+    <string name="billing_not_supported_message">The Market billing
+     service is not available at this time.  You can continue to use this app but you
+     won\'t be able to make purchases.</string>
+    <string name="subscriptions_not_supported_title">Can\'t purchase subscriptions</string>
+    <string name="subscriptions_not_supported_message">The Market billing
+     service on this device does not support subscriptions at this time. You can subscribe to Astrid Premium at http://astrid.com/premium.</string>
+    <string name="cannot_connect_title">Can\'t connect to Market</string>
+    <string name="cannot_connect_message">This app cannot connect to Market.
+     Your version of Market may be out of date.
+     You can continue to use this app but you
+     won\'t be able to make purchases.</string>
+    
+    <string name="restoring_transactions">Restoring transactions</string>
+    
+    <string name="subscriptions_learn_more">Learn more</string>
+    <string name="subscriptions_help_url" formatted="false">http://market.android.com/support/bin/answer.py?answer=1050566&amp;hl=%lang%&amp;dl=%region%</string>
+    
+    <string name="premium_billing_title">Astrid Premium</string>
+    <string name="premium_buy_month">1 Month</string>
+    <string name="premium_buy_year">1 Year</string>
+    <string name="premium_description_header">Do more with premium!</string>
+    <string name="premium_description_1">Attach files to to-dos \n(pdfs, doc, ppt…)</string>
+    <string name="premium_description_2">Syncs files with astrid.com</string>
+    <string name="premium_description_3">Add attachments via email</string>
+    <string name="premium_description_4">Save voice notes as audio files</string>
+    <string name="premium_description_5">Preview upcoming features</string>
+    <string name="premium_description_6">Support the Astrid Team!</string>
+    <string name="premium_speech_bubble_1">Premium will power up your productivity!</string>
+    <string name="premium_speech_bubble_2">Order one year and save 25%!</string>
+    <string name="premium_already_subscribed">You are already subscribed to Astrid Premium!</string>
+    <string name="premium_login_prompt">You need to have an Astrid.com account in order to subscribe to premium. Please log in or sign up.</string>
+    <string name="premium_success">Thanks for subscribing to Astrid Premium!</string>
+    <string name="premium_success_with_server_error">Thanks for subscribing to Astrid Premium! The new features will be unlocked for you on astrid.com soon, and should be available on your phone right away.</string>
     
 </resources>

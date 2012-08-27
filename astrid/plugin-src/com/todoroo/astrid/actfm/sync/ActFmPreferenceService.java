@@ -12,6 +12,7 @@ import android.text.TextUtils;
 
 import com.timsu.astrid.R;
 import com.todoroo.andlib.utility.Preferences;
+import com.todoroo.astrid.billing.BillingConstants;
 import com.todoroo.astrid.data.RemoteModel;
 import com.todoroo.astrid.data.Update;
 import com.todoroo.astrid.service.StatisticsConstants;
@@ -76,6 +77,9 @@ public class ActFmPreferenceService extends SyncProviderUtilities {
 
     /** Act.fm current user premium status */
     public static final String PREF_PREMIUM = IDENTIFIER + "_premium"; //$NON-NLS-1$
+
+    /** Local knowledge of current premium status */
+    public static final String PREF_LOCAL_PREMIUM = IDENTIFIER + "_local_premium"; //$NON-NLS-1$
 
     /** Act.fm current user picture */
     public static final String PREF_PICTURE = IDENTIFIER + "_picture"; //$NON-NLS-1$
@@ -144,7 +148,7 @@ public class ActFmPreferenceService extends SyncProviderUtilities {
             user.put("name", Preferences.getStringValue(PREF_NAME));
             user.put("first_name", Preferences.getStringValue(PREF_FIRST_NAME));
             user.put("last_name", Preferences.getStringValue(PREF_LAST_NAME));
-            user.put("premium", Preferences.getBoolean(PREF_PREMIUM, false));
+            user.put("premium", isPremiumUser());
             user.put("email", Preferences.getStringValue(PREF_EMAIL));
             user.put("picture", Preferences.getStringValue(PREF_PICTURE));
             user.put("id", Preferences.getLong(PREF_USER_ID, 0));
@@ -154,6 +158,9 @@ public class ActFmPreferenceService extends SyncProviderUtilities {
     }
 
     public static boolean isPremiumUser() {
+        if (Preferences.getBoolean(BillingConstants.PREF_NEEDS_SERVER_UPDATE, false)) {
+            return Preferences.getBoolean(PREF_LOCAL_PREMIUM, false);
+        }
         return Preferences.getBoolean(PREF_PREMIUM, false);
     }
 

@@ -270,9 +270,14 @@ public class EditPreferences extends TodorooPreferenceActivity {
     }
 
     private void showAccountPrefs() {
-        Intent intent = new Intent(this, ActFmPreferences.class);
-        intent.setAction(AstridApiConstants.ACTION_SETTINGS);
-        startActivityForResult(intent, REQUEST_CODE_SYNC);
+        if (actFmPreferenceService.isLoggedIn()) {
+            Intent intent = new Intent(this, ActFmPreferences.class);
+            intent.setAction(AstridApiConstants.ACTION_SETTINGS);
+            startActivityForResult(intent, REQUEST_CODE_SYNC);
+        } else {
+            Intent intent = new Intent(this, ActFmLoginActivity.class);
+            startActivity(intent);
+        }
     }
 
     private static final HashMap<Class<?>, Integer> PREFERENCE_REQUEST_CODES = new HashMap<Class<?>, Integer>();
@@ -433,15 +438,17 @@ public class EditPreferences extends TodorooPreferenceActivity {
         final Resources r = getResources();
 
         if (r.getString(R.string.p_account).equals(preference.getKey())) {
-            String accountType;
-            if (ActFmPreferenceService.isPremiumUser()) {
-                accountType = getString(R.string.actfm_account_premium);
-            } else if (actFmPreferenceService.isLoggedIn()) {
-                accountType = getString(R.string.actfm_account_basic);
+            int title;
+            int summary;
+            if (!actFmPreferenceService.isLoggedIn()) {
+                title = R.string.account_type_title_not_logged_in;
+                summary = R.string.account_type_summary_not_logged_in;
             } else {
-                accountType = getString(R.string.actfm_account_none);
+                title = R.string.actfm_account_info;
+                summary = R.string.actfm_account_info_summary;
             }
-            preference.setTitle(getString(R.string.EPr_account_title, accountType));
+            preference.setTitle(title);
+            preference.setSummary(summary);
         } else if (r.getString(R.string.p_showNotes).equals(preference.getKey())) {
             if (value != null && !(Boolean)value)
                 preference.setSummary(R.string.EPr_showNotes_desc_disabled);

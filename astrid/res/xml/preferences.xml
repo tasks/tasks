@@ -10,7 +10,7 @@
 
     <PreferenceScreen android:title="@string/EPr_account_title" 
         android:key="@string/p_account"
-        android:summary="@string/EPr_account_desc"/>
+        android:summary="@string/actfm_account_info_summary"/>
     
     <PreferenceScreen android:title="@string/p_help" android:summary="@string/EPr_support_summary">
 	    <PreferenceScreen android:title="@string/p_about" android:key="@string/p_about" />

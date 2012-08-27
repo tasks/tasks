@@ -582,9 +582,6 @@
   
   <!-- Account status preference (%s -> account type) -->
   <string name="EPr_account_title">Account: %s</string>
-  
-  <!-- Account status description -->
-  <string name="EPr_account_desc">Cloud sync status and options</string>
 
   <!-- Support preferences summary -->
   <string name="EPr_support_summary">Tutorial, FAQ, About Astrid</string>
@@ -815,6 +812,9 @@ Astrid is open-source and proudly maintained by Todoroo, Inc.</string>
   <!-- slide 30c: Title of "Forums" option in settings -->
   <string name="p_forums">Forums</string>
   
+  <!-- Title of "Premium" option in settings -->
+  <string name="p_premium">Premium</string>
+  
   <!-- ============================================================= Misc == -->
   
   <!-- Displayed when task killer found. %s => name of the application -->
@@ -843,5 +843,7 @@ you get stuff done. It features reminders, tags, sync, Locale plug-in, a widget 
       If you see this error regularly, we suggest you clear all
       data (Settings->Manage All Tasks->Clear all data) and restore
       your tasks from a backup (Settings->Backup->Import Tasks) in Astrid.</string>
+      
+  <string name="market_unavailable">Unfortunately the market is not available for your system.</string>
   
 </resources>

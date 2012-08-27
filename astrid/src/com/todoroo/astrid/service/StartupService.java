@@ -108,7 +108,7 @@ public class StartupService {
     }
 
     /** Called when this application is started up */
-    public synchronized void onStartupApplication(final Context context) {
+    public synchronized void onStartupApplication(final Activity context) {
         if(hasStartedUp || context == null)
             return;
 

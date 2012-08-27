@@ -308,9 +308,19 @@
       Are you sure you want to sync with Astrid.com?</string>
       
   <!-- account types -->
+  <string name="actfm_account_type">Account Type</string>
+  <string name="actfm_account_info">Account Info</string>
+  <string name="actfm_account_info_summary">Status and options</string>
+  <string name="account_type_title_not_logged_in">Sign up for a free account</string>
+  <string name="account_type_summary_not_logged_in">Access tasks online, share lists and delegate</string>
+  
+  
   <string name="actfm_account_premium">Premium</string>
   <string name="actfm_account_basic">Basic</string>
   <string name="actfm_account_none">None</string>
+  
+  <string name="actfm_inapp_billing">Upgrade to Premium</string>
+  <string name="actfm_inapp_billing_summary">Attach files, voice backups, premium support &amp; more</string>
   
 </resources>
 
