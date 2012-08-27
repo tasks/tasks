@@ -82,8 +82,6 @@ import com.todoroo.astrid.service.StatisticsConstants;
 import com.todoroo.astrid.service.StatisticsService;
 import com.todoroo.astrid.service.TaskService;
 import com.todoroo.astrid.service.ThemeService;
-import com.todoroo.astrid.taskrabbit.TaskRabbitDataService;
-import com.todoroo.astrid.taskrabbit.TaskRabbitTaskContainer;
 import com.todoroo.astrid.timers.TimerDecorationExposer;
 import com.todoroo.astrid.ui.CheckableImageView;
 import com.todoroo.astrid.utility.Constants;
@@ -427,9 +425,9 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
         // image view
         final AsyncImageView pictureView = viewHolder.picture; {
             if (pictureView != null) {
-                TaskRabbitTaskContainer container = TaskRabbitDataService.getInstance().getContainerForTask(task);
+//                TaskRabbitTaskContainer container = TaskRabbitDataService.getInstance().getContainerForTask(task);
 
-                if(task.getValue(Task.USER_ID) == Task.USER_ID_SELF && !container.isTaskRabbit()) {
+                if(task.getValue(Task.USER_ID) == Task.USER_ID_SELF /*&& !container.isTaskRabbit()*/) {
                     pictureView.setVisibility(View.GONE);
                     if (viewHolder.pictureBorder != null)
                         viewHolder.pictureBorder.setVisibility(View.GONE);
@@ -438,7 +436,7 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
                     if (viewHolder.pictureBorder != null)
                         viewHolder.pictureBorder.setVisibility(View.VISIBLE);
                     pictureView.setUrl(null);
-                    if (container.isTaskRabbit()) {
+                    if (false/*container.isTaskRabbit()*/) {
                         pictureView.setDefaultImageResource(R.drawable.task_rabbit_image);
                     } else if(task.getValue(Task.USER_ID) == Task.USER_ID_UNASSIGNED)
                         pictureView.setDefaultImageResource(R.drawable.icn_anyone_transparent);
@@ -778,34 +776,33 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
         public void run() {
             AndroidUtilities.sleepDeep(500L);
             final TodorooCursor<Task> fetchCursor = taskService.fetchFiltered(
-                    query.get(), null, Task.ID, Task.TITLE, Task.DETAILS, Task.DETAILS_DATE,
-                    Task.MODIFICATION_DATE, Task.COMPLETION_DATE);
+                    query.get(), null, Task.ID, Task.TITLE, Task.NOTES, Task.COMPLETION_DATE);
 
+            try {
+                Task task = new Task();
+                LinkActionExposer linkActionExposer = new LinkActionExposer();
+
+                for(fetchCursor.moveToFirst(); !fetchCursor.isAfterLast(); fetchCursor.moveToNext()) {
+                    task.clear();
+                    task.readFromCursor(fetchCursor);
+                    if(task.isCompleted())
+                        continue;
+
+                    List<TaskAction> actions = linkActionExposer.
+                            getActionsForTask(ContextManager.getContext(), task);
+                    if (actions.size() > 0)
+                        taskActionLoader.put(task.getId(), actions.get(0));
+                }
+            } finally {
+                fetchCursor.close();
+            }
             final Activity activity = fragment.getActivity();
             if (activity != null) {
                 activity.runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        try {
-                            Task task = new Task();
-                            LinkActionExposer linkActionExposer = new LinkActionExposer();
-
-                            for(fetchCursor.moveToFirst(); !fetchCursor.isAfterLast(); fetchCursor.moveToNext()) {
-                                task.clear();
-                                task.readFromCursor(fetchCursor);
-                                if(task.isCompleted())
-                                    continue;
-
-                                List<TaskAction> actions = linkActionExposer.
-                                        getActionsForTask(ContextManager.getContext(), task.getId());
-                                if (actions.size() > 0)
-                                    taskActionLoader.put(task.getId(), actions.get(0));
-                            }
-                            if(taskActionLoader.size() > 0) {
-                                notifyDataSetChanged();
-                            }
-                        } finally {
-                            fetchCursor.close();
+                        if(taskActionLoader.size() > 0) {
+                            notifyDataSetChanged();
                         }
                     }
                 });
