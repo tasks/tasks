@@ -671,17 +671,18 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
 
         public void onUiThread() {
             // prepare and set listener for voice-button
-            if (getActivity() != null && VoiceRecognizer.voiceInputAvailable(getActivity())) {
-                voiceAddNoteButton = (ImageButton) notesControlSet.getView().findViewById(
-                        R.id.voiceAddNoteButton);
-                voiceAddNoteButton.setVisibility(View.VISIBLE);
-                int prompt = R.string.voice_edit_note_prompt;
-                voiceNoteAssistant = new VoiceInputAssistant(TaskEditFragment.this,
-                        voiceAddNoteButton, notesEditText, REQUEST_VOICE_RECOG);
-                voiceNoteAssistant.setAppend(true);
-                voiceNoteAssistant.setLanguageModel(RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);
-                voiceNoteAssistant.configureMicrophoneButton(prompt);
-
+            if (getActivity() != null) {
+                if (VoiceRecognizer.voiceInputAvailable(getActivity())) {
+                    voiceAddNoteButton = (ImageButton) notesControlSet.getView().findViewById(
+                            R.id.voiceAddNoteButton);
+                    voiceAddNoteButton.setVisibility(View.VISIBLE);
+                    int prompt = R.string.voice_edit_note_prompt;
+                    voiceNoteAssistant = new VoiceInputAssistant(TaskEditFragment.this,
+                            voiceAddNoteButton, notesEditText, REQUEST_VOICE_RECOG);
+                    voiceNoteAssistant.setAppend(true);
+                    voiceNoteAssistant.setLanguageModel(RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);
+                    voiceNoteAssistant.configureMicrophoneButton(prompt);
+                }
                 loadMoreContainer();
             }
         }
