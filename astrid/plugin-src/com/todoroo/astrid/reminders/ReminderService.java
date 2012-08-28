@@ -150,7 +150,7 @@ public final class ReminderService  {
         return (now == -1 ? DateUtilities.now() : now);
     }
 
-    private static final long NO_ALARM = Long.MAX_VALUE;
+    public static final long NO_ALARM = Long.MAX_VALUE;
 
     /**
      * Schedules alarms for a single task
