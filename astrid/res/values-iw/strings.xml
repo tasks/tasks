@@ -584,7 +584,7 @@
   <string name="welcome_login_confirm_later_dialog">עליך להרשם כדי להפיק את המירב מאסטריד! תוכל לקבל גיבויים חינם, סינכרון מלא עם אתר אסטריד, אפשרות להוסיף משימות בדוא״ל, ואפילו אפשרות לשתף משימות עם חברים!</string>
   <string name="help_popover_taskrabbit_type">שנה את סוג המשימה</string>
   <string name="locale_edit_alerts_title">התראת מַסְנֵן של אסטריד</string>
-  <string name="locale_edit_intro">אסטריד תציג תזכורת כאשר יש משימות בַּמַּסְנֵן %s</string>
+  <string name="locale_edit_intro">אסטריד תציג תזכורת כאשר יש משימות בַּמַּסְנֵן</string>
   <string name="locale_pick_filter">מַסְנֵן:</string>
   <string name="locale_interval_label">הגבלת האתראות ל־</string>
   <string-array name="locale_interval">
