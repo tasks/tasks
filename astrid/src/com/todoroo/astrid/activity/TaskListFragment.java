@@ -59,6 +59,9 @@ import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.ContextManager;
 import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.andlib.service.ExceptionService;
+import com.todoroo.andlib.sql.Criterion;
+import com.todoroo.andlib.sql.Field;
+import com.todoroo.andlib.sql.Join;
 import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.astrid.actfm.ActFmLoginActivity;
@@ -79,6 +82,7 @@ import com.todoroo.astrid.core.CustomFilterActivity;
 import com.todoroo.astrid.core.SortHelper;
 import com.todoroo.astrid.dao.Database;
 import com.todoroo.astrid.dao.TaskDao.TaskCriteria;
+import com.todoroo.astrid.data.Metadata;
 import com.todoroo.astrid.data.TagData;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.helper.SyncActionHelper;
@@ -97,6 +101,7 @@ import com.todoroo.astrid.service.ThemeService;
 import com.todoroo.astrid.service.UpgradeService;
 import com.todoroo.astrid.subtasks.SubtasksListFragment;
 import com.todoroo.astrid.sync.SyncProviderPreferences;
+import com.todoroo.astrid.taskrabbit.TaskRabbitMetadata;
 import com.todoroo.astrid.ui.QuickAddBar;
 import com.todoroo.astrid.utility.AstridPreferences;
 import com.todoroo.astrid.utility.Constants;
@@ -877,6 +882,8 @@ public class TaskListFragment extends ListFragment implements OnScrollListener,
                 });
     }
 
+    public static final String TR_METADATA_JOIN = "for_taskrab"; //$NON-NLS-1$
+
     /**
      * Fill in the Task List with current items
      *
@@ -887,8 +894,15 @@ public class TaskListFragment extends ListFragment implements OnScrollListener,
         if (filter == null)
             return;
 
+        // TODO: For now, we'll modify the query to join and include the task rabbit data here.
+        // Eventually, we might consider restructuring things so that this query is constructed elsewhere.
+        String joinedTaskRabbitQuery = Join.left(Metadata.TABLE.as(TR_METADATA_JOIN),
+                Criterion.and(Field.field(TR_METADATA_JOIN + "." + Metadata.KEY.name).eq(TaskRabbitMetadata.METADATA_KEY), //$NON-NLS-1$
+                        Task.ID.eq(Field.field(TR_METADATA_JOIN) + "." + Metadata.TASK.name))) //$NON-NLS-1$
+                + filter.getSqlQuery();
+
         sqlQueryTemplate.set(SortHelper.adjustQueryForFlagsAndSort(
-                filter.getSqlQuery(), sortFlags, sortSort));
+                joinedTaskRabbitQuery, sortFlags, sortSort));
 
         // perform query
         TodorooCursor<Task> currentCursor;

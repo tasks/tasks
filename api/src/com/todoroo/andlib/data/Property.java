@@ -45,7 +45,7 @@ public abstract class Property<TYPE> extends Field implements Cloneable {
      * expression which is derived from default table name
      */
     protected Property(Table table, String columnName) {
-        this(table, columnName, (table == null) ? (columnName) : (table.name + "." + columnName));
+        this(table, columnName, (table == null) ? (columnName) : (table.name() + "." + columnName));
     }
 
     /**
@@ -53,7 +53,7 @@ public abstract class Property<TYPE> extends Field implements Cloneable {
      * expression which is derived from default table name
      */
     protected Property(Table table, String columnName, boolean nullable) {
-        this(table, columnName, (table == null) ? (columnName) : (table.name + "." + columnName));
+        this(table, columnName, (table == null) ? (columnName) : (table.name() + "." + columnName));
         this.nullable = nullable;
     }
 

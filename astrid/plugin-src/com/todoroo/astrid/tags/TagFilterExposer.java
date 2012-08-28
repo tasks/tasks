@@ -38,7 +38,6 @@ import com.todoroo.astrid.api.FilterCategory;
 import com.todoroo.astrid.api.FilterListItem;
 import com.todoroo.astrid.api.FilterWithCustomIntent;
 import com.todoroo.astrid.api.FilterWithUpdate;
-import com.todoroo.astrid.core.PluginServices;
 import com.todoroo.astrid.core.SortHelper;
 import com.todoroo.astrid.dao.TaskDao.TaskCriteria;
 import com.todoroo.astrid.data.Metadata;
@@ -84,10 +83,8 @@ public class TagFilterExposer extends BroadcastReceiver implements AstridFilterE
                 filter.color = Color.GRAY;
         }
 
-        TagData tagData = PluginServices.getTagDataService().getTag(tag.tag, TagData.ID,
-                TagData.USER_ID, TagData.MEMBER_COUNT);
         int deleteIntentLabel;
-        if (tagData != null && tagData.getValue(TagData.MEMBER_COUNT) > 0 && tagData.getValue(TagData.USER_ID) != 0)
+        if (tag.memberCount > 0 && tag.userId != 0)
             deleteIntentLabel = R.string.tag_cm_leave;
         else
             deleteIntentLabel = R.string.tag_cm_delete;
@@ -109,8 +106,6 @@ public class TagFilterExposer extends BroadcastReceiver implements AstridFilterE
         filter.customTaskList = new ComponentName(ContextManager.getContext(), fragmentClass);
         if(tag.image != null)
             filter.imageUrl = tag.image;
-        if(tag.updateText != null)
-            filter.updateText = tag.updateText;
         Bundle extras = new Bundle();
         extras.putString(TagViewFragment.EXTRA_TAG_NAME, tag.tag);
         extras.putLong(TagViewFragment.EXTRA_TAG_REMOTE_ID, tag.remoteId);
@@ -121,9 +116,7 @@ public class TagFilterExposer extends BroadcastReceiver implements AstridFilterE
 
     /** Create a filter from tag data object */
     public static Filter filterFromTagData(Context context, TagData tagData) {
-        Tag tag = new Tag(tagData.getValue(TagData.NAME),
-                tagData.getValue(TagData.TASK_COUNT),
-                tagData.getValue(TagData.REMOTE_ID));
+        Tag tag = new Tag(tagData);
         return filterFromTag(context, tag, TaskCriteria.activeAndVisible());
     }
 

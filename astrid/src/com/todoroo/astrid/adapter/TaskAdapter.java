@@ -57,10 +57,15 @@ import android.widget.TextView;
 
 import com.timsu.astrid.R;
 import com.todoroo.andlib.data.Property;
+import com.todoroo.andlib.data.Property.LongProperty;
 import com.todoroo.andlib.data.TodorooCursor;
 import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.ContextManager;
 import com.todoroo.andlib.service.DependencyInjectionService;
+import com.todoroo.andlib.sql.Criterion;
+import com.todoroo.andlib.sql.Field;
+import com.todoroo.andlib.sql.Join;
+import com.todoroo.andlib.sql.Query;
 import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.andlib.utility.Pair;
@@ -71,7 +76,9 @@ import com.todoroo.astrid.api.TaskAction;
 import com.todoroo.astrid.api.TaskDecoration;
 import com.todoroo.astrid.api.TaskDecorationExposer;
 import com.todoroo.astrid.core.LinkActionExposer;
+import com.todoroo.astrid.data.Metadata;
 import com.todoroo.astrid.data.Task;
+import com.todoroo.astrid.files.FileMetadata;
 import com.todoroo.astrid.files.FilesAction;
 import com.todoroo.astrid.files.FilesControlSet;
 import com.todoroo.astrid.helper.AsyncImageView;
@@ -82,8 +89,6 @@ import com.todoroo.astrid.service.StatisticsConstants;
 import com.todoroo.astrid.service.StatisticsService;
 import com.todoroo.astrid.service.TaskService;
 import com.todoroo.astrid.service.ThemeService;
-import com.todoroo.astrid.taskrabbit.TaskRabbitDataService;
-import com.todoroo.astrid.taskrabbit.TaskRabbitTaskContainer;
 import com.todoroo.astrid.timers.TimerDecorationExposer;
 import com.todoroo.astrid.ui.CheckableImageView;
 import com.todoroo.astrid.utility.Constants;
@@ -104,6 +109,9 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
 
     public static final String BROADCAST_EXTRA_TASK = "model"; //$NON-NLS-1$
 
+    private static final LongProperty TASK_RABBIT_ID = new LongProperty(Metadata.TABLE.as(TaskListFragment.TR_METADATA_JOIN),
+            Metadata.ID.name);
+
     // --- other constants
 
     /** Properties that need to be read from the action item */
@@ -123,7 +131,8 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
         Task.RECURRENCE,
         Task.NOTES,
         Task.USER_ID,
-        Task.USER
+        Task.USER,
+        TASK_RABBIT_ID // Task rabbit metadata id (non-zero means it exists)
     };
 
     public static int[] IMPORTANCE_RESOURCES = new int[] {
@@ -323,6 +332,8 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
         TodorooCursor<Task> cursor = (TodorooCursor<Task>)c;
         ViewHolder viewHolder = ((ViewHolder)view.getTag());
 
+        viewHolder.isTaskRabbit = (cursor.get(TASK_RABBIT_ID) > 0);
+
         Task task = viewHolder.task;
         task.clear();
         task.readFromCursor(cursor);
@@ -359,6 +370,7 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
         public LinearLayout taskRow;
         public View taskActionContainer;
         public ImageView taskActionIcon;
+        public boolean isTaskRabbit;
 
         public View[] decorations;
     }
@@ -427,9 +439,7 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
         // image view
         final AsyncImageView pictureView = viewHolder.picture; {
             if (pictureView != null) {
-                TaskRabbitTaskContainer container = TaskRabbitDataService.getInstance().getContainerForTask(task);
-
-                if(task.getValue(Task.USER_ID) == Task.USER_ID_SELF && !container.isTaskRabbit()) {
+                if(task.getValue(Task.USER_ID) == Task.USER_ID_SELF && !viewHolder.isTaskRabbit) {
                     pictureView.setVisibility(View.GONE);
                     if (viewHolder.pictureBorder != null)
                         viewHolder.pictureBorder.setVisibility(View.GONE);
@@ -438,7 +448,7 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
                     if (viewHolder.pictureBorder != null)
                         viewHolder.pictureBorder.setVisibility(View.VISIBLE);
                     pictureView.setUrl(null);
-                    if (container.isTaskRabbit()) {
+                    if (viewHolder.isTaskRabbit) {
                         pictureView.setDefaultImageResource(R.drawable.task_rabbit_image);
                     } else if(task.getValue(Task.USER_ID) == Task.USER_ID_UNASSIGNED)
                         pictureView.setDefaultImageResource(R.drawable.icn_anyone_transparent);
@@ -773,39 +783,57 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
 
 
     private final Map<Long, TaskAction> taskActionLoader = Collections.synchronizedMap(new HashMap<Long, TaskAction>());
+
+
+    @SuppressWarnings("nls")
     public class ActionsLoaderThread extends Thread {
+        public static final String FILE_COLUMN = "fileId";
+        private static final String METADATA_JOIN = "for_actions";
+
+        private final LongProperty fileIdProperty = new LongProperty(Metadata.TABLE.as(METADATA_JOIN), Metadata.ID.name);
+
         @Override
         public void run() {
             AndroidUtilities.sleepDeep(500L);
-            final TodorooCursor<Task> fetchCursor = taskService.fetchFiltered(
-                    query.get(), null, Task.ID, Task.TITLE, Task.DETAILS, Task.DETAILS_DATE,
-                    Task.MODIFICATION_DATE, Task.COMPLETION_DATE);
+            String groupedQuery;
+            if (query.get().contains("ORDER BY")) //$NON-NLS-1$
+                groupedQuery = query.get().replace("ORDER BY", "GROUP BY " + Task.ID + " ORDER BY"); //$NON-NLS-1$
+            else
+                groupedQuery = query.get() + " GROUP BY " + Task.ID;
 
+            Query q = Query.select(Task.ID, Task.TITLE, Task.NOTES, Task.COMPLETION_DATE,
+                    fileIdProperty.as(FILE_COLUMN))
+                    .join(Join.left(Metadata.TABLE.as(METADATA_JOIN),
+                            Criterion.and(Field.field(METADATA_JOIN + "." + Metadata.KEY.name).eq(FileMetadata.METADATA_KEY),
+                                    Task.ID.eq(Field.field(METADATA_JOIN + "." + Metadata.TASK.name))))).withQueryTemplate(groupedQuery);
+            final TodorooCursor<Task> fetchCursor = taskService.query(q);
+
+            try {
+                Task task = new Task();
+                LinkActionExposer linkActionExposer = new LinkActionExposer();
+
+                for(fetchCursor.moveToFirst(); !fetchCursor.isAfterLast(); fetchCursor.moveToNext()) {
+                    task.clear();
+                    task.readFromCursor(fetchCursor);
+                    if(task.isCompleted())
+                        continue;
+
+                    boolean hasAttachments = (fetchCursor.get(fileIdProperty) > 0);
+                    List<TaskAction> actions = linkActionExposer.
+                            getActionsForTask(ContextManager.getContext(), task, hasAttachments);
+                    if (actions.size() > 0)
+                        taskActionLoader.put(task.getId(), actions.get(0));
+                }
+            } finally {
+                fetchCursor.close();
+            }
             final Activity activity = fragment.getActivity();
             if (activity != null) {
                 activity.runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        try {
-                            Task task = new Task();
-                            LinkActionExposer linkActionExposer = new LinkActionExposer();
-
-                            for(fetchCursor.moveToFirst(); !fetchCursor.isAfterLast(); fetchCursor.moveToNext()) {
-                                task.clear();
-                                task.readFromCursor(fetchCursor);
-                                if(task.isCompleted())
-                                    continue;
-
-                                List<TaskAction> actions = linkActionExposer.
-                                        getActionsForTask(ContextManager.getContext(), task.getId());
-                                if (actions.size() > 0)
-                                    taskActionLoader.put(task.getId(), actions.get(0));
-                            }
-                            if(taskActionLoader.size() > 0) {
-                                notifyDataSetChanged();
-                            }
-                        } finally {
-                            fetchCursor.close();
+                        if(taskActionLoader.size() > 0) {
+                            notifyDataSetChanged();
                         }
                     }
                 });

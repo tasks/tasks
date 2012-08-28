@@ -33,7 +33,6 @@ import com.todoroo.andlib.sql.Query;
 import com.todoroo.andlib.sql.QueryTemplate;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.astrid.actfm.TagViewFragment;
-import com.todoroo.astrid.actfm.sync.ActFmPreferenceService;
 import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.core.PluginServices;
 import com.todoroo.astrid.dao.MetadataDao;
@@ -43,7 +42,6 @@ import com.todoroo.astrid.data.Metadata;
 import com.todoroo.astrid.data.TagData;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.data.TaskApiDao;
-import com.todoroo.astrid.data.Update;
 import com.todoroo.astrid.service.MetadataService;
 import com.todoroo.astrid.service.TagDataService;
 import com.todoroo.astrid.service.TaskService;
@@ -119,7 +117,8 @@ public final class TagService {
         public int count;
         public long remoteId;
         public String image;
-        public String updateText;
+        public long userId;
+        public long memberCount;
 
         public Tag(String tag, int count, long remoteId) {
             this.tag = tag;
@@ -132,6 +131,8 @@ public final class TagService {
             count = tagData.getValue(TagData.TASK_COUNT);
             remoteId = tagData.getValue(TagData.REMOTE_ID);
             image = tagData.getValue(TagData.PICTURE);
+            userId = tagData.getValue(TagData.USER_ID);
+            memberCount = tagData.getValue(TagData.MEMBER_COUNT);
         }
 
         @Override
@@ -337,10 +338,6 @@ public final class TagService {
                 if(TextUtils.isEmpty(tag.tag))
                     continue;
                 tags.put(tagName, tag);
-
-                Update update = tagDataService.getLatestUpdate(tagData);
-                if(update != null)
-                    tag.updateText = ActFmPreferenceService.updateToString(update);
             }
         } finally {
             cursor.close();

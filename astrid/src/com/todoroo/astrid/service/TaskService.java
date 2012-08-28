@@ -189,7 +189,7 @@ public class TaskService {
         return newTask;
     }
 
-    public Task cloneReusableTask(Task task, String listName, long remoteId) {
+    public Task cloneReusableTask(Task task, String listName, long tagRemoteId) {
         Task newTask = fetchById(task.getId(), Task.PROPERTIES);
         if (newTask == null)
             return new Task();
@@ -205,8 +205,8 @@ public class TaskService {
             tag.setValue(Metadata.TASK, newTask.getId());
             tag.setValue(Metadata.KEY, TagService.KEY);
             tag.setValue(TagService.TAG, listName);
-            if (remoteId > 0)
-                tag.setValue(TagService.REMOTE_ID, remoteId);
+            if (tagRemoteId > 0)
+                tag.setValue(TagService.REMOTE_ID, tagRemoteId);
             metadataDao.createNew(tag);
         }
         return newTask;

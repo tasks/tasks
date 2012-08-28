@@ -28,7 +28,6 @@ import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.astrid.api.TaskAction;
 import com.todoroo.astrid.api.TaskDecoration;
 import com.todoroo.astrid.data.Task;
-import com.todoroo.astrid.files.FileMetadata;
 import com.todoroo.astrid.files.FilesAction;
 import com.todoroo.astrid.notes.NotesAction;
 
@@ -42,12 +41,8 @@ public class LinkActionExposer {
 
     private PackageManager pm;
 
-    public List<TaskAction> getActionsForTask(Context context, long taskId) {
+    public List<TaskAction> getActionsForTask(Context context, Task task, boolean hasAttachments) {
         List<TaskAction> result = new ArrayList<TaskAction>();
-        if(taskId == -1)
-            return result;
-
-        Task task = PluginServices.getTaskService().fetchById(taskId, Task.ID, Task.TITLE, Task.NOTES);
         if (task == null) return result;
 
         String notes = task.getValue(Task.NOTES);
@@ -55,7 +50,6 @@ public class LinkActionExposer {
         Linkify.addLinks(titleSpan, Linkify.ALL);
 
         URLSpan[] urlSpans = titleSpan.getSpans(0, titleSpan.length(), URLSpan.class);
-        boolean hasAttachments = FileMetadata.taskHasAttachments(taskId);
         if(urlSpans.length == 0 && TextUtils.isEmpty(notes) &&
                 !hasAttachments)
             return result;
@@ -67,7 +61,7 @@ public class LinkActionExposer {
             int start = titleSpan.getSpanStart(urlSpan);
             int end = titleSpan.getSpanEnd(urlSpan);
             String text = titleSpan.subSequence(start, end).toString();
-            TaskAction taskAction = createLinkAction(context, taskId, url, text);
+            TaskAction taskAction = createLinkAction(context, task.getId(), url, text);
             if (taskAction != null)
                 result.add(taskAction);
         }
