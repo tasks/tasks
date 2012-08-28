@@ -89,6 +89,7 @@ import com.todoroo.astrid.tags.TagsControlSet;
 import com.todoroo.astrid.taskrabbit.TaskRabbitControlSet;
 import com.todoroo.astrid.timers.TimerActionControlSet;
 import com.todoroo.astrid.timers.TimerControlSet;
+import com.todoroo.astrid.timers.TimerPlugin;
 import com.todoroo.astrid.ui.DateChangedAlerts;
 import com.todoroo.astrid.ui.DeadlineControlSet;
 import com.todoroo.astrid.ui.EditNotesControlSet;
@@ -982,6 +983,7 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
                                         android.R.string.ok, new DialogInterface.OnClickListener() {
                                             public void onClick(DialogInterface dialog, int which) {
                                                 taskService.delete(model);
+                                                TimerPlugin.updateTimer(getActivity(), model, false);
                                                 shouldSaveState = false;
                                                 showDeleteToast();
 
