@@ -1134,7 +1134,6 @@ public class TaskListFragment extends ListFragment implements OnScrollListener,
                     public void onClick(DialogInterface dialog, int which) {
                         onTaskDelete(task);
                         taskService.delete(task);
-                        TimerPlugin.updateTimer(getActivity(), task, false);
                         loadTaskListContent(true);
                     }
                 }).setNegativeButton(android.R.string.cancel, null).show();
@@ -1152,6 +1151,7 @@ public class TaskListFragment extends ListFragment implements OnScrollListener,
                     tef.discardButtonClick();
             }
         }
+        TimerPlugin.updateTimer(getActivity(), task, false);
     }
 
     public void incrementFilterCount() {
