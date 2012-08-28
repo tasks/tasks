@@ -60,6 +60,7 @@ import com.todoroo.andlib.service.ContextManager;
 import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.andlib.service.ExceptionService;
 import com.todoroo.andlib.sql.Criterion;
+import com.todoroo.andlib.sql.Field;
 import com.todoroo.andlib.sql.Join;
 import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.andlib.utility.Preferences;
@@ -881,6 +882,8 @@ public class TaskListFragment extends ListFragment implements OnScrollListener,
                 });
     }
 
+    public static final String TR_METADATA_JOIN = "for_taskrab"; //$NON-NLS-1$
+
     /**
      * Fill in the Task List with current items
      *
@@ -893,7 +896,9 @@ public class TaskListFragment extends ListFragment implements OnScrollListener,
 
         // TODO: For now, we'll modify the query to join and include the task rabbit data here.
         // Eventually, we might consider restructuring things so that this query is constructed elsewhere.
-        String joinedTaskRabbitQuery = Join.left(Metadata.TABLE, Criterion.and(Metadata.KEY.eq(TaskRabbitMetadata.METADATA_KEY), Task.ID.eq(Metadata.TASK)))
+        String joinedTaskRabbitQuery = Join.left(Metadata.TABLE.as(TR_METADATA_JOIN),
+                Criterion.and(Field.field(TR_METADATA_JOIN + "." + Metadata.KEY.name).eq(TaskRabbitMetadata.METADATA_KEY), //$NON-NLS-1$
+                        Task.ID.eq(Field.field(TR_METADATA_JOIN) + "." + Metadata.TASK.name))) //$NON-NLS-1$
                 + filter.getSqlQuery();
 
         sqlQueryTemplate.set(SortHelper.adjustQueryForFlagsAndSort(

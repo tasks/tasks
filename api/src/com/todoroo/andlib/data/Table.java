@@ -77,4 +77,10 @@ public final class Table extends SqlTable {
             return expression + " AS " + alias; //$NON-NLS-1$
         return expression;
     }
+
+    public String name() {
+        if(hasAlias())
+            return alias;
+        return name;
+    }
 }

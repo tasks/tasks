@@ -109,7 +109,8 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
 
     public static final String BROADCAST_EXTRA_TASK = "model"; //$NON-NLS-1$
 
-    private static final String TASK_RABBIT_COL = "taskRabbitMd";
+    private static final LongProperty TASK_RABBIT_ID = new LongProperty(Metadata.TABLE.as(TaskListFragment.TR_METADATA_JOIN),
+            Metadata.ID.name);
 
     // --- other constants
 
@@ -131,7 +132,7 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
         Task.NOTES,
         Task.USER_ID,
         Task.USER,
-        (LongProperty) Metadata.ID.as(TASK_RABBIT_COL) // Task rabbit metadata id (non-zero means it exists
+        TASK_RABBIT_ID // Task rabbit metadata id (non-zero means it exists)
     };
 
     public static int[] IMPORTANCE_RESOURCES = new int[] {
@@ -331,8 +332,7 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
         TodorooCursor<Task> cursor = (TodorooCursor<Task>)c;
         ViewHolder viewHolder = ((ViewHolder)view.getTag());
 
-        int taskRabbitIndex = cursor.getColumnIndex(TASK_RABBIT_COL);
-        viewHolder.isTaskRabbit = (taskRabbitIndex >= 0 && c.getLong(taskRabbitIndex) > 0);
+        viewHolder.isTaskRabbit = (cursor.get(TASK_RABBIT_ID) > 0);
 
         Task task = viewHolder.task;
         task.clear();
@@ -439,7 +439,7 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
         // image view
         final AsyncImageView pictureView = viewHolder.picture; {
             if (pictureView != null) {
-                if(task.getValue(Task.USER_ID) == Task.USER_ID_SELF /*&& !container.isTaskRabbit()*/) {
+                if(task.getValue(Task.USER_ID) == Task.USER_ID_SELF && !viewHolder.isTaskRabbit) {
                     pictureView.setVisibility(View.GONE);
                     if (viewHolder.pictureBorder != null)
                         viewHolder.pictureBorder.setVisibility(View.GONE);
@@ -784,10 +784,13 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
 
     private final Map<Long, TaskAction> taskActionLoader = Collections.synchronizedMap(new HashMap<Long, TaskAction>());
 
+
     @SuppressWarnings("nls")
     public class ActionsLoaderThread extends Thread {
         public static final String FILE_COLUMN = "fileId";
         private static final String METADATA_JOIN = "for_actions";
+
+        private final LongProperty fileIdProperty = new LongProperty(Metadata.TABLE.as(METADATA_JOIN), Metadata.ID.name);
 
         @Override
         public void run() {
@@ -799,7 +802,7 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
                 groupedQuery = query.get() + " GROUP BY " + Task.ID;
 
             Query q = Query.select(Task.ID, Task.TITLE, Task.NOTES, Task.COMPLETION_DATE,
-                    new LongProperty(Metadata.TABLE, Metadata.ID.name, METADATA_JOIN + "." + Metadata.ID.name).as(FILE_COLUMN))
+                    fileIdProperty.as(FILE_COLUMN))
                     .join(Join.left(Metadata.TABLE.as(METADATA_JOIN),
                             Criterion.and(Field.field(METADATA_JOIN + "." + Metadata.KEY.name).eq(FileMetadata.METADATA_KEY),
                                     Task.ID.eq(Field.field(METADATA_JOIN + "." + Metadata.TASK.name))))).withQueryTemplate(groupedQuery);
@@ -809,14 +812,13 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
                 Task task = new Task();
                 LinkActionExposer linkActionExposer = new LinkActionExposer();
 
-                int filesIndex = fetchCursor.getColumnIndex(FILE_COLUMN);
                 for(fetchCursor.moveToFirst(); !fetchCursor.isAfterLast(); fetchCursor.moveToNext()) {
                     task.clear();
                     task.readFromCursor(fetchCursor);
                     if(task.isCompleted())
                         continue;
 
-                    boolean hasAttachments = (filesIndex > 0 && fetchCursor.getLong(filesIndex) > 0);
+                    boolean hasAttachments = (fetchCursor.get(fileIdProperty) > 0);
                     List<TaskAction> actions = linkActionExposer.
                             getActionsForTask(ContextManager.getContext(), task, hasAttachments);
                     if (actions.size() > 0)
