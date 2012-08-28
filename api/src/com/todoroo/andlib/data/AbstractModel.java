@@ -186,14 +186,14 @@ public abstract class AbstractModel implements Parcelable, Cloneable {
      */
     public synchronized <TYPE> TYPE getValue(Property<TYPE> property) {
         Object value;
-        if(setValues != null && setValues.containsKey(property.name))
-            value = setValues.get(property.name);
+        if(setValues != null && setValues.containsKey(property.getColumnName()))
+            value = setValues.get(property.getColumnName());
 
-        else if(values != null && values.containsKey(property.name))
-            value = values.get(property.name);
+        else if(values != null && values.containsKey(property.getColumnName()))
+            value = values.get(property.getColumnName());
 
-        else if(getDefaultValues().containsKey(property.name))
-            value = getDefaultValues().get(property.name);
+        else if(getDefaultValues().containsKey(property.getColumnName()))
+            value = getDefaultValues().get(property.getColumnName());
 
         else
             throw new UnsupportedOperationException(
@@ -253,9 +253,9 @@ public abstract class AbstractModel implements Parcelable, Cloneable {
      * @return true if setValues or values contains this property
      */
     public boolean containsValue(Property<?> property) {
-        if(setValues != null && setValues.containsKey(property.name))
+        if(setValues != null && setValues.containsKey(property.getColumnName()))
             return true;
-        if(values != null && values.containsKey(property.name))
+        if(values != null && values.containsKey(property.getColumnName()))
             return true;
         return false;
     }
@@ -266,10 +266,10 @@ public abstract class AbstractModel implements Parcelable, Cloneable {
      *         stored is not null
      */
     public boolean containsNonNullValue(Property<?> property) {
-        if(setValues != null && setValues.containsKey(property.name))
-            return setValues.get(property.name) != null;
-        if(values != null && values.containsKey(property.name))
-            return values.get(property.name) != null;
+        if(setValues != null && setValues.containsKey(property.getColumnName()))
+            return setValues.get(property.getColumnName()) != null;
+        if(values != null && values.containsKey(property.getColumnName()))
+            return values.get(property.getColumnName()) != null;
         return false;
     }
 
@@ -283,11 +283,11 @@ public abstract class AbstractModel implements Parcelable, Cloneable {
             Property<TYPE> property, TYPE newValue) {
 
     	// we've already decided to save it, so overwrite old value
-        if (setValues.containsKey(property.name))
+        if (setValues.containsKey(property.getColumnName()))
         	return true;
 
         // values contains this key, we should check it out
-        if(values != null && values.containsKey(property.name)) {
+        if(values != null && values.containsKey(property.getColumnName())) {
             TYPE value = getValue(property);
             if (value == null) {
                 if (newValue == null)
@@ -341,10 +341,10 @@ public abstract class AbstractModel implements Parcelable, Cloneable {
      * @param property
      */
     public synchronized void clearValue(Property<?> property) {
-        if(setValues != null && setValues.containsKey(property.name))
-            setValues.remove(property.name);
-        if(values != null && values.containsKey(property.name))
-            values.remove(property.name);
+        if(setValues != null && setValues.containsKey(property.getColumnName()))
+            setValues.remove(property.getColumnName());
+        if(values != null && values.containsKey(property.getColumnName()))
+            values.remove(property.getColumnName());
     }
 
     /**
@@ -460,22 +460,22 @@ public abstract class AbstractModel implements Parcelable, Cloneable {
         }
 
         public Void visitDouble(Property<Double> property, Object value) {
-            store.put(property.name, (Double) value);
+            store.put(property.getColumnName(), (Double) value);
             return null;
         }
 
         public Void visitInteger(Property<Integer> property, Object value) {
-            store.put(property.name, (Integer) value);
+            store.put(property.getColumnName(), (Integer) value);
             return null;
         }
 
         public Void visitLong(Property<Long> property, Object value) {
-            store.put(property.name, (Long) value);
+            store.put(property.getColumnName(), (Long) value);
             return null;
         }
 
         public Void visitString(Property<String> property, Object value) {
-            store.put(property.name, (String) value);
+            store.put(property.getColumnName(), (String) value);
             return null;
         }
     }

@@ -227,6 +227,17 @@ public abstract class Property<TYPE> extends Field implements Cloneable {
                 PropertyVisitor<RETURN, PARAMETER> visitor, PARAMETER data) {
             return visitor.visitLong(this, data);
         }
+
+        @Override
+        public LongProperty as(String newAlias) {
+            return (LongProperty) super.as(newAlias);
+        }
+    }
+
+    public String getColumnName() {
+        if (hasAlias())
+            return alias;
+        return name;
     }
 
     // --- pseudo-properties

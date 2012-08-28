@@ -335,19 +335,19 @@ abstract public class AbstractDatabase {
     public static class SqlConstructorVisitor implements PropertyVisitor<String, Void> {
 
         public String visitDouble(Property<Double> property, Void data) {
-            return String.format("%s REAL", property.name);
+            return String.format("%s REAL", property.getColumnName());
         }
 
         public String visitInteger(Property<Integer> property, Void data) {
-            return String.format("%s INTEGER", property.name);
+            return String.format("%s INTEGER", property.getColumnName());
         }
 
         public String visitLong(Property<Long> property, Void data) {
-            return String.format("%s INTEGER", property.name);
+            return String.format("%s INTEGER", property.getColumnName());
         }
 
         public String visitString(Property<String> property, Void data) {
-            return String.format("%s TEXT", property.name);
+            return String.format("%s TEXT", property.getColumnName());
         }
     }
 }

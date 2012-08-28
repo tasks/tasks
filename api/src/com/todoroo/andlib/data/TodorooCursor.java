@@ -130,7 +130,7 @@ public class TodorooCursor<TYPE extends AbstractModel> extends CursorWrapper {
         }
 
         private int columnIndex(Property<?> property, TodorooCursor<?> cursor) {
-            return cursor.getColumnIndexFromCache(property.name);
+            return cursor.getColumnIndexFromCache(property.getColumnName());
         }
     }
 

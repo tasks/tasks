@@ -110,7 +110,7 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
     public static final String BROADCAST_EXTRA_TASK = "model"; //$NON-NLS-1$
 
     private static final LongProperty TASK_RABBIT_ID = new LongProperty(Metadata.TABLE.as(TaskListFragment.TR_METADATA_JOIN),
-            Metadata.ID.name);
+            Metadata.ID.name).as("taskRabId"); //$NON-NLS-1$
 
     // --- other constants
 
@@ -790,7 +790,8 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
         public static final String FILE_COLUMN = "fileId";
         private static final String METADATA_JOIN = "for_actions";
 
-        private final LongProperty fileIdProperty = new LongProperty(Metadata.TABLE.as(METADATA_JOIN), Metadata.ID.name);
+        private final LongProperty fileIdProperty = new LongProperty(Metadata.TABLE.as(METADATA_JOIN),
+                Metadata.ID.name).as(FILE_COLUMN);
 
         @Override
         public void run() {
@@ -802,7 +803,7 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
                 groupedQuery = query.get() + " GROUP BY " + Task.ID;
 
             Query q = Query.select(Task.ID, Task.TITLE, Task.NOTES, Task.COMPLETION_DATE,
-                    fileIdProperty.as(FILE_COLUMN))
+                    fileIdProperty)
                     .join(Join.left(Metadata.TABLE.as(METADATA_JOIN),
                             Criterion.and(Field.field(METADATA_JOIN + "." + Metadata.KEY.name).eq(FileMetadata.METADATA_KEY),
                                     Task.ID.eq(Field.field(METADATA_JOIN + "." + Metadata.TASK.name))))).withQueryTemplate(groupedQuery);
