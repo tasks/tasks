@@ -53,7 +53,7 @@
 	        android:layout_width="45dip"
 	        android:layout_marginLeft="4dip"
 	        android:layout_height="wrap_content"
-	        android:minHeight="30dip"
+	        android:minHeight="45dip"
 	        android:scaleType="center"
 	        android:gravity="center"
 	        android:layout_centerVertical="true" />
