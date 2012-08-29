@@ -76,7 +76,7 @@ public abstract class AstridPurchaseObserver extends PurchaseObserver {
                     if (actFmPreferenceService.isLoggedIn()) {
                         actFmSyncService.updateUserSubscriptionStatus(new Runnable() {
                             @Override
-                            public void run() {
+                            public void run() { // On Success
                                 Preferences.setBoolean(ActFmPreferenceService.PREF_PREMIUM, true);
                                 mActivity.runOnUiThread(new Runnable() {
                                     @Override
@@ -91,7 +91,7 @@ public abstract class AstridPurchaseObserver extends PurchaseObserver {
                                     }
                                 });
                             }
-                        }, new Runnable() {
+                        }, new Runnable() { // On Recoverable error
                             @Override
                             public void run() {
                                 mActivity.runOnUiThread(new Runnable() {
@@ -107,6 +107,17 @@ public abstract class AstridPurchaseObserver extends PurchaseObserver {
                                     }
                                 });
                             }
+                        }, new Runnable() { // On invalid token
+                            @Override
+                            public void run() {
+                                DialogUtilities.okDialog(mActivity, mActivity.getString(R.string.DLG_information_title),
+                                        0, mActivity.getString(R.string.premium_verification_error), new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        mActivity.finish();
+                                    }
+                                });
+                            }
                         });
                     } else {
                         Preferences.setBoolean(BillingConstants.PREF_NEEDS_SERVER_UPDATE, true);
@@ -119,7 +130,7 @@ public abstract class AstridPurchaseObserver extends PurchaseObserver {
                 public void run() {
                     Preferences.setBoolean(ActFmPreferenceService.PREF_LOCAL_PREMIUM, false);
                     if (actFmPreferenceService.isLoggedIn())
-                        actFmSyncService.updateUserSubscriptionStatus(null, null);
+                        actFmSyncService.updateUserSubscriptionStatus(null, null, null);
                 }
             }.start();
         }

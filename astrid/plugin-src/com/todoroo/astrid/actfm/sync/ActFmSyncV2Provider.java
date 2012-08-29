@@ -176,7 +176,7 @@ public class ActFmSyncV2Provider extends SyncV2Provider {
     @SuppressWarnings("nls")
     public void updateUserStatus() {
         if (Preferences.getBoolean(BillingConstants.PREF_NEEDS_SERVER_UPDATE, false)) {
-            actFmSyncService.updateUserSubscriptionStatus(null, null);
+            actFmSyncService.updateUserSubscriptionStatus(null, null, null);
         }
 
         try {

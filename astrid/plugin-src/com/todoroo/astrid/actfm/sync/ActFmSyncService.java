@@ -958,7 +958,7 @@ public final class ActFmSyncService {
         pushAllQueuedUpdates();
     }
 
-    public void updateUserSubscriptionStatus(Runnable onSuccess, Runnable onError) {
+    public void updateUserSubscriptionStatus(Runnable onSuccess, Runnable onRecoverableError, Runnable onInvalidToken) {
         String purchaseToken = Preferences.getStringValue(BillingConstants.PREF_PURCHASE_TOKEN);
         String productId = Preferences.getStringValue(BillingConstants.PREF_PRODUCT_ID);
         try {
@@ -969,9 +969,21 @@ public final class ActFmSyncService {
             if (onSuccess != null)
                 onSuccess.run();
         } catch (Exception e) {
+            if (e instanceof ActFmServiceException) {
+                ActFmServiceException ae = (ActFmServiceException)e;
+                if (ae.result != null && ae.result.optString("status").equals("error")) {
+                    if (ae.result.optString("code").equals("invalid_purchase_token")) { // Not a valid purchase--expired or duolicate
+                        Preferences.setBoolean(ActFmPreferenceService.PREF_LOCAL_PREMIUM, false);
+                        Preferences.setBoolean(BillingConstants.PREF_NEEDS_SERVER_UPDATE, false);
+                        if (onInvalidToken != null)
+                            onInvalidToken.run();
+                        return;
+                    }
+                }
+            }
             Preferences.setBoolean(BillingConstants.PREF_NEEDS_SERVER_UPDATE, true);
-            if (onError != null)
-                onError.run();
+            if (onRecoverableError != null)
+                onRecoverableError.run();
         }
     }
 
