@@ -126,6 +126,7 @@ public class ActFmSyncV2Provider extends SyncV2Provider {
     public void signOut() {
         actFmPreferenceService.setToken(null);
         actFmPreferenceService.clearLastSyncDate();
+        ActFmPreferenceService.premiumLogout();
         C2DMReceiver.unregister();
     }
 

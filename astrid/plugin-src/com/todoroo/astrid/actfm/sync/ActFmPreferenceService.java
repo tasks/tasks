@@ -164,6 +164,12 @@ public class ActFmPreferenceService extends SyncProviderUtilities {
         return Preferences.getBoolean(PREF_PREMIUM, false);
     }
 
+    public static void premiumLogout() {
+        Preferences.setBoolean(BillingConstants.PREF_NEEDS_SERVER_UPDATE, false);
+        Preferences.setBoolean(PREF_LOCAL_PREMIUM, false);
+        Preferences.setBoolean(PREF_PREMIUM, false);
+    }
+
     @Override
     public String getLoggedInUserName() {
         return Preferences.getStringValue(PREF_NAME);

@@ -163,8 +163,7 @@ public class ActFmPreferences extends SyncProviderPreferences {
                 }
             });
             if(!loggedIn) {
-                PreferenceCategory category = (PreferenceCategory) findPreference(r.getString(R.string.sync_SPr_group_status));
-                category.removePreference(preference);
+                getPreferenceScreen().removePreference(preference);
             }
 
         } else {

@@ -49,11 +49,11 @@
             android:textSize="24sp"
             android:gravity="center"/>
         
-        <com.todoroo.astrid.ui.MultilinePreference
-            android:key="@string/sync_SPr_forget_key"
-            android:title="@string/sync_SPr_forget"
-            android:summary="@string/sync_SPr_forget_description" />
             
     </PreferenceCategory>
+    <com.todoroo.astrid.ui.MultilinePreference
+        android:key="@string/sync_SPr_forget_key"
+        android:title="@string/sync_SPr_forget"
+        android:summary="@string/sync_SPr_forget_description" />
             
 </PreferenceScreen>  
