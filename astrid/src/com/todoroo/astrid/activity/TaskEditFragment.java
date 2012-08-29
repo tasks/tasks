@@ -971,8 +971,9 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
      * Show toast for task edit canceling
      */
     private void showCancelToast() {
-        Toast.makeText(getActivity(), R.string.TEA_onTaskCancel,
-                Toast.LENGTH_SHORT).show();
+        if (Preferences.getBoolean(R.string.p_showEditToasts, false))
+            Toast.makeText(getActivity(), R.string.TEA_onTaskCancel,
+                    Toast.LENGTH_SHORT).show();
     }
 
     protected void deleteButtonClick() {
@@ -1005,8 +1006,9 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
      * Show toast for task edit deleting
      */
     private void showDeleteToast() {
-        Toast.makeText(getActivity(), R.string.TEA_onTaskDelete,
-                Toast.LENGTH_SHORT).show();
+        if (Preferences.getBoolean(R.string.p_showEditToasts, false))
+            Toast.makeText(getActivity(), R.string.TEA_onTaskDelete,
+                    Toast.LENGTH_SHORT).show();
     }
 
     private void startAttachFile() {

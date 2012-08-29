@@ -595,6 +595,9 @@
   <!-- slide 34g: Preference: Task List Font Size Description -->                                                                                                                                                  
   <string name="EPr_fontSize_desc">Font size on the main listing page</string>  
   
+  <!-- Preferemce: Show task edit confirmation toasts -->
+  <string name="EPr_showEditToasts_title">Show task edit confirmations</string>
+  
   <!-- slide 34c: Preference: Task List Show Notes -->
   <string name="EPr_showNotes_title">Show Notes In Task</string>
   <!-- slide 30e: Preference: Beast mode (auto-expand edit page) -->

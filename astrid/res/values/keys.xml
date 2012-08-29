@@ -70,6 +70,9 @@
   <!-- account status section key -->
   <string name="p_account">account</string>
   
+  <!-- show edit task confirmation toasts -->
+  <string name="p_showEditToasts">show_edit_toasts</string>
+  
   <string-array name="TEA_reminder_random_hours">
     <!-- values (in hours) associated with items above. -->
     <item>1</item>

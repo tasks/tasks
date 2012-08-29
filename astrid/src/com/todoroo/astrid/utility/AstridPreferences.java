@@ -23,6 +23,8 @@ import com.todoroo.astrid.data.TagData;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.data.User;
 import com.todoroo.astrid.service.ThemeService;
+import com.todoroo.astrid.service.abtesting.ABChooser;
+import com.todoroo.astrid.service.abtesting.ABTests;
 
 public class AstridPreferences {
 
@@ -69,6 +71,9 @@ public class AstridPreferences {
         Preferences.setIfUnset(prefs, editor, r, R.string.p_rmd_persistent, true);
 
         Preferences.setIfUnset(prefs, editor, r, R.string.p_ideas_tab_enabled, true);
+
+        Preferences.setIfUnset(prefs, editor, r, R.string.p_showEditToasts,
+                ABChooser.readChoiceForTest(ABTests.AB_TASK_EDIT_TOAST) != 0);
 
         if ("white-blue".equals(Preferences.getStringValue(R.string.p_theme))) { //$NON-NLS-1$ migrate from when white-blue wasn't the default
             Preferences.setString(R.string.p_theme, ThemeService.THEME_WHITE);

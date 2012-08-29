@@ -831,7 +831,8 @@ public class EditPeopleControlSet extends PopupControlSet {
     }
 
     private void showSaveToast(String saveToast) {
-        if(saveToast == null) return;
+        if(saveToast == null || !Preferences.getBoolean(R.string.p_showEditToasts, false))
+            return;
         int length = saveToast.contains("\n") ? //$NON-NLS-1$
                 Toast.LENGTH_LONG : Toast.LENGTH_SHORT;
         Toast.makeText(activity, saveToast, length).show();
@@ -881,12 +882,6 @@ public class EditPeopleControlSet extends PopupControlSet {
             values.add("message");
             values.add(message);
         }
-
-//        String tag = ((TextView) getSharedWithView().findViewById(R.id.tag_name)).getText().toString();
-//        if(!TextUtils.isEmpty(tag)) {
-//            values.add("tag");
-//            values.add(tag);
-//        }
 
         return values.toArray(new Object[values.size()]);
     }

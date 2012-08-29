@@ -90,6 +90,11 @@
 	        android:key="@string/p_show_featured_lists_labs"
 	        android:defaultValue="false"/>
         
+        <com.todoroo.astrid.ui.MultilineCheckboxPreference
+            android:key="@string/p_showEditToasts"
+            android:title="@string/EPr_showEditToasts_title"
+            android:defaultValue="false" />
+        
         <CheckBoxPreference
 	        android:key="@string/p_use_contact_picker"
 	        android:title="@string/EPr_use_contact_picker"/>
