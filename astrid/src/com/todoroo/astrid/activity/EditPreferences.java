@@ -63,6 +63,7 @@ import com.todoroo.astrid.service.StatisticsService;
 import com.todoroo.astrid.service.TaskService;
 import com.todoroo.astrid.sync.SyncProviderPreferences;
 import com.todoroo.astrid.ui.ContactListAdapter;
+import com.todoroo.astrid.ui.TaskListFragmentPager;
 import com.todoroo.astrid.utility.Constants;
 import com.todoroo.astrid.utility.Flags;
 import com.todoroo.astrid.voice.VoiceInputAssistant;
@@ -505,7 +506,14 @@ public class EditPreferences extends TodorooPreferenceActivity {
         else if (booleanPreference(preference, value, R.string.p_autoIdea,
                 R.string.EPr_ideaAuto_desc_disabled, R.string.EPr_ideaAuto_desc_enabled));
         else if (r.getString(R.string.p_swipe_lists_performance_key).equals(preference.getKey())) {
-            preference.setOnPreferenceChangeListener(new SetResultOnPreferenceChangeListener(RESULT_CODE_PERFORMANCE_PREF_CHANGED));
+            preference.setOnPreferenceChangeListener(new SetResultOnPreferenceChangeListener(RESULT_CODE_PERFORMANCE_PREF_CHANGED) {
+                @Override
+                public boolean onPreferenceChange(Preference p, Object newValue) {
+                    // If the user changes the setting themselves, no need to show the helper
+                    Preferences.setBoolean(TaskListFragmentPager.PREF_SHOWED_SWIPE_HELPER, true);
+                    return super.onPreferenceChange(p, newValue);
+                }
+            });
 
             int index = 0;
             if(value instanceof String && !TextUtils.isEmpty((String)value))

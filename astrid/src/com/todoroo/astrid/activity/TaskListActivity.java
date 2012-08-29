@@ -374,6 +374,7 @@ public class TaskListActivity extends AstridActivity implements MainMenuListener
         setCommentsCount(0);
 
         if (swipeIsEnabled()) {
+            TaskListFragmentPager.showSwipeBetweenHelper(this);
             tlfPager.showFilter((Filter) item);
             return true;
         }
@@ -501,6 +502,8 @@ public class TaskListActivity extends AstridActivity implements MainMenuListener
                 fragment.initiateAutomaticSync();
                 fragment.requestCommentCountUpdate();
             }
+            if (position != 0)
+                Preferences.setBoolean(TaskListFragmentPager.PREF_SHOWED_SWIPE_HELPER, true);
         }
     }
 

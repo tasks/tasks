@@ -5,6 +5,7 @@
  */
 package com.todoroo.astrid.ui;
 
+import android.app.Activity;
 import android.content.Context;
 import android.graphics.Rect;
 import android.support.v4.view.PagerAdapter;
@@ -14,13 +15,17 @@ import android.view.MotionEvent;
 import android.view.View;
 
 import com.timsu.astrid.R;
+import com.todoroo.andlib.utility.DialogUtilities;
 import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.astrid.activity.TaskListFragment;
 import com.todoroo.astrid.adapter.TaskListFragmentPagerAdapter;
 import com.todoroo.astrid.api.Filter;
+import com.todoroo.astrid.service.ThemeService;
 import com.todoroo.astrid.utility.Flags;
 
 public class TaskListFragmentPager extends ViewPager {
+
+    public static final String PREF_SHOWED_SWIPE_HELPER = "showed_swipe_helper"; //$NON-NLS-1$
 
     public TaskListFragmentPager(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -103,5 +108,23 @@ public class TaskListFragmentPager extends ViewPager {
             }
         }
         return false;
+    }
+
+    @SuppressWarnings("nls")
+    public static void showSwipeBetweenHelper(Activity activity) {
+        if (!Preferences.getBoolean(PREF_SHOWED_SWIPE_HELPER, false)) {
+            String body = String.format("<h3>%s</h3><img src='%s'><br><br>%s",
+                    activity.getString(R.string.swipe_lists_helper_header),
+                    "subtasks_horizontal.png",
+                    activity.getString(R.string.swipe_lists_helper_subtitle));
+
+            String color = ThemeService.getDialogTextColor();
+            String html = String.format("<html><body style='text-align:center;color:%s'>%s</body></html>",
+                    color, body);
+
+            DialogUtilities.htmlDialog(activity, html, R.string.swipe_lists_helper_title);
+
+            Preferences.setBoolean(PREF_SHOWED_SWIPE_HELPER, true);
+        }
     }
 }
