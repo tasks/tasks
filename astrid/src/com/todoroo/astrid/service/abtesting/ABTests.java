@@ -121,8 +121,12 @@ public class ABTests {
 
     public static final String AB_TASK_EDIT_TOAST = "android_task_edit_toast"; //$NON-NLS-1$
 
+    public static final String AB_SWIPE_BETWEEN = "android_swipe_v2"; //$NON-NLS-1$
+
     private void initialize() {
         addTest(AB_TASK_EDIT_TOAST, new int[] { 1, 1 },
                 new int[] { 1, 1 }, new String[] { "dont-show-toasts", "show-toasts" });  //$NON-NLS-1$ //$NON-NLS-2$
+
+        // AB_SWIPE_BETWEEN has to be added in the startup service since it needs a non-null context for initialization
     }
 }

@@ -61,7 +61,6 @@ public class AstridPreferences {
         Preferences.setIfUnset(prefs, editor, r, R.string.p_fontSize, 16);
         Preferences.setIfUnset(prefs, editor, r, R.string.p_showNotes, false);
 
-        Preferences.setIfUnset(prefs, editor, r, R.string.p_swipe_lists_performance_key, 0);
         Preferences.setIfUnset(prefs, editor, r, R.string.p_use_contact_picker, true);
         Preferences.setIfUnset(prefs, editor, r, R.string.p_field_missed_calls, true);
 
@@ -74,6 +73,12 @@ public class AstridPreferences {
 
         Preferences.setIfUnset(prefs, editor, r, R.string.p_showEditToasts,
                 ABChooser.readChoiceForTest(ABTests.AB_TASK_EDIT_TOAST) != 0);
+
+        int swipePerformance = 0;
+        if (ABChooser.readChoiceForTest(ABTests.AB_SWIPE_BETWEEN) == 1)
+            swipePerformance = 3;
+
+        Preferences.setIfUnset(prefs, editor, r, R.string.p_swipe_lists_performance_key, swipePerformance);
 
         if ("white-blue".equals(Preferences.getStringValue(R.string.p_theme))) { //$NON-NLS-1$ migrate from when white-blue wasn't the default
             Preferences.setString(R.string.p_theme, ThemeService.THEME_WHITE);
