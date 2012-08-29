@@ -11,6 +11,7 @@ import java.util.List;
 
 import com.todoroo.astrid.actfm.sync.ActFmSyncV2Provider;
 import com.todoroo.astrid.gtasks.sync.GtasksSyncV2Provider;
+import com.todoroo.astrid.service.SyncResultCallbackWrapper.WidgetUpdatingCallbackWrapper;
 import com.todoroo.astrid.sync.SyncResultCallback;
 import com.todoroo.astrid.sync.SyncV2Provider;
 
@@ -61,34 +62,19 @@ public class SyncV2Service {
      * @param callback result callback
      * @return true if any servide was logged in and initiated a sync
      */
-    public boolean synchronizeActiveTasks(final boolean manual, final SyncResultCallback callback) {
+    public boolean synchronizeActiveTasks(final boolean manual, SyncResultCallback callback) {
         final List<SyncV2Provider> active = activeProviders();
 
         if (active.size() == 0)
             return false;
 
         if (active.size() > 1) {
-            SyncResultCallback newCallback = new SyncResultCallback() {
+            SyncResultCallback newCallback = new WidgetUpdatingCallbackWrapper(callback) {
                 private int next = 1;
 
                 @Override
-                public void started() {
-                    callback.started();
-                }
-
-                @Override
-                public void incrementProgress(int incrementBy) {
-                    callback.incrementProgress(incrementBy);
-                }
-
-                @Override
-                public void incrementMax(int incrementBy) {
-                    callback.incrementMax(incrementBy);
-                }
-
-                @Override
                 public void finished() {
-                    callback.finished();
+                    super.finished();
                     if (next < active.size())
                         active.get(next++).synchronizeActiveTasks(manual, this);
                 }
@@ -96,7 +82,7 @@ public class SyncV2Service {
 
             active.get(0).synchronizeActiveTasks(manual, newCallback);
         } else if (active.size() == 1) {
-            active.get(0).synchronizeActiveTasks(manual, callback);
+            active.get(0).synchronizeActiveTasks(manual, new WidgetUpdatingCallbackWrapper(callback));
         }
 
         return true;
@@ -112,7 +98,7 @@ public class SyncV2Service {
     public void synchronizeList(Object list, boolean manual, SyncResultCallback callback) {
         for(SyncV2Provider provider : providers) {
             if(provider.isActive())
-                provider.synchronizeList(list, manual, callback);
+                provider.synchronizeList(list, manual, new WidgetUpdatingCallbackWrapper(callback));
         }
     }
 

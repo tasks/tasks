@@ -29,6 +29,7 @@ import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.ContextManager;
 import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.andlib.utility.AndroidUtilities;
+import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.astrid.activity.TaskEditActivity;
 import com.todoroo.astrid.activity.TaskEditFragment;
@@ -50,6 +51,9 @@ import com.todoroo.astrid.utility.Constants;
 public class TasksWidget extends AppWidgetProvider {
 
     public static final int THEME_LEGACY = -1;
+
+    public static long suppressUpdateFlag = 0; // Timestamp--don't update widgets if this flag is non-zero and now() is within 5 minutes
+    private static final long SUPPRESS_TIME = DateUtilities.ONE_MINUTE * 5;
 
     static {
         AstridDependencyInjector.initialize();
@@ -75,6 +79,9 @@ public class TasksWidget extends AppWidgetProvider {
      * @param id
      */
     public static void updateWidgets(Context context) {
+        if (suppressUpdateFlag > 0 && DateUtilities.now() - suppressUpdateFlag < SUPPRESS_TIME)
+            return;
+        suppressUpdateFlag = 0;
         context.startService(new Intent(context,
                 TasksWidget.WidgetUpdateService.class));
     }
