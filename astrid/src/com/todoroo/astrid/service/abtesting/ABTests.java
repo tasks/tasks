@@ -119,15 +119,7 @@ public class ABTests {
         bundles.put(testKey, bundle);
     }
 
-    public static final String AB_TEST_PERSISTENT_REMINDERS = "android_persist_rmd"; //$NON-NLS-1$
-
-    public static final String AB_TEST_SIMPLE_EDIT = "android_simple_edit"; //$NON-NLS-1$
-
     private void initialize() {
-        addTest(AB_TEST_PERSISTENT_REMINDERS, new int[] { 1, 1 },
-                new int[] { 0, 1 }, new String[] { "rmd-not-persistent", "rmd-persistent" }); //$NON-NLS-1$ //$NON-NLS-2$
-
-        addTest(AB_TEST_SIMPLE_EDIT, new int[] { 9, 1 },
-                new int[] { 1, 0 }, new String[] { "regular-edit", "simple-edit" }); //$NON-NLS-1$ //$NON-NLS-2$
+        //
     }
 }

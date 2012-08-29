@@ -17,15 +17,12 @@ import com.todoroo.andlib.sql.Functions;
 import com.todoroo.andlib.sql.Query;
 import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.andlib.utility.Preferences;
-import com.todoroo.astrid.activity.BeastModePreferences;
 import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.core.PluginServices;
 import com.todoroo.astrid.data.TagData;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.data.User;
 import com.todoroo.astrid.service.ThemeService;
-import com.todoroo.astrid.service.abtesting.ABChooser;
-import com.todoroo.astrid.service.abtesting.ABTests;
 
 public class AstridPreferences {
 
@@ -69,15 +66,9 @@ public class AstridPreferences {
         Preferences.setIfUnset(prefs, editor, r, R.string.p_third_party_addons, false);
         Preferences.setIfUnset(prefs, editor, r, R.string.p_end_at_deadline, true);
 
-        Preferences.setIfUnset(prefs, editor, r, R.string.p_rmd_persistent,
-                ABChooser.readChoiceForTest(ABTests.AB_TEST_PERSISTENT_REMINDERS) != 0);
+        Preferences.setIfUnset(prefs, editor, r, R.string.p_rmd_persistent, true);
 
-        boolean simpleEdit = ABChooser.readChoiceForTest(ABTests.AB_TEST_SIMPLE_EDIT) != 0;
-        if (simpleEdit && !Preferences.isSet(BeastModePreferences.BEAST_MODE_ORDER_PREF)) {
-            Preferences.setString(BeastModePreferences.BEAST_MODE_ORDER_PREF,
-                    BeastModePreferences.getSimpleEditOrderForABTest(context));
-        }
-        Preferences.setIfUnset(prefs, editor, r, R.string.p_ideas_tab_enabled, !simpleEdit);
+        Preferences.setIfUnset(prefs, editor, r, R.string.p_ideas_tab_enabled, true);
 
         if ("white-blue".equals(Preferences.getStringValue(R.string.p_theme))) { //$NON-NLS-1$ migrate from when white-blue wasn't the default
             Preferences.setString(R.string.p_theme, ThemeService.THEME_WHITE);

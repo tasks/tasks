@@ -31,8 +31,6 @@ import com.todoroo.astrid.dao.TaskDao;
 import com.todoroo.astrid.dao.TaskDao.TaskCriteria;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.data.TaskApiDao;
-import com.todoroo.astrid.service.abtesting.ABChooser;
-import com.todoroo.astrid.service.abtesting.ABTests;
 import com.todoroo.astrid.utility.Constants;
 
 
@@ -116,8 +114,7 @@ public final class ReminderService  {
         Preferences.setIfUnset(prefs, editor, r, R.string.p_rmd_default_random_hours, 0);
         Preferences.setIfUnset(prefs, editor, r, R.string.p_rmd_time, 18);
         Preferences.setIfUnset(prefs, editor, r, R.string.p_rmd_nagging, true);
-        Preferences.setIfUnset(prefs, editor, r, R.string.p_rmd_persistent,
-                ABChooser.readChoiceForTest(ABTests.AB_TEST_PERSISTENT_REMINDERS) != 0);
+        Preferences.setIfUnset(prefs, editor, r, R.string.p_rmd_persistent, true);
 
         editor.commit();
         preferencesInitialized = true;
