@@ -592,18 +592,13 @@ public class EditPreferences extends TodorooPreferenceActivity {
     }
 
     public void addPreferenceListeners() {
-        findPreference(getString(R.string.p_theme)).setOnPreferenceChangeListener(new OnPreferenceChangeListener() {
-            @Override
-            public boolean onPreferenceChange(Preference preference, Object newValue) {
-                setResult(RESULT_CODE_THEME_CHANGED);
-                return true;
-            }
-        });
+        findPreference(getString(R.string.p_theme)).setOnPreferenceChangeListener(new SetResultOnPreferenceChangeListener(RESULT_CODE_THEME_CHANGED));
 
         findPreference(getString(R.string.p_theme_widget)).setOnPreferenceChangeListener(new OnPreferenceChangeListener() {
             @Override
             public boolean onPreferenceChange(Preference preference, Object newValue) {
                 TasksWidget.updateWidgets(EditPreferences.this);
+                updatePreferences(preference, newValue);
                 return true;
             }
         });
