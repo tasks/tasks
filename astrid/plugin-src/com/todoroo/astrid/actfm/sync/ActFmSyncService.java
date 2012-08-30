@@ -569,7 +569,7 @@ public final class ActFmSyncService {
         }
 
         if(values.containsKey(TagData.DELETION_DATE.name)) {
-            params.add("deleted_at"); params.add(tagData.getValue(TagData.DELETION_DATE));
+            params.add("deleted_at"); params.add(tagData.getValue(TagData.DELETION_DATE) / 1000L);
         }
 
         if(values.containsKey(TagData.TAG_DESCRIPTION.name)) {
