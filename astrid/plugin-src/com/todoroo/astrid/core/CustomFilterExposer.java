@@ -43,7 +43,6 @@ import com.todoroo.astrid.gtasks.GtasksPreferenceService;
 import com.todoroo.astrid.service.TagDataService;
 import com.todoroo.astrid.service.ThemeService;
 import com.todoroo.astrid.taskrabbit.TaskRabbitMetadata;
-import com.todoroo.astrid.utility.AstridPreferences;
 
 /**
  * Exposes Astrid's built in filters to the {@link FilterListFragment}
@@ -78,8 +77,7 @@ public final class CustomFilterExposer extends BroadcastReceiver implements Astr
     }
 
     private Filter[] buildSavedFilters(Context context, Resources r) {
-        boolean isTablet = AstridPreferences.useTabletLayout(context);
-        int themeFlags = isTablet ? ThemeService.FLAG_FORCE_LIGHT : 0;
+        int themeFlags = ThemeService.getFilterThemeFlags();
 
         StoreObjectDao dao = PluginServices.getStoreObjectDao();
         TodorooCursor<StoreObject> cursor = dao.query(Query.select(StoreObject.PROPERTIES).where(
@@ -134,8 +132,7 @@ public final class CustomFilterExposer extends BroadcastReceiver implements Astr
     }
 
     public static Filter getAssignedByMeFilter(Resources r) {
-        boolean isTablet = AstridPreferences.useTabletLayout(ContextManager.getContext());
-        int themeFlags = isTablet ? ThemeService.FLAG_FORCE_LIGHT : 0;
+        int themeFlags = ThemeService.getFilterThemeFlags();
         Filter f = new Filter(r.getString(R.string.BFE_Assigned),
                 r.getString(R.string.BFE_Assigned),
                 new QueryTemplate().join(Join.left(Metadata.TABLE, Criterion.and(Metadata.KEY.eq(TaskRabbitMetadata.METADATA_KEY), Task.ID.eq(Metadata.TASK))))

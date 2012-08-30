@@ -35,6 +35,10 @@ public class ThemeService {
 
     private static int currentTheme;
 
+    // Widget config activities set this flag since they theme differently than the normal
+    // filter list. In other cases this should be false
+    private static boolean forceFilterInvert = false;
+
     public static void applyTheme(Activity activity) {
         currentTheme = getTheme();
         activity.setTheme(currentTheme);
@@ -122,6 +126,22 @@ public class ThemeService {
 
     public static int getDrawable(int lightDrawable) {
         return getDrawable(lightDrawable, 0);
+    }
+
+    /**
+     * Only widget config activities should call this (see note on the flag above)
+     * @param forceInvert
+     */
+    public static void setForceFilterInvert(boolean forceInvert) {
+        forceFilterInvert = forceInvert;
+    }
+
+    public static int getFilterThemeFlags() {
+        if (forceFilterInvert)
+            return ThemeService.FLAG_INVERT;
+        if (AstridPreferences.useTabletLayout(ContextManager.getContext()))
+            return ThemeService.FLAG_FORCE_LIGHT;
+        return 0;
     }
 
     public static int getDrawable(int lightDrawable, int alter) {

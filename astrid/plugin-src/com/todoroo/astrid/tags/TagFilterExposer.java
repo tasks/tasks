@@ -167,8 +167,7 @@ public class TagFilterExposer extends BroadcastReceiver implements AstridFilterE
         Context context = ContextManager.getContext();
         Resources r = context.getResources();
 
-        boolean isTablet = AstridPreferences.useTabletLayout(context);
-        int themeFlags = isTablet ? ThemeService.FLAG_FORCE_LIGHT : 0;
+        int themeFlags = ThemeService.getFilterThemeFlags();
 
         // --- untagged
         if (addUntaggedFilter) {

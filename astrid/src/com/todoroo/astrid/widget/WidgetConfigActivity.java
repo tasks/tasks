@@ -48,7 +48,7 @@ abstract public class WidgetConfigActivity extends ListActivity {
     @Override
     public void onCreate(Bundle icicle) {
         ThemeService.applyTheme(this);
-        ThemeService.forceTheme(R.style.Theme);
+        ThemeService.setForceFilterInvert(true);
         super.onCreate(icicle);
 
         // Set the result to CANCELED.  This will cause the widget host to cancel
@@ -132,6 +132,7 @@ abstract public class WidgetConfigActivity extends ListActivity {
     protected void onStop() {
         super.onStop();
         StatisticsService.sessionStop(this);
+        ThemeService.setForceFilterInvert(false);
     }
 
     private void saveConfiguration(FilterListItem filterListItem){

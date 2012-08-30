@@ -27,7 +27,6 @@ import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.data.TaskApiDao.TaskCriteria;
 import com.todoroo.astrid.service.ThemeService;
 import com.todoroo.astrid.tags.TagService;
-import com.todoroo.astrid.utility.AstridPreferences;
 
 /**
  * Exposes Astrid's built in filters to the {@link FilterListFragment}
@@ -70,8 +69,7 @@ public final class CoreFilterExposer extends BroadcastReceiver implements Astrid
                                         Criterion.and(MetadataCriteria.withKey(TagService.KEY),
                                                 TagService.TAG.like("x_%", "x"))))))), //$NON-NLS-1$ //$NON-NLS-2$
                 null);
-        boolean isTablet = AstridPreferences.useTabletLayout(ContextManager.getContext());
-        int themeFlags = isTablet ? ThemeService.FLAG_FORCE_LIGHT : 0;
+        int themeFlags = ThemeService.getFilterThemeFlags();
         inbox.listingIcon = ((BitmapDrawable)r.getDrawable(
                 ThemeService.getDrawable(R.drawable.filter_inbox, themeFlags))).getBitmap();
         return inbox;
