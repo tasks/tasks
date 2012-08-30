@@ -20,6 +20,7 @@
     <string name="PPW_color">Widget color</string>
     <string name="PPW_enable_calendar">Show calendar events</string>
     <string name="PPW_disable_encouragements">Hide encouragements</string>
+    <string name="PPW_show_dates">Show due dates</string>
     <string name="PPW_filter">Select Filter</string>
     
     <string name="PPW_due">Due:</string>
