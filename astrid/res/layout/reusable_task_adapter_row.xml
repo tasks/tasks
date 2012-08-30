@@ -5,7 +5,7 @@
     xmlns:astrid="http://schemas.android.com/apk/res/com.timsu.astrid"
     android:layout_width="fill_parent"
     android:layout_height="wrap_content"
-    android:background="@android:drawable/list_selector_background"
+    android:background="?attr/asTaskRowSelector"
     android:orientation="horizontal"
     android:gravity="center_vertical">
 	    

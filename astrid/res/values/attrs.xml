@@ -42,6 +42,7 @@
   <attr name="asListPopoverBg" format="reference"/>
   <attr name="asListArrowUp" format="reference"/>
   <attr name="asFilterSelectedIcon" format="reference"/>
+  <attr name="asTaskRowSelector" format="reference" />
 
   <declare-styleable name="ContactsAutoComplete">
     <attr name="allowMultiple" format="boolean"/>

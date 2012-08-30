@@ -42,6 +42,7 @@
         <item name="asListPopoverBg">@drawable/list_popover_bg_white</item>
         <item name="asListArrowUp">@drawable/list_arrow_up_white</item>
         <item name="asFilterSelectedIcon">@drawable/filter_selected_icon</item>
+        <item name="asTaskRowSelector">@drawable/task_row_bg_dark</item>
         
         <!-- actionbar-styling -->
         <item name="abBackground">@drawable/header_blue</item>
@@ -93,6 +94,7 @@
         <item name="asListPopoverBg">@drawable/list_popover_bg</item>
         <item name="asListArrowUp">@drawable/list_arrow_up</item>
         <item name="asFilterSelectedIcon">@drawable/filter_selected_icon_black</item>
+        <item name="asTaskRowSelector">@drawable/task_row_bg_white</item>
         
         <!-- actionbar-styling -->
         <item name="abBackground">@drawable/header_red</item>
