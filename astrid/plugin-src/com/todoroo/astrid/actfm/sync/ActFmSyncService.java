@@ -597,9 +597,10 @@ public final class ActFmSyncService {
                         }
                     }
                     params.add(array);
+                    if (members.length() > 0)
+                        addAbTestEventInfo(params);
                 }
 
-                addAbTestEventInfo(params);
 
             } catch (JSONException e) {
                 throw new RuntimeException(e);
