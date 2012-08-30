@@ -106,7 +106,8 @@ public class ActFmPreferences extends SyncProviderPreferences {
         super.onResume();
 
         Preference premiumUpgrade = findPreference(getString(R.string.actfm_inapp_billing));
-        if (premiumUpgrade != null && (!actFmPreferenceService.isLoggedIn() || ActFmPreferenceService.isPremiumUser())) {
+        if (premiumUpgrade != null &&
+                (!Constants.MARKET_STRATEGY.billingSupported() || !actFmPreferenceService.isLoggedIn() || ActFmPreferenceService.isPremiumUser())) {
             getPreferenceScreen().removePreference(premiumUpgrade);
         }
     }

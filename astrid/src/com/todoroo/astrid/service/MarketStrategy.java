@@ -52,6 +52,15 @@ public abstract class MarketStrategy {
         return true;
     }
 
+    /**
+     * Most market strategies don't support billing at this time,
+     * so we'll make the default false
+     * @return
+     */
+    public boolean billingSupported() {
+        return false;
+    }
+
     public static class NoMarketStrategy extends MarketStrategy {
         @Override
         public Intent generateMarketLink(String packageName) {
@@ -76,6 +85,11 @@ public abstract class MarketStrategy {
         @Override
         public String strategyId() {
             return "android_market"; //$NON-NLS-1$
+        }
+
+        @Override
+        public boolean billingSupported() {
+            return true;
         }
 
     }
