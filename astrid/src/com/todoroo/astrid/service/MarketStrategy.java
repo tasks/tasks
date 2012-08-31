@@ -89,7 +89,7 @@ public abstract class MarketStrategy {
 
         @Override
         public boolean billingSupported() {
-            return true;
+            return false; // TODO: Eventually this should be true, disabling temporarily.
         }
 
     }
