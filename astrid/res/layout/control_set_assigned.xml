@@ -13,14 +13,18 @@
     <LinearLayout
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:padding="5dip">
+        android:padding="5dip"
+        android:layout_marginBottom="5dip">
   		<com.todoroo.astrid.ui.ContactsAutoComplete
           android:id="@+id/assigned_custom"
           android:layout_width="fill_parent"
           android:layout_height="wrap_content"
           android:layout_marginTop="2dip"
+          android:layout_marginLeft="5dip"
+          android:paddingLeft="5dip"
           android:layout_weight="1"
-          android:textColor="@android:color/black"
+          android:background="?attr/asEditTextBackground"
+          android:textColor="?attr/asTextColor"
           android:hint="@string/actfm_person_hint" />
         <ImageButton
           android:id="@+id/assigned_clear"
