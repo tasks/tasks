@@ -46,6 +46,7 @@ import com.todoroo.astrid.utility.AstridPreferences;
 
 public final class UpgradeService {
 
+    public static final int V4_3_0 = 278;
     public static final int V4_2_6 = 277;
     public static final int V4_2_5 = 276;
     public static final int V4_2_4 = 275;
@@ -215,6 +216,18 @@ public final class UpgradeService {
 
         Preferences.clear(AstridPreferences.P_UPGRADE_FROM);
         StringBuilder changeLog = new StringBuilder();
+
+        if (from < V4_3_0) {
+            newVersionString(changeLog, "4.3.0 (8/31/12)", new String[] {
+               "Significant performance improvements",
+               "Voice-add now enabled for all users!",
+               "New feature: Featured lists (Enable in Settings -> Appearance)",
+               "New and improved premium widget design",
+               "Redesigned settings page",
+               "Improved translations",
+               "Lots of bug fixes and UI polish"
+            });
+        }
 
         if (from >= V4_2_0 && from < V4_2_6) {
             newVersionString(changeLog, "4.2.6 (8/14/12)", new String[] {
