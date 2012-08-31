@@ -206,7 +206,10 @@ public class EditPreferences extends TodorooPreferenceActivity {
         disablePremiumPrefs();
 
         if (!AndroidUtilities.isTabletSized(this)) {
-            screen.removePreference(screen.findPreference(getString(R.string.p_force_phone_layout)));
+            appearance.removePreference(screen.findPreference(getString(R.string.p_force_phone_layout)));
+        } else {
+            preference = screen.findPreference(getString(R.string.p_swipe_lists_performance_key));
+            preference.setEnabled(Preferences.getBoolean(R.string.p_force_phone_layout, false));
         }
 
         removeForbiddenPreferences(screen, r);
@@ -534,7 +537,14 @@ public class EditPreferences extends TodorooPreferenceActivity {
         else if (booleanPreference(preference, value, R.string.p_end_at_deadline,
                     R.string.EPr_cal_start_at_due_time, R.string.EPr_cal_end_at_due_time));
         else if (r.getString(R.string.p_force_phone_layout).equals(preference.getKey())) {
-             preference.setOnPreferenceChangeListener(new SetResultOnPreferenceChangeListener(RESULT_CODE_PERFORMANCE_PREF_CHANGED));
+             preference.setOnPreferenceChangeListener(new SetResultOnPreferenceChangeListener(RESULT_CODE_PERFORMANCE_PREF_CHANGED) {
+                 @Override
+                public boolean onPreferenceChange(Preference p, Object newValue) {
+                    Preference swipe = findPreference(getString(R.string.p_swipe_lists_performance_key));
+                    swipe.setEnabled((Boolean) newValue);
+                    return super.onPreferenceChange(p, newValue);
+                }
+             });
         } else if (r.getString(R.string.p_show_featured_lists_labs).equals(preference.getKey())) {
             preference.setOnPreferenceChangeListener(new SetResultOnPreferenceChangeListener(SyncProviderPreferences.RESULT_CODE_SYNCHRONIZE));
         }

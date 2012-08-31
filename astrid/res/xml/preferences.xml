@@ -84,6 +84,13 @@
 	        android:title="@string/EPr_force_phone_layout"
 	        android:key="@string/p_force_phone_layout"
 	        android:defaultValue="false"/>
+
+        <ListPreference
+	        android:key="@string/p_swipe_lists_performance_key"
+	        android:title="@string/EPr_swipe_lists_performance_title"
+	        android:entries="@array/EPr_swipe_lists_performance_mode"
+	        android:entryValues="@array/EPr_swipe_lists_performance_mode_values" 
+	        android:summary="@string/EPr_swipe_lists_performance_subtitle" />
         
         <CheckBoxPreference
 	        android:title="@string/EPr_show_featured_lists"
@@ -99,12 +106,6 @@
 	        android:key="@string/p_use_contact_picker"
 	        android:title="@string/EPr_use_contact_picker"/>
         
-        <ListPreference
-	        android:key="@string/p_swipe_lists_performance_key"
-	        android:title="@string/EPr_swipe_lists_performance_title"
-	        android:entries="@array/EPr_swipe_lists_performance_mode"
-	        android:entryValues="@array/EPr_swipe_lists_performance_mode_values" 
-	        android:summary="@string/EPr_swipe_lists_performance_subtitle" />
         
         <com.todoroo.astrid.ui.MultilineCheckboxPreference
             android:key="@string/p_voiceInputEnabled"
