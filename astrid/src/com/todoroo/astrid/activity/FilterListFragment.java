@@ -52,6 +52,7 @@ import com.todoroo.astrid.adapter.FilterAdapter;
 import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.api.FilterListItem;
+import com.todoroo.astrid.core.CoreFilterExposer;
 import com.todoroo.astrid.service.StatisticsService;
 import com.todoroo.astrid.tags.TagService;
 import com.todoroo.astrid.tags.TagsPlugin;
@@ -312,6 +313,8 @@ public class FilterListFragment extends ListFragment {
     public void switchToActiveTasks() {
         if (adapter.getCount() > 0)
             setFilterItemSelected(adapter.getItem(0), 0);
+        else
+            setFilterItemSelected(CoreFilterExposer.buildInboxFilter(getResources()), 0);
     }
 
     @Override

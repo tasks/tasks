@@ -484,8 +484,8 @@ public class TagViewFragment extends TaskListFragment {
             // go back to active tasks
             FilterListFragment fl = ((AstridActivity) getActivity()).getFilterListFragment();
             if (fl != null) {
-                fl.switchToActiveTasks();
                 fl.clear(); // Should auto refresh
+                fl.switchToActiveTasks();
             }
             return;
         }
@@ -503,7 +503,7 @@ public class TagViewFragment extends TaskListFragment {
     public void onPause() {
         super.onPause();
 
-        getActivity().unregisterReceiver(notifyReceiver);
+        AndroidUtilities.tryUnregisterReceiver(getActivity(), notifyReceiver);
     }
 
     @Override
