@@ -287,7 +287,6 @@ public class EditPreferences extends TodorooPreferenceActivity {
     private static final HashMap<Class<?>, Integer> PREFERENCE_REQUEST_CODES = new HashMap<Class<?>, Integer>();
     static {
         PREFERENCE_REQUEST_CODES.put(SyncProviderPreferences.class, REQUEST_CODE_SYNC);
-//        PREFERENCE_REQUEST_CODES.put(LabsPreferences.class, REQUEST_CODE_LABS);
     }
 
     private void addPluginPreferences(PreferenceScreen screen) {

@@ -685,6 +685,9 @@ public final class ActFmSyncService {
         if (!f.exists())
             return;
 
+        if (!checkForToken())
+            return;
+
         ArrayList<Object> params = new ArrayList<Object>();
         params.add("task_id"); params.add(remoteTaskId);
         params.add("token"); params.add(token);

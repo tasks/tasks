@@ -804,8 +804,7 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
         loadItem(intent);
 
         synchronized (controls) {
-            if (!(ActFmPreferenceService.isPremiumUser() || FileMetadata.taskHasAttachments(model.getId()))) {
-                controls.remove(filesControlSet);
+            if (!FileMetadata.taskHasAttachments(model.getId()) || !ActFmPreferenceService.isPremiumUser()) {
                 filesControlSet.getDisplayView().setVisibility(View.GONE);
             }
             for (TaskEditControlSet controlSet : controls)
@@ -1111,6 +1110,7 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
         metadataService.save(fileMetadata);
         actFmSyncService.pushAttachmentInBackground(fileMetadata);
         filesControlSet.refreshMetadata();
+        filesControlSet.getDisplayView().setVisibility(View.VISIBLE);
     }
 
     @Override
