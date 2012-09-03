@@ -142,6 +142,10 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
      */
     private static final String TASK_REMOTE_ID = "task_remote_id"; //$NON-NLS-1$
 
+    /**
+     * Token for saving a bitmap in the intent before it has been added with a comment
+     */
+    public static final String TOKEN_PICTURE_IN_PROGRESS = "picture_in_progress"; //$NON-NLS-1$
 
     /**
      * Tab to start on
@@ -876,7 +880,7 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
                 tla.refreshTaskList();
             }
 
-            getActivity().getIntent().removeExtra(TaskListActivity.OPEN_TASK);
+            removeExtrasFromIntent(getActivity().getIntent());
             shouldSaveState = false;
             getActivity().onBackPressed();
 
@@ -910,6 +914,17 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
                     && model != null && model.isSaved()) {
                 taskService.delete(model);
             }
+        }
+    }
+
+    /**
+     * Helper to remove task edit specific info from activity intent
+     * @param intent
+     */
+    public static void removeExtrasFromIntent(Intent intent) {
+        if (intent != null) {
+            intent.removeExtra(TaskListActivity.OPEN_TASK);
+            intent.removeExtra(TOKEN_PICTURE_IN_PROGRESS);
         }
     }
 
@@ -962,7 +977,7 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
             }
         }
 
-        getActivity().getIntent().removeExtra(TaskListActivity.OPEN_TASK);
+        removeExtrasFromIntent(getActivity().getIntent());
         showCancelToast();
         getActivity().onBackPressed();
     }

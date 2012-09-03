@@ -55,6 +55,7 @@ import com.todoroo.astrid.actfm.ActFmCameraModule.CameraResultCallback;
 import com.todoroo.astrid.actfm.ActFmCameraModule.ClearImageCallback;
 import com.todoroo.astrid.actfm.sync.ActFmPreferenceService;
 import com.todoroo.astrid.actfm.sync.ActFmSyncService;
+import com.todoroo.astrid.activity.TaskEditFragment;
 import com.todoroo.astrid.adapter.UpdateAdapter;
 import com.todoroo.astrid.core.PluginServices;
 import com.todoroo.astrid.dao.MetadataDao.MetadataCriteria;
@@ -249,6 +250,15 @@ public class EditNoteActivity extends LinearLayout implements TimerActionListene
             notes.setText(task.getValue(Task.NOTES));
             notes.setPadding(5, 10, 5, 10);
             Linkify.addLinks(notes, Linkify.ALL);
+        }
+
+        Activity activity = fragment.getActivity();
+        if (activity != null) {
+            Bitmap bitmap = activity.getIntent().getParcelableExtra(TaskEditFragment.TOKEN_PICTURE_IN_PROGRESS);
+            if (bitmap != null) {
+                pendingCommentPicture = bitmap;
+                pictureButton.setImageBitmap(pendingCommentPicture);
+            }
         }
 
         //TODO add loading text back in
@@ -461,6 +471,11 @@ public class EditNoteActivity extends LinearLayout implements TimerActionListene
         commentField.setText(""); //$NON-NLS-1$
 
         pendingCommentPicture = usePicture ? null : pendingCommentPicture;
+        if (usePicture) {
+            Activity activity = fragment.getActivity();
+            if (activity != null)
+                activity.getIntent().removeExtra(TaskEditFragment.TOKEN_PICTURE_IN_PROGRESS);
+        }
         pictureButton.setImageResource(cameraButton);
         StatisticsService.reportEvent(StatisticsConstants.ACTFM_TASK_COMMENT);
 
@@ -554,6 +569,10 @@ public class EditNoteActivity extends LinearLayout implements TimerActionListene
             CameraResultCallback callback = new CameraResultCallback() {
                 @Override
                 public void handleCameraResult(Bitmap bitmap) {
+                    Activity activity = fragment.getActivity();
+                    if (activity != null) {
+                        activity.getIntent().putExtra(TaskEditFragment.TOKEN_PICTURE_IN_PROGRESS, bitmap);
+                    }
                     pendingCommentPicture = bitmap;
                     pictureButton.setImageBitmap(pendingCommentPicture);
                     commentField.requestFocus();

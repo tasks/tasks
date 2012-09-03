@@ -379,7 +379,7 @@ public class TaskListActivity extends AstridActivity implements MainMenuListener
             return true;
         }
 
-        getIntent().removeExtra(OPEN_TASK);
+        TaskEditFragment.removeExtrasFromIntent(getIntent());
         TaskEditFragment tef = getTaskEditFragment();
         if (tef != null)
             onBackPressed();
