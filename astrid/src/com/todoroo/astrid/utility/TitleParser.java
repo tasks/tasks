@@ -31,7 +31,7 @@ public class TitleParser {
         boolean markup = false;
         markup = repeatHelper(task) || markup;
         markup = dayHelper(task) || markup;
-        markup = listHelper(task,tags) || markup;
+        listHelper(task,tags); // Don't need to know if tags affected things since we don't show alerts for them
         markup = priorityHelper(task) || markup;
         return markup;
     }
