@@ -14,7 +14,6 @@ import android.app.Activity;
 import android.content.Context;
 import android.graphics.Rect;
 import android.view.View;
-import android.view.View.MeasureSpec;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.TextView;
@@ -35,7 +34,7 @@ public class HelpInfoPopover extends QuickActionWidget {
         if (dismissListener != null) {
             toShow.setOnDismissListener(dismissListener);
         }
-        parent.post(new Runnable() {
+        parent.postDelayed(new Runnable() {
             @Override
             public void run() {
                 try {
@@ -44,7 +43,7 @@ public class HelpInfoPopover extends QuickActionWidget {
                     //Activity wasn't running or something like that
                 }
             }
-        });
+        }, 250);
         return toShow;
     }
 
@@ -67,6 +66,7 @@ public class HelpInfoPopover extends QuickActionWidget {
         return mRect.width() / 2;
     }
 
+    @Override
     protected int getShowAtX() {
         return mRect.left;
     }
@@ -74,8 +74,7 @@ public class HelpInfoPopover extends QuickActionWidget {
     @Override
     protected void onMeasureAndLayout(Rect anchorRect, View contentView) {
         contentView.setLayoutParams(new FrameLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
-        contentView.measure(MeasureSpec.makeMeasureSpec(getScreenWidth(), MeasureSpec.EXACTLY),
-                ViewGroup.LayoutParams.WRAP_CONTENT);
+        contentView.measure(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
 
         int rootHeight = contentView.getMeasuredHeight();
 
