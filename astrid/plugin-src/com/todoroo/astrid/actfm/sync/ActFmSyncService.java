@@ -704,9 +704,9 @@ public final class ActFmSyncService {
             fileMetadata.setValue(FileMetadata.URL, result.optString("url"));
             metadataService.save(fileMetadata);
         } catch (ActFmServiceException e) {
-            handleException("push-attacgment-error", e);
+            handleException("push-attachment-error", e);
         } catch (IOException e) {
-            handleException("push-attacgment-error", e);
+            handleException("push-attachment-error", e);
         }
     }
 
@@ -1390,7 +1390,7 @@ public final class ActFmSyncService {
                     else
                         handleException("io-exception-list-" + model, e);
                 } catch (JSONException e) {
-                    handleException("json: " + result.toString(), e);
+                    handleException("json-exception-" + model, e);
                 } finally {
                     if(done != null)
                         done.run();
