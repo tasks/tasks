@@ -91,7 +91,7 @@ public class WelcomeWalkthrough extends ActFmLoginActivity {
     }
 
     protected void setupPWLogin() {
-        Button pwLogin = (Button) findViewById(R.id.pw_login);
+        Button pwLogin = (Button) findViewById(R.id.pw_signup);
         pwLogin.setOnClickListener(signUpListener);
     }
 

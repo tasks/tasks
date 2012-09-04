@@ -260,10 +260,10 @@
   <string name="actfm_ALA_password_label">Password</string>
 
   <!-- share login: Sign Up Title -->
-  <string name="actfm_ALA_signup_title">Create New Account</string>
+  <string name="actfm_ALA_signup_title">Sign Up</string>
 
   <!-- share login: Login Title -->
-  <string name="actfm_ALA_login_title">Login to Astrid.com</string>
+  <string name="actfm_ALA_login_title">Sign In</string>
 
   <!-- share login: Google Auth title -->
   <string name="actfm_GAA_title">Select the Google account you want to use:</string>

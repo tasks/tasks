@@ -48,25 +48,46 @@
       android:layout_height="fill_parent"
       android:paddingTop="5dip">
       
+        <TextView
+          android:id="@+id/tos"
+          android:layout_width="fill_parent"
+          android:layout_height="35dip"
+          android:layout_alignParentBottom="true"
+          android:gravity="center"
+          android:paddingLeft="20dip"
+          android:paddingRight="20dip"
+          android:textSize="12.5sp"
+          android:textColor="#ffffff" />  
+
+        <TextView
+            android:id="@+id/pw_login"
+            android:layout_width="wrap_content"
+            android:layout_height="35dip"
+            android:gravity="center"
+            android:layout_centerHorizontal="true"
+            android:layout_above="@id/tos" 
+            android:textColor="#444"
+            android:textSize="16sp"
+            android:text="@string/welcome_sign_in"/>
+            
         <Button
-          android:id="@+id/pw_login"
+          android:id="@+id/pw_signup"
           android:layout_width="fill_parent"
           android:layout_height="45dip"
-          android:layout_alignParentBottom="true"
+          android:layout_above="@id/pw_login"
           android:paddingLeft="17dip"
           android:paddingRight="20dip"
           android:layout_marginLeft="15dip"
           android:layout_marginRight="15dip"
-          android:layout_marginBottom="20dip"
           android:drawableLeft="@drawable/notif_astrid"
-          android:textSize="14sp" 
+          android:textSize="16sp" 
           android:text="@string/welcome_login_pw"/>    
       
         <com.facebook.android.LoginButton
           android:id="@+id/fb_login"
           android:layout_width="fill_parent"
           android:layout_height="45dip"
-          android:layout_above="@id/pw_login"
+          android:layout_above="@id/pw_signup"
           android:paddingLeft="20dip"
           android:paddingRight="20dip"
           android:layout_marginLeft="15dip"
@@ -88,15 +109,5 @@
           android:drawableLeft="@drawable/google"
           android:text="@string/actfm_ALA_gg_login" />
           
-        <TextView
-          android:id="@+id/tos"
-          android:layout_width="fill_parent"
-          android:layout_height="35dip"
-          android:layout_above="@id/gg_login"
-          android:gravity="center"
-          android:paddingLeft="20dip"
-          android:paddingRight="20dip"
-          android:textSize="12.5sp"
-          android:textColor="#ffffff" />   
   </RelativeLayout>
 </LinearLayout>

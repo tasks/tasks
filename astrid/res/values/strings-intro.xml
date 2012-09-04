@@ -39,10 +39,12 @@
   <!-- slide 7b -->
   <string name="welcome_login_tos_base">By using Astrid you agree to the</string>
   
-  <string name="welcome_login_tos_link">\"Terms of Service\"</string>
+  <string name="welcome_login_tos_link">Terms of Service</string>
   
   <!-- slide 7e -->
-  <string name="welcome_login_pw">Login with Username/Password</string>
+  <string name="welcome_login_pw">Sign up with email</string>
+  
+  <string name="welcome_sign_in">Sign in</string>
 
   <!-- slide 7f -->
   <string name="welcome_login_later">Connect Later</string>

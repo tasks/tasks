@@ -92,7 +92,7 @@
                 android:layout_gravity="center_horizontal" />
 
             <Button
-                android:id="@+id/pw_login"
+                android:id="@+id/pw_signup"
                 android:layout_width="match_parent"
                 android:layout_height="45dp"
                 android:paddingLeft="17dip"
@@ -103,6 +103,17 @@
                 android:textSize="12sp"
                 android:text="@string/welcome_login_pw"
                 android:layout_gravity="center_horizontal" />
+            
+            <TextView
+	            android:id="@+id/pw_login"
+	            android:layout_width="wrap_content"
+	            android:layout_height="35dip"
+	            android:gravity="center"
+	            android:layout_gravity="center_horizontal"
+	            android:layout_above="@id/tos" 
+	            android:textColor="#444"
+	            android:textSize="16sp"
+	            android:text="@string/welcome_sign_in"/>
 
             <TextView
 		          android:id="@+id/tos"

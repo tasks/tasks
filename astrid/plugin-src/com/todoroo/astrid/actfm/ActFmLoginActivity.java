@@ -9,8 +9,6 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.util.Random;
-import java.util.concurrent.atomic.AtomicBoolean;
-import java.util.concurrent.atomic.AtomicReference;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -31,6 +29,7 @@ import android.text.Spanned;
 import android.text.TextPaint;
 import android.text.method.PasswordTransformationMethod;
 import android.text.style.ClickableSpan;
+import android.text.style.UnderlineSpan;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.WindowManager;
@@ -187,7 +186,7 @@ public class ActFmLoginActivity extends FragmentActivity implements AuthListener
 
         String tosBase = getString(R.string.welcome_login_tos_base);
         String tosLink = getString(R.string.welcome_login_tos_link);
-        SpannableString link = getLinkStringWithCustomInterval(tosBase, tosLink, tosBase.length() + 2, -1,
+        SpannableString link = getLinkStringWithCustomInterval(tosBase, tosLink, tosBase.length() + 1, 0,
                 showTosListener);
         tos.setText(link);
     }
@@ -212,6 +211,13 @@ public class ActFmLoginActivity extends FragmentActivity implements AuthListener
         return link;
     }
 
+    private void setupSignIn(TextView signIn) {
+        signIn.setOnClickListener(signInListener);
+        SpannableString content = new SpannableString(getString(R.string.welcome_sign_in));
+        content.setSpan(new UnderlineSpan(), 0, content.length(), 0);
+        signIn.setText(content);
+    }
+
     @SuppressWarnings("nls")
     protected void initializeUI() {
         facebook = new Facebook(APP_ID);
@@ -229,8 +235,12 @@ public class ActFmLoginActivity extends FragmentActivity implements AuthListener
         if(AmazonMarketStrategy.isKindleFire())
             googleLogin.setVisibility(View.GONE);
         googleLogin.setOnClickListener(googleListener);
-        Button pwLogin = (Button) findViewById(R.id.pw_login);
-        pwLogin.setOnClickListener(signUpListener);
+        Button signUp = (Button) findViewById(R.id.pw_signup);
+        signUp.setOnClickListener(signUpListener);
+
+        TextView signIn = (TextView) findViewById(R.id.pw_login);
+        setupSignIn(signIn);
+
         setupTermsOfService((TextView) findViewById(R.id.tos));
     }
 
@@ -248,7 +258,7 @@ public class ActFmLoginActivity extends FragmentActivity implements AuthListener
 
     protected final OnClickListener signUpListener = new OnClickListener() {
         @Override
-        public void onClick(View arg0) {
+        public void onClick(View v) {
             final LinearLayout body = new LinearLayout(ActFmLoginActivity.this);
             body.setOrientation(LinearLayout.VERTICAL);
             body.setPadding(10, 0, 10, 0);
@@ -265,35 +275,49 @@ public class ActFmLoginActivity extends FragmentActivity implements AuthListener
                     InputType.TYPE_TEXT_VARIATION_PERSON_NAME |
                     InputType.TYPE_TEXT_FLAG_CAP_WORDS);
 
-            final AtomicReference<AlertDialog> dialog = new AtomicReference<AlertDialog>();
-            final AtomicBoolean isNew = new AtomicBoolean(true);
-            final Button toggleNew = new Button(ActFmLoginActivity.this);
-            toggleNew.setOnClickListener(new OnClickListener() {
+            final EditText email = addEditField(body,
+                    R.string.actfm_ALA_email_label);
+            email.setInputType(InputType.TYPE_CLASS_TEXT |
+                    InputType.TYPE_TEXT_VARIATION_EMAIL_ADDRESS);
+            getCredentials(new OnGetCredentials() {
                 @Override
-                public void onClick(View v) {
-                    isNew.set(!isNew.get());
-                    int nameIndex = body.indexOfChild(lastNameField);
-                    int visibility = isNew.get() ? View.VISIBLE : View.GONE;
-                    int passwordVisibility = isNew.get() ? View.GONE : View.VISIBLE;
-                    toggleNew.setText(isNew.get() ? R.string.actfm_ALA_pw_returning
-                            : R.string.actfm_ALA_pw_new);
-                    dialog.get().setTitle(
-                            isNew.get() ? R.string.actfm_ALA_signup_title
-                                    : R.string.actfm_ALA_login_title);
-                    body.getChildAt(nameIndex - 3).setVisibility(visibility);
-                    body.getChildAt(nameIndex - 2).setVisibility(visibility);
-                    body.getChildAt(nameIndex - 1).setVisibility(visibility);
-                    body.getChildAt(nameIndex).setVisibility(visibility);
-
-                    EditText password = (EditText) body.getChildAt(nameIndex + 4);
-                    String passwordText = isNew.get() ? generateRandomPassword() : ""; //$NON-NLS-1$
-                    password.setText(passwordText);
-                    body.getChildAt(nameIndex + 3).setVisibility(passwordVisibility);
-                    body.getChildAt(nameIndex + 4).setVisibility(passwordVisibility);
+                public void getCredentials(String[] accounts) {
+                    if (accounts != null && accounts.length > 0)
+                        email.setText(accounts[0]);
                 }
             });
-            toggleNew.setText(R.string.actfm_ALA_pw_returning);
-            body.addView(toggleNew, 0);
+
+            ScrollView bodyScroll = new ScrollView(ActFmLoginActivity.this);
+            bodyScroll.addView(body);
+
+            new AlertDialog.Builder(ActFmLoginActivity.this).setView(
+                    bodyScroll).setIcon(R.drawable.icon_32).setTitle(
+                    R.string.actfm_ALA_signup_title).setPositiveButton(
+                    android.R.string.ok, new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dlg, int which) {
+                            String firstName = firstNameField.getText().toString();
+                            String lastName =lastNameField.getText().toString();
+
+                            AndroidUtilities.hideSoftInputForViews(ActFmLoginActivity.this, firstNameField, lastNameField, email);
+                            authenticate(email.getText().toString(),
+                                    firstName, lastName, ActFmInvoker.PROVIDER_PASSWORD, generateRandomPassword());
+                            StatisticsService.reportEvent(StatisticsConstants.ACTFM_SIGNUP_PW);
+                        }
+                    }).setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dlg, int which) {
+                            AndroidUtilities.hideSoftInputForViews(ActFmLoginActivity.this, firstNameField, lastNameField, email);
+                        }
+                    }).show();
+        }
+    };
+
+    protected final OnClickListener signInListener = new OnClickListener() {
+        public void onClick(View v) {
+            final LinearLayout body = new LinearLayout(ActFmLoginActivity.this);
+            body.setOrientation(LinearLayout.VERTICAL);
+            body.setPadding(10, 0, 10, 0);
 
             final EditText email = addEditField(body,
                     R.string.actfm_ALA_email_label);
@@ -313,42 +337,27 @@ public class ActFmLoginActivity extends FragmentActivity implements AuthListener
                     InputType.TYPE_TEXT_VARIATION_PASSWORD);
             password.setTransformationMethod(new PasswordTransformationMethod());
 
-            password.setText(generateRandomPassword());
-            body.getChildAt(body.indexOfChild(password) - 1).setVisibility(View.GONE);
-            password.setVisibility(View.GONE);
-
             ScrollView bodyScroll = new ScrollView(ActFmLoginActivity.this);
             bodyScroll.addView(body);
 
-            dialog.set(new AlertDialog.Builder(ActFmLoginActivity.this).setView(
+            new AlertDialog.Builder(ActFmLoginActivity.this).setView(
                     bodyScroll).setIcon(R.drawable.icon_32).setTitle(
-                    R.string.actfm_ALA_signup_title).setPositiveButton(
+                    R.string.actfm_ALA_login_title).setPositiveButton(
                     android.R.string.ok, new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dlg, int which) {
-                            String firstName = isNew.get() ? firstNameField.getText().toString()
-                                    : null;
-                            String lastName = isNew.get() ? lastNameField.getText().toString()
-                                    : null;
-
-                            AndroidUtilities.hideSoftInputForViews(ActFmLoginActivity.this, firstNameField, lastNameField, email, password);
+                            AndroidUtilities.hideSoftInputForViews(ActFmLoginActivity.this, email, password);
                             authenticate(email.getText().toString(),
-                                    firstName, lastName, ActFmInvoker.PROVIDER_PASSWORD,
+                                    "", "", ActFmInvoker.PROVIDER_PASSWORD,  //$NON-NLS-1$//$NON-NLS-2$
                                     password.getText().toString());
-
-                            if (isNew.get())
-                                StatisticsService.reportEvent(StatisticsConstants.ACTFM_LOGIN_PW);
-                            else
-                                StatisticsService.reportEvent(StatisticsConstants.ACTFM_SIGNUP_PW);
+                            StatisticsService.reportEvent(StatisticsConstants.ACTFM_LOGIN_PW);
                         }
                     }).setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dlg, int which) {
-                            AndroidUtilities.hideSoftInputForViews(ActFmLoginActivity.this, firstNameField, lastNameField, email, password);
+                            AndroidUtilities.hideSoftInputForViews(ActFmLoginActivity.this, email, password);
                         }
-                    }).show());
-
-            dialog.get().setOwnerActivity(ActFmLoginActivity.this);
+                    }).show();
         }
     };
 

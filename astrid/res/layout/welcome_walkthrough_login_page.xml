@@ -80,7 +80,7 @@
 	      android:text="@string/actfm_ALA_fb_login" />
 	    
 	    <Button
-	      android:id="@+id/pw_login"
+	      android:id="@+id/pw_signup"
 	      android:layout_width="fill_parent"
 	      android:layout_height="45dip"
 	      android:layout_below="@id/fb_login"
@@ -89,7 +89,18 @@
           android:layout_marginLeft="15dip"
           android:layout_marginRight="15dip"
 	      android:textSize="16sp" 
-	      android:text="@string/welcome_login_pw"/>    
+	      android:text="@string/welcome_login_pw"/>
+	    
+	    <TextView
+            android:id="@+id/pw_login"
+            android:layout_width="wrap_content"
+            android:layout_height="35dip"
+            android:gravity="center"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@id/pw_signup" 
+            android:textColor="#444"
+            android:textSize="16sp"
+            android:text="@string/welcome_sign_in"/>
 	    
 	    <TextView
 	      android:id="@+id/login_later"
