@@ -19,10 +19,10 @@
   <string name="help_popover_list_settings">Tap to edit or share this list</string>
   
   <!-- slide 26c: Shown the first time a user sees the list settings tab -->
-  <string name="help_popover_collaborators">People you share with can help you build your list or finish tasks</string>
+  <string name="help_popover_collaborators">People you share with can help\nyou build your list or finish tasks</string>
   
   <!-- Shown after user adds a task on tablet-->
-  <string name="help_popover_add_lists">Tap add a list</string>
+  <string name="help_popover_add_lists">Tap to add a list</string>
   
   <!-- Shown after a user adds a task on phones -->
   <string name="help_popover_switch_lists">Tap to add a list or switch between lists</string>

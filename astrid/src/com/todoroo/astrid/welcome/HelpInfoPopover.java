@@ -19,6 +19,7 @@ import android.widget.FrameLayout;
 import android.widget.TextView;
 
 import com.timsu.astrid.R;
+import com.todoroo.astrid.utility.AstridPreferences;
 
 /**
  * Displays a popover with some help text for first time users.
@@ -47,6 +48,8 @@ public class HelpInfoPopover extends QuickActionWidget {
         return toShow;
     }
 
+    private final boolean tablet;
+
     private HelpInfoPopover(Context context, int textId) {
         super(context);
         setContentView(R.layout.help_popover);
@@ -54,6 +57,7 @@ public class HelpInfoPopover extends QuickActionWidget {
         message.setText(textId);
         setFocusable(false);
         setTouchable(true);
+        tablet = AstridPreferences.useTabletLayout(context);
     }
 
     @Override
@@ -63,6 +67,8 @@ public class HelpInfoPopover extends QuickActionWidget {
 
     @Override
     protected int getArrowLeftMargin(View arrow) {
+        if (tablet)
+            return mRect.width() / 4;
         return mRect.width() / 2;
     }
 
