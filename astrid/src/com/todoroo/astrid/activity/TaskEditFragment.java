@@ -98,6 +98,7 @@ import com.todoroo.astrid.ui.HideUntilControlSet;
 import com.todoroo.astrid.ui.ImportanceControlSet;
 import com.todoroo.astrid.ui.NestableScrollView;
 import com.todoroo.astrid.ui.NestableViewPager;
+import com.todoroo.astrid.ui.PopupControlSet;
 import com.todoroo.astrid.ui.ReminderControlSet;
 import com.todoroo.astrid.ui.TaskEditMoreControls;
 import com.todoroo.astrid.ui.WebServicesView;
@@ -131,6 +132,8 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
      * Content Values to set
      */
     public static final String TOKEN_VALUES = "v"; //$NON-NLS-1$
+
+    public static final String TOKEN_OPEN_CONTROL = "open_control"; //$NON-NLS-1$
 
     /**
      * Task in progress (during orientation change)
@@ -602,6 +605,8 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
 
         moreSectionHasControls = false;
 
+        Class<?> openControl = (Class<?>) getActivity().getIntent().getSerializableExtra(TOKEN_OPEN_CONTROL);
+
         for (int i = 0; i < itemOrder.length; i++) {
             String item = itemOrder[i];
             if (item.equals(hideAlwaysTrigger)) {
@@ -622,6 +627,7 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
                 else if (curr != null)
                     controlSet = (LinearLayout) curr.getDisplayView();
 
+
                 if (controlSet != null) {
                     if ((i + 1 >= itemOrder.length || itemOrder[i + 1].equals(moreSectionTrigger))) {
                         removeTeaSeparator(controlSet);
@@ -630,8 +636,14 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
                     if (section == moreControls)
                         moreSectionHasControls = true;
                 }
+
+                if (curr != null && curr.getClass().equals(openControl) && curr instanceof PopupControlSet) {
+                    ((PopupControlSet) curr).getDisplayView().performClick();
+                }
             }
         }
+
+        getActivity().getIntent().removeExtra(TOKEN_OPEN_CONTROL);
 
         // Load task data in background
         new TaskEditBackgroundLoader().start();
@@ -832,6 +844,13 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
         StringBuilder toast = new StringBuilder();
         synchronized (controls) {
             for (TaskEditControlSet controlSet : controls) {
+                if (controlSet instanceof PopupControlSet) { // Save open control set
+                    PopupControlSet popup = (PopupControlSet) controlSet;
+                    Dialog d = popup.getDialog();
+                    if (d != null && d.isShowing()) {
+                        getActivity().getIntent().putExtra(TOKEN_OPEN_CONTROL, popup.getClass());
+                    }
+                }
                 String toastText = controlSet.writeToModel(model);
                 if (toastText != null)
                     toast.append('\n').append(toastText);

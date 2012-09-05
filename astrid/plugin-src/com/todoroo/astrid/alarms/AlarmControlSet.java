@@ -40,7 +40,6 @@ public final class AlarmControlSet extends TaskEditControlSet {
     private DateAndTimeDialog pickerDialog;
 
     public AlarmControlSet(Activity activity, int layout) {
-        //View v = LayoutInflater.from(activity).inflate(R.layout.alarm_control, parent, true);
         super(activity, layout);
     }
 

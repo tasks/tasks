@@ -144,6 +144,10 @@ public abstract class PopupControlSet extends TaskEditControlSet {
         refreshDisplayView();
     }
 
+    public Dialog getDialog() {
+        return dialog;
+    }
+
     @Override
     public String writeToModel(Task task) {
         if (initialized && dialog != null)
