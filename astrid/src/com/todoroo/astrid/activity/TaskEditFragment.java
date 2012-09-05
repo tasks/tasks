@@ -694,11 +694,10 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
                             R.id.voiceAddNoteButton);
                     voiceAddNoteButton.setVisibility(View.VISIBLE);
                     int prompt = R.string.voice_edit_note_prompt;
-                    voiceNoteAssistant = new VoiceInputAssistant(TaskEditFragment.this,
-                            voiceAddNoteButton, notesEditText, REQUEST_VOICE_RECOG);
+                    voiceNoteAssistant = new VoiceInputAssistant(voiceAddNoteButton, REQUEST_VOICE_RECOG);
                     voiceNoteAssistant.setAppend(true);
                     voiceNoteAssistant.setLanguageModel(RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);
-                    voiceNoteAssistant.configureMicrophoneButton(prompt);
+                    voiceNoteAssistant.configureMicrophoneButton(TaskEditFragment.this, prompt);
                 }
                 loadMoreContainer();
             }
@@ -1231,8 +1230,7 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
                 && resultCode == Activity.RESULT_OK) {
             // handle the result of voice recognition, put it into the
             // appropiate textfield
-            voiceNoteAssistant.handleActivityResult(requestCode, resultCode,
-                    data);
+            voiceNoteAssistant.handleActivityResult(requestCode, resultCode, data, notesEditText);
 
             // write the voicenote into the model, or it will be deleted by
             // onResume.populateFields

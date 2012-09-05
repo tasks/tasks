@@ -52,9 +52,7 @@ public class VoiceInputAssistant {
      */
     private int requestCode = VOICE_RECOGNITION_REQUEST_CODE;
     private Activity activity;
-    private final Fragment fragment;
     private final ImageButton voiceButton;
-    private final EditText textField;
     private boolean append = false;
 
     private String languageModel = RecognizerIntent.LANGUAGE_MODEL_WEB_SEARCH;
@@ -84,9 +82,7 @@ public class VoiceInputAssistant {
      * a microphone-button themselves.
      */
     public VoiceInputAssistant() {
-        this.fragment = null;
         this.voiceButton = null;
-        this.textField = null;
     }
 
     /**
@@ -96,9 +92,7 @@ public class VoiceInputAssistant {
      */
     public VoiceInputAssistant(Activity activity) {
         this.activity = activity;
-        this.fragment = null;
         this.voiceButton = null;
-        this.textField = null;
     }
 
     /**
@@ -109,13 +103,9 @@ public class VoiceInputAssistant {
      * @param voiceButton the microphone-Button
      * @param textField the textfield that should get the resulttext
      */
-    public VoiceInputAssistant(Fragment fragment, ImageButton voiceButton, EditText textField) {
-        Assert.assertNotNull("Each VoiceInputAssistant must be bound to a fragment!", fragment);
+    public VoiceInputAssistant(ImageButton voiceButton) {
         Assert.assertNotNull("A VoiceInputAssistant without a voiceButton makes no sense!", voiceButton);
-        Assert.assertNotNull("You have to specify a textfield that is bound to this VoiceInputAssistant!!", textField);
-        this.fragment = fragment;
         this.voiceButton = voiceButton;
-        this.textField = textField;
     }
 
     /**
@@ -133,8 +123,8 @@ public class VoiceInputAssistant {
      * @param requestCode has to be unique in a single fragment-context,
      *   dont use VOICE_RECOGNITION_REQUEST_CODE, this is reserved for the other constructor
      */
-    public VoiceInputAssistant(Fragment fragment, ImageButton voiceButton, EditText textField, int requestCode) {
-        this(fragment, voiceButton, textField);
+    public VoiceInputAssistant(ImageButton voiceButton, int requestCode) {
+        this(voiceButton);
         if (requestCode == VOICE_RECOGNITION_REQUEST_CODE)
             throw new InvalidParameterException("You have to specify a unique requestCode for this VoiceInputAssistant!");
         this.requestCode = requestCode;
@@ -148,14 +138,11 @@ public class VoiceInputAssistant {
      * @param voiceButton the microphone-Button
      * @param textField the textfield that should get the resulttext
      */
-    public VoiceInputAssistant(Activity activity, ImageButton voiceButton, EditText textField) {
+    public VoiceInputAssistant(Activity activity, ImageButton voiceButton) {
         Assert.assertNotNull("Each VoiceInputAssistant must be bound to a activity!", activity);
         Assert.assertNotNull("A VoiceInputAssistant without a voiceButton makes no sense!", voiceButton);
-        Assert.assertNotNull("You have to specify a textfield that is bound to this VoiceInputAssistant!!", textField);
         this.activity = activity;
-        this.fragment = null;
         this.voiceButton = voiceButton;
-        this.textField = textField;
     }
 
     /**
@@ -173,8 +160,8 @@ public class VoiceInputAssistant {
      * @param requestCode has to be unique in a single fragment-context,
      *   dont use VOICE_RECOGNITION_REQUEST_CODE, this is reserved for the other constructor
      */
-    public VoiceInputAssistant(Activity activity, ImageButton voiceButton, EditText textField, int requestCode) {
-        this(activity, voiceButton, textField);
+    public VoiceInputAssistant(Activity activity, ImageButton voiceButton, int requestCode) {
+        this(activity, voiceButton);
         if (requestCode == VOICE_RECOGNITION_REQUEST_CODE)
             throw new InvalidParameterException("You have to specify a unique requestCode for this VoiceInputAssistant!");
         this.requestCode = requestCode;
@@ -186,7 +173,7 @@ public class VoiceInputAssistant {
      *
      * @param prompt Specify the R.string.string_id resource for the prompt-text during voice-recognition here
      */
-    public void startVoiceRecognitionActivity(int prompt) {
+    public void startVoiceRecognitionActivity(Fragment fragment, int prompt) {
         Intent intent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
         intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, languageModel);
         intent.putExtra(RecognizerIntent.EXTRA_MAX_RESULTS, 1);
@@ -215,7 +202,7 @@ public class VoiceInputAssistant {
      * @param data
      * @return
      */
-    public boolean handleActivityResult(int activityRequestCode, int resultCode, Intent data) {
+    public boolean handleActivityResult(int activityRequestCode, int resultCode, Intent data, EditText textField) {
         boolean result = false;
         // handle the result of voice recognition, put it into the textfield
         if (activityRequestCode == this.requestCode) {
@@ -272,12 +259,12 @@ public class VoiceInputAssistant {
         return null;
     }
 
-    public void configureMicrophoneButton(final int prompt) {
+    public void configureMicrophoneButton(final Fragment fragment, final int prompt) {
         if (Preferences.getBoolean(R.string.p_voiceInputEnabled, true) && VoiceRecognizer.voiceInputAvailable(ContextManager.getContext())) {
             voiceButton.setVisibility(View.VISIBLE);
             voiceButton.setOnClickListener(new OnClickListener() {
                 public void onClick(View v) {
-                    startVoiceRecognitionActivity(prompt);
+                    startVoiceRecognitionActivity(fragment, prompt);
                 }
             });
         } else {

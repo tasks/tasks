@@ -526,7 +526,7 @@ public class TaskListFragment extends ListFragment implements OnScrollListener,
 
     protected void setupQuickAddBar() {
         quickAddBar = (QuickAddBar) getView().findViewById(R.id.taskListFooter);
-        quickAddBar.initialize(getActivity(), this, mListener);
+        quickAddBar.initialize((AstridActivity) getActivity(), this, mListener);
 
         getListView().setOnTouchListener(new OnTouchListener() {
             @Override

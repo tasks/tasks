@@ -62,8 +62,7 @@ public class VoiceRecognizer {
 
     private static VoiceRecognizer instance = null;
 
-    public static VoiceRecognizer instantiateVoiceRecognizer(Context context, RecognizerApiListener listener,
-            Fragment fragment, ImageButton voiceAddButton, EditText quickAddBox) {
+    public static VoiceRecognizer instantiateVoiceRecognizer(Context context, RecognizerApiListener listener, ImageButton voiceAddButton) {
         synchronized(VoiceRecognizer.class) {
             if (instance == null)
                 instance = new VoiceRecognizer();
@@ -76,13 +75,12 @@ public class VoiceRecognizer {
             instance.recognizerApi = new RecognizerApi(context);
             instance.recognizerApi.setListener(listener);
         } else {
-            instance.voiceInputAssistant = new VoiceInputAssistant(fragment,
-                    voiceAddButton, quickAddBox);
+            instance.voiceInputAssistant = new VoiceInputAssistant(voiceAddButton);
         }
         return instance;
     }
 
-    public void startVoiceRecognition(Context context, String currentVoiceFile) {
+    public void startVoiceRecognition(Context context, Fragment fragment, String currentVoiceFile) {
         if (speechRecordingAvailable(context) && recognizerApi != null) {
             recognizerApi.setTemporaryFile(currentVoiceFile);
             recognizerApi.start(Constants.PACKAGE,
@@ -92,13 +90,13 @@ public class VoiceRecognizer {
             int prompt = R.string.voice_edit_title_prompt;
             if (Preferences.getBoolean(R.string.p_voiceInputCreatesTask, false))
                 prompt = R.string.voice_create_prompt;
-            voiceInputAssistant.startVoiceRecognitionActivity(prompt);
+            voiceInputAssistant.startVoiceRecognitionActivity(fragment, prompt);
         }
     }
 
-    public boolean handleActivityResult(int requestCode, int resultCode, Intent data) {
+    public boolean handleActivityResult(int requestCode, int resultCode, Intent data, EditText textField) {
         if (instance != null && instance.voiceInputAssistant != null)
-            return instance.voiceInputAssistant.handleActivityResult(requestCode, resultCode, data);
+            return instance.voiceInputAssistant.handleActivityResult(requestCode, resultCode, data, textField);
         return false;
     }
 

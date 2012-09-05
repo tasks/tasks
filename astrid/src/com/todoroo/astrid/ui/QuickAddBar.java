@@ -14,7 +14,6 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
-import android.speech.SpeechRecognizer;
 import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.view.KeyEvent;
@@ -27,10 +26,8 @@ import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.TextView.OnEditorActionListener;
-import android.widget.Toast;
 
 import com.timsu.astrid.R;
-import com.todoroo.aacenc.RecognizerApi.RecognizerApiListener;
 import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.ContextManager;
 import com.todoroo.andlib.service.DependencyInjectionService;
@@ -71,7 +68,7 @@ import com.todoroo.astrid.voice.VoiceRecognizer;
  * @author Tim Su <tim@astrid.com>
  *
  */
-public class QuickAddBar extends LinearLayout implements RecognizerApiListener {
+public class QuickAddBar extends LinearLayout {
 
     private ImageButton voiceAddButton;
     private ImageButton quickAddButton;
@@ -97,7 +94,7 @@ public class QuickAddBar extends LinearLayout implements RecognizerApiListener {
 
     private VoiceRecognizer voiceRecognizer;
 
-    private Activity activity;
+    private AstridActivity activity;
     private TaskListFragment fragment;
 
     public QuickAddBar(Context context, AttributeSet attrs, int defStyle) {
@@ -112,7 +109,7 @@ public class QuickAddBar extends LinearLayout implements RecognizerApiListener {
         super(context);
     }
 
-    public void initialize(Activity myActivity, TaskListFragment myFragment,
+    public void initialize(AstridActivity myActivity, TaskListFragment myFragment,
             final OnTaskListItemClickedListener mListener) {
         activity = myActivity;
         fragment = myFragment;
@@ -417,7 +414,7 @@ public class QuickAddBar extends LinearLayout implements RecognizerApiListener {
 
     public boolean onActivityResult(int requestCode, int resultCode, Intent data) {
         // handle the result of voice recognition, put it into the textfield
-        if (voiceRecognizer.handleActivityResult(requestCode, resultCode, data)) {
+        if (voiceRecognizer.handleActivityResult(requestCode, resultCode, data, quickAddBox)) {
             // if user wants, create the task directly (with defaultvalues)
             // after saying it
             Flags.set(Flags.TLA_RESUMED_FROM_VOICE_ADD);
@@ -439,47 +436,26 @@ public class QuickAddBar extends LinearLayout implements RecognizerApiListener {
         return false;
     }
 
+
+    public VoiceRecognizer getVoiceRecognizer() {
+        return voiceRecognizer;
+    }
     public void startVoiceRecognition() {
         if (VoiceRecognizer.speechRecordingAvailable(activity) && currentVoiceFile == null) {
             currentVoiceFile = Long.toString(DateUtilities.now());
         }
-        voiceRecognizer.startVoiceRecognition(activity, currentVoiceFile);
+        voiceRecognizer.startVoiceRecognition(activity, fragment, currentVoiceFile);
     }
 
     public void setupRecognizerApi() {
-        voiceRecognizer = VoiceRecognizer.instantiateVoiceRecognizer(activity, this, fragment, voiceAddButton, quickAddBox);
+        voiceRecognizer = VoiceRecognizer.instantiateVoiceRecognizer(activity, activity, voiceAddButton);
     }
 
     public void destroyRecognizerApi() {
         voiceRecognizer.destroyRecognizerApi();
     }
 
-    @Override
-    public void onSpeechResult(String result) {
-        quickAddBox.setText(result);
-    }
 
-    @Override
-    public void onSpeechError(int error) {
-        voiceRecognizer.cancel();
-
-        int errorStr = 0;
-        switch(error) {
-        case SpeechRecognizer.ERROR_NETWORK:
-        case SpeechRecognizer.ERROR_NETWORK_TIMEOUT:
-            errorStr = R.string.speech_err_network;
-            break;
-        case SpeechRecognizer.ERROR_NO_MATCH:
-            Toast.makeText(activity, R.string.speech_err_no_match, Toast.LENGTH_LONG).show();
-            break;
-        default:
-            errorStr = R.string.speech_err_default;
-            break;
-        }
-
-        if (errorStr > 0)
-            DialogUtilities.okDialog(activity, activity.getString(errorStr), null);
-    }
 
     public void hideKeyboard() {
         InputMethodManager imm = (InputMethodManager) activity.getSystemService(

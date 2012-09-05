@@ -11,16 +11,21 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.speech.SpeechRecognizer;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.view.View;
 import android.view.WindowManager.BadTokenException;
+import android.widget.EditText;
+import android.widget.Toast;
 
 import com.timsu.astrid.R;
+import com.todoroo.aacenc.RecognizerApi.RecognizerApiListener;
 import com.todoroo.andlib.service.ContextManager;
 import com.todoroo.andlib.utility.AndroidUtilities;
+import com.todoroo.andlib.utility.DialogUtilities;
 import com.todoroo.astrid.actfm.TagUpdatesFragment;
 import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.api.Filter;
@@ -38,7 +43,9 @@ import com.todoroo.astrid.service.StatisticsConstants;
 import com.todoroo.astrid.service.StatisticsService;
 import com.todoroo.astrid.subtasks.SubtasksListFragment;
 import com.todoroo.astrid.ui.DateChangedAlerts;
+import com.todoroo.astrid.ui.QuickAddBar;
 import com.todoroo.astrid.utility.AstridPreferences;
+import com.todoroo.astrid.voice.VoiceRecognizer;
 
 /**
  * This wrapper activity contains all the glue-code to handle the callbacks between the different
@@ -54,7 +61,8 @@ import com.todoroo.astrid.utility.AstridPreferences;
 public class AstridActivity extends FragmentActivity
     implements FilterListFragment.OnFilterItemClickedListener,
     TaskListFragment.OnTaskListItemClickedListener,
-    TaskEditFragment.OnTaskEditDetailsClickedListener {
+    TaskEditFragment.OnTaskEditDetailsClickedListener,
+    RecognizerApiListener {
 
     public static final int LAYOUT_SINGLE = 0;
     public static final int LAYOUT_DOUBLE = 1;
@@ -330,6 +338,48 @@ public class AstridActivity extends FragmentActivity
                 });
         }
         return fragment;
+    }
+
+    // Voice recognizer callbacks
+    @Override
+    public void onSpeechResult(String result) {
+        TaskListFragment tlf = getTaskListFragment();
+        if (tlf != null) {
+            EditText box = tlf.quickAddBar.getQuickAddBox();
+            if (box != null)
+                box.setText(result);
+        }
+
+    }
+
+    @Override
+    public void onSpeechError(int error) {
+        TaskListFragment tlf = getTaskListFragment();
+        if (tlf != null) {
+            QuickAddBar quickAdd = tlf.quickAddBar;
+            if (quickAdd != null) {
+                VoiceRecognizer vr = quickAdd.getVoiceRecognizer();
+                if (vr != null)
+                    vr.cancel();
+            }
+        }
+
+        int errorStr = 0;
+        switch(error) {
+        case SpeechRecognizer.ERROR_NETWORK:
+        case SpeechRecognizer.ERROR_NETWORK_TIMEOUT:
+            errorStr = R.string.speech_err_network;
+            break;
+        case SpeechRecognizer.ERROR_NO_MATCH:
+            Toast.makeText(this, R.string.speech_err_no_match, Toast.LENGTH_LONG).show();
+            break;
+        default:
+            errorStr = R.string.speech_err_default;
+            break;
+        }
+
+        if (errorStr > 0)
+            DialogUtilities.okDialog(this, getString(errorStr), null);
     }
 
     /**
