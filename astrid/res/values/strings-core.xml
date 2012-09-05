@@ -567,6 +567,12 @@
     
   <!-- slide 31g: Preference Window Title -->
   <string name="EPr_title">Astrid: Settings</string>
+
+  <string name="EPr_title_short">Settings</string>
+  
+  <string name="EPr_share_astrid">Tell others about Astrid</string>
+
+  <string name="EPr_share_astrid_summary">Rate us or share on your favorite social network</string>
   
   <!-- slide 46a -->
   <string name="EPr_deactivated">deactivated</string>

@@ -18,6 +18,12 @@
 	    <PreferenceScreen android:title="@string/EPr_faq_title" android:key="@string/p_help"/>
     </PreferenceScreen>
     
+    <PreferenceScreen android:title="@string/EPr_share_astrid"
+        android:key="@string/EPr_share_astrid"
+        android:summary="@string/EPr_share_astrid_summary"/>
+    
+    <PreferenceCategory android:title="@string/EPr_title_short"/>
+    
     <PreferenceScreen
         android:title="@string/EPr_appearance_header"
         android:summary="@string/EPr_appearance_summary">

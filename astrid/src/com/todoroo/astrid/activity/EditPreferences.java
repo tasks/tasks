@@ -82,7 +82,7 @@ public class EditPreferences extends TodorooPreferenceActivity {
 
     private static final String SUPPORT_URL = "http://blog.astrid.com/topics/support/android"; //$NON-NLS-1$
 
-    private static final int APPEARANCE_PREFERENCE = 2;
+    private static final int APPEARANCE_PREFERENCE = 4;
 
     private static final int REQUEST_CODE_SYNC = 0;
     private static final int REQUEST_CODE_FILES_DIR = 2;
@@ -174,6 +174,15 @@ public class EditPreferences extends TodorooPreferenceActivity {
             @Override
             public boolean onPreferenceClick(Preference p) {
                 showAccountPrefs();
+                return true;
+            }
+        });
+
+        preference = screen.findPreference(getString(R.string.EPr_share_astrid));
+        preference.setOnPreferenceClickListener(new OnPreferenceClickListener() {
+            @Override
+            public boolean onPreferenceClick(Preference p) {
+                showShareActivity();
                 return true;
             }
         });
@@ -282,6 +291,11 @@ public class EditPreferences extends TodorooPreferenceActivity {
             Intent intent = new Intent(this, ActFmLoginActivity.class);
             startActivity(intent);
         }
+    }
+
+    private void showShareActivity() {
+        Intent intent = new Intent(this, ShareActivity.class);
+        startActivity(intent);
     }
 
     private static final HashMap<Class<?>, Integer> PREFERENCE_REQUEST_CODES = new HashMap<Class<?>, Integer>();

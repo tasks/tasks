@@ -165,6 +165,8 @@
 	    </intent-filter>
     </activity>
 
+    <activity android:name="com.todoroo.astrid.activity.ShareActivity"/>
+    
     <!-- Start of Crittercism.com Code -->
 	<activity android:name="com.crittercism.NewFeedbackSpringboardActivity" android:theme="@android:style/Theme.Black.NoTitleBar.Fullscreen"></activity>
 	<activity android:name="com.crittercism.NewFeedbackIssueListActivity" android:theme="@android:style/Theme.Black.NoTitleBar.Fullscreen"></activity>

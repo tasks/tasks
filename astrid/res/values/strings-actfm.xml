@@ -322,5 +322,10 @@
   <string name="actfm_inapp_billing">Upgrade to Premium</string>
   <string name="actfm_inapp_billing_summary">Attach files, voice backups, premium support &amp; more</string>
   
+  <!-- Sharing -->
+  <string name="share_with_facebook">Share with Facebook</string>
+  <string name="share_with_twitter">Share with Twitter</string>
+  <string name="share_with_google">Share with Google+</string>
+  
 </resources>
 
