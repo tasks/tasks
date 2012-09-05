@@ -11,6 +11,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.ActionBar;
 import android.support.v4.app.FragmentActivity;
+import android.support.v4.view.MenuItem;
 import android.text.Html;
 import android.text.Spanned;
 import android.util.DisplayMetrics;
@@ -273,5 +274,14 @@ public class BillingActivity extends FragmentActivity {
         if (!initialized) {
             billingService.restoreTransactions();
         }
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == android.R.id.home) {
+            finish();
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 }

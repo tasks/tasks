@@ -1,22 +1,36 @@
 package com.todoroo.astrid.activity;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.text.SpannableString;
-import android.text.style.UnderlineSpan;
+import android.support.v4.app.ActionBar;
+import android.support.v4.app.FragmentActivity;
+import android.support.v4.view.MenuItem;
+import android.util.DisplayMetrics;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.ImageView;
+import android.widget.ImageView.ScaleType;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.timsu.astrid.R;
+import com.todoroo.astrid.service.ThemeService;
 
-public class ShareActivity extends Activity {
+public class ShareActivity extends FragmentActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        ThemeService.applyTheme(this);
         super.onCreate(savedInstanceState);
+
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.setDisplayHomeAsUpEnabled(true);
+        actionBar.setDisplayShowTitleEnabled(false);
+
+        actionBar.setDisplayShowCustomEnabled(true);
+        actionBar.setCustomView(R.layout.header_title_view);
+        ((TextView) actionBar.getCustomView().findViewById(R.id.title)).setText(R.string.share_title);
 
         setContentView(R.layout.share_activity);
         TextView fb = (TextView) findViewById(R.id.share_facebook);
@@ -28,19 +42,45 @@ public class ShareActivity extends Activity {
         TextView google = (TextView) findViewById(R.id.share_google);
         setUpTextView(google, getString(R.string.share_with_google), "https://plus.google.com/116404018347675245869"); //$NON-NLS-1$
 
+        setupText();
+
     }
 
     private void setUpTextView(TextView tv, String text, final String url) {
-        SpannableString span = new SpannableString(text);
-        span.setSpan(new UnderlineSpan(), 0, text.length(), 0);
-        tv.setText(span);
-        tv.setOnClickListener(new OnClickListener() {
+        tv.setText(text);
+        ((View) tv.getParent()).setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
                 startActivity(intent);
             }
         });
+    }
+
+    private void setupText() {
+        View speechBubbleBackground = findViewById(R.id.speech_bubble_container);
+        speechBubbleBackground.setBackgroundColor(0);
+
+        DisplayMetrics metrics = getResources().getDisplayMetrics();
+        ImageView icon = (ImageView) findViewById(R.id.astridIcon);
+
+        int dim = (int) (80 * metrics.density);
+        icon.setLayoutParams(new LinearLayout.LayoutParams(dim, dim));
+        icon.setScaleType(ScaleType.FIT_CENTER);
+
+        TextView speechBubble = (TextView) findViewById(R.id.reminder_message);
+
+        speechBubble.setText(R.string.share_speech_bubble);
+        speechBubble.setTextSize(17);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == android.R.id.home) {
+            finish();
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
 }
