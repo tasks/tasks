@@ -145,6 +145,13 @@ public abstract class PopupControlSet extends TaskEditControlSet {
     }
 
     @Override
+    public String writeToModel(Task task) {
+        if (initialized && dialog != null)
+            dialog.dismiss();
+        return super.writeToModel(task);
+    }
+
+    @Override
     public void readFromTask(Task task) {
         super.readFromTask(task);
         refreshDisplayView();

@@ -670,7 +670,9 @@ public class EditPeopleControlSet extends PopupControlSet {
 
     @Override
     public String writeToModel(Task t) {
-        // do nothing, we use a separate method
+        if (initialized && dialog != null)
+            dialog.dismiss();
+        // do nothing else, we use a separate method
         return null;
     }
 

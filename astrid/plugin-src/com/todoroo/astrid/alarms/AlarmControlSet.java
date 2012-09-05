@@ -70,6 +70,13 @@ public final class AlarmControlSet extends TaskEditControlSet {
     }
 
     @Override
+    public String writeToModel(Task task) {
+        if (initialized && pickerDialog != null)
+            pickerDialog.dismiss();
+        return super.writeToModel(task);
+    }
+
+    @Override
     protected String writeToModelAfterInitialized(Task task) {
         LinkedHashSet<Long> alarms = new LinkedHashSet<Long>();
         for(int i = 0; i < alertsContainer.getChildCount(); i++) {
