@@ -46,6 +46,7 @@ import com.todoroo.astrid.utility.AstridPreferences;
 
 public final class UpgradeService {
 
+    public static final int V4_3_1 = 279;
     public static final int V4_3_0 = 278;
     public static final int V4_2_6 = 277;
     public static final int V4_2_5 = 276;
@@ -217,8 +218,15 @@ public final class UpgradeService {
         Preferences.clear(AstridPreferences.P_UPGRADE_FROM);
         StringBuilder changeLog = new StringBuilder();
 
+        if (from >= V4_3_0 && from < V4_3_1) {
+            newVersionString(changeLog, "4.3.1 (9/06/12)", new String[] {
+               "Fixed crashes for Google Tasks users and certain filters",
+               "Added ability to complete shared tasks from list view"
+            });
+        }
+
         if (from < V4_3_0) {
-            newVersionString(changeLog, "4.3.0 (8/31/12)", new String[] {
+            newVersionString(changeLog, "4.3.0 (9/05/12)", new String[] {
                "Significant performance improvements",
                "Voice-add now enabled for all users!",
                "New feature: Featured lists (Enable in Settings -> Appearance)",
