@@ -22,7 +22,7 @@ public class DisposableTaskListFragment extends TaskListFragment {
     public void onDetach() {
         Activity activity = getActivity();
         if (activity instanceof TaskListActivity &&
-                Preferences.getIntegerFromString(R.string.p_swipe_lists_performance_key, 0) > 0) {
+                Preferences.getBoolean(R.string.p_swipe_lists_enabled, false)) {
             TaskListActivity tla = (TaskListActivity) activity;
             if (tla.getFragmentLayout() == AstridActivity.LAYOUT_SINGLE) {
                 TaskListFragmentPagerAdapter adapter = tla.getFragmentPagerAdapter();

@@ -29,8 +29,7 @@ public class TaskListFragmentPager extends ViewPager {
 
     public TaskListFragmentPager(Context context, AttributeSet attrs) {
         super(context, attrs);
-        int offscreenPageLimit = Preferences.getIntegerFromString(R.string.p_swipe_lists_performance_key, 3);
-        setOffscreenPageLimit(offscreenPageLimit);
+        setOffscreenPageLimit(3);
         setPageMargin(1);
         setPageMarginDrawable(R.drawable.vertical_separator);
     }

@@ -312,8 +312,10 @@
   <!-- default reminder mode setting (corresponds to entry in TEA_reminder_mode_once, TEA_reminder_mode_five, TEA_reminder_mode_nonstop) -->
   <string name="p_default_reminders_mode_key">rmd_default_reminder_mode</string>
   
-  <!-- swipe between lists performance mode setting -->
+  <!-- swipe between lists performance mode setting (DEPRECATED)-->
   <string name="p_swipe_lists_performance_key">p_swipe_lists_perf</string>
+
+  <string name="p_swipe_lists_enabled">p_swipe_lists_enabled</string>
   
   <!-- use new contact picker setting -->
   <string name="p_use_contact_picker">p_use_contact_picker</string>

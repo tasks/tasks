@@ -230,7 +230,7 @@ public class TaskListActivity extends AstridActivity implements MainMenuListener
     protected int getContentView() {
         if (AstridPreferences.useTabletLayout(this))
             return R.layout.task_list_wrapper_activity_3pane;
-        else if (Preferences.getIntegerFromString(R.string.p_swipe_lists_performance_key, 3) == 0)
+        else if (!Preferences.getBoolean(R.string.p_swipe_lists_enabled, false))
             return R.layout.task_list_wrapper_activity_no_swipe;
         else
             return R.layout.task_list_wrapper_activity;
