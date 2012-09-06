@@ -12,13 +12,6 @@
     android:background="?attr/asTaskRowSelector"
     android:orientation="horizontal">
 
-	<View
-	    android:id="@+id/importance_legacy"
-	    android:layout_width="4dip"
-	    android:layout_height="fill_parent"
-	    android:layout_alignParentLeft="true"
-	    android:visibility="gone" />
-
 	<RelativeLayout 
 	    android:id="@+id/rowBody"
 	    android:layout_width="fill_parent"

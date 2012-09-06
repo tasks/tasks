@@ -248,8 +248,6 @@
   
   <string name="p_showSmartConfirmation_key">showSmartConfirmation</string>
   
-  <string name="p_useLegacyImportanceStyle">legacyImportanceStyle</string>
-  
   <string name="p_taskRowPrefs">taskRowPrefs</string>
   
   <string name="p_fullTaskTitle">fullTaskTitle</string>

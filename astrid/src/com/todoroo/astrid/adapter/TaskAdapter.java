@@ -290,7 +290,6 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
         viewHolder.task = new Task();
         viewHolder.view = view;
         viewHolder.rowBody = (ViewGroup)view.findViewById(R.id.rowBody);
-        viewHolder.importance = view.findViewById(R.id.importance_legacy);
         viewHolder.nameView = (TextView)view.findViewById(R.id.title);
         viewHolder.picture = (AsyncImageView)view.findViewById(R.id.picture);
         viewHolder.pictureBorder = (ImageView)view.findViewById(R.id.pictureBorder);
@@ -361,7 +360,6 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
         public ViewGroup view;
         public ViewGroup rowBody;
         public TextView nameView;
-        public View importance; // for legacy importance style
         public CheckableImageView completeBox;
         public AsyncImageView picture;
         public ImageView pictureBorder;
@@ -463,28 +461,18 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
 
         // importance bar
         final CheckableImageView checkBoxView = viewHolder.completeBox; {
-            // Logic for legacy style
-            boolean useLegacyImportance = Preferences.getBoolean(R.string.p_useLegacyImportanceStyle, false);
-            if (useLegacyImportance) {
-                viewHolder.importance.setVisibility(View.VISIBLE);
-            } else {
-                viewHolder.importance.setVisibility(View.GONE);
-            }
 
             int value = task.getValue(Task.IMPORTANCE);
             if (value >= IMPORTANCE_RESOURCES.length)
                 value = IMPORTANCE_RESOURCES.length - 1;
-            if (useLegacyImportance) {
-                checkBoxView.setImageResource(R.drawable.btn_check);
-                viewHolder.importance.setBackgroundResource(LEGACY_IMPORTANCE_RESOURCES[value]);
-            } else if (!TextUtils.isEmpty(task.getValue(Task.RECURRENCE))) {
+            if (!TextUtils.isEmpty(task.getValue(Task.RECURRENCE))) {
                 checkBoxView.setImageResource(IMPORTANCE_REPEAT_RESOURCES[value]);
             } else {
                 checkBoxView.setImageResource(IMPORTANCE_RESOURCES[value]);
             }
             if (pictureView != null && pictureView.getVisibility() == View.VISIBLE) {
                 checkBoxView.setVisibility(View.INVISIBLE);
-                if (viewHolder.pictureBorder != null && !useLegacyImportance)
+                if (viewHolder.pictureBorder != null)
                     viewHolder.pictureBorder.setBackgroundResource(IMPORTANCE_RESOURCES_LARGE[value]);
             } else {
                 checkBoxView.setVisibility(View.VISIBLE);
