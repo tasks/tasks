@@ -72,6 +72,7 @@ import com.todoroo.andlib.utility.Pair;
 import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.astrid.activity.TaskListFragment;
 import com.todoroo.astrid.api.AstridApiConstants;
+import com.todoroo.astrid.api.PermaSql;
 import com.todoroo.astrid.api.TaskAction;
 import com.todoroo.astrid.api.TaskDecoration;
 import com.todoroo.astrid.api.TaskDecorationExposer;
@@ -785,6 +786,8 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
                 groupedQuery = query.get().replace("ORDER BY", "GROUP BY " + Task.ID + " ORDER BY"); //$NON-NLS-1$
             else
                 groupedQuery = query.get() + " GROUP BY " + Task.ID;
+
+            groupedQuery = PermaSql.replacePlaceholders(groupedQuery);
 
             Query q = Query.select(Task.ID, Task.TITLE, Task.NOTES, Task.COMPLETION_DATE,
                     fileIdProperty)
