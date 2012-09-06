@@ -379,11 +379,7 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
     public synchronized void setFieldContentsAndVisibility(View view) {
         ViewHolder viewHolder = (ViewHolder)view.getTag();
         Task task = viewHolder.task;
-        if (Preferences.getBoolean(R.string.p_allowCompressedTaskRows, false)) {
-            viewHolder.rowBody.setMinimumHeight(0);
-        } else {
-            viewHolder.rowBody.setMinimumHeight(minRowHeight);
-        }
+        viewHolder.rowBody.setMinimumHeight(minRowHeight);
 
         // name
         final TextView nameView = viewHolder.nameView; {
