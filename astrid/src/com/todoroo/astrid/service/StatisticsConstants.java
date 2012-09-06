@@ -72,6 +72,10 @@ public class StatisticsConstants {
     public static final String TASK_RABBIT_POST = "task-rabbit-post";
     public static final String TASK_RABBIT_LOGIN = "task-rabbit-login";
 
+    public static final String PREF_THIRD_PARTY_ADDONS = "pref-third-party-addons";
+    public static final String PREF_SHOW_NOTES_IN_ROW = "pref-show-notes";
+    public static final String PREF_SHOW_FEATURED_LISTS = "pref-show-featured-lists";
+
     public static final String TASK_THREE_DAYS = "task-created-three-days";
     public static final String TASK_ONE_WEEK = "task-created-one-week";
     public static final String TASK_TWO_WEEKS = "task-created-two-weeks";

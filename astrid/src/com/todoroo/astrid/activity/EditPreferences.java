@@ -59,6 +59,7 @@ import com.todoroo.astrid.producteev.ProducteevUtilities;
 import com.todoroo.astrid.service.AddOnService;
 import com.todoroo.astrid.service.MarketStrategy.AmazonMarketStrategy;
 import com.todoroo.astrid.service.StartupService;
+import com.todoroo.astrid.service.StatisticsConstants;
 import com.todoroo.astrid.service.StatisticsService;
 import com.todoroo.astrid.service.TaskService;
 import com.todoroo.astrid.sync.SyncProviderPreferences;
@@ -549,7 +550,13 @@ public class EditPreferences extends TodorooPreferenceActivity {
                 }
              });
         } else if (r.getString(R.string.p_show_featured_lists_labs).equals(preference.getKey())) {
-            preference.setOnPreferenceChangeListener(new SetResultOnPreferenceChangeListener(SyncProviderPreferences.RESULT_CODE_SYNCHRONIZE));
+            preference.setOnPreferenceChangeListener(new SetResultOnPreferenceChangeListener(SyncProviderPreferences.RESULT_CODE_SYNCHRONIZE) {
+                @Override
+                public boolean onPreferenceChange(Preference p, Object newValue) {
+                    StatisticsService.reportEvent(StatisticsConstants.PREF_SHOW_FEATURED_LISTS, "enabled", newValue.toString()); //$NON-NLS-1$
+                    return super.onPreferenceChange(p, newValue);
+                }
+            });
         }
         else if (r.getString(R.string.p_voiceInputEnabled).equals(preference.getKey())) {
             if (value != null && !(Boolean)value)
@@ -629,6 +636,22 @@ public class EditPreferences extends TodorooPreferenceActivity {
                 } catch (NullPointerException e) {
                     return false;
                 }
+                return true;
+            }
+        });
+
+        findPreference(getString(R.string.p_third_party_addons)).setOnPreferenceChangeListener(new OnPreferenceChangeListener() {
+            @Override
+            public boolean onPreferenceChange(Preference preference, Object newValue) {
+                StatisticsService.reportEvent(StatisticsConstants.PREF_THIRD_PARTY_ADDONS, "enabled", newValue.toString()); //$NON-NLS-1$
+                return true;
+            }
+        });
+
+        findPreference(getString(R.string.p_showNotes)).setOnPreferenceChangeListener(new OnPreferenceChangeListener() {
+            @Override
+            public boolean onPreferenceChange(Preference preference, Object newValue) {
+                StatisticsService.reportEvent(StatisticsConstants.PREF_SHOW_NOTES_IN_ROW, "enabled", newValue.toString()); //$NON-NLS-1$
                 return true;
             }
         });
