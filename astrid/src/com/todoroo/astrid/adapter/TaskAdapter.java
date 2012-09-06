@@ -419,67 +419,6 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
             }
         }
 
-        // complete box
-        final CheckableImageView completeBox = viewHolder.completeBox; {
-            // show item as completed if it was recently checked
-            if(completedItems.get(task.getId()) != null) {
-                task.setValue(Task.COMPLETION_DATE,
-                        completedItems.get(task.getId()) ? DateUtilities.now() : 0);
-            }
-            completeBox.setChecked(task.isCompleted());
-            // disable checkbox if task is readonly
-            completeBox.setEnabled(!viewHolder.task.getFlag(Task.FLAGS, Task.FLAG_IS_READONLY));
-        }
-
-        // image view
-        final AsyncImageView pictureView = viewHolder.picture; {
-            if (pictureView != null) {
-                if(task.getValue(Task.USER_ID) == Task.USER_ID_SELF && !viewHolder.isTaskRabbit) {
-                    pictureView.setVisibility(View.GONE);
-                    if (viewHolder.pictureBorder != null)
-                        viewHolder.pictureBorder.setVisibility(View.GONE);
-                } else {
-                    pictureView.setVisibility(View.VISIBLE);
-                    if (viewHolder.pictureBorder != null)
-                        viewHolder.pictureBorder.setVisibility(View.VISIBLE);
-                    pictureView.setUrl(null);
-                    if (viewHolder.isTaskRabbit) {
-                        pictureView.setDefaultImageResource(R.drawable.task_rabbit_image);
-                    } else if(task.getValue(Task.USER_ID) == Task.USER_ID_UNASSIGNED)
-                        pictureView.setDefaultImageResource(R.drawable.icn_anyone_transparent);
-                    else {
-                        pictureView.setDefaultImageResource(R.drawable.icn_default_person_image);
-                        try {
-                            JSONObject user = new JSONObject(task.getValue(Task.USER));
-                            pictureView.setUrl(user.optString("picture")); //$NON-NLS-1$
-                        } catch (JSONException e) {
-                            Log.w("astrid", "task-adapter-image", e); //$NON-NLS-1$ //$NON-NLS-2$
-                        }
-                    }
-                }
-            }
-        }
-
-        // importance bar
-        final CheckableImageView checkBoxView = viewHolder.completeBox; {
-
-            int value = task.getValue(Task.IMPORTANCE);
-            if (value >= IMPORTANCE_RESOURCES.length)
-                value = IMPORTANCE_RESOURCES.length - 1;
-            if (!TextUtils.isEmpty(task.getValue(Task.RECURRENCE))) {
-                checkBoxView.setImageResource(IMPORTANCE_REPEAT_RESOURCES[value]);
-            } else {
-                checkBoxView.setImageResource(IMPORTANCE_RESOURCES[value]);
-            }
-            if (pictureView != null && pictureView.getVisibility() == View.VISIBLE) {
-                checkBoxView.setVisibility(View.INVISIBLE);
-                if (viewHolder.pictureBorder != null)
-                    viewHolder.pictureBorder.setBackgroundResource(IMPORTANCE_RESOURCES_LARGE[value]);
-            } else {
-                checkBoxView.setVisibility(View.VISIBLE);
-            }
-        }
-
         String details;
         if(viewHolder.details1 != null) {
             if(taskDetailLoader.containsKey(task.getId()))
@@ -589,6 +528,14 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
         };
         viewHolder.completeBox.setOnTouchListener(otl);
         viewHolder.completeBox.setOnClickListener(completeBoxListener);
+
+        viewHolder.picture.setOnTouchListener(otl);
+        viewHolder.picture.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                viewHolder.completeBox.performClick();
+            }
+        });
 
         viewHolder.taskActionContainer.setOnClickListener(new OnClickListener() {
             @Override
@@ -1053,7 +1000,8 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
 
             // set check box to actual action item state
             setTaskAppearance(viewHolder, task);
-            viewHolder.completeBox.startAnimation(scaleAnimation);
+            if (viewHolder.completeBox.getVisibility() == View.VISIBLE)
+                viewHolder.completeBox.startAnimation(scaleAnimation);
         }
     };
 
@@ -1104,9 +1052,6 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
             return;
         boolean state = task.isCompleted();
 
-        viewHolder.completeBox.setChecked(state);
-        viewHolder.completeBox.setEnabled(!viewHolder.task.getFlag(Task.FLAGS, Task.FLAG_IS_READONLY));
-
         TextView name = viewHolder.nameView;
         if(state) {
             name.setPaintFlags(name.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
@@ -1124,6 +1069,72 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
         if(viewHolder.dueDate != null)
             viewHolder.dueDate.setTextSize(detailTextSize);
         paint.setTextSize(detailTextSize);
+
+        // image view
+        final AsyncImageView pictureView = viewHolder.picture; {
+            if (pictureView != null) {
+                if(task.getValue(Task.USER_ID) == Task.USER_ID_SELF && !viewHolder.isTaskRabbit) {
+                    pictureView.setVisibility(View.GONE);
+                    if (viewHolder.pictureBorder != null)
+                        viewHolder.pictureBorder.setVisibility(View.GONE);
+                } else {
+                    pictureView.setVisibility(View.VISIBLE);
+                    if (viewHolder.pictureBorder != null)
+                        viewHolder.pictureBorder.setVisibility(View.VISIBLE);
+                    pictureView.setUrl(null);
+                    if (viewHolder.isTaskRabbit) {
+                        pictureView.setDefaultImageResource(R.drawable.task_rabbit_image);
+                    } else if(task.getValue(Task.USER_ID) == Task.USER_ID_UNASSIGNED)
+                        pictureView.setDefaultImageResource(R.drawable.icn_anyone_transparent);
+                    else {
+                        pictureView.setDefaultImageResource(R.drawable.icn_default_person_image);
+                        try {
+                            JSONObject user = new JSONObject(task.getValue(Task.USER));
+                            pictureView.setUrl(user.optString("picture")); //$NON-NLS-1$
+                        } catch (JSONException e) {
+                            Log.w("astrid", "task-adapter-image", e); //$NON-NLS-1$ //$NON-NLS-2$
+                        }
+                    }
+                }
+            }
+        }
+
+        // complete box
+        final CheckableImageView checkBoxView = viewHolder.completeBox; {
+
+            // show item as completed if it was recently checked
+            if(completedItems.get(task.getId()) != null) {
+                task.setValue(Task.COMPLETION_DATE,
+                        completedItems.get(task.getId()) ? DateUtilities.now() : 0);
+            }
+            checkBoxView.setChecked(task.isCompleted());
+            // disable checkbox if task is readonly
+            checkBoxView.setEnabled(!viewHolder.task.getFlag(Task.FLAGS, Task.FLAG_IS_READONLY));
+
+            int value = task.getValue(Task.IMPORTANCE);
+            if (value >= IMPORTANCE_RESOURCES.length)
+                value = IMPORTANCE_RESOURCES.length - 1;
+            if (!TextUtils.isEmpty(task.getValue(Task.RECURRENCE))) {
+                checkBoxView.setImageResource(IMPORTANCE_REPEAT_RESOURCES[value]);
+            } else {
+                checkBoxView.setImageResource(IMPORTANCE_RESOURCES[value]);
+            }
+
+            if (checkBoxView.isChecked()) {
+                if (pictureView != null)
+                    pictureView.setVisibility(View.GONE);
+                if (viewHolder.pictureBorder != null)
+                    viewHolder.pictureBorder.setVisibility(View.GONE);
+            }
+
+            if (pictureView != null && pictureView.getVisibility() == View.VISIBLE) {
+                checkBoxView.setVisibility(View.INVISIBLE);
+                if (viewHolder.pictureBorder != null)
+                    viewHolder.pictureBorder.setBackgroundResource(IMPORTANCE_RESOURCES_LARGE[value]);
+            } else {
+                checkBoxView.setVisibility(View.VISIBLE);
+            }
+        }
     }
 
     /**
