@@ -758,6 +758,8 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
                             getActionsForTask(ContextManager.getContext(), task, hasAttachments);
                     if (actions.size() > 0)
                         taskActionLoader.put(task.getId(), actions.get(0));
+                    else
+                        taskActionLoader.remove(task.getId());
                 }
             } finally {
                 fetchCursor.close();
@@ -849,7 +851,6 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
         completedItems.clear();
         decorationManager.clearCache();
         taskDetailLoader.clear();
-        taskActionLoader.clear();
         startDetailThread();
         startTaskActionsThread();
     }
