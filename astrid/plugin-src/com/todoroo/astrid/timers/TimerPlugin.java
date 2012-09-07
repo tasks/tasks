@@ -54,6 +54,8 @@ public class TimerPlugin extends BroadcastReceiver {
         // this is needed just for stopping a task
         if (!task.containsNonNullValue(Task.TIMER_START))
             task = PluginServices.getTaskService().fetchById(task.getId(), Task.ID, Task.TIMER_START, Task.ELAPSED_SECONDS);
+        if (task == null)
+            return;
 
         if(start) {
             if(task.getValue(Task.TIMER_START) == 0) {
