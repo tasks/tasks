@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2012-08-13 17:20-0700\n"
+"POT-Creation-Date: 2012-09-07 13:08-0700\n"
 "PO-Revision-Date: 2012-03-17 13:52+0000\n"
 "Last-Translator: Guybrush88 <Unknown>\n"
 "Language-Team: it <LL@li.org>\n"
@@ -242,8 +242,13 @@ msgstr "Sincronizzando..."
 
 #. Sync Label: used in menu to denote synchronization
 msgctxt "SyP_label"
-msgid "Synchronization"
-msgstr "Sincronizzazione"
+msgid "Sync & Backup"
+msgstr ""
+
+#. Sync label subtitle
+msgctxt "SyP_summary"
+msgid "Astrid.com, Google Tasks, Saved Data & Local Backup"
+msgstr ""
 
 #. Error msg when io exception
 msgctxt "SyP_ioerror"
@@ -440,4 +445,8 @@ msgstr "ogni tre giorni"
 msgctxt "sync_SPr_interval_entries:9"
 msgid "every week"
 msgstr "Ogni settimana"
+
+#~ msgctxt "SyP_label"
+#~ msgid "Synchronization"
+#~ msgstr "Sincronizzazione"
 

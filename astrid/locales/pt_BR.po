@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2012-08-13 17:20-0700\n"
+"POT-Creation-Date: 2012-09-07 13:08-0700\n"
 "PO-Revision-Date: 2012-07-05 15:18+0000\n"
 "Last-Translator: Evertton de Lima <Unknown>\n"
 "Language-Team: pt_BR <LL@li.org>\n"
@@ -456,13 +456,14 @@ msgstr "Senha"
 
 #. share login: Sign Up Title
 msgctxt "actfm_ALA_signup_title"
-msgid "Create New Account"
-msgstr "Criar conta"
+msgid "Sign Up"
+msgstr ""
 
 #. share login: Login Title
+#, fuzzy
 msgctxt "actfm_ALA_login_title"
-msgid "Login to Astrid.com"
-msgstr "Conectar em Astrid.com"
+msgid "Sign In"
+msgstr "Entrar!"
 
 #. share login: Google Auth title
 msgctxt "actfm_GAA_title"
@@ -473,6 +474,34 @@ msgstr "Selecione a conta do Google que deseja usar:"
 msgctxt "actfm_OLA_prompt"
 msgid "Please log in:"
 msgstr "Por favor conecte ao Google:"
+
+#. ================================================ Featured Lists
+#, fuzzy
+msgctxt "actfm_feat_list_clone"
+msgid "Copy list"
+msgstr "Por lista"
+
+msgctxt "actfm_feat_list_suffix"
+msgid "(Copy)"
+msgstr ""
+
+#, fuzzy
+msgctxt "actfm_feat_list_cloning"
+msgid "Copying..."
+msgstr "Carregando..."
+
+msgctxt "actfm_feat_list_clone_success"
+msgid "Success!"
+msgstr ""
+
+msgctxt "actfm_feat_list_task_clone_success"
+msgid "Task copied"
+msgstr ""
+
+#, fuzzy
+msgctxt "actfm_feat_list_clone_empty"
+msgid "No tasks to copy"
+msgstr "Permitir tarefas recorrentes"
 
 #. ================================================ Synchronization ==
 #. Indicates the logged in user name. %s -> user's name
@@ -513,6 +542,74 @@ msgid ""
 "You are currently synchronizing with Google Tasks. Be advised that "
 "synchronizing with both services can in some cases lead to unexpected "
 "results. Are you sure you want to sync with Astrid.com?"
+msgstr ""
+
+#. account types
+msgctxt "actfm_account_type"
+msgid "Account Type"
+msgstr ""
+
+msgctxt "actfm_account_info"
+msgid "Account Info"
+msgstr ""
+
+msgctxt "actfm_account_info_summary"
+msgid "Status and options"
+msgstr ""
+
+#, fuzzy
+msgctxt "account_type_title_not_logged_in"
+msgid "Sign up for a free account"
+msgstr "Conta Google Apps para dominio"
+
+#, fuzzy
+msgctxt "account_type_summary_not_logged_in"
+msgid "Access tasks online, share lists and delegate"
+msgstr ""
+"Astrid.com permite que você acesse tarefas online, compartilhe e delegue-"
+"as a outros."
+
+msgctxt "actfm_account_premium"
+msgid "Premium"
+msgstr ""
+
+msgctxt "actfm_account_basic"
+msgid "Basic"
+msgstr ""
+
+#, fuzzy
+msgctxt "actfm_account_none"
+msgid "None"
+msgstr "nenhum"
+
+msgctxt "actfm_inapp_billing"
+msgid "Upgrade to Premium"
+msgstr ""
+
+msgctxt "actfm_inapp_billing_summary"
+msgid "Attach files, voice backups, premium support & more"
+msgstr ""
+
+#. Sharing
+msgctxt "share_with_facebook"
+msgid "Like on Facebook"
+msgstr ""
+
+msgctxt "share_with_twitter"
+msgid "Follow on Twitter"
+msgstr ""
+
+msgctxt "share_with_google"
+msgid "Share on Google+"
+msgstr ""
+
+#, fuzzy
+msgctxt "share_title"
+msgid "Share the love!"
+msgstr "Compartilhadas comigo"
+
+msgctxt "share_speech_bubble"
+msgid "By sharing, you'll help others be more productive!"
 msgstr ""
 
 #. ** Copyright (c) 2012 Todoroo Inc ** ** See the file "LICENSE" for the
@@ -606,6 +703,10 @@ msgstr ""
 " seus backups. Por favor, o Astrid efetua o backup de suas tarefas "
 "automaticamente."
 
+msgctxt "backup_BPr_cloud_already_logged_in"
+msgid "You already have cloud backup on Astrid.com!"
+msgstr ""
+
 #. ================================================= BackupActivity ==
 #. slide 48c: backup activity label
 msgctxt "backup_BAc_label"
@@ -626,6 +727,11 @@ msgstr "Importar tarefas"
 msgctxt "backup_BAc_export"
 msgid "Export Tasks"
 msgstr "Exportar tarefas"
+
+#. backup activity cloud (Astrid.com) option
+msgctxt "backup_BAc_cloud"
+msgid "Click for free cloud backup on Astrid.com"
+msgstr ""
 
 #. ============================================== Importer / Exporter ==
 #. Message displayed when error occurs
@@ -908,6 +1014,12 @@ msgctxt "TLA_menu_friends"
 msgid "People"
 msgstr ""
 
+#. Menu: Featured Lists
+#, fuzzy
+msgctxt "TLA_menu_featured_lists"
+msgid "Featured Lists"
+msgstr "Compartilhe"
+
 #. Menu: Suggestions
 msgctxt "TLA_menu_suggestions"
 msgid "Suggestions"
@@ -919,9 +1031,10 @@ msgid "Tutorial"
 msgstr "Tutorial"
 
 #. Menu: Settings
+#, fuzzy
 msgctxt "TLA_menu_settings"
-msgid "Settings"
-msgstr "Configurações"
+msgid "Account & Settings"
+msgstr "Configuração padrão"
 
 #. slide 30b: Menu: Support
 msgctxt "TLA_menu_support"
@@ -1308,18 +1421,21 @@ msgid "Notes"
 msgstr "Notas"
 
 #. Task note hint
+#, fuzzy
 msgctxt "TEA_notes_hint"
-msgid "Enter Task Notes..."
+msgid "Enter task notes..."
 msgstr "Inserir notas da tarefa"
 
 #. Estimated time label
+#, fuzzy
 msgctxt "TEA_estimatedDuration_label"
-msgid "How Long Will it Take?"
+msgid "How long will it take?"
 msgstr "Quanto tempo irá demorar?"
 
 #. Elapsed time label
+#, fuzzy
 msgctxt "TEA_elapsedDuration_label"
-msgid "Time Already Spent on Task"
+msgid "Time already spent on task"
 msgstr "Tempo gasto na tarefa"
 
 #. Menu: Save
@@ -1382,8 +1498,9 @@ msgctxt "TEA_urgency:0"
 msgid "No deadline"
 msgstr "Sem prazo"
 
+#, fuzzy
 msgctxt "TEA_urgency:1"
-msgid "Specific Day"
+msgid "Specific day"
 msgstr "Dia específico"
 
 msgctxt "TEA_urgency:2"
@@ -1398,16 +1515,19 @@ msgctxt "TEA_urgency:4"
 msgid "(day after)"
 msgstr "Depois de amanhã"
 
+#, fuzzy
 msgctxt "TEA_urgency:5"
-msgid "Next Week"
+msgid "Next week"
 msgstr "Próxima semana"
 
+#, fuzzy
 msgctxt "TEA_urgency:6"
-msgid "In Two Weeks"
-msgstr "Em duas semanas"
+msgid "In two weeks"
+msgstr "a cada duas semanas"
 
+#, fuzzy
 msgctxt "TEA_urgency:7"
-msgid "Next Month"
+msgid "Next month"
 msgstr "Próximo mês"
 
 msgctxt "TEA_no_time"
@@ -1718,6 +1838,19 @@ msgctxt "EPr_title"
 msgid "Astrid: Settings"
 msgstr "Astrid: Configurações"
 
+#, fuzzy
+msgctxt "EPr_title_short"
+msgid "Settings"
+msgstr "Configurações"
+
+msgctxt "EPr_share_astrid"
+msgid "Tell others about Astrid"
+msgstr ""
+
+msgctxt "EPr_share_astrid_summary"
+msgid "Share about Astrid on your favorite social network"
+msgstr ""
+
 #. slide 46a
 msgctxt "EPr_deactivated"
 msgid "deactivated"
@@ -1727,6 +1860,27 @@ msgstr "desativado"
 msgctxt "EPr_appearance_header"
 msgid "Appearance"
 msgstr "Aparência"
+
+#. Preference Category: Appearance Summary
+msgctxt "EPr_appearance_summary"
+msgid "Themes, Widgets, Task Rows, Edit Screen"
+msgstr ""
+
+#. FAQ Preference title
+msgctxt "EPr_faq_title"
+msgid "FAQ"
+msgstr ""
+
+#. Account status preference (%s -> account type)
+#, c-format
+msgctxt "EPr_account_title"
+msgid "Account: %s"
+msgstr ""
+
+#. Support preferences summary
+msgctxt "EPr_support_summary"
+msgid "Tutorial, FAQ, About Astrid"
+msgstr ""
 
 #. slide 34a: Preference: Task List Font Size Title
 msgctxt "EPr_fontSize_title"
@@ -1742,6 +1896,12 @@ msgstr "Mostrar confirmação para lembretes espertos"
 msgctxt "EPr_fontSize_desc"
 msgid "Font size on the main listing page"
 msgstr "Tamanho do texto nas listagens"
+
+#. Preferemce: Show task edit confirmation toasts
+#, fuzzy
+msgctxt "EPr_showEditToasts_title"
+msgid "Show task edit confirmations"
+msgstr "Não mostrar confirmações futuras"
 
 #. slide 34c: Preference: Task List Show Notes
 msgctxt "EPr_showNotes_title"
@@ -1857,15 +2017,6 @@ msgctxt "EPr_labs_desc"
 msgid "Try and configure experimental features"
 msgstr "Experimente e configure recursos experimentais"
 
-#. Preference: swipe between lists performance
-msgctxt "EPr_swipe_lists_performance_title"
-msgid "Swipe between lists"
-msgstr "Navegar entre as listas"
-
-msgctxt "EPr_swipe_lists_performance_subtitle"
-msgid "Controls the memory performance of swipe between lists"
-msgstr "Controla o desempenho da memória de navegação entre listas"
-
 #. slide 49g: Preferences: use the system contact picker for task assignment
 msgctxt "EPr_use_contact_picker"
 msgid "Use contact picker"
@@ -1920,9 +2071,28 @@ msgctxt "EPr_cal_start_at_due_time"
 msgid "Start calendar events at due time"
 msgstr ""
 
+msgctxt "EPr_force_phone_layout"
+msgid "Use phone layout"
+msgstr ""
+
+#, fuzzy
+msgctxt "EPr_show_featured_lists"
+msgid "Show featured lists"
+msgstr "Compartilhe"
+
 msgctxt "EPr_swipe_lists_restart_alert"
 msgid "You will need to restart Astrid for this change to take effect"
 msgstr "Você precisa reiniciar Astrid para que essa mudança tenha efeito"
+
+#. Swipe between lists
+#. Preference: swipe between lists performance
+msgctxt "EPr_swipe_lists_performance_title"
+msgid "Swipe between lists"
+msgstr "Navegar entre as listas"
+
+msgctxt "EPr_swipe_lists_performance_subtitle"
+msgid "Controls the memory performance of swipe between lists"
+msgstr "Controla o desempenho da memória de navegação entre listas"
 
 msgctxt "EPr_swipe_lists_performance_mode:0"
 msgid "No swipe"
@@ -1955,6 +2125,19 @@ msgstr "Configuração padrão"
 msgctxt "EPr_swipe_lists_performance_desc:3"
 msgid "Uses more system resources"
 msgstr "Usa mais recursos do sistema"
+
+#, fuzzy
+msgctxt "swipe_lists_helper_title"
+msgid "Swipe between lists"
+msgstr "Navegar entre as listas"
+
+msgctxt "swipe_lists_helper_header"
+msgid "Swipe left or right to quickly move between lists"
+msgstr ""
+
+msgctxt "swipe_lists_helper_subtitle"
+msgid "Change settings in Settings -&gt; Appearance"
+msgstr ""
 
 #. Format string for displaying the currently selected preference. $1 is name
 #. of selected mode, $2 is description
@@ -2108,9 +2291,10 @@ msgstr "%d eventos de agenda apagados!"
 
 #. ==================================================== AddOnActivity ==
 #. Add Ons Activity Title
+#, fuzzy
 msgctxt "AOA_title"
-msgid "Astrid: Add Ons"
-msgstr "Astrid: Complementos"
+msgid "Add-ons"
+msgstr "Complementos"
 
 #. Add-on Activity: author for internal authors
 msgctxt "AOA_internal_author"
@@ -2186,6 +2370,11 @@ msgctxt "p_forums"
 msgid "Forums"
 msgstr "Fóruns"
 
+#. Title of "Premium" option in settings
+msgctxt "p_premium"
+msgid "Premium"
+msgstr ""
+
 #. ============================================================= Misc ==
 #. Displayed when task killer found. %s => name of the application
 #, c-format
@@ -2239,12 +2428,23 @@ msgstr ""
 "e restaure suas tarefas de um backup "
 "(Configurações-&gt;Backup-&gt;Importar Tarefas) no Astrid."
 
+#, fuzzy
+msgctxt "market_unavailable"
+msgid "Unfortunately the market is not available for your system."
+msgstr ""
+"Infelizmente o Market não está disponível no seu sistema.\n"
+"Se possível, tente baixar o Voice Search de outro lugar"
+
 #. ** Copyright (c) 2012 Todoroo Inc ** ** See the file "LICENSE" for the
 #. full license governing this code.
 #. slide 32g: Preference Category: Defaults Title
 msgctxt "EPr_defaults_header"
 msgid "New Task Defaults"
 msgstr "Padrão para novas tarefas"
+
+msgctxt "EPr_defaults_summary"
+msgid "Importance, Due Date, Add to Calendar"
+msgstr ""
 
 #. slide 41f:  Preference: Default Urgency Title
 msgctxt "EPr_default_urgency_title"
@@ -2865,15 +3065,19 @@ msgid "Tap to edit or share this list"
 msgstr "Toque para editar e compartilhar esta lista"
 
 #. slide 26c: Shown the first time a user sees the list settings tab
+#, fuzzy
 msgctxt "help_popover_collaborators"
-msgid "People you share with can help you build your list or finish tasks"
+msgid ""
+"People you share with can help\n"
+"you build your list or finish tasks"
 msgstr ""
 "As pessoas com as quais você compartilha te ajudam a preencher as listas "
 "ou concluir as tarefas"
 
 #. Shown after user adds a task on tablet
+#, fuzzy
 msgctxt "help_popover_add_lists"
-msgid "Tap add a list"
+msgid "Tap to add a list"
 msgstr "Toque para inserir uma lista"
 
 #. Shown after a user adds a task on phones
@@ -2899,14 +3103,20 @@ msgctxt "welcome_login_tos_base"
 msgid "By using Astrid you agree to the"
 msgstr "Ao usar Astrid você aceita os"
 
+#, fuzzy
 msgctxt "welcome_login_tos_link"
-msgid "\"Terms of Service\""
+msgid "Terms of Service"
 msgstr "Termos de Serviço"
 
 #. slide 7e
 msgctxt "welcome_login_pw"
-msgid "Login with Username/Password"
-msgstr "Conectar com Usuário/Senha"
+msgid "Sign up with email"
+msgstr ""
+
+#, fuzzy
+msgctxt "welcome_sign_in"
+msgid "Sign in"
+msgstr "Entrar!"
 
 #. slide 7f
 msgctxt "welcome_login_later"
@@ -3247,9 +3457,14 @@ msgstr "Atribuído a ..."
 #. full license governing this code.
 #. ================================================== EditPreferences ==
 #. slide 32j: Preference Category: Power Pack
+#, fuzzy
 msgctxt "EPr_powerpack_header"
-msgid "Astrid Power Pack"
-msgstr "Bloco de Poder Astrid"
+msgid "Premium and Misc. Settings"
+msgstr "Configurações do Lembrete"
+
+msgctxt "EPr_powerpack_summary"
+msgid "Missed call reminders, voice input and miscellaneous settings"
+msgstr ""
 
 #. slide 32e: Preference: Anonymous User Statistics
 msgctxt "EPr_statistics_title"
@@ -3449,6 +3664,134 @@ msgstr ""
 msgctxt "p_files_dir_desc_default"
 msgid "Default directory"
 msgstr "Urgência"
+
+#. in app billing
+msgctxt "billing_not_supported_title"
+msgid "Can't make purchases"
+msgstr ""
+
+msgctxt "billing_not_supported_message"
+msgid ""
+"The Market billing service is not available at this time. You can "
+"continue to use this app but you won't be able to make purchases."
+msgstr ""
+
+msgctxt "subscriptions_not_supported_title"
+msgid "Can't purchase subscriptions"
+msgstr ""
+
+msgctxt "subscriptions_not_supported_message"
+msgid ""
+"The Market billing service on this device does not support subscriptions "
+"at this time. You can subscribe to Astrid Premium at "
+"http://astrid.com/premium."
+msgstr ""
+
+msgctxt "cannot_connect_title"
+msgid "Can't connect to Market"
+msgstr ""
+
+msgctxt "cannot_connect_message"
+msgid ""
+"This app cannot connect to Market. Your version of Market may be out of "
+"date. You can continue to use this app but you won't be able to make "
+"purchases."
+msgstr ""
+
+msgctxt "restoring_transactions"
+msgid "Restoring transactions"
+msgstr ""
+
+#, fuzzy
+msgctxt "subscriptions_learn_more"
+msgid "Learn more"
+msgstr "Toque para aprender mais!"
+
+#, c-format
+msgctxt "subscriptions_help_url"
+msgid "http://market.android.com/support/bin/answer.py?answer=1050566&hl=%lang%&dl=%region%"
+msgstr ""
+
+#, fuzzy
+msgctxt "premium_billing_title"
+msgid "Astrid Premium"
+msgstr "Astrid Premium 4x4"
+
+#, fuzzy
+msgctxt "premium_buy_month"
+msgid "1 Month"
+msgstr "a cada mês"
+
+msgctxt "premium_buy_year"
+msgid "1 Year"
+msgstr ""
+
+msgctxt "premium_description_header"
+msgid "Do more with premium!"
+msgstr ""
+
+msgctxt "premium_description_1"
+msgid ""
+"Attach files to to-dos \n"
+"(pdfs, doc, ppt…)"
+msgstr ""
+
+msgctxt "premium_description_2"
+msgid "Syncs files with astrid.com"
+msgstr ""
+
+msgctxt "premium_description_3"
+msgid "Add attachments via email"
+msgstr ""
+
+msgctxt "premium_description_4"
+msgid "Save voice notes as audio files"
+msgstr ""
+
+msgctxt "premium_description_5"
+msgid "Preview upcoming features"
+msgstr ""
+
+msgctxt "premium_description_6"
+msgid "Support the Astrid Team!"
+msgstr ""
+
+msgctxt "premium_speech_bubble_1"
+msgid "Premium will power up your productivity!"
+msgstr ""
+
+#, c-format
+msgctxt "premium_speech_bubble_2"
+msgid "Order one year and save 25%!"
+msgstr ""
+
+msgctxt "premium_already_subscribed"
+msgid "You are already subscribed to Astrid Premium!"
+msgstr ""
+
+msgctxt "premium_login_prompt"
+msgid ""
+"You need to have an Astrid.com account in order to subscribe to premium. "
+"Please log in or sign up."
+msgstr ""
+
+msgctxt "premium_success"
+msgid "Thanks for subscribing to Astrid Premium!"
+msgstr ""
+
+msgctxt "premium_success_with_server_error"
+msgid ""
+"Thanks for subscribing to Astrid Premium! The new features will be "
+"unlocked for you on astrid.com soon, and should be available on your "
+"phone right away."
+msgstr ""
+
+msgctxt "premium_verification_error"
+msgid ""
+"The premium subscription for this Google Play account is connected to a "
+"different user. To link additional emails to your account, visit "
+"astrid.com/users/profile"
+msgstr ""
 
 #. ** Copyright (c) 2012 Todoroo Inc ** ** See the file "LICENSE" for the
 #. full license governing this code.
@@ -3887,6 +4230,10 @@ msgctxt "rmd_EPr_alerts_header"
 msgid "Reminder Settings"
 msgstr "Configurações do Lembrete"
 
+msgctxt "rmd_EPr_alerts_summary"
+msgid "Quiet hours, snooze options, persistence level"
+msgstr ""
+
 #. Reminder Preference: Reminders Enabled Title
 msgctxt "rmd_EPr_enabled_title"
 msgid "Reminders Enabled?"
@@ -3908,11 +4255,11 @@ msgid "Quiet Hours Start"
 msgstr "Silêncio começa às"
 
 #. Reminder Preference: Quiet Hours Start Description (%s => time set)
-#, c-format
+#, fuzzy, c-format
 msgctxt "rmd_EPr_quiet_hours_start_desc"
 msgid ""
 "Notifications will be silent after %s.\n"
-"Note: vibrations are controlled by the setting below!"
+"Note: vibrations are controlled by the Vibrate on Alert setting"
 msgstr ""
 "As notificações serão silenciadas depois de %s.\n"
 "Nota: A vibração é configurada abaixo!"
@@ -3939,9 +4286,9 @@ msgid "Default Reminder"
 msgstr "Horário padrão"
 
 #. Reminder Preference: Default Reminder Description (%s => time set)
-#, c-format
+#, fuzzy, c-format
 msgctxt "rmd_EPr_rmd_time_desc"
-msgid "Notifications for tasks without duetimes will appear at %s"
+msgid "Notifications for tasks without due times will appear at %s"
 msgstr "As notificações para tarefas sem prazo irão aparecer às %s"
 
 #. Reminder Preference: Notification Ringtone Title
@@ -4005,8 +4352,9 @@ msgstr "Astrid irá aumentar o volume para alertas com múltiplos sons"
 
 #. Reminder Preference: Max Volume for Multiple-Ring reminders Description
 #. (false)
+#, fuzzy
 msgctxt "rmd_EPr_multiple_maxvolume_desc_false"
-msgid "Astrid will use the system-setting for the volume"
+msgid "Astrid will use the system setting for the volume"
 msgstr "Astrid irá usar o volume definido no sistema"
 
 #. Reminder Preference: Vibrate Title
@@ -4707,8 +5055,9 @@ msgid "Repeat Interval"
 msgstr "Intervalo de repetição"
 
 #. slide 19b
+#, fuzzy
 msgctxt "repeat_never"
-msgid "Make Repeating?"
+msgid "Make repeating?"
 msgstr "Repetir?"
 
 #. slide 20f
@@ -5213,13 +5562,15 @@ msgid "Activity: %s"
 msgstr "Atividade: %s"
 
 #. Delete button for tag settings
+#, fuzzy
 msgctxt "tag_delete_button"
-msgid "Delete List"
+msgid "Delete list"
 msgstr "Excluir lista"
 
 #. slide 28d: Leave button for tag settings
+#, fuzzy
 msgctxt "tag_leave_button"
-msgid "Leave This List"
+msgid "Leave this list"
 msgstr "Deixar esta lista"
 
 #. ** Copyright (c) 2012 Todoroo Inc ** ** See the file "LICENSE" for the
@@ -5627,6 +5978,11 @@ msgctxt "PPW_disable_encouragements"
 msgid "Hide encouragements"
 msgstr "Esconder encorajamentos"
 
+#, fuzzy
+msgctxt "PPW_show_dates"
+msgid "Show due dates"
+msgstr "à partir do dia do prazo final"
+
 msgctxt "PPW_filter"
 msgid "Select Filter"
 msgstr "Selecionar filtro"
@@ -5791,11 +6147,48 @@ msgctxt "PPW_check_share_lists"
 msgid "Share lists!"
 msgstr "Compartilhar listas!"
 
-#~ msgctxt "PPW_widget_custom_label"
-#~ msgid "Astrid Scrollable Premium for Custom Launchers"
-#~ msgstr ""
+msgctxt "PPW_api_level"
+msgid "Sorry! This widget is only supported on Android 3.0 or higher."
+msgstr ""
 
-#~ msgctxt "PPW_widget_custom_launcherpro_label"
-#~ msgid "Astrid Scrollable Premium 4x4 for Launcher Pro"
-#~ msgstr ""
+msgctxt "EPr_widget_enabled_title"
+msgid "Enable/Disable Widgets"
+msgstr ""
+
+#, fuzzy
+msgctxt "PPW_restart_for_enabled_state"
+msgid "You may need to restart your phone for this change to take effect."
+msgstr "Você precisa reiniciar Astrid para que essa mudança tenha efeito"
+
+#~ msgctxt "actfm_ALA_signup_title"
+#~ msgid "Create New Account"
+#~ msgstr "Criar conta"
+
+#~ msgctxt "actfm_ALA_login_title"
+#~ msgid "Login to Astrid.com"
+#~ msgstr "Conectar em Astrid.com"
+
+#~ msgctxt "TEA_urgency:5"
+#~ msgid "Next Week"
+#~ msgstr "Próxima semana"
+
+#~ msgctxt "TEA_urgency:6"
+#~ msgid "In Two Weeks"
+#~ msgstr "Em duas semanas"
+
+#~ msgctxt "TEA_urgency:7"
+#~ msgid "Next Month"
+#~ msgstr "Próximo mês"
+
+#~ msgctxt "AOA_title"
+#~ msgid "Astrid: Add Ons"
+#~ msgstr "Astrid: Complementos"
+
+#~ msgctxt "welcome_login_pw"
+#~ msgid "Login with Username/Password"
+#~ msgstr "Conectar com Usuário/Senha"
+
+#~ msgctxt "EPr_powerpack_header"
+#~ msgid "Astrid Power Pack"
+#~ msgstr "Bloco de Poder Astrid"
 

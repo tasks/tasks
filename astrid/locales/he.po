@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2012-08-13 17:20-0700\n"
+"POT-Creation-Date: 2012-09-07 13:08-0700\n"
 "PO-Revision-Date: 2012-08-09 03:17+0000\n"
 "Last-Translator: Yossi Gil <Unknown>\n"
 "Language-Team: he <LL@li.org>\n"
@@ -453,13 +453,14 @@ msgstr "סיסמא"
 
 #. share login: Sign Up Title
 msgctxt "actfm_ALA_signup_title"
-msgid "Create New Account"
-msgstr "צור חשבון חדש"
+msgid "Sign Up"
+msgstr ""
 
 #. share login: Login Title
+#, fuzzy
 msgctxt "actfm_ALA_login_title"
-msgid "Login to Astrid.com"
-msgstr "התחבר לאתר אסטריד"
+msgid "Sign In"
+msgstr "התחבר!"
 
 #. share login: Google Auth title
 msgctxt "actfm_GAA_title"
@@ -470,6 +471,34 @@ msgstr "בחר חשבון גוגל"
 msgctxt "actfm_OLA_prompt"
 msgid "Please log in:"
 msgstr "אנא התחבר למערכת"
+
+#. ================================================ Featured Lists
+#, fuzzy
+msgctxt "actfm_feat_list_clone"
+msgid "Copy list"
+msgstr "לפי רשימה"
+
+msgctxt "actfm_feat_list_suffix"
+msgid "(Copy)"
+msgstr ""
+
+#, fuzzy
+msgctxt "actfm_feat_list_cloning"
+msgid "Copying..."
+msgstr "מקודדת..."
+
+msgctxt "actfm_feat_list_clone_success"
+msgid "Success!"
+msgstr ""
+
+msgctxt "actfm_feat_list_task_clone_success"
+msgid "Task copied"
+msgstr ""
+
+#, fuzzy
+msgctxt "actfm_feat_list_clone_empty"
+msgid "No tasks to copy"
+msgstr "אפשר למשימות לחזור"
 
 #. ================================================ Synchronization ==
 #. Indicates the logged in user name. %s -> user's name
@@ -514,6 +543,74 @@ msgstr ""
 "אתה מסנכרן כעת עם ״משימות גוגל״. שים לב שסינכרון מול שני השירותים יכול "
 "במקרים מסויימים להביא לתוצאות בלתי צפויות. האם אתה בטוח שברצונך להסתנכרן "
 "גם עם אתר אסטריד?"
+
+#. account types
+msgctxt "actfm_account_type"
+msgid "Account Type"
+msgstr ""
+
+msgctxt "actfm_account_info"
+msgid "Account Info"
+msgstr ""
+
+msgctxt "actfm_account_info_summary"
+msgid "Status and options"
+msgstr ""
+
+#, fuzzy
+msgctxt "account_type_title_not_logged_in"
+msgid "Sign up for a free account"
+msgstr "חשבון של יישומי הרשת של גוגל"
+
+#, fuzzy
+msgctxt "account_type_summary_not_logged_in"
+msgid "Access tasks online, share lists and delegate"
+msgstr ""
+"אתר אסטריד מאפשר גישה מקוונת למשימות, ומאפשר לך לשתף אותן או להקצותן "
+"לאחרים"
+
+msgctxt "actfm_account_premium"
+msgid "Premium"
+msgstr ""
+
+msgctxt "actfm_account_basic"
+msgid "Basic"
+msgstr ""
+
+#, fuzzy
+msgctxt "actfm_account_none"
+msgid "None"
+msgstr "אין"
+
+msgctxt "actfm_inapp_billing"
+msgid "Upgrade to Premium"
+msgstr ""
+
+msgctxt "actfm_inapp_billing_summary"
+msgid "Attach files, voice backups, premium support & more"
+msgstr ""
+
+#. Sharing
+msgctxt "share_with_facebook"
+msgid "Like on Facebook"
+msgstr ""
+
+msgctxt "share_with_twitter"
+msgid "Follow on Twitter"
+msgstr ""
+
+msgctxt "share_with_google"
+msgid "Share on Google+"
+msgstr ""
+
+#, fuzzy
+msgctxt "share_title"
+msgid "Share the love!"
+msgstr "שותפו איתי"
+
+msgctxt "share_speech_bubble"
+msgid "By sharing, you'll help others be more productive!"
+msgstr ""
 
 #. ** Copyright (c) 2012 Todoroo Inc ** ** See the file "LICENSE" for the
 #. full license governing this code.
@@ -603,6 +700,10 @@ msgstr ""
 "אסטריד תְּגַבֶּה את הנתונים שלך, על כל צרה שלא תבוא. אבל, עליך להוסיף את "
 "חבילת הַכֹּחַ של אסטריד כדי לנהל ולאחזר גיבויים."
 
+msgctxt "backup_BPr_cloud_already_logged_in"
+msgid "You already have cloud backup on Astrid.com!"
+msgstr ""
+
 #. ================================================= BackupActivity ==
 #. slide 48c: backup activity label
 msgctxt "backup_BAc_label"
@@ -623,6 +724,11 @@ msgstr "ייבוא משימות"
 msgctxt "backup_BAc_export"
 msgid "Export Tasks"
 msgstr "ייצוא משימות"
+
+#. backup activity cloud (Astrid.com) option
+msgctxt "backup_BAc_cloud"
+msgid "Click for free cloud backup on Astrid.com"
+msgstr ""
 
 #. ============================================== Importer / Exporter ==
 #. Message displayed when error occurs
@@ -905,6 +1011,12 @@ msgctxt "TLA_menu_friends"
 msgid "People"
 msgstr "אנשים"
 
+#. Menu: Featured Lists
+#, fuzzy
+msgctxt "TLA_menu_featured_lists"
+msgid "Featured Lists"
+msgstr "שיתוף רשימות"
+
 #. Menu: Suggestions
 msgctxt "TLA_menu_suggestions"
 msgid "Suggestions"
@@ -916,9 +1028,10 @@ msgid "Tutorial"
 msgstr "מדריך"
 
 #. Menu: Settings
+#, fuzzy
 msgctxt "TLA_menu_settings"
-msgid "Settings"
-msgstr "הגדרות"
+msgid "Account & Settings"
+msgstr "הגדרות ברירת מחדל"
 
 #. slide 30b: Menu: Support
 msgctxt "TLA_menu_support"
@@ -1305,18 +1418,21 @@ msgid "Notes"
 msgstr "הערות"
 
 #. Task note hint
+#, fuzzy
 msgctxt "TEA_notes_hint"
-msgid "Enter Task Notes..."
+msgid "Enter task notes..."
 msgstr "הוספת הערות למשימה..."
 
 #. Estimated time label
+#, fuzzy
 msgctxt "TEA_estimatedDuration_label"
-msgid "How Long Will it Take?"
+msgid "How long will it take?"
 msgstr "כמה זמן תיקח המשימה?"
 
 #. Elapsed time label
+#, fuzzy
 msgctxt "TEA_elapsedDuration_label"
-msgid "Time Already Spent on Task"
+msgid "Time already spent on task"
 msgstr "זמן שכבר הושקע במשימה"
 
 #. Menu: Save
@@ -1379,9 +1495,10 @@ msgctxt "TEA_urgency:0"
 msgid "No deadline"
 msgstr "ללא מועד סף"
 
+#, fuzzy
 msgctxt "TEA_urgency:1"
-msgid "Specific Day"
-msgstr "יום מסוים"
+msgid "Specific day"
+msgstr "תאריך מסויים"
 
 msgctxt "TEA_urgency:2"
 msgid "Today"
@@ -1395,17 +1512,20 @@ msgctxt "TEA_urgency:4"
 msgid "(day after)"
 msgstr "(ביום שלאחר)"
 
+#, fuzzy
 msgctxt "TEA_urgency:5"
-msgid "Next Week"
-msgstr "בשבוע הבא"
+msgid "Next week"
+msgstr "שבוע הבא"
 
+#, fuzzy
 msgctxt "TEA_urgency:6"
-msgid "In Two Weeks"
-msgstr "בעוד שבועיים"
+msgid "In two weeks"
+msgstr "שבועיים"
 
+#, fuzzy
 msgctxt "TEA_urgency:7"
-msgid "Next Month"
-msgstr "בחודש הבא"
+msgid "Next month"
+msgstr "החודש הבא"
 
 msgctxt "TEA_no_time"
 msgid "No time"
@@ -1711,6 +1831,19 @@ msgctxt "EPr_title"
 msgid "Astrid: Settings"
 msgstr "הגדרות אסטריד"
 
+#, fuzzy
+msgctxt "EPr_title_short"
+msgid "Settings"
+msgstr "הגדרות"
+
+msgctxt "EPr_share_astrid"
+msgid "Tell others about Astrid"
+msgstr ""
+
+msgctxt "EPr_share_astrid_summary"
+msgid "Share about Astrid on your favorite social network"
+msgstr ""
+
 #. slide 46a
 msgctxt "EPr_deactivated"
 msgid "deactivated"
@@ -1720,6 +1853,27 @@ msgstr "מופסק"
 msgctxt "EPr_appearance_header"
 msgid "Appearance"
 msgstr "חזות"
+
+#. Preference Category: Appearance Summary
+msgctxt "EPr_appearance_summary"
+msgid "Themes, Widgets, Task Rows, Edit Screen"
+msgstr ""
+
+#. FAQ Preference title
+msgctxt "EPr_faq_title"
+msgid "FAQ"
+msgstr ""
+
+#. Account status preference (%s -> account type)
+#, c-format
+msgctxt "EPr_account_title"
+msgid "Account: %s"
+msgstr ""
+
+#. Support preferences summary
+msgctxt "EPr_support_summary"
+msgid "Tutorial, FAQ, About Astrid"
+msgstr ""
 
 #. slide 34a: Preference: Task List Font Size Title
 msgctxt "EPr_fontSize_title"
@@ -1735,6 +1889,12 @@ msgstr "הצג אישור על תזכורות חכמות"
 msgctxt "EPr_fontSize_desc"
 msgid "Font size on the main listing page"
 msgstr "גודל הגופן בדף הרישום הראשי"
+
+#. Preferemce: Show task edit confirmation toasts
+#, fuzzy
+msgctxt "EPr_showEditToasts_title"
+msgid "Show task edit confirmations"
+msgstr "אל תציג אישורים נוספים"
 
 #. slide 34c: Preference: Task List Show Notes
 msgctxt "EPr_showNotes_title"
@@ -1850,15 +2010,6 @@ msgctxt "EPr_labs_desc"
 msgid "Try and configure experimental features"
 msgstr "התנסות בהרחבות ניסיוניות"
 
-#. Preference: swipe between lists performance
-msgctxt "EPr_swipe_lists_performance_title"
-msgid "Swipe between lists"
-msgstr "עִלְעוּל בין רשימות"
-
-msgctxt "EPr_swipe_lists_performance_subtitle"
-msgid "Controls the memory performance of swipe between lists"
-msgstr "בקרת ביצועי זיכרון של פעולת הַעִלְעוּל בין רשימות"
-
 #. slide 49g: Preferences: use the system contact picker for task assignment
 msgctxt "EPr_use_contact_picker"
 msgid "Use contact picker"
@@ -1911,9 +2062,28 @@ msgctxt "EPr_cal_start_at_due_time"
 msgid "Start calendar events at due time"
 msgstr "התחל אירועי לוח שנה בשעת היעד"
 
+msgctxt "EPr_force_phone_layout"
+msgid "Use phone layout"
+msgstr ""
+
+#, fuzzy
+msgctxt "EPr_show_featured_lists"
+msgid "Show featured lists"
+msgstr "שיתוף רשימות"
+
 msgctxt "EPr_swipe_lists_restart_alert"
 msgid "You will need to restart Astrid for this change to take effect"
 msgstr "יהיה עליך לאתחל את אסטריד כדי להפעיל שינוי זה"
+
+#. Swipe between lists
+#. Preference: swipe between lists performance
+msgctxt "EPr_swipe_lists_performance_title"
+msgid "Swipe between lists"
+msgstr "עִלְעוּל בין רשימות"
+
+msgctxt "EPr_swipe_lists_performance_subtitle"
+msgid "Controls the memory performance of swipe between lists"
+msgstr "בקרת ביצועי זיכרון של פעולת הַעִלְעוּל בין רשימות"
 
 msgctxt "EPr_swipe_lists_performance_mode:0"
 msgid "No swipe"
@@ -1946,6 +2116,19 @@ msgstr "הגדרות ברירת מחדל"
 msgctxt "EPr_swipe_lists_performance_desc:3"
 msgid "Uses more system resources"
 msgstr "השתמש ביותר משאבי מערכת"
+
+#, fuzzy
+msgctxt "swipe_lists_helper_title"
+msgid "Swipe between lists"
+msgstr "עִלְעוּל בין רשימות"
+
+msgctxt "swipe_lists_helper_header"
+msgid "Swipe left or right to quickly move between lists"
+msgstr ""
+
+msgctxt "swipe_lists_helper_subtitle"
+msgid "Change settings in Settings -&gt; Appearance"
+msgstr ""
 
 #. Format string for displaying the currently selected preference. $1 is name
 #. of selected mode, $2 is description
@@ -2093,9 +2276,10 @@ msgstr "%d אירועי לוח שנה נמחקו"
 
 #. ==================================================== AddOnActivity ==
 #. Add Ons Activity Title
+#, fuzzy
 msgctxt "AOA_title"
-msgid "Astrid: Add Ons"
-msgstr "אסטריד: תוספים"
+msgid "Add-ons"
+msgstr "תוספים"
 
 #. Add-on Activity: author for internal authors
 msgctxt "AOA_internal_author"
@@ -2170,6 +2354,11 @@ msgctxt "p_forums"
 msgid "Forums"
 msgstr "פורומים"
 
+#. Title of "Premium" option in settings
+msgctxt "p_premium"
+msgid "Premium"
+msgstr ""
+
 #. ============================================================= Misc ==
 #. Displayed when task killer found. %s => name of the application
 #, c-format
@@ -2221,12 +2410,23 @@ msgstr ""
 "הנתונים) ואחר כך, שחזר את המשימות מגיבוי (הגדרות-&gt;גיבוי-&gt;יבוא "
 "משימות)."
 
+#, fuzzy
+msgctxt "market_unavailable"
+msgid "Unfortunately the market is not available for your system."
+msgstr ""
+"לצערי, חנות גוגל אינה זמינה למערכת שלך.\n"
+" נסה אולי להוריד את החיפוש הקולי ממקור אחר."
+
 #. ** Copyright (c) 2012 Todoroo Inc ** ** See the file "LICENSE" for the
 #. full license governing this code.
 #. slide 32g: Preference Category: Defaults Title
 msgctxt "EPr_defaults_header"
 msgid "New Task Defaults"
 msgstr "ברירות המחדל למשימה חדשה"
+
+msgctxt "EPr_defaults_summary"
+msgid "Importance, Due Date, Add to Calendar"
+msgstr ""
 
 #. slide 41f:  Preference: Default Urgency Title
 msgctxt "EPr_default_urgency_title"
@@ -2839,13 +3039,17 @@ msgid "Tap to edit or share this list"
 msgstr "גע כדי לערוך או לשתף רשימה זו"
 
 #. slide 26c: Shown the first time a user sees the list settings tab
+#, fuzzy
 msgctxt "help_popover_collaborators"
-msgid "People you share with can help you build your list or finish tasks"
+msgid ""
+"People you share with can help\n"
+"you build your list or finish tasks"
 msgstr "שותפים יכולים לעזור לך לבנות רשימות ולהשלים משימות"
 
 #. Shown after user adds a task on tablet
+#, fuzzy
 msgctxt "help_popover_add_lists"
-msgid "Tap add a list"
+msgid "Tap to add a list"
 msgstr "גע כדי להוסיף רשימה"
 
 #. Shown after a user adds a task on phones
@@ -2871,14 +3075,20 @@ msgctxt "welcome_login_tos_base"
 msgid "By using Astrid you agree to the"
 msgstr "בשימוש בתכנת אסטריד אתה מסכים ל"
 
+#, fuzzy
 msgctxt "welcome_login_tos_link"
-msgid "\"Terms of Service\""
+msgid "Terms of Service"
 msgstr "\"תנאי שימוש\""
 
 #. slide 7e
 msgctxt "welcome_login_pw"
-msgid "Login with Username/Password"
-msgstr "התחבר עם שם משתמש/סיסמא"
+msgid "Sign up with email"
+msgstr ""
+
+#, fuzzy
+msgctxt "welcome_sign_in"
+msgid "Sign in"
+msgstr "התחבר!"
 
 #. slide 7f
 msgctxt "welcome_login_later"
@@ -3217,9 +3427,14 @@ msgstr "הוטל על..."
 #. full license governing this code.
 #. ================================================== EditPreferences ==
 #. slide 32j: Preference Category: Power Pack
+#, fuzzy
 msgctxt "EPr_powerpack_header"
-msgid "Astrid Power Pack"
-msgstr "חבילת הַכֹּחַ של אסטריד"
+msgid "Premium and Misc. Settings"
+msgstr "הגדרות תזכורת"
+
+msgctxt "EPr_powerpack_summary"
+msgid "Missed call reminders, voice input and miscellaneous settings"
+msgstr ""
 
 #. slide 32e: Preference: Anonymous User Statistics
 msgctxt "EPr_statistics_title"
@@ -3420,6 +3635,134 @@ msgstr ""
 msgctxt "p_files_dir_desc_default"
 msgid "Default directory"
 msgstr "דחיפות ברירת המחדל"
+
+#. in app billing
+msgctxt "billing_not_supported_title"
+msgid "Can't make purchases"
+msgstr ""
+
+msgctxt "billing_not_supported_message"
+msgid ""
+"The Market billing service is not available at this time. You can "
+"continue to use this app but you won't be able to make purchases."
+msgstr ""
+
+msgctxt "subscriptions_not_supported_title"
+msgid "Can't purchase subscriptions"
+msgstr ""
+
+msgctxt "subscriptions_not_supported_message"
+msgid ""
+"The Market billing service on this device does not support subscriptions "
+"at this time. You can subscribe to Astrid Premium at "
+"http://astrid.com/premium."
+msgstr ""
+
+msgctxt "cannot_connect_title"
+msgid "Can't connect to Market"
+msgstr ""
+
+msgctxt "cannot_connect_message"
+msgid ""
+"This app cannot connect to Market. Your version of Market may be out of "
+"date. You can continue to use this app but you won't be able to make "
+"purchases."
+msgstr ""
+
+msgctxt "restoring_transactions"
+msgid "Restoring transactions"
+msgstr ""
+
+#, fuzzy
+msgctxt "subscriptions_learn_more"
+msgid "Learn more"
+msgstr "גע כדי ללמוד עוד"
+
+#, c-format
+msgctxt "subscriptions_help_url"
+msgid "http://market.android.com/support/bin/answer.py?answer=1050566&hl=%lang%&dl=%region%"
+msgstr ""
+
+#, fuzzy
+msgctxt "premium_billing_title"
+msgid "Astrid Premium"
+msgstr "אסטריד מתקדם 4x4"
+
+#, fuzzy
+msgctxt "premium_buy_month"
+msgid "1 Month"
+msgstr "חודש"
+
+msgctxt "premium_buy_year"
+msgid "1 Year"
+msgstr ""
+
+msgctxt "premium_description_header"
+msgid "Do more with premium!"
+msgstr ""
+
+msgctxt "premium_description_1"
+msgid ""
+"Attach files to to-dos \n"
+"(pdfs, doc, ppt…)"
+msgstr ""
+
+msgctxt "premium_description_2"
+msgid "Syncs files with astrid.com"
+msgstr ""
+
+msgctxt "premium_description_3"
+msgid "Add attachments via email"
+msgstr ""
+
+msgctxt "premium_description_4"
+msgid "Save voice notes as audio files"
+msgstr ""
+
+msgctxt "premium_description_5"
+msgid "Preview upcoming features"
+msgstr ""
+
+msgctxt "premium_description_6"
+msgid "Support the Astrid Team!"
+msgstr ""
+
+msgctxt "premium_speech_bubble_1"
+msgid "Premium will power up your productivity!"
+msgstr ""
+
+#, c-format
+msgctxt "premium_speech_bubble_2"
+msgid "Order one year and save 25%!"
+msgstr ""
+
+msgctxt "premium_already_subscribed"
+msgid "You are already subscribed to Astrid Premium!"
+msgstr ""
+
+msgctxt "premium_login_prompt"
+msgid ""
+"You need to have an Astrid.com account in order to subscribe to premium. "
+"Please log in or sign up."
+msgstr ""
+
+msgctxt "premium_success"
+msgid "Thanks for subscribing to Astrid Premium!"
+msgstr ""
+
+msgctxt "premium_success_with_server_error"
+msgid ""
+"Thanks for subscribing to Astrid Premium! The new features will be "
+"unlocked for you on astrid.com soon, and should be available on your "
+"phone right away."
+msgstr ""
+
+msgctxt "premium_verification_error"
+msgid ""
+"The premium subscription for this Google Play account is connected to a "
+"different user. To link additional emails to your account, visit "
+"astrid.com/users/profile"
+msgstr ""
 
 #. ** Copyright (c) 2012 Todoroo Inc ** ** See the file "LICENSE" for the
 #. full license governing this code.
@@ -3858,6 +4201,10 @@ msgctxt "rmd_EPr_alerts_header"
 msgid "Reminder Settings"
 msgstr "הגדרות תזכורת"
 
+msgctxt "rmd_EPr_alerts_summary"
+msgid "Quiet hours, snooze options, persistence level"
+msgstr ""
+
 #. Reminder Preference: Reminders Enabled Title
 msgctxt "rmd_EPr_enabled_title"
 msgid "Reminders Enabled?"
@@ -3879,11 +4226,11 @@ msgid "Quiet Hours Start"
 msgstr "תחילת שעות השקט"
 
 #. Reminder Preference: Quiet Hours Start Description (%s => time set)
-#, c-format
+#, fuzzy, c-format
 msgctxt "rmd_EPr_quiet_hours_start_desc"
 msgid ""
 "Notifications will be silent after %s.\n"
-"Note: vibrations are controlled by the setting below!"
+"Note: vibrations are controlled by the Vibrate on Alert setting"
 msgstr ""
 "האתראות תוחרשנה אחרי %s.\n"
 "שים לב: הגדרות רטט הן מעט למטה!"
@@ -3910,9 +4257,9 @@ msgid "Default Reminder"
 msgstr "תזכורת ברירת מחדל"
 
 #. Reminder Preference: Default Reminder Description (%s => time set)
-#, c-format
+#, fuzzy, c-format
 msgctxt "rmd_EPr_rmd_time_desc"
-msgid "Notifications for tasks without duetimes will appear at %s"
+msgid "Notifications for tasks without due times will appear at %s"
 msgstr "אתראות משימות ללא תאריך יעד תגענה ב-%s"
 
 #. Reminder Preference: Notification Ringtone Title
@@ -3976,8 +4323,9 @@ msgstr "אסטריד תשתמש בעוצמת קול מירבית לתזכורו�
 
 #. Reminder Preference: Max Volume for Multiple-Ring reminders Description
 #. (false)
+#, fuzzy
 msgctxt "rmd_EPr_multiple_maxvolume_desc_false"
-msgid "Astrid will use the system-setting for the volume"
+msgid "Astrid will use the system setting for the volume"
 msgstr "אסטריד תשתמש בהגדרות המערכת של עצמת קול"
 
 #. Reminder Preference: Vibrate Title
@@ -4676,8 +5024,9 @@ msgid "Repeat Interval"
 msgstr "אינטרוול חזרות"
 
 #. slide 19b
+#, fuzzy
 msgctxt "repeat_never"
-msgid "Make Repeating?"
+msgid "Make repeating?"
 msgstr "הגדר כמשימה חוזרת?"
 
 #. slide 20f
@@ -5183,13 +5532,15 @@ msgid "Activity: %s"
 msgstr "פעילות: %s"
 
 #. Delete button for tag settings
+#, fuzzy
 msgctxt "tag_delete_button"
-msgid "Delete List"
+msgid "Delete list"
 msgstr "מחק רשימה"
 
 #. slide 28d: Leave button for tag settings
+#, fuzzy
 msgctxt "tag_leave_button"
-msgid "Leave This List"
+msgid "Leave this list"
 msgstr "עזוב רשימה זו"
 
 #. ** Copyright (c) 2012 Todoroo Inc ** ** See the file "LICENSE" for the
@@ -5594,6 +5945,11 @@ msgctxt "PPW_disable_encouragements"
 msgid "Hide encouragements"
 msgstr "הסתר קריאות עידוד"
 
+#, fuzzy
+msgctxt "PPW_show_dates"
+msgid "Show due dates"
+msgstr "ממועד היעד"
+
 msgctxt "PPW_filter"
 msgid "Select Filter"
 msgstr "בחר מַסְנֵן"
@@ -5756,11 +6112,52 @@ msgctxt "PPW_check_share_lists"
 msgid "Share lists!"
 msgstr "שתף רשימות!"
 
-#~ msgctxt "PPW_widget_custom_label"
-#~ msgid "Astrid Scrollable Premium for Custom Launchers"
-#~ msgstr "אסטריד מתקדם נגלל עבור משגרי משימות יעודיים"
+msgctxt "PPW_api_level"
+msgid "Sorry! This widget is only supported on Android 3.0 or higher."
+msgstr ""
 
-#~ msgctxt "PPW_widget_custom_launcherpro_label"
-#~ msgid "Astrid Scrollable Premium 4x4 for Launcher Pro"
-#~ msgstr "אסטריד מתקדם נגלל עבור Launcher Pro"
+msgctxt "EPr_widget_enabled_title"
+msgid "Enable/Disable Widgets"
+msgstr ""
+
+#, fuzzy
+msgctxt "PPW_restart_for_enabled_state"
+msgid "You may need to restart your phone for this change to take effect."
+msgstr "יהיה עליך לאתחל את אסטריד כדי להפעיל שינוי זה"
+
+#~ msgctxt "actfm_ALA_signup_title"
+#~ msgid "Create New Account"
+#~ msgstr "צור חשבון חדש"
+
+#~ msgctxt "actfm_ALA_login_title"
+#~ msgid "Login to Astrid.com"
+#~ msgstr "התחבר לאתר אסטריד"
+
+#~ msgctxt "TEA_urgency:1"
+#~ msgid "Specific Day"
+#~ msgstr "יום מסוים"
+
+#~ msgctxt "TEA_urgency:5"
+#~ msgid "Next Week"
+#~ msgstr "בשבוע הבא"
+
+#~ msgctxt "TEA_urgency:6"
+#~ msgid "In Two Weeks"
+#~ msgstr "בעוד שבועיים"
+
+#~ msgctxt "TEA_urgency:7"
+#~ msgid "Next Month"
+#~ msgstr "בחודש הבא"
+
+#~ msgctxt "AOA_title"
+#~ msgid "Astrid: Add Ons"
+#~ msgstr "אסטריד: תוספים"
+
+#~ msgctxt "welcome_login_pw"
+#~ msgid "Login with Username/Password"
+#~ msgstr "התחבר עם שם משתמש/סיסמא"
+
+#~ msgctxt "EPr_powerpack_header"
+#~ msgid "Astrid Power Pack"
+#~ msgstr "חבילת הַכֹּחַ של אסטריד"
 

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2012-08-13 17:20-0700\n"
+"POT-Creation-Date: 2012-09-07 13:08-0700\n"
 "PO-Revision-Date: 2012-04-14 13:45+0000\n"
 "Last-Translator: matsuu <matsuu@gmail.com>\n"
 "Language-Team: ja <LL@li.org>\n"
@@ -239,8 +239,13 @@ msgstr "同期中..."
 
 #. Sync Label: used in menu to denote synchronization
 msgctxt "SyP_label"
-msgid "Synchronization"
-msgstr "同期"
+msgid "Sync & Backup"
+msgstr ""
+
+#. Sync label subtitle
+msgctxt "SyP_summary"
+msgid "Astrid.com, Google Tasks, Saved Data & Local Backup"
+msgstr ""
 
 #. Error msg when io exception
 msgctxt "SyP_ioerror"
@@ -435,4 +440,8 @@ msgstr "3日に一度"
 msgctxt "sync_SPr_interval_entries:9"
 msgid "every week"
 msgstr "毎週"
+
+#~ msgctxt "SyP_label"
+#~ msgid "Synchronization"
+#~ msgstr "同期"
 
