@@ -46,6 +46,7 @@ import com.todoroo.astrid.utility.AstridPreferences;
 
 public final class UpgradeService {
 
+    public static final int V4_3_2 = 280;
     public static final int V4_3_1 = 279;
     public static final int V4_3_0 = 278;
     public static final int V4_2_6 = 277;
@@ -217,6 +218,12 @@ public final class UpgradeService {
 
         Preferences.clear(AstridPreferences.P_UPGRADE_FROM);
         StringBuilder changeLog = new StringBuilder();
+
+        if (from >= V4_3_0 && from < V4_3_2) {
+            newVersionString(changeLog, "4.3.2 (9/07/12)", new String[] {
+               "Fixed issues with Google Tasks shortcuts"
+            });
+        }
 
         if (from >= V4_3_0 && from < V4_3_1) {
             newVersionString(changeLog, "4.3.1 (9/06/12)", new String[] {
