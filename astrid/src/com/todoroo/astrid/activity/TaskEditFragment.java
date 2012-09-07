@@ -815,7 +815,7 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
         loadItem(intent);
 
         synchronized (controls) {
-            if (!FileMetadata.taskHasAttachments(model.getId()) || !ActFmPreferenceService.isPremiumUser()) {
+            if (!FileMetadata.taskHasAttachments(model.getId())) {
                 filesControlSet.getDisplayView().setVisibility(View.GONE);
             }
             for (TaskEditControlSet controlSet : controls)
