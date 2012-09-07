@@ -729,7 +729,9 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
         public void run() {
             AndroidUtilities.sleepDeep(500L);
             String groupedQuery;
-            if (query.get().contains("ORDER BY")) //$NON-NLS-1$
+            if (query.get().contains("GROUP BY"))
+                groupedQuery = query.get();
+            else if (query.get().contains("ORDER BY")) //$NON-NLS-1$
                 groupedQuery = query.get().replace("ORDER BY", "GROUP BY " + Task.ID + " ORDER BY"); //$NON-NLS-1$
             else
                 groupedQuery = query.get() + " GROUP BY " + Task.ID;
