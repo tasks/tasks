@@ -9,7 +9,6 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
 import android.database.sqlite.SQLiteConstraintException;
-import android.util.Log;
 
 import com.timsu.astrid.R;
 import com.todoroo.andlib.data.DatabaseDao;
@@ -189,10 +188,7 @@ public class TaskDao extends DatabaseDao<Task> {
             try {
                 saveSuccessful = createNew(task);
             } catch (SQLiteConstraintException e) {
-                if(e.getMessage().contains(Task.REMOTE_ID_PROPERTY_NAME)) {
-                    // Tried to create task with remote id that already exists
-                    saveSuccessful = handleSQLiteConstraintException(task);
-                }
+                saveSuccessful = handleSQLiteConstraintException(task); // Tried to create task with remote id that already exists
             }
         } else {
             saveSuccessful = saveExisting(task);
