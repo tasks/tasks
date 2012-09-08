@@ -61,6 +61,15 @@ public abstract class MarketStrategy {
         return false;
     }
 
+    /**
+     * Return true if the preference to use the phone layout should be
+     * turned on by default (only true for Nook)
+     * @return
+     */
+    public boolean defaultPhoneLayout() {
+        return false;
+    }
+
     public static class NoMarketStrategy extends MarketStrategy {
         @Override
         public Intent generateMarketLink(String packageName) {
@@ -142,7 +151,6 @@ public abstract class MarketStrategy {
                 R.string.p_theme_widget,
                 R.string.p_voicePrefSection,
                 R.string.p_end_at_deadline,
-                R.string.p_swipe_lists_enabled,
                 R.string.p_field_missed_calls
             };
         }
@@ -184,10 +192,14 @@ public abstract class MarketStrategy {
                 R.string.p_theme_widget,
                 R.string.p_voicePrefSection,
                 R.string.p_end_at_deadline,
-                R.string.p_swipe_lists_enabled,
                 R.string.p_field_missed_calls,
                 R.string.p_ideas_tab_enabled
             };
+        }
+
+        @Override
+        public boolean defaultPhoneLayout() {
+            return true;
         }
 
         @Override

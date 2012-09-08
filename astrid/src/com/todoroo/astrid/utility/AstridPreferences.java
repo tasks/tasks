@@ -92,6 +92,10 @@ public class AstridPreferences {
             Preferences.setString(R.string.p_theme, ThemeService.THEME_WHITE);
         }
 
+        if (Constants.MARKET_STRATEGY.defaultPhoneLayout()) {
+            Preferences.setIfUnset(prefs, editor, r, R.string.p_force_phone_layout, true);
+        }
+
         setShowFriendsView();
 
         setShowFeaturedLists();
