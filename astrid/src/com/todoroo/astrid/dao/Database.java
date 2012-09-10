@@ -17,7 +17,9 @@ import com.todoroo.astrid.data.ABTestEvent;
 import com.todoroo.astrid.data.Metadata;
 import com.todoroo.astrid.data.StoreObject;
 import com.todoroo.astrid.data.TagData;
+import com.todoroo.astrid.data.TagOutstanding;
 import com.todoroo.astrid.data.Task;
+import com.todoroo.astrid.data.TaskOutstanding;
 import com.todoroo.astrid.data.Update;
 import com.todoroo.astrid.data.User;
 import com.todoroo.astrid.provider.Astrid2TaskProvider;
@@ -39,7 +41,7 @@ public class Database extends AbstractDatabase {
      * Database version number. This variable must be updated when database
      * tables are updated, as it determines whether a database needs updating.
      */
-    public static final int VERSION = 25;
+    public static final int VERSION = 26;
 
     /**
      * Database name (must be unique)
@@ -58,6 +60,9 @@ public class Database extends AbstractDatabase {
         Update.TABLE,
         User.TABLE,
         ABTestEvent.TABLE,
+
+        TaskOutstanding.TABLE,
+        TagOutstanding.TABLE
     };
 
     // --- listeners
@@ -325,6 +330,13 @@ public class Database extends AbstractDatabase {
         case 24: try {
             database.execSQL("ALTER TABLE " + Task.TABLE.name + " ADD " +
                     Task.REPEAT_UNTIL.accept(visitor, null));
+        } catch (SQLiteException e) {
+            Log.e("astrid", "db-upgrade-" + oldVersion + "-" + newVersion, e);
+        }
+
+        case 25: try {
+            database.execSQL(createTableSql(visitor, TaskOutstanding.TABLE.name, TaskOutstanding.PROPERTIES));
+            database.execSQL(createTableSql(visitor, TagOutstanding.TABLE.name, TagOutstanding.PROPERTIES));
         } catch (SQLiteException e) {
             Log.e("astrid", "db-upgrade-" + oldVersion + "-" + newVersion, e);
         }
