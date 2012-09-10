@@ -29,7 +29,7 @@ public class TaskListFragmentPager extends ViewPager {
 
     public TaskListFragmentPager(Context context, AttributeSet attrs) {
         super(context, attrs);
-        setOffscreenPageLimit(3);
+        setOffscreenPageLimit(1);
         setPageMargin(1);
         setPageMarginDrawable(R.drawable.vertical_separator);
     }

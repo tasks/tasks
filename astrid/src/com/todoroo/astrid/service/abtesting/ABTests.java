@@ -121,7 +121,7 @@ public class ABTests {
 
     public static final String AB_TASK_EDIT_TOAST = "android_task_edit_toast"; //$NON-NLS-1$
 
-    public static final String AB_SWIPE_BETWEEN = "android_swipe_v2"; //$NON-NLS-1$
+    public static final String AB_SWIPE_BETWEEN = "android_swipe_v3"; //$NON-NLS-1$
 
     private void initialize() {
         addTest(AB_TASK_EDIT_TOAST, new int[] { 1, 1 },
