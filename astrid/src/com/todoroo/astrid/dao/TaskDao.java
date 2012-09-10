@@ -21,6 +21,7 @@ import com.todoroo.andlib.sql.Criterion;
 import com.todoroo.andlib.sql.Field;
 import com.todoroo.andlib.sql.Functions;
 import com.todoroo.andlib.sql.Query;
+import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.astrid.api.AstridApiConstants;
@@ -314,6 +315,19 @@ public class TaskDao extends DatabaseDao<Task> {
         Task.HIDE_UNTIL,
         Task.RECURRENCE
     };
+
+    private static final String[] IGNORE_OUTSTANDING_COLUMNS = new String[] {
+        Task.MODIFICATION_DATE.name,
+        Task.DETAILS.name,
+        Task.DETAILS_DATE.name,
+        Task.CALENDAR_URI.name,
+        Task.UUID.name
+    };
+
+    @Override
+    protected boolean recordOutstandingEntry(String columnName) {
+        return AndroidUtilities.indexOf(IGNORE_OUTSTANDING_COLUMNS, columnName) < 0;
+    }
 
     public void saveExistingWithSqlConstraintCheck(Task item) {
         try {

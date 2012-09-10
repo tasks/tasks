@@ -37,6 +37,9 @@ public final class Task extends RemoteModel {
     /** table for this model */
     public static final Table TABLE = new Table("tasks", Task.class);
 
+    /** model class for entries in the outstanding table */
+    public static final Class<? extends AbstractModel> OUTSTANDING_MODEL = TaskOutstanding.class;
+
     /** content uri for this model */
     public static final Uri CONTENT_URI = Uri.parse("content://" + AstridApiConstants.PACKAGE + "/" +
             TABLE.name);

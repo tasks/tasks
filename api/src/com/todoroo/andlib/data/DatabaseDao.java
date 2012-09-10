@@ -8,15 +8,21 @@ package com.todoroo.andlib.data;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
+import java.util.Map.Entry;
+import java.util.Set;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 import android.content.ContentValues;
 import android.database.Cursor;
+import android.database.sqlite.SQLiteTransactionListener;
 import android.util.Log;
 
 import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.andlib.sql.Criterion;
 import com.todoroo.andlib.sql.Query;
+import com.todoroo.andlib.utility.DateUtilities;
+import com.todoroo.astrid.data.OutstandingEntry;
 
 
 
@@ -33,6 +39,8 @@ public class DatabaseDao<TYPE extends AbstractModel> {
     private final Class<TYPE> modelClass;
 
     private Table table;
+
+    private Table outstandingTable;
 
     private AbstractDatabase database;
 
@@ -67,6 +75,7 @@ public class DatabaseDao<TYPE extends AbstractModel> {
             return;
         this.database = database;
         table = database.getTable(modelClass);
+        outstandingTable = database.getOutstandingTable(modelClass);
     }
 
     // --- listeners
@@ -254,13 +263,70 @@ public class DatabaseDao<TYPE extends AbstractModel> {
         ContentValues values = item.getSetValues();
         if(values == null || values.size() == 0) // nothing changed
             return true;
-        boolean result = database.update(table.name, values,
-                AbstractModel.ID_PROPERTY.eq(item.getId()).toString(), null) > 0;
-        if(result) {
-            onModelUpdated(item);
-            item.markSaved();
+        boolean recordOutstanding = (outstandingTable != null);
+        final AtomicBoolean result = new AtomicBoolean(false);
+
+        if (recordOutstanding) { // begin transaction
+            database.getDatabase().beginTransactionWithListener(new SQLiteTransactionListener() {
+                @Override
+                public void onRollback() {
+                    result.set(false);
+                }
+                @Override
+                public void onCommit() {/**/}
+                @Override
+                public void onBegin() {/**/}
+            });
         }
-        return result;
+        try {
+            result.set(database.update(table.name, values,
+                    AbstractModel.ID_PROPERTY.eq(item.getId()).toString(), null) > 0);
+            if(result.get()) {
+                if (recordOutstanding)
+                    createOutstandingEntries(item.getId(), values); // Create entries for setValues in outstanding table
+                onModelUpdated(item);
+                item.markSaved();
+            }
+        } finally {
+            if (recordOutstanding) // commit transaction
+                database.getDatabase().endTransaction();
+        }
+        return result.get();
+    }
+
+    private boolean createOutstandingEntries(long modelId, ContentValues modelSetValues) {
+        Set<Entry<String, Object>> entries = modelSetValues.valueSet();
+        long now = DateUtilities.now();
+        for (Entry<String, Object> entry : entries) {
+            if (entry.getValue() != null && recordOutstandingEntry(entry.getKey())) {
+                AbstractModel m;
+                try {
+                    m = outstandingTable.modelClass.newInstance();
+                } catch (IllegalAccessException e) {
+                    return false;
+                } catch (InstantiationException e2) {
+                    return false;
+                }
+                m.setValue(OutstandingEntry.ENTITY_ID_PROPERTY, modelId);
+                m.setValue(OutstandingEntry.COLUMN_STRING_PROPERTY, entry.getKey());
+                m.setValue(OutstandingEntry.VALUE_STRING_PROPERTY, entry.getValue().toString());
+                m.setValue(OutstandingEntry.CREATED_AT_PROPERTY, now);
+                database.insert(outstandingTable.name, null, m.getSetValues());
+            }
+        }
+        database.getDatabase().setTransactionSuccessful();
+        return true;
+    }
+
+    /**
+     * Returns true if an entry in the outstanding table should be recorded for this
+     * column. Subclasses can override to return false for insignificant columns
+     * (e.g. Task.DETAILS, last modified, etc.)
+     * @param columnName
+     * @return
+     */
+    protected boolean recordOutstandingEntry(String columnName) {
+        return true;
     }
 
     /**

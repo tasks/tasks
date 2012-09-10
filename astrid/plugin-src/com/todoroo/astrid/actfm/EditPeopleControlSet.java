@@ -730,7 +730,7 @@ public class EditPeopleControlSet extends PopupControlSet {
                 dirty = task.getValue(Task.USER_ID) == Task.USER_ID_SELF ? dirty : true;
                 task.setValue(Task.USER_ID, Task.USER_ID_SELF);
                 if(!TextUtils.isEmpty(task.getValue(Task.USER)))
-                    task.setValue(Task.USER, "");
+                    task.setValue(Task.USER, "{}");
 
                 assignedToMe = true;
             } else if(userJson.optLong("id") == Task.USER_ID_UNASSIGNED) {
@@ -764,7 +764,7 @@ public class EditPeopleControlSet extends PopupControlSet {
 
             JSONObject sharedWith = sharedWithContainer.parseSharedWithAndTags(activity, false);
             EditText message = (EditText) getSharedWithView().findViewById(R.id.message);
-            if (!TextUtils.isEmpty(message.getText()))
+            if (!TextUtils.isEmpty(message.getText()) && sharedWith.has("p"))
                 sharedWith.put("message", message.getText().toString());
 
             if(cbFacebook.isChecked())

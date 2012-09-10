@@ -5,6 +5,7 @@
  */
 package com.todoroo.andlib.data;
 
+import java.lang.reflect.Field;
 import java.util.ArrayList;
 
 import android.content.ContentValues;
@@ -129,6 +130,22 @@ abstract public class AbstractDatabase {
                 return table;
         }
         throw new UnsupportedOperationException("Unknown model class " + modelType); //$NON-NLS-1$
+    }
+
+    public final Table getOutstandingTable(Class<? extends AbstractModel> modelType) {
+        try {
+            Field f = modelType.getDeclaredField("OUTSTANDING_MODEL");
+            Class<? extends AbstractModel> outstandingModelType = (Class<? extends AbstractModel>) f.get(null);
+            return getTable(outstandingModelType);
+        } catch (NoSuchFieldException n) {
+            //
+        } catch (IllegalAccessException i) {
+            //
+        } catch (ClassCastException c) {
+            throw new RuntimeException("Outstanding model class for type " + modelType + " could not be cast");
+        }
+
+        return null;
     }
 
     protected synchronized final void initializeHelper() {

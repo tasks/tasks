@@ -9,6 +9,7 @@ import com.todoroo.andlib.data.DatabaseDao;
 import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.andlib.sql.Criterion;
+import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.astrid.data.TagData;
 
 /**
@@ -26,6 +27,16 @@ public class TagDataDao extends DatabaseDao<TagData> {
         super(TagData.class);
         DependencyInjectionService.getInstance().inject(this);
         setDatabase(database);
+    }
+
+    private static final String[] IGNORE_OUTSTANDING_COLUMNS = new String[] {
+        TagData.MODIFICATION_DATE.name,
+        TagData.UUID.name
+    };
+
+    @Override
+    protected boolean recordOutstandingEntry(String columnName) {
+        return AndroidUtilities.indexOf(IGNORE_OUTSTANDING_COLUMNS, columnName) < 0;
     }
 
     // --- SQL clause generators
