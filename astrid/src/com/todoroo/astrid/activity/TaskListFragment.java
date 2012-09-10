@@ -1151,7 +1151,7 @@ public class TaskListFragment extends ListFragment implements OnScrollListener,
                     tef.discardButtonClick();
             }
         }
-        TimerPlugin.updateTimer(getActivity(), task, false);
+        TimerPlugin.updateTimer(ContextManager.getContext(), task, false);
     }
 
     public void incrementFilterCount() {
