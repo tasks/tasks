@@ -337,6 +337,11 @@ public class Database extends AbstractDatabase {
         case 25: try {
             database.execSQL(createTableSql(visitor, TaskOutstanding.TABLE.name, TaskOutstanding.PROPERTIES));
             database.execSQL(createTableSql(visitor, TagOutstanding.TABLE.name, TagOutstanding.PROPERTIES));
+
+            database.execSQL(addColumnSql(TagData.TABLE, TagData.UUID, visitor));
+            database.execSQL(addColumnSql(Task.TABLE, Task.UUID, visitor));
+            database.execSQL(addColumnSql(Update.TABLE, Update.UUID, visitor));
+            database.execSQL(addColumnSql(User.TABLE, User.UUID, visitor));
         } catch (SQLiteException e) {
             Log.e("astrid", "db-upgrade-" + oldVersion + "-" + newVersion, e);
         }
@@ -345,6 +350,10 @@ public class Database extends AbstractDatabase {
         }
 
         return false;
+    }
+
+    private String addColumnSql(Table table, Property<?> column, SqlConstructorVisitor visitor) {
+        return "ALTER TABLE " + table.name + " ADD " + column.accept(visitor, null);
     }
 
     /**

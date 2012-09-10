@@ -134,6 +134,10 @@ public final class Task extends RemoteModel {
     public static final StringProperty CALENDAR_URI = new StringProperty(
             TABLE, "calendarUri");
 
+    /** uuid */
+    public static final StringProperty UUID = new StringProperty(
+            TABLE, UUID_PROPERTY_NAME);
+
     // --- for astrid.com
 
     /** Remote id */

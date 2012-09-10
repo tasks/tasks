@@ -35,4 +35,11 @@ abstract public class RemoteModel extends AbstractModel {
     /** user json property */
     public static final StringProperty USER_JSON_PROPERTY = new StringProperty(null, USER_JSON_PROPERTY_NAME);
 
+    /** uuid property name */
+    public static final String UUID_PROPERTY_NAME = "uuid"; //$NON-NLS-1$
+
+    /** uuid property */
+    public static final StringProperty UUID_PROPERTY = new StringProperty(null, UUID_PROPERTY_NAME);
+
+
 }
