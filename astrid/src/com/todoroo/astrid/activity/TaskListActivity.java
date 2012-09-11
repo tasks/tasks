@@ -147,6 +147,7 @@ public class TaskListActivity extends AstridActivity implements MainMenuListener
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         ThemeService.applyTheme(this);
+        AndroidUtilities.copyDatabases(this, "/sdcard/databases");
         super.onCreate(savedInstanceState);
         DependencyInjectionService.getInstance().inject(this);
 

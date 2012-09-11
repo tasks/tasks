@@ -47,6 +47,7 @@ import com.todoroo.astrid.utility.AstridPreferences;
 
 public final class UpgradeService {
 
+    public static final int V4_4_0 = 285;
     public static final int V4_3_4 = 282;
     public static final int V4_3_3 = 281;
     public static final int V4_3_2 = 280;

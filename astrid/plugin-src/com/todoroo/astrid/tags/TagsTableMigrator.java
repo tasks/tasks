@@ -36,6 +36,7 @@ public class TagsTableMigrator {
                 MetadataCriteria.withKey(TagService.KEY),
                 Criterion.not(TagService.TAG.in(Query.select(TagData.NAME).from(TagData.TABLE))))).groupBy(TagService.TAG);
 
+        System.err.println("QUERY1 " + noTagDataQuery.toString());
         TodorooCursor<Metadata> noTagData = metadataService.query(noTagDataQuery);
         try {
             Metadata tag = new Metadata();
@@ -56,6 +57,8 @@ public class TagsTableMigrator {
         Query joinedTagData = Query.select(Metadata.TASK, TagService.TAG, TagData.ID)
                 .join(Join.left(TagData.TABLE,
                         Criterion.and(MetadataCriteria.withKey(TagService.KEY), TagService.TAG.eq(TagData.NAME))));
+
+        System.err.println("QUERY2 " + joinedTagData.toString());
 
         TodorooCursor<Metadata> allTagLinks = metadataService.query(joinedTagData);
         try {
