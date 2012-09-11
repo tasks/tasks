@@ -165,7 +165,7 @@ public final class UpgradeService {
 
         // long running tasks: pop up a progress dialog
         final ProgressDialog dialog;
-        if(from < V4_0_6 && context instanceof Activity)
+        if(from < V4_4_0 && context instanceof Activity)
             dialog = DialogUtilities.progressDialog(context,
                     context.getString(R.string.DLG_upgrading));
         else
