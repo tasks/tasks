@@ -31,6 +31,7 @@ import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.astrid.actfm.sync.ActFmPreferenceService;
 import com.todoroo.astrid.activity.Eula;
 import com.todoroo.astrid.api.AstridApiConstants;
+import com.todoroo.astrid.backup.TasksXmlExporter;
 import com.todoroo.astrid.core.SortHelper;
 import com.todoroo.astrid.dao.Database;
 import com.todoroo.astrid.data.Metadata;
@@ -179,7 +180,7 @@ public final class UpgradeService {
             public void run() {
                 try {
                     // NOTE: This line should be uncommented whenever any new version requires a data migration
-                    // TasksXmlExporter.exportTasks(context, TasksXmlExporter.ExportType.EXPORT_TYPE_ON_UPGRADE, null, null, lastSetVersionName);
+                    TasksXmlExporter.exportTasks(context, TasksXmlExporter.ExportType.EXPORT_TYPE_ON_UPGRADE, null, null, lastSetVersionName);
 
                     if(from < V3_0_0)
                         new Astrid2To3UpgradeHelper().upgrade2To3(context, from);
@@ -196,7 +197,8 @@ public final class UpgradeService {
                     if (from < V4_0_6)
                         new DueDateTimeMigrator().migrateDueTimes();
 
-                    new TagsTableMigrator().migrateTagMetadataToTable();
+                    if (from < V4_4_0)
+                        new TagsTableMigrator().migrateTagMetadataToTable();
 
                 } finally {
                     DialogUtilities.dismissDialog((Activity)context, dialog);

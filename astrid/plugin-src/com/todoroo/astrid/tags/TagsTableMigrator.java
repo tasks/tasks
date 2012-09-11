@@ -1,5 +1,7 @@
 package com.todoroo.astrid.tags;
 
+import android.util.Log;
+
 import com.todoroo.andlib.data.TodorooCursor;
 import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.DependencyInjectionService;
@@ -14,6 +16,7 @@ import com.todoroo.astrid.data.TagData;
 import com.todoroo.astrid.data.TaskToTag;
 import com.todoroo.astrid.service.MetadataService;
 import com.todoroo.astrid.service.TagDataService;
+import com.todoroo.astrid.utility.Constants;
 
 public class TagsTableMigrator {
 
@@ -27,6 +30,7 @@ public class TagsTableMigrator {
         DependencyInjectionService.getInstance().inject(this);
     }
 
+    @SuppressWarnings("nls")
     public void migrateTagMetadataToTable() {
         if (Preferences.getBoolean(PREF_MIGRATED_TASKS_TO_TAGS, false))
             return;
@@ -36,14 +40,14 @@ public class TagsTableMigrator {
                 MetadataCriteria.withKey(TagService.KEY),
                 Criterion.not(TagService.TAG.in(Query.select(TagData.NAME).from(TagData.TABLE))))).groupBy(TagService.TAG);
 
-        System.err.println("QUERY1 " + noTagDataQuery.toString());
         TodorooCursor<Metadata> noTagData = metadataService.query(noTagDataQuery);
         try {
             Metadata tag = new Metadata();
             for (noTagData.moveToFirst(); !noTagData.isAfterLast(); noTagData.moveToNext()) {
                 tag.readFromCursor(noTagData);
 
-                System.err.println("CREATING TAG DATA " + tag.getValue(TagService.TAG));
+                if (Constants.DEBUG)
+                    Log.w("tag-link-migrate", "CREATING TAG DATA " + tag.getValue(TagService.TAG));
 
                 TagData newTagData = new TagData();
                 newTagData.setValue(TagData.NAME, tag.getValue(TagService.TAG));
@@ -58,8 +62,6 @@ public class TagsTableMigrator {
                 .join(Join.left(TagData.TABLE,
                         Criterion.and(MetadataCriteria.withKey(TagService.KEY), TagService.TAG.eq(TagData.NAME))));
 
-        System.err.println("QUERY2 " + joinedTagData.toString());
-
         TodorooCursor<Metadata> allTagLinks = metadataService.query(joinedTagData);
         try {
             Metadata tag = new Metadata();
@@ -68,7 +70,10 @@ public class TagsTableMigrator {
 
                 // Create new tag links
                 TaskToTag link = new TaskToTag();
-                System.err.println("LINK from task " + tag.getValue(Metadata.TASK) + " to " + tag.getValue(TagService.TAG));
+
+                if (Constants.DEBUG)
+                    Log.w("tag-link-migrate", "LINK FROM TASK " + tag.getValue(Metadata.TASK) + " TO TAG " + tag.getValue(TagService.TAG));
+
                 link.setValue(TaskToTag.TASK_ID, tag.getValue(Metadata.TASK));
                 link.setValue(TaskToTag.TAG_ID, tag.getValue(TagData.ID));
 
