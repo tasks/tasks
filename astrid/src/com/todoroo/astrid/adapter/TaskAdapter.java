@@ -313,6 +313,8 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
         boolean showNotes = Preferences.getBoolean(R.string.p_showNotes, false);
         if (showFullTaskTitle) {
             viewHolder.nameView.setMaxLines(Integer.MAX_VALUE);
+            viewHolder.nameView.setSingleLine(false);
+            viewHolder.nameView.setEllipsize(null);
         }
 
         if (showNotes) {
