@@ -8,6 +8,8 @@ package com.todoroo.astrid.utility;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -16,6 +18,7 @@ import com.google.ical.values.RRule;
 import com.mdimension.jchronic.AstridChronic;
 import com.mdimension.jchronic.Chronic;
 import com.todoroo.astrid.data.Task;
+import com.todoroo.astrid.tags.TagService;
 
 @SuppressWarnings("nls")
 public class TitleParser {
@@ -52,14 +55,21 @@ public class TitleParser {
         Pattern contextPattern = Pattern.compile("(\\s|^)@(\\(.*\\)|[^\\s]+)");
         boolean result = false;
 
+        Set<String> addedTags = new HashSet<String>();
+        TagService tagService = TagService.getInstance();
+
         while(true) {
             Matcher m = tagPattern.matcher(inputText);
             if(m.find()) {
                 result = true;
                 String[] splitTags = TitleParser.trimParenthesisAndSplit(m.group(2));
                 if (splitTags != null) {
-                    for (String tag : splitTags)
-                        tags.add(tag);
+                    for (String tag : splitTags) {
+                        String tagWithCase = tagService.getTagWithCase(tag);
+                        if (!addedTags.contains(tagWithCase))
+                            tags.add(tagWithCase);
+                        addedTags.add(tagWithCase);
+                    }
                 }
             } else {
                 m = contextPattern.matcher(inputText);
@@ -67,8 +77,12 @@ public class TitleParser {
                     result = true;
                     String[] splitTags = TitleParser.trimParenthesisAndSplit(m.group(2));
                     if (splitTags != null) {
-                        for (String tag : splitTags)
-                            tags.add(tag);
+                        for (String tag : splitTags) {
+                            String tagWithCase = tagService.getTagWithCase(tag);
+                            if (!addedTags.contains(tagWithCase))
+                                tags.add(tagWithCase);
+                            addedTags.add(tagWithCase);
+                        }
                     }
                 } else{
                     break;
