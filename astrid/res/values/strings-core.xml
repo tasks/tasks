@@ -640,6 +640,12 @@
   <string name="EPr_ideaAuto_desc_enabled">Web searches for Ideas tab will be performed when tab is clicked</string>
   <string name="EPr_ideaAuto_desc_disabled">Web searches for Ideas tab will be performed only when manually requested</string>
   
+  <!-- Preferences: task row style -->
+  <string name="EPr_task_row_style_title_simple">Row Style: Simple</string>
+  <string name="EPr_task_row_style_title_legacy">Row Style: Original</string>
+  <string name="EPr_task_row_style_summary_simple">Truncate title to one line with date and lists below</string>
+  <string name="EPr_task_row_style_summary_legacy">Truncate title to two lines with date on right</string>
+  
   <!-- slide 30f/ 36f: Preference: Theme -->
   <string name="EPr_theme_title">Color Theme</string>
   <!-- Preference: Theme Description (%s => value) -->

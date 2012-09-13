@@ -873,7 +873,10 @@ public class TaskListFragment extends ListFragment implements OnScrollListener,
     }
 
     protected TaskAdapter createTaskAdapter(TodorooCursor<Task> cursor) {
-        return new TaskAdapter(this, R.layout.task_adapter_row_simple,
+        int resource = Preferences.getBoolean(R.string.p_taskRowStyle, false) ?
+                R.layout.task_adapter_row_simple : R.layout.task_adapter_row;
+
+        return new TaskAdapter(this, resource,
                 cursor, sqlQueryTemplate, false,
                 new OnCompletedTaskListener() {
                     @Override

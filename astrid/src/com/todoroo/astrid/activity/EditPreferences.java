@@ -222,6 +222,9 @@ public class EditPreferences extends TodorooPreferenceActivity {
             preference.setEnabled(Preferences.getBoolean(R.string.p_force_phone_layout, false));
         }
 
+        preference = screen.findPreference(getString(R.string.p_showNotes));
+        preference.setEnabled(!Preferences.getBoolean(R.string.p_taskRowStyle, false));
+
         removeForbiddenPreferences(screen, r);
     }
 
@@ -467,6 +470,23 @@ public class EditPreferences extends TodorooPreferenceActivity {
             }
             preference.setTitle(title);
             preference.setSummary(summary);
+        } else if (r.getString(R.string.p_taskRowStyle).equals(preference.getKey())) {
+            if (value != null && !(Boolean)value) {
+                preference.setTitle(R.string.EPr_task_row_style_title_legacy);
+                preference.setSummary(R.string.EPr_task_row_style_summary_legacy);
+            } else {
+                preference.setTitle(R.string.EPr_task_row_style_title_simple);
+                preference.setSummary(R.string.EPr_task_row_style_summary_simple);
+            }
+            preference.setOnPreferenceChangeListener(new SetResultOnPreferenceChangeListener(RESULT_CODE_PERFORMANCE_PREF_CHANGED) {
+                @Override
+                public boolean onPreferenceChange(Preference p, Object newValue) {
+                    Preference notes = findPreference(getString(R.string.p_showNotes));
+                    notes.setEnabled(!(Boolean) newValue);
+                    return super.onPreferenceChange(p, newValue);
+                };
+            });
+
         } else if (r.getString(R.string.p_showNotes).equals(preference.getKey())) {
             if (value != null && !(Boolean)value)
                 preference.setSummary(R.string.EPr_showNotes_desc_disabled);

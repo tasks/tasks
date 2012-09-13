@@ -197,6 +197,7 @@
 
   <string name="p_colorize">colorize</string>
   <string name="p_fontSize">font_size</string>
+  <string name="p_taskRowStyle">p_taskRowStyle</string>
   <string name="p_showNotes">notesVisible</string>
   <string name="p_beastMode">beastMode</string>
   <string name="p_transparent_deprecated">transparent</string>

@@ -116,7 +116,7 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
             Metadata.ID.name).as("taskRabId"); //$NON-NLS-1$
 
     @SuppressWarnings("nls")
-    private static final StringProperty TAGS = new StringProperty(null, "group_concat(" + TaskListFragment.TAGS_METADATA_JOIN + "." + TagService.TAG.name + ", ' | ')").as("tags");
+    private static final StringProperty TAGS = new StringProperty(null, "group_concat(" + TaskListFragment.TAGS_METADATA_JOIN + "." + TagService.TAG.name + ", '  |  ')").as("tags");
 
     // --- other constants
 
@@ -1046,15 +1046,21 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
             name.setTextAppearance(activity, R.style.TextAppearance_TAd_ItemTitle);
         }
         name.setTextSize(fontSize);
-        float detailTextSize = Math.max(10, fontSize * 12 / 20);
+        float detailTextSize = Math.max(10, fontSize * 14 / 20);
         if(viewHolder.details1 != null)
             viewHolder.details1.setTextSize(detailTextSize);
         if(viewHolder.details2 != null)
             viewHolder.details2.setTextSize(detailTextSize);
-        if(viewHolder.dueDate != null)
+        if(viewHolder.dueDate != null) {
             viewHolder.dueDate.setTextSize(detailTextSize);
-        if (viewHolder.tagsView != null)
+            if (simpleLayout)
+                viewHolder.dueDate.setTypeface(null, 0);
+        }
+        if (viewHolder.tagsView != null) {
             viewHolder.tagsView.setTextSize(detailTextSize);
+            if (simpleLayout)
+                viewHolder.tagsView.setTypeface(null, 0);
+        }
         paint.setTextSize(detailTextSize);
 
         // image view
@@ -1155,7 +1161,7 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
                 if (viewHolder.tagsView != null) {
                     String tags = viewHolder.tagsString;
                     if (tags != null && task.hasDueDate())
-                        tags = " | " + tags; //$NON-NLS-1$
+                        tags = "  |  " + tags; //$NON-NLS-1$
                     if (!task.isCompleted())
                         viewHolder.tagsView.setText(tags);
                     else
