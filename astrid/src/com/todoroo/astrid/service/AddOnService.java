@@ -139,21 +139,16 @@ public class AddOnService {
         // temporary temporary
         ArrayList<AddOn> list = new ArrayList<AddOn>(3);
         if(Constants.MARKET_STRATEGY.includesPowerPack())
-            list.add(new AddOn(false, true, "Astrid Power Pack", null,
-                "Support Astrid and get more productive with the Astrid Power Pack. 4x2 and 4x4 widgets and voice integration. Power up today!",
+            list.add(new AddOn(false, true, r.getString(R.string.AOA_ppack_title), null,
+                r.getString(R.string.AOA_ppack_description),
                 POWER_PACK_PACKAGE, "http://www.weloveastrid.com/store",
                 ((BitmapDrawable)r.getDrawable(R.drawable.icon_pp)).getBitmap()));
 
         if(Constants.MARKET_STRATEGY.includesLocalePlugin())
-            list.add(new AddOn(false, true, "Astrid Locale Plugin", null,
-                "Allows Astrid to make use of the Locale application to send you notifications based on filter conditions. Requires Locale.",
+            list.add(new AddOn(false, true, r.getString(R.string.AOA_locale_title), null,
+                r.getString(R.string.AOA_locale_description),
                 LOCALE_PACKAGE, "http://www.weloveastrid.com/store",
                 ((BitmapDrawable)r.getDrawable(R.drawable.icon_locale)).getBitmap()));
-
-//        list.add(new AddOn(true, true, "Producteev", null,
-//                "Synchronize with Producteev service. Also changes Astrid's importance levels to stars.",
-//                Constants.PACKAGE, "http://www.producteev.com",
-//                ((BitmapDrawable)r.getDrawable(R.drawable.icon_producteev)).getBitmap()));
 
         return list.toArray(new AddOn[list.size()]);
     }
