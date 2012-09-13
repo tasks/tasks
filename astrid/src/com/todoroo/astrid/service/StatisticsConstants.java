@@ -76,6 +76,8 @@ public class StatisticsConstants {
     public static final String PREF_SHOW_NOTES_IN_ROW = "pref-show-notes";
     public static final String PREF_SHOW_FEATURED_LISTS = "pref-show-featured-lists";
 
+    public static final String PREF_CHANGED_PREFIX = "pref-changed-";
+
     public static final String TASK_THREE_DAYS = "task-created-three-days";
     public static final String TASK_ONE_WEEK = "task-created-one-week";
     public static final String TASK_TWO_WEEKS = "task-created-two-weeks";

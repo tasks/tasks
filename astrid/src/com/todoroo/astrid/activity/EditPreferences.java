@@ -481,6 +481,9 @@ public class EditPreferences extends TodorooPreferenceActivity {
             preference.setOnPreferenceChangeListener(new SetResultOnPreferenceChangeListener(RESULT_CODE_PERFORMANCE_PREF_CHANGED) {
                 @Override
                 public boolean onPreferenceChange(Preference p, Object newValue) {
+                    String valueString = newValue.toString();
+                    StatisticsService.reportEvent(StatisticsConstants.PREF_CHANGED_PREFIX + "row-style", //$NON-NLS-1$
+                            "changed-to", valueString); //$NON-NLS-1$
                     Preference notes = findPreference(getString(R.string.p_showNotes));
                     notes.setEnabled(!(Boolean) newValue);
                     return super.onPreferenceChange(p, newValue);
@@ -672,6 +675,14 @@ public class EditPreferences extends TodorooPreferenceActivity {
             @Override
             public boolean onPreferenceChange(Preference preference, Object newValue) {
                 StatisticsService.reportEvent(StatisticsConstants.PREF_SHOW_NOTES_IN_ROW, "enabled", newValue.toString()); //$NON-NLS-1$
+                return true;
+            }
+        });
+
+        findPreference(getString(R.string.p_fullTaskTitle)).setOnPreferenceChangeListener(new OnPreferenceChangeListener() {
+            @Override
+            public boolean onPreferenceChange(Preference preference, Object newValue) {
+                StatisticsService.reportEvent(StatisticsConstants.PREF_CHANGED_PREFIX + "full-title", "full-title", newValue.toString()); //$NON-NLS-1$ //$NON-NLS-2$
                 return true;
             }
         });
