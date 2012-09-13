@@ -101,6 +101,7 @@ import com.todoroo.astrid.service.ThemeService;
 import com.todoroo.astrid.service.UpgradeService;
 import com.todoroo.astrid.subtasks.SubtasksListFragment;
 import com.todoroo.astrid.sync.SyncProviderPreferences;
+import com.todoroo.astrid.tags.TagService;
 import com.todoroo.astrid.taskrabbit.TaskRabbitMetadata;
 import com.todoroo.astrid.timers.TimerPlugin;
 import com.todoroo.astrid.ui.QuickAddBar;
@@ -872,7 +873,7 @@ public class TaskListFragment extends ListFragment implements OnScrollListener,
     }
 
     protected TaskAdapter createTaskAdapter(TodorooCursor<Task> cursor) {
-        return new TaskAdapter(this, R.layout.task_adapter_row,
+        return new TaskAdapter(this, R.layout.task_adapter_row_simple,
                 cursor, sqlQueryTemplate, false,
                 new OnCompletedTaskListener() {
                     @Override
@@ -885,25 +886,49 @@ public class TaskListFragment extends ListFragment implements OnScrollListener,
 
     public static final String TR_METADATA_JOIN = "for_taskrab"; //$NON-NLS-1$
 
+    public static final String TAGS_METADATA_JOIN = "for_tags"; //$NON-NLS-1$
+
     /**
      * Fill in the Task List with current items
      *
      * @param withCustomId
      *            force task with given custom id to be part of list
      */
+    @SuppressWarnings("nls")
     protected void setUpTaskList() {
         if (filter == null)
             return;
 
-        // TODO: For now, we'll modify the query to join and include the task rabbit data here.
+        String tagName = null;
+        if (getActiveTagData() != null)
+            tagName = getActiveTagData().getValue(TagData.NAME);
+
+        Criterion tagsJoinCriterion = Criterion.and(Field.field(TAGS_METADATA_JOIN + "." + Metadata.KEY.name).eq(TagService.KEY), //$NON-NLS-1$
+                Task.ID.eq(Field.field(TAGS_METADATA_JOIN + "." + Metadata.TASK.name)));
+        if (tagName != null)
+            tagsJoinCriterion = Criterion.and(tagsJoinCriterion, Field.field(TAGS_METADATA_JOIN + "." + TagService.TAG.name).neq(tagName));
+
+        // TODO: For now, we'll modify the query to join and include the task rabbit and tag data here.
         // Eventually, we might consider restructuring things so that this query is constructed elsewhere.
-        String joinedTaskRabbitQuery = Join.left(Metadata.TABLE.as(TR_METADATA_JOIN),
-                Criterion.and(Field.field(TR_METADATA_JOIN + "." + Metadata.KEY.name).eq(TaskRabbitMetadata.METADATA_KEY), //$NON-NLS-1$
-                        Task.ID.eq(Field.field(TR_METADATA_JOIN) + "." + Metadata.TASK.name))) //$NON-NLS-1$
+        String joinedQuery =
+                Join.left(Metadata.TABLE.as(TR_METADATA_JOIN),
+                        Criterion.and(Field.field(TR_METADATA_JOIN + "." + Metadata.KEY.name).eq(TaskRabbitMetadata.METADATA_KEY), //$NON-NLS-1$
+                                Task.ID.eq(Field.field(TR_METADATA_JOIN + "." + Metadata.TASK.name)))).toString() //$NON-NLS-1$
+                + Join.left(Metadata.TABLE.as(TAGS_METADATA_JOIN),
+                        tagsJoinCriterion).toString() //$NON-NLS-1$
                 + filter.getSqlQuery();
 
         sqlQueryTemplate.set(SortHelper.adjustQueryForFlagsAndSort(
-                joinedTaskRabbitQuery, sortFlags, sortSort));
+                joinedQuery, sortFlags, sortSort));
+
+        String groupedQuery;
+        if (sqlQueryTemplate.get().contains("GROUP BY"))
+            groupedQuery = sqlQueryTemplate.get();
+        else if (sqlQueryTemplate.get().contains("ORDER BY")) //$NON-NLS-1$
+            groupedQuery = sqlQueryTemplate.get().replace("ORDER BY", "GROUP BY " + Task.ID + " ORDER BY"); //$NON-NLS-1$
+        else
+            groupedQuery = sqlQueryTemplate.get() + " GROUP BY " + Task.ID;
+        sqlQueryTemplate.set(groupedQuery);
 
         // perform query
         TodorooCursor<Task> currentCursor;

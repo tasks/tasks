@@ -58,6 +58,7 @@ import android.widget.TextView;
 import com.timsu.astrid.R;
 import com.todoroo.andlib.data.Property;
 import com.todoroo.andlib.data.Property.LongProperty;
+import com.todoroo.andlib.data.Property.StringProperty;
 import com.todoroo.andlib.data.TodorooCursor;
 import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.ContextManager;
@@ -90,6 +91,7 @@ import com.todoroo.astrid.service.StatisticsConstants;
 import com.todoroo.astrid.service.StatisticsService;
 import com.todoroo.astrid.service.TaskService;
 import com.todoroo.astrid.service.ThemeService;
+import com.todoroo.astrid.tags.TagService;
 import com.todoroo.astrid.timers.TimerDecorationExposer;
 import com.todoroo.astrid.ui.CheckableImageView;
 import com.todoroo.astrid.utility.Constants;
@@ -113,6 +115,9 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
     private static final LongProperty TASK_RABBIT_ID = new LongProperty(Metadata.TABLE.as(TaskListFragment.TR_METADATA_JOIN),
             Metadata.ID.name).as("taskRabId"); //$NON-NLS-1$
 
+    @SuppressWarnings("nls")
+    private static final StringProperty TAGS = new StringProperty(null, "group_concat(" + TaskListFragment.TAGS_METADATA_JOIN + "." + TagService.TAG.name + ", ' | ')").as("tags");
+
     // --- other constants
 
     /** Properties that need to be read from the action item */
@@ -133,7 +138,8 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
         Task.NOTES,
         Task.USER_ID,
         Task.USER,
-        TASK_RABBIT_ID // Task rabbit metadata id (non-zero means it exists)
+        TASK_RABBIT_ID, // Task rabbit metadata id (non-zero means it exists)
+        TAGS // Concatenated list of tags
     };
 
     public static int[] IMPORTANCE_RESOURCES = new int[] {
@@ -189,11 +195,11 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
 
     private final AtomicReference<String> query;
 
-    protected final int minRowHeight;
-
     // measure utilities
     protected final Paint paint;
     protected final DisplayMetrics displayMetrics;
+
+    private final boolean simpleLayout;
 
     // --- task detail and decoration soft caches
 
@@ -232,7 +238,7 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
         displayMetrics = new DisplayMetrics();
         fragment.getActivity().getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
 
-        this.minRowHeight = (int) (45 * displayMetrics.density);
+        this.simpleLayout = (resource == R.layout.task_adapter_row_simple);
 
         startDetailThread();
         startTaskActionsThread();
@@ -246,7 +252,7 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
     }
 
     private void startDetailThread() {
-        if (Preferences.getBoolean(R.string.p_showNotes, false)) {
+        if (Preferences.getBoolean(R.string.p_showNotes, false) && !simpleLayout) {
             detailLoader = new DetailLoaderThread();
             detailLoader.start();
         }
@@ -296,6 +302,7 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
         viewHolder.pictureBorder = (ImageView)view.findViewById(R.id.pictureBorder);
         viewHolder.completeBox = (CheckableImageView)view.findViewById(R.id.completeBox);
         viewHolder.dueDate = (TextView)view.findViewById(R.id.dueDate);
+        viewHolder.tagsView = (TextView)view.findViewById(R.id.tagsDisplay);
         viewHolder.details1 = (TextView)view.findViewById(R.id.details1);
         viewHolder.details2 = (TextView)view.findViewById(R.id.details2);
         viewHolder.taskRow = (LinearLayout)view.findViewById(R.id.task_row);
@@ -333,6 +340,7 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
         ViewHolder viewHolder = ((ViewHolder)view.getTag());
 
         viewHolder.isTaskRabbit = (cursor.get(TASK_RABBIT_ID) > 0);
+        viewHolder.tagsString = cursor.get(TAGS);
 
         Task task = viewHolder.task;
         task.clear();
@@ -365,11 +373,13 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
         public AsyncImageView picture;
         public ImageView pictureBorder;
         public TextView dueDate;
+        public TextView tagsView;
         public TextView details1, details2;
         public LinearLayout taskRow;
         public View taskActionContainer;
         public ImageView taskActionIcon;
-        public boolean isTaskRabbit;
+        public boolean isTaskRabbit; // From join query, not part of the task model
+        public String tagsString; // From join query, not part of the task model
 
         public View[] decorations;
     }
@@ -378,7 +388,6 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
     public synchronized void setFieldContentsAndVisibility(View view) {
         ViewHolder viewHolder = (ViewHolder)view.getTag();
         Task task = viewHolder.task;
-        viewHolder.rowBody.setMinimumHeight(minRowHeight);
 
         // name
         final TextView nameView = viewHolder.nameView; {
@@ -392,32 +401,7 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
             nameView.setText(nameValue);
         }
 
-        // due date / completion date
-        float dueDateTextWidth = 0;
-        final TextView dueDateView = viewHolder.dueDate; {
-            Activity activity = fragment.getActivity();
-            if (activity != null) {
-                if(!task.isCompleted() && task.hasDueDate()) {
-                    long dueDate = task.getValue(Task.DUE_DATE);
-                    if(task.isOverdue())
-                        dueDateView.setTextAppearance(fragment.getActivity(), R.style.TextAppearance_TAd_ItemDueDate_Overdue);
-                    else
-                        dueDateView.setTextAppearance(fragment.getActivity(), R.style.TextAppearance_TAd_ItemDueDate);
-                    String dateValue = formatDate(dueDate);
-                    dueDateView.setText(dateValue);
-                    dueDateTextWidth = paint.measureText(dateValue);
-                    setVisibility(dueDateView);
-                } else if(task.isCompleted()) {
-                    String dateValue = formatDate(task.getValue(Task.COMPLETION_DATE));
-                    dueDateView.setText(resources.getString(R.string.TAd_completed, dateValue));
-                    dueDateView.setTextAppearance(fragment.getActivity(), R.style.TextAppearance_TAd_ItemDueDate_Completed);
-                    dueDateTextWidth = paint.measureText(dateValue);
-                    setVisibility(dueDateView);
-                } else {
-                    dueDateView.setVisibility(View.GONE);
-                }
-            }
-        }
+        float dueDateTextWidth = setupDueDateAndTags(viewHolder, task);
 
         String details;
         if(viewHolder.details1 != null) {
@@ -616,13 +600,15 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
 
     private final HashMap<Long, String> dateCache = new HashMap<Long, String>(8);
 
+    @SuppressWarnings("nls")
     private String formatDate(long date) {
         if(dateCache.containsKey(date))
             return dateCache.get(date);
 
+        String formatString = "%s" + (simpleLayout ? " " : "\n") + "%s";
         String string = DateUtilities.getRelativeDay(fragment.getActivity(), date);
         if(Task.hasDueTime(date))
-            string = String.format("%s\n%s", string, //$NON-NLS-1$
+            string = String.format(formatString, string, //$NON-NLS-1$
                     DateUtilities.getTimeString(fragment.getActivity(), new Date(date)));
 
         dateCache.put(date, string);
@@ -728,13 +714,7 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
         @Override
         public void run() {
             AndroidUtilities.sleepDeep(500L);
-            String groupedQuery;
-            if (query.get().contains("GROUP BY"))
-                groupedQuery = query.get();
-            else if (query.get().contains("ORDER BY")) //$NON-NLS-1$
-                groupedQuery = query.get().replace("ORDER BY", "GROUP BY " + Task.ID + " ORDER BY"); //$NON-NLS-1$
-            else
-                groupedQuery = query.get() + " GROUP BY " + Task.ID;
+            String groupedQuery = query.get();
 
             groupedQuery = PermaSql.replacePlaceholders(groupedQuery);
 
@@ -1055,6 +1035,8 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
             return;
         boolean state = task.isCompleted();
 
+        setupDueDateAndTags(viewHolder, task);
+
         TextView name = viewHolder.nameView;
         if(state) {
             name.setPaintFlags(name.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
@@ -1071,6 +1053,8 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
             viewHolder.details2.setTextSize(detailTextSize);
         if(viewHolder.dueDate != null)
             viewHolder.dueDate.setTextSize(detailTextSize);
+        if (viewHolder.tagsView != null)
+            viewHolder.tagsView.setTextSize(detailTextSize);
         paint.setTextSize(detailTextSize);
 
         // image view
@@ -1138,6 +1122,49 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
                 checkBoxView.setVisibility(View.VISIBLE);
             }
         }
+
+    }
+
+    // Returns due date text width
+    private float setupDueDateAndTags(ViewHolder viewHolder, Task task) {
+        // due date / completion date
+        float dueDateTextWidth = 0;
+        final TextView dueDateView = viewHolder.dueDate; {
+            Activity activity = fragment.getActivity();
+            if (activity != null) {
+                if(!task.isCompleted() && task.hasDueDate()) {
+                    long dueDate = task.getValue(Task.DUE_DATE);
+                    if(task.isOverdue())
+                        dueDateView.setTextAppearance(activity, R.style.TextAppearance_TAd_ItemDueDate_Overdue);
+                    else
+                        dueDateView.setTextAppearance(activity, R.style.TextAppearance_TAd_ItemDueDate);
+                    String dateValue = formatDate(dueDate);
+                    dueDateView.setText(dateValue);
+                    dueDateTextWidth = paint.measureText(dateValue);
+                    setVisibility(dueDateView);
+                } else if(task.isCompleted()) {
+                    String dateValue = formatDate(task.getValue(Task.COMPLETION_DATE));
+                    dueDateView.setText(resources.getString(R.string.TAd_completed, dateValue));
+                    dueDateView.setTextAppearance(activity, R.style.TextAppearance_TAd_ItemDueDate_Completed);
+                    dueDateTextWidth = paint.measureText(dateValue);
+                    setVisibility(dueDateView);
+                } else {
+                    dueDateView.setVisibility(View.GONE);
+                }
+
+                if (viewHolder.tagsView != null) {
+                    String tags = viewHolder.tagsString;
+                    if (tags != null && task.hasDueDate())
+                        tags = " | " + tags; //$NON-NLS-1$
+                    if (!task.isCompleted())
+                        viewHolder.tagsView.setText(tags);
+                    else
+                        viewHolder.tagsView.setText(null);
+                    setVisibility(viewHolder.tagsView);
+                }
+            }
+        }
+        return dueDateTextWidth;
     }
 
     /**

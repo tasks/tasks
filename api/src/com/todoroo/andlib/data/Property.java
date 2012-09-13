@@ -158,6 +158,11 @@ public abstract class Property<TYPE> extends Field implements Cloneable {
             return visitor.visitString(this, data);
         }
 
+        @Override
+        public StringProperty as(String newAlias) {
+            return (StringProperty) super.as(newAlias);
+        }
+
         public Criterion in(final String[] value) {
             final Field field = this;
             return new Criterion(Operator.in) {
