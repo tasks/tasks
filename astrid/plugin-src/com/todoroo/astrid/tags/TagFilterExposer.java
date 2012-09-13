@@ -175,7 +175,7 @@ public class TagFilterExposer extends BroadcastReceiver implements AstridFilterE
                     R.string.tag_FEx_untagged_w_astrid : R.string.tag_FEx_untagged;
             Filter untagged = new Filter(r.getString(untaggedLabel),
                     r.getString(R.string.tag_FEx_untagged),
-                    TagService.untaggedTemplate(),
+                    TagService.getInstance().untaggedTemplate(),
                     null);
             untagged.listingIcon = ((BitmapDrawable)r.getDrawable(
                     ThemeService.getDrawable(R.drawable.gl_lists, themeFlags))).getBitmap();

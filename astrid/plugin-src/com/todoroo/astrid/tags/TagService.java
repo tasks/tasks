@@ -184,9 +184,11 @@ public final class TagService {
                 additionalCriterion);
     }
 
-    public static QueryTemplate untaggedTemplate() {
+    public QueryTemplate untaggedTemplate() {
+        String[] emergentTags = getEmergentTags();
+
         return new QueryTemplate().where(Criterion.and(
-                Criterion.not(Task.ID.in(Query.select(Metadata.TASK).from(Metadata.TABLE).where(MetadataCriteria.withKey(KEY)))),
+                Criterion.not(Task.ID.in(Query.select(Metadata.TASK).from(Metadata.TABLE).where(Criterion.and(MetadataCriteria.withKey(KEY), Criterion.not(TAG.in(emergentTags)))))),
                 TaskCriteria.isActive(),
                 TaskApiDao.TaskCriteria.ownedByMe(),
                 TaskCriteria.isVisible()));
@@ -222,7 +224,7 @@ public final class TagService {
         }
     }
 
-    private String[] getEmergentTags() {
+    public String[] getEmergentTags() {
         TodorooCursor<TagData> emergent = tagDataService.query(Query.select(TagData.NAME)
                 .where(Functions.bitwiseAnd(TagData.FLAGS, TagData.FLAG_EMERGENT).gt(0)));
         try {

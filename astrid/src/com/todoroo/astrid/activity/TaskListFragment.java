@@ -54,6 +54,7 @@ import android.widget.TextView;
 
 import com.timsu.astrid.R;
 import com.todoroo.andlib.data.Property;
+import com.todoroo.andlib.data.Property.StringProperty;
 import com.todoroo.andlib.data.TodorooCursor;
 import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.ContextManager;
@@ -906,8 +907,13 @@ public class TaskListFragment extends ListFragment implements OnScrollListener,
         if (getActiveTagData() != null)
             tagName = getActiveTagData().getValue(TagData.NAME);
 
-        Criterion tagsJoinCriterion = Criterion.and(Field.field(TAGS_METADATA_JOIN + "." + Metadata.KEY.name).eq(TagService.KEY), //$NON-NLS-1$
-                Task.ID.eq(Field.field(TAGS_METADATA_JOIN + "." + Metadata.TASK.name)));
+        String[] emergentTags = TagService.getInstance().getEmergentTags();
+        StringProperty tagProperty = new StringProperty(null, TAGS_METADATA_JOIN + "." + TagService.TAG.name);
+
+        Criterion tagsJoinCriterion = Criterion.and(
+                Field.field(TAGS_METADATA_JOIN + "." + Metadata.KEY.name).eq(TagService.KEY), //$NON-NLS-1$
+                Task.ID.eq(Field.field(TAGS_METADATA_JOIN + "." + Metadata.TASK.name)),
+                Criterion.not(tagProperty.in(emergentTags)));
         if (tagName != null)
             tagsJoinCriterion = Criterion.and(tagsJoinCriterion, Field.field(TAGS_METADATA_JOIN + "." + TagService.TAG.name).neq(tagName));
 
