@@ -119,14 +119,13 @@ public class FeaturedTaskListFragment extends TagViewFragment {
             return;
         }
         final String localName = tagData.getValue(TagData.NAME) + " " + getString(R.string.actfm_feat_list_suffix); //$NON-NLS-1$
-        long remoteId = 0;
-        TodorooCursor<TagData> existing = tagDataService.query(Query.select(TagData.REMOTE_ID)
+        TagData clone = new TagData();
+        TodorooCursor<TagData> existing = tagDataService.query(Query.select(TagData.PROPERTIES)
                 .where(TagData.NAME.eqCaseInsensitive(localName)));
         try {
             if (existing.getCount() > 0) {
                 existing.moveToFirst();
-                TagData match = new TagData(existing);
-                remoteId = match.getValue(TagData.REMOTE_ID);
+                clone = new TagData(existing);
             }
 
         } finally {
@@ -135,7 +134,7 @@ public class FeaturedTaskListFragment extends TagViewFragment {
 
         final ProgressDialog pd = DialogUtilities.progressDialog(getActivity(), getString(R.string.actfm_feat_list_cloning));
 
-        final long finalRemoteId = remoteId;
+        final TagData finalTagData = clone;
         new Thread(new Runnable() {
             @Override
             public void run() {
@@ -144,8 +143,7 @@ public class FeaturedTaskListFragment extends TagViewFragment {
                     Task t = new Task();
                     for (tasks.moveToFirst(); !tasks.isAfterLast(); tasks.moveToNext()) {
                         t.readFromCursor(tasks);
-                        taskService.cloneReusableTask(t,
-                                localName, finalRemoteId);
+                        taskService.cloneReusableTask(t, finalTagData.getId());
                     }
                     final Activity activity = getActivity();
                     if (activity != null) {
@@ -162,7 +160,7 @@ public class FeaturedTaskListFragment extends TagViewFragment {
                                 tla.setFilterMode(TaskListActivity.FILTER_MODE_NORMAL);
 
                                 Filter clonedFilter;
-                                Tag tag = new Tag(localName, tasks.getCount(), finalRemoteId);
+                                Tag tag = new Tag(finalTagData);
                                 clonedFilter = TagFilterExposer.filterFromTag(activity, tag, TaskCriteria.activeAndVisible());
 
                                 tla.onFilterItemClicked(clonedFilter);

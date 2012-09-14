@@ -122,6 +122,13 @@ public final class TagService {
         public long userId;
         public long memberCount;
 
+        @Deprecated
+        private Tag(String tag, int count, long remoteId) {
+            this.tag = tag;
+            this.count = count;
+            this.remoteId = remoteId;
+        }
+
         public Tag(TagData tagData) {
             id = tagData.getId();
             tag = tagData.getValue(TagData.NAME);

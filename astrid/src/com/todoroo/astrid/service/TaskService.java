@@ -31,9 +31,11 @@ import com.todoroo.astrid.dao.MetadataDao;
 import com.todoroo.astrid.dao.MetadataDao.MetadataCriteria;
 import com.todoroo.astrid.dao.TaskDao;
 import com.todoroo.astrid.dao.TaskDao.TaskCriteria;
+import com.todoroo.astrid.dao.TaskToTagDao;
 import com.todoroo.astrid.data.Metadata;
 import com.todoroo.astrid.data.SyncFlags;
 import com.todoroo.astrid.data.Task;
+import com.todoroo.astrid.data.TaskToTag;
 import com.todoroo.astrid.gcal.GCalHelper;
 import com.todoroo.astrid.gtasks.GtasksMetadata;
 import com.todoroo.astrid.opencrx.OpencrxCoreUtils;
@@ -70,6 +72,9 @@ public class TaskService {
 
     @Autowired
     private MetadataDao metadataDao;
+
+    @Autowired
+    private TaskToTagDao taskToTagDao;
 
     public TaskService() {
         DependencyInjectionService.getInstance().inject(this);
@@ -189,7 +194,7 @@ public class TaskService {
         return newTask;
     }
 
-    public Task cloneReusableTask(Task task, String listName, long tagRemoteId) {
+    public Task cloneReusableTask(Task task, long tagId) {
         Task newTask = fetchById(task.getId(), Task.PROPERTIES);
         if (newTask == null)
             return new Task();
@@ -200,14 +205,11 @@ public class TaskService {
 
         taskDao.save(newTask);
 
-        if (listName != null) {
-            Metadata tag = new Metadata();
-            tag.setValue(Metadata.TASK, newTask.getId());
-            tag.setValue(Metadata.KEY, TagService.KEY);
-            tag.setValue(TagService.TAG, listName);
-            if (tagRemoteId > 0)
-                tag.setValue(TagService.REMOTE_ID, tagRemoteId);
-            metadataDao.createNew(tag);
+        if (tagId > 0) {
+            TaskToTag link = new TaskToTag();
+            link.setValue(TaskToTag.ID, newTask.getId());
+            link.setValue(TaskToTag.TAG_ID, tagId);
+            taskToTagDao.createNew(link);
         }
         return newTask;
     }

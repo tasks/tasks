@@ -49,7 +49,7 @@ public class ReusableTaskAdapter extends TaskAdapter {
             @Override
             public void onClick(View v) {
                 ReusableTaskViewHolder holder = (ReusableTaskViewHolder) v.getTag();
-                taskService.cloneReusableTask(holder.task, null, 0);
+                taskService.cloneReusableTask(holder.task, 0L);
                 Toast.makeText(fragment.getActivity(), R.string.actfm_feat_list_task_clone_success, Toast.LENGTH_LONG).show();
                 Flags.set(Flags.REFRESH);
             }
