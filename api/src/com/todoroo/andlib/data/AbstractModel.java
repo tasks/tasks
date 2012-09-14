@@ -164,7 +164,7 @@ public abstract class AbstractModel implements Parcelable, Cloneable {
     /**
      * Reads all properties from the supplied cursor and store
      */
-    protected synchronized void readPropertiesFromCursor(TodorooCursor<? extends AbstractModel> cursor) {
+    public synchronized void readPropertiesFromCursor(TodorooCursor<? extends AbstractModel> cursor) {
         if (values == null)
             values = new ContentValues();
 

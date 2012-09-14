@@ -448,6 +448,7 @@ public final class TagService {
         return renameHelper(oldTag, newTag, true);
     }
 
+    @Deprecated
     private int renameHelper(String oldTag, String newTag, boolean caseSensitive) {
      // First remove newTag from all tasks that have both oldTag and newTag.
         MetadataService metadataService = PluginServices.getMetadataService();
