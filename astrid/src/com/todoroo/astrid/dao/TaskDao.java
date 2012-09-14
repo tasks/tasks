@@ -11,7 +11,6 @@ import android.content.Intent;
 import android.database.sqlite.SQLiteConstraintException;
 
 import com.timsu.astrid.R;
-import com.todoroo.andlib.data.DatabaseDao;
 import com.todoroo.andlib.data.Property;
 import com.todoroo.andlib.data.TodorooCursor;
 import com.todoroo.andlib.service.Autowired;
@@ -40,7 +39,7 @@ import com.todoroo.astrid.utility.AstridPreferences;
  * @author Tim Su <tim@todoroo.com>
  *
  */
-public class TaskDao extends DatabaseDao<Task> {
+public class TaskDao extends RemoteModelDao<Task> {
 
     @Autowired
     private MetadataDao metadataDao;
@@ -321,7 +320,8 @@ public class TaskDao extends DatabaseDao<Task> {
         Task.DETAILS.name,
         Task.DETAILS_DATE.name,
         Task.CALENDAR_URI.name,
-        Task.REMOTE_ID.name
+        Task.REMOTE_ID.name,
+        Task.PROOF_TEXT.name
     };
 
     @Override

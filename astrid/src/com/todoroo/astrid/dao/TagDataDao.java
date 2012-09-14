@@ -5,7 +5,6 @@
  */
 package com.todoroo.astrid.dao;
 
-import com.todoroo.andlib.data.DatabaseDao;
 import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.andlib.sql.Criterion;
@@ -18,7 +17,7 @@ import com.todoroo.astrid.data.TagData;
  * @author Tim Su <tim@todoroo.com>
  *
  */
-public class TagDataDao extends DatabaseDao<TagData> {
+public class TagDataDao extends RemoteModelDao<TagData> {
 
     @Autowired Database database;
 
@@ -31,7 +30,8 @@ public class TagDataDao extends DatabaseDao<TagData> {
 
     private static final String[] IGNORE_OUTSTANDING_COLUMNS = new String[] {
         TagData.MODIFICATION_DATE.name,
-        TagData.REMOTE_ID.name
+        TagData.REMOTE_ID.name,
+        TagData.PROOF_TEXT.name
     };
 
     @Override

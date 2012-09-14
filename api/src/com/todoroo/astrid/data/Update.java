@@ -101,6 +101,10 @@ public class Update extends RemoteModel {
     public static final LongProperty CREATION_DATE = new LongProperty(
             TABLE, "created");
 
+    /** UUID proof text */
+    public static final StringProperty PROOF_TEXT = new StringProperty(
+            TABLE, PROOF_TEXT_PROPERTY_NAME);
+
     /** List of all properties for this model */
     public static final Property<?>[] PROPERTIES = generateProperties(Update.class);
 

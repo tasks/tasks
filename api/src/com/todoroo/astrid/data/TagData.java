@@ -117,6 +117,10 @@ public final class TagData extends RemoteModel {
     public static final StringProperty TAG_DESCRIPTION = new StringProperty(
             TABLE, "tagDescription");
 
+    /** UUID proof text */
+    public static final StringProperty PROOF_TEXT = new StringProperty(
+            TABLE, PROOF_TEXT_PROPERTY_NAME);
+
     /** List of all properties for this model */
     public static final Property<?>[] PROPERTIES = generateProperties(TagData.class);
 

@@ -44,6 +44,7 @@ import com.todoroo.astrid.backup.TasksXmlImporter;
 import com.todoroo.astrid.dao.Database;
 import com.todoroo.astrid.gtasks.GtasksPreferenceService;
 import com.todoroo.astrid.gtasks.sync.GtasksSyncService;
+import com.todoroo.astrid.helper.UUIDHelper;
 import com.todoroo.astrid.opencrx.OpencrxCoreUtils;
 import com.todoroo.astrid.producteev.ProducteevUtilities;
 import com.todoroo.astrid.reminders.ReengagementService;
@@ -141,6 +142,9 @@ public class StartupService {
             else if(audioManager.getStreamVolume(AudioManager.STREAM_NOTIFICATION) == 0)
                 Toast.makeText(context, R.string.TLA_notification_volume_low, Toast.LENGTH_LONG).show();
         }
+
+        // Initializes the device id
+        UUIDHelper.getDeviceId();
 
         // read current version
         int latestSetVersion = 0;

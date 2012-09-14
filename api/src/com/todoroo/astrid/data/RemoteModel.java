@@ -35,4 +35,10 @@ abstract public class RemoteModel extends AbstractModel {
     /** user json property */
     public static final StringProperty USER_JSON_PROPERTY = new StringProperty(null, USER_JSON_PROPERTY_NAME);
 
+    /** proof text property name */
+    protected static final String PROOF_TEXT_PROPERTY_NAME = "proofText"; //$NON-NLS-1$
+
+    /** proof text property */
+    public static final StringProperty PROOF_TEXT_PROPERTY = new StringProperty(null, PROOF_TEXT_PROPERTY_NAME);
+
 }
