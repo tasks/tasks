@@ -247,6 +247,23 @@ public final class TagService {
         }
     }
 
+    public Long[] getEmergentTagIds() {
+        TodorooCursor<TagData> emergent = tagDataService.query(Query.select(TagData.ID)
+                .where(Functions.bitwiseAnd(TagData.FLAGS, TagData.FLAG_EMERGENT).gt(0)));
+        try {
+            Long[] tags = new Long[emergent.getCount()];
+            TagData data = new TagData();
+            for (int i = 0; i < emergent.getCount(); i++) {
+                emergent.moveToPosition(i);
+                data.readFromCursor(emergent);
+                tags[i] = data.getId();
+            }
+            return tags;
+        } finally {
+            emergent.close();
+        }
+    }
+
     /**
      * Return tags on the given task
      *

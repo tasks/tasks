@@ -3,8 +3,6 @@ package com.todoroo.astrid.helper;
 import java.security.SecureRandom;
 import java.util.UUID;
 
-import android.util.Base64;
-
 import com.todoroo.andlib.utility.Pair;
 import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.astrid.actfm.sync.ActFmPreferenceService;
@@ -57,18 +55,29 @@ public class UUIDHelper {
     }
 
     private static final String SALT = "$2a$10$2RHhxhKaPb4VXlQUJyBU/O"; //$NON-NLS-1$
+    private static final String BASE_64_CHARS = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789./"; //$NON-NLS-1$
+
 
     private static long bcryptToLong(String proofText) {
         String a = BCrypt.hashpw(proofText, SALT);
         int start = 29;
         int endPlusOne = 60;
         String b = a.substring(start, endPlusOne);
-        byte[] bytes = Base64.decode(b, Base64.DEFAULT);
         long result = 1;
-        for (byte element : bytes) {
-            result = 31 * result + element;
+        for (int i = 0; i < b.length(); i++) {
+            result = 31 * result + iOf(b.charAt(i));
         }
+
         return result;
+    }
+
+    @SuppressWarnings("nls")
+    private static int iOf(char c) {
+        int index = BASE_64_CHARS.indexOf(c);
+        if (index < 0)
+            throw new RuntimeException("Base64Chars is wrong! No character " + c + " found. Probably needs to be replaces with something else");
+        return index;
+
     }
 
 }
