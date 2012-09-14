@@ -31,7 +31,7 @@ public class TagDataDao extends DatabaseDao<TagData> {
 
     private static final String[] IGNORE_OUTSTANDING_COLUMNS = new String[] {
         TagData.MODIFICATION_DATE.name,
-        TagData.UUID.name
+        TagData.REMOTE_ID.name
     };
 
     @Override

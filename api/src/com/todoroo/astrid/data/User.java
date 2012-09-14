@@ -58,10 +58,6 @@ public final class User extends RemoteModel {
     public static final LongProperty REMOTE_ID = new LongProperty(
             TABLE, REMOTE_ID_PROPERTY_NAME);
 
-    /** uuid */
-    public static final StringProperty UUID = new StringProperty(
-            TABLE, UUID_PROPERTY_NAME);
-
     /** List of all properties for this model */
     public static final Property<?>[] PROPERTIES = generateProperties(User.class);
 

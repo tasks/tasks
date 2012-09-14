@@ -321,7 +321,7 @@ public class TaskDao extends DatabaseDao<Task> {
         Task.DETAILS.name,
         Task.DETAILS_DATE.name,
         Task.CALENDAR_URI.name,
-        Task.UUID.name
+        Task.REMOTE_ID.name
     };
 
     @Override

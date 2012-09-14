@@ -42,6 +42,7 @@ import com.todoroo.astrid.data.Metadata;
 import com.todoroo.astrid.data.TagData;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.data.TaskApiDao;
+import com.todoroo.astrid.data.TaskToTag;
 import com.todoroo.astrid.service.MetadataService;
 import com.todoroo.astrid.service.TagDataService;
 import com.todoroo.astrid.service.TaskService;
@@ -115,18 +116,14 @@ public final class TagService {
     public static final class Tag {
         public String tag;
         public int count;
+        public long id;
         public long remoteId;
         public String image;
         public long userId;
         public long memberCount;
 
-        public Tag(String tag, int count, long remoteId) {
-            this.tag = tag;
-            this.count = count;
-            this.remoteId = remoteId;
-        }
-
         public Tag(TagData tagData) {
+            id = tagData.getId();
             tag = tagData.getValue(TagData.NAME);
             count = tagData.getValue(TagData.TASK_COUNT);
             remoteId = tagData.getValue(TagData.REMOTE_ID);
@@ -140,19 +137,7 @@ public final class TagService {
             return tag;
         }
 
-        /**
-         * Return SQL selector query for getting tasks with a given tag
-         *
-         * @param tag
-         * @return
-         */
-        public QueryTemplate queryTemplate(Criterion criterion) {
-            return new QueryTemplate().join(Join.inner(Metadata.TABLE.as("mtags"),
-                    Criterion.and(Task.ID.eq(Field.field("mtags." + Metadata.TASK.name)),
-                            Field.field("mtags." + Metadata.KEY.name).eq(KEY),
-                            Field.field("mtags." + TAG.name).eqCaseInsensitive(tag)))).where(criterion);
-        }
-
+        private static final String TABLE_ALIAS = "taglinks";
 
         /**
          * Return SQL selector query for getting tasks with a given tagData
@@ -160,9 +145,13 @@ public final class TagService {
          * @param tagData
          * @return
          */
-        public static QueryTemplate queryTemplate(Criterion criterion, TagData tagData) {
-            return new QueryTemplate().join(Join.inner(Metadata.TABLE,
-                    Task.ID.eq(Metadata.TASK))).where(tagEqIgnoreCase(tagData.getValue(TagData.NAME), criterion));
+        public QueryTemplate queryTemplate(Criterion criterion) {
+            String prefix = TABLE_ALIAS + ".";
+            return new QueryTemplate().join(Join.inner(TaskToTag.TABLE.as(TABLE_ALIAS),
+                    Criterion.and(
+                            Criterion.or(Task.ID.eq(Field.field(prefix + TaskToTag.TASK_ID.name)), Task.REMOTE_ID.eq(Field.field(prefix + TaskToTag.TASK_REMOTEID.name))),
+                            Criterion.or(Field.field(prefix + TaskToTag.TAG_ID.name).eq(id), Field.field(prefix + TaskToTag.TAG_REMOTEID.name).eq(remoteId)))))
+                            .where(criterion);
         }
 
     }
@@ -201,6 +190,7 @@ public final class TagService {
      * @param activeStatus criterion for specifying completed or uncompleted
      * @return empty array if no tags, otherwise array
      */
+    @Deprecated
     public Tag[] getGroupedTags(Order order, Criterion activeStatus, boolean includeEmergent) {
         Criterion criterion;
         if (includeEmergent)
@@ -318,40 +308,23 @@ public final class TagService {
      * @return
      */
     public ArrayList<Tag> getTagList() {
-        HashMap<String, Tag> tags = new HashMap<String, Tag>();
-
-        Tag[] tagsByAlpha = getGroupedTags(TagService.GROUPED_TAGS_BY_ALPHA,
-                TaskCriteria.activeAndVisible(), false);
-        for(Tag tag : tagsByAlpha)
-            if(!TextUtils.isEmpty(tag.tag))
-                tags.put(tag.tag, tag);
-
-        TodorooCursor<TagData> cursor = tagDataService.query(Query.select(TagData.PROPERTIES));
+        ArrayList<Tag> tagList = new ArrayList<Tag>();
+        TodorooCursor<TagData> cursor = tagDataService.query(Query.select(TagData.PROPERTIES).orderBy(Order.asc(TagData.NAME)));
         try {
             TagData tagData = new TagData();
             for(cursor.moveToFirst(); !cursor.isAfterLast(); cursor.moveToNext()) {
                 tagData.readFromCursor(cursor);
-                String tagName = tagData.getValue(TagData.NAME).trim();
                 Tag tag = new Tag(tagData);
                 if(tagData.getValue(TagData.DELETION_DATE) > 0 || tagData.getFlag(TagData.FLAGS, TagData.FLAG_EMERGENT) || tagData.getFlag(TagData.FLAGS, TagData.FLAG_FEATURED)) {
-                    tags.remove(tagName);
                     continue;
                 }
                 if(TextUtils.isEmpty(tag.tag))
                     continue;
-                tags.put(tagName, tag);
+                tagList.add(tag);
             }
         } finally {
             cursor.close();
         }
-        ArrayList<Tag> tagList = new ArrayList<Tag>(tags.values());
-        Collections.sort(tagList,
-                new Comparator<Tag>() {
-            @Override
-            public int compare(Tag object1, Tag object2) {
-                return object1.tag.compareToIgnoreCase(object2.tag);
-            }
-        });
         return tagList;
     }
 
