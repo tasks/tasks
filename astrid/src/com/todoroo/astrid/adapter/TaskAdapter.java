@@ -317,7 +317,7 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
             viewHolder.nameView.setEllipsize(null);
         }
 
-        if (showNotes) {
+        if (showNotes && !simpleLayout) {
             RelativeLayout.LayoutParams taskRowParams = (RelativeLayout.LayoutParams)viewHolder.taskRow.getLayoutParams();
             taskRowParams.addRule(RelativeLayout.CENTER_VERTICAL, 0);
         }
@@ -350,14 +350,6 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
 
         setFieldContentsAndVisibility(view);
         setTaskAppearance(viewHolder, task);
-    }
-
-    /** Helper method to set the visibility based on if there's stuff inside */
-    private static void setVisibility(TextView v) {
-        if(v.getText().length() > 0)
-            v.setVisibility(View.VISIBLE);
-        else
-            v.setVisibility(View.GONE);
     }
 
     /**
@@ -1149,13 +1141,13 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
                     String dateValue = formatDate(dueDate);
                     dueDateView.setText(dateValue);
                     dueDateTextWidth = paint.measureText(dateValue);
-                    setVisibility(dueDateView);
+                    dueDateView.setVisibility(View.VISIBLE);
                 } else if(task.isCompleted()) {
                     String dateValue = formatDate(task.getValue(Task.COMPLETION_DATE));
                     dueDateView.setText(resources.getString(R.string.TAd_completed, dateValue));
                     dueDateView.setTextAppearance(activity, R.style.TextAppearance_TAd_ItemDueDate_Completed);
                     dueDateTextWidth = paint.measureText(dateValue);
-                    setVisibility(dueDateView);
+                    dueDateView.setVisibility(View.VISIBLE);
                 } else {
                     dueDateView.setVisibility(View.GONE);
                 }
@@ -1164,11 +1156,13 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
                     String tags = viewHolder.tagsString;
                     if (tags != null && task.hasDueDate())
                         tags = "  |  " + tags; //$NON-NLS-1$
-                    if (!task.isCompleted())
+                    if (!task.isCompleted()) {
                         viewHolder.tagsView.setText(tags);
-                    else
-                        viewHolder.tagsView.setText(null);
-                    setVisibility(viewHolder.tagsView);
+                        viewHolder.tagsView.setVisibility(TextUtils.isEmpty(tags) ? View.GONE : View.VISIBLE);
+                    } else {
+                        viewHolder.tagsView.setText(""); //$NON-NLS-1$
+                        viewHolder.tagsView.setVisibility(View.GONE);
+                    }
                 }
             }
         }
