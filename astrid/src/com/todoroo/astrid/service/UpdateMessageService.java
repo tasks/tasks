@@ -42,6 +42,7 @@ import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.andlib.utility.DialogUtilities;
 import com.todoroo.andlib.utility.Pair;
 import com.todoroo.astrid.actfm.sync.ActFmPreferenceService;
+import com.todoroo.astrid.activity.AstridActivity;
 import com.todoroo.astrid.dao.StoreObjectDao;
 import com.todoroo.astrid.dao.StoreObjectDao.StoreObjectCriteria;
 import com.todoroo.astrid.data.StoreObject;
@@ -227,7 +228,7 @@ public class UpdateMessageService {
                     public void onClick(View widget) {
                         Intent prefScreen = new Intent(activity, UpdateMessagePreference.class);
                         prefScreen.putExtra(UpdateMessagePreference.TOKEN_PREFS_ARRAY, prefArray);
-                        activity.startActivityForResult(prefScreen, 0);
+                        activity.startActivityForResult(prefScreen, AstridActivity.REQUEST_REBOOT);
                     }
                 };
             } catch (JSONException e) {

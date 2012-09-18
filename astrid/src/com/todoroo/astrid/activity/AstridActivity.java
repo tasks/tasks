@@ -67,7 +67,7 @@ public class AstridActivity extends FragmentActivity
     public static final int LAYOUT_DOUBLE = 1;
     public static final int LAYOUT_TRIPLE = 2;
 
-    public static final int RESULT_RESTART_ACTIVITY = 50;
+    public static final int REQUEST_REBOOT = 100;
 
     protected int fragmentLayout = LAYOUT_SINGLE;
 
@@ -292,16 +292,6 @@ public class AstridActivity extends FragmentActivity
         super.onBackPressed();
     }
 
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (resultCode == RESULT_RESTART_ACTIVITY) {
-            finish();
-            startActivity(getIntent());
-        } else {
-            super.onActivityResult(requestCode, resultCode, data);
-        }
-    }
-
     // --- fragment helpers
 
     protected void removeFragment(String tag) {
@@ -387,6 +377,16 @@ public class AstridActivity extends FragmentActivity
 
         if (errorStr > 0)
             DialogUtilities.okDialog(this, getString(errorStr), null);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == REQUEST_REBOOT && resultCode == RESULT_OK) {
+            finish();
+            startActivity(getIntent());
+            return;
+        }
+        super.onActivityResult(requestCode, resultCode, data);
     }
 
     /**

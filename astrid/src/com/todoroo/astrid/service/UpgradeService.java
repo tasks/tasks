@@ -15,6 +15,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
+import android.os.Bundle;
 
 import com.timsu.astrid.R;
 import com.todoroo.andlib.data.Property.LongProperty;
@@ -29,6 +30,7 @@ import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.andlib.utility.DialogUtilities;
 import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.astrid.actfm.sync.ActFmPreferenceService;
+import com.todoroo.astrid.activity.AstridActivity;
 import com.todoroo.astrid.activity.Eula;
 import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.backup.TasksXmlExporter;
@@ -41,8 +43,8 @@ import com.todoroo.astrid.helper.DueDateTimeMigrator;
 import com.todoroo.astrid.notes.NoteMetadata;
 import com.todoroo.astrid.producteev.sync.ProducteevDataService;
 import com.todoroo.astrid.service.abtesting.ABChooser;
-import com.todoroo.astrid.tags.TagCaseMigrator;
 import com.todoroo.astrid.tags.Astrid44SyncMigrator;
+import com.todoroo.astrid.tags.TagCaseMigrator;
 import com.todoroo.astrid.utility.AstridPreferences;
 
 
@@ -148,7 +150,7 @@ public final class UpgradeService {
      * @param from
      * @param to
      */
-    public void performUpgrade(final Context context, final int from) {
+    public void performUpgrade(final Activity context, final int from) {
         if(from == 135)
             AddOnService.recordOem();
 
@@ -159,22 +161,37 @@ public final class UpgradeService {
                 Preferences.setString(R.string.p_theme, "black"); //$NON-NLS-1$
         }
 
-        if( from<= V3_9_1_1) {
+        if(from <= V3_9_1_1) {
             actFmPreferenceService.clearLastSyncDate();
         }
-
-        // long running tasks: pop up a progress dialog
-        final ProgressDialog dialog;
-        if(from < V4_4_0 && context instanceof Activity)
-            dialog = DialogUtilities.progressDialog(context,
-                    context.getString(R.string.DLG_upgrading));
-        else
-            dialog = null;
 
         final String lastSetVersionName = AstridPreferences.getCurrentVersionName();
 
         Preferences.setInt(AstridPreferences.P_UPGRADE_FROM, from);
 
+        if (from > 0) {
+            boolean separateActivity = from < V4_4_0 // If from < 4_4_0, launch a new activity to block the UI
+                    && context instanceof AstridActivity;
+
+            if (separateActivity) {
+                Intent upgrade = new Intent(context, UpgradeActivity.class);
+                upgrade.putExtra(UpgradeActivity.TOKEN_FROM, from);
+                upgrade.putExtra(UpgradeActivity.TOKEN_VERSION_NAME, lastSetVersionName);
+                context.startActivityForResult(upgrade, AstridActivity.REQUEST_REBOOT);
+            } else {
+                startUpgradeThread(context, from, lastSetVersionName, null);
+            }
+        }
+    }
+
+    private void startUpgradeThread(final Activity context, final int from, final String lastSetVersionName, final Runnable done) {
+     // long running tasks: pop up a progress dialog
+        final ProgressDialog dialog;
+        if(from < V4_4_0)
+            dialog = DialogUtilities.progressDialog(context,
+                    context.getString(R.string.DLG_upgrading));
+        else
+            dialog = null;
         new Thread(new Runnable() {
             @Override
             public void run() {
@@ -203,10 +220,35 @@ public final class UpgradeService {
                 } finally {
                     DialogUtilities.dismissDialog((Activity)context, dialog);
                     context.sendBroadcast(new Intent(AstridApiConstants.BROADCAST_EVENT_REFRESH));
+                    if (done != null)
+                        context.runOnUiThread(done);
                 }
             }
 
         }).start();
+    }
+
+    private class UpgradeActivity extends Activity {
+        public static final String TOKEN_FROM = "token_from"; //$NON-NLS-1$
+        public static final String TOKEN_VERSION_NAME = "token_version"; //$NON-NLS-1$
+        @Override
+        protected void onCreate(Bundle savedInstanceState) {
+            super.onCreate(savedInstanceState);
+        }
+
+        @Override
+        protected void onResume() {
+            super.onResume();
+            int from = getIntent().getIntExtra(TOKEN_FROM, 0);
+            String lastSetVersionName = getIntent().getStringExtra(TOKEN_VERSION_NAME);
+            startUpgradeThread(this, from, lastSetVersionName, new Runnable() {
+                @Override
+                public void run() {
+                    setResult(RESULT_OK);
+                    finish();
+                }
+            });
+        }
     }
 
     /**

@@ -167,12 +167,17 @@
 
     <activity android:name="com.todoroo.astrid.activity.ShareActivity"/>
     
+    
     <activity android:name="com.todoroo.astrid.service.UpdateScreenFlow"
         android:screenOrientation="portrait"
         android:theme="@android:style/Theme.Dialog"/>
     
     <activity android:name="com.todoroo.astrid.service.UpdateMessagePreference"
         android:theme="@android:style/Theme" />
+
+    <activity android:name="com.todoroo.astrid.service.UpgradeService$UpgradeActivity"
+        android:screenOrientation="portrait"/>
+
     
     <!-- Start of Crittercism.com Code -->
 	<activity android:name="com.crittercism.NewFeedbackSpringboardActivity" android:theme="@android:style/Theme.Black.NoTitleBar.Fullscreen"></activity>

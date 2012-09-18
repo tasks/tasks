@@ -12,7 +12,6 @@ import android.preference.PreferenceActivity;
 
 import com.timsu.astrid.R;
 import com.todoroo.andlib.utility.Preferences;
-import com.todoroo.astrid.activity.AstridActivity;
 
 public class UpdateMessagePreference extends PreferenceActivity {
 
@@ -64,7 +63,7 @@ public class UpdateMessagePreference extends PreferenceActivity {
             pref.setOnPreferenceChangeListener(new OnPreferenceChangeListener() {
                 @Override
                 public boolean onPreferenceChange(Preference preference, Object newValue) {
-                    setResult(AstridActivity.RESULT_RESTART_ACTIVITY);
+                    setResult(RESULT_OK);
                     return true;
                 }
             });
