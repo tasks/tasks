@@ -703,7 +703,8 @@ public class EditPreferences extends TodorooPreferenceActivity {
     private void onVoiceInputStatusChanged(final Preference preference, boolean newValue) {
         if(!newValue)
             return;
-        if (AndroidUtilities.indexOf(Constants.MARKET_STRATEGY.excludedSettings(), R.string.p_voiceInputEnabled) >= 0)
+        int[] excludedSettings = Constants.MARKET_STRATEGY.excludedSettings();
+        if (excludedSettings != null && AndroidUtilities.indexOf(excludedSettings, R.string.p_voiceInputEnabled) >= 0)
             return;
 
         final Resources r = getResources();
