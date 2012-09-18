@@ -125,12 +125,17 @@ public class ABTests {
 
     public static final String AB_SIMPLE_TASK_ROW = "android_simple_task_row";  //$NON-NLS-1$
 
+    public static final String AB_ADVANCED_EDIT = "android_advanced_edit";  //$NON-NLS-1$
+
     private void initialize() {
         addTest(AB_TASK_EDIT_TOAST, new int[] { 1, 1 },
                 new int[] { 1, 1 }, new String[] { "dont-show-toasts", "show-toasts" });  //$NON-NLS-1$ //$NON-NLS-2$
 
         addTest(AB_SIMPLE_TASK_ROW, new int[] { 1, 1 },
                 new int[] { 1, 0 }, new String[] { "original-row-style", "simple-row-style" });//$NON-NLS-1$ //$NON-NLS-2$
+
+        addTest(AB_ADVANCED_EDIT, new int[] { 1, 1 },
+                new int[] { 1, 0 }, new String[] { "default_edit", "advanced_edit" }); //$NON-NLS-1$ //$NON-NLS-2$
 
         // AB_SWIPE_BETWEEN has to be added in the startup service since it needs a non-null context for initialization
     }

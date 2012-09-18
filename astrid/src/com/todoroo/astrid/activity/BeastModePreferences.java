@@ -77,6 +77,31 @@ public class BeastModePreferences extends ListActivity {
         Preferences.setBoolean(BEAST_MODE_ASSERTED_HIDE_ALWAYS, true);
     }
 
+    /**
+     * returns the beast mode preference string that would correspond to a more advanced
+     * used for ab testing the effect of simple edit page
+     */
+    public static String getAdvancedEditOrderForABTest(Context c) {
+        ArrayList<String> defaultOrder = constructOrderedControlList(c);
+        String hideSectionPref = c.getString(R.string.TEA_ctrl_hide_section_pref);
+        String detailsSectionPref = c.getString(R.string.TEA_ctrl_more_pref);
+
+        //Move hide section to the end of the list
+        defaultOrder.remove(hideSectionPref);
+        defaultOrder.add(hideSectionPref);
+
+        // Put the last few items only under details
+        defaultOrder.remove(detailsSectionPref);
+        defaultOrder.add(defaultOrder.size() - 4, detailsSectionPref);
+
+        StringBuilder builder = new StringBuilder();
+        for (int i = 0; i < defaultOrder.size(); i++) {
+            builder.append(defaultOrder.get(i));
+            builder.append(BEAST_MODE_PREF_ITEM_SEPARATOR);
+        }
+        return builder.toString();
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
