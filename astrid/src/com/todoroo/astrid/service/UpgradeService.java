@@ -228,7 +228,7 @@ public final class UpgradeService {
         }).start();
     }
 
-    private class UpgradeActivity extends Activity {
+    public class UpgradeActivity extends Activity {
         public static final String TOKEN_FROM = "token_from"; //$NON-NLS-1$
         public static final String TOKEN_VERSION_NAME = "token_version"; //$NON-NLS-1$
         @Override
