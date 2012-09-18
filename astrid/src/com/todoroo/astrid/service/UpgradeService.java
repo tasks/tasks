@@ -16,6 +16,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.os.Bundle;
+import android.os.Looper;
 
 import com.timsu.astrid.R;
 import com.todoroo.andlib.data.Property.LongProperty;
@@ -34,6 +35,7 @@ import com.todoroo.astrid.activity.AstridActivity;
 import com.todoroo.astrid.activity.Eula;
 import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.backup.TasksXmlExporter;
+import com.todoroo.astrid.core.PluginServices;
 import com.todoroo.astrid.core.SortHelper;
 import com.todoroo.astrid.dao.Database;
 import com.todoroo.astrid.data.Metadata;
@@ -184,7 +186,7 @@ public final class UpgradeService {
         }
     }
 
-    private void startUpgradeThread(final Activity context, final int from, final String lastSetVersionName, final Runnable done) {
+    private static void startUpgradeThread(final Activity context, final int from, final String lastSetVersionName, final Runnable done) {
      // long running tasks: pop up a progress dialog
         final ProgressDialog dialog;
         if(from < V4_4_0)
@@ -196,7 +198,8 @@ public final class UpgradeService {
             @Override
             public void run() {
                 try {
-                    // NOTE: This line should be uncommented whenever any new version requires a data migration
+                    // NOTE: These lines should be uncommented whenever any new version requires a data migration
+                    Looper.prepare();
                     TasksXmlExporter.exportTasks(context, TasksXmlExporter.ExportType.EXPORT_TYPE_ON_UPGRADE, null, null, lastSetVersionName);
 
                     if(from < V3_0_0)
@@ -209,7 +212,7 @@ public final class UpgradeService {
                         new TagCaseMigrator().performTagCaseMigration(context);
 
                     if(from < V3_8_4 && Preferences.getBoolean(R.string.p_showNotes, false))
-                        taskService.clearDetails(Task.NOTES.neq("")); //$NON-NLS-1$
+                        PluginServices.getTaskService().clearDetails(Task.NOTES.neq("")); //$NON-NLS-1$
 
                     if (from < V4_0_6)
                         new DueDateTimeMigrator().migrateDueTimes();
@@ -228,9 +231,14 @@ public final class UpgradeService {
         }).start();
     }
 
-    public class UpgradeActivity extends Activity {
+    public static class UpgradeActivity extends Activity {
         public static final String TOKEN_FROM = "token_from"; //$NON-NLS-1$
         public static final String TOKEN_VERSION_NAME = "token_version"; //$NON-NLS-1$
+
+        public UpgradeActivity() {
+            super();
+        }
+
         @Override
         protected void onCreate(Bundle savedInstanceState) {
             super.onCreate(savedInstanceState);
