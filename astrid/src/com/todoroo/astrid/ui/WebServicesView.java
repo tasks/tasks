@@ -591,12 +591,14 @@ public class WebServicesView extends LinearLayout {
             public void run() {
                 body.removeAllViews();
 
-                TextView textView = new TextView(getContext());
-                textView.setTextAppearance(getContext(), R.style.TextAppearance_Medium);
-                textView.setText(exception.getClass().getSimpleName() + ": " +
-                        exception.getLocalizedMessage());
-                textView.setLines(2);
-                body.addView(textView);
+                if (Constants.DEBUG) {
+                    TextView textView = new TextView(getContext());
+                    textView.setTextAppearance(getContext(), R.style.TextAppearance_Medium);
+                    textView.setText(exception.getClass().getSimpleName() + ": " +
+                            exception.getLocalizedMessage());
+                    textView.setLines(2);
+                    body.addView(textView);
+                }
             }
         });
     }
