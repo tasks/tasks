@@ -82,7 +82,6 @@ import com.todoroo.astrid.core.CoreFilterExposer;
 import com.todoroo.astrid.core.CustomFilterActivity;
 import com.todoroo.astrid.core.SortHelper;
 import com.todoroo.astrid.dao.Database;
-import com.todoroo.astrid.dao.TaskDao.TaskCriteria;
 import com.todoroo.astrid.data.Metadata;
 import com.todoroo.astrid.data.TagData;
 import com.todoroo.astrid.data.Task;
@@ -973,7 +972,6 @@ public class TaskListFragment extends ListFragment implements OnScrollListener,
      *
      * @param withCustomId
      */
-    @SuppressWarnings("nls")
     public void selectCustomId(long withCustomId) {
         // if already in the list, select it
         TodorooCursor<Task> currentCursor = (TodorooCursor<Task>) taskAdapter.getCursor();
@@ -982,33 +980,6 @@ public class TaskListFragment extends ListFragment implements OnScrollListener,
             if (currentCursor.get(Task.ID) == withCustomId) {
                 getListView().setSelection(i);
                 return;
-            }
-        }
-
-        // create a custom cursor
-        if (!sqlQueryTemplate.get().contains("WHERE"))
-            sqlQueryTemplate.set(sqlQueryTemplate.get() + " WHERE "
-                    + TaskCriteria.byId(withCustomId));
-        else
-            sqlQueryTemplate.set(sqlQueryTemplate.get().replace("WHERE ",
-                    "WHERE " + TaskCriteria.byId(withCustomId) + " OR "));
-
-        currentCursor = taskService.fetchFiltered(sqlQueryTemplate.get(), null,
-                taskProperties());
-        getListView().setFilterText("");
-
-        taskAdapter.changeCursor(currentCursor);
-
-        // update title
-        if (getActivity() instanceof TaskListActivity)
-            ((TaskListActivity) getActivity()).setListsTitle(getString(R.string.TLA_custom));
-
-        // try selecting again
-        for (int i = 0; i < currentCursor.getCount(); i++) {
-            currentCursor.moveToPosition(i);
-            if (currentCursor.get(Task.ID) == withCustomId) {
-                getListView().setSelection(i);
-                break;
             }
         }
     }
