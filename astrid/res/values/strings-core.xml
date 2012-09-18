@@ -581,7 +581,7 @@
   <string name="EPr_appearance_header">Appearance</string>
   
   <!-- Preference Category: Appearance Summary -->
-  <string name="EPr_appearance_summary">Themes, Widgets, Task Rows, Edit Screen</string>
+  <string name="EPr_appearance_summary">Themes, widgets, task rows, edit screen</string>
   
   <!-- FAQ Preference title -->
   <string name="EPr_faq_title">FAQ</string>
@@ -590,10 +590,10 @@
   <string name="EPr_account_title">Account: %s</string>
 
   <!-- Support preferences summary -->
-  <string name="EPr_support_summary">Tutorial, FAQ, About Astrid</string>
+  <string name="EPr_support_summary">Tutorial, FAQ, about</string>
   
   <!-- slide 34a: Preference: Task List Font Size Title -->
-  <string name="EPr_fontSize_title">Task List Size</string>
+  <string name="EPr_fontSize_title">Task list size</string>
   
   <!-- slide 32a: Preference: Show confirmation for smart reminders -->
   <string name="EPr_showSmartConfirmation_title">Show confirmation for smart reminders</string>
@@ -605,21 +605,21 @@
   <string name="EPr_showEditToasts_title">Show task edit confirmations</string>
   
   <!-- slide 34c: Preference: Task List Show Notes -->
-  <string name="EPr_showNotes_title">Show Notes In Task</string>
+  <string name="EPr_showNotes_title">Show notes in yask</string>
   <!-- slide 30e: Preference: Beast mode (auto-expand edit page) -->
-  <string name="EPr_beastMode_title">Customize Task Edit Screen</string>
+  <string name="EPr_beastMode_title">Customize task edit screen</string>
   <!-- slide 35h -->
-  <string name="EPr_beastMode_desc">Customize the layout of the Task Edit Screen</string>
+  <string name="EPr_beastMode_desc">Customize the layout of the task edit screen</string>
   <!-- slide 35j -->
   <string name="EPr_beastMode_reset">Reset to defaults</string>
       
   <!-- slide 34i: Preference: Task List Show Notes Description (disabled) -->
-  <string name="EPr_showNotes_desc_disabled">Notes will be accessible from the Task Edit Page</string>  
+  <string name="EPr_showNotes_desc_disabled">Notes will be accessible from the task edit screen</string>  
   <!-- Preference: Task List Show Notes Description (enabled) -->
   <string name="EPr_showNotes_desc_enabled">Notes will always be displayed</string>
   
   <!-- slide 34d: Preferences: Allow task rows to compress to size of task -->
-  <string name="EPr_compressTaskRows_title">Compact Task Row</string>
+  <string name="EPr_compressTaskRows_title">Compact task row</string>
   <!-- slide 34j -->
   <string name="EPr_compressTaskRows_desc">Compress task rows to fit title</string>
   
@@ -635,28 +635,28 @@
   <string name="EPr_fullTask_desc_disabled">First two lines of task title will be shown</string>
   
   <!-- slide 32b: Preferences: Auto-load Ideas Tab -->
-  <string name="EPr_ideaAuto_title">Auto-load Ideas Tab</string>
+  <string name="EPr_ideaAuto_title">Auto-load ideas tab</string>
   <!-- slide 32c -->
-  <string name="EPr_ideaAuto_desc_enabled">Web searches for Ideas tab will be performed when tab is clicked</string>
-  <string name="EPr_ideaAuto_desc_disabled">Web searches for Ideas tab will be performed only when manually requested</string>
+  <string name="EPr_ideaAuto_desc_enabled">Web searches for ideas tab will be performed when tab is clicked</string>
+  <string name="EPr_ideaAuto_desc_disabled">Web searches for ideas tab will be performed only when manually requested</string>
   
   <!-- Preferences: task row style -->
-  <string name="EPr_task_row_style_title_simple">Row Style: Simple</string>
-  <string name="EPr_task_row_style_title_legacy">Row Style: Original</string>
+  <string name="EPr_task_row_style_title_simple">Row style: Simple</string>
+  <string name="EPr_task_row_style_title_legacy">Row style: Original</string>
   <string name="EPr_task_row_style_summary_simple">Truncate title to one line with date and lists below</string>
   <string name="EPr_task_row_style_summary_legacy">Truncate title to two lines with date on right</string>
   
   <!-- slide 30f/ 36f: Preference: Theme -->
-  <string name="EPr_theme_title">Color Theme</string>
+  <string name="EPr_theme_title">Color theme</string>
   <!-- Preference: Theme Description (%s => value) -->
   <string name="EPr_theme_desc">Currently: %s</string>  
   <!-- Preference: Theme Description (android 1.6) -->
   <string name="EPr_theme_desc_unsupported">Setting requires Android 2.0+</string>
   <!-- slide 32h/ 37b -->
-  <string name="EPr_theme_widget_title">Widget Theme</string>
+  <string name="EPr_theme_widget_title">Widget theme</string>
   
   <!-- slide 30d/ 34f: Preference screen: all task row settings -->
-  <string name="EPr_taskRowPrefs_title">Task Row Appearance</string>
+  <string name="EPr_taskRowPrefs_title">Task row appearance</string>
   
   <!-- slide 33b/ 49e: Preference screen: Astrid Labs (experimental features)-->
   <string name="EPr_labs_header">Astrid Labs</string>
@@ -670,13 +670,13 @@
   <string name="EPr_use_contact_picker_desc_disabled">The system contact picker option will not be displayed</string>
 
   <!-- slide 49i: Preferences: Third party addons -->
-  <string name="EPr_third_party_addons">Enable Third Party Add-ons</string>
+  <string name="EPr_third_party_addons">Enable third party add-ons</string>
   <string name="EPr_third_party_addons_desc_enabled">Third party add-ons will be enabled</string>
   <!-- slide 49d -->
   <string name="EPr_third_party_addons_desc_disabled">Third party add-ons will be disabled</string>
   
   <!-- Preferences: ideas tab -->
-  <string name="EPr_ideas_tab_enabled">Task Ideas</string>
+  <string name="EPr_ideas_tab_enabled">Task ideas</string>
   <string name="EPr_ideas_tab_description">Get ideas to help you complete tasks</string>
   
   <!-- Preferences: calendar event start time -->
@@ -753,31 +753,31 @@
   <!-- ========================================== Task Management Settings == -->
 
   <!-- slide 33a/47c: Preference Screen Header: Old Task Management -->
-  <string name="EPr_manage_header">Manage Old Tasks</string>
+  <string name="EPr_manage_header">Manage old tasks</string>
   <!-- slide 47d -->
-  <string name="EPr_manage_delete_completed">Delete Completed Tasks</string>
+  <string name="EPr_manage_delete_completed">Delete completed tasks</string>
   <string name="EPr_manage_delete_completed_message">Do you really want to delete all your completed tasks?</string>
   <!-- slide 47a -->
   <string name="EPr_manage_delete_completed_summary">Deleted tasks can be undeleted one-by-one</string>
   <string name="EPr_manage_delete_completed_status">Deleted %d tasks!</string>
   <!-- slide 47e -->
-  <string name="EPr_manage_purge_deleted">Purge Deleted Tasks</string>
+  <string name="EPr_manage_purge_deleted">Purge deleted tasks</string>
   <string name="EPr_manage_purge_deleted_message">Do you really want to purge all your deleted tasks?\n\nThese tasks will be gone forever!</string>
   <string name="EPr_manage_purge_deleted_status">Purged %d tasks!</string>
   <!-- slide 47b-->
   <string name="EPr_manage_purge_deleted_summary">Caution! Purged tasks can\'t be recovered without backup file!</string>
   <!-- slide 47h-->
-  <string name="EPr_manage_clear_all">Clear All Data</string>
+  <string name="EPr_manage_clear_all">Clear all data</string>
   <string name="EPr_manage_clear_all_message">Delete all tasks and settings in Astrid?\n\nWarning: can\'t be undone!</string>
 
   <!-- slide 47f -->
-  <string name="EPr_manage_delete_completed_gcal">Delete Calendar Events for Completed Tasks</string>
+  <string name="EPr_manage_delete_completed_gcal">Delete calendar events for completed tasks</string>
   <string name="EPr_manage_delete_completed_gcal_message">Do you really want to delete all your events for completed tasks?</string>
   <string name="EPr_manage_delete_completed_gcal_summary"></string>
   <string name="EPr_manage_delete_completed_gcal_status">Deleted %d calendar events!</string>
       
   <!-- slide 47g-->
-  <string name="EPr_manage_delete_all_gcal">Delete All Calendar Events for Tasks</string>
+  <string name="EPr_manage_delete_all_gcal">Delete all calendar events for tasks</string>
   <string name="EPr_manage_delete_all_gcal_message">Do you really want to delete all your events for tasks?</string>
   <string name="EPr_manage_delete_all_gcal_summary"></string>
   <string name="EPr_manage_delete_all_gcal_status">Deleted %d calendar events!</string>

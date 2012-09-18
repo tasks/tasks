@@ -14,7 +14,7 @@
   <string name="TEA_reminders_group_label">Reminders</string>
 
   <!-- Task Edit: Reminder header label -->  
-  <string name="TEA_reminder_label">Remind Me:</string>
+  <string name="TEA_reminder_label">Remind me:</string>
 
   <!-- Task Edit: Reminder @ deadline -->  
   <string name="TEA_reminder_due">When task is due</string>
@@ -26,16 +26,16 @@
   <string name="TEA_reminder_randomly">Randomly once</string>
 
   <!-- Task Edit: Reminder alarm clock label -->  
-  <string name="TEA_reminder_alarm_label">Ring/Vibrate Type:</string>
+  <string name="TEA_reminder_alarm_label">Ring/vibrate type:</string>
 
   <!--  slide 45a: Task Edit: Reminder mode: ring once -->  
-  <string name="TEA_reminder_mode_once">Ring Once</string>
+  <string name="TEA_reminder_mode_once">Ring once</string>
 
   <!-- slide 45b: Task Edit: Reminder mode: ring five times -->  
-  <string name="TEA_reminder_mode_five">Ring Five Times</string>
+  <string name="TEA_reminder_mode_five">Ring five times</string>
 
   <!-- slide 45c: Task Edit: Reminder mode: ring nonstop -->  
-  <string name="TEA_reminder_mode_nonstop">Ring Until I Dismiss Alarm</string>
+  <string name="TEA_reminder_mode_nonstop">Ring until I dismiss alarm</string>
 
   <string-array name="TEA_reminder_random">
     <!-- random reminder choices for task edit page. -->
@@ -104,35 +104,35 @@
   <!-- ============================================= reminder preferences == -->
   
   <!-- slide 33d: Reminder Preference Screen Title -->
-  <string name="rmd_EPr_alerts_header">Reminder Settings</string>
+  <string name="rmd_EPr_alerts_header">Reminder settings</string>
   <string name="rmd_EPr_alerts_summary">Quiet hours, snooze options, persistence level</string>
     
   <!-- Reminder Preference: Reminders Enabled Title -->
-  <string name="rmd_EPr_enabled_title">Reminders Enabled?</string>
+  <string name="rmd_EPr_enabled_title">Reminders enabled?</string>
   <!-- Reminder Preference Reminders Enabled Description (true) -->
   <string name="rmd_EPr_enabled_desc_true">Astrid reminders are enabled (this is normal)</string>
   <!-- Reminder Preference Reminders Enabled Description (false) -->
   <string name="rmd_EPr_enabled_desc_false">Astrid reminders will never appear on your phone</string>  
     
   <!-- Reminder Preference: Quiet Hours Start Title -->
-  <string name="rmd_EPr_quiet_hours_start_title">Quiet Hours Start</string>
+  <string name="rmd_EPr_quiet_hours_start_title">Quiet hours start</string>
   <!-- Reminder Preference: Quiet Hours Start Description (%s => time set) -->
-  <string name="rmd_EPr_quiet_hours_start_desc">Notifications will be silent after %s.\nNote: vibrations are controlled by the "Vibrate on Alert" setting</string>
+  <string name="rmd_EPr_quiet_hours_start_desc">Notifications will be silent after %s.\nNote: vibrations are controlled by the "Vibrate on alert" setting</string>
   <!-- Reminder Preference: Quiet Hours Start/End Description (disabled) -->
   <string name="rmd_EPr_quiet_hours_desc_none">Quiet hours is disabled</string>
   
   <!-- Reminder Preference: Quiet Hours End Title -->
-  <string name="rmd_EPr_quiet_hours_end_title">Quiet Hours End</string>
+  <string name="rmd_EPr_quiet_hours_end_title">Quiet hours end</string>
   <!-- Reminder Preference: Quiet Hours End Description (%s => time set) -->
   <string name="rmd_EPr_quiet_hours_end_desc">Notifications will stop being silent starting at %s</string>
 
   <!-- Reminder Preference: Default Reminder Title -->
-  <string name="rmd_EPr_rmd_time_title">Default Reminder</string>
+  <string name="rmd_EPr_rmd_time_title">Default reminder</string>
   <!-- Reminder Preference: Default Reminder Description (%s => time set) -->
   <string name="rmd_EPr_rmd_time_desc">Notifications for tasks without due times will appear at %s</string>
 
   <!-- Reminder Preference: Notification Ringtone Title -->
-  <string name="rmd_EPr_ringtone_title">Notification Ringtone</string>
+  <string name="rmd_EPr_ringtone_title">Notification ringtone</string>
   <!-- Reminder Preference: Notification Ringtone Description (when custom tone is set) -->
   <string name="rmd_EPr_ringtone_desc_custom">Custom ringtone has been set</string>
   <!-- Reminder Preference: Notification Ringtone Description (when silence is set) -->
@@ -141,14 +141,14 @@
   <string name="rmd_EPr_ringtone_desc_default">Default ringtone will be used</string>
   
   <!-- Reminder Preference: Notification Persistence Title -->
-  <string name="rmd_EPr_persistent_title">Notification Persistence</string>
+  <string name="rmd_EPr_persistent_title">Notification persistence</string>
   <!-- Reminder Preference: Notification Persistence Description (true) -->
   <string name="rmd_EPr_persistent_desc_true">Notifications must be viewed individually to be cleared</string>
   <!-- Reminder Preference: Notification Persistence Description (false) -->
   <string name="rmd_EPr_persistent_desc_false">Notifications can be cleared with \"Clear All\" button</string>
   
   <!-- Reminder Preference: Notification Icon Title -->
-  <string name="rmd_EPr_notificon_title">Notification Icon Set</string>
+  <string name="rmd_EPr_notificon_title">Notification icon set</string>
   <!-- Reminder Preference: Notification Icon Description -->
   <string name="rmd_Epr_notificon_desc">Choose Astrid\'s notification bar icon</string>
 
@@ -160,35 +160,35 @@
   <string name="rmd_EPr_multiple_maxvolume_desc_false">Astrid will use the system setting for the volume</string>
 
   <!-- Reminder Preference: Vibrate Title -->
-  <string name="rmd_EPr_vibrate_title">Vibrate on Alert</string>
+  <string name="rmd_EPr_vibrate_title">Vibrate on alert</string>
   <!-- Reminder Preference: Vibrate Description (true) -->
   <string name="rmd_EPr_vibrate_desc_true">Astrid will vibrate when sending notifications</string>
   <!-- Reminder Preference: Vibrate Description (false) -->
   <string name="rmd_EPr_vibrate_desc_false">Astrid will not vibrate when sending notifications</string>
 
   <!-- Reminder Preference: Nagging Title -->  
-  <string name="rmd_EPr_nagging_title">Astrid Encouragements</string>
+  <string name="rmd_EPr_nagging_title">Astrid encouragements</string>
   <!-- Reminder Preference: Nagging Description (true) -->
   <string name="rmd_EPr_nagging_desc_true">Astrid will show up to give you an encouragement during reminders</string>
   <!-- Reminder Preference: Nagging Description (false) -->
   <string name="rmd_EPr_nagging_desc_false">Astrid will not give you any encouragement messages</string>
 
   <!-- Reminder Preference: Snooze Dialog Title -->  
-  <string name="rmd_EPr_snooze_dialog_title">Snooze Dialog HH:MM</string>
+  <string name="rmd_EPr_snooze_dialog_title">Snooze dialog HH:MM</string>
   <!-- Reminder Preference: Snooze Dialog Description (true) -->
   <string name="rmd_EPr_snooze_dialog_desc_true">Snooze by selecting new snooze time (HH:MM)</string>
   <!-- Reminder Preference: Nagging Description (false) -->
   <string name="rmd_EPr_snooze_dialog_desc_false">Snooze by selecting # days/hours to snooze</string>
   
   <!-- slide 44g: Reminder Preference: Default Reminders Title -->
-  <string name="rmd_EPr_defaultRemind_title">Random Reminders</string>
+  <string name="rmd_EPr_defaultRemind_title">Random reminders</string>
   <!-- Reminder Preference: Default Reminders Setting (disabled) -->
   <string name="rmd_EPr_defaultRemind_desc_disabled">New tasks will have no random reminders</string>
   <!-- Reminder Preference: Default Reminders Setting (%s => setting) -->
   <string name="rmd_EPr_defaultRemind_desc">New tasks will remind randomly: %s</string>
   
   <!-- slide 39a: Defaults Title -->
-  <string name="rmd_EPr_defaults_header">New Task Defaults</string>
+  <string name="rmd_EPr_defaults_header">New task defaults</string>
   
   <string-array name="EPr_reminder_random">
     <!-- slide 44a: Reminder Preference: random reminder choices for preference page. -->

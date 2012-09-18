@@ -54,7 +54,7 @@
     <string name="file_dir_dialog_ok">Use this directory</string>
     <string name="file_dir_dialog_default">Reset to default</string>
     
-    <string name="p_files_dir">Premium Downloads Directory</string>
+    <string name="p_files_dir">Premium downloads directory</string>
     <!-- Description for file download directory preference. %s -> chosen directory -->
     <string name="p_files_dir_desc">Task attachments saved to: %s</string>
     <string name="p_files_dir_desc_default">Default directory</string>
