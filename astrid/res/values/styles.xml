@@ -118,12 +118,12 @@
         <item name="abLogo">@drawable/home_button_dark_blue</item>
     </style>
     
-    <style name="Theme.TransparentWhite" parent="Theme.White">
-        <item name="asContentBackground">#22ffffff</item>
-        <item name="abBackground">#aaffffff</item>
-        <item name="asQuickaddBackgroundColor">#22ffffff</item>
-        <item name="asEditBackground">#33f7f3f7</item>
-        <item name="asEditRowBackground">@drawable/task_edit_background_transparent_white</item>
+    <style name="Theme.TransparentWhite" parent="Theme.White.Blue">
+        <item name="asContentBackground">#22000000</item>
+        <item name="abBackground">#aa000000</item>
+        <item name="asQuickaddBackgroundColor">#22000000</item>
+        <item name="asEditBackground">#33272327</item>
+        <item name="asEditRowBackground">@drawable/task_edit_background_transparent_black</item>
         <item name="asMembersHeaderBackground">@android:color/transparent</item>
          
         <item name="android:windowBackground">@android:color/transparent</item>
