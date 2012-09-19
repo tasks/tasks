@@ -1029,6 +1029,12 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
             return;
         boolean state = task.isCompleted();
 
+        // show item as completed if it was recently checked
+        if(completedItems.get(task.getId()) != null) {
+            task.setValue(Task.COMPLETION_DATE,
+                    completedItems.get(task.getId()) ? DateUtilities.now() : 0);
+        }
+
         setupDueDateAndTags(viewHolder, task);
 
         TextView name = viewHolder.nameView;
@@ -1088,12 +1094,6 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
 
         // complete box
         final CheckableImageView checkBoxView = viewHolder.completeBox; {
-
-            // show item as completed if it was recently checked
-            if(completedItems.get(task.getId()) != null) {
-                task.setValue(Task.COMPLETION_DATE,
-                        completedItems.get(task.getId()) ? DateUtilities.now() : 0);
-            }
             checkBoxView.setChecked(task.isCompleted());
             // disable checkbox if task is readonly
             checkBoxView.setEnabled(!viewHolder.task.getFlag(Task.FLAGS, Task.FLAG_IS_READONLY));
