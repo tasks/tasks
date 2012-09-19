@@ -95,12 +95,12 @@ public class Astrid44SyncMigrator {
                 m.readFromCursor(incompleteMetadata);
                 boolean changes = false;
 
-                if (!m.containsNonNullValue(TagMetadata.TASK_UUID) && m.getValue(TagMetadata.TASK_UUID) == 0) {
+                if (!m.containsNonNullValue(TagMetadata.TASK_UUID) || m.getValue(TagMetadata.TASK_UUID) == 0) {
                     updateTaskUuid(m);
                     changes = true;
                 }
 
-                if (!m.containsNonNullValue(TagMetadata.TAG_UUID) && m.getValue(TagMetadata.TAG_UUID) == 0) {
+                if (!m.containsNonNullValue(TagMetadata.TAG_UUID) || m.getValue(TagMetadata.TAG_UUID) == 0) {
                     updateTagUuid(m);
                     changes = true;
                 }
