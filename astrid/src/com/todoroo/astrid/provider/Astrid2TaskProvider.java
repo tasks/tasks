@@ -27,13 +27,11 @@ import com.todoroo.andlib.sql.Query;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.astrid.core.SortHelper;
 import com.todoroo.astrid.dao.TaskDao.TaskCriteria;
-import com.todoroo.astrid.data.Metadata;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.service.AstridDependencyInjector;
 import com.todoroo.astrid.service.StatisticsConstants;
 import com.todoroo.astrid.service.StatisticsService;
 import com.todoroo.astrid.service.TaskService;
-import com.todoroo.astrid.tags.TagMetadata;
 import com.todoroo.astrid.tags.TagService;
 import com.todoroo.astrid.tags.TagService.Tag;
 
@@ -200,14 +198,7 @@ public class Astrid2TaskProvider extends ContentProvider {
     			cursor.moveToNext();
     			task.readFromCursor(cursor);
 
-    			StringBuilder taskTags = new StringBuilder();
-    			TodorooCursor<Metadata> tagCursor = TagService.getInstance().getTags(task.getId(), true);
-    			try {
-    			    for(tagCursor.moveToFirst(); !tagCursor.isAfterLast(); tagCursor.moveToNext())
-    			        taskTags.append(tagCursor.get(TagMetadata.TAG_NAME)).append(TAG_SEPARATOR);
-    			} finally {
-    			    tagCursor.close();
-    			}
+    			String taskTags = TagService.getInstance().getTagsAsString(task.getId(), TAG_SEPARATOR, true);
 
     			Object[] values = new Object[7];
     			values[0] = task.getValue(Task.TITLE);
@@ -216,7 +207,7 @@ public class Astrid2TaskProvider extends ContentProvider {
     			values[3] = task.getValue(Task.DUE_DATE);
     			values[4] = task.getValue(Task.IMPORTANCE);
     			values[5] = task.getId();
-    			values[6] = taskTags.toString();
+    			values[6] = taskTags;
 
     			ret.addRow(values);
     		}

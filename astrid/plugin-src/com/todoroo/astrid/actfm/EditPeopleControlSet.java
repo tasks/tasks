@@ -60,7 +60,6 @@ import com.todoroo.astrid.actfm.sync.ActFmPreferenceService;
 import com.todoroo.astrid.actfm.sync.ActFmSyncService;
 import com.todoroo.astrid.activity.TaskEditFragment;
 import com.todoroo.astrid.dao.UserDao;
-import com.todoroo.astrid.data.Metadata;
 import com.todoroo.astrid.data.TagData;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.data.User;
@@ -73,7 +72,6 @@ import com.todoroo.astrid.service.TagDataService;
 import com.todoroo.astrid.service.TaskService;
 import com.todoroo.astrid.service.ThemeService;
 import com.todoroo.astrid.service.abtesting.ABChooser;
-import com.todoroo.astrid.tags.TagMetadata;
 import com.todoroo.astrid.tags.TagService;
 import com.todoroo.astrid.ui.PeopleContainer;
 import com.todoroo.astrid.ui.PeopleContainer.OnAddNewPersonListener;
@@ -87,8 +85,6 @@ public class EditPeopleControlSet extends PopupControlSet {
     private static final String CONTACT_CHOOSER_USER = "the_contact_user"; //$NON-NLS-1$
 
     private Task task;
-
-    private final ArrayList<Metadata> nonSharedTags = new ArrayList<Metadata>();
 
     @Autowired ActFmPreferenceService actFmPreferenceService;
 
@@ -248,21 +244,18 @@ public class EditPeopleControlSet extends PopupControlSet {
                 @Override
                 public void run() {
                     ArrayList<JSONObject> collaborators = new ArrayList<JSONObject>();
-                    TodorooCursor<Metadata> tags = TagService.getInstance().getTags(task.getId(), true);
+                    TodorooCursor<TagData> tags = TagService.getInstance().getTagDataForTask(task.getId(), true, TagData.NAME, TagData.MEMBER_COUNT, TagData.MEMBERS, TagData.USER);
                     try {
-                        Metadata metadata = new Metadata();
+                        TagData tagData = new TagData();
                         for(tags.moveToFirst(); !tags.isAfterLast(); tags.moveToNext()) {
-                            metadata.readFromCursor(tags);
-                            final String tag = metadata.getValue(TagMetadata.TAG_NAME);
-                            TagData tagData = tagDataService.getTag(tag, TagData.MEMBER_COUNT, TagData.MEMBERS, TagData.USER);
-                            if(tagData != null && tagData.getValue(TagData.MEMBER_COUNT) > 0) {
+                            tagData.readFromCursor(tags);
+                            final String tag = tagData.getValue(TagData.NAME);
+                            if(tagData.getValue(TagData.MEMBER_COUNT) > 0) {
                                 try {
                                     addMembersFromTagData(tagData, tag, sharedPeople, collaborators);
                                 } catch (JSONException e) {
                                     exceptionService.reportError("json-reading-data", e);
                                 }
-                            } else {
-                                nonSharedTags.add((Metadata) metadata.clone());
                             }
                         }
 

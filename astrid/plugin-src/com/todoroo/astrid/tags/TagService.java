@@ -18,6 +18,7 @@ import android.text.TextUtils;
 import android.widget.Toast;
 
 import com.timsu.astrid.R;
+import com.todoroo.andlib.data.Property;
 import com.todoroo.andlib.data.Property.CountProperty;
 import com.todoroo.andlib.data.TodorooCursor;
 import com.todoroo.andlib.service.Autowired;
@@ -196,7 +197,7 @@ public final class TagService {
         if (includeEmergent)
             criterion = Criterion.and(activeStatus, MetadataCriteria.withKey(TagMetadata.KEY));
         else
-            criterion = Criterion.and(activeStatus, MetadataCriteria.withKey(TagMetadata.KEY), Criterion.not(TagMetadata.TAG_NAME.in(getEmergentTagNames())));
+            criterion = Criterion.and(activeStatus, MetadataCriteria.withKey(TagMetadata.KEY), Criterion.not(TagMetadata.TAG_UUID.in(getEmergentTagIds())));
         Query query = Query.select(TagMetadata.TAG_NAME, TagMetadata.TAG_UUID, COUNT).
             join(Join.inner(Task.TABLE, Metadata.TASK.eq(Task.ID))).
             where(criterion).
@@ -213,23 +214,6 @@ public final class TagService {
             return array.toArray(new Tag[array.size()]);
         } finally {
             cursor.close();
-        }
-    }
-
-    public String[] getEmergentTagNames() {
-        TodorooCursor<TagData> emergent = tagDataService.query(Query.select(TagData.NAME)
-                .where(Functions.bitwiseAnd(TagData.FLAGS, TagData.FLAG_EMERGENT).gt(0)));
-        try {
-            String[] tags = new String[emergent.getCount()];
-            TagData data = new TagData();
-            for (int i = 0; i < emergent.getCount(); i++) {
-                emergent.moveToPosition(i);
-                data.readFromCursor(emergent);
-                tags[i] = data.getValue(TagData.NAME);
-            }
-            return tags;
-        } finally {
-            emergent.close();
         }
     }
 
@@ -276,12 +260,26 @@ public final class TagService {
         Criterion criterion;
         if (includeEmergent)
             criterion = Criterion.and(MetadataCriteria.withKey(TagMetadata.KEY),
+                    Metadata.DELETION_DATE.eq(0),
                     MetadataCriteria.byTask(taskId));
         else
             criterion = Criterion.and(MetadataCriteria.withKey(TagMetadata.KEY),
-                    MetadataCriteria.byTask(taskId), Criterion.not(TagMetadata.TAG_NAME.in(getEmergentTagNames())));
+                    Metadata.DELETION_DATE.eq(0),
+                    MetadataCriteria.byTask(taskId), Criterion.not(TagMetadata.TAG_UUID.in(getEmergentTagIds())));
         Query query = Query.select(TagMetadata.TAG_NAME, TagMetadata.TAG_UUID).where(criterion).orderBy(Order.asc(Functions.upper(TagMetadata.TAG_NAME)));
         return metadataDao.query(query);
+    }
+
+    public TodorooCursor<TagData> getTagDataForTask(long taskId, boolean includeEmergent, Property<?>... properties) {
+        Criterion criterion = TagData.REMOTE_ID.in(Query.select(TagMetadata.TAG_UUID)
+                .from(Metadata.TABLE)
+                .where(Criterion.and(MetadataCriteria.withKey(TagMetadata.KEY),
+                        Metadata.DELETION_DATE.eq(0),
+                        Metadata.TASK.eq(taskId))));
+        if (!includeEmergent)
+            criterion = Criterion.and(Criterion.not(TagData.REMOTE_ID.in(getEmergentTagIds())), criterion);
+
+        return tagDataService.query(Query.select(properties).where(criterion));
     }
 
     /**
@@ -300,7 +298,7 @@ public final class TagService {
      * @param taskId
      * @return empty string if no tags, otherwise string
      */
-    protected String getTagsAsString(long taskId, String separator, boolean includeEmergent) {
+    public String getTagsAsString(long taskId, String separator, boolean includeEmergent) {
         StringBuilder tagBuilder = new StringBuilder();
         TodorooCursor<Metadata> tags = getTags(taskId, includeEmergent);
         try {
@@ -319,6 +317,7 @@ public final class TagService {
         return tagBuilder.toString();
     }
 
+    // TODO: UPDATE
     public boolean deleteOrLeaveTag(Context context, String tag, String sql) {
         int deleted = deleteTagMetadata(tag);
         TagData tagData = PluginServices.getTagDataService().getTag(tag, TagData.ID, TagData.DELETION_DATE, TagData.MEMBER_COUNT, TagData.USER_ID);
@@ -399,6 +398,7 @@ public final class TagService {
      * @param taskId
      * @param tags
      */
+    // TODO: UPDATE
     public boolean synchronizeTags(long taskId, LinkedHashSet<String> tags) {
         MetadataService service = PluginServices.getMetadataService();
 
@@ -454,6 +454,7 @@ public final class TagService {
         return tagWithCase;
     }
 
+    // TODO: UPDATE
     public int deleteTagMetadata(String tag) {
         invalidateTaskCache(tag);
         return PluginServices.getMetadataService().deleteWhere(tagEqIgnoreCase(tag, Criterion.all));
