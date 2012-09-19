@@ -38,10 +38,15 @@ public class TagMetadata {
      * @return
      */
     public static Metadata newTagMetadata(Task task, String tagName, long tagUuid) {
+        return newTagMetadata(task.getId(), task.getValue(Task.REMOTE_ID), tagName, tagUuid);
+    }
+
+    public static Metadata newTagMetadata(long taskId, long taskUuid, String tagName, long tagUuid) {
         Metadata link = new Metadata();
         link.setValue(Metadata.KEY, KEY);
-        link.setValue(Metadata.TASK, task.getId());
-        link.setValue(TASK_UUID, task.getValue(Task.REMOTE_ID));
+        link.setValue(Metadata.TASK, taskId);
+        link.setValue(TAG_NAME, tagName);
+        link.setValue(TASK_UUID, taskUuid);
         link.setValue(TAG_UUID, tagUuid);
         return link;
     }

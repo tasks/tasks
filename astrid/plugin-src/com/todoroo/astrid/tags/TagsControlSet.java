@@ -289,7 +289,7 @@ public final class TagsControlSet extends PopupControlSet {
 
         LinkedHashSet<String> tags = getTagSet();
 
-        if(TagService.getInstance().synchronizeTags(task.getId(), tags)) {
+        if(TagService.getInstance().synchronizeTags(task.getId(), task.getValue(Task.REMOTE_ID), tags)) {
             Flags.set(Flags.TAGS_CHANGED);
             task.setValue(Task.MODIFICATION_DATE, DateUtilities.now());
         }

@@ -10,7 +10,7 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.HashSet;
-import java.util.LinkedHashSet;
+import java.util.Set;
 
 import android.content.Context;
 import android.content.Intent;
@@ -317,7 +317,6 @@ public final class TagService {
         return tagBuilder.toString();
     }
 
-    // TODO: UPDATE
     public boolean deleteOrLeaveTag(Context context, String tag, String sql) {
         int deleted = deleteTagMetadata(tag);
         TagData tagData = PluginServices.getTagDataService().getTag(tag, TagData.ID, TagData.DELETION_DATE, TagData.MEMBER_COUNT, TagData.USER_ID);
@@ -398,28 +397,41 @@ public final class TagService {
      * @param taskId
      * @param tags
      */
-    // TODO: UPDATE
-    public boolean synchronizeTags(long taskId, LinkedHashSet<String> tags) {
-        MetadataService service = PluginServices.getMetadataService();
-
-        HashSet<String> addedTags = new HashSet<String>();
-        ArrayList<Metadata> metadata = new ArrayList<Metadata>();
-        for(String tag : tags) {
-            String tagWithCase = getTagWithCase(tag); // Find if any tag exists that matches with case ignore
-            if (addedTags.contains(tagWithCase)) // Prevent two identical tags from being added twice (e.g. don't add "Tag, tag" as "tag, tag")
-                continue;
-            addedTags.add(tagWithCase);
-            Metadata item = new Metadata();
-            item.setValue(Metadata.KEY, TagMetadata.KEY);
-            item.setValue(TagMetadata.TAG_NAME, tagWithCase);
-            TagData tagData = tagDataService.getTag(tagWithCase, TagData.REMOTE_ID);
-            if(tagData != null)
-                item.setValue(TagMetadata.TAG_UUID, tagData.getValue(TagData.REMOTE_ID));
-
-            metadata.add(item);
+    public boolean synchronizeTags(long taskId, long taskUuid, Set<String> tags) {
+        HashSet<Long> existingLinks = new HashSet<Long>();
+        TodorooCursor<Metadata> links = metadataDao.query(Query.select(Metadata.PROPERTIES)
+                .where(Criterion.and(TagMetadata.TASK_UUID.eq(taskUuid), Metadata.DELETION_DATE.eq(0))));
+        try {
+            for (links.moveToFirst(); !links.isAfterLast(); links.moveToNext()) {
+                Metadata link = new Metadata(links);
+                existingLinks.add(link.getValue(TagMetadata.TAG_UUID));
+            }
+        } finally {
+            links.close();
         }
 
-        return service.synchronizeMetadata(taskId, metadata, Metadata.KEY.eq(TagMetadata.KEY));
+        for (String tag : tags) {
+            TagData tagData = getTagDataWithCase(tag, TagData.NAME, TagData.REMOTE_ID);
+            if (tagData == null) {
+                tagData = new TagData();
+                tagData.setValue(TagData.NAME, tag);
+                tagDataService.save(tagData);
+            }
+            if (existingLinks.contains(tagData.getValue(TagData.REMOTE_ID))) {
+                existingLinks.remove(tagData.getValue(TagData.REMOTE_ID));
+            } else {
+                Metadata newLink = TagMetadata.newTagMetadata(taskId, taskUuid, tag, tagData.getValue(TagData.REMOTE_ID));
+                metadataDao.createNew(newLink);
+            }
+        }
+
+        // Mark as deleted links that don't exist anymore
+        Metadata deletedLinkTemplate = new Metadata();
+        deletedLinkTemplate.setValue(Metadata.DELETION_DATE, DateUtilities.now());
+        metadataDao.update(Criterion.and(MetadataCriteria.withKey(TagMetadata.KEY), TagMetadata.TASK_UUID.eq(taskUuid),
+                TagMetadata.TAG_UUID.in(existingLinks.toArray(new Long[existingLinks.size()]))), deletedLinkTemplate);
+
+        return true;
     }
 
     /**
@@ -454,10 +466,25 @@ public final class TagService {
         return tagWithCase;
     }
 
-    // TODO: UPDATE
-    public int deleteTagMetadata(String tag) {
+    public TagData getTagDataWithCase(String tag, Property<?>... properties) {
+        TodorooCursor<TagData> tagData = tagDataService.query(Query.select(properties).where(TagData.NAME.eqCaseInsensitive(tag)));
+        try {
+            if (tagData.getCount() > 0) {
+                tagData.moveToFirst();
+                return new TagData(tagData);
+            }
+        } finally {
+            tagData.close();
+        }
+        return null;
+    }
+
+    private int deleteTagMetadata(String tag) {
         invalidateTaskCache(tag);
-        return PluginServices.getMetadataService().deleteWhere(tagEqIgnoreCase(tag, Criterion.all));
+        Metadata deleted = new Metadata();
+        deleted.setValue(Metadata.DELETION_DATE, DateUtilities.now());
+
+        return metadataDao.update(tagEqIgnoreCase(tag, Criterion.all), deleted);
     }
 
     public int rename(String oldTag, String newTag) {
