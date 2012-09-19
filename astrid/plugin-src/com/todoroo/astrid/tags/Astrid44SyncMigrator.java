@@ -49,6 +49,7 @@ public class Astrid44SyncMigrator {
         // --------------
         Query noTagDataQuery = Query.select(Metadata.PROPERTIES).where(Criterion.and(
                 MetadataCriteria.withKey(TagMetadata.KEY),
+                Criterion.or(TagMetadata.TAG_UUID.isNull(), TagMetadata.TAG_UUID.eq(0)),
                 Criterion.not(TagMetadata.TAG_NAME.in(Query.select(TagData.NAME).from(TagData.TABLE))))).groupBy(TagMetadata.TAG_NAME);
 
         TodorooCursor<Metadata> noTagData = metadataService.query(noTagDataQuery);
