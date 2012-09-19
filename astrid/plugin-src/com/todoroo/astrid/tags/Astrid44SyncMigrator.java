@@ -25,6 +25,7 @@ import com.todoroo.astrid.service.MetadataService;
 import com.todoroo.astrid.service.TagDataService;
 import com.todoroo.astrid.utility.Constants;
 
+@SuppressWarnings("nls")
 public class Astrid44SyncMigrator {
 
     @Autowired private MetadataService metadataService;
@@ -33,13 +34,14 @@ public class Astrid44SyncMigrator {
     @Autowired private TaskDao taskDao;
     @Autowired private UpdateDao updateDao;
 
-    private static final String PREF_MIGRATED_TASKS_TO_TAGS = "tasks_to_tags_migration"; //$NON-NLS-1$
+    private static final String PREF_MIGRATED_TASKS_TO_TAGS = "tasks_to_tags_migration";
+
+    private static final String LOG_TAG = "tag-link-migrate";
 
     public Astrid44SyncMigrator() {
         DependencyInjectionService.getInstance().inject(this);
     }
 
-    @SuppressWarnings("nls")
     public void performMigration() {
         if (Preferences.getBoolean(PREF_MIGRATED_TASKS_TO_TAGS, false))
             return;
@@ -97,14 +99,18 @@ public class Astrid44SyncMigrator {
                 boolean changes = false;
 
                 if (Constants.DEBUG)
-                    Log.w("tag-link-migrate", "Incomplete linking task " + m.getValue(Metadata.TASK) + " to " + m.getValue(TagMetadata.TAG_NAME));
+                    Log.w(LOG_TAG, "Incomplete linking task " + m.getValue(Metadata.TASK) + " to " + m.getValue(TagMetadata.TAG_NAME));
 
                 if (!m.containsNonNullValue(TagMetadata.TASK_UUID) || m.getValue(TagMetadata.TASK_UUID) == 0) {
+                    if (Constants.DEBUG)
+                        Log.w(LOG_TAG, "No task uuid");
                     updateTaskUuid(m);
                     changes = true;
                 }
 
                 if (!m.containsNonNullValue(TagMetadata.TAG_UUID) || m.getValue(TagMetadata.TAG_UUID) == 0) {
+                    if (Constants.DEBUG)
+                        Log.w(LOG_TAG, "No tag uuid");
                     updateTagUuid(m);
                     changes = true;
                 }
@@ -141,8 +147,12 @@ public class Astrid44SyncMigrator {
         long taskId = m.getValue(Metadata.TASK);
         Task task = taskDao.fetch(taskId, Task.REMOTE_ID);
         if (task != null) {
+            if (Constants.DEBUG)
+                Log.w(LOG_TAG, "Linking with task uuid " + task.getValue(Task.REMOTE_ID));
             m.setValue(TagMetadata.TASK_UUID, task.getValue(Task.REMOTE_ID));
         } else {
+            if (Constants.DEBUG)
+                Log.w(LOG_TAG, "Task not found, deleting link");
             m.setValue(Metadata.DELETION_DATE, DateUtilities.now());
         }
     }
@@ -151,8 +161,12 @@ public class Astrid44SyncMigrator {
         String tag = m.getValue(TagMetadata.TAG_NAME);
         TagData tagData = tagDataService.getTag(tag, TagData.REMOTE_ID);
         if (tagData != null) {
+            if (Constants.DEBUG)
+                Log.w(LOG_TAG, "Linking with tag uuid " + tagData.getValue(TagData.REMOTE_ID));
             m.setValue(TagMetadata.TAG_UUID, tagData.getValue(TagData.REMOTE_ID));
         } else {
+            if (Constants.DEBUG)
+                Log.w(LOG_TAG, "Tag not found, deleting link");
             m.setValue(Metadata.DELETION_DATE, DateUtilities.now());
         }
     }
