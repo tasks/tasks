@@ -907,6 +907,7 @@ public class TaskListFragment extends ListFragment implements OnScrollListener,
 
         Criterion tagsJoinCriterion = Criterion.and(
                 Field.field(TAGS_METADATA_JOIN + "." + Metadata.KEY.name).eq(TagMetadata.KEY), //$NON-NLS-1$
+                Field.field(TAGS_METADATA_JOIN + "." + Metadata.DELETION_DATE.name).eq(0),
                 Task.ID.eq(Field.field(TAGS_METADATA_JOIN + "." + Metadata.TASK.name)),
                 Criterion.not(tagProperty.in(emergentTagIds)));
         if (tagName != null)

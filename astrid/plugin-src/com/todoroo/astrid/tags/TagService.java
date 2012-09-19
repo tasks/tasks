@@ -149,8 +149,9 @@ public final class TagService {
             Criterion fullCriterion = Criterion.and(
                     Field.field("mtags." + Metadata.KEY.name).eq(TagMetadata.KEY),
                     Field.field("mtags." + TagMetadata.TAG_UUID.name).eq(remoteId),
+                    Field.field("mtags." + Metadata.DELETION_DATE.name).eq(0),
                     criterion);
-            return new QueryTemplate().join(Join.inner(Metadata.TABLE.as("mtags"), Task.REMOTE_ID.eq(Field.field("mtags." + TagMetadata.TASK_UUID))))
+            return new QueryTemplate().join(Join.inner(Metadata.TABLE.as("mtags"), Task.REMOTE_ID.eq(Field.field("mtags." + TagMetadata.TASK_UUID.name))))
                     .where(fullCriterion);
         }
 

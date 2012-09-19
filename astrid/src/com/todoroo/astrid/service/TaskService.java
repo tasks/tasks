@@ -68,9 +68,6 @@ public class TaskService {
     private static final String PREF_USER_ACTVATED = "user-activated"; //$NON-NLS-1$
 
     @Autowired
-    private TagService tagService;
-
-    @Autowired
     private TaskDao taskDao;
 
     @Autowired
@@ -206,7 +203,7 @@ public class TaskService {
         taskDao.save(newTask);
 
         if (tagUuid > 0) {
-            tagService.createLink(task, tagName, tagUuid);
+            TagService.getInstance().createLink(task, tagName, tagUuid);
         }
         return newTask;
     }
