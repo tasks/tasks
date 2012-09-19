@@ -45,16 +45,16 @@ public class TagCustomFilterCriteriaExposer extends BroadcastReceiver {
             for(int i = 0; i < tags.length; i++)
                 tagNames[i] = tags[i].tag;
             ContentValues values = new ContentValues();
-            values.put(Metadata.KEY.name, TagService.KEY);
-            values.put(TagService.TAG.name, "?");
+            values.put(Metadata.KEY.name, TagMetadata.KEY);
+            values.put(TagMetadata.TAG_NAME.name, "?");
             CustomFilterCriterion criterion = new MultipleSelectCriterion(
                     IDENTIFIER_TAG_IS,
                     context.getString(R.string.CFC_tag_text),
                     Query.select(Metadata.TASK).from(Metadata.TABLE).join(Join.inner(
                                 Task.TABLE, Metadata.TASK.eq(Task.ID))).where(Criterion.and(
                             TaskDao.TaskCriteria.activeAndVisible(),
-                            MetadataDao.MetadataCriteria.withKey(TagService.KEY),
-                            TagService.TAG.eq("?"))).toString(),
+                            MetadataDao.MetadataCriteria.withKey(TagMetadata.KEY),
+                            TagMetadata.TAG_NAME.eq("?"))).toString(),
                     values, tagNames, tagNames,
                     ((BitmapDrawable)r.getDrawable(TagService.getDefaultImageIDForTag(0))).getBitmap(),
                     context.getString(R.string.CFC_tag_name));
@@ -69,8 +69,8 @@ public class TagCustomFilterCriteriaExposer extends BroadcastReceiver {
                             Query.select(Metadata.TASK).from(Metadata.TABLE).join(Join.inner(
                                     Task.TABLE, Metadata.TASK.eq(Task.ID))).where(Criterion.and(
                                             TaskDao.TaskCriteria.activeAndVisible(),
-                                            MetadataDao.MetadataCriteria.withKey(TagService.KEY),
-                                            TagService.TAG.like("%?%"))).toString(),
+                                            MetadataDao.MetadataCriteria.withKey(TagMetadata.KEY),
+                                            TagMetadata.TAG_NAME.like("%?%"))).toString(),
                                             null, context.getString(R.string.CFC_tag_contains_name), "",
                                             ((BitmapDrawable)r.getDrawable(TagService.getDefaultImageIDForTag(0))).getBitmap(),
                                             context.getString(R.string.CFC_tag_contains_name));

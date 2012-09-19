@@ -100,6 +100,7 @@ import com.todoroo.astrid.service.ThemeService;
 import com.todoroo.astrid.service.UpgradeService;
 import com.todoroo.astrid.subtasks.SubtasksListFragment;
 import com.todoroo.astrid.sync.SyncProviderPreferences;
+import com.todoroo.astrid.tags.TagMetadata;
 import com.todoroo.astrid.tags.TagService;
 import com.todoroo.astrid.taskrabbit.TaskRabbitMetadata;
 import com.todoroo.astrid.timers.TimerPlugin;
@@ -902,14 +903,14 @@ public class TaskListFragment extends ListFragment implements OnScrollListener,
             tagName = getActiveTagData().getValue(TagData.NAME);
 
         String[] emergentTags = TagService.getInstance().getEmergentTags();
-        StringProperty tagProperty = new StringProperty(null, TAGS_METADATA_JOIN + "." + TagService.TAG.name);
+        StringProperty tagProperty = new StringProperty(null, TAGS_METADATA_JOIN + "." + TagMetadata.TAG_NAME.name);
 
         Criterion tagsJoinCriterion = Criterion.and(
-                Field.field(TAGS_METADATA_JOIN + "." + Metadata.KEY.name).eq(TagService.KEY), //$NON-NLS-1$
+                Field.field(TAGS_METADATA_JOIN + "." + Metadata.KEY.name).eq(TagMetadata.KEY), //$NON-NLS-1$
                 Task.ID.eq(Field.field(TAGS_METADATA_JOIN + "." + Metadata.TASK.name)),
                 Criterion.not(tagProperty.in(emergentTags)));
         if (tagName != null)
-            tagsJoinCriterion = Criterion.and(tagsJoinCriterion, Field.field(TAGS_METADATA_JOIN + "." + TagService.TAG.name).neq(tagName));
+            tagsJoinCriterion = Criterion.and(tagsJoinCriterion, Field.field(TAGS_METADATA_JOIN + "." + TagMetadata.TAG_NAME.name).neq(tagName));
 
         // TODO: For now, we'll modify the query to join and include the task rabbit and tag data here.
         // Eventually, we might consider restructuring things so that this query is constructed elsewhere.

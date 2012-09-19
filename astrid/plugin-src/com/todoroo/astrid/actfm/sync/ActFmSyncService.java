@@ -75,6 +75,7 @@ import com.todoroo.astrid.service.TagDataService;
 import com.todoroo.astrid.service.TaskService;
 import com.todoroo.astrid.service.abtesting.ABTestEventReportingService;
 import com.todoroo.astrid.sync.SyncV2Provider.SyncExceptionHandler;
+import com.todoroo.astrid.tags.TagMetadata;
 import com.todoroo.astrid.tags.TagService;
 import com.todoroo.astrid.utility.Flags;
 
@@ -448,13 +449,13 @@ public final class ActFmSyncService {
                     Metadata metadata = new Metadata();
                     for(cursor.moveToFirst(); !cursor.isAfterLast(); cursor.moveToNext()) {
                         metadata.readFromCursor(cursor);
-                        if(metadata.containsNonNullValue(TagService.REMOTE_ID) &&
-                                metadata.getValue(TagService.REMOTE_ID) > 0) {
+                        if(metadata.containsNonNullValue(TagMetadata.TAG_UUID) &&
+                                metadata.getValue(TagMetadata.TAG_UUID) > 0) {
                             params.add("tag_ids[]");
-                            params.add(metadata.getValue(TagService.REMOTE_ID));
+                            params.add(metadata.getValue(TagMetadata.TAG_UUID));
                         } else {
                             params.add("tags[]");
-                            params.add(metadata.getValue(TagService.TAG));
+                            params.add(metadata.getValue(TagMetadata.TAG_NAME));
                         }
                     }
                 }
@@ -817,7 +818,7 @@ public final class ActFmSyncService {
         JsonHelper.taskFromJson(result, task, metadata);
         task.putTransitory(SyncFlags.ACTFM_SUPPRESS_SYNC, true);
         taskService.save(task);
-        metadataService.synchronizeMetadata(task.getId(), metadata, Metadata.KEY.eq(TagService.KEY));
+        metadataService.synchronizeMetadata(task.getId(), metadata, Metadata.KEY.eq(TagMetadata.KEY));
         synchronizeAttachments(result, task);
     }
 
@@ -1252,7 +1253,7 @@ public final class ActFmSyncService {
                 }
 
                 ids.add(remote.getId());
-                metadataService.synchronizeMetadata(remote.getId(), metadata, MetadataCriteria.withKey(TagService.KEY));
+                metadataService.synchronizeMetadata(remote.getId(), metadata, MetadataCriteria.withKey(TagMetadata.KEY));
                 synchronizeAttachments(item, remote);
                 remote.clear();
             }
@@ -1574,9 +1575,9 @@ public final class ActFmSyncService {
                 if(TextUtils.isEmpty(name))
                     continue;
                 Metadata tagMetadata = new Metadata();
-                tagMetadata.setValue(Metadata.KEY, TagService.KEY);
-                tagMetadata.setValue(TagService.TAG, name);
-                tagMetadata.setValue(TagService.REMOTE_ID, tag.getLong("id"));
+                tagMetadata.setValue(Metadata.KEY, TagMetadata.KEY);
+                tagMetadata.setValue(TagMetadata.TAG_NAME, name);
+                tagMetadata.setValue(TagMetadata.TAG_UUID, tag.getLong("id"));
                 metadata.add(tagMetadata);
             }
         }

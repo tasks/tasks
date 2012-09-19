@@ -26,7 +26,7 @@ import com.todoroo.astrid.data.Metadata;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.data.TaskApiDao.TaskCriteria;
 import com.todoroo.astrid.service.ThemeService;
-import com.todoroo.astrid.tags.TagService;
+import com.todoroo.astrid.tags.TagMetadata;
 
 /**
  * Exposes Astrid's built in filters to the {@link FilterListFragment}
@@ -66,8 +66,8 @@ public final class CoreFilterExposer extends BroadcastReceiver implements Astrid
                 new QueryTemplate().where(
                         Criterion.and(TaskCriteria.activeVisibleMine(),
                                 Criterion.not(Task.ID.in(Query.select(Metadata.TASK).from(Metadata.TABLE).where(
-                                        Criterion.and(MetadataCriteria.withKey(TagService.KEY),
-                                                TagService.TAG.like("x_%", "x"))))))), //$NON-NLS-1$ //$NON-NLS-2$
+                                        Criterion.and(MetadataCriteria.withKey(TagMetadata.KEY),
+                                                TagMetadata.TAG_NAME.like("x_%", "x"))))))), //$NON-NLS-1$ //$NON-NLS-2$
                 null);
         int themeFlags = ThemeService.getFilterThemeFlags();
         inbox.listingIcon = ((BitmapDrawable)r.getDrawable(

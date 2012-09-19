@@ -33,6 +33,7 @@ import com.todoroo.astrid.data.User;
 import com.todoroo.astrid.notes.NoteMetadata;
 import com.todoroo.astrid.service.MetadataService;
 import com.todoroo.astrid.service.TagDataService;
+import com.todoroo.astrid.tags.TagMetadata;
 import com.todoroo.astrid.tags.TagService;
 
 public final class ActFmDataService {
@@ -132,7 +133,7 @@ public final class ActFmDataService {
         metadataService.synchronizeMetadata(task.task.getId(), task.metadata,
                 Criterion.or(Criterion.and(MetadataCriteria.withKey(NoteMetadata.METADATA_KEY),
                                 NoteMetadata.EXT_PROVIDER.eq(NOTE_PROVIDER)),
-                        MetadataCriteria.withKey(TagService.KEY)));
+                        MetadataCriteria.withKey(TagMetadata.KEY)));
     }
 
     /**
@@ -147,7 +148,7 @@ public final class ActFmDataService {
         ArrayList<Metadata> metadata = new ArrayList<Metadata>();
         TodorooCursor<Metadata> metadataCursor = metadataService.query(Query.select(Metadata.PROPERTIES).
                 where(Criterion.and(MetadataCriteria.byTask(task.getId()),
-                        Criterion.or(MetadataCriteria.withKey(TagService.KEY),
+                        Criterion.or(MetadataCriteria.withKey(TagMetadata.KEY),
                                 MetadataCriteria.withKey(NoteMetadata.METADATA_KEY)))));
         try {
             for(metadataCursor.moveToFirst(); !metadataCursor.isAfterLast(); metadataCursor.moveToNext()) {

@@ -6,6 +6,7 @@
 package com.todoroo.astrid.dao;
 
 import android.database.sqlite.SQLiteException;
+import android.text.TextUtils;
 import android.util.Log;
 
 import com.todoroo.andlib.data.AbstractDatabase;
@@ -338,9 +339,10 @@ public class Database extends AbstractDatabase {
             database.execSQL(createTableSql(visitor, TaskOutstanding.TABLE.name, TaskOutstanding.PROPERTIES));
             database.execSQL(createTableSql(visitor, TagOutstanding.TABLE.name, TagOutstanding.PROPERTIES));
 
-            database.execSQL(addColumnSql(Task.TABLE, Task.PROOF_TEXT, visitor));
-            database.execSQL(addColumnSql(TagData.TABLE, TagData.PROOF_TEXT, visitor));
-            database.execSQL(addColumnSql(Update.TABLE, Update.PROOF_TEXT, visitor));
+            database.execSQL(addColumnSql(Task.TABLE, Task.PROOF_TEXT, visitor, null));
+            database.execSQL(addColumnSql(TagData.TABLE, TagData.PROOF_TEXT, visitor, null));
+            database.execSQL(addColumnSql(Update.TABLE, Update.PROOF_TEXT, visitor, null));
+            database.execSQL(addColumnSql(Metadata.TABLE, Metadata.DELETION_DATE, visitor, "0"));
         } catch (SQLiteException e) {
             Log.e("astrid", "db-upgrade-" + oldVersion + "-" + newVersion, e);
         }
@@ -351,8 +353,16 @@ public class Database extends AbstractDatabase {
         return false;
     }
 
-    private static String addColumnSql(Table table, Property<?> property, SqlConstructorVisitor visitor) {
-        return "ALTER TABLE " + table.name + " ADD " + property.accept(visitor, null);
+    private static String addColumnSql(Table table, Property<?> property, SqlConstructorVisitor visitor, String defaultValue) {
+        StringBuilder builder = new StringBuilder();
+        builder.append("ALTER TABLE ")
+               .append(table.name)
+               .append(" ADD ")
+               .append(property.accept(visitor, null));
+        if (!TextUtils.isEmpty(defaultValue)) {
+            builder.append(" DEFAULT ").append(defaultValue);
+        }
+        return builder.toString();
     }
 
     /**

@@ -113,14 +113,14 @@ public class TagCaseMigrator {
         try {
             for (tasks.moveToFirst(); !tasks.isAfterLast(); tasks.moveToNext()) {
                 Task curr = new Task(tasks);
-                TodorooCursor<Metadata> tagMetadata = metadataService.query(Query.select(TagService.TAG)
-                                                                 .where(Criterion.and(TagService.TAG.eq(target), Metadata.KEY.eq(TagService.KEY), Metadata.TASK.eq(curr.getId()))));
+                TodorooCursor<Metadata> tagMetadata = metadataService.query(Query.select(TagMetadata.TAG_NAME)
+                                                                 .where(Criterion.and(TagMetadata.TAG_NAME.eq(target), Metadata.KEY.eq(TagMetadata.KEY), Metadata.TASK.eq(curr.getId()))));
                 try {
                     if (tagMetadata.getCount() == 0) {
                         Metadata newTag = new Metadata();
-                        newTag.setValue(Metadata.KEY, TagService.KEY);
+                        newTag.setValue(Metadata.KEY, TagMetadata.KEY);
                         newTag.setValue(Metadata.TASK, curr.getId());
-                        newTag.setValue(TagService.TAG, target);
+                        newTag.setValue(TagMetadata.TAG_NAME, target);
                         metadataService.save(newTag);
                     } // else already exists for some weird reason
                 } finally {

@@ -79,6 +79,10 @@ public class Metadata extends AbstractModel {
     public static final LongProperty CREATION_DATE = new LongProperty(
             TABLE, "created");
 
+    /** Unixtime metadata was deleted/tombstoned */
+    public static final LongProperty DELETION_DATE = new LongProperty(
+            TABLE, "deleted");
+
     /** List of all properties for this model */
     public static final Property<?>[] PROPERTIES = generateProperties(Metadata.class);
 
@@ -86,6 +90,10 @@ public class Metadata extends AbstractModel {
 
     /** Default values container */
     private static final ContentValues defaultValues = new ContentValues();
+
+    static {
+        defaultValues.put(DELETION_DATE.name, 0L);
+    }
 
     @Override
     public ContentValues getDefaultValues() {

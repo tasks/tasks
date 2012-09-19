@@ -33,6 +33,7 @@ import com.todoroo.astrid.service.AstridDependencyInjector;
 import com.todoroo.astrid.service.StatisticsConstants;
 import com.todoroo.astrid.service.StatisticsService;
 import com.todoroo.astrid.service.TaskService;
+import com.todoroo.astrid.tags.TagMetadata;
 import com.todoroo.astrid.tags.TagService;
 import com.todoroo.astrid.tags.TagService.Tag;
 
@@ -203,7 +204,7 @@ public class Astrid2TaskProvider extends ContentProvider {
     			TodorooCursor<Metadata> tagCursor = TagService.getInstance().getTags(task.getId(), true);
     			try {
     			    for(tagCursor.moveToFirst(); !tagCursor.isAfterLast(); tagCursor.moveToNext())
-    			        taskTags.append(tagCursor.get(TagService.TAG)).append(TAG_SEPARATOR);
+    			        taskTags.append(tagCursor.get(TagMetadata.TAG_NAME)).append(TAG_SEPARATOR);
     			} finally {
     			    tagCursor.close();
     			}

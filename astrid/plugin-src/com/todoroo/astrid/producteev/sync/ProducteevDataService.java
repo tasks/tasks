@@ -35,7 +35,7 @@ import com.todoroo.astrid.notes.NoteMetadata;
 import com.todoroo.astrid.producteev.ProducteevUtilities;
 import com.todoroo.astrid.producteev.api.ApiUtilities;
 import com.todoroo.astrid.service.MetadataService;
-import com.todoroo.astrid.tags.TagService;
+import com.todoroo.astrid.tags.TagMetadata;
 
 public final class ProducteevDataService {
 
@@ -157,7 +157,7 @@ public final class ProducteevDataService {
         // note we don't include note metadata, since we only receive deltas
         metadataService.synchronizeMetadata(task.task.getId(), task.metadata,
                 Criterion.or(MetadataCriteria.withKey(ProducteevTask.METADATA_KEY),
-                        MetadataCriteria.withKey(TagService.KEY)));
+                        MetadataCriteria.withKey(TagMetadata.KEY)));
     }
 
     /**
@@ -172,7 +172,7 @@ public final class ProducteevDataService {
         ArrayList<Metadata> metadata = new ArrayList<Metadata>();
         TodorooCursor<Metadata> metadataCursor = metadataService.query(Query.select(Metadata.PROPERTIES).
                 where(Criterion.and(MetadataCriteria.byTask(task.getId()),
-                        Criterion.or(MetadataCriteria.withKey(TagService.KEY),
+                        Criterion.or(MetadataCriteria.withKey(TagMetadata.KEY),
                                 MetadataCriteria.withKey(ProducteevTask.METADATA_KEY),
                                 MetadataCriteria.withKey(NoteMetadata.METADATA_KEY)))));
         try {

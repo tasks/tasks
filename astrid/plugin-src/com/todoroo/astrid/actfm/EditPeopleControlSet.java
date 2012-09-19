@@ -73,6 +73,7 @@ import com.todoroo.astrid.service.TagDataService;
 import com.todoroo.astrid.service.TaskService;
 import com.todoroo.astrid.service.ThemeService;
 import com.todoroo.astrid.service.abtesting.ABChooser;
+import com.todoroo.astrid.tags.TagMetadata;
 import com.todoroo.astrid.tags.TagService;
 import com.todoroo.astrid.ui.PeopleContainer;
 import com.todoroo.astrid.ui.PeopleContainer.OnAddNewPersonListener;
@@ -252,7 +253,7 @@ public class EditPeopleControlSet extends PopupControlSet {
                         Metadata metadata = new Metadata();
                         for(tags.moveToFirst(); !tags.isAfterLast(); tags.moveToNext()) {
                             metadata.readFromCursor(tags);
-                            final String tag = metadata.getValue(TagService.TAG);
+                            final String tag = metadata.getValue(TagMetadata.TAG_NAME);
                             TagData tagData = tagDataService.getTag(tag, TagData.MEMBER_COUNT, TagData.MEMBERS, TagData.USER);
                             if(tagData != null && tagData.getValue(TagData.MEMBER_COUNT) > 0) {
                                 try {

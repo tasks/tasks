@@ -91,7 +91,7 @@ import com.todoroo.astrid.service.StatisticsConstants;
 import com.todoroo.astrid.service.StatisticsService;
 import com.todoroo.astrid.service.TaskService;
 import com.todoroo.astrid.service.ThemeService;
-import com.todoroo.astrid.tags.TagService;
+import com.todoroo.astrid.tags.TagMetadata;
 import com.todoroo.astrid.timers.TimerDecorationExposer;
 import com.todoroo.astrid.ui.CheckableImageView;
 import com.todoroo.astrid.utility.Constants;
@@ -116,7 +116,7 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
             Metadata.ID.name).as("taskRabId"); //$NON-NLS-1$
 
     @SuppressWarnings("nls")
-    private static final StringProperty TAGS = new StringProperty(null, "group_concat(" + TaskListFragment.TAGS_METADATA_JOIN + "." + TagService.TAG.name + ", '  |  ')").as("tags");
+    private static final StringProperty TAGS = new StringProperty(null, "group_concat(" + TaskListFragment.TAGS_METADATA_JOIN + "." + TagMetadata.TAG_NAME.name + ", '  |  ')").as("tags");
 
     // --- other constants
 

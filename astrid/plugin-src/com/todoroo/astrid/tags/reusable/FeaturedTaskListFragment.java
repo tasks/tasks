@@ -126,6 +126,9 @@ public class FeaturedTaskListFragment extends TagViewFragment {
             if (existing.getCount() > 0) {
                 existing.moveToFirst();
                 clone = new TagData(existing);
+            } else {
+                clone = new TagData();
+                clone.setValue(TagData.NAME, localName);
             }
 
         } finally {
@@ -143,7 +146,7 @@ public class FeaturedTaskListFragment extends TagViewFragment {
                     Task t = new Task();
                     for (tasks.moveToFirst(); !tasks.isAfterLast(); tasks.moveToNext()) {
                         t.readFromCursor(tasks);
-                        taskService.cloneReusableTask(t, finalTagData.getId());
+                        taskService.cloneReusableTask(t, localName, finalTagData.getValue(TagData.REMOTE_ID));
                     }
                     final Activity activity = getActivity();
                     if (activity != null) {

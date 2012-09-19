@@ -22,7 +22,7 @@ import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.provider.Astrid2TaskProvider;
 import com.todoroo.astrid.service.StatisticsConstants;
 import com.todoroo.astrid.service.StatisticsService;
-import com.todoroo.astrid.tags.TagService;
+import com.todoroo.astrid.tags.TagMetadata;
 import com.todoroo.astrid.utility.AstridPreferences;
 
 /**
@@ -75,7 +75,7 @@ public class MetadataDao extends DatabaseDao<Metadata> {
         boolean state = super.persist(item);
         if(Preferences.getBoolean(AstridPreferences.P_FIRST_LIST, true)) {
             if (state && item.containsNonNullValue(Metadata.KEY) &&
-                    item.getValue(Metadata.KEY).equals(TagService.KEY)) {
+                    item.getValue(Metadata.KEY).equals(TagMetadata.KEY)) {
                 StatisticsService.reportEvent(StatisticsConstants.USER_FIRST_LIST);
                 Preferences.setBoolean(AstridPreferences.P_FIRST_LIST, false);
             }

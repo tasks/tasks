@@ -38,6 +38,7 @@ import com.todoroo.astrid.gcal.GCalHelper;
 import com.todoroo.astrid.gtasks.GtasksMetadata;
 import com.todoroo.astrid.opencrx.OpencrxCoreUtils;
 import com.todoroo.astrid.producteev.sync.ProducteevTask;
+import com.todoroo.astrid.tags.TagMetadata;
 import com.todoroo.astrid.tags.TagService;
 import com.todoroo.astrid.utility.TitleParser;
 
@@ -193,7 +194,7 @@ public class TaskService {
         return newTask;
     }
 
-    public Task cloneReusableTask(Task task, long tagId) {
+    public Task cloneReusableTask(Task task, String tagName, long tagUuid) {
         Task newTask = fetchById(task.getId(), Task.PROPERTIES);
         if (newTask == null)
             return new Task();
@@ -204,8 +205,8 @@ public class TaskService {
 
         taskDao.save(newTask);
 
-        if (tagId > 0) {
-            tagService.createLink(task, tagId);
+        if (tagUuid > 0) {
+            tagService.createLink(task, tagName, tagUuid);
         }
         return newTask;
     }
@@ -430,9 +431,9 @@ public class TaskService {
 
         Metadata metadata = new Metadata();
         for(String tag : tags) {
-            metadata.setValue(Metadata.KEY, TagService.KEY);
+            metadata.setValue(Metadata.KEY, TagMetadata.KEY);
             metadata.setValue(Metadata.TASK, task.getId());
-            metadata.setValue(TagService.TAG, tag);
+            metadata.setValue(TagMetadata.TAG_NAME, tag);
             metadataDao.createNew(metadata);
         }
     }

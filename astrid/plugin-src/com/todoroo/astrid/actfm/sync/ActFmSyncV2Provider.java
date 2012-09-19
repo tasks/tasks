@@ -40,6 +40,7 @@ import com.todoroo.astrid.service.TagDataService;
 import com.todoroo.astrid.service.TaskService;
 import com.todoroo.astrid.sync.SyncResultCallback;
 import com.todoroo.astrid.sync.SyncV2Provider;
+import com.todoroo.astrid.tags.TagMetadata;
 import com.todoroo.astrid.tags.TagService;
 
 /**
@@ -515,8 +516,8 @@ public class ActFmSyncV2Provider extends SyncV2Provider {
 
     private void pushQueuedTasksByTag(TagData tagData, SyncResultCallback callback, AtomicInteger finisher) {
         Long[] ids;
-        TodorooCursor<Metadata> allTagged = metadataService.query(Query.select(Metadata.TASK).where(Criterion.and(Metadata.KEY.eq(TagService.KEY),
-                TagService.TAG.eqCaseInsensitive(tagData.getValue(TagData.NAME)))));
+        TodorooCursor<Metadata> allTagged = metadataService.query(Query.select(Metadata.TASK).where(Criterion.and(Metadata.KEY.eq(TagMetadata.KEY),
+                TagMetadata.TAG_NAME.eqCaseInsensitive(tagData.getValue(TagData.NAME)))));
         try {
             ids = new Long[allTagged.getCount()];
             Metadata m = new Metadata();
@@ -531,8 +532,8 @@ public class ActFmSyncV2Provider extends SyncV2Provider {
         }
 
         TodorooCursor<Task> taskCursor = taskService.query(Query.select(Task.PROPERTIES)
-                .join(Join.inner(Metadata.TABLE, Criterion.and(Metadata.KEY.eq(TagService.KEY), Metadata.TASK.eq(Task.ID),
-                        TagService.TAG.eqCaseInsensitive(tagData.getValue(TagData.NAME)))))
+                .join(Join.inner(Metadata.TABLE, Criterion.and(Metadata.KEY.eq(TagMetadata.KEY), Metadata.TASK.eq(Task.ID),
+                        TagMetadata.TAG_NAME.eqCaseInsensitive(tagData.getValue(TagData.NAME)))))
                 .where(Criterion.or(
                         Criterion.and(TaskCriteria.isActive(),
                                 Task.REMOTE_ID.isNull()),

@@ -71,8 +71,8 @@ public class TagFilterExposer extends BroadcastReceiver implements AstridFilterE
         String title = tag.tag;
         QueryTemplate tagTemplate = tag.queryTemplate(criterion);
         ContentValues contentValues = new ContentValues();
-        contentValues.put(Metadata.KEY.name, TagService.KEY);
-        contentValues.put(TagService.TAG.name, tag.tag);
+        contentValues.put(Metadata.KEY.name, TagMetadata.KEY);
+        contentValues.put(TagMetadata.TAG_NAME.name, tag.tag);
 
         FilterWithUpdate filter = new FilterWithUpdate(tag.tag,
                 title, tagTemplate,

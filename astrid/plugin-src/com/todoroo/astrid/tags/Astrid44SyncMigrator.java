@@ -47,8 +47,8 @@ public class Astrid44SyncMigrator {
         // First assert that a TagData object exists for each tag metadata
         // --------------
         Query noTagDataQuery = Query.select(Metadata.PROPERTIES).where(Criterion.and(
-                MetadataCriteria.withKey(TagService.KEY),
-                Criterion.not(TagService.TAG.in(Query.select(TagData.NAME).from(TagData.TABLE))))).groupBy(TagService.TAG);
+                MetadataCriteria.withKey(TagMetadata.KEY),
+                Criterion.not(TagMetadata.TAG_NAME.in(Query.select(TagData.NAME).from(TagData.TABLE))))).groupBy(TagMetadata.TAG_NAME);
 
         TodorooCursor<Metadata> noTagData = metadataService.query(noTagDataQuery);
         try {
@@ -57,10 +57,10 @@ public class Astrid44SyncMigrator {
                 tag.readFromCursor(noTagData);
 
                 if (Constants.DEBUG)
-                    Log.w("tag-link-migrate", "CREATING TAG DATA " + tag.getValue(TagService.TAG));
+                    Log.w("tag-link-migrate", "CREATING TAG DATA " + tag.getValue(TagMetadata.TAG_NAME));
 
                 TagData newTagData = new TagData();
-                newTagData.setValue(TagData.NAME, tag.getValue(TagService.TAG));
+                newTagData.setValue(TagData.NAME, tag.getValue(TagMetadata.TAG_NAME));
                 tagDataService.save(newTagData);
             }
         } finally {

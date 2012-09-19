@@ -43,7 +43,7 @@ import com.todoroo.astrid.data.TagData;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.data.User;
 import com.todoroo.astrid.service.ThemeService;
-import com.todoroo.astrid.tags.TagService;
+import com.todoroo.astrid.tags.TagMetadata;
 import com.todoroo.astrid.utility.AstridPreferences;
 
 public class PeopleFilterExposer extends BroadcastReceiver {
@@ -148,8 +148,8 @@ public class PeopleFilterExposer extends BroadcastReceiver {
         String title = context.getString(R.string.actfm_my_shared_tasks_title);
         QueryTemplate template = new QueryTemplate().join(Join.inner(Metadata.TABLE.as("mtags"),
                 Criterion.and(Task.ID.eq(Field.field("mtags." + Metadata.TASK.name)),
-                        Field.field("mtags." + Metadata.KEY.name).eq(TagService.KEY),
-                        Field.field("mtags." + TagService.TAG.name).in(names),
+                        Field.field("mtags." + Metadata.KEY.name).eq(TagMetadata.KEY),
+                        Field.field("mtags." + TagMetadata.TAG_NAME.name).in(names),
                         TaskCriteria.activeVisibleMine())));
 
         FilterWithCustomIntent filter = new FilterWithCustomIntent(title, title, template, null);
