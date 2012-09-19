@@ -95,6 +95,9 @@ public class Astrid44SyncMigrator {
                 m.readFromCursor(incompleteMetadata);
                 boolean changes = false;
 
+                if (Constants.DEBUG)
+                    Log.w("tag-link-migrate", "Incomplete linking task " + m.getValue(Metadata.TASK) + " to " + m.getValue(TagMetadata.TAG_NAME));
+
                 if (!m.containsNonNullValue(TagMetadata.TASK_UUID) || m.getValue(TagMetadata.TASK_UUID) == 0) {
                     updateTaskUuid(m);
                     changes = true;
