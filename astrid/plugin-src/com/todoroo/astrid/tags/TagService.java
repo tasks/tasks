@@ -179,7 +179,7 @@ public final class TagService {
 
         return new QueryTemplate().where(Criterion.and(
                 Criterion.not(Task.REMOTE_ID.in(Query.select(TagMetadata.TASK_UUID).from(Metadata.TABLE)
-                        .where(Criterion.and(MetadataCriteria.withKey(TagMetadata.KEY), Criterion.not(TagMetadata.TAG_UUID.in(emergentTags)))))),
+                        .where(Criterion.and(MetadataCriteria.withKey(TagMetadata.KEY), Metadata.DELETION_DATE.eq(0), Criterion.not(TagMetadata.TAG_UUID.in(emergentTags)))))),
                 TaskCriteria.isActive(),
                 TaskApiDao.TaskCriteria.ownedByMe(),
                 TaskCriteria.isVisible()));
