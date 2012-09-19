@@ -42,7 +42,6 @@ import com.todoroo.astrid.data.Metadata;
 import com.todoroo.astrid.data.TagData;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.data.TaskApiDao;
-import com.todoroo.astrid.data.TaskToTag;
 import com.todoroo.astrid.service.MetadataService;
 import com.todoroo.astrid.service.TagDataService;
 import com.todoroo.astrid.service.TaskService;
@@ -122,11 +121,19 @@ public final class TagService {
         public long userId;
         public long memberCount;
 
-        @Deprecated
-        private Tag(String tag, int count, long remoteId) {
-            this.tag = tag;
-            this.count = count;
-            this.remoteId = remoteId;
+        public static Tag tagFromRemoteId(long remoteId) {
+            TodorooCursor<TagData> tagData = PluginServices.getTagDataService().query(Query.select(TagData.PROPERTIES).where(TagData.REMOTE_ID.eq(remoteId)));
+            try {
+                if (tagData.getCount() > 0) {
+                    tagData.moveToFirst();
+                    return new Tag(new TagData(tagData));
+                } else {
+                    return null;
+                }
+            } finally {
+                tagData.close();
+            }
+
         }
 
         public Tag(TagData tagData) {
@@ -153,12 +160,12 @@ public final class TagService {
          * @return
          */
         public QueryTemplate queryTemplate(Criterion criterion) {
-            String prefix = TABLE_ALIAS + ".";
-            return new QueryTemplate().join(Join.inner(TaskToTag.TABLE.as(TABLE_ALIAS),
-                    Criterion.and(
-                            Criterion.or(Task.ID.eq(Field.field(prefix + TaskToTag.TASK_ID.name)), Task.REMOTE_ID.eq(Field.field(prefix + TaskToTag.TASK_REMOTEID.name))),
-                            Criterion.or(Field.field(prefix + TaskToTag.TAG_ID.name).eq(id), Field.field(prefix + TaskToTag.TAG_REMOTEID.name).eq(remoteId)))))
-                            .where(criterion);
+//            String prefix = TABLE_ALIAS + ".";
+//            return new QueryTemplate().join(Join.inner(TaskToTag.TABLE.as(TABLE_ALIAS),
+//                    Criterion.and(
+//                            Criterion.or(Task.ID.eq(Field.field(prefix + TaskToTag.TASK_ID.name)), Task.REMOTE_ID.eq(Field.field(prefix + TaskToTag.TASK_REMOTEID.name))),
+//                            Criterion.or(Field.field(prefix + TaskToTag.TAG_ID.name).eq(id), Field.field(prefix + TaskToTag.TAG_REMOTEID.name).eq(remoteId)))))
+//                            .where(criterion);
         }
 
     }
@@ -210,12 +217,14 @@ public final class TagService {
             orderBy(order).groupBy(TAG);
         TodorooCursor<Metadata> cursor = metadataDao.query(query);
         try {
-            Tag[] array = new Tag[cursor.getCount()];
-            for (int i = 0; i < array.length; i++) {
+            ArrayList<Tag> array = new ArrayList<Tag>();
+            for (int i = 0; i < cursor.getCount(); i++) {
                 cursor.moveToNext();
-                array[i] = new Tag(cursor.get(TAG), cursor.get(COUNT), cursor.get(REMOTE_ID));
+                Tag tag = Tag.tagFromRemoteId(cursor.get(REMOTE_ID));
+                if (tag != null)
+                    array.add(tag);
             }
-            return array;
+            return array.toArray(new Tag[array.size()]);
         } finally {
             cursor.close();
         }

@@ -31,11 +31,9 @@ import com.todoroo.astrid.dao.MetadataDao;
 import com.todoroo.astrid.dao.MetadataDao.MetadataCriteria;
 import com.todoroo.astrid.dao.TaskDao;
 import com.todoroo.astrid.dao.TaskDao.TaskCriteria;
-import com.todoroo.astrid.dao.TaskToTagDao;
 import com.todoroo.astrid.data.Metadata;
 import com.todoroo.astrid.data.SyncFlags;
 import com.todoroo.astrid.data.Task;
-import com.todoroo.astrid.data.TaskToTag;
 import com.todoroo.astrid.gcal.GCalHelper;
 import com.todoroo.astrid.gtasks.GtasksMetadata;
 import com.todoroo.astrid.opencrx.OpencrxCoreUtils;
@@ -67,14 +65,15 @@ public class TaskService {
     private static final int TOTAL_TASKS_FOR_ACTIVATION = 3;
     private static final int COMPLETED_TASKS_FOR_ACTIVATION = 1;
     private static final String PREF_USER_ACTVATED = "user-activated"; //$NON-NLS-1$
+
+    @Autowired
+    private TagService tagService;
+
     @Autowired
     private TaskDao taskDao;
 
     @Autowired
     private MetadataDao metadataDao;
-
-    @Autowired
-    private TaskToTagDao taskToTagDao;
 
     public TaskService() {
         DependencyInjectionService.getInstance().inject(this);
@@ -206,10 +205,7 @@ public class TaskService {
         taskDao.save(newTask);
 
         if (tagId > 0) {
-            TaskToTag link = new TaskToTag();
-            link.setValue(TaskToTag.ID, newTask.getId());
-            link.setValue(TaskToTag.TAG_ID, tagId);
-            taskToTagDao.createNew(link);
+            tagService.createLink(task, tagId);
         }
         return newTask;
     }

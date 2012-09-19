@@ -20,7 +20,6 @@ import com.todoroo.astrid.data.TagData;
 import com.todoroo.astrid.data.TagOutstanding;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.data.TaskOutstanding;
-import com.todoroo.astrid.data.TaskToTag;
 import com.todoroo.astrid.data.Update;
 import com.todoroo.astrid.data.User;
 import com.todoroo.astrid.provider.Astrid2TaskProvider;
@@ -64,7 +63,6 @@ public class Database extends AbstractDatabase {
 
         TaskOutstanding.TABLE,
         TagOutstanding.TABLE,
-        TaskToTag.TABLE
     };
 
     // --- listeners
@@ -339,7 +337,6 @@ public class Database extends AbstractDatabase {
         case 25: try {
             database.execSQL(createTableSql(visitor, TaskOutstanding.TABLE.name, TaskOutstanding.PROPERTIES));
             database.execSQL(createTableSql(visitor, TagOutstanding.TABLE.name, TagOutstanding.PROPERTIES));
-            database.execSQL(createTableSql(visitor, TaskToTag.TABLE.name, TaskToTag.PROPERTIES));
         } catch (SQLiteException e) {
             Log.e("astrid", "db-upgrade-" + oldVersion + "-" + newVersion, e);
         }
