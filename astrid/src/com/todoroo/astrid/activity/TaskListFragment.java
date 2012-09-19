@@ -902,13 +902,13 @@ public class TaskListFragment extends ListFragment implements OnScrollListener,
         if (getActiveTagData() != null)
             tagName = getActiveTagData().getValue(TagData.NAME);
 
-        String[] emergentTags = TagService.getInstance().getEmergentTags();
-        StringProperty tagProperty = new StringProperty(null, TAGS_METADATA_JOIN + "." + TagMetadata.TAG_NAME.name);
+        Long[] emergentTagIds = TagService.getInstance().getEmergentTagIds();
+        StringProperty tagProperty = new StringProperty(null, TAGS_METADATA_JOIN + "." + TagMetadata.TAG_UUID.name);
 
         Criterion tagsJoinCriterion = Criterion.and(
                 Field.field(TAGS_METADATA_JOIN + "." + Metadata.KEY.name).eq(TagMetadata.KEY), //$NON-NLS-1$
                 Task.ID.eq(Field.field(TAGS_METADATA_JOIN + "." + Metadata.TASK.name)),
-                Criterion.not(tagProperty.in(emergentTags)));
+                Criterion.not(tagProperty.in(emergentTagIds)));
         if (tagName != null)
             tagsJoinCriterion = Criterion.and(tagsJoinCriterion, Field.field(TAGS_METADATA_JOIN + "." + TagMetadata.TAG_NAME.name).neq(tagName));
 

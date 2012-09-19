@@ -145,10 +145,12 @@ public final class TagService {
          * @return
          */
         public QueryTemplate queryTemplate(Criterion criterion) {
-            return new QueryTemplate().join(Join.inner(Metadata.TABLE.as("mtags"),
-                    Criterion.and(Task.ID.eq(Field.field("mtags." + Metadata.TASK.name)),
-                            Field.field("mtags." + Metadata.KEY.name).eq(TagMetadata.KEY),
-                            Field.field("mtags." + TagMetadata.TAG_NAME.name).eqCaseInsensitive(tag)))).where(criterion);
+            Criterion fullCriterion = Criterion.and(
+                    Field.field("mtags." + Metadata.KEY.name).eq(TagMetadata.KEY),
+                    Field.field("mtags." + TagMetadata.TAG_UUID.name).eq(remoteId),
+                    criterion);
+            return new QueryTemplate().join(Join.inner(Metadata.TABLE.as("mtags"), Task.REMOTE_ID.eq(Field.field("mtags." + TagMetadata.TASK_UUID))))
+                    .where(fullCriterion);
         }
 
     }
@@ -171,10 +173,11 @@ public final class TagService {
     }
 
     public QueryTemplate untaggedTemplate() {
-        String[] emergentTags = getEmergentTags();
+        Long[] emergentTags = getEmergentTagIds();
 
         return new QueryTemplate().where(Criterion.and(
-                Criterion.not(Task.ID.in(Query.select(Metadata.TASK).from(Metadata.TABLE).where(Criterion.and(MetadataCriteria.withKey(TagMetadata.KEY), Criterion.not(TagMetadata.TAG_NAME.in(emergentTags)))))),
+                Criterion.not(Task.REMOTE_ID.in(Query.select(TagMetadata.TASK_UUID).from(Metadata.TABLE)
+                        .where(Criterion.and(MetadataCriteria.withKey(TagMetadata.KEY), Criterion.not(TagMetadata.TAG_UUID.in(emergentTags)))))),
                 TaskCriteria.isActive(),
                 TaskApiDao.TaskCriteria.ownedByMe(),
                 TaskCriteria.isVisible()));
@@ -193,7 +196,7 @@ public final class TagService {
         if (includeEmergent)
             criterion = Criterion.and(activeStatus, MetadataCriteria.withKey(TagMetadata.KEY));
         else
-            criterion = Criterion.and(activeStatus, MetadataCriteria.withKey(TagMetadata.KEY), Criterion.not(TagMetadata.TAG_NAME.in(getEmergentTags())));
+            criterion = Criterion.and(activeStatus, MetadataCriteria.withKey(TagMetadata.KEY), Criterion.not(TagMetadata.TAG_NAME.in(getEmergentTagNames())));
         Query query = Query.select(TagMetadata.TAG_NAME, TagMetadata.TAG_UUID, COUNT).
             join(Join.inner(Task.TABLE, Metadata.TASK.eq(Task.ID))).
             where(criterion).
@@ -213,7 +216,7 @@ public final class TagService {
         }
     }
 
-    public String[] getEmergentTags() {
+    public String[] getEmergentTagNames() {
         TodorooCursor<TagData> emergent = tagDataService.query(Query.select(TagData.NAME)
                 .where(Functions.bitwiseAnd(TagData.FLAGS, TagData.FLAG_EMERGENT).gt(0)));
         try {
@@ -276,7 +279,7 @@ public final class TagService {
                     MetadataCriteria.byTask(taskId));
         else
             criterion = Criterion.and(MetadataCriteria.withKey(TagMetadata.KEY),
-                    MetadataCriteria.byTask(taskId), Criterion.not(TagMetadata.TAG_NAME.in(getEmergentTags())));
+                    MetadataCriteria.byTask(taskId), Criterion.not(TagMetadata.TAG_NAME.in(getEmergentTagNames())));
         Query query = Query.select(TagMetadata.TAG_NAME, TagMetadata.TAG_UUID).where(criterion).orderBy(Order.asc(Functions.upper(TagMetadata.TAG_NAME)));
         return metadataDao.query(query);
     }
