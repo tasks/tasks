@@ -94,7 +94,7 @@ public class AlarmService {
                 PendingIntent pendingIntent = pendingIntentForAlarm(m, taskId);
                 am.cancel(pendingIntent);
             }
-        });
+        }, true);
 
         if(changed)
             scheduleAlarms(taskId);

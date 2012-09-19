@@ -818,7 +818,7 @@ public final class ActFmSyncService {
         JsonHelper.taskFromJson(result, task, metadata);
         task.putTransitory(SyncFlags.ACTFM_SUPPRESS_SYNC, true);
         taskService.save(task);
-        metadataService.synchronizeMetadata(task.getId(), metadata, Metadata.KEY.eq(TagMetadata.KEY));
+        metadataService.synchronizeMetadata(task.getId(), metadata, Metadata.KEY.eq(TagMetadata.KEY), false);
         synchronizeAttachments(result, task);
     }
 
@@ -1253,7 +1253,7 @@ public final class ActFmSyncService {
                 }
 
                 ids.add(remote.getId());
-                metadataService.synchronizeMetadata(remote.getId(), metadata, MetadataCriteria.withKey(TagMetadata.KEY));
+                metadataService.synchronizeMetadata(remote.getId(), metadata, MetadataCriteria.withKey(TagMetadata.KEY), false);
                 synchronizeAttachments(item, remote);
                 remote.clear();
             }
@@ -1574,10 +1574,7 @@ public final class ActFmSyncService {
                 String name = tag.getString("name");
                 if(TextUtils.isEmpty(name))
                     continue;
-                Metadata tagMetadata = new Metadata();
-                tagMetadata.setValue(Metadata.KEY, TagMetadata.KEY);
-                tagMetadata.setValue(TagMetadata.TAG_NAME, name);
-                tagMetadata.setValue(TagMetadata.TAG_UUID, tag.getLong("id"));
+                Metadata tagMetadata = TagMetadata.newTagMetadata(model.getId(), remoteId, name, tag.getLong("id"));
                 metadata.add(tagMetadata);
             }
         }

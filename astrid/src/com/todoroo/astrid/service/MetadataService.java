@@ -106,7 +106,7 @@ public class MetadataService {
      * @return true if there were changes
      */
     public boolean synchronizeMetadata(long taskId, ArrayList<Metadata> metadata,
-            Criterion metadataCriterion, SynchronizeMetadataCallback callback) {
+            Criterion metadataCriterion, SynchronizeMetadataCallback callback, boolean hardDelete) {
         boolean dirty = false;
         HashSet<ContentValues> newMetadataValues = new HashSet<ContentValues>();
         for(Metadata metadatum : metadata) {
@@ -142,11 +142,16 @@ public class MetadataService {
                 }
 
                 // not matched. cut it
+                item.setId(id);
                 if (callback != null) {
-                    item.setId(id);
                     callback.beforeDeleteMetadata(item);
                 }
-                metadataDao.delete(id);
+                if (hardDelete)
+                    metadataDao.delete(id);
+                else {
+                    item.setValue(Metadata.DELETION_DATE, DateUtilities.now());
+                    metadataDao.persist(item);
+                }
                 dirty = true;
             }
         } finally {
@@ -166,8 +171,8 @@ public class MetadataService {
     }
 
     public boolean synchronizeMetadata(long taskId, ArrayList<Metadata> metadata,
-            Criterion metadataCriterion) {
-        return synchronizeMetadata(taskId, metadata, metadataCriterion, null);
+            Criterion metadataCriterion, boolean hardDelete) {
+        return synchronizeMetadata(taskId, metadata, metadataCriterion, null, hardDelete);
     }
 
     /**

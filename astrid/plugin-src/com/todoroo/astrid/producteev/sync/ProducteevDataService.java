@@ -157,7 +157,7 @@ public final class ProducteevDataService {
         // note we don't include note metadata, since we only receive deltas
         metadataService.synchronizeMetadata(task.task.getId(), task.metadata,
                 Criterion.or(MetadataCriteria.withKey(ProducteevTask.METADATA_KEY),
-                        MetadataCriteria.withKey(TagMetadata.KEY)));
+                        MetadataCriteria.withKey(TagMetadata.KEY)), true);
     }
 
     /**

@@ -40,7 +40,7 @@ public class Astrid44SyncMigrator {
     }
 
     @SuppressWarnings("nls")
-    public void migrateTagMetadataToTable() {
+    public void performMigration() {
         if (Preferences.getBoolean(PREF_MIGRATED_TASKS_TO_TAGS, false))
             return;
 

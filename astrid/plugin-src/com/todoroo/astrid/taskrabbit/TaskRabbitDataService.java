@@ -60,7 +60,7 @@ public final class TaskRabbitDataService {
         task.metadata.add(task.trTask);
         // note we don't include note metadata, since we only receive deltas
         metadataService.synchronizeMetadata(task.task.getId(), task.metadata,
-                MetadataCriteria.withKey(TaskRabbitMetadata.METADATA_KEY));
+                MetadataCriteria.withKey(TaskRabbitMetadata.METADATA_KEY), true);
     }
 
     /**

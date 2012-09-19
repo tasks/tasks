@@ -198,7 +198,7 @@ public final class UpgradeService {
                         new DueDateTimeMigrator().migrateDueTimes();
 
                     if (from < V4_4_0)
-                        new Astrid44SyncMigrator().migrateTagMetadataToTable();
+                        new Astrid44SyncMigrator().performMigration();
 
                 } finally {
                     DialogUtilities.dismissDialog((Activity)context, dialog);
