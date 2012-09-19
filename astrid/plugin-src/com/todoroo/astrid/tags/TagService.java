@@ -251,7 +251,8 @@ public final class TagService {
         TodorooCursor<Metadata> existing = metadataDao.query(Query.select(Metadata.PROPERTIES)
                 .where(Criterion.and(MetadataCriteria.withKey(TagMetadata.KEY),
                         TagMetadata.TASK_UUID.eq(task.getValue(Task.REMOTE_ID)),
-                        TagMetadata.TAG_UUID.eq(tagUuid))));
+                        TagMetadata.TAG_UUID.eq(tagUuid),
+                        Metadata.DELETION_DATE.eq(0))));
         try {
             if (existing.getCount() == 0) {
                 Metadata link = TagMetadata.newTagMetadata(task, tagName, tagUuid);
