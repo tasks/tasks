@@ -958,7 +958,7 @@ public class TaskListFragment extends ListFragment implements OnScrollListener,
         loadTaskListContent(true);
     }
 
-    protected Property<?>[] taskProperties() {
+    public Property<?>[] taskProperties() {
         return TaskAdapter.PROPERTIES;
     }
 
