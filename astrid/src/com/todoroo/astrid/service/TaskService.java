@@ -536,6 +536,8 @@ public class TaskService {
             Metadata metadata = new Metadata();
             metadata.setValue(Metadata.TASK, task.getId());
             metadata.mergeWith(forMetadata);
+            if (TagMetadata.KEY.equals(metadata.getValue(Metadata.KEY)))
+                metadata.setValue(TagMetadata.TASK_UUID, task.getValue(Task.REMOTE_ID));
             PluginServices.getMetadataService().save(metadata);
         }
 

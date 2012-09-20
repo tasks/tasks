@@ -48,6 +48,7 @@ public class FeaturedListFilterExposer extends TagFilterExposer {
         ContentValues contentValues = new ContentValues();
         contentValues.put(Metadata.KEY.name, TagMetadata.KEY);
         contentValues.put(TagMetadata.TAG_NAME.name, tag.tag);
+        contentValues.put(TagMetadata.TAG_UUID.name, tag.remoteId);
 
         FilterWithUpdate filter = new FilterWithUpdate(tag.tag,
                 title, tagTemplate,
