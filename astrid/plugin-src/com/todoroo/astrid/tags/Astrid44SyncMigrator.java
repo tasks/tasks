@@ -95,6 +95,7 @@ public class Astrid44SyncMigrator {
         try {
             Metadata m = new Metadata();
             for (incompleteMetadata.moveToFirst(); !incompleteMetadata.isAfterLast(); incompleteMetadata.moveToNext()) {
+                m.clear(); // Need this since some properties may be null
                 m.readFromCursor(incompleteMetadata);
                 boolean changes = false;
 
