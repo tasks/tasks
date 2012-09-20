@@ -194,7 +194,10 @@ public class OrderedListFragmentHelper<LIST> {
 
     public TaskAdapter createTaskAdapter(TodorooCursor<Task> cursor,
             AtomicReference<String> sqlQueryTemplate) {
-        taskAdapter = new DraggableTaskAdapter(fragment, R.layout.task_adapter_row,
+        int resource = Preferences.getBoolean(R.string.p_taskRowStyle, false) ?
+                R.layout.task_adapter_row_simple : R.layout.task_adapter_row;
+
+        taskAdapter = new DraggableTaskAdapter(fragment, resource,
                 cursor, sqlQueryTemplate, false, null);
 
         taskAdapter.addOnCompletedTaskListener(new OnCompletedTaskListener() {
