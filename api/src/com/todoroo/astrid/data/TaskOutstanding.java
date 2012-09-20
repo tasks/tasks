@@ -9,7 +9,7 @@ import com.todoroo.andlib.data.Property.StringProperty;
 import com.todoroo.andlib.data.Table;
 
 @SuppressWarnings("nls")
-public class TaskOutstanding extends OutstandingEntry {
+public class TaskOutstanding extends OutstandingEntry<Task> {
 
     /** table for this model */
     public static final Table TABLE = new Table("tasks_outstanding", TaskOutstanding.class);
