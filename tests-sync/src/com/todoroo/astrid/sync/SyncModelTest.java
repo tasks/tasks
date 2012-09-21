@@ -17,13 +17,7 @@ import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.data.TaskOutstanding;
 import com.todoroo.astrid.test.DatabaseTestCase;
 
-public class SyncModelTest extends DatabaseTestCase {
-
-	@Autowired TaskDao taskDao;
-	@Autowired TagDataDao tagDataDao;
-	
-	@Autowired TaskOutstandingDao taskOutstandingDao;
-	@Autowired TagOutstandingDao tagOutstandingDao;
+public class SyncModelTest extends NewSyncTestCase {
 	
 	public void testCreateTaskMakesUuid() {
 		Task task = createTask();
@@ -96,21 +90,4 @@ public class SyncModelTest extends DatabaseTestCase {
 			cursor.close();
 		}
 	}
-	
-	private Task createTask() {
-		Task task = new Task();
-		task.setValue(Task.TITLE, "new task");
-		
-		taskDao.createNew(task);
-		return task;
-	}
-	
-	private TagData createTagData() {
-		TagData tag = new TagData();
-		tag.setValue(TagData.NAME, "new tag");
-		
-		tagDataDao.createNew(tag);
-		return tag;
-	}
-	
 }

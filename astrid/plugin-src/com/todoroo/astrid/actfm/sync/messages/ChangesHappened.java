@@ -17,22 +17,22 @@ import com.todoroo.astrid.data.OutstandingEntry;
 import com.todoroo.astrid.data.RemoteModel;
 
 @SuppressWarnings("nls")
-public class ChangesHappened<TYPE extends RemoteModel> implements ClientToServerMessage {
+public class ChangesHappened<TYPE extends RemoteModel, OE extends OutstandingEntry<TYPE>> implements ClientToServerMessage {
 
     private final Class<? extends RemoteModel> modelClass;
-    private final Class<? extends OutstandingEntry<TYPE>> outstandingClass;
+    private final Class<OE> outstandingClass;
     private final long id;
     private final long uuid;
-    private final List<OutstandingEntry<TYPE>> changes;
+    private final List<OE> changes;
     private long pushedAt;
-    private final OutstandingEntryDao<OutstandingEntry<TYPE>> outstandingDao;
+    private final OutstandingEntryDao<OE> outstandingDao;
 
     public ChangesHappened(TYPE entity, RemoteModelDao<TYPE> modelDao,
-            OutstandingEntryDao<OutstandingEntry<TYPE>> outstandingDao) {
+            OutstandingEntryDao<OE> outstandingDao) {
         this.modelClass = entity.getClass();
         this.outstandingClass = getOutstandingClass(modelClass);
         this.id = entity.getId();
-        this.changes = new ArrayList<OutstandingEntry<TYPE>>();
+        this.changes = new ArrayList<OE>();
         this.outstandingDao = outstandingDao;
 
         if (!entity.containsValue(RemoteModel.REMOTE_ID_PROPERTY)
@@ -53,13 +53,17 @@ public class ChangesHappened<TYPE extends RemoteModel> implements ClientToServer
         // Process changes list and send to server
     }
 
+    public List<OE> getChanges() {
+        return changes;
+    }
+
     private void populateChanges() {
-        TodorooCursor<OutstandingEntry<TYPE>> cursor = outstandingDao.query(Query.select(getModelProperties(outstandingClass))
+        TodorooCursor<OE> cursor = outstandingDao.query(Query.select(getModelProperties(outstandingClass))
                .where(OutstandingEntry.ENTITY_ID_PROPERTY.eq(id)).orderBy(Order.asc(OutstandingEntry.CREATED_AT_PROPERTY)));
         try {
             for (cursor.moveToFirst(); !cursor.isAfterLast(); cursor.moveToNext()) {
                 try {
-                    OutstandingEntry<TYPE> instance = outstandingClass.newInstance();
+                    OE instance = outstandingClass.newInstance();
                     instance.readPropertiesFromCursor(cursor);
                     changes.add(instance);
                 } catch (IllegalAccessException e) {
@@ -73,9 +77,9 @@ public class ChangesHappened<TYPE extends RemoteModel> implements ClientToServer
         }
     }
 
-    private Class<? extends OutstandingEntry<TYPE>> getOutstandingClass(Class<? extends RemoteModel> model) {
+    private Class<OE> getOutstandingClass(Class<? extends RemoteModel> model) {
         try {
-            return (Class<? extends OutstandingEntry<TYPE>>) getStaticFieldByReflection(model, "OUTSTANDING_MODEL");
+            return (Class<OE>) getStaticFieldByReflection(model, "OUTSTANDING_MODEL");
         } catch (ClassCastException e) {
             throw new RuntimeException("OUTSTANDING_MODEL field for class " + model.getName() + " is not of the correct type");
         }
