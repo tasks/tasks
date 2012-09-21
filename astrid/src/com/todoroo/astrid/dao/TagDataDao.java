@@ -31,7 +31,6 @@ public class TagDataDao extends RemoteModelDao<TagData> {
     private static final String[] IGNORE_OUTSTANDING_COLUMNS = new String[] {
         TagData.MODIFICATION_DATE.name,
         TagData.REMOTE_ID.name,
-        TagData.PROOF_TEXT.name
     };
 
     @Override

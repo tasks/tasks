@@ -226,43 +226,11 @@ public class DatabaseDao<TYPE extends AbstractModel> {
         }
     }
 
-    /**
-     * Creates the given item.
-     *
-     * @param database
-     * @param table
-     *            table name
-     * @param item
-     *            item model
-     * @return returns true on success.
-     */
-    public boolean createNew(TYPE item) {
-        item.clearValue(AbstractModel.ID_PROPERTY);
-        long newRow = database.insert(table.name,
-                AbstractModel.ID_PROPERTY.name, item.getMergedValues());
-        boolean result = newRow >= 0;
-        if(result) {
-            item.setId(newRow);
-            onModelUpdated(item);
-            item.markSaved();
-        }
-        return result;
+    private interface DatabaseChangeOp {
+        public boolean makeChange();
     }
 
-    /**
-     * Saves the given item. Will not create a new item!
-     *
-     * @param database
-     * @param table
-     *            table name
-     * @param item
-     *            item model
-     * @return returns true on success.
-     */
-    public boolean saveExisting(TYPE item) {
-        ContentValues values = item.getSetValues();
-        if(values == null || values.size() == 0) // nothing changed
-            return true;
+    private boolean insertOrUpdateAndRecordChanges(TYPE item, ContentValues values, DatabaseChangeOp op) {
         boolean recordOutstanding = (outstandingTable != null);
         final AtomicBoolean result = new AtomicBoolean(false);
 
@@ -279,8 +247,7 @@ public class DatabaseDao<TYPE extends AbstractModel> {
             });
         }
         try {
-            result.set(database.update(table.name, values,
-                    AbstractModel.ID_PROPERTY.eq(item.getId()).toString(), null) > 0);
+            result.set(op.makeChange());
             if(result.get()) {
                 if (recordOutstanding)
                     createOutstandingEntries(item.getId(), values); // Create entries for setValues in outstanding table
@@ -292,6 +259,57 @@ public class DatabaseDao<TYPE extends AbstractModel> {
                 database.getDatabase().endTransaction();
         }
         return result.get();
+    }
+
+    /**
+     * Creates the given item.
+     *
+     * @param database
+     * @param table
+     *            table name
+     * @param item
+     *            item model
+     * @return returns true on success.
+     */
+    public boolean createNew(final TYPE item) {
+        item.clearValue(AbstractModel.ID_PROPERTY);
+
+        DatabaseChangeOp insert = new DatabaseChangeOp() {
+            @Override
+            public boolean makeChange() {
+                long newRow = database.insert(table.name,
+                        AbstractModel.ID_PROPERTY.name, item.getMergedValues());
+                boolean result = newRow >= 0;
+                if (result)
+                    item.setId(newRow);
+                return result;
+            }
+        };
+        return insertOrUpdateAndRecordChanges(item, item.getMergedValues(), insert);
+    }
+
+    /**
+     * Saves the given item. Will not create a new item!
+     *
+     * @param database
+     * @param table
+     *            table name
+     * @param item
+     *            item model
+     * @return returns true on success.
+     */
+    public boolean saveExisting(final TYPE item) {
+        final ContentValues values = item.getSetValues();
+        if(values == null || values.size() == 0) // nothing changed
+            return true;
+        DatabaseChangeOp update = new DatabaseChangeOp() {
+            @Override
+            public boolean makeChange() {
+                return database.update(table.name, values,
+                        AbstractModel.ID_PROPERTY.eq(item.getId()).toString(), null) > 0;
+            }
+        };
+        return insertOrUpdateAndRecordChanges(item, values, update);
     }
 
     private boolean createOutstandingEntries(long modelId, ContentValues modelSetValues) {
