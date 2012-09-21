@@ -12,6 +12,7 @@ import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.TimeZone;
 
 import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.http.HttpEntity;
@@ -81,7 +82,8 @@ public class ActFmInvoker {
                 "first_name", firstName,
                 "last_name", lastName,
                 "provider", provider,
-                "secret", secret);
+                "secret", secret,
+                "timezone", TimeZone.getDefault().getID());
         try {
             token = result.getString("token");
         } catch (JSONException e) {
