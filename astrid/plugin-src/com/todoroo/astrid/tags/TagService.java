@@ -235,6 +235,24 @@ public final class TagService {
         }
     }
 
+    public void createLink(Task task, String tagName) {
+        TodorooCursor<TagData> existingTag = tagDataService.query(Query.select(TagData.NAME, TagData.REMOTE_ID)
+                .where(TagData.NAME.eqCaseInsensitive(tagName)));
+        try {
+            TagData tagData;
+            if (existingTag.getCount() == 0) {
+                tagData = new TagData();
+                tagData.setValue(TagData.NAME, tagName);
+                tagDataService.save(tagData);
+            } else {
+                tagData = new TagData(existingTag);
+            }
+            createLink(task, tagData.getValue(TagData.NAME), tagData.getValue(TagData.REMOTE_ID));
+        } finally {
+            existingTag.close();
+        }
+    }
+
     public void createLink(Task task, String tagName, long tagUuid) {
         TodorooCursor<Metadata> existing = metadataDao.query(Query.select(Metadata.PROPERTIES)
                 .where(Criterion.and(MetadataCriteria.withKey(TagMetadata.KEY),

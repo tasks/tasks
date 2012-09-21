@@ -425,13 +425,8 @@ public class TaskService {
      */
     private void quickAdd(Task task, List<String> tags) {
         save(task);
-
-        Metadata metadata = new Metadata();
         for(String tag : tags) {
-            metadata.setValue(Metadata.KEY, TagMetadata.KEY);
-            metadata.setValue(Metadata.TASK, task.getId());
-            metadata.setValue(TagMetadata.TAG_NAME, tag);
-            metadataDao.createNew(metadata);
+            TagService.getInstance().createLink(task, tag);
         }
     }
 
@@ -536,9 +531,17 @@ public class TaskService {
             Metadata metadata = new Metadata();
             metadata.setValue(Metadata.TASK, task.getId());
             metadata.mergeWith(forMetadata);
-            if (TagMetadata.KEY.equals(metadata.getValue(Metadata.KEY)))
-                metadata.setValue(TagMetadata.TASK_UUID, task.getValue(Task.REMOTE_ID));
-            PluginServices.getMetadataService().save(metadata);
+            if (TagMetadata.KEY.equals(metadata.getValue(Metadata.KEY))) {
+                if (metadata.containsNonNullValue(TagMetadata.TAG_UUID) && metadata.getValue(TagMetadata.TAG_UUID) != 0) {
+                    // This is more efficient
+                    TagService.getInstance().createLink(task, metadata.getValue(TagMetadata.TAG_NAME), metadata.getValue(TagMetadata.TAG_UUID));
+                } else {
+                    // This is necessary for backwards compatibility
+                    TagService.getInstance().createLink(task, metadata.getValue(TagMetadata.TAG_NAME));
+                }
+            } else {
+                PluginServices.getMetadataService().save(metadata);
+            }
         }
 
         return task;
