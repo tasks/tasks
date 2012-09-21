@@ -72,9 +72,6 @@ public class AstridPreferences {
 
         Preferences.setIfUnset(prefs, editor, r, R.string.p_ideas_tab_enabled, true);
 
-        Preferences.setIfUnset(prefs, editor, r, R.string.p_showEditToasts,
-                ABChooser.readChoiceForTest(ABTests.AB_TASK_EDIT_TOAST) != 0);
-
         Preferences.setIfUnset(prefs, editor, r, R.string.p_taskRowStyle,
                 ABChooser.readChoiceForTest(ABTests.AB_SIMPLE_TASK_ROW) != 0);
 

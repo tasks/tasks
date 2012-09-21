@@ -43,7 +43,6 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.commonsware.cwac.merge.MergeAdapter;
 import com.timsu.astrid.R;
@@ -796,7 +795,6 @@ public class EditPeopleControlSet extends PopupControlSet {
                         activity.getString(R.string.actfm_EPA_login_to_share), R.string.actfm_EPA_login_button,
                         R.string.actfm_EPA_dont_share_button, android.R.drawable.ic_dialog_alert,
                         okListener, cancelListener);
-                showSaveToast(toast);
 
                 return false;
             }
@@ -810,8 +808,6 @@ public class EditPeopleControlSet extends PopupControlSet {
                 StatisticsService.reportEvent(StatisticsConstants.TASK_ASSIGNED_EMAIL);
             else if (task.getValue(Task.USER_ID) != Task.USER_ID_SELF)
                 StatisticsService.reportEvent(StatisticsConstants.TASK_ASSIGNED_PICKER);
-
-            showSaveToast(toast);
 
             return true;
         } catch (JSONException e) {
@@ -830,14 +826,6 @@ public class EditPeopleControlSet extends PopupControlSet {
         sharedWithContainer.removeAllViews();
         sharedWithContainer.addPerson();
         assignToMe();
-    }
-
-    private void showSaveToast(String saveToast) {
-        if(saveToast == null || !Preferences.getBoolean(R.string.p_showEditToasts, false))
-            return;
-        int length = saveToast.contains("\n") ? //$NON-NLS-1$
-                Toast.LENGTH_LONG : Toast.LENGTH_SHORT;
-        Toast.makeText(activity, saveToast, length).show();
     }
 
     @SuppressWarnings("nls")

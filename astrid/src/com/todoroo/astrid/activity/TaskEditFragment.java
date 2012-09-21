@@ -995,17 +995,7 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
         }
 
         removeExtrasFromIntent(getActivity().getIntent());
-        showCancelToast();
         getActivity().onBackPressed();
-    }
-
-    /**
-     * Show toast for task edit canceling
-     */
-    private void showCancelToast() {
-        if (Preferences.getBoolean(R.string.p_showEditToasts, false))
-            Toast.makeText(getActivity(), R.string.TEA_onTaskCancel,
-                    Toast.LENGTH_SHORT).show();
     }
 
     protected void deleteButtonClick() {
@@ -1018,7 +1008,6 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
                                                 taskService.delete(model);
                                                 TimerPlugin.updateTimer(getActivity(), model, false);
                                                 shouldSaveState = false;
-                                                showDeleteToast();
 
                                                 Activity a = getActivity();
                                                 if (a instanceof TaskEditActivity) {
@@ -1032,15 +1021,6 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
                                                 }
                                             }
                                         }).setNegativeButton(android.R.string.cancel, null).show();
-    }
-
-    /**
-     * Show toast for task edit deleting
-     */
-    private void showDeleteToast() {
-        if (Preferences.getBoolean(R.string.p_showEditToasts, false))
-            Toast.makeText(getActivity(), R.string.TEA_onTaskDelete,
-                    Toast.LENGTH_SHORT).show();
     }
 
     private void startAttachFile() {
