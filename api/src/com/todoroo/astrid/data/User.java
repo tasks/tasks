@@ -58,6 +58,10 @@ public final class User extends RemoteModel {
     public static final LongProperty REMOTE_ID = new LongProperty(
             TABLE, REMOTE_ID_PROPERTY_NAME);
 
+    /** Pushed at date */
+    public static final LongProperty PUSHED_AT = new LongProperty(
+            TABLE, PUSHED_AT_PROPERTY_NAME);
+
     /** List of all properties for this model */
     public static final Property<?>[] PROPERTIES = generateProperties(User.class);
 
@@ -70,6 +74,7 @@ public final class User extends RemoteModel {
         defaultValues.put(NAME.name, "");
         defaultValues.put(EMAIL.name, "");
         defaultValues.put(PICTURE.name, "");
+        defaultValues.put(PUSHED_AT.name, 0L);
     }
 
     @Override

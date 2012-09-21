@@ -105,6 +105,10 @@ public class Update extends RemoteModel {
     public static final StringProperty PROOF_TEXT = new StringProperty(
             TABLE, PROOF_TEXT_PROPERTY_NAME);
 
+    /** Pushed at date */
+    public static final LongProperty PUSHED_AT = new LongProperty(
+            TABLE, PUSHED_AT_PROPERTY_NAME);
+
     /** List of all properties for this model */
     public static final Property<?>[] PROPERTIES = generateProperties(Update.class);
 
@@ -137,6 +141,7 @@ public class Update extends RemoteModel {
         defaultValues.put(MESSAGE.name, "");
         defaultValues.put(TARGET_NAME.name, "");
         defaultValues.put(PICTURE.name, "");
+        defaultValues.put(PUSHED_AT.name, 0L);
     }
 
     // --- data access boilerplate
