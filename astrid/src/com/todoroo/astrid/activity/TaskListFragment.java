@@ -92,7 +92,6 @@ import com.todoroo.astrid.reminders.ReminderDebugContextActions;
 import com.todoroo.astrid.service.AddOnService;
 import com.todoroo.astrid.service.AstridDependencyInjector;
 import com.todoroo.astrid.service.MetadataService;
-import com.todoroo.astrid.service.StartupService;
 import com.todoroo.astrid.service.StatisticsConstants;
 import com.todoroo.astrid.service.StatisticsService;
 import com.todoroo.astrid.service.TagDataService;
@@ -944,7 +943,10 @@ public class TaskListFragment extends ListFragment implements OnScrollListener,
             currentCursor = taskService.fetchFiltered(
                 sqlQueryTemplate.get(), null, taskProperties());
         } catch (SQLiteException e) {
-            StartupService.handleSQLiteColumnMissing(getActivity(), e);
+            // We don't show this error anymore--seems like this can get triggered
+            // by a strange bug, but there seems to not be any negative side effect.
+            // For now, we'll suppress the error
+            // See http://astrid.com/home#tags-7tsoi/task-1119pk
             return;
         }
 
