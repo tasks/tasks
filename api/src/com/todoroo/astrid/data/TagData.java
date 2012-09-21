@@ -121,6 +121,10 @@ public final class TagData extends RemoteModel {
     public static final StringProperty PROOF_TEXT = new StringProperty(
             TABLE, PROOF_TEXT_PROPERTY_NAME);
 
+    /** Pushed at date */
+    public static final LongProperty PUSHED_AT = new LongProperty(
+            TABLE, PUSHED_AT_PROPERTY_NAME);
+
     /** List of all properties for this model */
     public static final Property<?>[] PROPERTIES = generateProperties(TagData.class);
 
@@ -161,6 +165,7 @@ public final class TagData extends RemoteModel {
         defaultValues.put(IS_UNREAD.name, 0);
         defaultValues.put(TASK_COUNT.name, 0);
         defaultValues.put(TAG_DESCRIPTION.name, "");
+        defaultValues.put(PUSHED_AT.name, 0L);
     }
 
     @Override

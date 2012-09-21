@@ -12,6 +12,7 @@ import com.todoroo.andlib.data.TodorooCursor;
 import com.todoroo.andlib.sql.Order;
 import com.todoroo.andlib.sql.Query;
 import com.todoroo.astrid.dao.OutstandingEntryDao;
+import com.todoroo.astrid.dao.RemoteModelDao;
 import com.todoroo.astrid.data.OutstandingEntry;
 import com.todoroo.astrid.data.RemoteModel;
 
@@ -20,47 +21,47 @@ public class ChangesHappened<TYPE extends RemoteModel> implements ClientToServer
 
     private final Class<? extends RemoteModel> modelClass;
     private final Class<? extends OutstandingEntry<TYPE>> outstandingClass;
-    private final Property<?>[] outstandingProperties;
     private final long id;
     private final long uuid;
-    private final List<Change> changes;
-    private long pushedAt; // TODO: Populate and use
-    private final OutstandingEntryDao<OutstandingEntry<TYPE>> dao;
+    private final List<OutstandingEntry<TYPE>> changes;
+    private long pushedAt;
+    private final OutstandingEntryDao<OutstandingEntry<TYPE>> outstandingDao;
 
-    public ChangesHappened(TYPE entity, OutstandingEntryDao<OutstandingEntry<TYPE>> dao) {
+    public ChangesHappened(TYPE entity, RemoteModelDao<TYPE> modelDao,
+            OutstandingEntryDao<OutstandingEntry<TYPE>> outstandingDao) {
         this.modelClass = entity.getClass();
         this.outstandingClass = getOutstandingClass(modelClass);
-        this.outstandingProperties = getModelProperties(outstandingClass);
         this.id = entity.getId();
-        this.uuid = entity.getValue(RemoteModel.REMOTE_ID_PROPERTY);
-        this.changes = new ArrayList<Change>();
-        this.dao = dao;
-        populateChanges();
+        this.changes = new ArrayList<OutstandingEntry<TYPE>>();
+        this.outstandingDao = outstandingDao;
+
+        if (!entity.containsValue(RemoteModel.REMOTE_ID_PROPERTY)
+                || !entity.containsValue(RemoteModel.PUSHED_AT_PROPERTY)) {
+            entity = modelDao.fetch(entity.getId(), getModelProperties(modelClass));
+        }
+        if (entity == null) {
+            this.uuid = 0;
+            this.pushedAt = 0;
+        } else {
+            this.uuid = entity.getValue(RemoteModel.REMOTE_ID_PROPERTY);
+            this.pushedAt = entity.getValue(RemoteModel.PUSHED_AT_PROPERTY);
+            populateChanges();
+        }
     }
 
     public void sendMessage() {
         // Process changes list and send to server
     }
 
-    private class Change {
-        public final long uuid;
-        public final OutstandingEntry<TYPE> outstandingEntry;
-
-        public Change(long uuid, OutstandingEntry<TYPE> outstandingEntry) {
-            this.uuid = uuid;
-            this.outstandingEntry = outstandingEntry;
-        }
-    }
-
     private void populateChanges() {
-        TodorooCursor<OutstandingEntry<TYPE>> cursor = dao.query(Query.select(outstandingProperties)
+        TodorooCursor<OutstandingEntry<TYPE>> cursor = outstandingDao.query(Query.select(getModelProperties(outstandingClass))
                .where(OutstandingEntry.ENTITY_ID_PROPERTY.eq(id)).orderBy(Order.asc(OutstandingEntry.CREATED_AT_PROPERTY)));
         try {
             for (cursor.moveToFirst(); !cursor.isAfterLast(); cursor.moveToNext()) {
                 try {
                     OutstandingEntry<TYPE> instance = outstandingClass.newInstance();
                     instance.readPropertiesFromCursor(cursor);
-                    changes.add(new Change(uuid, instance));
+                    changes.add(instance);
                 } catch (IllegalAccessException e) {
                     Log.e("ChangesHappened", "Error instantiating outstanding model class", e);
                 } catch (InstantiationException e2) {

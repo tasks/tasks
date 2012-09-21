@@ -41,4 +41,9 @@ abstract public class RemoteModel extends AbstractModel {
     /** proof text property */
     public static final StringProperty PROOF_TEXT_PROPERTY = new StringProperty(null, PROOF_TEXT_PROPERTY_NAME);
 
+    /** pushed at date property name */
+    public static final String PUSHED_AT_PROPERTY_NAME = "pushedAt"; //$NON-NLS-1$
+
+    /** pushed at date property name */
+    public static final LongProperty PUSHED_AT_PROPERTY = new LongProperty(null, PUSHED_AT_PROPERTY_NAME);
 }

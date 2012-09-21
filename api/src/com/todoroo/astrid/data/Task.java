@@ -166,6 +166,10 @@ public final class Task extends RemoteModel {
     public static final StringProperty PROOF_TEXT = new StringProperty(
             TABLE, PROOF_TEXT_PROPERTY_NAME);
 
+    /** Pushed at date */
+    public static final LongProperty PUSHED_AT = new LongProperty(
+            TABLE, PUSHED_AT_PROPERTY_NAME);
+
     /** List of all properties for this model */
     public static final Property<?>[] PROPERTIES = generateProperties(Task.class);
 
@@ -267,6 +271,7 @@ public final class Task extends RemoteModel {
         defaultValues.put(CREATOR_ID.name, 0);
         defaultValues.put(USER.name, "{}");
         defaultValues.put(SHARED_WITH.name, "{}");
+        defaultValues.put(PUSHED_AT.name, 0L);
     }
 
     @Override
