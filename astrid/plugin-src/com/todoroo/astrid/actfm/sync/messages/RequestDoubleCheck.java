@@ -12,7 +12,7 @@ public class RequestDoubleCheck<TYPE extends RemoteModel> implements ClientToSer
         this.uuid = entity.getValue(RemoteModel.REMOTE_ID_PROPERTY);
     }
 
-    public void send() {
+    public void sendMessage() {
         // Send message
     }
 }

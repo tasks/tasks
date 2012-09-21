@@ -13,7 +13,7 @@ public class BriefMe<TYPE extends RemoteModel> implements ClientToServerMessage 
         this.uuid = entity.getValue(RemoteModel.REMOTE_ID_PROPERTY);
     }
 
-    public void send() {
+    public void sendMessage() {
         // Send message
     }
 

@@ -38,7 +38,7 @@ public class ChangesHappened<TYPE extends RemoteModel> implements ClientToServer
         populateChanges();
     }
 
-    public void send() {
+    public void sendMessage() {
         // Process changes list and send to server
     }
 
