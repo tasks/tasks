@@ -43,8 +43,11 @@ public class UUIDHelper {
         long uuid = 0;
         String proofText = ""; //$NON-NLS-1$
         do {
-            byte[] chars = new byte[40];
-            RANDOM.nextBytes(chars);
+            String hexDigits = "0123456789abcdef"; //$NON-NLS-1$
+            char[] chars = new char[80];
+            for (int i = 0; i < chars.length; i++) {
+                chars[i] = hexDigits.charAt(RANDOM.nextInt(hexDigits.length()));
+            }
             String s = new String(chars);
             String d = getDeviceId();
 
