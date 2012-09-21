@@ -450,7 +450,7 @@ public final class ActFmSyncService {
                     for(cursor.moveToFirst(); !cursor.isAfterLast(); cursor.moveToNext()) {
                         metadata.readFromCursor(cursor);
                         if(metadata.containsNonNullValue(TagMetadata.TAG_UUID) &&
-                                metadata.getValue(TagMetadata.TAG_UUID) > 0) {
+                                metadata.getValue(TagMetadata.TAG_UUID) != 0) {
                             params.add("tag_ids[]");
                             params.add(metadata.getValue(TagMetadata.TAG_UUID));
                         } else {
