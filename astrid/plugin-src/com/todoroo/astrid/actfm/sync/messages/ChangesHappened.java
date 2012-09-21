@@ -74,35 +74,32 @@ public class ChangesHappened<TYPE extends RemoteModel> implements ClientToServer
 
     private Class<? extends OutstandingEntry<TYPE>> getOutstandingClass(Class<? extends RemoteModel> model) {
         try {
-            Field outstandingField = model.getField("OUTSTANDING_MODEL");
-            Class<? extends OutstandingEntry<TYPE>> outstanding = (Class<? extends OutstandingEntry<TYPE>>) outstandingField.get(null);
-            if (outstanding == null) {
-                throw new RuntimeException("OUTSTANDING_MODEL field for class " + model.getName() + " is null");
-            }
-            return outstanding;
-        } catch (NoSuchFieldException e) {
-            throw new RuntimeException("Class " + model.getName() + " does not declare an OUTSTANDING_MODEL field");
-        } catch (IllegalAccessException e2) {
-            throw new RuntimeException("OUTSTANDING_MODEL field for class " + model.getName() + " is not accessible");
-        } catch (ClassCastException e3) {
+            return (Class<? extends OutstandingEntry<TYPE>>) getStaticFieldByReflection(model, "OUTSTANDING_MODEL");
+        } catch (ClassCastException e) {
             throw new RuntimeException("OUTSTANDING_MODEL field for class " + model.getName() + " is not of the correct type");
         }
     }
 
     private Property<?>[] getModelProperties(Class<? extends AbstractModel> model) {
         try {
-            Field propertiesField = model.getField("PROPERTIES");
-            Property<?>[] properties = (Property<?>[]) propertiesField.get(null);
-            if (properties == null) {
-                throw new RuntimeException("PROPERTIES field for class " + model.getName() + " is null");
-            }
-            return properties;
-        } catch (NoSuchFieldException e) {
-            throw new RuntimeException("Class " + model.getName() + " does not declare an PROPERTIES field");
-        } catch (IllegalAccessException e2) {
-            throw new RuntimeException("PROPERTIES field for class " + model.getName() + " is not accessible");
-        } catch (ClassCastException e3) {
+            return (Property<?>[]) getStaticFieldByReflection(model, "PROPERTIES");
+        } catch (ClassCastException e) {
             throw new RuntimeException("PROPERTIES field for class " + model.getName() + " is not of the correct type");
+        }
+    }
+
+    private Object getStaticFieldByReflection(Class<?> cls, String fieldName) {
+        try {
+            Field field = cls.getField(fieldName);
+            Object obj = field.get(null);
+            if (obj == null) {
+                throw new RuntimeException(fieldName + " field for class " + cls.getName() + " is null");
+            }
+            return obj;
+        } catch (NoSuchFieldException e) {
+            throw new RuntimeException("Class " + cls.getName() + " does not declare field " + fieldName);
+        } catch (IllegalAccessException e2) {
+            throw new RuntimeException(fieldName + " field for class " + cls.getName() + " is not accessible");
         }
     }
 
