@@ -21,19 +21,27 @@ public class NewSyncTestCase extends DatabaseTestCase {
 	protected 
 	TagOutstandingDao tagOutstandingDao;
 	
-	protected Task createTask() {
+	protected Task createTask(String title) {
 		Task task = new Task();
-		task.setValue(Task.TITLE, "new task");
+		task.setValue(Task.TITLE, title);
 		
 		taskDao.createNew(task);
-		return task;
+		return task;		
 	}
 	
-	protected TagData createTagData() {
+	protected Task createTask() {
+		return createTask("new title");
+	}
+	
+	protected TagData createTagData(String name) {
 		TagData tag = new TagData();
-		tag.setValue(TagData.NAME, "new tag");
+		tag.setValue(TagData.NAME, name);
 		
 		tagDataDao.createNew(tag);
 		return tag;
+	}
+	
+	protected TagData createTagData() {
+		return createTagData("new tag");
 	}
 }
