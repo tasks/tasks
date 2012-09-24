@@ -26,7 +26,7 @@ public class DisposableTaskListFragment extends TaskListFragment {
             TaskListActivity tla = (TaskListActivity) activity;
             if (tla.getFragmentLayout() == AstridActivity.LAYOUT_SINGLE) {
                 TaskListFragmentPagerAdapter adapter = tla.getFragmentPagerAdapter();
-                if (adapter != null)
+                if (adapter != null && adapter.getPosition(filter) >= 0)
                     adapter.remove(filter);
             }
         }
