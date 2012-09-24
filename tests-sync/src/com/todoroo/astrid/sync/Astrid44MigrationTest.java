@@ -102,7 +102,8 @@ public class Astrid44MigrationTest extends NewSyncTestCase {
 			for (cursor.moveToFirst(); !cursor.isAfterLast(); cursor.moveToNext()) {
 				instance.clear();
 				instance.readPropertiesFromCursor(cursor);
-				if (instance.getValue(RemoteModel.REMOTE_ID_PROPERTY) == 0) {
+				Long remoteId = instance.getValue(RemoteModel.REMOTE_ID_PROPERTY);
+				if (remoteId == null || remoteId == 0) {
 					fail(instance.getClass().getName() + instance.getId() + " didn't have a remote id");
 				}
 			}
