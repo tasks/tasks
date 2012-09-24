@@ -446,7 +446,7 @@ public class TaskService {
      * @return
      */
     public static boolean parseQuickAddMarkup(Task task, ArrayList<String> tags) {
-        return new TitleParser(task, tags).parse();
+        return TitleParser.parse(task, tags);
     }
 
     /**

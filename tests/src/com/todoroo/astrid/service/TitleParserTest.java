@@ -3,7 +3,7 @@
  *
  * See the file "LICENSE" for the full license governing this code.
  */
-package com.todoroo.andlib.utility;
+package com.todoroo.astrid.service;
 
 
 import java.util.ArrayList;
@@ -13,6 +13,7 @@ import java.util.Date;
 import com.google.ical.values.Frequency;
 import com.google.ical.values.RRule;
 import com.timsu.astrid.R;
+import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.service.TaskService;
 import com.todoroo.astrid.test.DatabaseTestCase;
@@ -542,15 +543,13 @@ public class TitleParserTest extends DatabaseTestCase {
                 "#(cool)"
         };
         Task task = new Task();
-        for (String acceptedString:acceptedStrings){
+        for (String acceptedString : acceptedStrings) {
             task = new Task();
             task.setValue(Task.TITLE, "Jog " + acceptedString); //test at end of task. should set importance.
             ArrayList<String> tags = new ArrayList<String>();
             TitleParser.listHelper(task, tags);
-            String[] splitTags = TitleParser.trimParenthesisAndSplit(acceptedString);
-            for (String tag : splitTags) {
-                assertTrue("test pound at failed for string: " + acceptedString + " for tags: " + tags.toString(),tags.contains(tag));
-            }
+            String tag = TitleParser.trimParenthesis(acceptedString);
+            assertTrue("test pound at failed for string: " + acceptedString + " for tags: " + tags.toString(), tags.contains(tag));
         }
     }
 
@@ -563,15 +562,13 @@ public class TitleParserTest extends DatabaseTestCase {
                 "@(cool)"
         };
         Task task = new Task();
-        for (String acceptedString:acceptedStrings){
+        for (String acceptedString : acceptedStrings) {
             task = new Task();
             task.setValue(Task.TITLE, "Jog " + acceptedString); //test at end of task. should set importance.
             ArrayList<String> tags = new ArrayList<String>();
             TitleParser.listHelper(task, tags);
-            String[] splitTags = TitleParser.trimParenthesisAndSplit(acceptedString);
-            for (String tag : splitTags) {
-                assertTrue("testTagsAt failed for string: " + acceptedString+ " for tags: " + tags.toString(), tags.contains(tag));
-            }
+            String tag = TitleParser.trimParenthesis(acceptedString);
+            assertTrue("testTagsAt failed for string: " + acceptedString+ " for tags: " + tags.toString(), tags.contains(tag));
         }
     }
 

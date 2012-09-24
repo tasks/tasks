@@ -22,15 +22,8 @@ import com.todoroo.astrid.tags.TagService;
 
 @SuppressWarnings("nls")
 public class TitleParser {
-    Task task;
-    ArrayList<String> tags;
 
-    public TitleParser(Task task, ArrayList<String> tags){
-        this.task = task;
-        this.tags = tags;
-    }
-
-    public boolean parse() {
+    public static boolean parse(Task task, ArrayList<String> tags) {
         boolean markup = false;
         markup = repeatHelper(task) || markup;
         markup = dayHelper(task) || markup;
@@ -39,15 +32,15 @@ public class TitleParser {
         return markup;
     }
 
-    public static String[] trimParenthesisAndSplit(String pattern){
+    public static String trimParenthesis(String pattern){
         if (pattern.charAt(0) == '#' || pattern.charAt(0) == '@') {
             pattern = pattern.substring(1);
         }
         if ('(' == pattern.charAt(0)) {
-            String lists = pattern.substring(1, pattern.length()-1);
-            return lists.split("\\s+");
+            String list = pattern.substring(1, pattern.length()-1);
+            return list;
         }
-        return new String[] { pattern };
+        return pattern;
     }
     public static boolean listHelper(Task task, ArrayList<String> tags) {
         String inputText = task.getValue(Task.TITLE);
@@ -62,28 +55,20 @@ public class TitleParser {
             Matcher m = tagPattern.matcher(inputText);
             if(m.find()) {
                 result = true;
-                String[] splitTags = TitleParser.trimParenthesisAndSplit(m.group(2));
-                if (splitTags != null) {
-                    for (String tag : splitTags) {
-                        String tagWithCase = tagService.getTagWithCase(tag);
-                        if (!addedTags.contains(tagWithCase))
-                            tags.add(tagWithCase);
-                        addedTags.add(tagWithCase);
-                    }
-                }
+                String tag = TitleParser.trimParenthesis(m.group(2));
+                String tagWithCase = tagService.getTagWithCase(tag);
+                if (!addedTags.contains(tagWithCase))
+                    tags.add(tagWithCase);
+                addedTags.add(tagWithCase);
             } else {
                 m = contextPattern.matcher(inputText);
                 if(m.find()) {
                     result = true;
-                    String[] splitTags = TitleParser.trimParenthesisAndSplit(m.group(2));
-                    if (splitTags != null) {
-                        for (String tag : splitTags) {
-                            String tagWithCase = tagService.getTagWithCase(tag);
-                            if (!addedTags.contains(tagWithCase))
-                                tags.add(tagWithCase);
-                            addedTags.add(tagWithCase);
-                        }
-                    }
+                    String tag = TitleParser.trimParenthesis(m.group(2));
+                    String tagWithCase = tagService.getTagWithCase(tag);
+                    if (!addedTags.contains(tagWithCase))
+                        tags.add(tagWithCase);
+                    addedTags.add(tagWithCase);
                 } else{
                     break;
                 }
@@ -379,7 +364,8 @@ public class TitleParser {
         repeatTimesIntervalOne.put( "(?i)\\bmonthly\\b" ,Frequency.MONTHLY);
         repeatTimesIntervalOne.put( "(?i)\\byearly\\b" , Frequency.YEARLY);
 
-        for (String repeatTime:repeatTimes.keySet()){
+        Set<String> keys = repeatTimes.keySet();
+        for (String repeatTime : keys){
             Pattern pattern = Pattern.compile(repeatTime);
             Matcher m = pattern.matcher(inputText);
             if (m.find()){
