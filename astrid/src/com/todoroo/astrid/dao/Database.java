@@ -199,10 +199,14 @@ public class Database extends AbstractDatabase {
             database.execSQL(createTableSql(visitor, Update.TABLE.name, Update.PROPERTIES));
             onCreateTables();
 
-            for(Property<?> property : new Property<?>[] { Task.REMOTE_ID,
-                    Task.USER_ID, Task.COMMENT_COUNT })
+            Property<?>[] properties = new Property<?>[] { Task.REMOTE_ID,
+                    Task.USER_ID, Task.COMMENT_COUNT };
+
+            for(Property<?> property : properties) {
                 database.execSQL("ALTER TABLE " + Task.TABLE.name + " ADD " +
                         property.accept(visitor, null) + " DEFAULT 0");
+            }
+
             database.execSQL("ALTER TABLE " + Task.TABLE.name + " ADD " +
                     Task.USER.accept(visitor, null));
         } catch (SQLiteException e) {
