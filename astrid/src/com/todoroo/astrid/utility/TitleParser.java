@@ -80,15 +80,15 @@ public class TitleParser {
     }
 
     //helper method for priorityHelper. converts the string to a Task Importance
-    private static int str_to_priority(String priority_str) {
-        if (priority_str!=null)
-            priority_str.toLowerCase().trim();
+    private static int strToPriority(String priorityStr) {
+        if (priorityStr!=null)
+            priorityStr.toLowerCase().trim();
         int priority = Task.IMPORTANCE_DO_OR_DIE;
-        if ("0".equals(priority_str) || "!0".equals(priority_str) || "least".equals(priority_str) ||  "lowest".equals(priority_str))
+        if ("0".equals(priorityStr) || "!0".equals(priorityStr) || "least".equals(priorityStr) ||  "lowest".equals(priorityStr))
             priority = Task.IMPORTANCE_NONE;
-        if ("!".equals(priority_str) || "!1".equals(priority_str) || "bang".equals(priority_str) || "1".equals(priority_str) || "low".equals(priority_str))
+        if ("!".equals(priorityStr) || "!1".equals(priorityStr) || "bang".equals(priorityStr) || "1".equals(priorityStr) || "low".equals(priorityStr))
             priority = Task.IMPORTANCE_SHOULD_DO;
-        if ("!!".equals(priority_str) || "!2".equals(priority_str) || "bang bang".equals(priority_str) || "2".equals(priority_str) || "high".equals(priority_str))
+        if ("!!".equals(priorityStr) || "!2".equals(priorityStr) || "bang bang".equals(priorityStr) || "2".equals(priorityStr) || "high".equals(priorityStr))
             priority = Task.IMPORTANCE_MUST_DO;
         return priority;
     }
@@ -110,7 +110,7 @@ public class TitleParser {
                 Matcher m = importancePattern.matcher(inputText);
                 if(m.find()) {
                     result = true;
-                    task.setValue(Task.IMPORTANCE, str_to_priority(m.group(2).trim()));
+                    task.setValue(Task.IMPORTANCE, strToPriority(m.group(2).trim()));
                     int start = m.start() == 0 ? 0 : m.start() + 1;
                     inputText = inputText.substring(0, start) + inputText.substring(m.end());
 
@@ -123,12 +123,12 @@ public class TitleParser {
     }
 
     //helper for dayHelper. Converts am/pm to an int 0/1.
-    private static int ampm_to_number(String am_pm_string) {
+    private static int ampmToNumber(String amPmString) {
         int time = Calendar.PM;
-        if (am_pm_string == null){
+        if (amPmString == null){
             return time;
         }
-        String text = am_pm_string.toLowerCase().trim();
+        String text = amPmString.toLowerCase().trim();
         if (text.equals ("am") || text.equals ("a.m") || text.equals("a"))
             time = Calendar.AM;
         if (text.equals ("pm") || text.equals ("p.m") || text.equals("p"))
@@ -146,7 +146,7 @@ public class TitleParser {
         String inputText = task.getValue(Task.TITLE);
         Calendar cal = null;
         Boolean containsSpecificTime = false;
-        String[] days_of_week = {
+        String[] daysOfWeek = {
                 "(?i)\\b(today)\\b",
                 "(?i)\\b(tomorrow)\\b",
                 "(?i)\\b(mon(day\\b|\\.))",
@@ -157,7 +157,7 @@ public class TitleParser {
                 "(?i)\\b(sat(urday\\b|\\.))",
                 "(?i)\\b(sun(day\\b|\\.))" };
 
-        for (String date : days_of_week){
+        for (String date : daysOfWeek){
             Pattern pattern = Pattern.compile(date);
             Matcher m = pattern.matcher(inputText);
             if (m.find()) {
@@ -298,7 +298,7 @@ public class TitleParser {
                 else
                     timeCal.set(Calendar.MINUTE, 0);
                 if (Integer.parseInt(m.group(2)) <= 12)
-                    timeCal.set(Calendar.AM_PM, ampm_to_number(m.group(4)));
+                    timeCal.set(Calendar.AM_PM, ampmToNumber(m.group(4)));
 
                 //sets it to the next occurrence of that hour if no am/pm is provided. doesn't include military time
                 if ( Integer.parseInt(m.group(2))<= 12 && (m.group(4)==null || (m.group(4).trim()).equals(""))) {
@@ -328,7 +328,7 @@ public class TitleParser {
             }
         }
 
-        if( cal!= null ){ //if at least one of the above has been called, write to task. else do nothing.
+        if(cal!= null) { //if at least one of the above has been called, write to task. else do nothing.
             if (containsSpecificTime) {
                 task.setValue(Task.DUE_DATE, Task.createDueDate(Task.URGENCY_SPECIFIC_DAY_TIME, cal.getTime().getTime()));
             } else {
@@ -396,27 +396,27 @@ public class TitleParser {
 
     //helper method for repeatHelper.
     private static int findInterval(String inputText) {
-        HashMap<String,Integer> words_to_num = new HashMap<String, Integer>();
+        HashMap<String,Integer> wordsToNum = new HashMap<String, Integer>();
         String[] words = new String[] {
                 "one", "two", "three", "four", "five", "six",
                 "seven", "eight", "nine", "ten", "eleven", "twelve"
         };
         for(int i = 0; i < words.length; i++) {
-            words_to_num.put(words[i], i+1);
-            words_to_num.put(Integer.toString(i + 1), i + 1);
+            wordsToNum.put(words[i], i+1);
+            wordsToNum.put(Integer.toString(i + 1), i + 1);
         }
-        words_to_num.put("other" , 2);
+        wordsToNum.put("other" , 2);
 
         Pattern pattern = Pattern.compile("(?i)\\bevery (\\w*)\\b");
         int interval = 1;
         Matcher m = pattern.matcher(inputText);
         if (m.find() && m.group(1)!=null){
-            String interval_str = m.group(1);
-            if (words_to_num.containsKey(interval_str))
-                interval = words_to_num.get(interval_str);
+            String intervalStr = m.group(1);
+            if (wordsToNum.containsKey(intervalStr))
+                interval = wordsToNum.get(intervalStr);
             else {
                 try {
-                    interval = Integer.parseInt(interval_str);
+                    interval = Integer.parseInt(intervalStr);
                 } catch (NumberFormatException e) {
                     // Ah well
                 }
