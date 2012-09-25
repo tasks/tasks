@@ -1344,11 +1344,15 @@ public class TaskListFragment extends ListFragment implements OnScrollListener,
 
         if (always) {
             SharedPreferences publicPrefs = AstridPreferences.getPublicPrefs(ContextManager.getContext());
-            Editor editor = publicPrefs.edit();
-            editor.putInt(SortHelper.PREF_SORT_FLAGS, flags);
-            editor.putInt(SortHelper.PREF_SORT_SORT, sort);
-            editor.commit();
-            TasksWidget.updateWidgets(ContextManager.getContext());
+            if (publicPrefs != null) {
+                Editor editor = publicPrefs.edit();
+                if (editor != null) {
+                    editor.putInt(SortHelper.PREF_SORT_FLAGS, flags);
+                    editor.putInt(SortHelper.PREF_SORT_SORT, sort);
+                    editor.commit();
+                    TasksWidget.updateWidgets(ContextManager.getContext());
+                }
+            }
         }
 
         try {
