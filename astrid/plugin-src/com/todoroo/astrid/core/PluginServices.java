@@ -69,6 +69,11 @@ public final class PluginServices {
         return instance;
     }
 
+    public static Database getDatabase() {
+        getInstance().database.openForWriting();
+        return getInstance().database;
+    }
+
     public static TaskService getTaskService() {
         getInstance().database.openForWriting();
         return getInstance().taskService;
