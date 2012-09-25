@@ -231,43 +231,42 @@ public class TitleParser {
         }
 
         // for dates in the format MM/DD
-        Pattern p = Pattern.compile("(?i)\\b(1[0-2]|0?[1-9])(\\/|-)(3[0-1]|[0-2]?[0-9])(\\/|-)?(\\d{4}|\\d{2})?");
+        Pattern p = Pattern.compile("(?i)(\\(|\\b)(1[0-2]|0?[1-9])(\\/|-)(3[0-1]|[0-2]?[0-9])(\\/|-)?(\\d{4}|\\d{2})?(\\)|\\b)");
         Matcher match = p.matcher(inputText);
         if (match.find()){
             Calendar dCal = Calendar.getInstance();
             setCalendarToDefaultTime(dCal);
-            dCal.set(Calendar.MONTH, Integer.parseInt(match.group(1).trim())-1);
-            dCal.set(Calendar.DAY_OF_MONTH, Integer.parseInt(match.group(3)));
-            if (match.group(5) != null && !(match.group(5).trim()).equals(""))
-            {
-                String yearString = match.group(5);
-                if(match.group(5).length()==2)
-                    yearString = "20" + match.group(5);
+            dCal.set(Calendar.MONTH, Integer.parseInt(match.group(2).trim()) - 1);
+            dCal.set(Calendar.DAY_OF_MONTH, Integer.parseInt(match.group(4)));
+            if (match.group(6) != null && !(match.group(6).trim()).equals("")) {
+                String yearString = match.group(6);
+                if(match.group(6).length() == 2)
+                    yearString = "20" + match.group(6);
                 dCal.set(Calendar.YEAR, Integer.parseInt(yearString));
             }
 
-            if (cal==null){
+            if (cal == null) {
                 cal = dCal;
-            }
-            else{
+            } else{
                 cal.set(Calendar.DAY_OF_MONTH, dCal.get(Calendar.DAY_OF_MONTH));
                 cal.set(Calendar.MONTH,dCal.get(Calendar.MONTH));
                 cal.set(Calendar.YEAR, dCal.get(Calendar.YEAR));
             }
+            inputText = removeIfParenthetical(match, inputText);
         }
 
         HashMap<String, Integer> dayTimes = new HashMap<String, Integer>();
         dayTimes.put("(?i)\\bbreakfast\\b", 8);
         dayTimes.put("(?i)\\blunch\\b", 12);
-        dayTimes.put("(?i)\\bsupper\\b" ,18);
-        dayTimes.put("(?i)\\bdinner\\b",18);
+        dayTimes.put("(?i)\\bsupper\\b", 18);
+        dayTimes.put("(?i)\\bdinner\\b", 18);
         dayTimes.put("(?i)\\bbrunch\\b", 10);
         dayTimes.put("(?i)\\bmorning\\b", 8);
         dayTimes.put("(?i)\\bafternoon\\b", 15);
-        dayTimes.put("(?i)\\bevening\\b" , 19);
-        dayTimes.put("(?i)\\bnight\\b" , 19);
-        dayTimes.put("(?i)\\bmidnight\\b" , 0);
-        dayTimes.put("(?i)\\bnoon\\b" , 12);
+        dayTimes.put("(?i)\\bevening\\b", 19);
+        dayTimes.put("(?i)\\bnight\\b", 19);
+        dayTimes.put("(?i)\\bmidnight\\b", 0);
+        dayTimes.put("(?i)\\bnoon\\b", 12);
 
         for (String dayTime: dayTimes.keySet()){
             Pattern pattern = Pattern.compile(dayTime);
