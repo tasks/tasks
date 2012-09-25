@@ -13,6 +13,8 @@ import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import android.text.TextUtils;
+
 import com.google.ical.values.Frequency;
 import com.google.ical.values.RRule;
 import com.mdimension.jchronic.AstridChronic;
@@ -187,36 +189,36 @@ public class TitleParser {
         }
 
         String[] dates = {
-                "(?i)\\b(jan(\\.|uary))(\\s(3[0-1]|[0-2]?[0-9])),?( (\\d{4}|\\d{2}))?",
-                "(?i)\\b(feb(\\.|ruary))(\\s(3[0-1]|[0-2]?[0-9])),?( (\\d{4}|\\d{2}))?",
-                "(?i)\\b(mar(\\.|ch))(\\s(3[0-1]|[0-2]?[0-9])),?( (\\d{4}|\\d{2}))?",
-                "(?i)\\b(apr(\\.|il))(\\s(3[0-1]|[0-2]?[0-9])),?( (\\d{4}|\\d{2}))?",
-                "(?i)\\b(may())(\\s(3[0-1]|[0-2]?[0-9])),?( (\\d{4}|\\d{2}))?",
-                "(?i)\\b(jun(\\.|e))(\\s(3[0-1]|[0-2]?[0-9])),?( (\\d{4}|\\d{2}))?",
-                "(?i)\\b(jul(\\.|y))(\\s(3[0-1]|[0-2]?[0-9])),?( (\\d{4}|\\d{2}))?",
-                "(?i)\\b(aug(\\.|ust))(\\s(3[0-1]|[0-2]?[0-9])),?( (\\d{4}|\\d{2}))?",
-                "(?i)\\b(sep(\\.|tember))(\\s(3[0-1]|[0-2]?[0-9])),?( (\\d{4}|\\d{2}))?",
-                "(?i)\\b(oct(\\.|ober))(\\s(3[0-1]|[0-2]?[0-9])),?( (\\d{4}|\\d{2}))?",
-                "(?i)\\b(nov(\\.|ember))(\\s(3[0-1]|[0-2]?[0-9])),?( (\\d{4}|\\d{2}))?",
-                "(?i)\\b(dec(\\.|ember))(\\s(3[0-1]|[0-2]?[0-9])),?( (\\d{4}|\\d{2}))?"
+                "(?i)(\\(|\\b)(jan(\\.|uary))(\\s(3[0-1]|[0-2]?[0-9])),?( (\\d{4}|\\d{2}))?(\\)|\\b)",
+                "(?i)(\\(|\\b)(feb(\\.|ruary))(\\s(3[0-1]|[0-2]?[0-9])),?( (\\d{4}|\\d{2}))?(\\)|\\b)",
+                "(?i)(\\(|\\b)(mar(\\.|ch))(\\s(3[0-1]|[0-2]?[0-9])),?( (\\d{4}|\\d{2}))?(\\)|\\b)",
+                "(?i)(\\(|\\b)(apr(\\.|il))(\\s(3[0-1]|[0-2]?[0-9])),?( (\\d{4}|\\d{2}))?(\\)|\\b)",
+                "(?i)(\\(|\\b)(may())(\\s(3[0-1]|[0-2]?[0-9])),?( (\\d{4}|\\d{2}))?(\\)|\\b)",
+                "(?i)(\\(|\\b)(jun(\\.|e))(\\s(3[0-1]|[0-2]?[0-9])),?( (\\d{4}|\\d{2}))?(\\)|\\b)",
+                "(?i)(\\(|\\b)(jul(\\.|y))(\\s(3[0-1]|[0-2]?[0-9])),?( (\\d{4}|\\d{2}))?(\\)|\\b)",
+                "(?i)(\\(|\\b)(aug(\\.|ust))(\\s(3[0-1]|[0-2]?[0-9])),?( (\\d{4}|\\d{2}))?(\\)|\\b)",
+                "(?i)(\\(|\\b)(sep(\\.|tember))(\\s(3[0-1]|[0-2]?[0-9])),?( (\\d{4}|\\d{2}))?(\\)|\\b)",
+                "(?i)(\\(|\\b)(oct(\\.|ober))(\\s(3[0-1]|[0-2]?[0-9])),?( (\\d{4}|\\d{2}))?(\\)|\\b)",
+                "(?i)(\\(|\\b)(nov(\\.|ember))(\\s(3[0-1]|[0-2]?[0-9])),?( (\\d{4}|\\d{2}))?(\\)|\\b)",
+                "(?i)(\\(|\\b)(dec(\\.|ember))(\\s(3[0-1]|[0-2]?[0-9])),?( (\\d{4}|\\d{2}))?(\\)|\\b)"
         };
 
-        // m.group(1) = "month"
-        //m.group(4) = "day"
+        // m.group(2) = "month"
+        //m.group(5) = "day"
         for (String date: dates) {
             Pattern pattern = Pattern.compile(date);
             Matcher m = pattern.matcher(inputText);
 
             if (m.find()){
-                Calendar dateCal = Chronic.parse(m.group(1)).getBeginCalendar();
-                if (m.group(4) != null) {
-                    dateCal.set(Calendar.DAY_OF_MONTH, Integer.parseInt(m.group(4)));
+                Calendar dateCal = Chronic.parse(m.group(2)).getBeginCalendar();
+                if (m.group(5) != null) {
+                    dateCal.set(Calendar.DAY_OF_MONTH, Integer.parseInt(m.group(5)));
                 }
                 Calendar today = Calendar.getInstance();
-                if (m.group(5) != null) {
-                    dateCal.set(Calendar.YEAR, Integer.parseInt(m.group(5).trim()));
+                if (m.group(6) != null) {
+                    dateCal.set(Calendar.YEAR, Integer.parseInt(m.group(6).trim()));
                 } else if (today.get(Calendar.MONTH) - dateCal.get(Calendar.MONTH) > 1) { //if more than a month in the past
-                    dateCal.set(Calendar.YEAR, dateCal.get(Calendar.YEAR)+1);
+                    dateCal.set(Calendar.YEAR, dateCal.get(Calendar.YEAR) + 1);
                 }
                 if (cal == null) {
                     cal = dateCal;
@@ -225,6 +227,7 @@ public class TitleParser {
                     cal.set(Calendar.MONTH,dateCal.get(Calendar.MONTH) );
                     cal.set(Calendar.YEAR, dateCal.get(Calendar.YEAR));
                 }
+                inputText = removeIfParenthetical(m, inputText);
             }
         }
 
@@ -343,8 +346,9 @@ public class TitleParser {
             }
         }
 
-        if(cal!= null) { //if at least one of the above has been called, write to task. else do nothing.
-            task.setValue(Task.TITLE, inputText);
+        if(cal != null) { //if at least one of the above has been called, write to task. else do nothing.
+            if (!TextUtils.isEmpty(inputText))
+                task.setValue(Task.TITLE, inputText);
             if (containsSpecificTime) {
                 task.setValue(Task.DUE_DATE, Task.createDueDate(Task.URGENCY_SPECIFIC_DAY_TIME, cal.getTime().getTime()));
             } else {
