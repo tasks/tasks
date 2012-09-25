@@ -12,6 +12,8 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import android.content.Context;
+import android.database.sqlite.SQLiteException;
 import android.util.Log;
 
 import com.todoroo.andlib.data.TodorooCursor;
@@ -21,6 +23,7 @@ import com.todoroo.andlib.sql.Order;
 import com.todoroo.andlib.sql.Query;
 import com.todoroo.astrid.dao.ABTestEventDao;
 import com.todoroo.astrid.data.ABTestEvent;
+import com.todoroo.astrid.service.StartupService;
 import com.todoroo.astrid.service.StatisticsService;
 
 /**
@@ -59,12 +62,16 @@ public final class ABTestEventReportingService {
      * launch events that need to be recorded, and pushes all unreported
      * data to the server.
      */
-    public void trackUserRetention() {
+    public void trackUserRetention(final Context context) {
         new Thread(new Runnable() {
             @Override
             public void run() {
-                abTestEventDao.createRelativeDateEvents();
-                pushAllUnreportedABTestEvents();
+                try {
+                    abTestEventDao.createRelativeDateEvents();
+                    pushAllUnreportedABTestEvents();
+                } catch (SQLiteException e) {
+                    StartupService.handleSQLiteColumnMissing(context, e);
+                }
             }
         }).start();
     }
