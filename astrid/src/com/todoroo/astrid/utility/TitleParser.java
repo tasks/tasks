@@ -138,8 +138,6 @@ public class TitleParser {
 
     private static String removeIfParenthetical(Matcher m, String inputText) {
         String s = m.group();
-        System.err.println("CHECKING: " + s);
-        System.err.println("Start char: " + s.charAt(0) + ", end char: " + s.charAt(s.length() - 1));
         if (s.startsWith("(") && s.endsWith(")")) {
             return inputText.substring(0, m.start()) + inputText.substring(m.end());
         }
@@ -173,7 +171,8 @@ public class TitleParser {
                 "(?i)(\\(|\\b)thu(rsday(\\)|\\b)|(\\)|\\.))",
                 "(?i)(\\(|\\b)fri(day(\\)|\\b)|(\\)|\\.))",
                 "(?i)(\\(|\\b)sat(urday(\\)|\\b)|(\\)|\\.))",
-                "(?i)(\\(|\\b)sun(day(\\)|\\b)|(\\)|\\.))" };
+                "(?i)(\\(|\\b)sun(day(\\)|\\b)|(\\)|\\.))"
+        };
 
         for (String date : daysOfWeek){
             Pattern pattern = Pattern.compile(date);
@@ -199,7 +198,8 @@ public class TitleParser {
                 "(?i)\\b(sep(\\.|tember))(\\s(3[0-1]|[0-2]?[0-9])),?( (\\d{4}|\\d{2}))?",
                 "(?i)\\b(oct(\\.|ober))(\\s(3[0-1]|[0-2]?[0-9])),?( (\\d{4}|\\d{2}))?",
                 "(?i)\\b(nov(\\.|ember))(\\s(3[0-1]|[0-2]?[0-9])),?( (\\d{4}|\\d{2}))?",
-                "(?i)\\b(dec(\\.|ember))(\\s(3[0-1]|[0-2]?[0-9])),?( (\\d{4}|\\d{2}))?"};
+                "(?i)\\b(dec(\\.|ember))(\\s(3[0-1]|[0-2]?[0-9])),?( (\\d{4}|\\d{2}))?"
+        };
 
         // m.group(1) = "month"
         //m.group(4) = "day"
@@ -209,20 +209,18 @@ public class TitleParser {
 
             if (m.find()){
                 Calendar dateCal = Chronic.parse(m.group(1)).getBeginCalendar();
-                if (m.group(4) != null){
+                if (m.group(4) != null) {
                     dateCal.set(Calendar.DAY_OF_MONTH, Integer.parseInt(m.group(4)));
                 }
                 Calendar today = Calendar.getInstance();
-                if (m.group(5) != null){
+                if (m.group(5) != null) {
                     dateCal.set(Calendar.YEAR, Integer.parseInt(m.group(5).trim()));
-                }
-                else if (today.get(Calendar.MONTH) - dateCal.get(Calendar.MONTH) > 1){ //if more than a month in the past
+                } else if (today.get(Calendar.MONTH) - dateCal.get(Calendar.MONTH) > 1) { //if more than a month in the past
                     dateCal.set(Calendar.YEAR, dateCal.get(Calendar.YEAR)+1);
                 }
-                if (cal == null){
+                if (cal == null) {
                     cal = dateCal;
-                }
-                else{
+                } else{
                     cal.set(Calendar.DAY_OF_MONTH, dateCal.get(Calendar.DAY_OF_MONTH));
                     cal.set(Calendar.MONTH,dateCal.get(Calendar.MONTH) );
                     cal.set(Calendar.YEAR, dateCal.get(Calendar.YEAR));
@@ -268,19 +266,19 @@ public class TitleParser {
         dayTimes.put("(?i)\\bmidnight\\b", 0);
         dayTimes.put("(?i)\\bnoon\\b", 12);
 
-        for (String dayTime: dayTimes.keySet()){
+        Set<String> keys = dayTimes.keySet();
+        for (String dayTime : keys) {
             Pattern pattern = Pattern.compile(dayTime);
             Matcher m = pattern.matcher(inputText);
-            if (m.find()){
-                containsSpecificTime=true;
+            if (m.find()) {
+                containsSpecificTime = true;
                 int timeHour = dayTimes.get(dayTime);
                 Calendar dayTimesCal = Calendar.getInstance();
                 setCalendarToDefaultTime(dayTimesCal);
                 dayTimesCal.set(Calendar.HOUR, timeHour);
                 if (cal == null) {
                     cal = dayTimesCal;
-                }
-                else {
+                } else {
                     setCalendarToDefaultTime(cal);
                     cal.set(Calendar.HOUR, timeHour);
                 }
@@ -302,10 +300,10 @@ public class TitleParser {
                 //m.group(4) holds am/pm
         };
 
-        for (String time:times){
+        for (String time : times){
             Pattern pattern = Pattern.compile(time);
             Matcher m = pattern.matcher(inputText);
-            if (m.find()){
+            if (m.find()) {
                 containsSpecificTime = true;
                 Calendar today = Calendar.getInstance();
                 Calendar timeCal = Calendar.getInstance();
@@ -320,12 +318,11 @@ public class TitleParser {
                     timeCal.set(Calendar.AM_PM, ampmToNumber(m.group(4)));
 
                 //sets it to the next occurrence of that hour if no am/pm is provided. doesn't include military time
-                if ( Integer.parseInt(m.group(2))<= 12 && (m.group(4)==null || (m.group(4).trim()).equals(""))) {
+                if (Integer.parseInt(m.group(2))<= 12 && (m.group(4)==null || (m.group(4).trim()).equals(""))) {
                     while (timeCal.getTime().getTime() < today.getTime().getTime()){
                         timeCal.set(Calendar.HOUR_OF_DAY, timeCal.get(Calendar.HOUR_OF_DAY)+12);
                     }
-                }
-                else { //if am/pm is provided and the time is in the past, set it to the next day. Military time included.
+                } else { //if am/pm is provided and the time is in the past, set it to the next day. Military time included.
                     if (timeCal.get(Calendar.HOUR) !=0 && (timeCal.getTime().getTime() < today.getTime().getTime())) {
                         timeCal.set(Calendar.DAY_OF_MONTH, timeCal.get(Calendar.DAY_OF_MONTH) + 1);
                     }
@@ -336,8 +333,7 @@ public class TitleParser {
 
                 if (cal == null){
                     cal = timeCal;
-                }
-                else{
+                } else {
                     cal.set(Calendar.HOUR, timeCal.get(Calendar.HOUR));
                     cal.set(Calendar.MINUTE,timeCal.get(Calendar.MINUTE) );
                     cal.set(Calendar.SECOND, timeCal.get(Calendar.SECOND));
