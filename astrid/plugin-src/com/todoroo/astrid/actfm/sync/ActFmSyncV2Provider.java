@@ -14,6 +14,8 @@ import java.util.concurrent.atomic.AtomicInteger;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import android.database.sqlite.SQLiteException;
+
 import com.timsu.astrid.C2DMReceiver;
 import com.timsu.astrid.R;
 import com.todoroo.andlib.data.AbstractModel;
@@ -26,6 +28,7 @@ import com.todoroo.andlib.sql.Join;
 import com.todoroo.andlib.sql.Query;
 import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.astrid.billing.BillingConstants;
+import com.todoroo.astrid.dao.Database;
 import com.todoroo.astrid.dao.MetadataDao.MetadataCriteria;
 import com.todoroo.astrid.dao.TaskDao.TaskCriteria;
 import com.todoroo.astrid.data.Metadata;
@@ -58,6 +61,8 @@ public class ActFmSyncV2Provider extends SyncV2Provider {
     @Autowired TagDataService tagDataService;
 
     @Autowired MetadataService metadataService;
+
+    @Autowired Database database;
 
     private final PushQueuedArgs<Task> taskPusher = new PushQueuedArgs<Task>() {
         @Override
@@ -349,12 +354,20 @@ public class ActFmSyncV2Provider extends SyncV2Provider {
 
     private void pushQueuedTasks(final SyncResultCallback callback,
             final AtomicInteger finisher) {
-        TodorooCursor<Task> taskCursor = taskService.query(Query.select(Task.PROPERTIES).
+        TodorooCursor<Task> taskCursor;
+        Query query = Query.select(Task.PROPERTIES).
                 where(Criterion.or(
                         Criterion.and(TaskCriteria.isActive(),
                                 Task.REMOTE_ID.isNull()),
                                 Criterion.and(Task.REMOTE_ID.isNotNull(),
-                                        Task.MODIFICATION_DATE.gt(Task.LAST_SYNC)))));
+                                        Task.MODIFICATION_DATE.gt(Task.LAST_SYNC))));
+        try {
+            taskCursor = taskService.query(query);
+        } catch (SQLiteException e) {
+            database.handleNoCommentsColumn(e);
+            taskCursor = taskService.query(query);
+        }
+
         try {
             pushQueued(callback, finisher, taskCursor, true, taskPusher);
         } finally {

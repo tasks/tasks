@@ -21,7 +21,6 @@ import android.util.Xml;
 import android.widget.Toast;
 
 import com.timsu.astrid.R;
-import com.todoroo.andlib.data.AbstractDatabase;
 import com.todoroo.andlib.data.AbstractModel;
 import com.todoroo.andlib.data.Property;
 import com.todoroo.andlib.data.Property.PropertyVisitor;
@@ -179,26 +178,15 @@ public class TasksXmlExporter {
         fos.close();
     }
 
-    @SuppressWarnings("nls")
     private void serializeTasks() throws IOException {
         TodorooCursor<Task> cursor;
         try {
             cursor = taskService.query(Query.select(
                 Task.PROPERTIES).orderBy(Order.asc(Task.ID)));
         } catch (SQLiteException e) {
-            String message = e.getMessage().toLowerCase();
-            if (message.contains("no such column") && message.contains("tasks.commentCount")) {
-                try {
-                    database.getDatabase().execSQL("ALTER TABLE " + Task.TABLE.name + " ADD " +
-                            Task.COMMENT_COUNT.accept(new AbstractDatabase.SqlConstructorVisitor(), null) + " DEFAULT 0");
-                } catch (SQLiteException e2) {
-                    // Suppress, column creation failed. Just try the query again
-                }
-                cursor = taskService.query(Query.select(
-                        Task.PROPERTIES).orderBy(Order.asc(Task.ID)));
-            } else {
-                throw e;
-            }
+            PluginServices.getDatabase().handleNoCommentsColumn(e);
+            cursor = taskService.query(Query.select(
+                    Task.PROPERTIES).orderBy(Order.asc(Task.ID)));
         }
         try {
             Task task = new Task();
