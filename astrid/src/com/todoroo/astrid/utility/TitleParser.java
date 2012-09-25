@@ -26,8 +26,8 @@ public class TitleParser {
     public static boolean parse(Task task, ArrayList<String> tags) {
         boolean markup = false;
         markup = repeatHelper(task) || markup;
-        markup = dayHelper(task) || markup;
         listHelper(task,tags); // Don't need to know if tags affected things since we don't show alerts for them
+        markup = dayHelper(task) || markup;
         markup = priorityHelper(task) || markup;
         return markup;
     }
@@ -136,6 +136,24 @@ public class TitleParser {
         return time;
     }
 
+    private static String removeIfParenthetical(Matcher m, String inputText) {
+        String s = m.group();
+        System.err.println("CHECKING: " + s);
+        System.err.println("Start char: " + s.charAt(0) + ", end char: " + s.charAt(s.length() - 1));
+        if (s.startsWith("(") && s.endsWith(")")) {
+            return inputText.substring(0, m.start()) + inputText.substring(m.end());
+        }
+        return inputText;
+    }
+
+    private static String stripParens(String s) {
+        if (s.startsWith("("))
+            s = s.substring(1);
+        if (s.endsWith(")"))
+            s = s.substring(0, s.length() - 1);
+        return s;
+    }
+
     //---------------------DATE--------------------------
     //Handles setting the task's date.
     //Day of week (e.g. Monday, Tuesday,..) is overridden by a set date (e.g. October 23 2013).
@@ -147,22 +165,24 @@ public class TitleParser {
         Calendar cal = null;
         Boolean containsSpecificTime = false;
         String[] daysOfWeek = {
-                "(?i)\\b(today)\\b",
-                "(?i)\\b(tomorrow)\\b",
-                "(?i)\\b(mon(day\\b|\\.))",
-                "(?i)\\b(tue(sday\\b|\\.))",
-                "(?i)\\b(wed(nesday\\b|\\.))",
-                "(?i)\\b(thu(rsday\\b|\\.))",
-                "(?i)\\b(fri(day\\b|\\.))",
-                "(?i)\\b(sat(urday\\b|\\.))",
-                "(?i)\\b(sun(day\\b|\\.))" };
+                "(?i)(\\(|\\b)today(\\)|\\b)",
+                "(?i)(\\(|\\b)tomorrow(\\)|\\b)",
+                "(?i)(\\(|\\b)mon(day(\\)|\\b)|(\\)|\\.))",
+                "(?i)(\\(|\\b)tue(sday(\\)|\\b)|(\\)|\\.))",
+                "(?i)(\\(|\\b)wed(nesday(\\)|\\b)|(\\)|\\.))",
+                "(?i)(\\(|\\b)thu(rsday(\\)|\\b)|(\\)|\\.))",
+                "(?i)(\\(|\\b)fri(day(\\)|\\b)|(\\)|\\.))",
+                "(?i)(\\(|\\b)sat(urday(\\)|\\b)|(\\)|\\.))",
+                "(?i)(\\(|\\b)sun(day(\\)|\\b)|(\\)|\\.))" };
 
         for (String date : daysOfWeek){
             Pattern pattern = Pattern.compile(date);
             Matcher m = pattern.matcher(inputText);
             if (m.find()) {
-                Calendar dayCal = AstridChronic.parse(m.group(0)).getBeginCalendar();
+                String toParse = stripParens(m.group(0));
+                Calendar dayCal = AstridChronic.parse(toParse).getBeginCalendar();
                 cal = dayCal;
+                inputText = removeIfParenthetical(m, inputText);
                 //then put it into task
             }
         }
@@ -329,6 +349,7 @@ public class TitleParser {
         }
 
         if(cal!= null) { //if at least one of the above has been called, write to task. else do nothing.
+            task.setValue(Task.TITLE, inputText);
             if (containsSpecificTime) {
                 task.setValue(Task.DUE_DATE, Task.createDueDate(Task.URGENCY_SPECIFIC_DAY_TIME, cal.getTime().getTime()));
             } else {
