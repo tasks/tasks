@@ -14,7 +14,6 @@ import org.xmlpull.v1.XmlSerializer;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
-import android.database.sqlite.SQLiteException;
 import android.os.Handler;
 import android.util.Log;
 import android.util.Xml;
@@ -180,14 +179,8 @@ public class TasksXmlExporter {
 
     private void serializeTasks() throws IOException {
         TodorooCursor<Task> cursor;
-        try {
-            cursor = taskService.query(Query.select(
+        cursor = taskService.query(Query.select(
                 Task.PROPERTIES).orderBy(Order.asc(Task.ID)));
-        } catch (SQLiteException e) {
-            PluginServices.getDatabase().handleNoCommentsColumn(e);
-            cursor = taskService.query(Query.select(
-                    Task.PROPERTIES).orderBy(Order.asc(Task.ID)));
-        }
         try {
             Task task = new Task();
             int length = cursor.getCount();

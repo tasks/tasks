@@ -14,8 +14,6 @@ import java.util.concurrent.atomic.AtomicInteger;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import android.database.sqlite.SQLiteException;
-
 import com.timsu.astrid.C2DMReceiver;
 import com.timsu.astrid.R;
 import com.todoroo.andlib.data.AbstractModel;
@@ -361,12 +359,7 @@ public class ActFmSyncV2Provider extends SyncV2Provider {
                                 Task.REMOTE_ID.isNull()),
                                 Criterion.and(Task.REMOTE_ID.isNotNull(),
                                         Task.MODIFICATION_DATE.gt(Task.LAST_SYNC))));
-        try {
-            taskCursor = taskService.query(query);
-        } catch (SQLiteException e) {
-            database.handleNoCommentsColumn(e);
-            taskCursor = taskService.query(query);
-        }
+        taskCursor = taskService.query(query);
 
         try {
             pushQueued(callback, finisher, taskCursor, true, taskPusher);

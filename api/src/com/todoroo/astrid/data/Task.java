@@ -155,10 +155,6 @@ public final class Task extends RemoteModel {
     public static final StringProperty SHARED_WITH = new StringProperty(
             TABLE, "sharedWith");
 
-    /** Comment Count */
-    public static final IntegerProperty COMMENT_COUNT = new IntegerProperty(
-            TABLE, "commentCount");
-
     /** Last Sync date */
     public static final LongProperty LAST_SYNC = new LongProperty(
             TABLE, "lastSync");

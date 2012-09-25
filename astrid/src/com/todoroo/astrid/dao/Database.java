@@ -200,7 +200,7 @@ public class Database extends AbstractDatabase {
             onCreateTables();
 
             Property<?>[] properties = new Property<?>[] { Task.REMOTE_ID,
-                    Task.USER_ID, Task.COMMENT_COUNT };
+                    Task.USER_ID };
 
             for(Property<?> property : properties) {
                 database.execSQL("ALTER TABLE " + Task.TABLE.name + " ADD " +
@@ -333,26 +333,6 @@ public class Database extends AbstractDatabase {
         }
 
         return false;
-    }
-
-    /**
-     * Try to recover from an error that was getting thrown in several places.
-     * Seems a bad migration may have left some users without a comment count
-     * column in the tasks table
-     */
-    public void handleNoCommentsColumn(SQLiteException e) {
-        String message = e.getMessage().toLowerCase();
-        if (message.contains("no such column") && message.contains("tasks.commentCount")) {
-            try {
-                database.execSQL("ALTER TABLE " + Task.TABLE.name + " ADD " +
-                        Task.COMMENT_COUNT.accept(new SqlConstructorVisitor(), null) + " DEFAULT 0");
-            } catch (SQLiteException e2) {
-                // Rethrow the original exception so we know that some other unexpected error occurred
-                throw e;
-            }
-        } else {
-            throw e;
-        }
     }
 
     /**

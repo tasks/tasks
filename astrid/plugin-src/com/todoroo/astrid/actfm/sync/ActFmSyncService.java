@@ -1567,8 +1567,6 @@ public final class ActFmSyncService {
             if(model.isModified())
                 model.setValue(Task.DETAILS, null);
 
-            model.setValue(Task.COMMENT_COUNT, json.getInt("comment_count"));
-
             JSONArray tags = json.getJSONArray("tags");
             for(int i = 0; i < tags.length(); i++) {
                 JSONObject tag = tags.getJSONObject(i);
