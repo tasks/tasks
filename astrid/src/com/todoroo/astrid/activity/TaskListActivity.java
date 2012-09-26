@@ -199,14 +199,7 @@ public class TaskListActivity extends AstridActivity implements MainMenuListener
         extras.putParcelable(TaskListFragment.TOKEN_FILTER, savedFilter);
 
         if (swipeIsEnabled()) {
-            FilterListFragment flf = getFilterListFragment();
-            if (flf == null)
-                throw new RuntimeException("Filterlist fragment was null, needs to exist to construct the fragment pager"); //$NON-NLS-1$
-            FilterAdapter adapter = flf.adapter;
-            tlfPager = (TaskListFragmentPager) findViewById(R.id.pager);
-            tlfPagerAdapter = new TaskListFragmentPagerAdapter(getSupportFragmentManager(), adapter);
-            tlfPager.setAdapter(tlfPagerAdapter);
-            tlfPager.setOnPageChangeListener(this);
+            setupPagerAdapter();
         }
 
         setupTasklistFragmentWithFilter(savedFilter, extras);
@@ -221,6 +214,17 @@ public class TaskListActivity extends AstridActivity implements MainMenuListener
         // Have to call this here because sometimes StartupService
         // isn't called (i.e. if the app was silently alive in the background)
         abTestEventReportingService.trackUserRetention(this);
+    }
+
+    private void setupPagerAdapter() {
+        FilterListFragment flf = getFilterListFragment();
+        if (flf == null)
+            throw new RuntimeException("Filterlist fragment was null, needs to exist to construct the fragment pager"); //$NON-NLS-1$
+        FilterAdapter adapter = flf.adapter;
+        tlfPager = (TaskListFragmentPager) findViewById(R.id.pager);
+        tlfPagerAdapter = new TaskListFragmentPagerAdapter(getSupportFragmentManager(), adapter);
+        tlfPager.setAdapter(tlfPagerAdapter);
+        tlfPager.setOnPageChangeListener(this);
     }
 
     protected int getHeaderView() {
@@ -737,12 +741,19 @@ public class TaskListActivity extends AstridActivity implements MainMenuListener
                 personImage.setVisibility(View.GONE);
                 commentsButton.setVisibility(View.VISIBLE);
             }
+
+            if (swipeIsEnabled()) {
+                setupPagerAdapter();
+            }
+
         } else {
             setupFragment(FilterListFragment.TAG_FILTERLIST_FRAGMENT, R.id.filterlist_fragment_container,
                     filterModeSpec.getFilterListClass(), false, true);
         }
 
         onFilterItemClicked(getDefaultFilter());
+        if (swipeIsEnabled())
+            setListsTitle(tlfPagerAdapter.getPageTitle(0).toString());
         if (fragmentLayout == LAYOUT_SINGLE)
             listsNav.performClick();
     }
