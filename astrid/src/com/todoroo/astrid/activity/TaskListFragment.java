@@ -348,12 +348,6 @@ public class TaskListFragment extends ListFragment implements OnScrollListener,
             upgradeService.showChangeLog(getActivity(),
                     Preferences.getInt(AstridPreferences.P_UPGRADE_FROM, -1));
 
-        getActivity().runOnUiThread(new Runnable() {
-            public void run() {
-                Thread.currentThread().setPriority(Thread.MAX_PRIORITY);
-            }
-        });
-
         getListView().setOnItemClickListener(new OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view,
