@@ -854,7 +854,6 @@ public class TaskListFragment extends ListFragment implements OnScrollListener,
             return;
         }
 
-        int oldListItemSelected = getListView().getSelectedItemPosition();
         Cursor taskCursor = taskAdapter.getCursor();
 
         if (requery) {
@@ -863,9 +862,12 @@ public class TaskListFragment extends ListFragment implements OnScrollListener,
             taskAdapter.notifyDataSetChanged();
         }
 
-        if (oldListItemSelected != ListView.INVALID_POSITION
-                && oldListItemSelected < taskCursor.getCount())
-            getListView().setSelection(oldListItemSelected);
+        if (getView() != null) { // This was happening sometimes
+            int oldListItemSelected = getListView().getSelectedItemPosition();
+            if (oldListItemSelected != ListView.INVALID_POSITION
+                    && oldListItemSelected < taskCursor.getCount())
+                getListView().setSelection(oldListItemSelected);
+        }
 
         // also load sync actions
         syncActionHelper.request();
