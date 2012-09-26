@@ -71,6 +71,8 @@ public class StatisticsConstants {
     public static final String TASK_RABBIT_VIEW = "task-rabbit-view";
     public static final String TASK_RABBIT_POST = "task-rabbit-post";
     public static final String TASK_RABBIT_LOGIN = "task-rabbit-login";
+    public static final String SHARE_PAGE_VIEWED = "share-page-viewed";
+    public static final String SHARE_BUTTON_CLICKED = "share-button-clicked";
 
     public static final String PREF_THIRD_PARTY_ADDONS = "pref-third-party-addons";
     public static final String PREF_SHOW_NOTES_IN_ROW = "pref-show-notes";
