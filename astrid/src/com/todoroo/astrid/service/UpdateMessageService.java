@@ -6,6 +6,7 @@
 package com.todoroo.astrid.service;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Locale;
 
 import org.json.JSONArray;
@@ -14,7 +15,8 @@ import org.json.JSONObject;
 import org.weloveastrid.rmilk.MilkUtilities;
 
 import android.app.Activity;
-import android.content.Context;
+import android.app.AlertDialog;
+import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.PackageManager.NameNotFoundException;
@@ -23,6 +25,7 @@ import android.text.TextUtils;
 import android.text.style.ClickableSpan;
 import android.view.View;
 import android.view.WindowManager.BadTokenException;
+import android.widget.TextView;
 
 import com.timsu.astrid.R;
 import com.todoroo.andlib.data.Property.StringProperty;
@@ -63,14 +66,14 @@ public class UpdateMessageService {
     @Autowired private AddOnService addOnService;
     @Autowired private StoreObjectDao storeObjectDao;
 
-    private Context context;
+    private final Activity activity;
 
-    public UpdateMessageService() {
+    public UpdateMessageService(Activity activity) {
+        this.activity = activity;
         DependencyInjectionService.getInstance().inject(this);
     }
 
-    public void processUpdates(Context thisContext) {
-        context = thisContext;
+    public void processUpdates() {
 
         if(shouldSkipUpdates())
             return;
@@ -88,46 +91,68 @@ public class UpdateMessageService {
     }
 
     protected boolean shouldSkipUpdates() {
-        return !(context instanceof Activity);
+        return !(activity instanceof Activity);
+    }
+
+    private static interface DialogShower {
+        void showDialog(Activity activity);
+    }
+
+    private void showDialog(DialogShower shower) {
+        try {
+            shower.showDialog(activity);
+        } catch (BadTokenException bt) {
+            try {
+                Activity current = (Activity) ContextManager.getContext();
+                shower.showDialog(current);
+            } catch (ClassCastException c) {
+                // Oh well, context wasn't an activity
+            } catch (BadTokenException bt2) {
+                // Oh well, activity isn't running
+            }
+        }
     }
 
     protected void displayUpdateDialog(CharSequence message) {
-        final Activity activity = (Activity) context;
         if(activity == null)
             return;
 
+        final DialogShower shower;
         if (message instanceof Spannable) {
-            // Stuff
+            final TextView textView = new TextView(activity);
+            shower = new DialogShower() {
+                @Override
+                public void showDialog(Activity a) {
+                    new AlertDialog.Builder(a)
+                    .setTitle(R.string.UpS_updates_title)
+                    .setView(textView)
+                    .setPositiveButton(R.string.DLG_ok, null)
+                    .show();
+                }
+            };
+        } else {
+            String color = ThemeService.getDialogTextColor();
+            final String html = "<html><body style='color: " + color + "'>" +
+                    message + "</body></html>";
+            shower = new DialogShower() {
+                @Override
+                public void showDialog(Activity a) {
+                    DialogUtilities.htmlDialog(a,
+                            html, R.string.UpS_updates_title);
+                }
+            };
         }
-
-        String color = ThemeService.getDialogTextColor();
-        final String html = "<html><body style='color: " + color + "'>" +
-            message + "</body></html>";
 
         activity.runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                try {
-                    DialogUtilities.htmlDialog(activity,
-                            html, R.string.UpS_updates_title);
-                } catch (BadTokenException bt) {
-                    try {
-                        Activity current = (Activity) ContextManager.getContext();
-                        DialogUtilities.htmlDialog(current,
-                                html, R.string.UpS_updates_title);
-                    } catch (ClassCastException c) {
-                        // Oh well, context wasn't an activity
-                    } catch (BadTokenException bt2) {
-                        // Oh well, activity isn't running
-                    }
-                }
+                showDialog(shower);
             }
         });
+
     }
 
     protected CharSequence buildUpdateMessage(JSONArray updates) {
-        StringBuilder builder = new StringBuilder();
-
         for(int i = 0; i < updates.length(); i++) {
             JSONObject update;
             try {
@@ -153,30 +178,68 @@ public class UpdateMessageService {
                     continue;
             }
 
-            if(messageAlreadySeen(date, message))
-                continue;
-
+            CharSequence toReturn;
             String type = update.optString("type", null);
             if ("screen".equals(type) || "pref".equals(type)) {
                 String linkText = update.optString("link");
-                Spannable span = Spannable.Factory.getInstance().newSpannable(message + " " + linkText);
-                span.setSpan(new ClickableSpan() {
-                    @Override
-                    public void onClick(View widget) {
-                        // Do things
-                    }
-                }, span.length() - linkText.length(), span.length(), Spannable.SPAN_INCLUSIVE_EXCLUSIVE);
-                return span;
+                Spannable span = Spannable.Factory.getInstance().newSpannable(message + "\n" + linkText);
+                ClickableSpan click = getClickableSpanForUpdate(update, type);
+                if (click == null)
+                    continue;
+                span.setSpan(click, span.length() - linkText.length(), span.length(), Spannable.SPAN_INCLUSIVE_EXCLUSIVE);
+                toReturn = span;
+            } else {
+                StringBuilder builder = new StringBuilder();
+                if(date != null)
+                    builder.append("<b>" + date + "</b><br />");
+                builder.append(message);
+                builder.append("<br /><br />");
+                toReturn = builder.toString();
             }
 
-
-            if(date != null)
-                builder.append("<b>" + date + "</b><br />");
-            builder.append(message);
-            builder.append("<br /><br />");
-            return builder.toString();
+            if(messageAlreadySeen(date, message))
+                continue;
+            return toReturn;
         }
-        return builder.toString();
+        return "";
+    }
+
+    private ClickableSpan getClickableSpanForUpdate(JSONObject update, String type) {
+        if ("pref".equals(type)) {
+            final String prefSpec = update.optString("prefSpec", null);
+            if (prefSpec == null)
+                return null;
+            return new ClickableSpan() {
+                @Override
+                public void onClick(View widget) {
+//                    Intent prefScreen = new Intent(activity, UpdateMessagePreference.class);
+//                    prefScreen.putExtra(UpdateMessagePreference.TOKEN_PREF_SPEC, prefSpec);
+//                    activity.startActivity(prefScreen);
+                }
+            };
+        } else if ("screen".equals(type)) {
+            try {
+                JSONArray screens = update.getJSONArray("screens");
+                if (screens.length() == 0)
+                    return null;
+                final ArrayList<String> screenList = new ArrayList<String>();
+                for (int i = 0; i < screens.length(); i++) {
+                    screenList.add(screens.getString(i));
+                }
+                return new ClickableSpan() {
+                    @Override
+                    public void onClick(View widget) {
+                        Intent screenFlow = new Intent(activity, UpdateScreenFlow.class);
+                        screenFlow.putStringArrayListExtra(UpdateScreenFlow.TOKEN_SCREENS, screenList);
+                        activity.startActivity(screenFlow);
+                    }
+                };
+            } catch (JSONException e) {
+                return null;
+            }
+        }
+        return null;
+
     }
 
     private boolean pluginConditionMatches(String plugin) {

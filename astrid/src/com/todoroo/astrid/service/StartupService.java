@@ -234,7 +234,7 @@ public class StartupService {
 
                 // get and display update messages
                 if (finalLatestVersion != 0)
-                    new UpdateMessageService().processUpdates(context);
+                    new UpdateMessageService(context).processUpdates();
             }
         }).start();
 
