@@ -56,15 +56,9 @@
   <string name="actfm_ALA_body">Astrid.com讓你在線上存取你的工作表，與朋友分享或委派工作。</string>
   <string name="actfm_ALA_fb_login">連接到Facebook賬戶</string>
   <string name="actfm_ALA_gg_login">連接到Google賬戶</string>
-  <string name="actfm_ALA_pw_login">沒有 Google 或 Facebook 賬戶?</string>
-  <string name="actfm_ALA_pw_link">在此登入</string>
-  <string name="actfm_ALA_pw_new">建立新帳號</string>
-  <string name="actfm_ALA_pw_returning">已有帳戶？</string>
-  <string name="actfm_ALA_name_label">姓名</string>
   <string name="actfm_ALA_firstname_label">名字</string>
   <string name="actfm_ALA_lastname_label">姓氏</string>
   <string name="actfm_ALA_email_label">電郵地址</string>
-  <string name="actfm_ALA_username_email_label">用戶名稱/電郵地址</string>
   <string name="actfm_ALA_password_label">密碼</string>
   <string name="actfm_ALA_signup_title">建立新帳號</string>
   <string name="actfm_ALA_login_title">登入Asrid.com</string>
@@ -75,8 +69,6 @@
   <string name="actfm_https_title">使用 HTTPS</string>
   <string name="actfm_https_enabled">使用 HTTPS (緩慢)</string>
   <string name="actfm_https_disabled">不使用 HTTPS (較快)</string>
-  <string name="actfm_notification_title">Astrid.com 同步</string>
-  <string name="actfm_notification_comments">收到新的備註 / 點擊觀看</string>
   <string name="actfm_dual_sync_warning">You are currently synchronizing with Google Tasks. Be advised that synchronizing with both services can in some cases lead to unexpected results. Are you sure you want to sync with Astrid.com?</string>
   <string name="alarm_ACS_label">警示</string>
   <string name="alarm_ACS_button">加入警示</string>

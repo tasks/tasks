@@ -56,15 +56,9 @@
   <string name="actfm_ALA_body">Astrid.com, görevlerinize çevrimiçi ulaşmanızı, paylaşmanızı ve diğerleriyle görev paylaşımı yapmanızı sağlar.</string>
   <string name="actfm_ALA_fb_login">Facebook ile bağlan</string>
   <string name="actfm_ALA_gg_login">Google ile bağlan</string>
-  <string name="actfm_ALA_pw_login">Google veya Facebook kullanmıyor musunuz?</string>
-  <string name="actfm_ALA_pw_link">Giriş Yap</string>
-  <string name="actfm_ALA_pw_new">Yeni Bir Hesap Aç</string>
-  <string name="actfm_ALA_pw_returning">Zaten üye misiniz?</string>
-  <string name="actfm_ALA_name_label">İsim</string>
   <string name="actfm_ALA_firstname_label">Ad</string>
   <string name="actfm_ALA_lastname_label">Soyad</string>
   <string name="actfm_ALA_email_label">E-Posta</string>
-  <string name="actfm_ALA_username_email_label">Kullanıcı Adı / E-Posta</string>
   <string name="actfm_ALA_password_label">Parola</string>
   <string name="actfm_ALA_signup_title">Yeni Hesap Oluştur</string>
   <string name="actfm_ALA_login_title">Astrid.com\'a Bağlan</string>
@@ -75,8 +69,6 @@
   <string name="actfm_https_title">HTTPS kullan</string>
   <string name="actfm_https_enabled">HTTPS etkin (yavaş)</string>
   <string name="actfm_https_disabled">HTTPS etkin değil (hızlı)</string>
-  <string name="actfm_notification_title">Astrid.com Eşleşterime</string>
-  <string name="actfm_notification_comments">Yeni yorum alındı / ayrıntılar için tıklayın</string>
   <string name="actfm_dual_sync_warning">Google Görevleri ile eşleştirme yapıyordunuz. Her iki hizmetle eşleştirme yapmanız istenmeyen sonuçlara sebep olabilir. Astrid.com ile eşleştirmek istediğinize emin misiniz?</string>
   <string name="alarm_ACS_label">Alarmlar</string>
   <string name="alarm_ACS_button">Alarm Ekle</string>

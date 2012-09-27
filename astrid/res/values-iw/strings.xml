@@ -56,15 +56,9 @@
   <string name="actfm_ALA_body">אתר אסטריד מאפשר גישה מקוונת למשימות, ומאפשר לך לשתף אותן או להקצותן לאחרים</string>
   <string name="actfm_ALA_fb_login">התחבר באמצעות פייסבוק</string>
   <string name="actfm_ALA_gg_login">התחבר באמצעות גוגל</string>
-  <string name="actfm_ALA_pw_login">לא משתמש בגוגל או בפייסבוק?</string>
-  <string name="actfm_ALA_pw_link">הרשם כאן</string>
-  <string name="actfm_ALA_pw_new">ליצור חשבון חדש?</string>
-  <string name="actfm_ALA_pw_returning">כבר יש לך חשבון?</string>
-  <string name="actfm_ALA_name_label">שם</string>
   <string name="actfm_ALA_firstname_label">שם פרטי</string>
   <string name="actfm_ALA_lastname_label">שם משפחה</string>
   <string name="actfm_ALA_email_label">דוא״ל</string>
-  <string name="actfm_ALA_username_email_label">שם משתמש / דוא״ל</string>
   <string name="actfm_ALA_password_label">סיסמא</string>
   <string name="actfm_ALA_signup_title">צור חשבון חדש</string>
   <string name="actfm_ALA_login_title">התחבר לאתר אסטריד</string>
@@ -75,8 +69,6 @@
   <string name="actfm_https_title">השתמש ב־HTTPS</string>
   <string name="actfm_https_enabled">HTTPS מופעל (איטי יותר)</string>
   <string name="actfm_https_disabled">HTTPS מבוטל (מהיר יותר)</string>
-  <string name="actfm_notification_title">סינכרון עם אתר אסטריד</string>
-  <string name="actfm_notification_comments">התקבלו הערות חדשות / הקלק לפרטים</string>
   <string name="actfm_dual_sync_warning">אתה מסנכרן כעת עם ״משימות גוגל״. שים לב שסינכרון מול שני השירותים יכול במקרים מסויימים להביא לתוצאות בלתי צפויות. האם אתה בטוח שברצונך להסתנכרן גם עם אתר אסטריד?</string>
   <string name="alarm_ACS_label">התראות</string>
   <string name="alarm_ACS_button">הוסף התראה</string>

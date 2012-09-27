@@ -56,15 +56,9 @@
   <string name="actfm_ALA_body">Astrid.com geeft je online toegang tot je taken, deel en verdeel met anderen.</string>
   <string name="actfm_ALA_fb_login">Aanmelden via Facebook</string>
   <string name="actfm_ALA_gg_login">Aanmelden via Google</string>
-  <string name="actfm_ALA_pw_login">Geen gebruik maken van Google of Facebook?</string>
-  <string name="actfm_ALA_pw_link">Registreer hier</string>
-  <string name="actfm_ALA_pw_new">Nieuw account aanmaken?</string>
-  <string name="actfm_ALA_pw_returning">Bestaand account?</string>
-  <string name="actfm_ALA_name_label">Naam</string>
   <string name="actfm_ALA_firstname_label">Voornaam</string>
   <string name="actfm_ALA_lastname_label">Achternaam</string>
   <string name="actfm_ALA_email_label">E-mailadres</string>
-  <string name="actfm_ALA_username_email_label">Gebruikersnaam/e-mailadres</string>
   <string name="actfm_ALA_password_label">Wachtwoord</string>
   <string name="actfm_ALA_signup_title">Nieuw account aanmaken</string>
   <string name="actfm_ALA_login_title">Aanmelden bij Astrid.com</string>
@@ -75,8 +69,6 @@
   <string name="actfm_https_title">HTTPS gebruiken</string>
   <string name="actfm_https_enabled">HTTPS ingeschakeld (langzamer)</string>
   <string name="actfm_https_disabled">HTTPS uitgeschakeld (sneller)</string>
-  <string name="actfm_notification_title">Astrid.com synchronisatie</string>
-  <string name="actfm_notification_comments">Nieuw commentaar ontvangen; klik voor meer details</string>
   <string name="actfm_dual_sync_warning">Op dit moment synchroniseer je met Google Tasks. Let erop dat synchroniseren met beide diensten in sommige gevallen kan leiden tot onverwachte resultaten. Weet je zeker dat je wilt synchroniseren met Astrid.com?</string>
   <string name="alarm_ACS_label">Herinneringen</string>
   <string name="alarm_ACS_button">Voeg Alarm toe</string>

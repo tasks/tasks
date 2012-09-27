@@ -56,15 +56,9 @@
   <string name="actfm_ALA_body">Astrid.com umożliwia dostęp do zadań online, udostępniania i przekazywania innym.</string>
   <string name="actfm_ALA_fb_login">Połącz z Facebookiem</string>
   <string name="actfm_ALA_gg_login">Połącz z Google</string>
-  <string name="actfm_ALA_pw_login">Nie używasz Google ani Facebooka?</string>
-  <string name="actfm_ALA_pw_link">Zarejestruj się tutaj</string>
-  <string name="actfm_ALA_pw_new">Utworzyć nowe konto?</string>
-  <string name="actfm_ALA_pw_returning">Masz już konto?</string>
-  <string name="actfm_ALA_name_label">Nazwa</string>
   <string name="actfm_ALA_firstname_label">Imię</string>
   <string name="actfm_ALA_lastname_label">Nazwisko</string>
   <string name="actfm_ALA_email_label">E-mail</string>
-  <string name="actfm_ALA_username_email_label">Użytkownik / E-mail</string>
   <string name="actfm_ALA_password_label">Hasło</string>
   <string name="actfm_ALA_signup_title">Utwórz nowe konto</string>
   <string name="actfm_ALA_login_title">Zaloguj się do Astrid.com</string>
@@ -75,8 +69,6 @@
   <string name="actfm_https_title">Użycie HTTPS</string>
   <string name="actfm_https_enabled">HTTPS włączone (wolniej)</string>
   <string name="actfm_https_disabled">HTTPS wyłączone (szybciej)</string>
-  <string name="actfm_notification_title">Synchronizacja Astrid.com</string>
-  <string name="actfm_notification_comments">Otrzymano nowe komentarze / kliknij po więcej informacji</string>
   <string name="actfm_dual_sync_warning">W tej chwili korzystasz z usługi synchronizacji z usługą Google Tasks. Pamiętaj że synchronizowanie z obydwiema usługami może prowadzić do niespodziewanych efektów. Czy na pewno chcesz synchronizować z Astrid.com?</string>
   <string name="alarm_ACS_label">Alarmy</string>
   <string name="alarm_ACS_button">Dodaj alarm</string>

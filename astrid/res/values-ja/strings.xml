@@ -56,15 +56,9 @@
   <string name="actfm_ALA_body">Astrid.com lets you access your tasks online, share, and delegate with others.</string>
   <string name="actfm_ALA_fb_login">Facebookと接続する</string>
   <string name="actfm_ALA_gg_login">Googleと接続する</string>
-  <string name="actfm_ALA_pw_login">Don\'t use Google or Facebook?</string>
-  <string name="actfm_ALA_pw_link">Sign In Here</string>
-  <string name="actfm_ALA_pw_new">新しいアカウントを作成しますか?</string>
-  <string name="actfm_ALA_pw_returning">すでにアカウントをお持ちですか？</string>
-  <string name="actfm_ALA_name_label">名前</string>
   <string name="actfm_ALA_firstname_label">名</string>
   <string name="actfm_ALA_lastname_label">姓</string>
   <string name="actfm_ALA_email_label">Eメール</string>
-  <string name="actfm_ALA_username_email_label">ユーザ名 / Eメール</string>
   <string name="actfm_ALA_password_label">パスワード</string>
   <string name="actfm_ALA_signup_title">新規アカウント作成</string>
   <string name="actfm_ALA_login_title">Astrid.comにログイン</string>
@@ -75,8 +69,6 @@
   <string name="actfm_https_title">HTTPS を使う</string>
   <string name="actfm_https_enabled">HTTPS有効(遅い)</string>
   <string name="actfm_https_disabled">HTTPS無効(早い)</string>
-  <string name="actfm_notification_title">Astrid.com Sync</string>
-  <string name="actfm_notification_comments">New comments received / click for more details</string>
   <string name="actfm_dual_sync_warning">You are currently synchronizing with Google Tasks. Be advised that synchronizing with both services can in some cases lead to unexpected results. Are you sure you want to sync with Astrid.com?</string>
   <string name="alarm_ACS_label">アラーム</string>
   <string name="alarm_ACS_button">アラームを追加する</string>

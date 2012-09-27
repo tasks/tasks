@@ -56,15 +56,9 @@
   <string name="actfm_ALA_body">Astrid.com låter dig komma åt dina uppgifter via nätet, dela dem med andra och dela ut dem till andra.</string>
   <string name="actfm_ALA_fb_login">Logga in med Facebook</string>
   <string name="actfm_ALA_gg_login">Logga in med Facebook</string>
-  <string name="actfm_ALA_pw_login">Använder du inte Google eller Facebook?</string>
-  <string name="actfm_ALA_pw_link">Logga in här</string>
-  <string name="actfm_ALA_pw_new">Skapa ett nytt konto?</string>
-  <string name="actfm_ALA_pw_returning">Har du redan ett konto?</string>
-  <string name="actfm_ALA_name_label">Namn</string>
   <string name="actfm_ALA_firstname_label">Förnamn</string>
   <string name="actfm_ALA_lastname_label">Efternamn</string>
   <string name="actfm_ALA_email_label">E-postadress</string>
-  <string name="actfm_ALA_username_email_label">Användarnamn/e-postadress</string>
   <string name="actfm_ALA_password_label">Lösenord</string>
   <string name="actfm_ALA_signup_title">Skapa nytt konto</string>
   <string name="actfm_ALA_login_title">Logga in på Astrid.com</string>
@@ -75,8 +69,6 @@
   <string name="actfm_https_title">Använd HTTPS</string>
   <string name="actfm_https_enabled">HTTPS aktiverat (långsammare)</string>
   <string name="actfm_https_disabled">HTTPS avaktiverat (snabbare)</string>
-  <string name="actfm_notification_title">Synkronisering med Astrid.com</string>
-  <string name="actfm_notification_comments">Ny kommentar mottagen, klicka för detaljer</string>
   <string name="actfm_dual_sync_warning">You are currently synchronizing with Google Tasks. Be advised that synchronizing with both services can in some cases lead to unexpected results. Are you sure you want to sync with Astrid.com?</string>
   <string name="alarm_ACS_label">Alarm</string>
   <string name="alarm_ACS_button">Lägg till ett alarm</string>

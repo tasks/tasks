@@ -212,19 +212,14 @@
   <string name="actfm_ALA_gg_login">Connect with Google</string>
   
   <!-- share login: Sharing Footer Password Label -->
-  <string name="actfm_ALA_pw_login">Don\'t use Google or Facebook?</string>
 
   <!-- share login: Sharing Password Link -->
-  <string name="actfm_ALA_pw_link">Sign In Here</string>
 
   <!-- share login: Password Are you a New User? -->
-  <string name="actfm_ALA_pw_new">Create a new account?</string>
 
   <!-- share login: Password Are you a Returning User? -->
-  <string name="actfm_ALA_pw_returning">Already have an account?</string>
 
   <!-- share login: Name -->
-  <string name="actfm_ALA_name_label">Name</string>
 
   <!-- share login: Name -->
   <string name="actfm_ALA_firstname_label">First Name</string>
@@ -236,7 +231,6 @@
   <string name="actfm_ALA_email_label">Email</string>
 
   <!-- share login: Username / Email -->
-  <string name="actfm_ALA_username_email_label">Username / Email</string>
 
   <!-- share login: Password -->
   <string name="actfm_ALA_password_label">Password</string>
@@ -280,10 +274,8 @@
   <string name="actfm_https_disabled">HTTPS disabled (faster)</string>
 
   <!-- title for notification tray after synchronizing -->
-  <string name="actfm_notification_title">Astrid.com Sync</string>
   
   <!-- text for notification when comments are received -->
-  <string name="actfm_notification_comments">New comments received / click for more details</string>
     
   <string name="actfm_dual_sync_warning">You are currently synchronizing with Google Tasks. 
       Be advised that synchronizing with both services can in some cases lead to unexpected results. 
@@ -299,7 +291,6 @@
   
   <string name="actfm_account_premium">Premium</string>
   <string name="actfm_account_basic">Basic</string>
-  <string name="actfm_account_none">None</string>
   
   <string name="actfm_inapp_billing">Upgrade to Premium</string>
   <string name="actfm_inapp_billing_summary">Attach files, voice backups, premium support &amp; more</string>

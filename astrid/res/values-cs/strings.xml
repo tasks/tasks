@@ -56,15 +56,9 @@
   <string name="actfm_ALA_body">Díky Astrid.com můžete k úkolům přistupovat online nebo je můžete sdílet s ostatníma.</string>
   <string name="actfm_ALA_fb_login">Přihlásit Facebookem</string>
   <string name="actfm_ALA_gg_login">Přihlásit Google účtem</string>
-  <string name="actfm_ALA_pw_login">Nepoužíváte Google ani Facebook?</string>
-  <string name="actfm_ALA_pw_link">Přihlašte se zde</string>
-  <string name="actfm_ALA_pw_new">Vytvořit nový účet?</string>
-  <string name="actfm_ALA_pw_returning">Již máte účet?</string>
-  <string name="actfm_ALA_name_label">Jméno</string>
   <string name="actfm_ALA_firstname_label">Křestní jméno</string>
   <string name="actfm_ALA_lastname_label">Příjmení</string>
   <string name="actfm_ALA_email_label">Email</string>
-  <string name="actfm_ALA_username_email_label">Uživ. jméno / Email</string>
   <string name="actfm_ALA_password_label">Heslo</string>
   <string name="actfm_ALA_signup_title">Vytvořit nový účet</string>
   <string name="actfm_ALA_login_title">Přihlásit se do Astrid.com</string>
@@ -75,8 +69,6 @@
   <string name="actfm_https_title">Použít HTTPS</string>
   <string name="actfm_https_enabled">HTTPS povoleno (pomalejší)</string>
   <string name="actfm_https_disabled">HTTPS zakázáno (rychlejší)</string>
-  <string name="actfm_notification_title">Astrid.com Synchronizace</string>
-  <string name="actfm_notification_comments">Přidány nové komenty / klikněte zde pro více detailů</string>
   <string name="actfm_dual_sync_warning">Synchronizujete úkoly s Google Tasks. Berte na vědomí, že synchronizace s oběma službami může v některých případech vést k nečekaným důsledkům. Opravdu si přejete synchronizovat s Astrid.com?</string>
   <string name="alarm_ACS_label">Alarmy</string>
   <string name="alarm_ACS_button">Přidat alarm</string>

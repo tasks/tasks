@@ -56,15 +56,9 @@
   <string name="actfm_ALA_body">Astrid.com lets you access your tasks online, share, and delegate with others.</string>
   <string name="actfm_ALA_fb_login">페이스북과 연동하기</string>
   <string name="actfm_ALA_gg_login">구글과 연동하기</string>
-  <string name="actfm_ALA_pw_login">구글 또는 페이스북을 사용하지 않습니까?</string>
-  <string name="actfm_ALA_pw_link">동의하기</string>
-  <string name="actfm_ALA_pw_new">새 계정을 만드시겠습니까?</string>
-  <string name="actfm_ALA_pw_returning">이미 계정이 있으십니까?</string>
-  <string name="actfm_ALA_name_label">이름:</string>
   <string name="actfm_ALA_firstname_label">성</string>
   <string name="actfm_ALA_lastname_label">이름</string>
   <string name="actfm_ALA_email_label">이메일</string>
-  <string name="actfm_ALA_username_email_label">사용자명/이메일</string>
   <string name="actfm_ALA_password_label">비밀번호</string>
   <string name="actfm_ALA_signup_title">새 계정 만들기</string>
   <string name="actfm_ALA_login_title">로그인하기</string>
@@ -75,8 +69,6 @@
   <string name="actfm_https_title">HTTPS 사용</string>
   <string name="actfm_https_enabled">HTTPS 활성화됨 (느림)</string>
   <string name="actfm_https_disabled">HTTPS 비활성화됨 (빠름)</string>
-  <string name="actfm_notification_title">Astrid.com Sync</string>
-  <string name="actfm_notification_comments">새로운 코멘트를 받음 / 자세히 보려면 클릭</string>
   <string name="actfm_dual_sync_warning">You are currently synchronizing with Google Tasks. Be advised that synchronizing with both services can in some cases lead to unexpected results. Are you sure you want to sync with Astrid.com?</string>
   <string name="alarm_ACS_label">알람</string>
   <string name="alarm_ACS_button">알람 추가</string>

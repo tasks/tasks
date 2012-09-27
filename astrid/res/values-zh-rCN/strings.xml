@@ -54,15 +54,9 @@
   <string name="actfm_ALA_body">Astrid.com能让您轻松在线访问、共享和委托您的任务。</string>
   <string name="actfm_ALA_fb_login">使用Facebook帐号登录</string>
   <string name="actfm_ALA_gg_login">使用Google帐号登录</string>
-  <string name="actfm_ALA_pw_login">尚未拥有Google或Facebook帐号？</string>
-  <string name="actfm_ALA_pw_link">点此登录</string>
-  <string name="actfm_ALA_pw_new">创建新帐户？</string>
-  <string name="actfm_ALA_pw_returning">已有帐户？</string>
-  <string name="actfm_ALA_name_label">名字</string>
   <string name="actfm_ALA_firstname_label">名字</string>
   <string name="actfm_ALA_lastname_label">姓氏</string>
   <string name="actfm_ALA_email_label">电子邮箱</string>
-  <string name="actfm_ALA_username_email_label">用户名/电子邮箱</string>
   <string name="actfm_ALA_password_label">密码</string>
   <string name="actfm_ALA_signup_title">创建新账户</string>
   <string name="actfm_ALA_login_title">登陆至 Astrid.com</string>
@@ -72,8 +66,6 @@
   <string name="actfm_https_title">使用 HTTPS</string>
   <string name="actfm_https_enabled">开启 HTTPS</string>
   <string name="actfm_https_disabled">关闭 HTTPS</string>
-  <string name="actfm_notification_title">Astrid.com 同步</string>
-  <string name="actfm_notification_comments">收到新留言/点击察看细节</string>
   <string name="alarm_ACS_label">闹钟</string>
   <string name="alarm_ACS_button">添加闹钟</string>
   <string-array name="reminders_alarm">
