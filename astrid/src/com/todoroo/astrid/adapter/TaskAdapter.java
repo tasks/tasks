@@ -793,16 +793,18 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
             new HashMap<Integer, Drawable>(3);
         @SuppressWarnings("nls")
         public Drawable getDrawable(String source) {
+            int drawable = 0;
             if(source.equals("silk_clock"))
-                source = "details_alarm";
+                drawable = R.drawable.details_alarm;
             else if(source.equals("silk_tag_pink"))
-                source = "details_tag";
+                drawable = R.drawable.details_tag;
             else if(source.equals("silk_date"))
-                source = "details_repeat";
+                drawable = R.drawable.details_repeat;
             else if(source.equals("silk_note"))
-                source = "details_note";
+                drawable = R.drawable.details_note;
 
-            int drawable = resources.getIdentifier("drawable/" + source, null, Constants.PACKAGE);
+            if (drawable == 0)
+                drawable = resources.getIdentifier("drawable/" + source, null, Constants.PACKAGE);
             if(drawable == 0)
                 return null;
             Drawable d;
