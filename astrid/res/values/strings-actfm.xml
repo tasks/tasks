@@ -124,13 +124,10 @@
   <string name="actfm_EPA_intro">Use Astrid to share shopping lists, party plans, or team projects and instantly see when people get stuff done!</string>
     
   <!-- task sharing dialog: window title -->
-  <string name="actfm_EPA_title">Share / Assign</string>
     
   <!-- task sharing dialog: save button -->
-  <string name="actfm_EPA_save">Save &amp; Share</string>
   
   <!-- task sharing dialog: assigned label -->
-  <string name="actfm_EPA_assign_label">Who</string>
   
   <!-- slide 18a: task sharing dialog: assigned label long version -->
   <string name="actfm_EPA_assign_label_long">Who should do this?</string>
@@ -148,7 +145,6 @@
   <string name="actfm_EPA_task_rabbit">Outsource it!</string>
   
   <!-- task sharing dialog: custom email assignment -->
-  <string name="actfm_EPA_assign_custom">Custom...</string>
   
   <!-- task sharing dialog: shared with label -->
   <string name="actfm_EPA_share_with">Share with:</string>
@@ -160,7 +156,6 @@
   <string name="actfm_EPA_list">List: %s</string>
   
   <!-- task sharing dialog: assigned hint -->
-  <string name="actfm_EPA_assigned_hint">Contact Name</string>
   
   <!-- task sharing dialog: message label text -->
   <string name="actfm_EPA_message_text">Invitation Message:</string>
@@ -175,10 +170,8 @@
   <string name="actfm_EPA_assign_header_friends">Astrid Friends</string>
 
   <!-- task sharing dialog: message hint -->
-  <string name="actfm_EPA_tag_label">Create a shared tag?</string>
   
   <!-- task sharing dialog: message hint -->
-  <string name="actfm_EPA_tag_hint">(i.e. Silly Hats Club)</string>
   
   <!-- task sharing dialog: share with Facebook -->
   <string name="actfm_EPA_facebook">Facebook</string>
@@ -187,16 +180,13 @@
   <string name="actfm_EPA_twitter">Twitter</string>
 
   <!-- task sharing dialog: # of e-mails sent (%s => # people plural string) -->
-  <string name="actfm_EPA_emailed_toast">Task shared with %s</string>
 
   <!-- task sharing dialog: edit people settings saved -->
-  <string name="actfm_EPA_saved_toast">People Settings Saved</string>
 
   <!-- task sharing dialog: invalid email (%s => email) -->
   <string name="actfm_EPA_invalid_email">Invalid E-mail: %s</string>
 
   <!-- task sharing dialog: tag not found (%s => tag) -->
-  <string name="actfm_EPA_invalid_tag">List Not Found: %s</string>
   
   <!-- task sharing login prompt -->
   <string name="actfm_EPA_login_to_share">You need to be logged in to Astrid.com to share tasks!</string>
