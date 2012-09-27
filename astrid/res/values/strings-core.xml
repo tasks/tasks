@@ -43,7 +43,6 @@
   few seconds.</string>
 
   <!-- Button for going to Market -->
-  <string name="DLG_to_market">Go To Market</string>
 
   <!-- Button for accepting EULA -->
   <string name="DLG_accept">I Accept</string>
@@ -61,14 +60,12 @@
   <string name="DLG_loading">Loading...</string>
   
   <!-- Dialog - dismiss -->
-  <string name="DLG_dismiss">Dismiss</string>
 
   <!-- slide 20d -->
   <string name="DLG_ok">OK</string>
   <!-- slide 36g -->
   <string name="DLG_cancel">Cancel</string>
   
-  <string name="DLG_more">More</string>
   
   <string name="DLG_undo">Undo</string>
   
@@ -80,15 +77,12 @@
   <string name="WID_dateButtonUnset">Click To Set</string>
   
   <!-- String formatter for DateButtons ($D => date, $T => time) -->
-  <string name="WID_dateButtonLabel">$D $T</string>
   
   <!-- String formatter for Disable button -->
-  <string name="WID_disableButton">Disable</string>  
   
   <!--  ============================================================= notes -->
   
   <!-- Note Exposer -->    
-  <string name="ENE_label">Notes</string>
   
   <!-- Note Exposer / Comments -->    
   <string name="ENE_label_comments">Comments</string>

@@ -36,9 +36,7 @@
     <string name="backup_BPr_auto_enabled">Backup will occur daily</string>
     
     <!-- Preference screen restoring Tasks Help -->
-    <string name="backup_BPr_how_to_restore">How do I restore backups?</string>    
     <!-- Preference screen Restoring Tasks Help Dialog Text-->
-    <string name="backup_BPr_how_to_restore_dialog">You need to add the Astrid Power Pack to manage and restore your backups. As a favor, Astrid also automatically backs up your tasks, just in case.</string>
     
     <string name="backup_BPr_cloud_already_logged_in">You already have cloud backup on Astrid.com!</string>
   
@@ -89,7 +87,6 @@ File %1$s contained %2$s.\n\n
   <string name="import_progress_read">Reading task %d...</string>
   
   <!-- Backup: Dialog when unable to open a file -->  
-  <string name="DLG_error_opening">Could not find this item: </string>
   
   <!-- Backup: Dialog when unable to open SD card folder (%s => folder) -->
   <string name="DLG_error_sdcard">Cannot access folder: %s</string>
