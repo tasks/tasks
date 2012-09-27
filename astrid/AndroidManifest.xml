@@ -167,6 +167,9 @@
 
     <activity android:name="com.todoroo.astrid.activity.ShareActivity"/>
     
+    <activity android:name="com.todoroo.astrid.service.UpdateScreenFlow"
+        android:screenOrientation="portrait"/>
+    
     <!-- Start of Crittercism.com Code -->
 	<activity android:name="com.crittercism.NewFeedbackSpringboardActivity" android:theme="@android:style/Theme.Black.NoTitleBar.Fullscreen"></activity>
 	<activity android:name="com.crittercism.NewFeedbackIssueListActivity" android:theme="@android:style/Theme.Black.NoTitleBar.Fullscreen"></activity>

@@ -37,7 +37,9 @@ import com.todoroo.andlib.service.RestClient;
 import com.todoroo.andlib.sql.Query;
 import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.andlib.utility.DialogUtilities;
+import com.todoroo.astrid.actfm.ActFmLoginActivity;
 import com.todoroo.astrid.actfm.sync.ActFmPreferenceService;
+import com.todoroo.astrid.activity.EditPreferences;
 import com.todoroo.astrid.dao.StoreObjectDao;
 import com.todoroo.astrid.dao.StoreObjectDao.StoreObjectCriteria;
 import com.todoroo.astrid.data.StoreObject;
@@ -74,11 +76,22 @@ public class UpdateMessageService {
     }
 
     public void processUpdates() {
-
-        if(shouldSkipUpdates())
-            return;
-
         JSONArray updates = checkForUpdates();
+        System.err.println("UPDATES: " + updates);
+
+        try {
+            JSONObject test = new JSONObject();
+            test.put("date", "09/26/12");
+            test.put("message", "Screens!");
+            test.put("type", "screen");
+            JSONArray screenArray = new JSONArray();
+            screenArray.put(ActFmLoginActivity.class.getName());
+            screenArray.put(EditPreferences.class.getName());
+            test.put("screens", screenArray);
+            updates.put(test);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
 
         if(updates == null || updates.length() == 0)
             return;
@@ -88,10 +101,6 @@ public class UpdateMessageService {
             return;
 
         displayUpdateDialog(message);
-    }
-
-    protected boolean shouldSkipUpdates() {
-        return !(activity instanceof Activity);
     }
 
     private static interface DialogShower {
@@ -160,7 +169,6 @@ public class UpdateMessageService {
             } catch (JSONException e) {
                 continue;
             }
-
 
             String date = update.optString("date", null);
             String message = update.optString("message", null);
