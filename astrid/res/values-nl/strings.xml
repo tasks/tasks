@@ -233,7 +233,6 @@
     <item>Week voor einddatum</item>
     <item>Specifieke dag/tijd</item>
   </string-array>
-  <string name="TEA_control_title">Taak Titel</string>
   <string name="TEA_control_who">Wie</string>
   <string name="TEA_control_when">Wanneer</string>
   <string name="TEA_control_more_section">----More Section----</string>
@@ -245,20 +244,13 @@
   <string name="TEA_control_timer">Tijd Controlers</string>
   <string name="TEA_control_share">Deel Met Vrienden</string>
   <string name="hide_until_prompt">Laat zien in mijn lijst</string>
-  <string name="TEA_addons_text">Meer functies</string>
-  <string name="TEA_addons_button">Power Pack downloaden</string>
-  <string name="TEA_more">Meer</string>
   <string name="TEA_no_activity">Geen activiteiten weer te geven.</string>
   <string name="TEA_load_more">Laad meer...</string>
   <string name="TEA_when_dialog_title">Wanneer moet dit gedaan zijn?</string>
-  <string name="TEA_date_and_time">Datum/tijd</string>
   <string name="TEA_new_task">Nieuwe Taak</string>
   <string name="WSV_click_to_load">Klik hier om een manier te zoeken om dit af te krijgen!</string>
   <string name="WSV_not_online">Ik kan meer als ik verbonden ben met internet. Controleer je internetverbinding.</string>
   <string name="TEA_contact_error">Sorry! We konden geen emailadres vinden voor de geselecteerde contactpersoon.</string>
-  <string name="InA_title">Welkom bij Astrid!</string>
-  <string name="InA_agree">Accoord</string>
-  <string name="InA_disagree">Niet accoord</string>
   <string name="MCA_title">%1$s\nheeft gebeld (%2$s)</string>
   <string name="MCA_return_call">Bel nu</string>
   <string name="MCA_add_task">Bel later</string>
@@ -281,7 +273,6 @@
     <item>Je kan het!</item>
     <item>Je kan altijd een smsje sturen..</item>
   </string-array>
-  <string name="HlA_get_support">Ondersteuning</string>
   <string name="UpS_changelog_title">Nieuw in Astrid</string>
   <string name="UpS_updates_title">Laatste Astrid nieuws</string>
   <string name="UpS_no_activity_log_in">Log in om een geschiedenis\nvan je vooruitgang en activiteiten\nop gedeelde lijsten te bekijken.</string>
@@ -299,8 +290,6 @@
   <string name="EPr_showNotes_desc_enabled">Notities altijd weergeven</string>
   <string name="EPr_compressTaskRows_title">Compacte Taakrij</string>
   <string name="EPr_compressTaskRows_desc">Comprimeer taak rijen zodat de titel past</string>
-  <string name="EPr_userLegacyImportance_title">Gebruik eerdere prioriteit stijl</string>
-  <string name="EPr_userLegacyImportance_desc">Gebruik eerdere prioriteit stijl</string>
   <string name="EPr_fullTask_title">Laat volledige taak titel zien</string>
   <string name="EPr_fullTask_desc_enabled">Volledige taak titel zal worden weergegeven</string>
   <string name="EPr_fullTask_desc_disabled">Eerste twee lijnen van taak titel zullen worden weergegeven</string>

@@ -233,7 +233,6 @@
     <item>Woche vor der Fälligkeit</item>
     <item>Bestimmter Tag/Uhrzeit</item>
   </string-array>
-  <string name="TEA_control_title">Aufgabentitel</string>
   <string name="TEA_control_who">Wer</string>
   <string name="TEA_control_when">Wann</string>
   <string name="TEA_control_more_section">----Details----</string>
@@ -245,20 +244,13 @@
   <string name="TEA_control_timer">Timer-Einstellungen</string>
   <string name="TEA_control_share">Freunden zuweisen</string>
   <string name="hide_until_prompt">In meiner Liste anzeigen</string>
-  <string name="TEA_addons_text">Wollen Sie mehr von Astrid?</string>
-  <string name="TEA_addons_button">Lade das Power Pack herunter!</string>
-  <string name="TEA_more">Mehr</string>
   <string name="TEA_no_activity">Keine Aktivitäten anzuzeigen</string>
   <string name="TEA_load_more">Weitere laden …</string>
   <string name="TEA_when_dialog_title">Wann ist das fällig?</string>
-  <string name="TEA_date_and_time">Datum/Uhrzeit</string>
   <string name="TEA_new_task">Neue Aufgabe</string>
   <string name="WSV_click_to_load">Drück mich, um dir beim Lösen der Aufgabe zu helfen!</string>
   <string name="WSV_not_online">Ich kann mehr erreichen, wenn ich eine Verbindung zum Internet habe. Bitte prüf deine Verbindung.</string>
   <string name="TEA_contact_error">Sorry! Kann keine Email-Adresse für den ausgewählten Kontakt finden.</string>
-  <string name="InA_title">Willkommen zu Astrid</string>
-  <string name="InA_agree">Ich stimme zu!</string>
-  <string name="InA_disagree">Ich lehne ab!</string>
   <string name="MCA_title">%1$s hat um %2$s angerufen</string>
   <string name="MCA_return_call">Jetzt anrufen</string>
   <string name="MCA_add_task">Später anrufen</string>
@@ -281,7 +273,6 @@
     <item>Du schaffst es!</item>
     <item>Du kannst auch eine SMS senden...</item>
   </string-array>
-  <string name="HlA_get_support">Support erhalten</string>
   <string name="UpS_changelog_title">Was ist neu bei Astrid?</string>
   <string name="UpS_updates_title">Astrid Neuigkeiten</string>
   <string name="UpS_no_activity_log_in">Wenn du dich einloggst, kannst du den \nFortschritt deiner eigenen als auch \ngemeinsamer Aufgabenlisten sehen.</string>
@@ -299,8 +290,6 @@
   <string name="EPr_showNotes_desc_enabled">Benachrichtigungen werden immer angezeigt</string>
   <string name="EPr_compressTaskRows_title">Kompakte Aufgabenzeile</string>
   <string name="EPr_compressTaskRows_desc">Aufgabenzeilengröße an Titel anpassen</string>
-  <string name="EPr_userLegacyImportance_title">Veralteten Wichtigkeits-Stil verwenden</string>
-  <string name="EPr_userLegacyImportance_desc">Veralteten Wichtigkeits-Stil verwenden</string>
   <string name="EPr_fullTask_title">Gesamten Aufgabentitel anzeigen</string>
   <string name="EPr_fullTask_desc_enabled">Aufgabentitel werden vollständig angezeigt</string>
   <string name="EPr_fullTask_desc_disabled">Zwei Zeilen des Aufgabentitels werden angezeigt</string>

@@ -218,13 +218,6 @@
   <string name="TEA_control_notes">备注</string>
   <string name="TEA_control_reminders">提醒</string>
   <string name="hide_until_prompt">在我的列表中显示</string>
-  <string name="TEA_addons_text">查找更多功能吗？</string>
-  <string name="TEA_addons_button">取得强化套件！</string>
-  <string name="TEA_more">更多</string>
-  <string name="InA_title">欢迎使用 Astrid！</string>
-  <string name="InA_agree">我同意！！</string>
-  <string name="InA_disagree">我不同意</string>
-  <string name="HlA_get_support">取得协助</string>
   <string name="UpS_changelog_title">Astrid 有哪些最新功能？</string>
   <string name="UpS_updates_title">Astrid 最新消息</string>
   <string name="EPr_title">Astrid：设置</string>
@@ -911,7 +904,6 @@
   <string name="TEA_hideUntil_message">任务将会被隐藏，直到 %s</string>
   <string name="TEA_tab_web">建议</string>
   <string name="TEA_no_time">没有时间</string>
-  <string name="TEA_control_title">任务标题</string>
   <string name="TEA_control_who">人物</string>
   <string name="TEA_control_when">时间</string>
   <string name="TEA_control_more_section">----详情----</string>
@@ -921,7 +913,6 @@
   <string name="TEA_no_activity">没有可以显示的活动。</string>
   <string name="TEA_load_more">加载更多……</string>
   <string name="TEA_when_dialog_title">这项活动定在什么时候呀？</string>
-  <string name="TEA_date_and_time">日期/时间</string>
   <string name="WSV_click_to_load">拍拍我，让我搜索一下完成这项任务的各种方法！</string>
   <string name="WSV_not_online">连上互联网后我可以做更多事情。请检查一下您的网络连接呗。</string>
   <string name="TEA_contact_error">不好意思！我们找不到所选联系人的电子邮件地址喔。</string>
@@ -952,8 +943,6 @@
   <string name="EPr_beastMode_desc">自定义任务编辑屏幕的布局</string>
   <string name="EPr_compressTaskRows_title">简约式任务行</string>
   <string name="EPr_compressTaskRows_desc">压缩任务行，使它适应标题</string>
-  <string name="EPr_userLegacyImportance_title">采用传统要事式风格</string>
-  <string name="EPr_userLegacyImportance_desc">采用传统要事式风格</string>
   <string name="EPr_fullTask_title">显示完整的任务标题</string>
   <string name="EPr_fullTask_desc_enabled">将显示完整的任务标题</string>
   <string name="EPr_fullTask_desc_disabled">将显示任务标题的头两行</string>

@@ -233,7 +233,6 @@
     <item>За неделю до намеченного срока</item>
     <item>Определённый день/время</item>
   </string-array>
-  <string name="TEA_control_title">Название задачи</string>
   <string name="TEA_control_who">Кто</string>
   <string name="TEA_control_when">Когда</string>
   <string name="TEA_control_more_section">----Еще----</string>
@@ -245,20 +244,13 @@
   <string name="TEA_control_timer">Учет времени</string>
   <string name="TEA_control_share">Опубликовать для друзей</string>
   <string name="hide_until_prompt">Отобразить в моем листе</string>
-  <string name="TEA_addons_text">Ищете еще возможностей?</string>
-  <string name="TEA_addons_button">Скачать Расширенный пакет!</string>
-  <string name="TEA_more">Ещё</string>
   <string name="TEA_no_activity">Нет активности.</string>
   <string name="TEA_load_more">Загрузить больше...</string>
   <string name="TEA_when_dialog_title">Когда это должно произойти?</string>
-  <string name="TEA_date_and_time">Дата/время</string>
   <string name="TEA_new_task">Новая задача</string>
   <string name="WSV_click_to_load">Нажми меня для поиска решений этой задачи!</string>
   <string name="WSV_not_online">Я способен на большее при подключении к Интернету. Пожалуйста, проверьте ваше подключение.</string>
   <string name="TEA_contact_error">Извините, мы не мажем найти адрес эл. почты для выбранного контакта</string>
-  <string name="InA_title">Добро пожаловать в Astrid!</string>
-  <string name="InA_agree">Я согласен!!</string>
-  <string name="InA_disagree">Я не согласен</string>
   <string name="MCA_title">%1$s\nзврнил(а) в %2$s</string>
   <string name="MCA_return_call">Позвонить сейчас</string>
   <string name="MCA_add_task">Позвонить позже</string>
@@ -281,7 +273,6 @@
     <item>Вы можете это сделать!</item>
     <item>Вы можете всегда отправлять текст...</item>
   </string-array>
-  <string name="HlA_get_support">Получить поддержку</string>
   <string name="UpS_changelog_title">Что нового в Astrid?</string>
   <string name="UpS_updates_title">Последние новости Astrid</string>
   <string name="UpS_no_activity_log_in">Войдите, чтобы увидеть\nсвой прогресс и активность\nв опубликованных списках.</string>
@@ -299,8 +290,6 @@
   <string name="EPr_showNotes_desc_enabled">Заметки показываются всегда</string>
   <string name="EPr_compressTaskRows_title">Компактные строки задач</string>
   <string name="EPr_compressTaskRows_desc">Сжать строки задач до высоты названий</string>
-  <string name="EPr_userLegacyImportance_title">Использовать классический стиль важности</string>
-  <string name="EPr_userLegacyImportance_desc">Использовать классический стиль важности</string>
   <string name="EPr_fullTask_title">Показывать полное название задачи</string>
   <string name="EPr_fullTask_desc_enabled">Будет показано полное название задачи</string>
   <string name="EPr_fullTask_desc_disabled">Будут показаны первые две строки названия</string>

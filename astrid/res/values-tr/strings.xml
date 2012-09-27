@@ -233,7 +233,6 @@
     <item>Son tarihten bir hafta önce</item>
     <item>Belirli Gün/Zamanda</item>
   </string-array>
-  <string name="TEA_control_title">Görev Başlığı</string>
   <string name="TEA_control_who">Kim</string>
   <string name="TEA_control_when">Ne Zaman</string>
   <string name="TEA_control_more_section">----Daha fazla----</string>
@@ -245,20 +244,13 @@
   <string name="TEA_control_timer">Geri Sayım Denetimleri</string>
   <string name="TEA_control_share">Arkadaşlarla Paylaş</string>
   <string name="hide_until_prompt">Listemde göster</string>
-  <string name="TEA_addons_text">Daha fazla özellik mi arıyorsun?</string>
-  <string name="TEA_addons_button">Güç Paketi\'ni satın al!</string>
-  <string name="TEA_more">Daha Fazla</string>
   <string name="TEA_no_activity">Gösterilecek Etkinlik Yok.</string>
   <string name="TEA_load_more">Daha yükle...</string>
   <string name="TEA_when_dialog_title">Son zamanı nedir?</string>
-  <string name="TEA_date_and_time">Tarih/Saat</string>
   <string name="TEA_new_task">Yeni Görev</string>
   <string name="WSV_click_to_load">Bunu yapmanın yollarını bulmak için bana dokunun!</string>
   <string name="WSV_not_online">İnternete bağlanırsam daha fazlasını yapabilirim. Lütfen bağlantınızı denetleyin.</string>
   <string name="TEA_contact_error">Üzgünüz! Seçilmiş kişi için bir e-posta adresi bulunamadı.</string>
-  <string name="InA_title">Astrid\'e Hoş geldiniz!</string>
-  <string name="InA_agree">Kabul Et!!</string>
-  <string name="InA_disagree">Reddet</string>
   <string name="MCA_title">%1$s aradı\nzamanı: %2$s</string>
   <string name="MCA_return_call">Şimdi ara</string>
   <string name="MCA_add_task">Sonra ara</string>
@@ -281,7 +273,6 @@
     <item>Yapabilirsin!</item>
     <item>Her zaman bir ileti gönderebilirsin...</item>
   </string-array>
-  <string name="HlA_get_support">Destek Al</string>
   <string name="UpS_changelog_title">Astrid\'te Yenilikler Neler?</string>
   <string name="UpS_updates_title">En Son Astrid Haberleri</string>
   <string name="UpS_no_activity_log_in">Paylaşılan listelerdeki etkinlik\nilerlemenizin kaydını görmek\niçin oturum açın.</string>
@@ -299,8 +290,6 @@
   <string name="EPr_showNotes_desc_enabled">Notlar her zaman görüntülenecek</string>
   <string name="EPr_compressTaskRows_title">Sıkışık Görev Sırası</string>
   <string name="EPr_compressTaskRows_desc">Başlığın sığması için görev sıralarını sıkıştır</string>
-  <string name="EPr_userLegacyImportance_title">Artakalan önem biçemini kullan</string>
-  <string name="EPr_userLegacyImportance_desc">Artakalan önem biçemini kullan</string>
   <string name="EPr_fullTask_title">Tüm görev başlığını göster</string>
   <string name="EPr_fullTask_desc_enabled">Tüm görev başlığı gösterilecek</string>
   <string name="EPr_fullTask_desc_disabled">Görev başlığının ilk iki satırı gösterilecek</string>

@@ -232,7 +232,6 @@
     <item>Uke før forfall</item>
     <item>Spesifikk dag/tidspunkt</item>
   </string-array>
-  <string name="TEA_control_title">Task Title</string>
   <string name="TEA_control_who">Who</string>
   <string name="TEA_control_when">When</string>
   <string name="TEA_control_more_section">----More Section----</string>
@@ -244,20 +243,13 @@
   <string name="TEA_control_timer">Timer Controls</string>
   <string name="TEA_control_share">Share With Friends</string>
   <string name="hide_until_prompt">Show in my list</string>
-  <string name="TEA_addons_text">Ser du etter flere funksjoner?</string>
-  <string name="TEA_addons_button">Skaff deg \"the Power Pack!\"</string>
-  <string name="TEA_more">Mer</string>
   <string name="TEA_no_activity">No Activity to Show.</string>
   <string name="TEA_load_more">Load more...</string>
   <string name="TEA_when_dialog_title">When is this due?</string>
-  <string name="TEA_date_and_time">Date/Time</string>
   <string name="TEA_new_task">New Task</string>
   <string name="WSV_click_to_load">Tap me to search for ways to get this done!</string>
   <string name="WSV_not_online">I can do more when connected to the Internet. Please check your connection.</string>
   <string name="TEA_contact_error">Sorry! We couldn\'t find an email address for the selected contact.</string>
-  <string name="InA_title">Velkommen til Astrid!</string>
-  <string name="InA_agree">Jeg er enig!</string>
-  <string name="InA_disagree">Jeg er ikke enig</string>
   <string name="MCA_title">%1$s\ncalled at %2$s</string>
   <string name="MCA_return_call">Call now</string>
   <string name="MCA_add_task">Call later</string>
@@ -280,7 +272,6 @@
     <item>You can do it!</item>
     <item>You can always send a text...</item>
   </string-array>
-  <string name="HlA_get_support">Få hjelp</string>
   <string name="UpS_changelog_title">Hva er nytt i Astrid?</string>
   <string name="UpS_updates_title">Siste nytt om Astrid</string>
   <string name="UpS_no_activity_log_in">Log in to see a record of\nyour progress as well as\nactivity on shared lists.</string>
@@ -298,8 +289,6 @@
   <string name="EPr_showNotes_desc_enabled">Notater vil alltid vises</string>
   <string name="EPr_compressTaskRows_title">Compact Task Row</string>
   <string name="EPr_compressTaskRows_desc">Compress task rows to fit title</string>
-  <string name="EPr_userLegacyImportance_title">Use legacy importance style</string>
-  <string name="EPr_userLegacyImportance_desc">Use legacy importance style</string>
   <string name="EPr_fullTask_title">Show full task title</string>
   <string name="EPr_fullTask_desc_enabled">Full task title will be shown</string>
   <string name="EPr_fullTask_desc_disabled">First two lines of task title will be shown</string>

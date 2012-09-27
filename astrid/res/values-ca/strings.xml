@@ -233,7 +233,6 @@
     <item>La setmana abans del venciment</item>
     <item>Dia/Hora concret</item>
   </string-array>
-  <string name="TEA_control_title">Títol de la tasca</string>
   <string name="TEA_control_who">Qui</string>
   <string name="TEA_control_when">Quan</string>
   <string name="TEA_control_more_section">----Detalls----</string>
@@ -245,20 +244,13 @@
   <string name="TEA_control_timer">Timer Controls</string>
   <string name="TEA_control_share">Share With Friends</string>
   <string name="hide_until_prompt">Mostra a la meva llista</string>
-  <string name="TEA_addons_text">Looking for more features?</string>
-  <string name="TEA_addons_button">Get the Power Pack!</string>
-  <string name="TEA_more">Més</string>
   <string name="TEA_no_activity">No hi ha activitat per mostrar</string>
   <string name="TEA_load_more">Carrega més...</string>
   <string name="TEA_when_dialog_title">When is this due?</string>
-  <string name="TEA_date_and_time">Data/Hora</string>
   <string name="TEA_new_task">Tasca nova</string>
   <string name="WSV_click_to_load">Tap me to search for ways to get this done!</string>
   <string name="WSV_not_online">I can do more when connected to the Internet. Please check your connection.</string>
   <string name="TEA_contact_error">Sorry! We couldn\'t find an email address for the selected contact.</string>
-  <string name="InA_title">Benvingut a Astrid</string>
-  <string name="InA_agree">Estic d\'acord</string>
-  <string name="InA_disagree">No estic d\'acord</string>
   <string name="MCA_title">%1$s\ncalled at %2$s</string>
   <string name="MCA_return_call">Truca ara</string>
   <string name="MCA_add_task">Truca després</string>
@@ -281,7 +273,6 @@
     <item>Tu ho pots fer!</item>
     <item>You can always send a text...</item>
   </string-array>
-  <string name="HlA_get_support">Obtingui suport</string>
   <string name="UpS_changelog_title">Què hi ha de nou en Astrid?</string>
   <string name="UpS_updates_title">Latest Astrid News</string>
   <string name="UpS_no_activity_log_in">Log in to see a record of\nyour progress as well as\nactivity on shared lists.</string>
@@ -299,8 +290,6 @@
   <string name="EPr_showNotes_desc_enabled">Notes will always be displayed</string>
   <string name="EPr_compressTaskRows_title">Compact Task Row</string>
   <string name="EPr_compressTaskRows_desc">Compress task rows to fit title</string>
-  <string name="EPr_userLegacyImportance_title">Use legacy importance style</string>
-  <string name="EPr_userLegacyImportance_desc">Use legacy importance style</string>
   <string name="EPr_fullTask_title">Mostra el títol sencer de la tasca</string>
   <string name="EPr_fullTask_desc_enabled">Es mostrarà el títol sencer de la tasca</string>
   <string name="EPr_fullTask_desc_disabled">First two lines of task title will be shown</string>

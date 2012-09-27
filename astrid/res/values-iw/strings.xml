@@ -233,7 +233,6 @@
     <item>שבוע לפקיעה</item>
     <item>תאריך/שעה מסוימים</item>
   </string-array>
-  <string name="TEA_control_title">כותרת משימה</string>
   <string name="TEA_control_who">מי</string>
   <string name="TEA_control_when">מתי</string>
   <string name="TEA_control_more_section">----More Section----</string>
@@ -245,20 +244,13 @@
   <string name="TEA_control_timer">הערכת זמן</string>
   <string name="TEA_control_share">שתף עם חברים</string>
   <string name="hide_until_prompt">הצג ברשימה שלי</string>
-  <string name="TEA_addons_text">מחפש תכונות נוספות?</string>
-  <string name="TEA_addons_button">קבל את חבילת הַכֹּחַ!</string>
-  <string name="TEA_more">עוד</string>
   <string name="TEA_no_activity">אין משימות להצגה</string>
   <string name="TEA_load_more">טען עוד...</string>
   <string name="TEA_when_dialog_title">מה תאריך היעד?</string>
-  <string name="TEA_date_and_time">תאריך\\שעה</string>
   <string name="TEA_new_task">משימה חדשה</string>
   <string name="WSV_click_to_load">גע בי כדי למצוא דרכים לבצע זאת!</string>
   <string name="WSV_not_online">ביכולתי לעשות יותר למענך כאשר אני מחוברת לאינטרנט. אנא בדוק את החיבור.</string>
   <string name="TEA_contact_error">מצטערת, לא מצאתי את כתובת הדוא״ל עבור איש קשר זה.</string>
-  <string name="InA_title">ברוך בואך ל־Astrid!</string>
-  <string name="InA_agree">מוסכם!!</string>
-  <string name="InA_disagree">לא מוסכם</string>
   <string name="MCA_title">%1$s \nהתקשר ב־%2$s</string>
   <string name="MCA_return_call">התקשר כעת</string>
   <string name="MCA_add_task">התקשר מאוחר יותר</string>
@@ -281,7 +273,6 @@
     <item>אתה יכול!</item>
     <item>תמיד תוכל לשלוח מסרון...</item>
   </string-array>
-  <string name="HlA_get_support">קבלת תמיכה</string>
   <string name="UpS_changelog_title">מה חדש ב־Astrid?</string>
   <string name="UpS_updates_title">חדשות Astrid אחרונות</string>
   <string name="UpS_no_activity_log_in">התחבר כדי לראות דו״ח על\n\nהתקדמותך ועל הפעילות\n\nברשימות המשותפות.</string>
@@ -299,8 +290,6 @@
   <string name="EPr_showNotes_desc_enabled">הערות תוצגנה תמיד</string>
   <string name="EPr_compressTaskRows_title">שורת משימות דחוסה</string>
   <string name="EPr_compressTaskRows_desc">דחוס את שורות המשימות כך שיתאימו לכותרת.</string>
-  <string name="EPr_userLegacyImportance_title">השתמש ברמות עדיפות בסגנון הישן</string>
-  <string name="EPr_userLegacyImportance_desc">השתמש ברמות עדיפות בסגנון הישן</string>
   <string name="EPr_fullTask_title">הצג את שם המשימה המלא</string>
   <string name="EPr_fullTask_desc_enabled">שם המשימה המלא יוצג</string>
   <string name="EPr_fullTask_desc_disabled">שתי השורות הראשונות של שם המשימה תוצגנה</string>

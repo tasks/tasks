@@ -233,7 +233,6 @@
     <item>Veckan före förfall</item>
     <item>Specifik dag/tid</item>
   </string-array>
-  <string name="TEA_control_title">Uppgiftens namn</string>
   <string name="TEA_control_who">Vem</string>
   <string name="TEA_control_when">När</string>
   <string name="TEA_control_more_section">----More Section----</string>
@@ -245,20 +244,13 @@
   <string name="TEA_control_timer">Inställningar för tidtagarur</string>
   <string name="TEA_control_share">Dela med vänner</string>
   <string name="hide_until_prompt">Visa i min lista</string>
-  <string name="TEA_addons_text">Letar efter fler roliga funktioner?</string>
-  <string name="TEA_addons_button">Skaffa Power Pack!</string>
-  <string name="TEA_more">Mer</string>
   <string name="TEA_no_activity">Ingen aktivitet att visa.</string>
   <string name="TEA_load_more">Ladda mer...</string>
   <string name="TEA_when_dialog_title">När ska uppgiften vara slutförd?</string>
-  <string name="TEA_date_and_time">Datum/tid</string>
   <string name="TEA_new_task">Ny uppgift</string>
   <string name="WSV_click_to_load">Klicka på mig för att hitta sätt att få det här gjort!</string>
   <string name="WSV_not_online">Jag kan göra mer när jag är uppkopplad. Kontrollera din internetförbindelse.</string>
   <string name="TEA_contact_error">Tyvärr kunde vi inte hitta en mailadress till den valda kontakten.</string>
-  <string name="InA_title">Välkommen till Astrid!</string>
-  <string name="InA_agree">Jag samtycker!!</string>
-  <string name="InA_disagree">Jag samtycker inte</string>
   <string name="MCA_title">%1$s\nringde kl %2$s</string>
   <string name="MCA_return_call">Ring nu</string>
   <string name="MCA_add_task">Ring senare</string>
@@ -281,7 +273,6 @@
     <item>Du klarar det!</item>
     <item>Du kan alltid sända ett sms...</item>
   </string-array>
-  <string name="HlA_get_support">Få hjälp</string>
   <string name="UpS_changelog_title">Vad är nytt i Astrid?</string>
   <string name="UpS_updates_title">Senaste Astrid nyheter</string>
   <string name="UpS_no_activity_log_in">Logga in för att se hur\ndet går för dig och vad\nsom händer på delade listor.</string>
@@ -299,8 +290,6 @@
   <string name="EPr_showNotes_desc_enabled">Anteckningar visas alltid</string>
   <string name="EPr_compressTaskRows_title">Kompakt uppgiftsrad</string>
   <string name="EPr_compressTaskRows_desc">Anpassa rader efter uppgiftens titel</string>
-  <string name="EPr_userLegacyImportance_title">Använd prioritet från högre nivå</string>
-  <string name="EPr_userLegacyImportance_desc">Använd prioritet från högre nivå</string>
   <string name="EPr_fullTask_title">Visa hela namnet på uppgiften</string>
   <string name="EPr_fullTask_desc_enabled">Uppgiftens namn kommer att visas i sin helhet</string>
   <string name="EPr_fullTask_desc_disabled">De första två raderna i uppgiftens namn kommer att visas</string>

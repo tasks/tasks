@@ -233,7 +233,6 @@
     <item>작업 마감일 1주일 전</item>
     <item>정해진 일자/시간</item>
   </string-array>
-  <string name="TEA_control_title">할 일 제목</string>
   <string name="TEA_control_who">Who</string>
   <string name="TEA_control_when">언제</string>
   <string name="TEA_control_more_section">----More Section----</string>
@@ -245,20 +244,13 @@
   <string name="TEA_control_timer">Timer Controls</string>
   <string name="TEA_control_share">친구와 공유</string>
   <string name="hide_until_prompt">내 리스트에 표시</string>
-  <string name="TEA_addons_text">새로운 기능을 찾고 있습니까?</string>
-  <string name="TEA_addons_button">Power Pack을 얻으십시오!</string>
-  <string name="TEA_more">자세히</string>
   <string name="TEA_no_activity">표시할 활동이 없습니다.</string>
   <string name="TEA_load_more">Load more...</string>
   <string name="TEA_when_dialog_title">마감이 언제입니까?</string>
-  <string name="TEA_date_and_time">날짜/시간</string>
   <string name="TEA_new_task">New Task</string>
   <string name="WSV_click_to_load">Tap me to search for ways to get this done!</string>
   <string name="WSV_not_online">저는 인터넷과 연결되었을 때 더 많은 일을 할 수 있습니다. 인터넷 연결을 확인해 주세요.</string>
   <string name="TEA_contact_error">Sorry! We couldn\'t find an email address for the selected contact.</string>
-  <string name="InA_title">Astrid 사용을 환영합니다!</string>
-  <string name="InA_agree">동의합니다!!</string>
-  <string name="InA_disagree">동의하지 않습니다.</string>
   <string name="MCA_title">%1$s\ncalled at %2$s</string>
   <string name="MCA_return_call">지금 전화하기</string>
   <string name="MCA_add_task">나중에 전화하기</string>
@@ -281,7 +273,6 @@
     <item>할 수 있어요!</item>
     <item>You can always send a text...</item>
   </string-array>
-  <string name="HlA_get_support">고객지원 받기</string>
   <string name="UpS_changelog_title">Astrid 의 새로운 기능</string>
   <string name="UpS_updates_title">최신 Astrid 뉴스</string>
   <string name="UpS_no_activity_log_in">Log in to see a record of\nyour progress as well as\nactivity on shared lists.</string>
@@ -299,8 +290,6 @@
   <string name="EPr_showNotes_desc_enabled">노트 항상 보여주기</string>
   <string name="EPr_compressTaskRows_title">Compact Task Row</string>
   <string name="EPr_compressTaskRows_desc">Compress task rows to fit title</string>
-  <string name="EPr_userLegacyImportance_title">Use legacy importance style</string>
-  <string name="EPr_userLegacyImportance_desc">Use legacy importance style</string>
   <string name="EPr_fullTask_title">Show full task title</string>
   <string name="EPr_fullTask_desc_enabled">전체 할 일 제목이 표시됩니다.</string>
   <string name="EPr_fullTask_desc_disabled">할 일 제목의 첫 두 줄이 표시됩니다.</string>

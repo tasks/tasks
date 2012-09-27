@@ -233,7 +233,6 @@
     <item>Týden před ukončením</item>
     <item>Určitý den/čas</item>
   </string-array>
-  <string name="TEA_control_title">Název úkolu</string>
   <string name="TEA_control_who">Kdo</string>
   <string name="TEA_control_when">Kdy</string>
   <string name="TEA_control_more_section">----More Section----</string>
@@ -245,20 +244,13 @@
   <string name="TEA_control_timer">Timer Controls</string>
   <string name="TEA_control_share">Sdílet s přáteli</string>
   <string name="hide_until_prompt">Zobrazit v mém seznamu</string>
-  <string name="TEA_addons_text">Rádi byste více funkcí?</string>
-  <string name="TEA_addons_button">Získat \"Power pack\"</string>
-  <string name="TEA_more">Více</string>
   <string name="TEA_no_activity">Není co zobrazit</string>
   <string name="TEA_load_more">Více...</string>
   <string name="TEA_when_dialog_title">Kdy je termín?</string>
-  <string name="TEA_date_and_time">Datum/Čas</string>
   <string name="TEA_new_task">Nový úkol</string>
   <string name="WSV_click_to_load">Klepnutím vyhledáte jak na to!</string>
   <string name="WSV_not_online">S připojením k internetu by to byla jiná káva. Zkontrolujte prosím spojení.</string>
   <string name="TEA_contact_error">Sorry! We couldn\'t find an email address for the selected contact.</string>
-  <string name="InA_title">Vítej v Astrid!</string>
-  <string name="InA_agree">Souhlasím!!</string>
-  <string name="InA_disagree">Nesouhlasím</string>
   <string name="MCA_title">%1$s\ncalled at %2$s</string>
   <string name="MCA_return_call">Hned zavolat</string>
   <string name="MCA_add_task">Zavolat později</string>
@@ -281,7 +273,6 @@
     <item>To zvládnete!</item>
     <item>SMS můžete poslat vždycky...</item>
   </string-array>
-  <string name="HlA_get_support">Získat podporu</string>
   <string name="UpS_changelog_title">Co je nového v Astrid?</string>
   <string name="UpS_updates_title">Poslední \"Astrid\" novinky</string>
   <string name="UpS_no_activity_log_in">Log in to see a record of\nyour progress as well as\nactivity on shared lists.</string>
@@ -299,8 +290,6 @@
   <string name="EPr_showNotes_desc_enabled">Poznámky budou vždy zobrazeny</string>
   <string name="EPr_compressTaskRows_title">Compact Task Row</string>
   <string name="EPr_compressTaskRows_desc">Compress task rows to fit title</string>
-  <string name="EPr_userLegacyImportance_title">Use legacy importance style</string>
-  <string name="EPr_userLegacyImportance_desc">Use legacy importance style</string>
   <string name="EPr_fullTask_title">Zobrazit úplný název úkolu</string>
   <string name="EPr_fullTask_desc_enabled">Zobrazí se úplný název úkolu</string>
   <string name="EPr_fullTask_desc_disabled">Zobrazí se první dva řádky názvu úkolu</string>

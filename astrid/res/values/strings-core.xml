@@ -403,7 +403,6 @@
   </string-array>
   
   <!-- Task edit control set descriptors -->
-  <string name="TEA_control_title">Task Title</string>
 
   <!-- slide 9b/35i -->
   <string name="TEA_control_who">Who</string>
@@ -435,13 +434,10 @@
   <string name="hide_until_prompt">Show in my list</string>
   
   <!-- Add Ons tab when no add-ons found -->
-  <string name="TEA_addons_text">Looking for more features?</string>
   
   <!-- Add Ons button -->
-  <string name="TEA_addons_button">Get the Power Pack!</string>
   
   <!-- More row -->
-  <string name="TEA_more">More</string>
   
   <!-- slide 15c: Text when no activity to show -->
   <string name="TEA_no_activity">No activity</string>
@@ -452,7 +448,6 @@
   <!-- When controls dialog -->
   <string name="TEA_when_dialog_title">When is this due?</string>
   
-  <string name="TEA_date_and_time">Date/Time</string>
   
   <string name="TEA_new_task">New Task</string>
   
@@ -465,13 +460,10 @@
   <!-- ============================================= IntroductionActivity == -->
   
   <!-- slide 1a: Introduction Window title -->
-  <string name="InA_title">Welcome to Astrid!</string>
   
   <!-- Button to agree to EULA -->
-  <string name="InA_agree">I Agree!!</string>
   
   <!-- Button to disagree with EULA -->
-  <string name="InA_disagree">I Disagree</string>
   
   <!-- ===================================================== MissedCallActivity == -->
   
@@ -529,7 +521,6 @@
   <!-- ===================================================== HelpActivity == -->
   
   <!-- Help: Button to get support from our website -->
-  <string name="HlA_get_support">Get Support</string>
     
   <!-- ==================================================== UpdateService == -->
   
@@ -581,7 +572,6 @@
   <string name="EPr_fontSize_desc">Font size on the main listing page</string>  
   
   <!-- Preferemce: Show task edit confirmation toasts -->
-  <string name="EPr_showEditToasts_title">Show task edit confirmations</string>
   
   <!-- slide 34c: Preference: Task List Show Notes -->
   <string name="EPr_showNotes_title">Show notes in task</string>
@@ -603,9 +593,7 @@
   <string name="EPr_compressTaskRows_desc">Compress task rows to fit title</string>
   
   <!-- slide 34e: Preferences: Use legacy importance and checkbox style -->
-  <string name="EPr_userLegacyImportance_title">Use legacy importance style</string>
   <!-- slide 34k-->
-  <string name="EPr_userLegacyImportance_desc">Use legacy importance style</string>
   
   <!-- slide 34b: Preferences: Wrap task titles to two lines -->
   <string name="EPr_fullTask_title">Show full task title</string>

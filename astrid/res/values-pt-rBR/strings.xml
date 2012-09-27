@@ -233,7 +233,6 @@
     <item>1 semana antes do vencimento</item>
     <item>Dia/Hora específica</item>
   </string-array>
-  <string name="TEA_control_title">Título da Tarefa</string>
   <string name="TEA_control_who">Quem</string>
   <string name="TEA_control_when">Quando</string>
   <string name="TEA_control_more_section">----Detalhes----</string>
@@ -245,20 +244,13 @@
   <string name="TEA_control_timer">Temporizador</string>
   <string name="TEA_control_share">Compartilhar com amigos</string>
   <string name="hide_until_prompt">Mostrar na minha lista</string>
-  <string name="TEA_addons_text">Procurando por mais funcionalidades?</string>
-  <string name="TEA_addons_button">Obtenha o Power Pack!</string>
-  <string name="TEA_more">Mais</string>
   <string name="TEA_no_activity">Sem atividades</string>
   <string name="TEA_load_more">Carregar mais...</string>
   <string name="TEA_when_dialog_title">Quando vence?</string>
-  <string name="TEA_date_and_time">Data/Hora</string>
   <string name="TEA_new_task">Nova Tarefa</string>
   <string name="WSV_click_to_load">Toque para procurar maneiras de terminar isso!</string>
   <string name="WSV_not_online">Posso fazer mais se estiver conectado à internet. Verifique sua conexão</string>
   <string name="TEA_contact_error">Desculpe! Nós não conseguimos achar um endereço de e-mail para o contato selecionado.</string>
-  <string name="InA_title">Bem vindo ao Astrid!</string>
-  <string name="InA_agree">Aceitar</string>
-  <string name="InA_disagree">Recusar</string>
   <string name="MCA_title">%1$s\nligou às %2$s</string>
   <string name="MCA_return_call">Ligar agora</string>
   <string name="MCA_add_task">Ligar mais tarde</string>
@@ -281,7 +273,6 @@
     <item>Você pode fazer!</item>
     <item>Você pode sempre mandar uma mensagem...</item>
   </string-array>
-  <string name="HlA_get_support">Obter ajuda</string>
   <string name="UpS_changelog_title">O que há de novo no Astrid?</string>
   <string name="UpS_updates_title">Ultimas novidades no Astrid</string>
   <string name="UpS_no_activity_log_in">"Conecte-se para ver um registro\ndo seu progresso  e também as\natividades nas listas compartilhadas."</string>
@@ -299,8 +290,6 @@
   <string name="EPr_showNotes_desc_enabled">As notas sempre serão exibidas</string>
   <string name="EPr_compressTaskRows_title">Linhas reduzidas</string>
   <string name="EPr_compressTaskRows_desc">Reduzir espaços para adequar os títulos</string>
-  <string name="EPr_userLegacyImportance_title">Usar estilo antigo para importância</string>
-  <string name="EPr_userLegacyImportance_desc">Usar estilo antigo para importância</string>
   <string name="EPr_fullTask_title">Exibir título completo</string>
   <string name="EPr_fullTask_desc_enabled">O título completo será exibido</string>
   <string name="EPr_fullTask_desc_disabled">Somente as primeiras duas linhas serão exibidas</string>
