@@ -78,7 +78,6 @@ public class UpdateMessageService {
 
     public void processUpdates() {
         JSONArray updates = checkForUpdates();
-        System.err.println("UPDATES: " + updates);
 
 //        try {
 //            JSONObject test = new JSONObject();
@@ -109,13 +108,13 @@ public class UpdateMessageService {
         void showDialog(Activity activity);
     }
 
-    private void showDialog(DialogShower shower) {
+    private void showDialog(DialogShower ds) {
         try {
-            shower.showDialog(activity);
+            ds.showDialog(activity);
         } catch (BadTokenException bt) {
             try {
                 Activity current = (Activity) ContextManager.getContext();
-                shower.showDialog(current);
+                ds.showDialog(current);
             } catch (ClassCastException c) {
                 // Oh well, context wasn't an activity
             } catch (BadTokenException bt2) {
@@ -128,14 +127,14 @@ public class UpdateMessageService {
         if(activity == null)
             return;
 
-        final DialogShower shower;
+        final DialogShower ds;
         if (message instanceof Spannable) {
             final TextView textView = new TextView(activity);
             textView.setText(message);
             textView.setTextSize(16);
             textView.setTextColor(activity.getResources().getColor(ThemeService.getDialogTextColor()));
             textView.setMovementMethod(LinkMovementMethod.getInstance());
-            shower = new DialogShower() {
+            ds = new DialogShower() {
                 @Override
                 public void showDialog(Activity a) {
                     final Dialog d = new AlertDialog.Builder(a)
@@ -156,7 +155,7 @@ public class UpdateMessageService {
             String color = ThemeService.getDialogTextColorString();
             final String html = "<html><body style='color: " + color + "'>" +
                     message + "</body></html>";
-            shower = new DialogShower() {
+            ds = new DialogShower() {
                 @Override
                 public void showDialog(Activity a) {
                     DialogUtilities.htmlDialog(a,
@@ -168,7 +167,7 @@ public class UpdateMessageService {
         activity.runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                showDialog(shower);
+                showDialog(ds);
             }
         });
 
@@ -203,7 +202,7 @@ public class UpdateMessageService {
             String type = update.optString("type", null);
             if ("screen".equals(type) || "pref".equals(type)) {
                 String linkText = update.optString("link");
-                Spannable span = Spannable.Factory.getInstance().newSpannable(message + "\n" + linkText);
+                Spannable span = Spannable.Factory.getInstance().newSpannable(message + "\n\n" + linkText);
                 ClickableSpan click = getClickableSpanForUpdate(update, type);
                 if (click == null)
                     continue;
