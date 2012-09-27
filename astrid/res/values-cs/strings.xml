@@ -1,15 +1,11 @@
 <?xml version='1.0' encoding='utf-8'?>
 <resources>
-  <string name="EPE_action">Sdílet</string>
   <string name="actfm_person_hint">Contact or Email</string>
   <string name="actfm_person_or_tag_hint">Kontakt nebo Sdílený list</string>
-  <string name="actfm_toast_success">Uloženo na serveru</string>
-  <string name="actfm_tag_operation_disabled">Tato operace není bohužel se sdílenými tagy zatím podporována.</string>
   <string name="actfm_tag_operation_owner_delete">Jste vlastníkem tohoto sdíleného seznamu! Pokud ho smažete, smaže se i u všech členů seznamu. Chcete skutečně pokračovat?</string>
   <string name="actfm_picture_camera">Vyfoť obrázek</string>
   <string name="actfm_picture_gallery">Vyber obrázek z galerie</string>
   <string name="actfm_picture_clear">Odebrat obrázek</string>
-  <string name="actfm_FLA_menu_refresh">Obnov list</string>
   <string name="actfm_view_task_title">View Task?</string>
   <string name="actfm_view_task_text">%s se stal novým vlastníkem úkolu! Teď si prohlížíte vlastní úkoly. Chcete vidět úkoly, které jste delegoval(a)?</string>
   <string name="actfm_view_task_ok">Delegované</string>
@@ -17,7 +13,6 @@
   <string name="actfm_my_shared_tasks_title">Moje sdílené úkoly</string>
   <string name="actfm_my_shared_tasks_empty">Žádné sdílené úkoly</string>
   <string name="TVA_add_comment">Přidej comment...</string>
-  <string name="UAd_title_comment">%1$s re: %2$s</string>
   <string-array name="TVA_tabs">
     <item>Úkoly</item>
     <item>Activity</item>
@@ -28,13 +23,10 @@
   <string name="actfm_TVA_no_members_alert">Private: tap to edit or share list</string>
   <string name="actfm_TVA_menu_refresh">Obnovit</string>
   <string name="actfm_TVA_tag_label">Název listu:</string>
-  <string name="actfm_TVA_tag_owner_label">Tvůrce listu:</string>
-  <string name="actfm_TVA_tag_owner_none">nikdo</string>
   <string name="actfm_TVA_members_label">Spolupracovníci:</string>
   <string name="actfm_TVA_members_hint">Share with anyone who has an email address</string>
   <string name="actfm_TVA_tag_picture">Obrázek listu</string>
   <string name="actfm_TVA_silence_label">Tichá upozornění</string>
-  <string name="actfm_TVA_list_icon_label">List Icon:</string>
   <string name="actfm_TVA_tag_description_label">Popis</string>
   <string name="actfm_TVA_tag_settings_label">Settings</string>
   <string name="actfm_TVA_tag_description_hint">Zde zadejte popis</string>

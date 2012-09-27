@@ -1,22 +1,17 @@
 <?xml version='1.0' encoding='utf-8'?>
 <resources>
-  <string name="EPE_action">分享</string>
   <string name="actfm_person_hint">联系人姓名</string>
   <string name="actfm_person_or_tag_hint">联系方式或共享列表</string>
-  <string name="actfm_toast_success">已储存至服务器</string>
-  <string name="actfm_tag_operation_disabled">对不起，此操作尚未支持已共享标签</string>
   <string name="actfm_tag_operation_owner_delete">你是这个被分享列表的拥有者，如果删除它，其它被分享者将无法访问，确定删除吗？</string>
   <string name="actfm_picture_camera">照张照片</string>
   <string name="actfm_picture_gallery">从相册中选取</string>
   <string name="actfm_picture_clear">清屏</string>
-  <string name="actfm_FLA_menu_refresh">刷新列表</string>
   <string name="actfm_view_task_title">查看任务？</string>
   <string name="actfm_view_task_text">任务已发送给%s！正在查看你所拥有的任务，是否查看其它被指定的任务？</string>
   <string name="actfm_view_task_ok">查看被指派的任务</string>
   <string name="actfm_view_task_cancel">保留在此处</string>
   <string name="actfm_my_shared_tasks_title">我的共享任务</string>
   <string name="TVA_add_comment">添加注释...</string>
-  <string name="UAd_title_comment">%1$s 回复: %2$s</string>
   <string-array name="TVA_tabs">
     <item>任务</item>
     <item>活动</item>
@@ -27,13 +22,10 @@
   <string name="actfm_TVA_no_members_alert">私有状态：点击以编辑或分享</string>
   <string name="actfm_TVA_menu_refresh">刷新</string>
   <string name="actfm_TVA_tag_label">列表名称：</string>
-  <string name="actfm_TVA_tag_owner_label">列表所有者：</string>
-  <string name="actfm_TVA_tag_owner_none">无</string>
   <string name="actfm_TVA_members_label">合作者：</string>
   <string name="actfm_TVA_members_hint">和任意一位有电子邮箱地址的人分享</string>
   <string name="actfm_TVA_tag_picture">列表图片</string>
   <string name="actfm_TVA_silence_label">静默通知</string>
-  <string name="actfm_TVA_list_icon_label">列表图标</string>
   <string name="actfm_TVA_tag_description_label">描述</string>
   <string name="actfm_TVA_tag_settings_label">设置</string>
   <string name="actfm_TVA_tag_description_hint">在这里添加描述</string>

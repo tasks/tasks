@@ -1,15 +1,11 @@
 <?xml version='1.0' encoding='utf-8'?>
 <resources>
-  <string name="EPE_action">分享</string>
   <string name="actfm_person_hint">聯絡人或電郵地址</string>
   <string name="actfm_person_or_tag_hint">聯絡人或已分享清單</string>
-  <string name="actfm_toast_success">已存到伺服器</string>
-  <string name="actfm_tag_operation_disabled">抱歉，共享標籤並不支持此項操作。</string>
   <string name="actfm_tag_operation_owner_delete">You are the owner of this shared list! If you delete it, it will be deleted for all list members. Are you sure you want to continue?</string>
   <string name="actfm_picture_camera">拍下照片</string>
   <string name="actfm_picture_gallery">從圖庫選擇</string>
   <string name="actfm_picture_clear">清除圖片</string>
-  <string name="actfm_FLA_menu_refresh">重新整理清單</string>
   <string name="actfm_view_task_title">檢視工作？</string>
   <string name="actfm_view_task_text">工作已被送到 %s！您目前正在查看自己的任務，你要查看你其餘被指派的工作嗎？</string>
   <string name="actfm_view_task_ok">查看被指派的工作</string>
@@ -17,7 +13,6 @@
   <string name="actfm_my_shared_tasks_title">My Shared Tasks</string>
   <string name="actfm_my_shared_tasks_empty">未有共享工作</string>
   <string name="TVA_add_comment">添加評論</string>
-  <string name="UAd_title_comment">%1$s 關於: %2$s</string>
   <string-array name="TVA_tabs">
     <item>工作</item>
     <item>活動</item>
@@ -28,13 +23,10 @@
   <string name="actfm_TVA_no_members_alert">Private: tap to edit or share list</string>
   <string name="actfm_TVA_menu_refresh">重新整理</string>
   <string name="actfm_TVA_tag_label">List</string>
-  <string name="actfm_TVA_tag_owner_label">新增清單</string>
-  <string name="actfm_TVA_tag_owner_none">無</string>
   <string name="actfm_TVA_members_label">Shared With</string>
   <string name="actfm_TVA_members_hint">Share with anyone who has an email address</string>
   <string name="actfm_TVA_tag_picture">清單圖片</string>
   <string name="actfm_TVA_silence_label">靜音提醒</string>
-  <string name="actfm_TVA_list_icon_label">清單圖示</string>
   <string name="actfm_TVA_tag_description_label">Description</string>
   <string name="actfm_TVA_tag_settings_label">設定</string>
   <string name="actfm_TVA_tag_description_hint">Type a description here</string>

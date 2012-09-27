@@ -1,15 +1,11 @@
 <?xml version='1.0' encoding='utf-8'?>
 <resources>
-  <string name="EPE_action">Delen</string>
   <string name="actfm_person_hint">Naam contactpersoon of e-mail adres</string>
   <string name="actfm_person_or_tag_hint">Contactpersoon of Gedeelde Lijst</string>
-  <string name="actfm_toast_success">Opgeslagen op de Server</string>
-  <string name="actfm_tag_operation_disabled">Sorry, maar deze handeling wordt nog niet ondersteund voor gedeelde tags</string>
   <string name="actfm_tag_operation_owner_delete">Je bent de eigenaar van deze gedeelde lijst! Als jij de lijst verwijdert, wordt deze verwijderd voor alle leden van de lijst. Weet je zeker dat je verder wilt gaan?</string>
   <string name="actfm_picture_camera">Maak een Foto</string>
   <string name="actfm_picture_gallery">Maak een keuze uit de Gallerij</string>
   <string name="actfm_picture_clear">Verwijder Foto</string>
-  <string name="actfm_FLA_menu_refresh">Vernieuw lijsten</string>
   <string name="actfm_view_task_title">Taak bekijken?</string>
   <string name="actfm_view_task_text">Taak is naar %s gestuurd! Je bekijkt op dit moment je eigen taken. Wil je deze en andere taken die je hebt toegewezen bekijken?</string>
   <string name="actfm_view_task_ok">Bekijk toegewezen taken</string>
@@ -17,7 +13,6 @@
   <string name="actfm_my_shared_tasks_title">Mijn Gedeelde Taken</string>
   <string name="actfm_my_shared_tasks_empty">Geen gedeelde taken</string>
   <string name="TVA_add_comment">Voeg een opmerking toe</string>
-  <string name="UAd_title_comment">%1$s m.b.t.: %2$s</string>
   <string-array name="TVA_tabs">
     <item>Taken</item>
     <item>Activiteit</item>
@@ -28,13 +23,10 @@
   <string name="actfm_TVA_no_members_alert">Privé: raak aan om te veranderen of om de lijst te delen</string>
   <string name="actfm_TVA_menu_refresh">Vernieuwen</string>
   <string name="actfm_TVA_tag_label">Lijst</string>
-  <string name="actfm_TVA_tag_owner_label">Eigenaar Lijst:</string>
-  <string name="actfm_TVA_tag_owner_none">geen</string>
   <string name="actfm_TVA_members_label">Gedeeld met:</string>
   <string name="actfm_TVA_members_hint">Deel met iedereen met een e-mailadres</string>
   <string name="actfm_TVA_tag_picture">Lijst afbeelding:</string>
   <string name="actfm_TVA_silence_label">Stille waarschuwingen</string>
-  <string name="actfm_TVA_list_icon_label">Lijst Icoon:</string>
   <string name="actfm_TVA_tag_description_label">Omschrijving</string>
   <string name="actfm_TVA_tag_settings_label">Voorkeuren</string>
   <string name="actfm_TVA_tag_description_hint">Type hier een beschrijving</string>

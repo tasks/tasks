@@ -1,15 +1,11 @@
 <?xml version='1.0' encoding='utf-8'?>
 <resources>
-  <string name="EPE_action">Share</string>
   <string name="actfm_person_hint">Contact or Email</string>
   <string name="actfm_person_or_tag_hint">Contact or Shared List</string>
-  <string name="actfm_toast_success">Saved on Server</string>
-  <string name="actfm_tag_operation_disabled">Sorry, this operation is not yet supported for shared tags.</string>
   <string name="actfm_tag_operation_owner_delete">You are the owner of this shared list! If you delete it, it will be deleted for all list members. Are you sure you want to continue?</string>
   <string name="actfm_picture_camera">Take a Picture</string>
   <string name="actfm_picture_gallery">Pick from Gallery</string>
   <string name="actfm_picture_clear">Clear Picture</string>
-  <string name="actfm_FLA_menu_refresh">Refresh Lists</string>
   <string name="actfm_view_task_title">View Task?</string>
   <string name="actfm_view_task_text">Task was sent to %s! You\'re currently viewing your own tasks. Do you want to view this and other tasks you\'ve assigned?</string>
   <string name="actfm_view_task_ok">View Assigned</string>
@@ -17,7 +13,6 @@
   <string name="actfm_my_shared_tasks_title">My Shared Tasks</string>
   <string name="actfm_my_shared_tasks_empty">No shared tasks</string>
   <string name="TVA_add_comment">Add a comment...</string>
-  <string name="UAd_title_comment">%1$s re: %2$s</string>
   <string-array name="TVA_tabs">
     <item>Tasks</item>
     <item>Activity</item>
@@ -28,13 +23,10 @@
   <string name="actfm_TVA_no_members_alert">Private: tap to edit or share list</string>
   <string name="actfm_TVA_menu_refresh">Refresh</string>
   <string name="actfm_TVA_tag_label">List</string>
-  <string name="actfm_TVA_tag_owner_label">List Creator:</string>
-  <string name="actfm_TVA_tag_owner_none">none</string>
   <string name="actfm_TVA_members_label">Shared With</string>
   <string name="actfm_TVA_members_hint">Share with anyone who has an email address</string>
   <string name="actfm_TVA_tag_picture">List Picture</string>
   <string name="actfm_TVA_silence_label">Silence Notifications</string>
-  <string name="actfm_TVA_list_icon_label">List Icon:</string>
   <string name="actfm_TVA_tag_description_label">Description</string>
   <string name="actfm_TVA_tag_settings_label">Settings</string>
   <string name="actfm_TVA_tag_description_hint">Type a description here</string>

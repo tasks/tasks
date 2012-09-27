@@ -1,15 +1,11 @@
 <?xml version='1.0' encoding='utf-8'?>
 <resources>
-  <string name="EPE_action">Compartilhar</string>
   <string name="actfm_person_hint">Contato ou Email</string>
   <string name="actfm_person_or_tag_hint">Contato ou Lista compartilhada</string>
-  <string name="actfm_toast_success">Salvo no servidor</string>
-  <string name="actfm_tag_operation_disabled">Desculpe, esta operação ainda não foi implementada para tags compartilhadas.</string>
   <string name="actfm_tag_operation_owner_delete">Você é o dono desta lista compartilhada! Se apagá-la, ela também será apagada para todos os membros dela. Tem certeza que quer continuar?</string>
   <string name="actfm_picture_camera">Tirar uma foto</string>
   <string name="actfm_picture_gallery">Selecionar da galeria</string>
   <string name="actfm_picture_clear">Limpar imagem</string>
-  <string name="actfm_FLA_menu_refresh">Atualizar listas</string>
   <string name="actfm_view_task_title">Ver tarefa?</string>
   <string name="actfm_view_task_text">A tarefa foi enviada para %s! Você está vendo suas próprias tarefas. Quer ver esta e as outras tarefas que você atribuiu?</string>
   <string name="actfm_view_task_ok">Ver atribuídas</string>
@@ -17,7 +13,6 @@
   <string name="actfm_my_shared_tasks_title">Minhas tarefas compartilhadas</string>
   <string name="actfm_my_shared_tasks_empty">Sem tarefas compartilhadas</string>
   <string name="TVA_add_comment">Comentar...</string>
-  <string name="UAd_title_comment">%1$s re: %2$s</string>
   <string-array name="TVA_tabs">
     <item>Tarefas</item>
     <item>Atividade</item>
@@ -28,13 +23,10 @@
   <string name="actfm_TVA_no_members_alert">Privada: toque para editar ou compartilhar</string>
   <string name="actfm_TVA_menu_refresh">Atualizar</string>
   <string name="actfm_TVA_tag_label">Nome da lista:</string>
-  <string name="actfm_TVA_tag_owner_label">Criador da lista:</string>
-  <string name="actfm_TVA_tag_owner_none">nenhum</string>
   <string name="actfm_TVA_members_label">Compartilhada com</string>
   <string name="actfm_TVA_members_hint">Share with anyone who has an email address</string>
   <string name="actfm_TVA_tag_picture">Imagem da lista</string>
   <string name="actfm_TVA_silence_label">Silenciar notificações</string>
-  <string name="actfm_TVA_list_icon_label">Ícone da lista:</string>
   <string name="actfm_TVA_tag_description_label">Descrição</string>
   <string name="actfm_TVA_tag_settings_label">Configurações</string>
   <string name="actfm_TVA_tag_description_hint">Digite uma descrição aqui</string>

@@ -1,15 +1,11 @@
 <?xml version='1.0' encoding='utf-8'?>
 <resources>
-  <string name="EPE_action">Dela</string>
   <string name="actfm_person_hint">Kontakt eller e-post</string>
   <string name="actfm_person_or_tag_hint">Kontakt eller Delad lista</string>
-  <string name="actfm_toast_success">Sparad på server</string>
-  <string name="actfm_tag_operation_disabled">Tyvärr stöds inte den här åtgärden än för delade etiketter.</string>
   <string name="actfm_tag_operation_owner_delete">Du är ägare till den här delade listan! Om du tar bort den, tas den bort för alla medlemmar på listan. Är du säker på att du vill fortsätta?</string>
   <string name="actfm_picture_camera">Ta en bild</string>
   <string name="actfm_picture_gallery">Välj från galleri</string>
   <string name="actfm_picture_clear">Ingen bild</string>
-  <string name="actfm_FLA_menu_refresh">Uppdatera listor</string>
   <string name="actfm_view_task_title">Se uppgift?</string>
   <string name="actfm_view_task_text">Uppgiften skickad till %s! Dina egna uppgifter visas. Vill du visa denna och andra uppgifter du har delat ut?</string>
   <string name="actfm_view_task_ok">Visa utdelade</string>
@@ -17,7 +13,6 @@
   <string name="actfm_my_shared_tasks_title">Mina delade uppgifter</string>
   <string name="actfm_my_shared_tasks_empty">Inga delade uppgifter</string>
   <string name="TVA_add_comment">Lägg till en kommentar...</string>
-  <string name="UAd_title_comment">%1$s re: %2$s</string>
   <string-array name="TVA_tabs">
     <item>Uppgifter</item>
     <item>Aktivitet</item>
@@ -28,13 +23,10 @@
   <string name="actfm_TVA_no_members_alert">Privat: tryck för att ändra eller dela lista</string>
   <string name="actfm_TVA_menu_refresh">Uppdatera</string>
   <string name="actfm_TVA_tag_label">Namn på lista:</string>
-  <string name="actfm_TVA_tag_owner_label">Lista skapad av</string>
-  <string name="actfm_TVA_tag_owner_none">ingen</string>
   <string name="actfm_TVA_members_label">Delad med</string>
   <string name="actfm_TVA_members_hint">Share with anyone who has an email address</string>
   <string name="actfm_TVA_tag_picture">Listbild</string>
   <string name="actfm_TVA_silence_label">Påminnelser vid ljudlöst</string>
-  <string name="actfm_TVA_list_icon_label">Listikon:</string>
   <string name="actfm_TVA_tag_description_label">Beskrivning</string>
   <string name="actfm_TVA_tag_settings_label">Inställningar</string>
   <string name="actfm_TVA_tag_description_hint">Beskriv listan här</string>

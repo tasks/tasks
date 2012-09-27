@@ -1,15 +1,11 @@
 <?xml version='1.0' encoding='utf-8'?>
 <resources>
-  <string name="EPE_action">Опубликовать</string>
   <string name="actfm_person_hint">Контакт или его почта</string>
   <string name="actfm_person_or_tag_hint">Контакт или общий список</string>
-  <string name="actfm_toast_success">Сохранено на сервере</string>
-  <string name="actfm_tag_operation_disabled">Извините, эта операция не поддерживает общие метки</string>
   <string name="actfm_tag_operation_owner_delete">Вы владелец этого общего списка! Если вы удалите его, он будет удален для всех участников. Вы уверены, что хотите продолжить?</string>
   <string name="actfm_picture_camera">Сделать снимок</string>
   <string name="actfm_picture_gallery">Взять из галереи</string>
   <string name="actfm_picture_clear">Убрать изображение</string>
-  <string name="actfm_FLA_menu_refresh">Обновить списки</string>
   <string name="actfm_view_task_title">Просмотреть задачу?</string>
   <string name="actfm_view_task_text">Задача была отправлена %s! Сейчас вы просматриваете ваши собственные задачи. Хотите просмотреть эту и другие задачи назначенные вам?</string>
   <string name="actfm_view_task_ok">Просмотреть назначенные</string>
@@ -17,7 +13,6 @@
   <string name="actfm_my_shared_tasks_title">Мои общие задачи</string>
   <string name="actfm_my_shared_tasks_empty">Нет общих задач</string>
   <string name="TVA_add_comment">Добавить комментарий...</string>
-  <string name="UAd_title_comment">%1$s : %2$s</string>
   <string-array name="TVA_tabs">
     <item>Задачи</item>
     <item>Действия</item>
@@ -28,13 +23,10 @@
   <string name="actfm_TVA_no_members_alert">Приватный: нажмите, чтобы изменить или опубликовать список</string>
   <string name="actfm_TVA_menu_refresh">Обновить</string>
   <string name="actfm_TVA_tag_label">Название списка</string>
-  <string name="actfm_TVA_tag_owner_label">Создатель списка:</string>
-  <string name="actfm_TVA_tag_owner_none">нет</string>
   <string name="actfm_TVA_members_label">Опубликовано для</string>
   <string name="actfm_TVA_members_hint">Поделись с теми, у кого есть почтовый адрес</string>
   <string name="actfm_TVA_tag_picture">Укажите фото:</string>
   <string name="actfm_TVA_silence_label">Беззвучные уведомления</string>
-  <string name="actfm_TVA_list_icon_label">Значок списка:</string>
   <string name="actfm_TVA_tag_description_label">Описание</string>
   <string name="actfm_TVA_tag_settings_label">Настройки</string>
   <string name="actfm_TVA_tag_description_hint">Введите описание здесь</string>

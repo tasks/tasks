@@ -1,15 +1,11 @@
 <?xml version='1.0' encoding='utf-8'?>
 <resources>
-  <string name="EPE_action">שיתוף</string>
   <string name="actfm_person_hint">איש קשר או דוא״ל</string>
   <string name="actfm_person_or_tag_hint">איש קשר או רשימה משותפת</string>
-  <string name="actfm_toast_success">נשמר על השרת</string>
-  <string name="actfm_tag_operation_disabled">מצטערת, אך פעולה זו אינה נתמכת עדיין עבור תגיות משותפות.</string>
   <string name="actfm_tag_operation_owner_delete">אתה הבעלים של רשימה זו! אם תמחק אותה, היא תימחק עבור השותפים בה. האם אתה בטוח שברצונך להמשיך?</string>
   <string name="actfm_picture_camera">צַלֵּם תמונה</string>
   <string name="actfm_picture_gallery">בחר מגלריה</string>
   <string name="actfm_picture_clear">הסר תמונה</string>
-  <string name="actfm_FLA_menu_refresh">רַעְנֵן</string>
   <string name="actfm_view_task_title">עיין במשימה?</string>
   <string name="actfm_view_task_text">משימה נשלחה אל %s! הנך מביט במשימות שלך. האם תרצה לעיין במשימה זו ובמשימות אשר הטלת על אחרים?</string>
   <string name="actfm_view_task_ok">הצג משימות שהטלת</string>
@@ -17,7 +13,6 @@
   <string name="actfm_my_shared_tasks_title">המשימות ששיתפתי</string>
   <string name="actfm_my_shared_tasks_empty">אין מטלות משותפות</string>
   <string name="TVA_add_comment">הוסף הערה</string>
-  <string name="UAd_title_comment">%1$s תגובה: %2$s</string>
   <string-array name="TVA_tabs">
     <item>מטלות</item>
     <item>פעילות</item>
@@ -28,13 +23,10 @@
   <string name="actfm_TVA_no_members_alert">פרטי: גע כדי לערוך או לשתף</string>
   <string name="actfm_TVA_menu_refresh">רענן</string>
   <string name="actfm_TVA_tag_label">רשימה</string>
-  <string name="actfm_TVA_tag_owner_label">יוצר הרשימה</string>
-  <string name="actfm_TVA_tag_owner_none">אין</string>
   <string name="actfm_TVA_members_label">משותפת עם</string>
   <string name="actfm_TVA_members_hint">שתף עם אי מי שיש לו כתובת דוא״ל</string>
   <string name="actfm_TVA_tag_picture">תמונת רשימה</string>
   <string name="actfm_TVA_silence_label">השתק הודעות</string>
-  <string name="actfm_TVA_list_icon_label">סמל רשימה</string>
   <string name="actfm_TVA_tag_description_label">תיאור</string>
   <string name="actfm_TVA_tag_settings_label">הגדרות</string>
   <string name="actfm_TVA_tag_description_hint">הכנס תיאור כאן</string>

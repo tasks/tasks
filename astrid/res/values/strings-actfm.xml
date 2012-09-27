@@ -9,7 +9,6 @@
   <!-- ================================================== general terms == -->
 
   <!-- People Editing Activity -->    
-  <string name="EPE_action">Share</string>
   
   <!-- slide 18b/ 25e/ 27c: task sharing dialog: assigned hint -->
   <string name="actfm_person_hint">Contact or Email</string>
@@ -18,10 +17,8 @@
   <string name="actfm_person_or_tag_hint">Contact or Shared List</string>
 
   <!-- toast on transmit success -->
-  <string name="actfm_toast_success">Saved on Server</string>
 
   <!-- can't rename or delete shared tag message -->
-  <string name="actfm_tag_operation_disabled">Sorry, this operation is not yet supported for shared tags.</string>
   
   <!-- warning before deleting a list you're the owner of -->
   <string name="actfm_tag_operation_owner_delete">You are the owner of this shared list! If you delete it, it will be deleted for all list members. Are you sure you want to continue?</string>
@@ -36,7 +33,6 @@
   <string name="actfm_picture_clear">Clear Picture</string>
 
   <!-- filter list activity: refresh tags -->
-  <string name="actfm_FLA_menu_refresh">Refresh Lists</string>
   
   <!-- Title for prompt after sharing a task -->
   <string name="actfm_view_task_title">View Task?</string>
@@ -62,7 +58,6 @@
   <string name="TVA_add_comment">Add a comment...</string>
 
   <!-- Tag View Activity: task comment ($1 - user name, $2 - task title) -->    
-  <string name="UAd_title_comment">%1$s re: %2$s</string>
   
   <!-- Tabs for Tag view -->
   <string-array name="TVA_tabs">
@@ -90,10 +85,8 @@
   <string name="actfm_TVA_tag_label">List</string>
 
   <!-- Tag Settings: tag owner label -->
-  <string name="actfm_TVA_tag_owner_label">List Creator:</string>
 
   <!-- Tag Settings: tag owner value when there is no owner -->
-  <string name="actfm_TVA_tag_owner_none">none</string>
 
   <!-- slide 26a and 27b: Tag Settings: list collaborators label -->
   <string name="actfm_TVA_members_label">Shared With</string>
@@ -108,7 +101,6 @@
   <string name="actfm_TVA_silence_label">Silence Notifications</string>
   
   <!-- Tag Settings: list icon label -->
-  <string name="actfm_TVA_list_icon_label">List Icon:</string>
   
   <!-- slide 25b/27d: Tag Settings: list description label -->
   <string name="actfm_TVA_tag_description_label">Description</string>

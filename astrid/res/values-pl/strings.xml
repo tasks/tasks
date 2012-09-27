@@ -1,15 +1,11 @@
 <?xml version='1.0' encoding='utf-8'?>
 <resources>
-  <string name="EPE_action">Udostępnij</string>
   <string name="actfm_person_hint">Kontakt lub email</string>
   <string name="actfm_person_or_tag_hint">Kontakt lub lista udostępionych</string>
-  <string name="actfm_toast_success">Zapisano na serwerze</string>
-  <string name="actfm_tag_operation_disabled">Niestety, ale ta operacja nie jest jeszcze obsługiwana dla udostępnionych tagów.</string>
   <string name="actfm_tag_operation_owner_delete">Jesteś właścicielem tej współdzielonej listy! Jeśli ją usuniesz, zostanie ona również usunięta dla wszystkich jej członków. Jesteś pewien, że chcesz to zrobić?</string>
   <string name="actfm_picture_camera">Zrób zdjęcie</string>
   <string name="actfm_picture_gallery">Wybierz z galerii</string>
   <string name="actfm_picture_clear">Usuń obrazek</string>
-  <string name="actfm_FLA_menu_refresh">Odśwież listy</string>
   <string name="actfm_view_task_title">Pokazać zadanie?</string>
   <string name="actfm_view_task_text">Zadanie zostało wysłane do %s! Aktualnie oglądasz własne zadania. Czy chcesz zobaczyć to i inne zadania które przypisałeś?</string>
   <string name="actfm_view_task_ok">Pokaż przypisane</string>
@@ -17,7 +13,6 @@
   <string name="actfm_my_shared_tasks_title">Moje współdzielone zadania</string>
   <string name="actfm_my_shared_tasks_empty">Brak zadań współdzielonych</string>
   <string name="TVA_add_comment">Dodaj komentarz...</string>
-  <string name="UAd_title_comment">%1$s dotyczy: %2$s</string>
   <string-array name="TVA_tabs">
     <item>Zadania</item>
     <item>Aktywność</item>
@@ -28,13 +23,10 @@
   <string name="actfm_TVA_no_members_alert">Prywatna: puknij by udostępnić/edytować</string>
   <string name="actfm_TVA_menu_refresh">Odśwież</string>
   <string name="actfm_TVA_tag_label">Nazwa listy:</string>
-  <string name="actfm_TVA_tag_owner_label">Twórca listy:</string>
-  <string name="actfm_TVA_tag_owner_none">brak</string>
   <string name="actfm_TVA_members_label">Współpracownicy:</string>
   <string name="actfm_TVA_members_hint">Współdziel z każdym, kto posiada adres email</string>
   <string name="actfm_TVA_tag_picture">Obrazek listy</string>
   <string name="actfm_TVA_silence_label">Ciche powiadomienia</string>
-  <string name="actfm_TVA_list_icon_label">Ikona listy:</string>
   <string name="actfm_TVA_tag_description_label">Opis</string>
   <string name="actfm_TVA_tag_settings_label">Ustawienia</string>
   <string name="actfm_TVA_tag_description_hint">Wpisz tutaj jakiś opis</string>

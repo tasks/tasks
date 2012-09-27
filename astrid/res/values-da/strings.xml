@@ -1,15 +1,11 @@
 <?xml version='1.0' encoding='utf-8'?>
 <resources>
-  <string name="EPE_action">Del</string>
   <string name="actfm_person_hint">Kontaktperson eller email</string>
   <string name="actfm_person_or_tag_hint">Kontaktperson eller delt liste</string>
-  <string name="actfm_toast_success">Gemt på server</string>
-  <string name="actfm_tag_operation_disabled">Beklager, denne handling er endnu ikke mulig for delte nøgleord.</string>
   <string name="actfm_tag_operation_owner_delete">Du er ejeren af dette delte nøgleord! Hvis du sletter det, bliver det slettet for alle liste medlemmer. Er du sikker på du vil fortsætte?</string>
   <string name="actfm_picture_camera">Tag et billede</string>
   <string name="actfm_picture_gallery">Vælg fra galleri</string>
   <string name="actfm_picture_clear">Ryd markering</string>
-  <string name="actfm_FLA_menu_refresh">Genopfrisk liste</string>
   <string name="actfm_view_task_title">Vis opgave?</string>
   <string name="actfm_view_task_text">Opgaven blev sendt til %s! Du ser lige nu dine egne opgaver. Vil du se disse og andre opgaver, du har tildelt?</string>
   <string name="actfm_view_task_ok">Vis tildelte</string>
@@ -17,7 +13,6 @@
   <string name="actfm_my_shared_tasks_title">Mine delte opgaver</string>
   <string name="actfm_my_shared_tasks_empty">Ingen delte opgaver</string>
   <string name="TVA_add_comment">Tilføj en kommentar</string>
-  <string name="UAd_title_comment">%1$s sv:%2$s</string>
   <string-array name="TVA_tabs">
     <item>Opgaver</item>
     <item>Aktivitet</item>
@@ -28,13 +23,10 @@
   <string name="actfm_TVA_no_members_alert">Privat: tryk for at redigere eller dele listen</string>
   <string name="actfm_TVA_menu_refresh">Opdater</string>
   <string name="actfm_TVA_tag_label">Listenavn</string>
-  <string name="actfm_TVA_tag_owner_label">Listeejer</string>
-  <string name="actfm_TVA_tag_owner_none">ingen</string>
   <string name="actfm_TVA_members_label">Delt med</string>
   <string name="actfm_TVA_members_hint">Share with anyone who has an email address</string>
   <string name="actfm_TVA_tag_picture">Liste billede</string>
   <string name="actfm_TVA_silence_label">Silence Notifications</string>
-  <string name="actfm_TVA_list_icon_label">List Icon:</string>
   <string name="actfm_TVA_tag_description_label">Description</string>
   <string name="actfm_TVA_tag_settings_label">Settings</string>
   <string name="actfm_TVA_tag_description_hint">Type a description here</string>

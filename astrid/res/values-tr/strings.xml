@@ -1,15 +1,11 @@
 <?xml version='1.0' encoding='utf-8'?>
 <resources>
-  <string name="EPE_action">Paylaş</string>
   <string name="actfm_person_hint">Kişi veya Email</string>
   <string name="actfm_person_or_tag_hint">Kişi ya da Paylaşılan Liste</string>
-  <string name="actfm_toast_success">Sunucuya kaydedildi</string>
-  <string name="actfm_tag_operation_disabled">Üzgünüz, bu işlem paylaşılan etiketler için henüz desteklenmiyor</string>
   <string name="actfm_tag_operation_owner_delete">Bu paylaşılan listenin sahibisiniz. Bunu silerseniz, tüm liste üyeleri için silinecek. Devam etmek istiyor musunuz?</string>
   <string name="actfm_picture_camera">Resim Çek</string>
   <string name="actfm_picture_gallery">Galeriden Seç</string>
   <string name="actfm_picture_clear">Resmi sil</string>
-  <string name="actfm_FLA_menu_refresh">Listeleri Yenile</string>
   <string name="actfm_view_task_title">Görevi görüntüle?</string>
   <string name="actfm_view_task_text">Görev gönderildi: %s! Şu anda kendi görevlerinizi görüntülüyorsunuz. Bunu ve diğer atanmış olduğunuz görevleri görmek istiyor musunuz?</string>
   <string name="actfm_view_task_ok">Atananları Göster</string>
@@ -17,7 +13,6 @@
   <string name="actfm_my_shared_tasks_title">Paylaşılan Görevlerim</string>
   <string name="actfm_my_shared_tasks_empty">Paylaşılmış görev yok</string>
   <string name="TVA_add_comment">Yorum Gir</string>
-  <string name="UAd_title_comment">%1$s cvp: %2$s</string>
   <string-array name="TVA_tabs">
     <item>Görevler</item>
     <item>Etkinlik</item>
@@ -28,13 +23,10 @@
   <string name="actfm_TVA_no_members_alert">Özel: Paylaşmak veya düzenlemek için dokunun</string>
   <string name="actfm_TVA_menu_refresh">Yenile</string>
   <string name="actfm_TVA_tag_label">Liste İsmi:</string>
-  <string name="actfm_TVA_tag_owner_label">Liste Sahibi:</string>
-  <string name="actfm_TVA_tag_owner_none">Hiçbiri/Sahipsiz</string>
   <string name="actfm_TVA_members_label">Paylaşılanlar:</string>
   <string name="actfm_TVA_members_hint">E-posta adresi olan herhangi biri ile paylaş</string>
   <string name="actfm_TVA_tag_picture">Liste Resmi</string>
   <string name="actfm_TVA_silence_label">Uyarıları Sessizleştir</string>
-  <string name="actfm_TVA_list_icon_label">Simge Listesi:</string>
   <string name="actfm_TVA_tag_description_label">Açıklama</string>
   <string name="actfm_TVA_tag_settings_label">Ayarlar</string>
   <string name="actfm_TVA_tag_description_hint">Bir açıklama yazın</string>

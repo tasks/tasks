@@ -1,15 +1,11 @@
 <?xml version='1.0' encoding='utf-8'?>
 <resources>
-  <string name="EPE_action">공유</string>
   <string name="actfm_person_hint">연락처 혹은 전자우편</string>
   <string name="actfm_person_or_tag_hint">연락처 혹은 공유리스트</string>
-  <string name="actfm_toast_success">저장하기</string>
-  <string name="actfm_tag_operation_disabled">죄송합니다.공유는 아직 지원되지않습니다.</string>
   <string name="actfm_tag_operation_owner_delete">You are the owner of this shared list! If you delete it, it will be deleted for all list members. Are you sure you want to continue?</string>
   <string name="actfm_picture_camera">카메라</string>
   <string name="actfm_picture_gallery">갤러리</string>
   <string name="actfm_picture_clear">Clear Picture</string>
-  <string name="actfm_FLA_menu_refresh">목록을 새로고침</string>
   <string name="actfm_view_task_title">일정을 보시겠습니까?</string>
   <string name="actfm_view_task_text">Task was sent to %s! You\'re currently viewing your own tasks. Do you want to view this and other tasks you\'ve assigned?</string>
   <string name="actfm_view_task_ok">완료된 일정 보기</string>
@@ -17,7 +13,6 @@
   <string name="actfm_my_shared_tasks_title">공유된 일정들</string>
   <string name="actfm_my_shared_tasks_empty">일정 공유 하지않기</string>
   <string name="TVA_add_comment">댓글</string>
-  <string name="UAd_title_comment">%1$s re: %2$s</string>
   <string-array name="TVA_tabs">
     <item>Tasks</item>
     <item>Activity</item>
@@ -28,13 +23,10 @@
   <string name="actfm_TVA_no_members_alert">Private: tap to edit or share list</string>
   <string name="actfm_TVA_menu_refresh">새로 고침</string>
   <string name="actfm_TVA_tag_label">리스트</string>
-  <string name="actfm_TVA_tag_owner_label">List Creator:</string>
-  <string name="actfm_TVA_tag_owner_none">없음</string>
   <string name="actfm_TVA_members_label">공유</string>
   <string name="actfm_TVA_members_hint">회원과 공유하기</string>
   <string name="actfm_TVA_tag_picture">사진</string>
   <string name="actfm_TVA_silence_label">알림 끄기</string>
-  <string name="actfm_TVA_list_icon_label">아이콘</string>
   <string name="actfm_TVA_tag_description_label">설명</string>
   <string name="actfm_TVA_tag_settings_label">설정</string>
   <string name="actfm_TVA_tag_description_hint">여기에 설명을 입력해주세요</string>
