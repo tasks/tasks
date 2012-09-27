@@ -79,21 +79,6 @@ public class UpdateMessageService {
     public void processUpdates() {
         JSONArray updates = checkForUpdates();
 
-//        try {
-//            JSONObject test = new JSONObject();
-//            test.put("date", "09/26/12");
-//            test.put("message", "Screens!");
-//            test.put("type", "screen");
-//            test.put("link", "Click me");
-//            JSONArray screenArray = new JSONArray();
-//            screenArray.put(ActFmLoginActivity.class.getName());
-//            screenArray.put(EditPreferences.class.getName());
-//            test.put("screens", screenArray);
-//            updates.put(test);
-//        } catch (JSONException e) {
-//            e.printStackTrace();
-//        }
-
         if(updates == null || updates.length() == 0)
             return;
 
@@ -108,7 +93,7 @@ public class UpdateMessageService {
         void showDialog(Activity activity);
     }
 
-    private void showDialog(DialogShower ds) {
+    private void tryShowDialog(DialogShower ds) {
         try {
             ds.showDialog(activity);
         } catch (BadTokenException bt) {
@@ -167,7 +152,7 @@ public class UpdateMessageService {
         activity.runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                showDialog(ds);
+                tryShowDialog(ds);
             }
         });
 
@@ -226,19 +211,28 @@ public class UpdateMessageService {
 
     private ClickableSpan getClickableSpanForUpdate(JSONObject update, String type) {
         if ("pref".equals(type)) {
-            final String prefSpec = update.optString("prefSpec", null);
-            if (prefSpec == null)
+            try {
+                if (!update.has("prefs"))
+                    return null;
+                JSONArray prefSpec = update.getJSONArray("prefs");
+                if (prefSpec.length() == 0)
+                    return null;
+                final String prefArray = prefSpec.toString();
+                return new ClickableSpan() {
+                    @Override
+                    public void onClick(View widget) {
+                        Intent prefScreen = new Intent(activity, UpdateMessagePreference.class);
+                        prefScreen.putExtra(UpdateMessagePreference.TOKEN_PREFS_ARRAY, prefArray);
+                        activity.startActivityForResult(prefScreen, 0);
+                    }
+                };
+            } catch (JSONException e) {
                 return null;
-            return new ClickableSpan() {
-                @Override
-                public void onClick(View widget) {
-//                    Intent prefScreen = new Intent(activity, UpdateMessagePreference.class);
-//                    prefScreen.putExtra(UpdateMessagePreference.TOKEN_PREF_SPEC, prefSpec);
-//                    activity.startActivity(prefScreen);
-                }
-            };
+            }
         } else if ("screen".equals(type)) {
             try {
+                if (!update.has("screens"))
+                    return null;
                 JSONArray screens = update.getJSONArray("screens");
                 if (screens.length() == 0)
                     return null;
@@ -259,7 +253,6 @@ public class UpdateMessageService {
             }
         }
         return null;
-
     }
 
     private boolean pluginConditionMatches(String plugin) {

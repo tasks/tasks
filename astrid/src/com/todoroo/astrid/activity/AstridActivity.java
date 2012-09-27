@@ -61,12 +61,13 @@ import com.todoroo.astrid.voice.VoiceRecognizer;
 public class AstridActivity extends FragmentActivity
     implements FilterListFragment.OnFilterItemClickedListener,
     TaskListFragment.OnTaskListItemClickedListener,
-    TaskEditFragment.OnTaskEditDetailsClickedListener,
     RecognizerApiListener {
 
     public static final int LAYOUT_SINGLE = 0;
     public static final int LAYOUT_DOUBLE = 1;
     public static final int LAYOUT_TRIPLE = 2;
+
+    public static final int RESULT_RESTART_ACTIVITY = 50;
 
     protected int fragmentLayout = LAYOUT_SINGLE;
 
@@ -290,9 +291,13 @@ public class AstridActivity extends FragmentActivity
     }
 
     @Override
-    public void onTaskEditDetailsClicked(int category, int position) {
-        //
-
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (resultCode == RESULT_RESTART_ACTIVITY) {
+            finish();
+            startActivity(getIntent());
+        } else {
+            super.onActivityResult(requestCode, resultCode, data);
+        }
     }
 
     // --- fragment helpers
