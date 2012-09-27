@@ -85,7 +85,6 @@
   <!-- Note Exposer -->    
   
   <!-- Note Exposer / Comments -->    
-  <string name="ENE_label_comments">Comments</string>
   
   <!-- EditNoteActivity - no comments -->
   <string name="ENA_no_comments">No activity yet</string>
@@ -129,7 +128,6 @@
   <string name="TLA_menu_suggestions">Suggestions</string>
   
   <!-- Menu: Tutorial -->
-  <string name="TLA_menu_tutorial">Tutorial</string>
 
   <!-- Menu: Settings -->    
   <string name="TLA_menu_settings">Account &amp; Settings</string>
@@ -138,7 +136,6 @@
   <string name="TLA_menu_support">Support</string>
   
   <!-- Search Label-->
-  <string name="TLA_search_label">Search This List</string>
   
   <!-- Window title for displaying Custom Filter -->
   <string name="TLA_custom">Custom</string>
@@ -200,7 +197,6 @@
   <string name="TAd_deletedFormat">%s [deleted]</string>
   
   <!-- Displayed when adapter is flung (scrolled quickly) -->
-  <string name="TAd_flingText"></string>
   
   <!-- slide 22b: indicates task was completed. %s => date or time ago -->
   <string name="TAd_completed">Finished\n%s</string>
@@ -215,7 +211,6 @@
   <string name="TAd_contextCopyTask">Copy Task</string>
 
   <!-- Context Item: delete task -->
-  <string name="TAd_contextHelpTask">Get help</string><string name="TAd_contextDeleteTask">Delete Task</string>
 
   <!-- Context Item: undelete task -->
   <string name="TAd_contextUndeleteTask">Undelete Task</string>
@@ -273,19 +268,15 @@
   <string name="FSA_label">Astrid List or Filter</string>
 
   <!-- Filter List Activity Title -->    
-  <string name="FLA_title">Lists</string>
   
   <!-- Displayed when loading filters -->    
-  <string name="FLA_loading">Loading Filters...</string>
   
   <!-- Context Menu: Create Shortcut -->    
   <string name="FLA_context_shortcut">Create Shortcut On Desktop</string>
   
   <!-- Menu: Search -->
-  <string name="FLA_menu_search">Search Tasks...</string>
   
   <!-- Menu: Help -->    
-  <string name="FLA_menu_help">Help</string>
   
   <!-- slide 28c: Create Shortcut Dialog Title -->    
   <string name="FLA_shortcut_dialog_title">Create Desktop Shortcut</string>
@@ -314,13 +305,10 @@
   <!-- ================================================= TaskEditActivity == -->
   
   <!-- Title when editing a task (%s => task title) -->
-  <string name="TEA_view_title">Astrid: Editing \'%s\'</string>
   
   <!-- Title when creating a new task -->
-  <string name="TEA_view_titleNew">New Task</string>
   
   <!-- Task title label -->
-  <string name="TEA_title_label">Title</string>
   
   <!-- Task when label -->
   <string name="TEA_when_header_label">When</string>
@@ -332,7 +320,6 @@
   <string name="TEA_importance_label">Importance</string>
   
   <!-- Task urgency label -->
-  <string name="TEA_urgency_label">Deadline</string>
   
   <!-- Task urgency specific time checkbox -->
   <string name="TEA_urgency_specific_time">At specific time?</string>
@@ -380,10 +367,8 @@
   <string name="TEA_onTaskSave_notDue">Task Saved</string>
   
   <!-- Toast: task was not saved -->
-  <string name="TEA_onTaskCancel">Task Editing Was Canceled</string>
   
   <!-- Toast: task was deleted -->
-  <string name="TEA_onTaskDelete">Task deleted!</string>
   
   <!-- slide 15b: Task edit tab: activity -->
   <string name="TEA_tab_activity">Activity</string>

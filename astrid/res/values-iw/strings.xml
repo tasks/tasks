@@ -119,7 +119,6 @@
   <string name="DLG_undo">בטל פעולה אחרונה</string>
   <string name="DLG_warning">התראה</string>
   <string name="WID_dateButtonUnset">לחיצה להגדרה</string>
-  <string name="ENE_label_comments">הערות</string>
   <string name="ENA_no_comments">אין פעילות עדיין</string>
   <string name="ENA_no_user">מישהו</string>
   <string name="ENA_refresh_comments">רַעְנֵן הערות</string>
@@ -132,10 +131,8 @@
   <string name="TLA_menu_lists">רשימות</string>
   <string name="TLA_menu_friends">אנשים</string>
   <string name="TLA_menu_suggestions">הצעות</string>
-  <string name="TLA_menu_tutorial">מדריך</string>
   <string name="TLA_menu_settings">הגדרות</string>
   <string name="TLA_menu_support">תמיכה</string>
-  <string name="TLA_search_label">חיפוש ברשימה זו</string>
   <string name="TLA_custom">מותאם אישית</string>
   <string name="TLA_quick_add_hint">הוסף משימה</string>
   <string name="TLA_quick_add_hint_assign">משהו לעשות %s תן ל</string>
@@ -168,7 +165,6 @@
   <string name="TAd_actionEditTask">עריכה</string>
   <string name="TAd_contextEditTask">עריכת משימה</string>
   <string name="TAd_contextCopyTask">העתק משימה</string>
-  <string name="TAd_contextHelpTask">קבל עזרה</string>
   <string name="TAd_contextDeleteTask">מחיקת משימה</string>
   <string name="TAd_contextUndeleteTask">החזרת המשימה</string>
   <string name="TAd_contextPurgeTask">אַיֵּן משימה</string>
@@ -187,11 +183,7 @@
   <string name="SSD_save_temp">רק הפעם</string>
   <string name="SSD_save_always">תמיד</string>
   <string name="FSA_label">רשימת משימות או מַסְנֵן</string>
-  <string name="FLA_title">רשימות</string>
-  <string name="FLA_loading">טוענת מסננים...</string>
   <string name="FLA_context_shortcut">צור קיצור על שולחן העבודה</string>
-  <string name="FLA_menu_search">חיפוש במשימות...</string>
-  <string name="FLA_menu_help">עזרה</string>
   <string name="FLA_shortcut_dialog_title">יצירת קיצור</string>
   <string name="FLA_shortcut_dialog">שם הקיצור:</string>
   <string name="FLA_search_hint">חיפוש אחר משימות</string>
@@ -200,13 +192,9 @@
   <string name="FLA_new_filter">מַסְנֵן חדש</string>
   <string name="FLA_new_list">רשימה חדשה</string>
   <string name="FLA_no_filter_selected">לא נבחר מַסְנֵן! אנא בחר מַסְנֵן או רשימה.</string>
-  <string name="TEA_view_title">Astrid:‏ \'%s\' בעריכה</string>
-  <string name="TEA_view_titleNew">משימה חדשה</string>
-  <string name="TEA_title_label">כותרת</string>
   <string name="TEA_when_header_label">מתי</string>
   <string name="TEA_title_hint">תקציר המשימה</string>
   <string name="TEA_importance_label">עדימות</string>
-  <string name="TEA_urgency_label">מועד סף</string>
   <string name="TEA_urgency_specific_time">בזמן מסויים?</string>
   <string name="TEA_urgency_none">ללא</string>
   <string name="TEA_hideUntil_label">הצג משימה</string>
@@ -224,8 +212,6 @@
   <string name="TEA_menu_comments">הערות</string>
   <string name="TEA_onTaskSave_due">המשימה נשמרה: יעד %s</string>
   <string name="TEA_onTaskSave_notDue">המשימה נשמרה</string>
-  <string name="TEA_onTaskCancel">עריכת המשימה בוטלה</string>
-  <string name="TEA_onTaskDelete">המשימה נמחקה!</string>
   <string name="TEA_tab_activity">פעילות</string>
   <string name="TEA_tab_more">עוד</string>
   <string name="TEA_tab_web">רעיונות</string>

@@ -119,7 +119,6 @@
   <string name="DLG_undo">Rückgängig</string>
   <string name="DLG_warning">Warnung</string>
   <string name="WID_dateButtonUnset">Kommentare</string>
-  <string name="ENE_label_comments">Kommentare</string>
   <string name="ENA_no_comments">Bisher keine Aktivität</string>
   <string name="ENA_no_user">Irgendjemand</string>
   <string name="ENA_refresh_comments">Kommentare aktualisieren</string>
@@ -132,10 +131,8 @@
   <string name="TLA_menu_lists">Listen</string>
   <string name="TLA_menu_friends">Personen</string>
   <string name="TLA_menu_suggestions">Vorschläge</string>
-  <string name="TLA_menu_tutorial">Einführung</string>
   <string name="TLA_menu_settings">Einstellungen</string>
   <string name="TLA_menu_support">Unterstützung</string>
-  <string name="TLA_search_label">Durchsuche diese Liste</string>
   <string name="TLA_custom">Benutzerdefiniert</string>
   <string name="TLA_quick_add_hint">Aufgabe hinzufügen</string>
   <string name="TLA_quick_add_hint_assign">Etwas hinzufügen für %s</string>
@@ -168,7 +165,6 @@
   <string name="TAd_actionEditTask">Bearbeiten</string>
   <string name="TAd_contextEditTask">Aufgabe bearbeiten</string>
   <string name="TAd_contextCopyTask">Aufgabe kopieren</string>
-  <string name="TAd_contextHelpTask">Hilfe erhalten</string>
   <string name="TAd_contextDeleteTask">Aufgabe löschen</string>
   <string name="TAd_contextUndeleteTask">Aufgabe wiederherstellen</string>
   <string name="TAd_contextPurgeTask">Aufgabe löschen</string>
@@ -187,11 +183,7 @@
   <string name="SSD_save_temp">Nur einmal</string>
   <string name="SSD_save_always">Immer</string>
   <string name="FSA_label">Astrids Liste oder Filter</string>
-  <string name="FLA_title">Listen</string>
-  <string name="FLA_loading">Filter werden geladen …</string>
   <string name="FLA_context_shortcut">Verknüpfung auf dem Desktop erstellen</string>
-  <string name="FLA_menu_search">Aufgaben durchsuchen …</string>
-  <string name="FLA_menu_help">Hilfe</string>
   <string name="FLA_shortcut_dialog_title">Desktop Verküpfung erstellen</string>
   <string name="FLA_shortcut_dialog">Name der Verknüpfung</string>
   <string name="FLA_search_hint">Suche nach Aufgabe</string>
@@ -200,13 +192,9 @@
   <string name="FLA_new_filter">Neuer Filter</string>
   <string name="FLA_new_list">Neue Liste</string>
   <string name="FLA_no_filter_selected">Kein Filter ausgewählt. Bitte Filter oder Liste auswählen.</string>
-  <string name="TEA_view_title">Astrid: Bearbeite \'%s\'</string>
-  <string name="TEA_view_titleNew">Neue Aufgabe</string>
-  <string name="TEA_title_label">Titel</string>
   <string name="TEA_when_header_label">Wann</string>
   <string name="TEA_title_hint">Aufgabenüberblick</string>
   <string name="TEA_importance_label">Wichtigkeit</string>
-  <string name="TEA_urgency_label">Fälligkeit</string>
   <string name="TEA_urgency_specific_time">Zu einer bestimmten Zeit?</string>
   <string name="TEA_urgency_none">Keine</string>
   <string name="TEA_hideUntil_label">Aufgabe anzeigen</string>
@@ -224,8 +212,6 @@
   <string name="TEA_menu_comments">Kommentare</string>
   <string name="TEA_onTaskSave_due">Aufgabe gespeichert: fällig %s</string>
   <string name="TEA_onTaskSave_notDue">Aufgabe gespeichert</string>
-  <string name="TEA_onTaskCancel">Bearbeitung der Aufgabe wurde abgebrochen</string>
-  <string name="TEA_onTaskDelete">Aufgabe gelöscht!</string>
   <string name="TEA_tab_activity">Aktivität</string>
   <string name="TEA_tab_more">Details</string>
   <string name="TEA_tab_web">Ideen</string>

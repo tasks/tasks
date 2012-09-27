@@ -119,7 +119,6 @@
   <string name="DLG_undo">Ongedaan Maken</string>
   <string name="DLG_warning">Waarschuwing</string>
   <string name="WID_dateButtonUnset">Klikken om in te stellen</string>
-  <string name="ENE_label_comments">Opmerkingen</string>
   <string name="ENA_no_comments">Niets om weer te geven</string>
   <string name="ENA_no_user">Iemand</string>
   <string name="ENA_refresh_comments">Opmerkingen vernieuwen</string>
@@ -132,10 +131,8 @@
   <string name="TLA_menu_lists">Lijsten</string>
   <string name="TLA_menu_friends">Personen</string>
   <string name="TLA_menu_suggestions">Suggesties</string>
-  <string name="TLA_menu_tutorial">Handleiding</string>
   <string name="TLA_menu_settings">Instellingen</string>
   <string name="TLA_menu_support">Ondersteuning</string>
-  <string name="TLA_search_label">In deze lijst zoeken</string>
   <string name="TLA_custom">Aangepast</string>
   <string name="TLA_quick_add_hint">Taak toevoegen</string>
   <string name="TLA_quick_add_hint_assign">Voeg iets toe voor %s</string>
@@ -168,7 +165,6 @@
   <string name="TAd_actionEditTask">Bewerken</string>
   <string name="TAd_contextEditTask">Taak bewerken</string>
   <string name="TAd_contextCopyTask">Taak kopiëren</string>
-  <string name="TAd_contextHelpTask">Hulp zoeken</string>
   <string name="TAd_contextDeleteTask">Taak verwijderen</string>
   <string name="TAd_contextUndeleteTask">Taak herstellen</string>
   <string name="TAd_contextPurgeTask">Taak opruimen</string>
@@ -187,11 +183,7 @@
   <string name="SSD_save_temp">Eenmalig</string>
   <string name="SSD_save_always">Altijd</string>
   <string name="FSA_label">Astrid Lijst of Filter</string>
-  <string name="FLA_title">Lijsten</string>
-  <string name="FLA_loading">Filters laden...</string>
   <string name="FLA_context_shortcut">Snelkoppeling op bureaublad maken</string>
-  <string name="FLA_menu_search">Taken zoeken...</string>
-  <string name="FLA_menu_help">Help</string>
   <string name="FLA_shortcut_dialog_title">Snelkoppeling maken</string>
   <string name="FLA_shortcut_dialog">Naam snelkoppeling:</string>
   <string name="FLA_search_hint">Naar taken zoeken</string>
@@ -200,13 +192,9 @@
   <string name="FLA_new_filter">Nieuw Filter</string>
   <string name="FLA_new_list">Nieuwe lijst</string>
   <string name="FLA_no_filter_selected">Geen filter geselecteerd! Selecteer een filter of lijst.</string>
-  <string name="TEA_view_title">Astrid: \'%s\' bewerken</string>
-  <string name="TEA_view_titleNew">Nieuwe Taak</string>
-  <string name="TEA_title_label">Titel</string>
   <string name="TEA_when_header_label">Wanneer</string>
   <string name="TEA_title_hint">Samenvatting taak</string>
   <string name="TEA_importance_label">Belangrijkheid</string>
-  <string name="TEA_urgency_label">Einddatum</string>
   <string name="TEA_urgency_specific_time">Specifieke tijd?</string>
   <string name="TEA_urgency_none">Geen</string>
   <string name="TEA_hideUntil_label">Taak Weergeven</string>
@@ -224,8 +212,6 @@
   <string name="TEA_menu_comments">Opmerkingen</string>
   <string name="TEA_onTaskSave_due">Taak opgeslagen: eind %s</string>
   <string name="TEA_onTaskSave_notDue">Taak opgeslagen</string>
-  <string name="TEA_onTaskCancel">Taakbewerking afgebroken</string>
-  <string name="TEA_onTaskDelete">Taak verwijderd!</string>
   <string name="TEA_tab_activity">Activiteit</string>
   <string name="TEA_tab_more">Meer</string>
   <string name="TEA_tab_web">Ideeën</string>

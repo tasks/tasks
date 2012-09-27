@@ -119,7 +119,6 @@
   <string name="DLG_undo">Desfés</string>
   <string name="DLG_warning">Warning</string>
   <string name="WID_dateButtonUnset">Prem per establir</string>
-  <string name="ENE_label_comments">Comentaris</string>
   <string name="ENA_no_comments">Encara no hi ha activitat</string>
   <string name="ENA_no_user">Algú</string>
   <string name="ENA_refresh_comments">Actualitza els comentaris</string>
@@ -132,10 +131,8 @@
   <string name="TLA_menu_lists">Llistes</string>
   <string name="TLA_menu_friends">People</string>
   <string name="TLA_menu_suggestions">Suggeriments</string>
-  <string name="TLA_menu_tutorial">Tutorial</string>
   <string name="TLA_menu_settings">Paràmetres</string>
   <string name="TLA_menu_support">Suport</string>
-  <string name="TLA_search_label">Busca en aquesta llista</string>
   <string name="TLA_custom">Personalitzat</string>
   <string name="TLA_quick_add_hint">Afegeix una tasca</string>
   <string name="TLA_quick_add_hint_assign">Add something for %s</string>
@@ -168,7 +165,6 @@
   <string name="TAd_actionEditTask">Edita</string>
   <string name="TAd_contextEditTask">Editar Tasca</string>
   <string name="TAd_contextCopyTask">Copia la tasca</string>
-  <string name="TAd_contextHelpTask">Obté ajuda</string>
   <string name="TAd_contextDeleteTask">Suprimeix la tasca</string>
   <string name="TAd_contextUndeleteTask">Recupera la tasca</string>
   <string name="TAd_contextPurgeTask">Purgar tasques</string>
@@ -187,11 +183,7 @@
   <string name="SSD_save_temp">Només una vegada</string>
   <string name="SSD_save_always">Sempre</string>
   <string name="FSA_label">Astrid List or Filter</string>
-  <string name="FLA_title">Llistes</string>
-  <string name="FLA_loading">S\'estan carregant els filtres...</string>
   <string name="FLA_context_shortcut">Afegir un enllaç al escriptori...</string>
-  <string name="FLA_menu_search">S\'estan cercant les tasques...</string>
-  <string name="FLA_menu_help">Ajuda</string>
   <string name="FLA_shortcut_dialog_title">Crear un enllaç</string>
   <string name="FLA_shortcut_dialog">Nom del enllaç</string>
   <string name="FLA_search_hint">Cercar tasques</string>
@@ -200,13 +192,9 @@
   <string name="FLA_new_filter">Filtre nou</string>
   <string name="FLA_new_list">Llista nova</string>
   <string name="FLA_no_filter_selected">No filter selected! Please select a filter or list.</string>
-  <string name="TEA_view_title">Astrid: Editant \'%s\'</string>
-  <string name="TEA_view_titleNew">Tasca nova</string>
-  <string name="TEA_title_label">Títol</string>
   <string name="TEA_when_header_label">Quan</string>
   <string name="TEA_title_hint">Resum de la tasca</string>
   <string name="TEA_importance_label">Importància</string>
-  <string name="TEA_urgency_label">Data límit</string>
   <string name="TEA_urgency_specific_time">A alguna hora en concret?</string>
   <string name="TEA_urgency_none">Cap</string>
   <string name="TEA_hideUntil_label">Mostra la tasca</string>
@@ -224,8 +212,6 @@
   <string name="TEA_menu_comments">Comentaris</string>
   <string name="TEA_onTaskSave_due">Tasca desada: venç %s</string>
   <string name="TEA_onTaskSave_notDue">Tasca desada</string>
-  <string name="TEA_onTaskCancel">L\'edició de la tasca ha estat cancel·lada</string>
-  <string name="TEA_onTaskDelete">S\'ha esborrat la tasca</string>
   <string name="TEA_tab_activity">Activitat</string>
   <string name="TEA_tab_more">Detalls</string>
   <string name="TEA_tab_web">Idees</string>

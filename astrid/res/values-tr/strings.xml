@@ -119,7 +119,6 @@
   <string name="DLG_undo">Geri al</string>
   <string name="DLG_warning">Uyarı</string>
   <string name="WID_dateButtonUnset">Ayar İçin Dokun</string>
-  <string name="ENE_label_comments">Yorumlar</string>
   <string name="ENA_no_comments">Gösterecek öğe yok</string>
   <string name="ENA_no_user">Herhangi biri</string>
   <string name="ENA_refresh_comments">Yorumları Yenile</string>
@@ -132,10 +131,8 @@
   <string name="TLA_menu_lists">Listeler</string>
   <string name="TLA_menu_friends">Kişiler</string>
   <string name="TLA_menu_suggestions">Öneriler</string>
-  <string name="TLA_menu_tutorial">Kılavuz</string>
   <string name="TLA_menu_settings">Ayarlar</string>
   <string name="TLA_menu_support">Destek</string>
-  <string name="TLA_search_label">Bu Listede Ara</string>
   <string name="TLA_custom">Özel</string>
   <string name="TLA_quick_add_hint">Görev ekle</string>
   <string name="TLA_quick_add_hint_assign">%s için bir şey ekle</string>
@@ -168,7 +165,6 @@
   <string name="TAd_actionEditTask">Düzenle</string>
   <string name="TAd_contextEditTask">Görevi Düzenle</string>
   <string name="TAd_contextCopyTask">Görevi Kopyala</string>
-  <string name="TAd_contextHelpTask">Yardım al</string>
   <string name="TAd_contextDeleteTask">Görevi Sil</string>
   <string name="TAd_contextUndeleteTask">Görevi Kurtar</string>
   <string name="TAd_contextPurgeTask">Görevi Temizle</string>
@@ -187,11 +183,7 @@
   <string name="SSD_save_temp">Bir Kereye Mahsus</string>
   <string name="SSD_save_always">Her zaman</string>
   <string name="FSA_label">Astrid Listesi ya da Süzgeci</string>
-  <string name="FLA_title">Listeler</string>
-  <string name="FLA_loading">Süzgeçler Yükleniyor...</string>
   <string name="FLA_context_shortcut">Masaüstünde Kısayol Oluştur</string>
-  <string name="FLA_menu_search">Görev Ara...</string>
-  <string name="FLA_menu_help">Yardım</string>
   <string name="FLA_shortcut_dialog_title">Kısayol Oluştur</string>
   <string name="FLA_shortcut_dialog">Kısayol adı:</string>
   <string name="FLA_search_hint">Görevleri ara</string>
@@ -200,13 +192,9 @@
   <string name="FLA_new_filter">Yeni Filtre</string>
   <string name="FLA_new_list">Yeni Liste</string>
   <string name="FLA_no_filter_selected">Süzgeç seçilmemiş! Lütfen bir süzgeç ya da liste seçin.</string>
-  <string name="TEA_view_title">Astrid: Düzenleniyor \'%s\'</string>
-  <string name="TEA_view_titleNew">Yeni Görev</string>
-  <string name="TEA_title_label">Başlık</string>
   <string name="TEA_when_header_label">Ne Zaman</string>
   <string name="TEA_title_hint">Görev Özeti</string>
   <string name="TEA_importance_label">Önem</string>
-  <string name="TEA_urgency_label">Bitiş tarihi</string>
   <string name="TEA_urgency_specific_time">Belirli bir zamanda?</string>
   <string name="TEA_urgency_none">Hiçbiri</string>
   <string name="TEA_hideUntil_label">Görevi Göster</string>
@@ -224,8 +212,6 @@
   <string name="TEA_menu_comments">Yorumlar</string>
   <string name="TEA_onTaskSave_due">Görev Kaydedildi: tarihi %s</string>
   <string name="TEA_onTaskSave_notDue">Görev kaydedildi</string>
-  <string name="TEA_onTaskCancel">Görev Düzenlemeden Vazgeçildi</string>
-  <string name="TEA_onTaskDelete">Görev silindi!</string>
   <string name="TEA_tab_activity">Etkinlik</string>
   <string name="TEA_tab_more">Ayrıntılar</string>
   <string name="TEA_tab_web">Fikirler</string>

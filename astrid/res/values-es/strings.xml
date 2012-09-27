@@ -119,7 +119,6 @@
   <string name="DLG_undo">Deshacer</string>
   <string name="DLG_warning">Advertencia</string>
   <string name="WID_dateButtonUnset">Toque para grabar</string>
-  <string name="ENE_label_comments">Comentarios</string>
   <string name="ENA_no_comments">Nada que mostrar</string>
   <string name="ENA_no_user">Alguien</string>
   <string name="ENA_refresh_comments">Actualizar Comentarios</string>
@@ -132,10 +131,8 @@
   <string name="TLA_menu_lists">Listas</string>
   <string name="TLA_menu_friends">Gente</string>
   <string name="TLA_menu_suggestions">Sugerencias</string>
-  <string name="TLA_menu_tutorial">Tutorial</string>
   <string name="TLA_menu_settings">Preferencias</string>
   <string name="TLA_menu_support">Soporte</string>
-  <string name="TLA_search_label">Buscar en esta lista</string>
   <string name="TLA_custom">Personalizar</string>
   <string name="TLA_quick_add_hint">Añadir una tarea</string>
   <string name="TLA_quick_add_hint_assign">Agregar algo para %s</string>
@@ -168,7 +165,6 @@
   <string name="TAd_actionEditTask">Editar</string>
   <string name="TAd_contextEditTask">Editar tarea</string>
   <string name="TAd_contextCopyTask">Copiar tarea</string>
-  <string name="TAd_contextHelpTask">Obtener ayuda</string>
   <string name="TAd_contextDeleteTask">Borrar Tarea</string>
   <string name="TAd_contextUndeleteTask">Restaurar Tarea</string>
   <string name="TAd_contextPurgeTask">Purgar Tareas</string>
@@ -187,11 +183,7 @@
   <string name="SSD_save_temp">Sólo una vez</string>
   <string name="SSD_save_always">Siempre</string>
   <string name="FSA_label">Lista Astrid o Filtro</string>
-  <string name="FLA_title">Listas</string>
-  <string name="FLA_loading">Cargando filtros...</string>
   <string name="FLA_context_shortcut">Crear enlace en escritorio</string>
-  <string name="FLA_menu_search">Buscar Tareas</string>
-  <string name="FLA_menu_help">Ayuda</string>
   <string name="FLA_shortcut_dialog_title">Crear acceso directo</string>
   <string name="FLA_shortcut_dialog">Nombre del acceso directo:</string>
   <string name="FLA_search_hint">Buscar tareas</string>
@@ -200,13 +192,9 @@
   <string name="FLA_new_filter">Nuevo filtro</string>
   <string name="FLA_new_list">Nueva lista</string>
   <string name="FLA_no_filter_selected">No hay filtro seleccionado! Por favor seleccione un filtro o lista.</string>
-  <string name="TEA_view_title">Astrid: Editando \'%s\'</string>
-  <string name="TEA_view_titleNew">Nueva tarea</string>
-  <string name="TEA_title_label">Título</string>
   <string name="TEA_when_header_label">Cuando</string>
   <string name="TEA_title_hint">Descripción de la tarea</string>
   <string name="TEA_importance_label">Importancia</string>
-  <string name="TEA_urgency_label">Fecha límite</string>
   <string name="TEA_urgency_specific_time">A una hora específica?</string>
   <string name="TEA_urgency_none">Ninguna</string>
   <string name="TEA_hideUntil_label">Mostrar Tarea</string>
@@ -224,8 +212,6 @@
   <string name="TEA_menu_comments">Comentarios</string>
   <string name="TEA_onTaskSave_due">Tarea guardada: finaliza %s</string>
   <string name="TEA_onTaskSave_notDue">Tarea guardada</string>
-  <string name="TEA_onTaskCancel">Se canceló la edición de la tarea</string>
-  <string name="TEA_onTaskDelete">Tarea Eliminada!</string>
   <string name="TEA_tab_activity">Actividad</string>
   <string name="TEA_tab_more">Más</string>
   <string name="TEA_tab_web">Ideas</string>

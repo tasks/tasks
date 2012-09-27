@@ -119,7 +119,6 @@
   <string name="DLG_undo">실행취소</string>
   <string name="DLG_warning">주의</string>
   <string name="WID_dateButtonUnset">직접 입력</string>
-  <string name="ENE_label_comments">댓글</string>
   <string name="ENA_no_comments">No activity yet</string>
   <string name="ENA_no_user">Someone</string>
   <string name="ENA_refresh_comments">코멘트를 새로고침</string>
@@ -132,10 +131,8 @@
   <string name="TLA_menu_lists">리스트</string>
   <string name="TLA_menu_friends">People</string>
   <string name="TLA_menu_suggestions">제안</string>
-  <string name="TLA_menu_tutorial">튜토리얼</string>
   <string name="TLA_menu_settings">설정</string>
   <string name="TLA_menu_support">지원</string>
-  <string name="TLA_search_label">이 목록 검색</string>
   <string name="TLA_custom">사용자 설정</string>
   <string name="TLA_quick_add_hint">할일 추가하기</string>
   <string name="TLA_quick_add_hint_assign">Add something for %s</string>
@@ -168,7 +165,6 @@
   <string name="TAd_actionEditTask">편집</string>
   <string name="TAd_contextEditTask">작업 편집</string>
   <string name="TAd_contextCopyTask">할 일 복사</string>
-  <string name="TAd_contextHelpTask">Get help</string>
   <string name="TAd_contextDeleteTask">작업 삭제</string>
   <string name="TAd_contextUndeleteTask">작업 삭제 취소</string>
   <string name="TAd_contextPurgeTask">작업 정리</string>
@@ -187,11 +183,7 @@
   <string name="SSD_save_temp">임시 정렬</string>
   <string name="SSD_save_always">항상 정렬</string>
   <string name="FSA_label">Astrid 리스트 또는 필터</string>
-  <string name="FLA_title">리스트</string>
-  <string name="FLA_loading">필터 로딩중...</string>
   <string name="FLA_context_shortcut">바탕화면 바로가기 만들기</string>
-  <string name="FLA_menu_search">작업 검색...</string>
-  <string name="FLA_menu_help">도움말</string>
   <string name="FLA_shortcut_dialog_title">바로가기 만들기</string>
   <string name="FLA_shortcut_dialog">바로가기 이름:</string>
   <string name="FLA_search_hint">작업 검색</string>
@@ -200,13 +192,9 @@
   <string name="FLA_new_filter">새 필터</string>
   <string name="FLA_new_list">새 리스트</string>
   <string name="FLA_no_filter_selected">필터가 선택되지 않았습니다! 필터 또는 리스트를 선택해 주세요.</string>
-  <string name="TEA_view_title">Astrid: \'%s\' 편집중</string>
-  <string name="TEA_view_titleNew">새로운 할일</string>
-  <string name="TEA_title_label">제목</string>
   <string name="TEA_when_header_label">시간</string>
   <string name="TEA_title_hint">요약정보</string>
   <string name="TEA_importance_label">중요도</string>
-  <string name="TEA_urgency_label">마감일</string>
   <string name="TEA_urgency_specific_time">정해진 시간에?</string>
   <string name="TEA_urgency_none">없음</string>
   <string name="TEA_hideUntil_label">할 일 보이기</string>
@@ -224,8 +212,6 @@
   <string name="TEA_menu_comments">댓글</string>
   <string name="TEA_onTaskSave_due">작업 저장 완료: 완료일 %s</string>
   <string name="TEA_onTaskSave_notDue">작업 저장 완료</string>
-  <string name="TEA_onTaskCancel">작업 편집 취소</string>
-  <string name="TEA_onTaskDelete">Task deleted!</string>
   <string name="TEA_tab_activity">활동</string>
   <string name="TEA_tab_more">자세히</string>
   <string name="TEA_tab_web">아이디어</string>

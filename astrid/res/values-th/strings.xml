@@ -119,7 +119,6 @@
   <string name="DLG_undo">Undo</string>
   <string name="DLG_warning">Warning</string>
   <string name="WID_dateButtonUnset">คลิก เพื่อตั้งค่า</string>
-  <string name="ENE_label_comments">Comments</string>
   <string name="ENA_no_comments">No activity yet</string>
   <string name="ENA_no_user">Someone</string>
   <string name="ENA_refresh_comments">Refresh Comments</string>
@@ -132,10 +131,8 @@
   <string name="TLA_menu_lists">Lists</string>
   <string name="TLA_menu_friends">People</string>
   <string name="TLA_menu_suggestions">Suggestions</string>
-  <string name="TLA_menu_tutorial">Tutorial</string>
   <string name="TLA_menu_settings">ตั้งค่า</string>
   <string name="TLA_menu_support">Support</string>
-  <string name="TLA_search_label">ค้นหาในรายการนี้</string>
   <string name="TLA_custom">ปรับแต่ง</string>
   <string name="TLA_quick_add_hint">Add a task</string>
   <string name="TLA_quick_add_hint_assign">Add something for %s</string>
@@ -168,7 +165,6 @@
   <string name="TAd_actionEditTask">แก้ไข</string>
   <string name="TAd_contextEditTask">แก้ไขงาน</string>
   <string name="TAd_contextCopyTask">Copy Task</string>
-  <string name="TAd_contextHelpTask">Get help</string>
   <string name="TAd_contextDeleteTask">ลบงาน</string>
   <string name="TAd_contextUndeleteTask">แผนงานที่ลบไม่ได้</string>
   <string name="TAd_contextPurgeTask">Purge Task</string>
@@ -187,11 +183,7 @@
   <string name="SSD_save_temp">ชั่วคราว</string>
   <string name="SSD_save_always">ตลอดไป</string>
   <string name="FSA_label">Astrid List or Filter</string>
-  <string name="FLA_title">Lists</string>
-  <string name="FLA_loading">กำลังโหลดตัวกรอง...</string>
   <string name="FLA_context_shortcut">Create Shortcut On Desktop</string>
-  <string name="FLA_menu_search">ค้นหาแผนงาน...</string>
-  <string name="FLA_menu_help">ความช่วยเหลือ</string>
   <string name="FLA_shortcut_dialog_title">สร้างทางลัด</string>
   <string name="FLA_shortcut_dialog">ชื่อทางลัด:</string>
   <string name="FLA_search_hint">ค้นหาแผนงาน</string>
@@ -200,13 +192,9 @@
   <string name="FLA_new_filter">New Filter</string>
   <string name="FLA_new_list">New List</string>
   <string name="FLA_no_filter_selected">No filter selected! Please select a filter or list.</string>
-  <string name="TEA_view_title">Astrid: กำลังแก้ไข \'%s\'</string>
-  <string name="TEA_view_titleNew">New Task</string>
-  <string name="TEA_title_label">ชื่อ</string>
   <string name="TEA_when_header_label">When</string>
   <string name="TEA_title_hint">สรุปแผนงาน</string>
   <string name="TEA_importance_label">ความสำคัญ</string>
-  <string name="TEA_urgency_label">เส้นตาย</string>
   <string name="TEA_urgency_specific_time">ณ.เวลาที่ระบุ?</string>
   <string name="TEA_urgency_none">None</string>
   <string name="TEA_hideUntil_label">Show Task</string>
@@ -224,8 +212,6 @@
   <string name="TEA_menu_comments">Comments</string>
   <string name="TEA_onTaskSave_due">Task Saved: due %s</string>
   <string name="TEA_onTaskSave_notDue">งานที่บันทึกไว้</string>
-  <string name="TEA_onTaskCancel">การแก้ไขแผนงานถูกยกเลิก</string>
-  <string name="TEA_onTaskDelete">Task deleted!</string>
   <string name="TEA_tab_activity">Activity</string>
   <string name="TEA_tab_more">เพิ่มเติม</string>
   <string name="TEA_tab_web">Ideas</string>

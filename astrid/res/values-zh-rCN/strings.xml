@@ -114,7 +114,6 @@
   <string name="DLG_cancel">取消</string>
   <string name="DLG_undo">撤消</string>
   <string name="WID_dateButtonUnset">点选</string>
-  <string name="ENE_label_comments">注释</string>
   <string name="ENA_no_comments">没有要显示的</string>
   <string name="ENA_refresh_comments">刷新留言</string>
   <string name="ENA_no_user">有人</string>
@@ -125,11 +124,9 @@
   <string name="TLA_menu_lists">列表</string>
   <string name="TLA_menu_friends">朋友</string>
   <string name="TLA_menu_suggestions">建议</string>
-  <string name="TLA_menu_tutorial">教程</string>
   <string name="TLA_menu_search">搜索...</string>
   <string name="TLA_menu_settings">设置</string>
   <string name="TLA_menu_support">支持</string>
-  <string name="TLA_search_label">搜索当前列表</string>
   <string name="TLA_custom">自定义</string>
   <string name="TLA_quick_add_hint">添加任务</string>
   <string name="TLA_quick_add_hint_assign">点击以指派给%s一个任务</string>
@@ -168,11 +165,7 @@
   <string name="SSD_save_temp">仅一次</string>
   <string name="SSD_save_always">总是</string>
   <string name="FSA_label">Astrid 列表或过滤器</string>
-  <string name="FLA_title">列表</string>
-  <string name="FLA_loading">启动过滤器...</string>
   <string name="FLA_context_shortcut">在桌面建立快捷方式</string>
-  <string name="FLA_menu_search">搜索任务中</string>
-  <string name="FLA_menu_help">帮助</string>
   <string name="FLA_shortcut_dialog_title">建立快捷方式</string>
   <string name="FLA_shortcut_dialog">快捷方式名称：</string>
   <string name="FLA_search_hint">搜索任务</string>
@@ -181,14 +174,10 @@
   <string name="FLA_new_filter">新建过滤器</string>
   <string name="FLA_new_list">新建列表</string>
   <string name="FLA_no_filter_selected">还没有选定过滤器呢！请选择一个过滤器或列表呗。</string>
-  <string name="TEA_view_title">Astrid: 编辑 \'%s\'</string>
-  <string name="TEA_view_titleNew">新建任务</string>
   <string name="TEA_new_task">新建任务</string>
-  <string name="TEA_title_label">标题</string>
   <string name="TEA_when_header_label">时间</string>
   <string name="TEA_title_hint">任务摘要</string>
   <string name="TEA_importance_label">重要性</string>
-  <string name="TEA_urgency_label">截止日期</string>
   <string name="TEA_urgency_specific_time">于指定时间？</string>
   <string name="TEA_urgency_none">无</string>
   <string name="TEA_hideUntil_label">显示任务</string>
@@ -205,7 +194,6 @@
   <string name="TEA_menu_comments">注释</string>
   <string name="TEA_onTaskSave_due">已设截止日期的任务：按 %s</string>
   <string name="TEA_onTaskSave_notDue">任务已储存</string>
-  <string name="TEA_onTaskCancel">任务编辑操作已被取消</string>
   <string name="TEA_tab_activity">活动</string>
   <string name="TEA_tab_more">更多</string>
   <string-array name="TEA_urgency">
@@ -921,7 +909,6 @@
   </string-array>
   <string name="TLA_all_activity">所有活动</string>
   <string name="TEA_hideUntil_message">任务将会被隐藏，直到 %s</string>
-  <string name="TEA_onTaskDelete">任务已经被删除啦！</string>
   <string name="TEA_tab_web">建议</string>
   <string name="TEA_no_time">没有时间</string>
   <string name="TEA_control_title">任务标题</string>

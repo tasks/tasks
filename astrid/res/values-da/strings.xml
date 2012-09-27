@@ -119,7 +119,6 @@
   <string name="DLG_undo">Undo</string>
   <string name="DLG_warning">Warning</string>
   <string name="WID_dateButtonUnset">Tryk for at indstille</string>
-  <string name="ENE_label_comments">Comments</string>
   <string name="ENA_no_comments">No activity yet</string>
   <string name="ENA_no_user">Someone</string>
   <string name="ENA_refresh_comments">Refresh Comments</string>
@@ -131,10 +130,8 @@
   <string name="TLA_menu_lists">Lists</string>
   <string name="TLA_menu_friends">People</string>
   <string name="TLA_menu_suggestions">Suggestions</string>
-  <string name="TLA_menu_tutorial">Tutorial</string>
   <string name="TLA_menu_settings">Opsætning</string>
   <string name="TLA_menu_support">Support</string>
-  <string name="TLA_search_label">Søge i denne liste</string>
   <string name="TLA_custom">Tilpasset</string>
   <string name="TLA_quick_add_hint">Add a task</string>
   <string name="TLA_quick_add_hint_assign">Add something for %s</string>
@@ -167,7 +164,6 @@
   <string name="TAd_actionEditTask">Rediger</string>
   <string name="TAd_contextEditTask">Rediger opgave</string>
   <string name="TAd_contextCopyTask">Copy Task</string>
-  <string name="TAd_contextHelpTask">Get help</string>
   <string name="TAd_contextDeleteTask">Slet opgave</string>
   <string name="TAd_contextUndeleteTask">Gendan opgave</string>
   <string name="TAd_contextPurgeTask">Ryd opgave</string>
@@ -186,11 +182,7 @@
   <string name="SSD_save_temp">Kun en gang</string>
   <string name="SSD_save_always">Altid</string>
   <string name="FSA_label">Astrid List or Filter</string>
-  <string name="FLA_title">Lists</string>
-  <string name="FLA_loading">Indlæser filtre...</string>
   <string name="FLA_context_shortcut">Opret genvej på skrivebordet</string>
-  <string name="FLA_menu_search">Søg i opgaver...</string>
-  <string name="FLA_menu_help">Hjælp</string>
   <string name="FLA_shortcut_dialog_title">Opret genvej</string>
   <string name="FLA_shortcut_dialog">Navn på genvej:</string>
   <string name="FLA_search_hint">Søg efter opgaver</string>
@@ -199,13 +191,9 @@
   <string name="FLA_new_filter">New Filter</string>
   <string name="FLA_new_list">New List</string>
   <string name="FLA_no_filter_selected">No filter selected! Please select a filter or list.</string>
-  <string name="TEA_view_title">Astrid: Redigerer \'%s\'</string>
-  <string name="TEA_view_titleNew">New Task</string>
-  <string name="TEA_title_label">Titel</string>
   <string name="TEA_when_header_label">When</string>
   <string name="TEA_title_hint">Opgave Overskrift</string>
   <string name="TEA_importance_label">Vigtighed</string>
-  <string name="TEA_urgency_label">Deadline</string>
   <string name="TEA_urgency_specific_time">På bestemt tidspunkt?</string>
   <string name="TEA_urgency_none">None</string>
   <string name="TEA_hideUntil_label">Show Task</string>
@@ -223,8 +211,6 @@
   <string name="TEA_menu_comments">Comments</string>
   <string name="TEA_onTaskSave_due">Opgave gemt: deadline %s</string>
   <string name="TEA_onTaskSave_notDue">Opgave gemt</string>
-  <string name="TEA_onTaskCancel">Opgaveredigering blev annulleret</string>
-  <string name="TEA_onTaskDelete">Task deleted!</string>
   <string name="TEA_tab_activity">Aktivitet</string>
   <string name="TEA_tab_more">Mere</string>
   <string name="TEA_tab_web">Ideas</string>

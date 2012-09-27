@@ -119,7 +119,6 @@
   <string name="DLG_undo">Undo</string>
   <string name="DLG_warning">Warning</string>
   <string name="WID_dateButtonUnset">點選</string>
-  <string name="ENE_label_comments">Comments</string>
   <string name="ENA_no_comments">No activity yet</string>
   <string name="ENA_no_user">Someone</string>
   <string name="ENA_refresh_comments">Refresh Comments</string>
@@ -132,10 +131,8 @@
   <string name="TLA_menu_lists">Lists</string>
   <string name="TLA_menu_friends">People</string>
   <string name="TLA_menu_suggestions">Suggestions</string>
-  <string name="TLA_menu_tutorial">Tutorial</string>
   <string name="TLA_menu_settings">設定</string>
   <string name="TLA_menu_support">Support</string>
-  <string name="TLA_search_label">尋找此列表</string>
   <string name="TLA_custom">自訂</string>
   <string name="TLA_quick_add_hint">Add a task</string>
   <string name="TLA_quick_add_hint_assign">Add something for %s</string>
@@ -168,7 +165,6 @@
   <string name="TAd_actionEditTask">編輯</string>
   <string name="TAd_contextEditTask">編輯工作</string>
   <string name="TAd_contextCopyTask">Copy Task</string>
-  <string name="TAd_contextHelpTask">Get help</string>
   <string name="TAd_contextDeleteTask">刪除工作</string>
   <string name="TAd_contextUndeleteTask">還原工作刪除</string>
   <string name="TAd_contextPurgeTask">清除工作</string>
@@ -187,11 +183,7 @@
   <string name="SSD_save_temp">僅一次</string>
   <string name="SSD_save_always">總是</string>
   <string name="FSA_label">Astrid List or Filter</string>
-  <string name="FLA_title">清單</string>
-  <string name="FLA_loading">啟動篩選...</string>
   <string name="FLA_context_shortcut">在桌面建立捷徑</string>
-  <string name="FLA_menu_search">搜尋工作...</string>
-  <string name="FLA_menu_help">幫助</string>
   <string name="FLA_shortcut_dialog_title">建立捷徑</string>
   <string name="FLA_shortcut_dialog">捷徑名稱</string>
   <string name="FLA_search_hint">工作搜尋</string>
@@ -200,13 +192,9 @@
   <string name="FLA_new_filter">New Filter</string>
   <string name="FLA_new_list">New List</string>
   <string name="FLA_no_filter_selected">No filter selected! Please select a filter or list.</string>
-  <string name="TEA_view_title">Astrid: 編輯 \'%s\'</string>
-  <string name="TEA_view_titleNew">New Task</string>
-  <string name="TEA_title_label">主旨</string>
   <string name="TEA_when_header_label">When</string>
   <string name="TEA_title_hint">工作摘要</string>
   <string name="TEA_importance_label">重要性</string>
-  <string name="TEA_urgency_label">截止日期</string>
   <string name="TEA_urgency_specific_time">指定時間?</string>
   <string name="TEA_urgency_none">None</string>
   <string name="TEA_hideUntil_label">Show Task</string>
@@ -224,8 +212,6 @@
   <string name="TEA_menu_comments">Comments</string>
   <string name="TEA_onTaskSave_due">工作已儲存: %s 到期</string>
   <string name="TEA_onTaskSave_notDue">工作已儲存</string>
-  <string name="TEA_onTaskCancel">編輯工作已取消</string>
-  <string name="TEA_onTaskDelete">Task deleted!</string>
   <string name="TEA_tab_activity">Activity</string>
   <string name="TEA_tab_more">更多</string>
   <string name="TEA_tab_web">Ideas</string>

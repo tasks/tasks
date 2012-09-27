@@ -119,7 +119,6 @@
   <string name="DLG_undo">Назад</string>
   <string name="DLG_warning">Предупреждение</string>
   <string name="WID_dateButtonUnset">Нажмите для установки</string>
-  <string name="ENE_label_comments">Комментарии</string>
   <string name="ENA_no_comments">Нет данных для отображения</string>
   <string name="ENA_no_user">Кто-нибудь</string>
   <string name="ENA_refresh_comments">Обновить комментарии</string>
@@ -132,10 +131,8 @@
   <string name="TLA_menu_lists">Списки</string>
   <string name="TLA_menu_friends">Люди</string>
   <string name="TLA_menu_suggestions">Предложения</string>
-  <string name="TLA_menu_tutorial">Руководство</string>
   <string name="TLA_menu_settings">Параметры</string>
   <string name="TLA_menu_support">Поддержка</string>
-  <string name="TLA_search_label">Поиск по списку</string>
   <string name="TLA_custom">Другой</string>
   <string name="TLA_quick_add_hint">Добавить задачу</string>
   <string name="TLA_quick_add_hint_assign">Добавить что-нибудь для %s</string>
@@ -168,7 +165,6 @@
   <string name="TAd_actionEditTask">Правка</string>
   <string name="TAd_contextEditTask">Правка задачи</string>
   <string name="TAd_contextCopyTask">Копировать задачу</string>
-  <string name="TAd_contextHelpTask">Получить помощь</string>
   <string name="TAd_contextDeleteTask">Удалить задачу</string>
   <string name="TAd_contextUndeleteTask">Отменить удаление задачи</string>
   <string name="TAd_contextPurgeTask">Очистить задачу</string>
@@ -187,11 +183,7 @@
   <string name="SSD_save_temp">Только один раз</string>
   <string name="SSD_save_always">Всегда</string>
   <string name="FSA_label">Список или Фильтр Astrid</string>
-  <string name="FLA_title">Списки</string>
-  <string name="FLA_loading">Загрузка фильтров…</string>
   <string name="FLA_context_shortcut">Создать ярлык на рабочем столе…</string>
-  <string name="FLA_menu_search">Поиск задач…</string>
-  <string name="FLA_menu_help">Справка</string>
   <string name="FLA_shortcut_dialog_title">Создать ярлык</string>
   <string name="FLA_shortcut_dialog">Имя ярлыка:</string>
   <string name="FLA_search_hint">Найти задачи</string>
@@ -200,13 +192,9 @@
   <string name="FLA_new_filter">Новый фильтр</string>
   <string name="FLA_new_list">Новый список</string>
   <string name="FLA_no_filter_selected">Фильтры не выбраны! Пожалуйста, выберите фильтр или список</string>
-  <string name="TEA_view_title">Astrid: Редактирование \'%s\'</string>
-  <string name="TEA_view_titleNew">Новая задача</string>
-  <string name="TEA_title_label">Название</string>
   <string name="TEA_when_header_label">Когда</string>
   <string name="TEA_title_hint">Описание задачи</string>
   <string name="TEA_importance_label">Важность</string>
-  <string name="TEA_urgency_label">Дата окончания</string>
   <string name="TEA_urgency_specific_time">В указанное время?</string>
   <string name="TEA_urgency_none">Пусто</string>
   <string name="TEA_hideUntil_label">Отобразить задачу</string>
@@ -224,8 +212,6 @@
   <string name="TEA_menu_comments">Комментарии</string>
   <string name="TEA_onTaskSave_due">Задача сохранена: срок %s</string>
   <string name="TEA_onTaskSave_notDue">Задача сохранена</string>
-  <string name="TEA_onTaskCancel">Правка задачи отменена</string>
-  <string name="TEA_onTaskDelete">Задача удалена!</string>
   <string name="TEA_tab_activity">Действия</string>
   <string name="TEA_tab_more">Ещё</string>
   <string name="TEA_tab_web">Идеи</string>

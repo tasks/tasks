@@ -119,7 +119,6 @@
   <string name="DLG_undo">Undo</string>
   <string name="DLG_warning">Warning</string>
   <string name="WID_dateButtonUnset">Fare click per impostare</string>
-  <string name="ENE_label_comments">Comments</string>
   <string name="ENA_no_comments">No activity yet</string>
   <string name="ENA_no_user">Someone</string>
   <string name="ENA_refresh_comments">Refresh Comments</string>
@@ -131,10 +130,8 @@
   <string name="TLA_menu_lists">Lists</string>
   <string name="TLA_menu_friends">People</string>
   <string name="TLA_menu_suggestions">Suggestions</string>
-  <string name="TLA_menu_tutorial">Tutorial</string>
   <string name="TLA_menu_settings">Impostazioni</string>
   <string name="TLA_menu_support">Support</string>
-  <string name="TLA_search_label">Cerca questo elenco</string>
   <string name="TLA_custom">Personalizzato</string>
   <string name="TLA_quick_add_hint">Add a task</string>
   <string name="TLA_quick_add_hint_assign">Add something for %s</string>
@@ -167,7 +164,6 @@
   <string name="TAd_actionEditTask">Modifica</string>
   <string name="TAd_contextEditTask">Modifica attività</string>
   <string name="TAd_contextCopyTask">Copy Task</string>
-  <string name="TAd_contextHelpTask">Get help</string>
   <string name="TAd_contextDeleteTask">Elimina attività</string>
   <string name="TAd_contextUndeleteTask">Ripristina Attività</string>
   <string name="TAd_contextPurgeTask">Elimina Attività</string>
@@ -186,11 +182,7 @@
   <string name="SSD_save_temp">Solo una Volta</string>
   <string name="SSD_save_always">Sempre</string>
   <string name="FSA_label">Astrid List or Filter</string>
-  <string name="FLA_title">Liste</string>
-  <string name="FLA_loading">Caricamento Filtri...</string>
   <string name="FLA_context_shortcut">Crea collegamento sul Desktop</string>
-  <string name="FLA_menu_search">Cerca Attività...</string>
-  <string name="FLA_menu_help">Aiuto</string>
   <string name="FLA_shortcut_dialog_title">Crea scorciatoia</string>
   <string name="FLA_shortcut_dialog">Nome della scorciatoia:</string>
   <string name="FLA_search_hint">Cerca Per Attività</string>
@@ -199,13 +191,9 @@
   <string name="FLA_new_filter">New Filter</string>
   <string name="FLA_new_list">New List</string>
   <string name="FLA_no_filter_selected">No filter selected! Please select a filter or list.</string>
-  <string name="TEA_view_title">Astrid: Modificando \'%s\'</string>
-  <string name="TEA_view_titleNew">New Task</string>
-  <string name="TEA_title_label">Titolo</string>
   <string name="TEA_when_header_label">When</string>
   <string name="TEA_title_hint">Resoconto Attività</string>
   <string name="TEA_importance_label">Importanza</string>
-  <string name="TEA_urgency_label">Scadenza</string>
   <string name="TEA_urgency_specific_time">In un orario specifico?</string>
   <string name="TEA_urgency_none">None</string>
   <string name="TEA_hideUntil_label">Show Task</string>
@@ -223,8 +211,6 @@
   <string name="TEA_menu_comments">Comments</string>
   <string name="TEA_onTaskSave_due">Attività Salvata: entro %s</string>
   <string name="TEA_onTaskSave_notDue">Attvità salvata</string>
-  <string name="TEA_onTaskCancel">La modifica delle Attività è stata Annullata</string>
-  <string name="TEA_onTaskDelete">Task deleted!</string>
   <string name="TEA_tab_activity">Activity</string>
   <string name="TEA_tab_more">Altro</string>
   <string name="TEA_tab_web">Ideas</string>

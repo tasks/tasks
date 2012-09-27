@@ -119,7 +119,6 @@
   <string name="DLG_undo">Vrátit změny</string>
   <string name="DLG_warning">Výstraha</string>
   <string name="WID_dateButtonUnset">Klikni pro nastavení</string>
-  <string name="ENE_label_comments">Komentáře</string>
   <string name="ENA_no_comments">Nic k zobrazení</string>
   <string name="ENA_no_user">Kdosi</string>
   <string name="ENA_refresh_comments">Obnovit komentáře</string>
@@ -132,10 +131,8 @@
   <string name="TLA_menu_lists">Seznamy</string>
   <string name="TLA_menu_friends">Lidé</string>
   <string name="TLA_menu_suggestions">Návrhy</string>
-  <string name="TLA_menu_tutorial">Tutoriál</string>
   <string name="TLA_menu_settings">Nastavení</string>
   <string name="TLA_menu_support">Podpora</string>
-  <string name="TLA_search_label">Hledat v tomto seznamu</string>
   <string name="TLA_custom">Vlastní</string>
   <string name="TLA_quick_add_hint">Přidat úkol</string>
   <string name="TLA_quick_add_hint_assign">Add something for %s</string>
@@ -168,7 +165,6 @@
   <string name="TAd_actionEditTask">Upravit</string>
   <string name="TAd_contextEditTask">Upravit úkol</string>
   <string name="TAd_contextCopyTask">Kopírovat úkol</string>
-  <string name="TAd_contextHelpTask">Získat nápovědu</string>
   <string name="TAd_contextDeleteTask">Smazat úkol</string>
   <string name="TAd_contextUndeleteTask">Obnovit úkol</string>
   <string name="TAd_contextPurgeTask">Smazat úkol</string>
@@ -187,11 +183,7 @@
   <string name="SSD_save_temp">Pouze jednou</string>
   <string name="SSD_save_always">Vždy</string>
   <string name="FSA_label">Seznam nebo filtr Astrid</string>
-  <string name="FLA_title">Seznamy</string>
-  <string name="FLA_loading">Načítání filtrů...</string>
   <string name="FLA_context_shortcut">Vytvořit zástupce na ploše</string>
-  <string name="FLA_menu_search">Hledat úkoly...</string>
-  <string name="FLA_menu_help">Nápověda</string>
   <string name="FLA_shortcut_dialog_title">Vytvořit zástupce</string>
   <string name="FLA_shortcut_dialog">Název zástupce:</string>
   <string name="FLA_search_hint">Hledat úkoly</string>
@@ -200,13 +192,9 @@
   <string name="FLA_new_filter">Nový Filtr</string>
   <string name="FLA_new_list">Nový seznam</string>
   <string name="FLA_no_filter_selected">Není vybrán žádný filtr! Vyberte prosím filtr nebo seznam.</string>
-  <string name="TEA_view_title">Astrid: Úprava \'%s\'</string>
-  <string name="TEA_view_titleNew">Nový úkol</string>
-  <string name="TEA_title_label">Název</string>
   <string name="TEA_when_header_label">Kdy</string>
   <string name="TEA_title_hint">Souhrn úkolu</string>
   <string name="TEA_importance_label">Důležitost</string>
-  <string name="TEA_urgency_label">Termín</string>
   <string name="TEA_urgency_specific_time">V přesně daný čas?</string>
   <string name="TEA_urgency_none">Žádný</string>
   <string name="TEA_hideUntil_label">Zobrazit úkol</string>
@@ -224,8 +212,6 @@
   <string name="TEA_menu_comments">Komentáře</string>
   <string name="TEA_onTaskSave_due">Úkol uložen: termín je %s</string>
   <string name="TEA_onTaskSave_notDue">Úkol uložen</string>
-  <string name="TEA_onTaskCancel">Úprava úkolu byla zrušena</string>
-  <string name="TEA_onTaskDelete">Úkol smazán!</string>
   <string name="TEA_tab_activity">Činnost</string>
   <string name="TEA_tab_more">Více</string>
   <string name="TEA_tab_web">Tipy</string>

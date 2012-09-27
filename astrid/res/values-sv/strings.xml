@@ -119,7 +119,6 @@
   <string name="DLG_undo">Ångra</string>
   <string name="DLG_warning">Warning</string>
   <string name="WID_dateButtonUnset">Klicka för att ställa</string>
-  <string name="ENE_label_comments">Kommentarer</string>
   <string name="ENA_no_comments">Ännu ingen aktivitet</string>
   <string name="ENA_no_user">Någon</string>
   <string name="ENA_refresh_comments">Uppdatera kommentarer</string>
@@ -132,10 +131,8 @@
   <string name="TLA_menu_lists">Listor</string>
   <string name="TLA_menu_friends">People</string>
   <string name="TLA_menu_suggestions">Förslag</string>
-  <string name="TLA_menu_tutorial">Handledning</string>
   <string name="TLA_menu_settings">Inställningar</string>
   <string name="TLA_menu_support">Support</string>
-  <string name="TLA_search_label">Sök i denna lista</string>
   <string name="TLA_custom">Egendefinierad</string>
   <string name="TLA_quick_add_hint">Lägg till uppgift</string>
   <string name="TLA_quick_add_hint_assign">Lägg till något för %s</string>
@@ -168,7 +165,6 @@
   <string name="TAd_actionEditTask">Redigera</string>
   <string name="TAd_contextEditTask">Redigera uppgift</string>
   <string name="TAd_contextCopyTask">Kopiera uppgift</string>
-  <string name="TAd_contextHelpTask">Hjälp</string>
   <string name="TAd_contextDeleteTask">Radera uppgift</string>
   <string name="TAd_contextUndeleteTask">Återställ raderad uppgift</string>
   <string name="TAd_contextPurgeTask">Rensa uppgift</string>
@@ -187,11 +183,7 @@
   <string name="SSD_save_temp">Bara en gång</string>
   <string name="SSD_save_always">Alltid</string>
   <string name="FSA_label">Lista eller filter i Astrid</string>
-  <string name="FLA_title">Listor</string>
-  <string name="FLA_loading">Laddar filter...</string>
   <string name="FLA_context_shortcut">Skapa genväg på skrivbordet</string>
-  <string name="FLA_menu_search">Sök efter uppgifter...</string>
-  <string name="FLA_menu_help">Hjälp</string>
   <string name="FLA_shortcut_dialog_title">Skapa genväg</string>
   <string name="FLA_shortcut_dialog">Genvägens namn:</string>
   <string name="FLA_search_hint">Sök efter uppgifter</string>
@@ -200,13 +192,9 @@
   <string name="FLA_new_filter">Nytt filter</string>
   <string name="FLA_new_list">Ny lista</string>
   <string name="FLA_no_filter_selected">Inget filter valt! Välj ett filter eller en lista.</string>
-  <string name="TEA_view_title">Astrid: Redigerar \'%s\'</string>
-  <string name="TEA_view_titleNew">Ny uppgift</string>
-  <string name="TEA_title_label">Titel</string>
   <string name="TEA_when_header_label">När</string>
   <string name="TEA_title_hint">Uppgiftssammanfattning</string>
   <string name="TEA_importance_label">Viktighetsgrad</string>
-  <string name="TEA_urgency_label">Frist</string>
   <string name="TEA_urgency_specific_time">Vid bestämd tid?</string>
   <string name="TEA_urgency_none">Ingen</string>
   <string name="TEA_hideUntil_label">Visa uppgift</string>
@@ -224,8 +212,6 @@
   <string name="TEA_menu_comments">Kommentarer</string>
   <string name="TEA_onTaskSave_due">Uppgift sparad: förfaller %s</string>
   <string name="TEA_onTaskSave_notDue">Uppgift sparad</string>
-  <string name="TEA_onTaskCancel">Uppgiftsredigering avbröts</string>
-  <string name="TEA_onTaskDelete">Uppgiften borttagen!</string>
   <string name="TEA_tab_activity">Aktivitet</string>
   <string name="TEA_tab_more">Mer</string>
   <string name="TEA_tab_web">Idéer</string>
