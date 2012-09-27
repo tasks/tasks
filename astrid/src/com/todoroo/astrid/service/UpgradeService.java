@@ -540,7 +540,7 @@ public final class UpgradeService {
             return;
 
         changeLog.append("Enjoy!</body></html>");
-        String color = ThemeService.getDialogTextColor();
+        String color = ThemeService.getDialogTextColorString();
         String changeLogHtml = "<html><body style='color: " + color +"'>" + changeLog;
 
         DialogUtilities.htmlDialog(context, changeLogHtml,

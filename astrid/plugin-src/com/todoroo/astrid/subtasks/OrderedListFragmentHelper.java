@@ -110,7 +110,7 @@ public class OrderedListFragmentHelper<LIST> {
                 "subtasks_horizontal.png",
                 getActivity().getString(R.string.subtasks_help_3));
 
-        String color = ThemeService.getDialogTextColor();
+        String color = ThemeService.getDialogTextColorString();
         String html = String.format("<html><body style='text-align:center;color:%s'>%s</body></html>",
                 color, body);
 

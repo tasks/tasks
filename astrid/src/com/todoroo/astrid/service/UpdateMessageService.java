@@ -16,14 +16,17 @@ import org.weloveastrid.rmilk.MilkUtilities;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.Dialog;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.PackageManager.NameNotFoundException;
 import android.text.Spannable;
 import android.text.TextUtils;
+import android.text.method.LinkMovementMethod;
 import android.text.style.ClickableSpan;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.WindowManager.BadTokenException;
 import android.widget.TextView;
 
@@ -37,9 +40,7 @@ import com.todoroo.andlib.service.RestClient;
 import com.todoroo.andlib.sql.Query;
 import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.andlib.utility.DialogUtilities;
-import com.todoroo.astrid.actfm.ActFmLoginActivity;
 import com.todoroo.astrid.actfm.sync.ActFmPreferenceService;
-import com.todoroo.astrid.activity.EditPreferences;
 import com.todoroo.astrid.dao.StoreObjectDao;
 import com.todoroo.astrid.dao.StoreObjectDao.StoreObjectCriteria;
 import com.todoroo.astrid.data.StoreObject;
@@ -79,19 +80,20 @@ public class UpdateMessageService {
         JSONArray updates = checkForUpdates();
         System.err.println("UPDATES: " + updates);
 
-        try {
-            JSONObject test = new JSONObject();
-            test.put("date", "09/26/12");
-            test.put("message", "Screens!");
-            test.put("type", "screen");
-            JSONArray screenArray = new JSONArray();
-            screenArray.put(ActFmLoginActivity.class.getName());
-            screenArray.put(EditPreferences.class.getName());
-            test.put("screens", screenArray);
-            updates.put(test);
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
+//        try {
+//            JSONObject test = new JSONObject();
+//            test.put("date", "09/26/12");
+//            test.put("message", "Screens!");
+//            test.put("type", "screen");
+//            test.put("link", "Click me");
+//            JSONArray screenArray = new JSONArray();
+//            screenArray.put(ActFmLoginActivity.class.getName());
+//            screenArray.put(EditPreferences.class.getName());
+//            test.put("screens", screenArray);
+//            updates.put(test);
+//        } catch (JSONException e) {
+//            e.printStackTrace();
+//        }
 
         if(updates == null || updates.length() == 0)
             return;
@@ -129,18 +131,29 @@ public class UpdateMessageService {
         final DialogShower shower;
         if (message instanceof Spannable) {
             final TextView textView = new TextView(activity);
+            textView.setText(message);
+            textView.setTextSize(16);
+            textView.setTextColor(activity.getResources().getColor(ThemeService.getDialogTextColor()));
+            textView.setMovementMethod(LinkMovementMethod.getInstance());
             shower = new DialogShower() {
                 @Override
                 public void showDialog(Activity a) {
-                    new AlertDialog.Builder(a)
+                    final Dialog d = new AlertDialog.Builder(a)
                     .setTitle(R.string.UpS_updates_title)
                     .setView(textView)
                     .setPositiveButton(R.string.DLG_ok, null)
-                    .show();
+                    .create();
+                    textView.setOnClickListener(new OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            d.dismiss();
+                        }
+                    });
+                    d.show();
                 }
             };
         } else {
-            String color = ThemeService.getDialogTextColor();
+            String color = ThemeService.getDialogTextColorString();
             final String html = "<html><body style='color: " + color + "'>" +
                     message + "</body></html>";
             shower = new DialogShower() {

@@ -117,7 +117,7 @@ public class TaskListFragmentPager extends ViewPager {
                     "subtasks_horizontal.png",
                     activity.getString(R.string.swipe_lists_helper_subtitle));
 
-            String color = ThemeService.getDialogTextColor();
+            String color = ThemeService.getDialogTextColorString();
             String html = String.format("<html><body style='text-align:center;color:%s'>%s</body></html>",
                     color, body);
 

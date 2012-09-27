@@ -112,16 +112,23 @@ public class ThemeService {
         return theme;
     }
 
-    public static String getDialogTextColor() {
+    public static int getDialogTextColor() {
         if (AndroidUtilities.getSdkVersion() >= 11) {
             int theme = getTheme();
             if (theme == R.style.Theme || theme == R.style.Theme_Transparent)
-                return "white";
+                return android.R.color.white;
             else
-                return "black";
+                return android.R.color.black;
         } else {
-            return "white";
+            return android.R.color.white;
         }
+    }
+
+    public static String getDialogTextColorString() {
+        int color = getDialogTextColor();
+        if (color == android.R.color.white)
+            return "white";
+        return "black";
     }
 
     public static int getDrawable(int lightDrawable) {
