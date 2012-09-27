@@ -18,7 +18,10 @@ import android.content.Context;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.PackageManager.NameNotFoundException;
+import android.text.Spannable;
 import android.text.TextUtils;
+import android.text.style.ClickableSpan;
+import android.view.View;
 import android.view.WindowManager.BadTokenException;
 
 import com.timsu.astrid.R;
@@ -77,25 +80,29 @@ public class UpdateMessageService {
         if(updates == null || updates.length() == 0)
             return;
 
-        StringBuilder builder = buildUpdateMessage(updates);
-        if(builder.length() == 0)
+        CharSequence message = buildUpdateMessage(updates);
+        if(message.length() == 0)
             return;
 
-        displayUpdateDialog(builder);
+        displayUpdateDialog(message);
     }
 
     protected boolean shouldSkipUpdates() {
         return !(context instanceof Activity);
     }
 
-    protected void displayUpdateDialog(StringBuilder builder) {
+    protected void displayUpdateDialog(CharSequence message) {
         final Activity activity = (Activity) context;
         if(activity == null)
             return;
 
+        if (message instanceof Spannable) {
+            // Stuff
+        }
+
         String color = ThemeService.getDialogTextColor();
         final String html = "<html><body style='color: " + color + "'>" +
-            builder.append("</body></html>").toString();
+            message + "</body></html>";
 
         activity.runOnUiThread(new Runnable() {
             @Override
@@ -118,7 +125,7 @@ public class UpdateMessageService {
         });
     }
 
-    protected StringBuilder buildUpdateMessage(JSONArray updates) {
+    protected CharSequence buildUpdateMessage(JSONArray updates) {
         StringBuilder builder = new StringBuilder();
 
         for(int i = 0; i < updates.length(); i++) {
@@ -128,6 +135,7 @@ public class UpdateMessageService {
             } catch (JSONException e) {
                 continue;
             }
+
 
             String date = update.optString("date", null);
             String message = update.optString("message", null);
@@ -148,12 +156,27 @@ public class UpdateMessageService {
             if(messageAlreadySeen(date, message))
                 continue;
 
+            String type = update.optString("type", null);
+            if ("screen".equals(type) || "pref".equals(type)) {
+                String linkText = update.optString("link");
+                Spannable span = Spannable.Factory.getInstance().newSpannable(message + " " + linkText);
+                span.setSpan(new ClickableSpan() {
+                    @Override
+                    public void onClick(View widget) {
+                        // Do things
+                    }
+                }, span.length() - linkText.length(), span.length(), Spannable.SPAN_INCLUSIVE_EXCLUSIVE);
+                return span;
+            }
+
+
             if(date != null)
                 builder.append("<b>" + date + "</b><br />");
             builder.append(message);
             builder.append("<br /><br />");
+            return builder.toString();
         }
-        return builder;
+        return builder.toString();
     }
 
     private boolean pluginConditionMatches(String plugin) {
@@ -200,7 +223,8 @@ public class UpdateMessageService {
             String result = restClient.get(URL + "?version=" + versionCode + "&" +
                     "language=" + Locale.getDefault().getISO3Language() + "&" +
                     "market=" + Constants.MARKET_STRATEGY.strategyId() + "&" +
-                    "actfm=" + (actFmPreferenceService.isLoggedIn() ? "1" : "0")); //$NON-NLS-1$
+                    "actfm=" + (actFmPreferenceService.isLoggedIn() ? "1" : "0") + "&" +
+                    "premium=" + (ActFmPreferenceService.isPremiumUser() ? "1" : "0")); //$NON-NLS-1$
             if(TextUtils.isEmpty(result))
                 return null;
 
