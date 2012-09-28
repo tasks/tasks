@@ -253,8 +253,6 @@
   <string name="AOA_tab_installed">已安装</string>
   <string name="AOA_tab_available">可用</string>
   <string name="AOA_free">免费</string>
-  <string name="AOA_visit_website">访问网站</string>
-  <string name="AOA_visit_market">Android 市场</string>
   <string name="AOA_no_addons">空列表！</string>
   <string name="TWi_loading">载入中...</string>
   <string name="WCA_title">选择任务以显示...</string>
@@ -737,10 +735,7 @@
   <string name="tag_updates_title">活跃程度：%s</string>
   <string name="tag_delete_button">删除列表</string>
   <string name="tag_leave_button">离开这份列表</string>
-  <string name="TAE_startTimer">秒表</string>
-  <string name="TAE_stopTimer">停止</string>
   <string name="TPl_notification">秒表启动了 %s！</string>
-  <string name="TFE_category">时间筛选</string>
   <string name="TFE_workingOn">任务已开始计时</string>
   <string name="TEA_timer_controls">定时器控件</string>
   <string name="TEA_timer_comment_started">已经开始了这项任务：</string>
@@ -777,7 +772,6 @@
   <string name="EPr_voiceRemindersEnabled_desc_enabled">Astrid在任务提醒时会以语音说出任务名称</string>
   <string name="EPr_voiceRemindersEnabled_desc_disabled">Astrid在任务提醒时将会播放铃声</string>
   <string name="EPr_voice_header">语音输入设定</string>
-  <string name="welcome_show_eula">接受终端用户许可协议（EULA）来开始使用吧！</string>
   <string name="welcome_setting">显示教程</string>
   <string name="welcome_title_1">欢迎使用 Astrid！</string>
   <string name="welcome_title_2">创建列表</string>
@@ -795,7 +789,6 @@
   <string name="welcome_body_6">轻点即可添加便笺 \n设置提示还有更多功能呢！</string>
   <string name="welcome_body_7">登陆</string>
   <string name="welcome_body_7_return">拍拍 Astrid 返回。</string>
-  <string name="welcome_back">返回</string>
   <string name="welcome_next">下一步</string>
   <string name="PPW_widget_42_label">Astrid 尊贵版 4x2</string>
   <string name="PPW_widget_43_label">Astrid 尊贵版 4x3</string>

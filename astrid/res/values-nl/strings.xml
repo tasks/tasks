@@ -363,8 +363,6 @@
   <string name="AOA_tab_installed">Geïnstalleerd</string>
   <string name="AOA_tab_available">Beschikbaar</string>
   <string name="AOA_free">Gratis</string>
-  <string name="AOA_visit_website">Website bezoeken</string>
-  <string name="AOA_visit_market">Android Market</string>
   <string name="AOA_no_addons">Lijst is leeg!</string>
   <string name="TWi_loading">Laden…</string>
   <string name="WCA_title">Selecteer weer te geven taken...</string>
@@ -977,10 +975,7 @@
   <string name="tag_updates_title">Activiteit: %s</string>
   <string name="tag_delete_button">Lijst verwijderen</string>
   <string name="tag_leave_button">Verlaat Deze Lijst</string>
-  <string name="TAE_startTimer">Klok starten</string>
-  <string name="TAE_stopTimer">Klok stoppen</string>
   <string name="TPl_notification">Timers ingeschakeld voor %s!</string>
-  <string name="TFE_category">Timer filters</string>
   <string name="TFE_workingOn">Taken met timer</string>
   <string name="TEA_timer_controls">Tijd Controlers</string>
   <string name="TEA_timer_comment_started">taak begonnen:</string>
@@ -1018,7 +1013,6 @@
   <string name="EPr_voiceRemindersEnabled_desc_enabled">Bij herinneringen zullen de taaknamen uitgesproken worden</string>
   <string name="EPr_voiceRemindersEnabled_desc_disabled">Er wordt een geluid weergegeven bij herinneringen</string>
   <string name="EPr_voice_header">Spraakinstellingen</string>
-  <string name="welcome_show_eula">Accepteer de licentie om aan de slag te kunnen gaan!</string>
   <string name="welcome_setting">Laat handleiding zien</string>
   <string name="welcome_title_1">Welkom bij Astrid!</string>
   <string name="welcome_title_2">Maak lijsten</string>
@@ -1036,7 +1030,6 @@
   <string name="welcome_body_6">Klik om notities toe te voegen,\nherinneringen in te stellen,\nen nog veel meer!</string>
   <string name="welcome_body_7">Aanmelden</string>
   <string name="welcome_body_7_return">Klik Astrid om terug te gaan.</string>
-  <string name="welcome_back">Terug</string>
   <string name="welcome_next">Verder</string>
   <string name="PPW_widget_42_label">Astrid Premium 4x2</string>
   <string name="PPW_widget_43_label">Astrid Premium 4x3</string>

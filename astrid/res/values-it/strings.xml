@@ -362,8 +362,6 @@
   <string name="AOA_tab_installed">Installato</string>
   <string name="AOA_tab_available">Disponibile</string>
   <string name="AOA_free">Gratuito</string>
-  <string name="AOA_visit_website">Visita il Sito Web</string>
-  <string name="AOA_visit_market">Android Market</string>
   <string name="AOA_no_addons">Lista vuota!</string>
   <string name="TWi_loading">Caricamento...</string>
   <string name="WCA_title">Seleziona le attività da visualizzare...</string>
@@ -976,10 +974,7 @@
   <string name="tag_updates_title">Activity: %s</string>
   <string name="tag_delete_button">Delete List</string>
   <string name="tag_leave_button">Leave This List</string>
-  <string name="TAE_startTimer">Timer</string>
-  <string name="TAE_stopTimer">Stop</string>
   <string name="TPl_notification">Timer attivi per %s!</string>
-  <string name="TFE_category">Fitri Timer</string>
   <string name="TFE_workingOn">Le attività vengono cronometrate</string>
   <string name="TEA_timer_controls">Timer Controls</string>
   <string name="TEA_timer_comment_started">started this task:</string>
@@ -1017,7 +1012,6 @@
   <string name="EPr_voiceRemindersEnabled_desc_enabled">Astrid pronuncerà il nome dell\'attività durante i promemoria</string>
   <string name="EPr_voiceRemindersEnabled_desc_disabled">Astrid emetterà una suoneria durante i promemoria</string>
   <string name="EPr_voice_header">Preferenze Riconoscimento Vocale</string>
-  <string name="welcome_show_eula">Accept EULA to get started!</string>
   <string name="welcome_setting">Show Tutorial</string>
   <string name="welcome_title_1">Benvenuto su Astrid!</string>
   <string name="welcome_title_2">Make lists</string>
@@ -1035,7 +1029,6 @@
   <string name="welcome_body_6">Tap to add notes,\nset reminders,\nand much more!</string>
   <string name="welcome_body_7">Login</string>
   <string name="welcome_body_7_return">Tap Astrid to return.</string>
-  <string name="welcome_back">Back</string>
   <string name="welcome_next">Next</string>
   <string name="PPW_widget_42_label">Astrid Premium 4x2</string>
   <string name="PPW_widget_43_label">Astrid Premium 4x3</string>
