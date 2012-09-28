@@ -39,7 +39,7 @@ public class UpdateMessageServiceTest extends DatabaseTestCase {
                 assertTrue(url.contains("version="));
                 return "";
             }
-        }.processUpdates(getContext());
+        }.processUpdates();
     }
 
     public void testIOException() {
@@ -56,7 +56,7 @@ public class UpdateMessageServiceTest extends DatabaseTestCase {
             String getUpdates(String url) throws IOException {
                 throw new IOException("yayaya");
             }
-        }.processUpdates(getContext());
+        }.processUpdates();
     }
 
     public void testNewUpdate() {
@@ -73,7 +73,7 @@ public class UpdateMessageServiceTest extends DatabaseTestCase {
             String getUpdates(String url) throws IOException {
                 return "[{message:'yo'}]";
             }
-        }.processUpdates(getContext());
+        }.processUpdates();
     }
 
     public void testMultipleUpdates() {
@@ -84,14 +84,14 @@ public class UpdateMessageServiceTest extends DatabaseTestCase {
             @Override
             void verifyMessage(String message) {
                 assertTrue(message.contains("yo"));
-                assertTrue(message.contains("cat"));
+                assertFalse(message.contains("cat")); // We only process the first update now
             }
 
             @Override
             String getUpdates(String url) throws IOException {
                 return "[{message:'yo'},{message:'cat'}]";
             }
-        }.processUpdates(getContext());
+        }.processUpdates();
     }
 
     public void testExistingUpdate() {
@@ -108,7 +108,7 @@ public class UpdateMessageServiceTest extends DatabaseTestCase {
             String getUpdates(String url) throws IOException {
                 return "[{message:'yo'}]";
             }
-        }.processUpdates(getContext());
+        }.processUpdates();
 
         new TestUpdateMessageService() {
 
@@ -126,7 +126,7 @@ public class UpdateMessageServiceTest extends DatabaseTestCase {
             String getUpdates(String url) throws IOException {
                 return "[{message:'yo'}]";
             }
-        }.processUpdates(getContext());
+        }.processUpdates();
     }
 
     public void testUpdateWithDate() {
@@ -144,7 +144,7 @@ public class UpdateMessageServiceTest extends DatabaseTestCase {
             String getUpdates(String url) throws IOException {
                 return "[{message:'yo',date:'date'}]";
             }
-        }.processUpdates(getContext());
+        }.processUpdates();
     }
 
     public void testUpdateWithInternalPluginOn() {
@@ -162,7 +162,7 @@ public class UpdateMessageServiceTest extends DatabaseTestCase {
             String getUpdates(String url) throws IOException {
                 return "[{message:'rmilk man',plugin:'rmilk'}]";
             }
-        }.processUpdates(getContext());
+        }.processUpdates();
     }
 
     public void testUpdateWithInternalPluginOff() {
@@ -185,7 +185,7 @@ public class UpdateMessageServiceTest extends DatabaseTestCase {
             String getUpdates(String url) throws IOException {
                 return "[{message:'rmilk man',plugin:'rmilk'}]";
             }
-        }.processUpdates(getContext());
+        }.processUpdates();
     }
 
     public void testUpdateWithExternalPluginOn() {
@@ -202,7 +202,7 @@ public class UpdateMessageServiceTest extends DatabaseTestCase {
             String getUpdates(String url) throws IOException {
                 return "[{message:'astrid man',plugin:'" + Constants.PACKAGE + "'}]";
             }
-        }.processUpdates(getContext());
+        }.processUpdates();
     }
 
     public void testUpdateWithExternalPluginOff() {
@@ -224,7 +224,7 @@ public class UpdateMessageServiceTest extends DatabaseTestCase {
             String getUpdates(String url) throws IOException {
                 return "[{message:'astrid man',plugin:'com.bogus.package'}]";
             }
-        }.processUpdates(getContext());
+        }.processUpdates();
     }
 
     // ---
@@ -237,7 +237,7 @@ public class UpdateMessageServiceTest extends DatabaseTestCase {
     abstract public class TestUpdateMessageService extends UpdateMessageService {
 
         public TestUpdateMessageService() {
-            super();
+            super(null);
             restClient = new RestClient() {
 
                 public String post(String url, HttpEntity data, Header... headers) throws IOException {
@@ -250,11 +250,6 @@ public class UpdateMessageServiceTest extends DatabaseTestCase {
             };
         }
 
-        @Override
-        protected boolean shouldSkipUpdates() {
-            return false;
-        }
-
         abstract void verifyMessage(String message);
 
         abstract String getUpdates(String url) throws IOException;
@@ -264,15 +259,15 @@ public class UpdateMessageServiceTest extends DatabaseTestCase {
         }
 
         @Override
-        protected StringBuilder buildUpdateMessage(JSONArray updates) {
-            StringBuilder builder = super.buildUpdateMessage(updates);
+        protected CharSequence buildUpdateMessage(JSONArray updates) {
+            CharSequence builder = super.buildUpdateMessage(updates);
             if(builder.length() == 0)
                 onEmptyMessage();
             return builder;
         }
 
         @Override
-        protected void displayUpdateDialog(StringBuilder builder) {
+        protected void displayUpdateDialog(CharSequence builder) {
             verifyMessage(builder.toString());
         }
     }
