@@ -287,6 +287,8 @@ public class AstridActivity extends FragmentActivity
 
     @Override
     public void onBackPressed() {
+        if (isFinishing())
+            return;
         super.onBackPressed();
     }
 
