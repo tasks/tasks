@@ -455,8 +455,6 @@
   <string name="rmd_EPr_persistent_title">持续通知</string>
   <string name="rmd_EPr_persistent_desc_true">通知必须个别地清除</string>
   <string name="rmd_EPr_persistent_desc_false">通知可经由点选“清除全部”清除</string>
-  <string name="rmd_EPr_notificon_title">通知图标集</string>
-  <string name="rmd_Epr_notificon_desc">选择 Astrid 通知列图标</string>
   <string name="rmd_EPr_multiple_maxvolume_title">多重提醒最大音量</string>
   <string name="rmd_EPr_multiple_maxvolume_desc_true">Astrid将会以最大音量进行多重提醒</string>
   <string name="rmd_EPr_multiple_maxvolume_desc_false">Astrid使用系统音量设置</string>
@@ -472,7 +470,6 @@
   <string name="rmd_EPr_defaultRemind_title">随机提醒</string>
   <string name="rmd_EPr_defaultRemind_desc_disabled">新任务不使用随机提醒</string>
   <string name="rmd_EPr_defaultRemind_desc">任务将随机提醒: %s</string>
-  <string name="rmd_EPr_defaults_header">新任务默认值</string>
   <string-array name="EPr_reminder_random">
     <item>停用</item>
     <item>每小时</item>
@@ -719,20 +716,12 @@
   <string name="TEA_tags_label_long">把任务放入一个或多个列表上</string>
   <string name="TEA_tags_none">无</string>
   <string name="TEA_tag_hint">新建列表</string>
-  <string name="TEA_tag_dropdown">选择一个列表</string>
-  <string name="tag_TLA_menu">列表</string>
-  <string name="TAd_contextFilterByTag">显示列表</string>
   <string name="tag_new_list">新列表</string>
-  <string name="tag_list_saved">列表已保存</string>
   <string name="tag_no_title_error">请先为此列表键入一个名称！</string>
   <string name="tag_FEx_add_new">添加</string>
   <string name="tag_FEx_header">列表</string>
-  <string name="tag_FEx_category_mine">我的列表</string>
-  <string name="tag_FEx_category_shared">与我分享的</string>
-  <string name="tag_FEx_category_inactive">不活动的</string>
   <string name="tag_FEx_untagged">不在任何列表</string>
   <string name="tag_FEx_untagged_w_astrid">不在 Astrid 列表中</string>
-  <string name="tag_FEx_name">列表：%s</string>
   <string name="tag_cm_rename">重命名列表</string>
   <string name="tag_cm_delete">删除列表</string>
   <string name="tag_cm_leave">离开列表</string>
@@ -1069,7 +1058,6 @@
     <item>Astrid 的提醒</item>
   </string-array>
   <string name="rmd_reengage_name_default">您</string>
-  <string name="rmd_reengage_snooze">全部重响</string>
   <string name="rmd_reengage_add_tasks">添加一项任务</string>
   <string-array name="rmd_reengage_dialog_options">
     <item>是时候缩短您的任务清单了！</item>

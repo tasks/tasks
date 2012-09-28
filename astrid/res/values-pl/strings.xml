@@ -656,7 +656,6 @@
     <item>Reminders from Astrid</item>
   </string-array>
   <string name="rmd_reengage_name_default">you</string>
-  <string name="rmd_reengage_snooze">Snooze all</string>
   <string name="rmd_reengage_add_tasks">Add a task</string>
   <string-array name="rmd_reengage_dialog_options">
     <item>Time to shorten your to-do list!</item>
@@ -693,8 +692,6 @@
   <string name="rmd_EPr_persistent_title">Wytrwałość powiadomienia</string>
   <string name="rmd_EPr_persistent_desc_true">Powiadomienia muszą być wyświetlane pojedyńczo aby były wyczyszczone</string>
   <string name="rmd_EPr_persistent_desc_false">Powiadomienia mogą zostać wyczyszczone przyciskiem \"Wyczyść wszystkie\"</string>
-  <string name="rmd_EPr_notificon_title">Ikona powiadomienia</string>
-  <string name="rmd_Epr_notificon_desc">Wybierz ikonę dla powiadomień Astrid</string>
   <string name="rmd_EPr_multiple_maxvolume_title">Maksymalna głośność dla wielu pierścieni przypomnień</string>
   <string name="rmd_EPr_multiple_maxvolume_desc_true">Astrid będzie maks określał głośność dla wielu pierścieni przypomnienia</string>
   <string name="rmd_EPr_multiple_maxvolume_desc_false">Astrid będzie korzystał z systemowego ustawienia głośności</string>
@@ -710,7 +707,6 @@
   <string name="rmd_EPr_defaultRemind_title">Losowe przypomnienia</string>
   <string name="rmd_EPr_defaultRemind_desc_disabled">Nowe zadania nie będą miały losowych przypomnień</string>
   <string name="rmd_EPr_defaultRemind_desc">Nowe zadania będą przypominane losowo: %s</string>
-  <string name="rmd_EPr_defaults_header">Nowe zadanie (domyślnie)</string>
   <string-array name="EPr_reminder_random">
     <item>wyłączone</item>
     <item>co godzinę</item>
@@ -960,20 +956,12 @@
   <string name="TEA_tags_label_long">Put task on one or more lists</string>
   <string name="TEA_tags_none">Brak</string>
   <string name="TEA_tag_hint">New list</string>
-  <string name="TEA_tag_dropdown">Wybierz listę</string>
-  <string name="tag_TLA_menu">Listy</string>
-  <string name="TAd_contextFilterByTag">Pokaż listę</string>
   <string name="tag_new_list">Nowa lista</string>
-  <string name="tag_list_saved">Lista zapisana</string>
   <string name="tag_no_title_error">Wpisz nazwę dla tej listy najpierw!</string>
   <string name="tag_FEx_add_new">Nowy</string>
   <string name="tag_FEx_header">Listy</string>
-  <string name="tag_FEx_category_mine">Moje listy</string>
-  <string name="tag_FEx_category_shared">Podziel się ze mną</string>
-  <string name="tag_FEx_category_inactive">Nieaktywny</string>
   <string name="tag_FEx_untagged">Not in any List</string>
   <string name="tag_FEx_untagged_w_astrid">Poza listą Astrid</string>
-  <string name="tag_FEx_name">Lista: %s</string>
   <string name="tag_cm_rename">Zmień nazwę listy</string>
   <string name="tag_cm_delete">Usuń listę</string>
   <string name="tag_cm_leave">Leave List</string>

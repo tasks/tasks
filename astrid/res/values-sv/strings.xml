@@ -656,7 +656,6 @@
     <item>Reminders from Astrid</item>
   </string-array>
   <string name="rmd_reengage_name_default">you</string>
-  <string name="rmd_reengage_snooze">Snooze all</string>
   <string name="rmd_reengage_add_tasks">Add a task</string>
   <string-array name="rmd_reengage_dialog_options">
     <item>Time to shorten your to-do list!</item>
@@ -693,8 +692,6 @@
   <string name="rmd_EPr_persistent_title">Varselinställningar</string>
   <string name="rmd_EPr_persistent_desc_true">Varsel måste ses individuellt för att kunna rensas</string>
   <string name="rmd_EPr_persistent_desc_false">Varsel kan rensas med \"Rensa alla\"-knappen</string>
-  <string name="rmd_EPr_notificon_title">Välj ikon för varsel</string>
-  <string name="rmd_Epr_notificon_desc">Välj Astrids statusfältikon</string>
   <string name="rmd_EPr_multiple_maxvolume_title">Maxvolym för flera ringande påminnelser</string>
   <string name="rmd_EPr_multiple_maxvolume_desc_true">Astrid sätter volymen på max för flera ringande påminnelser</string>
   <string name="rmd_EPr_multiple_maxvolume_desc_false">Astrid använder systeminställningen för volym</string>
@@ -710,7 +707,6 @@
   <string name="rmd_EPr_defaultRemind_title">Tillfälliga påminnelser</string>
   <string name="rmd_EPr_defaultRemind_desc_disabled">Nya uppgifter påminns inte tillfälligtvis</string>
   <string name="rmd_EPr_defaultRemind_desc">Nya uppgifter påminns tillfälligtvis: %s</string>
-  <string name="rmd_EPr_defaults_header">Standardinställningar för nya uppgifter</string>
   <string-array name="EPr_reminder_random">
     <item>inaktiverad</item>
     <item>varje timme</item>
@@ -960,20 +956,12 @@
   <string name="TEA_tags_label_long">Koppla uppgiften till en eller flera listor</string>
   <string name="TEA_tags_none">Ingen</string>
   <string name="TEA_tag_hint">Ny lista</string>
-  <string name="TEA_tag_dropdown">Välj lista</string>
-  <string name="tag_TLA_menu">Listor</string>
-  <string name="TAd_contextFilterByTag">Visa lista</string>
   <string name="tag_new_list">Ny lista</string>
-  <string name="tag_list_saved">Listan sparad</string>
   <string name="tag_no_title_error">Ange först ett namn på listan!</string>
   <string name="tag_FEx_add_new">Ny</string>
   <string name="tag_FEx_header">Listor</string>
-  <string name="tag_FEx_category_mine">Mina listor</string>
-  <string name="tag_FEx_category_shared">Delas med mig</string>
-  <string name="tag_FEx_category_inactive">Inaktiv</string>
   <string name="tag_FEx_untagged">Ingen lista</string>
   <string name="tag_FEx_untagged_w_astrid">Ingen lista i Astrid</string>
-  <string name="tag_FEx_name">Lista: %s</string>
   <string name="tag_cm_rename">Byt namn på listan</string>
   <string name="tag_cm_delete">Radera listan</string>
   <string name="tag_cm_leave">Lämna listan</string>

@@ -656,7 +656,6 @@
     <item>Reminders from Astrid</item>
   </string-array>
   <string name="rmd_reengage_name_default">you</string>
-  <string name="rmd_reengage_snooze">Snooze all</string>
   <string name="rmd_reengage_add_tasks">Add a task</string>
   <string-array name="rmd_reengage_dialog_options">
     <item>Time to shorten your to-do list!</item>
@@ -693,8 +692,6 @@
   <string name="rmd_EPr_persistent_title">Persistence de la notification</string>
   <string name="rmd_EPr_persistent_desc_true">Les notifications doivent être affichées séparément afin d\'être purgées</string>
   <string name="rmd_EPr_persistent_desc_false">Les notifications peuvent être purgées grâce au bouton « Tout purger »</string>
-  <string name="rmd_EPr_notificon_title">Set d\'icônes de notifications</string>
-  <string name="rmd_Epr_notificon_desc">Choisissez une icône pour la barre de notifications Astrid</string>
   <string name="rmd_EPr_multiple_maxvolume_title">Max volume for multiple-ring reminders</string>
   <string name="rmd_EPr_multiple_maxvolume_desc_true">Astrid va maximiser le volume de multiples anneaux rappels</string>
   <string name="rmd_EPr_multiple_maxvolume_desc_false">Astrid pourra utiliser le système de fixation pour le volume</string>
@@ -710,7 +707,6 @@
   <string name="rmd_EPr_defaultRemind_title">Rappels aléatoires</string>
   <string name="rmd_EPr_defaultRemind_desc_disabled">Les nouvelles tâches n\'auront pas de rappels aléatoires</string>
   <string name="rmd_EPr_defaultRemind_desc">Les nouvelles tâches rappèleront aléatoirement : %s</string>
-  <string name="rmd_EPr_defaults_header">Paramètres par défaut de la tâche</string>
   <string-array name="EPr_reminder_random">
     <item>désactivé</item>
     <item>chaque heure</item>
@@ -960,20 +956,12 @@
   <string name="TEA_tags_label_long">Put task on one or more lists</string>
   <string name="TEA_tags_none">Aucune</string>
   <string name="TEA_tag_hint">New list</string>
-  <string name="TEA_tag_dropdown">Sélectionnez une liste</string>
-  <string name="tag_TLA_menu">Listes</string>
-  <string name="TAd_contextFilterByTag">Afficher la liste</string>
   <string name="tag_new_list">Nouvelle liste</string>
-  <string name="tag_list_saved">Liste enregistrée</string>
   <string name="tag_no_title_error">Veuillez d\'abord entrer un nom pour cette liste.</string>
   <string name="tag_FEx_add_new">Nouveau</string>
   <string name="tag_FEx_header">Listes</string>
-  <string name="tag_FEx_category_mine">Mes listes</string>
-  <string name="tag_FEx_category_shared">Partagé avec Moi</string>
-  <string name="tag_FEx_category_inactive">Inactif</string>
   <string name="tag_FEx_untagged">Not in any List</string>
   <string name="tag_FEx_untagged_w_astrid">Not in an Astrid List</string>
-  <string name="tag_FEx_name">Liste : %s</string>
   <string name="tag_cm_rename">Renommer la liste</string>
   <string name="tag_cm_delete">Supprimer la liste</string>
   <string name="tag_cm_leave">Leave List</string>

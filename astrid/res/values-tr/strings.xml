@@ -656,7 +656,6 @@
     <item>Astrid Hatırlatmaları</item>
   </string-array>
   <string name="rmd_reengage_name_default">siz</string>
-  <string name="rmd_reengage_snooze">Tümünü ertele</string>
   <string name="rmd_reengage_add_tasks">Bir görev ekle</string>
   <string-array name="rmd_reengage_dialog_options">
     <item>Yapılacaklar listenizi kısaltmanın tam zamanı!</item>
@@ -693,8 +692,6 @@
   <string name="rmd_EPr_persistent_title">Bildirim Sürekliliği</string>
   <string name="rmd_EPr_persistent_desc_true">Bildirimlerin temizlenmesi için tek tek görüntülenmeleri gerekir.</string>
   <string name="rmd_EPr_persistent_desc_false">Bildirimler \"Tümünü Temizle\" düğmesiyle temizlenebilir</string>
-  <string name="rmd_EPr_notificon_title">Bildirim Simgeleri Seti</string>
-  <string name="rmd_Epr_notificon_desc">Astrid bildirim çubuğu simgesini seçin</string>
   <string name="rmd_EPr_multiple_maxvolume_title">Çoklu çalan hatırlatmalar için en yüksek ses seviyesi</string>
   <string name="rmd_EPr_multiple_maxvolume_desc_true">Çoklu çalan hatırlatmalar için Astrid ses seviyesini en yükseğe çıkaracaktır</string>
   <string name="rmd_EPr_multiple_maxvolume_desc_false">Astrid ses seviyesi için sistem ayarlarını kullanacak</string>
@@ -710,7 +707,6 @@
   <string name="rmd_EPr_defaultRemind_title">Rastgele Hatırlatmalar</string>
   <string name="rmd_EPr_defaultRemind_desc_disabled">Yeni görev rastgele hatırlatmayacak</string>
   <string name="rmd_EPr_defaultRemind_desc">Yeni görevler rastgele hatırlatacak: %s</string>
-  <string name="rmd_EPr_defaults_header">Yeni Görev Öntanımlıları</string>
   <string-array name="EPr_reminder_random">
     <item>devre dışı</item>
     <item>saat başı</item>
@@ -960,20 +956,12 @@
   <string name="TEA_tags_label_long">Görevi bir ya da daha çok listeye yerleştirin</string>
   <string name="TEA_tags_none">Hiçbiri</string>
   <string name="TEA_tag_hint">Yeni liste</string>
-  <string name="TEA_tag_dropdown">Liste Seç</string>
-  <string name="tag_TLA_menu">Listeler</string>
-  <string name="TAd_contextFilterByTag">Listeyi Göster</string>
   <string name="tag_new_list">Yeni Liste</string>
-  <string name="tag_list_saved">Liste kaydedildi</string>
   <string name="tag_no_title_error">Lütfen bu liste için isim girin!</string>
   <string name="tag_FEx_add_new">Yeni</string>
   <string name="tag_FEx_header">Listeler</string>
-  <string name="tag_FEx_category_mine">Listelerim</string>
-  <string name="tag_FEx_category_shared">Benimle Paylaşılan</string>
-  <string name="tag_FEx_category_inactive">Etkin Olmayan</string>
   <string name="tag_FEx_untagged">Herhangi bir listede olmayan</string>
   <string name="tag_FEx_untagged_w_astrid">Astrid listesinde olmayan</string>
-  <string name="tag_FEx_name">Liste: %s</string>
   <string name="tag_cm_rename">Listeyi yeniden adlandır</string>
   <string name="tag_cm_delete">Listeyi Sil</string>
   <string name="tag_cm_leave">Listeden Çık</string>

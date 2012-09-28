@@ -656,7 +656,6 @@
     <item>תזכורות מאסטריד</item>
   </string-array>
   <string name="rmd_reengage_name_default">אתה</string>
-  <string name="rmd_reengage_snooze">השתק הכל</string>
   <string name="rmd_reengage_add_tasks">הוסף משימה</string>
   <string-array name="rmd_reengage_dialog_options">
     <item>הגיע הזמן לקצר את רשימת המשימות שלך!</item>
@@ -693,8 +692,6 @@
   <string name="rmd_EPr_persistent_title">התמדת אתראות</string>
   <string name="rmd_EPr_persistent_desc_true">יש לצפות בכל אתראה בנפרד כדי להסירה</string>
   <string name="rmd_EPr_persistent_desc_false">כפתור «הסר הכל» יסיר את כל האתראות</string>
-  <string name="rmd_EPr_notificon_title">ערכת צלמיות לאתראות</string>
-  <string name="rmd_Epr_notificon_desc">בחר צלמית לסרגל האתראות של אסטריד</string>
   <string name="rmd_EPr_multiple_maxvolume_title">עוצמת קול מירבית לתזכורות מרובות צילצולים</string>
   <string name="rmd_EPr_multiple_maxvolume_desc_true">אסטריד תשתמש בעוצמת קול מירבית לתזכורות רבות צלצולים</string>
   <string name="rmd_EPr_multiple_maxvolume_desc_false">אסטריד תשתמש בהגדרות המערכת של עצמת קול</string>
@@ -710,7 +707,6 @@
   <string name="rmd_EPr_defaultRemind_title">תזכורות אקראיות</string>
   <string name="rmd_EPr_defaultRemind_desc_disabled">משימות חדשות לא תכלנה תזכורות אקראיות</string>
   <string name="rmd_EPr_defaultRemind_desc">משימות חדשות יתזכרו אותך אקראית: %s</string>
-  <string name="rmd_EPr_defaults_header">ברירות המחדל למשימה חדשה</string>
   <string-array name="EPr_reminder_random">
     <item>מופסק</item>
     <item>שְׁעָתִי</item>
@@ -960,20 +956,12 @@
   <string name="TEA_tags_label_long">הצב את המשימה ברשימה אחת או יותר</string>
   <string name="TEA_tags_none">אין</string>
   <string name="TEA_tag_hint">רשימה חדשה</string>
-  <string name="TEA_tag_dropdown">בחר רשימה</string>
-  <string name="tag_TLA_menu">רשימות</string>
-  <string name="TAd_contextFilterByTag">הצג רשימה</string>
   <string name="tag_new_list">רשימה חדשה</string>
-  <string name="tag_list_saved">רשימה נשמהה</string>
   <string name="tag_no_title_error">אנא הכנס שם לרשימה זו</string>
   <string name="tag_FEx_add_new">חדש</string>
   <string name="tag_FEx_header">רשימות</string>
-  <string name="tag_FEx_category_mine">הרשימות שלי</string>
-  <string name="tag_FEx_category_shared">שותפו איתי</string>
-  <string name="tag_FEx_category_inactive">לא פעיל</string>
   <string name="tag_FEx_untagged">לא בשום רשמיה</string>
   <string name="tag_FEx_untagged_w_astrid">לא ברשימה של אסטריד</string>
-  <string name="tag_FEx_name">רשימה: %s</string>
   <string name="tag_cm_rename">שנה שם רשימה</string>
   <string name="tag_cm_delete">מחק רשימה</string>
   <string name="tag_cm_leave">עזוב רשימה</string>

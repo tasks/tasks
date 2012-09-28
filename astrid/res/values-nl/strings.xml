@@ -656,7 +656,6 @@
     <item>Herinneringen van Astrid</item>
   </string-array>
   <string name="rmd_reengage_name_default">jij</string>
-  <string name="rmd_reengage_snooze">Alles uitstellen</string>
   <string name="rmd_reengage_add_tasks">Taak toevoegen</string>
   <string-array name="rmd_reengage_dialog_options">
     <item>Het is tijd om je to-do lijst op te schonen!</item>
@@ -693,8 +692,6 @@
   <string name="rmd_EPr_persistent_title">Herinneringen aanhouden</string>
   <string name="rmd_EPr_persistent_desc_true">Herinneringen moeten individueel worden gewist</string>
   <string name="rmd_EPr_persistent_desc_false">Herinneringen kunnen met de \"Alles wissen\" knop worden uitgezet</string>
-  <string name="rmd_EPr_notificon_title">Herinneringen pictogram</string>
-  <string name="rmd_Epr_notificon_desc">Selecteer Astrid pictogram in waarschuwingen balk</string>
   <string name="rmd_EPr_multiple_maxvolume_title">Max. volume voor multiple-ring herinneringen</string>
   <string name="rmd_EPr_multiple_maxvolume_desc_true">Astrid zal het volume voor multi-ring herinneringen maximaliseren</string>
   <string name="rmd_EPr_multiple_maxvolume_desc_false">Astrid zal de systeem-instellingen voor het volume gebruiken</string>
@@ -710,7 +707,6 @@
   <string name="rmd_EPr_defaultRemind_title">Willekeurige herinneringen</string>
   <string name="rmd_EPr_defaultRemind_desc_disabled">Nieuwe taken hebben geen willekeurige herinneringen</string>
   <string name="rmd_EPr_defaultRemind_desc">Nieuwe taken willekeurig herinneren: %s</string>
-  <string name="rmd_EPr_defaults_header">Basisinstellingen nieuwe taak</string>
   <string-array name="EPr_reminder_random">
     <item>uitgeschakeld</item>
     <item>uurlijks</item>
@@ -960,20 +956,12 @@
   <string name="TEA_tags_label_long">Zet taak op een of meer lijsten</string>
   <string name="TEA_tags_none">Geen</string>
   <string name="TEA_tag_hint">Nieuwe lijst</string>
-  <string name="TEA_tag_dropdown">Selecteer een lijst</string>
-  <string name="tag_TLA_menu">Lijsten</string>
-  <string name="TAd_contextFilterByTag">Lijst weergeven</string>
   <string name="tag_new_list">Nieuwe lijst</string>
-  <string name="tag_list_saved">Lijst opgeslagen</string>
   <string name="tag_no_title_error">Voer a.u.b. eerst een naam in voor deze lijst!</string>
   <string name="tag_FEx_add_new">Nieuw</string>
   <string name="tag_FEx_header">Lijsten</string>
-  <string name="tag_FEx_category_mine">Lijsten</string>
-  <string name="tag_FEx_category_shared">Met mij gedeeld</string>
-  <string name="tag_FEx_category_inactive">Niet actief</string>
   <string name="tag_FEx_untagged">Niet in een Lijst</string>
   <string name="tag_FEx_untagged_w_astrid">Niet in een Astrid Lijst</string>
-  <string name="tag_FEx_name">Lijst: %s</string>
   <string name="tag_cm_rename">Lijst hernoemen</string>
   <string name="tag_cm_delete">Lijst verwijderen</string>
   <string name="tag_cm_leave">Verlaat Lijst</string>
