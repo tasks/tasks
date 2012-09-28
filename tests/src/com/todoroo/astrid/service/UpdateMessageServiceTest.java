@@ -12,6 +12,9 @@ import org.apache.http.HttpEntity;
 import org.json.JSONArray;
 import org.weloveastrid.rmilk.MilkUtilities;
 
+import android.text.Spannable;
+import android.text.style.ClickableSpan;
+
 import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.RestClient;
 import com.todoroo.astrid.dao.StoreObjectDao;
@@ -29,7 +32,7 @@ public class UpdateMessageServiceTest extends DatabaseTestCase {
         new TestUpdateMessageService() {
 
             @Override
-            void verifyMessage(String message) {
+            void verifyMessage(CharSequence message) {
                 fail("should not have displayed updates");
             }
 
@@ -48,7 +51,7 @@ public class UpdateMessageServiceTest extends DatabaseTestCase {
         new TestUpdateMessageService() {
 
             @Override
-            void verifyMessage(String message) {
+            void verifyMessage(CharSequence message) {
                 fail("should not have displayed updates");
             }
 
@@ -65,8 +68,8 @@ public class UpdateMessageServiceTest extends DatabaseTestCase {
         new TestUpdateMessageService() {
 
             @Override
-            void verifyMessage(String message) {
-                assertTrue(message.contains("yo"));
+            void verifyMessage(CharSequence message) {
+                assertTrue(message.toString().contains("yo"));
             }
 
             @Override
@@ -82,9 +85,9 @@ public class UpdateMessageServiceTest extends DatabaseTestCase {
         new TestUpdateMessageService() {
 
             @Override
-            void verifyMessage(String message) {
-                assertTrue(message.contains("yo"));
-                assertFalse(message.contains("cat")); // We only process the first update now
+            void verifyMessage(CharSequence message) {
+                assertTrue(message.toString().contains("yo"));
+                assertFalse(message.toString().contains("cat")); // We only process the first update now
             }
 
             @Override
@@ -100,8 +103,8 @@ public class UpdateMessageServiceTest extends DatabaseTestCase {
         new TestUpdateMessageService() {
 
             @Override
-            void verifyMessage(String message) {
-                assertTrue(message.contains("yo"));
+            void verifyMessage(CharSequence message) {
+                assertTrue(message.toString().contains("yo"));
             }
 
             @Override
@@ -113,7 +116,7 @@ public class UpdateMessageServiceTest extends DatabaseTestCase {
         new TestUpdateMessageService() {
 
             @Override
-            void verifyMessage(String message) {
+            void verifyMessage(CharSequence message) {
                 fail("should have not displayed again");
             }
 
@@ -135,9 +138,9 @@ public class UpdateMessageServiceTest extends DatabaseTestCase {
         new TestUpdateMessageService() {
 
             @Override
-            void verifyMessage(String message) {
-                assertTrue(message.contains("yo"));
-                assertTrue(message.contains("date"));
+            void verifyMessage(CharSequence message) {
+                assertTrue(message.toString().contains("yo"));
+                assertTrue(message.toString().contains("date"));
             }
 
             @Override
@@ -154,8 +157,8 @@ public class UpdateMessageServiceTest extends DatabaseTestCase {
         new TestUpdateMessageService() {
 
             @Override
-            void verifyMessage(String message) {
-                assertTrue(message.contains("rmilk man"));
+            void verifyMessage(CharSequence message) {
+                assertTrue(message.toString().contains("rmilk man"));
             }
 
             @Override
@@ -172,7 +175,7 @@ public class UpdateMessageServiceTest extends DatabaseTestCase {
         new TestUpdateMessageService() {
 
             @Override
-            void verifyMessage(String message) {
+            void verifyMessage(CharSequence message) {
                 fail("displayed update");
             }
 
@@ -194,8 +197,8 @@ public class UpdateMessageServiceTest extends DatabaseTestCase {
         new TestUpdateMessageService() {
 
             @Override
-            void verifyMessage(String message) {
-                assertTrue(message.contains("astrid man"));
+            void verifyMessage(CharSequence message) {
+                assertTrue(message.toString().contains("astrid man"));
             }
 
             @Override
@@ -211,7 +214,7 @@ public class UpdateMessageServiceTest extends DatabaseTestCase {
         new TestUpdateMessageService() {
 
             @Override
-            void verifyMessage(String message) {
+            void verifyMessage(CharSequence message) {
                 fail("displayed update");
             }
 
@@ -225,6 +228,42 @@ public class UpdateMessageServiceTest extends DatabaseTestCase {
                 return "[{message:'astrid man',plugin:'com.bogus.package'}]";
             }
         }.processUpdates();
+    }
+
+    public void testUpdateWithScreenFlow() {
+        clearLatestUpdates();
+
+        new TestUpdateMessageService() {
+
+            @Override
+            void verifyMessage(CharSequence message) {
+                assertTrue(message instanceof Spannable);
+                assertTrue(((Spannable)message).getSpans(0, message.length(), ClickableSpan.class).length > 0);
+            }
+
+            @Override
+            String getUpdates(String url) throws IOException {
+                return "[{type:'screen',screens:['com.todoroo.astrid.activity.TaskListActivity'],message:'Screens'}]";
+            }
+        };
+    }
+
+    public void testUpdateWithPrefs() {
+        clearLatestUpdates();
+
+        new TestUpdateMessageService() {
+
+            @Override
+            void verifyMessage(CharSequence message) {
+                assertTrue(message instanceof Spannable);
+                assertTrue(((Spannable)message).getSpans(0, message.length(), ClickableSpan.class).length > 0);
+            }
+
+            @Override
+            String getUpdates(String url) throws IOException {
+                return "[{type:'pref',prefs:[{key:'key', type:'bool', title:'my pref'}],message:'Prefs'}]";
+            }
+        };
     }
 
     // ---
@@ -250,7 +289,7 @@ public class UpdateMessageServiceTest extends DatabaseTestCase {
             };
         }
 
-        abstract void verifyMessage(String message);
+        abstract void verifyMessage(CharSequence message);
 
         abstract String getUpdates(String url) throws IOException;
 
@@ -268,7 +307,7 @@ public class UpdateMessageServiceTest extends DatabaseTestCase {
 
         @Override
         protected void displayUpdateDialog(CharSequence builder) {
-            verifyMessage(builder.toString());
+            verifyMessage(builder);
         }
     }
 
