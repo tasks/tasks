@@ -258,9 +258,6 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
 
     private boolean overrideFinishAnim;
 
-    // --- fragment handling variables
-    OnTaskEditDetailsClickedListener mListener;
-
     private long remoteId = 0;
 
 
@@ -287,14 +284,6 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
     @Override
     public void onAttach(SupportActivity activity) {
         super.onAttach(activity);
-        // Check that the container activity has implemented the callback
-        // interface
-        try {
-            mListener = (OnTaskEditDetailsClickedListener) activity;
-        } catch (ClassCastException e) {
-            throw new ClassCastException(activity.toString()
-                    + " must implement OnTaskEditDetailsClickedListener"); //$NON-NLS-1$
-        }
     }
 
     public TaskEditFragment() {
