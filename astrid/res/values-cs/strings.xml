@@ -116,6 +116,7 @@
   <string name="DLG_loading">Nahrávám...</string>
   <string name="DLG_ok">OK</string>
   <string name="DLG_cancel">Storno</string>
+  <string name="DLG_more">Další</string>
   <string name="DLG_undo">Vrátit změny</string>
   <string name="DLG_warning">Výstraha</string>
   <string name="WID_dateButtonUnset">Klikni pro nastavení</string>

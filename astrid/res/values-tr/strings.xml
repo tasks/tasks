@@ -116,6 +116,7 @@
   <string name="DLG_loading">Yükleniyor...</string>
   <string name="DLG_ok">Tamam</string>
   <string name="DLG_cancel">Vazgeç</string>
+  <string name="DLG_more">Daha Fazla</string>
   <string name="DLG_undo">Geri al</string>
   <string name="DLG_warning">Uyarı</string>
   <string name="WID_dateButtonUnset">Ayar İçin Dokun</string>

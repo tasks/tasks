@@ -116,6 +116,7 @@
   <string name="DLG_loading">Chargement…</string>
   <string name="DLG_ok">OK</string>
   <string name="DLG_cancel">Annuler</string>
+  <string name="DLG_more">Plus</string>
   <string name="DLG_undo">Annuler Action</string>
   <string name="DLG_warning">Avertissement</string>
   <string name="WID_dateButtonUnset">Cliquez pour définir</string>

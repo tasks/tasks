@@ -116,6 +116,7 @@
   <string name="DLG_loading">로딩중...</string>
   <string name="DLG_ok">확인</string>
   <string name="DLG_cancel">취소</string>
+  <string name="DLG_more">더보기</string>
   <string name="DLG_undo">실행취소</string>
   <string name="DLG_warning">주의</string>
   <string name="WID_dateButtonUnset">직접 입력</string>

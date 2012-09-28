@@ -116,6 +116,7 @@
   <string name="DLG_loading">読み込み中...</string>
   <string name="DLG_ok">OK</string>
   <string name="DLG_cancel">キャンセル</string>
+  <string name="DLG_more">もっと</string>
   <string name="DLG_undo">元に戻す</string>
   <string name="DLG_warning">Warning</string>
   <string name="WID_dateButtonUnset">入力する</string>

@@ -116,6 +116,7 @@
   <string name="DLG_loading">Загрузка…</string>
   <string name="DLG_ok">OK</string>
   <string name="DLG_cancel">Отмена</string>
+  <string name="DLG_more">Подробнее</string>
   <string name="DLG_undo">Назад</string>
   <string name="DLG_warning">Предупреждение</string>
   <string name="WID_dateButtonUnset">Нажмите для установки</string>

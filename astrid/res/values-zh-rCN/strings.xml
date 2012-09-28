@@ -112,6 +112,7 @@
   <string name="DLG_loading">载入中...</string>
   <string name="DLG_ok">确定(O)</string>
   <string name="DLG_cancel">取消</string>
+  <string name="DLG_more">更多</string>
   <string name="DLG_undo">撤消</string>
   <string name="WID_dateButtonUnset">点选</string>
   <string name="ENA_no_comments">没有要显示的</string>

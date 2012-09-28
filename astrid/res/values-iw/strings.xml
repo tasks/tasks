@@ -116,6 +116,7 @@
   <string name="DLG_loading">בטעינה...</string>
   <string name="DLG_ok">אישור</string>
   <string name="DLG_cancel">בטל</string>
+  <string name="DLG_more">עוד</string>
   <string name="DLG_undo">בטל פעולה אחרונה</string>
   <string name="DLG_warning">התראה</string>
   <string name="WID_dateButtonUnset">לחיצה להגדרה</string>

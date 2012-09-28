@@ -116,6 +116,7 @@
   <string name="DLG_loading">Indlæser...</string>
   <string name="DLG_ok">OK</string>
   <string name="DLG_cancel">Cancel</string>
+  <string name="DLG_more">More</string>
   <string name="DLG_undo">Undo</string>
   <string name="DLG_warning">Warning</string>
   <string name="WID_dateButtonUnset">Tryk for at indstille</string>

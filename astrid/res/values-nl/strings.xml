@@ -116,6 +116,7 @@
   <string name="DLG_loading">Laden…</string>
   <string name="DLG_ok">OK</string>
   <string name="DLG_cancel">Annuleren</string>
+  <string name="DLG_more">Meer</string>
   <string name="DLG_undo">Ongedaan Maken</string>
   <string name="DLG_warning">Waarschuwing</string>
   <string name="WID_dateButtonUnset">Klikken om in te stellen</string>

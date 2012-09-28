@@ -116,6 +116,7 @@
   <string name="DLG_loading">Laddar...</string>
   <string name="DLG_ok">OK</string>
   <string name="DLG_cancel">Avbryt</string>
+  <string name="DLG_more">Mer</string>
   <string name="DLG_undo">Ångra</string>
   <string name="DLG_warning">Warning</string>
   <string name="WID_dateButtonUnset">Klicka för att ställa</string>

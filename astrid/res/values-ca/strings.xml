@@ -116,6 +116,7 @@
   <string name="DLG_loading">S\'està carregant…</string>
   <string name="DLG_ok">Accepta</string>
   <string name="DLG_cancel">Cancel·la</string>
+  <string name="DLG_more">Més</string>
   <string name="DLG_undo">Desfés</string>
   <string name="DLG_warning">Warning</string>
   <string name="WID_dateButtonUnset">Prem per establir</string>
