@@ -301,10 +301,7 @@
   <string name="EPr_theme_desc_unsupported">Настройка требует Android 2.0+</string>
   <string name="EPr_theme_widget_title">Тема виджета</string>
   <string name="EPr_taskRowPrefs_title">Внешний вид задач в списке</string>
-  <string name="EPr_labs_header">Copy text \t Astrid Labs</string>
-  <string name="EPr_labs_desc">Попробуйте и настройте эксперементальные функции</string>
   <string name="EPr_swipe_lists_performance_title">Свайп между списками</string>
-  <string name="EPr_swipe_lists_performance_subtitle">Управляет производительностью памяти свайпа между списками</string>
   <string name="EPr_use_contact_picker">Использовать системный выбор контактов</string>
   <string name="EPr_use_contact_picker_desc_enabled">Опция \"системный выбор контактов\" будет показана в окне назначения задачи</string>
   <string name="EPr_use_contact_picker_desc_disabled">Опция \"системный выбор контактов\" будет скрыта</string>
@@ -316,7 +313,6 @@
   <string name="EPr_cal_end_or_start_at_due_time">Время события</string>
   <string name="EPr_cal_end_at_due_time">Время окончания события</string>
   <string name="EPr_cal_start_at_due_time">Начать событие в своё время</string>
-  <string name="EPr_swipe_lists_restart_alert">Нужно перезапустить Astrid чтобы эти изменения вступили в силу</string>
   <string-array name="EPr_swipe_lists_performance_mode">
     <item>Нет свайпа</item>
     <item>Беречь память</item>
@@ -329,7 +325,6 @@
     <item>Настройка по умолчанию</item>
     <item>Использовать больше системных ресурсов</item>
   </string-array>
-  <string name="EPr_swipe_lists_display">%1$s - %2$s</string>
   <string-array name="EPr_themes">
     <item>День - Синий</item>
     <item>День - Красный</item>
@@ -379,8 +374,6 @@
   <string name="p_forums">Форумы</string>
   <string name="task_killer_help">Возможно вы используете менеджер задач (%s). По возможности добавьте Astrid в список исключений иначе возможны сложности с напоминаниями.\n</string>
   <string name="task_killer_help_ok">Я не хочу убивать Astrid!</string>
-  <string name="marketplace_title">Список задач Astrid</string>
-  <string name="marketplace_description">Astrid - распространённый список задач с открытым исходным кодом призванный помочь Вам справиться с делами. В нём есть напоминания, метки, синхронизация, плагин Locale, виджет и многое другое.</string>
   <string name="DB_corrupted_title">Поврежденная база данных</string>
   <string name="DB_corrupted_body">Ой-ой! Похоже у вас повреждена база данных. Если вы постоянно видите это сообщение, мы рекомендуем вам очистить данные (Параметры-&amp;g;Управление старыми задачами-&amp;g;Очистить все данные) и восстановить ваши задачи из резервной копии (Параметры-&amp;g;Резервные копии-&amp;gtИмпортировать задачи)</string>
   <string name="EPr_defaults_header">Параметры по умолчанию для новых задач</string>
@@ -423,15 +416,11 @@
     <item>Вовремя или просрочена</item>
   </string-array>
   <string name="BFE_Active">Активные задачи</string>
-  <string name="BFE_Search">Поиск…</string>
   <string name="BFE_Recent">Недавно изменённые</string>
   <string name="BFE_Assigned">Назначенные мной</string>
-  <string name="BFE_Custom">Собственный фильтр…</string>
-  <string name="BFE_Saved">Фильтры</string>
   <string name="BFE_Saved_delete">Удалить фильтр</string>
   <string name="CFA_title">Собственный фильтр</string>
   <string name="CFA_filterName_hint">Задайте имя фильтра для его сохранения…</string>
-  <string name="CFA_filterName_copy">Копия %s</string>
   <string name="CFA_universe_all">Активные задачи</string>
   <string name="CFA_type_add">или</string>
   <string name="CFA_type_subtract">не</string>
@@ -462,10 +451,8 @@
   <string name="CFC_title_contains_name">Название содержит...</string>
   <string name="CFC_title_contains_text">Название содержит: ?</string>
   <string name="gcal_TEA_error">Ошибка при добавлении задачи в календарь!</string>
-  <string name="gcal_TEA_calendar_label">Интеграция с календарём:</string>
   <string name="gcal_TEA_addToCalendar_label">Добавить в календарь</string>
   <string name="gcal_TEA_showCalendar_label">Открыть календарное событие</string>
-  <string name="gcal_TEA_calendar_error">Ошибка при открытии события!</string>
   <string name="gcal_TEA_calendar_updated">Календарное событие также обновлено!</string>
   <string name="gcal_TEA_nocal">Не добавлять</string>
   <string name="gcal_TEA_none_selected">Добавить в календарь...</string>
@@ -473,31 +460,19 @@
   <string name="gcal_completed_title">%s (выполнено)</string>
   <string name="gcal_GCP_default">Календарь по умолчанию</string>
   <string name="gtasks_FEx_header">Задачи Google</string>
-  <string name="gtasks_FEx_list">По списку</string>
   <string name="gtasks_FEx_title">Задачи Google: %s</string>
   <string name="gtasks_FEx_creating_list">Создание списка...</string>
   <string name="gtasks_FEx_create_list_dialog">Имя нового списка:</string>
   <string name="gtasks_FEx_create_list_error">Ошибка при создании нового списка</string>
-  <string name="gtasks_help_title">Добро пожаловать в Google Tasks!</string>
   <string name="CFC_gtasks_list_text">В Списке: ?</string>
   <string name="CFC_gtasks_list_name">В GTask Список...</string>
   <string name="gtasks_GTA_clearing">Очистка выполненных задач...</string>
   <string name="gtasks_GTA_clear_completed">Очистить завершенные</string>
-  <string name="gtasks_GLA_title">Подключение к Задачам Google</string>
-  <string name="gtasks_GLA_body">Пожалуйста, войдите в Google Tasks Sync (Beta!). Не переехавшие аккаунты Google Apps в данный момент не поддерживаются.</string>
   <string name="gtasks_GLA_noaccounts">Нет доступных аккаунтов Google для синхронизации</string>
-  <string name="gtasks_GLA_further_help">Чтобы увидеть задачи с уровнями и порядком, перейдите в Фильтры и выберите список Задачи Google. По умолчанию, Astrid пользуется своими настройками сортировки.</string>
-  <string name="gtasks_GLA_signIn">Войти</string>
-  <string name="gtasks_GLA_email">Электронная почта</string>
-  <string name="gtasks_GLA_password">Пароль</string>
   <string name="gtasks_GLA_authenticating">Авторизация...</string>
-  <string name="gtasks_GLA_domain">Аккаунт Приложений Google</string>
-  <string name="gtasks_GLA_errorEmpty">Ошибка: заполните все поля!</string>
   <string name="gtasks_GLA_errorAuth">Ошибка аутентификации! Пожалуйста, проверьте имя пользователя и пароль в меню управления аккаунтами телефона</string>
   <string name="gtasks_GLA_errorIOAuth">Извините, проблемы при обращении к серверам Google. Пожалуйста, попробуйте позже.</string>
-  <string name="gtasks_GLA_errorAuth_captcha">Возможно вы столкнулись с каптчей. Попробуйте войти через браузер, затем вернуться и попробовать снова:</string>
   <string name="gtasks_GPr_header">Google Tasks</string>
-  <string name="gtasks_notification_title">Astrid: Задачи Google</string>
   <string name="gtasks_error_backend">Google\'s Task API в стадии бета и произошла ошибка. Служба может быть не доступна, пожалуйста, попробуйте позже.</string>
   <string name="gtasks_error_accountNotFound">Аккаунт %s не найден--пожалуйста, выйдите и войдите снова через настройки Google Tasks.</string>
   <string name="gtasks_error_authRefresh">Не удалось пройти аутентификацию в Google Tasks. Пожалуйста, проверьте пароль к учетной записи или попробуйте еще раз позже.</string>
@@ -510,9 +485,6 @@
   <string name="help_popover_collaborators">Люди, с которыми вы делитесь, могут помочь вам в составлении списка и выполнении задач</string>
   <string name="help_popover_add_lists">Нажмите добавить список</string>
   <string name="help_popover_switch_lists">Нажмите, чтобы добавить список или переключиться между списками</string>
-  <string name="help_popover_when_shortcut">Нажмите на ярлык для быстрого выбора даты и времени</string>
-  <string name="help_popover_when_row">Нажмите в любом месте строки для правки таких опций как повторение</string>
-  <string name="welcome_login_title">Добро пожаловать в Astrid!</string>
   <string name="welcome_login_tos_base">Используя Astrid, вы согласны с</string>
   <string name="welcome_login_tos_link">\"Условия предоставления услуг\"</string>
   <string name="welcome_login_pw">Войти, используя Имя пользователя/Пароль</string>
@@ -524,7 +496,6 @@
   <string name="help_popover_taskrabbit_type">Изменить тип задачи</string>
   <string name="locale_edit_alerts_title">Предупреждение фильтра Astrid</string>
   <string name="locale_edit_intro">Astrid отправит вам напоминание при обнаружении задач по следующим фильтрам:</string>
-  <string name="locale_pick_filter">Фильтр:</string>
   <string name="locale_interval_label">Ограничить уведомления до:</string>
   <string-array name="locale_interval">
     <item>одного в час</item>

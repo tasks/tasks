@@ -301,10 +301,7 @@
   <string name="EPr_theme_desc_unsupported">Ayarlar için Android 2.0+ zorunludur.</string>
   <string name="EPr_theme_widget_title">Bileşen Teması</string>
   <string name="EPr_taskRowPrefs_title">Görev Sırası Görünümü</string>
-  <string name="EPr_labs_header">Astrid Lab.</string>
-  <string name="EPr_labs_desc">Deneysel özellikleri dene ve yapılandır</string>
   <string name="EPr_swipe_lists_performance_title">Listeler arası sürükleme</string>
-  <string name="EPr_swipe_lists_performance_subtitle">Listeler arası sürüklemenin bellek başarımını denetler</string>
   <string name="EPr_use_contact_picker">Kişi seçiciyi kullan</string>
   <string name="EPr_use_contact_picker_desc_enabled">Sistemin kişi seçici seçeneği görev atama penceresinde görüntülenecek</string>
   <string name="EPr_use_contact_picker_desc_disabled">Sistem kişi seçici seçeneği görüntülenmeyecek</string>
@@ -316,7 +313,6 @@
   <string name="EPr_cal_end_or_start_at_due_time">Takvim olay zamanı</string>
   <string name="EPr_cal_end_at_due_time">Takvim olaylarını bitiş tarihinde sonlandır</string>
   <string name="EPr_cal_start_at_due_time">Takvim olaylarını bitiş tarihinde başlat</string>
-  <string name="EPr_swipe_lists_restart_alert">Bu değişikliğin etkin olabilmesi için Astrid yeniden başlatılmalı</string>
   <string-array name="EPr_swipe_lists_performance_mode">
     <item>Sürükleme yok</item>
     <item>Bellek Koruma</item>
@@ -329,7 +325,6 @@
     <item>Öntanımlı ayar</item>
     <item>Daha çok sistem kaynağı kullan</item>
   </string-array>
-  <string name="EPr_swipe_lists_display">%1$s - %2$s</string>
   <string-array name="EPr_themes">
     <item>Gündüz - Mavi</item>
     <item>Gündüz - Kırmızı</item>
@@ -379,8 +374,6 @@
   <string name="p_forums">Forum</string>
   <string name="task_killer_help">Gönürüyor ki, işlemleri kapatabilen bir uygulama kullanıyorsunuz (%s)! Mümkünse, Astrid\'i programın muafiyet listesine ekleyin ki kapatılamasın. Aksi takdirde, Astrid görevlerin tarihi geldiğinde size bildiremeyebilir.\n</string>
   <string name="task_killer_help_ok">Astrid\'i Kapatmayacağım!</string>
-  <string name="marketplace_title">Astrid İş/Görev Listesi</string>
-  <string name="marketplace_description">Astrid çok sevilen, yapacaklarınızı yapmanıza yardım eden açık kaynak kodlu bir hatırlatma / görev yönetimi programıdır. Hatırlatmalar, etiketlemeler, senkronizasyon, Locale eklentisi, widget ve daha fazla özelliğe sahiptir.</string>
   <string name="DB_corrupted_title">Bozuk Veritabanı</string>
   <string name="DB_corrupted_body">Olamaz! Bozuk bir veritabanına sahip görünüyorsunuz. Bu hatayı sık sık alıyorsanız, tüm veriyi temizlemenizi (Ayarlar-&gt;Tüm Görevleri Yönet-&gt;Tüm veriyi temizle) ve görevlerinizi Astrid içindeki bir yedekten geri yüklemenizi (Ayarlar-&gt;Yedekleme-&gt;Görevleri İçe Aktar) tavsiye ediyoruz.</string>
   <string name="EPr_defaults_header">Yeni Görev Öntanımlıları</string>
@@ -423,15 +416,11 @@
     <item>Son tarihte ya da aşıldığında</item>
   </string-array>
   <string name="BFE_Active">Etkin Görevler</string>
-  <string name="BFE_Search">Ara...</string>
   <string name="BFE_Recent">Yakında Değiştirilenler</string>
   <string name="BFE_Assigned">Atanmış bulunuyorum</string>
-  <string name="BFE_Custom">Özel Süzgeç...</string>
-  <string name="BFE_Saved">Süzgeçler</string>
   <string name="BFE_Saved_delete">Süzgeci Sil</string>
   <string name="CFA_title">Özel Süzgeç</string>
   <string name="CFA_filterName_hint">Süzgeci kaydetmek için ad yazın...</string>
-  <string name="CFA_filterName_copy">%s kopyası</string>
   <string name="CFA_universe_all">Etkin Görevler</string>
   <string name="CFA_type_add">ya da</string>
   <string name="CFA_type_subtract">değil</string>
@@ -462,10 +451,8 @@
   <string name="CFC_title_contains_name">Başlık şunu içersin...</string>
   <string name="CFC_title_contains_text">Başlık şunu içersin:?</string>
   <string name="gcal_TEA_error">Takvime görev eklenmesinde hata!</string>
-  <string name="gcal_TEA_calendar_label">Takvim Bütünleşmesi:</string>
   <string name="gcal_TEA_addToCalendar_label">Takvime Ekle</string>
   <string name="gcal_TEA_showCalendar_label">Takvim Olayı Aç</string>
-  <string name="gcal_TEA_calendar_error">Olay açılırken hata!</string>
   <string name="gcal_TEA_calendar_updated">Takvim olayı da güncellendi!</string>
   <string name="gcal_TEA_nocal">Ekleme</string>
   <string name="gcal_TEA_none_selected">Takvime ekle...</string>
@@ -473,31 +460,19 @@
   <string name="gcal_completed_title">%s (tamamlandı)</string>
   <string name="gcal_GCP_default">Öntanımlı Takvim</string>
   <string name="gtasks_FEx_header">Google Görevleri</string>
-  <string name="gtasks_FEx_list">Listeye Göre</string>
   <string name="gtasks_FEx_title">Google Görevleri: %s</string>
   <string name="gtasks_FEx_creating_list">Liste oluşturuluyor...</string>
   <string name="gtasks_FEx_create_list_dialog">Yeni Liste Adı:</string>
   <string name="gtasks_FEx_create_list_error">Yeni liste oluşturmada hata</string>
-  <string name="gtasks_help_title">Google Görevler \'e Hoşgeldiniz!</string>
   <string name="CFC_gtasks_list_text">Liste içinde: ?</string>
   <string name="CFC_gtasks_list_name">Gtasks Listesi içinde...</string>
   <string name="gtasks_GTA_clearing">Tamamlanan görevler temizleniyor...</string>
   <string name="gtasks_GTA_clear_completed">Tamamlanları Temizle</string>
-  <string name="gtasks_GLA_title">Google Görevler\'e giriş yapın</string>
-  <string name="gtasks_GLA_body">Lütfen Google Görevler Eşleştirmesi\'ne (Beta!) giriş yapın. Taşınmamış Google Apps hesapları şu an desteklenmemektedir.</string>
   <string name="gtasks_GLA_noaccounts">Eşleştirilecek Google hesabı mevcut değil.</string>
-  <string name="gtasks_GLA_further_help">Görevleri, sıralaması korunmuş ve girintili görebilmek için süzgeçler sayfasına gidin ve bir Google Görevler Listesine ekleyin. Öntanımlı olarak, Astrid görevler için kendi sınıflama ayarlarını kullanır.</string>
-  <string name="gtasks_GLA_signIn">Oturum Aç</string>
-  <string name="gtasks_GLA_email">E-Posta</string>
-  <string name="gtasks_GLA_password">Parola</string>
   <string name="gtasks_GLA_authenticating">Kimlik doğrulanıyor...</string>
-  <string name="gtasks_GLA_domain">Alanadı hesabı için Google Apps</string>
-  <string name="gtasks_GLA_errorEmpty">Hata: bütün alanları doldurun!</string>
   <string name="gtasks_GLA_errorAuth">Giriş başarısız! Lütfen kullanıcı ismi ve parolanızı telefondaki hesap yöneticisinden denetleyin</string>
   <string name="gtasks_GLA_errorIOAuth">Üzgünüm, Google sunucuları ile bağlanmakta sıkıntı yaşıyoruz. Lütfen daha sonra yeniden deneyin.</string>
-  <string name="gtasks_GLA_errorAuth_captcha">Doğrulama (CAPTCHA) ile karşılaşmış olabilirsiniz. İnternet gezgini ile giriş yapıp sonra tekrar buradan deneyin:</string>
   <string name="gtasks_GPr_header">Google Görevleri (Beta!)</string>
-  <string name="gtasks_notification_title">Astrid: Google Görevleri</string>
   <string name="gtasks_error_backend">Google Görev API Beta sürümü bir hata ile karşılaştı. Hizmet çalışmıyor olabilir, lütfen sonra tekrar deneyin.</string>
   <string name="gtasks_error_accountNotFound">%s hesabı bulunamadı--lütfen çıkış yapıp Google Görev ayarlarından tekrar giriş yapın.</string>
   <string name="gtasks_error_authRefresh">Google Görevlere giriş başarısız. Lütfen hesap parolanızı kontrol edip tekrar deneyin.</string>
@@ -510,9 +485,6 @@
   <string name="help_popover_collaborators">Paylaştığınız insanlar listenizi oluşturmanıza veya görevleri bitirmenize yardımcı olabilir</string>
   <string name="help_popover_add_lists">Bir liste eklemek için dokunun</string>
   <string name="help_popover_switch_lists">Bir liste eklemek için ya da listeyi değiştirmek için dokunun</string>
-  <string name="help_popover_when_shortcut">Tarih ve saati seçmek için bu kısayola dokunun</string>
-  <string name="help_popover_when_row">Tekrarlama gibi özellikler için bu satırdaki herhangi bir yere dokunun</string>
-  <string name="welcome_login_title">Astrid\'e Hoş geldiniz!</string>
   <string name="welcome_login_tos_base">Astridi kullanarak kabul ettiğiniz metin:</string>
   <string name="welcome_login_tos_link">\"Kullanıcı Sözleşmesi\"</string>
   <string name="welcome_login_pw">Kullanıcı adı/Parola ile giriş yap</string>
@@ -524,7 +496,6 @@
   <string name="help_popover_taskrabbit_type">Görev türünü değiştir</string>
   <string name="locale_edit_alerts_title">Astrid Süzgeç Alarmı</string>
   <string name="locale_edit_intro">İlgili süzgeçte herhangi bir görev olduğunda Astrid size hatırlatma gönderecektir.</string>
-  <string name="locale_pick_filter">Süzgeç:</string>
   <string name="locale_interval_label">Bildirimleri sınırlandır:</string>
   <string-array name="locale_interval">
     <item>saatte bir</item>

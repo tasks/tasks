@@ -264,8 +264,6 @@
   <string name="p_forums">论坛</string>  
   <string name="task_killer_help">似乎您正在使用会删除进程的应用程序(%s)！可以的话，请将 Astrid 加入到例外列表避免被杀死。否则 Astrid可能无法通知您任务已到期。\n</string>
   <string name="task_killer_help_ok">我不会中止 Astrid!</string>
-  <string name="marketplace_title">Astricd任务/待办列表</string>
-  <string name="marketplace_description">Astrid是一款开源并深受人们喜爱的TODO任务/列表管理器，旨在提高您处理事务的效率。Astrid包含提醒、标签、同步、区域插件、小工具等众多功能。</string>
   <string name="EPr_defaults_header">新任务默认值</string>
   <string name="EPr_default_urgency_title">默认严重性</string>
   <string name="EPr_default_urgency_desc">当前：%s</string>
@@ -296,13 +294,10 @@
     <item>截止期限或过期时</item>
   </string-array>
   <string name="BFE_Active">进行中的任务</string>
-  <string name="BFE_Search">搜索...</string>
   <string name="BFE_Recent">最近修改过的</string>
-  <string name="BFE_Custom">自定义筛选...</string>
   <string name="BFE_Saved_delete">删除筛选</string>
   <string name="CFA_title">自定义筛选</string>
   <string name="CFA_filterName_hint">命名筛选并保存...</string>
-  <string name="CFA_filterName_copy">%s 的复件</string>
   <string name="CFA_universe_all">进行中的任务</string>
   <string name="CFA_type_add">或</string>
   <string name="CFA_type_subtract">非</string>
@@ -333,34 +328,20 @@
   <string name="CFC_title_contains_name">标题含...</string>
   <string name="CFC_title_contains_text">标题含: ?</string>
   <string name="gcal_TEA_error">添加任务到日历时失败！</string>
-  <string name="gcal_TEA_calendar_label">日程表整合：</string>
   <string name="gcal_TEA_addToCalendar_label">建立日程表事件</string>
   <string name="gcal_TEA_showCalendar_label">打开日程表事件</string>
-  <string name="gcal_TEA_calendar_error">事件开启错误!</string>
   <string name="gcal_TEA_calendar_updated">日程表事件也更新了!</string>
   <string name="gcal_completed_title">%s (已完成)</string>
   <string name="gcal_GCP_default">默认日程表</string>
-  <string name="gtasks_FEx_list">依列表</string>
   <string name="gtasks_FEx_create_list_dialog">新列表名：</string>
   <string name="gtasks_FEx_create_list_error">创建新列表失败</string>
-  <string name="gtasks_help_title">欢迎使用Google Tasks!</string>
   <string name="CFC_gtasks_list_text">列表内容: ?</string>
   <string name="CFC_gtasks_list_name">在Google任务列表中...</string>
-  <string name="gtasks_GLA_title">登陆 Google Tasks</string>
-  <string name="gtasks_GLA_body">请登录到谷歌任务同步（Beta!）。目前不支持非迁移的“Google应用服务”帐户。</string>
   <string name="gtasks_GLA_noaccounts">没有可用的Google帐户同步。</string>
-  <string name="gtasks_GLA_further_help">预览任务时若想保留缩进和排序，请到“筛选”页面选择 Google 任务列表。Astrid 默认采用自有的任务排序设置。</string>
-  <string name="gtasks_GLA_signIn">登陆</string>
-  <string name="gtasks_GLA_email">电子邮件</string>
-  <string name="gtasks_GLA_password">密码</string>
   <string name="gtasks_GLA_authenticating">正在认证...</string>
-  <string name="gtasks_GLA_domain">Google Apps for Domain 帐号</string>
-  <string name="gtasks_GLA_errorEmpty">错误: 所有字段需要填写!</string>
-  <string name="gtasks_GLA_errorAuth_captcha">您可能需要输入验证码。尝试从浏览器登陆后再回来重试：</string>
   <string name="gtasks_GPr_header">Google Tasks (测试版！)</string>
   <string name="locale_edit_alerts_title">Astrid 筛选警示</string>
   <string name="locale_edit_intro">当您有任务在筛选内时，Astrid将送出提醒</string>
-  <string name="locale_pick_filter">筛选：</string>
   <string name="locale_interval_label">限制提醒：</string>
   <string-array name="locale_interval">
     <item>每小时一次</item>
@@ -951,9 +932,7 @@
   <string name="EPr_ideaAuto_desc_disabled">将只有在手动发出要求时才执行“建议”标签的网页搜索</string>
   <string name="EPr_theme_widget_title">小工具主题</string>
   <string name="EPr_taskRowPrefs_title">任务行外观</string>
-  <string name="EPr_labs_desc">试验并配置各项实验性的特性</string>
   <string name="EPr_swipe_lists_performance_title">滑动屏幕转换列表</string>  
-  <string name="EPr_swipe_lists_performance_subtitle">控制有关滑动屏幕转换列表的内存性能</string>
   <string name="EPr_use_contact_picker">使用联系人选择程序</string>
   <string name="EPr_use_contact_picker_desc_enabled">系统的联系人选择程序选项将在任务布置窗口中显示</string>
   <string name="EPr_use_contact_picker_desc_disabled">将不会显示系统的联系人选择程序选项</string>
@@ -965,7 +944,6 @@
   <string name="EPr_cal_end_or_start_at_due_time">日历事件的时间</string>
   <string name="EPr_cal_end_at_due_time">在预定时间结束日历事件</string>
   <string name="EPr_cal_start_at_due_time">在预定时间启用日历事件</string>
-  <string name="EPr_swipe_lists_restart_alert">您需要重新启动 Astrid 使这个更改内容生效</string>
   <string-array name="EPr_swipe_lists_performance_mode">
     <item>不使用滑动屏幕</item>
     <item>节约内存</item>
@@ -1007,7 +985,6 @@
     <item>o（最低级别）</item>
   </string-array>
   <string name="BFE_Assigned">我已经安排</string>
-  <string name="BFE_Saved">过滤程序</string>
   <string name="gcal_TEA_nocal">不要添加</string>
   <string name="gcal_TEA_none_selected">添加到日历……</string>
   <string name="gcal_TEA_has_event">日历事件</string>
@@ -1018,7 +995,6 @@
   <string name="gtasks_GTA_clear_completed">清除已完成项</string>
   <string name="gtasks_GLA_errorAuth">验证出错！请在您手机的帐户管理器中检查您的用户名和密码</string>
   <string name="gtasks_GLA_errorIOAuth">对不起，我们在与 Google 服务器通讯时遇到了问题。请稍后再尝试。</string>
-  <string name="gtasks_notification_title">Astrid：Google 工作表</string>
   <string name="gtasks_error_backend">Google 的工作表应用程序界面正处于测试版阶段，而且遇到了出错。这个服务可能已经停止，请稍后再尝试。</string>
   <string name="gtasks_error_accountNotFound">找不到帐户 %s——请退出，然后从 Google 工作表设置中重新登录。</string>
   <string name="gtasks_error_authRefresh">无法用 Google 工作表验证。请检查您的帐户密码或者稍后再尝试。</string>
@@ -1031,8 +1007,6 @@
   <string name="help_popover_collaborators">与您共享的人可以帮助您建立您的列表或者完成各项任务</string>
   <string name="help_popover_add_lists">轻点添加列表</string>
   <string name="help_popover_switch_lists">轻点添加一个列表或者在列表间切换</string>
-  <string name="help_popover_when_shortcut">轻点这个快捷方式快速选择日期和时间</string>
-  <string name="help_popover_when_row">轻点这一行的任意地方获取像重复之类的选项</string>
   <string name="welcome_login_tos_base">您使用 Astrid 就表明您同意所有</string>
   <string name="welcome_login_tos_link">“服务条款”</string>
   <string name="welcome_login_pw">使用用户名/密码登录</string>

@@ -626,9 +626,7 @@
   <string name="EPr_taskRowPrefs_title">Task row appearance</string>
   
   <!-- slide 33b/ 49e: Preference screen: Astrid Labs (experimental features)-->
-  <string name="EPr_labs_header">Astrid Labs</string>
   <!-- slide 33f -->
-  <string name="EPr_labs_desc">Try and configure experimental features</string>
   
   <!-- slide 49g: Preferences: use the system contact picker for task assignment -->
   <string name="EPr_use_contact_picker">Use contact picker</string>
@@ -655,13 +653,11 @@
 
   <string name="EPr_show_featured_lists">Show featured lists</string>
   
-  <string name="EPr_swipe_lists_restart_alert">You will need to restart Astrid for this change to take effect</string>
   
   <!-- Swipe between lists -->
   
   <!-- Preference: swipe between lists performance -->
   <string name="EPr_swipe_lists_performance_title">Swipe between lists</string>
-  <string name="EPr_swipe_lists_performance_subtitle">Controls the memory performance of swipe between lists</string>
   
   <string-array name="EPr_swipe_lists_performance_mode">
       <item>No swipe</item>
@@ -683,7 +679,6 @@
   <string name="swipe_lists_helper_subtitle">Change settings in Settings -> Appearance</string>
 
   <!-- Format string for displaying the currently selected preference. $1 is name of selected mode, $2 is description -->
-  <string name="EPr_swipe_lists_display">%1$s - %2$s</string>
   
   <string-array name="EPr_default_reminders_mode">
       <!-- reminders duration: labels for "Task Defaults" preference item. -->
@@ -820,7 +815,6 @@ Astrid might not let you know when your tasks are due.\n
   <string name="task_killer_help_ok">I Won\'t Kill Astrid!</string>
     
   <!-- Astrid's Android Marketplace title. It never appears in the app itself. -->
-  <string name="marketplace_title">Astrid Task/Todo List</string>
   
   <!-- Astrid's Android Marketplace description. It never appears in the app itself. -->
   <string name="marketplace_description">

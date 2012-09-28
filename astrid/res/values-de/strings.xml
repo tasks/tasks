@@ -301,10 +301,7 @@
   <string name="EPr_theme_desc_unsupported">Einstellungen benötigen mindestens Android 2.0</string>
   <string name="EPr_theme_widget_title">Widget Theme</string>
   <string name="EPr_taskRowPrefs_title">Aussehen der Aufgabenzeilen</string>
-  <string name="EPr_labs_header">Astrid Labs</string>
-  <string name="EPr_labs_desc">Neue Funktionen aktivieren und testen</string>
   <string name="EPr_swipe_lists_performance_title">Zum Wechseln der Listen \"wischen\"</string>
-  <string name="EPr_swipe_lists_performance_subtitle">Steuert die Speicherleistung beim Schieben zwischen den Listen</string>
   <string name="EPr_use_contact_picker">Verwende den Systemdialog für die Kontaktauswahl</string>
   <string name="EPr_use_contact_picker_desc_enabled">Zeigt im Zuweisungsfeld für Aufgaben ein Symbol für den Systemdialog für Kontaktauswahl an</string>
   <string name="EPr_use_contact_picker_desc_disabled">Das Symbol des Systemdialogs für Kontaktauswahl wird nicht angezeigt</string>
@@ -316,7 +313,6 @@
   <string name="EPr_cal_end_or_start_at_due_time">Zeitpunkte für Termine</string>
   <string name="EPr_cal_end_at_due_time">Termine zum angebenen Zeitpunkt beenden</string>
   <string name="EPr_cal_start_at_due_time">Termine zum angebenen Zeitpunkt starten</string>
-  <string name="EPr_swipe_lists_restart_alert">Um diese Änderung zu aktivieren starte Astrid neu</string>
   <string-array name="EPr_swipe_lists_performance_mode">
     <item>Kein Schieben</item>
     <item>Minimale Speichernutzung</item>
@@ -329,7 +325,6 @@
     <item>Standardeinstellung</item>
     <item>Hat höhere Leistungsanforderungen</item>
   </string-array>
-  <string name="EPr_swipe_lists_display">%1$s - %2$s</string>
   <string-array name="EPr_themes">
     <item>Tag - Blau</item>
     <item>Tag -Rot</item>
@@ -379,8 +374,6 @@
   <string name="p_forums">Forum</string>
   <string name="task_killer_help">Es scheint Sie benutzen eine Anwendung die Prozesse killen kann (%s)! Falls möglich setzen Sie Astrid auf die Liste der davon ausgenommenen Prozesse damit es nicht gekillt wird. Andernfalls kann Astrid Sie nicht über fällige Tasks informieren.\n</string>
   <string name="task_killer_help_ok">Ich werde Astrid nicht killen!</string>
-  <string name="marketplace_title">Astrid Aufgaben- / ToDo-Liste</string>
-  <string name="marketplace_description">Astrid ist der beliebte Open-Source ToDo-Listen / Task-Manager, der Ihnen dabei hilft, Dinge zu erledigen. Er verfügt über Erinnerungen, Tags, Synchronisation, Locale Plug-In, ein Widget und vieles mehr.</string>
   <string name="DB_corrupted_title">Fehler in der Datenbank</string>
   <string name="DB_corrupted_body">Mist, die Datenbank ist Fehlerhaft. Tritt dieser Fehler dauerhaft auf, lösche alle Daten (Einstellungen-&gt;Alte Aufgaben verwalten-&gt;Alle Daten löschen) und stelle sie mit einem Backup wieder her (Einstellungen-&gt;Backups-&gt;Backups verwalten-&gt;Aufgaben importieren).</string>
   <string name="EPr_defaults_header">Standardeinstellungen für neue Aufgaben</string>
@@ -423,15 +416,11 @@
     <item>Am Stichtag oder überfällig</item>
   </string-array>
   <string name="BFE_Active">Aktuelle Aufgaben</string>
-  <string name="BFE_Search">Suchen …</string>
   <string name="BFE_Recent">Kürzlich bearbeitet</string>
   <string name="BFE_Assigned">Ich wurde damit betraut</string>
-  <string name="BFE_Custom">Benutzerdefinierter Filter …</string>
-  <string name="BFE_Saved">Kürzlich bearbeitet</string>
   <string name="BFE_Saved_delete">Filter löschen</string>
   <string name="CFA_title">Benutzerdefinierter Filter</string>
   <string name="CFA_filterName_hint">Benennen Sie den Filter, um ihn zu speichern …</string>
-  <string name="CFA_filterName_copy">Kopie von %s</string>
   <string name="CFA_universe_all">Aktuelle Aufgaben</string>
   <string name="CFA_type_add">oder</string>
   <string name="CFA_type_subtract">nicht</string>
@@ -462,10 +451,8 @@
   <string name="CFC_title_contains_name">Titel enthält …</string>
   <string name="CFC_title_contains_text">Titel enthält: ?</string>
   <string name="gcal_TEA_error">Fehler beim Hinzufügen der Aufgabe zum Kalender</string>
-  <string name="gcal_TEA_calendar_label">Kalenderintegration:</string>
   <string name="gcal_TEA_addToCalendar_label">In Kalender eintragen</string>
   <string name="gcal_TEA_showCalendar_label">Öffne Termin im Kalender</string>
-  <string name="gcal_TEA_calendar_error">Fehler beim Öffnen des Termins!</string>
   <string name="gcal_TEA_calendar_updated">Termin im Kalender wurde ebenfalls aktualisiert!</string>
   <string name="gcal_TEA_nocal">Nicht eintragen</string>
   <string name="gcal_TEA_none_selected">Zum Kalender hinzufügen …</string>
@@ -473,31 +460,19 @@
   <string name="gcal_completed_title">%s (abgeschlossen)</string>
   <string name="gcal_GCP_default">Standardkalender</string>
   <string name="gtasks_FEx_header">Google Tasks</string>
-  <string name="gtasks_FEx_list">Nach Liste</string>
   <string name="gtasks_FEx_title">Google Tasks: %s</string>
   <string name="gtasks_FEx_creating_list">Liste wird erstellt …</string>
   <string name="gtasks_FEx_create_list_dialog">Neuer Listenname:</string>
   <string name="gtasks_FEx_create_list_error">Fehler beim Erstllen einer neuen Liste.</string>
-  <string name="gtasks_help_title">Wilkommen bei Google Tasks!</string>
   <string name="CFC_gtasks_list_text">In der Liste: ?</string>
   <string name="CFC_gtasks_list_name">In GTasks-Liste …</string>
   <string name="gtasks_GTA_clearing">Erledigte Aufgaben werden entfernt …</string>
   <string name="gtasks_GTA_clear_completed">Entferne erledigte Aufgaben</string>
-  <string name="gtasks_GLA_title">Bei Google Tasks einloggen</string>
-  <string name="gtasks_GLA_body">Bitte logge dich bei Google Tasks Sync (Beta!) ein. Nicht-migrierte Google Apps Accounts werden zur Zeit nicht unterstützt.</string>
   <string name="gtasks_GLA_noaccounts">Keine verfügbaren Google Accounts zum synchronisieren.</string>
-  <string name="gtasks_GLA_further_help">Um deine Aufgaben mit Einrückung und Ordnung anzuzeigen, gehe auf die Filter-Seite und wähle eine Google Tasks Liste. Standartmässig benutzt Astrid seine eigenen Sortiereinstellungen.</string>
-  <string name="gtasks_GLA_signIn">Anmelden</string>
-  <string name="gtasks_GLA_email">E-Mail</string>
-  <string name="gtasks_GLA_password">Passwort</string>
   <string name="gtasks_GLA_authenticating">Legitimierung …</string>
-  <string name="gtasks_GLA_domain">Google Apps für Domänenkonto</string>
-  <string name="gtasks_GLA_errorEmpty">Fehler: Füllen Sie alle Felder aus!</string>
   <string name="gtasks_GLA_errorAuth">Anmeldefehler! Bitte Nutzernamen und Passwort in den Kontoeinstellungen des Telefons prüfen</string>
   <string name="gtasks_GLA_errorIOAuth">Entschuldigung, während der Kommunikation mit den Google-Servern ist ein Problem aufgetreten. Bitte versuchen Sie es später noch einmal.</string>
-  <string name="gtasks_GLA_errorAuth_captcha">Die Seite enthält möglicherweise ein CAPTCHA. Versuchen Sie das Anmelden über den Browser und probieren sie es dann noch einmal.</string>
   <string name="gtasks_GPr_header">Google Tasks</string>
-  <string name="gtasks_notification_title">Astrid: Google Tasks</string>
   <string name="gtasks_error_backend">Google Task API ist im Beta-Status und hat einen Fehler festgestellt. Der Dienst könnte nicht aktiv sein, bitte später erneut versuchen.</string>
   <string name="gtasks_error_accountNotFound">Konto %s nicht gefunden. Bitte ausloggen und erneut einloggen über die Einstellungen von Google Tasks.</string>
   <string name="gtasks_error_authRefresh">Anmeldung beo Google Tasks nicht möglich. Bitte Passwort prüfen oder später erneut versuchen.</string>
@@ -510,9 +485,6 @@
   <string name="help_popover_collaborators">Wen du Listen freigibst, können dir andere Nutzer beim Bearbeiten der Liste helfen und Aufgaben erledigen</string>
   <string name="help_popover_add_lists">Zum Hinzufügen einer Liste anklicken</string>
   <string name="help_popover_switch_lists">ZUm Hinzufügen einer Liste oder zum Wechsel zwischen Listen anklicken</string>
-  <string name="help_popover_when_shortcut">Schnellzugang zur Einstellung von Datum und Uhrzeit</string>
-  <string name="help_popover_when_row">In diese Zeile klicken, um Optionen wie Wiederholungen einzustellen</string>
-  <string name="welcome_login_title">Willkommen zu Astrid</string>
   <string name="welcome_login_tos_base">Mit der Nutzung von Astrid stimmst du zu den</string>
   <string name="welcome_login_tos_link">\"Nutzungsbedingungen\"</string>
   <string name="welcome_login_pw">Einloggen mit Nutzername und Passwort</string>
@@ -524,7 +496,6 @@
   <string name="help_popover_taskrabbit_type">Aufgabentyp ändern</string>
   <string name="locale_edit_alerts_title">Astrid Filter Alarm</string>
   <string name="locale_edit_intro">Astrid wird dich erinnern, wenn du Aufgaben in den folgenden Filtern hast:</string>
-  <string name="locale_pick_filter">Filter:</string>
   <string name="locale_interval_label">Beschränke Erinnerungen auf:</string>
   <string-array name="locale_interval">
     <item>einmal pro Stunde</item>

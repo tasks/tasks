@@ -301,10 +301,7 @@
   <string name="EPr_theme_desc_unsupported">Setting requires Android 2.0+</string>
   <string name="EPr_theme_widget_title">위젯 테마</string>
   <string name="EPr_taskRowPrefs_title">할 일 행 외관</string>
-  <string name="EPr_labs_header">Astrid Labs</string>
-  <string name="EPr_labs_desc">실험적 기능들을 경험하고 설정</string>
   <string name="EPr_swipe_lists_performance_title">리스트 간 스와이프 이동</string>
-  <string name="EPr_swipe_lists_performance_subtitle">Controls the memory performance of swipe between lists</string>
   <string name="EPr_use_contact_picker">Use contact picker</string>
   <string name="EPr_use_contact_picker_desc_enabled">The system contact picker option will be displayed in the task assignment window</string>
   <string name="EPr_use_contact_picker_desc_disabled">The system contact picker option will not be displayed</string>
@@ -316,7 +313,6 @@
   <string name="EPr_cal_end_or_start_at_due_time">Calendar event time</string>
   <string name="EPr_cal_end_at_due_time">End calendar events at due time</string>
   <string name="EPr_cal_start_at_due_time">Start calendar events at due time</string>
-  <string name="EPr_swipe_lists_restart_alert">You will need to restart Astrid for this change to take effect</string>
   <string-array name="EPr_swipe_lists_performance_mode">
     <item>No swipe</item>
     <item>Conserve Memory</item>
@@ -329,7 +325,6 @@
     <item>기본 설정</item>
     <item>더 많은 시스템 리소스를 사용</item>
   </string-array>
-  <string name="EPr_swipe_lists_display">%1$s - %2$s</string>
   <string-array name="EPr_themes">
     <item>Day - Blue</item>
     <item>Day - Red</item>
@@ -379,8 +374,6 @@
   <string name="p_forums">포럼</string>
   <string name="task_killer_help">프로세스를 강제종료 할 수 있는 (%s) 앱을 사용하고 있는 것 같습니다! 가능하시면, 강제종료가 안되도록 제외목록에 포함시켜 주시기 바랍니다. 그렇지 않으면, Astrid 가 당신에게 마감일이 되어도 알려줄 수 없을 수 있습니다.\n</string>
   <string name="task_killer_help_ok">Astrid 를 강제종료하지 않겠습니다!</string>
-  <string name="marketplace_title">Astrid 작업/할일 목록</string>
-  <string name="marketplace_description">Astrid 는 많은 사람들로부터 사랑받는 할일/작업 관리 프로그램입니다. 이 프로그램은 당신이 작업들을 마칠 수 있도록 도와줍니다. 마감일 알려주기, 태그기능, 싱크, 언어 추가 기능, 위젯 등 다양한 기능을 제공합니다.</string>
   <string name="DB_corrupted_title">Corrupted Database</string>
   <string name="DB_corrupted_body">Uh oh! It looks like you may have a corrupted database. If you see this error regularly, we suggest you clear all data (Settings-&gt;Manage All Tasks-&gt;Clear all data) and restore your tasks from a backup (Settings-&gt;Backup-&gt;Import Tasks) in Astrid.</string>
   <string name="EPr_defaults_header">새 작업 기본값</string>
@@ -423,15 +416,11 @@
     <item>마감일 혹은 지난 후</item>
   </string-array>
   <string name="BFE_Active">처리할 작업들</string>
-  <string name="BFE_Search">검색...</string>
   <string name="BFE_Recent">최근에 수정된 작업</string>
   <string name="BFE_Assigned">I\'ve Assigned</string>
-  <string name="BFE_Custom">필터 만들기...</string>
-  <string name="BFE_Saved">저장된 필터</string>
   <string name="BFE_Saved_delete">필터 삭제</string>
   <string name="CFA_title">필터 만들기</string>
   <string name="CFA_filterName_hint">필터의 저장할 이름을 정하세요...</string>
-  <string name="CFA_filterName_copy">%s의 복사</string>
   <string name="CFA_universe_all">처리할 작업들</string>
   <string name="CFA_type_add">또는</string>
   <string name="CFA_type_subtract">not</string>
@@ -462,10 +451,8 @@
   <string name="CFC_title_contains_name">다음 제목을 포함...</string>
   <string name="CFC_title_contains_text">다음 제목을 포함: ?</string>
   <string name="gcal_TEA_error">캘린더에 작업 추가가 실패하였습니다!</string>
-  <string name="gcal_TEA_calendar_label">캘린더 연동:</string>
   <string name="gcal_TEA_addToCalendar_label">캘린더에 일정 생성하기</string>
   <string name="gcal_TEA_showCalendar_label">캘린더 일정 열기</string>
-  <string name="gcal_TEA_calendar_error">일정 열기 실패!</string>
   <string name="gcal_TEA_calendar_updated">캘린더 일정도 함께 업데이트 되었습니다!</string>
   <string name="gcal_TEA_nocal">추가하지 않음</string>
   <string name="gcal_TEA_none_selected">달력에 추가</string>
@@ -473,31 +460,19 @@
   <string name="gcal_completed_title">%s (완료)</string>
   <string name="gcal_GCP_default">기본 캘린더</string>
   <string name="gtasks_FEx_header">Google Tasks</string>
-  <string name="gtasks_FEx_list">리스트 순</string>
   <string name="gtasks_FEx_title">Google Tasks: %s</string>
   <string name="gtasks_FEx_creating_list">Creating list...</string>
   <string name="gtasks_FEx_create_list_dialog">새 리스트 이름:</string>
   <string name="gtasks_FEx_create_list_error">새 리스트를 만드는 중 오류 발생</string>
-  <string name="gtasks_help_title">Google Tasks에 오신 것을 환영합니다!</string>
   <string name="CFC_gtasks_list_text">In List: ?</string>
   <string name="CFC_gtasks_list_name">In GTasks List...</string>
   <string name="gtasks_GTA_clearing">완료된 할 일을 삭제하는 중...</string>
   <string name="gtasks_GTA_clear_completed">삭제 완료</string>
-  <string name="gtasks_GLA_title">Log In to Google Tasks</string>
-  <string name="gtasks_GLA_body">Please log in to Google Tasks Sync (Beta!). Non-migrated Google Apps accounts are currently unsupported.</string>
   <string name="gtasks_GLA_noaccounts">동기화 가능한 Google 계정이 없음</string>
-  <string name="gtasks_GLA_further_help">할 일의 들어쓰기와 순서를 유지하면서 보고자 하는 경우, 필터 페이지로 이동하여 Google Tasks 리스트를 선택하십시오. Astrid는 이러한 종류의 할 일을 정렬하기 위해 고유한 설정을 사용합니다.</string>
-  <string name="gtasks_GLA_signIn">로그인</string>
-  <string name="gtasks_GLA_email">이메일</string>
-  <string name="gtasks_GLA_password">비밀번호</string>
   <string name="gtasks_GLA_authenticating">인증 중...</string>
-  <string name="gtasks_GLA_domain">Google Apps for Domain 계정</string>
-  <string name="gtasks_GLA_errorEmpty">Error: 모든 필드값을 입력하세요!</string>
   <string name="gtasks_GLA_errorAuth">인증 오류! 휴대폰 계정 관리자의 사용자명과 비밀번호를 확인해 주십시오.</string>
   <string name="gtasks_GLA_errorIOAuth">죄송합니다, Google 서버와 통신하는 데에 문제가 있습니다. 잠시 후 다시 시도해 주십시오.</string>
-  <string name="gtasks_GLA_errorAuth_captcha">You may have encountered a captcha. Try logging in from the browser, then come back to try again:</string>
   <string name="gtasks_GPr_header">Google Tasks</string>
-  <string name="gtasks_notification_title">Astrid: Google Tasks</string>
   <string name="gtasks_error_backend">Google\'s Task API is in beta and has encountered an error. The service may be down, please try again later.</string>
   <string name="gtasks_error_accountNotFound">Account %s not found--please log out and log back in from the Google Tasks settings.</string>
   <string name="gtasks_error_authRefresh">Unable to authenticate with Google Tasks. Please check your account password or try again later.</string>
@@ -510,9 +485,6 @@
   <string name="help_popover_collaborators">공유된 사람들은 당신이 할 일을 마치거나 리스트를 만드는 것을 도와줄 수 있습니다.</string>
   <string name="help_popover_add_lists">Tap add a list</string>
   <string name="help_popover_switch_lists">리스트를 추가하거나 리스트를 전환하려면 탭</string>
-  <string name="help_popover_when_shortcut">Tap this shortcut to quick select date and time</string>
-  <string name="help_popover_when_row">Tap anywhere on this row to access options like repeat</string>
-  <string name="welcome_login_title">Astrid 사용을 환영합니다!</string>
   <string name="welcome_login_tos_base">By using Astrid you agree to the</string>
   <string name="welcome_login_tos_link">\"Terms of Service\"</string>
   <string name="welcome_login_pw">Login with Username/Password</string>
@@ -524,7 +496,6 @@
   <string name="help_popover_taskrabbit_type">Change the type of task</string>
   <string name="locale_edit_alerts_title">Astrid Filter Alert</string>
   <string name="locale_edit_intro">다음 필터에 맞는 작업이 있을 때 Astrid 가 당신께 알려드리도록 하겠습니다.:</string>
-  <string name="locale_pick_filter">필터:</string>
   <string name="locale_interval_label">Limit notifications to:</string>
   <string-array name="locale_interval">
     <item>한시간에 한번</item>

@@ -301,10 +301,7 @@
   <string name="EPr_theme_desc_unsupported">La configuración requiere Android 2.0+</string>
   <string name="EPr_theme_widget_title">Tema del widget</string>
   <string name="EPr_taskRowPrefs_title">Apariencia de la fila de tareas</string>
-  <string name="EPr_labs_header">Laboratorios Astrid</string>
-  <string name="EPr_labs_desc">Probar y configurar las características experimentales</string>
   <string name="EPr_swipe_lists_performance_title">Deslizar entre las listas</string>
-  <string name="EPr_swipe_lists_performance_subtitle">Controla el rendimiento de memoria de deslizar entre listas</string>
   <string name="EPr_use_contact_picker">Usar selector de contactos</string>
   <string name="EPr_use_contact_picker_desc_enabled">La opción del sistema de elector de contactos será mostrada en la ventana de asignación de tareas</string>
   <string name="EPr_use_contact_picker_desc_disabled">La opción del sistema de elector de contactos no será mostrada</string>
@@ -316,7 +313,6 @@
   <string name="EPr_cal_end_or_start_at_due_time">Tiempo del calendario de eventos</string>
   <string name="EPr_cal_end_at_due_time">Finalizar eventos del calendario al tiempo debido</string>
   <string name="EPr_cal_start_at_due_time">Iniciar eventos del calendario al tiempo debido</string>
-  <string name="EPr_swipe_lists_restart_alert">Necesitarás reiniciar Astrid para que éste cambio surta efecto</string>
   <string-array name="EPr_swipe_lists_performance_mode">
     <item>Sin deslizar</item>
     <item>Mantener Memoria</item>
@@ -329,7 +325,6 @@
     <item>Configuración predeterminada</item>
     <item>Usar mas recursos del sistema</item>
   </string-array>
-  <string name="EPr_swipe_lists_display">%1$s - %2$s</string>
   <string-array name="EPr_themes">
     <item>Día - Azul</item>
     <item>Día - Rojo</item>
@@ -379,8 +374,6 @@
   <string name="p_forums">Foros</string>
   <string name="task_killer_help">Parece que está usando una app que puede matar procesos (%s)! Si puede añada Astrid a la lista de exclusión de modo que no sea matada. De otro modo podría no avisarle cuando venza una Tarea.\n</string>
   <string name="task_killer_help_ok">No mataré Astrid!</string>
-  <string name="marketplace_title">Astrid lista Tareas/hacer</string>
-  <string name="marketplace_description">Astrid es el administrador de listas tareas de código abierto más querido diseñado para ayudarte a conseguir acabar tus quehaceres. Entre sus características se incluye recordatorios, etiquetas, sincronización, un complemento para Locale, un widget y mucho más.</string>
   <string name="DB_corrupted_title">Base de datos corrupta</string>
   <string name="DB_corrupted_body">¡Ups! Parece que tal vez has corrompido la base de datos. Si ves éste error regularmente, te sugerimos borrar todos los datos (Configuración-&gt;Administrar todas las tareas-&gt;Borrar todos los datos) y restaurar tus tareas desde un respaldo (Configuración-&gt;Respaldar-&gt;Importar tareas) en Astrid.</string>
   <string name="EPr_defaults_header">Configuración de nuevas tareas por defecto</string>
@@ -423,15 +416,11 @@
     <item>En fecha límite o atrasada</item>
   </string-array>
   <string name="BFE_Active">Tareas activas</string>
-  <string name="BFE_Search">Buscar...</string>
   <string name="BFE_Recent">Recién modificadas</string>
   <string name="BFE_Assigned">Yo he asignado</string>
-  <string name="BFE_Custom">Filtro personalizado...</string>
-  <string name="BFE_Saved">Filtros</string>
   <string name="BFE_Saved_delete">Borrar filtro</string>
   <string name="CFA_title">Filtro Personalizado</string>
   <string name="CFA_filterName_hint">Da nombre al filtro para grabarlo...</string>
-  <string name="CFA_filterName_copy">Copia de %s</string>
   <string name="CFA_universe_all">Tareas activas</string>
   <string name="CFA_type_add">o</string>
   <string name="CFA_type_subtract">no</string>
@@ -462,10 +451,8 @@
   <string name="CFC_title_contains_name">Título contiene...</string>
   <string name="CFC_title_contains_text">Título contiene: ?</string>
   <string name="gcal_TEA_error">¡Ocurrió un error al agregar la tarea al calendario!</string>
-  <string name="gcal_TEA_calendar_label">Añadir tarea al calendario</string>
   <string name="gcal_TEA_addToCalendar_label">Agregar al calendario</string>
   <string name="gcal_TEA_showCalendar_label">Abrir evento del calendario</string>
-  <string name="gcal_TEA_calendar_error">Error abriendo evento!</string>
   <string name="gcal_TEA_calendar_updated">También actualizado el evento de calendario!</string>
   <string name="gcal_TEA_nocal">No agregar</string>
   <string name="gcal_TEA_none_selected">Agregar al calendario</string>
@@ -473,31 +460,19 @@
   <string name="gcal_completed_title">%s (completo)</string>
   <string name="gcal_GCP_default">Calendario predeterminado</string>
   <string name="gtasks_FEx_header">Tareas de Google</string>
-  <string name="gtasks_FEx_list">Lista</string>
   <string name="gtasks_FEx_title">Google Tasks: %s</string>
   <string name="gtasks_FEx_creating_list">Creando lista...</string>
   <string name="gtasks_FEx_create_list_dialog">Nuevo nombre de lista:</string>
   <string name="gtasks_FEx_create_list_error">Error al crear la nueva lista</string>
-  <string name="gtasks_help_title">Bienvenido a Google Tasks!</string>
   <string name="CFC_gtasks_list_text">En la Lista: ?</string>
   <string name="CFC_gtasks_list_name">en la Lista GTasks...</string>
   <string name="gtasks_GTA_clearing">Limpiando tareas completadas...</string>
   <string name="gtasks_GTA_clear_completed">Limpiar finalizados</string>
-  <string name="gtasks_GLA_title">Iniciar sesión en Google Tasks</string>
-  <string name="gtasks_GLA_body">Por favor inicia sesión en Google Tasks Sync (Beta!). Cuentas de Google Apps sin migrar no están soportadas actualmente.</string>
   <string name="gtasks_GLA_noaccounts">No hay disponible una cuenta de Google con la cual sincronizarse.</string>
-  <string name="gtasks_GLA_further_help">Para visualizar sus tareas con sangría y orden preservado, vaya a Filtros y seleccione una lista de Google Tasks. De manera predeterminada, Astrid usa sus propias configuraciones de ordenación para tareas.</string>
-  <string name="gtasks_GLA_signIn">Ingresar</string>
-  <string name="gtasks_GLA_email">Correo electrónico</string>
-  <string name="gtasks_GLA_password">Contraseña</string>
   <string name="gtasks_GLA_authenticating">Autenticando...</string>
-  <string name="gtasks_GLA_domain">Cuenta de Google Apps for Domain</string>
-  <string name="gtasks_GLA_errorEmpty">Error: rellene todos los campos!</string>
   <string name="gtasks_GLA_errorAuth">¡Error de autenticación! ¡Por favor revisa tu nombre de usuario y contraseña en el administrador de cuentas de tu teléfono!</string>
   <string name="gtasks_GLA_errorIOAuth">Perdón, hubo un problema al comunicarse con los servidores de Google. Por favor inténtalo mas tarde.</string>
-  <string name="gtasks_GLA_errorAuth_captcha">Usted puede haber encontrado un captcha. Intente acceder desde el navegador, a continuación, vuelve a intentarlo de nuevo:</string>
   <string name="gtasks_GPr_header">Google Tasks</string>
-  <string name="gtasks_notification_title">Astrid: Google Tasks</string>
   <string name="gtasks_error_backend">La API de Google Tasks está aun en beta y ha encontrado un error. El servicio tal vez no esté disponible, por favor inténtalo mas tarde.</string>
   <string name="gtasks_error_accountNotFound">La cuenta %s no se encontró--por favor cierra sesión y vuelve a iniciarla desde la configuración de Google Tasks</string>
   <string name="gtasks_error_authRefresh">No se pudo autenticar con Google Tasks. Por favor revisa la contraseña de tu cuenta o intenta de nuevo mas tarde.</string>
@@ -510,9 +485,6 @@
   <string name="help_popover_collaborators">Las personas con quien compartas te pueden ayudar a construir tus listas o terminar tareas</string>
   <string name="help_popover_add_lists">Toca agregar una lista</string>
   <string name="help_popover_switch_lists">Toca para agregar una lista o cambiar entre listas</string>
-  <string name="help_popover_when_shortcut">Toca este atajo para seleccionar rápidamente fecha y hora</string>
-  <string name="help_popover_when_row">Toca en cualquier lugar de esta fila para acceder a opciones como repetir</string>
-  <string name="welcome_login_title">¡Bienvenido a Astrid!</string>
   <string name="welcome_login_tos_base">Al usar Astrid estás de acuerdo con el</string>
   <string name="welcome_login_tos_link">\"Términos del servicio\"</string>
   <string name="welcome_login_pw">Ingrese con usuario/contraseña</string>
@@ -524,7 +496,6 @@
   <string name="help_popover_taskrabbit_type">Cambiar el tipo de tarea</string>
   <string name="locale_edit_alerts_title">Astrid alerta de filtro</string>
   <string name="locale_edit_intro">Astrid le enviará un recordatorio cuando tenga cualquier tarea en el siguiente filtro.</string>
-  <string name="locale_pick_filter">Filtrar:</string>
   <string name="locale_interval_label">Limitar notificaciones a:</string>
   <string-array name="locale_interval">
     <item>una vez por hora</item>
