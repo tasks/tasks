@@ -296,11 +296,12 @@ public class UpdateMessageService {
         try {
             PackageInfo pi = pm.getPackageInfo(Constants.PACKAGE, PackageManager.GET_META_DATA);
             int versionCode = pi.versionCode;
-            String result = restClient.get(URL + "?version=" + versionCode + "&" +
+            String url = URL + "?version=" + versionCode + "&" +
                     "language=" + Locale.getDefault().getISO3Language() + "&" +
                     "market=" + Constants.MARKET_STRATEGY.strategyId() + "&" +
                     "actfm=" + (actFmPreferenceService.isLoggedIn() ? "1" : "0") + "&" +
-                    "premium=" + (ActFmPreferenceService.isPremiumUser() ? "1" : "0")); //$NON-NLS-1$
+                    "premium=" + (ActFmPreferenceService.isPremiumUser() ? "1" : "0");
+            String result = restClient.get(url); //$NON-NLS-1$
             if(TextUtils.isEmpty(result))
                 return null;
 
