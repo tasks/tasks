@@ -212,9 +212,9 @@ public class UpdateMessageService {
     private ClickableSpan getClickableSpanForUpdate(JSONObject update, String type) {
         if ("pref".equals(type)) {
             try {
-                if (!update.has("prefs"))
+                if (!update.has("action_list"))
                     return null;
-                JSONArray prefSpec = update.getJSONArray("prefs");
+                JSONArray prefSpec = update.getJSONArray("action_list");
                 if (prefSpec.length() == 0)
                     return null;
                 final String prefArray = prefSpec.toString();
@@ -231,9 +231,9 @@ public class UpdateMessageService {
             }
         } else if ("screen".equals(type)) {
             try {
-                if (!update.has("screens"))
+                if (!update.has("action_list"))
                     return null;
-                JSONArray screens = update.getJSONArray("screens");
+                JSONArray screens = update.getJSONArray("action_list");
                 if (screens.length() == 0)
                     return null;
                 final ArrayList<String> screenList = new ArrayList<String>();
