@@ -8,6 +8,7 @@ package com.todoroo.astrid.backup;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.math.BigInteger;
 
 import org.xmlpull.v1.XmlSerializer;
 
@@ -304,6 +305,26 @@ public class TasksXmlExporter {
                 if(value == null)
                     return null;
                 xml.attribute(null, property.name, value);
+            } catch (UnsupportedOperationException e) {
+                // didn't read this value, do nothing
+            } catch (IllegalArgumentException e) {
+                throw new RuntimeException(e);
+            } catch (IllegalStateException e) {
+                throw new RuntimeException(e);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+            return null;
+        }
+
+        @Override
+        public Void visitBigInteger(Property<BigInteger> property,
+                AbstractModel data) {
+            try {
+                BigInteger value = data.getValue(property);
+                if(value == null)
+                    return null;
+                xml.attribute(null, property.name, value.toString());
             } catch (UnsupportedOperationException e) {
                 // didn't read this value, do nothing
             } catch (IllegalArgumentException e) {

@@ -5,6 +5,7 @@
  */
 package com.todoroo.andlib.data;
 
+import java.math.BigInteger;
 import java.util.WeakHashMap;
 
 import android.database.Cursor;
@@ -129,9 +130,18 @@ public class TodorooCursor<TYPE extends AbstractModel> extends CursorWrapper {
             return cursor.getString(column);
         }
 
+        public Object visitBigInteger(Property<BigInteger> property,
+                TodorooCursor<?> cursor) {
+            int column = columnIndex(property, cursor);
+            if(property.nullable && cursor.isNull(column))
+                return null;
+            return new BigInteger(cursor.getString(column));
+        }
+
         private int columnIndex(Property<?> property, TodorooCursor<?> cursor) {
             return cursor.getColumnIndexFromCache(property.getColumnName());
         }
+
     }
 
 }

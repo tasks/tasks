@@ -7,6 +7,7 @@ package com.todoroo.astrid.backup;
 
 import java.io.FileReader;
 import java.io.IOException;
+import java.math.BigInteger;
 import java.util.Date;
 import java.util.LinkedHashSet;
 import java.util.StringTokenizer;
@@ -383,6 +384,15 @@ public class TasksXmlImporter {
                 String value = xpp.getAttributeValue(null, property.name);
                 if(value != null)
                     data.setValue(property, value);
+                return null;
+            }
+
+            @Override
+            public Void visitBigInteger(Property<BigInteger> property,
+                    AbstractModel data) {
+                String value = xpp.getAttributeValue(null, property.name);
+                if(value != null)
+                    data.setValue(property, new BigInteger(value));
                 return null;
             }
         }

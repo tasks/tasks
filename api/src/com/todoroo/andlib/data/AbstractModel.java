@@ -8,6 +8,7 @@ package com.todoroo.andlib.data;
 import java.lang.reflect.Array;
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
+import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -476,6 +477,11 @@ public abstract class AbstractModel implements Parcelable, Cloneable {
 
         public Void visitString(Property<String> property, Object value) {
             store.put(property.getColumnName(), (String) value);
+            return null;
+        }
+
+        public Void visitBigInteger(Property<BigInteger> property, Object value) {
+            store.put(property.getColumnName(), ((BigInteger) value).toString());
             return null;
         }
     }
