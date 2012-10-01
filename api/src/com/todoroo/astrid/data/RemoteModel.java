@@ -6,6 +6,7 @@
 package com.todoroo.astrid.data;
 
 import com.todoroo.andlib.data.AbstractModel;
+import com.todoroo.andlib.data.Property.BigIntegerProperty;
 import com.todoroo.andlib.data.Property.LongProperty;
 import com.todoroo.andlib.data.Property.StringProperty;
 
@@ -46,4 +47,10 @@ abstract public class RemoteModel extends AbstractModel {
 
     /** pushed at date property name */
     public static final LongProperty PUSHED_AT_PROPERTY = new LongProperty(null, PUSHED_AT_PROPERTY_NAME);
+
+    /** new uuid property */
+    public static final String UUID_PROPERTY_NAME = "uuid"; //$NON-NLS-1$
+
+    /** new uuid property */
+    public static final BigIntegerProperty UUID_PROPERTY = new BigIntegerProperty(null, UUID_PROPERTY_NAME);
 }

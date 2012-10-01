@@ -1,5 +1,7 @@
 package com.todoroo.astrid.sync;
 
+import java.math.BigInteger;
+
 import android.text.TextUtils;
 
 import com.todoroo.andlib.data.Property;
@@ -25,7 +27,7 @@ public class Astrid44MigrationTest extends NewSyncTestCase {
 	public void testAstrid44Migration() {
 		setupOldDatabase();
 		new Astrid44SyncMigrator().performMigration();
-		assertAllModelsHaveRemoteId();
+		assertAllModelsHaveUUID();
 		assertAllTagsHaveTagData();
 		assertAllMetadataHasAllFields();
 	}
@@ -91,9 +93,9 @@ public class Astrid44MigrationTest extends NewSyncTestCase {
 		// Task 5: Tag 5, New tag 2
 	}
 	
-	private void assertAllModelsHaveRemoteId() {
-		assertRemoteIds(Task.TABLE, new Task(), taskDao, Task.ID, Task.REMOTE_ID);
-		assertRemoteIds(TagData.TABLE, new TagData(), tagDataDao, TagData.ID, TagData.REMOTE_ID);
+	private void assertAllModelsHaveUUID() {
+		assertRemoteIds(Task.TABLE, new Task(), taskDao, Task.ID, Task.UUID);
+		assertRemoteIds(TagData.TABLE, new TagData(), tagDataDao, TagData.ID, TagData.UUID);
 	}
 	
 	private <TYPE extends RemoteModel> void assertRemoteIds(Table table, TYPE instance, RemoteModelDao<TYPE> dao, Property<?>... properties) {
@@ -102,9 +104,9 @@ public class Astrid44MigrationTest extends NewSyncTestCase {
 			for (cursor.moveToFirst(); !cursor.isAfterLast(); cursor.moveToNext()) {
 				instance.clear();
 				instance.readPropertiesFromCursor(cursor);
-				Long remoteId = instance.getValue(RemoteModel.REMOTE_ID_PROPERTY);
-				if (remoteId == null || remoteId == 0) {
-					fail(instance.getClass().getName() + instance.getId() + " didn't have a remote id");
+				BigInteger uuid = instance.getValue(RemoteModel.UUID_PROPERTY);
+				if (uuid == null || uuid.intValue() == 0) {
+					fail(instance.getClass().getName() + instance.getId() + " didn't have a uuid");
 				}
 			}
 		} finally {

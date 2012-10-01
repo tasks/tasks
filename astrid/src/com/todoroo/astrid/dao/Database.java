@@ -340,13 +340,16 @@ public class Database extends AbstractDatabase {
             database.execSQL(createTableSql(visitor, TagOutstanding.TABLE.name, TagOutstanding.PROPERTIES));
 
             database.execSQL(addColumnSql(Task.TABLE, Task.PROOF_TEXT, visitor, null));
-            database.execSQL(addColumnSql(TagData.TABLE, TagData.PROOF_TEXT, visitor, null));
-            database.execSQL(addColumnSql(Update.TABLE, Update.PROOF_TEXT, visitor, null));
-            database.execSQL(addColumnSql(Metadata.TABLE, Metadata.DELETION_DATE, visitor, "0"));
             database.execSQL(addColumnSql(Task.TABLE, Task.PUSHED_AT, visitor, null));
+            database.execSQL(addColumnSql(Task.TABLE, Task.UUID, visitor, null));
+            database.execSQL(addColumnSql(TagData.TABLE, TagData.PROOF_TEXT, visitor, null));
             database.execSQL(addColumnSql(TagData.TABLE, TagData.PUSHED_AT, visitor, null));
-            database.execSQL(addColumnSql(User.TABLE, User.PUSHED_AT, visitor, null));
+            database.execSQL(addColumnSql(TagData.TABLE, TagData.UUID, visitor, null));
+            database.execSQL(addColumnSql(Update.TABLE, Update.PROOF_TEXT, visitor, null));
             database.execSQL(addColumnSql(Update.TABLE, Update.PUSHED_AT, visitor, null));
+            database.execSQL(addColumnSql(Update.TABLE, Update.UUID, visitor, null));
+            database.execSQL(addColumnSql(Metadata.TABLE, Metadata.DELETION_DATE, visitor, "0"));
+            database.execSQL(addColumnSql(User.TABLE, User.PUSHED_AT, visitor, null));
         } catch (SQLiteException e) {
             Log.e("astrid", "db-upgrade-" + oldVersion + "-" + newVersion, e);
         }

@@ -1,5 +1,7 @@
 package com.todoroo.astrid.tags;
 
+import java.math.BigInteger;
+
 import android.util.Log;
 
 import com.todoroo.andlib.data.DatabaseDao;
@@ -74,13 +76,13 @@ public class Astrid44SyncMigrator {
         // --------------
         // Then ensure that every remote model has a remote id, by generating one using the uuid generator for all those without one
         // --------------
-        Query tagsWithoutUUIDQuery = Query.select(TagData.ID, TagData.REMOTE_ID).where(Criterion.or(TagData.REMOTE_ID.isNull(), TagData.REMOTE_ID.eq(0)));
+        Query tagsWithoutUUIDQuery = Query.select(TagData.ID, TagData.REMOTE_ID).where(Criterion.all);
         assertUUIDsExist(tagsWithoutUUIDQuery, new TagData(), tagDataDao);
 
-        Query tasksWithoutUUIDQuery = Query.select(Task.ID, Task.REMOTE_ID).where(Criterion.or(Task.REMOTE_ID.isNull(), Task.REMOTE_ID.eq(0)));
+        Query tasksWithoutUUIDQuery = Query.select(Task.ID, Task.REMOTE_ID).where(Criterion.all);
         assertUUIDsExist(tasksWithoutUUIDQuery, new Task(), taskDao);
 
-        Query updatesWithoutUUIDQuery = Query.select(Update.ID, Update.REMOTE_ID).where(Criterion.or(Update.REMOTE_ID.isNull(), Update.REMOTE_ID.eq(0)));
+        Query updatesWithoutUUIDQuery = Query.select(Update.ID, Update.REMOTE_ID).where(Criterion.all);
         assertUUIDsExist(updatesWithoutUUIDQuery, new Update(), updateDao);
 
 
@@ -134,9 +136,13 @@ public class Astrid44SyncMigrator {
         try {
             for (cursor.moveToFirst(); !cursor.isAfterLast(); cursor.moveToNext()) {
                 instance.readPropertiesFromCursor(cursor);
-                Pair<Long, String> uuidPair = UUIDHelper.newUUID();
-                instance.setValue(RemoteModel.REMOTE_ID_PROPERTY, uuidPair.getLeft());
-                instance.setValue(RemoteModel.PROOF_TEXT_PROPERTY, uuidPair.getRight());
+                if (!instance.containsNonNullValue(RemoteModel.REMOTE_ID_PROPERTY)) {
+                    Pair<Long, String> uuidPair = UUIDHelper.newUUID();
+                    instance.setValue(RemoteModel.REMOTE_ID_PROPERTY, uuidPair.getLeft());
+                    instance.setValue(RemoteModel.PROOF_TEXT_PROPERTY, uuidPair.getRight());
+                }
+                // Migrate remote id to uuid field
+                instance.setValue(RemoteModel.UUID_PROPERTY, BigInteger.valueOf(instance.getValue(RemoteModel.REMOTE_ID_PROPERTY)));
                 dao.saveExisting(instance);
             }
         } finally {

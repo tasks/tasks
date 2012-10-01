@@ -11,6 +11,7 @@ import android.net.Uri;
 
 import com.todoroo.andlib.data.AbstractModel;
 import com.todoroo.andlib.data.Property;
+import com.todoroo.andlib.data.Property.BigIntegerProperty;
 import com.todoroo.andlib.data.Property.LongProperty;
 import com.todoroo.andlib.data.Property.StringProperty;
 import com.todoroo.andlib.data.Table;
@@ -108,6 +109,10 @@ public class Update extends RemoteModel {
     /** Pushed at date */
     public static final LongProperty PUSHED_AT = new LongProperty(
             TABLE, PUSHED_AT_PROPERTY_NAME);
+
+    /** UUID */
+    public static final BigIntegerProperty UUID = new BigIntegerProperty(
+            TABLE, UUID_PROPERTY_NAME);
 
     /** List of all properties for this model */
     public static final Property<?>[] PROPERTIES = generateProperties(Update.class);
