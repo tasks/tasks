@@ -156,7 +156,7 @@ public class Database extends AbstractDatabase {
 
         sql.append("CREATE UNIQUE INDEX IF NOT EXISTS t_rid ON ").
         append(Task.TABLE).append('(').
-        append(Task.REMOTE_ID.name).
+        append(Task.UUID.name).
         append(')');
         database.execSQL(sql.toString());
         sql.setLength(0);

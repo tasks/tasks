@@ -7,6 +7,7 @@ package com.todoroo.astrid.activity;
 
 import java.io.File;
 import java.io.FileOutputStream;
+import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -143,7 +144,7 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
     /**
      * Task remote id (during orientation change)
      */
-    private static final String TASK_REMOTE_ID = "task_remote_id"; //$NON-NLS-1$
+    private static final String TASK_UUID = "task_uuid"; //$NON-NLS-1$
 
     /**
      * Token for saving a bitmap in the intent before it has been added with a comment
@@ -258,7 +259,7 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
 
     private boolean overrideFinishAnim;
 
-    private long remoteId = 0;
+    private BigInteger remoteId = BigInteger.ZERO;
 
 
     private WebServicesView webServices = null;
@@ -301,8 +302,8 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
             if (task != null) {
                 model = task;
             }
-            if (savedInstanceState.containsKey(TASK_REMOTE_ID)) {
-                remoteId = savedInstanceState.getLong(TASK_REMOTE_ID);
+            if (savedInstanceState.containsKey(TASK_UUID)) {
+                remoteId = new BigInteger(savedInstanceState.getString(TASK_UUID));
             }
 
         }
@@ -731,8 +732,8 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
         long idParam = intent.getLongExtra(TOKEN_ID, -1L);
         if (idParam > -1L) {
             model = taskService.fetchById(idParam, Task.PROPERTIES);
-            if (model != null && model.containsNonNullValue(Task.REMOTE_ID)) {
-                remoteId = model.getValue(Task.REMOTE_ID);
+            if (model != null && model.containsNonNullValue(Task.UUID)) {
+                remoteId = model.getValue(Task.UUID);
             }
         }
 
@@ -789,7 +790,7 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
     /** Convenience method to populate fields after setting model to null */
     public void repopulateFromScratch(Intent intent) {
         model = null;
-        remoteId = 0;
+        remoteId = BigInteger.ZERO;
         populateFields(intent);
         if (webServices != null) {
             webServices.setTask(model);
@@ -1162,7 +1163,7 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
 
     @Override
     public void onPrepareOptionsMenu (Menu menu) {
-        if(actFmPreferenceService.isLoggedIn() && remoteId > 0 && menu.findItem(MENU_COMMENTS_REFRESH_ID) == null) {
+        if(actFmPreferenceService.isLoggedIn() && remoteId.compareTo(BigInteger.ZERO) != 0 && menu.findItem(MENU_COMMENTS_REFRESH_ID) == null) {
             MenuItem item = menu.add(Menu.NONE, MENU_COMMENTS_REFRESH_ID, Menu.NONE,
                     R.string.ENA_refresh_comments);
             item.setIcon(R.drawable.icn_menu_refresh_dark);
@@ -1231,7 +1232,7 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
 
         // stick our task into the outState
         outState.putParcelable(TASK_IN_PROGRESS, model);
-        outState.putLong(TASK_REMOTE_ID, remoteId);
+        outState.putString(TASK_UUID, remoteId.toString());
     }
 
     @Override

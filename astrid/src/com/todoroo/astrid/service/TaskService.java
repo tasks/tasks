@@ -5,6 +5,7 @@
  */
 package com.todoroo.astrid.service;
 
+import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map.Entry;
@@ -104,8 +105,8 @@ public class TaskService {
      * @param properties
      * @return item, or null if it doesn't exist
      */
-    public Task fetchByRemoteId(long remoteId, Property<?>... properties) {
-        TodorooCursor<Task> task = query(Query.select(properties).where(Task.REMOTE_ID.eq(remoteId)));
+    public Task fetchByRemoteId(BigInteger uuid, Property<?>... properties) {
+        TodorooCursor<Task> task = query(Query.select(properties).where(Task.UUID.eq(uuid)));
         try {
             if (task.getCount() > 0) {
                 task.moveToFirst();
@@ -153,7 +154,8 @@ public class TaskService {
         if(newTask == null)
             return new Task();
         newTask.clearValue(Task.ID);
-        newTask.clearValue(Task.REMOTE_ID);
+        newTask.clearValue(Task.UUID);
+        newTask.clearValue(Task.PROOF_TEXT);
         TodorooCursor<Metadata> cursor = metadataDao.query(
                 Query.select(Metadata.PROPERTIES).where(MetadataCriteria.byTask(task.getId())));
         try {
@@ -196,7 +198,8 @@ public class TaskService {
         if (newTask == null)
             return new Task();
         newTask.clearValue(Task.ID);
-        newTask.clearValue(Task.REMOTE_ID);
+        newTask.clearValue(Task.UUID);
+        newTask.clearValue(Task.PROOF_TEXT);
         newTask.clearValue(Task.USER);
         newTask.clearValue(Task.USER_ID);
 

@@ -6,6 +6,7 @@
 package com.todoroo.astrid.adapter;
 
 import java.io.IOException;
+import java.math.BigInteger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -361,7 +362,7 @@ public class UpdateAdapter extends CursorAdapter {
         if (TASK_LINK_TYPE.equals(linkType)) {
             long taskId = update.getValue(Update.TASK_LOCAL);
             if (taskId <= 0) {
-                Task local = PluginServices.getTaskService().fetchByRemoteId(update.getValue(Update.TASK), Task.ID);
+                Task local = PluginServices.getTaskService().fetchByRemoteId(BigInteger.valueOf(update.getValue(Update.TASK)), Task.ID);
                 if (local != null)
                     taskId = local.getId();
             }

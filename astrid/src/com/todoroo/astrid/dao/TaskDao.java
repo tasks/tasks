@@ -5,6 +5,8 @@
  */
 package com.todoroo.astrid.dao;
 
+import java.math.BigInteger;
+
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
@@ -199,7 +201,7 @@ public class TaskDao extends RemoteModelDao<Task> {
 
     public boolean handleSQLiteConstraintException(Task task) {
         TodorooCursor<Task> cursor = query(Query.select(Task.ID).where(
-                Task.REMOTE_ID.eq(task.getValue(Task.REMOTE_ID))));
+                Task.UUID.eq(task.getValue(Task.UUID))));
         if (cursor.getCount() > 0) {
             cursor.moveToFirst();
             task.setId(cursor.get(Task.ID));
@@ -304,7 +306,7 @@ public class TaskDao extends RemoteModelDao<Task> {
 
     private static final Property<?>[] SQL_CONSTRAINT_MERGE_PROPERTIES = new Property<?>[] {
         Task.ID,
-        Task.REMOTE_ID,
+        Task.UUID,
         Task.TITLE,
         Task.IMPORTANCE,
         Task.DUE_DATE,
@@ -336,31 +338,31 @@ public class TaskDao extends RemoteModelDao<Task> {
         try {
             saveExisting(item);
         } catch (SQLiteConstraintException e) {
-            Long remoteId = item.getValue(Task.REMOTE_ID);
-            TodorooCursor<Task> tasksWithRemoteId = query(Query.select(
+            BigInteger uuid = item.getValue(Task.UUID);
+            TodorooCursor<Task> tasksWithUUID = query(Query.select(
                     SQL_CONSTRAINT_MERGE_PROPERTIES).where(
-                    Task.REMOTE_ID.eq(remoteId)));
+                    Task.UUID.eq(uuid)));
             try {
-                if (tasksWithRemoteId.getCount() > 0) {
+                if (tasksWithUUID.getCount() > 0) {
                     Task curr = new Task();
-                    for (tasksWithRemoteId.moveToFirst();
-                            !tasksWithRemoteId.isAfterLast(); tasksWithRemoteId.moveToNext()) {
-                        curr.readFromCursor(tasksWithRemoteId);
+                    for (tasksWithUUID.moveToFirst();
+                            !tasksWithUUID.isAfterLast(); tasksWithUUID.moveToNext()) {
+                        curr.readFromCursor(tasksWithUUID);
                         if (curr.getId() == item.getId())
                             continue;
 
                         compareAndMergeAfterConflict(curr, fetch(item.getId(),
-                                tasksWithRemoteId.getProperties()));
+                                tasksWithUUID.getProperties()));
                         return;
                     }
                 } else {
                     // We probably want to know about this case, because
                     // it means that the constraint error isn't caused by
-                    // REMOTE_ID
+                    // UUID
                     throw e;
                 }
             } finally {
-                tasksWithRemoteId.close();
+                tasksWithUUID.close();
             }
         }
     }
@@ -379,7 +381,8 @@ public class TaskDao extends RemoteModelDao<Task> {
         if (!match) {
             if (existing.getValue(Task.CREATION_DATE).equals(newConflict.getValue(Task.CREATION_DATE)))
                 newConflict.setValue(Task.CREATION_DATE, newConflict.getValue(Task.CREATION_DATE) + 1000L);
-            newConflict.clearValue(Task.REMOTE_ID);
+            newConflict.clearValue(Task.UUID);
+            newConflict.clearValue(Task.PROOF_TEXT);
             saveExisting(newConflict);
         } else {
             delete(newConflict.getId());
