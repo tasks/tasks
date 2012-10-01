@@ -258,7 +258,12 @@ public class BillingActivity extends FragmentActivity {
             .setIcon(android.R.drawable.stat_sys_warning)
             .setMessage(messageId)
             .setCancelable(false)
-            .setPositiveButton(android.R.string.ok, null)
+            .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    finish();
+                }
+            })
             .setNegativeButton(R.string.subscriptions_learn_more, new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {

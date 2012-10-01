@@ -119,6 +119,7 @@ public class UpdateMessageService {
             textView.setTextSize(16);
             textView.setTextColor(activity.getResources().getColor(ThemeService.getDialogTextColor()));
             textView.setMovementMethod(LinkMovementMethod.getInstance());
+            textView.setPadding(10, 0, 10, 0);
             ds = new DialogShower() {
                 @Override
                 public void showDialog(Activity a) {
@@ -238,7 +239,9 @@ public class UpdateMessageService {
                     return null;
                 final ArrayList<String> screenList = new ArrayList<String>();
                 for (int i = 0; i < screens.length(); i++) {
-                    screenList.add(screens.getString(i));
+                    String screen = screens.getString(i).trim();
+                    if (!TextUtils.isEmpty(screen))
+                        screenList.add(screen);
                 }
                 return new ClickableSpan() {
                     @Override
