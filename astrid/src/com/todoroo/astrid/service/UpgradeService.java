@@ -46,6 +46,7 @@ import com.todoroo.astrid.utility.AstridPreferences;
 
 public final class UpgradeService {
 
+    public static final int V4_3_4 = 282;
     public static final int V4_3_3 = 281;
     public static final int V4_3_2 = 280;
     public static final int V4_3_1 = 279;
@@ -219,6 +220,14 @@ public final class UpgradeService {
 
         Preferences.clear(AstridPreferences.P_UPGRADE_FROM);
         StringBuilder changeLog = new StringBuilder();
+
+        if (from >= V4_3_0 && from < V4_3_4) {
+            newVersionString(changeLog, "4.3.4 (10/2/12)", new String[] {
+                "Magic words in task title now correctly removed when placed in parentheses",
+                "Bug fix for viewing Featured Lists with swipe enabled",
+                "Bug fixes for rare crashes"
+            });
+        }
 
         if (from >= V4_3_0 && from < V4_3_3) {
             newVersionString(changeLog, "4.3.3 (9/19/12)", new String[] {
