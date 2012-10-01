@@ -155,6 +155,7 @@ public final class TagData extends RemoteModel {
         defaultValues.put(USER_ID.name, 0);
         defaultValues.put(USER.name, "{}");
         defaultValues.put(REMOTE_ID.name, 0);
+        defaultValues.put(UUID.name, NO_UUID);
         defaultValues.put(NAME.name, "");
         defaultValues.put(PICTURE.name, "");
         defaultValues.put(IS_TEAM.name, 1);

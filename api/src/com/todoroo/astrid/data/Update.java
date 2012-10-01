@@ -132,6 +132,7 @@ public class Update extends RemoteModel {
 
     static {
         defaultValues.put(REMOTE_ID.name, 0);
+        defaultValues.put(UUID.name, NO_UUID);
         defaultValues.put(TASK.name, 0);
         defaultValues.put(TASK_LOCAL.name, 0);
         defaultValues.put(TAGS.name, "");
