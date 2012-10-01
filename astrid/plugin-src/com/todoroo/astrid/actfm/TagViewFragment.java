@@ -271,7 +271,7 @@ public class TagViewFragment extends TaskListFragment {
 
     private void updateCommentCount() {
         if (tagData != null) {
-            long lastViewedComments = Preferences.getLong(TagUpdatesFragment.UPDATES_LAST_VIEWED + tagData.getValue(TagData.REMOTE_ID), 0);
+            long lastViewedComments = Preferences.getLong(TagUpdatesFragment.UPDATES_LAST_VIEWED + tagData.getValue(TagData.UUID), 0);
             int unreadCount = 0;
             TodorooCursor<Update> commentCursor = tagDataService.getUpdatesWithExtraCriteria(tagData, Update.CREATION_DATE.gt(lastViewedComments));
             try {
@@ -472,7 +472,7 @@ public class TagViewFragment extends TaskListFragment {
         public void onReceive(Context context, Intent intent) {
             if(!intent.hasExtra("tag_id"))
                 return;
-            if(tagData == null || !Long.toString(tagData.getValue(TagData.REMOTE_ID)).equals(intent.getStringExtra("tag_id")))
+            if(tagData == null || !tagData.getValue(TagData.UUID).toString().equals(intent.getStringExtra("tag_id")))
                 return;
 
             getActivity().runOnUiThread(new Runnable() {
@@ -484,7 +484,7 @@ public class TagViewFragment extends TaskListFragment {
             refreshData(false);
 
             NotificationManager nm = new AndroidNotificationManager(ContextManager.getContext());
-            nm.cancel(tagData.getValue(TagData.REMOTE_ID).intValue());
+            nm.cancel(tagData.getValue(TagData.UUID).intValue());
         }
     };
 

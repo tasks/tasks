@@ -182,7 +182,7 @@ public final class TagService {
         Long[] emergentTags = getEmergentTagIds();
 
         return new QueryTemplate().where(Criterion.and(
-                Criterion.not(Task.REMOTE_ID.in(Query.select(TagMetadata.TASK_UUID).from(Metadata.TABLE)
+                Criterion.not(Task.UUID.in(Query.select(TagMetadata.TASK_UUID).from(Metadata.TABLE)
                         .where(Criterion.and(MetadataCriteria.withKey(TagMetadata.KEY), Metadata.DELETION_DATE.eq(0), Criterion.not(TagMetadata.TAG_UUID.in(emergentTags)))))),
                 TaskCriteria.isActive(),
                 TaskApiDao.TaskCriteria.ownedByMe(),
@@ -294,13 +294,13 @@ public final class TagService {
     }
 
     public TodorooCursor<TagData> getTagDataForTask(long taskId, boolean includeEmergent, Property<?>... properties) {
-        Criterion criterion = TagData.REMOTE_ID.in(Query.select(TagMetadata.TAG_UUID)
+        Criterion criterion = TagData.UUID.in(Query.select(TagMetadata.TAG_UUID)
                 .from(Metadata.TABLE)
                 .where(Criterion.and(MetadataCriteria.withKey(TagMetadata.KEY),
                         Metadata.DELETION_DATE.eq(0),
                         Metadata.TASK.eq(taskId))));
         if (!includeEmergent)
-            criterion = Criterion.and(Criterion.not(TagData.REMOTE_ID.in(getEmergentTagIds())), criterion);
+            criterion = Criterion.and(Criterion.not(TagData.ID.in(getEmergentTagIds())), criterion);
 
         return tagDataService.query(Query.select(properties).where(criterion));
     }

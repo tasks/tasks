@@ -33,7 +33,7 @@ public class TagMetadata {
 
     /**
      * New metadata object for linking a task to the specified tag. The task
-     * object should be saved and have the remote_id property. All parameters
+     * object should be saved and have the uuid property. All parameters
      * are manditory
      * @param task
      * @param tagName
