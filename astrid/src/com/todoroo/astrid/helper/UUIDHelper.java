@@ -1,5 +1,6 @@
 package com.todoroo.astrid.helper;
 
+import java.math.BigInteger;
 import java.security.SecureRandom;
 import java.util.UUID;
 
@@ -39,7 +40,7 @@ public class UUIDHelper {
      * @return a pair consisting of the newly
      * generated uuid and the corresponding proof text
      */
-    public static Pair<Long, String> newUUID() {
+    public static Pair<BigInteger, String> newUUID() {
         long uuid = 0;
         String proofText = ""; //$NON-NLS-1$
         do {
@@ -54,7 +55,7 @@ public class UUIDHelper {
             proofText = d + "," + s; //$NON-NLS-1$
             uuid = bcryptToLong(proofText);
         } while (uuid < MIN_UUID);
-        return Pair.create(uuid, proofText);
+        return Pair.create(BigInteger.valueOf(uuid), proofText);
     }
 
     private static final String SALT = "$2a$10$2RHhxhKaPb4VXlQUJyBU/O"; //$NON-NLS-1$

@@ -137,12 +137,14 @@ public class Astrid44SyncMigrator {
             for (cursor.moveToFirst(); !cursor.isAfterLast(); cursor.moveToNext()) {
                 instance.readPropertiesFromCursor(cursor);
                 if (!instance.containsNonNullValue(RemoteModel.REMOTE_ID_PROPERTY)) {
-                    Pair<Long, String> uuidPair = UUIDHelper.newUUID();
-                    instance.setValue(RemoteModel.REMOTE_ID_PROPERTY, uuidPair.getLeft());
+                    // No remote id exists, just create a UUID
+                    Pair<BigInteger, String> uuidPair = UUIDHelper.newUUID();
+                    instance.setValue(RemoteModel.UUID_PROPERTY, uuidPair.getLeft());
                     instance.setValue(RemoteModel.PROOF_TEXT_PROPERTY, uuidPair.getRight());
+                } else {
+                    // Migrate remote id to uuid field
+                    instance.setValue(RemoteModel.UUID_PROPERTY, BigInteger.valueOf(instance.getValue(RemoteModel.REMOTE_ID_PROPERTY)));
                 }
-                // Migrate remote id to uuid field
-                instance.setValue(RemoteModel.UUID_PROPERTY, BigInteger.valueOf(instance.getValue(RemoteModel.REMOTE_ID_PROPERTY)));
                 dao.saveExisting(instance);
             }
         } finally {

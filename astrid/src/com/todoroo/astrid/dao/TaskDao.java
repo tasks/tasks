@@ -320,7 +320,7 @@ public class TaskDao extends RemoteModelDao<Task> {
         Task.DETAILS.name,
         Task.DETAILS_DATE.name,
         Task.CALENDAR_URI.name,
-        Task.REMOTE_ID.name,
+        Task.UUID.name,
         Task.PUSHED_AT.name,
         Task.LAST_SYNC.name,
         Task.ESTIMATED_SECONDS.name,
