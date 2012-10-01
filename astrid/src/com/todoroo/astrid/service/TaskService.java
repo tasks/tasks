@@ -101,11 +101,11 @@ public class TaskService {
 
     /**
      *
-     * @param remoteId
+     * @param uuid
      * @param properties
      * @return item, or null if it doesn't exist
      */
-    public Task fetchByRemoteId(String uuid, Property<?>... properties) {
+    public Task fetchByUUID(String uuid, Property<?>... properties) {
         TodorooCursor<Task> task = query(Query.select(properties).where(Task.UUID.eq(uuid)));
         try {
             if (task.getCount() > 0) {

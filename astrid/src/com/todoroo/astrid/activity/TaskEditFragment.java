@@ -259,7 +259,7 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
 
     private boolean overrideFinishAnim;
 
-    private String remoteId = RemoteModel.NO_UUID;
+    private String uuid = RemoteModel.NO_UUID;
 
 
     private WebServicesView webServices = null;
@@ -303,7 +303,7 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
                 model = task;
             }
             if (savedInstanceState.containsKey(TASK_UUID)) {
-                remoteId = savedInstanceState.getString(TASK_UUID);
+                uuid = savedInstanceState.getString(TASK_UUID);
             }
 
         }
@@ -733,7 +733,7 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
         if (idParam > -1L) {
             model = taskService.fetchById(idParam, Task.PROPERTIES);
             if (model != null && model.containsNonNullValue(Task.UUID)) {
-                remoteId = model.getValue(Task.UUID);
+                uuid = model.getValue(Task.UUID);
             }
         }
 
@@ -790,7 +790,7 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
     /** Convenience method to populate fields after setting model to null */
     public void repopulateFromScratch(Intent intent) {
         model = null;
-        remoteId = RemoteModel.NO_UUID;
+        uuid = RemoteModel.NO_UUID;
         populateFields(intent);
         if (webServices != null) {
             webServices.setTask(model);
@@ -1163,7 +1163,7 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
 
     @Override
     public void onPrepareOptionsMenu (Menu menu) {
-        if(actFmPreferenceService.isLoggedIn() && !RemoteModel.NO_UUID.equals(remoteId) && menu.findItem(MENU_COMMENTS_REFRESH_ID) == null) {
+        if(actFmPreferenceService.isLoggedIn() && !RemoteModel.NO_UUID.equals(uuid) && menu.findItem(MENU_COMMENTS_REFRESH_ID) == null) {
             MenuItem item = menu.add(Menu.NONE, MENU_COMMENTS_REFRESH_ID, Menu.NONE,
                     R.string.ENA_refresh_comments);
             item.setIcon(R.drawable.icn_menu_refresh_dark);
@@ -1232,7 +1232,7 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
 
         // stick our task into the outState
         outState.putParcelable(TASK_IN_PROGRESS, model);
-        outState.putString(TASK_UUID, remoteId.toString());
+        outState.putString(TASK_UUID, uuid.toString());
     }
 
     @Override

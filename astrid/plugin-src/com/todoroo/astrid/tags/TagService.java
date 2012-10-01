@@ -38,6 +38,7 @@ import com.todoroo.astrid.dao.MetadataDao;
 import com.todoroo.astrid.dao.MetadataDao.MetadataCriteria;
 import com.todoroo.astrid.dao.TaskDao.TaskCriteria;
 import com.todoroo.astrid.data.Metadata;
+import com.todoroo.astrid.data.RemoteModel;
 import com.todoroo.astrid.data.TagData;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.data.TaskApiDao;
@@ -160,9 +161,9 @@ public final class TagService {
 
     }
 
-    public static Criterion memberOfTagData(long tagDataRemoteId) {
+    public static Criterion memberOfTagData(long tagDataUUID) {
         return Task.ID.in(Query.select(Metadata.TASK).from(Metadata.TABLE).where(
-                Criterion.and(Metadata.KEY.eq(TagMetadata.KEY), TagMetadata.TAG_UUID.eq(tagDataRemoteId))));
+                Criterion.and(Metadata.KEY.eq(TagMetadata.KEY), TagMetadata.TAG_UUID.eq(tagDataUUID))));
     }
 
     public static Criterion tagEq(String tag, Criterion additionalCriterion) {
@@ -548,14 +549,11 @@ public final class TagService {
         Flags.set(Flags.REFRESH);
     }
 
-    public static int getDefaultImageIDForTag(long remoteID) {
-        if (remoteID <= 0) {
+    public static int getDefaultImageIDForTag(String nameOrUUID) {
+        if (RemoteModel.NO_UUID.equals(nameOrUUID)) {
             int random = (int)(Math.random()*4);
             return default_tag_images[random];
         }
-        return default_tag_images[((int)remoteID)%4];
-    }
-    public static int getDefaultImageIDForTag(String title) {
-        return getDefaultImageIDForTag(Math.abs(title.hashCode()));
+        return default_tag_images[((int)Math.abs(nameOrUUID.hashCode()))%4];
     }
 }

@@ -23,6 +23,7 @@ import com.todoroo.astrid.api.TextInputCriterion;
 import com.todoroo.astrid.dao.MetadataDao;
 import com.todoroo.astrid.dao.TaskDao;
 import com.todoroo.astrid.data.Metadata;
+import com.todoroo.astrid.data.RemoteModel;
 import com.todoroo.astrid.data.Task;
 
 public class TagCustomFilterCriteriaExposer extends BroadcastReceiver {
@@ -56,7 +57,7 @@ public class TagCustomFilterCriteriaExposer extends BroadcastReceiver {
                             MetadataDao.MetadataCriteria.withKey(TagMetadata.KEY),
                             TagMetadata.TAG_NAME.eq("?"))).toString(),
                     values, tagNames, tagNames,
-                    ((BitmapDrawable)r.getDrawable(TagService.getDefaultImageIDForTag(0))).getBitmap(),
+                    ((BitmapDrawable)r.getDrawable(TagService.getDefaultImageIDForTag(RemoteModel.NO_UUID))).getBitmap(),
                     context.getString(R.string.CFC_tag_name));
             ret[j++] = criterion;
         }
@@ -72,7 +73,7 @@ public class TagCustomFilterCriteriaExposer extends BroadcastReceiver {
                                             MetadataDao.MetadataCriteria.withKey(TagMetadata.KEY),
                                             TagMetadata.TAG_NAME.like("%?%"))).toString(),
                                             null, context.getString(R.string.CFC_tag_contains_name), "",
-                                            ((BitmapDrawable)r.getDrawable(TagService.getDefaultImageIDForTag(0))).getBitmap(),
+                                            ((BitmapDrawable)r.getDrawable(TagService.getDefaultImageIDForTag(RemoteModel.NO_UUID))).getBitmap(),
                                             context.getString(R.string.CFC_tag_contains_name));
             ret[j++] = criterion;
         }

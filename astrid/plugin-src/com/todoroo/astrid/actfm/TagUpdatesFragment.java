@@ -269,9 +269,8 @@ public class TagUpdatesFragment extends ListFragment {
             descriptionTitle.setVisibility(View.GONE);
         }
 
-
         AsyncImageView imageView = (AsyncImageView) header.findViewById(R.id.tag_picture);
-        imageView.setDefaultImageResource(TagService.getDefaultImageIDForTag(tagName));
+        imageView.setDefaultImageResource(TagService.getDefaultImageIDForTag(tagData.getValue(TagData.UUID)));
         imageView.setUrl(tagData.getValue(TagData.PICTURE));
     }
 
