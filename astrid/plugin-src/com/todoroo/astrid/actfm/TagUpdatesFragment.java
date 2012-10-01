@@ -5,8 +5,6 @@
  */
 package com.todoroo.astrid.actfm;
 
-import java.math.BigInteger;
-
 import android.app.Activity;
 import android.content.Intent;
 import android.database.Cursor;
@@ -48,6 +46,7 @@ import com.todoroo.astrid.activity.AstridActivity;
 import com.todoroo.astrid.activity.TaskListActivity;
 import com.todoroo.astrid.adapter.UpdateAdapter;
 import com.todoroo.astrid.dao.UpdateDao;
+import com.todoroo.astrid.data.RemoteModel;
 import com.todoroo.astrid.data.SyncFlags;
 import com.todoroo.astrid.data.TagData;
 import com.todoroo.astrid.data.Update;
@@ -277,7 +276,7 @@ public class TagUpdatesFragment extends ListFragment {
     }
 
     public void setLastViewed() {
-        if(tagData != null && BigInteger.ZERO.compareTo(tagData.getValue(TagData.UUID)) != 0) {
+        if(tagData != null && !RemoteModel.NO_UUID.equals(tagData.getValue(TagData.UUID))) {
             Preferences.setLong(UPDATES_LAST_VIEWED + tagData.getValue(TagData.UUID), DateUtilities.now());
             Activity activity = getActivity();
             if (activity instanceof TaskListActivity)

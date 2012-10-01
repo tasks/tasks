@@ -6,7 +6,6 @@
 package com.timsu.astrid;
 
 import java.io.IOException;
-import java.math.BigInteger;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -138,7 +137,7 @@ public class C2DMReceiver extends BroadcastReceiver {
                 try {
                     TagData tagData = new TagData();
                     if(cursor.getCount() == 0) {
-                        tagData.setValue(TagData.UUID, new BigInteger(intent.getStringExtra("tag_id")));
+                        tagData.setValue(TagData.UUID, intent.getStringExtra("tag_id"));
                         tagData.putTransitory(SyncFlags.ACTFM_SUPPRESS_SYNC, true);
                         tagDataService.save(tagData);
                     } else {
@@ -157,7 +156,7 @@ public class C2DMReceiver extends BroadcastReceiver {
                 try {
                     final Task task = new Task();
                     if(cursor.getCount() == 0) {
-                        task.setValue(Task.UUID, new BigInteger(intent.getStringExtra("task_id")));
+                        task.setValue(Task.UUID, intent.getStringExtra("task_id"));
                         task.putTransitory(SyncFlags.ACTFM_SUPPRESS_SYNC, true);
                         taskService.save(task);
                     } else {
@@ -304,7 +303,7 @@ public class C2DMReceiver extends BroadcastReceiver {
             final Task task = new Task();
             if(cursor.getCount() == 0) {
                 task.setValue(Task.TITLE, intent.getStringExtra("title"));
-                task.setValue(Task.UUID, new BigInteger(intent.getStringExtra("task_id")));
+                task.setValue(Task.UUID, intent.getStringExtra("task_id"));
                 task.setValue(Task.USER_ID, Task.USER_ID_UNASSIGNED);
                 task.putTransitory(SyncFlags.ACTFM_SUPPRESS_SYNC, true);
                 taskService.save(task);
@@ -345,7 +344,7 @@ public class C2DMReceiver extends BroadcastReceiver {
             final TagData tagData = new TagData();
             if(cursor.getCount() == 0) {
                 tagData.setValue(TagData.NAME, intent.getStringExtra("title"));
-                tagData.setValue(TagData.UUID, new BigInteger(intent.getStringExtra("tag_id")));
+                tagData.setValue(TagData.UUID, intent.getStringExtra("tag_id"));
                 tagData.putTransitory(SyncFlags.ACTFM_SUPPRESS_SYNC, true);
                 tagDataService.save(tagData);
 
@@ -371,7 +370,7 @@ public class C2DMReceiver extends BroadcastReceiver {
             if(intent.hasExtra("activity_id")) {
                 try {
                     Update update = new Update();
-                    update.setValue(Update.UUID, new BigInteger(intent.getStringExtra("activity_id")));
+                    update.setValue(Update.UUID, intent.getStringExtra("activity_id"));
                     update.setValue(Update.USER_ID, Long.parseLong(intent.getStringExtra("user_id")));
                     JSONObject user = new JSONObject();
                     user.put("id", update.getValue(Update.USER_ID));

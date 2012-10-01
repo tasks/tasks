@@ -5,7 +5,6 @@
  */
 package com.todoroo.astrid.tags;
 
-import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -42,6 +41,7 @@ import com.todoroo.astrid.api.FilterWithUpdate;
 import com.todoroo.astrid.core.SortHelper;
 import com.todoroo.astrid.dao.TaskDao.TaskCriteria;
 import com.todoroo.astrid.data.Metadata;
+import com.todoroo.astrid.data.RemoteModel;
 import com.todoroo.astrid.data.TagData;
 import com.todoroo.astrid.gtasks.GtasksPreferenceService;
 import com.todoroo.astrid.service.AstridDependencyInjector;
@@ -79,7 +79,7 @@ public class TagFilterExposer extends BroadcastReceiver implements AstridFilterE
         FilterWithUpdate filter = new FilterWithUpdate(tag.tag,
                 title, tagTemplate,
                 contentValues);
-        if(BigInteger.ZERO.compareTo(tag.uuid) != 0) {
+        if(!RemoteModel.NO_UUID.equals(tag.uuid)) {
             filter.listingTitle += " (" + tag.count + ")";
             if(tag.count == 0)
                 filter.color = Color.GRAY;

@@ -6,7 +6,6 @@
 package com.todoroo.astrid.actfm;
 
 import java.io.IOException;
-import java.math.BigInteger;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -46,6 +45,7 @@ import com.todoroo.astrid.actfm.sync.ActFmSyncService;
 import com.todoroo.astrid.activity.FilterListFragment;
 import com.todoroo.astrid.activity.ShortcutActivity;
 import com.todoroo.astrid.api.Filter;
+import com.todoroo.astrid.data.RemoteModel;
 import com.todoroo.astrid.data.SyncFlags;
 import com.todoroo.astrid.data.TagData;
 import com.todoroo.astrid.helper.AsyncImageView;
@@ -334,7 +334,7 @@ public class TagSettingsActivity extends FragmentActivity {
                     @Override
                     public void run() {
                         actFmSyncService.pushTagDataOnSave(tagData, tagData.getMergedValues());
-                        if(setBitmap != null && BigInteger.ZERO.compareTo(tagData.getValue(TagData.UUID)) != 0)
+                        if(setBitmap != null && !RemoteModel.NO_UUID.equals(tagData.getValue(TagData.UUID)))
                             uploadTagPicture(setBitmap);
 
                         runOnUiThread(loadTag);
@@ -460,7 +460,7 @@ public class TagSettingsActivity extends FragmentActivity {
             public void handleCameraResult(Bitmap bitmap) {
                 picture.setImageBitmap(bitmap);
                 setBitmap = bitmap;
-                if(BigInteger.ZERO.compareTo(tagData.getValue(TagData.UUID)) != 0)
+                if(!RemoteModel.NO_UUID.equals(tagData.getValue(TagData.UUID)))
                     uploadTagPicture(bitmap);
                 saveTagPictureLocally(bitmap);
             }

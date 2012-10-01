@@ -5,7 +5,6 @@
  */
 package com.todoroo.astrid.actfm;
 
-import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -828,7 +827,7 @@ public class EditPeopleControlSet extends PopupControlSet {
         ArrayList<Object> values = new ArrayList<Object>();
 
         if(task.containsNonNullValue(Task.UUID)) {
-            BigInteger currentTaskID = task.getValue(Task.UUID);
+            String currentTaskID = task.getValue(Task.UUID);
             values.add("id");
             values.add(currentTaskID);
         }

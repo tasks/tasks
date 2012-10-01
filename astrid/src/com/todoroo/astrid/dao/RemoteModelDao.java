@@ -1,7 +1,5 @@
 package com.todoroo.astrid.dao;
 
-import java.math.BigInteger;
-
 import com.todoroo.andlib.data.DatabaseDao;
 import com.todoroo.andlib.utility.Pair;
 import com.todoroo.astrid.data.RemoteModel;
@@ -25,7 +23,7 @@ public class RemoteModelDao<RTYPE extends RemoteModel> extends DatabaseDao<RTYPE
     @Override
     public boolean createNew(RTYPE item) {
         if (!item.containsValue(RemoteModel.UUID_PROPERTY)) {
-            Pair<BigInteger, String> uuidPair = UUIDHelper.newUUID();
+            Pair<String, String> uuidPair = UUIDHelper.newUUID();
             item.setValue(RemoteModel.UUID_PROPERTY, uuidPair.getLeft());
             item.setValue(RemoteModel.PROOF_TEXT_PROPERTY, uuidPair.getRight());
         }

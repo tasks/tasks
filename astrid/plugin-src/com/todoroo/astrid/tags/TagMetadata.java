@@ -1,8 +1,5 @@
 package com.todoroo.astrid.tags;
 
-import java.math.BigInteger;
-
-import com.todoroo.andlib.data.Property.BigIntegerProperty;
 import com.todoroo.andlib.data.Property.LongProperty;
 import com.todoroo.andlib.data.Property.StringProperty;
 import com.todoroo.astrid.data.Metadata;
@@ -17,11 +14,11 @@ public class TagMetadata {
     public static final StringProperty TAG_NAME = Metadata.VALUE1;
 
     /** Tag uuid */
-    public static final BigIntegerProperty TAG_UUID = new BigIntegerProperty(
+    public static final StringProperty TAG_UUID = new StringProperty(
             Metadata.TABLE, Metadata.VALUE2.name);
 
     /** Task uuid */
-    public static final BigIntegerProperty TASK_UUID = new BigIntegerProperty(
+    public static final StringProperty TASK_UUID = new StringProperty(
             Metadata.TABLE, Metadata.VALUE3.name);
 
     /** Pushed at time */
@@ -40,11 +37,11 @@ public class TagMetadata {
      * @param tagUuid
      * @return
      */
-    public static Metadata newTagMetadata(Task task, String tagName, BigInteger tagUuid) {
+    public static Metadata newTagMetadata(Task task, String tagName, String tagUuid) {
         return newTagMetadata(task.getId(), task.getValue(Task.UUID), tagName, tagUuid);
     }
 
-    public static Metadata newTagMetadata(long taskId, BigInteger taskUuid, String tagName, BigInteger tagUuid) {
+    public static Metadata newTagMetadata(long taskId, String taskUuid, String tagName, String tagUuid) {
         Metadata link = new Metadata();
         link.setValue(Metadata.KEY, KEY);
         link.setValue(Metadata.TASK, taskId);

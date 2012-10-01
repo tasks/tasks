@@ -6,7 +6,6 @@
 package com.todoroo.andlib.data;
 
 import java.lang.reflect.Field;
-import java.math.BigInteger;
 import java.util.ArrayList;
 
 import android.content.ContentValues;
@@ -365,10 +364,6 @@ abstract public class AbstractDatabase {
         }
 
         public String visitString(Property<String> property, Void data) {
-            return String.format("%s TEXT", property.getColumnName());
-        }
-
-        public String visitBigInteger(Property<BigInteger> property, Void data) {
             return String.format("%s TEXT", property.getColumnName());
         }
     }

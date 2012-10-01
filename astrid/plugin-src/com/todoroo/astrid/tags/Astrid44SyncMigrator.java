@@ -1,7 +1,5 @@
 package com.todoroo.astrid.tags;
 
-import java.math.BigInteger;
-
 import android.util.Log;
 
 import com.todoroo.andlib.data.DatabaseDao;
@@ -104,14 +102,14 @@ public class Astrid44SyncMigrator {
                 if (Constants.DEBUG)
                     Log.w(LOG_TAG, "Incomplete linking task " + m.getValue(Metadata.TASK) + " to " + m.getValue(TagMetadata.TAG_NAME));
 
-                if (!m.containsNonNullValue(TagMetadata.TASK_UUID) || m.getValue(TagMetadata.TASK_UUID).compareTo(BigInteger.ZERO) == 0) {
+                if (!m.containsNonNullValue(TagMetadata.TASK_UUID) || RemoteModel.NO_UUID.equals(m.getValue(TagMetadata.TASK_UUID))) {
                     if (Constants.DEBUG)
                         Log.w(LOG_TAG, "No task uuid");
                     updateTaskUuid(m);
                     changes = true;
                 }
 
-                if (!m.containsNonNullValue(TagMetadata.TAG_UUID) || m.getValue(TagMetadata.TAG_UUID).compareTo(BigInteger.ZERO) == 0) {
+                if (!m.containsNonNullValue(TagMetadata.TAG_UUID) || RemoteModel.NO_UUID.equals(m.getValue(TagMetadata.TAG_UUID))) {
                     if (Constants.DEBUG)
                         Log.w(LOG_TAG, "No tag uuid");
                     updateTagUuid(m);
@@ -138,12 +136,12 @@ public class Astrid44SyncMigrator {
                 instance.readPropertiesFromCursor(cursor);
                 if (!instance.containsNonNullValue(RemoteModel.REMOTE_ID_PROPERTY)) {
                     // No remote id exists, just create a UUID
-                    Pair<BigInteger, String> uuidPair = UUIDHelper.newUUID();
+                    Pair<String, String> uuidPair = UUIDHelper.newUUID();
                     instance.setValue(RemoteModel.UUID_PROPERTY, uuidPair.getLeft());
                     instance.setValue(RemoteModel.PROOF_TEXT_PROPERTY, uuidPair.getRight());
                 } else {
                     // Migrate remote id to uuid field
-                    instance.setValue(RemoteModel.UUID_PROPERTY, BigInteger.valueOf(instance.getValue(RemoteModel.REMOTE_ID_PROPERTY)));
+                    instance.setValue(RemoteModel.UUID_PROPERTY, Long.toString(instance.getValue(RemoteModel.REMOTE_ID_PROPERTY)));
                 }
                 dao.saveExisting(instance);
             }

@@ -10,8 +10,6 @@ import static com.todoroo.andlib.sql.SqlConstants.LEFT_PARENTHESIS;
 import static com.todoroo.andlib.sql.SqlConstants.RIGHT_PARENTHESIS;
 import static com.todoroo.andlib.sql.SqlConstants.SPACE;
 
-import java.math.BigInteger;
-
 import com.todoroo.andlib.sql.Criterion;
 import com.todoroo.andlib.sql.Field;
 import com.todoroo.andlib.sql.Operator;
@@ -103,8 +101,6 @@ public abstract class Property<TYPE> extends Field implements Cloneable {
         public RETURN visitDouble(Property<Double> property, PARAMETER data);
 
         public RETURN visitString(Property<String> property, PARAMETER data);
-
-        public RETURN visitBigInteger(Property<BigInteger> property, PARAMETER data);
     }
 
     // --- children
@@ -240,27 +236,6 @@ public abstract class Property<TYPE> extends Field implements Cloneable {
         @Override
         public LongProperty as(String newAlias) {
             return (LongProperty) super.as(newAlias);
-        }
-    }
-
-    public static class BigIntegerProperty extends Property<BigInteger> {
-
-        public BigIntegerProperty(Table table, String name) {
-            super(table, name);
-        }
-
-        public BigIntegerProperty(Table table, String name, boolean nullable) {
-            super(table, name, nullable);
-        }
-
-        protected BigIntegerProperty(Table table, String name, String expression) {
-            super(table, name, expression);
-        }
-
-        @Override
-        public <RETURN, PARAMETER> RETURN accept(
-                PropertyVisitor<RETURN, PARAMETER> visitor, PARAMETER data) {
-            return visitor.visitBigInteger(this, data);
         }
     }
 

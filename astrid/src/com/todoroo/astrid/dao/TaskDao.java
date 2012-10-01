@@ -5,8 +5,6 @@
  */
 package com.todoroo.astrid.dao;
 
-import java.math.BigInteger;
-
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
@@ -338,7 +336,7 @@ public class TaskDao extends RemoteModelDao<Task> {
         try {
             saveExisting(item);
         } catch (SQLiteConstraintException e) {
-            BigInteger uuid = item.getValue(Task.UUID);
+            String uuid = item.getValue(Task.UUID);
             TodorooCursor<Task> tasksWithUUID = query(Query.select(
                     SQL_CONSTRAINT_MERGE_PROPERTIES).where(
                     Task.UUID.eq(uuid)));

@@ -5,7 +5,6 @@
  */
 package com.todoroo.astrid.tags;
 
-import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -105,14 +104,14 @@ public final class TagService {
         public String tag;
         public int count;
         public long id;
-        public BigInteger uuid;
+        public String uuid;
         public String image;
         public long userId;
         public long memberCount;
 
         @Deprecated public long remoteId;
 
-        public static Tag tagFromUUID(BigInteger uuid) {
+        public static Tag tagFromUUID(String uuid) {
             TodorooCursor<TagData> tagData = PluginServices.getTagDataService().query(Query.select(TagData.PROPERTIES).where(TagData.UUID.eq(uuid)));
             try {
                 if (tagData.getCount() > 0) {
@@ -257,7 +256,7 @@ public final class TagService {
         }
     }
 
-    public void createLink(Task task, String tagName, BigInteger tagUuid) {
+    public void createLink(Task task, String tagName, String tagUuid) {
         TodorooCursor<Metadata> existing = metadataDao.query(Query.select(Metadata.PROPERTIES)
                 .where(Criterion.and(MetadataCriteria.withKey(TagMetadata.KEY),
                         TagMetadata.TASK_UUID.eq(task.getValue(Task.UUID)),
@@ -420,8 +419,8 @@ public final class TagService {
      * @param taskId
      * @param tags
      */
-    public boolean synchronizeTags(long taskId, BigInteger taskUuid, Set<String> tags) {
-        HashSet<BigInteger> existingLinks = new HashSet<BigInteger>();
+    public boolean synchronizeTags(long taskId, String taskUuid, Set<String> tags) {
+        HashSet<String> existingLinks = new HashSet<String>();
         TodorooCursor<Metadata> links = metadataDao.query(Query.select(Metadata.PROPERTIES)
                 .where(Criterion.and(TagMetadata.TASK_UUID.eq(taskUuid), Metadata.DELETION_DATE.eq(0))));
         try {

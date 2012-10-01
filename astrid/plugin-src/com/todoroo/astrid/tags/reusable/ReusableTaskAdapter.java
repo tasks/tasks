@@ -1,6 +1,5 @@
 package com.todoroo.astrid.tags.reusable;
 
-import java.math.BigInteger;
 import java.util.concurrent.atomic.AtomicReference;
 
 import android.content.Context;
@@ -17,6 +16,7 @@ import com.todoroo.andlib.data.TodorooCursor;
 import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.astrid.activity.TaskListFragment;
 import com.todoroo.astrid.adapter.TaskAdapter;
+import com.todoroo.astrid.data.RemoteModel;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.utility.Flags;
 
@@ -50,7 +50,7 @@ public class ReusableTaskAdapter extends TaskAdapter {
             @Override
             public void onClick(View v) {
                 ReusableTaskViewHolder holder = (ReusableTaskViewHolder) v.getTag();
-                taskService.cloneReusableTask(holder.task, null, BigInteger.ZERO);
+                taskService.cloneReusableTask(holder.task, null, RemoteModel.NO_UUID);
                 Toast.makeText(fragment.getActivity(), R.string.actfm_feat_list_task_clone_success, Toast.LENGTH_LONG).show();
                 Flags.set(Flags.REFRESH);
             }

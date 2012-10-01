@@ -14,7 +14,6 @@ import android.net.Uri;
 
 import com.todoroo.andlib.data.AbstractModel;
 import com.todoroo.andlib.data.Property;
-import com.todoroo.andlib.data.Property.BigIntegerProperty;
 import com.todoroo.andlib.data.Property.IntegerProperty;
 import com.todoroo.andlib.data.Property.LongProperty;
 import com.todoroo.andlib.data.Property.StringProperty;
@@ -172,8 +171,8 @@ public final class Task extends RemoteModel {
             TABLE, PUSHED_AT_PROPERTY_NAME);
 
     /** UUID */
-    public static final BigIntegerProperty UUID = new BigIntegerProperty(
-            TABLE, UUID_PROPERTY_NAME);
+    public static final StringProperty UUID = new StringProperty(
+            TABLE, UUID_PROPERTY_NAME, true);
 
     /** List of all properties for this model */
     public static final Property<?>[] PROPERTIES = generateProperties(Task.class);

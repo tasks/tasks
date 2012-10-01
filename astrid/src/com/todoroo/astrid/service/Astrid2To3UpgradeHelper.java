@@ -5,7 +5,6 @@
  */
 package com.todoroo.astrid.service;
 
-import java.math.BigInteger;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map.Entry;
@@ -312,14 +311,6 @@ public class Astrid2To3UpgradeHelper {
                 data.model.setValue(property, value);
             }
 
-            Log.d("upgrade", "wrote " + value + " to -> " + property + " of model id " + data.cursor.getLong(1));
-            return null;
-        }
-
-        @Override
-        public Void visitBigInteger(Property<BigInteger> property, UpgradeVisitorContainer<?> data) {
-            BigInteger value = new BigInteger(data.cursor.getString(data.columnIndex));
-            data.model.setValue(property, value);
             Log.d("upgrade", "wrote " + value + " to -> " + property + " of model id " + data.cursor.getLong(1));
             return null;
         }

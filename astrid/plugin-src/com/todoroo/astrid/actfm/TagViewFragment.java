@@ -5,8 +5,6 @@
  */
 package com.todoroo.astrid.actfm;
 
-import java.math.BigInteger;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -53,6 +51,7 @@ import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.api.FilterWithCustomIntent;
 import com.todoroo.astrid.core.SortHelper;
 import com.todoroo.astrid.dao.TaskDao.TaskCriteria;
+import com.todoroo.astrid.data.RemoteModel;
 import com.todoroo.astrid.data.TagData;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.data.Update;
@@ -200,14 +199,14 @@ public class TagViewFragment extends TaskListFragment {
 
         TaskListActivity activity = (TaskListActivity) getActivity();
         String tag = extras.getString(EXTRA_TAG_NAME);
-        BigInteger uuid = BigInteger.ZERO;
+        String uuid = RemoteModel.NO_UUID;
         if (extras.containsKey(EXTRA_TAG_UUID))
-            uuid = new BigInteger(extras.getString(EXTRA_TAG_UUID));
+            uuid = extras.getString(EXTRA_TAG_UUID);
         else if (extras.containsKey(EXTRA_TAG_REMOTE_ID)) // For legacy support with shortcuts, widgets, etc.
-            uuid = BigInteger.valueOf(extras.getLong(EXTRA_TAG_REMOTE_ID));
+            uuid = Long.toString(extras.getLong(EXTRA_TAG_REMOTE_ID));
 
 
-        if(tag == null && BigInteger.ZERO.compareTo(uuid) == 0)
+        if(tag == null && RemoteModel.NO_UUID.equals(uuid))
             return;
 
         TodorooCursor<TagData> cursor = tagDataService.query(Query.select(TagData.PROPERTIES).where(
@@ -484,7 +483,11 @@ public class TagViewFragment extends TaskListFragment {
             refreshData(false);
 
             NotificationManager nm = new AndroidNotificationManager(ContextManager.getContext());
-            nm.cancel(tagData.getValue(TagData.UUID).intValue());
+            try {
+                nm.cancel(Integer.parseInt(tagData.getValue(TagData.UUID)));
+            } catch (NumberFormatException e) {
+                // Eh
+            }
         }
     };
 

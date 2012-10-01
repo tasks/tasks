@@ -5,8 +5,6 @@
  */
 package com.todoroo.astrid.service;
 
-import java.math.BigInteger;
-
 import com.todoroo.andlib.data.Property;
 import com.todoroo.andlib.data.TodorooCursor;
 import com.todoroo.andlib.service.Autowired;
@@ -19,6 +17,7 @@ import com.todoroo.astrid.api.PermaSql;
 import com.todoroo.astrid.dao.TagDataDao;
 import com.todoroo.astrid.dao.TaskDao;
 import com.todoroo.astrid.dao.UpdateDao;
+import com.todoroo.astrid.data.RemoteModel;
 import com.todoroo.astrid.data.TagData;
 import com.todoroo.astrid.data.Update;
 
@@ -147,7 +146,7 @@ public class TagDataService {
             return updateDao.query(Query.select(Update.PROPERTIES).where(
                     criterion).
                     orderBy(Order.desc(Update.CREATION_DATE)));
-        if(BigInteger.ZERO.compareTo(tagData.getValue(TagData.UUID)) == 0)
+        if(RemoteModel.NO_UUID.equals(tagData.getValue(TagData.UUID)))
             return updateDao.query(Query.select(Update.PROPERTIES).where(Update.TAGS_LOCAL.like("%," + tagData.getId() + ",%")));
         return updateDao.query(Query.select(Update.PROPERTIES).where(Criterion.and(criterion,
                 Criterion.or(Update.TAGS.like("%," + tagData.getValue(TagData.UUID) + ",%"),
@@ -161,7 +160,7 @@ public class TagDataService {
      * @return
      */
     public Update getLatestUpdate(TagData tagData) {
-        if(BigInteger.ZERO.compareTo(tagData.getValue(TagData.UUID)) == 0)
+        if(RemoteModel.NO_UUID.equals(tagData.getValue(TagData.UUID)))
             return null;
 
         @SuppressWarnings("nls")

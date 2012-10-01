@@ -11,7 +11,6 @@ import android.net.Uri;
 
 import com.todoroo.andlib.data.AbstractModel;
 import com.todoroo.andlib.data.Property;
-import com.todoroo.andlib.data.Property.BigIntegerProperty;
 import com.todoroo.andlib.data.Property.IntegerProperty;
 import com.todoroo.andlib.data.Property.LongProperty;
 import com.todoroo.andlib.data.Property.StringProperty;
@@ -127,7 +126,7 @@ public final class TagData extends RemoteModel {
             TABLE, PUSHED_AT_PROPERTY_NAME);
 
     /** UUID */
-    public static final BigIntegerProperty UUID = new BigIntegerProperty(
+    public static final StringProperty UUID = new StringProperty(
             TABLE, UUID_PROPERTY_NAME);
 
     /** List of all properties for this model */

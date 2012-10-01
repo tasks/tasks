@@ -1,7 +1,6 @@
 package com.todoroo.astrid.actfm.sync.messages;
 
 import java.lang.reflect.Field;
-import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -23,7 +22,7 @@ public class ChangesHappened<TYPE extends RemoteModel, OE extends OutstandingEnt
     private final Class<? extends RemoteModel> modelClass;
     private final Class<OE> outstandingClass;
     private final long id;
-    private final BigInteger uuid;
+    private final String uuid;
     private final List<OE> changes;
     private long pushedAt;
     private final OutstandingEntryDao<OE> outstandingDao;
@@ -41,7 +40,7 @@ public class ChangesHappened<TYPE extends RemoteModel, OE extends OutstandingEnt
             entity = modelDao.fetch(entity.getId(), getModelProperties(modelClass));
         }
         if (entity == null) {
-            this.uuid = BigInteger.ZERO;
+            this.uuid = RemoteModel.NO_UUID;
             this.pushedAt = 0;
         } else {
             this.uuid = entity.getValue(RemoteModel.UUID_PROPERTY);

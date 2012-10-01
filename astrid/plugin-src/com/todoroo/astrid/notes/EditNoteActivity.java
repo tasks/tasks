@@ -137,7 +137,7 @@ public class EditNoteActivity extends LinearLayout implements TimerActionListene
 
     public void loadViewForTaskID(long t){
         try {
-            task = PluginServices.getTaskService().fetchById(t, Task.NOTES, Task.ID, Task.REMOTE_ID, Task.TITLE);
+            task = PluginServices.getTaskService().fetchById(t, Task.NOTES, Task.ID, Task.UUID, Task.TITLE);
         } catch (SQLiteException e) {
             StartupService.handleSQLiteColumnMissing(ContextManager.getContext(), e);
         }
@@ -148,7 +148,7 @@ public class EditNoteActivity extends LinearLayout implements TimerActionListene
         setUpListAdapter();
 
         if(actFmPreferenceService.isLoggedIn()) {
-            if(!task.containsNonNullValue(Task.REMOTE_ID))
+            if(!task.containsNonNullValue(Task.UUID))
                 refreshData(true, null);
             else {
                 String fetchKey = LAST_FETCH_KEY + task.getId();
@@ -285,12 +285,12 @@ public class EditNoteActivity extends LinearLayout implements TimerActionListene
 
 
         TodorooCursor<Update> updates;
-        if (!task.containsNonNullValue(Task.REMOTE_ID)) {
+        if (!task.containsNonNullValue(Task.UUID)) {
             updates = updateDao.query(Query.select(Update.PROPERTIES).where(Update.TASK_LOCAL.eq(task.getId())));
         }
         else  {
             updates = updateDao.query(Query.select(Update.PROPERTIES).where(Criterion.or(
-                    Update.TASK.eq(task.getValue(Task.REMOTE_ID)), Update.TASK_LOCAL.eq(task.getId()))));
+                    Update.TASK.eq(task.getValue(Task.UUID)), Update.TASK_LOCAL.eq(task.getId()))));
         }
         try {
             Update update = new Update();
@@ -391,7 +391,7 @@ public class EditNoteActivity extends LinearLayout implements TimerActionListene
     }
 
     public void refreshData(boolean manual, SyncResultCallback existingCallback) {
-        if(!task.containsNonNullValue(Task.REMOTE_ID)) {
+        if(!task.containsNonNullValue(Task.UUID)) {
             return;
         }
 

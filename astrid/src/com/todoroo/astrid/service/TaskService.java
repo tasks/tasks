@@ -5,7 +5,6 @@
  */
 package com.todoroo.astrid.service;
 
-import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map.Entry;
@@ -33,6 +32,7 @@ import com.todoroo.astrid.dao.MetadataDao.MetadataCriteria;
 import com.todoroo.astrid.dao.TaskDao;
 import com.todoroo.astrid.dao.TaskDao.TaskCriteria;
 import com.todoroo.astrid.data.Metadata;
+import com.todoroo.astrid.data.RemoteModel;
 import com.todoroo.astrid.data.SyncFlags;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.gcal.GCalHelper;
@@ -105,7 +105,7 @@ public class TaskService {
      * @param properties
      * @return item, or null if it doesn't exist
      */
-    public Task fetchByRemoteId(BigInteger uuid, Property<?>... properties) {
+    public Task fetchByRemoteId(String uuid, Property<?>... properties) {
         TodorooCursor<Task> task = query(Query.select(properties).where(Task.UUID.eq(uuid)));
         try {
             if (task.getCount() > 0) {
@@ -193,7 +193,7 @@ public class TaskService {
         return newTask;
     }
 
-    public Task cloneReusableTask(Task task, String tagName, BigInteger tagUuid) {
+    public Task cloneReusableTask(Task task, String tagName, String tagUuid) {
         Task newTask = fetchById(task.getId(), Task.PROPERTIES);
         if (newTask == null)
             return new Task();
@@ -205,7 +205,7 @@ public class TaskService {
 
         taskDao.save(newTask);
 
-        if (BigInteger.ZERO.compareTo(tagUuid) != 0) {
+        if (!RemoteModel.NO_UUID.equals(tagUuid)) {
             TagService.getInstance().createLink(task, tagName, tagUuid);
         }
         return newTask;
@@ -535,7 +535,7 @@ public class TaskService {
             metadata.setValue(Metadata.TASK, task.getId());
             metadata.mergeWith(forMetadata);
             if (TagMetadata.KEY.equals(metadata.getValue(Metadata.KEY))) {
-                if (metadata.containsNonNullValue(TagMetadata.TAG_UUID) && BigInteger.ZERO.compareTo(metadata.getValue(TagMetadata.TAG_UUID)) != 0) {
+                if (metadata.containsNonNullValue(TagMetadata.TAG_UUID) && !RemoteModel.NO_UUID.equals(metadata.getValue(TagMetadata.TAG_UUID))) {
                     // This is more efficient
                     TagService.getInstance().createLink(task, metadata.getValue(TagMetadata.TAG_NAME), metadata.getValue(TagMetadata.TAG_UUID));
                 } else {

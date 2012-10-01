@@ -7,7 +7,6 @@ package com.todoroo.astrid.activity;
 
 import java.io.File;
 import java.io.FileOutputStream;
-import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -65,6 +64,7 @@ import com.todoroo.astrid.actfm.EditPeopleControlSet;
 import com.todoroo.astrid.actfm.sync.ActFmPreferenceService;
 import com.todoroo.astrid.actfm.sync.ActFmSyncService;
 import com.todoroo.astrid.data.Metadata;
+import com.todoroo.astrid.data.RemoteModel;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.files.AACRecordingActivity;
 import com.todoroo.astrid.files.FileExplore;
@@ -259,7 +259,7 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
 
     private boolean overrideFinishAnim;
 
-    private BigInteger remoteId = BigInteger.ZERO;
+    private String remoteId = RemoteModel.NO_UUID;
 
 
     private WebServicesView webServices = null;
@@ -303,7 +303,7 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
                 model = task;
             }
             if (savedInstanceState.containsKey(TASK_UUID)) {
-                remoteId = new BigInteger(savedInstanceState.getString(TASK_UUID));
+                remoteId = savedInstanceState.getString(TASK_UUID);
             }
 
         }
@@ -790,7 +790,7 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
     /** Convenience method to populate fields after setting model to null */
     public void repopulateFromScratch(Intent intent) {
         model = null;
-        remoteId = BigInteger.ZERO;
+        remoteId = RemoteModel.NO_UUID;
         populateFields(intent);
         if (webServices != null) {
             webServices.setTask(model);
@@ -1163,7 +1163,7 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
 
     @Override
     public void onPrepareOptionsMenu (Menu menu) {
-        if(actFmPreferenceService.isLoggedIn() && BigInteger.ZERO.compareTo(remoteId) != 0 && menu.findItem(MENU_COMMENTS_REFRESH_ID) == null) {
+        if(actFmPreferenceService.isLoggedIn() && !RemoteModel.NO_UUID.equals(remoteId) && menu.findItem(MENU_COMMENTS_REFRESH_ID) == null) {
             MenuItem item = menu.add(Menu.NONE, MENU_COMMENTS_REFRESH_ID, Menu.NONE,
                     R.string.ENA_refresh_comments);
             item.setIcon(R.drawable.icn_menu_refresh_dark);
