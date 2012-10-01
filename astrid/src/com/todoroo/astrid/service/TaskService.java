@@ -193,7 +193,7 @@ public class TaskService {
         return newTask;
     }
 
-    public Task cloneReusableTask(Task task, String tagName, long tagUuid) {
+    public Task cloneReusableTask(Task task, String tagName, BigInteger tagUuid) {
         Task newTask = fetchById(task.getId(), Task.PROPERTIES);
         if (newTask == null)
             return new Task();
@@ -205,7 +205,7 @@ public class TaskService {
 
         taskDao.save(newTask);
 
-        if (tagUuid > 0) {
+        if (BigInteger.ZERO.compareTo(tagUuid) != 0) {
             TagService.getInstance().createLink(task, tagName, tagUuid);
         }
         return newTask;
@@ -535,7 +535,7 @@ public class TaskService {
             metadata.setValue(Metadata.TASK, task.getId());
             metadata.mergeWith(forMetadata);
             if (TagMetadata.KEY.equals(metadata.getValue(Metadata.KEY))) {
-                if (metadata.containsNonNullValue(TagMetadata.TAG_UUID) && metadata.getValue(TagMetadata.TAG_UUID) != 0) {
+                if (metadata.containsNonNullValue(TagMetadata.TAG_UUID) && BigInteger.ZERO.compareTo(metadata.getValue(TagMetadata.TAG_UUID)) != 0) {
                     // This is more efficient
                     TagService.getInstance().createLink(task, metadata.getValue(TagMetadata.TAG_NAME), metadata.getValue(TagMetadata.TAG_UUID));
                 } else {

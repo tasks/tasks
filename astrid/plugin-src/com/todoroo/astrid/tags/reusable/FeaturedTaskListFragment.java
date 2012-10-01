@@ -146,7 +146,7 @@ public class FeaturedTaskListFragment extends TagViewFragment {
                     Task t = new Task();
                     for (tasks.moveToFirst(); !tasks.isAfterLast(); tasks.moveToNext()) {
                         t.readFromCursor(tasks);
-                        taskService.cloneReusableTask(t, localName, finalTagData.getValue(TagData.REMOTE_ID));
+                        taskService.cloneReusableTask(t, localName, finalTagData.getValue(TagData.UUID));
                     }
                     final Activity activity = getActivity();
                     if (activity != null) {

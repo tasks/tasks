@@ -5,6 +5,7 @@
  */
 package com.todoroo.astrid.actfm;
 
+import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -826,8 +827,8 @@ public class EditPeopleControlSet extends PopupControlSet {
     protected Object[] buildSharingArgs(JSONArray emails) throws JSONException {
         ArrayList<Object> values = new ArrayList<Object>();
 
-        if(task.containsNonNullValue(Task.REMOTE_ID)) {
-            long currentTaskID = task.getValue(Task.REMOTE_ID);
+        if(task.containsNonNullValue(Task.UUID)) {
+            BigInteger currentTaskID = task.getValue(Task.UUID);
             values.add("id");
             values.add(currentTaskID);
         }

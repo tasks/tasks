@@ -5,6 +5,8 @@
  */
 package com.todoroo.astrid.actfm;
 
+import java.math.BigInteger;
+
 import android.app.Activity;
 import android.content.Intent;
 import android.database.Cursor;
@@ -275,8 +277,8 @@ public class TagUpdatesFragment extends ListFragment {
     }
 
     public void setLastViewed() {
-        if(tagData != null && tagData.getValue(TagData.REMOTE_ID) > 0) {
-            Preferences.setLong(UPDATES_LAST_VIEWED + tagData.getValue(TagData.REMOTE_ID), DateUtilities.now());
+        if(tagData != null && BigInteger.ZERO.compareTo(tagData.getValue(TagData.UUID)) != 0) {
+            Preferences.setLong(UPDATES_LAST_VIEWED + tagData.getValue(TagData.UUID), DateUtilities.now());
             Activity activity = getActivity();
             if (activity instanceof TaskListActivity)
                 ((TaskListActivity) activity).setCommentsCount(0);
@@ -359,7 +361,7 @@ public class TagUpdatesFragment extends ListFragment {
         update.setValue(Update.MESSAGE, addCommentField.getText().toString());
         update.setValue(Update.ACTION_CODE, "tag_comment");
         update.setValue(Update.USER_ID, 0L);
-        update.setValue(Update.TAGS, "," + tagData.getValue(TagData.REMOTE_ID) + ",");
+        update.setValue(Update.TAGS, "," + tagData.getValue(TagData.UUID) + ",");
         update.setValue(Update.TAGS_LOCAL, "," + tagData.getId() + ",");
         update.setValue(Update.CREATION_DATE, DateUtilities.now());
         update.setValue(Update.TARGET_NAME, tagData.getValue(TagData.NAME));

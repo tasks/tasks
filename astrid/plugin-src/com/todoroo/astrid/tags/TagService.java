@@ -5,6 +5,7 @@
  */
 package com.todoroo.astrid.tags;
 
+import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -104,13 +105,15 @@ public final class TagService {
         public String tag;
         public int count;
         public long id;
-        public long remoteId;
+        public BigInteger uuid;
         public String image;
         public long userId;
         public long memberCount;
 
-        public static Tag tagFromRemoteId(long remoteId) {
-            TodorooCursor<TagData> tagData = PluginServices.getTagDataService().query(Query.select(TagData.PROPERTIES).where(TagData.REMOTE_ID.eq(remoteId)));
+        @Deprecated public long remoteId;
+
+        public static Tag tagFromUUID(BigInteger uuid) {
+            TodorooCursor<TagData> tagData = PluginServices.getTagDataService().query(Query.select(TagData.PROPERTIES).where(TagData.UUID.eq(uuid)));
             try {
                 if (tagData.getCount() > 0) {
                     tagData.moveToFirst();
@@ -129,6 +132,7 @@ public final class TagService {
             tag = tagData.getValue(TagData.NAME);
             count = tagData.getValue(TagData.TASK_COUNT);
             remoteId = tagData.getValue(TagData.REMOTE_ID);
+            uuid = tagData.getValue(TagData.UUID);
             image = tagData.getValue(TagData.PICTURE);
             userId = tagData.getValue(TagData.USER_ID);
             memberCount = tagData.getValue(TagData.MEMBER_COUNT);
@@ -148,10 +152,10 @@ public final class TagService {
         public QueryTemplate queryTemplate(Criterion criterion) {
             Criterion fullCriterion = Criterion.and(
                     Field.field("mtags." + Metadata.KEY.name).eq(TagMetadata.KEY),
-                    Field.field("mtags." + TagMetadata.TAG_UUID.name).eq(remoteId),
+                    Field.field("mtags." + TagMetadata.TAG_UUID.name).eq(uuid),
                     Field.field("mtags." + Metadata.DELETION_DATE.name).eq(0),
                     criterion);
-            return new QueryTemplate().join(Join.inner(Metadata.TABLE.as("mtags"), Task.REMOTE_ID.eq(Field.field("mtags." + TagMetadata.TASK_UUID.name))))
+            return new QueryTemplate().join(Join.inner(Metadata.TABLE.as("mtags"), Task.UUID.eq(Field.field("mtags." + TagMetadata.TASK_UUID.name))))
                     .where(fullCriterion);
         }
 
@@ -208,7 +212,7 @@ public final class TagService {
             ArrayList<Tag> array = new ArrayList<Tag>();
             for (int i = 0; i < cursor.getCount(); i++) {
                 cursor.moveToNext();
-                Tag tag = Tag.tagFromRemoteId(cursor.get(TagMetadata.TAG_UUID));
+                Tag tag = Tag.tagFromUUID(cursor.get(TagMetadata.TAG_UUID));
                 if (tag != null)
                     array.add(tag);
             }
@@ -236,7 +240,7 @@ public final class TagService {
     }
 
     public void createLink(Task task, String tagName) {
-        TodorooCursor<TagData> existingTag = tagDataService.query(Query.select(TagData.NAME, TagData.REMOTE_ID)
+        TodorooCursor<TagData> existingTag = tagDataService.query(Query.select(TagData.NAME, TagData.UUID)
                 .where(TagData.NAME.eqCaseInsensitive(tagName)));
         try {
             TagData tagData;
@@ -247,16 +251,16 @@ public final class TagService {
             } else {
                 tagData = new TagData(existingTag);
             }
-            createLink(task, tagData.getValue(TagData.NAME), tagData.getValue(TagData.REMOTE_ID));
+            createLink(task, tagData.getValue(TagData.NAME), tagData.getValue(TagData.UUID));
         } finally {
             existingTag.close();
         }
     }
 
-    public void createLink(Task task, String tagName, long tagUuid) {
+    public void createLink(Task task, String tagName, BigInteger tagUuid) {
         TodorooCursor<Metadata> existing = metadataDao.query(Query.select(Metadata.PROPERTIES)
                 .where(Criterion.and(MetadataCriteria.withKey(TagMetadata.KEY),
-                        TagMetadata.TASK_UUID.eq(task.getValue(Task.REMOTE_ID)),
+                        TagMetadata.TASK_UUID.eq(task.getValue(Task.UUID)),
                         TagMetadata.TAG_UUID.eq(tagUuid),
                         Metadata.DELETION_DATE.eq(0))));
         try {
@@ -416,8 +420,8 @@ public final class TagService {
      * @param taskId
      * @param tags
      */
-    public boolean synchronizeTags(long taskId, long taskUuid, Set<String> tags) {
-        HashSet<Long> existingLinks = new HashSet<Long>();
+    public boolean synchronizeTags(long taskId, BigInteger taskUuid, Set<String> tags) {
+        HashSet<BigInteger> existingLinks = new HashSet<BigInteger>();
         TodorooCursor<Metadata> links = metadataDao.query(Query.select(Metadata.PROPERTIES)
                 .where(Criterion.and(TagMetadata.TASK_UUID.eq(taskUuid), Metadata.DELETION_DATE.eq(0))));
         try {
@@ -430,16 +434,16 @@ public final class TagService {
         }
 
         for (String tag : tags) {
-            TagData tagData = getTagDataWithCase(tag, TagData.NAME, TagData.REMOTE_ID);
+            TagData tagData = getTagDataWithCase(tag, TagData.NAME, TagData.UUID);
             if (tagData == null) {
                 tagData = new TagData();
                 tagData.setValue(TagData.NAME, tag);
                 tagDataService.save(tagData);
             }
-            if (existingLinks.contains(tagData.getValue(TagData.REMOTE_ID))) {
-                existingLinks.remove(tagData.getValue(TagData.REMOTE_ID));
+            if (existingLinks.contains(tagData.getValue(TagData.UUID))) {
+                existingLinks.remove(tagData.getValue(TagData.UUID));
             } else {
-                Metadata newLink = TagMetadata.newTagMetadata(taskId, taskUuid, tag, tagData.getValue(TagData.REMOTE_ID));
+                Metadata newLink = TagMetadata.newTagMetadata(taskId, taskUuid, tag, tagData.getValue(TagData.UUID));
                 metadataDao.createNew(newLink);
             }
         }

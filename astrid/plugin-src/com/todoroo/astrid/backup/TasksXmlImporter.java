@@ -481,7 +481,7 @@ public class TasksXmlImporter {
 
         private void saveTags() {
             if(currentTask != null && tags.size() > 0) {
-                TagService.getInstance().synchronizeTags(currentTask.getId(), currentTask.getValue(Task.REMOTE_ID), tags);
+                TagService.getInstance().synchronizeTags(currentTask.getId(), currentTask.getValue(Task.UUID), tags);
             }
             tags.clear();
         }

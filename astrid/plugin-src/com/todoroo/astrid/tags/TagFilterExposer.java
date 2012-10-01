@@ -5,6 +5,7 @@
  */
 package com.todoroo.astrid.tags;
 
+import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -73,12 +74,12 @@ public class TagFilterExposer extends BroadcastReceiver implements AstridFilterE
         ContentValues contentValues = new ContentValues();
         contentValues.put(Metadata.KEY.name, TagMetadata.KEY);
         contentValues.put(TagMetadata.TAG_NAME.name, tag.tag);
-        contentValues.put(TagMetadata.TAG_UUID.name, tag.remoteId);
+        contentValues.put(TagMetadata.TAG_UUID.name, tag.uuid.toString());
 
         FilterWithUpdate filter = new FilterWithUpdate(tag.tag,
                 title, tagTemplate,
                 contentValues);
-        if(tag.remoteId > 0) {
+        if(BigInteger.ZERO.compareTo(tag.uuid) != 0) {
             filter.listingTitle += " (" + tag.count + ")";
             if(tag.count == 0)
                 filter.color = Color.GRAY;
@@ -109,7 +110,7 @@ public class TagFilterExposer extends BroadcastReceiver implements AstridFilterE
             filter.imageUrl = tag.image;
         Bundle extras = new Bundle();
         extras.putString(TagViewFragment.EXTRA_TAG_NAME, tag.tag);
-        extras.putLong(TagViewFragment.EXTRA_TAG_REMOTE_ID, tag.remoteId);
+        extras.putString(TagViewFragment.EXTRA_TAG_UUID, tag.uuid.toString());
         filter.customExtras = extras;
 
         return filter;

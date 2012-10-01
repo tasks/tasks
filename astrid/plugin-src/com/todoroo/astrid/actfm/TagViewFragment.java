@@ -5,6 +5,8 @@
  */
 package com.todoroo.astrid.actfm;
 
+import java.math.BigInteger;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -73,7 +75,11 @@ public class TagViewFragment extends TaskListFragment {
     public static final String BROADCAST_TAG_ACTIVITY = AstridApiConstants.PACKAGE + ".TAG_ACTIVITY"; //$NON-NLS-1$
 
     public static final String EXTRA_TAG_NAME = "tag"; //$NON-NLS-1$
-    public static final String EXTRA_TAG_REMOTE_ID = "remoteId"; //$NON-NLS-1$
+
+    @Deprecated
+    private static final String EXTRA_TAG_REMOTE_ID = "remoteId"; //$NON-NLS-1$
+
+    public static final String EXTRA_TAG_UUID = "uuid"; //$NON-NLS-1$
 
     public static final String EXTRA_TAG_DATA = "tagData"; //$NON-NLS-1$
 
@@ -194,18 +200,24 @@ public class TagViewFragment extends TaskListFragment {
 
         TaskListActivity activity = (TaskListActivity) getActivity();
         String tag = extras.getString(EXTRA_TAG_NAME);
-        long remoteId = extras.getLong(EXTRA_TAG_REMOTE_ID, 0);
+        BigInteger uuid = BigInteger.ZERO;
+        if (extras.containsKey(EXTRA_TAG_UUID))
+            uuid = new BigInteger(extras.getString(EXTRA_TAG_UUID));
+        else if (extras.containsKey(EXTRA_TAG_REMOTE_ID)) // For legacy support with shortcuts, widgets, etc.
+            uuid = BigInteger.valueOf(extras.getLong(EXTRA_TAG_REMOTE_ID));
 
-        if(tag == null && remoteId == 0)
+
+        if(tag == null && BigInteger.ZERO.compareTo(uuid) == 0)
             return;
 
-        TodorooCursor<TagData> cursor = tagDataService.query(Query.select(TagData.PROPERTIES).where(Criterion.or(TagData.NAME.eqCaseInsensitive(tag),
-                Criterion.and(TagData.REMOTE_ID.gt(0), TagData.REMOTE_ID.eq(remoteId)))));
+        TodorooCursor<TagData> cursor = tagDataService.query(Query.select(TagData.PROPERTIES).where(
+                Criterion.or(TagData.NAME.eqCaseInsensitive(tag),
+                        TagData.UUID.eq(uuid))));
         try {
             tagData = new TagData();
             if(cursor.getCount() == 0) {
                 tagData.setValue(TagData.NAME, tag);
-                tagData.setValue(TagData.REMOTE_ID, remoteId);
+                tagData.setValue(TagData.UUID, uuid);
                 tagDataService.save(tagData);
             } else {
                 cursor.moveToFirst();

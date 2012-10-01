@@ -147,7 +147,7 @@ public class TagDataService {
             return updateDao.query(Query.select(Update.PROPERTIES).where(
                     criterion).
                     orderBy(Order.desc(Update.CREATION_DATE)));
-        if(tagData.getValue(TagData.UUID).equals(BigInteger.ZERO))
+        if(BigInteger.ZERO.compareTo(tagData.getValue(TagData.UUID)) == 0)
             return updateDao.query(Query.select(Update.PROPERTIES).where(Update.TAGS_LOCAL.like("%," + tagData.getId() + ",%")));
         return updateDao.query(Query.select(Update.PROPERTIES).where(Criterion.and(criterion,
                 Criterion.or(Update.TAGS.like("%," + tagData.getValue(TagData.UUID) + ",%"),
@@ -161,7 +161,7 @@ public class TagDataService {
      * @return
      */
     public Update getLatestUpdate(TagData tagData) {
-        if(tagData.getValue(TagData.UUID).equals(BigInteger.ZERO))
+        if(BigInteger.ZERO.compareTo(tagData.getValue(TagData.UUID)) == 0)
             return null;
 
         @SuppressWarnings("nls")

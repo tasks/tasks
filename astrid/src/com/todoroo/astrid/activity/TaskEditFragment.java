@@ -1163,7 +1163,7 @@ ViewPager.OnPageChangeListener, EditNoteActivity.UpdatesChangedListener {
 
     @Override
     public void onPrepareOptionsMenu (Menu menu) {
-        if(actFmPreferenceService.isLoggedIn() && remoteId.compareTo(BigInteger.ZERO) != 0 && menu.findItem(MENU_COMMENTS_REFRESH_ID) == null) {
+        if(actFmPreferenceService.isLoggedIn() && BigInteger.ZERO.compareTo(remoteId) != 0 && menu.findItem(MENU_COMMENTS_REFRESH_ID) == null) {
             MenuItem item = menu.add(Menu.NONE, MENU_COMMENTS_REFRESH_ID, Menu.NONE,
                     R.string.ENA_refresh_comments);
             item.setIcon(R.drawable.icn_menu_refresh_dark);

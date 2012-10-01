@@ -6,6 +6,7 @@
 package com.todoroo.astrid.actfm;
 
 import java.io.IOException;
+import java.math.BigInteger;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -333,7 +334,7 @@ public class TagSettingsActivity extends FragmentActivity {
                     @Override
                     public void run() {
                         actFmSyncService.pushTagDataOnSave(tagData, tagData.getMergedValues());
-                        if(setBitmap != null && tagData.getValue(TagData.REMOTE_ID) > 0)
+                        if(setBitmap != null && BigInteger.ZERO.compareTo(tagData.getValue(TagData.UUID)) != 0)
                             uploadTagPicture(setBitmap);
 
                         runOnUiThread(loadTag);
@@ -428,7 +429,7 @@ public class TagSettingsActivity extends FragmentActivity {
             @Override
             public void run() {
                 try {
-                    String url = actFmSyncService.setTagPicture(tagData.getValue(TagData.REMOTE_ID), bitmap);
+                    String url = actFmSyncService.setTagPicture(tagData.getValue(TagData.UUID), bitmap);
                     if (TextUtils.isEmpty(url)) return;
                     if (imageCache.contains(tagData.getValue(TagData.PICTURE))) {
                         imageCache.move(tagData.getValue(TagData.PICTURE), url);
@@ -459,7 +460,7 @@ public class TagSettingsActivity extends FragmentActivity {
             public void handleCameraResult(Bitmap bitmap) {
                 picture.setImageBitmap(bitmap);
                 setBitmap = bitmap;
-                if(tagData.getValue(TagData.REMOTE_ID) > 0)
+                if(BigInteger.ZERO.compareTo(tagData.getValue(TagData.UUID)) != 0)
                     uploadTagPicture(bitmap);
                 saveTagPictureLocally(bitmap);
             }

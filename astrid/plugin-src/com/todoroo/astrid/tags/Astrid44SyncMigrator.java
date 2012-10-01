@@ -104,14 +104,14 @@ public class Astrid44SyncMigrator {
                 if (Constants.DEBUG)
                     Log.w(LOG_TAG, "Incomplete linking task " + m.getValue(Metadata.TASK) + " to " + m.getValue(TagMetadata.TAG_NAME));
 
-                if (!m.containsNonNullValue(TagMetadata.TASK_UUID) || m.getValue(TagMetadata.TASK_UUID) == 0) {
+                if (!m.containsNonNullValue(TagMetadata.TASK_UUID) || m.getValue(TagMetadata.TASK_UUID).compareTo(BigInteger.ZERO) == 0) {
                     if (Constants.DEBUG)
                         Log.w(LOG_TAG, "No task uuid");
                     updateTaskUuid(m);
                     changes = true;
                 }
 
-                if (!m.containsNonNullValue(TagMetadata.TAG_UUID) || m.getValue(TagMetadata.TAG_UUID) == 0) {
+                if (!m.containsNonNullValue(TagMetadata.TAG_UUID) || m.getValue(TagMetadata.TAG_UUID).compareTo(BigInteger.ZERO) == 0) {
                     if (Constants.DEBUG)
                         Log.w(LOG_TAG, "No tag uuid");
                     updateTagUuid(m);
@@ -154,11 +154,11 @@ public class Astrid44SyncMigrator {
 
     private void updateTaskUuid(Metadata m) {
         long taskId = m.getValue(Metadata.TASK);
-        Task task = taskDao.fetch(taskId, Task.REMOTE_ID);
+        Task task = taskDao.fetch(taskId, Task.UUID);
         if (task != null) {
             if (Constants.DEBUG)
-                Log.w(LOG_TAG, "Linking with task uuid " + task.getValue(Task.REMOTE_ID));
-            m.setValue(TagMetadata.TASK_UUID, task.getValue(Task.REMOTE_ID));
+                Log.w(LOG_TAG, "Linking with task uuid " + task.getValue(Task.UUID));
+            m.setValue(TagMetadata.TASK_UUID, task.getValue(Task.UUID));
         } else {
             if (Constants.DEBUG)
                 Log.w(LOG_TAG, "Task not found, deleting link");
@@ -168,11 +168,11 @@ public class Astrid44SyncMigrator {
 
     private void updateTagUuid(Metadata m) {
         String tag = m.getValue(TagMetadata.TAG_NAME);
-        TagData tagData = tagDataService.getTag(tag, TagData.REMOTE_ID);
+        TagData tagData = tagDataService.getTag(tag, TagData.UUID);
         if (tagData != null) {
             if (Constants.DEBUG)
-                Log.w(LOG_TAG, "Linking with tag uuid " + tagData.getValue(TagData.REMOTE_ID));
-            m.setValue(TagMetadata.TAG_UUID, tagData.getValue(TagData.REMOTE_ID));
+                Log.w(LOG_TAG, "Linking with tag uuid " + tagData.getValue(TagData.UUID));
+            m.setValue(TagMetadata.TAG_UUID, tagData.getValue(TagData.UUID));
         } else {
             if (Constants.DEBUG)
                 Log.w(LOG_TAG, "Tag not found, deleting link");

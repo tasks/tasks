@@ -8,6 +8,7 @@ package com.todoroo.astrid.actfm.sync;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
+import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -450,7 +451,7 @@ public final class ActFmSyncService {
                     for(cursor.moveToFirst(); !cursor.isAfterLast(); cursor.moveToNext()) {
                         metadata.readFromCursor(cursor);
                         if(metadata.containsNonNullValue(TagMetadata.TAG_UUID) &&
-                                metadata.getValue(TagMetadata.TAG_UUID) != 0) {
+                                metadata.getValue(TagMetadata.TAG_UUID).compareTo(BigInteger.ZERO) != 0) {
                             params.add("tag_ids[]");
                             params.add(metadata.getValue(TagMetadata.TAG_UUID));
                         } else {
@@ -1098,7 +1099,7 @@ public final class ActFmSyncService {
      * @throws IOException
      * @throws ActFmServiceException
      */
-    public String setTagPicture(long tagId, Bitmap bitmap) throws ActFmServiceException, IOException {
+    public String setTagPicture(BigInteger tagId, Bitmap bitmap) throws ActFmServiceException, IOException {
         if(!checkForToken())
             return null;
 
@@ -1538,12 +1539,12 @@ public final class ActFmSyncService {
          */
         public static void taskFromJson(JSONObject json, Task model, ArrayList<Metadata> metadata) throws JSONException {
             metadata.clear();
-            model.clearValue(Task.REMOTE_ID);
-            long remoteId = json.getLong("id");
-            if (remoteId == 0)
-                model.setValue(Task.REMOTE_ID, null);
+            model.clearValue(Task.UUID);
+            BigInteger remoteId = new BigInteger(json.getString("id"));
+            if (remoteId.compareTo(BigInteger.ZERO) == 0)
+                model.setValue(Task.UUID, null);
             else
-                model.setValue(Task.REMOTE_ID, remoteId);
+                model.setValue(Task.UUID, remoteId);
             readUser(json.getJSONObject("user"), model, Task.USER_ID, Task.USER);
             readUser(json.getJSONObject("creator"), model, Task.CREATOR_ID, null);
             model.setValue(Task.TITLE, json.getString("title"));
@@ -1574,7 +1575,7 @@ public final class ActFmSyncService {
                 String name = tag.getString("name");
                 if(TextUtils.isEmpty(name))
                     continue;
-                Metadata tagMetadata = TagMetadata.newTagMetadata(model.getId(), remoteId, name, tag.getLong("id"));
+                Metadata tagMetadata = TagMetadata.newTagMetadata(model.getId(), remoteId, name, new BigInteger(tag.getString("id")));
                 metadata.add(tagMetadata);
             }
         }
