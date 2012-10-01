@@ -53,7 +53,7 @@ public class UUIDHelper {
 
             proofText = d + "," + s; //$NON-NLS-1$
             uuid = bcryptToLong(proofText);
-        } while (uuid >= 0 && uuid < MIN_UUID);
+        } while (uuid < MIN_UUID);
         return Pair.create(uuid, proofText);
     }
 
