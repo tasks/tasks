@@ -1,6 +1,6 @@
 package com.todoroo.astrid.sync;
 
-import java.math.BigInteger;
+import java.util.ArrayList;
 
 import android.text.TextUtils;
 
@@ -94,11 +94,11 @@ public class Astrid44MigrationTest extends NewSyncTestCase {
 	}
 	
 	private void assertAllModelsHaveUUID() {
-		assertRemoteIds(Task.TABLE, new Task(), taskDao, Task.ID, Task.UUID);
-		assertRemoteIds(TagData.TABLE, new TagData(), tagDataDao, TagData.ID, TagData.UUID);
+		assertUUIDs(Task.TABLE, new Task(), taskDao, Task.ID, Task.UUID);
+		assertUUIDs(TagData.TABLE, new TagData(), tagDataDao, TagData.ID, TagData.UUID);
 	}
 	
-	private <TYPE extends RemoteModel> void assertRemoteIds(Table table, TYPE instance, RemoteModelDao<TYPE> dao, Property<?>... properties) {
+	private <TYPE extends RemoteModel> void assertUUIDs(Table table, TYPE instance, RemoteModelDao<TYPE> dao, Property<?>... properties) {
 		TodorooCursor<TYPE> cursor = dao.query(Query.select(properties).from(table));
 		try {
 			for (cursor.moveToFirst(); !cursor.isAfterLast(); cursor.moveToNext()) {
@@ -115,21 +115,23 @@ public class Astrid44MigrationTest extends NewSyncTestCase {
 	}
 	
 	private void assertAllTagsHaveTagData() {
-		for (int i = 1; i <= 5; i++) {
+		ArrayList<String> names = new ArrayList<String>();
+ 		for (int i = 1; i <= 5; i++) {
 			String name = "Tag " + i;
-			assertTagForName(name);
+			names.add(name);
 		}
-		assertTagForName("New tag");
-		assertTagForName("New tag 2");
-	}
-	
-	private void assertTagForName(String name) {
-		TodorooCursor<TagData> tagData = tagDataDao.query(Query.select(TagData.NAME).where(TagData.NAME.eq(name)));
+		names.add("New tag");
+		names.add("New tag 2");
+		
+		String[] namesArray = names.toArray(new String[names.size()]);
+		TodorooCursor<TagData> tagData = tagDataDao.query(Query.select(TagData.NAME).where(TagData.NAME.in(namesArray)));
 		try {
-			assertEquals(tagData.getCount(), 1);
+			assertEquals(namesArray.length, tagData.getCount());
 		} finally {
 			tagData.close();
 		}
+		
+		
 	}
 	
 	private void assertAllMetadataHasAllFields() {
