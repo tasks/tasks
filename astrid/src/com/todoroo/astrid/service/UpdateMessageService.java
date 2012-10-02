@@ -40,6 +40,7 @@ import com.todoroo.andlib.service.RestClient;
 import com.todoroo.andlib.sql.Query;
 import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.andlib.utility.DialogUtilities;
+import com.todoroo.andlib.utility.Pair;
 import com.todoroo.astrid.actfm.sync.ActFmPreferenceService;
 import com.todoroo.astrid.dao.StoreObjectDao;
 import com.todoroo.astrid.dao.StoreObjectDao.StoreObjectCriteria;
@@ -82,8 +83,8 @@ public class UpdateMessageService {
         if(updates == null || updates.length() == 0)
             return;
 
-        CharSequence message = buildUpdateMessage(updates);
-        if(message.length() == 0)
+        Pair<String, Spannable> message = buildUpdateMessage(updates);
+        if(message == null || message.getLeft().length() == 0)
             return;
 
         displayUpdateDialog(message);
@@ -108,27 +109,29 @@ public class UpdateMessageService {
         }
     }
 
-    protected void displayUpdateDialog(CharSequence message) {
+    protected void displayUpdateDialog(Pair<String, Spannable> message) {
         if(activity == null)
             return;
 
         final DialogShower ds;
-        if (message instanceof Spannable) {
-            final TextView textView = new TextView(activity);
-            textView.setText(message);
-            textView.setTextSize(16);
-            textView.setTextColor(activity.getResources().getColor(ThemeService.getDialogTextColor()));
-            textView.setMovementMethod(LinkMovementMethod.getInstance());
-            textView.setPadding(10, 0, 10, 0);
+        if (message.getRight() != null) {
+            final View view = activity.getLayoutInflater().inflate(R.layout.update_message_link, null);
+            TextView messageView = (TextView) view.findViewById(R.id.update_message);
+            messageView.setText(message.getLeft());
+            messageView.setTextColor(activity.getResources().getColor(ThemeService.getDialogTextColor()));
+
+            final TextView linkView = (TextView) view.findViewById(R.id.update_link);
+            linkView.setMovementMethod(LinkMovementMethod.getInstance());
+            linkView.setText(message.getRight());
             ds = new DialogShower() {
                 @Override
                 public void showDialog(Activity a) {
                     final Dialog d = new AlertDialog.Builder(a)
                     .setTitle(R.string.UpS_updates_title)
-                    .setView(textView)
+                    .setView(view)
                     .setPositiveButton(R.string.DLG_ok, null)
                     .create();
-                    textView.setOnClickListener(new OnClickListener() {
+                    linkView.setOnClickListener(new OnClickListener() {
                         @Override
                         public void onClick(View v) {
                             d.dismiss();
@@ -159,7 +162,7 @@ public class UpdateMessageService {
 
     }
 
-    protected CharSequence buildUpdateMessage(JSONArray updates) {
+    protected Pair<String, Spannable> buildUpdateMessage(JSONArray updates) {
         for(int i = 0; i < updates.length(); i++) {
             JSONObject update;
             try {
@@ -184,30 +187,30 @@ public class UpdateMessageService {
                     continue;
             }
 
-            CharSequence toReturn;
+            Pair<String, Spannable> toReturn;
             String type = update.optString("type", null);
             if ("screen".equals(type) || "pref".equals(type)) {
                 String linkText = update.optString("link");
-                Spannable span = Spannable.Factory.getInstance().newSpannable(message + "\n\n" + linkText);
+                Spannable span = Spannable.Factory.getInstance().newSpannable(linkText);
                 ClickableSpan click = getClickableSpanForUpdate(update, type);
                 if (click == null)
                     continue;
-                span.setSpan(click, span.length() - linkText.length(), span.length(), Spannable.SPAN_INCLUSIVE_EXCLUSIVE);
-                toReturn = span;
+                span.setSpan(click, 0, span.length(), Spannable.SPAN_INCLUSIVE_EXCLUSIVE);
+                toReturn = Pair.create(message, span);
             } else {
                 StringBuilder builder = new StringBuilder();
                 if(date != null)
                     builder.append("<b>" + date + "</b><br />");
                 builder.append(message);
                 builder.append("<br /><br />");
-                toReturn = builder.toString();
+                toReturn = Pair.create(builder.toString(), null);
             }
 
             if(messageAlreadySeen(date, message))
                 continue;
             return toReturn;
         }
-        return "";
+        return null;
     }
 
     private ClickableSpan getClickableSpanForUpdate(JSONObject update, String type) {
