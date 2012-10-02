@@ -109,35 +109,40 @@ public class UpdateMessageService {
         }
     }
 
-    protected void displayUpdateDialog(Pair<String, Spannable> message) {
+    protected void displayUpdateDialog(final Pair<String, Spannable> message) {
         if(activity == null)
             return;
 
         final DialogShower ds;
         if (message.getRight() != null) {
-            final View view = activity.getLayoutInflater().inflate(R.layout.update_message_link, null);
-            TextView messageView = (TextView) view.findViewById(R.id.update_message);
-            messageView.setText(message.getLeft());
-            messageView.setTextColor(activity.getResources().getColor(ThemeService.getDialogTextColor()));
-
-            final TextView linkView = (TextView) view.findViewById(R.id.update_link);
-            linkView.setMovementMethod(LinkMovementMethod.getInstance());
-            linkView.setText(message.getRight());
             ds = new DialogShower() {
                 @Override
                 public void showDialog(Activity a) {
-                    final Dialog d = new AlertDialog.Builder(a)
-                    .setTitle(R.string.UpS_updates_title)
-                    .setView(view)
-                    .setPositiveButton(R.string.DLG_ok, null)
-                    .create();
-                    linkView.setOnClickListener(new OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            d.dismiss();
-                        }
-                    });
-                    d.show();
+                    try {
+                        View view = activity.getLayoutInflater().inflate(R.layout.update_message_link, null);
+                        TextView messageView = (TextView) view.findViewById(R.id.update_message);
+                        messageView.setText(message.getLeft());
+                        messageView.setTextColor(activity.getResources().getColor(ThemeService.getDialogTextColor()));
+
+                        TextView linkView = (TextView) view.findViewById(R.id.update_link);
+                        linkView.setMovementMethod(LinkMovementMethod.getInstance());
+                        linkView.setText(message.getRight());
+
+                        final Dialog d = new AlertDialog.Builder(a)
+                        .setTitle(R.string.UpS_updates_title)
+                        .setView(view)
+                        .setPositiveButton(R.string.DLG_ok, null)
+                        .create();
+                        linkView.setOnClickListener(new OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                d.dismiss();
+                            }
+                        });
+                        d.show();
+                    } catch (Exception e) {
+                        // This should never ever crash
+                    }
                 }
             };
         } else {
