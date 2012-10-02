@@ -39,7 +39,7 @@ public class ShareActivity extends FragmentActivity {
         setUpTextView(fb, getString(R.string.share_with_facebook), "http://facebook.com/weloveastrid", "facebook"); //$NON-NLS-1$ //$NON-NLS-2$
 
         TextView twitter = (TextView) findViewById(R.id.share_twitter);
-        setUpTextView(twitter, getString(R.string.share_with_twitter), "http://twitter.com/#!/weloveastrid", "twitter"); //$NON-NLS-1$ //$NON-NLS-2$
+        setUpTextView(twitter, getString(R.string.share_with_twitter), "http://twitter.com/astrid", "twitter"); //$NON-NLS-1$ //$NON-NLS-2$
 
         TextView google = (TextView) findViewById(R.id.share_google);
         setUpTextView(google, getString(R.string.share_with_google), "https://plus.google.com/116404018347675245869", "google"); //$NON-NLS-1$ //$NON-NLS-2$
