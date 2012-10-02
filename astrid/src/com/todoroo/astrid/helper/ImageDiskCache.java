@@ -196,7 +196,7 @@ public class ImageDiskCache extends DiskCache<String, Bitmap> {
     }
 
     public static String getPictureHash(Update update) {
-        return String.format("%s%s%s", CACHED_IDENTIFIER, update.getValue(Update.TASK), update.getValue(Update.CREATION_DATE));
+        return String.format("%s%s%s", CACHED_IDENTIFIER, update.getValue(Update.TASK_UUID), update.getValue(Update.CREATION_DATE));
     }
 
 

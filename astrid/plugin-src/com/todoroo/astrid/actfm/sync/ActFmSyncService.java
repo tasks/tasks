@@ -281,8 +281,8 @@ public final class ActFmSyncService {
             params.add("tag_id"); params.add(tagId);
         }
 
-        if(update.getValue(Update.TASK) > 0) {
-            params.add("task_id"); params.add(update.getValue(Update.TASK));
+        if(!RemoteModel.NO_UUID.equals(update.getValue(Update.TASK_UUID))) {
+            params.add("task_id"); params.add(update.getValue(Update.TASK_UUID));
         }
         MultipartEntity picture = null;
         if (imageData != null) {
@@ -1017,12 +1017,12 @@ public final class ActFmSyncService {
         Criterion criterion = null;
         if (task.containsNonNullValue(Task.REMOTE_ID)) {
             criterion = Criterion.and(Update.REMOTE_ID.eq(0),
-                    Criterion.or(Update.TASK.eq(task.getValue(Task.REMOTE_ID)), Update.TASK_LOCAL.eq(task.getId())));
+                    Criterion.or(Update.TASK_UUID.eq(task.getValue(Task.UUID)), Update.TASK_LOCAL.eq(task.getId())));
         } else
             return;
 
         Update template = new Update();
-        template.setValue(Update.TASK, task.getValue(Task.REMOTE_ID)); //$NON-NLS-1$
+        template.setValue(Update.TASK_UUID, task.getValue(Task.UUID)); //$NON-NLS-1$
         updateDao.update(criterion, template);
 
         TodorooCursor<Update> cursor = updateDao.query(Query.select(Update.ID, Update.PICTURE).where(criterion));
@@ -1453,7 +1453,7 @@ public final class ActFmSyncService {
             model.setValue(Update.CREATION_DATE, readDate(json, "created_at"));
             String tagIds = "," + json.optString("tag_ids", "") + ",";
             model.setValue(Update.TAGS, tagIds);
-            model.setValue(Update.TASK, json.optLong("task_id", 0));
+            model.setValue(Update.TASK_UUID, Long.toString(json.optLong("task_id", 0)));
         }
 
         public static void readUser(JSONObject user, AbstractModel model, LongProperty idProperty,

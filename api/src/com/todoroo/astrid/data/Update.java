@@ -46,8 +46,13 @@ public class Update extends RemoteModel {
             TABLE, REMOTE_ID_PROPERTY_NAME);
 
     /** Associated Task remote-id (if any) */
+    @Deprecated // We changed uuids to strings
     public static final LongProperty TASK = new LongProperty(
             TABLE, "task");
+
+    /** Associated Task uuidid (if any) */
+    public static final StringProperty TASK_UUID = new StringProperty(
+            TABLE, "taskUuid");
 
     /** Associated Task local-id (if any) */
     public static final LongProperty TASK_LOCAL = new LongProperty(
@@ -134,6 +139,7 @@ public class Update extends RemoteModel {
         defaultValues.put(REMOTE_ID.name, 0);
         defaultValues.put(UUID.name, NO_UUID);
         defaultValues.put(TASK.name, 0);
+        defaultValues.put(TASK_UUID.name, NO_UUID);
         defaultValues.put(TASK_LOCAL.name, 0);
         defaultValues.put(TAGS.name, "");
         defaultValues.put(TAGS_LOCAL.name, 0);

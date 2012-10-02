@@ -42,6 +42,7 @@ public class Astrid44SyncMigrator {
         DependencyInjectionService.getInstance().inject(this);
     }
 
+    @SuppressWarnings("deprecation")
     public void performMigration() {
         if (Preferences.getBoolean(PREF_MIGRATED_TASKS_TO_TAGS, false))
             return;
@@ -75,13 +76,20 @@ public class Astrid44SyncMigrator {
         // Then ensure that every remote model has a remote id, by generating one using the uuid generator for all those without one
         // --------------
         Query tagsWithoutUUIDQuery = Query.select(TagData.ID, TagData.REMOTE_ID).where(Criterion.all);
-        assertUUIDsExist(tagsWithoutUUIDQuery, new TagData(), tagDataDao);
+        assertUUIDsExist(tagsWithoutUUIDQuery, new TagData(), tagDataDao, null);
 
         Query tasksWithoutUUIDQuery = Query.select(Task.ID, Task.REMOTE_ID).where(Criterion.all);
-        assertUUIDsExist(tasksWithoutUUIDQuery, new Task(), taskDao);
+        assertUUIDsExist(tasksWithoutUUIDQuery, new Task(), taskDao, null);
 
-        Query updatesWithoutUUIDQuery = Query.select(Update.ID, Update.REMOTE_ID).where(Criterion.all);
-        assertUUIDsExist(updatesWithoutUUIDQuery, new Update(), updateDao);
+        Query updatesWithoutUUIDQuery = Query.select(Update.ID, Update.REMOTE_ID, Update.TASK).where(Criterion.all);
+        assertUUIDsExist(updatesWithoutUUIDQuery, new Update(), updateDao, new UUIDAssertionExtras<Update>() {
+            @Override
+            public void beforeSave(Update instance) {
+                // Migrate Update.TASK long to Update.TASK_UUID string
+                if (instance.getValue(Update.TASK) != 0)
+                    instance.setValue(Update.TASK_UUID, Long.toString(instance.getValue(Update.TASK)));
+            }
+        });
 
 
         // --------------
@@ -129,7 +137,11 @@ public class Astrid44SyncMigrator {
         Preferences.setBoolean(PREF_MIGRATED_TASKS_TO_TAGS, true);
     }
 
-    private <TYPE extends RemoteModel> void assertUUIDsExist(Query query, TYPE instance, DatabaseDao<TYPE> dao) {
+    private interface UUIDAssertionExtras<TYPE extends RemoteModel> {
+        void beforeSave(TYPE instance);
+    }
+
+    private <TYPE extends RemoteModel> void assertUUIDsExist(Query query, TYPE instance, DatabaseDao<TYPE> dao, UUIDAssertionExtras<TYPE> extras) {
         TodorooCursor<TYPE> cursor = dao.query(query);
         try {
             for (cursor.moveToFirst(); !cursor.isAfterLast(); cursor.moveToNext()) {
@@ -143,6 +155,9 @@ public class Astrid44SyncMigrator {
                     // Migrate remote id to uuid field
                     instance.setValue(RemoteModel.UUID_PROPERTY, Long.toString(instance.getValue(RemoteModel.REMOTE_ID_PROPERTY)));
                 }
+                if (extras != null)
+                    extras.beforeSave(instance);
+
                 dao.saveExisting(instance);
             }
         } finally {

@@ -61,6 +61,7 @@ import com.todoroo.astrid.core.PluginServices;
 import com.todoroo.astrid.dao.MetadataDao.MetadataCriteria;
 import com.todoroo.astrid.dao.UpdateDao;
 import com.todoroo.astrid.data.Metadata;
+import com.todoroo.astrid.data.RemoteModel;
 import com.todoroo.astrid.data.SyncFlags;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.data.Update;
@@ -290,7 +291,7 @@ public class EditNoteActivity extends LinearLayout implements TimerActionListene
         }
         else  {
             updates = updateDao.query(Query.select(Update.PROPERTIES).where(Criterion.or(
-                    Update.TASK.eq(task.getValue(Task.UUID)), Update.TASK_LOCAL.eq(task.getId()))));
+                    Update.TASK_UUID.eq(task.getValue(Task.UUID)), Update.TASK_LOCAL.eq(task.getId()))));
         }
         try {
             Update update = new Update();
@@ -439,8 +440,8 @@ public class EditNoteActivity extends LinearLayout implements TimerActionListene
         update.setValue(Update.MESSAGE, message);
         update.setValue(Update.ACTION_CODE, actionCode);
         update.setValue(Update.USER_ID, 0L);
-        if(task.containsNonNullValue(Task.REMOTE_ID))
-            update.setValue(Update.TASK, task.getValue(Task.REMOTE_ID));
+        if(task.containsNonNullValue(Task.UUID) && !RemoteModel.NO_UUID.equals(task.getValue(Task.UUID)))
+            update.setValue(Update.TASK_UUID, task.getValue(Task.UUID));
         update.setValue(Update.TASK_LOCAL, task.getId());
         update.setValue(Update.CREATION_DATE, DateUtilities.now());
         update.setValue(Update.TARGET_NAME, task.getValue(Task.TITLE));

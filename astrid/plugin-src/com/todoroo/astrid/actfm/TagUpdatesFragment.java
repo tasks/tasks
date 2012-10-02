@@ -349,7 +349,7 @@ public class TagUpdatesFragment extends ListFragment {
 
 
     private String getPictureHashForUpdate(Update u) {
-        String s = u.getValue(Update.TASK).toString() + u.getValue(Update.CREATION_DATE);
+        String s = u.getValue(Update.TASK_UUID) + u.getValue(Update.CREATION_DATE);
         return s;
     }
 

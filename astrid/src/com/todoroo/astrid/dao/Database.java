@@ -128,7 +128,7 @@ public class Database extends AbstractDatabase {
 
         sql.append("CREATE INDEX IF NOT EXISTS up_tid ON ").
         append(Update.TABLE).append('(').
-        append(Update.TASK.name).
+        append(Update.TASK_UUID.name).
         append(')');
         database.execSQL(sql.toString());
         sql.setLength(0);
@@ -348,6 +348,7 @@ public class Database extends AbstractDatabase {
             database.execSQL(addColumnSql(Update.TABLE, Update.PROOF_TEXT, visitor, null));
             database.execSQL(addColumnSql(Update.TABLE, Update.PUSHED_AT, visitor, null));
             database.execSQL(addColumnSql(Update.TABLE, Update.UUID, visitor, null));
+            database.execSQL(addColumnSql(Update.TABLE, Update.TASK_UUID, visitor, null));
             database.execSQL(addColumnSql(Metadata.TABLE, Metadata.DELETION_DATE, visitor, "0"));
             database.execSQL(addColumnSql(User.TABLE, User.PUSHED_AT, visitor, null));
         } catch (SQLiteException e) {

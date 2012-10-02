@@ -361,7 +361,7 @@ public class UpdateAdapter extends CursorAdapter {
         if (TASK_LINK_TYPE.equals(linkType)) {
             long taskId = update.getValue(Update.TASK_LOCAL);
             if (taskId <= 0) {
-                Task local = PluginServices.getTaskService().fetchByUUID(Long.toString(update.getValue(Update.TASK)), Task.ID);
+                Task local = PluginServices.getTaskService().fetchByUUID(update.getValue(Update.TASK_UUID), Task.ID);
                 if (local != null)
                     taskId = local.getId();
             }
