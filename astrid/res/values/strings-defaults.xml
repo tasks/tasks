@@ -11,7 +11,7 @@
   <string name="EPr_defaults_summary">Importance, due date, add to calendar</string>
   
   <!-- slide 41f:  Preference: Default Urgency Title -->
-  <string name="EPr_default_urgency_title">Default urgency</string>
+  <string name="EPr_default_urgency_title">Default deadline</string>
   <!-- Preference: Default Urgency Description (%s => setting) -->
   <string name="EPr_default_urgency_desc">Currently: %s</string>
   
