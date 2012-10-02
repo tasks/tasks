@@ -104,9 +104,9 @@ public class Astrid44MigrationTest extends NewSyncTestCase {
 			for (cursor.moveToFirst(); !cursor.isAfterLast(); cursor.moveToNext()) {
 				instance.clear();
 				instance.readPropertiesFromCursor(cursor);
-				BigInteger uuid = instance.getValue(RemoteModel.UUID_PROPERTY);
-				if (uuid == null || uuid.intValue() == 0) {
-					fail(instance.getClass().getName() + instance.getId() + " didn't have a uuid");
+				String uuid = instance.getValue(RemoteModel.UUID_PROPERTY);
+				if (uuid == null || RemoteModel.NO_UUID.equals(uuid)) {
+					fail(instance.getClass().getName() + " " + instance.getId() + " didn't have a uuid");
 				}
 			}
 		} finally {
@@ -141,8 +141,8 @@ public class Astrid44MigrationTest extends NewSyncTestCase {
 			for (tagMetadata.moveToFirst(); !tagMetadata.isAfterLast(); tagMetadata.moveToNext()) {
 				m.readFromCursor(tagMetadata);
 				assertTrue(!TextUtils.isEmpty(m.getValue(TagMetadata.TAG_NAME)));
-				assertTrue(m.getValue(TagMetadata.TASK_UUID) != 0);
-				assertTrue(m.getValue(TagMetadata.TAG_UUID) != 0);
+				assertTrue(!RemoteModel.NO_UUID.equals(m.getValue(TagMetadata.TASK_UUID)));
+				assertTrue(!RemoteModel.NO_UUID.equals(m.getValue(TagMetadata.TAG_UUID)));
 			}
 		} finally {
 			tagMetadata.close();

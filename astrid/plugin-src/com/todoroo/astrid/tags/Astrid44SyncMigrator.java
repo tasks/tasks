@@ -146,7 +146,7 @@ public class Astrid44SyncMigrator {
         try {
             for (cursor.moveToFirst(); !cursor.isAfterLast(); cursor.moveToNext()) {
                 instance.readPropertiesFromCursor(cursor);
-                if (!instance.containsNonNullValue(RemoteModel.REMOTE_ID_PROPERTY)) {
+                if (!instance.containsNonNullValue(RemoteModel.REMOTE_ID_PROPERTY) || instance.getValue(RemoteModel.REMOTE_ID_PROPERTY) == 0) {
                     // No remote id exists, just create a UUID
                     Pair<String, String> uuidPair = UUIDHelper.newUUID();
                     instance.setValue(RemoteModel.UUID_PROPERTY, uuidPair.getLeft());
