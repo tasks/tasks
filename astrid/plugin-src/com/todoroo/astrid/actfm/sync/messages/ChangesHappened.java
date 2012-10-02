@@ -25,7 +25,6 @@ public class ChangesHappened<TYPE extends RemoteModel, OE extends OutstandingEnt
     private final String uuid;
     private final List<OE> changes;
     private long pushedAt;
-    private final OutstandingEntryDao<OE> outstandingDao;
 
     public ChangesHappened(TYPE entity, RemoteModelDao<TYPE> modelDao,
             OutstandingEntryDao<OE> outstandingDao) {
@@ -33,7 +32,6 @@ public class ChangesHappened<TYPE extends RemoteModel, OE extends OutstandingEnt
         this.outstandingClass = getOutstandingClass(modelClass);
         this.id = entity.getId();
         this.changes = new ArrayList<OE>();
-        this.outstandingDao = outstandingDao;
 
         if (!entity.containsValue(RemoteModel.UUID_PROPERTY)
                 || !entity.containsValue(RemoteModel.PUSHED_AT_PROPERTY)) {
@@ -45,7 +43,7 @@ public class ChangesHappened<TYPE extends RemoteModel, OE extends OutstandingEnt
         } else {
             this.uuid = entity.getValue(RemoteModel.UUID_PROPERTY);
             this.pushedAt = entity.getValue(RemoteModel.PUSHED_AT_PROPERTY);
-            populateChanges();
+            populateChanges(outstandingDao);
         }
     }
 
@@ -57,7 +55,7 @@ public class ChangesHappened<TYPE extends RemoteModel, OE extends OutstandingEnt
         return changes;
     }
 
-    private void populateChanges() {
+    private void populateChanges(OutstandingEntryDao<OE> outstandingDao) {
         TodorooCursor<OE> cursor = outstandingDao.query(Query.select(getModelProperties(outstandingClass))
                .where(OutstandingEntry.ENTITY_ID_PROPERTY.eq(id)).orderBy(Order.asc(OutstandingEntry.CREATED_AT_PROPERTY)));
         try {
